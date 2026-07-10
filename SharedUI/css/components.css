@@ -70,7 +70,10 @@ input[type=number], input[type=search], input[type=tel], input[type=date], selec
   border: var(--border-width, 1px) solid var(--border, #454545);
   border-radius: var(--radius, 5px);
 }
-input::placeholder, textarea::placeholder { color: var(--text-muted, #aaa); }
+/* Placeholder color: dedicated --input-placeholder for themes whose input surface differs from
+   their general muted-text surface (e.g. a light field with dark placeholder). Falls back to
+   --text-muted so every existing theme is unchanged. */
+input::placeholder, textarea::placeholder { color: var(--input-placeholder, var(--text-muted, #aaa)); }
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--accent, #5aa0ff);

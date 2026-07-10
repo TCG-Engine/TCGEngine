@@ -73,20 +73,6 @@ CREATE TABLE `usercosmetic` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- --------------------------------------------------------
 --
--- Table structure for table `cosmeticupload`
---
-
-CREATE TABLE `cosmeticupload` (
-  `slot` varchar(24) NOT NULL,
-  `id` varchar(48) NOT NULL,
-  `label` varchar(128) NOT NULL,
-  `asset` varchar(255) NOT NULL,
-  `uploadedBy` int(11) DEFAULT NULL,
-  `uploadedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`slot`,`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
--- --------------------------------------------------------
---
 -- Table structure for table `pwdreset`
 --
 

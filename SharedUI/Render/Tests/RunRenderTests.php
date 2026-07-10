@@ -209,7 +209,7 @@ check('validator flags an unknown part in a combined entry', in_array("profile.s
 
 // --- Task 4 (Phase 0): SiteDef theme key + validation ---
 check('SWUDeck declares theme hud', LoadSiteDef('SWUDeck')['theme'] === 'hud');
-check('SWUSim declares theme hud', LoadSiteDef('SWUSim')['theme'] === 'hud');
+check('SWUSim declares theme petranaki-hud', LoadSiteDef('SWUSim')['theme'] === 'petranaki-hud');
 check('GrandArchiveSim declares theme clarent', LoadSiteDef('GrandArchiveSim')['theme'] === 'clarent');
 check('validator accepts a valid theme', !in_array('theme must be a non-empty string', ValidateSiteDef(LoadSiteDef('SWUDeck')), true));
 check('validator rejects empty theme', in_array('theme must be a non-empty string', ValidateSiteDef(array_merge(LoadSiteDef('SWUDeck'), ['theme'=>'']))));

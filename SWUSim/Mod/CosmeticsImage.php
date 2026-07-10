@@ -1,6 +1,8 @@
 <?php
 // Cover-crop to (w:h), resize to exactly w x h, write WebP. Returns false on undecodable input.
-function SWUCosmeticProcessImage($srcPath, $destPath, $w, $h) {
+// $vAnchor controls the vertical crop position when height is the cropped dimension:
+// 'center' (default) trims top and bottom equally; 'top' keeps the top edge and trims the bottom.
+function SWUCosmeticProcessImage($srcPath, $destPath, $w, $h, $vAnchor = 'center') {
     $data = @file_get_contents($srcPath);
     if ($data === false) return false;
     $src = @imagecreatefromstring($data);
@@ -12,7 +14,8 @@ function SWUCosmeticProcessImage($srcPath, $destPath, $w, $h) {
     $targetAR = $w / $h; $srcAR = $sw / $sh;
     if ($srcAR > $targetAR) { $ch = $sh; $cw = (int)round($sh * $targetAR); }
     else                    { $cw = $sw; $ch = (int)round($sw / $targetAR); }
-    $cx = (int)(($sw - $cw) / 2); $cy = (int)(($sh - $ch) / 2);
+    $cx = (int)(($sw - $cw) / 2);
+    $cy = $vAnchor === 'top' ? 0 : (int)(($sh - $ch) / 2);
 
     $dst = imagecreatetruecolor($w, $h);
     imagealphablending($dst, false); imagesavealpha($dst, true);

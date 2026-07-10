@@ -1,0 +1,6998 @@
+function EnsureShiftingCurrentsFacingStyles() {
+  if (typeof document === "undefined") return;
+  if (document.getElementById("shifting-currents-facing-styles")) return;
+  var styleEl = document.createElement("style");
+  styleEl.id = "shifting-currents-facing-styles";
+  styleEl.textContent = ""
+    + ".sc-facing-compass{position:absolute;inset:6px;border-radius:12px;pointer-events:none;z-index:4;}"
+    + ".sc-facing-compass-ring{position:absolute;inset:0;border-radius:12px;border:1px solid rgba(255,255,255,0.18);box-shadow:inset 0 0 0 1px rgba(12,22,32,0.34);background:linear-gradient(180deg,rgba(10,18,28,0.14),rgba(10,18,28,0.03));}"
+    + ".sc-facing-compass-arm{position:absolute;display:flex;align-items:center;justify-content:center;font:700 11px/1 Orbitron,'Segoe UI',sans-serif;letter-spacing:0.08em;text-transform:uppercase;color:rgba(244,236,219,0.5);text-shadow:0 1px 4px rgba(0,0,0,0.8);-webkit-text-stroke:0.6px rgba(0,0,0,0.92);paint-order:stroke fill;transition:color 140ms ease,opacity 140ms ease,text-shadow 140ms ease,transform 140ms ease,filter 140ms ease;opacity:0.72;}"
+    + ".sc-facing-compass-arm.is-active{color:var(--sc-dir-color,#f4ecdb);opacity:1;text-shadow:0 0 10px var(--sc-dir-color,#f4ecdb),0 1px 6px rgba(0,0,0,0.85);transform:scale(1.14);filter:brightness(1.15);}"
+    + ".sc-facing-compass-arm.dir-north,.sc-facing-compass-arm.dir-south{left:50%;transform:translateX(-50%);width:48px;height:24px;}"
+    + ".sc-facing-compass-arm.dir-north{top:1px;}"
+    + ".sc-facing-compass-arm.dir-south{bottom:1px;}"
+    + ".sc-facing-compass-arm.dir-east,.sc-facing-compass-arm.dir-west{top:50%;transform:translateY(-50%);width:24px;height:48px;}"
+    + ".sc-facing-compass-arm.dir-east{right:1px;}"
+    + ".sc-facing-compass-arm.dir-west{left:1px;}"
+    + ".sc-facing-compass-pip{position:absolute;border-radius:999px;background:rgba(244,236,219,0.3);border:1px solid rgba(0,0,0,0.88);box-shadow:0 0 5px rgba(0,0,0,0.48);transition:background 140ms ease,box-shadow 140ms ease,transform 140ms ease,width 140ms ease,height 140ms ease;}"
+    + ".sc-facing-compass-arm.dir-north .sc-facing-compass-pip,.sc-facing-compass-arm.dir-south .sc-facing-compass-pip{left:50%;transform:translateX(-50%);width:26px;height:3px;}"
+    + ".sc-facing-compass-arm.dir-north .sc-facing-compass-pip{bottom:0;}"
+    + ".sc-facing-compass-arm.dir-south .sc-facing-compass-pip{top:0;}"
+    + ".sc-facing-compass-arm.dir-east .sc-facing-compass-pip,.sc-facing-compass-arm.dir-west .sc-facing-compass-pip{top:50%;transform:translateY(-50%);width:3px;height:26px;}"
+    + ".sc-facing-compass-arm.dir-east .sc-facing-compass-pip{left:0;}"
+    + ".sc-facing-compass-arm.dir-west .sc-facing-compass-pip{right:0;}"
+    + ".sc-facing-compass-arm.is-active .sc-facing-compass-pip{background:var(--sc-dir-color,#f4ecdb);box-shadow:0 0 12px var(--sc-dir-color,#f4ecdb),0 0 18px rgba(255,255,255,0.24);}"
+    + ".sc-facing-compass-arm.is-active.dir-north .sc-facing-compass-pip,.sc-facing-compass-arm.is-active.dir-south .sc-facing-compass-pip{width:32px;height:4px;}"
+    + ".sc-facing-compass-arm.is-active.dir-east .sc-facing-compass-pip,.sc-facing-compass-arm.is-active.dir-west .sc-facing-compass-pip{width:4px;height:32px;}"
+    + ".sc-facing-compass.is-changing .sc-facing-compass-ring{animation:scFacingPulse 520ms ease-out;}"
+    + "@keyframes scFacingPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,0);}30%{box-shadow:0 0 0 3px rgba(255,255,255,0.16),0 0 18px var(--sc-dir-color,#f4ecdb);}100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}}";
+  document.head.appendChild(styleEl);
+}
+
+function GetShiftingCurrentsDirectionMeta(direction) {
+  var dir = String(direction || "").toUpperCase();
+  var map = {
+    NORTH: { label: "North", short: "N", arrow: "&#9650;", color: "#4fc3f7" },
+    EAST: { label: "East", short: "E", arrow: "&#9654;", color: "#66bb6a" },
+    SOUTH: { label: "South", short: "S", arrow: "&#9660;", color: "#ff7043" },
+    WEST: { label: "West", short: "W", arrow: "&#9664;", color: "#ab47bc" }
+  };
+  return map[dir] || { label: dir || "None", short: dir ? dir.charAt(0) : "-", arrow: "", color: "#f4ecdb" };
+}
+
+function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
+  if (!cardData || cardData.CardID !== "qh5mpkyl60") return "";
+  var direction = String(cardData.Direction || "").toUpperCase();
+  if (!direction || direction === "NONE") return "";
+
+  EnsureShiftingCurrentsFacingStyles();
+
+  var directionMeta = GetShiftingCurrentsDirectionMeta(direction);
+  var directions = ["NORTH", "EAST", "SOUTH", "WEST"];
+  var html = "<div class='sc-facing-compass" + (animateChange ? " is-changing" : "") + "' style='--sc-dir-color:" + directionMeta.color + ";'>";
+  html += "<div class='sc-facing-compass-ring'></div>";
+  for (var i = 0; i < directions.length; ++i) {
+    var dir = directions[i];
+    var meta = GetShiftingCurrentsDirectionMeta(dir);
+    var dirClass = "dir-" + dir.toLowerCase();
+    var activeClass = dir === direction ? " is-active" : "";
+    html += "<div class='sc-facing-compass-arm " + dirClass + activeClass + "'>";
+    html += "<span class='sc-facing-compass-label'>" + meta.short + "</span>";
+    html += "<span class='sc-facing-compass-pip'></span>";
+    html += "</div>";
+  }
+  html += "</div>";
+  return html;
+}
+
+function ResolveGlobalFunction(functionName) {
+  if (typeof functionName !== "string" || functionName === "") return null;
+  if (typeof window !== "undefined" && typeof window[functionName] === "function") return window[functionName];
+  if (typeof globalThis !== "undefined" && typeof globalThis[functionName] === "function") return globalThis[functionName];
+  return null;
+}
+
+//Rotate is deprecated
+      function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "", overlayDescriptorsJSON = "", hasForce = 0) {
+        if (folder == "crops") {
+          cardNumber += "_cropped";
+        }
+        fileExt = ".png";
+        folderPath = folder;
+        // Check if asset reflection path function exists to handle file paths
+        var folderPath = folder;
+        if (typeof AssetReflectionPath === 'function' && AssetReflectionPath() != null) {
+          var reflectionPath = AssetReflectionPath();
+          // Replace the first part of the path with reflection path
+          var parts = folderPath.split('/');
+          // Remove the first element from the parts array if it exists
+          if (parts.length > 0) {
+            parts.shift();
+          }
+          if (parts.length > 0) {
+            parts[0] = reflectionPath;
+            folderPath = parts.join('/');
+          } else {
+            folderPath = reflectionPath;
+          }
+        }
+        folderPath = "./" + folderPath;
+        var pathArr = folder.split("/");
+        folder = pathArr[pathArr.length - 1];
+
+        if (cardNumber == "ENDSTEP" || cardNumber == "ENDTURN" || cardNumber == "RESUMETURN" || cardNumber == "PHANTASM" || cardNumber == "FINALIZECHAINLINK" || cardNumber == "DEFENDSTEP") {
+          showHover = 0;
+          borderColor = 0;
+        } else if (folder == "concat") {
+          fileExt = ".webp";
+        } else if (folder == "WebpImages") {
+          fileExt = ".webp";
+        }
+        var actionData = actionDataOverride != "" ? actionDataOverride : cardNumber;
+        //Enforce 375x523 aspect ratio as exported (.71)
+        margin = "margin:0px;";
+        border = "";
+        if (borderColor != -1) margin = borderColor > 0 ? "margin:0px;" : "margin:1px;";
+        if (folder == "crops") margin = "0px;";
+
+        var rv = "<a style='" + margin + " position:relative; display:inline-block;" + (action > 0 ? "cursor:pointer;" : "") + "'" + (showHover > 0 ? " onmouseover='ShowCardDetail(event, this)' onmouseout='HideCardDetail()'" : "") + (action > 0 ? " onclick='SubmitInput(\"" + action + "\", \"&cardID=" + actionData + "\");'" : "") + ">";
+
+        if (borderColor > 0) {
+          border = "border-radius:8px; border:2px solid " + BorderColorMap(borderColor) + ";";
+        } else if (folder == "concat") {
+          border = "border-radius:8px; border:1px solid transparent;";
+        } else {
+          border = "border: 1px solid transparent;";
+        }
+
+        var orientation = landscape == 1 ? "data-orientation='landscape'" : "";
+        if(rotate == 1 || landscape == 1) {
+          height = (maxHeight);
+          width = (maxHeight * 1.29);
+        }
+        else if (folder == "crops") {
+          height = maxHeight;
+          width = (height * 1.29);
+        } else if (folder == "concat") {
+          height = maxHeight;
+          width = maxHeight;
+        } else {
+          height = maxHeight;
+          width = (maxHeight * .71);
+        }        //var altText = " alt='" + CardTitle(cardNumber) + "' ";//TODO:Fix screenreader mode
+        var altText = " alt='Card' ";
+        rv += "<img " + (id != "" ? "id='" + id + "-img' " : "") + altText + orientation + "loading='lazy' style='" + border + " height:" + height + "; width:" + width + "px; position:relative;' src='" + folderPath + "/" + cardNumber + fileExt + "' />";
+
+        if(heatmapFunction != "") {
+            var resolvedHeatmapFunction = ResolveGlobalFunction(heatmapFunction);
+            if(resolvedHeatmapFunction == null) {
+              console.warn("Missing heatmap function:", heatmapFunction, "for card", cardNumber);
+            } else {
+            var heatmapValue = resolvedHeatmapFunction(cardNumber);
+            var overlayColor = "rgba(0, 0, 0, .7)"; // Initialize to gray color
+            if (heatmapColorMap == "HigherIsBetter") {
+              overlayColor = heatmapValue == -1 ? "rgba(0, 0, 0, .7)" : getOverlayColorHigherIsBetter(heatmapValue);
+            } else if (heatmapColorMap == "LowerIsBetter") {
+              overlayColor = heatmapValue == -1 ? "rgba(0, 0, 0, .7)" : getOverlayColorLowerIsBetter(heatmapValue);
+            }
+            var gradientOverlay = heatmapValue == -1 ? "rgba(0, 0, 0, 0.5)" : `linear-gradient(to top, ${overlayColor}, rgba(255, 255, 255, 0))`;
+            rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + "style='visibility:visible; width:calc(100% - 2px); height:calc(100% - 2px); top:1px; left:1px; border-radius:6px; position:absolute; background: " + gradientOverlay + "; z-index: 1; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; color: white; text-shadow: 2px 2px 4px black;'>" + (heatmapValue == -1 ? "No Data" : (heatmapValue * 100).toFixed(2) + "%") + "</div>";
+            }
+        } else {
+          var overlayTypeList = [];
+          var overlayDescriptors = [];
+          if (typeof overlayTypes === "string" && overlayTypes.length > 0) {
+            overlayTypeList = overlayTypes.split("&").filter(function(v) { return v !== ""; });
+          }
+          if (typeof overlayDescriptorsJSON === "string" && overlayDescriptorsJSON.length > 0) {
+            try {
+              var parsedOverlayDescriptors = JSON.parse(overlayDescriptorsJSON);
+              if (Array.isArray(parsedOverlayDescriptors)) overlayDescriptors = parsedOverlayDescriptors;
+            } catch (e) {}
+          }
+          var hasExhaustedOverlay = overlayTypeList.indexOf("exhausted") !== -1;
+          var hasDistantOverlay = overlayTypeList.indexOf("distant") !== -1;
+          var overlayStyle = "visibility:" + (overlay == 1 ? "visible" : "hidden")
+            + "; width:calc(100% - 4px); height:calc(100% - 4px); top:2px; left:2px; border-radius:10px; position:absolute; z-index: 1;";
+          overlayStyle += " background: transparent;";
+          rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + " data-overlay-types='" + overlayTypeList.join(",") + "' style='" + overlayStyle + "'>";
+          if (hasExhaustedOverlay) {
+            rv += "<div class='exhausted-status-overlay-layer' style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; background: rgba(0, 0, 0, 0.5); z-index:0; pointer-events:none;'></div>";
+          }
+          overlayDescriptors.sort(function(a, b) {
+            var aOrder = Number(a && a.drawOrder ? a.drawOrder : 0);
+            var bOrder = Number(b && b.drawOrder ? b.drawOrder : 0);
+            return aOrder - bOrder;
+          });
+          overlayDescriptors.forEach(function(desc) {
+            if (!desc || !desc.image) return;
+            var imagePath = String(desc.image).trim();
+            if (imagePath === "") return;
+            if (!(imagePath.indexOf("./") === 0 || imagePath.indexOf("/") === 0 || /^https?:\/\//i.test(imagePath))) {
+              imagePath = "./" + imagePath;
+            }
+            var layerOrder = Number(desc.drawOrder ? desc.drawOrder : 0);
+            var ovOpacity = (typeof desc.opacity === "number" && !isNaN(desc.opacity)) ? desc.opacity : 1;
+            var ovScale = (typeof desc.scale === "number" && !isNaN(desc.scale) && desc.scale > 0) ? desc.scale : 1;
+            // OffsetY: vertical nudge as a % of card height (negative = up). Applied
+            // before scale so it reads as a fraction of the card, not the scaled image.
+            var ovOffsetY = (typeof desc.offsetY === "number" && !isNaN(desc.offsetY)) ? desc.offsetY : 0;
+            var ovTransformParts = [];
+            if (ovOffsetY !== 0) ovTransformParts.push("translateY(" + ovOffsetY + "%)");
+            if (ovScale !== 1) ovTransformParts.push("scale(" + ovScale + ")");
+            var ovTransform = ovTransformParts.length ? " transform:" + ovTransformParts.join(" ") + ";" : "";
+            rv += "<div style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; z-index:" + layerOrder + "; pointer-events:none; opacity:" + ovOpacity + ";" + ovTransform
+              + " background-image:url(\"" + imagePath + "\"); background-size:cover; background-position:center; background-repeat:no-repeat;'></div>";
+          });
+          if (hasDistantOverlay) {
+            rv += "<div style='position:absolute; left:50%; bottom:6px; transform:translateX(-50%);"
+              + "padding:1px 7px; border-radius:8px; border:1px solid rgba(255,255,255,0.85);"
+              + "background:rgba(15,20,28,0.78); color:#ffffff; font-family:Helvetica,Arial,sans-serif;"
+              + "font-size:10px; letter-spacing:0.8px; font-weight:700; text-transform:uppercase;"
+              + "line-height:1.2; white-space:nowrap; pointer-events:none; z-index:999;'>DISTANT</div>";
+          }
+          rv += "</div>";
+        }
+
+        var darkMode = false;
+        counterHeight = 28;
+        imgCounterHeight = 42;
+        //Attacker Label Style
+        if (counters == "Attacker" || counters == "Arsenal") {
+          rv += "<div style='margin: 0px; top: 80%; left: 50%; margin-right: -50%; border-radius: 7px; width: fit-content; text-align: center; line-height: 16px; height: 16px; padding: 5px; border: 3px solid " + PopupBorderColor(darkMode) + ";";
+          rv += "transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); position:absolute; z-index: 10; background:" + BackgroundColor(darkMode) + "; font-size:20px; font-weight:800; color:" + PopupBorderColor(darkMode) + ";'>" + counters + "</div>";
+        }
+        //Equipments, Hero and default counters style
+        else if (counters != 0) {
+          //var left = "72%";
+          //if (lifeCounters == 0 && defCounters == 0 && atkCounters == 0) {
+          //  left = "50%";
+          //
+          //rv += "<div style='margin: 0px; top: 50%; left:" + left + "; margin-right: -50%; border-radius: 50%; width:" + counterHeight + "px; height:" + counterHeight + "px; padding: 5px; border: 3px solid " + PopupBorderColor(darkMode) + "; text-align: center; line-height:" + imgCounterHeight / 1.5 + "px;";
+          //rv += "transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); position:absolute; z-index: 10; background:" + BackgroundColor(darkMode) + "; font-family: Helvetica; font-size:" + (counterHeight - 2) + "px; font-weight:550; color:" + TextCounterColor(darkMode) + "; text-shadow: 2px 0 0 " + PopupBorderColor(darkMode) + ", 0 -2px 0 " + PopupBorderColor(darkMode) + ", 0 2px 0 " + PopupBorderColor(darkMode) + ", -2px 0 0 " + PopupBorderColor(darkMode) + ";'>" + counters + "</div>";
+            left = "50%";
+            rv += "<div class='counter-bubble' style='margin: 0px; top: 85%; left:" + left + "; margin-right: -50%; width: " + counterHeight + "px; height: " + counterHeight + "px; border-radius: 50%; border: 3px solid " + PopupBorderColor(darkMode) + "; text-align: center; line-height:" + imgCounterHeight / 1.5 + "px; cursor: pointer;";
+            rv += "transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); position:absolute; z-index: 10; background: radial-gradient(circle, rgba(64,64,64,1) 40%, rgba(142,142,142,1) 100%); font-family: 'Orbitron', sans-serif; font-size:" + (counterHeight - 2) + "px; font-weight:700; color:" + TextCounterColor(darkMode) + "; text-shadow: 0 0 5px " + PopupBorderColor(darkMode) + ", 0 0 10px " + PopupBorderColor(darkMode) + ";' onclick='event.stopPropagation(); ShowZonePopup(\"" + mzId + "\");'>" + counters + "</div>";
+        }
+        //-1 Defense & Endurance Counters style
+        if (defCounters != 0 && isBroken != 1) {
+          var left = "-42%";
+          if (lifeCounters == 0 && counters == 0) {
+            left = "0px";
+          }
+          rv += "<div style=' position:absolute; margin: auto; top: 0; left:" + left + "; right: 0; bottom: 0;width:" + imgCounterHeight + "px; height:" + imgCounterHeight + "px; display: flex;justify-content: center; z-index: 5; text-align: center; vertical-align: middle; line-height:" + imgCounterHeight + "px;";
+          rv += "font-size:" + (imgCounterHeight - 17) + "px; font-weight: 600;  color: #EEE; text-shadow: 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000;'>" + defCounters + "<img style='position:absolute; top: -2px; width:" + imgCounterHeight + "px; height:" + imgCounterHeight + "px; opacity: 0.9; z-index:-1;' src='./Images/Defense.png'></div>";
+        }
+
+        //Health Counters style
+        if (lifeCounters != 0) {
+          var left = "45%";
+          if (defCounters == 0 && atkCounters == 0) {
+            left = "0px";
+          }
+          rv += "<div style=' position:absolute; margin: auto; top: 0; left:" + left + "; right: 0; bottom: 0;width:" + imgCounterHeight + "px; height:" + imgCounterHeight + "px; display: flex; justify-content: center; z-index: 5; text-align: center; vertical-align: middle; line-height:" + imgCounterHeight + "px;";
+          rv += "font-size:" + (imgCounterHeight - 17) + "+px; font-weight: 600;  color: #EEE; text-shadow: 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000;'>" + lifeCounters + "<img style='position:absolute; top: -2px; width:" + imgCounterHeight + "px; height:" + imgCounterHeight + "px; opacity: 0.9; z-index:-1;' src='./Images/Life.png'></div>";
+        }
+
+        //Attack Counters style
+        if (atkCounters != 0) {
+          var left = "-45%";
+          if (lifeCounters == 0 && counters == 0) {
+            left = "0px";
+          }
+          rv += "<div style=' position:absolute; margin: auto; top: 0; left:" + left + "; right: 0; bottom: 0;width:" + imgCounterHeight + "px; height:" + imgCounterHeight + "px; display: flex; justify-content: center; z-index: 5; text-align: center; vertical-align: middle; line-height:" + imgCounterHeight + "px;";
+          rv += "font-size:" + (imgCounterHeight - 17) + "px; font-weight: 600;  color: #EEE; text-shadow: 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000;'>" + atkCounters + "<img style='position:absolute; top: -2px; width:" + imgCounterHeight + "px; height:" + imgCounterHeight + "px; opacity: 0.9; z-index:-1;' src='./Images/AttackIcon.png'></div>";
+        }
+
+        if (restriction != "") {
+          //$restrictionName = CardName($restriction);
+          rv += "<img title='Restricted by: " + restriction + "' style='position:absolute; z-index:100; top:26px; left:26px;' src='./Images/restricted.png' />";
+        }
+        if (epicActionUsed == 1) rv += "<img title='Epic Action Used' style='position:absolute; z-index:100; bottom:4px; right:4px; height:22px; width:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7)); opacity:0.92;' src='./Assets/Icons/action-used.svg' />";
+        if (hasForce == 1) rv += "<img title='The Force is with you' style='position:absolute; z-index:100; top:4px; right:4px; height:22px; width:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));' src='./Assets/Icons/force-token.webp' />";
+        rv += "</a>";
+        /*
+        if (gem != 0) {
+          var playerID = <?php echo ($playerID); ?>;
+           //Note: 96 = Card Size
+          var cardWidth = 96;
+          gemImg = (gem == 1 ? "hexagonRedGem.png" : "hexagonGrayGem.png");
+          if (gem == 1) rv += "<img " + ProcessInputLink(playerID, 102, actionDataOverride) + " title='Effect Active' style='position:absolute; z-index:1001; bottom:3px; left:" + (cardWidth / 2 - 18) + "px; width:40px; height:40px; cursor:pointer;' src='./Images/" + gemImg + "' />";
+          else if (gem == 2) rv += "<img " + ProcessInputLink(playerID, 102, actionDataOverride) + " title='Effect Inactive' style='position:absolute; z-index:1001; bottom:3px; left:" + (cardWidth / 2 - 18) + "px; width:40px; height:40px; cursor:pointer;' src='./Images/" + gemImg + "' />";
+        }
+          */
+        return rv;
+      }
+
+      // Preserve the HTML card renderer before dictionary scripts define their own Card(cardID).
+      if (typeof window !== 'undefined' && typeof window.RenderCardHTML !== 'function') {
+        window.RenderCardHTML = Card;
+      }
+
+      function getOverlayColorHigherIsBetter(value) {
+        if (value < 0.2) return "rgba(255, 0, 0, .7)"; // Very red
+        if (value > 0.8) return "rgba(0, 255, 0, .7)"; // Very green
+        var red = 255 - Math.round((value - 0.2) * 255 / 0.6);
+        var green = Math.round((value - 0.2) * 255 / 0.6);
+        return `rgba(${red}, ${green}, 0, .7)`;
+      }
+
+      function getOverlayColorLowerIsBetter(value) {
+        if (value < 0.2) return "rgba(0, 255, 0, .7)"; // Very green
+        if (value > 0.8) return "rgba(255, 0, 0, .7)"; // Very red
+        var green = 255 - Math.round((value - 0.2) * 255 / 0.6);
+        var red = Math.round((value - 0.2) * 255 / 0.6);
+        return `rgba(${red}, ${green}, 0, .7)`;
+      }
+
+
+      function Hotkeys(event) {
+        // Ignore gameplay hotkeys while the bug report modal is open.
+        if (document.getElementById('bugReportOverlay')) return;
+
+        // Ignore hotkeys while typing in input/textarea fields (like chat)
+        var activeElement = document.activeElement;
+        if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+          return;
+        }
+
+        //if (event.keyCode === 32) { if(document.getElementById("passConfirm").innerText == "false" || confirm("Do you want to skip arsenal?")) SubmitInput(99, ""); } //Space = pass
+        if(window.rootPath == './RBSim' || window.rootPath == './GudnakSim' || window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim' || window.rootPath == './SWUSim') {
+          if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
+          if (event.keyCode === 85) SubmitInput(10004, ""); //U = Undo
+        }
+        // SWUSim "I" = Take Initiative is handled by GameLayoutShared.php's keydown listener,
+        // which gates correctly on the button's `hidden` attribute + is-taken (claimed) class.
+        // Do NOT duplicate it here: a second handler firing on the same press double-submits,
+        // and the second submit (after initiative is claimed and the turn has switched) trips the
+        // server's "Only the active player can take the initiative" flash on BOTH players.
+        if ((window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') && event.keyCode === 32) {
+          if (TryPassCurrentDecision()) {
+            event.preventDefault();
+            return;
+          }
+        }
+        if ((window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') && window.GAHandCollapse) {
+          if (event.key === 'ArrowDown') { window.GAHandCollapse.collapse(); event.preventDefault(); return; }
+          if (event.key === 'ArrowUp')   { window.GAHandCollapse.expand();   event.preventDefault(); return; }
+        }
+        //if (event.keyCode === 104) SubmitInput(3, "&cardID=0"); //H = hero ability
+        //if (event.keyCode === 109) TogglePopup("menuPopup"); //M = open menu
+        //TODO: Add schema file to define hotkeys
+      }
+
+      function TryPassCurrentDecision() {
+        if (!window.SelectionMode || !window.SelectionMode.active) return false;
+        if (window.SelectionMode.mode !== '100') return false;
+        if (!window.SelectionMode.mayPass) return false;
+        var decisionIndex = window.SelectionMode.decisionIndex;
+        if (decisionIndex === null || decisionIndex === undefined || decisionIndex === '') return false;
+
+        SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=PASS');
+        if (typeof ClearSelectionMode === 'function') ClearSelectionMode();
+        return true;
+      }
+
+      function ProcessInputLink(player, mode, input, event = 'onmousedown', fullRefresh = false) {
+        return " " + event + "='SubmitInput(\"" + mode + "\", \"&buttonInput=" + input + "\", " + fullRefresh + ");'";
+      }
+
+      function BackgroundColor(darkMode) {
+        if (darkMode) return "rgba(74, 74, 74, 0.9)";
+        else return "rgba(235, 235, 235, 0.9)";
+      }
+
+      function PopupBorderColor(darkMode) {
+        if (darkMode) return "#DDD";
+        else return "#1a1a1a";
+      }
+
+      function TextCounterColor(darkMode) {
+        if (darkMode) return "#1a1a1a";
+        else return "#EDEDED";
+      }
+
+      function IsDragDropEnabled() {
+        return window.rootPath != './GrandArchiveSim';
+      }
+
+      // Function to handle drag start event
+      function dragStart(e) {
+          // Set the drag's data and styling
+          var id = e.target.id;
+          var element = e.target;
+          var tries = 0;
+          while(id == "" && tries < 20) {
+            element = element.parentNode;
+            id = element.id;
+            ++tries;
+          }
+          e.dataTransfer.setData("text/plain", id);
+          e.target.style.opacity = "0.4";
+          HideCardDetail();
+          //Now show the droppable areas
+          generatedDragStart();
+      }
+
+      // Function to handle drag end event
+      function dragEnd(e) {
+          // Reset the element's opacity after drag
+          e.target.style.opacity = "1";
+          //Now hide the droppable areas
+          generatedDragEnd();
+      }
+
+      // Function to handle drag over event
+      function dragOver(e) {
+          e.preventDefault(); // Allow drop
+      }
+
+      // Function to handle drop event
+      function drop(e) {
+          e.preventDefault(); // Prevent default action (open as link for some elements)
+          var el = e.target;
+          var destination = el.id;
+          var tries = 0;
+          while((destination == "" || destination.includes("-")) && tries < 20) {
+            el = el.parentNode;
+            destination = el.id;
+            ++tries;
+          }
+
+          // Get the card being dragged
+          var draggedCard = e.dataTransfer.getData("text/plain");
+
+          // Send the action input to the server
+          SubmitInput("10014", "&cardID=" + draggedCard + "!" + destination);
+      }
+
+      function BorderColorMap(code) {
+        code = parseInt(code);
+        switch (code) {
+          case 1:
+            return "DeepSkyBlue";
+          case 2:
+            return "red";
+          case 3:
+            return "yellow";
+          case 4:
+            return "Gray";
+          case 5:
+            return "Tan";
+          case 6:
+            return "#00FF66";
+          case 7:
+            return "Orchid";
+          default:
+            return "Black";
+        }
+      }
+
+      // Split a filter string on " or " at the top level (not inside parentheses)
+      function _splitOnTopLevelOr(filter) {
+        var parts = [];
+        var depth = 0;
+        var start = 0;
+        for(var i = 0; i < filter.length; i++) {
+          if(filter[i] === '(') depth++;
+          else if(filter[i] === ')') depth--;
+          else if(depth === 0 && filter.slice(i, i+4) === ' or ') {
+            parts.push(filter.slice(start, i).trim());
+            start = i + 4;
+            i += 3;
+          }
+        }
+        parts.push(filter.slice(start).trim());
+        return parts;
+      }
+
+      // Split a filter string on spaces at the top level (not inside parentheses or double quotes)
+      function _splitOnTopLevelSpaces(filter) {
+        var tokens = [];
+        var depth = 0;
+        var inQuote = false;
+        var start = 0;
+        for(var i = 0; i < filter.length; i++) {
+          if(filter[i] === '"') { inQuote = !inQuote; }
+          else if(!inQuote && filter[i] === '(') depth++;
+          else if(!inQuote && filter[i] === ')') depth--;
+          else if(!inQuote && depth === 0 && filter[i] === ' ') {
+            var tok = filter.slice(start, i).trim();
+            if(tok.length > 0) tokens.push(tok);
+            start = i + 1;
+          }
+        }
+        var tok = filter.slice(start).trim();
+        if(tok.length > 0) tokens.push(tok);
+        return tokens;
+      }
+
+      // Returns true if the card should be filtered OUT (hidden) given a full filter string
+      // Supports: space = AND, " or " = OR, (parens) for grouping
+      function ShouldFilterWithOr(cardID, filter) {
+        filter = filter.trim();
+        if(filter === '') return false;
+        var orGroups = _splitOnTopLevelOr(filter);
+        for(var g = 0; g < orGroups.length; g++) {
+          var group = orGroups[g].trim();
+          if(group === '') continue;
+          // Evaluate this AND-group: all tokens must pass (not filter the card)
+          var tokens = _splitOnTopLevelSpaces(group);
+          var groupFails = false;
+          for(var t = 0; t < tokens.length; t++) {
+            var tok = tokens[t].trim();
+            if(tok === '') continue;
+            var filtered;
+            if(tok[0] === '(' && tok[tok.length-1] === ')') {
+              // Parenthesised sub-expression — recurse
+              filtered = ShouldFilterWithOr(cardID, tok.slice(1, tok.length-1));
+            } else {
+              filtered = ShouldFilter(cardID, tok);
+            }
+            if(filtered) { groupFails = true; break; }
+          }
+          if(!groupFails) return false; // At least one OR-group matched: show the card
+        }
+        return true; // All OR-groups filtered the card: hide it
+      }
+
+      function IsViewerTurnPlayer() {
+        const turnVal = typeof window.TurnPlayerData !== 'undefined' ? parseInt(window.TurnPlayerData) : NaN;
+        const viewerVal = (document.getElementById('playerID') && document.getElementById('playerID').value) ? parseInt(document.getElementById('playerID').value) : NaN;
+        return !isNaN(turnVal) && !isNaN(viewerVal) && viewerVal === turnVal;
+      }
+
+      // Returns true if the viewer is the active player — either the turn player during normal
+      // main phase, or the designated responder during an attack response window.
+      function IsViewerActivePlayer() {
+        if (IsViewerTurnPlayer()) return true;
+        try {
+          const raw = window.DecisionQueueVariablesData;
+          if (!raw || typeof raw !== 'string') return false;
+          const vars = JSON.parse(raw);
+          if (!vars || typeof vars !== 'object') return false;
+          const attackerMZ = vars.PendingAttackAttackerMZ || '';
+          const targetMZ   = vars.PendingAttackTargetMZ   || '';
+          if (attackerMZ === '' || targetMZ === '') return false;
+          // Active response window — viewer is active if they are the responder (not the attacker).
+          const attackerPlayer = parseInt(vars.PendingAttackAttackerPlayer, 10);
+          if (isNaN(attackerPlayer)) return false;
+          const responderPlayer = attackerPlayer === 1 ? 2 : 1;
+          const viewerVal = document.getElementById('playerID')?.value;
+          return parseInt(viewerVal, 10) === responderPlayer;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function ApplyExhaustedEnterAnimations() {
+        try {
+          var enteringCards = document.querySelectorAll('.exhausted-status-card-enter');
+          if (!enteringCards || enteringCards.length === 0) return;
+
+          // Let layout settle after render, then animate toward the already-rendered final state.
+          requestAnimationFrame(function() {
+            enteringCards.forEach(function(cardEl) {
+              var finalTransform = getComputedStyle(cardEl).transform;
+              var fromTransform = 'rotate(0deg) scale(0.995)';
+              var toTransform = (finalTransform && finalTransform !== 'none') ? finalTransform : 'rotate(5deg) scale(1)';
+
+              cardEl.animate(
+                [
+                  { transform: fromTransform, offset: 0 },
+                  { transform: toTransform, offset: 1 }
+                ],
+                {
+                  duration: 180,
+                  easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+                  fill: 'none'
+                }
+              );
+
+              var overlayLayer = cardEl.querySelector('.exhausted-status-overlay-layer');
+              if (overlayLayer) {
+                overlayLayer.animate(
+                  [
+                    { opacity: 0, offset: 0 },
+                    { opacity: 1, offset: 1 }
+                  ],
+                  {
+                    duration: 170,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                  }
+                );
+              }
+
+              cardEl.classList.remove('exhausted-status-card-enter');
+            });
+          });
+        } catch (e) {}
+      }
+      if (typeof window !== 'undefined') {
+        window.ApplyExhaustedEnterAnimations = ApplyExhaustedEnterAnimations;
+      }
+
+      function ApplyWakeEnterAnimations() {
+        try {
+          var wakingCards = document.querySelectorAll('.wake-status-card-enter');
+          if (!wakingCards || wakingCards.length === 0) return;
+
+          requestAnimationFrame(function() {
+            wakingCards.forEach(function(cardEl) {
+              if (!(cardEl instanceof HTMLElement)) return;
+              if (getComputedStyle(cardEl).position === 'static') {
+                cardEl.style.position = 'relative';
+              }
+
+              var finalTransform = getComputedStyle(cardEl).transform;
+              var toTransform = (finalTransform && finalTransform !== 'none') ? finalTransform : 'rotate(0deg) scale(1)';
+              var fromTransform = 'rotate(9deg) scale(0.992)';
+
+              cardEl.animate(
+                [
+                  { transform: fromTransform, filter: 'brightness(0.9) saturate(0.92)', offset: 0 },
+                  { transform: 'rotate(-2deg) scale(1.012)', filter: 'brightness(1.12) saturate(1.08)', offset: 0.58 },
+                  { transform: toTransform, filter: 'brightness(1) saturate(1)', offset: 1 }
+                ],
+                {
+                  duration: 220,
+                  easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                  fill: 'none'
+                }
+              );
+
+              var fx = document.createElement('div');
+              fx.style.position = 'absolute';
+              fx.style.inset = '0';
+              fx.style.borderRadius = '10px';
+              fx.style.pointerEvents = 'none';
+              fx.style.zIndex = '1200';
+              fx.style.background = 'radial-gradient(circle at 50% 50%, rgba(255, 241, 173, 0.46) 0%, rgba(150, 232, 255, 0.18) 42%, rgba(150, 232, 255, 0) 74%)';
+              fx.style.mixBlendMode = 'screen';
+              cardEl.appendChild(fx);
+
+              fx.animate(
+                [
+                  { opacity: 0, transform: 'scale(0.86)', offset: 0 },
+                  { opacity: 0.95, transform: 'scale(1.03)', offset: 0.34 },
+                  { opacity: 0, transform: 'scale(1.14)', offset: 1 }
+                ],
+                {
+                  duration: 240,
+                  easing: 'ease-out',
+                  fill: 'forwards'
+                }
+              );
+
+              window.setTimeout(function() {
+                if (fx.parentNode === cardEl) cardEl.removeChild(fx);
+              }, 260);
+
+              cardEl.classList.remove('wake-status-card-enter');
+            });
+          });
+        } catch (e) {}
+      }
+      if (typeof window !== 'undefined') {
+        window.ApplyWakeEnterAnimations = ApplyWakeEnterAnimations;
+      }
+
+      function ApplyCardOverlayEnterAnimations(config) {
+        try {
+          if (!config || !config.enterClass) return;
+          var enteringCards = document.querySelectorAll('.' + config.enterClass);
+          if (!enteringCards || enteringCards.length === 0) return;
+
+          requestAnimationFrame(function() {
+            enteringCards.forEach(function(cardEl) {
+              if (!(cardEl instanceof HTMLElement)) return;
+              if (getComputedStyle(cardEl).position === 'static') {
+                cardEl.style.position = 'relative';
+              }
+
+              var fx = document.createElement('div');
+              fx.className = config.overlayClass || '';
+              fx.style.position = 'absolute';
+              fx.style.inset = '0';
+              fx.style.borderRadius = '10px';
+              fx.style.pointerEvents = 'none';
+              fx.style.zIndex = '1200';
+              fx.style.opacity = '0';
+              fx.style.backgroundImage = "url('" + config.imageUrl + "')";
+              fx.style.backgroundSize = 'cover';
+              fx.style.backgroundPosition = 'center';
+              fx.style.backgroundRepeat = 'no-repeat';
+              cardEl.appendChild(fx);
+
+              fx.animate(
+                config.keyframes,
+                {
+                  duration: config.durationMs,
+                  easing: config.easing || 'ease-out',
+                  fill: 'forwards'
+                }
+              );
+
+              cardEl.classList.remove(config.enterClass);
+              setTimeout(function() {
+                if (fx && fx.parentNode) fx.parentNode.removeChild(fx);
+              }, config.cleanupDelayMs || (config.durationMs + 100));
+            });
+          });
+        } catch (e) {}
+      }
+
+      function ApplyReliquaryDrawAnimations() {
+        ApplyCardOverlayEnterAnimations({
+          enterClass: 'reliquary-draw-card-enter',
+          overlayClass: 'reliquary-draw-overlay',
+          imageUrl: './Assets/Overlays/draw-card.webp',
+          keyframes: [
+            { opacity: 0, transform: 'scale(0.92)', offset: 0 },
+            { opacity: 1, transform: 'scale(1.02)', offset: 0.50 },
+            { opacity: 1, transform: 'scale(1.08)', offset: 0.92 },
+            { opacity: 0, transform: 'scale(1.08)', offset: 1 }
+          ],
+          durationMs: 1290,
+          cleanupDelayMs: 1390
+        });
+      }
+      if (typeof window !== 'undefined') {
+        window.ApplyReliquaryDrawAnimations = ApplyReliquaryDrawAnimations;
+      }
+
+      function ApplyVerdurePreserveAnimations() {
+        ApplyCardOverlayEnterAnimations({
+          enterClass: 'verdure-preserve-card-enter',
+          overlayClass: 'verdure-preserve-overlay',
+          imageUrl: './Assets/Overlays/verdure.webp',
+          keyframes: [
+            { opacity: 0, transform: 'scale(0.94)', offset: 0 },
+            { opacity: 1, transform: 'scale(1.00)', offset: 0.35 },
+            { opacity: 1, transform: 'scale(1.06)', offset: 0.88 },
+            { opacity: 0, transform: 'scale(1.06)', offset: 1 }
+          ],
+          durationMs: 1240,
+          cleanupDelayMs: 1340
+        });
+      }
+      if (typeof window !== 'undefined') {
+        window.ApplyVerdurePreserveAnimations = ApplyVerdurePreserveAnimations;
+      }
+
+      function GetHighlightMetadataForCard(zoneName, cardData) {
+        try {
+          if (!IsViewerActivePlayer()) return null;
+          if (typeof HighlightRules === 'undefined' || !HighlightRules[zoneName]) return null;
+          const highlightProperty = HighlightRules[zoneName];
+          if (!cardData || !cardData.hasOwnProperty(highlightProperty) || !cardData[highlightProperty]) return null;
+
+          let rawValue = cardData[highlightProperty];
+          if (typeof rawValue === 'string') {
+            try {
+              rawValue = JSON.parse(rawValue);
+            } catch (e) {
+              return null;
+            }
+          }
+
+          if (rawValue && typeof rawValue === 'object' && rawValue.color) {
+            return rawValue;
+          }
+        } catch (e) {
+          if (console && console.error) console.error('GetHighlightMetadataForCard error', e);
+        }
+        return null;
+      }
+
+      function GetSingleDisplayHighlightMetadata(zoneName, zoneArr) {
+        if (!zoneArr || zoneArr.length === 0) return null;
+        for (var zi = 0; zi < zoneArr.length; ++zi) {
+          var zoneCardArr = zoneArr[zi].split(" ");
+          if (zoneCardArr.length < 3 || !zoneCardArr[2] || zoneCardArr[2] === '-') continue;
+          try {
+            var zoneCardData = JSON.parse(zoneCardArr[2]);
+            var highlightMetadata = GetHighlightMetadataForCard(zoneName, zoneCardData);
+            if (highlightMetadata) return highlightMetadata;
+          } catch (e) {
+            // Ignore malformed card JSON and continue scanning other cards in the zone.
+          }
+        }
+        return null;
+      }
+
+      function ParseSharedCardData(cardArr) {
+        if (!cardArr || cardArr.length <= 2 || !cardArr[2] || cardArr[2] === '-') return {};
+        try {
+          return JSON.parse(cardArr[2]);
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function ShouldSkipZoneCardRendering(cardArr, filter, filterFunction, linkedSubcardCardIDs) {
+        if (!cardArr || cardArr.length === 0) return true;
+        if (filter != "" && ShouldFilterWithOr(cardArr[0], filter)) return true;
+        if (filterFunction != null && window.customFilter && filterFunction(cardArr[0])) return true;
+        if (filterFunction != null && typeof window.InLegalFilter === 'function' && window.legalFilter && window.InLegalFilter(cardArr[0])) return true;
+        if (linkedSubcardCardIDs && linkedSubcardCardIDs[cardArr[0]]) return true;
+        return false;
+      }
+
+      function IsCollapsibleZoneCard(cardArr, zoneMetadata) {
+        if (!zoneMetadata || !zoneMetadata.CollapseBy) return false;
+        var cardData = ParseSharedCardData(cardArr);
+        var collapseValue = cardData[zoneMetadata.CollapseBy];
+        if (collapseValue === true) return true;
+        if (collapseValue === false || collapseValue === null || typeof collapseValue === 'undefined') return false;
+        if (typeof collapseValue === 'number') return collapseValue !== 0;
+        var normalized = String(collapseValue).toLowerCase().trim();
+        return normalized === '1' || normalized === 'true' || normalized === 'yes';
+      }
+
+      function GetCollapseGroupValue(cardArr, zoneMetadata) {
+        if (!cardArr || cardArr.length === 0) return "";
+        var groupField = (zoneMetadata && zoneMetadata.CollapseGroupBy) ? String(zoneMetadata.CollapseGroupBy) : "CardID";
+        if (groupField === "CardID") return cardArr[0];
+        var cardData = ParseSharedCardData(cardArr);
+        if (!cardData || typeof cardData[groupField] === 'undefined' || cardData[groupField] === null) return "";
+        return String(cardData[groupField]);
+      }
+
+      function ShouldUseCollapsedStacks(zoneMetadata, mode) {
+        if (!zoneMetadata || !zoneMetadata.CollapseBy) return false;
+        return mode === "All";
+      }
+
+      //Note: 96 = Card Size
+      function PopulateZone(zone, zoneData, size = 96, folder = "concat", row = 1, mode = 'All', filter="") {
+          // Skip rendering if zone visibility is None
+          var zoneMeta = GetZoneData(zone);
+          if(zoneMeta && zoneMeta.Display && zoneMeta.Display.toLowerCase() === 'none') {
+            return "";
+          }
+          zoneData = zoneData.trim();
+          var dragProps = (mode != "Panel" && IsDragDropEnabled()) ? "ondragover='dragOver(event)' ondrop='drop(event)' " : "";
+          var newHTML = "<span id='" + zone + "' " + dragProps + "style='display: flex; flex-wrap: wrap; justify-content: center;'>";
+          var zoneArr = (zoneData.length == 0 ? [] : zoneData.split("<|>"));
+          var zoneName = zone.replace("my", "").replace("their", "");
+
+          // Handle Single display mode - only render one card (first or last based on Reverse)
+          if(mode == 'Single' && zoneArr.length > 0) {
+            var zoneMetadata = GetZoneData(zoneName);
+            var useReverse = zoneMetadata.Sort && zoneMetadata.Sort.Reverse;
+            var displayIndex = useReverse ? (zoneArr.length - 1) : 0;
+            var cardArr = zoneArr[displayIndex].split(" ");
+
+            // Override counter to show total zone count (cardArr[1] is normally counter data)
+            // This replicates the count bubble that was previously shown
+            if(zoneArr.length > 1) {
+              cardArr[1] = String(zoneArr.length);
+            }
+
+            var heatmapFunction = "";
+            var heatmapColorMap = "";
+            // Apply heatmaps if defined
+            var heatmaps = zoneMetadata.Heatmaps;
+            if(heatmaps != null) {
+              for(var i = 0; i < heatmaps.length; ++i) {
+                var heatmapProperty = window[heatmaps[i].Property + "Data"];
+                var heatmapFunctionMap = JSON.parse(heatmaps[i].FunctionMap);
+                heatmapFunction = heatmapProperty && heatmapFunctionMap[heatmapProperty] ? heatmapFunctionMap[heatmapProperty].Function : "";
+                heatmapColorMap = heatmapProperty && heatmapFunctionMap[heatmapProperty] ? heatmapFunctionMap[heatmapProperty].ColorMap : "";
+              }
+            }
+
+            // For single-display zones, surface playability when any card in that zone is highlighted.
+            var singleDisplayHighlightMetadata = GetSingleDisplayHighlightMetadata(zoneName, zoneArr);
+            newHTML += createCardHTML(zone, zoneName, folder, size, cardArr, displayIndex, heatmapFunction, heatmapColorMap, singleDisplayHighlightMetadata);
+            newHTML += "</span>";
+            return newHTML;
+          }
+
+          if(zoneArr.length == 0 && mode != "Calculate") {
+            newHTML += "<span style='margin: 1px;'>" + zoneName + "</span>";
+          } else if(mode == 'Count') {
+            var id = zone + "-0";
+            var buttons = createWidgetButtons(zoneName, id);
+            newHTML += "<span style='margin: 1px;'>" + zoneName + " Count: " + zoneData + " " + buttons.middleButtons + "</span>";
+          } else if(mode == 'Value') {
+            var id = zone + "-0";
+            var buttons = createWidgetButtons(zoneName, id);
+            var zoneMetadata = GetZoneData(zoneName);
+            var valueDisplayParam = (zoneMetadata && zoneMetadata.DisplayParameters && zoneMetadata.DisplayParameters.length > 0)
+              ? String(zoneMetadata.DisplayParameters[0])
+              : "";
+            var valueOnlyDisplay = valueDisplayParam.toLowerCase() === 'valueonly' || valueDisplayParam.toLowerCase() === 'nolabel';
+            if(zone == 'myHealth' || zone == 'theirHealth') {
+              // Keep the zone widget (pass) without rendering "Health: X" text.
+              newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;'>" + buttons.middleButtons + "</div>";
+            } else if(valueOnlyDisplay) {
+              newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneData + "</span>";
+              newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;'>" + buttons.middleButtons + "</div>";
+            } else {
+              newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneName + ": " + zoneData + "</span>";
+              newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;'>" + buttons.middleButtons + "</div>";
+            }
+          } else if(mode == 'Radio') {
+            newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneName + ":</span>";
+            var id = zone + "-0";
+            var buttons = createWidgetButtons(zoneName, id, "-", zoneData);
+            newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;flex-wrap: wrap; gap:0.5rem 0;'>" + buttons.middleButtons + "</div>";
+          } else if(mode == 'Dropdown') {
+            newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneName + ":</span>";
+            var id = zone + "-0";
+            newHTML += "<div style='display: flex; align-items: center; padding-left: 5px;'>" + createWidgetDropdown(zoneName, id, zoneData) + "</div>";
+          } else if(mode == 'Panel') {
+            var id = zone;
+            newHTML += "div id='" + id + "' style='display: flex; flex-wrap: wrap; justify-content: center;'></div>";
+          } else if(mode == "Calculate") {
+            var zoneData = GetZoneData(zoneName);
+            var functionName = zoneData.DisplayParameters.length > 0 ? zoneData.DisplayParameters[0] : "";
+            var id = zone + "-0";
+            var buttons = createWidgetButtons(zoneName, id);
+            if (typeof window[functionName] === 'function') {
+              newHTML += window[functionName]();
+            }
+            newHTML += buttons.middleButtons;
+          } else {
+            var tiledCardArr = [];
+            var zoneMetadata = GetZoneData(zoneName);
+            var filters = zoneMetadata.Filters;
+            var heatmaps = zoneMetadata.Heatmaps;
+            var sortProperty = (zoneMetadata.Sort && zoneMetadata.Sort.Property) ? zoneMetadata.Sort.Property : "";
+            var sortFunction = sortProperty != "" ? "Card" + window[sortProperty + "Data"] : null;
+            if(sortFunction != null && typeof window[sortFunction] !== 'function') {
+              var sortFunction = sortProperty != "" ? "Card" + window[sortProperty + "Data"].toLowerCase() : null;
+            }
+            var heatmapFunction = "";
+            var heatmapColorMap = "";
+            if(heatmaps != null) {
+              for(var i = 0; i < heatmaps.length; ++i) {
+                var heatmapProperty = window[heatmaps[i].Property + "Data"];
+                var heatmapFunctionMap = JSON.parse(heatmaps[i].FunctionMap);
+                heatmapFunction = heatmapProperty && heatmapFunctionMap[heatmapProperty] ? heatmapFunctionMap[heatmapProperty].Function : "";
+                heatmapColorMap = heatmapProperty && heatmapFunctionMap[heatmapProperty] ? heatmapFunctionMap[heatmapProperty].ColorMap : "";
+              }
+            }
+            var filterFunction = null;
+            if (!!filters && filters.length > 0) filterFunction = window[filters[0]];
+            var useCollapsedStacks = ShouldUseCollapsedStacks(zoneMetadata, mode);
+            // Reverse the zone array if Sort.Reverse is true (for all modes except Tile, which reverses after sorting)
+            if(mode != "Tile" && zoneMetadata.Sort && zoneMetadata.Sort.Reverse) {
+              zoneArr.reverse();
+            }
+            // Pre-collect CardIDs that appear as Subcards of other cards in this zone.
+            // Such cards are rendered inline as subcard thumbnails and should be hidden
+            // from standalone rendering (e.g. Ally Link Phantasia cards linked to an ally).
+            // Safety: only skip if the CardID is also a standalone entry in this same zone
+            // (prevents hiding cards whose CardID just happens to match a lineage history entry).
+            var linkedSubcardCardIDs = {};
+            var standaloneCardIDs = {};
+            for (var _si = 0; _si < zoneArr.length; ++_si) {
+              var _tempArr = zoneArr[_si].split(" ");
+              standaloneCardIDs[_tempArr[0]] = true;
+            }
+            for (var _si = 0; _si < zoneArr.length; ++_si) {
+              var _tempArr = zoneArr[_si].split(" ");
+              if (_tempArr.length > 2 && _tempArr[2] && _tempArr[2] !== '-') {
+                try {
+                  var _tempData = JSON.parse(_tempArr[2]);
+                  if (_tempData.Subcards && Array.isArray(_tempData.Subcards)) {
+                    _tempData.Subcards.forEach(function(sid) {
+                      if (sid && typeof sid === 'string' && standaloneCardIDs[sid]) {
+                        linkedSubcardCardIDs[sid] = true;
+                      }
+                    });
+                  }
+                } catch (e) {}
+              }
+            }
+            var tokenStackGroupsByFirstIndex = {};
+            var tokenStackCoveredIndices = {};
+            if(useCollapsedStacks) {
+              var collapseIndicesByGroup = {};
+              for (var _tsi = 0; _tsi < zoneArr.length; ++_tsi) {
+                var _stackCardArr = zoneArr[_tsi].split(" ");
+                if(ShouldSkipZoneCardRendering(_stackCardArr, filter, filterFunction, linkedSubcardCardIDs)) continue;
+                if(!IsCollapsibleZoneCard(_stackCardArr, zoneMetadata)) continue;
+                var collapseGroupValue = GetCollapseGroupValue(_stackCardArr, zoneMetadata);
+                if(collapseGroupValue === "") continue;
+                if(!collapseIndicesByGroup[collapseGroupValue]) collapseIndicesByGroup[collapseGroupValue] = [];
+                collapseIndicesByGroup[collapseGroupValue].push(_tsi);
+              }
+              Object.keys(collapseIndicesByGroup).forEach(function(collapseGroupValue) {
+                var matchingIndices = collapseIndicesByGroup[collapseGroupValue];
+                if(!matchingIndices || matchingIndices.length <= 1) return;
+                var firstIndex = matchingIndices[0];
+                tokenStackGroupsByFirstIndex[firstIndex] = matchingIndices.map(function(stackIndex) {
+                  tokenStackCoveredIndices[stackIndex] = true;
+                  return {
+                    cardArr: zoneArr[stackIndex].split(" "),
+                    index: stackIndex
+                  };
+                });
+              });
+            }
+            for (var i = 0; i < zoneArr.length; ++i) {
+              cardArr = zoneArr[i].split(" ");
+              if(ShouldSkipZoneCardRendering(cardArr, filter, filterFunction, linkedSubcardCardIDs)) continue;
+              if(mode == "Tile") {
+                var cardObject = {
+                  id: cardArr[0],
+                  numCounters: cardArr[1],
+                  cardJson: cardArr[2],
+                  quantity: 1,
+                  index: i
+                };
+                var existingCard = tiledCardArr.find(card => card.id === cardObject.id);
+                if(existingCard) {
+                  existingCard.quantity += 1;
+                } else {
+                  tiledCardArr.push(cardObject);
+                }
+              } else {
+                if(useCollapsedStacks && tokenStackCoveredIndices[i]) {
+                  if(tokenStackGroupsByFirstIndex[i]) {
+                    newHTML += createTokenStackHTML(zone, zoneName, folder, size, tokenStackGroupsByFirstIndex[i], heatmapFunction, heatmapColorMap);
+                  }
+                  continue;
+                }
+                newHTML += createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction, heatmapColorMap);
+              }
+            }
+            if(mode == "Tile") {
+                if(sortFunction != null) {
+                  if (typeof window[sortFunction] === 'function') {
+                    tiledCardArr.sort((a, b) => {
+                    const idA = a.id;
+                    const idB = b.id;
+                    const valueA = window[sortFunction](idA);
+                    const valueB = window[sortFunction](idB);
+                    if (typeof valueA === 'string' && typeof valueB === 'string') {
+                      return valueA.localeCompare(valueB);
+                    }
+                    return valueA - valueB;
+                    });
+                  }
+                }
+                if(zoneMetadata.Sort && zoneMetadata.Sort.Reverse) {
+                  tiledCardArr.reverse();
+                }
+              tiledCardArr.forEach((cardObject) => {
+                newHTML += createCardHTML(zone, zoneName, folder, size, [cardObject.id, cardObject.quantity > 1 ? cardObject.quantity : 0, cardObject.cardJson], cardObject.index, heatmapFunction, heatmapColorMap);
+              });
+            }
+          }
+          newHTML += "</span>";
+          return newHTML;
+      }
+
+      function CardClick(event, zoneName, cardId) {
+        event.stopPropagation(); // Prevent the click event from bubbling up
+        var clickActions = GetZoneClickActions(zoneName);
+        if(clickActions.length == 1) {
+            SubmitInput(10002, "&cardID=" + cardId + "!" + clickActions[0].Action + "!" + clickActions[0].Parameters.join(","));
+        }
+      }
+
+      // Handler for selectable cards. Inline markup calls this when a card is marked selectable.
+      // If selection mode is active, invoke the configured callback. Otherwise delegate to CardClick.
+      function OnSelectableCardClick(zoneName, cardId) {
+        try {
+          const inlineMultiActive = !!(
+            window.SelectionMode &&
+            window.SelectionMode.active &&
+            Array.isArray(window.SelectionMode.multiSelected) &&
+            Number(window.SelectionMode.multiMax) > 0 &&
+            document.getElementById('inline-multi-confirm')
+          );
+          // If selection mode is active, call the selection callback (used for decision queue selections)
+          if (window.SelectionMode && window.SelectionMode.active) {
+            if (inlineMultiActive) {
+              if (!window.SelectionMode.multiSelected) window.SelectionMode.multiSelected = [];
+              const idx = window.SelectionMode.multiSelected.indexOf(cardId);
+              if (idx >= 0) {
+                window.SelectionMode.multiSelected.splice(idx, 1);
+              } else {
+                if (window.SelectionMode.multiSelected.length >= window.SelectionMode.multiMax) return;
+                window.SelectionMode.multiSelected.push(cardId);
+              }
+              // Immediate DOM signal so selection is visible even before next full render tick.
+              const el = document.getElementById(cardId);
+              if (el) {
+                ApplyInlineMultiSelectionDomState();
+              }
+              UpdateInlineMultiChooseMessage();
+              if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+                RenderRows(window.myRows, window.theirRows);
+              }
+              return;
+            }
+            let submittedCardId = cardId;
+            const specs = window.SelectionMode.inlineSpecs || window.SelectionMode.allowedZones || [];
+            const match = /^(.+)-(\d+)$/.exec(cardId || '');
+            if (match) {
+              const cardIndex = parseInt(match[2], 10);
+              const matchingSpec = specs.find(spec => spec && spec.isSpecificCard && spec.zone === zoneName && spec.specificIndex === cardIndex);
+              if (matchingSpec && matchingSpec.originalSpec) {
+                submittedCardId = matchingSpec.originalSpec;
+              }
+            }
+            if (typeof window.SelectionMode.callback === 'function') {
+              window.SelectionMode.callback(zoneName, submittedCardId, window.SelectionMode.decisionIndex);
+            }
+            // Clear selection UI/state after making a selection
+            ClearSelectionMode();
+            return;
+          }
+
+          // Not in selection mode: delegate to CardClick. CardClick expects an event object, so provide a minimal stub.
+          var fakeEvent = { stopPropagation: function() {} };
+          CardClick(fakeEvent, zoneName, cardId);
+        } catch (e) {
+          // Swallow errors to avoid breaking UI; log to console for debugging
+          if (console && console.error) console.error('OnSelectableCardClick error', e);
+        }
+      }
+
+      function createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction = "", heatmapColorMap = "", forcedHighlightMetadata = null) {
+        // Null/removed card placeholder — nothing to render
+        if (cardArr[0] === "-" && (cardArr.length <= 2 || !cardArr[2] || cardArr[2] === "-")) return "";
+        const selectionModeActive = !!(window.SelectionMode && window.SelectionMode.active);
+        let isSelectable = false;
+        if (selectionModeActive && typeof IsSelectableCard === 'function') {
+          isSelectable = IsSelectableCard(zone, cardArr, i);
+        }
+        var sharedCardData = {};
+        if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
+          try { sharedCardData = JSON.parse(cardArr[2]); } catch (e) {}
+        }
+
+        let highlightMetadata = forcedHighlightMetadata;
+        if (!highlightMetadata) {
+          highlightMetadata = GetHighlightMetadataForCard(zoneName, sharedCardData);
+        }
+        if (highlightMetadata && !selectionModeActive) {
+          isSelectable = true;
+        }
+
+        var newHTML = "";
+        var id = zone + "-" + i;
+        var positionStyle = "relative";
+        var isInlineMultiSelected = !!(window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0 && window.SelectionMode.multiSelected.indexOf(id) >= 0);
+        var className = isSelectable ? "selectable-card" : "";
+        if (isInlineMultiSelected) {
+          className += " selected-inline";
+        }
+        var combatIndicatorText = sharedCardData.CombatTargetIndicator ? String(sharedCardData.CombatTargetIndicator) : "";
+        var isCombatAttacker = combatIndicatorText === "ATTACKER";
+        var isCombatTarget = combatIndicatorText === "TARGET";
+        var isCombatWeapon = combatIndicatorText === "WEAPON";
+        var combatIndicatorClass = isCombatAttacker
+          ? " combat-attacker-card"
+          : (isCombatTarget ? " combat-targeted-card" : (isCombatWeapon ? " combat-weapon-card" : ""));
+
+        // Build inline styles - combine position and custom color variable
+        var inlineStyles = "position:" + positionStyle + "; margin:1px;";
+        // EffectStack cards use a flex column so the trigger label renders below the card image.
+        if (zoneName === "EffectStack") inlineStyles += " display:inline-flex; flex-direction:column; align-items:center; vertical-align:top; gap:4px;";
+        if (isSelectable) {
+          if (window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0) {
+            inlineStyles += " --highlight-color: rgba(198, 208, 224, 0.98);";
+          } else
+          // If selectable, always set the highlight color (custom or default)
+          if (highlightMetadata && highlightMetadata.color) {
+            // Clean up the color string - replace underscores with spaces (serialization artifact)
+            var cleanColor = highlightMetadata.color.replace(/_/g, ' ');
+            // Add custom CSS variable for the custom color
+            inlineStyles += " --highlight-color: " + cleanColor + ";";
+          } else {
+            // Set default green color for selectable cards without custom color
+            inlineStyles += " --highlight-color: rgba(100,250,0,0.50);";
+          }
+          if (isInlineMultiSelected) {
+            inlineStyles += " --highlight-color: rgba(255, 198, 46, 1);";
+          }
+        }
+
+        function shouldRenderSchemaVisualBySetting(ruleOrParams) {
+          var params = (ruleOrParams && ruleOrParams.params) ? ruleOrParams.params : ruleOrParams;
+          if (!params || typeof params !== 'object') return true;
+          var settingsKey = params.SettingsKey || params.settingsKey;
+          if (!settingsKey || typeof window.TCGSettings === 'undefined') return true;
+          var expectedRaw = params.SettingsValue;
+          if (typeof expectedRaw === 'undefined') expectedRaw = params.settingsValue;
+          if (typeof expectedRaw === 'undefined') expectedRaw = true;
+          var defaultRaw = params.SettingsDefault;
+          if (typeof defaultRaw === 'undefined') defaultRaw = params.settingsDefault;
+          if (typeof defaultRaw === 'undefined') defaultRaw = false;
+          var expectedValue = String(expectedRaw).toLowerCase() === 'true';
+          var defaultValue = String(defaultRaw).toLowerCase() === 'true';
+          var currentValue = !!window.TCGSettings.get(String(settingsKey), { type: 'boolean', defaultValue: defaultValue });
+          return currentValue === expectedValue;
+        }
+
+        // Determine overlay parameter for Card()
+        var overlay = 0;
+        var overlayTypes = [];
+        var overlayDescriptors = [];
+        try {
+          if (typeof OverlayRules !== 'undefined' && OverlayRules[zoneName]) {
+            var cardData = sharedCardData;
+            OverlayRules[zoneName].forEach(function(rule) {
+              if (!shouldRenderSchemaVisualBySetting(rule)) return;
+              if (!cardData.hasOwnProperty(rule.field)) return;
+              var fieldValue = cardData[rule.field];
+              var matches = false;
+              if (Array.isArray(fieldValue)) {
+                matches = fieldValue.some(function(v) { return String(v) === String(rule.value); });
+              } else {
+                matches = String(fieldValue) === String(rule.value);
+              }
+              if (matches) {
+                overlay = 1;
+                if (rule.overlay) overlayTypes.push(String(rule.overlay));
+                overlayDescriptors.push({
+                  overlay: rule.overlay ? String(rule.overlay) : "",
+                  image: rule.image ? String(rule.image) : "",
+                  drawOrder: (typeof rule.drawOrder !== "undefined") ? Number(rule.drawOrder) : 0,
+                  opacity: (typeof rule.Opacity !== "undefined") ? Number(rule.Opacity) : 1,
+                  scale: (typeof rule.Scale !== "undefined") ? Number(rule.Scale) : 1,
+                  offsetY: (typeof rule.OffsetY !== "undefined") ? Number(rule.OffsetY) : 0
+                });
+              }
+            });
+            overlayTypes = overlayTypes.filter(function(type, idx) {
+              return overlayTypes.indexOf(type) === idx;
+            });
+            overlayDescriptors = overlayDescriptors.filter(function(desc, idx, arr) {
+              return arr.findIndex(function(other) {
+                return other.overlay === desc.overlay
+                  && other.image === desc.image
+                  && Number(other.drawOrder) === Number(desc.drawOrder);
+              }) === idx;
+            });
+          }
+        } catch (e) {}
+
+        var shouldAnimateExhaustedTransition = false;
+        var shouldAnimateWakeTransition = false;
+        var shouldAnimateReliquaryDraw = false;
+        var shouldAnimateVerdurePreserve = false;
+        var shouldAnimateShiftingCurrentsDirectionChange = false;
+        try {
+          if (typeof window !== "undefined") {
+            if (!window.__prevCardStatusByMzid) window.__prevCardStatusByMzid = {};
+            if (!window.__nextCardStatusByMzid) window.__nextCardStatusByMzid = {};
+            if (!window.__prevReliquaryDrawByMzid) window.__prevReliquaryDrawByMzid = {};
+            if (!window.__nextReliquaryDrawByMzid) window.__nextReliquaryDrawByMzid = {};
+            if (!window.__prevVerdurePreserveByMzid) window.__prevVerdurePreserveByMzid = {};
+            if (!window.__nextVerdurePreserveByMzid) window.__nextVerdurePreserveByMzid = {};
+            if (!window.__shiftingCurrentsDirectionByMzid) window.__shiftingCurrentsDirectionByMzid = {};
+            if (typeof window.__cardStatusHistoryReady === "undefined") window.__cardStatusHistoryReady = false;
+
+            var currentStatus = parseInt(sharedCardData.Status, 10);
+            if (Number.isNaN(currentStatus)) currentStatus = null;
+            var previousStatus = window.__prevCardStatusByMzid[id];
+            window.__nextCardStatusByMzid[id] = currentStatus;
+
+            // Only animate real transitions after initial history has been established.
+            shouldAnimateExhaustedTransition =
+              window.__cardStatusHistoryReady === true &&
+              currentStatus === 1 &&
+              previousStatus !== undefined &&
+              previousStatus !== 1;
+            shouldAnimateWakeTransition =
+              window.__cardStatusHistoryReady === true &&
+              currentStatus === 2 &&
+              previousStatus === 1;
+
+            var turnEffects = Array.isArray(sharedCardData.TurnEffects) ? sharedCardData.TurnEffects : [];
+            var hasReliquaryDrawTag =
+              sharedCardData.CardID === "wsycqp2l90" &&
+              zoneName === "Field" &&
+              turnEffects.indexOf("wsycqp2l90_DRAW_ANIM") !== -1;
+            var hadReliquaryDrawTag = !!window.__prevReliquaryDrawByMzid[id];
+            window.__nextReliquaryDrawByMzid[id] = hasReliquaryDrawTag;
+            shouldAnimateReliquaryDraw =
+              window.__cardStatusHistoryReady === true &&
+              hasReliquaryDrawTag &&
+              !hadReliquaryDrawTag;
+
+            var hasVerdurePreserveTag =
+              sharedCardData.CardID === "wCAIuvPOAT" &&
+              zoneName === "Field" &&
+              turnEffects.indexOf("PRESERVE_ANIMATION") !== -1;
+            var hadVerdurePreserveTag = !!window.__prevVerdurePreserveByMzid[id];
+            window.__nextVerdurePreserveByMzid[id] = hasVerdurePreserveTag;
+            shouldAnimateVerdurePreserve =
+              window.__cardStatusHistoryReady === true &&
+              hasVerdurePreserveTag &&
+              !hadVerdurePreserveTag;
+
+            var isShiftingCurrents = sharedCardData.CardID === "qh5mpkyl60";
+            var currentDirection = isShiftingCurrents ? String(sharedCardData.Direction || "NONE").toUpperCase() : "NONE";
+            var previousDirection = window.__shiftingCurrentsDirectionByMzid[id];
+            if (isShiftingCurrents) {
+              shouldAnimateShiftingCurrentsDirectionChange =
+                previousDirection !== undefined &&
+                previousDirection !== currentDirection &&
+                currentDirection !== "NONE";
+              window.__shiftingCurrentsDirectionByMzid[id] = currentDirection;
+            }
+          }
+        } catch (e) {}
+
+        if (overlayTypes.indexOf("exhausted") !== -1) {
+          className += (className ? " " : "") + " exhausted-status-card";
+          if (shouldAnimateExhaustedTransition) {
+            className += " exhausted-status-card-enter";
+          }
+        }
+        if (shouldAnimateWakeTransition) {
+          className += (className ? " " : "") + " wake-status-card-enter";
+        }
+        if (shouldAnimateReliquaryDraw) {
+          className += (className ? " " : "") + " reliquary-draw-card-enter";
+        }
+        if (shouldAnimateVerdurePreserve) {
+          className += (className ? " " : "") + " verdure-preserve-card-enter";
+        }
+
+        // Determine rotation from RotationRules
+        try {
+          if (typeof RotationRules !== 'undefined' && RotationRules[zoneName]) {
+            var cardData = sharedCardData;
+            RotationRules[zoneName].forEach(function(rule) {
+              if (cardData.hasOwnProperty(rule.field) && String(cardData[rule.field]) === String(rule.value)) {
+                inlineStyles += " transform: rotate(" + rule.degrees + "deg); transform-origin: center center;";
+              }
+            });
+          }
+        } catch (e) {}
+
+        var styles = " style='" + inlineStyles + "'";
+        var dragAttributes = IsDragDropEnabled() ? " draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'" : "";
+        var droppable = " class='draggable " + className + combatIndicatorClass + "'" + dragAttributes;
+        var click = isSelectable
+          ? " onclick=\"OnSelectableCardClick('" + zoneName + "', '" + id + "')\""
+          : " onclick=\"CardClick(event, '" + zoneName + "', '" + id + "')\"";
+        var uniqueIdAttr = "";
+        if (sharedCardData && sharedCardData.UniqueID != null && sharedCardData.UniqueID !== "") {
+          uniqueIdAttr = " data-uniqueid='" + String(sharedCardData.UniqueID).replace(/'/g, "&#39;") + "'";
+        }
+        if (id != "-") newHTML += "<span id='" + id + "' data-mzid='" + id + "'" + uniqueIdAttr + " " + styles + droppable + click + ">";
+        else newHTML += "<span " + styles + droppable + click + ">";
+
+        var renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
+        var _epicUsed = (sharedCardData.EpicActionUsed === true || sharedCardData.EpicActionUsed === 'true') ? 1 : 0;
+        var _hasForce = (sharedCardData.HasForce === true || sharedCardData.HasForce === 'true' || sharedCardData.HasForce === 1 || sharedCardData.HasForce === '1') ? 1 : 0;
+        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, _epicUsed, heatmapFunction, heatmapColorMap, id, overlayTypes.join("&"), JSON.stringify(overlayDescriptors), _hasForce);
+
+        try {
+          if (combatIndicatorText) {
+            var combatIndicatorTypeClass = isCombatAttacker
+              ? " combat-attacker-indicator"
+              : (isCombatTarget ? " combat-target-indicator" : " combat-weapon-indicator");
+            var combatAriaLabel = isCombatAttacker
+              ? "Attack attacker"
+              : (isCombatTarget ? "Attack target" : "Attack weapon");
+            newHTML += "<div class='combat-indicator" + combatIndicatorTypeClass + "' aria-label='" + combatAriaLabel + "'>" + combatIndicatorText + "</div>";
+          }
+        } catch (e) {
+          if (console && console.error) console.error('Combat target indicator render error', e);
+        }
+
+        try {
+          if (zoneName === "EffectStack" && sharedCardData.TriggerType && sharedCardData.TriggerType !== "-") {
+            // ONE badge that names the trigger type itself (was a generic "TRIGGER" pill overlapping a
+            // separate type label — they conflicted, so merged: the pill now reads the mapped type,
+            // e.g. "On Attack"/"On Defense"/"When Played"; unknown types fall back to the raw string).
+            var _labelMap = {
+              'WhenPlayed':'When Played', 'WhenDefeated':'When Defeated',
+              'OnAttack':'On Attack', 'OnDefense':'On Defense',
+              'OnAttackEnd':'On Attack End', 'Shielded':'Shielded',
+              'Ambush':'Ambush', 'ENTER':'On Enter',
+              'Support':'Support', 'SupportOnAttack':'On Attack',
+              'SupportOnAttackEnd':'On Attack End', 'SupportWhenDefeated':'When Defeated',
+              'AdvantageShed':'Advantage',
+            };
+            var effectStackTriggerLabel = _labelMap[sharedCardData.TriggerType] || sharedCardData.TriggerType;
+            newHTML += "<div style='position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:1002; padding:4px 8px; border-radius:999px; background:var(--panel-scrim, rgba(16, 24, 34, 0.88)); border:1px solid rgba(244, 236, 219, 0.28); color:rgba(252, 238, 171, 0.98); font:700 10px/1.1 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 8px 18px rgba(7, 14, 20, 0.35); white-space:nowrap;'>" + effectStackTriggerLabel + "</div>";
+          }
+        } catch (e) {
+          if (console && console.error) console.error('Effect stack trigger badge render error', e);
+        }
+
+        // Render subcards — SWUSim upgrades/captives peek from below; GA lineage cards stack above.
+        try {
+          newHTML += RenderShiftingCurrentsFacingHTML(sharedCardData, shouldAnimateShiftingCurrentsDirectionChange);
+        } catch (e) {
+          if (console && console.error) console.error('Shifting Currents facing render error', e);
+        }
+
+        // Render subcards (lineage) as offset images behind the card
+        try {
+          var cardDataSub = sharedCardData;
+          if (cardDataSub.Subcards && Array.isArray(cardDataSub.Subcards) && cardDataSub.Subcards.length > 0) {
+            var subcards = cardDataSub.Subcards;
+            var subFolder = folder;
+            if (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) {
+              subFolder = AssetReflectionPath();
+            }
+            // Which way subcards flow is declared by the zone schema (Subcards: Flow=... →
+            // GetZoneData().SubcardFlow). "Below" = SWU upgrades/captives/pilots peek from
+            // below as slivers; anything else (default "Above", including games/zones with no
+            // directive, e.g. GrandArchive) = lineage cards stack above with a "+N" popup.
+            var subcardZoneMeta = (typeof GetZoneData === 'function') ? GetZoneData(zoneName) : null;
+            var subcardFlow = (subcardZoneMeta && subcardZoneMeta.SubcardFlow) ? subcardZoneMeta.SubcardFlow : 'Above';
+            var shieldCount = 0, sliverIdx = 0, lineageCards = [];
+            var sliver = 18; // px each SWU subcard sliver shows below the unit card
+            // Vertical anchor (object-position-y) for a pilot sliver — unit pilots (full portrait) and
+            // leader pilots (_back side) share the same layout: the +X/+Y "while attached" band sits ~88%
+            // down, with an artist strip below it and the PILOTING/ability text box above it, so we bias
+            // toward the band. Higher = lower on the card (toward the band/artist), lower = higher (toward
+            // the text box). This is coupled to window.cardSize (board zoom): an 18px sliver spans
+            // ~18*450/cardSize px of the 628px card, so the exact sweet spot drifts with zoom. ~93% suits
+            // the default zoom; nudge if the board is much larger/smaller.
+            var pilotAnchorPct = 93;
+            for (var si = 0; si < subcards.length; si++) {
+              var sc = subcards[si];
+              if (sc && (sc.removed === true || sc.removed === 'true')) continue;
+              var scID = (typeof sc === 'string') ? sc : (sc && sc.CardID ? sc.CardID : null);
+              if (!scID || scID === '-') continue;
+              if (scID === 'SOR_T02') { shieldCount++; continue; }
+              // SOR_T01 (Experience) renders as a normal peek-from-below upgrade sliver; its concat image's
+              // bottom band carries the +1/+1 stat boxes (see zzImageConverter Token-Upgrade crop), so the
+              // sliver shows +1/+1 just like a real upgrade. SWU arenas are Flow=Below, so it falls through
+              // to the sliver render.
+              // Zones that stack subcards above (default "Above", e.g. GrandArchive's lineage):
+              // collect every subcard for the offset-above render below. Only "Below" zones (SWU
+              // arenas) fall through to the peek-from-below sliver logic.
+              if (subcardFlow !== 'Below') {
+                lineageCards.push(scID);
+                continue;
+              }
+              var scIsCaptive = !!(sc && sc.IsCaptive);
+              // A non-captive subcard carrying the "Pilot" trait is attached via Piloting (a real upgrade
+              // never has that trait; captures are flagged IsCaptive above). Detect by card TYPE + TRAIT —
+              // not the IsPilot flag, which isn't reliably present on the client — via the typeData/traitData
+              // globals from the loaded card dictionary. This needs no maintained ID list and grows with the
+              // card pool automatically. A pilot's concat is an art/PILOTING-box crop with no upgrade-style
+              // stat band, so we crop the FULL portrait instead, which carries the printed +power/+HP
+              // "while attached" band:
+              //   • Leader-pilots (type "Leader") use their unit (_back) side; unit pilots (type "Unit")
+              //     use the front portrait. Both share the same layout — an artist/copyright strip BELOW
+              //     the +X/+Y band and the ability/PILOTING text box ABOVE it — so both anchor at
+              //     ~pilotAnchorPct down to sit on the band.
+              // Regular upgrades, captives, and tokens are unaffected — they keep their concat sliver.
+              var scType   = (window.typeData  && window.typeData[scID])  ? String(window.typeData[scID])  : '';
+              var scTraits = (window.traitData && window.traitData[scID]) ? String(window.traitData[scID]) : '';
+              var scIsPilot       = !scIsCaptive && scTraits.toLowerCase().indexOf('pilot') !== -1;
+              var scIsLeaderPilot = scIsPilot && scType.indexOf('Leader') !== -1;
+              var scIsUnitPilot   = scIsPilot && !scIsLeaderPilot && scType.indexOf('Unit') !== -1;
+              var lineageSrc;
+              if (scIsLeaderPilot)    lineageSrc = "./" + subFolder + "/WebpImages/" + scID + "_back.webp";
+              else if (scIsUnitPilot) lineageSrc = "./" + subFolder + "/WebpImages/" + scID + ".webp";
+              else                    lineageSrc = "./" + subFolder + "/concat/" + scID + ".webp";
+              var li = sliverIdx++;
+              // Peek from below: bottom-most sliver of upgrade card (or top sliver of captive). Pilots
+              // (unit or leader) anchor on their +X/+Y band (~88% down) rather than the very bottom (artist strip).
+              var objPos = scIsCaptive ? 'top center' : (scIsPilot ? ('center ' + pilotAnchorPct + '%') : 'bottom center');
+              var bRadius = scIsCaptive ? '4px 4px 0 0' : '0 0 4px 4px';
+              var bottomOffset = (li + 1) * sliver;
+              newHTML += "<img data-subcard-id='" + scID + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
+                + "loading='lazy' class='lineage-subcard subcard-below' "
+                + "style='position:absolute; bottom:-" + bottomOffset + "px; left:0; width:" + size + "px; height:" + sliver + "px; "
+                + "object-fit:cover; object-position:" + objPos + "; border-radius:" + bRadius + "; "
+                + "border:1px solid rgba(255,255,255,0.18); z-index:-" + (li + 1) + "; pointer-events:auto;' "
+                + "src='" + lineageSrc + "' alt='Upgrade' />";
+            }
+            // Non-SWU "ga" lineage cards — up to 3 visible as offset images above, plus a "+N" overflow popup.
+            var visibleLineageCount = Math.min(lineageCards.length, 3);
+            for (var gi = visibleLineageCount - 1; gi >= 0; gi--) {
+              var offsetTop = (gi + 1) * 10;
+              var offsetLeft = (gi + 1) * 3;
+              var subSrc = "./" + subFolder + "/concat/" + lineageCards[gi] + ".webp";
+              newHTML += "<img data-subcard-id='" + lineageCards[gi] + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
+                + "loading='lazy' class='lineage-subcard subcard-above' style='position:absolute; top:-" + offsetTop + "px; left:" + offsetLeft + "px; height:" + size + "px; width:" + size + "px; "
+                + "border:1px solid transparent; opacity:0.85; z-index:-" + (gi + 1) + "; pointer-events:auto;' "
+                + "src='" + subSrc + "' alt='Lineage card' />";
+            }
+            if (lineageCards.length > visibleLineageCount) {
+              var hiddenLineageCount = lineageCards.length - visibleLineageCount;
+              var lineagePayload = encodeURIComponent(JSON.stringify({
+                subcards: lineageCards,
+                folder: subFolder,
+                size: Math.max(74, size - 8)
+              }));
+              newHTML += "<span class='ga-lineage-overflow' data-lineage-subcards='" + lineagePayload + "'"
+                + " onmouseenter='showLineageOverflowPopup(this)' onmouseleave='hideLineageOverflowPopup()'"
+                + " onfocusin='showLineageOverflowPopup(this)' onfocusout='hideLineageOverflowPopup()'"
+                + " onmousedown='event.stopPropagation()' onclick='event.preventDefault(); event.stopPropagation(); return false;'"
+                + " tabindex='0' role='button' aria-label='Show hidden lineage cards'>+" + hiddenLineageCount + "</span>";
+            }
+            // Shield token orbs — stacked in top-right corner
+            for (var shi = 0; shi < shieldCount; shi++) {
+              // counter-image-icon: marks this as a status-overlay icon so the selectable-card green
+              // border/glow rule (.selectable-card img:not(.counter-image-icon)) skips the shield orb.
+              newHTML += "<img class='counter-image-icon' title='Shield' loading='lazy' style='position:absolute; top:4px; right:" + (4 + shi * 20) + "px; width:20px; height:20px; z-index:5; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.6)); pointer-events:none;' src='./Assets/Icons/space-shield.svg' />";
+            }
+          }
+        } catch (e) {
+          if (console && console.error) console.error('Subcards render error', e);
+        }
+
+        try {
+          // Append counters HTML generated from CounterRules (if defined for this zone)
+          newHTML += CreateCountersHTML(zoneName, cardArr, id);
+        } catch (e) {
+          if (console && console.error) console.error('CreateCountersHTML error', e);
+        }
+
+        var buttons = createWidgetButtons(zoneName, id, cardArr[2]);
+        newHTML += "<span class='widget-buttons' style='z-index:1000; visibility:hidden; pointer-events:none; display:flex; justify-content: center; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%);'>" + buttons.middleButtons + "</span>";
+        newHTML += "<div class='widget-buttons' style='visibility:hidden; pointer-events:none; position:absolute; top:0; right:0; z-index:1001;'>" + buttons.topRightButtons + "</div>";
+        if (buttons.topLeftButtons) newHTML += "<div class='widget-buttons' style='visibility:hidden; pointer-events:none; position:absolute; top:0; left:0; z-index:1001;'>" + buttons.topLeftButtons + "</div>";
+        if (buttons.bottomLeftButtons) newHTML += "<div class='widget-buttons' style='visibility:hidden; pointer-events:none; position:absolute; bottom:0; left:0; z-index:1001;'>" + buttons.bottomLeftButtons + "</div>";
+        if (buttons.bottomRightButtons) newHTML += "<div class='widget-buttons' style='visibility:hidden; pointer-events:none; position:absolute; bottom:0; right:0; z-index:1001;'>" + buttons.bottomRightButtons + "</div>";
+        newHTML += "</span>";
+        return newHTML;
+      }
+
+      function createTokenStackHTML(zone, zoneName, folder, size, stackEntries, heatmapFunction = "", heatmapColorMap = "") {
+        if (!stackEntries || stackEntries.length <= 1) {
+          if (!stackEntries || stackEntries.length === 0) return "";
+          return createCardHTML(zone, zoneName, folder, size, stackEntries[0].cardArr, stackEntries[0].index, heatmapFunction, heatmapColorMap);
+        }
+
+        var leadEntry = stackEntries[0];
+        var totalCount = stackEntries.length;
+        var stackPayload = encodeURIComponent(JSON.stringify({
+          zone: zone,
+          zoneName: zoneName,
+          folder: folder,
+          size: Math.max(74, size - 12),
+          heatmapFunction: heatmapFunction || "",
+          heatmapColorMap: heatmapColorMap || "",
+          entries: stackEntries.slice(1)
+        }));
+        var newHTML = "<span class='ga-token-stack' data-token-stack-count='" + totalCount + "' data-token-stack='" + stackPayload + "'"
+          + " onmouseenter='showTokenStackPopup(this)' onmouseleave='hideTokenStackPopup(this)'"
+          + " onfocusin='showTokenStackPopup(this)' onfocusout='hideTokenStackPopup(this)'>";
+        newHTML += createCardHTML(zone, zoneName, folder, size, leadEntry.cardArr, leadEntry.index, heatmapFunction, heatmapColorMap);
+        newHTML += "<span class='ga-token-stack-toggle' aria-hidden='true'><span class='ga-token-stack-count'>" + totalCount + "</span></span>";
+        newHTML += "</span>";
+        return newHTML;
+      }
+
+      var tokenStackPopup = null;
+      var tokenStackPopupTimeout = null;
+      var lineageOverflowPopup = null;
+      var lineageOverflowPopupTimeout = null;
+
+      function getOrCreateTokenStackPopup() {
+        if (!tokenStackPopup) {
+          tokenStackPopup = document.createElement('div');
+          tokenStackPopup.className = 'ga-token-stack-popup';
+          tokenStackPopup.id = 'ga-token-stack-popup';
+          tokenStackPopup.addEventListener('mouseenter', function() {
+            if (tokenStackPopupTimeout) {
+              clearTimeout(tokenStackPopupTimeout);
+              tokenStackPopupTimeout = null;
+            }
+          });
+          tokenStackPopup.addEventListener('mouseleave', function() {
+            hideTokenStackPopup();
+          });
+          document.body.appendChild(tokenStackPopup);
+        }
+        return tokenStackPopup;
+      }
+
+      function getOrCreateLineageOverflowPopup() {
+        if (!lineageOverflowPopup) {
+          lineageOverflowPopup = document.createElement('div');
+          lineageOverflowPopup.className = 'ga-lineage-popup';
+          lineageOverflowPopup.id = 'ga-lineage-popup';
+          lineageOverflowPopup.addEventListener('mouseenter', function() {
+            if (lineageOverflowPopupTimeout) {
+              clearTimeout(lineageOverflowPopupTimeout);
+              lineageOverflowPopupTimeout = null;
+            }
+          });
+          lineageOverflowPopup.addEventListener('mouseleave', function() {
+            hideLineageOverflowPopup();
+          });
+          document.body.appendChild(lineageOverflowPopup);
+        }
+        return lineageOverflowPopup;
+      }
+
+      function showTokenStackPopup(stackEl) {
+        try {
+          if (!stackEl) return;
+          if (tokenStackPopupTimeout) {
+            clearTimeout(tokenStackPopupTimeout);
+            tokenStackPopupTimeout = null;
+          }
+
+          var payloadAttr = stackEl.getAttribute('data-token-stack');
+          if (!payloadAttr) return;
+
+          var payload = null;
+          try {
+            payload = JSON.parse(decodeURIComponent(payloadAttr));
+          } catch (e) {
+            return;
+          }
+          if (!payload || !Array.isArray(payload.entries) || payload.entries.length === 0) return;
+
+          var popup = getOrCreateTokenStackPopup();
+          var html = "<div class='ga-token-stack-popup-shell'><div class='ga-token-stack-popup-grid'>";
+          for (var i = 0; i < payload.entries.length; ++i) {
+            var entry = payload.entries[i];
+            if (!entry || !entry.cardArr) continue;
+            html += createCardHTML(
+              payload.zone,
+              payload.zoneName,
+              payload.folder,
+              payload.size,
+              entry.cardArr,
+              entry.index,
+              payload.heatmapFunction || "",
+              payload.heatmapColorMap || ""
+            );
+          }
+          html += "</div></div>";
+          popup.innerHTML = html;
+
+          popup.style.left = '-9999px';
+          popup.style.top = '-9999px';
+          popup.classList.add('visible');
+
+          requestAnimationFrame(function() {
+            if (!popup.classList.contains('visible')) return;
+            var rect = stackEl.getBoundingClientRect();
+            var actualWidth = popup.offsetWidth;
+            var actualHeight = popup.offsetHeight;
+            var left = rect.left + (rect.width / 2) - (actualWidth / 2);
+            var top = rect.bottom + 14;
+            var viewportWidth = window.innerWidth;
+            var viewportHeight = window.innerHeight;
+
+            if (left < 10) left = 10;
+            if (left + actualWidth > viewportWidth - 10) left = viewportWidth - actualWidth - 10;
+
+            if (top + actualHeight > viewportHeight - 10) {
+              top = rect.top - actualHeight - 14;
+            }
+            if (top < 10) {
+              top = Math.max(10, viewportHeight - actualHeight - 10);
+            }
+
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+          });
+        } catch (e) {
+          if (console && console.error) console.error('showTokenStackPopup error', e);
+        }
+      }
+
+      function hideTokenStackPopup() {
+        if (tokenStackPopupTimeout) clearTimeout(tokenStackPopupTimeout);
+        tokenStackPopupTimeout = setTimeout(function() {
+          var popup = document.getElementById('ga-token-stack-popup');
+          if (popup) popup.classList.remove('visible');
+        }, 120);
+      }
+
+      function showLineageOverflowPopup(triggerEl) {
+        try {
+          if (!triggerEl) return;
+          if (lineageOverflowPopupTimeout) {
+            clearTimeout(lineageOverflowPopupTimeout);
+            lineageOverflowPopupTimeout = null;
+          }
+
+          var payloadAttr = triggerEl.getAttribute('data-lineage-subcards');
+          if (!payloadAttr) return;
+
+          var payload = null;
+          try {
+            payload = JSON.parse(decodeURIComponent(payloadAttr));
+          } catch (e) {
+            return;
+          }
+          if (!payload || !Array.isArray(payload.subcards) || payload.subcards.length === 0) return;
+
+          var popup = getOrCreateLineageOverflowPopup();
+          var html = "<div class='ga-lineage-popup-shell'><div class='ga-lineage-popup-title'>Champion Lineage</div><div class='ga-lineage-popup-grid'>";
+          for (var i = 0; i < payload.subcards.length; ++i) {
+            var cardId = payload.subcards[i];
+            if (!cardId) continue;
+            var subSrc = "./" + payload.folder + "/concat/" + cardId + ".webp";
+            html += "<span class='ga-lineage-popup-card' data-lineage-order='" + (i + 1) + "'>"
+              + "<img data-subcard-id='" + cardId + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()'"
+              + " loading='lazy' src='" + subSrc + "' alt='Lineage card' style='height:" + payload.size + "px; width:" + payload.size + "px;' />"
+              + "</span>";
+          }
+          html += "</div></div>";
+          popup.innerHTML = html;
+
+          popup.style.left = '-9999px';
+          popup.style.top = '-9999px';
+          popup.classList.add('visible');
+
+          requestAnimationFrame(function() {
+            if (!popup.classList.contains('visible')) return;
+            var rect = triggerEl.getBoundingClientRect();
+            var actualWidth = popup.offsetWidth;
+            var actualHeight = popup.offsetHeight;
+            var left = rect.left + (rect.width / 2) - (actualWidth / 2);
+            var top = rect.bottom + 12;
+            var viewportWidth = window.innerWidth;
+            var viewportHeight = window.innerHeight;
+
+            if (left < 10) left = 10;
+            if (left + actualWidth > viewportWidth - 10) left = viewportWidth - actualWidth - 10;
+
+            if (top + actualHeight > viewportHeight - 10) {
+              top = rect.top - actualHeight - 12;
+            }
+            if (top < 10) {
+              top = Math.max(10, viewportHeight - actualHeight - 10);
+            }
+
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+          });
+        } catch (e) {
+          if (console && console.error) console.error('showLineageOverflowPopup error', e);
+        }
+      }
+
+      function hideLineageOverflowPopup() {
+        if (lineageOverflowPopupTimeout) clearTimeout(lineageOverflowPopupTimeout);
+        lineageOverflowPopupTimeout = setTimeout(function() {
+          var popup = document.getElementById('ga-lineage-popup');
+          if (popup) popup.classList.remove('visible');
+        }, 120);
+      }
+
+      // Add this CSS to your stylesheet for the hover effect
+      const widgetstyle = document.createElement('style');
+      widgetstyle.innerHTML = `
+        span.draggable:hover .widget-buttons {
+          visibility: visible !important;
+          pointer-events: auto !important;
+        }
+
+        .ga-token-stack {
+          position: relative;
+          display: block;
+          flex: 0 0 auto;
+          margin: 1px 2px 0;
+          line-height: 0;
+          overflow: visible !important;
+        }
+
+        .ga-token-stack > span.draggable {
+          display: block;
+          margin: 0 !important;
+          line-height: 0;
+        }
+
+        .ga-token-stack-popup {
+          position: fixed;
+          left: -9999px;
+          top: -9999px;
+          z-index: 10020;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(10px) scale(0.97);
+          transition: opacity 160ms ease, transform 160ms ease;
+        }
+
+        .ga-token-stack-popup.visible {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0) scale(1);
+        }
+
+        .ga-token-stack-popup-shell {
+          max-width: min(72vw, 560px);
+          max-height: min(58vh, 520px);
+          padding: 14px 14px 12px;
+          border-radius: 18px;
+          border: 1px solid rgba(251, 191, 36, 0.34);
+          background:
+            linear-gradient(180deg, rgba(255, 247, 237, 0.12), rgba(255, 247, 237, 0.02)),
+            linear-gradient(160deg, rgba(99, 43, 10, 0.96), rgba(69, 28, 7, 0.98));
+          box-shadow: 0 20px 44px rgba(24, 10, 2, 0.46);
+          backdrop-filter: blur(12px);
+          overflow: auto;
+          scrollbar-width: thin;
+        }
+
+        .ga-token-stack-popup-grid {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 8px;
+          min-width: min(52vw, 360px);
+        }
+
+        .ga-token-stack-toggle {
+          position: absolute;
+          left: 50%;
+          top: calc(100% - 10px);
+          width: 0;
+          height: 0;
+          border-left: 30px solid transparent;
+          border-right: 30px solid transparent;
+          border-top: 18px solid rgba(217, 119, 6, 0.98);
+          transform: translateX(-50%);
+          filter: drop-shadow(0 10px 14px rgba(38, 18, 2, 0.38));
+          z-index: 0;
+          pointer-events: none;
+        }
+
+        .ga-token-stack-count {
+          position: absolute;
+          left: 50%;
+          top: -16px;
+          transform: translateX(-50%);
+          min-width: 20px;
+          height: 22px;
+          padding: 0 4px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(180deg, rgba(255, 244, 214, 0.98), rgba(255, 228, 167, 0.96));
+          border: 1px solid rgba(154, 52, 18, 0.6);
+          color: #9a3412;
+          font: 700 11px/1 Orbitron, sans-serif;
+          box-shadow: 0 4px 10px rgba(38, 18, 2, 0.24);
+          z-index: 1;
+        }
+
+        .ga-lineage-overflow {
+          position: absolute;
+          left: -8px;
+          top: -18px;
+          min-width: 24px;
+          height: 24px;
+          padding: 0 7px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(180deg, rgba(255, 249, 230, 0.98), rgba(248, 213, 138, 0.97));
+          border: 1px solid rgba(140, 67, 10, 0.72);
+          color: #7c2d12;
+          font: 700 11px/1 Orbitron, sans-serif;
+          letter-spacing: 0.04em;
+          box-shadow: 0 10px 18px rgba(33, 14, 2, 0.24);
+          z-index: 14;
+          cursor: pointer;
+          pointer-events: auto;
+        }
+
+        .ga-lineage-overflow:hover,
+        .ga-lineage-overflow:focus-visible {
+          outline: none;
+          transform: translateY(-1px);
+          box-shadow: 0 12px 22px rgba(33, 14, 2, 0.32);
+        }
+
+        .ga-lineage-popup {
+          position: fixed;
+          left: -9999px;
+          top: -9999px;
+          z-index: 10021;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(8px) scale(0.97);
+          transition: opacity 150ms ease, transform 150ms ease;
+        }
+
+        .ga-lineage-popup.visible {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0) scale(1);
+        }
+
+        .ga-lineage-popup-shell {
+          max-width: min(76vw, 540px);
+          max-height: min(58vh, 520px);
+          padding: 12px;
+          border-radius: 16px;
+          border: 1px solid rgba(251, 191, 36, 0.28);
+          background:
+            linear-gradient(180deg, rgba(255, 248, 235, 0.10), rgba(255, 248, 235, 0.02)),
+            linear-gradient(160deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.98));
+          box-shadow: 0 22px 42px rgba(15, 23, 42, 0.42);
+          backdrop-filter: blur(12px);
+          overflow: auto;
+          scrollbar-width: thin;
+        }
+
+        .ga-lineage-popup-title {
+          margin-bottom: 10px;
+          color: rgba(248, 225, 170, 0.96);
+          font: 700 11px/1.2 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          text-align: center;
+        }
+
+        .ga-lineage-popup-grid {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 8px;
+        }
+
+        .ga-lineage-popup-card {
+          position: relative;
+          display: inline-flex;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 10px 20px rgba(2, 6, 23, 0.34);
+        }
+
+        .ga-lineage-popup-card::after {
+          content: attr(data-lineage-order);
+          position: absolute;
+          left: 6px;
+          top: 6px;
+          min-width: 18px;
+          height: 18px;
+          padding: 0 5px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(15, 23, 42, 0.82);
+          border: 1px solid rgba(248, 225, 170, 0.32);
+          color: rgba(248, 225, 170, 0.96);
+          font: 700 10px/1 Orbitron, sans-serif;
+        }
+
+        .combat-indicator {
+          position: absolute;
+          top: 6px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 12;
+          padding: 3px 8px;
+          border: 1px solid rgba(255, 255, 255, 0.9);
+          border-radius: 999px;
+          color: #fff;
+          font-family: 'Orbitron', sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          pointer-events: none;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .combat-target-indicator {
+          background: rgba(170, 22, 22, 0.9);
+          box-shadow: 0 0 0 2px rgba(255, 210, 210, 0.2);
+        }
+
+        .combat-attacker-indicator {
+          background: rgba(24, 92, 190, 0.92);
+          box-shadow: 0 0 0 2px rgba(170, 214, 255, 0.25);
+        }
+
+        .combat-weapon-indicator {
+          background: rgba(54, 60, 68, 0.94);
+          border-color: rgba(214, 220, 228, 0.88);
+          box-shadow: 0 0 0 2px rgba(122, 130, 140, 0.24);
+          color: rgba(244, 247, 250, 0.98);
+        }
+
+        span.draggable.combat-targeted-card > a > img {
+          box-shadow: 0 0 0 2px rgba(255, 84, 84, 0.95), 0 0 18px rgba(255, 84, 84, 0.45);
+        }
+
+        span.draggable.combat-attacker-card > a > img {
+          box-shadow: 0 0 0 2px rgba(88, 164, 255, 0.96), 0 0 18px rgba(88, 164, 255, 0.48);
+        }
+
+        span.draggable.combat-weapon-card > a > img {
+          box-shadow: 0 0 0 2px rgba(78, 84, 92, 0.96), 0 0 18px rgba(30, 34, 40, 0.42);
+        }
+      `;
+      document.head.appendChild(widgetstyle);
+
+      // Render a zone's widget actions as a CUSTOM dropdown (used by DisplayMode=Dropdown,
+      // e.g. SWUDeck's Sort control): a chamfered trigger button + a styled popup list, so it
+      // can be themed to match the site's other dropdown menus (a native <select>'s option list
+      // is OS-rendered and can't be styled on macOS). Picking an item dispatches the SAME
+      // handleWidgetAction the buttons use, so behavior is identical to the button row.
+      function createWidgetDropdown(zoneName, cardId, currentValue="") {
+        const widgets = GetZoneWidgets(zoneName);
+        const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        let items = '';
+        let currentLabel = 'Sort by…';
+        let widgetType = 'Value';
+        for (const wt in widgets) {
+          widgetType = wt;
+          const widgetGroup = widgets[wt];
+          const widgetActions = Array.isArray(widgetGroup) ? widgetGroup : (widgetGroup.actions || []);
+          widgetActions.forEach(widget => {
+            const action = String(widget.Action);
+            const label = action.replace(/_/g, ' ');
+            const selected = (currentValue && currentValue !== "-" && action === currentValue);
+            if (selected) currentLabel = label;
+            items += `<div class="widget-dd-item${selected ? ' is-active' : ''}" onclick="PickWidgetDropdown(event, '${esc(cardId)}', '${esc(widgetType)}', '${esc(action)}')">${esc(label)}</div>`;
+          });
+        }
+        return `<div class="widget-dd-wrap"><button type="button" class="widget-button widget-dd-trigger" onclick="ToggleWidgetDropdown(event, this)"><span class="widget-dd-label">${esc(currentLabel)}</span><span class="widget-dd-caret">▾</span></button><div class="widget-dd-menu">${items}</div></div>`;
+      }
+
+      // Open/close a custom widget dropdown; only one open at a time; outside-click closes it.
+      function CloseWidgetDropdowns() {
+        var open = document.querySelectorAll('.widget-dd-menu.is-open');
+        for (var i = 0; i < open.length; i++) open[i].classList.remove('is-open');
+      }
+      function ToggleWidgetDropdown(event, btn) {
+        event.stopPropagation();
+        var menu = btn.parentNode.querySelector('.widget-dd-menu');
+        if (!menu) return;
+        var wasOpen = menu.classList.contains('is-open');
+        CloseWidgetDropdowns();
+        if (!wasOpen) {
+          menu.classList.add('is-open');
+          setTimeout(function() { document.addEventListener('click', CloseWidgetDropdowns, { once: true }); }, 0);
+        }
+      }
+      function PickWidgetDropdown(event, cardId, widgetType, action) {
+        event.stopPropagation();
+        CloseWidgetDropdowns();
+        handleWidgetAction(event, cardId, widgetType, action);
+      }
+
+      function createWidgetButtons(zoneName, cardId, cardJSON="-", currentValue="") {
+        const escapeHtmlAttr = (value) => String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/"/g, '&quot;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        const formatTooltipText = (value) => String(value ?? '').replace(/_/g, ' ');
+        let cardData = {};
+        if (cardJSON && cardJSON !== "-" && cardJSON.trim() !== "") {
+          try {
+            cardData = JSON.parse(cardJSON);
+          } catch (e) {
+            // If JSON parsing fails, log the error and use empty object
+            if (console && console.error) console.error('createWidgetButtons: Failed to parse cardJSON for', cardId, ':', cardJSON, e);
+            cardData = {};
+          }
+        }
+        const widgets = GetZoneWidgets(zoneName);
+        let buttons = {};
+        let buttonsHtml = '';
+        let topRightButtons = '';
+        let bottomLeftButtons = '';
+        let bottomRightButtons = '';
+        let topLeftButtons = '';
+
+        for (const widgetType in widgets) {
+          const widgetGroup = widgets[widgetType];
+          const widgetActions = Array.isArray(widgetGroup) ? widgetGroup : widgetGroup.actions || [];
+          const position = (!Array.isArray(widgetGroup) && widgetGroup.position) ? widgetGroup.position.toLowerCase() : 'center';
+          const condition = (!Array.isArray(widgetGroup) && widgetGroup.condition) ? widgetGroup.condition : null;
+
+          // Check if condition is met (if one exists)
+          let conditionMet = true;
+          if (condition && condition.field && condition.value !== undefined) {
+            const fieldValue = cardData.hasOwnProperty(condition.field) ? cardData[condition.field] : null;
+            conditionMet = fieldValue !== null && String(fieldValue) === String(condition.value);
+          }
+
+          // Skip rendering if condition is not met
+          if (!conditionMet) continue;
+
+          widgetActions.forEach(widget => {
+            if(widget.Action == "Display" && cardData.hasOwnProperty(widgetType)) {
+              var widgetContent = typeof cardData[widgetType] === 'string' ? cardData[widgetType].replace(/_/g, ' ') : cardData[widgetType];
+              if(widgetContent == "Notes") {
+                topRightButtons += `<span style="font-weight: bold; color: black; background-color: rgba(255, 255, 255, 0.8); margin-left: 5px; padding: 2px 4px; border-radius: 3px;">${widgetContent}</span>`;
+              } else {
+                widgetContent = widgetIcons(widgetContent);
+                buttonsHtml += `&nbsp;<span style="font-weight: bold; color: black; background-color: rgba(255, 255, 255, 0.8); margin-left: 5px; padding: 2px 4px; border-radius: 3px;">${widgetContent}</span>`;
+              }
+            }
+            else {
+              var widgetName = widget.Action.replace(/_/g, ' ');
+
+              // Special handling for Activate button - show ability names
+              if (widget.Action === 'Activate' && cardData.CardID && typeof CardActivateAbilityCount === 'function') {
+                const handAbilityCount = (cardData.Location === 'Hand' && typeof CardHandActivatedAbilityCount === 'function')
+                  ? CardHandActivatedAbilityCount(cardData.CardID)
+                  : Number(cardData.HandActivateAbilityCount || 0);
+                const useHandAbilities = cardData.Location === 'Hand' && handAbilityCount > 0;
+                const abilityCount = useHandAbilities ? handAbilityCount : CardActivateAbilityCount(cardData.CardID);
+                // Read server-computed dynamic abilities (generic — no game-specific logic here)
+                let dynamicAbilities = [];
+                let activateAbilityStates = [];
+                if (cardData.DynamicAbilities && cardData.DynamicAbilities !== '' && cardData.DynamicAbilities !== '[]') {
+                  try { dynamicAbilities = JSON.parse(cardData.DynamicAbilities); } catch(e) {}
+                }
+                if (cardData.ActivateAbilityButtonStates && cardData.ActivateAbilityButtonStates !== '' && cardData.ActivateAbilityButtonStates !== '[]') {
+                  try { activateAbilityStates = JSON.parse(cardData.ActivateAbilityButtonStates); } catch(e) {}
+                }
+                const staticAbilityStates = new Map(
+                  activateAbilityStates.map((entry) => [Number(entry.index), entry])
+                );
+                if (abilityCount >= 1 || dynamicAbilities.length > 0) {
+                  // Generate button(s) for each static ability
+                  let abilityNames = [];
+                  if (useHandAbilities) {
+                    if (typeof CardHandActivatedAbilityCountNames === 'function') {
+                      abilityNames = CardHandActivatedAbilityCountNames(cardData.CardID);
+                    } else if (Array.isArray(cardData.HandActivateAbilityNames)) {
+                      abilityNames = cardData.HandActivateAbilityNames;
+                    } else if (typeof cardData.HandActivateAbilityNames === 'string' && cardData.HandActivateAbilityNames !== '') {
+                      try { abilityNames = JSON.parse(cardData.HandActivateAbilityNames); } catch(e) {}
+                    }
+                  } else {
+                    abilityNames = typeof CardActivateAbilityCountNames === 'function'
+                      ? CardActivateAbilityCountNames(cardData.CardID)
+                      : [];
+                  }
+                  for (let i = 0; i < abilityCount; i++) {
+                    const abilityName = abilityNames[i] || `Ability ${i + 1}`;
+                    const actionWithIndex = `Activate:${i}`;
+                    const abilityState = staticAbilityStates.get(i);
+                    const isEnabled = !abilityState || abilityState.enabled !== false;
+                    const buttonTitle = escapeHtmlAttr(formatTooltipText((abilityState && abilityState.tooltip) ? abilityState.tooltip : abilityName));
+                    const buttonClass = isEnabled ? 'widget-button' : 'widget-button widget-button-disabled';
+                    const buttonAction = isEnabled
+                      ? `handleWidgetAction(event, '${cardId}', '${widgetType}', '${actionWithIndex}')`
+                      : 'event.preventDefault(); event.stopPropagation(); return false;';
+                    const buttonHtml = `&nbsp;<button class="${buttonClass}" onclick="${buttonAction}" title="${buttonTitle}" aria-disabled="${isEnabled ? 'false' : 'true'}">${abilityName}</button>`;
+                    switch(position) {
+                      case 'topright': topRightButtons += buttonHtml; break;
+                      case 'topleft': topLeftButtons += buttonHtml; break;
+                      case 'bottomleft': bottomLeftButtons += buttonHtml; break;
+                      case 'bottomright': bottomRightButtons += buttonHtml; break;
+                      default: buttonsHtml += buttonHtml;
+                    }
+                  }
+                  // Generate button(s) for each server-provided dynamic ability
+                  for (const dynAbility of dynamicAbilities) {
+                    const dynAction = `Activate:${dynAbility.index}`;
+                    const dynButtonHtml = `&nbsp;<button class="widget-button" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${dynAction}')" title="${escapeHtmlAttr(formatTooltipText(dynAbility.name))}">${dynAbility.name}</button>`;
+                    switch(position) {
+                      case 'topright': topRightButtons += dynButtonHtml; break;
+                      case 'topleft': topLeftButtons += dynButtonHtml; break;
+                      case 'bottomleft': bottomLeftButtons += dynButtonHtml; break;
+                      case 'bottomright': bottomRightButtons += dynButtonHtml; break;
+                      default: buttonsHtml += dynButtonHtml;
+                    }
+                  }
+                  return; // Skip the default button generation
+                }
+              }
+
+              widgetContent = widgetIcons(widgetName);
+              const isSelected = currentValue != "" && widget.Action == currentValue;
+              const isPassAction = typeof widget.Action === 'string' && widget.Action.toUpperCase() === 'PASS';
+              const buttonClass = `${isSelected ? 'widget-button-selected' : 'widget-button'}${isPassAction ? ' widget-button-pass' : ''}`;
+              const buttonHtml = `&nbsp;<button class="${buttonClass}" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${widget.Action}')">${widgetContent}</button>`;
+
+              if(widgetName == "Notes") {
+                topRightButtons += buttonHtml;
+              } else {
+                switch(position) {
+                  case 'topright':
+                    topRightButtons += buttonHtml;
+                    break;
+                  case 'topleft':
+                    topLeftButtons += buttonHtml;
+                    break;
+                  case 'bottomleft':
+                    bottomLeftButtons += buttonHtml;
+                    break;
+                  case 'bottomright':
+                    bottomRightButtons += buttonHtml;
+                    break;
+                  default: // center
+                    buttonsHtml += buttonHtml;
+                }
+              }
+            }
+          });
+        }
+        buttons.middleButtons = buttonsHtml;
+        buttons.topRightButtons = topRightButtons;
+        buttons.bottomLeftButtons = bottomLeftButtons;
+        buttons.bottomRightButtons = bottomRightButtons;
+        buttons.topLeftButtons = topLeftButtons;
+        return buttons;
+      }
+
+      function widgetIcons(content) {
+        if(content == ">>>") {
+          return `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
+      <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
+    </svg>`;
+        } else if(content == "<<<") {
+          return `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+      <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+    </svg>`;
+        } else if(content == "<") {
+          return `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+    </svg>`;
+        } else if(content == ">") {
+          return `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+    </svg>`;
+        } else if(content == "V") {
+          return `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+    </svg>`;
+        } else if(content == "^") {
+          return `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+    </svg>`;
+        } else if(content == "+") {
+          return `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+    </svg>`;
+        } else if(content == "Notes") {
+          return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+</svg>`;
+        }
+        return content;
+      }
+      // Add this CSS to your stylesheet for the modern button style
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .widget-button {
+          background: linear-gradient(180deg, rgba(58, 58, 58, 0.96) 0%, rgba(28, 28, 28, 0.98) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          color: #f6f3eb;
+          padding: 4px 8px;
+          min-width: 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          margin: 0px 0px;
+          transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease, color 0.16s ease;
+          cursor: pointer;
+          border-radius: 999px;
+          box-shadow: 0 2px 7px rgba(0, 0, 0, 0.28);
+        }
+
+        .widget-button:hover {
+          background: linear-gradient(180deg, rgba(255, 248, 236, 0.98) 0%, rgba(230, 224, 212, 0.98) 100%);
+          color: #171717;
+          border-color: rgba(255, 255, 255, 0.9);
+          box-shadow: 0 0 0 1px rgba(255, 248, 236, 0.55), 0 8px 18px rgba(0, 0, 0, 0.35);
+          transform: translateY(-1px);
+        }
+
+        .widget-button-disabled {
+          background: linear-gradient(180deg, rgba(74, 44, 44, 0.95) 0%, rgba(52, 22, 22, 0.98) 100%);
+          border-color: rgba(255, 110, 110, 0.22);
+          color: rgba(255, 232, 232, 0.78);
+          cursor: not-allowed;
+          opacity: 0.92;
+          box-shadow: 0 2px 8px rgba(24, 0, 0, 0.32);
+        }
+
+        .widget-button-disabled:hover {
+          background: linear-gradient(180deg, rgba(100, 34, 34, 0.98) 0%, rgba(74, 18, 18, 1) 100%);
+          color: #fff0f0;
+          border-color: rgba(255, 120, 120, 0.9);
+          box-shadow: 0 0 0 1px rgba(255, 120, 120, 0.38), 0 0 12px rgba(255, 72, 72, 0.42), 0 0 24px rgba(255, 42, 42, 0.22);
+          transform: translateY(-1px);
+        }
+
+        .widget-button-selected {
+          background: linear-gradient(180deg, rgba(214, 205, 192, 0.98) 0%, rgba(182, 170, 154, 0.98) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: #141414;
+          padding: 4px 8px;
+          min-width: 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          margin: 0px 0px;
+          transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+          cursor: pointer;
+          border-radius: 999px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
+        }
+
+        .widget-button-selected:hover {
+          background: linear-gradient(180deg, rgba(255, 247, 233, 0.98) 0%, rgba(227, 220, 208, 0.98) 100%);
+          color: #101010;
+          border-color: rgba(255, 255, 255, 0.9);
+          box-shadow: 0 0 0 1px rgba(255, 248, 236, 0.5), 0 8px 18px rgba(0, 0, 0, 0.3);
+          transform: translateY(-1px);
+        }
+
+        .widget-button-pass {
+          background:
+            linear-gradient(170deg, rgba(214, 233, 255, 0.24) 0%, rgba(214, 233, 255, 0.06) 26%, rgba(214, 233, 255, 0) 42%),
+            linear-gradient(145deg, rgba(8, 20, 53, 0.52) 0%, rgba(14, 34, 79, 0.44) 45%, rgba(9, 24, 60, 0.56) 100%);
+          border: 1px solid rgba(173, 203, 255, 0.52);
+          color: #eef5ff;
+          padding: 10px 24px;
+          min-width: 96px;
+          font-size: 17px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          border-radius: 14px;
+          box-shadow:
+            inset 0 1px 0 rgba(233, 244, 255, 0.42),
+            inset 0 -1px 0 rgba(141, 178, 240, 0.2),
+            0 10px 24px rgba(3, 8, 26, 0.42);
+          backdrop-filter: blur(12px) saturate(125%);
+          -webkit-backdrop-filter: blur(12px) saturate(125%);
+          transition: box-shadow 0.18s ease, filter 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .widget-button-pass:hover {
+          background:
+            linear-gradient(170deg, rgba(229, 241, 255, 0.3) 0%, rgba(229, 241, 255, 0.08) 28%, rgba(229, 241, 255, 0) 44%),
+            linear-gradient(145deg, rgba(8, 20, 53, 0.56) 0%, rgba(17, 40, 92, 0.48) 45%, rgba(10, 25, 63, 0.6) 100%);
+          color: #f5f9ff;
+          border-color: rgba(202, 224, 255, 0.84);
+          box-shadow:
+            inset 0 1px 0 rgba(245, 250, 255, 0.55),
+            inset 0 -1px 0 rgba(160, 194, 248, 0.32),
+            0 12px 28px rgba(3, 8, 26, 0.5);
+          filter: brightness(1.06);
+        }
+
+        /* ---- Custom widget dropdown (DisplayMode=Dropdown) ---- */
+        /* Base = structural (open/close toggle, positioning) + a neutral default look that
+           matches .widget-button. Apps override the cosmetics in their own GameLayout CSS
+           (e.g. SWUDeck's cyan-HUD theme) — do NOT hard-code an app theme here. */
+        .widget-dd-wrap { position: relative; display: inline-block; }
+        .widget-dd-trigger { display: inline-flex; align-items: center; gap: 6px; }
+        .widget-dd-caret { font-size: 10px; opacity: 0.85; }
+        .widget-dd-menu {
+          display: none; position: absolute; top: 100%; left: 0; margin-top: 3px;
+          z-index: 9999; min-width: 100%;
+          background: linear-gradient(180deg, rgba(42,42,42,0.98) 0%, rgba(24,24,24,0.99) 100%);
+          border: 1px solid rgba(255,255,255,0.16); border-radius: 8px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.45); overflow: hidden;
+        }
+        .widget-dd-menu.is-open { display: block; }
+        .widget-dd-item {
+          padding: 7px 14px; font-size: 13px; color: #f6f3eb; cursor: pointer; white-space: nowrap;
+        }
+        .widget-dd-item:hover { background: rgba(255,255,255,0.10); }
+        .widget-dd-item.is-active { font-weight: 700; }
+      `;
+      document.head.appendChild(style);
+
+      // Add Flash Message styles
+      const flashStyle = document.createElement('style');
+      flashStyle.innerHTML = `
+        @keyframes flash-pulse {
+          0% { box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); }
+          50% { box-shadow: 0 0 20px rgba(0, 123, 255, 0.8); }
+          100% { box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); }
+        }
+        #flash-message {
+          animation: flash-pulse 2s infinite;
+        }
+        .flash-content {
+          margin-right: 20px;
+        }
+      `;
+      document.head.appendChild(flashStyle);
+
+      // Add selectable-card green glow styles (brighter, lighter, less transparent)
+      const selectableStyle = document.createElement('style');
+        selectableStyle.innerHTML = `
+          /* Light lime glow for selectable cards */
+
+          /* Any span containing a lineage subcard must not clip its overflow */
+          span:has(.lineage-subcard.subcard-above) {
+            position: relative;
+            z-index: 1;
+            overflow: visible !important;
+            margin-bottom: 44px;
+          }
+
+          span:has(.lineage-subcard.subcard-below) {
+            position: relative;
+            z-index: 1;
+            overflow: visible !important;
+          }
+
+          /* Lineage subcard images must not inherit the selectable highlight */
+          .selectable-card .lineage-subcard {
+            border: 1px solid transparent !important;
+            box-shadow: none !important;
+            transform: none !important;
+          }
+
+          .selectable-card {
+            display: inline-block; /* ensure box-shadow applies nicely */
+            position: relative;
+            overflow: visible;
+            border-radius: 8px;
+            transition: transform 160ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms ease;
+            /* no wrapper border — border lives on the image so it hugs art exactly */
+            box-shadow: none;
+            border: none;
+            will-change: transform, box-shadow;
+          }
+
+          /* Slight lift on hover for tactile feedback */
+          .selectable-card:hover {
+            transform: translateY(-4px) scale(1.04);
+          }
+
+          /* Image-level border - use custom color variable */
+          .selectable-card img:not(.counter-image-icon) {
+            border-radius: 6px;
+            display: block;
+            position: relative;
+            z-index: 1;
+            /* Always show border with custom color */
+            border: 2px solid var(--highlight-color);
+            /* Subtle outer glow even at rest */
+            box-shadow: 0 0 12px var(--highlight-color), 0 0 6px var(--highlight-color);
+            transition: box-shadow 140ms ease, border-color 140ms ease, border-width 140ms ease, transform 160ms ease;
+          }
+
+          /* On hover: slightly thicker border and enhanced glow */
+          .selectable-card:hover img:not(.counter-image-icon) {
+            /* Slightly thicker border */
+            border: 3px solid var(--highlight-color);
+            /* Enhanced but still subtle glow on hover */
+            box-shadow:
+              0 0 20px var(--highlight-color),
+              0 0 12px var(--highlight-color);
+          }
+
+          .selectable-card.selected-inline img:not(.counter-image-icon) {
+            border: 3px solid rgba(255, 198, 46, 1);
+            box-shadow:
+              0 0 14px rgba(255, 198, 46, 1),
+              0 0 8px rgba(255, 198, 46, 0.95);
+          }
+
+          /* Gentle pulsing for active selection mode */
+          @keyframes selectable-border-pulse {
+            0% {
+              border-color: rgba(100,250,0,0.50);
+              box-shadow: 0 0 8px rgba(100,250,0,0.3);
+            }
+            50% {
+              border-color: rgba(100,250,0,0.80);
+              box-shadow: 0 0 12px rgba(100,250,0,0.5);
+            }
+            100% {
+              border-color: rgba(100,250,0,0.50);
+              box-shadow: 0 0 8px rgba(100,250,0,0.3);
+            }
+          }
+
+          /* Pulse the image border when the wrapper has the pulse class */
+          .selectable-card.pulse img {
+            animation: selectable-border-pulse 1.5s infinite;
+          }
+        `;
+      document.head.appendChild(selectableStyle);
+
+      // Temporarily set nearest scrollable ancestor overflow to visible while hovering a selectable card
+      // or a token stack dropdown so overflow menus aren't clipped by scroll containers.
+      function findOverflowingAncestor(el) {
+        while (el && el !== document.documentElement) {
+          el = el.parentElement;
+          if (!el) break;
+          const cs = window.getComputedStyle(el);
+          // consider it overflowing if overflow or overflow-y is not 'visible'
+          if (cs.overflow !== 'visible' || cs.overflowY !== 'visible' || cs.overflowX !== 'visible') {
+            // only return if it actually can clip (auto/hidden/scroll)
+            if (['hidden','auto','scroll'].includes(cs.overflow) || ['hidden','auto','scroll'].includes(cs.overflowY) || ['hidden','auto','scroll'].includes(cs.overflowX)) {
+              return el;
+            }
+          }
+        }
+        return null;
+      }
+
+      function getOverflowHoverRegion(target) {
+        if (!target || !target.closest) return null;
+        return target.closest('.ga-token-stack') || target.closest('.selectable-card');
+      }
+
+      // Manage hover delegation to avoid adding listeners to every card
+      document.addEventListener('mouseover', function(e) {
+        const hoverRegion = getOverflowHoverRegion(e.target);
+        if (!hoverRegion) return;
+        const anc = findOverflowingAncestor(hoverRegion);
+        if (!anc) return;
+        // initialize counter if needed
+        if (!anc.dataset._overflowCount) anc.dataset._overflowCount = '0';
+        if (!anc.dataset.prevOverflow) {
+          anc.dataset.prevOverflow = anc.style.overflow || '';
+        }
+        // increment
+        anc.dataset._overflowCount = String(parseInt(anc.dataset._overflowCount || '0') + 1);
+        anc.style.overflow = 'visible';
+      });
+
+      document.addEventListener('mouseout', function(e) {
+        const hoverRegion = getOverflowHoverRegion(e.target);
+        if (!hoverRegion) return;
+        // if moving to an element still inside the hovered region, do nothing
+        const to = e.relatedTarget;
+        if (to && hoverRegion.contains(to)) return;
+        const anc = findOverflowingAncestor(hoverRegion);
+        if (!anc) return;
+        const count = Math.max(0, parseInt(anc.dataset._overflowCount || '0') - 1);
+        anc.dataset._overflowCount = String(count);
+        if (count <= 0) {
+          // restore previous overflow
+          anc.style.overflow = anc.dataset.prevOverflow || '';
+          delete anc.dataset.prevOverflow;
+          delete anc.dataset._overflowCount;
+        }
+      });
+
+      function handleWidgetAction(event, cardId, widgetType, action) {
+        event.stopPropagation(); // Prevent the click event from bubbling up
+        if (window.SelectionMode && window.SelectionMode.active && action && action.startsWith('Activate:')) {
+          const specs = window.SelectionMode.allowedZones || [];
+          const encodedAction = action.replace(':', '-');
+          const matchingSpec = specs.find(spec => spec && spec.originalSpec && spec.originalSpec.startsWith(cardId + '@') && spec.actionPayload === encodedAction);
+          if (matchingSpec && typeof window.SelectionMode.callback === 'function') {
+            window.SelectionMode.callback(cardId.split('-').slice(0, -1).join('-'), matchingSpec.originalSpec, window.SelectionMode.decisionIndex);
+            ClearSelectionMode();
+            return;
+          }
+        }
+        // Implement the action handling logic here
+        if(action == "Notes") {
+          DisplayTextPopup(cardId, widgetType, action);
+        } else if (typeof ClientWidgetActions === 'function' && ClientWidgetActions(action)) {
+
+        } else {
+          SubmitInput("10001", "&cardID=" + encodeURIComponent(cardId + "!" + widgetType + "!" + action));
+        }
+      }
+
+      function DisplayTextPopup(cardId, widgetType, action) {
+        let modalOverlay = document.createElement('div');
+        modalOverlay.style.position = 'fixed';
+        modalOverlay.style.top = 0;
+        modalOverlay.style.left = 0;
+        modalOverlay.style.width = '100%';
+        modalOverlay.style.height = '100%';
+        modalOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        modalOverlay.style.display = 'flex';
+        modalOverlay.style.alignItems = 'center';
+        modalOverlay.style.justifyContent = 'center';
+        modalOverlay.style.zIndex = '2000';
+
+        let modalContainer = document.createElement('div');
+        modalContainer.style.backgroundColor = '#0D1B2A'; // Deep space dark blue background
+        modalContainer.style.padding = '20px';
+        modalContainer.style.borderRadius = '8px';
+        modalContainer.style.position = 'relative';
+        modalContainer.style.boxShadow = '0 0 15px 5px rgba(0, 123, 255, 0.7)';
+
+        let caption = document.createElement('div');
+        caption.textContent = 'Notes';
+        caption.style.fontSize = '18px';
+        caption.style.fontWeight = 'bold';
+        caption.style.marginBottom = '10px';
+        caption.style.color = '#FFFFFF';
+        caption.style.fontFamily = "'Orbitron', sans-serif";
+        caption.style.letterSpacing = '2px';
+
+        let closeButton = document.createElement('button');
+        closeButton.textContent = 'X';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '5px';
+        closeButton.style.right = '5px';
+        closeButton.style.background = 'transparent';
+        closeButton.style.border = 'none';
+        closeButton.style.fontSize = '16px';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.fontFamily = "'Orbitron', sans-serif";
+        closeButton.style.color = '#FFFFFF';
+
+        var fullData = GetZoneCard(cardId);
+        let textEntry = document.createElement('textarea');
+        //textEntry.value = fullData["Notes"].replace(/_/g, " ");
+        textEntry.value = GetCardNotes(fullData.CardID);
+        textEntry.style.width = '300px';
+        textEntry.style.height = '150px';
+        textEntry.style.backgroundColor = '#333'; // Dark background for dark mode
+        textEntry.style.color = '#EEE'; // Light text color for readability
+        textEntry.style.border = '1px solid #555'; // Subtle border
+
+        // Function to close the modal and submit the note text
+        function closeModal() {
+          var noteText = textEntry.value;
+          if(modalOverlay.parentNode) {
+        document.body.removeChild(modalOverlay);
+          }
+          document.removeEventListener('keydown', escClose);
+          SubmitInput("10001", "&cardID=" + encodeURIComponent(cardId + "!text!" + action + "!" + noteText));
+        }
+
+        // Close if click occurs outside the modal container
+        modalOverlay.addEventListener('click', function(e) {
+          if (e.target === modalOverlay) {
+        closeModal();
+          }
+        });
+
+        // Close if Escape key is pressed
+        function escClose(e) {
+          if (e.key === "Escape") {
+        closeModal();
+          }
+        }
+        document.addEventListener('keydown', escClose);
+
+        closeButton.addEventListener('click', function() {
+          closeModal();
+        });
+
+        modalContainer.appendChild(closeButton);
+        modalContainer.appendChild(caption);
+        modalContainer.appendChild(textEntry);
+        modalOverlay.appendChild(modalContainer);
+        document.body.appendChild(modalOverlay);
+        textEntry.focus();
+      }
+
+      function GetCardNotes(cardID) {
+        var notesData = (typeof window["myCardNotesData"] !== "undefined") ? window["myCardNotesData"] : "";
+        if(notesData == "") return "";
+        notesData = notesData.split("<|>");
+        for(var i = 0; i < notesData.length; ++i) {
+          var cardData = notesData[i].split(" ");
+          if(cardData[0] == cardID) {
+            var cardJson = JSON.parse(cardData[2]);
+            return cardJson["Notes"].replace(/_/g, " ");
+          }
+        }
+        return "";
+      }
+
+      function GetZoneCard(cardId) {
+        var cardArr = cardId.split("-");
+        var zoneName = cardArr[0];
+        var zoneData = GetZoneData(zoneName);
+        var fullData = [];
+        if(zoneData.DisplayMode != "Pane") {
+          var cardData = window[zoneName + "Data"].split("<|>");
+          fullData = JSON.parse(cardData[cardArr[1]].split(" ")[2]);
+        } else {
+          var prefix = zoneName.replace(zoneData.Name, "");
+          var activePaneVar = `_${prefix}_${zoneData.DisplayParameters[0]}_activePane`;
+          var paneName = prefix + zoneData.DisplayParameters[0] + "Panes";
+          var panes = window[paneName];
+          var cardData = panes[window[activePaneVar]].split("<|>");
+          fullData = JSON.parse(cardData[cardArr[1]].split(" ")[2]);
+        }
+        return fullData;
+      }
+
+      function GetZoneCards(zoneName) {
+        var zoneData = GetZoneData(zoneName);
+        var cards = [];
+        if(zoneData.DisplayMode != "Pane") {
+          var cardData = window[zoneName + "Data"].split("<|>");
+          for (let i = 0; i < cardData.length; i++) {
+            const cardArr = cardData[i].split(" ");
+            if(cardArr.length < 3) continue;
+            const cardObj = JSON.parse(cardArr[2]);
+            cards.push(cardObj["CardID"]);
+          }
+          return cards;
+        } else {
+          showFlashMessage("Get zone cards for panes not implemented yet");
+          /*
+          var prefix = zoneName.replace(zoneData.Name, "");
+          var activePaneVar = `_${prefix}_${zoneData.DisplayParameters[0]}_activePane`;
+          var paneName = prefix + zoneData.DisplayParameters[0] + "Panes";
+          var panes = window[paneName];
+          var cardData = panes[window[activePaneVar]].split("<|>");
+          fullData = JSON.parse(cardData[cardArr[1]].split(" ")[2]);
+          */
+        }
+      }
+
+      function RenderRows(myRows, theirRows) {
+        var theirStuff = "";
+        var myStuff = "";
+        theirRows.forEach(element => {
+          theirStuff += element + "<br>";
+        });
+        myRows.forEach(element => {
+          myStuff += element + "<br>";
+        });
+
+        var theirDiv = document.getElementById("theirStuff");
+        var myDiv = document.getElementById("myStuff");
+        theirDiv.innerHTML = theirStuff;
+        myDiv.innerHTML = myStuff;
+      }
+
+      function RenderPanes(zoneName, myPanes, theirPanes) {
+        RenderPane("my", zoneName, myPanes);
+        RenderPane("their", zoneName, theirPanes);
+      }
+
+      function ShowFilterBarHelp() {
+        let helpText = "Use the filter bar to quickly find cards. Text properties can use ':' or '=' to search for cards where that property contains that text. Numeric properties can use '=', '<', '>', '>=', or '<='. You can filter by the following properties:\n\n";
+        propertyLookup.forEach(property => {
+          helpText += `- "${property.Name}" (${property.Type})${property.Alias ? ` | alias: "${property.Alias}"` : ''}\n`;
+        });
+        let modalOverlay = document.createElement('div');
+        modalOverlay.style.position = 'fixed';
+        modalOverlay.style.top = 0;
+        modalOverlay.style.left = 0;
+        modalOverlay.style.width = '100%';
+        modalOverlay.style.height = '100%';
+        modalOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        modalOverlay.style.display = 'flex';
+        modalOverlay.style.alignItems = 'center';
+        modalOverlay.style.justifyContent = 'center';
+        modalOverlay.style.zIndex = '2000';
+
+        let modalContainer = document.createElement('div');
+        modalContainer.style.backgroundColor = '#0D1B2A'; // Deep space dark blue background
+        modalContainer.style.padding = '20px';
+        modalContainer.style.borderRadius = '8px';
+        modalContainer.style.position = 'relative';
+        modalContainer.style.boxShadow = '0 0 15px 5px rgba(0, 123, 255, 0.7)'; // Blue glow
+        modalContainer.style.maxWidth = '80%';
+        modalContainer.style.maxHeight = '80%';
+        modalContainer.style.overflowY = 'auto';
+        modalContainer.style.color = 'white'; // Set text color to white
+        modalContainer.style.fontFamily = 'Arial, sans-serif'; // Change font to Arial
+        modalContainer.style.lineHeight = '1.6'; // Increase line height for better readability
+
+        let closeButton = document.createElement('button');
+        closeButton.textContent = 'X';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '10px';
+        closeButton.style.right = '10px';
+        closeButton.style.background = 'transparent';
+        closeButton.style.border = 'none';
+        closeButton.style.fontSize = '16px';
+        closeButton.style.cursor = 'pointer';
+
+        let helpContent = document.createElement('div');
+        helpContent.textContent = helpText;
+        helpContent.style.whiteSpace = 'pre-wrap';
+
+        function closeModal() {
+          if (modalOverlay.parentNode) {
+            document.body.removeChild(modalOverlay);
+          }
+          document.removeEventListener('keydown', escClose);
+        }
+
+        function escClose(e) {
+          if (e.key === 'Escape') {
+            closeModal();
+          }
+        }
+
+        modalOverlay.addEventListener('click', function(e) {
+          if (e.target === modalOverlay) {
+            closeModal();
+          }
+        });
+
+        closeButton.addEventListener('click', closeModal);
+        document.addEventListener('keydown', escClose);
+
+        modalContainer.appendChild(closeButton);
+        modalContainer.appendChild(helpContent);
+        modalOverlay.appendChild(modalContainer);
+        document.body.appendChild(modalOverlay);
+      }
+
+      function ZoneScrollHandler(fullName) {
+        var container = document.getElementById(fullName + "Wrapper");
+        if (container) {
+          window[fullName + "ScrollPosition"] = container.scrollTop;
+        }
+      }
+
+      // Add a help icon next to the filter bar
+      function RenderPane(prefix, zoneName, panes) {
+        var fullName = prefix + zoneName;
+        var filterText = window.filterText ? window.filterText : "";//TODO: Separate filter text for each zone
+        var customFilterStatus = window.customFilter ? window.customFilter : false;
+        var storedLegalFilter = localStorage.getItem('swuLegalFilter');
+        var legalFilterStatus = storedLegalFilter !== null ? storedLegalFilter === 'true' : true;
+        window.legalFilter = legalFilterStatus;
+        var scrollPosition = window[fullName + "ScrollPosition"] || 0;
+        var html = "<div style='display: flex; flex-direction: column; width:100%; overflow-y: auto;'>";
+        html += `<div style='position: relative; width: 100%; box-sizing: border-box;'>`;
+        setTimeout(() => {
+          document.getElementById(fullName + "Wrapper").scrollTop = scrollPosition;
+        }, 0);
+        html += `<input type="text" style='height:28px; margin-top:3px; width:100%; box-sizing:border-box; padding-right:20px;' class='filterBar' id="${fullName}FilterText" onkeydown="PaneFilterKeyDown('${prefix}', '${zoneName}', event);" oninput="PaneFilterCards('${prefix}', '${zoneName}', event, 'textFilter');" placeholder="Filter cards..." ${filterText ? `value="${filterText.replace(/"/g, '&quot;')}"` : ''}></input>`;
+        html += `<img src='./Assets/Images/infoicon.png' style='cursor: pointer; position: absolute; top: 2px; right: 2px; height:12px; width:12px;' onclick='ShowFilterBarHelp()' aria-label='Click for filter syntax' />`;
+        html += `</div>`;
+        html += `<div style='display: flex; align-items: center; flex-wrap: wrap; margin-top: 4px;'>`;
+        var paneHTML = "<span id='" + prefix + "_" + zoneName + "_content'>";
+        var panelNames = GetPaneData(zoneName);
+        var activePaneVar = `_${prefix}_${zoneName}_activePane`;
+        var index = 0;
+        var hasCustomFilter = false;
+        panelNames.forEach(panelName => {
+          html += `<div style='font-size: 14px; cursor: pointer;' class='panelTab' onclick='PaneTabClick("${prefix}", "${zoneName}", "${index}")'>${panelName}</div>`;
+          if(index == window[activePaneVar]) {
+            paneHTML += PopulateZone(prefix + panelName, panes[window[activePaneVar]], window.cardSize, window.rootPath + "/concat",1,"All", filterText);
+            var zoneData = GetZoneData(prefix + panelName);
+            if(zoneData.Filters.length > 0) hasCustomFilter = true;
+          }
+          ++index;
+        });
+        html += `</div>`; // close the tabs row
+        // Filters go on their OWN row below the tabs: [Filter Legal] [Filter Aspect].
+        var hasLegalFilter = (typeof window.InLegalFilter === 'function');
+        if(hasLegalFilter || hasCustomFilter) {
+          html += `<div style='display: flex; align-items: center; flex-wrap: wrap; margin-top: 4px; gap: 12px;'>`;
+          if(hasLegalFilter) {
+            html += `<div style='display: flex; align-items: center;'>
+            <input type='checkbox' id='legalFilterCheckbox' onchange='PaneFilterCards("${prefix}", "${zoneName}", event, "check");' ${legalFilterStatus ? 'checked' : ''}>
+            <label for='legalFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter Legal</label>
+                </div>`;
+          }
+          if(hasCustomFilter) {
+            html += `<div style='display: flex; align-items: center;'>
+            <input type='checkbox' id='customFilterCheckbox' onchange='PaneFilterCards("${prefix}", "${zoneName}", event, "check");' ${customFilterStatus ? 'checked' : ''}>
+            <label for='customFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter Aspect</label>
+                </div>`;
+          }
+          html += `</div>`;
+        }
+        paneHTML += "</span>";
+        html += "</div>";
+        document.getElementById(fullName).innerHTML = html + paneHTML;
+      }
+      function PaneTabClick(prefix, zoneName, index) {
+        var activePaneVar = `_${prefix}_${zoneName}_activePane`;
+        window[activePaneVar] = index;
+        var paneVar = `${prefix}${zoneName}Panes`;
+        RenderPane(prefix, zoneName, window[paneVar]);
+      }
+
+      function PaneFilterCards(prefix, zoneName, event, source) {
+        event.stopPropagation();
+        var fullName = prefix + zoneName;
+        var paneVar = `${prefix}${zoneName}Panes`;
+        const filterTextElement = document.getElementById(`${fullName}FilterText`);
+        const cursorPosition = filterTextElement.selectionStart; // Save the cursor position
+        window.filterText = filterTextElement.value; // TODO: Separate filter text for each zone
+        const customFilterCheckbox = document.getElementById('customFilterCheckbox');
+        window.customFilter = customFilterCheckbox ? customFilterCheckbox.checked : false;
+        const legalFilterCheckbox = document.getElementById('legalFilterCheckbox');
+        window.legalFilter = legalFilterCheckbox ? legalFilterCheckbox.checked : false;
+        localStorage.setItem('swuLegalFilter', window.legalFilter);
+        RenderPane(prefix, zoneName, window[paneVar]);
+        if(source == "textFilter") {
+          const filterTextElement2 = document.getElementById(`${fullName}FilterText`);
+          filterTextElement2.setSelectionRange(cursorPosition, cursorPosition); // Restore the cursor position
+          filterTextElement2.focus();
+        }
+      }
+
+      function PaneFilterKeyDown(prefix, zoneName, event) {
+        event.stopPropagation();
+        if(event.key === 'Enter') {
+            var panelNames = GetPaneData(zoneName);
+            var activePaneVar = `_${prefix}_${zoneName}_activePane`;
+            var contentDiv = document.getElementById(prefix + panelNames[window[activePaneVar]]);
+            if(contentDiv.innerHTML.length === 0) {
+              //Search returned no content, try conversational search
+              const filterTextElement = document.getElementById(`${prefix}${zoneName}FilterText`);
+              var filterText = filterTextElement.value;
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "/TCGEngine/AIEndpoints/FullElasticSearch.php?request=" + encodeURIComponent(filterText), true);
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.error) {
+                  showFlashMessage(response.error);
+                } else {
+                  window.filterText = response.message;//TODO: Separate filter text for each zone
+                  var paneVar = `${prefix}${zoneName}Panes`;
+                  RenderPane(prefix, zoneName, window[paneVar]);
+                }
+              }
+              };
+              xhr.send();
+            }
+        }
+      }
+
+      function AppendStaticZones(myStatic, theirStatic, globalStatic) {
+        var myDiv = document.getElementById("myStuff");
+        var theirDiv = document.getElementById("theirStuff");
+        myDiv.innerHTML += myStatic;
+        theirDiv.innerHTML += theirStatic;
+        if (globalStatic) {
+          var globalDiv = document.getElementById("globalStuff");
+          if (globalDiv) {
+            globalDiv.innerHTML = globalStatic;
+            // Re-enable pointer events on child elements since the container has pointer-events:none
+            var children = globalDiv.querySelectorAll('[id$="Wrapper"]');
+            for (var i = 0; i < children.length; i++) {
+              children[i].style.pointerEvents = 'auto';
+            }
+          }
+        }
+        // Reorganize layout for mobile deck editor
+        if (window.innerWidth <= 1000 && typeof MobileDeckEditorLayout === 'function') {
+          MobileDeckEditorLayout();
+        }
+      }
+
+      function chkSubmit(mode, count) {
+        var input = "";
+        input += "&gameName=" + document.getElementById("gameName").value;
+        input += "&playerID=" + document.getElementById("playerID").value;
+        input += "&chkCount=" + count;
+        for (var i = 0; i < count; ++i) {
+          var el = document.getElementById("chk" + i);
+          if (el.checked) input += "&chk" + i + "=" + el.value;
+        }
+        SubmitInput(mode, input);
+      }
+
+      function textSubmit(mode) {
+        var input = "";
+        input += "&gameName=" + document.getElementById("gameName").value;
+        input += "&playerID=" + document.getElementById("playerID").value;
+        input += "&inputText=" + document.getElementById("inputText").value;
+        SubmitInput(mode, input);
+      }
+
+      function suppressEventPropagation(e)
+      {
+        e.stopPropagation();
+      }
+
+      function UpdateAssetVisibility(newVisibility, gameName, assetType) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', './APIs/UpdateAssetVisibility.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('visibility=' + newVisibility + '&gameName=' + gameName + '&assetType=' + assetType);
+      }
+
+      function showFlashMessage(message, duration = 5000) {
+        // Remove any existing flash messages
+        const existingFlash = document.getElementById('flash-message');
+        if (existingFlash) {
+          document.body.removeChild(existingFlash);
+        }
+
+        // Create flash message container
+        const flashMessage = document.createElement('div');
+        flashMessage.id = 'flash-message';
+        flashMessage.style.position = 'fixed';
+        flashMessage.style.top = '0';
+        flashMessage.style.left = '50%';
+        flashMessage.style.transform = 'translateX(-50%) translateY(-100%)';
+        flashMessage.style.zIndex = '3000';
+        flashMessage.style.backgroundColor = '#0D1B2A';
+        flashMessage.style.color = 'white';
+        flashMessage.style.padding = '15px 20px';
+        flashMessage.style.borderRadius = '0 0 8px 8px';
+        flashMessage.style.boxShadow = '0 5px 15px rgba(0, 123, 255, 0.5)';
+        flashMessage.style.transition = 'transform 0.4s ease-in-out';
+        flashMessage.style.maxWidth = '80%';
+        flashMessage.style.minWidth = '300px';
+        flashMessage.style.textAlign = 'center';
+        flashMessage.style.fontFamily = "'Orbitron', sans-serif";
+        flashMessage.style.borderLeft = '4px solid #007bff';
+        flashMessage.style.borderRight = '4px solid #007bff';
+        flashMessage.style.borderBottom = '4px solid #007bff';
+
+        // Add content container (to handle HTML)
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'flash-content';
+        contentDiv.style.maxHeight = '200px';
+        contentDiv.style.overflowY = 'auto';
+        contentDiv.innerHTML = message;
+
+        // Add close button
+        const closeButton = document.createElement('button');
+        closeButton.textContent = '×';
+        closeButton.style.position = 'absolute';
+        closeButton.style.right = '10px';
+        closeButton.style.top = '5px';
+        closeButton.style.background = 'transparent';
+        closeButton.style.border = 'none';
+        closeButton.style.color = 'white';
+        closeButton.style.fontSize = '20px';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.fontFamily = "'Orbitron', sans-serif";
+        closeButton.addEventListener('click', () => {
+          hideFlashMessage(flashMessage);
+        });
+
+        // Add elements to DOM
+        flashMessage.appendChild(contentDiv);
+        flashMessage.appendChild(closeButton);
+        document.body.appendChild(flashMessage);
+
+        // Show the flash message
+        setTimeout(() => {
+          flashMessage.style.transform = 'translateX(-50%) translateY(0)';
+        }, 100);
+
+        // Auto-hide after duration
+        setTimeout(() => {
+          hideFlashMessage(flashMessage);
+        }, duration);
+      }
+
+      function hideFlashMessage(flashMessage) {
+        flashMessage.style.transform = 'translateX(-50%) translateY(-100%)';
+        setTimeout(() => {
+          if (flashMessage.parentNode) {
+            flashMessage.parentNode.removeChild(flashMessage);
+          }
+        }, 400);
+      }
+
+      function EnsureMacroCardToastStyles() {
+        if (typeof document === 'undefined') return;
+        if (document.getElementById('macro-card-toast-styles')) return;
+        const styleEl = document.createElement('style');
+        styleEl.id = 'macro-card-toast-styles';
+        styleEl.textContent = ''
+          + '#macro-card-toast-host{position:fixed;top:12px;left:12px;z-index:3100;display:flex;flex-direction:column;gap:8px;pointer-events:none;align-items:flex-start;}'
+          + '#macro-card-toast-toggle{pointer-events:auto;display:flex;align-items:center;gap:7px;height:30px;padding:0 10px;border-radius:8px;border:1px solid rgba(201,168,76,0.32);background:rgba(8,13,22,0.94);color:#fff4cf;font:800 11px/1 Orbitron,Segoe UI,sans-serif;box-shadow:0 8px 18px rgba(0,0,0,0.32);cursor:pointer;}'
+          + '#macro-card-toast-toggle-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:rgba(201,168,76,0.22);border:1px solid rgba(201,168,76,0.38);color:#ffe09b;font-size:10px;}'
+          + '#macro-card-toast-log{pointer-events:auto;display:none;width:min(312px,calc(100vw - 24px));max-height:44vh;overflow-y:auto;padding:8px;border-radius:8px;background:rgba(8,13,22,0.96);border:1px solid rgba(240,230,200,0.18);box-shadow:0 12px 28px rgba(0,0,0,0.38);scrollbar-color:#6f5f38 rgba(0,0,0,0);scrollbar-width:thin;}'
+          + '#macro-card-toast-host.is-expanded #macro-card-toast-log{display:flex;flex-direction:column;gap:6px;}'
+          + '.macro-card-toast{pointer-events:auto;display:flex;align-items:center;gap:9px;min-width:178px;max-width:260px;padding:8px 10px 8px 8px;border-radius:8px;background:rgba(8,13,22,0.94);border:1px solid rgba(240,230,200,0.22);box-shadow:0 10px 24px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.06);color:#f7f0d8;font-family:Orbitron,Segoe UI,sans-serif;opacity:0;transform:translateX(-12px);transition:opacity 160ms ease,transform 160ms ease;cursor:help;}'
+          + '.macro-card-toast.is-visible{opacity:1;transform:translateX(0);}'
+          + '.macro-card-toast img{width:42px;height:58px;object-fit:cover;border-radius:4px;background:#111827;box-shadow:0 2px 8px rgba(0,0,0,0.35);flex:0 0 auto;}'
+          + '.macro-card-toast-title{font-size:10px;line-height:1.1;text-transform:uppercase;color:#c9a84c;margin-bottom:3px;font-weight:800;}'
+          + '.macro-card-toast-name{font-size:12px;line-height:1.25;color:#fff4cf;font-weight:700;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}'
+          + '.macro-card-toast-meta{font-size:10px;line-height:1.2;color:#b9c7dd;margin-top:3px;font-weight:600;}'
+          + '.macro-card-toast-log-entry{display:flex;align-items:center;gap:8px;min-width:0;padding:6px;border-radius:7px;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);color:#f7f0d8;font-family:Orbitron,Segoe UI,sans-serif;cursor:help;}'
+          + '.macro-card-toast-log-entry img{width:32px;height:44px;object-fit:cover;border-radius:4px;background:#111827;flex:0 0 auto;}'
+          + '.macro-card-toast-log-empty{padding:8px;color:#b9c7dd;font:700 11px/1.3 Orbitron,Segoe UI,sans-serif;}';
+        document.head.appendChild(styleEl);
+      }
+
+      function GetMacroCardToastHost() {
+        if (typeof document === 'undefined') return null;
+        EnsureMacroCardToastStyles();
+        let host = document.getElementById('macro-card-toast-host');
+        if (!host) {
+          host = document.createElement('div');
+          host.id = 'macro-card-toast-host';
+          document.body.appendChild(host);
+        }
+        if (!document.getElementById('macro-card-toast-toggle')) {
+          const toggle = document.createElement('button');
+          toggle.id = 'macro-card-toast-toggle';
+          toggle.type = 'button';
+          toggle.innerHTML = '<span>Events</span><span id="macro-card-toast-toggle-count">0</span>';
+          toggle.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            host.classList.toggle('is-expanded');
+          });
+          host.appendChild(toggle);
+        }
+        if (!document.getElementById('macro-card-toast-log')) {
+          const log = document.createElement('div');
+          log.id = 'macro-card-toast-log';
+          const empty = document.createElement('div');
+          empty.className = 'macro-card-toast-log-empty';
+          empty.textContent = 'No events yet';
+          log.appendChild(empty);
+          host.appendChild(log);
+        }
+        return host;
+      }
+
+      function RenderMacroCardToastLog() {
+        const host = GetMacroCardToastHost();
+        if (!host) return;
+        const events = window._macroCardToastEvents || [];
+        const countEl = document.getElementById('macro-card-toast-toggle-count');
+        if (countEl) countEl.textContent = String(events.length);
+        const log = document.getElementById('macro-card-toast-log');
+        if (!log) return;
+        log.innerHTML = '';
+        if (events.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'macro-card-toast-log-empty';
+          empty.textContent = 'No events yet';
+          log.appendChild(empty);
+          return;
+        }
+        events.slice(0, 50).forEach(function(entry) {
+          const item = document.createElement('div');
+          item.className = 'macro-card-toast-log-entry';
+          item.addEventListener('mouseenter', function(event) {
+            ShowMacroGameCardPreview(event, entry.cardID);
+          });
+          item.addEventListener('mousemove', function(event) {
+            ShowMacroGameCardPreview(event, entry.cardID);
+          });
+          item.addEventListener('mouseleave', function() {
+            HideMacroGameCardPreview();
+          });
+          const img = document.createElement('img');
+          img.alt = entry.name;
+          img.src = _getMacroGameCardImageUrl(entry.cardID);
+          item.appendChild(img);
+          const body = document.createElement('div');
+          body.style.minWidth = '0';
+          const title = document.createElement('div');
+          title.className = 'macro-card-toast-title';
+          title.textContent = entry.label;
+          const name = document.createElement('div');
+          name.className = 'macro-card-toast-name';
+          name.textContent = entry.name;
+          const meta = document.createElement('div');
+          meta.className = 'macro-card-toast-meta';
+          meta.textContent = 'Player ' + entry.playerID + (entry.increment > 1 ? ' x' + entry.increment : '');
+          body.appendChild(title);
+          body.appendChild(name);
+          body.appendChild(meta);
+          item.appendChild(body);
+          log.appendChild(item);
+        });
+      }
+
+      function AddMacroCardToastEvent(cardID, playerID, increment, label) {
+        if (typeof window === 'undefined') return null;
+        if (!window._macroCardToastEvents) window._macroCardToastEvents = [];
+        const event = {
+          cardID: cardID,
+          playerID: playerID,
+          increment: increment,
+          label: label || 'Card Event',
+          name: _getMacroGameCardName(cardID),
+          timestamp: Date.now()
+        };
+        window._macroCardToastEvents.unshift(event);
+        if (window._macroCardToastEvents.length > 100) window._macroCardToastEvents.length = 100;
+        RenderMacroCardToastLog();
+        return event;
+      }
+
+      function ShowMacroCardToast(cardID, playerID, increment, label) {
+        const host = GetMacroCardToastHost();
+        if (!host || !cardID) return;
+        const event = AddMacroCardToastEvent(cardID, playerID, increment, label);
+        const toast = document.createElement('div');
+        toast.className = 'macro-card-toast';
+        toast.addEventListener('mouseenter', function(event) {
+          ShowMacroGameCardPreview(event, cardID);
+        });
+        toast.addEventListener('mousemove', function(event) {
+          ShowMacroGameCardPreview(event, cardID);
+        });
+        toast.addEventListener('mouseleave', function() {
+          HideMacroGameCardPreview();
+        });
+
+        const img = document.createElement('img');
+        img.alt = event ? event.name : _getMacroGameCardName(cardID);
+        img.src = _getMacroGameCardImageUrl(cardID);
+        toast.appendChild(img);
+
+        const body = document.createElement('div');
+        body.style.minWidth = '0';
+        const title = document.createElement('div');
+        title.className = 'macro-card-toast-title';
+        title.textContent = event ? event.label : (label || 'Card Event');
+        const name = document.createElement('div');
+        name.className = 'macro-card-toast-name';
+        name.textContent = event ? event.name : _getMacroGameCardName(cardID);
+        const meta = document.createElement('div');
+        meta.className = 'macro-card-toast-meta';
+        meta.textContent = 'Player ' + playerID + (increment > 1 ? ' x' + increment : '');
+        body.appendChild(title);
+        body.appendChild(name);
+        body.appendChild(meta);
+        toast.appendChild(body);
+
+        host.appendChild(toast);
+        setTimeout(() => { toast.classList.add('is-visible'); }, 20);
+        setTimeout(() => {
+          toast.classList.remove('is-visible');
+          setTimeout(() => {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 180);
+        }, 3600);
+      }
+
+      function ObserveMacroToastEvents(macroGameIndexData) {
+        if (typeof window === 'undefined') return;
+        const rules = typeof GetMacroToastRules === 'function' ? GetMacroToastRules() : {};
+        if (Object.keys(rules).length > 0) RenderMacroCardToastLog();
+        const indexData = _parseMacroGameIndex(macroGameIndexData || window.MacroGameIndexData);
+        const current = {};
+        for (const macroName in rules) {
+          if (!Object.prototype.hasOwnProperty.call(rules, macroName)) continue;
+          const rule = rules[macroName] || {};
+          if (rule.type !== 'Card') continue;
+          const macroBucket = indexData[macroName] || {};
+          current[macroName] = {};
+          [1, 2].forEach(function(playerID) {
+            const playerBucket = macroBucket[playerID] || macroBucket[String(playerID)] || {};
+            current[macroName][playerID] = {};
+            for (const cardID in playerBucket) {
+              if (!Object.prototype.hasOwnProperty.call(playerBucket, cardID)) continue;
+              current[macroName][playerID][cardID] = parseInt(playerBucket[cardID], 10) || 0;
+            }
+          });
+        }
+
+        if (!window._lastMacroToastEventCounts) {
+          window._lastMacroToastEventCounts = current;
+          return;
+        }
+
+        for (const macroName in current) {
+          if (!Object.prototype.hasOwnProperty.call(current, macroName)) continue;
+          const rule = rules[macroName] || {};
+          [1, 2].forEach(function(playerID) {
+            const bucket = current[macroName][playerID] || {};
+            const previousMacro = window._lastMacroToastEventCounts[macroName] || {};
+            const previous = previousMacro[playerID] || {};
+            for (const cardID in bucket) {
+              if (!Object.prototype.hasOwnProperty.call(bucket, cardID)) continue;
+              const oldCount = parseInt(previous[cardID], 10) || 0;
+              const newCount = parseInt(bucket[cardID], 10) || 0;
+              if (newCount > oldCount) ShowMacroCardToast(cardID, playerID, newCount - oldCount, rule.label);
+            }
+          });
+        }
+        window._lastMacroToastEventCounts = current;
+      }
+
+      function createGrandArchiveUtilityButton(config) {
+        if (!config || !config.id) return null;
+        const button = document.createElement('button');
+        button.id = config.id;
+        button.textContent = config.text || '';
+        button.style.position = config.position || 'relative';
+        button.style.zIndex = config.zIndex || '2600';
+        button.style.padding = '10px 16px';
+        button.style.borderRadius = '999px';
+        button.style.border = config.border || '1px solid #375a7f';
+        button.style.background = config.background || 'rgba(13, 27, 42, 0.94)';
+        button.style.color = '#fff';
+        button.style.fontFamily = "'Orbitron', sans-serif";
+        button.style.cursor = 'pointer';
+        button.style.boxShadow = config.boxShadow || '0 0 15px rgba(55, 90, 127, 0.45)';
+        button.style.whiteSpace = 'nowrap';
+        button.style.flex = '0 0 auto';
+        if (config.top) button.style.top = config.top;
+        if (config.right) button.style.right = config.right;
+        if (config.onclick) button.onclick = config.onclick;
+        return button;
+      }
+
+      function initGrandArchiveUtilityButtons() {
+        if (window.__grandArchiveUtilityButtonsInitialized) return;
+        if (!document.getElementById('gameName') || !document.getElementById('folderPath') || !document.getElementById('playerID')) return;
+        const rootName = document.getElementById('folderPath').value;
+        if (rootName !== 'GrandArchiveSim' && rootName !== 'AzukiSim') return;
+
+        window.__grandArchiveUtilityButtonsInitialized = true;
+
+        const utilityButtonBar = document.createElement('div');
+        utilityButtonBar.id = 'grand-archive-utility-button-bar';
+        utilityButtonBar.style.position = 'fixed';
+        utilityButtonBar.style.top = '8px';
+        utilityButtonBar.style.right = '8px';
+        utilityButtonBar.style.zIndex = '2600';
+        utilityButtonBar.style.display = 'flex';
+        utilityButtonBar.style.alignItems = 'center';
+        utilityButtonBar.style.justifyContent = 'flex-end';
+        utilityButtonBar.style.gap = '10px';
+        utilityButtonBar.style.flexWrap = 'nowrap';
+        utilityButtonBar.style.maxWidth = 'calc(100vw - 16px)';
+        document.body.appendChild(utilityButtonBar);
+
+        const playerIdValue = parseInt(document.getElementById('playerID').value || '', 10);
+        const spectatorAuthKeyField = document.getElementById('spectatorAuthKey');
+        const privateSpectatorAuthField = document.getElementById('privateSpectatorAuthRequired');
+        const privateSpectatorAuthRequired = !!(privateSpectatorAuthField && privateSpectatorAuthField.value === '1');
+        const spectatorAuthKey = spectatorAuthKeyField ? spectatorAuthKeyField.value : '';
+        const shouldShowCopySpectateButton = (playerIdValue === 1 || playerIdValue === 2) && privateSpectatorAuthRequired && !!spectatorAuthKey;
+
+        const bugReportButton = createGrandArchiveUtilityButton({
+          id: 'bug-report-button',
+          text: 'Report Bug',
+          border: '1px solid #a83232',
+          boxShadow: '0 0 15px rgba(168, 50, 50, 0.45)',
+          onclick: openBugReportModal
+        });
+        if (bugReportButton) utilityButtonBar.appendChild(bugReportButton);
+
+        if (playerIdValue === 1 || playerIdValue === 2) {
+          if (shouldShowCopySpectateButton) {
+            const copySpectateButton = createGrandArchiveUtilityButton({
+              id: 'copy-spectate-link-button',
+              text: 'Copy Spectate Link',
+              border: '1px solid #3e6ba0',
+              background: 'rgba(17, 39, 66, 0.96)',
+              boxShadow: '0 0 15px rgba(80, 132, 196, 0.38)',
+              onclick: copyPrivateSpectateLink
+            });
+            if (copySpectateButton) utilityButtonBar.appendChild(copySpectateButton);
+          }
+
+          const concedeButton = createGrandArchiveUtilityButton({
+            id: 'concede-button',
+            text: 'Concede',
+            border: '1px solid #b8891d',
+            background: 'rgba(34, 21, 8, 0.96)',
+            boxShadow: '0 0 15px rgba(201, 168, 76, 0.42)',
+            onclick: confirmConcedeGame
+          });
+          if (concedeButton) utilityButtonBar.appendChild(concedeButton);
+        }
+      }
+
+      function copyPrivateSpectateLink() {
+        const gameNameField = document.getElementById('gameName');
+        const rootField = document.getElementById('folderPath');
+        const spectatorAuthField = document.getElementById('spectatorAuthKey');
+        const playerField = document.getElementById('playerID');
+        if (!gameNameField || !rootField || !spectatorAuthField || !playerField) return;
+        const spectatorAuthKey = spectatorAuthField.value || '';
+        if (!spectatorAuthKey) {
+          if (typeof showFlashMessage === 'function') showFlashMessage('This game does not have a private spectator link.', 4000);
+          return;
+        }
+
+        const currentPlayerId = parseInt(playerField.value || '', 10);
+        const defaultPerspective = currentPlayerId === 2 ? '2' : '1';
+        const spectateUrl = new URL('./NextTurn.php', window.location.href);
+        spectateUrl.searchParams.set('playerID', 'S');
+        spectateUrl.searchParams.set('viewerPerspective', defaultPerspective);
+        spectateUrl.searchParams.set('gameName', gameNameField.value || '');
+        spectateUrl.searchParams.set('folderPath', rootField.value || '');
+        spectateUrl.searchParams.set('authKey', spectatorAuthKey);
+
+        const finish = function(success) {
+          if (typeof showFlashMessage !== 'function') return;
+          showFlashMessage(
+            success
+              ? 'Private spectate link copied to clipboard.'
+              : 'Unable to copy automatically. The private spectate link is ready in the address bar console fallback.',
+            5000
+          );
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(spectateUrl.toString()).then(function() {
+            finish(true);
+          }).catch(function() {
+            StyledPrompt('Copy this private spectate link:', {title: 'Spectate link', initial: spectateUrl.toString(), confirmLabel: 'Done'});
+            finish(false);
+          });
+          return;
+        }
+
+        StyledPrompt('Copy this private spectate link:', {title: 'Spectate link', initial: spectateUrl.toString(), confirmLabel: 'Done'});
+        finish(false);
+      }
+
+      async function confirmConcedeGame() {
+        const playerIdField = document.getElementById('playerID');
+        if (!playerIdField) return;
+        const playerIdValue = parseInt(playerIdField.value || '', 10);
+        if (playerIdValue !== 1 && playerIdValue !== 2) return;
+        if (!(await StyledConfirm('Concede this game? This will immediately count as a loss for you.', {title: 'Concede game', danger: true, confirmLabel: 'Concede'}))) return;
+        SubmitInput('10006', '');
+      }
+
+      // Bo3: concede the whole match (forfeit the series). No-op in non-match games server-side.
+      async function confirmConcedeMatch() {
+        const pid = parseInt((document.getElementById('playerID') || {}).value || '', 10);
+        if (pid !== 1 && pid !== 2) return;
+        if (!(await StyledConfirm('Concede the whole match? This forfeits the entire series.', {title: 'Concede match', danger: true, confirmLabel: 'Concede'}))) return;
+        SubmitInput('10007', '');
+      }
+
+      // Bo3: convert a finished Bo1 into a Bo3 (both players must agree). No-op otherwise.
+      // No confirm dialog — the end-game menu drives the mutual handshake in-place: the initiator's
+      // button flips to "Waiting on opponent…" and the other player's to "Confirm Convert to Best of 3".
+      // The same input (10012) both requests and accepts; the server promotes once both have requested.
+      function confirmConvertToBo3() {
+        const pid = parseInt((document.getElementById('playerID') || {}).value || '', 10);
+        if (pid !== 1 && pid !== 2) return;
+        SubmitInput('10012', '');
+      }
+
+      function openBugReportModal() {
+        if (document.getElementById('bugReportOverlay')) return;
+
+        const modalOverlay = document.createElement('div');
+        modalOverlay.id = 'bugReportOverlay';
+        modalOverlay.style.position = 'fixed';
+        modalOverlay.style.inset = '0';
+        modalOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+        modalOverlay.style.display = 'flex';
+        modalOverlay.style.alignItems = 'center';
+        modalOverlay.style.justifyContent = 'center';
+        modalOverlay.style.zIndex = '3001';
+
+        const modalContainer = document.createElement('div');
+        modalContainer.style.backgroundColor = '#0D1B2A';
+        modalContainer.style.padding = '20px';
+        modalContainer.style.borderRadius = '8px';
+        modalContainer.style.position = 'relative';
+        modalContainer.style.boxShadow = '0 0 18px 6px rgba(168, 50, 50, 0.35)';
+        modalContainer.style.width = 'min(520px, calc(100vw - 32px))';
+
+        const caption = document.createElement('div');
+        caption.textContent = 'Report a Bug';
+        caption.style.fontSize = '18px';
+        caption.style.fontWeight = 'bold';
+        caption.style.marginBottom = '10px';
+        caption.style.color = '#FFFFFF';
+        caption.style.fontFamily = "'Orbitron', sans-serif";
+        caption.style.letterSpacing = '1px';
+
+        const helper = document.createElement('div');
+        helper.textContent = 'Your description will be sent with a server-side snapshot of the current game state.';
+        helper.style.color = '#c8d5e6';
+        helper.style.fontSize = '13px';
+        helper.style.marginBottom = '12px';
+
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'X';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '6px';
+        closeButton.style.right = '8px';
+        closeButton.style.background = 'transparent';
+        closeButton.style.border = 'none';
+        closeButton.style.fontSize = '16px';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.fontFamily = "'Orbitron', sans-serif";
+        closeButton.style.color = '#FFFFFF';
+
+        const textEntry = document.createElement('textarea');
+        textEntry.id = 'bugReportDescription';
+        textEntry.style.width = '100%';
+        textEntry.style.height = '180px';
+        textEntry.style.backgroundColor = '#1b2d42';
+        textEntry.style.color = '#FFFFFF';
+        textEntry.style.border = '1px solid #375a7f';
+        textEntry.style.borderRadius = '4px';
+        textEntry.style.padding = '10px';
+        textEntry.style.boxSizing = 'border-box';
+        textEntry.placeholder = 'Describe what happened, what you expected, and any steps that seem important.';
+
+        const reporterEntry = document.createElement('input');
+        reporterEntry.id = 'bugReportReporter';
+        reporterEntry.type = 'text';
+        reporterEntry.maxLength = 64;
+        reporterEntry.autocomplete = 'off';
+        reporterEntry.style.width = '100%';
+        reporterEntry.style.marginTop = '10px';
+        reporterEntry.style.backgroundColor = '#1b2d42';
+        reporterEntry.style.color = '#FFFFFF';
+        reporterEntry.style.border = '1px solid #375a7f';
+        reporterEntry.style.borderRadius = '4px';
+        reporterEntry.style.padding = '10px';
+        reporterEntry.style.boxSizing = 'border-box';
+        reporterEntry.placeholder = 'Discord Name (optional)';
+
+        const statusText = document.createElement('div');
+        statusText.id = 'bugReportStatus';
+        statusText.style.color = '#c8d5e6';
+        statusText.style.fontSize = '12px';
+        statusText.style.marginTop = '10px';
+        statusText.style.minHeight = '18px';
+
+        const buttonRow = document.createElement('div');
+        buttonRow.style.display = 'flex';
+        buttonRow.style.justifyContent = 'flex-end';
+        buttonRow.style.gap = '10px';
+        buttonRow.style.marginTop = '14px';
+
+        const cancelButton = document.createElement('button');
+        cancelButton.textContent = 'Cancel';
+        cancelButton.style.padding = '10px 16px';
+        cancelButton.style.background = '#334e68';
+        cancelButton.style.color = '#fff';
+        cancelButton.style.border = 'none';
+        cancelButton.style.borderRadius = '6px';
+        cancelButton.style.cursor = 'pointer';
+        cancelButton.onclick = function() {
+          if (modalOverlay.parentNode) modalOverlay.parentNode.removeChild(modalOverlay);
+        };
+
+        const submitButton = document.createElement('button');
+        submitButton.id = 'submitBugReportButton';
+        submitButton.textContent = 'Submit Report';
+        submitButton.style.padding = '10px 18px';
+        submitButton.style.background = '#a83232';
+        submitButton.style.color = '#fff';
+        submitButton.style.border = 'none';
+        submitButton.style.borderRadius = '6px';
+        submitButton.style.cursor = 'pointer';
+        submitButton.onclick = submitBugReport;
+
+        closeButton.onclick = cancelButton.onclick;
+
+        modalOverlay.addEventListener('click', function(e) {
+          if (e.target === modalOverlay) cancelButton.onclick();
+        });
+
+        buttonRow.appendChild(cancelButton);
+        buttonRow.appendChild(submitButton);
+
+        modalContainer.appendChild(caption);
+        modalContainer.appendChild(helper);
+        modalContainer.appendChild(closeButton);
+        modalContainer.appendChild(textEntry);
+        modalContainer.appendChild(reporterEntry);
+        modalContainer.appendChild(statusText);
+        modalContainer.appendChild(buttonRow);
+        modalOverlay.appendChild(modalContainer);
+        document.body.appendChild(modalOverlay);
+        textEntry.focus();
+      }
+
+      async function submitBugReport() {
+        const textEntry = document.getElementById('bugReportDescription');
+        const reporterEntry = document.getElementById('bugReportReporter');
+        const statusText = document.getElementById('bugReportStatus');
+        const submitButton = document.getElementById('submitBugReportButton');
+        if (!textEntry || !statusText || !submitButton) return;
+
+        const description = textEntry.value.trim();
+        if (!description) {
+          statusText.textContent = 'Please enter a description before submitting.';
+          statusText.style.color = '#ffb4b4';
+          return;
+        }
+
+        statusText.textContent = 'Submitting bug report...';
+        statusText.style.color = '#c8d5e6';
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+
+        try {
+          const payload = {
+            description: description,
+            gameName: document.getElementById('gameName') ? document.getElementById('gameName').value : '',
+            playerID: document.getElementById('playerID') ? document.getElementById('playerID').value : '',
+            authKey: document.getElementById('authKey') ? document.getElementById('authKey').value : '',
+            folderPath: document.getElementById('folderPath') ? document.getElementById('folderPath').value : '',
+            reporter: reporterEntry ? reporterEntry.value.trim() : ''
+          };
+
+          const response = await fetch('./APIs/SubmitBugReport.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const responseText = await response.text();
+          let data = null;
+          try {
+            data = JSON.parse(responseText);
+          } catch (parseError) {
+            const snippet = responseText.trim().slice(0, 240);
+            throw new Error(snippet || 'The server returned an empty response.');
+          }
+
+          if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Unable to submit the bug report.');
+          }
+
+          const overlay = document.getElementById('bugReportOverlay');
+          if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+          showFlashMessage('Bug report submitted. A current gamestate snapshot was attached.' , 6000);
+        } catch (e) {
+          statusText.textContent = e.message;
+          statusText.style.color = '#ffb4b4';
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Submit Report';
+        }
+      }
+
+      function OnVersionChanged(newVersion, versionName) {
+        var extra = (versionName ? '&versionName=' + encodeURIComponent(versionName) : '');
+        SubmitInput("10003", "&cardID=" + newVersion + extra);
+      }
+
+      function showNewVersionPrompt() {
+        closeVersionDropdown();
+        // Compute placeholder: max DisplayNumber across current versions + 1
+        var nextNum = 0;
+        var menu = document.getElementById('versionDropdownMenu');
+        if (menu) {
+          var rows = menu.querySelectorAll('[data-vnum]');
+          rows.forEach(function(r) {
+            var n = parseInt(r.getAttribute('data-vnum'), 10);
+            if (!isNaN(n) && n >= nextNum) nextNum = n + 1;
+          });
+        }
+        var placeholder = 'Version ' + nextNum;
+
+        // Build modal overlay
+        var overlay = document.createElement('div');
+        overlay.id = 'newVersionOverlay';
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:10000;display:flex;align-items:center;justify-content:center;';
+
+        var box = document.createElement('div');
+        box.style.cssText = 'background:#2a2a2a;border:1px solid #555;border-radius:8px;padding:20px 24px;min-width:280px;color:#fff;font-family:inherit;';
+
+        var title = document.createElement('div');
+        title.textContent = 'Save New Version';
+        title.style.cssText = 'font-size:15px;font-weight:bold;margin-bottom:12px;';
+        box.appendChild(title);
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = placeholder;
+        input.maxLength = 60;
+        input.style.cssText = 'width:100%;box-sizing:border-box;padding:6px 8px;background:#1a1a1a;border:1px solid #666;border-radius:4px;color:#fff;font-size:13px;margin-bottom:14px;';
+        box.appendChild(input);
+
+        var btnRow = document.createElement('div');
+        btnRow.style.cssText = 'display:flex;gap:8px;justify-content:flex-end;';
+
+        var cancelBtn = document.createElement('button');
+        cancelBtn.textContent = 'Cancel';
+        cancelBtn.style.cssText = 'background:#444;color:#fff;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;font-size:13px;';
+        cancelBtn.onclick = function() { document.body.removeChild(overlay); };
+
+        var okBtn = document.createElement('button');
+        okBtn.textContent = 'Save';
+        okBtn.style.cssText = 'background:#1a73e8;color:#fff;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;font-size:13px;';
+        okBtn.onclick = function() {
+          var name = input.value.trim() || placeholder;
+          document.body.removeChild(overlay);
+          setVersionDisplay('current', 'Current Version');
+          OnVersionChanged('new', name);
+        };
+
+        btnRow.appendChild(cancelBtn);
+        btnRow.appendChild(okBtn);
+        box.appendChild(btnRow);
+        overlay.appendChild(box);
+        document.body.appendChild(overlay);
+
+        // Close on backdrop click
+        overlay.addEventListener('click', function(e) { if (e.target === overlay) { document.body.removeChild(overlay); } });
+        // Submit on Enter
+        input.addEventListener('keydown', function(e) { if (e.key === 'Enter') okBtn.click(); });
+        setTimeout(function() { input.focus(); }, 50);
+      }
+
+      function toggleVersionDropdown() {
+        var menu = document.getElementById('versionDropdownMenu');
+        if (!menu) return;
+        closeVisibilityDropdown();
+        menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
+      }
+
+      function closeVersionDropdown() {
+        var menu = document.getElementById('versionDropdownMenu');
+        if (menu) menu.style.display = 'none';
+      }
+
+      var _visdropListenerAdded = false;
+      function toggleVisibilityDropdown() {
+        var menu = document.getElementById('visibilityDropdownMenu');
+        if (!menu) return;
+        closeVersionDropdown();
+        if (!_visdropListenerAdded) {
+          _visdropListenerAdded = true;
+          document.addEventListener('click', function(e) {
+            var w = document.getElementById('visibilityDropdownWrapper');
+            if (w && !w.contains(e.target)) closeVisibilityDropdown();
+          });
+        }
+        menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
+      }
+
+      function closeVisibilityDropdown() {
+        var menu = document.getElementById('visibilityDropdownMenu');
+        if (menu) menu.style.display = 'none';
+      }
+
+      function selectVisibility(value, label, gameName) {
+        closeVisibilityDropdown();
+        var lbl = document.getElementById('visibilityDropdownLabel');
+        if (lbl) lbl.textContent = label;
+        UpdateAssetVisibility(value, gameName || '', 1);
+      }
+
+      function setVersionDisplay(value, label) {
+        var labelEl = document.getElementById('versionDropdownLabel');
+        if (labelEl) labelEl.textContent = label;
+        var trigger = document.getElementById('versionDropdownTrigger');
+        if (trigger) trigger.setAttribute('data-label', label);
+      }
+
+      function selectVersion(value, label) {
+        closeVersionDropdown();
+        setVersionDisplay(value, label);
+        OnVersionChanged(value);
+      }
+
+      function showDeleteVersionConfirm(arrayIndex, displayNum) {
+        var existing = document.getElementById('vdrop-delete-modal');
+        if (existing) existing.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'vdrop-delete-modal';
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;display:flex;align-items:center;justify-content:center;';
+
+        var modal = document.createElement('div');
+        modal.style.cssText = 'background:#1a1a2e;border:1px solid #555;border-radius:10px;padding:28px 24px;text-align:center;max-width:340px;width:90%;box-shadow:0 0 24px rgba(0,0,0,0.8);font-family:inherit;';
+
+        var msg = document.createElement('div');
+        msg.style.cssText = 'color:#fff;font-size:15px;margin-bottom:20px;line-height:1.5;';
+        msg.textContent = 'Delete Version ' + displayNum + '? This cannot be undone.';
+        modal.appendChild(msg);
+
+        var btnRow = document.createElement('div');
+        btnRow.style.cssText = 'display:flex;gap:12px;justify-content:center;';
+
+        var btnYes = document.createElement('button');
+        btnYes.textContent = 'Delete';
+        btnYes.style.cssText = 'background:#c0392b;color:#fff;border:none;padding:8px 22px;border-radius:6px;font-size:14px;cursor:pointer;';
+        btnYes.onclick = function() {
+          overlay.remove();
+          var gameName = document.getElementById('gameName') ? document.getElementById('gameName').value : '';
+          var folderPath = document.getElementById('folderPath') ? document.getElementById('folderPath').value : 'SWUDeck';
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', '/TCGEngine/' + folderPath + '/DeleteVersion.php?deckID=' + encodeURIComponent(gameName) + '&playerID=1&versionIndex=' + arrayIndex, true);
+          xhr.send();
+        };
+
+        var btnNo = document.createElement('button');
+        btnNo.textContent = 'Cancel';
+        btnNo.style.cssText = 'background:#444;color:#fff;border:none;padding:8px 22px;border-radius:6px;font-size:14px;cursor:pointer;';
+        btnNo.onclick = function() { overlay.remove(); };
+
+        btnRow.appendChild(btnYes);
+        btnRow.appendChild(btnNo);
+        modal.appendChild(btnRow);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+      }
+
+      var _vdropListenerAdded = false;
+
+      function UpdateVersionDropdown(versionsData) {
+        var wrapper = document.getElementById('versionDropdownWrapper');
+        if (!wrapper) return;
+
+        if (!_vdropListenerAdded) {
+          _vdropListenerAdded = true;
+          document.addEventListener('click', function(e) {
+            var w = document.getElementById('versionDropdownWrapper');
+            if (w && !w.contains(e.target)) closeVersionDropdown();
+          });
+        }
+
+        var trimmed = versionsData ? versionsData.trim() : '';
+        var entries = trimmed.length === 0 ? [] : trimmed.split('<|>');
+
+        // Parse display numbers and names from each entry JSON
+        var versions = [];
+        for (var i = 0; i < entries.length; i++) {
+          var entry = entries[i];
+          var displayNum = i;
+          var versionName = '';
+          var s1 = entry.indexOf(' ');
+          var s2 = s1 >= 0 ? entry.indexOf(' ', s1 + 1) : -1;
+          if (s2 >= 0) {
+            try {
+              var obj = JSON.parse(entry.substring(s2 + 1));
+              if (obj && typeof obj.DisplayNumber !== 'undefined') displayNum = obj.DisplayNumber;
+              if (obj && typeof obj.VersionName === 'string' && obj.VersionName.length > 0) versionName = obj.VersionName.replace(/_/g, ' ');
+            } catch(e) {}
+          }
+          versions.push({ arrayIndex: i, displayNum: displayNum, versionName: versionName });
+        }
+
+        var savedLabel = document.getElementById('versionDropdownLabel') ? document.getElementById('versionDropdownLabel').textContent : 'Current Version';
+
+        var menu = document.getElementById('versionDropdownMenu');
+        if (!menu) return;
+        menu.innerHTML = '';
+
+        var optStyle = 'padding:7px 12px;cursor:pointer;font-size:13px;color:#fff;white-space:nowrap;';
+
+        var divCurrent = document.createElement('div');
+        divCurrent.style.cssText = optStyle;
+        divCurrent.textContent = 'Current Version';
+        divCurrent.onmouseover = function() { this.style.background = '#3a3a3a'; };
+        divCurrent.onmouseout = function() { this.style.background = ''; };
+        divCurrent.onclick = function() { selectVersion('current', 'Current Version'); };
+        menu.appendChild(divCurrent);
+
+        for (var j = 0; j < versions.length; j++) {
+          (function(v) {
+            var row = document.createElement('div');
+            row.style.cssText = optStyle + 'display:flex;justify-content:space-between;align-items:center;';
+            row.setAttribute('data-vnum', String(v.displayNum));
+            row.onmouseover = function() { this.style.background = '#3a3a3a'; };
+            row.onmouseout = function() { this.style.background = ''; };
+
+            var label = v.versionName || ('Version ' + v.displayNum);
+            var lbl = document.createElement('span');
+            lbl.style.cssText = 'flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;';
+            lbl.textContent = label;
+            row.appendChild(lbl);
+
+            var btnWrap = document.createElement('span');
+            btnWrap.style.cssText = 'display:inline-flex;align-items:center;gap:16px;flex-shrink:0;margin-left:8px;';
+
+            var loadBadge = document.createElement('span');
+            loadBadge.title = 'Load ' + label;
+            loadBadge.style.cssText = 'padding:1px 5px;border-radius:3px;background:#1a73e8;color:#fff;font-size:9px;cursor:pointer;line-height:14px;white-space:nowrap;';
+            loadBadge.textContent = 'Load';
+            loadBadge.onclick = function(e) {
+              e.stopPropagation();
+              selectVersion(String(v.arrayIndex), label);
+            };
+
+            var delBadge = document.createElement('span');
+            delBadge.title = 'Delete Version ' + v.displayNum;
+            delBadge.style.cssText = 'width:15px;height:15px;border-radius:50%;background:#c0392b;color:#fff;font-size:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;';
+            delBadge.textContent = '\u2715';
+            delBadge.onclick = function(e) {
+              e.stopPropagation();
+              closeVersionDropdown();
+              showDeleteVersionConfirm(v.arrayIndex, v.displayNum);
+            };
+
+            btnWrap.appendChild(loadBadge);
+            btnWrap.appendChild(delBadge);
+            row.appendChild(btnWrap);
+            menu.appendChild(row);
+          })(versions[j]);
+        }
+
+        var divNew = document.createElement('div');
+        divNew.style.cssText = optStyle + 'color:#aaf;';
+        divNew.textContent = '+ New Version';
+        divNew.onmouseover = function() { this.style.background = '#3a3a3a'; };
+        divNew.onmouseout = function() { this.style.background = ''; };
+        divNew.onclick = function() { showNewVersionPrompt(); };
+        menu.appendChild(divNew);
+
+        // If the currently displayed version was deleted, reset to Current
+        if (savedLabel !== 'Current Version' && savedLabel !== '+ New Version') {
+          var stillExists = versions.some(function(v) { return (v.versionName || ('Version ' + v.displayNum)) === savedLabel; });
+          if (!stillExists) setVersionDisplay('current', 'Current Version');
+        }
+      }
+
+// Show a YES/NO popup for a decision queue entry
+function ShowYesNoDecisionPopup(decision, onSubmit) {
+  // Remove any existing modal
+  let existing = document.getElementById('yesno-decision-modal');
+  if (existing) existing.remove();
+
+  let overlay = document.createElement('div');
+  overlay.id = 'yesno-decision-modal';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100vw';
+  overlay.style.height = '100vh';
+  overlay.style.background = 'rgba(0,0,0,0.5)';
+  overlay.style.zIndex = '5000';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+
+  let modal = document.createElement('div');
+  modal.style.background = '#0D1B2A';
+  modal.style.padding = '32px 24px';
+  modal.style.borderRadius = '10px';
+  modal.style.boxShadow = '0 0 20px #0008';
+  modal.style.textAlign = 'center';
+  modal.style.minWidth = '300px';
+  modal.style.fontFamily = "'Orbitron', sans-serif";
+
+  let prompt = document.createElement('div');
+  prompt.style.fontSize = '20px';
+  prompt.style.color = '#fff';
+  prompt.style.marginBottom = '24px';
+  prompt.textContent = decision.Tooltip && decision.Tooltip !== '-' ? decision.Tooltip.replace(/_/g, ' ') : 'Please choose Yes or No:';
+  modal.appendChild(prompt);
+
+  let yesBtn = document.createElement('button');
+  yesBtn.textContent = 'Yes';
+  yesBtn.style.margin = '0 16px 0 0';
+  yesBtn.style.padding = '8px 24px';
+  yesBtn.style.fontSize = '18px';
+  yesBtn.style.background = '#28a745';
+  yesBtn.style.color = '#fff';
+  yesBtn.style.border = 'none';
+  yesBtn.style.borderRadius = '5px';
+  yesBtn.style.cursor = 'pointer';
+  yesBtn.onclick = function() {
+    overlay.remove();
+    if (onSubmit) onSubmit('YES');
+  };
+  modal.appendChild(yesBtn);
+
+  let noBtn = document.createElement('button');
+  noBtn.textContent = 'No';
+  noBtn.style.padding = '8px 24px';
+  noBtn.style.fontSize = '18px';
+  noBtn.style.background = '#dc3545';
+  noBtn.style.color = '#fff';
+  noBtn.style.border = 'none';
+  noBtn.style.borderRadius = '5px';
+  noBtn.style.cursor = 'pointer';
+  noBtn.onclick = function() {
+    overlay.remove();
+    if (onSubmit) onSubmit('NO');
+  };
+  modal.appendChild(noBtn);
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+// Pre-processes a raw decision queue string into an array of objects
+function ParseDecisionQueue(raw) {
+  if (!raw || typeof raw !== 'string') return [];
+  // Split on <|> and filter out empty segments
+  const segments = raw.split('<|>').map(s => s.trim()).filter(Boolean);
+  const result = [];
+  for (const seg of segments) {
+    // Each segment is like: '- 0 {"Type":"YESNO",...}'
+    const jsonStart = seg.indexOf('{');
+    if (jsonStart !== -1) {
+      try {
+        const obj = JSON.parse(seg.slice(jsonStart));
+        result.push(obj);
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
+  }
+  return result;
+}
+
+function ParseChooseZoneSpecs(rawParam) {
+  return (rawParam || '')
+    .split('&')
+    .map(s => s.trim())
+    .filter(Boolean)
+    .map(spec => {
+      const encodedParts = spec.split('@');
+      const zoneName = (encodedParts[0] || '').trim();
+      const actionPayload = encodedParts.length > 1 ? encodedParts[1].trim() : '';
+      const selectionLabel = encodedParts.length > 2 ? encodedParts.slice(2).join('@').trim() : '';
+      return {
+        zone: zoneName,
+        submittedValue: actionPayload || zoneName,
+        selectionLabel: selectionLabel,
+        originalSpec: spec
+      };
+    })
+    .filter(spec => !!spec.zone);
+}
+
+function ResolveChooseZoneElement(zoneName) {
+  return (
+    document.getElementById(zoneName + 'Slot') ||
+    document.getElementById(zoneName + 'Wrapper') ||
+    document.getElementById(zoneName)
+  );
+}
+
+function EnsureChooseZoneSelectionStyles() {
+  if (document.getElementById('choosezone-selection-styles')) return;
+
+  const style = document.createElement('style');
+  style.id = 'choosezone-selection-styles';
+  style.textContent = `
+    @keyframes chooseZoneGlowPulse {
+      0% {
+        box-shadow: 0 0 0 1px rgba(60, 255, 196, 0.45), 0 0 12px rgba(60, 255, 196, 0.18), inset 0 0 0 1px rgba(179, 255, 232, 0.15);
+      }
+      50% {
+        box-shadow: 0 0 0 2px rgba(95, 255, 206, 0.85), 0 0 28px rgba(60, 255, 196, 0.40), inset 0 0 0 1px rgba(214, 255, 242, 0.30);
+      }
+      100% {
+        box-shadow: 0 0 0 1px rgba(60, 255, 196, 0.45), 0 0 12px rgba(60, 255, 196, 0.18), inset 0 0 0 1px rgba(179, 255, 232, 0.15);
+      }
+    }
+
+    .choosezone-selectable {
+      outline: 2px solid rgba(96, 255, 208, 0.88) !important;
+      outline-offset: 3px !important;
+      border-radius: 12px !important;
+      cursor: pointer !important;
+      animation: chooseZoneGlowPulse 1300ms ease-in-out infinite;
+      transition: transform 120ms ease, outline-color 120ms ease;
+      position: relative;
+      z-index: 6;
+    }
+
+    .choosezone-selectable:hover {
+      transform: translateY(-1px);
+      outline-color: rgba(170, 255, 228, 0.98) !important;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+function EnableChooseZoneSelection(zoneSpecs, tooltip, decisionIndex) {
+  if (!window.SelectionMode) return;
+  EnsureChooseZoneSelectionStyles();
+
+  window.SelectionMode.active = true;
+  window.SelectionMode.mode = 'CHOOSEZONE';
+  window.SelectionMode.allowedDecisionZones = zoneSpecs;
+  window.SelectionMode.decisionIndex = decisionIndex;
+  window.SelectionMode.mayPass = false;
+  window.SelectionMode.zoneBindings = [];
+  window.SelectionMode.callback = function(zoneName, submittedValue, selectedDecisionIndex) {
+    SubmitInput('DECISION', '&decisionIndex=' + selectedDecisionIndex + '&cardID=' + encodeURIComponent(submittedValue));
+  };
+
+  const msg = tooltip || 'Choose a zone';
+  ShowSelectionMessage(msg, false, decisionIndex);
+
+  zoneSpecs.forEach(spec => {
+    const el = ResolveChooseZoneElement(spec.zone);
+    if (!el) return;
+
+    const binding = {
+      el: el,
+      zone: spec.zone,
+      submittedValue: spec.submittedValue,
+      hadChooseZoneClass: el.classList.contains('choosezone-selectable'),
+      prevOutline: el.style.outline,
+      prevOutlineOffset: el.style.outlineOffset,
+      prevBoxShadow: el.style.boxShadow,
+      prevCursor: el.style.cursor,
+      prevTransition: el.style.transition,
+      prevBorderRadius: el.style.borderRadius,
+      prevTransform: el.style.transform,
+      handler: null,
+    };
+
+    el.classList.add('choosezone-selectable');
+
+    binding.handler = function(ev) {
+      if (!window.SelectionMode || !window.SelectionMode.active || window.SelectionMode.mode !== 'CHOOSEZONE') return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      if (typeof window.SelectionMode.callback === 'function') {
+        window.SelectionMode.callback(binding.zone, binding.submittedValue, window.SelectionMode.decisionIndex);
+      }
+      ClearSelectionMode();
+    };
+
+    // Capture so empty-area and nested-card clicks both resolve the zone choice.
+    el.addEventListener('click', binding.handler, true);
+    window.SelectionMode.zoneBindings.push(binding);
+  });
+}
+
+// Show a panel for a SCRY decision — all peeked cards with Top/Bottom buttons.
+// Clicking a button removes the card from the display; the last assignment auto-submits.
+// entry.Param = comma-separated CardIDs (topmost-peeked first).
+// Result format: "topID1,topID2|bottomID1,bottomID2" (topmost first | order added).
+function ShowScryPanel(entry, decisionIndex, onSubmit) {
+  const cardIDs = (entry.Param || '').split(',').map(s => s.trim()).filter(Boolean);
+  const topCards = [];
+  const bottomCards = [];
+  let remaining = cardIDs.slice();
+  const imgBase = (window.rootPath || '.') + '/concat/';
+
+  function render() {
+    const existing = document.getElementById('scry-panel');
+    if (existing) existing.remove();
+
+    if (remaining.length === 0) {
+      if (onSubmit) onSubmit(topCards.join(',') + '|' + bottomCards.join(','));
+      return;
+    }
+
+    const overlay = document.createElement('div');
+    overlay.id = 'scry-panel';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:5000;display:flex;align-items:center;justify-content:center;';
+
+    const panel = document.createElement('div');
+    panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;";
+
+    const title = document.createElement('div');
+    title.textContent = 'LOOK AT THE TOP CARDS';
+    title.style.cssText = 'color:#fff;font-size:16px;letter-spacing:2px;margin-bottom:20px;';
+    panel.appendChild(title);
+
+    const cardsRow = document.createElement('div');
+    cardsRow.style.cssText = 'display:flex;gap:20px;justify-content:center;';
+
+    remaining.forEach(function(cardID) {
+      const cardWrap = document.createElement('div');
+      cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
+
+      const img = document.createElement('img');
+      img.src = imgBase + cardID + '.webp';
+      img.style.cssText = 'height:200px;border-radius:8px;border:1px solid #555;display:block;';
+      cardWrap.appendChild(img);
+
+      const btnRow = document.createElement('div');
+      btnRow.style.cssText = 'display:flex;gap:8px;';
+
+      const topBtn = document.createElement('button');
+      topBtn.textContent = 'Top';
+      topBtn.style.cssText = "padding:6px 18px;background:#1a4a8a;color:#fff;border:1px solid #4a8adf;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
+      topBtn.onclick = function() { topCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+
+      const botBtn = document.createElement('button');
+      botBtn.textContent = 'Bottom';
+      botBtn.style.cssText = "padding:6px 14px;background:#4a2060;color:#fff;border:1px solid #9a50df;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
+      botBtn.onclick = function() { bottomCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+
+      btnRow.appendChild(topBtn);
+      btnRow.appendChild(botBtn);
+      cardWrap.appendChild(btnRow);
+      cardsRow.appendChild(cardWrap);
+    });
+
+    panel.appendChild(cardsRow);
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+  }
+
+  render();
+}
+
+// Show a panel for a REVEALARRANGE decision — reveal the top N; each card goes either back on
+// Top (kept, in click order) or to the Discard pile. Modeled on the SCRY panel (Top/Bottom →
+// Top/Discard). entry.Param = comma-separated revealed CardIDs (topmost-peeked first).
+// Result format: "topID1,topID2|discardID1,discardID2" (kept top order | discarded).
+function ShowRevealArrangePanel(entry, decisionIndex, onSubmit) {
+  const cardIDs = (entry.Param || '').split(',').map(s => s.trim()).filter(Boolean);
+  const topCards = [];
+  const discardCards = [];
+  let remaining = cardIDs.slice();
+  const imgBase = (window.rootPath || '.') + '/concat/';
+  const titleText = (entry.Tooltip && entry.Tooltip !== '-')
+    ? entry.Tooltip.replace(/_/g, ' ').toUpperCase()
+    : 'DISCARD ANY, PUT THE REST BACK ON TOP';
+
+  function render() {
+    const existing = document.getElementById('revealarrange-panel');
+    if (existing) existing.remove();
+
+    if (remaining.length === 0) {
+      if (onSubmit) onSubmit(topCards.join(',') + '|' + discardCards.join(','));
+      return;
+    }
+
+    const overlay = document.createElement('div');
+    overlay.id = 'revealarrange-panel';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:5000;display:flex;align-items:center;justify-content:center;';
+
+    const panel = document.createElement('div');
+    panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;";
+
+    const title = document.createElement('div');
+    title.textContent = titleText;
+    title.style.cssText = 'color:#fff;font-size:16px;letter-spacing:2px;margin-bottom:8px;';
+    panel.appendChild(title);
+
+    const hint = document.createElement('div');
+    const keptSoFar = topCards.length ? ('  •  Kept on top: ' + topCards.length) : '';
+    hint.textContent = 'Click Top to keep a card on your deck (first kept ends up on top)' + keptSoFar;
+    hint.style.cssText = 'color:#9ab;font-size:11px;letter-spacing:1px;margin-bottom:18px;';
+    panel.appendChild(hint);
+
+    const cardsRow = document.createElement('div');
+    cardsRow.style.cssText = 'display:flex;gap:20px;justify-content:center;';
+
+    remaining.forEach(function(cardID) {
+      const cardWrap = document.createElement('div');
+      cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
+
+      const img = document.createElement('img');
+      img.src = imgBase + cardID + '.webp';
+      img.style.cssText = 'height:200px;border-radius:8px;border:1px solid #555;display:block;';
+      cardWrap.appendChild(img);
+
+      const btnRow = document.createElement('div');
+      btnRow.style.cssText = 'display:flex;gap:8px;';
+
+      const topBtn = document.createElement('button');
+      topBtn.textContent = 'Top';
+      topBtn.style.cssText = "padding:6px 18px;background:#1a4a8a;color:#fff;border:1px solid #4a8adf;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
+      topBtn.onclick = function() { topCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+
+      const discardBtn = document.createElement('button');
+      discardBtn.textContent = 'Discard';
+      discardBtn.style.cssText = "padding:6px 14px;background:#6a1f1f;color:#fff;border:1px solid #d05050;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
+      discardBtn.onclick = function() { discardCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+
+      btnRow.appendChild(topBtn);
+      btnRow.appendChild(discardBtn);
+      cardWrap.appendChild(btnRow);
+      cardsRow.appendChild(cardWrap);
+    });
+
+    panel.appendChild(cardsRow);
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+  }
+
+  render();
+}
+
+// Show a panel for a TOPDECKSEARCH decision — all peeked cards visible; matching cards
+// are selectable up to the constraint limit. Confirm submits chosen CardIDs.
+// entry.Param = "allIDs|matchingIDs|constraint"  where constraint is "count:N" or "cost:N".
+// Result format: comma-separated chosen CardIDs (empty string = choose none).
+function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
+  const parts = (entry.Param || '').split('|');
+  const allIDs      = (parts[0] || '').split(',').map(s => s.trim()).filter(Boolean);
+  const matchSet    = new Set((parts[1] || '').split(',').map(s => s.trim()).filter(Boolean));
+  const constraint  = parts[2] || 'count:2';
+  const isCost      = constraint.startsWith('cost:');
+  const constraintParts = constraint.split(':');
+  const limitValue  = parseInt(constraintParts[1] || '2', 10);
+  // Optional 3rd segment on a cost constraint = max number of picks (e.g. "cost:7:3" —
+  // SOR_104 U-Wing Reinforcement: up to 3 units AND combined cost ≤ 7). 0 = no count cap.
+  const maxCountCap = (isCost && constraintParts.length >= 3) ? (parseInt(constraintParts[2], 10) || 0) : 0;
+  // costMap: "CardID:cost,..." — build lookup from 4th param segment.
+  const costLookup  = {};
+  (parts[3] || '').split(',').forEach(function(pair) {
+    var kv = pair.split(':');
+    if (kv.length === 2) costLookup[kv[0].trim()] = parseInt(kv[1], 10) || 0;
+  });
+
+  const imgBase = (window.rootPath || '.') + '/concat/';
+  const selectedIndices = new Set(); // indices into allIDs — each physical copy has a unique slot
+
+  function getCardCost(cardID) {
+    return costLookup[cardID] || 0;
+  }
+
+  function render() {
+    var existing = document.getElementById('topdecksearch-panel');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'topdecksearch-panel';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:5000;display:flex;align-items:center;justify-content:center;';
+
+    var panel = document.createElement('div');
+    panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;max-width:90vw;";
+
+    var title = document.createElement('div');
+    title.style.cssText = 'color:#fff;font-size:16px;letter-spacing:2px;margin-bottom:6px;';
+    title.textContent = 'SEARCH THE TOP CARDS';
+    panel.appendChild(title);
+
+    var subtitle = document.createElement('div');
+    subtitle.style.cssText = 'color:#aaa;font-size:12px;margin-bottom:18px;';
+    if (isCost) {
+      var used = Array.from(selectedIndices).reduce(function(s, idx) { return s + getCardCost(allIDs[idx]); }, 0);
+      subtitle.textContent = 'Select Villainy units (combined cost ≤ ' + limitValue + '). Used: ' + used + '/' + limitValue;
+    } else {
+      subtitle.textContent = 'Select up to ' + limitValue + ' card' + (limitValue !== 1 ? 's' : '') + '. Selected: ' + selectedIndices.size + '/' + limitValue;
+    }
+    panel.appendChild(subtitle);
+
+    var cardsRow = document.createElement('div');
+    cardsRow.style.cssText = 'display:flex;gap:16px;justify-content:center;flex-wrap:wrap;';
+
+    allIDs.forEach(function(cardID, i) {
+      var isMatch = matchSet.has(cardID);
+      var thisSelected = selectedIndices.has(i);
+      var costUsed = isCost ? Array.from(selectedIndices).reduce(function(s, idx) { return s + getCardCost(allIDs[idx]); }, 0) : 0;
+      var cardCost = getCardCost(cardID);
+      var canSelectMore = isMatch && (isCost
+        ? (costUsed + cardCost <= limitValue && (maxCountCap === 0 || selectedIndices.size < maxCountCap))
+        : (selectedIndices.size < limitValue));
+
+      var cardWrap = document.createElement('div');
+      cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
+
+      var img = document.createElement('img');
+      img.src = imgBase + cardID + '.webp';
+      img.style.cssText = 'height:180px;border-radius:8px;display:block;';
+      if (thisSelected) {
+        img.style.border = '3px solid #27ae60';
+        img.style.boxShadow = '0 0 12px #27ae60aa';
+      } else if (!isMatch) {
+        img.style.border = '1px solid #555';
+        img.style.opacity = '0.45';
+      } else if (!canSelectMore) {
+        img.style.border = '1px solid #555';
+        img.style.opacity = '0.6';
+      } else {
+        img.style.border = '1px solid #aaa';
+        img.style.cursor = 'pointer';
+      }
+
+      if (isMatch) {
+        img.onclick = (function(idx, cid) {
+          return function() {
+            if (selectedIndices.has(idx)) {
+              selectedIndices.delete(idx);
+            } else {
+              var curCostUsed = isCost ? Array.from(selectedIndices).reduce(function(s, j) { return s + getCardCost(allIDs[j]); }, 0) : 0;
+              var curCanSelect = isCost
+                ? (curCostUsed + getCardCost(cid) <= limitValue && (maxCountCap === 0 || selectedIndices.size < maxCountCap))
+                : (selectedIndices.size < limitValue);
+              if (curCanSelect) selectedIndices.add(idx);
+            }
+            render();
+          };
+        })(i, cardID);
+        img.style.cursor = (thisSelected || canSelectMore) ? 'pointer' : 'default';
+      }
+
+      cardWrap.appendChild(img);
+      cardsRow.appendChild(cardWrap);
+    });
+
+    panel.appendChild(cardsRow);
+
+    var selCount = selectedIndices.size;
+    var confirmBtn = document.createElement('button');
+    confirmBtn.textContent = selCount > 0 ? 'Take ' + selCount + ' card' + (selCount !== 1 ? 's' : '') : 'Take None';
+    confirmBtn.style.cssText = "margin-top:22px;padding:9px 36px;background:#1a5a2a;color:#fff;border:1px solid #3adf7a;border-radius:6px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:1px;";
+    confirmBtn.onclick = function() {
+      var existing2 = document.getElementById('topdecksearch-panel');
+      if (existing2) existing2.remove();
+      if (onSubmit) onSubmit(Array.from(selectedIndices).map(function(idx) { return allIDs[idx]; }).join(','));
+    };
+    panel.appendChild(confirmBtn);
+
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+  }
+
+  render();
+}
+
+// Call this after game state update to check for pending interactive decisions
+function CheckAndShowDecisionQueue(decisionQueue) {
+  if (typeof IsSpectatorClient === 'function' && IsSpectatorClient()) return;
+  // Accept raw string or array
+  if (typeof decisionQueue === 'string') {
+    decisionQueue = ParseDecisionQueue(decisionQueue);
+  }
+  if (!decisionQueue || !Array.isArray(decisionQueue)) return;
+  for (let i = 0; i < decisionQueue.length; ++i) {
+    let entry = decisionQueue[i];
+    if (entry && entry.Type === 'TOPDECKSEARCH' && !entry.removed) {
+      (function(idx, e) {
+        ShowTopDeckSearchPanel(e, idx, function(result) {
+          SubmitInput('DECISION', '&decisionIndex=' + idx + '&cardID=' + encodeURIComponent(result));
+        });
+      })(i, entry);
+      break;
+    } else if (entry && entry.Type === 'SCRY' && !entry.removed) {
+      ShowScryPanel(entry, i, function(result) {
+        SubmitInput('DECISION', '&decisionIndex=' + i + '&cardID=' + encodeURIComponent(result));
+      });
+      break;
+    } else if (entry && entry.Type === 'REVEALARRANGE' && !entry.removed) {
+      ShowRevealArrangePanel(entry, i, function(result) {
+        SubmitInput('DECISION', '&decisionIndex=' + i + '&cardID=' + encodeURIComponent(result));
+      });
+      break;
+    } else if (entry && entry.Type === 'YESNO' && !entry.removed) {
+      ShowYesNoDecisionPopup(entry, function(result) {
+        SubmitInput('DECISION', '&decisionIndex=' + i + '&cardID=' + result);
+      });
+      break;
+    } else if (entry && entry.Type === 'CHOOSEZONE' && !entry.removed) {
+      const tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a zone';
+      const zoneSpecs = ParseChooseZoneSpecs(entry.Param);
+      if (zoneSpecs.length === 0) {
+        continue;
+      }
+      EnableChooseZoneSelection(zoneSpecs, tooltip, i);
+      break;
+    } else if (entry && (entry.Type === 'MZCHOOSE' || entry.Type === 'MZMAYCHOOSE') && !entry.removed) {
+      // Set up selection mode
+      window.SelectionMode.active = true;
+      window.SelectionMode.mode = '100';
+      window.SelectionMode.mayPass = (entry.Type === 'MZMAYCHOOSE');
+
+      // Parse allowed zones/cards into objects
+      // Supports:
+      //   - Zone selection: "myHand" or "BG1" (selects any card in the zone)
+      //   - Specific card selection: "myHand-0" or "BG1-2" (selects a specific card by index)
+      //   - Filters: "myHand:CardType=Spell" (zone with filter)
+      const parsedSpecs = (entry.Param || '').split('&').map(s => s.trim()).filter(Boolean).map(spec => {
+        const parts = spec.split(':');
+        const rawZoneOrCard = parts[0].trim();
+        const encodedParts = rawZoneOrCard.split('@');
+        const zoneOrCard = encodedParts[0].trim();
+        const actionPayload = encodedParts.length > 1 ? encodedParts[1].trim() : '';
+        const selectionLabel = encodedParts.length > 2 ? encodedParts.slice(2).join('@').trim() : '';
+        const filters = [];
+        if (parts.length > 1) {
+          const filtString = parts.slice(1).join(':');
+          const clauses = filtString.split(',').map(f => f.trim()).filter(Boolean);
+          clauses.forEach(cl => {
+            const m = cl.match(/^(\w+)(==|!=|<=|>=|=|<|>)(.*)$/);
+            if (m) {
+              filters.push({ field: m[1], op: m[2], value: m[3] });
+            } else {
+              filters.push({ field: cl, op: '=', value: 'true' });
+            }
+          });
+        }
+
+        // Check if this is a specific card reference (zoneName-index)
+        const cardMatch = zoneOrCard.match(/^(.+)-(\d+)$/);
+        if (cardMatch) {
+          // Specific card reference
+          return {
+            zone: cardMatch[1],
+            specificIndex: parseInt(cardMatch[2], 10),
+            filters: filters,
+            isSpecificCard: true,
+            originalSpec: spec,
+            actionPayload: actionPayload,
+            selectionLabel: selectionLabel
+          };
+        } else {
+          // Zone reference (any card in zone)
+          return {
+            zone: zoneOrCard,
+            filters: filters,
+            isSpecificCard: false,
+            originalSpec: spec,
+            actionPayload: actionPayload,
+            selectionLabel: selectionLabel
+          };
+        }
+      });
+
+      window.SelectionMode.allowedZones = parsedSpecs;
+      window.SelectionMode.decisionIndex = i;
+      window.SelectionMode.callback = function(zoneName, cardId, decisionIndex) {
+        SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(cardId));
+      };
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Select a card from an allowed zone.';
+
+      const categorizedSpecs = CategorizeMZChooseSpecs(parsedSpecs);
+      const inlineSpecs = categorizedSpecs.inlineSpecs;
+      const popupCards = categorizedSpecs.popupCards;
+
+      // Store categorized specs for rendering
+      window.SelectionMode.inlineSpecs = inlineSpecs;
+      window.SelectionMode.popupCards = popupCards;
+
+      // Only show selection message banner if there are inline selectable options
+      // If only popup cards, the popup handles the UI
+      if (inlineSpecs.length > 0) {
+        ShowSelectionMessage(tooltip, window.SelectionMode.mayPass, i);
+      }
+
+      // Show popup for Single mode zone cards if any
+      if (popupCards.length > 0) {
+        ShowMZChoosePopup(popupCards, tooltip, window.SelectionMode.mayPass, i);
+      }
+
+      // Highlight/selectable will be handled in rendering for inline specs
+
+      // After setting selection mode for MZCHOOSE, force a re-render of all zones
+      if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+        RenderRows(window.myRows, window.theirRows);
+      }
+          // Add gentle pulsing glow to selectable cards after re-render (DOM needs a moment)
+          setTimeout(() => {
+            document.querySelectorAll('.selectable-card').forEach(el => el.classList.add('pulse'));
+          }, 0);
+      // Re-evaluate the Effect Stack overlay now the selection targets are known (hide it while the
+      // player selects a non-EffectStack board target; show it for trigger-ordering MZCHOOSE).
+      if (typeof window.UpdateEffectStackVisibility === 'function') window.UpdateEffectStackVisibility();
+      break;
+    } else if (entry && entry.Type === 'MZREARRANGE' && !entry.removed) {
+      // MZREARRANGE: Allow player to rearrange cards between piles
+      // Param format: "PileName1=card1,card2;PileName2=card3,card4"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Arrange the cards';
+
+      if (typeof ShowMZRearrangePopup === 'function') {
+        ShowMZRearrangePopup(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
+        });
+      } else {
+        console.error('MZRearrangePopup.js not loaded - ShowMZRearrangePopup function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'MZMODAL' && !entry.removed) {
+      // MZMODAL: Choose N of M labeled options
+      // Param format: "min|max|label1&label2&label3"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose options';
+
+      if (typeof ShowMZModalUI === 'function') {
+        ShowMZModalUI(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
+        });
+      } else {
+        console.error('MZModalUI.js not loaded - ShowMZModalUI function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'MZMULTICHOOSE' && !entry.removed) {
+      // MZMULTICHOOSE: Choose min..max cards from a set of MZ specs.
+      // Param format: "min|max|spec1&spec2&spec3"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose cards';
+      const parsed = ParseMZMultiChooseParam(entry.Param);
+      if (!parsed || parsed.specs.length === 0) {
+        break;
+      }
+      const categorized = CategorizeMZChooseSpecs(parsed.specs);
+      const hasPopupCards = categorized.popupCards.length > 0;
+
+      if (!hasPopupCards) {
+        const preserveExisting =
+          window.SelectionMode &&
+          window.SelectionMode.active &&
+          window.SelectionMode.decisionIndex === i &&
+          Array.isArray(window.SelectionMode.multiSelected) &&
+          Number(window.SelectionMode.multiMax) > 0;
+        const existingSelected = preserveExisting && Array.isArray(window.SelectionMode.multiSelected)
+          ? window.SelectionMode.multiSelected.slice()
+          : [];
+        window.SelectionMode.active = true;
+        window.SelectionMode.mode = 'MZMULTI_INLINE';
+        window.SelectionMode.mayPass = (parsed.min === 0);
+        window.SelectionMode.allowedZones = parsed.specs;
+        window.SelectionMode.inlineSpecs = categorized.inlineSpecs;
+        window.SelectionMode.popupCards = [];
+        window.SelectionMode.decisionIndex = i;
+        window.SelectionMode.multiMin = parsed.min;
+        window.SelectionMode.multiMax = parsed.max;
+        window.SelectionMode.multiSelected = existingSelected.filter((mzid) => {
+          if (!mzid || typeof mzid !== 'string') return false;
+          const parts = mzid.split('-');
+          if (parts.length < 2) return false;
+          const idx = parseInt(parts[parts.length - 1], 10);
+          if (Number.isNaN(idx)) return false;
+          const zone = parts.slice(0, -1).join('-');
+          const zoneDataStr = window[zone + 'Data'];
+          if (!zoneDataStr || typeof zoneDataStr !== 'string') return false;
+          const cards = zoneDataStr.split('<|>').filter(s => s.trim());
+          return idx >= 0 && idx < cards.length;
+        }).slice(0, parsed.max);
+        ShowInlineMultiChooseMessage(tooltip, i);
+        if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+          RenderRows(window.myRows, window.theirRows);
+        }
+        // Inline multi-select uses explicit gray/gold state instead of pulse glow.
+      } else if (typeof ShowMZMultiChooseUI === 'function') {
+        ShowMZMultiChooseUI(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
+        });
+      } else {
+        console.error('MZMultiChooseUI.js not loaded - ShowMZMultiChooseUI function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'MZSPLITASSIGN' && !entry.removed) {
+      // MZSPLITASSIGN: Split-assign a numeric pool across multiple target cards
+      // Param format: "amount|mzID1&mzID2&mzID3"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Assign points';
+
+      if (typeof ShowMZSplitAssignUI === 'function') {
+        ShowMZSplitAssignUI(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
+        });
+      } else {
+        console.error('MZSplitAssignUI.js not loaded - ShowMZSplitAssignUI function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'NUMBERCHOOSE' && !entry.removed) {
+      // NUMBERCHOOSE: Numeric stepper/slider choice
+      // Param format: "min|max"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a number';
+
+      if (typeof ShowNumberChooseUI === 'function') {
+        ShowNumberChooseUI(entry.Param, tooltip, i, function(selectedNumber, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedNumber));
+        });
+      } else {
+        console.error('NumberChooseUI.js not loaded - ShowNumberChooseUI function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'OPTIONCHOOSE' && !entry.removed) {
+      // OPTIONCHOOSE: pick one labeled option; submits the label verbatim.
+      // Deprecated for new card-authoring. Use MZMODAL / await $player.Modal(...)
+      // for new finite labeled choices.
+      // Param format: "Opt1&Opt2[&...]" (e.g. "Ground&Space" — SOR_221 Outmaneuver)
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose an option';
+
+      if (typeof ShowOptionChooseUI === 'function') {
+        ShowOptionChooseUI(entry.Param, tooltip, i, function(selectedOption, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedOption));
+        });
+      } else {
+        console.error('OptionChooseUI.js not loaded - ShowOptionChooseUI function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'TWOSIDEDSLIDER' && !entry.removed) {
+      // TWOSIDEDSLIDER: Choose a numeric split between two labeled/card-backed sides.
+      // Param format: "min|max|leftSpec|rightSpec"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a split';
+
+      if (typeof ShowTwoSidedSliderUI === 'function') {
+        ShowTwoSidedSliderUI(entry.Param, tooltip, i, function(selectedNumber, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedNumber));
+        });
+      } else {
+        console.error('TwoSidedSliderUI.js not loaded - ShowTwoSidedSliderUI function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'NAMECARD' && !entry.removed) {
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a card name';
+
+      if (typeof ShowNameCardUI === 'function') {
+        ShowNameCardUI(entry.Param, tooltip, i, function(selectedName, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedName));
+        });
+      } else {
+        console.error('NameCardUI.js not loaded - ShowNameCardUI function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'ICONCHOICE' && !entry.removed) {
+      // ICONCHOICE: Compass-rose directional choice (Shifting Currents)
+      // Deprecated for new card-authoring. Use MZMODAL / await $player.Modal(...)
+      // unless the compass presentation is essential.
+      // Param format: "OPT1&OPT2|CURRENT|CARDID"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a direction';
+
+      if (typeof ShowIconChoiceUI === 'function') {
+        ShowIconChoiceUI(entry.Param, tooltip, i, function(selectedOption, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedOption));
+        });
+      } else {
+        console.error('IconChoiceUI.js not loaded - ShowIconChoiceUI function not found');
+      }
+      break;
+    }
+  }
+};
+
+// --- Selection Mode State ---
+window.SelectionMode = {
+  active: false,
+  mode: '', // e.g., '100' for decision queue
+  allowedZones: [],
+  allowedDecisionZones: [],
+  inlineSpecs: [],    // Specs for inline selection (All mode zones/cards)
+  popupCards: [],     // Specs for popup selection (Single mode zone specific cards)
+  zoneBindings: [],
+  callback: null,
+  decisionIndex: null,
+  mayPass: false,
+  multiMin: 0,
+  multiMax: 0,
+  multiSelected: []
+};
+
+function ClearSelectionMode() {
+  const previousSelection = window.SelectionMode || null;
+  window.SelectionMode = {
+    active: false,
+    mode: '',
+    allowedZones: [],
+    allowedDecisionZones: [],
+    inlineSpecs: [],
+    popupCards: [],
+    zoneBindings: [],
+    callback: null,
+    decisionIndex: null,
+    mayPass: false,
+    multiMin: 0,
+    multiMax: 0,
+    multiSelected: []
+  };
+  // Selection ended — re-evaluate the Effect Stack overlay (reappears for the next trigger-ordering
+  // step if entries remain; the board-target hide no longer applies).
+  if (typeof window.UpdateEffectStackVisibility === 'function') window.UpdateEffectStackVisibility();
+  // Remove choose-zone click bindings and restore zone visuals.
+  if (previousSelection && previousSelection.zoneBindings && Array.isArray(previousSelection.zoneBindings)) {
+    previousSelection.zoneBindings.forEach(binding => {
+      if (!binding || !binding.el) return;
+      if (binding.handler) {
+        binding.el.removeEventListener('click', binding.handler, true);
+      }
+      binding.el.style.outline = binding.prevOutline || '';
+      binding.el.style.outlineOffset = binding.prevOutlineOffset || '';
+      binding.el.style.boxShadow = binding.prevBoxShadow || '';
+      binding.el.style.cursor = binding.prevCursor || '';
+      binding.el.style.transition = binding.prevTransition || '';
+      binding.el.style.borderRadius = binding.prevBorderRadius || '';
+      binding.el.style.transform = binding.prevTransform || '';
+      if (!binding.hadChooseZoneClass) {
+        binding.el.classList.remove('choosezone-selectable');
+      }
+    });
+  }
+  // Remove selectable highlight from all cards
+  document.querySelectorAll('.selectable-card').forEach(el => {
+    el.classList.remove('selectable-card');
+    el.classList.remove('pulse');
+    el.onclick = null;
+  });
+  HideSelectionMessage();
+  // Also hide the MZChoose popup if it exists
+  HideMZChoosePopup();
+  // Also hide the MZRearrange popup if it exists
+  if (typeof HideMZRearrangePopup === 'function') {
+    HideMZRearrangePopup();
+  }
+  // Also hide the MZSplitAssign UI if it exists
+  if (typeof HideMZSplitAssignUI === 'function') {
+    HideMZSplitAssignUI();
+  }
+  // Also hide the MZModal UI if it exists
+  if (typeof HideMZModalUI === 'function') {
+    HideMZModalUI();
+  }
+  if (typeof HideMZMultiChooseUI === 'function') {
+    HideMZMultiChooseUI();
+  }
+  // Also hide the NumberChoose UI if it exists
+  if (typeof HideNumberChooseUI === 'function') {
+    HideNumberChooseUI();
+  }
+  if (typeof HideNameCardUI === 'function') {
+    HideNameCardUI();
+  }
+  // Also hide YES/NO and icon choice modals if they exist
+  let yesNoModal = document.getElementById('yesno-decision-modal');
+  if (yesNoModal) yesNoModal.remove();
+  let iconChoiceModal = document.getElementById('iconchoice-modal');
+  if (iconChoiceModal) iconChoiceModal.remove();
+}
+
+function ResetSelectionMessageContainer(messageEl) {
+  if (!messageEl) return;
+
+  if (messageEl.__selectionMessageEmbedTarget && messageEl.__selectionMessageEmbedTargetClass) {
+    messageEl.__selectionMessageEmbedTarget.classList.remove(messageEl.__selectionMessageEmbedTargetClass);
+  }
+
+  if (Array.isArray(messageEl.__selectionMessageEmbedClasses)) {
+    messageEl.__selectionMessageEmbedClasses.forEach(function(cls) {
+      messageEl.classList.remove(cls);
+    });
+  }
+
+  messageEl.__selectionMessageEmbedTarget = null;
+  messageEl.__selectionMessageEmbedTargetClass = null;
+  messageEl.__selectionMessageEmbedClasses = null;
+  messageEl.classList.remove('selection-message-embedded');
+  messageEl.removeAttribute('data-selection-message-embedded');
+
+  if (messageEl.parentElement !== document.body) {
+    document.body.appendChild(messageEl);
+  }
+}
+
+function ShouldEmbedSelectionMessage(settings, msg, showPassButton, decisionIndex) {
+  if (!settings || typeof settings !== 'object') return false;
+  if (typeof settings.shouldEmbed === 'function') {
+    return !!settings.shouldEmbed({
+      message: msg,
+      showPassButton: !!showPassButton,
+      decisionIndex: decisionIndex
+    });
+  }
+
+  if (!Array.isArray(settings.embedMessages)) return false;
+  const normalizedMessage = String(msg || '').trim().toLowerCase();
+  return settings.embedMessages.some(function(candidate) {
+    return String(candidate || '').trim().toLowerCase() === normalizedMessage;
+  });
+}
+
+function TryEmbedSelectionMessage(messageEl, msg, showPassButton, decisionIndex) {
+  const settings = window.SelectionMessageSettings || {};
+  if (!ShouldEmbedSelectionMessage(settings, msg, showPassButton, decisionIndex)) return false;
+  if (typeof settings.embedTargetId !== 'string' || settings.embedTargetId === '') return false;
+
+  const target = document.getElementById(settings.embedTargetId);
+  if (!target) return false;
+
+  const extraClasses = String(settings.embeddedClassName || '')
+    .split(/\s+/)
+    .map(function(cls) { return cls.trim(); })
+    .filter(Boolean);
+  const targetClass = (typeof settings.embeddedTargetClassName === 'string' && settings.embeddedTargetClassName !== '')
+    ? settings.embeddedTargetClassName
+    : 'has-selection-message';
+
+  target.appendChild(messageEl);
+  messageEl.classList.add('selection-message-embedded');
+  extraClasses.forEach(function(cls) {
+    messageEl.classList.add(cls);
+  });
+  target.classList.add(targetClass);
+  messageEl.__selectionMessageEmbedTarget = target;
+  messageEl.__selectionMessageEmbedTargetClass = targetClass;
+  messageEl.__selectionMessageEmbedClasses = extraClasses;
+  messageEl.setAttribute('data-selection-message-embedded', settings.embedTargetId);
+
+  if (typeof settings.afterEmbed === 'function') {
+    settings.afterEmbed(messageEl, {
+      target: target,
+      message: msg,
+      showPassButton: !!showPassButton,
+      decisionIndex: decisionIndex
+    });
+  }
+
+  return true;
+}
+
+function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
+  // Use flash message or unobtrusive banner
+  let existing = document.getElementById('selection-message');
+  if (!existing) {
+    existing = document.createElement('div');
+    existing.id = 'selection-message';
+    document.body.appendChild(existing);
+  }
+  ResetSelectionMessageContainer(existing);
+
+  if (existing.__draggableModalAbortController) {
+    existing.__draggableModalAbortController.abort();
+    existing.__draggableModalAbortController = null;
+  }
+
+  existing.style.position = 'fixed';
+  existing.style.top = 'auto';
+  existing.style.bottom = '20px';
+  existing.style.left = '50%';
+  existing.style.right = '';
+  existing.style.transform = 'translateX(-50%)';
+  existing.style.margin = '';
+  existing.style.width = '';
+  existing.style.background = '#0D1B2A';
+  existing.style.color = '#fff';
+  existing.style.padding = '10px 24px';
+  existing.style.border = '';
+  existing.style.borderRadius = '8px';
+  existing.style.boxShadow = '0 0 10px #0008';
+  existing.style.boxSizing = '';
+  existing.style.fontFamily = "'Orbitron', sans-serif";
+  existing.style.fontSize = '';
+  existing.style.lineHeight = '';
+  existing.style.zIndex = '9999';
+  existing.style.display = 'flex';
+  existing.style.alignItems = 'center';
+  existing.style.justifyContent = '';
+  existing.style.gap = '16px';
+  existing.style.maxWidth = '';
+  existing.style.flexWrap = '';
+  existing.style.userSelect = '';
+  existing.style.cursor = '';
+
+  // Clear previous content
+  existing.innerHTML = '';
+
+  // Add message text
+  let msgSpan = document.createElement('span');
+  msgSpan.textContent = msg;
+  existing.appendChild(msgSpan);
+
+  // Add Pass button if allowed
+  if (showPassButton) {
+    let passBtn = document.createElement('button');
+    passBtn.textContent = 'Pass';
+    passBtn.style.padding = '10px 24px';
+    passBtn.style.fontSize = '16px';
+    passBtn.style.fontWeight = '700';
+    passBtn.style.letterSpacing = '0.04em';
+    passBtn.style.textTransform = 'uppercase';
+    passBtn.style.background = 'linear-gradient(150deg, rgba(10, 19, 48, 0.95), rgba(22, 39, 86, 0.88))';
+    passBtn.style.color = '#e9f1ff';
+    passBtn.style.border = '1px solid rgba(156, 190, 255, 0.45)';
+    passBtn.style.borderRadius = '12px';
+    passBtn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 12px 28px rgba(4, 10, 28, 0.5)';
+    passBtn.style.backdropFilter = 'blur(8px)';
+    passBtn.style.webkitBackdropFilter = 'blur(8px)';
+    passBtn.style.cursor = 'pointer';
+    passBtn.style.marginLeft = '8px';
+    passBtn.style.transition = 'transform 150ms ease, box-shadow 180ms ease, filter 180ms ease, border-color 180ms ease';
+    passBtn.onmouseover = function() {
+      passBtn.style.transform = 'translateY(-1px) scale(1.02)';
+      passBtn.style.filter = 'brightness(1.08)';
+      passBtn.style.borderColor = 'rgba(184, 211, 255, 0.72)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(236, 244, 255, 0.34), 0 16px 34px rgba(4, 10, 28, 0.6)';
+    };
+    passBtn.onmouseout = function() {
+      passBtn.style.transform = 'translateY(0) scale(1)';
+      passBtn.style.filter = 'brightness(1)';
+      passBtn.style.borderColor = 'rgba(156, 190, 255, 0.45)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 12px 28px rgba(4, 10, 28, 0.5)';
+    };
+    passBtn.onclick = function() {
+      // Submit PASS as a DECISION action (action code 100)
+      SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=PASS');
+      ClearSelectionMode();
+    };
+    existing.appendChild(passBtn);
+  }
+
+  existing.style.display = 'flex';
+  if (!TryEmbedSelectionMessage(existing, msg, showPassButton, decisionIndex)) {
+    PositionSelectionMessageForMobile(existing, msgSpan);
+  }
+}
+
+function HideSelectionMessage() {
+  let existing = document.getElementById('selection-message');
+  if (existing) {
+    if (existing.__draggableModalAbortController) {
+      existing.__draggableModalAbortController.abort();
+      existing.__draggableModalAbortController = null;
+    }
+    existing.style.display = 'none';
+    ResetSelectionMessageContainer(existing);
+  }
+}
+
+function IsMobileGameLayoutActive() {
+  return !!(
+    document.getElementById('gaMobileRoot') ||
+    document.getElementById('azukiMobileRoot')
+  );
+}
+
+function ResolveSelectionMessageAnchor() {
+  const settings = window.MobileSelectionMessageSettings || {};
+  if (settings && typeof settings.anchorId === 'string' && settings.anchorId !== '') {
+    const configured = document.getElementById(settings.anchorId);
+    if (configured) return configured;
+  }
+
+  const sm = window.SelectionMode || {};
+  const specs = []
+    .concat(Array.isArray(sm.inlineSpecs) ? sm.inlineSpecs : [])
+    .concat(Array.isArray(sm.allowedZones) ? sm.allowedZones : [])
+    .concat(Array.isArray(sm.allowedDecisionZones) ? sm.allowedDecisionZones : []);
+  const hasHandChoice = specs.some(function(spec) {
+    return spec && typeof spec.zone === 'string' && spec.zone.indexOf('myHand') === 0;
+  });
+
+  if (hasHandChoice) {
+    const hand = document.getElementById('myHandSlot');
+    if (hand) return hand;
+  }
+
+  return document.getElementById('myHandSlot');
+}
+
+function PositionSelectionMessageForMobile(messageEl, dragHandle) {
+  if (!messageEl || !IsMobileGameLayoutActive()) return false;
+
+  messageEl.style.boxSizing = 'border-box';
+  messageEl.style.left = '8px';
+  messageEl.style.right = '8px';
+  messageEl.style.bottom = 'auto';
+  messageEl.style.transform = 'none';
+  messageEl.style.margin = '0';
+  messageEl.style.width = 'auto';
+  messageEl.style.maxWidth = 'calc(100vw - 16px)';
+  messageEl.style.padding = '7px 9px';
+  messageEl.style.gap = '8px';
+  messageEl.style.justifyContent = 'center';
+  messageEl.style.flexWrap = 'nowrap';
+  messageEl.style.fontSize = '12px';
+  messageEl.style.lineHeight = '1.15';
+  messageEl.style.border = '1px solid rgba(200, 155, 70, 0.34)';
+  messageEl.style.background = 'linear-gradient(180deg, rgba(13, 27, 42, 0.97), rgba(9, 17, 28, 0.97))';
+  messageEl.style.boxShadow = '0 8px 24px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.10)';
+
+  if (dragHandle) {
+    dragHandle.style.minWidth = '0';
+    dragHandle.style.flex = '0 1 auto';
+    dragHandle.style.textAlign = 'center';
+    dragHandle.style.whiteSpace = 'normal';
+    dragHandle.style.overflowWrap = 'anywhere';
+  }
+
+  const buttons = messageEl.querySelectorAll('button');
+  buttons.forEach(function(btn) {
+    btn.style.flex = '0 0 auto';
+    btn.style.padding = '8px 16px';
+    btn.style.fontSize = '12px';
+    btn.style.borderRadius = '10px';
+    btn.style.marginLeft = '0';
+  });
+
+  const rect = messageEl.getBoundingClientRect();
+  const anchor = ResolveSelectionMessageAnchor();
+  const anchorRect = anchor ? anchor.getBoundingClientRect() : null;
+  const desiredTop = anchorRect
+    ? anchorRect.top - rect.height - 8
+    : Math.round(window.innerHeight * 0.56);
+  const top = Math.min(
+    Math.max(42, desiredTop),
+    Math.max(42, window.innerHeight - rect.height - 8)
+  );
+  messageEl.style.top = top + 'px';
+  return true;
+}
+
+function CategorizeMZChooseSpecs(parsedSpecs) {
+  const inlineSpecs = [];
+  const popupCards = [];
+  const popupVisibleSingleZone = ShouldPopupVisibleSingleZoneChoice(parsedSpecs);
+
+  for (const spec of parsedSpecs) {
+    if (spec && spec.actionPayload) {
+      inlineSpecs.push(spec);
+      continue;
+    }
+
+    if (spec.isSpecificCard && (ShouldUseMZChoosePopupForSpec(spec) || popupVisibleSingleZone)) {
+      popupCards.push(spec);
+    } else {
+      inlineSpecs.push(spec);
+    }
+  }
+
+  if (popupCards.length > 0) {
+    return {
+      inlineSpecs: inlineSpecs,
+      popupCards: popupCards,
+    };
+  }
+
+  return {
+    inlineSpecs: inlineSpecs,
+    popupCards: popupCards,
+  };
+}
+
+function ShouldPopupVisibleSingleZoneChoice(parsedSpecs) {
+  const choiceSpecs = (parsedSpecs || []).filter(spec => spec && !spec.actionPayload);
+  if (choiceSpecs.length === 0) return false;
+  if (choiceSpecs.length !== (parsedSpecs || []).filter(Boolean).length) return false;
+
+  const zones = new Set();
+  for (const spec of choiceSpecs) {
+    if (!spec.isSpecificCard || ShouldUseMZChoosePopupForSpec(spec)) return false;
+    const zoneData = GetZoneData(spec.zone);
+    const displayMode = String((zoneData && zoneData.DisplayMode) || 'All').toLowerCase();
+    if (displayMode !== 'single') return false;
+    zones.add(spec.zone);
+  }
+
+  return zones.size === 1;
+}
+
+function ShouldUseMZChoosePopupForSpec(spec) {
+  if (!spec || !spec.isSpecificCard) return false;
+  const zoneData = GetZoneData(spec.zone);
+  if (!zoneData) return false;
+
+  const visibility = String(zoneData.Visibility || 'Public').toLowerCase();
+  const displayMode = String(zoneData.DisplayMode || 'All').toLowerCase();
+  const isOpponentZone = String(spec.zone || '').indexOf('their') === 0;
+
+  return visibility === 'private'
+    || visibility === 'none'
+    || displayMode === 'none'
+    || (visibility === 'self' && isOpponentZone);
+}
+
+function ParseMZMultiChooseParam(param) {
+  const parts = String(param || '').split('|');
+  if (parts.length < 3) return null;
+  const min = parseInt(parts[0], 10);
+  const max = parseInt(parts[1], 10);
+  const rawSpecs = parts.slice(2).join('|');
+  const specs = (rawSpecs || '').split('&').map(s => s.trim()).filter(Boolean).map(spec => {
+    const p = spec.split(':');
+    const rawZoneOrCard = p[0].trim();
+    const encodedParts = rawZoneOrCard.split('@');
+    const zoneOrCard = encodedParts[0].trim();
+    const actionPayload = encodedParts.length > 1 ? encodedParts[1].trim() : '';
+    const selectionLabel = encodedParts.length > 2 ? encodedParts.slice(2).join('@').trim() : '';
+    const filters = [];
+    if (p.length > 1) {
+      const filtString = p.slice(1).join(':');
+      const clauses = filtString.split(',').map(f => f.trim()).filter(Boolean);
+      clauses.forEach(cl => {
+        const m = cl.match(/^(\w+)(==|!=|<=|>=|=|<|>)(.*)$/);
+        if (m) filters.push({ field: m[1], op: m[2], value: m[3] });
+        else filters.push({ field: cl, op: '=', value: 'true' });
+      });
+    }
+    const cardMatch = zoneOrCard.match(/^(.+)-(\d+)$/);
+    if (cardMatch) {
+      return {
+        zone: cardMatch[1],
+        specificIndex: parseInt(cardMatch[2], 10),
+        filters: filters,
+        isSpecificCard: true,
+        originalSpec: spec,
+        actionPayload: actionPayload,
+        selectionLabel: selectionLabel
+      };
+    }
+    return {
+      zone: zoneOrCard,
+      filters: filters,
+      isSpecificCard: false,
+      originalSpec: spec,
+      actionPayload: actionPayload,
+      selectionLabel: selectionLabel
+    };
+  });
+  const boundedMax = Math.max(0, isNaN(max) ? 0 : max);
+  const boundedMin = Math.max(0, Math.min(isNaN(min) ? 0 : min, boundedMax));
+  return { min: boundedMin, max: boundedMax, specs: specs };
+}
+
+function UpdateInlineMultiChooseMessage() {
+  const sm = window.SelectionMode || {};
+  if (!sm.active || sm.mode !== 'MZMULTI_INLINE') return;
+  const existing = document.getElementById('selection-message');
+  if (!existing) return;
+  const count = (sm.multiSelected || []).length;
+  const counter = document.getElementById('inline-multi-counter');
+  if (counter) counter.textContent = count + ' selected / ' + sm.multiMax + ' max';
+  const confirmBtn = document.getElementById('inline-multi-confirm');
+  if (confirmBtn) confirmBtn.disabled = (count < sm.multiMin || count > sm.multiMax);
+  const selectAllBtn = document.getElementById('inline-multi-select-all');
+  if (selectAllBtn) {
+    const allCount = ExpandInlineMultiSelectableCards().length;
+    selectAllBtn.disabled = (allCount <= 0 || count >= Math.min(allCount, sm.multiMax || allCount));
+  }
+  const clearAllBtn = document.getElementById('inline-multi-clear-all');
+  if (clearAllBtn) clearAllBtn.disabled = (count <= 0);
+}
+
+function ApplyInlineMultiSelectionDomState() {
+  const sm = window.SelectionMode || {};
+  const selected = new Set(Array.isArray(sm.multiSelected) ? sm.multiSelected : []);
+  document.querySelectorAll('.selectable-card').forEach((el) => {
+    const mzid = el.getAttribute('data-mzid') || el.id || '';
+    const isSelected = selected.has(mzid);
+    el.classList.toggle('selected-inline', isSelected);
+    el.style.setProperty('--highlight-color', isSelected ? 'rgba(255, 198, 46, 1)' : 'rgba(198, 208, 224, 0.98)');
+  });
+}
+
+function StyleInlineMultiActionButton(btn, variant) {
+  // Skin (bg/border/shadow/hover) now comes from .btn + the variant class (button.css, loaded
+  // in-game). Keep only layout inline; drop the JS hover handlers (.btn:hover handles it).
+  btn.classList.add('btn');
+  if (variant) btn.classList.add(variant);
+  btn.style.padding = '7px 14px';
+  btn.style.fontSize = '10px';
+}
+
+function ExpandInlineMultiSelectableCards() {
+  const sm = window.SelectionMode || {};
+  const specs = sm.inlineSpecs || sm.allowedZones || [];
+  const out = [];
+  const seen = new Set();
+  for (let si = 0; si < specs.length; ++si) {
+    const spec = specs[si];
+    if (!spec || !spec.zone) continue;
+    const zoneDataStr = window[spec.zone + 'Data'];
+    if (!zoneDataStr || typeof zoneDataStr !== 'string') continue;
+    const cards = zoneDataStr.split('<|>').filter(s => s.trim());
+    const indices = spec.isSpecificCard ? [spec.specificIndex] : cards.map((_, idx) => idx);
+    for (let ii = 0; ii < indices.length; ++ii) {
+      const idx = indices[ii];
+      if (idx < 0 || idx >= cards.length) continue;
+      const cardArr = cards[idx].split(' ');
+      if (!IsSelectableCard(spec.zone, cardArr, idx)) continue;
+      const mzID = spec.zone + '-' + idx;
+      if (seen.has(mzID)) continue;
+      seen.add(mzID);
+      out.push(mzID);
+    }
+  }
+  return out;
+}
+
+function ShowInlineMultiChooseMessage(msg, decisionIndex) {
+  let existing = document.getElementById('selection-message');
+  if (!existing) {
+    existing = document.createElement('div');
+    existing.id = 'selection-message';
+    document.body.appendChild(existing);
+  }
+  ResetSelectionMessageContainer(existing);
+  if (existing.__draggableModalAbortController) {
+    existing.__draggableModalAbortController.abort();
+    existing.__draggableModalAbortController = null;
+  }
+  existing.style.position = 'fixed';
+  existing.style.top = '50%';
+  existing.style.bottom = 'auto';
+  existing.style.left = '50%';
+  existing.style.right = '';
+  existing.style.transform = 'translate(-50%, -50%)';
+  existing.style.margin = '0';
+  existing.style.width = '';
+  existing.style.background = '#0D1B2A';
+  existing.style.color = '#fff';
+  existing.style.padding = '10px 24px';
+  existing.style.border = '';
+  existing.style.borderRadius = '8px';
+  existing.style.boxShadow = '0 0 10px #0008';
+  existing.style.boxSizing = '';
+  existing.style.fontFamily = "'Orbitron', sans-serif";
+  existing.style.fontSize = '';
+  existing.style.lineHeight = '';
+  existing.style.zIndex = '9999';
+  existing.style.display = 'flex';
+  existing.style.alignItems = 'center';
+  existing.style.justifyContent = '';
+  existing.style.gap = '12px';
+  existing.style.maxWidth = 'min(960px, calc(100vw - 32px))';
+  existing.style.flexWrap = 'wrap';
+  existing.style.userSelect = 'none';
+  existing.innerHTML = '';
+  const msgSpan = document.createElement('span');
+  msgSpan.textContent = msg;
+  msgSpan.style.flex = '1 1 260px';
+  msgSpan.style.minWidth = '0';
+  msgSpan.style.cursor = 'grab';
+  existing.appendChild(msgSpan);
+  const counter = document.createElement('span');
+  counter.id = 'inline-multi-counter';
+  counter.style.opacity = '0.9';
+  existing.appendChild(counter);
+  const selectAllBtn = document.createElement('button');
+  selectAllBtn.id = 'inline-multi-select-all';
+  selectAllBtn.textContent = 'Select All';
+  StyleInlineMultiActionButton(selectAllBtn, 'btn-secondary');
+  selectAllBtn.onclick = function() {
+    const sm = window.SelectionMode || {};
+    const all = ExpandInlineMultiSelectableCards();
+    sm.multiSelected = all.slice(0, sm.multiMax || all.length);
+    ApplyInlineMultiSelectionDomState();
+    UpdateInlineMultiChooseMessage();
+    if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+      RenderRows(window.myRows, window.theirRows);
+    }
+  };
+  existing.appendChild(selectAllBtn);
+  const clearAllBtn = document.createElement('button');
+  clearAllBtn.id = 'inline-multi-clear-all';
+  clearAllBtn.textContent = 'Deselect All';
+  StyleInlineMultiActionButton(clearAllBtn, 'btn-secondary');
+  clearAllBtn.onclick = function() {
+    window.SelectionMode.multiSelected = [];
+    ApplyInlineMultiSelectionDomState();
+    UpdateInlineMultiChooseMessage();
+    if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+      RenderRows(window.myRows, window.theirRows);
+    }
+  };
+  existing.appendChild(clearAllBtn);
+  const confirmBtn = document.createElement('button');
+  confirmBtn.id = 'inline-multi-confirm';
+  confirmBtn.textContent = 'Confirm';
+  StyleInlineMultiActionButton(confirmBtn, 'btn-primary');
+  confirmBtn.onclick = function() {
+    const selected = (window.SelectionMode.multiSelected || []).slice();
+    const payload = selected.length > 0 ? selected.join('&') : '-';
+    SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(payload));
+    ClearSelectionMode();
+  };
+  existing.appendChild(confirmBtn);
+  UpdateInlineMultiChooseMessage();
+  existing.style.display = 'flex';
+  const didMobilePosition = PositionSelectionMessageForMobile(existing, msgSpan);
+  if (typeof EnableDraggableModal === 'function' && !didMobilePosition) {
+    const savedPositionKey = 'mzmulti-inline-position-v2';
+    let hasSavedPosition = false;
+    try {
+      hasSavedPosition = !!localStorage.getItem(savedPositionKey);
+    } catch (e) {
+      hasSavedPosition = false;
+    }
+    if (!hasSavedPosition) {
+      const rect = existing.getBoundingClientRect();
+      const handSlot = document.getElementById('myHandSlot');
+      const handRect = handSlot ? handSlot.getBoundingClientRect() : null;
+      const centeredLeft = handRect
+        ? handRect.left + (handRect.width - rect.width) / 2
+        : (window.innerWidth - rect.width) / 2;
+      const aboveHandTop = handRect
+        ? handRect.top - rect.height - 12
+        : (window.innerHeight - rect.height) / 2;
+      existing.style.transform = 'none';
+      existing.style.left = Math.min(Math.max(8, centeredLeft), Math.max(8, window.innerWidth - rect.width - 8)) + 'px';
+      existing.style.top = Math.min(Math.max(8, aboveHandTop), Math.max(8, window.innerHeight - rect.height - 8)) + 'px';
+    } else {
+      existing.style.transform = 'none';
+    }
+    EnableDraggableModal(existing, msgSpan, savedPositionKey);
+  }
+}
+
+// Determine if a card element (in a given zone) should be selectable based on
+// the current SelectionMode definitions. Supports:
+// - Zone selection: "myHand" (any card in zone)
+// - Specific card selection: "myHand-0" (only card at index 0)
+// - Filters: "myBase:index=0" or "myBattlefield:CardID=ABC"
+// Returns true if the zone matches and all filters pass.
+// For inline selection, only checks inlineSpecs (not popup cards).
+function IsSelectableCard(zone, cardArr, index) {
+  try {
+    if (!window.SelectionMode || !window.SelectionMode.active) return false;
+
+    // Use inlineSpecs if available, otherwise fall back to allowedZones for compatibility
+    const specs = window.SelectionMode.inlineSpecs || window.SelectionMode.allowedZones || [];
+
+    for (let si = 0; si < specs.length; ++si) {
+      const spec = specs[si];
+      if (!spec || !spec.zone) continue;
+      if (spec.actionPayload) continue;
+      if (spec.zone !== zone) continue;
+
+      // If this is a specific card reference, check the index matches exactly
+      if (spec.isSpecificCard) {
+        if (spec.specificIndex !== index) continue;
+      }
+
+      const filters = spec.filters || [];
+      if (filters.length === 0) return true;
+
+      // parse card JSON if present
+      let cardData = {};
+      if (cardArr && cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
+        try { cardData = JSON.parse(cardArr[2]); } catch (e) { cardData = {}; }
+      }
+      let allOk = true;
+      for (let fi = 0; fi < filters.length; ++fi) {
+        const f = filters[fi];
+        const field = f.field;
+        const op = f.op;
+        const target = f.value;
+        let actual = null;
+        if (field.toLowerCase() === 'index' || field.toLowerCase() === 'i') {
+          actual = Number(index);
+        } else {
+          actual = cardData.hasOwnProperty(field) ? cardData[field] : null;
+        }
+        if (actual === null || actual === undefined) { allOk = false; break; }
+        const numActual = Number(actual);
+        const numTarget = Number(target);
+        const numericCompare = !isNaN(numActual) && !isNaN(numTarget);
+        switch(op) {
+          case '=': case '==':
+            if (numericCompare) { if (!(numActual == numTarget)) allOk = false; }
+            else { if (String(actual) !== String(target)) allOk = false; }
+            break;
+          case '!=':
+            if (numericCompare) { if (!(numActual != numTarget)) allOk = false; }
+            else { if (String(actual) === String(target)) allOk = false; }
+            break;
+          case '<':
+            if (!numericCompare || !(numActual < numTarget)) allOk = false;
+            break;
+          case '>':
+            if (!numericCompare || !(numActual > numTarget)) allOk = false;
+            break;
+          case '<=':
+            if (!numericCompare || !(numActual <= numTarget)) allOk = false;
+            break;
+          case '>=':
+            if (!numericCompare || !(numActual >= numTarget)) allOk = false;
+            break;
+          default:
+            allOk = false;
+        }
+        if (!allOk) break;
+      }
+      if (allOk) return true;
+    }
+    return false;
+  } catch (e) {
+    if (console && console.error) console.error('IsSelectableCard error', e);
+    return false;
+  }
+}
+
+// Hide the MZChoose popup
+function HideMZChoosePopup() {
+  let existing = document.getElementById('mzchoose-popup');
+  if (existing) existing.remove();
+  if (typeof HideCardDetail === 'function') HideCardDetail();
+}
+
+function EnableDraggableModal(modal, handle, positionStorageKey) {
+  if (!modal || !handle) return;
+
+  if (modal.__draggableModalAbortController) {
+    modal.__draggableModalAbortController.abort();
+    modal.__draggableModalAbortController = null;
+  }
+
+  const listenerOptions = {};
+  const passiveListenerOptions = { passive: false };
+  if (typeof AbortController !== 'undefined') {
+    modal.__draggableModalAbortController = new AbortController();
+    listenerOptions.signal = modal.__draggableModalAbortController.signal;
+    passiveListenerOptions.signal = modal.__draggableModalAbortController.signal;
+  }
+
+  let dragState = null;
+
+  handle.style.cursor = 'grab';
+  handle.style.touchAction = 'none';
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function applyPosition(left, top) {
+    const rect = modal.getBoundingClientRect();
+    const maxLeft = Math.max(8, window.innerWidth - rect.width - 8);
+    const maxTop = Math.max(8, window.innerHeight - rect.height - 8);
+    modal.style.position = 'fixed';
+    modal.style.left = clamp(left, 8, maxLeft) + 'px';
+    modal.style.top = clamp(top, 8, maxTop) + 'px';
+    modal.style.margin = '0';
+  }
+
+  function savePosition() {
+    const left = parseFloat(modal.style.left);
+    const top = parseFloat(modal.style.top);
+    if (!Number.isFinite(left) || !Number.isFinite(top)) return;
+    try {
+      localStorage.setItem(positionStorageKey, JSON.stringify({ left: left, top: top }));
+    } catch (e) {
+      // Ignore storage failures.
+    }
+  }
+
+  function loadPosition() {
+    let raw = null;
+    try {
+      raw = localStorage.getItem(positionStorageKey);
+    } catch (e) {
+      return false;
+    }
+    if (!raw) return false;
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed || !Number.isFinite(parsed.left) || !Number.isFinite(parsed.top)) return false;
+      applyPosition(parsed.left, parsed.top);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function finishDrag() {
+    if (!dragState) return;
+    dragState = null;
+    handle.style.cursor = 'grab';
+    savePosition();
+  }
+
+  function beginDrag(clientX, clientY, button, target) {
+    if (button !== 0) return false;
+    if (target && target.closest && target.closest('button')) return false;
+    const rect = modal.getBoundingClientRect();
+    dragState = {
+      startX: clientX,
+      startY: clientY,
+      startLeft: rect.left,
+      startTop: rect.top
+    };
+    handle.style.cursor = 'grabbing';
+    return true;
+  }
+
+  function moveDrag(clientX, clientY) {
+    if (!dragState) return;
+    applyPosition(
+      dragState.startLeft + (clientX - dragState.startX),
+      dragState.startTop + (clientY - dragState.startY)
+    );
+  }
+
+  handle.addEventListener('mousedown', function(ev) {
+    if (beginDrag(ev.clientX, ev.clientY, ev.button, ev.target)) ev.preventDefault();
+  }, listenerOptions);
+
+  window.addEventListener('mousemove', function(ev) {
+    moveDrag(ev.clientX, ev.clientY);
+  }, listenerOptions);
+
+  window.addEventListener('mouseup', finishDrag, listenerOptions);
+
+  handle.addEventListener('touchstart', function(ev) {
+    if (!ev.touches || ev.touches.length === 0) return;
+    const touch = ev.touches[0];
+    if (beginDrag(touch.clientX, touch.clientY, 0, ev.target)) ev.preventDefault();
+  }, passiveListenerOptions);
+
+  window.addEventListener('touchmove', function(ev) {
+    if (!dragState || !ev.touches || ev.touches.length === 0) return;
+    const touch = ev.touches[0];
+    moveDrag(touch.clientX, touch.clientY);
+    ev.preventDefault();
+  }, passiveListenerOptions);
+
+  window.addEventListener('touchend', finishDrag, listenerOptions);
+  window.addEventListener('touchcancel', finishDrag, listenerOptions);
+
+  window.addEventListener('resize', function() {
+    const left = parseFloat(modal.style.left);
+    const top = parseFloat(modal.style.top);
+    if (!Number.isFinite(left) || !Number.isFinite(top)) return;
+    applyPosition(left, top);
+    savePosition();
+  }, listenerOptions);
+
+  const initialRect = modal.getBoundingClientRect();
+  if (!loadPosition()) applyPosition(initialRect.left, initialRect.top);
+}
+
+// Show a popup for selecting cards from Single mode zones
+// popupCards: array of specs with { zone, specificIndex, originalSpec, ... }
+// Each card will display with a label showing the zone name
+function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
+  // Remove any existing popup
+  HideMZChoosePopup();
+
+  if (!popupCards || popupCards.length === 0) return;
+
+  const popupTitle = 'Choose Card';
+
+  // Create overlay
+  let overlay = document.createElement('div');
+  overlay.id = 'mzchoose-popup';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100vw';
+  overlay.style.height = '100vh';
+  overlay.style.background = 'rgba(0,0,0,0.7)';
+  overlay.style.zIndex = '5000';
+  overlay.style.display = 'flex';
+  overlay.style.flexDirection = 'column';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.fontFamily = "'Orbitron', sans-serif";
+
+  // Create modal container
+  let modal = document.createElement('div');
+  modal.style.position = 'relative';
+  modal.style.background = 'linear-gradient(180deg, rgba(244, 236, 219, 0.12), rgba(255, 255, 255, 0.02)), linear-gradient(160deg, rgba(13, 27, 42, 0.92), rgba(13, 27, 42, 0.82))';
+  modal.style.border = '1px solid rgba(244, 236, 219, 0.16)';
+  modal.style.borderRadius = '24px';
+  modal.style.boxShadow = '0 20px 52px rgba(7, 14, 20, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.13)';
+  modal.style.backdropFilter = 'blur(14px) saturate(140%)';
+  modal.style.webkitBackdropFilter = 'blur(14px) saturate(140%)';
+  modal.style.maxWidth = 'min(860px, calc(100vw - 24px))';
+  modal.style.maxHeight = '80vh';
+  modal.style.overflow = 'auto';
+  modal.style.pointerEvents = 'auto';
+
+  let header = document.createElement('div');
+  header.setAttribute('data-drag-handle', 'true');
+  header.style.display = 'flex';
+  header.style.alignItems = 'center';
+  header.style.justifyContent = 'space-between';
+  header.style.gap = '12px';
+  header.style.padding = '12px 14px 10px 14px';
+  header.style.cursor = 'grab';
+  header.style.userSelect = 'none';
+  header.style.touchAction = 'none';
+
+  let headerLabel = document.createElement('div');
+  headerLabel.style.flex = '1';
+  headerLabel.style.minWidth = '0';
+  headerLabel.style.color = 'rgba(244, 236, 219, 0.92)';
+  headerLabel.style.textTransform = 'uppercase';
+  headerLabel.style.letterSpacing = '0.24em';
+  headerLabel.style.fontSize = '11px';
+  headerLabel.style.fontWeight = '700';
+  headerLabel.style.whiteSpace = 'nowrap';
+  headerLabel.style.overflow = 'hidden';
+  headerLabel.style.textOverflow = 'ellipsis';
+  headerLabel.textContent = popupTitle;
+  header.appendChild(headerLabel);
+
+  let controls = document.createElement('div');
+  controls.style.display = 'flex';
+  controls.style.alignItems = 'center';
+  controls.style.gap = '8px';
+
+  let minimizeBtn = document.createElement('button');
+  minimizeBtn.type = 'button';
+  minimizeBtn.textContent = '−';
+  minimizeBtn.title = 'Minimize';
+  minimizeBtn.setAttribute('aria-label', 'Minimize chooser');
+  minimizeBtn.style.width = '28px';
+  minimizeBtn.style.height = '28px';
+  minimizeBtn.style.padding = '0';
+  minimizeBtn.style.borderRadius = '999px';
+  minimizeBtn.style.border = '1px solid rgba(244, 236, 219, 0.18)';
+  minimizeBtn.style.background = 'rgba(244, 236, 219, 0.08)';
+  minimizeBtn.style.color = '#f4ecdb';
+  minimizeBtn.style.fontSize = '18px';
+  minimizeBtn.style.lineHeight = '1';
+  minimizeBtn.style.cursor = 'pointer';
+  minimizeBtn.style.fontFamily = "'Orbitron', sans-serif";
+  controls.appendChild(minimizeBtn);
+  header.appendChild(controls);
+  modal.appendChild(header);
+
+  let headerDivider = document.createElement('div');
+  headerDivider.style.height = '1px';
+  headerDivider.style.margin = '0 14px';
+  headerDivider.style.background = 'linear-gradient(90deg, rgba(200, 155, 70, 0.26), rgba(244, 236, 219, 0.05))';
+  modal.appendChild(headerDivider);
+
+  let body = document.createElement('div');
+  body.style.padding = '16px 18px 18px 18px';
+  body.style.display = 'block';
+  modal.appendChild(body);
+
+  // Title/tooltip
+  let title = document.createElement('div');
+  title.style.fontSize = '18px';
+  title.style.color = '#fff';
+  title.style.marginBottom = '20px';
+  title.style.textAlign = 'center';
+  title.style.padding = '0 28px';
+  title.style.textWrap = 'balance';
+  title.textContent = tooltip;
+  body.appendChild(title);
+
+  // Cards container - horizontal wrap
+  let cardsContainer = document.createElement('div');
+  cardsContainer.style.display = 'flex';
+  cardsContainer.style.flexWrap = 'wrap';
+  cardsContainer.style.justifyContent = 'center';
+  cardsContainer.style.gap = '16px';
+  cardsContainer.style.marginBottom = '20px';
+
+  // Get card size from window or use default
+  const cardSize = window.cardSize || 96;
+  const rootPath = window.rootPath || '.';
+
+  // For each popup card spec, find and display the card
+  for (const spec of popupCards) {
+    // Get card data from the zone's window data variable
+    const zoneDataVar = spec.zone + 'Data';
+    const zoneDataStr = window[zoneDataVar];
+    if (!zoneDataStr || typeof zoneDataStr !== 'string') continue;
+
+    // Parse the zone data to get the card at the specific index
+    const zoneCards = zoneDataStr.split('<|>').filter(s => s.trim());
+    if (spec.specificIndex >= zoneCards.length) continue;
+
+    const cardEntry = zoneCards[spec.specificIndex];
+    const cardArr = cardEntry.split(' ');
+    // cardArr[0] = card number (image filename)
+    // cardArr[1] = counter data
+    // cardArr[2] = JSON data
+    const cardNumber = cardArr[0];
+    const counters = cardArr.length > 1 ? cardArr[1] : '0';
+
+    // Create card wrapper
+    let cardWrapper = document.createElement('div');
+    cardWrapper.style.position = 'relative';
+    cardWrapper.style.cursor = 'pointer';
+    cardWrapper.style.transition = 'transform 0.2s, box-shadow 0.2s';
+    cardWrapper.style.borderRadius = '8px';
+
+    // Add hover effect
+    cardWrapper.onmouseenter = function(e) {
+      cardWrapper.style.transform = 'scale(1.05)';
+      cardWrapper.style.boxShadow = '0 0 20px rgba(100,250,0,0.6)';
+      if (typeof ShowCardDetail === 'function') ShowCardDetail(e, cardWrapper);
+    };
+    cardWrapper.onmouseleave = function() {
+      cardWrapper.style.transform = 'scale(1)';
+      cardWrapper.style.boxShadow = 'none';
+      if (typeof HideCardDetail === 'function') HideCardDetail();
+    };
+
+    // Create card image container using the Card() function
+    let cardImgContainer = document.createElement('div');
+    cardImgContainer.style.position = 'relative';
+
+    // Use the Card() function to generate the card HTML
+    // Card(cardNumber, folder, maxHeight, action, showHover, overlay, borderColor, counters, ...)
+    const folder = rootPath + '/concat';
+    const renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
+    const cardHTML = renderCardFn(cardNumber, folder, cardSize, 0, 0, 0, 0, counters);
+    cardImgContainer.innerHTML = cardHTML;
+
+    // Style the generated image
+    const imgEl = cardImgContainer.querySelector('img');
+    if (imgEl) {
+      imgEl.style.width = cardSize + 'px';
+      imgEl.style.height = 'auto';
+      imgEl.style.borderRadius = '6px';
+    }
+
+    cardWrapper.appendChild(cardImgContainer);
+
+    // Zone label at bottom of card. Prefer an explicit action label when present; otherwise show the
+    // source zone — but never surface internal staging zones (TempZone) to the player.
+    let displayZoneName = spec.selectionLabel ? spec.selectionLabel.replace(/_/g, ' ') : spec.zone.replace(/^(my|their)/, '');
+    if (displayZoneName && displayZoneName !== 'TempZone') {
+      let zoneLabel = document.createElement('div');
+      zoneLabel.style.position = 'absolute';
+      zoneLabel.style.bottom = '0';
+      zoneLabel.style.left = '0';
+      zoneLabel.style.right = '0';
+      zoneLabel.style.background = 'rgba(0,0,0,0.8)';
+      zoneLabel.style.color = '#fff';
+      zoneLabel.style.fontSize = '11px';
+      zoneLabel.style.padding = '4px 6px';
+      zoneLabel.style.textAlign = 'center';
+      zoneLabel.style.borderRadius = '0 0 6px 6px';
+      zoneLabel.textContent = displayZoneName;
+      cardWrapper.appendChild(zoneLabel);
+    }
+
+    // Click handler - select this card
+    const cardIdToSubmit = spec.originalSpec; // e.g., "myHand-0" or "BG1-2"
+    const zoneNameForCallback = spec.zone;
+    cardWrapper.onclick = function() {
+      if (window.SelectionMode && window.SelectionMode.callback) {
+        window.SelectionMode.callback(zoneNameForCallback, cardIdToSubmit, decisionIndex);
+      }
+      ClearSelectionMode();
+    };
+
+    cardsContainer.appendChild(cardWrapper);
+  }
+
+  body.appendChild(cardsContainer);
+
+  // Buttons container
+  let buttonsContainer = document.createElement('div');
+  buttonsContainer.style.display = 'flex';
+  buttonsContainer.style.justifyContent = 'center';
+  buttonsContainer.style.gap = '16px';
+
+  // Pass button (if allowed)
+  if (showPassButton) {
+    let passBtn = document.createElement('button');
+    passBtn.textContent = 'Pass';
+    passBtn.style.padding = '12px 34px';
+    passBtn.style.fontSize = '18px';
+    passBtn.style.fontWeight = '700';
+    passBtn.style.letterSpacing = '0.06em';
+    passBtn.style.textTransform = 'uppercase';
+    passBtn.style.background = 'linear-gradient(150deg, rgba(10, 19, 48, 0.95), rgba(22, 39, 86, 0.88))';
+    passBtn.style.color = '#e9f1ff';
+    passBtn.style.border = '1px solid rgba(156, 190, 255, 0.45)';
+    passBtn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 14px 34px rgba(4, 10, 28, 0.52)';
+    passBtn.style.backdropFilter = 'blur(8px)';
+    passBtn.style.webkitBackdropFilter = 'blur(8px)';
+    passBtn.style.borderRadius = '14px';
+    passBtn.style.cursor = 'pointer';
+    passBtn.style.fontFamily = "'Orbitron', sans-serif";
+    passBtn.style.transition = 'transform 150ms ease, box-shadow 180ms ease, filter 180ms ease, border-color 180ms ease';
+    passBtn.onmouseover = function() {
+      passBtn.style.transform = 'translateY(-1px) scale(1.02)';
+      passBtn.style.filter = 'brightness(1.08)';
+      passBtn.style.borderColor = 'rgba(184, 211, 255, 0.72)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(236, 244, 255, 0.34), 0 18px 38px rgba(4, 10, 28, 0.62)';
+    };
+    passBtn.onmouseout = function() {
+      passBtn.style.transform = 'translateY(0) scale(1)';
+      passBtn.style.filter = 'brightness(1)';
+      passBtn.style.borderColor = 'rgba(156, 190, 255, 0.45)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 14px 34px rgba(4, 10, 28, 0.52)';
+    };
+    passBtn.onmousedown = function() {
+      passBtn.style.transform = 'translateY(1px) scale(0.99)';
+      passBtn.style.boxShadow = 'inset 0 1px 4px rgba(3, 7, 20, 0.45), 0 8px 20px rgba(4, 10, 28, 0.48)';
+    };
+    passBtn.onmouseup = function() {
+      passBtn.style.transform = 'translateY(-1px) scale(1.02)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(236, 244, 255, 0.34), 0 18px 38px rgba(4, 10, 28, 0.62)';
+    };
+    passBtn.onfocus = function() {
+      passBtn.style.outline = '2px solid rgba(203, 223, 255, 0.9)';
+      passBtn.style.outlineOffset = '2px';
+    };
+    passBtn.onblur = function() {
+      passBtn.style.outline = 'none';
+    };
+    passBtn.onclick = function() {
+      SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=PASS');
+      ClearSelectionMode();
+    };
+    buttonsContainer.appendChild(passBtn);
+  }
+
+  body.appendChild(buttonsContainer);
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+  EnableDraggableModal(modal, header, 'mzchoose-popup-position-v1');
+
+  let isMinimized = false;
+
+  function setMinimized(nextValue) {
+    isMinimized = !!nextValue;
+    body.style.display = isMinimized ? 'none' : 'block';
+    overlay.style.background = isMinimized ? 'transparent' : 'rgba(0,0,0,0.7)';
+    overlay.style.pointerEvents = isMinimized ? 'none' : 'auto';
+    modal.style.pointerEvents = 'auto';
+    modal.style.maxHeight = isMinimized ? 'none' : '80vh';
+    modal.style.overflow = isMinimized ? 'visible' : 'auto';
+    modal.style.width = isMinimized ? 'min(420px, calc(100vw - 24px))' : '';
+    headerDivider.style.display = isMinimized ? 'none' : 'block';
+    modal.style.borderRadius = isMinimized ? '999px' : '24px';
+    minimizeBtn.textContent = isMinimized ? '+' : '−';
+    minimizeBtn.title = isMinimized ? 'Expand' : 'Minimize';
+    minimizeBtn.setAttribute('aria-label', isMinimized ? 'Expand chooser' : 'Minimize chooser');
+  }
+
+  minimizeBtn.onclick = function(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    setMinimized(!isMinimized);
+  };
+}
+
+function _ensureTurnMiasmaOverlay() {
+  let el = document.getElementById('turn-miasma-overlay');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'turn-miasma-overlay';
+
+    const leftGlyph = document.createElement('div');
+    leftGlyph.id = 'turn-edge-glyph-left';
+    leftGlyph.className = 'turn-edge-glyph';
+    leftGlyph.setAttribute('data-side', 'left');
+    const leftCore = document.createElement('div');
+    leftCore.className = 'turn-edge-core';
+    leftGlyph.appendChild(leftCore);
+
+    const rightGlyph = document.createElement('div');
+    rightGlyph.id = 'turn-edge-glyph-right';
+    rightGlyph.className = 'turn-edge-glyph';
+    rightGlyph.setAttribute('data-side', 'right');
+    const rightCore = document.createElement('div');
+    rightCore.className = 'turn-edge-core';
+    rightGlyph.appendChild(rightCore);
+
+    const text = document.createElement('div');
+    text.id = 'turn-miasma-message';
+
+    el.appendChild(leftGlyph);
+    el.appendChild(rightGlyph);
+    el.appendChild(text);
+    document.body.appendChild(el);
+  }
+  return el;
+}
+
+function _setTurnOverlayState(overlay, state) {
+  if (!overlay) return;
+  overlay.classList.remove('my-turn', 'their-turn', 'spectator-turn');
+  overlay.classList.add(state);
+}
+
+function _getTurnIndicatorSettings() {
+  const defaults = {
+    showWaitingMessage: true,
+    waitingMessageBuilder: null,
+    messageAnchorId: null
+  };
+
+  if (!window.TurnIndicatorSettings || typeof window.TurnIndicatorSettings !== 'object') {
+    return defaults;
+  }
+
+  const merged = {
+    showWaitingMessage: defaults.showWaitingMessage,
+    waitingMessageBuilder: defaults.waitingMessageBuilder,
+    messageAnchorId: defaults.messageAnchorId
+  };
+
+  if (typeof window.TurnIndicatorSettings.showWaitingMessage === 'boolean') {
+    merged.showWaitingMessage = window.TurnIndicatorSettings.showWaitingMessage;
+  }
+
+  if (typeof window.TurnIndicatorSettings.waitingMessageBuilder === 'function') {
+    merged.waitingMessageBuilder = window.TurnIndicatorSettings.waitingMessageBuilder;
+  }
+
+  if (typeof window.TurnIndicatorSettings.messageAnchorId === 'string') {
+    merged.messageAnchorId = window.TurnIndicatorSettings.messageAnchorId;
+  }
+
+  return merged;
+}
+
+function _firstPendingDecisionFromRaw(rawQueue) {
+  let queue = rawQueue;
+  if (typeof queue === 'string') {
+    queue = ParseDecisionQueue(queue);
+  }
+  if (!Array.isArray(queue)) return null;
+  for (let i = 0; i < queue.length; ++i) {
+    const entry = queue[i];
+    if (entry && !entry.removed) return entry;
+  }
+  return null;
+}
+
+function _describeDecisionType(type) {
+  switch ((type || '').toUpperCase()) {
+    case 'SCRY': return 'look at the top cards';
+    case 'TOPDECKSEARCH': return 'search the top cards of your deck';
+    case 'YESNO': return 'make a yes/no choice';
+    case 'CHOOSEZONE': return 'choose a zone';
+    case 'MZCHOOSE': return 'choose a card';
+    case 'MZMAYCHOOSE': return 'choose a card (or pass)';
+    case 'MZREARRANGE': return 'rearrange cards';
+    case 'MZMODAL': return 'choose an option';
+    case 'MZMULTICHOOSE': return 'choose multiple cards';
+    case 'MZSPLITASSIGN': return 'assign values';
+    case 'NUMBERCHOOSE': return 'choose a number';
+    case 'TWOSIDEDSLIDER': return 'choose a split';
+    case 'NAMECARD': return 'name a card';
+    case 'ICONCHOICE': return 'choose a direction';
+    default: return 'take an action';
+  }
+}
+
+function _buildOpponentWaitingMessage() {
+  const settings = _getTurnIndicatorSettings();
+  if (typeof settings.waitingMessageBuilder === 'function') {
+    const customText = settings.waitingMessageBuilder({
+      theirDecisionQueueData: window.theirDecisionQueueData,
+      defaultBuilder: function() {
+        const pendingDecision = _firstPendingDecisionFromRaw(window.theirDecisionQueueData);
+        if (!pendingDecision) return 'Waiting for the other player';
+        const tip = (pendingDecision.Tooltip && pendingDecision.Tooltip !== '-')
+          ? pendingDecision.Tooltip.replace(/_/g, ' ').trim()
+          : '';
+        const defaultAction = tip || _describeDecisionType(pendingDecision.Type);
+        const normalizedAction = defaultAction.replace(/[.\s]+$/g, '');
+        return 'Waiting for the other player to ' + normalizedAction;
+      }
+    });
+    if (typeof customText === 'string' && customText.trim() !== '') {
+      return customText;
+    }
+  }
+
+  const pending = _firstPendingDecisionFromRaw(window.theirDecisionQueueData);
+  if (!pending) return 'Waiting for the other player...';
+
+  const tooltip = (pending.Tooltip && pending.Tooltip !== '-')
+    ? pending.Tooltip.replace(/_/g, ' ').trim()
+    : '';
+  const action = tooltip || _describeDecisionType(pending.Type);
+  const normalized = action.replace(/[.\s]+$/g, '');
+
+  return 'Waiting for the other player to ' + normalized + '...';
+}
+
+function _shouldShowOpponentWaitingMessage(viewerIsTurn) {
+  // The server sends opponent DQ entries as "CardBack 0 -" (no JSON), so
+  // _firstPendingDecisionFromRaw can't parse them. Check for any entries instead.
+  const raw = window.theirDecisionQueueData;
+  const theirHasDecisions = raw && typeof raw === 'string' && raw.trim().length > 0;
+  if (theirHasDecisions) return true;
+
+  const myPending = _firstPendingDecisionFromRaw(window.myDecisionQueueData);
+  if (myPending) return false;
+
+  // If no one has a pending decision queue item, priority defaults to turn player.
+  return !viewerIsTurn;
+}
+
+function _positionMessageNearAnchor(messageEl, anchorId) {
+  if (!messageEl) return;
+
+  // Start from the default top placement so we never leave conflicting
+  // top+bottom constraints active from a previous frame.
+  messageEl.style.top = '12px';
+  messageEl.style.bottom = '';
+
+  if (!anchorId) return;
+  const anchor = document.getElementById(anchorId);
+  if (!anchor) return;
+  const rect = anchor.getBoundingClientRect();
+  const gap = window.innerHeight - rect.top;
+  messageEl.style.top = 'auto';
+  messageEl.style.bottom = (gap + 8) + 'px';
+}
+
+function UpdateTurnPlayerMiasma() {
+  try {
+    const overlay = _ensureTurnMiasmaOverlay();
+    const messageEl = document.getElementById('turn-miasma-message');
+    const settings = _getTurnIndicatorSettings();
+    const turnVal = typeof window.TurnPlayerData !== 'undefined' ? parseInt(window.TurnPlayerData) : NaN;
+    const viewerVal = (document.getElementById('playerID') && document.getElementById('playerID').value) ? parseInt(document.getElementById('playerID').value) : NaN;
+
+    // If we don't have a valid turn value, hide the overlay
+    if (isNaN(turnVal)) {
+      overlay.style.display = 'none';
+      return;
+    }
+
+    // If viewer value available, derive state from who is actually deciding
+    if (!isNaN(viewerVal)) {
+      const viewerIsTurn = viewerVal === turnVal;
+      const shouldShowMessage = settings.showWaitingMessage && _shouldShowOpponentWaitingMessage(viewerIsTurn);
+      // Use 'their-turn' CSS state whenever we're waiting for the opponent (covers the case
+      // where it's technically the viewer's turn but the opponent has a pending decision).
+      const overlayState = (!viewerIsTurn || shouldShowMessage) ? 'their-turn' : 'my-turn';
+      _setTurnOverlayState(overlay, overlayState);
+      overlay.style.display = 'flex';
+      if (messageEl) {
+        messageEl.style.display = shouldShowMessage ? 'inline-flex' : 'none';
+        if (shouldShowMessage) {
+          _positionMessageNearAnchor(messageEl, settings.messageAnchorId);
+          messageEl.textContent = _buildOpponentWaitingMessage();
+        }
+      }
+      return;
+    }
+
+    // For spectators (no viewerVal) show overlay by default when turnVal exists
+    _setTurnOverlayState(overlay, 'spectator-turn');
+    overlay.style.display = 'flex';
+    if (messageEl) {
+      if (settings.showWaitingMessage) {
+        messageEl.style.display = 'inline-flex';
+        _positionMessageNearAnchor(messageEl, settings.messageAnchorId);
+        messageEl.textContent = _buildOpponentWaitingMessage();
+      } else {
+        messageEl.style.display = 'none';
+      }
+    }
+  } catch (e) {
+    if (console && console.error) console.error('UpdateTurnPlayerMiasma error', e);
+  }
+}
+/**
+ * Show the full-screen game-over overlay.
+ * @param {boolean} didWin  true = "You Won", false = "You Lost"
+ * @param {string}  [menuUrl]  Optional explicit URL for the "Return to Menu" button.
+ *   If omitted, derived from window.rootPath (e.g. "./GrandArchiveSim" → "./SharedUI/Sites/GrandArchiveSim/MainMenu.php").
+ */
+function ShowGameOver(didWin, menuUrl, statsHtml, buttons) {
+  if (document.getElementById('game-over-overlay')) return; // already shown
+
+  var overlay = document.createElement('div');
+  overlay.id = 'game-over-overlay';
+
+  var title = document.createElement('div');
+  title.id = 'game-over-title';
+  title.textContent = didWin ? 'You Won!' : 'You Lost';
+
+  var stats = document.createElement('div');
+  stats.id = 'game-over-stats';
+  stats.style.boxSizing = 'border-box';
+  stats.style.width = 'min(1280px, calc(100vw - 96px))';
+  stats.style.maxHeight = 'min(68vh, 820px)';
+  stats.style.overflowX = 'hidden';
+  stats.style.overflowY = 'auto';
+  stats.style.margin = '14px auto 18px';
+  stats.style.padding = '14px 16px';
+  stats.style.borderRadius = '12px';
+  stats.style.background = 'rgba(8, 15, 25, 0.65)';
+  stats.style.border = '1px solid rgba(255,255,255,0.12)';
+  stats.style.fontSize = '15px';
+  stats.style.lineHeight = '1.35';
+  stats.style.textAlign = 'left';
+  stats.style.color = '#f0e6c8';
+  stats.style.boxShadow = '0 18px 40px rgba(0,0,0,0.22)';
+  if (statsHtml) {
+    stats.innerHTML = statsHtml;
+    if (typeof InitializeMacroGameStatsCharts === 'function') {
+      InitializeMacroGameStatsCharts(stats);
+    }
+  } else {
+    stats.style.display = 'none';
+  }
+
+  var url = menuUrl;
+  if (!url && window.rootPath) {
+    // window.rootPath is like './GrandArchiveSim'; derive shared-site menu path
+    var rootName = window.rootPath.replace(/^(\.\/|\/)/, '');
+    url = './SharedUI/Sites/' + rootName + '/MainMenu.php';
+  }
+  if (!url) url = './MainMenu.php';
+
+  overlay.appendChild(title);
+  overlay.appendChild(stats);
+  if (typeof window.MatchReplayAddGameOverButton === 'function') {
+    window.MatchReplayAddGameOverButton(overlay);
+  }
+
+  if (buttons && buttons.length) {
+    // Caller-supplied contextual buttons (e.g. SWUSim end-game menu).
+    var row = document.createElement('div');
+    row.id = 'game-over-buttons';
+    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;';
+    buttons.forEach(function (def) {
+      var b = document.createElement('button');
+      b.className = 'btn btn-primary';   // design-system skin (SWUSim sweep still overrides in-game until Tier 2)
+      if (def.id) b.id = def.id;
+      b.textContent = def.label;
+      if (def.disabled) b.disabled = true;
+      b.addEventListener('click', function (ev) { if (b.disabled) return; def.onClick(ev); });
+      row.appendChild(b);
+    });
+    overlay.appendChild(row);
+  } else {
+    var btn = document.createElement('button');
+    btn.id = 'game-over-menu-btn';
+    btn.className = 'btn btn-primary';
+    btn.textContent = 'Return to Menu';
+    btn.addEventListener('click', function () { window.location.href = url; });
+    overlay.appendChild(btn);
+  }
+  document.body.appendChild(overlay);
+
+  overlay.classList.add(didWin ? 'won' : 'lost');
+  void overlay.offsetWidth; // force reflow so the entering animation fires
+  overlay.classList.add('active');
+}
+
+function _parseMacroGameIndex(rawValue) {
+  if (!rawValue || rawValue === '-') return {};
+  try {
+    var parsed = JSON.parse(rawValue);
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function _collectMacroGameCardCounts(indexData, playerID, macroNames) {
+  var combined = {};
+  for (var i = 0; i < macroNames.length; ++i) {
+    var macroName = macroNames[i];
+    var macroEntry = indexData[macroName];
+    if (!macroEntry) continue;
+    var playerEntry = macroEntry[playerID] || macroEntry[String(playerID)];
+    if (!playerEntry || typeof playerEntry !== 'object') continue;
+    for (var cardID in playerEntry) {
+      if (!Object.prototype.hasOwnProperty.call(playerEntry, cardID)) continue;
+      combined[cardID] = (combined[cardID] || 0) + (parseInt(playerEntry[cardID], 10) || 0);
+    }
+  }
+  return combined;
+}
+
+function _collectMacroGameBucketCounts(indexData, playerID, bucketNames) {
+  var combined = {};
+  for (var i = 0; i < bucketNames.length; ++i) {
+    var bucketName = bucketNames[i];
+    var bucketEntry = indexData[bucketName];
+    if (!bucketEntry) continue;
+    var playerEntry = bucketEntry[playerID] || bucketEntry[String(playerID)];
+    if (!playerEntry || typeof playerEntry !== 'object') continue;
+    for (var entryKey in playerEntry) {
+      if (!Object.prototype.hasOwnProperty.call(playerEntry, entryKey)) continue;
+      combined[entryKey] = (combined[entryKey] || 0) + (parseInt(playerEntry[entryKey], 10) || 0);
+    }
+  }
+  return combined;
+}
+
+function _collectMacroGameCallCount(indexData, playerID, macroNames) {
+  var total = 0;
+  for (var i = 0; i < macroNames.length; ++i) {
+    var callEntry = indexData[macroNames[i] + 'Calls'];
+    if (!callEntry) continue;
+    total += parseInt(callEntry[playerID] || callEntry[String(playerID)] || 0, 10) || 0;
+  }
+  return total;
+}
+
+function _collectMacroGameNumericBuckets(indexData, playerID, bucketNames) {
+  var total = 0;
+  for (var i = 0; i < bucketNames.length; ++i) {
+    var bucketEntry = indexData[bucketNames[i]];
+    if (!bucketEntry) continue;
+    total += parseInt(bucketEntry[playerID] || bucketEntry[String(playerID)] || 0, 10) || 0;
+  }
+  return total;
+}
+
+function _escapeMacroGameHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function _getMacroGameCardName(cardID) {
+  if (typeof Cardname === 'function') {
+    var resolved = Cardname(cardID);
+    if (resolved) return resolved;
+  }
+  return cardID || 'Unknown card';
+}
+
+function _getMacroGameCardImageUrl(cardID) {
+  if (!cardID) return '';
+  var rootPath = typeof window !== 'undefined' && window.rootPath ? String(window.rootPath) : './GrandArchiveSim';
+  rootPath = rootPath.replace(/^(\.\/|\/)/, '');
+  return './' + rootPath + '/WebpImages/' + encodeURIComponent(cardID) + '.webp';
+}
+
+function _getMacroGameRootName() {
+  var rootPath = typeof window !== 'undefined' && window.rootPath ? String(window.rootPath) : './GrandArchiveSim';
+  return rootPath.replace(/^(\.\/|\/)/, '').replace(/\/.*$/, '');
+}
+
+function _getMacroGameStatsConfig() {
+  var rootName = _getMacroGameRootName();
+  if (rootName === 'AzukiSim') {
+    return {
+      damageTitle: 'Leader Damage Dealt',
+      damageBuckets: ['OpponentLeaderDamage'],
+      damageTimelineBuckets: ['OpponentLeaderDamageTimeline'],
+      columns: [
+        { key: 'play', label: 'Played', cardBuckets: ['PlayCard', 'OnPlay'] },
+        { key: 'enter', label: 'Entered', cardBuckets: ['Enter', 'EnterGarden'] },
+        { key: 'gate', label: 'Gates', cardBuckets: ['UseGate'] },
+        { key: 'ability', label: 'Abilities', cardBuckets: ['ActivateAbility', 'CardActivated'] },
+        { key: 'attack', label: 'Attacks', cardBuckets: ['AttackWith', 'AfterAttacking'] },
+        { key: 'defense', label: 'Defended', cardBuckets: ['WhenAttacked', 'DamageTaken'] },
+        { key: 'damage', label: 'Damage', cardBuckets: ['OpponentLeaderDamageSources'] }
+      ]
+    };
+  }
+  return {
+    damageTitle: 'Damage Dealt',
+    damageBuckets: ['OpponentChampionDamage'],
+    damageTimelineBuckets: ['OpponentChampionDamageTimeline'],
+    columns: [
+      { key: 'reserve', label: 'Reserved', cardBuckets: ['ReserveCardCommitted'] },
+      { key: 'play', label: 'Played', cardBuckets: ['ActivateCard', 'PlayCard'] },
+      { key: 'ability', label: 'Abilities', cardBuckets: ['ActivateAbility', 'HandActivatedAbility'] },
+      { key: 'attack', label: 'Attacks', cardBuckets: ['OnAttack', 'AttackWith'] },
+      { key: 'damage', label: 'Damage', cardBuckets: ['OpponentChampionDamageSources'] }
+    ]
+  };
+}
+
+function ShowMacroGameCardPreview(event, cardID) {
+  if (!cardID || typeof ShowDetail !== 'function') return;
+  ShowDetail(event, _getMacroGameCardImageUrl(cardID));
+}
+
+function HideMacroGameCardPreview() {
+  if (typeof HideCardDetail === 'function') HideCardDetail();
+}
+
+function _formatMacroGameCardEntry(entry) {
+  var cardID = entry.cardID || '';
+  var count = parseInt(entry.count, 10) || 0;
+  if (!cardID || count <= 0) return '';
+  var displayName = _getMacroGameCardName(cardID);
+  var escapedCardID = _escapeMacroGameHtml(cardID);
+  var escapedName = _escapeMacroGameHtml(displayName);
+  return ''
+    + '<a href="#"'
+    + ' onclick="return false;"'
+    + ' onmouseenter="this.style.background=\'rgba(35,58,94,0.68)\';this.style.borderColor=\'rgba(201,168,76,0.36)\';this.style.transform=\'translateY(-1px)\';ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
+    + ' onmousemove="ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
+    + ' onmouseleave="this.style.background=\'rgba(255,255,255,0.03)\';this.style.borderColor=\'rgba(240,230,200,0.10)\';this.style.transform=\'none\';HideMacroGameCardPreview()"'
+    + ' style="display:flex; align-items:center; justify-content:space-between; gap:10px; min-width:0; padding:7px 9px; border-radius:10px;'
+    + ' background:rgba(255,255,255,0.03); border:1px solid rgba(240,230,200,0.10); color:#f0e6c8; text-decoration:none;'
+    + ' transition:background 120ms ease, border-color 120ms ease, transform 120ms ease;">'
+    + '<span style="display:block; min-width:0; font-size:13px; font-weight:600; color:#f7f0d8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">' + escapedName + '</span>'
+    + '<span style="flex:0 0 auto; padding:2px 7px; border-radius:999px; background:rgba(201,168,76,0.18); border:1px solid rgba(201,168,76,0.30); color:#ffd978; font-size:11px; font-weight:700;">x' + count + '</span>'
+    + '</a>';
+}
+
+function _formatMacroGameSection(title, total, cardCounts) {
+  if (!total) return '';
+  var entries = [];
+  for (var cardID in cardCounts) {
+    if (!Object.prototype.hasOwnProperty.call(cardCounts, cardID)) continue;
+    var count = parseInt(cardCounts[cardID], 10) || 0;
+    if (count <= 0) continue;
+    entries.push({ cardID: cardID, count: count });
+  }
+  entries.sort(function(a, b) {
+    if (b.count !== a.count) return b.count - a.count;
+    return _getMacroGameCardName(a.cardID).localeCompare(_getMacroGameCardName(b.cardID));
+  });
+  var topEntries = entries.slice(0, 6);
+  var html = ''
+    + '<section style="margin:0; padding:12px 12px 10px; border-radius:14px; min-width:0;'
+    + ' background:var(--panel-scrim, linear-gradient(180deg, rgba(15,24,39,0.92), rgba(9,15,26,0.88)));'
+    + ' border:1px solid rgba(201,168,76,0.16); box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);">'
+    + '<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:' + (topEntries.length > 0 ? '9px' : '0') + ';">'
+    + '<div style="font-size:14px; font-weight:700; letter-spacing:0.01em; color:#f5ecd2;">' + _escapeMacroGameHtml(title) + '</div>'
+    + '<div style="flex:0 0 auto; padding:4px 9px; border-radius:999px; background:rgba(68,103,163,0.24); border:1px solid rgba(126,164,232,0.22); color:#dce8ff; font-size:12px; font-weight:700;">' + total + '</div>'
+    + '</div>';
+  if (topEntries.length > 0) {
+    html += '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:8px 10px;">';
+    for (var i = 0; i < topEntries.length; ++i) {
+      html += _formatMacroGameCardEntry(topEntries[i]);
+    }
+    html += '</div>';
+  }
+  html += '</section>';
+  return html;
+}
+
+function _collectMacroGameMatrixRows(indexData, playerID, columns) {
+  var rowMap = {};
+  for (var i = 0; i < columns.length; ++i) {
+    var counts = _collectMacroGameBucketCounts(indexData, playerID, columns[i].cardBuckets || []);
+    for (var cardID in counts) {
+      if (!Object.prototype.hasOwnProperty.call(counts, cardID)) continue;
+      var count = parseInt(counts[cardID], 10) || 0;
+      if (count <= 0) continue;
+      if (!rowMap[cardID]) rowMap[cardID] = { cardID: cardID, values: {} };
+      rowMap[cardID].values[columns[i].key] = count;
+    }
+  }
+
+  var rows = [];
+  for (var rowCardID in rowMap) {
+    if (!Object.prototype.hasOwnProperty.call(rowMap, rowCardID)) continue;
+    var row = rowMap[rowCardID];
+    var total = 0;
+    for (var j = 0; j < columns.length; ++j) {
+      total += parseInt(row.values[columns[j].key] || 0, 10) || 0;
+    }
+    row.total = total;
+    rows.push(row);
+  }
+
+  rows.sort(function(a, b) {
+    if (b.total !== a.total) return b.total - a.total;
+    return _getMacroGameCardName(a.cardID).localeCompare(_getMacroGameCardName(b.cardID));
+  });
+  return rows;
+}
+
+function _sortMacroGameMatrixRows(rows, columns, sortKey, sortDir) {
+  var dir = sortDir === 'asc' ? 1 : -1;
+  var sorted = rows.slice();
+  sorted.sort(function(a, b) {
+    if (sortKey === 'card') {
+      var cmp = _getMacroGameCardName(a.cardID).localeCompare(_getMacroGameCardName(b.cardID));
+      if (cmp !== 0) return cmp * dir;
+    } else if (sortKey === 'total') {
+      var totalCmp = (parseInt(a.total, 10) || 0) - (parseInt(b.total, 10) || 0);
+      if (totalCmp !== 0) return totalCmp * dir;
+    } else {
+      var aVal = parseInt(a.values[sortKey] || 0, 10) || 0;
+      var bVal = parseInt(b.values[sortKey] || 0, 10) || 0;
+      if (aVal !== bVal) return (aVal - bVal) * dir;
+    }
+
+    if ((parseInt(a.total, 10) || 0) !== (parseInt(b.total, 10) || 0)) {
+      return ((parseInt(b.total, 10) || 0) - (parseInt(a.total, 10) || 0));
+    }
+    return _getMacroGameCardName(a.cardID).localeCompare(_getMacroGameCardName(b.cardID));
+  });
+  return sorted;
+}
+
+function _formatMacroGameSortIndicator(active, sortDir) {
+  if (!active) return '<span style="opacity:0.32;">↕</span>';
+  return '<span>' + (sortDir === 'asc' ? '↑' : '↓') + '</span>';
+}
+
+function _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir) {
+  var sortedRows = _sortMacroGameMatrixRows(rows, columns, sortKey, sortDir);
+  var columnSummaries = '';
+  for (var i = 0; i < columns.length; ++i) {
+    var total = 0;
+    for (var r = 0; r < rows.length; ++r) {
+      total += parseInt(rows[r].values[columns[i].key] || 0, 10) || 0;
+    }
+    columnSummaries += ''
+      + '<button type="button" onclick="SortMacroGameMatrix(this, \'' + _escapeMacroGameHtml(columns[i].key) + '\'); return false;"'
+      + ' style="display:flex; flex:1 1 94px; min-width:0; align-items:center; justify-content:space-between; gap:6px; padding:7px 9px; border-radius:10px;'
+      + ' background:rgba(255,255,255,0.03); border:1px solid ' + (sortKey === columns[i].key ? 'rgba(201,168,76,0.28)' : 'rgba(240,230,200,0.08)') + ';'
+      + ' color:#f5ecd2; cursor:pointer;">'
+      + '<span style="min-width:0; font-size:11px; font-weight:700; color:#f5ecd2; white-space:normal; line-height:1.1;">' + _escapeMacroGameHtml(columns[i].label) + '</span>'
+      + '<span style="display:flex; align-items:center; gap:6px;">'
+      + '<span style="padding:2px 6px; border-radius:999px; background:rgba(68,103,163,0.24); border:1px solid rgba(126,164,232,0.22); color:#dce8ff; font-size:10px; font-weight:700;">' + total + '</span>'
+      + '<span style="font-size:11px; color:rgba(220,232,255,0.78);">' + _formatMacroGameSortIndicator(sortKey === columns[i].key, sortDir) + '</span>'
+      + '</span>'
+      + '</button>';
+  }
+
+  var headerHtml = ''
+    + '<button type="button" onclick="SortMacroGameMatrix(this, \'card\'); return false;"'
+    + ' style="display:flex; align-items:center; justify-content:space-between; gap:6px; width:100%; padding:10px 8px;'
+    + ' font-size:10px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:rgba(220,232,255,0.72);'
+    + ' background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">'
+    + '<span>Card</span><span style="font-size:11px;">' + _formatMacroGameSortIndicator(sortKey === 'card', sortDir) + '</span></button>';
+  for (var h = 0; h < columns.length; ++h) {
+    headerHtml += '<button type="button" onclick="SortMacroGameMatrix(this, \'' + _escapeMacroGameHtml(columns[h].key) + '\'); return false;" style="padding:10px 4px; text-align:center; font-size:10px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:rgba(220,232,255,0.78); background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">' + _escapeMacroGameHtml(columns[h].label) + ' ' + _formatMacroGameSortIndicator(sortKey === columns[h].key, sortDir) + '</button>';
+  }
+
+  var bodyHtml = '';
+  for (var rowIndex = 0; rowIndex < sortedRows.length; ++rowIndex) {
+    var rowEntry = sortedRows[rowIndex];
+    var escapedCardID = _escapeMacroGameHtml(rowEntry.cardID);
+    bodyHtml += ''
+      + '<a href="#" onclick="return false;"'
+      + ' onmouseenter="this.style.background=\'rgba(35,58,94,0.40)\';ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
+      + ' onmousemove="ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
+      + ' onmouseleave="this.style.background=\'transparent\';HideMacroGameCardPreview()"'
+      + ' style="display:block; min-width:0; padding:8px 8px; border-radius:10px; color:#f7f0d8; text-decoration:none; transition:background 120ms ease;">'
+      + '<span style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12px; font-weight:700;">' + _escapeMacroGameHtml(_getMacroGameCardName(rowEntry.cardID)) + '</span>'
+      + '</a>';
+    for (var c = 0; c < columns.length; ++c) {
+      var value = parseInt(rowEntry.values[columns[c].key] || 0, 10) || 0;
+      bodyHtml += ''
+        + '<div style="display:flex; align-items:center; justify-content:center; padding:6px 4px;">'
+        + (value > 0
+          ? '<span style="min-width:24px; padding:2px 7px; border-radius:999px; background:rgba(201,168,76,0.16); border:1px solid rgba(201,168,76,0.26); color:#ffe09b; font-size:10px; font-weight:800; text-align:center;">' + value + '</span>'
+          : '<span style="color:rgba(220,232,255,0.28); font-size:11px;">-</span>')
+        + '</div>';
+    }
+  }
+
+  return ''
+    + '<div style="display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-bottom:10px;">'
+    + '<div>'
+    + '<div style="font-size:15px; font-weight:800; letter-spacing:0.01em; color:#fff1c6;">Card Activity Matrix</div>'
+    + '<div style="margin-top:3px; font-size:12px; color:rgba(220,232,255,0.72);">Click any column to sort.</div>'
+    + '</div>'
+    + '<div style="flex:0 0 auto; font-size:12px; color:rgba(220,232,255,0.66);">' + rows.length + ' cards tracked</div>'
+    + '</div>'
+    + '<div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; min-width:0;">' + columnSummaries + '</div>'
+    + '<div style="overflow-x:auto; overflow-y:hidden; border-radius:14px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">'
+    + '<div style="display:grid; grid-template-columns:minmax(172px, 1.8fr) repeat(' + columns.length + ', minmax(54px, 0.62fr)); align-items:center; min-width:' + (172 + columns.length * 58) + 'px;">'
+    + headerHtml
+    + bodyHtml
+    + '</div>'
+    + '</div>';
+}
+
+function SortMacroGameMatrix(triggerEl, sortKey) {
+  var root = triggerEl;
+  while (root && root.getAttribute && root.getAttribute('data-macro-game-matrix-root') !== '1') {
+    root = root.parentNode;
+  }
+  if (!root) return;
+  try {
+    var rows = JSON.parse(root.getAttribute('data-rows') || '[]');
+    var columns = JSON.parse(root.getAttribute('data-columns') || '[]');
+    var currentKey = root.getAttribute('data-sort-key') || 'total';
+    var currentDir = root.getAttribute('data-sort-dir') || 'desc';
+    var nextDir;
+    if (currentKey === sortKey) {
+      nextDir = currentDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      nextDir = sortKey === 'card' ? 'asc' : 'desc';
+    }
+    root.setAttribute('data-sort-key', sortKey);
+    root.setAttribute('data-sort-dir', nextDir);
+    if (typeof window !== 'undefined') {
+      window.__macroGameMatrixSort = { key: sortKey, dir: nextDir };
+    }
+    root.innerHTML = _renderMacroGameMatrixInner(rows, columns, sortKey, nextDir);
+  } catch (e) {
+    if (console && console.error) console.error('SortMacroGameMatrix error', e);
+  }
+}
+
+function _formatMacroGameMatrix(playerID, indexData, columns) {
+  var rows = _collectMacroGameMatrixRows(indexData, playerID, columns);
+  if (!rows.length) return '';
+  var sortState = (typeof window !== 'undefined' && window.__macroGameMatrixSort) ? window.__macroGameMatrixSort : null;
+  var sortKey = sortState && sortState.key ? sortState.key : 'total';
+  var sortDir = sortState && sortState.dir ? sortState.dir : 'desc';
+  var rowsJson = _escapeMacroGameHtml(JSON.stringify(rows));
+  var columnsJson = _escapeMacroGameHtml(JSON.stringify(columns));
+  return ''
+    + '<section style="margin:0; padding:12px 12px 10px; border-radius:16px; min-width:0; max-width:100%; overflow:hidden;'
+    + ' background:var(--panel-scrim, linear-gradient(180deg, rgba(15,24,39,0.92), rgba(9,15,26,0.88)));'
+    + ' border:1px solid rgba(201,168,76,0.16); box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);"'
+    + ' data-macro-game-matrix-root="1" data-rows="' + rowsJson + '" data-columns="' + columnsJson + '"'
+    + ' data-sort-key="' + _escapeMacroGameHtml(sortKey) + '" data-sort-dir="' + _escapeMacroGameHtml(sortDir) + '">'
+    + _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir)
+    + '</section>';
+}
+
+function _collectMacroGameTimeline(indexData, playerID, bucketNames) {
+  var combined = {};
+  for (var i = 0; i < bucketNames.length; ++i) {
+    var bucketEntry = indexData[bucketNames[i]];
+    if (!bucketEntry) continue;
+    var playerEntry = bucketEntry[playerID] || bucketEntry[String(playerID)];
+    if (!playerEntry || typeof playerEntry !== 'object') continue;
+    for (var turnKey in playerEntry) {
+      if (!Object.prototype.hasOwnProperty.call(playerEntry, turnKey)) continue;
+      var amount = parseInt(playerEntry[turnKey], 10) || 0;
+      if (amount <= 0) continue;
+      combined[turnKey] = (combined[turnKey] || 0) + amount;
+    }
+  }
+  var points = [];
+  for (var combinedKey in combined) {
+    if (!Object.prototype.hasOwnProperty.call(combined, combinedKey)) continue;
+    points.push({ turn: parseInt(combinedKey, 10) || 0, amount: combined[combinedKey] });
+  }
+  points.sort(function(a, b) { return a.turn - b.turn; });
+  return points;
+}
+
+function _buildMacroGameLinePath(points, width, height, paddingX, paddingY, valueAccessor) {
+  if (!points.length) return '';
+  var maxValue = 0;
+  for (var i = 0; i < points.length; ++i) {
+    maxValue = Math.max(maxValue, parseInt(valueAccessor(points[i]), 10) || 0);
+  }
+  if (maxValue <= 0) maxValue = 1;
+  var usableWidth = Math.max(1, width - paddingX * 2);
+  var usableHeight = Math.max(1, height - paddingY * 2);
+  var path = '';
+  for (var j = 0; j < points.length; ++j) {
+    var x = paddingX + (points.length === 1 ? usableWidth / 2 : (usableWidth * j / (points.length - 1)));
+    var y = height - paddingY - (usableHeight * ((parseInt(valueAccessor(points[j]), 10) || 0) / maxValue));
+    path += (j === 0 ? 'M' : ' L') + x.toFixed(2) + ' ' + y.toFixed(2);
+  }
+  return path;
+}
+
+function _buildMacroGameLineDots(points, width, height, paddingX, paddingY, valueAccessor, color) {
+  if (!points.length) return '';
+  var maxValue = 0;
+  for (var i = 0; i < points.length; ++i) {
+    maxValue = Math.max(maxValue, parseInt(valueAccessor(points[i]), 10) || 0);
+  }
+  if (maxValue <= 0) maxValue = 1;
+  var usableWidth = Math.max(1, width - paddingX * 2);
+  var usableHeight = Math.max(1, height - paddingY * 2);
+  var html = '';
+  for (var j = 0; j < points.length; ++j) {
+    var x = paddingX + (points.length === 1 ? usableWidth / 2 : (usableWidth * j / (points.length - 1)));
+    var y = height - paddingY - (usableHeight * ((parseInt(valueAccessor(points[j]), 10) || 0) / maxValue));
+    html += '<circle cx="' + x.toFixed(2) + '" cy="' + y.toFixed(2) + '" r="3.5" fill="' + color + '" stroke="rgba(8,15,25,0.9)" stroke-width="1.5"></circle>';
+  }
+  return html;
+}
+
+function _buildMacroGameCumulativeTimeline(timelinePoints) {
+  var cumulative = [];
+  var running = 0;
+  for (var i = 0; i < timelinePoints.length; ++i) {
+    running += parseInt(timelinePoints[i].amount, 10) || 0;
+    cumulative.push({ turn: timelinePoints[i].turn, amount: running });
+  }
+  return cumulative;
+}
+
+function InitializeMacroGameStatsCharts(rootEl) {
+  if (!rootEl || typeof rootEl.querySelectorAll !== 'function' || typeof Chart === 'undefined') return;
+  var chartEls = rootEl.querySelectorAll('[data-macro-game-chart]');
+  for (var i = 0; i < chartEls.length; ++i) {
+    var el = chartEls[i];
+    if (el.__macroChartInitialized) continue;
+    el.__macroChartInitialized = true;
+    try {
+      var rawTimeline = el.getAttribute('data-timeline') || '[]';
+      var timelinePoints = JSON.parse(rawTimeline);
+      if (!Array.isArray(timelinePoints) || !timelinePoints.length) continue;
+      var labels = [];
+      var perTurnData = [];
+      var cumulativeData = [];
+      var running = 0;
+      for (var j = 0; j < timelinePoints.length; ++j) {
+        var point = timelinePoints[j] || {};
+        var amount = parseInt(point.amount, 10) || 0;
+        running += amount;
+        labels.push('Turn ' + (parseInt(point.turn, 10) || (j + 1)));
+        perTurnData.push(amount);
+        cumulativeData.push(running);
+      }
+      var canvas = el.querySelector('canvas');
+      if (!canvas) continue;
+      var ctx = canvas.getContext('2d');
+      if (!ctx) continue;
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Per Turn',
+              data: perTurnData,
+              borderColor: '#ffd46b',
+              backgroundColor: 'rgba(255, 212, 107, 0.18)',
+              pointBackgroundColor: '#ffd46b',
+              pointBorderColor: '#0f1724',
+              pointRadius: 4,
+              pointHoverRadius: 5,
+              tension: 0.28,
+              borderWidth: 3
+            },
+            {
+              label: 'Cumulative',
+              data: cumulativeData,
+              borderColor: '#8bc4ff',
+              backgroundColor: 'rgba(139, 196, 255, 0.16)',
+              pointBackgroundColor: '#8bc4ff',
+              pointBorderColor: '#0f1724',
+              pointRadius: 4,
+              pointHoverRadius: 5,
+              tension: 0.22,
+              borderWidth: 3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+              align: 'start',
+              labels: {
+                color: '#f5ecd2',
+                boxWidth: 14,
+                boxHeight: 14,
+                usePointStyle: true,
+                pointStyle: 'circle',
+                padding: 16,
+                font: {
+                  size: 11,
+                  weight: '700'
+                }
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(10, 16, 27, 0.96)',
+              borderColor: 'rgba(201,168,76,0.24)',
+              borderWidth: 1,
+              titleColor: '#fff1c6',
+              bodyColor: '#f0e6c8',
+              displayColors: true
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: 'rgba(220,232,255,0.70)',
+                maxRotation: 0,
+                autoSkip: true
+              },
+              grid: {
+                color: 'rgba(255,255,255,0.05)'
+              },
+              border: {
+                color: 'rgba(255,255,255,0.08)'
+              }
+            },
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: 'rgba(220,232,255,0.74)',
+                precision: 0
+              },
+              grid: {
+                color: 'rgba(255,255,255,0.06)'
+              },
+              border: {
+                color: 'rgba(255,255,255,0.08)'
+              }
+            }
+          }
+        }
+      });
+    } catch (e) {
+      if (console && console.error) console.error('InitializeMacroGameStatsCharts error', e);
+    }
+  }
+}
+
+function _formatMacroGameDamageChart(title, totalDamage, timelinePoints) {
+  if (!totalDamage) return '';
+  var timelineJson = _escapeMacroGameHtml(JSON.stringify(timelinePoints));
+
+  return ''
+    + '<section style="margin:0; padding:12px 12px 10px; border-radius:16px; min-width:0; max-width:100%; overflow:hidden;'
+    + ' background:var(--panel-scrim, linear-gradient(180deg, rgba(20,29,45,0.96), rgba(10,16,27,0.92)));'
+    + ' border:1px solid rgba(201,168,76,0.18); box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">'
+    + '<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;">'
+    + '<div>'
+    + '<div style="font-size:15px; font-weight:800; letter-spacing:0.01em; color:#fff1c6;">' + _escapeMacroGameHtml(title) + '</div>'
+    + '</div>'
+    + '<div style="flex:0 0 auto; padding:5px 10px; border-radius:999px; background:rgba(201,168,76,0.18); border:1px solid rgba(201,168,76,0.28); color:#ffe09b; font-size:12px; font-weight:800;">' + totalDamage + '</div>'
+    + '</div>'
+    + '<div data-macro-game-chart="damage" data-timeline="' + timelineJson + '" style="min-width:0; padding:8px 8px 6px; border-radius:14px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);">'
+    + '<div style="position:relative; height:190px;">'
+    + '<canvas aria-label="Damage dealt chart"></canvas>'
+    + '</div>'
+    + '</div>'
+    + '</section>';
+}
+
+function _collectMacroGameBucketTotal(bucketCounts) {
+  var total = 0;
+  for (var key in bucketCounts) {
+    if (!Object.prototype.hasOwnProperty.call(bucketCounts, key)) continue;
+    total += parseInt(bucketCounts[key], 10) || 0;
+  }
+  return total;
+}
+
+function BuildMacroGameStatsHtml(playerID) {
+  if (typeof window === 'undefined' || !window.MacroGameIndexData) return '';
+  var indexData = _parseMacroGameIndex(window.MacroGameIndexData);
+  var statsConfig = _getMacroGameStatsConfig();
+  var damageTimeline = _collectMacroGameTimeline(indexData, playerID, statsConfig.damageTimelineBuckets);
+  var damageTotal = _collectMacroGameNumericBuckets(indexData, playerID, statsConfig.damageBuckets);
+  var damageHtml = _formatMacroGameDamageChart(statsConfig.damageTitle, damageTotal, damageTimeline);
+  var matrixHtml = _formatMacroGameMatrix(playerID, indexData, statsConfig.columns);
+  if (!damageHtml && !matrixHtml) return '';
+
+  var layoutHtml = '';
+  if (damageHtml && matrixHtml) {
+    layoutHtml = ''
+      + '<div class="macro-game-stats-grid">'
+      + '<div class="macro-game-stats-grid-chart" style="min-width:0;">' + damageHtml + '</div>'
+      + '<div class="macro-game-stats-grid-matrix" style="min-width:0;">' + matrixHtml + '</div>'
+      + '</div>';
+  } else {
+    layoutHtml = damageHtml || matrixHtml;
+  }
+
+  return ''
+    + '<div style="margin-bottom:10px;">'
+    + '<div style="font-size:18px; font-weight:800; letter-spacing:0.02em; color:#fff4cf;">Game Stats</div>'
+    + '</div>'
+    + '<style>'
+    + '#game-over-stats .macro-game-stats-grid{display:grid;grid-template-columns:minmax(300px,0.4fr) minmax(0,1fr);gap:12px;align-items:start;min-width:0;}'
+    + '@media (max-width: 980px){#game-over-stats .macro-game-stats-grid{grid-template-columns:minmax(0,1fr);}}'
+    + '</style>'
+    + '<div style="display:flex; flex-direction:column; gap:12px; min-width:0; max-width:100%; overflow:hidden;">' + layoutHtml + '</div>';
+}
+
+function GetCookieValue(cookieName) {
+  var nameEQ = cookieName + '=';
+  var cookies = document.cookie.split(';');
+  for (var i = 0; i < cookies.length; ++i) {
+    var c = cookies[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+  }
+  return null;
+}
+
+function SetCookieValue(cookieName, cookieValue, maxAgeDays) {
+  var maxAgeSeconds = Math.max(1, parseInt(maxAgeDays, 10) || 1) * 24 * 60 * 60;
+  document.cookie = cookieName + '=' + encodeURIComponent(cookieValue) + '; max-age=' + maxAgeSeconds + '; path=/; SameSite=Lax';
+}
+
+setTimeout(initGrandArchiveUtilityButtons, 0);
+window.addEventListener('load', initGrandArchiveUtilityButtons);
+
+// ---- Mobile Deck Editor Layout ----
+// Reorganizes #myStuff into a vertical layout for screens ≤1000px:
+//   - Leader + Base side-by-side at the top (scrollable)
+//   - Deck count / Stats / Sort controls row
+//   - Main deck and Sideboard tiles
+//   - Card search/browse pane fixed at the bottom
+// Called automatically from AppendStaticZones on every render update.
+function MobileDeckEditorLayout() {
+  // SWUDeck now lays itself out natively per-device in PHP (GameLayoutMobile.php emits
+  // the mobile stack directly). This legacy JS reflow would fight that native layout, so
+  // skip it whenever the slot-based layout is active. Set by GameLayout.php.
+  if (window.SWUDeckSlotLayout) return;
+  if (window.innerWidth > 1000) return;
+  var myStuff = document.getElementById('myStuff');
+  var cardPaneWrapper = document.getElementById('myCardPaneWrapper');
+  if (!myStuff || !cardPaneWrapper) return;
+
+  var leaderWrapper   = document.getElementById('myLeaderWrapper');
+  var baseWrapper     = document.getElementById('myBaseWrapper');
+  var mainDeckWrapper = document.getElementById('myMainDeckWrapper');
+  var sideboardWrapper= document.getElementById('mySideboardWrapper');
+  var deckWrapper     = document.getElementById('myDeckWrapper');
+  var statsWrapper    = document.getElementById('myStatsWrapper');
+  var sortWrapper     = document.getElementById('mySortWrapper');
+
+  // Scrollable top section
+  var topArea = document.createElement('div');
+  topArea.id = 'mobileTopArea';
+  topArea.style.cssText = 'flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;width:100%;box-sizing:border-box;padding-bottom:80px;';
+
+  // Leader + Base side-by-side row
+  var leaderBaseRow = document.createElement('div');
+  leaderBaseRow.style.cssText = 'display:flex;flex-direction:row;justify-content:center;align-items:flex-start;padding:8px 4px;gap:8px;flex-wrap:wrap;';
+  var relStyle = 'position:relative;left:0;top:0;bottom:auto;right:auto;width:auto;';
+  if (leaderWrapper)  { leaderWrapper.style.cssText  = relStyle; leaderBaseRow.appendChild(leaderWrapper); }
+  if (baseWrapper)    { baseWrapper.style.cssText    = relStyle; leaderBaseRow.appendChild(baseWrapper); }
+  topArea.appendChild(leaderBaseRow);
+
+  // Controls row: deck count + stats + sort
+  var controlsRow = document.createElement('div');
+  controlsRow.style.cssText = 'display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start;padding:2px 8px 4px;gap:4px;';
+  if (deckWrapper)  { deckWrapper.style.cssText  = relStyle; controlsRow.appendChild(deckWrapper); }
+  if (statsWrapper) { statsWrapper.style.cssText = relStyle; controlsRow.appendChild(statsWrapper); }
+  if (sortWrapper)  { sortWrapper.style.cssText  = relStyle; controlsRow.appendChild(sortWrapper); }
+  topArea.appendChild(controlsRow);
+
+  // Main deck + Sideboard (full width) with sticky section title headers
+  var wideStyle = 'position:relative;left:0;top:0;bottom:auto;right:auto;width:100%;box-sizing:border-box;';
+  var sectionTitleStyle = 'position:sticky;top:0;z-index:10;background:#1a1a2e;color:#ccc;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-bottom:1px solid #444;box-sizing:border-box;';
+  if (mainDeckWrapper) {
+    var mainDeckTitle = document.createElement('div');
+    mainDeckTitle.id = 'mobileMainDeckTitle';
+    mainDeckTitle.textContent = 'Main Deck';
+    mainDeckTitle.style.cssText = sectionTitleStyle;
+    topArea.appendChild(mainDeckTitle);
+    mainDeckWrapper.style.cssText = wideStyle;
+    topArea.appendChild(mainDeckWrapper);
+  }
+  if (sideboardWrapper) {
+    var sideboardTitle = document.createElement('div');
+    sideboardTitle.id = 'mobileSideboardTitle';
+    sideboardTitle.textContent = 'Sideboard';
+    sideboardTitle.style.cssText = sectionTitleStyle;
+    topArea.appendChild(sideboardTitle);
+    sideboardWrapper.style.cssText = wideStyle;
+    topArea.appendChild(sideboardWrapper);
+  }
+
+  // Card pane: fixed height at bottom
+  cardPaneWrapper.style.cssText = 'position:relative;left:0;top:0;bottom:0;right:0;width:100%;height:50vh;min-height:250px;flex-shrink:0;border-top:2px solid #444;box-sizing:border-box;overflow-y:auto;';
+
+  var mobileCardBrowserCookieName = 'swu_mobile_card_browser_hidden';
+  // Keep user preference across rerenders while toggling the card browser pane.
+  if (typeof window.mobileCardBrowserHidden === 'undefined') {
+    var cookieVal = GetCookieValue(mobileCardBrowserCookieName);
+    window.mobileCardBrowserHidden = cookieVal === '1';
+  }
+
+  // Detach card pane from myStuff (all other wrappers already moved to topArea)
+  if (cardPaneWrapper.parentNode === myStuff) myStuff.removeChild(cardPaneWrapper);
+
+  // Clear any stragglers and apply flex column layout
+  myStuff.innerHTML = '';
+  myStuff.style.display        = 'flex';
+  myStuff.style.flexDirection  = 'column';
+  myStuff.style.overflow       = 'hidden';
+
+  var toggleRow = document.createElement('div');
+  toggleRow.id = 'mobileDeckToggleRow';
+  toggleRow.style.cssText = 'position:fixed;left:8px;right:8px;bottom:10px;z-index:1200;display:flex;justify-content:flex-end;align-items:center;padding:6px 8px;gap:6px;border:1px solid #3f3f3f;border-radius:8px;background:rgba(18,18,18,0.92);backdrop-filter:blur(2px);box-sizing:border-box;opacity:1;transform:translateY(0);transition:opacity 0.25s ease, transform 0.25s ease;';
+
+  var toggleButton = document.createElement('button');
+  toggleButton.id = 'mobileDeckToggleButton';
+  toggleButton.style.cssText = 'padding:6px 10px;font-size:12px;font-weight:600;letter-spacing:0.02em;background:#1d4ed8;color:#ffffff;border:1px solid #60a5fa;border-radius:6px;cursor:pointer;';
+  toggleButton.onmouseover = function() { toggleButton.style.background = '#1e40af'; };
+  toggleButton.onmouseout = function() { toggleButton.style.background = '#1d4ed8'; };
+
+  var applyMobileCardBrowserVisibility = function() {
+    var isHidden = window.mobileCardBrowserHidden === true;
+    toggleButton.textContent = isHidden ? 'Show Card Browser' : 'Hide Card Browser';
+    toggleButton.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+
+    if (isHidden) {
+      cardPaneWrapper.style.display = 'none';
+      topArea.style.flex = '1 1 auto';
+    }
+    else {
+      cardPaneWrapper.style.display = 'block';
+      cardPaneWrapper.style.height = '50vh';
+      cardPaneWrapper.style.minHeight = '250px';
+      cardPaneWrapper.style.flex = '0 0 auto';
+      topArea.style.flex = '1 1 auto';
+    }
+  };
+
+  var showMobileToggleRow = function() {
+    toggleRow.style.opacity = '1';
+    toggleRow.style.transform = 'translateY(0)';
+    toggleRow.style.pointerEvents = 'auto';
+    if (window.mobileDeckToggleAutoHideTimer) clearTimeout(window.mobileDeckToggleAutoHideTimer);
+    window.mobileDeckToggleAutoHideTimer = setTimeout(function() {
+      toggleRow.style.opacity = '0';
+      toggleRow.style.transform = 'translateY(10px)';
+      toggleRow.style.pointerEvents = 'none';
+    }, 1500);
+  };
+
+  var registerMobileToggleActivityEvents = function() {
+    var activityHandler = function() { showMobileToggleRow(); };
+
+    if (topArea._mobileToggleActivityHandler) {
+      topArea.removeEventListener('scroll', topArea._mobileToggleActivityHandler);
+      topArea.removeEventListener('touchmove', topArea._mobileToggleActivityHandler);
+    }
+    topArea._mobileToggleActivityHandler = activityHandler;
+    topArea.addEventListener('scroll', activityHandler, { passive: true });
+    topArea.addEventListener('touchmove', activityHandler, { passive: true });
+
+    if (cardPaneWrapper._mobileToggleActivityHandler) {
+      cardPaneWrapper.removeEventListener('scroll', cardPaneWrapper._mobileToggleActivityHandler);
+      cardPaneWrapper.removeEventListener('touchmove', cardPaneWrapper._mobileToggleActivityHandler);
+    }
+    cardPaneWrapper._mobileToggleActivityHandler = activityHandler;
+    cardPaneWrapper.addEventListener('scroll', activityHandler, { passive: true });
+    cardPaneWrapper.addEventListener('touchmove', activityHandler, { passive: true });
+
+    if (window._mobileToggleWindowActivityHandler) {
+      window.removeEventListener('scroll', window._mobileToggleWindowActivityHandler);
+      window.removeEventListener('touchmove', window._mobileToggleWindowActivityHandler);
+    }
+    window._mobileToggleWindowActivityHandler = activityHandler;
+    window.addEventListener('scroll', activityHandler, { passive: true });
+    window.addEventListener('touchmove', activityHandler, { passive: true });
+  };
+
+  toggleButton.onclick = function() {
+    window.mobileCardBrowserHidden = !window.mobileCardBrowserHidden;
+    SetCookieValue(mobileCardBrowserCookieName, window.mobileCardBrowserHidden ? '1' : '0', 365);
+    applyMobileCardBrowserVisibility();
+    showMobileToggleRow();
+  };
+
+  toggleRow.onmouseenter = function() { showMobileToggleRow(); };
+  toggleRow.ontouchstart = function() { showMobileToggleRow(); };
+
+  applyMobileCardBrowserVisibility();
+  toggleRow.appendChild(toggleButton);
+  registerMobileToggleActivityEvents();
+  showMobileToggleRow();
+
+  myStuff.appendChild(topArea);
+  myStuff.appendChild(toggleRow);
+  myStuff.appendChild(cardPaneWrapper);
+}
+

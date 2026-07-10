@@ -1,0 +1,74 @@
+/* petranaki-hud.tokens.css — HUD chamfer geometry + shapes, recolored with the
+   Petranaki sandy-gold palette. Structure copied from hud.tokens.css; hues/surfaces
+   lifted from petranaki.tokens.css. Role tokens only. */
+:root {
+  --accent:        rgba(180,140,45,0.90);
+  --accent-strong: rgba(200,160,55,1);
+  --danger:        rgba(205,95,70,0.88);
+  --success:       rgba(160,180,85,0.88);
+  --danger-surface:  linear-gradient(135deg, #5a2414 0%, #331107 100%);   /* warm red-brown HUD fill */
+  --success-surface: linear-gradient(135deg, #414c14 0%, #23280a 100%);   /* dark olive HUD fill */
+  --accent-surface:  linear-gradient(135deg, #8a5c1a 0%, #5a3a12 100%);   /* gold primary fill */
+  --on-danger:     #ffe4d8;
+  --on-success:    #f4f6dc;
+  --text:          #f0ddb0;
+  --on-accent:     #f9edda;                   /* light off-white on the gold primary — matches the --on-danger/--on-success family */
+
+  /* Surfaces / borders / glow for inputs, dropdowns, dialogs (HUD is square: radius 0) */
+  --surface:        rgba(62,44,12,0.88);
+  --surface-sunken: rgba(245,228,170,0.88);   /* light cream input/checkbox bg */
+  --input-text:     #1e0900;                  /* DARK input text (differs from parchment --text) */
+  --input-placeholder: rgba(60,35,5,0.55);    /* DARK placeholder — reads on the cream field (--text-muted stays light for muted text on dark surfaces) */
+  --surface-raised: rgba(30,18,4,0.97);       /* dropdown/dialog panel bg */
+  --border:         rgba(180,140,45,0.45);
+  --text-muted:     rgba(210,190,140,0.60);
+  --radius:         0;
+  --glow:           rgba(180,140,35,0.35);
+  --check-fill:     rgba(180,140,45,0.9);
+  --check-mark:     #1e0900;
+  --card-border:    rgba(190,155,50,0.32);
+
+  /* Button: chamfered HUD, sandy-gold fill */
+  --btn-chamfer-content: '';        /* turns the chamfer pseudos ON */
+  --btn-cut:        6px;
+  --btn-cut-inner:  5px;
+  /* Keep the ELEMENT box background transparent even for semantic variants: the ::after
+     pseudo (--btn-fill, chamfer-clipped) carries the fill, so nothing bleeds past the
+     chamfer corners. We do NOT clip the element itself (that would clip the hover glow). */
+  --btn-el-bg:      transparent;
+  --btn-rim-width:  1.5px;
+  --btn-bw:         0;
+  --btn-surface:    transparent;    /* pseudos supply the fill */
+  --btn-shadow:     none;
+  --btn-rim:        rgba(200,160,55,0.85);
+  --btn-fill:       linear-gradient(135deg, #5a3a12 0%, #35200a 100%);
+  --btn-plain-fill: linear-gradient(135deg, #5a3a12 0%, #35200a 100%);  /* inputs/tabs share the sandy fill */
+  --btn-text:       #f0ddb0;
+  --btn-transform:  uppercase;
+  --btn-tracking:   0.04em;
+  --btn-glow:       10px;
+  --btn-glow-color: rgba(190,150,50,0.55);
+  --btn-hover-transform: translateY(-1px);
+  --btn-pad:        5px 7px;
+
+  /* In-game board roles — sandy-gold HUD */
+  --accent-secondary:    rgba(180,140,45,0.55);
+  --on-accent-secondary: #35200a;
+  --accent-gold:         #c8971e;
+  --on-accent-gold:      #1a1204;
+  --switch-track:        rgba(30,18,4,0.85);
+  --switch-knob:         rgba(200,160,55,1);      /* light gold head — same in both states so the move reads */
+  --switch-on:           rgba(180,140,45,0.55);
+  --switch-on-knob:      rgba(200,160,55,1);
+  --panel-scrim:         rgba(30,20,8,0.97);
+  --overlay-scrim:       rgba(0,0,0,0.55);
+  --card-frame:          rgba(180,140,45,0.45);
+  --badge-surface:       rgba(40,28,10,0.95);
+  --badge-glow:          rgba(180,140,45,0.40);
+  --glow-strong:         rgba(200,160,55,0.70);
+
+  /* Turn/initiative ownership */
+  --turn-mine-rgb:       160,180,85;   /* = --success */
+  --turn-theirs-rgb:     205,95,70;    /* = --danger */
+  --accent-rgb:          180,140,45;   /* = --accent, for themeable glow/pulse alpha */
+}

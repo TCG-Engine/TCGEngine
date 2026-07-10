@@ -39,7 +39,7 @@ function _VersionAsset(string $webPath): string {
 // Themes whose menu base is the shared menuStyles.css (loaded FIRST, before components).
 // Gradient/bespoke menu themes (clarent/gudnak/petranaki) supply their own menu structure
 // via theme tokens + <app>-overrides and must NOT load menuStyles.css.
-const _THEME_MENU_BASE = ['hud' => true, 'neutral' => true];
+const _THEME_MENU_BASE = ['hud' => true, 'petranaki-hud' => true, 'neutral' => true];
 
 // Emit the SHARED design-system menu stack for a site straight from its single `theme` key:
 // [menuStyles if the theme uses it] → tokens → components → Themes/<theme> (only if it

@@ -33,7 +33,8 @@
 .swu-m-arena-col::after {
     content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
     border-radius: 4px;
-    background: linear-gradient(180deg, rgba(20,50,90,0.18), rgba(8,14,22,0.33));
+    /* Theme-driven arena wash: faint accent tint over near-black (was hardcoded cyan-HUD blue). */
+    background: linear-gradient(180deg, rgba(var(--accent-rgb),0.12), rgba(0,0,0,0.33));
 }
 /* Action-available glows for the Leader / Base / Resource / Discard slots + per-card Smuggle /
    discard highlights. Applied by refreshActionGlows / refreshResourceCardGlows /
@@ -171,6 +172,21 @@
    to a second line (msgSpan is the panel's first child). */
 #selection-message:has(#inline-multi-confirm) > span:first-child { flex-basis: 100% !important; }
 #selection-message:has(#inline-multi-confirm) #inline-multi-counter { margin-top: 2px !important; }
+/* Override the engine's hardcoded inline navy gradient on the selection prompt so the panel
+   fill follows the theme scrim (sandy dark-brown under petranaki-hud, cyan-navy under hud). */
+#selection-message { background: var(--panel-scrim) !important; }
+/* Same for the mz-choose popup modal's navy backdrop — recolor ONLY the modal's own background
+   layer (keeping its parchment sheen). Its card buttons/images are children that render above
+   this, so unlike the blanket panel fill this never covers content (hence the earlier exclusion
+   doesn't apply to a plain background swap). */
+#mzchoose-popup > div {
+  background: linear-gradient(180deg, rgba(244,236,219,0.12), rgba(255,255,255,0.02)), var(--panel-scrim) !important;
+}
+/* Game-over inner panels (stats container + the Save-Replay box) carry their own hardcoded
+   navy from the engine/replay stylesheets. Recolor them to a subtle dark inset so they read as
+   recessed regions over the now-themed #game-over-overlay, on any theme. */
+#game-over-stats,
+.match-replay-stats-actions { background: rgba(0,0,0,0.20) !important; }
 
 /* (End-game button skin removed — #game-over buttons now carry .btn.btn-primary from Tier 1,
    so their HUD look comes from button.css + hud.tokens.) */
@@ -186,7 +202,7 @@
     inset: 10vh 20vw 10vh 10vw !important;  /* desktop: 80% tall, shifted left — 10% left / 30% right margin */
     width: auto !important; height: auto !important;
     padding: 16px 22px 20px !important;
-    background: rgba(8,15,25,0.77) !important;
+    background: var(--panel-scrim) !important;
     border: 1px solid var(--border) !important;
     border-radius: 16px !important;
     box-shadow: 0 24px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,0,0,0.4) !important;
@@ -320,6 +336,9 @@
 #topdecksearch-panel > div, #scry-panel > div, #revealarrange-panel > div,
 #yesno-decision-modal > div, .optchoose-banner {
     position: relative !important;
+    /* Override the engine's hardcoded inline navy (#0D1B2A) so the panel fill follows the
+       theme's panel scrim — cyan-navy under hud, sandy dark-brown under petranaki-hud. */
+    background: var(--panel-scrim) !important;
     border: 1px solid rgba(var(--accent-rgb),0.30) !important; border-radius: 6px !important;
     box-shadow: 0 0 10px rgba(var(--accent-rgb),0.18), inset 0 0 26px rgba(var(--accent-rgb),0.06), 0 14px 44px rgba(0,0,0,0.6) !important;
 }

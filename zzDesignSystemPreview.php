@@ -6,6 +6,7 @@ $themeFiles = [
   'hud'       => '/TCGEngine/SharedUI/Themes/hud.tokens.css',
   'clarent'   => '/TCGEngine/SharedUI/Themes/clarent.tokens.css',
   'petranaki' => '/TCGEngine/SharedUI/Themes/petranaki.tokens.css',
+  'petranaki-hud' => '/TCGEngine/SharedUI/Themes/petranaki-hud.tokens.css',
   'gudnak'    => '/TCGEngine/SharedUI/Themes/gudnak.tokens.css',
   'molten-forge'       => '/TCGEngine/SharedUI/Themes/molten-forge.tokens.css',
   'circuit-sigil-cyan' => '/TCGEngine/SharedUI/Themes/circuit-sigil-cyan.tokens.css',

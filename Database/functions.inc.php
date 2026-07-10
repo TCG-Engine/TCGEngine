@@ -377,34 +377,6 @@ function SWUResolveSeatCosmetics($userID) {
     return LoadUserCosmetics($userID === null ? "" : $userID);
 }
 
-// Mod-uploaded cosmetics (Mod tools): rows in cosmeticupload, merged into the catalog.
-
-function AddCosmeticUpload($slot, $id, $label, $asset, $userId) {
-    $conn = GetLocalMySQLConnection();
-    $stmt = $conn->prepare("INSERT INTO cosmeticupload (slot, id, label, asset, uploadedBy) VALUES (?,?,?,?,?)
-                            ON DUPLICATE KEY UPDATE label=VALUES(label), asset=VALUES(asset)");
-    if (!$stmt) { $conn->close(); return false; }
-    $uid = ($userId === null) ? null : (int)$userId;
-    $stmt->bind_param("ssssi", $slot, $id, $label, $asset, $uid);
-    $ok = $stmt->execute();
-    $stmt->close(); $conn->close();
-    return (bool)$ok;
-}
-
-// Returns the deleted row's asset path, or null if no such uploaded row (built-ins are not in this table).
-function DeleteCosmeticUpload($slot, $id) {
-    $conn = GetLocalMySQLConnection();
-    $asset = null;
-    $sel = $conn->prepare("SELECT asset FROM cosmeticupload WHERE slot=? AND id=?");
-    if ($sel) { $sel->bind_param("ss", $slot, $id); $sel->execute();
-        $r = $sel->get_result()->fetch_assoc(); if ($r) $asset = $r['asset']; $sel->close(); }
-    if ($asset === null) { $conn->close(); return null; }
-    $del = $conn->prepare("DELETE FROM cosmeticupload WHERE slot=? AND id=?");
-    if ($del) { $del->bind_param("ss", $slot, $id); $del->execute(); $del->close(); }
-    $conn->close();
-    return $asset;
-}
-
 function LoadFavoriteDecks($userID)
 {
 	if ($userID == "") return [];
