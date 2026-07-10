@@ -727,39 +727,6 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
           -webkit-overflow-scrolling: touch;
      }
 
-     #myFieldWrapper::before,
-     #myFieldWrapper::after,
-     #theirFieldWrapper::before,
-     #theirFieldWrapper::after {
-          content: "";
-          position: absolute;
-          top: 14px;
-          bottom: 14px;
-          width: 34px;
-          pointer-events: none;
-          z-index: 2;
-          opacity: 0.92;
-     }
-
-     #myFieldWrapper:not(.ga-can-scroll-left)::before,
-     #theirFieldWrapper:not(.ga-can-scroll-left)::before,
-     #myFieldWrapper:not(.ga-can-scroll-right)::after,
-     #theirFieldWrapper:not(.ga-can-scroll-right)::after {
-          opacity: 0;
-     }
-
-     #myFieldWrapper::before,
-     #theirFieldWrapper::before {
-          left: 0;
-          background: linear-gradient(90deg, rgba(33, 63, 112, 0.88), rgba(33, 63, 112, 0.52) 42%, rgba(33, 63, 112, 0));
-     }
-
-     #myFieldWrapper::after,
-     #theirFieldWrapper::after {
-          right: 0;
-          background: linear-gradient(270deg, rgba(33, 63, 112, 0.88), rgba(33, 63, 112, 0.52) 42%, rgba(33, 63, 112, 0));
-     }
-
      #myFieldWrapper::-webkit-scrollbar,
      #theirFieldWrapper::-webkit-scrollbar {
           display: none;
