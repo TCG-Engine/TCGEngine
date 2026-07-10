@@ -118,8 +118,8 @@ function GetAttackWeaponChoices($player, $attackerObj) {
     $availableWeapons = GetAvailableWeapons($player);
 
     // Huaji of Heaven's Rise (v1iyt8rugx): unique Warrior allies may attack using this weapon.
-    if(PropertyContains(CardSubtypes($attackerObj->CardID), "WARRIOR")
-        && PropertyContains(CardSubtypes($attackerObj->CardID), "UNIQUE")) {
+    if(PropertyContains(EffectiveCardSubtypes($attackerObj), "WARRIOR")
+        && PropertyContains($cardType, "UNIQUE")) {
         foreach($availableWeapons as $wMZ) {
             $wObj = GetZoneObject($wMZ);
             if($wObj !== null && !$wObj->removed && $wObj->CardID === "v1iyt8rugx" && !HasNoAbilities($wObj)
@@ -1302,8 +1302,8 @@ function BeginCombatPhase($actionCard) {
     // and 0-power champions can still attack if they have an available weapon.
     if(ObjectCurrentPower($obj) <= 0) {
         $hasIntentPower = AttackHasPositivePowerWithoutWeapon($obj, $turnPlayer);
-        $hasChampionWeapon = PropertyContains($cardType, "CHAMPION") && !empty(GetAvailableWeapons($turnPlayer));
-        if(!$hasIntentPower && !$hasChampionWeapon) {
+        $hasWeaponAttack = !empty(GetAttackWeaponChoices($turnPlayer, $obj));
+        if(!$hasIntentPower && !$hasWeaponAttack) {
             SetFlashMessage("Cannot attack with a unit that has 0 or less power.");
             return false;
         }
