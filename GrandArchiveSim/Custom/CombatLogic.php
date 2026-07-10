@@ -48,7 +48,7 @@ function FunctionalWeaponIsLoaded($weaponObj) {
 }
 
 /**
- * Return an array of mzIDs for awake weapon cards on a player's field.
+ * Return an array of mzIDs for weapon cards on a player's field.
  * Only returns weapons with durability > 0.
  */
 function GetAvailableWeapons($player) {
@@ -64,7 +64,7 @@ function GetAvailableWeapons($player) {
     $available = [];
     foreach($weapons as $mzID) {
         $obj = &GetZoneObject($mzID);
-        if($obj->Status == 2 && GetCounterCount($obj, "durability") > 0) {
+        if(GetCounterCount($obj, "durability") > 0) {
             $weaponSubtypes = EffectiveCardSubtypes($obj);
             // Weapons with 0 or less POWER cannot be chosen to attack with.
             if(ObjectCurrentPower($obj) <= 0) continue;
