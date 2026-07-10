@@ -113,9 +113,9 @@
         display: flex; gap: 6px; padding: 5px 30px;
         border-bottom: 1px solid rgba(255,255,255,0.05);
         /* Playmat (mobile): ApplyCosmeticPlaymats() sets the per-side mat image on
-           this element; `cover`/center shows just its inner vertical slice — the
-           piece that fits the phone's tall-narrow arena band. */
-        background-position: center; background-size: cover; background-repeat: no-repeat;
+           this element; `cover` + top-anchor shows the top slice — matching the
+           top-anchored desktop mats and the profile preview. */
+        background-position: center top; background-size: cover; background-repeat: no-repeat;
     }
     /* Faint side tint — the base look when no playmat is set. */
     .swu-m-arena-row.is-mine   { background-color: rgba(var(--turn-mine-rgb),0.06); }

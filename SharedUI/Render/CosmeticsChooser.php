@@ -8,15 +8,7 @@ function RenderCosmeticsChooser(int $userId): string {
     $cat = SWUCosmeticCatalog();
     $cur = LoadUserCosmetics($userId);   // resolved current selections
 
-    $select = function($slot) use ($cat, $cur, $esc) {
-        $opts = '';
-        foreach ($cat[$slot] as $id => $o) {
-            $sel = ($cur[$slot]['id'] === $id) ? ' selected' : '';
-            $asset = SWUCosmeticAssetUrl($o['asset'] ?? null);
-            $opts .= "<option value=\"{$esc($id)}\" data-asset=\"{$esc($asset)}\"$sel>{$esc($o['label'])}</option>";
-        }
-        return "<select class='cos-select' data-slot=\"{$esc($slot)}\">$opts</select>";
-    };
+    $select = fn($slot) => SWUCosmeticSelectHtml($slot, $cur[$slot]['id']);
 
     $bg   = $esc(SWUCosmeticAssetUrl($cur['background']['asset'] ?? null));
     $back = $esc(SWUCosmeticAssetUrl($cur['cardback']['asset'] ?? null));
@@ -69,7 +61,7 @@ function _CosmeticsChooserStyles(): string {
     position: absolute;
     top: 50%; left: 3%; right: 3%; bottom: 3%;
     background-size: cover;
-    background-position: center;
+    background-position: center top;   /* playmats anchor to the top (matches in-game) */
     background-repeat: no-repeat;
     border-radius: 16px;                        /* same rounded corners as the in-game playmat (64px, scaled to preview) */
     border: 1px solid rgba(255,255,255,0.12);

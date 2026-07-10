@@ -124,6 +124,19 @@ function SWUCosmeticAssetUrl($asset) {
     return preg_replace('#^\./#', '/TCGEngine/', (string)$asset);
 }
 
+// Render a <select> of a slot's catalog options, with $currentId pre-selected. Shared by the
+// Profile chooser and the in-game gear menu so option markup + data-asset URLs live in one place.
+function SWUCosmeticSelectHtml(string $slot, string $currentId, string $class = 'cos-select'): string {
+    $esc = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES);
+    $opts = '';
+    foreach (SWUCosmeticCatalog()[$slot] ?? [] as $id => $o) {
+        $sel   = ((string)$id === (string)$currentId) ? ' selected' : '';
+        $asset = SWUCosmeticAssetUrl($o['asset'] ?? null);
+        $opts .= "<option value=\"{$esc($id)}\" data-asset=\"{$esc($asset)}\"$sel>{$esc($o['label'])}</option>";
+    }
+    return "<select class=\"{$esc($class)}\" data-slot=\"{$esc($slot)}\">$opts</select>";
+}
+
 function SWUCosmeticDefault($slot) {
     foreach (SWUCosmeticCatalog()[$slot] ?? [] as $id => $opt) {
         if (!empty($opt['isDefault'])) return $id;

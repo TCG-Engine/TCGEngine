@@ -27,10 +27,19 @@ function _SWUCosBackgroundUrl($asset, bool $mobile): string {
     return SWUCosmeticAssetUrl($asset);
 }
 
+// Per-seat cosmetic overrides for dev/test contexts, keyed by the well-known test authKey the
+// zzTestSchemaEditor uses. Lets schema-editor SWUSim games show a representative P2 playmat
+// without a real match or login. Shape: ['<seat>' => ['<slot>' => '<choiceId>']].
+function SWUCosmeticSeatOverrides($authKey): array {
+    if ((string)$authKey === 'testschema') return ['2' => ['playmat' => 'overwhelming-barrage']];
+    return [];
+}
+
 // Build the viewer-relative cosmetics object. $viewerPerspective is the seat whose
 // perspective is rendered (1 or 2); $viewerUserId is the logged-in viewer (for the
-// matchless-game fallback). Returns [] when nothing applies (all-default).
-function SWUBuildCosmeticsPayload($gameName, $viewerPerspective, $viewerUserId, bool $mobile): array {
+// matchless-game fallback). $seatOverrides forces a seat's slot(s) (dev/test). Returns []
+// when nothing applies (all-default).
+function SWUBuildCosmeticsPayload($gameName, $viewerPerspective, $viewerUserId, bool $mobile, array $seatOverrides = []): array {
     $mySeat    = ((string)$viewerPerspective === '2') ? '2' : '1';
     $theirSeat = ($mySeat === '1') ? '2' : '1';
 
@@ -53,6 +62,17 @@ function SWUBuildCosmeticsPayload($gameName, $viewerPerspective, $viewerUserId, 
         $myCos = SWUResolveSeatCosmetics($viewerUserId);
     }
 
+    // Force any dev/test seat overrides on top (resolved to {id, asset} like real choices).
+    $applyOverride = function ($cos, $seat) use ($seatOverrides) {
+        foreach ($seatOverrides[$seat] ?? [] as $slot => $choiceId) {
+            $cos = is_array($cos) ? $cos : [];
+            $cos[$slot] = SWUCosmeticResolve($slot, $choiceId);
+        }
+        return $cos;
+    };
+    $myCos    = $applyOverride($myCos, $mySeat);
+    $theirCos = $applyOverride($theirCos, $theirSeat);
+
     return [
         'background'    => _SWUCosBackgroundUrl($myCos['background']['asset'] ?? null, $mobile),
         'myCardBack'    => SWUCosmeticAssetUrl($myCos['cardback']['asset']    ?? null),
@@ -64,7 +84,27 @@ function SWUBuildCosmeticsPayload($gameName, $viewerPerspective, $viewerUserId, 
 
 // The <script> tag to emit into the board page. Placed after the layout include so the
 // consumer (which also re-applies on DOMContentLoaded / load / MutationObserver) sees it.
-function SWUCosmeticsBridgeScript($gameName, $viewerPerspective, $viewerUserId, bool $mobile): string {
-    $payload = SWUBuildCosmeticsPayload($gameName, $viewerPerspective, $viewerUserId, $mobile);
+function SWUCosmeticsBridgeScript($gameName, $viewerPerspective, $viewerUserId, bool $mobile, array $seatOverrides = []): string {
+    $payload = SWUBuildCosmeticsPayload($gameName, $viewerPerspective, $viewerUserId, $mobile, $seatOverrides);
     return "<script>window.SWU_COSMETICS = " . json_encode($payload) . ";</script>\n";
+}
+
+// Patch a single seat's cosmetic in the live match snapshot — ONLY the seat owned by $userId
+// (authorization). No-op when the game has no match (solo modes) or the user isn't a seat.
+// Returns true iff a seat was patched. Lets the in-game picker propagate a mid-match change to
+// the opponent (who reads this snapshot via SWUBuildCosmeticsPayload / CosmeticsLive.php).
+function SWUPatchMatchSeatCosmetic($gameName, $userId, string $slot, string $choiceId): bool {
+    if ($userId === null || (string)$userId === '' || $slot === '') return false;
+    $ref = SWUReadMatchRef($gameName);
+    if (!is_array($ref) || !isset($ref['matchId'])) return false;
+    $patched = false;
+    SWUWithMatchLock($ref['matchId'], function (&$m) use ($userId, $slot, $choiceId, &$patched) {
+        foreach (['1', '2'] as $seat) {
+            if ((string)($m['players'][$seat]['userId'] ?? '') === (string)$userId) {
+                $m['players'][$seat]['cosmetics'][$slot] = SWUCosmeticResolve($slot, $choiceId);
+                $patched = true;
+            }
+        }
+    });
+    return $patched;
 }

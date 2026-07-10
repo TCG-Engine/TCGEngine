@@ -2159,6 +2159,39 @@ function ApplyCosmeticPlaymats() {
 if (document.readyState !== 'loading') ApplyCosmeticPlaymats();
 else document.addEventListener('DOMContentLoaded', ApplyCosmeticPlaymats);
 window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the toggle changes
+
+// ── Live cosmetics poller: pick up opponent (or cross-device) cosmetic changes without a
+// reload. Polls CosmeticsLive.php every 6s (paused when the tab is hidden); on any diff it
+// swaps window.SWU_COSMETICS and re-applies. Idempotent apply funcs make repeats free.
+(function () {
+  function appBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0?p.slice(0,i+11):'/TCGEngine/'; }
+  function val(id){ var el=document.getElementById(id); return el ? el.value : ''; }
+  var last = JSON.stringify(window.SWU_COSMETICS || {});
+  function poll() {
+    if (document.hidden) return;
+    var gn = val('gameName'); if (!gn) return;
+    var vp = val('viewerPerspective') || '1';
+    var ak = val('authKey');   // carries the test sentinel so dev-tool seat overrides stay applied
+    var url = appBase()+'SWUSim/CosmeticsLive.php?gameName='+encodeURIComponent(gn)+'&viewerPerspective='+encodeURIComponent(vp)+'&authKey='+encodeURIComponent(ak);
+    var x = new XMLHttpRequest(); x.open('GET', url, true);
+    x.onload = function () {
+      if (x.status < 200 || x.status >= 300) return;
+      var next; try { next = JSON.parse(x.responseText); } catch (e) { return; }
+      if (!next || typeof next !== 'object' || Array.isArray(next)) return;
+      // Empty payload ({}) = no session / no cosmetics — treat as "no change".
+      if (!('background' in next) && !('myCardBack' in next) && !('theirCardBack' in next)) return;
+      var s = JSON.stringify(next);
+      if (s === last) return;
+      last = s;
+      window.SWU_COSMETICS = next;
+      if (typeof ApplyAllCosmetics === 'function') ApplyAllCosmetics();
+    };
+    x.onerror = function () {};   // swallow blips; next tick retries
+    x.send();
+  }
+  setInterval(poll, 6000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) poll(); });
+})();
 </script>
 
 <!-- ── In-game Settings hub (gear menu) ─────────────────────────────────────── -->
@@ -2185,6 +2218,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-settings-row { display: flex; align-items: center; justify-content: space-between;
     gap: 12px; padding: 6px 0; font-size: 14px; cursor: pointer; }
   .swu-settings-row input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; }
+  .swu-settings-row--stack { flex-direction: column; align-items: stretch; gap: 4px; cursor: default; }
+  .swu-settings-row--stack > span { font-size: 12px; color: var(--accent); }
+  .swu-gear-cos { width: 100%; padding: 7px 9px; border-radius: 7px; cursor: pointer;
+    background: var(--surface-raised, rgba(8,15,25,0.6)); color: var(--text, #e8d5a8);
+    border: 1px solid var(--border, rgba(255,255,255,0.14)); }
   .swu-settings-link { display: inline-block; margin-top: 8px; color: var(--accent); font-size: 13px; text-decoration: none; }
   .swu-settings-link:hover { text-decoration: underline; }
   .swu-settings-action { display: block; width: 100%; margin: 6px 0 0; padding: 9px 12px;
@@ -2212,6 +2250,13 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   /* SWUConfirm now delegates to the shared StyledDialog (which self-injects its themed CSS);
      its bespoke .swu-confirm-* styles were removed. */
 </style>
+<?php
+  require_once __DIR__ . '/../../Database/ConnectionManager.php';   // GetLocalMySQLConnection (used by LoadUserCosmetics)
+  require_once __DIR__ . '/../../Database/functions.inc.php';
+  require_once __DIR__ . '/../Cosmetics/Catalog.php';
+  $swuGearUid = function_exists('LoggedInUser') ? LoggedInUser() : '';
+  $swuGearCos = ($swuGearUid !== '' && $swuGearUid !== null) ? LoadUserCosmetics($swuGearUid) : null;
+?>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
   <div class="swu-settings-panel" role="dialog" aria-modal="true">
     <div class="swu-settings-head"><span>Settings</span>
@@ -2220,7 +2265,14 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       <div class="swu-settings-section-title">Cosmetics</div>
       <label class="swu-settings-row"><span>Show playmats</span>
         <input type="checkbox" id="swuSetShowPlaymats"></label>
-      <a class="swu-settings-link" href="/TCGEngine/SharedUI/Sites/SWUSim/Profile.php" target="_blank">Change cosmetics on Profile &#8599;</a>
+      <?php if ($swuGearCos !== null): ?>
+        <label class="swu-settings-row swu-settings-row--stack"><span>Background</span>
+          <?= SWUCosmeticSelectHtml('background', $swuGearCos['background']['id'], 'swu-gear-cos') ?></label>
+        <label class="swu-settings-row swu-settings-row--stack"><span>Card back</span>
+          <?= SWUCosmeticSelectHtml('cardback', $swuGearCos['cardback']['id'], 'swu-gear-cos') ?></label>
+        <label class="swu-settings-row swu-settings-row--stack"><span>Playmat</span>
+          <?= SWUCosmeticSelectHtml('playmat', $swuGearCos['playmat']['id'], 'swu-gear-cos') ?></label>
+      <?php endif; ?>
     </div>
     <div class="swu-settings-section" id="swuSettingsMatchSection" style="display:none; border-top:1px solid var(--border);">
       <div class="swu-settings-section-title">Match</div>
@@ -2294,6 +2346,27 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     if (e.target && e.target.id === 'swuSetShowPlaymats') {
       if (window.TCGSettings) window.TCGSettings.set('ShowPlaymats', e.target.checked, { rootName:'SWUSim', type:'boolean' });
       if (typeof window.ApplyCosmeticPlaymats === 'function') window.ApplyCosmeticPlaymats();
+      return;
+    }
+    var sel = e.target && e.target.closest ? e.target.closest('.swu-gear-cos') : null;
+    if (sel) {
+      var slot = sel.getAttribute('data-slot');
+      var opt = sel.options[sel.selectedIndex];
+      var asset = opt ? (opt.getAttribute('data-asset') || '') : '';
+      // Instant local apply for the picker's own view.
+      var c = window.SWU_COSMETICS = window.SWU_COSMETICS || {};
+      if (slot === 'background') c.background = asset;
+      else if (slot === 'cardback') c.myCardBack = asset;
+      else if (slot === 'playmat') c.myPlaymat = asset;
+      if (typeof ApplyAllCosmetics === 'function') ApplyAllCosmetics();
+      // Persist to profile + patch the live match snapshot (opponent picks it up via the poller).
+      function appBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0?p.slice(0,i+11):'/TCGEngine/'; }
+      var gnEl = document.getElementById('gameName');
+      var gn = gnEl ? gnEl.value : '';
+      var x = new XMLHttpRequest();
+      x.open('POST', appBase()+'SWUSim/Cosmetics.php', true);
+      x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+      x.send('action=set&slot='+encodeURIComponent(slot)+'&choiceId='+encodeURIComponent(sel.value)+'&gameName='+encodeURIComponent(gn));
     }
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') swuCloseSettings(); });

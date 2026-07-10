@@ -137,7 +137,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            the arena boxes (desktop only — mobile paints an overfilled bg on its cols). */
         left:  var(--swu-arena-margin);
         right: calc(var(--swu-sidebar-w) + var(--swu-arena-margin));
-        background-size: cover; background-position: center; background-repeat: no-repeat;
+        background-size: cover; background-position: center top; background-repeat: no-repeat;   /* playmats anchor to the top */
         pointer-events: none;
     }
     .swu-playmat-top { top: var(--swu-playmat-margin-y); bottom: calc(50% + var(--swu-playmat-gap) / 2); }

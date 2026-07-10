@@ -1636,9 +1636,10 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       // SWUSimIsMobileRequest() (from GameLayoutDevice.php) is defined.
       if ($folderPath === 'SWUSim') {
         require_once __DIR__ . '/SWUSim/CosmeticsBridge.php';
-        $swuCosMobile   = function_exists('SWUSimIsMobileRequest') ? SWUSimIsMobileRequest() : false;
-        $swuCosViewerId = function_exists('LoggedInUser') ? LoggedInUser() : '';
-        echo SWUCosmeticsBridgeScript($gameName, $viewerPerspective, $swuCosViewerId, $swuCosMobile);
+        $swuCosMobile     = function_exists('SWUSimIsMobileRequest') ? SWUSimIsMobileRequest() : false;
+        $swuCosViewerId   = function_exists('LoggedInUser') ? LoggedInUser() : '';
+        $swuCosOverrides  = SWUCosmeticSeatOverrides($authKey);   // schema-editor test games give P2 a playmat
+        echo SWUCosmeticsBridgeScript($gameName, $viewerPerspective, $swuCosViewerId, $swuCosMobile, $swuCosOverrides);
       }
     ?>
     </div>
