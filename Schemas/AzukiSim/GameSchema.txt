@@ -58,6 +58,7 @@ Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Virtual: CombatTargetIndicator=CombatTargetIndicator()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: DisplayEffects=CardDisplayEffects()
+Virtual: AttackUnavailableIndicator=AttackUnavailableIndicator()
 Virtual: ChargeKeywordIndicator=ChargeKeywordIndicator()
 Virtual: DefenderKeywordIndicator=DefenderKeywordIndicator()
 Virtual: HasAbility=CardHasAbility()
@@ -68,7 +69,7 @@ Subcards: Flow=Below
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
 Counters: Damage=Image(Path=Assets/Icons/damage-counter.webp,Position=TopRight,ShowZero=false,Size=26,TextColor=White)
-Counters: CurrentPower=Image(Path=Assets/Icons/attack-counter.webp,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White)
+Counters: CurrentPower=Image(Path=Assets/Icons/attack-counter.webp,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White,DimWhenField=AttackUnavailableIndicator,DimOpacity=0.42,DimFilter=grayscale(1) saturate(0.35))
 Counters: CurrentHP=Image(Path=Assets/Icons/hp-counter.webp,Position=BottomRight,ShowZero=false,Size=26,TextColor=White)
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Counters: ChargeKeywordIndicator=Image(Path=Assets/Icons/charge.webp,Position=Bottom,ShowZero=false,Size=26)

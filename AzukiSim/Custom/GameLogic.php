@@ -2458,6 +2458,11 @@ function FieldSelectionMetadata($obj) {
         if(!CanRedirectPendingAttack($actingPlayer, 'myGarden-' . $mzIndex)) {
             return json_encode(['highlight' => false]);
         }
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    if(!CardHasAbility($obj)) {
+        return json_encode(['highlight' => false]);
     }
 
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
@@ -2532,6 +2537,15 @@ function ChargeKeywordIndicator($obj) {
     if(CardHasKeyword($obj->CardID ?? '', 'Charge')) return 1;
     if(HasTurnEffect($obj, 'CHARGE')) return 1;
     return 0;
+}
+
+function AttackUnavailableIndicator($obj) {
+    if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return 0;
+    if(CardType($obj->CardID ?? '') !== 'ENTITY') return 0;
+    if(!HasCooldown($obj)) return 0;
+    if(CardHasKeyword($obj->CardID ?? '', 'Charge')) return 0;
+    if(HasTurnEffect($obj, 'CHARGE')) return 0;
+    return 1;
 }
 
 function DefenderKeywordIndicator($obj) {

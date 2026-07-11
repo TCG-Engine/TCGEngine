@@ -468,6 +468,14 @@ function shouldRenderSchemaVisualBySetting(ruleOrParams) {
   return currentValue === expectedValue;
 }
 
+function shouldDimCounterVisual(params, cardData) {
+  if (!params || !params.DimWhenField || !cardData) return false;
+  var dimValue = cardData[params.DimWhenField];
+  if (dimValue === null || dimValue === undefined) return false;
+  var normalized = String(dimValue).trim().toLowerCase();
+  return normalized !== '' && normalized !== '-' && normalized !== '0' && normalized !== 'false';
+}
+
 // ==================== Main Counter Rendering Function ====================
 
 /**
@@ -639,6 +647,12 @@ function CreateCountersHTML(zoneName, cardArr, id) {
       }
 
       var opacityStyle = (params.Opacity !== undefined && params.Opacity !== '') ? '; opacity:' + parseFloat(params.Opacity) + ';' : '';
+      var visualStateStyle = opacityStyle;
+      if (shouldDimCounterVisual(params, cardData)) {
+        var dimOpacity = (params.DimOpacity !== undefined && params.DimOpacity !== '') ? (parseFloat(params.DimOpacity) || 0.42) : 0.42;
+        var dimFilter = params.DimFilter || 'grayscale(1) saturate(0.35)';
+        visualStateStyle += '; opacity:' + dimOpacity + '; filter:' + dimFilter + ';';
+      }
       if (type.toLowerCase() === 'badge') {
         if (mode === 'cardids' && cardIds.length > 0) {
           // Badge with hover popup for card IDs
@@ -647,10 +661,10 @@ function CreateCountersHTML(zoneName, cardArr, id) {
           html += "<div data-counter-field='" + field + "' data-counter-mode='cardids' data-card-ids='" + cardIdsJson + "' ";
           html += "class='counter-badge-cardids' ";
           html += "onmouseenter='showCardIdsBadgePopup(this, event)' onmouseleave='hideCardIdsBadgePopup(this)' ";
-          html += "style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6); cursor:pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" + opacityStyle + "'>" + displayValue + "</div>";
+          html += "style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6); cursor:pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" + visualStateStyle + "'>" + displayValue + "</div>";
         } else {
           // Standard badge
-          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);" + opacityStyle + "'>" + displayValue + "</div>";
+          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);" + visualStateStyle + "'>" + displayValue + "</div>";
         }
       } else if (type.toLowerCase() === 'icon') {
         // If an icon name is provided as positional param, use it as img src fallback
@@ -675,7 +689,7 @@ function CreateCountersHTML(zoneName, cardArr, id) {
               imageBackgroundStyle += " border-radius:50%;";
             }
           }
-          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + imageSize + "px; height:" + imageSize + "px; pointer-events:none;" + imageBackgroundStyle + "'>";
+          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + imageSize + "px; height:" + imageSize + "px; pointer-events:none;" + imageBackgroundStyle + visualStateStyle + "'>";
           html += "<img class='counter-image-icon' src='./" + imagePath + "' style='width:" + imageSize + "px; height:" + imageSize + "px; object-fit:contain; filter: drop-shadow(0 0 3px rgba(0,0,0,0.75));'/>";
           if (params.TextColor) {
             html += "<div style='position:absolute; inset:0; " + counterCenteredTextStyle(12) + " color:" + textColor + "; text-shadow: 0 0 3px rgba(0,0,0,0.95), 0 0 6px rgba(0,0,0,0.95);'>" + displayValue + "</div>";
