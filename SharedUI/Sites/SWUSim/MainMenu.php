@@ -17,13 +17,19 @@ $swuQueueTypes = function_exists('SWUQueueTypeDefinitions') ? SWUQueueTypeDefini
 $swuSiteDef = require __DIR__ . '/SiteDef.php';
 $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
 ?>
-<div class="row-wrapper" style="display: flex; flex-direction: row; flex-grow: 1;">
-  <!-- Create New Game Section -->
-  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: var(--text); border-radius: 12px; position: relative;">
+<div class="row-wrapper swu-menu-grid">
+  <!-- Active Games (left) -->
+  <div class="card ga-glass-card swu-active-card" style="padding: 20px; color: var(--text); border-radius: 12px; position: relative;">
     <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
       <img src='/TCGEngine/Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
     <h2>Active Games (<span id="active-game-count">0</span>)</h2>
+    <div id="active-games-list" class="swu-active-games-list"></div>
+    <p class="swu-active-empty" style="color: var(--text-muted); font-size: 13px; margin: 6px 0 0;">Games in the public queue appear in the count above.</p>
+  </div>
+
+  <!-- Create a New Game (middle) -->
+  <div class="card ga-glass-card swu-queue-card" style="padding: 20px; color: var(--text); border-radius: 12px; position: relative;">
     <h2>Create a New Game</h2>
     <div>
       <!--
@@ -129,8 +135,13 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
     </div>
   </div>
 
-  <!-- Tips & Info Section -->
-  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: var(--text); border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
+  <!-- Welcome + Replays (right, tabbed) -->
+  <div class="card ga-glass-card swu-info-card" style="padding: 20px; color: var(--text); border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
+    <div class="ga-info-tabs" role="tablist" aria-label="Petranaki information">
+      <button type="button" id="ga-info-tab-welcome" class="ga-info-tab is-active" onclick="switchInfoTab('welcome')" role="tab" aria-selected="true" aria-controls="ga-info-panel-welcome">Welcome</button>
+      <button type="button" id="ga-info-tab-replays" class="ga-info-tab" onclick="switchInfoTab('replays')" role="tab" aria-selected="false" aria-controls="ga-info-panel-replays">Replays</button>
+    </div>
+    <div id="ga-info-panel-welcome" class="ga-info-panel is-active" role="tabpanel" aria-labelledby="ga-info-tab-welcome">
     <h2 style="margin: 0 0 4px 0;">Welcome to Petranaki Arena!</h2>
     <p class="login-message" style="margin: 0; color: var(--text-muted); font-size: 14px;">Petranaki Arena is a fan-made online simulator for Star Wars: Unlimited.</p>
 
@@ -162,14 +173,13 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Quick Reference</div>
       <div style="display: flex; flex-direction: column; gap: 6px;" id="hotkey-list"></div>
     </div>
-  </div>
-
-  <!-- Replays Section -->
-  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: var(--text); border-radius: 12px; display: flex; flex-direction: column; gap: 8px;">
+    </div>
+    <div id="ga-info-panel-replays" class="ga-info-panel" role="tabpanel" aria-labelledby="ga-info-tab-replays">
     <h2 style="margin: 0 0 4px 0;">Your Replays</h2>
     <p style="margin: 0; color: var(--text-muted); font-size: 13px; line-height: 1.4;">Saved in this browser. Use the <strong>Save Replay</strong> button on the end-of-game screen to add one here.</p>
     <div id="match-replay-menu-list" class="swu-replay-list" style="margin-top: 6px;"></div>
-  </div>
+    </div><!-- end replays panel -->
+  </div><!-- end info card -->
 </div>
 
 <script src="/TCGEngine/Core/MatchReplayClient.js"></script>
@@ -194,10 +204,32 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
 </div>
 
 <style>
-  .row-wrapper > .card {
-    flex: 1 1 0 !important;
-    min-width: 0;
+  .swu-menu-grid {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.85fr) minmax(360px, 1.2fr) minmax(300px, 1fr);
+    gap: 14px;
+    align-items: start;
+    flex-grow: 1;
+    margin: 0 10px 10px;
   }
+  .swu-menu-grid > .card { min-width: 0; margin: 0; }
+  @media (max-width: 920px) {
+    .swu-menu-grid { grid-template-columns: 1fr; }
+  }
+  /* Right-column Welcome/Replays tabs (scoped past .ga-glass-card * color rule) */
+  .ga-info-tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(var(--accent-rgb), 0.28); }
+  .ga-glass-card .ga-info-tab {
+    flex: 1; padding: 8px; border: 0; border-bottom: 2px solid transparent;
+    background: rgba(var(--accent-rgb), 0.06); color: var(--text-muted);
+    cursor: pointer; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .ga-glass-card .ga-info-tab:hover { color: var(--text); }
+  .ga-glass-card .ga-info-tab.is-active {
+    background: rgba(var(--accent-rgb), 0.16); color: var(--text); border-bottom-color: var(--accent);
+  }
+  .ga-info-panel { display: none; flex-direction: column; gap: 16px; }
+  .ga-info-panel.is-active { display: flex; }
   .ga-glass-card {
     background: var(--surface-raised);
     border: 1px solid rgba(var(--accent-rgb), 0.30);
@@ -460,6 +492,21 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         if (el) el.value = 'https://swudb.com/deck/prozLLKSsRS';
       }
 
+      // Right-column info card: switch between the Welcome and Replays tabs.
+      function switchInfoTab(tab) {
+        var isReplays = tab === 'replays';
+        var welcomeTab = document.getElementById('ga-info-tab-welcome');
+        var replaysTab = document.getElementById('ga-info-tab-replays');
+        var welcomePanel = document.getElementById('ga-info-panel-welcome');
+        var replaysPanel = document.getElementById('ga-info-panel-replays');
+        if (!welcomeTab || !replaysTab || !welcomePanel || !replaysPanel) return;
+        welcomeTab.classList.toggle('is-active', !isReplays);
+        replaysTab.classList.toggle('is-active', isReplays);
+        welcomeTab.setAttribute('aria-selected', isReplays ? 'false' : 'true');
+        replaysTab.setAttribute('aria-selected', isReplays ? 'true' : 'false');
+        welcomePanel.classList.toggle('is-active', !isReplays);
+        replaysPanel.classList.toggle('is-active', isReplays);
+      }
       function switchDeckTab(tab) {
         var isLink = tab === 'link';
         document.getElementById('deck-input-link').style.display = isLink ? '' : 'none';

@@ -7,6 +7,8 @@
 CommonSetup: rrw/rrk/{myResources:2}
 WithP2GroundArena: SEC_080:1:0
 WithP1Hand: LOF_154
+WithP1Deck: SOR_046 SOR_046 SOR_046 SOR_046
+WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 
 ## WHEN
 - P1>PlayHand:0

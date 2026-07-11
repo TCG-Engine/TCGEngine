@@ -137,7 +137,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            the arena boxes (desktop only — mobile paints an overfilled bg on its cols). */
         left:  var(--swu-arena-margin);
         right: calc(var(--swu-sidebar-w) + var(--swu-arena-margin));
-        background-size: cover; background-position: center; background-repeat: no-repeat;
+        background-size: cover; background-position: center top; background-repeat: no-repeat;   /* playmats anchor to the top */
         pointer-events: none;
     }
     .swu-playmat-top { top: var(--swu-playmat-margin-y); bottom: calc(50% + var(--swu-playmat-gap) / 2); }
@@ -152,7 +152,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-starfield {
         position: fixed; inset: 0; pointer-events: none; z-index: 10;
         background:
-            radial-gradient(ellipse at 20% 30%, rgba(30,60,120,0.10) 0%, transparent 50%),
+            radial-gradient(ellipse at 20% 30%, rgba(var(--accent-rgb),0.10) 0%, transparent 50%),
             radial-gradient(ellipse at 80% 70%, rgba(200,151,30,0.06) 0%, transparent 50%);
     }
 
@@ -338,9 +338,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     }
     .swu-init-pass-btn > span { position: relative; z-index: 1; }
     .swu-init-pass-btn:hover { color: #fff; filter: drop-shadow(0 0 9px var(--btn-glow-color, var(--glow))); }
-    .swu-init-pass-btn:hover::before  { background: rgba(28,56,90,0.92); }
+    /* Hover/active: tint the themed fill with the accent (cyan under hud, gold under petranaki-hud)
+       instead of the old hardcoded navy. */
+    .swu-init-pass-btn:hover::before  { background: linear-gradient(rgba(var(--accent-rgb),0.40), rgba(var(--accent-rgb),0.40)), var(--btn-fill); }
     .swu-init-pass-btn:active { transform: translateY(0.5px); }
-    .swu-init-pass-btn:active::before { background: rgba(42,78,118,0.95); }
+    .swu-init-pass-btn:active::before { background: linear-gradient(rgba(var(--accent-rgb),0.60), rgba(var(--accent-rgb),0.60)), var(--btn-fill); }
     /* Dimmed + inert when it isn't your turn to act */
     .swu-init-pass.is-idle .swu-init-pass-btn { opacity: 0.35; pointer-events: none; cursor: default; }
     .swu-init-pass.is-idle .swu-init-pass-hint { visibility: hidden; }
@@ -451,8 +453,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* Card flow inside arena cols — wrap, fill from edge nearest midline */
     #theirSpaceArena, #theirGroundArena { flex-wrap: wrap !important; align-content: flex-end !important; }
     #mySpaceArena,    #myGroundArena    { flex-wrap: wrap !important; align-content: flex-start !important; }
-    /* Horizontal: space builds from right (center-facing); ground builds from left (center-facing) */
-    #mySpaceArena,    #theirSpaceArena  { justify-content: flex-end !important; }
+    /* Horizontal: both arenas flow inside-out from the midline. Ground (right column) builds left→right
+       from its center-facing LEFT edge (flex-start). Space (left column) mirrors it: row-reverse pins
+       index-0 to its center-facing RIGHT edge and grows each newer unit outward to the left, so a newly
+       played space unit lands on the OUTSIDE — matching Ground — instead of shoving index-0 aside. */
+    #mySpaceArena,    #theirSpaceArena  { justify-content: flex-start !important; flex-direction: row-reverse !important; }
     /* Hide the generic "GroundArena"/"SpaceArena" label that UILibraries injects when a zone is empty */
     #myGroundArena > span:only-child:not([id]), #theirGroundArena > span:only-child:not([id]),
     #mySpaceArena  > span:only-child:not([id]), #theirSpaceArena  > span:only-child:not([id]) { display: none; }
@@ -598,7 +603,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
        core Card() renderer, driven by the base's HasForce virtual — same path as the
-       Epic-Action-Used token. See Core/UILibraries20260703.js. */
+       Epic-Action-Used token. See Core/UILibraries20260709.js. */
 
     /* ── Counter badges below the frame animations ───────────────────────────────
        The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,
@@ -733,7 +738,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         user-select: none; -webkit-user-select: none;
     }
     .swu-hand-collapse-btn:hover {
-        color: rgba(255,255,255,0.95); background: rgba(30,45,65,0.96);
+        color: rgba(255,255,255,0.95); background: var(--panel-scrim);
         border-color: var(--swu-gold); }
     #myHandSlot.is-collapsed    { transform: translateY(calc(100% - 16px)); }
     #myHandSlot.is-collapsed:hover { transform: translateY(calc(100% - 16px)) !important; }

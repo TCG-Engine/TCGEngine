@@ -93,7 +93,7 @@ function SWUSubmitMatchResults($matchId) {
     SWUWithMatchLock($matchId, function(&$mm){ $mm['statsSubmitted']=true; });
     $m = SWUReadMatch($matchId);
     $apiKey = $GLOBALS['petranakiAPIKey'] ?? ($GLOBALS['karabastAPIKey'] ?? '');
-    // Post to the SWUStats/SWUDeck stats site. In prod that's swustats.net; locally it's the SWUDeck
+    // Post to the SWUStats stats site. In prod that's swustats.net; locally it's the SWUDeck
     // container the user reaches at localhost:3100 — but this curl runs INSIDE the game container, where
     // "localhost" is that container, so use the Docker host gateway (host.docker.internal:3100) to hit
     // the host's :3100 mapping. DEVENV is set only in the local docker-compose override.

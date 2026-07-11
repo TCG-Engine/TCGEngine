@@ -322,6 +322,16 @@ function _SWUMirrorAnotherFriendlyHasKeyword($obj, string $kw): bool {
 
 function HasConditionalKeyword_Ambush($obj) {
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'AMBUSH')) return true;
+    // SHD_188 4-LOM: each friendly unit named Zuckuss gains Ambush.
+    if (CardTitle($obj->CardID ?? '') === 'Zuckuss'
+        && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_188') > 0) return true;
+    // SHD_204 Millennium Falcon — "If you play this unit from your hand, it gains Ambush."
+    // The per-UID hand-source flag is set in ActivateCard before entry triggers collect
+    // (smuggle/discard/deck plays never set it).
+    if (($obj->CardID ?? '') === 'SHD_204'
+        && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_PLAYED_FROM_HAND_' . intval($obj->UniqueID ?? 0)) > 0) {
+        return true;
+    }
     // ASH_113 Mandalorian Flagship — "While you control a leader unit, this unit gains Ambush."
     if (($obj->CardID ?? '') === 'ASH_113') {
         foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
@@ -402,6 +412,7 @@ function HasConditionalKeyword_Grit($obj) {
         if ($u->UniqueID === $obj->UniqueID) continue;
         switch ($u->CardID) {
             case 'SEC_088': // First Light — all friendly non-leader units gain Grit
+            case 'SHD_036': // First Light (SHD reprint) — each other friendly non-leader unit gains Grit
                 if (!IsLeaderUnit($obj)) return true;
                 break;
         }
@@ -490,6 +501,9 @@ function HasConditionalKeyword_Saboteur($obj) {
     if (_SWUCountUnitsWithCardID(OtherPlayer(intval($obj->Controller ?? 0)), 'LAW_233') > 0) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SABOTEUR')) return true;
     if (_SWULof191HasBuff($obj)) return true; // LOF_191 BD-1: chosen unit gains Saboteur while BD-1 in play
+    // SHD_190 Zuckuss: each friendly unit named 4-LOM gains Saboteur.
+    if (CardTitle($obj->CardID ?? '') === '4-LOM'
+        && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_190') > 0) return true;
     // ASH_030 Marrok — "While this unit is upgraded, he loses Sentinel and gains Saboteur."
     if (($obj->CardID ?? '') === 'ASH_030' && _SWUIsUpgraded($obj)) return true;
     switch ($obj->CardID) {
@@ -679,20 +693,25 @@ function HasConditionalKeyword_Shielded($obj) {
 
 function HasConditionalKeyword_Bounty($obj) {
     switch ($obj->CardID) {
-        case 'SHD_033': // Synara San — while exhausted (Status != 2)
+        case 'SHD_033': // Synara San — while exhausted (Status 0; 1 = ready)
         case 'SHD_165': // Unlicensed Headhunter — while exhausted
-            return isset($obj->Status) && intval($obj->Status) !== 2;
+            return isset($obj->Status) && intval($obj->Status) === 0;
     }
     // Upgrade-granted Bounty — the attached unit gains a Bounty ability (the keyword shows the badge;
     // the custom reward is collected on defeat — see the granted-bounty snapshot in
-    // CollectWhenDefeatedTriggers + SWUCollectBounty). SHD_123 Bounty Hunter's Quarry.
+    // CollectWhenDefeatedTriggers + SWUCollectBounty). Shared list: SWUBountyGrantUpgrades().
     foreach (GetUpgradesOnUnit($obj) as $u) {
-        switch ($u->CardID) {
-            case 'SHD_123': // Bounty Hunter's Quarry
-                return true;
-        }
+        if (in_array($u->CardID, SWUBountyGrantUpgrades(), true)) return true;
     }
     return false;
+}
+
+// The Bounty-granting upgrades ("Attached unit gains: 'Bounty — …'"). One list drives BOTH the
+// badge (HasConditionalKeyword_Bounty above) and the defeat-time reward snapshot (the Subcards scan
+// in CollectWhenDefeatedTriggers, GameLogic.php); each ID also needs its reward case in
+// SWUCollectBounty. The snapshot param is uniformly "host was unique" (used by SHD_071/123/173).
+function SWUBountyGrantUpgrades(): array {
+    return ['SHD_068', 'SHD_071', 'SHD_123', 'SHD_125', 'SHD_173', 'SHD_176', 'SHD_221', 'SHD_222', 'SHD_226', 'SHD_261'];
 }
 
 // ═════════════════════════════════════════════════════════════════════════════

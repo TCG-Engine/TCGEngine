@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
-    <script src="./Core/UILibraries20260703.js?v=<?php echo filemtime('./Core/UILibraries20260703.js'); ?>"></script>
+    <script src="./Core/UILibraries20260709.js?v=<?php echo filemtime('./Core/UILibraries20260709.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
@@ -1629,6 +1629,19 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <?php endif; ?>
 
     <?php include "./" . $folderPath . "/InitialLayout.php"; ?>
+    <?php
+      // SWUSim in-game cosmetics bridge: emit window.SWU_COSMETICS so the board JS (which was
+      // written to consume it but never had a producer) can apply the viewer's board background,
+      // per-side card backs, and playmats. Gated to SWUSim; placed after the layout include so
+      // SWUSimIsMobileRequest() (from GameLayoutDevice.php) is defined.
+      if ($folderPath === 'SWUSim') {
+        require_once __DIR__ . '/SWUSim/CosmeticsBridge.php';
+        $swuCosMobile     = function_exists('SWUSimIsMobileRequest') ? SWUSimIsMobileRequest() : false;
+        $swuCosViewerId   = function_exists('LoggedInUser') ? LoggedInUser() : '';
+        $swuCosOverrides  = SWUCosmeticSeatOverrides($authKey);   // schema-editor test games give P2 a playmat
+        echo SWUCosmeticsBridgeScript($gameName, $viewerPerspective, $swuCosViewerId, $swuCosMobile, $swuCosOverrides);
+      }
+    ?>
     </div>
 
 

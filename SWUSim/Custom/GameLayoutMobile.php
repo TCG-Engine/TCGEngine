@@ -113,9 +113,9 @@
         display: flex; gap: 6px; padding: 5px 30px;
         border-bottom: 1px solid rgba(255,255,255,0.05);
         /* Playmat (mobile): ApplyCosmeticPlaymats() sets the per-side mat image on
-           this element; `cover`/center shows just its inner vertical slice — the
-           piece that fits the phone's tall-narrow arena band. */
-        background-position: center; background-size: cover; background-repeat: no-repeat;
+           this element; `cover` + top-anchor shows the top slice — matching the
+           top-anchored desktop mats and the profile preview. */
+        background-position: center top; background-size: cover; background-repeat: no-repeat;
     }
     /* Faint side tint — the base look when no playmat is set. */
     .swu-m-arena-row.is-mine   { background-color: rgba(var(--turn-mine-rgb),0.06); }
@@ -331,7 +331,8 @@
     }
     .swu-init-pass-btn > span { position: relative; z-index: 1; }
     .swu-init-pass-btn:active { transform: translateY(0.5px); }
-    .swu-init-pass-btn:active::before { background: rgba(42,78,118,0.95); }
+    /* Active: accent-tinted themed fill (was hardcoded navy). */
+    .swu-init-pass-btn:active::before { background: linear-gradient(rgba(var(--accent-rgb),0.60), rgba(var(--accent-rgb),0.60)), var(--btn-fill); }
     .swu-init-pass.is-idle .swu-init-pass-btn { opacity: 0.35; pointer-events: none; }
     .swu-init-pass-hint { display: none; }
 
@@ -361,7 +362,7 @@
     #swuRoundNumber { font: 700 16px/1 var(--swu-font-ui); }
     #swuUndoBtn {
         padding: 6px 14px; border: 1px solid var(--swu-border-hi); border-radius: 7px;
-        background: rgba(58,70,90,0.9); color: #fff; font: 700 11px/1 var(--swu-font-label);
+        background: var(--panel-scrim); color: #fff; font: 700 11px/1 var(--swu-font-label);
         text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer;
     }
     #swuLastPlayedSection { display: none; }

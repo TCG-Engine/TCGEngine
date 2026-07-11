@@ -95,6 +95,30 @@ function _SWUCollectLof252Reaction(int $targetPlayer): void {
 
 // ASH_160 Kachirho Militia — ready the base owner's Kachirho(s) when an enemy ground unit attacks their
 // base (once each round per copy). Inline, no decision.
+function _SWUShd241ShieldOnBaseAttack(int $baseOwner, string $attackerArena): void {
+    if ($baseOwner <= 0) return;
+    $has = false;
+    foreach (GetUnitsInPlay($baseOwner) as $u) {
+        if (empty($u->removed) && ($u->CardID ?? '') === 'SHD_241') { $has = true; break; }
+    }
+    if (!$has) return;
+    global $playerID; $playerID = $baseOwner;
+    $zone = ($attackerArena === 'Space') ? 'mySpaceArena' : 'myGroundArena';
+    $targets = [];
+    foreach (ZoneSearch($zone, AnyUnitFilter) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed)) $targets[] = $mz;
+    }
+    if (empty($targets)) return;
+    // Mandatory shield. Single target resolves inline (mid-combat cross-player choices are fragile); a
+    // multi-unit choice is queued for the base owner.
+    if (count($targets) === 1) {
+        DoGiveShieldToken($baseOwner, $targets[0]);
+    } else {
+        SWUQueueChooseTarget($baseOwner, $targets, "Give_a_Shield_to_a_friendly_unit_in_the_attacker's_arena", "GIVE_SHIELD");
+    }
+}
+
 function _SWUAsh160ReadyOnBaseAttack(int $baseOwner): void {
     if ($baseOwner <= 0) return;
     foreach (GetUnitsInPlay($baseOwner) as $u) {
@@ -341,7 +365,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     // function) and collect separately; the damage paths used to pre-collect before calling this, so
     // those pre-collects were removed (this is now the single collection point for effect-defeats).
     CollectWhenDefeatedTriggers(intval($player), [
-        ['player' => intval($obj->Controller ?? $obj->Owner ?? $player), 'cardID' => $obj->CardID, 'mzID' => $unitMzID]
+        ['player' => intval($obj->Controller ?? $obj->Owner ?? $player), 'cardID' => $obj->CardID, 'mzID' => $unitMzID, 'upgraded' => _SWUIsUpgraded($obj)]
     ]);
     $obj = GetZoneObject($unitMzID);
     if ($obj === null || (isset($obj->removed) && $obj->removed)) { $playerID = $savedPID; return true; }
@@ -839,11 +863,11 @@ function CollectCombatStep3Triggers($activePlayer, $attackerMzID, $defenderMzID,
 function _SWUCollectOnUnitDamagedReactions(int $activePlayer, string $attackerMzID, string $defenderMzID, array $combatCtx): void {
     if (!empty($combatCtx['attackerTookDmg'])) {
         $a = GetZoneObject($attackerMzID);
-        if ($a !== null && empty($a->removed)) _SWUOnUnitDamaged($a, intval($combatCtx['attackerDmgAmt'] ?? 0));
+        if ($a !== null && empty($a->removed)) _SWUOnUnitDamaged($a, intval($combatCtx['attackerDmgAmt'] ?? 0), true);
     }
     if (!empty($combatCtx['dealtToUnit'])) {
         $d = GetZoneObject($defenderMzID);
-        if ($d !== null && empty($d->removed)) _SWUOnUnitDamaged($d, intval($combatCtx['defenderDmgAmt'] ?? 0));
+        if ($d !== null && empty($d->removed)) _SWUOnUnitDamaged($d, intval($combatCtx['defenderDmgAmt'] ?? 0), true);
     }
 }
 
@@ -899,6 +923,14 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                 AddTrigger($activePlayer, 'SEC_209', 'SEC_209', $attackerMzID);
             }
             break;
+        case 'SHD_122': // Arquitens Assault Cruiser — attacks & defeats a NON-LEADER unit → put the defeated
+                        // unit into play as a resource under YOUR control. Payload (CardID~owner) rides the
+                        // mzID slot (FlushTriggerBag drops extraParams); resolved from the owner's discard.
+            if (!empty($combatCtx['defenderDefeated']) && empty($combatCtx['defenderIsLeader'])) {
+                AddTrigger($activePlayer, 'SHD_122', 'SHD_122',
+                    ($combatCtx['defenderCardID'] ?? '') . '~' . intval($combatCtx['defenderOwner'] ?? 0));
+            }
+            break;
         case 'SEC_088': // First Light — "attacks and defeats a unit: may draw a card."
             if (!empty($combatCtx['defenderDefeated'])) {
                 AddTrigger($activePlayer, 'SEC_088', 'SEC_088', $attackerMzID);
@@ -933,6 +965,12 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                 AddTrigger($activePlayer, 'SOR_088', 'SOR_088', '', strval(intval($combatCtx['excess'])));
             }
             break;
+        case 'SHD_138': // Jango Fett — "When this unit attacks and defeats a unit: Draw a card."
+            if (!empty($combatCtx['defenderDefeated'])) AddTrigger($activePlayer, 'SHD_138', 'SHD_138', '');
+            break;
+        case 'SHD_147': // Ketsu Onyo — "deals combat damage to a base: may defeat an upgrade costing 2 or less."
+            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SHD_147', 'SHD_147', '');
+            break;
         case 'SEC_017': // Sabé (deployed) — deals combat damage to a base: look at the defending player's
                         // hand, may discard a card; if you do, that player draws.
             if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_017', 'SEC_017', '');
@@ -942,6 +980,12 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                         // Maul leaves play)."
             if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'LAW_054', 'LAW_054', $attackerMzID);
             break;
+    }
+
+    // SHD_143 Ruthlessness (granted upgrade) — "When this unit attacks and defeats a unit: Deal 2 damage
+    // to the defending player's base." The attacker bears the upgrade; the defending player is the opponent.
+    if (!empty($combatCtx['defenderDefeated']) && _SWUUnitHasUpgrade($attacker, 'SHD_143')) {
+        SWUDealDamageToBase(2, OtherPlayer($activePlayer));
     }
 
     // LAW_056 Cassian Andor (field passive) — "When a friendly unit's attack ends: if the defending unit
@@ -1179,7 +1223,8 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // first BeginSWUAttack. It is fired (and the var consumed) by the SWU_TRIGGER_RESUME stack-empty
     // handler, AFTER this attack's full trigger resolution. If no trigger flush queued a resume,
     // queue a bare one so the chained attack still fires and SWUAfterAction stays deferred until then.
-    if ($flushed === 0 && (GetSWUVar('SWU_CHAINED_ATTACK', '') !== '' || GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== '')) {
+    if ($flushed === 0 && (GetSWUVar('SWU_CHAINED_ATTACK', '') !== '' || GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== ''
+            || GetSWUVar('SWU_SHD145_LOOP', '') !== '')) {   // SHD_145 Headhunting count-capped loop
         _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
     }
 }
@@ -1237,6 +1282,10 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         if (strpos($attackerMzID, 'GroundArena') !== false) {
             _SWUAsh160ReadyOnBaseAttack(OtherPlayer($player));
         }
+        // SHD_241 Kragan Gorr — "When an enemy unit attacks your base: Give a Shield token to a friendly
+        // unit in the same arena as the attacker." (Base owner = OtherPlayer($player); any arena.)
+        _SWUShd241ShieldOnBaseAttack(OtherPlayer($player),
+            strpos($attackerMzID, 'SpaceArena') !== false ? 'Space' : 'Ground');
     }
     // Expose the current attacker (in the active player's frame, "my…") so an OnDefense ability that
     // affects "the attacker" (LOF_067 Chirrut) can resolve it — flip "my"→"their" for the defender frame.
@@ -1254,6 +1303,12 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // — a space defender is unaffected (the -0 HP is a no-op).
     if (($attacker->CardID ?? '') === 'SOR_212' && strpos($targetMzID, 'GroundArena') !== false) {
         AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
+    }
+    // SHD_230 Swoop Down — the granted attacker attacking a ground unit: +2/+0 self, defender -2/-0.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('SHD_230', $attacker->TurnEffects, true)
+        && strpos($targetMzID, 'GroundArena') !== false) {
+        AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
+        SWUAddAttackPowerBonus($attackerMzID, 2);
     }
     // ASH_046 Scion Shuttle (Support) — "While this unit is attacking, the defending unit gets -1/-1."
     // Apply a real attack-duration -1/-1 STAT_DEBUFF to the DEFENDER (covers both its counter-power via
@@ -1279,6 +1334,23 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         $defObj = GetZoneObject($targetMzID);
         if ($defObj !== null && empty($defObj->removed) && intval($defObj->Status ?? 0) === 0) {
             AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
+        }
+    }
+    // SHD_216 Chain Code Collector — On Attack: if the defender has a Bounty, it gets -4/-0 for this attack.
+    // Synchronous (the deferred OnAttack trigger is too late — SWUCombatDamage reads the marker first).
+    if (($attacker->CardID ?? '') === 'SHD_216') {
+        $d216 = GetZoneObject($targetMzID);
+        if ($d216 !== null && empty($d216->removed) && ObjectHasBounty($d216) > 0) {
+            AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
+        }
+    }
+    // SHD_219 Enfys Nest — "While a friendly unit (including this one) is attacking using Ambush, the
+    // defender gets -3/-0." Field passive gated on the attacker's Ambush-attack marker + controlling SHD_219.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('SWU_AMBUSH_ATTACK', $attacker->TurnEffects, true)) {
+        foreach (GetUnitsInPlay(intval($attacker->Controller ?? $player)) as $u219) {
+            if (empty($u219->removed) && ($u219->CardID ?? '') === 'SHD_219') {
+                AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_3'); break;
+            }
         }
     }
     // SEC_224 Saw's Renegades — "Each exhausted enemy unit gets -2/-0 while defending." Field passive:
@@ -1429,6 +1501,22 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         && $target !== null && empty($target->removed)
         && intval($target->Damage ?? 0) > 0);
     if ($sor130VsDamaged) $attackPower += 2;
+    // SHD_138 Jango Fett: while attacking a unit WITH A BOUNTY, +3/+0 and gains Overwhelm (both combat-time,
+    // depend on the defender having a Bounty at declaration).
+    $shd138VsBounty = ($attacker->CardID === 'SHD_138'
+        && $target !== null && empty($target->removed)
+        && ObjectHasBounty($target) > 0);
+    if ($shd138VsBounty) $attackPower += 3;
+    // SHD_007 Moff Gideon — front Action's chosen attacker gets +1/+0 while attacking a unit; the deployed
+    // passive gives each friendly ≤3-cost unit +1/+0 AND Overwhelm while attacking an enemy unit.
+    $shd007VsUnitTarget = $target !== null && empty($target->removed)
+        && strpos((string)$targetMzID, 'Base') === false;
+    $shd007Front = $shd007VsUnitTarget && is_array($attacker->TurnEffects ?? null)
+        && in_array('SHD_007_FRONT', $attacker->TurnEffects, true);
+    $shd007Deployed = $shd007VsUnitTarget
+        && intval(CardCost($attacker->CardID ?? '')) <= 3
+        && _SWULeaderDeployed(intval($attacker->Controller ?? $player), 'SHD_007');
+    if ($shd007Front || $shd007Deployed) $attackPower += 1;
     // ASH_207 Heroic Purrgil — "While attacking using Ambush, this unit gets +2/+0." Marker set when the
     // Ambush entry-trigger attack proceeds; attack-duration.
     if (($attacker->CardID ?? '') === 'ASH_207' && is_array($attacker->TurnEffects ?? null)
@@ -1492,6 +1580,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // (SOR_198 gets the ordering with NO +1/+0).
     $hasShootFirst = (is_array($attacker->TurnEffects ?? null) && in_array('SHOOT_FIRST', $attacker->TurnEffects))
         || (($attacker->CardID ?? '') === 'SOR_198')
+        || (($attacker->CardID ?? '') === 'SHD_234')   // Incinerator Trooper — innate deal-first
         || _SWUAttackerGrants($attacker, 'ASH_202');   // Carson Teva (Support) — innate deal-first, own + lent
     // LAW_086 The Stranger: "you may have the defending unit deal combat damage before this unit" — the
     // REVERSE of Shoot First (the attacker chose it via the DEFENDER_FIRST marker). Mutually exclusive
@@ -1579,6 +1668,8 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $defendPower = max(0, intval(ObjectCurrentPower($target)) - $defenderPowerDebuff);
         // LOF_049 Jedi Guardian: "While this unit is defending, it gets +2/+0." (counter-damage only.)
         if (($target->CardID ?? '') === 'LOF_049') $defendPower += 2;
+        // SHD_042 Concord Dawn Interceptors: "This unit gets +2/+0 while defending." (counter-damage only.)
+        if (($target->CardID ?? '') === 'SHD_042') $defendPower += 2;
         // ASH_073 Palace Chef Droid: "This unit gets +2/+0 while defending." (counter-damage only.)
         if (($target->CardID ?? '') === 'ASH_073') $defendPower += 2;
         // ASH_018 Grogu (deployed): "While ANOTHER friendly unit is defending, it gets +1/+0." (counter-damage only.)
@@ -1735,6 +1826,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if (!empty($combatCtx['defenderDefeated'])) SetSWUVar('SWU_LAST_DEFENDER_DEFEATED', '1'); // ASH_033/036/223 OnAttackEnd condition (own + Support-lent)
         $combatCtx['excess'] = $combatCtx['defenderDefeated'] ? max(0, -$defenderHP) : 0;
         $combatCtx['defenderCardID'] = $target->CardID ?? ''; // for "equal to the defeated unit's cost" (LOF_086)
+        $combatCtx['defenderOwner']  = intval($target->Owner ?? 0); // SHD_122 — put the defeated unit into play as a resource under your control
 
         // Keep $playerID = $player (attacker's perspective) throughout so that
         // mzIDs like "myGroundArena-0" / "theirGroundArena-0" resolve correctly.
@@ -1744,7 +1836,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             $gDeferredReplacements[] = ['uid' => intval($attacker->UniqueID ?? 0),
                 'controller' => intval($attacker->Controller ?? $player), 'cardID' => $attacker->CardID, 'kind' => $atkRep['kind']];
         } elseif ($attackerHP <= 0 && !SWUImmuneToHpDefeat($attacker)) {
-            $defeatedCards[] = ['player' => intval($attacker->Controller), 'cardID' => $attacker->CardID, 'mzID' => $attackerMzID];
+            $defeatedCards[] = ['player' => intval($attacker->Controller), 'cardID' => $attacker->CardID, 'mzID' => $attackerMzID, 'upgraded' => _SWUIsUpgraded($attacker)];
             AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_COMBATDEF_' . intval($attacker->UniqueID ?? 0)); // "defeated by combat damage" marker (ASH_028/191)
             $atkOwner = intval($attacker->Owner ?? $player);
             if (strpos(CardType($attacker->CardID) ?? '', 'Leader') !== false) {
@@ -1783,7 +1875,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             $gDeferredReplacements[] = ['uid' => intval($target->UniqueID ?? 0),
                 'controller' => intval($target->Controller ?? ($player === 1 ? 2 : 1)), 'cardID' => $target->CardID, 'kind' => $defRep['kind']];
         } elseif ($defenderHP <= 0 && $target !== null && empty($target->removed) && !SWUImmuneToHpDefeat($target)) {
-            $defeatedCards[] = ['player' => intval($target->Controller), 'cardID' => $target->CardID, 'mzID' => $targetMzID];
+            $defeatedCards[] = ['player' => intval($target->Controller), 'cardID' => $target->CardID, 'mzID' => $targetMzID, 'upgraded' => _SWUIsUpgraded($target)];
             AddGlobalEffects(intval($target->Controller ?? ($player === 1 ? 2 : 1)), 'SWU_COMBATDEF_' . intval($target->UniqueID ?? 0)); // "defeated by combat damage" marker (ASH_028/191)
             $defOwner = intval($target->Owner ?? ($player === 1 ? 2 : 1));
             if (strpos(CardType($target->CardID) ?? '', 'Leader') !== false) {
@@ -1807,7 +1899,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             }
             // Overwhelm: excess damage (negative $defenderHP) spills to the opponent's base (CR 7.6.4).
             // ASH_150 Deadly Vulnerability — "While attached unit is defending, the attacker loses Overwhelm."
-            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $sec139Overwhelm)
+            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $shd138VsBounty || $sec139Overwhelm || $shd007Deployed)
                 && !_SWUUnitHasUpgrade($target, 'ASH_150')) {
                 $overflowAmt = -$defenderHP;
                 $GLOBALS['gInCombatDamage'] = true;
@@ -1958,6 +2050,16 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
     // ALSO targets enemy GROUND units (cross-arena). Combat resolution is mzID-driven, so adding the
     // ground mzIDs here is all that's needed. (Cross-arena Sentinel/Sabine is an edge — not handled.)
     if ($attackerObj !== null && ($attackerObj->CardID ?? '') === 'SOR_212' && $arenaName === 'SpaceArena') {
+        $groundArena = GetZone('theirGroundArena');
+        for ($i = 0; $i < count($groundArena); $i++) {
+            $u = $groundArena[$i];
+            if ($u === null || !empty($u->removed)) continue;
+            $oppUnits[] = "theirGroundArena-{$i}";
+        }
+    }
+    // SHD_230 Swoop Down — a granted space unit "can attack ground units for this attack" (SHD_230 marker).
+    if ($attackerObj !== null && $arenaName === 'SpaceArena'
+        && is_array($attackerObj->TurnEffects ?? null) && in_array('SHD_230', $attackerObj->TurnEffects, true)) {
         $groundArena = GetZone('theirGroundArena');
         for ($i = 0; $i < count($groundArena); $i++) {
             $u = $groundArena[$i];

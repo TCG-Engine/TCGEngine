@@ -33,6 +33,25 @@ RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 # Remove memory limit
 RUN sed -i 's/memory_limit = .*/memory_limit = -1/' /usr/local/etc/php/php.ini
 
+# Raise upload limits above the app's 10MB cosmetic-image cap (PHP defaults are
+# upload_max_filesize=2M / post_max_size=8M, which rejected valid uploads early).
+RUN { \
+        echo "upload_max_filesize=12M"; \
+        echo "post_max_size=13M"; \
+    } > /usr/local/etc/php/conf.d/zz-uploads.ini
+
+# Enable opcache; validate_timestamps + revalidate_freq=0 re-checks file mtimes
+# every request, so live edits and generated-code rewrites apply immediately
+RUN docker-php-ext-enable opcache \
+    && { \
+        echo "opcache.enable=1"; \
+        echo "opcache.enable_cli=1"; \
+        echo "opcache.validate_timestamps=1"; \
+        echo "opcache.revalidate_freq=0"; \
+        echo "opcache.memory_consumption=256"; \
+        echo "opcache.max_accelerated_files=20000"; \
+    } > /usr/local/etc/php/conf.d/zz-opcache.ini
+
 
 # Development stage (only builds if --target=dev is used)
 FROM base as dev

@@ -2,6 +2,8 @@
 require_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 $modErr = CheckLoggedInUserMod();
 if ($modErr !== '') { http_response_code(403); echo "<h2>Access denied</h2><p>".htmlspecialchars($modErr, ENT_QUOTES)."</p>"; exit; }
+require_once __DIR__ . '/DevGate.php';
+if (!SWUIsLocalDevRequest()) { http_response_code(403); echo "<h2>Dev only</h2><p>The cosmetics uploader runs only in the local dev environment.</p>"; exit; }
 require_once __DIR__ . '/../../Database/ConnectionManager.php';
 require_once __DIR__ . '/../../Database/functions.inc.php';
 require_once __DIR__ . '/../Cosmetics/Catalog.php';
@@ -37,6 +39,10 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
     .cu-form.open { display: block; }
     .cu-form label { display: block; margin-bottom: 8px; color: #e8d5a8; }
     .cu-form input[type=text], .cu-form input[type=file] { display: block; margin-top: 4px; }
+    .cu-preview { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(170,130,40,0.25); }
+    .cu-preview-caption { font-size: 12px; color: #c8b080; margin-bottom: 8px; }
+    .cu-preview .cu-thumb { max-width: 320px; }
+    .cu-preview-actions { display: flex; gap: 10px; margin-top: 10px; }
   </style>
 </head><body>
   <div class="cu-wrap card container">
@@ -51,7 +57,15 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
       <form class="cu-form" id="cu-form-<?= $slot ?>" onsubmit="return cuUpload(event,'<?= $slot ?>')">
         <label>Name <input type="text" name="label" required maxlength="128"></label>
         <label>Image (PNG/JPG/WebP) <input type="file" name="image" accept="image/*" required></label>
-        <button type="submit">Upload <?= $esc($labels[$slot]) ?></button>
+        <button type="submit" class="cu-upload-btn">Upload <?= $esc($labels[$slot]) ?></button>
+        <div class="cu-preview" id="cu-preview-<?= $slot ?>" hidden>
+          <div class="cu-preview-caption">Preview — confirm to save, or cancel to discard.</div>
+          <div class="cu-thumb cu-thumb--<?= $slot ?>"></div>
+          <div class="cu-preview-actions">
+            <button type="button" class="cu-confirm" onclick="cuConfirm('<?= $slot ?>')">Confirm &amp; Save</button>
+            <button type="button" class="cu-cancel" onclick="cuCancel('<?= $slot ?>')">Cancel</button>
+          </div>
+        </div>
       </form>
     <?php endforeach; ?>
 
@@ -62,11 +76,7 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
           <div class="cu-tile" data-name="<?= $esc(strtolower($opt['label'])) ?>">
             <div class="cu-thumb cu-thumb--<?= $esc($slot) ?>"<?= $asset ? " style=\"background-image:url('".$esc($asset)."')\"" : '' ?>><?= $asset ? '' : 'None' ?></div>
             <div class="cu-name"><?= $esc($opt['label']) ?></div>
-            <?php if ($uploaded): ?>
-              <button type="button" class="cu-del" onclick="cuDelete('<?= $esc($slot) ?>','<?= $esc($id) ?>')">Delete</button>
-            <?php else: ?>
-              <span class="cu-builtin">built-in</span>
-            <?php endif; ?>
+            <span class="cu-builtin">built-in</span>
           </div>
         <?php endforeach; ?>
       </div>
@@ -81,22 +91,42 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
         t.style.display = t.getAttribute('data-name').indexOf(q)>=0 ? '' : 'none';
       });
     });
+    var cuPending = {};   // slot -> {id,label,asset} awaiting confirm
+    function cuCommit(slot, action, done){
+      var p = cuPending[slot]; if(!p) return;
+      var body = 'action='+encodeURIComponent(action)+'&slot='+encodeURIComponent(slot)
+               + '&id='+encodeURIComponent(p.id)+'&label='+encodeURIComponent(p.label);
+      var x=new XMLHttpRequest(); x.open('POST', cuBase()+'SWUSim/Mod/CosmeticsCommit.php', true);
+      x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+      x.onload=function(){ var r={}; try{r=JSON.parse(x.responseText);}catch(_){}
+        if(r.success) done(); else StyledAlert(action+' failed: '+(r.error||'unknown')); };
+      x.send(body);
+    }
     function cuUpload(e, slot){
       e.preventDefault();
+      // A new upload replaces any un-confirmed pending asset for this slot (discard it first).
+      if(cuPending[slot]) cuCommit(slot, 'discard', function(){});
       var fd=new FormData(e.target); fd.append('slot', slot);
       var x=new XMLHttpRequest(); x.open('POST', cuBase()+'SWUSim/Mod/CosmeticsUpload.php', true);
       x.onload=function(){ var r={}; try{r=JSON.parse(x.responseText);}catch(_){}
-        if(r.success) location.reload(); else StyledAlert('Upload failed: '+(r.error||'unknown')); };
+        if(!r.success){ StyledAlert('Upload failed: '+(r.error||'unknown')); return; }
+        cuPending[slot] = {id:r.id, label:r.label, asset:r.asset};
+        var url = (r.asset||'').replace(/^\.\//,'/TCGEngine/');
+        var box = document.getElementById('cu-preview-'+slot);
+        box.querySelector('.cu-thumb').style.backgroundImage = url ? "url('"+url+"')" : '';
+        box.hidden = false;
+        e.target.querySelector('.cu-upload-btn').disabled = true;
+      };
       x.send(fd); return false;
     }
-    function cuDelete(slot, id){
-      StyledConfirm('Delete this cosmetic?', {danger:true, confirmLabel:'Delete'}).then(function(ok){
-        if(!ok) return;
-        var x=new XMLHttpRequest(); x.open('POST', cuBase()+'SWUSim/Mod/CosmeticsDelete.php', true);
-        x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-        x.onload=function(){ var r={}; try{r=JSON.parse(x.responseText);}catch(_){}
-          if(r.success) location.reload(); else StyledAlert('Delete failed: '+(r.error||'unknown')); };
-        x.send('slot='+encodeURIComponent(slot)+'&id='+encodeURIComponent(id));
+    function cuConfirm(slot){ cuCommit(slot, 'save', function(){ location.reload(); }); }
+    function cuCancel(slot){
+      cuCommit(slot, 'discard', function(){
+        delete cuPending[slot];
+        var form = document.getElementById('cu-form-'+slot);
+        document.getElementById('cu-preview-'+slot).hidden = true;
+        form.querySelector('.cu-upload-btn').disabled = false;
+        form.reset();
       });
     }
   </script>

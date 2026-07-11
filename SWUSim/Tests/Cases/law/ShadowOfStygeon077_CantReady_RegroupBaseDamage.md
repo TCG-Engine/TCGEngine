@@ -8,6 +8,8 @@ CommonSetup: rrk/bgw/{}
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:0:0
 WithP1GroundArenaUpgrade: 0:LAW_077
+WithP1Deck: SOR_046 SOR_046 SOR_046 SOR_046
+WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 
 ## WHEN
 - P1>Pass

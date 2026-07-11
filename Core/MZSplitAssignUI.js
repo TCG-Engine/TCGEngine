@@ -95,16 +95,16 @@
       font-family: 'Orbitron', 'Segoe UI', monospace;
       font-size: 18px;
       font-weight: bold;
-      color: #fff;
-      text-shadow: 0 0 8px rgba(100,200,255,0.7);
+      color: var(--text, #fff);
+      text-shadow: 0 0 8px var(--glow, rgba(100,200,255,0.7));
       flex-shrink: 0;
     }
 
     /* ── Highlight border for split-assign-eligible cards ─────────── */
     .mzsplit-target-card {
-      outline: 2px solid rgba(100,200,255,0.7);
+      outline: 2px solid var(--accent, rgba(100,200,255,0.7));
       outline-offset: -2px;
-      box-shadow: 0 0 12px rgba(100,200,255,0.4);
+      box-shadow: 0 0 12px var(--glow, rgba(100,200,255,0.4));
     }
 
     /* ── Bottom banner ───────────────────────────────────────────── */
@@ -118,12 +118,14 @@
       align-items: center;
       gap: 18px;
       padding: 12px 28px;
-      background: linear-gradient(145deg, #0D1B2A, #162d44);
-      border: 1.5px solid #3a5a7a;
-      border-radius: 14px;
-      box-shadow: 0 0 30px rgba(0,80,160,0.4);
+      background: var(--surface-raised, linear-gradient(145deg, #0D1B2A, #162d44));
+      border: 1.5px solid var(--border, #3a5a7a);
+      border-radius: var(--radius, 14px);
+      box-shadow: 0 0 30px var(--glow, rgba(0,80,160,0.4));
+      backdrop-filter: blur(10px) saturate(110%);
+      -webkit-backdrop-filter: blur(10px) saturate(110%);
       font-family: 'Orbitron', 'Segoe UI', sans-serif;
-      color: #fff;
+      color: var(--text, #fff);
       animation: mzsplit-banner-in 0.35s ease-out;
     }
 
@@ -140,8 +142,8 @@
     .mzsplit-banner-pool {
       font-size: 22px;
       font-weight: bold;
-      color: #4af;
-      text-shadow: 0 0 10px rgba(68,170,255,0.6);
+      color: var(--accent-strong, #4af);
+      text-shadow: 0 0 10px var(--glow, rgba(68,170,255,0.6));
       min-width: 30px;
       text-align: center;
     }

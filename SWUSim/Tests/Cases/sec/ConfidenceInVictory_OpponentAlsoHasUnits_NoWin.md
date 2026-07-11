@@ -10,6 +10,8 @@ WithP1Resources: 10
 WithP1Hand: SEC_145
 WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SEC_080:1:0
+WithP1Deck: SOR_046 SOR_046 SOR_046 SOR_046
+WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 
 ## WHEN
 - P1>PlayHand:0

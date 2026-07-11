@@ -5,7 +5,7 @@
     'ipOwner'  => 'Fantasy Flight Games, Disney',
     'tcgName'  => 'Star Wars Unlimited',
   ],
-  'theme' => 'hud',   // in-game cyan HUD; menu adopts hud too (Phase 0 unification)
+  'theme' => 'petranaki-hud',   // HUD geometry/shapes recolored with the Petranaki sandy-gold palette; menu adopts it too
   'branding' => [
     'title'          => 'Petranaki Arena',                          // home-header h1 (also browser-tab title)
     'tagline'        => 'Fan-made Star Wars: Unlimited simulator',
@@ -31,7 +31,9 @@
   'navLinks' => [
     ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/b9nfNyVFpM','title'=>'Petranaki Arena Development Server'],
     ['kind'=>'icon','icon'=>'github.svg','href'=>'https://github.com/TCG-Engine/TCGEngine'],
-    ['kind'=>'raw','html'=>'<li><button type="button" id="ga-open-settings-btn" title="Menu Settings" aria-label="Open menu settings" style="background: transparent; border: 0; outline: 0; box-shadow: none; appearance: none; -webkit-appearance: none; padding: 0; margin: 0; width: 25px; height: 25px; cursor: pointer; color: inherit; display: inline-flex; align-items: center; justify-content: center; line-height: 0;"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display: block;"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.573 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.607 2.296.07 2.573-1.065Z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/></svg></button></li>'],
+    // Menu-settings gear removed for now — its only control (board background) was a no-op,
+    // and cosmetics are adjusted from the Profile menu. The dormant #ga-settings-modal markup
+    // + JS stay in MainMenu.php so this can be re-added by restoring this nav entry.
   ],
   'deckLibrary' => [
     'storage'  => 'account',

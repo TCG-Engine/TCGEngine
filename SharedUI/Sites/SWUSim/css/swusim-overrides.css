@@ -1,0 +1,26 @@
+/* swusim-overrides.css — SWUSim-only rules layered on top of the petranaki-hud theme.
+   Loaded LAST in the SWUSim style stack (after Themes/petranaki-hud.tokens.css). */
+
+/* Main-menu backdrop: the sandy Petranaki arena, replacing the shared gamebg.jpg
+   (menuStyles.css) so the menu matches the petranaki-hud palette. */
+body {
+  background-image: url('/TCGEngine/Assets/Images/petranaki-arena.webp') !important;
+}
+
+/* The title sits directly on the sandy arena art and washes out. Back it with a
+   themed pill panel (same scrim + gold frame as the petranaki-hud dialogs) so the
+   text stays legible. The pill is anchored flush to the left viewport edge and
+   rounds into a cap on the right — margin-left cancels the header's 40px left pad. */
+.home-header .title {
+  display: inline-block;
+  margin-left: -40px;                 /* cancel .home-header's 40px left padding → flush left */
+  padding: 12px 44px 16px 40px;       /* inner inset; extra right pad balances the round cap */
+  background: var(--panel-scrim);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  border-left: 0;                     /* seamless against the viewport edge */
+  border-radius: 0 999px 999px 0;     /* square left, full pill cap on the right */
+  box-shadow:
+    0 0 14px rgba(var(--accent-rgb), 0.16),
+    inset 0 0 30px rgba(var(--accent-rgb), 0.05),
+    0 10px 30px rgba(0, 0, 0, 0.55);
+}

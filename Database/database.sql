@@ -73,20 +73,6 @@ CREATE TABLE `usercosmetic` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- --------------------------------------------------------
 --
--- Table structure for table `cosmeticupload`
---
-
-CREATE TABLE `cosmeticupload` (
-  `slot` varchar(24) NOT NULL,
-  `id` varchar(48) NOT NULL,
-  `label` varchar(128) NOT NULL,
-  `asset` varchar(255) NOT NULL,
-  `uploadedBy` int(11) DEFAULT NULL,
-  `uploadedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`slot`,`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
--- --------------------------------------------------------
---
 -- Table structure for table `pwdreset`
 --
 
@@ -245,11 +231,8 @@ ADD PRIMARY KEY (`GameID`),
   ADD KEY `FK_WINNING_PLAYER` (`WinningPID`),
   ADD KEY `FK_LOSING_PLAYER` (`LosingPID`);
 --
--- Indexes for table `favoritedeck`
---
-ALTER TABLE `favoritedeck`
-  ADD PRIMARY KEY (`decklink`,`usersId`) USING BTREE,
-  ADD KEY `usersId` (`usersId`);
+-- Indexes for table `favoritedeck` — PK and KEY `usersId` are defined inline in
+-- the CREATE TABLE above; re-adding them here caused ERROR 1068/1061 and aborted init.
 --
 -- Indexes for table `pwdreset`
 --

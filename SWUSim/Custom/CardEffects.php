@@ -761,6 +761,58 @@ function OnPlayEvent(int $player, string $cardID): void {
             return;
         }
 
+        case 'SHD_194': { // Triple Dark Raid — "Search the top 7 cards of your deck for a Vehicle and play it.
+                          // It costs 5 resources less and enters play ready. Return it to its owner's hand at
+                          // the end of the phase." Search (up to 1 Vehicle); SHD_194#0 free-plays via a nested
+                          // ActivateCard(discount 5) with the enters-ready + return-at-regroup grants.
+            global $playerID;
+            $playerID = intval($player);
+            $deckSize = count(GetDeck(intval($player)));
+            if ($deckSize === 0) return;
+            _topDeckSearchBegin(intval($player), min(7, $deckSize),
+                fn($cid) => HasTrait($cid, 'Vehicle'), "count:1", "SHD_194#0");
+            return;
+        }
+
+        case 'SHD_205': { // Let the Wookiee Win — "An opponent chooses one: [You ready up to 6 resources] OR
+                          // [You ready a friendly unit. If it's a Wookiee, attack with it. It gets +2/+0]."
+            global $playerID;
+            $opp = OtherPlayer(intval($player));
+            $playerID = $opp;
+            DecisionQueueController::AddDecision($opp, "OPTIONCHOOSE", "Ready6Resources&ReadyUnit", 1,
+                "Opponent_chooses:_they_ready_up_to_6_resources_OR_ready_a_friendly_unit");
+            DecisionQueueController::AddDecision($opp, "CUSTOM", "SHD_205#0|" . intval($player), 1);
+            return;
+        }
+
+        case 'SHD_132': { // Choose Sides — "Choose a friendly non-leader unit and an enemy non-leader unit.
+                          // Exchange control of those units." (LAW_170 without the Credit-token half.)
+            global $playerID; $playerID = intval($player);
+            $friendly = array_merge(ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter));
+            $enemy    = array_merge(ZoneSearch("theirGroundArena", NonLeaderUnitFilter), ZoneSearch("theirSpaceArena", NonLeaderUnitFilter));
+            if (empty($friendly) || empty($enemy)) return;
+            SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_non-leader_unit", "SHD_132#0|" . OtherPlayer(intval($player)));
+            return;
+        }
+
+        case 'SHD_106': { // Rule with Respect — "A friendly unit captures each enemy non-leader unit that
+                          // attacked your base this phase." (SWU_DEALT_BASEDMG_{uid} marks base-attackers.)
+            global $playerID; $playerID = intval($player);
+            $anyAttacker = false;
+            foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o === null || !empty($o->removed)) continue;
+                    if (GlobalEffectCount(intval($o->Controller ?? 0), 'SWU_DEALT_BASEDMG_' . intval($o->UniqueID ?? 0)) > 0) { $anyAttacker = true; break 2; }
+                }
+            }
+            if (!$anyAttacker) return;
+            $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            if (empty($friendly)) return;
+            SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_unit_to_capture_the_base_attackers", "SHD_106#0");
+            return;
+        }
+
         case 'LAW_170': { // Double-Cross — "Choose a friendly non-leader unit and an enemy non-leader
                           // unit. Exchange control of those units. The player who takes control of the
                           // lower-cost unit creates Credit tokens equal to the difference between costs."
@@ -965,8 +1017,14 @@ function OnPlayEvent(int $player, string $cardID): void {
             global $playerID; $playerID = intval($player);
             $idx = _SWUTopDeckFrontIdx(intval($player));
             if ($idx === -1) return;
-            $topID = GetDeck(intval($player))[$idx]->CardID;
-            DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "@{$topID}&Play&Discard&Leave", 1, "Play_the_top_card_(costs_1_less),_discard_it,_or_leave_it");
+            $topObj = GetDeck(intval($player))[$idx];
+            $topID  = $topObj->CardID;
+            // Only offer "Play" if the player can afford the top card at its −1 discount — otherwise picking
+            // Play just fizzles at resolve. Discard / Leave are always available.
+            $canPlay = max(0, SWUComputePlayCost(intval($player), $topObj) - 1)
+                       <= SWUResourceCount(intval($player), readyOnly: true);
+            $opts = "@{$topID}" . ($canPlay ? "&Play" : "") . "&Discard&Leave";
+            DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", $opts, 1, "Play_the_top_card_(costs_1_less),_discard_it,_or_leave_it");
             DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_242#0", 1);
             return;
         }
@@ -1090,6 +1148,49 @@ function OnPlayEvent(int $player, string $cardID): void {
             $targets = _SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Heal_5_damage_from_a_unit", "HEAL_TARGET|5");
+            return;
+        }
+
+        case 'SHD_252': { // Smuggler's Aid — heal 3 damage from your base.
+            OnHealBase(intval($player), intval($player), 3);
+            return;
+        }
+
+        case 'SHD_127': { // Commission — search the top 10 of your deck for a Bounty Hunter, Item,
+                          // or Transport card; reveal it and draw it.
+            global $playerID; $playerID = intval($player);
+            if (count(GetDeck($player)) === 0) return;
+            DoTopDeckSearch(intval($player), 10,
+                fn($c) => HasTrait($c, 'Bounty Hunter') || HasTrait($c, 'Item') || HasTrait($c, 'Transport'), 1);
+            return;
+        }
+
+        case 'SHD_129': { // Timely Intervention — play a unit from your hand (paying its cost);
+                          // it gains Ambush for this phase (SEC_007 Dryden mirror, event form).
+            global $playerID; $playerID = intval($player);
+            DecisionQueueController::CleanupRemovedCards();   // the event is a removed hand entry
+            $ready = SWUResourceCount(intval($player), readyOnly: true);
+            $units = [];
+            foreach (ZoneSearch('myHand') as $hmz) {
+                $u = GetZoneObject($hmz);
+                if ($u === null || !empty($u->removed)) continue;
+                if (stripos(CardType($u->CardID) ?? '', 'Unit') === false) continue;
+                if (SWUComputePlayCost(intval($player), $u) > $ready) continue;
+                $units[] = $hmz;
+            }
+            if (empty($units)) return;
+            SWUQueueChooseTarget(intval($player), $units,
+                "Play_a_unit_from_your_hand_(it_gains_Ambush)", "SHD_129#0");
+            return;
+        }
+
+        case 'SHD_075': { // Covert Strength — Heal 2 damage from a unit AND give an Experience token
+                          // to it (one pick, both effects → SHD_075#0).
+            global $playerID; $playerID = intval($player);
+            $targets = _SWUAllUnits();
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets,
+                "Heal_2_and_give_an_Experience_token_to_a_unit", "SHD_075#0");
             return;
         }
 
@@ -1229,6 +1330,56 @@ function OnPlayEvent(int $player, string $cardID): void {
             global $playerID; $playerID = intval($player);
             DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Ground&Space", 1, tooltip:"Choose_an_arena");
             DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_145#0", 1);
+            return;
+        }
+
+        case 'SHD_230': { // Swoop Down — "Attack with a space unit. It gains Saboteur and can attack ground
+                          // units for this attack. If it attacks a ground unit, it gets +2/+0 and the
+                          // defender gets -2/-0 for this attack." Grant the SHD_230 marker (Saboteur +
+                          // cross-arena + conditional buff/debuff) to the chosen space unit, then attack.
+            global $playerID; $playerID = intval($player);
+            $units = array_values(array_filter(ZoneSearch('mySpaceArena', AnyUnitFilter),
+                fn($mz) => ($o = GetZoneObject($mz)) !== null && empty($o->removed) && intval($o->Status) === 1));
+            if (empty($units)) return;
+            SWUQueueChooseTarget(intval($player), $units, 'Attack_with_a_space_unit', 'SHD_230#0');
+            return;
+        }
+
+        case 'SHD_145': { // Headhunting — "Attack with up to 3 units (one at a time). They can't attack
+                          // bases for these attacks. Each Bounty Hunter that attacks this way gets +2/+0
+                          // for its attack." Count-capped attack loop (SWU_SHD145_LOOP); see _SWUShd145Offer.
+            global $playerID; $playerID = intval($player);
+            SetSWUVar('SWU_SHD145_LOOP', '3');   // up to 3 attacks, no attackers excluded yet (comma-CSV)
+            _SWUShd145Offer(intval($player));
+            return;
+        }
+
+        case 'SHD_144': { // Give In to Your Anger — "Deal 1 damage to an enemy unit. Its controller's next
+                          // action this phase must be an attack action with that unit, if able. It must
+                          // attack a unit, if able." Choose the enemy unit → SHD_144#0 deals the damage and
+                          // arms SWU_SHD144_FORCE|{uid} on that unit's controller; _SWUCheckForcedAttack
+                          // (run after the turn passes to that controller) forces the attack.
+            global $playerID; $playerID = intval($player);
+            $targets = [];
+            foreach (array_merge(ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o !== null && empty($o->removed)) $targets[] = $mz;
+            }
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Deal_1_damage_to_an_enemy_unit", "SHD_144#0");
+            return;
+        }
+
+        case 'SHD_208': { // Final Showdown — "Ready each unit you control. At the start of the regroup
+                          // phase, you lose the game." Ready every friendly unit now, then arm the
+                          // SWU_SHD208_LOSE flag; _SWUCheckFinalShowdownLose (RegroupPhaseStart, before
+                          // the draw step) declares the OTHER player the winner. Mirrors SEC_145's
+                          // regroup-start win check, inverted to a loss.
+            global $playerID; $playerID = intval($player);
+            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+                OnReadyCard(intval($player), $mz);
+            }
+            AddGlobalEffects(intval($player), 'SWU_SHD208_LOSE');
             return;
         }
 
@@ -2371,6 +2522,14 @@ function OnPlayEvent(int $player, string $cardID): void {
         case 'LOF_188': { // As I Have Foreseen — "Look at the top card. You may use the Force. If you do,
                           // play that card. It costs 4 resources less." (No Force → you just looked.)
             if (!PlayerHasTheForce(intval($player))) return;
+            // Only offer to use the Force if the top card is affordable at its −4 discount — otherwise the
+            // Force would be spent for a play that can't happen. If unaffordable, the player just looked.
+            global $playerID; $playerID = intval($player);
+            $idx = _SWUTopDeckFrontIdx(intval($player));
+            if ($idx === -1) return;
+            $topObj = GetDeck(intval($player))[$idx];
+            if (max(0, SWUComputePlayCost(intval($player), $topObj) - 4)
+                > SWUResourceCount(intval($player), readyOnly: true)) return;
             DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                 tooltip: "Use_the_Force_to_play_the_top_card_(4_less)?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_188#0", 1);
@@ -3524,7 +3683,18 @@ function OnPlayEvent(int $player, string $cardID): void {
             $playerID = intval($player);
             $idx = _SWUTopDeckFrontIdx(intval($player));
             if ($idx === -1) return;                       // empty deck → nothing to look at
-            $topID = GetDeck(intval($player))[$idx]->CardID;
+            $topObj = GetDeck(intval($player))[$idx];
+            $topID  = $topObj->CardID;
+            // Free if the base has ≤5 remaining HP (always playable); otherwise the −5 discount must be
+            // affordable. If neither holds, "Play" is impossible and "Leave" is the only outcome, so skip
+            // the prompt entirely (the top card just stays put) rather than offer an unplayable "Play".
+            $bases = GetBase(intval($player));
+            $free  = !empty($bases)
+                     && (intval(CardHp($bases[0]->CardID)) - intval($bases[0]->Damage)) <= 5;
+            $canPlay = $free
+                       || max(0, SWUComputePlayCost(intval($player), $topObj) - 5)
+                          <= SWUResourceCount(intval($player), readyOnly: true);
+            if (!$canPlay) return;
             DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "@{$topID}&Play&Leave", 1, "Play_the_top_card_(costs_5_less,_or_free_if_your_base_has_5_or_less_HP)");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_246#0", 1);
             return;
@@ -3918,6 +4088,333 @@ function OnPlayEvent(int $player, string $cardID): void {
             );
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_non-leader_unit", "DEFEAT_UNIT");
+            return;
+        }
+
+        case 'SHD_078': { // Fell the Dragon — "Defeat a non-leader unit with 5 or more power."
+            $targets = [];
+            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && ObjectCurrentPower($o) >= 5) $targets[] = $mz;
+                }
+            }
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_non-leader_unit_with_5+_power", "DEFEAT_UNIT");
+            return;
+        }
+
+        case 'SHD_054': { // Midnight Repairs — "Heal up to 8 total damage from any number of units."
+            $specs = [];
+            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o === null || !empty($o->removed)) continue;
+                    $dmg = intval($o->Damage ?? 0);
+                    if ($dmg > 0) $specs[] = "{$mz}:{$dmg}";
+                }
+            }
+            if (empty($specs)) return;
+            DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", "8|" . implode("&", $specs) . "|UPTO", 1, tooltip:"Heal_up_to_8_damage_among_units");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SHD_054#0", 1);
+            return;
+        }
+
+        case 'SHD_079': { // Rival's Fall — "Defeat a unit." (any unit, incl. deployed leaders)
+            $targets = array_merge(
+                ZoneSearch("myGroundArena",    AnyUnitFilter),
+                ZoneSearch("mySpaceArena",     AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter),
+                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
+            );
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_unit", "DEFEAT_UNIT");
+            return;
+        }
+
+        case 'SHD_108': { // Enforced Loyalty — "Defeat a friendly unit. If you do, draw 2 cards."
+            $friendly = array_merge(
+                ZoneSearch("myGroundArena", AnyUnitFilter),
+                ZoneSearch("mySpaceArena",  AnyUnitFilter)
+            );
+            if (empty($friendly)) return;   // no friendly unit → no defeat, no draw
+            SWUQueueChooseTarget(intval($player), $friendly, "Defeat_a_friendly_unit", "SHD_108#0");
+            return;
+        }
+
+        case 'SHD_231': { // Surprise Strike — "Attack with a unit. It gets +3/+0 for this attack."
+            $targets = [];
+            foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $targets[] = $mz;
+                }
+            }
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Attack_with_a_unit_(+3/+0)", "SHD_231#0");
+            return;
+        }
+
+        case 'SHD_244': { // No Bargain — "Each opponent discards a card from their hand. Draw a card."
+            SWUDiscardCards(intval($player), 1);   // makes OtherPlayer discard 1
+            DoDrawCard(intval($player), 1);
+            return;
+        }
+
+        case 'SHD_093': { // Remnant Reserves — "Search the top 5 cards of your deck for up to 3 units,
+                          // reveal them, and draw them."
+            DoTopDeckSearch(intval($player), 5, function($cid) { return strpos(CardType($cid) ?? '', 'Unit') !== false; }, 3);
+            return;
+        }
+
+        case 'SHD_105': { // Spark of Hope — "Choose a unit in your discard pile. If it was defeated this
+                          // phase, put it into play as a resource."
+            $targets = [];
+            foreach (ZoneSearch('myDiscard', AnyUnitFilter) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o !== null && empty($o->removed)
+                    && GlobalEffectCount(intval($player), 'SWU_DEFEATED_CARD_' . ($o->CardID ?? '')) > 0) $targets[] = $mz;
+            }
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Put_a_unit_defeated_this_phase_into_play_as_a_resource", "SHD_105#0");
+            return;
+        }
+
+        case 'SHD_130': { // Moment of Glory — "Give a unit +4/+4 for this phase."
+            global $playerID; $playerID = intval($player);
+            $targets = [];
+            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed)) $targets[] = $mz;
+                }
+            }
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_+4/+4_this_phase", "APPLY_PHASE_BUFF|4|4|SHD_130");
+            return;
+        }
+
+        case 'SHD_051': { // Mystic Reflection — "Give an enemy unit -2/-0 for this phase. If you control a
+                          // Force unit, give the enemy unit -2/-2 for this phase instead."
+            global $playerID; $playerID = intval($player);
+            $enemies = [];
+            foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed)) $enemies[] = $mz;
+                }
+            }
+            if (empty($enemies)) return;
+            $hasForce = false;
+            foreach (GetUnitsInPlay(intval($player)) as $u) {
+                if (empty($u->removed) && HasTrait($u->CardID ?? '', 'Force')) { $hasForce = true; break; }
+            }
+            $hp = $hasForce ? 2 : 0;
+            SWUQueueChooseTarget(intval($player), $enemies, "Give_an_enemy_unit_-2/-{$hp}_this_phase", "APPLY_PHASE_DEBUFF|2|{$hp}|SHD_051");
+            return;
+        }
+
+        case 'SHD_128': { // Outflank — "Attack with 2 units (one at a time)."
+            global $playerID; $playerID = intval($player);
+            $units = [];
+            foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+                $arr = GetZone($z);
+                for ($i = 0; $i < count($arr); $i++) {
+                    $u = $arr[$i];
+                    if ($u === null || !empty($u->removed) || intval($u->Status) !== 1) continue;
+                    $units[] = "{$z}-{$i}";
+                }
+            }
+            if (empty($units)) return;
+            SWUQueueChooseTarget(intval($player), $units, "Choose_the_first_unit_to_attack_with", "SHD_128#0");
+            return;
+        }
+
+        case 'SHD_253': { // Wren's Handiwork — "Search the top 8 cards of your deck for up to 2 Mandalorian
+                          // and/or upgrade cards, reveal them, and draw them."
+            global $playerID; $playerID = intval($player);
+            if (count(GetDeck($player)) === 0) return;
+            DoTopDeckSearch(intval($player), 8,
+                fn($c) => HasTrait($c, 'Mandalorian') || strpos(CardType($c) ?? '', 'Upgrade') !== false, 2);
+            return;
+        }
+
+        case 'SHD_156': { // Shadowed Undercover — "Draw a card. Each opponent who controls more resources
+                          // than you discards a card from their hand."
+            DoDrawCard(intval($player), 1);
+            $opp = OtherPlayer(intval($player));
+            if (SWUResourceCount($opp) > SWUResourceCount(intval($player))) {
+                SWUDiscardCards(intval($player), 1);   // makes the opponent discard 1
+            }
+            return;
+        }
+
+        case 'SHD_179': { // Desperate Attack — "Attack with a damaged unit. It gets +2/+0 for this attack."
+            $targets = [];
+            foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1 && intval($o->Damage ?? 0) > 0) $targets[] = $mz;
+                }
+            }
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Attack_with_a_damaged_unit_(+2/+0)", "SHD_179#0");
+            return;
+        }
+
+        case 'SHD_207': { // A New Adventure — "Return a non-leader unit that costs 6 or less to its owner's
+                          // hand. Then, its owner may play it for free."
+            $targets = [];
+            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID ?? '')) <= 6) $targets[] = $mz;
+                }
+            }
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Return_a_non-leader_unit_(cost_6_or_less)", "SHD_207#0");
+            return;
+        }
+
+        case 'SHD_077': { // Take Control — "Take control of an upgrade that costs 3 or less and attach it to
+                          // an eligible unit of your choice." (generic move-upgrade seam, cost≤3 filter)
+            SWUQueueMoveUpgrade(intval($player), 'cost:3', "Take_control_of_an_upgrade_(cost_3_or_less)");
+            return;
+        }
+
+        case 'SHD_094': { // Palpatine's Return — "Play a unit from your discard pile. It costs 6 less. If it's
+                          // a Force unit, it costs 8 less instead."
+            $targets = ZoneSearch("myDiscard", ["Unit"]);
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Play_a_unit_from_your_discard_(6_less,_8_if_Force)", "SHD_094#0");
+            return;
+        }
+
+        case 'SHD_206': { // Spare the Target — "Return an enemy non-leader unit to its owner's hand. Collect
+                          // that unit's Bounties."
+            $targets = array_merge(
+                ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
+                ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
+            );
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Return_an_enemy_unit_and_collect_its_Bounties", "SHD_206#0");
+            return;
+        }
+
+        case 'SHD_233': { // Evacuate — "Return each non-leader unit to its owner's hand." (mass bounce, UID-safe)
+            $uids = [];
+            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? 0);
+                }
+            }
+            foreach ($uids as $uid) {
+                $mz = SWUFindMzByUID($uid);
+                if ($mz !== null) SWUBounceUnit(intval($player), $mz);
+            }
+            return;
+        }
+
+        case 'SHD_243': { // Altering the Deal — "Discard a captured card guarded by a friendly unit."
+            [$tempMZs, $entries] = _SWUStageFriendlyCaptives(intval($player));
+            if (empty($entries)) return;
+            SWUQueueChooseTarget(intval($player), $tempMZs, "Discard_a_captured_card", "SHD_243#0|" . implode(",", $entries));
+            return;
+        }
+
+        case 'SHD_180': { // Detention Block Rescue — "Deal 3 damage to a unit. If that unit is guarding any
+                          // captured cards, deal 6 damage instead."
+            $targets = array_merge(
+                ZoneSearch("myGroundArena",    AnyUnitFilter),
+                ZoneSearch("mySpaceArena",     AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter),
+                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
+            );
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Deal_3_(6_if_guarding_captives)_to_a_unit", "SHD_180#0");
+            return;
+        }
+
+        case 'SHD_076': { // Unexpected Escape — "Exhaust a unit. You may rescue a captured card guarded by
+                          // that unit."
+            $targets = array_merge(
+                ZoneSearch("myGroundArena",    AnyUnitFilter),
+                ZoneSearch("mySpaceArena",     AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter),
+                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
+            );
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Exhaust_a_unit", "SHD_076#0");
+            return;
+        }
+
+        case 'SHD_227': { // Look the Other Way — "Exhaust a unit unless its controller pays 2 resources."
+            $targets = array_merge(
+                ZoneSearch("myGroundArena",    AnyUnitFilter),
+                ZoneSearch("mySpaceArena",     AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter),
+                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
+            );
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Choose_a_unit_(exhaust_unless_controller_pays_2)", "SHD_227#0|{$player}");
+            return;
+        }
+
+        case 'SHD_232': { // Relentless Pursuit — "Choose a friendly unit. It captures an enemy non-leader
+                          // unit that costs the same as or less than it. If the friendly unit is a Bounty
+                          // Hunter, give a Shield token to it."
+            $friendly = array_merge(
+                ZoneSearch("myGroundArena", AnyUnitFilter),
+                ZoneSearch("mySpaceArena",  AnyUnitFilter)
+            );
+            if (empty($friendly)) return;
+            SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_unit_to_capture_with", "SHD_232#0");
+            return;
+        }
+
+        case 'SHD_039': { // Calculated Lethality — "Defeat a non-leader unit that costs 3 or less. For each
+                          // upgrade that was on that unit, give an Experience token to a friendly unit."
+            $targets = [];
+            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID)) <= 3) $targets[] = $mz;
+                }
+            }
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_non-leader_unit_costing_3_or_less", "SHD_039#0");
+            return;
+        }
+
+        case 'SHD_178': { // Daring Raid — "Deal 2 damage to a unit or base."
+            $targets = _SWUAllUnitsAndBases(intval($player));
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Deal_2_to_a_unit_or_base", "DEAL_TARGET|2");
+            return;
+        }
+
+        case 'SHD_229': { // Ma Klounkee — "Return a friendly non-leader Underworld unit to its owner's hand.
+                          // If you do, deal 3 damage to a unit."
+            $targets = [];
+            foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Underworld')) $targets[] = $mz;
+                }
+            }
+            if (empty($targets)) return;   // no friendly Underworld unit → no return, no damage
+            SWUQueueChooseTarget(intval($player), $targets, "Return_a_friendly_Underworld_unit_to_hand", "SHD_229#0");
+            return;
+        }
+
+        case 'SHD_159': { // The Chaos of War — deal each player's hand-count to that player's own base.
+            DecisionQueueController::CleanupRemovedCards();  // compact the just-played event out of the caster's hand
+            $opp     = OtherPlayer(intval($player));
+            $myHand  = count(GetHand(intval($player)));   // now excludes this event
+            $oppHand = count(GetHand($opp));
+            if ($myHand  > 0) SWUDealDamageToBase($myHand,  intval($player));
+            if ($oppHand > 0) SWUDealDamageToBase($oppHand, $opp);
             return;
         }
 

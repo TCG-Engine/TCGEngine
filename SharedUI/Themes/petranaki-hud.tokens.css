@@ -1,0 +1,76 @@
+/* petranaki-hud.tokens.css — HUD chamfer geometry + shapes in a FROSTED TRANSLUCENT SLATE
+   palette: cool steel accents, light text, and translucent panels. The menu cards
+   (.ga-glass-card) and the shared .panel already apply backdrop-blur, so the translucency
+   reads as frosted glass — warming over the sandy menu, cooling over the space board.
+   Structure copied from hud.tokens.css. Role tokens only. */
+:root {
+  --accent:        rgba(150,163,176,0.95);    /* cool steel accent */
+  --accent-strong: rgba(186,198,210,1);
+  --danger:        rgba(214,96,86,0.92);
+  --success:       rgba(112,178,112,0.92);
+  --danger-surface:  linear-gradient(135deg, #7a2c24 0%, #4a1512 100%);   /* deep red HUD fill */
+  --success-surface: linear-gradient(135deg, #2f5a2f 0%, #1a300f 100%);   /* deep green HUD fill */
+  --accent-surface:  linear-gradient(135deg, #9aa7b4 0%, #6f7c8a 100%);   /* light-steel primary fill */
+  --on-danger:     #ffe0da;
+  --on-success:    #e6f4e0;
+  --text:          #eef2f6;                   /* light text on the frosted dark glass */
+  --on-accent:     #161a1f;                   /* dark text on the light-steel primary */
+
+  /* Surfaces / borders / glow — translucent so the backdrop-blur frosts them (HUD is square) */
+  --surface:        rgba(30,36,44,0.52);      /* translucent cool slate */
+  --surface-sunken: rgba(20,25,32,0.48);      /* input/checkbox field */
+  --input-text:     #eef2f6;                  /* light input text on the dark field */
+  --input-placeholder: rgba(230,236,242,0.45);
+  --surface-raised: rgba(34,40,48,0.62);      /* frosted panel/card/dialog bg */
+  --border:         rgba(255,255,255,0.16);
+  --text-muted:     rgba(226,232,240,0.55);
+  --radius:         0;
+  --glow:           rgba(150,163,176,0.30);
+  --check-fill:     rgba(150,163,176,0.95);
+  --check-mark:     #161a1f;
+  --card-border:    rgba(255,255,255,0.14);
+
+  /* Button: chamfered HUD, semi-solid steel (a touch lighter than the panels so it pops) */
+  --btn-chamfer-content: '';        /* turns the chamfer pseudos ON */
+  --btn-cut:        6px;
+  --btn-cut-inner:  5px;
+  /* Keep the ELEMENT box background transparent even for semantic variants: the ::after
+     pseudo (--btn-fill, chamfer-clipped) carries the fill, so nothing bleeds past the
+     chamfer corners. We do NOT clip the element itself (that would clip the hover glow). */
+  --btn-el-bg:      transparent;
+  --btn-rim-width:  1.5px;
+  --btn-bw:         0;
+  --btn-surface:    transparent;    /* pseudos supply the fill */
+  --btn-shadow:     none;
+  --btn-rim:        rgba(200,212,224,0.55);
+  --btn-fill:       linear-gradient(135deg, rgba(70,80,92,0.92) 0%, rgba(46,54,64,0.92) 100%);
+  --btn-plain-fill: linear-gradient(135deg, rgba(70,80,92,0.92) 0%, rgba(46,54,64,0.92) 100%);  /* inputs/tabs */
+  --btn-text:       #eef2f6;
+  --btn-transform:  uppercase;
+  --btn-tracking:   0.04em;
+  --btn-glow:       10px;
+  --btn-glow-color: rgba(150,166,182,0.50);
+  --btn-hover-transform: translateY(-1px);
+  --btn-pad:        5px 7px;
+
+  /* In-game board roles — frosted steel HUD */
+  --accent-secondary:    rgba(150,163,176,0.50);
+  --on-accent-secondary: #eef2f6;
+  --accent-gold:         #96a3b0;                 /* was the gold highlight; now steel */
+  --on-accent-gold:      #14181d;
+  --switch-track:        rgba(255,255,255,0.14);  /* light translucent track */
+  --switch-knob:         rgba(186,198,210,1);     /* bright steel head — same in both states so the move reads */
+  --switch-on:           rgba(150,163,176,0.55);
+  --switch-on-knob:      rgba(210,220,230,1);
+  --panel-scrim:         rgba(18,23,30,0.82);      /* in-game modal panel bg */
+  --overlay-scrim:       rgba(0,0,0,0.55);         /* dim backdrop behind dialogs */
+  --card-frame:          rgba(255,255,255,0.16);
+  --badge-surface:       rgba(28,34,42,0.85);
+  --badge-glow:          rgba(150,163,176,0.35);
+  --glow-strong:         rgba(160,175,190,0.60);
+
+  /* Turn/initiative ownership */
+  --turn-mine-rgb:       112,178,112;   /* = --success */
+  --turn-theirs-rgb:     214,96,86;     /* = --danger */
+  --accent-rgb:          150,163,176;   /* = --accent steel, for themeable glow/pulse alpha */
+}

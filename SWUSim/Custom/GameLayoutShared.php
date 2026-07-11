@@ -33,7 +33,8 @@
 .swu-m-arena-col::after {
     content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
     border-radius: 4px;
-    background: linear-gradient(180deg, rgba(20,50,90,0.18), rgba(8,14,22,0.33));
+    /* Theme-driven arena wash: faint accent tint over near-black (was hardcoded cyan-HUD blue). */
+    background: linear-gradient(180deg, rgba(var(--accent-rgb),0.12), rgba(0,0,0,0.33));
 }
 /* Action-available glows for the Leader / Base / Resource / Discard slots + per-card Smuggle /
    discard highlights. Applied by refreshActionGlows / refreshResourceCardGlows /
@@ -59,7 +60,7 @@
 }
 #myDiscardSlot .discard-playable,
 #theirDiscardSlot .discard-playable {
-    box-shadow: 0 0 8px 3px #f0c040, inset 0 0 4px #f0c040;
+    box-shadow: 0 0 8px 3px var(--accent-strong, #f0c040), inset 0 0 4px var(--accent-strong, #f0c040);
     border-radius: 4px;
 }
 #myDiscardSlot.has-action,
@@ -171,6 +172,21 @@
    to a second line (msgSpan is the panel's first child). */
 #selection-message:has(#inline-multi-confirm) > span:first-child { flex-basis: 100% !important; }
 #selection-message:has(#inline-multi-confirm) #inline-multi-counter { margin-top: 2px !important; }
+/* Override the engine's hardcoded inline navy gradient on the selection prompt so the panel
+   fill follows the theme scrim (sandy dark-brown under petranaki-hud, cyan-navy under hud). */
+#selection-message { background: var(--panel-scrim) !important; }
+/* Same for the mz-choose popup modal's navy backdrop — recolor ONLY the modal's own background
+   layer (keeping its parchment sheen). Its card buttons/images are children that render above
+   this, so unlike the blanket panel fill this never covers content (hence the earlier exclusion
+   doesn't apply to a plain background swap). */
+#mzchoose-popup > div {
+  background: linear-gradient(180deg, rgba(244,236,219,0.12), rgba(255,255,255,0.02)), var(--panel-scrim) !important;
+}
+/* Game-over inner panels (stats container + the Save-Replay box) carry their own hardcoded
+   navy from the engine/replay stylesheets. Recolor them to a subtle dark inset so they read as
+   recessed regions over the now-themed #game-over-overlay, on any theme. */
+#game-over-stats,
+.match-replay-stats-actions { background: rgba(0,0,0,0.20) !important; }
 
 /* (End-game button skin removed — #game-over buttons now carry .btn.btn-primary from Tier 1,
    so their HUD look comes from button.css + hud.tokens.) */
@@ -186,7 +202,7 @@
     inset: 10vh 20vw 10vh 10vw !important;  /* desktop: 80% tall, shifted left — 10% left / 30% right margin */
     width: auto !important; height: auto !important;
     padding: 16px 22px 20px !important;
-    background: rgba(8,15,25,0.77) !important;
+    background: var(--panel-scrim) !important;
     border: 1px solid var(--border) !important;
     border-radius: 16px !important;
     box-shadow: 0 24px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,0,0,0.4) !important;
@@ -320,6 +336,9 @@
 #topdecksearch-panel > div, #scry-panel > div, #revealarrange-panel > div,
 #yesno-decision-modal > div, .optchoose-banner {
     position: relative !important;
+    /* Override the engine's hardcoded inline navy (#0D1B2A) so the panel fill follows the
+       theme's panel scrim — cyan-navy under hud, sandy dark-brown under petranaki-hud. */
+    background: var(--panel-scrim) !important;
     border: 1px solid rgba(var(--accent-rgb),0.30) !important; border-radius: 6px !important;
     box-shadow: 0 0 10px rgba(var(--accent-rgb),0.18), inset 0 0 26px rgba(var(--accent-rgb),0.06), 0 14px 44px rgba(0,0,0,0.6) !important;
 }
@@ -1023,13 +1042,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var menu = document.createElement('div');
         menu.id = 'swuLeaderMenu';
         menu.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9998;' +
-            'background:#0d1b2a;border:2px solid #c8971e;border-radius:10px;padding:24px 32px;' +
-            'text-align:center;box-shadow:0 0 30px rgba(200,151,30,0.35);min-width:220px;' +
+            'background:var(--surface-raised,#0d1b2a);border:2px solid var(--border,#c8971e);border-radius:var(--radius,10px);padding:24px 32px;' +
+            'text-align:center;box-shadow:0 0 30px var(--glow,rgba(200,151,30,0.35));min-width:220px;' +
+            'backdrop-filter:blur(10px) saturate(110%);-webkit-backdrop-filter:blur(10px) saturate(110%);' +
             'font-family:var(--swu-font-ui,sans-serif);';
         var isPilot = (window.SWU_PILOT_LEADERS || []).indexOf(cardID) !== -1;
-        var btnStyle = 'width:100%;padding:8px 16px;background:#1e3a5f;border:1px solid #888;' +
-            'border-radius:5px;color:#eee;cursor:pointer;font-size:13px;margin-bottom:2px;';
-        var html = '<div style="font-size:15px;font-weight:bold;color:#f0c040;margin-bottom:16px;">Leader Actions</div>';
+        var btnStyle = 'width:100%;padding:8px 16px;background:var(--btn-plain-fill,#1e3a5f);border:1px solid var(--border,#888);' +
+            'border-radius:var(--radius,5px);color:var(--btn-text,#eee);cursor:pointer;font-size:13px;margin-bottom:2px;';
+        var html = '<div style="font-size:15px;font-weight:bold;color:var(--accent-strong,#f0c040);margin-bottom:16px;">Leader Actions</div>';
         if (abilityAvail) {
             html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
                 'onclick="swuDoLeaderAction(\'LeaderAbility\')">Leader Ability</button></div>';
@@ -1044,8 +1064,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
                 'onclick="swuDoLeaderAction(\'DeployLeader:Pilot\')">Deploy as Pilot</button></div>';
         }
-        html += '<div><button style="width:100%;padding:6px 16px;background:transparent;border:1px solid #555;' +
-            'border-radius:5px;color:#aaa;cursor:pointer;font-size:12px;" ' +
+        html += '<div><button style="width:100%;padding:6px 16px;background:transparent;border:1px solid var(--border,#555);' +
+            'border-radius:var(--radius,5px);color:var(--text-muted,#aaa);cursor:pointer;font-size:12px;" ' +
             'onclick="document.getElementById(\'swuLeaderMenu\').remove()">Cancel</button></div>';
         menu.innerHTML = html;
         document.body.appendChild(menu);
@@ -1356,20 +1376,22 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             'position:fixed', 'top:50%', 'left:50%',
             'transform:translate(-50%,-50%)',
             'z-index:9999',
-            'background:#0d1b2a',
-            'border:2px solid #f0c040',
-            'border-radius:10px',
+            'background:var(--surface-raised,#0d1b2a)',
+            'border:2px solid var(--border,#f0c040)',
+            'border-radius:var(--radius,10px)',
             'padding:32px 48px',
             'text-align:center',
-            'box-shadow:0 0 40px rgba(240,192,64,0.4)',
+            'box-shadow:0 0 40px var(--glow,rgba(240,192,64,0.4))',
+            'backdrop-filter:blur(10px) saturate(110%)',
+            '-webkit-backdrop-filter:blur(10px) saturate(110%)',
             'min-width:320px'
         ].join(';');
         banner.innerHTML =
-            '<div style="font-size:22px;font-weight:bold;color:#f0c040;margin-bottom:8px;">Game Over</div>' +
-            '<div style="font-size:14px;color:#d4d4d4;margin-bottom:20px;">' + msg.replace(/</g,'&lt;') + '</div>' +
+            '<div style="font-size:22px;font-weight:bold;color:var(--accent-strong,#f0c040);margin-bottom:8px;">Game Over</div>' +
+            '<div style="font-size:14px;color:var(--text,#d4d4d4);margin-bottom:20px;">' + msg.replace(/</g,'&lt;') + '</div>' +
             '<button onclick="document.getElementById(\'swuGameOverBanner\').remove()" ' +
-            'style="padding:6px 18px;background:#1e3a5f;border:1px solid #888;border-radius:4px;' +
-            'color:#eee;cursor:pointer;font-size:12px;">Dismiss ×</button>';
+            'style="padding:6px 18px;background:var(--btn-plain-fill,#1e3a5f);border:1px solid var(--border,#888);border-radius:var(--radius,4px);' +
+            'color:var(--btn-text,#eee);cursor:pointer;font-size:12px;">Dismiss ×</button>';
         document.body.appendChild(banner);
     }
 
@@ -1942,20 +1964,20 @@ function swuShowUndoRequestPopup(fromPlayerID) {
     overlay.id = 'swu-undo-request-modal';
     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.55);z-index:9000;display:flex;align-items:center;justify-content:center;';
     var modal = document.createElement('div');
-    modal.style.cssText = 'background:#0D1B2A;padding:32px 28px;border-radius:10px;box-shadow:0 0 24px #0009;text-align:center;min-width:320px;font-family:\'Orbitron\',sans-serif;';
+    modal.style.cssText = 'background:var(--surface-raised,#0D1B2A);border:1px solid var(--border,transparent);padding:32px 28px;border-radius:var(--radius,10px);box-shadow:0 0 24px #0009;backdrop-filter:blur(10px) saturate(110%);-webkit-backdrop-filter:blur(10px) saturate(110%);text-align:center;min-width:320px;font-family:\'Orbitron\',sans-serif;';
     var msg = document.createElement('div');
-    msg.style.cssText = 'font-size:16px;color:#fff;margin-bottom:8px;';
+    msg.style.cssText = 'font-size:16px;color:var(--text,#fff);margin-bottom:8px;';
     msg.textContent = 'Player ' + fromPlayerID + ' requested to undo their last action.';
     var sub = document.createElement('div');
-    sub.style.cssText = 'font-size:12px;color:rgba(255,255,255,0.55);margin-bottom:24px;';
+    sub.style.cssText = 'font-size:12px;color:var(--text-muted,rgba(255,255,255,0.55));margin-bottom:24px;';
     sub.textContent = '(They revealed hidden card information.)';
     var allowBtn = document.createElement('button');
     allowBtn.textContent = 'Allow';
-    allowBtn.style.cssText = 'margin:0 12px 0 0;padding:8px 24px;font-size:16px;background:#28a745;color:#fff;border:none;border-radius:5px;cursor:pointer;';
+    allowBtn.style.cssText = 'margin:0 12px 0 0;padding:8px 24px;font-size:16px;background:var(--success,#28a745);color:var(--on-success,#fff);border:none;border-radius:var(--radius,5px);cursor:pointer;';
     allowBtn.onclick = function() { overlay.remove(); SubmitInput(10008, ''); };
     var denyBtn = document.createElement('button');
     denyBtn.textContent = 'Deny';
-    denyBtn.style.cssText = 'padding:8px 24px;font-size:16px;background:#dc3545;color:#fff;border:none;border-radius:5px;cursor:pointer;';
+    denyBtn.style.cssText = 'padding:8px 24px;font-size:16px;background:var(--danger,#dc3545);color:var(--on-danger,#fff);border:none;border-radius:var(--radius,5px);cursor:pointer;';
     denyBtn.onclick = function() { overlay.remove(); SubmitInput(10009, ''); };
     modal.appendChild(msg);
     modal.appendChild(sub);
@@ -1972,20 +1994,20 @@ function swuShowBlockPromptPopup(targetPlayerID) {
     overlay.id = 'swu-block-prompt-modal';
     overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.55);z-index:9001;display:flex;align-items:center;justify-content:center;';
     var modal = document.createElement('div');
-    modal.style.cssText = 'background:#0D1B2A;padding:32px 28px;border-radius:10px;box-shadow:0 0 24px #0009;text-align:center;min-width:320px;font-family:\'Orbitron\',sans-serif;';
+    modal.style.cssText = 'background:var(--surface-raised,#0D1B2A);border:1px solid var(--border,transparent);padding:32px 28px;border-radius:var(--radius,10px);box-shadow:0 0 24px #0009;backdrop-filter:blur(10px) saturate(110%);-webkit-backdrop-filter:blur(10px) saturate(110%);text-align:center;min-width:320px;font-family:\'Orbitron\',sans-serif;';
     var msg = document.createElement('div');
-    msg.style.cssText = 'font-size:16px;color:#fff;margin-bottom:8px;';
+    msg.style.cssText = 'font-size:16px;color:var(--text,#fff);margin-bottom:8px;';
     msg.textContent = 'Player ' + targetPlayerID + ' has had undo requests denied multiple times.';
     var sub = document.createElement('div');
-    sub.style.cssText = 'font-size:12px;color:rgba(255,255,255,0.55);margin-bottom:24px;';
+    sub.style.cssText = 'font-size:12px;color:var(--text-muted,rgba(255,255,255,0.55));margin-bottom:24px;';
     sub.textContent = 'Block all future undo requests from them?';
     var blockBtn = document.createElement('button');
     blockBtn.textContent = 'Block';
-    blockBtn.style.cssText = 'margin:0 12px 0 0;padding:8px 24px;font-size:16px;background:#dc3545;color:#fff;border:none;border-radius:5px;cursor:pointer;';
+    blockBtn.style.cssText = 'margin:0 12px 0 0;padding:8px 24px;font-size:16px;background:var(--danger,#dc3545);color:var(--on-danger,#fff);border:none;border-radius:var(--radius,5px);cursor:pointer;';
     blockBtn.onclick = function() { overlay.remove(); SubmitInput(10010, ''); };
     var keepBtn = document.createElement('button');
     keepBtn.textContent = 'Keep Allowing';
-    keepBtn.style.cssText = 'padding:8px 24px;font-size:16px;background:#6c757d;color:#fff;border:none;border-radius:5px;cursor:pointer;';
+    keepBtn.style.cssText = 'padding:8px 24px;font-size:16px;background:var(--surface-sunken,#6c757d);color:var(--text,#fff);border:none;border-radius:var(--radius,5px);cursor:pointer;';
     keepBtn.onclick = function() { overlay.remove(); SubmitInput(10011, ''); };
     modal.appendChild(msg);
     modal.appendChild(sub);
@@ -2140,6 +2162,39 @@ function ApplyCosmeticPlaymats() {
 if (document.readyState !== 'loading') ApplyCosmeticPlaymats();
 else document.addEventListener('DOMContentLoaded', ApplyCosmeticPlaymats);
 window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the toggle changes
+
+// ── Live cosmetics poller: pick up opponent (or cross-device) cosmetic changes without a
+// reload. Polls CosmeticsLive.php every 6s (paused when the tab is hidden); on any diff it
+// swaps window.SWU_COSMETICS and re-applies. Idempotent apply funcs make repeats free.
+(function () {
+  function appBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0?p.slice(0,i+11):'/TCGEngine/'; }
+  function val(id){ var el=document.getElementById(id); return el ? el.value : ''; }
+  var last = JSON.stringify(window.SWU_COSMETICS || {});
+  function poll() {
+    if (document.hidden) return;
+    var gn = val('gameName'); if (!gn) return;
+    var vp = val('viewerPerspective') || '1';
+    var ak = val('authKey');   // carries the test sentinel so dev-tool seat overrides stay applied
+    var url = appBase()+'SWUSim/CosmeticsLive.php?gameName='+encodeURIComponent(gn)+'&viewerPerspective='+encodeURIComponent(vp)+'&authKey='+encodeURIComponent(ak);
+    var x = new XMLHttpRequest(); x.open('GET', url, true);
+    x.onload = function () {
+      if (x.status < 200 || x.status >= 300) return;
+      var next; try { next = JSON.parse(x.responseText); } catch (e) { return; }
+      if (!next || typeof next !== 'object' || Array.isArray(next)) return;
+      // Empty payload ({}) = no session / no cosmetics — treat as "no change".
+      if (!('background' in next) && !('myCardBack' in next) && !('theirCardBack' in next)) return;
+      var s = JSON.stringify(next);
+      if (s === last) return;
+      last = s;
+      window.SWU_COSMETICS = next;
+      if (typeof ApplyAllCosmetics === 'function') ApplyAllCosmetics();
+    };
+    x.onerror = function () {};   // swallow blips; next tick retries
+    x.send();
+  }
+  setInterval(poll, 6000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) poll(); });
+})();
 </script>
 
 <!-- ── In-game Settings hub (gear menu) ─────────────────────────────────────── -->
@@ -2166,13 +2221,14 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-settings-row { display: flex; align-items: center; justify-content: space-between;
     gap: 12px; padding: 6px 0; font-size: 14px; cursor: pointer; }
   .swu-settings-row input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; }
+  .swu-settings-row--stack { flex-direction: column; align-items: stretch; gap: 4px; cursor: default; }
+  .swu-settings-row--stack > span { font-size: 12px; color: var(--accent); }
+  .swu-gear-cos { width: 100%; padding: 7px 9px; border-radius: 7px; cursor: pointer;
+    background: var(--surface-raised, rgba(8,15,25,0.6)); color: var(--text, #e8d5a8);
+    border: 1px solid var(--border, rgba(255,255,255,0.14)); }
   .swu-settings-link { display: inline-block; margin-top: 8px; color: var(--accent); font-size: 13px; text-decoration: none; }
   .swu-settings-link:hover { text-decoration: underline; }
-  .swu-settings-action { display: block; width: 100%; margin: 6px 0 0; padding: 9px 12px;
-    background: var(--danger-surface); border: 1px solid var(--danger); border-radius: 7px;
-    color: var(--on-danger); font: 600 14px/1 var(--swu-font-label, sans-serif); cursor: pointer;
-    transition: background 140ms ease, border-color 140ms ease; }
-  .swu-settings-action:hover { background: rgba(200,50,65,0.32); border-color: rgba(240,110,125,0.8); }
+  .swu-settings-action { display: block; width: 100%; margin: 6px 0 0;}
   /* Collapsible Block Player widget (shared by the gear menu + game-over overlay) */
   .swu-blockplayer { margin: 8px auto 0; max-width: 360px; text-align: left; }
   .swu-blockplayer-head { display: block; width: 100%; padding: 6px 0; background: transparent; border: 0;
@@ -2193,6 +2249,13 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   /* SWUConfirm now delegates to the shared StyledDialog (which self-injects its themed CSS);
      its bespoke .swu-confirm-* styles were removed. */
 </style>
+<?php
+  require_once __DIR__ . '/../../Database/ConnectionManager.php';   // GetLocalMySQLConnection (used by LoadUserCosmetics)
+  require_once __DIR__ . '/../../Database/functions.inc.php';
+  require_once __DIR__ . '/../Cosmetics/Catalog.php';
+  $swuGearUid = function_exists('LoggedInUser') ? LoggedInUser() : '';
+  $swuGearCos = ($swuGearUid !== '' && $swuGearUid !== null) ? LoadUserCosmetics($swuGearUid) : null;
+?>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
   <div class="swu-settings-panel" role="dialog" aria-modal="true">
     <div class="swu-settings-head"><span>Settings</span>
@@ -2201,12 +2264,19 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       <div class="swu-settings-section-title">Cosmetics</div>
       <label class="swu-settings-row"><span>Show playmats</span>
         <input type="checkbox" id="swuSetShowPlaymats"></label>
-      <a class="swu-settings-link" href="/TCGEngine/SharedUI/Sites/SWUSim/Profile.php" target="_blank">Change cosmetics on Profile &#8599;</a>
+      <?php if ($swuGearCos !== null): ?>
+        <label class="swu-settings-row swu-settings-row--stack"><span>Background</span>
+          <?= SWUCosmeticSelectHtml('background', $swuGearCos['background']['id'], 'swu-gear-cos') ?></label>
+        <label class="swu-settings-row swu-settings-row--stack"><span>Card back</span>
+          <?= SWUCosmeticSelectHtml('cardback', $swuGearCos['cardback']['id'], 'swu-gear-cos') ?></label>
+        <label class="swu-settings-row swu-settings-row--stack"><span>Playmat</span>
+          <?= SWUCosmeticSelectHtml('playmat', $swuGearCos['playmat']['id'], 'swu-gear-cos') ?></label>
+      <?php endif; ?>
     </div>
     <div class="swu-settings-section" id="swuSettingsMatchSection" style="display:none; border-top:1px solid var(--border);">
       <div class="swu-settings-section-title">Match</div>
-      <button class="swu-settings-action" onclick="SWUGearConcede(false)">Concede</button>
-      <button class="swu-settings-action" onclick="SWUGearConcede(true)">Return to Main Menu</button>
+      <button class="btn btn-danger swu-settings-action" onclick="SWUGearConcede(false)">Concede</button>
+      <button class="btn btn-primary swu-settings-action" onclick="SWUGearConcede(true)">Return to Main Menu</button>
       <div id="swuSettingsBlockMount"></div>
     </div>
   </div>
@@ -2275,6 +2345,27 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     if (e.target && e.target.id === 'swuSetShowPlaymats') {
       if (window.TCGSettings) window.TCGSettings.set('ShowPlaymats', e.target.checked, { rootName:'SWUSim', type:'boolean' });
       if (typeof window.ApplyCosmeticPlaymats === 'function') window.ApplyCosmeticPlaymats();
+      return;
+    }
+    var sel = e.target && e.target.closest ? e.target.closest('.swu-gear-cos') : null;
+    if (sel) {
+      var slot = sel.getAttribute('data-slot');
+      var opt = sel.options[sel.selectedIndex];
+      var asset = opt ? (opt.getAttribute('data-asset') || '') : '';
+      // Instant local apply for the picker's own view.
+      var c = window.SWU_COSMETICS = window.SWU_COSMETICS || {};
+      if (slot === 'background') c.background = asset;
+      else if (slot === 'cardback') c.myCardBack = asset;
+      else if (slot === 'playmat') c.myPlaymat = asset;
+      if (typeof ApplyAllCosmetics === 'function') ApplyAllCosmetics();
+      // Persist to profile + patch the live match snapshot (opponent picks it up via the poller).
+      function appBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0?p.slice(0,i+11):'/TCGEngine/'; }
+      var gnEl = document.getElementById('gameName');
+      var gn = gnEl ? gnEl.value : '';
+      var x = new XMLHttpRequest();
+      x.open('POST', appBase()+'SWUSim/Cosmetics.php', true);
+      x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+      x.send('action=set&slot='+encodeURIComponent(slot)+'&choiceId='+encodeURIComponent(sel.value)+'&gameName='+encodeURIComponent(gn));
     }
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') swuCloseSettings(); });

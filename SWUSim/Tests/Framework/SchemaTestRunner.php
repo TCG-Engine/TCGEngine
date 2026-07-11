@@ -149,6 +149,8 @@ class SchemaTestRunner {
                              'WithP1Discard',             'WithP2Discard',
                              'WithP1GroundArenaUpgrade',  'WithP2GroundArenaUpgrade',
                              'WithP1SpaceArenaUpgrade',   'WithP2SpaceArenaUpgrade',
+                             'WithP1GroundArenaPilot',    'WithP2GroundArenaPilot',
+                             'WithP1SpaceArenaPilot',     'WithP2SpaceArenaPilot',
                              'WithP1Deck',                'WithP2Deck'];
         // List-valued keys accept either one spec per line OR a bracketed, whitespace-separated
         // array on a single line — e.g. "WithP2Deck: [SOR_225 SEC_080 SOR_128]" or
@@ -159,7 +161,9 @@ class SchemaTestRunner {
                             'WithP1Deck', 'WithP2Deck',
                             'WithP1GroundArena', 'WithP2GroundArena', 'WithP1SpaceArena', 'WithP2SpaceArena',
                             'WithP1GroundArenaUpgrade', 'WithP2GroundArenaUpgrade',
-                            'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade'];
+                            'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade',
+                            'WithP1GroundArenaPilot', 'WithP2GroundArenaPilot',
+                            'WithP1SpaceArenaPilot', 'WithP2SpaceArenaPilot'];
         $out = [];
         foreach ($lines as $line) {
             if (!str_contains($line, ':')) continue;
@@ -340,6 +344,29 @@ class SchemaTestRunner {
                 foreach ($byUnit as $unitIdx => $cardIDs) {
                     $upgrades = array_map(fn($cid) => GameStateBuilder::Upgrade($cid, $pn), $cardIDs);
                     $b->$method($pn, $unitIdx, $upgrades);
+                }
+            }
+        }
+
+        // Initial PILOT upgrades on arena units (WithP{n}{Ground|Space}ArenaPilot: idx:CARD_ID).
+        // Same wiring as ArenaUpgrade but flags IsPilot=true, so the host counts as occupied
+        // (SWUVehiclePilotCount) — the honest way to pre-seat a piloted Vehicle.
+        foreach ([1, 2] as $pn) {
+            foreach (['Ground', 'Space'] as $arenaType) {
+                $key    = "WithP{$pn}{$arenaType}ArenaPilot";
+                $byUnit = [];
+                foreach ($given[$key] ?? [] as $spec) {
+                    [$idxStr, $cardID] = array_pad(explode(':', trim($spec), 2), 2, '');
+                    $byUnit[intval($idxStr)][] = trim($cardID);
+                }
+                $method = "WithUpgradesOn{$arenaType}UnitForPlayer";
+                foreach ($byUnit as $unitIdx => $cardIDs) {
+                    $pilots = array_map(function($cid) use ($pn) {
+                        $u = GameStateBuilder::Upgrade($cid, $pn);
+                        $u['IsPilot'] = true;
+                        return $u;
+                    }, $cardIDs);
+                    $b->$method($pn, $unitIdx, $pilots);
                 }
             }
         }
@@ -801,6 +828,50 @@ class SchemaTestRunner {
                     $failures[] = "{$line}: expected a pending decision, but none found";
                 elseif (($pending->Tooltip ?? '') !== $m[2])
                     $failures[] = "{$line}: expected tooltip '{$m[2]}', got '" . ($pending->Tooltip ?? '') . "'";
+
+            } elseif (preg_match('/^P(\d+)SEARCHPLAYABLE(HAS|NOT):(.+)$/', $line, $m)) {
+                // Assert membership in a pending TOPDECKSEARCH's *playable* set (the matchIDs field —
+                // the cards the UI lets you actually pick/play, distinct from the full revealed set).
+                // Param format: allIDs|matchIDs|constraint|costMap. Leave the search decision pending
+                // (don't answer it) so it can be read. Lets a test prove the offered pool is filtered
+                // (e.g. affordability) — which the harness's answer path does NOT enforce on its own.
+                $p        = intval($m[1]);
+                $wantHas  = ($m[2] === 'HAS');
+                $cardID   = $m[3];
+                $pending  = $g->state->pendingDecision($p);
+                if ($pending === null) {
+                    $failures[] = "{$line}: expected a pending TOPDECKSEARCH decision, but none found";
+                } elseif (($pending->Type ?? '') !== 'TOPDECKSEARCH') {
+                    $failures[] = "{$line}: pending decision is '" . ($pending->Type ?? '') . "', not TOPDECKSEARCH";
+                } else {
+                    $fields   = explode('|', $pending->Param ?? '');
+                    $playable = array_values(array_filter(explode(',', $fields[1] ?? '')));
+                    $present  = in_array($cardID, $playable, true);
+                    if ($wantHas && !$present)
+                        $failures[] = "{$line}: '{$cardID}' not in playable set [" . implode(',', $playable) . "]";
+                    if (!$wantHas && $present)
+                        $failures[] = "{$line}: '{$cardID}' unexpectedly in playable set [" . implode(',', $playable) . "]";
+                }
+
+            } elseif (preg_match('/^P(\d+)OPTION(HAS|NOT):(.+)$/', $line, $m)) {
+                // Membership of a label in a pending OPTIONCHOOSE's option list (Param, '&'-split). A
+                // leading "@CardID" image ref is naturally excluded (it won't equal a label). Leave the
+                // decision pending to read it — lets a test assert an option is offered/withheld, e.g. an
+                // affordability-gated "Play" that the harness's answer path would not enforce on its own.
+                $p       = intval($m[1]);
+                $wantHas = ($m[2] === 'HAS');
+                $label   = $m[3];
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null) {
+                    $failures[] = "{$line}: expected a pending decision, but none found";
+                } else {
+                    $opts    = array_values(array_filter(explode('&', $pending->Param ?? '')));
+                    $present = in_array($label, $opts, true);
+                    if ($wantHas && !$present)
+                        $failures[] = "{$line}: option '{$label}' not offered [" . implode(',', $opts) . "]";
+                    if (!$wantHas && $present)
+                        $failures[] = "{$line}: option '{$label}' unexpectedly offered [" . implode(',', $opts) . "]";
+                }
 
             } elseif (preg_match('/^P(\d+)HASFORCE$/', $line, $m)) {
                 $p = intval($m[1]);

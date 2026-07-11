@@ -10,6 +10,8 @@ CommonSetup: ygk/grw/{
 }
 WithP1Resources: 5
 WithP2Resources: 5
+WithP1Deck: SOR_046 SOR_046 SOR_046 SOR_046
+WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 
 WithP2GroundArena: ASH_155:1:5
 WithP2GroundArenaUpgrade: 0:SOR_T02

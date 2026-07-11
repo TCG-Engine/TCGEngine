@@ -366,7 +366,7 @@
     var style = document.createElement('style');
     style.id = 'match-replay-styles';
     style.textContent = ''
-      + '.match-replay-button,#matchReplayPlaybackModal button{cursor:pointer;border:1px solid var(--border);background:var(--surface-sunken);color:var(--text);border-radius:var(--radius);padding:6px 10px;font-weight:700;}'
+      + '.match-replay-button,#matchReplayPlaybackModal button{cursor:pointer;border:1px solid var(--border);background:var(--surface-sunken);color:var(--input-text, var(--text));border-radius:var(--radius);padding:6px 10px;font-weight:700;}'
       + '.match-replay-button:hover,#matchReplayPlaybackModal button:hover{background:var(--surface-raised);}'
       + '.match-replay-button:disabled,#matchReplayPlaybackModal button:disabled{opacity:.55;cursor:not-allowed;}'
       + '#matchReplayPlaybackModal{position:fixed;left:16px;top:16px;width:min(360px,calc(100vw - 28px));z-index:30000;color:#f0e6c8;font-family:Roboto,Arial,sans-serif;border:1px solid rgba(201,168,76,.45);border-radius:8px;background:rgba(7,18,30,.97);box-shadow:0 16px 38px rgba(0,0,0,.45);overflow:hidden;}'
@@ -716,7 +716,7 @@
 
     var btn = document.createElement('button');
     btn.id = 'match-replay-game-over-save-btn';
-    btn.className = 'match-replay-button';
+    btn.className = 'btn btn-primary';   // standard themed primary button (matches the other game-over actions)
     btn.type = 'button';
     btn.textContent = 'Save Replay';
     btn.addEventListener('click', saveCurrentReplay);

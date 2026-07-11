@@ -12,6 +12,7 @@ WithP1GroundArena: SOR_192:1:0
 WithP1Deck: SOR_095
 WithP1Deck: SOR_128
 WithP1Deck: SOR_128
+WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE

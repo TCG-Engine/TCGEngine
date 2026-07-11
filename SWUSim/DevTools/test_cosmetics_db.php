@@ -16,11 +16,11 @@ $cos = LoadUserCosmetics($U);
 ok($cos['background']['id']==='default' && $cos['cardback']['id']==='classic' && $cos['playmat']['id']==='none', "unset -> all defaults");
 
 // set + read back
-ok(SetUserCosmetic($U,'background','spcgnd')===true, "set background spcgnd");
+ok(SetUserCosmetic($U,'background','death-star')===true, "set background death-star");
 ok(SetUserCosmetic($U,'background','bogus')===false, "reject invalid choice");
 ok(SetUserCosmetic($U,'nope','x')===false, "reject invalid slot");
 $cos = LoadUserCosmetics($U);
-ok($cos['background']['id']==='spcgnd' && strpos($cos['background']['asset'],'spcgnd')!==false, "saved background applied");
+ok($cos['background']['id']==='death-star' && strpos($cos['background']['asset'],'death-star')!==false, "saved background applied");
 ok($cos['playmat']['id']==='none', "other slots still default");
 
 // seat resolver: null user -> defaults

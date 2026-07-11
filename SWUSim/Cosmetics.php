@@ -6,6 +6,7 @@ require_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 require_once __DIR__ . '/../Database/ConnectionManager.php';
 require_once __DIR__ . '/../Database/functions.inc.php';
 require_once __DIR__ . '/Cosmetics/Catalog.php';
+require_once __DIR__ . '/CosmeticsBridge.php';   // SWUPatchMatchSeatCosmetic
 
 $respond = function($arr) use ($__test) {
     if ($__test) return $arr;
@@ -25,6 +26,8 @@ if ($action === 'set') {
     $slot = $_POST['slot'] ?? '';
     $choiceId = $_POST['choiceId'] ?? '';
     if (!SetUserCosmetic($uid, $slot, $choiceId)) return $respond(['success'=>false,'error'=>'invalid_choice']);
+    $gameName = $_POST['gameName'] ?? '';
+    if ($gameName !== '') SWUPatchMatchSeatCosmetic($gameName, $uid, $slot, $choiceId);   // live-match propagation (no-op solo)
     return $respond(['success'=>true, 'slot'=>$slot, 'choice'=>SWUCosmeticResolve($slot, $choiceId)]);
 }
 return $respond(['success'=>false,'error'=>'unknown_action']);

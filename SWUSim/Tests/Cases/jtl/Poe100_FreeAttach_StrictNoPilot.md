@@ -3,20 +3,18 @@
 # Even though the Piloting capacity rule would allow attaching (JTL_249 MF capacity
 # raise), the free-attach clause strictly requires "without a Pilot on it."
 #
-# Setup: SOR_237 (Alliance X-Wing, Space) + JTL_249 (Millennium Falcon, Space, capacity 2).
-# Step 1 — Play JTL_100 (idx 0) AS A PILOT onto SOR_237 (Piloting path, cost 2).
-#   1 vehicle in play → auto-attaches; SOR_237 gets JTL_100 (IsPilot=true), count=1.
-#   Resources: 6 - 2 = 4 remaining.
+# Setup: SOR_237 (Alliance X-Wing, Space) already piloted by JTL_108 Clone Pilot (a NON-unique pilot —
+# so it occupies the X-Wing without colliding with Poe under the uniqueness rule) + JTL_249 (Millennium
+# Falcon, Space, capacity 2, no pilot).
 #
-# Step 2 — Play second JTL_100 (now idx 0) AS A UNIT (cost 4):
-#   canUnit = true (4 >= 4); canPilot: SOR_237 count=1 < capacity=1 (no R2-D2 etc.) → false.
-#   JTL_249 has count=0 < capacity=2 → canPilot = true for JTL_249 target.
-#   BOTH canUnit and canPilot are true → Unit/Pilot prompt.
-#   Player picks "Unit" → JTL_100 enters ground arena.
+# Play JTL_100 Poe (idx 0) AS A UNIT (cost 4):
+#   canUnit = true (4 >= 4); canPilot: SOR_237 count=1 < capacity=1 → false;
+#   JTL_249 count=0 < capacity=2 → canPilot = true for JTL_249 target.
+#   BOTH canUnit and canPilot are true → Unit/Pilot prompt. Player picks "Unit" → Poe enters ground.
 #   WhenPlayed fires:
 #     1. X-Wing token (JTL_T02) created → space idx 2.
 #     2. Free-attach target collection (strict "freeattach" context):
-#        - SOR_237: SWUVehiclePilotCount=1, NOT === 0 → excluded.
+#        - SOR_237: SWUVehiclePilotCount=1 (JTL_108), NOT === 0 → excluded.
 #        - JTL_249: SWUVehiclePilotCount=0, === 0 → eligible.
 #        - JTL_T02 (Vehicle,Fighter): SWUVehiclePilotCount=0, === 0 → eligible.
 #        Targets = [JTL_249, JTL_T02].
@@ -27,9 +25,8 @@
 #
 # Final state:
 #   Ground: JTL_100 (unit) at idx 0.
-#   Space: SOR_237 (idx 0, upgradeCount=1 — JTL_100 pilot), JTL_249 (idx 1, no pilot),
+#   Space: SOR_237 (idx 0, upgradeCount=1 — JTL_108 pilot, unchanged), JTL_249 (idx 1, no pilot),
 #          JTL_T02 (idx 2, no pilot).
-#   SOR_237 still has exactly 1 upgrade (the first JTL_100 pilot, unchanged).
 #   JTL_249 still has 0 upgrades (free-attach declined).
 
 ## GIVEN
@@ -38,16 +35,13 @@ SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true
-WithP1Resources: 6
-WithP1Hand: JTL_100
+WithP1Resources: 4
 WithP1Hand: JTL_100
 WithP1SpaceArena: SOR_237:1:0
 WithP1SpaceArena: JTL_249:1:0
+WithP1SpaceArenaPilot: 0:JTL_108
 
 ## WHEN
-- P1>PlayHand:0
-- P1>AnswerDecision:Pilot
-- P1>AnswerDecision:mySpaceArena-0
 - P1>PlayHand:0
 - P1>AnswerDecision:Unit
 - P1>AnswerDecision:-
@@ -58,7 +52,7 @@ P1GROUNDARENAUNIT:0:CARDID:JTL_100
 P1SPACEARENACOUNT:3
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
-P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_100
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_108
 P1SPACEARENAUNIT:1:CARDID:JTL_249
 P1SPACEARENAUNIT:1:UPGRADECOUNT:0
 P1SPACEARENAUNIT:2:CARDID:JTL_T02
