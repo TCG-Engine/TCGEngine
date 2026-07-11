@@ -4873,6 +4873,7 @@ $customDQHandlers["RESOLVE_ATTACK"] = function($player, $params, $lastDecision) 
     $chosenTarget = is_string($lastDecision) ? $lastDecision : '';
     if($attackerMZ === '' || $chosenTarget === '' || strtoupper($chosenTarget) === 'PASS') return;
     if(!CanAttackRuntime($player, $attackerMZ, $chosenTarget)) return;
+    SaveActionSnapshot($player);
     ExhaustEntity($player, $attackerMZ);
     TriggerEquippedWeaponOnAttack($player, $attackerMZ);
     OnAttackWithCard($player, $attackerMZ, $chosenTarget);

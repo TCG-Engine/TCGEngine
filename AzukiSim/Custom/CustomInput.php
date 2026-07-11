@@ -30,14 +30,12 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
                 ActivateAbility($playerID, $actionCard, $abilityIndex);
             } else if ($action === "Attack") {
                 // Default field activation path: attack setup in Garden.
-                MaybeSaveUndoVersion($playerID);
                 HandleAttackSetup($playerID, $actionCard);
             } else if ($action === "Activate") {
                 if($zone === "myGarden") {
                     if(CanActivateAbilityRuntime($playerID, $actionCard, 0) && CanActivateAbilityWithCopiedText($playerID, $actionCard, 0)) {
                         ActivateAbility($playerID, $actionCard, 0);
                     } else {
-                        MaybeSaveUndoVersion($playerID);
                         HandleAttackSetup($playerID, $actionCard);
                     }
                 } else {
@@ -146,6 +144,7 @@ function HandleAttackSetup($playerID, $attackerMZ) {
         $fallbackTarget = ($leaderIdx2 >= 0) ? "theirGarden-" . $leaderIdx2 : "";
         if($fallbackTarget !== "") {
             if(!CanAttackRuntime($playerID, $attackerMZ, $fallbackTarget)) return;
+            MaybeSaveUndoVersion($playerID);
             ExhaustEntity($playerID, $attackerMZ);
             TriggerEquippedWeaponOnAttack($playerID, $attackerMZ);
             OnAttackWithCard($playerID, $attackerMZ, $fallbackTarget);
