@@ -799,7 +799,7 @@ for($i=0; $i<count($zones); ++$i) {
 $mzGetObject .= "    default: \$_null = null; return \$_null;\r\n";
 $mzGetObject .= "  }\r\n";
 $mzGetObject .= "  // Guard: returning a missing index from a by-ref function would auto-vivify a null entry in the zone\r\n";
-$mzGetObject .= "  if(!isset(\$zoneArr[\$mzArr[1]])) { \$_null = null; return \$_null; }\r\n";
+$mzGetObject .= "  if(!isset(\$mzArr[1]) || !is_numeric(\$mzArr[1]) || !isset(\$zoneArr[intval(\$mzArr[1])])) { \$_null = null; return \$_null; }\r\n";
 $mzGetObject .= "  return \$zoneArr[\$mzArr[1]];\r\n";
 $mzGetObject .= "}\r\n\r\n";
 $mzGetZone .= "    default: \$_null = null; return \$_null;\r\n";
