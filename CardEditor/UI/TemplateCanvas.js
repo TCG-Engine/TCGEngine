@@ -176,8 +176,8 @@ class TemplateCanvas {
                             ${['left', 'center', 'right'].map(value => `<option value="${value}" ${style.textAlign === value ? 'selected' : ''}>${value}</option>`).join('')}
                         </select>
                     </label>
-                    <label class="inline-filter"><input type="checkbox" ${this.isBehindTemplate(element) ? 'checked' : ''} onchange="app.templateCanvas.updateStyle('behindTemplate', this.checked ? 1 : '')" ${disabled}> Behind Template</label>
                 `)}
+                ${!isImage ? `<label class="inline-filter"><input type="checkbox" ${this.isBehindTemplate(element) ? 'checked' : ''} onchange="app.templateCanvas.updateStyle('behindTemplate', this.checked ? 1 : '')" ${disabled}> Behind Template</label>` : ''}
                 <label>Background<input value="${PreviewRenderer.escape(style.backgroundColor || '')}" placeholder="transparent or #ffffff" onchange="app.templateCanvas.updateStyle('backgroundColor', this.value)" ${disabled}></label>
                 <label>Image Fit
                     <select onchange="app.templateCanvas.updateStyle('fitMode', this.value)" ${disabled}>
