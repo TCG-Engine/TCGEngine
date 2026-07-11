@@ -2429,15 +2429,10 @@ function SelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
 
-    // During a response window only cards with the [Response] timing tag are playable.
-    if(HasPendingAttackResponse() && !CardHasTimingTag($obj->CardID, 'Response')) {
-        return json_encode(['highlight' => false]);
-    }
-
     $location = strval($obj->Location ?? '');
     if($location === 'Hand') {
         $cardID = $obj->CardID ?? '';
-        if($cardID === '' || !CanPlayCardByTiming($actingPlayer, $cardID)) {
+        if($cardID === '' || !CanPlayCardNow($actingPlayer, $cardID)) {
             return json_encode(['highlight' => false]);
         }
         if(CardType($cardID) === 'WEAPON' && empty(ResolveWeaponEquipTargets($actingPlayer))) {
@@ -2490,6 +2485,20 @@ function CanPlayCardByTiming($player, $cardID) {
 
     if($cardType === 'SPELL' && $hasResponseTiming && !$hasMainTiming) return false;
     return true;
+}
+
+function CanPlayCardNow($player, $cardID) {
+    $player = intval($player);
+    if($player !== 1 && $player !== 2) return false;
+    if(GetCurrentPhase() !== 'MAIN') return false;
+
+    if(HasPendingAttackResponse()) {
+        if($player !== GetPendingAttackResponderPlayer()) return false;
+        return CardHasTimingTag($cardID, 'Response');
+    }
+
+    if($player !== intval(GetTurnPlayer())) return false;
+    return CanPlayCardByTiming($player, $cardID);
 }
 
 // CardHealth($cardID) is provided by GeneratedCardDictionaries.php
@@ -2716,6 +2725,17 @@ function CardHasAbility($obj) {
     return 0;
 }
 
+function HasRaizanChargeTarget($player) {
+    for($p = 1; $p <= 2; ++$p) {
+        $garden = &GetGarden($p);
+        for($i = 0; $i < count($garden); ++$i) {
+            if(isset($garden[$i]->removed) && $garden[$i]->removed) continue;
+            if(HasEquippedWeapon($garden[$i])) return true;
+        }
+    }
+    return false;
+}
+
 function CanActivateAbilityRuntime($player, $mzID, $abilityIndex = 0) {
     $obj = GetZoneObject($mzID);
     if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
@@ -2723,6 +2743,15 @@ function CanActivateAbilityRuntime($player, $mzID, $abilityIndex = 0) {
     $cardID = $obj->CardID ?? '';
     $location = $obj->Location ?? '';
     if(HasTurnEffect($obj, 'FROZEN')) return false;
+
+    if($cardID === 'S1-STT01-001_Raizan_L_L_die') {
+        if($location !== 'Garden') return false;
+        if(GetCurrentPhase() !== 'MAIN') return false;
+        if(HasPendingAttackResponse()) return false;
+        if(intval($player) !== intval(GetTurnPlayer())) return false;
+        if(!CanPayIKZCost($player, 1)) return false;
+        if(!HasRaizanChargeTarget($player)) return false;
+    }
 
     // Alpine Prowler: [In Alley Only Ability][Main]
     if($cardID === 'S1-STT01-005_Alpine-Prowler_E_C_die') {
@@ -2813,17 +2842,12 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         return '';
     }
 
-    SaveActionSnapshot($player);
-
     $cardType = CardType($cardID);
     $cardCost = EffectivePlayCost($player, $cardID, $sourceObject);
     $benzaiDiscountActive = PlayerLeaderHasTurnEffect($player, 'BENZAI_SLY_NEXT_PLAY_DISCOUNT');
     $ignoreTimingRestriction = strval(DecisionQueueController::GetVariable('IgnorePlayTimingRestriction') ?? '') === '1';
-    if($ignoreTimingRestriction) {
-        DecisionQueueController::StoreVariable('IgnorePlayTimingRestriction', '0');
-    }
 
-    if(!$ignoreTimingRestriction && !CanPlayCardByTiming($player, $cardID)) {
+    if(!$ignoreTimingRestriction && !CanPlayCardNow($player, $cardID)) {
         if(HasPendingAttackResponse()) {
             SetFlashMessage('Only [Response] cards can be played by the defending player during this response window.');
         } else {
@@ -2845,6 +2869,15 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
             SetFlashMessage('Not enough IKZ to play this card.');
             return '';
         }
+    }
+
+    SaveActionSnapshot($player);
+
+    if($ignoreTimingRestriction) {
+        DecisionQueueController::StoreVariable('IgnorePlayTimingRestriction', '0');
+    }
+
+    if(!$ignoreCost) {
         if(!PayIKZCost($player, $cardCost)) {
             return '';
         }

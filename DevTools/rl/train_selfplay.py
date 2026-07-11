@@ -24,9 +24,6 @@ def _candidate_indices(mask: List[int], actions: List[Dict], no_op_keys: set, st
 
     # Reject actions known to be no-op for this exact state.
     filtered = [i for i in legal if f"{state_key}|{int(actions[i].get('mode', -1))}|{str(actions[i].get('cardID', ''))}" not in no_op_keys]
-    if not filtered:
-        filtered = legal
-
     # Keep all currently legal actions (including PASS) choosable.
     return filtered
 
@@ -42,6 +39,10 @@ def _action_signature(action: Dict) -> str:
     else:
         chk_key = str(chk_input)
     return f"mode={mode}|card={card_id}|button={button_input}|input={input_text}|chk={chk_key}"
+
+
+def _steps_for_player(episode_steps: List[Dict], player: int) -> List[Dict]:
+    return [step for step in episode_steps if int(step.get("turn_player", 0)) == int(player)]
 
 
 def _build_stuck_diagnostics(step_trace: List[Dict], window: int = 200) -> Dict:
@@ -63,7 +64,7 @@ def _build_stuck_diagnostics(step_trace: List[Dict], window: int = 200) -> Dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="GrandArchiveSim deterministic self-play RL MVP trainer")
+    parser = argparse.ArgumentParser(description="TCGEngine deterministic self-play RL MVP trainer")
     parser.add_argument("--root", default="GrandArchiveSim")
     parser.add_argument("--deck-file", required=True)
     parser.add_argument("--episodes", type=int, default=100)
@@ -74,6 +75,7 @@ def main() -> None:
     parser.add_argument("--learning-rate", type=float, default=0.05)
     parser.add_argument("--temperature", type=float, default=1.0)
     parser.add_argument("--epsilon", type=float, default=0.05)
+    parser.add_argument("--timeout-reward", type=float, default=-0.25)
     parser.add_argument("--checkpoint-every", type=int, default=25)
     parser.add_argument("--log-every", type=int, default=25)
     parser.add_argument("--stuck-debug-window", type=int, default=200)
@@ -146,7 +148,7 @@ def main() -> None:
 
         for ep in range(args.episodes):
             ep_seed = args.seed + ep
-            game_name = f"rl_train_{ep_seed}"
+            game_name = f"rl_train_{run_id}_{ep + 1:04d}_{ep_seed}"
             obs, mask, reset_info = env.reset(deck_text=deck_text, seed=ep_seed, game_name=game_name)
             done = False
             episode_steps: List[Dict] = []
@@ -281,7 +283,12 @@ def main() -> None:
                 )
 
             terminal_reward = float(reward)
-            policy.update_episode(episode_steps, terminal_reward)
+            if bool(info.get("timedOut", False)) and not bool(info.get("isTerminal", False)):
+                terminal_reward = float(args.timeout_reward)
+            policy.update_episode(_steps_for_player(episode_steps, 1), terminal_reward)
+            if opponent is policy:
+                p2_reward = float(args.timeout_reward) if bool(info.get("timedOut", False)) and not bool(info.get("isTerminal", False)) else -terminal_reward
+                policy.update_episode(_steps_for_player(episode_steps, 2), p2_reward)
             elapsed_ms = int((time.time() - start) * 1000)
 
             writer.writerow(
@@ -324,6 +331,9 @@ def main() -> None:
                 "episode": ep + 1,
                 "seed": ep_seed,
                 "gameName": reset_info.get("gameName"),
+                "memoryOnlyResolved": reset_info.get("memoryOnlyResolved", None),
+                "initialGamestateHash": reset_info.get("gamestateHash", ""),
+                "initialGamestateText": reset_info.get("initialGamestateText", ""),
                 "deckParseSummary": reset_info.get("deckParseSummary", []),
                 "result": info,
                 "actions": replay_actions,
@@ -376,6 +386,7 @@ def main() -> None:
         "learningRate": args.learning_rate,
         "temperature": args.temperature,
         "epsilon": args.epsilon,
+        "timeoutReward": args.timeout_reward,
         "memoryOnly": args.memory_only,
         "timingSummary": {
             "totalSteps": run_timing["steps"],

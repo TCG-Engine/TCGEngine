@@ -81,6 +81,7 @@ class GrandArchiveSelfPlayEnv:
         snapshot = start.get("snapshot", {}) if isinstance(start.get("snapshot", {}), dict) else {}
         if not snapshot:
             snapshot = self.bridge.get_game_snapshot(self.game_name, "summary")
+        full_snapshot = self.bridge.get_game_snapshot(self.game_name, "full")
         obs = self._observation_from_snapshot(snapshot)
         mask = self._get_action_mask(legal)
         info = {
@@ -88,6 +89,7 @@ class GrandArchiveSelfPlayEnv:
             "gameName": self.game_name,
             "memoryOnlyResolved": start.get("memoryOnlyResolved", None),
             "deckParseSummary": start.get("deckParseSummary", []),
+            "initialGamestateText": str(full_snapshot.get("gamestateText", "")) if isinstance(full_snapshot, dict) else "",
             "terminal": snapshot.get("terminal", {}),
             "gamestateHash": snapshot.get("gamestateHash", ""),
         }

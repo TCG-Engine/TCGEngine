@@ -70,10 +70,38 @@ function BridgeEnsureDraftGame($root, $gameName) {
   return $gameDir;
 }
 
+function BridgeHydrateDiskGamestateIntoMemory($root, $gameName, $gameDir) {
+  if (!function_exists('GamestateUsesMemoryStorage') || !GamestateUsesMemoryStorage()) return;
+  if (!function_exists('GetGamestateStorageKey') || !function_exists('apcu_store')) return;
+
+  $gameStatePath = $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt';
+  if (!is_file($gameStatePath)) return;
+
+  $gamestateText = file_get_contents($gameStatePath);
+  if ($gamestateText === false || $gamestateText === '') return;
+  apcu_store(GetGamestateStorageKey($gameName), $gamestateText, 600);
+}
+
+function BridgeExportMemoryGamestateToDiskIfBacked($root, $gameName) {
+  if (!function_exists('GamestateUsesMemoryStorage') || !GamestateUsesMemoryStorage()) return;
+  if (!function_exists('RegressionCurrentGamestateFromMemory')) return;
+
+  $memoryOnlyGames = $GLOBALS['bridgeMemoryOnlyGames'] ?? [];
+  if (!empty($memoryOnlyGames[strval($gameName)])) return;
+
+  $gameStatePath = RegressionCurrentGamestatePath($root, $gameName);
+  if (!is_file($gameStatePath)) return;
+
+  $gamestateText = RegressionCurrentGamestateFromMemory($gameName);
+  if ($gamestateText === null) return;
+  file_put_contents($gameStatePath, $gamestateText);
+}
+
 function BridgeLoadRuntimeGame($root, $gameName) {
-  BridgeEnsureDraftGame($root, $gameName);
   EngineLoadRootRuntime($root);
+  $gameDir = BridgeEnsureDraftGame($root, $gameName);
   $GLOBALS['gameName'] = strval($gameName);
+  BridgeHydrateDiskGamestateIntoMemory($root, strval($gameName), $gameDir);
   ParseGamestate('./' . $root . '/');
 }
 
@@ -288,6 +316,7 @@ function BridgeAddToZone($root, $gameName, $zoneName, $cardID, $perspectivePlaye
     }
 
     WriteGamestate('./' . $root . '/');
+    BridgeExportMemoryGamestateToDiskIfBacked($root, $gameName);
     return [
       'success' => true,
       'gameName' => $gameName,
@@ -326,6 +355,7 @@ function BridgeAddCounters($root, $gameName, $mzID, $counterType, $amount, $pers
     }
 
     WriteGamestate('./' . $root . '/');
+    BridgeExportMemoryGamestateToDiskIfBacked($root, $gameName);
     return [
       'success' => true,
       'gameName' => $gameName,
@@ -343,6 +373,7 @@ function BridgeActivePlayer() {
 }
 
 function BridgeMasterySummary($playerID) {
+  if (!function_exists('GetMastery')) return [];
   $zone = GetMastery($playerID);
   $summary = [];
   if (!is_array($zone)) return $summary;
@@ -356,6 +387,16 @@ function BridgeMasterySummary($playerID) {
     ];
   }
   return $summary;
+}
+
+function BridgePlayableZonesForRoot($root) {
+  switch ($root) {
+    case 'AzukiSim':
+      return ['myHand', 'myGarden', 'myAlley', 'myGate'];
+    case 'GrandArchiveSim':
+    default:
+      return ['myHand', 'myField', 'myMemory', 'myMaterial', 'myGraveyard', 'myBanish'];
+  }
 }
 
 function BridgeDecisionQueueSummary($playerID) {
@@ -398,11 +439,14 @@ function BridgeCompileScenario($root, $spec) {
     BridgeApplyScenarioMutations($spec);
     WriteGamestate('./' . $root . '/');
     $gamestate = RegressionCurrentGamestateText($root, $tempGameName);
-    RegressionDeleteDirRecursive($tempGameDir);
     return $gamestate;
   } catch (Throwable $throwable) {
-    RegressionDeleteDirRecursive($tempGameDir);
     BridgeFail('Scenario compilation failed.', $throwable->getMessage());
+  } finally {
+    RegressionDeleteDirRecursive($tempGameDir);
+    if (function_exists('RegressionClearGamestateMemory')) {
+      RegressionClearGamestateMemory($tempGameName);
+    }
   }
 }
 
@@ -647,6 +691,12 @@ function BridgeEnumerateDecisionActions($decision, $player) {
           $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $assignmentStr, 'chkInput' => [], 'inputText' => ''];
         }
         break;
+      case 'CHOOSEZONE':
+        $choices = array_values(array_filter(explode('&', strval($decision->Param ?? '')), fn($value) => $value !== ''));
+        foreach ($choices as $choice) {
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $choice, 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
       case 'MZREARRANGE':
         foreach (BridgeEnumerateRearrangeResults(strval($decision->Param ?? '')) as $resultStr) {
           $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $resultStr, 'chkInput' => [], 'inputText' => ''];
@@ -658,8 +708,7 @@ function BridgeEnumerateDecisionActions($decision, $player) {
         }
         break;
       default:
-        // Fallback to allow engine-side pass/skip handlers when a decision type isn't enumerated yet.
-        $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''];
+        // Unknown interactive decisions should not be serialized as PASS; that creates illegal/no-op training data.
         break;
     }
 
@@ -667,7 +716,92 @@ function BridgeEnumerateDecisionActions($decision, $player) {
   });
 }
 
-function BridgeEnumerateFSMActionsForZone($player, $zoneName) {
+function BridgeAzukiActivationAbilityCount($obj) {
+  if (!is_object($obj) || !function_exists('GetObjectMacroCardIDCandidates') || !function_exists('CardActivateAbilityCount')) return 0;
+  $abilityCount = 0;
+  foreach (GetObjectMacroCardIDCandidates($obj) as $candidateCardID) {
+    $abilityCount = max($abilityCount, intval(CardActivateAbilityCount($candidateCardID)));
+  }
+  return $abilityCount;
+}
+
+function BridgeEnumerateAzukiCustomInputActions($player, $zoneName, $index, $obj) {
+  $actions = [];
+  $mzId = $zoneName . '-' . $index;
+
+  if ($zoneName === 'myGate') {
+    try {
+      if (function_exists('CanUseGateRuntime') && function_exists('GetPortalCandidates') && CanUseGateRuntime($player, $mzId, '') && !empty(GetPortalCandidates($player))) {
+        $actions[] = array_merge(
+          ['playerID' => $player, 'mode' => 10001, 'buttonInput' => '', 'cardID' => $mzId . '!CustomInput!Activate', 'chkInput' => [], 'inputText' => ''],
+          BridgeActionCardMetadata($mzId)
+        );
+      }
+    } catch (Throwable $throwable) {
+      return [];
+    }
+    return $actions;
+  }
+
+  if ($zoneName !== 'myGarden' && $zoneName !== 'myAlley') return $actions;
+  if (!function_exists('CanActivateAbilityRuntime') || !function_exists('CanActivateAbilityWithCopiedText')) return $actions;
+
+  $abilityCount = BridgeAzukiActivationAbilityCount($obj);
+  for ($abilityIndex = 0; $abilityIndex < $abilityCount; ++$abilityIndex) {
+    try {
+      if (!CanActivateAbilityRuntime($player, $mzId, $abilityIndex)) continue;
+      if (!CanActivateAbilityWithCopiedText($player, $mzId, $abilityIndex)) continue;
+    } catch (Throwable $throwable) {
+      continue;
+    }
+    $actionValue = ($abilityCount === 1 && $abilityIndex === 0) ? 'Activate' : ('Activate:' . $abilityIndex);
+    $actions[] = array_merge(
+      ['playerID' => $player, 'mode' => 10001, 'buttonInput' => '', 'cardID' => $mzId . '!CustomInput!' . $actionValue, 'chkInput' => [], 'inputText' => ''],
+      BridgeActionCardMetadata($mzId)
+    );
+  }
+
+  return $actions;
+}
+
+function BridgeAzukiAllowsFsmClick($player, $zoneName, $index, $obj) {
+  $mzId = $zoneName . '-' . $index;
+
+  if ($zoneName === 'myHand') {
+    try {
+      $cardID = strval($obj->CardID ?? '');
+      if ($cardID === '') return false;
+      if (function_exists('CanPlayCardNow')) {
+        if (!CanPlayCardNow($player, $cardID)) return false;
+      } else if (function_exists('CanPlayCardByTiming') && !CanPlayCardByTiming($player, $cardID)) {
+        return false;
+      }
+      if (function_exists('CardType') && function_exists('ResolveWeaponEquipTargets') && CardType($cardID) === 'WEAPON' && empty(ResolveWeaponEquipTargets($player))) return false;
+      if (function_exists('CanPayIKZCost')) {
+        $cost = function_exists('EffectivePlayCost') ? EffectivePlayCost($player, $cardID, $obj) : (function_exists('CardCost') ? intval(CardCost($cardID)) : 0);
+        if (!CanPayIKZCost($player, $cost)) return false;
+      }
+    } catch (Throwable $throwable) {
+      return false;
+    }
+    return true;
+  }
+
+  if ($zoneName === 'myGarden') {
+    try {
+      if (function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) {
+        return function_exists('CanRedirectPendingAttack') && CanRedirectPendingAttack($player, $mzId);
+      }
+      return function_exists('CanAttackWith') && CanAttackWith($player, $mzId);
+    } catch (Throwable $throwable) {
+      return false;
+    }
+  }
+
+  return false;
+}
+
+function BridgeEnumerateFSMActionsForZone($player, $zoneName, $root = '') {
   $actions = [];
   $zone = GetZone($zoneName);
   if (!is_array($zone)) return $actions;
@@ -684,8 +818,34 @@ function BridgeEnumerateFSMActionsForZone($player, $zoneName) {
     if (!is_object($obj) || !empty($obj->removed)) continue;
     $mzId = $zoneName . '-' . $index;
 
+    if ($root === 'AzukiSim') {
+      $actions = array_merge($actions, BridgeEnumerateAzukiCustomInputActions($player, $zoneName, $index, $obj));
+      if (!BridgeAzukiAllowsFsmClick($player, $zoneName, $index, $obj)) continue;
+    }
+
     if (function_exists('CanActivateCard')) {
       if (!CanActivateCard($player, $mzId, false)) continue;
+    }
+    if ($root !== 'AzukiSim' && function_exists('CardHasAbility') && in_array($zoneName, ['myGarden', 'myAlley', 'myGate'], true)) {
+      try {
+        if (!CardHasAbility($obj)) continue;
+      } catch (Throwable $throwable) {
+        continue;
+      }
+    }
+    if ($zoneName === 'myHand' && (function_exists('CanPlayCardNow') || function_exists('CanPlayCardByTiming')) && function_exists('CanPayIKZCost')) {
+      try {
+        $cardID = strval($obj->CardID ?? '');
+        if ($cardID === '') continue;
+        if (function_exists('CanPlayCardNow')) {
+          if (!CanPlayCardNow($player, $cardID)) continue;
+        } else if (!CanPlayCardByTiming($player, $cardID)) {
+          continue;
+        }
+        if (!CanPayIKZCost($player, function_exists('EffectivePlayCost') ? EffectivePlayCost($player, $cardID, $obj) : intval(CardCost($cardID)))) continue;
+      } catch (Throwable $throwable) {
+        continue;
+      }
     }
     // RL legality tightening: for hand-origin actions, require reserve affordability.
     // In GA UI this is often shown as yellow (advisory), but for RL we treat unaffordable
@@ -730,12 +890,12 @@ function BridgeEnumerateFSMActionsForZone($player, $zoneName) {
   return $actions;
 }
 
-function BridgeEnumeratePlayableActions($player) {
+function BridgeEnumeratePlayableActions($player, $root = '') {
   $actions = [];
   $GLOBALS['playerID'] = $player;
-  $zones = ['myHand', 'myField', 'myMemory', 'myMaterial', 'myGraveyard', 'myBanish'];
+  $zones = BridgePlayableZonesForRoot($root);
   foreach ($zones as $zoneName) {
-    $actions = array_merge($actions, BridgeEnumerateFSMActionsForZone($player, $zoneName));
+    $actions = array_merge($actions, BridgeEnumerateFSMActionsForZone($player, $zoneName, $root));
   }
 
   // Dedupe by action payload identity.
@@ -748,6 +908,18 @@ function BridgeEnumeratePlayableActions($player) {
     $deduped[] = $action;
   }
   return $deduped;
+}
+
+function BridgePassActionForRoot($root, $player) {
+  $cardID = ($root === 'AzukiSim') ? 'myLeaderHealthSlot!CustomInput!Pass' : 'myHealth-0!CustomInput!PASS';
+  return [
+    'playerID' => intval($player),
+    'mode' => 10001,
+    'buttonInput' => '',
+    'cardID' => $cardID,
+    'chkInput' => [],
+    'inputText' => '',
+  ];
 }
 
 function BridgeFilterActionsByPlayer($actions, $expectedPlayer) {
@@ -955,6 +1127,7 @@ function BridgeEnumerateLegalActionsLoaded($root, $gameName) {
         'kind' => 'decision',
         'playerID' => $player,
         'decisionType' => $decision->Type,
+        'decisionParam' => strval($decision->Param ?? ''),
         'decisionTooltip' => BridgeDecisionTooltip($decision),
         'decisionTooltipRaw' => strval($decision->Tooltip ?? ''),
         'actions' => BridgeEnumerateDecisionActions($decision, $player),
@@ -980,17 +1153,10 @@ function BridgeEnumerateLegalActionsLoaded($root, $gameName) {
   if ($kind !== 'free-play-fsm') {
     $actingPlayer = $currentPlayer > 0 ? $currentPlayer : $turnPlayer;
   }
-  $fsmActions = BridgeEnumeratePlayableActions($actingPlayer);
+  $fsmActions = BridgeEnumeratePlayableActions($actingPlayer, $root);
   // Real end-turn pass uses the health-zone CustomInput widget path (mode 10001),
   // not decision mode 100/PASS.
-  $passAction = [
-    'playerID' => $actingPlayer,
-    'mode' => 10001,
-    'buttonInput' => '',
-    'cardID' => 'myHealth-0!CustomInput!PASS',
-    'chkInput' => [],
-    'inputText' => '',
-  ];
+  $passAction = BridgePassActionForRoot($root, $actingPlayer);
   $canPhasePass = ($phase === 'MAIN' && $actingPlayer === $turnPlayer);
   $actions = $fsmActions;
   if ($canPhasePass) {
@@ -1017,7 +1183,11 @@ function BridgeEnumerateLegalActionsLoaded($root, $gameName) {
 function BridgeApplyEngineAction($root, $gameName, $actionBase64) {
   $action = BridgeDecodeActionPayload($actionBase64);
   try {
+    EngineLoadRootRuntime($root);
+    $gameDir = BridgeEnsureDraftGame($root, $gameName);
+    BridgeHydrateDiskGamestateIntoMemory($root, strval($gameName), $gameDir);
     $result = EngineRunAction($action, $root, $gameName, ['updateCache' => false, 'disableRecording' => true]);
+    BridgeExportMemoryGamestateToDiskIfBacked($root, $gameName);
     $result['gamestateHash'] = RegressionCurrentGamestateHash($root, $gameName);
     return $result;
   } catch (Throwable $throwable) {
@@ -1097,8 +1267,8 @@ function BridgeSnapshotLoaded($root, $gameName, $view) {
   ];
 
   if ($view === 'summary') {
-    $myChampion = BridgeChampionSummary(1);
-    $theirChampion = BridgeChampionSummary(2);
+    $myChampion = BridgePrimaryAvatarSummary($root, 1);
+    $theirChampion = BridgePrimaryAvatarSummary($root, 2);
     $terminal = BridgeTerminalStateFromDQVariables();
     $payload['zones'] = [
       'myHandCount' => BridgeCountActiveZoneObjects('myHand'),
@@ -1111,6 +1281,14 @@ function BridgeSnapshotLoaded($root, $gameName, $view) {
       'theirMemoryCount' => BridgeCountActiveZoneObjects('theirMemory'),
       'myMaterialCount' => BridgeCountActiveZoneObjects('myMaterial'),
       'theirMaterialCount' => BridgeCountActiveZoneObjects('theirMaterial'),
+      'myGardenCount' => BridgeCountActiveZoneObjects('myGarden'),
+      'theirGardenCount' => BridgeCountActiveZoneObjects('theirGarden'),
+      'myAlleyCount' => BridgeCountActiveZoneObjects('myAlley'),
+      'theirAlleyCount' => BridgeCountActiveZoneObjects('theirAlley'),
+      'myGateCount' => BridgeCountActiveZoneObjects('myGate'),
+      'theirGateCount' => BridgeCountActiveZoneObjects('theirGate'),
+      'myIKZAreaCount' => BridgeCountActiveZoneObjects('myIKZArea'),
+      'theirIKZAreaCount' => BridgeCountActiveZoneObjects('theirIKZArea'),
     ];
     $payload['players'] = [
       'player1' => [
@@ -1171,6 +1349,53 @@ function BridgeChampionSummary($playerID) {
   ];
 }
 
+function BridgeAzukiLeaderSummary($playerID) {
+  $empty = [
+    'found' => false,
+    'mzID' => '',
+    'cardID' => '',
+    'baseLife' => 0,
+    'damage' => 0,
+    'remainingLife' => 0,
+  ];
+  if (!function_exists('GetGarden')) return $empty;
+
+  $zone = GetGarden($playerID);
+  if (!is_array($zone)) return $empty;
+  for ($i = 0; $i < count($zone); ++$i) {
+    $obj = $zone[$i];
+    if (!is_object($obj) || !empty($obj->removed)) continue;
+    $cardID = strval($obj->CardID ?? '');
+    if ($cardID === '') continue;
+    $isLeader = false;
+    if (function_exists('CardType')) {
+      $isLeader = strtoupper(strval(CardType($cardID))) === 'LEADER';
+    }
+    if (!$isLeader && function_exists('CardCategory')) {
+      $isLeader = strtoupper(strval(CardCategory($cardID))) === 'LEADER';
+    }
+    if (!$isLeader) continue;
+
+    $baseLife = function_exists('LeaderMaxHealth') ? intval(LeaderMaxHealth($playerID)) : intval(CardHealth($cardID));
+    if ($baseLife <= 0) $baseLife = 20;
+    $damage = intval($obj->Damage ?? 0);
+    return [
+      'found' => true,
+      'mzID' => 'p' . $playerID . 'Garden-' . $i,
+      'cardID' => $cardID,
+      'baseLife' => $baseLife,
+      'damage' => $damage,
+      'remainingLife' => function_exists('LeaderCurrentHealth') ? intval(LeaderCurrentHealth($playerID)) : max(0, $baseLife - $damage),
+    ];
+  }
+  return $empty;
+}
+
+function BridgePrimaryAvatarSummary($root, $playerID) {
+  if ($root === 'AzukiSim') return BridgeAzukiLeaderSummary($playerID);
+  return BridgeChampionSummary($playerID);
+}
+
 function BridgeTerminalStateFromDQVariables() {
   $raw = GetDecisionQueueVariables();
   $vars = json_decode(strval($raw), true);
@@ -1188,6 +1413,10 @@ function BridgeTerminalStateFromDQVariables() {
 }
 
 function BridgeLoadDeckForPlayer($root, $playerID, $deckText, &$summary) {
+  if ($root === 'AzukiSim') {
+    return BridgeLoadAzukiDeckForPlayer($playerID, $deckText, $summary);
+  }
+
   $deckImportPath = RegressionRepoRoot() . DIRECTORY_SEPARATOR . $root . DIRECTORY_SEPARATOR . 'Custom' . DIRECTORY_SEPARATOR . 'DeckImport.php';
   if (!is_file($deckImportPath)) {
     BridgeFail('Deck import helper not found for root.', ['root' => $root, 'path' => $deckImportPath]);
@@ -1237,6 +1466,128 @@ function BridgeLoadDeckForPlayer($root, $playerID, $deckText, &$summary) {
   return $playerSummary;
 }
 
+function BridgeLoadAzukiCreateGameHelpers() {
+  if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
+    define('AZUKISIM_CREATEGAME_LIBRARY_ONLY', true);
+  }
+  $createGamePath = RegressionRepoRoot() . DIRECTORY_SEPARATOR . 'AzukiSim' . DIRECTORY_SEPARATOR . 'CreateGame.php';
+  if (!is_file($createGamePath)) {
+    BridgeFail('AzukiSim CreateGame helper not found.', ['path' => $createGamePath]);
+  }
+  include_once $createGamePath;
+}
+
+function BridgeAzukiDeckTextParts($deckText) {
+  $trimmed = trim(strval($deckText));
+  $normalized = strtolower($trimmed);
+  $starterNames = ['raizan' => true, 'shao' => true, 'bobu' => true, 'zero' => true];
+
+  if ($trimmed === '') {
+    return ['preconstructed' => 'Raizan', 'deckLink' => ''];
+  }
+  if (isset($starterNames[$normalized])) {
+    return ['preconstructed' => ucfirst($normalized), 'deckLink' => ''];
+  }
+  if (preg_match('/^preconstructed\s*:\s*(raizan|shao|bobu|zero)\s*$/i', $trimmed, $matches)) {
+    return ['preconstructed' => ucfirst(strtolower($matches[1])), 'deckLink' => ''];
+  }
+  if (preg_match('/^starter\s*:\s*(raizan|shao|bobu|zero)\s*$/i', $trimmed, $matches)) {
+    return ['preconstructed' => ucfirst(strtolower($matches[1])), 'deckLink' => ''];
+  }
+  return ['preconstructed' => 'Raizan', 'deckLink' => $trimmed];
+}
+
+function BridgeLoadAzukiDeckForPlayer($playerID, $deckText, &$summary) {
+  BridgeLoadAzukiCreateGameHelpers();
+  if (!function_exists('LoadPlayer')) {
+    BridgeFail('AzukiSim LoadPlayer is not available.');
+  }
+
+  $parts = BridgeAzukiDeckTextParts($deckText);
+  try {
+    LoadPlayer($playerID, $parts['preconstructed'], $parts['deckLink']);
+  } catch (Throwable $throwable) {
+    return [
+      'success' => false,
+      'playerID' => $playerID,
+      'message' => $throwable->getMessage(),
+      'leader' => '',
+      'gate' => '',
+      'mainDeckCount' => 0,
+      'unresolved' => [],
+    ];
+  }
+
+  $garden = function_exists('GetGarden') ? GetGarden($playerID) : [];
+  $gate = function_exists('GetGate') ? GetGate($playerID) : [];
+  $deck = function_exists('GetDeck') ? GetDeck($playerID) : [];
+  $leader = '';
+  if (is_array($garden)) {
+    foreach ($garden as $obj) {
+      if (!is_object($obj) || !empty($obj->removed)) continue;
+      $cardID = strval($obj->CardID ?? '');
+      if ($cardID === '') continue;
+      if ((function_exists('CardType') && strtoupper(strval(CardType($cardID))) === 'LEADER')
+        || (function_exists('CardCategory') && strtoupper(strval(CardCategory($cardID))) === 'LEADER')) {
+        $leader = $cardID;
+        break;
+      }
+    }
+  }
+  $gateID = '';
+  if (is_array($gate)) {
+    foreach ($gate as $obj) {
+      if (!is_object($obj) || !empty($obj->removed)) continue;
+      $gateID = strval($obj->CardID ?? '');
+      if ($gateID !== '') break;
+    }
+  }
+
+  $playerSummary = [
+    'success' => true,
+    'playerID' => $playerID,
+    'message' => '',
+    'preconstructed' => $parts['preconstructed'],
+    'deckLink' => $parts['deckLink'],
+    'leader' => $leader,
+    'gate' => $gateID,
+    'mainDeckCount' => is_array($deck) ? count($deck) : 0,
+    'unresolved' => [],
+  ];
+  $summary[] = $playerSummary;
+  return $playerSummary;
+}
+
+function BridgeRunRootSelfplayStartup($root) {
+  if ($root === 'AzukiSim') {
+    SetFlashMessage('');
+    $currentPhase = &GetCurrentPhase();
+    $currentPhase = 'SOT';
+    SetPhaseParameters("-");
+
+    for ($p = 1; $p <= 2; ++$p) {
+      DrawOpeningHand($p);
+    }
+    QueueOpeningMulligans();
+
+    GainIKZ(1, 1);
+    GainIKZ(2, 1);
+    DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '1');
+
+    AdvanceAndExecute("PASS");
+    AutoAdvanceAndExecute();
+    return;
+  }
+
+  $currentPhase = &GetCurrentPhase();
+  $currentPhase = 'WU';
+  SetPhaseParameters("-");
+  QueuePregameStartingChampionSetup();
+  AdvanceAndExecute("PASS");
+  AutoAdvanceAndExecute();
+  SaveUndoVersion(GetFirstPlayer(), "Pregame Starting Champion");
+}
+
 function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckTextP2, $memoryOnly = 'auto') {
   $gameName = trim(strval($gameName));
   if ($gameName === '') BridgeFail('gameName is required for start-selfplay-game.');
@@ -1247,7 +1598,13 @@ function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckText
   if (trim($deckTextP2) === '') $deckTextP2 = $deckTextP1;
 
   EngineLoadRootRuntime($root);
+  if ($root === 'AzukiSim') {
+    BridgeLoadAzukiCreateGameHelpers();
+  }
   $GLOBALS['gameName'] = $gameName;
+  if (function_exists('RegressionClearGamestateMemory')) {
+    RegressionClearGamestateMemory($gameName);
+  }
 
   $memoryOnlyRaw = strtolower(trim(strval($memoryOnly)));
   if ($memoryOnlyRaw === '' || $memoryOnlyRaw === 'auto') {
@@ -1260,6 +1617,14 @@ function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckText
     $gameDir = BridgeDraftGameDir($root, $gameName);
     RegressionEnsureDir($gameDir);
   }
+  if (!isset($GLOBALS['bridgeMemoryOnlyGames']) || !is_array($GLOBALS['bridgeMemoryOnlyGames'])) {
+    $GLOBALS['bridgeMemoryOnlyGames'] = [];
+  }
+  if ($memoryOnlyResolved) {
+    $GLOBALS['bridgeMemoryOnlyGames'][$gameName] = true;
+  } else {
+    unset($GLOBALS['bridgeMemoryOnlyGames'][$gameName]);
+  }
 
   InitializeGamestate();
   SetDeterministicRandomCounter(intval($seed));
@@ -1268,28 +1633,45 @@ function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckText
   SetDeterministicRandomCounter(intval($seed));
 
   $deckSummary = [];
-  $p1Result = BridgeLoadDeckForPlayer($root, 1, $deckTextP1, $deckSummary);
-  if (empty($p1Result['success'])) {
-    BridgeOut([
-      'success' => false,
-      'message' => 'Player 1 deck parse failed.',
-      'playerResult' => $p1Result,
-      'deckParseSummary' => $deckSummary,
-      'gameName' => $gameName,
-      'seed' => intval($seed),
-    ]);
-  }
+  $previousDeterministicShuffle = $GLOBALS['bridgeDeterministicDeckShuffle'] ?? null;
+  $previousDeterministicShuffleSeed = $GLOBALS['bridgeDeterministicDeckShuffleSeed'] ?? null;
+  $GLOBALS['bridgeDeterministicDeckShuffle'] = true;
+  $GLOBALS['bridgeDeterministicDeckShuffleSeed'] = intval($seed);
+  try {
+    $p1Result = BridgeLoadDeckForPlayer($root, 1, $deckTextP1, $deckSummary);
+    if (empty($p1Result['success'])) {
+      BridgeOut([
+        'success' => false,
+        'message' => 'Player 1 deck parse failed.',
+        'playerResult' => $p1Result,
+        'deckParseSummary' => $deckSummary,
+        'gameName' => $gameName,
+        'seed' => intval($seed),
+      ]);
+    }
 
-  $p2Result = BridgeLoadDeckForPlayer($root, 2, $deckTextP2, $deckSummary);
-  if (empty($p2Result['success'])) {
-    BridgeOut([
-      'success' => false,
-      'message' => 'Player 2 deck parse failed.',
-      'playerResult' => $p2Result,
-      'deckParseSummary' => $deckSummary,
-      'gameName' => $gameName,
-      'seed' => intval($seed),
-    ]);
+    $p2Result = BridgeLoadDeckForPlayer($root, 2, $deckTextP2, $deckSummary);
+    if (empty($p2Result['success'])) {
+      BridgeOut([
+        'success' => false,
+        'message' => 'Player 2 deck parse failed.',
+        'playerResult' => $p2Result,
+        'deckParseSummary' => $deckSummary,
+        'gameName' => $gameName,
+        'seed' => intval($seed),
+      ]);
+    }
+  } finally {
+    if ($previousDeterministicShuffle === null) {
+      unset($GLOBALS['bridgeDeterministicDeckShuffle']);
+    } else {
+      $GLOBALS['bridgeDeterministicDeckShuffle'] = $previousDeterministicShuffle;
+    }
+    if ($previousDeterministicShuffleSeed === null) {
+      unset($GLOBALS['bridgeDeterministicDeckShuffleSeed']);
+    } else {
+      $GLOBALS['bridgeDeterministicDeckShuffleSeed'] = $previousDeterministicShuffleSeed;
+    }
   }
 
   $firstPlayer = &GetFirstPlayer();
@@ -1299,13 +1681,7 @@ function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckText
   $currentTurn = &GetTurnNumber();
   $currentTurn = 1;
 
-  $currentPhase = &GetCurrentPhase();
-  $currentPhase = 'WU';
-  SetPhaseParameters("-");
-  QueuePregameStartingChampionSetup();
-  AdvanceAndExecute("PASS");
-  AutoAdvanceAndExecute();
-  SaveUndoVersion($firstPlayer, "Pregame Starting Champion");
+  BridgeRunRootSelfplayStartup($root);
 
   WriteGamestate('./' . $root . '/');
   $legalActions = BridgeEnumerateLegalActions($root, $gameName);
@@ -1331,7 +1707,6 @@ function BridgeDecodeDeckTextArg($value) {
   return $decoded;
 }
 
-$args = BridgeParseArgs($argv);
 function BridgeDispatchCommand($command, $root, $args) {
   if ($command === '') BridgeFail('Missing --command argument.');
   if ($root === '') BridgeFail('Missing --root argument.');
@@ -1379,6 +1754,11 @@ function BridgeDispatchCommand($command, $root, $args) {
   }
 }
 
+if (defined('TCGENGINE_BRIDGE_LIBRARY_ONLY') && TCGENGINE_BRIDGE_LIBRARY_ONLY) {
+  return;
+}
+
+$args = BridgeParseArgs($argv);
 $daemon = strval($args['daemon'] ?? '') === '1';
 if ($daemon) {
   $GLOBALS['bridgeDaemonMode'] = true;

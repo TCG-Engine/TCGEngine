@@ -75,7 +75,7 @@ function RegressionFormatSnapshotDiff($expectedText, $actualText, $contextLines 
 }
 
 function RegressionNormalizeAction($action) {
-  return [
+  $normalized = [
     'playerID' => intval($action['playerID'] ?? 0),
     'mode' => intval($action['mode'] ?? 0),
     'buttonInput' => strval($action['buttonInput'] ?? ''),
@@ -83,6 +83,13 @@ function RegressionNormalizeAction($action) {
     'chkInput' => array_values(array_map('strval', $action['chkInput'] ?? [])),
     'inputText' => strval($action['inputText'] ?? ''),
   ];
+  if (array_key_exists('resolvedCardID', $action)) {
+    $normalized['resolvedCardID'] = strval($action['resolvedCardID'] ?? '');
+  }
+  if (isset($action['resolvedCardIDs']) && is_array($action['resolvedCardIDs'])) {
+    $normalized['resolvedCardIDs'] = array_values(array_map('strval', $action['resolvedCardIDs']));
+  }
+  return $normalized;
 }
 
 function RegressionTestsRoot($rootName) {

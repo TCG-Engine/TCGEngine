@@ -16,55 +16,57 @@ include_once __DIR__ . '/../Database/ConnectionManager.php';
 include_once __DIR__ . '/../AccountFiles/AccountDatabaseAPI.php';
 include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 
-$ttl = 600;
+if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
+    $ttl = 600;
 
-// ASSUMES: $lobby
-$gameName = GetGameCounter(__DIR__ . '/Games');
-InitializeGamestate();
-WriteGamestate(__DIR__ . "/");
-ParseGamestate(__DIR__ . "/");
+    // ASSUMES: $lobby
+    $gameName = GetGameCounter(__DIR__ . '/Games');
+    InitializeGamestate();
+    WriteGamestate(__DIR__ . "/");
+    ParseGamestate(__DIR__ . "/");
 
-$playerCounter = 1;
-foreach ($lobby->players as $player) {
-    $player->setGamePlayerID($playerCounter);
-    LoadPlayer($playerCounter, $player->getPreconstructedDeck(), $player->getDeckLink());
-    ++$playerCounter;
+    $playerCounter = 1;
+    foreach ($lobby->players as $player) {
+        $player->setGamePlayerID($playerCounter);
+        LoadPlayer($playerCounter, $player->getPreconstructedDeck(), $player->getDeckLink());
+        ++$playerCounter;
+    }
+
+    $firstPlayer = &GetFirstPlayer();
+    $firstPlayer = 1;
+    $turnPlayer = &GetTurnPlayer();
+    $turnPlayer = $firstPlayer;
+    $currentTurn = &GetTurnNumber();
+    $currentTurn = 1;
+
+    SetFlashMessage('');
+    $currentPhase = &GetCurrentPhase();
+    $currentPhase = 'SOT';
+    SetPhaseParameters("-");
+
+    // Draw 7 cards for each player at game start
+    for ($p = 1; $p <= 2; ++$p) {
+        DrawOpeningHand($p);
+    }
+    QueueOpeningMulligans();
+
+    // Set up starting resources
+    // Player 1 gets 1 IKZ (player 2 draws on their first turn)
+    GainIKZ(1, 1);
+
+    // Player 2 gets 1 IKZ and a pending one-use token that unlocks on their first turn
+    GainIKZ(2, 1);
+    DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '1');
+
+    // Advance to Main phase after both opening mulligan decisions resolve.
+    AdvanceAndExecute("PASS");
+    AutoAdvanceAndExecute();
+
+    WriteGamestate(__DIR__ . "/");
+
+    $lobby->gameName = $gameName;
+    SimGameWriteAuthKeysFromLobby('AzukiSim', $gameName, $lobby);
 }
-
-$firstPlayer = &GetFirstPlayer();
-$firstPlayer = 1;
-$turnPlayer = &GetTurnPlayer();
-$turnPlayer = $firstPlayer;
-$currentTurn = &GetTurnNumber();
-$currentTurn = 1;
-
-SetFlashMessage('');
-$currentPhase = &GetCurrentPhase();
-$currentPhase = 'SOT';
-SetPhaseParameters("-");
-
-// Draw 7 cards for each player at game start
-for ($p = 1; $p <= 2; ++$p) {
-    DrawOpeningHand($p);
-}
-QueueOpeningMulligans();
-
-// Set up starting resources
-// Player 1 gets 1 IKZ (player 2 draws on their first turn)
-GainIKZ(1, 1);
-
-// Player 2 gets 1 IKZ and a pending one-use token that unlocks on their first turn
-GainIKZ(2, 1);
-DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '1');
-
-// Advance to Main phase after both opening mulligan decisions resolve.
-AdvanceAndExecute("PASS");
-AutoAdvanceAndExecute();
-
-WriteGamestate(__DIR__ . "/");
-
-$lobby->gameName = $gameName;
-SimGameWriteAuthKeysFromLobby('AzukiSim', $gameName, $lobby);
 
 function GetPreconstructedDeckConfig($deckName) {
     $normalized = is_string($deckName) ? trim(strtolower($deckName)) : '';
@@ -215,12 +217,35 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '') {
         $cardID = $deckList[$i];
         array_push($deck, new Deck($cardID));
     }
-    EngineShuffle($deck, true);
+    if(!empty($GLOBALS['bridgeDeterministicDeckShuffle'])) {
+        AzukiDeterministicStartingDeckShuffle($deck, $playerID);
+    } else {
+        EngineShuffle($deck, true);
+    }
 
     // Leader health is tracked via the leader card's Damage in Garden.
     // Keep LeaderHealth zone as a pass-button display value.
     $leaderHealth = &GetLeaderHealth($playerID);
     $leaderHealth = 'PASS';
+}
+
+function AzukiDeterministicStartingDeckShuffle(&$deck, $playerID) {
+    if(!is_array($deck)) return;
+    $seed = intval($GLOBALS['bridgeDeterministicDeckShuffleSeed'] ?? GetDeterministicRandomCounter());
+    for($i = count($deck) - 1; $i > 0; --$i) {
+        $ids = [];
+        for($j = 0; $j <= $i; ++$j) {
+            $ids[] = is_object($deck[$j] ?? null) ? strval($deck[$j]->CardID ?? '') : '';
+        }
+        $bytes = hash('sha256', $seed . '|' . intval($playerID) . '|' . $i . '|' . implode(',', $ids), true);
+        $value = unpack('N', substr($bytes, 0, 4))[1];
+        $swapIndex = $value % ($i + 1);
+        if($swapIndex === $i) continue;
+
+        $tmp = $deck[$i];
+        $deck[$i] = $deck[$swapIndex];
+        $deck[$swapIndex] = $tmp;
+    }
 }
 
 function NormalizeStartingGardenCard(&$card, $playerID) {

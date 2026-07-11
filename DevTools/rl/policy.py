@@ -82,5 +82,20 @@ class TabularMaskedCategoricalPolicy:
             temperature=float(payload["temperature"]),
             learning_rate=float(payload["learning_rate"]),
         )
-        obj.logits = {k: [float(x) for x in v] for k, v in payload.get("logits", {}).items()}
+        raw_logits = payload.get("logits", {})
+        if payload.get("logits_format") == "sparse_index_map":
+            obj.logits = {}
+            for state_key, sparse_values in raw_logits.items():
+                dense = [0.0] * obj.max_actions
+                if isinstance(sparse_values, dict):
+                    for idx, value in sparse_values.items():
+                        action_idx = int(idx)
+                        if 0 <= action_idx < obj.max_actions:
+                            dense[action_idx] = float(value)
+                elif isinstance(sparse_values, list):
+                    for action_idx, value in enumerate(sparse_values[: obj.max_actions]):
+                        dense[action_idx] = float(value)
+                obj.logits[state_key] = dense
+        else:
+            obj.logits = {k: [float(x) for x in v] for k, v in raw_logits.items()}
         return obj
