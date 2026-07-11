@@ -923,6 +923,14 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                 AddTrigger($activePlayer, 'SEC_209', 'SEC_209', $attackerMzID);
             }
             break;
+        case 'SHD_122': // Arquitens Assault Cruiser — attacks & defeats a NON-LEADER unit → put the defeated
+                        // unit into play as a resource under YOUR control. Payload (CardID~owner) rides the
+                        // mzID slot (FlushTriggerBag drops extraParams); resolved from the owner's discard.
+            if (!empty($combatCtx['defenderDefeated']) && empty($combatCtx['defenderIsLeader'])) {
+                AddTrigger($activePlayer, 'SHD_122', 'SHD_122',
+                    ($combatCtx['defenderCardID'] ?? '') . '~' . intval($combatCtx['defenderOwner'] ?? 0));
+            }
+            break;
         case 'SEC_088': // First Light — "attacks and defeats a unit: may draw a card."
             if (!empty($combatCtx['defenderDefeated'])) {
                 AddTrigger($activePlayer, 'SEC_088', 'SEC_088', $attackerMzID);
@@ -1215,7 +1223,8 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // first BeginSWUAttack. It is fired (and the var consumed) by the SWU_TRIGGER_RESUME stack-empty
     // handler, AFTER this attack's full trigger resolution. If no trigger flush queued a resume,
     // queue a bare one so the chained attack still fires and SWUAfterAction stays deferred until then.
-    if ($flushed === 0 && (GetSWUVar('SWU_CHAINED_ATTACK', '') !== '' || GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== '')) {
+    if ($flushed === 0 && (GetSWUVar('SWU_CHAINED_ATTACK', '') !== '' || GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== ''
+            || GetSWUVar('SWU_SHD145_LOOP', '') !== '')) {   // SHD_145 Headhunting count-capped loop
         _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
     }
 }
@@ -1294,6 +1303,12 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // — a space defender is unaffected (the -0 HP is a no-op).
     if (($attacker->CardID ?? '') === 'SOR_212' && strpos($targetMzID, 'GroundArena') !== false) {
         AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
+    }
+    // SHD_230 Swoop Down — the granted attacker attacking a ground unit: +2/+0 self, defender -2/-0.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('SHD_230', $attacker->TurnEffects, true)
+        && strpos($targetMzID, 'GroundArena') !== false) {
+        AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
+        SWUAddAttackPowerBonus($attackerMzID, 2);
     }
     // ASH_046 Scion Shuttle (Support) — "While this unit is attacking, the defending unit gets -1/-1."
     // Apply a real attack-duration -1/-1 STAT_DEBUFF to the DEFENDER (covers both its counter-power via
@@ -1811,6 +1826,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if (!empty($combatCtx['defenderDefeated'])) SetSWUVar('SWU_LAST_DEFENDER_DEFEATED', '1'); // ASH_033/036/223 OnAttackEnd condition (own + Support-lent)
         $combatCtx['excess'] = $combatCtx['defenderDefeated'] ? max(0, -$defenderHP) : 0;
         $combatCtx['defenderCardID'] = $target->CardID ?? ''; // for "equal to the defeated unit's cost" (LOF_086)
+        $combatCtx['defenderOwner']  = intval($target->Owner ?? 0); // SHD_122 — put the defeated unit into play as a resource under your control
 
         // Keep $playerID = $player (attacker's perspective) throughout so that
         // mzIDs like "myGroundArena-0" / "theirGroundArena-0" resolve correctly.
@@ -2034,6 +2050,16 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
     // ALSO targets enemy GROUND units (cross-arena). Combat resolution is mzID-driven, so adding the
     // ground mzIDs here is all that's needed. (Cross-arena Sentinel/Sabine is an edge — not handled.)
     if ($attackerObj !== null && ($attackerObj->CardID ?? '') === 'SOR_212' && $arenaName === 'SpaceArena') {
+        $groundArena = GetZone('theirGroundArena');
+        for ($i = 0; $i < count($groundArena); $i++) {
+            $u = $groundArena[$i];
+            if ($u === null || !empty($u->removed)) continue;
+            $oppUnits[] = "theirGroundArena-{$i}";
+        }
+    }
+    // SHD_230 Swoop Down — a granted space unit "can attack ground units for this attack" (SHD_230 marker).
+    if ($attackerObj !== null && $arenaName === 'SpaceArena'
+        && is_array($attackerObj->TurnEffects ?? null) && in_array('SHD_230', $attackerObj->TurnEffects, true)) {
         $groundArena = GetZone('theirGroundArena');
         for ($i = 0; $i < count($groundArena); $i++) {
             $u = $groundArena[$i];

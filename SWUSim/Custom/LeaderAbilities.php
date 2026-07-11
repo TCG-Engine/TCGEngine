@@ -3182,6 +3182,38 @@ $customDQHandlers["SHD_011#cost"] = function($player, $parts, $lastDecision) {
     SWUQueueAfterAction(intval($player));
 };
 
+// ── SHD_010 Bossk ──────────────────────────────────────────────────────────────
+// Front Action [Exhaust]: Deal 1 damage to a unit with a Bounty. You may give it +1/+0 for this phase.
+// Deployed: "When you collect a bounty: you may collect that bounty again. Once each round." (reactive)
+$leaderAbilities["SHD_010"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    $targets = [];
+    foreach (_SWUAllUnits() as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed) && HasKeyword_Bounty($o)) $targets[] = $mz;
+    }
+    if (empty($targets)) { SWUAfterAction($player); return; }   // no unit with a Bounty → action fizzles
+    SWUQueueChooseTarget($player, $targets, "Deal_1_to_a_unit_with_a_Bounty", "SHD_010#front");
+    SWUQueueAfterAction($player);
+};
+$customDQHandlers["SHD_010#front"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    $o = GetZoneObject($lastDecision);
+    if ($o === null || !empty($o->removed)) return;
+    $uid = intval($o->UniqueID ?? 0);
+    SWUDealDamageToUnit($lastDecision, 1, intval($player));
+    if (SWUFindMzByUID($uid) === null) return;                 // defeated by the 1 → no unit left to buff
+    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip:"Give_it_+1/+0_for_this_phase?");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_010#buff|{$uid}", 1);
+};
+$customDQHandlers["SHD_010#buff"] = function($player, $parts, $lastDecision) {
+    if (($lastDecision ?? '') !== 'YES') return;
+    global $playerID; $playerID = intval($player);
+    $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
+    if ($mz !== null) SWUApplyPhaseBuff($mz, 1, 0, 'SHD_010');   // +1/+0 for this phase
+};
+
 // ── SHD_009 Hunter ─────────────────────────────────────────────────────────────
 // Front Action [1 resource, Exhaust]: Reveal a resource you control. If it shares a name with a friendly
 // unique unit, return the resource to its owner's hand and put the top card of your deck into play as a

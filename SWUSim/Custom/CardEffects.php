@@ -761,6 +761,19 @@ function OnPlayEvent(int $player, string $cardID): void {
             return;
         }
 
+        case 'SHD_194': { // Triple Dark Raid — "Search the top 7 cards of your deck for a Vehicle and play it.
+                          // It costs 5 resources less and enters play ready. Return it to its owner's hand at
+                          // the end of the phase." Search (up to 1 Vehicle); SHD_194#0 free-plays via a nested
+                          // ActivateCard(discount 5) with the enters-ready + return-at-regroup grants.
+            global $playerID;
+            $playerID = intval($player);
+            $deckSize = count(GetDeck(intval($player)));
+            if ($deckSize === 0) return;
+            _topDeckSearchBegin(intval($player), min(7, $deckSize),
+                fn($cid) => HasTrait($cid, 'Vehicle'), "count:1", "SHD_194#0");
+            return;
+        }
+
         case 'SHD_205': { // Let the Wookiee Win — "An opponent chooses one: [You ready up to 6 resources] OR
                           // [You ready a friendly unit. If it's a Wookiee, attack with it. It gets +2/+0]."
             global $playerID;
@@ -1317,6 +1330,27 @@ function OnPlayEvent(int $player, string $cardID): void {
             global $playerID; $playerID = intval($player);
             DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Ground&Space", 1, tooltip:"Choose_an_arena");
             DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_145#0", 1);
+            return;
+        }
+
+        case 'SHD_230': { // Swoop Down — "Attack with a space unit. It gains Saboteur and can attack ground
+                          // units for this attack. If it attacks a ground unit, it gets +2/+0 and the
+                          // defender gets -2/-0 for this attack." Grant the SHD_230 marker (Saboteur +
+                          // cross-arena + conditional buff/debuff) to the chosen space unit, then attack.
+            global $playerID; $playerID = intval($player);
+            $units = array_values(array_filter(ZoneSearch('mySpaceArena', AnyUnitFilter),
+                fn($mz) => ($o = GetZoneObject($mz)) !== null && empty($o->removed) && intval($o->Status) === 1));
+            if (empty($units)) return;
+            SWUQueueChooseTarget(intval($player), $units, 'Attack_with_a_space_unit', 'SHD_230#0');
+            return;
+        }
+
+        case 'SHD_145': { // Headhunting — "Attack with up to 3 units (one at a time). They can't attack
+                          // bases for these attacks. Each Bounty Hunter that attacks this way gets +2/+0
+                          // for its attack." Count-capped attack loop (SWU_SHD145_LOOP); see _SWUShd145Offer.
+            global $playerID; $playerID = intval($player);
+            SetSWUVar('SWU_SHD145_LOOP', '3');   // up to 3 attacks, no attackers excluded yet (comma-CSV)
+            _SWUShd145Offer(intval($player));
             return;
         }
 
