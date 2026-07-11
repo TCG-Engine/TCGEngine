@@ -5,8 +5,10 @@
    just this one script — no components.css dependency. */
 (function () {
   var SD_CSS =
-    ".sd-overlay{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(var(--backdrop-blur,3px));-webkit-backdrop-filter:blur(var(--backdrop-blur,3px));}"
-  + ".sd-modal{width:min(92vw,420px);background:var(--surface-raised,#2b2f36);color:var(--text,#fff);border:1px solid var(--border,#454545);border-radius:var(--radius,5px);padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.5);font-family:var(--font-body,inherit);}"
+    "@keyframes sdOverlayIn{from{opacity:0}to{opacity:1}}"
+  + "@keyframes sdModalIn{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}"
+  + ".sd-overlay{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(var(--backdrop-blur,3px));-webkit-backdrop-filter:blur(var(--backdrop-blur,3px));animation:sdOverlayIn .16s ease-out;}"
+  + ".sd-modal{width:min(92vw,420px);background:var(--surface-raised,#2b2f36);color:var(--text,#fff);border:1px solid var(--border,#454545);border-radius:var(--radius,5px);padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.5);font-family:var(--font-body,inherit);transform-origin:center;animation:sdModalIn .18s cubic-bezier(.2,.8,.2,1);}"
   + ".sd-title{margin:0 0 12px;font-family:var(--font-display,inherit);text-transform:uppercase;letter-spacing:var(--tracking-caps,.06em);font-size:18px;color:var(--text,#fff);}"
   + ".sd-message{margin:0 0 18px;color:var(--text-muted,#aaa);line-height:1.45;font-size:14px;}"
   + ".sd-input{width:100%;box-sizing:border-box;padding:10px 12px;font-size:14px;margin:0 0 4px;background:var(--surface-sunken,#394452);color:var(--text,#fff);border:var(--border-width,1px) solid var(--border,#454545);border-radius:var(--radius,5px);}"

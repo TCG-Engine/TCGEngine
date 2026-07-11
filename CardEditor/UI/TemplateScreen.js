@@ -35,6 +35,7 @@ class TemplateScreen {
                                     <span>${PreviewRenderer.escape(item.slug)}</span>
                                 </button>
                                 <button type="button" class="icon-button duplicate-template-button" title="Duplicate template" aria-label="Duplicate ${PreviewRenderer.escape(item.name)}" onclick="app.screens.templates.duplicateTemplate(${item.id})" ${canEdit ? '' : 'disabled'}>⧉</button>
+                                <button type="button" class="icon-button delete-template-button" title="Delete template" aria-label="Delete ${PreviewRenderer.escape(item.name)}" onclick="app.screens.templates.deleteTemplate(${item.id})" ${canEdit ? '' : 'disabled'}>x</button>
                             </div>
                         `).join('') : '<div class="empty-state">No templates yet.</div>'}
                     </div>
@@ -221,6 +222,37 @@ class TemplateScreen {
             await this.app.refreshTemplates();
             await this.app.preloadTemplateDetails();
             this.app.toast('Template duplicated');
+            this.render();
+        } catch (error) {
+            this.app.toast(error.message, 'error');
+        }
+    }
+
+    async deleteTemplate(templateId = null) {
+        const targetId = Number(templateId || this.app.state.activeTemplateId || 0);
+        if (!targetId || !this.app.activeGame()?.can_edit) return;
+        const template = (this.app.state.templates || []).find(item => Number(item.id) === targetId)
+            || (Number(this.app.state.activeTemplateDetail?.id) === targetId ? this.app.state.activeTemplateDetail : null);
+        const name = template?.name || 'this template';
+        const ok = await StyledConfirm(`Delete "${name}"? This removes the template layout and fields. Templates used by cards are protected.`, {
+            danger: true,
+            title: 'Delete template',
+            confirmLabel: 'Delete'
+        });
+        if (!ok) return;
+        try {
+            await this.app.autosave.flushAll();
+            await ApiClient.deleteTemplate(targetId);
+            delete this.app.state.templateDetails[targetId];
+            if (Number(this.app.state.activeTemplateId) === targetId) {
+                this.app.state.activeTemplateId = null;
+                this.app.state.activeTemplateDetail = null;
+                this.app.templateCanvas.selectedIndex = -1;
+                this.expandedFieldKeys.clear();
+            }
+            await this.app.refreshTemplates();
+            await this.app.preloadTemplateDetails();
+            this.app.toast('Template deleted');
             this.render();
         } catch (error) {
             this.app.toast(error.message, 'error');

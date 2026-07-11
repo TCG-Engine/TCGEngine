@@ -195,7 +195,7 @@
         .list.tight { gap: 4px; }
         .template-list-row {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) 34px;
+            grid-template-columns: minmax(0, 1fr) 34px 34px;
             gap: 6px;
             align-items: stretch;
         }
@@ -729,6 +729,22 @@
             min-height: 34px;
             font-size: 17px;
             line-height: 1;
+        }
+        .delete-template-button {
+            align-self: center;
+            width: 34px;
+            min-height: 34px;
+            font-size: 16px;
+            line-height: 1;
+            color: #ffdede;
+            border-color: #6a3636;
+            background: #3a2527;
+        }
+        .delete-template-button:hover:not(:disabled) {
+            color: #ffffff;
+            border-color: #b65a5a;
+            background: #713536;
+            box-shadow: 0 0 0 2px rgba(182, 90, 90, 0.18);
         }
         .modal-switch {
             display: flex;

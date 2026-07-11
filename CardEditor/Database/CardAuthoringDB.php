@@ -813,6 +813,30 @@ class CardAuthoringDB {
         }
     }
 
+    public function deleteTemplate($id) {
+        $template = $this->getTemplate($id);
+        $this->assertCanEditGame((int)$template['game_id']);
+        $cardCount = $this->one("SELECT COUNT(*) AS count FROM ce_cards WHERE template_id = ?", "i", [(int)$id]);
+        if ((int)($cardCount['count'] ?? 0) > 0) {
+            throw new Exception("Template is used by cards and cannot be deleted");
+        }
+        mysqli_query($this->conn, "START TRANSACTION");
+        try {
+            $fields = $this->all("SELECT id FROM ce_template_fields WHERE template_id = ?", "i", [(int)$id]);
+            foreach ($fields as $field) {
+                $this->execute("DELETE FROM ce_card_field_values WHERE field_id = ?", "i", [(int)$field['id']]);
+            }
+            $this->execute("DELETE FROM ce_template_layout_elements WHERE template_id = ?", "i", [(int)$id]);
+            $this->execute("DELETE FROM ce_template_fields WHERE template_id = ?", "i", [(int)$id]);
+            $this->execute("DELETE FROM ce_templates WHERE id = ?", "i", [(int)$id]);
+            mysqli_query($this->conn, "COMMIT");
+            return ['deleted' => true, 'id' => (int)$id];
+        } catch (Exception $e) {
+            mysqli_query($this->conn, "ROLLBACK");
+            throw $e;
+        }
+    }
+
     public function listTemplates($gameId) {
         $this->assertCanViewGame($gameId);
         $rows = $this->all("SELECT * FROM ce_templates WHERE game_id = ? ORDER BY name ASC", "i", [(int)$gameId]);
