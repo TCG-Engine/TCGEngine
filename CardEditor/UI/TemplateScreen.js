@@ -29,10 +29,13 @@ class TemplateScreen {
                     </div>
                     <div class="list tight">
                         ${templates.length ? templates.map(item => `
-                            <button class="list-row ${this.app.state.activeTemplateId === item.id ? 'active' : ''}" onclick="app.screens.templates.selectTemplate(${item.id})">
-                                <strong>${PreviewRenderer.escape(item.name)}</strong>
-                                <span>${PreviewRenderer.escape(item.slug)}</span>
-                            </button>
+                            <div class="template-list-row">
+                                <button class="list-row ${this.app.state.activeTemplateId === item.id ? 'active' : ''}" onclick="app.screens.templates.selectTemplate(${item.id})">
+                                    <strong>${PreviewRenderer.escape(item.name)}</strong>
+                                    <span>${PreviewRenderer.escape(item.slug)}</span>
+                                </button>
+                                <button type="button" class="icon-button duplicate-template-button" title="Duplicate template" aria-label="Duplicate ${PreviewRenderer.escape(item.name)}" onclick="app.screens.templates.duplicateTemplate(${item.id})" ${canEdit ? '' : 'disabled'}>⧉</button>
+                            </div>
                         `).join('') : '<div class="empty-state">No templates yet.</div>'}
                     </div>
                     ${this.templateForm(template)}
@@ -171,20 +174,66 @@ class TemplateScreen {
         this.render();
     }
 
+    collectTemplatePayload() {
+        const form = document.getElementById('templateForm');
+        if (!form) return null;
+        const payload = Object.fromEntries(new FormData(form).entries());
+        if (!payload.name.trim()) return null;
+        payload.canvasWidth = Number(payload.canvasWidth || 750);
+        payload.canvasHeight = Number(payload.canvasHeight || 1050);
+        payload.safeAreaPadding = Number(payload.safeAreaPadding || 40);
+        return payload;
+    }
+
+    async saveCurrentTemplateChanges() {
+        const template = this.app.state.activeTemplateDetail;
+        if (!template?.id) return;
+        const pendingLayout = (template.layout || []).map(element => ({ ...element }));
+        const templatePayload = this.collectTemplatePayload();
+        if (templatePayload) {
+            this.app.state.activeTemplateDetail = await ApiClient.updateTemplate(templatePayload);
+            this.app.state.templateDetails[template.id] = this.app.state.activeTemplateDetail;
+        }
+        const fields = this.collectFields();
+        if (fields) {
+            this.app.state.activeTemplateDetail = await ApiClient.saveTemplateFields(template.id, fields);
+            this.app.state.templateDetails[template.id] = this.app.state.activeTemplateDetail;
+        }
+        this.app.state.activeTemplateDetail = await ApiClient.saveTemplateLayout(template.id, pendingLayout);
+        this.app.state.templateDetails[template.id] = this.app.state.activeTemplateDetail;
+        await this.app.refreshTemplates();
+    }
+
+    async duplicateTemplate(templateId = null) {
+        const targetId = Number(templateId || this.app.state.activeTemplateId || 0);
+        if (!targetId || !this.app.activeGame()?.can_edit) return;
+        try {
+            if (Number(this.app.state.activeTemplateId) === targetId) {
+                await this.saveCurrentTemplateChanges();
+            } else {
+                await this.app.autosave.flushAll();
+            }
+            const duplicate = await ApiClient.duplicateTemplate(targetId);
+            this.app.state.activeTemplateId = duplicate.id;
+            this.app.state.activeTemplateDetail = duplicate;
+            this.app.templateCanvas.selectedIndex = -1;
+            this.expandedFieldKeys.clear();
+            await this.app.refreshTemplates();
+            await this.app.preloadTemplateDetails();
+            this.app.toast('Template duplicated');
+            this.render();
+        } catch (error) {
+            this.app.toast(error.message, 'error');
+        }
+    }
+
     bindTemplateAutosave() {
         const form = document.getElementById('templateForm');
         if (!form) return;
         this.app.autosave.bindForm(
             form,
             'template-form',
-            () => {
-                const payload = Object.fromEntries(new FormData(form).entries());
-                if (!payload.name.trim()) return null;
-                payload.canvasWidth = Number(payload.canvasWidth || 750);
-                payload.canvasHeight = Number(payload.canvasHeight || 1050);
-                payload.safeAreaPadding = Number(payload.safeAreaPadding || 40);
-                return payload;
-            },
+            () => this.collectTemplatePayload(),
             async payload => {
                 const template = payload.id ? await ApiClient.updateTemplate(payload) : await ApiClient.createTemplate(payload);
                 form.elements.id.value = template.id;

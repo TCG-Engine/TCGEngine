@@ -46,6 +46,7 @@ const ApiClient = {
     getTemplate(id) { return this.get('GetTemplate.php', { id }); },
     createTemplate(payload) { return this.post('CreateTemplate.php', payload); },
     updateTemplate(payload) { return this.post('UpdateTemplate.php', payload); },
+    duplicateTemplate(id, payload = {}) { return this.post('DuplicateTemplate.php', { id, ...payload }); },
     saveTemplateFields(templateId, fields) { return this.post('SaveTemplateFields.php', { templateId, fields }); },
     saveTemplateLayout(templateId, layout) { return this.post('SaveTemplateLayout.php', { templateId, layout }); },
     listCards(setId) { return this.get('ListCards.php', { setId }); },

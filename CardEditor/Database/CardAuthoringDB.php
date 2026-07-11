@@ -701,6 +701,118 @@ class CardAuthoringDB {
         return $this->getTemplate((int)mysqli_insert_id($this->conn));
     }
 
+    private function uniqueTemplateSlug($gameId, $baseSlug) {
+        $baseSlug = self::slugify($baseSlug);
+        $slug = $baseSlug;
+        $suffix = 2;
+        while ($this->one("SELECT id FROM ce_templates WHERE game_id = ? AND slug = ?", "is", [(int)$gameId, $slug])) {
+            $slug = $baseSlug . '-' . $suffix;
+            ++$suffix;
+        }
+        return $slug;
+    }
+
+    public function duplicateTemplate($id, $input = []) {
+        $source = $this->one("SELECT * FROM ce_templates WHERE id = ?", "i", [(int)$id]);
+        if (!$source) throw new Exception("Template not found");
+        $gameId = (int)$source['game_id'];
+        $this->assertCanEditGame($gameId);
+
+        $requestedName = trim($input['name'] ?? '');
+        $name = $requestedName !== '' ? $requestedName : $source['name'] . ' Copy';
+        $requestedSlug = trim($input['slug'] ?? '');
+        $baseSlug = $requestedSlug !== '' ? $requestedSlug : $source['slug'] . '-copy';
+        $slug = $this->uniqueTemplateSlug($gameId, $baseSlug);
+        $now = $this->now();
+
+        mysqli_query($this->conn, "START TRANSACTION");
+        try {
+            $this->execute(
+                "INSERT INTO ce_templates (template_uuid, game_id, name, slug, description, canvas_width, canvas_height, canvas_background_color, canvas_background_asset_id, safe_area_padding, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "sisssiisiiss",
+                [
+                    self::uuidv4(),
+                    $gameId,
+                    $name,
+                    $slug,
+                    $source['description'],
+                    (int)$source['canvas_width'],
+                    (int)$source['canvas_height'],
+                    $source['canvas_background_color'],
+                    $source['canvas_background_asset_id'] === null ? null : (int)$source['canvas_background_asset_id'],
+                    (int)$source['safe_area_padding'],
+                    $now,
+                    $now
+                ]
+            );
+            $newTemplateId = (int)mysqli_insert_id($this->conn);
+            $fieldIdMap = [];
+
+            $fields = $this->all("SELECT * FROM ce_template_fields WHERE template_id = ? ORDER BY sort_order ASC, id ASC", "i", [(int)$id]);
+            foreach ($fields as $field) {
+                $this->execute(
+                    "INSERT INTO ce_template_fields (field_uuid, template_id, field_key, label, field_type, help_text, default_value, sort_order, settings_json, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "sisssssisss",
+                    [
+                        self::uuidv4(),
+                        $newTemplateId,
+                        $field['field_key'],
+                        $field['label'],
+                        $field['field_type'],
+                        $field['help_text'],
+                        $field['default_value'],
+                        (int)$field['sort_order'],
+                        $field['settings_json'],
+                        $now,
+                        $now
+                    ]
+                );
+                $fieldIdMap[(int)$field['id']] = (int)mysqli_insert_id($this->conn);
+            }
+
+            $layout = $this->all("SELECT * FROM ce_template_layout_elements WHERE template_id = ? ORDER BY z_index ASC, id ASC", "i", [(int)$id]);
+            foreach ($layout as $element) {
+                $type = $element['element_type'];
+                $fieldId = null;
+                $assetId = null;
+                if ($type === 'field') {
+                    $oldFieldId = (int)$element['field_id'];
+                    if (!isset($fieldIdMap[$oldFieldId])) continue;
+                    $fieldId = $fieldIdMap[$oldFieldId];
+                } else {
+                    $assetId = $element['asset_id'] === null ? null : (int)$element['asset_id'];
+                }
+                $this->execute(
+                    "INSERT INTO ce_template_layout_elements (element_uuid, template_id, element_type, field_id, asset_id, x, y, width, height, z_index, rotation, is_visible, style_json, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "sisiiddddidisss",
+                    [
+                        self::uuidv4(),
+                        $newTemplateId,
+                        $type,
+                        $fieldId,
+                        $assetId,
+                        (float)$element['x'],
+                        (float)$element['y'],
+                        (float)$element['width'],
+                        (float)$element['height'],
+                        (int)$element['z_index'],
+                        (float)$element['rotation'],
+                        (int)$element['is_visible'],
+                        $element['style_json'],
+                        $now,
+                        $now
+                    ]
+                );
+            }
+
+            mysqli_query($this->conn, "COMMIT");
+            return $this->getTemplate($newTemplateId);
+        } catch (Exception $e) {
+            mysqli_query($this->conn, "ROLLBACK");
+            throw $e;
+        }
+    }
+
     public function listTemplates($gameId) {
         $this->assertCanViewGame($gameId);
         $rows = $this->all("SELECT * FROM ce_templates WHERE game_id = ? ORDER BY name ASC", "i", [(int)$gameId]);

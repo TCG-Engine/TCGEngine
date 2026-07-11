@@ -193,6 +193,12 @@
             gap: 6px;
         }
         .list.tight { gap: 4px; }
+        .template-list-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 34px;
+            gap: 6px;
+            align-items: stretch;
+        }
         .list-row {
             width: 100%;
             display: grid;
@@ -716,6 +722,13 @@
             min-height: 32px;
             padding: 0;
             font-family: Consolas, monospace;
+        }
+        .duplicate-template-button {
+            align-self: center;
+            width: 34px;
+            min-height: 34px;
+            font-size: 17px;
+            line-height: 1;
         }
         .modal-switch {
             display: flex;
