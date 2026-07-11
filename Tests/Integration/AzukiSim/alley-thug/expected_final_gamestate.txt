@@ -112,7 +112,7 @@ S1-STT02-010_Selis-of-the-Shore_E_R_die
 S1-STT04-001_Zero_L_L_die 2 -1 -1 -1 - - -
 S1-AZK01-004_Alley-Thug_E_C_die 1 1 0 1 ATK_1 - -
 2
-S1-STT02-001_Shao_L_L_die 2 -1 1 -1 DMG_SRC:myGarden-0 - -
+S1-STT02-001_Shao_L_L_die 2 -1 2 -1 DMG_SRC:myGarden-0 - -
 S1-STT02-007_Benzai-the-Merchant_E_C_die 2 2 0 2 - - -
 0
 0

@@ -1571,7 +1571,7 @@ function LeaderCurrentHealth($player) {
     if($leaderObj === null || (isset($leaderObj->removed) && $leaderObj->removed)) return 0;
 
     $maxHealth = LeaderMaxHealth($player);
-    $damage = intval($leaderObj->Damage ?? 0);
+    $damage = max(0, intval($leaderObj->Damage ?? 0));
     return max(0, $maxHealth - $damage);
 }
 
@@ -1835,7 +1835,7 @@ function DealDamageToLeader($player, $amount, $sourceKey = null, $statsSourceKey
     $leaderObj = &$garden[$leaderIndex];
     if($leaderObj === null || (isset($leaderObj->removed) && $leaderObj->removed)) return;
 
-    $leaderObj->Damage = intval($leaderObj->Damage ?? 0) + $amount;
+    $leaderObj->Damage = max(0, intval($leaderObj->Damage ?? 0)) + $amount;
     $resolvedSourceKey = ResolveDamageSourceKey($player, $sourceKey);
     RecordDamageSourceOnObject($leaderObj, $resolvedSourceKey);
     $resolvedStatsSourceKey = is_string($statsSourceKey) && $statsSourceKey !== '' ? NormalizeDamageSourceKey($statsSourceKey) : $resolvedSourceKey;

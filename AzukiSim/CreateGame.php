@@ -188,9 +188,11 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '') {
 
     if ($resolvedDeck !== null) {
         $leaderCard = new Garden($resolvedDeck['leader']);
+        NormalizeStartingGardenCard($leaderCard, $playerID);
         array_push($garden, $leaderCard);
 
         $gateCard = new Gate($resolvedDeck['gate']);
+        NormalizeStartingGateCard($gateCard, $playerID);
         array_push($gate, $gateCard);
 
         $deckList = $resolvedDeck['mainDeck'];
@@ -199,9 +201,11 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '') {
 
         // Leader starts in the Garden.
         $leaderCard = new Garden($deckConfig['leader']);
+        NormalizeStartingGardenCard($leaderCard, $playerID);
         array_push($garden, $leaderCard);
 
         $gateCard = new Gate($deckConfig['gate']);
+        NormalizeStartingGateCard($gateCard, $playerID);
         array_push($gate, $gateCard);
 
         $deckList = $deckConfig['deckList'];
@@ -217,6 +221,26 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '') {
     // Keep LeaderHealth zone as a pass-button display value.
     $leaderHealth = &GetLeaderHealth($playerID);
     $leaderHealth = 'PASS';
+}
+
+function NormalizeStartingGardenCard(&$card, $playerID) {
+    if(!is_object($card)) return;
+    $card->Status = 2;
+    $card->Owner = intval($playerID);
+    $card->Damage = 0;
+    $card->Controller = intval($playerID);
+    if(!isset($card->TurnEffects) || !is_array($card->TurnEffects)) $card->TurnEffects = [];
+    if(!isset($card->Counters) || !is_array($card->Counters)) $card->Counters = [];
+    if(!isset($card->Subcards) || !is_array($card->Subcards)) $card->Subcards = [];
+}
+
+function NormalizeStartingGateCard(&$card, $playerID) {
+    if(!is_object($card)) return;
+    $card->Status = 2;
+    $card->Owner = intval($playerID);
+    $card->Controller = intval($playerID);
+    if(!isset($card->TurnEffects) || !is_array($card->TurnEffects)) $card->TurnEffects = [];
+    if(!isset($card->Counters) || !is_array($card->Counters)) $card->Counters = [];
 }
 
 ?>
