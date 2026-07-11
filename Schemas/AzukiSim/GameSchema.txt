@@ -2,6 +2,7 @@ AzukiSim
 Polling
 None
 None
+GamestateStorage: APCu
 Layout: /Custom/GameLayout.php
 ServerInclude: /Custom/CustomInput.php
 ServerInclude: /Custom/GameLogic.php
