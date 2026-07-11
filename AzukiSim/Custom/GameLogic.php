@@ -125,6 +125,103 @@ function ParsePerspectiveMzID($perspectivePlayer, $mzID) {
     ];
 }
 
+function GetAzukiFieldZoneByLocation($owner, $location) {
+    $owner = intval($owner);
+    $location = strval($location);
+    if(strcasecmp($location, 'Garden') === 0) {
+        return GetGarden($owner);
+    }
+    if(strcasecmp($location, 'Alley') === 0) {
+        return GetAlley($owner);
+    }
+    return null;
+}
+
+function EnsureAzukiFieldUniqueID(&$obj) {
+    if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return 0;
+    $uniqueID = intval($obj->UniqueID ?? 0);
+    if($uniqueID > 0) return $uniqueID;
+
+    global $gUniqueIDCounter;
+    $gUniqueIDCounter = intval($gUniqueIDCounter ?? 0) + 1;
+    $obj->UniqueID = $gUniqueIDCounter;
+    return intval($obj->UniqueID);
+}
+
+function GetPendingAttackObjectUniqueID($attackerPlayer, $mzID) {
+    $abs = ParsePerspectiveMzID($attackerPlayer, $mzID);
+    if(!is_array($abs)) return 0;
+
+    $owner = intval($abs['owner'] ?? 0);
+    $location = strval($abs['location'] ?? '');
+    $index = intval($abs['index'] ?? -1);
+    if($owner !== 1 && $owner !== 2) return 0;
+    if($index < 0) return 0;
+
+    $zone = GetAzukiFieldZoneByLocation($owner, $location);
+    if(!is_array($zone) || $index >= count($zone)) return 0;
+    if(isset($zone[$index]->removed) && $zone[$index]->removed) return 0;
+
+    return EnsureAzukiFieldUniqueID($zone[$index]);
+}
+
+function StorePendingAttackParticipantState($role, $mzID, $attackerPlayer) {
+    if($role !== 'Attacker' && $role !== 'Target') return false;
+    if(!is_string($mzID) || $mzID === '' || $mzID === '-') {
+        DecisionQueueController::StoreVariable('PendingAttack' . $role . 'MZ', '');
+        DecisionQueueController::StoreVariable('PendingAttack' . $role . 'UniqueID', '');
+        return false;
+    }
+
+    DecisionQueueController::StoreVariable('PendingAttack' . $role . 'MZ', $mzID);
+    $uniqueID = GetPendingAttackObjectUniqueID($attackerPlayer, $mzID);
+    DecisionQueueController::StoreVariable('PendingAttack' . $role . 'UniqueID', $uniqueID > 0 ? strval($uniqueID) : '');
+    return true;
+}
+
+function ResolvePendingAttackParticipantByUniqueID($role) {
+    if($role !== 'Attacker' && $role !== 'Target') return null;
+
+    $attackerPlayer = GetPendingAttackAttackerPlayer();
+    if($attackerPlayer !== 1 && $attackerPlayer !== 2) return null;
+
+    $currentMZ = DecisionQueueController::GetVariable('PendingAttack' . $role . 'MZ');
+    if(!is_string($currentMZ) || $currentMZ === '') return null;
+
+    $abs = ParsePerspectiveMzID($attackerPlayer, $currentMZ);
+    if(!is_array($abs)) return null;
+
+    $uniqueID = intval(DecisionQueueController::GetVariable('PendingAttack' . $role . 'UniqueID') ?? '0');
+    if($uniqueID <= 0) {
+        $uniqueID = GetPendingAttackObjectUniqueID($attackerPlayer, $currentMZ);
+        if($uniqueID <= 0) return $currentMZ;
+        DecisionQueueController::StoreVariable('PendingAttack' . $role . 'UniqueID', strval($uniqueID));
+    }
+
+    $owner = intval($abs['owner'] ?? 0);
+    $location = strval($abs['location'] ?? '');
+    $zone = GetAzukiFieldZoneByLocation($owner, $location);
+    if(!is_array($zone)) return null;
+
+    $zonePrefix = ($owner === intval($attackerPlayer) ? 'my' : 'their') . $location . '-';
+    for($i = 0; $i < count($zone); ++$i) {
+        if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+        if(intval($zone[$i]->UniqueID ?? 0) !== $uniqueID) continue;
+
+        $refreshedMZ = $zonePrefix . $i;
+        DecisionQueueController::StoreVariable('PendingAttack' . $role . 'MZ', $refreshedMZ);
+        return $refreshedMZ;
+    }
+
+    return null;
+}
+
+function RefreshPendingAttackState() {
+    $attackerMZ = ResolvePendingAttackParticipantByUniqueID('Attacker');
+    $targetMZ = ResolvePendingAttackParticipantByUniqueID('Target');
+    return is_string($attackerMZ) && $attackerMZ !== '' && is_string($targetMZ) && $targetMZ !== '';
+}
+
 function PendingAttackRefExistsInExpectedZone($attackerPlayer, $pendingMZ, $expectedOwner, $expectedLocation) {
     $abs = ParsePerspectiveMzID($attackerPlayer, $pendingMZ);
     if(!is_array($abs)) return false;
@@ -154,6 +251,7 @@ function PendingAttackRefExistsInExpectedZone($attackerPlayer, $pendingMZ, $expe
 function IsPendingAttackStateValid() {
     $attackerPlayer = GetPendingAttackAttackerPlayer();
     if($attackerPlayer !== 1 && $attackerPlayer !== 2) return false;
+    if(!RefreshPendingAttackState()) return false;
 
     $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
     $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
@@ -198,8 +296,8 @@ function GetPendingAttackResponderPlayer() {
 function BeginAttackResponseWindow($attackerPlayer, $attackerMZ, $targetMZ) {
     if(!is_string($attackerMZ) || $attackerMZ === '' || !is_string($targetMZ) || $targetMZ === '') return false;
     DecisionQueueController::StoreVariable('PendingAttackAttackerPlayer', strval(intval($attackerPlayer)));
-    DecisionQueueController::StoreVariable('PendingAttackAttackerMZ', $attackerMZ);
-    DecisionQueueController::StoreVariable('PendingAttackTargetMZ', $targetMZ);
+    StorePendingAttackParticipantState('Attacker', $attackerMZ, $attackerPlayer);
+    StorePendingAttackParticipantState('Target', $targetMZ, $attackerPlayer);
     return true;
 }
 
@@ -207,6 +305,8 @@ function ClearAttackResponseWindow() {
     DecisionQueueController::StoreVariable('PendingAttackAttackerPlayer', '');
     DecisionQueueController::StoreVariable('PendingAttackAttackerMZ', '');
     DecisionQueueController::StoreVariable('PendingAttackTargetMZ', '');
+    DecisionQueueController::StoreVariable('PendingAttackAttackerUniqueID', '');
+    DecisionQueueController::StoreVariable('PendingAttackTargetUniqueID', '');
 }
 
 function ResolveAttackAfterResponses($responderPlayer) {
@@ -287,7 +387,7 @@ function TryRedirectPendingAttack($responderPlayer, $candidateMZ) {
     if(!is_string($redirectTarget) || $redirectTarget === '') return false;
 
     $candidateObj->Status = 1; // tap as redirect cost
-    DecisionQueueController::StoreVariable('PendingAttackTargetMZ', $redirectTarget);
+    StorePendingAttackParticipantState('Target', $redirectTarget, $attackerPlayer);
     SetFlashMessage('Attack redirected to defending entity.');
     return true;
 }
@@ -335,7 +435,7 @@ function TryKiraSwapForPendingAttack($responderPlayer, $kiraMZ) {
     $alley[$kiraIndex]->mzIndex = $kiraIndex;
     $alley[$kiraIndex]->BuildIndex();
 
-    DecisionQueueController::StoreVariable('PendingAttackTargetMZ', FlipZonePerspective('myGarden-' . $targetIndex));
+    StorePendingAttackParticipantState('Target', FlipZonePerspective('myGarden-' . $targetIndex), GetPendingAttackAttackerPlayer());
     SetFlashMessage('Kira swapped in and became the new attack target.');
     return true;
 }
@@ -378,7 +478,7 @@ function SwapMyGardenAndAlleyEntities($player, $gardenMZ, $alleyMZ, $retargetMes
         if(is_string($pendingTargetMZ) && $pendingTargetMZ !== '') {
             $defenderTargetMZ = FlipZonePerspective($pendingTargetMZ);
             if($defenderTargetMZ === $gardenMZ) {
-                DecisionQueueController::StoreVariable('PendingAttackTargetMZ', FlipZonePerspective('myGarden-' . $gardenIndex));
+                StorePendingAttackParticipantState('Target', FlipZonePerspective('myGarden-' . $gardenIndex), GetPendingAttackAttackerPlayer());
                 SetFlashMessage($retargetMessage);
                 return true;
             }

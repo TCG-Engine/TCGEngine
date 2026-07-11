@@ -9,7 +9,8 @@ ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: AzukiSim
-Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZArea,myIKZPile,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZArea,theirIKZPile,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex,MacroGameIndex
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZArea,myIKZPile,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZArea,theirIKZPile,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex,UniqueIDCounter,MacroGameIndex
+Module: UniqueID=Garden,UniqueID,UniqueIDCounter;Alley,UniqueID,UniqueIDCounter
 Module: MatchReplay=MatchReplayInitialState,MatchReplayCommands
 Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Toast=Card; ToastCardParam=mzID; ToastLabel=Played; Action={}
 Macro: Name=OnPlay(mzID); ChoiceFunction=OnPlayCard; Action={}
@@ -51,7 +52,7 @@ Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
 GlobalEffects - CardID:string
 Display: Visibility=None, Mode=None
-Garden - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json
+Garden - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json, UniqueID:number=0
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentHP=ObjectCurrentHPDisplay()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
@@ -77,7 +78,7 @@ Counters: DefenderKeywordIndicator=Image(Path=Assets/Icons/defender.webp,Positio
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 AfterAdd: GardenAfterAdd
 Click: FSM()
-Alley - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json
+Alley - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json, UniqueID:number=0
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentHP=ObjectCurrentHPDisplay()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
@@ -148,6 +149,8 @@ EffectStack - CardID:string, Controller:number
 Display: Visibility=Public, Mode=Single, Scope=Global, BindTo=EffectStackSlot
 Sort: Reverse=true
 MacroTurnIndex - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+UniqueIDCounter - Value:number=0
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 MacroGameIndex - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
