@@ -237,7 +237,7 @@ function ResolveAttackAfterResponses($responderPlayer) {
     return true;
 }
 
-function TryRedirectPendingAttack($responderPlayer, $candidateMZ) {
+function CanRedirectPendingAttack($responderPlayer, $candidateMZ) {
     if(!HasPendingAttackResponse()) return false;
     if(!is_string($candidateMZ) || $candidateMZ === '') return false;
 
@@ -267,6 +267,20 @@ function TryRedirectPendingAttack($responderPlayer, $candidateMZ) {
             if(HasTurnEffect($attackerObj, 'INFILTRATE')) return false;
         }
     }
+
+    return true;
+}
+
+function TryRedirectPendingAttack($responderPlayer, $candidateMZ) {
+    if(!CanRedirectPendingAttack($responderPlayer, $candidateMZ)) return false;
+
+    $parts = explode('-', $candidateMZ);
+    $index = intval($parts[1] ?? -1);
+    if($index < 0) return false;
+
+    $garden = &GetGarden(intval($responderPlayer));
+    if($index >= count($garden)) return false;
+    $candidateObj = &$garden[$index];
 
     // Pending target is stored from attacker's perspective.
     $redirectTarget = FlipZonePerspective($candidateMZ);
@@ -2411,6 +2425,8 @@ function ObjectCurrentHPDisplay($obj) {
 }
 
 function FieldSelectionMetadata($obj) {
+    global $playerID;
+
     $currentPhase = GetCurrentPhase();
     if($currentPhase !== 'MAIN') {
         return json_encode(['highlight' => false]);
@@ -2424,9 +2440,24 @@ function FieldSelectionMetadata($obj) {
     }
 
     $owner = ResolveObjectOwner($obj);
-    $actingPlayer = HasPendingAttackResponse() ? GetPendingAttackResponderPlayer() : intval($turnPlayer);
+    $isResponseWindow = HasPendingAttackResponse();
+    $actingPlayer = $isResponseWindow ? GetPendingAttackResponderPlayer() : intval($turnPlayer);
+    if(intval($playerID) !== intval($actingPlayer)) {
+        return json_encode(['highlight' => false]);
+    }
     if($owner === null || $owner !== intval($actingPlayer)) {
         return json_encode(['highlight' => false]);
+    }
+
+    if($isResponseWindow) {
+        $location = strval($obj->Location ?? '');
+        $mzIndex = intval($obj->mzIndex ?? -1);
+        if($location !== 'Garden' || $mzIndex < 0) {
+            return json_encode(['highlight' => false]);
+        }
+        if(!CanRedirectPendingAttack($actingPlayer, 'myGarden-' . $mzIndex)) {
+            return json_encode(['highlight' => false]);
+        }
     }
 
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
