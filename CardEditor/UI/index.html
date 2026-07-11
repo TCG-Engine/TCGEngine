@@ -157,7 +157,7 @@
             min-height: 0;
             overflow: hidden;
         }
-        .workbench, .template-workbench, .card-workbench, .ability-workbench {
+        .workbench, .template-workbench, .card-workbench, .ability-workbench, .asset-workbench {
             height: 100%;
             min-height: 0;
             display: grid;
@@ -168,6 +168,7 @@
         .template-workbench { grid-template-columns: 230px 310px 1fr 250px; }
         .card-workbench { grid-template-columns: 250px minmax(320px, 420px) 1fr; }
         .ability-workbench { grid-template-columns: 280px 1fr; }
+        .asset-workbench { grid-template-columns: 1fr; }
         .pane {
             background: #202124;
             min-width: 0;
@@ -324,6 +325,137 @@
         }
         .enum-icon-preview.empty {
             display: inline-block;
+        }
+        .asset-usage-highlight {
+            outline: 2px solid #fdd663;
+            outline-offset: 2px;
+        }
+        .asset-pane {
+            display: grid;
+            grid-template-rows: auto auto 1fr;
+            gap: 14px;
+        }
+        .asset-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .asset-toolbar h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .asset-toolbar span {
+            color: #aeb4b9;
+            font-size: 12px;
+        }
+        .asset-upload {
+            max-width: 280px;
+        }
+        .asset-filters {
+            display: grid;
+            grid-template-columns: minmax(220px, 1fr) 150px 150px;
+            gap: 10px;
+            align-items: end;
+        }
+        .asset-grid {
+            min-height: 0;
+            overflow: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            align-content: start;
+            gap: 12px;
+            padding-right: 4px;
+        }
+        .asset-card {
+            display: grid;
+            grid-template-rows: 160px auto minmax(32px, auto) auto;
+            gap: 10px;
+            min-width: 0;
+            padding: 10px;
+            border: 1px solid #3c4043;
+            border-radius: 8px;
+            background: #24262a;
+        }
+        .asset-preview-button {
+            width: 100%;
+            height: 160px;
+            min-height: 160px;
+            padding: 0;
+            overflow: hidden;
+            border-color: #33383e;
+            background: #111315;
+        }
+        .asset-preview-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .asset-preview-button span {
+            display: grid;
+            place-items: center;
+            width: 100%;
+            height: 100%;
+            color: #aeb4b9;
+            font-weight: 700;
+        }
+        .asset-card-body {
+            display: grid;
+            gap: 4px;
+            min-width: 0;
+        }
+        .asset-card-body strong,
+        .asset-card-body span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .asset-card-body strong {
+            color: #ffffff;
+            font-size: 13px;
+        }
+        .asset-card-body span,
+        .asset-usage-list span {
+            color: #aeb4b9;
+            font-size: 12px;
+        }
+        .asset-card-body .asset-unused { color: #9fd6b5; }
+        .asset-card-body .asset-used { color: #fdd663; }
+        .asset-usage-list {
+            display: grid;
+            gap: 5px;
+            align-content: start;
+            min-height: 32px;
+        }
+        .asset-usage-list .link-button {
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .asset-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .asset-preview-modal {
+            width: min(760px, 100%);
+        }
+        .asset-preview-large {
+            width: 100%;
+            max-height: 68vh;
+            object-fit: contain;
+            border: 1px solid #3c4043;
+            border-radius: 6px;
+            background: #111315;
+        }
+        .asset-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            color: #aeb4b9;
+            font-size: 12px;
         }
         .button-row {
             display: flex;
@@ -769,6 +901,7 @@
             <button data-screen="templates">Templates</button>
             <button data-screen="sets">Sets</button>
             <button data-screen="cards">Cards</button>
+            <button data-screen="assets">Assets</button>
             <button data-screen="export">Export</button>
             <button data-screen="abilities">Abilities</button>
         </nav>
@@ -797,6 +930,7 @@
     <script src="TemplateCanvas.js"></script>
     <script src="TemplateScreen.js"></script>
     <script src="CardScreen.js"></script>
+    <script src="AssetScreen.js"></script>
     <script src="ExportScreen.js"></script>
     <script src="AppShell.js"></script>
 </body>

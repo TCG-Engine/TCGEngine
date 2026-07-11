@@ -15,6 +15,7 @@ class AppShell {
             cards: [],
             cardTagFilter: { tagId: '', mode: 'has' },
             assets: [],
+            assetUsageHighlight: null,
             currentUser: { loggedIn: false },
             abilityRoots: {},
             abilityRoot: '',
@@ -26,6 +27,7 @@ class AppShell {
             sets: new SetScreen(this),
             templates: new TemplateScreen(this),
             cards: new CardScreen(this),
+            assets: new AssetScreen(this),
             export: new ExportScreen(this)
         };
         this.templateCanvas = new TemplateCanvas(this);
@@ -243,6 +245,7 @@ class AppShell {
         this.state.activeCardId = null;
         this.state.activeCardDetail = null;
         this.state.cardTagFilter = { tagId: '', mode: 'has' };
+        this.state.assetUsageHighlight = null;
         await this.refreshGameScoped();
         this.show(this.state.activeScreen);
     }
@@ -269,6 +272,43 @@ class AppShell {
             return;
         }
         this.screens[screen].render();
+    }
+
+    async openAssetUsage(usage) {
+        await this.autosave.flushAll();
+        if (usage.type === 'template_layer' || usage.type === 'template_background') {
+            this.state.activeScreen = 'templates';
+            this.state.activeTemplateId = Number(usage.template_id);
+            this.state.activeTemplateDetail = await ApiClient.getTemplate(usage.template_id);
+            const layout = this.state.activeTemplateDetail?.layout || [];
+            const index = usage.element_id
+                ? layout.findIndex(element => Number(element.id) === Number(usage.element_id))
+                : -1;
+            this.templateCanvas.selectedIndex = index >= 0 ? index : -1;
+            this.screens.templates.expandedFieldKeys.clear();
+            await this.screens.templates.render();
+            return;
+        }
+        if (usage.type === 'enum_option') {
+            this.state.assetUsageHighlight = {
+                enumId: Number(usage.enum_id),
+                optionId: Number(usage.option_id)
+            };
+            this.show('games');
+            setTimeout(() => {
+                document.querySelector('.asset-usage-highlight')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            }, 0);
+            return;
+        }
+        if (usage.type === 'card_image') {
+            this.state.activeScreen = 'cards';
+            this.state.activeSetId = Number(usage.set_id);
+            this.state.activeCardId = Number(usage.card_id);
+            this.state.cardTagFilter = { tagId: '', mode: 'has' };
+            await this.refreshCards();
+            this.state.activeCardDetail = await ApiClient.getCard(usage.card_id);
+            await this.screens.cards.render();
+        }
     }
 
     toast(message, type = 'success') {

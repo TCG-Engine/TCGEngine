@@ -57,6 +57,7 @@ const ApiClient = {
     deleteCard(id) { return this.post('DeleteCard.php', { id }); },
     saveCardFieldValues(cardId, values) { return this.post('SaveCardFieldValues.php', { cardId, values }); },
     listAssets(gameId) { return this.get('ListAssets.php', { gameId }); },
+    deleteAsset(id) { return this.post('DeleteAsset.php', { id }); },
     exportGame(gameId) { return this.get('ExportGame.php', { gameId }); },
     exportSet(setId) { return this.get('ExportSet.php', { setId }); },
     async accountPost(path, body = {}) {

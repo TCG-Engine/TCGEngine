@@ -81,8 +81,10 @@ class GameScreen {
 
     enumRow(item = {}, disabled = '') {
         const options = item.options || [];
+        const highlight = this.app.state.assetUsageHighlight;
+        const isHighlighted = Number(highlight?.enumId || 0) === Number(item.id || 0);
         return `
-            <div class="enum-row" data-enum-id="${item.id || ''}">
+            <div class="enum-row ${isHighlighted ? 'asset-usage-highlight' : ''}" data-enum-id="${item.id || ''}">
                 <div class="enum-row-head">
                     <input class="enum-name-input" value="${PreviewRenderer.escape(item.name || '')}" placeholder="Enum name, e.g. Element" ${disabled}>
                     <button type="button" onclick="app.screens.games.addEnumOption(this)" ${disabled}>Add Option</button>
@@ -97,8 +99,10 @@ class GameScreen {
 
     enumOptionRow(option = {}, disabled = '') {
         const assets = this.app.state.assets || [];
+        const highlight = this.app.state.assetUsageHighlight;
+        const isHighlighted = Number(highlight?.optionId || 0) === Number(option.id || 0);
         return `
-            <div class="enum-option-row" data-option-id="${option.id || ''}">
+            <div class="enum-option-row ${isHighlighted ? 'asset-usage-highlight' : ''}" data-option-id="${option.id || ''}">
                 <input class="enum-option-label" value="${PreviewRenderer.escape(option.label || '')}" placeholder="Label" ${disabled}>
                 <input class="enum-option-value" value="${PreviewRenderer.escape(option.value || '')}" placeholder="stored value" ${disabled}>
                 <select class="enum-option-asset" onchange="app.screens.games.updateEnumOptionAssetPreview(this)" ${disabled}>

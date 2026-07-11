@@ -850,7 +850,7 @@ class CardAuthoringDB {
         $template = $this->normalizeTemplate($row);
         $template['fields'] = array_map([$this, 'normalizeField'], $this->all("SELECT * FROM ce_template_fields WHERE template_id = ? ORDER BY sort_order ASC, id ASC", "i", [(int)$id]));
         $template['layout'] = array_map([$this, 'normalizeLayoutElement'], $this->all("SELECT * FROM ce_template_layout_elements WHERE template_id = ? ORDER BY z_index ASC, id ASC", "i", [(int)$id]));
-        $template['assets'] = $this->listAssets((int)$template['game_id']);
+        $template['assets'] = $this->listAssets((int)$template['game_id'], false);
         $template['enums'] = $this->listGameEnums((int)$template['game_id']);
         return $template;
     }
@@ -1147,9 +1147,16 @@ class CardAuthoringDB {
         }
     }
 
-    public function listAssets($gameId) {
+    public function listAssets($gameId, $includeUsage = true) {
         $this->assertCanViewGame($gameId);
-        return array_map([$this, 'normalizeAsset'], $this->all("SELECT * FROM ce_assets WHERE game_id = ? ORDER BY created_at DESC, id DESC", "i", [(int)$gameId]));
+        $assets = array_map([$this, 'normalizeAsset'], $this->all("SELECT * FROM ce_assets WHERE game_id = ? ORDER BY created_at DESC, id DESC", "i", [(int)$gameId]));
+        if ($includeUsage) {
+            foreach ($assets as &$asset) {
+                $asset['usage'] = $this->assetUsage((int)$asset['id'], (int)$gameId);
+                $asset['usage_count'] = count($asset['usage']);
+            }
+        }
+        return $assets;
     }
 
     public function createAsset($input) {
@@ -1178,6 +1185,101 @@ class CardAuthoringDB {
         return $this->normalizeAsset($this->one("SELECT * FROM ce_assets WHERE id = ?", "i", [(int)mysqli_insert_id($this->conn)]));
     }
 
+    public function assetUsage($assetId, $gameId = null) {
+        $asset = $this->one("SELECT * FROM ce_assets WHERE id = ?", "i", [(int)$assetId]);
+        if (!$asset) throw new Exception("Asset not found");
+        $gameId = $gameId === null ? (int)$asset['game_id'] : (int)$gameId;
+        if ((int)$asset['game_id'] !== $gameId) throw new Exception("Asset does not belong to game");
+        $this->assertCanViewGame($gameId);
+        $usage = [];
+
+        $backgrounds = $this->all(
+            "SELECT id, name FROM ce_templates WHERE game_id = ? AND canvas_background_asset_id = ? ORDER BY name ASC, id ASC",
+            "ii",
+            [$gameId, (int)$assetId]
+        );
+        foreach ($backgrounds as $row) {
+            $usage[] = [
+                'type' => 'template_background',
+                'label' => 'Template background: ' . $row['name'],
+                'template_id' => (int)$row['id']
+            ];
+        }
+
+        $layers = $this->all(
+            "SELECT e.id AS element_id, e.template_id, e.z_index, t.name AS template_name FROM ce_template_layout_elements e INNER JOIN ce_templates t ON t.id = e.template_id WHERE t.game_id = ? AND e.asset_id = ? ORDER BY t.name ASC, e.z_index ASC, e.id ASC",
+            "ii",
+            [$gameId, (int)$assetId]
+        );
+        foreach ($layers as $row) {
+            $usage[] = [
+                'type' => 'template_layer',
+                'label' => 'Template image layer: ' . $row['template_name'],
+                'template_id' => (int)$row['template_id'],
+                'element_id' => (int)$row['element_id'],
+                'z_index' => (int)$row['z_index']
+            ];
+        }
+
+        $enumOptions = $this->all(
+            "SELECT e.id AS enum_id, e.name AS enum_name, o.id AS option_id, o.label AS option_label FROM ce_game_enum_options o INNER JOIN ce_game_enums e ON e.id = o.enum_id WHERE e.game_id = ? AND o.asset_id = ? ORDER BY e.name ASC, o.sort_order ASC, o.id ASC",
+            "ii",
+            [$gameId, (int)$assetId]
+        );
+        foreach ($enumOptions as $row) {
+            $usage[] = [
+                'type' => 'enum_option',
+                'label' => 'Icon enum: ' . $row['enum_name'] . ' / ' . $row['option_label'],
+                'enum_id' => (int)$row['enum_id'],
+                'option_id' => (int)$row['option_id']
+            ];
+        }
+
+        $assetUrl = '../' . $asset['relative_path'];
+        $cardImages = $this->all(
+            "SELECT c.id AS card_id, c.name AS card_name, c.set_id, f.label AS field_label FROM ce_card_field_values v INNER JOIN ce_template_fields f ON f.id = v.field_id INNER JOIN ce_cards c ON c.id = v.card_id WHERE c.game_id = ? AND f.field_type = 'image' AND v.value_text IN (?, ?) ORDER BY c.name ASC, f.sort_order ASC, f.id ASC",
+            "iss",
+            [$gameId, $assetUrl, $asset['relative_path']]
+        );
+        foreach ($cardImages as $row) {
+            $usage[] = [
+                'type' => 'card_image',
+                'label' => 'Card image: ' . $row['card_name'] . ' / ' . $row['field_label'],
+                'set_id' => (int)$row['set_id'],
+                'card_id' => (int)$row['card_id']
+            ];
+        }
+
+        return $usage;
+    }
+
+    public function deleteAsset($id) {
+        $asset = $this->normalizeAsset($this->one("SELECT * FROM ce_assets WHERE id = ?", "i", [(int)$id]));
+        if (!$asset) throw new Exception("Asset not found");
+        $this->assertCanEditGame((int)$asset['game_id']);
+        $usage = $this->assetUsage((int)$id, (int)$asset['game_id']);
+        if (!empty($usage)) throw new Exception("Asset is still in use and cannot be deleted");
+
+        $baseDir = realpath(__DIR__ . '/../Assets');
+        $absolutePath = realpath(__DIR__ . '/../' . $asset['relative_path']);
+        if (!$baseDir || !$absolutePath || strpos($absolutePath, $baseDir) !== 0) {
+            throw new Exception("Asset file path is invalid");
+        }
+
+        mysqli_query($this->conn, "START TRANSACTION");
+        try {
+            $this->execute("DELETE FROM ce_assets WHERE id = ?", "i", [(int)$id]);
+            if (file_exists($absolutePath) && !unlink($absolutePath)) {
+                throw new Exception("Could not delete asset file");
+            }
+            mysqli_query($this->conn, "COMMIT");
+            return ['deleted' => true, 'id' => (int)$id];
+        } catch (Exception $e) {
+            mysqli_query($this->conn, "ROLLBACK");
+            throw $e;
+        }
+    }
+
     public function exportGame($gameId) {
         $game = $this->getGame($gameId);
         unset($game['tags']);
@@ -1193,7 +1295,7 @@ class CardAuthoringDB {
             'sets' => $sets,
             'templates' => $templates,
             'cards' => $cards,
-            'assets' => $this->listAssets($gameId)
+            'assets' => $this->listAssets($gameId, false)
         ];
     }
 
