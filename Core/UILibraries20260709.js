@@ -373,7 +373,7 @@ function ResolveGlobalFunction(functionName) {
       }
 
       function IsDragDropEnabled() {
-        return window.rootPath != './GrandArchiveSim';
+        return window.rootPath != './GrandArchiveSim' && window.rootPath != './AzukiSim';
       }
 
       // Function to handle drag start event
