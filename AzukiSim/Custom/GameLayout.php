@@ -833,23 +833,18 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 
         var state = responseState();
         if(!state.active) {
-            window.__botControllerResponseWaitingForOtherPlayer = false;
             panel.style.display = 'none';
             return;
         }
 
         var viewer = getViewerPlayer();
         var isResponder = viewer > 0 && viewer === state.responder;
-        window.__botControllerResponseWaitingForOtherPlayer = !isResponder;
 
         subtitle.textContent = isResponder
             ? 'Play a [Response] card or pass to resolve the attack.'
             : 'Waiting for defending player responses.';
         passBtn.style.display = isResponder ? 'inline-flex' : 'none';
         panel.style.display = 'flex';
-        if(!isResponder && typeof window.MaybeRunBotControllerStep === 'function') {
-            window.MaybeRunBotControllerStep();
-        }
     };
 
     function installResponseWatcher() {

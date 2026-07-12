@@ -380,13 +380,11 @@ function AzukiRlBotLegalActions($gameName, $requestedPlayer) {
     return BridgeEnumerateLegalActionsLoaded('AzukiSim', strval($gameName));
 }
 
-function ProcessAzukiRlBotStep($requestedPlayer = 0) {
+function ProcessAzukiRlBotStep() {
     global $gameName;
-    $requestedPlayer = intval($requestedPlayer);
-    if(AzukiGameMode() !== 'rlbot') return ['success' => false, 'message' => 'Azuki RL bot mode is not active.', 'applied' => false];
-    if(!IsAzukiRlBotPlayer($requestedPlayer)) return ['success' => false, 'message' => 'Requested player is not an Azuki RL bot seat.', 'applied' => false];
-    if(!AzukiRlBotEnsureBridgeLoaded()) return ['success' => false, 'message' => 'Azuki RL bot bridge is not available.', 'applied' => false];
-    if(!is_string($gameName) && !is_numeric($gameName)) return ['success' => false, 'message' => 'Azuki RL bot game is not loaded.', 'applied' => false];
+    if(AzukiGameMode() !== 'rlbot') return ['success' => false, 'message' => 'Azuki RL bot mode is not active.', 'applied' => false, 'retryable' => false];
+    if(!AzukiRlBotEnsureBridgeLoaded()) return ['success' => false, 'message' => 'Azuki RL bot bridge is not available.', 'applied' => false, 'retryable' => false];
+    if(!is_string($gameName) && !is_numeric($gameName)) return ['success' => false, 'message' => 'Azuki RL bot game is not loaded.', 'applied' => false, 'retryable' => false];
 
     @set_time_limit(15);
     @ini_set('max_execution_time', '15');
@@ -402,7 +400,7 @@ function ProcessAzukiRlBotStep($requestedPlayer = 0) {
 
     $pendingBotPlayer = AzukiRlBotPendingPlayerForClient();
     if($pendingBotPlayer === 0) {
-        return ['success' => true, 'message' => 'No bot action is currently pending.', 'applied' => false];
+        return ['success' => true, 'message' => 'No bot action is currently pending.', 'applied' => false, 'retryable' => false];
     }
     $requestedPlayer = $pendingBotPlayer;
 
@@ -464,11 +462,11 @@ function BotControllerPendingPlayerForClient() {
     return AzukiRlBotPendingPlayerForClient();
 }
 
-function ProcessBotControllerStep($requestedPlayer = 0, $folderPath = '', $gameNameOverride = '') {
+function ProcessBotControllerStep($requestingPlayer = 0, $folderPath = '', $gameNameOverride = '') {
     if($folderPath !== '' && $folderPath !== 'AzukiSim') {
         return ['success' => false, 'message' => 'Bot controller does not handle this game.', 'applied' => false];
     }
-    return ProcessAzukiRlBotStep($requestedPlayer);
+    return ProcessAzukiRlBotStep();
 }
 
 // --- Helper Functions ---

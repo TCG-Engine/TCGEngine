@@ -2,6 +2,7 @@
 
 include_once __DIR__ . '/RegressionTestFramework.php';
 include_once __DIR__ . '/MatchReplay.php';
+include_once __DIR__ . '/BotController.php';
 
 function ConvertMzIDToAbsolute($mzID, $playerPerspective) {
   if (!$mzID || strpos($mzID, "-") === false) return $mzID;
@@ -450,6 +451,7 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $result['updateCache'] = false;
         $result['recordAction'] = false;
         $result['botStepApplied'] = !empty($botResult['applied']);
+        $result['botStepRetryable'] = !array_key_exists('retryable', $botResult) || !empty($botResult['retryable']);
       } else {
         $result['success'] = false;
         $result['message'] = 'Bot step is not available.';
@@ -457,7 +459,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $result['updateCache'] = false;
         $result['recordAction'] = false;
         $result['botStepApplied'] = false;
+        $result['botStepRetryable'] = false;
       }
+      $result['botControllerState'] = BuildBotControllerClientState($folderPath, $gameName);
       break;
     case 10005:
       SaveVersion($playerID);

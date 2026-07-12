@@ -67,6 +67,14 @@ Important notes and gotchas
 - Client rendering: `Core/UILibraries.js` (PopulateZone, createCardHTML, CreateCountersHTML, overlays injection)
 - Endpoint that serves next-turn data: generated `<RootName>/GetNextTurn.php` (see `zzGameCodeGenerator.php` which writes this file)
 
+## Browser-driven bot controllers
+- Shared transport and retry behavior lives in `Core/BotController.php`, `Core/jsInclude.js`, `NextTurn.php`, and process-input mode `10017` in `Core/EngineActionRunner.php`.
+- A game opts in by defining `GameBotControllerMode()`, `GetBotControllerPlayers()`, `BotControllerPendingPlayerForClient()`, and `ProcessBotControllerStep()` in its custom runtime.
+- `GetNextTurn.php` publishes the current controller state with each board update. The shared client invokes mode `10017` only when the authoritative `pendingPlayer` is a configured bot seat.
+- `NextTurn.php` keeps polling while animations play, but accepted board updates must pass through its ordered render queue. Never schedule independent delayed `RenderUpdate(...)` calls, because a shorter-delay newer update can otherwise render before an older update and then be overwritten by stale state.
+- The request uses the viewing player's normal authentication. Never expose a bot seat auth key to the browser; `ProcessBotControllerStep()` must re-evaluate the authoritative pending bot seat on the server before applying an action.
+- Keep game-specific layouts and waiting-message renderers free of bot invocation hooks. They may display turn/response state, but the shared update transport owns bot scheduling.
+
 ---
 
 ## Card Ability Implementation Workflow (for AI agents)

@@ -1817,6 +1817,7 @@ fwrite($handler, "include '../Core/UILibraries.php';\r\n");
 fwrite($handler, "include '../Core/NetworkingLibraries.php';\r\n");
 fwrite($handler, "include '../Core/HTTPLibraries.php';\r\n");
 fwrite($handler, "include '../Core/CoreZoneModifiers.php';\r\n");
+fwrite($handler, "include '../Core/BotController.php';\r\n");
 fwrite($handler, "include '../Core/ViewerIdentity.php';\r\n");
 fwrite($handler, "include '../Assets/patreon-php-master/src/PatreonLibraries.php';\r\n");
 fwrite($handler, "include './GamestateParser.php';\r\n");
@@ -1949,6 +1950,9 @@ if($assetVisibilityModule != NULL) {
 }
 fwrite($handler, AddGetNextTurnForPlayer(1) . "\r\n");
 fwrite($handler, AddGetNextTurnForPlayer(2) . "\r\n");
+fwrite($handler, "if(function_exists('GameBotControllerMode')) {\r\n");
+fwrite($handler, "  echo(\"<~>\" . EncodeBotControllerClientPayload('" . $rootName . "', \$gameName));\r\n");
+fwrite($handler, "}\r\n");
 fwrite($handler, "echo(\"<~>\");\r\n");
 fwrite($handler, "\$chatPayload = json_encode([\r\n");
 fwrite($handler, "  \"version\" => GetChatUpdateVersion(\$gameName),\r\n");

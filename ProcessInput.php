@@ -83,6 +83,19 @@ for ($i = 0; $i < $chkCount; ++$i) {
 }
 $inputText = $_GET["inputText"] ?? "";
 
+$botControllerStepLock = null;
+if (intval($mode) === 10017) {
+  @set_time_limit(15);
+  @ini_set('max_execution_time', '15');
+  $botControllerStepLock = AcquireBotControllerStepLock($folderPath, $gameName);
+  if ($botControllerStepLock === null) {
+    ProcessInputReply(false, "Another bot step is already in progress.", [
+      "botStepApplied" => false,
+      "botStepRetryable" => true,
+    ]);
+  }
+}
+
 //First we need to load the root runtime
 EngineLoadRootRuntime($folderPath);
 
@@ -151,6 +164,8 @@ if (ProcessInputWantsJsonResponse()) {
   ];
   if (array_key_exists('botStepApplied', $actionResult)) {
     $jsonExtra["botStepApplied"] = !empty($actionResult['botStepApplied']);
+    $jsonExtra["botStepRetryable"] = !empty($actionResult['botStepRetryable']);
+    $jsonExtra["botController"] = $actionResult['botControllerState'] ?? BuildBotControllerClientState($folderPath, $gameName);
   }
   ProcessInputReply(!empty($actionResult['success']), $actionResult['message'] ?? "", $jsonExtra);
 }

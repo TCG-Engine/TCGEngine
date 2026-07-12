@@ -616,6 +616,10 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         QueueReload(_lastUpdate);
       };
 
+      var _renderQueue = [];
+      var _renderInProgress = false;
+      var _lastRenderedUpdate = 0;
+
       function ParseFrameAnimations(responseArr) {
         if (!Array.isArray(responseArr) || responseArr.length < 2) return [];
         var raw = responseArr[responseArr.length - 1];
@@ -641,6 +645,22 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           var parsed = JSON.parse(trimmed);
           if (parsed && typeof parsed === "object") return parsed;
         } catch (e) {}
+        return null;
+      }
+
+      function ParseBotControllerPayload(responseArr) {
+        if (!Array.isArray(responseArr)) return null;
+        var prefix = "BOTCONTROLLER:";
+        for (var index = 1; index < responseArr.length; ++index) {
+          var raw = String(responseArr[index] || "");
+          if (raw.indexOf(prefix) !== 0) continue;
+          try {
+            var parsed = JSON.parse(raw.substring(prefix.length));
+            return parsed && typeof parsed === "object" ? parsed : null;
+          } catch (e) {
+            return null;
+          }
+        }
         return null;
       }
 
@@ -827,6 +847,40 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         return blockingDelayMs;
       }
 
+      function ProcessRenderQueue() {
+        if (_renderInProgress) return;
+        while (_renderQueue.length > 0 && _renderQueue[0].update <= _lastRenderedUpdate) {
+          _renderQueue.shift();
+        }
+        if (_renderQueue.length === 0) return;
+
+        var queuedUpdate = _renderQueue.shift();
+        _renderInProgress = true;
+        var frameAnimations = ParseFrameAnimations(queuedUpdate.responseArr);
+        if(<?php echo(AreAnimationsDisabled($playerID) ? 'true' : 'false');?>) frameAnimations = [];
+        var timeoutAmount = PlayFrameAnimations(frameAnimations, <?php echo($viewerPerspective); ?>);
+
+        var finishRender = function() {
+          try {
+            RenderUpdate(queuedUpdate.responseArr, queuedUpdate.update);
+            _lastRenderedUpdate = queuedUpdate.update;
+            window.__lastRenderedGameUpdate = _lastRenderedUpdate;
+          } finally {
+            _renderInProgress = false;
+            ProcessRenderQueue();
+          }
+        };
+
+        if (timeoutAmount > 0) window.setTimeout(finishRender, timeoutAmount);
+        else finishRender();
+      }
+
+      function QueueRenderUpdate(update, responseArr) {
+        if (update <= _lastRenderedUpdate) return;
+        _renderQueue.push({ update: update, responseArr: responseArr });
+        ProcessRenderQueue();
+      }
+
       function CheckReloadNeeded(lastUpdate) {
         if (_reloadRequestInFlight) return;
         _reloadRequestInFlight = true;
@@ -894,11 +948,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
               _lastUpdate = update;
               QueueReload(update);
-              var frameAnimations = ParseFrameAnimations(responseArr);
-              if(<?php echo(AreAnimationsDisabled($playerID) ? 'true' : 'false');?>) frameAnimations = [];
-              var timeoutAmount = PlayFrameAnimations(frameAnimations, <?php echo($viewerPerspective); ?>);
-              if(timeoutAmount > 0) setTimeout(RenderUpdate, timeoutAmount, responseArr);
-              else RenderUpdate(responseArr);
+              QueueRenderUpdate(update, responseArr);
             }
           }
         };
@@ -912,7 +962,11 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         xmlhttp.send();
       }
 
-      function RenderUpdate(responseArr) {
+      function RenderUpdate(responseArr, renderedUpdate) {
+        var botControllerPayload = ParseBotControllerPayload(responseArr);
+        if (botControllerPayload && typeof SetBotControllerState === "function") {
+          SetBotControllerState(botControllerPayload);
+        }
         if (typeof FreezeCardDetailUntilMouseMove === 'function') FreezeCardDetailUntilMouseMove();
         if (typeof ClearSelectionMode === 'function') {
           ClearSelectionMode();
@@ -946,7 +1000,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           window.ApplyVerdurePreserveAnimations();
         }
         UpdateTurnPlayerMiasma();
-        if (typeof MaybeRunBotControllerStep === 'function') {
+        if (renderedUpdate >= _lastUpdate && typeof MaybeRunBotControllerStep === 'function') {
           MaybeRunBotControllerStep();
         }
         // Game-over detection: check for GAMEOVER_WINNER set by server-side TriggerGameOver()

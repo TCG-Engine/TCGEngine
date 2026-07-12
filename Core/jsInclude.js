@@ -510,14 +510,61 @@ function SubmitInput(mode, params, fullRefresh = false) {
   });
 }
 
+function SetBotControllerState(state) {
+  if (!state || typeof state !== "object") return;
+
+  var players = Array.isArray(state.players) ? state.players.map(function(player) {
+    return parseInt(player, 10);
+  }).filter(function(player, index, allPlayers) {
+    return (player === 1 || player === 2) && allPlayers.indexOf(player) === index;
+  }) : [];
+  var pendingPlayer = parseInt(state.pendingPlayer || 0, 10);
+  if (players.indexOf(pendingPlayer) === -1) pendingPlayer = 0;
+
+  window.BotController = {
+    enabled: state.enabled === true && players.length > 0,
+    mode: typeof state.mode === "string" ? state.mode : "",
+    folderPath: typeof state.folderPath === "string" ? state.folderPath : "",
+    players: players,
+    pendingPlayer: pendingPlayer
+  };
+
+  if (!window.BotController.enabled || pendingPlayer === 0) {
+    window.__botControllerRetryCount = 0;
+    window.__botControllerRetryRequested = false;
+    window.__botControllerRunRequested = false;
+    if (window.__botControllerRetryTimer) {
+      window.clearTimeout(window.__botControllerRetryTimer);
+      window.__botControllerRetryTimer = null;
+    }
+  }
+}
+
+function ScheduleBotControllerRetry() {
+  if (window.__botControllerRetryTimer) return;
+  var controller = window.BotController || {};
+  if (!controller.enabled || !controller.pendingPlayer) return;
+  if (window.__botControllerStepInFlight) {
+    window.__botControllerRetryRequested = true;
+    return;
+  }
+
+  var retryCount = parseInt(window.__botControllerRetryCount || 0, 10);
+  if (Number.isNaN(retryCount) || retryCount < 0) retryCount = 0;
+  var delay = Math.min(5000, 250 * Math.pow(2, Math.min(retryCount, 5)));
+  window.__botControllerRetryCount = retryCount + 1;
+  window.__botControllerRetryTimer = window.setTimeout(function() {
+    window.__botControllerRetryTimer = null;
+    MaybeRunBotControllerStep();
+  }, delay);
+}
+
 function MaybeRunBotControllerStep() {
   if (typeof window === "undefined") return;
   var controller = window.BotController || {};
   if (!controller.enabled) return;
-  if (window.__botControllerStepInFlight) return;
-  if (window.__botControllerStepPaused) return;
+  if (window.__botControllerRetryTimer) return;
   if (IsSpectatorClient()) return;
-  if (window.__botControllerWaitingForOtherPlayer !== true && window.__botControllerResponseWaitingForOtherPlayer !== true) return;
 
   var botPlayers = Array.isArray(controller.players) ? controller.players.map(function(player) {
     return parseInt(player, 10);
@@ -527,46 +574,50 @@ function MaybeRunBotControllerStep() {
   if (botPlayers.length === 0) return;
 
   var pendingPlayer = parseInt(controller.pendingPlayer || 0, 10);
-  var requestPlayer = botPlayers.indexOf(pendingPlayer) !== -1 ? pendingPlayer : botPlayers[0];
-
-  var authKeys = controller.authKeys || {};
-  var botAuthKey = authKeys[String(requestPlayer)] || "";
-  if (botAuthKey === "") {
-    if (window.console && console.warn) console.warn("Bot controller auth key is not available.");
-    window.__botControllerStepPaused = true;
+  if (botPlayers.indexOf(pendingPlayer) === -1) return;
+  if (window.__botControllerStepInFlight) {
+    window.__botControllerRunRequested = true;
     return;
   }
 
   var folderPath = controller.folderPath || (typeof window.rootPath === "string" ? window.rootPath.replace(/^(\.\/|\/)/, "").replace(/\/.*$/, "") : "");
   if (folderPath === "") {
     if (window.console && console.warn) console.warn("Bot controller folder path is not available.");
-    window.__botControllerStepPaused = true;
     return;
   }
 
   window.__botControllerStepInFlight = true;
+  window.__botControllerRunRequested = false;
   SubmitEngineInput(10017, "", {
-    playerID: requestPlayer,
-    authKey: botAuthKey,
     folderPath: folderPath,
     responseFormat: "json"
   }).then(function(response) {
     if (!response || response.success !== true) {
+      if (response && response.botController) SetBotControllerState(response.botController);
       var message = response && response.message ? response.message : "Bot controller step failed.";
       if (window.console && console.warn) console.warn(message);
-      window.__botControllerStepPaused = true;
+      if (!response || response.botStepRetryable !== false) ScheduleBotControllerRetry();
       return;
     }
     if (response.botStepApplied === true) {
-      window.setTimeout(function() {
-        if (typeof window.QueueGameUpdate === "function") window.QueueGameUpdate();
-      }, 150);
+      window.__botControllerRetryCount = 0;
+      if (typeof window.QueueGameUpdate === "function") window.QueueGameUpdate();
+    } else {
+      if (response.botController) SetBotControllerState(response.botController);
+      if ((window.BotController || {}).pendingPlayer) ScheduleBotControllerRetry();
     }
   }).catch(function(error) {
     if (window.console && console.error) console.error(error);
-    window.__botControllerStepPaused = true;
+    ScheduleBotControllerRetry();
   }).finally(function() {
     window.__botControllerStepInFlight = false;
+    if (window.__botControllerRetryRequested) {
+      window.__botControllerRetryRequested = false;
+      ScheduleBotControllerRetry();
+    } else if (window.__botControllerRunRequested) {
+      window.__botControllerRunRequested = false;
+      MaybeRunBotControllerStep();
+    }
   });
 }
 
