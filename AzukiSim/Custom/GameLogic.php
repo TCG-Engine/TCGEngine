@@ -719,9 +719,10 @@ function IsPendingAttackStateValid() {
 
     $defenderPlayer = ($attackerPlayer === 1) ? 2 : 1;
 
-    // Pending attacks must keep the same attacker in Garden and a live Garden target.
+    // Pending attacks must keep the same attacker in Garden and a live target.
     if(!PendingAttackRefExistsInExpectedZone($attackerPlayer, $attackerMZ, $attackerPlayer, 'Garden')) return false;
-    if(!PendingAttackRefExistsInExpectedZone($attackerPlayer, $targetMZ, $defenderPlayer, 'Garden')) return false;
+    if(!PendingAttackRefExistsInExpectedZone($attackerPlayer, $targetMZ, $defenderPlayer, 'Garden')
+        && !PendingAttackRefExistsInExpectedZone($attackerPlayer, $targetMZ, $defenderPlayer, 'Alley')) return false;
 
     return true;
 }
@@ -844,6 +845,9 @@ function TryRedirectPendingAttack($responderPlayer, $candidateMZ) {
     // Pending target is stored from attacker's perspective.
     $redirectTarget = FlipZonePerspective($candidateMZ);
     if(!is_string($redirectTarget) || $redirectTarget === '') return false;
+
+    $attackerPlayer = GetPendingAttackAttackerPlayer();
+    if($attackerPlayer !== 1 && $attackerPlayer !== 2) return false;
 
     $candidateObj->Status = 1; // tap as redirect cost
     StorePendingAttackParticipantState('Target', $redirectTarget, $attackerPlayer);
