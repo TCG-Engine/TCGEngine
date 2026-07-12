@@ -841,6 +841,7 @@ $turnEffectRegistry = [
     'ASH_186' => ['kind' => 'MARKER', 'label' => 'On Attack: deal 2 to this unit'],   // Treacherous Minefield (phase)
     'SWU_DAMAGED_PHASE' => ['kind' => 'MARKER', 'label' => 'Damaged this phase'],   // ASH_188 Galvanized Leap ("ready a unit damaged this phase")
     'SWU_AMBUSH_ATTACK' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Attacking using Ambush'],   // ASH_207 Heroic Purrgil
+    'SWU_REDIRECT_DMG' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Combat damage redirected'],   // SHD_090 Maul — params: [target UID]
     'SUPPORT_GRANT' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Gains a supporting unit\'s abilities'],   // Support (ASH) — params: [S CardID, S UID]
     'SOR_168' => ['kind' => 'GRANT_KEYWORD', 'value' => 'SABOTEUR', 'duration' => SWU_DUR_ATTACK, 'label' => 'Saboteur'],   // Precision Fire — chosen attacker gains Saboteur for this attack
     'JTL_015' => ['kind' => 'GRANT_KEYWORD', 'value' => 'SABOTEUR', 'duration' => SWU_DUR_ATTACK, 'label' => 'Saboteur'],   // Rio Durant — chosen space unit gains Saboteur for this attack
@@ -4599,6 +4600,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD217_USED');        // SHD_217 Tobias Beckett "exhaust a ≤cost unit once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD239_USED');        // SHD_239 Toro Calican "deal 1 + ready once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD010_USED');        // SHD_010 Bossk (deployed) "collect a bounty again once each round"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD017_USED');        // SHD_017 Lando (deployed) "smuggle -2 + defeat a resource once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH230_USED');        // ASH_230 Improvised Identity "once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_BASE_ATTACKED');      // ASH_119 Greef Karga "if your base was attacked this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ATTACKER_DEFEATED');  // SEC_158 "friendly defeated while attacking this phase"
@@ -6378,6 +6380,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'SOR_115':        KallusDrawTrigger($player);                   break;
         case 'SOR_013':       CassianDrawTrigger($player);                  break;
         case 'TWI_210': CunningOpponentPlayedReaction($player); break;
+        case 'SHD_172': Shd172Reaction($player, (string)$mzID); break;   // Krayt Dragon — $mzID carries "cost~count"
         case 'SHD_239': {  // Toro Calican — "may deal 1 to the played BH unit; if you do, ready Toro"; $mzID = "playedUID,toroUID"
             global $playerID; $playerID = intval($player);
             $pp = explode(',', (string)$mzID, 2);
@@ -6840,10 +6843,20 @@ function SWUCollectOpponentPlayReactions(int $playingPlayer, string $playedCardI
             AddTrigger($opp, 'TWI_210', 'TWI_210', '');
         }
     }
-    // ⚠ SHD_172 Krayt Dragon DEFERRED — "When an opponent plays a card: you may deal (its cost) to their
-    // base or a ground unit they control." The interactive cross-player target-choose (P1 picking among
-    // P2's board during P2's turn) does not drain in the reactive flush; TWI_210 works only because it
-    // targets P1's OWN units. Left unwired to avoid a latent game-stall.
+    // SHD_172 Krayt Dragon — "When an opponent plays a card: You may deal damage equal to that card's cost
+    // to their base or a ground unit they control." Damage = the PRINTED cost (project ruling); gated > 0 so
+    // a 0-cost play raises no useless prompt. The reactor is $opp (non-active); it targets the PLAYING
+    // player's board. Mirrors TWI_210's drain path (proven interactive non-active-player reaction).
+    if ($printedCost > 0) {
+        $krayts = _SWUCountActiveUnitsWithCardID($opp, 'SHD_172');   // Galen-suppression + multi-copy aware
+        // ⚠ Add ONE trigger carrying the COUNT (payload "cost~count"), NOT N identical triggers: two
+        // identical reactive triggers hang the EffectStack flush (a pre-existing engine limitation, never
+        // hit before because every prior reactive card was unique — Krayt is the first non-unique one).
+        // The reaction loops the may-deal $count times, which is CR-equivalent for identical triggers.
+        if ($krayts > 0) {
+            AddTrigger($opp, 'SHD_172', 'SHD_172', $printedCost . '~' . $krayts);   // "cost~count" in the mzID slot
+        }
+    }
 }
 
 // Batch E.1 — reactive "when YOU (the controller) play a card" observers. Mirror of
@@ -7005,6 +7018,19 @@ function CunningOpponentPlayedReaction(int $player): void {
     // Present the mode choice first; the unit-choose handler reads $lastDecision to know the mode.
     DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Ready&Exhaust", 1, "Ready_or_exhaust_a_unit?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TWI_210#1|" . implode('&', $allUnits), 1);
+}
+
+// SHD_172 Krayt Dragon — reactive "when an opponent plays a card." $reactor = Krayt's controller (non-
+// active); $payload = "cost~count" (printed cost + how many Krayts the reactor controls). Queue an
+// intermediate CUSTOM so the target MZMAYCHOOSE is built under $playerID = $reactor (DispatchTrigger
+// restores $playerID after this fn, so we must NOT queue the relative-mzID choose here directly — same
+// discipline as SHD_246 / TWI_210's continuation). SHD_172#0/#1 loop the may-deal once per Krayt.
+function Shd172Reaction(int $reactor, string $payload): void {
+    $pp     = explode('~', $payload);
+    $amount = intval($pp[0] ?? 0);
+    $count  = intval($pp[1] ?? 0);
+    if ($amount <= 0 || $count <= 0) return;
+    DecisionQueueController::AddDecision(intval($reactor), "CUSTOM", "SHD_172#0|{$amount}|{$count}", 1);
 }
 
 function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void {
@@ -9004,6 +9030,20 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'ASH_085': // Grav Charge — Condition, attach to any unit (typically an enemy)
         case 'ASH_198': // Nowhere to Hide — Condition (grants Sentinel), attach to any unit
         case 'ASH_150': // Deadly Vulnerability — Condition (double damage), attach to any unit
+        // SHD Bounty upgrades — printed "attach to a unit"; playable on friendly OR enemy (in practice
+        // you bounty an enemy, but the rules allow either). Fixes hand-play of ALL of them (today they
+        // only ever reach a unit via the bounty-grant mechanic). SHD_226 is printed "non-leader" — the
+        // extra leader targetability here is a negligible over-permissiveness.
+        case 'SHD_221': // Wanted
+        case 'SHD_068': // Public Enemy
+        case 'SHD_071': // Top Target
+        case 'SHD_123': // Bounty Hunter's Quarry
+        case 'SHD_125': // Price on Your Head
+        case 'SHD_173': // Guild Target
+        case 'SHD_176': // Death Mark
+        case 'SHD_222': // Enticing Reward
+        case 'SHD_226': // Unrefusable Offer
+        case 'SHD_261': // Rich Reward
             $playerID = $player;
             $all = array_values(array_merge(
                 ZoneSearch("myGroundArena",    AnyUnitFilter),
@@ -10312,6 +10352,9 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     $cost = $leaderActionResourceCosts[$cardID] ?? 0;
     if ($cost > 0 && SWUResourceCount($player, readyOnly: true) < $cost) return false;
 
+    // SHD_017 Lando (front) — needs a smugglable UNIT resource affordable at the -2 discount.
+    if ($cardID === 'SHD_017' && !_SWUShd017HasTarget($player)) return false;
+
     // SOR_006 Emperor Palpatine: "defeat a friendly unit" is part of the cost.
     if ($cardID === 'SOR_006') {
         $savedPID = $playerID;
@@ -10766,6 +10809,10 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             break;
         case 'ASH_230': // Improvised Identity (granted): once each round.
             if (GlobalEffectCount($player, 'SWU_ASH230_USED') > 0) $ok = false;
+            break;
+        case 'SHD_017': // Lando (deployed): once each round, and needs a smugglable unit affordable at -2.
+            if (GlobalEffectCount($player, 'SWU_SHD017_USED') > 0) $ok = false;
+            elseif (!_SWUShd017HasTarget($player)) $ok = false;
             break;
         case 'ASH_109': // T-6 Shuttle: needs ANOTHER unit to buff.
         case 'ASH_118': { // 8D8: needs ANOTHER friendly unit to damage.
@@ -11309,7 +11356,7 @@ $customDQHandlers["DISCLOSE_RESOLVE"] = function($player, $parts, $lastDecision)
 
 // Play a card from the player's resource zone using Smuggle (CR 8.22).
 // $resourceIdx is the 0-based index into the player's non-removed Resources entries.
-function SWUSmuggleResource(int $player, int $resourceIdx): void {
+function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?string $deferHandler = null): void {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
@@ -11354,6 +11401,8 @@ function SWUSmuggleResource(int $player, int $resourceIdx): void {
         $playerID = $savedPID;
         return;
     }
+    // SHD_017 Lando — "It costs 2 resources less." Applied after the aspect-adjusted Smuggle cost, floored at 0.
+    $totalCost = max(0, $totalCost - $discount);
 
     // A smuggled UPGRADE (SHD_174 / SHD_175) needs a valid host BEFORE anything is paid — an
     // upgrade with nowhere to attach can't be played at all.
@@ -11415,28 +11464,39 @@ function SWUSmuggleResource(int $player, int $resourceIdx): void {
 
     // CR 8.22.f: WhenPlayed and other entry triggers fire just as for normal play.
     $newCardMzID = $newCard->GetMzID();
+
+    // SHD_017 Lando — defer the entry triggers so the "defeat a resource you own and control" cost resolves
+    // AFTER the Smuggled card's slot is replaced (above) but BEFORE its When Played abilities (CR ordering:
+    // a leader ability's effects resolve in sequence). The deferHandler owns firing the entry triggers.
+    if ($deferHandler !== null) {
+        $GLOBALS['gSmuggleDeferred'] = ['player' => $player, 'cardID' => $cardID, 'mz' => $newCardMzID, 'arena' => $targetArena];
+        DecisionQueueController::AddDecision($player, 'CUSTOM', $deferHandler, 1);
+        $playerID = $savedPID;
+        return;
+    }
+
+    _SWUSmuggleFireEntry($player, $cardID, $newCardMzID, $targetArena);
+    $playerID = $savedPID;
+}
+
+// Fire a Smuggled unit's entry triggers — the "When played using Smuggle" closure (SHD_113/148/174/213),
+// the SHD_005 Hondo observer, and the generic WhenPlayed/Ambush/Shielded entry bag. Extracted so SHD_017
+// Lando can DEFER it until after its resource-defeat cost resolves. Owns the after-action.
+function _SWUSmuggleFireEntry(int $player, string $cardID, string $newCardMzID, string $targetArena): void {
+    global $playerID, $whenPlayedUsingSmuggleAbilities;
+    $playerID = intval($player);
     _SWUSec008HealOnResourcePlay($player);   // SEC_008 Bail Organa — "play a card from your resources"
-    // "When played using Smuggle:" (SHD_113 / SHD_148 / SHD_174 / SHD_213) — dispatch the registered
-    // closure for the entering card, before the generic entry triggers. (This registry was declared
-    // but never dispatched until SHD_113; the closure receives the new unit's mzID.)
-    global $whenPlayedUsingSmuggleAbilities;
     if (isset($whenPlayedUsingSmuggleAbilities["{$cardID}:0"])) {
         $whenPlayedUsingSmuggleAbilities["{$cardID}:0"]($player, $newCardMzID);
     }
-    // SHD_005 Hondo Ohnaka (front) — "When you play a card using Smuggle: you may exhaust this leader; if
-    // you do, give an Experience token to a unit." Smuggle-play-specific, so armed here on the Smuggle
-    // path (the generic own-play observers can't distinguish a Smuggle play). Flushes with the entry bag.
     if (_SWULeaderReadyUndeployed($player, 'SHD_005')) {
         AddTrigger($player, 'SHD_005', 'SHD_005', '');
     }
-    $triggered   = CollectEntryTriggers($player, $cardID, $newCardMzID, $targetArena);
-
+    $triggered = CollectEntryTriggers($player, $cardID, $newCardMzID, $targetArena);
     if ($triggered === 0) {
         DecisionQueueController::CleanupRemovedCards();
         SWUAfterAction($player);
     }
-
-    $playerID = $savedPID;
 }
 
 // SHD_038 Brutal Traditions — an Upgrade whose "Action: If an enemy unit was defeated this phase, play

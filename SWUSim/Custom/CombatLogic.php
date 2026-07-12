@@ -583,6 +583,33 @@ function _SWUShieldOrReduceCombat($obj, string $mzID, int $amount, int $animPlay
     return $dmg;
 }
 
+// SHD_090 Maul — "all combat damage that would be dealt to this unit during this attack is dealt to the
+// chosen unit instead." Returns the CURRENT mzID of the friendly redirect target (resolved by UID, so it
+// survives index shifts), or null if this attacker has no redirect this attack. The marker
+// "SWU_REDIRECT_DMG-{uid}" is set on Maul in its On Attack; it expires at attack end (SWU_DUR_ATTACK).
+function _SWUCombatRedirectTarget($attacker): ?string {
+    foreach (($attacker->TurnEffects ?? []) as $te) {
+        if (strpos((string)$te, 'SWU_REDIRECT_DMG-') === 0) {
+            $uid = intval(substr((string)$te, strlen('SWU_REDIRECT_DMG-')));
+            return $uid > 0 ? SWUFindMzByUID($uid) : null;
+        }
+    }
+    return null;
+}
+
+// If a redirect is active, apply the attacker's would-be counter-damage ($amount) to the redirect target
+// as COMBAT damage (its own shields/prevention apply); the attacker itself takes nothing. Returns true if
+// it redirected (so the caller skips the normal attacker prevention/shield chain).
+function _SWUMaybeRedirectAttackerDamage($attackerMzID, ?string $redirectMz, int $amount, int $player): bool {
+    if ($redirectMz === null) return false;
+    if ($amount > 0) {
+        $ro = GetZoneObject($redirectMz);
+        if ($ro !== null && empty($ro->removed)) _SWUShieldOrReduceCombat($ro, $redirectMz, $amount, $player);
+    }
+    SWUQueuePreventedAnim($attackerMzID, $player); // Maul takes no combat damage this attack
+    return true;
+}
+
 // ── Combat trigger collectors ───────────────────────────────────────────────
 
 // True if $obj carries an attack-duration TurnEffect marker with base $base (granted "for this attack").
@@ -1698,6 +1725,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             unset($sub);
         }
 
+        // SHD_090 Maul — resolve the counter-damage redirect target (if any) for this attack.
+        $redirectMz = _SWUCombatRedirectTarget($attacker);
+
         if ($hasShootFirst) {
             // Shoot First (SOR_217): attacker deals damage before defender.
             // If the defender is defeated, it deals no combat damage (CR card text).
@@ -1718,7 +1748,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             $defenderRemainingHP = intval(ObjectCurrentHP($target)) - intval($target->Damage);
             if ($defenderRemainingHP > 0) {
                 // Defender survived — take counter-damage normally (unless prevented this attack).
-                if ($preventAttackerDmg) {
+                if (_SWUMaybeRedirectAttackerDamage($attackerMzID, $redirectMz, $defendPower, intval($player))) {
+                    // SHD_090 Maul — redirected to the chosen friendly unit; Maul takes nothing.
+                } elseif ($preventAttackerDmg) {
                     SWUQueuePreventedAnim($attackerMzID, intval($player));
                 } elseif (_SWUDamageUnpreventable($target)) {   // ASH_196 — defender's counter bypasses Shield + prevention
                     $attacker->Damage = intval($attacker->Damage) + $defendPower;
@@ -1745,7 +1777,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             // swapped). The attacker then recomputes its power (Grit grows with the damage just taken) and
             // deals — but only if it survived.
             // 1. Defender deals to the attacker first.
-            if ($preventAttackerDmg) {
+            if (_SWUMaybeRedirectAttackerDamage($attackerMzID, $redirectMz, $defendPower, intval($player))) {
+                // SHD_090 Maul — redirected to the chosen friendly unit; Maul takes nothing (still deals below).
+            } elseif ($preventAttackerDmg) {
                 SWUQueuePreventedAnim($attackerMzID, intval($player));
             } elseif (_SWUDamageUnpreventable($target)) {   // ASH_196 — defender's hit bypasses Shield + prevention
                 $attacker->Damage = intval($attacker->Damage) + $defendPower;
@@ -1784,7 +1818,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         } else {
             // Normal simultaneous combat damage (CR 7.6.3).
             // Shield (CR 7.6.5): attacker's shield absorbs all counter-damage in one hit.
-            if ($preventAttackerDmg) {
+            if (_SWUMaybeRedirectAttackerDamage($attackerMzID, $redirectMz, $defendPower, intval($player))) {
+                // SHD_090 Maul — redirected to the chosen friendly unit; Maul takes nothing.
+            } elseif ($preventAttackerDmg) {
                 SWUQueuePreventedAnim($attackerMzID, intval($player));   // JTL_193: all damage to it prevented
             } elseif (_SWUDamageUnpreventable($target)) {   // ASH_196 — defender's counter bypasses Shield + prevention
                 $attacker->Damage = intval($attacker->Damage) + $defendPower;
@@ -1908,6 +1944,33 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 $combatCtx['baseCombatDmg'] += max(0, intval($overflowAmt)); // overwhelm counts for LOF_025
                 $_logOverwhelm = $overflowAmt; // deferred — logged after the attack line so it reads in event order
             }
+        }
+    }
+
+    // SHD_090 Maul — if the counter-damage was redirected and the redirect target is now lethal, defeat it
+    // (friendly unit → owner's discard, or return a leader to its zone). Mirrors the defender-defeat path
+    // (mark removed + add to $defeatedCards) so its When Defeated batches with the combat triggers below and
+    // the deferred CleanupRemovedCards runs once — avoiding a mid-combat index shift on the attacker mzID.
+    if (($redirectMz ?? null) !== null) {   // ?? null: $redirectMz is only set on a unit attack (base attacks deal no counter)
+        $rObj = GetZoneObject($redirectMz);
+        if ($rObj !== null && empty($rObj->removed)
+            && (intval(ObjectCurrentHP($rObj)) - intval($rObj->Damage)) <= 0 && !SWUImmuneToHpDefeat($rObj)) {
+            $rOwner = intval($rObj->Owner ?? $player);
+            $defeatedCards[] = ['player' => intval($rObj->Controller ?? $player), 'cardID' => $rObj->CardID,
+                                'mzID' => $redirectMz, 'upgraded' => _SWUIsUpgraded($rObj)];
+            AddGlobalEffects(intval($rObj->Controller ?? $player), 'SWU_COMBATDEF_' . intval($rObj->UniqueID ?? 0));
+            if (strpos(CardType($rObj->CardID) ?? '', 'Leader') !== false) {
+                SWUReturnLeaderToZone($rOwner, $redirectMz);
+            } else {
+                SWURescueCaptivesOf($rObj);
+                SWUReturnLeaderPilotSubcards($rObj, $rOwner);
+                _SWUDeferPilotDefeatReplacements($rObj);
+                SWUDiscardHostSubcards($rObj);
+                $rObj->removed = true;
+                SWUAddToDiscard($rOwner, $rObj->CardID, 'PLAY', _SWUUnitHasUpgrade($rObj, 'SHD_053') ? 'TPF' : '', $rObj);
+                AddGlobalEffects($rOwner, 'SWU_DEFEATED_CARD_' . $rObj->CardID);
+            }
+            AddGlobalEffects(intval($rObj->Controller ?? $player), 'SWU_FRIENDLY_DEFEATED');
         }
     }
 

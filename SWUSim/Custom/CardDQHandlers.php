@@ -21401,6 +21401,148 @@ $customDQHandlers["SHD_194#0"] = function($player, $parts, $lastDecision) {
     $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
 };
 
+// ─── SHD_172 Krayt Dragon ────────────────────────────────────────────────────────
+// Reactive continuation (runs under the reactor via ExecuteStaticMethods, which does NOT restore
+// $playerID). Build "their base or a ground unit they control" from the reactor's frame — the player who
+// played the card is the reactor's opponent, so that's theirBase-0 + theirGroundArena-N — and offer the
+// may-deal (printed cost in $parts[0]). $parts[1] = how many Krayts remain to resolve: #1 deals then loops
+// back to #0 for the next Krayt (one may-deal per Krayt — avoids the duplicate-trigger EffectStack hang).
+$customDQHandlers["SHD_172#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $amount = intval($parts[0] ?? 0);
+    $count  = intval($parts[1] ?? 0);
+    if ($amount <= 0 || $count <= 0) return;
+    $targets = ['theirBase-0'];
+    foreach (ZoneSearch('theirGroundArena', AnyUnitFilter) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed)) $targets[] = $mz;
+    }
+    SWUQueueMayChooseTarget(intval($player), $targets,
+        "Deal_{$amount}_to_their_base_or_a_ground_unit?",
+        "Deal_{$amount}_to_their_base_or_a_ground_unit_they_control", "SHD_172#1|{$amount}|{$count}");
+};
+// Resolve one Krayt's may-deal (DEAL_TARGET logic inline), then loop for the remaining count.
+$customDQHandlers["SHD_172#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $amount = intval($parts[0] ?? 0);
+    $count  = intval($parts[1] ?? 0);
+    if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS' && $amount > 0) {
+        if (strpos($lastDecision, 'Base') !== false) {
+            $tp = (strpos($lastDecision, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+            SWUDealDamageToBase($amount, $tp);
+        } else {
+            SWUDealDamageToUnit($lastDecision, $amount, intval($player));
+        }
+    }
+    if ($count - 1 > 0) {   // more Krayts to resolve → re-offer
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_172#0|{$amount}|" . ($count - 1), 1);
+    }
+};
+
+// ─── SHD_228 Bounty Posting ─────────────────────────────────────────────────────
+// Finalize the full-deck search: draw the found Bounty upgrade (reveal it publicly), reshuffle the rest,
+// then offer "you may play that upgrade (paying its cost)" if a valid enemy host exists. The play is a
+// normal upgrade play (ActivateCard at cost) whose attach flow picks an enemy unit (see the Bounty case
+// in SWUGetUpgradeValidTargets); wrapped in the turn/PASS save-restore so it doesn't double-advance.
+$customDQHandlers["SHD_228#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $allIDs   = array_values(array_filter(explode(',', $parts[0] ?? '')));
+    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
+    $drawnID  = $resolved['drawn'][0] ?? null;
+    if ($drawnID !== null) {
+        AddHand(intval($player), CardID: $drawnID);
+        AddGameLogEntry('REVEAL', 'P' . intval($player) . ' revealed ' . GameLogCardRef($drawnID)); // "reveal it"
+    }
+    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);   // shuffle the deck
+    if ($drawnID === null) return;                                           // no Bounty upgrade found
+    if (empty(SWUGetUpgradeValidTargets(intval($player), $drawnID))) return; // no valid enemy host → can't play
+    DecisionQueueController::CleanupRemovedCards();
+    $hand   = GetHand(intval($player));
+    $handMz = null;
+    for ($i = count($hand) - 1; $i >= 0; $i--) {
+        if (empty($hand[$i]->removed) && ($hand[$i]->CardID ?? '') === $drawnID) { $handMz = "myHand-$i"; break; }
+    }
+    if ($handMz === null) return;
+    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
+        tooltip: "Play_" . str_replace(' ', '_', CardTitle($drawnID)) . "?");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_228#1|$handMz", 1);
+};
+$customDQHandlers["SHD_228#1"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision !== "YES" && $lastDecision !== "1") return;            // declined the may-play
+    global $playerID, $gTurnPlayer; $playerID = intval($player);
+    $handMz = $parts[0] ?? '';
+    $o = GetZoneObject($handMz);
+    if ($o === null || !empty($o->removed)) return;
+    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
+    ActivateCard(intval($player), $handMz, false, 0);   // play at cost; attach flow picks the enemy host
+    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+};
+
+// ─── SHD_090 Maul ────────────────────────────────────────────────────────────────
+// Ambush, Overwhelm. On Attack: You may choose ANOTHER friendly Underworld unit. If you do, all combat
+// damage that would be dealt to Maul this attack is dealt to the chosen unit instead. The pick sets an
+// attack-duration marker "SWU_REDIRECT_DMG-{chosenUID}" on Maul; SWUCombatDamage reads it and routes the
+// counter-damage to the chosen unit (see _SWUCombatRedirectTarget / _SWUMaybeRedirectAttackerDamage).
+$onAttackAbilities["SHD_090:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $self = GetZoneObject($mzID);
+    $selfUID = $self ? intval($self->UniqueID ?? 0) : 0;
+    $targets = [];
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o === null || !empty($o->removed)) continue;
+            if (intval($o->UniqueID ?? 0) === $selfUID) continue;             // "another"
+            if (!HasTrait($o->CardID ?? '', 'Underworld')) continue;
+            $targets[] = $mz;
+        }
+    }
+    if (empty($targets)) return;
+    SWUQueueMayChooseTarget(intval($player), $targets,
+        "Redirect_combat_damage_to_a_friendly_Underworld_unit?",
+        "Choose_a_friendly_Underworld_unit", "SHD_090#0|{$selfUID}");
+};
+$customDQHandlers["SHD_090#0"] = function($player, $parts, $lastDecision) {
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;   // declined
+    global $playerID; $playerID = intval($player);
+    $chosen = GetZoneObject($lastDecision);
+    if ($chosen === null || !empty($chosen->removed)) return;
+    $chosenUID = intval($chosen->UniqueID ?? 0);
+    $maulMz = SWUFindMzByUID(intval($parts[0] ?? 0));
+    if ($maulMz === null || $chosenUID <= 0) return;
+    AddTurnEffect($maulMz, "SWU_REDIRECT_DMG-{$chosenUID}");
+};
+
+// ─── SHD_109 Endless Legions ────────────────────────────────────────────────────
+// Iterative reveal-one loop. Offer the player's UNIT resources (only units are playable this way, so
+// non-unit resources are simply not offered — dimmed in the resource-pick panel). MZMAYCHOOSE: pick one
+// to reveal+free-play, or pass to stop. Re-offer after each play. Loop ends on pass OR when no unit-
+// resources remain. The nested free-play (ActivateCard ignoreCost from a CUSTOM continuation) drains to
+// the arena and fires the played unit's own When Played exactly once — strictly one at a time.
+function _SWUShd109OfferNext(int $player): void {
+    global $playerID; $playerID = intval($player);
+    $units = [];
+    foreach (ZoneSearch('myResources', ['Unit']) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed)) $units[] = $mz;
+    }
+    if (empty($units)) return;                          // no unit-resources left → done
+    SWUQueueMayChooseTarget($player, $units,
+        "Play_a_unit_from_your_resources_for_free",
+        "Reveal_a_resource_to_play_for_free_(pass_to_stop)", "SHD_109#0");
+}
+$customDQHandlers["SHD_109#0"] = function($player, $parts, $lastDecision) {
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;   // passed → end loop
+    global $playerID, $gTurnPlayer; $playerID = intval($player);
+    $o = GetZoneObject($lastDecision);
+    if ($o === null || !empty($o->removed)) { _SWUShd109OfferNext(intval($player)); return; }
+    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
+    ActivateCard(intval($player), $lastDecision, true, 0);   // reveal + play for free; its When Played fires
+    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    $playerID = intval($player);
+    _SWUShd109OfferNext(intval($player));                    // loop: offer the next unit-resource
+};
+
 // ─── SHD_242 Gideon's Light Cruiser ───────────────────────────────────────────
 // When Played: If you control Moff Gideon (as a leader or unit), play a [Villainy] unit that costs 3 or
 // less from your hand or discard pile for FREE. The offer spans both zones (both are directly choosable);

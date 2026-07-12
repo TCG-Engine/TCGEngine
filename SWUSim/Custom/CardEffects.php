@@ -761,6 +761,28 @@ function OnPlayEvent(int $player, string $cardID): void {
             return;
         }
 
+        case 'SHD_228': { // Bounty Posting — "Search your deck for a Bounty upgrade, reveal it, and draw it.
+                          // (Shuffle your deck.) You may play that upgrade (paying its cost)." Full-deck search
+                          // (peek all, private) for an Upgrade whose text grants a Bounty; SHD_228#0 draws it,
+                          // reshuffles the rest, then offers the may-play-at-cost.
+            global $playerID; $playerID = intval($player);
+            $deckSize = count(GetDeck(intval($player)));
+            if ($deckSize === 0) return;
+            _topDeckSearchBegin(intval($player), $deckSize,
+                fn($cid) => CardType($cid) === 'Upgrade' && stripos(CardText($cid) ?? '', 'Bounty') !== false,
+                "count:1", "SHD_228#0");
+            return;
+        }
+
+        case 'SHD_109': { // Endless Legions — "Reveal any number of resources you control. Play each unit
+                          // revealed this way for free (one at a time)." Iterative reveal-one loop: offer the
+                          // player's UNIT resources (MZMAYCHOOSE; non-unit resources aren't offered), free-play
+                          // the pick, re-offer; a pass (or no units left) ends the loop.
+            global $playerID; $playerID = intval($player);
+            _SWUShd109OfferNext(intval($player));
+            return;
+        }
+
         case 'SHD_194': { // Triple Dark Raid — "Search the top 7 cards of your deck for a Vehicle and play it.
                           // It costs 5 resources less and enters play ready. Return it to its owner's hand at
                           // the end of the phase." Search (up to 1 Vehicle); SHD_194#0 free-plays via a nested
