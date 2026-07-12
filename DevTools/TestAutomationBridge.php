@@ -744,6 +744,24 @@ function BridgeEnumerateAzukiCustomInputActions($player, $zoneName, $index, $obj
   }
 
   if ($zoneName !== 'myGarden' && $zoneName !== 'myAlley') return $actions;
+
+  if ($zoneName === 'myGarden') {
+    try {
+      if (
+        function_exists('CanAttackWith')
+        && (!function_exists('HasPendingAttackResponse') || !HasPendingAttackResponse())
+        && CanAttackWith($player, $mzId)
+      ) {
+        $actions[] = array_merge(
+          ['playerID' => $player, 'mode' => 10001, 'buttonInput' => '', 'cardID' => $mzId . '!CustomInput!Attack', 'chkInput' => [], 'inputText' => ''],
+          BridgeActionCardMetadata($mzId)
+        );
+      }
+    } catch (Throwable $throwable) {
+      // Keep ability enumeration below tolerant of transient object state.
+    }
+  }
+
   if (!function_exists('CanActivateAbilityRuntime') || !function_exists('CanActivateAbilityWithCopiedText')) return $actions;
 
   $abilityCount = BridgeAzukiActivationAbilityCount($obj);
@@ -762,6 +780,11 @@ function BridgeEnumerateAzukiCustomInputActions($player, $zoneName, $index, $obj
   }
 
   return $actions;
+}
+
+function BridgeAzukiShouldEmitGenericFsmClick($zoneName) {
+  if ($zoneName !== 'myGarden') return true;
+  return function_exists('HasPendingAttackResponse') && HasPendingAttackResponse();
 }
 
 function BridgeAzukiAllowsFsmClick($player, $zoneName, $index, $obj) {
@@ -820,6 +843,7 @@ function BridgeEnumerateFSMActionsForZone($player, $zoneName, $root = '') {
 
     if ($root === 'AzukiSim') {
       $actions = array_merge($actions, BridgeEnumerateAzukiCustomInputActions($player, $zoneName, $index, $obj));
+      if (!BridgeAzukiShouldEmitGenericFsmClick($zoneName)) continue;
       if (!BridgeAzukiAllowsFsmClick($player, $zoneName, $index, $obj)) continue;
     }
 
@@ -1043,13 +1067,32 @@ function BridgeAzukiReadyAttackTotal($player) {
   return $total;
 }
 
+function BridgeAzukiBoardAttackTotal($player) {
+  $total = 0;
+  foreach (['garden', 'alley'] as $zoneName) {
+    if ($zoneName === 'garden') $zone = function_exists('GetGarden') ? GetGarden($player) : [];
+    else $zone = function_exists('GetAlley') ? GetAlley($player) : [];
+    if (!is_array($zone)) continue;
+    foreach ($zone as $obj) {
+      if (!is_object($obj) || !empty($obj->removed)) continue;
+      $cardID = strval($obj->CardID ?? '');
+      if ($cardID === '') continue;
+      if (function_exists('CardType') && CardType($cardID) !== 'LEADER' && CardType($cardID) !== 'ENTITY') continue;
+      $total += function_exists('ResolveEntityAttackValue') ? intval(ResolveEntityAttackValue($player, $obj)) : (function_exists('CardAttack') ? intval(CardAttack($cardID)) : 0);
+    }
+  }
+  return $total;
+}
+
 function BridgeAzukiStrategyStateSummary() {
   $players = [];
   for ($player = 1; $player <= 2; ++$player) {
     $leader = BridgeAzukiLeaderSummary($player);
     $players['p' . $player] = [
       'lifeBucket' => BridgeBucketAzukiLife(intval($leader['remainingLife'] ?? 0)),
+      'remainingLife' => intval($leader['remainingLife'] ?? 0),
       'readyAttack' => BridgeAzukiReadyAttackTotal($player),
+      'boardAttack' => BridgeAzukiBoardAttackTotal($player),
     ];
   }
   return $players;

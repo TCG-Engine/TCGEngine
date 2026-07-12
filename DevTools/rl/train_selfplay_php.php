@@ -16,6 +16,12 @@ function RlParseArgs($argv) {
     'temperature' => 1.0,
     'epsilon' => 0.05,
     'timeout-reward' => -0.25,
+    'tactical-terminal-weight' => 0.1,
+    'aggro-leader-damage-reward' => 0.25,
+    'control-leader-damage-reward' => 0.05,
+    'control-enemy-threat-reward' => 0.15,
+    'control-own-threat-penalty' => 0.1,
+    'tactical-no-state-change-penalty' => 0.05,
     'checkpoint-every' => 25,
     'log-every' => 25,
     'workers' => 1,
@@ -70,7 +76,7 @@ function RlParseArgs($argv) {
   }
   $args['workers'] = max(1, intval($args['workers']));
   $args['worker-episodes'] = max(1, intval($args['worker-episodes']));
-  foreach (['learning-rate', 'temperature', 'epsilon', 'timeout-reward'] as $key) {
+  foreach (['learning-rate', 'temperature', 'epsilon', 'timeout-reward', 'tactical-terminal-weight', 'aggro-leader-damage-reward', 'control-leader-damage-reward', 'control-enemy-threat-reward', 'control-own-threat-penalty', 'tactical-no-state-change-penalty'] as $key) {
     $args[$key] = floatval($args[$key]);
   }
   return $args;
@@ -333,6 +339,42 @@ function RlFilterLegalIndicesForPosture($legalIndices, $actions, $postureIdx) {
   return !empty($preferred) ? $preferred : $legalIndices;
 }
 
+function RlAzukiStrategyMetrics($snapshot, $player) {
+  $player = intval($player);
+  if ($player !== 1 && $player !== 2) $player = 1;
+  $opp = $player === 1 ? 2 : 1;
+  $strategic = is_array($snapshot['azukiStrategyState'] ?? null) ? $snapshot['azukiStrategyState'] : [];
+  $me = is_array($strategic['p' . $player] ?? null) ? $strategic['p' . $player] : [];
+  $them = is_array($strategic['p' . $opp] ?? null) ? $strategic['p' . $opp] : [];
+  return [
+    'myRemainingLife' => intval($me['remainingLife'] ?? 0),
+    'enemyRemainingLife' => intval($them['remainingLife'] ?? 0),
+    'myReadyAttack' => intval($me['readyAttack'] ?? 0),
+    'enemyReadyAttack' => intval($them['readyAttack'] ?? 0),
+    'myBoardAttack' => intval($me['boardAttack'] ?? ($me['readyAttack'] ?? 0)),
+    'enemyBoardAttack' => intval($them['boardAttack'] ?? ($them['readyAttack'] ?? 0)),
+  ];
+}
+
+function RlTacticalImmediateReward($beforeSnapshot, $afterSnapshot, $player, $postureIdx, $stateChanged, $args) {
+  if (intval($postureIdx) !== 0 && intval($postureIdx) !== 1) return 0.0;
+  $before = RlAzukiStrategyMetrics($beforeSnapshot, $player);
+  $after = RlAzukiStrategyMetrics($afterSnapshot, $player);
+  $reward = 0.0;
+  $leaderDamage = max(0, intval($before['enemyRemainingLife']) - intval($after['enemyRemainingLife']));
+  if (intval($postureIdx) === 0) {
+    $reward += $leaderDamage * floatval($args['aggro-leader-damage-reward']);
+  } else {
+    $enemyThreatReduced = max(0, intval($before['enemyBoardAttack']) - intval($after['enemyBoardAttack']));
+    $ownThreatLost = max(0, intval($before['myBoardAttack']) - intval($after['myBoardAttack']));
+    $reward += $leaderDamage * floatval($args['control-leader-damage-reward']);
+    $reward += $enemyThreatReduced * floatval($args['control-enemy-threat-reward']);
+    $reward -= $ownThreatLost * floatval($args['control-own-threat-penalty']);
+  }
+  if (!$stateChanged) $reward -= floatval($args['tactical-no-state-change-penalty']);
+  return $reward;
+}
+
 class RlTabularPolicy {
   public int $maxActions;
   public float $temperature;
@@ -423,7 +465,7 @@ class RlTabularPolicy {
     $this->applyDelta($this->episodeDeltaForPlayer($episodeSteps, $player, $terminalReward));
   }
 
-  public function episodeDeltaForPlayer($episodeSteps, $player, $terminalReward) {
+  public function episodeDeltaForPlayer($episodeSteps, $player, $terminalReward, $terminalWeight = 1.0) {
     $delta = [];
     foreach ($episodeSteps as $step) {
       if (intval($step['turn_player'] ?? 0) !== intval($player)) continue;
@@ -431,10 +473,13 @@ class RlTabularPolicy {
       $actionIdx = intval($step['action_index']);
       if ($actionIdx >= $this->maxActions) continue;
       $probs = $this->actionProbabilities($stateKey, $step['legal_indices']);
+      $stepReward = array_key_exists('tactical_reward', $step)
+        ? (floatval($step['tactical_reward']) + floatval($terminalWeight) * floatval($terminalReward))
+        : floatval($terminalReward);
       foreach ($probs as [$idx, $p]) {
         $grad = ($idx === $actionIdx ? 1.0 : 0.0) - $p;
         $key = strval($idx);
-        $delta[$stateKey][$key] = floatval($delta[$stateKey][$key] ?? 0.0) + $this->learningRate * floatval($terminalReward) * $grad;
+        $delta[$stateKey][$key] = floatval($delta[$stateKey][$key] ?? 0.0) + $this->learningRate * $stepReward * $grad;
       }
     }
     return $delta;
@@ -665,14 +710,20 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       'inputText' => strval($action['inputText'] ?? ''),
       'resolvedCardID' => strval($action['resolvedCardID'] ?? ''),
     ];
+    $stepIndex = count($episodeSteps);
     $episodeSteps[] = ['state_key' => $stateKey, 'action_index' => $actionIndex, 'legal_indices' => $legalIndices, 'turn_player' => $turnPlayer, 'strategy_posture' => $strategyPosture];
-    $replayActions[] = ['step' => count($replayActions) + 1, 'turnPlayer' => $turnPlayer, 'actionIndex' => $actionIndex, 'legalCount' => count($legalIndices), 'action' => $cleanAction];
+    $replayActions[] = ['step' => count($replayActions) + 1, 'turnPlayer' => $turnPlayer, 'actionIndex' => $actionIndex, 'legalCount' => count($legalIndices), 'strategyPosture' => $strategyPosture, 'action' => $cleanAction];
 
     try {
+      $beforeSnapshot = $snapshot;
       $stepPayload = RlStepLoaded($args['root'], $gameName, $cleanAction);
       $applyResult = $stepPayload['applyResult'];
       if (empty($applyResult['success'])) throw new Exception(strval($applyResult['message'] ?? 'engine action failed'));
       $snapshot = $stepPayload['snapshot'];
+      if ($strategyPosture !== null) {
+        $episodeSteps[$stepIndex]['tactical_reward'] = RlTacticalImmediateReward($beforeSnapshot, $snapshot, $turnPlayer, $strategyPosture, $stepPayload['preHash'] !== $stepPayload['postHash'], $args);
+        $replayActions[$stepIndex]['tacticalReward'] = $episodeSteps[$stepIndex]['tactical_reward'];
+      }
       $legal = $stepPayload['legalActions'];
       $lastLegalActions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
       $mask = array_fill(0, count($lastLegalActions), 1);
@@ -700,6 +751,10 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       $done = true;
       $reward = 0.0;
       $info = ['winner' => 0, 'isTerminal' => false, 'timedOut' => true, 'stepCount' => count($replayActions), 'legalKind' => 'engine-error', 'error' => $throwable->getMessage(), 'chosenAction' => $cleanAction];
+      if ($strategyPosture !== null) {
+        $episodeSteps[$stepIndex]['tactical_reward'] = -floatval($args['tactical-no-state-change-penalty']);
+        $replayActions[$stepIndex]['tacticalReward'] = $episodeSteps[$stepIndex]['tactical_reward'];
+      }
     }
     $mode = intval($cleanAction['mode']);
     $cardId = strval($cleanAction['cardID']);
@@ -725,12 +780,13 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   if ($episodeTimedOut && empty($info['isTerminal'])) {
     $reward = floatval($args['timeout-reward']);
   }
-  $p1Delta = $policy->episodeDeltaForPlayer($episodeSteps, 1, floatval($reward));
+  $tacticalTerminalWeight = RlStrategyEnabled(strval($args['strategy-mode'])) ? floatval($args['tactical-terminal-weight']) : 1.0;
+  $p1Delta = $policy->episodeDeltaForPlayer($episodeSteps, 1, floatval($reward), $tacticalTerminalWeight);
   $p1StrategyDelta = ($policy instanceof RlTabularPolicy && $policy->strategyPolicy instanceof RlTabularPolicy)
     ? $policy->strategyPolicy->episodeDeltaForPlayer($strategySteps, 1, floatval($reward))
     : [];
   $p2Reward = ($episodeTimedOut && empty($info['isTerminal'])) ? floatval($args['timeout-reward']) : -floatval($reward);
-  $p2Delta = $updateP2 ? $policy->episodeDeltaForPlayer($episodeSteps, 2, $p2Reward) : [];
+  $p2Delta = $updateP2 ? $policy->episodeDeltaForPlayer($episodeSteps, 2, $p2Reward, $tacticalTerminalWeight) : [];
   $p2StrategyDelta = ($updateP2 && $policy instanceof RlTabularPolicy && $policy->strategyPolicy instanceof RlTabularPolicy)
     ? $policy->strategyPolicy->episodeDeltaForPlayer($strategySteps, 2, $p2Reward)
     : [];
@@ -830,6 +886,12 @@ function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $compl
     'temperature' => floatval($args['temperature']),
     'epsilon' => floatval($args['epsilon']),
     'timeoutReward' => floatval($args['timeout-reward']),
+    'tacticalTerminalWeight' => floatval($args['tactical-terminal-weight']),
+    'aggroLeaderDamageReward' => floatval($args['aggro-leader-damage-reward']),
+    'controlLeaderDamageReward' => floatval($args['control-leader-damage-reward']),
+    'controlEnemyThreatReward' => floatval($args['control-enemy-threat-reward']),
+    'controlOwnThreatPenalty' => floatval($args['control-own-threat-penalty']),
+    'tacticalNoStateChangePenalty' => floatval($args['tactical-no-state-change-penalty']),
     'memoryOnly' => $args['memory-only'],
     'trainer' => 'php',
     'stateKeyVersion' => RlStateKeyVersion(),
@@ -1013,6 +1075,12 @@ function RlWorkerCommand($args, $runId, $policyPath, $resultPath, $episodeNumber
     '--temperature', strval(floatval($args['temperature'])),
     '--epsilon', strval(floatval($args['epsilon'])),
     '--timeout-reward', strval(floatval($args['timeout-reward'])),
+    '--tactical-terminal-weight', strval(floatval($args['tactical-terminal-weight'])),
+    '--aggro-leader-damage-reward', strval(floatval($args['aggro-leader-damage-reward'])),
+    '--control-leader-damage-reward', strval(floatval($args['control-leader-damage-reward'])),
+    '--control-enemy-threat-reward', strval(floatval($args['control-enemy-threat-reward'])),
+    '--control-own-threat-penalty', strval(floatval($args['control-own-threat-penalty'])),
+    '--tactical-no-state-change-penalty', strval(floatval($args['tactical-no-state-change-penalty'])),
     '--strategy-mode', RlQuoteArg($args['strategy-mode']),
   ];
   if ($args['memory-only'] === true) $parts[] = '--memory-only';

@@ -43,14 +43,15 @@ function AzukiGameMode(): string {
 function AzukiRlBotPendingPlayerForClient() {
     if(AzukiGameMode() !== 'rlbot') return 0;
 
-    $dqController = new DecisionQueueController();
-    foreach(GetAzukiRlBotPlayers() as $botPlayer) {
-        if($dqController->NextDecision($botPlayer) !== null) return intval($botPlayer);
-    }
-
     if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) {
         $responder = function_exists('GetPendingAttackResponderPlayer') ? intval(GetPendingAttackResponderPlayer()) : 0;
         if(IsAzukiRlBotPlayer($responder)) return $responder;
+        return 0;
+    }
+
+    $dqController = new DecisionQueueController();
+    foreach(GetAzukiRlBotPlayers() as $botPlayer) {
+        if($dqController->NextDecision($botPlayer) !== null) return intval($botPlayer);
     }
 
     $turnPlayer = intval(GetTurnPlayer());
@@ -358,7 +359,15 @@ function AzukiRlBotCleanAction($action) {
 }
 
 function AzukiRlBotLegalActions($gameName, $requestedPlayer) {
-    if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse() && intval(GetPendingAttackResponderPlayer()) === intval($requestedPlayer)) {
+    if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) {
+        if(intval(GetPendingAttackResponderPlayer()) !== intval($requestedPlayer)) {
+            return [
+                'success' => true,
+                'kind' => 'azuki-attack-response-wait',
+                'playerID' => 0,
+                'actions' => [],
+            ];
+        }
         $actions = BridgeEnumeratePlayableActions(intval($requestedPlayer), 'AzukiSim');
         $actions[] = BridgePassActionForRoot('AzukiSim', intval($requestedPlayer));
         return [
@@ -390,6 +399,12 @@ function ProcessAzukiRlBotStep($requestedPlayer = 0) {
     $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
     $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
     if(!empty($terminal['isTerminal'])) return ['success' => true, 'message' => 'Game is over.', 'applied' => false];
+
+    $pendingBotPlayer = AzukiRlBotPendingPlayerForClient();
+    if($pendingBotPlayer === 0) {
+        return ['success' => true, 'message' => 'No bot action is currently pending.', 'applied' => false];
+    }
+    $requestedPlayer = $pendingBotPlayer;
 
     $legal = AzukiRlBotLegalActions(strval($gameName), $requestedPlayer);
     $actingPlayer = intval($legal['playerID'] ?? 0);

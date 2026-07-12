@@ -6054,6 +6054,7 @@ function UpdateTurnPlayerMiasma() {
 
     // If we don't have a valid turn value, hide the overlay
     if (isNaN(turnVal)) {
+      window.__botControllerWaitingForOtherPlayer = false;
       overlay.style.display = 'none';
       return;
     }
@@ -6062,6 +6063,7 @@ function UpdateTurnPlayerMiasma() {
     if (!isNaN(viewerVal)) {
       const viewerIsTurn = viewerVal === turnVal;
       const shouldShowMessage = settings.showWaitingMessage && _shouldShowOpponentWaitingMessage(viewerIsTurn);
+      window.__botControllerWaitingForOtherPlayer = !!shouldShowMessage;
       // Use 'their-turn' CSS state whenever we're waiting for the opponent (covers the case
       // where it's technically the viewer's turn but the opponent has a pending decision).
       const overlayState = (!viewerIsTurn || shouldShowMessage) ? 'their-turn' : 'my-turn';
@@ -6074,10 +6076,14 @@ function UpdateTurnPlayerMiasma() {
           messageEl.textContent = _buildOpponentWaitingMessage();
         }
       }
+      if (shouldShowMessage && typeof window.MaybeRunBotControllerStep === 'function') {
+        window.MaybeRunBotControllerStep();
+      }
       return;
     }
 
     // For spectators (no viewerVal) show overlay by default when turnVal exists
+    window.__botControllerWaitingForOtherPlayer = false;
     _setTurnOverlayState(overlay, 'spectator-turn');
     overlay.style.display = 'flex';
     if (messageEl) {

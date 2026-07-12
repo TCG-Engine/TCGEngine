@@ -76,7 +76,20 @@ Experimental two-tier strategy mode is available with `--strategy-mode aggro-con
 php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck-file DevTools/rl/azuki_raizan.txt --episodes 1000 --seed 126 --max-steps 500 --checkpoint-every 50 --log-every 10 --memory-only --workers 8 --worker-episodes 4 --strategy-mode aggro-control
 ```
 
-This stores a small strategic posture table inside the same checkpoint as the normal action table. The strategic table uses a tiny Azuki state summary, currently life buckets plus ready attack pressure, and chooses between `aggro` and `control` using the same terminal reward as the action policy. The chosen posture only filters obvious target decisions: `aggro` prefers leader targets when present, while `control` prefers opposing unit targets when present. If no matching target exists, the normal tactical policy sees the full legal action set.
+This stores a small strategic posture table inside the same checkpoint as the normal action table. The strategic table uses a tiny Azuki state summary, currently life buckets plus attack pressure, and chooses between `aggro` and `control` using the same terminal reward as the action policy. The chosen posture only filters obvious target decisions: `aggro` prefers leader targets when present, while `control` prefers opposing unit targets when present. If no matching target exists, the normal tactical policy sees the full legal action set.
+
+When `--strategy-mode aggro-control` is enabled, the tactical action table uses posture-shaped immediate rewards plus a small terminal component. The strategic table still uses only terminal win/loss reward.
+
+Default tactical shaping:
+
+- `--tactical-terminal-weight 0.1`: tactical actions still receive 10% of final terminal reward.
+- `--aggro-leader-damage-reward 0.25`: aggro posture rewards damage dealt to the opposing leader.
+- `--control-leader-damage-reward 0.05`: control posture lightly rewards damage dealt to the opposing leader.
+- `--control-enemy-threat-reward 0.15`: control posture rewards permanent reduction of opposing board attack.
+- `--control-own-threat-penalty 0.1`: control posture penalizes permanent loss of friendly board attack.
+- `--tactical-no-state-change-penalty 0.05`: no-op/failed tactical actions receive a small penalty.
+
+Episode replays include `strategyPosture` and `tacticalReward` fields for shaped tactical steps.
 
 The tabular policy uses a coarse scalar state key. Current `lite-v2` keys include active/turn player, phase, own hand count, existing resource/material count fields, exact leader/champion life and damage, and each player's next decision type. They intentionally omit exact turn number, deck counts, opponent hand count, and exact decision queue counts to reduce table growth. Older checkpoints with legacy state keys can still be passed as `--checkpoint`, but their incompatible logits are discarded and training starts a fresh `lite-v2` table with the same trainer settings.
 

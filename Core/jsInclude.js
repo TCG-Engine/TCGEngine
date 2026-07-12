@@ -517,17 +517,20 @@ function MaybeRunBotControllerStep() {
   if (window.__botControllerStepInFlight) return;
   if (window.__botControllerStepPaused) return;
   if (IsSpectatorClient()) return;
-
-  var pendingPlayer = parseInt(controller.pendingPlayer || 0, 10);
-  if (pendingPlayer !== 1 && pendingPlayer !== 2) return;
+  if (window.__botControllerWaitingForOtherPlayer !== true && window.__botControllerResponseWaitingForOtherPlayer !== true) return;
 
   var botPlayers = Array.isArray(controller.players) ? controller.players.map(function(player) {
     return parseInt(player, 10);
+  }).filter(function(player) {
+    return player === 1 || player === 2;
   }) : [];
-  if (botPlayers.indexOf(pendingPlayer) === -1) return;
+  if (botPlayers.length === 0) return;
+
+  var pendingPlayer = parseInt(controller.pendingPlayer || 0, 10);
+  var requestPlayer = botPlayers.indexOf(pendingPlayer) !== -1 ? pendingPlayer : botPlayers[0];
 
   var authKeys = controller.authKeys || {};
-  var botAuthKey = authKeys[String(pendingPlayer)] || "";
+  var botAuthKey = authKeys[String(requestPlayer)] || "";
   if (botAuthKey === "") {
     if (window.console && console.warn) console.warn("Bot controller auth key is not available.");
     window.__botControllerStepPaused = true;
@@ -543,7 +546,7 @@ function MaybeRunBotControllerStep() {
 
   window.__botControllerStepInFlight = true;
   SubmitEngineInput(10017, "", {
-    playerID: pendingPlayer,
+    playerID: requestPlayer,
     authKey: botAuthKey,
     folderPath: folderPath,
     responseFormat: "json"

@@ -71,7 +71,7 @@ S1-STT02-009_Aya_E_C_die
 4
 S1-STT04-001_Zero_L_L_die 2 -1 1 -1 - - - -1
 S1-STT04-006_Wolf-Cub_E_C_die 2 1 0 1 - - - -1
-S1-STT04-012_Spiteful-Raider_E_UC_die 1 1 1 1 DMG_SRC:COMBAT:theirGarden-1~STT04_RAIDER_USED - - 1
+S1-STT04-012_Spiteful-Raider_E_UC_die 1 1 1 1 DMG_SRC:P2:COMBAT:theirGarden-1~STT04_RAIDER_USED - - 1
 S1-STT04-005_Ruby_E_C_die 2 1 0 1 - - - -1
 4
 S1-STT02-001_Shao_L_L_die 2 -1 -1 -1 - - - -1
