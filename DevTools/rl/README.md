@@ -70,6 +70,14 @@ php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck-file DevTools/rl/a
 
 In this mode, the coordinator writes one frozen policy snapshot per batch, each worker loads it once, runs up to `--worker-episodes` episodes locally, and returns one merged sparse delta. This intentionally makes policy updates less frequent, but avoids repeatedly decoding the full policy for every single episode.
 
+Experimental two-tier strategy mode is available with `--strategy-mode aggro-control`:
+
+```bash
+php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck-file DevTools/rl/azuki_raizan.txt --episodes 1000 --seed 126 --max-steps 500 --checkpoint-every 50 --log-every 10 --memory-only --workers 8 --worker-episodes 4 --strategy-mode aggro-control
+```
+
+This stores a small strategic posture table inside the same checkpoint as the normal action table. The strategic table uses a tiny Azuki state summary, currently life buckets plus ready attack pressure, and chooses between `aggro` and `control` using the same terminal reward as the action policy. The chosen posture only filters obvious target decisions: `aggro` prefers leader targets when present, while `control` prefers opposing unit targets when present. If no matching target exists, the normal tactical policy sees the full legal action set.
+
 The tabular policy uses a coarse scalar state key. Current `lite-v2` keys include active/turn player, phase, own hand count, existing resource/material count fields, exact leader/champion life and damage, and each player's next decision type. They intentionally omit exact turn number, deck counts, opponent hand count, and exact decision queue counts to reduce table growth. Older checkpoints with legacy state keys can still be passed as `--checkpoint`, but their incompatible logits are discarded and training starts a fresh `lite-v2` table with the same trainer settings.
 
 PHP trainer artifacts:

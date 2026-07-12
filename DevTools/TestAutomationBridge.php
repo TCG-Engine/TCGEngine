@@ -1025,6 +1025,36 @@ function BridgeAzukiRlStateSummary() {
   return $players;
 }
 
+function BridgeAzukiReadyAttackTotal($player) {
+  $total = 0;
+  foreach (['garden', 'alley'] as $zoneName) {
+    if ($zoneName === 'garden') $zone = function_exists('GetGarden') ? GetGarden($player) : [];
+    else $zone = function_exists('GetAlley') ? GetAlley($player) : [];
+    if (!is_array($zone)) continue;
+    foreach ($zone as $obj) {
+      if (!is_object($obj) || !empty($obj->removed)) continue;
+      if (intval($obj->Status ?? 2) !== 2) continue;
+      $cardID = strval($obj->CardID ?? '');
+      if ($cardID === '') continue;
+      if (function_exists('CardType') && CardType($cardID) !== 'LEADER' && CardType($cardID) !== 'ENTITY') continue;
+      $total += function_exists('ResolveEntityAttackValue') ? intval(ResolveEntityAttackValue($player, $obj)) : (function_exists('CardAttack') ? intval(CardAttack($cardID)) : 0);
+    }
+  }
+  return $total;
+}
+
+function BridgeAzukiStrategyStateSummary() {
+  $players = [];
+  for ($player = 1; $player <= 2; ++$player) {
+    $leader = BridgeAzukiLeaderSummary($player);
+    $players['p' . $player] = [
+      'lifeBucket' => BridgeBucketAzukiLife(intval($leader['remainingLife'] ?? 0)),
+      'readyAttack' => BridgeAzukiReadyAttackTotal($player),
+    ];
+  }
+  return $players;
+}
+
 function BridgeGetOpportunityState() {
   $pendingHandler = DecisionQueueController::GetVariable('PendingOpportunityHandler');
   $pendingFirstPlayer = DecisionQueueController::GetVariable('PendingOpportunityFirstPlayer');
@@ -1386,6 +1416,9 @@ function BridgeSnapshotLoaded($root, $gameName, $view) {
     ];
     if ($root === 'AzukiSim' && !empty($GLOBALS['bridgeIncludeAzukiRlState'])) {
       $payload['azukiRlState'] = BridgeAzukiRlStateSummary();
+    }
+    if ($root === 'AzukiSim' && !empty($GLOBALS['bridgeIncludeAzukiStrategyState'])) {
+      $payload['azukiStrategyState'] = BridgeAzukiStrategyStateSummary();
     }
     $payload['terminal'] = $terminal;
   } else {

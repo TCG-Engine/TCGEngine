@@ -68,7 +68,14 @@ function AzukiRlBotEnsureBridgeLoaded() {
 }
 
 function AzukiRlBotPublishedCheckpointPath() {
-    return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'RLBot' . DIRECTORY_SEPARATOR . 'raizan-lite-v2.json';
+    $modelDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'RLBot';
+    $defaultModel = 'raizan-lite-v2.json';
+    $selectorPath = $modelDir . DIRECTORY_SEPARATOR . 'selected-model.txt';
+    $selected = is_file($selectorPath) ? trim(strval(@file_get_contents($selectorPath))) : '';
+    if($selected !== '' && basename($selected) === $selected && is_file($modelDir . DIRECTORY_SEPARATOR . $selected)) {
+        return $modelDir . DIRECTORY_SEPARATOR . $selected;
+    }
+    return $modelDir . DIRECTORY_SEPARATOR . $defaultModel;
 }
 
 function AzukiRlBotExtractJsonObjectAt($raw, $start) {
@@ -141,6 +148,13 @@ function AzukiRlBotCheckpointStateKeyVersion($path) {
     return 'lite-v2';
 }
 
+function AzukiRlBotCheckpointStrategyMode($path) {
+    $raw = @file_get_contents($path);
+    if(!is_string($raw) || $raw === '') return 'none';
+    if(strpos($raw, '"strategy_mode": "aggro-control"') !== false || strpos($raw, '"strategy_mode":"aggro-control"') !== false) return 'aggro-control';
+    return 'none';
+}
+
 function AzukiRlBotLoadStateLogits($stateKey) {
     static $cache = [];
     $path = AzukiRlBotPublishedCheckpointPath();
@@ -154,6 +168,39 @@ function AzukiRlBotLoadStateLogits($stateKey) {
     if(count($cache) > 256) $cache = [];
     $cache[$cacheKey] = $logits;
     return $logits;
+}
+
+function AzukiRlBotBucketPressure($value) {
+    $value = intval($value);
+    if($value <= 0) return '0';
+    if($value <= 2) return '1-2';
+    if($value <= 5) return '3-5';
+    if($value <= 9) return '6-9';
+    return '10+';
+}
+
+function AzukiRlBotStrategyStateKeyFromSnapshot($snapshot, $actingPlayer) {
+    $actingPlayer = intval($actingPlayer);
+    if($actingPlayer !== 1 && $actingPlayer !== 2) $actingPlayer = 1;
+    $opp = $actingPlayer === 1 ? 2 : 1;
+    $strategic = is_array($snapshot['azukiStrategyState'] ?? null) ? $snapshot['azukiStrategyState'] : [];
+    $me = is_array($strategic['p' . $actingPlayer] ?? null) ? $strategic['p' . $actingPlayer] : [];
+    $them = is_array($strategic['p' . $opp] ?? null) ? $strategic['p' . $opp] : [];
+    $players = is_array($snapshot['players'] ?? null) ? $snapshot['players'] : [];
+    $player = is_array($players['player' . $actingPlayer] ?? null) ? $players['player' . $actingPlayer] : [];
+    $dq = is_array($player['decisionQueue'] ?? null) ? $player['decisionQueue'] : [];
+    $nextDQ = is_array($dq['next'] ?? null) ? $dq['next'] : [];
+    $key = [
+        'version' => 'strategy-v1',
+        'phase' => strval($snapshot['phase'] ?? ''),
+        'nextDQType' => strval($nextDQ['type'] ?? ''),
+        'myLife' => strval($me['lifeBucket'] ?? 'high'),
+        'theirLife' => strval($them['lifeBucket'] ?? 'high'),
+        'myReadyAttack' => AzukiRlBotBucketPressure(intval($me['readyAttack'] ?? 0)),
+        'theirReadyAttack' => AzukiRlBotBucketPressure(intval($them['readyAttack'] ?? 0)),
+    ];
+    ksort($key);
+    return json_encode($key, JSON_UNESCAPED_SLASHES);
 }
 
 function AzukiRlBotLiteV2StateKeyFromSnapshot($snapshot) {
@@ -248,13 +295,54 @@ function AzukiRlBotChooseAction($stateLogits, $actions) {
     $bestIndex = 0;
     $bestScore = null;
     for($i = 0; $i < count($actions); ++$i) {
-        $score = floatval($stateLogits[strval($i)] ?? 0.0);
+        $scoreIndex = isset($actions[$i]['_rlActionIndex']) ? intval($actions[$i]['_rlActionIndex']) : $i;
+        $score = floatval($stateLogits[strval($scoreIndex)] ?? 0.0);
         if($bestScore === null || $score > $bestScore) {
             $bestScore = $score;
             $bestIndex = $i;
         }
     }
     return $actions[$bestIndex] ?? null;
+}
+
+function AzukiRlBotChoosePosture($stateLogits) {
+    if(!is_array($stateLogits)) $stateLogits = [];
+    $aggro = floatval($stateLogits['0'] ?? 0.0);
+    $control = floatval($stateLogits['1'] ?? 0.0);
+    return $control > $aggro ? 1 : 0;
+}
+
+function AzukiRlBotActionTargetRole($action) {
+    if(!is_array($action)) return '';
+    $cardID = strval($action['cardID'] ?? '');
+    $resolved = strval($action['resolvedCardID'] ?? '');
+    if($resolved !== '' && function_exists('CardType')) {
+        $type = strval(CardType($resolved));
+        if($type === 'LEADER') return 'leader';
+        if($type === 'ENTITY') {
+            if(str_starts_with($cardID, 'theirGarden-') || str_starts_with($cardID, 'theirAlley-')) return 'enemy-unit';
+            if(str_starts_with($cardID, 'myGarden-') || str_starts_with($cardID, 'myAlley-')) return 'own-unit';
+        }
+    }
+    if(str_starts_with($cardID, 'theirGarden-') || str_starts_with($cardID, 'theirAlley-')) return 'enemy-unit';
+    return '';
+}
+
+function AzukiRlBotFilterActionsForPosture($actions, $posture) {
+    if(!is_array($actions) || empty($actions)) return $actions;
+    $preferred = [];
+    foreach($actions as $index => $action) {
+        $role = AzukiRlBotActionTargetRole($action);
+        if(intval($posture) === 0 && $role === 'leader') {
+            $action['_rlActionIndex'] = intval($index);
+            $preferred[] = $action;
+        }
+        if(intval($posture) === 1 && $role === 'enemy-unit') {
+            $action['_rlActionIndex'] = intval($index);
+            $preferred[] = $action;
+        }
+    }
+    return !empty($preferred) ? $preferred : $actions;
 }
 
 function AzukiRlBotCleanAction($action) {
@@ -296,7 +384,9 @@ function ProcessAzukiRlBotStep($requestedPlayer = 0) {
 
     $checkpointPath = AzukiRlBotPublishedCheckpointPath();
     $stateKeyVersion = AzukiRlBotCheckpointStateKeyVersion($checkpointPath);
+    $strategyMode = AzukiRlBotCheckpointStrategyMode($checkpointPath);
     $GLOBALS['bridgeIncludeAzukiRlState'] = $stateKeyVersion === 'AzukiSim:azuki-v1';
+    $GLOBALS['bridgeIncludeAzukiStrategyState'] = $strategyMode === 'aggro-control';
     $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
     $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
     if(!empty($terminal['isTerminal'])) return ['success' => true, 'message' => 'Game is over.', 'applied' => false];
@@ -310,6 +400,11 @@ function ProcessAzukiRlBotStep($requestedPlayer = 0) {
     $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
     if(empty($actions)) return ['success' => true, 'message' => 'No legal bot actions are available.', 'applied' => false];
 
+    if($strategyMode === 'aggro-control') {
+        $strategyKey = AzukiRlBotStrategyStateKeyFromSnapshot($snapshot, $actingPlayer);
+        $posture = AzukiRlBotChoosePosture(AzukiRlBotLoadStateLogits($strategyKey));
+        $actions = AzukiRlBotFilterActionsForPosture($actions, $posture);
+    }
     $action = AzukiRlBotChooseAction(AzukiRlBotLoadStateLogits(AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion, $actingPlayer)), $actions);
     if(!is_array($action)) return ['success' => true, 'message' => 'No bot action was selected.', 'applied' => false];
 

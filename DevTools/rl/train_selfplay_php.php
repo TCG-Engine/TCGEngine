@@ -20,6 +20,7 @@ function RlParseArgs($argv) {
     'log-every' => 25,
     'workers' => 1,
     'worker-episodes' => 1,
+    'strategy-mode' => 'none',
     'worker' => false,
     'worker-id' => 0,
     'policy-file' => '',
@@ -112,7 +113,44 @@ function RlStateKeyVersion() {
 }
 
 function RlCompatibleStateKeyVersions() {
-  return ['lite-v2' => true, 'AzukiSim:azuki-v1' => true];
+  return ['lite-v2' => true, 'AzukiSim:azuki-v1' => true, 'strategy-v1' => true];
+}
+
+function RlStrategyEnabled($mode) {
+  return strval($mode) === 'aggro-control';
+}
+
+function RlBucketPressure($value) {
+  $value = intval($value);
+  if ($value <= 0) return '0';
+  if ($value <= 2) return '1-2';
+  if ($value <= 5) return '3-5';
+  if ($value <= 9) return '6-9';
+  return '10+';
+}
+
+function RlStrategicStateKeyFromSnapshot($snapshot, $actingPlayer) {
+  $actingPlayer = intval($actingPlayer);
+  if ($actingPlayer !== 1 && $actingPlayer !== 2) $actingPlayer = 1;
+  $opp = $actingPlayer === 1 ? 2 : 1;
+  $strategic = is_array($snapshot['azukiStrategyState'] ?? null) ? $snapshot['azukiStrategyState'] : [];
+  $me = is_array($strategic['p' . $actingPlayer] ?? null) ? $strategic['p' . $actingPlayer] : [];
+  $them = is_array($strategic['p' . $opp] ?? null) ? $strategic['p' . $opp] : [];
+  $players = is_array($snapshot['players'] ?? null) ? $snapshot['players'] : [];
+  $player = is_array($players['player' . $actingPlayer] ?? null) ? $players['player' . $actingPlayer] : [];
+  $dq = is_array($player['decisionQueue'] ?? null) ? $player['decisionQueue'] : [];
+  $nextDQ = is_array($dq['next'] ?? null) ? $dq['next'] : [];
+  $key = [
+    'version' => 'strategy-v1',
+    'phase' => strval($snapshot['phase'] ?? ''),
+    'nextDQType' => strval($nextDQ['type'] ?? ''),
+    'myLife' => strval($me['lifeBucket'] ?? 'high'),
+    'theirLife' => strval($them['lifeBucket'] ?? 'high'),
+    'myReadyAttack' => RlBucketPressure(intval($me['readyAttack'] ?? 0)),
+    'theirReadyAttack' => RlBucketPressure(intval($them['readyAttack'] ?? 0)),
+  ];
+  ksort($key);
+  return json_encode($key, JSON_UNESCAPED_SLASHES);
 }
 
 function RlLiteV2StateKeyFromSnapshot($snapshot) {
@@ -268,11 +306,40 @@ function RlCandidateIndices($mask, $actions, $noOpKeys, $stateKey) {
   return $indices;
 }
 
+function RlActionTargetRole($action) {
+  if (!is_array($action)) return '';
+  $cardID = strval($action['cardID'] ?? '');
+  $resolved = strval($action['resolvedCardID'] ?? '');
+  if ($resolved !== '' && function_exists('CardType')) {
+    $type = strval(CardType($resolved));
+    if ($type === 'LEADER') return 'leader';
+    if ($type === 'ENTITY') {
+      if (str_starts_with($cardID, 'theirGarden-') || str_starts_with($cardID, 'theirAlley-')) return 'enemy-unit';
+      if (str_starts_with($cardID, 'myGarden-') || str_starts_with($cardID, 'myAlley-')) return 'own-unit';
+    }
+  }
+  if (str_starts_with($cardID, 'theirGarden-') || str_starts_with($cardID, 'theirAlley-')) return 'enemy-unit';
+  return '';
+}
+
+function RlFilterLegalIndicesForPosture($legalIndices, $actions, $postureIdx) {
+  if (empty($legalIndices)) return $legalIndices;
+  $preferred = [];
+  foreach ($legalIndices as $idx) {
+    $role = RlActionTargetRole($actions[$idx] ?? []);
+    if (intval($postureIdx) === 0 && $role === 'leader') $preferred[] = $idx;
+    if (intval($postureIdx) === 1 && $role === 'enemy-unit') $preferred[] = $idx;
+  }
+  return !empty($preferred) ? $preferred : $legalIndices;
+}
+
 class RlTabularPolicy {
   public int $maxActions;
   public float $temperature;
   public float $learningRate;
   public string $stateKeyVersion;
+  public string $strategyMode = 'none';
+  public ?RlTabularPolicy $strategyPolicy = null;
   // Sparse map: stateKey => actionIndex => logit. Missing entries are zero.
   public array $logits = [];
 
@@ -410,11 +477,15 @@ class RlTabularPolicy {
   }
 
   public function payload() {
+    return $this->payloadWithStrategy(true);
+  }
+
+  public function payloadWithStrategy($includeStrategy) {
     $logits = [];
     foreach ($this->logits as $stateKey => $values) {
       if (!empty($values)) $logits[$stateKey] = (object)$values;
     }
-    return [
+    $payload = [
       'max_actions' => $this->maxActions,
       'temperature' => $this->temperature,
       'learning_rate' => $this->learningRate,
@@ -422,6 +493,11 @@ class RlTabularPolicy {
       'logits_format' => 'sparse_index_map',
       'logits' => $logits,
     ];
+    if ($includeStrategy && $this->strategyPolicy !== null && RlStrategyEnabled($this->strategyMode)) {
+      $payload['strategy_mode'] = $this->strategyMode;
+      $payload['strategy_policy'] = $this->strategyPolicy->payloadWithStrategy(false);
+    }
+    return $payload;
   }
 
   public static function fromPayload($payload, $fallbackMaxActions, $fallbackTemperature, $fallbackLearningRate) {
@@ -458,6 +534,12 @@ class RlTabularPolicy {
       }
       if (empty($obj->logits[strval($stateKey)] ?? [])) unset($obj->logits[strval($stateKey)]);
     }
+    $strategyMode = strval($payload['strategy_mode'] ?? 'none');
+    $strategyPayload = is_array($payload['strategy_policy'] ?? null) ? $payload['strategy_policy'] : null;
+    if (RlStrategyEnabled($strategyMode) && $strategyPayload !== null) {
+      $obj->strategyMode = $strategyMode;
+      $obj->strategyPolicy = self::fromPayload($strategyPayload, 2, $obj->temperature, $obj->learningRate);
+    }
     return $obj;
   }
 
@@ -475,7 +557,19 @@ class RlTabularPolicy {
   public function copy() {
     $obj = new RlTabularPolicy($this->maxActions, $this->temperature, $this->learningRate, $this->stateKeyVersion);
     $obj->logits = $this->logits;
+    $obj->strategyMode = $this->strategyMode;
+    $obj->strategyPolicy = $this->strategyPolicy !== null ? $this->strategyPolicy->copy() : null;
     return $obj;
+  }
+}
+
+function RlEnsureStrategyPolicy($policy, $strategyMode) {
+  if (!$policy instanceof RlTabularPolicy) return;
+  $strategyMode = strval($strategyMode);
+  if (!RlStrategyEnabled($strategyMode)) return;
+  $policy->strategyMode = $strategyMode;
+  if (!$policy->strategyPolicy instanceof RlTabularPolicy) {
+    $policy->strategyPolicy = new RlTabularPolicy(2, $policy->temperature, $policy->learningRate, 'strategy-v1');
   }
 }
 
@@ -500,6 +594,9 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   $GLOBALS['bridgeIncludeAzukiRlState'] =
     ($policy instanceof RlTabularPolicy && $policy->stateKeyVersion === 'AzukiSim:azuki-v1')
     || ($opponent instanceof RlTabularPolicy && $opponent->stateKeyVersion === 'AzukiSim:azuki-v1');
+  $GLOBALS['bridgeIncludeAzukiStrategyState'] =
+    ($policy instanceof RlTabularPolicy && RlStrategyEnabled($policy->strategyMode))
+    || ($opponent instanceof RlTabularPolicy && RlStrategyEnabled($opponent->strategyMode));
   $startPayload = BridgeStartSelfplayGame($args['root'], $gameName, intval($epSeed), $deckText, $deckText, $memoryArg);
   if (empty($startPayload['success'])) RlFail('start-selfplay-game failed: ' . json_encode($startPayload));
 
@@ -510,6 +607,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   $mask = array_fill(0, count($lastLegalActions), 1);
 
   $episodeSteps = [];
+  $strategySteps = [];
   $replayActions = [];
   $stepTrace = [];
   $noOpKeys = [];
@@ -542,6 +640,18 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       $info['timedOut'] = true;
       break;
     }
+    $strategyPosture = null;
+    if ($actingPolicy instanceof RlTabularPolicy && $actingPolicy->strategyPolicy instanceof RlTabularPolicy && RlStrategyEnabled($actingPolicy->strategyMode)) {
+      $strategyKey = RlStrategicStateKeyFromSnapshot($snapshot, $turnPlayer);
+      $strategyPosture = $actingPolicy->strategyPolicy->selectAction($strategyKey, [1, 1], floatval($args['epsilon']));
+      $strategySteps[] = [
+        'state_key' => $strategyKey,
+        'action_index' => intval($strategyPosture),
+        'legal_indices' => [0, 1],
+        'turn_player' => $turnPlayer,
+      ];
+      $legalIndices = RlFilterLegalIndicesForPosture($legalIndices, $lastLegalActions, $strategyPosture);
+    }
     $filteredMask = array_fill(0, count($boundedMask), 0);
     foreach ($legalIndices as $idx) $filteredMask[$idx] = 1;
     $actionIndex = $actingPolicy->selectAction($stateKey, $filteredMask, floatval($args['epsilon']));
@@ -555,7 +665,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       'inputText' => strval($action['inputText'] ?? ''),
       'resolvedCardID' => strval($action['resolvedCardID'] ?? ''),
     ];
-    $episodeSteps[] = ['state_key' => $stateKey, 'action_index' => $actionIndex, 'legal_indices' => $legalIndices, 'turn_player' => $turnPlayer];
+    $episodeSteps[] = ['state_key' => $stateKey, 'action_index' => $actionIndex, 'legal_indices' => $legalIndices, 'turn_player' => $turnPlayer, 'strategy_posture' => $strategyPosture];
     $replayActions[] = ['step' => count($replayActions) + 1, 'turnPlayer' => $turnPlayer, 'actionIndex' => $actionIndex, 'legalCount' => count($legalIndices), 'action' => $cleanAction];
 
     try {
@@ -616,8 +726,14 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     $reward = floatval($args['timeout-reward']);
   }
   $p1Delta = $policy->episodeDeltaForPlayer($episodeSteps, 1, floatval($reward));
+  $p1StrategyDelta = ($policy instanceof RlTabularPolicy && $policy->strategyPolicy instanceof RlTabularPolicy)
+    ? $policy->strategyPolicy->episodeDeltaForPlayer($strategySteps, 1, floatval($reward))
+    : [];
   $p2Reward = ($episodeTimedOut && empty($info['isTerminal'])) ? floatval($args['timeout-reward']) : -floatval($reward);
   $p2Delta = $updateP2 ? $policy->episodeDeltaForPlayer($episodeSteps, 2, $p2Reward) : [];
+  $p2StrategyDelta = ($updateP2 && $policy instanceof RlTabularPolicy && $policy->strategyPolicy instanceof RlTabularPolicy)
+    ? $policy->strategyPolicy->episodeDeltaForPlayer($strategySteps, 2, $p2Reward)
+    : [];
   $episodeWinner = intval($info['winner'] ?? 0);
   $replay = null;
   if ($captureReplay || $episodeTimedOut) {
@@ -638,7 +754,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   }
 
   RlCleanupGame($gameName);
-  unset($episodeSteps, $replayActions, $stepTrace, $initialFull, $snapshot, $legal, $lastLegalActions, $mask);
+  unset($episodeSteps, $strategySteps, $replayActions, $stepTrace, $initialFull, $snapshot, $legal, $lastLegalActions, $mask);
   if (function_exists('gc_collect_cycles')) gc_collect_cycles();
 
   return [
@@ -653,6 +769,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     'info' => $info,
     'p1Delta' => $p1Delta,
     'p2Delta' => $p2Delta,
+    'p1StrategyDelta' => $p1StrategyDelta,
+    'p2StrategyDelta' => $p2StrategyDelta,
     'replay' => $replay,
   ];
 }
@@ -715,6 +833,7 @@ function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $compl
     'memoryOnly' => $args['memory-only'],
     'trainer' => 'php',
     'stateKeyVersion' => RlStateKeyVersion(),
+    'strategyMode' => strval($GLOBALS['rlStrategyMode'] ?? 'none'),
     'workers' => intval($args['workers']),
     'workerEpisodes' => intval($args['worker-episodes']),
     'checkpointEvery' => intval($args['checkpoint-every']),
@@ -739,8 +858,11 @@ function RlRunWorker($args) {
   mt_srand(intval($args['episode-seed']) + intval($args['worker-id']));
   $deckText = file_get_contents($args['deck-file']);
   $policy = RlTabularPolicy::load(strval($args['policy-file']), $args['max-actions'], $args['temperature'], $args['learning-rate']);
+  RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
+  $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
   $episodeCount = max(1, min(intval($args['worker-episodes']), intval($args['episodes'])));
   $allDeltas = [];
+  $allStrategyDeltas = [];
   $summaries = [];
   $replays = [];
   for ($i = 0; $i < $episodeCount; ++$i) {
@@ -759,8 +881,11 @@ function RlRunWorker($args) {
       true
     );
     $episodeDelta = RlTabularPolicy::mergeDeltas([$result['p1Delta'] ?? [], $result['p2Delta'] ?? []]);
+    $episodeStrategyDelta = RlTabularPolicy::mergeDeltas([$result['p1StrategyDelta'] ?? [], $result['p2StrategyDelta'] ?? []]);
     $allDeltas[] = $episodeDelta;
+    $allStrategyDeltas[] = $episodeStrategyDelta;
     $policy->applyDelta($episodeDelta);
+    if ($policy->strategyPolicy instanceof RlTabularPolicy) $policy->strategyPolicy->applyDelta($episodeStrategyDelta);
     $summaries[] = [
       'episode' => intval($result['episode']),
       'seed' => intval($result['seed']),
@@ -779,6 +904,7 @@ function RlRunWorker($args) {
     }
   }
   $delta = RlTabularPolicy::mergeDeltas($allDeltas);
+  $strategyDelta = RlTabularPolicy::mergeDeltas($allStrategyDeltas);
   RlWriteJson(strval($args['result-file']), [
     'success' => true,
     'workerId' => intval($args['worker-id']),
@@ -787,6 +913,7 @@ function RlRunWorker($args) {
     'summaries' => $summaries,
     'summary' => $summaries[count($summaries) - 1] ?? [],
     'delta' => $delta,
+    'strategyDelta' => $strategyDelta,
     'replays' => $replays,
     'replay' => !empty($replays) ? $replays[count($replays) - 1]['replay'] : null,
   ]);
@@ -806,6 +933,8 @@ function RlRunSequential($args) {
   $policy = trim(strval($args['checkpoint'])) !== ''
     ? RlTabularPolicy::load(strval($args['checkpoint']), $args['max-actions'], $args['temperature'], $args['learning-rate'])
     : new RlTabularPolicy($args['max-actions'], $args['temperature'], $args['learning-rate']);
+  RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
+  $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
   $GLOBALS['rlStateKeyVersion'] = $policy->stateKeyVersion;
   $frozenPool = [];
   $completedSteps = 0;
@@ -821,7 +950,9 @@ function RlRunSequential($args) {
     $captureReplay = $epNumber === intval($args['episodes']);
     $result = RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $epNumber, $epSeed, $captureReplay, $opponent === $policy);
     $policy->applyDelta($result['p1Delta'] ?? []);
+    if ($policy->strategyPolicy instanceof RlTabularPolicy) $policy->strategyPolicy->applyDelta($result['p1StrategyDelta'] ?? []);
     if ($opponent === $policy) $policy->applyDelta($result['p2Delta'] ?? []);
+    if ($opponent === $policy && $policy->strategyPolicy instanceof RlTabularPolicy) $policy->strategyPolicy->applyDelta($result['p2StrategyDelta'] ?? []);
 
     if (!empty($result['timedOut'])) ++$timedOutEpisodes;
     $completedSteps += intval($result['steps']);
@@ -882,6 +1013,7 @@ function RlWorkerCommand($args, $runId, $policyPath, $resultPath, $episodeNumber
     '--temperature', strval(floatval($args['temperature'])),
     '--epsilon', strval(floatval($args['epsilon'])),
     '--timeout-reward', strval(floatval($args['timeout-reward'])),
+    '--strategy-mode', RlQuoteArg($args['strategy-mode']),
   ];
   if ($args['memory-only'] === true) $parts[] = '--memory-only';
   if ($args['memory-only'] === false) $parts[] = '--disk-games';
@@ -904,6 +1036,8 @@ function RlRunParallel($args) {
   $policy = trim(strval($args['checkpoint'])) !== ''
     ? RlTabularPolicy::load(strval($args['checkpoint']), $args['max-actions'], $args['temperature'], $args['learning-rate'])
     : new RlTabularPolicy($args['max-actions'], $args['temperature'], $args['learning-rate']);
+  RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
+  $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
   $GLOBALS['rlStateKeyVersion'] = $policy->stateKeyVersion;
   $frozenPool = [];
   $completedSteps = 0;
@@ -955,6 +1089,9 @@ function RlRunParallel($args) {
       if (!is_array($payload) || empty($payload['success'])) RlFail('Worker episode ' . intval($worker['episode']) . ' wrote an invalid result.');
       $policy->applyDelta($payload['delta'] ?? []);
       $summaries = is_array($payload['summaries'] ?? null) ? $payload['summaries'] : [];
+      if ($policy->strategyPolicy instanceof RlTabularPolicy) {
+        $policy->strategyPolicy->applyDelta($payload['strategyDelta'] ?? []);
+      }
       $replays = is_array($payload['replays'] ?? null) ? $payload['replays'] : [];
       $replaysByEpisode = [];
       foreach ($replays as $replayPayload) {
