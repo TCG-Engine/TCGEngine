@@ -18,6 +18,15 @@ function RlParseArgs($argv) {
     'timeout-reward' => -0.25,
     'checkpoint-every' => 25,
     'log-every' => 25,
+    'workers' => 1,
+    'worker' => false,
+    'worker-id' => 0,
+    'policy-file' => '',
+    'result-file' => '',
+    'run-id' => '',
+    'episode-number' => 0,
+    'episode-seed' => 0,
+    'capture-replay' => false,
     'memory-only' => null,
     'checkpoint' => '',
   ];
@@ -25,6 +34,14 @@ function RlParseArgs($argv) {
   $items = array_slice($argv, 1);
   for ($i = 0; $i < count($items); ++$i) {
     $arg = $items[$i];
+    if ($arg === '--worker') {
+      $args['worker'] = true;
+      continue;
+    }
+    if ($arg === '--capture-replay') {
+      $args['capture-replay'] = true;
+      continue;
+    }
     if ($arg === '--memory-only') {
       $args['memory-only'] = true;
       continue;
@@ -46,9 +63,10 @@ function RlParseArgs($argv) {
     }
   }
 
-  foreach (['episodes', 'seed', 'max-steps', 'max-turns', 'max-actions', 'checkpoint-every', 'log-every'] as $key) {
+  foreach (['episodes', 'seed', 'max-steps', 'max-turns', 'max-actions', 'checkpoint-every', 'log-every', 'workers', 'worker-id', 'episode-number', 'episode-seed'] as $key) {
     $args[$key] = intval($args[$key]);
   }
+  $args['workers'] = max(1, intval($args['workers']));
   foreach (['learning-rate', 'temperature', 'epsilon', 'timeout-reward'] as $key) {
     $args[$key] = floatval($args[$key]);
   }
@@ -264,21 +282,60 @@ class RlTabularPolicy {
   }
 
   public function updateEpisodeForPlayer($episodeSteps, $player, $terminalReward) {
+    $this->applyDelta($this->episodeDeltaForPlayer($episodeSteps, $player, $terminalReward));
+  }
+
+  public function episodeDeltaForPlayer($episodeSteps, $player, $terminalReward) {
+    $delta = [];
     foreach ($episodeSteps as $step) {
       if (intval($step['turn_player'] ?? 0) !== intval($player)) continue;
       $stateKey = $step['state_key'];
       $actionIdx = intval($step['action_index']);
       if ($actionIdx >= $this->maxActions) continue;
       $probs = $this->actionProbabilities($stateKey, $step['legal_indices']);
-      $this->ensureState($stateKey);
       foreach ($probs as [$idx, $p]) {
         $grad = ($idx === $actionIdx ? 1.0 : 0.0) - $p;
         $key = strval($idx);
-        $this->logits[$stateKey][$key] = floatval($this->logits[$stateKey][$key] ?? 0.0) + $this->learningRate * floatval($terminalReward) * $grad;
+        $delta[$stateKey][$key] = floatval($delta[$stateKey][$key] ?? 0.0) + $this->learningRate * floatval($terminalReward) * $grad;
+      }
+    }
+    return $delta;
+  }
+
+  public function applyDelta($delta) {
+    if (!is_array($delta)) return;
+    foreach ($delta as $stateKey => $values) {
+      if (!is_array($values) && !is_object($values)) continue;
+      $stateKey = strval($stateKey);
+      foreach ((array)$values as $idx => $value) {
+        $actionIdx = intval($idx);
+        if ($actionIdx < 0 || $actionIdx >= $this->maxActions) continue;
+        $v = floatval($value);
+        if (abs($v) < 1.0e-12) continue;
+        $key = strval($actionIdx);
+        $this->logits[$stateKey][$key] = floatval($this->logits[$stateKey][$key] ?? 0.0) + $v;
         if (abs($this->logits[$stateKey][$key]) < 1.0e-12) unset($this->logits[$stateKey][$key]);
       }
-      if (empty($this->logits[$stateKey])) unset($this->logits[$stateKey]);
+      if (empty($this->logits[$stateKey] ?? [])) unset($this->logits[$stateKey]);
     }
+  }
+
+  public static function mergeDeltas($deltas) {
+    $merged = [];
+    foreach ($deltas as $delta) {
+      if (!is_array($delta)) continue;
+      foreach ($delta as $stateKey => $values) {
+        if (!is_array($values) && !is_object($values)) continue;
+        $stateKey = strval($stateKey);
+        foreach ((array)$values as $idx => $value) {
+          $key = strval(intval($idx));
+          $merged[$stateKey][$key] = floatval($merged[$stateKey][$key] ?? 0.0) + floatval($value);
+          if (abs($merged[$stateKey][$key]) < 1.0e-12) unset($merged[$stateKey][$key]);
+        }
+        if (empty($merged[$stateKey] ?? [])) unset($merged[$stateKey]);
+      }
+    }
+    return $merged;
   }
 
   public function payload() {
@@ -354,35 +411,10 @@ function RlStepLoaded($root, $gameName, $action) {
   ];
 }
 
-$args = RlParseArgs($argv);
-if (trim(strval($args['deck-file'])) === '') RlFail('--deck-file is required.');
-if (!is_file($args['deck-file'])) RlFail('Deck file not found: ' . $args['deck-file']);
-
-mt_srand(intval($args['seed']));
-$deckText = file_get_contents($args['deck-file']);
-$runId = date('Ymd-His');
-$baseDir = __DIR__ . DIRECTORY_SEPARATOR . 'artifacts' . DIRECTORY_SEPARATOR . 'runs' . DIRECTORY_SEPARATOR . $runId;
-$ckptDir = $baseDir . DIRECTORY_SEPARATOR . 'checkpoints';
-$replayDir = $baseDir . DIRECTORY_SEPARATOR . 'replays';
-RlEnsureDir($baseDir);
-RlEnsureDir($ckptDir);
-RlEnsureDir($replayDir);
-
-$policy = trim(strval($args['checkpoint'])) !== ''
-  ? RlTabularPolicy::load(strval($args['checkpoint']), $args['max-actions'], $args['temperature'], $args['learning-rate'])
-  : new RlTabularPolicy($args['max-actions'], $args['temperature'], $args['learning-rate']);
-$frozenPool = [];
-$completedSteps = 0;
-$timedOutEpisodes = 0;
-$timeoutReplayPath = null;
-$trainStart = microtime(true);
-$episodeSummaries = [];
-
-for ($ep = 0; $ep < intval($args['episodes']); ++$ep) {
-  $epSeed = intval($args['seed']) + $ep;
-  $gameName = 'rl_train_php_' . $runId . '_' . sprintf('%04d', $ep + 1) . '_' . $epSeed;
+function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumber, $epSeed, $captureReplay, $updateP2) {
+  $gameName = 'rl_train_php_' . $runId . '_' . sprintf('%04d', intval($episodeNumber)) . '_' . intval($epSeed);
   $memoryArg = $args['memory-only'] === null ? 'auto' : ($args['memory-only'] ? '1' : '0');
-  $startPayload = BridgeStartSelfplayGame($args['root'], $gameName, $epSeed, $deckText, $deckText, $memoryArg);
+  $startPayload = BridgeStartSelfplayGame($args['root'], $gameName, intval($epSeed), $deckText, $deckText, $memoryArg);
   if (empty($startPayload['success'])) RlFail('start-selfplay-game failed: ' . json_encode($startPayload));
 
   $snapshot = is_array($startPayload['snapshot'] ?? null) ? $startPayload['snapshot'] : BridgeSnapshotLoaded($args['root'], $gameName, 'summary');
@@ -399,7 +431,6 @@ for ($ep = 0; $ep < intval($args['episodes']); ++$ep) {
   $reward = 0.0;
   $done = false;
   $episodeStart = microtime(true);
-  $opponent = (!empty($frozenPool) && ($ep % 2 === 1)) ? $frozenPool[mt_rand(0, count($frozenPool) - 1)] : $policy;
 
   while (!$done) {
     BridgeLoadRuntimeGame($args['root'], $gameName);
@@ -497,121 +528,357 @@ for ($ep = 0; $ep < intval($args['episodes']); ++$ep) {
   if ($episodeTimedOut && empty($info['isTerminal'])) {
     $reward = floatval($args['timeout-reward']);
   }
-  $policy->updateEpisodeForPlayer($episodeSteps, 1, floatval($reward));
-  if ($opponent === $policy) {
-    $p2Reward = ($episodeTimedOut && empty($info['isTerminal'])) ? floatval($args['timeout-reward']) : -floatval($reward);
-    $policy->updateEpisodeForPlayer($episodeSteps, 2, $p2Reward);
-  }
-  if ($episodeTimedOut) ++$timedOutEpisodes;
+  $p1Delta = $policy->episodeDeltaForPlayer($episodeSteps, 1, floatval($reward));
+  $p2Reward = ($episodeTimedOut && empty($info['isTerminal'])) ? floatval($args['timeout-reward']) : -floatval($reward);
+  $p2Delta = $updateP2 ? $policy->episodeDeltaForPlayer($episodeSteps, 2, $p2Reward) : [];
   $episodeWinner = intval($info['winner'] ?? 0);
-  $outcome = $episodeTimedOut ? 'timeout' : ($episodeWinner > 0 ? ('winner=P' . $episodeWinner) : 'ended');
-  $completedSteps += $steps;
-  $episodeSummaries[] = [
-    'episode' => $ep + 1,
-    'seed' => $epSeed,
-    'winner' => $episodeWinner,
-    'reward' => floatval($reward),
-    'steps' => $steps,
-    'timedOut' => $episodeTimedOut,
-    'elapsedMs' => $elapsedMs,
-  ];
-
-  $replay = [
-    'episode' => $ep + 1,
-    'seed' => $epSeed,
-    'gameName' => $gameName,
-    'memoryOnlyResolved' => $startPayload['memoryOnlyResolved'] ?? null,
-    'initialGamestateHash' => strval($startPayload['gamestateHash'] ?? ''),
-    'initialGamestateText' => strval($initialFull['gamestateText'] ?? ''),
-    'deckParseSummary' => $startPayload['deckParseSummary'] ?? [],
-    'result' => $info,
-    'actions' => $replayActions,
-  ];
-  if ($episodeTimedOut) {
-    $replay['stuckDiagnostics'] = RlBuildStuckDiagnostics($stepTrace);
-  }
-
-  if ($episodeTimedOut && $timeoutReplayPath === null) {
-    $timeoutReplayPath = $replayDir . DIRECTORY_SEPARATOR . 'timeout_episode_' . sprintf('%04d', $ep + 1) . '.json';
-    RlWriteJson($timeoutReplayPath, $replay);
-  }
-
-  if (($ep + 1) === intval($args['episodes'])) {
-    RlWriteJson($replayDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', $ep + 1) . '.json', $replay);
-  }
-
-  if ((($ep + 1) % intval($args['checkpoint-every']) === 0) || ($ep + 1) === intval($args['episodes'])) {
-    $ckptPath = $ckptDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', $ep + 1) . '.json';
-    RlWriteJson($ckptPath, $policy->payload());
-    RlWriteJson($ckptDir . DIRECTORY_SEPARATOR . 'latest.json', $policy->payload());
-    $frozenPool[] = $policy->copy();
-    if (count($frozenPool) > 5) array_shift($frozenPool);
-  }
-
-  if (intval($args['log-every']) > 0 && ((($ep + 1) % intval($args['log-every']) === 0) || ($ep + 1) === intval($args['episodes']))) {
-    $elapsedS = max(0.000001, microtime(true) - $trainStart);
-    $epsDone = $ep + 1;
-    $epsPerS = $epsDone / $elapsedS;
-    $stepsPerS = $completedSteps / $elapsedS;
-    $epsRemaining = max(0, intval($args['episodes']) - $epsDone);
-    $etaS = $epsPerS > 0 ? ($epsRemaining / $epsPerS) : 0;
-    $etaText = date('Y-m-d H:i:s', time() + intval(round($etaS)));
-    $pct = intval($args['episodes']) > 0 ? (100.0 * $epsDone / intval($args['episodes'])) : 100.0;
-    echo sprintf(
-      "[progress] ep %d/%d (%.1f%%) | epSteps %d | outcome %s | timeouts %d/%d | mem %.1fMB | states %d | elapsed %.1fs | eps/s %.3f | steps/s %.1f | avgSteps/ep %.1f | ETA %s\n",
-      $epsDone,
-      intval($args['episodes']),
-      $pct,
-      $steps,
-      $outcome,
-      $timedOutEpisodes,
-      $epsDone,
-      memory_get_usage(true) / 1048576.0,
-      $policy->stateCount(),
-      $elapsedS,
-      $epsPerS,
-      $stepsPerS,
-      $completedSteps / $epsDone,
-      $etaText
-    );
+  $replay = null;
+  if ($captureReplay || $episodeTimedOut) {
+    $replay = [
+      'episode' => intval($episodeNumber),
+      'seed' => intval($epSeed),
+      'gameName' => $gameName,
+      'memoryOnlyResolved' => $startPayload['memoryOnlyResolved'] ?? null,
+      'initialGamestateHash' => strval($startPayload['gamestateHash'] ?? ''),
+      'initialGamestateText' => strval($initialFull['gamestateText'] ?? ''),
+      'deckParseSummary' => $startPayload['deckParseSummary'] ?? [],
+      'result' => $info,
+      'actions' => $replayActions,
+    ];
+    if ($episodeTimedOut) {
+      $replay['stuckDiagnostics'] = RlBuildStuckDiagnostics($stepTrace);
+    }
   }
 
   RlCleanupGame($gameName);
-  unset($episodeSteps, $replayActions, $stepTrace, $initialFull, $replay, $snapshot, $legal, $lastLegalActions, $mask);
+  unset($episodeSteps, $replayActions, $stepTrace, $initialFull, $snapshot, $legal, $lastLegalActions, $mask);
   if (function_exists('gc_collect_cycles')) gc_collect_cycles();
+
+  return [
+    'episode' => intval($episodeNumber),
+    'seed' => intval($epSeed),
+    'winner' => $episodeWinner,
+    'reward' => floatval($reward),
+    'p2Reward' => floatval($p2Reward),
+    'steps' => $steps,
+    'timedOut' => $episodeTimedOut,
+    'elapsedMs' => $elapsedMs,
+    'info' => $info,
+    'p1Delta' => $p1Delta,
+    'p2Delta' => $p2Delta,
+    'replay' => $replay,
+  ];
 }
 
-$totalElapsedMs = intval(round((microtime(true) - $trainStart) * 1000));
+function RlEpisodeOutcome($summary) {
+  if (!empty($summary['timedOut'])) return 'timeout';
+  $winner = intval($summary['winner'] ?? 0);
+  return $winner > 0 ? ('winner=P' . $winner) : 'ended';
+}
 
-$runConfig = [
-  'root' => $args['root'],
-  'deckFile' => $args['deck-file'],
-  'episodes' => intval($args['episodes']),
-  'seed' => intval($args['seed']),
-  'maxSteps' => intval($args['max-steps']),
-  'maxTurns' => intval($args['max-turns']),
-  'maxActions' => intval($args['max-actions']),
-  'learningRate' => floatval($args['learning-rate']),
-  'temperature' => floatval($args['temperature']),
-  'epsilon' => floatval($args['epsilon']),
-  'timeoutReward' => floatval($args['timeout-reward']),
-  'memoryOnly' => $args['memory-only'],
-  'trainer' => 'php',
-  'checkpointEvery' => intval($args['checkpoint-every']),
-  'finalReplay' => $replayDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', intval($args['episodes'])) . '.json',
-  'firstTimeoutReplay' => $timeoutReplayPath,
-  'summary' => [
-    'totalSteps' => $completedSteps,
-    'timedOutEpisodes' => $timedOutEpisodes,
-    'elapsedMs' => $totalElapsedMs,
-    'stepsPerSecond' => $totalElapsedMs > 0 ? ($completedSteps / ($totalElapsedMs / 1000.0)) : 0.0,
-  ],
-  'episodesSummary' => $episodeSummaries,
-];
-RlWriteJson($baseDir . DIRECTORY_SEPARATOR . 'run_config.json', $runConfig);
+function RlWriteCheckpoint($ckptDir, $episodeNumber, $policy, &$frozenPool) {
+  $ckptPath = $ckptDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', intval($episodeNumber)) . '.json';
+  RlWriteJson($ckptPath, $policy->payload());
+  RlWriteJson($ckptDir . DIRECTORY_SEPARATOR . 'latest.json', $policy->payload());
+  $frozenPool[] = $policy->copy();
+  if (count($frozenPool) > 5) array_shift($frozenPool);
+  return $ckptPath;
+}
 
-echo json_encode([
-  'success' => true,
-  'runDir' => $baseDir,
-  'latestCheckpoint' => $ckptDir . DIRECTORY_SEPARATOR . 'latest.json',
-], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL;
+function RlPrintProgress($args, $policy, $epsDone, $steps, $outcome, $timedOutEpisodes, $completedSteps, $trainStart) {
+  $elapsedS = max(0.000001, microtime(true) - $trainStart);
+  $epsPerS = intval($epsDone) / $elapsedS;
+  $stepsPerS = intval($completedSteps) / $elapsedS;
+  $epsRemaining = max(0, intval($args['episodes']) - intval($epsDone));
+  $etaS = $epsPerS > 0 ? ($epsRemaining / $epsPerS) : 0;
+  $etaText = date('Y-m-d H:i:s', time() + intval(round($etaS)));
+  $pct = intval($args['episodes']) > 0 ? (100.0 * intval($epsDone) / intval($args['episodes'])) : 100.0;
+  echo sprintf(
+    "[progress] ep %d/%d (%.1f%%) | epSteps %d | outcome %s | timeouts %d/%d | mem %.1fMB | states %d | elapsed %.1fs | eps/s %.3f | steps/s %.1f | avgSteps/ep %.1f | ETA %s\n",
+    intval($epsDone),
+    intval($args['episodes']),
+    $pct,
+    intval($steps),
+    $outcome,
+    intval($timedOutEpisodes),
+    intval($epsDone),
+    memory_get_usage(true) / 1048576.0,
+    $policy->stateCount(),
+    $elapsedS,
+    $epsPerS,
+    $stepsPerS,
+    intval($epsDone) > 0 ? (intval($completedSteps) / intval($epsDone)) : 0.0,
+    $etaText
+  );
+}
+
+function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $completedSteps, $timedOutEpisodes, $totalElapsedMs, $episodeSummaries) {
+  return [
+    'root' => $args['root'],
+    'deckFile' => $args['deck-file'],
+    'episodes' => intval($args['episodes']),
+    'seed' => intval($args['seed']),
+    'maxSteps' => intval($args['max-steps']),
+    'maxTurns' => intval($args['max-turns']),
+    'maxActions' => intval($args['max-actions']),
+    'learningRate' => floatval($args['learning-rate']),
+    'temperature' => floatval($args['temperature']),
+    'epsilon' => floatval($args['epsilon']),
+    'timeoutReward' => floatval($args['timeout-reward']),
+    'memoryOnly' => $args['memory-only'],
+    'trainer' => 'php',
+    'workers' => intval($args['workers']),
+    'checkpointEvery' => intval($args['checkpoint-every']),
+    'finalReplay' => $replayDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', intval($args['episodes'])) . '.json',
+    'firstTimeoutReplay' => $timeoutReplayPath,
+    'summary' => [
+      'totalSteps' => intval($completedSteps),
+      'timedOutEpisodes' => intval($timedOutEpisodes),
+      'elapsedMs' => intval($totalElapsedMs),
+      'stepsPerSecond' => $totalElapsedMs > 0 ? (intval($completedSteps) / ($totalElapsedMs / 1000.0)) : 0.0,
+    ],
+    'episodesSummary' => $episodeSummaries,
+  ];
+}
+
+function RlRunWorker($args) {
+  if (trim(strval($args['deck-file'])) === '') RlFail('--deck-file is required.');
+  if (!is_file($args['deck-file'])) RlFail('Deck file not found: ' . $args['deck-file']);
+  if (!is_file(strval($args['policy-file']))) RlFail('Worker policy file not found: ' . strval($args['policy-file']));
+  if (trim(strval($args['result-file'])) === '') RlFail('--result-file is required for worker mode.');
+
+  mt_srand(intval($args['episode-seed']) + intval($args['worker-id']));
+  $deckText = file_get_contents($args['deck-file']);
+  $policy = RlTabularPolicy::load(strval($args['policy-file']), $args['max-actions'], $args['temperature'], $args['learning-rate']);
+  $result = RlRunEpisode(
+    $args,
+    $deckText,
+    $policy,
+    $policy,
+    strval($args['run-id']),
+    intval($args['episode-number']),
+    intval($args['episode-seed']),
+    !empty($args['capture-replay']),
+    true
+  );
+  $delta = RlTabularPolicy::mergeDeltas([$result['p1Delta'] ?? [], $result['p2Delta'] ?? []]);
+  RlWriteJson(strval($args['result-file']), [
+    'success' => true,
+    'workerId' => intval($args['worker-id']),
+    'episode' => intval($result['episode']),
+    'summary' => [
+      'episode' => intval($result['episode']),
+      'seed' => intval($result['seed']),
+      'winner' => intval($result['winner']),
+      'reward' => floatval($result['reward']),
+      'steps' => intval($result['steps']),
+      'timedOut' => !empty($result['timedOut']),
+      'elapsedMs' => intval($result['elapsedMs']),
+    ],
+    'delta' => $delta,
+    'replay' => $result['replay'],
+  ]);
+}
+
+function RlRunSequential($args) {
+  mt_srand(intval($args['seed']));
+  $deckText = file_get_contents($args['deck-file']);
+  $runId = date('Ymd-His');
+  $baseDir = __DIR__ . DIRECTORY_SEPARATOR . 'artifacts' . DIRECTORY_SEPARATOR . 'runs' . DIRECTORY_SEPARATOR . $runId;
+  $ckptDir = $baseDir . DIRECTORY_SEPARATOR . 'checkpoints';
+  $replayDir = $baseDir . DIRECTORY_SEPARATOR . 'replays';
+  RlEnsureDir($baseDir);
+  RlEnsureDir($ckptDir);
+  RlEnsureDir($replayDir);
+
+  $policy = trim(strval($args['checkpoint'])) !== ''
+    ? RlTabularPolicy::load(strval($args['checkpoint']), $args['max-actions'], $args['temperature'], $args['learning-rate'])
+    : new RlTabularPolicy($args['max-actions'], $args['temperature'], $args['learning-rate']);
+  $frozenPool = [];
+  $completedSteps = 0;
+  $timedOutEpisodes = 0;
+  $timeoutReplayPath = null;
+  $trainStart = microtime(true);
+  $episodeSummaries = [];
+
+  for ($ep = 0; $ep < intval($args['episodes']); ++$ep) {
+    $epNumber = $ep + 1;
+    $epSeed = intval($args['seed']) + $ep;
+    $opponent = (!empty($frozenPool) && ($ep % 2 === 1)) ? $frozenPool[mt_rand(0, count($frozenPool) - 1)] : $policy;
+    $captureReplay = $epNumber === intval($args['episodes']);
+    $result = RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $epNumber, $epSeed, $captureReplay, $opponent === $policy);
+    $policy->applyDelta($result['p1Delta'] ?? []);
+    if ($opponent === $policy) $policy->applyDelta($result['p2Delta'] ?? []);
+
+    if (!empty($result['timedOut'])) ++$timedOutEpisodes;
+    $completedSteps += intval($result['steps']);
+    $episodeSummaries[] = [
+      'episode' => $epNumber,
+      'seed' => $epSeed,
+      'winner' => intval($result['winner']),
+      'reward' => floatval($result['reward']),
+      'steps' => intval($result['steps']),
+      'timedOut' => !empty($result['timedOut']),
+      'elapsedMs' => intval($result['elapsedMs']),
+    ];
+
+    if (!empty($result['timedOut']) && $timeoutReplayPath === null && is_array($result['replay'] ?? null)) {
+      $timeoutReplayPath = $replayDir . DIRECTORY_SEPARATOR . 'timeout_episode_' . sprintf('%04d', $epNumber) . '.json';
+      RlWriteJson($timeoutReplayPath, $result['replay']);
+    }
+    if ($captureReplay && is_array($result['replay'] ?? null)) {
+      RlWriteJson($replayDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', $epNumber) . '.json', $result['replay']);
+    }
+    if (($epNumber % intval($args['checkpoint-every']) === 0) || $epNumber === intval($args['episodes'])) {
+      RlWriteCheckpoint($ckptDir, $epNumber, $policy, $frozenPool);
+    }
+    if (intval($args['log-every']) > 0 && (($epNumber % intval($args['log-every']) === 0) || $epNumber === intval($args['episodes']))) {
+      RlPrintProgress($args, $policy, $epNumber, intval($result['steps']), RlEpisodeOutcome($result), $timedOutEpisodes, $completedSteps, $trainStart);
+    }
+  }
+
+  $totalElapsedMs = intval(round((microtime(true) - $trainStart) * 1000));
+  $runConfig = RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $completedSteps, $timedOutEpisodes, $totalElapsedMs, $episodeSummaries);
+  RlWriteJson($baseDir . DIRECTORY_SEPARATOR . 'run_config.json', $runConfig);
+  echo json_encode(['success' => true, 'runDir' => $baseDir, 'latestCheckpoint' => $ckptDir . DIRECTORY_SEPARATOR . 'latest.json'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL;
+}
+
+function RlQuoteArg($value) {
+  return '"' . str_replace('"', '\\"', strval($value)) . '"';
+}
+
+function RlWorkerCommand($args, $runId, $policyPath, $resultPath, $episodeNumber, $epSeed, $workerId, $captureReplay) {
+  $parts = [
+    RlQuoteArg(PHP_BINARY),
+    RlQuoteArg(__FILE__),
+    '--worker',
+    '--root', RlQuoteArg($args['root']),
+    '--deck-file', RlQuoteArg($args['deck-file']),
+    '--policy-file', RlQuoteArg($policyPath),
+    '--result-file', RlQuoteArg($resultPath),
+    '--run-id', RlQuoteArg($runId),
+    '--episode-number', strval(intval($episodeNumber)),
+    '--episode-seed', strval(intval($epSeed)),
+    '--worker-id', strval(intval($workerId)),
+    '--max-steps', strval(intval($args['max-steps'])),
+    '--max-turns', strval(intval($args['max-turns'])),
+    '--max-actions', strval(intval($args['max-actions'])),
+    '--learning-rate', strval(floatval($args['learning-rate'])),
+    '--temperature', strval(floatval($args['temperature'])),
+    '--epsilon', strval(floatval($args['epsilon'])),
+    '--timeout-reward', strval(floatval($args['timeout-reward'])),
+  ];
+  if ($args['memory-only'] === true) $parts[] = '--memory-only';
+  if ($args['memory-only'] === false) $parts[] = '--disk-games';
+  if ($captureReplay) $parts[] = '--capture-replay';
+  return implode(' ', $parts);
+}
+
+function RlRunParallel($args) {
+  mt_srand(intval($args['seed']));
+  $runId = date('Ymd-His');
+  $baseDir = __DIR__ . DIRECTORY_SEPARATOR . 'artifacts' . DIRECTORY_SEPARATOR . 'runs' . DIRECTORY_SEPARATOR . $runId;
+  $ckptDir = $baseDir . DIRECTORY_SEPARATOR . 'checkpoints';
+  $replayDir = $baseDir . DIRECTORY_SEPARATOR . 'replays';
+  $workerDir = $baseDir . DIRECTORY_SEPARATOR . 'workers';
+  RlEnsureDir($baseDir);
+  RlEnsureDir($ckptDir);
+  RlEnsureDir($replayDir);
+  RlEnsureDir($workerDir);
+
+  $policy = trim(strval($args['checkpoint'])) !== ''
+    ? RlTabularPolicy::load(strval($args['checkpoint']), $args['max-actions'], $args['temperature'], $args['learning-rate'])
+    : new RlTabularPolicy($args['max-actions'], $args['temperature'], $args['learning-rate']);
+  $frozenPool = [];
+  $completedSteps = 0;
+  $timedOutEpisodes = 0;
+  $timeoutReplayPath = null;
+  $trainStart = microtime(true);
+  $episodeSummaries = [];
+  $nextEpisode = 1;
+  $nextCheckpointEpisode = max(1, intval($args['checkpoint-every']));
+
+  while ($nextEpisode <= intval($args['episodes'])) {
+    $batchStart = $nextEpisode;
+    $batchSize = min(intval($args['workers']), intval($args['episodes']) - $nextEpisode + 1);
+    $policyPath = $workerDir . DIRECTORY_SEPARATOR . 'policy_batch_' . sprintf('%04d', $batchStart) . '.json';
+    RlWriteJson($policyPath, $policy->payload());
+    $workers = [];
+
+    for ($i = 0; $i < $batchSize; ++$i) {
+      $epNumber = $nextEpisode + $i;
+      $epSeed = intval($args['seed']) + $epNumber - 1;
+      $resultPath = $workerDir . DIRECTORY_SEPARATOR . 'result_episode_' . sprintf('%04d', $epNumber) . '.json';
+      $captureReplay = $epNumber === intval($args['episodes']);
+      $cmd = RlWorkerCommand($args, $runId, $policyPath, $resultPath, $epNumber, $epSeed, $i + 1, $captureReplay);
+      $descriptors = [
+        0 => ['pipe', 'r'],
+        1 => ['pipe', 'w'],
+        2 => ['pipe', 'w'],
+      ];
+      $proc = proc_open($cmd, $descriptors, $pipes, RegressionRepoRoot());
+      if (!is_resource($proc)) RlFail('Failed to start worker for episode ' . $epNumber);
+      fclose($pipes[0]);
+      $workers[] = ['proc' => $proc, 'pipes' => $pipes, 'episode' => $epNumber, 'resultPath' => $resultPath];
+    }
+
+    foreach ($workers as $worker) {
+      $stdout = stream_get_contents($worker['pipes'][1]);
+      $stderr = stream_get_contents($worker['pipes'][2]);
+      fclose($worker['pipes'][1]);
+      fclose($worker['pipes'][2]);
+      $exitCode = proc_close($worker['proc']);
+      if ($exitCode !== 0) {
+        RlFail('Worker episode ' . intval($worker['episode']) . ' failed with exit ' . $exitCode . ($stderr !== '' ? (': ' . $stderr) : ($stdout !== '' ? (': ' . $stdout) : '')));
+      }
+      if (!is_file($worker['resultPath'])) RlFail('Worker episode ' . intval($worker['episode']) . ' did not write a result file.');
+      $payload = json_decode(file_get_contents($worker['resultPath']), true);
+      if (!is_array($payload) || empty($payload['success'])) RlFail('Worker episode ' . intval($worker['episode']) . ' wrote an invalid result.');
+      $summary = is_array($payload['summary'] ?? null) ? $payload['summary'] : [];
+      $policy->applyDelta($payload['delta'] ?? []);
+      if (!empty($summary['timedOut'])) ++$timedOutEpisodes;
+      $completedSteps += intval($summary['steps'] ?? 0);
+      $episodeSummaries[] = $summary;
+      $replay = is_array($payload['replay'] ?? null) ? $payload['replay'] : null;
+      if (!empty($summary['timedOut']) && $timeoutReplayPath === null && $replay !== null) {
+        $timeoutReplayPath = $replayDir . DIRECTORY_SEPARATOR . 'timeout_episode_' . sprintf('%04d', intval($summary['episode'] ?? $worker['episode'])) . '.json';
+        RlWriteJson($timeoutReplayPath, $replay);
+      }
+      if (intval($summary['episode'] ?? 0) === intval($args['episodes']) && $replay !== null) {
+        RlWriteJson($replayDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', intval($args['episodes'])) . '.json', $replay);
+      }
+      if (intval($args['log-every']) > 0 && ((intval($summary['episode'] ?? 0) % intval($args['log-every']) === 0) || intval($summary['episode'] ?? 0) === intval($args['episodes']))) {
+        RlPrintProgress($args, $policy, intval($summary['episode'] ?? 0), intval($summary['steps'] ?? 0), RlEpisodeOutcome($summary), $timedOutEpisodes, $completedSteps, $trainStart);
+      }
+    }
+
+    $nextEpisode += $batchSize;
+    $lastCompleted = $nextEpisode - 1;
+    if ($lastCompleted >= $nextCheckpointEpisode || $lastCompleted === intval($args['episodes'])) {
+      RlWriteCheckpoint($ckptDir, $lastCompleted, $policy, $frozenPool);
+      while ($nextCheckpointEpisode <= $lastCompleted) {
+        $nextCheckpointEpisode += max(1, intval($args['checkpoint-every']));
+      }
+    }
+  }
+
+  usort($episodeSummaries, fn($a, $b) => intval($a['episode'] ?? 0) <=> intval($b['episode'] ?? 0));
+  $totalElapsedMs = intval(round((microtime(true) - $trainStart) * 1000));
+  $runConfig = RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $completedSteps, $timedOutEpisodes, $totalElapsedMs, $episodeSummaries);
+  $runConfig['parallel'] = ['workers' => intval($args['workers']), 'mode' => 'frozen-policy-rollout'];
+  RlWriteJson($baseDir . DIRECTORY_SEPARATOR . 'run_config.json', $runConfig);
+  echo json_encode(['success' => true, 'runDir' => $baseDir, 'latestCheckpoint' => $ckptDir . DIRECTORY_SEPARATOR . 'latest.json'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL;
+}
+
+$args = RlParseArgs($argv);
+if (!empty($args['worker'])) {
+  RlRunWorker($args);
+  exit(0);
+}
+if (trim(strval($args['deck-file'])) === '') RlFail('--deck-file is required.');
+if (!is_file($args['deck-file'])) RlFail('Deck file not found: ' . $args['deck-file']);
+if (intval($args['workers']) > 1) {
+  RlRunParallel($args);
+} else {
+  RlRunSequential($args);
+}

@@ -52,12 +52,21 @@ php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck-file DevTools/rl/a
 
 This uses the same bridge legality/action helpers, but it calls them directly inside one PHP process instead of making one Python-to-PHP stdio round trip per action. Artifacts are written under `DevTools/rl/artifacts/runs/<run_id>/`.
 
+Parallel coordinator/worker mode is available with `--workers`:
+
+```bash
+php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck-file DevTools/rl/azuki_raizan.txt --episodes 1000 --seed 126 --max-steps 500 --checkpoint-every 50 --log-every 1 --memory-only --workers 8
+```
+
+The coordinator owns the live policy and writes checkpoints. For each batch, it snapshots the current policy, starts up to `--workers` PHP worker processes, lets each worker run one episode from that frozen policy, then merges the returned sparse policy deltas. Use `--workers 1` or omit the flag for the original sequential trainer.
+
 PHP trainer artifacts:
 
 - `checkpoints/*.json`: tabular policy snapshots for evaluation or later reuse. Controlled by `--checkpoint-every`; the final episode always writes a checkpoint.
 - `replays/episode_*.json`: exact initial gamestate plus chosen actions for the final episode only, used for regression conversion and UI debugging.
 - `replays/timeout_episode_*.json`: exact initial gamestate plus chosen actions for the first timed-out episode, only written when a timeout occurs.
 - `run_config.json`: run arguments, final throughput summary, and per-episode summaries.
+- `workers/*.json`: coordinator/worker scratch files for parallel runs.
 
 The PHP trainer intentionally does not write CSV timing/metrics files. Progress and throughput are printed to the console, while `run_config.json` keeps the compact final summary.
 
