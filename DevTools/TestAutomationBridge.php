@@ -943,6 +943,88 @@ function BridgeCountActiveZoneObjects($zoneName) {
   return $count;
 }
 
+function BridgeBucketAzukiLife($life) {
+  $life = intval($life);
+  if ($life <= 5) return 'critical';
+  if ($life <= 10) return 'low';
+  if ($life <= 15) return 'medium';
+  return 'high';
+}
+
+function BridgeBucketAzukiStat($value) {
+  $value = intval($value);
+  if ($value <= 0) return '0';
+  if ($value <= 2) return '1-2';
+  if ($value <= 4) return '3-4';
+  return '5+';
+}
+
+function BridgeAzukiFieldCardSummary($player, $obj, $exactCardID) {
+  $cardID = strval($obj->CardID ?? '');
+  $type = function_exists('CardType') ? strtoupper(strval(CardType($cardID))) : '';
+  $attack = function_exists('ResolveEntityAttackValue') ? ResolveEntityAttackValue($player, $obj) : (function_exists('CardAttack') ? CardAttack($cardID) : 0);
+  $health = function_exists('ResolveEntityHealthValue') ? ResolveEntityHealthValue($player, $obj) : (function_exists('CardHealth') ? CardHealth($cardID) : 0);
+  $damage = intval($obj->Damage ?? 0);
+  $remaining = max(0, intval($health) - $damage);
+  $parts = [
+    'type' => $type !== '' ? $type : 'UNKNOWN',
+    'status' => intval($obj->Status ?? 2) === 1 ? 'tapped' : 'ready',
+    'atk' => BridgeBucketAzukiStat($attack),
+    'hp' => BridgeBucketAzukiStat($remaining),
+    'dmg' => BridgeBucketAzukiStat($damage),
+  ];
+  if ($exactCardID) $parts = ['cardID' => $cardID] + $parts;
+  if (function_exists('IsDefenderEntity') && IsDefenderEntity($obj)) $parts['def'] = 1;
+  if (function_exists('IsTauntEntity') && IsTauntEntity($obj)) $parts['taunt'] = 1;
+  ksort($parts);
+  return $parts;
+}
+
+function BridgeAzukiZoneCards($player, $zoneName, $exactCardID) {
+  if ($zoneName === 'hand') $zone = function_exists('GetHand') ? GetHand($player) : [];
+  else if ($zoneName === 'garden') $zone = function_exists('GetGarden') ? GetGarden($player) : [];
+  else if ($zoneName === 'alley') $zone = function_exists('GetAlley') ? GetAlley($player) : [];
+  else if ($zoneName === 'gate') $zone = function_exists('GetGate') ? GetGate($player) : [];
+  else $zone = [];
+
+  $items = [];
+  if (!is_array($zone)) return $items;
+  foreach ($zone as $obj) {
+    if (!is_object($obj) || !empty($obj->removed)) continue;
+    $cardID = strval($obj->CardID ?? '');
+    if ($cardID === '') continue;
+    if ($zoneName === 'hand' || $zoneName === 'gate') {
+      $items[] = $exactCardID ? $cardID : (function_exists('CardType') ? strtoupper(strval(CardType($cardID))) : 'UNKNOWN');
+    } else {
+      $items[] = BridgeAzukiFieldCardSummary($player, $obj, $exactCardID);
+    }
+  }
+  usort($items, function($a, $b) {
+    return strcmp(json_encode($a, JSON_UNESCAPED_SLASHES), json_encode($b, JSON_UNESCAPED_SLASHES));
+  });
+  return $items;
+}
+
+function BridgeAzukiRlStateSummary() {
+  $players = [];
+  for ($player = 1; $player <= 2; ++$player) {
+    $leader = BridgeAzukiLeaderSummary($player);
+    $players['p' . $player] = [
+      'lifeBucket' => BridgeBucketAzukiLife(intval($leader['remainingLife'] ?? 0)),
+      'hand' => BridgeAzukiZoneCards($player, 'hand', true),
+      'gardenExact' => BridgeAzukiZoneCards($player, 'garden', true),
+      'alleyExact' => BridgeAzukiZoneCards($player, 'alley', true),
+      'gardenAbstract' => BridgeAzukiZoneCards($player, 'garden', false),
+      'alleyAbstract' => BridgeAzukiZoneCards($player, 'alley', false),
+      'gate' => BridgeAzukiZoneCards($player, 'gate', true),
+      'ikzAreaCount' => BridgeCountActiveZoneObjects($player === 1 ? 'p1IKZArea' : 'p2IKZArea'),
+      'ikzPileCount' => BridgeCountActiveZoneObjects($player === 1 ? 'p1IKZPile' : 'p2IKZPile'),
+      'ikzToken' => function_exists('GetIKZToken') ? intval(GetIKZToken($player)) : 0,
+    ];
+  }
+  return $players;
+}
+
 function BridgeGetOpportunityState() {
   $pendingHandler = DecisionQueueController::GetVariable('PendingOpportunityHandler');
   $pendingFirstPlayer = DecisionQueueController::GetVariable('PendingOpportunityFirstPlayer');
@@ -1302,6 +1384,9 @@ function BridgeSnapshotLoaded($root, $gameName, $view) {
         'decisionQueue' => BridgeDecisionQueueSummary(2),
       ],
     ];
+    if ($root === 'AzukiSim' && !empty($GLOBALS['bridgeIncludeAzukiRlState'])) {
+      $payload['azukiRlState'] = BridgeAzukiRlStateSummary();
+    }
     $payload['terminal'] = $terminal;
   } else {
     $payload['gamestateText'] = RegressionCurrentGamestateText($root, $gameName);

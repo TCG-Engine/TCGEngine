@@ -113,7 +113,10 @@ function AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) {
         }
     }
     if(!is_string($raw) || $raw === '') return null;
-    if(strpos($raw, '"state_key_version": "lite-v2"') === false && strpos($raw, '"state_key_version":"lite-v2"') === false) return null;
+    if(strpos($raw, '"state_key_version": "lite-v2"') === false
+        && strpos($raw, '"state_key_version":"lite-v2"') === false
+        && strpos($raw, '"state_key_version": "AzukiSim:azuki-v1"') === false
+        && strpos($raw, '"state_key_version":"AzukiSim:azuki-v1"') === false) return null;
 
     $encodedKey = json_encode(strval($stateKey), JSON_UNESCAPED_SLASHES);
     if(!is_string($encodedKey) || $encodedKey === '') return null;
@@ -131,6 +134,13 @@ function AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) {
     return is_array($decoded) ? $decoded : null;
 }
 
+function AzukiRlBotCheckpointStateKeyVersion($path) {
+    $raw = @file_get_contents($path, false, null, 0, 4096);
+    if(!is_string($raw) || $raw === '') return 'lite-v2';
+    if(strpos($raw, '"state_key_version": "AzukiSim:azuki-v1"') !== false || strpos($raw, '"state_key_version":"AzukiSim:azuki-v1"') !== false) return 'AzukiSim:azuki-v1';
+    return 'lite-v2';
+}
+
 function AzukiRlBotLoadStateLogits($stateKey) {
     static $cache = [];
     $path = AzukiRlBotPublishedCheckpointPath();
@@ -146,7 +156,7 @@ function AzukiRlBotLoadStateLogits($stateKey) {
     return $logits;
 }
 
-function AzukiRlBotStateKeyFromSnapshot($snapshot) {
+function AzukiRlBotLiteV2StateKeyFromSnapshot($snapshot) {
     $zones = is_array($snapshot['zones'] ?? null) ? $snapshot['zones'] : [];
     $players = is_array($snapshot['players'] ?? null) ? $snapshot['players'] : [];
     $p1 = is_array($players['player1'] ?? null) ? $players['player1'] : [];
@@ -175,6 +185,61 @@ function AzukiRlBotStateKeyFromSnapshot($snapshot) {
     ];
     ksort($scalars);
     return json_encode($scalars, JSON_UNESCAPED_SLASHES);
+}
+
+function AzukiRlBotLifeBucket($life) {
+    $life = intval($life);
+    if($life <= 5) return 'critical';
+    if($life <= 10) return 'low';
+    if($life <= 15) return 'medium';
+    return 'high';
+}
+
+function AzukiRlBotV1StateKeyFromSnapshot($snapshot, $actingPlayer = 0) {
+    $players = is_array($snapshot['players'] ?? null) ? $snapshot['players'] : [];
+    $p1 = is_array($players['player1'] ?? null) ? $players['player1'] : [];
+    $p2 = is_array($players['player2'] ?? null) ? $players['player2'] : [];
+    $p1DQ = is_array($p1['decisionQueue'] ?? null) ? $p1['decisionQueue'] : [];
+    $p2DQ = is_array($p2['decisionQueue'] ?? null) ? $p2['decisionQueue'] : [];
+    $p1NextDQ = is_array($p1DQ['next'] ?? null) ? $p1DQ['next'] : [];
+    $p2NextDQ = is_array($p2DQ['next'] ?? null) ? $p2DQ['next'] : [];
+    $azuki = is_array($snapshot['azukiRlState'] ?? null) ? $snapshot['azukiRlState'] : [];
+    $active = intval($actingPlayer);
+    if($active !== 1 && $active !== 2) $active = intval($snapshot['activePlayer'] ?? 0);
+    if($active !== 1 && $active !== 2) $active = intval($snapshot['turnPlayer'] ?? 1);
+    if($active !== 1 && $active !== 2) $active = 1;
+    $opp = $active === 1 ? 2 : 1;
+    $me = is_array($azuki['p' . $active] ?? null) ? $azuki['p' . $active] : [];
+    $them = is_array($azuki['p' . $opp] ?? null) ? $azuki['p' . $opp] : [];
+    $c1 = is_array($p1['champion'] ?? null) ? $p1['champion'] : [];
+    $c2 = is_array($p2['champion'] ?? null) ? $p2['champion'] : [];
+    $key = [
+        'version' => 'AzukiSim:azuki-v1',
+        'activePlayer' => $active,
+        'turnPlayer' => intval($snapshot['turnPlayer'] ?? 0),
+        'phase' => strval($snapshot['phase'] ?? ''),
+        'p1NextDQType' => strval($p1NextDQ['type'] ?? ''),
+        'p2NextDQType' => strval($p2NextDQ['type'] ?? ''),
+        'p1Life' => strval($azuki['p1']['lifeBucket'] ?? AzukiRlBotLifeBucket(intval($c1['remainingLife'] ?? 0))),
+        'p2Life' => strval($azuki['p2']['lifeBucket'] ?? AzukiRlBotLifeBucket(intval($c2['remainingLife'] ?? 0))),
+        'myHand' => is_array($me['hand'] ?? null) ? $me['hand'] : [],
+        'myGarden' => is_array($me['gardenExact'] ?? null) ? $me['gardenExact'] : [],
+        'myAlley' => is_array($me['alleyExact'] ?? null) ? $me['alleyExact'] : [],
+        'myGate' => is_array($me['gate'] ?? null) ? $me['gate'] : [],
+        'myIkzArea' => intval($me['ikzAreaCount'] ?? 0),
+        'myIkzToken' => intval($me['ikzToken'] ?? 0),
+        'theirGarden' => is_array($them['gardenAbstract'] ?? null) ? $them['gardenAbstract'] : [],
+        'theirAlley' => is_array($them['alleyAbstract'] ?? null) ? $them['alleyAbstract'] : [],
+        'theirGateCount' => is_array($them['gate'] ?? null) ? count($them['gate']) : 0,
+    ];
+    ksort($key);
+    return json_encode($key, JSON_UNESCAPED_SLASHES);
+}
+
+function AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion = 'lite-v2', $actingPlayer = 0) {
+    return $stateKeyVersion === 'AzukiSim:azuki-v1'
+        ? AzukiRlBotV1StateKeyFromSnapshot($snapshot, $actingPlayer)
+        : AzukiRlBotLiteV2StateKeyFromSnapshot($snapshot);
 }
 
 function AzukiRlBotChooseAction($stateLogits, $actions) {
@@ -229,6 +294,9 @@ function ProcessAzukiRlBotStep($requestedPlayer = 0) {
     @set_time_limit(15);
     @ini_set('max_execution_time', '15');
 
+    $checkpointPath = AzukiRlBotPublishedCheckpointPath();
+    $stateKeyVersion = AzukiRlBotCheckpointStateKeyVersion($checkpointPath);
+    $GLOBALS['bridgeIncludeAzukiRlState'] = $stateKeyVersion === 'AzukiSim:azuki-v1';
     $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
     $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
     if(!empty($terminal['isTerminal'])) return ['success' => true, 'message' => 'Game is over.', 'applied' => false];
@@ -242,7 +310,7 @@ function ProcessAzukiRlBotStep($requestedPlayer = 0) {
     $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
     if(empty($actions)) return ['success' => true, 'message' => 'No legal bot actions are available.', 'applied' => false];
 
-    $action = AzukiRlBotChooseAction(AzukiRlBotLoadStateLogits(AzukiRlBotStateKeyFromSnapshot($snapshot)), $actions);
+    $action = AzukiRlBotChooseAction(AzukiRlBotLoadStateLogits(AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion, $actingPlayer)), $actions);
     if(!is_array($action)) return ['success' => true, 'message' => 'No bot action was selected.', 'applied' => false];
 
     $beforeHash = function_exists('RegressionCurrentGamestateHash') ? RegressionCurrentGamestateHash('AzukiSim', strval($gameName)) : '';

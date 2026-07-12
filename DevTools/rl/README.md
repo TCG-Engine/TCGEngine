@@ -3,6 +3,8 @@
 This folder contains a minimal deterministic self-play RL prototype for supported TCGEngine roots.
 It currently supports `GrandArchiveSim` and `AzukiSim`.
 
+See `STATE_REPRESENTATION_NOTES.md` for current Azuki tabular state-key findings and compression ideas.
+
 ## Grand Archive deck text format
 
 Use the same free-text format already supported by `GrandArchiveSim/Custom/DeckTextParser.php`:
@@ -58,7 +60,15 @@ Parallel coordinator/worker mode is available with `--workers`:
 php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck-file DevTools/rl/azuki_raizan.txt --episodes 1000 --seed 126 --max-steps 500 --checkpoint-every 50 --log-every 1 --memory-only --workers 8
 ```
 
-The coordinator owns the live policy and writes checkpoints. For each batch, it snapshots the current policy, starts up to `--workers` PHP worker processes, lets each worker run one episode from that frozen policy, then merges the returned sparse policy deltas. Use `--workers 1` or omit the flag for the original sequential trainer.
+The coordinator owns the live policy and writes checkpoints. For each batch, it snapshots the current policy, starts up to `--workers` PHP worker processes, lets each worker run one or more episodes from that frozen policy, then merges the returned sparse policy deltas. Use `--workers 1` or omit the flag for the original sequential trainer.
+
+Workers can run multiple consecutive episodes from one policy load with `--worker-episodes`:
+
+```bash
+php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck-file DevTools/rl/azuki_raizan.txt --episodes 1000 --seed 126 --max-steps 500 --checkpoint-every 50 --log-every 10 --memory-only --workers 8 --worker-episodes 4
+```
+
+In this mode, the coordinator writes one frozen policy snapshot per batch, each worker loads it once, runs up to `--worker-episodes` episodes locally, and returns one merged sparse delta. This intentionally makes policy updates less frequent, but avoids repeatedly decoding the full policy for every single episode.
 
 The tabular policy uses a coarse scalar state key. Current `lite-v2` keys include active/turn player, phase, own hand count, existing resource/material count fields, exact leader/champion life and damage, and each player's next decision type. They intentionally omit exact turn number, deck counts, opponent hand count, and exact decision queue counts to reduce table growth. Older checkpoints with legacy state keys can still be passed as `--checkpoint`, but their incompatible logits are discarded and training starts a fresh `lite-v2` table with the same trainer settings.
 
