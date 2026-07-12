@@ -6278,8 +6278,8 @@ function _getMacroGameStatsConfig() {
       damageBuckets: ['OpponentLeaderDamage'],
       damageTimelineBuckets: ['OpponentLeaderDamageTimeline'],
       columns: [
-        { key: 'play', label: 'Played', cardBuckets: ['PlayCard', 'OnPlay'] },
-        { key: 'enter', label: 'Entered', cardBuckets: ['Enter', 'EnterGarden'] },
+        { key: 'play', label: 'Played', cardBuckets: ['PlayCard'] },
+        { key: 'enter', label: 'Entered', cardBuckets: ['Enter'] },
         { key: 'gate', label: 'Gates', cardBuckets: ['UseGate'] },
         { key: 'ability', label: 'Abilities', cardBuckets: ['ActivateAbility', 'CardActivated'] },
         { key: 'attack', label: 'Attacks', cardBuckets: ['AttackWith', 'AfterAttacking'] },

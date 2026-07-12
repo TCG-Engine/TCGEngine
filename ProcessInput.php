@@ -146,9 +146,13 @@ $actionResult = EngineExecuteLoadedAction([
 ]);
 
 if (ProcessInputWantsJsonResponse()) {
-  ProcessInputReply(!empty($actionResult['success']), $actionResult['message'] ?? "", [
+  $jsonExtra = [
     "playbackState" => ProcessInputPlaybackStateForResponse(),
-  ]);
+  ];
+  if (array_key_exists('botStepApplied', $actionResult)) {
+    $jsonExtra["botStepApplied"] = !empty($actionResult['botStepApplied']);
+  }
+  ProcessInputReply(!empty($actionResult['success']), $actionResult['message'] ?? "", $jsonExtra);
 }
 
 if (!empty($actionResult['message'])) echo($actionResult['message']);

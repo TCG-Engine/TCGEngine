@@ -441,6 +441,24 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       $result['updateCache'] = false;
       $result['recordAction'] = false;
       break;
+    case 10017:
+      if (function_exists('ProcessBotControllerStep')) {
+        $botResult = ProcessBotControllerStep($playerID, $folderPath, $gameName);
+        $result['success'] = !empty($botResult['success']);
+        $result['message'] = strval($botResult['message'] ?? '');
+        $result['writeGamestate'] = false;
+        $result['updateCache'] = false;
+        $result['recordAction'] = false;
+        $result['botStepApplied'] = !empty($botResult['applied']);
+      } else {
+        $result['success'] = false;
+        $result['message'] = 'Bot step is not available.';
+        $result['writeGamestate'] = false;
+        $result['updateCache'] = false;
+        $result['recordAction'] = false;
+        $result['botStepApplied'] = false;
+      }
+      break;
     case 10005:
       SaveVersion($playerID);
       break;

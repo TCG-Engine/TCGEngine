@@ -946,6 +946,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           window.ApplyVerdurePreserveAnimations();
         }
         UpdateTurnPlayerMiasma();
+        if (typeof MaybeRunBotControllerStep === 'function') {
+          MaybeRunBotControllerStep();
+        }
         // Game-over detection: check for GAMEOVER_WINNER set by server-side TriggerGameOver()
         if (!window._gameOverShown && window.DecisionQueueVariablesData) {
           try {

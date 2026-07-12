@@ -503,9 +503,67 @@ function SubmitEngineInput(mode, params, options) {
 
 function SubmitInput(mode, params, fullRefresh = false) {
   SubmitEngineInput(mode, params, { fullRefresh: fullRefresh }).then(function() {
+    if (!fullRefresh && typeof window.QueueGameUpdate === "function") window.QueueGameUpdate();
     if(_openPopup != null) RefreshPopupContent(_openPopup);
   }).catch(function(error) {
     if (window.console && console.error) console.error(error);
+  });
+}
+
+function MaybeRunBotControllerStep() {
+  if (typeof window === "undefined") return;
+  var controller = window.BotController || {};
+  if (!controller.enabled) return;
+  if (window.__botControllerStepInFlight) return;
+  if (window.__botControllerStepPaused) return;
+  if (IsSpectatorClient()) return;
+
+  var pendingPlayer = parseInt(controller.pendingPlayer || 0, 10);
+  if (pendingPlayer !== 1 && pendingPlayer !== 2) return;
+
+  var botPlayers = Array.isArray(controller.players) ? controller.players.map(function(player) {
+    return parseInt(player, 10);
+  }) : [];
+  if (botPlayers.indexOf(pendingPlayer) === -1) return;
+
+  var authKeys = controller.authKeys || {};
+  var botAuthKey = authKeys[String(pendingPlayer)] || "";
+  if (botAuthKey === "") {
+    if (window.console && console.warn) console.warn("Bot controller auth key is not available.");
+    window.__botControllerStepPaused = true;
+    return;
+  }
+
+  var folderPath = controller.folderPath || (typeof window.rootPath === "string" ? window.rootPath.replace(/^(\.\/|\/)/, "").replace(/\/.*$/, "") : "");
+  if (folderPath === "") {
+    if (window.console && console.warn) console.warn("Bot controller folder path is not available.");
+    window.__botControllerStepPaused = true;
+    return;
+  }
+
+  window.__botControllerStepInFlight = true;
+  SubmitEngineInput(10017, "", {
+    playerID: pendingPlayer,
+    authKey: botAuthKey,
+    folderPath: folderPath,
+    responseFormat: "json"
+  }).then(function(response) {
+    if (!response || response.success !== true) {
+      var message = response && response.message ? response.message : "Bot controller step failed.";
+      if (window.console && console.warn) console.warn(message);
+      window.__botControllerStepPaused = true;
+      return;
+    }
+    if (response.botStepApplied === true) {
+      window.setTimeout(function() {
+        if (typeof window.QueueGameUpdate === "function") window.QueueGameUpdate();
+      }, 150);
+    }
+  }).catch(function(error) {
+    if (window.console && console.error) console.error(error);
+    window.__botControllerStepPaused = true;
+  }).finally(function() {
+    window.__botControllerStepInFlight = false;
   });
 }
 

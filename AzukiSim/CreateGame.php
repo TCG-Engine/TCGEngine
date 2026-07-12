@@ -25,6 +25,15 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");
 
+    if (isset($lobby->format) && strtolower(strval($lobby->format)) === 'rlbot') {
+        DecisionQueueController::StoreVariable('GameMode', 'rlbot');
+        if (function_exists('SetAzukiRlBotPlayers')) {
+            SetAzukiRlBotPlayers(isset($lobby->azukiRlBotPlayers) && is_array($lobby->azukiRlBotPlayers) ? $lobby->azukiRlBotPlayers : [2]);
+        } else {
+            DecisionQueueController::StoreVariable('AzukiRlBotPlayers', [2]);
+        }
+    }
+
     $playerCounter = 1;
     foreach ($lobby->players as $player) {
         $player->setGamePlayerID($playerCounter);

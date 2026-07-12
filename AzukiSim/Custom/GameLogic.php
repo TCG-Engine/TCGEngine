@@ -10,6 +10,289 @@ $untilBeginOpponentTurnEffects = [];
 $untilBeginOpponentTurnEffects['FROZEN'] = true;
 $untilBeginOpponentTurnEffects['ROOTED'] = true;
 
+function NormalizeAzukiRlBotPlayers($players) {
+    $normalized = [];
+    if(!is_array($players)) return $normalized;
+    foreach($players as $player) {
+        $playerNum = intval($player);
+        if($playerNum !== 1 && $playerNum !== 2) continue;
+        if(in_array($playerNum, $normalized, true)) continue;
+        $normalized[] = $playerNum;
+    }
+    sort($normalized);
+    return $normalized;
+}
+
+function SetAzukiRlBotPlayers($players) {
+    DecisionQueueController::StoreVariable('AzukiRlBotPlayers', NormalizeAzukiRlBotPlayers($players));
+}
+
+function GetAzukiRlBotPlayers() {
+    return NormalizeAzukiRlBotPlayers(DecisionQueueController::GetVariable('AzukiRlBotPlayers'));
+}
+
+function IsAzukiRlBotPlayer($player) {
+    return in_array(intval($player), GetAzukiRlBotPlayers(), true);
+}
+
+function AzukiGameMode(): string {
+    $mode = DecisionQueueController::GetVariable('GameMode');
+    return $mode === 'rlbot' ? 'rlbot' : '';
+}
+
+function AzukiRlBotPendingPlayerForClient() {
+    if(AzukiGameMode() !== 'rlbot') return 0;
+
+    $dqController = new DecisionQueueController();
+    foreach(GetAzukiRlBotPlayers() as $botPlayer) {
+        if($dqController->NextDecision($botPlayer) !== null) return intval($botPlayer);
+    }
+
+    if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) {
+        $responder = function_exists('GetPendingAttackResponderPlayer') ? intval(GetPendingAttackResponderPlayer()) : 0;
+        if(IsAzukiRlBotPlayer($responder)) return $responder;
+    }
+
+    $turnPlayer = intval(GetTurnPlayer());
+    if(GetCurrentPhase() === 'MAIN' && IsAzukiRlBotPlayer($turnPlayer)) return $turnPlayer;
+    return 0;
+}
+
+function AzukiRlBotEnsureBridgeLoaded() {
+    if(function_exists('BridgeEnumerateLegalActionsLoaded')) return true;
+    if(!defined('TCGENGINE_BRIDGE_LIBRARY_ONLY')) define('TCGENGINE_BRIDGE_LIBRARY_ONLY', true);
+    $bridgePath = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'DevTools' . DIRECTORY_SEPARATOR . 'TestAutomationBridge.php';
+    if(!is_file($bridgePath)) return false;
+    include_once $bridgePath;
+    return function_exists('BridgeEnumerateLegalActionsLoaded');
+}
+
+function AzukiRlBotPublishedCheckpointPath() {
+    return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'RLBot' . DIRECTORY_SEPARATOR . 'raizan-lite-v2.json';
+}
+
+function AzukiRlBotExtractJsonObjectAt($raw, $start) {
+    $depth = 0;
+    $inString = false;
+    $escaped = false;
+    $len = strlen($raw);
+    for($i = intval($start); $i < $len; ++$i) {
+        $ch = $raw[$i];
+        if($inString) {
+            if($escaped) $escaped = false;
+            else if($ch === '\\') $escaped = true;
+            else if($ch === '"') $inString = false;
+            continue;
+        }
+        if($ch === '"') {
+            $inString = true;
+        } else if($ch === '{') {
+            ++$depth;
+        } else if($ch === '}') {
+            --$depth;
+            if($depth === 0) return substr($raw, intval($start), $i - intval($start) + 1);
+        }
+    }
+    return '';
+}
+
+function AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) {
+    static $rawCachePath = '';
+    static $rawCacheMtime = 0;
+    static $rawCache = '';
+
+    $mtime = intval(@filemtime($path));
+    if($path === $rawCachePath && $mtime === $rawCacheMtime) {
+        $raw = $rawCache;
+    } else {
+        $raw = @file_get_contents($path);
+        if(is_string($raw)) {
+            $rawCachePath = $path;
+            $rawCacheMtime = $mtime;
+            $rawCache = $raw;
+        }
+    }
+    if(!is_string($raw) || $raw === '') return null;
+    if(strpos($raw, '"state_key_version": "lite-v2"') === false && strpos($raw, '"state_key_version":"lite-v2"') === false) return null;
+
+    $encodedKey = json_encode(strval($stateKey), JSON_UNESCAPED_SLASHES);
+    if(!is_string($encodedKey) || $encodedKey === '') return null;
+    $keyPos = strpos($raw, $encodedKey);
+    if($keyPos === false) return [];
+
+    $colonPos = strpos($raw, ':', $keyPos + strlen($encodedKey));
+    if($colonPos === false) return null;
+    $objectStart = strpos($raw, '{', $colonPos);
+    if($objectStart === false) return null;
+
+    $objectJson = AzukiRlBotExtractJsonObjectAt($raw, $objectStart);
+    if($objectJson === '') return null;
+    $decoded = json_decode($objectJson, true);
+    return is_array($decoded) ? $decoded : null;
+}
+
+function AzukiRlBotLoadStateLogits($stateKey) {
+    static $cache = [];
+    $path = AzukiRlBotPublishedCheckpointPath();
+    $mtime = intval(@filemtime($path));
+    $cacheKey = $path . '|' . $mtime . '|' . strval($stateKey);
+    if(array_key_exists($cacheKey, $cache)) return $cache[$cacheKey];
+
+    $logits = is_file($path) ? AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) : null;
+    if($logits === null) $logits = [];
+
+    if(count($cache) > 256) $cache = [];
+    $cache[$cacheKey] = $logits;
+    return $logits;
+}
+
+function AzukiRlBotStateKeyFromSnapshot($snapshot) {
+    $zones = is_array($snapshot['zones'] ?? null) ? $snapshot['zones'] : [];
+    $players = is_array($snapshot['players'] ?? null) ? $snapshot['players'] : [];
+    $p1 = is_array($players['player1'] ?? null) ? $players['player1'] : [];
+    $p2 = is_array($players['player2'] ?? null) ? $players['player2'] : [];
+    $c1 = is_array($p1['champion'] ?? null) ? $p1['champion'] : [];
+    $c2 = is_array($p2['champion'] ?? null) ? $p2['champion'] : [];
+    $p1DQ = is_array($p1['decisionQueue'] ?? null) ? $p1['decisionQueue'] : [];
+    $p2DQ = is_array($p2['decisionQueue'] ?? null) ? $p2['decisionQueue'] : [];
+    $p1NextDQ = is_array($p1DQ['next'] ?? null) ? $p1DQ['next'] : [];
+    $p2NextDQ = is_array($p2DQ['next'] ?? null) ? $p2DQ['next'] : [];
+    $scalars = [
+        'activePlayer' => intval($snapshot['activePlayer'] ?? 0),
+        'turnPlayer' => intval($snapshot['turnPlayer'] ?? 0),
+        'phase' => strval($snapshot['phase'] ?? ''),
+        'myHandCount' => intval($zones['myHandCount'] ?? 0),
+        'myMemoryCount' => intval($zones['myMemoryCount'] ?? 0),
+        'theirMemoryCount' => intval($zones['theirMemoryCount'] ?? 0),
+        'myMaterialCount' => intval($zones['myMaterialCount'] ?? 0),
+        'theirMaterialCount' => intval($zones['theirMaterialCount'] ?? 0),
+        'p1ChampionRemainingLife' => intval($c1['remainingLife'] ?? 0),
+        'p2ChampionRemainingLife' => intval($c2['remainingLife'] ?? 0),
+        'p1ChampionDamage' => intval($c1['damage'] ?? 0),
+        'p2ChampionDamage' => intval($c2['damage'] ?? 0),
+        'p1NextDQType' => strval($p1NextDQ['type'] ?? ''),
+        'p2NextDQType' => strval($p2NextDQ['type'] ?? ''),
+    ];
+    ksort($scalars);
+    return json_encode($scalars, JSON_UNESCAPED_SLASHES);
+}
+
+function AzukiRlBotChooseAction($stateLogits, $actions) {
+    if(empty($actions)) return null;
+    if(!is_array($stateLogits)) $stateLogits = [];
+    $bestIndex = 0;
+    $bestScore = null;
+    for($i = 0; $i < count($actions); ++$i) {
+        $score = floatval($stateLogits[strval($i)] ?? 0.0);
+        if($bestScore === null || $score > $bestScore) {
+            $bestScore = $score;
+            $bestIndex = $i;
+        }
+    }
+    return $actions[$bestIndex] ?? null;
+}
+
+function AzukiRlBotCleanAction($action) {
+    return [
+        'playerID' => intval($action['playerID'] ?? 0),
+        'mode' => intval($action['mode'] ?? 0),
+        'buttonInput' => strval($action['buttonInput'] ?? ''),
+        'cardID' => strval($action['cardID'] ?? ''),
+        'chkInput' => is_array($action['chkInput'] ?? null) ? $action['chkInput'] : [],
+        'inputText' => strval($action['inputText'] ?? ''),
+        'resolvedCardID' => strval($action['resolvedCardID'] ?? ''),
+    ];
+}
+
+function AzukiRlBotLegalActions($gameName, $requestedPlayer) {
+    if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse() && intval(GetPendingAttackResponderPlayer()) === intval($requestedPlayer)) {
+        $actions = BridgeEnumeratePlayableActions(intval($requestedPlayer), 'AzukiSim');
+        $actions[] = BridgePassActionForRoot('AzukiSim', intval($requestedPlayer));
+        return [
+            'success' => true,
+            'kind' => 'azuki-attack-response-fsm',
+            'playerID' => intval($requestedPlayer),
+            'actions' => BridgeFilterActionsByPlayer($actions, intval($requestedPlayer)),
+        ];
+    }
+    return BridgeEnumerateLegalActionsLoaded('AzukiSim', strval($gameName));
+}
+
+function ProcessAzukiRlBotStep($requestedPlayer = 0) {
+    global $gameName;
+    $requestedPlayer = intval($requestedPlayer);
+    if(AzukiGameMode() !== 'rlbot') return ['success' => false, 'message' => 'Azuki RL bot mode is not active.', 'applied' => false];
+    if(!IsAzukiRlBotPlayer($requestedPlayer)) return ['success' => false, 'message' => 'Requested player is not an Azuki RL bot seat.', 'applied' => false];
+    if(!AzukiRlBotEnsureBridgeLoaded()) return ['success' => false, 'message' => 'Azuki RL bot bridge is not available.', 'applied' => false];
+    if(!is_string($gameName) && !is_numeric($gameName)) return ['success' => false, 'message' => 'Azuki RL bot game is not loaded.', 'applied' => false];
+
+    @set_time_limit(15);
+    @ini_set('max_execution_time', '15');
+
+    $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
+    $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
+    if(!empty($terminal['isTerminal'])) return ['success' => true, 'message' => 'Game is over.', 'applied' => false];
+
+    $legal = AzukiRlBotLegalActions(strval($gameName), $requestedPlayer);
+    $actingPlayer = intval($legal['playerID'] ?? 0);
+    if($actingPlayer !== $requestedPlayer) {
+        return ['success' => true, 'message' => 'No bot action is pending for player ' . $requestedPlayer . '.', 'applied' => false];
+    }
+
+    $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
+    if(empty($actions)) return ['success' => true, 'message' => 'No legal bot actions are available.', 'applied' => false];
+
+    $action = AzukiRlBotChooseAction(AzukiRlBotLoadStateLogits(AzukiRlBotStateKeyFromSnapshot($snapshot)), $actions);
+    if(!is_array($action)) return ['success' => true, 'message' => 'No bot action was selected.', 'applied' => false];
+
+    $beforeHash = function_exists('RegressionCurrentGamestateHash') ? RegressionCurrentGamestateHash('AzukiSim', strval($gameName)) : '';
+    $cleanAction = AzukiRlBotCleanAction($action);
+    $outerPlayerID = $GLOBALS['playerID'] ?? null;
+    $result = EngineExecuteLoadedAction($cleanAction, 'AzukiSim', strval($gameName), [
+        'updateCache' => true,
+        'disableRecording' => true,
+    ]);
+    if($outerPlayerID === null) unset($GLOBALS['playerID']);
+    else $GLOBALS['playerID'] = $outerPlayerID;
+    if(empty($result['success'])) {
+        return [
+            'success' => false,
+            'message' => strval($result['message'] ?? $result['error'] ?? 'Azuki RL bot action failed.'),
+            'applied' => false,
+        ];
+    }
+    $afterHash = function_exists('RegressionCurrentGamestateHash') ? RegressionCurrentGamestateHash('AzukiSim', strval($gameName)) : '';
+    if($beforeHash !== '' && $afterHash !== '' && hash_equals($beforeHash, $afterHash)) {
+        error_log('Azuki RL bot selected a no-op action: ' . json_encode($cleanAction, JSON_UNESCAPED_SLASHES));
+        return [
+            'success' => false,
+            'message' => 'Azuki RL bot selected an action that did not change the game state.',
+            'applied' => false,
+        ];
+    }
+
+    return ['success' => true, 'message' => '', 'applied' => true, 'action' => $cleanAction];
+}
+
+function GameBotControllerMode() {
+    return AzukiGameMode();
+}
+
+function GetBotControllerPlayers() {
+    return GetAzukiRlBotPlayers();
+}
+
+function BotControllerPendingPlayerForClient() {
+    return AzukiRlBotPendingPlayerForClient();
+}
+
+function ProcessBotControllerStep($requestedPlayer = 0, $folderPath = '', $gameNameOverride = '') {
+    if($folderPath !== '' && $folderPath !== 'AzukiSim') {
+        return ['success' => false, 'message' => 'Bot controller does not handle this game.', 'applied' => false];
+    }
+    return ProcessAzukiRlBotStep($requestedPlayer);
+}
+
 // --- Helper Functions ---
 
 function NormalizeFieldOwnership($obj, $player) {
@@ -830,6 +1113,12 @@ function ResolveDamageSourceInfoForStats($sourceKey) {
     $empty = ['cardID' => '', 'controller' => 0];
     if($normalized === '') return $empty;
 
+    $explicitPlayer = 0;
+    if(preg_match('/^P([12]):(.+)$/', $normalized, $matches)) {
+        $explicitPlayer = intval($matches[1]);
+        $normalized = strval($matches[2]);
+    }
+
     $candidates = [$normalized];
     $colonPos = strrpos($normalized, ':');
     if($colonPos !== false) {
@@ -838,11 +1127,17 @@ function ResolveDamageSourceInfoForStats($sourceKey) {
 
     foreach($candidates as $candidate) {
         if(!is_string($candidate) || $candidate === '') continue;
+        $savedPlayerID = $GLOBALS['playerID'] ?? null;
+        if($explicitPlayer === 1 || $explicitPlayer === 2) {
+            $GLOBALS['playerID'] = $explicitPlayer;
+        }
         $sourceObj = GetZoneObject($candidate);
+        if($savedPlayerID === null) unset($GLOBALS['playerID']);
+        else $GLOBALS['playerID'] = $savedPlayerID;
         if($sourceObj !== null && !(isset($sourceObj->removed) && $sourceObj->removed)) {
             return [
                 'cardID' => strval($sourceObj->CardID ?? ''),
-                'controller' => intval($sourceObj->Controller ?? $sourceObj->Owner ?? 0)
+                'controller' => $explicitPlayer > 0 ? $explicitPlayer : intval($sourceObj->Controller ?? $sourceObj->Owner ?? 0)
             ];
         }
     }
@@ -850,7 +1145,7 @@ function ResolveDamageSourceInfoForStats($sourceKey) {
     $sourceCardID = DecisionQueueController::GetVariable('mzIDCardID');
     return [
         'cardID' => is_string($sourceCardID) ? $sourceCardID : '',
-        'controller' => 0
+        'controller' => $explicitPlayer
     ];
 }
 
@@ -4398,7 +4693,8 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         if($targetIsLeader) {
             $combatDamage = max(0, $attackerAttack - LeaderCombatDamageReduction($opponent));
             if($combatDamage > 0) {
-                DealDamageToLeader($opponent, $combatDamage, null, 'COMBAT:' . NormalizeDamageSourceKey($mzCard));
+                $combatSourceKey = 'P' . intval($player) . ':COMBAT:' . NormalizeDamageSourceKey($mzCard);
+                DealDamageToLeader($opponent, $combatDamage, $combatSourceKey, $combatSourceKey);
                 TriggerEquippedWeaponOnCombatDamage($player, $attackerObj, $targetZone, $targetIndex, $combatDamage);
             }
         } else {
@@ -4412,7 +4708,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                         QueueDamageAnimation('p' . $opponent . $animTarget . '-' . $targetIndex, $damageDealt, 500, true);
                         TriggerZeroStarterDamageReactions($player, $targetZone . '-' . $targetIndex, $damageDealt, false);
                         $targetOwnerMZ = FlipZonePerspective($targetZone . '-' . $targetIndex);
-                        RecordDamageSourceOnObject($targetField[$targetIndex], 'COMBAT:' . NormalizeDamageSourceKey($mzCard));
+                        RecordDamageSourceOnObject($targetField[$targetIndex], 'P' . intval($player) . ':COMBAT:' . NormalizeDamageSourceKey($mzCard));
                         if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
                             DamageTaken($opponent, $targetOwnerMZ, $damageDealt);
                         }
@@ -4427,7 +4723,8 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         if($attackerIsLeader) {
             $combatDamage = max(0, $defenderAttack - LeaderCombatDamageReduction($player));
             if($combatDamage > 0) {
-                DealDamageToLeader($player, $combatDamage, null, 'COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex));
+                $combatSourceKey = 'P' . intval($opponent) . ':COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex);
+                DealDamageToLeader($player, $combatDamage, $combatSourceKey, $combatSourceKey);
             }
         } else {
             $myGarden = &GetGarden($player);
@@ -4438,7 +4735,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                         $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $damageDealt;
                         QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $damageDealt, 500, true);
                         TriggerZeroStarterDamageReactions($opponent, 'myGarden-' . $attackerIndex, $damageDealt, false);
-                        RecordDamageSourceOnObject($myGarden[$attackerIndex], 'COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex));
+                        RecordDamageSourceOnObject($myGarden[$attackerIndex], 'P' . intval($opponent) . ':COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex));
                         DamageTaken($player, 'myGarden-' . $attackerIndex, $damageDealt);
                     }
                 }

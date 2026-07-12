@@ -46,6 +46,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
       <br>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="joinQueue()">Join Queue</button>
+        <button onclick="createRlBotGame()" style="background-color: #7b5fc9;">Play RL Bot</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button id="rejoin-last-game-btn" onclick="rejoinLastGame()" style="display: none; background-color: #5b4aa3;">Rejoin Last Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
@@ -579,6 +580,13 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
         });
       }
 
+      function createRlBotGame() {
+        submitQueueJoin({
+          createRlBot: true,
+          waitingMessage: 'Starting RL bot game...'
+        });
+      }
+
       function joinPrivateInvite() {
         if (!_privateInviteCode) {
           showQueueInlineError('No private invite code found in this link.');
@@ -641,11 +649,16 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
           showQueueInlineError('Failed to join queue. Please try again.');
         };
 
-        var params = 'deckLink=' + encodeURIComponent(submission.deckLink) + '&game_type=' + encodeURIComponent(submission.gameType);
-        params += '&preconstructedDeck=' + encodeURIComponent(submission.preconstructedDeck);
+        var deckLink = options.createRlBot ? '' : submission.deckLink;
+        var preconstructedDeck = options.createRlBot ? 'Raizan' : submission.preconstructedDeck;
+        var params = 'deckLink=' + encodeURIComponent(deckLink) + '&game_type=' + encodeURIComponent(submission.gameType);
+        params += '&preconstructedDeck=' + encodeURIComponent(preconstructedDeck);
         params += "&rootName=" + encodeURIComponent(rootName);
         if (options.createPrivate) {
           params += '&createPrivate=1';
+        }
+        if (options.createRlBot) {
+          params += '&createRlBot=1&format=rlbot';
         }
         if (options.privateInviteCode) {
           params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);

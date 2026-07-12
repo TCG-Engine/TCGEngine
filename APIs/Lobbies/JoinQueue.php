@@ -51,15 +51,22 @@
   $preconstructedDeck = isset($_POST['preconstructedDeck']) ? $_POST['preconstructedDeck'] : '';
   $createPrivate = isset($_POST['createPrivate']) && ($_POST['createPrivate'] === '1' || strtolower($_POST['createPrivate']) === 'true');
   $createGoldfish = isset($_POST['createGoldfish']) && ($_POST['createGoldfish'] === '1' || strtolower($_POST['createGoldfish']) === 'true');
+  $createRlBot = isset($_POST['createRlBot']) && ($_POST['createRlBot'] === '1' || strtolower($_POST['createRlBot']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';
 
   $format = isset($_POST['format']) ? strtolower(trim($_POST['format'])) : 'premier';
+  if ($createRlBot && $rootName === 'AzukiSim') {
+    $format = 'rlbot';
+    $deckLink = '';
+    $preconstructedDeck = 'Raizan';
+  }
   $queueType = isset($_POST['queueType']) ? strtolower(trim($_POST['queueType'])) : 'bo1';
   // Solo/local modes are created immediately (no matchmaking). 'goldfish' = 1 deck (empty P2);
   // 'hotseat' = 2 decks, shared authKey.
   $isModeFormat =
       ($rootName === 'SWUSim'         && ($format === 'goldfish' || $format === 'hotseat')) ||
-      ($rootName === 'GrandArchiveSim' && ($format === 'goldfish' || $format === 'hotseat'));
+      ($rootName === 'GrandArchiveSim' && ($format === 'goldfish' || $format === 'hotseat')) ||
+      ($rootName === 'AzukiSim'        && $format === 'rlbot');
   // Guard: for SWUSim, fall back to safe defaults on unknown/garbage. (Other roots ignore these.)
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
@@ -102,15 +109,20 @@
   $response->success = false;
   $response->message = "Failed to join queue.";
 
-  if ($createGoldfish || $isModeFormat) {
+  if ($createGoldfish || $createRlBot || $isModeFormat) {
     // Normalize: the legacy createGoldfish param maps to the goldfish mode format.
     if ($createGoldfish && !$isModeFormat) $format = 'goldfish';
+    if ($createRlBot && $rootName === 'AzukiSim') $format = 'rlbot';
     $isHotseat = ($format === 'hotseat');
+    $isAzukiRlBot = ($rootName === 'AzukiSim' && $format === 'rlbot');
     // Goldfish/Hotseat are Bo1-only for now (leave Bo3 open for later): force Bo1 regardless of input.
     $queueType = 'bo1';
 
     $hostPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
-    if ($isHotseat) {
+    if ($isAzukiRlBot) {
+      $hostPlayer = new Player(1, '', 'Raizan', $joiningUserId);
+      $secondPlayer = new Player(2, '', 'Raizan');
+    } else if ($isHotseat) {
       // Hotseat: a real second deck; one person plays both seats.
       $secondPlayer = new Player(2, $deckLink2, '', $joiningUserId);
     } else {
@@ -122,13 +134,14 @@
     $lobby->numPlayers = 2;
     $lobby->maxPlayers = 2;
     $lobby->ready = true;
-    $lobby->id = uniqid($isHotseat ? 'hotseat_' : 'goldfish_', true);
+    $lobby->id = uniqid($isAzukiRlBot ? 'rlbot_' : ($isHotseat ? 'hotseat_' : 'goldfish_'), true);
     $lobby->rootName = $rootName;
     $lobby->format = $format;
     $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
     $lobby->isGoldfish = true;            // reuse the "skip matchmaking / skip Bo3 match" plumbing
     $lobby->goldfishPlayers = $isHotseat ? [] : [2];
+    $lobby->azukiRlBotPlayers = $isAzukiRlBot ? [2] : [];
     $lobby->players = [$hostPlayer, $secondPlayer];
 
     // CreateGame is pre-included via MatchFlow (SWU + GA), so call the setup function directly rather
