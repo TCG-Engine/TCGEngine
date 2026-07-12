@@ -101,6 +101,10 @@ function RlRandomFloat() {
   return mt_rand() / mt_getrandmax();
 }
 
+function RlStateKeyVersion() {
+  return 'lite-v2';
+}
+
 function RlStateKeyFromSnapshot($snapshot) {
   $zones = is_array($snapshot['zones'] ?? null) ? $snapshot['zones'] : [];
   $players = is_array($snapshot['players'] ?? null) ? $snapshot['players'] : [];
@@ -108,15 +112,15 @@ function RlStateKeyFromSnapshot($snapshot) {
   $p2 = is_array($players['player2'] ?? null) ? $players['player2'] : [];
   $c1 = is_array($p1['champion'] ?? null) ? $p1['champion'] : [];
   $c2 = is_array($p2['champion'] ?? null) ? $p2['champion'] : [];
+  $p1DQ = is_array($p1['decisionQueue'] ?? null) ? $p1['decisionQueue'] : [];
+  $p2DQ = is_array($p2['decisionQueue'] ?? null) ? $p2['decisionQueue'] : [];
+  $p1NextDQ = is_array($p1DQ['next'] ?? null) ? $p1DQ['next'] : [];
+  $p2NextDQ = is_array($p2DQ['next'] ?? null) ? $p2DQ['next'] : [];
   $scalars = [
     'activePlayer' => intval($snapshot['activePlayer'] ?? 0),
     'turnPlayer' => intval($snapshot['turnPlayer'] ?? 0),
-    'turnNumber' => intval($snapshot['turnNumber'] ?? 0),
     'phase' => strval($snapshot['phase'] ?? ''),
     'myHandCount' => intval($zones['myHandCount'] ?? 0),
-    'theirHandCount' => intval($zones['theirHandCount'] ?? 0),
-    'myDeckCount' => intval($zones['myDeckCount'] ?? 0),
-    'theirDeckCount' => intval($zones['theirDeckCount'] ?? 0),
     'myMemoryCount' => intval($zones['myMemoryCount'] ?? 0),
     'theirMemoryCount' => intval($zones['theirMemoryCount'] ?? 0),
     'myMaterialCount' => intval($zones['myMaterialCount'] ?? 0),
@@ -125,8 +129,8 @@ function RlStateKeyFromSnapshot($snapshot) {
     'p2ChampionRemainingLife' => intval($c2['remainingLife'] ?? 0),
     'p1ChampionDamage' => intval($c1['damage'] ?? 0),
     'p2ChampionDamage' => intval($c2['damage'] ?? 0),
-    'p1DQCount' => intval($p1['decisionQueue']['count'] ?? 0),
-    'p2DQCount' => intval($p2['decisionQueue']['count'] ?? 0),
+    'p1NextDQType' => strval($p1NextDQ['type'] ?? ''),
+    'p2NextDQType' => strval($p2NextDQ['type'] ?? ''),
   ];
   ksort($scalars);
   return json_encode($scalars, JSON_UNESCAPED_SLASHES);
@@ -347,6 +351,7 @@ class RlTabularPolicy {
       'max_actions' => $this->maxActions,
       'temperature' => $this->temperature,
       'learning_rate' => $this->learningRate,
+      'state_key_version' => RlStateKeyVersion(),
       'logits_format' => 'sparse_index_map',
       'logits' => $logits,
     ];
@@ -361,6 +366,11 @@ class RlTabularPolicy {
       floatval($payload['temperature'] ?? $fallbackTemperature),
       floatval($payload['learning_rate'] ?? $fallbackLearningRate)
     );
+    $stateKeyVersion = strval($payload['state_key_version'] ?? 'legacy-v1');
+    if ($stateKeyVersion !== RlStateKeyVersion()) {
+      fwrite(STDERR, 'Checkpoint state key version ' . $stateKeyVersion . ' is incompatible with ' . RlStateKeyVersion() . '; starting with an empty policy table.' . PHP_EOL);
+      return $obj;
+    }
     $format = strval($payload['logits_format'] ?? '');
     $rawLogits = is_array($payload['logits'] ?? null) ? $payload['logits'] : [];
     foreach ($rawLogits as $stateKey => $values) {

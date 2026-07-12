@@ -5,6 +5,9 @@ from pathlib import Path
 from typing import Dict, List, Sequence, Tuple
 
 
+STATE_KEY_VERSION = "lite-v2"
+
+
 def state_key_from_observation(obs: Dict) -> str:
     return json.dumps(obs.get("scalars", {}), sort_keys=True, separators=(",", ":"))
 
@@ -69,6 +72,7 @@ class TabularMaskedCategoricalPolicy:
             "max_actions": self.max_actions,
             "temperature": self.temperature,
             "learning_rate": self.learning_rate,
+            "state_key_version": STATE_KEY_VERSION,
             "logits": self.logits,
         }
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -82,6 +86,8 @@ class TabularMaskedCategoricalPolicy:
             temperature=float(payload["temperature"]),
             learning_rate=float(payload["learning_rate"]),
         )
+        if str(payload.get("state_key_version", "legacy-v1")) != STATE_KEY_VERSION:
+            return obj
         raw_logits = payload.get("logits", {})
         if payload.get("logits_format") == "sparse_index_map":
             obj.logits = {}

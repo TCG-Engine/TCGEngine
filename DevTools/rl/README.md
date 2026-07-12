@@ -60,6 +60,8 @@ php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck-file DevTools/rl/a
 
 The coordinator owns the live policy and writes checkpoints. For each batch, it snapshots the current policy, starts up to `--workers` PHP worker processes, lets each worker run one episode from that frozen policy, then merges the returned sparse policy deltas. Use `--workers 1` or omit the flag for the original sequential trainer.
 
+The tabular policy uses a coarse scalar state key. Current `lite-v2` keys include active/turn player, phase, own hand count, existing resource/material count fields, exact leader/champion life and damage, and each player's next decision type. They intentionally omit exact turn number, deck counts, opponent hand count, and exact decision queue counts to reduce table growth. Older checkpoints with legacy state keys can still be passed as `--checkpoint`, but their incompatible logits are discarded and training starts a fresh `lite-v2` table with the same trainer settings.
+
 PHP trainer artifacts:
 
 - `checkpoints/*.json`: tabular policy snapshots for evaluation or later reuse. Controlled by `--checkpoint-every`; the final episode always writes a checkpoint.

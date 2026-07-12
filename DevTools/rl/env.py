@@ -31,15 +31,15 @@ class GrandArchiveSelfPlayEnv:
         p2 = snapshot.get("players", {}).get("player2", {})
         c1 = p1.get("champion", {})
         c2 = p2.get("champion", {})
+        p1_dq = p1.get("decisionQueue", {})
+        p2_dq = p2.get("decisionQueue", {})
+        p1_next_dq = p1_dq.get("next", {}) if isinstance(p1_dq, dict) else {}
+        p2_next_dq = p2_dq.get("next", {}) if isinstance(p2_dq, dict) else {}
         scalars = {
             "activePlayer": int(snapshot.get("activePlayer", 0)),
             "turnPlayer": int(snapshot.get("turnPlayer", 0)),
-            "turnNumber": int(snapshot.get("turnNumber", 0)),
             "phase": str(snapshot.get("phase", "")),
             "myHandCount": int(zones.get("myHandCount", 0)),
-            "theirHandCount": int(zones.get("theirHandCount", 0)),
-            "myDeckCount": int(zones.get("myDeckCount", 0)),
-            "theirDeckCount": int(zones.get("theirDeckCount", 0)),
             "myMemoryCount": int(zones.get("myMemoryCount", 0)),
             "theirMemoryCount": int(zones.get("theirMemoryCount", 0)),
             "myMaterialCount": int(zones.get("myMaterialCount", 0)),
@@ -48,8 +48,8 @@ class GrandArchiveSelfPlayEnv:
             "p2ChampionRemainingLife": int(c2.get("remainingLife", 0)),
             "p1ChampionDamage": int(c1.get("damage", 0)),
             "p2ChampionDamage": int(c2.get("damage", 0)),
-            "p1DQCount": int(p1.get("decisionQueue", {}).get("count", 0)),
-            "p2DQCount": int(p2.get("decisionQueue", {}).get("count", 0)),
+            "p1NextDQType": str(p1_next_dq.get("type", "")),
+            "p2NextDQType": str(p2_next_dq.get("type", "")),
         }
         return {"scalars": scalars, "snapshot": snapshot}
 
