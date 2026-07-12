@@ -56,8 +56,24 @@ function SWUKeywordSuppressed($obj, string $keyword): bool {
 // Sources (extend this list as more "lose abilities" cards land):
 //   • SOR_138 Force Lightning — TurnEffect "SOR_138" on the chosen unit (this phase).
 //   • SHD_072 (upgrade) — "Attached unit loses its current abilities and can't gain abilities."
+// TWI_255 Brain Invaders — true while ANY player controls a Brain Invaders (TWI_255) in play. Its
+// constant ability makes each leader lose all abilities except epic actions, so leader ability loss is
+// checked field-wide. Printed Ground, but scan both arenas in case it's moved.
+function _SWUBrainInvadersInPlay(): bool {
+    foreach ([1, 2] as $p) {
+        foreach (array_merge(GetGroundArena($p), GetSpaceArena($p)) as $u) {
+            if ($u !== null && empty($u->removed) && ($u->CardID ?? '') === 'TWI_255') return true;
+        }
+    }
+    return false;
+}
+
 function LostAbilities($obj): bool {
     if ($obj === null) return false;
+    // TWI_255 Brain Invaders — "Each leader loses all abilities except for epic actions and can't gain
+    // abilities." A deployed leader UNIT loses all its abilities/keywords while a Brain Invaders is in
+    // play (epic actions aren't dispatched through the ability handlers this gates, so deploy survives).
+    if (IsLeaderUnit($obj) && _SWUBrainInvadersInPlay()) return true;
     if (!empty($obj->TurnEffects) && in_array('SOR_138', $obj->TurnEffects, true)) return true;
     if (!empty($obj->TurnEffects) && in_array('JTL_244', $obj->TurnEffects, true)) return true; // There Is No Escape
     if (!empty($obj->TurnEffects) && in_array('JTL_018', $obj->TurnEffects, true)) return true; // Kazuda Xiono
@@ -447,6 +463,9 @@ function _SWUSEC104AuraActive($obj): bool {
 }
 
 function HasConditionalKeyword_Overwhelm($obj) {
+    // TWI_009 Maul (deployed) — "Each other friendly unit gains Overwhelm."
+    if (($obj->CardID ?? '') !== 'TWI_009' && intval($obj->Controller ?? 0) > 0 && _SWULeaderDeployed(intval($obj->Controller), 'TWI_009')) return true;
+    if (_SWUUnitHasUpgrade($obj, 'TWI_119')) return true;   // TWI_119 Nameless Valor — "Attached unit gains Overwhelm."
     if (_SWUUnitHasUpgrade($obj, 'ASH_181')) return true;   // ASH_181 Mark My Words — "Attached unit gains Overwhelm."
     if (_SWUSEC104AuraActive($obj)) return true;   // SEC_104 aura
     // SEC_099 Naboo Royal Starship — each friendly LEADER unit gains Overwhelm.
@@ -481,11 +500,15 @@ function HasConditionalKeyword_Overwhelm($obj) {
             case 'JTL_161': // Captain Tarkin — Vehicle units gain Overwhelm
                 if (HasTrait($obj->CardID ?? '', 'Vehicle')) return true;
                 break;
+            case 'TWI_114': // Clone Commander Cody — each OTHER friendly unit gains Overwhelm while Coordinate active
+                if (IsCoordinateActive(intval($obj->Controller ?? 0))) return true;
+                break;
         }
     }
     foreach (GetUpgradesOnUnit($obj) as $u) {
         switch ($u->CardID) {
-            // Add upgrade cards that grant Overwhelm as they are implemented
+            case 'TWI_236': // Grievous's Wheel Bike — "Attached unit gains Overwhelm."
+                return true;
         }
     }
     return false;
@@ -496,11 +519,15 @@ function HasConditionalKeyword_Overwhelm($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Saboteur($obj) {
+    // TWI_010 Pre Vizsla (deployed) — "While you have 3 or more cards in your hand, this unit gains Saboteur."
+    if (($obj->CardID ?? '') === 'TWI_010' && IsLeaderUnit($obj) && count(GetHand(intval($obj->Controller ?? 0))) >= 3) return true;
     // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." A unit gains it while an opponent of
     // its controller controls a LAW_233.
     if (_SWUCountUnitsWithCardID(OtherPlayer(intval($obj->Controller ?? 0)), 'LAW_233') > 0) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SABOTEUR')) return true;
     if (_SWULof191HasBuff($obj)) return true; // LOF_191 BD-1: chosen unit gains Saboteur while BD-1 in play
+    // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gains Saboteur."
+    if (($obj->CardID ?? '') === 'TWI_143' && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_ENEMY_DEFEATED') > 0) return true;
     // SHD_190 Zuckuss: each friendly unit named 4-LOM gains Saboteur.
     if (CardTitle($obj->CardID ?? '') === '4-LOM'
         && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_190') > 0) return true;
@@ -543,6 +570,7 @@ function _SWUControlsAnotherResistance(int $player, int $selfUid): bool {
 }
 
 function HasConditionalKeyword_Sentinel($obj) {
+    if (_SWUUnitHasUpgrade($obj, 'TWI_071')) return true;   // TWI_071 Unshakeable Will — "Attached unit gains Sentinel."
     // SEC_071 (upgrade) — "While attached unit is exhausted, it gains Sentinel."
     if (_SWUUnitHasUpgrade($obj, 'SEC_071') && intval($obj->Status ?? 1) === 0) return true;
     // ASH_243 Darth Vader — Shielded + "While this unit is ready, he gains Sentinel."
@@ -801,6 +829,15 @@ function HasConditionalKeyword_Support($obj) {
 
 function GetConditionalKeyword_Raid_Value($obj) {
     $amount = 0;
+    // TWI_169 Clone Cohort (upgrade) — "Attached unit gains Raid 2."
+    if (_SWUUnitHasUpgrade($obj, 'TWI_169')) $amount += 2;
+    // TWI_164 Hevy — "Coordinate - Raid 2."
+    if (($obj->CardID ?? '') === 'TWI_164' && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 2;
+    // TWI_196 Plo Koon — "Coordinate - Raid 3."
+    if (($obj->CardID ?? '') === 'TWI_196' && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 3;
+    // TWI_180 Separatist Commando — "While you control another Separatist unit, this unit gains Raid 2."
+    if (($obj->CardID ?? '') === 'TWI_180'
+        && PlayerHasUnitWithTraitInPlay(intval($obj->Controller ?? 0), 'Separatist', $obj->UniqueID ?? null)) $amount += 2;
     // ASH_093 Captain Pellaeon — "While a leader unit has been defeated this phase, this unit gains Raid 3."
     if (($obj->CardID ?? '') === 'ASH_093' && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_LEADER_DEFEATED_PHASE') > 0) $amount += 3;
     // ASH_105 Bo-Katan Kryze — "While you control another Mandalorian unit, this unit gains Raid 2."
@@ -960,6 +997,10 @@ function GetConditionalKeyword_Restore_Value($obj) {
             if (empty($eu->removed) && _SWUIsUpgraded($eu)) { $amount += 2; break; }
         }
     }
+    // TWI_051 For The Republic — "Attached unit gains: 'Coordinate - Restore 2.'"
+    if (_SWUUnitHasUpgrade($obj, 'TWI_051') && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 2;
+    // TWI_062 Daughter of Dathomir — "While this unit is undamaged, it gains Restore 2."
+    if (($obj->CardID ?? '') === 'TWI_062' && intval($obj->Damage ?? 0) === 0) $amount += 2;
     if (_SWUYularenGrants($obj, 'RESTORE')) $amount += 1;   // JTL_047 Yularen (Restore 1 to Vehicles)
     if (_SWUSEC104AuraActive($obj)) $amount += 1;           // SEC_104 aura — Restore 1
     // LOF_105 Oppo Rancisis — "gains Restore 2 while another friendly unit has Restore."
