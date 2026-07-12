@@ -119,6 +119,14 @@ function _SWUShd241ShieldOnBaseAttack(int $baseOwner, string $attackerArena): vo
     }
 }
 
+// TWI_166 Aurra Sing — "When an enemy ground unit attacks your base: Ready this unit." (No once-per-round.)
+function _SWUTwi166ReadyOnBaseAttack(int $baseOwner): void {
+    if ($baseOwner <= 0) return;
+    foreach (GetUnitsInPlay($baseOwner) as $u) {
+        if (empty($u->removed) && ($u->CardID ?? '') === 'TWI_166') $u->Status = 1; // ready this unit
+    }
+}
+
 function _SWUAsh160ReadyOnBaseAttack(int $baseOwner): void {
     if ($baseOwner <= 0) return;
     foreach (GetUnitsInPlay($baseOwner) as $u) {
@@ -386,7 +394,9 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     _SWUDeferPilotDefeatReplacements($obj); // JTL_094: a pilot upgrade that "may instead move to ground"
     SWUDiscardHostSubcards($obj);           // remaining upgrades/pilots → each owner's discard
     $obj->removed = true;
-    SWUAddToDiscard($owner, $cardID, 'PLAY', $hasSecondChance ? 'TPF' : '');
+    // Pass $obj so SWUAddToDiscard can revert a TWI_116 Clone copy's CardID to the real card (it leaves
+    // play as Clone, not as the card it copied).
+    SWUAddToDiscard($owner, $cardID, 'PLAY', $hasSecondChance ? 'TPF' : '', $obj);
     if ($owner !== intval($player)) {
         AddGlobalEffects(intval($player), 'SWU_ENEMY_DEFEATED');
     }
@@ -538,6 +548,9 @@ function OnHealUnit($player, $mzCard, $amount) {
     if ($healed > 0 && function_exists('SWUTelemetryBumpTurn')) SWUTelemetryBumpTurn($player, 'restored', $healed);
     // Reactive "When 1 or more damage is healed from this unit" (JTL_062 Silver Angel, LAW_047 Baze).
     if ($healed >= 1 && function_exists('_SWUOnUnitHealed')) _SWUOnUnitHealed($obj, $healed);
+    // TWI_042 Barriss Offee — mark the unit as "healed this phase" (phase-duration marker read as a
+    // +1/+0 field-presence buff while a Barriss is in play).
+    if ($healed >= 1) AddTurnEffect($mzCard, 'SWU_HEALED_PHASE');
 }
 
 // Remove up to $amount damage counters from player $targetPlayer's base. Clamps at 0.
@@ -545,6 +558,8 @@ function OnHealBase($player, $targetPlayer, $amount) {
     // SOR_160 Wolffe: "Bases can't be healed for this phase." A global lock set by either player —
     // block ALL base healing (including Restore) while it's active.
     if (GlobalEffectCount(1, 'SWU_NOHEAL_BASE') > 0 || GlobalEffectCount(2, 'SWU_NOHEAL_BASE') > 0) return;
+    // TWI_132 Confederate Tri-Fighter — "Bases can't be healed." (Continuous while any copy is in play.)
+    if (_SWUCountActiveUnitsWithCardID(1, 'TWI_132') > 0 || _SWUCountActiveUnitsWithCardID(2, 'TWI_132') > 0) return;
     $base = &GetBase(intval($targetPlayer));
     for ($i = 0; $i < count($base); $i++) {
         if (isset($base[$i]->removed) && $base[$i]->removed) continue;
@@ -1274,6 +1289,8 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // "ready a unit that didn't attack this phase" effects (SEC_177).
     $atkUID = intval($attacker->UniqueID ?? 0);
     if ($atkUID > 0) AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_UNIT_ATTACKED_' . $atkUID);
+    // Per-player "a friendly unit attacked this phase" flag (TWI_007 Captain Rex). Cleared at RegroupPhaseStart.
+    AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_FRIENDLY_ATTACKED');
 
     // SOR_072 Entrenched / JTL_092 Scramble Fighters: "can't attack bases." Backstop (the valid-targets
     // list already omits the base) so a base target never resolves into combat.
@@ -1308,12 +1325,20 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         // each round." Inline ready for the base owner's Kachirho(s); per-UID once-per-round flag.
         if (strpos($attackerMzID, 'GroundArena') !== false) {
             _SWUAsh160ReadyOnBaseAttack(OtherPlayer($player));
+            _SWUTwi166ReadyOnBaseAttack(OtherPlayer($player)); // TWI_166 Aurra Sing
         }
         // SHD_241 Kragan Gorr — "When an enemy unit attacks your base: Give a Shield token to a friendly
         // unit in the same arena as the attacker." (Base owner = OtherPlayer($player); any arena.)
         _SWUShd241ShieldOnBaseAttack(OtherPlayer($player),
             strpos($attackerMzID, 'SpaceArena') !== false ? 'Space' : 'Ground');
     }
+    // TWI_012 Anakin (front action) — "If it's attacking a unit, it gets +2/+0 for this attack." The
+    // marker was placed on the attacker by TWI_012#0; apply the bonus only vs a unit target.
+    if (strpos((string)$targetMzID, 'Base') === false && is_array($attacker->TurnEffects ?? null)
+        && in_array('TWI_012_ATK', $attacker->TurnEffects, true)) {
+        SWUAddAttackPowerBonus($attackerMzID, 2);
+    }
+
     // Expose the current attacker (in the active player's frame, "my…") so an OnDefense ability that
     // affects "the attacker" (LOF_067 Chirrut) can resolve it — flip "my"→"their" for the defender frame.
     SetSWUVar('SWU_CURRENT_ATTACKER', $attackerMzID);
@@ -1330,6 +1355,17 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // — a space defender is unaffected (the -0 HP is a no-op).
     if (($attacker->CardID ?? '') === 'SOR_212' && strpos($targetMzID, 'GroundArena') !== false) {
         AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
+    }
+    // TWI_205 Clone Dive Trooper: "Coordinate - While this unit is attacking, the defender gets -2/-0."
+    if (($attacker->CardID ?? '') === 'TWI_205' && IsCoordinateActive(intval($attacker->Controller ?? 0))) {
+        AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
+    }
+    // TWI_139 Corner the Prey — the granted attacker gets +1/+0 for each damage on the defender at the
+    // start of this attack. The marker was placed on the chosen attacker when the event resolved.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('TWI_139', $attacker->TurnEffects, true)) {
+        $defObj = GetZoneObject($targetMzID);
+        $defDmg = ($defObj !== null) ? intval($defObj->Damage ?? 0) : 0; // works for a unit or a base defender
+        if ($defDmg > 0) SWUAddAttackPowerBonus($attackerMzID, $defDmg); // attack-duration marker auto-expires
     }
     // SHD_230 Swoop Down — the granted attacker attacking a ground unit: +2/+0 self, defender -2/-0.
     if (is_array($attacker->TurnEffects ?? null) && in_array('SHD_230', $attacker->TurnEffects, true)
@@ -1583,6 +1619,12 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     if ($target !== null && empty($target->removed) && _SWUUnitHasUpgrade($target, 'SOR_071')) {
         $attackPower = max(0, $attackPower - 1);
     }
+    // TWI_072 I Have the High Ground: "Each enemy unit gets -4/-0 while attacking that unit this phase."
+    // The marker sits on the protected (defending) unit; reduce the attacker's power by 4 vs it.
+    if ($target !== null && empty($target->removed)
+        && is_array($target->TurnEffects ?? null) && in_array('TWI_072', $target->TurnEffects, true)) {
+        $attackPower = max(0, $attackPower - 4);
+    }
     // LAW_108 Lando Calrissian: "While this unit is defending, the attacker gets -1/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'LAW_108') {
         $attackPower = max(0, $attackPower - 1);
@@ -1669,6 +1711,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if ($teBase === 'ASH_162') $combatCtx['ash162Discard']      = true;   // Rash Action — opp discards on base hit
         if ($teBase === 'JTL_177') $combatCtx['jtl177BaseDraw']    = true;
         if ($teBase === 'JTL_193') $preventAttackerDmg            = true;
+        if ($teBase === 'TWI_096') $preventAttackerDmg            = true;   // Aayla Secura — prevent all combat damage to her this attack
     }
 
     // "Can't deal combat damage this phase" (LAW_130 Betrayed Trust) — zero the attacker's outgoing
@@ -2091,6 +2134,9 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
         // unit can't be attacked (unless she gains Sentinel)." Exclude her as a valid target — but if
         // she has Sentinel, the protection is off (she becomes a forced Sentinel target instead).
         if (($u->CardID ?? '') === 'SOR_142' && !HasKeyword_Sentinel($u) && _SWUSabineProtected($u)) continue;
+        // TWI_195 Sabine Wren: "While this unit is exhausted, she can't be attacked (unless she gains
+        // Sentinel)." Exclude her while exhausted (Status 0) and without Sentinel.
+        if (($u->CardID ?? '') === 'TWI_195' && !HasKeyword_Sentinel($u) && intval($u->Status ?? 1) === 0) continue;
         // Hidden (LOF) — "This unit can't be attacked if it was played this phase." Exclude a Hidden
         // unit whose current in-play instance was played this phase.
         if (_SWUHiddenBlocksAttack($u)) continue;
@@ -2160,6 +2206,9 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
     // JTL_092 Scramble Fighters: tokens marked "can't attack bases for this phase".
     if ($attackerObj !== null && is_array($attackerObj->TurnEffects ?? null)
         && in_array('CANT_ATTACK_BASES', $attackerObj->TurnEffects)) $noBases = true;
+    // "Can't attack this phase" marker → no valid attacks at all (glow off).
+    if ($attackerObj !== null && is_array($attackerObj->TurnEffects ?? null)
+        && in_array('CANT_ATTACK', $attackerObj->TurnEffects, true)) return [];
     if (!$noBases) {
         $oppBase = GetZone("theirBase");
         for ($i = 0; $i < count($oppBase); $i++) {
@@ -2233,6 +2282,11 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
         $playerID = $savedPID;
         return;
     }
+    // "This unit can't attack for this phase" marker (TWI_039 Malevolence). Hard no-op.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('CANT_ATTACK', $attacker->TurnEffects, true)) {
+        $playerID = $savedPID;
+        return;
+    }
 
     $attackedUid = intval($attacker->UniqueID ?? 0);
     AddGlobalEffects($player, 'SWU_ATTACKED_' . $attackedUid);  // any unit attacked this phase (SOR_245)
@@ -2278,6 +2332,10 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     if (HasTrait($attacker->CardID, 'Jedi')) {
         AddGlobalEffects($player, 'SWU_ATTACKED_JEDI');
     }
+    // TWI_134 Asajj Ventress: "attacked with a Separatist unit this phase" (count-based, incl. this attack).
+    if (HasTrait($attacker->CardID, 'Separatist')) {
+        AddGlobalEffects($player, 'SWU_ATTACKED_SEPARATIST');
+    }
     // LAW_219 Anakin's Podracer — "While attacking, if no other units have attacked this phase, this
     // unit deals combat damage before the defending unit." Conditional SHOOT_FIRST, set at declaration
     // (before SWUCombatDamage reads it). This attack's flag was just added above, so exactly one attack
@@ -2306,6 +2364,36 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
         $attacker->Status = 1;
         $playerID = $savedPID;
         return;
+    }
+
+    // TWI_135 Darth Maul — "This unit can attack 2 units instead of 1." UX by number of LEGAL targets
+    // (Maul has no Saboteur, so $validTargets is already Sentinel-restricted — a Sentinel present drops the
+    // base + non-Sentinels). $legalUnits = the legal UNIT targets; $baseMz = the base if it's legal.
+    //   • ≥2 legal units + base legal → OPTIONCHOOSE Base-vs-Units; "Units" → MZMULTICHOOSE (1 or 2).
+    //   • ≥2 legal units + base NOT legal (2+ Sentinels) → straight to the MZMULTICHOOSE (1 or 2).
+    //   • ≤1 legal unit → fall through to the ordinary single-attack path (1 unit + base = a normal
+    //     2-target prompt; a lone Sentinel = auto-resolve).
+    if (($attacker->CardID ?? '') === 'TWI_135') {
+        $baseMz = null; $legalUnits = [];
+        foreach ($validTargets as $t) {
+            if (strpos((string)$t, 'Base') !== false) $baseMz = $t;
+            else $legalUnits[] = $t;
+        }
+        if (count($legalUnits) >= 2) {
+            if ($baseMz !== null) {
+                DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "Base&Units", 1,
+                    tooltip:"Attack_the_base_or_two_units?");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "TWI135_MODE|{$attackerMzID}|{$baseMz}", 1);
+            } else {
+                $maxPick = min(2, count($legalUnits));
+                DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "1|{$maxPick}|" . implode("&", $legalUnits), 1,
+                    tooltip:"Choose_1_or_2_units_to_attack");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "TWI135_PICK|{$attackerMzID}", 1);
+            }
+            $playerID = $savedPID;
+            (new DecisionQueueController())->ExecuteStaticMethods($player, "-");
+            return;
+        }
     }
 
     if (count($validTargets) === 1) {
@@ -2342,6 +2430,223 @@ $customDQHandlers["SWUResolveAttack"] = function($player, $parts, $lastDecision)
     $attackerMzID = $parts[0] ?? '';
     ExecuteSWUAttack($player, $attackerMzID, $lastDecision);
 };
+
+// ===== TWI_135 Darth Maul — "This unit can attack 2 units instead of 1." =====
+// Target selection reads the legal-target list from SWUGetValidAttackTargets (Sentinel-restricted for a
+// no-Saboteur attacker); see the BeginSWUAttack branch. The continuations below drive the choice.
+
+// Base-vs-Units mode pick (only offered when the base is a legal target): "Base" → ordinary single attack
+// on the base; "Units" → the unit multi-select (1 or 2 of the legal units, Sentinel-restricted already).
+$customDQHandlers["TWI135_MODE"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $savedPID = $playerID;
+    $playerID = intval($player);
+    $attackerMzID = $parts[0] ?? '';
+    $baseMz       = $parts[1] ?? '';
+    if ($lastDecision === 'Base') {
+        $playerID = $savedPID;
+        ExecuteSWUAttack($player, $attackerMzID, $baseMz);
+        return;
+    }
+    if ($lastDecision !== 'Units') {   // defensive: unrecognized answer → undo the exhaust
+        $a = GetZoneObject($attackerMzID);
+        if ($a !== null) $a->Status = 1;
+        $playerID = $savedPID;
+        return;
+    }
+    // "Units": re-derive the legal unit targets (board unchanged since the mode prompt) and offer the pick.
+    $attacker = GetZoneObject($attackerMzID);
+    if ($attacker === null || !empty($attacker->removed)) { $playerID = $savedPID; return; }
+    $valid = SWUGetValidAttackTargets(OtherPlayer(intval($player)), $attacker, $attacker->Location, true); // noBases
+    $legalUnits = array_values(array_filter($valid, fn($t) => strpos((string)$t, 'Base') === false));
+    if (empty($legalUnits)) { $playerID = $savedPID; return; }
+    if (count($legalUnits) === 1) {   // degenerate (a unit left play) — single attack
+        $playerID = $savedPID;
+        ExecuteSWUAttack($player, $attackerMzID, $legalUnits[0]);
+        return;
+    }
+    $maxPick = min(2, count($legalUnits));
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "1|{$maxPick}|" . implode("&", $legalUnits), 1,
+        tooltip:"Choose_1_or_2_units_to_attack");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TWI135_PICK|{$attackerMzID}", 1);
+    // Leave $playerID = $player so MZCountChoices validates the relative mzIDs against the right arena.
+};
+
+// Resolve the 1-or-2 unit multi-select: 0 → undo exhaust; 1 → single attack; 2 → 2-defender combat.
+$customDQHandlers["TWI135_PICK"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $savedPID = $playerID;
+    $playerID = intval($player);
+    $attackerMzID = $parts[0] ?? '';
+    $picks = array_values(array_filter(explode('&', (string)$lastDecision),
+        fn($p) => $p !== '' && $p !== '-' && $p !== 'PASS'));
+    if (empty($picks)) {   // chose none (scripted) — undo the exhaust
+        $a = GetZoneObject($attackerMzID);
+        if ($a !== null) $a->Status = 1;
+        $playerID = $savedPID;
+        return;
+    }
+    $playerID = $savedPID;
+    if (count($picks) === 1) {
+        ExecuteSWUAttack($player, $attackerMzID, $picks[0]);
+    } else {
+        _SWUMaulDoubleCombat(intval($player), $attackerMzID, $picks[0], $picks[1]);
+    }
+};
+
+// Apply one instance of combat damage from $source to $target through the standard prevention/shield
+// chain (mirrors the "normal simultaneous" block of SWUCombatDamage). Returns the damage actually dealt.
+function _SWUMaulDealCombat($source, $target, string $mzID, int $amount, int $animPlayer): int {
+    if ($amount <= 0 || $target === null || !empty($target->removed)) return 0;
+    if ($source !== null && _SWUDamageUnpreventable($source)) {   // ASH_196 — bypass Shield + all prevention
+        $target->Damage = intval($target->Damage) + $amount;
+        SWUQueueDamageAnim($mzID, $amount, $animPlayer);
+        return $amount;
+    }
+    if (_SWUConsumeAmidalaPrevent($target)) { SWUQueuePreventedAnim($mzID, $animPlayer); return 0; }
+    if (_SWUConsumeAsh062Prevent($target)) { SWUQueuePreventedAnim($mzID, $animPlayer); return 0; }
+    return _SWUShieldOrReduceCombat($target, $mzID, $amount, $animPlayer);
+}
+
+// Combat defeat of a unit (attacker or a defender) mirroring SWUCombatDamage's defeat blocks:
+// discard/leader-return, captive rescue, subcard handling, and the "defeated" global flags. Appends to
+// $defeatedCards for the batched When Defeated pass.
+function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker, array &$defeatedCards): void {
+    $ctrl  = intval($obj->Controller ?? ($isAttacker ? $player : OtherPlayer($player)));
+    $owner = intval($obj->Owner ?? $ctrl);
+    $defeatedCards[] = ['player' => $ctrl, 'cardID' => $obj->CardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj)];
+    AddGlobalEffects($ctrl, 'SWU_COMBATDEF_' . intval($obj->UniqueID ?? 0));
+    if (strpos(CardType($obj->CardID) ?? '', 'Leader') !== false) {
+        SWUReturnLeaderToZone($owner, $mzID);
+    } else {
+        $hasSecondChance = _SWUUnitHasUpgrade($obj, 'SHD_053');
+        SWURescueCaptivesOf($obj);
+        SWUReturnLeaderPilotSubcards($obj, $owner);
+        _SWUDeferPilotDefeatReplacements($obj);
+        SWUDiscardHostSubcards($obj);
+        $obj->removed = true;
+        SWUAddToDiscard($owner, $obj->CardID, 'PLAY', $hasSecondChance ? 'TPF' : '', $obj);
+        AddGlobalEffects($owner, 'SWU_DEFEATED_CARD_' . $obj->CardID);
+    }
+    if ($isAttacker) {
+        AddGlobalEffects(OtherPlayer($player), 'SWU_ENEMY_DEFEATED');
+        AddGlobalEffects($ctrl, 'SWU_FRIENDLY_DEFEATED');
+        AddGlobalEffects($ctrl, 'SWU_ATTACKER_DEFEATED');
+        if (_SWULeaderReadyUndeployed($ctrl, 'SEC_013') || _SWULeaderDeployed($ctrl, 'SEC_013')) {
+            AddTrigger($ctrl, 'SEC_013', 'SEC_013', '');
+        }
+    } else {
+        AddGlobalEffects($player, 'SWU_ENEMY_DEFEATED');
+        AddGlobalEffects($ctrl, 'SWU_FRIENDLY_DEFEATED');
+    }
+}
+
+// The 2-defender simultaneous attack. Maul deals his FULL power to each defender; both defenders deal
+// their combat damage back to him as a single simultaneous event (one Shield absorbs it all). All damage
+// is snapshotted up front and applied before any defeat, so a defeated defender still contributes its
+// counter-damage (CR simultaneity). Pragmatic scope: reuses power/HP, Shield tokens, standard damage
+// prevention (Amidala/Mandalorian), defeats, and the batched When Defeated pass; it does NOT run the
+// mid-combat On Attack / On Defense pause windows or Overwhelm (Maul has neither).
+function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz, string $def2Mz): void {
+    global $playerID, $gDeferredReplacements;
+    $savedPID = $playerID;
+    $playerID = intval($player);
+
+    $attacker = GetZoneObject($attackerMzID);
+    if ($attacker === null || !empty($attacker->removed)) {
+        $playerID = $savedPID;
+        if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+        return;
+    }
+    $def1 = GetZoneObject($def1Mz);
+    $def2 = GetZoneObject($def2Mz);
+    $d1Gone = ($def1 === null || !empty($def1->removed));
+    $d2Gone = ($def2 === null || !empty($def2->removed));
+    // If a defender vanished before damage, degrade to a single attack on whichever remains.
+    if ($d1Gone && !$d2Gone) { $playerID = $savedPID; ExecuteSWUAttack($player, $attackerMzID, $def2Mz); return; }
+    if ($d2Gone && !$d1Gone) { $playerID = $savedPID; ExecuteSWUAttack($player, $attackerMzID, $def1Mz); return; }
+    if ($d1Gone && $d2Gone) {
+        $playerID = $savedPID;
+        if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+        return;
+    }
+
+    // "Attacked this phase" bookkeeping normally done in ExecuteSWUAttack (bypassed here).
+    $atkUID = intval($attacker->UniqueID ?? 0);
+    if ($atkUID > 0) AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_UNIT_ATTACKED_' . $atkUID);
+    AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_FRIENDLY_ATTACKED');
+    SetSWUVar('SWU_CURRENT_ATTACKER', $attackerMzID);
+
+    // Snapshot all powers BEFORE any damage (simultaneity).
+    $P  = intval(ObjectCurrentPower($attacker));
+    $D1 = intval(ObjectCurrentPower($def1));
+    $D2 = intval(ObjectCurrentPower($def2));
+
+    // Maul → each defender (his full power to each, not split).
+    _SWUMaulDealCombat($attacker, $def1, $def1Mz, $P, $player);
+    _SWUMaulDealCombat($attacker, $def2, $def2Mz, $P, $player);
+
+    // Both defenders → Maul, combined into one simultaneous event (a single Shield absorbs all of it).
+    $counter = $D1 + $D2;
+    if ($counter > 0) {
+        if (_SWUDamageUnpreventable($def1) || _SWUDamageUnpreventable($def2)) {
+            $attacker->Damage = intval($attacker->Damage) + $counter;
+            SWUQueueDamageAnim($attackerMzID, $counter, $player);
+        } elseif (_SWUConsumeAmidalaPrevent($attacker)) {
+            SWUQueuePreventedAnim($attackerMzID, $player);
+        } elseif (_SWUConsumeAsh062Prevent($attacker)) {
+            SWUQueuePreventedAnim($attackerMzID, $player);
+        } else {
+            _SWUShieldOrReduceCombat($attacker, $attackerMzID, $counter, $player);
+        }
+    }
+
+    // Resolve all defeats simultaneously (damage already applied; a defeat doesn't change another's HP).
+    $defeatedCards = [];
+    $anyDefDefeated = false;
+    $combinedExcess = 0;   // Overwhelm — combined excess of the defeated defenders (ruling 2024-10-31)
+    foreach ([[$def1, $def1Mz, false], [$def2, $def2Mz, false], [$attacker, $attackerMzID, true]] as $ent) {
+        [$o, $mz, $isAtk] = $ent;
+        if ($o === null || !empty($o->removed)) continue;
+        $hp = intval(ObjectCurrentHP($o)) - intval($o->Damage);
+        if ($hp > 0 || SWUImmuneToHpDefeat($o)) continue;
+        $rep = _SWUUnitDefeatReplacement($o);
+        if ($rep !== null) {
+            $gDeferredReplacements[] = ['uid' => intval($o->UniqueID ?? 0),
+                'controller' => intval($o->Controller ?? ($isAtk ? $player : OtherPlayer($player))),
+                'cardID' => $o->CardID, 'kind' => $rep['kind']];
+            continue;
+        }
+        _SWUMaulCombatDefeat($o, $mz, $player, $isAtk, $defeatedCards);
+        if (!$isAtk) { $anyDefDefeated = true; if ($hp < 0) $combinedExcess += -$hp; }
+    }
+
+    // Overwhelm (official ruling): if Maul has Overwhelm, deal the COMBINED excess of both defenders to
+    // the defending player's base. Read the keyword from the attacker even if it was just defeated
+    // (simultaneous damage still spills).
+    if ($combinedExcess > 0 && !LostAbilities($attacker) && HasKeyword_Overwhelm($attacker)) {
+        $GLOBALS['gInCombatDamage'] = true;
+        SWUDealDamageToBase($combinedExcess, OtherPlayer($player));
+        $GLOBALS['gInCombatDamage'] = false;
+    }
+
+    // "For this attack" markers end; then the batched When Defeated + after-attack pass, then cleanup.
+    SWUExpireTurnEffects(SWU_DUR_ATTACK);
+    $combatCtx = ['dealtToUnit' => true, 'dealtToBase' => false, 'defenderDefeated' => $anyDefDefeated,
+                  'defenderIsLeader' => (IsLeaderUnit($def1) || IsLeaderUnit($def2)), 'excess' => 0];
+    CollectCombatStep3Triggers($player, $attackerMzID, $def1Mz, $defeatedCards, $combatCtx);
+    DecisionQueueController::CleanupRemovedCards();
+
+    $atkID = $attacker->CardID ?? '';
+    if ($atkID !== '') {
+        $suffix = '';
+        foreach ($defeatedCards as $d) $suffix .= ' — ' . GameLogCardRef($d['cardID']) . ' defeated';
+        AddGameLogEntry('ATTACK', 'P' . $player . '\'s ' . GameLogCardRef($atkID) . ' attacked 2 units' . $suffix);
+    }
+
+    $playerID = $savedPID;
+    if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+}
 
 // Dispatch the OnAttack ability for the given unit mzID.
 function OnAttackTrigger($player, $mzID): void {

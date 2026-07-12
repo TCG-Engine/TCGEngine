@@ -422,6 +422,152 @@ $leaderAbilities["TWI_005"] = function(int $player): void {
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'TWI_005#0', 1);
 };
 
+// TWI_002 Nute Gunray (front) — "Action [Exhaust]: If 2 or more friendly units were defeated this phase,
+// create a Battle Droid token." (Affordability gates the ≥2 condition.)
+$leaderAbilities["TWI_002"] = function(int $player): void {
+    SWUCreateUnitToken($player, 'TWI_T01');
+    SWUAfterAction($player);
+};
+
+// TWI_003 Obi-Wan Kenobi (front) — "Action [Exhaust]: Heal 1 damage from a unit."
+$leaderAbilities["TWI_003"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    $targets = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($targets)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $targets, "Heal_1_damage_from_a_unit", "HEAL_TARGET|1");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_AFTER_ACTION", 1);
+};
+
+// TWI_004 Yoda (front) — "Action [Exhaust]: If a unit left play this phase, draw a card, then put a card
+// from your hand on the top or bottom of your deck." (Affordability gates the left-play condition.)
+$leaderAbilities["TWI_004"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    DoDrawCard($player, 1);
+    DecisionQueueController::CleanupRemovedCards();
+    $hand = array_values(ZoneSearch("myHand"));
+    if (empty($hand)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $hand, "Put_a_card_on_the_top_or_bottom_of_your_deck", "TWI_004#0");
+};
+
+// TWI_013 Mace Windu (front) — "Action [1 resource, Exhaust]: Deal 1 damage to a damaged enemy unit.
+// Then, if it has 5 or more damage on it, deal 1 damage to it." (Resource + damaged-enemy gated.)
+$leaderActionResourceCosts["TWI_013"] = 1;
+$leaderAbilities["TWI_013"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    $targets = [];
+    foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) $targets[] = $mz;
+        }
+    }
+    if (empty($targets)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $targets, "Deal_1_to_a_damaged_enemy_unit_(then_1_more_if_5+_damage)", "TWI_013#0");
+};
+
+// TWI_014 Asajj Ventress (front) — "Action [Exhaust]: Attack with a unit. If you played an event this
+// phase, it gets +1/+0 for this attack."
+$leaderAbilities["TWI_014"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    $ready = _SWUReadyFriendlyUnits($player);
+    if (empty($ready)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $ready, "Attack_with_a_unit", "TWI_014#0");
+};
+
+// TWI_015 General Grievous (front) — "Action [Exhaust]: Give a Droid unit Sentinel for this phase."
+$leaderAbilities["TWI_015"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    $droids = [];
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Droid')) $droids[] = $mz;
+        }
+    }
+    if (empty($droids)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $droids, "Give_a_Droid_unit_Sentinel_this_phase", "TWI_015#0");
+};
+
+// TWI_009 Maul (front) — "Action [Exhaust]: Attack with a unit. It gains Overwhelm for this attack."
+$leaderAbilities["TWI_009"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    $ready = _SWUReadyFriendlyUnits($player);
+    if (empty($ready)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $ready, "Attack_with_a_unit_(gains_Overwhelm)", "TWI_009#0");
+};
+
+// TWI_010 Pre Vizsla (front) — "Action [1 resource, Exhaust]: Deal damage to a unit equal to the number
+// of cards you've drawn this phase."
+$leaderActionResourceCosts["TWI_010"] = 1;
+$leaderAbilities["TWI_010"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    $n = GlobalEffectCount($player, 'SWU_DREW_PHASE');
+    $targets = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if ($n <= 0 || empty($targets)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $targets, "Deal_{$n}_damage_to_a_unit", "DEAL_UNIT_DAMAGE|{$n}");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_AFTER_ACTION", 1);
+};
+
+// TWI_011 Ahsoka Tano (front) — "Coordinate - Action [Exhaust]: Attack with a unit. It gets +1/+0 for
+// this attack." (Coordinate gated in affordability.)
+$leaderAbilities["TWI_011"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    $ready = _SWUReadyFriendlyUnits($player);
+    if (empty($ready)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $ready, "Attack_with_a_unit_(+1/+0)", "TWI_011#0");
+};
+
+// TWI_012 Anakin Skywalker (front) — "Action [Exhaust, deal 2 damage to your base]: Attack with a unit.
+// If it's attacking a unit, it gets +2/+0 for this attack."
+$leaderAbilities["TWI_012"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    SWUDealDamageToBase(2, $player, $player); // additional cost
+    $ready = _SWUReadyFriendlyUnits($player);
+    if (empty($ready)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $ready, "Attack_with_a_unit_(+2/+0_if_attacking_a_unit)", "TWI_012#0");
+};
+
+// TWI_006 Wat Tambor (front) — "Action [Exhaust]: If a friendly unit was defeated this phase, give a unit
+// +2/+2 for this phase." (Affordability gates the defeat condition.)
+$leaderAbilities["TWI_006"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    $targets = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($targets)) { SWUAfterAction($player); return; }
+    SWUQueueChooseTarget($player, $targets, "Give_a_unit_+2/+2_this_phase", "APPLY_PHASE_BUFF|2|2|TWI_006");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_AFTER_ACTION", 1);
+};
+
+// TWI_007 Captain Rex (front) — "Action [2 resources, Exhaust]: If a friendly unit attacked this phase,
+// create a Clone Trooper token." (Resource cost + attacked condition gated in affordability.)
+$leaderActionResourceCosts["TWI_007"] = 2;
+$leaderAbilities["TWI_007"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    if (!SWUExhaustResources($player, 2)) { SWUAfterAction($player); return; }
+    SWUCreateUnitToken($player, 'TWI_T02');
+    SWUAfterAction($player);
+};
+
+// TWI_008 Padmé Amidala (front) — "Coordinate - Action [1 resource, Exhaust]: Search the top 3 cards of
+// your deck for a Republic card, reveal it, and draw it." (Coordinate + resource gated in affordability.)
+$leaderActionResourceCosts["TWI_008"] = 1;
+$leaderAbilities["TWI_008"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (count(GetDeck($player)) > 0) DoTopDeckSearch($player, 3, fn($c) => HasTrait($c, 'Republic'), 1);
+    SWUQueueAfterAction($player);
+};
+
 // JTL_013 Poe Dameron — Leader Action [1 resource, Exhaust]:
 // "Flip this leader and attach him as an upgrade to a friendly Vehicle unit without a Pilot on it."
 // The handler flips the leader (Deployed = true), pays the resource (already exhausted by

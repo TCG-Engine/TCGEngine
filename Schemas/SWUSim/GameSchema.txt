@@ -219,7 +219,7 @@ Counters: Damage=Image(Path=Assets/Icons/swusim-damage.png,Position=Center,ShowZ
 #                   upgrades: {CardID, Owner, Controller, TurnEffects[], IsPilot}
 #                   captives: {CardID, Owner, Damage, TurnEffects[], IsCaptive: true}
 #   UniqueID    — persistent ID used to track this unit across phase changes and by Leader.DeployedUniqueID
-GroundArena - CardID:string, Status:number=0, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Subcards:json, UniqueID:number=0, NumUses:number=1
+GroundArena - CardID:string, Status:number=0, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Subcards:json, UniqueID:number=0, NumUses:number=1, IsClone:boolean=false
 Virtual: CurrentPower=ObjectPowerBadgeValue()
 Virtual: CurrentHP=ObjectHPBadgeValue()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
@@ -285,7 +285,7 @@ Click: FSM()
 # Units in the space arena controlled by this player. Same field schema as GroundArena.
 # Ground units cannot attack space units (and vice versa) unless an ability explicitly allows it.
 # Space units may still deal damage to units in the ground arena through non-attack abilities.
-SpaceArena - CardID:string, Status:number=0, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Subcards:json, UniqueID:number=0, NumUses:number=1
+SpaceArena - CardID:string, Status:number=0, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Subcards:json, UniqueID:number=0, NumUses:number=1, IsClone:boolean=false
 Virtual: CurrentPower=ObjectPowerBadgeValue()
 Virtual: CurrentHP=ObjectHPBadgeValue()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
