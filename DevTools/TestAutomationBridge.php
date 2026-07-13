@@ -1290,6 +1290,26 @@ function BridgeEnumerateLegalActionsLoaded($root, $gameName) {
     }
   }
 
+  if ($root === 'AzukiSim' && function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) {
+    $responderPlayer = function_exists('GetPendingAttackResponderPlayer') ? intval(GetPendingAttackResponderPlayer()) : 0;
+    if ($responderPlayer === 1 || $responderPlayer === 2) {
+      $actions = BridgeEnumeratePlayableActions($responderPlayer, $root);
+      $actions[] = BridgePassActionForRoot($root, $responderPlayer);
+      $actions = BridgeFilterActionsByPlayer($actions, $responderPlayer);
+      return [
+        'success' => true,
+        'kind' => 'azuki-attack-response-fsm',
+        'playerID' => $responderPlayer,
+        'turnPlayer' => intval(GetTurnPlayer()),
+        'currentPlayer' => BridgeActivePlayer(),
+        'phase' => strval(GetCurrentPhase()),
+        'canPhasePass' => false,
+        'opportunityState' => BridgeGetOpportunityState(),
+        'actions' => $actions,
+      ];
+    }
+  }
+
   $turnPlayer = intval(GetTurnPlayer());
   $currentPlayer = BridgeActivePlayer();
   $phase = strval(GetCurrentPhase());

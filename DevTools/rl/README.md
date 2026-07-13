@@ -91,6 +91,13 @@ Default tactical shaping:
 
 Episode replays include `strategyPosture` and `tacticalReward` fields for shaped tactical steps.
 
+Attack shaping is transaction-aware. Declaring an attack records the attacker,
+posture, and pre-attack strategy snapshot. Damage and board changes that occur
+after the defending player's response window closes are attributed back to that
+attack declaration; the pass that merely commits combat receives no combat
+reward. Replay attack steps include `combatRewardResolvedAtStep`, and the
+resolving response step includes `combatRewardAttributedToStep`.
+
 The tabular policy uses a coarse scalar state key. Current `lite-v2` keys include active/turn player, phase, own hand count, existing resource/material count fields, exact leader/champion life and damage, and each player's next decision type. They intentionally omit exact turn number, deck counts, opponent hand count, and exact decision queue counts to reduce table growth. Older checkpoints with legacy state keys can still be passed as `--checkpoint`, but their incompatible logits are discarded and training starts a fresh `lite-v2` table with the same trainer settings.
 
 PHP trainer artifacts:

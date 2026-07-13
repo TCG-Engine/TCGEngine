@@ -375,6 +375,44 @@ function RlTacticalImmediateReward($beforeSnapshot, $afterSnapshot, $player, $po
   return $reward;
 }
 
+function RlIsAttackDeclarationAction($action) {
+  if (!is_array($action)) return false;
+  return str_ends_with(strval($action['cardID'] ?? ''), '!CustomInput!Attack');
+}
+
+function RlIsPassAction($action) {
+  if (!is_array($action)) return false;
+  $cardID = strtoupper(strval($action['cardID'] ?? ''));
+  return $cardID === 'PASS' || str_ends_with($cardID, '!CUSTOMINPUT!PASS');
+}
+
+function RlIsAttackResponseLegalPayload($legal) {
+  return is_array($legal) && strval($legal['kind'] ?? '') === 'azuki-attack-response-fsm';
+}
+
+function RlAttributeResolvedAttackReward(&$episodeSteps, &$replayActions, &$pendingAttackCredit, $afterSnapshot, $args, $resolvedAtStep) {
+  if (!is_array($pendingAttackCredit)) return null;
+  $attackStepIndex = intval($pendingAttackCredit['step_index'] ?? -1);
+  $attackerPlayer = intval($pendingAttackCredit['player'] ?? 0);
+  $posture = $pendingAttackCredit['posture'] ?? null;
+  $beforeSnapshot = $pendingAttackCredit['before_snapshot'] ?? null;
+  $pendingAttackCredit = null;
+  if ($attackStepIndex < 0 || !isset($episodeSteps[$attackStepIndex]) || !is_array($beforeSnapshot)) return null;
+  if ($attackerPlayer !== 1 && $attackerPlayer !== 2) return null;
+  if ($posture === null) return null;
+
+  // The response-window pass is merely the commit point. Attribute the full
+  // attack transaction to the declaration that caused it, from the attacker's
+  // perspective, without treating a zero-damage combat as a failed/no-op action.
+  $combatReward = RlTacticalImmediateReward($beforeSnapshot, $afterSnapshot, $attackerPlayer, intval($posture), true, $args);
+  $episodeSteps[$attackStepIndex]['tactical_reward'] = floatval($episodeSteps[$attackStepIndex]['tactical_reward'] ?? 0.0) + $combatReward;
+  if (isset($replayActions[$attackStepIndex])) {
+    $replayActions[$attackStepIndex]['tacticalReward'] = $episodeSteps[$attackStepIndex]['tactical_reward'];
+    $replayActions[$attackStepIndex]['combatRewardResolvedAtStep'] = intval($resolvedAtStep);
+  }
+  return ['attack_step_index' => $attackStepIndex, 'reward' => $combatReward];
+}
+
 class RlTabularPolicy {
   public int $maxActions;
   public float $temperature;
@@ -656,6 +694,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   $replayActions = [];
   $stepTrace = [];
   $noOpKeys = [];
+  $pendingAttackCredit = null;
   $info = ['winner' => 0, 'isTerminal' => false, 'timedOut' => false, 'stepCount' => 0, 'gamestateHash' => strval($snapshot['gamestateHash'] ?? '')];
   $reward = 0.0;
   $done = false;
@@ -716,6 +755,14 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
 
     try {
       $beforeSnapshot = $snapshot;
+      if ($args['root'] === 'AzukiSim' && $strategyPosture !== null && RlIsAttackDeclarationAction($cleanAction)) {
+        $pendingAttackCredit = [
+          'step_index' => $stepIndex,
+          'player' => $turnPlayer,
+          'posture' => intval($strategyPosture),
+          'before_snapshot' => $beforeSnapshot,
+        ];
+      }
       $stepPayload = RlStepLoaded($args['root'], $gameName, $cleanAction);
       $applyResult = $stepPayload['applyResult'];
       if (empty($applyResult['success'])) throw new Exception(strval($applyResult['message'] ?? 'engine action failed'));
@@ -723,6 +770,25 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       if ($strategyPosture !== null) {
         $episodeSteps[$stepIndex]['tactical_reward'] = RlTacticalImmediateReward($beforeSnapshot, $snapshot, $turnPlayer, $strategyPosture, $stepPayload['preHash'] !== $stepPayload['postHash'], $args);
         $replayActions[$stepIndex]['tacticalReward'] = $episodeSteps[$stepIndex]['tactical_reward'];
+      }
+      $wasAttackResponse = RlIsAttackResponseLegalPayload($legal);
+      $isAttackResponse = RlIsAttackResponseLegalPayload($stepPayload['legalActions'] ?? null);
+      if ($args['root'] === 'AzukiSim' && $wasAttackResponse && !$isAttackResponse && is_array($pendingAttackCredit)) {
+        if (RlIsPassAction($cleanAction) && $strategyPosture !== null) {
+          $episodeSteps[$stepIndex]['tactical_reward'] = 0.0;
+          $replayActions[$stepIndex]['tacticalReward'] = 0.0;
+        }
+        $attributed = RlAttributeResolvedAttackReward(
+          $episodeSteps,
+          $replayActions,
+          $pendingAttackCredit,
+          $snapshot,
+          $args,
+          $stepIndex + 1
+        );
+        if (is_array($attributed)) {
+          $replayActions[$stepIndex]['combatRewardAttributedToStep'] = intval($attributed['attack_step_index']) + 1;
+        }
       }
       $legal = $stepPayload['legalActions'];
       $lastLegalActions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
@@ -810,7 +876,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   }
 
   RlCleanupGame($gameName);
-  unset($episodeSteps, $strategySteps, $replayActions, $stepTrace, $initialFull, $snapshot, $legal, $lastLegalActions, $mask);
+  unset($episodeSteps, $strategySteps, $replayActions, $stepTrace, $initialFull, $snapshot, $legal, $lastLegalActions, $mask, $pendingAttackCredit);
   if (function_exists('gc_collect_cycles')) gc_collect_cycles();
 
   return [
