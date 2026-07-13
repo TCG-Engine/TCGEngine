@@ -630,6 +630,382 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         right: 268px !important;
     }
 
+    /*
+     * Desktop board
+     *
+     * The board deliberately has two broad, calm play areas.  The cards and
+     * interactions still render through the generated slot IDs below; this is
+     * only their desktop frame.  Keeping that distinction matters because
+     * NextTurn replaces the contents of a slot after every action.
+     */
+    @media (min-width: 1001px) {
+        :root {
+            --azuki-field-w: 64vw;
+            --azuki-field-half-w: 32vw;
+            --azuki-field-shift: 4.6vw;
+            --azuki-field-h: clamp(96px, 12.5vh, 140px);
+            --azuki-lane-gap: clamp(6px, 0.7vh, 8px);
+            --azuki-top-center-gap: clamp(12px, 1.4vh, 14px);
+            --azuki-bottom-center-gap: clamp(18px, 2.2vh, 20px);
+            --azuki-pile-w: 104px;
+            --azuki-pile-gap: clamp(28px, 2vw, 40px);
+            --azuki-lane-left: calc(50vw - var(--azuki-field-shift) - var(--azuki-field-half-w));
+            --azuki-my-pile-left: calc(var(--azuki-lane-left) - var(--azuki-pile-w) - var(--azuki-pile-gap));
+            --azuki-pile-right: calc(100vw - (var(--azuki-lane-left) + var(--azuki-field-w) + var(--azuki-pile-w) + var(--azuki-pile-gap)));
+            --azuki-rail-left: var(--azuki-my-pile-left);
+            --azuki-rail-card-w: var(--azuki-pile-w);
+            --azuki-ikz-row-w: min(28vw, 340px);
+            --azuki-field-card-size: clamp(88px, 5.2vw, 96px);
+            --azuki-ikz-card-size: 68px;
+        }
+
+        #mainDiv,
+        .stuffParent,
+        .theirStuffWrapper,
+        .myStuffWrapper,
+        #myStuff,
+        #theirStuff {
+            background: #182b3e !important;
+        }
+
+        .azuki-board-bg {
+            z-index: 10;
+            background:
+                radial-gradient(ellipse 62% 28% at 45% 50%, rgba(80, 132, 158, 0.14), transparent 72%),
+                linear-gradient(180deg, #223b52 0%, #223b52 49.75%, #17293a 49.9%, #17293a 100%);
+        }
+
+        .azuki-board-bg::before,
+        .azuki-board-bg::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+        }
+
+        .azuki-board-bg::before {
+            top: calc(50% - 1px);
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, rgba(174, 207, 224, 0.2) 16%, rgba(174, 207, 224, 0.28) 50%, rgba(174, 207, 224, 0.2) 84%, transparent 100%);
+            box-shadow: 0 1px 20px rgba(0, 0, 0, 0.22);
+        }
+
+        .azuki-board-bg::after {
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(9, 18, 29, 0.26), transparent 14%, transparent 78%, rgba(9, 18, 29, 0.18));
+        }
+
+        .azuki-zone {
+            z-index: 30;
+        }
+
+        .azuki-field {
+            box-sizing: border-box;
+            width: var(--azuki-field-w);
+            height: var(--azuki-field-h);
+            min-height: var(--azuki-field-h);
+            padding: 10px 18px 8px;
+            overflow: visible;
+            border: 1px solid rgba(137, 178, 199, 0.09);
+            border-radius: 11px;
+            background: linear-gradient(180deg, rgba(29, 51, 70, 0.96), rgba(25, 45, 63, 0.96));
+            box-shadow: inset 0 1px 0 rgba(232, 247, 255, 0.025), 0 10px 24px rgba(7, 15, 25, 0.12);
+        }
+
+        .azuki-field::before {
+            content: attr(data-label);
+            position: absolute;
+            top: 7px;
+            left: 14px;
+            color: rgba(205, 224, 235, 0.52);
+            font: 700 9px/1 var(--azuki-font-label);
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        #myGardenSlot,
+        #theirGardenSlot,
+        #myAlleySlot,
+        #theirAlleySlot {
+            left: calc(50% - var(--azuki-field-shift));
+            transform: translateX(-50%);
+        }
+
+        #theirGardenSlot {
+            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h));
+        }
+
+        #theirAlleySlot {
+            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap));
+        }
+
+        #myGardenSlot {
+            bottom: auto;
+            top: calc(50% + var(--azuki-bottom-center-gap));
+        }
+
+        #myAlleySlot {
+            bottom: auto;
+            top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap));
+        }
+
+        #myGardenWrapper,
+        #theirGardenWrapper,
+        #myAlleyWrapper,
+        #theirAlleyWrapper {
+            margin: -10px -6px -12px;
+            padding: 10px 6px 12px;
+            border-radius: 8px;
+        }
+
+        #myGarden > span[id] > a > img,
+        #theirGarden > span[id] > a > img,
+        #myAlley > span[id] > a > img,
+        #theirAlley > span[id] > a > img {
+            width: var(--azuki-field-card-size) !important;
+            height: var(--azuki-field-card-size) !important;
+        }
+
+        #myIKZAreaSlot,
+        #theirIKZAreaSlot {
+            left: calc(50% - var(--azuki-field-shift));
+            box-sizing: border-box;
+            width: var(--azuki-field-w);
+            height: var(--azuki-field-h);
+            min-height: var(--azuki-field-h);
+            padding: 8px 18px;
+            transform: translateX(-50%);
+            z-index: 35;
+            overflow: visible;
+            border: 1px solid rgba(137, 178, 199, 0.09);
+            border-radius: 11px;
+            background: linear-gradient(180deg, rgba(29, 51, 70, 0.96), rgba(25, 45, 63, 0.96));
+            box-shadow: inset 0 1px 0 rgba(232, 247, 255, 0.025), 0 10px 24px rgba(7, 15, 25, 0.12);
+        }
+
+        #myIKZAreaWrapper,
+        #theirIKZAreaWrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible !important;
+        }
+
+        #theirIKZAreaSlot {
+            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap) - var(--azuki-lane-gap));
+        }
+
+        #myIKZAreaSlot {
+            top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap) + var(--azuki-field-h) + var(--azuki-lane-gap));
+            bottom: auto;
+        }
+
+        #myIKZArea,
+        #theirIKZArea {
+            width: var(--azuki-ikz-row-w) !important;
+            max-width: var(--azuki-ikz-row-w) !important;
+            height: 68px !important;
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            align-content: center !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+        }
+
+        #myIKZArea > *,
+        #theirIKZArea > * {
+            width: var(--azuki-ikz-card-size) !important;
+            margin: 0 -22px 0 0 !important;
+        }
+
+        #myIKZArea > span[id] > a > img,
+        #theirIKZArea > span[id] > a > img {
+            width: var(--azuki-ikz-card-size) !important;
+            height: var(--azuki-ikz-card-size) !important;
+        }
+
+        #myIKZArea > *:last-child,
+        #theirIKZArea > *:last-child {
+            margin-right: 0 !important;
+        }
+
+        #myIKZArea > span:not([id]):not(.azuki-ikz-token-card),
+        #theirIKZArea > span:not([id]):not(.azuki-ikz-token-card),
+        #myGate > span:not([id]),
+        #theirGate > span:not([id]) {
+            display: none !important;
+        }
+
+        .azuki-ikz-token-card {
+            width: var(--azuki-ikz-card-size) !important;
+            flex: 0 0 var(--azuki-ikz-card-size);
+            position: relative;
+            z-index: 2;
+            cursor: help;
+        }
+
+        .azuki-ikz-token-card img {
+            display: block;
+            width: var(--azuki-ikz-card-size) !important;
+            height: var(--azuki-ikz-card-size) !important;
+            border-radius: 7px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42);
+        }
+
+        #myIKZTokenSlot,
+        #theirIKZTokenSlot {
+            display: none !important;
+        }
+
+        #myGateSlot,
+        #theirGateSlot,
+        #myDeckSlot,
+        #theirDeckSlot,
+        #myDiscardSlot,
+        #theirDiscardSlot {
+            right: var(--azuki-pile-right);
+        }
+
+        #theirGateSlot { top: 86px; }
+        #theirDeckSlot { top: 196px; }
+        #theirDiscardSlot { top: 306px; }
+
+        #myGateSlot,
+        #myDeckSlot,
+        #myDiscardSlot {
+            right: auto;
+            left: var(--azuki-my-pile-left);
+            z-index: 38;
+        }
+
+        #myGateSlot {
+            top: calc(50% + var(--azuki-bottom-center-gap));
+            bottom: auto;
+        }
+
+        #myDeckSlot {
+            top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap));
+            bottom: auto;
+        }
+
+        #myDiscardSlot {
+            top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap) + var(--azuki-field-h) + var(--azuki-lane-gap));
+            bottom: auto;
+        }
+
+        #myLeaderHealthSlot,
+        #theirLeaderHealthSlot {
+            right: calc(var(--azuki-pile-right) + 120px);
+            width: 96px;
+            min-height: 58px;
+            border: 1px solid rgba(137, 178, 199, 0.12);
+            border-radius: 8px;
+            background: rgba(17, 34, 49, 0.72);
+        }
+
+        #theirLeaderHealthSlot {
+            display: none;
+        }
+
+        #myLeaderHealthSlot {
+            right: auto;
+            left: calc(var(--azuki-rail-left) + 116px);
+            bottom: 176px;
+            z-index: 40;
+        }
+
+        #myLeaderHealthWrapper {
+            overflow: visible !important;
+        }
+
+        #myLeaderHealth {
+            min-height: 56px;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: nowrap !important;
+        }
+
+        #myLeaderHealth > span {
+            display: none !important;
+        }
+
+        #myLeaderHealth > div {
+            padding-left: 0 !important;
+        }
+
+        #myLeaderHealth .widget-button-pass {
+            min-width: 92px;
+        }
+
+        #myHandSlot,
+        #theirHandSlot {
+            box-sizing: border-box;
+            width: min(64vw, 1040px);
+            min-height: 98px;
+            padding: 0 8px;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        #myHandSlot {
+            left: calc(50% - var(--azuki-field-shift));
+            bottom: -48px;
+            transform: translateX(-50%);
+        }
+
+        #theirHandSlot {
+            left: calc(50% - var(--azuki-field-shift));
+            top: -48px;
+            transform: translateX(-50%);
+        }
+
+        #myHandSlot:hover,
+        #theirHandSlot:hover {
+            transform: translateX(-50%);
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+        #myHandSlot.is-collapsed,
+        #myHandSlot.is-collapsed:hover {
+            transform: translateX(-50%) translateY(calc(100% - 66px)) !important;
+        }
+
+        #theirHandSlot.is-collapsed,
+        #theirHandSlot.is-collapsed:hover {
+            transform: translateX(-50%) translateY(calc(-100% + 18px)) !important;
+        }
+
+        .azuki-hand-collapse-btn {
+            background: rgba(17, 34, 49, 0.86);
+            border-color: rgba(165, 202, 220, 0.3);
+        }
+
+        #azukiResponseOpportunity {
+            top: calc(50% - 24px);
+            bottom: auto;
+            border-color: rgba(165, 202, 220, 0.42);
+            background: rgba(17, 34, 49, 0.96);
+        }
+
+        #chatWidget {
+            right: 8px !important;
+            left: auto !important;
+            bottom: 8px !important;
+            align-items: flex-end !important;
+        }
+    }
+
     @media (max-width: 1000px) {
         :root {
             --azuki-mobile-topbar-h: 34px;
@@ -1069,6 +1445,8 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
     }
 
     function setupIKZTokenIndicator() {
+        var tokenCardID = 'IKZ-002_IKZ!_IKZ-Token_Die';
+
         function readTokenValue(dataKey, zoneId) {
             var raw = window[dataKey];
             if(typeof raw === 'undefined' || raw === null || raw === '') {
@@ -1080,17 +1458,41 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
             return Number.isFinite(parsed) ? parsed : 0;
         }
 
-        function syncTokenSlot(slotId, dataKey, zoneId) {
-            var slot = document.getElementById(slotId);
-            if(!slot) return;
+        function syncTokenCard(prefix, dataKey, zoneId) {
+            var slot = document.getElementById(prefix + 'IKZTokenSlot');
+            if(slot) slot.style.display = 'none';
+
             var hasToken = readTokenValue(dataKey, zoneId) > 0;
-            slot.classList.toggle('has-token', hasToken);
-            slot.style.display = hasToken ? 'inline-flex' : 'none';
+            var area = document.getElementById(prefix + 'IKZArea');
+            if(!area) return;
+
+            var tokenCard = area.querySelector('.azuki-ikz-token-card');
+            if(!hasToken) {
+                if(tokenCard) tokenCard.remove();
+                return;
+            }
+
+            if(!tokenCard) {
+                tokenCard = document.createElement('span');
+                tokenCard.className = 'azuki-ikz-token-card';
+                tokenCard.setAttribute('title', 'IKZ Token');
+                tokenCard.setAttribute('aria-label', 'IKZ Token');
+                tokenCard.innerHTML =
+                    '<a onmouseover="ShowCardDetail(event, this)" onmouseout="HideCardDetail()">' +
+                        '<img src="./AzukiSim/concat/' + tokenCardID + '.webp" alt="IKZ Token">' +
+                    '</a>';
+                tokenCard.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+                area.appendChild(tokenCard);
+            } else if(tokenCard !== area.lastElementChild) {
+                area.appendChild(tokenCard);
+            }
         }
 
         function update() {
-            syncTokenSlot('myIKZTokenSlot', 'myIKZTokenData', 'myIKZToken');
-            syncTokenSlot('theirIKZTokenSlot', 'theirIKZTokenData', 'theirIKZToken');
+            syncTokenCard('my', 'myIKZTokenData', 'myIKZToken');
+            syncTokenCard('their', 'theirIKZTokenData', 'theirIKZToken');
         }
 
         function observeZone(zoneId) {
