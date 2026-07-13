@@ -18,6 +18,42 @@ echo("<script>window.SWUDeckSlotLayout = true;</script>");
 // routing so both desktop and mobile pick it up. SWUDeck-scoped (only loads on this page).
 echo(<<<'HTML'
 <style>
+  /* SWUDeck top rail: replace the generated gray flex row with a compact HUD header.
+     Primary navigation stays left; deck-state controls form a distinct group on the right. */
+  .flex-container > .flex-item:first-child {
+    flex: 0 0 46px !important;
+    min-height: 46px !important;
+    box-sizing: border-box !important;
+    padding: 0 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    gap: 2px !important;
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 100 !important;
+    background:
+      linear-gradient(180deg, rgba(7,20,32,0.94), rgba(2,12,22,0.90)),
+      url('/TCGEngine/Assets/Images/gamebg.jpg') center top / cover !important;
+    border-bottom: 1px solid rgba(var(--accent-rgb),0.24) !important;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.42), inset 0 -1px 0 rgba(255,255,255,0.03) !important;
+  }
+  .flex-container > .flex-item:nth-child(2) { min-height: 0 !important; }
+  .flex-container > .flex-item:first-child > #AssetVisibility {
+    margin: 0 0 0 auto !important;
+    padding: 0 0 0 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    border-left: 1px solid rgba(var(--accent-rgb),0.20);
+  }
+  .flex-container > .flex-item:first-child > #Versions {
+    margin: 0 2px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
   /* Base: strip the stock look, draw the chamfer with ::before (cyan rim) + ::after (fill). */
   .widget-button, .widget-button-selected, .panelTab,
   .flex-container > .flex-item:first-child button {
@@ -76,8 +112,24 @@ echo(<<<'HTML'
      Version) sit inside inline-block wrappers and don't, so they came out ~25px. Pin a
      single height + vertically center content so they all match. */
   .flex-container > .flex-item:first-child button {
-    height: 30px !important; align-self: center !important; box-sizing: border-box !important;
+    height: 28px !important; align-self: center !important; box-sizing: border-box !important;
     display: inline-flex !important; align-items: center !important; justify-content: center !important;
+    padding: 3px 9px !important; margin: 0 2px !important; font-size: 13px !important;
+    filter: drop-shadow(0 0 2px rgba(var(--accent-rgb),0.24)) !important;
+  }
+  .flex-container > .flex-item:first-child > button:hover,
+  .flex-container > .flex-item:first-child #visibilityDropdownTrigger:hover,
+  .flex-container > .flex-item:first-child #versionDropdownTrigger:hover {
+    filter: drop-shadow(0 0 6px rgba(var(--accent-rgb),0.48)) !important;
+  }
+  @media (max-width: 1100px) {
+    .flex-container > .flex-item:first-child { padding: 0 4px !important; gap: 0 !important; }
+    .flex-container > .flex-item:first-child button {
+      padding: 3px 6px !important;
+      margin: 0 1px !important;
+      font-size: 12px !important;
+    }
+    .flex-container > .flex-item:first-child > #AssetVisibility { padding-left: 5px !important; }
   }
   /* Dropdown menus (visibility + version popups) — cyan-HUD panel to match the buttons. */
   #visibilityDropdownMenu, #versionDropdownMenu {
@@ -140,6 +192,15 @@ if (!empty($suppressDeckBoard)) return;
 if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
+  /* The shared shell normally insets #myStuff by 4px inside a gray wrapper. On this
+     full-bleed deck board that reads as an empty strip below the HUD rail, so let the
+     starfield meet the rail directly; the rail's subtle bottom border remains the divider. */
+  #myStuff.myStuff {
+    inset: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
   /* Fixed-height, scrollable zones: the wrapper must fill its positioned slot so its OWN
      overflow scrolls (the slot defines the height via top/bottom). The BindTo render gives
      each wrapper `overflow-y:auto`; these rules give it the height to scroll within. */

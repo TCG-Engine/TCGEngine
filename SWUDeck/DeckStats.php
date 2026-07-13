@@ -9,6 +9,7 @@
   include_once './GeneratedCode/GeneratedCardDictionaries.php';
   include_once '../Core/StatsBaseRegistry.php';
   include_once '../Core/HTTPLibraries.php';
+  require_once '../SharedUI/Render/Head.php';
 
   include_once '../Database/ConnectionManager.php';
   include_once '../AccountFiles/AccountDatabaseAPI.php';
@@ -21,7 +22,7 @@
   ParseGamestate(__DIR__ . "/");
 
   echo '<link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/blueDiamond.png">';
-  echo '<link rel="stylesheet" href="/TCGEngine/SharedUI/css/buttons.css">';
+  echo RenderSiteStyles('SWUDeck');
   echo("<body style='margin:0px; scroll: none;'>");
   $skipInitialize = true;
   $playerID = 1;//To fix php errors
