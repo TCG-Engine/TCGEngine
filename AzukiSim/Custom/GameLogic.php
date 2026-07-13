@@ -1734,6 +1734,9 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
         }
         else {
             WhenDestroyed(intval($owner), $resolvedCardID);
+            if(preg_match('/Garden$/', $sourceZone)) {
+                DispatchMacroListeners('WhenDestroyed', intval($owner), ['cardID' => $resolvedCardID], ['Garden']);
+            }
         }
     }
 
