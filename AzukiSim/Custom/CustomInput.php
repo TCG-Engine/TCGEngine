@@ -59,12 +59,8 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
 
 function HandlePassButton($playerID) {
     if(HasPendingAttackResponse()) {
-        $resolverPlayer = intval($playerID);
         $expectedResponder = intval(GetPendingAttackResponderPlayer());
-        if($expectedResponder === 1 || $expectedResponder === 2) {
-            $resolverPlayer = $expectedResponder;
-        }
-        if(!ResolveAttackAfterResponses($resolverPlayer)) {
+        if(intval($playerID) !== $expectedResponder || !ResolveAttackAfterResponses($playerID)) {
             SetFlashMessage('Only the defending player can pass to resolve this attack response window.');
         }
         return;
