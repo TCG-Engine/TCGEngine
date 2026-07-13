@@ -202,19 +202,27 @@
     if($deckStats != null) {
       $deckStatsOutput = "<div style='margin: 10px; max-height:calc(98vh - 50px); overflow-y:auto; scrollbar-width: thin; scrollbar-color: #5a5a5a #2a2a2a;'>";
       $deckStatsOutput .= "<table style='padding:10px; color: white; border-collapse: collapse; width: 100%;'><tr><td style='vertical-align: top; min-width: 300px;'>";
-      //Leader and base image
+      // Match the deck editor's shallow, blended identity banner. Cropped art keeps the
+      // leader/base recognizable without spending the height of two full card images.
       $leaders = &GetLeader(1);
       $bases = &GetBase(1);
-      $deckStatsOutput .= "<div style='margin-bottom: 20px; text-align: center;'>";
+      $identityParts = [];
       if(count($leaders) > 0) {
-        $leaderID = $leaders[0]->CardID;
-        $deckStatsOutput .= "<img src='./concat/" . $leaderID . ".webp' alt='" . CardTitle($leaderID) . "' style='max-width: 100px; margin-right: 20px;'>";
+        $leaderID = (string)$leaders[0]->CardID;
+        $leaderPathID = rawurlencode($leaderID);
+        $leaderTitle = htmlspecialchars((string)CardTitle($leaderID), ENT_QUOTES, 'UTF-8');
+        $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-leader'><img src='./crops/" . $leaderPathID . "_back_cropped.png' onerror=\\\"this.onerror=null;this.src='./crops/" . $leaderPathID . "_cropped.png';\\\" alt='" . $leaderTitle . "'></div>";
       }
       if(count($bases) > 0) {
-        $baseID = $bases[0]->CardID;
-        $deckStatsOutput .= "<img src='./concat/" . $baseID . ".webp' alt='" . CardTitle($baseID) . "' style='max-width: 100px;'>";
+        $baseID = (string)$bases[0]->CardID;
+        $basePathID = rawurlencode($baseID);
+        $baseTitle = htmlspecialchars((string)CardTitle($baseID), ENT_QUOTES, 'UTF-8');
+        $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-base'><img src='./crops/" . $basePathID . "_cropped.png' alt='" . $baseTitle . "'></div>";
       }
-  $deckStatsOutput .= "</div>";
+      if(count($identityParts) > 0) {
+        $identityMode = count($identityParts) > 1 ? 'has-both' : 'has-single';
+        $deckStatsOutput .= "<div class='swu-stats-identity " . $identityMode . "'>" . implode('', $identityParts) . "</div>";
+      }
   // token for inserting the compact stats source selector directly under the portraits
   $deckStatsOutput .= "__INLINE_STATS_SELECTOR__" . "<br><br>";
       //Number of wins stats
@@ -782,10 +790,87 @@
     background-color: #3a3a3a; /* Medium grey */
     border: 2px solid #5a5a5a; /* Light grey */
     border-radius: 8px;
-    font-family: 'Roboto', sans-serif; /* Modern font */
+    font-family: Arial, Helvetica, sans-serif;
     /* Reduce the base font size slightly to make the page less 'large' */
     font-size: 14px;
     color: #ffffff; /* White */
+  }
+
+  /* Shared SWU typography: DataTables and several older element defaults otherwise
+     reintroduce a serif face inside the stats surface. */
+  #myStuff,
+  #myStuff table,
+  #myStuff th,
+  #myStuff td,
+  #myStuff button,
+  #myStuff input,
+  #myStuff select,
+  #myStuff label {
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+
+  .swu-stats-identity {
+    position: relative;
+    width: 100%;
+    height: clamp(76px, 7vw, 108px);
+    margin-bottom: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(140, 210, 255, 0.24);
+    border-radius: 8px;
+    background: rgba(1, 10, 20, 0.72);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.36);
+  }
+
+  .swu-stats-identity-part {
+    position: absolute;
+    top: 0;
+    width: 58%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .swu-stats-identity-leader {
+    left: 0;
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
+  }
+
+  .swu-stats-identity-base {
+    right: 0;
+    -webkit-mask-image: linear-gradient(to left, #000 0%, #000 68%, transparent 100%);
+    mask-image: linear-gradient(to left, #000 0%, #000 68%, transparent 100%);
+  }
+
+  .swu-stats-identity.has-single .swu-stats-identity-part {
+    left: 0;
+    right: auto;
+    width: 100%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .swu-stats-identity img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .swu-stats-identity-leader img { object-position: center top; }
+
+  .swu-stats-identity::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+      rgba(2, 12, 23, 0.08) 0%,
+      transparent 31%,
+      rgba(3, 18, 32, 0.36) 48%,
+      rgba(3, 18, 32, 0.28) 52%,
+      transparent 69%,
+      rgba(2, 12, 23, 0.08) 100%);
   }
 
   .myStuffWrapper {
