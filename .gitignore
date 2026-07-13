@@ -7,6 +7,7 @@ node_modules
 .claude/settings.local.json
 .claude/tmp/
 docs/superpowers/
+.superpowers/
 docs/history/
 McpServer/dist
 Lorcana
