@@ -311,7 +311,7 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     overflow: hidden;
   }
   #swuDeckBoard #myDeckSlot {
-    left: 26% !important;
+    left: calc(26% + 12px) !important;
     top: 10px !important;
   }
   #swuDeckBoard #myStatsSlot {
@@ -323,19 +323,51 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     right: 10px !important;
     top: 10px !important;
   }
-  #swuDeckBoard #myMainDeckSlot {
-    left: 26% !important;
-    right: 10px !important;
-    top: 50px !important;
-    bottom: calc(var(--swu-deck-card-size) + 30px) !important;
-    overflow: hidden;
+  /* Main deck + sideboard share one normal-flow workspace. The sideboard therefore follows
+     the final main-deck row instead of being stranded against the bottom of the viewport. */
+  #swuDeckBoard #swuDeckWorkspace {
+    position: absolute;
+    left: 26%;
+    right: 10px;
+    top: 50px;
+    bottom: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 2px 8px;
+    box-sizing: border-box;
   }
+  #swuDeckBoard .swu-deck-section {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+    border: 1px solid rgba(var(--accent-rgb),0.12);
+    border-radius: 7px;
+    background: linear-gradient(180deg, rgba(7,23,36,0.56), rgba(3,15,27,0.24));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.025), inset 0 0 22px rgba(0,0,0,0.12);
+  }
+  #swuDeckBoard .swu-deck-section + .swu-deck-section { margin-top: 10px; }
+  #swuDeckBoard .swu-deck-section-title {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(var(--accent-rgb),0.09);
+    color: rgba(166,198,217,0.68);
+    font: 600 10px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  #swuDeckBoard #myMainDeckSlot,
   #swuDeckBoard #mySideboardSlot {
-    left: 26% !important;
-    right: 10px !important;
-    bottom: 10px !important;
-    height: calc(var(--swu-deck-card-size) + 10px);
-    overflow: hidden;
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
   }
 
   /* Keep search, tabs, and filter toggles fixed; only the card grid scrolls. */
@@ -391,11 +423,38 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   #myMainDeckWrapper,
   #mySideboardWrapper {
     width: 100%;
-    height: 100%;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    overscroll-behavior: contain;
+    height: auto !important;
+    overflow: visible !important;
     box-sizing: border-box;
+  }
+  #myMainDeck,
+  #mySideboard {
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start !important;
+    align-content: flex-start;
+    padding: 6px 7px 8px;
+  }
+  #mySideboard > span:only-child:not([data-mzid]) { display: none !important; }
+
+  /* Deck quantities should read as compact metadata, not large floating game counters. */
+  #myMainDeck .counter-bubble,
+  #mySideboard .counter-bubble {
+    top: auto !important;
+    right: 5px !important;
+    bottom: 5px !important;
+    left: auto !important;
+    width: 22px !important;
+    height: 22px !important;
+    margin: 0 !important;
+    transform: none !important;
+    border: 1px solid rgba(var(--accent-rgb),0.48) !important;
+    border-radius: 6px !important;
+    background: rgba(5,17,27,0.94) !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.55), inset 0 0 5px rgba(var(--accent-rgb),0.08) !important;
+    color: rgba(205,228,240,0.94) !important;
+    font: 700 12px/20px Arial, Helvetica, sans-serif !important;
+    text-shadow: none !important;
   }
 </style>
 <div id="swuDeckBoard" style="position:absolute; left:0; top:0; right:0; bottom:0; z-index:11;">
@@ -410,14 +469,16 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   <div id="myDeckSlot"      style="position:absolute; left:26%; top:16%;"></div>
   <div id="myStatsSlot"     style="position:absolute; left:46%; top:16%;"></div>
   <div id="mySortSlot"      style="position:absolute; left:82%; top:16%;"></div>
-  <!-- Bottom reserve clears the sideboard row. The sideboard sits at bottom:5% (scales with
-       viewport HEIGHT) and its one row is ~cardSize tall — and cardSize is innerWidth/13, so
-       the row scales with viewport WIDTH. The reserve therefore tracks both: 5% (height) for
-       the sideboard's own offset + ~9vw (width) for its row height plus a small gap. A fixed
-       px reserve would spill on wider windows (bigger cards => taller sideboard). The main-deck
-       slot has overflow:hidden, so its content clips here and scrolls within. -->
-  <div id="myMainDeckSlot"  style="position:absolute; left:26%; top:20%; bottom:calc(5% + 9vw);"></div>
-  <div id="mySideboardSlot" style="position:absolute; left:26%; bottom:5%;"></div>
+  <div id="swuDeckWorkspace">
+    <section class="swu-deck-section" aria-label="Main deck">
+      <div class="swu-deck-section-title">Main deck</div>
+      <div id="myMainDeckSlot"></div>
+    </section>
+    <section class="swu-deck-section" aria-label="Sideboard">
+      <div class="swu-deck-section-title">Sideboard</div>
+      <div id="mySideboardSlot"></div>
+    </section>
+  </div>
 </div>
 <script>
 (function(){
