@@ -391,16 +391,80 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   }
   #myCardPane .swu-pane-tabs-row {
     flex-wrap: nowrap !important;
+    align-items: center !important;
     gap: 0;
+    position: relative;
+    overflow: visible !important;
   }
-  #myCardPane .swu-pane-filters-inline {
+  #myCardPane .swu-pane-filter-menu {
+    position: relative;
     flex: 0 0 auto;
-    flex-wrap: nowrap !important;
-    margin: 2px 0 0 auto !important;
-    gap: 7px !important;
-    padding-left: 5px !important;
+    margin-left: auto;
+    z-index: 220;
   }
-  #myCardPane .swu-pane-filters-inline label {
+  #myCardPane .swu-pane-filter-trigger {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px;
+    min-width: 0;
+    padding: 3px 7px !important;
+    margin: 2px !important;
+    font-size: 12px !important;
+    line-height: 18px;
+    list-style: none;
+    white-space: nowrap;
+  }
+  #myCardPane .swu-pane-filter-trigger::-webkit-details-marker { display: none; }
+  #myCardPane .swu-pane-filter-count {
+    min-width: 15px;
+    height: 15px;
+    padding: 0 3px;
+    box-sizing: border-box;
+    border: 1px solid rgba(var(--accent-rgb),0.32);
+    border-radius: 8px;
+    color: var(--accent-strong);
+    font: 700 10px/13px Arial, Helvetica, sans-serif;
+    text-align: center;
+  }
+  #myCardPane .swu-pane-filter-chevron {
+    color: rgba(var(--accent-rgb),0.72);
+    font-size: 10px;
+    transition: transform 120ms ease;
+  }
+  #myCardPane .swu-pane-filter-menu[open] .swu-pane-filter-chevron { transform: rotate(180deg); }
+  #myCardPane .swu-pane-filter-menu[open] .swu-pane-filter-trigger {
+    color: var(--text) !important;
+    filter: drop-shadow(0 0 4px var(--swu-control-glow)) !important;
+  }
+  #myCardPane .swu-pane-filter-popover {
+    position: absolute;
+    top: calc(100% + 3px);
+    right: 2px;
+    min-width: 156px;
+    padding: 4px;
+    box-sizing: border-box;
+    background: rgba(5, 18, 30, 0.98);
+    border: 1px solid rgba(var(--accent-rgb),0.34);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.62), 0 0 8px rgba(var(--accent-rgb),0.10);
+  }
+  #myCardPane .swu-pane-filter-options {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
+    gap: 3px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #myCardPane .swu-pane-filter-options > div {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 28px;
+    padding: 3px 6px;
+    box-sizing: border-box;
+  }
+  #myCardPane .swu-pane-filter-options > div:hover { background: rgba(var(--accent-rgb),0.08); }
+  #myCardPane .swu-pane-filter-options label {
     margin-left: 0 !important;
     font-size: 12px !important;
     white-space: nowrap;
@@ -519,10 +583,79 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     var filterRow = legal.parentElement && legal.parentElement.parentElement;
     var tab = pane.querySelector('.panelTab');
     var tabsRow = tab && tab.parentElement;
-    if(!filterRow || !tabsRow || filterRow.parentElement === tabsRow) return;
+    if(!filterRow || !tabsRow) return;
+    var existingMenu = filterRow.closest('.swu-pane-filter-menu');
+    if(existingMenu) {
+      updatePaneFilterSummary(existingMenu);
+      return;
+    }
     tabsRow.classList.add('swu-pane-tabs-row');
-    filterRow.classList.add('swu-pane-filters-inline');
-    tabsRow.appendChild(filterRow);
+    filterRow.classList.add('swu-pane-filter-options');
+
+    var menu = document.createElement('details');
+    menu.className = 'swu-pane-filter-menu';
+    menu.open = document.documentElement.dataset.swuPaneFiltersOpen === '1';
+
+    var trigger = document.createElement('summary');
+    trigger.className = 'widget-button swu-pane-filter-trigger';
+    trigger.setAttribute('role', 'button');
+    trigger.setAttribute('aria-expanded', menu.open ? 'true' : 'false');
+    trigger.innerHTML = '<span>Filters</span><span class="swu-pane-filter-count"></span><span class="swu-pane-filter-chevron" aria-hidden="true">&#9662;</span>';
+
+    var popover = document.createElement('div');
+    popover.className = 'swu-pane-filter-popover';
+    popover.setAttribute('role', 'group');
+    popover.setAttribute('aria-label', 'Card filters');
+    popover.appendChild(filterRow);
+    menu.appendChild(trigger);
+    menu.appendChild(popover);
+    tabsRow.appendChild(menu);
+
+    trigger.addEventListener('click', function(){
+      // A summary click runs before the native <details> toggle.
+      document.documentElement.dataset.swuPaneFiltersOpen = menu.open ? '0' : '1';
+    });
+    menu.addEventListener('toggle', function(){
+      document.documentElement.dataset.swuPaneFiltersOpen = menu.open ? '1' : '0';
+      trigger.setAttribute('aria-expanded', menu.open ? 'true' : 'false');
+    });
+    // PaneFilterCards rerenders this entire subtree synchronously. Capture the change
+    // first so the rebuilt dropdown stays open while several filters are adjusted.
+    filterRow.addEventListener('change', function(){
+      document.documentElement.dataset.swuPaneFiltersOpen = '1';
+      updatePaneFilterSummary(menu);
+    }, true);
+    updatePaneFilterSummary(menu);
+  }
+  function updatePaneFilterSummary(menu){
+    if(!menu) return;
+    var boxes = menu.querySelectorAll('input[type="checkbox"]');
+    var checked = menu.querySelectorAll('input[type="checkbox"]:checked').length;
+    var count = menu.querySelector('.swu-pane-filter-count');
+    var trigger = menu.querySelector('.swu-pane-filter-trigger');
+    if(count) count.textContent = String(checked);
+    if(trigger) trigger.setAttribute('aria-label', 'Filters, ' + checked + ' of ' + boxes.length + ' active');
+  }
+  function bindPaneFilterDismissal(){
+    if(document.documentElement.dataset.swuPaneFilterDismissal === '1') return;
+    document.documentElement.dataset.swuPaneFilterDismissal = '1';
+    document.addEventListener('click', function(event){
+      var menu = document.querySelector('#myCardPane .swu-pane-filter-menu[open]');
+      if(menu && !menu.contains(event.target)) {
+        menu.open = false;
+        document.documentElement.dataset.swuPaneFiltersOpen = '0';
+      }
+    });
+    document.addEventListener('keydown', function(event){
+      if(event.key !== 'Escape') return;
+      var menu = document.querySelector('#myCardPane .swu-pane-filter-menu[open]');
+      if(menu) {
+        menu.open = false;
+        document.documentElement.dataset.swuPaneFiltersOpen = '0';
+        var trigger = menu.querySelector('.swu-pane-filter-trigger');
+        if(trigger) trigger.focus();
+      }
+    });
   }
   function bindCardPaneScroll(){
     var content = document.getElementById('my_CardPane_content');
@@ -552,6 +685,7 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     enhanceIdentityBanner();
   }
   function initializeLayoutEnhancements(){
+    bindPaneFilterDismissal();
     observeCardPane();
     observeIdentityBanner();
   }
