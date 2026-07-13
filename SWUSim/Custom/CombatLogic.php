@@ -151,6 +151,15 @@ function _SWUCollectAsh204Reaction(int $targetPlayer): void {
     $playerID = $savedPID;
 }
 
+// TWI_017 Chancellor Palpatine (Heroism face) — "If a friendly Heroism unit was defeated this phase, …".
+// Set alongside every SWU_FRIENDLY_DEFEATED, but only when the defeated unit's printed aspects include
+// Heroism. Cleared at RegroupPhaseStart. (Kept as a per-phase count-flag like SWU_FRIENDLY_DEFEATED.)
+function _SWUMarkHeroismDefeated(int $controller, ?string $cardID): void {
+    if ($controller > 0 && $cardID && strpos(CardAspect($cardID) ?? '', 'Heroism') !== false) {
+        AddGlobalEffects($controller, 'SWU_FRIENDLY_HEROISM_DEFEATED');
+    }
+}
+
 function SWUDealDamageToBase($damage, $targetPlayer, $damager = null) {
     global $playerID;
     $savedPID = $playerID;
@@ -313,6 +322,22 @@ const SWU_SELF_HANDLED_DEFEAT_SUBCARDS = ['JTL_094'];
 // upgrades are set aside (removed from game), not discarded. Call AFTER SWURescueCaptivesOf (captives
 // already released) and SWUReturnLeaderPilotSubcards (leader-pilots already returned to the leader
 // zone). Does NOT clear Subcards: later collection passes (JTL_073 grant) still read the array.
+// TWI_069 Roger Roger — "When Defeated: Attach this upgrade to a friendly Battle Droid token." Re-attach
+// the upgrade to a friendly Battle Droid token (TWI_T01) OTHER than the one leaving play. Returns true if
+// re-attached (the caller then skips the normal discard); false if there is no eligible token.
+function _SWURogerRogerReattach(int $controller, int $owner, int $excludeUID): bool {
+    foreach (array_merge(GetGroundArena($controller), GetSpaceArena($controller)) as $u) {
+        if ($u === null || !empty($u->removed)) continue;
+        if (($u->CardID ?? '') !== 'TWI_T01') continue;
+        if (intval($u->UniqueID ?? 0) === $excludeUID) continue;
+        if (!is_array($u->Subcards ?? null)) $u->Subcards = [];
+        $u->Subcards[] = (object)['CardID' => 'TWI_069', 'Owner' => $owner, 'Controller' => $controller,
+            'TurnEffects' => [], 'IsPilot' => false, 'IsCaptive' => false];
+        return true;
+    }
+    return false;
+}
+
 function SWUDiscardHostSubcards($host): void {
     if ($host === null || empty($host->Subcards) || !is_array($host->Subcards)) return;
     global $playerID;
@@ -325,6 +350,12 @@ function SWUDiscardHostSubcards($host): void {
         if ($subCardID === '' || in_array($subCardID, SWU_SELF_HANDLED_DEFEAT_SUBCARDS, true)) continue;
         if (strpos(strtolower(CardType($subCardID) ?? ''), 'token') !== false) continue; // tokens set aside
         $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $savedPID) : intval($sub->Owner ?? $savedPID);
+        // TWI_069 Roger Roger — re-attach to a friendly Battle Droid token instead of discarding (if any).
+        if ($subCardID === 'TWI_069') {
+            $rrCtrl = is_array($sub) ? intval($sub['Controller'] ?? 0) : intval($sub->Controller ?? 0);
+            if ($rrCtrl <= 0) $rrCtrl = intval($host->Controller ?? $subOwner);
+            if (_SWURogerRogerReattach($rrCtrl, $subOwner, intval($host->UniqueID ?? 0))) continue;
+        }
         SWUAddToDiscard($subOwner, $subCardID, 'PLAY');
         // "A friendly upgrade was defeated" observers (ASH_039 flag, ASH_055 return, ASH_161 deal 1) — this
         // is the host-defeated path (parallel to SWUDefeatUpgrade / _SWUDefeatAllUpgradesOn).
@@ -403,6 +434,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     // "A friendly unit was defeated this phase" (SOR_051 Luke) — friendly = CONTROLLER (a stolen
     // unit is friendly to whoever currently controls it). Cleared at RegroupPhaseStart.
     AddGlobalEffects($controller, 'SWU_FRIENDLY_DEFEATED');
+    _SWUMarkHeroismDefeated($controller, $cardID); // TWI_017 Palpatine (Heroism face)
     // "Units defeated this phase" multiset, counted per CardID on the OWNER (whose discard it lands
     // in) — SOR_091 returns that many copies from your discard. CardID-keyed (not UniqueID) because
     // a discard entry's UniqueID does NOT survive gamestate serialization across the action boundary;
@@ -500,6 +532,11 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
     } elseif (strpos(strtolower(CardType($foundCardID) ?? ''), 'token') === false) {
         if ($bounce) {
             AddHand($foundOwner, CardID: $foundCardID);
+        } elseif ($foundCardID === 'TWI_069'
+                && _SWURogerRogerReattach(intval($foundCtrl) > 0 ? intval($foundCtrl) : intval($foundOwner),
+                       intval($foundOwner), intval($host->UniqueID ?? 0))) {
+            // TWI_069 Roger Roger — When Defeated: re-attach to a friendly Battle Droid token instead of
+            // discarding (a directly-defeated upgrade, host survives). No discard / defeated-observer.
         } else {
             SWUAddToDiscard($foundOwner, $foundCardID, 'PLAY');
             // "A friendly upgrade was defeated" observers (ASH_039 flag, ASH_055 return, ASH_161 deal 1).
@@ -1936,6 +1973,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 }
                 AddGlobalEffects(GetOpponent($player), 'SWU_ENEMY_DEFEATED');
                 AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_FRIENDLY_DEFEATED');
+                _SWUMarkHeroismDefeated(intval($attacker->Controller ?? $player), $attacker->CardID ?? ''); // TWI_017
                 // SEC_158 — "a friendly unit was defeated WHILE ATTACKING this phase." This block is the
                 // attacker's death in combat, so it is unambiguously "while attacking." Cleared at RGS.
                 $attCtrl = intval($attacker->Controller ?? $player);
@@ -1975,6 +2013,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 }
                 AddGlobalEffects($player, 'SWU_ENEMY_DEFEATED');
                 AddGlobalEffects(intval($target->Controller ?? GetOpponent($player)), 'SWU_FRIENDLY_DEFEATED');
+                _SWUMarkHeroismDefeated(intval($target->Controller ?? GetOpponent($player)), $target->CardID ?? ''); // TWI_017
             }
             // Overwhelm: excess damage (negative $defenderHP) spills to the opponent's base (CR 7.6.4).
             // ASH_150 Deadly Vulnerability — "While attached unit is defending, the attacker loses Overwhelm."
@@ -2014,6 +2053,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 AddGlobalEffects($rOwner, 'SWU_DEFEATED_CARD_' . $rObj->CardID);
             }
             AddGlobalEffects(intval($rObj->Controller ?? $player), 'SWU_FRIENDLY_DEFEATED');
+            _SWUMarkHeroismDefeated(intval($rObj->Controller ?? $player), $rObj->CardID ?? ''); // TWI_017
         }
     }
 
@@ -2531,6 +2571,7 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
     if ($isAttacker) {
         AddGlobalEffects(OtherPlayer($player), 'SWU_ENEMY_DEFEATED');
         AddGlobalEffects($ctrl, 'SWU_FRIENDLY_DEFEATED');
+        _SWUMarkHeroismDefeated($ctrl, $obj->CardID ?? ''); // TWI_017
         AddGlobalEffects($ctrl, 'SWU_ATTACKER_DEFEATED');
         if (_SWULeaderReadyUndeployed($ctrl, 'SEC_013') || _SWULeaderDeployed($ctrl, 'SEC_013')) {
             AddTrigger($ctrl, 'SEC_013', 'SEC_013', '');
@@ -2538,6 +2579,7 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
     } else {
         AddGlobalEffects($player, 'SWU_ENEMY_DEFEATED');
         AddGlobalEffects($ctrl, 'SWU_FRIENDLY_DEFEATED');
+        _SWUMarkHeroismDefeated($ctrl, $obj->CardID ?? ''); // TWI_017
     }
 }
 
@@ -2655,6 +2697,7 @@ function OnAttackTrigger($player, $mzID): void {
     $playerID = intval($player);
     $obj = GetZoneObject($mzID);
     if ($obj !== null && !empty($obj->CardID)) {
+        _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the attacker is the source of its On Attack ability damage
         $key = $obj->CardID . ':0';
         if (isset($onAttackAbilities[$key])) $onAttackAbilities[$key]($player, $mzID);
     }

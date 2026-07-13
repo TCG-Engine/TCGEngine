@@ -293,7 +293,17 @@ if(!$withPreview && file_exists($cacheFile)) {
       logLine("WARNING: No image URL for $cardID — skipping download.");
     }
     if($thisBackImageUrl !== null) {
-      CheckImage($cardID . "_back", $thisBackImageUrl, "LeaderUnit", "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
+      // A leader's back is normally its deployed UNIT side (landscape source → CheckImage rotates it to
+      // portrait as "LeaderUnit"). EXCEPTION: a double-leader-face FLIP card (e.g. TWI_017 "Flipatine")
+      // has no unit side — its back is another LEADER face that renders horizontally in the leader slot,
+      // so treat it as "Leader" (kept horizontal). Detected generically: a Leader with no unit-side stats
+      // (empty cost/power/hp).
+      $power = GetPropertyValue($card, 'power');
+      $hp    = GetPropertyValue($card, 'hp');
+      $isFlipLeader = ($cardType === 'Leader')
+          && ($power === null || $power === '') && ($hp === null || $hp === '');
+      $backType = $isFlipLeader ? "Leader" : "LeaderUnit";
+      CheckImage($cardID . "_back", $thisBackImageUrl, $backType, "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
     }
 
     ++$count;

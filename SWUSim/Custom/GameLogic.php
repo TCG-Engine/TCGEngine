@@ -810,6 +810,9 @@ $turnEffectRegistry = [
     // LOF_220 — "the next time it would be dealt damage this phase, prevent 2 of that damage" (one-shot,
     // consumed by _SWUApplyDamagePrevention at the next damage instance — combat or effect).
     'PREVENT_DMG_2'    => ['kind' => 'MARKER', 'label' => 'Prevent 2 of next damage'],
+    // TWI_053 Finn — the chosen unique unit prevents 1 of EACH damage this phase (continuous, not
+    // consumed; phase duration = the default). Read in _SWUApplyDamagePrevention (combat + effect).
+    'TWI_053'          => ['kind' => 'MARKER', 'label' => 'Prevent 1 of each damage'],
     // LOF_033 Nameless Terror On Attack — "each enemy unit loses the Force trait for this phase."
     // Per-instance suppression marker (phase duration); read by _SWUUnitHasTrait. Snapshot of units
     // in play when it resolves — units entering later this phase are NOT marked.
@@ -1700,7 +1703,9 @@ function _SWUControlsForceUnitOrUpgrade(int $player): bool {
 function SWUControlsLeaderUnit(int $player): bool {
     foreach (GetLeader($player) as $l) {
         if (!empty($l->removed)) continue;
-        if (!empty($l->Deployed)) return true;
+        // TWI_017 "Flipatine" is never a leader UNIT — its "Deployed" flag is just the flipped Villainy
+        // face, with no arena unit. Exclude it from "do you control a leader unit" checks.
+        if (!empty($l->Deployed) && ($l->CardID ?? '') !== 'TWI_017') return true;
     }
     return false;
 }
@@ -1796,6 +1801,11 @@ function _SWUApplyDamagePrevention($obj, int $amount, bool $peek = false): int {
     // prevent 2 of that damage." Continuous while attached; applies to every damage instance.
     if ($amount > 0 && CardTitle($obj->CardID ?? '') === 'Boba Fett' && _SWUUnitHasUpgrade($obj, 'SHD_224')) {
         $amount = max(0, $amount - 2);
+    }
+    // TWI_053 Finn — "For this phase, if damage would be dealt to that unit, prevent 1 of that damage."
+    // Continuous phase-duration marker on the chosen unit; reduces EVERY incoming damage instance by 1.
+    if ($amount > 0 && is_array($obj->TurnEffects ?? null) && in_array('TWI_053', $obj->TurnEffects, true)) {
+        $amount = max(0, $amount - 1);
     }
     // ASH_150 Deadly Vulnerability — "If attached unit would take damage, it takes twice as much instead."
     // Applied last (after prevention) so it doubles the net damage. Covers combat AND ability paths (both
@@ -1910,6 +1920,14 @@ function PlayerAspects($player): array {
     foreach ([GetLeader($player) ?? [], GetBase($player) ?? []] as $zone) {
         for ($i = 0; $i < count($zone); $i++) {
             if (isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+            // TWI_017 Chancellor Palpatine "Flipatine" — the printed card lists all three aspects
+            // (Cunning,Villainy,Heroism), but each FACE provides only two: Cunning + Heroism on the
+            // Heroism (undeployed) face, Cunning + Villainy on the flipped Villainy (Deployed) face.
+            if (($zone[$i]->CardID ?? '') === 'TWI_017') {
+                $aspects[] = 'Cunning';
+                $aspects[] = empty($zone[$i]->Deployed) ? 'Heroism' : 'Villainy';
+                continue;
+            }
             $raw = CardAspect($zone[$i]->CardID);
             if ($raw === null || $raw === '') continue;
             foreach (explode(',', $raw) as $a) {
@@ -1971,6 +1989,11 @@ function _SWUSec008HealOnResourcePlay(int $player): void {
 function SWUAspectPenalty($player, $cardID): int {
     $raw = CardAspect($cardID);
     if ($raw === null || $raw === '') return 0;
+
+    // TWI_040 A Fine Addition — "play an upgrade ... ignoring its aspect penalty." A one-shot flag set
+    // around the affordability check + the actual attach payment for the single upgrade being played this
+    // way (both cost paths — SWUComputePlayCost and SWUComputePilotCost — route through here).
+    if (!empty($GLOBALS['gTwi040IgnoreAspect'])) return 0;
 
     // SOR_008 Hera Syndulla: "Ignore the aspect penalty on SPECTRE cards you play." Single chokepoint,
     // so every play path (hand / discard / affordability glow) is covered.
@@ -2397,6 +2420,11 @@ function SWUComputePlayCost($player, $obj, $host = null): int {
     if ($cardID === 'TWI_236' && $host !== null && CardTitle($host->CardID ?? '') === 'General Grievous') {
         $cost -= 2;
     }
+    // TWI_034 General Grievous — "Ignore the aspect penalty on each Lightsaber upgrade you play on this
+    // unit." Host-conditional (the host is known on the upgrade payment path), so waive the penalty here.
+    if ($host !== null && ($host->CardID ?? '') === 'TWI_034' && HasTrait($cardID, 'Lightsaber')) {
+        $cost -= SWUAspectPenalty($player, $cardID);
+    }
     // SHD_202 Qi'ra — "While this unit is in play, each card with that name costs 3 resources more for
     // your opponents to play." The named card is stored as SWU_SHD202_NAMED|{cardID} on Qi'ra's controller
     // (the opponent of the player now paying). Gated on that controller still having an SHD_202 in play.
@@ -2726,6 +2754,15 @@ function CanAffordActivationReserve($player, $obj) {
     if (_SWUCantPlayFromHand($obj->CardID)) return false;
     $cost    = SWUComputePlayCost($player, $obj);
     $cost    = SWUApplyCostHalving(intval($player), $cost); // JTL_105 The Starhawk — affordable at half
+    // Exploit: a unit with Exploit N reduces its own play cost by 2 per friendly unit defeated (up to N,
+    // capped by available fodder). So it is POTENTIALLY affordable at cost − 2·min(N, fodder) — glow green
+    // when that reduced cost is affordable, given the units currently in play. (The player still chooses at
+    // play time how many to defeat; ActivateCard pays the actual reduced cost.)
+    $exploitX = SWUEffectivePlayExploit($obj);
+    if ($exploitX > 0) {
+        $fodderCount = count(SWUExploitFodder($player));
+        if ($fodderCount > 0) $cost = max(0, $cost - 2 * min($exploitX, $fodderCount));
+    }
     $ready   = 0;
     $res     = GetResources($player);
     for ($i = 0; $i < count($res); $i++) {
@@ -4334,6 +4371,31 @@ function ReadyPhase() {
     // ASH_088 The Conflict Within — "When this unit readies: you may pay 3 resources. If you don't,
     // exhaust this unit." Same shape as JTL_192 (pay 3 instead of 2).
     SWUQueueASH088RegroupTriggers();
+
+    // TWI_068 Foresight — granted "When the regroup phase starts (before drawing cards): Name a card,
+    // then look at the top card of your deck. If it's the named card, you may reveal and draw it."
+    SWUQueueTWI068RegroupTriggers();
+}
+
+// TWI_068 Foresight — queue the name-a-card / peek-top / may-draw for each unit carrying a TWI_068
+// upgrade, at the start of the regroup phase (before the draw step). Model: SWUQueueJTL192RegroupTriggers.
+function SWUQueueTWI068RegroupTriggers(): void {
+    global $playerID;
+    $savedPID = $playerID;
+    for ($p = 1; $p <= 2; $p++) {
+        $playerID = $p;
+        foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
+            foreach (ZoneSearch($zone, ['Unit']) as $mzID) {
+                $obj = GetZoneObject($mzID);
+                if ($obj === null || ($obj->removed ?? false)) continue;
+                if (!_SWUUnitHasUpgrade($obj, 'TWI_068')) continue;
+                if (empty(GetDeck($p))) continue;   // no deck → nothing to peek
+                DecisionQueueController::AddDecision($p, 'NAMECARD', '', 1, 'Name_a_card_(Foresight)');
+                DecisionQueueController::AddDecision($p, 'CUSTOM', 'TWI_068#0', 1);
+            }
+        }
+    }
+    $playerID = $savedPID;
 }
 
 // ASH_088 The Conflict Within — queue a "pay 3 or be exhausted" decision for each unit carrying an
@@ -4818,6 +4880,7 @@ function RegroupPhaseStart(): void {
         RemoveGlobalEffect($p, 'SWU_ENEMY_DEFEATED');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ENEMY_LEFT_PLAY');  // clear ALL (multiple leaves stack)
         SWUClearGlobalEffectsByPrefix($p, 'SWU_FRIENDLY_DEFEATED');  // clear ALL (multiple defeats stack)
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_FRIENDLY_HEROISM_DEFEATED'); // TWI_017 Palpatine (Heroism face)
         SWUClearGlobalEffectsByPrefix($p, 'SWU_FRIENDLY_ATTACKED');  // TWI_007 Captain Rex "a friendly unit attacked this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_REBEL_DEFEATED');     // LAW_005 Jyn "a friendly Rebel defeated this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_IMPERIAL_DEFEATED');  // ASH_008 Moff Gideon "a friendly Imperial defeated this phase"
@@ -5548,7 +5611,27 @@ function SWUQueueAfterAction(int $player, int $block = 1): void {
     DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_AFTER_ACTION", $block, dontSkipOnPass: 1);
 }
 
+// Record the UNIT that is the source of the ability/effect damage about to be dealt, so the target-side
+// damage observer (_SWUOnUnitDamaged) can answer "a friendly unit dealt this" (TWI_016 Jango Fett). Stored
+// as "uid,controller" in a persisted SWUVar so it survives the request boundary of an async target-choose
+// (the ability queues a MZCHOOSE; the damage resolves in a later request). Set at each unit-ability
+// DISPATCH point (When Played / On Attack / etc.); events/bases never set it, so event/base damage is
+// correctly NOT "a friendly unit dealing damage". Cleared at the action boundary (SWUAfterAction). Combat
+// damage does not use this — there the source controller is definitionally OtherPlayer(target.Controller).
+function _SWURecordDamageSource(int $player, ?string $mzID): void {
+    if ($mzID === null || $mzID === '') return;
+    global $playerID;
+    $saved = $playerID; $playerID = intval($player);
+    $o = GetZoneObject($mzID);
+    $playerID = $saved;
+    if ($o === null) return;                 // unresolvable → keep whatever was there
+    $ctrl = intval($o->Controller ?? $player);
+    $uid  = intval($o->UniqueID ?? 0);
+    if ($ctrl > 0) SetSWUVar('SWU_DMG_SRC', $uid . ',' . $ctrl);
+}
+
 function SWUAfterAction($player) {
+    SetSWUVar('SWU_DMG_SRC', ''); // clear the ability-damage source context at the action boundary (TWI_016)
     SWUFlushDeferredReplacements(); // resolve any "would be defeated → may instead …" deferrals first
     _SWURevertSec192Steals();       // SEC_192 Tarkin — revert any steal whose source left play
     _SWURevertShd213Steals();       // SHD_213 DJ — stolen resource returns to its owner when DJ leaves play
@@ -5900,6 +5983,7 @@ function _SWUEffectStackTargetsForPlayer($player): string {
 // each fires in order as its own separate ability. Single-window cards register only ":0".
 function OnWhenPlayed($player, $cardID, $mzID): void {
     global $whenPlayedAbilities;
+    _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the played unit is the damage source for its own When Played
     $fired = false;
     for ($w = 0; isset($whenPlayedAbilities["{$cardID}:{$w}"]); $w++) {
         $whenPlayedAbilities["{$cardID}:{$w}"]($player, $mzID);
@@ -5926,6 +6010,7 @@ $customDQHandlers["LOF_197_REPEAT"] = function($player, $parts, $lastDecision) {
 };
 function OnWhenDefeated($player, $cardID, $mzID): void {
     global $whenDefeatedAbilities;
+    _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the defeated unit is the source for its own When Defeated damage
     $key = $cardID . ':0';
     if (isset($whenDefeatedAbilities[$key])) $whenDefeatedAbilities[$key]($player, $mzID);
 }
@@ -5933,6 +6018,7 @@ function OnWhenDefeated($player, $cardID, $mzID): void {
 
 function OnDefenseTrigger($player, $cardID, $mzID): void {
     global $onDefenseAbilities;
+    _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the defending unit is the source for its On Defense damage
     $key = $cardID . ':0';
     if (isset($onDefenseAbilities[$key])) {
         $onDefenseAbilities[$key]($player, $mzID);
@@ -5946,6 +6032,7 @@ function OnDefenseTrigger($player, $cardID, $mzID): void {
 }
 function OnAttackEndTrigger($player, $cardID, $mzID): void {
     global $onAttackEndAbilities;
+    _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the attacker is the source for its On Attack End damage
     $key = $cardID . ':0';
     if (isset($onAttackEndAbilities[$key])) $onAttackEndAbilities[$key]($player, $mzID);
 }
@@ -6486,6 +6573,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
+    _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — a reactive trigger's source unit ($mzID, when set) deals its damage
     switch ($triggerType) {
         case 'WhenPlayed':          OnWhenPlayed($player, $cardID, $mzID);          break;
         case 'WhenPlayedAsUpgrade': OnWhenPlayedAsUpgrade($player, $cardID, $mzID); break;
@@ -9168,6 +9256,17 @@ $customDQHandlers["TOPDECKSEARCH_FINALIZE"] = function($player, $parts, $lastDec
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
 };
 
+// TWI_201 Aid from the Innocent — like TOPDECKSEARCH_FINALIZE, but the chosen cards are DISCARDED (not
+// drawn); the rest go to the bottom of the deck in random order.
+$customDQHandlers["TWI_201_FINALIZE"] = function($player, $parts, $lastDecision) {
+    $allIDs   = array_values(array_filter(explode(',', $parts[0] ?? '')));
+    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
+    foreach ($resolved['drawn'] as $cardID) {
+        SWUAddToDiscard(intval($player), $cardID, 'DECK');
+    }
+    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
+};
+
 // LOF_103 Following the Path: chosen Force units go on TOP of the deck (chosen order; first chosen ends
 // up on top); the non-chosen peeked cards go to the bottom in random order.
 $customDQHandlers["LOF_103#0"] = function($player, $parts, $lastDecision) {
@@ -9694,16 +9793,32 @@ function SWUBounceUnit(int $player, string $mzID): bool {
     }
 
     $controller = intval($obj->Controller ?? $owner);
+    $isToken    = strpos(strtolower(CardType($obj->CardID) ?? ''), 'token') !== false;
     // CR 8.34.4: rescue any captives guarded by this unit before it leaves play (bounce).
     SWURescueCaptivesOf($obj);
-    $obj->removed = true;
-    // Token units are set aside (out of the game) when they leave play — never return to hand.
-    if (strpos(strtolower(CardType($cardID) ?? ''), 'token') === false) {
-        AddHand($owner, CardID:$cardID);
-    }
 
-    // "Leaves play" reactions (not a defeat): Boba Fett's leader trigger + the phase flag.
-    SWUCollectLeavePlayReactions([['player' => $controller, 'cardID' => $cardID]], false);
+    if ($isToken) {
+        // A token can't exist in hand — being "returned to hand" DEFEATS it (it's set aside, never
+        // discarded — tokens cease). Fire its When Defeated (while still in play), then the defeat flags
+        // + leave-play-AS-DEFEAT reactions (so "a friendly unit was defeated this phase" — incl.
+        // SWU_FRIENDLY_HEROISM_DEFEATED for TWI_017 Palpatine — and Gideon/Krell/Boba fire).
+        CollectWhenDefeatedTriggers(intval($player), [
+            ['player' => $controller, 'cardID' => $cardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj)]
+        ]);
+        $obj = &GetZoneObject($mzID);
+        if ($obj !== null && empty($obj->removed)) $obj->removed = true;
+        if ($controller > 0) {
+            AddGlobalEffects($controller, 'SWU_FRIENDLY_DEFEATED');
+            _SWUMarkHeroismDefeated($controller, $cardID);
+        }
+        if ($owner !== intval($player)) AddGlobalEffects(intval($player), 'SWU_ENEMY_DEFEATED');
+        SWUCollectLeavePlayReactions([['player' => $controller, 'cardID' => $cardID]], true); // defeat
+    } else {
+        $obj->removed = true;
+        AddHand($owner, CardID:$cardID);
+        // "Leaves play" reactions (not a defeat): Boba Fett's leader trigger + the phase flag.
+        SWUCollectLeavePlayReactions([['player' => $controller, 'cardID' => $cardID]], false);
+    }
     FlushTriggerBag($controller);
 
     DecisionQueueController::CleanupRemovedCards();
@@ -10451,7 +10566,10 @@ $customDQHandlers["CLONE_COPY_CHOICE"] = function($player, $parts, $lastDecision
 // leave $playerID = $player for MZCountChoices (see the SWUContinuePlayAfterExploit
 // note and the general engine gotcha in the instructions).
 function _SWUBeginPlayCardUnitPath(int $player, string $mzID): void {
-    global $gPlayGrantedExploit;
+    global $gPlayGrantedExploit, $gLastExploitedPowers;
+    // Reset the per-play record of exploited units' powers (TWI_138 Count Dooku reads it in When Played).
+    // Cleared here so a play that doesn't Exploit leaves it empty (no stale leak from a prior play).
+    $gLastExploitedPowers = [];
 
     $obj = GetZoneObject($mzID);
     if ($obj === null || (isset($obj->removed) && $obj->removed)) return;
@@ -11158,7 +11276,10 @@ function SWULeaderAction(int $player, string $cardID): void {
         }
     }
 
-    if ($leader === null || !$leader->Ready || $leader->Deployed) {
+    // A deployed leader's front Action is normally unavailable (its unit side takes over) — EXCEPT
+    // TWI_017 "Flipatine", whose "Deployed" state is just its flipped Villainy face (no unit side); its
+    // Action is available on BOTH faces (the $leaderAbilities closure branches on the face).
+    if ($leader === null || !$leader->Ready || ($leader->Deployed && ($leader->CardID ?? '') !== 'TWI_017')) {
         $playerID = $savedPID;
         return;
     }
@@ -11622,6 +11743,7 @@ function SWUUnitAction(int $player, string $mzID): void {
         $playerID = $savedPID;
         return;
     }
+    _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the acting unit is the source of its activated-ability damage
     $costKind = $unitActionCostKind[$provider] ?? 'exhaust';
     if ($costKind === 'exhaust' && intval($obj->Status) !== 1) {
         $playerID = $savedPID;
@@ -12291,13 +12413,19 @@ function SWUComputeActionsData(int $player): array {
         $ready    = (bool)($leaderObj->Ready ?? false);
         $deployed = (bool)($leaderObj->Deployed ?? false);
         $epicUsed = (bool)($leaderObj->EpicActionUsed ?? false);
-        $data['leaderAbility'] = $ready && !$deployed
+        // TWI_017 "Flipatine" has an activated Action on BOTH faces (its "Deployed" state is the flipped
+        // Villainy face, not a unit deploy), so its glow isn't gated on !deployed.
+        $data['leaderAbility'] = $ready && (!$deployed || ($leaderObj->CardID ?? '') === 'TWI_017')
             && SWULeaderActionAffordable($player, $leaderObj->CardID ?? '');
         if (($leaderObj->CardID ?? '') === 'JTL_014') {
             // Trench: non-epic repeatable deploy — ready, control 6+ resources, 3 ready resources.
             $data['leaderDeploy'] = $ready && !$deployed
                 && SWUResourceCount($player) >= 6
                 && SWUResourceCount($player, readyOnly: true) >= 3;
+        } elseif (($leaderObj->CardID ?? '') === 'TWI_017') {
+            // TWI_017 "Flipatine" has NO deploy — both faces are flip Actions (its empty printed cost
+            // would otherwise make the generic ">= CardCost" check pass and offer a bogus Deploy option).
+            $data['leaderDeploy'] = false;
         } else {
             $data['leaderDeploy']  = !$epicUsed && !$deployed
                 && SWUResourceCount($player) >= intval(CardCost($leaderObj->CardID ?? ''));
@@ -27447,6 +27575,19 @@ function SWUArenaDisplayCardID($obj): string {
     $cardID = isset($obj->CardID) ? $obj->CardID : "-";
     if($cardID === "-") return "-";
     if(strpos(CardType($cardID), 'Leader') !== false) return $cardID . "_back";
+    return $cardID;
+}
+
+/**
+ * Display CardID for the LEADER-ZONE slot. Normally the leader keeps its front image in its slot even
+ * when deployed (its unit side renders separately in the arena). EXCEPTION: TWI_017 "Flipatine" is a
+ * double-leader-face FLIP card with no unit side — its "Deployed" flag is the flipped Villainy face, so
+ * the leader slot itself must show the back image ("{CardID}_back") while flipped. Used only by the
+ * Leader-zone rendering in GetNextTurn.php.
+ */
+function SWULeaderDisplayCardID($obj): string {
+    $cardID = isset($obj->CardID) ? $obj->CardID : "-";
+    if($cardID === 'TWI_017' && !empty($obj->Deployed)) return $cardID . "_back";
     return $cardID;
 }
 

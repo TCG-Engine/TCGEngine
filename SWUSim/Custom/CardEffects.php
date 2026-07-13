@@ -4181,6 +4181,53 @@ function OnPlayEvent(int $player, string $cardID): void {
             return;
         }
 
+        case 'TWI_040': { // A Fine Addition — "If an enemy unit was defeated this phase, play an upgrade
+                          // from your hand or from any player's discard pile, ignoring its aspect penalty."
+            global $playerID; $playerID = intval($player);
+            // Condition: you defeated an enemy unit this phase (SWU_ENEMY_DEFEATED, cleared at RGS).
+            if (GlobalEffectCount(intval($player), 'SWU_ENEMY_DEFEATED') <= 0) return; // condition unmet → fizzle
+            // A Fine Addition is still a removed-but-uncompacted entry in its caster's hand right now, so
+            // compact first — else a hand candidate's myHand-N index is offset by the stale slot (LOF_150/
+            // SOR_167 gotcha) and the chosen mzID resolves to the wrong card.
+            DecisionQueueController::CleanupRemovedCards();
+            // Collect playable upgrade/pilot candidates from hand + both discard piles (each with a valid
+            // host and affordable with the aspect penalty waived). Pilots qualify — A Fine Addition plays
+            // from a KNOWN zone (no "search for an upgrade" clause that pilots can't be found by), so a
+            // Piloting card can be played as an upgrade here (user-confirmed ruling; unlike Reforge).
+            $cands = _SWUTwi040Candidates(intval($player));
+            if (empty($cands)) return; // nothing playable → fizzle
+            // "may" pick which upgrade (or decline). Attach happens via _SWUFinalizeUpgradeAttach (a DIRECT
+            // attach path — it does NOT route through SWUBeginPlayCard/ActivateCard, so the old nested-play
+            // no-op doesn't apply). The event's FINISH_PLAY_CARD owns the After Action (suppressed below).
+            SWUQueueMayChooseTarget(intval($player), $cands,
+                "Play_an_upgrade_(A_Fine_Addition)?", "Choose_an_upgrade_to_play", "TWI_040#0");
+            return;
+        }
+
+        case 'TWI_089': { // Consolidation of Power — "Choose any number of friendly units. You may play a
+                          // unit from your hand if its cost is less than or equal to the combined power of
+                          // the chosen units for free. Then, defeat the chosen units."
+            global $playerID; $playerID = intval($player);
+            $friendly = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter));
+            if (empty($friendly)) return;
+            $max = count($friendly);
+            DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|{$max}|" . implode('&', $friendly), 1,
+                tooltip:"Choose_any_number_of_friendly_units");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "TWI_089#0", 1);
+            return;
+        }
+
+        case 'TWI_201': { // Aid from the Innocent — "Search the top 10 cards of your deck for 2 Heroism
+                          // non-unit cards and discard them. (Put the other cards on the bottom of your
+                          // deck in a random order.)"
+            global $playerID; $playerID = intval($player);
+            _topDeckSearchBegin(intval($player), 10,
+                fn($c) => strpos(CardType($c) ?? '', 'Unit') === false
+                          && strpos(CardAspect($c) ?? '', 'Heroism') !== false,
+                "count:2", "TWI_201_FINALIZE");
+            return;
+        }
+
         case 'TWI_199': { // Clear the Field — "Choose a non-leader unit that costs 3 or less. Return it and
                           // each enemy non-leader unit with the same name as it to their owners' hands."
             global $playerID; $playerID = intval($player);

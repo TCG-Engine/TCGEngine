@@ -490,10 +490,17 @@ class SchemaTestRunner {
                 case 'theirLeaderDeployedPilot':
                     $theirOpts['leaderDeployedPilot'] = $val === '1' || $val === 'true';
                     break;
+                case 'myLeaderFlipped':        // TWI_017 "Flipatine": Deployed flag WITHOUT board presence
+                    $myOpts['leaderFlipped'] = $val === '1' || $val === 'true';
+                    break;
+                case 'theirLeaderFlipped':
+                    $theirOpts['leaderFlipped'] = $val === '1' || $val === 'true';
+                    break;
                 // NOTE: leader READY is set via the inline "myLeader: CID:ready:..." form (its 2nd
-                // field), not a standalone opt. There is no myLeaderDeployedFlag either — a deployed
-                // leader always has board presence: use myLeaderDeployed (regular deploy, + optional
-                // myLeaderIndexOverride) or myLeaderDeployedPilot.
+                // field), not a standalone opt. A normal deployed leader always has board presence
+                // (use myLeaderDeployed / myLeaderDeployedPilot); the ONE exception is a double-leader-face
+                // flip card (TWI_017), whose "Deployed" is just the flipped side with no arena unit —
+                // seed that state with myLeaderFlipped.
                 case 'myLeaderEpicUsed':
                     $myOpts['leaderEpicActionUsed'] = $val === '1' || $val === 'true';
                     break;
