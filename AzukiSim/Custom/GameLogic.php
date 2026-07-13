@@ -5070,6 +5070,7 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
                     if(!in_array('COOLDOWN', $addedObj->TurnEffects)) {
                         $addedObj->TurnEffects[] = 'COOLDOWN';
                     }
+                    EnterGarden($player, 'myGarden-' . $addedIndex);
                 }
             }
 
