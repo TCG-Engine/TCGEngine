@@ -410,10 +410,12 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     padding: 3px 7px !important;
     margin: 2px !important;
     font-size: 12px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
     line-height: 18px;
     list-style: none;
     white-space: nowrap;
   }
+  #myCardPane .swu-pane-filter-trigger > span { font-family: inherit !important; }
   #myCardPane .swu-pane-filter-trigger::-webkit-details-marker { display: none; }
   #myCardPane .swu-pane-filter-count {
     min-width: 15px;
