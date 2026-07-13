@@ -206,6 +206,10 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     $playerID = $viewerInfo['viewerID'];
     $viewerPerspective = NormalizeViewerPerspective($viewerInfo, TryGet("viewerPerspective", ""));
     $isSpectatorViewer = $viewerInfo['isSpectator'];
+    // Twin Suns view-cycling: which opponent seat to show as "their" board. The generated render
+    // (NextTurnRender.php) re-validates this against live seats and falls back to the next live seat,
+    // so passing a bogus value is safe. Absent/invalid → next-live (2-player = the one opponent).
+    $opponentID = intval(TryGet("opponentID", "0"));
 
     if (!file_exists("./" . $folderPath . "/Games/" . $gameName . "/")) {
       echo ("Game does not exist");
@@ -1173,7 +1177,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         var lastChatVersion = "&lastChatVersion=" + encodeURIComponent(_lastChatVersion);
         var lastChatID = "&lastChatID=" + encodeURIComponent(_lastChatID);
         if (lastUpdate == "NaN") window.location.replace("https://www.petranaki.net/Arena/MainMenu.php");
-        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo urlencode($playerID); ?>&viewerPerspective=<?php echo($viewerPerspective); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo urlencode($authKey); ?>" + lastChatVersion + lastChatID + dimensions, true);
+        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo urlencode($playerID); ?>&viewerPerspective=<?php echo($viewerPerspective); ?>&opponentID=<?php echo intval($opponentID); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo urlencode($authKey); ?>" + lastChatVersion + lastChatID + dimensions, true);
         xmlhttp.send();
       }
 
@@ -1189,9 +1193,13 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           SetBotControllerState(botControllerPayload);
         }
         if (typeof FreezeCardDetailUntilMouseMove === 'function') FreezeCardDetailUntilMouseMove();
-        if (typeof ClearSelectionMode === 'function') {
+        // Twin Suns cross-view targeting: a repaint from the cached responseArr (a pair-switcher swipe)
+        // sets this one-shot flag so an in-progress targeting decision survives the repaint and its cards
+        // re-render wired to the selection handler. Default (unset) preserves today's behavior exactly.
+        if (typeof ClearSelectionMode === 'function' && !(typeof window !== 'undefined' && window.__swuTwPreserveSelection)) {
           ClearSelectionMode();
         }
+        if (typeof window !== 'undefined') window.__swuTwPreserveSelection = false;
         if (typeof window !== 'undefined') {
           window.__nextCardStatusByMzid = {};
           window.__nextReliquaryDrawByMzid = {};

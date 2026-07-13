@@ -1945,8 +1945,12 @@ function OnPlayEvent(int $player, string $cardID): void {
         }
 
         case 'SEC_126': { // Trade Route Taxation — choose an opponent; if you control more units than
-                          // that opponent, they can't play events for this phase. (2-player: lone opp.)
+                          // that opponent, they can't play events for this phase.
             global $playerID; $playerID = intval($player);
+            if (SeatCountForGame() > 2) {   // Twin Suns: pick which opponent to tax
+                SWUQueueChooseOpponent(intval($player), "SEC_126#OPP", "Lock_events_for_which_opponent?");
+                return;
+            }
             $opp = OtherPlayer(intval($player));
             $mine = 0; foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed)) $mine++; }
             $theirs = 0; foreach (GetUnitsInPlay($opp) as $u) { if (empty($u->removed)) $theirs++; }
@@ -2246,7 +2250,7 @@ function OnPlayEvent(int $player, string $cardID): void {
 
         case 'SEC_178': { // Pursue the Lead — "Choose a player. That player discards a card from their
                           // hand. If it costs 3 or less, create a Spy token."
-            DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "You&Opponent", 1,
+            DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", SWUPlayerPickerLabels(intval($player)), 1,
                 tooltip: "Choose_a_player_to_discard_a_card");
             DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_178#0|" . intval($player), 1);
             return;
@@ -3251,15 +3255,13 @@ function OnPlayEvent(int $player, string $cardID): void {
                           // them. Then, play a Vehicle unit from your hand. It costs 3 resources less."
             global $playerID;
             $playerID = intval($player);
+            if (SeatCountForGame() > 2) {   // Twin Suns: pick which opponent gets the 2 TIEs
+                SWUQueueChooseOpponent(intval($player), "JTL_155#OPP", "Which_opponent_creates_2_TIE_Fighters?");
+                return;
+            }
             $opp = OtherPlayer(intval($player));
             SWUCreateUnitTokens($opp, 'JTL_T01', 2, true); // 2 TIE Fighters (Space, 1/1), readied
-            $targets = [];
-            foreach (SWUHandPlayablesAtDiscount(intval($player), ['Unit'], 3) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && HasTrait($o->CardID, 'Vehicle')) $targets[] = $mz;
-            }
-            if (empty($targets)) return; // no affordable Vehicle in hand → only the TIEs were created
-            SWUQueueChooseTarget(intval($player), $targets, "Play_a_Vehicle_unit_(costs_3_less)", "JTL_155#0");
+            _SWUJtl155PlayVehicle(intval($player));
             return;
         }
 
@@ -3389,10 +3391,13 @@ function OnPlayEvent(int $player, string $cardID): void {
         }
 
         case 'JTL_130': { // Timely Reinforcements — choose an opponent; for every 2 resources they
-                          // control, create an X-Wing token and give it Sentinel for this phase. (2-player:
-                          // the single opponent.)
+                          // control, create an X-Wing token and give it Sentinel for this phase.
             global $playerID;
             $playerID = intval($player);
+            if (SeatCountForGame() > 2) {   // Twin Suns: pick which opponent's resources to count
+                SWUQueueChooseOpponent(intval($player), "JTL_130#OPP", "Count_which_opponent's_resources?");
+                return;
+            }
             $opp = GetOpponent(intval($player));
             $n = intdiv(count(GetResources($opp)), 2);
             // X-Wing (Space, 2/2) with JTL_130 (Sentinel this phase); the marker rides the batch funnel so
@@ -3853,7 +3858,7 @@ function OnPlayEvent(int $player, string $cardID): void {
         case 'SOR_167': { // Force Throw — "Choose a player. That player discards a card from their hand.
                           // Then, if you control a FORCE unit, you may deal damage to a unit equal to the
                           // cost of the discarded card."
-            DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "You&Opponent", 1, "Which_player_discards_a_card?");
+            DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", SWUPlayerPickerLabels(intval($player)), 1, "Which_player_discards_a_card?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_167#0", 1);
             return;
         }
@@ -3954,13 +3959,15 @@ function OnPlayEvent(int $player, string $cardID): void {
         }
 
         case 'SOR_175': { // — "Draw 2 cards. Each opponent whose base you've damaged this phase
-                          // discards 2 cards from their hand." (2-player: the one opponent.)
+                          // discards 2 cards from their hand." Twin Suns: check each opponent's own
+                          // SWU_DMGBASE_{opp} flag and make that opponent discard (2-player → one opp).
             global $playerID;
             $playerID = intval($player);
             DoDrawCard(intval($player), 2);
-            $opp = OtherPlayer(intval($player));
-            if (GlobalEffectCount(intval($player), 'SWU_DMGBASE_' . $opp) > 0) {
-                SWUDiscardCards(intval($player), 2); // makes OtherPlayer($player) discard 2
+            foreach (OpponentsOf(intval($player)) as $opp) {
+                if (GlobalEffectCount(intval($player), 'SWU_DMGBASE_' . $opp) > 0) {
+                    SWUDiscardCards(intval($player), 2, $opp); // that opponent discards 2
+                }
             }
             return;
         }
@@ -3968,7 +3975,7 @@ function OnPlayEvent(int $player, string $cardID): void {
         case 'SOR_171': { // Mission Briefing — "Choose a player. They draw 2 cards."
             global $playerID;
             $playerID = intval($player);
-            DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "You&Opponent", 1, "Which_player_draws_2_cards?");
+            DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", SWUPlayerPickerLabels(intval($player)), 1, "Which_player_draws_2_cards?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_171#0", 1);
             return;
         }
@@ -5010,21 +5017,27 @@ function OnPlayEvent(int $player, string $cardID): void {
         }
 
         case 'TWI_078': { // The Invasion of Christophsis — "Exploit 4. Choose an opponent. Defeat each
-                          // unit that player controls." (2-player: the single opponent.)
+                          // unit that player controls."
             global $playerID;
             $playerID = intval($player);
-            $opp = OtherPlayer(intval($player));
-            $uids = [];
-            foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
-                foreach (ZoneSearch($z, ['Unit', 'Token Unit', 'Leader Unit']) as $mz) {
-                    $o = GetZoneObject($mz);
-                    if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? -1);
+            if (SeatCountForGame() <= 2) {
+                // 2-player: the single opponent — defeat all their units (ZoneSearch "their" = the one opp).
+                $uids = [];
+                foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
+                    foreach (ZoneSearch($z, ['Unit', 'Token Unit', 'Leader Unit']) as $mz) {
+                        $o = GetZoneObject($mz);
+                        if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? -1);
+                    }
                 }
+                foreach ($uids as $uid) {
+                    $mz = SWUFindMzByUID($uid);
+                    if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
+                }
+                return;
             }
-            foreach ($uids as $uid) {
-                $mz = SWUFindMzByUID($uid);
-                if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
-            }
+            // Twin Suns: choose ONE opponent, then defeat only that player's units (a bare ZoneSearch
+            // "their" would union ALL opponents — wrong for a "choose an opponent" card).
+            SWUQueueChooseOpponent(intval($player), "TWI_078#0", "Defeat_all_units_of_which_opponent?");
             return;
         }
 
@@ -5277,7 +5290,10 @@ function OnPlayEvent(int $player, string $cardID): void {
         }
 
         case 'SHD_244': { // No Bargain — "Each opponent discards a card from their hand. Draw a card."
-            SWUDiscardCards(intval($player), 1);   // makes OtherPlayer discard 1
+            // Twin Suns (Phase 3): each opponent discards (2-player: the one opponent).
+            foreach (OpponentsOf(intval($player)) as $opp) {
+                SWUDiscardCards(intval($player), 1, $opp);
+            }
             DoDrawCard(intval($player), 1);
             return;
         }
@@ -5690,4 +5706,17 @@ function OnPlayEvent(int $player, string $cardID): void {
         default:
             return;
     }
+}
+
+// JTL_155 They Hate That Ship — the caster's own "then play a Vehicle from hand, -3" follow-up (shared by
+// the 2-player inline path and the Twin Suns per-opponent continuation JTL_155#OPP).
+function _SWUJtl155PlayVehicle(int $player): void {
+    global $playerID; $playerID = $player;
+    $targets = [];
+    foreach (SWUHandPlayablesAtDiscount($player, ['Unit'], 3) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed) && HasTrait($o->CardID, 'Vehicle')) $targets[] = $mz;
+    }
+    if (empty($targets)) return; // no affordable Vehicle in hand → only the TIEs were created
+    SWUQueueChooseTarget($player, $targets, "Play_a_Vehicle_unit_(costs_3_less)", "JTL_155#0");
 }

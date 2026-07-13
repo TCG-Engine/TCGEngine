@@ -8,18 +8,23 @@ class GameStateBuilder {
     private bool   $_initiativeClaimed = false;
     private array  $_myBase          = [];
     private array  $_theirBase       = [];
+    private array  $_seatBases       = []; // Twin Suns: bases for seats 3/4, keyed by seat
     private array  $_myLeader        = [];
     private array  $_theirLeader     = [];
+    private array  $_myLeader2       = []; // Twin Suns: optional second leader for seat 1
+    private array  $_theirLeader2    = []; // Twin Suns: optional second leader for seat 2
     private array  $_resources       = []; // [[player, cardID, count, allReady, controller]]
     private array  $_hand            = []; // [[player, cardID]]
     private array  $_deck            = []; // [[player, cardID]]
     private array  $_discard         = []; // [[player, cardID]]
-    private array  $_groundUnits     = [1 => [], 2 => []];
-    private array  $_spaceUnits      = [1 => [], 2 => []];
-    private array  $_groundUpgradeRequests = [1 => [], 2 => []]; // WithP{n}GroundArenaUpgrade, keyed by FINAL arena index
+    private array  $_groundUnits     = [1 => [], 2 => [], 3 => [], 4 => []];
+    private array  $_spaceUnits      = [1 => [], 2 => [], 3 => [], 4 => []];
+    private array  $_groundUpgradeRequests = [1 => [], 2 => [], 3 => [], 4 => []]; // WithP{n}GroundArenaUpgrade, keyed by FINAL arena index
     private array  $_defeatedPlayers = [];
     private array  $_forcePlayers    = []; // players who control their Force token (CR §37)
     private int    $_nextUID         = 1;
+    private ?string $_seatOrder      = null; // Twin Suns: clockwise seat list "123"; null = leave default "12"
+    private ?string $_liveSeats      = null; // Twin Suns: non-eliminated seat list; null = mirror seat order
 
     // ── Turn context ─────────────────────────────────────────────
 
@@ -49,6 +54,18 @@ class GameStateBuilder {
         return $this;
     }
 
+    // Twin Suns: seat lists are single-digit concatenations ("123"). SeatOrder = clockwise turn order;
+    // LiveSeats = non-eliminated subset (defaults to SeatOrder when not set).
+    public function WithSeatOrder(string $seatOrder): self {
+        $this->_seatOrder = $seatOrder;
+        return $this;
+    }
+
+    public function WithLiveSeats(string $liveSeats): self {
+        $this->_liveSeats = $liveSeats;
+        return $this;
+    }
+
     // ── Bases ─────────────────────────────────────────────────────
 
     public function MyBase(string $cardID, int $damage = 0, bool $epicActionUsed = false, int $numUses = 0): self {
@@ -58,6 +75,13 @@ class GameStateBuilder {
 
     public function TheirBase(string $cardID, int $damage = 0, bool $epicActionUsed = false, int $numUses = 0): self {
         $this->_theirBase = ['cardID' => $cardID, 'damage' => $damage, 'epicActionUsed' => $epicActionUsed, 'numUses' => $numUses];
+        return $this;
+    }
+
+    // Twin Suns: seed a base for an arbitrary seat (seats 3/4 — seats 1/2 come from CommonSetup / MyBase /
+    // TheirBase). Needed for N-player combat tests that assert base damage on a specific opponent.
+    public function WithBaseForPlayer(int $player, string $cardID, int $damage = 0, bool $epicActionUsed = false, int $numUses = 0): self {
+        $this->_seatBases[$player] = ['cardID' => $cardID, 'damage' => $damage, 'epicActionUsed' => $epicActionUsed, 'numUses' => $numUses];
         return $this;
     }
 
@@ -79,6 +103,19 @@ class GameStateBuilder {
 
     public function TheirLeader(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false, string $deployMode = '', int $damage = 0, int $indexOverride = -1): self {
         $this->_theirLeader = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed, 'deployMode' => $deployMode, 'damage' => $damage, 'indexOverride' => $indexOverride];
+        return $this;
+    }
+
+    // Twin Suns: a second leader per seat. Phase 2 tests seed two UNDEPLOYED leaders and deploy them
+    // live via SWUDeployLeader in the WHEN section (so DeployedUniqueID is set by the real engine).
+    // A pre-`deployed=true` second leader is added to the zone but its arena unit is NOT spliced here.
+    public function MyLeader2(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false): self {
+        $this->_myLeader2 = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed];
+        return $this;
+    }
+
+    public function TheirLeader2(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false): self {
+        $this->_theirLeader2 = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed];
         return $this;
     }
 
@@ -126,6 +163,30 @@ class GameStateBuilder {
             'controller'  => $controller ?: $player,
             'upgrades'    => [],
             'turnEffects' => $turnEffects,
+        ];
+        return $this;
+    }
+
+    // Twin Suns Phase 5: seed a GlobalEffects flag on a seat (e.g. SWU_SHD208_LOSE for a Final
+    // Showdown elimination test). seat → [CardID,...].
+    private array $_seatGlobalEffects = [];
+    public function WithGlobalEffectForPlayer(int $seat, string $cardID): self {
+        $this->_seatGlobalEffects[$seat][] = $cardID;
+        return $this;
+    }
+
+    // Twin Suns Phase 5: a ground unit placed in $seat's arena but OWNED by $owner (mind-controlled
+    // onto $seat's board). Controller = $seat, Owner = $owner — the only builder path that sets Owner
+    // ≠ arena seat, needed for elimination-cleanup tests.
+    public function WithControlledGroundUnitForPlayer(int $seat, string $cardID, int $owner): self {
+        $this->_groundUnits[$seat][] = [
+            'cardID'      => $cardID,
+            'ready'       => true,
+            'damage'      => 0,
+            'controller'  => $seat,
+            'owner'       => $owner,
+            'upgrades'    => [],
+            'turnEffects' => '-',
         ];
         return $this;
     }
@@ -203,6 +264,11 @@ class GameStateBuilder {
         $suffix = $this->_initiativeClaimed ? 'CLAIMED' : 'UNCLAIMED';
         AddInitiativeCounter("P{$this->_initiativePlayer}_{$suffix}");
 
+        // Twin Suns seat state (defaults to the schema "12" when not set by the test).
+        if ($this->_seatOrder !== null) SetSeatOrder($this->_seatOrder);
+        if ($this->_liveSeats !== null) SetLiveSeats($this->_liveSeats);
+        elseif ($this->_seatOrder !== null) SetLiveSeats($this->_seatOrder);
+
         // Bases. Seed the per-game use budget for repeatable base Actions (e.g. LOF_022) when the test
         // didn't set numUses explicitly, mirroring CreateGame so the harness and real game match.
         global $baseActionNumUses;
@@ -211,6 +277,11 @@ class GameStateBuilder {
             $nu = ($b['numUses'] === 0 && isset($baseActionNumUses[$b['cardID']]))
                 ? intval($baseActionNumUses[$b['cardID']]) : $b['numUses'];
             AddBase(1, $b['cardID'], $b['damage'], $b['epicActionUsed'], $nu);
+        }
+        foreach ($this->_seatBases as $seat => $b) {   // Twin Suns seats 3/4
+            $nu = ($b['numUses'] === 0 && isset($baseActionNumUses[$b['cardID']]))
+                ? intval($baseActionNumUses[$b['cardID']]) : $b['numUses'];
+            AddBase(intval($seat), $b['cardID'], $b['damage'], $b['epicActionUsed'], $nu);
         }
         if (!empty($this->_theirBase)) {
             $b  = $this->_theirBase;
@@ -228,6 +299,17 @@ class GameStateBuilder {
         if (!empty($this->_theirLeader)) {
             $l = $this->_theirLeader;
             $leaderObjs[2] = AddLeader(2, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']);
+        }
+        // Twin Suns second leaders (pushed after the first → live index 1). If deployed=true a real
+        // ground-arena leader unit is spliced below and linked via DeployedUniqueID.
+        $leaderObjs2 = [1 => null, 2 => null];
+        if (!empty($this->_myLeader2)) {
+            $l = $this->_myLeader2;
+            $leaderObjs2[1] = AddLeader(1, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']);
+        }
+        if (!empty($this->_theirLeader2)) {
+            $l = $this->_theirLeader2;
+            $leaderObjs2[2] = AddLeader(2, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']);
         }
 
         // Deployed-leader Pilot mode (CR Pilot): attach the leader as a Pilot upgrade onto the
@@ -293,13 +375,14 @@ class GameStateBuilder {
             }
         }
 
-        // Arena units — Status 1=ready, 0=exhausted; units placed by builder start in correct state
-        foreach ([1, 2] as $player) {
+        // Arena units — Status 1=ready, 0=exhausted; units placed by builder start in correct state.
+        // Seats 3/4 (Twin Suns) carry only plain units in Phase 1 (no deployed-leader splice).
+        foreach ([1, 2, 3, 4] as $player) {
             foreach ($this->_groundUnits[$player] as $unit) {
                 $uid      = $this->_nextUID++;
                 $status   = $unit['ready'] ? 1 : 0;
                 $subcards = empty($unit['upgrades']) ? '-' : $unit['upgrades'];
-                AddGroundArena($player, $unit['cardID'], $status, $player, $unit['damage'],
+                AddGroundArena($player, $unit['cardID'], $status, $unit['owner'] ?? $player, $unit['damage'],
                                $unit['controller'], $unit['turnEffects'] ?? '-', $subcards, $uid);
             }
             foreach ($this->_spaceUnits[$player] as $unit) {
@@ -338,6 +421,17 @@ class GameStateBuilder {
             }
         }
 
+        // Twin Suns second-leader deployed-unit: a real ground-arena unit for a deployed second leader,
+        // appended after the first leader's unit (→ higher ground index) and linked via DeployedUniqueID.
+        foreach ([1, 2] as $player) {
+            $l2 = $player === 1 ? $this->_myLeader2 : $this->_theirLeader2;
+            if (empty($l2) || empty($l2['deployed']) || $leaderObjs2[$player] === null) continue;
+            $uid    = $this->_nextUID++;
+            $status = $l2['ready'] ? 1 : 0;
+            AddGroundArena($player, $l2['cardID'], $status, $player, 0, $player, '-', '-', $uid);
+            $leaderObjs2[$player]->DeployedUniqueID = $uid;
+        }
+
         // Defeated players — set base damage = base HP
         foreach ($this->_defeatedPlayers as $dp) {
             $base = &GetBase($dp);
@@ -353,6 +447,11 @@ class GameStateBuilder {
         // The Force token (CR §37) — player state via the SWU_HAS_FORCE GlobalEffects flag.
         foreach ($this->_forcePlayers as $fp) {
             TheForceIsWithYou(intval($fp));
+        }
+
+        // Twin Suns Phase 5: seeded GlobalEffects flags (e.g. SWU_SHD208_LOSE).
+        foreach ($this->_seatGlobalEffects as $seat => $cards) {
+            foreach ($cards as $cid) AddGlobalEffects(intval($seat), $cid);
         }
 
         // Sync unique ID counter so NextUniqueID() doesn't collide

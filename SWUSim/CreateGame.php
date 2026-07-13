@@ -56,6 +56,14 @@ function SWUSetupGame($lobby, $opts = []) {
         ++$playerCounter;
     }
 
+    // ─── Twin Suns: seed the seat order + live-seats from the lobby's player count ──
+    // Seats were assigned 1..$seatCount above; clockwise turn order = assignment order.
+    // Seats are single digits (1..4) so the list is a plain concatenation ("123").
+    $seatCount = $playerCounter - 1;
+    $seatList  = implode('', range(1, max(1, $seatCount)));
+    SetSeatOrder($seatList);
+    SetLiveSeats($seatList);
+
     // ─── Goldfish practice sponge ────────────────────────────────────────────────
     // The passive P2 seat loads no deck, so it has no base — nothing to attack. Seed an Echo Base
     // (SOR_024) as a practice damage sponge: it's attackable through the normal combat path (your
@@ -73,11 +81,16 @@ function SWUSetupGame($lobby, $opts = []) {
     }
 
     // ─── Step 3: Determine first player ───────────────────────────────────────────
-    // Forced (Bo3 / loser's choice) or random coin flip; first player holds initiative.
+    // Forced (Bo3 / loser's choice) or random pick among seats; first player holds initiative.
     $forced = $opts['forcedFirstPlayer'] ?? null;
     if ($mode === 'goldfish') $forced = 1;   // solo: the human seat always opens
     $firstPlayer = &GetFirstPlayer();
-    $firstPlayer = ($forced === 1 || $forced === 2) ? $forced : random_int(1, 2);
+    $seatArr = GetSeatOrderArray();
+    if (in_array($forced, $seatArr, true)) {
+        $firstPlayer = $forced;
+    } else {
+        $firstPlayer = $seatArr[random_int(0, count($seatArr) - 1)];
+    }
 
     $turnPlayer = &GetTurnPlayer();
     $turnPlayer = $firstPlayer;
@@ -190,8 +203,6 @@ function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolve
  *   f. Resource two cards (each player chooses 2 from their opening hand).
  */
 function QueuePregameSetup($firstPlayer) {
-    $secondPlayer = ($firstPlayer == 1) ? 2 : 1;
-
     // Step d: Draw the opening hand for each player simultaneously.
     // Default is 6; a player's base may modify this (JTL_021 Colossus −1, JTL_028 Nabat Village +3).
     $handSize = function ($player) {
@@ -205,42 +216,38 @@ function QueuePregameSetup($firstPlayer) {
         return SWUBaseSuppressesMulligan($baseID);
     };
 
-    $p1Hand = $handSize(1);
-    for ($i = 0; $i < $p1Hand; ++$i) {
-        DoDrawCard(1, 1);
+    // Draw in natural seat order (seats 1..N). Each seat draws from its own deck, so order between
+    // seats is immaterial — this preserves the exact 2-player 1-then-2 sequence.
+    $seats = GetSeatOrderArray();
+    foreach ($seats as $seat) {
+        $n = $handSize($seat);
+        for ($i = 0; $i < $n; ++$i) DoDrawCard($seat, 1);
     }
-    $p2Hand = $handSize(2);
-    for ($i = 0; $i < $p2Hand; ++$i) {
-        DoDrawCard(2, 1);
-    }
+
+    // Decision order is clockwise starting from the first player (initiative holder decides first).
+    $startIdx = array_search($firstPlayer, $seats, true);
+    if ($startIdx === false) $startIdx = 0;
+    $decisionOrder = array_merge(array_slice($seats, $startIdx), array_slice($seats, 0, $startIdx));
 
     // Step e: Mulligan — initiative holder decides first.
     // Block 10 ensures YESNO sits at the front of the queue, before resource choices (block 50).
     // A base may forbid the mulligan (JTL_028 Nabat Village) — skip the decision for that player.
-    if (!$baseSuppressesMulligan($firstPlayer)) {
-        DecisionQueueController::AddDecision($firstPlayer, "YESNO", "mulligan", 10,
-            tooltip:"Take_a_mulligan_(discard_hand_and_draw_6_new_cards)?");
-        DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "MulliganDecision|$firstPlayer", 10);
-    }
-
-    // Goldfish: P2 is an empty passive seat (no hand to mulligan). Skip its mulligan decision so it
-    // never blocks P1's pregame. Its ChooseStartingResource entries (block 50) auto-drain (no cards).
-    $skipGoldfishBot = (SWUGameMode() === 'goldfish' && $secondPlayer === 2);
-    if (!$baseSuppressesMulligan($secondPlayer) && !$skipGoldfishBot) {
-        DecisionQueueController::AddDecision($secondPlayer, "YESNO", "mulligan", 10,
-            tooltip:"Take_a_mulligan_(discard_hand_and_draw_6_new_cards)?");
-        DecisionQueueController::AddDecision($secondPlayer, "CUSTOM", "MulliganDecision|$secondPlayer", 10);
+    // Goldfish: seat 2 is an empty passive bot seat (no hand to mulligan) — skip so it never blocks P1.
+    foreach ($decisionOrder as $seat) {
+        $skipGoldfishBot = (SWUGameMode() === 'goldfish' && $seat === 2);
+        if (!$baseSuppressesMulligan($seat) && !$skipGoldfishBot) {
+            DecisionQueueController::AddDecision($seat, "YESNO", "mulligan", 10,
+                tooltip:"Take_a_mulligan_(discard_hand_and_draw_6_new_cards)?");
+            DecisionQueueController::AddDecision($seat, "CUSTOM", "MulliganDecision|$seat", 10);
+        }
     }
 
     // Step f: Resource 2 cards — each player chooses 2 from their hand.
     // Block 50 keeps these behind the mulligan decisions (block 10) in the queue.
-    DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "ChooseStartingResource", 50,
-        tooltip:"Choose_a_card_to_resource_(1/2)");
-    DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "ChooseStartingResource", 50,
-        tooltip:"Choose_a_card_to_resource_(2/2)");
-
-    DecisionQueueController::AddDecision($secondPlayer, "CUSTOM", "ChooseStartingResource", 50,
-        tooltip:"Choose_a_card_to_resource_(1/2)");
-    DecisionQueueController::AddDecision($secondPlayer, "CUSTOM", "ChooseStartingResource", 50,
-        tooltip:"Choose_a_card_to_resource_(2/2)");
+    foreach ($decisionOrder as $seat) {
+        DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50,
+            tooltip:"Choose_a_card_to_resource_(1/2)");
+        DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50,
+            tooltip:"Choose_a_card_to_resource_(2/2)");
+    }
 }

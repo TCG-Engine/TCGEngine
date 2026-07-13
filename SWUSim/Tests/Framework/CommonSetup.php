@@ -92,6 +92,16 @@ function CommonSetup(
             $theirOpts['leaderDamage']        ?? 0,
             $theirOpts['leaderIndexOverride'] ?? -1);
 
+    // Twin Suns: optional second leader per seat (undeployed by default; deploy live in WHEN).
+    if (!empty($myOpts['leader2'])) {
+        $l2 = $myOpts['leader2'];
+        $b->MyLeader2($l2['cardID'], $l2['ready'], $l2['deployed'], $l2['epicUsed']);
+    }
+    if (!empty($theirOpts['leader2'])) {
+        $l2 = $theirOpts['leader2'];
+        $b->TheirLeader2($l2['cardID'], $l2['ready'], $l2['deployed'], $l2['epicUsed']);
+    }
+
     $vanilla = Cards::UNITS_SOR_BATTLEFIELD_MARINE;
 
     if (!empty($myOpts['resourceCount'])) {

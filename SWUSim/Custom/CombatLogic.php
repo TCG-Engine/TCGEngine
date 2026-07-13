@@ -230,8 +230,14 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null) {
         // so the damage counter just keeps climbing past its HP. (P1's own base win-con is untouched.)
         $spongeExempt = ($targetPlayer === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish');
         if (!$spongeExempt && $base[$i]->Damage >= $baseHP) {
-            $winner = $targetPlayer === 1 ? 2 : 1;
-            SWUDeclareGameWinner($winner, "GAMEOVER:Player {$targetPlayer}'s base has been defeated! Player {$winner} wins!");
+            if (SeatCountForGame() > 2) {
+                // Twin Suns: eliminate the seat (heals $damager 5, defers most-HP scoring) — do NOT
+                // declare an instant winner. $damager was resolved above when $damage > 0.
+                SWUEliminateSeat(intval($targetPlayer), ($damage > 0 ? intval($damager) : null));
+            } else {
+                $winner = $targetPlayer === 1 ? 2 : 1;
+                SWUDeclareGameWinner($winner, "GAMEOVER:Player {$targetPlayer}'s base has been defeated! Player {$winner} wins!");
+            }
         }
         break;
     }
@@ -256,15 +262,15 @@ function SWUReturnLeaderToZone(int $ownerPlayer, string $unitMzID): void {
     }
 
     $playerID = $ownerPlayer;
-    $leaderArr = &GetLeader($ownerPlayer);
-    for ($i = 0; $i < count($leaderArr); $i++) {
-        if (!isset($leaderArr[$i]->removed) || !$leaderArr[$i]->removed) {
-            $leaderArr[$i]->Deployed        = false;
-            $leaderArr[$i]->DeployedUniqueID = 0;
-            $leaderArr[$i]->Ready           = false;
-            $leaderArr[$i]->Damage          = 0;
-            break;
-        }
+    // Twin Suns: reset the leader whose deployed unit was THIS one (a seat may have two deployed).
+    // Fall back to the first live leader when the UID can't be matched (single-leader / UID 0).
+    $ldr = SWUFindLeaderByDeployedUID($ownerPlayer, $unitObj !== null ? intval($unitObj->UniqueID ?? 0) : 0);
+    if ($ldr === null) $ldr = SWUGetLeaderByIndex($ownerPlayer, 0);
+    if ($ldr !== null) {
+        $ldr->Deployed        = false;
+        $ldr->DeployedUniqueID = 0;
+        $ldr->Ready           = false;
+        $ldr->Damage          = 0;
     }
 
     $playerID = $savedPID;
@@ -290,15 +296,15 @@ function SWUReturnLeaderPilotSubcards($host, int $ownerPlayer): void {
             // Return this leader to the leader zone — find the owning player from the subcard.
             $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $ownerPlayer) : intval($sub->Owner ?? $ownerPlayer);
             $playerID = $subOwner;
-            $leaderArr = &GetLeader($subOwner);
-            for ($i = 0; $i < count($leaderArr); $i++) {
-                if (!isset($leaderArr[$i]->removed) || !$leaderArr[$i]->removed) {
-                    $leaderArr[$i]->Deployed        = false;
-                    $leaderArr[$i]->DeployedUniqueID = 0;
-                    $leaderArr[$i]->Ready           = false;
-                    $leaderArr[$i]->Damage          = 0;
-                    break;
-                }
+            // Twin Suns: return the specific leader this pilot subcard is (a pilot has DeployedUniqueID 0,
+            // so match by CardID — leader CardIDs are unique per seat). Fall back to first live.
+            $ldr = SWUFindLeaderByCardID($subOwner, $subCardID);
+            if ($ldr === null) $ldr = SWUGetLeaderByIndex($subOwner, 0);
+            if ($ldr !== null) {
+                $ldr->Deployed        = false;
+                $ldr->DeployedUniqueID = 0;
+                $ldr->Ready           = false;
+                $ldr->Damage          = 0;
             }
             // Do NOT add to $newSubcards — the subcard is removed from the host.
             continue;
@@ -521,15 +527,15 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
     // Leader-pilot subcard (IsPilot + CardID is a leader): return to the leader zone instead of discard.
     if ($foundIsPilot && strpos(CardType($foundCardID) ?? '', 'Leader') !== false) {
         $playerID = $foundOwner;
-        $leaderArr = &GetLeader($foundOwner);
-        for ($i = 0; $i < count($leaderArr); $i++) {
-            if (!isset($leaderArr[$i]->removed) || !$leaderArr[$i]->removed) {
-                $leaderArr[$i]->Deployed        = false;
-                $leaderArr[$i]->DeployedUniqueID = 0;
-                $leaderArr[$i]->Ready           = false;
-                $leaderArr[$i]->Damage          = 0;
-                break;
-            }
+        // Twin Suns: return the specific leader this pilot upgrade is (match by CardID; pilots carry
+        // DeployedUniqueID 0). Fall back to first live for single-leader.
+        $ldr = SWUFindLeaderByCardID($foundOwner, $foundCardID);
+        if ($ldr === null) $ldr = SWUGetLeaderByIndex($foundOwner, 0);
+        if ($ldr !== null) {
+            $ldr->Deployed        = false;
+            $ldr->DeployedUniqueID = 0;
+            $ldr->Ready           = false;
+            $ldr->Damage          = 0;
         }
     // Tokens are set aside (removed from game); non-tokens go to owner's discard or hand.
     } elseif (strpos(strtolower(CardType($foundCardID) ?? ''), 'token') === false) {
@@ -868,7 +874,7 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
         // $defenderMzID is in the ATTACKER's (active player's) frame — the defender always sits in the
         // attacker's "their..." zone. The OnDefense trigger is dispatched under $defController, so convert
         // the mzID to that frame ("theirGroundArena-N" → "myGroundArena-N") or it resolves to the wrong unit.
-        $defMzForDef = preg_replace('/^their/', 'my', $defenderMzID);
+        $defMzForDef = preg_replace('/^(their|p\d+)/', 'my', $defenderMzID); // Twin Suns: p{n} defender → its own frame
         AddTrigger($defController, 'OnDefense', $defender->CardID, $defMzForDef);
     }
     // Upgrade-granted "When this unit is attacked: ..." On Defense reactions (SEC_052 Diplomatic
@@ -878,7 +884,7 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
     if ($defender !== null && !isset($defender->removed)) {
         global $onDefenseFromUpgradeAbilities;
         $defControllerUp = intval($defender->Controller ?? GetOpponent($activePlayer));
-        $defMzForDefUp   = preg_replace('/^their/', 'my', $defenderMzID);
+        $defMzForDefUp   = preg_replace('/^(their|p\d+)/', 'my', $defenderMzID); // Twin Suns: p{n} defender → its own frame
         foreach (GetUpgradesOnUnit($defender) as $up) {
             if (isset($onDefenseFromUpgradeAbilities[$up->CardID ?? ''])
                 && !_SWUGalenSuppressesCard(intval($up->Owner ?? $defender->Controller ?? $defControllerUp), $up->CardID ?? '')) { // SEC_046 Galen
@@ -1058,7 +1064,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
         case 'JTL_188': // Moff Gideon — deals combat damage to an opponent's base → that opponent's unit
                         // plays cost 1 more this phase (static flag; no decision).
             if (!empty($combatCtx['dealtToBase'])) {
-                AddGlobalEffects(OtherPlayer($activePlayer), 'SWU_GIDEON_TAX');
+                AddGlobalEffects(SWUMzOwner($defenderMzID, $activePlayer), 'SWU_GIDEON_TAX'); // "that opponent" whose base was hit
             }
             break;
         case 'SOR_088': // Blizzard Assault AT-AT — "attacks and defeats a unit: may deal the excess to an enemy ground unit."
@@ -1084,16 +1090,23 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     }
 
     // SHD_143 Ruthlessness (granted upgrade) — "When this unit attacks and defeats a unit: Deal 2 damage
-    // to the defending player's base." The attacker bears the upgrade; the defending player is the opponent.
+    // to the defending player's base." The attacker bears the upgrade; the defending player is the owner
+    // of the just-defeated defender (Twin Suns: derived from the defender mzID, not merely OtherPlayer).
     if (!empty($combatCtx['defenderDefeated']) && _SWUUnitHasUpgrade($attacker, 'SHD_143')) {
-        SWUDealDamageToBase(2, OtherPlayer($activePlayer));
+        SWUDealDamageToBase(2, SWUMzOwner($defenderMzID, $activePlayer));
     }
 
     // LAW_056 Cassian Andor (field passive) — "When a friendly unit's attack ends: if the defending unit
-    // was defeated, deal 2 damage to a base." Fires once per Cassian the active player controls.
+    // was defeated, deal 2 damage to a base." Fires once per Cassian the active player controls. Text says
+    // "a base" (a free choice) → Twin Suns: choose which opponent's base per Cassian (2-player → the one).
     if (!empty($combatCtx['defenderDefeated'])) {
         $cassians = _SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_056');
-        for ($i = 0; $i < $cassians; $i++) SWUDealDamageToBase(2, OtherPlayer($activePlayer));
+        if (SeatCountForGame() <= 2) {
+            for ($i = 0; $i < $cassians; $i++) SWUDealDamageToBase(2, OtherPlayer($activePlayer));
+        } else {
+            for ($i = 0; $i < $cassians; $i++)
+                SWUQueueChooseOpponent($activePlayer, "LAW_056_BASE", "Cassian:_deal_2_to_which_opponent's_base?");
+        }
     }
 
     // LAW_088 Anakin Skywalker (field passive) — "When a friendly unit's attack ends: if no other units
@@ -1378,17 +1391,20 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // (and whose). SWUAfterAction reads it to finalize SWU_LAST_ACTION. The base attacked is the
     // opponent's (a unit can only attack an enemy base).
     if (strpos($targetMzID, 'Base') !== false) {
-        SetSWUVar('SWU_ACTION_BASEATK', strval(OtherPlayer($player)));
-        AddGlobalEffects(intval(OtherPlayer($player)), 'SWU_BASE_ATTACKED'); // per-phase "your base was attacked" (ASH_119); cleared at RegroupPhaseStart
+        // Twin Suns: the base being attacked belongs to the specific defender named by $targetMzID
+        // (p{n}Base in N-player; theirBase in 2-player → the one opponent). Not merely OtherPlayer.
+        $baseOwner = SWUMzOwner($targetMzID, intval($player));
+        SetSWUVar('SWU_ACTION_BASEATK', strval($baseOwner));
+        AddGlobalEffects($baseOwner, 'SWU_BASE_ATTACKED'); // per-phase "your base was attacked" (ASH_119); cleared at RegroupPhaseStart
         // ASH_160 Kachirho Militia — "When an enemy GROUND unit attacks your base: ready this unit. Once
         // each round." Inline ready for the base owner's Kachirho(s); per-UID once-per-round flag.
         if (strpos($attackerMzID, 'GroundArena') !== false) {
-            _SWUAsh160ReadyOnBaseAttack(OtherPlayer($player));
-            _SWUTwi166ReadyOnBaseAttack(OtherPlayer($player)); // TWI_166 Aurra Sing
+            _SWUAsh160ReadyOnBaseAttack($baseOwner);
+            _SWUTwi166ReadyOnBaseAttack($baseOwner); // TWI_166 Aurra Sing
         }
         // SHD_241 Kragan Gorr — "When an enemy unit attacks your base: Give a Shield token to a friendly
-        // unit in the same arena as the attacker." (Base owner = OtherPlayer($player); any arena.)
-        _SWUShd241ShieldOnBaseAttack(OtherPlayer($player),
+        // unit in the same arena as the attacker." (Base owner from the target mzID; any arena.)
+        _SWUShd241ShieldOnBaseAttack($baseOwner,
             strpos($attackerMzID, 'SpaceArena') !== false ? 'Space' : 'Ground');
     }
     // TWI_012 Anakin (front action) — "If it's attacking a unit, it gets +2/+0 for this attack." The
@@ -1781,9 +1797,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     }
 
     $targetZone = explode('-', $targetMzID)[0];
-    if ($targetZone === 'theirBase') {
+    // Twin Suns (Phase 3): a base target is "theirBase" (2-player) OR "p{n}Base" (a specific opponent's
+    // base in N-player). Damage goes to that base's owner — derived from the mzID, not a 2-player ?1:2.
+    if (str_ends_with($targetZone, 'Base') && $targetZone !== 'myBase') {
         $GLOBALS['gInCombatDamage'] = true;
-        SWUDealDamageToBase($attackPower, $player === 1 ? 2 : 1);
+        SWUDealDamageToBase($attackPower, SWUMzOwner($targetMzID, $player));
         $GLOBALS['gInCombatDamage'] = false;
         $combatCtx['dealtToBase'] = ($attackPower > 0);
         // SEC_077 Retaliation — mark a unit that dealt damage to a base this phase (per-unit, cleared at
@@ -1994,7 +2012,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     SWUAddToDiscard($atkOwner, $atkObj->CardID, 'PLAY', $atkHasSecondChance ? 'TPF' : '', $atkObj);
                     AddGlobalEffects($atkOwner, 'SWU_DEFEATED_CARD_' . $atkObj->CardID);
                 }
-                AddGlobalEffects(GetOpponent($player), 'SWU_ENEMY_DEFEATED');
+                AddGlobalEffects(SWUMzOwner($targetMzID, $player), 'SWU_ENEMY_DEFEATED'); // the defender (whose enemy — the attacker — died)
                 AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_FRIENDLY_DEFEATED');
                 _SWUMarkHeroismDefeated(intval($attacker->Controller ?? $player), $attacker->CardID ?? ''); // TWI_017
                 // SEC_158 — "a friendly unit was defeated WHILE ATTACKING this phase." This block is the
@@ -2044,7 +2062,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 && !_SWUUnitHasUpgrade($target, 'ASH_150')) {
                 $overflowAmt = -$defenderHP;
                 $GLOBALS['gInCombatDamage'] = true;
-                SWUDealDamageToBase($overflowAmt, $player === 1 ? 2 : 1);
+                SWUDealDamageToBase($overflowAmt, SWUMzOwner($targetMzID, $player)); // Twin Suns: the overwhelmed defender's own base
                 $GLOBALS['gInCombatDamage'] = false;
                 $combatCtx['baseCombatDmg'] += max(0, intval($overflowAmt)); // overwhelm counts for LOF_025
                 $_logOverwhelm = $overflowAmt; // deferred — logged after the attack line so it reads in event order
@@ -2184,8 +2202,14 @@ function _SWUUnitCantBeAttacked($u): bool {
     return false;
 }
 
-function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName, bool $noBases = false): array {
-    $opArenaZone = "their{$arenaName}";
+// Twin Suns (Phase 3): $targetSeat pins the enumerated opponent. null → "their<Zone>" (2-player: the one
+// opponent; byte-identical). A seat number → "p{seat}<Zone>", so the returned mzIDs (and any cross-arena/
+// base mzIDs) name that specific opponent's board. The union across all opponents is built by the wrapper
+// SWUGetAllValidAttackTargets, which calls this once per opponent — so per-opponent Sentinel (a Sentinel on
+// opponent A doesn't force attacks vs opponent B, CR §11.4.4) and per-opponent base both fall out naturally.
+function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName, bool $noBases = false, ?int $targetSeat = null): array {
+    $tp          = $targetSeat === null ? 'their' : "p{$targetSeat}";
+    $opArenaZone = "{$tp}{$arenaName}";
     $oppUnits    = [];
     $sentinels   = [];
 
@@ -2222,37 +2246,37 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
     // ALSO targets enemy GROUND units (cross-arena). Combat resolution is mzID-driven, so adding the
     // ground mzIDs here is all that's needed. (Cross-arena Sentinel/Sabine is an edge — not handled.)
     if ($attackerObj !== null && ($attackerObj->CardID ?? '') === 'SOR_212' && $arenaName === 'SpaceArena') {
-        $groundArena = GetZone('theirGroundArena');
+        $groundArena = GetZone("{$tp}GroundArena");
         for ($i = 0; $i < count($groundArena); $i++) {
             $u = $groundArena[$i];
             if ($u === null || !empty($u->removed)) continue;
-            $oppUnits[] = "theirGroundArena-{$i}";
+            $oppUnits[] = "{$tp}GroundArena-{$i}";
         }
     }
     // SHD_230 Swoop Down — a granted space unit "can attack ground units for this attack" (SHD_230 marker).
     if ($attackerObj !== null && $arenaName === 'SpaceArena'
         && is_array($attackerObj->TurnEffects ?? null) && in_array('SHD_230', $attackerObj->TurnEffects, true)) {
-        $groundArena = GetZone('theirGroundArena');
+        $groundArena = GetZone("{$tp}GroundArena");
         for ($i = 0; $i < count($groundArena); $i++) {
             $u = $groundArena[$i];
             if ($u === null || !empty($u->removed)) continue;
-            $oppUnits[] = "theirGroundArena-{$i}";
+            $oppUnits[] = "{$tp}GroundArena-{$i}";
         }
     }
     // JTL_259 Retrofitted Airspeeder: "This unit can attack space units." A GROUND unit that also
     // targets enemy SPACE units (cross-arena).
     if ($attackerObj !== null && ($attackerObj->CardID ?? '') === 'JTL_259' && $arenaName === 'GroundArena') {
-        $spaceArena = GetZone('theirSpaceArena');
+        $spaceArena = GetZone("{$tp}SpaceArena");
         for ($i = 0; $i < count($spaceArena); $i++) {
             $u = $spaceArena[$i];
             if ($u === null || !empty($u->removed)) continue;
-            $oppUnits[] = "theirSpaceArena-{$i}";
+            $oppUnits[] = "{$tp}SpaceArena-{$i}";
         }
     }
     // ASH_037 Red Leader (Support) — "This unit may attack units in either arena." Add the OTHER arena's
     // enemy units (own attack OR Support-lent via the SUPPORT_GRANT marker).
     if (_SWUAttackerGrants($attackerObj, 'ASH_037')) {
-        $otherZone = $arenaName === 'SpaceArena' ? 'theirGroundArena' : 'theirSpaceArena';
+        $otherZone = $arenaName === 'SpaceArena' ? "{$tp}GroundArena" : "{$tp}SpaceArena";
         $otherArena = GetZone($otherZone);
         for ($i = 0; $i < count($otherArena); $i++) {
             $u = $otherArena[$i];
@@ -2273,14 +2297,32 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
     if ($attackerObj !== null && is_array($attackerObj->TurnEffects ?? null)
         && in_array('CANT_ATTACK', $attackerObj->TurnEffects, true)) return [];
     if (!$noBases) {
-        $oppBase = GetZone("theirBase");
+        $oppBase = GetZone("{$tp}Base");
         for ($i = 0; $i < count($oppBase); $i++) {
             $b = $oppBase[$i];
             if ($b === null || !empty($b->removed)) continue;
-            $oppUnits[] = "theirBase-{$i}";
+            $oppUnits[] = "{$tp}Base-{$i}";
         }
     }
     return $oppUnits;
+}
+
+// Twin Suns (Phase 3): all valid attack targets for $attackerCtrl's unit, UNIONED across every live
+// opponent. 2-player (or 1 opponent) → the single "their<Zone>" enumeration, byte-identical. N-player →
+// one SWUGetValidAttackTargets call per opponent (each pinned via $targetSeat), so the returned mzIDs are
+// seat-specific (p{n}<Zone>) and per-opponent Sentinel/base are respected (a Sentinel on one opponent
+// doesn't restrict attacks against another). This is the enumeration BeginSWUAttack / the attacker glow use.
+function SWUGetAllValidAttackTargets(int $attackerCtrl, $attackerObj, string $arenaName, bool $noBases = false): array {
+    if (SeatCountForGame() <= 2) {
+        return SWUGetValidAttackTargets(OtherPlayer($attackerCtrl), $attackerObj, $arenaName, $noBases);
+    }
+    $all = [];
+    foreach (OpponentsOf($attackerCtrl) as $opp) {
+        foreach (SWUGetValidAttackTargets($opp, $attackerObj, $arenaName, $noBases, $opp) as $t) {
+            $all[] = $t;
+        }
+    }
+    return $all;
 }
 
 // True if $unit (controlled by $player, in $arenaName) could declare an attack RIGHT NOW: ready, allowed
@@ -2293,12 +2335,14 @@ function _SWUUnitCanAttackNow(int $player, $unit, string $arenaName): bool {
     $cid = $unit->CardID ?? '';
     if ($cid === 'JTL_059' || $cid === 'LOF_044') return false;                // "This unit can't attack."
     if ($cid === 'LOF_063' && intval($unit->Damage ?? 0) <= 0) return false;   // Oggdo Bogdo — only while damaged
-    return !empty(SWUGetValidAttackTargets(OtherPlayer($player), $unit, $arenaName));
+    return !empty(SWUGetAllValidAttackTargets($player, $unit, $arenaName));
 }
 
-// Like SWUGetValidAttackTargets but Ambush-specific: units only, never the base (CR 5.9.a).
-function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName): array {
-    $opArenaZone = "their{$arenaName}";
+// Like SWUGetValidAttackTargets but Ambush-specific: units only, never the base (CR 5.9.a). $targetSeat
+// pins a specific opponent (p{seat}<Zone>) for the N-player union; null → "their" (2-player, byte-identical).
+function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName, ?int $targetSeat = null): array {
+    $tp          = $targetSeat === null ? 'their' : "p{$targetSeat}";
+    $opArenaZone = "{$tp}{$arenaName}";
     $oppUnits    = [];
     $sentinels   = [];
 
@@ -2316,6 +2360,19 @@ function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName
 
     $hasSentinelRestriction = !empty($sentinels) && !HasKeyword_Saboteur($attackerObj);
     return $hasSentinelRestriction ? $sentinels : $oppUnits;
+}
+
+// Twin Suns (Phase 3): Ambush targets unioned across ALL live opponents (per-opponent Sentinel), mirroring
+// SWUGetAllValidAttackTargets. 2-player → the single "their" enumeration, byte-identical.
+function SWUGetAllValidAmbushTargets(int $attackerCtrl, $attackerObj, string $arenaName): array {
+    if (SeatCountForGame() <= 2) {
+        return SWUGetValidAmbushTargets(OtherPlayer($attackerCtrl), $attackerObj, $arenaName);
+    }
+    $all = [];
+    foreach (OpponentsOf($attackerCtrl) as $opp) {
+        foreach (SWUGetValidAmbushTargets($opp, $attackerObj, $arenaName, $opp) as $t) $all[] = $t;
+    }
+    return $all;
 }
 
 // Declare an attack with a ready unit. Exhausts the attacker and queues
@@ -2423,8 +2480,8 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     $attacker->Status = 0;
 
     $arena        = $attacker->Location; // "GroundArena" or "SpaceArena"
-    $opponent     = OtherPlayer($player);
-    $validTargets = SWUGetValidAttackTargets($opponent, $attacker, $arena, $noBases);
+    // Twin Suns (Phase 3): union valid targets across ALL live opponents (2-player → the one opponent).
+    $validTargets = SWUGetAllValidAttackTargets($player, $attacker, $arena, $noBases);
 
     if (empty($validTargets)) {
         // Nothing to attack; undo exhaust
@@ -2524,7 +2581,7 @@ $customDQHandlers["TWI135_MODE"] = function($player, $parts, $lastDecision) {
     // "Units": re-derive the legal unit targets (board unchanged since the mode prompt) and offer the pick.
     $attacker = GetZoneObject($attackerMzID);
     if ($attacker === null || !empty($attacker->removed)) { $playerID = $savedPID; return; }
-    $valid = SWUGetValidAttackTargets(OtherPlayer(intval($player)), $attacker, $attacker->Location, true); // noBases
+    $valid = SWUGetAllValidAttackTargets(intval($player), $attacker, $attacker->Location, true); // noBases; union all opponents
     $legalUnits = array_values(array_filter($valid, fn($t) => strpos((string)$t, 'Base') === false));
     if (empty($legalUnits)) { $playerID = $savedPID; return; }
     if (count($legalUnits) === 1) {   // degenerate (a unit left play) — single attack
@@ -2596,7 +2653,8 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
         AddGlobalEffects($owner, 'SWU_DEFEATED_CARD_' . $obj->CardID);
     }
     if ($isAttacker) {
-        AddGlobalEffects(OtherPlayer($player), 'SWU_ENEMY_DEFEATED');
+        // The attacker died — an enemy left play from each opponent's view (2-player → the one opponent).
+        foreach (OpponentsOf($player) as $enemyObserver) AddGlobalEffects($enemyObserver, 'SWU_ENEMY_DEFEATED');
         AddGlobalEffects($ctrl, 'SWU_FRIENDLY_DEFEATED');
         _SWUMarkHeroismDefeated($ctrl, $obj->CardID ?? ''); // TWI_017
         AddGlobalEffects($ctrl, 'SWU_ATTACKER_DEFEATED');
@@ -2673,7 +2731,11 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     // Resolve all defeats simultaneously (damage already applied; a defeat doesn't change another's HP).
     $defeatedCards = [];
     $anyDefDefeated = false;
-    $combinedExcess = 0;   // Overwhelm — combined excess of the defeated defenders (ruling 2024-10-31)
+    // Overwhelm excess, accumulated PER defending-player (ruling 2024-10-31: COMBINED excess to the
+    // defending player's base). Twin Suns: Maul's two units may belong to DIFFERENT opponents, so each
+    // owner's excess spills to that owner's own base. 2-player → both share the one opponent → one entry
+    // == the old combined value → byte-identical.
+    $excessByOwner = [];
     foreach ([[$def1, $def1Mz, false], [$def2, $def2Mz, false], [$attacker, $attackerMzID, true]] as $ent) {
         [$o, $mz, $isAtk] = $ent;
         if ($o === null || !empty($o->removed)) continue;
@@ -2687,16 +2749,25 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
             continue;
         }
         _SWUMaulCombatDefeat($o, $mz, $player, $isAtk, $defeatedCards);
-        if (!$isAtk) { $anyDefDefeated = true; if ($hp < 0) $combinedExcess += -$hp; }
+        if (!$isAtk) {
+            $anyDefDefeated = true;
+            if ($hp < 0) {
+                $owner = intval($o->Controller ?? SWUMzOwner($mz, $player));
+                $excessByOwner[$owner] = ($excessByOwner[$owner] ?? 0) + (-$hp);
+            }
+        }
     }
 
-    // Overwhelm (official ruling): if Maul has Overwhelm, deal the COMBINED excess of both defenders to
-    // the defending player's base. Read the keyword from the attacker even if it was just defeated
-    // (simultaneous damage still spills).
-    if ($combinedExcess > 0 && !LostAbilities($attacker) && HasKeyword_Overwhelm($attacker)) {
-        $GLOBALS['gInCombatDamage'] = true;
-        SWUDealDamageToBase($combinedExcess, OtherPlayer($player));
-        $GLOBALS['gInCombatDamage'] = false;
+    // Overwhelm (official ruling): if Maul has Overwhelm, deal each defending player's combined excess to
+    // that player's base. Read the keyword from the attacker even if it was just defeated (simultaneous
+    // damage still spills).
+    if (!empty($excessByOwner) && !LostAbilities($attacker) && HasKeyword_Overwhelm($attacker)) {
+        foreach ($excessByOwner as $owner => $exc) {
+            if ($exc <= 0) continue;
+            $GLOBALS['gInCombatDamage'] = true;
+            SWUDealDamageToBase($exc, $owner);
+            $GLOBALS['gInCombatDamage'] = false;
+        }
     }
 
     // "For this attack" markers end; then the batched When Defeated + after-attack pass, then cleanup.

@@ -62,7 +62,7 @@ function WriteCache($name, $data)
     $redis->set($name, $serData);
   }
   else if ($APCuEnabled) {
-    apcu_store($name, $serData, 3600);
+    apcu_store((string)$name, $serData, 3600);
   }
   else {
     $id = shmop_open($name, "c", 0644, 128);
@@ -89,7 +89,7 @@ function ReadCache($name)
     }
   }
   else if ($APCuEnabled) {
-    $data = apcu_fetch($name);
+    $data = apcu_fetch((string)$name);
   }
   else {
     $data = ShmopReadCache($name);
@@ -136,7 +136,7 @@ function DeleteCache($name)
     $redis->del($name . "GS");
   }
   else if ($APCuEnabled) {
-    apcu_delete($name);
+    apcu_delete((string)$name);
   }
   else {
     $id=shmop_open($name, "w", 0644, 128);

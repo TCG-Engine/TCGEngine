@@ -585,12 +585,14 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* Discard-slot ".has-action" glow moved to GameLayoutShared.php (shared by mobile). */
 
-    /* Leader deployed state: ghost the leader card to simulate it moving to arena */
-    #myLeaderSlot.is-deployed     > * { opacity: 0; pointer-events: none; }
-    #theirLeaderSlot.is-deployed  > * { opacity: 0; pointer-events: none; }
+    /* Leader deployed state: ghost the specific deployed leader card (per-index in Twin Suns). */
+    #myLeaderSlot    [data-mzid].is-deployed > *,
+    #theirLeaderSlot [data-mzid].is-deployed > * { opacity: 0; pointer-events: none; }
     .swu-leader-slot-wrap { position: relative; }
-    #myLeaderSlot.is-deployed::after,
-    #theirLeaderSlot.is-deployed::after {
+    #myLeaderSlot    [data-mzid].is-deployed,
+    #theirLeaderSlot [data-mzid].is-deployed { position: relative; }
+    #myLeaderSlot    [data-mzid].is-deployed::after,
+    #theirLeaderSlot [data-mzid].is-deployed::after {
         content: "DEPLOYED";
         position: absolute; inset: 0;
         display: flex; align-items: center; justify-content: center;
@@ -963,6 +965,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* ── Turn miasma ─────────────────────────────────────────────────────────── */
     #turn-miasma-overlay .turn-edge-glyph { width: 32px; height: min(60vh,500px); }
+    /* Keep the RIGHT turn-indicator spike INSIDE the board — clear of the chat sidebar (base CSS pins it
+       to right:0, which tucks it under the chat panel). The left spike stays at the board's left edge. */
+    #turn-edge-glyph-right { right: calc(var(--swu-sidebar-w) + 6px) !important; }
     #turn-miasma-overlay .turn-edge-glyph::before,
     #turn-miasma-overlay .turn-edge-glyph::after {
         width: 9px; transform: translateX(-50%); border-radius: 0; }
@@ -1023,6 +1028,12 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     <div id="swuTakeInitHint" class="swu-init-pass-hint swu-take-init" title="Press I to take/keep the initiative" hidden><kbd>I</kbd></div>
     <button id="swuPassBtn" class="swu-init-pass-btn" title="Pass (Space)"><span>Pass</span></button>
     <div class="swu-init-pass-hint" title="Press Space to pass"><kbd>Space</kbd></div>
+    <!-- Twin Suns (Phase 4) counters — shown by updateInitiative() only when this seat may take each
+         counter this round (blastAvailable / planAvailable); hidden entirely in 2-player games. -->
+    <button id="swuBlastBtn" class="swu-init-pass-btn swu-take-counter" title="Take the Blast counter (1 damage to each enemy base)" hidden
+            onclick="event.stopPropagation(); window.swuTakeBlastCounter();"><span>Blast</span></button>
+    <button id="swuPlanBtn" class="swu-init-pass-btn swu-take-counter" title="Take the Plan counter (draw 1, bottom 1)" hidden
+            onclick="event.stopPropagation(); window.swuTakePlanCounter();"><span>Plan</span></button>
     <?php if (function_exists('SWUGameMode') && SWUGameMode() === 'hotseat'): ?>
     <!-- Hotseat: hand the device to the other player. Reloads this page as the other seat
          (shared authKey). Mirrors the test editor's swapPlayerBtn. -->
@@ -1188,6 +1199,22 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         </div>
     </div>
 </div>
+
+<!-- Twin Suns (order strip): clockwise seat status P1→P2→…→PN. Populated by swuRenderOrderStrip();
+     hidden entirely in 2-player games. -->
+<div id="swuOrderStrip" class="swu-order-strip" style="display:none;"></div>
+
+<!-- Twin Suns pair-switcher — carousel side arrows; shown only at seat count > 2 (toggled by JS). -->
+<div id="swuPairNav" class="swu-pair-nav" style="display:none;">
+    <button id="swuPairPrev" class="swu-pair-arrow" title="Previous view (back)">◀</button>
+    <button id="swuPairNext" class="swu-pair-arrow" title="Next view">▶</button>
+</div>
+
+<!-- Twin Suns 3-player home view — two minimal opponent status strips (populated by swuRenderHomeStrips). -->
+<div id="swuHomeStrips" class="swu-home-strips" style="display:none;"></div>
+
+<!-- Twin Suns: read-only badge when viewing a board that isn't yours (4-player "other pair"). -->
+<div id="swuSpectateBadge" class="swu-spectate-badge">👁 Read-only — not your board</div>
 
 <!-- ═══════════════════ RESOURCE ZONES (managed by badge) ════════════════════ -->
 <!-- My resources: expandable panel, opens upward from bottom-left -->

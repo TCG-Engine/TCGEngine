@@ -38,6 +38,29 @@ $rootName = trim(fgets($handler));
 $reloadStyle = trim(fgets($handler));
 $readAuth = trim(fgets($handler));
 $editAuth = trim(fgets($handler));
+// Twin Suns: SWUSim supports up to 4 player seats; every other sim stays at 2 so their
+// generated output is byte-identical. Every per-seat emission loops 1..$maxSeats.
+$maxSeats = ($rootName === 'SWUSim') ? 4 : 2;
+// Emits the by-reference "return the seat's global" body shared by Get<Zone>($player) and
+// <Zone>Value($player). For $maxSeats<=2 it emits the original if/else (byte-identical output);
+// for >2 a switch over the seats. (Function declarations are hoisted, so definition order is fine.)
+function EmitSeatReturnBody($handler, $zoneName) {
+  global $maxSeats;
+  $globs = [];
+  for ($s = 1; $s <= $maxSeats; ++$s) $globs[] = "\$p" . $s . $zoneName;
+  fwrite($handler, "  global " . implode(", ", $globs) . ";\r\n");
+  if ($maxSeats <= 2) {
+    fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
+    fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
+  } else {
+    fwrite($handler, "  switch (\$player) {\r\n");
+    for ($s = 1; $s <= $maxSeats; ++$s) {
+      fwrite($handler, "    case " . $s . ": return \$p" . $s . $zoneName . ";\r\n");
+    }
+    fwrite($handler, "    default: return \$p1" . $zoneName . ";\r\n");
+    fwrite($handler, "  }\r\n");
+  }
+}
 $zones = [];
 $headerElements = [];
 $initializeScript = "";
@@ -626,20 +649,14 @@ for($i=0; $i<count($zones); ++$i) {
   } else {
     if ($isValueOnly) {
       fwrite($handler, "function &Get" . $zoneName . "(\$player) {\r\n");
-      fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
-      fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
-      fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
+      EmitSeatReturnBody($handler, $zoneName);
       fwrite($handler, "}\r\n\r\n");
       fwrite($handler, "function &" . $zoneName . "Value(\$player) {\r\n");
-      fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
-      fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
-      fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
+      EmitSeatReturnBody($handler, $zoneName);
       fwrite($handler, "}\r\n\r\n");
     } else {
       fwrite($handler, "function &Get" . $zoneName . "(\$player) {\r\n");
-      fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
-      fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
-      fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
+      EmitSeatReturnBody($handler, $zoneName);
       fwrite($handler, "}\r\n\r\n");
       if ($isValueType) {
         fwrite($handler, "function &" . $zoneName . "Value(\$player) {\r\n");
@@ -784,15 +801,22 @@ for($i=0; $i<count($zones); ++$i) {
       $mzGetObject .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
       $mzGetZone .= "    case \"my" . $zoneName . "\": return Get" . $zoneName . "(\$playerID);\r\n";
       $mzGetZone .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
-      $mzGetZone .= "    case \"p1" . $zoneName . "\": return Get" . $zoneName . "(1);\r\n";
-      $mzGetZone .= "    case \"p2" . $zoneName . "\": return Get" . $zoneName . "(2);\r\n";
+      for ($s = 1; $s <= $maxSeats; ++$s) {
+        // Twin Suns: seat-specific p{n} mzIDs must resolve in BOTH accessors (GetZoneObject was a Phase-1
+        // gap — union attack targets are p{n} unit mzIDs and GetZoneObject fetches the defender object).
+        $mzGetObject .= "    case \"p" . $s . $zoneName . "\": return Get" . $zoneName . "(" . $s . ");\r\n";
+        $mzGetZone .= "    case \"p" . $s . $zoneName . "\": return Get" . $zoneName . "(" . $s . ");\r\n";
+      }
     } else {
       $mzGetObject .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); break;\r\n";
       $mzGetObject .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); break;\r\n";
       $mzGetZone .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr;\r\n";
       $mzGetZone .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr;\r\n";
-      $mzGetZone .= "    case \"p1" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(1); return \$zoneArr;\r\n";
-      $mzGetZone .= "    case \"p2" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(2); return \$zoneArr;\r\n";
+      for ($s = 1; $s <= $maxSeats; ++$s) {
+        // Twin Suns: p{n} in both accessors (see Value-branch note above).
+        $mzGetObject .= "    case \"p" . $s . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(" . $s . "); break;\r\n";
+        $mzGetZone .= "    case \"p" . $s . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(" . $s . "); return \$zoneArr;\r\n";
+      }
     }
   }
 }
@@ -1662,12 +1686,13 @@ for($i=0; $i<count($zones); ++$i) {
       fwrite($handler, "  \$g" . $zoneName . " = [];\r\n");
     }
   } else {
-    if ($zone->DisplayMode == 'Value') {
-      fwrite($handler, "  \$p1" . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . ";\r\n");
-      fwrite($handler, "  \$p2" . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . ";\r\n");
-    } else {
-      fwrite($handler, "  \$p1" . $zoneName . " = [];\r\n");
-      fwrite($handler, "  \$p2" . $zoneName . " = [];\r\n");
+    global $maxSeats;
+    for ($s = 1; $s <= $maxSeats; ++$s) {
+      if ($zone->DisplayMode == 'Value') {
+        fwrite($handler, "  \$p" . $s . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . ";\r\n");
+      } else {
+        fwrite($handler, "  \$p" . $s . $zoneName . " = [];\r\n");
+      }
     }
   }
 }
@@ -1948,8 +1973,12 @@ if($assetVisibilityModule != NULL) {
   fwrite($handler, "  }\r\n");
   fwrite($handler, "}\r\n");
 }
-fwrite($handler, AddGetNextTurnForPlayer(1) . "\r\n");
-fwrite($handler, AddGetNextTurnForPlayer(2) . "\r\n");
+// Emit a per-seat data block for every possible seat (1..$maxSeats). Non-SWU sims have $maxSeats==2
+// → exactly the original two writes (byte-identical). SWUSim emits 4; seats beyond the live count are
+// empty blocks the render only indexes when otherPlayerIndex points at them (Twin Suns view-cycling).
+for ($s = 1; $s <= $maxSeats; ++$s) {
+  fwrite($handler, AddGetNextTurnForPlayer($s) . "\r\n");
+}
 fwrite($handler, "if(function_exists('GameBotControllerMode')) {\r\n");
 fwrite($handler, "  echo(\"<~>\" . EncodeBotControllerClientPayload('" . $rootName . "', \$gameName));\r\n");
 fwrite($handler, "}\r\n");
@@ -2015,7 +2044,10 @@ function GetZoneGlobals($zones) {
     if (strtolower($scope) == 'global') {
       $zoneGlobals .= "  global \$g" . $zoneName . ";\r\n";
     } else {
-      $zoneGlobals .= "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n";
+      global $maxSeats;
+      $seatGlobals = [];
+      for ($s = 1; $s <= $maxSeats; ++$s) $seatGlobals[] = "\$p" . $s . $zoneName;
+      $zoneGlobals .= "  global " . implode(", ", $seatGlobals) . ";\r\n";
     }
   }
   return $zoneGlobals;
@@ -2080,8 +2112,8 @@ function AddReadGamestate() {
         if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") $readGamestate .= "    if(count(\$g" . $zone->Name . ") == 0) array_push(\$g" . $zone->Name . ", new " . $zone->Name . "(0));\r\n";
       }
     } else {
-      $readGamestate .= AddReadZone($zone, 1);
-      $readGamestate .= AddReadZone($zone, 2);
+      global $maxSeats;
+      for ($s = 1; $s <= $maxSeats; ++$s) $readGamestate .= AddReadZone($zone, $s);
     }
   }
   if(!SchemaOwnsRandomCounter()) {
@@ -2164,12 +2196,13 @@ function AddWriteGamestate() {
         $writeGamestate .= "  \$writeZone(\$g" . $zoneName . ");\r\n";
       }
     } else {
-      if ($zone->DisplayMode == 'Value') {
-        $writeGamestate .= "  \$gamestateText .= \$p1" . $zoneName . " . \"\\r\\n\";\r\n";
-        $writeGamestate .= "  \$gamestateText .= \$p2" . $zoneName . " . \"\\r\\n\";\r\n";
-      } else {
-        $writeGamestate .= AddWriteZone($zoneName, 1);
-        $writeGamestate .= AddWriteZone($zoneName, 2);
+      global $maxSeats;
+      for ($s = 1; $s <= $maxSeats; ++$s) {
+        if ($zone->DisplayMode == 'Value') {
+          $writeGamestate .= "  \$gamestateText .= \$p" . $s . $zoneName . " . \"\\r\\n\";\r\n";
+        } else {
+          $writeGamestate .= AddWriteZone($zoneName, $s);
+        }
       }
     }
   }
@@ -2208,8 +2241,15 @@ function AddGetNextTurnForPlayer($player) {
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
     $scope = strtolower(isset($zone->Scope) ? $zone->Scope : 'Player');
-    // Skip global zones for player 2, they were already output for player 1
-    if ($scope == 'global' && $player > 1) continue;
+    // Skip global zones for player 2+, they were already output for player 1.
+    // SWUSim EXCEPTION (Twin Suns N-seat): the client indexes each seat's block at a fixed
+    // stride of count($zones) (=31). Skipping globals makes seat-1's block 31 wide but seats
+    // 2-4 only ~11 wide, so the stride only lands correctly on seat 2 (which starts right after
+    // seat 1's 31) and misreads seat 3-4. Emitting globals in EVERY seat block keeps all blocks
+    // a uniform 31 wide so the stride is correct for all seats. The client still reads globals
+    // from seat-1's fixed indices (13-31); the repeats in later blocks are inert. Non-SWU sims
+    // keep the skip → byte-identical.
+    if ($scope == 'global' && $player > 1 && $rootName !== 'SWUSim') continue;
 
     $zoneName = ($scope == 'global') ? "g" . $zone->Name : "p" . $player . $zone->Name;
     echo($zoneName . "<BR>");
@@ -2368,8 +2408,23 @@ function AddNextTurn() {
   $header .= "echo(\"var theirRows = [];\");\r\n";
   $header .= "echo(\"window.rootPath = '" . $rootPath . "';\");\r\n";
   $header .= "echo(\"window.assetImageFolder = '" . GenImageRoot() . "';\");\r\n";
-  $header .= "echo(\"var currentPlayerIndex = playerID;\");\r\n";
-  $header .= "echo(\"var otherPlayerIndex = playerID == 1 ? 2 : 1;\");\r\n";
+  if ($rootName === "SWUSim") {
+    // Twin Suns pair-switcher: the viewer/opponent seats default to the page-baked values but are
+    // overridden by a mutable client view-state (window.swuView) so the board can re-render for a
+    // different matchup WITHOUT a page reload. window.swuLastResponseArr caches the array so swuSetView()
+    // can repaint from it. 2-player never sets swuView → the || fallbacks reproduce today's values exactly.
+    // The "vs" default is the requested opponentID when it's a live seat other than the viewer, else the
+    // next live seat clockwise (2-player: the one other seat == the old `playerID==1?2:1`).
+    $header .= "echo(\"window.swuLastResponseArr = responseArr;\");\r\n";
+    $header .= "echo(\"var currentPlayerIndex = (window.swuView && window.swuView.viewSeat) ? window.swuView.viewSeat : playerID;\");\r\n";
+    $header .= "\$__vp = intval(\$viewerPerspective);\r\n";
+    $header .= "\$__opp = isset(\$opponentID) ? intval(\$opponentID) : (isset(\$_GET['opponentID']) ? intval(\$_GET['opponentID']) : 0);\r\n";
+    $header .= "if (\$__opp <= 0 || \$__opp === \$__vp || !IsSeatLive(\$__opp)) \$__opp = NextLiveSeat(\$__vp);\r\n";
+    $header .= "echo(\"var otherPlayerIndex = (window.swuView && window.swuView.oppSeat) ? window.swuView.oppSeat : \" . \$__opp . \";\");\r\n";
+  } else {
+    $header .= "echo(\"var currentPlayerIndex = playerID;\");\r\n";
+    $header .= "echo(\"var otherPlayerIndex = playerID == 1 ? 2 : 1;\");\r\n";
+  }
   $footer = "echo(\"RenderRows(myRows, theirRows);\");\r\n";
   $footer .= "echo(\"AppendStaticZones(myStatic, theirStatic, globalStatic);\");\r\n";
   // SWUSim: refresh the Undo button state after every render cycle (GameLayout defines swuUpdateUndoUI).
@@ -2547,7 +2602,23 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
     if ($zone->DisplayMode == "Pane") {
       $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
     } else {
-      $zoneHTML = "'<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'";
+      global $rootName;
+      // SWUSim Twin Suns: a seat can hold TWO leaders. Landscape WebpImages crops stack (two at
+      // cardSize width wrap to two rows); square concat crops fit side-by-side. Choose the folder at
+      // RUNTIME by leader count so a 1-leader seat is byte-identical (WebpImages) and a 2-leader seat
+      // uses concat. Only the Leader zone branches; every other zone keeps the static GenImageRoot.
+      // Both folder options route through GenImageRoot so asset-reflection (main) still applies.
+      $isSwuLeader = ($rootName === "SWUSim" && $zone->Name === "Leader");
+      if ($isSwuLeader) {
+        $concatRoot = GenImageRoot();        // null zone → <assetRoot>/concat
+        $webpRoot   = GenImageRoot($zone);   // Leader zone → <assetRoot>/WebpImages
+        $rv .= "echo(\"var _lf_" . $prefix . " = (function(){ var _d = responseArr[" . $index . "]; var _n = (_d && String(_d).trim().length) ? String(_d).trim().split('<|>').length : 0; return _n >= 2 ? '" . $concatRoot . "' : '" . $webpRoot . "'; })();\");\r\n";
+        $folderExpr = "' + _lf_" . $prefix . " + '";
+      } else {
+        $folderExpr = GenImageRoot($zone);
+      }
+      // Base-refactor (AzukiSim uses ReplaceRenderedZoneHTML) + Twin Suns runtime leader folder ($folderExpr).
+      $zoneHTML = "'<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $folderExpr . "', '0', '" . $zone->DisplayMode . "') + '</div>'";
       $renderZoneHTML = $rootName === "AzukiSim"
         ? "ReplaceRenderedZoneHTML(_bt_" . $prefix . $zone->Name . ", " . $zoneHTML . ");"
         : "_bt_" . $prefix . $zone->Name . ".innerHTML = " . $zoneHTML . ";";

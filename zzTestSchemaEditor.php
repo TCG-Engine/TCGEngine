@@ -258,7 +258,8 @@ if ($error !== '') {
     </div>
     <br>
     <div class="btn-row">
-      <button id="swap-player-btn"    class="btn" disabled title="Reload the board viewing as the other player">⇄ Swap Player</button>
+      <button id="swap-player-btn"    class="btn" disabled title="Cycle the viewer seat (View as P#) across live seats">⇄ View as P#</button>
+      <button id="swap-vs-btn"        class="btn" disabled title="Cycle the opponent seat (vs P#) — Twin Suns 3–4 player only">⇄ vs P#</button>
       <button id="refresh-iframe-btn" class="btn" disabled title="Force-reload the game iframe (reloads its JS)">⟳ Hard Refresh iFrame</button>
     </div>
   </div>
@@ -282,6 +283,8 @@ if ($error !== '') {
   let busy          = false;
   let currentSim    = null;
   let currentPlayerID = 1;
+  let liveSeats     = [1, 2];   // from TestSchemaSetup response; drives the perspective cyclers
+  let currentVsID   = 2;        // the "vs" (opponent) seat
 
   const simSelect    = document.getElementById('sim-select');
   const fileInput    = document.getElementById('schema-file');
@@ -298,6 +301,7 @@ if ($error !== '') {
   const stopBtn      = document.getElementById('stop-btn');
   const resetBtn     = document.getElementById('reset-btn');
   const swapPlayerBtn   = document.getElementById('swap-player-btn');
+  const swapVsBtn       = document.getElementById('swap-vs-btn');
   const refreshIframeBtn= document.getElementById('refresh-iframe-btn');
   const gameFrame    = document.getElementById('game-frame');
   const placeholder  = document.getElementById('placeholder');
@@ -322,9 +326,22 @@ if ($error !== '') {
   // ── Iframe tools ───────────────────────────────────────────────────
   swapPlayerBtn.addEventListener('click', () => {
     if (!gameName) return;
-    const next = currentPlayerID === 1 ? 2 : 1;
+    // "View as P#" cycles the viewer seat over the live seats; default the "vs" to the next live seat.
+    const i = liveSeats.indexOf(currentPlayerID);
+    const next = liveSeats[(i + 1) % liveSeats.length];
+    const j = liveSeats.indexOf(next);
+    currentVsID = liveSeats[(j + 1) % liveSeats.length];
     loadGameFrame(currentSim, gameName, next, true);
-    setStatus('Viewing board as Player ' + next + '.', 'ok');
+    setStatus('Viewing as P' + next + ' vs P' + currentVsID + '.', 'ok');
+  });
+
+  swapVsBtn.addEventListener('click', () => {
+    if (!gameName || liveSeats.length <= 2) return;   // 2-player: only one opponent, no cycling
+    let i = liveSeats.indexOf(currentVsID);
+    do { i = (i + 1) % liveSeats.length; } while (liveSeats[i] === currentPlayerID);
+    currentVsID = liveSeats[i];
+    loadGameFrame(currentSim, gameName, currentPlayerID, true);
+    setStatus('Viewing as P' + currentPlayerID + ' vs P' + currentVsID + '.', 'ok');
   });
 
   refreshIframeBtn.addEventListener('click', async () => {
@@ -380,6 +397,10 @@ if ($error !== '') {
       whenSteps   = data.whenSteps;
       stepIndex   = 0;
       steppingMode = false;
+      // Twin Suns: seat metadata drives the View-as / vs perspective cyclers (2-player → [1,2]).
+      liveSeats       = (data.liveSeats && data.liveSeats.length) ? data.liveSeats : [1, 2];
+      currentPlayerID = liveSeats[0];
+      currentVsID     = liveSeats[1] || liveSeats[0];
 
       const filename = fileInput.files[0]?.name ?? 'schema.md';
       schemaFilename.textContent = filename;
@@ -407,12 +428,15 @@ if ($error !== '') {
     currentPlayerID = playerID || 1;
     let url = './NextTurn.php?folderPath=' + encodeURIComponent(sim)
               + '&gameName=' + encodeURIComponent(gn)
-              + '&playerID=' + currentPlayerID + '&authKey=testschema';
+              + '&playerID=' + currentPlayerID + '&authKey=testschema'
+              + '&viewerPerspective=' + currentPlayerID
+              + '&opponentID=' + currentVsID;
     if (bustCache) url += '&_=' + Date.now();
     placeholder.style.display = 'none';
     gameFrame.style.display   = 'block';
     gameFrame.src = url;
     swapPlayerBtn.disabled    = false;
+    swapVsBtn.disabled        = (liveSeats.length <= 2);
     refreshIframeBtn.disabled = false;
   }
 

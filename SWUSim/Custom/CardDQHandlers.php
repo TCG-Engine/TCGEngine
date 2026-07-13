@@ -229,7 +229,10 @@ $whenDefeatedAbilities["IBH_051:0"] = function($player, $mzID) {
 $whenDefeatedAbilities["IBH_082:0"] =
 $whenDefeatedAbilities["IBH_085:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    SWUDiscardCards(intval($player), 1); // the opponent chooses (auto when they hold exactly 1)
+    // Twin Suns (Phase 3): EACH opponent discards a card (2-player: the one opponent). Each chooses.
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        SWUDiscardCards(intval($player), 1, $opp);
+    }
 };
 
 // IBH_064 / IBH_092 Hoth Lieutenant — When Played: you may attack with another unit; it gets +2/+0 for
@@ -2246,7 +2249,10 @@ $whenDefeatedAbilities["LOF_159:0"] = function($player, $mzID) {
 $customDQHandlers["LOF_159#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     UseTheForce(intval($player));
-    SWUDiscardCards(intval($player), 1); // SWUDiscardCards makes the OPPONENT discard
+    // Twin Suns (Phase 3): each opponent discards (2-player: the one opponent).
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        SWUDiscardCards(intval($player), 1, $opp);
+    }
 };
 
 // LOF_195 Vernestra Rwoh — When Played: may use the Force → ready this unit.
@@ -3500,17 +3506,17 @@ $whenPlayedAbilities["JTL_164:0"] = function($player, $mzID) {
 $jtl154_choose = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "You&Opponent", 1, "Choose_a_player_to_discard");
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", SWUPlayerPickerLabels(intval($player)), 1, "Choose_a_player_to_discard");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "JTL_154#0|" . intval($player), 1);
 };
 $whenPlayedAbilities["JTL_154:0"]   = $jtl154_choose;
 $whenDefeatedAbilities["JTL_154:0"] = $jtl154_choose;
 $customDQHandlers["JTL_154#0"] = function($player, $parts, $lastDecision) {
     $caster = intval($parts[0]);
-    $target = ($lastDecision === 'You') ? $caster : OtherPlayer($caster);
+    $target = SWUDecodePlayerPick($lastDecision, $caster); // "You"→caster, "Opponent"/"P{n}"→that player
     global $playerID;
     $playerID = $caster;
-    SWUDiscardCards(OtherPlayer($target), 1);  // SWUDiscardCards($p) makes OtherPlayer($p) discard → $target
+    SWUDiscardCards($caster, 1, $target);  // $target discards 1
     DecisionQueueController::AddDecision($caster, "CUSTOM", "JTL_154#1|{$target}|{$caster}", 1);
 };
 $customDQHandlers["JTL_154#1"] = function($player, $parts, $lastDecision) {
@@ -3518,7 +3524,7 @@ $customDQHandlers["JTL_154#1"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = $caster;
     $count = function($p) { $n = 0; foreach (GetHand($p) as $c) { if (empty($c->removed)) $n++; } return $n; };
-    if ($count($target) > $count($caster)) SWUDiscardCards(OtherPlayer($target), 1);
+    if ($count($target) > $count($caster)) SWUDiscardCards($caster, 1, $target); // $target discards again
 };
 
 // ── Reactive draw hook: "When an opponent draws 1+ cards during the action phase, you may give an
@@ -4218,7 +4224,7 @@ $customDQHandlers["JTL_121#0"] = function($player, $parts, $lastDecision) {
 // ── JTL_074 Close the Shield Gate — arm the one-shot base-damage prevention on the chosen base's owner.
 $customDQHandlers["JTL_074#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
-    $owner = (strpos($lastDecision, 'their') === 0) ? GetOpponent(intval($player)) : intval($player);
+    $owner = SWUMzOwner((string)$lastDecision, intval($player));   // Twin Suns: my/their/p{n} → owner seat
     AddGlobalEffects($owner, 'SWU_SHIELD_GATE');
 };
 
@@ -5437,7 +5443,7 @@ $onAttackAbilities["SOR_142:0"] = function($player, $mzID) {
     if ($defenderMz === '' || $defenderMz === '-') return;
     if (strpos($defenderMz, 'Base') !== false) {
         // Attacking a base → always ping that base.
-        $tp = (strpos($defenderMz, 'theirBase') !== false) ? GetOpponent(intval($player)) : intval($player);
+        $tp = SWUMzOwner((string)$defenderMz, intval($player));   // Twin Suns: base owner from the mzID
         SWUDealDamageToBase(1, $tp);
         return;
     }
@@ -5452,7 +5458,7 @@ $customDQHandlers["SOR_142#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     if (strpos($lastDecision, 'Base') !== false) {
-        $tp = (strpos($lastDecision, 'theirBase') !== false) ? GetOpponent(intval($player)) : intval($player);
+        $tp = SWUMzOwner((string)$lastDecision, intval($player));   // Twin Suns: base owner from the mzID
         SWUDealDamageToBase(1, $tp);
     } else {
         SWUDealDamageToUnit($lastDecision, 1, intval($player));
@@ -5508,7 +5514,7 @@ $customDQHandlers["SOR_158#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     if (strpos($lastDecision, 'Base') !== false) {
-        $tp = (strpos($lastDecision, 'theirBase') !== false) ? GetOpponent(intval($player)) : intval($player);
+        $tp = SWUMzOwner((string)$lastDecision, intval($player));   // Twin Suns: base owner from the mzID
         SWUDealDamageToBase(2, $tp);
     } else {
         SWUDealDamageToUnit($lastDecision, 2, intval($player));
@@ -5522,7 +5528,7 @@ $customDQHandlers["DEAL_BASE_DAMAGE"] = function($player, $parts, $lastDecision)
     global $playerID;
     $playerID = intval($player);
     $amount = intval($parts[0] ?? 1);
-    $tp = (strpos($lastDecision, 'theirBase') !== false) ? GetOpponent(intval($player)) : intval($player);
+    $tp = SWUMzOwner((string)$lastDecision, intval($player));   // Twin Suns: base owner from the mzID
     SWUDealDamageToBase($amount, $tp);
 };
 
@@ -5713,8 +5719,17 @@ $customDQHandlers["SOR_150#0"] = function($player, $parts, $lastDecision) {
 // SOR_045 Yoda — When Defeated: "Choose any number of players. They each draw a card." 2-player: a
 // 3-way choice (You / Opponent / Both). (Twin Suns multiplayer will use per-player checkboxes later.)
 $whenDefeatedAbilities["SOR_045:0"] = function($player, $mzID) {
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "You&Opponent&Both", 1, "Choose_who_draws_a_card");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "YODA_DRAW", 1);
+    if (SeatCountForGame() <= 2) {
+        DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "You&Opponent&Both", 1, "Choose_who_draws_a_card");
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "YODA_DRAW", 1);
+        return;
+    }
+    // Twin Suns: "any number of players" → a YES/NO per player (caster + each opponent), in seat order.
+    foreach (array_merge([intval($player)], OpponentsOf(intval($player))) as $seat) {
+        DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
+            tooltip: ($seat === intval($player) ? "You_draw_a_card?" : "P{$seat}_draws_a_card?"));
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "YODA_DRAW_ONE|{$seat}", 1);
+    }
 };
 
 $customDQHandlers["YODA_DRAW"] = function($player, $parts, $lastDecision) {
@@ -5723,6 +5738,10 @@ $customDQHandlers["YODA_DRAW"] = function($player, $parts, $lastDecision) {
     $opp = OtherPlayer(intval($player));
     if ($lastDecision === 'You'      || $lastDecision === 'Both') DoDrawCard(intval($player), 1);
     if ($lastDecision === 'Opponent' || $lastDecision === 'Both') DoDrawCard($opp, 1);
+};
+$customDQHandlers["YODA_DRAW_ONE"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision !== 'YES') return;
+    DoDrawCard(intval($parts[0] ?? $player), 1);
 };
 
 // SOR_179 Boba Fett — On Attack: if attacking an EXHAUSTED unit that didn't enter play this round,
@@ -7516,6 +7535,19 @@ $customDQHandlers["TWI_257#0"] = function($player, $parts, $lastDecision) {
     }
 };
 
+// Twin Suns plan counter (Phase 4): put the chosen hand card on the bottom of the deck.
+$customDQHandlers["SWU_PLAN_BOTTOM"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $mz = (string)$lastDecision;
+    if ($mz === '' || $mz === '-' || $mz === 'PASS') return;
+    $o = GetZoneObject($mz);
+    if ($o === null || !empty($o->removed)) return;
+    $cardID = $o->CardID;
+    $o->removed = true;
+    DecisionQueueController::CleanupRemovedCards();
+    _topDeckPutRemainingToBottom(intval($player), [$cardID]);
+};
+
 // TWI_032 Wartime Trade Official / TWI_079 Confederate Courier — "When Defeated: Create a Battle Droid token."
 $whenDefeatedAbilities["TWI_032:0"] = $whenDefeatedAbilities["TWI_079:0"] = function($player, $mzID) {
     SWUCreateUnitToken(intval($player), 'TWI_T01');
@@ -7529,7 +7561,10 @@ $whenPlayedAbilities["TWI_229:0"] = $whenDefeatedAbilities["TWI_229:0"] = functi
 // TWI_148 Senatorial Corvette — Saboteur + "When Defeated: Each opponent discards a card from their hand."
 $whenDefeatedAbilities["TWI_148:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    SWUDiscardCards(intval($player), 1); // opponent discards 1
+    // Twin Suns (Phase 3): each opponent discards (2-player: the one opponent).
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        SWUDiscardCards(intval($player), 1, $opp);
+    }
 };
 
 // TWI_208 Favorable Delegate — "When Played: Draw a card. When Defeated: Discard a card from your hand."
@@ -8183,26 +8218,109 @@ $onAttackAbilities["TWI_183:0"] = function($player, $mzID) {
 // On Attack: For each opponent, you may exhaust a resource that player controls." (2-player: one opponent.)
 $whenPlayedAbilities["TWI_185:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $enemies = [];
-    foreach (["theirGroundArena", "theirSpaceArena"] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $enemies[] = $mz;
+    if (SeatCountForGame() <= 2) {
+        // 2-player: the one opponent — a single "may exhaust an enemy unit" prompt (unchanged).
+        $enemies = [];
+        foreach (["theirGroundArena", "theirSpaceArena"] as $z) {
+            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $enemies[] = $mz;
+            }
         }
+        if (!empty($enemies)) SWUQueueMayChooseTarget(intval($player), $enemies,
+            "You_may_exhaust_an_enemy_unit", "Exhaust_an_enemy_unit", "EXHAUST_UNIT");
+        return;
     }
-    if (empty($enemies)) return;
-    SWUQueueMayChooseTarget(intval($player), $enemies, "You_may_exhaust_an_enemy_unit", "Exhaust_an_enemy_unit", "EXHAUST_UNIT");
+    // Twin Suns: "For each opponent, you may exhaust a unit THAT player controls" — a separate optional
+    // prompt per opponent, scoped to that opponent's own units (p{opp} mzIDs). Sequential (block 1 FIFO).
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        $enemies = [];
+        foreach (["p{$opp}GroundArena", "p{$opp}SpaceArena"] as $z) {
+            $zone = GetZone($z);
+            for ($i = 0; $i < count($zone); $i++) {
+                $o = $zone[$i];
+                if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $enemies[] = "{$z}-{$i}";
+            }
+        }
+        if (!empty($enemies)) SWUQueueMayChooseTarget(intval($player), $enemies,
+            "P{$opp}:_you_may_exhaust_a_unit", "Exhaust_a_unit_P{$opp}_controls", "EXHAUST_UNIT");
+    }
 };
 $onAttackAbilities["TWI_185:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (SWUResourceCount(OtherPlayer(intval($player)), true) <= 0) return; // no ready enemy resource
-    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_a_resource_an_opponent_controls?");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TWI_185#0", 1);
+    // "For each opponent, you may exhaust a resource that player controls." One YESNO per opponent that
+    // has a ready resource (2-player → the one opponent → byte-identical).
+    $multi = SeatCountForGame() > 2;
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        if (SWUResourceCount($opp, true) <= 0) continue; // no ready resource for this opponent
+        DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
+            tooltip: $multi ? "P{$opp}:_exhaust_a_resource_they_control?" : "Exhaust_a_resource_an_opponent_controls?");
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TWI_185#0|{$opp}", 1);
+    }
     // Combat owns the after-action.
 };
 $customDQHandlers["TWI_185#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
-    SWUExhaustResources(OtherPlayer(intval($player)), 1); // exhaust one enemy resource
+    $opp = intval($parts[0] ?? OtherPlayer(intval($player)));
+    SWUExhaustResources($opp, 1); // exhaust one of that opponent's resources
+};
+
+// ─── Twin Suns (Group B): choose-an-opponent continuations ────────────────────────────────────────────
+// These run after SWUQueueChooseOpponent (GameLogic.php) resolves; the picked seat is in $lastDecision as
+// "P{n}" (parse via SWUPickedOpponent). Reached ONLY on the N-player branch — 2-player keeps its inline path.
+
+// TWI_078 The Invasion of Christophsis — defeat each unit the CHOSEN opponent controls.
+$customDQHandlers["TWI_078#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0) return;
+    $uids = [];
+    foreach (["p{$opp}GroundArena", "p{$opp}SpaceArena"] as $z) {
+        $zone = GetZone($z);
+        for ($i = 0; $i < count($zone); $i++) {
+            $o = $zone[$i];
+            if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? -1);
+        }
+    }
+    foreach ($uids as $uid) {
+        $mz = SWUFindMzByUID($uid);
+        if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
+    }
+};
+
+// JTL_130 Timely Reinforcements — X-Wing (Sentinel) per 2 resources the CHOSEN opponent controls.
+$customDQHandlers["JTL_130#OPP"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0) return;
+    $n = intdiv(count(GetResources($opp)), 2);
+    SWUCreateUnitTokens(intval($player), 'JTL_T02', $n, false, 'JTL_130');
+};
+
+// SEC_126 Trade Route Taxation — if you control more units than the CHOSEN opponent, lock their events.
+$customDQHandlers["SEC_126#OPP"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0) return;
+    $mine = 0; foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed)) $mine++; }
+    $theirs = 0; foreach (GetUnitsInPlay($opp) as $u) { if (empty($u->removed)) $theirs++; }
+    if ($mine > $theirs) AddGlobalEffects($opp, 'SWU_EVENT_LOCK');
+};
+
+// JTL_155 They Hate That Ship — the CHOSEN opponent creates 2 readied TIEs, then the caster plays a Vehicle.
+$customDQHandlers["JTL_155#OPP"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0) return;
+    SWUCreateUnitTokens($opp, 'JTL_T01', 2, true);
+    _SWUJtl155PlayVehicle(intval($player));
+};
+
+// LAW_056 Cassian Andor (field passive) — deal 2 to the CHOSEN opponent's base (fired per Cassian).
+$customDQHandlers["LAW_056_BASE"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp > 0) SWUDealDamageToBase(2, $opp);
 };
 
 // TWI_211 Sly Moore — "When Played: Take control of an enemy token unit and ready it. At the start of the
@@ -8749,7 +8867,10 @@ $customDQHandlers["TWI_125#0"] = function($player, $parts, $lastDecision) {
     if ($x <= 0) return;
     if (!SWUExhaustResources(intval($player), $x)) return; // NUMBERCHOOSE was capped at ready
     SWUCreateUnitTokens(intval($player), 'TWI_T02', $x);                  // caster's Clone Troopers
-    SWUCreateUnitTokens(OtherPlayer(intval($player)), 'TWI_T01', $x);     // each opponent's Battle Droids
+    // Twin Suns (Phase 3): each opponent creates X Battle Droids (2-player: the one opponent).
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        SWUCreateUnitTokens($opp, 'TWI_T01', $x);
+    }
 };
 
 // SOR_215 — Snapshot Reflexes: "When Played: You may attack with the attached unit."
@@ -9075,7 +9196,7 @@ function _SWUForceThrowDiscard(int $discarder, int $caster, string $mz): void {
 $customDQHandlers["SOR_167#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $caster = intval($player);
-    $target = ($lastDecision === 'Opponent') ? OtherPlayer($caster) : $caster;
+    $target = SWUDecodePlayerPick($lastDecision, $caster); // "You"→caster, "Opponent"/"P{n}"→that player
     // Compact zones first: Force Throw itself is a just-played event still sitting as a removed entry
     // in the caster's hand, which would desync ZoneSearch (skips removed) from GetZoneObject (raw idx).
     DecisionQueueController::CleanupRemovedCards();
@@ -9188,10 +9309,15 @@ $customDQHandlers["SOR_187#1"] = function($player, $parts, $lastDecision) {
 // base, or that player discards a card from their hand." 2-player → one opponent; K-2SO's controller
 // ($player) chooses via OPTIONCHOOSE. (Iterate opponents for Twin Suns later.)
 $whenDefeatedAbilities["SOR_145:0"] = function($player, $mzID) {
-    $opp = OtherPlayer(intval($player));
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Base&Discard", 1,
-        tooltip:"Deal_3_to_their_base_or_make_them_discard?");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SOR_145#0|{$opp}", 1);
+    // Twin Suns: "for each opponent, choose one" — a sequential OPTIONCHOOSE per opponent (K-2SO's
+    // controller chooses each). 2-player → one opponent → one prompt, byte-identical.
+    $multi = SeatCountForGame() > 2;
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Base&Discard", 1,
+            tooltip: $multi ? "P{$opp}:_deal_3_to_their_base_or_make_them_discard?"
+                            : "Deal_3_to_their_base_or_make_them_discard?");
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SOR_145#0|{$opp}", 1);
+    }
 };
 $customDQHandlers["SOR_145#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
@@ -9199,7 +9325,7 @@ $customDQHandlers["SOR_145#0"] = function($player, $parts, $lastDecision) {
     $opp = intval($parts[0] ?? OtherPlayer($controller));
     $playerID = $controller;
     if ($lastDecision === "Discard") {
-        SWUDiscardCards($controller, 1);   // makes OtherPlayer($controller) = $opp discard 1
+        SWUDiscardCards($controller, 1, $opp);   // that specific opponent discards 1
     } else {
         SWUDealDamageToBase(3, $opp);
     }
@@ -9785,7 +9911,7 @@ $customDQHandlers["LAW_208#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
     if (strpos($lastDecision, 'Base') !== false) {
-        $tp = (strpos($lastDecision, 'their') !== false) ? OtherPlayer(intval($player)) : intval($player);
+        $tp = SWUMzOwner((string)$lastDecision, intval($player));   // Twin Suns: my/their/p{n} → owner seat
         SWUDealDamageToBase(2, $tp);
     } else {
         $u = GetZoneObject($lastDecision);
@@ -11933,12 +12059,12 @@ $whenDefeatedAbilities["ASH_097:0"] = function($player, $mzID) {
 // ASH_045 Reanimated Night Trooper — When Defeated: look at the top card of a deck. You may discard it.
 $whenDefeatedAbilities["ASH_045:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "You&Opponent", 1, tooltip: "Look_at_the_top_card_of_a_deck");
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", SWUPlayerPickerLabels(intval($player)), 1, tooltip: "Look_at_the_top_card_of_a_deck");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_045#0", 1);
 };
 $customDQHandlers["ASH_045#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    $target = ($lastDecision === 'Opponent') ? OtherPlayer(intval($player)) : intval($player);
+    $target = SWUDecodePlayerPick($lastDecision, intval($player)); // "You"→caster, "Opponent"/"P{n}"→that player
     $deck = GetDeck($target);
     if (empty($deck) || empty($deck[0]) || !empty($deck[0]->removed)) return;
     $topCid = $deck[0]->CardID ?? '';
@@ -14580,15 +14706,17 @@ $onAttackAbilities["LAW_125:0"] = function($player, $mzID) {
     $opp    = OtherPlayer(intval($player));
     $mine   = _SWUTopDeckFrontIdx(intval($player)) !== -1;
     $theirs = _SWUTopDeckFrontIdx($opp) !== -1;
-    if (!$mine && !$theirs) return;
-    if ($mine && !$theirs) { _SWULaw125Peek(intval($player), intval($player)); return; }
-    if ($theirs && !$mine) { _SWULaw125Peek(intval($player), $opp); return; }
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "@-&Your_deck&Opponent's_deck", 1, "Look_at_the_top_card_of_which_deck?");
+    if (SeatCountForGame() <= 2) {   // 2-player auto-resolve short-cuts (N-player always offers the picker)
+        if (!$mine && !$theirs) return;
+        if ($mine && !$theirs) { _SWULaw125Peek(intval($player), intval($player)); return; }
+        if ($theirs && !$mine) { _SWULaw125Peek(intval($player), $opp); return; }
+    }
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "@-&" . SWUDeckPickerLabels(intval($player)), 1, "Look_at_the_top_card_of_which_deck?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_125#0", 1);
 };
 $customDQHandlers["LAW_125#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    $owner = ($lastDecision === "Opponent's_deck") ? OtherPlayer(intval($player)) : intval($player);
+    $owner = SWUDecodeDeckPick($lastDecision, intval($player)); // Your_deck→self, Opponent's_deck/P{n}_deck→that player
     _SWULaw125Peek(intval($player), $owner);
 };
 // $parts[0] = the deck owner. On "Bottom", move that deck's top card to its bottom.
@@ -16083,30 +16211,31 @@ function _SWUVermillionReveal(int $V, int $D): void {
     if ($cardID === '') return;
     DoRevealCard($D, "myDeck-{$idx}");   // public reveal of the deck-top
     $playerID = $V;
-    DecisionQueueController::AddDecision($V, "OPTIONCHOOSE", "You&Opponent", 1,
+    DecisionQueueController::AddDecision($V, "OPTIONCHOOSE", SWUPlayerPickerLabels($V), 1,
         tooltip: "Choose_a_player_to_play_" . str_replace(' ', '_', CardTitle($cardID)) . "_for_free");
     DecisionQueueController::AddDecision($V, "CUSTOM", "LAW_215#1|{$V}|{$D}|{$cardID}", 1);
 }
 $onAttackEndAbilities["LAW_215:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $V = intval($player);
+    // "the top card of a deck" — own deck or ANY opponent's (Twin Suns; 2-player → self + the one opp).
     $decks = [];
     if (_SWUTopDeckFrontIdx($V) !== -1) $decks[] = $V;
-    if (_SWUTopDeckFrontIdx(OtherPlayer($V)) !== -1) $decks[] = OtherPlayer($V);
-    if (empty($decks)) return;                         // both decks empty → fizzle
+    foreach (OpponentsOf($V) as $o) { if (_SWUTopDeckFrontIdx($o) !== -1) $decks[] = $o; }
+    if (empty($decks)) return;                         // all decks empty → fizzle
     if (count($decks) === 1) { _SWUVermillionReveal($V, $decks[0]); return; }
-    DecisionQueueController::AddDecision($V, "OPTIONCHOOSE", "Yours&Theirs", 1,
+    DecisionQueueController::AddDecision($V, "OPTIONCHOOSE", SWUDeckPickerLabels($V, "Yours&Theirs"), 1,
         tooltip: "Reveal_the_top_card_of_which_deck?");
     DecisionQueueController::AddDecision($V, "CUSTOM", "LAW_215#0|{$V}", 1);
 };
 $customDQHandlers["LAW_215#0"] = function($player, $parts, $lastDecision) {
     $V = intval($parts[0] ?? $player);
-    $D = ($lastDecision === 'Theirs') ? OtherPlayer($V) : $V;
+    $D = SWUDecodeDeckPick($lastDecision, $V); // Yours/Your_deck→self, Theirs/Opponent's_deck/P{n}_deck→that player
     _SWUVermillionReveal($V, $D);
 };
 $customDQHandlers["LAW_215#1"] = function($player, $parts, $lastDecision) {
     $V = intval($parts[0] ?? $player); $D = intval($parts[1] ?? $player); $cardID = $parts[2] ?? '';
-    $P = ($lastDecision === 'Opponent') ? OtherPlayer($V) : $V;
+    $P = SWUDecodePlayerPick($lastDecision, $V); // "You"→Vermillion's controller, "Opponent"/"P{n}"→that player
     global $playerID; $playerID = $P;
     DecisionQueueController::AddDecision($P, "YESNO", "-", 1,
         tooltip: "Play_" . str_replace(' ', '_', CardTitle($cardID)) . "_for_free?");
@@ -16128,7 +16257,7 @@ $customDQHandlers["LAW_215#2"] = function($player, $parts, $lastDecision) {
         return;
     }
     if (_SWUPlayForeignResourceFree($P, $D, $deckMz, $cardID, $type)) {
-        SWUCreateCreditToken(OtherPlayer($P), intval(CardCost($cardID))); // "a different player" creates Credits = cost
+        SWUCreateCreditToken(SWUChooseOpponent($P), intval(CardCost($cardID))); // "a different player" creates Credits = cost (Twin Suns: a null-safe other seat)
     }
 };
 $customDQHandlers["LAW_215#3"] = function($player, $parts, $lastDecision) {
@@ -16138,7 +16267,7 @@ $customDQHandlers["LAW_215#3"] = function($player, $parts, $lastDecision) {
     AddGlobalEffects($P, 'SWU_CARDS_PLAYED');
     AddGameLogEntry('PLAY', 'P' . $P . ' played ' . GameLogCardRef($cardID) . ' for free');
     _SWUFinalizeUpgradeAttach($P, $cardID, $deckMz, $lastDecision, 0, true, false, true); // ignoreCost, suppress after-action
-    SWUCreateCreditToken(OtherPlayer($P), intval(CardCost($cardID)));
+    SWUCreateCreditToken(SWUChooseOpponent($P), intval(CardCost($cardID))); // "a different player" (null-safe)
 };
 
 // LAW_235 Lady Proxima — "Action [Exhaust]: Create a Credit token." Default 'exhaust' cost kind (the
@@ -17999,12 +18128,15 @@ $customDQHandlers["SEC_207#0"] = function($player, $parts, $lastDecision) {
 // SEC_215 Emissary's Sheathipede — When Defeated: each opponent may ready a resource.
 $whenDefeatedAbilities["SEC_215:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
-    $hasExh = false;
-    foreach (GetResources($opp) as $r) { if (empty($r->removed) && intval($r->Status ?? 0) === 0) { $hasExh = true; break; } }
-    if (!$hasExh) return;
-    DecisionQueueController::AddDecision($opp, "YESNO", "-", 1, tooltip: "Ready_a_resource?");
-    DecisionQueueController::AddDecision($opp, "CUSTOM", "SEC_215#0", 1);
+    // Twin Suns (Phase 3): EACH opponent may ready a resource (2-player: the one opponent). Each decides
+    // independently — `continue` (not `return`) so a skipped opponent doesn't cut off the rest.
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        $hasExh = false;
+        foreach (GetResources($opp) as $r) { if (empty($r->removed) && intval($r->Status ?? 0) === 0) { $hasExh = true; break; } }
+        if (!$hasExh) continue;
+        DecisionQueueController::AddDecision($opp, "YESNO", "-", 1, tooltip: "Ready_a_resource?");
+        DecisionQueueController::AddDecision($opp, "CUSTOM", "SEC_215#0", 1);
+    }
 };
 $customDQHandlers["SEC_215#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
@@ -19209,7 +19341,7 @@ $customDQHandlers["SEC_194#0"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $o = GetZoneObject($mzPlayed);
     if ($o === null || !empty($o->removed)) return;
-    $targets = SWUGetValidAmbushTargets(OtherPlayer(intval($player)), $o, $o->Location ?? 'GroundArena');
+    $targets = SWUGetAllValidAmbushTargets(intval($player), $o, $o->Location ?? 'GroundArena'); // union all opponents
     if (empty($targets)) return;                       // no legal Ambush target → unit just enters with Ambush
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Ambush_attack?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "SWUAmbushAnswer|{$mzPlayed}|" . implode('&', $targets), 1);
@@ -19220,14 +19352,14 @@ $customDQHandlers["SEC_194#0"] = function($player, $parts, $lastDecision) {
 // First decision (deck choice) is an OPTIONCHOOSE — safe in OnAttack (fixed labels, not mz-counted); the
 // reveal + trait-filtered MZMAYCHOOSE run in continuations (safe from the OnAttack $playerID-restore skip).
 $onAttackAbilities["SEC_220:0"] = function($player, $mzID) {
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "You&Opponent", 1,
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", SWUPlayerPickerLabels(intval($player)), 1,
         tooltip:"Reveal_the_top_2_cards_of_which_deck?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_220#0", 1);
 };
 // Deck chosen → reveal (remove) top 2, find trait-sharing units, offer the may-exhaust (else just bottom).
 $customDQHandlers["SEC_220#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    $deckPlayer = (($lastDecision ?? '') === 'Opponent') ? OtherPlayer(intval($player)) : intval($player);
+    $deckPlayer = SWUDecodePlayerPick($lastDecision, intval($player)); // "You"→caster, "Opponent"/"P{n}"→that player
     $deck = &GetDeck($deckPlayer);
     $revealed = [];
     for ($k = 0; $k < 2 && count($deck) > 0; $k++) {
@@ -20183,7 +20315,7 @@ $customDQHandlers["SEC_212#1"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["SEC_178#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $caster    = intval($parts[0] ?? $player);
-    $discarder = (strcasecmp((string)$lastDecision, 'You') === 0) ? $caster : OtherPlayer($caster);
+    $discarder = SWUDecodePlayerPick($lastDecision, $caster); // "You"→caster, "Opponent"/"P{n}"→that player
     $playerID  = $discarder;
     $hand = ZoneSearch("myHand");
     if (empty($hand)) return;
@@ -20625,7 +20757,7 @@ $whenDefeatedAbilities["SOR_163:0"] = function($player, $mzID) {
 $customDQHandlers["SOR_171#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
-    $target = ($lastDecision === 'Opponent') ? GetOpponent(intval($player)) : intval($player);
+    $target = SWUDecodePlayerPick($lastDecision, intval($player)); // "You"→caster, "Opponent"/"P{n}"→that player
     DoDrawCard($target, 2);
 };
 

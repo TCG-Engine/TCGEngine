@@ -4570,7 +4570,7 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
       //   - Zone selection: "myHand" or "BG1" (selects any card in the zone)
       //   - Specific card selection: "myHand-0" or "BG1-2" (selects a specific card by index)
       //   - Filters: "myHand:CardType=Spell" (zone with filter)
-      const parsedSpecs = (entry.Param || '').split('&').map(s => s.trim()).filter(Boolean).map(spec => {
+      let parsedSpecs = (entry.Param || '').split('&').map(s => s.trim()).filter(Boolean).map(spec => {
         const parts = spec.split(':');
         const rawZoneOrCard = parts[0].trim();
         const encodedParts = rawZoneOrCard.split('@');
@@ -4618,8 +4618,20 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
       });
 
       window.SelectionMode.allowedZones = parsedSpecs;
+      // Twin Suns: rewrite cross-view (p{n}) target specs to the current view's rendered frame so they
+      // glow + are selectable here; hold out off-view specs for the arrow badge. No-op in 2-player.
+      window.SelectionMode._twAllSpecs = parsedSpecs;
+      if (typeof window.swuTwNormalizeSelection === 'function') {
+        var _twn = window.swuTwNormalizeSelection(parsedSpecs);
+        parsedSpecs = _twn.inlineNormalized;
+        window.SelectionMode._twOffView = _twn.offViewSpecs;
+        window.SelectionMode.allowedZones = parsedSpecs;
+        if (typeof window.swuTwRenderTargetBadges === 'function') window.swuTwRenderTargetBadges();
+      }
       window.SelectionMode.decisionIndex = i;
       window.SelectionMode.callback = function(zoneName, cardId, decisionIndex) {
+        // Twin Suns: remap a rendered cross-view mzID back to its seat-tagged spec (no-op in 2-player).
+        if (typeof window.swuTwRemapCardId === 'function') cardId = window.swuTwRemapCardId(cardId);
         SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(cardId));
       };
       var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Select a card from an allowed zone.';
@@ -4693,6 +4705,16 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
       const parsed = ParseMZMultiChooseParam(entry.Param);
       if (!parsed || parsed.specs.length === 0) {
         break;
+      }
+      // Twin Suns: normalize cross-view (p{n}) specs to the current view BEFORE categorizing, so on-view
+      // targets glow inline and off-view ones badge the arrows. No-op in 2-player. (Same-view multi-pick
+      // is fully covered; picking two targets that live on two DIFFERENT views is a known limitation.)
+      window.SelectionMode._twAllSpecs = parsed.specs.slice();
+      if (typeof window.swuTwNormalizeSelection === 'function') {
+        var _twnM = window.swuTwNormalizeSelection(parsed.specs);
+        parsed.specs = _twnM.inlineNormalized;
+        window.SelectionMode._twOffView = _twnM.offViewSpecs;
+        if (typeof window.swuTwRenderTargetBadges === 'function') window.swuTwRenderTargetBadges();
       }
       const categorized = CategorizeMZChooseSpecs(parsed.specs);
       const hasPopupCards = categorized.popupCards.length > 0;
@@ -5452,7 +5474,16 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   confirmBtn.textContent = 'Confirm';
   StyleInlineMultiActionButton(confirmBtn, 'btn-primary');
   confirmBtn.onclick = function() {
-    const selected = (window.SelectionMode.multiSelected || []).slice();
+    let selected = (window.SelectionMode.multiSelected || []).slice();
+    // Twin Suns: submit each pick's original seat-tagged spec (p{n}…), not the rendered my/their id.
+    // In 2-player the spec's originalSpec equals the rendered id, so this is a no-op.
+    const specs = window.SelectionMode.allowedZones || [];
+    selected = selected.map(function (mzid) {
+      const m = /^(.+)-(\d+)$/.exec(mzid || '');
+      if (!m) return mzid;
+      const sp = specs.find(function (s) { return s && s.isSpecificCard && s.zone === m[1] && s.specificIndex === parseInt(m[2], 10); });
+      return (sp && sp.originalSpec) ? sp.originalSpec : mzid;
+    });
     const payload = selected.length > 0 ? selected.join('&') : '-';
     SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(payload));
     ClearSelectionMode();

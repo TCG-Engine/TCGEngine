@@ -92,4 +92,6 @@ echo json_encode([
     'gameName'  => $gameName,
     'whenSteps' => $parsed['main'],
     'stepCount' => count($parsed['main']),
+    'seatCount' => SeatCountForGame(),
+    'liveSeats' => GetLiveSeatsArray(),
 ]);

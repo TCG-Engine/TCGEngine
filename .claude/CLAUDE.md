@@ -7,6 +7,7 @@ general context
 ## Decklists
 To be used for deck validation flows and loading decks for games. strategy summary included after pipe symbol |
 ### SWUSim
+Premier (as of 2026-07-15):
 https://swudb.com/deck/eeFFtweXI|Midrange go wide
 https://swudb.com/deck/HeEAAQjVtrhee|Midrange go tall
 https://swudb.com/deck/prozLLKSsRS|Tempo control with damage
@@ -17,6 +18,12 @@ https://swudb.com/deck/PCQRTCWTgMLr|soft aggro with heavy draw and Aggressive Ne
 https://swudb.com/deck/ljPCdDElmsEF|space aggro with minimal ground support
 https://swudb.com/deck/rYBmXPaxDUaSY|pure space aggro with some tempo tools
 
+Twin Suns:
+https://swudb.com/deck/kWzBQPfCopFMV|combo control deck. relies on flipping Jabba first, then flipping Qi'ra to deal at least 4 damage to anything already softened
+https://swudb.com/deck/oNDdHLCHkyz|double arena aggro. Kylo on the ground. Vonreg in space.
+https://swudb.com/deck/UENBLWzTHT|two Cads. tempo aggro
+https://swudb.com/deck/jVTCfqAe|tribal Mandalorian deck
+
 ## GrandArchiveSim
 https://sleeved.gg/grand-archive/decks/4f04a8b3-4ea0-42dd-9872-f00dff259d87|
 
@@ -25,6 +32,8 @@ for Playwright harness checks and running through real games
 ### SWUSim
 claudebot1:pass
 claudebot2:pass
+claudebot3:pass
+claudebot4:pass
 
 ## SWUDeck
 Drixx:pass

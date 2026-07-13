@@ -144,22 +144,29 @@ class SchemaTestRunner {
     private static function _parseGiven(array $lines): array {
         // These keys can appear more than once; their values accumulate as arrays.
         static $multiKeys = ['WithP1GroundArena',        'WithP2GroundArena',
+                             'WithP3GroundArena',         'WithP4GroundArena',
                              'WithP1SpaceArena',          'WithP2SpaceArena',
+                             'WithP3SpaceArena',          'WithP4SpaceArena',
                              'WithP1Hand',                'WithP2Hand',
+                             'WithP3Hand',                'WithP4Hand',
                              'WithP1Discard',             'WithP2Discard',
+                             'WithP3Discard',             'WithP4Discard',
                              'WithP1GroundArenaUpgrade',  'WithP2GroundArenaUpgrade',
                              'WithP1SpaceArenaUpgrade',   'WithP2SpaceArenaUpgrade',
                              'WithP1GroundArenaPilot',    'WithP2GroundArenaPilot',
                              'WithP1SpaceArenaPilot',     'WithP2SpaceArenaPilot',
-                             'WithP1Deck',                'WithP2Deck'];
+                             'WithP1Deck',                'WithP2Deck',
+                             'WithP3Deck',                'WithP4Deck'];
         // List-valued keys accept either one spec per line OR a bracketed, whitespace-separated
         // array on a single line — e.g. "WithP2Deck: [SOR_225 SEC_080 SOR_128]" or
         // "WithP1GroundArena: [ASH_048:1:0 SEC_098:0:3]". Each token becomes its own accumulated
         // entry, so both forms (and a mix) interoperate. Arena/upgrade specs never contain spaces,
         // so whitespace-splitting is safe for them too (a bare single spec splits to one token).
-        static $listKeys = ['WithP1Hand', 'WithP2Hand', 'WithP1Discard', 'WithP2Discard',
-                            'WithP1Deck', 'WithP2Deck',
+        static $listKeys = ['WithP1Hand', 'WithP2Hand', 'WithP3Hand', 'WithP4Hand',
+                            'WithP1Discard', 'WithP2Discard', 'WithP3Discard', 'WithP4Discard',
+                            'WithP1Deck', 'WithP2Deck', 'WithP3Deck', 'WithP4Deck',
                             'WithP1GroundArena', 'WithP2GroundArena', 'WithP1SpaceArena', 'WithP2SpaceArena',
+                            'WithP3GroundArena', 'WithP4GroundArena', 'WithP3SpaceArena', 'WithP4SpaceArena',
                             'WithP1GroundArenaUpgrade', 'WithP2GroundArenaUpgrade',
                             'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade',
                             'WithP1GroundArenaPilot', 'WithP2GroundArenaPilot',
@@ -318,18 +325,47 @@ class SchemaTestRunner {
             [$cid, $ready, $dmg, $te] = self::_parseUnitSpec($spec);
             $b->WithSpaceUnitForPlayer(2, $cid, $ready, $dmg, 0, $te);
         }
+        // Twin Suns seats 3/4 — plain arena units for storage-layer tests.
+        foreach ([3, 4] as $seat) {
+            foreach ($given["WithP{$seat}GroundArena"] ?? [] as $spec) {
+                [$cid, $ready, $dmg, $te] = self::_parseUnitSpec($spec);
+                $b->WithGroundUnitForPlayer($seat, $cid, $ready, $dmg, 0, $te);
+            }
+            foreach ($given["WithP{$seat}SpaceArena"] ?? [] as $spec) {
+                [$cid, $ready, $dmg, $te] = self::_parseUnitSpec($spec);
+                $b->WithSpaceUnitForPlayer($seat, $cid, $ready, $dmg, 0, $te);
+            }
+        }
+        // Twin Suns seats 3/4 bases (WithP{n}Base: CARDID[:damage]) — seats 1/2 come from CommonSetup.
+        foreach ([3, 4] as $seat) {
+            if (!isset($given["WithP{$seat}Base"])) continue;
+            [$bcid, $bdmg] = array_pad(explode(':', trim($given["WithP{$seat}Base"]), 2), 2, '0');
+            $b->WithBaseForPlayer($seat, trim($bcid), intval($bdmg));
+        }
+        // Twin Suns Phase 5: a ground unit a seat CONTROLS but does not OWN (mind-control), so
+        // elimination-cleanup can be tested. WithP{n}ControlledUnit: CARDID:owner
+        foreach ([1, 2, 3, 4] as $seat) {
+            if (!isset($given["WithP{$seat}ControlledUnit"])) continue;
+            [$ccid, $cown] = array_pad(explode(':', trim($given["WithP{$seat}ControlledUnit"]), 2), 2, '');
+            $b->WithControlledGroundUnitForPlayer($seat, trim($ccid), intval($cown));
+        }
+        // Twin Suns Phase 5: seed a GlobalEffects flag on a seat. WithP{n}GlobalEffect: CARDID
+        foreach ([1, 2, 3, 4] as $seat) {
+            if (!isset($given["WithP{$seat}GlobalEffect"])) continue;
+            $b->WithGlobalEffectForPlayer($seat, trim($given["WithP{$seat}GlobalEffect"]));
+        }
+        // Twin Suns seat lists (single-digit concatenations, e.g. "123"). SeatOrder = clockwise turn
+        // order; LiveSeats = non-eliminated subset (defaults to SeatOrder).
+        if (isset($given['WithSeatOrder'])) $b->WithSeatOrder(trim($given['WithSeatOrder']));
+        if (isset($given['WithLiveSeats'])) $b->WithLiveSeats(trim($given['WithLiveSeats']));
 
         // Explicit hand cards (multi-value: WithP1Hand / WithP2Hand).
-        foreach ($given['WithP1Hand'] ?? [] as $cid) $b->WithCardInHandForPlayer(1, trim($cid));
-        foreach ($given['WithP2Hand'] ?? [] as $cid) $b->WithCardInHandForPlayer(2, trim($cid));
-
-        // Explicit discard cards (multi-value: WithP1Discard / WithP2Discard).
-        foreach ($given['WithP1Discard'] ?? [] as $cid) $b->WithCardInDiscardForPlayer(1, trim($cid));
-        foreach ($given['WithP2Discard'] ?? [] as $cid) $b->WithCardInDiscardForPlayer(2, trim($cid));
-
-        // Individual deck cards (multi-value: WithP1Deck / WithP2Deck).
-        foreach ($given['WithP1Deck'] ?? [] as $cid) $b->WithCardInDeckForPlayer(1, trim($cid));
-        foreach ($given['WithP2Deck'] ?? [] as $cid) $b->WithCardInDeckForPlayer(2, trim($cid));
+        // Explicit hand / discard / deck cards (multi-value). Seats 3/4 (Twin Suns) supported.
+        foreach ([1, 2, 3, 4] as $pn) {
+            foreach ($given["WithP{$pn}Hand"] ?? [] as $cid) $b->WithCardInHandForPlayer($pn, trim($cid));
+            foreach ($given["WithP{$pn}Discard"] ?? [] as $cid) $b->WithCardInDiscardForPlayer($pn, trim($cid));
+            foreach ($given["WithP{$pn}Deck"] ?? [] as $cid) $b->WithCardInDeckForPlayer($pn, trim($cid));
+        }
 
         // Initial upgrades on arena units (multi-value: WithP{n}{Ground|Space}ArenaUpgrade: idx:CARD_ID).
         foreach ([1, 2] as $pn) {
@@ -385,7 +421,8 @@ class SchemaTestRunner {
         // Explicit resource fill.
         // Single group:  "WithP1Resources: N:cardID"
         // Multi-group:   "WithP1Resources: 1:SHD_089:0,7:SOR_095"  (count:cardID[:status], status 0=exhausted 1=ready)
-        foreach ([1, 2] as $pn) {
+        // Seats 3/4 (Twin Suns) are supported for N-player tests.
+        foreach ([1, 2, 3, 4] as $pn) {
             $key = "WithP{$pn}Resources";
             if (isset($given[$key])) {
                 $groups = explode(',', trim($given[$key]));
@@ -412,6 +449,17 @@ class SchemaTestRunner {
         }
 
         return $b;
+    }
+
+    // Twin Suns: parse a second-leader spec "CARDID[:ready[:deployed[:epicUsed]]]".
+    private static function _parseSecondLeader(string $val): array {
+        $p = array_map('trim', explode(':', $val));
+        return [
+            'cardID'   => $p[0] ?? '',
+            'ready'    => !isset($p[1]) || $p[1] === '1' || $p[1] === 'true',
+            'deployed' => isset($p[2]) && ($p[2] === '1' || $p[2] === 'true'),
+            'epicUsed' => isset($p[3]) && ($p[3] === '1' || $p[3] === 'true'),
+        ];
     }
 
     // Parse "{key:val;key:val}" opts block from CommonSetup directive.
@@ -451,6 +499,14 @@ class SchemaTestRunner {
                     break;
                 case 'theirLeader':
                     self::_applyLeaderParams($theirOpts, $val);
+                    break;
+                // Twin Suns second leader:  myLeader2: CARDID[:ready[:deployed[:epicUsed]]]
+                // (undeployed by default; tests usually deploy it live in WHEN). Stored for CommonSetup.
+                case 'myLeader2':
+                    $myOpts['leader2'] = self::_parseSecondLeader($val);
+                    break;
+                case 'theirLeader2':
+                    $theirOpts['leader2'] = self::_parseSecondLeader($val);
                     break;
                 case 'myBase':         // override the code-derived base with an explicit cardID
                     $myOpts['baseCardID'] = trim($val);
@@ -583,8 +639,11 @@ class SchemaTestRunner {
             case 'AttackGroundArena': {
                 [$unitIdx, $target] = array_pad(explode(':', $args, 2), 2, '');
                 $atk = "myGroundArena-" . intval($unitIdx);
-                // 'BASE' → enemy base; 'S<idx>' → cross-arena space target (JTL_259 Airspeeder); else ground.
-                if ($target === 'BASE')                  $def = 'theirBase-0';
+                // Twin Suns: 'P<seat>G<idx>' / 'P<seat>S<idx>' / 'P<seat>B' names a SPECIFIC opponent's
+                // unit/base in an N-player game (union targets).
+                // Else 'BASE' → the one opponent's base; 'S<idx>' → cross-arena space (JTL_259); else ground.
+                if (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
+                elseif ($target === 'BASE')              $def = 'theirBase-0';
                 elseif (str_starts_with($target, 'S'))   $def = 'theirSpaceArena-' . intval(substr($target, 1));
                 else                                     $def = 'theirGroundArena-' . intval($target);
                 $g->declareAttack($player, $atk, $def);
@@ -594,8 +653,10 @@ class SchemaTestRunner {
             case 'AttackSpaceArena': {
                 [$unitIdx, $target] = array_pad(explode(':', $args, 2), 2, '');
                 $atk = "mySpaceArena-" . intval($unitIdx);
-                // 'BASE' → enemy base; 'G<idx>' → cross-arena ground target (Strafing Gunship); else space.
-                if ($target === 'BASE')                 $def = 'theirBase-0';
+                // Twin Suns 'P<seat>...' seat-specific target (see AttackGroundArena).
+                // Else 'BASE' → the one opponent's base; 'G<idx>' → cross-arena ground (Strafing Gunship); else space.
+                if (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
+                elseif ($target === 'BASE')             $def = 'theirBase-0';
                 elseif (str_starts_with($target, 'G'))   $def = 'theirGroundArena-' . intval(substr($target, 1));
                 else                                     $def = 'theirSpaceArena-' . intval($target);
                 $g->declareAttack($player, $atk, $def);
@@ -614,6 +675,33 @@ class SchemaTestRunner {
 
             case 'Claim':
                 $g->takeInitiative($player);
+                break;
+
+            case 'TakeCounter':   // Twin Suns: PN>TakeCounter:blast | PN>TakeCounter:plan
+                $g->takeCounter($player, trim((string)$args));
+                break;
+
+            case 'EliminateSeat': {
+                // Twin Suns Phase 5 (test-only): eliminate a seat directly.
+                //   - P{n}>EliminateSeat:S        (killer = null → no heal)
+                //   - P{n}>EliminateSeat:S:K      (K = eliminating seat → heals 5)
+                $ea     = explode(':', trim((string)$args));
+                $seat   = intval($ea[0]);
+                $killer = (isset($ea[1]) && $ea[1] !== '') ? intval($ea[1]) : null;
+                $g->eliminateSeat($seat, $killer);
+                break;
+            }
+
+            case 'DeclareWinners':   // Twin Suns Phase 5 (test-only): PN>DeclareWinners:2,4
+                $g->declareWinners(array_map('intval', explode(',', trim((string)$args))));
+                break;
+
+            case 'ScorePhaseEnd':    // Twin Suns Phase 5 (test-only): run deferred end-of-phase scoring
+                $g->scorePhaseEnd();
+                break;
+
+            case 'RunRegroupStart':  // Twin Suns Phase 5 (test-only): run RegroupPhaseStart directly
+                $g->runRegroupStart();
                 break;
 
             case 'ResourceHand':
@@ -792,12 +880,100 @@ class SchemaTestRunner {
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected turn player {$expected}, got {$actual}";
 
+            } elseif (preg_match('/^SEATCOUNT:(\d+)$/', $line, $m)) {
+                // Twin Suns: number of seats in SeatOrder (the game's player count, 2..4).
+                $expected = intval($m[1]);
+                $actual   = SeatCountForGame();
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected seat count {$expected}, got {$actual}";
+
+            } elseif (preg_match('/^SEATLIVE:(\d+):(true|false)$/', $line, $m)) {
+                // Twin Suns: whether a seat is in LiveSeats (non-eliminated).
+                $seat     = intval($m[1]);
+                $expected = ($m[2] === 'true');
+                $actual   = IsSeatLive($seat);
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected seat {$seat} live=" . var_export($expected, true)
+                                . ", got " . var_export($actual, true);
+
+            } elseif (preg_match('/^GAMEWINNERS:([0-9,]+)$/', $line, $m)) {
+                // Twin Suns Phase 5: the end-game winner set (sorted seats; ties share).
+                $expected = array_map('intval', explode(',', $m[1]));
+                sort($expected);
+                $actual = SWUGetGameWinners();
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected winners [" . implode(',', $expected)
+                                . "], got [" . implode(',', $actual) . "]";
+
+            } elseif (preg_match('/^OPPONENTSOF:(\d+):(.*)$/', $line, $m)) {
+                // Twin Suns (Phase 3): the live opponents of a seat, as a comma-joined list.
+                $p = intval($m[1]); $expected = trim($m[2]);
+                $actual = implode(',', OpponentsOf($p));
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected opponents [{$expected}], got [{$actual}]";
+
+            } elseif (preg_match('/^ZONESEARCH:(\d+):(\w+):(\d+)$/', $line, $m)) {
+                // Twin Suns (Phase 3): number of results ZoneSearch($zone) returns from a seat's view —
+                // for "their<Zone>" in an N-player game this unions all opponents' zones.
+                global $playerID; $savedPID = $playerID; $playerID = intval($m[1]);
+                $actual = count(ZoneSearch($m[2]));
+                $playerID = $savedPID;
+                if ($actual !== intval($m[3]))
+                    $failures[] = "{$line}: expected {$m[3]} results, got {$actual}";
+
+            } elseif (preg_match('/^ATTACKTARGETS:(\d+):([GS]):(\d+):(\d+)$/', $line, $m)) {
+                // Twin Suns (Phase 3): the number of valid attack targets for seat $1's unit at index $3 in
+                // its Ground/Space arena — UNIONED across all live opponents (per-opponent Sentinel/base).
+                global $playerID; $savedPID = $playerID; $playerID = intval($m[1]);
+                $arena  = $m[2] === 'G' ? 'GroundArena' : 'SpaceArena';
+                $atkObj = GetZoneObject("p{$m[1]}{$arena}-{$m[3]}");
+                $actual = $atkObj === null ? -1
+                        : count(SWUGetAllValidAttackTargets(intval($m[1]), $atkObj, $arena));
+                $playerID = $savedPID;
+                if ($actual !== intval($m[4]))
+                    $failures[] = "{$line}: expected {$m[4]} attack targets, got {$actual}";
+
+            } elseif (preg_match('/^(BLAST|PLAN)COUNTER:(.+)$/', $line, $m)) {
+                // Twin Suns (Phase 4): the blast/plan counter's state ("AVAILABLE" or "P{n}").
+                $actual = ($m[1] === 'BLAST') ? GetBlastCounter() : GetPlanCounter();
+                if ($actual !== $m[2])
+                    $failures[] = "{$line}: expected {$m[2]}, got {$actual}";
+
+            } elseif (preg_match('/^P(\d+)(BLAST|PLAN)AVAIL:(0|1)$/', $line, $m)) {
+                // Twin Suns UI: does seat N's actions data report the counter as available to take?
+                // Mirror SWUComputeActionsData: available iff the seat hasn't taken a counter this round
+                // AND the counter is still AVAILABLE globally.
+                $seat = intval($m[1]);
+                $counter = ($m[2] === 'BLAST') ? GetBlastCounter() : GetPlanCounter();
+                $avail = (!_SWUSeatTookCounterThisRound($seat) && $counter === 'AVAILABLE') ? '1' : '0';
+                if ($avail !== $m[3])
+                    $failures[] = "{$line}: expected {$m[3]}, got {$avail}";
+
             } elseif (preg_match('/^P(\d+)BASEDMG:(\d+)$/', $line, $m)) {
                 $p        = intval($m[1]);
                 $expected = intval($m[2]);
                 $actual   = $g->state->player($p)->base->damage;
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected base damage {$expected}, got {$actual}";
+
+            } elseif (preg_match('/^P(\d+)GROUNDCOUNT:(\d+)$/', $line, $m)) {
+                // Twin Suns Phase 5: non-removed unit count in seat N's ground arena.
+                $p = intval($m[1]); $expected = intval($m[2]);
+                $actual = count(array_filter(GetGroundArena($p), fn($o) => empty($o->removed)));
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected {$expected} ground units, got {$actual}";
+
+            } elseif (preg_match('/^P(\d+)SPACECOUNT:(\d+)$/', $line, $m)) {
+                $p = intval($m[1]); $expected = intval($m[2]);
+                $actual = count(array_filter(GetSpaceArena($p), fn($o) => empty($o->removed)));
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected {$expected} space units, got {$actual}";
+
+            } elseif (preg_match('/^P(\d+)DISCARDCOUNT:(\d+)$/', $line, $m)) {
+                $p = intval($m[1]); $expected = intval($m[2]);
+                $actual = count(array_filter(GetDiscard($p), fn($o) => empty($o->removed)));
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected {$expected} discard cards, got {$actual}";
 
             } elseif (preg_match('/^P(\d+)RESCOUNT:(\d+)$/', $line, $m)) {
                 $p        = intval($m[1]);
@@ -1113,6 +1289,35 @@ class SchemaTestRunner {
                     $failures[] = "Unknown unit assertion in: {$line}";
                 }
 
+            } elseif (preg_match('/^P(\d+)LEADERCOUNT:(\d+)$/', $line, $m)) {
+                // Twin Suns: number of live leaders for a seat.
+                $p = intval($m[1]); $expected = intval($m[2]);
+                $arr = &GetLeader($p);
+                $live = 0;
+                for ($i = 0; $i < count($arr); $i++) {
+                    if (!isset($arr[$i]->removed) || !$arr[$i]->removed) $live++;
+                }
+                if ($live !== $expected)
+                    $failures[] = "{$line}: expected {$expected} live leaders, got {$live}";
+
+            } elseif (preg_match('/^P(\d+)LEADER(\d+)DEPLOYED:(true|false)$/', $line, $m)) {
+                // Twin Suns: deployed state of the $idx-th live leader (per-instance).
+                $p = intval($m[1]); $idx = intval($m[2]); $expected = ($m[3] === 'true');
+                $L = SWUGetLeaderByIndex($p, $idx);
+                if ($L === null) $failures[] = "{$line}: no live leader at index {$idx}";
+                elseif ((bool)($L->Deployed ?? false) !== $expected)
+                    $failures[] = "{$line}: leader {$idx} deployed=" . var_export((bool)($L->Deployed ?? false), true)
+                                . ", expected " . var_export($expected, true);
+
+            } elseif (preg_match('/^P(\d+)LEADER(\d+):(READY|EXHAUSTED)$/', $line, $m)) {
+                // Twin Suns: ready/exhausted state of the $idx-th live leader (per-instance).
+                $p = intval($m[1]); $idx = intval($m[2]); $wantReady = ($m[3] === 'READY');
+                $L = SWUGetLeaderByIndex($p, $idx);
+                if ($L === null) $failures[] = "{$line}: no live leader at index {$idx}";
+                elseif ((bool)($L->Ready ?? false) !== $wantReady)
+                    $failures[] = "{$line}: leader {$idx} " . ((bool)($L->Ready ?? false) ? 'ready' : 'exhausted')
+                                . ", expected " . ($wantReady ? 'ready' : 'exhausted');
+
             } elseif (preg_match('/^P(\d+)LEADER:(.+)$/', $line, $m)) {
                 $p      = intval($m[1]);
                 $assert = $m[2];
@@ -1229,4 +1434,16 @@ class SchemaTestRunner {
         }
         return $failures;
     }
+}
+
+// Twin Suns (Phase 3): decode a WHEN attack target that names a SPECIFIC opponent seat, for N-player
+// combat tests. 'P<seat>G<idx>' → "p{seat}GroundArena-{idx}", 'P<seat>S<idx>' → "p{seat}SpaceArena-{idx}",
+// 'P<seat>B' → "p{seat}Base-0". Returns null for any other form (the 2-player 'BASE'/'S<n>'/'G<n>'/index
+// syntaxes are handled by the caller and stay byte-identical).
+function _twSchemaSeatTarget(string $target): ?string {
+    if (!preg_match('/^P(\d+)([GSB])(\d*)$/', $target, $m)) return null;
+    $seat = intval($m[1]);
+    $idx  = $m[3] === '' ? 0 : intval($m[3]);
+    if ($m[2] === 'B') return "p{$seat}Base-0";
+    return $m[2] === 'G' ? "p{$seat}GroundArena-{$idx}" : "p{$seat}SpaceArena-{$idx}";
 }

@@ -488,11 +488,27 @@
             </div>
             <button id="swuPassBtn" class="swu-init-pass-btn" title="Pass"><span>Pass</span></button>
             <div class="swu-init-pass-hint"><kbd>Space</kbd></div>
+            <!-- Twin Suns (Phase 4) counters — updateInitiative() shows these only when available (2P: hidden). -->
+            <button id="swuBlastBtn" class="swu-init-pass-btn swu-take-counter" title="Take the Blast counter (1 damage to each enemy base)" hidden
+                    onclick="event.stopPropagation(); window.swuTakeBlastCounter();"><span>Blast</span></button>
+            <button id="swuPlanBtn" class="swu-init-pass-btn swu-take-counter" title="Take the Plan counter (draw 1, bottom 1)" hidden
+                    onclick="event.stopPropagation(); window.swuTakePlanCounter();"><span>Plan</span></button>
         </div>
     </div>
     </div><!-- /swu-m-footer-stack -->
 
     <!-- ════════ Overlays / engine-managed zones ════════ -->
+    <!-- Twin Suns order strip (hidden in 2-player; populated by swuRenderOrderStrip) -->
+    <div id="swuOrderStrip" class="swu-order-strip" style="display:none;"></div>
+    <!-- Twin Suns pair-switcher — carousel side arrows (hidden ≤2 seats) -->
+    <div id="swuPairNav" class="swu-pair-nav" style="display:none;">
+        <button id="swuPairPrev" class="swu-pair-arrow" title="Previous view (back)">◀</button>
+        <button id="swuPairNext" class="swu-pair-arrow" title="Next view">▶</button>
+    </div>
+    <!-- Twin Suns 3-player home view — two opponent status strips (populated by swuRenderHomeStrips) -->
+    <div id="swuHomeStrips" class="swu-home-strips" style="display:none;"></div>
+    <!-- Twin Suns read-only badge (viewing a board that isn't yours) -->
+    <div id="swuSpectateBadge" class="swu-spectate-badge">👁 Read-only — not your board</div>
     <div id="myResourcesSlot" class="swu-resource-panel"></div>
     <div id="theirResourcesSlot"
          style="width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; position:fixed; top:0; left:0;"></div>

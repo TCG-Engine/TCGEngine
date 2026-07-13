@@ -40,6 +40,24 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         SaveUndoVersion($playerID);
         SWUTakeInitiative(intval($playerID));
         break;
+      case "BlastCounter":
+      case "PlanCounter":
+        // Twin Suns (Phase 4): take the blast/plan counter (CR §12.5). Same active-player + empty-queue
+        // guards as initiative. SWUTakeCounter enforces one-counter-per-round + AVAILABLE + "taking = pass".
+        if (SeatCountForGame() <= 2) break;   // premier: no counters
+        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+            SetFlashMessage("Only the active player can take a counter.");
+            break;
+        }
+        $dqController = new DecisionQueueController();
+        if (!$dqController->AllQueuesEmpty()) {
+            SetFlashMessage("Cannot take a counter while decisions are pending.");
+            break;
+        }
+        if (GetCurrentPhase() !== "MAIN") break;
+        SaveUndoVersion($playerID);
+        SWUTakeCounter(intval($playerID), $zone === "BlastCounter" ? 'blast' : 'plan');
+        break;
       case "myField":
       case "myIntent":
         if (intval(GetTurnPlayer()) !== intval($playerID)) {
@@ -133,14 +151,9 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
         }
         if (GetCurrentPhase() !== "MAIN") break;
 
-        $leaderArr = &GetLeader(intval($playerID));
-        $leaderObj = null;
-        for ($li = 0; $li < count($leaderArr); $li++) {
-            if (!isset($leaderArr[$li]->removed) || !$leaderArr[$li]->removed) {
-                $leaderObj = &$leaderArr[$li];
-                break;
-            }
-        }
+        // Twin Suns: the myLeader-{N} action string carries the clicked leader's index (0 or 1).
+        $leaderIndex = isset($cardArr[1]) ? intval($cardArr[1]) : 0;
+        $leaderObj   = SWUGetLeaderByIndex(intval($playerID), $leaderIndex);
         if ($leaderObj === null) break;
 
         $actionMain = $action;
@@ -153,10 +166,10 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
 
         if ($actionMain === 'LeaderAbility') {
             SaveUndoVersion($playerID);
-            SWULeaderAction(intval($playerID), $leaderObj->CardID);
+            SWULeaderAction(intval($playerID), $leaderObj->CardID, $leaderIndex);
         } elseif ($actionMain === 'DeployLeader') {
             SaveUndoVersion($playerID);
-            SWUDeployLeader(intval($playerID), $deployMode);
+            SWUDeployLeader(intval($playerID), $deployMode, '', $leaderIndex);
         }
         break;
       case "myBase":

@@ -1166,7 +1166,7 @@ function SWUExpireTurnEffects(string $scope): void {
         return false;                                                 // perm never drops
     };
     $keep = fn($e) => !$shouldDrop($e);
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $g = &GetGroundArena($p);
         for ($i = 0; $i < count($g); $i++) {
             if (!empty($g[$i]->removed)) continue;
@@ -1548,7 +1548,7 @@ function _SWUShd145Offer(int $player): void {
             $u = $arr[$i];
             if ($u === null || !empty($u->removed) || intval($u->Status) !== 1) continue;   // ready (a unit attacks once)
             if (in_array(strval(intval($u->UniqueID ?? 0)), $excl, true)) continue;
-            if (empty(SWUGetValidAttackTargets(OtherPlayer($player), $u, $u->Location ?? '', true))) continue; // noBases: needs a unit target
+            if (empty(SWUGetAllValidAttackTargets($player, $u, $u->Location ?? '', true))) continue; // noBases: needs a unit target (union all opponents)
             $units[] = "{$zone}-{$i}";
         }
     }
@@ -2157,13 +2157,17 @@ $playCostModifiers["TWI_254"] = function($player, $subjectObj) {
 };
 
 // TWI_098 Republic Defense Carrier: "costs 1 less for each unit controlled by the opponent who controls
-// the most units." (2-player: the single opponent.) Sentinel is a keyword.
+// the most units." Twin Suns: take the MAX unit count over all opponents (2-player → the single opponent).
 $playCostModifiers["TWI_098"] = function($player, $subjectObj) {
-    $n = 0;
-    foreach (GetUnitsInPlay(OtherPlayer(intval($player))) as $u) {
-        if (empty($u->removed)) $n++;
+    $max = 0;
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        $n = 0;
+        foreach (GetUnitsInPlay($opp) as $u) {
+            if (empty($u->removed)) $n++;
+        }
+        if ($n > $max) $max = $n;
     }
-    return -$n;
+    return -$max;
 };
 
 // TS26_014 Yoda: "If you control 7 or more resources, this unit costs 2 resources less to play."
@@ -3042,8 +3046,10 @@ function SWUReturnResourceToHand(int $player, string $resourceMzID): bool {
     return true;
 }
 
-function SWUDiscardCards(int $player, int $numCards): void {
-    $opponent  = OtherPlayer($player);
+function SWUDiscardCards(int $player, int $numCards, ?int $target = null): void {
+    // Twin Suns (Phase 3): $target lets a caller aim a specific opponent (for "each opponent discards"
+    // loops); default = the single opponent, so all existing 2-player callers are unchanged.
+    $opponent  = $target ?? OtherPlayer($player);
     $hand      = GetHand($opponent);
     $handCount = 0;
     foreach ($hand as $card) {
@@ -3251,23 +3257,27 @@ function SWUCardPlayBlocked(int $player, string $cardID): bool {
     $titleEnc = str_replace(' ', '_', (string)(CardTitle($cardID) ?? ''));
     if ($titleEnc === '') return false;
     // LAW_243 Transmission Jamming — "Cards with that name can't be played this phase." Phase-duration
-    // name-block, set by EITHER player (applies to both); cleared at RegroupPhaseStart.
-    foreach ([$player, OtherPlayer($player)] as $pp) {
+    // name-block, set by ANY player (applies to all); cleared at RegroupPhaseStart. Twin Suns: check the
+    // player plus every opponent (2-player → [self, the one opponent], byte-identical).
+    foreach (array_merge([$player], OpponentsOf($player)) as $pp) {
         if (GlobalEffectCount($pp, "SWU_NAMEBLOCK_PHASE|{$titleEnc}") > 0) return true;
     }
-    $opp = OtherPlayer($player);                 // 2-player: the one opponent (Twin Suns: all opponents)
-    $ge  = &GetGlobalEffects($opp);
+    // A unit-sourced name-block (SWU_NAMEBLOCK|uid|titleEnc) set by ANY opponent blocks the card.
     $prefix  = 'SWU_NAMEBLOCK|';
     $blocked = false;
-    for ($i = count($ge) - 1; $i >= 0; $i--) {
-        $flag = (string)($ge[$i]->CardID ?? '');
-        if (!str_starts_with($flag, $prefix)) continue;
-        $parts = explode('|', $flag);            // [SWU_NAMEBLOCK, uid, titleEnc]
-        if (!_SWUUnitInPlayWithUID($opp, intval($parts[1] ?? 0))) {
-            array_splice($ge, $i, 1);            // naming unit left play → stale flag, drop it
-            continue;
+    foreach (OpponentsOf($player) as $opp) {     // 2-player: the one opponent
+        $ge = &GetGlobalEffects($opp);
+        for ($i = count($ge) - 1; $i >= 0; $i--) {
+            $flag = (string)($ge[$i]->CardID ?? '');
+            if (!str_starts_with($flag, $prefix)) continue;
+            $parts = explode('|', $flag);        // [SWU_NAMEBLOCK, uid, titleEnc]
+            if (!_SWUUnitInPlayWithUID($opp, intval($parts[1] ?? 0))) {
+                array_splice($ge, $i, 1);        // naming unit left play → stale flag, drop it
+                continue;
+            }
+            if (($parts[2] ?? '') === $titleEnc) $blocked = true;
         }
-        if (($parts[2] ?? '') === $titleEnc) $blocked = true;
+        unset($ge);
     }
     return $blocked;
 }
@@ -3619,7 +3629,7 @@ function _SWUBaseCaptureUnit(int $player, string $capturedMZ): bool {
 
 // Rescue every base captive (SEC_195) to its owner's control, exhausted. Called at RegroupPhaseStart.
 function _SWURescueBaseCaptives(): void {
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $ge = &GetGlobalEffects($p);
         for ($i = count($ge) - 1; $i >= 0; $i--) {
             $flag = (string)($ge[$i]->CardID ?? '');
@@ -3637,7 +3647,7 @@ function _SWURescueBaseCaptives(): void {
 // one-shot (the flag is consumed here).
 function _SWUCheckConfidenceWin(): void {
     global $gWinner;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $ge = &GetGlobalEffects($p);
         for ($i = count($ge) - 1; $i >= 0; $i--) {
             $flag = (string)($ge[$i]->CardID ?? '');
@@ -3665,14 +3675,21 @@ function _SWUCheckConfidenceWin(): void {
 // the draw step, so the caster loses (and the other player wins) before anyone draws — a deck-out at
 // the ensuing draw can't change the result. One-shot: the flag is spliced out regardless.
 function _SWUCheckFinalShowdownLose(): void {
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $ge = &GetGlobalEffects($p);
         for ($i = count($ge) - 1; $i >= 0; $i--) {
             if ((string)($ge[$i]->CardID ?? '') !== 'SWU_SHD208_LOSE') continue;
             array_splice($ge, $i, 1);                 // one-shot
-            $winner = OtherPlayer($p);
-            SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p} loses the game (Final Showdown)! Player {$winner} wins!");
-            AddGameLogEntry('WIN', 'P' . $winner . ' wins the game (P' . $p . ' — Final Showdown).', 'ALL');
+            if (SeatCountForGame() > 2) {
+                // Twin Suns: the loser is eliminated (no damager → no heal); deferred most-HP
+                // scoring at the next phase boundary decides the winner among the survivors.
+                SWUEliminateSeat($p, null);
+                AddGameLogEntry('ELIMINATED', "Player {$p} loses (Final Showdown) and is eliminated!", 'ALL');
+            } else {
+                $winner = OtherPlayer($p);
+                SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p} loses the game (Final Showdown)! Player {$winner} wins!");
+                AddGameLogEntry('WIN', 'P' . $winner . ' wins the game (P' . $p . ' — Final Showdown).', 'ALL');
+            }
         }
     }
 }
@@ -4425,7 +4442,7 @@ function ResourcePhase() {
 function ReadyPhase() {
     // CR 5.4.d: ready all exhausted cards for both players (units, resources, leader).
     // Leader.EpicActionUsed is NOT reset — that flag persists the whole game.
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $resources = &GetResources($p);
         for ($i = 0; $i < count($resources); $i++) {
             if (!isset($resources[$i]->removed) || !$resources[$i]->removed) $resources[$i]->Status = 1;
@@ -4496,7 +4513,7 @@ function ReadyPhase() {
 function SWUQueueTWI068RegroupTriggers(): void {
     global $playerID;
     $savedPID = $playerID;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $playerID = $p;
         foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
             foreach (ZoneSearch($zone, ['Unit']) as $mzID) {
@@ -4517,7 +4534,7 @@ function SWUQueueTWI068RegroupTriggers(): void {
 function SWUQueueASH088RegroupTriggers(): void {
     global $playerID;
     $savedPID = $playerID;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $playerID = $p;
         foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
             foreach (ZoneSearch($zone, ['Unit']) as $mzID) {
@@ -4539,7 +4556,7 @@ function SWUQueueASH088RegroupTriggers(): void {
 function SWUQueueFalconRegroupTriggers(): void {
     global $playerID;
     $savedPID = $playerID;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $playerID = $p;
         foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
             foreach (ZoneSearch($zone, ['Unit']) as $mzID) {
@@ -4560,7 +4577,7 @@ function SWUQueueFalconRegroupTriggers(): void {
 function SWUQueueJTL192RegroupTriggers(): void {
     global $playerID;
     $savedPID = $playerID;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $playerID = $p;
         foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
             foreach (ZoneSearch($zone, ['Unit']) as $mzID) {
@@ -4597,7 +4614,7 @@ function SWUBaseSuppressesMulligan($baseID): bool {
 }
 
 function SWUClearDiscardModifiers(): void {
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $discard = &GetDiscard($p);
         for ($i = 0; $i < count($discard); $i++) {
             if (isset($discard[$i]->removed) && $discard[$i]->removed) continue;
@@ -4609,7 +4626,7 @@ function SWUClearDiscardModifiers(): void {
 // LAW regroup-start triggers (fire at the start of the regroup phase, before the next ReadyPhase).
 function _SWULawRegroupStartTriggers(): void {
     global $playerID; $saved = $playerID;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $playerID = $p;
         // LAW_071 The Max Rebo Band — "When the regroup phase starts: create a Credit token."
         $n071 = _SWUCountActiveUnitsWithCardID($p, 'LAW_071');
@@ -4644,7 +4661,7 @@ function _SWULawRegroupStartTriggers(): void {
 // at each RegroupPhaseStart, reset to 0 at ActionPhaseStart).
 function _SWUMaxReboCount(): int {
     $n = 0;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         foreach (GetGroundArena($p) as $u) {
             if (empty($u->removed) && ($u->CardID ?? '') === 'LAW_072') $n++;
         }
@@ -4662,7 +4679,7 @@ function _SWUNeedsExtraRegroup(): bool {
 // token to this unit.'" Give one Advantage token per ASH_227 upgrade on each in-play unit (both players).
 function _SWUAsh227RegroupStart(): void {
     global $playerID; $savedPID = $playerID;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $playerID = $p;
         foreach (['myGroundArena', 'mySpaceArena'] as $z) {
             foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
@@ -4681,7 +4698,7 @@ function _SWUAsh227RegroupStart(): void {
 // Each ASH_159 in play lets its controller give 1 Advantage to a unit of their choice.
 function _SWUAsh159RegroupStart(): void {
     global $playerID; $savedPID = $playerID;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         foreach (GetUnitsInPlay($p) as $src) {
             if (empty($src->removed) && ($src->CardID ?? '') === 'ASH_159') {
                 $playerID = $p;
@@ -4700,6 +4717,10 @@ function _SWUAsh159RegroupStart(): void {
 }
 
 function RegroupPhaseStart(): void {
+    // Twin Suns (CR §12.7): if the action phase that just ended contained the first elimination,
+    // the game ends now by highest remaining base HP. No-op for 2-player / no elimination.
+    _SWUScoreTwinSunsEndOfPhase();
+    if (SWUGetGameWinner() !== 0) return;
     AddGameLogEntry('PHASE', '— Regroup Phase —');
     // Telemetry: finalize each seat's per-round counters into a turnResults entry (once per round).
     if (function_exists('SWUTelemetrySnapshotTurn')) { SWUTelemetrySnapshotTurn(1); SWUTelemetrySnapshotTurn(2); }
@@ -4965,7 +4986,7 @@ function RegroupPhaseStart(): void {
     $isPhaseStatEffect = fn($e) => strpos((string)$e, 'SWU_ATK_POWER_') === false // unconsumed attack bonus (fizzled attack)
                                && strpos((string)$e, 'SWU_DEF_DEBUFF_') === false // unconsumed Jyn defender debuff (fizzled attack)
                                && strpos((string)$e, 'SWU_PAID_')      === false; // Task 3.1: resources-paid stamp (per-play; WhenPlayed fires same turn)
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $g = &GetGroundArena($p);
         for ($i = 0; $i < count($g); $i++) {
             if (!empty($g[$i]->removed)) continue;
@@ -4982,7 +5003,7 @@ function RegroupPhaseStart(): void {
     // A "for this phase" +HP buff that kept a damaged unit alive has now expired — defeat any unit
     // whose damage meets/exceeds its (un-buffed) current HP. (Same state-based sweep as shrinks.)
     SWUCheckShrinkDefeats();
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         // LAW_245 Salvaged Materials — "At the start of the next regroup phase, defeat it." Defeat each
         // upgrade flagged SWU_LAW245_DEFEAT|{hostUID}|{cardID}, then clear the flag (one-shot).
         $geLaw245 = GetGlobalEffects($p);
@@ -5121,7 +5142,7 @@ function RegroupPhaseStart(): void {
     $found = true;
     while ($found) {
         $found = false;
-        for ($p = 1; $p <= 2; $p++) {
+        for ($p = 1; $p <= SeatCountForGame(); $p++) {
             $playerID = $p;
             foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
                 foreach (ZoneSearch($zone, AnyUnitFilter) as $mzID) {
@@ -5141,28 +5162,35 @@ function RegroupPhaseStart(): void {
 }
 
 function ActionPhaseStart() {
+    // Twin Suns (CR §12.7): if the phase that just ended contained the first elimination, score now.
+    _SWUScoreTwinSunsEndOfPhase();
+    if (SWUGetGameWinner() !== 0) return;
     // Determine who holds the initiative going into this round.
     // If initiative was claimed last round (P1_CLAIMED/P2_CLAIMED), that player
     // keeps it; flip to _UNCLAIMED (available but not yet taken this round).
     $ic = GetInitiativeCounter();
-    $holder = 1; // default
-    if ($ic === 'P1_CLAIMED' || $ic === 'P1_UNCLAIMED') $holder = 1;
-    elseif ($ic === 'P2_CLAIMED' || $ic === 'P2_UNCLAIMED') $holder = 2;
-    else $holder = intval(GetFirstPlayer());
+    // Twin Suns (Phase 4): parse the holder seat from P{n}_(UN)CLAIMED generically (was P1/P2-hardcoded).
+    $holder = intval(GetFirstPlayer());
+    if (preg_match('/^P(\d+)_(?:CLAIMED|UNCLAIMED)$/', $ic, $m)) $holder = intval($m[1]);
 
     SetTurnPlayer($holder);
     SetInitiativeCounter("P{$holder}_UNCLAIMED");
     SetSWUVar('PASS', '0');
+    // Twin Suns (Phase 4): return the blast + plan counters to the center each round; clear who has taken
+    // a counter. Initiative persists via its own holder logic above. (Harmless no-op in premier.)
+    SetBlastCounter("AVAILABLE");
+    SetPlanCounter("AVAILABLE");
+    SetSWUVar('SWU_COUNTER_TAKEN', '');
     SetSWUVar('SWU_REGROUP_NUM', '0'); // LAW_072: reset the per-round regroup-phase counter
 
     // SOR_061 Guardian of the Whills: reset each Guardian's per-round upgrade-discount charge.
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_GUARDIAN_UPG_USED_');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ACTED_PHASE');   // SEC_145 "first action" gate resets each phase
     }
 
     // Clear per-round TurnEffects for Leaders and Bases.
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $leader = &GetLeader($p);
         for ($i = 0; $i < count($leader); $i++) {
             if (!isset($leader[$i]->removed) || !$leader[$i]->removed) $leader[$i]->TurnEffects = [];
@@ -5178,7 +5206,7 @@ function ActionPhaseStart() {
     // "When the action phase starts: Look at the top card of each player's deck."
     global $playerID;
     $savedPID = $playerID;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $playerID = $p;
         $leaderZone = GetLeader($p);
         $thrawnDeployed = false;
@@ -5211,7 +5239,7 @@ function ActionPhaseStart() {
     // "At the start of the next action phase, defeat a resource you control."
     // One armed flag per ramp; resolve each as a mandatory choice among the
     // player's resources (auto-PASSes harmlessly if they control none).
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $pending = GlobalEffectCount($p, 'SWU_HAN_DEFEAT_RESOURCE');
         for ($k = 0; $k < $pending; $k++) {
             RemoveGlobalEffect($p, 'SWU_HAN_DEFEAT_RESOURCE');
@@ -5546,18 +5574,240 @@ function SWUUnitEntersReady(string $cardID): bool {
     return stripos($text, 'enters play ready') !== false;
 }
 
+// ─── Twin Suns seat helpers (Phase 1) ─────────────────────────────────────────
+// SeatOrder / LiveSeats are single-digit seat lists stored as global Value scalars
+// (seats are always 1..4, so no separator is needed — "123" = seats 1,2,3). SeatOrder is
+// the clockwise turn order; LiveSeats is the non-eliminated subset. Default "12" keeps a
+// 2-player game correct with no CreateGame change.
+function GetSeatOrderArray(): array {
+    $raw = trim((string)GetSeatOrder());
+    if ($raw === '') return [1, 2];
+    return array_map('intval', str_split($raw));
+}
+function GetLiveSeatsArray(): array {
+    $raw = trim((string)GetLiveSeats());
+    if ($raw === '') return GetSeatOrderArray();
+    return array_map('intval', str_split($raw));
+}
+function IsSeatLive(int $seat): bool {
+    return in_array($seat, GetLiveSeatsArray(), true);
+}
+function SeatCountForGame(): int {
+    return count(GetSeatOrderArray());
+}
+
+// ─── Twin Suns elimination & end-game scoring (Phase 5) ───────────────────────
+// Eliminate a seat whose base reached 0 HP (CR §11.3 / §12.6.2). This is the FIRST-EVER
+// mutation of LiveSeats. $killer = the seat that dealt the lethal base damage (null for a
+// state-based / shrink defeat → no heal). Twin Suns only; the 2-player path still uses the
+// instant-win in SWUDeclareGameWinner and never reaches here.
+// Tear down one arena's presence for an eliminated seat (no leave-play / when-defeated triggers).
+function _SWUCleanupArenaForElim(int $seat, array &$arena): void {
+    for ($i = 0; $i < count($arena); $i++) {
+        $u = $arena[$i];
+        if (!empty($u->removed)) continue;
+        $owner      = intval($u->Owner ?? 0);
+        $controller = intval($u->Controller ?? $owner);
+        if ($owner === $seat) {
+            // OWNED by the eliminated seat → rescue any captives it held, then set aside.
+            SWURescueCaptivesOf($u);
+            $arena[$i]->removed = true;
+        } elseif ($controller === $seat && $owner !== $seat && $owner > 0) {
+            // Controlled-but-not-owned (mind-control) → owner's discard, trigger-free.
+            SWURescueCaptivesOf($u);
+            $cid = !empty($u->IsClone) ? 'TWI_116' : ($u->CardID ?? '-');
+            AddDiscard($owner, $cid, 'PLAY');
+            $arena[$i]->removed = true;
+        }
+    }
+}
+
+// Remove an eliminated seat's board presence WITHOUT firing leave-play / when-defeated triggers
+// (CR §11.3.1a: cards removed this way are not "defeated" / "left play").
+function _SWUEliminationCleanup(int $seat): void {
+    foreach (GetSeatOrderArray() as $p) {
+        $g = &GetGroundArena($p); _SWUCleanupArenaForElim($seat, $g); unset($g);
+        $s = &GetSpaceArena($p);  _SWUCleanupArenaForElim($seat, $s); unset($s);
+    }
+    // Mark the seat's own base removed so no stray sweep re-reads it.
+    $b = &GetBase($seat);
+    if (!empty($b) && empty($b[0]->removed)) $b[0]->removed = true;
+}
+
+function SWUEliminateSeat(int $seat, ?int $killer = null): void {
+    if (SeatCountForGame() <= 2) return;                 // Twin Suns only
+    $live = GetLiveSeatsArray();
+    if (!in_array($seat, $live, true)) return;           // idempotent — already eliminated
+    // 1. Remove from LiveSeats (SeatOrder is left intact for rotation math).
+    $live = array_values(array_filter($live, fn($s) => $s !== $seat));
+    SetLiveSeats(implode('', $live));
+    _SWUEliminationCleanup($seat);
+    // 2. Release any counter this seat held back to center (CR §11.3.4).
+    if (GetBlastCounter() === "P{$seat}") SetBlastCounter("AVAILABLE");
+    if (GetPlanCounter()  === "P{$seat}") SetPlanCounter("AVAILABLE");
+    $ic = GetInitiativeCounter();
+    if ($ic === "P{$seat}_CLAIMED" || $ic === "P{$seat}_UNCLAIMED") {
+        SetInitiativeCounter("P" . strval($live[0] ?? 1) . "_UNCLAIMED");
+    }
+    // 3. Optionally heal the eliminator 5 (CR §12.6.2). Self-elimination / no-damager heals no one.
+    if ($killer !== null && $killer !== $seat && in_array($killer, $live, true)) {
+        OnHealBase($killer, $killer, 5);
+    }
+    // 4. Flag the game to end at the next phase boundary (deferred scoring below).
+    SetSWUVar('SWU_TS_GAME_ENDING', '1');
+    AddGameLogEntry('ELIMINATED', "Player {$seat} has been eliminated!", 'ALL');
+    // 5. Safety net: a single survivor has nothing left to play — score immediately (CR §12.7).
+    if (count(GetLiveSeatsArray()) <= 1) _SWUScoreTwinSunsEndOfPhase();
+}
+
+// Deferred Twin Suns end-of-phase scoring (CR §12.7). No-op unless a prior elimination set
+// SWU_TS_GAME_ENDING. Highest remaining base HP among live seats wins; ties share the victory.
+function _SWUScoreTwinSunsEndOfPhase(): void {
+    if (SeatCountForGame() <= 2) return;
+    if (GetSWUVar('SWU_TS_GAME_ENDING') !== '1') return;
+    if (SWUGetGameWinner() !== 0) return;                 // already scored / ended
+    $live = GetLiveSeatsArray();
+    if (empty($live)) return;
+    // Consume the flag FIRST (a SWUVar write, pipe format) — it must not run AFTER the winner
+    // StoreVariable below, because SetSWUVar can't parse the JSON DQ-var string and would wipe
+    // the freshly-stored GAMEOVER_WINNER(S). See the DQ-var format-clash note in the plan.
+    SetSWUVar('SWU_TS_GAME_ENDING', '');
+    $best = -PHP_INT_MAX; $remain = [];
+    foreach ($live as $p) {
+        $b = GetBase($p);
+        $hp = (empty($b) || !empty($b[0]->removed)) ? -PHP_INT_MAX
+            : intval(CardHp($b[0]->CardID)) - intval($b[0]->Damage ?? 0);
+        $remain[$p] = $hp;
+        if ($hp > $best) $best = $hp;
+    }
+    $winners = array_values(array_filter($live, fn($p) => $remain[$p] === $best));
+    $label = count($winners) > 1
+        ? "GAMEOVER:Players " . implode(', ', $winners) . " share the victory (highest base HP)!"
+        : "GAMEOVER:Player {$winners[0]} wins (highest base HP)!";
+    SWUDeclareTwinSunsWinners($winners, $label);         // JSON store — MUST be the last DQ-var write
+}
+
+// ─── Twin Suns opponent-targeting primitives (Phase 3) ────────────────────────
+// These replace the hard 2-player OtherPlayer()/GetOpponent() at N-player-relevant call sites.
+// All are byte-identical to the 2-player model when there is exactly one live opponent.
+
+// All LIVE opponents of $player, in seat order. 2-seat game → [the other seat]. Use for
+// "each opponent" / iterate-all effects: `foreach (OpponentsOf($p) as $opp) { ... }`.
+function OpponentsOf(int $player): array {
+    $out = [];
+    foreach (GetLiveSeatsArray() as $seat) {
+        if ($seat !== $player) $out[] = $seat;
+    }
+    return $out;
+}
+
+// The single opponent to target for a "choose an opponent" effect. Unambiguous whenever there is
+// exactly one live opponent (every 2-player game, and any N-player state narrowed to one). Twin Suns
+// N-player: the call sites that need a real choice get an interactive prompt in Phase 4 (when a 3–4
+// seat game is playable); until then this resolves to the first live opponent so 2-player is identical.
+function SWUChooseOpponent(int $player): int {
+    $opps = OpponentsOf($player);
+    return $opps[0] ?? OtherPlayer($player);
+}
+
+// The next LIVE seat clockwise from $player (skips eliminated seats). 2-seat game → the other seat.
+// Use for turn-rotation / "the next player" flow (not for targeting an opponent).
+function NextLiveSeat(int $player): int {
+    $order = GetSeatOrderArray();
+    $n = count($order);
+    $idx = array_search($player, $order, true);
+    if ($idx === false) return OtherPlayer($player);
+    for ($step = 1; $step <= $n; $step++) {
+        $cand = $order[($idx + $step) % $n];
+        if ($cand !== $player && IsSeatLive($cand)) return $cand;
+    }
+    return OtherPlayer($player);
+}
+
+// Twin Suns (Phase 3): the owning seat of a target mzID / decision string, regardless of prefix. The
+// ZoneSearch union emits seat-specific p{n}<Zone> mzIDs in N-player games; this decodes ownership from
+// any of the three forms. 2-player is byte-identical to the old `strpos('their') ? opp : self` decoders.
+//   p{n}<Zone>  → seat n            (union targets)
+//   their<Zone> → the one opponent  (2-player; SWUChooseOpponent == OtherPlayer there)
+//   my<Zone>/other → $actingPlayer  (self)
+function SWUMzOwner(string $mzID, int $actingPlayer): int {
+    if (preg_match('/^p(\d+)/', $mzID, $m)) return intval($m[1]);
+    if (strpos($mzID, 'their') !== false) return SWUChooseOpponent($actingPlayer);
+    return $actingPlayer;
+}
+
+// Twin Suns (Group B): "$chooser chooses AN opponent, then $handler runs with the picked seat." The
+// picked seat arrives in the continuation's $lastDecision as "P{n}" (parse with SWUPickedOpponent).
+//  - exactly ONE live opponent → forced: PASSPARAMETER the lone opponent (no prompt), then $handler.
+//  - 2+ live opponents (Twin Suns) → OPTIONCHOOSE of "P{n}" labels, then $handler.
+// $handler is a customDQHandler name; carry extra state in its Param ("MY_HANDLER|extra"). Call this ONLY
+// on the N-player branch of a site — keep the original 2-player inline effect so 2-player stays identical.
+function SWUQueueChooseOpponent(int $chooser, string $handler, string $tooltip = "Choose_an_opponent"): void {
+    $opps = OpponentsOf($chooser);
+    if (count($opps) <= 1) {
+        $lone = $opps[0] ?? OtherPlayer($chooser);
+        DecisionQueueController::AddDecision($chooser, "PASSPARAMETER", "P{$lone}", 1);
+    } else {
+        $labels = array_map(fn($s) => "P{$s}", $opps);
+        DecisionQueueController::AddDecision($chooser, "OPTIONCHOOSE", implode("&", $labels), 1, tooltip: $tooltip);
+    }
+    DecisionQueueController::AddDecision($chooser, "CUSTOM", $handler, 1);
+}
+
+// Parse the seat an opponent-picker chose (the "P{n}" carried in $lastDecision). Returns 0 if unparseable
+// (a declined/blank pick), so callers can no-op.
+function SWUPickedOpponent($lastDecision): int {
+    return preg_match('/^P(\d+)$/', (string)$lastDecision, $m) ? intval($m[1]) : 0;
+}
+
+// Twin Suns (Group B): the "choose a player" OPTIONCHOOSE label set — "You" + one option per opponent.
+// 2-player → the historical "You&Opponent" (byte-identical). N-player → "You&P2&P3...".
+function SWUPlayerPickerLabels(int $caster): string {
+    if (SeatCountForGame() <= 2) return "You&Opponent";
+    $labels = ["You"];
+    foreach (OpponentsOf($caster) as $o) $labels[] = "P{$o}";
+    return implode("&", $labels);
+}
+// Decode a "choose a player" pick to a seat: "You"→caster, "Opponent"→lone opp (2-player), "P{n}"→seat n.
+function SWUDecodePlayerPick($lastDecision, int $caster): int {
+    if ($lastDecision === 'You') return $caster;
+    if ($lastDecision === 'Opponent') return OtherPlayer($caster);
+    if (preg_match('/^P(\d+)$/', (string)$lastDecision, $m)) return intval($m[1]);
+    return $caster;
+}
+
+// Same idea for "choose a DECK to look at" pickers. 2-player → the historical two-label set the caller
+// passes; N-player → "Your_deck" + one "P{n}_deck" per opponent. The decoder handles both label styles.
+function SWUDeckPickerLabels(int $caster, string $twoPlayerLabels = "Your_deck&Opponent's_deck"): string {
+    if (SeatCountForGame() <= 2) return $twoPlayerLabels;
+    $labels = ["Your_deck"];
+    foreach (OpponentsOf($caster) as $o) $labels[] = "P{$o}_deck";
+    return implode("&", $labels);
+}
+function SWUDecodeDeckPick($lastDecision, int $caster): int {
+    if ($lastDecision === 'Your_deck' || $lastDecision === 'Yours') return $caster;
+    if ($lastDecision === "Opponent's_deck" || $lastDecision === 'Theirs') return OtherPlayer($caster);
+    if (preg_match('/^P(\d+)_deck$/', (string)$lastDecision, $m)) return intval($m[1]);
+    return $caster;
+}
+
 // Swap TurnPlayer (1→2, 2→1), then auto-pass for any player who has claimed
 // the initiative this round (they are treated as passing for the rest of APS).
+// Whether $seat has taken a counter this round (initiative in premier; + blast/plan in Twin Suns via
+// SWU_COUNTER_TAKEN). Such a seat has "passed for the rest of the round" (CR §12.5.3 / initiative).
+function _SWUSeatTookCounterThisRound(int $seat): bool {
+    if (GetInitiativeCounter() === "P{$seat}_CLAIMED") return true;
+    $taken = GetSWUVar('SWU_COUNTER_TAKEN', '');
+    return $taken !== '' && strpos($taken, strval($seat)) !== false;
+}
+
 function SWUSwapTurnPlayer() {
     global $gTurnPlayer;
-    $gTurnPlayer = (intval($gTurnPlayer) === 1) ? 2 : 1;
-    // Auto-pass for initiative claimant
-    $ic = GetInitiativeCounter();
-    $claimedPlayer = 0;
-    if ($ic === 'P1_CLAIMED') $claimedPlayer = 1;
-    elseif ($ic === 'P2_CLAIMED') $claimedPlayer = 2;
-    if ($claimedPlayer !== 0 && intval($gTurnPlayer) === $claimedPlayer) {
-        SWUPassAction($claimedPlayer);
+    // Twin Suns (Phase 4): advance clockwise via SeatOrder, skipping eliminated seats. 2-player: the other seat.
+    $gTurnPlayer = NextLiveSeat(intval($gTurnPlayer));
+    // Auto-pass for a seat that already took a counter this round (it's passing for the rest of the round).
+    if (_SWUSeatTookCounterThisRound(intval($gTurnPlayer))) {
+        SWUPassAction(intval($gTurnPlayer));
     }
     // Goldfish: P2 is a passive bot. Whenever the turn swaps to it, auto-pass immediately — exactly
     // like an initiative-claimant. P1's action → swap to P2 → P2 passes → swap back to P1. Two passes
@@ -5617,7 +5867,11 @@ function ResetUndoDenyCount(int $playerID): void {
 // The PASS key tracks the consecutive-pass counter: 0 = no prior pass; 1 = opponent just passed.
 function SWUPassAction($player) {
     $consecutivePasses = intval(GetSWUVar('PASS', '0'));
-    if ($consecutivePasses >= 1) {
+    // Twin Suns (Phase 4): the action phase ends when ALL live players pass consecutively. This pass is
+    // the Nth; if the prior streak already covers every other live seat, it ends the phase. 2-player:
+    // liveCount-1 == 1, so this is byte-identical to the old "two consecutive passes" rule.
+    $liveCount = count(GetLiveSeatsArray());
+    if ($consecutivePasses >= $liveCount - 1) {
         // Both players have passed → end the action phase (MAIN→RGS). But a "when you take the
         // initiative" trigger (e.g. ASH_155 Grogu's bonus attack) can still be QUEUED when the
         // initiative-claim resolves its pass — and a pending decision makes EvaluateTransition
@@ -5640,7 +5894,7 @@ function SWUPassAction($player) {
         if (GetInitiativeCounter() !== 'P' . intval($player) . '_CLAIMED') {
             AddGameLogEntry('PASS', 'P' . intval($player) . ' passed');
         }
-        SetSWUVar('PASS', '1');
+        SetSWUVar('PASS', strval($consecutivePasses + 1));   // accumulate the consecutive-pass streak
         SWUSwapTurnPlayer();
     }
 }
@@ -5648,8 +5902,8 @@ function SWUPassAction($player) {
 // Player claims the initiative: mark it CLAIMED, then treat as a pass.
 function SWUTakeInitiative($player) {
     $ic = GetInitiativeCounter();
-    // Only one player may take initiative per round.
-    if ($ic === 'P1_CLAIMED' || $ic === 'P2_CLAIMED') {
+    // Only one player may take initiative per round (Twin Suns Phase 4: any seat, was P1/P2-hardcoded).
+    if (str_ends_with($ic, '_CLAIMED')) {
         SetFlashMessage("Initiative has already been taken this round.");
         return;
     }
@@ -5699,6 +5953,41 @@ function SWUTakeInitiative($player) {
         }
     }
     SWUPassAction($player);
+}
+
+// Twin Suns (Phase 4): take an available counter (blast or plan) as the round-ending action (CR §12.5).
+// Enforces one-counter-per-player-per-round, fires the counter's effect, records the seat (which drives
+// the auto-pass in SWUSwapTurnPlayer), then passes for the rest of the round.
+function SWUTakeCounter(int $player, string $which): void {
+    if (_SWUSeatTookCounterThisRound($player)) {
+        SetFlashMessage("You have already taken a counter this round.");
+        return;
+    }
+    $which = strtolower($which);
+    if ($which === 'blast') {
+        if (GetBlastCounter() !== 'AVAILABLE') { SetFlashMessage("The blast counter has already been taken."); return; }
+        SetBlastCounter("P{$player}");
+        AddGameLogEntry('COUNTER', 'P' . $player . ' took the blast counter (1 damage to each enemy base)');
+        // Blast: deal 1 damage to each opponent's base.
+        foreach (OpponentsOf($player) as $opp) SWUDealDamageToBase(1, $opp);
+    } elseif ($which === 'plan') {
+        if (GetPlanCounter() !== 'AVAILABLE') { SetFlashMessage("The plan counter has already been taken."); return; }
+        SetPlanCounter("P{$player}");
+        AddGameLogEntry('COUNTER', 'P' . $player . ' took the plan counter (draw 1, bottom 1)');
+        // Plan: draw 1, then place 1 card from hand on the bottom of the deck (may be the drawn card).
+        DoDrawCard($player, 1);
+        $hand = GetHand($player);
+        $handMz = [];
+        for ($i = 0; $i < count($hand); $i++) { if (empty($hand[$i]->removed)) $handMz[] = "myHand-{$i}"; }
+        if (!empty($handMz)) {
+            SWUQueueMayChooseTarget($player, $handMz, "-", "Put_a_card_on_the_bottom_of_your_deck", "SWU_PLAN_BOTTOM");
+        }
+    } else {
+        return;
+    }
+    // Record the seat as a counter-taker (one-per-round guard + the auto-pass in SWUSwapTurnPlayer).
+    SetSWUVar('SWU_COUNTER_TAKEN', GetSWUVar('SWU_COUNTER_TAKEN', '') . strval($player));
+    SWUPassAction($player); // taking a counter = pass for the rest of the round
 }
 
 // Called after any real (non-pass) action: reset consecutive-pass counter and
@@ -5845,11 +6134,10 @@ function _SWUCheckForcedAttack(int $player): void {
     $cid = $unit->CardID ?? '';
     if ($cid === 'JTL_059' || $cid === 'LOF_044') { $playerID = $savedPID; return; } // "This unit can't attack."
     $arena = $unit->Location;
-    $opp   = OtherPlayer($player);
-    $unitTargets = SWUGetValidAttackTargets($opp, $unit, $arena, true);   // noBases → units only
+    $unitTargets = SWUGetAllValidAttackTargets($player, $unit, $arena, true);   // noBases → units only (union all opponents)
     if (!empty($unitTargets)) {
         BeginSWUAttack($player, $mz, true);                              // must attack a unit
-    } elseif (!empty(SWUGetValidAttackTargets($opp, $unit, $arena, false))) {
+    } elseif (!empty(SWUGetAllValidAttackTargets($player, $unit, $arena, false))) {
         BeginSWUAttack($player, $mz, false);                            // only a base is attackable → attack it
     }
     // else: not able to attack at all → the compulsion lapses ("if able").
@@ -6952,8 +7240,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             }
             if ($ambushObj === null || !empty($ambushObj->removed)) break;
             $ambushArena    = $ambushObj->Location ?? 'GroundArena';
-            $ambushOpponent = OtherPlayer($player);
-            $validTargets   = SWUGetValidAmbushTargets($ambushOpponent, $ambushObj, $ambushArena);
+            $validTargets   = SWUGetAllValidAmbushTargets($player, $ambushObj, $ambushArena); // union all opponents
             if (empty($validTargets)) break;
             $targetStr = implode('&', $validTargets);
             DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Ambush_attack?");
@@ -7023,8 +7310,7 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
 
     if ($obj !== null && HasKeyword_Ambush($obj)) {
         // Ambush CR 5.9.a: "attack that enemy unit" — units only, not the base.
-        $opponent      = OtherPlayer($activePlayer);
-        $ambushTargets = SWUGetValidAmbushTargets($opponent, $obj, $targetArena);
+        $ambushTargets = SWUGetAllValidAmbushTargets($activePlayer, $obj, $targetArena); // union all opponents
         if (!empty($ambushTargets)) {
             // Carry the unit's UID (not the target list — dispatch recomputes valid targets fresh) so a
             // preceding trigger that moves the unit between arenas (JTL_096) can be re-resolved at dispatch.
@@ -7203,21 +7489,25 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
     foreach ($leftCards as $d) {
         $controller = intval($d['player'] ?? 0);
         if ($controller <= 0) continue;
-        $opp = GetOpponent($controller);
-        AddGlobalEffects($opp, 'SWU_ENEMY_LEFT_PLAY');
+        // Twin Suns: EVERY opponent of the controller observes this enemy leaving play (2-player → the one
+        // opponent; OpponentsOf is length-1 so each loop below runs exactly once and is byte-identical).
+        $opps = OpponentsOf($controller);
+        foreach ($opps as $opp) AddGlobalEffects($opp, 'SWU_ENEMY_LEFT_PLAY');
         AddGlobalEffects($controller, 'SWU_FRIENDLY_LEFT_PLAY'); // "if a friendly unit left play this phase" (LOF_216)
         // ASH_211 Fateful Goodbye — "if a friendly LEADER unit left play this phase" (any leave, not just defeat).
         if (strpos(CardType($d['cardID'] ?? '') ?? '', 'Leader') !== false) {
             AddGlobalEffects($controller, 'SWU_FRIENDLY_LEADER_LEFT_PLAY');
         }
 
-        // SOR_015 Boba Fett (undeployed leader of $opp): "When an enemy unit leaves play: you may
+        // SOR_015 Boba Fett (undeployed leader of an opponent): "When an enemy unit leaves play: you may
         // exhaust this leader; if you do, ready a resource." Treated as an always-yes auto-resolve
         // (like SLT SOR_083): only fires when there is a benefit — the leader is ready+undeployed
         // AND there is an exhausted resource to ready (total > ready). If resources are full, skip.
-        if (_SWULeaderReadyUndeployed($opp, 'SOR_015')
-            && SWUResourceCount($opp) > SWUResourceCount($opp, true)) {
-            AddTrigger($opp, 'SOR_015', 'SOR_015', '');
+        foreach ($opps as $opp) {
+            if (_SWULeaderReadyUndeployed($opp, 'SOR_015')
+                && SWUResourceCount($opp) > SWUResourceCount($opp, true)) {
+                AddTrigger($opp, 'SOR_015', 'SOR_015', '');
+            }
         }
 
         if ($defeated) {
@@ -7237,8 +7527,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // ASH_093 Captain Pellaeon — "While a leader unit has been defeated this phase, gains Raid 3."
             // Flag BOTH players (any leader, friendly or enemy). Cleared at RegroupPhaseStart.
             if (strpos(CardType($d['cardID'] ?? '') ?? '', 'Leader') !== false) {
-                AddGlobalEffects(1, 'SWU_LEADER_DEFEATED_PHASE');
-                AddGlobalEffects(2, 'SWU_LEADER_DEFEATED_PHASE');
+                foreach (GetLiveSeatsArray() as $lp) AddGlobalEffects($lp, 'SWU_LEADER_DEFEATED_PHASE');
             }
             // TWI_001 Nala Se (deployed) — "Each friendly Clone unit gains: When Defeated: Heal 2 damage
             // from your base." Field-presence grant while the controller's TWI_001 leader is deployed.
@@ -7271,6 +7560,9 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
                     break;   // one Bothan-5 reaction per defeat
                 }
             }
+            // Twin Suns: the "when an ENEMY unit is defeated" observers below fire for EVERY opponent of the
+            // defeated unit's controller (2-player → the one opponent; loop runs once, byte-identical).
+            foreach ($opps as $opp) {
             // SOR_036 Gideon Hask (controlled by $opp): "When an enemy unit is defeated: give an
             // Experience token to a friendly unit." Fires once per Gideon in play.
             $gideons = _SWUCountActiveUnitsWithCardID($opp, 'SOR_036');
@@ -7328,6 +7620,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
                     AddGlobalEffects($opp, 'SWU_LAW053_USED');
                 }
             }
+            } // end foreach opponent (enemy-defeated observers)
             // LAW_119 Rogue One (controlled by $controller): "When a friendly unit is defeated: look at
             // the top 2 cards, put any number on the bottom, rest on top." Fires once per Rogue One.
             $rogueones = _SWUCountActiveUnitsWithCardID($controller, 'LAW_119');
@@ -7342,7 +7635,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // a defeated Kallus is already removed, so an in-play Kallus never sees its own defeat.
             // Fires for each Kallus controller (both seats) whose once-per-round flag is unused.
             if (CardUnique($d['cardID'] ?? '')) {
-                foreach ([1, 2] as $kp) {
+                foreach (GetLiveSeatsArray() as $kp) {
                     // Per-instance once-per-round via each Kallus unit's NumUses budget.
                     foreach (array_merge(GetGroundArena($kp) ?? [], GetSpaceArena($kp) ?? []) as $ku) {
                         if (empty($ku->removed) && ($ku->CardID ?? '') === 'SOR_115' && SWUHasUseAvailable($ku)) {
@@ -7903,7 +8196,7 @@ function SWUConsumeUse($obj): void {
 // across rounds, so they are not refilled here.
 function SWUResetAllNumUses(): void {
     global $baseActionNumUses;
-    for ($p = 1; $p <= 2; $p++) {
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         foreach ([GetLeader($p) ?? [], GetGroundArena($p) ?? [], GetSpaceArena($p) ?? [], GetBase($p) ?? []] as $zone) {
             for ($i = 0; $i < count($zone); $i++) {
                 if (empty($zone[$i]->removed) && !isset($baseActionNumUses[$zone[$i]->CardID ?? ''])) {
@@ -9061,9 +9354,9 @@ function SWUDealIndirectToChosenPlayer(int $controller, int $amount, string $the
     DecisionQueueController::AddDecision($controller, "CUSTOM", $param, 1);
 }
 
-// "Deal N indirect damage to each opponent" (2-player: the one opponent; Twin Suns multi-opponent later).
+// "Deal N indirect damage to each opponent" (2-player: the one opponent). Twin Suns (Phase 3): all opponents.
 function SWUDealIndirectToEachOpponent(int $controller, int $amount): void {
-    foreach ([GetOpponent($controller)] as $opp) {
+    foreach (OpponentsOf($controller) as $opp) {
         SWUDealIndirectDamage($controller, $amount, intval($opp));
     }
 }
@@ -10939,6 +11232,43 @@ function SWUGetLeader(int $player): ?object {
     return null;
 }
 
+// Twin Suns (Phase 2): a seat may hold two leaders. The $leaderIndex-th LIVE leader (0-based over
+// live entries). Index 0 preserves the historical "first live" behavior for single-leader games.
+function SWUGetLeaderByIndex(int $player, int $leaderIndex): ?object {
+    $arr  = &GetLeader($player);
+    $live = 0;
+    for ($i = 0; $i < count($arr); $i++) {
+        if (isset($arr[$i]->removed) && $arr[$i]->removed) continue;
+        if ($live === $leaderIndex) return $arr[$i];
+        $live++;
+    }
+    return null;
+}
+
+// The live leader whose deployed arena-unit carries $uid (DeployedUniqueID). Used on defeat/return to
+// reset the CORRECT leader when a seat has two deployed. $uid must be > 0 (0 = not deployed).
+function SWUFindLeaderByDeployedUID(int $player, int $uid): ?object {
+    if ($uid <= 0) return null;
+    $arr = &GetLeader($player);
+    for ($i = 0; $i < count($arr); $i++) {
+        if (isset($arr[$i]->removed) && $arr[$i]->removed) continue;
+        if (intval($arr[$i]->DeployedUniqueID ?? 0) === $uid) return $arr[$i];
+    }
+    return null;
+}
+
+// The live leader with a given CardID. Leader CardIDs are unique per seat (CR §12.3 forbids copies),
+// so this identifies a specific leader instance — used for pilot-return (DeployedUniqueID is 0 for a
+// pilot subcard) and for a leader ability that mutates "this leader" (matches its own CardID).
+function SWUFindLeaderByCardID(int $player, string $cardID): ?object {
+    $arr = &GetLeader($player);
+    for ($i = 0; $i < count($arr); $i++) {
+        if (isset($arr[$i]->removed) && $arr[$i]->removed) continue;
+        if (($arr[$i]->CardID ?? '') === $cardID) return $arr[$i];
+    }
+    return null;
+}
+
 // ── Deploy a leader unit to the Ground Arena (or as a Pilot onto a Vehicle) ───
 // $mode = 'Unit'  → standard deploy to Ground Arena (existing behaviour).
 // $mode = 'Pilot' → attach the leader as a Pilot upgrade onto $hostMz (Asajj JTL_001 etc.).
@@ -10948,19 +11278,13 @@ function SWUGetLeader(int $player): ?object {
 // then calls back with the chosen mode.
 // Marks EpicActionUsed/Deployed/Ready=false in all branches. Leaders deploy for free
 // (the threshold is a condition, not a cost).
-function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''): void {
+function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = '', int $leaderIndex = 0): void {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
 
-    $leaderArr = &GetLeader($player);
-    $leader    = null;
-    for ($i = 0; $i < count($leaderArr); $i++) {
-        if (!isset($leaderArr[$i]->removed) || !$leaderArr[$i]->removed) {
-            $leader = &$leaderArr[$i];
-            break;
-        }
-    }
+    // Twin Suns: deploy the clicked leader instance. Index 0 == the historical first-live leader.
+    $leader = SWUGetLeaderByIndex($player, $leaderIndex);
     if ($leader === null) { $playerID = $savedPID; return; }
 
     $cardID = $leader->CardID;
@@ -11498,7 +11822,7 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
 // ── Exhaust leader and trigger its action ability ──────────────────────────
 // Dispatches to the per-card handler in $leaderAbilities. If no handler is
 // registered for the card, the leader is exhausted but nothing else happens.
-function SWULeaderAction(int $player, string $cardID): void {
+function SWULeaderAction(int $player, string $cardID, int $leaderIndex = 0): void {
     global $playerID, $leaderAbilities;
     $savedPID = $playerID;
     $playerID = $player;
@@ -11509,14 +11833,8 @@ function SWULeaderAction(int $player, string $cardID): void {
     // stray/bypassed call must not still exhaust the leader and fire the ability.
     if (GetCurrentPhase() !== 'MAIN') { $playerID = $savedPID; return; }
 
-    $leaderArr = &GetLeader($player);
-    $leader    = null;
-    for ($i = 0; $i < count($leaderArr); $i++) {
-        if (!isset($leaderArr[$i]->removed) || !$leaderArr[$i]->removed) {
-            $leader = &$leaderArr[$i];
-            break;
-        }
-    }
+    // Twin Suns: act on the clicked leader instance. Index 0 == the historical first-live leader.
+    $leader = SWUGetLeaderByIndex($player, $leaderIndex);
 
     // A deployed leader's front Action is normally unavailable (its unit side takes over) — EXCEPT
     // TWI_017 "Flipatine", whose "Deployed" state is just its flipped Villainy face (no unit side); its
@@ -12659,34 +12977,66 @@ function SWUComputeActionsData(int $player): array {
         'attackers'           => [],
         'smugglableResources' => [],
         'readyResources'      => 0,
+        // Twin Suns (Phase 4 counters). Inert in premier (SeatCountForGame() <= 2): all false/[].
+        'blastAvailable'      => false,
+        'planAvailable'       => false,
+        'counterTaken'        => false,
+        'roundState'          => [],
     ];
+
+    // Twin Suns counter availability — computed regardless of $active so both HUDs can render the state.
+    if (SeatCountForGame() > 2) {
+        $tookCounter = _SWUSeatTookCounterThisRound($player);
+        $data['counterTaken']   = $tookCounter;
+        $data['blastAvailable'] = !$tookCounter && (GetBlastCounter() === 'AVAILABLE');
+        $data['planAvailable']  = !$tookCounter && (GetPlanCounter() === 'AVAILABLE');
+        $turnSeat = intval(GetTurnPlayer());
+        foreach (GetLiveSeatsArray() as $seat) {
+            if (_SWUSeatTookCounterThisRound($seat)) $data['roundState'][$seat] = 'took-counter';
+            elseif ($seat === $turnSeat)             $data['roundState'][$seat] = 'active';
+            else                                     $data['roundState'][$seat] = 'waiting';
+        }
+    }
 
     if (!$active) return $data;
 
     // Leader
-    $leaderObj = SWUGetLeader($player);
-    if ($leaderObj !== null) {
+    // Twin Suns: a seat can hold two leaders, each with its own glow state. Compute per live-leader
+    // index; the back-compat scalar keys mirror index 0 so the current single-leader client is unchanged.
+    $leaderArr    = &GetLeader($player);
+    $abilityByIdx = [];
+    $deployByIdx  = [];
+    $liveIdx      = 0;
+    for ($li = 0; $li < count($leaderArr); $li++) {
+        $leaderObj = $leaderArr[$li];
+        if (isset($leaderObj->removed) && $leaderObj->removed) continue;
         $ready    = (bool)($leaderObj->Ready ?? false);
         $deployed = (bool)($leaderObj->Deployed ?? false);
         $epicUsed = (bool)($leaderObj->EpicActionUsed ?? false);
+        $cid      = $leaderObj->CardID ?? '';
         // TWI_017 "Flipatine" has an activated Action on BOTH faces (its "Deployed" state is the flipped
         // Villainy face, not a unit deploy), so its glow isn't gated on !deployed.
-        $data['leaderAbility'] = $ready && (!$deployed || ($leaderObj->CardID ?? '') === 'TWI_017')
-            && SWULeaderActionAffordable($player, $leaderObj->CardID ?? '');
-        if (($leaderObj->CardID ?? '') === 'JTL_014') {
+        $abilityByIdx[$liveIdx] = $ready && (!$deployed || $cid === 'TWI_017')
+            && SWULeaderActionAffordable($player, $cid);
+        if ($cid === 'JTL_014') {
             // Trench: non-epic repeatable deploy — ready, control 6+ resources, 3 ready resources.
-            $data['leaderDeploy'] = $ready && !$deployed
+            $deployByIdx[$liveIdx] = $ready && !$deployed
                 && SWUResourceCount($player) >= 6
                 && SWUResourceCount($player, readyOnly: true) >= 3;
-        } elseif (($leaderObj->CardID ?? '') === 'TWI_017') {
+        } elseif ($cid === 'TWI_017') {
             // TWI_017 "Flipatine" has NO deploy — both faces are flip Actions (its empty printed cost
             // would otherwise make the generic ">= CardCost" check pass and offer a bogus Deploy option).
-            $data['leaderDeploy'] = false;
+            $deployByIdx[$liveIdx] = false;
         } else {
-            $data['leaderDeploy']  = !$epicUsed && !$deployed
-                && SWUResourceCount($player) >= intval(CardCost($leaderObj->CardID ?? ''));
+            $deployByIdx[$liveIdx] = !$epicUsed && !$deployed
+                && SWUResourceCount($player) >= intval(CardCost($cid));
         }
+        $liveIdx++;
     }
+    $data['leaderAbilityByIndex'] = $abilityByIdx;
+    $data['leaderDeployByIndex']  = $deployByIdx;
+    $data['leaderAbility'] = $abilityByIdx[0] ?? false;
+    $data['leaderDeploy']  = $deployByIdx[0] ?? false;
 
     // Base — has an available action if registered in $baseAbilities. Repeatable-action bases
     // (LOF_022) are gated by remaining NumUses; standard epic bases by EpicActionUsed.
@@ -17455,7 +17805,8 @@ function SWUDeclareGameWinner($winner, $flashMessage = null) {
 // after every action as a safety net beyond the damage-time check in SWUDealDamageToBase.
 function SWUCheckBaseDefeatState() {
     if (SWUGetGameWinner() !== 0) return; // already decided
-    foreach ([1, 2] as $p) {
+    $twin = SeatCountForGame() > 2;
+    foreach (($twin ? GetLiveSeatsArray() : [1, 2]) as $p) {
         // Goldfish practice: P2's Echo Base is an infinite damage sponge — never end the game on it,
         // so its counter can climb past 30 HP. (P1's base is still state-checked normally.)
         if ($p === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish') continue;
@@ -17463,9 +17814,15 @@ function SWUCheckBaseDefeatState() {
         if (empty($b) || !empty($b[0]->removed)) continue;
         $hp = intval(CardHp($b[0]->CardID));
         if ($hp > 0 && intval($b[0]->Damage ?? 0) >= $hp) {
-            $winner = ($p === 1) ? 2 : 1;
-            SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p}'s base has been defeated! Player {$winner} wins!");
-            return;
+            if ($twin) {
+                // Twin Suns: a state-based (shrink / HP-reduction) defeat has no damager → no heal.
+                // Don't return — a single sweep can eliminate more than one seat; scoring is deferred.
+                SWUEliminateSeat($p, null);
+            } else {
+                $winner = ($p === 1) ? 2 : 1;
+                SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p}'s base has been defeated! Player {$winner} wins!");
+                return;
+            }
         }
     }
 }
@@ -17473,6 +17830,31 @@ function SWUCheckBaseDefeatState() {
 function SWUGetGameWinner() {
     $w = DecisionQueueController::GetVariable("GAMEOVER_WINNER");
     return $w === null ? 0 : intval($w);
+}
+
+// Twin Suns end-game (CR §12.7): a winner SET (ties share). Writes GAMEOVER_WINNERS (a concat
+// of winning seats, e.g. "24") and mirrors the first seat into GAMEOVER_WINNER so every existing
+// `SWUGetGameWinner() !== 0` "is the game over?" guard keeps firing. Intentionally bypasses the
+// 1/2-only guard in SWUDeclareGameWinner (which stays untouched for the 2-player path).
+function SWUDeclareTwinSunsWinners(array $seats, string $msg = null): void {
+    if (DecisionQueueController::GetVariable("GAMEOVER_WINNER") !== null) return; // first-wins
+    $seats = array_values(array_unique(array_map('intval', $seats)));
+    sort($seats);
+    if (empty($seats)) return;
+    global $gWinner;
+    $gWinner = $seats[0];
+    DecisionQueueController::StoreVariable("GAMEOVER_WINNER", strval($seats[0]));
+    DecisionQueueController::StoreVariable("GAMEOVER_WINNERS", implode('', $seats));
+    if ($msg !== null) SetFlashMessage($msg);
+}
+
+function SWUGetGameWinners(): array {
+    $raw = DecisionQueueController::GetVariable("GAMEOVER_WINNERS");
+    if ($raw === null || $raw === '') {
+        $w = SWUGetGameWinner();
+        return $w === 0 ? [] : [$w];
+    }
+    return array_map('intval', str_split((string)$raw));
 }
 
 function DoAllyDestroyed($player, $mzCard) {
@@ -19726,7 +20108,7 @@ function RecollectionPhase() {
     if(GlobalEffectCount($turnPlayer, "PLANAR_ABYSS_PENDING") > 0) {
         RemoveGlobalEffect($turnPlayer, "PLANAR_ABYSS_PENDING");
         // Destroy all non-champion objects on both fields
-        for($p = 1; $p <= 2; ++$p) {
+        for($p = 1; $p <= SeatCountForGame(); ++$p) {
             $field = &GetField($p);
             for($fi = count($field) - 1; $fi >= 0; --$fi) {
                 if($field[$fi]->removed) continue;
@@ -22599,8 +22981,19 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
         if (substr($searchZone, 0, 2) === "my")        $searchZone = "their" . substr($searchZone, 2);
         elseif (substr($searchZone, 0, 5) === "their") $searchZone = "my"    . substr($searchZone, 5);
     }
+    // Twin Suns (Phase 3): in an N-player game, "their<Zone>" spans ALL live opponents — search each
+    // opponent's zone with seat-specific mzIDs (p{n}<Zone>-{i}) so the picked target's owner is
+    // unambiguous. 2-player (or a flipped $forPlayer search) keeps the single "their<Zone>" search →
+    // byte-identical. (Card targeting: arena / base / leader; player-level effects use ChooseOpponent.)
+    $searchZones = [$searchZone];
+    if (!$flip && SeatCountForGame() > 2 && substr($searchZone, 0, 5) === 'their') {
+        $baseZone = substr($searchZone, 5);
+        $searchZones = [];
+        foreach (OpponentsOf(intval($playerID)) as $opp) $searchZones[] = "p{$opp}{$baseZone}";
+    }
     $results = [];
-    $zoneArr = &GetZone($searchZone);
+    foreach ($searchZones as $sz) {
+    $zoneArr = &GetZone($sz);
     foreach($zoneArr as $i => $obj) {
         $cardTypeStr = EffectiveCardType($obj);
         $cardTypes_arr = $cardTypeStr ? explode(",", $cardTypeStr) : [];
@@ -22621,10 +23014,12 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
               ($cardClasses === null || count(array_intersect($cardClasses_arr, (array)$cardClasses)) > 0) &&
            ($excludeSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$excludeSubtypes)) === 0) &&
            (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
-            $mzID = $searchZone . "-" . $i;
+            $mzID = $sz . "-" . $i;
             if ($flip) $mzID = FlipZonePerspective($mzID);
             array_push($results, $mzID);
         }
+    }
+    unset($zoneArr);
     }
     return $results;
 }
@@ -25528,7 +25923,7 @@ function EndCombat($player) {
 
     // Pop remaining combat decisions (AttackTargetChosen, CleaveAttack,
     // Retaliate, CombatCleanup) from both players' queues.
-    for($p = 1; $p <= 2; ++$p) {
+    for($p = 1; $p <= SeatCountForGame(); ++$p) {
         $queue = &GetDecisionQueue($p);
         $filtered = [];
         foreach($queue as $decision) {
@@ -25568,7 +25963,7 @@ function HasFloatingMemory($obj) {
     if(isset($obj->Controller) && MordredFatedEphemerateApplies($obj->Controller, $obj->CardID)) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
     if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
-        for($p = 1; $p <= 2; $p++) {
+        for($p = 1; $p <= SeatCountForGame(); $p++) {
             $pField = &GetField($p);
             foreach($pField as $fCard) {
                 if($fCard === null) continue;
@@ -25587,7 +25982,7 @@ function HasFloatingMemory($obj) {
 
 // Brackish Lutist (1clswn3ba2): check if any Brackish Lutist is on the field with abilities
 function IsBrackishLutistOnField() {
-    for($p = 1; $p <= 2; ++$p) {
+    for($p = 1; $p <= SeatCountForGame(); ++$p) {
         $field = &GetField($p);
         foreach($field as $fObj) {
             if(!$fObj->removed && $fObj->CardID === "1clswn3ba2" && !HasNoAbilities($fObj)) return true;
@@ -26790,7 +27185,7 @@ function GetChampionDamageTakenThisTurn($player) {
 
 function GetOppressivePresenceAttackTax($player) {
     $highestTax = 0;
-    for($p = 1; $p <= 2; ++$p) {
+    for($p = 1; $p <= SeatCountForGame(); ++$p) {
         $globalEffects = GetGlobalEffects($p);
         foreach($globalEffects as $obj) {
             if($obj->removed) continue;
@@ -26803,7 +27198,7 @@ function GetOppressivePresenceAttackTax($player) {
 
 function GetYudiAttackTax() {
     $tax = 0;
-    for($p = 1; $p <= 2; ++$p) {
+    for($p = 1; $p <= SeatCountForGame(); ++$p) {
         foreach(GetField($p) as $obj) {
             if($obj->removed || $obj->CardID !== "l94wp7qjwb" || HasNoAbilities($obj)) continue;
             if(!IsClassBonusActive($obj->Controller, ["CLERIC", "MAGE"])) continue;

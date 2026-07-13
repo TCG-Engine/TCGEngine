@@ -12,7 +12,7 @@ ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 ServerInclude: /GeneratedCode/GeneratedAbilityStubs.php
 ServerInclude: /Custom/KeywordEffects.php
 AssetReflection: SWUSim
-Module: Versions=TurnPlayer,FirstPlayer,CurrentPhase,TurnNumber,PhaseParameters,DecisionQueueVariables,EffectStack,MacroTurnIndex,MacroGameIndex,InitiativeCounter,GameLog,p1DecisionQueue,p1GlobalEffects,p1Hand,p1Discard,p1Deck,p1Leader,p1Base,p1Resources,p1GroundArena,p1SpaceArena,p1TempZone,p2DecisionQueue,p2GlobalEffects,p2Hand,p2Discard,p2Deck,p2Leader,p2Base,p2Resources,p2GroundArena,p2SpaceArena,p2TempZone
+Module: Versions=TurnPlayer,FirstPlayer,CurrentPhase,TurnNumber,PhaseParameters,DecisionQueueVariables,EffectStack,MacroTurnIndex,MacroGameIndex,InitiativeCounter,SeatOrder,LiveSeats,BlastCounter,PlanCounter,GameLog,p1DecisionQueue,p1GlobalEffects,p1Hand,p1Discard,p1Deck,p1Leader,p1Base,p1Resources,p1GroundArena,p1SpaceArena,p1TempZone,p2DecisionQueue,p2GlobalEffects,p2Hand,p2Discard,p2Deck,p2Leader,p2Base,p2Resources,p2GroundArena,p2SpaceArena,p2TempZone,p3DecisionQueue,p3GlobalEffects,p3Hand,p3Discard,p3Deck,p3Leader,p3Base,p3Resources,p3GroundArena,p3SpaceArena,p3TempZone,p4DecisionQueue,p4GlobalEffects,p4Hand,p4Discard,p4Deck,p4Leader,p4Base,p4Resources,p4GroundArena,p4SpaceArena,p4TempZone
 Module: UniqueID=GroundArena,SpaceArena,UniqueID,UniqueIDCounter
 Module: MatchReplay=MatchReplayInitialState,MatchReplayCommands
 
@@ -404,6 +404,18 @@ Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 # P1_CLAIMED   / P2_CLAIMED  : player took the initiative this round (auto-passes rest of AP).
 # Flipped back to UNCLAIMED at the start of each action phase.
 InitiativeCounter - Value:string=P1_UNCLAIMED
+Display: Visibility=Public, Mode=Value, Scope=Global, Display=None
+
+SeatOrder - Value:string=12
+Display: Visibility=Public, Mode=Value, Scope=Global, Display=None
+
+LiveSeats - Value:string=12
+Display: Visibility=Public, Mode=Value, Scope=Global, Display=None
+
+BlastCounter - Value:string=AVAILABLE
+Display: Visibility=Public, Mode=Value, Scope=Global, Display=None
+
+PlanCounter - Value:string=AVAILABLE
 Display: Visibility=Public, Mode=Value, Scope=Global, Display=None
 
 MacroTurnIndex - Value:string

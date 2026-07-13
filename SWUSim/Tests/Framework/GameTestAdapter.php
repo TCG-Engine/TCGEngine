@@ -367,7 +367,7 @@ class GameTestAdapter {
         $leaderArr = GetLeader($player);
         $live = array_values(array_filter($leaderArr, fn($o) => !isset($o->removed) || !$o->removed));
         if (isset($live[$leaderIndex])) {
-            SWULeaderAction($player, $live[$leaderIndex]->CardID);
+            SWULeaderAction($player, $live[$leaderIndex]->CardID, $leaderIndex);
             $this->_drainDQ($player);
         }
         ob_end_clean();
@@ -404,7 +404,7 @@ class GameTestAdapter {
         $saved = $playerID;
         $playerID = $player;
         ob_start();
-        SWUDeployLeader($player);
+        SWUDeployLeader($player, 'Unit', '', $leaderIndex);
         $this->_drainDQ($player);
         ob_end_clean();
         $playerID = $saved;
@@ -420,6 +420,51 @@ class GameTestAdapter {
         $this->_drainDQ($player);
         ob_end_clean();
         $playerID = $saved;
+    }
+
+    /** Twin Suns: player takes a counter ('blast' or 'plan') via SWUTakeCounter. */
+    public function takeCounter(int $player, string $which): void {
+        global $playerID;
+        $saved = $playerID;
+        $playerID = $player;
+        ob_start();
+        SWUTakeCounter($player, $which);
+        $this->_drainDQ($player);
+        ob_end_clean();
+        $playerID = $saved;
+    }
+
+    /** Twin Suns Phase 5 (test-only driver): directly eliminate a seat. $killer=null → no heal. */
+    public function eliminateSeat(int $seat, ?int $killer = null): void {
+        global $playerID;
+        $saved = $playerID;
+        $playerID = $seat;
+        ob_start();
+        SWUEliminateSeat($seat, $killer);
+        $this->_drainDQ($seat);
+        ob_end_clean();
+        $playerID = $saved;
+    }
+
+    /** Twin Suns Phase 5 (test-only driver): declare an explicit winner set. */
+    public function declareWinners(array $seats): void {
+        ob_start();
+        SWUDeclareTwinSunsWinners($seats);
+        ob_end_clean();
+    }
+
+    /** Twin Suns Phase 5 (test-only driver): run the deferred end-of-phase scoring pass. */
+    public function scorePhaseEnd(): void {
+        ob_start();
+        _SWUScoreTwinSunsEndOfPhase();
+        ob_end_clean();
+    }
+
+    /** Twin Suns Phase 5 (test-only driver): run RegroupPhaseStart (fires Final Showdown + scoring). */
+    public function runRegroupStart(): void {
+        ob_start();
+        RegroupPhaseStart();
+        ob_end_clean();
     }
 
     /** Play a card from $player's discard pile by index. */

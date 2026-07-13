@@ -585,13 +585,13 @@ $leaderAbilities["JTL_013"] = function(int $player): void {
     }
 
     // Flip the leader to its deployed side (but NOT the epic-action threshold deploy).
-    $leaderArr = &GetLeader($player);
-    for ($i = 0; $i < count($leaderArr); $i++) {
-        if (!isset($leaderArr[$i]->removed) || !$leaderArr[$i]->removed) {
-            $leaderArr[$i]->Deployed       = true;
-            $leaderArr[$i]->DeployedUniqueID = 0; // attached as subcard, no standalone arena UID
-            break;
-        }
+    // Twin Suns: mutate the JTL_013 leader specifically (a seat may hold two leaders); leader CardIDs
+    // are unique per seat. Fall back to first live for a single-leader game.
+    $ldr = SWUFindLeaderByCardID($player, 'JTL_013');
+    if ($ldr === null) $ldr = SWUGetLeaderByIndex($player, 0);
+    if ($ldr !== null) {
+        $ldr->Deployed        = true;
+        $ldr->DeployedUniqueID = 0; // attached as subcard, no standalone arena UID
     }
 
     $vehicles = SWUGetPoe013AttachVehicles($player);
@@ -2512,16 +2512,18 @@ $customDQHandlers["LAW_018#0"] = function($player, $parts, $lastDecision) {   //
     $opp = OtherPlayer(intval($player));
     $mine = _SWUTopDeckFrontIdx(intval($player)) !== -1;
     $theirs = _SWUTopDeckFrontIdx($opp) !== -1;
-    if (!$mine && !$theirs) { SWUAfterAction(intval($player)); return; }
-    if ($mine && !$theirs) { _SWULaw018Mill(intval($player), intval($player), $aspect); return; }
-    if ($theirs && !$mine) { _SWULaw018Mill(intval($player), $opp, $aspect); return; }
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "@-&Your_deck&Opponent's_deck", 1, "Discard_from_which_deck?");
+    if (SeatCountForGame() <= 2) {   // 2-player auto-resolve short-cuts (N-player always offers the picker)
+        if (!$mine && !$theirs) { SWUAfterAction(intval($player)); return; }
+        if ($mine && !$theirs) { _SWULaw018Mill(intval($player), intval($player), $aspect); return; }
+        if ($theirs && !$mine) { _SWULaw018Mill(intval($player), $opp, $aspect); return; }
+    }
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "@-&" . SWUDeckPickerLabels(intval($player)), 1, "Discard_from_which_deck?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_018#1|" . $aspect, 1);
 };
 $customDQHandlers["LAW_018#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $aspect = $parts[0] ?? '';
-    $owner = ($lastDecision === "Opponent's_deck") ? OtherPlayer(intval($player)) : intval($player);
+    $owner = SWUDecodeDeckPick($lastDecision, intval($player)); // Your_deck→self, Opponent's_deck/P{n}_deck→that player
     _SWULaw018Mill(intval($player), $owner, $aspect);
 };
 $whenPlayedAbilities["LAW_018:0"] = function($player, $mzID) {
