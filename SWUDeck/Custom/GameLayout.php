@@ -72,12 +72,14 @@ echo(<<<'HTML'
     box-shadow: none !important; clip-path: none !important;
     padding: 4px 11px !important; margin: 2px 3px !important;
     color: var(--swu-control-text) !important; font-weight: 600 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
     text-transform: uppercase !important; letter-spacing: 0.04em !important;
     text-shadow: none !important;
     filter: none !important;
     transition: filter 150ms, color 150ms, transform 110ms !important;
     cursor: pointer !important;
   }
+  .flex-container > .flex-item:first-child button > * { font-family: inherit !important; }
   .widget-button::before, .widget-button-selected::before, .panelTab::before,
   .flex-container > .flex-item:first-child button::before {
     content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
