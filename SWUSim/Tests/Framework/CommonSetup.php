@@ -63,11 +63,11 @@ function CommonSetup(
     $theirDeployMode = !empty($theirOpts['leaderDeployedPilot']) ? 'pilot'
                      : (!empty($theirOpts['leaderDeployed'])     ? 'unit' : '');
 
-    // A leader is Deployed iff it has real board presence (deployMode 'unit' or 'pilot'). There is no
-    // board-less "deployed flag" — a regular deploy (deployMode='unit', optionally positioned with
-    // leaderIndexOverride) places the leader unit directly.
-    $myDeployedFlag    = $myDeployMode !== '';
-    $theirDeployedFlag = $theirDeployMode !== '';
+    // A leader is Deployed iff it has real board presence (deployMode 'unit' or 'pilot') — EXCEPT a
+    // double-leader-face flip card (TWI_017 "Flipatine"), whose flipped ("Deployed") side has NO arena
+    // unit: myLeaderFlipped sets the Deployed flag with deployMode='' (board-less).
+    $myDeployedFlag    = ($myDeployMode !== '')    || !empty($myOpts['leaderFlipped']);
+    $theirDeployedFlag = ($theirDeployMode !== '') || !empty($theirOpts['leaderFlipped']);
 
     $b->MyBase($myBaseID,
             $myOpts['baseDamage']          ?? 0,

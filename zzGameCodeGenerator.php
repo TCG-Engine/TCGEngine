@@ -2231,7 +2231,13 @@ function AddGetNextTurnForPlayer($player) {
         if(count($zone->VirtualProperties) > 0) {
           $getNextTurn .= "    ComputeVirtualProperties(\$obj);\r\n";
         }
-        $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        // SWUSim: TWI_017 "Flipatine" is a flip leader with no unit side — the leader slot shows its
+        // back image while flipped (Deployed). Other leaders keep their front in the slot.
+        if($rootName == "SWUSim" && $zone->Name == "Leader") {
+          $getNextTurn .= "    \$displayID = SWULeaderDisplayCardID(\$obj);\r\n";
+        } else {
+          $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        }
         $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         $getNextTurn .= "  }\r\n";
       } else if($zone->Visibility == "Private") {

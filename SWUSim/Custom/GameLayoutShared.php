@@ -1467,7 +1467,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     function applyLeaderDeployedClass(slotId, dataStr) {
         var slot = document.getElementById(slotId); if (!slot) return;
         var obj  = swuParseZoneCard(dataStr || '');
-        var dep  = obj && (obj.Deployed === true || obj.Deployed === 'true' || parseInt(obj.Deployed, 10) === 1);
+        // TWI_017 "Flipatine" flips IN PLACE (its "Deployed" is the flipped Villainy face, not a unit
+        // deploy) — never ghost it out of the leader slot; the slot itself shows the back image.
+        // NOTE: match the RAW dataStr, not obj.CardID — swuParseZoneCard runs .replace(/_/g,' ') on the
+        // JSON, so obj.CardID reads "TWI 017" (underscore→space). The raw string keeps "TWI_017".
+        var isFlipatine = (dataStr || '').indexOf('TWI_017') !== -1;
+        var dep  = obj && (obj.Deployed === true || obj.Deployed === 'true' || parseInt(obj.Deployed, 10) === 1)
+                   && !isFlipatine;
         slot.classList.toggle('is-deployed', !!dep);
     }
 

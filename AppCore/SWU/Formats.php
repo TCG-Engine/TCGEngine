@@ -20,7 +20,7 @@ function SWUFormatDefinitions() {
         'eternal' => [
             'displayName' => 'Eternal',
             'legalSets'   => '*',                                 // every printed set
-            'banned'      => [],
+            'banned'      => ['JTL_140', 'JTL_170'],
             'enabled'     => true,
         ],
         'open' => [
