@@ -1231,9 +1231,39 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         };
     }
 
+    var responsePassSubmitting = false;
+
     window.AzukiResponsePass = function() {
+        if(responsePassSubmitting) return false;
+        responsePassSubmitting = true;
         SubmitInput('10001', '&cardID=' + encodeURIComponent('myLeaderHealthSlot!CustomInput!Pass'));
+        return true;
     };
+
+    window.TryAzukiResponsePassHotkey = function() {
+        var state = responseState();
+        var passBtn = document.getElementById('azukiResponsePassBtn');
+        if(!state.active || getViewerPlayer() !== state.responder || !passBtn) return false;
+        if(passBtn.style.display === 'none' || window.getComputedStyle(passBtn).display === 'none') return false;
+        return window.AzukiResponsePass();
+    };
+
+    function installResponsePassHotkey() {
+        document.addEventListener('keydown', function(event) {
+            if(event.code !== 'Space' && event.keyCode !== 32) return;
+            if(event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+
+            var activeElement = document.activeElement;
+            if(activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA' || activeElement.isContentEditable)) {
+                return;
+            }
+
+            if(window.TryAzukiResponsePassHotkey()) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            }
+        }, true);
+    }
 
     window.UpdateAzukiResponseOpportunity = function() {
         var panel = document.getElementById('azukiResponseOpportunity');
@@ -1243,6 +1273,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 
         var state = responseState();
         if(!state.active) {
+            responsePassSubmitting = false;
             panel.style.display = 'none';
             return;
         }
@@ -1591,6 +1622,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
     }
 
     installResponseWatcher();
+    installResponsePassHotkey();
     setupHandCollapse();
     setupLaneScrollButtons();
     setupIKZTokenIndicator();
