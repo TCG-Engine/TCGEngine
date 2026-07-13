@@ -40,18 +40,34 @@ function AzukiGameMode(): string {
     return $mode === 'rlbot' ? 'rlbot' : '';
 }
 
+function AzukiGameOverWinner() {
+    $winner = intval(DecisionQueueController::GetVariable('GAMEOVER_WINNER'));
+    return ($winner === 1 || $winner === 2) ? $winner : 0;
+}
+
+function AzukiPendingDecisionPlayer() {
+    $dqController = new DecisionQueueController();
+    for($player = 1; $player <= 2; ++$player) {
+        if($dqController->NextDecision($player) !== null) return $player;
+    }
+    return 0;
+}
+
 function AzukiRlBotPendingPlayerForClient() {
     if(AzukiGameMode() !== 'rlbot') return 0;
+    if(AzukiGameOverWinner() !== 0) return 0;
+
+    // An interactive decision created by a response spell must resolve before
+    // the responder may take another action in the still-open attack window.
+    $decisionPlayer = AzukiPendingDecisionPlayer();
+    if($decisionPlayer !== 0) {
+        return IsAzukiRlBotPlayer($decisionPlayer) ? $decisionPlayer : 0;
+    }
 
     if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) {
         $responder = function_exists('GetPendingAttackResponderPlayer') ? intval(GetPendingAttackResponderPlayer()) : 0;
         if(IsAzukiRlBotPlayer($responder)) return $responder;
         return 0;
-    }
-
-    $dqController = new DecisionQueueController();
-    foreach(GetAzukiRlBotPlayers() as $botPlayer) {
-        if($dqController->NextDecision($botPlayer) !== null) return intval($botPlayer);
     }
 
     $turnPlayer = intval(GetTurnPlayer());
@@ -359,6 +375,10 @@ function AzukiRlBotCleanAction($action) {
 }
 
 function AzukiRlBotLegalActions($gameName, $requestedPlayer) {
+    if(AzukiPendingDecisionPlayer() !== 0) {
+        return BridgeEnumerateLegalActionsLoaded('AzukiSim', strval($gameName));
+    }
+
     if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) {
         if(intval(GetPendingAttackResponderPlayer()) !== intval($requestedPlayer)) {
             return [
@@ -396,7 +416,9 @@ function ProcessAzukiRlBotStep() {
     $GLOBALS['bridgeIncludeAzukiStrategyState'] = $strategyMode === 'aggro-control';
     $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
     $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
-    if(!empty($terminal['isTerminal'])) return ['success' => true, 'message' => 'Game is over.', 'applied' => false];
+    if(!empty($terminal['isTerminal'])) {
+        return ['success' => true, 'message' => 'Game is over.', 'applied' => false, 'retryable' => false];
+    }
 
     $pendingBotPlayer = AzukiRlBotPendingPlayerForClient();
     if($pendingBotPlayer === 0) {
@@ -447,7 +469,13 @@ function ProcessAzukiRlBotStep() {
         ];
     }
 
-    return ['success' => true, 'message' => '', 'applied' => true, 'action' => $cleanAction];
+    return [
+        'success' => true,
+        'message' => '',
+        'applied' => true,
+        'retryable' => AzukiGameOverWinner() === 0,
+        'action' => $cleanAction,
+    ];
 }
 
 function GameBotControllerMode() {
