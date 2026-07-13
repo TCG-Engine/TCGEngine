@@ -252,6 +252,10 @@ if(!$withPreview && file_exists($cacheFile)) {
     $squareCards = false;
     if($rootName == "SWUDeck") {
       $thisImageUrl = $card->artFront->data->attributes->formats->card->url;
+      $artBack = $card->artBack ?? null;
+      if($artBack && isset($artBack->data->attributes->formats->card->url)) {
+        $thisBackImageUrl = $artBack->data->attributes->formats->card->url;
+      }
     } else if($rootName == "SWUSim") {
       // Fetch URL uses UUID (artFront CDN URL or documentId); saved filename uses SET_NNN ($cardID).
       $artFront = $card->artFront ?? null;
@@ -286,7 +290,12 @@ if(!$withPreview && file_exists($cacheFile)) {
         $thisImageUrl = $imageUrl . "hJb7hcK4Fd" . "." . $imageFormat;
       }
     }
-    $cardType = ($rootName == "SWUSim") ? GetPropertyValue($card, 'type') : "";
+    $cardType = "";
+    if($rootName == "SWUDeck") {
+      $cardType = SWURelAttr($card->type ?? null, 'name') ?? "";
+    } else if($rootName == "SWUSim") {
+      $cardType = GetPropertyValue($card, 'type');
+    }
     if($thisImageUrl !== null) {
       CheckImage($cardID, $thisImageUrl, $cardType, "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
     } else {

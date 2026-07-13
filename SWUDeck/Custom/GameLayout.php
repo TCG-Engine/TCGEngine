@@ -116,15 +116,16 @@ echo(<<<'HTML'
     content: '' !important; position: absolute; left: 4px; top: 1px; width: 5px; height: 9px;
     border: solid var(--accent-strong); border-width: 0 2px 2px 0; transform: rotate(45deg);
   }
-  /* Scoot the Filter Legal / Filter Aspect row right a touch (targets the row via the checkbox it holds). */
-  #myCardPaneWrapper div:has(> div > #legalFilterCheckbox) { padding-left: 10px !important; }
+  /* Keep the filter controls flush with the compact pane-tab row. */
+  #myCardPaneWrapper div:has(> div > #legalFilterCheckbox) { padding-left: 0 !important; }
 
-  /* Card pane — thin cyan HUD frame with a faint glow around the CARD GRID only, so it
-     begins below the filter bar / tabs / Filter Legal checkbox (which stay unframed at top). */
+  /* Card pane — subdued inset frame around the CARD GRID only, beginning below the
+     fixed search and tab/filter controls. */
   #my_CardPane_content {
     display: block !important; box-sizing: border-box !important; margin-top: 5px !important; padding: 5px !important;
-    border: 2px solid var(--accent-strong) !important;
-    box-shadow: 0 0 16px rgba(var(--accent-rgb),0.5), inset 0 0 12px rgba(var(--accent-rgb),0.18) !important;
+    border: 1px solid rgba(var(--accent-rgb),0.28) !important;
+    background: rgba(1, 13, 25, 0.12) !important;
+    box-shadow: inset 0 0 12px rgba(var(--accent-rgb),0.08) !important;
   }
 </style>
 HTML);
@@ -149,18 +150,80 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   #myCardPaneWrapper { width: 100%; }
 
   /* Desktop layout regions follow the renderer's cardSize calculation (viewport / 13).
-     Leader + base live above the browser; controls get their own strip above the deck. */
-  #swuDeckBoard { --swu-deck-card-size: calc(100vw / 13); overflow: hidden; }
+     The leader-unit crop and base crop share a shallow identity banner above the browser. */
+  #swuDeckBoard {
+    --swu-deck-card-size: calc(100vw / 13);
+    --swu-identity-height: clamp(64px, 6vw, 105px);
+    overflow: hidden;
+  }
+  #swuDeckBoard #swuIdentityBanner {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 25%;
+    height: var(--swu-identity-height);
+    overflow: hidden;
+    border: 1px solid rgba(var(--accent-rgb),0.24);
+    border-radius: 8px;
+    background: rgba(1,10,20,0.72);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.36);
+  }
   #swuDeckBoard #myLeaderSlot {
-    left: calc(12.5% - var(--swu-deck-card-size) - 6px) !important;
-    top: 10px !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 58%;
+    height: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
   }
   #swuDeckBoard #myBaseSlot {
-    left: calc(12.5% + 6px) !important;
-    top: 10px !important;
+    position: absolute !important;
+    left: auto !important;
+    right: 0 !important;
+    top: 0 !important;
+    width: 58%;
+    height: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to left, #000 0%, #000 68%, transparent 100%);
+    mask-image: linear-gradient(to left, #000 0%, #000 68%, transparent 100%);
   }
+  #swuDeckBoard #swuIdentityBanner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+      rgba(2,12,23,0.08) 0%,
+      transparent 31%,
+      rgba(3,18,32,0.36) 48%,
+      rgba(3,18,32,0.28) 52%,
+      transparent 69%,
+      rgba(2,12,23,0.08) 100%);
+  }
+  #swuIdentityBanner #myLeaderWrapper,
+  #swuIdentityBanner #myBaseWrapper,
+  #swuIdentityBanner #myLeader,
+  #swuIdentityBanner #myBase,
+  #swuIdentityBanner a {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+  }
+  #swuIdentityBanner img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: center;
+    border: 0 !important;
+  }
+  #swuIdentityBanner #myLeaderSlot img { object-position: center top; }
   #swuDeckBoard #myCardPaneSlot {
-    top: calc(var(--swu-deck-card-size) + 20px) !important;
+    top: calc(var(--swu-identity-height) + 20px) !important;
     overflow: hidden;
   }
   #swuDeckBoard #myDeckSlot {
@@ -210,6 +273,28 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     flex: 0 0 auto;
     overflow: visible !important;
   }
+  #myCardPane .swu-pane-tabs-row {
+    flex-wrap: nowrap !important;
+    gap: 0;
+  }
+  #myCardPane .swu-pane-filters-inline {
+    flex: 0 0 auto;
+    flex-wrap: nowrap !important;
+    margin: 2px 0 0 auto !important;
+    gap: 7px !important;
+    padding-left: 5px !important;
+  }
+  #myCardPane .swu-pane-filters-inline label {
+    margin-left: 0 !important;
+    font-size: 12px !important;
+    white-space: nowrap;
+  }
+  #myCardPane .panelTab {
+    padding: 3px 6px !important;
+    margin: 2px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.03em !important;
+  }
   #my_CardPane_content {
     flex: 1 1 auto;
     width: 100%;
@@ -233,9 +318,11 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   <!-- Slots carry only position; the generator's BindTo render sets each slot's .onclick and
        fills its inner `<zone>Wrapper` (the overflow/scroll container — CardPane's scroll
        position is saved/restored via ZoneScrollHandler on myCardPaneWrapper). -->
+  <div id="swuIdentityBanner">
+    <div id="myLeaderSlot"></div>
+    <div id="myBaseSlot"></div>
+  </div>
   <div id="myCardPaneSlot"  style="position:absolute; left:10px; top:10px; bottom:10px; width:25%;"></div>
-  <div id="myLeaderSlot"    style="position:absolute; left:40%; top:10px;"></div>
-  <div id="myBaseSlot"      style="position:absolute; left:62%; top:10px;"></div>
   <div id="myDeckSlot"      style="position:absolute; left:26%; top:16%;"></div>
   <div id="myStatsSlot"     style="position:absolute; left:46%; top:16%;"></div>
   <div id="mySortSlot"      style="position:absolute; left:82%; top:16%;"></div>
@@ -250,6 +337,44 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
 </div>
 <script>
 (function(){
+  function cardIDFromImage(img){
+    if(!img) return '';
+    var filename = String(img.getAttribute('src') || '').split('/').pop().split('?')[0];
+    return filename.replace(/_back(?=\.(?:webp|png)$)/, '').replace(/\.(?:webp|png)$/, '');
+  }
+  function useIdentityCrop(slotID, useBack){
+    var img = document.querySelector('#' + slotID + ' img');
+    if(!img || img.dataset.swuIdentityCrop === '1') return;
+    var cardID = cardIDFromImage(img);
+    if(!cardID) return;
+    img.dataset.swuIdentityCrop = '1';
+    var cropRoot = './SWUDeck/crops/' + encodeURIComponent(cardID);
+    if(useBack) {
+      img.addEventListener('error', function fallbackToFrontCrop(){
+        img.removeEventListener('error', fallbackToFrontCrop);
+        img.src = cropRoot + '_cropped.png';
+      });
+      img.src = cropRoot + '_back_cropped.png';
+    } else {
+      img.src = cropRoot + '_cropped.png';
+    }
+  }
+  function enhanceIdentityBanner(){
+    useIdentityCrop('myLeaderSlot', true);
+    useIdentityCrop('myBaseSlot', false);
+  }
+  function compactPaneFilters(){
+    var pane = document.getElementById('myCardPane');
+    var legal = document.getElementById('legalFilterCheckbox');
+    if(!pane || !legal) return;
+    var filterRow = legal.parentElement && legal.parentElement.parentElement;
+    var tab = pane.querySelector('.panelTab');
+    var tabsRow = tab && tab.parentElement;
+    if(!filterRow || !tabsRow || filterRow.parentElement === tabsRow) return;
+    tabsRow.classList.add('swu-pane-tabs-row');
+    filterRow.classList.add('swu-pane-filters-inline');
+    tabsRow.appendChild(filterRow);
+  }
   function bindCardPaneScroll(){
     var content = document.getElementById('my_CardPane_content');
     if(!content || content.dataset.swuScrollBound === '1') return;
@@ -262,11 +387,26 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   function observeCardPane(){
     var slot = document.getElementById('myCardPaneSlot');
     if(!slot) return;
-    new MutationObserver(function(){ requestAnimationFrame(bindCardPaneScroll); })
+    new MutationObserver(function(){ requestAnimationFrame(function(){
+      bindCardPaneScroll();
+      compactPaneFilters();
+    }); })
       .observe(slot, { childList: true, subtree: true });
     bindCardPaneScroll();
+    compactPaneFilters();
   }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', observeCardPane);
-  else observeCardPane();
+  function observeIdentityBanner(){
+    var banner = document.getElementById('swuIdentityBanner');
+    if(!banner) return;
+    new MutationObserver(function(){ requestAnimationFrame(enhanceIdentityBanner); })
+      .observe(banner, { childList: true, subtree: true });
+    enhanceIdentityBanner();
+  }
+  function initializeLayoutEnhancements(){
+    observeCardPane();
+    observeIdentityBanner();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeLayoutEnhancements);
+  else initializeLayoutEnhancements();
 })();
 </script>
