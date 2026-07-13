@@ -19,8 +19,10 @@ var cardDetailLongPressStartY = null;
 var cardDetailLongPressPreviewShown = false;
 var suppressMouseCardDetailUntil = 0;
 var suppressNextCardDetailClickUntil = 0;
+var cardDetailRequestToken = 0;
 var CARD_DETAIL_LONG_PRESS_MS = 430;
 var CARD_DETAIL_TOUCH_MOVE_TOLERANCE = 12;
+var SWUDECK_CARD_DETAIL_HOVER_MS = 240;
 
 function TrackCardDetailMouse(e) {
   if (!e || typeof e.clientX !== "number" || typeof e.clientY !== "number") return;
@@ -63,19 +65,22 @@ function ShowCardDetail(e, that, options) {
   options = options || {};
   if (ShouldIgnoreCardDetailEvent(e, options)) return;
   if (IsCardDetailSuppressed()) return;
+  var requestToken = ++cardDetailRequestToken;
   TrackCardDetailMouse(e);
   clearTimeout(showDetailTimeout);//In case there was another card waiting to show detail
   var folderPath = document.getElementById("folderPath").value;
-  var timeOut = options.skipDelay ? 0 : (folderPath == "SWUSim" ? 850 :
-    (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" || folderPath == "AzukiSim" ? 100 : 1));
+  var timeOut = options.skipDelay ? 0 : (folderPath == "SWUDeck" ? SWUDECK_CARD_DETAIL_HOVER_MS :
+    (folderPath == "SWUSim" ? 850 :
+    (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" || folderPath == "AzukiSim" ? 100 : 1)));
   showDetailTimeout = setTimeout(function() {
+    if (requestToken !== cardDetailRequestToken) return;
     if (IsCardDetailSuppressed()) return;
     if (e.target.hasAttribute("data-subcard-id")) {
       var subCardID = e.target.getAttribute("data-subcard-id");
       var assetFolder = (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) ? AssetReflectionPath() : folderPath;
-      ShowDetail(e, `${window.location.origin}/TCGEngine/${assetFolder}/${subCardID}.png`);
+      ShowDetail(e, `${window.location.origin}/TCGEngine/${assetFolder}/${subCardID}.png`, folderPath == "SWUDeck" ? that : null, requestToken);
     } else {
-      ShowDetail(e, that.getElementsByTagName("IMG")[0].src);
+      ShowDetail(e, that.getElementsByTagName("IMG")[0].src, folderPath == "SWUDeck" ? that : null, requestToken);
     }
   }, timeOut); //(hover delay)
 }
@@ -84,11 +89,20 @@ function ShowCardDetail(e, that, options) {
 // on-screen. On narrow viewports (phones) the preview is wider than half the screen, so
 // beside-the-tap placement pushes it off an edge (the old `clientX - 400` bug) — center
 // it horizontally there instead. cx/cy = pointer position; w/h = preview dimensions.
-function PositionCardDetail(el, cx, cy, w, h) {
+function PositionCardDetail(el, cx, cy, w, h, avoidEl) {
   var vw = window.innerWidth, vh = window.innerHeight;
   var left;
   if (w > vw * 0.6) {
     left = Math.max(5, Math.round((vw - w) / 2));
+  } else if (avoidEl && typeof avoidEl.getBoundingClientRect === "function") {
+    var avoidRect = avoidEl.getBoundingClientRect();
+    var detailGap = 12;
+    var roomRight = vw - avoidRect.right - detailGap;
+    var roomLeft = avoidRect.left - detailGap;
+    left = (roomRight >= w || roomRight >= roomLeft)
+      ? avoidRect.right + detailGap
+      : avoidRect.left - w - detailGap;
+    left = Math.max(5, Math.min(left, vw - w - 5));
   } else {
     left = (cx < vw / 2) ? cx + 30 : cx - w - 10;
     left = Math.max(5, Math.min(left, vw - w - 5));
@@ -99,8 +113,9 @@ function PositionCardDetail(el, cx, cy, w, h) {
   el.style.top = top + 'px';
 }
 
-function ShowDetail(e, imgSource) {
+function ShowDetail(e, imgSource, avoidEl, requestToken) {
   if (IsCardDetailSuppressed()) return;
+  if (typeof requestToken !== "number") requestToken = ++cardDetailRequestToken;
   TrackCardDetailMouse(e);
   imgSource = imgSource.replace("_cropped", "");
   imgSource = imgSource.replace("/crops/", "/WebpImages/");
@@ -113,6 +128,8 @@ function ShowDetail(e, imgSource) {
   el.style.zIndex = 100000;
   var img = new Image();
   img.onload = function() {
+    // Ignore an image load that completed after another card was entered or the pointer left.
+    if (requestToken !== cardDetailRequestToken) return;
     //Original dimension: height:523px; width:375px;
     var maxWidth = 400;
     var maxHeight = 400;
@@ -132,10 +149,11 @@ function ShowDetail(e, imgSource) {
     }
 
     el.innerHTML = "<img style='height:" + height + "px; width:" + width + "px;' src='" + imgSource + "' />";
-    PositionCardDetail(el, cx, cy, width, height);
+    PositionCardDetail(el, cx, cy, width, height, avoidEl);
     el.style.display = "inline";
     el.style.opacity = 0;
     showDetailTimeout = setTimeout(function() {
+      if (requestToken !== cardDetailRequestToken) return;
       el.style.transition = "opacity 0.5s";
       el.style.opacity = 1;
     }, 100);
@@ -147,9 +165,11 @@ function ShowSubcardDetail(e, imgEl, options) {
   options = options || {};
   if (ShouldIgnoreCardDetailEvent(e, options)) return;
   if (IsCardDetailSuppressed()) return;
+  var requestToken = ++cardDetailRequestToken;
   TrackCardDetailMouse(e);
   clearTimeout(showDetailTimeout);
   showDetailTimeout = setTimeout(function() {
+    if (requestToken !== cardDetailRequestToken) return;
     if (IsCardDetailSuppressed()) return;
     var src = imgEl.getAttribute('src') || '';
     // Transform concat URL to WebpImages for the popup
@@ -162,6 +182,7 @@ function ShowSubcardDetail(e, imgEl, options) {
     el.style.display = 'inline';
     el.style.opacity = 0;
     showDetailTimeout = setTimeout(function() {
+      if (requestToken !== cardDetailRequestToken) return;
       el.style.transition = 'opacity 0.5s';
       el.style.opacity = 1;
     }, 100);
@@ -172,6 +193,7 @@ function ShowSubcardDetail(e, imgEl, options) {
 
 function HideCardDetail(force) {
   if (!force && freezeCardDetailUntilMouseMove) return;
+  cardDetailRequestToken++;
   clearTimeout(showDetailTimeout);
   var el = document.getElementById("cardDetail");
   el.style.display = "none";

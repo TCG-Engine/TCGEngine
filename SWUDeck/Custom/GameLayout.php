@@ -456,6 +456,10 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     font: 700 12px/20px Arial, Helvetica, sans-serif !important;
     text-shadow: none !important;
   }
+  /* Card actions are the primary hover affordance. Keep previews non-interactive and
+     preserve the actions above them as a final safeguard on constrained viewports. */
+  #cardDetail { pointer-events: none !important; }
+  #swuDeckBoard span.draggable:hover .widget-buttons { z-index: 100100 !important; }
 </style>
 <div id="swuDeckBoard" style="position:absolute; left:0; top:0; right:0; bottom:0; z-index:11;">
   <!-- Slots carry only position; the generator's BindTo render sets each slot's .onclick and
