@@ -105,6 +105,7 @@ AzukiSim/ZoneAccessors.php
 AzukiSim/ZoneClasses.php
 AzukiSim/TurnStates.php
 AzukiSim/TurnController.php
+AzukiSim/Models
 DevTools/rl/artifacts/
 CardEditor/Assets
 # Scratch fixture dir written by Core/Match framework tests (test_match_core / test_match_flow)
