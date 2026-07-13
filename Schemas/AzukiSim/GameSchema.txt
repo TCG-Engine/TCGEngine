@@ -67,7 +67,7 @@ Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
 Highlight: FieldSelectionMetadata
 Display: Visibility=Public, Mode=All, BindTo=GardenSlot
-Subcards: Flow=Below
+Subcards: Flow=Above
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
 Counters: Damage=Image(Path=Assets/Icons/damage-counter.webp,Position=TopRight,ShowZero=false,Size=26,TextColor=White)
@@ -91,7 +91,7 @@ Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
 Highlight: FieldSelectionMetadata
 Display: Visibility=Public, Mode=All, BindTo=AlleySlot
-Subcards: Flow=Below
+Subcards: Flow=Above
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
 Counters: Damage=Image(Path=Assets/Icons/damage-counter.webp,Position=TopRight,ShowZero=false,Size=26,TextColor=White)

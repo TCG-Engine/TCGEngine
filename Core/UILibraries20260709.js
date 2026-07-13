@@ -6274,9 +6274,10 @@ function _getMacroGameStatsConfig() {
   var rootName = _getMacroGameRootName();
   if (rootName === 'AzukiSim') {
     return {
-      damageTitle: 'Leader Damage Dealt',
+      damageTitle: 'Leader Damage',
       damageBuckets: ['OpponentLeaderDamage'],
       damageTimelineBuckets: ['OpponentLeaderDamageTimeline'],
+      includeOpponentDamage: true,
       columns: [
         { key: 'play', label: 'Played', cardBuckets: ['PlayCard'] },
         { key: 'enter', label: 'Entered', cardBuckets: ['Enter'] },
@@ -6621,31 +6622,60 @@ function InitializeMacroGameStatsCharts(rootEl) {
     el.__macroChartInitialized = true;
     try {
       var rawTimeline = el.getAttribute('data-timeline') || '[]';
+      var rawOpponentTimeline = el.getAttribute('data-opponent-timeline') || '[]';
       var timelinePoints = JSON.parse(rawTimeline);
-      if (!Array.isArray(timelinePoints) || !timelinePoints.length) continue;
+      var opponentTimelinePoints = JSON.parse(rawOpponentTimeline);
+      if (!Array.isArray(timelinePoints)) timelinePoints = [];
+      if (!Array.isArray(opponentTimelinePoints)) opponentTimelinePoints = [];
+      if (!timelinePoints.length && !opponentTimelinePoints.length) continue;
       var labels = [];
       var perTurnData = [];
       var cumulativeData = [];
+      var opponentPerTurnData = [];
+      var opponentCumulativeData = [];
+      var pointsByTurn = {};
+      var opponentPointsByTurn = {};
+      var turnKeys = {};
+      for (var ownIndex = 0; ownIndex < timelinePoints.length; ++ownIndex) {
+        var ownPoint = timelinePoints[ownIndex] || {};
+        var ownTurn = parseInt(ownPoint.turn, 10) || (ownIndex + 1);
+        pointsByTurn[ownTurn] = (pointsByTurn[ownTurn] || 0) + (parseInt(ownPoint.amount, 10) || 0);
+        turnKeys[ownTurn] = true;
+      }
+      for (var opponentIndex = 0; opponentIndex < opponentTimelinePoints.length; ++opponentIndex) {
+        var opponentPoint = opponentTimelinePoints[opponentIndex] || {};
+        var opponentTurn = parseInt(opponentPoint.turn, 10) || (opponentIndex + 1);
+        opponentPointsByTurn[opponentTurn] = (opponentPointsByTurn[opponentTurn] || 0) + (parseInt(opponentPoint.amount, 10) || 0);
+        turnKeys[opponentTurn] = true;
+      }
+      var turns = Object.keys(turnKeys).map(function(turn) { return parseInt(turn, 10); });
+      turns.sort(function(a, b) { return a - b; });
       var running = 0;
-      for (var j = 0; j < timelinePoints.length; ++j) {
-        var point = timelinePoints[j] || {};
-        var amount = parseInt(point.amount, 10) || 0;
+      var opponentRunning = 0;
+      for (var j = 0; j < turns.length; ++j) {
+        var turn = turns[j];
+        var amount = pointsByTurn[turn] || 0;
+        var opponentAmount = opponentPointsByTurn[turn] || 0;
         running += amount;
-        labels.push('Turn ' + (parseInt(point.turn, 10) || (j + 1)));
+        opponentRunning += opponentAmount;
+        labels.push('Turn ' + turn);
         perTurnData.push(amount);
         cumulativeData.push(running);
+        opponentPerTurnData.push(opponentAmount);
+        opponentCumulativeData.push(opponentRunning);
       }
       var canvas = el.querySelector('canvas');
       if (!canvas) continue;
       var ctx = canvas.getContext('2d');
       if (!ctx) continue;
-      new Chart(ctx, {
+      var hasOpponentTimeline = el.hasAttribute('data-opponent-timeline');
+      var chart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: labels,
           datasets: [
             {
-              label: 'Per Turn',
+              label: hasOpponentTimeline ? 'To Opponent / Turn' : 'Per Turn',
               data: perTurnData,
               borderColor: '#ffd46b',
               backgroundColor: 'rgba(255, 212, 107, 0.18)',
@@ -6657,11 +6687,35 @@ function InitializeMacroGameStatsCharts(rootEl) {
               borderWidth: 3
             },
             {
-              label: 'Cumulative',
+              label: hasOpponentTimeline ? 'To Opponent / Cumulative' : 'Cumulative',
               data: cumulativeData,
               borderColor: '#8bc4ff',
               backgroundColor: 'rgba(139, 196, 255, 0.16)',
               pointBackgroundColor: '#8bc4ff',
+              pointBorderColor: '#0f1724',
+              pointRadius: 4,
+              pointHoverRadius: 5,
+              tension: 0.22,
+              borderWidth: 3
+            },
+            {
+              label: 'To You / Turn',
+              data: opponentPerTurnData,
+              borderColor: '#ff8c8c',
+              backgroundColor: 'rgba(255, 140, 140, 0.16)',
+              pointBackgroundColor: '#ff8c8c',
+              pointBorderColor: '#0f1724',
+              pointRadius: 4,
+              pointHoverRadius: 5,
+              tension: 0.28,
+              borderWidth: 3
+            },
+            {
+              label: 'To You / Cumulative',
+              data: opponentCumulativeData,
+              borderColor: '#d971d9',
+              backgroundColor: 'rgba(217, 113, 217, 0.14)',
+              pointBackgroundColor: '#d971d9',
               pointBorderColor: '#0f1724',
               pointRadius: 4,
               pointHoverRadius: 5,
@@ -6733,15 +6787,28 @@ function InitializeMacroGameStatsCharts(rootEl) {
           }
         }
       });
+      if (!hasOpponentTimeline) {
+        chart.data.datasets.splice(2, 2);
+        chart.update();
+      }
     } catch (e) {
       if (console && console.error) console.error('InitializeMacroGameStatsCharts error', e);
     }
   }
 }
 
-function _formatMacroGameDamageChart(title, totalDamage, timelinePoints) {
-  if (!totalDamage) return '';
+function _formatMacroGameDamageChart(title, totalDamage, timelinePoints, opponentTotalDamage, opponentTimelinePoints) {
+  if (!totalDamage && !opponentTotalDamage) return '';
   var timelineJson = _escapeMacroGameHtml(JSON.stringify(timelinePoints));
+  var opponentTimelineJson = _escapeMacroGameHtml(JSON.stringify(opponentTimelinePoints || []));
+  var opponentTimelineAttribute = typeof opponentTotalDamage === 'number'
+    ? ' data-opponent-timeline="' + opponentTimelineJson + '"'
+    : '';
+  var hasOpponentDamage = typeof opponentTotalDamage === 'number';
+  var opponentSummaryHtml = hasOpponentDamage
+    ? '<div style="flex:0 0 auto; padding:5px 10px; border-radius:999px; background:rgba(255,140,140,0.16); border:1px solid rgba(255,140,140,0.28); color:#ffc4c4; font-size:12px; font-weight:800;">To You: ' + opponentTotalDamage + '</div>'
+    : '';
+  var outgoingSummaryPrefix = hasOpponentDamage ? 'To Opponent: ' : '';
 
   return ''
     + '<section style="margin:0; padding:12px 12px 10px; border-radius:16px; min-width:0; max-width:100%; overflow:hidden;'
@@ -6751,9 +6818,12 @@ function _formatMacroGameDamageChart(title, totalDamage, timelinePoints) {
     + '<div>'
     + '<div style="font-size:15px; font-weight:800; letter-spacing:0.01em; color:#fff1c6;">' + _escapeMacroGameHtml(title) + '</div>'
     + '</div>'
-    + '<div style="flex:0 0 auto; padding:5px 10px; border-radius:999px; background:rgba(201,168,76,0.18); border:1px solid rgba(201,168,76,0.28); color:#ffe09b; font-size:12px; font-weight:800;">' + totalDamage + '</div>'
+    + '<div style="display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px;">'
+    + '<div style="flex:0 0 auto; padding:5px 10px; border-radius:999px; background:rgba(201,168,76,0.18); border:1px solid rgba(201,168,76,0.28); color:#ffe09b; font-size:12px; font-weight:800;">' + outgoingSummaryPrefix + totalDamage + '</div>'
+    + opponentSummaryHtml
     + '</div>'
-    + '<div data-macro-game-chart="damage" data-timeline="' + timelineJson + '" style="min-width:0; padding:8px 8px 6px; border-radius:14px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);">'
+    + '</div>'
+    + '<div data-macro-game-chart="damage" data-timeline="' + timelineJson + '"' + opponentTimelineAttribute + ' style="min-width:0; padding:8px 8px 6px; border-radius:14px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);">'
     + '<div style="position:relative; height:190px;">'
     + '<canvas aria-label="Damage dealt chart"></canvas>'
     + '</div>'
@@ -6776,7 +6846,14 @@ function BuildMacroGameStatsHtml(playerID) {
   var statsConfig = _getMacroGameStatsConfig();
   var damageTimeline = _collectMacroGameTimeline(indexData, playerID, statsConfig.damageTimelineBuckets);
   var damageTotal = _collectMacroGameNumericBuckets(indexData, playerID, statsConfig.damageBuckets);
-  var damageHtml = _formatMacroGameDamageChart(statsConfig.damageTitle, damageTotal, damageTimeline);
+  var opponentPlayerID = playerID === 1 ? 2 : (playerID === 2 ? 1 : 0);
+  var opponentDamageTimeline = statsConfig.includeOpponentDamage && opponentPlayerID > 0
+    ? _collectMacroGameTimeline(indexData, opponentPlayerID, statsConfig.damageTimelineBuckets)
+    : [];
+  var opponentDamageTotal = statsConfig.includeOpponentDamage && opponentPlayerID > 0
+    ? _collectMacroGameNumericBuckets(indexData, opponentPlayerID, statsConfig.damageBuckets)
+    : null;
+  var damageHtml = _formatMacroGameDamageChart(statsConfig.damageTitle, damageTotal, damageTimeline, opponentDamageTotal, opponentDamageTimeline);
   var matrixHtml = _formatMacroGameMatrix(playerID, indexData, statsConfig.columns);
   if (!damageHtml && !matrixHtml) return '';
 

@@ -736,6 +736,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 
         #theirGardenSlot {
             top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h));
+            z-index: 36;
         }
 
         #theirAlleySlot {
@@ -745,6 +746,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         #myGardenSlot {
             bottom: auto;
             top: calc(50% + var(--azuki-bottom-center-gap));
+            z-index: 36;
         }
 
         #myAlleySlot {
@@ -915,8 +917,9 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 
         #myLeaderHealthSlot {
             right: auto;
-            left: calc(var(--azuki-rail-left) + 116px);
-            bottom: 176px;
+            left: calc(var(--azuki-my-pile-left) + 4px);
+            top: calc(50% + var(--azuki-bottom-center-gap) - 64px);
+            bottom: auto;
             z-index: 40;
         }
 
@@ -943,6 +946,37 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 
         #myLeaderHealth .widget-button-pass {
             min-width: 92px;
+            background: linear-gradient(180deg, rgba(39, 45, 49, 0.96) 0%, rgba(16, 20, 23, 0.98) 100%);
+            border-color: rgba(244, 237, 219, 0.34);
+            color: #f5f0e4;
+            box-shadow: 0 7px 16px rgba(0, 0, 0, 0.42);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        #myLeaderHealth .widget-button-pass:hover {
+            background: linear-gradient(180deg, rgba(58, 64, 68, 0.98) 0%, rgba(24, 29, 33, 1) 100%);
+            border-color: rgba(255, 248, 232, 0.68);
+            color: #fffaf0;
+            box-shadow: 0 9px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #myLeaderHealth .widget-button-pass.azuki-pass-idle {
+            background: linear-gradient(180deg, rgba(31, 85, 49, 0.98) 0%, rgba(12, 42, 25, 1) 100%);
+            border-color: rgba(106, 248, 150, 0.9);
+            color: #effff3;
+            box-shadow: 0 0 0 1px rgba(89, 244, 139, 0.28), 0 0 14px rgba(51, 231, 105, 0.62), 0 8px 18px rgba(0, 0, 0, 0.42);
+            animation: azuki-pass-idle-glow 1.7s ease-in-out infinite alternate;
+        }
+
+        #myLeaderHealth .widget-button-pass.azuki-pass-idle:hover {
+            background: linear-gradient(180deg, rgba(45, 111, 65, 1) 0%, rgba(16, 57, 32, 1) 100%);
+            border-color: rgba(149, 255, 180, 1);
+        }
+
+        @keyframes azuki-pass-idle-glow {
+            from { box-shadow: 0 0 0 1px rgba(89, 244, 139, 0.22), 0 0 10px rgba(51, 231, 105, 0.42), 0 8px 18px rgba(0, 0, 0, 0.42); }
+            to { box-shadow: 0 0 0 2px rgba(106, 248, 150, 0.38), 0 0 22px rgba(51, 231, 105, 0.78), 0 8px 18px rgba(0, 0, 0, 0.42); }
         }
 
         #myHandSlot,
@@ -1507,10 +1541,60 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         window.setInterval(update, 250);
     }
 
+    function setupPassAvailabilityGlow() {
+        var pending = false;
+
+        function viewerHasPassPriority() {
+            var viewer = getViewerPlayer();
+            if(viewer !== 1 && viewer !== 2) return false;
+
+            var state = responseState();
+            if(state.active) return viewer === state.responder;
+
+            var turnPlayer = parseInt(window.TurnPlayerData, 10);
+            if(viewer !== turnPlayer) return false;
+
+            if(typeof _firstPendingDecisionFromRaw === 'function'
+                && _firstPendingDecisionFromRaw(window.myDecisionQueueData)) {
+                return false;
+            }
+
+            if(typeof _shouldShowOpponentWaitingMessage === 'function') {
+                return !_shouldShowOpponentWaitingMessage(true);
+            }
+
+            var theirQueue = window.theirDecisionQueueData;
+            return !(typeof theirQueue === 'string' && theirQueue.trim() !== '');
+        }
+
+        function update() {
+            pending = false;
+            var passButton = document.querySelector('#myLeaderHealth .widget-button-pass');
+            if(!passButton) return;
+            passButton.classList.toggle('azuki-pass-idle', viewerHasPassPriority() && !document.querySelector('.selectable-card'));
+        }
+
+        function scheduleUpdate() {
+            if(pending) return;
+            pending = true;
+            window.requestAnimationFrame(update);
+        }
+
+        new MutationObserver(scheduleUpdate).observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class']
+        });
+        update();
+        window.setInterval(update, 250);
+    }
+
     installResponseWatcher();
     setupHandCollapse();
     setupLaneScrollButtons();
     setupIKZTokenIndicator();
+    setupPassAvailabilityGlow();
     window.UpdateAzukiResponseOpportunity();
 })();
 </script>
