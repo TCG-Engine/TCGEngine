@@ -1099,6 +1099,17 @@ function CountCardsOfTypeInDiscard($player, $cardType) {
     return $count;
 }
 
+function CountCardsInDiscard($player) {
+    $discard = &GetDiscard($player);
+    $count = 0;
+    for($i = 0; $i < count($discard); ++$i) {
+        if(isset($discard[$i]->removed) && $discard[$i]->removed) continue;
+        ++$count;
+    }
+
+    return $count;
+}
+
 function CardHasSubtype($cardID, $subtype) {
     if(!is_string($cardID) || $cardID === '' || !is_string($subtype) || $subtype === '') return false;
     $subtypes = CardSubtypes($cardID);
@@ -1499,7 +1510,7 @@ function EquippedWeaponAttackBonus($obj, $ownerPlayer = null) {
 
     // Tenraku grants +1 additional attack when its controller has 15+ cards in discard.
     $tenrakuID = 'S1-STT01-015_Tenraku_W_UC_die';
-    if($ownerPlayer !== null && intval($ownerPlayer) > 0 && CountCardsOfTypeInDiscard(intval($ownerPlayer), 'WEAPON') >= 15) {
+    if($ownerPlayer !== null && intval($ownerPlayer) > 0 && CountCardsInDiscard(intval($ownerPlayer)) >= 15) {
         $tenrakuCount = 0;
         foreach($weaponIDs as $weaponID) {
             if($weaponID === $tenrakuID) ++$tenrakuCount;
