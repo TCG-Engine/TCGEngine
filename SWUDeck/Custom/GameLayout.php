@@ -18,6 +18,16 @@ echo("<script>window.SWUDeckSlotLayout = true;</script>");
 // routing so both desktop and mobile pick it up. SWUDeck-scoped (only loads on this page).
 echo(<<<'HTML'
 <style>
+  :root {
+    --swu-control-text: rgba(190, 216, 232, 0.88);
+    --swu-control-rim: rgba(103, 151, 180, 0.52);
+    --swu-control-rim-hover: rgba(143, 196, 226, 0.78);
+    --swu-control-fill: rgba(7, 22, 35, 0.94);
+    --swu-control-fill-hover: rgba(11, 31, 47, 0.97);
+    --swu-control-fill-active: rgba(15, 40, 59, 0.98);
+    --swu-control-glow: rgba(91, 164, 204, 0.24);
+  }
+
   /* SWUDeck top rail: replace the generated gray flex row with a compact HUD header.
      Primary navigation stays left; deck-state controls form a distinct group on the right. */
   .flex-container > .flex-item:first-child {
@@ -61,10 +71,10 @@ echo(<<<'HTML'
     border: 0 !important; border-radius: 0 !important; background: transparent !important;
     box-shadow: none !important; clip-path: none !important;
     padding: 4px 11px !important; margin: 2px 3px !important;
-    color: var(--text) !important; font-weight: 600 !important;
-    text-transform: uppercase !important; letter-spacing: 0.05em !important;
-    text-shadow: 0 0 5px rgba(var(--accent-rgb),0.35) !important;
-    filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.30)) !important;
+    color: var(--swu-control-text) !important; font-weight: 600 !important;
+    text-transform: uppercase !important; letter-spacing: 0.04em !important;
+    text-shadow: none !important;
+    filter: none !important;
     transition: filter 150ms, color 150ms, transform 110ms !important;
     cursor: pointer !important;
   }
@@ -72,25 +82,27 @@ echo(<<<'HTML'
   .flex-container > .flex-item:first-child button::before {
     content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
     clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px) !important;
-    background: var(--accent) !important;
+    background: var(--swu-control-rim) !important;
   }
   .widget-button::after, .widget-button-selected::after, .panelTab::after,
   .flex-container > .flex-item:first-child button::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
+    content: '' !important; position: absolute !important; inset: 1px !important; z-index: -1 !important;
     clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px) !important;
-    background: var(--btn-fill) !important;
+    background: var(--swu-control-fill) !important;
   }
   /* Hover — brighter rim + lift */
   .widget-button:hover, .panelTab:hover,
   .flex-container > .flex-item:first-child button:hover {
-    color: #fff !important; filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.6)) !important; transform: translateY(-1px) !important;
+    color: var(--text) !important; filter: drop-shadow(0 0 4px var(--swu-control-glow)) !important; transform: translateY(-1px) !important;
   }
   .widget-button:hover::before, .panelTab:hover::before,
-  .flex-container > .flex-item:first-child button:hover::before { background: var(--accent-strong) !important; }
+  .flex-container > .flex-item:first-child button:hover::before { background: var(--swu-control-rim-hover) !important; }
+  .widget-button:hover::after, .panelTab:hover::after,
+  .flex-container > .flex-item:first-child button:hover::after { background: var(--swu-control-fill-hover) !important; }
   /* Selected (active sort/stat) — bright rim, slightly lit fill */
-  .widget-button-selected { color: #fff !important; }
-  .widget-button-selected::before { background: var(--accent-strong) !important; }
-  .widget-button-selected::after  { background: var(--check-fill) !important; }
+  .widget-button-selected { color: var(--text) !important; }
+  .widget-button-selected::before { background: var(--swu-control-rim-hover) !important; }
+  .widget-button-selected::after  { background: var(--swu-control-fill-active) !important; }
   /* Press-in */
   .widget-button:active { transform: translateY(1px) !important; }
   .widget-button:active::after,
@@ -101,8 +113,8 @@ echo(<<<'HTML'
      above. !important so this wins over the base regardless of stylesheet order. */
   #mySortWrapper, #mySortSlot { overflow: visible !important; }  /* let the popup escape the zone */
   .widget-dd-menu {
-    background: var(--surface-raised) !important; border: 1px solid rgba(var(--accent-rgb),0.55) !important;
-    border-radius: 0 !important; box-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 8px rgba(var(--accent-rgb),0.22) !important;
+    background: var(--surface-raised) !important; border: 1px solid rgba(var(--accent-rgb),0.34) !important;
+    border-radius: 0 !important; box-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 8px rgba(var(--accent-rgb),0.08) !important;
   }
   .widget-dd-item { color: var(--text) !important; }
   .widget-dd-item:hover { background: var(--check-fill) !important; }
@@ -115,12 +127,12 @@ echo(<<<'HTML'
     height: 28px !important; align-self: center !important; box-sizing: border-box !important;
     display: inline-flex !important; align-items: center !important; justify-content: center !important;
     padding: 3px 9px !important; margin: 0 2px !important; font-size: 13px !important;
-    filter: drop-shadow(0 0 2px rgba(var(--accent-rgb),0.24)) !important;
+    filter: none !important;
   }
   .flex-container > .flex-item:first-child > button:hover,
   .flex-container > .flex-item:first-child #visibilityDropdownTrigger:hover,
   .flex-container > .flex-item:first-child #versionDropdownTrigger:hover {
-    filter: drop-shadow(0 0 6px rgba(var(--accent-rgb),0.48)) !important;
+    filter: drop-shadow(0 0 4px var(--swu-control-glow)) !important;
   }
   @media (max-width: 1100px) {
     .flex-container > .flex-item:first-child { padding: 0 4px !important; gap: 0 !important; }
@@ -133,9 +145,9 @@ echo(<<<'HTML'
   }
   /* Dropdown menus (visibility + version popups) — cyan-HUD panel to match the buttons. */
   #visibilityDropdownMenu, #versionDropdownMenu {
-    background: var(--surface-raised) !important; border: 1px solid rgba(var(--accent-rgb),0.55) !important;
+    background: var(--surface-raised) !important; border: 1px solid rgba(var(--accent-rgb),0.34) !important;
     border-radius: 0 !important;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 8px rgba(var(--accent-rgb),0.22) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 8px rgba(var(--accent-rgb),0.08) !important;
   }
   #visibilityDropdownMenu > div, #versionDropdownMenu > div { color: var(--text) !important; }
   #visibilityDropdownMenu > div:hover, #versionDropdownMenu > div:hover { background: var(--check-fill) !important; }
@@ -144,25 +156,36 @@ echo(<<<'HTML'
      cyan-HUD, all-caps, soft glow. (Menu items stay normal-case for readability.) */
   #myDeckWrapper, #myStatsWrapper, #mySortWrapper,
   label[for="legalFilterCheckbox"], label[for="customFilterCheckbox"] {
-    color: var(--text) !important; font-weight: 600 !important;
+    color: var(--swu-control-text) !important; font-weight: 600 !important;
     font-family: Arial, Helvetica, sans-serif !important;
     text-transform: uppercase !important; letter-spacing: 0.04em !important;
-    text-shadow: 0 0 5px rgba(var(--accent-rgb),0.30) !important;
+    text-shadow: none !important;
   }
   .widget-dd-item { text-transform: none !important; }  /* menu items normal-case; trigger label stays UPPERCASE like the buttons */
-  .filterBar::placeholder { color: var(--text-muted) !important; }
+  .filterBar {
+    background: rgba(7, 19, 30, 0.94) !important;
+    border: 1px solid rgba(var(--accent-rgb),0.20) !important;
+    color: var(--swu-control-text) !important;
+    box-shadow: inset 0 1px 5px rgba(0,0,0,0.34) !important;
+  }
+  .filterBar:focus {
+    outline: none !important;
+    border-color: rgba(var(--accent-rgb),0.42) !important;
+    box-shadow: inset 0 1px 5px rgba(0,0,0,0.34), 0 0 4px rgba(var(--accent-rgb),0.12) !important;
+  }
+  .filterBar::placeholder { color: rgba(160,195,225,0.50) !important; }
 
   /* Custom cyan-HUD checkboxes (Filter Legal / Filter Aspect) — SWUDeck only. */
   #legalFilterCheckbox, #customFilterCheckbox {
     -webkit-appearance: none !important; appearance: none !important;
     width: 16px !important; height: 16px !important; margin: 0 6px 0 0 !important; padding: 0 !important;
-    background: var(--btn-fill) !important; border: 1px solid rgba(var(--accent-rgb),0.6) !important;
+    background: var(--swu-control-fill) !important; border: 1px solid rgba(var(--accent-rgb),0.38) !important;
     border-radius: 0 !important; cursor: pointer; position: relative; vertical-align: middle; flex-shrink: 0;
     transition: box-shadow 120ms, background 120ms;
   }
-  #legalFilterCheckbox:hover, #customFilterCheckbox:hover { box-shadow: 0 0 6px rgba(var(--accent-rgb),0.45) !important; }
+  #legalFilterCheckbox:hover, #customFilterCheckbox:hover { border-color: rgba(var(--accent-rgb),0.62) !important; box-shadow: 0 0 4px rgba(var(--accent-rgb),0.18) !important; }
   #legalFilterCheckbox:checked, #customFilterCheckbox:checked {
-    background: var(--check-fill) !important; box-shadow: 0 0 5px rgba(var(--accent-rgb),0.35) !important;
+    background: var(--swu-control-fill-active) !important; box-shadow: 0 0 4px rgba(var(--accent-rgb),0.16) !important;
   }
   #legalFilterCheckbox:checked::after, #customFilterCheckbox:checked::after {
     content: '' !important; position: absolute; left: 4px; top: 1px; width: 5px; height: 9px;
