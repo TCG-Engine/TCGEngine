@@ -3,10 +3,15 @@
 include_once '../Core/HTTPLibraries.php';
 include_once '../Database/ConnectionManager.php';
 include_once '../SWUDeck/Custom/CardIdentifiers.php';
+include_once '../Core/StatsBaseRegistry.php';
 
 header('Content-Type: application/json');
 
 $conn = GetLocalMySQLConnection();
+
+// Opt-in: consolidate common bases by color+type (Standard/Force/Splash). Default off keeps
+// the documented response byte-identical (one row per exact base).
+$consolidate = isset($_GET['consolidate']) && $_GET['consolidate'] == '1';
 
 // Optional week filter (uniform across the meta-stats family). intval()'d, so safe to inline:
 //   none           -> all weeks (all-time)
@@ -52,11 +57,19 @@ if ($result && $result->num_rows > 0) {
       continue;
     }
 
-    $key = $leaderIDstr . '|' . $baseIDstr;
+    $bucketBaseID = $baseIDstr;
+    if ($consolidate) {
+      $b = StatsBaseBucket($baseIDstr);
+      $groupKey = $leaderIDstr . '|' . $b['key'];
+      $bucketBaseID = $b['displayBase'];
+    } else {
+      $groupKey = $leaderIDstr . '|' . $baseIDstr;
+    }
+    $key = $groupKey;
     if (!isset($aggregates[$key])) {
       $aggregates[$key] = [
         'leaderID' => $leaderIDstr,
-        'baseID' => $baseIDstr,
+        'baseID' => $bucketBaseID,
         'numWins' => 0,
         'numPlays' => 0,
         'playsGoingFirst' => 0,
