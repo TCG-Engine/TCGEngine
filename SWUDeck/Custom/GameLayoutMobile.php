@@ -4,6 +4,7 @@
 // The phone editor is a two-page horizontal workspace: a full-height card library and a
 // full-height deck workspace. Both pages keep the generated zone slot ids, so
 // NextTurnRender.php continues to populate them without a mobile-only renderer.
+$swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewportDebug'] === '1';
 ?>
 <style>
   :root { --swu-mobile-viewport-height: 100vh; }
@@ -1909,3 +1910,210 @@
   else initialize();
 })();
 </script>
+<?php if ($swuViewportDebugEnabled): ?>
+<script>
+(function(){
+  'use strict';
+  var samples = [];
+  var sampleTimer = 0;
+  var copyButton = null;
+
+  function round(value){
+    return typeof value === 'number' && isFinite(value) ? Math.round(value * 100) / 100 : null;
+  }
+  function metrics(element){
+    if(!element) return null;
+    var rect = element.getBoundingClientRect();
+    var style = getComputedStyle(element);
+    return {
+      top: round(rect.top),
+      bottom: round(rect.bottom),
+      left: round(rect.left),
+      right: round(rect.right),
+      width: round(rect.width),
+      height: round(rect.height),
+      clientHeight: element.clientHeight,
+      scrollHeight: element.scrollHeight,
+      paddingTop: style.paddingTop,
+      paddingBottom: style.paddingBottom,
+      overflowY: style.overflowY,
+      position: style.position,
+      display: style.display
+    };
+  }
+  function measureHeight(value){
+    if(!document.body || !window.CSS || !CSS.supports('height', value)) return null;
+    var probe = document.createElement('div');
+    probe.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:' + value + ';visibility:hidden;pointer-events:none;';
+    document.body.appendChild(probe);
+    var result = round(probe.getBoundingClientRect().height);
+    probe.remove();
+    return result;
+  }
+  function measureSafeAreaBottom(){
+    if(!document.body) return null;
+    var probe = document.createElement('div');
+    probe.style.cssText = 'position:fixed;left:-9999px;top:0;padding-bottom:env(safe-area-inset-bottom);visibility:hidden;pointer-events:none;';
+    document.body.appendChild(probe);
+    var result = round(parseFloat(getComputedStyle(probe).paddingBottom) || 0);
+    probe.remove();
+    return result;
+  }
+  function capture(reason){
+    var visualViewport = window.visualViewport;
+    var visibleTop = visualViewport ? visualViewport.offsetTop : 0;
+    var visibleBottom = visibleTop + (visualViewport ? visualViewport.height : window.innerHeight);
+    var actionTray = document.getElementById('swuMobileDeckActions');
+    var actionTrayMetrics = metrics(actionTray);
+    var sample = {
+      reason: reason,
+      capturedAt: new Date().toISOString(),
+      userAgent: navigator.userAgent,
+      standalone: navigator.standalone === true || !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches),
+      devicePixelRatio: window.devicePixelRatio,
+      orientation: screen.orientation ? screen.orientation.type : window.orientation,
+      window: {
+        innerWidth: window.innerWidth,
+        innerHeight: window.innerHeight,
+        outerWidth: window.outerWidth,
+        outerHeight: window.outerHeight,
+        scrollX: window.scrollX,
+        scrollY: window.scrollY
+      },
+      screen: {
+        width: screen.width,
+        height: screen.height,
+        availWidth: screen.availWidth,
+        availHeight: screen.availHeight
+      },
+      visualViewport: visualViewport ? {
+        width: round(visualViewport.width),
+        height: round(visualViewport.height),
+        offsetTop: round(visualViewport.offsetTop),
+        offsetLeft: round(visualViewport.offsetLeft),
+        pageTop: round(visualViewport.pageTop),
+        pageLeft: round(visualViewport.pageLeft),
+        scale: round(visualViewport.scale),
+        visibleBottom: round(visibleBottom)
+      } : null,
+      cssViewportUnits: {
+        vh100: measureHeight('100vh'),
+        svh100: measureHeight('100svh'),
+        dvh100: measureHeight('100dvh'),
+        fillAvailable: measureHeight('-webkit-fill-available'),
+        safeAreaBottom: measureSafeAreaBottom()
+      },
+      cssVariableHeight: getComputedStyle(document.documentElement).getPropertyValue('--swu-mobile-viewport-height').trim(),
+      elements: {
+        html: metrics(document.documentElement),
+        body: metrics(document.body),
+        mainDiv: metrics(document.getElementById('mainDiv')),
+        mobileRoot: metrics(document.getElementById('swuDeckMobileRoot')),
+        mobileViewport: metrics(document.getElementById('swuDeckMobileViewport')),
+        mobileTrack: metrics(document.getElementById('swuDeckMobileTrack')),
+        searchPage: metrics(document.getElementById('swuMobileSearchPage')),
+        deckPage: metrics(document.getElementById('swuMobileDeckPage')),
+        deckScroll: metrics(document.getElementById('swuMobileDeckScroll')),
+        recentTray: metrics(document.getElementById('swuMobileRecent')),
+        deckActionTray: actionTrayMetrics
+      },
+      calculated: {
+        actionTrayPastReportedViewport: actionTrayMetrics ? round(Math.max(0, actionTrayMetrics.bottom - visibleBottom)) : null,
+        rootPastReportedViewport: (function(){
+          var rootMetrics = metrics(document.getElementById('swuDeckMobileRoot'));
+          return rootMetrics ? round(Math.max(0, rootMetrics.bottom - visibleBottom)) : null;
+        })()
+      }
+    };
+    samples.push(sample);
+    if(samples.length > 40) samples.shift();
+    return sample;
+  }
+  function safeCapture(reason){
+    try {
+      return capture(reason);
+    } catch(error) {
+      samples.push({
+        reason: reason,
+        capturedAt: new Date().toISOString(),
+        captureError: String(error && (error.stack || error.message) || error)
+      });
+      if(samples.length > 40) samples.shift();
+      return null;
+    }
+  }
+  window.SWUDeckViewportDiagnostics = function(){
+    return { version: 1, url: location.href, samples: samples.slice() };
+  };
+  function scheduleCapture(reason){
+    window.clearTimeout(sampleTimer);
+    sampleTimer = window.setTimeout(function(){ safeCapture(reason); }, 80);
+  }
+  function showCopyFallback(text){
+    var cover = document.createElement('div');
+    cover.style.cssText = 'position:fixed;z-index:2147483647;inset:0;padding:12px;box-sizing:border-box;background:#020c16;color:#eaf8ff;';
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.textContent = 'Close';
+    close.style.cssText = 'height:38px;margin:0 0 8px;padding:0 14px;border:1px solid #8fd6ff;background:#0b2940;color:#fff;font:700 14px sans-serif;';
+    var output = document.createElement('textarea');
+    output.readOnly = true;
+    output.value = text;
+    output.style.cssText = 'display:block;width:100%;height:calc(100% - 48px);box-sizing:border-box;background:#04111d;color:#eaf8ff;font:11px/1.3 monospace;';
+    close.addEventListener('click', function(){ cover.remove(); });
+    cover.appendChild(close);
+    cover.appendChild(output);
+    document.body.appendChild(cover);
+    output.focus();
+    output.select();
+  }
+  function copyDiagnostics(){
+    safeCapture('copy-button');
+    var text = JSON.stringify(window.SWUDeckViewportDiagnostics(), null, 2);
+    if(navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function(){
+        copyButton.textContent = 'Copied - send it to Codex';
+      }).catch(function(){ showCopyFallback(text); });
+    } else {
+      showCopyFallback(text);
+    }
+  }
+  function addRuler(){
+    var ruler = document.createElement('div');
+    ruler.setAttribute('aria-hidden','true');
+    ruler.style.cssText = 'position:fixed;z-index:2147483645;right:0;bottom:0;width:44px;height:181px;pointer-events:none;background:linear-gradient(to top,rgba(255,45,80,.72) 0 1px,transparent 1px 20px);background-size:100% 20px;border-right:2px solid #ff2d50;color:#fff;text-shadow:0 1px 2px #000;font:700 9px/1 monospace;';
+    for(var pixels = 0; pixels <= 180; pixels += 20) {
+      var label = document.createElement('span');
+      label.textContent = pixels;
+      label.style.cssText = 'position:absolute;right:4px;bottom:' + pixels + 'px;transform:translateY(50%);';
+      ruler.appendChild(label);
+    }
+    document.body.appendChild(ruler);
+  }
+  function initializeDiagnostics(){
+    copyButton = document.createElement('button');
+    copyButton.type = 'button';
+    copyButton.textContent = 'Copy viewport debug';
+    copyButton.style.cssText = 'position:fixed;z-index:2147483646;top:62px;left:8px;min-height:34px;margin:0;padding:6px 10px;border:1px solid #ffcf4a;border-radius:5px;background:#152737;color:#fff;box-shadow:0 2px 8px #000;font:700 11px/1 sans-serif;';
+    copyButton.addEventListener('click', copyDiagnostics);
+    document.body.appendChild(copyButton);
+    addRuler();
+    safeCapture('initialized');
+    ['resize','orientationchange','pageshow'].forEach(function(eventName){
+      window.addEventListener(eventName, function(){ scheduleCapture('window-' + eventName); }, { passive: true });
+    });
+    if(window.visualViewport) {
+      ['resize','scroll'].forEach(function(eventName){
+        window.visualViewport.addEventListener(eventName, function(){ scheduleCapture('visualViewport-' + eventName); }, { passive: true });
+      });
+    }
+    var tray = document.getElementById('swuMobileDeckActions');
+    if(tray) new MutationObserver(function(){ scheduleCapture('action-tray-class'); }).observe(tray,{attributes:true,attributeFilter:['class','aria-hidden']});
+    window.setTimeout(function(){ safeCapture('after-500ms'); }, 500);
+    window.setTimeout(function(){ safeCapture('after-2000ms'); }, 2000);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeDiagnostics);
+  else initializeDiagnostics();
+})();
+</script>
+<?php endif; ?>
