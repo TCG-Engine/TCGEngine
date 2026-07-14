@@ -900,6 +900,121 @@
     color: rgba(215,236,247,0.96) !important;
     font: 700 12px/20px Arial, Helvetica, sans-serif !important;
   }
+  #swuMobileDeckPage span[data-mzid].swu-mobile-deck-card-selected > a > img:first-child {
+    position: relative;
+    z-index: 2;
+    outline: 2px solid rgba(124,247,168,0.98);
+    outline-offset: 1px;
+    box-shadow: 0 0 0 3px rgba(39,151,85,0.30),0 0 15px rgba(75,255,145,0.72) !important;
+    filter: brightness(1.08) saturate(1.06);
+  }
+  #swuMobileDeckActions {
+    position: relative;
+    z-index: 30;
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0,0.82fr) minmax(0,1.55fr) minmax(0,0.92fr);
+    gap: 6px;
+    max-height: 0;
+    padding: 0 8px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-top: 1px solid transparent;
+    background: linear-gradient(180deg,rgba(5,22,34,0.97),rgba(3,14,24,0.995));
+    box-shadow: 0 -7px 18px rgba(0,0,0,0.38),0 -1px 9px rgba(75,255,145,0.10);
+    opacity: 0;
+    transform: translateY(100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: max-height 180ms ease,padding 180ms ease,transform 180ms ease,opacity 140ms ease,border-color 180ms ease,visibility 0s linear 180ms;
+  }
+  #swuMobileDeckActions.is-open {
+    max-height: calc(57px + env(safe-area-inset-bottom));
+    padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+    border-top-color: rgba(124,247,168,0.28);
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #swuMobileDeckActions { transition: none; }
+  }
+  .swu-mobile-deck-action {
+    display: inline-flex;
+    min-width: 0;
+    min-height: 43px;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 7px;
+    box-sizing: border-box;
+    border: 1px solid rgba(124,247,168,0.84);
+    border-radius: 7px;
+    background: linear-gradient(180deg,rgba(39,151,85,0.90),rgba(17,88,49,0.96));
+    box-shadow: inset 0 0 13px rgba(172,255,203,0.16),0 0 10px rgba(75,255,145,0.24);
+    color: rgba(224,255,235,0.98);
+    font: 700 9px/1.12 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.045em;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 0 4px rgba(78,255,145,0.45);
+    cursor: pointer;
+  }
+  .swu-mobile-deck-action:hover,
+  .swu-mobile-deck-action:focus-visible {
+    border-color: rgba(194,255,216,1);
+    background: linear-gradient(180deg,rgba(64,215,123,0.98),rgba(24,137,70,1));
+    box-shadow: inset 0 0 17px rgba(202,255,220,0.28),0 0 17px rgba(82,255,151,0.58);
+    color: #f0fff5;
+    outline: none;
+  }
+  .swu-mobile-deck-action:active { transform: translateY(1px); }
+  .swu-mobile-deck-action:disabled { opacity: 0.48; pointer-events: none; }
+  #swuMobileDeckMove {
+    border-color: rgba(177,196,207,0.72);
+    background: linear-gradient(180deg,rgba(91,108,120,0.94),rgba(48,61,70,0.98));
+    box-shadow: inset 0 0 13px rgba(225,239,247,0.10),0 0 9px rgba(167,200,219,0.18);
+    color: rgba(234,243,248,0.96);
+    text-shadow: 0 0 4px rgba(185,215,232,0.30);
+  }
+  #swuMobileDeckMove:hover,
+  #swuMobileDeckMove:focus-visible {
+    border-color: rgba(226,240,247,0.96);
+    background: linear-gradient(180deg,rgba(124,143,156,0.98),rgba(67,84,95,1));
+    box-shadow: inset 0 0 17px rgba(233,246,252,0.15),0 0 16px rgba(185,215,232,0.36);
+    color: #f7fcff;
+  }
+  #swuMobileDeckRemove {
+    border-color: rgba(255,126,126,0.82);
+    background: linear-gradient(180deg,rgba(177,58,58,0.94),rgba(103,28,32,0.98));
+    box-shadow: inset 0 0 13px rgba(255,196,196,0.12),0 0 10px rgba(255,72,72,0.24);
+    color: rgba(255,232,232,0.98);
+    text-shadow: 0 0 4px rgba(255,90,90,0.42);
+  }
+  #swuMobileDeckRemove:hover,
+  #swuMobileDeckRemove:focus-visible {
+    border-color: rgba(255,202,202,1);
+    background: linear-gradient(180deg,rgba(229,79,79,0.98),rgba(151,37,43,1));
+    box-shadow: inset 0 0 17px rgba(255,220,220,0.20),0 0 17px rgba(255,82,82,0.52);
+    color: #fff7f7;
+  }
+  .swu-mobile-deck-action-icon {
+    flex: 0 0 auto;
+    color: rgba(194,255,216,0.98);
+    font: 800 17px/1 Arial, Helvetica, sans-serif;
+    filter: drop-shadow(0 0 2px rgba(88,255,153,0.72));
+  }
+  #swuMobileDeckMove .swu-mobile-deck-action-icon {
+    color: rgba(230,242,248,0.96);
+    font-size: 15px;
+    filter: drop-shadow(0 0 2px rgba(185,215,232,0.46));
+  }
+  #swuMobileDeckRemove .swu-mobile-deck-action-icon {
+    color: rgba(255,220,220,0.98);
+    filter: drop-shadow(0 0 2px rgba(255,90,90,0.62));
+  }
 
   .swu-mobile-edge-nav {
     position: absolute;
@@ -991,6 +1106,17 @@
           <div class="swu-dm-title"><span>Sideboard</span></div>
           <div id="mySideboardSlot" onclick="ZoneClickHandler('mySideboard');"></div>
         </div>
+        <div id="swuMobileDeckActions" aria-label="Selected card actions" aria-hidden="true">
+          <button id="swuMobileDeckCopy" class="swu-mobile-deck-action" type="button">
+            <span class="swu-mobile-deck-action-icon" aria-hidden="true">+</span><span>Copy</span>
+          </button>
+          <button id="swuMobileDeckMove" class="swu-mobile-deck-action" type="button">
+            <span class="swu-mobile-deck-action-icon" aria-hidden="true">&#8645;</span><span id="swuMobileDeckMoveLabel">To sideboard</span>
+          </button>
+          <button id="swuMobileDeckRemove" class="swu-mobile-deck-action" type="button">
+            <span class="swu-mobile-deck-action-icon" aria-hidden="true">&minus;</span><span>Remove</span>
+          </button>
+        </div>
       </section>
     </div>
 
@@ -1012,6 +1138,14 @@
   var recentList = document.getElementById('swuMobileRecentList');
   var recentConfirm = document.getElementById('swuMobileRecentConfirm');
   var recentHint = recentPanel && recentPanel.querySelector('.swu-mobile-recent-heading small');
+  var deckScroll = document.getElementById('swuMobileDeckScroll');
+  var deckActions = document.getElementById('swuMobileDeckActions');
+  var deckCopy = document.getElementById('swuMobileDeckCopy');
+  var deckMove = document.getElementById('swuMobileDeckMove');
+  var deckMoveLabel = document.getElementById('swuMobileDeckMoveLabel');
+  var deckRemove = document.getElementById('swuMobileDeckRemove');
+  var selectedDeckCard = null;
+  var deckSelectionTarget = null;
   var recentAdds = [];
   var pendingAdds = [];
   var pendingTimer = 0;
@@ -1308,6 +1442,117 @@
     }
     var cardNode = document.getElementById(String(mzID));
     return cardIDFromImage(cardNode && cardNode.querySelector('img'));
+  }
+  function clearDeckCardSelection(){
+    if(selectedDeckCard && selectedDeckCard.node) {
+      selectedDeckCard.node.classList.remove('swu-mobile-deck-card-selected');
+      selectedDeckCard.node.removeAttribute('aria-selected');
+    }
+    selectedDeckCard = null;
+    deckSelectionTarget = null;
+    if(deckActions) {
+      deckActions.classList.remove('is-open');
+      deckActions.setAttribute('aria-hidden','true');
+    }
+  }
+  function selectDeckCard(cardNode){
+    if(!cardNode) return;
+    var mzID = String(cardNode.dataset.mzid || cardNode.id || '');
+    var zone = mzID.indexOf('mySideboard-') === 0 ? 'mySideboard'
+      : (mzID.indexOf('myMainDeck-') === 0 ? 'myMainDeck' : '');
+    if(!zone) return;
+    if(selectedDeckCard && selectedDeckCard.node !== cardNode) {
+      selectedDeckCard.node.classList.remove('swu-mobile-deck-card-selected');
+      selectedDeckCard.node.removeAttribute('aria-selected');
+    }
+    selectedDeckCard = {
+      node: cardNode,
+      mzID: mzID,
+      zone: zone,
+      cardID: cardIDForMZID(mzID)
+    };
+    deckSelectionTarget = {
+      cardID: selectedDeckCard.cardID,
+      zone: zone
+    };
+    cardNode.classList.add('swu-mobile-deck-card-selected');
+    cardNode.setAttribute('aria-selected','true');
+    var toSideboard = zone === 'myMainDeck';
+    if(deckMoveLabel) deckMoveLabel.textContent = toSideboard ? 'To sideboard' : 'To main deck';
+    if(deckMove) deckMove.setAttribute('aria-label', toSideboard ? 'Move selected card to sideboard' : 'Move selected card to main deck');
+    if(deckActions) {
+      deckActions.classList.add('is-open');
+      deckActions.setAttribute('aria-hidden','false');
+    }
+  }
+  function restoreDeckCardSelection(){
+    if(!deckSelectionTarget || !deckSelectionTarget.cardID) {
+      clearDeckCardSelection();
+      return;
+    }
+    var slotID = deckSelectionTarget.zone === 'mySideboard' ? 'mySideboardSlot' : 'myMainDeckSlot';
+    var candidates = document.querySelectorAll('#' + slotID + ' span[data-mzid]');
+    var match = Array.prototype.find.call(candidates, function(cardNode){
+      var mzID = String(cardNode.dataset.mzid || cardNode.id || '');
+      return cardIDForMZID(mzID) === deckSelectionTarget.cardID;
+    });
+    if(match) selectDeckCard(match);
+    else clearDeckCardSelection();
+  }
+  function setDeckActionsBusy(busy){
+    [deckCopy,deckMove,deckRemove].forEach(function(button){
+      if(button) button.disabled = !!busy;
+    });
+  }
+  function submitSelectedDeckAction(action){
+    if(!selectedDeckCard || typeof window.SubmitEngineInput !== 'function') return;
+    var selection = selectedDeckCard;
+    var customAction = action === 'copy' ? '+'
+      : (action === 'move' ? (selection.zone === 'myMainDeck' ? 'V' : '^') : '');
+    var mode = customAction ? 10001 : 10002;
+    var payload = customAction
+      ? selection.mzID + '!CustomInput!' + customAction
+      : selection.mzID + '!Remove!';
+    deckSelectionTarget = {
+      cardID: selection.cardID,
+      zone: action === 'move'
+        ? (selection.zone === 'myMainDeck' ? 'mySideboard' : 'myMainDeck')
+        : selection.zone
+    };
+    setDeckActionsBusy(true);
+    Promise.resolve(window.SubmitEngineInput(mode, '&cardID=' + encodeURIComponent(payload))).then(function(){
+      setDeckActionsBusy(false);
+      if(typeof window.QueueGameUpdate === 'function') window.QueueGameUpdate();
+    }).catch(function(){
+      deckSelectionTarget = { cardID: selection.cardID, zone: selection.zone };
+      setDeckActionsBusy(false);
+      if(!selection.node.isConnected) clearDeckCardSelection();
+    });
+  }
+  function setupDeckCardActions(){
+    if(!deckScroll || !deckActions) return;
+    deckScroll.addEventListener('click', function(event){
+      var cardNode = event.target.closest && event.target.closest('span[data-mzid]');
+      if(!cardNode || !deckScroll.contains(cardNode)) {
+        clearDeckCardSelection();
+        return;
+      }
+      var mzID = String(cardNode.dataset.mzid || cardNode.id || '');
+      if(mzID.indexOf('myMainDeck-') !== 0 && mzID.indexOf('mySideboard-') !== 0) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if(selectedDeckCard && selectedDeckCard.node === cardNode) clearDeckCardSelection();
+      else selectDeckCard(cardNode);
+    }, true);
+    if(deckCopy) deckCopy.addEventListener('click', function(){ submitSelectedDeckAction('copy'); });
+    if(deckMove) deckMove.addEventListener('click', function(){ submitSelectedDeckAction('move'); });
+    if(deckRemove) deckRemove.addEventListener('click', function(){ submitSelectedDeckAction('remove'); });
+    new MutationObserver(function(){
+      if(selectedDeckCard && !selectedDeckCard.node.isConnected) {
+        selectedDeckCard = null;
+        requestAnimationFrame(restoreDeckCardSelection);
+      }
+    }).observe(deckScroll,{childList:true,subtree:true});
   }
   function parseCardPayload(params){
     var match = String(params || '').match(/(?:^|[?&])cardID=([^&]*)/);
@@ -1616,6 +1861,7 @@
     try { initialPane = sessionStorage.getItem('swu_mobile_active_pane') || 'search'; } catch(e) {}
     setupToolbarMenu();
     setupDeckOverlayMenu();
+    setupDeckCardActions();
     setPane(initialPane, false);
     loadRecent();
     renderRecent();
