@@ -276,9 +276,10 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     overflow: hidden;
   }
   #swuDeckMobileTrack {
+    position: absolute;
+    inset: 0 auto 0 0;
     display: flex;
     width: 200%;
-    height: 100%;
     transform: translate3d(0,0,0);
     transition: transform 220ms cubic-bezier(.2,.72,.2,1);
     will-change: transform;
