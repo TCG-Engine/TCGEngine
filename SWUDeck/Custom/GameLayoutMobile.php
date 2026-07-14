@@ -6,23 +6,28 @@
 // NextTurnRender.php continues to populate them without a mobile-only renderer.
 ?>
 <style>
+  :root { --swu-mobile-viewport-height: 100vh; }
+  @supports (height: 100dvh) {
+    :root { --swu-mobile-viewport-height: 100dvh; }
+  }
+
   /* Own the complete phone viewport. NextTurn's shared fixed shell historically relies on
      browser defaults here, which can expose the document canvas as a thin strip along the
-     right/bottom edge on mobile. Use opposing edges instead of percentage dimensions so
-     viewport rounding and the fixed element's box model cannot leave a sliver. */
+     right/bottom edge on mobile. The dynamic height also keeps iOS Safari's bottom URL bar
+     from covering the deck workspace as its visible viewport expands and contracts. */
   html,
   body {
     width: 100%;
-    height: 100%;
+    height: var(--swu-mobile-viewport-height);
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden !important;
     background: #020c16;
   }
   #mainDiv {
-    inset: 0 !important;
+    inset: 0 0 auto 0 !important;
     width: auto !important;
-    height: auto !important;
+    height: var(--swu-mobile-viewport-height) !important;
     margin: 0 !important;
     padding: 0 !important;
     border: 0 !important;
@@ -215,6 +220,10 @@
     -webkit-mask-image: linear-gradient(to left,#000 0%,#000 68%,transparent 100%);
     mask-image: linear-gradient(to left,#000 0%,#000 68%,transparent 100%);
   }
+  /* The source crop is much taller than this banner. A slightly narrower visible base layer
+     makes object-fit:cover scale it down, revealing more of the art without stretching it.
+     Keep the larger slot above for the full click target and center blend. */
+  #swuMobileBaseArt { width: 48%; }
   #swuDeckMobileIdentity .swu-mobile-identity-art {
     z-index: 1;
     pointer-events: none;
@@ -252,6 +261,9 @@
   }
   #swuDeckMobileIdentity #myLeaderSlot img,
   #swuMobileLeaderArt img { object-position: center top; }
+  /* Base crops put most of their landmarks below the vertical midpoint. Bias the zoomed-out
+     slice toward that lower focal area instead of filling it with the quieter sky band. */
+  #swuMobileBaseArt img { object-position: center 68%; }
 
   #swuDeckMobileViewport {
     position: relative;
@@ -1521,7 +1533,29 @@
     }, true);
   }
 
+  var viewportSyncFrame = 0;
+  function syncMobileViewportHeight(){
+    var viewport = window.visualViewport;
+    var visibleHeight = viewport && viewport.height ? viewport.height : window.innerHeight;
+    if(!visibleHeight) return;
+    document.documentElement.style.setProperty('--swu-mobile-viewport-height', Math.round(visibleHeight) + 'px');
+  }
+  function scheduleMobileViewportSync(){
+    if(viewportSyncFrame) cancelAnimationFrame(viewportSyncFrame);
+    viewportSyncFrame = requestAnimationFrame(function(){
+      viewportSyncFrame = 0;
+      syncMobileViewportHeight();
+    });
+  }
+
   function initialize(){
+    syncMobileViewportHeight();
+    window.addEventListener('resize', scheduleMobileViewportSync, { passive: true });
+    window.addEventListener('orientationchange', scheduleMobileViewportSync, { passive: true });
+    if(window.visualViewport) {
+      window.visualViewport.addEventListener('resize', scheduleMobileViewportSync, { passive: true });
+      window.visualViewport.addEventListener('scroll', scheduleMobileViewportSync, { passive: true });
+    }
     var initialPane = 'search';
     try { initialPane = sessionStorage.getItem('swu_mobile_active_pane') || 'search'; } catch(e) {}
     setupToolbarMenu();
