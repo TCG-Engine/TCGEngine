@@ -1474,6 +1474,49 @@
     trackedSubmit.__swuOriginal = original;
     window.SubmitEngineInput = trackedSubmit;
   }
+  function incomingLibraryIsUnchanged(responseArr, wrapper){
+    if(!Array.isArray(responseArr) || !wrapper) return false;
+    var perspectiveField = document.getElementById('viewerPerspective');
+    var perspective = parseInt(perspectiveField && perspectiveField.value || '1', 10);
+    if(perspective !== 1 && perspective !== 2) return false;
+    var offset = (perspective - 1) * 13;
+    var comparisons = [
+      ['myLeaderData', 1],
+      ['myBaseData', 2],
+      ['myCardPaneData', 4],
+      ['myLeadersData', 5],
+      ['myBasesData', 6],
+      ['myCardsData', 7],
+      ['myStatsData', 10],
+      ['mySortData', 11],
+      ['myCardNotesData', 12]
+    ];
+    if(wrapper.dataset.swuRenderedCardSize !== String(window.cardSize)) return false;
+    return comparisons.every(function(comparison){
+      return String(window[comparison[0]] || '') === String(responseArr[comparison[1] + offset] || '');
+    });
+  }
+  function installStableLibraryRender(){
+    if(typeof window.RenderUpdate !== 'function' || window.RenderUpdate.__swuStableMobileLibrary) return;
+    var originalRenderUpdate = window.RenderUpdate;
+    function stableMobileRender(responseArr){
+      var slot = document.getElementById('myCardPaneSlot');
+      var wrapper = document.getElementById('myCardPaneWrapper');
+      var preserveLibrary = !!(slot && wrapper && incomingLibraryIsUnchanged(responseArr, wrapper));
+      var result = originalRenderUpdate.apply(this, arguments);
+
+      /* NextTurnRender rebuilds every bound zone. If the library inputs did not change,
+         restore its existing subtree before the browser can paint; this retains decoded
+         images, scroll state, filter controls, and listeners while deck zones stay fresh. */
+      if(preserveLibrary && slot && wrapper) slot.replaceChildren(wrapper);
+      var activeWrapper = document.getElementById('myCardPaneWrapper');
+      if(activeWrapper) activeWrapper.dataset.swuRenderedCardSize = String(window.cardSize);
+      return result;
+    }
+    stableMobileRender.__swuStableMobileLibrary = true;
+    stableMobileRender.__swuOriginal = originalRenderUpdate;
+    window.RenderUpdate = stableMobileRender;
+  }
   function undoRecent(recentID, button){
     var recentIndex = recentAdds.findIndex(function(entry){ return entry.id === recentID; });
     if(recentIndex < 0) return;
@@ -1556,6 +1599,7 @@
       window.visualViewport.addEventListener('resize', scheduleMobileViewportSync, { passive: true });
       window.visualViewport.addEventListener('scroll', scheduleMobileViewportSync, { passive: true });
     }
+    installStableLibraryRender();
     var initialPane = 'search';
     try { initialPane = sessionStorage.getItem('swu_mobile_active_pane') || 'search'; } catch(e) {}
     setupToolbarMenu();
