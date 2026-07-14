@@ -47,7 +47,7 @@ while ($baseRow = mysqli_fetch_assoc($baseResult)) {
     if ($guid === '' || $guid === null) continue;
     $r = ResolveOpponentBase($guid);
     if ($r && $r['kind'] === 'common') {
-        $key   = 'grp:' . $r['type'] . ':' . $r['color'];
+        $key   = StatsBaseBucket($guid)['key'];
         $label = BaseGroupDisplayLabel($r['type'], $r['color']);
         // '1' sub-order keeps individual colors after the "Any" aggregate ('0' below).
         $sort  = '0' . ($typeOrder[$r['type']] ?? 9) . '1' . ($colorOrder[$r['color']] ?? 9);

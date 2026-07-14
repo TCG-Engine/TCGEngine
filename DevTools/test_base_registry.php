@@ -45,4 +45,24 @@ check($fail, 'Splash suffix',   StatsTypeColumnSuffix('Splash'),   'Splash');
 check($fail, 'Aggression=>Red', AspectToColor('Aggression'), 'Red');
 check($fail, 'Neutral=>Colorless', AspectToColor('Heroism'), 'Colorless');
 
+// --- StatsBaseBucket: common bases collapse by (color,type); rares stay individual. ---
+// Two DIFFERENT red 30HP commons must share one bucket + representative art.
+//   2696059415 = Naval Intelligence HQ (also the canonical red-30 GUID)
+//   4286542404 = Imperial Prison Complex (a different red 30HP common)
+check($fail, 'bucket NavalIntel key',   StatsBaseBucket('2696059415')['key'],         'grp:Standard:Red');
+check($fail, 'bucket ImpPrison key',    StatsBaseBucket('4286542404')['key'],         'grp:Standard:Red');
+check($fail, 'bucket NavalIntel disp',  StatsBaseBucket('2696059415')['displayBase'], '2696059415');
+check($fail, 'bucket ImpPrison disp',   StatsBaseBucket('4286542404')['displayBase'], '2696059415');
+// Force base (LOF_026 red) → per-color Force canonical.
+check($fail, 'bucket Force key',        StatsBaseBucket('5396502974')['key'],         'grp:Force:Red');
+check($fail, 'bucket Force disp',       StatsBaseBucket('5396502974')['displayBase'], '5396502974');
+// Splash base (LAW_022 green) → per-color Splash canonical.
+check($fail, 'bucket Splash key',       StatsBaseBucket('2248996839')['key'],         'grp:Splash:Green');
+check($fail, 'bucket Splash disp',      StatsBaseBucket('2248996839')['displayBase'], '2248996839');
+// Rare base (Data Vault, JTL_024) stays individual (key == displayBase == its own GUID).
+check($fail, 'bucket DataVault key',    StatsBaseBucket('4028826022')['key'],         '4028826022');
+check($fail, 'bucket DataVault disp',   StatsBaseBucket('4028826022')['displayBase'], '4028826022');
+// Unknown GUID (not in any list, not in dict) → itself (safe passthrough).
+check($fail, 'bucket unknown key',      StatsBaseBucket('9999999999')['key'],         '9999999999');
+
 echo json_encode(['pass' => empty($fail), 'failures' => $fail], JSON_PRETTY_PRINT);

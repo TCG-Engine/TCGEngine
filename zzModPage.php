@@ -94,6 +94,8 @@ if (isset($_POST['modResetUserPassword']) && $_POST['modResetUserPassword'] === 
 
 
 // Handle truncate request
+// DISABLED — no longer used. Uncomment (along with its UI + JS below) to restore.
+/*
 if (isset($_POST['truncateMetaStats']) && $_POST['truncateMetaStats'] === '1') {
     $conn = GetLocalMySQLConnection();
     $success = true;
@@ -126,6 +128,7 @@ if (isset($_POST['truncateMetaStats']) && $_POST['truncateMetaStats'] === '1') {
     echo json_encode($response);
     exit();
 }
+*/
 
 // Handle view ownership row request
 if (isset($_POST['viewOwnershipRow']) && $_POST['viewOwnershipRow'] === '1') {
@@ -348,11 +351,14 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
     <h1 class="mod-title">SWUDeck Mod Tools</h1>
     <p class="mod-sub">Moderator utilities — ownership, accounts, SQL, and SWUDeck game tooling.</p>
 
+    <!-- DISABLED — no longer used. Uncomment (with its handler + JS) to restore.
     <h3>Truncate Meta Stats</h3>
     <button id="truncateBtn">Truncate Meta Stats Tables</button>
     <div id="result" style="margin-top:10px;"></div>
 
     <hr style="margin:20px 0;">
+    -->
+
     <h3>View Ownership Row</h3>
     <form id="viewOwnershipForm" onsubmit="return false;">
         <label>Asset Type: <input type="number" id="viewAssetType" required value="1"></label>
@@ -439,6 +445,8 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
             document.getElementById('adminSQLResult').innerText = 'Request failed.';
         });
     };
+    // DISABLED — no longer used. Uncomment (with its handler + UI) to restore.
+    /*
     document.getElementById('truncateBtn').onclick = function() {
         var btn = this;
         StyledConfirm('Are you sure you want to truncate cardmetastats and deckmetastats? This cannot be undone!', {danger: true, confirmLabel: 'Truncate'}).then(function(ok) {
@@ -465,6 +473,7 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
             });
         });
     };
+    */
 
     document.getElementById('viewOwnershipBtn').onclick = function() {
         var type = document.getElementById('viewAssetType').value;

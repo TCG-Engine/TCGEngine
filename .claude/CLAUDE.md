@@ -1,6 +1,9 @@
 # Overview
 general context
 
+## Engineering rules
+- **Public APIs are a contract.** Before changing any endpoint that external consumers use (anything documented in `Stats/APIs.php` or the remote frontend integration guide, and public `APIs/` / `Stats/*API.php` endpoints), determine whether the change is breaking to our consumers — altered response shape/fields, changed default values, removed params, or new required inputs. If it could break a consumer, do NOT change the default behavior: make it additive and backward-compatible (e.g. an opt-in query param that leaves existing responses byte-identical), and document the new param. Flag the risk before implementing.
+
 ## Decklists
 To be used for deck validation flows and loading decks for games. strategy summary included after pipe symbol |
 ### SWUSim

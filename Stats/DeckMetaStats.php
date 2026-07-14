@@ -101,6 +101,7 @@ $forIndividual = false;
     var mStart = document.getElementById('startWeek'), mEnd = document.getElementById('endWeek');
     if (mStart && mStart.value !== '') mParams.startWeek = mStart.value;
     if (mEnd && mEnd.value !== '') mParams.endWeek = mEnd.value;
+    mParams.consolidate = 1;
     $.get('../APIs/DeckMetaMatchupStatsAPI.php', mParams, function(data) {
       try {
         var json = typeof data === 'string' ? JSON.parse(data) : data;
@@ -308,6 +309,7 @@ $forIndividual = false;
     var params = {};
     if (!isNaN(start)) params.startWeek = start;
     if (!isNaN(end)) params.endWeek = end;
+    params.consolidate = 1;
     $('#deckMetaStatsBody').html('<tr><td colspan="9">Loading...</td></tr>');
     $.get('../Stats/DeckMetaStatsAPI.php', params, function(data) {
       var json = typeof data === 'string' ? JSON.parse(data) : data;

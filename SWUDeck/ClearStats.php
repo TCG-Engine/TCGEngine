@@ -51,7 +51,13 @@
   $stmt->bind_param("i", $deckID);
   $stmt->execute();
   $stmt->close();
-    
+
+  // Clear opponentnamedbasestats (Rare/Special base matchup rows, tracked separately by baseID)
+  $stmt = $conn->prepare("DELETE FROM opponentnamedbasestats WHERE deckID = ?");
+  $stmt->bind_param("i", $deckID);
+  $stmt->execute();
+  $stmt->close();
+
   $conn->close();
   
   echo "Stats cleared successfully.";

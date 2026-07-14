@@ -169,6 +169,11 @@ include_once "../SharedUI/Header.php";
                     <td>string</td>
                     <td>(Optional) Filter by game format</td>
                 </tr>
+                <tr>
+                    <td>consolidate</td>
+                    <td>integer</td>
+                    <td>(Optional, default 0) When 1, common bases are consolidated by color + type (Standard 30HP / Force / Splash) so mechanically-equivalent decks share one row; Rare/Special bases stay individual. Default (0) returns one row per exact base and is unchanged.</td>
+                </tr>
             </table>
 
             <h4>Example Response:</h4>
@@ -417,6 +422,11 @@ include_once "../SharedUI/Header.php";
                     <td>format</td>
                     <td>string</td>
                     <td>(Optional) Filter by game format</td>
+                </tr>
+                <tr>
+                    <td>consolidate</td>
+                    <td>integer</td>
+                    <td>(Optional, default 0) When 1, the requested base is treated as a color+type bucket: matchups are aggregated across all mechanically-equivalent common bases (own and opponent); Rare/Special bases stay individual. Default (0) filters by the exact baseID and is unchanged.</td>
                 </tr>
             </table>
             

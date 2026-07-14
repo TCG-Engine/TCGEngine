@@ -195,4 +195,27 @@ function NormalizeBaseID($baseID) {
     return $r ? $r['canonical'] : $baseID;
 }
 
+// Display bucket for a deck's base on the meta-stats surfaces (read-time consolidation).
+// Common bases collapse by (color,type); Rare/Special bases and unresolvable GUIDs stay
+// individual. Returns ['key' => string, 'displayBase' => guid]:
+//   - key: 'grp:{type}:{color}' for commons (matches Stats/Decks.php), else the base GUID.
+//   - displayBase: a deterministic canonical GUID for the bucket's representative card art.
+function StatsBaseBucket($baseID) {
+    $r = ResolveOpponentBase($baseID);
+    if ($r && $r['kind'] === 'common') {
+        if ($r['type'] === 'Standard') {
+            // A non-canonical 30HP common has canonical == itself, so map by color instead.
+            $stdByColor = ['Green' => '7790300585', 'Blue' => '9014930596',
+                           'Red' => '2696059415', 'Yellow' => '2376813177'];
+            $rep = isset($stdByColor[$r['color']]) ? $stdByColor[$r['color']] : (string)$baseID;
+        } else {
+            // Force/Splash: the registry already stores a single per-color canonical.
+            $rep = $r['canonical'];
+        }
+        return ['key' => 'grp:' . $r['type'] . ':' . $r['color'], 'displayBase' => $rep];
+    }
+    // Named rare, unresolvable, or empty — keep individual.
+    return ['key' => (string)$baseID, 'displayBase' => (string)$baseID];
+}
+
 } // end function_exists guard
