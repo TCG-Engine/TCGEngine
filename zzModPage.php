@@ -283,6 +283,62 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
     exit();
 }
 
+// Find orphaned opponentnamedbasestats rows — Rare/Special base matchup rows that survived a
+// "Clear Stats". The clear routine historically didn't purge this table (it only reset deckstats
+// and deleted opponentdeckstats/carddeckstats), so named-base rows leaked. Signal: named rows for a
+// deckID whose deckstats show 0 total plays — a clear zeroes numPlays, but left these behind.
+if (isset($_POST['findOrphanNamedBaseStats']) && $_POST['findOrphanNamedBaseStats'] === '1') {
+    header('Content-Type: application/json');
+    $conn = GetLocalMySQLConnection();
+    if (!$conn) { echo json_encode(['success' => false, 'error' => 'Database connection failed.']); exit(); }
+    // Correlated subquery for deckPlays avoids a join fan-out (deckstats has a row per source/version).
+    $sql = "SELECT n.deckID,
+                   COUNT(*) AS namedRows,
+                   SUM(n.total) AS games,
+                   SUM(n.wins) AS wins,
+                   (SELECT COALESCE(SUM(d.numPlays), 0) FROM deckstats d WHERE d.deckID = n.deckID) AS deckPlays
+            FROM opponentnamedbasestats n
+            GROUP BY n.deckID
+            HAVING deckPlays = 0
+            ORDER BY games DESC";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        $rows = [];
+        $totalRows = 0; $totalGames = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+            $totalRows += (int)$row['namedRows'];
+            $totalGames += (int)$row['games'];
+        }
+        echo json_encode([
+            'success' => true,
+            'decks' => $rows,
+            'summary' => count($rows) . ' orphaned deck(s), ' . $totalRows . ' row(s), ' . $totalGames . ' game(s).',
+        ]);
+    } else {
+        echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
+    }
+    mysqli_close($conn);
+    exit();
+}
+
+// Clean up the orphaned opponentnamedbasestats rows found above (same condition: deck has 0 plays).
+if (isset($_POST['cleanOrphanNamedBaseStats']) && $_POST['cleanOrphanNamedBaseStats'] === '1') {
+    header('Content-Type: application/json');
+    $conn = GetLocalMySQLConnection();
+    if (!$conn) { echo json_encode(['success' => false, 'error' => 'Database connection failed.']); exit(); }
+    $sql = "DELETE FROM opponentnamedbasestats
+            WHERE (SELECT COALESCE(SUM(d.numPlays), 0) FROM deckstats d WHERE d.deckID = opponentnamedbasestats.deckID) = 0";
+    if (mysqli_query($conn, $sql)) {
+        $deleted = mysqli_affected_rows($conn);
+        echo json_encode(['success' => true, 'message' => 'Deleted ' . $deleted . ' orphaned named-base row(s).']);
+    } else {
+        echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
+    }
+    mysqli_close($conn);
+    exit();
+}
+
 // HTML and JS for truncate button
 ?>
 <!DOCTYPE html>
@@ -351,6 +407,16 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
     <h3>Truncate Meta Stats</h3>
     <button id="truncateBtn">Truncate Meta Stats Tables</button>
     <div id="result" style="margin-top:10px;"></div>
+
+    <hr style="margin:20px 0;">
+    <h3>Orphaned Named-Base Matchup Stats</h3>
+    <p class="mod-sub" style="margin:-4px 0 10px;">
+        Rare/Special base matchup rows that survived a deck's "Clear Stats" (deck now shows 0 plays).
+        Search first to review, then clean up.
+    </p>
+    <button id="findOrphanNamedBaseBtn">Search for Orphans</button>
+    <button id="cleanOrphanNamedBaseBtn" style="margin-left:8px;">Clean Up Orphans</button>
+    <pre id="orphanNamedBaseResult" class="mod-pre"></pre>
 
     <hr style="margin:20px 0;">
     <h3>View Ownership Row</h3>
@@ -463,6 +529,43 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
                 document.getElementById('result').innerText = 'Request failed.';
                 btn.disabled = false;
             });
+        });
+    };
+
+    document.getElementById('findOrphanNamedBaseBtn').onclick = function() {
+        var out = document.getElementById('orphanNamedBaseResult');
+        out.innerText = 'Searching...';
+        fetch(window.location.pathname, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'findOrphanNamedBaseStats=1'
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                out.innerText = data.summary + (data.decks.length ? '\n\n' + JSON.stringify(data.decks, null, 2) : '');
+            } else {
+                out.innerText = data.error || 'Unknown error.';
+            }
+        })
+        .catch(e => { out.innerText = 'Request failed.'; });
+    };
+
+    document.getElementById('cleanOrphanNamedBaseBtn').onclick = function() {
+        var out = document.getElementById('orphanNamedBaseResult');
+        StyledConfirm('Delete all orphaned named-base matchup rows (decks with 0 plays)? This cannot be undone.', {danger: true, confirmLabel: 'Clean Up'}).then(function(ok) {
+            if (!ok) return;
+            out.innerText = 'Cleaning up...';
+            fetch(window.location.pathname, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'cleanOrphanNamedBaseStats=1'
+            })
+            .then(r => r.json())
+            .then(data => {
+                out.innerText = data.success ? data.message : (data.error || 'Unknown error.');
+            })
+            .catch(e => { out.innerText = 'Request failed.'; });
         });
     };
 
