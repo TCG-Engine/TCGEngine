@@ -83,6 +83,8 @@ checkContains('login posts to AttemptPasswordLogin', $login, '/TCGEngine/Account
 checkContains('login has remember-me', $login, 'name="rememberMe"');
 check('login has no relative ../ urls', strpos($login, '"../') === false && strpos($login, "'../") === false);
 checkContains('signup posts to signup.inc', $signup, '/TCGEngine/Database/signup.inc.php');
+checkContains('signup has responsive page hook', $signup, 'signup-page');
+checkContains('signup fields expose autocomplete', $signup, 'autocomplete="new-password"');
 checkContains('signup has pwdrepeat', $signup, 'name="pwdrepeat"');
 checkContains('login has redirect field', $login, 'name="redirect"');
 checkContains('signup has redirect field', $signup, 'name="redirect"');
@@ -219,6 +221,7 @@ check('validator rejects non-string theme', in_array('theme must be a non-empty 
 
 // --- Task 5 (Phase 0): centralized menu theme stack ---
 $dsHead = RenderHead(LoadSiteDef('SWUDeck'));
+checkContains('shared head declares mobile viewport', $dsHead, 'name="viewport"');
 checkContains('menu stack has menuStyles (hud)', $dsHead, '/TCGEngine/SharedUI/css/menuStyles.css');
 checkContains('menu stack has tokens.css', $dsHead, '/TCGEngine/SharedUI/css/tokens.css');
 checkContains('menu stack has components.css', $dsHead, '/TCGEngine/SharedUI/css/components.css');

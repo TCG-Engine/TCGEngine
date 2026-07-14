@@ -67,6 +67,7 @@ function RenderHead(array $def): string {
     $b = $def['branding']; $h = $def['head'];
     $headTitle = $b['headTitle'] ?? $b['title'];   // distinct browser-tab title; defaults to the h1 title
     $out  = "<head>  <meta charset=\"utf-8\">\n";
+    $out .= "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n";
     $out .= "  <title>$headTitle</title>\n";
     $out .= "  <link rel=\"icon\" type=\"image/png\" href=\"{$b['favicon']}\">\n";
     // Design-system stack is derived from the SiteDef `theme` key; head.styles carries only extras.

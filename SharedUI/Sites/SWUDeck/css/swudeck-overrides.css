@@ -84,20 +84,22 @@ label {
   margin: 0 !important;
 }
 .burger-menu::before {
-  content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
+  content: '' !important; position: absolute !important; inset: 0 !important; z-index: 0 !important;
   clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
   background: rgba(140,210,255,0.80) !important;
 }
 .burger-menu::after {
-  content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
+  content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: 0 !important;
   clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
   background: rgba(20,42,70,0.96) !important;
 }
 .burger-menu span {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 3px;
-  margin-bottom: 5px;
+  margin: 0 0 5px !important;
   border-radius: 2px;
   background-color: rgba(180,228,255,0.95) !important;
   transition: transform 180ms ease,opacity 140ms ease;
@@ -151,6 +153,89 @@ label {
   color: rgba(170,212,246,0.95) !important;
   letter-spacing: 0.10em !important;
   text-shadow: 0 0 8px rgba(120,200,255,0.30) !important;
+}
+
+/* ---- Account signup ------------------------------------------------------ */
+.signup-page {
+  min-height: calc(100svh - 180px);
+  height: auto;
+  justify-content: center;
+  padding: 0 20px 72px;
+  box-sizing: border-box;
+}
+.signup-page .flex-padder { display: none; }
+.signup-page .flex-wrapper {
+  flex: 0 1 620px;
+  width: 100%;
+  overflow: visible;
+}
+.signup-page .signup-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 28px;
+  background: linear-gradient(180deg,rgba(2,13,23,0.96),rgba(0,7,13,0.98));
+}
+.signup-page .signup-form > h2 {
+  margin-bottom: 18px;
+  font-size: 28px;
+  letter-spacing: 0.02em;
+}
+.signup-disclosures {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.signup-page .signup-disclosure {
+  padding: 16px;
+  box-sizing: border-box;
+  border: 1px solid rgba(140,210,255,0.18);
+  border-radius: 6px;
+}
+.signup-page .signup-disclosure p {
+  margin-bottom: 10px;
+  color: rgba(225,239,250,0.90);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.signup-page .signup-disclosure a {
+  color: #bfe6ff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.signup-page .oauth-auth-block {
+  width: 100%;
+  margin: 0 0 18px;
+}
+.signup-page .signup-form-form form {
+  display: grid;
+  gap: 7px;
+}
+.signup-page .signup-form input {
+  width: 100%;
+  min-height: 44px;
+  margin: 0 0 9px;
+  box-sizing: border-box;
+}
+.signup-page .signup-submit {
+  margin-top: 5px;
+}
+.signup-page .signup-submit button {
+  width: 100%;
+  min-height: 44px;
+}
+.signup-page .signup-error {
+  margin: 16px 0 0;
+  padding: 11px 13px;
+  border: 1px solid rgba(255,126,126,0.55);
+  background: rgba(105,17,24,0.42);
+  color: #ffd7d7;
+}
+.signup-page ~ .disclaimer {
+  position: relative;
+  bottom: auto;
+  box-sizing: border-box;
+  padding: 0 20px 18px;
 }
 
 /* ---- SWUDeck main menu --------------------------------------------------- */
@@ -491,7 +576,12 @@ label {
 @media (max-width: 768px) {
   .burger-menu {
     display: block !important;
+    border: 1px solid rgba(160,220,255,0.88) !important;
+    background: rgba(20,42,70,0.96) !important;
+    clip-path: polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
   }
+  .burger-menu::before,
+  .burger-menu::after { display: none !important; }
   .nav-bar {
     position: fixed !important;
     top: 0 !important;
@@ -553,6 +643,71 @@ label {
     background: rgba(0,0,0,0.72) !important;
   }
   body.menu-open { overflow: hidden !important; }
+  body:has(.signup-page) .home-header {
+    height: 104px;
+    padding: 14px 76px 14px 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(140,210,255,0.20);
+  }
+  body:has(.signup-page) .home-header .title {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+  }
+  body:has(.signup-page) .home-header h1 {
+    margin-bottom: 3px;
+    font-size: clamp(27px,8vw,36px);
+    line-height: 1;
+  }
+  body:has(.signup-page) .home-header .title p {
+    font-size: 11px;
+    letter-spacing: 0.07em !important;
+  }
+  body:has(.signup-page) .home-banner {
+    width: 64%;
+    min-width: 0;
+    opacity: 0.58;
+  }
+  .signup-page {
+    min-height: 0;
+    padding: 16px 12px 32px;
+  }
+  .signup-page .signup-wrapper {
+    padding: 20px 16px 18px;
+    border-radius: 8px;
+  }
+  .signup-page .signup-form > h2 {
+    margin-bottom: 14px;
+    font-size: 25px;
+  }
+  .signup-disclosures {
+    grid-template-columns: 1fr;
+    gap: 9px;
+    margin-bottom: 16px;
+  }
+  .signup-page .signup-disclosure { padding: 13px 14px; }
+  .signup-page .signup-disclosure p {
+    margin-bottom: 7px;
+    font-size: 13px;
+  }
+  .signup-page .discord-auth-button { min-height: 48px; }
+  .signup-page .signup-form input {
+    min-height: 48px;
+    font-size: 16px;
+  }
+  .signup-page .signup-submit button { min-height: 48px; }
+  .signup-page ~ .disclaimer {
+    padding: 0 18px 20px;
+  }
+  .signup-page ~ .disclaimer p {
+    font-size: 11px;
+    line-height: 1.45;
+  }
   .swu-main-menu .core-wrapper {
     flex-direction: column !important;
     height: auto !important;

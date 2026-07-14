@@ -75,7 +75,7 @@ function RenderSignup(array $def, string $safeRedirect = ''): string {
     $oauthError = RenderOAuthError();
     ob_start();
     ?>
-<div class="core-wrapper">
+<div class="core-wrapper auth-page signup-page">
 <div class="flex-padder"></div>
 
 <div class="flex-wrapper">
@@ -84,27 +84,29 @@ function RenderSignup(array $def, string $safeRedirect = ''): string {
 <section class="signup-form">
   <h2>Sign Up</h2>
   <?php echo $oauthError; ?>
-  <div class="container bg-blue">
-    <p>By creating an account, you consent to the use of cookies on the site. Check the Privacy Policy for details on how cookies are used on the site.</p>
-    <a href='/TCGEngine/SharedUI/PrivacyPolicy.php'>Privacy Policy</a>
-  </div>
-  <div class="container bg-blue">
-    <p>By using this site, you agree to comply by the terms of use. Check the terms of use for details.</p>
-    <a href='/TCGEngine/SharedUI/TermsOfUse.php'>Terms of Use</a>
+  <div class="signup-disclosures">
+    <div class="signup-disclosure container bg-blue">
+      <p>Creating an account uses essential cookies to keep you signed in. Learn how we handle your information in our privacy policy.</p>
+      <a href='/TCGEngine/SharedUI/PrivacyPolicy.php'>Privacy Policy</a>
+    </div>
+    <div class="signup-disclosure container bg-blue">
+      <p>By creating an account, you agree to follow the site terms.</p>
+      <a href='/TCGEngine/SharedUI/TermsOfUse.php'>Terms of Use</a>
+    </div>
   </div>
   <div class="signup-form-form">
     <?php echo $discordButton; ?>
     <form action="/TCGEngine/Database/signup.inc.php" method="post">
       <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($safeRedirect, ENT_QUOTES); ?>">
       <label for="uid">Username</label>
-        <input type="text" name="uid">
+        <input id="uid" type="text" name="uid" autocomplete="username" required>
       <label for="email">Email</label>
-        <input type="text" name="email" placeholder="name@example.com">
+        <input id="email" type="email" name="email" placeholder="name@example.com" autocomplete="email" inputmode="email" required>
       <label for="pwd">Password</label>
-        <input type="password" name="pwd">
+        <input id="pwd" type="password" name="pwd" autocomplete="new-password" required>
       <label for="pwdrepeat">Repeat Password</label>
-        <input type="password" name="pwdrepeat">
-      <div style="text-align:center;">
+        <input id="pwdrepeat" type="password" name="pwdrepeat" autocomplete="new-password" required>
+      <div class="signup-submit">
         <button type="submit" name="submit">Sign Up</button>
       </div>
     </form>
@@ -114,17 +116,17 @@ function RenderSignup(array $def, string $safeRedirect = ''): string {
   // Error messages
   if (isset($_GET["error"])) {
     if ($_GET["error"] == "emptyinput") {
-      echo "<p>Fill in all fields!</p>";
+      echo "<p class='signup-error' role='alert'>Fill in all fields!</p>";
     } else if ($_GET["error"] == "invaliduid") {
-      echo "<p>Choose a username without any special characters</p>";
+      echo "<p class='signup-error' role='alert'>Choose a username without any special characters</p>";
     } else if ($_GET["error"] == "invalidemail") {
-      echo "<p>Choose a valid email</p>";
+      echo "<p class='signup-error' role='alert'>Choose a valid email</p>";
     } else if ($_GET["error"] == "passwordsdontmatch") {
-      echo "<p>Passwords doesn't match!</p>";
+      echo "<p class='signup-error' role='alert'>Passwords do not match!</p>";
     } else if ($_GET["error"] == "stmtfailed") {
-      echo "<p>Something went wrong!</p>";
+      echo "<p class='signup-error' role='alert'>Something went wrong!</p>";
     } else if ($_GET["error"] == "usernametaken") {
-      echo "<p>Username already taken!</p>";
+      echo "<p class='signup-error' role='alert'>Username already taken!</p>";
     } else if ($_GET["error"] == "none") {
       echo "<h2>You've signed up!</h2>";
     }
