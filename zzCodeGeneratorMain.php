@@ -103,7 +103,7 @@ foreach ($appRoots as $rootName) {
             'zzTurnGenerator.php'
         );
     }
-    if (isset($keywordActions[$rootName])) {
+    if (isset($keywordActions[$rootName]) && is_file(__DIR__ . '/' . $keywordActions[$rootName]['source'])) {
         $actions[] = $keywordActions[$rootName];
     }
     if (is_file(__DIR__ . '/SharedUI/Sites/' . $rootName . '/SiteDef.php')) {
