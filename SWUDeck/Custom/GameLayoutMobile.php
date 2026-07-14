@@ -6,6 +6,30 @@
 // NextTurnRender.php continues to populate them without a mobile-only renderer.
 ?>
 <style>
+  /* Own the complete phone viewport. NextTurn's shared fixed shell historically relies on
+     browser defaults here, which can expose the document canvas as a thin strip along the
+     right/bottom edge on mobile. Use opposing edges instead of percentage dimensions so
+     viewport rounding and the fixed element's box model cannot leave a sliver. */
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #020c16;
+  }
+  #mainDiv {
+    inset: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
   /* Keep the four primary destinations visible. Secondary deck controls are moved into the
      mobile overflow menu by setupToolbarMenu(), so the rail never clips or pans sideways. */
   .flex-container > .flex-item:first-child {
