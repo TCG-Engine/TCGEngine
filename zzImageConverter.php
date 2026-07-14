@@ -38,13 +38,12 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
     _requireImagick();
 
     $filename      = $rootPath . "WebpImages/" . $cardID . ".webp";
-    $filenameNew   = $rootPath . "UnimplementedCards/" . $cardID . ".webp";
     $concatFilename = $rootPath . "concat/" . $cardID . ".webp";
     $cropFilename  = $rootPath . "crops/" . $cardID . "_cropped.png";
     $isNew = false;
 
     if ($overwriteImages) {
-        foreach ([$filename, $filenameNew, $concatFilename, $cropFilename] as $f) {
+        foreach ([$filename, $concatFilename, $cropFilename] as $f) {
             if (file_exists($f)) unlink($f);
         }
     }
@@ -98,15 +97,6 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
         $image->clear(); $image->destroy();
         unlink($tempName);
         $isNew = true;
-    }
-
-    // ── Copy to UnimplementedCards ─────────────────────────────────────────────
-    if ($isNew && !file_exists($filenameNew)) {
-        echo "Converting image for $cardID to new format.<br>";
-        $image = new Imagick($filename);
-        $image->setImageFormat('webp');
-        $image->writeImage($filenameNew);
-        $image->clear(); $image->destroy();
     }
 
     // ── Concat (450×450 square for arena display) ──────────────────────────────
