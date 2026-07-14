@@ -1155,6 +1155,34 @@
   var touchActive = false;
   var suppressClickUntil = 0;
   var RECENT_KEY = 'swu_mobile_recent_adds';
+  var viewportSyncFrame = 0;
+
+  /* Older iOS Safari releases treat vh/svh as the layout viewport while drawing the bottom
+     URL bar over it. visualViewport is the only value that consistently describes the pixels
+     the user can actually see. Keep the shared height variable synchronized as Safari expands
+     or collapses its chrome, rotates, restores the page, or finishes its delayed first layout. */
+  function syncMobileViewportHeight(){
+    viewportSyncFrame = 0;
+    var visualViewport = window.visualViewport;
+    var height = visualViewport && visualViewport.height > 0
+      ? visualViewport.height
+      : window.innerHeight;
+    if(!height || height < 200) return;
+    document.documentElement.style.setProperty('--swu-mobile-viewport-height', Math.round(height) + 'px');
+  }
+  function scheduleMobileViewportSync(){
+    if(viewportSyncFrame) cancelAnimationFrame(viewportSyncFrame);
+    viewportSyncFrame = requestAnimationFrame(syncMobileViewportHeight);
+  }
+  syncMobileViewportHeight();
+  window.addEventListener('resize', scheduleMobileViewportSync, { passive: true });
+  window.addEventListener('orientationchange', scheduleMobileViewportSync, { passive: true });
+  window.addEventListener('pageshow', scheduleMobileViewportSync, { passive: true });
+  if(window.visualViewport) {
+    window.visualViewport.addEventListener('resize', scheduleMobileViewportSync, { passive: true });
+    window.visualViewport.addEventListener('scroll', scheduleMobileViewportSync, { passive: true });
+  }
+  [50,250,700].forEach(function(delay){ window.setTimeout(scheduleMobileViewportSync, delay); });
 
   function setPane(pane, remember){
     pane = pane === 'deck' ? 'deck' : 'search';
