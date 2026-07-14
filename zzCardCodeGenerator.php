@@ -144,6 +144,7 @@ if(!$withPreview && file_exists($cacheFile)) {
   }
   $responseBytes = strlen($apiData);
   $response = json_decode($apiData);
+  unset($apiData); // free the raw page string; the decoded $response is all we need below
   if(!$response) {
     logLine("ERROR: Failed to decode JSON on page " . $currentPage . " (" . $curlMs . "ms, " . round($responseBytes/1024, 1) . "KB). Aborting.");
     break;
@@ -314,6 +315,18 @@ if(!$withPreview && file_exists($cacheFile)) {
       $backType = $isFlipLeader ? "Leader" : "LeaderUnit";
       CheckImage($cardID . "_back", $thisBackImageUrl, $backType, "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
     }
+
+    // Drop heavy API fields that NO later phase reads (verified: 0 references), so the
+    // retained $cardArray — and the cache written from it — stay small. Without this the
+    // decoded array peaks ~700MB and blows the box's PHP memory_limit. `variants` (alternate
+    // printings) alone is ~70% of card size; `localizations` (other languages), reprint,
+    // and art/thumbnail metadata make up most of the rest. The art URLs were the only thing
+    // we needed from the media fields, and they were already consumed by CheckImage above.
+    unset(
+      $card->variants, $card->localizations, $card->reprints, $card->reprintOf,
+      $card->artFront, $card->artBack, $card->artThumbnail,
+      $card->variantTypes, $card->linkHtml
+    );
 
     ++$count;
   }
