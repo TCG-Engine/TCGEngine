@@ -7,14 +7,17 @@
 ?>
 <style>
   :root { --swu-mobile-viewport-height: 100vh; }
-  @supports (height: 100dvh) {
-    :root { --swu-mobile-viewport-height: 100dvh; }
+  @supports (height: -webkit-fill-available) {
+    :root { --swu-mobile-viewport-height: -webkit-fill-available; }
+  }
+  @supports (height: 100svh) {
+    :root { --swu-mobile-viewport-height: 100svh; }
   }
 
   /* Own the complete phone viewport. NextTurn's shared fixed shell historically relies on
      browser defaults here, which can expose the document canvas as a thin strip along the
-     right/bottom edge on mobile. The dynamic height also keeps iOS Safari's bottom URL bar
-     from covering the deck workspace as its visible viewport expands and contracts. */
+     right/bottom edge on mobile. Use the small viewport on modern browsers so iOS Safari's
+     expanded bottom URL bar is always reserved instead of overlaying the deck workspace. */
   html,
   body {
     width: 100%;
@@ -1607,29 +1610,7 @@
     }, true);
   }
 
-  var viewportSyncFrame = 0;
-  function syncMobileViewportHeight(){
-    var viewport = window.visualViewport;
-    var visibleHeight = viewport && viewport.height ? viewport.height : window.innerHeight;
-    if(!visibleHeight) return;
-    document.documentElement.style.setProperty('--swu-mobile-viewport-height', Math.round(visibleHeight) + 'px');
-  }
-  function scheduleMobileViewportSync(){
-    if(viewportSyncFrame) cancelAnimationFrame(viewportSyncFrame);
-    viewportSyncFrame = requestAnimationFrame(function(){
-      viewportSyncFrame = 0;
-      syncMobileViewportHeight();
-    });
-  }
-
   function initialize(){
-    syncMobileViewportHeight();
-    window.addEventListener('resize', scheduleMobileViewportSync, { passive: true });
-    window.addEventListener('orientationchange', scheduleMobileViewportSync, { passive: true });
-    if(window.visualViewport) {
-      window.visualViewport.addEventListener('resize', scheduleMobileViewportSync, { passive: true });
-      window.visualViewport.addEventListener('scroll', scheduleMobileViewportSync, { passive: true });
-    }
     installStableLibraryRender();
     var initialPane = 'search';
     try { initialPane = sessionStorage.getItem('swu_mobile_active_pane') || 'search'; } catch(e) {}
