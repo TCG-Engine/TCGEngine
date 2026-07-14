@@ -6,7 +6,10 @@
 // NextTurnRender.php continues to populate them without a mobile-only renderer.
 ?>
 <style>
-  :root { --swu-mobile-viewport-height: 100vh; }
+  :root {
+    --swu-mobile-viewport-height: 100vh;
+    --swu-mobile-browser-bottom-clearance: 0px;
+  }
   @supports (height: -webkit-fill-available) {
     :root { --swu-mobile-viewport-height: -webkit-fill-available; }
   }
@@ -272,6 +275,8 @@
     position: relative;
     flex: 1 1 auto;
     min-height: 0;
+    padding-bottom: var(--swu-mobile-browser-bottom-clearance);
+    box-sizing: border-box;
     overflow: hidden;
   }
   #swuDeckMobileTrack {
@@ -1164,12 +1169,27 @@
   function syncMobileViewportHeight(){
     viewportSyncFrame = 0;
     var visualViewport = window.visualViewport;
-    var height = visualViewport && visualViewport.height > 0
-      ? visualViewport.height
-      : window.innerHeight;
+    var candidates = [
+      visualViewport && visualViewport.height,
+      window.innerHeight,
+      document.documentElement.clientHeight
+    ].filter(function(value){ return value && value >= 200; });
+    var height = candidates.length ? Math.min.apply(Math, candidates) : 0;
     if(!height || height < 200) return;
     document.documentElement.style.setProperty('--swu-mobile-viewport-height', Math.round(height) + 'px');
   }
+  function setMobileBrowserClearance(){
+    var isIPhoneBrowser = /iPhone|iPod/i.test(navigator.userAgent || '');
+    var isStandalone = navigator.standalone === true
+      || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+    /* iPhone Safari can report the toolbar-covered area as visible viewport. Reserve the
+       expanded bottom toolbar footprint for browser tabs, but not installed web apps. */
+    document.documentElement.style.setProperty(
+      '--swu-mobile-browser-bottom-clearance',
+      isIPhoneBrowser && !isStandalone ? '96px' : '0px'
+    );
+  }
+  setMobileBrowserClearance();
   function scheduleMobileViewportSync(){
     if(viewportSyncFrame) cancelAnimationFrame(viewportSyncFrame);
     viewportSyncFrame = requestAnimationFrame(syncMobileViewportHeight);
