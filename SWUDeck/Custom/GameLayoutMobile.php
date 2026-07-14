@@ -1496,6 +1496,35 @@
       return String(window[comparison[0]] || '') === String(responseArr[comparison[1] + offset] || '');
     });
   }
+  function captureDeckImagePool(){
+    var pool = new Map();
+    document.querySelectorAll('#myMainDeckSlot span[data-mzid] > a > img:first-child, #mySideboardSlot span[data-mzid] > a > img:first-child').forEach(function(img){
+      var key = String(img.src || img.getAttribute('src') || '');
+      if(!key) return;
+      if(!pool.has(key)) pool.set(key, []);
+      pool.get(key).push(img);
+    });
+    return pool;
+  }
+  function reuseDecodedDeckImages(pool){
+    if(!pool || pool.size === 0) return;
+    document.querySelectorAll('#myMainDeckSlot span[data-mzid] > a > img:first-child, #mySideboardSlot span[data-mzid] > a > img:first-child').forEach(function(newImg){
+      var key = String(newImg.src || newImg.getAttribute('src') || '');
+      var matches = pool.get(key);
+      if(!matches || matches.length === 0) return;
+      var decodedImg = matches.shift();
+
+      /* Keep the decoded bitmap, but adopt the new renderer's identity and presentation.
+         The src is deliberately retained so WebKit does not start another image request. */
+      Array.prototype.slice.call(decodedImg.attributes).forEach(function(attribute){
+        if(attribute.name !== 'src' && !newImg.hasAttribute(attribute.name)) decodedImg.removeAttribute(attribute.name);
+      });
+      Array.prototype.slice.call(newImg.attributes).forEach(function(attribute){
+        if(attribute.name !== 'src') decodedImg.setAttribute(attribute.name, attribute.value);
+      });
+      newImg.replaceWith(decodedImg);
+    });
+  }
   function installStableLibraryRender(){
     if(typeof window.RenderUpdate !== 'function' || window.RenderUpdate.__swuStableMobileLibrary) return;
     var originalRenderUpdate = window.RenderUpdate;
@@ -1503,11 +1532,13 @@
       var slot = document.getElementById('myCardPaneSlot');
       var wrapper = document.getElementById('myCardPaneWrapper');
       var preserveLibrary = !!(slot && wrapper && incomingLibraryIsUnchanged(responseArr, wrapper));
+      var deckImagePool = captureDeckImagePool();
       var result = originalRenderUpdate.apply(this, arguments);
 
       /* NextTurnRender rebuilds every bound zone. If the library inputs did not change,
          restore its existing subtree before the browser can paint; this retains decoded
          images, scroll state, filter controls, and listeners while deck zones stay fresh. */
+      reuseDecodedDeckImages(deckImagePool);
       if(preserveLibrary && slot && wrapper) slot.replaceChildren(wrapper);
       var activeWrapper = document.getElementById('myCardPaneWrapper');
       if(activeWrapper) activeWrapper.dataset.swuRenderedCardSize = String(window.cardSize);
