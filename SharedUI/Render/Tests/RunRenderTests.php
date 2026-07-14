@@ -45,6 +45,8 @@ checkContains('menubar has Stats dropdown', $navOut, "class='dropdown'");
 checkContains('menubar has Deck Stats child', $navOut, '/TCGEngine/Stats/DeckMetaStats.php');
 checkContains('menubar has github icon', $navOut, 'icons/github.svg');
 checkContains('menubar has discord icon', $navOut, 'discord.gg/5ZHXyVvVFC');
+checkContains('menubar renders burger on first paint', $navOut, 'class="burger-menu"');
+checkContains('menubar burger has accessible label', $navOut, 'aria-label="Open navigation"');
 checkContains('loggedout has Log In', $navOut, '/TCGEngine/SharedUI/Sites/SWUDeck/LoginPage.php');
 check('loggedout hides Profile', strpos($navOut, 'SWUDeck/Profile.php') === false);
 checkContains('loggedin has Profile', $navIn, '/TCGEngine/SharedUI/Sites/SWUDeck/Profile.php');
@@ -165,7 +167,7 @@ check('panels render in sections order (team before blocked)', strpos($htmlA,'Te
 check('order follows sections (reversed)', strpos($htmlB,'Blocked Users') < strpos($htmlB,'Team Management'));
 check('unlisted panel absent (no Cosmetics)', strpos($htmlA,'>Cosmetics<') === false);
 
-$defWD = ['profile' => ['sections' => ['welcome'], 'discordClientID' => '123']];
+$defWD = ['profile' => ['sections' => ['welcome'], 'discordOAuth' => true]];
 $defWN = ['profile' => ['sections' => ['welcome']]];
 $welD = RenderProfile($defWD, $pCtx, []);
 checkContains('welcome greets the user', $welD, 'Welcome Tester!');

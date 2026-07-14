@@ -92,7 +92,7 @@ CREATE TABLE `users` (
   `usersId` int(11) NOT NULL,
   `usersUid` varchar(128) NOT NULL,
   `usersEmail` varchar(128) NOT NULL,
-  `usersPwd` varchar(128) NOT NULL,
+  `usersPwd` varchar(255) DEFAULT NULL,
   `simLink` varchar(64) DEFAULT NULL,
   `rememberMeToken` varchar(64) DEFAULT NULL,
   `patreonAccessToken` varchar(64) DEFAULT NULL,
@@ -104,8 +104,6 @@ CREATE TABLE `users` (
   `lastLoggedIP` varchar(32) DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
--- --------------------------------------------------------
---
 -- Table structure for table `ownership`
 --
 CREATE TABLE `ownership` (
@@ -244,7 +242,7 @@ ADD PRIMARY KEY (`pwdResetId`);
 ALTER TABLE `users`
 ADD PRIMARY KEY (`usersId`),
   ADD KEY `usersUid` (`usersUid`),
-  ADD KEY `discordID` (`discordID`);
+  ADD UNIQUE KEY `discordID` (`discordID`);
 --
 -- AUTO_INCREMENT for dumped tables
 --

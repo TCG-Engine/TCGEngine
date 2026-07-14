@@ -161,5 +161,20 @@ input[type=radio]:checked::after {
   padding: 20px;
 }
 
+/* Shared account-provider controls used by Login and Signup across site themes. */
+.oauth-auth-block { width: min(360px, 100%); margin: 16px auto; }
+.discord-auth-button {
+  box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; min-height: 44px; padding: 10px 16px; border: 1px solid #7781f5; border-radius: 6px;
+  background: #5865f2; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: .01em;
+  box-shadow: 0 5px 18px rgba(88,101,242,.25); transition: background 140ms, transform 140ms, box-shadow 140ms;
+}
+.discord-auth-button:hover { background: #4752c4; color: #fff; transform: translateY(-1px); box-shadow: 0 7px 22px rgba(88,101,242,.36); }
+.discord-auth-button:focus-visible { outline: 3px solid rgba(165,180,252,.65); outline-offset: 2px; }
+.discord-auth-button img { width: 22px; height: 22px; filter: brightness(0) invert(1); }
+.oauth-separator { display: flex; align-items: center; gap: 10px; margin: 14px 0 4px; color: var(--text-muted, #aaa); }
+.oauth-separator::before, .oauth-separator::after { content: ''; height: 1px; flex: 1; background: var(--border, #454545); }
+.oauth-auth-error { padding: 10px 12px; border: 1px solid #b74a4a; border-radius: 6px; background: rgba(120,20,20,.35); color: #ffd5d5; }
+
 /* Styled-dialog CSS (.sd-*) is self-injected by Core/StyledDialog.js so dialogs work on any
    page without depending on this file. Kept out of here intentionally — do not re-add. */

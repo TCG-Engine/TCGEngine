@@ -2,8 +2,31 @@
 // Login + Signup body renderers (chrome — MenuBar/Header/Disclaimer — supplied by the shim).
 // Verbatim from Sites/SWUDeck/LoginPage.php:14-49 and Signup.php:9-67.
 
+require_once __DIR__ . '/../../AccountFiles/DiscordOAuth.php';
+
+function RenderDiscordAuthButton(array $def, string $action, string $safeRedirect = ''): string {
+    if (empty($def['profile']['discordOAuth'])) return '';
+    $site = $def['identity']['rootName'] ?? 'SWUDeck';
+    $redirect = $safeRedirect !== '' ? $safeRedirect : ($def['branding']['homeHref'] ?? '');
+    $href = htmlspecialchars(DiscordOAuthStartUrl($action, $site, $redirect), ENT_QUOTES, 'UTF-8');
+    return '<div class="oauth-auth-block">'
+         . '<a class="discord-auth-button" href="' . $href . '">'
+         . '<img src="/TCGEngine/Assets/Images/icons/discord.svg" alt="" aria-hidden="true">'
+         . '<span>Continue with Discord</span></a>'
+         . '<div class="oauth-separator"><span>or</span></div>'
+         . '</div>';
+}
+
+function RenderOAuthError(): string {
+    $message = trim((string)($_GET['oauth_error'] ?? ''));
+    if ($message === '') return '';
+    return '<p class="oauth-auth-error" role="alert">' . htmlspecialchars($message, ENT_QUOTES, 'UTF-8') . '</p>';
+}
+
 function RenderLoginPage(array $def, string $safeRedirect = ''): string {
     $esc = htmlspecialchars($safeRedirect, ENT_QUOTES);
+    $discordButton = RenderDiscordAuthButton($def, 'login', $safeRedirect);
+    $oauthError = RenderOAuthError();
     return <<<HTML
 <div class="core-wrapper">
 <div class="flex-padder"></div>
@@ -12,6 +35,8 @@ function RenderLoginPage(array $def, string $safeRedirect = ''): string {
   <div class="login container bg-black">
     <h2>Log In</h2>
     <p class="login-message">Make sure to use your username, not your email!</i></p>
+    $oauthError
+    $discordButton
 
     <form action="/TCGEngine/AccountFiles/AttemptPasswordLogin.php" method="post" class="LoginForm">
       <input type="hidden" name="redirect" value="$esc">
@@ -46,6 +71,8 @@ HTML;
 }
 
 function RenderSignup(array $def, string $safeRedirect = ''): string {
+    $discordButton = RenderDiscordAuthButton($def, 'signup', $safeRedirect);
+    $oauthError = RenderOAuthError();
     ob_start();
     ?>
 <div class="core-wrapper">
@@ -56,6 +83,7 @@ function RenderSignup(array $def, string $safeRedirect = ''): string {
 
 <section class="signup-form">
   <h2>Sign Up</h2>
+  <?php echo $oauthError; ?>
   <div class="container bg-blue">
     <p>By creating an account, you consent to the use of cookies on the site. Check the Privacy Policy for details on how cookies are used on the site.</p>
     <a href='/TCGEngine/SharedUI/PrivacyPolicy.php'>Privacy Policy</a>
@@ -65,6 +93,7 @@ function RenderSignup(array $def, string $safeRedirect = ''): string {
     <a href='/TCGEngine/SharedUI/TermsOfUse.php'>Terms of Use</a>
   </div>
   <div class="signup-form-form">
+    <?php echo $discordButton; ?>
     <form action="/TCGEngine/Database/signup.inc.php" method="post">
       <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($safeRedirect, ENT_QUOTES); ?>">
       <label for="uid">Username</label>

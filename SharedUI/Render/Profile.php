@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 require_once __DIR__ . '/../../AccountFiles/AccountDatabaseAPI.php';
+require_once __DIR__ . '/../../AccountFiles/DiscordOAuth.php';
 require_once __DIR__ . '/../../Database/ConnectionManager.php';
 
 // --- Change Password (form + handler script live at different positions, both gated on 'password') ---
@@ -215,21 +216,9 @@ function _DisplayPatreon(array $def): string {
 
 // --- Discord connect (verbatim from Profile.php:245-292; clientID parameterized) ---
 function _DisplayDiscordOAuth(array $def): string {
-    $discordClientID = $def['profile']['discordClientID'];
-    $discordRedirectURI = "https://www.swustats.net/TCGEngine/APIs/DiscordLogin.php";
-    $discordScope = "identify email";
-
-    $state = array(
-        "userId" => $_SESSION['userid'],
-        "action" => "discord_oauth"
-    );
-    $stateParam = urlencode(json_encode($state));
-
-    $authUrl = "https://discord.com/api/oauth2/authorize?client_id={$discordClientID}"
-                . "&redirect_uri=" . urlencode($discordRedirectURI)
-                . "&response_type=code"
-                . "&scope=" . urlencode($discordScope)
-                . "&state={$stateParam}";
+    $site = $def['identity']['rootName'] ?? 'SWUDeck';
+    $profileReturn = '/TCGEngine/SharedUI/Sites/' . $site . '/Profile.php';
+    $authUrl = DiscordOAuthStartUrl('link', $site, $profileReturn);
 
     ob_start();
     if(!isset($_SESSION["discordID"]) || $_SESSION["discordID"] == "") {
@@ -249,15 +238,16 @@ function _DisplayDiscordOAuth(array $def): string {
             background-color: #0056b3;
         }
         </style>';
-            echo '<a class="discord-button" href="' . $authUrl . '">';
+            echo '<a class="discord-button" href="' . htmlspecialchars($authUrl, ENT_QUOTES, 'UTF-8') . '">';
             echo '<img src="/TCGEngine/Assets/Images/icons/discord.svg" alt="Discord" style="height:20px; width:auto; vertical-align:middle; margin-right:8px;">';
-            echo 'Login via Discord';
+            echo 'Connect Discord';
             echo '</a>';
     } else {
         echo '<div class="container bg-black" style="margin-top: 20px;">';
         echo '<h3>Discord Account</h3>';
         echo '<p>Connected to Discord</p>';
-        echo '<a href="/TCGEngine/AccountFiles/DisconnectOAuth.php?type=discord" class="btn btn-secondary" style="margin-top:10px;">Disconnect Discord</a>';
+        $disconnectUrl = '/TCGEngine/AccountFiles/DisconnectOAuth.php?' . http_build_query(['type' => 'discord', 'redirect' => $profileReturn]);
+        echo '<a href="' . htmlspecialchars($disconnectUrl, ENT_QUOTES, 'UTF-8') . '" class="btn btn-secondary" style="margin-top:10px;">Disconnect Discord</a>';
         echo '</div>';
     }
     return ob_get_clean();
@@ -268,7 +258,7 @@ function _ProfileWelcome(array $def, array $ctx): string {
     $out = "<div class='fav-decks container bg-black'>\n<h2>Welcome " . ($ctx['username'] ?? '') . "!</h2>\n    ";
     $parts = [];
     if (!empty($def['profile']['patreonFinalPage'])) $parts[] = _DisplayPatreon($def);
-    if (!empty($def['profile']['discordClientID']))   $parts[] = _DisplayDiscordOAuth($def);
+    if (!empty($def['profile']['discordOAuth']))      $parts[] = _DisplayDiscordOAuth($def);
     $out .= implode("<hr style='border:0;border-top:1px solid rgba(255,255,255,0.14);margin:18px 0;'>", $parts);
     $out .= "\n\n</div>\n";
     return $out;

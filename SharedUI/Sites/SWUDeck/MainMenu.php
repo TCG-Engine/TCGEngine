@@ -6,7 +6,6 @@ include_once __DIR__ . '/../../../SWUDeck/GeneratedCode/GeneratedCardDictionarie
 
 include_once __DIR__ . '/MobileViewport.php';
 ?>
-<link rel="stylesheet" href="/TCGEngine/SharedUI/css/mobile-responsive.css">
 <script src="/TCGEngine/SharedUI/js/mobile-touch.js"></script>
 <script src="/TCGEngine/SharedUI/js/pull-to-refresh.js"></script>
 <script src="/TCGEngine/SharedUI/js/orientation-handler.js"></script>
@@ -218,31 +217,31 @@ function LoadDecks() {
   $allowedSorts = ['alpha_asc','alpha_desc','updated_desc','updated_asc','id_asc','id_desc'];
   $sortBy = isset($_GET['deckSort']) && in_array($_GET['deckSort'], $allowedSorts) ? $_GET['deckSort'] : 'id_desc';
   $decks = GetDecksByUserID(LoggedInUser(), $sortBy);
-  echo("<div class='sciFiScroll' style='overflow-y: auto; max-height: calc(100vh - 380px);'>");
-  echo("<table style='width: 100%; border-collapse: collapse;'>");
+  echo("<div class='sciFiScroll swu-deck-list'>");
+  echo("<table class='swu-deck-table'>");
   $favoriteDecks = "";
   $otherDecks = "";
   foreach ($decks as $deck) {
     if($deck["assetStatus"] == 1) { // Check if it's deleted
       $thisDeck = "";
       $title = $deck["assetName"] != "" ? $deck["assetName"] : "Deck #" . $deck["assetIdentifier"] . " (Click to rename)";
-      $thisDeck .= "<tr onclick=\"window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck';\" onmouseover=\"this.style.boxShadow='0 0 10px 5px rgba(51, 204, 255, 0.6)'; this.style.transform='scaleY(1.02)';\" onmouseout=\"this.style.boxShadow='none'; this.style.transform='none';\" style='cursor: pointer; transition: all 0.3s ease-in-out;'>";
+      $thisDeck .= "<tr class='swu-deck-row' onclick=\"window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck';\">";
       $id = "deck" . $deck["assetIdentifier"] . "Title";
-      $thisDeck .= "<td style='padding: 3px;'>";
+      $thisDeck .= "<td class='swu-deck-art swu-deck-leader'>";
       if (!empty($deck["keyIndicator1"])) {
         $thisDeck .= "<img src='/TCGEngine/SWUDeck/concat/" . $deck["keyIndicator1"] . ".webp' style='height: 80px; cursor:pointer;' title='" . CardTitle($deck["keyIndicator1"]) . "' onclick=\"event.stopPropagation(); window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'; return false;\" draggable='false' />";
       } else {
         $thisDeck .= "No Leader";
       }
       $thisDeck .= "</td>";
-      $thisDeck .= "<td style='padding: 3px;'>";
+      $thisDeck .= "<td class='swu-deck-art swu-deck-base'>";
       if (!empty($deck["keyIndicator2"])) {
         $thisDeck .= "<img src='/TCGEngine/SWUDeck/concat/" . $deck["keyIndicator2"] . ".webp' style='height: 80px; cursor:pointer;' title='" . CardTitle($deck["keyIndicator2"]) . "' onclick=\"event.stopPropagation(); window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'; return false;\" draggable='false' />";
       } else {
         $thisDeck .= "No Base";
       }
       $thisDeck .= "</td>";
-      $thisDeck .= "<td class='deck-name' style='padding: 3px;'><span id='" . $id . "'><span onclick='event.stopPropagation(); DeckNameClick(\"" . $id . "\")'>" . $title . "</span></span></td>";
+      $thisDeck .= "<td class='deck-name'><span id='" . $id . "'><span onclick='event.stopPropagation(); DeckNameClick(\"" . $id . "\")'>" . $title . "</span></span></td>";
       // Desktop action buttons
       $thisDeck .= "<td class='deck-actions-desktop' style='padding: 3px;'>";
       $thisDeck .= "<button title='Stats' onclick='event.stopPropagation(); window.location.href=\"/TCGEngine/$folderPath/DeckStats.php?gameName=" . $deck["assetIdentifier"] . "\"'>";
@@ -299,7 +298,7 @@ function LoadDecks() {
       $_ddAssetSource = is_null($deck['assetSource']) ? 'null' : intval($deck['assetSource']);
       $_ddAssetFolder = is_null($deck['assetFolder']) ? 0 : intval($deck['assetFolder']);
       $_ddCanRefresh = (!is_null($deck['assetSource']) && !is_null($deck['assetSourceID'])) ? 'true' : 'false';
-      $thisDeck .= "<td class='deck-actions-mobile' style='padding: 3px; display: none;'><button class='deck-more-btn' title='More' onclick='event.stopPropagation(); showDeckDropdown(this, \"$id\", \"{$deck['assetIdentifier']}\", {$_ddAssetSource}, \"{$deck['assetSourceID']}\", {$_ddAssetFolder}, {$_ddCanRefresh})'>⋮</button></td>";
+      $thisDeck .= "<td class='deck-actions-mobile' style='display: none;'><button class='deck-more-btn' title='More' aria-label='More actions for " . htmlspecialchars($title, ENT_QUOTES) . "' onclick='event.stopPropagation(); showDeckDropdown(this, \"$id\", \"{$deck['assetIdentifier']}\", {$_ddAssetSource}, \"{$deck['assetSourceID']}\", {$_ddAssetFolder}, {$_ddCanRefresh})'>⋮</button></td>";
       $thisDeck .= "</tr>";
       if($deck["assetFolder"] == 0) $otherDecks .= $thisDeck;
       else $favoriteDecks .= $thisDeck;
@@ -663,16 +662,9 @@ function LoadDecks() {
   document.addEventListener('DOMContentLoaded', function() {
     var urlParam = new URLSearchParams(window.location.search).get('deckSort');
     var stored = localStorage.getItem('deckSort');
-    var sel = document.getElementById('deckSortSelect');
-    if (!sel) return;
-    // URL param wins (PHP already sorted by it); otherwise restore from localStorage
-    if (urlParam) {
-      sel.value = urlParam;
-    } else if (stored) {
-      sel.value = stored;
-      // re-apply sort so the order matches what localStorage wants
-      applyDeckSort(stored);
-    }
+    var allowed = ['id_desc','id_asc','updated_desc','updated_asc','alpha_asc','alpha_desc'];
+    // URL param wins (PHP already sorted by it); otherwise restore a valid saved sort.
+    if (!urlParam && stored && allowed.indexOf(stored) !== -1) applyDeckSort(stored);
   });
 
   function filterDecks() {
@@ -853,40 +845,52 @@ function LoadDecks() {
   }
 </script>
 
-<div class="pageContainer">
+<div class="pageContainer swu-main-menu">
 <?php include_once __DIR__ . '/Header.php'; ?>
   <div class="core-wrapper">
     <!-- Left pane: Deck List -->
     <div class="left-pane">
       <div class="decks-section tabs" style="width: 100%; margin: 0 auto;">
         <!-- Card Search for mobile (above deck list) -->
-        <div class="card-search-mobile">
+        <div class="card-search-mobile swu-card-search-mobile">
           <input type="text" id="cardSearchInputMobile" placeholder="Search cards..."
                  style="width: 100%; padding: 10px; background-color: #002249; color: white;
                         border: 1px solid #2a4b8d; border-radius: 4px; cursor: pointer;"
                  readonly onclick="openCardSearch()">
         </div>
         <!-- ...tab buttons and deck list content... -->
-        <div class="login container bg-black">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div class="tab-buttons">              <button class="tab-button active" onclick="switchTab('tab-decks', event)">My Decks</button>
-              <span class="tab-divider" aria-hidden="true"></span>
+        <div class="login container bg-black swu-deck-library-panel">
+          <div class="swu-deck-tabs-heading">
+            <div class="tab-buttons">
+              <button class="tab-button active" onclick="switchTab('tab-decks', event)">My Decks</button>
               <?php
               $isKTODPatron = IsPatron("11987758");
               $isRebelResourcePatron = IsPatron("12716027");
               $isStubbHubbPatron = IsPatron("13088942");
               $isStarWarzDadPatron = IsPatron("12636483");
-              echo("<button style='padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-ktod', event)\"><img src='/TCGEngine/Assets/Images/logos/KTODLogo.webp' alt='KTOD' style='height: 15px;'></button>");
-              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-rebel', event)\"><img src='/TCGEngine/Assets/Images/logos/RebelResourceLogo.webp' alt='Rebel Resource' style='height: 15px;'></button>");
-              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-L8Night', event)\"><img src='/TCGEngine/Assets/Images/logos/L8NightBanner.webp' alt='L8 Night Gaming' style='height: 15px; '></button>");
-              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-StubbHub', event)\"><img src='/TCGEngine/Assets/Images/logos/StubbHub.webp' alt='Stubb Hub' style='height: 15px; '></button>");
-              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-StarWarzDad', event)\"><img src='/TCGEngine/Assets/Images/logos/StarWarzDad.webp' alt='Force Fam' style='height: 15px; '></button>");
               ?>
+              <div id="swuCreatorMenu" class="swu-creator-menu">
+                <button id="swuCreatorTrigger" class="tab-button swu-creator-trigger" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleCreatorMenu(event)">
+                  <span id="swuCreatorTriggerLabel">Creators</span><span class="swu-creator-chevron" aria-hidden="true"></span>
+                </button>
+                <div id="swuCreatorDropdown" class="swu-creator-dropdown" role="menu" aria-label="Content creator decks">
+                  <button class="swu-creator-option" type="button" role="menuitem" data-creator-label="KTOD" onclick="switchTab('tab-ktod', event)"><img src="/TCGEngine/Assets/Images/logos/KTODLogo.webp" alt=""><span>KTOD</span></button>
+                  <button class="swu-creator-option" type="button" role="menuitem" data-creator-label="Rebel Resource" onclick="switchTab('tab-rebel', event)"><img src="/TCGEngine/Assets/Images/logos/RebelResourceLogo.webp" alt=""><span>Rebel Resource</span></button>
+                  <button class="swu-creator-option" type="button" role="menuitem" data-creator-label="L8 Night Gaming" onclick="switchTab('tab-L8Night', event)"><img src="/TCGEngine/Assets/Images/logos/L8NightBanner.webp" alt=""><span>L8 Night Gaming</span></button>
+                  <button class="swu-creator-option" type="button" role="menuitem" data-creator-label="Stubbs Hub" onclick="switchTab('tab-StubbHub', event)"><img src="/TCGEngine/Assets/Images/logos/StubbHub.webp" alt=""><span>Stubbs Hub</span></button>
+                  <button class="swu-creator-option" type="button" role="menuitem" data-creator-label="Force Fam" onclick="switchTab('tab-StarWarzDad', event)"><img src="/TCGEngine/Assets/Images/logos/StarWarzDad.webp" alt=""><span>Force Fam</span></button>
+                </div>
+              </div>
             </div>
           </div>
           <div class="tab-content-container">
             <div id="tab-decks" class="tab-content" style="display: block;">
-              <div style="display: flex; align-items: center; gap: 8px; margin: 10px 0 20px;">
+              <?php
+                $allowedSortKeys = ['id_desc','id_asc','updated_desc','updated_asc','alpha_asc','alpha_desc'];
+                $activeSortKey = isset($_GET['deckSort']) && in_array($_GET['deckSort'], $allowedSortKeys) ? $_GET['deckSort'] : null;
+                $sortLabels = ['id_desc'=>'Date Created (Newest)','id_asc'=>'Date Created (Oldest)','updated_desc'=>'Last Updated (Recent)','updated_asc'=>'Last Updated (Oldest)','alpha_asc'=>'Alphabetical (A&rarr;Z)','alpha_desc'=>'Alphabetical (Z&rarr;A)'];
+              ?>
+              <div class="swu-deck-toolbar">
                 <input type="text" id="deckSearchInput" placeholder="Search your decks..."
                       style="flex: 1; min-width: 0; margin: 0; padding: 10px; background-color: #002249; color: white;
                             border: 1px solid #2a4b8d; border-radius: 4px;"
@@ -902,20 +906,16 @@ function LoadDecks() {
                     <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
                   </svg>
                 </button>
-              </div>
-              <?php
-                $allowedSortKeys = ['id_desc','id_asc','updated_desc','updated_asc','alpha_asc','alpha_desc'];
-                $activeSortKey = isset($_GET['deckSort']) && in_array($_GET['deckSort'], $allowedSortKeys) ? $_GET['deckSort'] : null;
-                $sortLabels = ['id_desc'=>'Date Created (Newest)','id_asc'=>'Date Created (Oldest)','updated_desc'=>'Last Updated (Recent)','updated_asc'=>'Last Updated (Oldest)','alpha_asc'=>'Alphabetical (A&rarr;Z)','alpha_desc'=>'Alphabetical (Z&rarr;A)'];
-              ?>
-              <div style="display:flex; align-items:center; gap:6px; margin:6px 0 4px;">
-                <label for="deckSortSelect" style="font-size:13px; color:#aac; white-space:nowrap;">Sort by:</label>
-                <select id="deckSortSelect" onchange="applyDeckSort(this.value)"
-                  style="flex:1; padding:5px 8px; background:#002249; color:#fff; border:1px solid #2a4b8d; border-radius:4px; font-size:13px;">
-                  <?php foreach($sortLabels as $val => $label): ?>
-                  <option value="<?= $val ?>"<?= ($activeSortKey === $val) ? ' selected' : '' ?>><?= $label ?></option>
-                  <?php endforeach; ?>
-                </select>
+                <div id="swuSortMenu" class="swu-sort-menu">
+                  <button id="swuSortTrigger" class="swu-sort-icon-control" type="button" title="Sort decks" aria-label="Sort decks, current: <?= htmlspecialchars($sortLabels[$activeSortKey ?? 'id_desc']) ?>" aria-haspopup="true" aria-expanded="false" onclick="toggleSortMenu(event)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M4 11h7M4 16h4M17 5v13m0 0-3-3m3 3 3-3"/></svg>
+                  </button>
+                  <div class="swu-sort-dropdown" role="menu" aria-label="Sort decks by">
+                    <?php foreach($sortLabels as $val => $label): ?>
+                    <button type="button" role="menuitem" class="swu-sort-option<?= (($activeSortKey ?? 'id_desc') === $val) ? ' active' : '' ?>" onclick="applyDeckSort('<?= $val ?>')"><?= $label ?></button>
+                    <?php endforeach; ?>
+                  </div>
+                </div>
               </div>
               <div><?php LoadDecks(); ?></div>
             </div>
@@ -1000,6 +1000,47 @@ function LoadDecks() {
 </div> <!-- Close pageContainer div -->
 
 <script>
+  function closeCreatorMenu() {
+    var menu = document.getElementById('swuCreatorMenu');
+    var trigger = document.getElementById('swuCreatorTrigger');
+    if (menu) menu.classList.remove('is-open');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  }
+
+  function toggleCreatorMenu(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    var menu = document.getElementById('swuCreatorMenu');
+    var trigger = document.getElementById('swuCreatorTrigger');
+    if (!menu || !trigger) return;
+    var open = !menu.classList.contains('is-open');
+    menu.classList.toggle('is-open', open);
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function closeSortMenu() {
+    var menu = document.getElementById('swuSortMenu');
+    var trigger = document.getElementById('swuSortTrigger');
+    if (menu) menu.classList.remove('is-open');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  }
+
+  function toggleSortMenu(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    var menu = document.getElementById('swuSortMenu');
+    var trigger = document.getElementById('swuSortTrigger');
+    if (!menu || !trigger) return;
+    var open = !menu.classList.contains('is-open');
+    closeCreatorMenu();
+    menu.classList.toggle('is-open', open);
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
   function switchTab(tabId, event) {
     var tabs = document.getElementsByClassName('tab-content');
     for (var i = 0; i < tabs.length; i++) {
@@ -1007,12 +1048,36 @@ function LoadDecks() {
     }
     document.getElementById(tabId).style.display = 'block';
 
-    var buttons = document.getElementsByClassName('tab-button');
+    var buttons = document.querySelectorAll('.tab-button,.swu-creator-option');
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].classList.remove('active');
     }
-    event.target.classList.add('active');
+    var activeButton = event && event.currentTarget ? event.currentTarget : event.target;
+    var creatorTrigger = document.getElementById('swuCreatorTrigger');
+    var creatorLabel = document.getElementById('swuCreatorTriggerLabel');
+    if (activeButton && activeButton.classList.contains('swu-creator-option')) {
+      activeButton.classList.add('active');
+      if (creatorTrigger) creatorTrigger.classList.add('active');
+      if (creatorLabel) creatorLabel.textContent = activeButton.dataset.creatorLabel || 'Creators';
+    } else {
+      if (activeButton) activeButton.classList.add('active');
+      if (creatorLabel) creatorLabel.textContent = 'Creators';
+    }
+    closeCreatorMenu();
   }
+
+  document.addEventListener('click', function(event) {
+    var creatorMenu = document.getElementById('swuCreatorMenu');
+    var sortMenu = document.getElementById('swuSortMenu');
+    if (creatorMenu && !creatorMenu.contains(event.target)) closeCreatorMenu();
+    if (sortMenu && !sortMenu.contains(event.target)) closeSortMenu();
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeCreatorMenu();
+      closeSortMenu();
+    }
+  });
 </script>
 
 <script>

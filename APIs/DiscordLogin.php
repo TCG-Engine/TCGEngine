@@ -1,81 +1,74 @@
 <?php
 
-include_once '../Assets/patreon-php-master/src/OAuth.php';
-include_once '../Assets/patreon-php-master/src/API.php';
-include_once '../Assets/patreon-php-master/src/PatreonLibraries.php';
-include_once '../Assets/patreon-php-master/src/PatreonDictionary.php';
-include_once "../Database/ConnectionManager.php";
-include_once "../Database/functions.inc.php";
-include_once "../APIKeys/APIKeys.php";
-include_once "../AccountFiles/AccountSessionAPI.php";
-include_once "../APIKeys/APIKeys.php";
+require_once __DIR__ . '/../Assets/patreon-php-master/src/OAuth.php';
+require_once __DIR__ . '/../Assets/patreon-php-master/src/API.php';
+require_once __DIR__ . '/../Assets/patreon-php-master/src/PatreonLibraries.php';
+require_once __DIR__ . '/../Assets/patreon-php-master/src/PatreonDictionary.php';
+require_once __DIR__ . '/../AccountFiles/DiscordOAuth.php';
 
-if (isset($_GET['code'])) {
-  $code = $_GET['code'];
+$redirect = '/TCGEngine/SharedUI/Sites/SWUDeck/LoginPage.php';
+$conn = null;
 
-  $client_id = $discordClientID;
-  $client_secret = $discordClientSecret;
-  $redirect_uri = $discordRedirectURI;
+try {
+    if (!empty($_GET['error'])) throw new RuntimeException('Discord authorization was cancelled.');
+    $state = (string)($_GET['state'] ?? '');
+    $code = (string)($_GET['code'] ?? '');
+    if ($state === '' || $code === '') throw new RuntimeException('Discord did not return a complete sign-in response.');
 
-  $code = $_GET['code'];
-  $state = $_GET['state'];
-  # Check if $state == $_SESSION['state'] to verify if the login is legit | CHECK THE FUNCTION get_state($state) FOR MORE INFORMATION.
-  $url = "https://discord.com/api/oauth2/token";
-  $data = array(
-      "client_id" => $client_id,
-      "client_secret" => $client_secret,
-      "grant_type" => "authorization_code",
-      "code" => $code,
-      "redirect_uri" => $redirect_uri
-  );
-  $curl = curl_init();
-  curl_setopt($curl, CURLOPT_URL, $url);
-  curl_setopt($curl, CURLOPT_POST, true);
-  curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-  $response = curl_exec($curl);
-  curl_close($curl);
-  if(curl_errno($curl)){
-      echo "cURL error: " . curl_error($curl);
-  }
-  $results = json_decode($response, true);
-  $accessToken = $results['access_token'];
+    $flow = DiscordOAuthConsumeFlow($state);
+    $redirect = DiscordOAuthSafeReturn($flow['redirect'] ?? '', $flow['site'] ?? 'SWUDeck');
+    $tokens = DiscordOAuthExchangeCode($code);
+    $accessToken = (string)($tokens['access_token'] ?? '');
+    if ($accessToken === '') throw new RuntimeException('Discord did not return an access token.');
+    $discordUser = DiscordOAuthFetchUser($accessToken);
+    $subject = trim((string)($discordUser['id'] ?? ''));
+    if ($subject === '') throw new RuntimeException('Discord did not return a user identity.');
+    $conn = GetLocalMySQLConnection();
+    $existingIdentity = DiscordOAuthFindUserBySubject($conn, $subject);
+    $action = $flow['action'] ?? 'login';
 
-  $url = "https://discord.com/api/users/@me";
-  $headers = array('Content-Type: application/x-www-form-urlencoded', 'Authorization: Bearer ' . $accessToken);
-  $curl = curl_init();
-  curl_setopt($curl, CURLOPT_URL, $url);
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-  $response = curl_exec($curl);
-  if(curl_errno($curl)){
-      echo "cURL error: " . curl_error($curl);
-  }
-  curl_close($curl);
-  
-  $results = json_decode($response, true);
-  $state = json_decode($state, true);
+    if ($action === 'link') {
+        if (!IsUserLoggedIn()) throw new RuntimeException('Log in before linking a Discord account.');
+        $userId = (int)LoggedInUser();
+        DiscordOAuthLinkIdentity($conn, $userId, $subject);
+        $_SESSION['discordID'] = $subject;
+        $conn->close();
+        $conn = null;
+        session_write_close();
+        header('Location: ' . $redirect);
+        exit();
+    }
 
-  $SWUStatsID = $state['userId'];
-  $discordID = $results['id'];
+    if ($existingIdentity) {
+        DiscordOAuthLinkIdentity($conn, (int)$existingIdentity['usersId'], $subject);
+        $conn->close();
+        $conn = null;
+        $user = LoadUserDataFromId((int)$existingIdentity['usersId']);
+        EstablishUserSessionFromData($user, true);
+        header('Location: ' . $redirect);
+        exit();
+    }
 
-  $conn = GetLocalMySQLConnection();
-  $query = "UPDATE users SET discordID = ? WHERE usersId = ?";
-  $stmt = $conn->prepare($query);
-  $stmt->bind_param("si", $discordID, $SWUStatsID);
-  $stmt->execute();
-  $stmt->close();
-  $conn->close();
+    if (IsUserLoggedIn()) {
+        $userId = (int)LoggedInUser();
+        DiscordOAuthLinkIdentity($conn, $userId, $subject);
+        $_SESSION['discordID'] = $subject;
+        $conn->close();
+        $conn = null;
+        session_write_close();
+        header('Location: ' . $redirect);
+        exit();
+    }
 
-  CheckSession();
-  $_SESSION["discordID"] = $discordID;
-
-
+    DiscordOAuthRememberPending($discordUser, $flow);
+    $conn->close();
+    $conn = null;
+    session_write_close();
+    header('Location: /TCGEngine/AccountFiles/DiscordOnboarding.php');
+    exit();
+} catch (Throwable $e) {
+    if ($conn instanceof mysqli) $conn->close();
+    if (session_status() === PHP_SESSION_ACTIVE) session_write_close();
+    header('Location: ' . DiscordOAuthAppendError($redirect, $e->getMessage()));
+    exit();
 }
-
-  header("Location: /TCGEngine/SharedUI/Profile.php");
-  exit();
-
-
-
-?>

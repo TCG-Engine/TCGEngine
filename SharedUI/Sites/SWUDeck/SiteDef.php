@@ -16,7 +16,7 @@
     'disclaimerName' => 'SWU Stats',
   ],
   'head' => [
-    'styles'  => [   // shared stack (menuStyles/tokens/components/theme) derived from `theme`; only the app override remains
+    'styles'  => [   // SWUDeck-specific visual overrides layered over the shared theme stack
       '/TCGEngine/SharedUI/Sites/SWUDeck/css/swudeck-overrides.css',
     ],
     'scripts' => ['/TCGEngine/SharedUI/js/device-detector.js',
@@ -46,6 +46,6 @@
     'sections'         => ['welcome+changePassword','team','developerOptions'],
     'oauthAppLabel'    => 'SWUDeck',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
-    'discordClientID'  => '1338995198730043432',
+    'discordOAuth'     => true,
   ],
 ];

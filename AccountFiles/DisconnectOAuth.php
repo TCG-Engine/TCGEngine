@@ -8,6 +8,7 @@ include_once '../Database/ConnectionManager.php';
 $response = new stdClass();
 
 $type = TryGet("type", default: "");
+$redirect = AccountSafeRedirect(TryGet('redirect', default: ''), '/TCGEngine/SharedUI/Profile.php');
 
 // Ensure request method is POST
 if($type == "") {
@@ -26,9 +27,9 @@ $userid = LoggedInUser();
 
 if ($type == "discord") {
   $conn = GetLocalMySQLConnection();
-  $query = "UPDATE users SET discordID = NULL WHERE usersId = ?";
-  $stmt = $conn->prepare($query);
-  if ($stmt && $stmt->execute([$userid])) {
+  $stmt = $conn->prepare("UPDATE users SET discordID = NULL WHERE usersId = ?");
+  if ($stmt) $stmt->bind_param('i', $userid);
+  if ($stmt && $stmt->execute()) {
     $response->success = "Successfully disconnected {$type}.";
     $_SESSION["discordID"] = "";
   } else {
@@ -47,9 +48,7 @@ if ($type == "discord") {
 }
 
 
-echo json_encode($response);
-
-header("Location: /TCGEngine/SharedUI/Profile.php");
+header('Location: ' . $redirect);
 exit();
 
 ?>

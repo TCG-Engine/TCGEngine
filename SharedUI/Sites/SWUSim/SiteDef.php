@@ -43,6 +43,6 @@
     'sections'         => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics'],
     'oauthAppLabel'    => 'Petranaki Arena',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
-    'discordClientID'  => '1338995198730043432',
+    'discordOAuth'     => true,
   ],
 ];

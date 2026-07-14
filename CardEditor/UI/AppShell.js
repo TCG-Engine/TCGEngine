@@ -38,6 +38,14 @@ class AppShell {
         await this.refreshAll();
         this.bindNav();
         this.show('games');
+        const params = new URLSearchParams(window.location.search);
+        const oauthError = params.get('oauth_error');
+        if (oauthError) {
+            this.toast(oauthError, 'error');
+            params.delete('oauth_error');
+            const query = params.toString();
+            history.replaceState(null, '', window.location.pathname + (query ? `?${query}` : '') + window.location.hash);
+        }
     }
 
     bindNav() {
@@ -154,6 +162,11 @@ class AppShell {
                         <h2 id="authTitle">${isSignup ? 'Create Account' : 'Log In'}</h2>
                         <button type="button" class="icon-button" onclick="app.closeAuthModal()">x</button>
                     </div>
+                    <button type="button" class="discord-auth-button" onclick="app.startDiscordAuth('${isSignup ? 'signup' : 'login'}')">
+                        <img src="/TCGEngine/Assets/Images/icons/discord.svg" alt="" aria-hidden="true">
+                        <span>Continue with Discord</span>
+                    </button>
+                    <div class="auth-separator"><span>or</span></div>
                     <form id="authForm" class="stack-form" onsubmit="app.submitAuth(event, '${isSignup ? 'signup' : 'login'}')">
                         <label>Username<input name="username" autocomplete="username" required></label>
                         ${isSignup ? '<label>Email<input name="email" type="email" autocomplete="email" required></label>' : ''}
@@ -171,6 +184,14 @@ class AppShell {
             </div>
         `;
         host.querySelector('[name="username"]')?.focus();
+    }
+
+    startDiscordAuth(action = 'login') {
+        const redirect = window.location.pathname.startsWith('/TCGEngine/')
+            ? window.location.pathname
+            : '/TCGEngine/CardEditor/UI/';
+        const params = new URLSearchParams({ action, site: 'CardEditor', redirect });
+        window.location.assign(`/TCGEngine/AccountFiles/DiscordOAuthStart.php?${params.toString()}`);
     }
 
     closeAuthModal(event = null) {

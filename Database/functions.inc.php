@@ -114,11 +114,12 @@ function CreateUserAPI($conn, $username, $email, $pwd)
 function loginFromCookie()
 {
 	$token = $_COOKIE["rememberMeToken"];
+	$hashedToken = hash('sha256', $token);
 	$conn = GetLocalMySQLConnection();
-	$sql = "SELECT usersId, usersUid, usersEmail, patreonAccessToken, patreonRefreshToken, patreonEnum, isBanned FROM users WHERE rememberMeToken=?";
+	$sql = "SELECT usersId, usersUid, usersEmail, usersPwd, discordID, patreonAccessToken, patreonRefreshToken, patreonEnum, isBanned FROM users WHERE rememberMeToken=? OR rememberMeToken=?";
 	$stmt = mysqli_stmt_init($conn);
 	if (mysqli_stmt_prepare($stmt, $sql)) {
-		mysqli_stmt_bind_param($stmt, "s", $token);
+		mysqli_stmt_bind_param($stmt, "ss", $token, $hashedToken);
 		mysqli_stmt_execute($stmt);
 		$data = mysqli_stmt_get_result($stmt);
 		$row = mysqli_fetch_array($data, MYSQLI_NUM);
@@ -128,10 +129,21 @@ function loginFromCookie()
 			$_SESSION["userid"] = $row[0];
 			$_SESSION["useruid"] = $row[1];
 			$_SESSION["useremail"] = $row[2];
-			$patreonAccessToken = $row[3];
-			$patreonRefreshToken = $row[4];
-			$_SESSION["patreonEnum"] = $row[5];
-			$_SESSION["isBanned"] = $row[6];
+			$_SESSION["userspwd"] = $row[3] ?? '';
+			$_SESSION["discordID"] = $row[4] ?? '';
+			$patreonAccessToken = $row[5];
+			$patreonRefreshToken = $row[6];
+			$_SESSION["patreonEnum"] = $row[7];
+			$_SESSION["isBanned"] = $row[8];
+			if (hash_equals($token, (string)($_COOKIE['rememberMeToken'] ?? ''))) {
+				$upgrade = $conn->prepare('UPDATE users SET rememberMeToken = ? WHERE usersId = ? AND rememberMeToken = ?');
+				if ($upgrade) {
+					$userId = (int)$row[0];
+					$upgrade->bind_param('sis', $hashedToken, $userId, $token);
+					$upgrade->execute();
+					$upgrade->close();
+				}
+			}
 			try {
 				PatreonLogin($patreonAccessToken);
 			} catch (\Exception $e) {

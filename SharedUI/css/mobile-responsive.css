@@ -570,6 +570,13 @@
       font-size: 18px !important;
       color: white !important;
     }
+
+    .nav-bar .dropdown.is-open .dropdown-content {
+      position: static !important;
+      display: block !important;
+      width: 100%;
+      box-shadow: inset 3px 0 0 rgba(140,210,255,0.35) !important;
+    }
   }
   
   /* Prevent body scrolling when menu is open */

@@ -64,12 +64,24 @@ label {
    panel (.nav-bar.active) goes navy — its .NavBarItem links are already cyan above.
    Scoped to .active so the desktop nav pill's translucent look is untouched. */
 .burger-menu {
+  position: fixed !important;
+  top: 15px !important;
+  right: 15px !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 2300 !important;
+  display: none !important;
+  width: 54px !important;
+  height: 42px !important;
+  padding: 9px !important;
   background: transparent !important;
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   isolation: isolate !important;
   filter: drop-shadow(0 0 4px rgba(115,195,255,0.40));
+  box-sizing: border-box !important;
+  margin: 0 !important;
 }
 .burger-menu::before {
   content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
@@ -81,7 +93,19 @@ label {
   clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
   background: rgba(20,42,70,0.96) !important;
 }
-.burger-menu span { background-color: rgba(180,228,255,0.95) !important; }
+.burger-menu span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin-bottom: 5px;
+  border-radius: 2px;
+  background-color: rgba(180,228,255,0.95) !important;
+  transition: transform 180ms ease,opacity 140ms ease;
+}
+.burger-menu span:last-child { margin-bottom: 0; }
+.burger-menu.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.burger-menu.active span:nth-child(2) { opacity: 0; }
+.burger-menu.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
 /* Slide-in mobile nav panel — navy HUD (only when the burger is open) */
 .nav-bar.active .nav-bar-user,
@@ -127,4 +151,494 @@ label {
   color: rgba(170,212,246,0.95) !important;
   letter-spacing: 0.10em !important;
   text-shadow: 0 0 8px rgba(120,200,255,0.30) !important;
+}
+
+/* ---- SWUDeck main menu --------------------------------------------------- */
+.swu-main-menu {
+  min-height: 100svh;
+  background:
+    radial-gradient(circle at 50% 16%,rgba(31,92,133,0.14),transparent 38%),
+    linear-gradient(180deg,#061321 0,#020a12 52%,#01070d 100%);
+}
+.swu-main-menu .home-header {
+  isolation: isolate;
+}
+.swu-main-menu .home-header .title {
+  position: relative;
+  z-index: 2;
+}
+.swu-main-menu .home-header .home-banner {
+  z-index: 0;
+}
+.swu-main-menu .core-wrapper {
+  gap: 18px;
+  padding: 0 18px 22px;
+  box-sizing: border-box;
+}
+.swu-main-menu .left-pane,
+.swu-main-menu .right-pane { box-sizing: border-box; }
+@media (min-width: 769px) {
+  .swu-main-menu .core-wrapper {
+    display: flex !important;
+    align-items: flex-start;
+  }
+  .swu-main-menu .left-pane {
+    flex: 1 1 62%;
+    width: 62%;
+    min-width: 0;
+    max-width: none;
+    padding: 0;
+  }
+  .swu-main-menu .right-pane {
+    flex: 1 1 38%;
+    width: 38%;
+    min-width: 340px;
+    max-width: none;
+    padding: 0;
+  }
+  .swu-main-menu .decks-section { width: 100% !important; }
+  .swu-main-menu .deck-actions-desktop {
+    width: 1%;
+    padding: 7px 9px !important;
+    white-space: nowrap;
+  }
+}
+@media (min-width: 769px) and (max-width: 1100px) {
+  .swu-main-menu .core-wrapper { flex-direction: column; }
+  .swu-main-menu .left-pane,
+  .swu-main-menu .right-pane {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+  }
+  .swu-main-menu .right-pane {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .swu-main-menu .right-pane > .container { margin: 0 !important; }
+}
+.swu-main-menu .swu-deck-library-panel {
+  width: auto !important;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-color: rgba(140,210,255,0.48) !important;
+  background: linear-gradient(180deg,rgba(3,16,27,0.96),rgba(1,9,16,0.98)) !important;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.32),0 0 14px rgba(120,200,255,0.12) !important;
+}
+.swu-main-menu .swu-deck-tabs-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.swu-main-menu .tab-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+.swu-main-menu .swu-creator-menu {
+  position: relative;
+  flex: 0 0 auto;
+}
+.swu-main-menu .swu-creator-trigger {
+  display: inline-flex !important;
+  min-width: 126px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.swu-main-menu .swu-creator-chevron {
+  width: 7px;
+  height: 7px;
+  margin: -3px 2px 0 0;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 150ms ease;
+}
+.swu-main-menu .swu-creator-menu.is-open .swu-creator-chevron {
+  margin-top: 3px;
+  transform: rotate(225deg);
+}
+.swu-main-menu .swu-creator-dropdown {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 0;
+  z-index: 240;
+  display: grid;
+  width: 238px;
+  gap: 5px;
+  padding: 7px;
+  box-sizing: border-box;
+  border: 1px solid rgba(140,210,255,0.50);
+  background: rgba(3,15,26,0.985);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.58),0 0 12px rgba(120,200,255,0.18);
+  opacity: 0;
+  transform: translateY(-5px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 140ms ease,transform 140ms ease,visibility 0s linear 140ms;
+}
+.swu-main-menu .swu-creator-menu.is-open .swu-creator-dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+.swu-main-menu .swu-creator-option {
+  display: grid;
+  grid-template-columns: 82px minmax(0,1fr);
+  min-height: 42px;
+  align-items: center;
+  gap: 10px;
+  margin: 0 !important;
+  padding: 6px 9px !important;
+  border: 1px solid rgba(140,210,255,0.16) !important;
+  border-radius: 4px !important;
+  background: linear-gradient(180deg,rgba(18,42,67,0.96),rgba(8,26,45,0.98)) !important;
+  box-shadow: none !important;
+  color: rgba(220,240,250,0.94) !important;
+  font: 600 12px/1.1 Arial,Helvetica,sans-serif;
+  text-align: left;
+  white-space: normal;
+}
+.swu-main-menu .swu-creator-option:hover,
+.swu-main-menu .swu-creator-option:focus-visible,
+.swu-main-menu .swu-creator-option.active {
+  border-color: rgba(180,228,255,0.72) !important;
+  background: linear-gradient(180deg,rgba(31,68,104,0.98),rgba(14,39,65,1)) !important;
+  box-shadow: inset 0 0 10px rgba(160,220,255,0.08),0 0 9px rgba(120,200,255,0.18) !important;
+  color: #fff !important;
+  outline: none;
+  transform: none !important;
+}
+.swu-main-menu .swu-creator-option img {
+  display: block;
+  width: 76px;
+  max-width: 100%;
+  max-height: 24px;
+  object-fit: contain;
+}
+.swu-main-menu .swu-deck-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 10px;
+}
+.swu-main-menu .swu-deck-toolbar input,
+.swu-main-menu .swu-card-search-mobile input {
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+.swu-main-menu .swu-sort-menu {
+  position: relative;
+  flex: 0 0 52px;
+  width: 52px;
+}
+.swu-main-menu .swu-sort-icon-control {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  width: 52px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+  color: rgba(205,238,255,0.96) !important;
+  cursor: pointer;
+  filter: drop-shadow(0 0 3px rgba(110,190,255,0.30));
+}
+.swu-main-menu .swu-sort-icon-control::before,
+.swu-main-menu .swu-sort-icon-control::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  clip-path: polygon(5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%,0 5px);
+  background: rgba(140,210,255,0.80);
+}
+.swu-main-menu .swu-sort-icon-control::after {
+  inset: 1.5px;
+  z-index: -1;
+  background: rgba(20,42,70,0.95);
+}
+.swu-main-menu .swu-sort-icon-control:hover,
+.swu-main-menu .swu-sort-icon-control:focus-within {
+  color: #fff !important;
+  filter: drop-shadow(0 0 8px rgba(125,205,255,0.60));
+}
+.swu-main-menu .swu-sort-icon-control:hover::before,
+.swu-main-menu .swu-sort-icon-control:focus-within::before { background: rgba(180,228,255,1); }
+.swu-main-menu .swu-sort-icon-control svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.swu-main-menu .swu-sort-dropdown {
+  position: absolute;
+  top: calc(100% + 7px);
+  right: 0;
+  z-index: 250;
+  display: grid;
+  width: min(248px,calc(100vw - 32px));
+  gap: 3px;
+  padding: 7px;
+  box-sizing: border-box;
+  border: 1px solid rgba(140,210,255,0.50);
+  background: rgba(3,15,26,0.99);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.58),0 0 12px rgba(120,200,255,0.18);
+  opacity: 0;
+  transform: translateY(-5px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 140ms ease,transform 140ms ease,visibility 0s linear 140ms;
+}
+.swu-main-menu .swu-sort-menu.is-open .swu-sort-dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+.swu-main-menu .swu-sort-option {
+  width: 100%;
+  min-height: 36px;
+  margin: 0 !important;
+  padding: 7px 9px !important;
+  border: 1px solid rgba(140,210,255,0.14) !important;
+  border-radius: 3px !important;
+  background: rgba(15,37,61,0.96) !important;
+  box-shadow: none !important;
+  color: rgba(220,240,250,0.94) !important;
+  font: 600 12px/1.15 Arial,Helvetica,sans-serif;
+  text-align: left;
+  white-space: normal;
+}
+.swu-main-menu .swu-sort-option:hover,
+.swu-main-menu .swu-sort-option:focus-visible,
+.swu-main-menu .swu-sort-option.active {
+  border-color: rgba(180,228,255,0.68) !important;
+  background: rgba(28,61,94,0.98) !important;
+  color: #fff !important;
+  outline: none;
+  transform: none !important;
+}
+.swu-main-menu .swu-deck-list {
+  overflow-y: auto;
+  max-height: calc(100vh - 380px);
+}
+.swu-main-menu .swu-deck-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 7px;
+}
+.swu-main-menu .swu-deck-row {
+  cursor: pointer;
+  transition: filter 150ms ease,transform 150ms ease;
+}
+.swu-main-menu .swu-deck-row > td {
+  padding: 7px 4px;
+  border-top: 1px solid rgba(112,182,226,0.13);
+  border-bottom: 1px solid rgba(112,182,226,0.13);
+  background: linear-gradient(180deg,rgba(16,40,66,0.94),rgba(9,27,48,0.97));
+}
+.swu-main-menu .swu-deck-row > td:first-child {
+  padding-left: 9px;
+  border-left: 1px solid rgba(112,182,226,0.18);
+  border-radius: 8px 0 0 8px;
+}
+.swu-main-menu .swu-deck-row > td:last-child {
+  padding-right: 9px;
+  border-right: 1px solid rgba(112,182,226,0.18);
+  border-radius: 0 8px 8px 0;
+}
+.swu-main-menu .swu-deck-row:hover {
+  filter: brightness(1.14) drop-shadow(0 0 7px rgba(100,190,245,0.24));
+  transform: translateY(-1px);
+}
+.swu-main-menu .swu-deck-art { width: 1%; white-space: nowrap; }
+.swu-main-menu .swu-deck-art img {
+  display: block;
+  height: 80px !important;
+  width: auto;
+  border: 1px solid rgba(134,203,242,0.16);
+  border-radius: 4px;
+  box-shadow: 0 3px 9px rgba(0,0,0,0.38);
+}
+.swu-main-menu .deck-name {
+  width: 100%;
+  padding: 8px 10px !important;
+  color: rgba(229,243,251,0.97);
+  font-size: 16px;
+  line-height: 1.28;
+}
+.swu-main-menu .deck-name > span > span:hover {
+  color: #fff;
+  text-shadow: 0 0 7px rgba(126,207,255,0.52);
+}
+
+@media (max-width: 768px) {
+  .burger-menu {
+    display: block !important;
+  }
+  .nav-bar {
+    position: fixed !important;
+    top: 0 !important;
+    right: -82vw !important;
+    left: auto !important;
+    z-index: 2200 !important;
+    display: block !important;
+    width: 82vw !important;
+    height: 100svh !important;
+    padding-top: 62px !important;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+    background: rgba(3,14,25,0.985) !important;
+    box-shadow: -8px 0 24px rgba(0,0,0,0.58) !important;
+    transition: right 220ms ease !important;
+  }
+  .nav-bar.active { right: 0 !important; }
+  .nav-bar .nav-bar-user,
+  .nav-bar .nav-bar-links {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 8px 18px !important;
+    box-sizing: border-box;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+  .nav-bar ul {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .nav-bar ul li {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-bottom: 1px solid rgba(140,210,255,0.12);
+  }
+  .nav-bar ul li > a,
+  .nav-bar ul li > a.NavBarItem {
+    display: block !important;
+    width: 100% !important;
+    padding: 13px 8px !important;
+    box-sizing: border-box;
+    font-size: 16px !important;
+    text-align: left !important;
+  }
+  .nav-bar .dropdown.is-open .dropdown-content {
+    position: static !important;
+    display: block !important;
+    width: 100%;
+    box-shadow: inset 3px 0 0 rgba(140,210,255,0.30) !important;
+  }
+  .menu-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2150 !important;
+    background: rgba(0,0,0,0.72) !important;
+  }
+  body.menu-open { overflow: hidden !important; }
+  .swu-main-menu .core-wrapper {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .swu-main-menu .right-pane { display: none !important; }
+  .swu-main-menu .decks-section { width: 100% !important; }
+  .swu-main-menu .card-search-mobile { display: block !important; }
+  .swu-main-menu .deck-actions-desktop { display: none !important; }
+  .swu-main-menu .deck-actions-mobile {
+    display: table-cell !important;
+  }
+  .swu-main-menu .home-header {
+    height: 132px !important;
+    min-height: 132px;
+    padding: 8px 10px !important;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(140,210,255,0.22);
+    background-color: #061426;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.34);
+  }
+  .swu-main-menu .home-header .title {
+    z-index: 2;
+    height: 100%;
+    margin: 0;
+    padding: 0 54px 4px !important;
+    box-sizing: border-box;
+    justify-content: flex-end;
+  }
+  .swu-main-menu .home-header h1 { font-size: 22px !important; }
+  .swu-main-menu .home-header .title p { font-size: 11px !important; }
+  .swu-main-menu .core-wrapper {
+    gap: 0;
+    padding: 0 6px 18px;
+  }
+  .swu-main-menu .left-pane {
+    width: 100%;
+    padding: 0 !important;
+  }
+  .swu-main-menu .swu-card-search-mobile {
+    padding: 5px 10px 6px;
+    border-bottom: 1px solid rgba(140,210,255,0.15);
+    background: rgba(3,15,25,0.94);
+  }
+  .swu-main-menu .swu-card-search-mobile input { min-height: 40px; }
+  .swu-main-menu .swu-deck-library-panel {
+    padding: 10px 11px 12px !important;
+    border-radius: 8px !important;
+  }
+  .swu-main-menu .swu-deck-tabs-heading { margin-bottom: 4px; }
+  .swu-main-menu .tab-buttons {
+    gap: 7px 6px;
+    width: 100%;
+  }
+  .swu-main-menu .swu-creator-trigger { min-width: 132px; }
+  .swu-main-menu .swu-creator-dropdown {
+    width: min(238px,calc(100vw - 42px));
+  }
+  .swu-main-menu .tab-button { margin: 0 !important; }
+  .swu-main-menu .tab-divider { margin: 0 3px !important; }
+  .swu-main-menu .swu-deck-toolbar { margin: 10px 0 8px; }
+  .swu-main-menu #createDeckButton,
+  .swu-main-menu #importDeckButton { flex: 0 0 52px; margin: 0 !important; }
+  .swu-main-menu .swu-deck-list {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .swu-main-menu .swu-deck-table {
+    table-layout: auto !important;
+    border-spacing: 0 6px;
+    margin: 0 !important;
+  }
+  .swu-main-menu .swu-deck-row > td { padding-top: 7px !important; padding-bottom: 7px !important; }
+  .swu-main-menu .swu-deck-art { width: 1% !important; max-width: none !important; }
+  .swu-main-menu .swu-deck-art img {
+    width: 58px !important;
+    height: 81px !important;
+    max-width: none !important;
+    object-fit: cover;
+    margin: 0 !important;
+  }
+  .swu-main-menu .deck-name {
+    width: 100% !important;
+    padding: 7px 8px !important;
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+  }
+  .swu-main-menu .deck-actions-mobile { width: 1%; padding: 7px 8px 7px 3px !important; }
+  .swu-main-menu .deck-more-btn { margin: 0 !important; }
 }

@@ -839,6 +839,22 @@
             background: #202124;
             box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
         }
+        .discord-auth-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 42px;
+            border-color: #7781f5;
+            background: #5865f2;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .discord-auth-button:hover { background: #4752c4; border-color: #8d95f7; }
+        .discord-auth-button img { width: 21px; height: 21px; filter: brightness(0) invert(1); }
+        .auth-separator { display: flex; align-items: center; gap: 10px; color: #9aa0a6; font-size: 12px; }
+        .auth-separator::before, .auth-separator::after { content: ''; height: 1px; flex: 1; background: #4d5156; }
         .modal-head {
             display: flex;
             align-items: center;

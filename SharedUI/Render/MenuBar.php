@@ -43,7 +43,7 @@ function RenderMenuBar(array $def, array $ctx): string {
     $out  = "\n" . RenderHead($def);
     $out .= "\n<body>\n";
     if (!empty($def['branding']['menuOverlay'])) {   // burger-menu overlay (sites with burger-menu.js)
-        $out .= "  <!-- Simple menu overlay div that will be controlled by JS -->\n";
+        $out .= "  <button type=\"button\" class=\"burger-menu\" aria-label=\"Open navigation\" aria-expanded=\"false\"><span></span><span></span><span></span></button>\n";
         $out .= "  <div class=\"menu-overlay\" style=\"display: none;\"></div>\n\n";
     }
     $out .= "  <div class='nav-bar'>\n    <div class='nav-bar-user'>\n      <ul class='rightnav'>\n        ";

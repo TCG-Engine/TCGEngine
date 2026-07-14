@@ -63,6 +63,57 @@ function LoadUserDataFromId($userId) {
 	return $row;
 }
 
+function AccountRequestIsHttps() {
+	if (!empty($_SERVER['HTTPS']) && strtolower((string)$_SERVER['HTTPS']) !== 'off') return true;
+	return strtolower((string)($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
+}
+
+function SetAccountRememberMeCookie($rawToken, $expiresAt) {
+	setcookie('rememberMeToken', $rawToken, [
+		'expires' => $expiresAt,
+		'path' => '/',
+		'secure' => AccountRequestIsHttps(),
+		'httponly' => true,
+		'samesite' => 'Lax',
+	]);
+}
+
+function EstablishUserSessionFromData($userData, $rememberMe = false) {
+	if (!is_array($userData) || empty($userData['usersId']) || empty($userData['usersUid'])) return false;
+	if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+
+	$_SESSION['userid'] = (int)$userData['usersId'];
+	$_SESSION['useruid'] = $userData['usersUid'];
+	$_SESSION['discordID'] = $userData['discordID'] ?? '';
+	$_SESSION['useremail'] = $userData['usersEmail'] ?? '';
+	$_SESSION['userspwd'] = $userData['usersPwd'] ?? '';
+	$_SESSION['patreonEnum'] = $userData['patreonEnum'] ?? null;
+	$_SESSION['isBanned'] = $userData['isBanned'] ?? 0;
+
+	$patreonAccessToken = $userData['patreonAccessToken'] ?? '';
+	if ($patreonAccessToken !== '' && function_exists('PatreonLogin')) {
+		try { PatreonLogin($patreonAccessToken); } catch (\Exception $e) { }
+	}
+
+	if ($rememberMe) {
+		$rawToken = bin2hex(random_bytes(32));
+		$storedToken = hash('sha256', $rawToken);
+		$conn = GetLocalMySQLConnection();
+		$stmt = $conn->prepare('UPDATE users SET rememberMeToken = ? WHERE usersId = ?');
+		if ($stmt) {
+			$userId = (int)$userData['usersId'];
+			$stmt->bind_param('si', $storedToken, $userId);
+			$stmt->execute();
+			$stmt->close();
+			SetAccountRememberMeCookie($rawToken, time() + (86400 * 90));
+		}
+		$conn->close();
+	}
+
+	session_write_close();
+	return true;
+}
+
 function LoadUserTeamInvites($userId, $conn) {
 	$sql = "SELECT ti.*, t.teamName, u.usersUid as invitedByUserUid
 			FROM teaminvite ti
@@ -87,7 +138,6 @@ function LoadUserTeamInvites($userId, $conn) {
 
 
 function PasswordLogin($username, $password, $rememberMe) {
-	$conn = GetLocalMySQLConnection();
 	try {
 		$userData = LoadUserData($username);
 	}
@@ -95,39 +145,13 @@ function PasswordLogin($username, $password, $rememberMe) {
 
   if($userData == NULL) return false;
 
-  try {
-  	$passwordValid = password_verify($password, $userData["usersPwd"]);
-  }
-  catch (\Exception $e) { }
+  $passwordHash = $userData['usersPwd'] ?? null;
+  $passwordValid = is_string($passwordHash) && $passwordHash !== '' && password_verify($password, $passwordHash);
 
   if($passwordValid)
   {
-    session_start();
-		$_SESSION["userid"] = $userData["usersId"];
-		$_SESSION["useruid"] = $userData["usersUid"];
-		$_SESSION["discordID"] = $userData["discordID"];
-		$_SESSION["useremail"] = $userData["usersEmail"];
-		$_SESSION["userspwd"] = $userData["usersPwd"];
-		$patreonAccessToken = $userData["patreonAccessToken"];
-		$_SESSION["patreonEnum"] = $userData["patreonEnum"];
-		$_SESSION["isBanned"] = $userData["isBanned"];
-
-		try {
-			PatreonLogin($patreonAccessToken);
-		} catch (\Exception $e) { }
-
-		if($rememberMe)
-		{
-			$cookie = hash("sha256", rand() . $_SESSION["userspwd"] . rand());
-			setcookie("rememberMeToken", $cookie, time() + (86400 * 90), "/");
-			storeRememberMeCookie($conn, $_SESSION["useruid"], $cookie);
-		}
-		session_write_close();
-		mysqli_close($conn);
-
-		return true;
+		return EstablishUserSessionFromData($userData, $rememberMe);
   }
-  mysqli_close($conn);
   return false;
 }
 
@@ -156,7 +180,6 @@ function AccountLoginPageRedirect($redirect) {
 }
 
 function AttemptPasswordLogin($username, $password, $rememberMe, $redirect = "") {
-	$conn = GetLocalMySQLConnection();
 	$userData = LoadUserData($username);
 
   if($userData != NULL)
@@ -169,40 +192,12 @@ function AttemptPasswordLogin($username, $password, $rememberMe, $redirect = "")
   }
 
 
-  try {
-  	$passwordValid = password_verify($password, $userData["usersPwd"]);
-  }
-  catch (\Exception $e) { }
+  $passwordHash = $userData['usersPwd'] ?? null;
+  $passwordValid = is_string($passwordHash) && $passwordHash !== '' && password_verify($password, $passwordHash);
 
   if($passwordValid)
   {
-    session_start();
-		$_SESSION["userid"] = $userData["usersId"];
-		$_SESSION["useruid"] = $userData["usersUid"];
-		$_SESSION["discordID"] = $userData["discordID"];
-		$_SESSION["useremail"] = $userData["usersEmail"];
-		$_SESSION["userspwd"] = $userData["usersPwd"];
-		$patreonAccessToken = $userData["patreonAccessToken"];
-		$_SESSION["patreonEnum"] = $userData["patreonEnum"];
-		$rememberMeToken = $userData["rememberMeToken"];
-		$_SESSION["isBanned"] = $userData["isBanned"];
-
-		try {
-			PatreonLogin($patreonAccessToken);
-		} catch (\Exception $e) { }
-
-		if($rememberMe)
-		{
-			echo("Remember me");
-			if($rememberMeToken == "")
-			{
-				$cookie = hash("sha256", rand() . $_SESSION["userspwd"] . rand());
-				storeRememberMeCookie($conn, $_SESSION["useruid"], $cookie);
-			}
-			else $cookie = $rememberMeToken;
-			setcookie("rememberMeToken", $cookie, time() + (86400 * 90), "/");
-		}
-		session_write_close();
+		EstablishUserSessionFromData($userData, $rememberMe);
 
 		header("location: " . AccountSafeRedirect($redirect, "../SharedUI/MainMenu.php"));
 		exit();

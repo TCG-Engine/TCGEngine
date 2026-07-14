@@ -40,6 +40,6 @@
     'sections'         => ['welcome'],
     'oauthAppLabel'    => 'Azuki Sim',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
-    'discordClientID'  => '1338995198730043432',
+    'discordOAuth'     => true,
   ],
 ];
