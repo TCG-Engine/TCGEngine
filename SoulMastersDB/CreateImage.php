@@ -46,12 +46,14 @@ if($loggedInUser != $assetOwner) {
 ParseGamestate();
 $width = 800;
 $height = 600;
-$image = imagecreatetruecolor($width, $height);
-$green = imagecolorallocate($image, 0, 255, 0);
-imagefilledrectangle($image, 0, 0, $width, $height, $green);
+// Imagick-only, matching the rest of the asset pipeline (XAMPP GD lacks WebP; see
+// newhost/harden-webp.sh). This endpoint is currently a green-rectangle placeholder.
+$image = new Imagick();
+$image->newImage($width, $height, new ImagickPixel('rgb(0,255,0)'));
+$image->setImageFormat('jpeg');
 header('Content-Type: image/jpeg');
-imagejpeg($image);
-imagedestroy($image);
+echo $image->getImageBlob();
+$image->clear(); $image->destroy();
 exit;
 
 header("Content-Type: image/webp");

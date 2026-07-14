@@ -15,6 +15,17 @@ if ($isHTTPRequest) {
     }
 }
 
+// Imagick is the ONLY supported backend for asset generation. The old GD fallback was
+// removed because it produced broken output on the deployed LAMPP box (no Docker). If
+// Imagick is missing or an operation fails, we throw so the generator run aborts loudly
+// rather than silently writing bad assets.
+function _requireImagick()
+{
+    if (!class_exists('Imagick')) {
+        throw new Exception("Imagick extension is required for asset generation but is not installed/enabled. Aborting run.");
+    }
+}
+
 // Card dimensions after resize: 450×628 (portrait) or 628×450 (landscape for Leader/Base).
 //
 // Concat crop specs (all produce 450×450 output from a 450×628 portrait card):
@@ -24,14 +35,15 @@ if ($isHTTPRequest) {
 
 function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", $rootPath = "", $squareCards = false, $overwriteImages = false)
 {
+    _requireImagick();
+
     $filename      = $rootPath . "WebpImages/" . $cardID . ".webp";
-    $filenameNew   = $rootPath . "UnimplementedCards/" . $cardID . ".webp";
     $concatFilename = $rootPath . "concat/" . $cardID . ".webp";
     $cropFilename  = $rootPath . "crops/" . $cardID . "_cropped.png";
     $isNew = false;
 
     if ($overwriteImages) {
-        foreach ([$filename, $filenameNew, $concatFilename, $cropFilename] as $f) {
+        foreach ([$filename, $concatFilename, $cropFilename] as $f) {
             if (file_exists($f)) unlink($f);
         }
     }
@@ -62,96 +74,29 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
 
         echo "Image for $cardID successfully retrieved.<br>";
 
-        if (class_exists('Imagick')) {
-            try {
-                $image = new Imagick($tempName);
-                if (!$squareCards) {
-                    if ($definedType == "Base" || $definedType == "Leader") {
-                        if ($image->getImageHeight() > $image->getImageWidth()) {
-                            $image->rotateimage(new ImagickPixel('none'), -90);
-                        }
-                        $image->resizeImage(628, 450, Imagick::FILTER_LANCZOS, 1, true);
-                    } elseif ($definedType == "LeaderUnit") {
-                        // Leader unit-side arrives landscape; rotate to portrait before resizing.
-                        if ($image->getImageWidth() > $image->getImageHeight()) {
-                            $image->rotateimage(new ImagickPixel('none'), 90);
-                        }
-                        $image->resizeImage(450, 628, Imagick::FILTER_LANCZOS, 1, true);
-                    } else {
-                        $image->resizeImage(450, 628, Imagick::FILTER_LANCZOS, 1, true);
-                    }
+        // new Imagick() throws if the download is corrupt / not an image, which aborts the run.
+        $image = new Imagick($tempName);
+        if (!$squareCards) {
+            if ($definedType == "Base" || $definedType == "Leader") {
+                if ($image->getImageHeight() > $image->getImageWidth()) {
+                    $image->rotateimage(new ImagickPixel('none'), -90);
                 }
-                $image->setImageFormat('webp');
-                if (!$image->writeImage($filename)) throw new Exception("Imagick failed to write webp.");
-                $image->clear(); $image->destroy();
-                unlink($tempName);
-                $isNew = true;
-            } catch (Exception $e) {
-                echo "Imagick processing failed for $cardID: " . $e->getMessage() . "<br>";
-            }
-        }
-
-        if (!$isNew) {
-            $imageInfo = @getimagesize($tempName);
-            if ($imageInfo === false) {
-                echo "Failed to get image info for $cardID. Deleting file.<br>";
-                unlink($tempName);
-                return;
-            }
-            $mime = $imageInfo['mime'];
-            $image = false;
-            if ($mime === 'image/webp')       $image = @imagecreatefromwebp($tempName);
-            elseif ($mime === 'image/png')    $image = @imagecreatefrompng($tempName);
-            elseif ($mime === 'image/jpeg')   $image = @imagecreatefromjpeg($tempName);
-            else {
-                echo "Unsupported MIME type: $mime for $cardID. Deleting file.<br>";
-                unlink($tempName);
-                return;
-            }
-            if ($image === false) {
-                echo "Failed to create image resource for $cardID. Deleting file.<br>";
-                unlink($tempName);
-                return;
-            }
-            if (!$squareCards) {
-                if ($definedType == "Base" || $definedType == "Leader") {
-                    if (imagesy($image) > imagesx($image)) $image = imagerotate($image, -90, 0);
-                    $image = imagescale($image, 628, 450);
-                } else {
-                    $image = imagescale($image, 450, 628);
+                $image->resizeImage(628, 450, Imagick::FILTER_LANCZOS, 1, true);
+            } elseif ($definedType == "LeaderUnit") {
+                // Leader unit-side arrives landscape; rotate to portrait before resizing.
+                if ($image->getImageWidth() > $image->getImageHeight()) {
+                    $image->rotateimage(new ImagickPixel('none'), 90);
                 }
-            }
-            if (!imagewebp($image, $filename)) {
-                echo "Failed to convert image to webp for $cardID.<br>";
-                imagedestroy($image);
-                unlink($tempName);
-                return;
-            }
-            imagedestroy($image);
-            unlink($tempName);
-            $isNew = true;
-        }
-    }
-
-    // ── Copy to UnimplementedCards ─────────────────────────────────────────────
-    if ($isNew && !file_exists($filenameNew)) {
-        echo "Converting image for $cardID to new format.<br>";
-        if (class_exists('Imagick')) {
-            try {
-                $image = new Imagick($filename);
-                $image->setImageFormat('webp');
-                $image->writeImage($filenameNew);
-                $image->clear(); $image->destroy();
-            } catch (Exception $e) {
-                echo "Imagick failed converting new format for $cardID: " . $e->getMessage() . "<br>";
+                $image->resizeImage(450, 628, Imagick::FILTER_LANCZOS, 1, true);
+            } else {
+                $image->resizeImage(450, 628, Imagick::FILTER_LANCZOS, 1, true);
             }
         }
-        if (!file_exists($filenameNew)) {
-            try { $image = imagecreatefromwebp($filename); }
-            catch (Exception $e) { $image = imagecreatefrompng($filename); }
-            imagewebp($image, $filenameNew);
-            imagedestroy($image);
-        }
+        $image->setImageFormat('webp');
+        if (!$image->writeImage($filename)) throw new Exception("Imagick failed to write webp for $cardID.");
+        $image->clear(); $image->destroy();
+        unlink($tempName);
+        $isNew = true;
     }
 
     // ── Concat (450×450 square for arena display) ──────────────────────────────
@@ -189,34 +134,16 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
     // ── Crop (art thumbnail for hover/tooltip) ─────────────────────────────────
     if (!file_exists($cropFilename) && file_exists($filename)) {
         echo "Crop image for $cardID does not exist.<br>";
-        if (class_exists('Imagick')) {
-            try {
-                $image = new Imagick($filename);
-                if ($definedType == "Event") {
-                    $image->cropImage(350, 246, 50, 326);
-                } else {
-                    $image->cropImage(350, 270, 50, 100);
-                }
-                $image->setImageFormat('png');
-                $image->writeImage($cropFilename);
-                $image->clear(); $image->destroy();
-                if (file_exists($cropFilename)) echo "Image for $cardID successfully converted to crops.<br>";
-            } catch (Exception $e) {
-                echo "Imagick crop conversion failed for $cardID: " . $e->getMessage() . "<br>";
-            }
+        $image = new Imagick($filename);
+        if ($definedType == "Event") {
+            $image->cropImage(350, 246, 50, 326);
+        } else {
+            $image->cropImage(350, 270, 50, 100);
         }
-        if (!file_exists($cropFilename)) {
-            try { $image = imagecreatefromwebp($filename); }
-            catch (Exception $e) { $image = imagecreatefrompng($filename); }
-            if ($definedType == "Event") {
-                $image = imagecrop($image, ['x' => 50, 'y' => 326, 'width' => 350, 'height' => 246]);
-            } else {
-                $image = imagecrop($image, ['x' => 50, 'y' => 100, 'width' => 350, 'height' => 270]);
-            }
-            imagepng($image, $cropFilename);
-            imagedestroy($image);
-            if (file_exists($cropFilename)) echo "Image for $cardID successfully converted to crops (GD fallback).<br>";
-        }
+        $image->setImageFormat('png');
+        $image->writeImage($cropFilename);
+        $image->clear(); $image->destroy();
+        if (file_exists($cropFilename)) echo "Image for $cardID successfully converted to crops.<br>";
     }
 }
 
@@ -226,29 +153,17 @@ function _concatSingleCrop($src, $dest, $cardID, $srcX, $srcY, $w, $h, $outW = n
 {
     $outW = $outW ?? $w;
     $outH = $outH ?? $h;
-    if (class_exists('Imagick')) {
-        try {
-            $image = new Imagick($src);
-            $image->cropImage($w, $h, $srcX, $srcY);
-            $image->setImagePage($w, $h, 0, 0);
-            if ($outW !== $w || $outH !== $h) {
-                $image->resizeImage($outW, $outH, Imagick::FILTER_LANCZOS, 1);
-            }
-            $image->setImageFormat('webp');
-            $image->writeImage($dest);
-            $image->clear(); $image->destroy();
-            if (file_exists($dest)) { echo "Image for $cardID successfully converted to concat.<br>"; return; }
-        } catch (Exception $e) {
-            echo "Imagick single-crop failed for $cardID: " . $e->getMessage() . "<br>";
-        }
+    _requireImagick();
+    $image = new Imagick($src);
+    $image->cropImage($w, $h, $srcX, $srcY);
+    $image->setImagePage($w, $h, 0, 0);
+    if ($outW !== $w || $outH !== $h) {
+        $image->resizeImage($outW, $outH, Imagick::FILTER_LANCZOS, 1);
     }
-    // GD fallback
-    $image = imagecreatefromwebp($src);
-    $out = imagecreatetruecolor($outW, $outH);
-    imagecopyresampled($out, $image, 0, 0, $srcX, $srcY, $outW, $outH, $w, $h);
-    imagewebp($out, $dest);
-    imagedestroy($image); imagedestroy($out);
-    if (file_exists($dest)) echo "Image for $cardID successfully converted to concat (GD fallback).<br>";
+    $image->setImageFormat('webp');
+    $image->writeImage($dest);
+    $image->clear(); $image->destroy();
+    if (file_exists($dest)) echo "Image for $cardID successfully converted to concat.<br>";
 }
 
 // Two-section stacked concat. Sections stack to 450×(topH+botH); when $outW/$outH
@@ -258,53 +173,31 @@ function _concatTwoSection($src, $dest, $cardID, $topSrcY, $topH, $botSrcY, $bot
     $stackH = $topH + $botH;
     $finalW = $outW ?? 450;
     $finalH = $outH ?? $stackH;
-    if (class_exists('Imagick')) {
-        try {
-            $image = new Imagick($src);
+    _requireImagick();
+    $image = new Imagick($src);
 
-            $imageTop = $image->clone();
-            $imageTop->cropImage(450, $topH, 0, $topSrcY);
-            $imageTop->setImagePage(450, $topH, 0, 0);
+    $imageTop = $image->clone();
+    $imageTop->cropImage(450, $topH, 0, $topSrcY);
+    $imageTop->setImagePage(450, $topH, 0, 0);
 
-            $imageBot = $image->clone();
-            $imageBot->cropImage(450, $botH, 0, $botSrcY);
-            $imageBot->setImagePage(450, $botH, 0, 0);
+    $imageBot = $image->clone();
+    $imageBot->cropImage(450, $botH, 0, $botSrcY);
+    $imageBot->setImagePage(450, $botH, 0, 0);
 
-            $out = new Imagick();
-            $out->newImage(450, $stackH, new ImagickPixel('transparent'));
-            $out->compositeImage($imageTop, Imagick::COMPOSITE_DEFAULT, 0, 0);
-            $out->compositeImage($imageBot,  Imagick::COMPOSITE_DEFAULT, 0, $topH);
-            if ($finalW !== 450 || $finalH !== $stackH) {
-                $out->resizeImage($finalW, $finalH, Imagick::FILTER_LANCZOS, 1);
-            }
-            $out->setImageFormat('webp');
-            $out->writeImage($dest);
-
-            $image->clear();    $image->destroy();
-            $imageTop->clear(); $imageTop->destroy();
-            $imageBot->clear(); $imageBot->destroy();
-            $out->clear();      $out->destroy();
-
-            if (file_exists($dest)) { echo "Image for $cardID successfully converted to concat.<br>"; return; }
-        } catch (Exception $e) {
-            echo "Imagick two-section concat failed for $cardID: " . $e->getMessage() . "<br>";
-        }
-    }
-    // GD fallback
-    $image = imagecreatefromwebp($src);
-    $stack = imagecreatetruecolor(450, $stackH);
-    imagealphablending($stack, false); imagesavealpha($stack, true);
-    imagecopy($stack, $image, 0,     0, 0, $topSrcY, 450, $topH);
-    imagecopy($stack, $image, 0, $topH, 0, $botSrcY, 450, $botH);
+    $out = new Imagick();
+    $out->newImage(450, $stackH, new ImagickPixel('transparent'));
+    $out->compositeImage($imageTop, Imagick::COMPOSITE_DEFAULT, 0, 0);
+    $out->compositeImage($imageBot,  Imagick::COMPOSITE_DEFAULT, 0, $topH);
     if ($finalW !== 450 || $finalH !== $stackH) {
-        $out = imagecreatetruecolor($finalW, $finalH);
-        imagealphablending($out, false); imagesavealpha($out, true);
-        imagecopyresampled($out, $stack, 0, 0, 0, 0, $finalW, $finalH, 450, $stackH);
-        imagedestroy($stack);
-    } else {
-        $out = $stack;
+        $out->resizeImage($finalW, $finalH, Imagick::FILTER_LANCZOS, 1);
     }
-    imagewebp($out, $dest);
-    imagedestroy($image); imagedestroy($out);
-    if (file_exists($dest)) echo "Image for $cardID successfully converted to concat (GD fallback).<br>";
+    $out->setImageFormat('webp');
+    $out->writeImage($dest);
+
+    $image->clear();    $image->destroy();
+    $imageTop->clear(); $imageTop->destroy();
+    $imageBot->clear(); $imageBot->destroy();
+    $out->clear();      $out->destroy();
+
+    if (file_exists($dest)) echo "Image for $cardID successfully converted to concat.<br>";
 }
