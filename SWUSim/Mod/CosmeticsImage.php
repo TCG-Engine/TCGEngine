@@ -2,13 +2,20 @@
 // Cover-crop to (w:h), resize to exactly w x h, write WebP. Returns false on undecodable input.
 // $vAnchor controls the vertical crop position when height is the cropped dimension:
 // 'center' (default) trims top and bottom equally; 'top' keeps the top edge and trims the bottom.
+// Imagick-only: XAMPP's bundled GD is compiled without WebP, so all asset processing goes
+// through Imagick (see newhost/harden-webp.sh and zzImageConverter.php).
 function SWUCosmeticProcessImage($srcPath, $destPath, $w, $h, $vAnchor = 'center') {
+    if (!class_exists('Imagick')) return false;
     $data = @file_get_contents($srcPath);
     if ($data === false) return false;
-    $src = @imagecreatefromstring($data);
-    if (!$src) return false;
-    $sw = imagesx($src); $sh = imagesy($src);
-    if ($sw < 1 || $sh < 1) { imagedestroy($src); return false; }
+    try {
+        $img = new Imagick();
+        $img->readImageBlob($data);
+    } catch (Exception $e) {
+        return false;
+    }
+    $sw = $img->getImageWidth(); $sh = $img->getImageHeight();
+    if ($sw < 1 || $sh < 1) { $img->clear(); $img->destroy(); return false; }
 
     // cover crop: pick the largest centered sw'×sh' matching target aspect
     $targetAR = $w / $h; $srcAR = $sw / $sh;
@@ -17,13 +24,18 @@ function SWUCosmeticProcessImage($srcPath, $destPath, $w, $h, $vAnchor = 'center
     $cx = (int)(($sw - $cw) / 2);
     $cy = $vAnchor === 'top' ? 0 : (int)(($sh - $ch) / 2);
 
-    $dst = imagecreatetruecolor($w, $h);
-    imagealphablending($dst, false); imagesavealpha($dst, true);
-    imagecopyresampled($dst, $src, 0, 0, $cx, $cy, $w, $h, $cw, $ch);
-
-    $dir = dirname($destPath);
-    if (!is_dir($dir)) @mkdir($dir, 0775, true);
-    $ok = imagewebp($dst, $destPath, 80);
-    imagedestroy($src); imagedestroy($dst);
+    try {
+        $img->cropImage($cw, $ch, $cx, $cy);       // cover-crop to target aspect
+        $img->setImagePage($cw, $ch, 0, 0);         // reset virtual canvas after crop
+        $img->resizeImage($w, $h, Imagick::FILTER_LANCZOS, 1);
+        $img->setImageFormat('webp');
+        $img->setImageCompressionQuality(80);
+        $dir = dirname($destPath);
+        if (!is_dir($dir)) @mkdir($dir, 0775, true);
+        $ok = $img->writeImage($destPath);
+    } catch (Exception $e) {
+        $ok = false;
+    }
+    $img->clear(); $img->destroy();
     return (bool)$ok;
 }

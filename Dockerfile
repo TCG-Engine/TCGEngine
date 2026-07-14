@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libjpeg-dev \
     libfreetype6-dev \
     libwebp-dev \
+    libmagickwand-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
@@ -22,6 +23,13 @@ RUN pecl install -o -f redis \
 RUN pecl install apcu \
     && docker-php-ext-enable apcu \
     && echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini
+
+# imagick: the asset pipeline (zzImageConverter.php, zzCropTester.php, CosmeticsImage.php)
+# requires Imagick — the GD fallbacks were removed, so these fatal without it. Matches the
+# deployed box, which gets Imagick via newhost/harden-webp.sh. (libmagickwand-dev is the
+# build header, installed in the apt layer above.)
+RUN pecl install imagick \
+    && docker-php-ext-enable imagick
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j$(nproc) gd

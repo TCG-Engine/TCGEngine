@@ -57,25 +57,30 @@ if (isset($_GET['render'])) {
     $outW = 0; $outH = 0;
     foreach ($sections as $p) { $outW = max($outW, $p[2]); $outH += $p[3]; }
 
-    $imgsrc = @imagecreatefromwebp($src);
-    if (!$imgsrc) { http_response_code(500); echo 'decode failed'; exit; }
+    // Imagick-only, matching the migrated zzImageConverter.php production pipeline
+    // (XAMPP's GD lacks WebP; see newhost/harden-webp.sh).
+    try { $imgsrc = new Imagick($src); }
+    catch (Exception $e) { http_response_code(500); echo 'decode failed'; exit; }
 
-    $out = imagecreatetruecolor($outW, $outH);
-    imagealphablending($out, false);
-    imagesavealpha($out, true);
-    imagefill($out, 0, 0, imagecolorallocatealpha($out, 0, 0, 0, 127));
+    $out = new Imagick();
+    $out->newImage($outW, $outH, new ImagickPixel('transparent'));
 
     $y = 0;
     foreach ($sections as $p) {
         list($sx, $sy, $w, $h) = $p;
-        imagecopy($out, $imgsrc, 0, $y, $sx, $sy, $w, $h);
+        $piece = clone $imgsrc;
+        $piece->cropImage($w, $h, $sx, $sy);
+        $piece->setImagePage($w, $h, 0, 0);
+        $out->compositeImage($piece, Imagick::COMPOSITE_COPY, 0, $y);
+        $piece->clear(); $piece->destroy();
         $y += $h;
     }
 
-    if ($fmt === 'png') { header('Content-Type: image/png'); imagepng($out); }
-    else                { header('Content-Type: image/webp'); imagewebp($out); }
-    imagedestroy($out);
-    imagedestroy($imgsrc);
+    if ($fmt === 'png') { $out->setImageFormat('png'); header('Content-Type: image/png'); }
+    else                { $out->setImageFormat('webp'); header('Content-Type: image/webp'); }
+    echo $out->getImageBlob();
+    $out->clear(); $out->destroy();
+    $imgsrc->clear(); $imgsrc->destroy();
     exit;
 }
 
@@ -378,8 +383,7 @@ function writeSnippet(s, card) {
       code = `// NOTE: _concatTwoSection expects exactly 2 sections; you have ${curSections.length}.\n` + code;
   } else { // art crop
     const r = curSections[0];
-    code = `// crops/ art thumbnail\n$image->cropImage(${r[2]}, ${r[3]}, ${r[0]}, ${r[1]});   // Imagick\n`
-         + `imagecrop($image, ['x'=>${r[0]}, 'y'=>${r[1]}, 'width'=>${r[2]}, 'height'=>${r[3]}]);  // GD fallback`;
+    code = `// crops/ art thumbnail (Imagick)\n$image->cropImage(${r[2]}, ${r[3]}, ${r[0]}, ${r[1]});`;
   }
   $('snippet').textContent = code;
 }
