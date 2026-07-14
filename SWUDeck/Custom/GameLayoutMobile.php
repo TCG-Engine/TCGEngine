@@ -6,16 +6,143 @@
 // NextTurnRender.php continues to populate them without a mobile-only renderer.
 ?>
 <style>
-  /* Seven desktop toolbar controls cannot fit a phone width. Keep their compact HUD styling,
-     but let the rail itself pan horizontally instead of clipping Refresh/version controls. */
+  /* Keep the four primary destinations visible. Secondary deck controls are moved into the
+     mobile overflow menu by setupToolbarMenu(), so the rail never clips or pans sideways. */
   .flex-container > .flex-item:first-child {
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible !important;
+    padding-right: 5px !important;
   }
-  .flex-container > .flex-item:first-child::-webkit-scrollbar { display: none; }
   .flex-container > .flex-item:first-child button { white-space: nowrap !important; }
+  .flex-container > .flex-item:first-child > #AssetVisibility,
+  .flex-container > .flex-item:first-child > #Versions,
+  .flex-container > .flex-item:first-child > button:nth-of-type(n+5) { display: none !important; }
+
+  #swuMobileToolbarMenu {
+    position: relative;
+    flex: 0 0 auto;
+    margin-left: auto;
+    z-index: 130;
+  }
+  #swuMobileToolbarMenuButton {
+    width: 34px !important;
+    min-width: 34px !important;
+    padding: 0 !important;
+    gap: 3px;
+    flex-direction: column !important;
+  }
+  #swuMobileToolbarMenuButton .swu-mobile-menu-line {
+    display: block;
+    width: 14px;
+    height: 1px;
+    border-radius: 2px;
+    background: rgba(190,216,232,0.88);
+    box-shadow: 0 0 4px rgba(var(--accent-rgb),0.18);
+  }
+  #swuMobileToolbarMenuPanel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 1px;
+    display: none;
+    width: min(250px,calc(100vw - 14px));
+    max-height: calc(100dvh - 58px);
+    padding: 8px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border: 1px solid rgba(var(--accent-rgb),0.30);
+    border-radius: 8px;
+    background: rgba(3,15,26,0.985);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.56),0 0 10px rgba(var(--accent-rgb),0.08);
+  }
+  #swuMobileToolbarMenu.is-open #swuMobileToolbarMenuPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .swu-mobile-toolbar-menu-heading {
+    padding: 1px 3px 4px;
+    color: rgba(171,205,225,0.62);
+    font: 700 9px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .swu-mobile-toolbar-setting {
+    display: grid;
+    grid-template-columns: 66px minmax(0,1fr);
+    gap: 7px;
+    align-items: center;
+    min-width: 0;
+    padding: 6px;
+    border: 1px solid rgba(var(--accent-rgb),0.14);
+    border-radius: 6px;
+    background: rgba(7,24,38,0.72);
+  }
+  .swu-mobile-toolbar-setting > span {
+    color: rgba(171,205,225,0.66);
+    font: 700 9px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .swu-mobile-toolbar-setting > div { min-width: 0; }
+  #swuMobileToolbarMenu #AssetVisibility,
+  #swuMobileToolbarMenu #Versions {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #swuMobileToolbarMenu #visibilityDropdownWrapper,
+  #swuMobileToolbarMenu #versionDropdownWrapper { display: block !important; width: 100%; }
+  #swuMobileToolbarMenu #visibilityDropdownTrigger,
+  #swuMobileToolbarMenu #versionDropdownTrigger,
+  #swuMobileToolbarRefreshSlot > button {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    justify-content: space-between !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #swuMobileToolbarMenu #visibilityDropdownMenu,
+  #swuMobileToolbarMenu #versionDropdownMenu {
+    position: static !important;
+    width: 100%;
+    min-width: 0 !important;
+    max-height: 210px;
+    margin-top: 5px;
+    overflow-y: auto !important;
+    box-sizing: border-box;
+  }
+  #swuMobileToolbarMenu #myDeckWrapper,
+  #swuMobileToolbarMenu #myDeck {
+    width: 100%;
+    min-width: 0;
+    overflow: visible !important;
+    background: transparent !important;
+  }
+  #swuMobileToolbarMenu #myDeck {
+    justify-content: stretch !important;
+    font-size: 0 !important;
+  }
+  #swuMobileToolbarMenu #myDeck > span {
+    display: flex !important;
+    width: 100%;
+    margin: 0 !important;
+  }
+  #swuMobileToolbarMenu #myDeck .widget-button {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    justify-content: center !important;
+    font-size: 11px !important;
+  }
+
+  /* The shared engine shell gives .myStuff an inset gray frame. The desktop SWU layout
+     already removes it; mobile needs the same edge-to-edge geometry while retaining the
+     shell's starfield background. */
+  #myStuff.myStuff {
+    inset: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
 
   #swuDeckMobileRoot {
     position: absolute;
@@ -131,6 +258,15 @@
     text-transform: uppercase;
   }
   .swu-mobile-page-dots { display: inline-flex; gap: 5px; }
+  .swu-mobile-page-title { display: inline-flex; align-items: center; min-width: 0; }
+  #swuMobileDeckCount {
+    margin-left: 7px;
+    padding-left: 7px;
+    border-left: 1px solid rgba(var(--accent-rgb),0.22);
+    color: rgba(205,228,240,0.88);
+    font: 700 9px/28px Arial, Helvetica, sans-serif;
+    letter-spacing: 0.06em;
+  }
   .swu-mobile-page-dots i {
     width: 5px;
     height: 5px;
@@ -149,7 +285,7 @@
     flex: 1 1 auto;
     min-width: 0;
     min-height: 0;
-    padding: 2px 8px 0;
+    padding: 2px 0 0;
     box-sizing: border-box;
     overflow: hidden;
   }
@@ -169,24 +305,147 @@
     min-height: 0;
     overflow: hidden !important;
   }
-  #swuMobileSearchPage #myCardPane > div:first-child { flex: 0 0 auto; overflow: visible !important; }
+  #swuMobileSearchPage #myCardPane > div:first-child {
+    flex: 0 0 auto;
+    margin-inline: 8px;
+    width: auto !important;
+    overflow: visible !important;
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-pane-tabs-row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 0;
+    position: relative;
+    margin-inline: 8px;
+    overflow: visible !important;
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-menu {
+    position: relative;
+    flex: 0 0 auto;
+    margin-left: auto;
+    z-index: 230;
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-trigger {
+    position: relative !important;
+    display: inline-flex !important;
+    width: 28px !important;
+    min-width: 28px !important;
+    height: 25px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 3px 5px !important;
+    margin: 2px !important;
+    list-style: none;
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-trigger::-webkit-details-marker { display: none; }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-trigger svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 14px;
+    height: 14px;
+    padding: 0 3px;
+    box-sizing: border-box;
+    border: 1px solid rgba(var(--accent-rgb),0.48);
+    border-radius: 8px;
+    background: rgba(3,15,25,0.98);
+    color: rgba(215,238,249,0.96);
+    font: 700 8px/12px Arial, Helvetica, sans-serif;
+    text-align: center;
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-menu[open] .swu-mobile-filter-trigger {
+    color: rgba(217,240,251,0.98) !important;
+    filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.42)) !important;
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-popover {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 1px;
+    min-width: 172px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid rgba(var(--accent-rgb),0.30);
+    border-radius: 7px;
+    background: rgba(3,15,26,0.985);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.54),0 0 8px rgba(var(--accent-rgb),0.08);
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-options {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
+    gap: 2px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-options > div {
+    display: flex !important;
+    min-height: 30px;
+    align-items: center !important;
+    padding: 3px 6px;
+    box-sizing: border-box;
+  }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-options > div:hover { background: rgba(var(--accent-rgb),0.08); }
+  #swuMobileSearchPage #myCardPane .swu-mobile-filter-options label {
+    margin-left: 0 !important;
+    font-size: 11px !important;
+    white-space: nowrap;
+  }
   #swuMobileSearchPage #my_CardPane_content {
     flex: 1 1 auto;
     width: 100%;
     min-height: 0;
-    margin-top: 5px !important;
-    padding: 5px !important;
+    margin-top: 4px !important;
+    padding: 5px 7px 9px !important;
     box-sizing: border-box;
     overflow-x: hidden !important;
     overflow-y: auto !important;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
-    border: 1px solid rgba(var(--accent-rgb),0.20) !important;
-    background: rgba(1,13,25,0.12) !important;
-    box-shadow: inset 0 0 12px rgba(var(--accent-rgb),0.06) !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--accent-rgb),0.34) transparent;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  #swuMobileSearchPage #my_CardPane_content > span {
+    width: 100%;
+    justify-content: flex-start !important;
+    align-content: flex-start;
+  }
+  #swuMobileSearchPage #my_CardPane_content > span > span[data-mzid] {
+    flex: 0 0 calc(25% - 4px);
+    width: calc(25% - 4px);
+    min-width: 0;
+    margin: 2px !important;
+    box-sizing: border-box;
+  }
+  #swuMobileSearchPage #my_CardPane_content > span > span[data-mzid] > a {
+    display: block !important;
+    width: 100%;
+    margin: 0 !important;
+  }
+  #swuMobileSearchPage #my_CardPane_content > span > span[data-mzid] > a > img:first-child {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    box-sizing: border-box;
+  }
+  #swuMobileSearchPage #my_CardPane_content::-webkit-scrollbar { width: 5px; }
+  #swuMobileSearchPage #my_CardPane_content::-webkit-scrollbar-track { background: transparent; }
+  #swuMobileSearchPage #my_CardPane_content::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: rgba(var(--accent-rgb),0.34);
   }
 
   #swuMobileRecent {
+    position: relative;
     flex: 0 0 92px;
     min-width: 0;
     padding: 5px 8px calc(6px + env(safe-area-inset-bottom));
@@ -194,6 +453,20 @@
     border-top: 1px solid rgba(var(--accent-rgb),0.24);
     background: linear-gradient(180deg,rgba(5,18,30,0.97),rgba(2,12,22,0.98));
     box-shadow: 0 -5px 16px rgba(0,0,0,0.28);
+    transition: flex-basis 160ms ease,padding 160ms ease;
+  }
+  #swuMobileRecent.is-empty {
+    flex-basis: 34px;
+    padding-top: 3px;
+    padding-bottom: calc(3px + env(safe-area-inset-bottom));
+    box-shadow: 0 -3px 10px rgba(0,0,0,0.20);
+  }
+  #swuMobileRecent.is-empty .swu-mobile-recent-heading { height: 28px; line-height: 28px; }
+  #swuMobileRecent.is-empty .swu-mobile-recent-heading small { line-height: 28px; }
+  #swuMobileRecent.is-empty #swuMobileRecentList { display: none; }
+  #swuMobileRecent.is-empty #swuMobileRecentConfirm { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    #swuMobileRecent { transition: none; }
   }
   .swu-mobile-recent-heading {
     display: flex;
@@ -214,12 +487,74 @@
     display: flex;
     gap: 6px;
     height: 62px;
+    padding-right: 70px;
+    box-sizing: border-box;
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(to right,#000 0,#000 calc(100% - 148px),rgba(0,0,0,0.68) calc(100% - 114px),rgba(0,0,0,0.20) calc(100% - 82px),transparent calc(100% - 60px));
+    mask-image: linear-gradient(to right,#000 0,#000 calc(100% - 148px),rgba(0,0,0,0.68) calc(100% - 114px),rgba(0,0,0,0.20) calc(100% - 82px),transparent calc(100% - 60px));
   }
   #swuMobileRecentList::-webkit-scrollbar { display: none; }
+  #swuMobileRecentConfirm {
+    position: absolute;
+    right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    padding: 0;
+    border: 1px solid rgba(124,247,168,0.84);
+    border-radius: 8px;
+    background: linear-gradient(180deg,rgba(39,151,85,0.90),rgba(17,88,49,0.96));
+    box-shadow: inset 0 0 13px rgba(172,255,203,0.16),0 0 13px rgba(75,255,145,0.34);
+    color: rgba(218,255,231,0.98);
+    cursor: pointer;
+  }
+  #swuMobileRecentConfirm:hover,
+  #swuMobileRecentConfirm:focus-visible {
+    border-color: rgba(194,255,216,1);
+    background: linear-gradient(180deg,rgba(64,215,123,0.98),rgba(24,137,70,1));
+    box-shadow: inset 0 0 17px rgba(202,255,220,0.28),0 0 20px rgba(82,255,151,0.68);
+    color: #f0fff5;
+    outline: none;
+  }
+  #swuMobileRecentConfirm:active { transform: translateY(1px); }
+  .swu-mobile-confirm-check {
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    transform: translateX(-50%);
+  }
+  .swu-mobile-confirm-check::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 4px;
+    width: 10px;
+    height: 19px;
+    border: solid rgba(194,255,216,0.98);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    filter: drop-shadow(0 0 2px rgba(88,255,153,0.72));
+  }
+  .swu-mobile-confirm-label {
+    position: absolute;
+    right: 2px;
+    bottom: 4px;
+    left: 2px;
+    color: rgba(224,255,235,0.94);
+    font: 700 8px/9px Arial, Helvetica, sans-serif;
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 0 4px rgba(78,255,145,0.45);
+  }
   .swu-mobile-recent-empty {
     display: flex;
     align-items: center;
@@ -274,45 +609,104 @@
     text-align: center;
   }
 
-  /* Deck page: its controls stay available while the deck and sideboard share one scroll. */
+  /* Deck page: the page label and command dock are fixed. Only the card collections scroll. */
   #swuMobileDeckPage {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 0;
+  }
+  #swuMobileDeckScroll {
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--accent-rgb),0.34) transparent;
   }
-  .swu-mobile-deck-controls {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    padding: 4px 8px 5px;
-    background: linear-gradient(180deg,rgba(4,17,29,0.98),rgba(4,17,29,0.93));
-    border-bottom: 1px solid rgba(var(--accent-rgb),0.20);
-    box-shadow: 0 5px 14px rgba(0,0,0,0.25);
+  #swuMobileDeckScroll::-webkit-scrollbar { width: 5px; }
+  #swuMobileDeckScroll::-webkit-scrollbar-track { background: transparent; }
+  #swuMobileDeckScroll::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: rgba(var(--accent-rgb),0.34);
   }
-  .swu-dm-controls-row1 {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-    min-width: 0;
-  }
-  .swu-dm-controls-row2 { display: flex; align-items: center; min-width: 0; margin-top: 2px; }
-  #swuMobileDeckPage #myDeckWrapper,
   #swuMobileDeckPage #myStatsWrapper,
-  #swuMobileDeckPage #mySortWrapper { overflow: visible !important; }
-  #swuMobileDeckPage #myDeckWrapper #myDeck { justify-content: flex-start !important; }
-  #swuMobileDeckPage #myDeckWrapper #myDeck > span { font-size: 0; }
-  #swuMobileDeckPage #myDeckWrapper #myDeck .widget-button { font-size: 12px; }
-  #swuMobileDeckPage #mySortSlot,
-  #swuMobileDeckPage #mySortWrapper { margin-left: auto; }
+  #swuMobileDeckPage #mySortWrapper,
+  #swuMobileDeckPage #myStats,
+  #swuMobileDeckPage #mySort {
+    min-width: 0;
+    overflow: visible !important;
+    background: transparent !important;
+  }
+  #swuMobileDeckPage #mySort,
+  #swuMobileDeckPage #myStats {
+    width: 100%;
+    font-size: 0 !important;
+  }
+  #swuMobileDeckPage #mySort > span,
+  #swuMobileDeckPage #myStats > span { display: none !important; }
+  #swuMobileDeckPage #mySort > div,
+  #swuMobileDeckPage #myStats > div {
+    width: 100%;
+    min-width: 0;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+  #swuMobileDeckPage #myStats > div {
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: nowrap !important;
+    gap: 5px !important;
+    justify-content: stretch !important;
+  }
+  #swuMobileDeckPage #mySort .widget-dd-trigger {
+    width: 100% !important;
+    height: 24px !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 2px 8px !important;
+    box-sizing: border-box;
+    justify-content: space-between !important;
+    font-size: 10px !important;
+  }
+  #swuMobileDeckPage #mySort .widget-dd-wrap { width: 100%; }
+  #swuMobileDeckPage #myStats {
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: nowrap !important;
+    gap: 5px;
+    align-items: stretch;
+    justify-content: stretch !important;
+  }
+  #swuMobileDeckPage #myStats .widget-button,
+  #swuMobileDeckPage #myStats .widget-button-selected {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    margin: 0 !important;
+    height: 28px !important;
+    padding: 3px !important;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-size: 10px !important;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+  }
 
   .swu-dm-title {
     position: sticky;
-    top: 68px;
+    top: 0;
     z-index: 12;
-    padding: 5px 10px;
+    display: flex;
+    min-height: 34px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 8px 4px 10px;
     box-sizing: border-box;
     border-top: 1px solid rgba(var(--accent-rgb),0.12);
     border-bottom: 1px solid rgba(var(--accent-rgb),0.20);
@@ -320,6 +714,58 @@
     color: rgba(190,216,232,0.82);
     font: 700 11px/18px Arial, Helvetica, sans-serif;
     letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .swu-dm-title #mySortSlot {
+    width: min(142px,45vw);
+    min-width: 0;
+  }
+  .swu-mobile-deck-title-tools {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+  }
+  .swu-mobile-overlay-menu { position: relative; flex: 0 0 auto; }
+  #swuMobileOverlayButton {
+    width: 28px !important;
+    min-width: 28px !important;
+    height: 24px !important;
+    margin: 0 !important;
+    padding: 3px 5px !important;
+    color: rgba(190,216,232,0.82) !important;
+  }
+  #swuMobileOverlayButton svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+    margin: auto;
+    fill: currentColor;
+  }
+  .swu-mobile-overlay-menu.has-active-overlay #swuMobileOverlayButton {
+    color: rgba(217,240,251,0.98) !important;
+    filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.42)) !important;
+  }
+  #swuMobileOverlayPanel {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    display: none;
+    width: min(216px,calc(100vw - 20px));
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid rgba(var(--accent-rgb),0.28);
+    border-radius: 7px;
+    background: rgba(3,15,26,0.985);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.52),0 0 9px rgba(var(--accent-rgb),0.08);
+  }
+  .swu-mobile-overlay-menu.is-open #swuMobileOverlayPanel { display: block; }
+  .swu-mobile-overlay-heading {
+    padding: 1px 2px 7px;
+    color: rgba(171,205,225,0.62);
+    font: 700 9px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
   }
   #swuMobileDeckPage #myMainDeckWrapper,
@@ -375,9 +821,27 @@
   #swuMobileToSearch { left: 0; border-left: 0; border-radius: 0 8px 8px 0; writing-mode: vertical-rl; transform: rotate(180deg); }
   #swuDeckMobileRoot[data-pane="search"] #swuMobileToSearch,
   #swuDeckMobileRoot[data-pane="deck"] #swuMobileToDeck { display: none; }
+
+  /* RenderPanes always refreshes both player prefixes. Mobile only displays the player's
+     library, but the hidden opponent panel must still exist for shared renderer writes and
+     deferred scroll restoration. */
+  #swuMobileRendererCompatibility { display: none !important; }
 </style>
 
 <div id="swuDeckMobileRoot" data-pane="search">
+  <div id="swuMobileToolbarMenu" aria-label="More deck options">
+    <button id="swuMobileToolbarMenuButton" type="button" aria-label="More deck options" aria-haspopup="true" aria-expanded="false">
+      <span class="swu-mobile-menu-line"></span><span class="swu-mobile-menu-line"></span><span class="swu-mobile-menu-line"></span>
+    </button>
+    <div id="swuMobileToolbarMenuPanel">
+      <div class="swu-mobile-toolbar-menu-heading">Deck settings</div>
+      <div class="swu-mobile-toolbar-setting"><span>Visibility</span><div id="swuMobileToolbarVisibilitySlot"></div></div>
+      <div class="swu-mobile-toolbar-setting"><span>Version</span><div id="swuMobileToolbarVersionSlot"></div></div>
+      <div id="swuMobileToolbarRefreshRow" class="swu-mobile-toolbar-setting"><span>Source</span><div id="swuMobileToolbarRefreshSlot"></div></div>
+      <div class="swu-mobile-toolbar-setting"><span>Opening</span><div id="myDeckSlot" onclick="ZoneClickHandler('myDeck');"></div></div>
+    </div>
+  </div>
+
   <div id="swuDeckMobileIdentity" aria-label="Deck leader and base">
     <div id="myLeaderSlot" onclick="ZoneClickHandler('myLeader');"></div>
     <div id="myBaseSlot" onclick="ZoneClickHandler('myBase');"></div>
@@ -387,39 +851,54 @@
     <div id="swuDeckMobileTrack">
       <section id="swuMobileSearchPage" class="swu-mobile-page" aria-label="Card library">
         <div class="swu-mobile-page-bar">
-          <span>Card Library</span>
+          <span>Library</span>
           <span class="swu-mobile-page-dots" aria-hidden="true"><i></i><i></i></span>
         </div>
         <div id="myCardPaneSlot" onclick="ZoneClickHandler('myCardPane');"></div>
         <aside id="swuMobileRecent" aria-label="Recently added cards">
-          <div class="swu-mobile-recent-heading"><span>Recently added</span><small>Tap to undo</small></div>
+          <div class="swu-mobile-recent-heading"><span>Recently added</span><small>Tap to card to remove</small></div>
           <div id="swuMobileRecentList"></div>
+          <button id="swuMobileRecentConfirm" type="button" title="Confirm recent additions" aria-label="Confirm recent additions and clear this history">
+            <span class="swu-mobile-confirm-check" aria-hidden="true"></span>
+            <span class="swu-mobile-confirm-label" aria-hidden="true">Confirm</span>
+          </button>
         </aside>
       </section>
 
       <section id="swuMobileDeckPage" class="swu-mobile-page" aria-label="Deck workspace" aria-hidden="true">
         <div class="swu-mobile-page-bar">
-          <span>Your Deck</span>
+          <span class="swu-mobile-page-title"><span>Your Deck</span><b id="swuMobileDeckCount"></b></span>
           <span class="swu-mobile-page-dots" aria-hidden="true"><i></i><i></i></span>
         </div>
-        <div class="swu-mobile-deck-controls">
-          <div class="swu-dm-controls-row1">
-            <div id="myDeckSlot" onclick="ZoneClickHandler('myDeck');"></div>
-            <div id="mySortSlot" onclick="ZoneClickHandler('mySort');"></div>
+        <div id="swuMobileDeckScroll">
+          <div class="swu-dm-title">
+            <span>Main Deck</span>
+            <div class="swu-mobile-deck-title-tools">
+              <div id="mySortSlot" onclick="ZoneClickHandler('mySort');"></div>
+              <div id="swuMobileOverlayMenu" class="swu-mobile-overlay-menu">
+                <button id="swuMobileOverlayButton" class="widget-button" type="button" aria-label="Card overlays" aria-haspopup="true" aria-expanded="false">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 13.5h12v1H1v-13h1v12Zm2-2.5h2V7H4v4Zm3.5 0h2V3h-2v8Zm3.5 0h2V5h-2v6Z"/></svg>
+                </button>
+                <div id="swuMobileOverlayPanel">
+                  <div class="swu-mobile-overlay-heading">Card overlays</div>
+                  <div id="myStatsSlot" onclick="ZoneClickHandler('myStats');"></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="swu-dm-controls-row2">
-            <div id="myStatsSlot" onclick="ZoneClickHandler('myStats');"></div>
-          </div>
+          <div id="myMainDeckSlot" onclick="ZoneClickHandler('myMainDeck');"></div>
+          <div class="swu-dm-title"><span>Sideboard</span></div>
+          <div id="mySideboardSlot" onclick="ZoneClickHandler('mySideboard');"></div>
         </div>
-        <div class="swu-dm-title">Main Deck</div>
-        <div id="myMainDeckSlot" onclick="ZoneClickHandler('myMainDeck');"></div>
-        <div class="swu-dm-title">Sideboard</div>
-        <div id="mySideboardSlot" onclick="ZoneClickHandler('mySideboard');"></div>
       </section>
     </div>
 
     <button type="button" id="swuMobileToDeck" class="swu-mobile-edge-nav" aria-label="Show deck workspace">Deck &#8250;</button>
     <button type="button" id="swuMobileToSearch" class="swu-mobile-edge-nav" aria-label="Show card library">&#8249; Cards</button>
+  </div>
+
+  <div id="swuMobileRendererCompatibility" aria-hidden="true">
+    <div id="theirCardPaneSlot"></div>
   </div>
 </div>
 
@@ -428,7 +907,10 @@
   var root = document.getElementById('swuDeckMobileRoot');
   var searchPage = document.getElementById('swuMobileSearchPage');
   var deckPage = document.getElementById('swuMobileDeckPage');
+  var recentPanel = document.getElementById('swuMobileRecent');
   var recentList = document.getElementById('swuMobileRecentList');
+  var recentConfirm = document.getElementById('swuMobileRecentConfirm');
+  var recentHint = recentPanel && recentPanel.querySelector('.swu-mobile-recent-heading small');
   var recentAdds = [];
   var pendingAdds = [];
   var pendingTimer = 0;
@@ -485,6 +967,195 @@
   function enhanceIdentity(){
     useIdentityCrop('myLeaderSlot', true);
     useIdentityCrop('myBaseSlot', false);
+  }
+
+  function updateDeckCount(){
+    var source = document.getElementById('myDeckSlot');
+    var output = document.getElementById('swuMobileDeckCount');
+    if(!source || !output) return;
+    var match = String(source.textContent || '').match(/deck\s*count\s*:\s*(\d+)/i);
+    output.textContent = match ? match[1] + ' cards' : '';
+  }
+  function observeDeckCount(){
+    var source = document.getElementById('myDeckSlot');
+    if(!source) return;
+    new MutationObserver(function(){ requestAnimationFrame(updateDeckCount); })
+      .observe(source,{childList:true,subtree:true,characterData:true});
+    updateDeckCount();
+  }
+
+  function updateMobileFilterSummary(menu){
+    if(!menu) return;
+    var boxes = menu.querySelectorAll('input[type="checkbox"]');
+    var checked = menu.querySelectorAll('input[type="checkbox"]:checked').length;
+    var count = menu.querySelector('.swu-mobile-filter-count');
+    var trigger = menu.querySelector('.swu-mobile-filter-trigger');
+    if(count) count.textContent = String(checked);
+    if(trigger) trigger.setAttribute('aria-label','Card filters, ' + checked + ' of ' + boxes.length + ' active');
+  }
+  function compactMobilePaneFilters(){
+    var pane = document.getElementById('myCardPane');
+    var legal = document.getElementById('legalFilterCheckbox');
+    if(!pane || !legal) return;
+    var filterRow = legal.parentElement && legal.parentElement.parentElement;
+    var tab = pane.querySelector('.panelTab');
+    var tabsRow = tab && tab.parentElement;
+    if(!filterRow || !tabsRow) return;
+    var existing = filterRow.closest('.swu-mobile-filter-menu');
+    if(existing) {
+      updateMobileFilterSummary(existing);
+      return;
+    }
+
+    tabsRow.classList.add('swu-mobile-pane-tabs-row');
+    filterRow.classList.add('swu-mobile-filter-options');
+    var menu = document.createElement('details');
+    menu.className = 'swu-mobile-filter-menu';
+    menu.open = document.documentElement.dataset.swuMobileFiltersOpen === '1';
+    var trigger = document.createElement('summary');
+    trigger.className = 'widget-button swu-mobile-filter-trigger';
+    trigger.setAttribute('role','button');
+    trigger.setAttribute('aria-expanded',menu.open ? 'true' : 'false');
+    trigger.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 2h13L9.6 7.7v4.1l-3.2 2.1V7.7L1.5 2Zm2.2 1 3.7 4.3v4.7l1.2-.8V7.3L12.3 3H3.7Z"/></svg><span class="swu-mobile-filter-count"></span>';
+    var popover = document.createElement('div');
+    popover.className = 'swu-mobile-filter-popover';
+    popover.setAttribute('role','group');
+    popover.setAttribute('aria-label','Card filters');
+    popover.appendChild(filterRow);
+    menu.appendChild(trigger);
+    menu.appendChild(popover);
+    tabsRow.appendChild(menu);
+
+    trigger.addEventListener('click',function(){
+      document.documentElement.dataset.swuMobileFiltersOpen = menu.open ? '0' : '1';
+    });
+    menu.addEventListener('toggle',function(){
+      document.documentElement.dataset.swuMobileFiltersOpen = menu.open ? '1' : '0';
+      trigger.setAttribute('aria-expanded',menu.open ? 'true' : 'false');
+    });
+    filterRow.addEventListener('change',function(){
+      document.documentElement.dataset.swuMobileFiltersOpen = '1';
+      updateMobileFilterSummary(menu);
+    },true);
+    updateMobileFilterSummary(menu);
+  }
+  function observeMobilePaneFilters(){
+    var slot = document.getElementById('myCardPaneSlot');
+    if(!slot) return;
+    new MutationObserver(function(){ requestAnimationFrame(compactMobilePaneFilters); })
+      .observe(slot,{childList:true,subtree:true});
+    compactMobilePaneFilters();
+    document.addEventListener('click',function(event){
+      var menu = document.querySelector('#myCardPane .swu-mobile-filter-menu[open]');
+      if(menu && !menu.contains(event.target)) {
+        menu.open = false;
+        document.documentElement.dataset.swuMobileFiltersOpen = '0';
+      }
+    });
+    document.addEventListener('keydown',function(event){
+      if(event.key !== 'Escape') return;
+      var menu = document.querySelector('#myCardPane .swu-mobile-filter-menu[open]');
+      if(!menu) return;
+      menu.open = false;
+      document.documentElement.dataset.swuMobileFiltersOpen = '0';
+      var trigger = menu.querySelector('.swu-mobile-filter-trigger');
+      if(trigger) trigger.focus();
+    });
+  }
+
+  function setupToolbarMenu(){
+    var toolbar = document.querySelector('.flex-container > .flex-item:first-child');
+    var menu = document.getElementById('swuMobileToolbarMenu');
+    var button = document.getElementById('swuMobileToolbarMenuButton');
+    var panel = document.getElementById('swuMobileToolbarMenuPanel');
+    if(!toolbar || !menu || !button || !panel || menu.dataset.ready === '1') return;
+    menu.dataset.ready = '1';
+
+    var directButtons = Array.prototype.slice.call(toolbar.children).filter(function(child){
+      return child.tagName === 'BUTTON';
+    });
+    var refresh = directButtons.find(function(child){
+      return String(child.textContent || '').trim().toLowerCase() === 'refresh';
+    });
+    var visibility = document.getElementById('AssetVisibility');
+    var versions = document.getElementById('Versions');
+    var visibilitySlot = document.getElementById('swuMobileToolbarVisibilitySlot');
+    var versionSlot = document.getElementById('swuMobileToolbarVersionSlot');
+    var refreshSlot = document.getElementById('swuMobileToolbarRefreshSlot');
+    var refreshRow = document.getElementById('swuMobileToolbarRefreshRow');
+
+    toolbar.appendChild(menu);
+    if(visibility && visibilitySlot) visibilitySlot.appendChild(visibility);
+    if(versions && versionSlot) versionSlot.appendChild(versions);
+    if(refresh && refreshSlot) refreshSlot.appendChild(refresh);
+    else if(refreshRow) refreshRow.style.display = 'none';
+
+    function setOpen(open){
+      menu.classList.toggle('is-open', open);
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(!open) {
+        if(typeof window.closeVisibilityDropdown === 'function') window.closeVisibilityDropdown();
+        if(typeof window.closeVersionDropdown === 'function') window.closeVersionDropdown();
+      }
+    }
+
+    button.addEventListener('click', function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      setOpen(!menu.classList.contains('is-open'));
+    });
+    panel.addEventListener('click', function(event){
+      event.stopPropagation();
+      if(refresh && (event.target === refresh || refresh.contains(event.target))) setOpen(false);
+      else if(event.target.closest('#myDeckSlot')) setOpen(false);
+      else if(event.target.closest('#visibilityDropdownMenu,#versionDropdownMenu')) {
+        window.setTimeout(function(){ setOpen(false); },0);
+      }
+    });
+    document.addEventListener('click', function(event){
+      if(!menu.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', function(event){
+      if(event.key === 'Escape') setOpen(false);
+    });
+  }
+
+  function setupDeckOverlayMenu(){
+    var menu = document.getElementById('swuMobileOverlayMenu');
+    var button = document.getElementById('swuMobileOverlayButton');
+    var panel = document.getElementById('swuMobileOverlayPanel');
+    var stats = document.getElementById('myStatsSlot');
+    if(!menu || !button || !panel || !stats) return;
+
+    function setOpen(open){
+      menu.classList.toggle('is-open', open);
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    function updateActive(){
+      var active = !!stats.querySelector('.widget-button-selected,.is-active');
+      menu.classList.toggle('has-active-overlay', active);
+    }
+
+    button.addEventListener('click', function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      setOpen(!menu.classList.contains('is-open'));
+    });
+    panel.addEventListener('click', function(event){
+      event.stopPropagation();
+      if(event.target.closest('.widget-button,.widget-button-selected')) {
+        window.setTimeout(function(){ setOpen(false); updateActive(); },0);
+      }
+    });
+    document.addEventListener('click', function(event){
+      if(!menu.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', function(event){
+      if(event.key === 'Escape') setOpen(false);
+    });
+    new MutationObserver(function(){ requestAnimationFrame(updateActive); })
+      .observe(stats,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+    updateActive();
   }
 
   function zoneEntries(zoneName){
@@ -548,8 +1219,33 @@
   function loadRecent(){
     try {
       var stored = JSON.parse(sessionStorage.getItem(RECENT_KEY) || '[]');
-      if(Array.isArray(stored)) recentAdds = stored.slice(0, 8);
+      if(Array.isArray(stored)) {
+        recentAdds = normalizeRecent(stored);
+        saveRecent();
+      }
     } catch(e) { recentAdds = []; }
+  }
+  function normalizeRecent(entries){
+    var grouped = [];
+    (Array.isArray(entries) ? entries : []).forEach(function(entry){
+      if(!entry || !entry.cardID) return;
+      var destination = entry.destination === 'mySideboard' ? 'mySideboard' : 'myMainDeck';
+      var amount = Math.max(1,parseInt(entry.amount,10) || 1);
+      var existing = grouped.find(function(group){
+        return group.cardID === String(entry.cardID) && group.destination === destination;
+      });
+      if(existing) {
+        existing.amount += amount;
+        return;
+      }
+      grouped.push({
+        id: entry.id || (String(entry.cardID) + '-' + Date.now() + '-' + Math.random().toString(36).slice(2,6)),
+        cardID: String(entry.cardID),
+        destination: destination,
+        amount: amount
+      });
+    });
+    return grouped.slice(0,8);
   }
   function saveRecent(){
     try { sessionStorage.setItem(RECENT_KEY, JSON.stringify(recentAdds.slice(0, 8))); } catch(e) {}
@@ -560,20 +1256,17 @@
   function renderRecent(){
     if(!recentList) return;
     recentList.replaceChildren();
-    if(recentAdds.length === 0) {
-      var empty = document.createElement('div');
-      empty.className = 'swu-mobile-recent-empty';
-      empty.textContent = 'Cards you add will appear here.';
-      recentList.appendChild(empty);
-      return;
-    }
+    var isEmpty = recentAdds.length === 0;
+    if(recentPanel) recentPanel.classList.toggle('is-empty',isEmpty);
+    if(recentHint) recentHint.textContent = isEmpty ? 'No recent adds' : 'Tap card to remove';
+    if(isEmpty) return;
     recentAdds.forEach(function(entry){
       var title = cardTitle(entry.cardID);
       var button = document.createElement('button');
       button.type = 'button';
       button.className = 'swu-mobile-recent-card';
       button.dataset.recentID = entry.id;
-      button.setAttribute('aria-label', 'Undo adding ' + entry.amount + ' ' + title + ' to ' + (entry.destination === 'mySideboard' ? 'sideboard' : 'main deck'));
+      button.setAttribute('aria-label', 'Remove one ' + title + ' from ' + (entry.destination === 'mySideboard' ? 'sideboard' : 'main deck'));
       var img = document.createElement('img');
       img.src = assetRoot() + '/concat/' + encodeURIComponent(entry.cardID) + '.webp';
       img.alt = '';
@@ -587,7 +1280,7 @@
       copy.appendChild(destination);
       button.appendChild(img);
       button.appendChild(copy);
-      if(entry.amount > 1) {
+      if(entry.amount > 0) {
         var qty = document.createElement('span');
         qty.className = 'swu-mobile-recent-qty';
         qty.textContent = '×' + entry.amount;
@@ -601,12 +1294,17 @@
     });
   }
   function recordRecent(pending, actualAmount){
-    recentAdds.unshift({
+    var existingIndex = recentAdds.findIndex(function(entry){
+      return entry.cardID === pending.cardID && entry.destination === pending.destination;
+    });
+    var entry = existingIndex >= 0 ? recentAdds.splice(existingIndex,1)[0] : {
       id: pending.cardID + '-' + Date.now() + '-' + Math.random().toString(36).slice(2,6),
       cardID: pending.cardID,
       destination: pending.destination,
-      amount: actualAmount
-    });
+      amount: 0
+    };
+    entry.amount += Math.max(1,parseInt(actualAmount,10) || 1);
+    recentAdds.unshift(entry);
     recentAdds = recentAdds.slice(0, 8);
     saveRecent();
     renderRecent();
@@ -655,22 +1353,30 @@
     if(recentIndex < 0) return;
     var entry = recentAdds[recentIndex];
     var matches = zoneEntries(entry.destination).filter(function(zoneEntry){ return zoneEntry.cardID === entry.cardID; });
-    var targets = matches.slice(Math.max(0, matches.length - entry.amount));
+    var target = matches.length > 0 ? matches[matches.length - 1] : null;
     if(button) button.classList.add('is-busy');
-    var chain = Promise.resolve();
-    targets.forEach(function(target){
-      chain = chain.then(function(){
-        return window.SubmitEngineInput(10002, '&cardID=' + encodeURIComponent(target.mzID + '!Remove!'));
-      });
-    });
+    var chain = target
+      ? window.SubmitEngineInput(10002, '&cardID=' + encodeURIComponent(target.mzID + '!Remove!'))
+      : Promise.resolve();
     chain.then(function(){
-      recentAdds.splice(recentIndex, 1);
+      if(entry.amount > 1 && target) entry.amount -= 1;
+      else recentAdds.splice(recentIndex, 1);
       saveRecent();
       renderRecent();
       if(typeof window.QueueGameUpdate === 'function') window.QueueGameUpdate();
     }).catch(function(){
       if(button) button.classList.remove('is-busy');
     });
+  }
+  function confirmRecent(){
+    recentAdds = [];
+    pendingAdds = [];
+    if(pendingTimer) {
+      window.clearInterval(pendingTimer);
+      pendingTimer = 0;
+    }
+    saveRecent();
+    renderRecent();
   }
 
   function bindSwipe(){
@@ -704,11 +1410,16 @@
   function initialize(){
     var initialPane = 'search';
     try { initialPane = sessionStorage.getItem('swu_mobile_active_pane') || 'search'; } catch(e) {}
+    setupToolbarMenu();
+    setupDeckOverlayMenu();
     setPane(initialPane, false);
     loadRecent();
     renderRecent();
     bindSwipe();
     installAddTracker();
+    observeDeckCount();
+    observeMobilePaneFilters();
+    if(recentConfirm) recentConfirm.addEventListener('click', confirmRecent);
     document.getElementById('swuMobileToDeck').addEventListener('click', function(){ this.blur(); setPane('deck'); });
     document.getElementById('swuMobileToSearch').addEventListener('click', function(){ this.blur(); setPane('search'); });
     var identity = document.getElementById('swuDeckMobileIdentity');
