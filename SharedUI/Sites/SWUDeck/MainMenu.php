@@ -3,6 +3,7 @@ include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
+require_once __DIR__ . '/../../Render/Auth.php';
 
 include_once __DIR__ . '/MobileViewport.php';
 ?>
@@ -845,7 +846,7 @@ function LoadDecks() {
   }
 </script>
 
-<div class="pageContainer swu-main-menu">
+<div class="pageContainer swu-main-menu<?= IsUserLoggedIn() ? '' : ' swu-main-menu-logged-out' ?>">
 <?php include_once __DIR__ . '/Header.php'; ?>
   <div class="core-wrapper">
     <!-- Left pane: Deck List -->
@@ -885,6 +886,7 @@ function LoadDecks() {
           </div>
           <div class="tab-content-container">
             <div id="tab-decks" class="tab-content" style="display: block;">
+              <?php if (IsUserLoggedIn()): ?>
               <?php
                 $allowedSortKeys = ['id_desc','id_asc','updated_desc','updated_asc','alpha_asc','alpha_desc'];
                 $activeSortKey = isset($_GET['deckSort']) && in_array($_GET['deckSort'], $allowedSortKeys) ? $_GET['deckSort'] : null;
@@ -918,6 +920,12 @@ function LoadDecks() {
                 </div>
               </div>
               <div><?php LoadDecks(); ?></div>
+              <?php else: ?>
+                <?php
+                  $mainMenuPath = '/TCGEngine/SharedUI/Sites/SWUDeck/MainMenu.php';
+                  echo RenderEmbeddedSignup(LoadSiteDef('SWUDeck'), $mainMenuPath);
+                ?>
+              <?php endif; ?>
             </div>
             <div id="tab-ktod" class="tab-content" style="display: none;">
               <div>

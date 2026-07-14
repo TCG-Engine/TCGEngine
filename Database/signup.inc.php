@@ -16,8 +16,8 @@ function signup_safe_redirect($redirect, $fallback) {
   return $redirect;
 }
 
-function signup_page_redirect($redirect, $error = "") {
-  $location = "/TCGEngine/SharedUI/Signup.php";
+function signup_page_redirect($redirect, $error = "", $returnPage = "") {
+  $location = signup_safe_redirect($returnPage, "/TCGEngine/SharedUI/Signup.php");
   $params = [];
   if ($error != "") $params["error"] = $error;
   $safeRedirect = signup_safe_redirect($redirect, "");
@@ -34,6 +34,7 @@ if (isset($_POST["submit"])) {
   $pwd = $_POST["pwd"];
   $pwdRepeat = $_POST["pwdrepeat"];
   $redirect = $_POST["redirect"] ?? "";
+  $signupReturn = $_POST["signup_return"] ?? "";
 
   // Then we run a bunch of error handlers to catch any user mistakes we can (you can add more than I did)
   // These functions can be found in functions.inc.php
@@ -45,32 +46,32 @@ if (isset($_POST["submit"])) {
   // We set the functions "!== false" since "=== true" has a risk of giving us the wrong outcome
   if (emptyInputSignup($username, $email, $pwd, $pwdRepeat) !== false) {
     mysqli_close($conn);
-    header("location: " . signup_page_redirect($redirect, "emptyinput"));
+    header("location: " . signup_page_redirect($redirect, "emptyinput", $signupReturn));
 		exit();
   }
 
 	// Proper username chosen
   if (invalidUid($username) !== false) {
     mysqli_close($conn);
-    header("location: " . signup_page_redirect($redirect, "invaliduid"));
+    header("location: " . signup_page_redirect($redirect, "invaliduid", $signupReturn));
 		exit();
   }
   // Proper email chosen
   if (invalidEmail($email) !== false) {
     mysqli_close($conn);
-    header("location: " . signup_page_redirect($redirect, "invalidemail"));
+    header("location: " . signup_page_redirect($redirect, "invalidemail", $signupReturn));
 		exit();
   }
   // Do the two passwords match?
   if (pwdMatch($pwd, $pwdRepeat) !== false) {
     mysqli_close($conn);
-    header("location: " . signup_page_redirect($redirect, "passwordsdontmatch"));
+    header("location: " . signup_page_redirect($redirect, "passwordsdontmatch", $signupReturn));
 		exit();
   }
   // Is the username taken already
   if (uidExists($conn, $username) !== false) {
     mysqli_close($conn);
-    header("location: " . signup_page_redirect($redirect, "usernametaken"));
+    header("location: " . signup_page_redirect($redirect, "usernametaken", $signupReturn));
 		exit();
   }
 
@@ -80,7 +81,7 @@ if (isset($_POST["submit"])) {
   $status = createUser($conn, $username, $email, $pwd);
   if($status == false) {
     mysqli_close($conn);
-    header("location: " . signup_page_redirect($redirect, "stmtfailed"));
+    header("location: " . signup_page_redirect($redirect, "stmtfailed", $signupReturn));
     exit();
   }
 

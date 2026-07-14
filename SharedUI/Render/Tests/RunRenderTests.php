@@ -85,6 +85,11 @@ check('login has no relative ../ urls', strpos($login, '"../') === false && strp
 checkContains('signup posts to signup.inc', $signup, '/TCGEngine/Database/signup.inc.php');
 checkContains('signup has responsive page hook', $signup, 'signup-page');
 checkContains('signup fields expose autocomplete', $signup, 'autocomplete="new-password"');
+checkContains('embedded signup posts through shared fields', RenderEmbeddedSignup($def, '/TCGEngine/SharedUI/Sites/SWUDeck/MainMenu.php'), '/TCGEngine/Database/signup.inc.php');
+checkContains('embedded signup keeps errors on its page', RenderEmbeddedSignup($def, '/TCGEngine/SharedUI/Sites/SWUDeck/MainMenu.php'), 'name="signup_return"');
+$_GET['error'] = 'invalidemail';
+checkContains('embedded signup renders validation errors', RenderEmbeddedSignup($def, '/TCGEngine/SharedUI/Sites/SWUDeck/MainMenu.php'), 'Choose a valid email address.');
+unset($_GET['error']);
 checkContains('signup has pwdrepeat', $signup, 'name="pwdrepeat"');
 checkContains('login has redirect field', $login, 'name="redirect"');
 checkContains('signup has redirect field', $signup, 'name="redirect"');

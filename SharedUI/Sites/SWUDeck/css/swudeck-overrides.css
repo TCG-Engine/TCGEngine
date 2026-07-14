@@ -245,6 +245,99 @@ label {
     radial-gradient(circle at 50% 16%,rgba(31,92,133,0.14),transparent 38%),
     linear-gradient(180deg,#061321 0,#020a12 52%,#01070d 100%);
 }
+.swu-main-menu-logged-out {
+  display: flex;
+  flex-direction: column;
+}
+.swu-main-menu-logged-out .core-wrapper {
+  flex: 1 0 auto;
+  height: auto;
+}
+.swu-main-menu-logged-out .disclaimer {
+  position: static;
+  bottom: auto;
+  width: 100%;
+  margin-top: auto;
+  padding: 18px 22px 20px;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(140,210,255,0.14);
+  background: rgba(1,8,14,0.72);
+}
+.swu-main-menu-logged-out .disclaimer p {
+  max-width: 920px;
+  margin: 0 auto;
+  line-height: 1.45;
+}
+.swu-main-menu .swu-inline-signup {
+  width: min(100%,560px);
+  margin: 12px auto 4px;
+  padding: 8px 6px 4px;
+  box-sizing: border-box;
+}
+.swu-main-menu .swu-inline-signup-copy {
+  margin-bottom: 18px;
+  text-align: center;
+}
+.swu-main-menu .swu-inline-signup-eyebrow {
+  margin-bottom: 7px;
+  color: rgba(145,208,246,0.92);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+.swu-main-menu .swu-inline-signup h2 {
+  margin-bottom: 8px;
+  color: #f2f9ff;
+  font-size: 27px;
+  line-height: 1.1;
+}
+.swu-main-menu .swu-inline-signup-copy > p:last-child {
+  max-width: 440px;
+  margin: 0 auto;
+  color: rgba(210,229,243,0.84);
+  font-size: 15px;
+  line-height: 1.45;
+}
+.swu-main-menu .swu-inline-signup .oauth-auth-block {
+  width: 100%;
+  margin: 0 0 18px;
+}
+.swu-main-menu .swu-inline-signup .signup-form-form form {
+  display: grid;
+  gap: 7px;
+}
+.swu-main-menu .swu-inline-signup input:not([type="hidden"]) {
+  width: 100%;
+  min-height: 44px;
+  margin: 0 0 9px;
+  box-sizing: border-box;
+}
+.swu-main-menu .swu-inline-signup .signup-submit {
+  margin-top: 5px;
+}
+.swu-main-menu .swu-inline-signup .signup-submit button {
+  width: 100%;
+  min-height: 46px;
+}
+.swu-main-menu .swu-inline-signup-legal,
+.swu-main-menu .swu-inline-login-link {
+  color: rgba(185,208,225,0.78);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: center;
+}
+.swu-main-menu .swu-inline-signup-legal {
+  margin: 15px auto 9px;
+}
+.swu-main-menu .swu-inline-login-link { margin: 0; }
+.swu-main-menu .swu-inline-signup a {
+  color: #bfe6ff;
+  font-weight: 600;
+}
+.swu-main-menu .swu-inline-signup .signup-error {
+  margin: 0 0 14px;
+}
 .swu-main-menu .home-header {
   isolation: isolate;
 }
@@ -755,6 +848,22 @@ label {
   .swu-main-menu .swu-deck-library-panel {
     padding: 10px 11px 12px !important;
     border-radius: 8px !important;
+  }
+  .swu-main-menu .swu-inline-signup {
+    margin-top: 8px;
+    padding: 8px 2px 4px;
+  }
+  .swu-main-menu .swu-inline-signup-copy { margin-bottom: 15px; }
+  .swu-main-menu .swu-inline-signup h2 { font-size: 24px; }
+  .swu-main-menu .swu-inline-signup-copy > p:last-child { font-size: 14px; }
+  .swu-main-menu .swu-inline-signup .discord-auth-button,
+  .swu-main-menu .swu-inline-signup input:not([type="hidden"]),
+  .swu-main-menu .swu-inline-signup .signup-submit button { min-height: 48px; }
+  .swu-main-menu-logged-out .disclaimer {
+    padding: 16px 18px 20px;
+  }
+  .swu-main-menu-logged-out .disclaimer p {
+    font-size: 11px;
   }
   .swu-main-menu .swu-deck-tabs-heading { margin-bottom: 4px; }
   .swu-main-menu .tab-buttons {
