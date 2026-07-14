@@ -171,23 +171,34 @@
     box-shadow: inset 0 0 20px rgba(0,0,0,0.38);
   }
   #swuDeckMobileIdentity #myLeaderSlot,
-  #swuDeckMobileIdentity #myBaseSlot {
+  #swuDeckMobileIdentity #myBaseSlot,
+  #swuDeckMobileIdentity .swu-mobile-identity-art {
     position: absolute !important;
     top: 0 !important;
     width: 58%;
     height: 100%;
     overflow: hidden;
   }
-  #swuDeckMobileIdentity #myLeaderSlot {
+  #swuDeckMobileIdentity #myLeaderSlot,
+  #swuMobileLeaderArt {
     left: 0 !important;
     -webkit-mask-image: linear-gradient(to right,#000 0%,#000 68%,transparent 100%);
     mask-image: linear-gradient(to right,#000 0%,#000 68%,transparent 100%);
   }
-  #swuDeckMobileIdentity #myBaseSlot {
+  #swuDeckMobileIdentity #myBaseSlot,
+  #swuMobileBaseArt {
     right: 0 !important;
     -webkit-mask-image: linear-gradient(to left,#000 0%,#000 68%,transparent 100%);
     mask-image: linear-gradient(to left,#000 0%,#000 68%,transparent 100%);
   }
+  #swuDeckMobileIdentity .swu-mobile-identity-art {
+    z-index: 1;
+    pointer-events: none;
+  }
+  #swuDeckMobileIdentity #myLeaderSlot,
+  #swuDeckMobileIdentity #myBaseSlot { z-index: 3; }
+  #swuDeckMobileIdentity #myLeaderSlot > *,
+  #swuDeckMobileIdentity #myBaseSlot > * { visibility: hidden !important; }
   #swuDeckMobileIdentity::after {
     content: '';
     position: absolute;
@@ -215,7 +226,8 @@
     object-position: center;
     border: 0 !important;
   }
-  #swuDeckMobileIdentity #myLeaderSlot img { object-position: center top; }
+  #swuDeckMobileIdentity #myLeaderSlot img,
+  #swuMobileLeaderArt img { object-position: center top; }
 
   #swuDeckMobileViewport {
     position: relative;
@@ -258,6 +270,30 @@
     text-transform: uppercase;
   }
   .swu-mobile-page-dots { display: inline-flex; gap: 5px; }
+  .swu-mobile-library-bar {
+    position: relative;
+    z-index: 220;
+    gap: 6px;
+    overflow: visible;
+  }
+  .swu-mobile-library-bar > span:first-child { flex: 0 0 auto; }
+  #swuMobileLibraryTabsSlot {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  #swuMobileLibraryTabsSlot .swu-mobile-pane-tabs-row {
+    justify-content: flex-end !important;
+    width: 100%;
+    margin: 0 !important;
+  }
+  #swuMobileLibraryTabsSlot .panelTab {
+    min-height: 22px !important;
+    margin: 1px !important;
+    padding: 0 7px !important;
+    font-size: 10px !important;
+    line-height: 20px !important;
+  }
+  .swu-mobile-library-bar .swu-mobile-page-dots { flex: 0 0 auto; }
   .swu-mobile-page-title { display: inline-flex; align-items: center; min-width: 0; }
   #swuMobileDeckCount {
     margin-left: 7px;
@@ -278,6 +314,26 @@
     background: var(--accent-strong);
     box-shadow: 0 0 5px rgba(var(--accent-rgb),0.36);
   }
+  .swu-mobile-deck-bar {
+    position: relative;
+    z-index: 220;
+    gap: 5px;
+    overflow: visible;
+  }
+  .swu-mobile-deck-bar .swu-mobile-page-title {
+    flex: 0 1 auto;
+    white-space: nowrap;
+  }
+  .swu-mobile-deck-bar #swuMobileDeckCount {
+    margin-left: 5px;
+    padding-left: 5px;
+  }
+  .swu-mobile-deck-bar .swu-mobile-deck-title-tools { flex: 1 1 auto; }
+  .swu-mobile-deck-bar #mySortSlot {
+    width: min(132px,32vw);
+    min-width: 78px;
+  }
+  .swu-mobile-deck-bar .swu-mobile-page-dots { flex: 0 0 auto; }
 
   /* Library page: fixed controls inside CardPane, scrollable results, persistent recent tray. */
   #swuMobileSearchPage { display: flex; flex-direction: column; overflow: hidden; }
@@ -311,7 +367,7 @@
     width: auto !important;
     overflow: visible !important;
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-pane-tabs-row {
+  #swuMobileSearchPage .swu-mobile-pane-tabs-row {
     display: flex !important;
     flex-wrap: nowrap !important;
     align-items: center !important;
@@ -320,13 +376,13 @@
     margin-inline: 8px;
     overflow: visible !important;
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-menu {
+  #swuMobileSearchPage .swu-mobile-filter-menu {
     position: relative;
     flex: 0 0 auto;
     margin-left: auto;
     z-index: 230;
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-trigger {
+  #swuMobileSearchPage .swu-mobile-filter-trigger {
     position: relative !important;
     display: inline-flex !important;
     width: 28px !important;
@@ -338,13 +394,13 @@
     margin: 2px !important;
     list-style: none;
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-trigger::-webkit-details-marker { display: none; }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-trigger svg {
+  #swuMobileSearchPage .swu-mobile-filter-trigger::-webkit-details-marker { display: none; }
+  #swuMobileSearchPage .swu-mobile-filter-trigger svg {
     width: 14px;
     height: 14px;
     fill: currentColor;
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-count {
+  #swuMobileSearchPage .swu-mobile-filter-count {
     position: absolute;
     top: -4px;
     right: -4px;
@@ -359,11 +415,11 @@
     font: 700 8px/12px Arial, Helvetica, sans-serif;
     text-align: center;
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-menu[open] .swu-mobile-filter-trigger {
+  #swuMobileSearchPage .swu-mobile-filter-menu[open] .swu-mobile-filter-trigger {
     color: rgba(217,240,251,0.98) !important;
     filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.42)) !important;
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-popover {
+  #swuMobileSearchPage .swu-mobile-filter-popover {
     position: absolute;
     top: calc(100% + 4px);
     right: 1px;
@@ -375,7 +431,7 @@
     background: rgba(3,15,26,0.985);
     box-shadow: 0 10px 25px rgba(0,0,0,0.54),0 0 8px rgba(var(--accent-rgb),0.08);
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-options {
+  #swuMobileSearchPage .swu-mobile-filter-options {
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
@@ -384,15 +440,15 @@
     margin: 0 !important;
     padding: 0 !important;
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-options > div {
+  #swuMobileSearchPage .swu-mobile-filter-options > div {
     display: flex !important;
     min-height: 30px;
     align-items: center !important;
     padding: 3px 6px;
     box-sizing: border-box;
   }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-options > div:hover { background: rgba(var(--accent-rgb),0.08); }
-  #swuMobileSearchPage #myCardPane .swu-mobile-filter-options label {
+  #swuMobileSearchPage .swu-mobile-filter-options > div:hover { background: rgba(var(--accent-rgb),0.08); }
+  #swuMobileSearchPage .swu-mobile-filter-options label {
     margin-left: 0 !important;
     font-size: 11px !important;
     white-space: nowrap;
@@ -442,6 +498,12 @@
   #swuMobileSearchPage #my_CardPane_content::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background: rgba(var(--accent-rgb),0.34);
+  }
+  /* Card actions use tap-specific mobile flows; never expose the desktop hover controls. */
+  #swuDeckMobileRoot [data-mzid] .widget-buttons {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 
   #swuMobileRecent {
@@ -843,6 +905,8 @@
   </div>
 
   <div id="swuDeckMobileIdentity" aria-label="Deck leader and base">
+    <div id="swuMobileLeaderArt" class="swu-mobile-identity-art" aria-hidden="true"><img alt=""></div>
+    <div id="swuMobileBaseArt" class="swu-mobile-identity-art" aria-hidden="true"><img alt=""></div>
     <div id="myLeaderSlot" onclick="ZoneClickHandler('myLeader');"></div>
     <div id="myBaseSlot" onclick="ZoneClickHandler('myBase');"></div>
   </div>
@@ -850,8 +914,9 @@
   <div id="swuDeckMobileViewport">
     <div id="swuDeckMobileTrack">
       <section id="swuMobileSearchPage" class="swu-mobile-page" aria-label="Card library">
-        <div class="swu-mobile-page-bar">
+        <div class="swu-mobile-page-bar swu-mobile-library-bar">
           <span>Library</span>
+          <div id="swuMobileLibraryTabsSlot"></div>
           <span class="swu-mobile-page-dots" aria-hidden="true"><i></i><i></i></span>
         </div>
         <div id="myCardPaneSlot" onclick="ZoneClickHandler('myCardPane');"></div>
@@ -866,26 +931,23 @@
       </section>
 
       <section id="swuMobileDeckPage" class="swu-mobile-page" aria-label="Deck workspace" aria-hidden="true">
-        <div class="swu-mobile-page-bar">
-          <span class="swu-mobile-page-title"><span>Your Deck</span><b id="swuMobileDeckCount"></b></span>
-          <span class="swu-mobile-page-dots" aria-hidden="true"><i></i><i></i></span>
-        </div>
-        <div id="swuMobileDeckScroll">
-          <div class="swu-dm-title">
-            <span>Main Deck</span>
-            <div class="swu-mobile-deck-title-tools">
-              <div id="mySortSlot" onclick="ZoneClickHandler('mySort');"></div>
-              <div id="swuMobileOverlayMenu" class="swu-mobile-overlay-menu">
-                <button id="swuMobileOverlayButton" class="widget-button" type="button" aria-label="Card overlays" aria-haspopup="true" aria-expanded="false">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 13.5h12v1H1v-13h1v12Zm2-2.5h2V7H4v4Zm3.5 0h2V3h-2v8Zm3.5 0h2V5h-2v6Z"/></svg>
-                </button>
-                <div id="swuMobileOverlayPanel">
-                  <div class="swu-mobile-overlay-heading">Card overlays</div>
-                  <div id="myStatsSlot" onclick="ZoneClickHandler('myStats');"></div>
-                </div>
+        <div class="swu-mobile-page-bar swu-mobile-deck-bar">
+          <span class="swu-mobile-page-title"><span>Main Deck</span><b id="swuMobileDeckCount"></b></span>
+          <div class="swu-mobile-deck-title-tools">
+            <div id="mySortSlot" onclick="ZoneClickHandler('mySort');"></div>
+            <div id="swuMobileOverlayMenu" class="swu-mobile-overlay-menu">
+              <button id="swuMobileOverlayButton" class="widget-button" type="button" aria-label="Card overlays" aria-haspopup="true" aria-expanded="false">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 13.5h12v1H1v-13h1v12Zm2-2.5h2V7H4v4Zm3.5 0h2V3h-2v8Zm3.5 0h2V5h-2v6Z"/></svg>
+              </button>
+              <div id="swuMobileOverlayPanel">
+                <div class="swu-mobile-overlay-heading">Card overlays</div>
+                <div id="myStatsSlot" onclick="ZoneClickHandler('myStats');"></div>
               </div>
             </div>
           </div>
+          <span class="swu-mobile-page-dots" aria-hidden="true"><i></i><i></i></span>
+        </div>
+        <div id="swuMobileDeckScroll">
           <div id="myMainDeckSlot" onclick="ZoneClickHandler('myMainDeck');"></div>
           <div class="swu-dm-title"><span>Sideboard</span></div>
           <div id="mySideboardSlot" onclick="ZoneClickHandler('mySideboard');"></div>
@@ -914,6 +976,7 @@
   var recentAdds = [];
   var pendingAdds = [];
   var pendingTimer = 0;
+  var libraryScrollTop = 0;
   var touchStartX = 0;
   var touchStartY = 0;
   var touchActive = false;
@@ -942,31 +1005,40 @@
   function cardIDFromImage(img){
     if(!img) return '';
     var filename = String(img.getAttribute('src') || '').split('/').pop().split('?')[0];
-    return filename.replace(/_back(?=\.(?:webp|png)$)/, '').replace(/\.(?:webp|png)$/, '');
+    return filename
+      .replace(/_back_cropped(?=\.(?:webp|png)$)/, '')
+      .replace(/_cropped(?=\.(?:webp|png)$)/, '')
+      .replace(/_back(?=\.(?:webp|png)$)/, '')
+      .replace(/\.(?:webp|png)$/, '');
   }
   function assetRoot(){
     return typeof window.rootPath === 'string' && window.rootPath ? window.rootPath : '/TCGEngine/SWUDeck';
   }
-  function useIdentityCrop(slotID, useBack){
-    var img = document.querySelector('#' + slotID + ' img');
-    if(!img || img.dataset.swuIdentityCrop === '1') return;
-    var cardID = cardIDFromImage(img);
+  function useIdentityCrop(slotID, artID, useBack){
+    var sourceImg = document.querySelector('#' + slotID + ' img');
+    var artImg = document.querySelector('#' + artID + ' img');
+    if(!sourceImg || !artImg) return;
+    var cardID = cardIDFromImage(sourceImg);
     if(!cardID) return;
-    img.dataset.swuIdentityCrop = '1';
+    if(artImg.dataset.cardID === cardID) return;
+    artImg.dataset.cardID = cardID;
     var cropRoot = assetRoot() + '/crops/' + encodeURIComponent(cardID);
     if(useBack) {
-      img.addEventListener('error', function fallbackToFrontCrop(){
-        img.removeEventListener('error', fallbackToFrontCrop);
-        img.src = cropRoot + '_cropped.png';
-      });
-      img.src = cropRoot + '_back_cropped.png';
+      artImg.onerror = function(){
+        if(artImg.dataset.cardID === cardID) {
+          artImg.onerror = null;
+          artImg.src = cropRoot + '_cropped.png';
+        }
+      };
+      artImg.src = cropRoot + '_back_cropped.png';
     } else {
-      img.src = cropRoot + '_cropped.png';
+      artImg.onerror = null;
+      artImg.src = cropRoot + '_cropped.png';
     }
   }
   function enhanceIdentity(){
-    useIdentityCrop('myLeaderSlot', true);
-    useIdentityCrop('myBaseSlot', false);
+    useIdentityCrop('myLeaderSlot', 'swuMobileLeaderArt', true);
+    useIdentityCrop('myBaseSlot', 'swuMobileBaseArt', false);
   }
 
   function updateDeckCount(){
@@ -993,19 +1065,36 @@
     if(count) count.textContent = String(checked);
     if(trigger) trigger.setAttribute('aria-label','Card filters, ' + checked + ' of ' + boxes.length + ' active');
   }
+  function bindMobileLibraryScroll(){
+    var content = document.getElementById('my_CardPane_content');
+    if(!content || content.dataset.swuMobileScrollBound === '1') return;
+    content.dataset.swuMobileScrollBound = '1';
+    var restore = function(){
+      content.scrollTop = Math.min(libraryScrollTop, Math.max(0, content.scrollHeight - content.clientHeight));
+    };
+    restore();
+    requestAnimationFrame(restore);
+    content.addEventListener('scroll',function(){
+      libraryScrollTop = content.scrollTop;
+    },{passive:true});
+  }
   function compactMobilePaneFilters(){
     var pane = document.getElementById('myCardPane');
-    var legal = document.getElementById('legalFilterCheckbox');
-    if(!pane || !legal) return;
-    var filterRow = legal.parentElement && legal.parentElement.parentElement;
+    var tabsSlot = document.getElementById('swuMobileLibraryTabsSlot');
+    if(!pane || !tabsSlot) return;
+    bindMobileLibraryScroll();
     var tab = pane.querySelector('.panelTab');
-    var tabsRow = tab && tab.parentElement;
-    if(!filterRow || !tabsRow) return;
-    var existing = filterRow.closest('.swu-mobile-filter-menu');
-    if(existing) {
-      updateMobileFilterSummary(existing);
+    if(!tab) {
+      updateMobileFilterSummary(tabsSlot.querySelector('.swu-mobile-filter-menu'));
       return;
     }
+    var legal = pane.querySelector('#legalFilterCheckbox');
+    if(!legal) return;
+    var filterRow = legal.parentElement && legal.parentElement.parentElement;
+    var tabsRow = tab && tab.parentElement;
+    if(!filterRow || !tabsRow) return;
+
+    tabsSlot.replaceChildren();
 
     tabsRow.classList.add('swu-mobile-pane-tabs-row');
     filterRow.classList.add('swu-mobile-filter-options');
@@ -1025,6 +1114,7 @@
     menu.appendChild(trigger);
     menu.appendChild(popover);
     tabsRow.appendChild(menu);
+    tabsSlot.appendChild(tabsRow);
 
     trigger.addEventListener('click',function(){
       document.documentElement.dataset.swuMobileFiltersOpen = menu.open ? '0' : '1';
@@ -1046,7 +1136,7 @@
       .observe(slot,{childList:true,subtree:true});
     compactMobilePaneFilters();
     document.addEventListener('click',function(event){
-      var menu = document.querySelector('#myCardPane .swu-mobile-filter-menu[open]');
+      var menu = document.querySelector('#swuMobileSearchPage .swu-mobile-filter-menu[open]');
       if(menu && !menu.contains(event.target)) {
         menu.open = false;
         document.documentElement.dataset.swuMobileFiltersOpen = '0';
@@ -1054,7 +1144,7 @@
     });
     document.addEventListener('keydown',function(event){
       if(event.key !== 'Escape') return;
-      var menu = document.querySelector('#myCardPane .swu-mobile-filter-menu[open]');
+      var menu = document.querySelector('#swuMobileSearchPage .swu-mobile-filter-menu[open]');
       if(!menu) return;
       menu.open = false;
       document.documentElement.dataset.swuMobileFiltersOpen = '0';
