@@ -19,7 +19,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
   <!-- Active Games Section -->
   <div class="card azuki-glass-card azuki-active-card">
     <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
-      <img src='../../../Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
+      <img src='/TCGEngine/Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
     <h2>Active Games (<span id="active-game-count">0</span>)</h2>
     <div id="active-games-list" class="active-games-list"></div>
@@ -404,6 +404,11 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
 <script>
 
   var rootName = "AzukiSim";
+  // Derive the app base from the URL so API/asset paths work no matter what depth this menu is served
+  // at — the canonical entry is the root pointer (/TCGEngine/SharedUI/MainMenu.php, which follows the DB)
+  // AND the direct /TCGEngine/SharedUI/Sites/AzukiSim/MainMenu.php. Relative '../../../' paths broke from
+  // the shallower root URL (they resolved above /TCGEngine/ → 404). Matches swusimAppBase()/gaAppBase().
+  function azukiAppBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0 ? p.slice(0, i+11) : '/TCGEngine/'; }
   var _lobby_id = "";
   var _privateInviteCode = "";
   var _waitingEscHandler = null;
@@ -463,7 +468,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
       }
 
       function buildGameUrl(playerID, gameName, authKey, fromMatch) {
-        var url = new URL('../../../NextTurn.php', window.location.href);
+        var url = new URL(azukiAppBase() + 'NextTurn.php', window.location.href);
         url.searchParams.set('playerID', String(playerID));
         url.searchParams.set('gameName', String(gameName));
         url.searchParams.set('folderPath', rootName);
@@ -606,7 +611,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
         if (!submission) return;
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../../APIs/Lobbies/JoinQueue.php', true);
+        xhr.open('POST', azukiAppBase() + 'APIs/Lobbies/JoinQueue.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         xhr.onload = function() {
@@ -808,7 +813,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
 
             // Send a message to the server to cancel the queue
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '../../../APIs/Lobbies/LeaveQueue.php', true);
+            xhr.open('POST', azukiAppBase() + 'APIs/Lobbies/LeaveQueue.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
             xhr.onload = function() {
@@ -957,7 +962,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
         var gameCountElement = document.getElementById('active-game-count');
         var gameListElement = document.getElementById('active-games-list');
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../../APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
+        xhr.open('GET', azukiAppBase() + 'APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
         xhr.responseType = 'json';
 
         xhr.onload = function() {
@@ -1010,7 +1015,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
       }
 
       function openSpectatorView(gameName, perspective) {
-        var url = new URL('../../../NextTurn.php', window.location.href);
+        var url = new URL(azukiAppBase() + 'NextTurn.php', window.location.href);
         url.searchParams.set('playerID', 'S');
         url.searchParams.set('viewerPerspective', perspective === 2 ? '2' : '1');
         url.searchParams.set('gameName', gameName);
@@ -1046,7 +1051,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
       }
       function pollLobbyUpdates(playerID, authKey) {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../../APIs/Lobbies/PollLobbyUpdates.php', true);
+        xhr.open('POST', azukiAppBase() + 'APIs/Lobbies/PollLobbyUpdates.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         xhr.onload = function() {
