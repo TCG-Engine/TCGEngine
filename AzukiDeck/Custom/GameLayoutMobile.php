@@ -1205,8 +1205,8 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
       .replace(/_back(?=\.(?:webp|png)$)/, '')
       .replace(/\.(?:webp|png)$/, '');
   }
-  function assetRoot(){
-    return typeof window.rootPath === 'string' && window.rootPath ? window.rootPath : '/TCGEngine/AzukiDeck';
+  function concatAssetRoot(){
+    return String(window.assetImageFolder || './AzukiSim/concat').replace(/\/$/, '');
   }
   function useIdentityCrop(slotID, artID, useBack){
     var sourceImg = document.querySelector('#' + slotID + ' img');
@@ -1217,8 +1217,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     if(artImg.dataset.cardID === cardID) return;
     artImg.dataset.cardID = cardID;
     artImg.onerror = null;
-    var imageFolder = String(window.assetImageFolder || './AzukiSim/concat');
-    var cropFolder = imageFolder.replace(/\/concat\/?$/, '/crops');
+    var cropFolder = concatAssetRoot().replace(/\/concat\/?$/, '/crops');
     artImg.src = cropFolder + '/' + encodeURIComponent(cardID) + '_cropped.png';
   }
   function enhanceIdentity(){
@@ -1654,7 +1653,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
       button.dataset.recentID = entry.id;
       button.setAttribute('aria-label', 'Remove one ' + title + ' from ' + (entry.destination === 'mySideboard' ? 'sideboard' : 'main deck'));
       var img = document.createElement('img');
-      img.src = assetRoot() + '/concat/' + encodeURIComponent(entry.cardID) + '.webp';
+      img.src = concatAssetRoot() + '/' + encodeURIComponent(entry.cardID) + '.webp';
       img.alt = '';
       var copy = document.createElement('span');
       copy.className = 'swu-mobile-recent-card-copy';
@@ -1669,7 +1668,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
       if(entry.amount > 0) {
         var qty = document.createElement('span');
         qty.className = 'swu-mobile-recent-qty';
-        qty.textContent = 'Ã—' + entry.amount;
+        qty.textContent = '\u00D7' + entry.amount;
         button.appendChild(qty);
       }
       button.addEventListener('click', function(event){
