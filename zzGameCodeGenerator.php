@@ -2384,6 +2384,11 @@ function AddNextTurn() {
       $footer .= "echo(\"RenderPanes('" . $zone->Name . "', window.my" . $zone->Name . "Panes, window.their" . $zone->Name . "Panes);\");\r\n";
     }
   }
+  if ($hasDecisionQueue) {
+    // Selection state is prepared before zone HTML is built. Mount prompts and DOM-dependent
+    // controls only after all zones exist, while still inside the same synchronous render update.
+    $footer .= "echo(\"CheckAndShowDecisionQueue(window.myDecisionQueueData, 'finalize');\");\r\n";
+  }
   $header .= "echo(\"for(var i=0; i<" . ($numRows+1) . "; ++i) { myRows[i] = \\\"\\\"; theirRows[i] = \\\"\\\"; }\");\r\n";
 
   // Add data references first to ensure they're defined before using them
@@ -2440,7 +2445,7 @@ function AddNextTurn() {
   }
 
   if ($hasDecisionQueue) {
-    $setData .= "echo(\"CheckAndShowDecisionQueue(window.myDecisionQueueData);\");\r\n";
+    $setData .= "echo(\"CheckAndShowDecisionQueue(window.myDecisionQueueData, 'prepare');\");\r\n";
   }
   if($hasFlashMessage) {
     $setData .= "echo(\"if(window.FlashMessageData && window.FlashMessageData != '') { showFlashMessage(window.FlashMessageData); window.FlashMessageData = ''; }\");\r\n";

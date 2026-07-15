@@ -4422,9 +4422,14 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
   render();
 }
 
-// Call this after game state update to check for pending interactive decisions
-function CheckAndShowDecisionQueue(decisionQueue) {
+// Process pending interactive decisions in two render-safe phases:
+// - prepare: establish selection state before PopulateZone/createCardHTML builds card markup
+// - finalize: mount prompts and DOM-dependent controls after the new board DOM exists
+// Calls without a phase preserve the legacy all-in-one behavior.
+function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
   if (typeof IsSpectatorClient === 'function' && IsSpectatorClient()) return;
+  const prepareOnly = phase === 'prepare';
+  const finalizeOnly = phase === 'finalize';
   // Accept raw string or array
   if (typeof decisionQueue === 'string') {
     decisionQueue = ParseDecisionQueue(decisionQueue);
@@ -4432,6 +4437,12 @@ function CheckAndShowDecisionQueue(decisionQueue) {
   if (!decisionQueue || !Array.isArray(decisionQueue)) return;
   for (let i = 0; i < decisionQueue.length; ++i) {
     let entry = decisionQueue[i];
+    if (prepareOnly && entry && !entry.removed
+        && entry.Type !== 'MZCHOOSE'
+        && entry.Type !== 'MZMAYCHOOSE'
+        && entry.Type !== 'MZMULTICHOOSE') {
+      break;
+    }
     if (entry && entry.Type === 'TOPDECKSEARCH' && !entry.removed) {
       (function(idx, e) {
         ShowTopDeckSearchPanel(e, idx, function(result) {
@@ -4535,30 +4546,33 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       window.SelectionMode.inlineSpecs = inlineSpecs;
       window.SelectionMode.popupCards = popupCards;
 
-      // Only show selection message banner if there are inline selectable options
-      // If only popup cards, the popup handles the UI
-      if (inlineSpecs.length > 0) {
-        ShowSelectionMessage(tooltip, window.SelectionMode.mayPass, i);
-      }
+      if (!prepareOnly) {
+        // Only show selection message banner if there are inline selectable options.
+        // If only popup cards, the popup handles the UI.
+        if (inlineSpecs.length > 0) {
+          ShowSelectionMessage(tooltip, window.SelectionMode.mayPass, i);
+        }
 
-      // Show popup for Single mode zone cards if any
-      if (popupCards.length > 0) {
-        ShowMZChoosePopup(popupCards, tooltip, window.SelectionMode.mayPass, i);
-      }
+        if (popupCards.length > 0) {
+          ShowMZChoosePopup(popupCards, tooltip, window.SelectionMode.mayPass, i);
+        }
 
-      // Highlight/selectable will be handled in rendering for inline specs
+        // Legacy all-in-one callers may still need their row containers rebuilt. Generated update
+        // rendering uses the finalize phase, where the cards were already built from prepared state.
+        if (!finalizeOnly && typeof RenderRows === 'function'
+            && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+          RenderRows(window.myRows, window.theirRows);
+        }
 
-      // After setting selection mode for MZCHOOSE, force a re-render of all zones
-      if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
-        RenderRows(window.myRows, window.theirRows);
+        const applySelectablePulse = () => {
+          document.querySelectorAll('.selectable-card').forEach(el => el.classList.add('pulse'));
+        };
+        if (finalizeOnly) applySelectablePulse();
+        else setTimeout(applySelectablePulse, 0);
+
+        // Re-evaluate the Effect Stack overlay now the selection targets are known.
+        if (typeof window.UpdateEffectStackVisibility === 'function') window.UpdateEffectStackVisibility();
       }
-          // Add gentle pulsing glow to selectable cards after re-render (DOM needs a moment)
-          setTimeout(() => {
-            document.querySelectorAll('.selectable-card').forEach(el => el.classList.add('pulse'));
-          }, 0);
-      // Re-evaluate the Effect Stack overlay now the selection targets are known (hide it while the
-      // player selects a non-EffectStack board target; show it for trigger-ordering MZCHOOSE).
-      if (typeof window.UpdateEffectStackVisibility === 'function') window.UpdateEffectStackVisibility();
       break;
     } else if (entry && entry.Type === 'MZREARRANGE' && !entry.removed) {
       // MZREARRANGE: Allow player to rearrange cards between piles
@@ -4628,16 +4642,19 @@ function CheckAndShowDecisionQueue(decisionQueue) {
           const cards = zoneDataStr.split('<|>').filter(s => s.trim());
           return idx >= 0 && idx < cards.length;
         }).slice(0, parsed.max);
-        ShowInlineMultiChooseMessage(tooltip, i);
-        if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+        if (!prepareOnly) {
+          ShowInlineMultiChooseMessage(tooltip, i);
+        }
+        if (!prepareOnly && !finalizeOnly && typeof RenderRows === 'function'
+            && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
           RenderRows(window.myRows, window.theirRows);
         }
         // Inline multi-select uses explicit gray/gold state instead of pulse glow.
-      } else if (typeof ShowMZMultiChooseUI === 'function') {
+      } else if (!prepareOnly && typeof ShowMZMultiChooseUI === 'function') {
         ShowMZMultiChooseUI(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
           SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
         });
-      } else {
+      } else if (!prepareOnly) {
         console.error('MZMultiChooseUI.js not loaded - ShowMZMultiChooseUI function not found');
       }
       break;

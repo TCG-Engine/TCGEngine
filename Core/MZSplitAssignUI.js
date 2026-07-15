@@ -371,11 +371,9 @@
     document.body.appendChild(createBanner(tooltip, decisionIndex));
     refreshUI();
 
-    // Defer card overlay injection: CheckAndShowDecisionQueue is called BEFORE
-    // AppendStaticZones populates the board DOM, so the card spans don't exist yet.
-    // setTimeout(fn, 0) queues the callback after the current JS call stack finishes,
-    // by which time AppendStaticZones has already inserted the card elements.
-    setTimeout(injectCardOverlays, 0);
+    // Generated updates mount decision UI only after the new board DOM exists, so per-card controls
+    // can be attached synchronously and appear in the same browser paint as the cards.
+    injectCardOverlays();
   }
 
   // ── Cleanup ──────────────────────────────────────────────────────────
