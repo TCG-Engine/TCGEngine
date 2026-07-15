@@ -337,6 +337,9 @@ function _SWUMirrorAnotherFriendlyHasKeyword($obj, string $kw): bool {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Ambush($obj) {
+    // TS26_075 Jango Fett — "While an enemy unit has attacked your base this phase, this unit gains Ambush."
+    if (($obj->CardID ?? '') === 'TS26_075'
+        && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_BASE_ATTACKED') > 0) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'AMBUSH')) return true;
     // SHD_188 4-LOM: each friendly unit named Zuckuss gains Ambush.
     if (CardTitle($obj->CardID ?? '') === 'Zuckuss'
@@ -462,9 +465,29 @@ function _SWUSEC104AuraActive($obj): bool {
     return false;
 }
 
+// TS26_005 Savage Opress (front, undeployed) — "Each friendly unit with the most power among friendly
+// units gains Overwhelm." Active only while the controller holds the undeployed Savage Opress leader.
+function _SWUSavageFrontGrants($obj): bool {
+    $ctrl = intval($obj->Controller ?? 0);
+    if ($ctrl <= 0) return false;
+    $undeployed = false;
+    foreach (GetLeader($ctrl) as $l) {
+        if (($l->CardID ?? '') === 'TS26_005' && empty($l->Deployed)) { $undeployed = true; break; }
+    }
+    if (!$undeployed) return false;
+    $myPow = intval(ObjectCurrentPower($obj));
+    $max = 0;
+    foreach (GetUnitsInPlay($ctrl) as $u) { if (empty($u->removed)) $max = max($max, intval(ObjectCurrentPower($u))); }
+    return $max >= 1 && $myPow === $max;
+}
+
 function HasConditionalKeyword_Overwhelm($obj) {
     // TWI_009 Maul (deployed) — "Each other friendly unit gains Overwhelm."
     if (($obj->CardID ?? '') !== 'TWI_009' && intval($obj->Controller ?? 0) > 0 && _SWULeaderDeployed(intval($obj->Controller), 'TWI_009')) return true;
+    // TS26_005 Savage Opress (deployed) — "Each other friendly unit gains Overwhelm."
+    if (($obj->CardID ?? '') !== 'TS26_005' && intval($obj->Controller ?? 0) > 0 && _SWULeaderDeployed(intval($obj->Controller), 'TS26_005')) return true;
+    // TS26_005 Savage Opress (front, undeployed) — friendly unit with the most power gains Overwhelm.
+    if (_SWUSavageFrontGrants($obj)) return true;
     if (_SWUUnitHasUpgrade($obj, 'TWI_119')) return true;   // TWI_119 Nameless Valor — "Attached unit gains Overwhelm."
     if (_SWUUnitHasUpgrade($obj, 'ASH_181')) return true;   // ASH_181 Mark My Words — "Attached unit gains Overwhelm."
     if (_SWUSEC104AuraActive($obj)) return true;   // SEC_104 aura
@@ -570,7 +593,10 @@ function _SWUControlsAnotherResistance(int $player, int $selfUid): bool {
 }
 
 function HasConditionalKeyword_Sentinel($obj) {
+    // TS26_050 General Grievous / TS26_020 501st Veteran — "While this unit is undamaged, it gains Sentinel."
+    if (in_array($obj->CardID ?? '', ['TS26_050', 'TS26_020'], true) && intval($obj->Damage ?? 0) === 0) return true;
     if (_SWUUnitHasUpgrade($obj, 'TWI_071')) return true;   // TWI_071 Unshakeable Will — "Attached unit gains Sentinel."
+    if (_SWUUnitHasUpgrade($obj, 'TS26_022')) return true;  // TS26_022 The Darksaber — "Attached unit gains Sentinel."
     // SEC_071 (upgrade) — "While attached unit is exhausted, it gains Sentinel."
     if (_SWUUnitHasUpgrade($obj, 'SEC_071') && intval($obj->Status ?? 1) === 0) return true;
     // ASH_243 Darth Vader — Shielded + "While this unit is ready, he gains Sentinel."
@@ -1001,6 +1027,7 @@ function GetConditionalKeyword_Restore_Value($obj) {
     if (_SWUUnitHasUpgrade($obj, 'TWI_051') && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 2;
     // TWI_062 Daughter of Dathomir — "While this unit is undamaged, it gains Restore 2."
     if (($obj->CardID ?? '') === 'TWI_062' && intval($obj->Damage ?? 0) === 0) $amount += 2;
+    if (_SWUUnitHasUpgrade($obj, 'TS26_037')) $amount += 1;  // TS26_037 Abandoned the Order — attached unit gains Restore 1
     if (_SWUYularenGrants($obj, 'RESTORE')) $amount += 1;   // JTL_047 Yularen (Restore 1 to Vehicles)
     if (_SWUSEC104AuraActive($obj)) $amount += 1;           // SEC_104 aura — Restore 1
     // LOF_105 Oppo Rancisis — "gains Restore 2 while another friendly unit has Restore."
@@ -1023,6 +1050,9 @@ function GetConditionalKeyword_Restore_Value($obj) {
                 break;
             case 'SEC_047': // Defiant — each other friendly unit gains Restore 1
                 $amount += 1;
+                break;
+            case 'TS26_040': // Obi-Wan Kenobi — other friendly Republic units gain Restore 1
+                if (_SWUUnitHasTrait($obj, 'Republic')) $amount += 1;
                 break;
         }
     }

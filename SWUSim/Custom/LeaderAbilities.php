@@ -3615,4 +3615,102 @@ $unitAbilities["SHD_017"] = function($player, $mzID) {
     if (!_SWUShd017Offer(intval($player))) SWUAfterAction(intval($player));
 };
 
+// ── TS26 leaders ────────────────────────────────────────────────────────────────
+// Collect the mzIDs of friendly units that entered play this phase (SWU_ENTERED_PHASE_{uid}); optionally
+// exclude one UID. Used by TS26_002 Anakin and TS26_004 Padmé (both sides).
+function _SWUEnteredThisPhaseUnits(int $player, int $excludeUID = -1): array {
+    global $playerID; $playerID = intval($player);
+    $out = [];
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o === null || !empty($o->removed)) continue;
+            $uid = intval($o->UniqueID ?? -1);
+            if ($uid === $excludeUID) continue;
+            if (GlobalEffectCount(intval($player), 'SWU_ENTERED_PHASE_' . $uid) > 0) $out[] = $mz;
+        }
+    }
+    return $out;
+}
+
+// TS26_006 Rex (front) — Action [Exhaust, ready an exhausted enemy unit]: the next event you play this
+// phase costs 1 resource less. (Deployed: On Attack, may ready an exhausted enemy → next event -2.)
+$leaderAbilities["TS26_006"] = function(int $player): void {
+    global $playerID; $playerID = intval($player);
+    $enemy = [];
+    foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->Status ?? 1) === 0) $enemy[] = $mz;  // exhausted
+        }
+    }
+    if (empty($enemy)) { SWUAfterAction(intval($player)); return; }   // cost can't be paid (guarded in affordability)
+    SWUQueueChooseTarget(intval($player), $enemy, "Ready_an_exhausted_enemy_unit_(next_event_-1)", "TS26_006#0|1|1");
+};
+
+// TS26_002 Anakin Skywalker (front) — Action [Exhaust]: if 2+ friendly units entered play this phase,
+// give a Shield token to 1 of them. (Deployed: Sentinel auto + OnAttack shield another entered unit.)
+$leaderAbilities["TS26_002"] = function(int $player): void {
+    global $playerID; $playerID = intval($player);
+    $entered = _SWUEnteredThisPhaseUnits(intval($player));
+    if (count($entered) < 2) { SWUAfterAction(intval($player)); return; }
+    SWUQueueChooseTarget(intval($player), $entered, "Give_a_Shield_to_a_unit_that_entered_this_phase", "GIVE_SHIELD");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SWU_AFTER_ACTION", 1);
+};
+
+// TS26_004 Padmé Amidala (front) — Action [Exhaust]: if 2+ friendly units entered play this phase, attack
+// with 1 of them (even if exhausted); it can't attack bases. (Deployed: When Attack Ends, may attack with
+// another entered unit.)
+$leaderAbilities["TS26_004"] = function(int $player): void {
+    global $playerID; $playerID = intval($player);
+    $entered = _SWUEnteredThisPhaseUnits(intval($player));
+    if (count($entered) < 2) { SWUAfterAction(intval($player)); return; }
+    SWUQueueChooseTarget(intval($player), $entered, "Attack_with_a_unit_that_entered_this_phase_(no_bases)", "TS26_004#0");
+};
+$customDQHandlers["TS26_004#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) { SWUAfterAction(intval($player)); return; }
+    BeginSWUAttack(intval($player), $lastDecision, true);   // noBases; combat owns the after-action
+};
+
+// TS26_003 Maul (front) — Action [Exhaust]: choose a unit; if it has more different keywords than
+// Experience tokens on it, give an Experience token to it and deal 1 damage to it. (Deployed side: same
+// effect on When Deployed / On Attack — shared TS26_003#0 handler.)
+$leaderAbilities["TS26_003"] = function(int $player): void {
+    global $playerID; $playerID = intval($player);
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) { SWUAfterAction(intval($player)); return; }
+    SWUQueueMayChooseTarget(intval($player), $tg, "Choose_a_unit_(+1_Exp_and_1_damage_if_more_keywords_than_Experience)?", "Choose_a_unit", "TS26_003#0|1");
+};
+
+// TS26_007 Asajj Ventress (front) — Action [Exhaust]: attack with a token unit; it gets +1/+0 for this
+// attack. (Deployed side: Hidden auto + a +2/+0 passive while you've attacked with a token this phase.)
+$leaderAbilities["TS26_007"] = function(int $player): void {
+    global $playerID; $playerID = intval($player);
+    $tokens = [];
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, ['Token Unit']) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->Status) === 1) $tokens[] = $mz;
+        }
+    }
+    if (empty($tokens)) { SWUAfterAction(intval($player)); return; }
+    SWUQueueChooseTarget(intval($player), $tokens, "Attack_with_a_token_unit_(+1/+0)", "TS26_007#0");
+};
+
+// TS26_001 Count Dooku (front) — Action [Exhaust]: choose 2 players; they each heal 1 from their base and
+// create a Battle Droid token. (2-player: both players. Deployed side: Restore 2 auto + OnAttack create 2.)
+$leaderAbilities["TS26_001"] = function(int $player): void {
+    global $playerID; $playerID = intval($player);
+    $opp = OtherPlayer(intval($player));
+    OnHealBase(intval($player), intval($player), 1);
+    SWUCreateUnitToken(intval($player), 'TS26_T01');
+    OnHealBase(intval($player), $opp, 1);
+    SWUCreateUnitToken($opp, 'TS26_T01');
+    SWUAfterAction(intval($player));
+};
+
 ?>

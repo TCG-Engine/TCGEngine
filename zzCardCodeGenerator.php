@@ -956,7 +956,10 @@ if($rootName == "SWUSim") {
       // played as a unit. The colon form is unit-only (JTL_100/210/213); the slash form is a compound
       // window, e.g. "When played as a unit/On Attack:" (JTL_098).
       || strpos($combined, "When played as a unit:") !== false
-      || strpos($combined, "When played as a unit/") !== false) {
+      || strpos($combined, "When played as a unit/") !== false
+      // TS26_034 Fives — "enter play with the 'When Played' abilities of another unit"; the copy fires
+      // through the WhenPlayed window but the text has no literal "When Played:" trigger to auto-detect.
+      || $cardId === 'TS26_034') {
       $stubs["whenPlayed"][] = $cardId;
     }
     // whenDefeated: units only, innate ability (not grant-style).

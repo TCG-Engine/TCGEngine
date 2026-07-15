@@ -1865,6 +1865,11 @@ $onDefenseAbilities["TWI_049:0"] = function($player, $mzID) {
 $onDefenseAbilities["TWI_083:0"] = function($player, $mzID) {
     SWUCreateUnitToken(intval($player), 'TWI_T01');
 };
+// TS26_024 Sundari Gauntlet — Sentinel (keyword). On Defense: deal 1 damage to your base.
+$onDefenseAbilities["TS26_024:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    SWUDealDamageToBase(1, intval($player));
+};
 
 $onDefenseAbilities["LOF_047:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
@@ -11992,6 +11997,924 @@ $customDQHandlers["ASH_258#0"] = function($player, $parts, $lastDecision) {
     SWUDealDamageToUnit($lastDecision, 3, intval($player));
 };
 
+// TS26_016 King Katuunko — When Played: all units (including enemy) gain Restore 1 for this phase.
+$whenPlayedAbilities["TS26_016:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    foreach (_SWUAllUnits() as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed)) AddTurnEffect($mz, SWUMakeTurnEffect('RESTORE', [1], SWU_DUR_PHASE));
+    }
+};
+
+// TS26_035 Ahsoka's Lightsabers (upgrade) — grants "On Attack/When Defeated: you may give a Shield to an
+// enemy unit. If you do, the next event you play this phase costs 2 less." Both windows share the offer;
+// the When-Defeated half dispatches via DispatchTrigger 'TS26_035' (subcard scan).
+function _SWUTs26035Offer(int $player): void {
+    global $playerID; $playerID = intval($player);
+    $enemy = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
+    if (empty($enemy)) return;
+    SWUQueueMayChooseTarget($player, $enemy, "Give_a_Shield_to_an_enemy_unit_(next_event_-2)?", "Choose_an_enemy_unit", "TS26_035#0");
+}
+$onAttackAbilities["TS26_035:0"] = function($player, $mzID) { _SWUTs26035Offer(intval($player)); };
+$customDQHandlers["TS26_035#0"] = function($player, $parts, $lastDecision) {
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    global $playerID; $playerID = intval($player);
+    DoGiveShieldToken(intval($player), $lastDecision);
+    AddGlobalEffects(intval($player), 'SWU_TS26035_DISCOUNT_NEXT');   // next event this phase costs 2 less
+};
+
+// TS26_052 Sith Traditions (upgrade) — grants "On Attack: give an Experience token to this unit" and
+// "When Defeated: give an Experience token to a friendly unit." On-Attack half fires for the host mzID.
+$onAttackAbilities["TS26_052:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    DoGiveExperienceToken(intval($player), $mzID);   // "this unit" = the host
+};
+
+// TS26_022 The Darksaber (upgrade) — When Played: if there are 4+ different keywords among friendly units,
+// ready the attached unit. ($mzID = the host.)
+$whenPlayedAbilities["TS26_022:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $found = [];
+    $boolKw = ['Sentinel', 'Ambush', 'Overwhelm', 'Grit', 'Saboteur', 'Shielded', 'Hidden', 'Bounty'];
+    $valKw  = ['Raid', 'Restore'];
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o === null || !empty($o->removed)) continue;
+            foreach ($boolKw as $kw) { $fn = "HasKeyword_{$kw}"; if (function_exists($fn) && $fn($o)) $found[$kw] = true; }
+            foreach ($valKw as $kw)  { $fn = "GetKeyword_{$kw}_Value"; if (function_exists($fn) && intval($fn($o) ?? 0) > 0) $found[$kw] = true; }
+        }
+    }
+    if (count($found) >= 4) OnReadyCard(intval($player), $mzID);
+};
+
+// TS26_003 Maul (deployed) — When Deployed/On Attack: same "keywords > Experience → +1 Exp & 1 damage"
+// effect as the front Action. Shared TS26_003#0 handler (parts[0]=0 → trigger/combat owns the close).
+$whenPlayedAbilities["TS26_003:0"] = $onAttackAbilities["TS26_003:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Choose_a_unit_(+1_Exp_and_1_damage_if_more_keywords_than_Experience)?", "Choose_a_unit", "TS26_003#0|0");
+};
+$customDQHandlers["TS26_003#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $close = intval($parts[0] ?? 0);
+    if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS' && str_contains($lastDecision, '-')) {
+        $o = GetZoneObject($lastDecision);
+        if ($o !== null && empty($o->removed)) {
+            $found = [];
+            $boolKw = ['Sentinel', 'Ambush', 'Overwhelm', 'Grit', 'Saboteur', 'Shielded', 'Hidden', 'Bounty'];
+            $valKw  = ['Raid', 'Restore'];
+            foreach ($boolKw as $kw) { $fn = "HasKeyword_{$kw}"; if (function_exists($fn) && $fn($o)) $found[$kw] = true; }
+            foreach ($valKw as $kw)  { $fn = "GetKeyword_{$kw}_Value"; if (function_exists($fn) && intval($fn($o) ?? 0) > 0) $found[$kw] = true; }
+            $K = count($found);
+            $E = 0;
+            foreach (($o->Subcards ?? []) as $sc) {
+                $scid = is_array($sc) ? ($sc['CardID'] ?? '') : ($sc->CardID ?? '');
+                $srem = is_array($sc) ? !empty($sc['removed']) : !empty($sc->removed);
+                if (!$srem && $scid === 'SOR_T01') $E++;
+            }
+            if ($K > $E) {
+                DoGiveExperienceToken(intval($player), $lastDecision);
+                SWUDealDamageToUnit($lastDecision, 1, intval($player));
+            }
+        }
+    }
+    if ($close === 1) SWUAfterAction(intval($player));
+};
+
+// TS26_007 Asajj Ventress (front) — the chosen token unit attacks with +1/+0 for this attack.
+$customDQHandlers["TS26_007#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) { SWUAfterAction(intval($player)); return; }
+    SWUAddAttackPowerBonus($lastDecision, 1);
+    BeginSWUAttack(intval($player), $lastDecision);   // combat owns the after-action
+};
+
+// TS26_006 Rex (deployed) — On Attack: you may ready an exhausted enemy unit; if you do, the next event
+// you play this phase costs 2 less. Shared TS26_006#0 handler (arm count + close flag in parts).
+$onAttackAbilities["TS26_006:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $enemy = [];
+    foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->Status ?? 1) === 0) $enemy[] = $mz;
+        }
+    }
+    if (empty($enemy)) return;
+    SWUQueueMayChooseTarget(intval($player), $enemy, "Ready_an_exhausted_enemy_unit_(next_event_-2)?", "Choose_an_enemy_unit", "TS26_006#0|2|0");
+};
+$customDQHandlers["TS26_006#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $arm   = intval($parts[0] ?? 1);
+    $close = intval($parts[1] ?? 0);
+    if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS' && str_contains($lastDecision, '-')) {
+        OnReadyCard(intval($player), $lastDecision);
+        for ($i = 0; $i < $arm; $i++) AddGlobalEffects(intval($player), 'SWU_REX_DISCOUNT_NEXT');
+    }
+    if ($close === 1) SWUAfterAction(intval($player));
+};
+
+// TS26_008 Ahsoka Tano (front) — reactive "when you play an event": may exhaust this leader → look at the
+// top card, then play it (full cost) / discard / leave. Hooked from OnPlayEvent (undeployed-leader
+// observer). Deployed side: Raid 1 auto + When Attack Ends look-top (play at -1).
+$customDQHandlers["TS26_008#0"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision !== 'YES') return;
+    global $playerID; $playerID = intval($player);
+    foreach (GetLeader(intval($player)) as $l) { if (($l->CardID ?? '') === 'TS26_008') { $l->Ready = false; break; } }
+    $topIdx = _SWUTopDeckFrontIdx(intval($player));
+    if ($topIdx === -1) return;
+    $topID = GetDeck(intval($player))[$topIdx]->CardID;
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "@{$topID}&Play&Discard&Leave", 1, "Play_the_top_card,_discard_it,_or_leave_it_on_top");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_008#1|0", 1);   // full cost
+};
+$onAttackEndAbilities["TS26_008:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $topIdx = _SWUTopDeckFrontIdx(intval($player));
+    if ($topIdx === -1) return;
+    $topID = GetDeck(intval($player))[$topIdx]->CardID;
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "@{$topID}&Play&Discard&Leave", 1, "Play_the_top_card_(-1),_discard,_or_leave");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_008#1|1", 1);   // -1
+};
+$customDQHandlers["TS26_008#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $disc = intval($parts[0] ?? 0);
+    if ($lastDecision === 'Discard') SWUMillTopCard(intval($player));
+    elseif ($lastDecision === 'Play') SWUPlayTopDeckCard(intval($player), false, $disc);
+};
+
+// TS26_073 Moralo Eval — the base owner (Moralo's controller) may deal 1 damage to a unit after their
+// base takes combat damage. Runs under the base owner's frame (queued as a CUSTOM from SWUDealDamageToBase).
+$customDQHandlers["TS26_073#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_1_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|1");
+    // leave $playerID = $player so the queued MZMAYCHOOSE validates the base owner's mzIDs
+};
+
+// TS26_002 Anakin Skywalker (deployed) — Sentinel (auto). On Attack: give a Shield token to another
+// friendly unit that entered play this phase.
+$onAttackAbilities["TS26_002:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $self = GetZoneObject($mzID);
+    $selfUID = $self ? intval($self->UniqueID ?? -1) : -1;
+    $tg = _SWUEnteredThisPhaseUnits(intval($player), $selfUID);
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Give_a_Shield_to_a_unit_that_entered_this_phase?", "Choose_a_unit", "GIVE_SHIELD");
+};
+
+// TS26_004 Padmé Amidala (deployed) — When Attack Ends: you may attack with another friendly unit that
+// entered play this phase (even if exhausted); it can't attack bases (CHAINED_ATTACK noBases flag).
+$onAttackEndAbilities["TS26_004:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $self = GetZoneObject($mzID);
+    $selfUID = $self ? intval($self->UniqueID ?? -1) : -1;
+    $tg = _SWUEnteredThisPhaseUnits(intval($player), $selfUID);
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Attack_with_another_unit_that_entered_this_phase_(no_bases)?", "Choose_a_unit", "CHAINED_ATTACK|0|1");
+};
+
+// TS26_001 Count Dooku (deployed) — Restore 2 (auto). On Attack: create 2 Battle Droid tokens.
+$onAttackAbilities["TS26_001:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    SWUCreateUnitTokens(intval($player), 'TS26_T01', 2);
+};
+
+// TS26_051 Lom Pyke — When Played: in player order, each opponent may heal 5 from their base; for each
+// that does, give 2 Experience tokens to a unit. (2-player: the single opponent.)
+$whenPlayedAbilities["TS26_051:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $opp = OtherPlayer(intval($player));
+    $b = GetBase($opp);
+    if (empty($b) || !isset($b[0]) || intval($b[0]->Damage ?? 0) <= 0) return;   // no damage → no meaningful heal
+    DecisionQueueController::AddDecision($opp, "YESNO", "-", 1, tooltip: "Heal_5_damage_from_your_base?");
+    DecisionQueueController::AddDecision($opp, "CUSTOM", "TS26_051#0|" . intval($player), 1);
+};
+$customDQHandlers["TS26_051#0"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster = intval($parts[0] ?? 0);
+    if ($lastDecision !== 'YES') return;   // declined → no heal, no Experience
+    $playerID = intval($player);
+    OnHealBase(intval($player), intval($player), 5);   // the opponent heals their own base
+    $playerID = $caster;                               // the caster gives 2 Experience to a unit
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueChooseTarget($caster, $tg, "Give_2_Experience_to_a_unit", "GIVE_EXPERIENCE|2");
+    // leave $playerID = $caster for the queued MZCHOOSE validation
+};
+
+// TS26_054 Wartime Mercenaries — When Defeated: an opponent may give an Experience token to a unit.
+// (Cross-player: queued via an intermediate CUSTOM so the opponent's pick validates under their frame.)
+$whenDefeatedAbilities["TS26_054:0"] = function($player, $mzID) {
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_054#0", 1);
+};
+$customDQHandlers["TS26_054#0"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $opp = OtherPlayer(intval($player));
+    $playerID = $opp;
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget($opp, $tg, "Give_an_Experience_token_to_a_unit?", "Choose_a_unit", "GIVE_EXPERIENCE|1");
+    // leave $playerID = $opp
+};
+
+// TS26_014 Yoda — cost -2 if 7+ resources (cost modifier). When Played/When Defeated: create a Clone
+// Trooper token and give it Sentinel for this phase.
+$whenPlayedAbilities["TS26_014:0"] = $whenDefeatedAbilities["TS26_014:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $uid = SWUCreateUnitToken(intval($player), 'TS26_T02');
+    $mz = SWUFindMzByUID($uid);
+    if ($mz !== null) AddTurnEffect($mz, 'SENTINEL');   // Sentinel this phase (ready-made grant token)
+};
+
+// TS26_038 Dooku's Solar Sailer — When Played/On Attack: if a base was healed this phase, give an
+// Experience token to another Separatist unit.
+$whenPlayedAbilities["TS26_038:0"] = $onAttackAbilities["TS26_038:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    if (GlobalEffectCount(1, 'SWU_BASE_HEALED_PHASE') <= 0) return;
+    $self = GetZoneObject($mzID);
+    $selfUID = $self ? intval($self->UniqueID ?? -1) : -1;
+    $tg = [];
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -2) !== $selfUID
+                && _SWUUnitHasTrait($o, 'Separatist')) $tg[] = $mz;
+        }
+    }
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Give_an_Experience_to_another_Separatist_unit?", "Choose_a_Separatist_unit", "GIVE_EXPERIENCE|1");
+};
+
+// TS26_057 Mechanize — play the chosen non-Vehicle unit from discard (paying its cost) and give it an
+// Experience token.
+$customDQHandlers["TS26_057#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || strpos($lastDecision, 'myDiscard-') !== 0) return;
+    $idx = intval(substr($lastDecision, strlen('myDiscard-')));
+    $mz = SWUPlayDiscardUnitDiscounted(intval($player), $idx, 0);   // full cost
+    if ($mz !== '') DoGiveExperienceToken(intval($player), $mz);
+};
+
+// TS26_018 Jendirian Valley — Restore 1 (auto). When Played: search the top 8 cards of your deck for a
+// card and resource it (put it into play as a resource, exhausted); the rest go to the bottom.
+$whenPlayedAbilities["TS26_018:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    _topDeckSearchBegin(intval($player), 8, fn($c) => true, "count:1", "TS26_018#0");
+};
+$customDQHandlers["TS26_018#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $allIDs = array_values(array_filter(explode(',', $parts[0] ?? '')));
+    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
+    $chosen = $resolved['drawn'];
+    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
+    if (empty($chosen)) return;
+    $deck = &GetDeck(intval($player));
+    $topObj = new Deck($chosen[0], 'Deck', intval($player));
+    array_unshift($deck, $topObj);
+    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+    SWURampResourceExhausted(intval($player), 'myDeck-0');
+};
+
+// TS26_039 Captain Vaughn — Grit (auto). When Defeated: search the top 3 cards of your deck for a card
+// and draw it; then put a card from your hand on top of your deck. The rest go to the bottom.
+$whenDefeatedAbilities["TS26_039:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    _topDeckSearchBegin(intval($player), 3, fn($c) => true, "count:1", "TS26_039#0");
+};
+$customDQHandlers["TS26_039#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $allIDs = array_values(array_filter(explode(',', $parts[0] ?? '')));
+    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
+    foreach ($resolved['drawn'] as $cid) AddHand(intval($player), CardID: $cid);
+    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
+    $hand = ZoneSearch('myHand');
+    if (empty($hand)) return;
+    SWUQueueChooseTarget(intval($player), $hand, "Put_a_card_from_your_hand_on_top_of_your_deck", "TS26_039#1");
+};
+$customDQHandlers["TS26_039#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    $o = GetZoneObject($lastDecision);
+    if ($o === null || !empty($o->removed)) return;
+    $cid = $o->CardID ?? '';
+    $o->removed = true;
+    DecisionQueueController::CleanupRemovedCards();
+    $deck = &GetDeck(intval($player));
+    $topObj = new Deck($cid, 'Deck', intval($player));
+    array_unshift($deck, $topObj);
+    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+};
+
+// TS26_062 R2-D2 — Raid 2 (auto). When Played: you may deal 2 damage to a base. If you do, that base's
+// controller draws a card.
+$whenPlayedAbilities["TS26_062:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    SWUQueueMayChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_damage_to_a_base?", "Choose_a_base", "TS26_062#0");
+};
+$customDQHandlers["TS26_062#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS' || !str_contains($lastDecision, '-')) return;
+    $bp = ($lastDecision === 'myBase-0') ? intval($player) : OtherPlayer(intval($player));
+    SWUDealDamageToBase(2, $bp);
+    DoDrawCard($bp, 1);   // that base's controller draws
+};
+
+// TS26_067 Ruping Rider — Grit (auto). When Played: if your base has 15 or more damage on it, deal 2
+// damage to a base.
+$whenPlayedAbilities["TS26_067:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $b = GetBase(intval($player));
+    if (empty($b) || !isset($b[0]) || intval($b[0]->Damage ?? 0) < 15) return;
+    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_damage_to_a_base", "DEAL_BASE_DAMAGE|2");
+};
+
+// TS26_053 Coruscanti Spy — Raid 2 (auto). When Played: heal 2 damage from each of any number of bases.
+$whenPlayedAbilities["TS26_053:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|2|myBase-0&theirBase-0", 1,
+        tooltip: "Heal_2_from_each_of_any_number_of_bases");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_053#0", 1);
+};
+$customDQHandlers["TS26_053#0"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision === null || $lastDecision === '' || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    global $playerID; $playerID = intval($player);
+    foreach (explode('&', $lastDecision) as $b) {
+        if ($b === 'myBase-0') OnHealBase(intval($player), intval($player), 2);
+        elseif ($b === 'theirBase-0') OnHealBase(intval($player), OtherPlayer(intval($player)), 2);
+    }
+};
+
+// TS26_025 Fiery Alliance (upgrade) — When Played: you may deal 1 damage to another friendly unit and
+// attack with it. ($mzID = host; "another" = a friendly unit other than the host.)
+$whenPlayedAbilities["TS26_025:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $host = GetZoneObject($mzID);
+    $hostUID = $host ? intval($host->UniqueID ?? -1) : -1;
+    $tg = [];
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->Status) === 1
+                && intval($o->UniqueID ?? -2) !== $hostUID) $tg[] = $mz;
+        }
+    }
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_1_to_another_friendly_unit_and_attack_with_it?", "Choose_a_friendly_unit", "TS26_025#0");
+};
+$customDQHandlers["TS26_025#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;   // SWU_TRIGGER_RESUME owns the close
+    $o = GetZoneObject($lastDecision);
+    $uid = $o ? intval($o->UniqueID ?? -1) : -1;
+    SWUDealDamageToUnit($lastDecision, 1, intval($player));
+    $mz = ($uid >= 0) ? SWUFindMzByUID($uid) : null;
+    if ($mz === null) return;   // the unit died to the 1 damage → can't attack
+    BeginSWUAttack(intval($player), $mz);   // combat owns the after-action
+};
+
+// TS26_083 Take Aim — the chosen unit attacks with +2/+0 and Saboteur for this attack.
+$customDQHandlers["TS26_083#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    SWUAddAttackPowerBonus($lastDecision, 2);
+    AddTurnEffect($lastDecision, SWUMakeTurnEffect('SABOTEUR', [], SWU_DUR_ATTACK));
+    BeginSWUAttack(intval($player), $lastDecision);
+};
+
+// TS26_084 Fearless Attack — the chosen unit attacks with +1/+0 per unit the defending player controls
+// (2-player: the opponent's total units, counted at declaration).
+$customDQHandlers["TS26_084#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    $n = 0;
+    foreach (GetUnitsInPlay(OtherPlayer(intval($player))) as $u) { if (empty($u->removed)) $n++; }
+    if ($n > 0) SWUAddAttackPowerBonus($lastDecision, $n);
+    BeginSWUAttack(intval($player), $lastDecision);
+};
+
+// TS26_029 Ziton Moj — Ambush. On Attack: for each player, deal 1 damage to a unit that player controls.
+// (Queued via an intermediate CUSTOM so the mid-combat picks resolve under the caster — the OnAttack
+// closure-level MZCHOOSE-skip only affects a decision queued directly in the closure.)
+$onAttackAbilities["TS26_029:0"] = function($player, $mzID) {
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_029#0", 1);
+};
+$customDQHandlers["TS26_029#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+    if (!empty($friendly)) {
+        SWUQueueChooseTarget(intval($player), $friendly, "Deal_1_to_a_unit_you_control", "TS26_029#1");
+        return;
+    }
+    // no friendly unit → straight to the enemy pick
+    $enemy = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
+    if (!empty($enemy)) SWUQueueChooseTarget(intval($player), $enemy, "Deal_1_to_an_enemy_unit", "DEAL_UNIT_DAMAGE|1");
+};
+$customDQHandlers["TS26_029#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision && str_contains($lastDecision, '-')) SWUDealDamageToUnit($lastDecision, 1, intval($player));
+    $enemy = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
+    if (!empty($enemy)) SWUQueueChooseTarget(intval($player), $enemy, "Deal_1_to_an_enemy_unit", "DEAL_UNIT_DAMAGE|1");
+};
+
+// TS26_030 Maul (unit) — Sentinel. When Played: you may attack with another unit.
+$whenPlayedAbilities["TS26_030:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $self = GetZoneObject($mzID);
+    $selfUID = $self ? intval($self->UniqueID ?? -1) : -1;
+    $ready = [];
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->Status) === 1
+                && intval($o->UniqueID ?? -2) !== $selfUID) $ready[] = $mz;
+        }
+    }
+    if (empty($ready)) return;
+    SWUQueueMayChooseTarget(intval($player), $ready, "Attack_with_another_unit?", "Choose_a_unit_to_attack_with", "TS26_030#0");
+};
+$customDQHandlers["TS26_030#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    BeginSWUAttack(intval($player), $lastDecision);   // combat owns the after-action
+};
+
+// TS26_066 Wartime Pirate — On Attack: an opponent deals 1 damage to a unit. (Cross-player: queued from a
+// CUSTOM continuation so the opponent's pick resolves under the opponent's frame.)
+$onAttackAbilities["TS26_066:0"] = function($player, $mzID) {
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_066#0", 1);
+};
+$customDQHandlers["TS26_066#0"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $opp = OtherPlayer(intval($player));
+    $playerID = $opp;
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueChooseTarget($opp, $tg, "Deal_1_damage_to_a_unit", "DEAL_UNIT_DAMAGE|1");
+    // leave $playerID = $opp so the opponent-frame mzIDs validate
+};
+
+// TS26_028 Prime Minister Almec — Saboteur. When Played: give a friendly unit +2/+2 for this phase, then
+// exhaust each enemy unit in its arena with less power than it (measured after the buff).
+$whenPlayedAbilities["TS26_028:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $tg = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+    if (empty($tg)) return;
+    SWUQueueChooseTarget(intval($player), $tg, "Give_a_friendly_unit_+2/+2_this_phase", "TS26_028#0");
+};
+$customDQHandlers["TS26_028#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    SWUApplyPhaseBuff($lastDecision, 2, 2, 'TS26_028');
+    $buffed = GetZoneObject($lastDecision);
+    if ($buffed === null || !empty($buffed->removed)) return;
+    $power = intval(ObjectCurrentPower($buffed));
+    $arena = strpos($lastDecision, 'SpaceArena') !== false ? 'theirSpaceArena' : 'theirGroundArena';
+    foreach (ZoneSearch($arena, AnyUnitFilter) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed) && intval(ObjectCurrentPower($o)) < $power) OnExhaustCard(intval($player), $mz);
+    }
+};
+
+// TS26_034 Fives — Sentinel. When Played: you may have this unit enter play with the "When Played"
+// abilities of another unit in play (re-resolve the chosen unit's When Played, with Fives as the source).
+$whenPlayedAbilities["TS26_034:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $self = GetZoneObject($mzID);
+    $selfUID = $self ? intval($self->UniqueID ?? -1) : -1;
+    $tg = [];
+    foreach (_SWUAllUnits() as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o === null || !empty($o->removed)) continue;
+        if (intval($o->UniqueID ?? -2) === $selfUID) continue;         // another unit
+        if (!HasWhenPlayedAbility($o->CardID ?? '')) continue;          // must have a When Played to copy
+        $tg[] = $mz;
+    }
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Copy_another_unit's_When_Played?", "Choose_a_unit_to_copy", "TS26_034#0|" . $selfUID);
+};
+$customDQHandlers["TS26_034#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS' || !str_contains($lastDecision, '-')) return;
+    $chosen = GetZoneObject($lastDecision);
+    if ($chosen === null || !empty($chosen->removed)) return;
+    $chosenCID = $chosen->CardID ?? '';
+    $fivesMz = SWUFindMzByUID(intval($parts[0] ?? 0));
+    if ($fivesMz === null) return;
+    OnWhenPlayed(intval($player), $chosenCID, $fivesMz);   // resolve the copied When Played as Fives
+};
+
+// TS26_027 Fortune and Glory — When Played: this unit captures a non-leader unit. (Bounty payoff is in
+// the SWUCollectBounty switch.)
+$whenPlayedAbilities["TS26_027:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $self = GetZoneObject($mzID);
+    $captorUID = $self ? intval($self->UniqueID ?? -1) : -1;
+    $tg = [];
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -2) !== $captorUID) $tg[] = $mz;
+        }
+    }
+    if (empty($tg)) return;
+    SWUQueueChooseTarget(intval($player), $tg, "Capture_a_non-leader_unit", "TS26_027#0|" . $captorUID);
+};
+// Shared capture continuation: capture $lastDecision with the captor whose UID is in parts[0].
+$customDQHandlers["TS26_027#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    $captorMz = SWUFindMzByUID(intval($parts[0] ?? 0));
+    if ($captorMz === null) return;
+    DoCaptureUnit(intval($player), $captorMz, $lastDecision);
+};
+
+// TS26_027 bounty continuation — the collector chose a captor; now choose a non-leader unit to capture.
+$customDQHandlers["TS26_027B#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    $captor = GetZoneObject($lastDecision);
+    $captorUID = $captor ? intval($captor->UniqueID ?? -1) : -1;
+    $tg = [];
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -2) !== $captorUID) $tg[] = $mz;
+        }
+    }
+    if (empty($tg)) return;
+    SWUQueueChooseTarget(intval($player), $tg, "Capture_a_non-leader_unit", "TS26_027#0|" . $captorUID);
+};
+
+// TS26_061 Encircle — a friendly unit captures an enemy non-leader unit in the SAME arena.
+$customDQHandlers["TS26_061#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    $captorMz = $lastDecision;
+    $captor = GetZoneObject($captorMz);
+    $captorUID = $captor ? intval($captor->UniqueID ?? -1) : -1;
+    $arena = strpos($captorMz, 'SpaceArena') !== false ? 'theirSpaceArena' : 'theirGroundArena';
+    $tg = [];
+    foreach (ZoneSearch($arena, NonLeaderUnitFilter) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed)) $tg[] = $mz;
+    }
+    if (empty($tg)) return;
+    SWUQueueChooseTarget(intval($player), $tg, "Capture_an_enemy_non-leader_unit_(same_arena)", "TS26_027#0|" . $captorUID);
+};
+
+// TS26_037 Abandoned the Order (upgrade) — When Played: you may return a non-leader unit to its owner's
+// hand. (Non-pilot upgrade → $mzID = the host; the target set is board-wide.)
+$whenPlayedAbilities["TS26_037:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $tg = [];
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed)) $tg[] = $mz;
+        }
+    }
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Return_a_non-leader_unit_to_hand?", "Choose_a_non-leader_unit", "BOUNCE_UNIT");
+};
+
+// TS26_082 Evade Arrest — exhaust each chosen non-unique unit.
+$customDQHandlers["TS26_082#0"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision === null || $lastDecision === '' || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    global $playerID; $playerID = intval($player);
+    foreach (explode('&', $lastDecision) as $mz) {
+        if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
+        OnExhaustCard(intval($player), $mz);
+    }
+};
+
+// TS26_076 Wartime Profiteer — When Defeated: each opponent may ready a resource. (2-player, mirrors SEC_215.)
+$whenDefeatedAbilities["TS26_076:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $opp = OtherPlayer(intval($player));
+    $hasExh = false;
+    foreach (GetResources($opp) as $r) { if (empty($r->removed) && intval($r->Status ?? 0) === 0) { $hasExh = true; break; } }
+    if (!$hasExh) return;
+    DecisionQueueController::AddDecision($opp, "YESNO", "-", 1, tooltip: "Ready_a_resource?");
+    DecisionQueueController::AddDecision($opp, "CUSTOM", "TS26_076#0", 1);
+};
+$customDQHandlers["TS26_076#0"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision !== 'YES') return;
+    global $playerID; $playerID = intval($player);
+    $res = &GetResources(intval($player));
+    for ($i = 0; $i < count($res); $i++) {
+        if (empty($res[$i]->removed) && intval($res[$i]->Status ?? 0) === 0) { $res[$i]->Status = 1; break; }
+    }
+};
+
+// TS26_031 Chaotic Diversion — ready the chosen enemy + mark it CANT_ATTACK this phase, then shield a
+// friendly unit.
+$customDQHandlers["TS26_031#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision && str_contains($lastDecision, '-')) {
+        OnReadyCard(intval($player), $lastDecision);
+        AddTurnEffect($lastDecision, 'CANT_ATTACK');
+    }
+    $fr = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+    if (!empty($fr)) SWUQueueChooseTarget(intval($player), $fr, "Give_a_Shield_to_a_friendly_unit", "GIVE_SHIELD");
+};
+
+// TS26_046 Secret Marriage — shield each chosen non-Vehicle unit; if any was an enemy, draw a card.
+$customDQHandlers["TS26_046#0"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision === null || $lastDecision === '' || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    global $playerID; $playerID = intval($player);
+    $shieldedEnemy = false;
+    foreach (explode('&', $lastDecision) as $mz) {
+        if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
+        $o = GetZoneObject($mz);
+        if ($o === null || !empty($o->removed)) continue;
+        DoGiveShieldToken(intval($player), $mz);
+        if (intval($o->Controller ?? 0) !== intval($player)) $shieldedEnemy = true;
+    }
+    if ($shieldedEnemy) DoDrawCard(intval($player), 1);
+};
+
+// TS26_047 Take Cover — heal up to 3 from the chosen unit (OnHealUnit clamps at its damage) and shield it.
+$customDQHandlers["TS26_047#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    OnHealUnit(intval($player), $lastDecision, 3);
+    DoGiveShieldToken(intval($player), $lastDecision);
+};
+
+// TS26_058 Backed by the Pykes — give Exp to the chosen friendly, then MAY deal (# Exp on friendly
+// units) to a unit.
+$customDQHandlers["TS26_058#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision && str_contains($lastDecision, '-')) DoGiveExperienceToken(intval($player), $lastDecision);
+    $count = 0;
+    foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o === null || !empty($o->removed)) continue;
+        foreach (($o->Subcards ?? []) as $sc) {
+            $scid = is_array($sc) ? ($sc['CardID'] ?? '') : ($sc->CardID ?? '');
+            $srem = is_array($sc) ? !empty($sc['removed']) : !empty($sc->removed);
+            if (!$srem && $scid === 'SOR_T01') $count++;
+        }
+    }
+    if ($count <= 0) return;
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_{$count}_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|{$count}");
+};
+
+// TS26_060 Take Charge — give an Experience token to each chosen unit (up to 3).
+$customDQHandlers["TS26_060#0"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision === null || $lastDecision === '' || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    global $playerID; $playerID = intval($player);
+    foreach (explode('&', $lastDecision) as $mz) {
+        if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
+        DoGiveExperienceToken(intval($player), $mz);
+    }
+};
+
+// TS26_077 Deployed Droideka — Ambush (keyword). When Played: you may pay 2 resources; if you do, give an
+// Experience token and a Shield token to this unit.
+$whenPlayedAbilities["TS26_077:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    if (SWUResourceCount(intval($player), true) < 2) return;   // can't pay → no offer
+    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
+        tooltip: "Pay_2_resources_to_give_this_unit_an_Experience_and_a_Shield?");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_077#0|" . $mzID, 1);
+};
+$customDQHandlers["TS26_077#0"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision !== 'YES') return;
+    global $playerID; $playerID = intval($player);
+    SWUExhaustResources(intval($player), 2);
+    $mzID = $parts[0] ?? '';
+    if ($mzID && str_contains($mzID, '-')) {
+        DoGiveExperienceToken(intval($player), $mzID);
+        DoGiveShieldToken(intval($player), $mzID);
+    }
+};
+
+// TS26_023 Assault Lander LAAT — When Played: create 2 Clone Trooper tokens. (The regroup self-damage
+// is handled in RegroupPhaseStart.)
+$whenPlayedAbilities["TS26_023:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    SWUCreateUnitTokens(intval($player), 'TS26_T02', 2);
+};
+
+// TS26_049 Separatist Council — When Played / On Attack: choose one — create a Battle Droid token, OR
+// give 2 Experience tokens to a Battle Droid token.
+$whenPlayedAbilities["TS26_049:0"] = $onAttackAbilities["TS26_049:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "CreateDroid&GiveExp", 1,
+        tooltip: "Create_a_Battle_Droid_OR_give_2_Experience_to_a_Battle_Droid");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_049#0", 1);
+};
+$customDQHandlers["TS26_049#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision === 'GiveExp') {
+        $tg = [];
+        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+            foreach (ZoneSearch($z, ['Token Unit']) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o !== null && empty($o->removed) && CardTitle($o->CardID ?? '') === 'Battle Droid') $tg[] = $mz;
+            }
+        }
+        if (empty($tg)) return;   // no Battle Droid token → fizzle
+        SWUQueueChooseTarget(intval($player), $tg, "Give_2_Experience_to_a_Battle_Droid", "GIVE_EXPERIENCE|2");
+    } else {
+        SWUCreateUnitToken(intval($player), 'TS26_T01');   // default: create a Battle Droid token
+    }
+};
+
+// TS26_055 Jedi General — Ambush (keyword). When Played: for each Republic leader you control (as a
+// leader or unit), create a Clone Trooper token and give an Experience token to it.
+$whenPlayedAbilities["TS26_055:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $n = 0;
+    foreach (GetLeader(intval($player)) as $l) {
+        if ($l !== null && HasTrait($l->CardID ?? '', 'Republic')) $n++;
+    }
+    for ($i = 0; $i < $n; $i++) {
+        $uid = SWUCreateUnitToken(intval($player), 'TS26_T02');
+        $mz = SWUFindMzByUID($uid);
+        if ($mz !== null) DoGiveExperienceToken(intval($player), $mz);
+    }
+};
+
+// TS26_036 Tribunal — When Played: give each OTHER unit -2/-2 for this phase (self excluded by UID).
+$whenPlayedAbilities["TS26_036:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $self = GetZoneObject($mzID);
+    $selfUID = ($self !== null) ? intval($self->UniqueID ?? -1) : -1;
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, ['Unit', 'Token Unit', 'Leader Unit']) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -2) !== $selfUID) {
+                SWUApplyPhaseDebuff($mz, 2, 2, 'TS26_036');
+            }
+        }
+    }
+};
+
+// TS26_075 Jango Fett — On Attack: give an enemy unit -3/-0 for this phase. (MZMAYCHOOSE — the in-combat
+// safe choose; a mandatory OnAttack MZCHOOSE auto-skips.)
+$onAttackAbilities["TS26_075:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $enemy = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
+    if (empty($enemy)) return;
+    SWUQueueMayChooseTarget(intval($player), $enemy, "Give_an_enemy_unit_-3/-0?", "Choose_an_enemy_unit", "APPLY_PHASE_DEBUFF|3|0|TS26_075");
+};
+
+// TS26_019 Coleman Trebor — When Played: deal 1 to each enemy base, then heal 1 from your base per
+// damage dealt this way. (2-player: one enemy base → deal 1 → heal 1.)
+$whenPlayedAbilities["TS26_019:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    SWUDealDamageToBase(1, OtherPlayer(intval($player)));   // 2-player: one enemy base
+    OnHealBase(intval($player), intval($player), 1);        // heal 1 per damage dealt (1 in 2-player)
+};
+
+// TS26_041 Twilight — When Played: if 5+ cards in your discard pile, heal 3 from your base.
+$whenPlayedAbilities["TS26_041:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    if (count(GetDiscard(intval($player))) >= 5) OnHealBase(intval($player), intval($player), 3);
+};
+
+// TS26_042 Relief Frigate — When Played: choose a base; heal 3 from each OTHER base.
+$whenPlayedAbilities["TS26_042:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Choose_a_base_(heal_3_from_each_OTHER_base)", "TS26_042#0");
+};
+$customDQHandlers["TS26_042#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    foreach (['myBase-0', 'theirBase-0'] as $b) {
+        if ($b === $lastDecision) continue;                      // skip the chosen base
+        $bp = ($b === 'myBase-0') ? intval($player) : OtherPlayer(intval($player));
+        OnHealBase(intval($player), $bp, 3);
+    }
+};
+
+// TS26_043 Wartime Refugee — On Attack: an opponent heals 1 damage from their base.
+$onAttackAbilities["TS26_043:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    OnHealBase(intval($player), OtherPlayer(intval($player)), 1);
+};
+
+// TS26_081 Mislead — shield the first chosen unit, then debuff a chosen unit -3/-0 this phase.
+$customDQHandlers["TS26_081#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision && str_contains($lastDecision, '-')) DoGiveShieldToken(intval($player), $lastDecision);
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueChooseTarget(intval($player), $tg, "Give_a_unit_-3/-0_for_this_phase", "APPLY_PHASE_DEBUFF|3|0|TS26_081");
+};
+
+// TS26_033 Kouhun Assassination — the opponent's discard choice ($player = opponent). If they discarded,
+// the caster (parts[0]) gives a non-Vehicle unit -8/-8 for this phase.
+$customDQHandlers["TS26_033#0"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster = intval($parts[0] ?? 0);
+    if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
+    $playerID = intval($player);          // opponent frame — discard their chosen card
+    DoDiscardCard(intval($player), $lastDecision);
+    $playerID = $caster;                  // caster picks the -8/-8 target
+    $tg = [];
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, ['Unit', 'Token Unit', 'Leader Unit']) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && !HasTrait($o->CardID ?? '', 'Vehicle')) $tg[] = $mz;
+        }
+    }
+    if (empty($tg)) return;
+    SWUQueueChooseTarget($caster, $tg, "Give_a_non-Vehicle_unit_-8/-8", "APPLY_PHASE_DEBUFF|8|8|TS26_033");
+};
+
+// TS26_069 Remove the Chip — deal 2 to the chosen unit; if it survives and is a Clone, ready it.
+$customDQHandlers["TS26_069#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    SWUDealDamageToUnit($lastDecision, 2, intval($player));
+    $o = GetZoneObject($lastDecision);   // survives → index unchanged; defeated → skip ready
+    if ($o !== null && empty($o->removed) && _SWUUnitHasTrait($o, 'Clone')) OnReadyCard(intval($player), $lastDecision);
+};
+
+// TS26_070 Backed by Black Sun — deal 1 to the chosen enemy, then MAY deal (# damaged enemy units) to a unit.
+$customDQHandlers["TS26_070#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision && str_contains($lastDecision, '-')) SWUDealDamageToUnit($lastDecision, 1, intval($player));
+    $count = 0;
+    foreach (array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) $count++;
+    }
+    if ($count <= 0) return;
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_{$count}_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|{$count}");
+};
+
+// TS26_032 Reckless Landing — play the chosen hand unit at −4, then deal 4 to it. Runs inside the
+// event's resolution, so the event's FINISH_PLAY_CARD owns the after-action (neutralise the inner
+// ActivateCard's turn advance via save/restore — mirror SOR_219). The played unit is located by the
+// findable TS26_032 marker ($gPlayGrantTurnEffect).
+$customDQHandlers["TS26_032#0"] = function($player, $parts, $lastDecision) {
+    global $playerID, $gTurnPlayer, $gPlayGrantTurnEffect;
+    $playerID = intval($player);
+    $handMz = $lastDecision ?? '';
+    if ($handMz === '' || !str_contains($handMz, '-')) return;
+    $gPlayGrantTurnEffect = 'TS26_032';
+    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
+    ActivateCard(intval($player), $handMz, false, 4);
+    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    $gPlayGrantTurnEffect = null;
+    $newMz = null;
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && is_array($o->TurnEffects ?? null)
+                    && in_array('TS26_032', $o->TurnEffects, true)) { $newMz = $mz; break 2; }
+        }
+    }
+    if ($newMz !== null) SWUDealDamageToUnit($newMz, 4, intval($player));
+};
+
+// TS26_072 Fervor — ready the chosen unit, then deal 3 to a chosen unit.
+$customDQHandlers["TS26_072#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision && str_contains($lastDecision, '-')) OnReadyCard(intval($player), $lastDecision);
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueChooseTarget(intval($player), $tg, "Deal_3_damage_to_a_unit", "DEAL_UNIT_DAMAGE|3");
+};
+
 // ASH_228 Preparation (upgrade) — When Played: exhaust attached unit. Non-pilot upgrade → $mzID = host.
 $whenPlayedAbilities["ASH_228:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
@@ -14874,6 +15797,38 @@ $unitAbilities["TWI_194"] = function($player, $mzID) {
     SWUBounceUnit(intval($player), $mzID); // returns Ahsoka to her owner's hand
     SWUAfterAction(intval($player));
 };
+// TS26_015 C-3P0 — When Played: an opponent takes control of this unit (permanent — no reversion clause).
+// In 2P the single opponent takes control. SWUTakeControlOfUnit moves it into their arena while PRESERVING
+// Owner, so the "only opponents may use" gate (SWUUnitActionAffordable) still identifies the original owner.
+// NOTE (multiplayer design fork): C-3P0 is a Twin Suns multiplayer-politics card — "an opponent takes
+// control" (you'd choose WHICH opponent) and "only opponents may use" (any opponent, not you) both assume
+// 3-4 players. This branch has no N-player helpers, so this is the 2P degenerate reading (the one opponent
+// gains control and is the only one who can activate the ping). Flagged for the user, not blocking.
+$whenPlayedAbilities["TS26_015:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    SWUTakeControlOfUnit(OtherPlayer(intval($player)), $mzID);
+};
+// TS26_015 C-3P0 — Action [Exhaust]: deal damage equal to this unit's power to another ground unit. The
+// Exhaust cost is paid by SWUUnitAction (default 'exhaust' cost kind); the "only opponents may use"
+// restriction is the owner-gate in SWUUnitActionAffordable. "Another" excludes C-3P0 itself; either side.
+$unitAbilities["TS26_015"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $self = GetZoneObject($mzID);
+    if ($self === null || !empty($self->removed)) { SWUAfterAction(intval($player)); return; }
+    $selfUID = intval($self->UniqueID ?? -1);
+    $pow = intval(ObjectCurrentPower($self));
+    $targets = [];
+    foreach (['myGroundArena', 'theirGroundArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $m) {
+            $o = GetZoneObject($m);
+            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -1) !== $selfUID) $targets[] = $m;
+        }
+    }
+    if (empty($targets) || $pow <= 0) { SWUAfterAction(intval($player)); return; }
+    SWUQueueChooseTarget(intval($player), $targets, "Deal_{$pow}_damage_to_another_ground_unit", "DEAL_UNIT_DAMAGE|{$pow}");
+    SWUQueueAfterAction(intval($player));
+};
+
 // LAW_084 Krrsantan — "Action [discard 2 cards from your hand]: Return this unit to your hand." No
 // exhaust; the discard is a custom cost paid in the handler (availability needs 2+ hand cards).
 $unitActionCostKind["LAW_084"] = 'none';
@@ -16900,6 +17855,23 @@ $customDQHandlers["SHD145_ATTACK"] = function($player, $parts, $lastDecision) {
     BeginSWUAttack(intval($player), $lastDecision, true);   // noBases = true
 };
 
+// TS26_059 Brothers — a chosen unique unit attacks with all combat damage to it prevented (TS26_059
+// attack-duration marker). Decrement the loop count + record the attacker so it isn't re-offered.
+$customDQHandlers["TS26059_ATTACK"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') { SetSWUVar('SWU_TS26059_LOOP', ''); return; }
+    $obj = GetZoneObject($lastDecision);
+    if ($obj === null || !empty($obj->removed)) { SetSWUVar('SWU_TS26059_LOOP', ''); return; }
+    $uid = intval($obj->UniqueID ?? 0);
+    $lp = explode(',', GetSWUVar('SWU_TS26059_LOOP', ''));
+    $remaining = max(0, intval($lp[0] ?? 0) - 1);
+    $excl = array_values(array_filter(array_slice($lp, 1), fn($x) => $x !== ''));
+    $excl[] = strval($uid);
+    SetSWUVar('SWU_TS26059_LOOP', implode(',', array_merge([strval($remaining)], $excl)));   // comma-CSV, NOT pipe
+    AddTurnEffect($lastDecision, SWUMakeTurnEffect('TS26_059', [], SWU_DUR_ATTACK)); // prevent all combat damage to it
+    BeginSWUAttack(intval($player), $lastDecision);   // bases allowed
+};
+
 $customDQHandlers["MONMOTHMA_ATTACK"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') {
@@ -17689,6 +18661,62 @@ $customDQHandlers["SEC_017#2"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::CleanupRemovedCards();
     AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$opp}'s hand");
     DoDrawCard($opp, 1);   // "If you do, that player draws a card."
+};
+
+// TS26_026 Mother Talzin — When Defeated: look at an opponent's hand and discard a card from it; if you
+// do, they draw a card. If the discarded card is a unit, for this phase you may play it from their discard
+// pile ignoring aspect penalties (the OTPN modifier, cleared at RegroupPhaseStart). The look-hand + discard
+// + opponent-draws half mirrors SEC_017#2; the unit-replay half mirrors SEC_205's OTPN stamp.
+$whenDefeatedAbilities["TS26_026:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $cards = SWULookAtOpponentHand(intval($player));   // logs the private reveal + returns theirHand-N
+    if (empty($cards)) return;
+    SWUQueueMayChooseTarget(intval($player), $cards, "Discard_a_card_from_the_opponent's_hand?", "Choose_a_card", "TS26_026#0");
+};
+$customDQHandlers["TS26_026#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $mz = $lastDecision ?? '';
+    if ($mz === '' || $mz === '-' || $mz === 'PASS') return;   // declined → no discard, no draw
+    $obj = GetZoneObject($mz);
+    if ($obj === null || !empty($obj->removed)) return;
+    $opp    = OtherPlayer(intval($player));
+    $cardID = $obj->CardID;
+    $obj->Remove();
+    SWUAddToDiscard($opp, $cardID, 'HAND');
+    DecisionQueueController::CleanupRemovedCards();
+    AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$opp}'s hand");
+    DoDrawCard($opp, 1);   // "If you do, they draw a card."
+    // "If the discarded card is a unit, for this phase you may play it from their discard, ignoring aspect penalties."
+    if (CardType($cardID) === 'Unit') {
+        $discard = &GetDiscard($opp);
+        for ($i = count($discard) - 1; $i >= 0; $i--) {
+            if (!empty($discard[$i]->removed)) continue;
+            if (($discard[$i]->CardID ?? '') === $cardID) { $discard[$i]->Modifier = 'OTPN'; break; }
+        }
+    }
+};
+
+// TS26_080 Reveal Intentions — the deciding player ($player) discards the chosen card from their right
+// neighbor's (opponent's) hand. The chosen mzID is "theirHand-N" relative to the decider's frame, so set
+// $playerID = decider before resolving it. Used by BOTH discards (caster's and opponent's).
+$customDQHandlers["TS26_080#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $mz = $lastDecision ?? '';
+    if ($mz === '' || $mz === '-' || $mz === 'PASS') return;
+    $obj = GetZoneObject($mz);
+    if ($obj === null || !empty($obj->removed)) return;
+    $opp    = OtherPlayer(intval($player));   // hand owner = the decider's right neighbor
+    $cardID = $obj->CardID;
+    $obj->Remove();
+    SWUAddToDiscard($opp, $cardID, 'HAND');
+    DecisionQueueController::CleanupRemovedCards();
+    AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$opp}'s hand");
+};
+// "Then, each player draws a card." — resolves after both discards.
+$customDQHandlers["TS26_080#1"] = function($player, $parts, $lastDecision) {
+    $P = intval($parts[0] ?? 0); $O = intval($parts[1] ?? 0);
+    if ($P > 0) DoDrawCard($P, 1);
+    if ($O > 0) DoDrawCard($O, 1);
 };
 
 // SEC_017 Sabé (leader FRONT) — may exhaust → look at the top 2 of the defending player's deck, discard
@@ -20851,9 +21879,10 @@ $customDQHandlers["CHAINED_ATTACK"] = function($player, $parts, $lastDecision) {
     if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
     global $playerID;
     $playerID = intval($player);
-    $bonus = intval($parts[0] ?? 0);
+    $bonus   = intval($parts[0] ?? 0);
+    $noBases = intval($parts[1] ?? 0) === 1;   // TS26_004 Padmé — "can't attack bases for this attack"
     if ($bonus > 0) SWUAddAttackPowerBonus($lastDecision, $bonus);
-    BeginSWUAttack(intval($player), $lastDecision);
+    BeginSWUAttack(intval($player), $lastDecision, $noBases);
 };
 
 // SOR_009 Leia Organa — leader-action follow-up (first attacker chosen): arm the chained "you may
