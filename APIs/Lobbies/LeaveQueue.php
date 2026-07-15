@@ -24,15 +24,18 @@ $response->message = "Failed to leave queue.";
 $cacheInfo = apcu_cache_info();
 $lobbyFound = false;
 
-if (isset($cacheInfo['cache_list'])) {
+if (is_array($cacheInfo) && isset($cacheInfo['cache_list']) && is_array($cacheInfo['cache_list'])) {
   foreach ($cacheInfo['cache_list'] as $entry) {
+    if (!isset($entry['info']) || !is_string($entry['info']) || $entry['info'] === '') continue;
+
     // Fetch the actual lobby data using the cache key
     $lobby = apcu_fetch($entry['info']);
-    
-    if ($lobby && $lobby->id == $lobbyID && isset($lobby->players)) {
+    if ($lobby === false || !is_object($lobby)) continue;
+
+    if (isset($lobby->id, $lobby->players, $lobby->numPlayers) && $lobby->id == $lobbyID && is_array($lobby->players)) {
       // Check if the player exists in the lobby
       foreach ($lobby->players as $index => $player) {
-        if ($player->getPlayerID() === $playerID) {
+        if (($player instanceof Player) && $player->getPlayerID() === $playerID) {
           // Remove the player from the lobby
           array_splice($lobby->players, $index, 1);
           $lobby->numPlayers--;
