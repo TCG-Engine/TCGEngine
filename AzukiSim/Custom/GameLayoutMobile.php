@@ -768,7 +768,7 @@
             grid-auto-rows: minmax(48px, 1fr);
             align-content: center;
             gap: 4px;
-            padding: 18px 5px 5px;
+            padding: 5px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.075);
             border-radius: 3px;
@@ -776,19 +776,13 @@
         }
 
         .azuki-m-band::before {
-            position: absolute;
-            top: 7px;
-            left: 7px;
-            right: 7px;
-            color: rgba(255, 255, 255, 0.74);
-            font: 800 7px/1 var(--azuki-font-label);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            display: none;
         }
 
         .azuki-m-band.is-theirs {
             grid-column: 1;
             grid-row: 1 / span 2;
+            overflow: visible;
         }
 
         .azuki-m-band.is-theirs::before {
@@ -870,6 +864,36 @@
         .azuki-m-band .azuki-m-pile.is-discard {
             grid-column: 2;
             grid-row: 2;
+        }
+
+        .azuki-m-band.is-theirs .azuki-m-pile,
+        .azuki-m-band.is-mine .azuki-m-pile {
+            position: fixed;
+            z-index: 60;
+            width: 44px;
+            min-width: 44px;
+            max-width: 44px;
+            height: 48px;
+            min-height: 48px;
+        }
+
+        .azuki-m-band.is-theirs .azuki-m-pile {
+            top: max(66px, calc(env(safe-area-inset-top) + 60px));
+        }
+
+        .azuki-m-band.is-mine .azuki-m-pile {
+            top: auto;
+            bottom: max(66px, calc(env(safe-area-inset-bottom) + 60px));
+        }
+
+        .azuki-m-band.is-theirs .azuki-m-pile.is-discard,
+        .azuki-m-band.is-mine .azuki-m-pile.is-discard {
+            right: max(8px, env(safe-area-inset-right));
+        }
+
+        .azuki-m-band.is-theirs .azuki-m-pile.is-deck,
+        .azuki-m-band.is-mine .azuki-m-pile.is-deck {
+            right: calc(max(8px, env(safe-area-inset-right)) + 48px);
         }
 
         .azuki-m-band .azuki-m-token {
@@ -1126,19 +1150,31 @@
         }
 
         #chatWidget {
-            top: auto !important;
-            left: auto !important;
-            right: max(8px, env(safe-area-inset-right)) !important;
-            bottom: calc(var(--azuki-l-hand-card) + 8px) !important;
+            top: max(8px, env(safe-area-inset-top)) !important;
+            left: max(8px, env(safe-area-inset-left)) !important;
+            right: auto !important;
+            bottom: auto !important;
             max-width: 220px !important;
         }
 
         #chatExpanded[style*="display: flex"] + #chatToggleBtn {
             position: absolute !important;
             top: 0 !important;
-            right: 0 !important;
+            left: 0 !important;
+            right: auto !important;
             margin: 0 !important;
             z-index: 1;
+            font-size: 0 !important;
+        }
+
+        #chatExpanded[style*="display: flex"] + #chatToggleBtn::before {
+            content: "\00d7  Close";
+            font-size: 13px;
+        }
+
+        #chatWidget:has(#chatExpanded[style*="display: flex"]) #chatLog {
+            box-sizing: border-box;
+            padding-top: 34px !important;
         }
 
         /*
