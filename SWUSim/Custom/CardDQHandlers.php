@@ -15192,6 +15192,19 @@ $customDQHandlers["SPLIT_DAMAGE"] = function($player, $parts, $lastDecision) {
     SWUDealSplitDamage(intval($player), (string)$lastDecision);
 };
 
+// Goldfish ⚗ Practice menu — resolve the "defeat/bounce one of your units" MZCHOOSE. $lastDecision
+// is the chosen my-unit mzID. Goldfish-gated (belt-and-suspenders with the CustomInput case).
+$customDQHandlers["GfDefeat"] = function($player, $parts, $lastDecision) {
+    if (!function_exists('SWUGameMode') || SWUGameMode() !== 'goldfish') return;
+    if ($lastDecision === null || $lastDecision === '' || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    SWUDefeatUnit(1, (string)$lastDecision);
+};
+$customDQHandlers["GfBounce"] = function($player, $parts, $lastDecision) {
+    if (!function_exists('SWUGameMode') || SWUGameMode() !== 'goldfish') return;
+    if ($lastDecision === null || $lastDecision === '' || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    SWUBounceUnit(1, (string)$lastDecision);
+};
+
 // SOR_092 Overwhelming Barrage — the chosen friendly dealer ($lastDecision) gets +2/+2 for this
 // phase, then deals damage equal to its BUFFED power split among any number of OTHER units.
 $customDQHandlers["SOR_092#0"] = function($player, $parts, $lastDecision) {

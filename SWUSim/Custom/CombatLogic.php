@@ -226,7 +226,10 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null) {
             if (empty($GLOBALS['gInCombatDamage'])) _SWUCollectBobaNonCombatReaction(intval($damager));
         }
         $baseHP = intval(CardHp($base[$i]->CardID));
-        if ($base[$i]->Damage >= $baseHP) {
+        // Goldfish practice: P2's Echo Base is an infinite damage sponge — never trigger the loss,
+        // so the damage counter just keeps climbing past its HP. (P1's own base win-con is untouched.)
+        $spongeExempt = ($targetPlayer === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish');
+        if (!$spongeExempt && $base[$i]->Damage >= $baseHP) {
             $winner = $targetPlayer === 1 ? 2 : 1;
             SWUDeclareGameWinner($winner, "GAMEOVER:Player {$targetPlayer}'s base has been defeated! Player {$winner} wins!");
         }

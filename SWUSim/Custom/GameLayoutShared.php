@@ -660,6 +660,36 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         window.location.href = url.toString();
     };
 
+    // ── Goldfish ⚗ Practice menu — god-mode helpers acting on YOUR (P1) board. Goldfish only;
+    // the server re-checks the mode, so these are inert (and the UI absent) in real games. ──
+    window.SWUIsGoldfish = <?php echo (function_exists('SWUGameMode') && SWUGameMode() === 'goldfish') ? 'true' : 'false'; ?>;
+    (function () {
+        if (!window.SWUIsGoldfish) return;
+        function send(action) {
+            SubmitInput('10001', '&cardID=' + encodeURIComponent('GfPractice-0!CustomInput!' + action));
+        }
+        function posInt(id) {
+            var el = document.getElementById(id);
+            var n = el ? parseInt(el.value, 10) : 0;
+            return (isFinite(n) && n > 0) ? n : 0;
+        }
+        window.swuGfToggle = function () {
+            var p = document.getElementById('swuGfPanel');
+            if (p) p.classList.toggle('is-open');
+        };
+        window.swuGfBaseDamage = function () { var n = posInt('swuGfBaseDmgInput'); if (n > 0) send('BaseDamage:' + n); };
+        window.swuGfDamageUnits = function () { var n = posInt('swuGfUnitDmgInput'); if (n > 0) send('DamageUnits:' + n); };
+        window.swuGfDefeatUnit = function () { send('DefeatUnit'); };
+        window.swuGfBounceUnit = function () { send('BounceUnit'); };
+        // Close the panel on an outside click.
+        document.addEventListener('click', function (e) {
+            var panel = document.getElementById('swuGfPanel'), btn = document.getElementById('swuGfBtn');
+            if (!panel || !panel.classList.contains('is-open')) return;
+            if (panel.contains(e.target) || (btn && btn.contains(e.target))) return;
+            panel.classList.remove('is-open');
+        });
+    })();
+
     // ── Resource counters ─────────────────────────────────────────────────────
     // Resources collapse to one DOM element (CollapseGroupBy CardID), so DOM counting
     // is unreliable. Parse the raw data string set by NextTurnRender instead.

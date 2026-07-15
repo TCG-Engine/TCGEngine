@@ -504,6 +504,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        overflow-y forces overflow-x to auto, which would crop the wide card). */
     #myLeaderWrapper, #theirLeaderWrapper,
     #myBaseWrapper,   #theirBaseWrapper { overflow: visible !important; }
+    /* Deck/Discard piles: the face-down card renders ~2px wider than the 88px pile, which trips
+       the wrapper's default overflow-x:auto into a thin scrollbar. Let it overhang harmlessly
+       (imperceptible) instead of scrolling — same treatment as the leader/base wrappers above. */
+    #myDeckWrapper,    #theirDeckWrapper,
+    #myDiscardWrapper, #theirDiscardWrapper { overflow: visible !important; }
 
     /* Pile rows — right end of the hand strip */
     .swu-pile-row {
@@ -844,9 +849,12 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         display: flex; flex-direction: column;
         overflow: hidden;
     }
-    /* Keep the input+send row from being squeezed by the log */
+    /* Keep the input+send row from being squeezed by the log, and keep it inside the
+       sidebar width so the Send button isn't clipped by #swuChatMount's overflow:hidden. */
     #chatExpanded > div:last-child {
         flex: 0 0 auto !important;
+        box-sizing: border-box !important;
+        width: 100% !important; max-width: 100% !important; min-width: 0 !important;
     }
     .swu-log-entry {
         font: 11px/1.55 var(--swu-font-ui);
@@ -929,6 +937,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         color: rgba(255,255,255,0.88) !important; font: 13px var(--swu-font-ui) !important;
         padding: 8px 10px !important; height: auto !important;
         border-radius: 0 !important; outline: none !important;
+        /* Let the input shrink (default min-width:auto would otherwise push Send out of frame). */
+        box-sizing: border-box !important; min-width: 0 !important; width: auto !important;
     }
     #chatWidget input#chatText:focus {
         background: rgba(255,255,255,0.08) !important;
@@ -943,6 +953,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         padding: 8px 14px !important; height: auto !important;
         cursor: pointer !important; box-shadow: none !important;
         transition: background 120ms !important;
+        /* Reset the inline width:50px; size to "Send" + padding and never grow/shrink or clip. */
+        box-sizing: border-box !important; width: auto !important;
+        flex: 0 0 auto !important; white-space: nowrap !important;
     }
     #chatWidget button:not(#chatToggleBtn):hover {
         background: rgba(200,151,30,0.28) !important; }
@@ -1018,6 +1031,54 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     <div class="swu-init-pass-hint" title="Press W to switch player"><kbd>W</kbd></div>
     <?php endif; ?>
 </div>
+
+<?php if (function_exists('SWUGameMode') && SWUGameMode() === 'goldfish'): ?>
+<!-- Goldfish ⚗ Practice menu — floating bottom-right popover of god-mode practice actions on YOUR
+     (P1) board. Goldfish-only; CustomInput.php re-checks the mode, so the UI gate isn't relied on. -->
+<div id="swuGfMenu">
+    <div id="swuGfPanel">
+        <div class="swu-gf-row">
+            <span class="swu-gf-label">Base damage</span>
+            <input id="swuGfBaseDmgInput" class="swu-gf-num" type="number" min="1" value="5">
+            <button class="swu-gf-go" onclick="event.stopPropagation(); window.swuGfBaseDamage();">Apply</button>
+        </div>
+        <div class="swu-gf-row">
+            <span class="swu-gf-label">Damage units</span>
+            <input id="swuGfUnitDmgInput" class="swu-gf-num" type="number" min="1" value="3">
+            <button class="swu-gf-go" onclick="event.stopPropagation(); window.swuGfDamageUnits();">Assign</button>
+        </div>
+        <div class="swu-gf-row">
+            <span class="swu-gf-label">Defeat unit</span>
+            <button class="swu-gf-go" onclick="event.stopPropagation(); window.swuGfDefeatUnit();">Choose</button>
+        </div>
+        <div class="swu-gf-row">
+            <span class="swu-gf-label">Bounce unit</span>
+            <button class="swu-gf-go" onclick="event.stopPropagation(); window.swuGfBounceUnit();">Choose</button>
+        </div>
+    </div>
+    <button id="swuGfBtn" title="Goldfish practice tools" onclick="event.stopPropagation(); window.swuGfToggle();">⚗ Practice</button>
+</div>
+<style>
+    #swuGfMenu { position: fixed; right: calc(var(--swu-sidebar-w, 0px) + 12px); bottom: 12px; z-index: 60;
+                 display: flex; flex-direction: column; align-items: flex-end; gap: 6px; pointer-events: none; }
+    #swuGfMenu > * { pointer-events: auto; }
+    #swuGfBtn { background: rgba(60,120,60,0.85); color: #d7f7d7; border: 1px solid rgba(120,200,120,0.6);
+                border-radius: 8px; padding: 6px 12px; font: 600 12px var(--swu-font-label); cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    #swuGfBtn:hover { background: rgba(75,140,75,0.95); }
+    #swuGfPanel { display: none; flex-direction: column; gap: 6px; background: rgba(18,22,20,0.97);
+                  border: 1px solid rgba(120,200,120,0.4); border-radius: 10px; padding: 10px;
+                  box-shadow: 0 6px 20px rgba(0,0,0,0.5); min-width: 210px; }
+    #swuGfPanel.is-open { display: flex; }
+    .swu-gf-row { display: flex; align-items: center; gap: 6px; }
+    .swu-gf-label { flex: 1 1 auto; color: rgba(255,255,255,0.85); font: 12px var(--swu-font-ui); white-space: nowrap; }
+    .swu-gf-num { width: 48px; box-sizing: border-box; background: rgba(255,255,255,0.08); color: #fff;
+                  border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 3px 5px; font: 12px var(--swu-font-ui); }
+    .swu-gf-go { background: rgba(200,151,30,0.2); color: rgba(200,151,30,0.95); border: 1px solid rgba(200,151,30,0.4);
+                 border-radius: 5px; padding: 4px 10px; font: 600 11px var(--swu-font-label); cursor: pointer; white-space: nowrap; }
+    .swu-gf-go:hover { background: rgba(200,151,30,0.35); }
+</style>
+<?php endif; ?>
 <!--
 <div class="swu-kb-hints" style="top:calc(var(--swu-midline) + 6px);">
     <span><kbd>U</kbd> Undo</span>

@@ -20,7 +20,11 @@ function SWUCosmeticCatalog() {
             //new backgrounds above this line
         ],
         'cardback' => [
-            'classic' => ['label'=>'Classic', 'asset'=>'./SWUSim/concat/CardBack.webp', 'isDefault'=>true],
+            // The default lives under Assets/CardBacks (always deployed) — NOT ./SWUSim/concat,
+            // which is a gitignored/generated folder and 404s on servers where concat isn't
+            // regenerated (that was the broken default-cardback bug). default.webp is a copy of
+            // the engine's face-down back.
+            'classic' => ['label'=>'Classic', 'asset'=>'./Assets/CardBacks/SWUSim/default.webp', 'isDefault'=>true],
             'against-the-galaxy'             => ['label'=>'Against The Galaxy', 'asset'=>'./Assets/CardBacks/SWUSim/against-the-galaxy.webp', 'isDefault'=>false],
             'aixopluc-squadron'              => ['label'=>'Aixopluc Squadron', 'asset'=>'./Assets/CardBacks/SWUSim/aixopluc-squadron.webp', 'isDefault'=>false],
             'babu-freaks'                    => ['label'=>'Babu Freaks', 'asset'=>'./Assets/CardBacks/SWUSim/babu-freaks.webp', 'isDefault'=>false],
