@@ -11992,6 +11992,85 @@ $customDQHandlers["ASH_258#0"] = function($player, $parts, $lastDecision) {
     SWUDealDamageToUnit($lastDecision, 3, intval($player));
 };
 
+// TS26_016 King Katuunko — When Played: all units (including enemy) gain Restore 1 for this phase.
+$whenPlayedAbilities["TS26_016:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    foreach (_SWUAllUnits() as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed)) AddTurnEffect($mz, SWUMakeTurnEffect('RESTORE', [1], SWU_DUR_PHASE));
+    }
+};
+
+// TS26_043 Wartime Refugee — On Attack: an opponent heals 1 damage from their base.
+$onAttackAbilities["TS26_043:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    OnHealBase(intval($player), OtherPlayer(intval($player)), 1);
+};
+
+// TS26_069 Remove the Chip — deal 2 to the chosen unit; if it survives and is a Clone, ready it.
+$customDQHandlers["TS26_069#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    SWUDealDamageToUnit($lastDecision, 2, intval($player));
+    $o = GetZoneObject($lastDecision);   // survives → index unchanged; defeated → skip ready
+    if ($o !== null && empty($o->removed) && _SWUUnitHasTrait($o, 'Clone')) OnReadyCard(intval($player), $lastDecision);
+};
+
+// TS26_070 Backed by Black Sun — deal 1 to the chosen enemy, then MAY deal (# damaged enemy units) to a unit.
+$customDQHandlers["TS26_070#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision && str_contains($lastDecision, '-')) SWUDealDamageToUnit($lastDecision, 1, intval($player));
+    $count = 0;
+    foreach (array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) $count++;
+    }
+    if ($count <= 0) return;
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_{$count}_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|{$count}");
+};
+
+// TS26_032 Reckless Landing — play the chosen hand unit at −4, then deal 4 to it. Runs inside the
+// event's resolution, so the event's FINISH_PLAY_CARD owns the after-action (neutralise the inner
+// ActivateCard's turn advance via save/restore — mirror SOR_219). The played unit is located by the
+// findable TS26_032 marker ($gPlayGrantTurnEffect).
+$customDQHandlers["TS26_032#0"] = function($player, $parts, $lastDecision) {
+    global $playerID, $gTurnPlayer, $gPlayGrantTurnEffect;
+    $playerID = intval($player);
+    $handMz = $lastDecision ?? '';
+    if ($handMz === '' || !str_contains($handMz, '-')) return;
+    $gPlayGrantTurnEffect = 'TS26_032';
+    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
+    ActivateCard(intval($player), $handMz, false, 4);
+    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    $gPlayGrantTurnEffect = null;
+    $newMz = null;
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && is_array($o->TurnEffects ?? null)
+                    && in_array('TS26_032', $o->TurnEffects, true)) { $newMz = $mz; break 2; }
+        }
+    }
+    if ($newMz !== null) SWUDealDamageToUnit($newMz, 4, intval($player));
+};
+
+// TS26_072 Fervor — ready the chosen unit, then deal 3 to a chosen unit.
+$customDQHandlers["TS26_072#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if ($lastDecision && str_contains($lastDecision, '-')) OnReadyCard(intval($player), $lastDecision);
+    $tg = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($tg)) return;
+    SWUQueueChooseTarget(intval($player), $tg, "Deal_3_damage_to_a_unit", "DEAL_UNIT_DAMAGE|3");
+};
+
 // ASH_228 Preparation (upgrade) — When Played: exhaust attached unit. Non-pilot upgrade → $mzID = host.
 $whenPlayedAbilities["ASH_228:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);

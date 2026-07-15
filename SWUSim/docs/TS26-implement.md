@@ -10,14 +10,14 @@ are already implemented. Leader "Epic Action: if you control N resources, deploy
 cost). TS26_034 Fives reuses the ASH_230 transplant-abilities code.
 
 ### Already Done
-TS26_017, TS26_021, TS26_044, TS26_045, TS26_065, TS26_074, TS26_T01, TS26_T02, TS26_T03, TS26_T04
+TS26_017, TS26_021, TS26_044, TS26_045, TS26_065, TS26_074, TS26_T01, TS26_T02, TS26_T03, TS26_T04, TS26_069, TS26_070, TS26_072, TS26_032, TS26_064, TS26_071
 
 ## Phase 1 — Direct unit/base damage (autonomous)
-- [ ] **Batch 1.1 — TS26_069, TS26_070, TS26_072**
+- [x] **Batch 1.1 — TS26_069, TS26_070, TS26_072** — done, 3100/0 (+5 tests). Events via OnPlayEvent + `TS26_069#0`/`070#0`/`072#0` continuations; reused `_SWUUnitHasTrait('Clone')`, `DEAL_UNIT_DAMAGE`, `OnReadyCard`. No new infra.
   - TS26_069 Remove the Chip: deal 2 to a unit; if it's a Clone, ready it
   - TS26_070 Backed by Black Sun: deal 1 to an enemy unit, then may deal damage = # damaged enemy units to a unit
   - TS26_072 Fervor: ready a unit, then deal 3 to a unit
-- [ ] **Batch 1.2 — TS26_032, TS26_064, TS26_071**
+- [x] **Batch 1.2 — TS26_032, TS26_064, TS26_071** — done, 3104/0 (+4 tests). TS26_032 nested play-from-hand −4 + findable-marker deal-4 (SHD_013/SOR_219 pattern, new MARKER registry row); TS26_064 base-damage+draw; TS26_071 `$playCostModifiers` −1/friendly leader unit + deal 3.
   - TS26_032 Reckless Landing: play a unit from hand (-4), then deal 4 to it
   - TS26_064 Urgent Mission: deal 2 to your own base, draw 2
   - TS26_071 Take Action: costs -1 per friendly leader unit; deal 3 to a unit

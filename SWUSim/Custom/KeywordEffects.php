@@ -1024,6 +1024,9 @@ function GetConditionalKeyword_Restore_Value($obj) {
             case 'SEC_047': // Defiant — each other friendly unit gains Restore 1
                 $amount += 1;
                 break;
+            case 'TS26_040': // Obi-Wan Kenobi — other friendly Republic units gain Restore 1
+                if (_SWUUnitHasTrait($obj, 'Republic')) $amount += 1;
+                break;
         }
     }
     foreach (GetUpgradesOnUnit($obj) as $u) {

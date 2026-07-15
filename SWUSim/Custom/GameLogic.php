@@ -867,6 +867,7 @@ $turnEffectRegistry = [
     'SHD_129' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Timely Intervention — the played unit gains Ambush this phase
     'SHD_215' => ['kind' => 'STAT_DEBUFF'],                                                                                   // Smuggler's Starfighter — enemy unit gets -3/-0 this phase
     'SEC_018' => ['kind' => 'MARKER',          'label' => 'DJ'],                                                               // DJ — transient findable marker on the unit just played by the leader action (captured immediately)
+    'TS26_032' => ['kind' => 'MARKER',         'label' => 'Reckless Landing'],                                                 // Reckless Landing — findable marker on the unit just played by the event (dealt 4 damage)
     'SOR_138' => ['kind' => 'LOSE_ABILITIES',                        'label' => 'Loses all abilities'],                       // Force Lightning — chosen unit loses all abilities this phase
     'SOR_140' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // SpecForce Soldier — a unit loses Sentinel this phase
     'LOF_096' => ['kind' => 'GRANT_KEYWORD',       'value' => 'SENTINEL', 'label' => 'Sentinel'],                            // Obi-Wan Kenobi — gains Sentinel this phase when you play a Force unit
@@ -2120,6 +2121,13 @@ $playCostModifiers["TWI_098"] = function($player, $subjectObj) {
     foreach (GetUnitsInPlay(OtherPlayer(intval($player))) as $u) {
         if (empty($u->removed)) $n++;
     }
+    return -$n;
+};
+
+// TS26_071 Take Action: "This event costs 1 resource less to play for each friendly leader unit."
+$playCostModifiers["TS26_071"] = function($player, $subjectObj) {
+    $n = 0;
+    foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
     return -$n;
 };
 

@@ -8,6 +8,74 @@ function OnPlayEvent(int $player, string $cardID): void {
     AddGlobalEffects($player, 'SWU_PLAYED_EVENT'); // TWI_014 Asajj "if you played an event this phase" (cleared at RGS)
     switch ($cardID) {
 
+        // ── TS26 Events ────────────────────────────────────────────────────────
+        case 'TS26_069': { // Remove the Chip — "Deal 2 damage to a unit. If it's a Clone, ready it."
+            global $playerID; $playerID = intval($player);
+            $tg = array_merge(
+                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+            );
+            if (empty($tg)) return;
+            SWUQueueChooseTarget(intval($player), $tg, "Deal_2_damage_to_a_unit", "TS26_069#0");
+            return;
+        }
+
+        case 'TS26_070': { // Backed by Black Sun — "Deal 1 damage to an enemy unit. You may deal damage
+                           // to a unit equal to the number of damaged enemy units."
+            global $playerID; $playerID = intval($player);
+            $enemy = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
+            if (empty($enemy)) return;
+            SWUQueueChooseTarget(intval($player), $enemy, "Deal_1_damage_to_an_enemy_unit", "TS26_070#0");
+            return;
+        }
+
+        case 'TS26_032': { // Reckless Landing — "Play a unit from your hand. It costs 4 resources less.
+                           // Deal 4 damage to it."
+            global $playerID; $playerID = intval($player);
+            $ready = SWUResourceCount(intval($player), readyOnly: true);
+            $units = [];
+            foreach (ZoneSearch('myHand') as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o === null || !empty($o->removed)) continue;
+                if (stripos(CardType($o->CardID) ?? '', 'Unit') === false) continue;
+                if (max(0, SWUComputePlayCost(intval($player), $o) - 4) > $ready) continue;
+                $units[] = $mz;
+            }
+            if (empty($units)) return;
+            SWUQueueChooseTarget(intval($player), $units, "Play_a_unit_(costs_4_less;_deal_4_to_it)", "TS26_032#0");
+            return;
+        }
+
+        case 'TS26_064': { // Urgent Mission — "Deal 2 damage to your base. Draw 2 cards."
+            global $playerID; $playerID = intval($player);
+            SWUDealDamageToBase(2, intval($player));
+            DoDrawCard(intval($player), 2);
+            return;
+        }
+
+        case 'TS26_071': { // Take Action — cost reduction via $playCostModifiers["TS26_071"].
+                           // "Deal 3 damage to a unit."
+            global $playerID; $playerID = intval($player);
+            $tg = array_merge(
+                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+            );
+            if (empty($tg)) return;
+            SWUQueueChooseTarget(intval($player), $tg, "Deal_3_damage_to_a_unit", "DEAL_UNIT_DAMAGE|3");
+            return;
+        }
+
+        case 'TS26_072': { // Fervor — "Ready a unit. Deal 3 damage to a unit."
+            global $playerID; $playerID = intval($player);
+            $tg = array_merge(
+                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+            );
+            if (empty($tg)) return;
+            SWUQueueChooseTarget(intval($player), $tg, "Ready_a_unit", "TS26_072#0");
+            return;
+        }
+
         // ── ASH Events ─────────────────────────────────────────────────────────
         case 'ASH_258': { // Grassroots Resistance — "Deal 3 damage to a unit. Heal 3 damage from your base."
             global $playerID; $playerID = intval($player);
