@@ -29,8 +29,10 @@ set -euo pipefail
 # host, or a literal host to force one (e.g. to canonicalize to www).
 APP_DOMAINS=(
   "soulmastersdb.net|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                # SoulMastersDB
-  "clarent.net|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                      # GrandArchiveSim (Clarent)
+  "clarent.net|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                      # GrandArchiveSim
   "swustats.net|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                     # SWUDeck
+  "zendo.gg|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                         # AzukiSim
+  "petranaki.net|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                    # SWUSim
   # Add a line per live app as new domains come online (e.g. SWUSim once it has one).
 )
 

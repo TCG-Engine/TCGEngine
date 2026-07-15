@@ -2,7 +2,7 @@
 # this phase. The friendly SEC_080 already in play gains Restore 1: when it attacks the enemy base, P1's
 # base heals 1 (damage 3 → 2) while combat deals 3 to the enemy base.
 ## GIVEN
-CommonSetup: bgw/rrk/{myResources:2;myBaseDamage:3}
+CommonSetup: bgw/rrk/{myResources:2;myBaseDamage:3;handCardIds:TS26_016}
 WithP1GroundArena: SEC_080:1:0
 P1OnlyActions: true
 ## WHEN

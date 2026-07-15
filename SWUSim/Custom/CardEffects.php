@@ -6,6 +6,12 @@
 
 function OnPlayEvent(int $player, string $cardID): void {
     AddGlobalEffects($player, 'SWU_PLAYED_EVENT'); // TWI_014 Asajj "if you played an event this phase" (cleared at RGS)
+    // TS26_008 Ahsoka Tano (front, undeployed) — "When you play an event: you may exhaust this leader → look
+    // at the top card of your deck (play/discard/leave)." Reactive on the controller's own event play.
+    if (_SWULeaderReadyUndeployed(intval($player), 'TS26_008')) {
+        DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Ahsoka_to_look_at_the_top_card?");
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_008#0", 1);
+    }
     switch ($cardID) {
 
         // ── TS26 Events ────────────────────────────────────────────────────────
@@ -43,6 +49,240 @@ function OnPlayEvent(int $player, string $cardID): void {
             }
             if (empty($units)) return;
             SWUQueueChooseTarget(intval($player), $units, "Play_a_unit_(costs_4_less;_deal_4_to_it)", "TS26_032#0");
+            return;
+        }
+
+        case 'TS26_056': { // Galactic Escalation — "Each player resources the top card of their deck."
+            global $playerID; $playerID = intval($player);
+            $opp = OtherPlayer(intval($player));
+            if (!empty(GetDeck(intval($player)))) SWURampResourceExhausted(intval($player), 'myDeck-0');
+            if (!empty(GetDeck($opp)))            SWURampResourceExhausted($opp, 'myDeck-0');
+            return;
+        }
+
+        case 'TS26_057': { // Mechanize — "Play a non-Vehicle unit from your discard pile (paying its cost)
+                           // and give an Experience token to it."
+            global $playerID; $playerID = intval($player);
+            $ready = SWUResourceCount(intval($player), true);
+            $discard = GetDiscard(intval($player));
+            $tg = [];
+            $liveIdx = 0;
+            for ($i = 0; $i < count($discard); $i++) {
+                $d = $discard[$i];
+                if ($d === null || !empty($d->removed)) continue;
+                $cid = $d->CardID ?? '';
+                if (strpos(CardType($cid) ?? '', 'Unit') !== false && !HasTrait($cid, 'Vehicle')
+                    && max(0, intval(CardCost($cid)) + SWUAspectPenalty(intval($player), $cid)) <= $ready) {
+                    $tg[] = "myDiscard-{$liveIdx}";
+                }
+                $liveIdx++;
+            }
+            if (empty($tg)) return;
+            SWUQueueChooseTarget(intval($player), $tg, "Play_a_non-Vehicle_unit_from_your_discard", "TS26_057#0");
+            return;
+        }
+
+        case 'TS26_059': { // Brothers — "Attack with up to 2 unique units (one at a time). Prevent all combat
+                           // damage that would be dealt to each of them for these attacks." (Count-capped loop.)
+            global $playerID; $playerID = intval($player);
+            SetSWUVar('SWU_TS26059_LOOP', '2');   // "{remaining}" — no excludes yet
+            _SWUTs26059Offer(intval($player));
+            return;
+        }
+
+        case 'TS26_083': { // Take Aim — cost reduction via $playCostModifiers["TS26_083"]. "Attack with a
+                           // unit. It gets +2/+0 and gains Saboteur for this attack."
+            global $playerID; $playerID = intval($player);
+            $ready = [];
+            foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && intval($o->Status) === 1) $ready[] = $mz;
+                }
+            }
+            if (empty($ready)) return;
+            SWUQueueChooseTarget(intval($player), $ready, "Attack_with_a_unit_(+2/+0_and_Saboteur)", "TS26_083#0");
+            return;
+        }
+
+        case 'TS26_084': { // Fearless Attack — "Attack with a unit. It gets +1/+0 for this attack for each
+                           // unit controlled by the defending player."
+            global $playerID; $playerID = intval($player);
+            $ready = [];
+            foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && intval($o->Status) === 1) $ready[] = $mz;
+                }
+            }
+            if (empty($ready)) return;
+            SWUQueueChooseTarget(intval($player), $ready, "Attack_with_a_unit_(+1/+0_per_enemy_unit)", "TS26_084#0");
+            return;
+        }
+
+        case 'TS26_061': { // Encircle — cost reduction via $playCostModifiers["TS26_061"]. "A friendly unit
+                           // captures an enemy non-leader unit in the same arena."
+            global $playerID; $playerID = intval($player);
+            $captors = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            // Keep only friendly units that have a capturable enemy in their arena.
+            $valid = [];
+            foreach ($captors as $mz) {
+                $arena = strpos($mz, 'SpaceArena') !== false ? 'theirSpaceArena' : 'theirGroundArena';
+                if (!empty(ZoneSearch($arena, NonLeaderUnitFilter))) $valid[] = $mz;
+            }
+            if (empty($valid)) return;
+            SWUQueueChooseTarget(intval($player), $valid, "Choose_a_friendly_unit_to_capture_with", "TS26_061#0");
+            return;
+        }
+
+        case 'TS26_068': { // Arms Deal — "You and an opponent each draw 2 cards."
+            global $playerID; $playerID = intval($player);
+            DoDrawCard(intval($player), 2);
+            DoDrawCard(OtherPlayer(intval($player)), 2);
+            return;
+        }
+
+        case 'TS26_082': { // Evade Arrest — "Exhaust any number of non-unique units."
+            global $playerID; $playerID = intval($player);
+            $tg = [];
+            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && !CardUnique($o->CardID ?? '')) $tg[] = $mz;
+                }
+            }
+            if (empty($tg)) return;
+            $max = count($tg);
+            DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tg), 1,
+                tooltip: "Exhaust_any_number_of_non-unique_units");
+            DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_082#0", 1);
+            return;
+        }
+
+        case 'TS26_080': { // Reveal Intentions — "Each player reveals their hand. In player order, each
+                           // player discards a card from the hand of the player to their right. Then, each
+                           // player draws a card." In 2P, "the player to their right" is the opponent, so
+                           // this is a mutual discard: the caster discards a card from the opponent's hand
+                           // (their choice), then the opponent discards a card from the caster's hand, then
+                           // both draw. The opponent's choice is a cross-player decision (drains within this
+                           // resolution, answered as the opponent — cf. SEC_147).
+            global $playerID; $savedPID = $playerID;
+            $P = intval($player); $O = OtherPlayer($P);
+            // "Each player reveals their hand" — public reveal (log the full contents to both players).
+            foreach ([$P, $O] as $rp) {
+                $refs = [];
+                foreach (GetHand($rp) as $c) { if (empty($c->removed)) $refs[] = GameLogCardRef($c->CardID); }
+                AddGameLogEntry('REVEAL', "P{$rp} revealed their hand: " . (empty($refs) ? '(empty)' : implode(', ', $refs)), 'ALL');
+            }
+            // Player order (active player first): each discards a card from the opponent's hand.
+            $playerID = $P;
+            $oHand = ZoneSearch("theirHand");                 // O's hand, from P's frame
+            if (!empty($oHand)) SWUQueueChooseTarget($P, $oHand, "Discard_a_card_from_the_opponent's_hand", "TS26_080#0");
+            $playerID = $O;
+            $pHand = ZoneSearch("theirHand");                 // P's hand, from O's frame
+            if (!empty($pHand)) SWUQueueChooseTarget($O, $pHand, "Discard_a_card_from_the_opponent's_hand", "TS26_080#0");
+            $playerID = $savedPID;
+            // "Then, each player draws a card." — queued last so it resolves after both discards.
+            DecisionQueueController::AddDecision($P, "CUSTOM", "TS26_080#1|{$P}|{$O}", 1);
+            return;
+        }
+
+        case 'TS26_031': { // Chaotic Diversion — "Ready an enemy unit. If you do, it can't attack your base
+                           // or units you control for this phase. Give a Shield token to a friendly unit."
+            global $playerID; $playerID = intval($player);
+            $enemy = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
+            if (!empty($enemy)) {
+                SWUQueueChooseTarget(intval($player), $enemy, "Ready_an_enemy_unit_(it_can't_attack_you)", "TS26_031#0");
+            } else {
+                $fr = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+                if (!empty($fr)) SWUQueueChooseTarget(intval($player), $fr, "Give_a_Shield_to_a_friendly_unit", "GIVE_SHIELD");
+            }
+            return;
+        }
+
+        case 'TS26_046': { // Secret Marriage — "Give a Shield token to each of up to 2 non-Vehicle units. If
+                           // you give a Shield to an enemy unit this way, draw a card." (Plot is a keyword.)
+            global $playerID; $playerID = intval($player);
+            $tg = [];
+            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && !HasTrait($o->CardID ?? '', 'Vehicle')) $tg[] = $mz;
+                }
+            }
+            if (empty($tg)) return;
+            $max = min(2, count($tg));
+            DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tg), 1,
+                tooltip: "Shield_up_to_2_non-Vehicle_units_(draw_if_you_shield_an_enemy)");
+            DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_046#0", 1);
+            return;
+        }
+
+        case 'TS26_047': { // Take Cover — cost reduction via $playCostModifiers["TS26_047"]. "Heal up to 3
+                           // damage from a unit and give a Shield token to it."
+            global $playerID; $playerID = intval($player);
+            $tg = array_merge(
+                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+            );
+            if (empty($tg)) return;
+            SWUQueueChooseTarget(intval($player), $tg, "Heal_up_to_3_and_Shield_a_unit", "TS26_047#0");
+            return;
+        }
+
+        case 'TS26_058': { // Backed by the Pykes — "Give an Experience token to a friendly unit. You may
+                           // deal damage to a unit equal to the number of Experience tokens on friendly units."
+            global $playerID; $playerID = intval($player);
+            $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            if (empty($friendly)) return;
+            SWUQueueChooseTarget(intval($player), $friendly, "Give_an_Experience_to_a_friendly_unit", "TS26_058#0");
+            return;
+        }
+
+        case 'TS26_060': { // Take Charge — cost reduction via $playCostModifiers["TS26_060"]. "Give an
+                           // Experience token to each of up to 3 units."
+            global $playerID; $playerID = intval($player);
+            $tg = array_merge(
+                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+            );
+            if (empty($tg)) return;
+            $max = min(3, count($tg));
+            DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tg), 1,
+                tooltip: "Give_Experience_to_up_to_3_units");
+            DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_060#0", 1);
+            return;
+        }
+
+        case 'TS26_048': { // Vanquish the Legion — "Give each enemy ground unit -2/-2 for this phase."
+            global $playerID; $playerID = intval($player);
+            foreach (ZoneSearch('theirGroundArena', ['Unit', 'Token Unit', 'Leader Unit']) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o !== null && empty($o->removed)) SWUApplyPhaseDebuff($mz, 2, 2, 'TS26_048');
+            }
+            return;
+        }
+
+        case 'TS26_081': { // Mislead — "Give a Shield token to a unit. Give a unit -3/-0 for this phase."
+            global $playerID; $playerID = intval($player);
+            $tg = array_merge(
+                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+            );
+            if (empty($tg)) return;
+            SWUQueueChooseTarget(intval($player), $tg, "Give_a_Shield_token_to_a_unit", "TS26_081#0");
+            return;
+        }
+
+        case 'TS26_033': { // Kouhun Assassination — "An opponent may discard a card from their hand. If
+                           // they do, give a non-Vehicle unit -8/-8 for this phase." (2-player: the opponent.)
+            global $playerID; $playerID = intval($player);
+            $opp = OtherPlayer(intval($player));
+            $playerID = $opp;
+            $hand = ZoneSearch('myHand');   // opponent's hand (opponent frame)
+            if (empty($hand)) return;       // no card to discard → the rider never happens
+            SWUQueueMayChooseTarget($opp, $hand, "Discard_a_card?", "Choose_a_card_to_discard", "TS26_033#0|" . intval($player));
+            // leave $playerID = $opp so MZCountChoices validates the opponent-frame hand mzIDs
             return;
         }
 
