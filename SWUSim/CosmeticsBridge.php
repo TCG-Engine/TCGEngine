@@ -56,10 +56,16 @@ function SWUBuildCosmeticsPayload($gameName, $viewerPerspective, $viewerUserId, 
         }
     }
 
-    // Matchless solo modes (goldfish/hotseat): still honor the viewer's own selections so
-    // their board background + card back apply. The opponent (empty/shared seat) stays default.
-    if ($myCos === null && $viewerUserId !== null && (string)$viewerUserId !== '') {
+    // Matchless solo modes (goldfish/hotseat): resolve cosmetics so the DEFAULT board + card
+    // back still apply, instead of emitting an empty payload that leaves each face-down pile on
+    // the raw engine cardback (which 404s where ./SWUSim/concat isn't deployed). A logged-in
+    // viewer gets their own selections; a guest ('' / null) falls back to the catalog defaults.
+    // The opponent (empty/shared seat) always renders catalog defaults.
+    if ($myCos === null) {
         $myCos = SWUResolveSeatCosmetics($viewerUserId);
+    }
+    if ($theirCos === null) {
+        $theirCos = SWUResolveSeatCosmetics('');
     }
 
     // Force any dev/test seat overrides on top (resolved to {id, asset} like real choices).

@@ -844,9 +844,12 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         display: flex; flex-direction: column;
         overflow: hidden;
     }
-    /* Keep the input+send row from being squeezed by the log */
+    /* Keep the input+send row from being squeezed by the log, and keep it inside the
+       sidebar width so the Send button isn't clipped by #swuChatMount's overflow:hidden. */
     #chatExpanded > div:last-child {
         flex: 0 0 auto !important;
+        box-sizing: border-box !important;
+        width: 100% !important; max-width: 100% !important; min-width: 0 !important;
     }
     .swu-log-entry {
         font: 11px/1.55 var(--swu-font-ui);
@@ -929,6 +932,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         color: rgba(255,255,255,0.88) !important; font: 13px var(--swu-font-ui) !important;
         padding: 8px 10px !important; height: auto !important;
         border-radius: 0 !important; outline: none !important;
+        /* Let the input shrink (default min-width:auto would otherwise push Send out of frame). */
+        box-sizing: border-box !important; min-width: 0 !important; width: auto !important;
     }
     #chatWidget input#chatText:focus {
         background: rgba(255,255,255,0.08) !important;
@@ -943,6 +948,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         padding: 8px 14px !important; height: auto !important;
         cursor: pointer !important; box-shadow: none !important;
         transition: background 120ms !important;
+        /* Reset the inline width:50px; size to "Send" + padding and never grow/shrink or clip. */
+        box-sizing: border-box !important; width: auto !important;
+        flex: 0 0 auto !important; white-space: nowrap !important;
     }
     #chatWidget button:not(#chatToggleBtn):hover {
         background: rgba(200,151,30,0.28) !important; }
