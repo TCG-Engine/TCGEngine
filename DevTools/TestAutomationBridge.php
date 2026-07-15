@@ -1098,6 +1098,228 @@ function BridgeAzukiStrategyStateSummary() {
   return $players;
 }
 
+function BridgeAzukiAvailableIKZ($player) {
+  $count = function_exists('CountAvailableIKZ') ? intval(CountAvailableIKZ($player)) : 0;
+  $garden = function_exists('GetGarden') ? GetGarden($player) : [];
+  if (is_array($garden)) {
+    foreach ($garden as $entity) {
+      if (!is_object($entity) || !empty($entity->removed)) continue;
+      if (intval($entity->Status ?? 2) !== 2) continue;
+      if (strval($entity->CardID ?? '') !== 'S1-STT03-007_Koyama-Farm-Caretaker_E_R_die') continue;
+      ++$count;
+    }
+  }
+  return $count;
+}
+
+function BridgeAzukiCompactStateSummary() {
+  $players = [];
+  for ($player = 1; $player <= 2; ++$player) {
+    $leader = BridgeAzukiLeaderSummary($player);
+    $players['p' . $player] = [
+      'lifeBucket' => BridgeBucketAzukiLife(intval($leader['remainingLife'] ?? 0)),
+      'remainingLife' => intval($leader['remainingLife'] ?? 0),
+      'handCount' => BridgeCountActiveZoneObjects($player === 1 ? 'p1Hand' : 'p2Hand'),
+      'availableIKZ' => BridgeAzukiAvailableIKZ($player),
+      'ikzAreaCount' => BridgeCountActiveZoneObjects($player === 1 ? 'p1IKZArea' : 'p2IKZArea'),
+      'ikzPileCount' => BridgeCountActiveZoneObjects($player === 1 ? 'p1IKZPile' : 'p2IKZPile'),
+      'ikzToken' => function_exists('GetAccessibleIKZTokenCount') ? intval(GetAccessibleIKZTokenCount($player)) : 0,
+      'readyAttack' => BridgeAzukiReadyAttackTotal($player),
+      'boardAttack' => BridgeAzukiBoardAttackTotal($player),
+      'gardenCount' => BridgeCountActiveZoneObjects($player === 1 ? 'p1Garden' : 'p2Garden'),
+      'alleyCount' => BridgeCountActiveZoneObjects($player === 1 ? 'p1Alley' : 'p2Alley'),
+      'gateCount' => BridgeCountActiveZoneObjects($player === 1 ? 'p1Gate' : 'p2Gate'),
+    ];
+  }
+  return $players;
+}
+
+function BridgeRlActionTargetRole($action) {
+  if (!is_array($action)) return 'other';
+  $raw = strval($action['cardID'] ?? '');
+  $resolved = strval($action['resolvedCardID'] ?? '');
+  if ($resolved !== '' && function_exists('CardType') && strtoupper(strval(CardType($resolved))) === 'LEADER') return 'leader';
+  if (str_starts_with($raw, 'theirGarden-')) return 'enemy-garden';
+  if (str_starts_with($raw, 'theirAlley-')) return 'enemy-alley';
+  if (str_starts_with($raw, 'myGarden-')) return 'own-garden';
+  if (str_starts_with($raw, 'myAlley-')) return 'own-alley';
+  if (str_starts_with($raw, 'myHand-')) return 'own-hand';
+  if (str_starts_with($raw, 'theirHand-')) return 'enemy-hand';
+  return 'other';
+}
+
+function BridgeRlSemanticActionKey($action, $legal = []) {
+  if (!is_array($action)) return 'invalid';
+  $raw = strval($action['cardID'] ?? '');
+  $rawUpper = strtoupper($raw);
+  $resolved = strval($action['resolvedCardID'] ?? '');
+  $kind = is_array($legal) ? strval($legal['kind'] ?? '') : '';
+  $decisionType = is_array($legal) ? strtoupper(strval($legal['decisionType'] ?? '')) : '';
+
+  if ($rawUpper === 'PASS' || str_ends_with($rawUpper, '!CUSTOMINPUT!PASS')) {
+    if ($kind === 'azuki-attack-response-fsm') return 'pass:response';
+    if ($kind === 'opportunity-window-fsm' || $kind === 'effect-stack-fsm') return 'pass:opportunity';
+    return 'pass:main';
+  }
+
+  if (str_contains($raw, '!CustomInput!')) {
+    [, $operation] = array_pad(explode('!CustomInput!', $raw, 2), 2, '');
+    $operationKey = strtolower(str_replace(':', '-', $operation));
+    if (strcasecmp($operation, 'Attack') === 0) return 'attack:' . ($resolved !== '' ? $resolved : BridgeRlActionTargetRole($action));
+    return 'activate:' . ($resolved !== '' ? $resolved : BridgeRlActionTargetRole($action)) . ':' . $operationKey;
+  }
+
+  if (str_ends_with($raw, '!FSM!')) {
+    if (str_starts_with($raw, 'myHand-')) return 'play:' . ($resolved !== '' ? $resolved : 'unknown');
+    return 'interact:' . BridgeRlActionTargetRole($action) . ':' . ($resolved !== '' ? $resolved : 'unknown');
+  }
+
+  if ($resolved !== '') {
+    return 'target:' . ($decisionType !== '' ? strtolower($decisionType) : 'card') . ':' . BridgeRlActionTargetRole($action) . ':' . $resolved;
+  }
+
+  $choice = $raw === '' ? strval($action['buttonInput'] ?? '') : $raw;
+  return 'choice:' . ($decisionType !== '' ? strtolower($decisionType) : strval($action['mode'] ?? 'action')) . ':' . $choice;
+}
+
+function BridgeAzukiPressureBucket($value) {
+  $value = intval($value);
+  if ($value <= 0) return '0';
+  if ($value <= 2) return '1-2';
+  if ($value <= 5) return '3-5';
+  if ($value <= 9) return '6-9';
+  return '10+';
+}
+
+function BridgeAzukiCompactStateKey($snapshot, $actingPlayer, $legal = []) {
+  $actingPlayer = intval($actingPlayer);
+  if ($actingPlayer !== 1 && $actingPlayer !== 2) $actingPlayer = 1;
+  $opp = $actingPlayer === 1 ? 2 : 1;
+  $compact = is_array($snapshot['azukiCompactState'] ?? null) ? $snapshot['azukiCompactState'] : [];
+  $me = is_array($compact['p' . $actingPlayer] ?? null) ? $compact['p' . $actingPlayer] : [];
+  $them = is_array($compact['p' . $opp] ?? null) ? $compact['p' . $opp] : [];
+  $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
+  $playCosts = [];
+  $playCount = 0;
+  $attackCount = 0;
+  $activateCount = 0;
+  foreach ($actions as $action) {
+    $actionKey = BridgeRlSemanticActionKey($action, $legal);
+    if (str_starts_with($actionKey, 'play:')) {
+      ++$playCount;
+      $resolved = strval($action['resolvedCardID'] ?? '');
+      if ($resolved !== '' && function_exists('CardCost')) $playCosts[] = intval(CardCost($resolved));
+    } else if (str_starts_with($actionKey, 'attack:')) {
+      ++$attackCount;
+    } else if (str_starts_with($actionKey, 'activate:')) {
+      ++$activateCount;
+    }
+  }
+  sort($playCosts, SORT_NUMERIC);
+  $key = [
+    'version' => 'AzukiSim:compact-v2',
+    'context' => strval($legal['kind'] ?? ''),
+    'decision' => strtoupper(strval($legal['decisionType'] ?? '')),
+    'phase' => strval($snapshot['phase'] ?? ''),
+    'isTurnPlayer' => intval($snapshot['turnPlayer'] ?? 0) === $actingPlayer ? 1 : 0,
+    'myLife' => strval($me['lifeBucket'] ?? 'high'),
+    'theirLife' => strval($them['lifeBucket'] ?? 'high'),
+    'myHand' => min(10, intval($me['handCount'] ?? 0)),
+    'myAvailableIKZ' => min(10, intval($me['availableIKZ'] ?? 0)),
+    'myIKZArea' => min(10, intval($me['ikzAreaCount'] ?? 0)),
+    'myIKZToken' => min(3, intval($me['ikzToken'] ?? 0)),
+    'myReadyAttack' => BridgeAzukiPressureBucket($me['readyAttack'] ?? 0),
+    'theirReadyAttack' => BridgeAzukiPressureBucket($them['readyAttack'] ?? 0),
+    'myBoardAttack' => BridgeAzukiPressureBucket($me['boardAttack'] ?? 0),
+    'theirBoardAttack' => BridgeAzukiPressureBucket($them['boardAttack'] ?? 0),
+    'myBoardCount' => min(10, intval($me['gardenCount'] ?? 0) + intval($me['alleyCount'] ?? 0)),
+    'theirBoardCount' => min(10, intval($them['gardenCount'] ?? 0) + intval($them['alleyCount'] ?? 0)),
+    'myGate' => min(3, intval($me['gateCount'] ?? 0)),
+    'theirGate' => min(3, intval($them['gateCount'] ?? 0)),
+    'legalPlays' => min(10, $playCount),
+    'minPlayCost' => empty($playCosts) ? -1 : min(9, $playCosts[0]),
+    'maxPlayCost' => empty($playCosts) ? -1 : min(9, $playCosts[count($playCosts) - 1]),
+    'legalAttacks' => min(10, $attackCount),
+    'legalActivations' => min(10, $activateCount),
+  ];
+  ksort($key);
+  return json_encode($key, JSON_UNESCAPED_SLASHES);
+}
+
+function BridgeAzukiCompactCountBucket($value) {
+  $value = intval($value);
+  if ($value <= 0) return '0';
+  if ($value <= 2) return '1-2';
+  if ($value <= 4) return '3-4';
+  if ($value <= 7) return '5-7';
+  return '8+';
+}
+
+function BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal = []) {
+  $actingPlayer = intval($actingPlayer);
+  if ($actingPlayer !== 1 && $actingPlayer !== 2) $actingPlayer = 1;
+  $opp = $actingPlayer === 1 ? 2 : 1;
+  $compact = is_array($snapshot['azukiCompactState'] ?? null) ? $snapshot['azukiCompactState'] : [];
+  $me = is_array($compact['p' . $actingPlayer] ?? null) ? $compact['p' . $actingPlayer] : [];
+  $them = is_array($compact['p' . $opp] ?? null) ? $compact['p' . $opp] : [];
+  $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
+  $kind = strtolower(strval($legal['kind'] ?? ''));
+  $decision = strtoupper(strval($legal['decisionType'] ?? ''));
+  $playCount = 0;
+  $attackCount = 0;
+  $activateCount = 0;
+  $nonPassCount = 0;
+  foreach ($actions as $action) {
+    $actionKey = BridgeRlSemanticActionKey($action, $legal);
+    if (!str_starts_with($actionKey, 'pass:')) ++$nonPassCount;
+    if (str_starts_with($actionKey, 'play:')) ++$playCount;
+    else if (str_starts_with($actionKey, 'attack:')) ++$attackCount;
+    else if (str_starts_with($actionKey, 'activate:')) ++$activateCount;
+  }
+
+  if ($kind === 'free-play-fsm') $context = 'main';
+  else if ($kind === 'attack-response-fsm') $context = 'response';
+  else if ($kind === 'opportunity-fsm') $context = 'opportunity';
+  else if ($decision !== '') $context = 'decision';
+  else $context = $kind === '' ? 'other' : $kind;
+
+  $key = [
+    'version' => 'AzukiSim:compact-v3',
+    'context' => $context,
+    'decision' => $decision,
+    'isTurnPlayer' => intval($snapshot['turnPlayer'] ?? 0) === $actingPlayer ? 1 : 0,
+    'myLife' => strval($me['lifeBucket'] ?? 'high'),
+    'theirLife' => strval($them['lifeBucket'] ?? 'high'),
+    'myHand' => BridgeAzukiCompactCountBucket($me['handCount'] ?? 0),
+    'myAvailableIKZ' => BridgeAzukiCompactCountBucket($me['availableIKZ'] ?? 0),
+  ];
+
+  if ($context === 'main') {
+    $key['myReadyAttack'] = BridgeAzukiPressureBucket($me['readyAttack'] ?? 0);
+    $key['theirReadyAttack'] = BridgeAzukiPressureBucket($them['readyAttack'] ?? 0);
+    $key['myBoardCount'] = BridgeAzukiCompactCountBucket(intval($me['gardenCount'] ?? 0) + intval($me['alleyCount'] ?? 0));
+    $key['theirBoardCount'] = BridgeAzukiCompactCountBucket(intval($them['gardenCount'] ?? 0) + intval($them['alleyCount'] ?? 0));
+    $key['legalPlays'] = BridgeAzukiCompactCountBucket($playCount);
+    $key['legalAttacks'] = BridgeAzukiCompactCountBucket($attackCount);
+    $key['legalActivations'] = BridgeAzukiCompactCountBucket($activateCount);
+  } else if ($context === 'response') {
+    $key['incomingPressure'] = BridgeAzukiPressureBucket($them['boardAttack'] ?? 0);
+    $key['myBoardCount'] = BridgeAzukiCompactCountBucket(intval($me['gardenCount'] ?? 0) + intval($me['alleyCount'] ?? 0));
+    $key['legalResponses'] = BridgeAzukiCompactCountBucket($nonPassCount);
+  } else if ($context === 'decision') {
+    $key['legalChoices'] = BridgeAzukiCompactCountBucket(count($actions));
+    if (in_array($decision, ['CHOOSEZONE', 'MZCHOOSE', 'MZMULTICHOOSE'], true)) {
+      $key['myBoardCount'] = BridgeAzukiCompactCountBucket(intval($me['gardenCount'] ?? 0) + intval($me['alleyCount'] ?? 0));
+      $key['theirBoardCount'] = BridgeAzukiCompactCountBucket(intval($them['gardenCount'] ?? 0) + intval($them['alleyCount'] ?? 0));
+    }
+  } else {
+    $key['legalChoices'] = BridgeAzukiCompactCountBucket(count($actions));
+  }
+
+  ksort($key);
+  return json_encode($key, JSON_UNESCAPED_SLASHES);
+}
+
 function BridgeGetOpportunityState() {
   $pendingHandler = DecisionQueueController::GetVariable('PendingOpportunityHandler');
   $pendingFirstPlayer = DecisionQueueController::GetVariable('PendingOpportunityFirstPlayer');
@@ -1482,6 +1704,9 @@ function BridgeSnapshotLoaded($root, $gameName, $view) {
     }
     if ($root === 'AzukiSim' && !empty($GLOBALS['bridgeIncludeAzukiStrategyState'])) {
       $payload['azukiStrategyState'] = BridgeAzukiStrategyStateSummary();
+    }
+    if ($root === 'AzukiSim' && !empty($GLOBALS['bridgeIncludeAzukiCompactState'])) {
+      $payload['azukiCompactState'] = BridgeAzukiCompactStateSummary();
     }
     $payload['terminal'] = $terminal;
   } else {

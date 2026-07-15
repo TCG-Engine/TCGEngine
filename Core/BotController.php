@@ -1,5 +1,7 @@
 <?php
 
+include_once __DIR__ . '/MatchReplay.php';
+
 const BOT_CONTROLLER_PAYLOAD_PREFIX = 'BOTCONTROLLER:';
 
 // Games opt in by defining GameBotControllerMode(), GetBotControllerPlayers(),
@@ -20,7 +22,8 @@ function NormalizeBotControllerPlayers($players) {
 }
 
 function BuildBotControllerClientState($folderPath = '', $gameName = '') {
-  $mode = function_exists('GameBotControllerMode') ? strval(GameBotControllerMode()) : '';
+  $isReplayPlayback = function_exists('MatchReplayIsPlaybackSession') && MatchReplayIsPlaybackSession();
+  $mode = !$isReplayPlayback && function_exists('GameBotControllerMode') ? strval(GameBotControllerMode()) : '';
   $players = $mode !== '' && function_exists('GetBotControllerPlayers')
     ? NormalizeBotControllerPlayers(GetBotControllerPlayers())
     : [];

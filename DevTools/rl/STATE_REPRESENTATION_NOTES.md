@@ -88,4 +88,18 @@ That would let the state omit exact hand contents while still letting the policy
 - Always keep leaders represented, since leader damage/status is central.
 - Keep high-signal low-cardinality context: phase, next decision type, life buckets, IKZ token/counts.
 
+## Implemented Compact Generation
+
+`AzukiSim:compact-v3` is the current compression-friendly generation. It pairs
+an IKZ-aware, context-gated state with `semantic-v1` action keys, so identical
+card actions share learning even when their live zone indexes or legal-list
+positions change. Main-phase and response-window passes have distinct keys.
+
+The compact state deliberately summarizes rather than enumerates exact hands
+and boards. Shared fields use buckets for available IKZ, hand count, and life.
+Main decisions add board pressure and legal play/attack summaries; response and
+chooser decisions receive smaller context-specific summaries. `compact-v2`
+included most of these dimensions at every decision and grew to 334,606 states
+after only 4,300 games, so it remains loadable but is no longer the default.
+
 The broad goal is not less accurate state. It is more reusable state: strategic situation plus stable action identity, instead of nearly complete visible-game-state memorization.

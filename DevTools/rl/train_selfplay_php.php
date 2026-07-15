@@ -22,6 +22,7 @@ function RlParseArgs($argv) {
     'control-enemy-threat-reward' => 0.15,
     'control-own-threat-penalty' => 0.1,
     'tactical-no-state-change-penalty' => 0.05,
+    'tactical-unused-ikz-penalty' => 0.02,
     'checkpoint-every' => 25,
     'log-every' => 25,
     'workers' => 1,
@@ -76,7 +77,7 @@ function RlParseArgs($argv) {
   }
   $args['workers'] = max(1, intval($args['workers']));
   $args['worker-episodes'] = max(1, intval($args['worker-episodes']));
-  foreach (['learning-rate', 'temperature', 'epsilon', 'timeout-reward', 'tactical-terminal-weight', 'aggro-leader-damage-reward', 'control-leader-damage-reward', 'control-enemy-threat-reward', 'control-own-threat-penalty', 'tactical-no-state-change-penalty'] as $key) {
+  foreach (['learning-rate', 'temperature', 'epsilon', 'timeout-reward', 'tactical-terminal-weight', 'aggro-leader-damage-reward', 'control-leader-damage-reward', 'control-enemy-threat-reward', 'control-own-threat-penalty', 'tactical-no-state-change-penalty', 'tactical-unused-ikz-penalty'] as $key) {
     $args[$key] = floatval($args[$key]);
   }
   return $args;
@@ -93,8 +94,63 @@ function RlEnsureDir($path) {
   }
 }
 
+function RlJsonStreamAppend($handle, &$buffer, $text) {
+  $buffer .= $text;
+  if (strlen($buffer) < 1048576) return;
+  if (fwrite($handle, $buffer) !== strlen($buffer)) throw new RuntimeException('Unable to write JSON stream.');
+  $buffer = '';
+}
+
+function RlJsonStreamValue($handle, &$buffer, $value, $forceObject = false) {
+  if (is_object($value)) {
+    RlJsonStreamValue($handle, $buffer, get_object_vars($value), true);
+    return;
+  }
+  if (!is_array($value)) {
+    $encoded = json_encode($value, JSON_UNESCAPED_SLASHES | JSON_PRESERVE_ZERO_FRACTION);
+    if ($encoded === false) throw new RuntimeException('Unable to encode JSON value: ' . json_last_error_msg());
+    RlJsonStreamAppend($handle, $buffer, $encoded);
+    return;
+  }
+
+  $isList = !$forceObject && array_is_list($value);
+  RlJsonStreamAppend($handle, $buffer, $isList ? '[' : '{');
+  $first = true;
+  foreach ($value as $key => $item) {
+    if (!$first) RlJsonStreamAppend($handle, $buffer, ',');
+    $first = false;
+    if (!$isList) {
+      $encodedKey = json_encode(strval($key), JSON_UNESCAPED_SLASHES);
+      if ($encodedKey === false) throw new RuntimeException('Unable to encode JSON key: ' . json_last_error_msg());
+      RlJsonStreamAppend($handle, $buffer, $encodedKey . ':');
+    }
+    RlJsonStreamValue($handle, $buffer, $item);
+  }
+  RlJsonStreamAppend($handle, $buffer, $isList ? ']' : '}');
+}
+
 function RlWriteJson($path, $payload) {
-  file_put_contents($path, json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+  $tempPath = $path . '.tmp.' . getmypid();
+  $handle = @fopen($tempPath, 'wb');
+  if (!is_resource($handle)) RlFail('Unable to open JSON output: ' . $tempPath);
+  $buffer = '';
+  try {
+    RlJsonStreamValue($handle, $buffer, $payload);
+    if ($buffer !== '' && fwrite($handle, $buffer) !== strlen($buffer)) throw new RuntimeException('Unable to finish JSON stream.');
+    if (!fclose($handle)) throw new RuntimeException('Unable to close JSON stream.');
+    $handle = null;
+    if (is_file($path) && !@unlink($path)) throw new RuntimeException('Unable to replace JSON output: ' . $path);
+    if (!@rename($tempPath, $path)) throw new RuntimeException('Unable to publish JSON output: ' . $path);
+  } catch (Throwable $e) {
+    if (is_resource($handle)) fclose($handle);
+    @unlink($tempPath);
+    RlFail($e->getMessage());
+  }
+}
+
+function RlDeleteWorkerScratch($path) {
+  if (!is_file($path)) return;
+  if (!@unlink($path)) fwrite(STDERR, 'Unable to delete worker scratch file: ' . $path . PHP_EOL);
 }
 
 function RlCleanupGame($gameName) {
@@ -111,7 +167,7 @@ function RlRandomFloat() {
 }
 
 function RlDefaultStateKeyVersion($root) {
-  return 'lite-v2';
+  return strval($root) === 'AzukiSim' ? 'AzukiSim:compact-v3' : 'lite-v2';
 }
 
 function RlStateKeyVersion() {
@@ -119,7 +175,11 @@ function RlStateKeyVersion() {
 }
 
 function RlCompatibleStateKeyVersions() {
-  return ['lite-v2' => true, 'AzukiSim:azuki-v1' => true, 'strategy-v1' => true];
+  return ['lite-v2' => true, 'AzukiSim:azuki-v1' => true, 'AzukiSim:compact-v2' => true, 'AzukiSim:compact-v3' => true, 'strategy-v1' => true];
+}
+
+function RlDefaultActionKeyVersion($stateKeyVersion) {
+  return in_array(strval($stateKeyVersion), ['AzukiSim:compact-v2', 'AzukiSim:compact-v3'], true) ? 'semantic-v1' : 'index-v1';
 }
 
 function RlStrategyEnabled($mode) {
@@ -239,8 +299,10 @@ function RlAzukiV1StateKeyFromSnapshot($snapshot, $actingPlayer = 0) {
   return json_encode($key, JSON_UNESCAPED_SLASHES);
 }
 
-function RlStateKeyFromSnapshot($snapshot, $stateKeyVersion = null, $actingPlayer = 0) {
+function RlStateKeyFromSnapshot($snapshot, $stateKeyVersion = null, $actingPlayer = 0, $legal = []) {
   $version = $stateKeyVersion === null ? RlStateKeyVersion() : strval($stateKeyVersion);
+  if ($version === 'AzukiSim:compact-v3') return BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal);
+  if ($version === 'AzukiSim:compact-v2') return BridgeAzukiCompactStateKey($snapshot, $actingPlayer, $legal);
   if ($version === 'AzukiSim:azuki-v1') return RlAzukiV1StateKeyFromSnapshot($snapshot, $actingPlayer);
   return RlLiteV2StateKeyFromSnapshot($snapshot);
 }
@@ -413,21 +475,42 @@ function RlAttributeResolvedAttackReward(&$episodeSteps, &$replayActions, &$pend
   return ['attack_step_index' => $attackStepIndex, 'reward' => $combatReward];
 }
 
+function RlUnusedIkzPassPenalty($snapshot, $player, $action, $legal, $args) {
+  if (!RlIsPassAction($action)) return 0.0;
+  if (!is_array($legal) || strval($legal['kind'] ?? '') !== 'free-play-fsm') return 0.0;
+  $hasAffordablePlay = false;
+  foreach (($legal['actions'] ?? []) as $legalAction) {
+    if (str_starts_with(BridgeRlSemanticActionKey($legalAction, $legal), 'play:')) {
+      $hasAffordablePlay = true;
+      break;
+    }
+  }
+  if (!$hasAffordablePlay) return 0.0;
+  $compact = is_array($snapshot['azukiCompactState'] ?? null) ? $snapshot['azukiCompactState'] : [];
+  $mine = is_array($compact['p' . intval($player)] ?? null) ? $compact['p' . intval($player)] : [];
+  $availableIKZ = max(0, intval($mine['availableIKZ'] ?? 0));
+  if ($availableIKZ <= 0) return 0.0;
+  return min(0.2, $availableIKZ * floatval($args['tactical-unused-ikz-penalty'] ?? 0.0));
+}
+
 class RlTabularPolicy {
   public int $maxActions;
   public float $temperature;
   public float $learningRate;
   public string $stateKeyVersion;
+  public string $actionKeyVersion;
   public string $strategyMode = 'none';
   public ?RlTabularPolicy $strategyPolicy = null;
-  // Sparse map: stateKey => actionIndex => logit. Missing entries are zero.
+  // Sparse map: stateKey => action key => logit. Legacy checkpoints use
+  // numeric action-index strings; compact Azuki checkpoints use semantic keys.
   public array $logits = [];
 
-  public function __construct($maxActions, $temperature, $learningRate, $stateKeyVersion = null) {
+  public function __construct($maxActions, $temperature, $learningRate, $stateKeyVersion = null, $actionKeyVersion = null) {
     $this->maxActions = intval($maxActions);
     $this->temperature = max(0.000001, floatval($temperature));
     $this->learningRate = floatval($learningRate);
     $this->stateKeyVersion = $stateKeyVersion === null ? RlStateKeyVersion() : strval($stateKeyVersion);
+    $this->actionKeyVersion = $actionKeyVersion === null ? RlDefaultActionKeyVersion($this->stateKeyVersion) : strval($actionKeyVersion);
   }
 
   public function ensureState($stateKey) {
@@ -437,31 +520,39 @@ class RlTabularPolicy {
     return $this->logits[$stateKey];
   }
 
-  public function actionProbabilities($stateKey, $legalIndices) {
+  public function storageKeyForAction($actionIndex, $actionKeys = []) {
+    if ($this->actionKeyVersion === 'semantic-v1') {
+      return strval($actionKeys[intval($actionIndex)] ?? ('unknown-index:' . intval($actionIndex)));
+    }
+    return strval(intval($actionIndex));
+  }
+
+  public function actionProbabilities($stateKey, $legalIndices, $actionKeys = []) {
     if (empty($legalIndices)) return [];
     $stateLogits = $this->logits[$stateKey] ?? [];
     $vals = [];
     $maxLogit = -1.0e30;
     foreach ($legalIndices as $idx) {
-      $logit = floatval($stateLogits[strval($idx)] ?? 0.0) / $this->temperature;
-      $vals[] = [$idx, $logit];
+      $storageKey = $this->storageKeyForAction($idx, $actionKeys);
+      $logit = floatval($stateLogits[$storageKey] ?? 0.0) / $this->temperature;
+      $vals[] = [$idx, $logit, $storageKey];
       if ($logit > $maxLogit) $maxLogit = $logit;
     }
     $denom = 0.0;
     $expVals = [];
-    foreach ($vals as [$idx, $logit]) {
+    foreach ($vals as [$idx, $logit, $storageKey]) {
       $v = exp($logit - $maxLogit);
-      $expVals[] = [$idx, $v];
+      $expVals[] = [$idx, $v, $storageKey];
       $denom += $v;
     }
     $result = [];
-    foreach ($expVals as [$idx, $v]) {
-      $result[] = [$idx, $denom > 0 ? ($v / $denom) : (1.0 / count($expVals))];
+    foreach ($expVals as [$idx, $v, $storageKey]) {
+      $result[] = [$idx, $denom > 0 ? ($v / $denom) : (1.0 / count($expVals)), $storageKey];
     }
     return $result;
   }
 
-  public function selectAction($stateKey, $legalMask, $epsilon) {
+  public function selectAction($stateKey, $legalMask, $epsilon, $actionKeys = []) {
     $legalIndices = [];
     $limit = min(count($legalMask), $this->maxActions);
     for ($i = 0; $i < $limit; ++$i) {
@@ -471,7 +562,7 @@ class RlTabularPolicy {
     if (RlRandomFloat() < $epsilon) {
       return $legalIndices[mt_rand(0, count($legalIndices) - 1)];
     }
-    $probs = $this->actionProbabilities($stateKey, $legalIndices);
+    $probs = $this->actionProbabilities($stateKey, $legalIndices, $actionKeys);
     $r = RlRandomFloat();
     $acc = 0.0;
     foreach ($probs as [$idx, $p]) {
@@ -487,11 +578,11 @@ class RlTabularPolicy {
       $stateKey = $step['state_key'];
       $actionIdx = intval($step['action_index']);
       if ($actionIdx >= $this->maxActions) continue;
-      $probs = $this->actionProbabilities($stateKey, $step['legal_indices']);
+      $actionKeys = is_array($step['action_keys'] ?? null) ? $step['action_keys'] : [];
+      $probs = $this->actionProbabilities($stateKey, $step['legal_indices'], $actionKeys);
       $this->ensureState($stateKey);
-      foreach ($probs as [$idx, $p]) {
+      foreach ($probs as [$idx, $p, $key]) {
         $grad = ($idx === $actionIdx ? 1.0 : 0.0) - $p;
-        $key = strval($idx);
         $this->logits[$stateKey][$key] = floatval($this->logits[$stateKey][$key] ?? 0.0) + $this->learningRate * $terminalReward * $grad;
         if (abs($this->logits[$stateKey][$key]) < 1.0e-12) unset($this->logits[$stateKey][$key]);
       }
@@ -510,13 +601,13 @@ class RlTabularPolicy {
       $stateKey = $step['state_key'];
       $actionIdx = intval($step['action_index']);
       if ($actionIdx >= $this->maxActions) continue;
-      $probs = $this->actionProbabilities($stateKey, $step['legal_indices']);
+      $actionKeys = is_array($step['action_keys'] ?? null) ? $step['action_keys'] : [];
+      $probs = $this->actionProbabilities($stateKey, $step['legal_indices'], $actionKeys);
       $stepReward = array_key_exists('tactical_reward', $step)
         ? (floatval($step['tactical_reward']) + floatval($terminalWeight) * floatval($terminalReward))
         : floatval($terminalReward);
-      foreach ($probs as [$idx, $p]) {
+      foreach ($probs as [$idx, $p, $key]) {
         $grad = ($idx === $actionIdx ? 1.0 : 0.0) - $p;
-        $key = strval($idx);
         $delta[$stateKey][$key] = floatval($delta[$stateKey][$key] ?? 0.0) + $this->learningRate * $stepReward * $grad;
       }
     }
@@ -528,12 +619,17 @@ class RlTabularPolicy {
     foreach ($delta as $stateKey => $values) {
       if (!is_array($values) && !is_object($values)) continue;
       $stateKey = strval($stateKey);
-      foreach ((array)$values as $idx => $value) {
-        $actionIdx = intval($idx);
-        if ($actionIdx < 0 || $actionIdx >= $this->maxActions) continue;
+      foreach ((array)$values as $actionKey => $value) {
+        $key = strval($actionKey);
+        if ($this->actionKeyVersion !== 'semantic-v1') {
+          $actionIdx = intval($actionKey);
+          if ($actionIdx < 0 || $actionIdx >= $this->maxActions) continue;
+          $key = strval($actionIdx);
+        } else if ($key === '') {
+          continue;
+        }
         $v = floatval($value);
         if (abs($v) < 1.0e-12) continue;
-        $key = strval($actionIdx);
         $this->logits[$stateKey][$key] = floatval($this->logits[$stateKey][$key] ?? 0.0) + $v;
         if (abs($this->logits[$stateKey][$key]) < 1.0e-12) unset($this->logits[$stateKey][$key]);
       }
@@ -548,8 +644,8 @@ class RlTabularPolicy {
       foreach ($delta as $stateKey => $values) {
         if (!is_array($values) && !is_object($values)) continue;
         $stateKey = strval($stateKey);
-        foreach ((array)$values as $idx => $value) {
-          $key = strval(intval($idx));
+        foreach ((array)$values as $actionKey => $value) {
+          $key = strval($actionKey);
           $merged[$stateKey][$key] = floatval($merged[$stateKey][$key] ?? 0.0) + floatval($value);
           if (abs($merged[$stateKey][$key]) < 1.0e-12) unset($merged[$stateKey][$key]);
         }
@@ -564,16 +660,19 @@ class RlTabularPolicy {
   }
 
   public function payloadWithStrategy($includeStrategy) {
-    $logits = [];
-    foreach ($this->logits as $stateKey => $values) {
-      if (!empty($values)) $logits[$stateKey] = (object)$values;
+    $logits = $this->actionKeyVersion === 'semantic-v1' ? $this->logits : [];
+    if ($this->actionKeyVersion !== 'semantic-v1') {
+      foreach ($this->logits as $stateKey => $values) {
+        if (!empty($values)) $logits[$stateKey] = (object)$values;
+      }
     }
     $payload = [
       'max_actions' => $this->maxActions,
       'temperature' => $this->temperature,
       'learning_rate' => $this->learningRate,
       'state_key_version' => $this->stateKeyVersion,
-      'logits_format' => 'sparse_index_map',
+      'action_key_version' => $this->actionKeyVersion,
+      'logits_format' => $this->actionKeyVersion === 'semantic-v1' ? 'sparse_action_key_map' : 'sparse_index_map',
       'logits' => $logits,
     ];
     if ($includeStrategy && $this->strategyPolicy !== null && RlStrategyEnabled($this->strategyMode)) {
@@ -588,6 +687,7 @@ class RlTabularPolicy {
       RlFail('Checkpoint payload must be a JSON object.');
     }
     $stateKeyVersion = strval($payload['state_key_version'] ?? 'legacy-v1');
+    $actionKeyVersion = strval($payload['action_key_version'] ?? RlDefaultActionKeyVersion($stateKeyVersion));
     if (empty(RlCompatibleStateKeyVersions()[$stateKeyVersion])) {
       $obj = new RlTabularPolicy(
         intval($payload['max_actions'] ?? $fallbackMaxActions),
@@ -601,19 +701,26 @@ class RlTabularPolicy {
       intval($payload['max_actions'] ?? $fallbackMaxActions),
       floatval($payload['temperature'] ?? $fallbackTemperature),
       floatval($payload['learning_rate'] ?? $fallbackLearningRate),
-      $stateKeyVersion
+      $stateKeyVersion,
+      $actionKeyVersion
     );
     $format = strval($payload['logits_format'] ?? '');
     $rawLogits = is_array($payload['logits'] ?? null) ? $payload['logits'] : [];
     foreach ($rawLogits as $stateKey => $values) {
       if (!is_array($values) && !is_object($values)) continue;
       $valuesArray = (array)$values;
-      foreach ($valuesArray as $idx => $value) {
-        $actionIdx = intval($idx);
-        if ($actionIdx < 0 || $actionIdx >= $obj->maxActions) continue;
+      foreach ($valuesArray as $actionKey => $value) {
+        $key = strval($actionKey);
+        if ($obj->actionKeyVersion !== 'semantic-v1') {
+          $actionIdx = intval($actionKey);
+          if ($actionIdx < 0 || $actionIdx >= $obj->maxActions) continue;
+          $key = strval($actionIdx);
+        } else if ($key === '') {
+          continue;
+        }
         $floatValue = floatval($value);
         if (abs($floatValue) < 1.0e-12) continue;
-        $obj->logits[strval($stateKey)][strval($actionIdx)] = $floatValue;
+        $obj->logits[strval($stateKey)][$key] = $floatValue;
       }
       if (empty($obj->logits[strval($stateKey)] ?? [])) unset($obj->logits[strval($stateKey)]);
     }
@@ -638,7 +745,7 @@ class RlTabularPolicy {
   }
 
   public function copy() {
-    $obj = new RlTabularPolicy($this->maxActions, $this->temperature, $this->learningRate, $this->stateKeyVersion);
+    $obj = new RlTabularPolicy($this->maxActions, $this->temperature, $this->learningRate, $this->stateKeyVersion, $this->actionKeyVersion);
     $obj->logits = $this->logits;
     $obj->strategyMode = $this->strategyMode;
     $obj->strategyPolicy = $this->strategyPolicy !== null ? $this->strategyPolicy->copy() : null;
@@ -652,7 +759,7 @@ function RlEnsureStrategyPolicy($policy, $strategyMode) {
   if (!RlStrategyEnabled($strategyMode)) return;
   $policy->strategyMode = $strategyMode;
   if (!$policy->strategyPolicy instanceof RlTabularPolicy) {
-    $policy->strategyPolicy = new RlTabularPolicy(2, $policy->temperature, $policy->learningRate, 'strategy-v1');
+    $policy->strategyPolicy = new RlTabularPolicy(2, $policy->temperature, $policy->learningRate, 'strategy-v1', 'index-v1');
   }
 }
 
@@ -680,6 +787,9 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   $GLOBALS['bridgeIncludeAzukiStrategyState'] =
     ($policy instanceof RlTabularPolicy && RlStrategyEnabled($policy->strategyMode))
     || ($opponent instanceof RlTabularPolicy && RlStrategyEnabled($opponent->strategyMode));
+  $GLOBALS['bridgeIncludeAzukiCompactState'] =
+    ($policy instanceof RlTabularPolicy && in_array($policy->stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3'], true))
+    || ($opponent instanceof RlTabularPolicy && in_array($opponent->stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3'], true));
   $startPayload = BridgeStartSelfplayGame($args['root'], $gameName, intval($epSeed), $deckText, $deckText, $memoryArg);
   if (empty($startPayload['success'])) RlFail('start-selfplay-game failed: ' . json_encode($startPayload));
 
@@ -715,7 +825,11 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     $turnPlayer = intval($legal['playerID'] ?? ($snapshot['turnPlayer'] ?? 1));
     if ($turnPlayer !== 1 && $turnPlayer !== 2) $turnPlayer = intval($snapshot['turnPlayer'] ?? 1);
     $actingPolicy = $turnPlayer === 1 ? $policy : $opponent;
-    $stateKey = RlStateKeyFromSnapshot($snapshot, $actingPolicy->stateKeyVersion, $turnPlayer);
+    $actionKeys = [];
+    foreach ($lastLegalActions as $idx => $legalAction) {
+      $actionKeys[intval($idx)] = BridgeRlSemanticActionKey($legalAction, $legal);
+    }
+    $stateKey = RlStateKeyFromSnapshot($snapshot, $actingPolicy->stateKeyVersion, $turnPlayer, $legal);
     $boundedMask = array_slice($mask, 0, intval($args['max-actions']));
     $legalIndices = RlCandidateIndices($boundedMask, $lastLegalActions, $noOpKeys, $stateKey);
     if (empty($legalIndices)) {
@@ -738,7 +852,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     }
     $filteredMask = array_fill(0, count($boundedMask), 0);
     foreach ($legalIndices as $idx) $filteredMask[$idx] = 1;
-    $actionIndex = $actingPolicy->selectAction($stateKey, $filteredMask, floatval($args['epsilon']));
+    $actionIndex = $actingPolicy->selectAction($stateKey, $filteredMask, floatval($args['epsilon']), $actionKeys);
     $action = $lastLegalActions[$actionIndex] ?? [];
     $cleanAction = [
       'playerID' => intval($action['playerID'] ?? 0),
@@ -750,8 +864,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       'resolvedCardID' => strval($action['resolvedCardID'] ?? ''),
     ];
     $stepIndex = count($episodeSteps);
-    $episodeSteps[] = ['state_key' => $stateKey, 'action_index' => $actionIndex, 'legal_indices' => $legalIndices, 'turn_player' => $turnPlayer, 'strategy_posture' => $strategyPosture];
-    $replayActions[] = ['step' => count($replayActions) + 1, 'turnPlayer' => $turnPlayer, 'actionIndex' => $actionIndex, 'legalCount' => count($legalIndices), 'strategyPosture' => $strategyPosture, 'action' => $cleanAction];
+    $episodeSteps[] = ['state_key' => $stateKey, 'action_index' => $actionIndex, 'action_key' => strval($actionKeys[$actionIndex] ?? ''), 'action_keys' => $actionKeys, 'legal_indices' => $legalIndices, 'turn_player' => $turnPlayer, 'strategy_posture' => $strategyPosture];
+    $replayActions[] = ['step' => count($replayActions) + 1, 'turnPlayer' => $turnPlayer, 'actionIndex' => $actionIndex, 'actionKey' => strval($actionKeys[$actionIndex] ?? ''), 'legalCount' => count($legalIndices), 'strategyPosture' => $strategyPosture, 'action' => $cleanAction];
 
     try {
       $beforeSnapshot = $snapshot;
@@ -769,6 +883,11 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       $snapshot = $stepPayload['snapshot'];
       if ($strategyPosture !== null) {
         $episodeSteps[$stepIndex]['tactical_reward'] = RlTacticalImmediateReward($beforeSnapshot, $snapshot, $turnPlayer, $strategyPosture, $stepPayload['preHash'] !== $stepPayload['postHash'], $args);
+        $unusedIkzPenalty = $args['root'] === 'AzukiSim' ? RlUnusedIkzPassPenalty($beforeSnapshot, $turnPlayer, $cleanAction, $legal, $args) : 0.0;
+        if ($unusedIkzPenalty > 0) {
+          $episodeSteps[$stepIndex]['tactical_reward'] -= $unusedIkzPenalty;
+          $replayActions[$stepIndex]['unusedIkzPenalty'] = $unusedIkzPenalty;
+        }
         $replayActions[$stepIndex]['tacticalReward'] = $episodeSteps[$stepIndex]['tactical_reward'];
       }
       $wasAttackResponse = RlIsAttackResponseLegalPayload($legal);
@@ -903,12 +1022,14 @@ function RlEpisodeOutcome($summary) {
   return $winner > 0 ? ('winner=P' . $winner) : 'ended';
 }
 
-function RlWriteCheckpoint($ckptDir, $episodeNumber, $policy, &$frozenPool) {
+function RlWriteCheckpoint($ckptDir, $episodeNumber, $policy, &$frozenPool, $retainFrozenPolicy = true) {
   $ckptPath = $ckptDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', intval($episodeNumber)) . '.json';
   RlWriteJson($ckptPath, $policy->payload());
   RlWriteJson($ckptDir . DIRECTORY_SEPARATOR . 'latest.json', $policy->payload());
-  $frozenPool[] = $policy->copy();
-  if (count($frozenPool) > 5) array_shift($frozenPool);
+  if ($retainFrozenPolicy) {
+    $frozenPool[] = $policy->copy();
+    if (count($frozenPool) > 5) array_shift($frozenPool);
+  }
   return $ckptPath;
 }
 
@@ -958,9 +1079,11 @@ function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $compl
     'controlEnemyThreatReward' => floatval($args['control-enemy-threat-reward']),
     'controlOwnThreatPenalty' => floatval($args['control-own-threat-penalty']),
     'tacticalNoStateChangePenalty' => floatval($args['tactical-no-state-change-penalty']),
+    'tacticalUnusedIkzPenalty' => floatval($args['tactical-unused-ikz-penalty']),
     'memoryOnly' => $args['memory-only'],
     'trainer' => 'php',
     'stateKeyVersion' => RlStateKeyVersion(),
+    'actionKeyVersion' => RlDefaultActionKeyVersion(RlStateKeyVersion()),
     'strategyMode' => strval($GLOBALS['rlStrategyMode'] ?? 'none'),
     'workers' => intval($args['workers']),
     'workerEpisodes' => intval($args['worker-episodes']),
@@ -988,6 +1111,7 @@ function RlRunWorker($args) {
   $policy = RlTabularPolicy::load(strval($args['policy-file']), $args['max-actions'], $args['temperature'], $args['learning-rate']);
   RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
   $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
+  $GLOBALS['rlStateKeyVersion'] = $policy->stateKeyVersion;
   $episodeCount = max(1, min(intval($args['worker-episodes']), intval($args['episodes'])));
   $allDeltas = [];
   $allStrategyDeltas = [];
@@ -1147,6 +1271,7 @@ function RlWorkerCommand($args, $runId, $policyPath, $resultPath, $episodeNumber
     '--control-enemy-threat-reward', strval(floatval($args['control-enemy-threat-reward'])),
     '--control-own-threat-penalty', strval(floatval($args['control-own-threat-penalty'])),
     '--tactical-no-state-change-penalty', strval(floatval($args['tactical-no-state-change-penalty'])),
+    '--tactical-unused-ikz-penalty', strval(floatval($args['tactical-unused-ikz-penalty'])),
     '--strategy-mode', RlQuoteArg($args['strategy-mode']),
   ];
   if ($args['memory-only'] === true) $parts[] = '--memory-only';
@@ -1251,12 +1376,14 @@ function RlRunParallel($args) {
           RlPrintProgress($args, $policy, $summaryEpisode, intval($summary['steps'] ?? 0), RlEpisodeOutcome($summary), $timedOutEpisodes, $completedSteps, $trainStart);
         }
       }
+      RlDeleteWorkerScratch($worker['resultPath']);
     }
+    RlDeleteWorkerScratch($policyPath);
 
     $nextEpisode += $batchSize;
     $lastCompleted = $nextEpisode - 1;
     if ($lastCompleted >= $nextCheckpointEpisode || $lastCompleted === intval($args['episodes'])) {
-      RlWriteCheckpoint($ckptDir, $lastCompleted, $policy, $frozenPool);
+      RlWriteCheckpoint($ckptDir, $lastCompleted, $policy, $frozenPool, false);
       while ($nextCheckpointEpisode <= $lastCompleted) {
         $nextCheckpointEpisode += max(1, intval($args['checkpoint-every']));
       }

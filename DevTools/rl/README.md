@@ -88,6 +88,7 @@ Default tactical shaping:
 - `--control-enemy-threat-reward 0.15`: control posture rewards permanent reduction of opposing board attack.
 - `--control-own-threat-penalty 0.1`: control posture penalizes permanent loss of friendly board attack.
 - `--tactical-no-state-change-penalty 0.05`: no-op/failed tactical actions receive a small penalty.
+- `--tactical-unused-ikz-penalty 0.02`: passing the main phase while an affordable hand play exists loses 0.02 per unused IKZ, capped at 0.2.
 
 Episode replays include `strategyPosture` and `tacticalReward` fields for shaped tactical steps.
 
@@ -98,15 +99,25 @@ attack declaration; the pass that merely commits combat receives no combat
 reward. Replay attack steps include `combatRewardResolvedAtStep`, and the
 resolving response step includes `combatRewardAttributedToStep`.
 
-The tabular policy uses a coarse scalar state key. Current `lite-v2` keys include active/turn player, phase, own hand count, existing resource/material count fields, exact leader/champion life and damage, and each player's next decision type. They intentionally omit exact turn number, deck counts, opponent hand count, and exact decision queue counts to reduce table growth. Older checkpoints with legacy state keys can still be passed as `--checkpoint`, but their incompatible logits are discarded and training starts a fresh `lite-v2` table with the same trainer settings.
+Fresh Azuki training uses the context-gated `AzukiSim:compact-v3` state and
+`semantic-v1` action keys. It retains IKZ availability, hand and life buckets,
+then includes board and legal-action summaries only in the contexts where they
+matter. This avoids the cross-product state growth seen in `compact-v2`. Logits
+are keyed by stable meanings such as
+`play:<cardID>`, `attack:<cardID>`, `target:<role>:<cardID>`, and distinct main
+and response passes instead of by legal-list position.
+
+Legacy `lite-v2`/index and `compact-v2` checkpoints remain loadable for evaluation
+and continued same-version training, but they do not migrate into the v3 table.
+Omit `--checkpoint` when starting the v3 generation from a fresh policy.
 
 PHP trainer artifacts:
 
-- `checkpoints/*.json`: tabular policy snapshots for evaluation or later reuse. Controlled by `--checkpoint-every`; the final episode always writes a checkpoint.
+- `checkpoints/*.json`: tabular policy snapshots for evaluation or later reuse. Controlled by `--checkpoint-every`; the final episode always writes a checkpoint. Checkpoints are streamed to disk so saving does not allocate a second model-sized JSON string.
 - `replays/episode_*.json`: exact initial gamestate plus chosen actions for the final episode only, used for regression conversion and UI debugging.
 - `replays/timeout_episode_*.json`: exact initial gamestate plus chosen actions for the first timed-out episode, only written when a timeout occurs.
 - `run_config.json`: run arguments, final throughput summary, and per-episode summaries.
-- `workers/*.json`: coordinator/worker scratch files for parallel runs.
+- `workers/*.json`: coordinator/worker scratch files for the active parallel batch. Successful batches delete these files after their deltas and replays are merged; failed-batch files are retained for diagnosis. Parallel mode does not retain unused in-memory frozen checkpoint copies.
 
 The PHP trainer intentionally does not write CSV timing/metrics files. Progress and throughput are printed to the console, while `run_config.json` keeps the compact final summary.
 

@@ -138,8 +138,21 @@ function EngineLoadRootRuntime($folderPath) {
   include_once $repoRoot . '/AccountFiles/AccountDatabaseAPI.php';
   include_once $repoRoot . '/Database/ConnectionManager.php';
 
-  include_once $repoRoot . '/' . $folderPath . '/GeneratedCode/GeneratedCardDictionaries.php';
-  include_once $repoRoot . '/' . $folderPath . '/GamestateParser.php';
+  $gamestateParserPath = $repoRoot . '/' . $folderPath . '/GamestateParser.php';
+  $dictionaryPath = $repoRoot . '/' . $folderPath . '/GeneratedCode/GeneratedCardDictionaries.php';
+  $parserLoadedForReflection = false;
+  if (!is_file($dictionaryPath)) {
+    include_once $gamestateParserPath;
+    $parserLoadedForReflection = true;
+    if (function_exists('GetAssetReflectionPath')) {
+      $reflectionRoot = trim((string)GetAssetReflectionPath());
+      if ($reflectionRoot !== '') {
+        $dictionaryPath = $repoRoot . '/' . $reflectionRoot . '/GeneratedCode/GeneratedCardDictionaries.php';
+      }
+    }
+  }
+  include_once $dictionaryPath;
+  if (!$parserLoadedForReflection) include_once $gamestateParserPath;
   include_once $repoRoot . '/' . $folderPath . '/ZoneAccessors.php';
   include_once $repoRoot . '/' . $folderPath . '/ZoneClasses.php';
 
@@ -234,13 +247,19 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     !$matchReplayInterrupted &&
     !in_array($mode, $matchReplayControlModes, true)
   ) {
-    return [
+    $rejectedResult = [
       'success' => false,
       'message' => 'Replay playback sessions can only be advanced with replay controls.',
       'writeGamestate' => false,
       'updateCache' => false,
       'recordAction' => false,
     ];
+    if ($mode === 10017) {
+      $rejectedResult['botStepApplied'] = false;
+      $rejectedResult['botStepRetryable'] = false;
+      $rejectedResult['botControllerState'] = BuildBotControllerClientState($folderPath, $gameName);
+    }
+    return $rejectedResult;
   }
 
   $matchReplayPendingAction = ($result['recordAction'] && !$matchReplayInterrupted)
