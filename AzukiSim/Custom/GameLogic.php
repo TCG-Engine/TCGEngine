@@ -3113,7 +3113,17 @@ function FieldSelectionMetadata($obj) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
-    if(!CardHasAbility($obj)) {
+    $location = strval($obj->Location ?? '');
+    $mzIndex = intval($obj->mzIndex ?? -1);
+    $hasDirectClickAction = false;
+    if($location === 'Garden' && $mzIndex >= 0) {
+        $hasDirectClickAction = CanAttackWith($actingPlayer, 'myGarden-' . $mzIndex);
+    } else if($location === 'Gate' && $mzIndex >= 0) {
+        $hasDirectClickAction = CanUseGateRuntime($actingPlayer, 'myGate-' . $mzIndex, '')
+            && !empty(GetPortalCandidates($actingPlayer));
+    }
+
+    if(!$hasDirectClickAction && !CardHasAbility($obj)) {
         return json_encode(['highlight' => false]);
     }
 
@@ -3227,10 +3237,10 @@ function CardHasAbility($obj) {
     $location = isset($obj->Location) ? $obj->Location : '';
     $mzIndex = intval($obj->mzIndex ?? -1);
 
-    // Garden cards surface Activate when they can currently declare an attack.
+    // Garden cards only surface the hover widget for actual activated abilities.
+    // Their normal attack action is handled by the card's FSM click action.
     if($location === 'Garden' && $mzIndex >= 0) {
         $mzID = 'myGarden-' . $mzIndex;
-        if(!$isResponseWindow && CanAttackWith($actingPlayer, $mzID)) return 1;
 
         if($cardID !== '') {
             $abilityCount = 0;
@@ -3243,11 +3253,6 @@ function CardHasAbility($obj) {
                 }
             }
         }
-    }
-
-    // Gate surfaces Activate when it is usable and an untapped Alley unit exists to portal.
-    if(!$isResponseWindow && $location === 'Gate' && $mzIndex >= 0 && CanUseGateRuntime($actingPlayer, 'myGate-' . $mzIndex, '')) {
-        if(!empty(GetPortalCandidates($actingPlayer))) return 1;
     }
 
     // Alley cards can expose Activate abilities (e.g. Alpine Prowler sacrifice ability).
