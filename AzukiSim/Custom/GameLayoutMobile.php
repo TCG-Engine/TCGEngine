@@ -734,7 +734,7 @@
      */
     @media (orientation: landscape) and (max-height: 600px) {
         :root {
-            --azuki-l-card: clamp(56px, 18.5vh, 78px);
+            --azuki-l-card: clamp(42px, min(18.5dvh, calc(25dvh - 22px)), 78px);
             --azuki-l-hand-card: clamp(72px, 23vh, 92px);
             --azuki-l-rail: clamp(150px, 19vw, 200px);
             --azuki-l-hand: clamp(126px, 17vw, 180px);
@@ -980,11 +980,24 @@
         #theirGardenSlot,
         #myAlleySlot,
         #theirAlleySlot {
-            width: 100%;
-            height: 100%;
+            position: absolute !important;
+            top: 11px;
+            right: 3px;
+            bottom: 3px;
+            left: 3px;
+            width: auto;
+            height: auto;
             border: 0;
             border-radius: 0;
             background: transparent;
+        }
+
+        #myGardenWrapper,
+        #theirGardenWrapper,
+        #myAlleyWrapper,
+        #theirAlleyWrapper {
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         #myGarden,
