@@ -328,6 +328,68 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
       flex-direction: column !important;
     }
   }
+  @media (max-width: 768px) {
+    .azuki-menu-grid {
+      width: auto;
+      gap: 12px;
+      margin: 12px 10px 0;
+    }
+    .azuki-active-card,
+    .azuki-queue-card,
+    .azuki-info-card {
+      width: 100%;
+      padding: 16px !important;
+      box-sizing: border-box;
+    }
+    .azuki-queue-card h2,
+    .azuki-active-card h2,
+    .azuki-info-card h2 {
+      font-size: 22px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    #starter-deck-select {
+      min-width: 0 !important;
+      width: 100%;
+    }
+    .azuki-queue-card > div > div[style*="display: flex"] {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px !important;
+    }
+    .azuki-queue-card > div > div[style*="display: flex"] > button {
+      width: 100%;
+      min-height: 42px;
+      padding: 8px 6px;
+      white-space: normal;
+      line-height: 1.15;
+    }
+    .saved-decks-panel .dl-dropdown-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .saved-decks-panel .dl-act {
+      width: 100%;
+      min-width: 0;
+    }
+    #did-you-know-box {
+      min-height: 120px;
+      padding: 14px !important;
+    }
+    #did-you-know-text {
+      min-height: 58px;
+      max-height: none;
+    }
+    .hotkey-row {
+      align-items: flex-start;
+      line-height: 1.35;
+    }
+  }
+  @media (max-width: 370px) {
+    .azuki-queue-card > div > div[style*="display: flex"] {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 
 <script>

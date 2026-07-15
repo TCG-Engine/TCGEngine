@@ -13,13 +13,14 @@
     'homeHref'       => '/TCGEngine/SharedUI/Sites/AzukiSim/MainMenu.php',
     'favicon'        => '/TCGEngine/Assets/Images/icons/gudnakIcon.png',
     'showBanner'     => false,
+    'menuOverlay'    => true,
     'disclaimerName' => 'Azuki Sim',
   ],
   'head' => [
     'styles'  => [   // shared stack derived from `theme` (clarent); only the app override remains
       '/TCGEngine/SharedUI/Sites/AzukiSim/css/azuki-overrides.css',
     ],
-    'scripts' => [],
+    'scripts' => ['/TCGEngine/SharedUI/js/burger-menu.js'],
     'fonts'   => ['Barlow', 'Teko'],
   ],
   'nav' => [
