@@ -4065,8 +4065,15 @@ function EnableChooseZoneSelection(zoneSpecs, tooltip, decisionIndex) {
     SubmitInput('DECISION', '&decisionIndex=' + selectedDecisionIndex + '&cardID=' + encodeURIComponent(submittedValue));
   };
 
+  // Any game can keep the zone highlights while opting out of the redundant banner.
+  const rawTooltip = tooltip == null ? '' : String(tooltip).trim();
+  const suppressSelectionMessage = rawTooltip.replace(/\s+/g, '_').toUpperCase() === 'NO_SELECTION_MESSAGE';
   const msg = tooltip || 'Choose a zone';
-  ShowSelectionMessage(msg, false, decisionIndex);
+  if (suppressSelectionMessage) {
+    HideSelectionMessage();
+  } else {
+    ShowSelectionMessage(msg, false, decisionIndex);
+  }
 
   zoneSpecs.forEach(spec => {
     const el = ResolveChooseZoneElement(spec.zone);

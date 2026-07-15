@@ -1,7 +1,7 @@
 <?php
 // GameLayoutDevice.php - phone vs desktop/tablet detection for AzukiSim.
 //
-// Phones get the vertical mobile board in GameLayoutMobile.php. Tablets keep the
+// Phones get the responsive portrait/landscape board in GameLayoutMobile.php. Tablets keep the
 // desktop board because the existing Azuki layout has enough room there.
 //
 // Manual override for local testing:

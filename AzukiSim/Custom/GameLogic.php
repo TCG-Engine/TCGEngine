@@ -3431,7 +3431,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
     }
 
     if($cardType === 'ENTITY') {
-        DecisionQueueController::AddDecision($player, 'CHOOSEZONE', 'myGarden&myAlley', 1, 'Choose_lane_for_entity');
+        DecisionQueueController::AddDecision($player, 'CHOOSEZONE', 'myGarden&myAlley', 1, 'NO_SELECTION_MESSAGE');
         DecisionQueueController::AddDecision($player, 'CUSTOM', 'PLAY_ENTITY_DEST|' . $mzCard, 1);
         return 'PLAY';
     } else if($cardType === 'WEAPON') {
