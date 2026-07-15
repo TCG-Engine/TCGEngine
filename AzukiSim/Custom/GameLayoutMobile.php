@@ -1050,6 +1050,10 @@
             transition: transform 130ms ease, filter 130ms ease;
         }
 
+        #myHand:not(.azuki-hand-fan-ready) > span[id] {
+            transition: none !important;
+        }
+
         #myHand > span[id]:first-child {
             margin-left: 0 !important;
         }
@@ -1309,6 +1313,107 @@
 
         #macro-card-toast-host.is-expanded > .macro-card-toast {
             display: none !important;
+        }
+
+        /* Compact end-game presentation for short landscape viewports. */
+        body:has(#game-over-overlay.active) #macro-card-toast-host {
+            display: none !important;
+        }
+
+        #game-over-overlay {
+            padding: 8px 12px 10px !important;
+            overflow: hidden !important;
+        }
+
+        #game-over-title {
+            flex: 0 0 auto;
+            margin-top: 50px !important;
+            font-size: clamp(30px, 10vh, 48px) !important;
+            line-height: 0.95 !important;
+            letter-spacing: 4px !important;
+        }
+
+        #game-over-menu-btn {
+            top: 8px !important;
+            right: 10px !important;
+            max-width: 132px;
+            padding: 7px 10px !important;
+            border-radius: 8px !important;
+            font-size: 10px !important;
+            line-height: 1 !important;
+            letter-spacing: 1px !important;
+            white-space: nowrap;
+        }
+
+        #game-over-overlay > .match-replay-stats-actions {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            right: auto;
+            width: fit-content;
+            max-width: calc(100vw - 174px);
+            transform: translateX(-50%);
+            min-height: 34px;
+            margin: 0 !important;
+            padding: 4px 6px !important;
+            justify-content: flex-start !important;
+            flex-wrap: nowrap !important;
+            gap: 6px !important;
+        }
+
+        #game-over-overlay > .match-replay-stats-actions .match-replay-muted {
+            min-width: 0;
+            overflow: hidden;
+            font-size: 10px;
+            line-height: 1.15;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        #match-replay-game-over-save-btn {
+            flex: 0 0 auto;
+            padding: 6px 9px !important;
+            font-size: 10px !important;
+            line-height: 1 !important;
+            white-space: nowrap;
+        }
+
+        #game-over-stats {
+            flex: 1 1 auto;
+            width: calc(100vw - 24px) !important;
+            max-height: calc(100dvh - 112px) !important;
+            margin: 6px auto 0 !important;
+            padding: 8px 10px !important;
+            border-radius: 9px !important;
+            font-size: 12px !important;
+            line-height: 1.2 !important;
+            overscroll-behavior: contain;
+        }
+
+        #game-over-stats > div:first-child {
+            margin-bottom: 6px !important;
+        }
+
+        #game-over-stats > div:first-child > div {
+            font-size: 15px !important;
+        }
+
+        #game-over-stats .macro-game-stats-grid {
+            gap: 8px !important;
+        }
+
+        #game-over-stats section {
+            padding: 8px !important;
+            border-radius: 10px !important;
+        }
+
+        #game-over-stats [data-macro-game-chart] {
+            padding: 5px !important;
+            border-radius: 9px !important;
+        }
+
+        #game-over-stats [data-macro-game-chart] > div {
+            height: 132px !important;
         }
     }
 </style>
@@ -1596,6 +1701,7 @@
         var hand = document.getElementById('myHand');
         if(!hand) return;
 
+        hand.classList.remove('azuki-hand-fan-ready');
         var cards = Array.prototype.filter.call(hand.children, function(child) {
             return child && child.id;
         });
@@ -1609,6 +1715,12 @@
             card.style.setProperty('--azuki-hand-drop', drop.toFixed(2) + 'px');
             card.style.zIndex = String(70 - Math.round(Math.abs(distance) * 2));
         });
+
+        // BindTo replaces the hand wholesale. Commit the final fan geometry
+        // while transitions are disabled, then restore hover motion only after
+        // that state has been laid out so an unfanned frame cannot animate in.
+        void hand.offsetWidth;
+        hand.classList.add('azuki-hand-fan-ready');
     }
 
     function updateLandscapeHandVisibility() {
