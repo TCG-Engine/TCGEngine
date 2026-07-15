@@ -863,11 +863,13 @@
         }
 
         .azuki-m-band .azuki-m-gate {
+            position: relative;
             margin-left: 0;
             grid-column: 3;
             grid-row: 1;
             gap: 0;
             overflow: visible;
+            z-index: 55;
         }
 
         .azuki-m-band .azuki-m-gate > .azuki-m-pile-label {
@@ -884,6 +886,38 @@
             width: 44px !important;
             height: 44px !important;
             max-width: 44px !important;
+        }
+
+        @media (max-height: 430px) {
+            .azuki-m-leader-health {
+                height: 40px;
+            }
+
+            .azuki-m-band.is-theirs .azuki-m-leader-health {
+                bottom: 8px;
+            }
+
+            .azuki-m-band.is-mine .azuki-m-leader-health {
+                top: 8px;
+            }
+
+            .azuki-m-leader-health-value {
+                height: 29px;
+                font-size: 27px;
+            }
+
+            .azuki-m-band .azuki-m-gate > div:not(.azuki-m-pile-label),
+            .azuki-m-band .azuki-m-gate img:not(.counter-image-icon) {
+                width: 40px !important;
+                height: 40px !important;
+                min-height: 40px;
+                max-width: 40px !important;
+                max-height: 40px;
+            }
+
+            .azuki-m-section.is-mine {
+                bottom: -36px;
+            }
         }
 
         .azuki-m-band.is-mine .azuki-m-pass {
