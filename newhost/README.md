@@ -55,6 +55,29 @@ The app's asset code calls **Imagick directly** (`zzImageConverter.php`, `zzCrop
 of this script installed the old polyfill (`auto_prepend_file`), re-running retires it
 automatically. (`SWUDeck/CreateImage.php` is JPEG-only and unaffected.)
 
+#### 1c. Docroot routing + directory hardening — `harden-htaccess.sh`
+
+Apache serves the repo at `htdocs/TCGEngine/` with directory listings ON, so hitting a
+directory with no index file (e.g. `/TCGEngine/SharedUI/`) shows an "Index of …" of the
+filesystem. This script is the **single source of truth** for `htdocs/.htaccess`: every run
+**overwrites** the whole file from the `APP_DOMAINS` table declared at the top of the script.
+
+```bash
+sudo ./harden-htaccess.sh
+```
+
+Generates, in order:
+
+1. **Force HTTPS.**
+2. **Per-domain root redirects** — one rule per `APP_DOMAINS` entry (`<domain>|<target menu URL>`),
+   sending `/` and `/index.php` to that app's main menu.
+3. **`/TCGEngine` and `/TCGEngine/SharedUI/`** → the active site's `SharedUI/MainMenu.php`.
+4. **`Options -Indexes`** — turns every directory listing into a 403.
+
+Deterministic (same output every run) and backs up the existing `.htaccess` first. **Because it
+overwrites, every live domain must be present in `APP_DOMAINS` or its redirect is dropped** — add
+apps by editing that one table, then re-run. Apply with `sudo /opt/lampp/lampp reload`. Flags: `--yes`.
+
 ### 2. Provision each new app (per clone)
 
 ```bash

@@ -46,6 +46,7 @@ while(!feof($handler)) {
   if($line === false) break;
   $line = trim($line);
   if($line == "") continue;
+  if($line[0] === '#') continue; // skip comment lines (they may contain ';' or '->' that would otherwise mis-parse as states/transitions)
   if(stripos($line, 'DecisionQueue:') === 0) {
     if(stripos($line, 'enabled') !== false) $decisionQueueEnabled = true;
     continue;
