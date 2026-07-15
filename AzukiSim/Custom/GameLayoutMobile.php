@@ -929,12 +929,28 @@
         }
 
         .azuki-m-lanes {
-            display: contents;
+            grid-column: 2;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+            gap: 5px;
+            min-height: 0;
+            padding: 0;
+            overflow: visible;
+            background: transparent;
+        }
+
+        .azuki-m-lanes.is-theirs {
+            grid-row: 1 / span 2;
+        }
+
+        .azuki-m-lanes.is-mine {
+            grid-row: 3 / span 2;
         }
 
         .azuki-m-lane {
             position: relative;
-            grid-column: 2;
+            grid-column: 1;
             display: block;
             min-width: 0;
             min-height: 0;
@@ -947,8 +963,8 @@
 
         .azuki-m-lanes.is-theirs > .azuki-m-lane:nth-child(2) { grid-row: 1; }
         .azuki-m-lanes.is-theirs > .azuki-m-lane:nth-child(1) { grid-row: 2; }
-        .azuki-m-lanes.is-mine > .azuki-m-lane:nth-child(1) { grid-row: 3; }
-        .azuki-m-lanes.is-mine > .azuki-m-lane:nth-child(2) { grid-row: 4; }
+        .azuki-m-lanes.is-mine > .azuki-m-lane:nth-child(1) { grid-row: 1; }
+        .azuki-m-lanes.is-mine > .azuki-m-lane:nth-child(2) { grid-row: 2; }
 
         .azuki-m-label {
             position: absolute;
