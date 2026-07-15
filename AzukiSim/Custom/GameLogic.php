@@ -140,7 +140,11 @@ function AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) {
     if(strpos($raw, '"state_key_version": "lite-v2"') === false
         && strpos($raw, '"state_key_version":"lite-v2"') === false
         && strpos($raw, '"state_key_version": "AzukiSim:azuki-v1"') === false
-        && strpos($raw, '"state_key_version":"AzukiSim:azuki-v1"') === false) return null;
+        && strpos($raw, '"state_key_version":"AzukiSim:azuki-v1"') === false
+        && strpos($raw, '"state_key_version": "AzukiSim:compact-v2"') === false
+        && strpos($raw, '"state_key_version":"AzukiSim:compact-v2"') === false
+        && strpos($raw, '"state_key_version": "AzukiSim:compact-v3"') === false
+        && strpos($raw, '"state_key_version":"AzukiSim:compact-v3"') === false) return null;
 
     $encodedKey = json_encode(strval($stateKey), JSON_UNESCAPED_SLASHES);
     if(!is_string($encodedKey) || $encodedKey === '') return null;
@@ -161,8 +165,17 @@ function AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) {
 function AzukiRlBotCheckpointStateKeyVersion($path) {
     $raw = @file_get_contents($path, false, null, 0, 4096);
     if(!is_string($raw) || $raw === '') return 'lite-v2';
+    if(strpos($raw, '"state_key_version": "AzukiSim:compact-v3"') !== false || strpos($raw, '"state_key_version":"AzukiSim:compact-v3"') !== false) return 'AzukiSim:compact-v3';
+    if(strpos($raw, '"state_key_version": "AzukiSim:compact-v2"') !== false || strpos($raw, '"state_key_version":"AzukiSim:compact-v2"') !== false) return 'AzukiSim:compact-v2';
     if(strpos($raw, '"state_key_version": "AzukiSim:azuki-v1"') !== false || strpos($raw, '"state_key_version":"AzukiSim:azuki-v1"') !== false) return 'AzukiSim:azuki-v1';
     return 'lite-v2';
+}
+
+function AzukiRlBotCheckpointActionKeyVersion($path) {
+    $raw = @file_get_contents($path, false, null, 0, 4096);
+    if(!is_string($raw) || $raw === '') return 'index-v1';
+    if(strpos($raw, '"action_key_version": "semantic-v1"') !== false || strpos($raw, '"action_key_version":"semantic-v1"') !== false) return 'semantic-v1';
+    return 'index-v1';
 }
 
 function AzukiRlBotCheckpointStrategyMode($path) {
@@ -300,20 +313,30 @@ function AzukiRlBotV1StateKeyFromSnapshot($snapshot, $actingPlayer = 0) {
     return json_encode($key, JSON_UNESCAPED_SLASHES);
 }
 
-function AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion = 'lite-v2', $actingPlayer = 0) {
+function AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion = 'lite-v2', $actingPlayer = 0, $legal = []) {
+    if($stateKeyVersion === 'AzukiSim:compact-v3' && function_exists('BridgeAzukiCompactV3StateKey')) {
+        return BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal);
+    }
+    if($stateKeyVersion === 'AzukiSim:compact-v2' && function_exists('BridgeAzukiCompactStateKey')) {
+        return BridgeAzukiCompactStateKey($snapshot, $actingPlayer, $legal);
+    }
     return $stateKeyVersion === 'AzukiSim:azuki-v1'
         ? AzukiRlBotV1StateKeyFromSnapshot($snapshot, $actingPlayer)
         : AzukiRlBotLiteV2StateKeyFromSnapshot($snapshot);
 }
 
-function AzukiRlBotChooseAction($stateLogits, $actions) {
+function AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion = 'index-v1', $legal = []) {
     if(empty($actions)) return null;
     if(!is_array($stateLogits)) $stateLogits = [];
     $bestIndex = 0;
     $bestScore = null;
     for($i = 0; $i < count($actions); ++$i) {
-        $scoreIndex = isset($actions[$i]['_rlActionIndex']) ? intval($actions[$i]['_rlActionIndex']) : $i;
-        $score = floatval($stateLogits[strval($scoreIndex)] ?? 0.0);
+        if($actionKeyVersion === 'semantic-v1' && function_exists('BridgeRlSemanticActionKey')) {
+            $scoreKey = BridgeRlSemanticActionKey($actions[$i], $legal);
+        } else {
+            $scoreKey = strval(isset($actions[$i]['_rlActionIndex']) ? intval($actions[$i]['_rlActionIndex']) : $i);
+        }
+        $score = floatval($stateLogits[$scoreKey] ?? 0.0);
         if($bestScore === null || $score > $bestScore) {
             $bestScore = $score;
             $bestIndex = $i;
@@ -411,8 +434,10 @@ function ProcessAzukiRlBotStep() {
 
     $checkpointPath = AzukiRlBotPublishedCheckpointPath();
     $stateKeyVersion = AzukiRlBotCheckpointStateKeyVersion($checkpointPath);
+    $actionKeyVersion = AzukiRlBotCheckpointActionKeyVersion($checkpointPath);
     $strategyMode = AzukiRlBotCheckpointStrategyMode($checkpointPath);
     $GLOBALS['bridgeIncludeAzukiRlState'] = $stateKeyVersion === 'AzukiSim:azuki-v1';
+    $GLOBALS['bridgeIncludeAzukiCompactState'] = in_array($stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3'], true);
     $GLOBALS['bridgeIncludeAzukiStrategyState'] = $strategyMode === 'aggro-control';
     $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
     $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
@@ -435,12 +460,14 @@ function ProcessAzukiRlBotStep() {
     $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
     if(empty($actions)) return ['success' => true, 'message' => 'No legal bot actions are available.', 'applied' => false];
 
+    $stateKey = AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion, $actingPlayer, $legal);
+
     if($strategyMode === 'aggro-control') {
         $strategyKey = AzukiRlBotStrategyStateKeyFromSnapshot($snapshot, $actingPlayer);
         $posture = AzukiRlBotChoosePosture(AzukiRlBotLoadStateLogits($strategyKey));
         $actions = AzukiRlBotFilterActionsForPosture($actions, $posture);
     }
-    $action = AzukiRlBotChooseAction(AzukiRlBotLoadStateLogits(AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion, $actingPlayer)), $actions);
+    $action = AzukiRlBotChooseAction(AzukiRlBotLoadStateLogits($stateKey), $actions, $actionKeyVersion, $legal);
     if(!is_array($action)) return ['success' => true, 'message' => 'No bot action was selected.', 'applied' => false];
 
     $beforeHash = function_exists('RegressionCurrentGamestateHash') ? RegressionCurrentGamestateHash('AzukiSim', strval($gameName)) : '';

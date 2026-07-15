@@ -2367,6 +2367,7 @@ function AddNextTurn() {
   $header .= "echo(\"var myRows = [];\");\r\n";
   $header .= "echo(\"var theirRows = [];\");\r\n";
   $header .= "echo(\"window.rootPath = '" . $rootPath . "';\");\r\n";
+  $header .= "echo(\"window.assetImageFolder = '" . GenImageRoot() . "';\");\r\n";
   $header .= "echo(\"var currentPlayerIndex = playerID;\");\r\n";
   $header .= "echo(\"var otherPlayerIndex = playerID == 1 ? 2 : 1;\");\r\n";
   $footer = "echo(\"RenderRows(myRows, theirRows);\");\r\n";
@@ -2407,8 +2408,8 @@ function AddNextTurn() {
     $zone = $zones[$i];
     $index = $i + $startPiece;
     if($zone->Row >= 0) {//If it's -1, position is defined some other way
-      $myStuff .= "echo(\"myRows[" . $zone->Row . "] += PopulateZone('my" . $zone->Name . "', responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
-      $theirStuff .= "echo(\"theirRows[" . $zone->Row . "] += PopulateZone('their" . $zone->Name . "', responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
+      $myStuff .= "echo(\"myRows[" . $zone->Row . "] += PopulateZone('my" . $zone->Name . "', responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "], cardSize, '" . GenImageRoot($zone) . "', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
+      $theirStuff .= "echo(\"theirRows[" . $zone->Row . "] += PopulateZone('their" . $zone->Name . "', responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "], cardSize, '" . GenImageRoot($zone) . "', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
     }
   }
 
@@ -2464,7 +2465,7 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
     } else {
       $wrapperStyle = $overflowStyle;
       if ($zone->Width > -1) $wrapperStyle .= " width:" . $zone->Width . ";";
-      $rv .= "echo(\"var _btg_" . $zone->Name . " = document.getElementById('" . $zone->BindTo . "'); if(_btg_" . $zone->Name . ") { _btg_" . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $zone->Name . "'); }; _btg_" . $zone->Name . ".innerHTML = '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
+      $rv .= "echo(\"var _btg_" . $zone->Name . " = document.getElementById('" . $zone->BindTo . "'); if(_btg_" . $zone->Name . ") { _btg_" . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $zone->Name . "'); }; _btg_" . $zone->Name . ".innerHTML = '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
     }
   } else {
     // Legacy positional mode
@@ -2492,7 +2493,7 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
       if($hasTop) $rv .= " bottom:" . $zone->Top . ";";
       if($hasBottom) $rv .= " top:" . $zone->Bottom . ";";
       $rv .= "');\");\r\n";
-      $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+      $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
     }
   }
   if($zone->Visibility == "Private") return "";
@@ -2506,9 +2507,16 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
 // is the durable home for that choice — patch both if you hand-edit the generated file.
 function GenImageFolder($zone) {
   global $rootName;
-  $useWebp = in_array($rootName, ["SWUSim"], true)
-          && in_array($zone->Name, ["Leader", "Base"], true);
+  $useWebp = (in_array($rootName, ["SWUSim"], true)
+          && in_array($zone->Name, ["Leader", "Base"], true));
   return $useWebp ? "WebpImages" : "concat";
+}
+
+function GenImageRoot($zone = null) {
+  global $assetReflection, $rootPath;
+  $assetRoot = !empty($assetReflection) ? "./" . $assetReflection : $rootPath;
+  $folder = $zone === null ? "concat" : GenImageFolder($zone);
+  return $assetRoot . "/" . $folder;
 }
 
 function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
@@ -2534,13 +2542,13 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
     if ($zone->DisplayMode == "Pane") {
       $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
     } else {
-      $rv .= "echo(\"var _bt_" . $prefix . $zone->Name . " = document.getElementById('" . $bindToID . "'); if(_bt_" . $prefix . $zone->Name . ") { _bt_" . $prefix . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $prefix . $zone->Name . "'); }; _bt_" . $prefix . $zone->Name . ".innerHTML = '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
+      $rv .= "echo(\"var _bt_" . $prefix . $zone->Name . " = document.getElementById('" . $bindToID . "'); if(_bt_" . $prefix . $zone->Name . ") { _bt_" . $prefix . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $prefix . $zone->Name . "'); }; _bt_" . $prefix . $zone->Name . ".innerHTML = '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
       $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
     }
   } else {
     if($zone->DisplayMode == "Pane") $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
     else {
-      $rv .= "echo(\"" . $prefix . "Static += '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+      $rv .= "echo(\"" . $prefix . "Static += '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
       $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
     }
   }
@@ -2982,7 +2990,7 @@ function WriteInitialLayout() {
     }
     fwrite($handler, "echo(\"</div>\");\r\n");
   }
-  $boardFlexStyle = "flex-grow: 1;" . ($rootName === "SWUDeck" ? " position:relative;" : "");
+  $boardFlexStyle = "flex-grow: 1;" . (in_array($rootName, ["SWUDeck", "AzukiDeck"], true) ? " position:relative;" : "");
   fwrite($handler, "echo(\"<div class='flex-item' style='" . $boardFlexStyle . "'>\");\r\n");
   if($shouldSplitScreen) {
     fwrite($handler, "echo(\"<div class='theirStuffWrapper' style='position:relative; z-index:10; left:0; top:0; width:100%; height:50%;'><div class='stuffParent'><div id='theirStuff' class='stuff theirStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\r\n<div class='myStuffWrapper' style='position:absolute; z-index:10; left:0; top:50%; width:100%; height:50%;'><div style='position:relative; width:100%; height:100%'><div class='stuffParent'><div id='myStuff' class='stuff myStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\");\r\n");

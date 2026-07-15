@@ -1,0 +1,55 @@
+AzukiDeck
+Auto
+None
+AssetOwner
+Header: title=Home, link=/TCGEngine/AzukiDeck/
+Header: title=Edit, link=/TCGEngine/NextTurn.php?gameName>$gameName&playerID>1&folderPath>AzukiDeck
+Header: title=Versions, module=Versions, Zones=myLeader;myGate;myMainDeck;mySideboard
+PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
+AssetReflection: AzukiSim
+Initialization: Initialize.php
+ServerInclude: /Custom/DeckValidation.php
+ServerInclude: /Custom/CustomInput.php
+ClientInclude: /TCGEngine/AzukiDeck/Custom/ClientActions.js
+Layout: /Custom/GameLayout.php
+Leader - CardID:string
+Display: Visibility=Self, Mode=All, BindTo=LeaderSlot, Split=None
+AddValidation: ValidateLeaderAddition
+Gate - CardID:string
+Display: Visibility=Self, Mode=All, BindTo=GateSlot, Split=None
+AddValidation: ValidateGateAddition
+MainDeck - CardID:string
+Display: Visibility=Self, Mode=Tile, BindTo=MainDeckSlot, Split=None
+Click: Remove(myCards)
+AddValidation: ValidateMainDeckAddition
+Widgets: CustomInput=<&<<<&V&+&Notes
+Sort: Property=mySort
+CardPane - Value:string
+Display: Visibility=Self, Mode=Panel, BindTo=CardPaneSlot, Split=None
+Leaders - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Swap(myLeader)
+Gates - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Swap(myGate)
+Cards - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Add(myMainDeck)
+DragMode: Clone
+Widgets: CustomInput=V&>&>>>&Notes
+Sideboard - CardID:string
+Display: Visibility=Self, Mode=Tile, BindTo=SideboardSlot, Split=None
+Click: Remove(mySideboard)
+Widgets: CustomInput=<&<<<&^&+&Notes
+Sort: Property=mySort
+Deck - CardID:string
+Display: Visibility=Self, Mode=Count(MainDeck), BindTo=DeckSlot, Split=None
+Stats - Value:string
+Display: Visibility=Self, Mode=None
+Sort - Value:string
+Display: Visibility=Public, Mode=Dropdown(Value), BindTo=SortSlot
+Widgets: Value=Name&IkzCost&Element&Category&CardId
+CardNotes - CardID:string, Notes:string
+Display: Visibility=Self, Mode=None
+Versions - Version:string
+Display: Visibility=Self, Mode=None

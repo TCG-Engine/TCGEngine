@@ -141,7 +141,8 @@ function ResolveGlobalFunction(functionName) {
           width = (maxHeight * .71);
         }        //var altText = " alt='" + CardTitle(cardNumber) + "' ";//TODO:Fix screenreader mode
         var altText = " alt='Card' ";
-        rv += "<img " + (id != "" ? "id='" + id + "-img' " : "") + altText + orientation + "loading='lazy' style='" + border + " height:" + height + "; width:" + width + "px; position:relative;' src='" + folderPath + "/" + cardNumber + fileExt + "' />";
+        var nativeImageDrag = IsDragDropEnabled() ? "" : "draggable='false' ";
+        rv += "<img " + (id != "" ? "id='" + id + "-img' " : "") + altText + orientation + nativeImageDrag + "loading='lazy' style='" + border + " height:" + height + "; width:" + width + "px; position:relative;' src='" + folderPath + "/" + cardNumber + fileExt + "' />";
 
         if(heatmapFunction != "") {
             var resolvedHeatmapFunction = ResolveGlobalFunction(heatmapFunction);
@@ -373,7 +374,7 @@ function ResolveGlobalFunction(functionName) {
       }
 
       function IsDragDropEnabled() {
-        return window.rootPath != './GrandArchiveSim' && window.rootPath != './AzukiSim';
+        return window.rootPath != './GrandArchiveSim' && window.rootPath != './AzukiSim' && window.rootPath != './AzukiDeck';
       }
 
       // Function to handle drag start event
@@ -2837,7 +2838,8 @@ function ResolveGlobalFunction(functionName) {
         panelNames.forEach(panelName => {
           html += `<div style='font-size: 14px; cursor: pointer;' class='panelTab' onclick='PaneTabClick("${prefix}", "${zoneName}", "${index}")'>${panelName}</div>`;
           if(index == window[activePaneVar]) {
-            paneHTML += PopulateZone(prefix + panelName, panes[window[activePaneVar]], window.cardSize, window.rootPath + "/concat",1,"All", filterText);
+            var paneImageFolder = window.assetImageFolder || (window.rootPath + "/concat");
+            paneHTML += PopulateZone(prefix + panelName, panes[window[activePaneVar]], window.cardSize, paneImageFolder,1,"All", filterText);
             var zoneData = GetZoneData(prefix + panelName);
             if(zoneData.Filters.length > 0) hasCustomFilter = true;
           }

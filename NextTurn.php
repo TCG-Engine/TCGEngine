@@ -340,7 +340,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     </script>
 
     <head>
-      <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/<?php if($folderPath == "SWUDeck") echo('blueDiamond'); else if($folderPath == "SoulMastersDB") echo('icons/soulMastersIcon'); ?>.png">
+      <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/<?php if($folderPath == "SWUDeck") echo('blueDiamond'); else if($folderPath == "AzukiDeck") echo('icons/gudnakIcon'); else if($folderPath == "SoulMastersDB") echo('icons/soulMastersIcon'); ?>.png">
       <?php
         // In-game board design-system stack, derived from the app's SiteDef `theme` key.
         // .btn/.switch-scoped only — NOT components.css (its bare-`button` rule would restyle
@@ -378,9 +378,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           // Phone-specific layouts can show fewer, larger cards. Gate on the same
           // phone/query override triggers their mobile layouts use, so a narrow desktop window
           // that keeps the wide desktop layout still gets the historical small-card grid.
-          var isSWUDeckPhone = <?php echo ($folderPath === 'SWUDeck' ? 'true' : 'false'); ?> &&
+          var isSWUDeckPhone = <?php echo (in_array($folderPath, ['SWUDeck', 'AzukiDeck'], true) ? 'true' : 'false'); ?> &&
             (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|webOS|Opera Mini|IEMobile/i.test(navigator.userAgent)
-              || /[?&]swuLayout=mobile/.test(location.search));
+              || /[?&](?:swuLayout|azukiLayout)=mobile/.test(location.search));
           var isAzukiPhone = <?php echo ($folderPath === 'AzukiSim' ? 'true' : 'false'); ?> &&
             (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|webOS|Opera Mini|IEMobile/i.test(navigator.userAgent)
               || /[?&]azukiLayout=mobile/.test(location.search));
@@ -396,7 +396,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         }
         // SWUDeck's desktop deck editor shows larger cards (smaller divisor => bigger card,
         // fewer per row); other sims keep the historical /16 sizing.
-        return window.innerWidth / <?php echo ($folderPath === 'SWUDeck' ? '13.5' : '16'); ?>;
+        return window.innerWidth / <?php echo (in_array($folderPath, ['SWUDeck', 'AzukiDeck'], true) ? '13.5' : '16'); ?>;
       }
 
       var cardSize = CalculateCardSize();
@@ -1612,7 +1612,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <div id="cardDetail" style="z-index:100000; display:none; position:fixed;"></div>
     <div id='mainDiv' style='position:fixed; z-index:0; left:0; top:0; width:100%; height:100%;'>
 
-    <?php if ($folderPath !== "SWUDeck"): ?>
+    <?php if (!in_array($folderPath, ["SWUDeck", "AzukiDeck"], true)): ?>
     <div id='chatWidget' style='z-index:40; position:fixed; bottom:20px; left:140px; display:flex; flex-direction:column; align-items:flex-start; width:280px;'>
         <div id='chatExpanded' style='display:none; flex-direction:column; width:100%;'>
             <div id='chatLog'

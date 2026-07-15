@@ -45,6 +45,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
       </select>
       <br>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button onclick="window.location.href='/TCGEngine/AzukiDeck/'" style="background-color: #1769aa;">Build a Deck</button>
         <button onclick="joinQueue()">Join Queue</button>
         <button onclick="createRlBotGame()" style="background-color: #7b5fc9;">Play RL Bot</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>

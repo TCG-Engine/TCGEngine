@@ -197,6 +197,16 @@ SharedUI/Sites/SWUSim/PrivacyPolicy.php
 SharedUI/Sites/SWUSim/Profile.php
 SharedUI/Sites/SWUSim/Signup.php
 SharedUI/Sites/SWUSim/TermsOfUse.php
+# --- AzukiDeck
+AzukiDeck/Games
+AzukiDeck/GeneratedCode
+AzukiDeck/GamestateParser.php
+AzukiDeck/GeneratedUI*.js
+AzukiDeck/GetNextTurn.php
+AzukiDeck/InitialLayout.php
+AzukiDeck/NextTurnRender.php
+AzukiDeck/ZoneAccessors.php
+AzukiDeck/ZoneClasses.php
 # --- Root SharedUI/ pointers (render the active site) ---
 SharedUI/MainMenu.php
 SharedUI/Profile.php

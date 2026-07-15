@@ -69,7 +69,7 @@ function ShowCardDetail(e, that, options) {
   TrackCardDetailMouse(e);
   clearTimeout(showDetailTimeout);//In case there was another card waiting to show detail
   var folderPath = document.getElementById("folderPath").value;
-  var timeOut = options.skipDelay ? 0 : (folderPath == "SWUDeck" ? SWUDECK_CARD_DETAIL_HOVER_MS :
+  var timeOut = options.skipDelay ? 0 : (folderPath == "SWUDeck" || folderPath == "AzukiDeck" ? SWUDECK_CARD_DETAIL_HOVER_MS :
     (folderPath == "SWUSim" ? 850 :
     (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" || folderPath == "AzukiSim" ? 100 : 1)));
   showDetailTimeout = setTimeout(function() {
@@ -78,9 +78,9 @@ function ShowCardDetail(e, that, options) {
     if (e.target.hasAttribute("data-subcard-id")) {
       var subCardID = e.target.getAttribute("data-subcard-id");
       var assetFolder = (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) ? AssetReflectionPath() : folderPath;
-      ShowDetail(e, `${window.location.origin}/TCGEngine/${assetFolder}/${subCardID}.png`, folderPath == "SWUDeck" ? that : null, requestToken);
+      ShowDetail(e, `${window.location.origin}/TCGEngine/${assetFolder}/${subCardID}.png`, folderPath == "SWUDeck" || folderPath == "AzukiDeck" ? that : null, requestToken);
     } else {
-      ShowDetail(e, that.getElementsByTagName("IMG")[0].src, folderPath == "SWUDeck" ? that : null, requestToken);
+      ShowDetail(e, that.getElementsByTagName("IMG")[0].src, folderPath == "SWUDeck" || folderPath == "AzukiDeck" ? that : null, requestToken);
     }
   }, timeOut); //(hover delay)
 }

@@ -1,0 +1,3 @@
+function ClientWidgetActions() {
+  return false;
+}

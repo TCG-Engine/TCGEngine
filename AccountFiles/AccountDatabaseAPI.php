@@ -252,7 +252,7 @@ function LoadAssetsByType($userID, $assetType) {
 }
 
 function SaveAssetOwnership($assetType, $assetID, $userID, $assetSource=null, $assetSourceID=null) {
-	if ($userID == "") return;
+	if ($userID == "") return false;
 	$conn = GetLocalMySQLConnection();
 	$sql = "INSERT INTO ownership (assetType, assetIdentifier, assetOwner, assetStatus, assetSource, assetSourceID) VALUES (?, ?, ?, ?, ?, ?)";
 	$stmt = mysqli_stmt_init($conn);
@@ -264,9 +264,10 @@ function SaveAssetOwnership($assetType, $assetID, $userID, $assetSource=null, $a
 	} else {
 		$status = 1; // Status 1 = active
 		mysqli_stmt_bind_param($stmt, "ssssss", $assetType, $assetID, $userID, $status, $assetSource, $assetSourceID);
-		mysqli_stmt_execute($stmt);
+		$saved = mysqli_stmt_execute($stmt);
 		mysqli_stmt_close($stmt);
 		mysqli_close($conn);
+		return $saved;
 	}
 }
 

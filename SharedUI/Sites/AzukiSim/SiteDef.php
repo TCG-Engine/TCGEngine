@@ -23,6 +23,7 @@
     'fonts'   => ['Barlow', 'Teko'],
   ],
   'nav' => [
+    ['label'=>'Deck Builder','href'=>'/TCGEngine/AzukiDeck/'],
     ['label'=>'Support','href'=>'https://www.patreon.com/c/OotTheMonk','target'=>'_blank'],
     ['label'=>'Profile','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Profile.php','visibility'=>'loggedIn'],
     ['label'=>'Log Out','href'=>'/TCGEngine/AccountFiles/LogoutUser.php','visibility'=>'loggedIn'],

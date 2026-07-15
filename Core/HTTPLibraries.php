@@ -27,8 +27,9 @@ function IsDeckLinkValid($deckLink)
 }
 
 
-function GetGameCounter($dir = "./Games")
+function GetGameCounter($dir = "./Games", $gameDirRoot = null)
 {
+  if ($gameDirRoot === null || $gameDirRoot === "") $gameDirRoot = $dir;
   $filename = $dir . "/GameIDCounter.txt";
   if (!is_file($filename)) { // if the game ID counter does not exist, make it.
     $contents = '101';
@@ -53,7 +54,7 @@ function GetGameCounter($dir = "./Games")
   fwrite($gcFile, $counter + 1);
   flock($gcFile, LOCK_UN);    // release the lock
   fclose($gcFile);
-  $gameDir = $dir . "/" . $gameName;
+  $gameDir = $gameDirRoot . "/" . $gameName;
   if (!is_dir($gameDir)) {
     mkdir($gameDir, 0777, true);
   }

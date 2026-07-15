@@ -119,6 +119,10 @@ if(GetEditAuth() == "AssetOwner") {
   }
   $loggedInUser = LoggedInUser();
   $assetData = LoadAssetData(1, $gameName);
+  if(!is_array($assetData)) {
+    echo("This deck does not have an ownership record. Please create a new deck from the deck builder.");
+    exit;
+  }
   $assetOwner = $assetData["assetOwner"];
   $assetVisibility = $assetData["assetVisibility"];
   if($loggedInUser != $assetOwner) { //Owner can always edit

@@ -778,6 +778,20 @@ if($rootName == "SWUDeck" && file_exists("./AppCore/SWU/Overrides.php")) { // Ov
   }
 }
 fwrite($handler, "var cardReprintSets = " . json_encode($reprintSetsMap) . ";\r\n");
+$defaultTextFilterProperty = "title";
+$lowercaseProperties = array_map('strtolower', $properties);
+if(!in_array("title", $lowercaseProperties, true)) {
+  if(in_array("name", $lowercaseProperties, true)) {
+    $defaultTextFilterProperty = "name";
+  } else {
+    for($i=0; $i<count($properties); ++$i) {
+      if($propertyTypes[$i] == "string") {
+        $defaultTextFilterProperty = strtolower($properties[$i]);
+        break;
+      }
+    }
+  }
+}
 logLine("Reprint map: " . count($reprintSetsMap) . " canonical cards have reprints");
 fwrite($handler, "function ShouldFilter(cardID,filter) {\r\n");
 fwrite($handler, "  var filterArr = filter.match(/(?:[^\\s\"]+|\"[^\"]*\")+/g) || [];\r\n");
@@ -792,7 +806,7 @@ fwrite($handler, "    }\r\n");
 fwrite($handler, "    var thisFilter = \"\";\r\n");
 fwrite($handler, "    var thisValue = \"\";\r\n");
 fwrite($handler, "    if(operand == '') {\r\n");
-fwrite($handler, "      thisFilter = \"title\";\r\n");
+fwrite($handler, "      thisFilter = \"" . $defaultTextFilterProperty . "\";\r\n");
 fwrite($handler, "      thisValue = filterArr[i];\r\n");
 fwrite($handler, "    } else {\r\n");
 fwrite($handler, "      var thisFilterArr = filterArr[i].split(operand);\r\n");
