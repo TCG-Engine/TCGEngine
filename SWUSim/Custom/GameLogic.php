@@ -17456,6 +17456,9 @@ function SWUDeclareGameWinner($winner, $flashMessage = null) {
 function SWUCheckBaseDefeatState() {
     if (SWUGetGameWinner() !== 0) return; // already decided
     foreach ([1, 2] as $p) {
+        // Goldfish practice: P2's Echo Base is an infinite damage sponge — never end the game on it,
+        // so its counter can climb past 30 HP. (P1's base is still state-checked normally.)
+        if ($p === 2 && function_exists('SWUGameMode') && SWUGameMode() === 'goldfish') continue;
         $b = GetBase($p);
         if (empty($b) || !empty($b[0]->removed)) continue;
         $hp = intval(CardHp($b[0]->CardID));

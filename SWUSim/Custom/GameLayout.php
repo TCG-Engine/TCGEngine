@@ -1031,6 +1031,54 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     <div class="swu-init-pass-hint" title="Press W to switch player"><kbd>W</kbd></div>
     <?php endif; ?>
 </div>
+
+<?php if (function_exists('SWUGameMode') && SWUGameMode() === 'goldfish'): ?>
+<!-- Goldfish ⚗ Practice menu — floating bottom-right popover of god-mode practice actions on YOUR
+     (P1) board. Goldfish-only; CustomInput.php re-checks the mode, so the UI gate isn't relied on. -->
+<div id="swuGfMenu">
+    <div id="swuGfPanel">
+        <div class="swu-gf-row">
+            <span class="swu-gf-label">Base damage</span>
+            <input id="swuGfBaseDmgInput" class="swu-gf-num" type="number" min="1" value="5">
+            <button class="swu-gf-go" onclick="event.stopPropagation(); window.swuGfBaseDamage();">Apply</button>
+        </div>
+        <div class="swu-gf-row">
+            <span class="swu-gf-label">Damage units</span>
+            <input id="swuGfUnitDmgInput" class="swu-gf-num" type="number" min="1" value="3">
+            <button class="swu-gf-go" onclick="event.stopPropagation(); window.swuGfDamageUnits();">Assign</button>
+        </div>
+        <div class="swu-gf-row">
+            <span class="swu-gf-label">Defeat unit</span>
+            <button class="swu-gf-go" onclick="event.stopPropagation(); window.swuGfDefeatUnit();">Choose</button>
+        </div>
+        <div class="swu-gf-row">
+            <span class="swu-gf-label">Bounce unit</span>
+            <button class="swu-gf-go" onclick="event.stopPropagation(); window.swuGfBounceUnit();">Choose</button>
+        </div>
+    </div>
+    <button id="swuGfBtn" title="Goldfish practice tools" onclick="event.stopPropagation(); window.swuGfToggle();">⚗ Practice</button>
+</div>
+<style>
+    #swuGfMenu { position: fixed; right: calc(var(--swu-sidebar-w, 0px) + 12px); bottom: 12px; z-index: 60;
+                 display: flex; flex-direction: column; align-items: flex-end; gap: 6px; pointer-events: none; }
+    #swuGfMenu > * { pointer-events: auto; }
+    #swuGfBtn { background: rgba(60,120,60,0.85); color: #d7f7d7; border: 1px solid rgba(120,200,120,0.6);
+                border-radius: 8px; padding: 6px 12px; font: 600 12px var(--swu-font-label); cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    #swuGfBtn:hover { background: rgba(75,140,75,0.95); }
+    #swuGfPanel { display: none; flex-direction: column; gap: 6px; background: rgba(18,22,20,0.97);
+                  border: 1px solid rgba(120,200,120,0.4); border-radius: 10px; padding: 10px;
+                  box-shadow: 0 6px 20px rgba(0,0,0,0.5); min-width: 210px; }
+    #swuGfPanel.is-open { display: flex; }
+    .swu-gf-row { display: flex; align-items: center; gap: 6px; }
+    .swu-gf-label { flex: 1 1 auto; color: rgba(255,255,255,0.85); font: 12px var(--swu-font-ui); white-space: nowrap; }
+    .swu-gf-num { width: 48px; box-sizing: border-box; background: rgba(255,255,255,0.08); color: #fff;
+                  border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 3px 5px; font: 12px var(--swu-font-ui); }
+    .swu-gf-go { background: rgba(200,151,30,0.2); color: rgba(200,151,30,0.95); border: 1px solid rgba(200,151,30,0.4);
+                 border-radius: 5px; padding: 4px 10px; font: 600 11px var(--swu-font-label); cursor: pointer; white-space: nowrap; }
+    .swu-gf-go:hover { background: rgba(200,151,30,0.35); }
+</style>
+<?php endif; ?>
 <!--
 <div class="swu-kb-hints" style="top:calc(var(--swu-midline) + 6px);">
     <span><kbd>U</kbd> Undo</span>

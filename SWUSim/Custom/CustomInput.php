@@ -192,6 +192,66 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             SaveUndoVersion($playerID);
             SWUPlayFromOpponentDiscard(intval($playerID), intval($cardArr[1]));
             break;
+      case "GfPractice":
+        // Goldfish practice "god-mode" actions (⚗ Practice menu). All act on the human's own
+        // (P1) board. HARD-GATE: goldfish only + human seat (P1) only + your turn + no pending
+        // decision. The UI is already goldfish-gated, but a crafted SubmitInput POST must be
+        // rejected in real games — the UI is not a security boundary.
+        if (!function_exists('SWUGameMode') || SWUGameMode() !== 'goldfish' || intval($playerID) !== 1) {
+            SetFlashMessage("Practice actions are only available in Goldfish mode.");
+            break;
+        }
+        if (intval(GetTurnPlayer()) !== intval($playerID)) {
+            SetFlashMessage("Practice actions are only usable on your turn.");
+            break;
+        }
+        $gfDqChk = new DecisionQueueController();
+        if (!$gfDqChk->AllQueuesEmpty()) {
+            SetFlashMessage("Finish the current decision first.");
+            break;
+        }
+        if (GetCurrentPhase() !== "MAIN") break;
+
+        // Action is "<name>" or "<name>:<number>".
+        $gfAction = $action;
+        $gfArg    = 0;
+        if (strpos($action, ':') !== false) {
+            $gfParts  = explode(':', $action, 2);
+            $gfAction = $gfParts[0];
+            $gfArg    = max(0, intval($gfParts[1]));
+        }
+        // The human's own units (defeat / bounce / damage-units all target these).
+        $gfMyUnits = array_merge(
+            ZoneSearch("myGroundArena", AnyUnitFilter),
+            ZoneSearch("mySpaceArena",  AnyUnitFilter)
+        );
+
+        if ($gfAction === 'BaseDamage') {
+            if ($gfArg <= 0) break;
+            SaveUndoVersion($playerID);
+            SWUDealDamageToBase($gfArg, 1);
+        } elseif ($gfAction === 'DamageUnits') {
+            if ($gfArg <= 0) break;
+            if (empty($gfMyUnits)) { SetFlashMessage("You have no units to damage."); break; }
+            SaveUndoVersion($playerID);
+            DecisionQueueController::AddDecision(1, "MZSPLITASSIGN",
+                $gfArg . "|" . implode('&', $gfMyUnits) . "|UPTO", 1,
+                tooltip: "Assign_up_to_{$gfArg}_damage_among_your_units");
+            DecisionQueueController::AddDecision(1, "CUSTOM", "SPLIT_DAMAGE", 1);
+        } elseif ($gfAction === 'DefeatUnit') {
+            if (empty($gfMyUnits)) { SetFlashMessage("You have no units to defeat."); break; }
+            SaveUndoVersion($playerID);
+            DecisionQueueController::AddDecision(1, "MZCHOOSE", implode('&', $gfMyUnits), 1,
+                tooltip: "Choose_one_of_your_units_to_defeat");
+            DecisionQueueController::AddDecision(1, "CUSTOM", "GfDefeat", 1);
+        } elseif ($gfAction === 'BounceUnit') {
+            if (empty($gfMyUnits)) { SetFlashMessage("You have no units to return."); break; }
+            SaveUndoVersion($playerID);
+            DecisionQueueController::AddDecision(1, "MZCHOOSE", implode('&', $gfMyUnits), 1,
+                tooltip: "Choose_one_of_your_units_to_return_to_hand");
+            DecisionQueueController::AddDecision(1, "CUSTOM", "GfBounce", 1);
+        }
+        break;
       default: break;
     }
 }

@@ -56,6 +56,22 @@ function SWUSetupGame($lobby, $opts = []) {
         ++$playerCounter;
     }
 
+    // ─── Goldfish practice sponge ────────────────────────────────────────────────
+    // The passive P2 seat loads no deck, so it has no base — nothing to attack. Seed an Echo Base
+    // (SOR_024) as a practice damage sponge: it's attackable through the normal combat path (your
+    // units exhaust as usual), and its Damage counter is the "generic number" that climbs on each
+    // hit. The base-defeat win-con is suppressed for goldfish P2 (see CombatLogic base sweep), so
+    // it survives past its 30 HP and the counter just keeps rising.
+    if ($mode === 'goldfish') {
+        $p2Base = &GetBase(2);
+        if (empty($p2Base)) {
+            $sponge = new Base('SOR_024');
+            $sponge->Damage = 0;   // constructor leaves the -1 fallback; force undamaged like real bases
+            array_push($p2Base, $sponge);
+        }
+        unset($p2Base);
+    }
+
     // ─── Step 3: Determine first player ───────────────────────────────────────────
     // Forced (Bo3 / loser's choice) or random coin flip; first player holds initiative.
     $forced = $opts['forcedFirstPlayer'] ?? null;
