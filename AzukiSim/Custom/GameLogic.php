@@ -475,7 +475,6 @@ function ProcessAzukiRlBotStep() {
     $outerPlayerID = $GLOBALS['playerID'] ?? null;
     $result = EngineExecuteLoadedAction($cleanAction, 'AzukiSim', strval($gameName), [
         'updateCache' => true,
-        'disableRecording' => true,
     ]);
     if($outerPlayerID === null) unset($GLOBALS['playerID']);
     else $GLOBALS['playerID'] = $outerPlayerID;

@@ -262,7 +262,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     return $rejectedResult;
   }
 
-  $matchReplayPendingAction = ($result['recordAction'] && !$matchReplayInterrupted)
+  // Mode 10017 is only the browser-to-controller transport. The bot's chosen
+  // gameplay action is executed recursively and recorded in its own right.
+  $matchReplayPendingAction = ($result['recordAction'] && !$matchReplayInterrupted && $mode !== 10017)
     ? MatchReplayBeginPotentialAction($folderPath, $gameName)
     : null;
 

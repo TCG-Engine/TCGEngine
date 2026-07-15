@@ -135,6 +135,7 @@ function MatchReplayNormalizeCommandState($decoded) {
   $state['updatedAt'] = strval($decoded['updatedAt'] ?? $state['updatedAt']);
   if (isset($decoded['sourceGameName'])) $state['sourceGameName'] = strval($decoded['sourceGameName']);
   if (isset($decoded['sourceSavedAt'])) $state['sourceSavedAt'] = strval($decoded['sourceSavedAt']);
+  if (isset($decoded['sourceInitialUpdateNumber'])) $state['sourceInitialUpdateNumber'] = intval($decoded['sourceInitialUpdateNumber']);
   return $state;
 }
 
@@ -349,6 +350,7 @@ function MatchReplayLoadInitialForPlayback($rootName, $gameName, $nextActionInde
   if (function_exists('ParseGamestate')) {
     ParseGamestate('./' . $rootName . '/');
   }
+  $sourceInitialUpdateNumber = intval($updateNumber ?? 0);
   // Force the update counter strictly past what the client last rendered so its monotonic reload guard
   // accepts the reset and re-renders the initial board (no page refresh needed). WriteGamestate below
   // persists this, so subsequent Next steps keep climbing from here.
@@ -358,6 +360,7 @@ function MatchReplayLoadInitialForPlayback($rootName, $gameName, $nextActionInde
   $newState['actions'] = $actions;
   $newState['nextActionIndex'] = max(0, min(intval($nextActionIndex), count($actions)));
   $newState['playback'] = true;
+  $newState['sourceInitialUpdateNumber'] = $sourceInitialUpdateNumber;
   if ($sourceGameName !== '') $newState['sourceGameName'] = $sourceGameName;
   if ($sourceSavedAt !== '') $newState['sourceSavedAt'] = $sourceSavedAt;
   MatchReplaySetCommandState($newState);
@@ -388,10 +391,20 @@ function MatchReplayReplayNextActionLoaded($rootName, $gameName) {
   $state['nextActionIndex'] = $nextActionIndex + 1;
   MatchReplaySetCommandState($state);
 
-  $result = EngineExecuteLoadedAction($actions[$nextActionIndex], $rootName, $gameName, [
-    'updateCache' => false,
-    'disableRecording' => true,
-  ]);
+  $hadRngUpdateOverride = array_key_exists('engineDeterministicUpdateNumberOverride', $GLOBALS);
+  $previousRngUpdateOverride = $GLOBALS['engineDeterministicUpdateNumberOverride'] ?? null;
+  if (isset($state['sourceInitialUpdateNumber'])) {
+    $GLOBALS['engineDeterministicUpdateNumberOverride'] = intval($state['sourceInitialUpdateNumber']) + $nextActionIndex;
+  }
+  try {
+    $result = EngineExecuteLoadedAction($actions[$nextActionIndex], $rootName, $gameName, [
+      'updateCache' => false,
+      'disableRecording' => true,
+    ]);
+  } finally {
+    if ($hadRngUpdateOverride) $GLOBALS['engineDeterministicUpdateNumberOverride'] = $previousRngUpdateOverride;
+    else unset($GLOBALS['engineDeterministicUpdateNumberOverride']);
+  }
   if (empty($result['success'])) {
     $state['nextActionIndex'] = $nextActionIndex;
     MatchReplaySetCommandState($state);

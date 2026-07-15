@@ -19,18 +19,51 @@ function IncrementDeterministicRandomCounter() {
   return $next;
 }
 
+function EngineDeterministicIgnoredStateNames() {
+  $ignored = [
+    'MatchReplayInitialState' => true,
+    'MatchReplayCommands' => true,
+    'gMatchReplayInitialState' => true,
+    'gMatchReplayCommands' => true,
+  ];
+
+  if (function_exists('GetModuleConfig')) {
+    $replayConfig = GetModuleConfig('MatchReplay');
+    if (is_string($replayConfig)) {
+      foreach (explode(',', $replayConfig) as $fieldName) {
+        $fieldName = trim($fieldName);
+        if ($fieldName === '') continue;
+        $ignored[$fieldName] = true;
+        $ignored['g' . $fieldName] = true;
+      }
+    }
+  }
+
+  return $ignored;
+}
+
 function EngineSnapshotState() {
   global $currentPlayer, $updateNumber;
 
+  $deterministicUpdateNumber = array_key_exists('engineDeterministicUpdateNumberOverride', $GLOBALS)
+    ? intval($GLOBALS['engineDeterministicUpdateNumberOverride'])
+    : (isset($updateNumber) ? intval($updateNumber) : 0);
+
   $snapshot = [
     'currentPlayer' => isset($currentPlayer) ? $currentPlayer : 0,
-    'updateNumber' => isset($updateNumber) ? $updateNumber : 0,
+    'updateNumber' => $deterministicUpdateNumber,
     'randomCounter' => GetDeterministicRandomCounter(),
     'zones' => []
   ];
 
+  // Replay bookkeeping deliberately differs while the same gameplay action
+  // is being replayed. It must not influence gameplay randomness. Playback
+  // supplies the original action's update number through the override above.
+  $ignoredStateNames = EngineDeterministicIgnoredStateNames();
+
   if (function_exists('GetAllZones') && function_exists('GetZone')) {
     foreach (GetAllZones() as $zoneName) {
+      if (isset($ignoredStateNames[$zoneName])) continue;
       $snapshot['zones'][$zoneName] = GetZone($zoneName);
     }
     return $snapshot;
@@ -38,6 +71,7 @@ function EngineSnapshotState() {
 
   foreach ($GLOBALS as $key => $value) {
     if ($key === 'GLOBALS') continue;
+    if (isset($ignoredStateNames[$key])) continue;
     if (preg_match('/^p[12][A-Z]/', $key) || preg_match('/^g[A-Z]/', $key)) {
       $snapshot['zones'][$key] = $value;
     }
