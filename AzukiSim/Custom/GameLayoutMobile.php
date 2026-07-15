@@ -167,6 +167,10 @@
         flex-basis: 78px;
     }
 
+    .azuki-m-leader-health {
+        display: none;
+    }
+
     .azuki-m-ikz-thumb {
         width: 24px;
         height: 34px;
@@ -799,10 +803,87 @@
             content: "You";
         }
 
+        .azuki-m-leader-health {
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            z-index: 3;
+            height: 46px;
+            display: block;
+            padding: 4px 8px;
+            overflow: hidden;
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 4px;
+            background: rgba(8, 9, 10, 0.58);
+        }
+
+        .azuki-m-band.is-theirs .azuki-m-leader-health {
+            bottom: 12px;
+        }
+
+        .azuki-m-band.is-mine .azuki-m-leader-health {
+            top: 12px;
+        }
+
+        .azuki-m-leader-health-icon {
+            position: absolute;
+            left: calc(50% - 39px);
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 12px;
+            line-height: 1;
+            transform: translate(-50%, -44%);
+        }
+
+        .azuki-m-leader-health-label {
+            display: none;
+        }
+
+        .azuki-m-leader-health-value {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            display: inline-flex;
+            align-items: center;
+            height: 32px;
+            color: #f7f7f7;
+            font: 900 30px/1 var(--azuki-font-ui);
+            letter-spacing: -0.04em;
+            transform: translate(-50%, -52%);
+        }
+
+        .azuki-m-leader-health.has-lower-health .azuki-m-leader-health-value {
+            color: #ff9ea6;
+        }
+
         .azuki-m-band .azuki-m-gate {
             margin-left: 0;
             grid-column: 3;
             grid-row: 1;
+            gap: 0;
+            overflow: visible;
+        }
+
+        .azuki-m-band .azuki-m-gate > .azuki-m-pile-label {
+            display: none;
+        }
+
+        .azuki-m-band .azuki-m-gate > div:not(.azuki-m-pile-label) {
+            height: 44px;
+            min-height: 44px;
+            max-height: 44px;
+        }
+
+        .azuki-m-band .azuki-m-gate img:not(.counter-image-icon) {
+            width: 44px !important;
+            height: 44px !important;
+            max-width: 44px !important;
         }
 
         .azuki-m-band.is-mine .azuki-m-pass {
@@ -1045,8 +1126,8 @@
 
         .azuki-m-section.is-mine {
             position: fixed;
-            left: calc(var(--azuki-l-rail) + 12px);
-            right: max(10px, env(safe-area-inset-right));
+            left: max(8px, env(safe-area-inset-left));
+            right: max(8px, env(safe-area-inset-right));
             bottom: -24px;
             z-index: 48;
             width: auto;
@@ -1097,7 +1178,7 @@
         #myHand > span[id] {
             position: relative;
             flex: 0 0 auto;
-            margin-left: -10px !important;
+            margin-left: -4px !important;
             transform-origin: 50% 100%;
             transform: translateY(var(--azuki-hand-drop, 0px)) rotate(var(--azuki-hand-angle, 0deg));
             transition: transform 130ms ease, filter 130ms ease;
@@ -1507,6 +1588,11 @@
     <div class="azuki-m-band is-theirs">
         <div id="theirIKZSummary" class="azuki-m-ikz-summary" aria-label="Their IKZ summary"></div>
         <div id="theirHandSummary" class="azuki-m-hand-summary" aria-label="Their hand summary"></div>
+        <div id="theirLeaderHealthSummary" class="azuki-m-leader-health" aria-label="Opponent leader health">
+            <span class="azuki-m-leader-health-icon" aria-hidden="true">&#9829;</span>
+            <span class="azuki-m-leader-health-label">Their Leader</span>
+            <strong class="azuki-m-leader-health-value">&mdash;</strong>
+        </div>
         <div id="theirIKZTokenSlot" class="azuki-zone azuki-m-token" data-label="IKZ Token"></div>
         <div class="azuki-m-gate"><div class="azuki-m-pile-label">Gate</div><div id="theirGateSlot" class="azuki-zone"></div></div>
         <div class="azuki-m-pile is-deck"><div class="azuki-m-pile-label">Deck</div><div id="theirDeckSlot" class="azuki-zone"></div></div>
@@ -1541,6 +1627,11 @@
 
     <div class="azuki-m-band is-mine">
         <div id="myIKZSummary" class="azuki-m-ikz-summary" aria-label="My IKZ summary"></div>
+        <div id="myLeaderHealthSummary" class="azuki-m-leader-health" aria-label="My leader health">
+            <span class="azuki-m-leader-health-icon" aria-hidden="true">&#9829;</span>
+            <span class="azuki-m-leader-health-label">My Leader</span>
+            <strong class="azuki-m-leader-health-value">&mdash;</strong>
+        </div>
         <div id="myIKZTokenSlot" class="azuki-zone azuki-m-token" data-label="IKZ Token"></div>
         <div class="azuki-m-pass"><div id="myLeaderHealthSlot" class="azuki-zone"></div></div>
         <div class="azuki-m-gate"><div class="azuki-m-pile-label">Gate</div><div id="myGateSlot" class="azuki-zone"></div></div>
@@ -1748,9 +1839,59 @@
             '</div>';
     }
 
+    function readLeaderHealth(prefix) {
+        var raw = window[prefix + 'GardenData'];
+        if(!raw || typeof raw !== 'string') return null;
+
+        var fallbackHealth = null;
+        var entries = raw.split('<|>');
+        for(var i = 0; i < entries.length; ++i) {
+            var parts = entries[i].trim().split(' ');
+            if(parts.length < 3 || !parts[0] || !parts[2] || parts[2] === '-') continue;
+
+            var obj = null;
+            try { obj = JSON.parse(parts.slice(2).join(' ')); } catch (e) {}
+            if(!obj) continue;
+
+            var health = parseInt(obj.CurrentHP, 10);
+            if(!Number.isFinite(health)) continue;
+
+            var category = null;
+            if(typeof window.Cardcategory === 'function') {
+                category = window.Cardcategory(obj.CardID || parts[0]);
+            }
+            if(String(category || '').toLowerCase() === 'leader') return health;
+
+            // Leaders deliberately serialize CurrentPower as -1 when they have no attack.
+            if(parseInt(obj.CurrentPower, 10) === -1) fallbackHealth = health;
+        }
+        return fallbackHealth;
+    }
+
+    function renderLeaderHealthSummary(prefix, label) {
+        var summary = document.getElementById(prefix + 'LeaderHealthSummary');
+        if(!summary) return null;
+        var value = readLeaderHealth(prefix);
+        var valueEl = summary.querySelector('.azuki-m-leader-health-value');
+        if(valueEl) valueEl.textContent = value === null ? '\u2014' : String(value);
+        summary.setAttribute('aria-label', label + ' leader health' + (value === null ? '' : ': ' + value));
+        return value;
+    }
+
+    function updateLeaderHealthSummaries() {
+        var theirValue = renderLeaderHealthSummary('their', 'Opponent');
+        var myValue = renderLeaderHealthSummary('my', 'My');
+        var canCompare = Number.isFinite(theirValue) && Number.isFinite(myValue);
+        var theirSummary = document.getElementById('theirLeaderHealthSummary');
+        var mySummary = document.getElementById('myLeaderHealthSummary');
+        if(theirSummary) theirSummary.classList.toggle('has-lower-health', canCompare && theirValue < myValue);
+        if(mySummary) mySummary.classList.toggle('has-lower-health', canCompare && myValue < theirValue);
+    }
+
     function updateIKZSummaries() {
         renderIKZSummary('their', 'Their IKZ');
         renderIKZSummary('my', 'My IKZ');
+        updateLeaderHealthSummaries();
         if(typeof window.UpdateAzukiMobileIKZTokens === 'function') {
             window.UpdateAzukiMobileIKZTokens();
         }
@@ -1942,6 +2083,10 @@
     observeZone('myHandSlot', updateLandscapeHandFan);
     observeZone('myIKZAreaSlot', updateIKZSummaries);
     observeZone('theirIKZAreaSlot', updateIKZSummaries);
+    observeZone('myLeaderHealthSlot', updateLeaderHealthSummaries);
+    observeZone('theirLeaderHealthSlot', updateLeaderHealthSummaries);
+    observeZone('myGardenSlot', updateLeaderHealthSummaries);
+    observeZone('theirGardenSlot', updateLeaderHealthSummaries);
     observeZone('myIKZTokenSlot', window.UpdateAzukiMobileIKZTokens);
     observeZone('theirIKZTokenSlot', window.UpdateAzukiMobileIKZTokens);
     window.setInterval(function() {
