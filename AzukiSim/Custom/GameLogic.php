@@ -3517,7 +3517,7 @@ function QueueOpeningMulliganDecision($player) {
     if(DecisionQueueController::GetVariable('P' . $player . '_OpeningMulliganOffered') === '1') return;
 
     DecisionQueueController::StoreVariable('P' . $player . '_OpeningMulliganOffered', '1');
-    DecisionQueueController::AddDecision($player, 'YESNO', '-', 0, 'Mulligan:_place_your_hand_on_bottom,_draw_7,_then_shuffle?');
+    DecisionQueueController::AddDecision($player, 'YESNO', 'review:myHand|yes:Mulligan|no:Keep', 0, 'Put_your_hand_on_bottom,_draw_7,_then_shuffle?');
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'OPENING_MULLIGAN', 0, '', 1);
 }
 

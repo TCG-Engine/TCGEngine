@@ -3895,6 +3895,24 @@ function ResolveGlobalFunction(functionName) {
         }
       }
 
+function ParseYesNoDecisionPresentation(param) {
+  const presentation = { reviewZone: '', yesLabel: 'Yes', noLabel: 'No' };
+  String(param || '').split('|').forEach(function(part) {
+    const separator = part.indexOf(':');
+    if(separator <= 0) return;
+    const key = part.slice(0, separator).toLowerCase();
+    const value = part.slice(separator + 1);
+    if(key === 'review' && /^[A-Za-z][A-Za-z0-9_-]*$/.test(value)) {
+      presentation.reviewZone = value;
+    } else if(key === 'yes' && value !== '') {
+      presentation.yesLabel = value.replace(/_/g, ' ');
+    } else if(key === 'no' && value !== '') {
+      presentation.noLabel = value.replace(/_/g, ' ');
+    }
+  });
+  return presentation;
+}
+
 // Show a YES/NO popup for a decision queue entry
 function ShowYesNoDecisionPopup(decision, onSubmit) {
   // Remove any existing modal
@@ -3903,6 +3921,12 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
 
   let overlay = document.createElement('div');
   overlay.id = 'yesno-decision-modal';
+  overlay.className = 'yesno-decision-overlay';
+  const presentation = ParseYesNoDecisionPresentation(decision && decision.Param);
+  if(presentation.reviewZone) {
+    overlay.classList.add('yesno-decision-contextual');
+    overlay.dataset.reviewZone = presentation.reviewZone;
+  }
   overlay.style.position = 'fixed';
   overlay.style.top = '0';
   overlay.style.left = '0';
@@ -3915,6 +3939,9 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
   overlay.style.justifyContent = 'center';
 
   let modal = document.createElement('div');
+  modal.className = 'yesno-decision-panel';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
   modal.style.background = '#0D1B2A';
   modal.style.padding = '32px 24px';
   modal.style.borderRadius = '10px';
@@ -3924,6 +3951,7 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
   modal.style.fontFamily = "'Orbitron', sans-serif";
 
   let prompt = document.createElement('div');
+  prompt.className = 'yesno-decision-prompt';
   prompt.style.fontSize = '20px';
   prompt.style.color = '#fff';
   prompt.style.marginBottom = '24px';
@@ -3931,7 +3959,8 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
   modal.appendChild(prompt);
 
   let yesBtn = document.createElement('button');
-  yesBtn.textContent = 'Yes';
+  yesBtn.className = 'yesno-decision-yes';
+  yesBtn.textContent = presentation.yesLabel;
   yesBtn.style.margin = '0 16px 0 0';
   yesBtn.style.padding = '8px 24px';
   yesBtn.style.fontSize = '18px';
@@ -3947,7 +3976,8 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
   modal.appendChild(yesBtn);
 
   let noBtn = document.createElement('button');
-  noBtn.textContent = 'No';
+  noBtn.className = 'yesno-decision-no';
+  noBtn.textContent = presentation.noLabel;
   noBtn.style.padding = '8px 24px';
   noBtn.style.fontSize = '18px';
   noBtn.style.background = '#dc3545';

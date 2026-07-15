@@ -914,10 +914,6 @@
                 max-width: 40px !important;
                 max-height: 40px;
             }
-
-            .azuki-m-section.is-mine {
-                bottom: -36px;
-            }
         }
 
         .azuki-m-band.is-mine .azuki-m-pass {
@@ -1238,6 +1234,22 @@
             height: var(--azuki-l-hand-card) !important;
         }
 
+        @media (max-height: 430px) {
+            .azuki-m-section.is-mine {
+                bottom: -36px;
+            }
+        }
+
+        body:has(#yesno-decision-modal[data-review-zone="myHand"]) .azuki-m-section.is-mine {
+            bottom: -4px;
+        }
+
+        @media (max-height: 430px) {
+            body:has(#yesno-decision-modal[data-review-zone="myHand"]) .azuki-m-section.is-mine {
+                bottom: -10px;
+            }
+        }
+
         #theirLeaderHealth,
         #myLeaderHealth {
             color: #f7f7f7;
@@ -1297,6 +1309,68 @@
          * and response opportunities share one compact row beneath Events.
          * Multi-select prompts retain their larger interactive presentation.
          */
+        #yesno-decision-modal.yesno-decision-contextual[data-review-zone="myHand"] {
+            z-index: 12025 !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.38) 0,
+                rgba(0, 0, 0, 0.16) 30%,
+                rgba(0, 0, 0, 0.03) 58%,
+                rgba(0, 0, 0, 0) 100%
+            ) !important;
+        }
+
+        #yesno-decision-modal[data-review-zone="myHand"] .yesno-decision-panel {
+            position: fixed !important;
+            top: max(50px, calc(env(safe-area-inset-top) + 44px)) !important;
+            left: calc(var(--azuki-l-rail) + 10px) !important;
+            right: calc(var(--azuki-l-hand) + 10px) !important;
+            width: auto !important;
+            min-width: 0 !important;
+            min-height: 38px;
+            box-sizing: border-box !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            margin: 0 !important;
+            padding: 6px 9px !important;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.42);
+            border-radius: 8px !important;
+            background: rgba(11, 12, 13, 0.97) !important;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.34) !important;
+            font-family: var(--azuki-font-ui) !important;
+        }
+
+        #yesno-decision-modal[data-review-zone="myHand"] .yesno-decision-prompt {
+            min-width: 0;
+            flex: 1 1 auto;
+            margin: 0 !important;
+            overflow: hidden;
+            color: #f4ead0 !important;
+            font: 700 10px/1.15 var(--azuki-font-ui) !important;
+            text-align: center;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        #yesno-decision-modal[data-review-zone="myHand"] button {
+            flex: 0 0 auto;
+            margin: 0 !important;
+            padding: 6px 9px !important;
+            border-radius: 6px !important;
+            font: 800 10px/1 var(--azuki-font-ui) !important;
+        }
+
+        body:has(#yesno-decision-modal[data-review-zone="myHand"]) #selection-message,
+        body:has(#yesno-decision-modal[data-review-zone="myHand"]) #turn-miasma-message,
+        body:has(#yesno-decision-modal[data-review-zone="myHand"]) #azukiResponseOpportunity {
+            display: none !important;
+        }
+
         #selection-message:not(:has(#inline-multi-confirm)),
         #turn-miasma-message,
         #azukiResponseOpportunity {
