@@ -56,8 +56,11 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         <hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;"><span style="margin: 0 10px; font-size: 12px;">OR</span><hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;">
       </div>
 -->
-      <!-- TODO: remove this button before deploy -->
+      <?php if (getenv('DEVENV') === 'true'): ?>
+      <!-- Dev-only convenience: prefills a known-good deck link. Gated to DEVENV so it never
+           renders in production. -->
       <button onclick="loadTestDeck()" style="margin-bottom: 10px; padding: 6px 14px; background: rgba(60,120,60,0.25); color: #90e090; border: 1px solid rgba(90,160,90,0.45); border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">⚗ Test Deck</button>
+      <?php endif; ?>
 
       <div style="display: flex; gap: 0; margin-bottom: 10px; border-bottom: 2px solid rgba(100,100,100,0.4);">
         <button id="tab-link" onclick="switchDeckTab('link')" style="flex: 1; padding: 8px; background: rgba(var(--accent-rgb),0.18); color: var(--text); border: none; border-bottom: 2px solid var(--accent); cursor: pointer; font-size: 13px; font-weight: 600;">Deck Link</button>
