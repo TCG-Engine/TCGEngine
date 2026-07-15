@@ -504,6 +504,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        overflow-y forces overflow-x to auto, which would crop the wide card). */
     #myLeaderWrapper, #theirLeaderWrapper,
     #myBaseWrapper,   #theirBaseWrapper { overflow: visible !important; }
+    /* Deck/Discard piles: the face-down card renders ~2px wider than the 88px pile, which trips
+       the wrapper's default overflow-x:auto into a thin scrollbar. Let it overhang harmlessly
+       (imperceptible) instead of scrolling — same treatment as the leader/base wrappers above. */
+    #myDeckWrapper,    #theirDeckWrapper,
+    #myDiscardWrapper, #theirDiscardWrapper { overflow: visible !important; }
 
     /* Pile rows — right end of the hand strip */
     .swu-pile-row {

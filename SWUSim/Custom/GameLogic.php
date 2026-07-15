@@ -4402,10 +4402,24 @@ function ResourcePhase() {
     // may resource 1 card from hand. Player selects a card or declines with "-".
     $firstPlayer = intval(GetFirstPlayer());
     $secondPlayer = $firstPlayer === 1 ? 2 : 1;
-    DecisionQueueController::AddDecision($firstPlayer,  "MZMAYCHOOSE", "myHand", 1, tooltip:"Resource_up_to_1_card");
-    DecisionQueueController::AddDecision($firstPlayer,  "CUSTOM",      "SWUApplyRegroupResource", 1);
-    DecisionQueueController::AddDecision($secondPlayer, "MZMAYCHOOSE", "myHand", 1, tooltip:"Resource_up_to_1_card");
-    DecisionQueueController::AddDecision($secondPlayer, "CUSTOM",      "SWUApplyRegroupResource", 1);
+    // P2 is a passive, non-interactive seat in goldfish (and in an interrupted "Play from Here"
+    // replay) — it can never answer a decision. Its regroup-resource MZMAYCHOOSE would otherwise
+    // sit in the queue forever and hang the RES step (the ghost has an empty hand + empty deck, so
+    // there is nothing to resource anyway). Skip it — mirroring the goldfish auto-pass in
+    // SWUSwapTurnPlayer and the $skipGoldfishBot mulligan skip. Real 2-player + hotseat games (where
+    // P2 is a live seat that answers its own prompts) are unaffected.
+    $isPassiveSeat = function($pl): bool {
+        return intval($pl) === 2
+            && (SWUGameMode() === 'goldfish'
+                || (function_exists('MatchReplayIsInterrupted') && MatchReplayIsInterrupted()));
+    };
+    $queueResource = function($pl) use ($isPassiveSeat) {
+        if ($isPassiveSeat($pl)) return;
+        DecisionQueueController::AddDecision($pl, "MZMAYCHOOSE", "myHand", 1, tooltip:"Resource_up_to_1_card");
+        DecisionQueueController::AddDecision($pl, "CUSTOM",      "SWUApplyRegroupResource", 1);
+    };
+    $queueResource($firstPlayer);   // initiative holder resources first (CR 5.4.c)
+    $queueResource($secondPlayer);
 }
 
 function ReadyPhase() {
