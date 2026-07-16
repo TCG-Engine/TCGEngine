@@ -64,7 +64,8 @@ $error = trim((string)($_GET['error'] ?? ''));
       <?php if (IsUserLoggedIn()): ?>
         <a id="createDeckButton" class="azuki-deck-button" href="CreateDeck.php">New Deck</a>
       <?php else: ?>
-        <a class="azuki-deck-button" href="../SharedUI/LoginPage.php">Log in to build</a>
+        <a class="azuki-deck-button" href="/TCGEngine/SharedUI/Sites/AzukiSim/Signup.php?redirect=%2FTCGEngine%2FAzukiDeck%2F">Create account</a>
+        <a class="azuki-deck-button secondary" href="/TCGEngine/SharedUI/Sites/AzukiSim/LoginPage.php?redirect=%2FTCGEngine%2FAzukiDeck%2F">Log in</a>
       <?php endif; ?>
     </div>
   </section>

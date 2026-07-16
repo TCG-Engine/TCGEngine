@@ -81,6 +81,7 @@ require_once __DIR__ . '/../Auth.php';
 $login = RenderLoginPage($def); $signup = RenderSignup($def);
 checkContains('login posts to AttemptPasswordLogin', $login, '/TCGEngine/AccountFiles/AttemptPasswordLogin.php');
 checkContains('login has remember-me', $login, 'name="rememberMe"');
+checkContains('login offers account creation', $login, 'Create account');
 check('login has no relative ../ urls', strpos($login, '"../') === false && strpos($login, "'../") === false);
 checkContains('signup posts to signup.inc', $signup, '/TCGEngine/Database/signup.inc.php');
 checkContains('signup has responsive page hook', $signup, 'signup-page');

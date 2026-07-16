@@ -37,6 +37,14 @@ try { DiscordOAuthConsumeFlow($state); } catch (RuntimeException $e) { $consumed
 discordAuthCheck('state is single use', $consumedRejected);
 
 putenv('DISCORD_CLIENT_SECRET=test-secret');
+$previousHost = $_SERVER['HTTP_HOST'] ?? null;
+$_SERVER['HTTP_HOST'] = 'zendo.gg';
+$zendoConfig = DiscordOAuthConfig();
+discordAuthCheck('Zendo uses its own Discord callback', $zendoConfig['redirectUri'] === 'https://zendo.gg/TCGEngine/APIs/DiscordLogin.php');
+$_SERVER['HTTP_HOST'] = 'unconfigured.example';
+$fallbackConfig = DiscordOAuthConfig();
+discordAuthCheck('unknown hosts retain the SWUStats callback', $fallbackConfig['redirectUri'] === 'https://www.swustats.net/TCGEngine/APIs/DiscordLogin.php');
+if ($previousHost === null) unset($_SERVER['HTTP_HOST']); else $_SERVER['HTTP_HOST'] = $previousHost;
 $authorizeUrl = DiscordOAuthAuthorizeUrl('state-token');
 discordAuthCheck('authorization uses code flow', strpos($authorizeUrl, 'response_type=code') !== false);
 discordAuthCheck('authorization requests identity and email', strpos($authorizeUrl, 'scope=identify%20email') !== false);
@@ -47,6 +55,7 @@ $def = require __DIR__ . '/../SharedUI/Sites/SWUDeck/SiteDef.php';
 $login = RenderLoginPage($def, '/TCGEngine/Stats/Decks.php');
 $signup = RenderSignup($def, '/TCGEngine/Stats/Decks.php');
 discordAuthCheck('login renders Discord action', strpos($login, 'Continue with Discord') !== false && strpos($login, 'action=login') !== false);
+discordAuthCheck('login links to signup', strpos($login, '/Signup.php?redirect=') !== false && strpos($login, 'Create account') !== false);
 discordAuthCheck('signup renders Discord action', strpos($signup, 'Continue with Discord') !== false && strpos($signup, 'action=signup') !== false);
 discordAuthCheck('Discord return is preserved', strpos($signup, rawurlencode('/TCGEngine/Stats/Decks.php')) !== false);
 

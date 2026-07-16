@@ -34,12 +34,21 @@ function DiscordOAuthStartUrl(string $action, string $site, string $redirect = '
     ]);
 }
 
+function DiscordOAuthDefaultRedirectUri(): string {
+    $host = strtolower(trim((string)($_SERVER['HTTP_HOST'] ?? '')));
+    $host = preg_replace('/:\d+$/', '', $host);
+    if (in_array($host, ['zendo.gg', 'www.zendo.gg'], true)) {
+        return 'https://' . $host . '/TCGEngine/APIs/DiscordLogin.php';
+    }
+    return 'https://www.swustats.net/TCGEngine/APIs/DiscordLogin.php';
+}
+
 function DiscordOAuthConfig(): array {
     require __DIR__ . '/../APIKeys/APIKeys.php';
     return [
         'clientId' => trim((string)(getenv('DISCORD_CLIENT_ID') ?: DISCORD_OAUTH_CLIENT_ID)),
         'clientSecret' => trim((string)(getenv('DISCORD_CLIENT_SECRET') ?: ($discordClientSecret ?? ''))),
-        'redirectUri' => trim((string)(getenv('DISCORD_REDIRECT_URI') ?: 'https://www.swustats.net/TCGEngine/APIs/DiscordLogin.php')),
+        'redirectUri' => trim((string)(getenv('DISCORD_REDIRECT_URI') ?: DiscordOAuthDefaultRedirectUri())),
     ];
 }
 

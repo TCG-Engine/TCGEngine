@@ -86,6 +86,10 @@ function RenderLoginPage(array $def, string $safeRedirect = ''): string {
     $esc = htmlspecialchars($safeRedirect, ENT_QUOTES);
     $discordButton = RenderDiscordAuthButton($def, 'login', $safeRedirect);
     $oauthError = RenderOAuthError();
+    $site = rawurlencode((string)($def['identity']['rootName'] ?? 'SWUDeck'));
+    $signupHref = '/TCGEngine/SharedUI/Sites/' . $site . '/Signup.php';
+    if ($safeRedirect !== '') $signupHref .= '?redirect=' . rawurlencode($safeRedirect);
+    $signupHref = htmlspecialchars($signupHref, ENT_QUOTES, 'UTF-8');
     return <<<HTML
 <div class="core-wrapper">
 <div class="flex-padder"></div>
@@ -109,6 +113,7 @@ function RenderLoginPage(array $def, string $safeRedirect = ''): string {
       </div>
       <button type="submit" name="submit">Submit</button>
     </form>
+    <p class="login-signup-link">Need an account? <a href="$signupHref">Create account</a></p>
     <!--
     <form action="ResetPassword.php" method="post" style='text-align:center;'>
       <button type="submit" name="reset-password">Forgot Password?</button>

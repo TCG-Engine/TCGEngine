@@ -12,7 +12,7 @@ include_once '../AccountFiles/AccountSessionAPI.php';
 include_once '../AzukiSim/Custom/DeckImport.php';
 
 if (!IsUserLoggedIn()) {
-  header('location: ../SharedUI/LoginPage.php');
+  header('location: /TCGEngine/SharedUI/Sites/AzukiSim/LoginPage.php?redirect=%2FTCGEngine%2FAzukiDeck%2F');
   exit();
 }
 
