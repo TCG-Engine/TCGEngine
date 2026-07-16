@@ -1583,7 +1583,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
       amount = 1;
     } else if(String(mode) === '10001' && parts[1] === 'CustomInput') {
       if(parts[2] === '>') { destination = 'myMainDeck'; amount = 1; }
-      else if(parts[2] === '>>>') { destination = 'myMainDeck'; amount = 3; }
+      else if(parts[2] === '>>>') { destination = 'myMainDeck'; amount = 4; }
       else if(parts[2] === 'V') { destination = 'mySideboard'; amount = 1; }
     }
     if(!destination || amount < 1) return null;

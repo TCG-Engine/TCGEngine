@@ -21,7 +21,7 @@ AddValidation: ValidateGateAddition
 MainDeck - CardID:string
 Display: Visibility=Self, Mode=Tile, BindTo=MainDeckSlot, Split=None
 Click: Remove(myCards)
-AddValidation: ValidateMainDeckAddition
+AddValidation: ValidateDeckCardAddition
 Widgets: CustomInput=<&<<<&V&+&Notes
 Sort: Property=mySort
 CardPane - Value:string
@@ -42,6 +42,7 @@ Widgets: CustomInput=V&>&>>>&Notes
 Sideboard - CardID:string
 Display: Visibility=Self, Mode=Tile, BindTo=SideboardSlot, Split=None
 Click: Remove(mySideboard)
+AddValidation: ValidateDeckCardAddition
 Widgets: CustomInput=<&<<<&^&+&Notes
 Sort: Property=mySort
 Deck - CardID:string

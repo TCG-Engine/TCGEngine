@@ -1,6 +1,6 @@
 <?php
 
-function ValidateMainDeckAddition($cardID) {
+function ValidateDeckCardAddition($cardID) {
   if (strtolower((string)CardCategory($cardID)) === 'ikz') return false;
 
   $count = 0;
@@ -10,7 +10,7 @@ function ValidateMainDeckAddition($cardID) {
   foreach (GetSideboard(1) as $card) {
     if ($card->CardID == $cardID && !$card->Removed()) ++$count;
   }
-  return $count < 3;
+  return $count < 4;
 }
 
 function ValidateLeaderAddition($cardID) {

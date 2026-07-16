@@ -10,7 +10,7 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
       if ($card === null) break;
       if ($action === '>') MZAddZone($playerID, 'myMainDeck', $card->CardID);
       elseif ($action === '>>>') {
-        for ($i = 0; $i < 3; ++$i) MZAddZone($playerID, 'myMainDeck', $card->CardID);
+        for ($i = 0; $i < 4; ++$i) MZAddZone($playerID, 'myMainDeck', $card->CardID);
       } elseif ($action === 'V') MZAddZone($playerID, 'mySideboard', $card->CardID);
       break;
 
@@ -21,7 +21,7 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
       if ($action === '<') $card->Remove();
       elseif ($action === '<<<') {
         $cardID = $card->CardID;
-        for ($i = 0; $i < 3; ++$i) {
+        for ($i = 0; $i < 4; ++$i) {
           $match = SearchZoneForCard($actionCard, $cardID, 1);
           if ($match !== null) $match->Remove();
         }
