@@ -23,6 +23,7 @@ Display: Visibility=Self, Mode=Tile, BindTo=MainDeckSlot, Split=None
 Click: Remove(myCards)
 AddValidation: ValidateDeckCardAddition
 Widgets: CustomInput=<&<<<&V&+&Notes
+Heatmap: Property=myStats, FunctionMap={"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"}}
 Sort: Property=mySort
 CardPane - Value:string
 Display: Visibility=Self, Mode=Panel, BindTo=CardPaneSlot, Split=None
@@ -44,11 +45,13 @@ Display: Visibility=Self, Mode=Tile, BindTo=SideboardSlot, Split=None
 Click: Remove(mySideboard)
 AddValidation: ValidateDeckCardAddition
 Widgets: CustomInput=<&<<<&^&+&Notes
+Heatmap: Property=myStats, FunctionMap={"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"}}
 Sort: Property=mySort
 Deck - CardID:string
 Display: Visibility=Self, Mode=Count(MainDeck), BindTo=DeckSlot, Split=None
 Stats - Value:string
-Display: Visibility=Self, Mode=None
+Display: Visibility=Self, Mode=Radio(Value), BindTo=StatsSlot
+Widgets: Value=Hypergeo
 Sort - Value:string
 Display: Visibility=Public, Mode=Dropdown(Value), BindTo=SortSlot
 Widgets: Value=Name&IkzCost&Element&Category&CardId

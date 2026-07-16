@@ -763,8 +763,11 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     display: flex !important;
     flex-direction: column;
     flex-wrap: nowrap !important;
-    gap: 5px !important;
+    gap: 0 !important;
     justify-content: stretch !important;
+    /* createWidgetButtons prefixes each button with &nbsp;. In a column flexbox that
+       text otherwise becomes an empty line-height-tall flex item above the buttons. */
+    line-height: 0 !important;
   }
   #swuMobileDeckPage #mySort .widget-dd-trigger {
     width: 100% !important;
@@ -799,6 +802,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     text-overflow: ellipsis;
     white-space: nowrap !important;
   }
+  #swuMobileDeckPage #myStats button + button { margin-top: 5px !important; }
 
   .swu-dm-title {
     position: sticky;
@@ -1089,6 +1093,15 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
           <span class="swu-mobile-page-title"><span>Main Deck</span><b id="swuMobileDeckCount"></b></span>
           <div class="swu-mobile-deck-title-tools">
             <div id="mySortSlot" onclick="ZoneClickHandler('mySort');"></div>
+            <div id="swuMobileOverlayMenu" class="swu-mobile-overlay-menu">
+              <button id="swuMobileOverlayButton" class="widget-button" type="button" aria-label="Card overlays" aria-haspopup="true" aria-expanded="false">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 13.5h12v1H1v-13h1v12Zm2-2.5h2V7H4v4Zm3.5 0h2V3h-2v8Zm3.5 0h2V5h-2v6Z"/></svg>
+              </button>
+              <div id="swuMobileOverlayPanel">
+                <div class="swu-mobile-overlay-heading">Card overlays</div>
+                <div id="myStatsSlot" onclick="ZoneClickHandler('myStats');"></div>
+              </div>
+            </div>
           </div>
           <span class="swu-mobile-page-dots" aria-hidden="true"><i></i><i></i></span>
         </div>
@@ -1115,7 +1128,6 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     <button type="button" id="swuMobileToSearch" class="swu-mobile-edge-nav" aria-label="Show card library">&#8249; Cards</button>
   </div>
   <div id="myDeckSlot" style="display:none" onclick="ZoneClickHandler('myDeck');"></div>
-  <div id="myStatsSlot" style="display:none" onclick="ZoneClickHandler('myStats');"></div>
 
   <div id="swuMobileRendererCompatibility" aria-hidden="true">
     <div id="theirCardPaneSlot"></div>
