@@ -64,17 +64,104 @@ function AzukiDeckHypergeometricAtLeast(minimumSuccesses, sampleSize, population
   return probability;
 }
 
+function AzukiDeckCardHasSubtype(cardID, subtype) {
+  if (typeof window.Cardsubtypes !== 'function') return false;
+  var subtypes = window.Cardsubtypes(cardID);
+  if (Array.isArray(subtypes)) return subtypes.includes(subtype);
+  return String(subtypes == null ? '' : subtypes).split(',').map(function(value) {
+    return value.trim();
+  }).includes(subtype);
+}
+
+function AzukiDeckCardIsElement(cardID, element) {
+  return typeof window.Cardelement === 'function'
+    && String(window.Cardelement(cardID)).toLowerCase() === element.toLowerCase();
+}
+
+function AzukiDeckCardIsCategory(cardID, category) {
+  return typeof window.Cardcategory === 'function'
+    && String(window.Cardcategory(cardID)).toLowerCase() === category.toLowerCase();
+}
+
+function AzukiDeckCardCostAtMost(cardID, maximumCost) {
+  return typeof window.CardikzCost === 'function'
+    && Number(window.CardikzCost(cardID)) <= maximumCost;
+}
+
+function AzukiDeckTopCardsHitRate(deck, sourceCardID, sampleSize, predicate) {
+  var populationSize = deck.length - 1;
+  var populationSuccesses = deck.reduce(function(total, deckCardID) {
+    return total + (predicate(deckCardID) ? 1 : 0);
+  }, 0);
+
+  // These effects resolve after their source has left the deck. If the source itself
+  // matches its search predicate, remove it from both the population and hit count.
+  if (predicate(sourceCardID)) populationSuccesses--;
+  return AzukiDeckHypergeometricAtLeast(1, sampleSize, populationSuccesses, populationSize);
+}
+
 function HyperGeo(cardID) {
   var deck = AzukiDeckMainDeckCardIDs();
-  if (!deck.length || typeof window.Cardcategory !== 'function') return -1;
+  if (!deck.length) return -1;
 
   switch (cardID) {
+    case 'S1-AZK01-003_Black-Jade-Courier_E_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return candidateID !== cardID && AzukiDeckCardHasSubtype(candidateID, 'Black Jade');
+      });
+    case 'S1-AZK01-021_Mizuto_E_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardHasSubtype(candidateID, 'Driftward');
+      });
+    case 'S1-AZK01-031_Tidal-Insight_S_UC_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 3, function(candidateID) {
+        return AzukiDeckCardIsElement(candidateID, 'Water');
+      });
+    case 'S1-AZK01-033_Elder-Hoshin_E_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardHasSubtype(candidateID, 'Steelborn');
+      });
+    case 'S1-AZK01-045_Treetop-Scout_E_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardHasSubtype(candidateID, 'Obsidian');
+      });
+    case 'S1-AZK01-056_Glass-Blower-Hokuto_E_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardHasSubtype(candidateID, 'Scorchweaver');
+      });
+    case 'S1-AZK01-069_Link_E_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardHasSubtype(candidateID, 'Beanz');
+      });
+    case 'S1-AZK01-092_Lotus-of-Reflection_S_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardIsElement(candidateID, 'Water')
+          && AzukiDeckCardCostAtMost(candidateID, 2);
+      });
+    case 'S1-AZK01-097_Black-Jade-Pawnbroker_E_C_die':
     case 'S1-STT01-004_Black-Jade-Recruit_E_C_die':
-      var weaponCount = deck.reduce(function(total, deckCardID) {
-        return total + (String(window.Cardcategory(deckCardID)).toLowerCase() === 'weapon' ? 1 : 0);
-      }, 0);
-      // The Recruit has been played before its On Play ability looks at the top five.
-      return AzukiDeckHypergeometricAtLeast(1, 5, weaponCount, deck.length - 1);
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardIsCategory(candidateID, 'Weapon');
+      });
+    case 'S1-STT02-003_Hayabusa-Itto_E_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardHasSubtype(candidateID, 'Watercrafting');
+      });
+    case 'S1-STT02-013_Mizuki_E_SR_die':
+    case 'STT02-013A_Mizuki_E_SR_die':
+    case 'STT02-013ASN_Mizuki_E_SR_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 3, function(candidateID) {
+        return AzukiDeckCardIsElement(candidateID, 'Water')
+          && AzukiDeckCardCostAtMost(candidateID, 2);
+      });
+    case 'S1-STT03-003_Koyama-Farm-Potter_E_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardHasSubtype(candidateID, 'Verdant');
+      });
+    case 'S1-STT04-005_Ruby_E_C_die':
+      return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
+        return AzukiDeckCardHasSubtype(candidateID, 'Pyreskin');
+      });
     default:
       return -1;
   }
