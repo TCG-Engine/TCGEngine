@@ -879,7 +879,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
       function ShouldSkipZoneCardRendering(cardArr, filter, filterFunction, linkedSubcardCardIDs) {
         if (!cardArr || cardArr.length === 0) return true;
         if (filter != "" && ShouldFilterWithOr(cardArr[0], filter)) return true;
-        if (filterFunction != null && window.customFilter && filterFunction(cardArr[0])) return true;
+        if (filterFunction != null && filterFunction !== window.InLegalFilter && window.customFilter && filterFunction(cardArr[0])) return true;
         if (filterFunction != null && typeof window.InLegalFilter === 'function' && window.legalFilter && window.InLegalFilter(cardArr[0])) return true;
         if (linkedSubcardCardIDs && linkedSubcardCardIDs[cardArr[0]]) return true;
         return false;
@@ -2919,19 +2919,21 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         var activePaneVar = `_${prefix}_${zoneName}_activePane`;
         var index = 0;
         var hasCustomFilter = false;
+        var activePaneFilters = [];
         panelNames.forEach(panelName => {
           html += `<div style='font-size: 14px; cursor: pointer;' class='panelTab' onclick='PaneTabClick("${prefix}", "${zoneName}", "${index}")'>${panelName}</div>`;
           if(index == window[activePaneVar]) {
             var paneImageFolder = window.assetImageFolder || (window.rootPath + "/concat");
             paneHTML += PopulateZone(prefix + panelName, panes[window[activePaneVar]], window.cardSize, paneImageFolder,1,"All", filterText);
             var zoneData = GetZoneData(prefix + panelName);
-            if(zoneData.Filters.length > 0) hasCustomFilter = true;
+            activePaneFilters = zoneData.Filters || [];
+            if(activePaneFilters.some(function(filterName) { return filterName !== 'InLegalFilter'; })) hasCustomFilter = true;
           }
           ++index;
         });
         html += `</div>`; // close the tabs row
         // Filters go on their OWN row below the tabs: [Filter Legal] [Filter Aspect].
-        var hasLegalFilter = (typeof window.InLegalFilter === 'function');
+        var hasLegalFilter = (typeof window.InLegalFilter === 'function' && activePaneFilters.length > 0);
         if(hasLegalFilter || hasCustomFilter) {
           html += `<div style='display: flex; align-items: center; flex-wrap: wrap; margin-top: 4px; gap: 12px;'>`;
           if(hasLegalFilter) {

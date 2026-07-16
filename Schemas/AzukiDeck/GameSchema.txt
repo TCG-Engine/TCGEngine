@@ -32,10 +32,12 @@ Click: Swap(myLeader)
 Gates - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Swap(myGate)
+Filter: InLegalFilter
 Cards - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Add(myMainDeck)
 DragMode: Clone
+Filter: InLegalFilter
 Widgets: CustomInput=V&>&>>>&Notes
 Sideboard - CardID:string
 Display: Visibility=Self, Mode=Tile, BindTo=SideboardSlot, Split=None
