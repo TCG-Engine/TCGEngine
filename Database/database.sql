@@ -117,8 +117,8 @@ CREATE TABLE `ownership` (
   `assetSource` int(11) DEFAULT NULL,
   `assetSourceID` varchar(32) DEFAULT NULL,
   `numLikes` int(11) NOT NULL DEFAULT 0,
-  `keyIndicator1` varchar(16) DEFAULT NULL,
-  `keyIndicator2` varchar(16) DEFAULT NULL,
+  `keyIndicator1` varchar(64) DEFAULT NULL,
+  `keyIndicator2` varchar(64) DEFAULT NULL,
   `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
