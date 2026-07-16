@@ -37,6 +37,8 @@ try { DiscordOAuthConsumeFlow($state); } catch (RuntimeException $e) { $consumed
 discordAuthCheck('state is single use', $consumedRejected);
 
 putenv('DISCORD_CLIENT_SECRET=test-secret');
+$configuredClientId = DiscordOAuthConfig()['clientId'];
+discordAuthCheck('APIKeys client ID is preferred over the legacy fallback', $configuredClientId === '1527376056150003806');
 $previousHost = $_SERVER['HTTP_HOST'] ?? null;
 $_SERVER['HTTP_HOST'] = 'zendo.gg';
 $zendoConfig = DiscordOAuthConfig();
@@ -46,6 +48,7 @@ $fallbackConfig = DiscordOAuthConfig();
 discordAuthCheck('unknown hosts retain the SWUStats callback', $fallbackConfig['redirectUri'] === 'https://www.swustats.net/TCGEngine/APIs/DiscordLogin.php');
 if ($previousHost === null) unset($_SERVER['HTTP_HOST']); else $_SERVER['HTTP_HOST'] = $previousHost;
 $authorizeUrl = DiscordOAuthAuthorizeUrl('state-token');
+discordAuthCheck('authorization uses the configured Discord application', strpos($authorizeUrl, 'client_id=1527376056150003806') !== false);
 discordAuthCheck('authorization uses code flow', strpos($authorizeUrl, 'response_type=code') !== false);
 discordAuthCheck('authorization requests identity and email', strpos($authorizeUrl, 'scope=identify%20email') !== false);
 discordAuthCheck('authorization carries opaque state', strpos($authorizeUrl, 'state=state-token') !== false);

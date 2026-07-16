@@ -1,5 +1,9 @@
 <?php
 
+// Discord OAuth
+$discordClientID = "";
+$discordClientSecret = "";
+
 // Fabrary
 $FaBraryKey = "op://$APP_ENV/Fabrary/credential";
 $fabraryOutgoingKey = "op://$APP_ENV/Fabrary/OutgoingKey";

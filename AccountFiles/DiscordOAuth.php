@@ -46,7 +46,7 @@ function DiscordOAuthDefaultRedirectUri(): string {
 function DiscordOAuthConfig(): array {
     require __DIR__ . '/../APIKeys/APIKeys.php';
     return [
-        'clientId' => trim((string)(getenv('DISCORD_CLIENT_ID') ?: DISCORD_OAUTH_CLIENT_ID)),
+        'clientId' => trim((string)(getenv('DISCORD_CLIENT_ID') ?: ($discordClientID ?? DISCORD_OAUTH_CLIENT_ID))),
         'clientSecret' => trim((string)(getenv('DISCORD_CLIENT_SECRET') ?: ($discordClientSecret ?? ''))),
         'redirectUri' => trim((string)(getenv('DISCORD_REDIRECT_URI') ?: DiscordOAuthDefaultRedirectUri())),
     ];
