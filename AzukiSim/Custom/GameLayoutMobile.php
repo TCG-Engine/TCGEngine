@@ -1135,6 +1135,32 @@
             padding: 0 !important;
         }
 
+        /* Let Garden selection glows paint through the surrounding lane chrome. The expanded slot
+         * remains the horizontal clipping boundary; matching wrapper padding preserves the original
+         * card content box while adding paint room above and below it. */
+        .azuki-m-lane:has(#myGardenSlot),
+        .azuki-m-lane:has(#theirGardenSlot) {
+            z-index: 2;
+            overflow: visible;
+        }
+
+        #myGardenSlot,
+        #theirGardenSlot {
+            top: 0;
+            bottom: -11px;
+        }
+
+        #myGardenWrapper,
+        #theirGardenWrapper {
+            padding-top: 11px !important;
+            padding-bottom: 14px !important;
+        }
+
+        #myGarden,
+        #theirGarden {
+            overflow: visible !important;
+        }
+
         #myGarden,
         #theirGarden,
         #myAlley,
