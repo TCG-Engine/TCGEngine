@@ -95,6 +95,63 @@ function AzukiRlBotPublishedCheckpointPath() {
     return $modelDir . DIRECTORY_SEPARATOR . $defaultModel;
 }
 
+function AzukiRlBotCompiledManifestPath($checkpointPath) {
+    return strval($checkpointPath) . '.php';
+}
+
+function AzukiRlBotCheckpointEdgeHash($path, $edgeBytes = 4096) {
+    $size = intval(@filesize($path));
+    if($size <= 0) return '';
+    $handle = @fopen($path, 'rb');
+    if(!is_resource($handle)) return '';
+    $first = fread($handle, min(intval($edgeBytes), $size));
+    $last = '';
+    if($size > intval($edgeBytes)) {
+        fseek($handle, max(0, $size - intval($edgeBytes)));
+        $last = fread($handle, min(intval($edgeBytes), $size));
+    }
+    fclose($handle);
+    return hash('sha256', strval($first) . strval($last));
+}
+
+function AzukiRlBotCompiledManifest($checkpointPath) {
+    static $cache = [];
+    $checkpointPath = strval($checkpointPath);
+    $manifestPath = AzukiRlBotCompiledManifestPath($checkpointPath);
+    if(!is_file($checkpointPath) || !is_file($manifestPath)) return null;
+    $cacheKey = $checkpointPath . '|' . intval(@filesize($checkpointPath)) . '|' . intval(@filemtime($manifestPath));
+    if(array_key_exists($cacheKey, $cache)) return $cache[$cacheKey];
+
+    $manifest = require $manifestPath;
+    if(!is_array($manifest)
+        || strval($manifest['format'] ?? '') !== 'tcgengine-rl-php-shards-v1'
+        || intval($manifest['checkpoint_size'] ?? -1) !== intval(@filesize($checkpointPath))
+        || strval($manifest['checkpoint_basename'] ?? '') !== basename($checkpointPath)
+        || strval($manifest['checkpoint_edge_sha256'] ?? '') === ''
+        || !hash_equals(strval($manifest['checkpoint_edge_sha256']), AzukiRlBotCheckpointEdgeHash($checkpointPath))
+        || !is_dir(strval($manifest['shard_dir'] ?? ''))) {
+        $cache[$cacheKey] = null;
+        return null;
+    }
+
+    if(count($cache) > 8) $cache = [];
+    $cache[$cacheKey] = $manifest;
+    return $manifest;
+}
+
+function AzukiRlBotStateLogitsFromCompiledCheckpoint($path, $stateKey) {
+    $manifest = AzukiRlBotCompiledManifest($path);
+    if(!is_array($manifest)) return null;
+    $prefixLength = max(1, min(3, intval($manifest['shard_prefix_length'] ?? 2)));
+    $prefix = substr(hash('sha256', strval($stateKey)), 0, $prefixLength);
+    $shardPath = strval($manifest['shard_dir']) . DIRECTORY_SEPARATOR . $prefix . '.php';
+    if(!is_file($shardPath)) return [];
+    $states = require $shardPath;
+    if(!is_array($states)) return null;
+    $values = $states[strval($stateKey)] ?? [];
+    return is_array($values) ? $values : null;
+}
+
 function AzukiRlBotExtractJsonObjectAt($raw, $start) {
     $depth = 0;
     $inString = false;
@@ -121,6 +178,9 @@ function AzukiRlBotExtractJsonObjectAt($raw, $start) {
 }
 
 function AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) {
+    $compiled = AzukiRlBotStateLogitsFromCompiledCheckpoint($path, $stateKey);
+    if($compiled !== null) return $compiled;
+
     static $rawCachePath = '';
     static $rawCacheMtime = 0;
     static $rawCache = '';
@@ -163,6 +223,8 @@ function AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) {
 }
 
 function AzukiRlBotCheckpointStateKeyVersion($path) {
+    $manifest = AzukiRlBotCompiledManifest($path);
+    if(is_array($manifest)) return strval($manifest['state_key_version'] ?? 'lite-v2');
     $raw = @file_get_contents($path, false, null, 0, 4096);
     if(!is_string($raw) || $raw === '') return 'lite-v2';
     if(strpos($raw, '"state_key_version": "AzukiSim:compact-v3"') !== false || strpos($raw, '"state_key_version":"AzukiSim:compact-v3"') !== false) return 'AzukiSim:compact-v3';
@@ -172,6 +234,8 @@ function AzukiRlBotCheckpointStateKeyVersion($path) {
 }
 
 function AzukiRlBotCheckpointActionKeyVersion($path) {
+    $manifest = AzukiRlBotCompiledManifest($path);
+    if(is_array($manifest)) return strval($manifest['action_key_version'] ?? 'index-v1');
     $raw = @file_get_contents($path, false, null, 0, 4096);
     if(!is_string($raw) || $raw === '') return 'index-v1';
     if(strpos($raw, '"action_key_version": "semantic-v1"') !== false || strpos($raw, '"action_key_version":"semantic-v1"') !== false) return 'semantic-v1';
@@ -179,6 +243,8 @@ function AzukiRlBotCheckpointActionKeyVersion($path) {
 }
 
 function AzukiRlBotCheckpointStrategyMode($path) {
+    $manifest = AzukiRlBotCompiledManifest($path);
+    if(is_array($manifest)) return strval($manifest['strategy_mode'] ?? 'none');
     $raw = @file_get_contents($path);
     if(!is_string($raw) || $raw === '') return 'none';
     if(strpos($raw, '"strategy_mode": "aggro-control"') !== false || strpos($raw, '"strategy_mode":"aggro-control"') !== false) return 'aggro-control';

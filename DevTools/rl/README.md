@@ -111,6 +111,19 @@ Legacy `lite-v2`/index and `compact-v2` checkpoints remain loadable for evaluati
 and continued same-version training, but they do not migrate into the v3 table.
 Omit `--checkpoint` when starting the v3 generation from a fresh policy.
 
+To compile a published checkpoint for low-memory live inference:
+
+```powershell
+php DevTools\rl\compile_checkpoint_php.php --checkpoint AzukiSim\Models\RLBot\<model>.json
+```
+
+This produces a small `<model>.json.php` manifest and content-addressed PHP
+shards under `AzukiSim/Models/RLBot/Compiled/`. The in-game bot prefers a valid
+compiled bundle and requires only the shard for the current state; it falls back
+to JSON when the bundle is absent or does not match the selected checkpoint.
+The exporter itself parses the checkpoint as a stream, so compiling a large
+model does not require a second model-sized in-memory representation.
+
 PHP trainer artifacts:
 
 - `checkpoints/*.json`: tabular policy snapshots for evaluation or later reuse. Controlled by `--checkpoint-every`; the final episode always writes a checkpoint. Checkpoints are streamed to disk so saving does not allocate a second model-sized JSON string.
