@@ -26,7 +26,7 @@ if ($deckLink !== '') {
   }
 }
 
-$gameName = GetGameCounter(__DIR__ . '/../SWUDeck/Games', __DIR__ . '/Games');
+$gameName = GetGameCounter(__DIR__ . '/Games');
 InitializeGamestate();
 $userID = LoggedInUser();
 $assetSource = null;
