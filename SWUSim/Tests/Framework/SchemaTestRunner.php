@@ -98,6 +98,34 @@ class SchemaTestRunner {
         return SchemaRunResult::success(count($mainActions));
     }
 
+    /**
+     * Split a schema file into one or more test segments.
+     *
+     * Segments are delimited by a markdown horizontal rule — a line that is
+     * exactly "---". Each segment may begin with a single-"#" header giving the
+     * test name (TitleCase); "##" section headers are NOT names. A file with no
+     * "---" is a single segment (the legacy one-test-per-file case): its optional
+     * "#" header is ignored by the parser and the name comes from the filename.
+     *
+     * @return array<int, array{name: ?string, content: string}>
+     */
+    public static function splitSegments(string $content): array {
+        $chunks   = preg_split('/^\s*---\s*$/m', $content);
+        $segments = [];
+        foreach ($chunks as $chunk) {
+            if (trim($chunk) === '') continue; // ignore empties from leading/trailing/doubled "---"
+            // First single-"#" header anywhere in the segment is its name.
+            // Excludes "##" section headers and "#//" comments.
+            $name = null;
+            if (preg_match('/^[ \t]*#(?!#|\/\/)[ \t]*(.+?)[ \t]*$/m', $chunk, $m)) {
+                $name = trim($m[1]);
+            }
+            $segments[] = ['name' => $name, 'content' => $chunk];
+        }
+        if (empty($segments)) $segments[] = ['name' => null, 'content' => $content];
+        return $segments;
+    }
+
     // ── Parsing ──────────────────────────────────────────────────────
 
     private static function _parse(string $content): array {

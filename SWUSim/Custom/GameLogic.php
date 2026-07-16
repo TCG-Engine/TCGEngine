@@ -4675,6 +4675,15 @@ function _SWUNeedsExtraRegroup(): bool {
     return intval(GetSWUVar('SWU_REGROUP_NUM', '0')) <= _SWUMaxReboCount();
 }
 
+// Turn-controller transition override (consumed by the generated EvaluateTransition).
+// LAW_072 Max Rebo: after a regroup's ready step (READY), loop back to a new regroup
+// phase (RGS) instead of advancing to the action phase (APS) while another regroup is
+// still owed this round. Returns null for every other phase → normal schedule applies.
+function EngineTransitionOverride(?string $currentPhase, $input): ?string {
+    if ($currentPhase === 'READY' && _SWUNeedsExtraRegroup()) return 'RGS';
+    return null;
+}
+
 // ASH_227 Heightened Awareness — "Attached unit gains: 'When the regroup phase starts: give an Advantage
 // token to this unit.'" Give one Advantage token per ASH_227 upgrade on each in-play unit (both players).
 function _SWUAsh227RegroupStart(): void {

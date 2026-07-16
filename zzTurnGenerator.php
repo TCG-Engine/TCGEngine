@@ -136,6 +136,13 @@ if ($decisionQueueEnabled) {
     fwrite($h, "  if (!\$dqController->AllQueuesEmpty()) return 'PENDING_DECISION';\n");
 }
 fwrite($h, "  if(!isset(\$currentPhase)) return \$currentPhase;\n");
+// Generic game-code transition override: lets a root's game logic redirect the
+// next phase (e.g. SWUSim's Max Rebo LAW_072 loops READY->RGS for an additional
+// regroup phase). Roots without EngineTransitionOverride are unaffected.
+fwrite($h, "  if (function_exists('EngineTransitionOverride')) {\n");
+fwrite($h, "    \$__ov = EngineTransitionOverride(\$currentPhase, \$input);\n");
+fwrite($h, "    if (\$__ov !== null) return \$__ov;\n");
+fwrite($h, "  }\n");
 fwrite($h, "  switch(\$currentPhase) {\n");
 // For each state, emit case block checking that state's transitions
 foreach($states as $abbr => $st) {

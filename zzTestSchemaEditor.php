@@ -230,6 +230,12 @@ if ($error !== '') {
     <div class="panel-title">Schema File</div>
     <input type="file" id="schema-file" accept=".md">
 
+    <!-- Sub-test picker (shown only for multi-test files: "---"-split, "#"-named) -->
+    <div id="subtest-row" style="display:none;margin-top:8px;">
+      <div class="panel-title">Test</div>
+      <select id="subtest-select" style="width:100%;"></select>
+    </div>
+
     <button id="load-btn" class="btn btn-primary" disabled>Load Schema</button>
   </div>
 
@@ -288,6 +294,8 @@ if ($error !== '') {
 
   const simSelect    = document.getElementById('sim-select');
   const fileInput    = document.getElementById('schema-file');
+  const subtestRow   = document.getElementById('subtest-row');
+  const subtestSelect= document.getElementById('subtest-select');
   const loadBtn      = document.getElementById('load-btn');
   const statusMsg    = document.getElementById('status-msg');
   const controlsPanel= document.getElementById('controls-panel');
@@ -307,16 +315,63 @@ if ($error !== '') {
   const placeholder  = document.getElementById('placeholder');
   const gameOverlay  = document.getElementById('game-overlay');
 
+  // Mirror of SchemaTestRunner::splitSegments() — split a file into one or more
+  // tests on a "---" rule; each test's name is its first single-"#" header
+  // ("##" sections and "#//" comments excluded). Returns [{name, content}].
+  function splitSegments(content) {
+    const chunks = content.split(/^[ \t]*---[ \t]*$/m);
+    const segs = [];
+    for (const chunk of chunks) {
+      if (chunk.trim() === '') continue;
+      let name = null;
+      const m = chunk.match(/^[ \t]*#(?!#|\/\/)[ \t]*(.+?)[ \t]*$/m);
+      if (m) name = m[1].trim();
+      segs.push({ name: name, content: chunk });
+    }
+    if (segs.length === 0) segs.push({ name: null, content: content });
+    return segs;
+  }
+
+  let fileSegments = [];   // parsed segments of the currently picked file
+
+  // Populate `schemaContent` from the selected sub-test (or the whole file).
+  function applySelectedSegment() {
+    const multi = fileSegments.length > 1;
+    subtestRow.style.display = multi ? 'block' : 'none';
+    if (multi) {
+      const idx = Math.max(0, subtestSelect.selectedIndex);
+      schemaContent = fileSegments[idx].content;
+    } else {
+      schemaContent = fileSegments.length ? fileSegments[0].content : '';
+    }
+    loadBtn.disabled = !schemaContent;
+  }
+
   // ── File picker ────────────────────────────────────────────────────
   fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
-    if (!file) { loadBtn.disabled = true; return; }
+    if (!file) { loadBtn.disabled = true; subtestRow.style.display = 'none'; return; }
     const reader = new FileReader();
     reader.onload = e => {
-      schemaContent = e.target.result;
-      loadBtn.disabled = false;
+      fileSegments = splitSegments(e.target.result);
+      // Rebuild the sub-test dropdown.
+      subtestSelect.innerHTML = '';
+      fileSegments.forEach((s, i) => {
+        const opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = s.name || ('Test ' + (i + 1));
+        subtestSelect.appendChild(opt);
+      });
+      subtestSelect.selectedIndex = 0;
+      applySelectedSegment();
     };
     reader.readAsText(file);
+  });
+
+  // Picking a different sub-test swaps the schema; auto-load if a game is already up.
+  subtestSelect.addEventListener('change', () => {
+    applySelectedSegment();
+    if (gameName) loadSchema();
   });
 
   // ── Load ───────────────────────────────────────────────────────────
@@ -403,7 +458,11 @@ if ($error !== '') {
       currentVsID     = liveSeats[1] || liveSeats[0];
 
       const filename = fileInput.files[0]?.name ?? 'schema.md';
-      schemaFilename.textContent = filename;
+      // For a multi-test file, append the selected sub-test's "#" name.
+      const subName = (fileSegments.length > 1)
+        ? (fileSegments[Math.max(0, subtestSelect.selectedIndex)].name || ('Test ' + (subtestSelect.selectedIndex + 1)))
+        : null;
+      schemaFilename.textContent = subName ? (filename + ' › ' + subName) : filename;
 
       renderStepList();
       updateStepCounter();
