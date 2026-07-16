@@ -72,13 +72,72 @@ function ResolveGlobalFunction(functionName) {
   return null;
 }
 
+function RenderedZoneImageReuseKey(image) {
+  if (!image || typeof image.closest !== "function") return "";
+
+  var card = image.closest("[data-uniqueid], [data-mzid]");
+  var cardIdentity = "";
+  if (card) {
+    var uniqueID = card.getAttribute("data-uniqueid");
+    var mzID = card.getAttribute("data-mzid");
+    cardIdentity = uniqueID ? "uid:" + uniqueID : (mzID ? "mz:" + mzID : "");
+  }
+
+  var source = image.getAttribute("src") || "";
+  if (!cardIdentity || !source) return "";
+
+  // A card can contain its portrait, lineage/subcard images, and repeated counter icons.
+  // Keep those semantic roles separate without keying on the full class attribute, since
+  // presentation/selection classes are allowed to change while the image node is reused.
+  var role = "image";
+  var subcardID = image.getAttribute("data-subcard-id");
+  var counterField = image.getAttribute("data-counter-field");
+  if (subcardID) role = "subcard:" + subcardID;
+  else if (counterField) role = "counter:" + counterField;
+  else if (image.classList && image.classList.contains("counter-image-icon")) role = "counter";
+  return cardIdentity + "|" + source + "|" + role;
+}
+
+function SyncRenderedZoneImageAttributes(currentImage, nextImage) {
+  Array.prototype.slice.call(currentImage.attributes || []).forEach(function(attribute) {
+    if (!nextImage.hasAttribute(attribute.name)) currentImage.removeAttribute(attribute.name);
+  });
+  Array.prototype.slice.call(nextImage.attributes || []).forEach(function(attribute) {
+    // Reassigning an unchanged src can make WebKit reconsider the image request/decoding work.
+    if (attribute.name === "src" && currentImage.getAttribute("src") === attribute.value) return;
+    currentImage.setAttribute(attribute.name, attribute.value);
+  });
+}
+
 // BindTo zones are rendered into persistent layout slots. Keep their existing DOM
-// when the generated markup is unchanged so already-decoded card images do not get
-// discarded and decoded again on every server update (especially visible in iOS Safari).
+// when the generated markup is unchanged. When only card state/highlights changed,
+// transplant matching image elements into the new markup so already-decoded card art
+// is not discarded and decoded again on every server update (especially visible in iOS Safari).
 function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
   if (!zoneSlot) return false;
   if (zoneSlot.__tcgRenderedHTML === nextHTML && zoneSlot.childNodes.length > 0) return false;
-  zoneSlot.innerHTML = nextHTML;
+
+  var template = document.createElement("template");
+  template.innerHTML = nextHTML;
+
+  var reusableImages = {};
+  Array.prototype.forEach.call(zoneSlot.querySelectorAll("img"), function(image) {
+    var key = RenderedZoneImageReuseKey(image);
+    if (!key) return;
+    if (!reusableImages[key]) reusableImages[key] = [];
+    reusableImages[key].push(image);
+  });
+
+  Array.prototype.forEach.call(template.content.querySelectorAll("img"), function(nextImage) {
+    var key = RenderedZoneImageReuseKey(nextImage);
+    var matches = key ? reusableImages[key] : null;
+    if (!matches || matches.length === 0) return;
+    var currentImage = matches.shift();
+    SyncRenderedZoneImageAttributes(currentImage, nextImage);
+    nextImage.replaceWith(currentImage);
+  });
+
+  zoneSlot.replaceChildren(template.content);
   zoneSlot.__tcgRenderedHTML = nextHTML;
   return true;
 }
