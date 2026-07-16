@@ -817,6 +817,8 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       var _renderQueue = [];
       var _renderInProgress = false;
       var _lastRenderedUpdate = 0;
+      var _renderCoalesceTimer = null;
+      var _renderCoalesceDelayMs = 180;
 
       function ParseFrameAnimations(responseArr) {
         if (!Array.isArray(responseArr) || responseArr.length < 2) return [];
@@ -1092,8 +1094,43 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
       function QueueRenderUpdate(update, responseArr) {
         if (update <= _lastRenderedUpdate) return;
-        _renderQueue.push({ update: update, responseArr: responseArr });
-        ProcessRenderQueue();
+
+        var frameAnimations = ParseFrameAnimations(responseArr);
+        if(<?php echo(AreAnimationsDisabled($playerID) ? 'true' : 'false');?>) frameAnimations = [];
+        var canCoalesce = _lastRenderedUpdate > 0
+          && frameAnimations.length === 0;
+
+        if (!canCoalesce) {
+          if (_renderCoalesceTimer !== null) {
+            window.clearTimeout(_renderCoalesceTimer);
+            _renderCoalesceTimer = null;
+          }
+          _renderQueue.push({ update: update, responseArr: responseArr, canCoalesce: false });
+          ProcessRenderQueue();
+          return;
+        }
+
+        var replacedUpdates = 0;
+        while (_renderQueue.length > 0 && _renderQueue[_renderQueue.length - 1].canCoalesce) {
+          _renderQueue.pop();
+          replacedUpdates += 1;
+        }
+        _renderQueue.push({ update: update, responseArr: responseArr, canCoalesce: true });
+
+        if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
+          window.TCGRenderTrace.mark('queue:coalesced', {
+            update: update,
+            replaced: replacedUpdates,
+            pending: _renderQueue.length,
+            delayMs: _renderCoalesceDelayMs
+          });
+        }
+
+        if (_renderCoalesceTimer !== null) window.clearTimeout(_renderCoalesceTimer);
+        _renderCoalesceTimer = window.setTimeout(function() {
+          _renderCoalesceTimer = null;
+          ProcessRenderQueue();
+        }, _renderCoalesceDelayMs);
       }
 
       function CheckReloadNeeded(lastUpdate) {
