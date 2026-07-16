@@ -198,13 +198,14 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       echo ("Invalid game name.");
       exit;
     }
-    $viewerInfo = NormalizeViewerIdentity(TryGet("playerID", "S"));
+    $viewerMaxSeats = SimGameMaxSeats($folderPath);   // Twin Suns: 4 real seats, else 2
+    $viewerInfo = NormalizeViewerIdentity(TryGet("playerID", "S"), $viewerMaxSeats);
     if ($viewerInfo['viewerID'] === '') {
       echo ("Invalid player ID.");
       exit;
     }
     $playerID = $viewerInfo['viewerID'];
-    $viewerPerspective = NormalizeViewerPerspective($viewerInfo, TryGet("viewerPerspective", ""));
+    $viewerPerspective = NormalizeViewerPerspective($viewerInfo, TryGet("viewerPerspective", ""), $viewerMaxSeats);
     $isSpectatorViewer = $viewerInfo['isSpectator'];
     // Twin Suns view-cycling: which opponent seat to show as "their" board. The generated render
     // (NextTurnRender.php) re-validates this against live seats and falls back to the next live seat,
@@ -1937,7 +1938,10 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         require_once __DIR__ . '/SWUSim/CosmeticsBridge.php';
         $swuCosMobile     = function_exists('SWUSimIsMobileRequest') ? SWUSimIsMobileRequest() : false;
         $swuCosViewerId   = function_exists('LoggedInUser') ? LoggedInUser() : '';
-        $swuCosOverrides  = SWUCosmeticSeatOverrides($authKey);   // schema-editor test games give P2 a playmat
+        // Seat count drives the Twin Suns per-seat keyart override (schema-editor test games); a
+        // 2-seat game keeps the legacy single-seat override. GetSeatOrder() is "" for 2-player.
+        $swuCosSeatCount  = max(2, strlen(trim((string)GetSeatOrder())));
+        $swuCosOverrides  = SWUCosmeticSeatOverrides($authKey, $swuCosSeatCount);
         echo SWUCosmeticsBridgeScript($gameName, $viewerPerspective, $swuCosViewerId, $swuCosMobile, $swuCosOverrides);
       }
     ?>

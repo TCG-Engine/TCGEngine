@@ -101,6 +101,13 @@
     color: var(--accent-strong, #f0c040); font-size: 30px; line-height: 1;
     align-items: center; justify-content: center; }
 .swu-pair-arrow:hover { border-color: var(--accent-strong, #f0c040); background: rgba(10,20,30,0.95); }
+/* Twin Suns two-level nav: a Go-back button shown on a matchup view (3-player). Replaces the ◀ arrow
+   for the home-bearing view set; the carousel arrows are hidden there. */
+.swu-go-back { position: fixed; top: 56px; left: 12px; z-index: 42; cursor: pointer;
+    padding: 5px 12px; border-radius: 8px; font: 700 12px/1 var(--swu-font-label, sans-serif);
+    background: var(--swu-surface, rgba(10,20,30,0.85)); border: 1px solid var(--swu-border, #2a3a4a);
+    color: var(--accent-strong, #f0c040); }
+.swu-go-back:hover { border-color: var(--accent-strong, #f0c040); background: rgba(10,20,30,0.95); }
 /* Sit inside the board, nudged in from the edges — the right arrow clears the chat/log sidebar (var from
    GameLayout; 0 on mobile) and sits just inside the right turn-indicator spike. */
 #swuPairPrev { left: 40px; }
@@ -111,6 +118,10 @@
     padding: 0 5px; border-radius: 10px; background: #2ecc71; color: #06210f;
     font: 700 13px/20px var(--swu-font-label, system-ui, sans-serif); text-align: center;
     box-shadow: 0 0 9px 2px rgba(46,204,113,0.85); pointer-events: none; }
+/* Two-level cross-view target cue: on the home view the legal-target mini cards glow (.mini-selectable);
+   on a matchup the Go-back button pulses when a legal target sits on another board. */
+@keyframes swuGoBackPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(46,204,113,0.0); } 50% { box-shadow: 0 0 10px 2px rgba(46,204,113,0.85); } }
+.swu-go-back.is-pulsing { border-color: #2ecc71; animation: swuGoBackPulse 1.1s ease-in-out infinite; }
 
 /* Read-only / spectating a board that isn't yours (4-player "other pair"): block board clicks (via a
    capture-phase swallow in JS — this CSS just dims the action affordances), hide your action HUD, and
@@ -136,6 +147,61 @@ body.swu-spectating .swu-spectate-badge { display: block; }
 .swu-home-strip .hs-leader { padding: 1px 5px; border-radius: 4px; background: rgba(255,255,255,0.06); }
 .swu-home-strip .hs-leader.is-exhausted { opacity: 0.5; }
 .swu-home-strip .hs-leader.is-deployed  { color: #7fd; }
+
+/* Mini-board tile (replaces the text strip content). Class stays .swu-home-strip; its rows use .swu-mb-*
+   so the tile is a shrunk board: row 1 [leaders … base … Zoom-in], then full-width [Space] and [Ground]
+   arena rows. Cards are clickable targets during a decision; the Zoom-in button opens the matchup. */
+.swu-home-strip { position: relative; flex-direction: column; align-items: stretch; gap: 6px; padding: 8px; max-width: 46%; cursor: default; }
+.swu-mb-r1 { display: flex; align-items: center; gap: 5px; }
+.swu-mb-seat { font-weight: 800; color: #eef; margin-right: 2px; }
+.swu-mb-spacer { flex: 1 1 auto; }
+.swu-mb-card { position: relative; border-radius: 3px; border: 1px solid #10151f;
+    background-size: cover; background-position: center; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.swu-mb-leader { width: 26px; height: 36px; }
+.swu-mb-base   { width: 44px; height: 30px; display: flex; align-items: center; justify-content: center; }
+.swu-mb-unit   { width: 22px; height: 31px; }
+.swu-mb-card.is-exhausted { transform: rotate(8deg); filter: brightness(0.55) saturate(0.6); }
+.swu-mb-leader.is-deployed { outline: 1px dashed #cc8; opacity: 0.6; }
+/* Damage counter — matches the 2-player board (schema: Damage=Image(swusim-damage.png, Position=Center,
+   TextColor=White)): the damage token centered on the card with the white number over it. */
+.swu-mb-dmgcounter { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    display: flex; align-items: center; justify-content: center; pointer-events: none;
+    background: url('./Assets/Icons/swusim-damage.png') center / contain no-repeat;
+    color: #fff; font-weight: 800; text-shadow: 0 1px 2px #000;
+    width: 20px; height: 20px; font-size: 11px; }
+.swu-mb-base .swu-mb-dmgcounter { width: 24px; height: 24px; font-size: 12px; }
+body.swu-home .swu-mb-unit .swu-mb-dmgcounter { width: 26px; height: 26px; font-size: 14px; }
+body.swu-home .swu-mb-base .swu-mb-dmgcounter { width: 34px; height: 34px; font-size: 17px; }
+/* Zoom-in button (row 1, right) → opens the you-vs-P{seat} matchup. Height matches the base card in the
+   preview so row 1 reads as one aligned strip. */
+.swu-mb-zoom { flex: 0 0 auto; cursor: pointer; white-space: nowrap; box-sizing: border-box;
+    height: 30px; display: inline-flex; align-items: center;
+    padding: 0 10px; border-radius: 7px; font: 700 11px/1 var(--swu-font-label, sans-serif);
+    background: var(--swu-surface, rgba(10,20,30,0.9)); border: 1px solid var(--swu-border, #2a3a4a);
+    color: var(--accent-strong, #f0c040); }
+.swu-mb-zoom:hover { border-color: var(--accent-strong, #f0c040); background: rgba(10,20,30,1); }
+body.swu-home .swu-mb-zoom { height: 46px; font-size: 13px; padding: 0 14px; }
+.swu-mb-arena { background: rgba(0,0,0,0.35); border: 1px solid #1c2438; border-radius: 5px; padding: 4px; min-width: 0; }
+.swu-mb-atag { display: block; font-size: 8px; opacity: 0.45; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.swu-mb-row { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 2px; }
+.swu-mb-row::-webkit-scrollbar { height: 4px; }
+.swu-mb-row::-webkit-scrollbar-thumb { background: #334; border-radius: 2px; }
+/* A legal-target mini card during a decision: green glow + clickable (mirrors the main board's
+   .selectable-card). Overrides an exhausted card's dim so a valid target still reads clearly. */
+.swu-mb-card.mini-selectable { cursor: pointer; outline: 2px solid #2ecc71; outline-offset: 0;
+    box-shadow: 0 0 9px 3px rgba(46,204,113,0.9); filter: none; z-index: 3;
+    animation: swuGoBackPulse 1.2s ease-in-out infinite; }
+.swu-mb-card.mini-selectable:hover { outline-color: #6cff9a; box-shadow: 0 0 13px 4px rgba(46,204,113,1); }
+
+/* Home "replace" mode (shared bits): the preview windows take over the opponent's board region — cards
+   scale up to suit the larger area. The container-fill + opponent-zone hiding are per-layout (each
+   layout's own zone geometry). Only applies on the home view (body.swu-home). */
+body.swu-home .swu-home-strip { max-width: none; justify-content: center; }
+body.swu-home .swu-mb-leader { width: 40px; height: 56px; }
+body.swu-home .swu-mb-base   { width: 66px; height: 46px; }
+body.swu-home .swu-mb-unit   { width: 34px; height: 48px; }
+body.swu-home .swu-mb-basedmg { font-size: 18px; }
+body.swu-home .swu-mb-dmg { font-size: 10px; }
 
 /* ── Initiative token palette = turn-indicator palette ───────────────────────────
    Green when the initiative sits on MY side, red on the opponent's — matching the
@@ -1606,31 +1672,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
 
     // ── Twin Suns pair-switcher ───────────────────────────────────────────────
-    // Build the ordered list of views for THIS viewer from SeatOrder/LiveSeats. 3-player: [you-vs-A,
-    // you-vs-B] (a 'home' split-top view is prepended in Phase 3). 4-player: [your-pair, other-pair] with
-    // fixed display pairs (1,2) and (3,4). Returns [] at ≤2 seats (no switcher shown).
+    // Build the ordered list of views for THIS viewer from SeatOrder/LiveSeats. For 3+ players it's the
+    // two-level model: a 'home' view (you vs everyone — one mini-board preview per opponent) followed by
+    // one 'matchup' view per opponent (you vs that one seat). Returns [] at ≤2 seats (no switcher shown).
+    // Egocentric by design: every view's viewSeat is YOU (no opp-vs-opp spectate view).
     function swuBuildViews() {
         var order = String(window.LiveSeatsData || window.SeatOrderData || '').trim();
         var seats = order.length ? order.split('').map(function (c) { return parseInt(c, 10); }) : [];
         var me = MY_PLAYER_ID;
         if (seats.length <= 2) return [];
-        if (seats.length === 3) {
-            var opps = seats.filter(function (s) { return s !== me; });
-            return [
-                { viewSeat: me, oppSeat: opps[0], mode: 'home', opps: opps, label: 'Home' },
-                { viewSeat: me, oppSeat: opps[0], mode: 'matchup', label: 'vs P' + opps[0] },
-                { viewSeat: me, oppSeat: opps[1], mode: 'matchup', label: 'vs P' + opps[1] },
-            ];
-        }
-        // 4-player: fixed display pairs (1,2) and (3,4). Your pair = the one containing you.
-        var pairs = [[1, 2], [3, 4]];
-        var myPair = pairs[0].indexOf(me) !== -1 ? pairs[0] : pairs[1];
-        var otherPair = (myPair === pairs[0]) ? pairs[1] : pairs[0];
-        var across = myPair[0] === me ? myPair[1] : myPair[0];
-        return [
-            { viewSeat: me, oppSeat: across, mode: 'matchup', label: 'Your pair' },
-            { viewSeat: otherPair[0], oppSeat: otherPair[1], mode: 'matchup', label: 'Other pair' },
-        ];
+        var opps = seats.filter(function (s) { return s !== me; });
+        var views = [{ viewSeat: me, oppSeat: opps[0], mode: 'home', opps: opps, label: 'Home' }];
+        opps.forEach(function (o) {
+            views.push({ viewSeat: me, oppSeat: o, mode: 'matchup', label: 'vs P' + o });
+        });
+        return views;
     }
 
     // ── Twin Suns cross-view targeting: mzID ↔ seat / view mapping ──────────────
@@ -1703,6 +1759,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var spectating = !!(window.swuView && window.swuView.viewSeat !== MY_PLAYER_ID);
         window.swuSpectating = spectating;
         document.body.classList.toggle('swu-spectating', spectating);
+        // Home "replace" mode: on the home view the preview windows take over the opponent's board
+        // region entirely (opponent zones hidden via body.swu-home CSS).
+        document.body.classList.toggle('swu-home', !!(window.swuView && window.swuView.mode === 'home'));
         var badge = document.getElementById('swuSpectateBadge');
         if (badge && window.swuView) {
             badge.textContent = '👁 Read-only — viewing P' + window.swuView.viewSeat + ' vs P' + window.swuView.oppSeat;
@@ -1737,22 +1796,39 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         swuRenderHomeStrips();
     };
 
+    // A view set is "two-level" (3-player home ⇄ matchup) iff it contains a 'home' view. 4-player has
+    // no home view and keeps the carousel arrows.
+    function swuIsTwoLevel() {
+        return (window.swuViews || []).some(function (v) { return v.mode === 'home'; });
+    }
+
     function swuRenderPairNav() {
         var nav = document.getElementById('swuPairNav'); if (!nav) return;
         var views = window.swuViews || [];
         var prev = document.getElementById('swuPairPrev'), next = document.getElementById('swuPairNext');
+        var back = document.getElementById('swuGoBack');
         if (views.length <= 1) {                        // 2-player: no switcher
             if (prev) prev.style.display = 'none';
             if (next) next.style.display = 'none';
+            if (back) back.style.display = 'none';
             nav.style.display = 'none';
             return;
         }
         var idx = (window.swuView && typeof window.swuView.index === 'number') ? window.swuView.index : 0;
-        // Carousel: left arrow only when there's a view to the left; right arrow only when there's one to
-        // the right. Hidden (not disabled) so the edge is clear when you can't go that way.
-        if (prev) prev.style.display = (idx > 0) ? 'flex' : 'none';
-        if (next) next.style.display = (idx < views.length - 1) ? 'flex' : 'none';
-        nav.style.display = 'contents';   // wrapper is display:contents; children are fixed to the edges
+        if (swuIsTwoLevel()) {
+            // Two-level (3-player): no carousel arrows. A matchup view shows Go-back → home (index 0).
+            if (prev) prev.style.display = 'none';
+            if (next) next.style.display = 'none';
+            nav.style.display = 'none';
+            var onMatchup = !!(window.swuView && window.swuView.mode === 'matchup');
+            if (back) back.style.display = onMatchup ? 'block' : 'none';
+        } else {
+            // Carousel (4-player): arrows as before; no Go-back.
+            if (back) back.style.display = 'none';
+            if (prev) prev.style.display = (idx > 0) ? 'flex' : 'none';
+            if (next) next.style.display = (idx < views.length - 1) ? 'flex' : 'none';
+            nav.style.display = 'contents';   // wrapper is display:contents; children are fixed to the edges
+        }
         swuTwRenderTargetBadges();
     }
 
@@ -1761,15 +1837,28 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // current = ◀, above = ▶). Clears when no decision / no off-view targets. Exposed for the UILibraries
     // MZCHOOSE hook + swuSetView re-apply.
     function swuTwRenderTargetBadges() {
+        var off = (window.SelectionMode && window.SelectionMode.active && window.SelectionMode._twOffView) || [];
+
+        if (swuIsTwoLevel()) {
+            // Highlight the actual legal-target mini cards in each preview (like the main board), so you
+            // can click a target directly on the home view.
+            swuHighlightPreviewTargets();
+            // Pulse Go-back on a matchup view if there's an off-view target to go back for.
+            var back = document.getElementById('swuGoBack');
+            if (back) back.classList.toggle('is-pulsing',
+                !!(window.swuView && window.swuView.mode === 'matchup' && off.length > 0));
+            return;
+        }
+
+        // Carousel (4-player): ◀/▶ count badges (original behavior).
         var prev = document.getElementById('swuPairPrev'), next = document.getElementById('swuPairNext');
         function setBadge(arrow, n) {
             if (!arrow) return;
-            var b = arrow.querySelector('.swu-target-badge');
-            if (!n) { if (b) b.remove(); return; }
-            if (!b) { b = document.createElement('span'); b.className = 'swu-target-badge'; arrow.appendChild(b); }
-            b.textContent = String(n);
+            var bb = arrow.querySelector('.swu-target-badge');
+            if (!n) { if (bb) bb.remove(); return; }
+            if (!bb) { bb = document.createElement('span'); bb.className = 'swu-target-badge'; arrow.appendChild(bb); }
+            bb.textContent = String(n);
         }
-        var off = (window.SelectionMode && window.SelectionMode.active && window.SelectionMode._twOffView) || [];
         var curIdx = (window.swuView && typeof window.swuView.index === 'number') ? window.swuView.index : 0;
         var left = 0, right = 0;
         off.forEach(function (spec) {
@@ -1784,11 +1873,54 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
     window.swuTwRenderTargetBadges = swuTwRenderTargetBadges;
 
+    // Highlight (and make clickable) each mini-board card that is a legal target of the active decision.
+    // Reads the RAW decision specs (SelectionMode._twAllSpecs — seat-tagged p{n}… for Twin Suns, or
+    // my/their in the degenerate case) and marks matching preview cards by their data-mz. A card is a
+    // target if a spec covers its whole zone, or names its exact index. Clears when no decision.
+    function swuHighlightPreviewTargets() {
+        var cards = document.querySelectorAll('#swuHomeStrips .swu-mb-card[data-mz]');
+        var sm = window.SelectionMode;
+        var specs = (sm && sm.active && sm._twAllSpecs) ? sm._twAllSpecs : [];
+        function seatOfZone(z) {
+            var m = String(z).match(/^p(\d+)/); if (m) return parseInt(m[1], 10);
+            if (String(z).indexOf('my') === 0)    return (window.swuView && window.swuView.viewSeat) || 0;
+            if (String(z).indexOf('their') === 0) return (window.swuView && window.swuView.oppSeat) || 0;
+            return 0;
+        }
+        var legal = {};   // "p{seat}{Suffix}-{idx}" (exact) or "p{seat}{Suffix}-*" (whole zone)
+        specs.forEach(function (sp) {
+            if (!sp || !sp.zone || sp.actionPayload) return;
+            var seat = seatOfZone(sp.zone); if (!seat) return;
+            var suffix = String(sp.zone).replace(/^(p\d+|my|their)/, '');   // GroundArena / SpaceArena / Base
+            if (sp.isSpecificCard) legal['p' + seat + suffix + '-' + sp.specificIndex] = true;
+            else                   legal['p' + seat + suffix + '-*'] = true;
+        });
+        cards.forEach(function (el) {
+            var mz = el.getAttribute('data-mz');                 // p{seat}{Suffix}-{idx}
+            var m = /^(p\d+[A-Za-z]+)-(\d+)$/.exec(mz);
+            var hit = !!m && (!!legal[m[1] + '-' + m[2]] || !!legal[m[1] + '-*']);
+            el.classList.toggle('mini-selectable', hit);
+        });
+    }
+    window.swuHighlightPreviewTargets = swuHighlightPreviewTargets;
+
+    // Submit a clicked preview target through the active decision. The mini card's data-mz IS the engine's
+    // seat-tagged mzID (p{seat}{Zone}-{idx}), which is exactly what the decision expects — the callback's
+    // swuTwRemapCardId leaves an already-seat-tagged id untouched.
+    function swuPreviewTargetClick(cardEl) {
+        var sm = window.SelectionMode;
+        if (!(sm && sm.active && typeof sm.callback === 'function')) return;
+        var mz = cardEl.getAttribute('data-mz'); if (!mz) return;
+        var m = /^(.+)-(\d+)$/.exec(mz);
+        sm.callback(m ? m[1] : mz, mz, sm.decisionIndex);
+    }
+
     function swuInitPairSwitcher() {
         window.swuViews = swuBuildViews();
         if (!window.swuViews.length) {                                        // 2-player: no switcher
             window.swuView = undefined; window.swuSpectating = false;
             document.body.classList.remove('swu-spectating');
+            document.body.classList.remove('swu-home');
             return;
         }
         if (!window.swuView) window.swuView = { viewSeat: window.swuViews[0].viewSeat,
@@ -1812,33 +1944,109 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var prev = document.getElementById('swuPairPrev'), next = document.getElementById('swuPairNext');
         if (prev && !prev._swuWired) { prev._swuWired = 1; prev.addEventListener('click', function () { swuSetView((window.swuView.index || 0) - 1); }); }
         if (next && !next._swuWired) { next._swuWired = 1; next.addEventListener('click', function () { swuSetView((window.swuView.index || 0) + 1); }); }
+        var back = document.getElementById('swuGoBack');
+        if (back && !back._swuWired) { back._swuWired = 1; back.addEventListener('click', function () {
+            var views = window.swuViews || [];
+            var home = 0;
+            for (var i = 0; i < views.length; i++) if (views[i].mode === 'home') { home = i; break; }
+            swuSetView(home);
+        }); }
         var strips = document.getElementById('swuHomeStrips');
         if (strips && !strips._swuWired) { strips._swuWired = 1; strips.addEventListener('click', function (e) {
-            var b = e.target.closest && e.target.closest('.swu-home-strip'); if (b) swuSetView(parseInt(b.getAttribute('data-view'), 10));
+            var t = e.target;
+            // Zoom-in button → open that opponent's you-vs-1 matchup.
+            var zoom = t.closest && t.closest('.swu-mb-zoom');
+            if (zoom) { var tile = zoom.closest('.swu-home-strip'); if (tile) swuSetView(parseInt(tile.getAttribute('data-view'), 10)); return; }
+            // A highlighted legal-target card → select it (cross-view targeting straight from the preview).
+            var card = t.closest && t.closest('#swuHomeStrips .mini-selectable');
+            if (card) swuPreviewTargetClick(card);
         }); }
         swuRenderPairNav();
     }
 
     // Read a seat's zones from the cached responseArr (stride-31 blocks). Offsets: Leader=5, Base=6,
-    // GroundArena=7, SpaceArena=8 (per NextTurnRender's window.*Data bindings).
+    // GroundArena=7, SpaceArena=8 (per NextTurnRender's window.*Data bindings). Units are parsed to
+    // {CardID, Status, Damage} so the mini-board can render art + exhaust + damage; counts derive from
+    // the parsed arrays.
     function swuReadSeatBlock(seat) {
         var arr = window.swuLastResponseArr; if (!arr) return null;
         var b = (seat - 1) * 31;
         function zone(off) { return String(arr[off + b] || '').trim(); }
-        function count(s) { return s.length ? s.split('<|>').length : 0; }
+        function units(s) {
+            if (!s.length) return [];
+            return s.split('<|>').map(function (p) {
+                var o = swuParseZoneCard(p) || {};
+                return {
+                    CardID: String(p).trim().split(' ')[0],   // raw part keeps the underscore (SOR_032)
+                    Status: o.Status,
+                    Damage: parseInt(o.Damage, 10) || 0
+                };
+            });
+        }
         var leaderData = zone(5);
+        var ground = units(zone(7)), space = units(zone(8));
         return {
             baseObj: swuParseZoneCard(zone(6)),
             leaders: leaderData.length ? leaderData.split('<|>') : [],
-            groundCount: count(zone(7)),
-            spaceCount: count(zone(8)),
+            groundUnits: ground,
+            spaceUnits: space,
+            groundCount: ground.length,
+            spaceCount: space.length
         };
     }
 
-    // 3-player home view: two minimal opponent status strips (base damage, per-leader state, unit counts).
-    // Each strip is a gateway button into that opponent's matchup view. Shown only on the 'home' view.
-    // (Base DAMAGE is shown, not remaining HP: the base card JSON carries Damage but not printed HP, and
-    // there's no client HP dictionary — a remaining-HP strip would need a base-HP transport emit, deferred.)
+    // One opponent's miniature board: row 1 = [Leader1] [Leader2] … [Base]; row 2 = [Space | Ground]
+    // with tiny real card-art thumbnails. Statuses mirror the live board: leaders ghost when deployed
+    // and dim/tilt when exhausted; base shows a centered damage number; units tilt/dim when exhausted
+    // and carry a corner damage badge. Arena rows scroll horizontally on overflow.
+    function swuRenderMiniBoard(seat) {
+        var b = swuReadSeatBlock(seat) || { leaders: [], baseObj: null, groundUnits: [], spaceUnits: [] };
+        // Leaders
+        var leadHtml = b.leaders.map(function (ld) {
+            var o = swuParseZoneCard(ld) || {};
+            var cid = String(ld).trim().split(' ')[0];
+            // TWI_017 "Flipatine" flips in place — never treat its Deployed face as a unit deploy.
+            var isFlipatine = String(ld).indexOf('TWI_017') !== -1;
+            var cls = 'swu-mb-card swu-mb-leader';
+            if (String(o.Ready) === 'false' || o.Ready === false) cls += ' is-exhausted';
+            if (!isFlipatine && (o.Deployed === true || String(o.Deployed) === 'true')) cls += ' is-deployed';
+            return '<span class="' + cls + '" style="background-image:url(./SWUSim/concat/' + cid + '.webp)"></span>';
+        }).join('');
+        // Base (centered damage, tint when hit)
+        var dmg = b.baseObj ? (parseInt(b.baseObj.Damage, 10) || 0) : 0;
+        var baseCid = b.baseObj ? String(b.baseObj.CardID || '').replace(/ /g, '_') : '';
+        var baseHtml = '<span class="swu-mb-card swu-mb-base" data-mz="p' + seat + 'Base-0"' +
+            (baseCid ? ' style="background-image:url(./SWUSim/concat/' + baseCid + '.webp)"' : '') +
+            '>' + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '') + '</span>';
+        // A single unit thumbnail, tagged with its engine mzID (p{seat}{arena}Arena-{idx}) so it can be
+        // highlighted + clicked as a cross-view attack/ability target (matches the seat-tagged targets
+        // SWUGetAllValidAttackTargets emits for Twin Suns).
+        function unitHtml(arena) {
+            return function (u, i) {
+                var cls = 'swu-mb-card swu-mb-unit';
+                if (String(u.Status) === '0') cls += ' is-exhausted';
+                var badge = (u.Damage > 0) ? '<span class="swu-mb-dmgcounter">' + u.Damage + '</span>' : '';
+                return '<span class="' + cls + '" data-mz="p' + seat + arena + 'Arena-' + i + '" ' +
+                    'style="background-image:url(./SWUSim/WebpImages/' + u.CardID + '.webp)">' + badge + '</span>';
+            };
+        }
+        var spaceHtml  = b.spaceUnits.map(unitHtml('Space')).join('');
+        var groundHtml = b.groundUnits.map(unitHtml('Ground')).join('');
+        // Layout: [Leader1 Leader2 Base … Zoom in] / [Space arena] / [Ground arena]. The Zoom-in button
+        // opens the you-vs-P{seat} matchup; the cards are clickable targets during a decision.
+        return '' +
+            '<div class="swu-mb-r1">' +
+                '<span class="swu-mb-seat">P' + seat + '</span>' + leadHtml + baseHtml +
+                '<span class="swu-mb-spacer"></span>' +
+                '<button type="button" class="swu-mb-zoom" title="Open the you-vs-P' + seat + ' board">🔍 Zoom in</button>' +
+            '</div>' +
+            '<div class="swu-mb-arena swu-mb-arena-full"><span class="swu-mb-atag">Space</span><div class="swu-mb-row">' + spaceHtml + '</div></div>' +
+            '<div class="swu-mb-arena swu-mb-arena-full"><span class="swu-mb-atag">Ground</span><div class="swu-mb-row">' + groundHtml + '</div></div>';
+    }
+
+    // 3-player home view: one mini board per opponent, each a gateway button into that opponent's
+    // matchup view. Shown only on the 'home' view. Tile class stays .swu-home-strip so the existing
+    // click delegate (data-view → swuSetView) keeps working.
     function swuRenderHomeStrips() {
         var box = document.getElementById('swuHomeStrips'); if (!box) return;
         var v = window.swuView;
@@ -1846,25 +2054,19 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var views = window.swuViews || [];
         var html = '';
         v.opps.forEach(function (opp) {
-            var b = swuReadSeatBlock(opp) || { leaders: [], groundCount: 0, spaceCount: 0, baseObj: null };
-            var dmg = b.baseObj ? (parseInt(b.baseObj.Damage, 10) || 0) : 0;
-            var leadHtml = b.leaders.map(function (ld) {
-                var o = swuParseZoneCard(ld) || {};
-                var cid = String(ld).trim().split(' ')[0];   // clean CardID (raw keeps underscore)
-                var cls = (String(o.Ready) === 'false' || o.Ready === false) ? ' is-exhausted' : '';
-                if (o.Deployed === true || String(o.Deployed) === 'true') cls += ' is-deployed';
-                return '<span class="hs-leader' + cls + '">' + cid + '</span>';
-            }).join('');
             var mi = 0;
             for (var i = 0; i < views.length; i++) if (views[i].mode === 'matchup' && views[i].oppSeat === opp) { mi = i; break; }
-            html += '<button class="swu-home-strip" data-view="' + mi + '">' +
-                    '<span class="hs-seat">P' + opp + '</span>' +
-                    '<span class="hs-base">dmg ' + dmg + '</span>' +
-                    '<span class="hs-leaders">' + leadHtml + '</span>' +
-                    '<span class="hs-units">▮' + b.groundCount + ' ✦' + b.spaceCount + '</span></button>';
+            // Per-seat playmat (keyart) as the tile background — playmats are viewable by all players.
+            // A dark tint over it keeps the mini-board cards legible.
+            var cos = window.SWU_COSMETICS;
+            var pm = (cos && cos.seats && (cos.seats[opp] || {}).playmat) || '';
+            var bg = pm ? ' style="background-image:linear-gradient(rgba(10,10,10,0.72),rgba(10,10,10,0.72)),url(\'' + pm + '\');background-size:cover;background-position:center;"' : '';
+            html += '<div class="swu-home-strip" data-view="' + mi + '"' + bg + '>' + swuRenderMiniBoard(opp) + '</div>';
         });
         box.innerHTML = html;
         box.style.display = 'flex';
+        // Rebuilding the tiles wiped any target chips — re-stamp them for an active decision.
+        if (typeof swuTwRenderTargetBadges === 'function') swuTwRenderTargetBadges();
     }
 
     function refreshActionGlows() {
@@ -2581,12 +2783,19 @@ else document.addEventListener('DOMContentLoaded', ApplyCosmeticBackground);
 // Card backs: rewrite each face-down CardBack image to its OWNING side's back.
 function ApplyCosmeticCardBacks() {
   var c = window.SWU_COSMETICS; if (!c) return;
+  // Twin Suns: card backs are per-seat and viewable by all — resolve each side to the CURRENT view's
+  // seat. 2-player (no swuView) falls back to the legacy my/their fields → byte-identical.
+  var myBack = c.myCardBack, theirBack = c.theirCardBack;
+  if (c.seats && window.swuView) {
+    myBack    = (c.seats[window.swuView.viewSeat] || {}).cardback || myBack;
+    theirBack = (c.seats[window.swuView.oppSeat]  || {}).cardback || theirBack;
+  }
   var imgs = document.querySelectorAll("img[src*='/concat/CardBack.webp'], img[src$='CardBack.webp']");
   for (var i = 0; i < imgs.length; i++) {
     var img = imgs[i];
     var owner = img.closest("[id^='my']") ? 'my' : (img.closest("[id^='their']") ? 'their' : null);
     if (!owner) continue;
-    var back = owner === 'my' ? c.myCardBack : c.theirCardBack;
+    var back = owner === 'my' ? myBack : theirBack;
     if (back && img.getAttribute('data-cos-back') !== back) {
       img.src = back;
       img.setAttribute('data-cos-back', back);   // idempotent guard (prevents observer loops)
@@ -2630,6 +2839,14 @@ function ApplyCosmeticPlaymats() {
     // background as the mat image → it only shows where a mat is set. Tune the alpha.
     var TINT = 'rgba(10,10,10,0.67)';
     var matBg = function (asset) { return "linear-gradient(" + TINT + "," + TINT + "), url('" + asset + "')"; };
+    // Twin Suns: playmats are per-seat and viewable by all — the two board sides reflect the CURRENT
+    // view's seats (bottom = viewSeat, top = oppSeat), so switching views shows the right seats' mats.
+    // 2-player (no swuView) falls back to the legacy my/their fields → byte-identical.
+    var myPlaymat = c.myPlaymat, theirPlaymat = c.theirPlaymat;
+    if (c.seats && window.swuView) {
+      myPlaymat    = (c.seats[window.swuView.viewSeat] || {}).playmat || myPlaymat;
+      theirPlaymat = (c.seats[window.swuView.oppSeat]  || {}).playmat || theirPlaymat;
+    }
     var top = document.querySelector('.swu-playmat-top');   // opponent side (desktop)
     var bot = document.querySelector('.swu-playmat-bot');   // my side (desktop)
     function paint(el, asset) {
@@ -2637,8 +2854,8 @@ function ApplyCosmeticPlaymats() {
       if (show && asset) { el.style.backgroundImage = matBg(asset); el.style.display = 'block'; }
       else { el.style.display = 'none'; }
     }
-    paint(bot, c.myPlaymat);
-    paint(top, c.theirPlaymat);
+    paint(bot, myPlaymat);
+    paint(top, theirPlaymat);
 
     // Mobile: no dedicated playmat divs — the per-side mat backs each player's arena
     // row directly (cover/center = inner slice). Toggle .has-playmat for the overlay.
@@ -2649,8 +2866,8 @@ function ApplyCosmeticPlaymats() {
       if (show && asset) { el.style.backgroundImage = matBg(asset); el.classList.add('has-playmat'); }
       else { el.style.backgroundImage = ''; el.classList.remove('has-playmat'); }
     }
-    paintRow(mMine, c.myPlaymat);
-    paintRow(mTheirs, c.theirPlaymat);
+    paintRow(mMine, myPlaymat);
+    paintRow(mTheirs, theirPlaymat);
   } catch (e) {}
 }
 if (document.readyState !== 'loading') ApplyCosmeticPlaymats();

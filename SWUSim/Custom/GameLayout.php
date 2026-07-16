@@ -450,6 +450,19 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-arena-col-top    { top: calc(var(--swu-hand-h) + var(--swu-arena-margin)); bottom: calc(var(--swu-midline) + 4px); }
     .swu-arena-col-bot    { top: calc(var(--swu-midline) + 4px); bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin)); }
 
+    /* Twin Suns home "replace" mode — the preview windows take over the opponent's whole board region:
+       hide every opponent (top-half) zone and expand the strip grid to fill from the hand row to the
+       midline. Only on the home view (body.swu-home). */
+    body.swu-home .swu-center-col-top,
+    body.swu-home .swu-arena-col-top,
+    body.swu-home .swu-playmat-top,
+    body.swu-home #theirPileRow,
+    body.swu-home #theirHandSlot,
+    body.swu-home #swuTheirResBadge { display: none !important; }
+    body.swu-home .swu-home-strips { top: var(--swu-hand-h); bottom: calc(var(--swu-midline) + 4px);
+        left: 0; right: var(--swu-sidebar-w, 0px);   /* stay in the board area — left of the chat/log sidebar */
+        height: auto; align-items: stretch; padding: 8px 12px; }
+
     /* Card flow inside arena cols — wrap, fill from edge nearest midline */
     #theirSpaceArena, #theirGroundArena { flex-wrap: wrap !important; align-content: flex-end !important; }
     #mySpaceArena,    #myGroundArena    { flex-wrap: wrap !important; align-content: flex-start !important; }
@@ -1209,6 +1222,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     <button id="swuPairPrev" class="swu-pair-arrow" title="Previous view (back)">◀</button>
     <button id="swuPairNext" class="swu-pair-arrow" title="Next view">▶</button>
 </div>
+
+<!-- Twin Suns two-level nav (3-player): return from a matchup to the home preview. Hidden by default;
+     shown by swuRenderPairNav only on a matchup view of a two-level (home-bearing) view set. -->
+<button id="swuGoBack" class="swu-go-back" style="display:none;">← Go back</button>
 
 <!-- Twin Suns 3-player home view — two minimal opponent status strips (populated by swuRenderHomeStrips). -->
 <div id="swuHomeStrips" class="swu-home-strips" style="display:none;"></div>

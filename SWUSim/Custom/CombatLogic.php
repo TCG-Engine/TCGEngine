@@ -779,17 +779,19 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
     // The reactor is the attacker's opponent (Barriss's controller). Rides the combat trigger bag; the
     // dispatch sets SWU_PENDING_DEF_REACTION so it resolves before combat damage.
     if ($attacker !== null && !isset($attacker->removed)) {
-        $bopp = GetOpponent($activePlayer);
-        if (_SWUCountUnitsWithCardID($bopp, 'TS26_078') > 0) {
-            AddTrigger($bopp, 'TS26_078', 'TS26_078', strval(intval($attacker->UniqueID ?? 0)));
+        // Twin Suns: any opponent controlling Barriss reacts (2-player → the one opponent, byte-identical).
+        foreach (OpponentsOf($activePlayer) as $bopp) {
+            if (_SWUCountUnitsWithCardID($bopp, 'TS26_078') > 0) {
+                AddTrigger($bopp, 'TS26_078', 'TS26_078', strval(intval($attacker->UniqueID ?? 0)));
+            }
         }
     }
     // TS26_073 Moralo Eval — "When your base is dealt combat damage: you may deal 1 damage to a unit." The
     // base owner reacts to their base being attacked (this rides the combat pause so it drains cross-player;
     // fires at the base-attack window rather than strictly post-damage — a benign timing simplification).
     if ($attacker !== null && !isset($attacker->removed) && strpos((string)$defenderMzID, 'Base') !== false) {
-        $mopp = GetOpponent($activePlayer);   // base owner = the defending player
-        if (_SWUCountUnitsWithCardID($mopp, 'TS26_073') > 0) {
+        $mopp = SWUMzOwner($defenderMzID, $activePlayer);   // base owner = the specific defending seat (N-player)
+        if ($mopp > 0 && _SWUCountUnitsWithCardID($mopp, 'TS26_073') > 0) {
             AddTrigger($mopp, 'TS26_073', 'TS26_073', '');
         }
     }

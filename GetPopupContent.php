@@ -10,15 +10,16 @@ if (!IsGameNameValid($gameName)) {
   echo ("Invalid game name.");
   exit;
 }
-$viewerInfo = NormalizeViewerIdentity($_GET["playerID"] ?? "");
+$folderPath = TryGet("folderPath", "");
+$popupMaxSeats = SimGameMaxSeats($folderPath);
+$viewerInfo = NormalizeViewerIdentity($_GET["playerID"] ?? "", $popupMaxSeats);
 if ($viewerInfo['viewerID'] === '') {
   echo ("Invalid player.");
   exit;
 }
 $playerID = $_GET["playerID"];
-$viewerPerspective = NormalizeViewerPerspective($viewerInfo, TryGet("viewerPerspective", ""));
+$viewerPerspective = NormalizeViewerPerspective($viewerInfo, TryGet("viewerPerspective", ""), $popupMaxSeats);
 $authKey = TryGet("authKey", "");
-$folderPath = TryGet("folderPath", "");
 $popupType = $_GET["popupType"];
 $chainLinkIndex = TryGet("chainLinkIndex", "");
 

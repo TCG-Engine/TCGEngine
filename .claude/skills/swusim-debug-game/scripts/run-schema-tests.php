@@ -67,12 +67,30 @@ if (empty($files)) {
 }
 
 // Targeted mode — run only the named files. Plain text, sets an exit code.
-$fail = 0;
+$fail = 0; $total = 0;
 foreach ($files as $rel) {
-    InitializeGamestate();
-    $r = SchemaTestRunner::runFile($rel);
-    echo ($r->passed ? 'PASS' : 'FAIL') . ": {$rel}\n";
-    if (!$r->passed) { echo '  ' . $r->message . "\n"; $fail++; }
+    $abs = (getenv('REPO_ROOT') ?: $repo) . '/' . ltrim($rel, '/');
+    $content = is_file($abs) ? file_get_contents($abs) : '';
+    $segments = $content !== '' ? SchemaTestRunner::splitSegments($content) : [];
+    // Single-segment file (no `---`) → run whole file, byte-identical to legacy behavior.
+    if (count($segments) <= 1) {
+        InitializeGamestate();
+        $r = SchemaTestRunner::runFile($rel);
+        $total++;
+        echo ($r->passed ? 'PASS' : 'FAIL') . ": {$rel}\n";
+        if (!$r->passed) { echo '  ' . $r->message . "\n"; $fail++; }
+        continue;
+    }
+    // Multi-segment file → run each `#`-named section independently.
+    foreach ($segments as $i => $seg) {
+        $name = ($seg['name'] !== null && $seg['name'] !== '') ? $seg['name'] : ('#' . ($i + 1));
+        InitializeGamestate();
+        $GLOBALS['playerID'] = 1; // per-test isolation: InitializeGamestate doesn't reset the ambient frame
+        $r = SchemaTestRunner::runString($seg['content'], "{$rel}::{$name}");
+        $total++;
+        echo ($r->passed ? 'PASS' : 'FAIL') . ": {$rel}::{$name}\n";
+        if (!$r->passed) { echo '  ' . $r->message . "\n"; $fail++; }
+    }
 }
-echo "\n" . (count($files) - $fail) . '/' . count($files) . " passed\n";
+echo "\n" . ($total - $fail) . '/' . $total . " passed\n";
 exit($fail > 0 ? 1 : 0);

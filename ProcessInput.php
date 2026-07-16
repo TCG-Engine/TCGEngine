@@ -54,13 +54,13 @@ $gameName = TryGET("gameName", "");
 if ($gameName == "" || !IsGameNameValid($gameName)) {
   ProcessInputReply(false, "Invalid game name.");
 }
-$viewerInfo = NormalizeViewerIdentity($_GET["playerID"] ?? "");
+$folderPath = $_GET["folderPath"] ?? "";
+$viewerInfo = NormalizeViewerIdentity($_GET["playerID"] ?? "", SimGameMaxSeats($folderPath));
 if ($viewerInfo['viewerID'] === '') {
   ProcessInputReply(false, "Invalid player ID.");
 }
 $playerID = $viewerInfo['viewerID'];
 $authKey = $_GET["authKey"] ?? "";
-$folderPath = $_GET["folderPath"] ?? "";
 
 if (!$viewerInfo['isSpectator'] && !SimGameValidateSeatAuth($folderPath, $gameName, $playerID, $authKey)) {
   ProcessInputReply(false, "Invalid auth key");

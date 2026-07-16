@@ -5110,7 +5110,6 @@ function OnPlayEvent(int $player, string $cardID): void {
                 ZoneSearch('theirGroundArena', ['Unit']),
                 ZoneSearch('theirSpaceArena',  ['Unit'])
             ));
-            file_put_contents('/tmp/swu_debug.txt', "SOR_224 OnPlayEvent: player=$player playerID=$playerID targets=" . implode(',', $targets) . "\n", FILE_APPEND);
             if (empty($targets)) return;
             if (count($targets) === 1) {
                 DecisionQueueController::AddDecision($player, 'PASSPARAMETER', $targets[0], 1);

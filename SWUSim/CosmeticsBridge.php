@@ -28,11 +28,23 @@ function _SWUCosBackgroundUrl($asset, bool $mobile): string {
 }
 
 // Per-seat cosmetic overrides for dev/test contexts, keyed by the well-known test authKey the
-// zzTestSchemaEditor uses. Lets schema-editor SWUSim games show a representative P2 playmat
-// without a real match or login. Shape: ['<seat>' => ['<slot>' => '<choiceId>']].
-function SWUCosmeticSeatOverrides($authKey): array {
-    if ((string)$authKey === 'testschema') return ['2' => ['playmat' => 'overwhelming-barrage']];
-    return [];
+// zzTestSchemaEditor uses. Lets schema-editor SWUSim games show representative playmats without a
+// real match or login. Shape: ['<seat>' => ['<slot>' => '<choiceId>']].
+//
+// Twin Suns (>2 seats): each seat gets a distinct set key-art playmat so seats read apart in the
+// previews / cross-seat views (P1 LOF, P2 JTL, P3 LAW, P4 SHD). A 2-seat game keeps the original
+// single seat-2 playmat, so 2-player behavior is unchanged.
+function SWUCosmeticSeatOverrides($authKey, int $seatCount = 2): array {
+    if ((string)$authKey !== 'testschema') return [];
+    if ($seatCount > 2) {
+        return [
+            '1' => ['playmat' => 'lof-key-art'],
+            '2' => ['playmat' => 'jtl-key-art'],
+            '3' => ['playmat' => 'law-key-art'],
+            '4' => ['playmat' => 'shd-key-art'],
+        ];
+    }
+    return ['2' => ['playmat' => 'overwhelming-barrage']];
 }
 
 // Build the viewer-relative cosmetics object. $viewerPerspective is the seat whose
@@ -47,6 +59,7 @@ function SWUBuildCosmeticsPayload($gameName, $viewerPerspective, $viewerUserId, 
 
     // Preferred source: the per-seat cosmetics snapshot taken at match creation.
     // Public + private games always create a match; goldfish/hotseat (solo/local) do not.
+    $m = null;
     $ref = SWUReadMatchRef($gameName);
     if (is_array($ref) && isset($ref['matchId'])) {
         $m = SWUReadMatch($ref['matchId']);
@@ -79,12 +92,30 @@ function SWUBuildCosmeticsPayload($gameName, $viewerPerspective, $viewerUserId, 
     $myCos    = $applyOverride($myCos, $mySeat);
     $theirCos = $applyOverride($theirCos, $theirSeat);
 
+    // Per-seat cosmetics (Twin Suns "any-player-aware" map). Playmats + card backs are per-seat and
+    // viewable by ALL players — the client indexes seats[<seat>] for previews and cross-seat views.
+    // (The board BACKGROUND stays the viewer's own via the top-level 'background' below.) Seats not in
+    // the game resolve to defaults and are simply ignored by the client (it renders only live seats).
+    $seats = [];
+    for ($seat = 1; $seat <= 4; $seat++) {
+        $sk = (string)$seat;
+        $sc = is_array($m) ? ($m['players'][$sk]['cosmetics'] ?? null) : null;
+        if ($sc === null) $sc = SWUResolveSeatCosmetics(($sk === $mySeat) ? $viewerUserId : '');
+        $sc = $applyOverride($sc, $sk);
+        $seats[$sk] = [
+            'background' => _SWUCosBackgroundUrl($sc['background']['asset'] ?? null, $mobile),
+            'cardback'   => SWUCosmeticAssetUrl($sc['cardback']['asset']   ?? null),
+            'playmat'    => SWUCosmeticAssetUrl($sc['playmat']['asset']    ?? null),
+        ];
+    }
+
     return [
         'background'    => _SWUCosBackgroundUrl($myCos['background']['asset'] ?? null, $mobile),
         'myCardBack'    => SWUCosmeticAssetUrl($myCos['cardback']['asset']    ?? null),
         'theirCardBack' => SWUCosmeticAssetUrl($theirCos['cardback']['asset'] ?? null),
         'myPlaymat'     => SWUCosmeticAssetUrl($myCos['playmat']['asset']     ?? null),
         'theirPlaymat'  => SWUCosmeticAssetUrl($theirCos['playmat']['asset']  ?? null),
+        'seats'         => $seats,
     ];
 }
 

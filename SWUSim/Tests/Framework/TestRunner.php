@@ -20,6 +20,11 @@ class TestRunner {
                 if ($filter !== null && stripos($fn, $filter) === false) continue;
 
                 InitializeGamestate();
+                // Per-test isolation: InitializeGamestate does NOT reset the ambient $playerID (the
+                // "current frame" used to resolve my*/their* mzIDs). A prior test that ended with P2 as
+                // the last actor leaves $playerID=2, which corrupts the next test's setup/frame resolution
+                // (e.g. a created token lands in the wrong arena). Reset it to a known state before each test.
+                global $playerID; $playerID = 1;
                 $t = microtime(true);
                 try {
                     $fn();

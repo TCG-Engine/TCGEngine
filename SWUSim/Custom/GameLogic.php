@@ -2645,15 +2645,15 @@ function SWUComputePlayCost($player, $obj, $host = null): int {
             }
         }
     }
-    // LAW_129 Mastery — "This upgrade costs 1 resource less to play on a non-unique unit." Two modes:
-    //   $host === null → best-case affordability: −1 if any friendly non-unique unit exists to host it.
-    //   $host !== null → payment time: −1 only if the chosen host is non-unique. (No claw-back needed.)
+    // LAW_129 Mastery — "This upgrade costs 1 resource less to play on a unique unit." Two modes:
+    //   $host === null → best-case affordability: −1 if any friendly unique unit exists to host it.
+    //   $host !== null → payment time: −1 only if the chosen host is unique. (No claw-back needed.)
     if ($cardID === 'LAW_129') {
         if ($host === null) {
             foreach (GetUnitsInPlay(intval($player)) as $hu) {
-                if (empty($hu->removed) && !CardUnique($hu->CardID ?? '')) { $cost += -1; break; }
+                if (empty($hu->removed) && CardUnique($hu->CardID ?? '')) { $cost += -1; break; }
             }
-        } elseif (!CardUnique($host->CardID ?? '')) {
+        } elseif (CardUnique($host->CardID ?? '')) {
             $cost += -1;
         }
     }
@@ -2710,6 +2710,9 @@ function SWUComputePlayCost($player, $obj, $host = null): int {
             }
         }
     }
+    // JTL_232 Jump to Lightspeed: a one-shot "next copy of that unit is free this phase" charge for the
+    // returned unit's exact CardID. Overrides all other cost math → 0. Consumed in ActivateCard.
+    if (GlobalEffectCount(intval($player), 'SWU_JTL232_FREE|' . $cardID) > 0) return 0;
     return max(0, $cost);
 }
 
@@ -5096,6 +5099,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_UNIT_ATTACKED_');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_DEALT_BASEDMG_');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ATTACKED_');  // clears SWU_ATTACKED_{uid} + ..._MANDALORIAN_{uid} + ..._VEHICLE
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_JTL232_FREE');       // JTL_232 Jump to Lightspeed: free-replay charge is "this phase" only
         SWUClearGlobalEffectsByPrefix($p, 'SWU_NEUTRAL_DISCOUNT');  // SOR_056 Bendu: "this phase" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SNAP_DISCOUNT');     // JTL_098 Snap Wexley: "next Resistance card" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_JTL260_USED');       // JTL_260 Death Star Plans: "first unit each round -2" use
@@ -8308,14 +8312,19 @@ function ShadowCasterReuseTrigger(int $owner, string $cardID, string $mzID): voi
 function ProcessGoldfishAutomation(): bool {
     $madeProgress = false;
     $dqController = new DecisionQueueController();
+    // Drain EVERY live seat's static queue after each action, not just seats 1/2 — otherwise a
+    // non-active seat's reaction to another player's action (e.g. P3's Gideon Hask SOR_036 "when an
+    // enemy unit is defeated" firing off a P1↔P2 trade) sits pending until that seat next acts.
+    // 2-player games have no SeatOrder → fall back to [1,2] (byte-identical drain).
+    $seats = GetLiveSeatsArray();
+    if (empty($seats)) $seats = [1, 2];
     for ($cycle = 0; $cycle < 64; ++$cycle) {
-        $before1 = count(GetDecisionQueue(1));
-        $before2 = count(GetDecisionQueue(2));
-        $dqController->ExecuteStaticMethods(1);
-        $dqController->ExecuteStaticMethods(2);
-        $after1 = count(GetDecisionQueue(1));
-        $after2 = count(GetDecisionQueue(2));
-        if ($after1 === $before1 && $after2 === $before2) break;
+        $before = [];
+        foreach ($seats as $s) $before[$s] = count(GetDecisionQueue($s));
+        foreach ($seats as $s) $dqController->ExecuteStaticMethods($s);
+        $stable = true;
+        foreach ($seats as $s) { if (count(GetDecisionQueue($s)) !== $before[$s]) { $stable = false; break; } }
+        if ($stable) break;
         $madeProgress = true;
     }
     return $madeProgress;
@@ -10430,6 +10439,11 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
     // JTL_098 Snap Wexley: consume the one-shot "next Resistance card -1" charge now that the cost is locked.
     if (HasTrait($cardID, 'Resistance') && GlobalEffectCount(intval($player), 'SWU_SNAP_DISCOUNT') > 0) {
         RemoveGlobalEffect(intval($player), 'SWU_SNAP_DISCOUNT');
+    }
+    // JTL_232 Jump to Lightspeed: consume the one-shot "next copy of that unit is free" charge (keyed on
+    // the exact CardID) once this qualifying card's (already-zeroed) cost is locked in.
+    if (GlobalEffectCount(intval($player), 'SWU_JTL232_FREE|' . $cardID) > 0) {
+        RemoveGlobalEffect(intval($player), 'SWU_JTL232_FREE|' . $cardID);
     }
     // JTL_008 Wedge: consume the one-shot "next Pilot card -1" charge on a Pilot played AS A UNIT
     // (the Piloting/attach path consumes it in _SWUFinalizeUpgradeAttach). Locked in now.

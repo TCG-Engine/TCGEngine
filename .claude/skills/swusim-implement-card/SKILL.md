@@ -236,7 +236,35 @@ Identify all new DSL commands and assertions the batch will need. List them expl
 
 **Write all test files before implementing anything.**
 
-Test files live at: `SWUSim/Tests/Cases/{set}/{CardName}.md`
+### Test file naming & layout — the `Title_Subtitle` standard (set 2026-07-15)
+
+**One file per card, named by the card's title, holding ALL that card's tests as sections.** Path: `SWUSim/Tests/Cases/{set}/{Name}.md`.
+- **Filename = `Title_Subtitle.md`** for unique cards (a unit/leader/etc. with a subtitle) — CamelCase, punctuation stripped: `AdmiralAckbar_AssumeAttackCoordinates.md`. This disambiguates same-name cards — e.g. the two Moff Gideons become `MoffGideon_IndomitableWarlord.md` (ASH_008) and `MoffGideon_RemnantCommander.md` (ASH_097).
+- **Filename = `Title.md`** (no subtitle) for cards with no subtitle — most non-unique units, events, upgrades: `ANewOrder.md`, `Vanquish.md`.
+- Derive Title/Subtitle from the dictionary's `$titleData` / `$subtitleData` (never memory). `{set}` = the lowercase set dir (`ash`, `sor`, …).
+- **Do NOT** prefix with a category (`Act_`, `Adv_`, `Leader_`) or bury the card id (`Act_ASH109_...`) — those old schemes were retrofitted away. The card is identified by its title; the *behavior* goes in the section name, not the filename.
+
+**Multiple tests per file = one file, split into sections.** A file may hold many tests, separated by a markdown `---` rule; each test opens with a single-`#` header naming the behavior (TitleCase). `##` are the section keywords (GIVEN/WHEN/EXPECT); `#//` is a comment. Example:
+
+```markdown
+# WhenPlayed_DealsTwoIfBountyHunter
+#// ASH_042 — comment/description lines use #// so the only # line is the behavior name.
+
+## GIVEN
+...
+## EXPECT
+...
+
+---
+
+# WhenPlayed_NoBountyHunter_NoEffect
+## GIVEN
+...
+```
+
+A file with no `---` is a single test (name comes from the filename). The parser (`SchemaTestRunner::splitSegments`) splits on `---` and reads each `#` header as the test name; both the direct runner and the regression discover these automatically (`SchemaBasedTest.php` registers one `test_` fn per section). The `zzTestSchemaEditor` "Test" dropdown lists the sections.
+
+**Mechanic / keyword coverage that isn't a single card goes in a shared file, NOT a card file:** rules/token mechanics → `Tests/Cases/core/` (e.g. `Advantage.md`, `CreditToken.md`); keyword mechanics → `Tests/Cases/keywords/` (e.g. `Support.md`, `Hidden.md`, `Pilot.md`, `Torpedo.md`, `LeaderPilot.md`, `BountyUpgrades.md`). A test that exercises one specific card's ability belongs in that card's `Title_Subtitle.md`, even if it also demonstrates a keyword.
 
 Use the standard DSL format:
 

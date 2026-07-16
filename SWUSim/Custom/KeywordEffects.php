@@ -597,6 +597,7 @@ function HasConditionalKeyword_Sentinel($obj) {
     if (in_array($obj->CardID ?? '', ['TS26_050', 'TS26_020'], true) && intval($obj->Damage ?? 0) === 0) return true;
     if (_SWUUnitHasUpgrade($obj, 'TWI_071')) return true;   // TWI_071 Unshakeable Will — "Attached unit gains Sentinel."
     if (_SWUUnitHasUpgrade($obj, 'TS26_022')) return true;  // TS26_022 The Darksaber — "Attached unit gains Sentinel."
+    if (_SWUUnitHasUpgrade($obj, 'JTL_058')) return true;   // JTL_058 Academy Graduate (pilot) — "Attached unit gains Sentinel."
     // SEC_071 (upgrade) — "While attached unit is exhausted, it gains Sentinel."
     if (_SWUUnitHasUpgrade($obj, 'SEC_071') && intval($obj->Status ?? 1) === 0) return true;
     // ASH_243 Darth Vader — Shielded + "While this unit is ready, he gains Sentinel."

@@ -536,4 +536,21 @@ class GameTestAdapter {
         $dq = new DecisionQueueController();
         $dq->ExecuteStaticMethods($player, '-');
     }
+
+    /**
+     * Public drain — run pending STATIC decisions (RESOLVE_TRIGGER / CUSTOM / SYSTEM) on $player's
+     * queue without popping or answering anything, stopping at the first interactive decision.
+     *
+     * Needed for cross-player reactions: the harness only drains the ACTING player's queue after
+     * each action, but a trigger belonging to the NON-acting player (e.g. a unit's When Defeated
+     * whose controller is the opponent that just got its unit killed) is left as a static
+     * RESOLVE_TRIGGER at the front of that player's queue. In production EngineActionRunner drains
+     * both queues (ProcessGoldfishAutomation) after every action; a step-driven test mirrors that
+     * one player at a time via the `Drain` WHEN verb, then answers the interactive follow-up.
+     */
+    public function drainQueue(int $player): void {
+        ob_start();
+        $this->_drainDQ($player);
+        ob_end_clean();
+    }
 }

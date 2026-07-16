@@ -9,6 +9,7 @@ class GameStateBuilder {
     private array  $_myBase          = [];
     private array  $_theirBase       = [];
     private array  $_seatBases       = []; // Twin Suns: bases for seats 3/4, keyed by seat
+    private array  $_seatLeaders     = []; // Twin Suns: leaders for seats 3/4, keyed by seat -> ['l1'=>spec,'l2'=>spec]
     private array  $_myLeader        = [];
     private array  $_theirLeader     = [];
     private array  $_myLeader2       = []; // Twin Suns: optional second leader for seat 1
@@ -116,6 +117,19 @@ class GameStateBuilder {
 
     public function TheirLeader2(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false): self {
         $this->_theirLeader2 = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed];
+        return $this;
+    }
+
+    // Twin Suns: leaders for an arbitrary seat (3/4 — seats 1/2 use My/TheirLeader). Undeployed only
+    // (no deployed-unit splice for seats 3/4, matching MyLeader2's simpler capability); enough to show
+    // a full two-leader board for those seats. First → live index 0, second → index 1.
+    public function WithLeaderForSeat(int $seat, string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false): self {
+        $this->_seatLeaders[$seat]['l1'] = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed];
+        return $this;
+    }
+
+    public function WithLeader2ForSeat(int $seat, string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false): self {
+        $this->_seatLeaders[$seat]['l2'] = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed];
         return $this;
     }
 
@@ -310,6 +324,11 @@ class GameStateBuilder {
         if (!empty($this->_theirLeader2)) {
             $l = $this->_theirLeader2;
             $leaderObjs2[2] = AddLeader(2, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']);
+        }
+        // Twin Suns seats 3/4 leaders (undeployed; first → live index 0, optional second → index 1).
+        foreach ($this->_seatLeaders as $seat => $ls) {
+            if (!empty($ls['l1'])) { $l = $ls['l1']; AddLeader($seat, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']); }
+            if (!empty($ls['l2'])) { $l = $ls['l2']; AddLeader($seat, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']); }
         }
 
         // Deployed-leader Pilot mode (CR Pilot): attach the leader as a Pilot upgrade onto the

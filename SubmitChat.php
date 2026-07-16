@@ -10,7 +10,7 @@ $folderPath = TryGET("folderPath", "");
 $chatText  = TryGET("chatText", "");
 
 if ($gameName === "" || !IsGameNameValid($gameName)) { echo "Invalid game name."; exit; }
-$viewerInfo = NormalizeViewerIdentity($playerID);
+$viewerInfo = NormalizeViewerIdentity($playerID, SimGameMaxSeats($folderPath));
 if ($viewerInfo['viewerID'] === '')                  { echo "Invalid player.";    exit; }
 $playerID = $viewerInfo['viewerID'];
 

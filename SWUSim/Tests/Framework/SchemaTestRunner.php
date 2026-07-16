@@ -370,6 +370,18 @@ class SchemaTestRunner {
             [$bcid, $bdmg] = array_pad(explode(':', trim($given["WithP{$seat}Base"]), 2), 2, '0');
             $b->WithBaseForPlayer($seat, trim($bcid), intval($bdmg));
         }
+        // Twin Suns seats 3/4 leaders (WithP{n}Leader / WithP{n}Leader2: CARDID[:ready[:deployed[:epicUsed]]])
+        // — seats 1/2 come from CommonSetup. Undeployed leaders only (no deployed-unit splice for 3/4).
+        foreach ([3, 4] as $seat) {
+            if (isset($given["WithP{$seat}Leader"])) {
+                $l = self::_parseSecondLeader(trim($given["WithP{$seat}Leader"]));
+                $b->WithLeaderForSeat($seat, $l['cardID'], $l['ready'], $l['deployed'], $l['epicUsed']);
+            }
+            if (isset($given["WithP{$seat}Leader2"])) {
+                $l = self::_parseSecondLeader(trim($given["WithP{$seat}Leader2"]));
+                $b->WithLeader2ForSeat($seat, $l['cardID'], $l['ready'], $l['deployed'], $l['epicUsed']);
+            }
+        }
         // Twin Suns Phase 5: a ground unit a seat CONTROLS but does not OWN (mind-control), so
         // elimination-cleanup can be tested. WithP{n}ControlledUnit: CARDID:owner
         foreach ([1, 2, 3, 4] as $seat) {
@@ -770,6 +782,12 @@ class SchemaTestRunner {
 
             case 'AnswerDecision':
                 $g->answerDecision($player, $args);
+                break;
+
+            case 'Drain':
+                // Run pending STATIC entries on $player's queue (cross-player reaction drain —
+                // mirrors production's post-action ProcessGoldfishAutomation). No args.
+                $g->drainQueue($player);
                 break;
 
             case 'ChooseMyGroundUnit':

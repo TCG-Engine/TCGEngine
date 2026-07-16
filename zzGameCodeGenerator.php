@@ -1880,11 +1880,19 @@ if($rootName == "SWUSim") {
   fwrite($handler, "}\r\n");
 }
 fwrite($handler, "\$requestPlayerID = TryGet(\"playerID\");\r\n");
-fwrite($handler, "\$viewerInfo = NormalizeViewerIdentity(\$requestPlayerID);\r\n");
-fwrite($handler, "\$viewerPerspective = NormalizeViewerPerspective(\$viewerInfo, TryGet(\"viewerPerspective\", \"\"));\r\n");
+// SWUSim (Twin Suns) has up to 4 real seats — pass maxSeats so seat 3/4 is a player, not a spectator.
+// Non-SWU sims ($maxSeats==2) emit the original single-arg call → byte-identical output.
+$viewerSeatsArg = ($maxSeats > 2) ? ", " . intval($maxSeats) : "";
+fwrite($handler, "\$viewerInfo = NormalizeViewerIdentity(\$requestPlayerID" . $viewerSeatsArg . ");\r\n");
+fwrite($handler, "\$viewerPerspective = NormalizeViewerPerspective(\$viewerInfo, TryGet(\"viewerPerspective\", \"\")" . $viewerSeatsArg . ");\r\n");
 fwrite($handler, "\$playerID = \$viewerPerspective;\r\n");
-fwrite($handler, "\$canSeePrivatePlayer1 = !\$viewerInfo[\"isSpectator\"] && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) === 1;\r\n");
-fwrite($handler, "\$canSeePrivatePlayer2 = !\$viewerInfo[\"isSpectator\"] && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) === 2;\r\n");
+// Each seat's viewer-privacy flag (Twin Suns: 1..N; other sims: 1..2, byte-identical). Gates the
+// per-seat private-zone serialization (Hand/Deck/DecisionQueue/TempZone). Without a flag defined for
+// the viewer's OWN seat, that seat's decisions + hand serialize as face-down CardBacks — which is why
+// a seat-3/4 viewer never saw their own attack-target prompt.
+for ($cspSeat = 1; $cspSeat <= $maxSeats; ++$cspSeat) {
+  fwrite($handler, "\$canSeePrivatePlayer{$cspSeat} = !\$viewerInfo[\"isSpectator\"] && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) === {$cspSeat};\r\n");
+}
 fwrite($handler, "\$authKey = TryGet(\"authKey\", \"\");\r\n");
 fwrite($handler, "if(\$viewerInfo[\"viewerID\"] === \"\") {\r\n");
 fwrite($handler, "  echo(\"Invalid player.\");\r\n");
@@ -1927,8 +1935,13 @@ if($rootName == "SWUSim") {
   fwrite($handler, "\$vSeat = \$viewerInfo[\"isSpectator\"] ? 0 : intval(\$viewerInfo[\"viewerSeat\"] ?? 0);\r\n");
   fwrite($handler, "\$viewerLooksAtOppHand = false;\r\n");
   fwrite($handler, "if(\$vSeat === 1 || \$vSeat === 2) { foreach(GetDecisionQueue(\$vSeat) as \$_d) { if(!empty(\$_d->removed)) continue; if(strpos((string)(\$_d->Param ?? ''), 'theirHand') !== false) { \$viewerLooksAtOppHand = true; break; } } }\r\n");
-  fwrite($handler, "\$canSeeHandPlayer1 = \$canSeePrivatePlayer1 || (\$viewerLooksAtOppHand && \$vSeat === 2);\r\n");
-  fwrite($handler, "\$canSeeHandPlayer2 = \$canSeePrivatePlayer2 || (\$viewerLooksAtOppHand && \$vSeat === 1);\r\n");
+  // Seats 1/2 keep the 2-player "look at opponent's hand" reveal (byte-identical); seats 3/4 see only
+  // their own hand (cross-seat hand-reveal for 3/4 is a separate, deferred feature).
+  for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
+    $cshReveal = ($cshSeat === 1) ? " || (\$viewerLooksAtOppHand && \$vSeat === 2)"
+               : (($cshSeat === 2) ? " || (\$viewerLooksAtOppHand && \$vSeat === 1)" : "");
+    fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat}{$cshReveal};\r\n");
+  }
 }
 fwrite($handler, "SetCachePiece(\$gameName, 1, \$updateNumber);\r\n");
 fwrite($handler, "echo(\$updateNumber . \"<~>\");\r\n");

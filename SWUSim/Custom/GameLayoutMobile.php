@@ -120,6 +120,14 @@
     /* Faint side tint — the base look when no playmat is set. */
     .swu-m-arena-row.is-mine   { background-color: rgba(var(--turn-mine-rgb),0.06); }
     .swu-m-arena-row.is-theirs { background-color: rgba(var(--turn-theirs-rgb),0.05); }
+    /* Twin Suns home "replace" mode (mobile) — hide the opponent's stacked sections; the preview windows
+       (a fixed top band) stand in for the opponent board. Only on the home view (body.swu-home). */
+    body.swu-home .swu-m-band.is-theirs,
+    body.swu-home .swu-m-section.is-theirs,
+    body.swu-home .swu-m-arena-row.is-theirs,
+    body.swu-home .swu-m-centers.is-theirs,
+    body.swu-home .swu-m-center.is-theirs { display: none !important; }
+    body.swu-home #swuHomeStrips { position: fixed; top: 48px; left: 0; right: 0; max-height: 42vh; z-index: 39; }
     /* The blue HUD darkening overlay lives on each arena BOX (.swu-m-arena-col ::after)
        so it's clipped to the cyan-bracketed boundary rather than the whole row. */
     /* Light-blue tech-HUD frame per arena — faint full border + glow plus bright
@@ -505,6 +513,8 @@
         <button id="swuPairPrev" class="swu-pair-arrow" title="Previous view (back)">◀</button>
         <button id="swuPairNext" class="swu-pair-arrow" title="Next view">▶</button>
     </div>
+    <!-- Twin Suns two-level nav (3-player): return from a matchup to the home preview (toggled by JS) -->
+    <button id="swuGoBack" class="swu-go-back" style="display:none;">← Go back</button>
     <!-- Twin Suns 3-player home view — two opponent status strips (populated by swuRenderHomeStrips) -->
     <div id="swuHomeStrips" class="swu-home-strips" style="display:none;"></div>
     <!-- Twin Suns read-only badge (viewing a board that isn't yours) -->
