@@ -1785,6 +1785,10 @@
 
 <script>
 (function() {
+    // iOS Safari exposes the delayed overlay/wake paint as a visible second render.
+    // The phone layout renders the final card status immediately instead.
+    window.DisableCardStatusEnterAnimations = true;
+
     function getViewerPlayer() {
         var el = document.getElementById('playerID');
         if(el && el.value !== '') return parseInt(el.value, 10);

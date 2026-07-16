@@ -72,6 +72,17 @@ function ResolveGlobalFunction(functionName) {
   return null;
 }
 
+// BindTo zones are rendered into persistent layout slots. Keep their existing DOM
+// when the generated markup is unchanged so already-decoded card images do not get
+// discarded and decoded again on every server update (especially visible in iOS Safari).
+function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
+  if (!zoneSlot) return false;
+  if (zoneSlot.__tcgRenderedHTML === nextHTML && zoneSlot.childNodes.length > 0) return false;
+  zoneSlot.innerHTML = nextHTML;
+  zoneSlot.__tcgRenderedHTML = nextHTML;
+  return true;
+}
+
 //Rotate is deprecated
       function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "", overlayDescriptorsJSON = "", hasForce = 0) {
         if (folder == "crops") {
@@ -551,6 +562,13 @@ function ResolveGlobalFunction(functionName) {
           var enteringCards = document.querySelectorAll('.exhausted-status-card-enter');
           if (!enteringCards || enteringCards.length === 0) return;
 
+          if (typeof window !== 'undefined' && window.DisableCardStatusEnterAnimations) {
+            enteringCards.forEach(function(cardEl) {
+              cardEl.classList.remove('exhausted-status-card-enter');
+            });
+            return;
+          }
+
           // Let layout settle after render, then animate toward the already-rendered final state.
           requestAnimationFrame(function() {
             enteringCards.forEach(function(cardEl) {
@@ -598,6 +616,13 @@ function ResolveGlobalFunction(functionName) {
         try {
           var wakingCards = document.querySelectorAll('.wake-status-card-enter');
           if (!wakingCards || wakingCards.length === 0) return;
+
+          if (typeof window !== 'undefined' && window.DisableCardStatusEnterAnimations) {
+            wakingCards.forEach(function(cardEl) {
+              cardEl.classList.remove('wake-status-card-enter');
+            });
+            return;
+          }
 
           requestAnimationFrame(function() {
             wakingCards.forEach(function(cardEl) {

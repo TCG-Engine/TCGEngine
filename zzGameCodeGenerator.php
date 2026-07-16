@@ -2525,7 +2525,7 @@ function GenImageRoot($zone = null) {
 }
 
 function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
-  global $rootPath;
+  global $rootPath, $rootName;
   $rv = "";
   $style = "position: absolute;";
   $onclick = "onclick=\\\"ZoneClickHandler(\\\'" . $prefix . $zone->Name . "\\\');\\\"";
@@ -2547,7 +2547,11 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
     if ($zone->DisplayMode == "Pane") {
       $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
     } else {
-      $rv .= "echo(\"var _bt_" . $prefix . $zone->Name . " = document.getElementById('" . $bindToID . "'); if(_bt_" . $prefix . $zone->Name . ") { _bt_" . $prefix . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $prefix . $zone->Name . "'); }; _bt_" . $prefix . $zone->Name . ".innerHTML = '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
+      $zoneHTML = "'<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . GenImageRoot($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'";
+      $renderZoneHTML = $rootName === "AzukiSim"
+        ? "ReplaceRenderedZoneHTML(_bt_" . $prefix . $zone->Name . ", " . $zoneHTML . ");"
+        : "_bt_" . $prefix . $zone->Name . ".innerHTML = " . $zoneHTML . ";";
+      $rv .= "echo(\"var _bt_" . $prefix . $zone->Name . " = document.getElementById('" . $bindToID . "'); if(_bt_" . $prefix . $zone->Name . ") { _bt_" . $prefix . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $prefix . $zone->Name . "'); }; " . $renderZoneHTML . " }\");\r\n";
       $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
     }
   } else {
