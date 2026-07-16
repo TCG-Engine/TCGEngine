@@ -616,6 +616,204 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         QueueReload(_lastUpdate);
       };
 
+      // Opt-in, phone-friendly render diagnostics. Enable with ?renderTrace=1. This deliberately
+      // records render/DOM/animation timing only; it does not capture game payloads or auth data.
+      window.TCGRenderTrace = (function() {
+        var enabled = false;
+        try { enabled = new URLSearchParams(window.location.search).get('renderTrace') === '1'; } catch (e) {}
+        var noop = function() {};
+        if (!enabled) return { enabled: false, mark: noop, snapshot: function() { return {}; }, sampleFrames: noop };
+
+        var startedAt = performance.now();
+        var entries = [];
+        var maxEntries = 600;
+        var panel = null;
+        var panelBody = null;
+        var logEl = null;
+        var toggleBtn = null;
+
+        function shortTarget(el) {
+          if (!el || el.nodeType !== 1) return '';
+          if (el.id) return '#' + el.id;
+          var card = typeof el.closest === 'function' ? el.closest('span[id]') : null;
+          if (card && card.id) return '#' + card.id;
+          return String(el.className || el.tagName || '').trim().slice(0, 90);
+        }
+
+        function snapshot() {
+          var allImages = Array.prototype.slice.call(document.images || []);
+          var activeAnimations = [];
+          try { activeAnimations = typeof document.getAnimations === 'function' ? document.getAnimations() : []; } catch (e) {}
+          return {
+            exhaustedOverlays: document.querySelectorAll('.exhausted-status-overlay-layer').length,
+            exhaustedEntering: document.querySelectorAll('.exhausted-status-card-enter').length,
+            wakeEntering: document.querySelectorAll('.wake-status-card-enter').length,
+            selectable: document.querySelectorAll('.selectable-card').length,
+            activeAnimations: activeAnimations.length,
+            images: allImages.length,
+            incompleteImages: allImages.filter(function(img) { return !img.complete || img.naturalWidth === 0; }).length,
+            incompleteCounterImages: allImages.filter(function(img) {
+              return img.classList && img.classList.contains('counter-image-icon') && (!img.complete || img.naturalWidth === 0);
+            }).length
+          };
+        }
+
+        function renderPanel() {
+          if (toggleBtn) toggleBtn.textContent = 'Trace ' + entries.length;
+          if (!logEl || !panelBody || panelBody.style.display === 'none') return;
+          logEl.textContent = entries.slice(-18).map(function(entry) {
+            var detail = entry.detail && Object.keys(entry.detail).length ? ' ' + JSON.stringify(entry.detail) : '';
+            return entry.ms.toFixed(1).padStart(7, ' ') + '  ' + entry.event + detail;
+          }).join('\n');
+          logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        function mark(eventName, detail) {
+          var entry = {
+            ms: performance.now() - startedAt,
+            event: String(eventName || 'event'),
+            detail: detail && typeof detail === 'object' ? detail : {}
+          };
+          entries.push(entry);
+          if (entries.length > maxEntries) entries.splice(0, entries.length - maxEntries);
+          try { console.debug('[RenderTrace]', entry.ms.toFixed(1), entry.event, entry.detail); } catch (e) {}
+          renderPanel();
+        }
+
+        function sampleFrames(update) {
+          var frame = 0;
+          function sample() {
+            frame += 1;
+            if (frame <= 4 || frame === 8 || frame === 12) {
+              mark('frame:' + frame, Object.assign({ update: update }, snapshot()));
+            }
+            if (frame < 12) requestAnimationFrame(sample);
+          }
+          requestAnimationFrame(sample);
+          window.setTimeout(function() {
+            mark('frame:+300ms', Object.assign({ update: update }, snapshot()));
+          }, 300);
+        }
+
+        function copyTrace(button) {
+          var text = JSON.stringify({ userAgent: navigator.userAgent, viewport: [window.innerWidth, window.innerHeight], entries: entries }, null, 2);
+          function done(ok) {
+            if (!button) return;
+            var original = button.textContent;
+            button.textContent = ok ? 'Copied' : 'Copy failed';
+            window.setTimeout(function() { button.textContent = original; }, 1200);
+          }
+          if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+            navigator.clipboard.writeText(text).then(function() { done(true); }, function() { done(false); });
+            return;
+          }
+          try {
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-10000px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            var copied = document.execCommand('copy');
+            textarea.remove();
+            done(copied);
+          } catch (e) { done(false); }
+        }
+
+        function installPanel() {
+          if (!document.body || panel) return;
+          panel = document.createElement('div');
+          panel.id = 'tcg-render-trace';
+          panel.style.cssText = 'position:fixed;left:6px;top:52px;z-index:30000;max-width:min(390px,calc(100vw - 12px));font:10px/1.25 ui-monospace,SFMono-Regular,Consolas,monospace;color:#dfffe5;pointer-events:auto;';
+          toggleBtn = document.createElement('button');
+          toggleBtn.type = 'button';
+          toggleBtn.textContent = 'Trace 0';
+          toggleBtn.style.cssText = 'padding:6px 9px;border:1px solid #43d66f;border-radius:6px;background:rgba(5,18,10,.94);color:#dfffe5;font:700 11px/1 sans-serif;';
+          panelBody = document.createElement('div');
+          panelBody.style.cssText = 'display:none;margin-top:4px;padding:6px;border:1px solid rgba(67,214,111,.7);border-radius:6px;background:rgba(3,10,6,.96);box-shadow:0 8px 24px rgba(0,0,0,.55);';
+          var actions = document.createElement('div');
+          actions.style.cssText = 'display:flex;gap:5px;margin-bottom:5px;';
+          var copyBtn = document.createElement('button');
+          copyBtn.type = 'button'; copyBtn.textContent = 'Copy JSON';
+          var clearBtn = document.createElement('button');
+          clearBtn.type = 'button'; clearBtn.textContent = 'Clear';
+          [copyBtn, clearBtn].forEach(function(btn) {
+            btn.style.cssText = 'padding:4px 7px;border:1px solid #496a52;border-radius:4px;background:#132219;color:#e8ffee;font:10px/1 sans-serif;';
+          });
+          logEl = document.createElement('pre');
+          logEl.style.cssText = 'display:block;width:min(370px,calc(100vw - 30px));height:min(210px,48vh);margin:0;overflow:auto;white-space:pre-wrap;word-break:break-word;color:#dfffe5;';
+          toggleBtn.onclick = function() {
+            panelBody.style.display = panelBody.style.display === 'none' ? 'block' : 'none';
+            renderPanel();
+          };
+          copyBtn.onclick = function() { copyTrace(copyBtn); };
+          clearBtn.onclick = function() { entries.length = 0; mark('trace:cleared', snapshot()); };
+          actions.appendChild(copyBtn); actions.appendChild(clearBtn);
+          panelBody.appendChild(actions); panelBody.appendChild(logEl);
+          panel.appendChild(toggleBtn); panel.appendChild(panelBody);
+          document.body.appendChild(panel);
+        }
+
+        function installMutationObservers() {
+          if (typeof MutationObserver !== 'function') return;
+          var mobileRoot = document.getElementById('azukiMobileRoot');
+          var roots = mobileRoot ? [mobileRoot] : [document.getElementById('myStuff'), document.getElementById('theirStuff')];
+          var globalRoot = document.getElementById('globalStuff');
+          if (globalRoot) roots.push(globalRoot);
+          roots.filter(Boolean).forEach(function(root) {
+            new MutationObserver(function(records) {
+              var added = 0, removed = 0, attributes = 0;
+              records.forEach(function(record) {
+                added += record.addedNodes ? record.addedNodes.length : 0;
+                removed += record.removedNodes ? record.removedNodes.length : 0;
+                if (record.type === 'attributes') attributes += 1;
+              });
+              mark('dom:mutations', { root: shortTarget(root), records: records.length, added: added, removed: removed, attributes: attributes });
+            }).observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style', 'src'] });
+          });
+        }
+
+        function installAnimationTrace() {
+          if (!window.Element || !Element.prototype.animate || Element.prototype.__tcgRenderTraceAnimate) return;
+          var originalAnimate = Element.prototype.animate;
+          Element.prototype.animate = function(keyframes, timing) {
+            var target = shortTarget(this);
+            var summary = { target: target };
+            if (timing && typeof timing === 'object') {
+              summary.duration = timing.duration || 0;
+              summary.delay = timing.delay || 0;
+              summary.fill = timing.fill || '';
+            }
+            try {
+              var frames = Array.isArray(keyframes) ? keyframes : [];
+              if (frames.length) {
+                summary.fromOpacity = frames[0].opacity;
+                summary.toOpacity = frames[frames.length - 1].opacity;
+                summary.fromTransform = frames[0].transform || '';
+                summary.toTransform = frames[frames.length - 1].transform || '';
+              }
+            } catch (e) {}
+            mark('animate:start', summary);
+            var animation = originalAnimate.apply(this, arguments);
+            try {
+              animation.addEventListener('finish', function() { mark('animate:finish', { target: target }); }, { once: true });
+              animation.addEventListener('cancel', function() { mark('animate:cancel', { target: target }); }, { once: true });
+            } catch (e) {}
+            return animation;
+          };
+          Element.prototype.__tcgRenderTraceAnimate = true;
+        }
+
+        installAnimationTrace();
+        window.setTimeout(function() {
+          installPanel();
+          installMutationObservers();
+          mark('trace:ready', snapshot());
+        }, 0);
+
+        return { enabled: true, mark: mark, snapshot: snapshot, sampleFrames: sampleFrames, entries: entries };
+      })();
+
       var _renderQueue = [];
       var _renderInProgress = false;
       var _lastRenderedUpdate = 0;
@@ -858,10 +1056,27 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         _renderInProgress = true;
         var frameAnimations = ParseFrameAnimations(queuedUpdate.responseArr);
         if(<?php echo(AreAnimationsDisabled($playerID) ? 'true' : 'false');?>) frameAnimations = [];
+        if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
+          window.TCGRenderTrace.mark('queue:dequeue', {
+            update: queuedUpdate.update,
+            remaining: _renderQueue.length,
+            frameAnimations: frameAnimations.length
+          });
+        }
         var timeoutAmount = PlayFrameAnimations(frameAnimations, <?php echo($viewerPerspective); ?>);
+        if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
+          window.TCGRenderTrace.mark('frame-animations:scheduled', {
+            update: queuedUpdate.update,
+            blockingMs: timeoutAmount,
+            state: window.TCGRenderTrace.snapshot()
+          });
+        }
 
         var finishRender = function() {
           try {
+            if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
+              window.TCGRenderTrace.mark('render:dispatch', { update: queuedUpdate.update });
+            }
             RenderUpdate(queuedUpdate.responseArr, queuedUpdate.update);
             _lastRenderedUpdate = queuedUpdate.update;
             window.__lastRenderedGameUpdate = _lastRenderedUpdate;
@@ -963,6 +1178,12 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       }
 
       function RenderUpdate(responseArr, renderedUpdate) {
+        if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
+          window.TCGRenderTrace.mark('render:start', {
+            update: renderedUpdate,
+            state: window.TCGRenderTrace.snapshot()
+          });
+        }
         var botControllerPayload = ParseBotControllerPayload(responseArr);
         if (botControllerPayload && typeof SetBotControllerState === "function") {
           SetBotControllerState(botControllerPayload);
@@ -981,6 +1202,12 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         var viewerIdentity = <?php echo json_encode($playerID); ?>;
         var viewerCanAct = <?php echo($isSpectatorViewer ? 'false' : 'true'); ?>;
         <?php include "./" . $folderPath . "/NextTurnRender.php"; ?>
+        if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
+          window.TCGRenderTrace.mark('render:dom-built', {
+            update: renderedUpdate,
+            state: window.TCGRenderTrace.snapshot()
+          });
+        }
         if (typeof window !== 'undefined') {
           window.__prevCardStatusByMzid = window.__nextCardStatusByMzid || {};
           window.__prevReliquaryDrawByMzid = window.__nextReliquaryDrawByMzid || {};
@@ -1036,6 +1263,13 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         }
         if (typeof UpdateVersionDropdown === 'function' && typeof window.myVersionsData !== 'undefined') {
           UpdateVersionDropdown(window.myVersionsData);
+        }
+        if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
+          window.TCGRenderTrace.mark('render:end', {
+            update: renderedUpdate,
+            state: window.TCGRenderTrace.snapshot()
+          });
+          window.TCGRenderTrace.sampleFrames(renderedUpdate);
         }
       }
 

@@ -1953,24 +1953,26 @@
         var thumbHTML = preview
             ? '<img alt="" src="./AzukiSim/concat/' + encodeURIComponent(preview.cardID) + '.webp">'
             : '<span class="azuki-m-ikz-empty">IKZ</span>';
-        summary.innerHTML =
+        var nextHTML =
             '<div class="azuki-m-ikz-thumb">' + thumbHTML + '</div>' +
             '<div class="azuki-m-ikz-meta">' +
                 '<div class="azuki-m-pile-label">' + label + '</div>' +
                 '<div class="azuki-m-ikz-count">' + ready + '/' + total + ' ready</div>' +
             '</div>';
+        if(summary.innerHTML !== nextHTML) summary.innerHTML = nextHTML;
     }
 
     function renderOpponentHandSummary() {
         var summary = document.getElementById('theirHandSummary');
         if(!summary) return;
         var count = parseZoneCount('theirHandData');
-        summary.innerHTML =
+        var nextHTML =
             '<div class="azuki-m-ikz-thumb"><img alt="" src="./AzukiSim/concat/CardBack.webp"></div>' +
             '<div class="azuki-m-ikz-meta">' +
                 '<div class="azuki-m-pile-label">Their Hand</div>' +
                 '<div class="azuki-m-hand-count">' + count + ' cards</div>' +
             '</div>';
+        if(summary.innerHTML !== nextHTML) summary.innerHTML = nextHTML;
     }
 
     function readLeaderHealth(prefix) {
@@ -2223,10 +2225,6 @@
     observeZone('theirGardenSlot', updateLeaderHealthSummaries);
     observeZone('myIKZTokenSlot', window.UpdateAzukiMobileIKZTokens);
     observeZone('theirIKZTokenSlot', window.UpdateAzukiMobileIKZTokens);
-    window.setInterval(function() {
-        updateIKZSummaries();
-        renderOpponentHandSummary();
-    }, 400);
     window.setInterval(updateLandscapeHandVisibility, 100);
     window.UpdateAzukiResponseOpportunity();
 })();
