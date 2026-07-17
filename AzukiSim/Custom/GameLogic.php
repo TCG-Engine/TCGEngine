@@ -5347,9 +5347,12 @@ function OnEndOfTurn($player) {
     SacrificeRushfireMarkedEntities($player, $garden);
     SacrificeRushfireMarkedEntities($player, $alley);
 
-    // 2. Reset entity damage
+    // 2. Entity damage resets globally at the end of every turn.
+    $opponent = intval($player) === 1 ? 2 : 1;
     ResetEntityDamage($player, "myGarden");
     ResetEntityDamage($player, "myAlley");
+    ResetEntityDamage($opponent, "myGarden");
+    ResetEntityDamage($opponent, "myAlley");
 
     // 3. Expire turn effects
     ExpireTurnEffects($player);
