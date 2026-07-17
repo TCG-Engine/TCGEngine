@@ -109,6 +109,20 @@ function SyncRenderedZoneImageAttributes(currentImage, nextImage) {
   });
 }
 
+// BindTo rendering caches the server-generated HTML on the persistent zone slot. Any code that
+// mutates that rendered markup outside ReplaceRenderedZoneHTML must invalidate the slot first or a
+// later update with the same generated HTML will be skipped, leaving the mutated DOM in place.
+function InvalidateRenderedZoneHTMLCache(element) {
+  var current = element;
+  while (current) {
+    if (Object.prototype.hasOwnProperty.call(current, "__tcgRenderedHTML")) {
+      current.__tcgRenderedHTML = null;
+      return;
+    }
+    current = current.parentElement;
+  }
+}
+
 // BindTo zones are rendered into persistent layout slots. Keep their existing DOM
 // when the generated markup is unchanged. When only card state/highlights changed,
 // transplant matching image elements into the new markup so already-decoded card art
@@ -4908,6 +4922,10 @@ function ClearSelectionMode() {
   }
   // Remove selectable highlight from all cards
   document.querySelectorAll('.selectable-card').forEach(el => {
+    // ClearSelectionMode changes cached BindTo markup in-place. If the same decision remains
+    // pending (for example after an invalid card click), force the next board update to rebuild
+    // this zone so its selectable class and click handler are restored.
+    InvalidateRenderedZoneHTMLCache(el);
     el.classList.remove('selectable-card');
     el.classList.remove('pulse');
     el.onclick = null;
