@@ -196,6 +196,7 @@
         }
         $playerID = $lobby->numPlayers;
         $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
+        if ($isTwinSunsRoom) $newPlayer->setDeckOk(_SWUTwinSunsDeckOk($deckLink, $preconstructedDeck));
         $lobby->players[] = $newPlayer;
 
         if ($lobby->ready) {
@@ -253,6 +254,7 @@
     $lobby->hostUserId = $joiningUserId;
     $lobby->inviteCode = bin2hex(random_bytes(12));
     $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
+    if ($rootName === 'SWUSim' && $format === 'twinsuns') $newPlayer->setDeckOk(_SWUTwinSunsDeckOk($deckLink, $preconstructedDeck));
     $lobby->players = array($newPlayer);
 
     apcu_store($lobbyId, $lobby, $ttl);
@@ -365,6 +367,19 @@
 
   header('Content-Type: application/json');
   echo json_encode($response);
+
+  // Twin Suns room seats: resolve + check the deck against full 'twinsuns' format legality (2
+  // leaders, 80+ cards, highlander, alignment) so the room roster shows an accurate deckOk at
+  // create/join time — mirrors UpdateLobbyDeck.php's check. Never fatal; false on any failure.
+  function _SWUTwinSunsDeckOk($deckLink, $preconstructedDeck) {
+    if (!function_exists('SWUResolveDeckInput') || !function_exists('SWUCheckFormat')) return false;
+    $input = trim($deckLink) !== '' ? $deckLink : $preconstructedDeck;
+    if (trim((string)$input) === '') return false;
+    $resolved = SWUResolveDeckInput($input);
+    if (empty($resolved['success'])) return false;
+    $errs = SWUCheckFormat('twinsuns', $resolved['leader'] ?? '', $resolved['base'] ?? '', $resolved['mainDeck'] ?? [], $resolved['sideboard'] ?? []);
+    return empty($errs);
+  }
 
   function ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format = 'standard') {
     if($rootName === 'GrandArchiveSim') {
