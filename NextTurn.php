@@ -227,7 +227,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     if (session_status() === PHP_SESSION_ACTIVE) session_write_close();
     if ($authKey === "") $authKey = TryGet("authKey", "");
 
-    if(($playerID == 1 || $playerID == 2) && $authKey == "")
+    if(in_array(intval($playerID), [1, 2, 3, 4], true) && $authKey == "")
     {
       if(isset($_COOKIE["lastAuthKey"])) $authKey = $_COOKIE["lastAuthKey"];
     }

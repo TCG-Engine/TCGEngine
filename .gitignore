@@ -112,6 +112,7 @@ DevTools/rl/artifacts/
 CardEditor/Assets
 # Scratch fixture dir written by Core/Match framework tests (test_match_core / test_match_flow)
 MatchTestSim/
+MatchFlowTestSim4/
 SWUSim/concat
 SWUSim/crops
 SWUSim/Games

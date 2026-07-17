@@ -151,15 +151,26 @@ function SWUNormalizeStandardJSON($data) {
     $sideboard = [];
     $unresolved = [];
 
-    // Leader
+    // Leader (+ optional second leader — Twin Suns decks; swudb.com's getDeckJson already
+    // returns a `secondleader` field of the same shape as `leader` for these decks).
+    $leaders = [];
     $leaderId = trim((string)($data['leader']['id'] ?? ''));
     if ($leaderId !== '') {
         if (SWUIsAcceptableCardID($leaderId)) {
-            $leader = $leaderId;
+            $leaders[] = $leaderId;
         } else {
             $unresolved[] = $leaderId;
         }
     }
+    $secondLeaderId = trim((string)($data['secondleader']['id'] ?? ''));
+    if ($secondLeaderId !== '') {
+        if (SWUIsAcceptableCardID($secondLeaderId)) {
+            $leaders[] = $secondLeaderId;
+        } else {
+            $unresolved[] = $secondLeaderId;
+        }
+    }
+    $leader = count($leaders) > 1 ? $leaders : ($leaders[0] ?? '');
 
     // Base
     $baseId = trim((string)($data['base']['id'] ?? ''));
@@ -429,11 +440,13 @@ function SWUFetchDeckJson($url, $headers = []) {
 function SWUDeckSuccess($leader, $base, $mainDeck, $sideboard, $unresolved, $name = '') {
     // Alias every printing to one the sim implements so reprints (incl. cards
     // printed only in non-implemented sets) play with their real abilities.
+    // $leader is a single CardID (standard decks) or an array of 2 (Twin Suns).
+    $resolvedLeader = is_array($leader) ? array_map('SWUResolveToImplementedPrint', $leader) : SWUResolveToImplementedPrint($leader);
     return [
         'success'    => true,
         'message'    => '',
         'name'       => $name,
-        'leader'     => SWUResolveToImplementedPrint($leader),
+        'leader'     => $resolvedLeader,
         'base'       => SWUResolveToImplementedPrint($base),
         'mainDeck'   => array_map('SWUResolveToImplementedPrint', $mainDeck),
         'sideboard'  => array_map('SWUResolveToImplementedPrint', $sideboard),

@@ -69,7 +69,7 @@ function SWUFormatDefinitions() {
             'minDeck'     => 80,                                  // CR §12.2.1.a
             'maxCopies'   => 1,                                   // CR §12.2.2 (highlander)
             'leaderCount' => 2,                                   // CR §12.2.1.a / §12.3
-            'enabled'     => false,                               // multiplayer; not queueable yet
+            'enabled'     => true,                                // private-room lobby ships this session
         ],
 
         // ── PREVIEW (temporary) ──────────────────────────────────────────────
@@ -151,4 +151,12 @@ function SWUQueueTypeDefinitions() {
 function SWUGetQueueType($id) {
     $defs = SWUQueueTypeDefinitions();
     return $defs[$id] ?? null;
+}
+
+// Public matchmaking (anonymous "Join Queue") is off at launch — SWUSim only.
+// Flip to true when there's enough player volume to keep queues from sitting empty.
+// Private invites, solo modes (goldfish/hotseat), and Twin Suns rooms are UNAFFECTED —
+// they don't go through the public-queue scan this gates (see JoinQueue.php).
+function SWUPublicQueueEnabled() {
+    return false;
 }

@@ -47,5 +47,29 @@ $checks['rematch new match id']   = is_string($newId) && $newId !== '' && $newId
 $nm = MatchRead('MatchTestSim', $newId);
 $checks['rematch bestOf 1']       = ($nm['bestOf'] ?? null) === 1;
 
+// ── N-seat MatchCreateFromLobby (Twin Suns) ─────────────────────────────────
+$fourSeatResolved = [
+    1 => ['originalDeck' => [], 'authKey' => 'a1'],
+    2 => ['originalDeck' => [], 'authKey' => 'a2'],
+    3 => ['originalDeck' => [], 'authKey' => 'a3'],
+    4 => ['originalDeck' => [], 'authKey' => 'a4'],
+];
+MatchRegisterHooks('MatchFlowTestSim4', [
+    'resolveLobbyDecks' => function ($lobby) use ($fourSeatResolved) { return $fourSeatResolved; },
+    'validateDeck'      => function ($d, $f) { return true; },
+    'setupGame'         => function ($lobby, $opts) {
+        $g = 'fakeGame4p';
+        @mkdir(__DIR__ . '/../../MatchFlowTestSim4/Games/' . $g, 0777, true);
+        return $g;
+    },
+]);
+$fourSeatLobby = new stdClass();
+$fourSeatLobby->format = 'twinsuns';
+$fourSeatLobby->queueType = 'bo1';
+$fourSeatMatchId = MatchCreateFromLobby('MatchFlowTestSim4', $fourSeatLobby);
+$checks['4-seat: match created']   = $fourSeatMatchId !== null;
+$fourSeatMatch = MatchRead('MatchFlowTestSim4', $fourSeatMatchId);
+$checks['4-seat: 4 match players'] = is_array($fourSeatMatch) && count($fourSeatMatch['players']) === 4;
+
 $fail = 0; foreach ($checks as $k=>$v){ echo ($v?'PASS ':'FAIL ').$k."\n"; if(!$v)$fail++; }
 echo ($fail===0?"ALL GREEN\n":"$fail FAILED\n");

@@ -33,6 +33,31 @@ $startTime = time();
 while (true) {
   // Fetch the lobby data from the cache
   $lobby = apcu_fetch($lobbyID);
+
+  $isRoom = $lobby && is_object($lobby) && ($lobby->rootName ?? '') === 'SWUSim' && ($lobby->format ?? '') === 'twinsuns';
+  if ($isRoom) {
+    $roster = [];
+    foreach (($lobby->players ?? []) as $p) {
+      if (!($p instanceof Player)) continue;
+      $roster[] = [
+        'seat'   => $p->getPlayerID(),
+        'deckOk' => $p->getDeckOk(),
+        'isHost' => $p->getPlayerID() === 1,
+      ];
+    }
+    $response->success = true;
+    $response->isRoom = true;
+    $response->roster = $roster;
+    $response->numPlayers = intval($lobby->numPlayers ?? 0);
+    $response->maxPlayers = intval($lobby->maxPlayers ?? 4);
+    $response->state = $lobby->state ?? 'open';
+    $response->inviteCode = $lobby->inviteCode ?? '';
+    if (!empty($lobby->gameName)) { $response->started = true; $response->gameName = $lobby->gameName; }
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
+  }
+
   if ($lobby) {
     // Check if the lobby is ready
     if (isset($lobby->ready) && $lobby->ready) {

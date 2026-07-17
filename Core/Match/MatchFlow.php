@@ -53,8 +53,8 @@ function MatchSideboardPointerPath($rootName, $gameName) {
 // Both SWUSim and GA store this in the GAMEOVER_WINNER decision-queue variable.
 function MatchGetGameWinner() {
     if (!class_exists('DecisionQueueController')) return 0;
-    $w = DecisionQueueController::GetVariable('GAMEOVER_WINNER');
-    return in_array(intval($w), [1, 2], true) ? intval($w) : 0;
+    $w = intval(DecisionQueueController::GetVariable('GAMEOVER_WINNER'));
+    return ($w >= 1 && $w <= 4) ? $w : 0;
 }
 
 // Resolve the opponent of $userId in the match backing $gameName.
@@ -107,15 +107,20 @@ function MatchCreateFromLobby($rootName, $lobby) {
     $queueType = $lobby->queueType ?? 'bo1';
 
     $resolved = MatchHook($rootName, 'resolveLobbyDecks', $lobby);
-    if (!is_array($resolved) || empty($resolved[1]) || empty($resolved[2])) return null; // hook set flash
+    if (!is_array($resolved) || count($resolved) < 2) return null; // hook set flash; need at least 2 seats
+    foreach ($resolved as $seat => $wrapper) {
+        if (empty($wrapper)) return null; // every present seat must have resolved
+    }
 
-    $matchId = MatchCreate($rootName, $format, $queueType, [1 => $resolved[1], 2 => $resolved[2]]);
+    $matchId = MatchCreate($rootName, $format, $queueType, $resolved);
 
     // Spawn game 1 from the real lobby, injecting the already-resolved decks. matchId/gameNumber are
     // offered so a sim's setupGame MAY stamp them into the gamestate for its own client match-detection
     // (canonical cross-game state is still the pointer files written below).
+    $resolvedDecksOnly = [];
+    foreach ($resolved as $seat => $wrapper) { $resolvedDecksOnly[$seat] = $wrapper['originalDeck'] ?? []; }
     $gameName = MatchHook($rootName, 'setupGame', $lobby, [
-        'resolvedDecks' => [1 => $resolved[1]['originalDeck'] ?? [], 2 => $resolved[2]['originalDeck'] ?? []],
+        'resolvedDecks' => $resolvedDecksOnly,
         'matchId' => $matchId, 'gameNumber' => 1]);
     $lobby->gameName = $gameName; // some setupGame hooks set this themselves; ensure it for all
 
@@ -364,7 +369,10 @@ function MatchAfterActionHook($rootName, $gameName) {
         MatchHook($rootName, 'submitResults', $ref['matchId']);
         return;
     }
-    // Not over — begin sideboarding; both clients move to the sideboard screen.
+    // Not over — begin sideboarding; both clients move to the sideboard screen. 2-seat Bo3 only:
+    // Twin Suns (and any >2-seat match) is Bo1-only, so MatchIsOver is always true after game 1
+    // for those and this branch is unreachable in practice; the guard makes that crash-proof.
+    if (count($m['players'] ?? []) > 2) return;
     $loser = ($winner === 1) ? 2 : 1;
     MatchBeginSideboarding($rootName, $ref['matchId'], $loser);
     $ptr = MatchSideboardPointerPath($rootName, $gameName);
