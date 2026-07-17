@@ -2375,12 +2375,13 @@ function GetAccessibleIKZTokenCount($player) {
     $token = intval(GetIKZToken($player));
     if($token <= 0) return 0;
     if(intval($player) !== 2) return $token;
-    return DecisionQueueController::GetVariable('P2_StartingIKZTokenPending') === '1' ? 0 : $token;
+    return intval(DecisionQueueController::GetVariable('P2_StartingIKZTokenPending')) === 1 ? 0 : $token;
 }
 
 function GrantSecondPlayerStartingIKZTokenIfPending($player) {
     if(intval($player) !== 2) return;
-    if(DecisionQueueController::GetVariable('P2_StartingIKZTokenPending') !== '1') return;
+    // Replays and restored snapshots can deserialize this flag as either "1" or 1.
+    if(intval(DecisionQueueController::GetVariable('P2_StartingIKZTokenPending')) !== 1) return;
     $ikzToken = &GetIKZToken($player);
     if(intval($ikzToken) <= 0) {
         $ikzToken = 1;
