@@ -170,8 +170,36 @@ function RegressionNormalizeGamestateTextForRoot($rootName, $text) {
   return $text;
 }
 
+function RegressionNormalizeMatchReplayFields($text) {
+  if (!is_string($text) || $text === '' || strpos($text, 'MR1:') === false) return $text;
+
+  return preg_replace_callback(
+    '/^MR1:([A-Za-z0-9+\/=]+)(?=\r?$)/m',
+    function($matches) {
+      $payload = base64_decode($matches[1], true);
+      if ($payload === false) return $matches[0];
+
+      if (function_exists('gzdecode')) {
+        $decodedPayload = @gzdecode($payload);
+        if ($decodedPayload !== false) $payload = $decodedPayload;
+      }
+
+      $decoded = json_decode($payload, true);
+      if (json_last_error() !== JSON_ERROR_NONE) return $matches[0];
+
+      $isInitialGamestate = is_string($decoded);
+      $isCommandState = is_array($decoded)
+        && strval($decoded['format'] ?? '') === 'tcgengine-match-replay-commands-v1';
+
+      return ($isInitialGamestate || $isCommandState) ? '-' : $matches[0];
+    },
+    $text
+  );
+}
+
 function RegressionNormalizeGamestateTextForComparison($rootName, $text) {
-  return RegressionNormalizeGamestateTextForRoot($rootName, $text);
+  $text = RegressionNormalizeGamestateTextForRoot($rootName, $text);
+  return RegressionNormalizeMatchReplayFields($text);
 }
 
 function RegressionIsRecordingActive($rootName, $gameName) {
@@ -382,7 +410,10 @@ function RegressionSaveFixture($rootName, $gameName, $slug, $name = '', $notes =
   );
   file_put_contents(
     $fixtureDir . DIRECTORY_SEPARATOR . 'expected_final_gamestate.txt',
-    RegressionCurrentGamestateText($rootName, $gameName)
+    RegressionNormalizeGamestateTextForComparison(
+      $rootName,
+      RegressionCurrentGamestateText($rootName, $gameName)
+    )
   );
 
   return ['success' => true, 'message' => 'Saved regression fixture to ' . $fixtureDir . '.'];
@@ -442,7 +473,10 @@ function RegressionRerecordFixture($rootName, $gameName, $slug) {
   );
   file_put_contents(
     $fixtureDir . DIRECTORY_SEPARATOR . 'expected_final_gamestate.txt',
-    RegressionCurrentGamestateText($rootName, $gameName)
+    RegressionNormalizeGamestateTextForComparison(
+      $rootName,
+      RegressionCurrentGamestateText($rootName, $gameName)
+    )
   );
 
   return ['success' => true, 'message' => 'Re-recorded regression fixture at ' . $fixtureDir . '.'];
