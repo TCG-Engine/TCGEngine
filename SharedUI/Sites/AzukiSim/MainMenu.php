@@ -990,8 +990,8 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
           showQueueInlineError('Failed to join queue. Please try again.');
         };
 
-        var deckLink = options.createRlBot ? '' : submission.deckLink;
-        var preconstructedDeck = options.createRlBot ? 'Raizan' : submission.preconstructedDeck;
+        var deckLink = submission.deckLink;
+        var preconstructedDeck = submission.preconstructedDeck;
         var params = 'deckLink=' + encodeURIComponent(deckLink) + '&game_type=' + encodeURIComponent(submission.gameType);
         params += '&preconstructedDeck=' + encodeURIComponent(preconstructedDeck);
         params += "&rootName=" + encodeURIComponent(rootName);

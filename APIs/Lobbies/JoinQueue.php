@@ -57,8 +57,6 @@
   $format = isset($_POST['format']) ? strtolower(trim($_POST['format'])) : 'premier';
   if ($createRlBot && $rootName === 'AzukiSim') {
     $format = 'rlbot';
-    $deckLink = '';
-    $preconstructedDeck = 'Raizan';
   }
   $queueType = isset($_POST['queueType']) ? strtolower(trim($_POST['queueType'])) : 'bo1';
   // Solo/local modes are created immediately (no matchmaking). 'goldfish' = 1 deck (empty P2);
@@ -120,7 +118,6 @@
 
     $hostPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
     if ($isAzukiRlBot) {
-      $hostPlayer = new Player(1, '', 'Raizan', $joiningUserId);
       $secondPlayer = new Player(2, '', 'Raizan');
     } else if ($isHotseat) {
       // Hotseat: a real second deck; one person plays both seats.
