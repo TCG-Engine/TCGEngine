@@ -91,7 +91,7 @@ function RenderLoginPage(array $def, string $safeRedirect = ''): string {
     if ($safeRedirect !== '') $signupHref .= '?redirect=' . rawurlencode($safeRedirect);
     $signupHref = htmlspecialchars($signupHref, ENT_QUOTES, 'UTF-8');
     return <<<HTML
-<div class="core-wrapper">
+<div class="core-wrapper auth-page login-page">
 <div class="flex-padder"></div>
 
 <div class="flex-wrapper">

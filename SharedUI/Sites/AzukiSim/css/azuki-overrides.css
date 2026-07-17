@@ -362,6 +362,46 @@ a:hover {
 
     body.menu-open { overflow: hidden !important; }
 
+    .login-page {
+        display: block;
+        min-height: 0;
+        height: auto;
+        padding: 16px 12px 32px;
+        box-sizing: border-box;
+    }
+
+    .login-page .flex-padder {
+        display: none;
+    }
+
+    .login-page .flex-wrapper {
+        width: 100%;
+        overflow: visible;
+    }
+
+    .login-page .container {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 20px 16px;
+    }
+
+    .login-page .bg-blue {
+        margin-top: 12px;
+    }
+
+    .login-page .LoginForm input:not([type="checkbox"]) {
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 48px;
+        font-size: 16px;
+    }
+
+    .login-page .discord-auth-button,
+    .login-page .LoginForm button {
+        width: 100%;
+        min-height: 48px;
+    }
+
     .signup-page {
         min-height: 0;
         padding: 16px 12px 32px;
