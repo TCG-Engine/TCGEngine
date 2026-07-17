@@ -78,6 +78,18 @@ function MatchCreate($rootName, $format, $queueType, $players) {
     $winsNeeded = intval(floor($bestOf / 2)) + 1;
 
     $matchId = MatchNextId($rootName);
+    $matchPlayers = [];
+    $wins = [];
+    foreach ($players as $seat => $p) {
+        $seatKey = strval($seat);
+        $matchPlayers[$seatKey] = [
+            'originalDeck' => $p['originalDeck'] ?? [], 'authKey' => strval($p['authKey'] ?? ''),
+            'userId' => $p['userId'] ?? null, 'deckIdentity' => strval($p['deckIdentity'] ?? ''),
+            'deckLink' => strval($p['deckLink'] ?? ''),
+            'cosmetics' => $p['cosmetics'] ?? null,
+        ];
+        $wins[$seatKey] = 0;
+    }
     $match = [
         'matchId'           => $matchId,
         'rootName'          => strval($rootName),
@@ -85,18 +97,9 @@ function MatchCreate($rootName, $format, $queueType, $players) {
         'queueType'         => strval($queueType),
         'bestOf'            => $bestOf,
         'winsNeeded'        => $winsNeeded,
-        'players'           => [
-            '1' => ['originalDeck' => $players[1]['originalDeck'] ?? [], 'authKey' => strval($players[1]['authKey'] ?? ''),
-                    'userId' => $players[1]['userId'] ?? null, 'deckIdentity' => strval($players[1]['deckIdentity'] ?? ''),
-                    'deckLink' => strval($players[1]['deckLink'] ?? ''),
-                    'cosmetics' => $players[1]['cosmetics'] ?? null],
-            '2' => ['originalDeck' => $players[2]['originalDeck'] ?? [], 'authKey' => strval($players[2]['authKey'] ?? ''),
-                    'userId' => $players[2]['userId'] ?? null, 'deckIdentity' => strval($players[2]['deckIdentity'] ?? ''),
-                    'deckLink' => strval($players[2]['deckLink'] ?? ''),
-                    'cosmetics' => $players[2]['cosmetics'] ?? null],
-        ],
+        'players'           => $matchPlayers,
         'games'             => [],
-        'wins'              => ['1' => 0, '2' => 0],
+        'wins'              => $wins,
         'currentGameNumber' => 0,
         'state'             => 'in_progress',
         'winner'            => null,
@@ -109,13 +112,17 @@ function MatchCreate($rootName, $format, $queueType, $players) {
 
 function MatchIsOver(array $match) {
     $need = intval($match['winsNeeded'] ?? 1);
-    return intval($match['wins']['1'] ?? 0) >= $need || intval($match['wins']['2'] ?? 0) >= $need;
+    foreach (($match['wins'] ?? []) as $w) {
+        if (intval($w) >= $need) return true;
+    }
+    return false;
 }
 
 function MatchWinner(array $match) {
     $need = intval($match['winsNeeded'] ?? 1);
-    if (intval($match['wins']['1'] ?? 0) >= $need) return 1;
-    if (intval($match['wins']['2'] ?? 0) >= $need) return 2;
+    foreach (($match['wins'] ?? []) as $seat => $w) {
+        if (intval($w) >= $need) return intval($seat);
+    }
     return 0;
 }
 
@@ -136,7 +143,7 @@ function MatchRecordGameResult($rootName, $matchId, $gameName, $winnerSeat, $rou
             $match['games'][] = ['gameName' => strval($gameName), 'gameNumber' => count($match['games']) + 1, 'winner' => null];
             $idx = count($match['games']) - 1;
         }
-        if ($seat === 1 || $seat === 2) {
+        if (isset($match['players'][strval($seat)])) {
             $match['games'][$idx]['winner'] = $seat;
             $match['wins'][strval($seat)] = intval($match['wins'][strval($seat)] ?? 0) + 1;
             // Reached only on the null→seat transition (idempotent early-return above) → count once.

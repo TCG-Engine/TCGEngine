@@ -187,10 +187,12 @@
         if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
         if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // blocked: fall through to generic "invalid/expired/full"
         if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
+        if (($lobby->rootName === 'SWUSim') && (($lobby->format ?? '') === 'twinsuns') && !empty($lobby->gameName)) continue; // already started
 
         $lobby->numPlayers++;
-        if ($lobby->numPlayers == $lobby->maxPlayers) {
-          $lobby->ready = true;
+        $isTwinSunsRoom = ($lobby->rootName === 'SWUSim' && ($lobby->format ?? '') === 'twinsuns');
+        if (!$isTwinSunsRoom && $lobby->numPlayers == $lobby->maxPlayers) {
+          $lobby->ready = true;   // 2-seat: fill = ready (unchanged)
         }
         $playerID = $lobby->numPlayers;
         $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
@@ -219,6 +221,9 @@
         $response->playerID = $playerID;
         $response->authKey = $newPlayer->getAuthKey();
         $response->lobbyID = $lobby->id;
+        $response->maxPlayers = $lobby->maxPlayers;
+        $response->isRoom = $isTwinSunsRoom;
+        $response->inviteCode = $lobby->inviteCode;
         if (isset($lobby->gameName) && $lobby->gameName) $response->gameName = $lobby->gameName;
         header('Content-Type: application/json');
         echo json_encode($response);
@@ -238,13 +243,14 @@
     $lobbyId = uniqid();
     $lobby = new stdClass();
     $lobby->numPlayers = 1;
-    $lobby->maxPlayers = 2;
+    $lobby->maxPlayers = ($rootName === 'SWUSim' && $format === 'twinsuns') ? 4 : 2;
     $lobby->ready = false;
     $lobby->id = $lobbyId;
     $lobby->rootName = $rootName;
     $lobby->format = $format;
     $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
+    $lobby->hostUserId = $joiningUserId;
     $lobby->inviteCode = bin2hex(random_bytes(12));
     $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
     $lobby->players = array($newPlayer);
@@ -258,7 +264,19 @@
     $response->authKey = $newPlayer->getAuthKey();
     $response->lobbyID = $lobby->id;
     $response->inviteCode = $lobby->inviteCode;
+    $response->maxPlayers = $lobby->maxPlayers;
+    $response->isRoom = ($rootName === 'SWUSim' && $format === 'twinsuns');
 
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
+  }
+
+  // Public matchmaking kill-switch (SWUSim only). Every non-public path (mode formats,
+  // private-invite-by-code, createPrivate) has already exited above by this point.
+  if ($rootName === 'SWUSim' && function_exists('SWUPublicQueueEnabled') && !SWUPublicQueueEnabled()) {
+    $response->success = false;
+    $response->message = "Public matchmaking isn't open yet — use a private invite.";
     header('Content-Type: application/json');
     echo json_encode($response);
     exit;

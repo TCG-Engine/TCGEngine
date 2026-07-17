@@ -153,16 +153,20 @@ function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolve
         SetFlashMessage("Warning: some cards for Player $playerID could not be resolved: $missing$extra");
     }
 
-    // Leader → Leader zone
+    // Leader → Leader zone (one or two — Twin Suns decks resolve `leader` to an array).
     if (!empty($resolved['leader'])) {
+        $leaderIds = is_array($resolved['leader']) ? $resolved['leader'] : [$resolved['leader']];
         $leaderZone = &GetLeader($playerID);
-        $newLeader = new Leader($resolved['leader']);
-        $newLeader->Ready = true;
-        // The generated zone constructor defaults absent numeric fields to -1 (not the schema's
-        // Damage:number=0), and `new Leader($cardID)` passes only the CardID — so Damage would
-        // start at -1. Force it to 0 so the leader begins undamaged.
-        $newLeader->Damage = 0;
-        array_push($leaderZone, $newLeader);
+        foreach ($leaderIds as $leaderId) {
+            $newLeader = new Leader($leaderId);
+            $newLeader->Ready = true;
+            // The generated zone constructor defaults absent numeric fields to -1 (not the schema's
+            // Damage:number=0), and `new Leader($cardID)` passes only the CardID — so Damage would
+            // start at -1. Force it to 0 so the leader begins undamaged.
+            $newLeader->Damage = 0;
+            array_push($leaderZone, $newLeader);
+        }
+        unset($leaderZone);
     }
 
     // Base → Base zone

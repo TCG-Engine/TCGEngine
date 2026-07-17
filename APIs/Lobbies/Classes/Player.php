@@ -7,6 +7,7 @@
     private $authKey;
     private $gamePlayerID; // This is the ID used in the game, not the lobby
     private $userId; // account id of the human who created this seat (null for guests/bots)
+    private $deckOk = false; // Twin Suns room roster: whether this seat's current deck passed format legality
 
     public function __construct($playerID, $deckLink, $preconstructedDeck = '', $userId = null) {
         $this->playerID = $playerID;
@@ -44,6 +45,12 @@
         $this->gamePlayerID = $gamePlayerID;
     }
 
+    // Only called from StartRoom.php to compact lobby seats 1..N before a game exists
+    // (a mid-room leave can otherwise leave a gap) — never mid-game.
+    public function setPlayerID($playerID) {
+        $this->playerID = $playerID;
+    }
+
     // We should never be arbitrarily changing the player ID or authkey once created
     public function setDeckLink($deckLink) {
         $this->deckLink = $deckLink;
@@ -51,6 +58,14 @@
 
     public function setPreconstructedDeck($preconstructedDeck) {
         $this->preconstructedDeck = $preconstructedDeck;
+    }
+
+    public function getDeckOk() {
+        return $this->deckOk;
+    }
+
+    public function setDeckOk($deckOk) {
+        $this->deckOk = (bool)$deckOk;
     }
 
     #[\ReturnTypeWillChange]

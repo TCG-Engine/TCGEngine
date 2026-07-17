@@ -22,6 +22,8 @@ function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
   $payload = [
     'p1' => strval($authKeys['p1'] ?? ''),
     'p2' => strval($authKeys['p2'] ?? ''),
+    'p3' => strval($authKeys['p3'] ?? ''),
+    'p4' => strval($authKeys['p4'] ?? ''),
     'spectator' => strval($authKeys['spectator'] ?? ''),
     'isPrivate' => !empty($authKeys['isPrivate']),
     'updatedAt' => time(),
@@ -36,8 +38,7 @@ function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
 function SimGameBuildAuthKeysFromLobby($lobby)
 {
   $authKeys = [
-    'p1' => '',
-    'p2' => '',
+    'p1' => '', 'p2' => '', 'p3' => '', 'p4' => '',
     'spectator' => '',
     'isPrivate' => is_object($lobby) && !empty($lobby->isPrivate),
   ];
@@ -50,7 +51,7 @@ function SimGameBuildAuthKeysFromLobby($lobby)
     if (method_exists($player, 'getGamePlayerID')) $seat = intval($player->getGamePlayerID());
     if ($seat <= 0 && method_exists($player, 'getPlayerID')) $seat = intval($player->getPlayerID());
     if ($seat <= 0) $seat = intval($index) + 1;
-    if ($seat !== 1 && $seat !== 2) continue;
+    if ($seat < 1 || $seat > 4) continue;   // Twin Suns: up to 4 seats
 
     $authKeys['p' . $seat] = strval($player->getAuthKey());
   }
@@ -76,17 +77,19 @@ function SimGameReadAuthKeys($rootName, $gameName)
 {
   $path = SimGameAuthKeysPath($rootName, $gameName);
   if ($path === '' || !is_file($path)) {
-    return ['p1' => '', 'p2' => '', 'spectator' => '', 'isPrivate' => false];
+    return ['p1' => '', 'p2' => '', 'p3' => '', 'p4' => '', 'spectator' => '', 'isPrivate' => false];
   }
 
   $decoded = json_decode(file_get_contents($path), true);
   if (!is_array($decoded)) {
-    return ['p1' => '', 'p2' => '', 'spectator' => '', 'isPrivate' => false];
+    return ['p1' => '', 'p2' => '', 'p3' => '', 'p4' => '', 'spectator' => '', 'isPrivate' => false];
   }
 
   return [
     'p1' => strval($decoded['p1'] ?? ''),
     'p2' => strval($decoded['p2'] ?? ''),
+    'p3' => strval($decoded['p3'] ?? ''),
+    'p4' => strval($decoded['p4'] ?? ''),
     'spectator' => strval($decoded['spectator'] ?? ''),
     'isPrivate' => !empty($decoded['isPrivate']),
   ];
@@ -95,7 +98,7 @@ function SimGameReadAuthKeys($rootName, $gameName)
 function SimGameGetSeatAuthKey($rootName, $gameName, $playerID)
 {
   $seat = intval($playerID);
-  if ($seat !== 1 && $seat !== 2) return '';
+  if ($seat < 1 || $seat > 4) return '';
 
   $authKeys = SimGameReadAuthKeys($rootName, $gameName);
   return strval($authKeys['p' . $seat] ?? '');

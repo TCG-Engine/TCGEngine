@@ -43,5 +43,22 @@ MatchSubmitSideboardDeck('MatchTestSim', $matchId2, 2, ['B1']);
 $m2 = MatchRead('MatchTestSim', $matchId2);
 $checks['both ready']           = MatchSideboardBothReady($m2) === true;
 
+// ── N-seat MatchCreate (Twin Suns) ──────────────────────────────────────────
+$fourSeatPlayers = [
+    1 => ['originalDeck' => [], 'authKey' => 'k1', 'userId' => 101, 'deckIdentity' => 'd1', 'deckLink' => '', 'cosmetics' => null],
+    2 => ['originalDeck' => [], 'authKey' => 'k2', 'userId' => 102, 'deckIdentity' => 'd2', 'deckLink' => '', 'cosmetics' => null],
+    3 => ['originalDeck' => [], 'authKey' => 'k3', 'userId' => 103, 'deckIdentity' => 'd3', 'deckLink' => '', 'cosmetics' => null],
+    4 => ['originalDeck' => [], 'authKey' => 'k4', 'userId' => 104, 'deckIdentity' => 'd4', 'deckLink' => '', 'cosmetics' => null],
+];
+$fourSeatMatchId = MatchCreate('MatchTestSim', 'twinsuns', 'bo1', $fourSeatPlayers);
+$fourSeatMatch = MatchRead('MatchTestSim', $fourSeatMatchId);
+$checks['4-seat: 4 players']       = count($fourSeatMatch['players']) === 4;
+$checks['4-seat: seat 3 authKey']  = ($fourSeatMatch['players']['3']['authKey'] ?? null) === 'k3';
+$checks['4-seat: seat 4 wins 0']   = ($fourSeatMatch['wins']['4'] ?? null) === 0;
+$checks['4-seat: not over fresh']  = MatchIsOver($fourSeatMatch) === false;
+$fourSeatMatch['wins']['3'] = $fourSeatMatch['winsNeeded'];
+$checks['4-seat: seat 3 clinches'] = MatchIsOver($fourSeatMatch) === true;
+$checks['4-seat: winner seat 3']   = MatchWinner($fourSeatMatch) === 3;
+
 $fail = 0; foreach ($checks as $k=>$v){ echo ($v?'PASS ':'FAIL ').$k."\n"; if(!$v)$fail++; }
 echo ($fail===0?"ALL GREEN\n":"$fail FAILED\n");

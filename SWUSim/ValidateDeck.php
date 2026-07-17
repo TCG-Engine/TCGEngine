@@ -29,7 +29,12 @@ $sideboard  = $result['sideboard'];  // expanded: one entry per copy
 $deckCount  = count($mainDeck);
 $unresolved = $result['unresolved'];
 
-$leaderName = $leaderID ? (CardTitle($leaderID) ?: $leaderID) : '';
+// $leaderID is a single CardID (standard decks) or an array of 2 (Twin Suns).
+if (is_array($leaderID)) {
+    $leaderName = implode(' / ', array_map(fn($id) => CardTitle($id) ?: $id, $leaderID));
+} else {
+    $leaderName = $leaderID ? (CardTitle($leaderID) ?: $leaderID) : '';
+}
 $baseName   = $baseID   ? (CardTitle($baseID)   ?: $baseID)   : '';
 
 // ── Premier format validation ─────────────────────────────────────────────────

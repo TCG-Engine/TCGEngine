@@ -119,7 +119,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         </div>
       </div>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <button onclick="joinQueue()">Join Queue</button>
+        <button onclick="joinQueue()" disabled title="Public matchmaking isn't open yet — use Create Private Game." style="opacity: 0.5; cursor: not-allowed;">Join Queue</button>
         <button onclick="saveCurrentDeck()" style="background-color: #6b4f9f;" title="Save this deck link to your library">Save Deck</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
@@ -637,13 +637,18 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         if (!fmt) return;
         function applyFormatUI(){
           var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat');
+          var isTwinSuns = (fmt.value === 'twinsuns');
           var g = document.getElementById('swu-deck2-group');
           if (g) g.style.display = (fmt.value === 'hotseat') ? '' : 'none';
           var qt = document.getElementById('swu-queuetype-select');
           if (qt) {
-            if (isMode) { qt.value = 'bo1'; qt.disabled = true; }
+            if (isMode || isTwinSuns) { qt.value = 'bo1'; qt.disabled = true; }
             else { qt.disabled = false; }
           }
+          var joinBtn = document.querySelector('button[onclick="joinQueue()"]');
+          var createBtn = document.querySelector('button[onclick="createPrivateGame()"]');
+          if (joinBtn) joinBtn.style.display = isTwinSuns ? 'none' : '';
+          if (createBtn) createBtn.textContent = isTwinSuns ? 'Create Twin Suns Room' : 'Create Private Game';
         }
         fmt.addEventListener('change', applyFormatUI);
         applyFormatUI();
@@ -740,7 +745,11 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
               return;
             }
             clearQueueInlineError();
-            if(response.ready) {
+            if (response.isRoom) {
+              _lobby_id = response.lobbyID;
+              DisplayRoomScreen(response.playerID, response.authKey, response.lobbyID, response.inviteCode || '');
+              pollRoom(response.playerID, response.authKey, response.lobbyID);
+            } else if(response.ready) {
               DisplayMatchFoundPopup(response.playerID, response.gameName, response.authKey);
             } else {
               _lobby_id = response.lobbyID;
@@ -943,11 +952,156 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         document.addEventListener('keydown', _waitingEscHandler);
       }
 
+      // ── Twin Suns private room ─────────────────────────────────────────────
+      var _roomPollTimer = null;
+      var _roomEscHandler = null;
+
+      function DisplayRoomScreen(playerID, authKey, lobbyID, inviteCode) {
+        var existing = document.getElementById('room-screen');
+        if (existing) existing.remove();
+        if (_roomEscHandler) { document.removeEventListener('keydown', _roomEscHandler); _roomEscHandler = null; }
+
+        var overlay = document.createElement('div');
+        overlay.id = 'room-screen';
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:1000;padding:24px;box-sizing:border-box;';
+
+        var card = document.createElement('div');
+        card.id = 'room-screen-card';
+        card.style.cssText = 'width:min(560px,100%);background:rgba(15,25,40,0.95);border:1px solid rgba(201,168,76,0.3);border-radius:14px;padding:24px;color:#f2ead7;';
+        card.innerHTML =
+          '<h2 style="margin:0 0 12px 0;">Twin Suns Room</h2>' +
+          (inviteCode ? ('<div style="margin-bottom:16px;">Share code: <strong id="room-invite-code">' + inviteCode + '</strong> ' +
+            '<button id="room-copy-btn" style="margin-left:8px;">Copy Invite Link</button></div>') : '') +
+          '<div id="room-roster" style="margin-bottom:16px;"></div>' +
+          '<div id="room-deck-swap" style="margin-bottom:16px;">' +
+            '<input id="room-deck-input" type="text" placeholder="Paste a Twin Suns deck link" style="width:70%;">' +
+            '<button id="room-deck-submit">Change Deck</button>' +
+            '<div id="room-deck-msg" style="font-size:12px;margin-top:6px;"></div>' +
+          '</div>' +
+          '<div>' +
+            '<button id="room-start-btn" style="background-color:#2d8a57;" disabled>Start</button>' +
+            ' <button id="room-leave-btn">Leave</button>' +
+          '</div>' +
+          '<div id="room-hint" style="margin-top:10px;font-size:13px;color:#aab6c4;"></div>';
+
+        overlay.appendChild(card);
+        document.body.appendChild(overlay);
+
+        if (inviteCode) {
+          document.getElementById('room-copy-btn').onclick = function () {
+            copyTextToClipboard(buildPrivateInviteLink(inviteCode)).then(function () {
+              var btn = document.getElementById('room-copy-btn');
+              if (btn) { btn.textContent = 'Copied!'; setTimeout(function () { if (btn) btn.textContent = 'Copy Invite Link'; }, 1200); }
+            }).catch(function () { StyledAlert('Unable to copy automatically. Please copy the invite link manually.'); });
+          };
+        }
+
+        document.getElementById('room-deck-submit').onclick = function () {
+          var link = document.getElementById('room-deck-input').value.trim();
+          if (!link) return;
+          var x = new XMLHttpRequest();
+          x.open('POST', swusimAppBase() + 'APIs/Lobbies/UpdateLobbyDeck.php', true);
+          x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          x.onload = function () {
+            var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
+            var msg = document.getElementById('room-deck-msg');
+            if (!msg) return;
+            if (r.deckOk) { msg.style.color = '#9ed9b4'; msg.textContent = 'Deck accepted.'; }
+            else { msg.style.color = '#ff6b6b'; msg.textContent = r.message || 'Deck rejected.'; }
+          };
+          x.send('lobbyID=' + encodeURIComponent(lobbyID) + '&playerID=' + encodeURIComponent(playerID) +
+                 '&authKey=' + encodeURIComponent(authKey) + '&deckLink=' + encodeURIComponent(link));
+        };
+
+        document.getElementById('room-start-btn').onclick = function () {
+          var x = new XMLHttpRequest();
+          x.open('POST', swusimAppBase() + 'APIs/Lobbies/StartRoom.php', true);
+          x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          x.onload = function () {
+            var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
+            if (!r.success) { StyledAlert(r.message || 'Could not start the room.'); return; }
+            // pollRoom's next tick will see `started` and redirect.
+          };
+          x.send('lobbyID=' + encodeURIComponent(lobbyID) + '&playerID=' + encodeURIComponent(playerID) + '&authKey=' + encodeURIComponent(authKey));
+        };
+
+        document.getElementById('room-leave-btn').onclick = function () {
+          if (_roomPollTimer) { clearTimeout(_roomPollTimer); _roomPollTimer = null; }
+          overlay.remove();
+          var x = new XMLHttpRequest();
+          x.open('POST', swusimAppBase() + 'APIs/Lobbies/LeaveQueue.php', true);
+          x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          x.send('rootName=' + encodeURIComponent(rootName) + '&playerID=' + encodeURIComponent(playerID) +
+                 '&lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(authKey));
+        };
+
+        _roomEscHandler = function (event) {
+          if (event.key === 'Escape') document.getElementById('room-leave-btn').click();
+        };
+        document.addEventListener('keydown', _roomEscHandler);
+
+        renderRoomRoster(playerID, { roster: [], numPlayers: 0, maxPlayers: 4 });
+      }
+
+      function renderRoomRoster(myPlayerID, data) {
+        var el = document.getElementById('room-roster');
+        if (!el) return;
+        var rows = [];
+        var roster = data.roster || [];
+        for (var i = 1; i <= (data.maxPlayers || 4); i++) {
+          var seatEntry = null;
+          for (var j = 0; j < roster.length; j++) { if (roster[j].seat === i) { seatEntry = roster[j]; break; } }
+          if (seatEntry) {
+            rows.push('<div>P' + i + (seatEntry.isHost ? ' (host)' : '') + (seatEntry.seat === myPlayerID ? ' (you)' : '') +
+              ' — ' + (seatEntry.deckOk ? 'deck ✓' : 'deck missing/invalid') + '</div>');
+          } else {
+            rows.push('<div style="color:#aab6c4;">P' + i + ' — waiting…</div>');
+          }
+        }
+        el.innerHTML = rows.join('');
+
+        var isHost = false;
+        for (var k = 0; k < roster.length; k++) { if (roster[k].seat === myPlayerID && roster[k].isHost) isHost = true; }
+        var startBtn = document.getElementById('room-start-btn');
+        var hint = document.getElementById('room-hint');
+        if (startBtn) {
+          startBtn.style.display = isHost ? '' : 'none';
+          var allOk = roster.length >= 3 && roster.every(function (r) { return r.deckOk; });
+          startBtn.disabled = !allOk;
+        }
+        if (hint) hint.textContent = isHost
+          ? (roster.length < 3 ? 'Need 3+ players, all with a valid deck.' : (roster.every(function (r) { return r.deckOk; }) ? '' : 'All present players need a valid deck.'))
+          : 'Waiting for host to start.';
+      }
+
+      function pollRoom(playerID, authKey, lobbyID) {
+        var x = new XMLHttpRequest();
+        x.open('POST', swusimAppBase() + 'APIs/Lobbies/PollLobbyUpdates.php', true);
+        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        x.onload = function () {
+          var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
+          if (r.started && r.gameName) {
+            var overlay = document.getElementById('room-screen');
+            if (overlay) overlay.remove();
+            if (_roomEscHandler) { document.removeEventListener('keydown', _roomEscHandler); _roomEscHandler = null; }
+            DisplayMatchFoundPopup(playerID, r.gameName, authKey);
+            return;
+          }
+          if (r.success && r.isRoom) renderRoomRoster(playerID, r);
+          _roomPollTimer = setTimeout(function () { pollRoom(playerID, authKey, lobbyID); }, 1500);
+        };
+        x.onerror = function () {
+          _roomPollTimer = setTimeout(function () { pollRoom(playerID, authKey, lobbyID); }, 1500);
+        };
+        x.send('lobbyID=' + encodeURIComponent(lobbyID) + '&rootName=' + encodeURIComponent(rootName) +
+               '&playerID=' + encodeURIComponent(playerID) + '&authKey=' + encodeURIComponent(authKey));
+      }
+
       function DisplayMatchFoundPopup(playerID, gameName, authKey) {
         // Persist the seat authKey so NextTurn.php / ProcessInput.php can authenticate
         // this browser as the player. NextTurn.php emits HTML before session_start(),
         // so the PHP session can't carry the key — the URL param + lastAuthKey cookie do.
-        if (authKey && (String(playerID) === '1' || String(playerID) === '2')) {
+        if (authKey && ['1','2','3','4'].indexOf(String(playerID)) >= 0) {
           try {
             document.cookie = 'lastAuthKey=' + encodeURIComponent(authKey) + '; max-age=' + (30 * 24 * 60 * 60) + '; path=/; SameSite=Lax';
           } catch (e) {}

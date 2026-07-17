@@ -63,6 +63,9 @@ function SWUArePlayersBlocked($u1, $u2) {
 // Record per-game deck stats for both seats (recordDeckStats hook). Idempotency is the caller's job.
 // Extracted verbatim from the old SWUSim/MatchFlow.php.
 function SWURecordDeckStatsForGame(array &$match, $winnerSeat) {
+    // Twin Suns (v1): N-player deck W/L attribution isn't modeled yet (the pairwise
+    // opponent-matchup logic below assumes exactly 2 seats) — skip stats for >2 seats.
+    if (count($match['players'] ?? []) > 2) return;
     $winnerSeat = intval($winnerSeat);
     if ($winnerSeat !== 1 && $winnerSeat !== 2) return;
     require_once __DIR__ . '/../Database/ConnectionManager.php';
