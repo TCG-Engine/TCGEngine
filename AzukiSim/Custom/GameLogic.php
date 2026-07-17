@@ -1999,11 +1999,7 @@ function AttachWeaponCardIDToTarget($targetObj, $weaponCardID) {
 
 function TriggerWhenEquippedAbilities(&$targetObj) {
     if(!is_object($targetObj) || (isset($targetObj->removed) && $targetObj->removed)) return;
-
-    $targetCardID = $targetObj->CardID ?? '';
-    if($targetCardID === 'S1-AZK01-039_Piko_E_C_die') {
-        AddUniqueTurnEffect($targetObj, 'CHARGE');
-    }
+    // Continuous "while equipped" abilities are evaluated from the live Subcards state.
 }
 
 function ResolveWeaponPlayFromHand($player, $mzCard, $targetMZ) {
@@ -2323,6 +2319,20 @@ function CardHasKeyword($cardID, $keyword) {
         if(is_string($ability) && strcasecmp($ability, $keyword) === 0) return true;
     }
     return false;
+}
+
+function EntityHasCharge($obj) {
+    if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return false;
+    if(HasTurnEffect($obj, 'CHARGE')) return true;
+
+    $cardID = $obj->CardID ?? '';
+    // Piko's rules text mentions Charge conditionally, so the generated keyword list
+    // alone is not sufficient to determine whether this object currently has it.
+    if($cardID === 'S1-AZK01-039_Piko_E_C_die') {
+        return HasEquippedWeapon($obj);
+    }
+
+    return CardHasKeyword($cardID, 'Charge');
 }
 
 function CountActiveEntities($zone, $ignoreLeaders = true) {
@@ -2896,9 +2906,7 @@ function CanAttackWith($player, $mzID) {
     if(HasTurnEffect($entity, 'FROZEN')) return false;
     if(HasTurnEffect($entity, 'ROOTED')) return false;
     if(HasCooldown($entity)) {
-        $hasCharge = CardHasKeyword($entity->CardID ?? '', 'Charge')
-            || (isset($entity->TurnEffects) && is_array($entity->TurnEffects) && in_array('CHARGE', $entity->TurnEffects, true));
-        if(!$hasCharge) return false;
+        if(!EntityHasCharge($entity)) return false;
     }
 
     return true;
@@ -3270,17 +3278,14 @@ function CardDisplayEffects($obj) {
 function ChargeKeywordIndicator($obj) {
     if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return 0;
     if(CardType($obj->CardID ?? '') !== 'ENTITY') return 0;
-    if(CardHasKeyword($obj->CardID ?? '', 'Charge')) return 1;
-    if(HasTurnEffect($obj, 'CHARGE')) return 1;
-    return 0;
+    return EntityHasCharge($obj) ? 1 : 0;
 }
 
 function AttackUnavailableIndicator($obj) {
     if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return 0;
     if(CardType($obj->CardID ?? '') !== 'ENTITY') return 0;
     if(!HasCooldown($obj)) return 0;
-    if(CardHasKeyword($obj->CardID ?? '', 'Charge')) return 0;
-    if(HasTurnEffect($obj, 'CHARGE')) return 0;
+    if(EntityHasCharge($obj)) return 0;
     return 1;
 }
 
