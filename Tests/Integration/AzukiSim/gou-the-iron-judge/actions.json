@@ -1,0 +1,36 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-8!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGarden",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "Sacrifice_an_entity",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGarden-3",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-STT01-005_Alpine-Prowler_E_C_die"
+    }
+]
