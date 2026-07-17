@@ -1977,7 +1977,6 @@ function BridgeRunRootSelfplayStartup($root) {
     QueueOpeningMulligans();
 
     GainIKZ(1, 1);
-    GainIKZ(2, 1);
     DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '1');
 
     AdvanceAndExecute("PASS");
