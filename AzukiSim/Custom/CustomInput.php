@@ -10,6 +10,12 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
     $index = isset($cardArr[1]) ? $cardArr[1] : "";
 
     switch ($zone) {
+        case "Tutorial":
+            if(strcasecmp($action, "Continue") === 0 && function_exists('AzukiTutorialContinue')) {
+                AzukiTutorialContinue($playerID);
+            }
+            break;
+
         case "myLeaderHealth":
         case "myIKZToken":
         case "myLeaderHealthSlot":

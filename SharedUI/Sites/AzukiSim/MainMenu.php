@@ -98,6 +98,7 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="window.location.href='/TCGEngine/AzukiDeck/'" style="background-color: #1769aa;">Build a Deck</button>
         <button onclick="joinQueue()">Join Queue</button>
+        <button onclick="createTutorialGame()" style="background-color: #c18b2f;">Learn to Play</button>
         <button onclick="createRlBotGame()" style="background-color: #7b5fc9;">Play RL Bot</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button id="rejoin-last-game-btn" onclick="rejoinLastGame()" style="display: none; background-color: #5b4aa3;">Rejoin Last Game</button>
@@ -928,6 +929,13 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
         });
       }
 
+      function createTutorialGame() {
+        submitQueueJoin({
+          createTutorial: true,
+          waitingMessage: 'Preparing tutorial...'
+        });
+      }
+
       function joinPrivateInvite() {
         if (!_privateInviteCode) {
           showQueueInlineError('No private invite code found in this link.');
@@ -1000,6 +1008,9 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
         }
         if (options.createRlBot) {
           params += '&createRlBot=1&format=rlbot';
+        }
+        if (options.createTutorial) {
+          params += '&createTutorial=1&format=tutorial';
         }
         if (options.privateInviteCode) {
           params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);

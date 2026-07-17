@@ -21,3 +21,12 @@ if (!function_exists('AzukiSimIsMobileRequest')) {
     return (bool) preg_match('/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|webOS|Opera Mini|IEMobile/i', $ua);
   }
 }
+
+// Tutorial presentation is game-specific and shared by both Azuki layouts. Keeping the include
+// here avoids touching generated InitialLayout.php and ensures the mobile early-return still loads it.
+if(function_exists('AzukiTutorialIsActive') && AzukiTutorialIsActive()) {
+  $tutorialCssVersion = filemtime(dirname(__DIR__) . '/Tutorial/tutorial.css');
+  $tutorialJsVersion = filemtime(dirname(__DIR__) . '/Tutorial/tutorial-client.js');
+  echo '<link rel="stylesheet" href="./AzukiSim/Tutorial/tutorial.css?v=' . intval($tutorialCssVersion) . '">';
+  echo '<script defer src="./AzukiSim/Tutorial/tutorial-client.js?v=' . intval($tutorialJsVersion) . '"></script>';
+}

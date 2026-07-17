@@ -52,11 +52,14 @@
   $createPrivate = isset($_POST['createPrivate']) && ($_POST['createPrivate'] === '1' || strtolower($_POST['createPrivate']) === 'true');
   $createGoldfish = isset($_POST['createGoldfish']) && ($_POST['createGoldfish'] === '1' || strtolower($_POST['createGoldfish']) === 'true');
   $createRlBot = isset($_POST['createRlBot']) && ($_POST['createRlBot'] === '1' || strtolower($_POST['createRlBot']) === 'true');
+  $createTutorial = isset($_POST['createTutorial']) && ($_POST['createTutorial'] === '1' || strtolower($_POST['createTutorial']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';
 
   $format = isset($_POST['format']) ? strtolower(trim($_POST['format'])) : 'premier';
   if ($createRlBot && $rootName === 'AzukiSim') {
     $format = 'rlbot';
+  } else if ($createTutorial && $rootName === 'AzukiSim') {
+    $format = 'tutorial';
   }
   $queueType = isset($_POST['queueType']) ? strtolower(trim($_POST['queueType'])) : 'bo1';
   // Solo/local modes are created immediately (no matchmaking). 'goldfish' = 1 deck (empty P2);
@@ -64,7 +67,7 @@
   $isModeFormat =
       ($rootName === 'SWUSim'         && ($format === 'goldfish' || $format === 'hotseat')) ||
       ($rootName === 'GrandArchiveSim' && ($format === 'goldfish' || $format === 'hotseat')) ||
-      ($rootName === 'AzukiSim'        && $format === 'rlbot');
+      ($rootName === 'AzukiSim'        && ($format === 'rlbot' || $format === 'tutorial'));
   // Guard: for SWUSim, fall back to safe defaults on unknown/garbage. (Other roots ignore these.)
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
@@ -86,8 +89,11 @@
     if (!function_exists('GAGetQueueType') || GAGetQueueType($queueType) === null) $queueType = 'bo1';
   }
 
-  // Require either deckLink or preconstructedDeck
-  if(empty($deckLink) && empty($preconstructedDeck)) {
+  // Authored tutorial games supply their own deterministic decks below.
+  $isAzukiTutorialRequest = ($rootName === 'AzukiSim' && $format === 'tutorial');
+
+  // Require either deckLink or preconstructedDeck for player-authored games.
+  if(!$isAzukiTutorialRequest && empty($deckLink) && empty($preconstructedDeck)) {
     $response->success = false;
     $response->message = "Either deck link or preconstructed deck is required.";
     header('Content-Type: application/json');
@@ -95,7 +101,9 @@
     exit;
   }
 
-  $deckValidation = ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format, $joiningUserId);
+  $deckValidation = $isAzukiTutorialRequest
+    ? ['success' => true, 'message' => '']
+    : ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format, $joiningUserId);
   if(!$deckValidation['success']) {
     $response->success = false;
     $response->message = $deckValidation['message'];
@@ -107,17 +115,22 @@
   $response->success = false;
   $response->message = "Failed to join queue.";
 
-  if ($createGoldfish || $createRlBot || $isModeFormat) {
+  if ($createGoldfish || $createRlBot || $createTutorial || $isModeFormat) {
     // Normalize: the legacy createGoldfish param maps to the goldfish mode format.
     if ($createGoldfish && !$isModeFormat) $format = 'goldfish';
     if ($createRlBot && $rootName === 'AzukiSim') $format = 'rlbot';
+    if ($createTutorial && $rootName === 'AzukiSim') $format = 'tutorial';
     $isHotseat = ($format === 'hotseat');
     $isAzukiRlBot = ($rootName === 'AzukiSim' && $format === 'rlbot');
+    $isAzukiTutorial = ($rootName === 'AzukiSim' && $format === 'tutorial');
     // Goldfish/Hotseat are Bo1-only for now (leave Bo3 open for later): force Bo1 regardless of input.
     $queueType = 'bo1';
 
-    $hostPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
-    if ($isAzukiRlBot) {
+    // Tutorials always use the authored starter scenario, independent of the queue form's deck choice.
+    $hostPlayer = $isAzukiTutorial
+      ? new Player(1, '', 'Raizan', $joiningUserId)
+      : new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
+    if ($isAzukiRlBot || $isAzukiTutorial) {
       $secondPlayer = new Player(2, '', 'Raizan');
     } else if ($isHotseat) {
       // Hotseat: a real second deck; one person plays both seats.
@@ -131,7 +144,7 @@
     $lobby->numPlayers = 2;
     $lobby->maxPlayers = 2;
     $lobby->ready = true;
-    $lobby->id = uniqid($isAzukiRlBot ? 'rlbot_' : ($isHotseat ? 'hotseat_' : 'goldfish_'), true);
+    $lobby->id = uniqid($isAzukiTutorial ? 'tutorial_' : ($isAzukiRlBot ? 'rlbot_' : ($isHotseat ? 'hotseat_' : 'goldfish_')), true);
     $lobby->rootName = $rootName;
     $lobby->format = $format;
     $lobby->queueType = $queueType;

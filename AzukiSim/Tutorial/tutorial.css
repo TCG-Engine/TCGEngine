@@ -1,0 +1,99 @@
+.azuki-tutorial-cutout {
+  position: fixed;
+  z-index: 45000;
+  border: 3px solid #f4c95d;
+  border-radius: 14px;
+  box-shadow: 0 0 0 9999px rgba(7, 10, 25, .78), 0 0 24px rgba(244, 201, 93, .95);
+  pointer-events: none;
+  transition: left .18s ease, top .18s ease, width .18s ease, height .18s ease;
+}
+
+.azuki-tutorial-panel {
+  position: fixed;
+  z-index: 45002;
+  width: min(390px, calc(100vw - 28px));
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(244, 201, 93, .72);
+  border-radius: 16px;
+  color: #f7f2e8;
+  background: linear-gradient(145deg, rgba(26, 31, 58, .98), rgba(16, 55, 63, .98));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .55);
+  font-family: "Segoe UI Variable Display", "Aptos", sans-serif;
+}
+
+.azuki-tutorial-panel.is-centered {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.azuki-tutorial-kicker {
+  margin-bottom: 8px;
+  color: #f4c95d;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.azuki-tutorial-panel h2 {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: 24px;
+  line-height: 1.12;
+}
+
+.azuki-tutorial-panel p {
+  margin: 0;
+  color: rgba(247, 242, 232, .88);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.azuki-tutorial-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.azuki-tutorial-button {
+  appearance: none;
+  border: 1px solid rgba(244, 201, 93, .7);
+  border-radius: 9px;
+  padding: 10px 16px;
+  color: #171b30;
+  background: #f4c95d;
+  font: 800 14px/1 sans-serif;
+  cursor: pointer;
+}
+
+.azuki-tutorial-progress {
+  display: flex;
+  gap: 5px;
+  margin-top: 16px;
+}
+
+.azuki-tutorial-progress span {
+  height: 4px;
+  flex: 1;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .16);
+}
+
+.azuki-tutorial-progress span.is-done { background: #f4c95d; }
+
+@media (max-width: 700px) {
+  .azuki-tutorial-panel {
+    left: 12px !important;
+    right: 12px;
+    bottom: 12px;
+    top: auto !important;
+    width: auto;
+    transform: none !important;
+    padding: 16px;
+  }
+  .azuki-tutorial-panel h2 { font-size: 20px; }
+  .azuki-tutorial-panel p { font-size: 14px; }
+}

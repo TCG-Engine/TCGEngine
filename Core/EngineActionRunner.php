@@ -236,6 +236,21 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     'recordAction' => !($options['disableRecording'] ?? false),
   ];
 
+  // Optional, game-owned validation seam for isolated modes such as scripted tutorials.
+  // Normal games do not define the hook and retain the existing action path unchanged.
+  if (function_exists('GameValidateEngineAction')) {
+    $validation = GameValidateEngineAction($action);
+    if (is_array($validation) && array_key_exists('allowed', $validation) && !$validation['allowed']) {
+      return [
+        'success' => false,
+        'message' => strval($validation['message'] ?? 'That action is not available right now.'),
+        'writeGamestate' => true,
+        'updateCache' => $options['updateCache'] ?? true,
+        'recordAction' => false,
+      ];
+    }
+  }
+
   $matchReplayControlModes = [11101, 11102, 11103, 11104];
   // "Play from Here" (11104) branches a playback session into free play: the guard is lifted so normal
   // actions run, and those actions are NOT recorded into the replay (so Reset still replays the original).
@@ -779,6 +794,10 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
 
   if (!$result['success'] || !$result['writeGamestate'] || !$result['recordAction']) {
     MatchReplayCancelPotentialAction($matchReplayPendingAction);
+  }
+
+  if ($result['success'] && $result['writeGamestate'] && function_exists('GameAfterEngineAction')) {
+    GameAfterEngineAction($action, $result);
   }
 
   if ($result['success'] && $result['writeGamestate'] && function_exists('ProcessGoldfishAutomation')) {

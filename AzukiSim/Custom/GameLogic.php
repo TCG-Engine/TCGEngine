@@ -10,6 +10,8 @@ $untilBeginOpponentTurnEffects = [];
 $untilBeginOpponentTurnEffects['FROZEN'] = true;
 $untilBeginOpponentTurnEffects['ROOTED'] = true;
 
+require_once dirname(__DIR__) . '/Tutorial/TutorialRuntime.php';
+
 function NormalizeAzukiRlBotPlayers($players) {
     $normalized = [];
     if(!is_array($players)) return $normalized;
@@ -37,7 +39,7 @@ function IsAzukiRlBotPlayer($player) {
 
 function AzukiGameMode(): string {
     $mode = DecisionQueueController::GetVariable('GameMode');
-    return $mode === 'rlbot' ? 'rlbot' : '';
+    return in_array($mode, ['rlbot', 'tutorial'], true) ? $mode : '';
 }
 
 function AzukiGameOverWinner() {
@@ -575,16 +577,21 @@ function GameBotControllerMode() {
 }
 
 function GetBotControllerPlayers() {
+    if(AzukiGameMode() === 'tutorial') return [];
     return GetAzukiRlBotPlayers();
 }
 
 function BotControllerPendingPlayerForClient() {
+    if(AzukiGameMode() === 'tutorial') return AzukiTutorialPendingPlayerForClient();
     return AzukiRlBotPendingPlayerForClient();
 }
 
 function ProcessBotControllerStep($requestingPlayer = 0, $folderPath = '', $gameNameOverride = '') {
     if($folderPath !== '' && $folderPath !== 'AzukiSim') {
         return ['success' => false, 'message' => 'Bot controller does not handle this game.', 'applied' => false];
+    }
+    if(AzukiGameMode() === 'tutorial') {
+        return ['success' => true, 'message' => '', 'applied' => false, 'retryable' => false];
     }
     return ProcessAzukiRlBotStep();
 }

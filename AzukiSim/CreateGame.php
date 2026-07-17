@@ -25,13 +25,16 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");
 
-    if (isset($lobby->format) && strtolower(strval($lobby->format)) === 'rlbot') {
+    $azukiCreateMode = isset($lobby->format) ? strtolower(strval($lobby->format)) : '';
+    if ($azukiCreateMode === 'rlbot') {
         DecisionQueueController::StoreVariable('GameMode', 'rlbot');
         if (function_exists('SetAzukiRlBotPlayers')) {
             SetAzukiRlBotPlayers(isset($lobby->azukiRlBotPlayers) && is_array($lobby->azukiRlBotPlayers) ? $lobby->azukiRlBotPlayers : [2]);
         } else {
             DecisionQueueController::StoreVariable('AzukiRlBotPlayers', [2]);
         }
+    } else if ($azukiCreateMode === 'tutorial') {
+        DecisionQueueController::StoreVariable('GameMode', 'tutorial');
     }
 
     $playerCounter = 1;
@@ -53,23 +56,27 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     $currentPhase = 'SOT';
     SetPhaseParameters("-");
 
-    // Draw 7 cards for each player at game start
-    for ($p = 1; $p <= 2; ++$p) {
-        DrawOpeningHand($p);
+    if ($azukiCreateMode === 'tutorial') {
+        AzukiTutorialSetupGame();
+    } else {
+        // Draw 7 cards for each player at game start
+        for ($p = 1; $p <= 2; ++$p) {
+            DrawOpeningHand($p);
+        }
+        QueueOpeningMulligans();
+
+        // Set up starting resources
+        // Player 1 gets 1 IKZ; player 2 gains theirs on their first turn.
+        GainIKZ(1, 1);
+
+        // Player 2 gains their first IKZ during their first start-of-turn step.
+        // Their one-use token also remains unavailable until that turn begins.
+        DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '1');
+
+        // Advance to Main phase after both opening mulligan decisions resolve.
+        AdvanceAndExecute("PASS");
+        AutoAdvanceAndExecute();
     }
-    QueueOpeningMulligans();
-
-    // Set up starting resources
-    // Player 1 gets 1 IKZ; player 2 gains theirs on their first turn.
-    GainIKZ(1, 1);
-
-    // Player 2 gains their first IKZ during their first start-of-turn step.
-    // Their one-use token also remains unavailable until that turn begins.
-    DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '1');
-
-    // Advance to Main phase after both opening mulligan decisions resolve.
-    AdvanceAndExecute("PASS");
-    AutoAdvanceAndExecute();
 
     WriteGamestate(__DIR__ . "/");
 
