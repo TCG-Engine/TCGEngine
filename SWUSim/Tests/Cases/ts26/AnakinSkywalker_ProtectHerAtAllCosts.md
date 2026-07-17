@@ -1,9 +1,9 @@
 # DeployedOnAttackShieldEntered
-#// TS26_002 Anakin Skywalker (leader deployed, 4/5) — Sentinel + On Attack: give a Shield token to another
+#// TS26_02 Anakin Skywalker (leader deployed, 4/5) — Sentinel + On Attack: give a Shield token to another
 #// friendly unit that entered play this phase. After playing SEC_080 this phase, deployed Anakin attacks
 #// LAW_124 and shields the entered SEC_080.
 ## GIVEN
-CommonSetup: bbw/rrk/{myLeader:TS26_002:1:1;myResources:14}
+CommonSetup: bbw/rrk/{myLeader:TS26_02:1:1;myResources:14}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SEC_080
@@ -18,10 +18,10 @@ P1GROUNDARENAUNIT:1:SHIELDCOUNT:1
 ---
 
 # FrontShieldEnteredUnit
-#// TS26_002 Anakin Skywalker (leader front) — Action [Exhaust]: if 2+ friendly units entered play this
+#// TS26_02 Anakin Skywalker (leader front) — Action [Exhaust]: if 2+ friendly units entered play this
 #// phase, give a Shield token to 1 of them. After playing 2 units this phase, shield SEC_080.
 ## GIVEN
-CommonSetup: bbw/rrk/{myLeader:TS26_002;myResources:14}
+CommonSetup: bbw/rrk/{myLeader:TS26_02;myResources:14}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: [SEC_080 SOR_095]

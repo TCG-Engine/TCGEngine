@@ -1,8 +1,8 @@
 # ReadyThenDeal3
-#// TS26_072 Fervor (Event, cost 5) — Ready a unit. Deal 3 damage to a unit.
+#// TS26_72 Fervor (Event, cost 5) — Ready a unit. Deal 3 damage to a unit.
 #// Ready the friendly exhausted SEC_080, then deal 3 to the enemy LAW_124 (4/7, survives at 3 damage).
 ## GIVEN
-CommonSetup: rrk/rrk/{myResources:5;handCardIds:TS26_072}
+CommonSetup: rrk/rrk/{myResources:5;handCardIds:TS26_72}
 WithP1GroundArena: SEC_080:0:0
 WithP2GroundArena: LAW_124:1:0
 P1OnlyActions: true

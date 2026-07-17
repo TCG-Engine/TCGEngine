@@ -1,8 +1,8 @@
 # EachEnemyGroundMinus2
-#// TS26_048 Vanquish the Legion (Event, cost 4, Vigilance) — Give each enemy GROUND unit -2/-2 for this
+#// TS26_48 Vanquish the Legion (Event, cost 4, Vigilance) — Give each enemy GROUND unit -2/-2 for this
 #// phase. The two enemy ground units drop to 1/1; the enemy SPACE unit is untouched.
 ## GIVEN
-CommonSetup: bbw/rrk/{myResources:4;handCardIds:TS26_048}
+CommonSetup: bbw/rrk/{myResources:4;handCardIds:TS26_48}
 WithP2GroundArena: [SEC_080:1:0 LAW_124:1:0]
 WithP2SpaceArena: SOR_237:1:0
 P1OnlyActions: true

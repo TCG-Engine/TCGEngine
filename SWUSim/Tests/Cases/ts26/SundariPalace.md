@@ -1,9 +1,9 @@
 # DefeatsResourcesAtRegroup
-#// TS26_012 Sundari Palace — the "resource a card and ready it" clause is paid for at the start of the next
+#// TS26_12 Sundari Palace — the "resource a card and ready it" clause is paid for at the start of the next
 #// regroup phase: defeat that many friendly resources. After resourcing SEC_080 (2 → 3) and passing to
 #// regroup, 1 resource is defeated (3 → 2).
 ## GIVEN
-CommonSetup: yyk/rrk/{myBase:TS26_012;myLeaderDeployed:true}
+CommonSetup: yyk/rrk/{myBase:TS26_12;myLeaderDeployed:true}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2
@@ -18,11 +18,11 @@ P1RESCOUNT:2
 ---
 
 # EpicResourceReady
-#// TS26_012 Sundari Palace (Base, Cunning) — Epic Action: for each friendly leader unit, you may resource
+#// TS26_12 Sundari Palace (Base, Cunning) — Epic Action: for each friendly leader unit, you may resource
 #// a card from your hand and ready it. With one deployed leader unit, resource SEC_080 (2 resources → 3),
 #// emptying the hand.
 ## GIVEN
-CommonSetup: yyk/rrk/{myBase:TS26_012;myLeaderDeployed:true}
+CommonSetup: yyk/rrk/{myBase:TS26_12;myLeaderDeployed:true}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

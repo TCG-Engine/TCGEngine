@@ -186,7 +186,7 @@ var cardIdsBadgePopupTimeout = null;
 
 // Resolve the source-card image ID from an effect (CardIDs) token.
 // SWU turn-effect tokens are a leading CardID (SET_NNN, e.g. SOR_092 / TWI_106 /
-// TS26_046) optionally followed by params and/or a duration. Params may be
+// TS26_46) optionally followed by params and/or a duration. Params may be
 // '#'-separated ("SOR_076#2_2") OR '-'-separated ("SOR_092-2-2@phase"), and the
 // duration is "@attack|@phase|@perm". The CardID is always the leading SET_NNN, so
 // match that first. GA tokens use a non-SET_NNN base id with a trailing "-suffix"

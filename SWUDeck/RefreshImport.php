@@ -6,6 +6,7 @@
   include_once '../Core/CoreZoneModifiers.php';
   include_once './GeneratedCode/GeneratedCardDictionaries.php';
   include_once '../Core/HTTPLibraries.php';
+  include_once './Custom/CardIdentifiers.php';
 
   include_once '../Core/NetworkingLibraries.php';
 
@@ -68,15 +69,15 @@
   $p1Sideboard = [];
 
   // Update deck with new data
-  $leader = UUIDLookup($deckObj->leader->id);
+  $leader = UUIDLookup(NormalizeCardID($deckObj->leader->id));
   SetAssetKeyIdentifier(1, $gameName, 1, $leader);
   array_push($p1Leader, new Leader($leader));
-  $base = UUIDLookup($deckObj->base->id);
+  $base = UUIDLookup(NormalizeCardID($deckObj->base->id));
   SetAssetKeyIdentifier(1, $gameName, 2, $base);
   array_push($p1Base, new Base($base));
   $deck = $deckObj->deck;
   for($i=0; $i<count($deck); ++$i) {
-    $cardID = CardIDOverride($deck[$i]->id);
+    $cardID = CardIDOverride(NormalizeCardID($deck[$i]->id));
     $cardID = UUIDLookup($cardID);
     for($j=0; $j<$deck[$i]->count; ++$j) {
       array_push($p1MainDeck, new MainDeck($cardID));
@@ -84,7 +85,7 @@
   }
   $sideboard = $deckObj->sideboard ?? [];
   for($i=0; $i<count($sideboard); ++$i) {
-    $cardID = CardIDOverride($sideboard[$i]->id);
+    $cardID = CardIDOverride(NormalizeCardID($sideboard[$i]->id));
     $cardID = UUIDLookup($cardID);
     for($j=0; $j<$sideboard[$i]->count; ++$j) {
       array_push($p1Sideboard, new Sideboard($cardID));

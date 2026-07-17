@@ -612,7 +612,7 @@ function OnHealBase($player, $targetPlayer, $amount) {
         $before = intval($base[$i]->Damage);
         $base[$i]->Damage = max(0, $before - intval($amount));
         $_healedBase = $before - intval($base[$i]->Damage);
-        if ($_healedBase > 0) AddGlobalEffects(1, 'SWU_BASE_HEALED_PHASE');   // TS26_038 "if a base was healed this phase" (seat-1 stored; cleared at RGS)
+        if ($_healedBase > 0) AddGlobalEffects(1, 'SWU_BASE_HEALED_PHASE');   // TS26_38 "if a base was healed this phase" (seat-1 stored; cleared at RGS)
         SWUQueueHealAnim("myBase-0", $_healedBase, intval($targetPlayer));
         if ($_healedBase > 0 && function_exists('SWUTelemetryBumpTurn')) SWUTelemetryBumpTurn(intval($targetPlayer), 'restored', $_healedBase);
         break;
@@ -775,24 +775,24 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
         && !LostAbilities($attacker)) {
         AddTrigger($activePlayer, 'OnAttack', $attacker->CardID, $attackerMzID);
     }
-    // TS26_078 Barriss Offee — "When an enemy unit attacks: you may give an Experience token to that unit."
+    // TS26_78 Barriss Offee — "When an enemy unit attacks: you may give an Experience token to that unit."
     // The reactor is the attacker's opponent (Barriss's controller). Rides the combat trigger bag; the
     // dispatch sets SWU_PENDING_DEF_REACTION so it resolves before combat damage.
     if ($attacker !== null && !isset($attacker->removed)) {
         // Twin Suns: any opponent controlling Barriss reacts (2-player → the one opponent, byte-identical).
         foreach (OpponentsOf($activePlayer) as $bopp) {
-            if (_SWUCountUnitsWithCardID($bopp, 'TS26_078') > 0) {
-                AddTrigger($bopp, 'TS26_078', 'TS26_078', strval(intval($attacker->UniqueID ?? 0)));
+            if (_SWUCountUnitsWithCardID($bopp, 'TS26_78') > 0) {
+                AddTrigger($bopp, 'TS26_78', 'TS26_78', strval(intval($attacker->UniqueID ?? 0)));
             }
         }
     }
-    // TS26_073 Moralo Eval — "When your base is dealt combat damage: you may deal 1 damage to a unit." The
+    // TS26_73 Moralo Eval — "When your base is dealt combat damage: you may deal 1 damage to a unit." The
     // base owner reacts to their base being attacked (this rides the combat pause so it drains cross-player;
     // fires at the base-attack window rather than strictly post-damage — a benign timing simplification).
     if ($attacker !== null && !isset($attacker->removed) && strpos((string)$defenderMzID, 'Base') !== false) {
         $mopp = SWUMzOwner($defenderMzID, $activePlayer);   // base owner = the specific defending seat (N-player)
-        if ($mopp > 0 && _SWUCountUnitsWithCardID($mopp, 'TS26_073') > 0) {
-            AddTrigger($mopp, 'TS26_073', 'TS26_073', '');
+        if ($mopp > 0 && _SWUCountUnitsWithCardID($mopp, 'TS26_73') > 0) {
+            AddTrigger($mopp, 'TS26_73', 'TS26_73', '');
         }
     }
     // LAW_169 Payroll Heist — "For this phase, each friendly unit gains: On Attack: Create a Credit
@@ -1340,7 +1340,7 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // handler, AFTER this attack's full trigger resolution. If no trigger flush queued a resume,
     // queue a bare one so the chained attack still fires and SWUAfterAction stays deferred until then.
     if ($flushed === 0 && (GetSWUVar('SWU_CHAINED_ATTACK', '') !== '' || GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== ''
-            || GetSWUVar('SWU_SHD145_LOOP', '') !== '' || GetSWUVar('SWU_TS26059_LOOP', '') !== '')) {   // SHD_145 / TS26_059 Brothers count-capped loops
+            || GetSWUVar('SWU_SHD145_LOOP', '') !== '' || GetSWUVar('SWU_TS26059_LOOP', '') !== '')) {   // SHD_145 / TS26_59 Brothers count-capped loops
         _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
     }
 }
@@ -1789,7 +1789,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if ($teBase === 'JTL_177') $combatCtx['jtl177BaseDraw']    = true;
         if ($teBase === 'JTL_193') $preventAttackerDmg            = true;
         if ($teBase === 'TWI_096') $preventAttackerDmg            = true;   // Aayla Secura — prevent all combat damage to her this attack
-        if ($teBase === 'TS26_059') $preventAttackerDmg          = true;   // Brothers — prevent all combat damage to the chosen attacker this attack
+        if ($teBase === 'TS26_59') $preventAttackerDmg          = true;   // Brothers — prevent all combat damage to the chosen attacker this attack
     }
 
     // "Can't deal combat damage this phase" (LAW_130 Betrayed Trust) — zero the attacker's outgoing
@@ -2458,7 +2458,7 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     if (HasTrait($attacker->CardID, 'Separatist')) {
         AddGlobalEffects($player, 'SWU_ATTACKED_SEPARATIST');
     }
-    // TS26_007 Asajj Ventress (deployed): "While you've attacked with a token unit this phase, +2/+0."
+    // TS26_07 Asajj Ventress (deployed): "While you've attacked with a token unit this phase, +2/+0."
     if (EffectiveCardType($attacker) === 'Token Unit') {
         AddGlobalEffects($player, 'SWU_ATTACKED_TOKEN');
     }

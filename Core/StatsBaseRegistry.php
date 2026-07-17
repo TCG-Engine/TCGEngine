@@ -115,10 +115,10 @@ function StatsRareSpecialBases() {
         '1393827469' => true, // SOR_025 Tarkintown
         '2569134232' => true, // SOR_028 Jedha City
         // TS26
-        '1352374398' => true, // TS26_009 First Battle Memorial
-        '4631699773' => true, // TS26_010 Dooku's Palace
-        '1546304694' => true, // TS26_011 Executioner's Arena
-        '0344986336' => true, // TS26_012 Sundari Palace
+        '1352374398' => true, // TS26_09 First Battle Memorial
+        '4631699773' => true, // TS26_10 Dooku's Palace
+        '1546304694' => true, // TS26_11 Executioner's Arena
+        '0344986336' => true, // TS26_12 Sundari Palace
         // TWI
         '6594935791' => true, // TWI_019 Pau City
         '8589863038' => true, // TWI_022 Droid Manufactory

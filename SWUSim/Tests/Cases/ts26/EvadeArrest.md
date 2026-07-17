@@ -1,8 +1,8 @@
 # ExhaustNonUniqueUnits
-#// TS26_082 Evade Arrest (Event, cost 3, Cunning) — Exhaust any number of non-unique units. Both
+#// TS26_82 Evade Arrest (Event, cost 3, Cunning) — Exhaust any number of non-unique units. Both
 #// non-unique units chosen are exhausted.
 ## GIVEN
-CommonSetup: yyk/rrk/{myResources:3;handCardIds:TS26_082}
+CommonSetup: yyk/rrk/{myResources:3;handCardIds:TS26_82}
 WithP1GroundArena: [SEC_080:1:0 SOR_095:1:0]
 P1OnlyActions: true
 ## WHEN

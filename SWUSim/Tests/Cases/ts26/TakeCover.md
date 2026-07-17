@@ -1,8 +1,8 @@
 # HealAndShield
-#// TS26_047 Take Cover (Event, cost 3, Vigilance) — Heal up to 3 damage from a unit and give it a Shield.
+#// TS26_47 Take Cover (Event, cost 3, Vigilance) — Heal up to 3 damage from a unit and give it a Shield.
 #// LAW_124 (4/7) with 3 damage is healed to 0 damage and shielded.
 ## GIVEN
-CommonSetup: bbw/rrk/{myResources:3;handCardIds:TS26_047}
+CommonSetup: bbw/rrk/{myResources:3;handCardIds:TS26_47}
 WithP1GroundArena: LAW_124:1:3
 P1OnlyActions: true
 ## WHEN

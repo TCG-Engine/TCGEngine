@@ -1,9 +1,9 @@
 # DeployedAttackEndPeekPlay
-#// TS26_008 Ahsoka Tano (leader deployed, 3/6) — Raid 1 + When Attack Ends: look at the top card; play it
+#// TS26_08 Ahsoka Tano (leader deployed, 3/6) — Raid 1 + When Attack Ends: look at the top card; play it
 #// (costs 1 less), discard it, or leave it. Deployed Ahsoka attacks the enemy base (Raid 1 → 4), then plays
 #// SEC_080 from the top of the deck.
 ## GIVEN
-CommonSetup: yyw/rrk/{myLeader:TS26_008:1:1;myResources:6}
+CommonSetup: yyw/rrk/{myLeader:TS26_08:1:1;myResources:6}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Deck: [SEC_080 SOR_095]
@@ -17,11 +17,11 @@ P1GROUNDARENAUNIT:1:CARDID:SEC_080
 ---
 
 # FrontEventPeekPlayTop
-#// TS26_008 Ahsoka Tano (leader front) — When you play an event: you may exhaust this leader; if you do,
+#// TS26_08 Ahsoka Tano (leader front) — When you play an event: you may exhaust this leader; if you do,
 #// look at the top card of your deck and play it (paying its cost), discard it, or leave it. Playing the
 #// neutral event Confiscate triggers Ahsoka; exhausting her plays SEC_080 from the top of the deck.
 ## GIVEN
-CommonSetup: yyw/rrk/{myLeader:TS26_008;myResources:12;handCardIds:SOR_251}
+CommonSetup: yyw/rrk/{myLeader:TS26_08;myResources:12;handCardIds:SOR_251}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Deck: [SEC_080 SOR_095]

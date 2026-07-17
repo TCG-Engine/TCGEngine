@@ -1,9 +1,9 @@
 # DeployedOnAttackReadyEnemyDiscount2
-#// TS26_006 Rex (leader deployed, 5/6) — On Attack: you may ready an exhausted enemy unit; if you do, the
+#// TS26_06 Rex (leader deployed, 5/6) — On Attack: you may ready an exhausted enemy unit; if you do, the
 #// next event you play this phase costs 2 less. Rex attacks LAW_124, readies the exhausted SEC_080, then
 #// Urgent Mission (cost 2) plays for 0 (0 resources — only via the -2 discount), dealing 2 to P1's base.
 ## GIVEN
-CommonSetup: rrw/rrk/{myLeader:TS26_006:1:1;myResources:0;handCardIds:TS26_064}
+CommonSetup: rrw/rrk/{myLeader:TS26_06:1:1;myResources:0;handCardIds:TS26_64}
 SkipPreGame: true
 P1OnlyActions: true
 WithP2GroundArena: [LAW_124:1:0 SEC_080:0:0]
@@ -19,11 +19,11 @@ P1BASEDMG:2
 ---
 
 # FrontReadyEnemyDiscountEvent
-#// TS26_006 Rex (leader front) — Action [Exhaust, ready an exhausted enemy unit]: the next event you play
+#// TS26_06 Rex (leader front) — Action [Exhaust, ready an exhausted enemy unit]: the next event you play
 #// this phase costs 1 less. Rex readies the exhausted enemy SEC_080, then Urgent Mission (cost 2) plays for
 #// 1 (only affordable via the discount: 1 resource → 0), dealing 2 to P1's own base.
 ## GIVEN
-CommonSetup: rrw/rrk/{myLeader:TS26_006;myResources:1;handCardIds:TS26_064}
+CommonSetup: rrw/rrk/{myLeader:TS26_06;myResources:1;handCardIds:TS26_64}
 SkipPreGame: true
 P1OnlyActions: true
 WithP2GroundArena: SEC_080:0:0

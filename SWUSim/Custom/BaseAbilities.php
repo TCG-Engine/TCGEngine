@@ -205,7 +205,7 @@ $baseAbilities["LAW_029"] = function($player) {
 // ── TS26 bases — Epic Actions that scale with friendly leader units ──────────────
 global $customDQHandlers;
 
-// TS26_009 First Battle Memorial — Epic Action: for each friendly leader unit, give an Experience token
+// TS26_09 First Battle Memorial — Epic Action: for each friendly leader unit, give an Experience token
 // to a unit. (Loops one "give Experience to a unit" pick per leader unit.)
 function _SWUTs26009Give(int $player, int $remaining): void {
     global $playerID; $playerID = intval($player);
@@ -215,22 +215,22 @@ function _SWUTs26009Give(int $player, int $remaining): void {
         ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
     );
     if (empty($tg)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget($player, $tg, "Give_an_Experience_token_to_a_unit", "TS26_009#0|{$remaining}");
+    SWUQueueChooseTarget($player, $tg, "Give_an_Experience_token_to_a_unit", "TS26_09#0|{$remaining}");
 }
-$baseAbilities["TS26_009"] = function($player) {
+$baseAbilities["TS26_09"] = function($player) {
     global $playerID; $playerID = intval($player);
     $n = 0;
     foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
     _SWUTs26009Give(intval($player), $n);
 };
-$customDQHandlers["TS26_009#0"] = function($player, $parts, $lastDecision) {
+$customDQHandlers["TS26_09#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $remaining = intval($parts[0] ?? 0);
     if ($lastDecision && str_contains($lastDecision, '-')) DoGiveExperienceToken(intval($player), $lastDecision);
     _SWUTs26009Give(intval($player), $remaining - 1);
 };
 
-// TS26_011 Executioner's Arena — Epic Action: for each friendly leader unit, you may deal 2 damage to a
+// TS26_11 Executioner's Arena — Epic Action: for each friendly leader unit, you may deal 2 damage to a
 // unit. (Loops one "may deal 2 to a unit" pick per leader unit.)
 function _SWUTs26011Deal(int $player, int $remaining): void {
     global $playerID; $playerID = intval($player);
@@ -240,15 +240,15 @@ function _SWUTs26011Deal(int $player, int $remaining): void {
         ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
     );
     if (empty($tg)) { SWUAfterAction($player); return; }
-    SWUQueueMayChooseTarget($player, $tg, "Deal_2_damage_to_a_unit?", "Choose_a_unit", "TS26_011#0|{$remaining}");
+    SWUQueueMayChooseTarget($player, $tg, "Deal_2_damage_to_a_unit?", "Choose_a_unit", "TS26_11#0|{$remaining}");
 }
-$baseAbilities["TS26_011"] = function($player) {
+$baseAbilities["TS26_11"] = function($player) {
     global $playerID; $playerID = intval($player);
     $n = 0;
     foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
     _SWUTs26011Deal(intval($player), $n);
 };
-$customDQHandlers["TS26_011#0"] = function($player, $parts, $lastDecision) {
+$customDQHandlers["TS26_11#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $remaining = intval($parts[0] ?? 0);
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS' && str_contains($lastDecision, '-')) {
@@ -257,9 +257,9 @@ $customDQHandlers["TS26_011#0"] = function($player, $parts, $lastDecision) {
     _SWUTs26011Deal(intval($player), $remaining - 1);
 };
 
-// TS26_010 Dooku's Palace — Epic Action: play a unit from your hand; it costs 1 less per friendly leader
+// TS26_10 Dooku's Palace — Epic Action: play a unit from your hand; it costs 1 less per friendly leader
 // unit. (DISCOUNT_PLAY_FROM_HAND|N owns the after-action.)
-$baseAbilities["TS26_010"] = function($player) {
+$baseAbilities["TS26_10"] = function($player) {
     global $playerID; $savedPID = $playerID; $playerID = intval($player);
     $n = 0;
     foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
@@ -274,22 +274,22 @@ $baseAbilities["TS26_010"] = function($player) {
     SWUQueueChooseTarget(intval($player), $eligible, "Play_a_unit_from_hand_(-1_per_friendly_leader_unit)", "DISCOUNT_PLAY_FROM_HAND|{$n}");
 };
 
-// TS26_012 Sundari Palace — Epic Action: for each friendly leader unit, you may resource a card from your
+// TS26_12 Sundari Palace — Epic Action: for each friendly leader unit, you may resource a card from your
 // hand and ready it; if you do, defeat that many friendly resources at the start of the regroup phase.
 function _SWUTs26012Offer(int $player, int $remaining): void {
     global $playerID; $playerID = intval($player);
     if ($remaining <= 0) { SWUAfterAction($player); return; }
     $hand = ZoneSearch("myHand");
     if (empty($hand)) { SWUAfterAction($player); return; }
-    SWUQueueMayChooseTarget($player, $hand, "Resource_a_card_from_hand_and_ready_it?", "Choose_a_card", "TS26_012#0|{$remaining}");
+    SWUQueueMayChooseTarget($player, $hand, "Resource_a_card_from_hand_and_ready_it?", "Choose_a_card", "TS26_12#0|{$remaining}");
 }
-$baseAbilities["TS26_012"] = function($player) {
+$baseAbilities["TS26_12"] = function($player) {
     global $playerID; $playerID = intval($player);
     $n = 0;
     foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
     _SWUTs26012Offer(intval($player), $n);
 };
-$customDQHandlers["TS26_012#0"] = function($player, $parts, $lastDecision) {
+$customDQHandlers["TS26_12#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $remaining = intval($parts[0] ?? 0);
     if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS' || !str_contains($lastDecision, '-')) {

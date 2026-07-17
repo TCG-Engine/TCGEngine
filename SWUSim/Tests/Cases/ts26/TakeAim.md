@@ -1,9 +1,9 @@
 # AttackPlus2AndSaboteur
-#// TS26_083 Take Aim (Event, cost 3, Cunning) — Attack with a unit; it gets +2/+0 and Saboteur for this
+#// TS26_83 Take Aim (Event, cost 3, Cunning) — Attack with a unit; it gets +2/+0 and Saboteur for this
 #// attack. SEC_080 (3 power → 5) attacks the shielded LAW_124: Saboteur defeats its Shield, so all 5
 #// combat damage lands (damage 5, shield gone).
 ## GIVEN
-CommonSetup: yyk/rrk/{myResources:3;handCardIds:TS26_083}
+CommonSetup: yyk/rrk/{myResources:3;handCardIds:TS26_83}
 WithP1GroundArena: SEC_080:1:0
 WithP2GroundArena: LAW_124:1:0
 WithP2GroundArenaUpgrade: 0:SOR_T02

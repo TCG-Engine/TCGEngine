@@ -1,7 +1,7 @@
 # BothDraw2
-#// TS26_068 Arms Deal (Event, cost 2, Aggression) — You and an opponent each draw 2 cards.
+#// TS26_68 Arms Deal (Event, cost 2, Aggression) — You and an opponent each draw 2 cards.
 ## GIVEN
-CommonSetup: rrk/rrk/{myResources:2;handCardIds:TS26_068}
+CommonSetup: rrk/rrk/{myResources:2;handCardIds:TS26_68}
 WithP1Deck: [SEC_080 SOR_095 SOR_046]
 WithP2Deck: [SEC_080 SOR_095 SOR_046]
 P1OnlyActions: true

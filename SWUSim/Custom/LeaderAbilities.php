@@ -457,7 +457,7 @@ $leaderAbilities["TWI_004"] = function(int $player): void {
 $leaderActionResourceCosts["TWI_013"] = 1;
 $leaderAbilities["TWI_013"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     $targets = [];
     foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
@@ -505,7 +505,7 @@ $leaderAbilities["TWI_009"] = function(int $player): void {
 $leaderActionResourceCosts["TWI_010"] = 1;
 $leaderAbilities["TWI_010"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     $n = GlobalEffectCount($player, 'SWU_DREW_PHASE');
     $targets = array_merge(
         ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
@@ -553,7 +553,7 @@ $leaderAbilities["TWI_006"] = function(int $player): void {
 $leaderActionResourceCosts["TWI_007"] = 2;
 $leaderAbilities["TWI_007"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 2)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 2))) { SWUAfterAction($player); return; }
     SWUCreateUnitToken($player, 'TWI_T02');
     SWUAfterAction($player);
 };
@@ -563,7 +563,7 @@ $leaderAbilities["TWI_007"] = function(int $player): void {
 $leaderActionResourceCosts["TWI_008"] = 1;
 $leaderAbilities["TWI_008"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     if (count(GetDeck($player)) > 0) DoTopDeckSearch($player, 3, fn($c) => HasTrait($c, 'Republic'), 1);
     SWUQueueAfterAction($player);
 };
@@ -2071,7 +2071,7 @@ $customDQHandlers["LAW_003_PLAY"] = function($player, $parts, $lastDecision) {
 };
 $leaderAbilities["LAW_003"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     _SWULaw003OfferPlay($player);
 };
 $leaderActionResourceCosts["LAW_003"] = 1;
@@ -2095,7 +2095,7 @@ function _SWULaw015FriendlyUnderworldUnits(int $player): array {
 }
 $leaderAbilities["LAW_015"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; } // affordability-gated; defensive
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; } // affordability-gated; defensive
     $targets = _SWULaw015FriendlyUnderworldUnits($player);
     if (empty($targets)) { SWUAfterAction($player); return; } // defensive (affordability requires one)
     SWUQueueChooseTarget($player, $targets, "Return_a_friendly_Underworld_unit_to_its_owner's_hand", "LAW_015_FRONT");
@@ -2152,7 +2152,7 @@ function _SWULaw005Search(int $player): void {
 }
 $leaderAbilities["LAW_005"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     _SWULaw005Search($player);
 };
 $leaderActionResourceCosts["LAW_005"] = 1;
@@ -2249,7 +2249,7 @@ $customDQHandlers["LAW_008_DEPLOY"] = function($player, $parts, $lastDecision) {
 $leaderActionResourceCosts["LAW_010"] = 2;
 $leaderAbilities["LAW_010"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 2)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 2))) { SWUAfterAction($player); return; }
     $units = [];
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $units[] = $mz; }
@@ -2369,7 +2369,7 @@ function _SWULaw013Payoff(int $player): void {   // after the resource is defeat
 $leaderActionResourceCosts["LAW_013"] = 1;
 $leaderAbilities["LAW_013"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     $res = &GetResources($player);
     $resTargets = [];
     for ($i = 0, $idx = 0; $i < count($res); $i++) { if (isset($res[$i]->removed) && $res[$i]->removed) continue; $resTargets[] = "myResources-{$idx}"; $idx++; }
@@ -2501,7 +2501,7 @@ function _SWULaw018Mill(int $player, int $deckOwner, string $aspect): void {
 $leaderActionResourceCosts["LAW_018"] = 1;
 $leaderAbilities["LAW_018"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "Vigilance&Command&Aggression&Cunning&Heroism&Villainy", 1, "Choose_an_aspect");
     DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_018#0", 1);
 };
@@ -3530,7 +3530,7 @@ $customDQHandlers["SHD_016#play"] = function($player, $parts, $lastDecision) {
 };
 $leaderAbilities["SHD_016"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     if (!_SWUShd016Offer($player)) SWUAfterAction($player);
 };
 $leaderActionResourceCosts["SHD_016"] = 1;
@@ -3619,7 +3619,7 @@ $unitAbilities["SHD_017"] = function($player, $mzID) {
 
 // ── TS26 leaders ────────────────────────────────────────────────────────────────
 // Collect the mzIDs of friendly units that entered play this phase (SWU_ENTERED_PHASE_{uid}); optionally
-// exclude one UID. Used by TS26_002 Anakin and TS26_004 Padmé (both sides).
+// exclude one UID. Used by TS26_02 Anakin and TS26_04 Padmé (both sides).
 function _SWUEnteredThisPhaseUnits(int $player, int $excludeUID = -1): array {
     global $playerID; $playerID = intval($player);
     $out = [];
@@ -3635,9 +3635,9 @@ function _SWUEnteredThisPhaseUnits(int $player, int $excludeUID = -1): array {
     return $out;
 }
 
-// TS26_006 Rex (front) — Action [Exhaust, ready an exhausted enemy unit]: the next event you play this
+// TS26_06 Rex (front) — Action [Exhaust, ready an exhausted enemy unit]: the next event you play this
 // phase costs 1 resource less. (Deployed: On Attack, may ready an exhausted enemy → next event -2.)
-$leaderAbilities["TS26_006"] = function(int $player): void {
+$leaderAbilities["TS26_06"] = function(int $player): void {
     global $playerID; $playerID = intval($player);
     $enemy = [];
     foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
@@ -3647,12 +3647,12 @@ $leaderAbilities["TS26_006"] = function(int $player): void {
         }
     }
     if (empty($enemy)) { SWUAfterAction(intval($player)); return; }   // cost can't be paid (guarded in affordability)
-    SWUQueueChooseTarget(intval($player), $enemy, "Ready_an_exhausted_enemy_unit_(next_event_-1)", "TS26_006#0|1|1");
+    SWUQueueChooseTarget(intval($player), $enemy, "Ready_an_exhausted_enemy_unit_(next_event_-1)", "TS26_06#0|1|1");
 };
 
-// TS26_002 Anakin Skywalker (front) — Action [Exhaust]: if 2+ friendly units entered play this phase,
+// TS26_02 Anakin Skywalker (front) — Action [Exhaust]: if 2+ friendly units entered play this phase,
 // give a Shield token to 1 of them. (Deployed: Sentinel auto + OnAttack shield another entered unit.)
-$leaderAbilities["TS26_002"] = function(int $player): void {
+$leaderAbilities["TS26_02"] = function(int $player): void {
     global $playerID; $playerID = intval($player);
     $entered = _SWUEnteredThisPhaseUnits(intval($player));
     if (count($entered) < 2) { SWUAfterAction(intval($player)); return; }
@@ -3660,37 +3660,37 @@ $leaderAbilities["TS26_002"] = function(int $player): void {
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SWU_AFTER_ACTION", 1);
 };
 
-// TS26_004 Padmé Amidala (front) — Action [Exhaust]: if 2+ friendly units entered play this phase, attack
+// TS26_04 Padmé Amidala (front) — Action [Exhaust]: if 2+ friendly units entered play this phase, attack
 // with 1 of them (even if exhausted); it can't attack bases. (Deployed: When Attack Ends, may attack with
 // another entered unit.)
-$leaderAbilities["TS26_004"] = function(int $player): void {
+$leaderAbilities["TS26_04"] = function(int $player): void {
     global $playerID; $playerID = intval($player);
     $entered = _SWUEnteredThisPhaseUnits(intval($player));
     if (count($entered) < 2) { SWUAfterAction(intval($player)); return; }
-    SWUQueueChooseTarget(intval($player), $entered, "Attack_with_a_unit_that_entered_this_phase_(no_bases)", "TS26_004#0");
+    SWUQueueChooseTarget(intval($player), $entered, "Attack_with_a_unit_that_entered_this_phase_(no_bases)", "TS26_04#0");
 };
-$customDQHandlers["TS26_004#0"] = function($player, $parts, $lastDecision) {
+$customDQHandlers["TS26_04#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) { SWUAfterAction(intval($player)); return; }
     BeginSWUAttack(intval($player), $lastDecision, true);   // noBases; combat owns the after-action
 };
 
-// TS26_003 Maul (front) — Action [Exhaust]: choose a unit; if it has more different keywords than
+// TS26_03 Maul (front) — Action [Exhaust]: choose a unit; if it has more different keywords than
 // Experience tokens on it, give an Experience token to it and deal 1 damage to it. (Deployed side: same
-// effect on When Deployed / On Attack — shared TS26_003#0 handler.)
-$leaderAbilities["TS26_003"] = function(int $player): void {
+// effect on When Deployed / On Attack — shared TS26_03#0 handler.)
+$leaderAbilities["TS26_03"] = function(int $player): void {
     global $playerID; $playerID = intval($player);
     $tg = array_merge(
         ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
         ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
     );
     if (empty($tg)) { SWUAfterAction(intval($player)); return; }
-    SWUQueueMayChooseTarget(intval($player), $tg, "Choose_a_unit_(+1_Exp_and_1_damage_if_more_keywords_than_Experience)?", "Choose_a_unit", "TS26_003#0|1");
+    SWUQueueMayChooseTarget(intval($player), $tg, "Choose_a_unit_(+1_Exp_and_1_damage_if_more_keywords_than_Experience)?", "Choose_a_unit", "TS26_03#0|1");
 };
 
-// TS26_007 Asajj Ventress (front) — Action [Exhaust]: attack with a token unit; it gets +1/+0 for this
+// TS26_07 Asajj Ventress (front) — Action [Exhaust]: attack with a token unit; it gets +1/+0 for this
 // attack. (Deployed side: Hidden auto + a +2/+0 passive while you've attacked with a token this phase.)
-$leaderAbilities["TS26_007"] = function(int $player): void {
+$leaderAbilities["TS26_07"] = function(int $player): void {
     global $playerID; $playerID = intval($player);
     $tokens = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
@@ -3700,12 +3700,12 @@ $leaderAbilities["TS26_007"] = function(int $player): void {
         }
     }
     if (empty($tokens)) { SWUAfterAction(intval($player)); return; }
-    SWUQueueChooseTarget(intval($player), $tokens, "Attack_with_a_token_unit_(+1/+0)", "TS26_007#0");
+    SWUQueueChooseTarget(intval($player), $tokens, "Attack_with_a_token_unit_(+1/+0)", "TS26_07#0");
 };
 
-// TS26_001 Count Dooku (front) — Action [Exhaust]: choose 2 players; they each heal 1 from their base and
+// TS26_01 Count Dooku (front) — Action [Exhaust]: choose 2 players; they each heal 1 from their base and
 // create a Battle Droid token. (2-player: both players. Deployed side: Restore 2 auto + OnAttack create 2.)
-$leaderAbilities["TS26_001"] = function(int $player): void {
+$leaderAbilities["TS26_01"] = function(int $player): void {
     global $playerID; $playerID = intval($player);
     $opp = OtherPlayer(intval($player));
     OnHealBase(intval($player), intval($player), 1);

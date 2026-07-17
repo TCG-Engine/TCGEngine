@@ -193,14 +193,14 @@ class Cards {
     const LEADERS_IBH_DARTH_VADER             = 'IBH_053';
 
     // ── Leaders — TS26 ───────────────────────────────────────────
-    const LEADERS_TS26_COUNT_DOOKU            = 'TS26_001';
-    const LEADERS_TS26_ANAKIN_SKYWALKER       = 'TS26_002';
-    const LEADERS_TS26_MAUL                   = 'TS26_003';
-    const LEADERS_TS26_PADME_AMIDALA          = 'TS26_004';
-    const LEADERS_TS26_SAVAGE_OPRESS          = 'TS26_005';
-    const LEADERS_TS26_REX                    = 'TS26_006';
-    const LEADERS_TS26_ASAJJ_VENTRESS         = 'TS26_007';
-    const LEADERS_TS26_AHSOKA_TANO            = 'TS26_008';
+    const LEADERS_TS26_COUNT_DOOKU            = 'TS26_01';
+    const LEADERS_TS26_ANAKIN_SKYWALKER       = 'TS26_02';
+    const LEADERS_TS26_MAUL                   = 'TS26_03';
+    const LEADERS_TS26_PADME_AMIDALA          = 'TS26_04';
+    const LEADERS_TS26_SAVAGE_OPRESS          = 'TS26_05';
+    const LEADERS_TS26_REX                    = 'TS26_06';
+    const LEADERS_TS26_ASAJJ_VENTRESS         = 'TS26_07';
+    const LEADERS_TS26_AHSOKA_TANO            = 'TS26_08';
 
     // ── Units — Token ────────────────────────────────────────────
     const UNITS_TOKEN_BATTLE_DROID            = 'TWI_T01';

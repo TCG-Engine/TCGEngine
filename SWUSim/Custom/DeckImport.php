@@ -141,7 +141,7 @@ function SWUResolveDeckInput($deckLink) {
 // Deck sources like SWUDB already guarantee valid IDs; pure format matching is safe here.
 function SWUIsAcceptableCardID($cardId) {
     if (function_exists('IsSWUCardID') && IsSWUCardID($cardId)) return true;
-    return (bool)preg_match('/^[A-Z]{2,5}_\d{3,4}$/', $cardId);
+    return (bool)preg_match('/^[A-Z]{2,5}_\d{2,4}$/', $cardId);
 }
 
 function SWUNormalizeStandardJSON($data) {

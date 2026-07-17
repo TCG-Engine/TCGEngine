@@ -1,5 +1,5 @@
 # CostReductionAndDebuffOthers
-#// TS26_036 Tribunal (Unit 6/8 space, cost 10) — costs 2 less per other card played this phase; When
+#// TS26_36 Tribunal (Unit 6/8 space, cost 10) — costs 2 less per other card played this phase; When
 #// Played: give each OTHER unit -2/-2 for this phase. P1 first plays a cheap event (Take Action, dealing
 #// 3 to the enemy LAW_124), so Tribunal costs 10 - 2 = 8 — only affordable because of the discount (13
 #// 11 resources - 3 Take Action = 8 left, exactly Tribunal's discounted cost — without the -2 discount
@@ -8,7 +8,7 @@
 #// → power 2; Tribunal stays 6 power.
 ## GIVEN
 CommonSetup: byk/rrk/{myResources:11}
-WithP1Hand: [TS26_071 TS26_036]
+WithP1Hand: [TS26_71 TS26_36]
 WithP1GroundArena: SEC_080:1:0
 WithP2GroundArena: LAW_124:1:0
 P1OnlyActions: true

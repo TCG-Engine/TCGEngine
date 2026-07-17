@@ -1,7 +1,7 @@
 # P3AttacksACrossSeatBase
 #// Twin Suns: a non-1/2 seat (P3) attacking an opponent's BASE must resolve. Regression for the
-#// GetOpponent()-returns-null fatal in CollectCombatStep1Triggers (TS26_078 Barriss fires on ANY
-#// attack; TS26_073 Moralo on a base attack) — GetOpponent only knew seats 1/2, so a P3 attack fatal'd
+#// GetOpponent()-returns-null fatal in CollectCombatStep1Triggers (TS26_78 Barriss fires on ANY
+#// attack; TS26_73 Moralo on a base attack) — GetOpponent only knew seats 1/2, so a P3 attack fatal'd
 #// with "_SWUCountUnitsWithCardID(): $player must be int, null given". Fixed by iterating OpponentsOf
 #// (Barriss) and resolving the base owner via SWUMzOwner (Moralo). SOR_032 has power 1 → P2 base +1.
 

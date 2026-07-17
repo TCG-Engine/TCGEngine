@@ -6,6 +6,30 @@
 // Include the necessary files for card dictionaries
 include_once dirname(__FILE__) . '/../GeneratedCode/GeneratedCardDictionaries.php';
 
+// Sets whose canonical card ID uses a 2-digit zero-padded number (e.g. "TS26_34"),
+// matching the convention other deckbuilders use for this set, rather than the
+// standard 3-digit padding ("SOR_034"). Deck sources may still send 1, 3, or 4
+// digits (un-padded, or padded to the standard width) — normalize down to 2.
+$doubleDigitsSets = ['TS26'];
+
+/**
+ * Canonicalizes a card ID's numeric suffix to the width its set expects — 2 digits
+ * for sets in $doubleDigitsSets, unchanged otherwise — so it matches UUIDLookup's
+ * dictionary keys regardless of how the source padded it.
+ *
+ * @param string|null $cardID
+ * @return string|null
+ */
+function NormalizeCardID($cardID) {
+    global $doubleDigitsSets;
+    if ($cardID === null || $cardID === '') return $cardID;
+    if (preg_match('/^([A-Za-z0-9]+)_(\d+)$/', $cardID, $m)
+        && in_array($m[1], $doubleDigitsSets, true)) {
+        return $m[1] . '_' . str_pad(ltrim($m[2], '0') ?: '0', 2, '0', STR_PAD_LEFT);
+    }
+    return $cardID;
+}
+
 /**
  * Converts a card name to its internal UUID
  * 

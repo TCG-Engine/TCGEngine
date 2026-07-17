@@ -1,8 +1,8 @@
 # EachPlayerResourcesTop
-#// TS26_056 Galactic Escalation (Event, cost 2, Command) — Each player resources the top card of their
+#// TS26_56 Galactic Escalation (Event, cost 2, Command) — Each player resources the top card of their
 #// deck. Both P1 and P2 gain a resource and lose their deck's top card.
 ## GIVEN
-CommonSetup: ggk/rrk/{myResources:2;theirResources:1;handCardIds:TS26_056}
+CommonSetup: ggk/rrk/{myResources:2;theirResources:1;handCardIds:TS26_56}
 WithP1Deck: [SEC_080 SOR_095]
 WithP2Deck: [SOR_046 SOR_128]
 P1OnlyActions: true

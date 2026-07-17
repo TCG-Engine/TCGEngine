@@ -1,8 +1,8 @@
 # ExpToUpTo3Units
-#// TS26_060 Take Charge (Event, cost 3, Command) — Give an Experience token to each of up to 3 units.
+#// TS26_60 Take Charge (Event, cost 3, Command) — Give an Experience token to each of up to 3 units.
 #// Two units are chosen; each gains 1 Experience (+1/+1).
 ## GIVEN
-CommonSetup: ggk/rrk/{myResources:3;handCardIds:TS26_060}
+CommonSetup: ggk/rrk/{myResources:3;handCardIds:TS26_60}
 WithP1GroundArena: [SEC_080:1:0 SOR_095:1:0]
 P1OnlyActions: true
 ## WHEN

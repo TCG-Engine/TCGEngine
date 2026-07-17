@@ -20,6 +20,11 @@ if($error !== "") {
   exit();
 }
 
+// Sets whose canonical card ID uses 2-digit zero-padding ("TS26_34") instead of the
+// standard 3-digit padding ("SOR_034"), matching the convention other SWU deckbuilders
+// use for this set. Keep in sync with SWUDeck/Custom/CardIdentifiers.php's $doubleDigitsSets.
+const CardIDDoubleDigitSets = ['TS26'];
+
 $startTime = microtime(true);
 ob_implicit_flush(true);
 function logLine($msg) {
@@ -97,7 +102,7 @@ if($rootName == "SWUDeck" || $rootName == "SWUSim") {
     "SOR", "SHD", "TWI", // blank rotation
     "JTL", "LOF", "IBH", "SEC", // rotation A
     "LAW", "ASH", // rotation B
-    "TS26" // supplemental
+    "TS26", // supplemental
   ];
 }
 
@@ -228,7 +233,8 @@ if(!$withPreview && file_exists($cacheFile)) {
           ?? '';
       }
       $cardNum = intval($card->cardNumber ?? 0);
-      $cardID = $setCode . "_" . str_pad($cardNum, 3, '0', STR_PAD_LEFT);
+      $numPadWidth = in_array($setCode, CardIDDoubleDigitSets, true) ? 2 : 3;
+      $cardID = $setCode . "_" . str_pad($cardNum, $numPadWidth, '0', STR_PAD_LEFT);
       if(!in_array($setCode, $validSets)) {
         $pageSkipped++; $totalSkipped++;
         continue;
@@ -438,9 +444,13 @@ for ($i = 0; $i < count($cardArray); ++$i) {
   }
   if($rootName == "SWUDeck") {
     $cardNumber = $card->cardNumber;
-    if($cardNumber < 10) $cardNumber = "00" . $cardNumber;
-    else if($cardNumber < 100) $cardNumber = "0" . $cardNumber;
     $set = $card->expansion->data->attributes->code;
+    if(in_array($set, CardIDDoubleDigitSets, true)) {
+      if($cardNumber < 10) $cardNumber = "0" . $cardNumber;
+    } else {
+      if($cardNumber < 10) $cardNumber = "00" . $cardNumber;
+      else if($cardNumber < 100) $cardNumber = "0" . $cardNumber;
+    }
     $cardID= $set . "_" . $cardNumber;
     $associativeArrays["uuidLookup"][$cardID] = $card->id;
     $associativeArrays["cardIdLookup"][$card->id] = $cardID;
@@ -594,7 +604,9 @@ if($rootName == "SWUSim") {
   fwrite($handler, "}\r\n\r\n");
   // BuildCardID / DecomposeCardID helpers for constructing/destructuring SET_NNN keys.
   fwrite($handler, "function BuildCardID(\$setAbbreviation, \$cardNumber) {\r\n");
-  fwrite($handler, "  return strtoupper(trim(\$setAbbreviation)) . '_' . str_pad(intval(\$cardNumber), 3, '0', STR_PAD_LEFT);\r\n");
+  fwrite($handler, "  \$setAbbreviation = strtoupper(trim(\$setAbbreviation));\r\n");
+  fwrite($handler, "  \$padWidth = in_array(\$setAbbreviation, " . var_export(CardIDDoubleDigitSets, true) . ", true) ? 2 : 3;\r\n");
+  fwrite($handler, "  return \$setAbbreviation . '_' . str_pad(intval(\$cardNumber), \$padWidth, '0', STR_PAD_LEFT);\r\n");
   fwrite($handler, "}\r\n\r\n");
   fwrite($handler, "function DecomposeCardID(\$cardID) {\r\n");
   fwrite($handler, "  if(!preg_match('/^([A-Z0-9]{2,5})_(T?\\\\d{1,4})\$/', \$cardID, \$m)) return null;\r\n");
@@ -957,9 +969,9 @@ if($rootName == "SWUSim") {
       // window, e.g. "When played as a unit/On Attack:" (JTL_098).
       || strpos($combined, "When played as a unit:") !== false
       || strpos($combined, "When played as a unit/") !== false
-      // TS26_034 Fives — "enter play with the 'When Played' abilities of another unit"; the copy fires
+      // TS26_34 Fives — "enter play with the 'When Played' abilities of another unit"; the copy fires
       // through the WhenPlayed window but the text has no literal "When Played:" trigger to auto-detect.
-      || $cardId === 'TS26_034') {
+      || $cardId === 'TS26_34') {
       $stubs["whenPlayed"][] = $cardId;
     }
     // whenDefeated: units only, innate ability (not grant-style).
