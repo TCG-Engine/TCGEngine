@@ -28,6 +28,11 @@ $endWeek = isset($_GET['endWeek']) ? intval($_GET['endWeek']) : null;
 $sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'cardID';
 $sortOrder = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'desc' : 'asc';
 
+// Opt-in format filter (default premier keeps existing responses byte-identical). Whitelisted, so
+// safe to inline like the intval'd week clause.
+$format = isset($_GET['format']) ? strtolower($_GET['format']) : 'premier';
+if (!in_array($format, ['premier','eternal','twinsuns'], true)) { $format = 'premier'; }
+
 if ($startWeek === null && $endWeek === null) {
   $where = '1';
 } elseif ($startWeek !== null && $endWeek === null) {
@@ -39,6 +44,7 @@ if ($startWeek === null && $endWeek === null) {
   $where = 'week BETWEEN ' . $startWeek . ' AND ' . $endWeek;
 }
 
+$where = '(' . $where . ") AND format = '$format'";
 $query = "SELECT * FROM cardmetastats WHERE " . $where . " ORDER BY $sortColumn $sortOrder";
 $result = $conn->query($query);
 

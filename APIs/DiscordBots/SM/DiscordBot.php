@@ -270,7 +270,7 @@ if (isset($interaction['type']) && $interaction['type'] === 2) {
 		if(count($matches) == 1) {
 			$uuid = $matches[0];
 			$conn = GetLocalMySQLConnection();
-			$query = $conn->prepare("SELECT * FROM cardmetastats WHERE cardID = ? ORDER BY week DESC LIMIT 1");
+			$query = $conn->prepare("SELECT * FROM cardmetastats WHERE cardID = ? AND format = 'premier' ORDER BY week DESC LIMIT 1");
 			$query->bind_param("s", $uuid);
 			$query->execute();
 			$result = $query->get_result();
@@ -434,7 +434,7 @@ function FindCard($cardSearch, &$response=null) {
 
 function StatsResponse($uuid) {
 	$conn = GetLocalMySQLConnection();
-	$query = $conn->prepare("SELECT * FROM cardmetastats WHERE cardID = ? ORDER BY week DESC LIMIT 1");
+	$query = $conn->prepare("SELECT * FROM cardmetastats WHERE cardID = ? AND format = 'premier' ORDER BY week DESC LIMIT 1");
 	$query->bind_param("s", $uuid);
 	$query->execute();
 	$result = $query->get_result();

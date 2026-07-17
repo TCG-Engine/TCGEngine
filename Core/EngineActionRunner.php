@@ -354,6 +354,11 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       $actionCard = $inpArr[0] ?? '';
       $actionValue = $inpArr[1] ?? '';
       $parameterArr = explode(',', $inpArr[2] ?? '');
+      // Record the source mzid (e.g. "myLeader1-3") for the duration of this action so app-level
+      // AddValidation hooks can tell WHICH zone/pane a card came from — the generated Add*/Validate*
+      // path only forwards the card id, losing that context. Additive and app-agnostic: only reads
+      // that opt in (currently SWUDeck's per-slot leader swap) are affected.
+      $GLOBALS['gEngineActionSourceMZID'] = $actionCard;
       if (!EngineActionCardExists($actionCard)) break;
       $card = GetZoneObject($actionCard);
       switch ($actionValue) {

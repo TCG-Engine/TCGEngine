@@ -6,6 +6,8 @@
 
   //Set up the list of cards to choose from
   $p1Leaders = [];
+  $p1Leader1 = []; // Twin Suns leader-1 browse pane (same catalog as $p1Leaders, separate tab)
+  $p1Leader2 = []; // Twin Suns leader-2 browse pane (filtered live by InAlignmentClashFilter)
   $p1Bases = [];
   $p1Cards = [];
   $allCards = GetAllCardIds();
@@ -13,6 +15,8 @@
     $cardType = CardType($cardId);
     if($cardType == "Leader") {
       array_push($p1Leaders, new Leaders($cardId));
+      array_push($p1Leader1, new Leader1($cardId));
+      array_push($p1Leader2, new Leader2($cardId));
     } else if($cardType == "Base") {
       array_push($p1Bases, new Bases($cardId));
     } else {

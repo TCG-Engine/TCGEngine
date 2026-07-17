@@ -376,6 +376,51 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
   }
   .swu-mobile-deck-bar .swu-mobile-page-dots { flex: 0 0 auto; }
 
+  /* Live deck-legality badge (design §D) — compact chip in the deck bar; tap to expand the issue
+     list. Hidden for Open decks and until the first result. */
+  .swu-mobile-validation {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    margin-left: 6px;
+    padding: 0 9px;
+    border-radius: 11px;
+    font: 600 11px/1 Arial, Helvetica, sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .swu-mobile-validation.is-legal {
+    color: #bdf0cd;
+    background: rgba(24, 92, 52, 0.55);
+    border-color: rgba(120, 230, 160, 0.5);
+  }
+  .swu-mobile-validation.is-illegal {
+    color: #f5c6c0;
+    background: rgba(104, 34, 30, 0.6);
+    border-color: rgba(245, 150, 140, 0.55);
+  }
+  #swuMobileValidationIssues {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    z-index: 6000;
+    display: none;
+    max-height: 46vh;
+    overflow-y: auto;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: rgba(6, 20, 32, 0.98);
+    border: 1px solid rgba(245, 150, 140, 0.45);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.55);
+    color: rgba(232, 210, 206, 0.96);
+    font: 13px/1.5 Arial, Helvetica, sans-serif;
+  }
+  #swuMobileValidationIssues.is-open { display: block; }
+  #swuMobileValidationIssues ul { margin: 0; padding-left: 18px; }
+  #swuMobileValidationIssues li { margin: 3px 0; }
+
   /* Library page: fixed controls inside CardPane, scrollable results, persistent recent tray. */
   #swuMobileSearchPage { display: flex; flex-direction: column; overflow: hidden; }
   #swuMobileSearchPage #myCardPaneSlot {
@@ -1089,6 +1134,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
       <section id="swuMobileDeckPage" class="swu-mobile-page" aria-label="Deck workspace" aria-hidden="true">
         <div class="swu-mobile-page-bar swu-mobile-deck-bar">
           <span class="swu-mobile-page-title"><span>Main Deck</span><b id="swuMobileDeckCount"></b></span>
+          <div id="swuMobileValidation" class="swu-mobile-validation" role="button" tabindex="0" aria-expanded="false" style="display:none;"><span class="swu-mobile-val-label"></span></div>
           <div class="swu-mobile-deck-title-tools">
             <div id="mySortSlot" onclick="ZoneClickHandler('mySort');"></div>
             <div id="swuMobileOverlayMenu" class="swu-mobile-overlay-menu">
@@ -1332,12 +1378,29 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     },true);
     updateMobileFilterSummary(menu);
   }
+  // Mirrors GameLayout.php's updateLeaderTabVisibility() — Twin Suns decks show separate
+  // "Leader1"/"Leader2" tabs instead of the single "Leaders" tab.
+  function updateLeaderTabVisibilityMobile(){
+    var pane = document.getElementById('myCardPane');
+    if(!pane) return;
+    var isTwinSuns = window.SWU_DECK_FORMAT === 'twinsuns';
+    var tabs = pane.querySelectorAll('.panelTab');
+    tabs.forEach(function(tab){
+      var label = tab.textContent.trim();
+      if(label === 'Leaders') tab.style.display = isTwinSuns ? 'none' : '';
+      else if(label === 'Leader1' || label === 'Leader2') tab.style.display = isTwinSuns ? '' : 'none';
+    });
+  }
   function observeMobilePaneFilters(){
     var slot = document.getElementById('myCardPaneSlot');
     if(!slot) return;
-    new MutationObserver(function(){ requestAnimationFrame(compactMobilePaneFilters); })
+    new MutationObserver(function(){ requestAnimationFrame(function(){
+      compactMobilePaneFilters();
+      updateLeaderTabVisibilityMobile();
+    }); })
       .observe(slot,{childList:true,subtree:true});
     compactMobilePaneFilters();
+    updateLeaderTabVisibilityMobile();
     document.addEventListener('click',function(event){
       var menu = document.querySelector('#swuMobileSearchPage .swu-mobile-filter-menu[open]');
       if(menu && !menu.contains(event.target)) {
@@ -1885,6 +1948,63 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     }, true);
   }
 
+  // Live deck-legality validation (design §D) — mobile mirror of the desktop badge.
+  var _swuMValTimer = null;
+  function swuMobileGameName(){ try { return new URLSearchParams(location.search).get('gameName') || ''; } catch(e){ return ''; } }
+  function swuMobileEnsureIssues(){
+    var box = document.getElementById('swuMobileValidationIssues');
+    if(!box){ box = document.createElement('div'); box.id = 'swuMobileValidationIssues'; box.setAttribute('role','region'); box.setAttribute('aria-label','Deck legality issues'); document.body.appendChild(box); }
+    return box;
+  }
+  function swuMobileEscape(s){ return String(s).replace(/[<>&]/g, function(c){ return { '<':'&lt;', '>':'&gt;', '&':'&amp;' }[c]; }); }
+  function renderMobileValidation(data){
+    var badge = document.getElementById('swuMobileValidation');
+    if(!badge) return;
+    var label = badge.querySelector('.swu-mobile-val-label');
+    var box = swuMobileEnsureIssues();
+    if(!data || !data.applicable){
+      badge.style.display = 'none';
+      box.classList.remove('is-open'); box.innerHTML = ''; badge.setAttribute('aria-expanded','false');
+      return;
+    }
+    badge.style.display = 'inline-flex';
+    badge.classList.toggle('is-legal', !!data.legal);
+    badge.classList.toggle('is-illegal', !data.legal);
+    if(data.legal){
+      label.textContent = '✓ Legal';
+      box.classList.remove('is-open'); box.innerHTML = ''; badge.setAttribute('aria-expanded','false');
+    } else {
+      var n = data.issueCount || (data.issues ? data.issues.length : 0);
+      label.textContent = '✗ ' + n;
+      box.innerHTML = '<ul>' + (data.issues || []).map(function(s){ return '<li>' + swuMobileEscape(s) + '</li>'; }).join('') + '</ul>';
+    }
+  }
+  function runMobileValidation(){
+    var g = swuMobileGameName(); if(!g) return;
+    fetch('./SWUDeck/ValidateDeckState.php?gameName=' + encodeURIComponent(g), { credentials:'same-origin' })
+      .then(function(r){ return r.json(); }).then(renderMobileValidation).catch(function(){});
+  }
+  function scheduleMobileValidation(){ if(_swuMValTimer) clearTimeout(_swuMValTimer); _swuMValTimer = setTimeout(runMobileValidation, 450); }
+  function setupMobileValidation(){
+    var badge = document.getElementById('swuMobileValidation');
+    if(badge){
+      var toggle = function(){
+        var box = swuMobileEnsureIssues();
+        if(!box.innerHTML) return;
+        var open = box.classList.toggle('is-open');
+        badge.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if(open){ var r = badge.getBoundingClientRect(); box.style.top = (r.bottom + 6) + 'px'; }
+      };
+      badge.addEventListener('click', toggle);
+      badge.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); } });
+    }
+    var deck = document.getElementById('myDeckSlot');
+    var identity = document.getElementById('swuDeckMobileIdentity');
+    if(deck) new MutationObserver(scheduleMobileValidation).observe(deck, { childList:true, subtree:true, characterData:true });
+    if(identity) new MutationObserver(scheduleMobileValidation).observe(identity, { childList:true, subtree:true });
+    runMobileValidation();
+  }
+
   function initialize(){
     installStableLibraryRender();
     var initialPane = 'search';
@@ -1898,6 +2018,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     bindSwipe();
     installAddTracker();
     observeDeckCount();
+    setupMobileValidation();
     observeMobilePaneFilters();
     if(recentConfirm) recentConfirm.addEventListener('click', confirmRecent);
     document.getElementById('swuMobileToDeck').addEventListener('click', function(){ this.blur(); setPane('deck'); });

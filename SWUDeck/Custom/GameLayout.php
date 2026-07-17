@@ -253,40 +253,87 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     border-radius: 8px;
     background: rgba(1,10,20,0.72);
     box-shadow: inset 0 0 20px rgba(0,0,0,0.36);
+    /* The banner is purely an identity readout (which leader(s) + base the deck runs). The engine
+       still wires the myLeader/myBase slots' onclick to their zone Click actions, so a stray click
+       here used to fire Remove(myLeader) and silently drop the leader. Leaders/bases are changed
+       from the Leader1 / Leader2 / Bases browse tabs, never from this banner — so make the whole
+       banner non-interactive. pointer-events:none cascades to the slots and images beneath. */
+    pointer-events: none;
   }
+  /* Widths below are the pre-JS defaults; updateIdentityBannerLayout() overrides them inline once
+     the leader count is known. They mirror its formula (base = 1/3 accent + half the 36% overlap =
+     51.33%; leader = 2/3 + half the overlap = 84.67%) so there's no flash of a different split
+     before the script runs. */
   #swuDeckBoard #myLeaderSlot {
     position: absolute !important;
     left: 0 !important;
     top: 0 !important;
-    width: 58%;
+    width: 84.67%;
     height: 100%;
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
-    mask-image: linear-gradient(to right, #000 0%, #000 68%, transparent 100%);
   }
+  /* Cascade a flex row down through the generic engine's wrapper/span markup (#myLeaderWrapper
+     div > #myLeader span[flex,flex-wrap — already set inline by PopulateZone] > one <span
+     id="myLeader-N"><img></span> per placed leader, per createCardHTML() in Core/UILibraries — NOT
+     an <a>, confirmed by reading that function directly) so N leaders (1 normally, up to 2 for
+     Twin Suns) lay out side by side sharing the slot's width equally, instead of each trying to
+     size to 100% of the whole slot and overlapping. */
+  /* #myLeader already gets `display:flex` inline from PopulateZone(), but the pre-existing rule
+     `#swuIdentityBanner ... #myLeader ... { display:block !important; }` (below) overrides that
+     inline style (!important beats inline) — must explicitly win it back here for the leader slot. */
+  #swuDeckBoard #myLeaderSlot #myLeaderWrapper,
+  #swuDeckBoard #myLeaderSlot #myLeader {
+    display: flex !important;
+  }
+  #swuDeckBoard #myLeaderSlot #myLeader > span {
+    flex: 1 1 0 !important;
+    width: auto !important;
+    min-width: 0;
+    display: block !important;
+    /* EXPLICIT height:100% (not just flex-stretch). Firefox treats a flex-stretched height as
+       indefinite for percentage-height children, so without this the leader <img>'s own height:100%
+       falls back to auto → its natural aspect (e.g. a 350x270 unit crop at ~195px wide = ~151px
+       tall), overflowing the ~98px banner and rendering the leaders oversized/zoomed next to a
+       correctly-sized base. An explicit height at every level of the chain keeps the percentage
+       resolvable in every engine. */
+    height: 100% !important;
+  }
+  /* Per-tile fade/overlap (solid vs. faded edges, negative margin between tiles) is computed and
+     applied inline by updateIdentityBannerLayout() in the script below — it depends on tile count
+     and position, which plain CSS can't express. */
   #swuDeckBoard #myBaseSlot {
     position: absolute !important;
     left: auto !important;
     right: 0 !important;
     top: 0 !important;
-    width: 58%;
+    width: 51.33%;
     height: 100%;
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(to left, #000 0%, #000 68%, transparent 100%);
-    mask-image: linear-gradient(to left, #000 0%, #000 68%, transparent 100%);
+    /* Pre-JS default (updateIdentityBannerLayout recomputes the solid% to match the overlap): opaque
+       from the right edge, fading to transparent at the left so the base cross-dissolves into the
+       leader beneath. */
+    -webkit-mask-image: linear-gradient(to left, #000 0%, #000 34%, transparent 100%);
+    mask-image: linear-gradient(to left, #000 0%, #000 34%, transparent 100%);
   }
-  #swuDeckBoard #swuIdentityBanner::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(90deg,
-      rgba(2,12,23,0.08) 0%,
-      transparent 31%,
-      rgba(3,18,32,0.36) 48%,
-      rgba(3,18,32,0.28) 52%,
-      transparent 69%,
-      rgba(2,12,23,0.08) 100%);
+  /* No ::after tint overlay: an earlier version darkened the banner's horizontal center (~48-52%)
+     to hide the leader/base seam, but that just traded the seam for a vertical dark stripe. The wide
+     cross-dissolve (BASE_OVERLAP_PCT) blends the two arts directly, so no masking tint is needed. */
+  /* Base tile parity with the leader tiles. The engine renders the base card as a bare INLINE span
+     (span#myBase-N); an inline box carries baseline/line-height spacing and a fragile
+     percentage-height chain, so in stricter layout engines (Safari/Firefox) the base art ends up
+     laid out shorter than the banner and not flush at the bottom — the "base is smaller/inset" bug.
+     The leader tiles never hit this because #myLeader is a flex row and each tile is a flex item
+     stretched to full height. Give the base the exact same flex-stretch treatment so its art fills
+     the banner top-to-bottom identically. */
+  #swuDeckBoard #myBaseSlot #myBase {
+    display: flex !important;
+    align-items: stretch !important;
+  }
+  #swuDeckBoard #myBaseSlot #myBase > span {
+    flex: 1 1 0 !important;
+    min-width: 0;
+    display: block !important;
+    height: 100% !important;
   }
   #swuIdentityBanner #myLeaderWrapper,
   #swuIdentityBanner #myBaseWrapper,
@@ -303,11 +350,27 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     display: block !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover;
+    /* !important so no cached/injected rule (e.g. a stale menuStyles/overrides bundle) can flip the
+       banner art to object-fit:contain, which would letterbox the very-wide base crop into a short
+       strip with dark bands above/below — the "base is smaller / inset" symptom. cover always fills
+       the full banner height and crops the overflow. */
+    object-fit: cover !important;
     object-position: center;
     border: 0 !important;
   }
-  #swuIdentityBanner #myLeaderSlot img { object-position: center top; }
+  /* left top (not center top): crop files put the character portrait on the left ~40% and
+     ability-text art on the right ~60%. A narrow per-leader flex slot (Twin Suns splits this
+     into N tiles) center-cropping would land right on that boundary, showing mostly the text
+     box's light background instead of the character. */
+  #swuIdentityBanner #myLeaderSlot img { object-position: left top; }
+  /* Base crops (crops/*_cropped.png, "Base" branch in zzImageConverter.php's CheckImage()) now
+     start past the name banner/border at the pixel level (y=130 of the 628x450 landscape source),
+     so this is pure art already — no CSS zoom/pan needed, matching the plain object-fit:cover the
+     Leader crop uses. (Earlier attempts tried to fake this at runtime with transform:scale/translate
+     on the still-includes-the-banner crop; both were fragile — one exposed a background gap when
+     the translated image's filled box slid off the container edge. Fixing the crop file itself
+     avoids that class of bug entirely.) */
+  #swuIdentityBanner #myBaseSlot img { object-position: center; }
   #swuDeckBoard #myCardPaneSlot {
     top: calc(var(--swu-identity-height) + 20px) !important;
     overflow: hidden;
@@ -325,6 +388,62 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     right: 10px !important;
     top: 10px !important;
   }
+  /* Live deck-legality badge (design §D). Sits just under the DECK COUNT readout. Hidden for Open
+     decks (no legality rules) and until the first validation result arrives. Its issue list is a
+     child of the board (not the overflow:hidden banner) so it can expand downward. */
+  #swuDeckBoard #swuValidationBadge {
+    position: absolute;
+    top: 30px;
+    left: calc(26% + 12px);
+    z-index: 40;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    height: 20px;
+    padding: 0 10px;
+    border-radius: 10px;
+    font: 600 11px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  /* These state rules carry the #swuDeckBoard prefix so they out-specify the base
+     `#swuDeckBoard #swuValidationBadge/#swuValidationIssues` rules (two IDs). Without it, the base
+     `display:none` on the issues panel beats a bare `.is-open` (one ID + one class) and the panel
+     never opens; the border-color likewise wouldn't win. */
+  #swuDeckBoard #swuValidationBadge.is-legal {
+    color: #bdf0cd;
+    background: rgba(24, 92, 52, 0.55);
+    border-color: rgba(120, 230, 160, 0.5);
+  }
+  #swuDeckBoard #swuValidationBadge.is-illegal {
+    color: #f5c6c0;
+    background: rgba(104, 34, 30, 0.6);
+    border-color: rgba(245, 150, 140, 0.55);
+  }
+  #swuValidationBadge .swu-val-caret { font-size: 9px; opacity: 0.75; }
+  #swuDeckBoard #swuValidationIssues {
+    position: absolute;
+    top: 52px;
+    left: calc(26% + 12px);
+    z-index: 39;
+    display: none;
+    max-width: 44%;
+    max-height: 220px;
+    overflow-y: auto;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(6, 20, 32, 0.97);
+    border: 1px solid rgba(245, 150, 140, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    color: rgba(232, 210, 206, 0.95);
+    font: 12px/1.45 Arial, Helvetica, sans-serif;
+  }
+  #swuDeckBoard #swuValidationIssues.is-open { display: block; }
+  #swuValidationIssues ul { margin: 0; padding-left: 16px; }
+  #swuValidationIssues li { margin: 2px 0; }
   /* Main deck + sideboard share one normal-flow workspace. The sideboard therefore follows
      the final main-deck row instead of being stranded against the bottom of the viewport. */
   #swuDeckBoard #swuDeckWorkspace {
@@ -386,6 +505,21 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     height: 100%;
     min-height: 0;
     overflow: hidden !important;
+  }
+  /* Leaders/Leader1/Leader2/Bases tiles source full card art from WebpImages/ (landscape 628x450).
+     Size them by WIDTH to --swu-deck-card-size (the same viewport/13 the "Cards" tiles use) with
+     height following the natural landscape aspect. Since the browse pane is a fixed 25% of the
+     viewport and the card is viewport/13, that's always 0.25*13 ≈ 3.25 tiles wide → 3 per row,
+     matching the Cards panel at every viewport (rather than the old fixed 60px height, which left
+     them as small 4-per-row strips). */
+  #myCardPane [id^="myLeaders"] img,
+  #myCardPane [id^="myLeader1"] img,
+  #myCardPane [id^="myLeader2"] img,
+  #myCardPane [id^="myBases"] img {
+    width: calc(var(--swu-deck-card-size) - 8px) !important;
+    height: auto !important;
+    max-width: none !important;
+    object-fit: fill;
   }
   #myCardPane > div:first-child {
     flex: 0 0 auto;
@@ -559,26 +693,101 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     var filename = String(img.getAttribute('src') || '').split('/').pop().split('?')[0];
     return filename.replace(/_back(?=\.(?:webp|png)$)/, '').replace(/\.(?:webp|png)$/, '');
   }
-  function useIdentityCrop(slotID, useBack){
-    var img = document.querySelector('#' + slotID + ' img');
+  function applyIdentityCrop(img, useBack){
     if(!img || img.dataset.swuIdentityCrop === '1') return;
     var cardID = cardIDFromImage(img);
     if(!cardID) return;
     img.dataset.swuIdentityCrop = '1';
-    var cropRoot = './SWUDeck/crops/' + encodeURIComponent(cardID);
     if(useBack) {
-      img.addEventListener('error', function fallbackToFrontCrop(){
-        img.removeEventListener('error', fallbackToFrontCrop);
-        img.src = cropRoot + '_cropped.png';
-      });
-      img.src = cropRoot + '_back_cropped.png';
+      // Leaders: window.SWU_LEADER_CROP_URLS (injected by InitialLayout.php) already resolves
+      // each leader to its deployed Leader Unit side's own crop via LeaderUnitByUUID() —
+      // server-side, no more client-side "_back_cropped.png" guessing/fallback needed. The Leader
+      // Unit side is a portrait action-pose image, so a tight portrait crop still reads correctly.
+      var resolvedUrl = window.SWU_LEADER_CROP_URLS && window.SWU_LEADER_CROP_URLS[cardID];
+      img.src = resolvedUrl || ('./SWUDeck/crops/' + encodeURIComponent(cardID) + '_cropped.png');
     } else {
-      img.src = cropRoot + '_cropped.png';
+      // Bases: crops/*_cropped.png now has its own "Base" crop branch (zzImageConverter.php's
+      // CheckImage()) tailored to the true landscape WebpImages source — banner + art, border and
+      // cost pip trimmed off — the same close-in identity framing the Leader crop gives leaders.
+      img.src = './SWUDeck/crops/' + encodeURIComponent(cardID) + '_cropped.png';
     }
+  }
+  // myLeaderSlot can hold more than one image (Twin Suns decks place up to 2 leaders in the
+  // same zone) — crop every leader image found, not just the first.
+  function useIdentityCrop(slotID, useBack){
+    var imgs = document.querySelectorAll('#' + slotID + ' img');
+    imgs.forEach(function(img){ applyIdentityCrop(img, useBack); });
+  }
+  // How far the base slot overlaps the leader slot, as % of banner width. The base's inner (left)
+  // edge fades to transparent across this whole overlap so it cross-dissolves into the leader art
+  // underneath instead of butting against it with a visible seam. A WIDE overlap lets a
+  // tonally-different base (a bright desert temple against a dark leader scene) melt in rather than
+  // read as a second panel — but that same wide overlap CROWDS a second leader (the base creeps
+  // over leader 2's right while leader 1 is untouched, so leader 2 looks squeezed). So use a wide
+  // overlap only for a solo leader (where there's just one big portrait + base), and a narrower one
+  // for Twin Suns so the two leaders and the base read as even thirds. Kept SEPARATE from the
+  // leader-to-leader overlap below so tuning the base blend never disturbs the inter-leader seam.
+  var BASE_OVERLAP_SOLO = 8;
+  var BASE_OVERLAP_MULTI = 4;
+  var LEADER_INNER_OVERLAP_PCT = 24;
+  // How opaque the base stays toward the banner's middle: the % of the base slot (measured from its
+  // outer/right edge) that is fully opaque before the mask fades to transparent at its inner edge.
+  // Higher = the base holds its opacity further in and fades over a narrower band right at the
+  // leader (rather than dissolving across the whole overlap). Clamped up to the geometric no-muddy-
+  // band minimum below, so raising it is always safe.
+  var BASE_SOLID_TARGET = 90;
+  function updateIdentityBannerLayout(){
+    var leaderSlot = document.getElementById('myLeaderSlot');
+    var baseSlot = document.getElementById('myBaseSlot');
+    if(!leaderSlot || !baseSlot) return;
+    var tiles = Array.from(leaderSlot.querySelectorAll('#myLeader > span'));
+    var BASE_OVERLAP_PCT = tiles.length > 1 ? BASE_OVERLAP_MULTI : BASE_OVERLAP_SOLO;
+    // The base is always a ~1/3-width accent; the leader(s) share the other ~2/3 equally. This
+    // was `100/(leaderCount+1)` (an equal split among leaders + base), but that gives a single
+    // leader's base a full 50% — a bright base then reads as a dominant second half, and the pair
+    // looks like two images butted together. For 2 leaders `100/(N+1)` already equals 100/3, so
+    // Twin Suns is unchanged; fixing the fraction only shifts the single-leader case to that same
+    // leader-dominant balance, just filled by 1 vs 2 leader tiles.
+    var baseFair = 100 / 2.35;
+    var leaderFair = 100 - baseFair;
+    var baseSlotW = baseFair + BASE_OVERLAP_PCT / 2;
+    leaderSlot.style.width = (leaderFair + BASE_OVERLAP_PCT / 2) + '%';
+    baseSlot.style.width = baseSlotW + '%';
+
+    // Base mask: opaque from the outer (right) edge inward, fading to transparent at the inner
+    // (left) edge. The opaque region MUST reach the leader slot's right edge (x = leaderFair +
+    // overlap/2 in banner %), so the base is fully solid exactly where the leader ends — if it were
+    // still fading past that point it would sit over the dark banner background with no leader
+    // beneath and leave a muddy band. That crossover, expressed as a fraction of the base slot's
+    // own width and measured from its right edge, is (baseFair - overlap/2) / baseSlotW; +4% is a
+    // safety margin so the base goes fully opaque a hair BEFORE the leader's edge, never after.
+    var solidMin = ((baseFair - BASE_OVERLAP_PCT / 2) / baseSlotW) * 100 + 4;
+    var solidPct = Math.max(0, Math.min(100, Math.max(solidMin, BASE_SOLID_TARGET)));
+    var baseMask = 'linear-gradient(to left, #000 0%, #000 ' + solidPct + '%, transparent 100%)';
+    baseSlot.style.webkitMaskImage = baseMask;
+    baseSlot.style.maskImage = baseMask;
+
+    // Leader tiles: fade an edge ONLY where it faces another tile (an inner Twin Suns seam). Outer
+    // edges stay fully opaque — the leftmost tile's left edge frames the banner, and the rightmost
+    // tile's right (hard) edge is hidden under the now-opaque base, so fading it would only thin the
+    // leader and let dark background show through the base's transparent zone. Each non-last tile
+    // gets a negative right margin so its neighbor slides over it by LEADER_INNER_OVERLAP_PCT.
+    var innerOverlapPct = tiles.length > 1 ? LEADER_INNER_OVERLAP_PCT : 0;
+    tiles.forEach(function(tile, i){
+      var isFirst = i === 0;
+      var isLast = i === tiles.length - 1;
+      tile.style.marginRight = isLast ? '0' : (-innerOverlapPct) + '%';
+      var left = isFirst ? '#000 0%' : 'transparent 0%, #000 18%';
+      var right = isLast ? '#000 100%' : '#000 82%, transparent 100%';
+      var gradient = 'linear-gradient(to right, ' + left + ', ' + right + ')';
+      tile.style.webkitMaskImage = gradient;
+      tile.style.maskImage = gradient;
+    });
   }
   function enhanceIdentityBanner(){
     useIdentityCrop('myLeaderSlot', true);
     useIdentityCrop('myBaseSlot', false);
+    updateIdentityBannerLayout();
   }
   function compactPaneFilters(){
     var pane = document.getElementById('myCardPane');
@@ -670,16 +879,119 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
       window.myCardPaneScrollPosition = content.scrollTop;
     }, { passive: true });
   }
+  // Twin Suns decks pick leaders from separate "Leader1"/"Leader2" tabs (so the player controls
+  // which slot they're filling); every other format keeps the single "Leaders" tab. All three
+  // tabs always exist (schema-driven, one per pane zone) — this just shows/hides by tab label,
+  // since generated tab buttons carry no other zone identifier client-side.
+  function updateLeaderTabVisibility(){
+    var pane = document.getElementById('myCardPane');
+    if(!pane) return;
+    var isTwinSuns = window.SWU_DECK_FORMAT === 'twinsuns';
+    var tabs = pane.querySelectorAll('.panelTab');
+    tabs.forEach(function(tab){
+      var label = tab.textContent.trim();
+      if(label === 'Leaders') tab.style.display = isTwinSuns ? 'none' : '';
+      else if(label === 'Leader1' || label === 'Leader2') tab.style.display = isTwinSuns ? '' : 'none';
+    });
+  }
+  // ── Live deck-legality validation (design §D) ─────────────────────────────────────────────────
+  // Poll SWUDeck/ValidateDeckState.php (shared SWUCheckFormat over the saved gamestate) whenever the
+  // deck changes and reflect the result in a badge. Open-format decks report applicable:false, which
+  // hides the badge. The server autosaves before it returns the re-render that triggers our observer,
+  // so the debounced fetch reads the just-saved state.
+  var _swuValTimer = null;
+  function swuGameNameFromURL(){
+    try { return new URLSearchParams(window.location.search).get('gameName') || ''; }
+    catch(e){ return ''; }
+  }
+  function ensureValidationEls(){
+    var board = document.getElementById('swuDeckBoard');
+    if(!board) return null;
+    var badge = document.getElementById('swuValidationBadge');
+    if(!badge){
+      badge = document.createElement('div');
+      badge.id = 'swuValidationBadge';
+      badge.setAttribute('role', 'button');
+      badge.setAttribute('tabindex', '0');
+      badge.setAttribute('aria-expanded', 'false');
+      badge.innerHTML = "<span class='swu-val-label'></span><span class='swu-val-caret' aria-hidden='true'>&#9662;</span>";
+      board.appendChild(badge);
+      var issues = document.createElement('div');
+      issues.id = 'swuValidationIssues';
+      issues.setAttribute('role', 'region');
+      issues.setAttribute('aria-label', 'Deck legality issues');
+      board.appendChild(issues);
+      var toggle = function(){
+        var box = document.getElementById('swuValidationIssues');
+        if(!box || !box.innerHTML) return;   // nothing to expand when legal
+        var open = box.classList.toggle('is-open');
+        badge.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      badge.addEventListener('click', toggle);
+      badge.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); } });
+    }
+    return badge;
+  }
+  function _swuEscape(s){
+    return String(s).replace(/[<>&]/g, function(c){ return { '<':'&lt;', '>':'&gt;', '&':'&amp;' }[c]; });
+  }
+  function renderValidation(data){
+    var badge = ensureValidationEls();
+    if(!badge) return;
+    var box = document.getElementById('swuValidationIssues');
+    if(!data || !data.applicable){
+      badge.style.display = 'none';
+      if(box){ box.classList.remove('is-open'); box.innerHTML = ''; }
+      return;
+    }
+    badge.style.display = 'inline-flex';
+    badge.classList.toggle('is-legal', !!data.legal);
+    badge.classList.toggle('is-illegal', !data.legal);
+    var label = badge.querySelector('.swu-val-label');
+    if(data.legal){
+      label.textContent = '✓ ' + (data.formatName || 'Format') + ' legal';
+      if(box){ box.classList.remove('is-open'); box.innerHTML = ''; }
+      badge.setAttribute('aria-expanded', 'false');
+    } else {
+      var n = data.issueCount || (data.issues ? data.issues.length : 0);
+      label.textContent = '✗ ' + n + ' issue' + (n === 1 ? '' : 's');
+      if(box){
+        box.innerHTML = '<ul>' + (data.issues || []).map(function(s){ return '<li>' + _swuEscape(s) + '</li>'; }).join('') + '</ul>';
+      }
+    }
+  }
+  function runValidation(){
+    var g = swuGameNameFromURL();
+    if(!g) return;
+    fetch('./SWUDeck/ValidateDeckState.php?gameName=' + encodeURIComponent(g), { credentials: 'same-origin' })
+      .then(function(r){ return r.json(); })
+      .then(renderValidation)
+      .catch(function(){ /* transient failure — keep the last shown state */ });
+  }
+  function scheduleValidation(){
+    if(_swuValTimer) clearTimeout(_swuValTimer);
+    _swuValTimer = setTimeout(runValidation, 450);
+  }
+  function observeValidation(){
+    var deck = document.getElementById('myDeckSlot');       // "DECK COUNT: N" — mutates on card add/remove
+    var banner = document.getElementById('swuIdentityBanner'); // mutates on leader/base change
+    if(deck) new MutationObserver(scheduleValidation).observe(deck, { childList: true, subtree: true, characterData: true });
+    if(banner) new MutationObserver(scheduleValidation).observe(banner, { childList: true, subtree: true });
+    runValidation();
+  }
+
   function observeCardPane(){
     var slot = document.getElementById('myCardPaneSlot');
     if(!slot) return;
     new MutationObserver(function(){ requestAnimationFrame(function(){
       bindCardPaneScroll();
       compactPaneFilters();
+      updateLeaderTabVisibility();
     }); })
       .observe(slot, { childList: true, subtree: true });
     bindCardPaneScroll();
     compactPaneFilters();
+    updateLeaderTabVisibility();
   }
   function observeIdentityBanner(){
     var banner = document.getElementById('swuIdentityBanner');
@@ -692,6 +1004,7 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     bindPaneFilterDismissal();
     observeCardPane();
     observeIdentityBanner();
+    observeValidation();
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeLayoutEnhancements);
   else initializeLayoutEnhancements();

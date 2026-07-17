@@ -363,7 +363,7 @@ def build_content(doc):
     add_bullet(doc, "AzukiSim/GetNextTurn.php: board serialization, authentication, long-poll behavior, and Azuki-specific zone order.")
     add_bullet(doc, "AzukiSim/NextTurnRender.php: exact response-array indexes and player-perspective remapping used by the bundled frontend.")
     add_bullet(doc, "ProcessInput.php and Core/EngineActionRunner.php: action validation, DECISION normalization, and JSON acknowledgement behavior.")
-    add_bullet(doc, "Core/jsInclude.js and Core/UILibraries20260716.js: current browser action serialization, decision UI, chat behavior, and zone rendering conventions.")
+    add_bullet(doc, "Core/jsInclude.js and Core/UILibraries20260717.js: current browser action serialization, decision UI, chat behavior, and zone rendering conventions.")
     add_bullet(doc, "Core/GameAuth.php and Core/ViewerIdentity.php: seat/spectator identity and authorization rules.")
 
     add_heading(doc, "Quick start reference", 1)

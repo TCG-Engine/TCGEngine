@@ -26,6 +26,26 @@ function _requireImagick()
     }
 }
 
+// CSS object-fit:cover equivalent — scale so the image fully fills a $targetW x $targetH box
+// (the larger of the two scale factors, so the non-matching dimension overflows), then crop that
+// overflow off centered. Unlike Imagick's resizeImage bestfit (CSS "contain": fits inside the box,
+// but the output size varies with the source's exact aspect ratio), this always produces an
+// identical $targetW x $targetH canvas regardless of the source's aspect ratio — needed so a fixed
+// downstream pixel crop lands at the same relative spot on every card.
+function _resizeCover($image, $targetW, $targetH)
+{
+    $srcW = $image->getImageWidth();
+    $srcH = $image->getImageHeight();
+    $scale = max($targetW / $srcW, $targetH / $srcH);
+    $scaledW = (int) round($srcW * $scale);
+    $scaledH = (int) round($srcH * $scale);
+    $image->resizeImage($scaledW, $scaledH, Imagick::FILTER_LANCZOS, 1, false);
+    $cropX = (int) round(($scaledW - $targetW) / 2);
+    $cropY = (int) round(($scaledH - $targetH) / 2);
+    $image->cropImage($targetW, $targetH, max(0, $cropX), max(0, $cropY));
+    $image->setImagePage(0, 0, 0, 0);
+}
+
 // Card dimensions after resize: 450×628 (portrait) or 628×450 (landscape for Leader/Base).
 //
 // Concat crop specs (all produce 450×450 output from a 450×628 portrait card):
@@ -81,7 +101,17 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
                 if ($image->getImageHeight() > $image->getImageWidth()) {
                     $image->rotateimage(new ImagickPixel('none'), -90);
                 }
-                $image->resizeImage(628, 450, Imagick::FILTER_LANCZOS, 1, true);
+                // bestfit=true resizeImage is CSS "contain" (fit inside the box, preserving
+                // aspect) — it does NOT guarantee the output is exactly 628x450, only that it
+                // fits within that box. Real card scans have per-card micro-variance in source
+                // aspect ratio, so bestfit alone produces a slightly different canvas size per
+                // card (e.g. 628x449 vs 627x450) with no fixed anchor point. Any fixed-pixel crop
+                // downstream (the identity-banner Base/Leader crops below) then lands at a
+                // slightly different spot on the card for every card, occasionally clipping into
+                // the card's own border. _resizeCover forces an identical, deterministic
+                // 628x450 canvas for every card (CSS "cover": scale to fill, crop the overflow),
+                // so downstream fixed-pixel crops are reliable across the whole card pool.
+                _resizeCover($image, 628, 450);
             } elseif ($definedType == "LeaderUnit") {
                 // Leader unit-side arrives landscape; rotate to portrait before resizing.
                 if ($image->getImageWidth() > $image->getImageHeight()) {
@@ -123,9 +153,16 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
             // chop the stats) or the legacy default.
             _concatTwoSection($filename, $concatFilename, $cardID,
                 topSrcY:14, topH:342, botSrcY:516, botH:80, outW:450, outH:450);
+        } elseif ($definedType === "Leader" || $definedType === "Base") {
+            // Leader-front and Base sources are landscape (628x450 post-resize), unlike every
+            // other type here (portrait 450x628) — the two-section crop below assumes a portrait
+            // source and would read past the bottom edge (y=595 on a 450-tall image) if reused.
+            // Take a centered 420x420 square instead (same inset spirit as the Unit crop), then
+            // scale up to the uniform 450×450 like the other types.
+            _concatSingleCrop($filename, $concatFilename, $cardID, 104, 15, 420, 420, 450, 450);
         } else {
-            // Leader / Base / fallback: top 400px from y=15 + bottom 10px from
-            // y=595; stacked → 410px, then scaled up to a uniform 450×450.
+            // Fallback: top 400px from y=15 + bottom 10px from y=595; stacked → 410px, then
+            // scaled up to a uniform 450×450. Only reachable for a type not covered above.
             _concatTwoSection($filename, $concatFilename, $cardID,
                 topSrcY:15, topH:400, botSrcY:595, botH:10, outW:450, outH:450);
         }
@@ -137,6 +174,25 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
         $image = new Imagick($filename);
         if ($definedType == "Event") {
             $image->cropImage(350, 246, 50, 326);
+        } elseif ($definedType == "Leader") {
+            // Leader cards uniquely split the frame into a left-side character portrait (~0-210px)
+            // and a right-side rules-text box (~210-450px) — the shared default crop window
+            // straddles that boundary and mostly captures the text box. Crop tight to the portrait
+            // instead, matching how Unit/Base art crops (which are full-bleed, no text overlap)
+            // already look clean with the default window.
+            $image->cropImage(200, 350, 10, 60);
+        } elseif ($definedType == "Base") {
+            // Base fronts are landscape (628x450 post-resize, now a deterministic canvas via
+            // _resizeCover above): cost pip top-left, name banner across the top (~y=0-130), then
+            // art, with an ability text box near the bottom on bases that have one. This crop is a
+            // wide band of the scene BELOW the name banner. The identity banner then object-fit:cover
+            // centers it, so the visible slice's HEIGHT (not width) sets the zoom — a taller crop
+            // reveals more of the scene (an earlier 120px band mostly caught the empty top of the
+            // art, e.g. the Chopper Base hangar ceiling instead of the ship). 175px tall from y=125
+            // ends at y=300; the tallest text boxes (Sundari Palace TS26_012 / Nabat Village JTL_028,
+            // 3-line, box top ~y=280) sit far enough to the sides that center-cover cropping keeps
+            // them out of frame — verified against both.
+            $image->cropImage(560, 175, 34, 125);
         } else {
             $image->cropImage(350, 270, 50, 100);
         }

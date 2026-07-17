@@ -3,6 +3,7 @@ include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
+include_once __DIR__ . '/../../../SWUDeck/Custom/DeckFormats.php';
 require_once __DIR__ . '/../../Render/Auth.php';
 
 include_once __DIR__ . '/MobileViewport.php';
@@ -167,6 +168,66 @@ include_once __DIR__ . '/MobileViewport.php';
 
 /* Deck names — HUD sans-serif, but normal case (not all-caps). */
 .deck-name, .deck-name span { font-family: Arial, Helvetica, sans-serif !important; text-transform: none !important; }
+.deck-format-chip {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  color: #001833;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* Deck list: leader(s) + base as a staggered stack (full card art, same source as the builder's
+   browse panes — not the small identity crop) instead of side-by-side thumbnails. The base sits
+   behind, anchored top-right, so its name banner + aspect icon (both near a base card's top edge)
+   stay visible past the leader(s) anchored in front, bottom-left. Specificity/!important needed to
+   beat swudeck-overrides.css's .swu-main-menu .swu-deck-art img rule (height:80px!important). */
+.swu-main-menu .swu-deck-art.swu-deck-stack {
+  width: 1% !important;
+  white-space: nowrap;
+}
+.swu-main-menu .swu-deck-art .swu-deck-stack-frame {
+  position: relative !important;
+  width: 112px !important;
+  height: 80px !important;
+  cursor: pointer !important;
+  display: inline-block !important;
+}
+.swu-main-menu .swu-deck-art .swu-deck-stack-frame img {
+  position: absolute !important;
+  height: 58px !important;
+  width: auto !important;
+  object-fit: cover !important;
+  border: 1px solid rgba(134,203,242,0.16) !important;
+  border-radius: 4px !important;
+  margin: 0 !important;
+}
+.swu-deck-stack-base {
+  top: 0 !important;
+  right: 0 !important;
+  width: 82px !important;
+  z-index: 1;
+  object-position: top !important;
+  box-shadow: 0 3px 9px rgba(0,0,0,0.38);
+}
+.swu-deck-stack-leader {
+  bottom: 0 !important;
+  left: 0 !important;
+  height: 64px !important;
+  width: 64px !important;
+  z-index: 2;
+  object-position: top left !important;
+  box-shadow: -2px 2px 8px rgba(0,0,0,0.55);
+}
+.swu-deck-stack-leader-twin-a, .swu-deck-stack-leader-twin-b {
+  width: 40px !important;
+  height: 58px !important;
+}
+.swu-deck-stack-leader-twin-a { left: 0 !important; }
+.swu-deck-stack-leader-twin-b { left: 40px !important; }
 
 /* Create / Import buttons in the search row — match the search input's height. */
 #createDeckButton, #importDeckButton {
@@ -228,21 +289,30 @@ function LoadDecks() {
       $title = $deck["assetName"] != "" ? $deck["assetName"] : "Deck #" . $deck["assetIdentifier"] . " (Click to rename)";
       $thisDeck .= "<tr class='swu-deck-row' onclick=\"window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck';\">";
       $id = "deck" . $deck["assetIdentifier"] . "Title";
-      $thisDeck .= "<td class='swu-deck-art swu-deck-leader'>";
-      if (!empty($deck["keyIndicator1"])) {
-        $thisDeck .= "<img src='/TCGEngine/SWUDeck/concat/" . $deck["keyIndicator1"] . ".webp' style='height: 80px; cursor:pointer;' title='" . CardTitle($deck["keyIndicator1"]) . "' onclick=\"event.stopPropagation(); window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'; return false;\" draggable='false' />";
-      } else {
-        $thisDeck .= "No Leader";
-      }
-      $thisDeck .= "</td>";
-      $thisDeck .= "<td class='swu-deck-art swu-deck-base'>";
+      $_deckNav = "event.stopPropagation(); window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'; return false;";
+      $thisDeck .= "<td class='swu-deck-art swu-deck-stack' colspan='2'>";
+      $thisDeck .= "<div class='swu-deck-stack-frame' onclick=\"$_deckNav\">";
+      // Base sits behind, anchored top-right, so its name banner + aspect icon (both near the
+      // top of a base card) stay visible past the leader(s) in front. Leader(s) anchor
+      // bottom-left, the natural focal point.
       if (!empty($deck["keyIndicator2"])) {
-        $thisDeck .= "<img src='/TCGEngine/SWUDeck/concat/" . $deck["keyIndicator2"] . ".webp' style='height: 80px; cursor:pointer;' title='" . CardTitle($deck["keyIndicator2"]) . "' onclick=\"event.stopPropagation(); window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'; return false;\" draggable='false' />";
-      } else {
-        $thisDeck .= "No Base";
+        $thisDeck .= "<img class='swu-deck-stack-base' src='" . SWUDeckWebpUrl($deck["keyIndicator2"]) . "' title='" . CardTitle($deck["keyIndicator2"]) . "' draggable='false' />";
       }
+      if (!empty($deck["keyIndicator1"]) && !empty($deck["keyIndicator3"])) {
+        // Twin Suns: both leaders side by side in front of the base.
+        $thisDeck .= "<img class='swu-deck-stack-leader swu-deck-stack-leader-twin-a' src='" . SWUDeckWebpUrl($deck["keyIndicator1"]) . "' title='" . CardTitle($deck["keyIndicator1"]) . "' draggable='false' />";
+        $thisDeck .= "<img class='swu-deck-stack-leader swu-deck-stack-leader-twin-b' src='" . SWUDeckWebpUrl($deck["keyIndicator3"]) . "' title='" . CardTitle($deck["keyIndicator3"]) . "' draggable='false' />";
+      } else if (!empty($deck["keyIndicator1"])) {
+        $thisDeck .= "<img class='swu-deck-stack-leader' src='" . SWUDeckWebpUrl($deck["keyIndicator1"]) . "' title='" . CardTitle($deck["keyIndicator1"]) . "' draggable='false' />";
+      } else if (empty($deck["keyIndicator2"])) {
+        $thisDeck .= "No Leader / No Base";
+      }
+      $thisDeck .= "</div>";
       $thisDeck .= "</td>";
-      $thisDeck .= "<td class='deck-name'><span id='" . $id . "'><span onclick='event.stopPropagation(); DeckNameClick(\"" . $id . "\")'>" . $title . "</span></span></td>";
+      $deckFormat = $deck["format"] ?? "premier";
+      $chipColor = htmlspecialchars(SWUDeckFormatColor($deckFormat), ENT_QUOTES);
+      $chipLabel = htmlspecialchars(SWUDeckFormatDisplayName($deckFormat), ENT_QUOTES);
+      $thisDeck .= "<td class='deck-name'><span id='" . $id . "'><span onclick='event.stopPropagation(); DeckNameClick(\"" . $id . "\")'>" . $title . "</span></span><span class='deck-format-chip' style='background-color: $chipColor;'>$chipLabel</span></td>";
       // Desktop action buttons
       $thisDeck .= "<td class='deck-actions-desktop' style='padding: 3px;'>";
       $thisDeck .= "<button title='Stats' onclick='event.stopPropagation(); window.location.href=\"/TCGEngine/$folderPath/DeckStats.php?gameName=" . $deck["assetIdentifier"] . "\"'>";
@@ -252,6 +322,12 @@ function LoadDecks() {
       $thisDeck .= "</button>";
       $thisDeck .= "<button title='Copy Link' onclick='event.stopPropagation(); showCopyOptions(\"" . $deck["assetIdentifier"] . "\", event)'>";
       $thisDeck .= "<img src='/TCGEngine/Assets/Icons/clipboard-check.svg' width='16' height='16' alt='Copy Link' style='filter:invert(100%);' />";
+      $thisDeck .= "</button>";
+      $thisDeck .= "<button title='Change Format' onclick='event.stopPropagation(); showFormatPicker(\"" . $deck["assetIdentifier"] . "\", \"" . $deckFormat . "\", event)'>";
+      $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-tag' viewBox='0 0 16 16'>
+    <path d='M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0'/>
+    <path d='M2.5 1A1.5 1.5 0 0 0 1 2.5v5.628a2.5 2.5 0 0 0 .732 1.767l6.5 6.5a2.5 2.5 0 0 0 3.536 0l5.628-5.628a2.5 2.5 0 0 0 0-3.536l-6.5-6.5A2.5 2.5 0 0 0 8.128 1zM2 2.5A.5.5 0 0 1 2.5 2h5.628a1.5 1.5 0 0 1 1.06.44l6.5 6.5a1.5 1.5 0 0 1 0 2.12L10.06 16.56a1.5 1.5 0 0 1-2.12 0l-6.5-6.5A1.5 1.5 0 0 1 2 8.128z'/>
+    </svg>";
       $thisDeck .= "</button>";
       if (CheckLoggedInUserMod() === '') {
         $thisDeck .= "<button title='Export Card Text JSON' onclick='event.stopPropagation(); ShowCardTextJSON(\"" . $deck["assetIdentifier"] . "\")'>";
@@ -299,7 +375,8 @@ function LoadDecks() {
       $_ddAssetSource = is_null($deck['assetSource']) ? 'null' : intval($deck['assetSource']);
       $_ddAssetFolder = is_null($deck['assetFolder']) ? 0 : intval($deck['assetFolder']);
       $_ddCanRefresh = (!is_null($deck['assetSource']) && !is_null($deck['assetSourceID'])) ? 'true' : 'false';
-      $thisDeck .= "<td class='deck-actions-mobile' style='display: none;'><button class='deck-more-btn' title='More' aria-label='More actions for " . htmlspecialchars($title, ENT_QUOTES) . "' onclick='event.stopPropagation(); showDeckDropdown(this, \"$id\", \"{$deck['assetIdentifier']}\", {$_ddAssetSource}, \"{$deck['assetSourceID']}\", {$_ddAssetFolder}, {$_ddCanRefresh})'>⋮</button></td>";
+      $_ddFormat = htmlspecialchars($deckFormat, ENT_QUOTES);
+      $thisDeck .= "<td class='deck-actions-mobile' style='display: none;'><button class='deck-more-btn' title='More' aria-label='More actions for " . htmlspecialchars($title, ENT_QUOTES) . "' onclick='event.stopPropagation(); showDeckDropdown(this, \"$id\", \"{$deck['assetIdentifier']}\", {$_ddAssetSource}, \"{$deck['assetSourceID']}\", {$_ddAssetFolder}, {$_ddCanRefresh}, \"{$_ddFormat}\")'>⋮</button></td>";
       $thisDeck .= "</tr>";
       if($deck["assetFolder"] == 0) $otherDecks .= $thisDeck;
       else $favoriteDecks .= $thisDeck;
@@ -503,6 +580,55 @@ function LoadDecks() {
       }, { once: true });
     }
 
+    function showFormatPicker(deckID, currentFormat, event) {
+      var existing = document.getElementById("formatPickerMenu");
+      if (existing) existing.remove();
+
+      var menu = document.createElement("div");
+      menu.id = "formatPickerMenu";
+      menu.style.position = "fixed";
+      menu.style.backgroundColor = "#002249";
+      menu.style.color = "#fff";
+      menu.style.padding = "10px";
+      menu.style.boxShadow = "0 0 10px 2px #001f4d";
+      menu.style.borderRadius = "4px";
+      menu.style.zIndex = "2000";
+      var rect = (event.target.closest("button") || event.target).getBoundingClientRect();
+      menu.style.top = rect.bottom + "px";
+      menu.style.left = rect.left + "px";
+
+      var options = Object.keys(SWU_DECK_FORMATS).map(function(id) {
+        var selected = id === currentFormat ? " selected" : "";
+        return '<option value="' + id + '"' + selected + '>' + SWU_DECK_FORMATS[id].displayName + '</option>';
+      }).join('');
+
+      menu.innerHTML = '<select id="formatPickerSelect" style="padding: 6px;">' + options + '</select>' +
+        '<button onclick="applyFormatChange(\'' + deckID + '\')" style="margin-left: 8px; padding: 6px 12px;">Save</button>';
+      document.body.appendChild(menu);
+
+      document.getElementById("formatPickerSelect").focus();
+      setTimeout(function() {
+        document.addEventListener("click", function removeMenu(e) {
+          if (menu.parentNode && !menu.contains(e.target)) menu.parentNode.removeChild(menu);
+          document.removeEventListener("click", removeMenu);
+        });
+      }, 10);
+    }
+
+    function applyFormatChange(deckID) {
+      var format = document.getElementById("formatPickerSelect").value;
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/TCGEngine/AccountFiles/UpdateAssetFormat.php?assetID=" + deckID + "&assetType=1&format=" + encodeURIComponent(format), true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var menu = document.getElementById("formatPickerMenu");
+          if (menu) menu.remove();
+          location.reload();
+        }
+      };
+      xhr.send();
+    }
+
     function CopyDeckJSON(deckID, event) {
       var xhr = new XMLHttpRequest();
       xhr.open("GET", "/TCGEngine/APIs/LoadDeck.php?deckID=" + deckID + "&setId=true", true);
@@ -688,7 +814,7 @@ function LoadDecks() {
   }
 
   // Dropdown for mobile deck actions
-  function showDeckDropdown(btn, id, deckID, assetSource, assetSourceID, assetFolder, canRefresh) {
+  function showDeckDropdown(btn, id, deckID, assetSource, assetSourceID, assetFolder, canRefresh, currentFormat) {
     // Remove any existing dropdown
     var existing = document.getElementById('deckDropdownMenu');
     if (existing) existing.remove();
@@ -726,10 +852,12 @@ function LoadDecks() {
       favorite: assetFolder == 1
         ? `<img src='/TCGEngine/Assets/Icons/heart-fill.svg' width='18' height='18' style='vertical-align:middle;margin-right:10px;filter:invert(100%);' alt='Unfavorite' />`
         : `<img src='/TCGEngine/Assets/Icons/heart.svg' width='18' height='18' style='vertical-align:middle;margin-right:10px;filter:invert(100%);' alt='Favorite' />`,
-      delete: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-trash3' viewBox='0 0 16 16'><path d='M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5'/><path d='M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1Z'/><path d='M12.958 3l-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5ZM2.565 4.5a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L2.095 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5'/></svg>`
+      delete: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-trash3' viewBox='0 0 16 16'><path d='M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5'/><path d='M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1Z'/><path d='M12.958 3l-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5ZM2.565 4.5a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L2.095 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5'/></svg>`,
+      tag: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-tag' viewBox='0 0 16 16'><path d='M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0'/><path d='M2.5 1A1.5 1.5 0 0 0 1 2.5v5.628a2.5 2.5 0 0 0 .732 1.767l6.5 6.5a2.5 2.5 0 0 0 3.536 0l5.628-5.628a2.5 2.5 0 0 0 0-3.536l-6.5-6.5A2.5 2.5 0 0 0 8.128 1zM2 2.5A.5.5 0 0 1 2.5 2h5.628a1.5 1.5 0 0 1 1.06.44l6.5 6.5a1.5 1.5 0 0 1 0 2.12L10.06 16.56a1.5 1.5 0 0 1-2.12 0l-6.5-6.5A1.5 1.5 0 0 1 2 8.128z'/></svg>`
     };
     menu.innerHTML = `
       <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); window.location.href="/TCGEngine/SWUDeck/DeckStats.php?gameName=${deckID}";'>${icons.stats}Stats</button>
+      <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove(); showFormatPicker("${deckID}", "${currentFormat}", event);'>${icons.tag}Change Format</button>
       ${window.innerWidth <= 768 ? `
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckLink("${deckID}", event); showFlashMessage("Link copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Link</button>
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckText("${deckID}", event); showFlashMessage("Text copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Text</button>
@@ -1089,8 +1217,44 @@ function LoadDecks() {
 </script>
 
 <script>
+  var SWU_DECK_FORMATS = <?= json_encode(SWUDeckBuildableFormats()) ?>;
+</script>
+
+<script>
   function createDeck() {
-    window.location.href = "/TCGEngine/SWUDeck/CreateDeck.php";
+    var popup = document.createElement("div");
+    popup.id = "createDeckPopup";
+    popup.style.position = "fixed";
+    popup.style.top = "50%";
+    popup.style.left = "50%";
+    popup.style.transform = "translate(-50%, -50%)";
+    popup.style.backgroundColor = "#002249";
+    popup.style.color = "#fff";
+    popup.style.padding = "20px";
+    popup.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+    popup.style.zIndex = "1000";
+
+    var createOptions = Object.keys(SWU_DECK_FORMATS).map(function(id) {
+      return '<option value="' + id + '">' + SWU_DECK_FORMATS[id].displayName + '</option>';
+    }).join('');
+
+    popup.innerHTML = `
+      <h3>Create Deck</h3>
+      <select id="createDeckFormat" style="width: 100%; padding: 10px; margin-bottom: 10px;">${createOptions}</select>
+      <button onclick="submitCreateDeck()" style="padding: 10px 20px; margin-right: 10px;">Create</button>
+      <button onclick="closeCreateDeckPopup()" style="padding: 10px 20px;">Cancel</button>
+    `;
+    document.body.appendChild(popup);
+  }
+
+  function closeCreateDeckPopup() {
+    var popup = document.getElementById("createDeckPopup");
+    if (popup) document.body.removeChild(popup);
+  }
+
+  function submitCreateDeck() {
+    var format = document.getElementById("createDeckFormat").value;
+    window.location.href = "/TCGEngine/SWUDeck/CreateDeck.php?format=" + encodeURIComponent(format);
   }
 
   function importDeck() {
@@ -1105,9 +1269,15 @@ function LoadDecks() {
     popup.style.padding = "20px";
     popup.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
     popup.style.zIndex = "1000";
+
+    var importOptions = Object.keys(SWU_DECK_FORMATS).map(function(id) {
+      return '<option value="' + id + '">' + SWU_DECK_FORMATS[id].displayName + '</option>';
+    }).join('');
+
     popup.innerHTML = `
       <h3>Import Deck</h3>
       <input type="text" id="deckLinkInput" placeholder="Enter deck link" style="width: 100%; padding: 10px; margin-bottom: 10px;" />
+      <select id="importDeckFormat" style="width: 100%; padding: 10px; margin-bottom: 10px;">${importOptions}</select>
       <button onclick="importDeckLink()" style="padding: 10px 20px; margin-right: 10px;">Import</button>
       <button onclick="closePopup()" style="padding: 10px 20px;">Cancel</button>
     `;
@@ -1124,8 +1294,9 @@ function LoadDecks() {
 
   function importDeckLink() {
     var deckLink = document.getElementById("deckLinkInput").value;
+    var format = document.getElementById("importDeckFormat").value;
     if (deckLink !== "") {
-      window.location.href = "/TCGEngine/SWUDeck/CreateDeck.php?deckLink=" + encodeURIComponent(deckLink);
+      window.location.href = "/TCGEngine/SWUDeck/CreateDeck.php?deckLink=" + encodeURIComponent(deckLink) + "&format=" + encodeURIComponent(format);
     } else {
       StyledAlert("Enter a deck link to import");
     }

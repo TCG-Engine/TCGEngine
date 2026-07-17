@@ -2937,7 +2937,13 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         panelNames.forEach(panelName => {
           html += `<div style='font-size: 14px; cursor: pointer;' class='panelTab' onclick='PaneTabClick("${prefix}", "${zoneName}", "${index}")'>${panelName}</div>`;
           if(index == window[activePaneVar]) {
-            var paneImageFolder = window.assetImageFolder || (window.rootPath + "/concat");
+            // window.SWU_PANE_IMAGE_FOLDERS (optional, per-zone-name override) lets a specific
+            // browse pane use a different image folder than the site-wide default — e.g. SWUDeck's
+            // Leaders/Bases panes show the full card art instead of the square identity crop.
+            // Falls through to the existing site-wide default when unset, so every other game's
+            // panes are unaffected.
+            var paneImageFolder = (window.SWU_PANE_IMAGE_FOLDERS && window.SWU_PANE_IMAGE_FOLDERS[panelName])
+              || window.assetImageFolder || (window.rootPath + "/concat");
             paneHTML += PopulateZone(prefix + panelName, panes[window[activePaneVar]], window.cardSize, paneImageFolder,1,"All", filterText);
             var zoneData = GetZoneData(prefix + panelName);
             activePaneFilters = zoneData.Filters || [];

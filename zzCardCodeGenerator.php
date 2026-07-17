@@ -9,9 +9,22 @@ include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./Database/ConnectionManager.php";
 include_once "./CardEditor/Database/CardAbilityDB.php";
 
+// Support CLI invocation: parse arguments into $_GET if not running under HTTP (mirrors
+// zzGameCodeGenerator.php's bridge — needed so TryGET("rootName", ...) below sees CLI args
+// like `php zzCardCodeGenerator.php rootName=SWUDeck`).
+$isHTTPRequest = php_sapi_name() !== 'cli' && !empty($_SERVER['REQUEST_METHOD']);
+if (!$isHTTPRequest) {
+  foreach ($argv as $arg) {
+    if (strpos($arg, '=') !== false) {
+      list($key, $value) = explode('=', $arg, 2);
+      $_GET[$key] = $value;
+    }
+  }
+}
+
 // zzImageConverter.php (included above) already enforces auth for HTTP requests.
-// zzCardCodeGenerator is only reachable via HTTP, so enforce auth here too.
-// CLI invocations (e.g. from MCP server) do not go through this file directly.
+// zzCardCodeGenerator enforces it again here for its own HTTP entry point. CLI invocations
+// still go through CheckLoggedInUserMod(), which no-ops under DEVENV=true (local dev only).
 $response = new stdClass();
 $error = CheckLoggedInUserMod();
 if($error !== "") {
@@ -99,10 +112,9 @@ $cacheFile = "./$rootName/GeneratedCode/cardArrayCache.json";
 
 if($rootName == "SWUDeck" || $rootName == "SWUSim") {
   $validSets = [
-    "SOR", "SHD", "TWI", // blank rotation
-    "JTL", "LOF", "IBH", "SEC", // rotation A
-    "LAW", "ASH", // rotation B
-    "TS26", // supplemental
+    "SOR",/*2024-03-08*/"SHD",/*2024-07-12*/"TWI",/*2024-11-05*/
+    "JTL",/*2025-03-14*/"LOF",/*2025-07-11*/"IBH",/*2025-10-03*/"SEC",/*2025-11-07*/
+    "LAW",/*2026-03-06*/"TS26",/*2026-03-08*/"ASH",/*2026-07-17*/
   ];
 }
 
@@ -110,6 +122,10 @@ $cardArray = [];
 $duplicateMap = [];
 $reprintMap = [];
 $otherOrientationMap = [];
+// SWUDeck leader UUID -> its Leader Unit side's own resolved crop id. Populated during Phase 1
+// (see the image-fetch loop below) because artBack gets stripped from $card before it's cached
+// — Phase 2 runs against the cached/cleaned $cardArray and can no longer see it.
+$leaderUnitByUUIDMap = [];
 $count = 0;
 $tokenCountersPhase1 = []; // SET → count, used to assign SET_T## IDs during Phase 1
 $tokenTypesPhase1 = ['Token Unit', 'Token Upgrade', 'Force Token', 'Credit Token'];
@@ -119,6 +135,7 @@ if(!$withPreview && file_exists($cacheFile)) {
   $cacheData = json_decode(file_get_contents($cacheFile), false);
   $cardArray = $cacheData->cardArray;
   $reprintMap = (array)($cacheData->reprintMap);
+  $leaderUnitByUUIDMap = (array)($cacheData->leaderUnitByUUIDMap ?? []);
   $count = count($cardArray);
   logLine("=== Phase 1 complete: loaded " . $count . " cards from cache ===");
 } else {
@@ -319,7 +336,25 @@ if(!$withPreview && file_exists($cacheFile)) {
       $isFlipLeader = ($cardType === 'Leader')
           && ($power === null || $power === '') && ($hp === null || $hp === '');
       $backType = $isFlipLeader ? "Leader" : "LeaderUnit";
-      CheckImage($cardID . "_back", $thisBackImageUrl, $backType, "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
+      // SWUDeck: the Leader Unit side gets its own distinct id (parsed from the artBack media's
+      // Strapi asset hash) instead of the legacy "{cardID}_back" suffix, so its crop is
+      // named/found like any other card's. Recorded into $leaderUnitByUUIDMap (keyed by $cardID,
+      // which IS the leader's UUID for SWUDeck — see $cardID = $card->cardUid above) HERE, in
+      // Phase 1, because artBack gets stripped from $card before it's cached — by Phase 2 (where
+      // LeaderUnitByUUID() used to be populated) it's already gone.
+      $backCardID = $cardID . "_back";
+      if ($rootName === "SWUDeck") {
+        $artBackHash = $card->artBack->data->attributes->hash ?? null;
+        if ($artBackHash) {
+          $hashParts = explode('_', $artBackHash);
+          $resolvedId = end($hashParts);
+          if ($resolvedId) {
+            $backCardID = $resolvedId;
+            $leaderUnitByUUIDMap[$cardID] = $resolvedId;
+          }
+        }
+      }
+      CheckImage($backCardID, $thisBackImageUrl, $backType, "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
     }
 
     // Drop heavy API fields that NO later phase reads (verified: 0 references), so the
@@ -358,7 +393,7 @@ if(!$withPreview && file_exists($cacheFile)) {
   }
 }
 
-  $cacheJson = json_encode(['cardArray' => $cardArray, 'reprintMap' => $reprintMap]);
+  $cacheJson = json_encode(['cardArray' => $cardArray, 'reprintMap' => $reprintMap, 'leaderUnitByUUIDMap' => $leaderUnitByUUIDMap]);
   file_put_contents($cacheFile, $cacheJson);
   logLine("=== Phase 1 complete: " . $count . " cards accepted, " . $totalSkipped . " skipped across " . ($currentPage - 1) . " pages — cache saved (" . round(strlen($cacheJson)/1024, 1) . "KB) ===");
 }
@@ -454,6 +489,8 @@ for ($i = 0; $i < count($cardArray); ++$i) {
     $cardID= $set . "_" . $cardNumber;
     $associativeArrays["uuidLookup"][$cardID] = $card->id;
     $associativeArrays["cardIdLookup"][$card->id] = $cardID;
+    // leaderUnitByUUID itself is populated in Phase 1 (see $leaderUnitByUUIDMap), NOT here —
+    // $card->artBack is already stripped by this point (dropped before $cardArray gets cached).
     if(isset($reprintMap[$card->id])) $allCardIds[] = $card->id;
   } else if($rootName == "SWUSim") {
     // card->id is already SET_NNN (built during Phase 1).
@@ -587,6 +624,15 @@ if($rootName == "SWUDeck") {
   fwrite($handler, "function CardIDLookup(\$cardID) {\r\n");
   fwrite($handler, "  \$data = " . var_export($associativeArrays["cardIdLookup"], true) . ";\r\n");
   fwrite($handler, "  return isset(\$data[\$cardID]) ? \$data[\$cardID] : null;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  // Leader UUID -> its deployed Leader Unit side's own distinct media-asset id (parsed from the
+  // artBack Strapi asset hash, e.g. "..._Leader_Unit_8301e8d7ef" -> "8301e8d7ef"); null for cards
+  // with no back side (non-leaders, or the rare double-leader-face flip cards handled as
+  // backType=Leader in the image-fetch loop). Combine the result with "_cropped.png" (the
+  // regular crop convention — NOT "_back_cropped.png") to get the Leader Unit's own crop file.
+  fwrite($handler, "function LeaderUnitByUUID(\$uuid) {\r\n");
+  fwrite($handler, "  \$data = " . var_export($leaderUnitByUUIDMap, true) . ";\r\n");
+  fwrite($handler, "  return isset(\$data[\$uuid]) ? \$data[\$uuid] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
 if($rootName == "SWUSim") {

@@ -26,9 +26,17 @@ function SWUCardSet($cardID) {
 function SWUReprintGroup($cardID) {
     static $groups = null;
     if ($groups === null) {
-        global $titleData;
+        // Universe of card IDs to invert CardIDOverride (SET_NNN → earliest SET_NNN) over. On
+        // SET_NNN-keyed sites (SWUSim) that's simply $titleData's keys. SWUDeck's $titleData is
+        // UUID-keyed, so its reprint relationships would be invisible here — it instead publishes an
+        // explicit SET_NNN universe in $GLOBALS['SWUReprintUniverse'] (built from CardIDLookup over
+        // its UUIDs). Prefer that when present; otherwise fall back to $titleData's keys.
+        $ids = $GLOBALS['SWUReprintUniverse'] ?? null;
+        if (!is_array($ids)) {
+            global $titleData;
+            $ids = is_array($titleData) ? array_keys($titleData) : [];
+        }
         $groups = [];
-        $ids = is_array($titleData) ? array_keys($titleData) : [];
         foreach ($ids as $id) {
             $groups[CardIDOverride($id)][] = $id;
         }

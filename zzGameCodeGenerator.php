@@ -2580,8 +2580,13 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
 // is the durable home for that choice — patch both if you hand-edit the generated file.
 function GenImageFolder($zone) {
   global $rootName;
-  $useWebp = (in_array($rootName, ["SWUSim"], true)
-          && in_array($zone->Name, ["Leader", "Base"], true));
+  // Only covers BindTo-mode zones (the PLACED leader/base slot) — SWUSim's Twin Suns leader
+  // slot is the sole caller today. Pane-mode zones (SWUDeck's Leaders/Leader1/Leader2/Bases
+  // browse lists) never route through GenImageRoot()/GenImageFolder() at all — PopulateZone()
+  // for those is called client-side by Core/UILibraries's RenderPane(), which reads a separate
+  // window.SWU_PANE_IMAGE_FOLDERS override (injected in WriteInitialLayout() below). Don't add
+  // Pane zone names here — it would be dead code that never actually runs.
+  $useWebp = (in_array($rootName, ["SWUSim"], true) && in_array($zone->Name, ["Leader", "Base"], true));
   return $useWebp ? "WebpImages" : "concat";
 }
 
@@ -3004,6 +3009,31 @@ function WriteInitialLayout() {
   if (count($clientIncludes) > 0) {
     fwrite($handler, "if(!function_exists('_VersionedClientInclude')){function _VersionedClientInclude(\$p){if(preg_match('#^https?://#i',\$p))return \$p;\$d=\$_SERVER['DOCUMENT_ROOT']??'';if(\$d==='')return \$p;\$m=@filemtime(\$d.\$p);if(\$m===false)return \$p;return \$p.(strpos(\$p,'?')===false?'?':'&').'v='.\$m;}}\r\n");
   }
+  // SWUDeck-only: inject the deck's format-legal-sets/banned-UUIDs before Filters3.js loads, so
+  // InLegalFilter() can be format-aware. $assetData is hoisted here (instead of inside the
+  // AssetVisibility module below) so both this block and AssetVisibility share one lookup.
+  if ($rootName === "SWUDeck") {
+    fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountSessionAPI.php';\r\n");
+    fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountDatabaseAPI.php';\r\n");
+    fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/Database/ConnectionManager.php';\r\n");
+    fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/SWUDeck/Custom/DeckFormats.php';\r\n");
+    fwrite($handler, "\$assetData = LoadAssetData(1, \$gameName);\r\n");
+    fwrite($handler, "\$_deckFormat = \$assetData['format'] ?? 'premier';\r\n");
+    fwrite($handler, "\$_clientFormatData = SWUDeckClientFormatData(\$_deckFormat);\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_FORMAT_LEGAL_SETS = \" . json_encode(\$_clientFormatData['legalSets']) . \"; window.SWU_FORMAT_BANNED_UUIDS = \" . json_encode(\$_clientFormatData['bannedUUIDs']) . \";</script>\");\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_DECK_FORMAT = \" . json_encode(\$_deckFormat) . \";</script>\");\r\n");
+    fwrite($handler, "\$_leaderZone = &GetLeader(1);\r\n");
+    fwrite($handler, "\$_currentAlignments = [];\r\n");
+    fwrite($handler, "foreach (\$_leaderZone as \$_l) { if (!\$_l->Removed()) \$_currentAlignments[] = SWUDeckLeaderAlignment(\$_l->CardID); }\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_CURRENT_LEADER_ALIGNMENTS = \" . json_encode(\$_currentAlignments) . \";</script>\");\r\n");
+    fwrite($handler, "\$_allLeaderAlignments = [];\r\n");
+    fwrite($handler, "foreach (\$p1Leaders as \$_leaderCard) { \$_allLeaderAlignments[\$_leaderCard->CardID] = SWUDeckLeaderAlignment(\$_leaderCard->CardID); }\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_LEADER_ALIGNMENTS = \" . json_encode(\$_allLeaderAlignments) . \";</script>\");\r\n");
+    fwrite($handler, "\$_leaderCropUrls = [];\r\n");
+    fwrite($handler, "foreach (\$p1Leaders as \$_leaderCard) { \$_leaderCropUrls[\$_leaderCard->CardID] = SWUDeckLeaderCropUrl(\$_leaderCard->CardID); }\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_LEADER_CROP_URLS = \" . json_encode(\$_leaderCropUrls) . \";</script>\");\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_PANE_IMAGE_FOLDERS = \" . json_encode(['Leaders' => './SWUDeck/WebpImages', 'Leader1' => './SWUDeck/WebpImages', 'Leader2' => './SWUDeck/WebpImages', 'Bases' => './SWUDeck/WebpImages']) . \";</script>\");\r\n");
+  }
   for ($i = 0; $i < count($clientIncludes); ++$i) {
     fwrite($handler, "echo(\"<script src='\" . _VersionedClientInclude('" . $clientIncludes[$i] . "') . \"'></script>\");\r\n");
   }
@@ -3016,10 +3046,15 @@ function WriteInitialLayout() {
         fwrite($handler, "echo(\"<div style='padding: 3px; margin: 5px;' id='" . $headerElement->Module . "'>\");\r\n");
         switch($headerElement->Module) {
           case "AssetVisibility":
-            fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountSessionAPI.php';\r\n");
-            fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountDatabaseAPI.php';\r\n");
-            fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/Database/ConnectionManager.php';\r\n");
-            fwrite($handler, "\$assetData = LoadAssetData($headerElement->AssetType, \$gameName);\r\n");
+            // SWUDeck already hoisted $assetData (and the includes it needs) above, before the
+            // client-include script tags, to feed the format-legal-sets injection — reuse it
+            // instead of querying twice.
+            if ($rootName !== "SWUDeck") {
+              fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountSessionAPI.php';\r\n");
+              fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/AccountFiles/AccountDatabaseAPI.php';\r\n");
+              fwrite($handler, "include_once \$_SERVER['DOCUMENT_ROOT'] . '/TCGEngine/Database/ConnectionManager.php';\r\n");
+              fwrite($handler, "\$assetData = LoadAssetData($headerElement->AssetType, \$gameName);\r\n");
+            }
             fwrite($handler, "\$visibility = \$assetData['assetVisibility'];\r\n");
             fwrite($handler, "\$patreonId = GetUserPatreonID();\r\n");
             fwrite($handler, "\$userData = LoadUserDataFromId(LoggedInUser());\r\n");
@@ -3098,6 +3133,26 @@ function WriteInitialLayout() {
   fwrite($handler, "echo(\"</div>\");\r\n");
   fwrite($handler, "?>");
   fclose($handler);
+  // SWUDeck's header/dropdown module colors were hand-migrated from hardcoded hex to the
+  // cyan-HUD theme's CSS custom properties (see SharedUI/Sites/SWUDeck/MainMenu.php's own
+  // '.left-pane .login...' theme rules for the same variable names) — this function still emits
+  // the hardcoded hex above, so reconcile in one pass rather than threading theme-awareness
+  // through every fwrite() call above.
+  if ($rootName === "SWUDeck") {
+    $themeMap = [
+      "#2a2a2a" => "var(--surface-raised)",
+      "#333"    => "var(--surface-sunken)",
+      "#444"    => "var(--surface-raised)",
+      "#555"    => "var(--border)",
+      "#3a3a3a" => "var(--check-fill)",
+      "#1a73e8" => "var(--accent)",
+      "#c0392b" => "var(--danger)",
+      "#aaf"    => "var(--accent)",
+    ];
+    $content = file_get_contents($filename);
+    $content = str_replace(array_keys($themeMap), array_values($themeMap), $content);
+    file_put_contents($filename, $content);
+  }
 }
 
 function GetModuleOfType($type) {

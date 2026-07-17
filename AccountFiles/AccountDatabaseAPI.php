@@ -251,10 +251,10 @@ function LoadAssetsByType($userID, $assetType) {
 	}
 }
 
-function SaveAssetOwnership($assetType, $assetID, $userID, $assetSource=null, $assetSourceID=null) {
+function SaveAssetOwnership($assetType, $assetID, $userID, $assetSource=null, $assetSourceID=null, $format='standard') {
 	if ($userID == "") return false;
 	$conn = GetLocalMySQLConnection();
-	$sql = "INSERT INTO ownership (assetType, assetIdentifier, assetOwner, assetStatus, assetSource, assetSourceID) VALUES (?, ?, ?, ?, ?, ?)";
+	$sql = "INSERT INTO ownership (assetType, assetIdentifier, assetOwner, assetStatus, assetSource, assetSourceID, format) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	$stmt = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($stmt, $sql)) {
 		$response->message = "There was an error saving the asset ownership token.";
@@ -263,7 +263,7 @@ function SaveAssetOwnership($assetType, $assetID, $userID, $assetSource=null, $a
 		exit;
 	} else {
 		$status = 1; // Status 1 = active
-		mysqli_stmt_bind_param($stmt, "ssssss", $assetType, $assetID, $userID, $status, $assetSource, $assetSourceID);
+		mysqli_stmt_bind_param($stmt, "sssssss", $assetType, $assetID, $userID, $status, $assetSource, $assetSourceID, $format);
 		$saved = mysqli_stmt_execute($stmt);
 		mysqli_stmt_close($stmt);
 		mysqli_close($conn);
@@ -275,6 +275,16 @@ function UpdateAssetName($assetType, $assetID, $newName) {
   $conn = GetLocalMySQLConnection();
   $stmt = $conn->prepare("UPDATE ownership SET assetName = ? WHERE assetIdentifier = ? AND assetType = ?");
   $stmt->bind_param("sii", $newName, $assetID, $assetType);
+  $result = $stmt->execute();
+  $stmt->close();
+  $conn->close();
+  return $result;
+}
+
+function UpdateAssetFormat($assetType, $assetID, $format) {
+  $conn = GetLocalMySQLConnection();
+  $stmt = $conn->prepare("UPDATE ownership SET format = ? WHERE assetIdentifier = ? AND assetType = ?");
+  $stmt->bind_param("sii", $format, $assetID, $assetType);
   $result = $stmt->execute();
   $stmt->close();
   $conn->close();
@@ -307,6 +317,7 @@ function SetAssetKeyIdentifier($assetType, $assetID, $keyIndicator, $keyValue, $
     if($conn == null) $conn = GetLocalMySQLConnection();
     if($keyIndicator == 1) $stmt = $conn->prepare("UPDATE ownership SET keyIndicator1 = ? WHERE assetIdentifier = ? AND assetType = ?");
 	else if($keyIndicator == 2) $stmt = $conn->prepare("UPDATE ownership SET keyIndicator2 = ? WHERE assetIdentifier = ? AND assetType = ?");
+	else if($keyIndicator == 3) $stmt = $conn->prepare("UPDATE ownership SET keyIndicator3 = ? WHERE assetIdentifier = ? AND assetType = ?");
     if (!$stmt) {
         $conn->close();
         return true;

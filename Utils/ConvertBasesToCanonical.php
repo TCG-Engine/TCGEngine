@@ -515,10 +515,10 @@ function processDeckMetaStats($conn, $week, $dryRun) {
             
             if (!$dryRun) {
                 // Check if canonical row exists
-                $checkSql = "SELECT COUNT(*) FROM deckmetastats WHERE leaderID = ? AND baseID = ? AND week = ?";
+                $checkSql = "SELECT COUNT(*) FROM deckmetastats WHERE leaderID = ? AND baseID = ? AND week = ? AND format = ?";
                 $checkStmt = mysqli_stmt_init($conn);
                 mysqli_stmt_prepare($checkStmt, $checkSql);
-                mysqli_stmt_bind_param($checkStmt, "ssi", $leaderID, $canonicalBaseID, $week);
+                mysqli_stmt_bind_param($checkStmt, "ssis", $leaderID, $canonicalBaseID, $week, $row['format']);
                 mysqli_stmt_execute($checkStmt);
                 mysqli_stmt_bind_result($checkStmt, $count);
                 mysqli_stmt_fetch($checkStmt);
@@ -526,12 +526,12 @@ function processDeckMetaStats($conn, $week, $dryRun) {
                 
                 if ($count == 0) {
                     // Insert new canonical row with the non-canonical data
-                    $insertSql = "INSERT INTO deckmetastats (leaderID, baseID, week, numWins, numPlays, playsGoingFirst, turnsInWins, totalTurns, cardsResourcedInWins, totalCardsResourced, remainingHealthInWins, winsGoingFirst, winsGoingSecond) 
-                                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    $insertSql = "INSERT INTO deckmetastats (leaderID, baseID, week, format, numWins, numPlays, playsGoingFirst, turnsInWins, totalTurns, cardsResourcedInWins, totalCardsResourced, remainingHealthInWins, winsGoingFirst, winsGoingSecond)
+                                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     $insertStmt = mysqli_stmt_init($conn);
                     mysqli_stmt_prepare($insertStmt, $insertSql);
-                    mysqli_stmt_bind_param($insertStmt, "ssiiiiiiiiiii", 
-                        $leaderID, $canonicalBaseID, $week,
+                    mysqli_stmt_bind_param($insertStmt, "ssisiiiiiiiiii",
+                        $leaderID, $canonicalBaseID, $week, $row['format'],
                         $row['numWins'], $row['numPlays'], $row['playsGoingFirst'],
                         $row['turnsInWins'], $row['totalTurns'], 
                         $row['cardsResourcedInWins'], $row['totalCardsResourced'],
@@ -553,15 +553,15 @@ function processDeckMetaStats($conn, $week, $dryRun) {
                         remainingHealthInWins = remainingHealthInWins + ?,
                         winsGoingFirst = winsGoingFirst + ?,
                         winsGoingSecond = winsGoingSecond + ?
-                        WHERE leaderID = ? AND baseID = ? AND week = ?";
+                        WHERE leaderID = ? AND baseID = ? AND week = ? AND format = ?";
                     $updateStmt = mysqli_stmt_init($conn);
                     mysqli_stmt_prepare($updateStmt, $updateSql);
-                    mysqli_stmt_bind_param($updateStmt, "iiiiiiiiiissi",
+                    mysqli_stmt_bind_param($updateStmt, "iiiiiiiiiissis",
                         $row['numWins'], $row['numPlays'], $row['playsGoingFirst'],
-                        $row['turnsInWins'], $row['totalTurns'], 
+                        $row['turnsInWins'], $row['totalTurns'],
                         $row['cardsResourcedInWins'], $row['totalCardsResourced'],
                         $row['remainingHealthInWins'], $row['winsGoingFirst'], $row['winsGoingSecond'],
-                        $leaderID, $canonicalBaseID, $week
+                        $leaderID, $canonicalBaseID, $week, $row['format']
                     );
                     mysqli_stmt_execute($updateStmt);
                     mysqli_stmt_close($updateStmt);
@@ -569,10 +569,10 @@ function processDeckMetaStats($conn, $week, $dryRun) {
                 }
                 
                 // Delete the non-canonical row
-                $deleteSql = "DELETE FROM deckmetastats WHERE leaderID = ? AND baseID = ? AND week = ?";
+                $deleteSql = "DELETE FROM deckmetastats WHERE leaderID = ? AND baseID = ? AND week = ? AND format = ?";
                 $deleteStmt = mysqli_stmt_init($conn);
                 mysqli_stmt_prepare($deleteStmt, $deleteSql);
-                mysqli_stmt_bind_param($deleteStmt, "ssi", $leaderID, $nonCanonicalBaseID, $week);
+                mysqli_stmt_bind_param($deleteStmt, "ssis", $leaderID, $nonCanonicalBaseID, $week, $row['format']);
                 mysqli_stmt_execute($deleteStmt);
                 mysqli_stmt_close($deleteStmt);
                 $log[] = "    Deleted non-canonical row";
@@ -655,10 +655,10 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
             mergeMatchupRow($conn, $row, $leaderID, $canonicalBaseID, $opponentLeaderID, $canonicalOpponentBaseID, $week, $log);
             
             // Delete the original non-canonical row
-            $deleteSql = "DELETE FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
+            $deleteSql = "DELETE FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ? AND format = ?";
             $deleteStmt = mysqli_stmt_init($conn);
             mysqli_stmt_prepare($deleteStmt, $deleteSql);
-            mysqli_stmt_bind_param($deleteStmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week);
+            mysqli_stmt_bind_param($deleteStmt, "ssssis", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week, $row['format']);
             mysqli_stmt_execute($deleteStmt);
             mysqli_stmt_close($deleteStmt);
             $log[] = "    Deleted original row";
@@ -676,10 +676,10 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
  */
 function mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week, &$log) {
     // Check if canonical row exists
-    $checkSql = "SELECT COUNT(*) FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
+    $checkSql = "SELECT COUNT(*) FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ? AND format = ?";
     $checkStmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($checkStmt, $checkSql);
-    mysqli_stmt_bind_param($checkStmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week);
+    mysqli_stmt_bind_param($checkStmt, "ssssis", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week, $row['format']);
     mysqli_stmt_execute($checkStmt);
     mysqli_stmt_bind_result($checkStmt, $count);
     mysqli_stmt_fetch($checkStmt);
@@ -687,12 +687,12 @@ function mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $op
     
     if ($count == 0) {
         // Insert new canonical row
-        $insertSql = "INSERT INTO deckmetamatchupstats (leaderID, baseID, opponentLeaderID, opponentBaseID, week, numWins, numPlays, playsGoingFirst, turnsInWins, totalTurns, cardsResourcedInWins, totalCardsResourced, remainingHealthInWins, winsGoingFirst, winsGoingSecond) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insertSql = "INSERT INTO deckmetamatchupstats (leaderID, baseID, opponentLeaderID, opponentBaseID, week, format, numWins, numPlays, playsGoingFirst, turnsInWins, totalTurns, cardsResourcedInWins, totalCardsResourced, remainingHealthInWins, winsGoingFirst, winsGoingSecond)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $insertStmt = mysqli_stmt_init($conn);
         mysqli_stmt_prepare($insertStmt, $insertSql);
-        mysqli_stmt_bind_param($insertStmt, "ssssiiiiiiiiiii", 
-            $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week,
+        mysqli_stmt_bind_param($insertStmt, "ssssisiiiiiiiiii",
+            $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week, $row['format'],
             $row['numWins'], $row['numPlays'], $row['playsGoingFirst'],
             $row['turnsInWins'], $row['totalTurns'], 
             $row['cardsResourcedInWins'], $row['totalCardsResourced'],
@@ -714,15 +714,15 @@ function mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $op
             remainingHealthInWins = remainingHealthInWins + ?,
             winsGoingFirst = winsGoingFirst + ?,
             winsGoingSecond = winsGoingSecond + ?
-            WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
+            WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ? AND format = ?";
         $updateStmt = mysqli_stmt_init($conn);
         mysqli_stmt_prepare($updateStmt, $updateSql);
-        mysqli_stmt_bind_param($updateStmt, "iiiiiiiiiissssi",
+        mysqli_stmt_bind_param($updateStmt, "iiiiiiiiiissssis",
             $row['numWins'], $row['numPlays'], $row['playsGoingFirst'],
-            $row['turnsInWins'], $row['totalTurns'], 
+            $row['turnsInWins'], $row['totalTurns'],
             $row['cardsResourcedInWins'], $row['totalCardsResourced'],
             $row['remainingHealthInWins'], $row['winsGoingFirst'], $row['winsGoingSecond'],
-            $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week
+            $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week, $row['format']
         );
         mysqli_stmt_execute($updateStmt);
         mysqli_stmt_close($updateStmt);
