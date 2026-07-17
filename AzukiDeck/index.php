@@ -5,23 +5,9 @@ include_once __DIR__ . '/../Database/ConnectionManager.php';
 include_once __DIR__ . '/../AzukiSim/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/../SharedUI/Sites/AzukiSim/MenuBar.php';
 include_once __DIR__ . '/../SharedUI/Sites/AzukiSim/Header.php';
+include_once __DIR__ . '/DeckService.php';
 
-function LoadAzukiDecks($userID) {
-  $conn = GetLocalMySQLConnection();
-  $stmt = $conn->prepare(
-    "SELECT * FROM ownership WHERE assetType = 1 AND assetOwner = ? AND assetStatus = 1 ORDER BY assetIdentifier DESC"
-  );
-  $stmt->bind_param('i', $userID);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  $decks = [];
-  while ($row = $result->fetch_assoc()) $decks[] = $row;
-  $stmt->close();
-  $conn->close();
-  return $decks;
-}
-
-$decks = IsUserLoggedIn() ? LoadAzukiDecks(LoggedInUser()) : [];
+$decks = IsUserLoggedIn() ? AzukiDeckLoadOwnedDecks(LoggedInUser()) : [];
 $error = trim((string)($_GET['error'] ?? ''));
 
 ?>

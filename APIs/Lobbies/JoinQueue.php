@@ -97,7 +97,7 @@
     exit;
   }
 
-  $deckValidation = ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format);
+  $deckValidation = ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format, $joiningUserId);
   if(!$deckValidation['success']) {
     $response->success = false;
     $response->message = $deckValidation['message'];
@@ -381,7 +381,7 @@
     return empty($errs);
   }
 
-  function ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format = 'standard') {
+  function ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format = 'standard', $joiningUserId = null) {
     if($rootName === 'GrandArchiveSim') {
       if(!function_exists('GrandArchiveValidateDeckForQueue')) {
         return [
@@ -410,7 +410,7 @@
       }
 
       try {
-        return AzukiValidateDeckForQueue($deckLink, $preconstructedDeck);
+        return AzukiValidateDeckForQueue($deckLink, $preconstructedDeck, $joiningUserId);
       } catch (Throwable $e) {
         error_log('AzukiSim queue deck validation failed: ' . $e->getMessage());
         return [

@@ -7,12 +7,15 @@ include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../AzukiSim/GeneratedCode/GeneratedCardDictionaries.php';
+include_once __DIR__ . '/../../../AzukiDeck/DeckService.php';
 require_once __DIR__ . '/../../Render/DeckLibrary.php';
 
 include_once __DIR__ . '/Header.php';
 
 $azukiSiteDef = require __DIR__ . '/SiteDef.php';
 $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionButtons' => true]);
+$azukiBuilderDecks = IsUserLoggedIn() ? AzukiDeckLoadOwnedDecks(LoggedInUser()) : [];
+$hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
 
 ?>
 <div class="row-wrapper azuki-menu-grid">
@@ -29,21 +32,69 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
   <div class="card azuki-glass-card azuki-queue-card">
     <h2>Create a New Game</h2>
     <div>
-      <label for="azuki-deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Optional deck link:</label>
-      <input type="text" id="azuki-deck-link" placeholder="https://thegateikz.com/... or deck slug" style="width: 100%; padding: 10px 15px; margin-bottom: 8px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
-      <p style="color: #b9b9b9; margin: 0 0 12px 0; font-size: 12px; line-height: 1.35;">Paste a `thegateikz.com` deck link to load that list. If left blank, AzukiSim uses the selected starter deck below.</p>
-      <div class="saved-decks-panel">
-        <div class="azuki-inline-section-title">Saved Decks</div>
-        <?php echo RenderDeckLibrary(0, $azukiDeckLibraryConfig); ?>
+      <div class="azuki-deck-source-tabs" role="tablist" aria-label="Deck source">
+        <button type="button" id="azuki-deck-source-tab-builder" class="azuki-deck-source-tab<?php echo $hasAzukiBuilderDecks ? ' is-active' : ''; ?>" onclick="switchDeckSourceTab('builder')" role="tab" aria-selected="<?php echo $hasAzukiBuilderDecks ? 'true' : 'false'; ?>" aria-controls="azuki-deck-source-panel-builder">AzukiDeck</button>
+        <button type="button" id="azuki-deck-source-tab-link" class="azuki-deck-source-tab<?php echo $hasAzukiBuilderDecks ? '' : ' is-active'; ?>" onclick="switchDeckSourceTab('link')" role="tab" aria-selected="<?php echo $hasAzukiBuilderDecks ? 'false' : 'true'; ?>" aria-controls="azuki-deck-source-panel-link">Deck Link / Starter</button>
       </div>
-      <p style="color: #ccc; margin: 0 0 8px 0; font-size: 14px;">Starter deck fallback:</p>
-      <select id="starter-deck-select" style="margin-bottom: 12px; min-width: 220px;">
-        <option value="Raizan">Raizan Starter Deck</option>
-        <option value="Shao">Shao Starter Deck</option>
-        <option value="Bobu">Bobu Starter Deck</option>
-        <option value="Zero">Zero Starter Deck</option>
-      </select>
-      <br>
+
+      <div id="azuki-deck-source-panel-builder" class="azuki-deck-source-panel<?php echo $hasAzukiBuilderDecks ? ' is-active' : ''; ?>" role="tabpanel" aria-labelledby="azuki-deck-source-tab-builder">
+        <?php if ($hasAzukiBuilderDecks): ?>
+          <div id="azuki-builder-deck-select" class="azuki-builder-deck-grid" role="radiogroup" aria-label="Your AzukiDeck decks">
+            <?php foreach ($azukiBuilderDecks as $deckIndex => $deck):
+              $deckID = trim((string)($deck['assetIdentifier'] ?? ''));
+              $deckName = trim((string)($deck['assetName'] ?? ''));
+              $leaderID = trim((string)($deck['keyIndicator1'] ?? ''));
+              $gateID = trim((string)($deck['keyIndicator2'] ?? ''));
+              $leaderName = $leaderID !== '' ? trim((string)CardName($leaderID)) : '';
+              $gateName = $gateID !== '' ? trim((string)CardName($gateID)) : '';
+              $leaderImageFallback = $leaderID !== '' ? trim((string)CardImage($leaderID)) : '';
+              $gateImageFallback = $gateID !== '' ? trim((string)CardImage($gateID)) : '';
+              if ($deckName === '') $deckName = $leaderName !== '' ? $leaderName . ' Deck' : 'Azuki Deck';
+              $deckMeta = implode(' • ', array_values(array_filter([$leaderName, $gateName], function($value) { return $value !== ''; })));
+              if ($deckMeta === '') $deckMeta = 'AzukiDeck';
+            ?>
+              <label class="azuki-builder-deck-option">
+                <input type="radio" name="azuki-builder-deck" value="azukideck:<?php echo htmlspecialchars($deckID, ENT_QUOTES); ?>"<?php echo $deckIndex === 0 ? ' checked' : ''; ?>>
+                <span class="azuki-builder-deck-tile">
+                  <?php if ($leaderID !== '' || $gateID !== ''): ?>
+                    <span class="azuki-builder-deck-art<?php echo $leaderID !== '' && $gateID !== '' ? ' has-two' : ' has-one'; ?>" aria-hidden="true">
+                      <?php if ($leaderID !== ''): ?><img src="/TCGEngine/AzukiSim/WebpImages/<?php echo rawurlencode($leaderID); ?>.webp" data-fallback="<?php echo htmlspecialchars($leaderImageFallback, ENT_QUOTES); ?>" alt="" onerror="if(this.dataset.fallback && this.src !== this.dataset.fallback){this.src=this.dataset.fallback}else{this.remove()}"><?php endif; ?>
+                      <?php if ($gateID !== ''): ?><img src="/TCGEngine/AzukiSim/WebpImages/<?php echo rawurlencode($gateID); ?>.webp" data-fallback="<?php echo htmlspecialchars($gateImageFallback, ENT_QUOTES); ?>" alt="" onerror="if(this.dataset.fallback && this.src !== this.dataset.fallback){this.src=this.dataset.fallback}else{this.remove()}"><?php endif; ?>
+                    </span>
+                  <?php endif; ?>
+                  <span class="azuki-builder-deck-copy">
+                    <strong><?php echo htmlspecialchars($deckName, ENT_QUOTES); ?></strong>
+                    <span><?php echo htmlspecialchars($deckMeta, ENT_QUOTES); ?></span>
+                  </span>
+                  <span class="azuki-builder-deck-check" aria-hidden="true">✓</span>
+                </span>
+              </label>
+            <?php endforeach; ?>
+          </div>
+        <?php elseif (IsUserLoggedIn()): ?>
+          <div class="azuki-deck-source-empty">You do not have any AzukiDeck decks yet.</div>
+        <?php else: ?>
+          <div class="azuki-deck-source-empty">Log in to select decks saved in AzukiDeck.</div>
+        <?php endif; ?>
+      </div>
+
+      <div id="azuki-deck-source-panel-link" class="azuki-deck-source-panel<?php echo $hasAzukiBuilderDecks ? '' : ' is-active'; ?>" role="tabpanel" aria-labelledby="azuki-deck-source-tab-link">
+        <label for="azuki-deck-link">Optional deck link:</label>
+        <input type="text" id="azuki-deck-link" placeholder="https://thegateikz.com/... or deck slug">
+        <p>Paste a <code>thegateikz.com</code> deck link to load that list. If left blank, AzukiSim uses the selected starter deck below.</p>
+        <div class="saved-decks-panel">
+          <div class="azuki-inline-section-title">Saved Decks</div>
+          <?php echo RenderDeckLibrary(0, $azukiDeckLibraryConfig); ?>
+        </div>
+        <label for="starter-deck-select">Starter deck fallback:</label>
+        <select id="starter-deck-select">
+          <option value="Raizan">Raizan Starter Deck</option>
+          <option value="Shao">Shao Starter Deck</option>
+          <option value="Bobu">Bobu Starter Deck</option>
+          <option value="Zero">Zero Starter Deck</option>
+        </select>
+      </div>
+
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="window.location.href='/TCGEngine/AzukiDeck/'" style="background-color: #1769aa;">Build a Deck</button>
         <button onclick="joinQueue()">Join Queue</button>
@@ -113,6 +164,197 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
     letter-spacing: 0.08em;
     margin: 0 0 8px;
     text-transform: uppercase;
+  }
+  .azuki-deck-source-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(118, 196, 255, 0.24);
+  }
+  .azuki-deck-source-tab {
+    flex: 1;
+    padding: 9px 8px;
+    background: rgba(40,40,40,0.55);
+    color: #aaa;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .azuki-deck-source-tab.is-active {
+    background: rgba(85, 166, 225, 0.18);
+    border-bottom-color: #76c4ff;
+    color: #fff;
+    font-weight: 600;
+  }
+  .azuki-deck-source-panel {
+    display: none;
+    margin-bottom: 12px;
+  }
+  .azuki-deck-source-panel.is-active {
+    display: block;
+  }
+  .azuki-deck-source-panel > label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ddd;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .azuki-deck-source-panel > input,
+  .azuki-deck-source-panel > select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    padding: 10px 15px;
+    background-color: rgba(40, 40, 40, 0.95);
+    color: white;
+    border: 2px solid rgba(100, 100, 100, 0.5);
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+  }
+  .azuki-deck-source-panel > p {
+    margin: 0 0 12px;
+    color: #b9b9b9;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  .azuki-builder-deck-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: 10px;
+    max-height: 250px;
+    padding: 1px 5px 1px 1px;
+    overflow-y: auto;
+  }
+  .azuki-builder-deck-option {
+    display: block;
+    min-width: 0;
+    cursor: pointer;
+  }
+  .azuki-builder-deck-option > input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .azuki-builder-deck-tile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 98px;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: linear-gradient(145deg, rgba(23, 48, 77, 0.9), rgba(10, 24, 43, 0.94));
+    border: 1px solid rgba(118, 196, 255, 0.28);
+    border-radius: 10px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease, background 0.16s ease;
+  }
+  .azuki-builder-deck-option:hover .azuki-builder-deck-tile {
+    border-color: rgba(118, 196, 255, 0.62);
+    transform: translateY(-1px);
+  }
+  .azuki-builder-deck-option > input:focus-visible + .azuki-builder-deck-tile {
+    outline: 2px solid #f0c96c;
+    outline-offset: 2px;
+  }
+  .azuki-builder-deck-option > input:checked + .azuki-builder-deck-tile {
+    background: linear-gradient(145deg, rgba(37, 79, 119, 0.96), rgba(13, 35, 61, 0.98));
+    border-color: #f0c96c;
+    box-shadow: 0 0 0 1px rgba(240, 201, 108, 0.18), 0 8px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .azuki-builder-deck-art {
+    position: relative;
+    align-self: stretch;
+    width: 104px;
+    min-width: 104px;
+    overflow: hidden;
+    background: radial-gradient(circle at 44% 45%, rgba(118,196,255,0.19), transparent 66%);
+  }
+  .azuki-builder-deck-art img {
+    position: absolute;
+    top: 4px;
+    left: 20px;
+    z-index: 1;
+    width: 62px;
+    height: 88px;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.34);
+    border-radius: 5px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.48);
+    transform: rotate(-2deg);
+  }
+  .azuki-builder-deck-art.has-two img:first-child {
+    left: 7px;
+    z-index: 2;
+    transform: rotate(-3deg);
+  }
+  .azuki-builder-deck-art.has-two img:last-child {
+    top: 7px;
+    left: 38px;
+    z-index: 1;
+    transform: rotate(4deg);
+  }
+  .azuki-builder-deck-copy {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding: 13px 38px 13px 4px;
+  }
+  .azuki-builder-deck-copy strong {
+    display: block;
+    overflow: hidden;
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .azuki-builder-deck-copy > span {
+    display: -webkit-box;
+    margin-top: 5px;
+    overflow: hidden;
+    color: #aebed0;
+    font-size: 11px;
+    line-height: 1.3;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .azuki-builder-deck-check {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    display: grid;
+    width: 20px;
+    height: 20px;
+    place-items: center;
+    color: #10243b;
+    background: #f0c96c;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 900;
+    opacity: 0;
+    transform: scale(0.75);
+    transition: opacity 0.16s ease, transform 0.16s ease;
+  }
+  .azuki-builder-deck-option > input:checked + .azuki-builder-deck-tile .azuki-builder-deck-check {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .azuki-deck-source-empty {
+    padding: 14px;
+    color: #b9b9b9;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.4;
   }
   .saved-decks-panel {
     margin: 0 0 12px;
@@ -445,6 +687,23 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
     replaysPanel.classList.toggle('is-active', isReplays);
   }
 
+  function switchDeckSourceTab(tab) {
+    var useBuilder = tab === 'builder';
+    var builderTab = document.getElementById('azuki-deck-source-tab-builder');
+    var linkTab = document.getElementById('azuki-deck-source-tab-link');
+    var builderPanel = document.getElementById('azuki-deck-source-panel-builder');
+    var linkPanel = document.getElementById('azuki-deck-source-panel-link');
+    if (!builderTab || !linkTab || !builderPanel || !linkPanel) return;
+
+    builderTab.classList.toggle('is-active', useBuilder);
+    linkTab.classList.toggle('is-active', !useBuilder);
+    builderTab.setAttribute('aria-selected', useBuilder ? 'true' : 'false');
+    linkTab.setAttribute('aria-selected', useBuilder ? 'false' : 'true');
+    builderPanel.classList.toggle('is-active', useBuilder);
+    linkPanel.classList.toggle('is-active', !useBuilder);
+    clearQueueInlineError();
+  }
+
   function renderHotkeyList() {
     var container = document.getElementById('hotkey-list');
     if (!container) return;
@@ -582,6 +841,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
           if (deckLinkInput && !deckLinkInput.value.trim()) {
             deckLinkInput.value = deckLinkParam;
           }
+          switchDeckSourceTab('link');
         } catch (e) {
           console.error('Failed to parse deck link URL:', e);
         }
@@ -589,9 +849,21 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
 
       function getDeckSubmission() {
         var deckLink = '';
-        var deckLinkInput = document.getElementById('azuki-deck-link');
-        if (deckLinkInput && deckLinkInput.value) {
-          deckLink = deckLinkInput.value.trim();
+        var deckSource = 'link';
+        var builderTab = document.getElementById('azuki-deck-source-tab-builder');
+        if (builderTab && builderTab.getAttribute('aria-selected') === 'true') {
+          deckSource = 'builder';
+          var builderChoice = document.querySelector('#azuki-builder-deck-select input[name="azuki-builder-deck"]:checked');
+          deckLink = builderChoice && builderChoice.value ? builderChoice.value.trim() : '';
+          if (!deckLink) {
+            showQueueInlineError('Select an AzukiDeck deck, or use the Deck Link / Starter tab.');
+            return null;
+          }
+        } else {
+          var deckLinkInput = document.getElementById('azuki-deck-link');
+          if (deckLinkInput && deckLinkInput.value) {
+            deckLink = deckLinkInput.value.trim();
+          }
         }
 
         var starterDeck = 'Raizan';
@@ -604,6 +876,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
         return {
           preconstructedDeck: starterDeck,
           deckLink: deckLink,
+          deckSource: deckSource,
           gameType: gameType
         };
       }
@@ -621,7 +894,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
       }
 
       function autoSaveCurrentDeckLink(submission) {
-        if (!submission || !submission.deckLink || !window.TCGDeckLibrarySaveCurrent) return;
+        if (!submission || submission.deckSource !== 'link' || !submission.deckLink || !window.TCGDeckLibrarySaveCurrent) return;
         window.TCGDeckLibrarySaveCurrent(submission.deckLink, {
           localStorageKey: 'tcgengine:savedDecks:AzukiSim',
           promptName: false,

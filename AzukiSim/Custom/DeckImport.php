@@ -1,8 +1,9 @@
 <?php
 
 include_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
+include_once __DIR__ . '/../../AzukiDeck/DeckService.php';
 
-function AzukiValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
+function AzukiValidateDeckForQueue($deckLink, $preconstructedDeck = '', $userID = null) {
     $deckLink = trim((string)$deckLink);
     if ($deckLink === '') {
         return [
@@ -11,14 +12,14 @@ function AzukiValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
         ];
     }
 
-    $resolved = AzukiResolveDeckInput($deckLink);
+    $resolved = AzukiResolveDeckInput($deckLink, $userID);
     return [
         'success' => $resolved['success'],
         'message' => $resolved['success'] ? '' : $resolved['message']
     ];
 }
 
-function AzukiResolveDeckInput($deckLink) {
+function AzukiResolveDeckInput($deckLink, $userID = null) {
     $deckLink = trim((string)$deckLink);
     if ($deckLink === '') {
         return [
@@ -29,6 +30,10 @@ function AzukiResolveDeckInput($deckLink) {
             'mainDeck' => [],
             'unresolved' => []
         ];
+    }
+
+    if (preg_match('/^azukideck:(\d+)$/i', $deckLink, $matches)) {
+        return AzukiDeckResolveOwnedDeck($matches[1], $userID);
     }
 
     $slug = AzukiExtractDeckSlug($deckLink);

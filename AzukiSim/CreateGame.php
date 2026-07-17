@@ -37,7 +37,7 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     $playerCounter = 1;
     foreach ($lobby->players as $player) {
         $player->setGamePlayerID($playerCounter);
-        LoadPlayer($playerCounter, $player->getPreconstructedDeck(), $player->getDeckLink());
+        LoadPlayer($playerCounter, $player->getPreconstructedDeck(), $player->getDeckLink(), $player->getUserId());
         ++$playerCounter;
     }
 
@@ -177,7 +177,7 @@ function GetPreconstructedDeckConfig($deckName) {
     ];
 }
 
-function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '') {
+function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '', $userID = null) {
     $deck = &GetDeck($playerID);
     $garden = &GetGarden($playerID);
     $gate = &GetGate($playerID);
@@ -186,7 +186,7 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '') {
     $deckLink = trim((string)$deckLink);
     if ($deckLink !== '' && function_exists('AzukiResolveDeckInput')) {
         try {
-            $candidateDeck = AzukiResolveDeckInput($deckLink);
+            $candidateDeck = AzukiResolveDeckInput($deckLink, $userID);
             if (!empty($candidateDeck['success'])) {
                 $resolvedDeck = $candidateDeck;
             } else {
