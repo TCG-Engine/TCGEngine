@@ -1365,6 +1365,12 @@ function AddUniqueTurnEffect(&$obj, $effectID) {
     if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) {
         $obj->TurnEffects = [];
     }
+    // Numeric attack modifiers are independent continuous effects. Multiple
+    // sources can grant the same value, so identical ATK_MOD tags must stack.
+    if(strpos($effectID, 'ATK_MOD:') === 0) {
+        $obj->TurnEffects[] = $effectID;
+        return;
+    }
     if(!in_array($effectID, $obj->TurnEffects, true)) {
         $obj->TurnEffects[] = $effectID;
     }
