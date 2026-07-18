@@ -279,6 +279,13 @@ function LoadDecks() {
   $allowedSorts = ['alpha_asc','alpha_desc','updated_desc','updated_asc','id_asc','id_desc'];
   $sortBy = isset($_GET['deckSort']) && in_array($_GET['deckSort'], $allowedSorts) ? $_GET['deckSort'] : 'id_desc';
   $decks = GetDecksByUserID(LoggedInUser(), $sortBy);
+  $deckCodesJs = "";
+  foreach ($decks as $d) {
+    if (!empty($d["friendlyCode"])) {
+      $deckCodesJs .= '"' . $d["assetIdentifier"] . '":"' . $d["friendlyCode"] . '",';
+    }
+  }
+  echo "<script>window.SWU_DECK_CODES = Object.assign(window.SWU_DECK_CODES || {}, {" . $deckCodesJs . "});</script>";
   echo("<div class='sciFiScroll swu-deck-list'>");
   echo("<table class='swu-deck-table'>");
   $favoriteDecks = "";
@@ -323,12 +330,14 @@ function LoadDecks() {
       $thisDeck .= "<button title='Copy Link' onclick='event.stopPropagation(); showCopyOptions(\"" . $deck["assetIdentifier"] . "\", event)'>";
       $thisDeck .= "<img src='/TCGEngine/Assets/Icons/clipboard-check.svg' width='16' height='16' alt='Copy Link' style='filter:invert(100%);' />";
       $thisDeck .= "</button>";
-      $thisDeck .= "<button title='Change Format' onclick='event.stopPropagation(); showFormatPicker(\"" . $deck["assetIdentifier"] . "\", \"" . $deckFormat . "\", event)'>";
-      $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-tag' viewBox='0 0 16 16'>
-    <path d='M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0'/>
-    <path d='M2.5 1A1.5 1.5 0 0 0 1 2.5v5.628a2.5 2.5 0 0 0 .732 1.767l6.5 6.5a2.5 2.5 0 0 0 3.536 0l5.628-5.628a2.5 2.5 0 0 0 0-3.536l-6.5-6.5A2.5 2.5 0 0 0 8.128 1zM2 2.5A.5.5 0 0 1 2.5 2h5.628a1.5 1.5 0 0 1 1.06.44l6.5 6.5a1.5 1.5 0 0 1 0 2.12L10.06 16.56a1.5 1.5 0 0 1-2.12 0l-6.5-6.5A1.5 1.5 0 0 1 2 8.128z'/>
+      $thisDeck .= "<button title='Generate Image' onclick='event.stopPropagation(); GenerateDeckImage(\"" . $deck["assetIdentifier"] . "\", event)'>";
+      $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-image' viewBox='0 0 16 16'>
+    <path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0'/>
+    <path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z'/>
     </svg>";
       $thisDeck .= "</button>";
+      // "Export Card Text JSON" button — commented out for now; may re-add later.
+      /*
       if (CheckLoggedInUserMod() === '') {
         $thisDeck .= "<button title='Export Card Text JSON' onclick='event.stopPropagation(); ShowCardTextJSON(\"" . $deck["assetIdentifier"] . "\")'>";
         $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-braces' viewBox='0 0 16 16'>
@@ -336,6 +345,7 @@ function LoadDecks() {
     </svg>";
         $thisDeck .= "</button>";
       }
+      */
       if (!is_null($deck["assetSource"]) && !is_null($deck["assetSourceID"])) {
       $thisDeck .= "<button title='Refresh' onclick='event.stopPropagation(); RefreshDeck(\"" . $deck["assetIdentifier"] . "\", " . $deck["assetSource"] . ", \"" . $deck["assetSourceID"] . "\", event)'>";
       $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-clockwise' viewBox='0 0 16 16'>
@@ -360,6 +370,12 @@ function LoadDecks() {
         $thisDeck .= "<img src='/TCGEngine/Assets/Icons/heart-fill.svg' width='16' height='16' alt='Favorite' style='filter: invert(100%);' />";
         $thisDeck .= "</button>";
       }
+      $thisDeck .= "<button title='Change Format' onclick='event.stopPropagation(); showFormatPicker(\"" . $deck["assetIdentifier"] . "\", \"" . $deckFormat . "\", event)'>";
+      $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-tag' viewBox='-1.5 -1 20 20'>
+    <path d='M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0'/>
+    <path d='M2.5 1A1.5 1.5 0 0 0 1 2.5v5.628a2.5 2.5 0 0 0 .732 1.767l6.5 6.5a2.5 2.5 0 0 0 3.536 0l5.628-5.628a2.5 2.5 0 0 0 0-3.536l-6.5-6.5A2.5 2.5 0 0 0 8.128 1zM2 2.5A.5.5 0 0 1 2.5 2h5.628a1.5 1.5 0 0 1 1.06.44l6.5 6.5a1.5 1.5 0 0 1 0 2.12L10.06 16.56a1.5 1.5 0 0 1-2.12 0l-6.5-6.5A1.5 1.5 0 0 1 2 8.128z'/>
+    </svg>";
+      $thisDeck .= "</button>";
       $thisDeck .= "<button title='Delete' onclick='event.stopPropagation(); DeleteDeck(\"" . $id . "\")'>";
       $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash3' viewBox='0 0 16 16'>
     <path d='M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5'/>
@@ -532,6 +548,15 @@ function LoadDecks() {
         document.body.removeChild(optionsMenu);
       };
 
+      var copyKarabastBtn = document.createElement("button");
+      copyKarabastBtn.innerText = "Copy Karabast Import Link";
+      copyKarabastBtn.style.marginRight = "10px";
+      copyKarabastBtn.onclick = function(e) {
+        e.stopPropagation();
+        CopyKarabastLink(deckID, event);
+        document.body.removeChild(optionsMenu);
+      };
+
       var copyTextBtn = document.createElement("button");
       copyTextBtn.innerText = "Copy Text";
       copyTextBtn.style.marginRight = "10px";
@@ -550,18 +575,10 @@ function LoadDecks() {
         document.body.removeChild(optionsMenu);
       };
 
-      var generateImageBtn = document.createElement("button");
-      generateImageBtn.innerText = "Generate Image";
-      generateImageBtn.onclick = function(e) {
-        e.stopPropagation();
-        GenerateDeckImage(deckID, e);
-        document.body.removeChild(optionsMenu);
-      };
-
       optionsMenu.appendChild(copyLinkBtn);
       optionsMenu.appendChild(copyTextBtn);
       optionsMenu.appendChild(copyJsonBtn);
-      optionsMenu.appendChild(generateImageBtn);
+      optionsMenu.appendChild(copyKarabastBtn);
       document.body.appendChild(optionsMenu);
 
       document.addEventListener("click", function removeMenu(e) {
@@ -837,15 +854,31 @@ function LoadDecks() {
       }
     }
 
-    function CopyDeckLink(deckID, event) {
-      var deckLink = window.location.origin + "/TCGEngine/NextTurn.php?gameName=" + deckID + "&playerID=1&folderPath=SWUDeck";
+    function copyTextToClipboard(text) {
       var tempInput = document.createElement("input");
-      tempInput.value = deckLink;
+      tempInput.value = text;
       document.body.appendChild(tempInput);
       tempInput.select();
       document.execCommand("copy");
       document.body.removeChild(tempInput);
+    }
+
+    function CopyDeckLink(deckID, event) {
+      var code = (window.SWU_DECK_CODES || {})[deckID];
+      var deckLink = code
+        ? window.location.origin + "/deck/" + code
+        : window.location.origin + "/TCGEngine/NextTurn.php?gameName=" + deckID + "&playerID=1&folderPath=SWUDeck";
+      copyTextToClipboard(deckLink);
       showFlashMessage("Link copied!", event);
+    }
+
+    function CopyKarabastLink(deckID, event) {
+      var code = (window.SWU_DECK_CODES || {})[deckID];
+      if (!code) { showFlashMessage("No import link for this deck yet.", event); return; }
+      // ?gameName={code} is what Karabast's importer extracts; the /deck/{code} path still works in a browser.
+      var link = window.location.origin + "/deck/" + code + "?gameName=" + code;
+      copyTextToClipboard(link);
+      showFlashMessage("Karabast import link copied!", event);
     }
 
   function DeckNameClick(id) {
@@ -973,26 +1006,28 @@ function LoadDecks() {
     var icons = {
       stats: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-bar-chart' viewBox='0 0 16 16'><path d='M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z'/></svg>`,
       copy: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-clipboard2-check' viewBox='0 0 16 16'><path d='M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z'/><path d='M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z'/><path d='M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z'/></svg>`,
+      image: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-image' viewBox='0 0 16 16'><path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0'/><path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z'/></svg>`,
       refresh: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-arrow-clockwise' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z'/><path d='M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466'/></svg>`,
       favorite: assetFolder == 1
         ? `<img src='/TCGEngine/Assets/Icons/heart-fill.svg' width='18' height='18' style='vertical-align:middle;margin-right:10px;filter:invert(100%);' alt='Unfavorite' />`
         : `<img src='/TCGEngine/Assets/Icons/heart.svg' width='18' height='18' style='vertical-align:middle;margin-right:10px;filter:invert(100%);' alt='Favorite' />`,
       delete: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-trash3' viewBox='0 0 16 16'><path d='M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5'/><path d='M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1Z'/><path d='M12.958 3l-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5ZM2.565 4.5a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L2.095 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5'/></svg>`,
-      tag: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-tag' viewBox='0 0 16 16'><path d='M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0'/><path d='M2.5 1A1.5 1.5 0 0 0 1 2.5v5.628a2.5 2.5 0 0 0 .732 1.767l6.5 6.5a2.5 2.5 0 0 0 3.536 0l5.628-5.628a2.5 2.5 0 0 0 0-3.536l-6.5-6.5A2.5 2.5 0 0 0 8.128 1zM2 2.5A.5.5 0 0 1 2.5 2h5.628a1.5 1.5 0 0 1 1.06.44l6.5 6.5a1.5 1.5 0 0 1 0 2.12L10.06 16.56a1.5 1.5 0 0 1-2.12 0l-6.5-6.5A1.5 1.5 0 0 1 2 8.128z'/></svg>`
+      tag: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-tag' viewBox='-1 -1 18 18'><path d='M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0'/><path d='M2.5 1A1.5 1.5 0 0 0 1 2.5v5.628a2.5 2.5 0 0 0 .732 1.767l6.5 6.5a2.5 2.5 0 0 0 3.536 0l5.628-5.628a2.5 2.5 0 0 0 0-3.536l-6.5-6.5A2.5 2.5 0 0 0 8.128 1zM2 2.5A.5.5 0 0 1 2.5 2h5.628a1.5 1.5 0 0 1 1.06.44l6.5 6.5a1.5 1.5 0 0 1 0 2.12L10.06 16.56a1.5 1.5 0 0 1-2.12 0l-6.5-6.5A1.5 1.5 0 0 1 2 8.128z'/></svg>`
     };
     menu.innerHTML = `
       <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); window.location.href="/TCGEngine/SWUDeck/DeckStats.php?gameName=${deckID}";'>${icons.stats}Stats</button>
-      <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove(); showFormatPicker("${deckID}", "${currentFormat}", event);'>${icons.tag}Change Format</button>
       ${window.innerWidth <= 768 ? `
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckLink("${deckID}", event); showFlashMessage("Link copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Link</button>
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckText("${deckID}", event); showFlashMessage("Text copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Text</button>
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckJSON("${deckID}", event); showFlashMessage("Deck JSON copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy JSON</button>
-        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); GenerateDeckImage("${deckID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Generate Image</button>
+        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyKarabastLink("${deckID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Karabast Import Link</button>
+        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); GenerateDeckImage("${deckID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.image}Generate Image</button>
       ` : `
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); showCopyOptions("${deckID}", event); setTimeout(()=>{if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();},200);'>${icons.copy}Copy Link/Export</button>
       `}
       <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' ${canRefresh ? '' : 'disabled style="color:#888;"'} onclick='event.stopPropagation(); if(${canRefresh}) RefreshDeck("${deckID}", ${assetSource}, "${assetSourceID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.refresh}Refresh</button>
       <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); MoveDeck("${id}", ${assetFolder == 1 ? 0 : 1}); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.favorite}${assetFolder == 1 ? 'Unfavorite' : 'Favorite'}</button>
+      <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove(); showFormatPicker("${deckID}", "${currentFormat}", event);'>${icons.tag}Change Format</button>
       <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); DeleteDeck("${id}"); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.delete}Delete</button>
     `;
     document.body.appendChild(menu);

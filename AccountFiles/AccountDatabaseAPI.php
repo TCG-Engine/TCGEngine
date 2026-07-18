@@ -271,6 +271,53 @@ function SaveAssetOwnership($assetType, $assetID, $userID, $assetSource=null, $a
 	}
 }
 
+function GenerateFriendlyCode() {
+  $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; // 52, no digits
+  $code = '';
+  for ($i = 0; $i < 12; $i++) {
+    $code .= $alphabet[random_int(0, 51)]; // CSPRNG
+  }
+  return $code;
+}
+
+// Assign a unique friendly code to an asset (idempotent: returns the existing code if present).
+function AssignFriendlyCode($assetType, $assetIdentifier) {
+  $conn = GetLocalMySQLConnection();
+
+  $q = $conn->prepare("SELECT friendlyCode FROM ownership WHERE assetType = ? AND assetIdentifier = ?");
+  $q->bind_param("ii", $assetType, $assetIdentifier);
+  $q->execute();
+  $q->bind_result($existing);
+  $q->fetch();
+  $q->close();
+  if (!empty($existing)) { $conn->close(); return $existing; }
+
+  for ($attempt = 0; $attempt < 8; $attempt++) {
+    $code = GenerateFriendlyCode();
+    $u = $conn->prepare("UPDATE ownership SET friendlyCode = ? WHERE assetType = ? AND assetIdentifier = ?");
+    $u->bind_param("sii", $code, $assetType, $assetIdentifier);
+    $ok = false;
+    try { $ok = $u->execute(); } catch (\mysqli_sql_exception $e) { $ok = false; } // unique collision -> retry
+    $u->close();
+    if ($ok && !$conn->error) { $conn->close(); return $code; }
+  }
+  $conn->close();
+  return null;
+}
+
+// Resolve a friendly code to a deck's numeric assetIdentifier (deck = assetType 1), or null.
+function ResolveFriendlyCode($code) {
+  $conn = GetLocalMySQLConnection();
+  $stmt = $conn->prepare("SELECT assetIdentifier FROM ownership WHERE assetType = 1 AND friendlyCode = ? LIMIT 1");
+  $stmt->bind_param("s", $code);
+  $stmt->execute();
+  $stmt->bind_result($id);
+  $found = $stmt->fetch();
+  $stmt->close();
+  $conn->close();
+  return $found ? (int)$id : null;
+}
+
 function UpdateAssetName($assetType, $assetID, $newName) {
   $conn = GetLocalMySQLConnection();
   $stmt = $conn->prepare("UPDATE ownership SET assetName = ? WHERE assetIdentifier = ? AND assetType = ?");

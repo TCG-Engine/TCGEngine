@@ -236,6 +236,7 @@
     } else $json = $deckLink;
     if(isset($json) && $json != "") {
       SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, $format);//assetType 1 = Deck
+      AssignFriendlyCode(1, $gameName);
       $deckObj = json_decode($json);
       if (isset($deckObj->metadata->name)) {
         UpdateAssetName(1, $gameName, $deckObj->metadata->name); // Update deck name if available
@@ -288,6 +289,7 @@
     }
   } else {
     SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, $format);//assetType 1 = Deck
+    AssignFriendlyCode(1, $gameName);
   }
 
   WriteGamestate();

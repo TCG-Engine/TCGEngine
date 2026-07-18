@@ -99,6 +99,10 @@ tmp="$(mktemp)"
   echo "    # 3. Bare app-dir URLs -> the active site's main menu (never a 403/listing)."
   printf '    RewriteRule ^TCGEngine/?$          https://%%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php [L,R=302]\n'
   printf '    RewriteRule ^TCGEngine/SharedUI/?$ https://%%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php [L,R=302]\n'
+  echo
+  echo "    # 3b. swustats.net friendly deck links: /deck/{12-letter code} -> resolver."
+  printf '    RewriteCond %%{HTTP_HOST} ^(www\\.)?swustats\\.net$ [NC]\n'
+  printf '    RewriteRule ^deck/([A-Za-z]{12})/?$ TCGEngine/APIs/GoToDeck.php?code=$1 [L,QSA]\n'
   echo "</IfModule>"
   echo
   echo "# 4. Never expose an Apache directory listing of the filesystem."

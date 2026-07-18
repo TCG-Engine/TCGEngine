@@ -28,6 +28,14 @@
   require_once "../" . $folderPath . "/ZoneAccessors.php";
   
   require_once "../Database/ConnectionManager.php";
+  require_once "../AccountFiles/AccountDatabaseAPI.php";
+
+  // Friendly-code support (additive): a 12-letter code resolves to the numeric deck id.
+  // Numeric deckID is untouched -> existing responses are byte-identical.
+  if (preg_match('/^[A-Za-z]{12}$/', $deckID)) {
+    $resolved = ResolveFriendlyCode($deckID);
+    if ($resolved !== null) { $deckID = (string)$resolved; }
+  }
 
   $gameName = $deckID;
   ParseGamestate("../" . $folderPath . "/");
