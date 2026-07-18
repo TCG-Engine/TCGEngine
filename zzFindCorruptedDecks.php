@@ -114,11 +114,14 @@ if ($plain) {
     header('Content-Type: text/plain');
     echo implode("\n", $confirmed) . (count($confirmed) ? "\n" : "");
 } else {
+    $nextOffset = $offset + count($slice);
     echo json_encode([
         'confirmedCorrupted' => $confirmed,               // both passes agree -> recover from assetversions
         'pass1OnlyUnconfirmed' => $unconfirmed,           // file flagged but LoadDeck didn't confirm (investigate)
         'counts' => $counts,
         'offset' => $offset, 'limit' => $limit,
-        'note' => 'Pass 1 = file analysis (format-aware, excludes intact old decks). Pass 2 = LoadDeck confirmation.',
+        'nextOffset' => $nextOffset,                      // pass this as ?offset= for the next page
+        'hasMore' => ($nextOffset < $totalFolders),       // false when the whole set has been scanned
+        'note' => 'Big sets: page with ?limit=20000 and ?offset=nextOffset until hasMore=false (Cloudflare cuts requests at ~100s).',
     ]);
 }
