@@ -1,20 +1,21 @@
 <?php
-// FindCorruptedDecks.php — mod-gated page that finds SWUDeck decks whose sideboard the current parser
-// can't read (the Leader1/Leader2 format-break corruption). Runs under Apache, so mysqli is available.
+// zzFindCorruptedDecks.php — mod-gated. Finds SWUDeck decks whose sideboard was destroyed by the
+// Leader1/Leader2 format break, in two passes:
 //
-// It pulls every SWUDeck deck id from `ownership` (assetType=1), parses each deck exactly like
-// LoadDeck.php (ParseGamestate + GetSideboard), and flags any deck whose sideboard contains a card
-// that resolves to a null id (CardIDLookup) — i.e. LoadDeck's "sideboard id:null" signal. Read-only:
-// ParseGamestate never writes the gamestate.
+//   PASS 1 (fast, file analysis): walk each SWUDeck/Games/<id>/Gamestate.txt to its Sideboard zone
+//     (format-aware — reads old AND new layouts correctly) and flag files whose sideboard contains a
+//     non-card token. Because it reads old files correctly, intact-but-old decks are NOT flagged, so
+//     only genuinely-corrupted files become candidates.
 //
-// Usage (as a logged-in mod):
-//   https://swustats.net/TCGEngine/FindCorruptedDecks.php                 -> JSON { corruptedDeckIds, counts }
-//   https://swustats.net/TCGEngine/FindCorruptedDecks.php?plain=1         -> newline-separated deck ids
-//   https://swustats.net/TCGEngine/FindCorruptedDecks.php?offset=0&limit=1000   -> scan a batch (page through big sets)
+//   PASS 2 (authoritative double-check): re-check each candidate through the real LoadDeck.php API
+//     (?deckID=..&setId=true). A deck is reported CORRUPTED only if BOTH passes agree (LoadDeck
+//     returns a null sideboard id). Candidates LoadDeck does NOT confirm are listed separately.
 //
-// NOTE: run this AFTER the Leader1/Leader2 migration. Before migration it also flags INTACT old-format
-// decks (their data is fine, just misread) — post-migration a flag means the deck is genuinely
-// corrupted, so recover it from assetversions.
+// Read-only. Usage (as mod ninin/OotTheMonk; auto-allowed in local DEVENV):
+//   https://swustats.net/TCGEngine/zzFindCorruptedDecks.php            -> JSON
+//   https://swustats.net/TCGEngine/zzFindCorruptedDecks.php?plain=1    -> newline-separated deck ids
+//   ...?offset=0&limit=20000     -> scan a slice of the Games folders (page big sets under CF's ~100s)
+//   ...?loadDeckBase=http://localhost/TCGEngine   -> where to reach LoadDeck for pass 2 (default localhost)
 
 require_once "./Database/ConnectionManager.php";
 include_once './AccountFiles/AccountSessionAPI.php';
@@ -24,71 +25,100 @@ $plain = isset($_GET['plain']) && ($_GET['plain'] === '1' || $_GET['plain'] === 
 if (!$plain) header('Content-Type: application/json');
 
 $error = CheckLoggedInUserMod();
-if ($error !== "") {
-  if ($plain) { header('Content-Type: text/plain'); echo "error: $error\n"; }
-  else echo json_encode(['error' => $error]);
-  exit();
-}
+if ($error !== "") { if ($plain) { header('Content-Type: text/plain'); echo "error: $error\n"; } else echo json_encode(['error'=>$error]); exit(); }
 
 set_time_limit(0);
 ignore_user_abort(true);
-
 require_once "./SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
-require_once "./SWUDeck/ZoneClasses.php";
-require_once "./SWUDeck/ZoneAccessors.php";
-require_once "./SWUDeck/GamestateParser.php";
 
+$gamesDir = "./SWUDeck/Games";
 $offset = isset($_GET['offset']) ? max(0, intval($_GET['offset'])) : 0;
 $limit  = isset($_GET['limit'])  ? max(0, intval($_GET['limit']))  : 0;   // 0 = all
+$loadDeckBase = isset($_GET['loadDeckBase']) ? rtrim($_GET['loadDeckBase'], '/') : 'http://localhost/TCGEngine';
 
-// 1) Every SWUDeck deck id, from the DB.
-$conn = GetLocalMySQLConnection();
-if (!$conn) {
-  if ($plain) { header('Content-Type: text/plain'); echo "error: DB connection failed\n"; }
-  else echo json_encode(['error' => 'DB connection failed']);
-  exit();
+// ---- PASS 1 helpers: format-aware Sideboard extraction from the raw file ----
+function readZoneP1(array $lines, int &$idx): ?array {
+    $n = count($lines); if ($idx >= $n) return null;
+    $c1 = intval($lines[$idx++]); if ($c1 < 0 || $idx + $c1 > $n) return null;
+    $p1 = []; for ($i=0;$i<$c1;$i++) $p1[] = trim($lines[$idx++]);
+    if ($idx >= $n) return null;
+    $c2 = intval($lines[$idx++]); if ($c2 < 0 || $idx + $c2 > $n) return null;
+    $idx += $c2; return $p1;
 }
-$ids = [];
-$sql = "SELECT assetIdentifier FROM ownership WHERE assetType = 1 ORDER BY assetIdentifier";
-if ($limit > 0) $sql .= " LIMIT " . intval($limit) . " OFFSET " . intval($offset);
-$res = mysqli_query($conn, $sql);
-if ($res) { while ($row = mysqli_fetch_assoc($res)) $ids[] = $row['assetIdentifier']; }
-$totalDecks = 0;
-$cres = mysqli_query($conn, "SELECT COUNT(*) AS c FROM ownership WHERE assetType = 1");
-if ($cres && ($crow = mysqli_fetch_assoc($cres))) $totalDecks = intval($crow['c']);
-mysqli_close($conn);
-
-// 2) Parse each deck like LoadDeck; flag a null-id sideboard entry.
-global $gameName;
-$corrupted = [];
-$counts = ['total_in_db' => $totalDecks, 'scanned' => 0, 'corrupted' => 0, 'empty' => 0, 'ok' => 0, 'no_file' => 0];
-
-foreach ($ids as $id) {
-  $counts['scanned']++;
-  if (!is_file("./SWUDeck/Games/" . $id . "/Gamestate.txt")) { $counts['no_file']++; continue; }
-  $gameName = $id;
-  ParseGamestate("./SWUDeck/");                 // read-only; InitializeGamestate() resets all zones first
-  $sb = &GetSideboard(1);
-  if (!is_array($sb) || count($sb) === 0) { $counts['empty']++; continue; }
-  $nullIds = 0;
-  foreach ($sb as $card) {
-    $lookup = CardIDLookup($card->CardID);      // setId=true equivalent; garbage ("0") -> null
-    if ($lookup === null || $lookup === '') $nullIds++;
-  }
-  if ($nullIds > 0) { $corrupted[] = $id; $counts['corrupted']++; }
-  else $counts['ok']++;
+function isValidSideboardCard(string $id): bool {
+    if ($id === '' || $id === '-' || !ctype_digit($id)) return false;
+    $t = CardType($id);
+    if ($t === null || $t === '' || $t === 'Leader' || $t === 'Base') return false;
+    return true;
+}
+// Returns Sideboard(p1) entries handling old(1 leader-pool)/new(3) layouts, or null if unparseable.
+function extractSideboard(string $raw): ?array {
+    $lines = explode("\n", $raw);
+    if (count($lines) < 2) return null;
+    $idx = 2;
+    foreach (['Leader','Base','MainDeck','CardPane'] as $_z) if (readZoneP1($lines,$idx)===null) return null;
+    if (readZoneP1($lines,$idx)===null) return null;                       // Leaders
+    $n = count($lines);
+    $peekCount = ($idx < $n) ? intval($lines[$idx]) : 0;
+    $peekFirst = ($peekCount>0 && ($idx+1)<$n) ? trim($lines[$idx+1]) : '';
+    $peekType = ($peekFirst!=='') ? CardType($peekFirst) : '';
+    if ($peekType === 'Leader') { if (readZoneP1($lines,$idx)===null) return null; if (readZoneP1($lines,$idx)===null) return null; } // Leader1,Leader2
+    else if ($peekType !== 'Base') return null;                            // unclassifiable
+    if (readZoneP1($lines,$idx)===null) return null;                       // Bases
+    if (readZoneP1($lines,$idx)===null) return null;                       // Cards
+    return readZoneP1($lines,$idx);                                        // Sideboard
 }
 
-// 3) Report.
+// ---- PASS 2: authoritative LoadDeck check ----
+function loadDeckSideboardHasNull(string $base, string $id): ?bool {
+    $url = $base . '/APIs/LoadDeck.php?deckID=' . rawurlencode($id) . '&setId=true';
+    $ctx = stream_context_create(['http'=>['timeout'=>15,'ignore_errors'=>true]]);
+    $raw = @file_get_contents($url, false, $ctx);
+    if ($raw === false) return null;                    // couldn't reach -> unknown
+    $j = json_decode($raw, true);
+    if (!is_array($j) || isset($j['error'])) return null;
+    $sb = $j['sideboard'] ?? [];
+    if (!is_array($sb) || count($sb) === 0) return false;
+    foreach ($sb as $c) { $cid = $c['id'] ?? null; if ($cid === null || $cid === '') return true; }
+    return false;
+}
+
+// Deck ids = folder names (no DB list iteration).
+$dirs = glob($gamesDir . '/*', GLOB_ONLYDIR);
+$allIds = [];
+foreach ($dirs as $d) { $b = basename($d); if (ctype_digit($b)) $allIds[] = $b; }
+sort($allIds, SORT_NATURAL);
+$totalFolders = count($allIds);
+$slice = ($limit > 0) ? array_slice($allIds, $offset, $limit) : array_slice($allIds, $offset);
+
+$confirmed = []; $unconfirmed = [];
+$counts = ['total_folders'=>$totalFolders,'scanned'=>0,'pass1_candidates'=>0,'confirmed'=>0,'unconfirmed'=>0,'empty'=>0,'ok'=>0,'unparseable'=>0];
+
+foreach ($slice as $id) {
+    $counts['scanned']++;
+    $file = $gamesDir . '/' . $id . '/Gamestate.txt';
+    if (!is_file($file)) { $counts['unparseable']++; continue; }
+    $sb = extractSideboard(file_get_contents($file));
+    if ($sb === null) { $counts['unparseable']++; continue; }
+    if (count($sb) === 0) { $counts['empty']++; continue; }
+    $bad = array_filter($sb, fn($c) => !isValidSideboardCard($c));
+    if (count($bad) === 0) { $counts['ok']++; continue; }   // includes intact old decks (real sideboard)
+    // Pass-1 candidate: file sideboard has garbage.
+    $counts['pass1_candidates']++;
+    $ld = loadDeckSideboardHasNull($loadDeckBase, $id);
+    if ($ld === true) { $confirmed[] = $id; $counts['confirmed']++; }
+    else { $unconfirmed[] = $id; $counts['unconfirmed']++; }
+}
+
 if ($plain) {
-  header('Content-Type: text/plain');
-  echo implode("\n", $corrupted) . (count($corrupted) ? "\n" : "");
+    header('Content-Type: text/plain');
+    echo implode("\n", $confirmed) . (count($confirmed) ? "\n" : "");
 } else {
-  echo json_encode([
-    'corruptedDeckIds' => $corrupted,
-    'counts' => $counts,
-    'offset' => $offset,
-    'limit'  => $limit,
-    'note'   => 'Run after the Leader1/Leader2 migration; before it, intact old-format decks are flagged too.',
-  ]);
+    echo json_encode([
+        'confirmedCorrupted' => $confirmed,               // both passes agree -> recover from assetversions
+        'pass1OnlyUnconfirmed' => $unconfirmed,           // file flagged but LoadDeck didn't confirm (investigate)
+        'counts' => $counts,
+        'offset' => $offset, 'limit' => $limit,
+        'note' => 'Pass 1 = file analysis (format-aware, excludes intact old decks). Pass 2 = LoadDeck confirmation.',
+    ]);
 }
