@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/Stats.php';
+
 $debugMode = true;
 $customDQHandlers = [];
 $untilBeginTurnEffects = [];
@@ -2316,6 +2318,12 @@ function TriggerGameOver($loserPlayer) {
 
     $winner = ($loserPlayer === 1) ? 2 : 1;
     DecisionQueueController::StoreVariable('GAMEOVER_WINNER', strval($winner));
+    try {
+        AzukiRecordGameStats($winner);
+    } catch(Throwable $e) {
+        // Stats must never prevent the authoritative game-over state from being saved.
+        error_log('Azuki game stats aggregation failed: ' . $e->getMessage());
+    }
 }
 
 function CardHasKeyword($cardID, $keyword) {
@@ -3572,6 +3580,7 @@ function DoDrawCard($player, $amount) {
     for($i = 0; $i < $amount; ++$i) {
         if(empty($deck)) break;
         $card = array_shift($deck);
+        AzukiStatsTrackGameCardEvent('AzukiDrawn', $player, $card->CardID ?? '');
         array_push($hand, $card);
     }
 
@@ -5040,6 +5049,11 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         return 'ATTACK';
     }
 
+    // Count only attacks that survive response-window cancellation and reach combat.
+    // targetMZ is the final target here, including any successful redirect.
+    AzukiStatsTrackGameCardEvent('AzukiAttacks', $player, $attackerObj->CardID ?? '');
+    AzukiStatsTrackGameCardEvent('AzukiTargetedByAttacks', $opponent, $targetField[$targetIndex]->CardID ?? '');
+
     $defenderAttack = 0;
     $defenderHealth = 0;
     $targetIsLeader = false;
@@ -5419,6 +5433,7 @@ function FinalizeEndOfTurnCleanup($player) {
             // TurnEffects will be cleared, gate can be used again next turn
         }
     }
+
 }
 
 function ExpireTurnEffects($player, $isEndTurn = true) {

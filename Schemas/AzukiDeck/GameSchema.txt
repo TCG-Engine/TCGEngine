@@ -23,7 +23,7 @@ Display: Visibility=Self, Mode=Tile, BindTo=MainDeckSlot, Split=None
 Click: Remove(myCards)
 AddValidation: ValidateDeckCardAddition
 Widgets: CustomInput=<&<<<&V&+&Notes
-Heatmap: Property=myStats, FunctionMap={"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"}}
+Heatmap: Property=myStats, FunctionMap={"Play_Win_Rate":{"Function":"AzukiCardPlayWinRate","ColorMap":"HigherIsBetter"},"Inclusion_Win_Rate":{"Function":"AzukiCardInclusionWinRate","ColorMap":"HigherIsBetter"},"Play_Frequency":{"Function":"AzukiCardPlayFrequency","ColorMap":"HigherIsBetter"},"Attack_Frequency":{"Function":"AzukiCardAttackFrequency","ColorMap":"HigherIsBetter"},"Attacked_Frequency":{"Function":"AzukiCardAttackedFrequency","ColorMap":"HigherIsBetter"},"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"}}
 Sort: Property=mySort
 CardPane - Value:string
 Display: Visibility=Self, Mode=Panel, BindTo=CardPaneSlot, Split=None
@@ -45,13 +45,13 @@ Display: Visibility=Self, Mode=Tile, BindTo=SideboardSlot, Split=None
 Click: Remove(mySideboard)
 AddValidation: ValidateDeckCardAddition
 Widgets: CustomInput=<&<<<&^&+&Notes
-Heatmap: Property=myStats, FunctionMap={"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"}}
+Heatmap: Property=myStats, FunctionMap={"Play_Win_Rate":{"Function":"AzukiCardPlayWinRate","ColorMap":"HigherIsBetter"},"Inclusion_Win_Rate":{"Function":"AzukiCardInclusionWinRate","ColorMap":"HigherIsBetter"},"Play_Frequency":{"Function":"AzukiCardPlayFrequency","ColorMap":"HigherIsBetter"},"Attack_Frequency":{"Function":"AzukiCardAttackFrequency","ColorMap":"HigherIsBetter"},"Attacked_Frequency":{"Function":"AzukiCardAttackedFrequency","ColorMap":"HigherIsBetter"},"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"}}
 Sort: Property=mySort
 Deck - CardID:string
 Display: Visibility=Self, Mode=Count(MainDeck), BindTo=DeckSlot, Split=None
 Stats - Value:string
 Display: Visibility=Self, Mode=Radio(Value), BindTo=StatsSlot
-Widgets: Value=Hypergeo
+Widgets: Value=Play_Win_Rate&Inclusion_Win_Rate&Play_Frequency&Attack_Frequency&Attacked_Frequency&Hypergeo
 Sort - Value:string
 Display: Visibility=Public, Mode=Dropdown(Value), BindTo=SortSlot
 Widgets: Value=Name&IkzCost&Element&Category&CardId

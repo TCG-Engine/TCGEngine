@@ -214,6 +214,7 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '', $
         array_push($gate, $gateCard);
 
         $deckList = $resolvedDeck['mainDeck'];
+        AzukiStatsCaptureDeck($playerID, $deckLink, $deckList);
     } else {
         $deckConfig = GetPreconstructedDeckConfig($preconstructedDeck);
 

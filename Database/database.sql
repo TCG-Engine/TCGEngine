@@ -351,6 +351,24 @@ CREATE TABLE `carddeckstats` (
 ALTER TABLE `carddeckstats`
   ADD PRIMARY KEY (`deckID`,`cardID`,`source`,`version`,`format`) USING BTREE;
 
+CREATE TABLE `azukicarddeckstats` (
+  `deckID` int(11) NOT NULL,
+  `cardID` varchar(128) NOT NULL,
+  `gamesIncluded` int(11) NOT NULL DEFAULT 0,
+  `gamesIncludedInWins` int(11) NOT NULL DEFAULT 0,
+  `copiesIncluded` int(11) NOT NULL DEFAULT 0,
+  `copiesIncludedInWins` int(11) NOT NULL DEFAULT 0,
+  `timesPlayed` int(11) NOT NULL DEFAULT 0,
+  `timesPlayedInWins` int(11) NOT NULL DEFAULT 0,
+  `timesDrawn` int(11) NOT NULL DEFAULT 0,
+  `timesDrawnInWins` int(11) NOT NULL DEFAULT 0,
+  `timesAttacks` int(11) NOT NULL DEFAULT 0,
+  `timesAttacksInWins` int(11) NOT NULL DEFAULT 0,
+  `timesTargetedByAttacks` int(11) NOT NULL DEFAULT 0,
+  `timesTargetedByAttacksInWins` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`deckID`,`cardID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for table `blocklist`
 --

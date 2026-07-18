@@ -316,9 +316,89 @@ if (AzukiDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; ret
     left: calc(26% + 12px) !important;
     top: 10px !important;
   }
-  #swuDeckBoard #myStatsSlot {
-    left: 48% !important;
-    top: 10px !important;
+  #swuDesktopOverlayMenu {
+    position: absolute;
+    top: 10px;
+    right: 212px;
+    z-index: 100200;
+  }
+  #swuDesktopOverlayButton {
+    width: 32px !important;
+    min-width: 32px !important;
+    height: 28px !important;
+    margin: 0 !important;
+    padding: 4px 6px !important;
+    color: rgba(190,216,232,0.82) !important;
+  }
+  #swuDesktopOverlayButton svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: auto;
+    fill: currentColor;
+  }
+  #swuDesktopOverlayMenu.has-active-overlay #swuDesktopOverlayButton,
+  #swuDesktopOverlayMenu.is-open #swuDesktopOverlayButton {
+    color: rgba(217,240,251,0.98) !important;
+    filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.42)) !important;
+  }
+  #swuDesktopOverlayPanel {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    display: none;
+    width: 230px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid rgba(var(--accent-rgb),0.28);
+    border-radius: 7px;
+    background: rgba(3,15,26,0.985);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.52), 0 0 9px rgba(var(--accent-rgb),0.08);
+  }
+  #swuDesktopOverlayMenu.is-open #swuDesktopOverlayPanel { display: block; }
+  .swu-desktop-overlay-heading {
+    padding: 1px 2px 7px;
+    color: rgba(171,205,225,0.62);
+    font: 700 9px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  #swuDesktopOverlayPanel #myStatsSlot,
+  #swuDesktopOverlayPanel #myStatsWrapper,
+  #swuDesktopOverlayPanel #myStats,
+  #swuDesktopOverlayPanel #myStats > div {
+    position: static !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+    background: transparent !important;
+  }
+  #swuDesktopOverlayPanel #myStats {
+    font-size: 0 !important;
+    line-height: 0 !important;
+  }
+  #swuDesktopOverlayPanel #myStats > span { display: none !important; }
+  #swuDesktopOverlayPanel #myStats > div {
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: nowrap !important;
+    gap: 5px !important;
+  }
+  #swuDesktopOverlayPanel #myStats .widget-button,
+  #swuDesktopOverlayPanel #myStats .widget-button-selected {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 28px !important;
+    margin: 0 !important;
+    padding: 3px 7px !important;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-size: 10px !important;
+    line-height: 20px !important;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
   }
   #swuDeckBoard #mySortSlot {
     left: auto !important;
@@ -539,7 +619,15 @@ if (AzukiDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; ret
   </div>
   <div id="myCardPaneSlot"  style="position:absolute; left:10px; top:10px; bottom:10px; width:25%;"></div>
   <div id="myDeckSlot"      style="position:absolute; left:26%; top:16%;"></div>
-  <div id="myStatsSlot"     style="position:absolute; left:46%; top:16%;"></div>
+  <div id="swuDesktopOverlayMenu">
+    <button id="swuDesktopOverlayButton" class="widget-button" type="button" aria-label="Card overlays" aria-haspopup="true" aria-expanded="false">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 13.5h12v1H1v-13h1v12Zm2-2.5h2V7H4v4Zm3.5 0h2V3h-2v8Zm3.5 0h2V5h-2v6Z"/></svg>
+    </button>
+    <div id="swuDesktopOverlayPanel">
+      <div class="swu-desktop-overlay-heading">Card overlays</div>
+      <div id="myStatsSlot"></div>
+    </div>
+  </div>
   <div id="mySortSlot"      style="position:absolute; left:82%; top:16%;"></div>
   <div id="swuDeckWorkspace">
     <section class="swu-deck-section" aria-label="Main deck">
@@ -681,10 +769,52 @@ if (AzukiDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; ret
       .observe(banner, { childList: true, subtree: true });
     enhanceIdentityBanner();
   }
+  function setupDesktopOverlayMenu(){
+    var menu = document.getElementById('swuDesktopOverlayMenu');
+    var button = document.getElementById('swuDesktopOverlayButton');
+    var panel = document.getElementById('swuDesktopOverlayPanel');
+    var stats = document.getElementById('myStatsSlot');
+    if(!menu || !button || !panel || !stats || menu.dataset.ready === '1') return;
+    menu.dataset.ready = '1';
+
+    function setOpen(open){
+      menu.classList.toggle('is-open', open);
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    function updateActive(){
+      var active = !!stats.querySelector('.widget-button-selected,.is-active');
+      menu.classList.toggle('has-active-overlay', active);
+    }
+
+    button.addEventListener('click', function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      setOpen(!menu.classList.contains('is-open'));
+    });
+    panel.addEventListener('click', function(event){
+      event.stopPropagation();
+      if(event.target.closest('.widget-button,.widget-button-selected')) {
+        window.setTimeout(function(){ setOpen(false); updateActive(); }, 0);
+      }
+    });
+    document.addEventListener('click', function(event){
+      if(!menu.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', function(event){
+      if(event.key === 'Escape') {
+        setOpen(false);
+        button.focus();
+      }
+    });
+    new MutationObserver(function(){ requestAnimationFrame(updateActive); })
+      .observe(stats, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+    updateActive();
+  }
   function initializeLayoutEnhancements(){
     bindPaneFilterDismissal();
     observeCardPane();
     observeIdentityBanner();
+    setupDesktopOverlayMenu();
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeLayoutEnhancements);
   else initializeLayoutEnhancements();
