@@ -2539,6 +2539,8 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
 
     $entityPlays = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_EntitiesPlayedThisTurn'));
     DecisionQueueController::StoreVariable('P' . intval($player) . '_EntitiesPlayedThisTurn', strval($entityPlays + 1));
+
+    return $newMZ;
 }
 
 function QueueLeaderDamageAnimation($player, $amount) {
