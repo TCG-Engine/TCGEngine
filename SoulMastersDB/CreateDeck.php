@@ -22,7 +22,7 @@
   InitializeGamestate();
 
   $userID = LoggedInUser();
-  SaveAssetOwnership(1, $gameName, $userID);//assetType 1 = Deck
+  SaveAssetOwnership(1, $gameName, $userID, format: 'constructed');//assetType 1 = Deck
 
   if($deckLink != "") {
     if(str_contains($deckLink, "soulmastersdb.net")) {

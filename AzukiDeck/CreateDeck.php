@@ -32,7 +32,7 @@ $userID = LoggedInUser();
 $assetSource = null;
 $assetSourceID = null;
 
-if (!SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID)) {
+if (!SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, 'standard')) {
   header('location: ./index.php?error=' . rawurlencode('Could not reserve an ownership record for this deck. Please try again.'));
   exit();
 }

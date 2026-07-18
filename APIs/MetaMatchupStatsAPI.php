@@ -23,6 +23,12 @@ if ($startWeek === null && $endWeek === null) {
     $weekWhere = 'week BETWEEN ' . $startWeek . ' AND ' . $endWeek;
 }
 
+// Opt-in format filter (default premier keeps existing responses byte-identical). Whitelisted, so
+// safe to inline like the intval'd week clause.
+$format = isset($_GET['format']) ? strtolower($_GET['format']) : 'premier';
+if (!in_array($format, ['premier','eternal','twinsuns'], true)) { $format = 'premier'; }
+$weekWhere = '(' . $weekWhere . ") AND format = '$format'";
+
 // Default: aggregate the selected weeks into one row per matchup (all-time / range
 // total). groupByWeek=1 returns one row per matchup PER WEEK (time series).
 $groupByWeek = isset($_GET['groupByWeek']) && $_GET['groupByWeek'] == '1';

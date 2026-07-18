@@ -38,6 +38,14 @@ $forIndividual = false;
     <label for="minIncludes">Min Includes</label>
     <input type="number" id="minIncludes" min="0" value="0" style="width:70px; height:28px; box-sizing:border-box; padding:0 6px;" />
   </div>
+  <div class="week-control">
+    <label for="cardMetaFormat">Format</label>
+    <div class="select-wrap"><select id="cardMetaFormat" class="week-select">
+      <option value="premier" selected>Premier</option>
+      <option value="eternal">Eternal</option>
+      <option value="twinsuns">Twin Suns</option>
+    </select></div>
+  </div>
   <button id="cardRefreshWeeks" class="week-refresh">Refresh</button>
 </div>
 <script>
@@ -84,6 +92,7 @@ $forIndividual = false;
     var params = {};
     if (!isNaN(start)) params.startWeek = start;
     if (!isNaN(end)) params.endWeek = end;
+    params.format = document.getElementById('cardMetaFormat').value;
     document.getElementById('cardMetaStatsBody').innerHTML = '<tr><td colspan="10">Loading...</td></tr>';
     $.get('../Stats/CardMetaStatsAPI.php', params, function(data) {
       var json = typeof data === 'string' ? JSON.parse(data) : data;
@@ -136,6 +145,7 @@ $forIndividual = false;
   }
 
   document.getElementById('cardRefreshWeeks').addEventListener('click', fetchCardMeta);
+  document.getElementById('cardMetaFormat').addEventListener('change', fetchCardMeta);
   // initial load
   fetchCardMeta();
 </script>

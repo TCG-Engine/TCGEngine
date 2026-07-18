@@ -2,9 +2,14 @@
 window.customFilter = true;
 window.legalFilter = true;
 
-var legalSets = ["JTL", "LOF", "SEC", "IBH", "LAW", "ASH"];
+// Populated server-side per deck by SWUDeck/InitialLayout.php (SWUDeckClientFormatData()) before
+// this file loads. Falls back to the old Premier-only behavior if absent (e.g. this file loaded
+// outside the deck-builder page's normal render path).
+var legalSets = window.SWU_FORMAT_LEGAL_SETS || ["JTL", "LOF", "SEC", "IBH", "LAW", "ASH"];
+var bannedUUIDs = window.SWU_FORMAT_BANNED_UUIDS || [];
 
 function InLegalFilter(cardID) {
+  if(bannedUUIDs.includes(cardID)) return true;
   var cardSet = Cardset(cardID);
   if(cardSet && legalSets.includes(cardSet)) return false;
   var reprints = cardReprintSets[cardID];
@@ -15,6 +20,20 @@ function InLegalFilter(cardID) {
   }
   return true;
 }
+
+// Twin Suns only: hide a leader from the Leader2 pane if adding it would combine Heroism +
+// Villainy starting sides with the leader already placed (CR §12.2.1.a). Registered via the
+// schema's `Filter: InAlignmentClashFilter` on the Leader2 zone, so it's gated by the same
+// "Filter Aspect" checkbox (window.customFilter) as InAspectFilter — which defaults to checked,
+// so this is effectively always-on without needing separate toggle-state plumbing.
+function InAlignmentClashFilter(cardID) {
+  var placed = window.SWU_CURRENT_LEADER_ALIGNMENTS || [];
+  if (placed.length === 0) return false;
+  var candidateAlignment = window.SWU_LEADER_ALIGNMENTS && window.SWU_LEADER_ALIGNMENTS[cardID];
+  if (!candidateAlignment || candidateAlignment === 'NEUTRAL') return false;
+  return placed.some(function(a) { return a !== 'NEUTRAL' && a !== candidateAlignment; });
+}
+window.InAlignmentClashFilter = InAlignmentClashFilter;
 
 function InAspectFilter(cardID) {
   if(!window.myLeaderData || !window.myBaseData) {

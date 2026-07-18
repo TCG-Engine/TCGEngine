@@ -22,6 +22,11 @@ $consolidate = isset($_GET['consolidate']) && $_GET['consolidate'] == '1';
 $startWeek = isset($_GET['startWeek']) ? intval($_GET['startWeek']) : null;
 $endWeek = isset($_GET['endWeek']) ? intval($_GET['endWeek']) : null;
 
+// Opt-in format filter (default premier keeps existing responses byte-identical). Whitelisted, so
+// safe to inline like the intval'd week clause.
+$format = isset($_GET['format']) ? strtolower($_GET['format']) : 'premier';
+if (!in_array($format, ['premier','eternal','twinsuns'], true)) { $format = 'premier'; }
+
 if ($startWeek === null && $endWeek === null) {
   $where = '1';
 } elseif ($startWeek !== null && $endWeek === null) {
@@ -35,6 +40,7 @@ if ($startWeek === null && $endWeek === null) {
   $where = 'week BETWEEN ' . $startWeek . ' AND ' . $endWeek;
 }
 
+$where = '(' . $where . ") AND format = '$format'";
 $query = "SELECT leaderID, baseID, week, numWins, numPlays, playsGoingFirst, turnsInWins, totalTurns, cardsResourcedInWins, totalCardsResourced, remainingHealthInWins, winsGoingFirst, winsGoingSecond FROM deckmetastats WHERE " . $where;
 $result = $conn->query($query);
 

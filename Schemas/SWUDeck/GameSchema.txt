@@ -18,6 +18,7 @@ ClientInclude: /TCGEngine/SWUDeck/Custom/ClientActions.js
 Layout: /Custom/GameLayout.php
 Leader - CardID:string
 Display: Visibility=Self, Mode=All, BindTo=LeaderSlot, Split=None
+Click: Remove(myLeader)
 AddValidation: ValidateLeaderAddition
 Base - CardID:string
 Display: Visibility=Self, Mode=All, BindTo=BaseSlot, Split=None
@@ -33,7 +34,14 @@ CardPane - Value:string
 Display: Visibility=Self, Mode=Panel, BindTo=CardPaneSlot, Split=None
 Leaders - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
-Click: Swap(myLeader)
+Click: Add(myLeader)
+Leader1 - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Add(myLeader)
+Leader2 - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Add(myLeader)
+Filter: InAlignmentClashFilter
 Bases - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Swap(myBase)

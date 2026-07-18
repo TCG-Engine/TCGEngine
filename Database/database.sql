@@ -19,7 +19,7 @@ CREATE TABLE `completedgame` (
   `WinnerHealth` int(11) DEFAULT NULL,
   `FirstPlayer` tinyint(4) DEFAULT NULL,
   `NumTurns` int(11) NOT NULL,
-  `Format` int(11) DEFAULT NULL,
+  `Format` varchar(16) NOT NULL DEFAULT 'premier',
   `GameID` int(22) NOT NULL,
   `WinnerDeck` varchar(1000) DEFAULT NULL,
   `LoserDeck` varchar(1000) DEFAULT NULL,
@@ -119,6 +119,8 @@ CREATE TABLE `ownership` (
   `numLikes` int(11) NOT NULL DEFAULT 0,
   `keyIndicator1` varchar(64) DEFAULT NULL,
   `keyIndicator2` varchar(64) DEFAULT NULL,
+  `keyIndicator3` varchar(64) DEFAULT NULL,
+  `format` varchar(16) NOT NULL DEFAULT 'standard',
   `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -128,6 +130,7 @@ CREATE TABLE `opponentdeckstats` (
   `leaderID` varchar(16) NOT NULL,
   `version` int(11) NOT NULL DEFAULT 0,
   `source` int(11) NOT NULL DEFAULT 0,
+  `format` varchar(16) NOT NULL DEFAULT 'premier',
   `winsVsGreen` int(11) NOT NULL DEFAULT 0,
   `totalVsGreen` int(11) NOT NULL DEFAULT 0,
   `winsVsBlue` int(11) NOT NULL DEFAULT 0,
@@ -176,7 +179,7 @@ CREATE TABLE `opponentdeckstats` (
 -- Indexes for table `opponentdeckstats`
 --
 ALTER TABLE `opponentdeckstats`
-  ADD PRIMARY KEY (`deckID`,`leaderID`,`source`,`version`) USING BTREE;
+  ADD PRIMARY KEY (`deckID`,`leaderID`,`source`,`version`,`format`) USING BTREE;
 
 -- Per-deck matchup stats vs Rare/Special "named" bases, tracked by base identity
 -- (the wide color x type columns above only cover common bases).
@@ -185,9 +188,10 @@ CREATE TABLE `opponentnamedbasestats` (
   `leaderID` varchar(16) NOT NULL,
   `baseID` varchar(16) NOT NULL,
   `source` int(11) NOT NULL DEFAULT 0,
+  `format` varchar(16) NOT NULL DEFAULT 'premier',
   `wins` int(11) NOT NULL DEFAULT 0,
   `total` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`deckID`,`leaderID`,`baseID`,`source`)
+  PRIMARY KEY (`deckID`,`leaderID`,`baseID`,`source`,`format`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `assetversions` (
@@ -304,6 +308,7 @@ CREATE TABLE `deckstats` (
   `deckID` int(11) NOT NULL,
   `version` int(11) NOT NULL DEFAULT 0,
   `source` int(11) NOT NULL DEFAULT 0,
+  `format` varchar(16) NOT NULL DEFAULT 'premier',
   `numWins` int(11) NOT NULL DEFAULT 0,
   `numPlays` int(11) NOT NULL DEFAULT 0,
   `playsGoingFirst` int(11) NOT NULL DEFAULT 0,
@@ -320,13 +325,14 @@ CREATE TABLE `deckstats` (
 -- Indexes for table `deckstats`
 --
 ALTER TABLE `deckstats`
-  ADD PRIMARY KEY (`deckID`,`source`,`version`) USING BTREE;
+  ADD PRIMARY KEY (`deckID`,`source`,`version`,`format`) USING BTREE;
 
 CREATE TABLE `carddeckstats` (
   `deckID` int(11) NOT NULL,
   `cardID` varchar(16) NOT NULL,
   `version` int(11) NOT NULL DEFAULT 0,
   `source` int(11) NOT NULL DEFAULT 0,
+  `format` varchar(16) NOT NULL DEFAULT 'premier',
   `timesIncluded` int(11) NOT NULL DEFAULT 0,
   `timesIncludedInWins` int(11) NOT NULL DEFAULT 0,
   `timesPlayed` int(11) NOT NULL DEFAULT 0,
@@ -343,7 +349,7 @@ CREATE TABLE `carddeckstats` (
 -- Indexes for table `carddeckstats`
 --
 ALTER TABLE `carddeckstats`
-  ADD PRIMARY KEY (`deckID`,`cardID`,`source`,`version`) USING BTREE;
+  ADD PRIMARY KEY (`deckID`,`cardID`,`source`,`version`,`format`) USING BTREE;
 
 --
 -- Indexes for table `blocklist`
@@ -364,6 +370,7 @@ ALTER TABLE `ownership`
 CREATE TABLE `cardmetastats` (
   `cardID` varchar(16) NOT NULL,
   `week` int(11) NOT NULL,
+  `format` varchar(16) NOT NULL DEFAULT 'premier',
   `timesIncluded` int(11) NOT NULL DEFAULT 0,
   `timesIncludedInWins` int(11) NOT NULL DEFAULT 0,
   `timesPlayed` int(11) NOT NULL DEFAULT 0,
@@ -385,7 +392,7 @@ CREATE TABLE `cardmetastats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `cardmetastats`
-  ADD PRIMARY KEY (`cardID`,`week`),
+  ADD PRIMARY KEY (`cardID`,`week`,`format`),
   ADD KEY `week` (`week`);
 
 
@@ -393,6 +400,7 @@ CREATE TABLE `deckmetastats` (
   `leaderID` varchar(16) NOT NULL,
   `baseID` varchar(16) NOT NULL,
   `week` int(11) NOT NULL DEFAULT 0,
+  `format` varchar(16) NOT NULL DEFAULT 'premier',
   `numWins` int(11) NOT NULL DEFAULT 0,
   `numPlays` int(11) NOT NULL DEFAULT 0,
   `playsGoingFirst` int(11) NOT NULL DEFAULT 0,
@@ -406,7 +414,7 @@ CREATE TABLE `deckmetastats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `deckmetastats`
-  ADD PRIMARY KEY (`leaderID`,`baseID`,`week`),
+  ADD PRIMARY KEY (`leaderID`,`baseID`,`week`,`format`),
   ADD KEY `week` (`week`);
 
 
@@ -416,6 +424,7 @@ CREATE TABLE `deckmetamatchupstats` (
   `opponentLeaderID` varchar(16) NOT NULL,
   `opponentBaseID` varchar(16) NOT NULL,
   `week` int(11) NOT NULL DEFAULT 0,
+  `format` varchar(16) NOT NULL DEFAULT 'premier',
   `numWins` int(11) NOT NULL DEFAULT 0,
   `numPlays` int(11) NOT NULL DEFAULT 0,
   `playsGoingFirst` int(11) NOT NULL DEFAULT 0,
@@ -429,7 +438,7 @@ CREATE TABLE `deckmetamatchupstats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `deckmetamatchupstats`
-  ADD PRIMARY KEY (`leaderID`,`baseID`,`opponentLeaderID`,`opponentBaseID`,`week`),
+  ADD PRIMARY KEY (`leaderID`,`baseID`,`opponentLeaderID`,`opponentBaseID`,`week`,`format`),
   ADD KEY `week` (`week`);
 
 

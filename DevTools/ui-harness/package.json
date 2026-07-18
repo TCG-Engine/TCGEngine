@@ -1,0 +1,15 @@
+{
+  "name": "tcgengine-ui-harness",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Reusable Playwright harness for cross-browser UI verification (Chromium + Firefox + WebKit).",
+  "bin": { "ui-snap": "./snap.mjs" },
+  "scripts": {
+    "snap": "node snap.mjs",
+    "postinstall": "playwright install chromium firefox webkit"
+  },
+  "dependencies": {
+    "playwright": "^1.61.1"
+  }
+}

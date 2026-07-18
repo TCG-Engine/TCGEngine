@@ -167,7 +167,7 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>format</td>
                     <td>string</td>
-                    <td>(Optional) Filter by game format</td>
+                    <td>(Optional, default "premier") One of premier, eternal, twinsuns. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
                 </tr>
                 <tr>
                     <td>consolidate</td>
@@ -302,6 +302,11 @@ include_once "../SharedUI/Header.php";
                     <td>integer</td>
                     <td>(Optional) Set to <code>1</code> to return one row per matchup PER WEEK (each row includes a <code>week</code> field), for tracking change over time. Default aggregates the selected weeks into one row per matchup.</td>
                 </tr>
+                <tr>
+                    <td>format</td>
+                    <td>string</td>
+                    <td>(Optional, default "premier") One of premier, eternal, twinsuns. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
+                </tr>
             </table>
             <h4>Example Response:</h4>
             <pre><code>[
@@ -365,6 +370,11 @@ include_once "../SharedUI/Header.php";
                     <td>integer</td>
                     <td>(Optional) Set to <code>1</code> to return one row per opponent PER WEEK (each row includes a <code>week</code> field), for tracking change over time. Default aggregates the selected weeks into one row per opponent.</td>
                 </tr>
+                <tr>
+                    <td>format</td>
+                    <td>string</td>
+                    <td>(Optional, default "premier") One of premier, eternal, twinsuns. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
+                </tr>
             </table>
             <h4>Example Response:</h4>
             <pre><code>[
@@ -421,7 +431,7 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>format</td>
                     <td>string</td>
-                    <td>(Optional) Filter by game format</td>
+                    <td>(Optional, default "premier") One of premier, eternal, twinsuns. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
                 </tr>
                 <tr>
                     <td>consolidate</td>

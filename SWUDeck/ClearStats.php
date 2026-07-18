@@ -11,6 +11,7 @@
   include_once '../AccountFiles/AccountSessionAPI.php';
 
   $deckID = TryGet("deckID", "");
+  $format = strtolower(TryGet("format", "premier"));
 
   // Add validation to ensure only deck owner can clear stats
   if(!IsUserLoggedIn()) {
@@ -34,27 +35,27 @@
 
   $conn = GetLocalMySQLConnection();
 
-  // Reset deckstats
-  $stmt = $conn->prepare("UPDATE deckstats SET numWins = 0, numPlays = 0, playsGoingFirst = 0, turnsInWins = 0, totalTurns = 0, cardsResourcedInWins = 0, totalCardsResourced = 0, remainingHealthInWins = 0, winsGoingFirst = 0, winsGoingSecond = 0 WHERE deckID = ?");
-  $stmt->bind_param("i", $deckID);
+  // Reset deckstats for this format only
+  $stmt = $conn->prepare("UPDATE deckstats SET numWins = 0, numPlays = 0, playsGoingFirst = 0, turnsInWins = 0, totalTurns = 0, cardsResourcedInWins = 0, totalCardsResourced = 0, remainingHealthInWins = 0, winsGoingFirst = 0, winsGoingSecond = 0 WHERE deckID = ? AND format = ?");
+  $stmt->bind_param("is", $deckID, $format);
   $stmt->execute();
   $stmt->close();
 
-  // Clear carddeckstats
-  $stmt = $conn->prepare("DELETE FROM carddeckstats WHERE deckID = ?");
-  $stmt->bind_param("i", $deckID);
+  // Clear carddeckstats for this format
+  $stmt = $conn->prepare("DELETE FROM carddeckstats WHERE deckID = ? AND format = ?");
+  $stmt->bind_param("is", $deckID, $format);
   $stmt->execute();
   $stmt->close();
 
-  // Clear opponentdeckstats
-  $stmt = $conn->prepare("DELETE FROM opponentdeckstats WHERE deckID = ?");
-  $stmt->bind_param("i", $deckID);
+  // Clear opponentdeckstats for this format
+  $stmt = $conn->prepare("DELETE FROM opponentdeckstats WHERE deckID = ? AND format = ?");
+  $stmt->bind_param("is", $deckID, $format);
   $stmt->execute();
   $stmt->close();
 
-  // Clear opponentnamedbasestats (Rare/Special base matchup rows, tracked separately by baseID)
-  $stmt = $conn->prepare("DELETE FROM opponentnamedbasestats WHERE deckID = ?");
-  $stmt->bind_param("i", $deckID);
+  // Clear opponentnamedbasestats for this format (Rare/Special base matchup rows, tracked by baseID)
+  $stmt = $conn->prepare("DELETE FROM opponentnamedbasestats WHERE deckID = ? AND format = ?");
+  $stmt->bind_param("is", $deckID, $format);
   $stmt->execute();
   $stmt->close();
 

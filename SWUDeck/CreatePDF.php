@@ -45,7 +45,14 @@ if($loggedInUser != $assetOwner) {
 
 ParseGamestate();
 $arr = &GetLeader(1);
-$leaderName = count($arr) > 0 ? CardTitle($arr[0]->CardID) . ", " . CardSubtitle($arr[0]->CardID) : "";
+// Twin Suns decks have 2 leaders — join all (active) leader names with " / ". Single-leader decks
+// produce the same single name as before.
+$leaderNames = [];
+foreach ($arr as $l) {
+    if ($l->Removed()) continue;
+    $leaderNames[] = CardTitle($l->CardID) . (CardSubtitle($l->CardID) ? ", " . CardSubtitle($l->CardID) : "");
+}
+$leaderName = implode(" / ", $leaderNames);
 $arr = &GetBase(1);
 $baseName = count($arr) > 0 ? CardTitle($arr[0]->CardID) : "";
 

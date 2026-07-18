@@ -45,6 +45,29 @@
 
     $conn = GetLocalMySQLConnection();
 
+    // Per-format tabs. Formats with any data for this deck (deckstats is the anchor — every recorded
+    // game writes one row). Active format defaults to the deck's own format if it has data, else the
+    // single format present, else the deck's format (empty state).
+    $deckFormat = isset($_deckFormat) ? $_deckFormat : 'premier';
+    $formatsWithData = [];
+    $fstmt = $conn->prepare("SELECT DISTINCT format FROM deckstats WHERE deckID = ?");
+    $fstmt->bind_param("i", $gameName);
+    $fstmt->execute();
+    $fres = $fstmt->get_result();
+    while ($fr = $fres->fetch_assoc()) { $formatsWithData[] = $fr['format']; }
+    $fstmt->close();
+    $requestedFormat = isset($_GET["format"]) ? strtolower($_GET["format"]) : null;
+    if ($requestedFormat !== null && in_array($requestedFormat, $formatsWithData, true)) {
+        $statsFormat = $requestedFormat;
+    } else if (in_array($deckFormat, $formatsWithData, true)) {
+        $statsFormat = $deckFormat;
+    } else if (count($formatsWithData) === 1) {
+        $statsFormat = $formatsWithData[0];
+    } else {
+        $statsFormat = $deckFormat;
+    }
+    echo "window.statsFormat = " . json_encode($statsFormat) . ";";
+
     // Query for deckstats table with source filter
     if ($statsSource === "all") {
       $stmt = $conn->prepare("SELECT SUM(numWins) as numWins, SUM(numPlays) as numPlays,
@@ -52,8 +75,8 @@
         SUM(cardsResourcedInWins) as cardsResourcedInWins, SUM(totalCardsResourced) as totalCardsResourced,
         SUM(remainingHealthInWins) as remainingHealthInWins, SUM(winsGoingFirst) as winsGoingFirst,
         SUM(winsGoingSecond) as winsGoingSecond, SUM(playsGoingFirst) as playsGoingFirst
-        FROM deckstats WHERE deckID = ?");
-      $stmt->bind_param("i", $gameName);
+        FROM deckstats WHERE deckID = ? AND format = ?");
+      $stmt->bind_param("is", $gameName, $statsFormat);
     } else {
       $sourceVal = ($statsSource === "owner") ? 1 : 0;
       $stmt = $conn->prepare("SELECT SUM(numWins) as numWins, SUM(numPlays) as numPlays,
@@ -61,8 +84,8 @@
         SUM(cardsResourcedInWins) as cardsResourcedInWins, SUM(totalCardsResourced) as totalCardsResourced,
         SUM(remainingHealthInWins) as remainingHealthInWins, SUM(winsGoingFirst) as winsGoingFirst,
         SUM(winsGoingSecond) as winsGoingSecond, SUM(playsGoingFirst) as playsGoingFirst
-        FROM deckstats WHERE deckID = ? AND source = ?");
-      $stmt->bind_param("ii", $gameName, $sourceVal);
+        FROM deckstats WHERE deckID = ? AND source = ? AND format = ?");
+      $stmt->bind_param("iis", $gameName, $sourceVal, $statsFormat);
     }
 
     $stmt->execute();
@@ -82,22 +105,23 @@
         $winCol = "winsVs$color$suffix";
         $totalCol = "totalVs$color$suffix";
         if($statsSource === "all") {
-          $unionParts[] = "SELECT leaderID, '$color' AS baseColor, '$typeName' AS baseType, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? GROUP BY leaderID HAVING total > 0";
+          $unionParts[] = "SELECT leaderID, '$color' AS baseColor, '$typeName' AS baseType, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? AND format = ? GROUP BY leaderID HAVING total > 0";
         } else {
-          $unionParts[] = "SELECT leaderID, '$color' AS baseColor, '$typeName' AS baseType, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? AND source = ? GROUP BY leaderID HAVING total > 0";
+          $unionParts[] = "SELECT leaderID, '$color' AS baseColor, '$typeName' AS baseType, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? AND source = ? AND format = ? GROUP BY leaderID HAVING total > 0";
         }
       }
     }
     $unionSql = implode(" UNION ALL ", $unionParts) . " ORDER BY total DESC";
     $stmt = $conn->prepare($unionSql);
     if($statsSource === "all") {
-      $ids = array_fill(0, count($unionParts), $gameName);
-      $stmt->bind_param(str_repeat("i", count($unionParts)), ...$ids);
+      $args = [];
+      foreach($unionParts as $_) { $args[] = $gameName; $args[] = $statsFormat; }
+      $stmt->bind_param(str_repeat("is", count($unionParts)), ...$args);
     } else {
       $sourceVal = ($statsSource === "owner") ? 1 : 0;
       $args = [];
-      foreach($unionParts as $_) { $args[] = $gameName; $args[] = $sourceVal; }
-      $stmt->bind_param(str_repeat("ii", count($unionParts)), ...$args);
+      foreach($unionParts as $_) { $args[] = $gameName; $args[] = $sourceVal; $args[] = $statsFormat; }
+      $stmt->bind_param(str_repeat("iis", count($unionParts)), ...$args);
     }
     $stmt->execute();
     $result = $stmt->get_result();
@@ -107,12 +131,12 @@
 
     // Rare/Special "named" bases (tracked by baseID, shown by card name)
     if($statsSource === "all") {
-      $nstmt = $conn->prepare("SELECT leaderID, baseID, SUM(wins) AS wins, SUM(total) AS total FROM opponentnamedbasestats WHERE deckID = ? GROUP BY leaderID, baseID HAVING total > 0");
-      $nstmt->bind_param("i", $gameName);
+      $nstmt = $conn->prepare("SELECT leaderID, baseID, SUM(wins) AS wins, SUM(total) AS total FROM opponentnamedbasestats WHERE deckID = ? AND format = ? GROUP BY leaderID, baseID HAVING total > 0");
+      $nstmt->bind_param("is", $gameName, $statsFormat);
     } else {
       $sourceVal = ($statsSource === "owner") ? 1 : 0;
-      $nstmt = $conn->prepare("SELECT leaderID, baseID, SUM(wins) AS wins, SUM(total) AS total FROM opponentnamedbasestats WHERE deckID = ? AND source = ? GROUP BY leaderID, baseID HAVING total > 0");
-      $nstmt->bind_param("ii", $gameName, $sourceVal);
+      $nstmt = $conn->prepare("SELECT leaderID, baseID, SUM(wins) AS wins, SUM(total) AS total FROM opponentnamedbasestats WHERE deckID = ? AND source = ? AND format = ? GROUP BY leaderID, baseID HAVING total > 0");
+      $nstmt->bind_param("iis", $gameName, $sourceVal, $statsFormat);
     }
     $nstmt->execute();
     $nres = $nstmt->get_result();
@@ -207,11 +231,22 @@
       $leaders = &GetLeader(1);
       $bases = &GetBase(1);
       $identityParts = [];
-      if(count($leaders) > 0) {
-        $leaderID = (string)$leaders[0]->CardID;
+      // Active leaders only (Twin Suns holds up to 2; a swapped-out leader stays in the zone marked
+      // Removed and must be skipped).
+      $activeLeaders = [];
+      foreach ($leaders as $l) { if (!$l->Removed()) $activeLeaders[] = $l; }
+      $twinLeaders = count($activeLeaders) > 1;
+      if(count($activeLeaders) > 0) {
+        $leaderID = (string)$activeLeaders[0]->CardID;
         $leaderPathID = rawurlencode($leaderID);
         $leaderTitle = htmlspecialchars((string)CardTitle($leaderID), ENT_QUOTES, 'UTF-8');
         $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-leader'><img src='./crops/" . $leaderPathID . "_back_cropped.png' onerror=\\\"this.onerror=null;this.src='./crops/" . $leaderPathID . "_cropped.png';\\\" alt='" . $leaderTitle . "'></div>";
+      }
+      if($twinLeaders) {
+        $leaderID2 = (string)$activeLeaders[1]->CardID;
+        $leaderPathID2 = rawurlencode($leaderID2);
+        $leaderTitle2 = htmlspecialchars((string)CardTitle($leaderID2), ENT_QUOTES, 'UTF-8');
+        $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-leader-2'><img src='./crops/" . $leaderPathID2 . "_back_cropped.png' onerror=\\\"this.onerror=null;this.src='./crops/" . $leaderPathID2 . "_cropped.png';\\\" alt='" . $leaderTitle2 . "'></div>";
       }
       if(count($bases) > 0) {
         $baseID = (string)$bases[0]->CardID;
@@ -220,11 +255,13 @@
         $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-base'><img src='./crops/" . $basePathID . "_cropped.png' alt='" . $baseTitle . "'></div>";
       }
       if(count($identityParts) > 0) {
-        $identityMode = count($identityParts) > 1 ? 'has-both' : 'has-single';
+        // has-single: 1 element (leader only). has-both: leader + base. has-twin-leaders: 2 leaders
+        // (+ base) — narrows each leader half so both fit beside the base.
+        $identityMode = $twinLeaders ? 'has-both has-twin-leaders' : (count($identityParts) > 1 ? 'has-both' : 'has-single');
         $deckStatsOutput .= "<div class='swu-stats-identity " . $identityMode . "'>" . implode('', $identityParts) . "</div>";
       }
   // token for inserting the compact stats source selector directly under the portraits
-  $deckStatsOutput .= "__INLINE_STATS_SELECTOR__" . "<br><br>";
+  $deckStatsOutput .= "__INLINE_FORMAT_TABS__" . "__INLINE_STATS_SELECTOR__" . "<br><br>";
       //Number of wins stats
       $deckStatsOutput .= "<strong>Number of wins:</strong> " . $deckStats["numWins"] . "<br>";
       $deckStatsOutput .= "<strong>Number of losses:</strong> " . ($deckStats["numPlays"] - $deckStats["numWins"]) . "<br>";
@@ -286,8 +323,8 @@
         SUM(timesResourcedInWins) as timesResourcedInWins,
         SUM(timesDiscarded) as timesDiscarded,
         SUM(timesDiscardedInWins) as timesDiscardedInWins
-        FROM carddeckstats WHERE deckID = ? GROUP BY cardID");
-      $stmt->bind_param("i", $gameName);
+        FROM carddeckstats WHERE deckID = ? AND format = ? GROUP BY cardID");
+      $stmt->bind_param("is", $gameName, $statsFormat);
     } else {
       $sourceVal = ($statsSource === "owner") ? 1 : 0;
       $stmt = $conn->prepare("SELECT cardID,
@@ -301,8 +338,8 @@
         SUM(timesResourcedInWins) as timesResourcedInWins,
         SUM(timesDiscarded) as timesDiscarded,
         SUM(timesDiscardedInWins) as timesDiscardedInWins
-        FROM carddeckstats WHERE deckID = ? AND source = ? GROUP BY cardID");
-      $stmt->bind_param("ii", $gameName, $sourceVal);
+        FROM carddeckstats WHERE deckID = ? AND source = ? AND format = ? GROUP BY cardID");
+      $stmt->bind_param("iis", $gameName, $sourceVal, $statsFormat);
     }
     $stmt->execute();
     $result = $stmt->get_result();
@@ -396,6 +433,20 @@
   $sourceSelector .= '</div>';
       // Inject selector into the stats output (it will appear under the portraits where token was placed)
       $deckStatsOutput = str_replace('__INLINE_STATS_SELECTOR__', $sourceSelector, $deckStatsOutput);
+
+  // Format tabs — only shown when the deck has data in more than one format.
+  $formatTabs = '';
+  if (count($formatsWithData) > 1) {
+    $formatTabs = '<div class=\"stats-source-selector compact\"><div class=\"selector-buttons compact-row\">';
+    foreach ($formatsWithData as $fmt) {
+      $label = htmlspecialchars(function_exists('SWUDeckFormatDisplayName') ? SWUDeckFormatDisplayName($fmt) : ucfirst($fmt), ENT_QUOTES);
+      $active = ($fmt === $statsFormat) ? 'active' : '';
+      $formatTabs .= '<div class=\"selector-btn ' . $active . '\" onclick=\"changeStatsFormat(\'' . $fmt . '\')\">'
+                   . '<span class=\"selector-text\">' . $label . '</span></div>';
+    }
+    $formatTabs .= '</div></div>';
+  }
+  $deckStatsOutput = str_replace('__INLINE_FORMAT_TABS__', $formatTabs, $deckStatsOutput);
 
       // If there are no stats, insert a small inline message and Add button where appropriate
       if (!$hasDeckStats) {
@@ -656,7 +707,7 @@
       xhr.setRequestHeader('Content-Type', 'application/json');        xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
           // Reload the page with the current source filter
-          window.location.href = window.location.pathname + "?gameName=<?php echo($gameName); ?>&source=" + window.statsSource;
+          window.location.href = window.location.pathname + "?gameName=<?php echo($gameName); ?>&source=" + window.statsSource + "&format=" + window.statsFormat;
         }
       };
 
@@ -693,6 +744,7 @@
         winnerHealth: winnerHealth,
         firstPlayer: playerType == 'firstPlayer',
         player: JSON.stringify(playerObj),
+        format: window.statsFormat,
       };
       console.log(JSON.stringify(data));
       xhr.send(JSON.stringify(data));
@@ -736,11 +788,11 @@
       StyledConfirm('Are you sure you want to clear your stats? This is unreversable.', {title: 'Clear stats', danger: true, confirmLabel: 'Clear'}).then(function(ok) {
         if (!ok) return;
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/TCGEngine/SWUDeck/ClearStats.php?deckID=' + <?php echo($gameName); ?>, true);
+        xhr.open('GET', '/TCGEngine/SWUDeck/ClearStats.php?deckID=' + <?php echo($gameName); ?> + '&format=' + window.statsFormat, true);
         xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
           // Reload the page with the current source filter
-          window.location.href = window.location.pathname + "?gameName=<?php echo($gameName); ?>&source=" + window.statsSource;
+          window.location.href = window.location.pathname + "?gameName=<?php echo($gameName); ?>&source=" + window.statsSource + "&format=" + window.statsFormat;
         }
         };
         xhr.send();
@@ -761,7 +813,16 @@
       // Update source and redirect after short delay for animation
       window.statsSource = source;
       setTimeout(function() {
-        window.location.href = window.location.pathname + "?gameName=<?php echo($gameName); ?>&source=" + source;
+        window.location.href = window.location.pathname + "?gameName=<?php echo($gameName); ?>&source=" + source + "&format=" + window.statsFormat;
+      }, 300);
+    }
+
+    function changeStatsFormat(fmt) {
+      window.statsFormat = fmt;
+      document.querySelector('.myStuff').style.opacity = '0.5';
+      document.querySelector('.myStuff').style.transition = 'opacity 0.3s';
+      setTimeout(function() {
+        window.location.href = window.location.pathname + "?gameName=<?php echo($gameName); ?>&source=" + window.statsSource + "&format=" + fmt;
       }, 300);
     }
 
@@ -839,6 +900,20 @@
     right: 0;
     -webkit-mask-image: linear-gradient(to left, #000 0%, #000 68%, transparent 100%);
     mask-image: linear-gradient(to left, #000 0%, #000 68%, transparent 100%);
+  }
+
+  /* Twin Suns: two leaders share the left ~58% as clean adjacent halves (29% each, no inter-leader
+     fade so there's no dark background sliver between them), while the base still occupies the right
+     and fades in over the second leader's edge. */
+  .swu-stats-identity.has-twin-leaders .swu-stats-identity-leader {
+    width: 29%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .swu-stats-identity.has-twin-leaders .swu-stats-identity-leader-2 {
+    left: 29%;
+    right: auto;
+    width: 29%;
   }
 
   .swu-stats-identity.has-single .swu-stats-identity-part {

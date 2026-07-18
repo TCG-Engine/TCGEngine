@@ -32,6 +32,14 @@ $forIndividual = false;
     <label for="endWeek">End week</label>
     <div class="select-wrap"><select id="endWeek" class="week-select"></select></div>
   </div>
+  <div class="week-control">
+    <label for="metaFormat">Format</label>
+    <div class="select-wrap"><select id="metaFormat" class="week-select">
+      <option value="premier" selected>Premier</option>
+      <option value="eternal">Eternal</option>
+      <option value="twinsuns">Twin Suns</option>
+    </select></div>
+  </div>
   <button id="refreshWeeks" class="week-refresh">Refresh</button>
 </div>
 
@@ -102,6 +110,7 @@ $forIndividual = false;
     if (mStart && mStart.value !== '') mParams.startWeek = mStart.value;
     if (mEnd && mEnd.value !== '') mParams.endWeek = mEnd.value;
     mParams.consolidate = 1;
+    mParams.format = document.getElementById('metaFormat').value;
     $.get('../APIs/DeckMetaMatchupStatsAPI.php', mParams, function(data) {
       try {
         var json = typeof data === 'string' ? JSON.parse(data) : data;
@@ -310,6 +319,7 @@ $forIndividual = false;
     if (!isNaN(start)) params.startWeek = start;
     if (!isNaN(end)) params.endWeek = end;
     params.consolidate = 1;
+    params.format = document.getElementById('metaFormat').value;
     $('#deckMetaStatsBody').html('<tr><td colspan="9">Loading...</td></tr>');
     $.get('../Stats/DeckMetaStatsAPI.php', params, function(data) {
       var json = typeof data === 'string' ? JSON.parse(data) : data;
@@ -376,6 +386,7 @@ $forIndividual = false;
 
   // Wire refresh button
   $('#refreshWeeks').on('click', function() { fetchAndRender(); });
+  document.getElementById('metaFormat').addEventListener('change', function(){ fetchAndRender(); });
 
   // Initial load
   fetchAndRender();

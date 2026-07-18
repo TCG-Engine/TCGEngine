@@ -8,6 +8,7 @@
   include_once '../Core/HTTPLibraries.php';
   // Include the new helper file with card identifier functions
   include_once './Custom/CardIdentifiers.php';
+  include_once './Custom/DeckFormats.php';
 
   include_once '../Database/ConnectionManager.php';
   include_once '../AccountFiles/AccountDatabaseAPI.php';
@@ -19,6 +20,8 @@
   }
 
   $deckLink = TryGet("deckLink", "");
+  $format = TryGet("format", "premier");
+  if (!array_key_exists($format, SWUDeckBuildableFormats())) $format = "premier"; // guard unknown/garbage input
 
   $gameName = GetGameCounter();
 
@@ -232,7 +235,7 @@
         $json = $apiDeck;
     } else $json = $deckLink;
     if(isset($json) && $json != "") {
-      SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID);//assetType 1 = Deck
+      SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, $format);//assetType 1 = Deck
       $deckObj = json_decode($json);
       if (isset($deckObj->metadata->name)) {
         UpdateAssetName(1, $gameName, $deckObj->metadata->name); // Update deck name if available
@@ -242,6 +245,11 @@
         SetAssetKeyIdentifier(1, $gameName, 1, $leader);
         array_push($p1Leader, new Leader($leader));
       }
+      if(isset($deckObj->secondleader)) {
+        $secondLeader = UUIDLookup(NormalizeCardID($deckObj->secondleader->id));
+        SetAssetKeyIdentifier(1, $gameName, 3, $secondLeader);
+        array_push($p1Leader, new Leader($secondLeader));
+      }
       if(isset($deckObj->base)) {
         $base = UUIDLookup(NormalizeCardID($deckObj->base->id));
         SetAssetKeyIdentifier(1, $gameName, 2, $base);
@@ -250,8 +258,14 @@
       $deck = $deckObj->deck ?? [];
       if($deck != null) {
         for($i=0; $i<count($deck); ++$i) {
-          $cardID = CardIDOverride(NormalizeCardID($deck[$i]->id));
+          $cardID = CardIDOverride(NormalizeCardID($deck[$i]->id ?? null));
           $cardID = UUIDLookup($cardID);
+          // A lookup miss (unknown/retired/not-yet-added set code) must not become a phantom
+          // zone entry with a blank CardID — that renders as a broken card image client-side.
+          if ($cardID === null) {
+            error_log("CreateDeck: main deck card not found for id '" . ($deck[$i]->id ?? '') . "' — skipping.");
+            continue;
+          }
           for($j=0; $j<$deck[$i]->count; ++$j) {
             array_push($p1MainDeck, new MainDeck($cardID));
           }
@@ -260,8 +274,12 @@
       $sideboard = $deckObj->sideboard ?? [];
       if($sideboard != null) {
         for($i=0; $i<count($sideboard); ++$i) {
-          $cardID = CardIDOverride(NormalizeCardID($sideboard[$i]->id));
+          $cardID = CardIDOverride(NormalizeCardID($sideboard[$i]->id ?? null));
           $cardID = UUIDLookup($cardID);
+          if ($cardID === null) {
+            error_log("CreateDeck: sideboard card not found for id '" . ($sideboard[$i]->id ?? '') . "' — skipping.");
+            continue;
+          }
           for($j=0; $j<$sideboard[$i]->count; ++$j) {
             array_push($p1Sideboard, new Sideboard($cardID));
           }
@@ -269,7 +287,7 @@
       }
     }
   } else {
-    SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID);//assetType 1 = Deck
+    SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, $format);//assetType 1 = Deck
   }
 
   WriteGamestate();

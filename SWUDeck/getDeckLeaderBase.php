@@ -27,6 +27,16 @@ if (count($leaderArr) > 0) {
   $leaderName = CardTitle($leaderID) . (CardSubtitle($leaderID) ? ", " . CardSubtitle($leaderID) : "");
 }
 
+// Twin Suns decks carry a second leader. Expose it ADDITIVELY as leaderID2/leaderName2 (empty
+// strings when there's no second leader) so existing consumers reading only leaderID/leaderName
+// see a byte-identical response for single-leader decks.
+$leaderID2 = "";
+$leaderName2 = "";
+if (count($leaderArr) > 1) {
+  $leaderID2 = strval($leaderArr[1]->CardID);
+  $leaderName2 = CardTitle($leaderID2) . (CardSubtitle($leaderID2) ? ", " . CardSubtitle($leaderID2) : "");
+}
+
 $baseID = null;
 $baseName = null;
 if (count($baseArr) > 0) {
@@ -37,6 +47,8 @@ if (count($baseArr) > 0) {
 echo json_encode([
   'leaderID' => $leaderID,
   'leaderName' => $leaderName,
+  'leaderID2' => $leaderID2,
+  'leaderName2' => $leaderName2,
   'baseID' => $baseID,
   'baseName' => $baseName
 ]);

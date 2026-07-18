@@ -24,6 +24,7 @@ services:
       REDIS_ENABLED: true
       DOMAIN: "${DOMAIN:-localhost}"
       STAGE: "${STAGE:-prod}"
+      DEVENV: "true"
     user: "${DOCKER_USER}"
 
   swustats-mysql-server:
