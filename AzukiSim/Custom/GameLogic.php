@@ -4588,12 +4588,30 @@ function TriggerEndTurnAbilitiesForZone($player, &$zone) {
         if(!is_object($zone[$i])) continue;
         if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
 
-        $mzID = '';
-        $mzID = $zone[$i]->GetMzID();
-        if($mzID === '') continue;
+        $uniqueID = EnsureAzukiFieldUniqueID($zone[$i]);
+        if($uniqueID <= 0) continue;
 
-        EndTurnAbility($player, $mzID);
+        // Queue each source separately. If one ability pauses for a choice, its
+        // continuation resolves before the next source can overwrite mzID.
+        DecisionQueueController::AddDecision(
+            $player,
+            'CUSTOM',
+            'TriggerEndTurnAbility|' . intval($player) . '|' . $uniqueID,
+            2
+        );
     }
+}
+
+function ResolveOwnedFieldMZByUniqueID($player, $uniqueID) {
+    foreach([GetGarden($player), GetAlley($player)] as $zone) {
+        for($i = 0; $i < count($zone); ++$i) {
+            if(!is_object($zone[$i])) continue;
+            if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+            if(intval($zone[$i]->UniqueID ?? 0) !== intval($uniqueID)) continue;
+            return $zone[$i]->GetMzID();
+        }
+    }
+    return '';
 }
 
 function SacrificeRushfireMarkedEntities($player, &$zone) {
@@ -5352,6 +5370,17 @@ function OnEndOfTurn($player) {
     TriggerEndTurnAbilitiesForZone($player, $garden);
     $alley = &GetAlley($player);
     TriggerEndTurnAbilitiesForZone($player, $alley);
+
+    // End-turn abilities may pause for player input. Defer cleanup until those
+    // queued abilities have fully resolved so their source cards remain live.
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'FinalizeEndOfTurnCleanup|' . intval($player), 100);
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($player, '-');
+}
+
+function FinalizeEndOfTurnCleanup($player) {
+    $garden = &GetGarden($player);
+    $alley = &GetAlley($player);
     SacrificeRushfireMarkedEntities($player, $garden);
     SacrificeRushfireMarkedEntities($player, $alley);
 
@@ -5404,6 +5433,22 @@ function ExpireTurnEffects($player, $isEndTurn = true) {
 }
 
 // --- DQ Handlers ---
+$customDQHandlers['TriggerEndTurnAbility'] = function($player, $params, $lastDecision) {
+    $endingPlayer = isset($params[0]) ? intval($params[0]) : intval($player);
+    $uniqueID = isset($params[1]) ? intval($params[1]) : 0;
+    if(($endingPlayer !== 1 && $endingPlayer !== 2) || $uniqueID <= 0) return;
+
+    $mzID = ResolveOwnedFieldMZByUniqueID($endingPlayer, $uniqueID);
+    if($mzID === '') return;
+    EndTurnAbility($endingPlayer, $mzID);
+};
+
+$customDQHandlers['FinalizeEndOfTurnCleanup'] = function($player, $params, $lastDecision) {
+    $endingPlayer = isset($params[0]) ? intval($params[0]) : intval($player);
+    if($endingPlayer !== 1 && $endingPlayer !== 2) return;
+    FinalizeEndOfTurnCleanup($endingPlayer);
+};
+
 $customDQHandlers["DRAW"] = function($player, $params, $lastDecision) {
     $amount = isset($params[0]) ? intval($params[0]) : 1;
     $deck = &GetDeck($player);

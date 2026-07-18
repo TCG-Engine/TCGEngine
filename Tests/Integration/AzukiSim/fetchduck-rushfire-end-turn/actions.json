@@ -1,0 +1,54 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myLeaderHealth-0!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "YES",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-2!FSM!",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-STT01-005_Alpine-Prowler_E_C_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGarden",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myGarden-1!CustomInput!Attack",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-STT01-003_Crate-Rat-Kurobo_E_C_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirGarden-0",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-AZK01-121_Kagoro-of-the-Burnt-Path_L_L_die"
+    }
+]
