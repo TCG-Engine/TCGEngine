@@ -2338,6 +2338,13 @@ function EntityHasCharge($obj) {
         return HasEquippedWeapon($obj);
     }
 
+    // Mo only gains Charge from its On Play effect when its leader is Lightning.
+    // The generated keyword list also sees the conditional rules text, so do not
+    // treat that metadata as an unconditional keyword on the card.
+    if($cardID === 'S1-AZK01-015_Mo_E_SR_die') {
+        return false;
+    }
+
     return CardHasKeyword($cardID, 'Charge');
 }
 
