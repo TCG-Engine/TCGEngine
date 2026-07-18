@@ -18,14 +18,24 @@
 # Config (override via environment):
 #   APP_ROOT      app root containing composer.json (default: parent of this script)
 #   COMPOSER_BIN  where to install composer          (default: /usr/local/bin/composer)
-#   PHP_BIN       php to run composer with            (default: php on PATH)
+#   LAMPP_ROOT    LAMPP install                      (default: /opt/lampp)
+#   PHP_BIN       php to run composer with           (default: LAMPP's php if present, else `php`)
+#
+# IMPORTANT: composer MUST run under the SAME PHP that serves the site (LAMPP's
+# PHP 8.2), NOT the system `php` (often a different version, e.g. 7.4, with a
+# different extension set) — otherwise vendor/ is resolved for the wrong runtime
+# and composer's platform check fails on extensions the CLI lacks but Apache has.
 #
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 APP_ROOT="${APP_ROOT:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 COMPOSER_BIN="${COMPOSER_BIN:-/usr/local/bin/composer}"
-PHP_BIN="${PHP_BIN:-php}"
+LAMPP_ROOT="${LAMPP_ROOT:-/opt/lampp}"
+# Default PHP_BIN to LAMPP's php (the web runtime), not the system php.
+if [ -z "${PHP_BIN:-}" ]; then
+  if [ -x "$LAMPP_ROOT/bin/php" ]; then PHP_BIN="$LAMPP_ROOT/bin/php"; else PHP_BIN="php"; fi
+fi
 
 log()  { printf '\033[1;36m==>\033[0m %s\n' "$*"; }
 ok()   { printf '\033[1;32m  ok\033[0m %s\n' "$*"; }
@@ -41,6 +51,7 @@ command -v "$PHP_BIN" >/dev/null 2>&1 || die "php not found (set PHP_BIN=...)."
 [ -f "$APP_ROOT/composer.json" ] || die "no composer.json at $APP_ROOT (set APP_ROOT=...)."
 
 log "Provisioning PHP deps for $APP_ROOT"
+ok "using PHP: $PHP_BIN ($("$PHP_BIN" -v 2>/dev/null | head -1))"
 
 # ---------------------------------------------------------------------------
 # 1. Composer binary
@@ -62,8 +73,12 @@ fi
 # ---------------------------------------------------------------------------
 # 2. composer install (materialize vendor/)
 # ---------------------------------------------------------------------------
-log "Running composer install in $APP_ROOT"
-( cd "$APP_ROOT" && "$COMPOSER_BIN" install --no-dev --optimize-autoloader )
+log "Running composer install in $APP_ROOT (under $PHP_BIN)"
+# Invoke composer UNDER $PHP_BIN (not composer's own shebang, which finds the system php).
+# --ignore-platform-reqs: LAMPP's CLI extension set differs from its web SAPI (e.g. curl/
+# mysqli are present for Apache/mod_php but not the CLI), so the platform check would wrongly
+# reject packages that run fine under the site's runtime. vendor code executes under mod_php.
+( cd "$APP_ROOT" && "$PHP_BIN" "$COMPOSER_BIN" install --no-dev --optimize-autoloader --ignore-platform-reqs )
 [ -f "$APP_ROOT/vendor/autoload.php" ] || die "composer install did not produce vendor/autoload.php"
 ok "vendor/ provisioned at $APP_ROOT/vendor"
 
