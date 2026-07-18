@@ -5230,6 +5230,9 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
             $garden = &GetGarden($player);
             $addedIndex = count($garden) - 1;
             if($addedIndex >= 0) {
+                if(($gateObj->CardID ?? '') === 'S1-AZK01-124_Gate-of-Devotion-Gate_G_G_die') {
+                    DecisionQueueController::StoreVariable('portaledEntityMZ', 'myGarden-' . $addedIndex);
+                }
                 $addedObj = &$garden[$addedIndex];
                 if($addedObj !== null && !(isset($addedObj->removed) && $addedObj->removed)) {
                     NormalizeFieldOwnership($addedObj, $player);
