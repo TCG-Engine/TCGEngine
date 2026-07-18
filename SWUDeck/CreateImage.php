@@ -1,4 +1,9 @@
 <?php
+// Buffer all output so stray notices/warnings (e.g. PHP deprecations from the GD
+// code below) can't corrupt the streamed image: we discard the buffer right before
+// sending the image header. Without this, warnings emitted mid-render land in the
+// response body ahead of header(), forcing Content-Type: text/html and a broken image.
+ob_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 include_once __DIR__ . '/GamestateParser.php';
 include_once __DIR__ . '/ZoneAccessors.php';
@@ -32,10 +37,9 @@ if($assetData == null) {
   echo("This game asset does not exist.");
   exit;
 }
-if($assetData["assetVisibility"] == 0 && !isset($fromBot)) {
-  echo("This game asset is private.");
-  exit;
-}
+// Note: deck-image generation is intentionally allowed for private decks too — a
+// "private" deck should still produce an image (owners share/copy their own decks).
+// Discord bots pass $fromBot and are unaffected.
 /*
 $assetOwner = $assetData["assetOwner"];
 if($loggedInUser != $assetOwner) {
@@ -61,7 +65,9 @@ ParseGamestate(__DIR__ . "/");
 
 
 $arr = &GetLeader(1);
-$leaderID = count($arr) > 0 ? $arr[0]->CardID : "";
+$leaderIDs = [];
+foreach ($arr as $c) { $leaderIDs[] = $c->CardID; }
+$leaderID = count($leaderIDs) > 0 ? $leaderIDs[0] : ""; // first leader (kept for compat)
 $arr = &GetBase(1);
 $baseID = count($arr) > 0 ? $arr[0]->CardID : "";
 
@@ -143,348 +149,168 @@ sort($sideboard);
 $assetName = isset($assetData["assetName"]) ? $assetData["assetName"] : "Deck #" . $gameName;
 $ownerData = LoadUserDataFromId($assetData["assetOwner"]);
 $ownerName = isset($ownerData["usersUid"]) ? $ownerData["usersUid"] : "Unknown";
-$width = 1298;
-$height = 747;
+// ---------- Layout: [ leader(s)  base ] header, then Main Deck + Sideboard grids ----------
+$cardW         = 150;                          // uniform card width (never scaled)
+$cardTileRatio = 628 / 449;                    // full card portrait aspect (WebpImages 449x628)
+$cardH         = (int) round($cardW * $cardTileRatio);
+$gap           = 16;
+$margin        = 50;
+$cols          = 10;                           // fixed columns => fixed image width => uniform cards
+$headerW       = 200;                          // leader/base width (kept modest so the main deck is the focus)
+$titleFontSize = 54;
+$labelFontSize = 30;
+$labelH        = 52;                           // vertical space reserved for a section label
+$qtyFontSize   = 14;
+$fontPath      = __DIR__ . '/../Assets/Montserrat.ttf';
+if ($ownerName == "RebelResource") $fontPath = __DIR__ . '/../Assets/Soloist.otf';
+
+// ----- Sort helper (units + events + upgrades together) -----
+$sortKey = strtolower(TryGet("sort", "cost"));
+$buildRows = function ($qi) use ($sortKey) {
+  $rows = [];
+  foreach ($qi as $cardID => $qty) {
+    $aspect = CardAspect($cardID);
+    $rows[] = [
+      'id'     => $cardID,
+      'qty'    => $qty,
+      'cost'   => (int) CardCost($cardID),
+      'power'  => (int) CardPower($cardID),
+      'set'    => (string) CardSet($cardID),
+      'num'    => (int) CardCardNumber($cardID),
+      'aspect' => is_array($aspect) ? implode(",", $aspect) : (string) $aspect,
+      'name'   => (string) CardTitle($cardID),
+    ];
+  }
+  usort($rows, function ($a, $b) use ($sortKey) {
+    switch ($sortKey) {
+      case 'setnum': return [$a['set'], $a['num'], $a['name']] <=> [$b['set'], $b['num'], $b['name']];
+      case 'power':
+        if ($a['power'] != $b['power']) return $b['power'] - $a['power']; // high -> low
+        return [$a['cost'], $a['name']] <=> [$b['cost'], $b['name']];
+      case 'aspect': return [$a['aspect'], $a['cost'], $a['name']] <=> [$b['aspect'], $b['cost'], $b['name']];
+      case 'name':   return $a['name'] <=> $b['name'];
+      case 'cost':
+      default:       return [$a['cost'], $a['name']] <=> [$b['cost'], $b['name']];
+    }
+  });
+  return $rows;
+};
+$mainRows = $buildRows($quantityIndex);
+$sideRows = $buildRows($sideboardQuantityIndex);
+
+// ----- Header images: leaders then base -----
+$headerIDs = array_values(array_filter(array_merge($leaderIDs, [$baseID]), function ($v) { return $v !== ""; }));
+$headerImgs = [];
+foreach ($headerIDs as $hid) {
+  $p = __DIR__ . '/WebpImages/' . $hid . '.webp';
+  $img = file_exists($p) ? imagecreatefromwebp($p) : false;
+  if ($img === false) { $img = imagecreatetruecolor($headerW, $headerW); imagefilledrectangle($img, 0, 0, $headerW, $headerW, imagecolorallocate($img, 200, 200, 200)); }
+  $ow = imagesx($img); $oh = imagesy($img);
+  $nh = (int) round($headerW * $oh / $ow);
+  $headerImgs[] = ['img' => $img, 'ow' => $ow, 'oh' => $oh, 'nw' => $headerW, 'nh' => $nh];
+}
+$headerH = 0; $headerTotalW = 0;
+foreach ($headerImgs as $h) { $headerH = max($headerH, $h['nh']); $headerTotalW += $h['nw']; }
+$headerTotalW += $gap * max(0, count($headerImgs) - 1);
+
+// ----- Vertical layout (fixed width; height grows with the grids) -----
+$gridW     = $cols * $cardW + ($cols - 1) * $gap;
+$width     = $gridW + 2 * $margin;
+$rowH      = $cardH + $gap;
+$titleTop  = 110;
+$headerTop = 170;
+
+$mainRowsN = (int) ceil(max(0, count($mainRows)) / $cols);
+$sideRowsN = count($sideRows) > 0 ? (int) ceil(count($sideRows) / $cols) : 0;
+
+$mainLabelTop = $headerTop + $headerH + $gap * 2;
+$mainGridTop  = $mainLabelTop + $labelH;
+$mainBottom   = $mainGridTop + $mainRowsN * $rowH;
+if ($sideRowsN > 0) {
+  $sideLabelTop = $mainBottom + $gap;
+  $sideGridTop  = $sideLabelTop + $labelH;
+  $contentBottom = $sideGridTop + $sideRowsN * $rowH;
+} else {
+  $contentBottom = $mainBottom;
+}
+$height = $contentBottom + $margin;
+
+// ----- Canvas + background (solid dark; arenas removed) -----
 $image = imagecreatetruecolor($width, $height);
-//$background = imagecreatefromwebp('../Assets/Images/deckImageBackground.webp');
-if($ownerName == "RebelResource") $background = imagecreatefromjpeg(__DIR__ . '/../Assets/Images/DeckBacks/RebelResourceDeck.jpg');
-else $background = imagecreatefromjpeg(__DIR__ . '/../Assets/Images/deckImageBackground.jpg');
+imagefilledrectangle($image, 0, 0, $width, $height, imagecolorallocate($image, 10, 20, 40));
+$white = imagecolorallocate($image, 255, 255, 255);
 
+// ----- Title (auto-shrink to fit width) -----
+$text = ($ownerName == "RebelResource") ? (string) $assetName : ($assetName . " by " . $ownerName);
+$maxTitleW = $width - 2 * $margin;
+$tfs = $titleFontSize;
+$bbox = imagettfbbox($tfs, 0, $fontPath, $text);
+while (($bbox[2] - $bbox[0]) > $maxTitleW && $tfs > 18) { $tfs -= 2; $bbox = imagettfbbox($tfs, 0, $fontPath, $text); }
+imagettftext($image, $tfs, 0, ($width - ($bbox[2] - $bbox[0])) / 2, $titleTop, $white, $fontPath, $text);
 
-// Directly copy the background image without resampling
-imagecopy($image, $background, 0, 0, 0, 0, $width, $height);
-imagedestroy($background);
-
-if($ownerName != "RebelResource") $text = $assetName . " by " . $ownerName;
-$fontSize = 34;
-$angle = 0;
-$fontPath = __DIR__ . '/../Assets/Montserrat.ttf'; // Update this path to your TTF font file if needed
-if($ownerName == "RebelResource") $fontPath = __DIR__ . '/../Assets/Soloist.otf'; // Update this path to your TTF font file if needed
-//$fontPath = '../Assets/ShadowOfXizor.ttf'; // Update this path to your TTF font file if needed
-//$fontPath = '../Assets/StarJedi.ttf'; // Update this path to your TTF font file if needed
-$textColor = imagecolorallocate($image, 255, 255, 255);
-$bbox = imagettfbbox($fontSize, $angle, $fontPath, $text);
-$textWidth = $bbox[2] - $bbox[0];
-$x = ($width - $textWidth) / 2;
-$y = 70; // Vertical position from the top
-imagettftext($image, $fontSize, $angle, $x, $y, $textColor, $fontPath, $text);
-
-
-
-
-//Leader and base images
-$iconSize = 200; // Target width for each image
-
-// Load leader image
-//$leaderImagePath = './WebpImages/' . $leaderID . '.webp';
-$leaderImagePath = __DIR__ . '/./jpg/fullsize/' . $leaderID . '.jpg';
-if (file_exists($leaderImagePath)) {
-  //$leaderImage = imagecreatefromwebp($leaderImagePath);
-  $leaderImage = imagecreatefromjpeg($leaderImagePath);
-} else {
-  $leaderImage = imagecreatetruecolor($iconSize, $iconSize);
-  $placeholderColor = imagecolorallocate($leaderImage, 200, 200, 200);
-  imagefilledrectangle($leaderImage, 0, 0, $iconSize, $iconSize, $placeholderColor);
+// ----- Header row: leaders + base, centered, bottom-aligned -----
+$hx = ($width - $headerTotalW) / 2;
+foreach ($headerImgs as $h) {
+  $resized = imagecreatetruecolor($h['nw'], $h['nh']);
+  imagealphablending($resized, false); imagesavealpha($resized, true);
+  imagecopyresampled($resized, $h['img'], 0, 0, 0, 0, $h['nw'], $h['nh'], $h['ow'], $h['oh']);
+  imagedestroy($h['img']);
+  $hy = $headerTop + ($headerH - $h['nh']); // bottom-align across the header row
+  imagecopy($image, $resized, (int) $hx, (int) $hy, 0, 0, $h['nw'], $h['nh']);
+  imagedestroy($resized);
+  $hx += $h['nw'] + $gap;
 }
 
-// Load base image
-//$baseImagePath = './WebpImages/' . $baseID . '.webp';
-$baseImagePath = __DIR__ . '/./jpg/fullsize/' . $baseID . '.jpg';
-if (file_exists($baseImagePath)) {
-  //$baseImage = imagecreatefromwebp($baseImagePath);
-  $baseImage = imagecreatefromjpeg($baseImagePath);
-} else {
-  $baseImage = imagecreatetruecolor($iconSize, $iconSize);
-  $placeholderColor = imagecolorallocate($baseImage, 200, 200, 200);
-  imagefilledrectangle($baseImage, 0, 0, $iconSize, $iconSize, $placeholderColor);
-}
+// ----- Section label + grid drawers -----
+$drawLabel = function ($labelText, $topY) use (&$image, $fontPath, $labelFontSize, $margin, $white) {
+  imagettftext($image, $labelFontSize, 0, $margin, $topY + $labelFontSize, $white, $fontPath, $labelText);
+};
+$drawGrid = function ($rows, $gy0) use (&$image, $cardW, $cardH, $cols, $gap, $margin, $fontPath, $qtyFontSize, $white) {
+  $col = 0; $gx = $margin; $gy = $gy0;
+  foreach ($rows as $r) {
+    $p = __DIR__ . '/WebpImages/' . $r['id'] . '.webp';
+    $card = file_exists($p) ? imagecreatefromwebp($p) : false;
+    if ($card === false) { $card = imagecreatetruecolor($cardW, $cardH); imagefilledrectangle($card, 0, 0, $cardW, $cardH, imagecolorallocate($card, 200, 200, 200)); }
+    $resized = imagecreatetruecolor($cardW, $cardH);
+    imagealphablending($resized, false); imagesavealpha($resized, true);
+    imagecopyresampled($resized, $card, 0, 0, 0, 0, $cardW, $cardH, imagesx($card), imagesy($card));
+    imagedestroy($card);
+    imagecopy($image, $resized, $gx, $gy, 0, 0, $cardW, $cardH);
+    imagedestroy($resized);
 
-// Get original dimensions and compute new dimensions maintaining aspect ratio
-$leaderOrigWidth = imagesx($leaderImage);
-$leaderOrigHeight = imagesy($leaderImage);
-$leaderNewWidth = $iconSize;
-$leaderNewHeight = intval($iconSize * $leaderOrigHeight / $leaderOrigWidth);
+    $qtyText = "x" . $r['qty'];
+    $bb = imagettfbbox($qtyFontSize, 0, $fontPath, $qtyText);
+    $tw = $bb[2] - $bb[0];
+    $tx = $gx + ($cardW - $tw) / 2;
+    $ty = $gy + $cardH - 8;
+    imagefilledrectangle($image, $tx - 3, $ty + $bb[7] - 2, $tx + $tw + 3, $ty + $bb[1] + 2, imagecolorallocatealpha($image, 0, 0, 0, 60));
+    imagettftext($image, $qtyFontSize, 0, $tx, $ty, $white, $fontPath, $qtyText);
 
-$baseOrigWidth = imagesx($baseImage);
-$baseOrigHeight = imagesy($baseImage);
-$baseNewWidth = $iconSize;
-$baseNewHeight = intval($iconSize * $baseOrigHeight / $baseOrigWidth);
-
-// Resize leader image
-$leaderResized = imagecreatetruecolor($leaderNewWidth, $leaderNewHeight);
-imagealphablending($leaderResized, false);
-imagesavealpha($leaderResized, true);
-imagecopyresampled(
-  $leaderResized, $leaderImage,
-  0, 0, 0, 0,
-  $leaderNewWidth, $leaderNewHeight,
-  $leaderOrigWidth, $leaderOrigHeight
-);
-imagedestroy($leaderImage);
-
-// Resize base image
-$baseResized = imagecreatetruecolor($baseNewWidth, $baseNewHeight);
-imagealphablending($baseResized, false);
-imagesavealpha($baseResized, true);
-imagecopyresampled(
-  $baseResized, $baseImage,
-  0, 0, 0, 0,
-  $baseNewWidth, $baseNewHeight,
-  $baseOrigWidth, $baseOrigHeight
-);
-imagedestroy($baseImage);
-
-// Compute placement coordinates to center the leader image on the main image
-$leaderX = ($width - $leaderNewWidth) / 2;
-$leaderY = ($height - $leaderNewHeight) / 2 + 60;
-
-// Place leader image
-imagecopy($image, $leaderResized, $leaderX, $leaderY, 0, 0, $leaderNewWidth, $leaderNewHeight);
-imagedestroy($leaderResized);
-
-// Set a spacing value for separation between base and leader images
-$spacing = 10;
-// Compute placement coordinates to center the base image horizontally and place it above the leader image
-$baseX = ($width - $baseNewWidth) / 2;
-$baseY = $leaderY - $baseNewHeight - $spacing;
-imagecopy($image, $baseResized, $baseX, $baseY, 0, 0, $baseNewWidth, $baseNewHeight);
-imagedestroy($baseResized);
-//Space units
-$spaceIconSize = 100;
-$spaceSpacing = 10;
-// Starting coordinates for the grid
-$spaceX = $spaceSpacing + 65;
-$spaceY = 135; // Adjust as needed (below the title)
-// Calculate the number of columns based on the overall image width
-$columns = floor(($width / 2 - $baseNewWidth / 2 - $spaceSpacing) / ($spaceIconSize + $spaceSpacing));
-//$columns = 4;
-$colCount = 0;
-
-foreach ($spaceUnits as $cardID => $quantity) {
-  //$cardImagePath = "./concat/" . $cardID . ".webp";
-  $cardImagePath = __DIR__ . "/./jpg/concat/" . $cardID . ".jpg";
-  if (file_exists($cardImagePath)) {
-    //$cardImage = imagecreatefromwebp($cardImagePath);
-    $cardImage = imagecreatefromjpeg($cardImagePath);
-  } else {
-    $cardImage = imagecreatetruecolor($spaceIconSize, $spaceIconSize);
-    $placeholderColor = imagecolorallocate($cardImage, 200, 200, 200);
-    imagefilledrectangle($cardImage, 0, 0, $spaceIconSize, $spaceIconSize, $placeholderColor);
+    $col++;
+    if ($col >= $cols) { $col = 0; $gx = $margin; $gy += $cardH + $gap; }
+    else { $gx += $cardW + $gap; }
   }
-  
-  $resizedCard = imagecreatetruecolor($spaceIconSize, $spaceIconSize);
-  imagealphablending($resizedCard, false);
-  imagesavealpha($resizedCard, true);
-  imagecopyresampled(
-    $resizedCard, $cardImage,
-    0, 0, 0, 0,
-    $spaceIconSize, $spaceIconSize,
-    imagesx($cardImage), imagesy($cardImage)
-  );
-  imagedestroy($cardImage);
-  
-  // Place the resized card at the calculated position
-  imagecopy($image, $resizedCard, $spaceX, $spaceY, 0, 0, $spaceIconSize, $spaceIconSize);
-  
-  // Add quantity indicator at the bottom middle of the card tile
-  $qtyText = "x" . $quantity;
-  $qtyFontSize = 14;
-  // Set text color to white
-  $qtyColor = imagecolorallocate($image, 255, 255, 255);
-  // Generate bounding box for text
-  $bbox = imagettfbbox($qtyFontSize, 0, $fontPath, $qtyText);
-  $textWidth = $bbox[2] - $bbox[0];
-  $textX = $spaceX + ($spaceIconSize - $textWidth) / 2;
-  $textY = $spaceY + $spaceIconSize - 5; // 5 pixel margin from the bottom
-  
-  // Draw dark partially transparent background rectangle
-  $bgColor = imagecolorallocatealpha($image, 0, 0, 0, 60);
-  $bgPadding = 2;
-  $x_min = min($bbox[0], $bbox[2], $bbox[4], $bbox[6]);
-  $x_max = max($bbox[0], $bbox[2], $bbox[4], $bbox[6]);
-  $y_min = min($bbox[1], $bbox[3], $bbox[5], $bbox[7]);
-  $y_max = max($bbox[1], $bbox[3], $bbox[5], $bbox[7]);
-  $rectX1 = $textX + $x_min - $bgPadding;
-  $rectY1 = $textY + $y_min - $bgPadding;
-  $rectX2 = $textX + $x_max + $bgPadding;
-  $rectY2 = $textY + $y_max + $bgPadding;
-  imagefilledrectangle($image, $rectX1, $rectY1, $rectX2, $rectY2, $bgColor);
-  
-  // Add the quantity text over the background
-  imagettftext($image, $qtyFontSize, 0, $textX, $textY, $qtyColor, $fontPath, $qtyText);
-  
-  imagedestroy($resizedCard);
-  
-  // Move to the next column
-  $colCount++;
-  if ($colCount >= $columns) {
-    // Reset to the first column and move down a row
-    $colCount = 0;
-    $spaceX = $spaceSpacing + 65;
-    $spaceY += $spaceIconSize + $spaceSpacing;
-  } else {
-    $spaceX += $spaceIconSize + $spaceSpacing;
-  }
+};
+
+// ----- Main Deck -----
+$drawLabel("Main Deck", $mainLabelTop);
+$drawGrid($mainRows, $mainGridTop);
+
+// ----- Sideboard -----
+if ($sideRowsN > 0) {
+  $drawLabel("Sideboard", $sideLabelTop);
+  $drawGrid($sideRows, $sideGridTop);
 }
 
-
-//Ground units (placed starting from the right of the base and leader)
-$groundIconSize = 100;
-$groundSpacing = 10;
-
-// Calculate the right edge of the base and leader images
-$baseRight = $baseX + $baseNewWidth;
-$leaderRight = $leaderX + $leaderNewWidth;
-$startX = max($baseRight, $leaderRight) + $groundSpacing + 30;
-
-// Starting coordinates for the grid
-$groundX = $startX;
-$groundY = 135; // Now matching the space units' starting Y position
-
-// Calculate the number of columns that fit in the remaining space
-$groundColumns = floor(($width - $groundSpacing - $startX) / ($groundIconSize + $groundSpacing));
-if ($groundColumns < 1) {
-  $groundColumns = 1;
-}
-
-$groundColCount = 0;
-
-foreach ($groundUnits as $cardID => $quantity) {
-  //$cardImagePath = "./concat/" . $cardID . ".webp";
-  $cardImagePath = __DIR__ . "/./jpg/concat/" . $cardID . ".jpg";
-  if (file_exists($cardImagePath)) {
-    //$cardImage = imagecreatefromwebp($cardImagePath);
-    $cardImage = imagecreatefromjpeg($cardImagePath);
-  } else {
-    $cardImage = imagecreatetruecolor($groundIconSize, $groundIconSize);
-    $placeholderColor = imagecolorallocate($cardImage, 200, 200, 200);
-    imagefilledrectangle($cardImage, 0, 0, $groundIconSize, $groundIconSize, $placeholderColor);
-  }
-  
-  $resizedCard = imagecreatetruecolor($groundIconSize, $groundIconSize);
-  imagealphablending($resizedCard, false);
-  imagesavealpha($resizedCard, true);
-  imagecopyresampled(
-    $resizedCard, $cardImage,
-    0, 0, 0, 0,
-    $groundIconSize, $groundIconSize,
-    imagesx($cardImage), imagesy($cardImage)
-  );
-  imagedestroy($cardImage);
-  
-  imagecopy($image, $resizedCard, $groundX, $groundY, 0, 0, $groundIconSize, $groundIconSize);
-  
-  // Add quantity indicator at the bottom middle of the card tile
-  $qtyText = "x" . $quantity;
-  $qtyFontSize = 14;
-  // Set text color to white
-  $qtyColor = imagecolorallocate($image, 255, 255, 255);
-  $bbox = imagettfbbox($qtyFontSize, 0, $fontPath, $qtyText);
-  $textWidth = $bbox[2] - $bbox[0];
-  $textX = $groundX + ($groundIconSize - $textWidth) / 2;
-  $textY = $groundY + $groundIconSize - 5;
-  
-  // Draw dark partially transparent background rectangle
-  $bgColor = imagecolorallocatealpha($image, 0, 0, 0, 60);
-  $bgPadding = 2;
-  $x_min = min($bbox[0], $bbox[2], $bbox[4], $bbox[6]);
-  $x_max = max($bbox[0], $bbox[2], $bbox[4], $bbox[6]);
-  $y_min = min($bbox[1], $bbox[3], $bbox[5], $bbox[7]);
-  $y_max = max($bbox[1], $bbox[3], $bbox[5], $bbox[7]);
-  $rectX1 = $textX + $x_min - $bgPadding;
-  $rectY1 = $textY + $y_min - $bgPadding;
-  $rectX2 = $textX + $x_max + $bgPadding;
-  $rectY2 = $textY + $y_max + $bgPadding;
-  imagefilledrectangle($image, $rectX1, $rectY1, $rectX2, $rectY2, $bgColor);
-  
-  imagettftext($image, $qtyFontSize, 0, $textX, $textY, $qtyColor, $fontPath, $qtyText);
-  
-  imagedestroy($resizedCard);
-  
-  $groundColCount++;
-  if ($groundColCount >= $groundColumns) {
-    $groundColCount = 0;
-    $groundX = $startX;
-    $groundY += $groundIconSize + $groundSpacing;
-  } else {
-    $groundX += $groundIconSize + $groundSpacing;
-  }
-}
-
-
-//Events and upgrades
-$iconSize = 100;
-$spacing = 10;
-$x = $spacing;
-$y = $height - $iconSize - $spacing - 20;
-$totalIcons = count($eventsAndUpgrades);
-$totalWidth = $totalIcons * $iconSize + ($totalIcons - 1) * $spacing;
-$x = ($width - $totalWidth) / 2;
-
-foreach ($eventsAndUpgrades as $cardID => $quantity) {
-  
-  // Build the path to the card image (adjust naming if required)
-  //$cardImagePath = "./concat/" . $cardID . ".webp";
-  $cardImagePath = __DIR__ . "/./jpg/concat/" . $cardID . ".jpg";
-  
-  if (file_exists($cardImagePath)) {
-    //$cardImage = imagecreatefromwebp($cardImagePath);
-    $cardImage = imagecreatefromjpeg($cardImagePath);
-  } else {
-    // Create a placeholder if the image doesn't exist
-    $cardImage = imagecreatetruecolor($iconSize, $iconSize);
-    $placeholderColor = imagecolorallocate($cardImage, 200, 200, 200);
-    imagefilledrectangle($cardImage, 0, 0, $iconSize, $iconSize, $placeholderColor);
-  }
-  
-  // Resize the card image to fit the icon size
-  $resizedCard = imagecreatetruecolor($iconSize, $iconSize);
-  imagecopyresampled(
-    $resizedCard, $cardImage,
-    0, 0, 0, 0,
-    $iconSize, $iconSize,
-    imagesx($cardImage), imagesy($cardImage)
-  );
-  imagedestroy($cardImage);
-  
-  // Place the resized image along the bottom of the main image
-  imagecopy($image, $resizedCard, $x, $y, 0, 0, $iconSize, $iconSize);
-  
-  // Add quantity indicator at the bottom middle of the card tile
-  $qtyText = "x" . $quantity;
-  $qtyFontSize = 14;
-  // Set text color to white
-  $qtyColor = imagecolorallocate($image, 255, 255, 255);
-  $bbox = imagettfbbox($qtyFontSize, 0, $fontPath, $qtyText);
-  $textWidth = $bbox[2] - $bbox[0];
-  $textX = $x + ($iconSize - $textWidth) / 2;
-  $textY = $y + $iconSize - 5;
-  
-  // Draw dark partially transparent background rectangle
-  $bgColor = imagecolorallocatealpha($image, 0, 0, 0, 60);
-  $bgPadding = 2;
-  $x_min = min($bbox[0], $bbox[2], $bbox[4], $bbox[6]);
-  $x_max = max($bbox[0], $bbox[2], $bbox[4], $bbox[6]);
-  $y_min = min($bbox[1], $bbox[3], $bbox[5], $bbox[7]);
-  $y_max = max($bbox[1], $bbox[3], $bbox[5], $bbox[7]);
-  $rectX1 = $textX + $x_min - $bgPadding;
-  $rectY1 = $textY + $y_min - $bgPadding;
-  $rectX2 = $textX + $x_max + $bgPadding;
-  $rectY2 = $textY + $y_max + $bgPadding;
-  imagefilledrectangle($image, $rectX1, $rectY1, $rectX2, $rectY2, $bgColor);
-  
-  imagettftext($image, $qtyFontSize, 0, $textX, $textY, $qtyColor, $fontPath, $qtyText);
-  
-  imagedestroy($resizedCard);
-  
-  $x += $iconSize + $spacing;
-}
 
 imagejpeg($image, $destFile);
 imagedestroy($image);
 
 if(!isset($fromBot)) {
+  // Discard any buffered notices/warnings so they don't precede the image bytes.
+  while (ob_get_level()) { ob_end_clean(); }
   header("Content-Type: image/jpeg");
+  header("Content-Length: " . filesize($destFile));
   readfile($destFile);
 }
 

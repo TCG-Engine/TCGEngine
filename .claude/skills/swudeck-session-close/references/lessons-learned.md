@@ -85,3 +85,36 @@ memory system (see `MEMORY.md`), not just here.
   Several block-level Edits failed on space-vs-tab until switching to per-line anchors.
 - **NEVER re-add/overwrite `APIKeys.php`** (real/prod secrets); guard the missing key in test code
   with `isset(...) ? ... : ''` instead. (Saved to memory: [[never-readd-apikeys-php]].)
+
+## 2026-07-18 — Prod deck-corruption incident (Leader1/Leader2 format break) + migration ops
+_(Resolved — affected players re-entered sideboards; future reports handled by the user via DM. Lessons below stand as durable guidance.)_
+- **A schema change to a positionally-serialized zone format is a BREAKING format change, and
+  opening a deck AUTOSAVES — so a misread destroys data on open.** The Twin Suns commit inserted
+  `Leader1`/`Leader2` browse-pool zones into `GameSchema.txt`; the generated `GamestateParser` reads
+  zones positionally, so old (single-leader) `Gamestate.txt` files misalign after the pools and the
+  sideboard is read as garbage. The deck editor autosaves on open (`WriteGamestate`), writing the
+  misread back → sideboard gone. Read-only pages (DeckStats) don't autosave and are safe. Verified by
+  reproduction: pools 1→3 + sideboard 5→0 purely from loading the editor. (Saved: [[swudeck-leader2-format-break]].)
+- **Gitignored generated files don't deploy — the generation step must run on the server.** Prod's
+  blank board (`#theirStuff` null) was a stale generated `InitialLayout.php` (gitignored). "Works
+  local, broken prod, and it's generator-related" almost always = generated files out of sync with a
+  deployed schema/generator change; re-run the generators (and clear PHP opcache) on the box.
+- **Live-table backfill migrations RACE with concurrent inserts — set the DEFAULT in the widen step.**
+  The 3-step `int→varchar` (widen NULL → backfill → NOT NULL) let ~7 games insert between the backfill
+  and the lockdown as NULL, so the final `NOT NULL` ALTER hit `ERROR 1265`. Fix: put
+  `DEFAULT 'premier'` on the FIRST (widen) statement so mid-migration inserts default correctly. Also
+  seen: `ERROR 1206` = tiny `innodb_buffer_pool_size` (16 MB) can't hold the COPY-rebuild's locks —
+  bump it; and `int→varchar` forces `ALGORITHM=COPY`.
+- **A detector built on the CURRENT (broken) parser conflates "corrupted" with "intact-but-old".**
+  `LoadDeck.php?…&setId=true` returns `sideboard id:null` for BOTH a genuinely-corrupted file AND an
+  intact old-format file the parser can't read. Use a FORMAT-AWARE file-walk (reads old files
+  correctly) to separate lost-data from still-migratable, then LoadDeck to confirm. Migrate-first also
+  makes a plain LoadDeck scan precise.
+- **Prod scale + Cloudflare = paginate or go CLI, but LAMPP's PHP CLI has no `mysqli`.** A full scan
+  of ~102k decks blows Cloudflare's ~100s (524); page with `?offset/?limit`, or run a standalone CLI
+  script on the box — which must avoid the DB (no `mysqli` in CLI) by enumerating `SWUDeck/Games/*`
+  folders and using the pure-PHP card dictionary (`CardType`, no DB).
+- **No backups + expand-first is a gamble — snapshot BEFORE running anything.** The user had no deck
+  backups when the corruption hit; recovery now leans entirely on the in-DB `assetversions` snapshots.
+  Take a `Games/` tar + DB dump before any migration/mass-op, even (especially) when you "didn't have
+  a backup before."

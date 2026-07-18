@@ -78,6 +78,24 @@ Deterministic (same output every run) and backs up the existing `.htaccess` firs
 overwrites, every live domain must be present in `APP_DOMAINS` or its redirect is dropped** — add
 apps by editing that one table, then re-run. Apply with `sudo /opt/lampp/lampp reload`. Flags: `--yes`.
 
+#### 1d. PHP Composer deps — `install-php-deps.sh`
+
+`vendor/` is **gitignored**, so a fresh checkout has none — but `SWUDeck/CreateImage.php`
+`require`s `vendor/autoload.php` and **fatals** without it (this is why deck-image copy currently
+fails: the endpoint returns a PHP error, the browser gets a non-image blob, and the clipboard write
+throws "Failed to copy image!"). This script installs the Composer binary if missing and runs
+`composer install` in the app root to materialize `vendor/` (`tcpdf` today; `endroid/qr-code` once
+the QR feature ships).
+
+```bash
+sudo ./install-php-deps.sh
+```
+
+Idempotent (safe to re-run; a no-op when deps are already current). Run it on the golden box before
+snapshotting so every clone inherits `vendor/`, or per clone. Config via env: `APP_ROOT`
+(default: repo root above `newhost/`), `COMPOSER_BIN` (default `/usr/local/bin/composer`),
+`PHP_BIN`.
+
 ### 2. Provision each new app (per clone)
 
 ```bash
@@ -105,6 +123,8 @@ fail2ban-client status && fail2ban-client status xampp-dos
 # WebP via Imagick
 /opt/lampp/bin/php -r 'var_dump(class_exists("Imagick"));'
 /opt/lampp/bin/php -r '$i=new Imagick(); var_dump(in_array("WEBP",$i->queryFormats()));'
+# Composer deps present (vendor/autoload resolves; CreateImage.php won't fatal)
+/opt/lampp/bin/php -r 'var_dump(file_exists(__DIR__."/../vendor/autoload.php"));'
 # DB rebuilt fresh, soulmastersdb gone
 /opt/lampp/bin/mysql -u root -e "SHOW TABLES FROM swusim;"
 /opt/lampp/bin/mysql -u root -e "SHOW DATABASES LIKE 'soulmastersdb';"   # expect empty

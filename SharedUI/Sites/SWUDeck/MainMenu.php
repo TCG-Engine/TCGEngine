@@ -550,18 +550,18 @@ function LoadDecks() {
         document.body.removeChild(optionsMenu);
       };
 
-      var copyImageBtn = document.createElement("button");
-      copyImageBtn.innerText = "Copy Image";
-      copyImageBtn.onclick = function(e) {
+      var generateImageBtn = document.createElement("button");
+      generateImageBtn.innerText = "Generate Image";
+      generateImageBtn.onclick = function(e) {
         e.stopPropagation();
-        CopyDeckImage(deckID, event);
+        GenerateDeckImage(deckID, e);
         document.body.removeChild(optionsMenu);
       };
 
       optionsMenu.appendChild(copyLinkBtn);
       optionsMenu.appendChild(copyTextBtn);
       optionsMenu.appendChild(copyJsonBtn);
-      optionsMenu.appendChild(copyImageBtn);
+      optionsMenu.appendChild(generateImageBtn);
       document.body.appendChild(optionsMenu);
 
       document.addEventListener("click", function removeMenu(e) {
@@ -709,6 +709,131 @@ function LoadDecks() {
       } catch (error) {
         console.error("Error copying image:", error);
         showFlashMessage("Failed to copy image!", event);
+      }
+    }
+
+    async function copyDeckImageBlob(blob, event) {
+      try {
+        let imageBlob = blob;
+        if (blob.type === "image/jpeg") {
+          imageBlob = await convertBlobToPNG(blob);
+        }
+        const clipboardItem = new ClipboardItem({ "image/png": imageBlob });
+        await navigator.clipboard.write([clipboardItem]);
+        showFlashMessage("Deck image copied!", event);
+      } catch (error) {
+        console.error("Error copying image:", error);
+        showFlashMessage("Failed to copy image!", event);
+      }
+    }
+
+    const DECK_IMAGE_SORTS = [["cost","Cost"],["setnum","Set Number"],["power","Power"],["aspect","Aspect"],["name","Name"]];
+
+    async function fetchDeckImageBlob(deckID, sort) {
+      const response = await fetch(`/TCGEngine/SWUDeck/CreateImage.php?gameName=${deckID}&sort=${encodeURIComponent(sort)}`);
+      if (!response.ok) throw new Error("load failed");
+      const blob = await response.blob();
+      if (!blob.type.startsWith("image/")) throw new Error("not an image");
+      return blob;
+    }
+
+    function openDeckImageModal(deckID, blob, sort) {
+      const overlay = document.createElement("div");
+      overlay.id = "deckImageModalOverlay";
+      overlay.style.cssText =
+        "position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:5000;" +
+        "display:flex;align-items:center;justify-content:center;padding:20px;";
+
+      const panel = document.createElement("div");
+      panel.style.cssText =
+        "background:#002249;border-radius:8px;box-shadow:0 0 20px 4px #001f4d;" +
+        "padding:16px;max-width:min(96vw,1600px);max-height:92vh;display:flex;" +
+        "flex-direction:column;align-items:center;gap:12px;";
+
+      let currentUrl = URL.createObjectURL(blob);
+      let currentBlob = blob;
+      const img = document.createElement("img");
+      img.src = currentUrl;
+      img.alt = "Deck image";
+      img.style.cssText = "max-width:100%;max-height:70vh;height:auto;object-fit:contain;border-radius:4px;";
+
+      // Sort control + regenerate
+      const controls = document.createElement("div");
+      controls.style.cssText = "display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;";
+      const sortLabel = document.createElement("span");
+      sortLabel.innerText = "Sort:";
+      sortLabel.style.cssText = "color:#fff;";
+      const sortSelect = document.createElement("select");
+      sortSelect.style.cssText = "padding:6px;";
+      DECK_IMAGE_SORTS.forEach(function(pair) {
+        const o = document.createElement("option");
+        o.value = pair[0]; o.innerText = pair[1];
+        if (pair[0] === sort) o.selected = true;
+        sortSelect.appendChild(o);
+      });
+      const regenBtn = document.createElement("button");
+      regenBtn.innerText = "Generate New Image";
+      regenBtn.style.cssText = "padding:8px 18px;cursor:pointer;";
+      regenBtn.onclick = async function(e) {
+        e.stopPropagation();
+        regenBtn.disabled = true;
+        const prev = regenBtn.innerText;
+        regenBtn.innerText = "Generating…";
+        try {
+          const newBlob = await fetchDeckImageBlob(deckID, sortSelect.value);
+          URL.revokeObjectURL(currentUrl);
+          currentUrl = URL.createObjectURL(newBlob);
+          currentBlob = newBlob;
+          img.src = currentUrl;
+        } catch (err) {
+          console.error("Error regenerating image:", err);
+          showFlashMessage("Failed to load image!", e);
+        }
+        regenBtn.disabled = false;
+        regenBtn.innerText = prev;
+      };
+
+      const btnRow = document.createElement("div");
+      btnRow.style.cssText = "display:flex;gap:12px;";
+
+      const copyBtn = document.createElement("button");
+      copyBtn.innerText = "Copy Image";
+      copyBtn.style.cssText = "padding:8px 18px;cursor:pointer;";
+      copyBtn.onclick = function(e) { e.stopPropagation(); copyDeckImageBlob(currentBlob, e); };
+
+      const closeBtn = document.createElement("button");
+      closeBtn.innerText = "Close";
+      closeBtn.style.cssText = "padding:8px 18px;cursor:pointer;";
+
+      function close() {
+        URL.revokeObjectURL(currentUrl);
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        document.removeEventListener("keydown", onEsc);
+      }
+      function onEsc(e) { if (e.key === "Escape") close(); }
+      closeBtn.onclick = function(e) { e.stopPropagation(); close(); };
+      overlay.onclick = function(e) { if (e.target === overlay) close(); };
+      document.addEventListener("keydown", onEsc);
+
+      controls.appendChild(sortLabel);
+      controls.appendChild(sortSelect);
+      controls.appendChild(regenBtn);
+      btnRow.appendChild(copyBtn);
+      btnRow.appendChild(closeBtn);
+      panel.appendChild(img);
+      panel.appendChild(controls);
+      panel.appendChild(btnRow);
+      overlay.appendChild(panel);
+      document.body.appendChild(overlay);
+    }
+
+    async function GenerateDeckImage(deckID, event) {
+      try {
+        const blob = await fetchDeckImageBlob(deckID, "cost");
+        openDeckImageModal(deckID, blob, "cost");
+      } catch (error) {
+        console.error("Error generating image:", error);
+        showFlashMessage("Failed to load image!", event);
       }
     }
 
@@ -862,7 +987,7 @@ function LoadDecks() {
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckLink("${deckID}", event); showFlashMessage("Link copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Link</button>
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckText("${deckID}", event); showFlashMessage("Text copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Text</button>
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckJSON("${deckID}", event); showFlashMessage("Deck JSON copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy JSON</button>
-        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckImage("${deckID}", event); showFlashMessage("Deck image copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Image</button>
+        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); GenerateDeckImage("${deckID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Generate Image</button>
       ` : `
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); showCopyOptions("${deckID}", event); setTimeout(()=>{if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();},200);'>${icons.copy}Copy Link/Export</button>
       `}
