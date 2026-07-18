@@ -240,6 +240,13 @@ function AzukiNormalizeGateDeck($deckData) {
             continue;
         }
 
+        // The Gate includes the shared IKZ resource cards in exported deck data,
+        // but AzukiSim creates IKZ and the one-use token as game resources.
+        // They are not playable main-deck cards.
+        if ($resolvedType === 'ikz' || $importType === 'ikz' || $importType === 'token') {
+            continue;
+        }
+
         for ($i = 0; $i < $quantity; ++$i) {
             $mainDeck[] = $resolvedCardID;
         }
