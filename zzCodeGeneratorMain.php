@@ -7,6 +7,11 @@ if ($error !== '') {
     echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8');
     exit;
 }
+CheckSession();
+if (empty($_SESSION['generator_admin_csrf'])) {
+    $_SESSION['generator_admin_csrf'] = bin2hex(random_bytes(32));
+}
+$generatorAdminCsrf = (string)$_SESSION['generator_admin_csrf'];
 
 function GeneratorAdminAppLabel($rootName)
 {
@@ -268,6 +273,10 @@ foreach ($apps as $app) {
         .options-title small { margin-top: 3px; color: var(--muted); font-size: 11px; }
         .switch { display: inline-flex; align-items: center; gap: 9px; color: #c7d0dc; font-size: 12px; cursor: pointer; }
         .switch input { width: 16px; height: 16px; accent-color: var(--blue-deep); }
+        .transfer-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .transfer-status { width: 100%; margin: -5px 0 20px; color: var(--muted); font-size: 12px; }
+        .transfer-status[data-kind="success"] { color: var(--green); }
+        .transfer-status[data-kind="error"] { color: var(--red); }
 
         .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin: 28px 0 12px; }
         .section-heading h3 { margin: 0; font-size: 15px; }
@@ -404,6 +413,19 @@ foreach ($apps as $app) {
                 <label class="switch"><input type="checkbox" id="overwrite-images"> Replace existing images</label>
             </section>
 
+            <section class="options" id="ability-transfer-options">
+                <div class="options-title">
+                    <strong>Card ability SQL</strong>
+                    <small>Export or replace only the selected app's card_abilities rows.</small>
+                </div>
+                <div class="transfer-controls">
+                    <button type="button" class="button button-small" id="export-abilities-button">Export SQL</button>
+                    <button type="button" class="button button-small" id="import-abilities-button">Import SQL</button>
+                    <input type="file" id="import-abilities-file" accept=".sql,application/sql,text/plain" hidden>
+                </div>
+            </section>
+            <p class="transfer-status" id="ability-transfer-status" role="status" aria-live="polite"></p>
+
             <div class="section-heading">
                 <h3>Build steps</h3>
                 <p>Run individually or execute the pipeline in order.</p>
@@ -426,6 +448,7 @@ foreach ($apps as $app) {
 const apps = <?= json_encode($apps, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
 const initialApp = <?= json_encode($initialApp, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
 const hasRequestedApp = <?= $hasRequestedApp ? 'true' : 'false' ?>;
+const generatorAdminCsrf = <?= json_encode($generatorAdminCsrf, JSON_UNESCAPED_SLASHES) ?>;
 const nav = document.getElementById('app-nav');
 const actionList = document.getElementById('action-list');
 const runAllButton = document.getElementById('run-all-button');
@@ -434,11 +457,17 @@ const bannerCancelButton = document.getElementById('banner-cancel-button');
 const runBanner = document.getElementById('run-banner');
 const withPreview = document.getElementById('with-preview');
 const overwriteImages = document.getElementById('overwrite-images');
+const exportAbilitiesButton = document.getElementById('export-abilities-button');
+const importAbilitiesButton = document.getElementById('import-abilities-button');
+const importAbilitiesFile = document.getElementById('import-abilities-file');
+const abilityTransferStatus = document.getElementById('ability-transfer-status');
 const outputs = new Map();
 const runStates = new Map();
 let selectedApp = apps.find(app => app.rootName === initialApp) || apps[0] || null;
 let activeController = null;
 let pipelineRunning = false;
+let transferRunning = false;
+let importApp = null;
 
 function appInitials(name) {
     const words = name.replace(/([a-z])([A-Z])/g, '$1 $2').split(/\s+/).filter(Boolean);
@@ -614,8 +643,75 @@ function render() {
         ? new Date(lastRun.completedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         : 'Not run';
     runAllButton.disabled = pipelineRunning || selectedApp.actions.length === 0;
+    exportAbilitiesButton.disabled = pipelineRunning || transferRunning;
+    importAbilitiesButton.disabled = pipelineRunning || transferRunning;
     cancelButton.hidden = !pipelineRunning;
     renderActions();
+}
+
+function setTransferStatus(message, kind = '') {
+    abilityTransferStatus.textContent = message;
+    abilityTransferStatus.dataset.kind = kind;
+}
+
+function exportAbilities() {
+    if (!selectedApp || pipelineRunning || transferRunning) return;
+    const url = new URL('CardEditor/API/AdminCardAbilityTransfer.php', window.location.href);
+    url.searchParams.set('action', 'export');
+    url.searchParams.set('app', selectedApp.rootName);
+    window.location.assign(url);
+    setTransferStatus(`Preparing ${selectedApp.rootName} card abilities for download…`);
+}
+
+function chooseAbilityImport() {
+    if (!selectedApp || pipelineRunning || transferRunning) return;
+    importApp = selectedApp;
+    importAbilitiesFile.value = '';
+    importAbilitiesFile.click();
+}
+
+async function importAbilities() {
+    const file = importAbilitiesFile.files && importAbilitiesFile.files[0];
+    const app = importApp;
+    if (!file || !app) return;
+    if (!window.confirm(`Replace all card abilities for ${app.rootName} with the contents of ${file.name}? Other apps will not be changed.`)) return;
+
+    transferRunning = true;
+    render();
+    setTransferStatus(`Importing ${app.rootName} card abilities…`);
+    try {
+        const form = new FormData();
+        form.set('action', 'import');
+        form.set('app', app.rootName);
+        form.set('csrf', generatorAdminCsrf);
+        form.set('sqlFile', file);
+        const response = await fetch('CardEditor/API/AdminCardAbilityTransfer.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: form,
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.success) throw new Error(payload.error || `Import failed with HTTP ${response.status}`);
+
+        setTransferStatus(`Imported ${payload.importedCount} ability rows for ${app.rootName}. Regenerating runtime code…`);
+        const gameAction = app.actions.find(action => action.id === 'game');
+        if (gameAction) {
+            pipelineRunning = true;
+            showRunBanner(gameAction.label, 'Regenerating after card ability import');
+            const generated = await executeAction(gameAction);
+            pipelineRunning = false;
+            hideRunBanner();
+            if (!generated) throw new Error('Abilities were imported, but runtime regeneration failed; inspect the Game runtime output.');
+        }
+        setTransferStatus(`Imported ${payload.importedCount} ability rows for ${app.rootName}; no other apps were changed.`, 'success');
+    } catch (error) {
+        setTransferStatus(error.message || 'Card ability import failed.', 'error');
+    } finally {
+        transferRunning = false;
+        importApp = null;
+        importAbilitiesFile.value = '';
+        render();
+    }
 }
 
 function actionUrl(action) {
@@ -730,6 +826,9 @@ function cancelRun() { if (activeController) activeController.abort(); }
 runAllButton.addEventListener('click', runPipeline);
 cancelButton.addEventListener('click', cancelRun);
 bannerCancelButton.addEventListener('click', cancelRun);
+exportAbilitiesButton.addEventListener('click', exportAbilities);
+importAbilitiesButton.addEventListener('click', chooseAbilityImport);
+importAbilitiesFile.addEventListener('change', importAbilities);
 
 if (!hasRequestedApp) {
     try {
