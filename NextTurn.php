@@ -359,6 +359,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           '/TCGEngine/SharedUI/css/tokens.css',
           '/TCGEngine/SharedUI/css/button.css',
           '/TCGEngine/SharedUI/css/switch.css',
+          '/TCGEngine/SharedUI/css/card-touch.css',   // suppresses the iOS long-press image callout
         ];
         $__themePath = "/TCGEngine/SharedUI/Themes/$__theme.tokens.css";
         if ($__theme !== 'neutral' && @file_exists(($_SERVER['DOCUMENT_ROOT'] ?? '') . $__themePath)) {

@@ -1,0 +1,25 @@
+/* Shared card touch behavior — loaded on every in-game board via NextTurn.php's $__board stack.
+ *
+ * Cards are inspected with a 430ms long-press (Core/jsInclude.js). iOS Safari's native image
+ * callout hijacks that gesture: it lifts and magnifies the tile <img> itself and opens the
+ * "Save to Photos / Copy / Show Text" sheet. Because board tiles render from the squashed
+ * concat art (450x450, blank rules box) rather than the full card, the user sees an unreadable
+ * card and never gets our WebpImages preview — which renders correctly for a split second
+ * before iOS takes over.
+ *
+ * -webkit-touch-callout kills the callout + lift. user-select goes with it: Safari ties
+ * selection and callout behavior together, so suppressing both is materially more reliable
+ * than the callout property alone. Android Chrome has its own long-press image menu that CSS
+ * does not cover — that is handled by the contextmenu guard in Core/jsInclude.js.
+ *
+ * Selector note: every card <img> carries a hardcoded alt='Card' from the single shared Card()
+ * renderer, and subcard/attachment images carry data-subcard-id. Targeting those attributes
+ * reaches all five apps without editing the datestamped UILibraries bundle (which would force a
+ * repo-wide bump-uilibraries-cache rename).
+ */
+img[alt='Card'],
+[data-subcard-id] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}

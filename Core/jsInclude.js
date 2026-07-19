@@ -314,6 +314,17 @@ document.addEventListener("click", function(e) {
   if (e && typeof e.stopPropagation === "function") e.stopPropagation();
 }, true);
 
+// Long-press on a card belongs to our preview, not to the browser's image menu. iOS Safari is
+// handled in CSS (-webkit-touch-callout, SharedUI/css/card-touch.css); Android Chrome ignores
+// that property and opens its own "Open image in new tab / Download image" menu on long-press,
+// so cancel contextmenu for cards here. Only cards: long-press on ordinary page text or links
+// keeps native behavior, and desktop right-click on a card is suppressed as a harmless side
+// effect (there is no card context menu in any app).
+document.addEventListener("contextmenu", function(e) {
+  if (!FindLongPressCardDetailTarget(e)) return;
+  if (typeof e.preventDefault === "function") e.preventDefault();
+}, true);
+
 function ChatKey(event) {
   if (event.keyCode === 13) {
     event.preventDefault();
