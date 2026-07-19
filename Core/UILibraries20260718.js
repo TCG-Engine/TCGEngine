@@ -72,6 +72,101 @@ function ResolveGlobalFunction(functionName) {
   return null;
 }
 
+var activeHeatmapExplanationCard = null;
+
+function HideHeatmapExplanation() {
+  var tooltip = document.getElementById("heatmap-explanation-tooltip");
+  if (tooltip != null) tooltip.remove();
+  if (activeHeatmapExplanationCard != null) {
+    activeHeatmapExplanationCard.classList.remove("heatmap-explanation-active");
+    activeHeatmapExplanationCard = null;
+  }
+}
+
+function ShowHeatmapExplanation(event, trigger) {
+  if (trigger == null) return;
+  HideHeatmapExplanation();
+
+  var explanation = trigger.getAttribute("data-heatmap-explanation") || "";
+  var requiredCardID = trigger.getAttribute("data-required-card-id") || "";
+  var requiredCardPath = trigger.getAttribute("data-required-card-path") || "";
+  if (explanation === "") return;
+
+  activeHeatmapExplanationCard = trigger.closest("span.draggable");
+  if (activeHeatmapExplanationCard != null) {
+    activeHeatmapExplanationCard.classList.add("heatmap-explanation-active");
+  }
+
+  var tooltip = document.createElement("div");
+  tooltip.id = "heatmap-explanation-tooltip";
+  tooltip.setAttribute("role", "tooltip");
+  tooltip.style.cssText = "position:fixed; z-index:100000; width:240px; padding:12px; border:1px solid rgba(255,255,255,.28); border-radius:12px; background:linear-gradient(145deg,rgba(24,30,42,.98),rgba(8,12,20,.98)); box-shadow:0 12px 32px rgba(0,0,0,.55); color:#f7f8fb; font:14px/1.4 sans-serif; text-align:left; text-shadow:none; pointer-events:none;";
+
+  if (requiredCardID !== "" && requiredCardPath !== "") {
+    var preview = document.createElement("img");
+    preview.src = requiredCardPath;
+    preview.alt = "Required card";
+    preview.style.cssText = "display:block; width:128px; height:auto; margin:0 auto 10px; border-radius:8px; box-shadow:0 5px 15px rgba(0,0,0,.45);";
+    tooltip.appendChild(preview);
+
+    var requirementLabel = document.createElement("div");
+    requirementLabel.textContent = "Required card";
+    requirementLabel.style.cssText = "margin-bottom:9px; color:#8ed8ff; font-size:11px; font-weight:700; letter-spacing:.08em; text-align:center; text-transform:uppercase;";
+    tooltip.appendChild(requirementLabel);
+  }
+
+  var explanationText = document.createElement("div");
+  explanationText.textContent = explanation;
+  explanationText.style.color = "#e6eaf0";
+  tooltip.appendChild(explanationText);
+  document.body.appendChild(tooltip);
+
+  var anchorCard = activeHeatmapExplanationCard || trigger;
+  var anchorRect = anchorCard.getBoundingClientRect();
+  var tooltipRect = tooltip.getBoundingClientRect();
+  var viewportPadding = 8;
+  var cardGap = 10;
+  var spaces = {
+    below: window.innerHeight - anchorRect.bottom - cardGap - viewportPadding,
+    above: anchorRect.top - cardGap - viewportPadding,
+    right: window.innerWidth - anchorRect.right - cardGap - viewportPadding,
+    left: anchorRect.left - cardGap - viewportPadding
+  };
+  var placement = "";
+  if (spaces.below >= tooltipRect.height) placement = "below";
+  else if (spaces.above >= tooltipRect.height) placement = "above";
+  else if (spaces.right >= tooltipRect.width) placement = "right";
+  else if (spaces.left >= tooltipRect.width) placement = "left";
+  else {
+    placement = ["below", "above", "right", "left"].reduce(function(best, candidate) {
+      var candidateSize = candidate === "below" || candidate === "above" ? tooltipRect.height : tooltipRect.width;
+      var bestSize = best === "below" || best === "above" ? tooltipRect.height : tooltipRect.width;
+      return Math.max(0, spaces[candidate]) / candidateSize > Math.max(0, spaces[best]) / bestSize ? candidate : best;
+    }, "below");
+  }
+
+  var left;
+  var top;
+  if (placement === "below" || placement === "above") {
+    var availableHeight = Math.max(48, spaces[placement]);
+    tooltip.style.maxHeight = availableHeight + "px";
+    tooltip.style.overflow = "hidden";
+    tooltipRect = tooltip.getBoundingClientRect();
+    left = anchorRect.left + (anchorRect.width / 2) - (tooltipRect.width / 2);
+    left = Math.max(viewportPadding, Math.min(left, window.innerWidth - tooltipRect.width - viewportPadding));
+    top = placement === "below" ? anchorRect.bottom + cardGap : anchorRect.top - tooltipRect.height - cardGap;
+  } else {
+    var availableWidth = Math.max(80, spaces[placement]);
+    tooltip.style.maxWidth = availableWidth + "px";
+    tooltipRect = tooltip.getBoundingClientRect();
+    left = placement === "right" ? anchorRect.right + cardGap : anchorRect.left - tooltipRect.width - cardGap;
+    top = anchorRect.top + (anchorRect.height / 2) - (tooltipRect.height / 2);
+    top = Math.max(viewportPadding, Math.min(top, window.innerHeight - tooltipRect.height - viewportPadding));
+  }
+  tooltip.style.left = left + "px";
+  tooltip.style.top = top + "px";
+}
+
 function RenderedZoneImageReuseKey(image) {
   if (!image || typeof image.closest !== "function") return "";
 
@@ -233,7 +328,15 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             if(resolvedHeatmapFunction == null) {
               console.warn("Missing heatmap function:", heatmapFunction, "for card", cardNumber);
             } else {
-            var heatmapValue = resolvedHeatmapFunction(cardNumber);
+            var heatmapResult = resolvedHeatmapFunction(cardNumber);
+            var heatmapValue = heatmapResult;
+            var heatmapExplanation = "";
+            var heatmapRequiredCardID = "";
+            if (heatmapResult != null && typeof heatmapResult === "object") {
+              heatmapValue = heatmapResult.value;
+              heatmapExplanation = typeof heatmapResult.explanation === "string" ? heatmapResult.explanation : "";
+              heatmapRequiredCardID = typeof heatmapResult.requiredCardID === "string" ? heatmapResult.requiredCardID : "";
+            }
             var overlayColor = "rgba(0, 0, 0, .7)"; // Initialize to gray color
             if (heatmapColorMap == "HigherIsBetter") {
               overlayColor = heatmapValue == -1 ? "rgba(0, 0, 0, .7)" : getOverlayColorHigherIsBetter(heatmapValue);
@@ -241,7 +344,30 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
               overlayColor = heatmapValue == -1 ? "rgba(0, 0, 0, .7)" : getOverlayColorLowerIsBetter(heatmapValue);
             }
             var gradientOverlay = heatmapValue == -1 ? "rgba(0, 0, 0, 0.5)" : `linear-gradient(to top, ${overlayColor}, rgba(255, 255, 255, 0))`;
-            rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + "style='visibility:visible; width:calc(100% - 2px); height:calc(100% - 2px); top:1px; left:1px; border-radius:6px; position:absolute; background: " + gradientOverlay + "; z-index: 1; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; color: white; text-shadow: 2px 2px 4px black;'>" + (heatmapValue == -1 ? "No Data" : (heatmapValue * 100).toFixed(2) + "%") + "</div>";
+            rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + "style='visibility:visible; width:calc(100% - 2px); height:calc(100% - 2px); top:1px; left:1px; border-radius:6px; position:absolute; background: " + gradientOverlay + "; z-index: 1; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; color: white; text-shadow: 2px 2px 4px black;'>" + (heatmapValue == -1 ? "No Data" : (heatmapValue * 100).toFixed(2) + "%");
+            if (heatmapExplanation !== "") {
+              var escapedHeatmapExplanation = heatmapExplanation
+                .replace(/&/g, "&amp;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#39;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+              var escapedRequiredCardID = heatmapRequiredCardID
+                .replace(/&/g, "&amp;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#39;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+              var requiredCardPath = heatmapRequiredCardID !== "" ? folderPath + "/" + heatmapRequiredCardID + fileExt : "";
+              var escapedRequiredCardPath = requiredCardPath
+                .replace(/&/g, "&amp;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#39;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+              rv += "<span tabindex='0' role='button' aria-label='Explain this heatmap calculation' data-heatmap-explanation='" + escapedHeatmapExplanation + "' data-required-card-id='" + escapedRequiredCardID + "' data-required-card-path='" + escapedRequiredCardPath + "' onmouseover='event.stopPropagation(); ShowHeatmapExplanation(event, this);' onmouseout='event.stopPropagation(); HideHeatmapExplanation();' onfocus='ShowHeatmapExplanation(event, this);' onblur='HideHeatmapExplanation();' onclick='event.stopPropagation();' style='position:absolute; left:50%; bottom:4px; transform:translateX(-50%); width:20px; height:20px; border:1px solid rgba(255,255,255,.9); border-radius:50%; background:rgba(0,0,0,.65); display:flex; align-items:center; justify-content:center; font:700 14px/1 sans-serif; color:white; text-shadow:none; cursor:help;'>?</span>";
+            }
+            rv += "</div>";
             }
         } else {
           var overlayTypeList = [];
@@ -1847,6 +1973,11 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         span.draggable:hover .widget-buttons {
           visibility: visible !important;
           pointer-events: auto !important;
+        }
+
+        span.draggable.heatmap-explanation-active .widget-buttons {
+          visibility: hidden !important;
+          pointer-events: none !important;
         }
 
         .ga-token-stack {

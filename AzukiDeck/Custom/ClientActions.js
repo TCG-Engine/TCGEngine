@@ -13,6 +13,11 @@ function AzukiDeckLeaderCardID() {
   return String(window.myLeaderData).split('<|>')[0].split(' ')[0];
 }
 
+function AzukiDeckGateCardID() {
+  if (!window.myGateData) return '';
+  return String(window.myGateData).split('<|>')[0].split(' ')[0];
+}
+
 // UILibraries treats true as "filter this card out". A card is legal when it is
 // neutral or shares the selected leader's elemental identity. Until a leader is
 // selected, leave the library unfiltered so the deck builder remains usable.
@@ -88,6 +93,20 @@ function AzukiDeckCardCostAtMost(cardID, maximumCost) {
     && Number(window.CardikzCost(cardID)) <= maximumCost;
 }
 
+function AzukiDeckCardIsZeroCostSpell(cardID) {
+  return AzukiDeckCardIsCategory(cardID, 'Spell')
+    && typeof window.CardikzCost === 'function'
+    && Number(window.CardikzCost(cardID)) === 0;
+}
+
+function AzukiDeckHypergeoResult(value, explanation, requiredCardID) {
+  return {
+    value: value,
+    explanation: explanation,
+    requiredCardID: requiredCardID || ''
+  };
+}
+
 function AzukiDeckTopCardsHitRate(deck, sourceCardID, sampleSize, predicate) {
   var populationSize = deck.length - 1;
   var populationSuccesses = deck.reduce(function(total, deckCardID) {
@@ -105,6 +124,13 @@ function HyperGeo(cardID) {
   if (!deck.length) return -1;
 
   switch (cardID) {
+    case 'S1-AZK01-068_Pip_E_C_die':
+      if (AzukiDeckGateCardID() !== 'S1-AZK01-126_Gate-of-Echoed-Waves-Gate_G_G_die') return -1;
+      return AzukiDeckHypergeoResult(
+        AzukiDeckTopCardsHitRate(deck, cardID, 6, AzukiDeckCardIsZeroCostSpell),
+        'Given that your opening hand contains Pip, this is the chance that at least one of the other 6 cards is a 0-cost spell.',
+        'S1-AZK01-126_Gate-of-Echoed-Waves-Gate_G_G_die'
+      );
     case 'S1-AZK01-003_Black-Jade-Courier_E_C_die':
       return AzukiDeckTopCardsHitRate(deck, cardID, 5, function(candidateID) {
         return candidateID !== cardID && AzukiDeckCardHasSubtype(candidateID, 'Black Jade');

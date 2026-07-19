@@ -608,6 +608,21 @@ if (AzukiDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; ret
      preserve the actions above them as a final safeguard on constrained viewports. */
   #cardDetail { pointer-events: none !important; }
   #swuDeckBoard span.draggable:hover .widget-buttons { z-index: 100100 !important; }
+  #myMainDeck span.widget-buttons,
+  #mySideboard span.widget-buttons {
+    gap: 1px !important;
+    max-width: calc(100% - 8px);
+    font-size: 0 !important;
+  }
+  #myMainDeck span.widget-buttons .widget-button,
+  #myMainDeck span.widget-buttons .widget-button-selected,
+  #mySideboard span.widget-buttons .widget-button,
+  #mySideboard span.widget-buttons .widget-button-selected {
+    min-width: 24px !important;
+    margin: 1px 0 !important;
+    padding: 4px 5px !important;
+    font-size: 12px !important;
+  }
 </style>
 <div id="swuDeckBoard" style="position:absolute; left:0; top:0; right:0; bottom:0; z-index:11;">
   <!-- Slots carry only position; the generator's BindTo render sets each slot's .onclick and
