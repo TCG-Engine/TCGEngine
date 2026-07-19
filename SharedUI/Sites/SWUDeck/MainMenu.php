@@ -844,13 +844,47 @@ function LoadDecks() {
       document.body.appendChild(overlay);
     }
 
+    // Full-screen spinner overlay, shown while the (slow, ~several second) deck-image render runs so
+    // the button gives instant feedback instead of looking dead. Returns a handle with close().
+    function showLoadingOverlay(message) {
+      if (!document.getElementById("swuSpinKeyframes")) {
+        const st = document.createElement("style");
+        st.id = "swuSpinKeyframes";
+        st.textContent = "@keyframes swuSpin{to{transform:rotate(360deg)}}";
+        document.head.appendChild(st);
+      }
+      const overlay = document.createElement("div");
+      overlay.id = "deckImageLoadingOverlay";
+      overlay.style.cssText =
+        "position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:5000;display:flex;" +
+        "flex-direction:column;align-items:center;justify-content:center;gap:16px;";
+      const spinner = document.createElement("div");
+      spinner.style.cssText =
+        "width:54px;height:54px;border:5px solid rgba(140,210,255,0.25);border-top-color:#8cd2ff;" +
+        "border-radius:50%;animation:swuSpin 0.8s linear infinite;";
+      const label = document.createElement("div");
+      label.innerText = message || "Loading…";
+      label.style.cssText = "color:#fff;font-size:16px;text-align:center;";
+      overlay.appendChild(spinner);
+      overlay.appendChild(label);
+      document.body.appendChild(overlay);
+      return { close: function() { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); } };
+    }
+
     async function GenerateDeckImage(deckID, event) {
+      if (window.__deckImageGenerating) return; // guard against double-trigger spawning two fetches
+      window.__deckImageGenerating = true;
+      const loader = showLoadingOverlay("Generating deck image…");
       try {
         const blob = await fetchDeckImageBlob(deckID, "cost");
+        loader.close();
         openDeckImageModal(deckID, blob, "cost");
       } catch (error) {
+        loader.close();
         console.error("Error generating image:", error);
         showFlashMessage("Failed to load image!", event);
+      } finally {
+        window.__deckImageGenerating = false;
       }
     }
 
