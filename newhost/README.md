@@ -104,12 +104,50 @@ sudo ./provision-app.sh swusim swusim          # <app> <db>, defaults to swusim 
 
 Per-app, re-runnable:
 
-- **Env vars** — writes `etc/extra/httpd-<app>-env.conf` with `SetEnv MYSQL_DATABASE_NAME <db>` (+ server/user/password/redis) and Includes it from `httpd.conf`. The app's `getenv()` in `Database/ConnectionManager.php` then resolves the right DB.
-- **Set up DB** — DROPs the leftover `STALE_DB` (default `soulmastersdb` — what the restored box ships with), then (re)creates `<db>` fresh and loads the canonical schema (`SCHEMA_SQL`, default `../Database/database.sql`). Ends clean + empty, no `soulmastersdb`. No dump. Typed confirmation (lists what gets dropped) unless `--yes`.
+- **Env vars (default, always)** — writes `etc/extra/httpd-<app>-env.conf` with `SetEnv MYSQL_DATABASE_NAME <db>` (+ server/user/password/redis) and Includes it from `httpd.conf`. The app's `getenv()` in `Database/ConnectionManager.php` then resolves the right DB. **This is all a bare re-run does — the DB is never touched.**
+- **DB reset (opt-in, `--reset-db` ONLY)** — DROPs the leftover `STALE_DB` (default `soulmastersdb`), then DROP/recreates `<db>` and loads the canonical schema (`SCHEMA_SQL`, default `../Database/database.sql`). **DESTRUCTIVE — wipes all data in `<db>`.** Requires `--reset-db` **and** a typed confirmation (unless `--yes`). Use only for a brand-new/empty DB.
 
-Flags: `--skip-env`, `--skip-db`, `--yes`.
-DB creds: `DB_USER`, `DB_PASS`, `MYSQL_HOST`, `REDIS_HOST`, `REDIS_PORT` env vars
-(defaults: `root` / empty / `localhost` / `127.0.0.1` / `6379`).
+Flags: `--skip-env`, `--reset-db` (destructive DB wipe+load), `--yes`.
+Requirements/creds: **`DB_PASS` is required** (no passwordless DB). `DB_USER`, `MYSQL_HOST`, `REDIS_HOST`, `REDIS_PORT` env vars default to `root` / `localhost` / `127.0.0.1` / `6379`. `DB_NAME` defaults to the app name.
+Preflight guards (fail before any change): DB connectivity, DB exists (unless `--reset-db`), and no *other* `httpd-*-env.conf` setting a different `MYSQL_DATABASE_NAME`.
+
+### Bringing up a site — runbook + the traps
+
+`ActiveSite.php` resolves the rendered site from `MYSQL_DATABASE_NAME`, and
+`Database/ConnectionManager.php` connects to a **DB named exactly that** — so for AzukiSim the
+env must be `MYSQL_DATABASE_NAME=azukisim` **and** a DB named `azukisim`. Mapping lives in
+`SharedUI/ActiveSite.php` (`swudeck→SWUDeck`, `azukisim→AzukiSim`, `swusim→SWUSim`, `grandarchivesim→GrandArchiveSim`).
+
+Per host, in order:
+
+1. `sudo ./harden-host.sh` → `sudo ./install-php-deps.sh` → `sudo ./harden-htaccess.sh`.
+2. **`sudo DB_PASS='<real>' ./provision-app.sh <app> <db>`** — writes the Apache `SetEnv` env conf
+   (in `httpd.conf`, NOT `.htaccess`). Bare run is **env-only and never touches the DB** — safe to re-run.
+   (Only for a brand-new empty DB do you add `--reset-db` to load the schema.)
+3. Verify **before** loading the site (the connectivity preflight in step 2 now also does this):
+   ```bash
+   grep -rn "MYSQL_" /opt/lampp/etc/extra/httpd-*-env.conf      # exactly ONE, correct values
+   /opt/lampp/bin/mysql -u root -p'<real>' -e "SELECT COUNT(*) FROM <db>.ownership;"
+   ```
+4. `sudo /opt/lampp/lampp restart`, then load the domain.
+
+**Traps that will bite you (all hit in prod once):**
+
+- **`DB_NAME` defaults to the app name** (`azukisim` → db `azukisim`). Pass a 2nd positional to override.
+  (It used to hardcode `swusim`, which silently served the wrong site → "Petranaki Arena".)
+- **`--reset-db` is DESTRUCTIVE** — it drops+recreates `<db>` and wipes all data. A bare run never
+  touches the DB, so re-running on a live box is safe. Only pass `--reset-db` for a brand-new/empty DB.
+- **`DB_PASS` is required** — the script fails fast without it. Pass the real password (and
+  `DB_USER`/`MYSQL_HOST` if not `root`/`localhost`).
+- **Env must NOT live in the docroot `.htaccess`.** `harden-htaccess.sh` overwrites that file, so any
+  `SetEnv MYSQL_DATABASE_NAME` there is wiped on its next run → site-wide 500. `provision-app.sh` keeps
+  env in `httpd.conf`, which `harden-htaccess.sh` never touches.
+- **Only ONE `httpd-*-env.conf` should set `MYSQL_DATABASE_NAME`.** `provision-app.sh` only *appends*
+  Includes, so a mistaken earlier run leaves a stale conf that can win. Delete the stale file **and** its
+  `Include` line in `httpd.conf`.
+- **GD**: `harden-host.sh` adds `extension=gd` when LAMPP's PHP lacks GD; if there's no `gd.so`, image
+  generation (`SWUDeck/CreateImage.php`) fatals. Provide a real GD for LAMPP 8.2 (or comment the line if
+  the box relies on Imagick). Not a MainMenu blocker, but breaks deck images.
 
 ## Verify
 

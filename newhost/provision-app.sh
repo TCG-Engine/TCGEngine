@@ -1,21 +1,24 @@
 #!/usr/bin/env bash
 #
-# provision-app.sh <APP> <DB_NAME> - PER-APP setup on a native XAMPP/LAMPP box.
+# provision-app.sh <APP> [DB_NAME] - PER-APP setup on a native XAMPP/LAMPP box.
 #
-# Run this once for each app cloned from the hardened snapshot (see harden-host.sh).
-# It is re-runnable / idempotent. Two things:
-#   1. Env vars  - Apache SetEnv so the app's getenv() resolves the right DB name.
-#   2. Set up DB - DROP the leftover template db (STALE_DB, default "soulmastersdb"),
-#                  then (re)create <DB_NAME> fresh and load the canonical schema
-#                  (SCHEMA_SQL, default ../Database/database.sql). Ends empty + clean.
+# Run once per app cloned from the hardened snapshot (see harden-host.sh). SAFE TO
+# RE-RUN: by DEFAULT it only (re)writes the app's env vars and NEVER touches the
+# database. Two things:
+#   1. Env vars  - Apache SetEnv so the app's getenv() resolves the right DB name/creds.
+#   2. DB (opt-in via --reset-db ONLY) - DROP the stale template db + DROP/recreate
+#      <DB_NAME> and load the canonical schema (SCHEMA_SQL). DESTRUCTIVE: wipes ALL
+#      data in <DB_NAME>. Requires --reset-db AND a typed confirmation (unless --yes).
+#      Use only for a brand-new/empty DB; never on a populated one.
 #
+# DB_PASS is REQUIRED (a passwordless DB is not allowed). DB_NAME defaults to <APP>.
 # The app reads DB config via getenv() in Database/ConnectionManager.php and Redis
 # via Core/NetworkingLibraries.php. Apache (mod_php) exposes SetEnv values to getenv().
 #
 # Usage:
-#   sudo ./provision-app.sh                 # defaults: app=swusim db=swusim
-#   sudo ./provision-app.sh myapp myapp_db
-#   sudo ./provision-app.sh swusim swusim --yes --skip-db
+#   sudo DB_PASS=... ./provision-app.sh swudeck                  # env only (safe re-run), db=swudeck
+#   sudo DB_PASS=... ./provision-app.sh azukisim azukisim        # env only, explicit db
+#   sudo DB_PASS=... ./provision-app.sh newapp newapp --reset-db # NEW db: drop+create+load schema
 #
 set -euo pipefail
 
@@ -23,11 +26,11 @@ set -euo pipefail
 # Positional args + flags
 # ---------------------------------------------------------------------------
 APP=""; DB_NAME=""
-SKIP_ENV=0; SKIP_DB=0; ASSUME_YES=0
+SKIP_ENV=0; RESET_DB=0; ASSUME_YES=0
 for arg in "$@"; do
   case "$arg" in
     --skip-env) SKIP_ENV=1 ;;
-    --skip-db)  SKIP_DB=1 ;;
+    --reset-db) RESET_DB=1 ;;   # opt-in: DESTRUCTIVE drop+recreate+load schema
     --yes|-y)   ASSUME_YES=1 ;;
     -h|--help)  grep '^#' "$0" | sed 's/^# \{0,1\}//' | sed '/^!/d'; exit 0 ;;
     --*)        echo "Unknown option: $arg" >&2; exit 2 ;;
@@ -35,7 +38,11 @@ for arg in "$@"; do
   esac
 done
 APP="${APP:-swusim}"
-DB_NAME="${DB_NAME:-swusim}"
+# DB_NAME defaults to the app name — the convention is app == db (swudeck/swudeck,
+# azukisim/azukisim, swusim/swusim). Pass a 2nd positional or DB_NAME=... to override.
+# (Historically this defaulted to a hardcoded "swusim", which silently pointed a
+# single-positional run at the wrong DB/site — hence the app-name default now.)
+DB_NAME="${DB_NAME:-$APP}"
 
 # ---------------------------------------------------------------------------
 # Config (override via environment)
@@ -48,7 +55,7 @@ ENV_CONF="$LAMPP_ROOT/etc/extra/httpd-$APP-env.conf"
 
 MYSQL_HOST="${MYSQL_HOST:-localhost}"
 DB_USER="${DB_USER:-root}"
-DB_PASS="${DB_PASS:-}"          # XAMPP root is passwordless by default
+DB_PASS="${DB_PASS:-}"          # REQUIRED — enforced in preflight (no passwordless DB)
 STALE_DB="${STALE_DB:-soulmastersdb}"          # leftover db from the restore, to be DROPPED
 SCHEMA_SQL="${SCHEMA_SQL:-$SCRIPT_DIR/../Database/database.sql}"  # canonical schema to load
 REDIS_HOST="${REDIS_HOST:-127.0.0.1}"
@@ -85,7 +92,36 @@ db_exists() { mysql_cli -N -e "SHOW DATABASES LIKE '$1';" | grep -Fxq "$1"; }
 # ---------------------------------------------------------------------------
 [ "$(id -u)" -eq 0 ] || die "must run as root (sudo)."
 [ -d "$LAMPP_ROOT" ] || die "LAMPP not found at $LAMPP_ROOT."
+[ -n "$DB_PASS" ] || die "DB_PASS is required — pass DB_PASS=... (a passwordless DB is not allowed)."
 log "Provisioning app '$APP' (db '$DB_NAME') at $LAMPP_ROOT  (backups -> $BACKUP_DIR)"
+
+# DB connectivity preflight -- fail loudly BEFORE changing anything, so a wrong
+# password or DB name surfaces here instead of as a site-wide 500 after the restart.
+[ -x "$MYSQL_BIN" ] || die "mysql client not found at $MYSQL_BIN."
+if ! mysql_cli -e "SELECT 1;" >/dev/null 2>&1; then
+  die "cannot connect to MySQL as '$DB_USER'@'$MYSQL_HOST' — check DB_USER / DB_PASS."
+fi
+# Default is env-only and never creates the DB, so it must already exist. --reset-db
+# is the only path that creates it.
+if [ "$RESET_DB" -eq 0 ] && ! db_exists "$DB_NAME"; then
+  die "database '$DB_NAME' does not exist — pass --reset-db to create it and load the schema."
+fi
+ok "MySQL reachable as '$DB_USER'@'$MYSQL_HOST' (the creds that go into the app's env)"
+
+# One box serves one site (single MYSQL_DATABASE_NAME). Refuse if any OTHER env conf
+# already sets a DIFFERENT db name — that's the silent "wrong site" footgun.
+conflicts=""
+for f in "$LAMPP_ROOT"/etc/extra/httpd-*-env.conf; do
+  [ -e "$f" ] || continue
+  [ "$f" = "$ENV_CONF" ] && continue
+  other="$(grep -E '^[[:space:]]*SetEnv[[:space:]]+MYSQL_DATABASE_NAME[[:space:]]+' "$f" 2>/dev/null | awk '{print $3}' | head -1)"
+  [ -n "$other" ] && [ "$other" != "$DB_NAME" ] && conflicts+="  ${f}  (MYSQL_DATABASE_NAME=${other})"$'\n'
+done
+if [ -n "$conflicts" ]; then
+  warn "other env conf(s) set a DIFFERENT MYSQL_DATABASE_NAME than '$DB_NAME':"
+  printf '%s' "$conflicts" >&2
+  die "remove those conf files and their 'Include' lines in $HTTPD_CONF — one box serves one site."
+fi
 
 # ---------------------------------------------------------------------------
 # 1. Env vars (Apache SetEnv)
@@ -125,8 +161,8 @@ fi
 # ---------------------------------------------------------------------------
 # 2. Set up DB (drop stale, recreate target, load canonical schema)
 # ---------------------------------------------------------------------------
-if [ "$SKIP_DB" -eq 0 ]; then
-  log "Setting up database '$DB_NAME' fresh from $SCHEMA_SQL"
+if [ "$RESET_DB" -eq 1 ]; then
+  log "RESET: dropping + recreating database '$DB_NAME' from $SCHEMA_SQL (DESTRUCTIVE — wipes all data)"
   [ -x "$MYSQL_BIN" ] || die "mysql client not found at $MYSQL_BIN."
   [ -f "$SCHEMA_SQL" ] || die "schema file not found at $SCHEMA_SQL (set SCHEMA_SQL=...)."
 
@@ -154,7 +190,7 @@ if [ "$SKIP_DB" -eq 0 ]; then
   tcount="$(mysql_cli -N -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$DB_NAME' AND table_type='BASE TABLE';")"
   ok "created '$DB_NAME' and loaded schema ($tcount tables)"
 else
-  warn "skipping DB setup (--skip-db)"
+  ok "DB left untouched (env only). Pass --reset-db to drop + recreate + load the schema."
 fi
 
 # ---------------------------------------------------------------------------
