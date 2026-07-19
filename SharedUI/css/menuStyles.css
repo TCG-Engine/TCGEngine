@@ -165,6 +165,16 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, b, ul, ol, li, dl, dd, form, details, 
     flex-direction: row;
   }
 
+  /* Auth pages (login/signup) on mobile: the desktop layout centers a flex:1 content
+     column between two flex:1 padders, so on a phone the form collapses to ~1/3 width.
+     Stack it full-width on narrow screens. Scoped to .core-wrapper.auth-page so MainMenu
+     and every other .core-wrapper page is untouched (only login/signup add .auth-page). */
+  @media (max-width: 768px) {
+    .core-wrapper.auth-page { flex-direction: column; height: auto; }
+    .core-wrapper.auth-page .flex-wrapper { flex-direction: column; }
+    .core-wrapper.auth-page .flex-padder { flex: 0; margin: 0; }
+  }
+
   .column-wrapper {
     display: flex;
     flex-direction: column;
