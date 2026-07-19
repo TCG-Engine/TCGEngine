@@ -23,3 +23,23 @@ img[alt='Card'],
   -webkit-user-select: none;
   user-select: none;
 }
+
+/* Suppressing the callout uncovered a second gesture consumer. Cards render draggable='true'
+ * wherever IsDragDropEnabled() is true (UILibraries:587 — everything except GrandArchiveSim,
+ * AzukiSim, AzukiDeck), and iOS DOES start an HTML5 drag from a long-press; the native callout
+ * was simply intercepting it first. With the callout gone, a long-press fires dragStart() ->
+ * generatedDragStart(), painting every valid drop target with the yellow dashed `.droppable`
+ * border (NextTurn.php:48) instead of showing a preview.
+ *
+ * Scoped to coarse-pointer, no-hover devices so mouse drag-and-drop — a real deckbuilder
+ * feature on desktop — is completely unaffected. Touchscreen laptops report hover:hover and are
+ * excluded too. Touch layouts move cards by tap, never by drag, so nothing is lost here. */
+@media (hover: none) and (pointer: coarse) {
+  img[alt='Card'],
+  [data-subcard-id],
+  a[onmouseover*='ShowCardDetail'],
+  span.draggable {
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+}

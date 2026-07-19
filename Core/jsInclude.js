@@ -282,6 +282,13 @@ function ShowSubcardDetail(e, imgEl, options) {
 
 function HideCardDetail(force) {
   if (!force && freezeCardDetailUntilMouseMove) return;
+  // A persistent touch preview is dismissed only by an explicit force call — the tap handled in
+  // BeginCardDetailLongPress, or a rotation. Every card carries an inline onmouseout=
+  // 'HideCardDetail()' (UILibraries:297), and touch platforms fire a SYNTHETIC mouseout when the
+  // finger moves between cards; without this guard that stray event closes a preview the user
+  // just opened, so the second and later long-presses flash and vanish. ShowCardDetail already
+  // guards the mirror case via suppressMouseCardDetailUntil.
+  if (!force && cardDetailPersistent) return;
   cardDetailRequestToken++;
   clearTimeout(showDetailTimeout);
   var el = document.getElementById("cardDetail");
@@ -427,6 +434,24 @@ document.addEventListener("click", function(e) {
 // keeps native behavior, and desktop right-click on a card is suppressed as a harmless side
 // effect (there is no card context menu in any app).
 document.addEventListener("contextmenu", function(e) {
+  if (!FindLongPressCardDetailTarget(e)) return;
+  if (typeof e.preventDefault === "function") e.preventDefault();
+}, true);
+
+// Cards are marked draggable='true' for desktop drag-and-drop, and iOS starts an HTML5 drag from
+// a long-press — the very gesture that is supposed to open a preview. Before the callout was
+// suppressed this never surfaced, because the native image menu consumed the gesture first; now
+// it fires dragStart() and paints the yellow dashed .droppable targets instead.
+//
+// CSS (-webkit-user-drag, SharedUI/css/card-touch.css) is only a hint that WebKit may ignore when
+// draggable='true' is set explicitly, so enforce it here. Gated on the same coarse-pointer /
+// no-hover query so mouse drag-and-drop on desktop is untouched.
+function IsCoarsePointerDevice() {
+  return !!(window.matchMedia && window.matchMedia("(hover: none) and (pointer: coarse)").matches);
+}
+
+document.addEventListener("dragstart", function(e) {
+  if (!IsCoarsePointerDevice()) return;
   if (!FindLongPressCardDetailTarget(e)) return;
   if (typeof e.preventDefault === "function") e.preventDefault();
 }, true);
