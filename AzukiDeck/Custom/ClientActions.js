@@ -99,6 +99,12 @@ function AzukiDeckCardIsZeroCostSpell(cardID) {
     && Number(window.CardikzCost(cardID)) === 0;
 }
 
+function AzukiDeckCardIsTwoCostSpell(cardID) {
+  return AzukiDeckCardIsCategory(cardID, 'Spell')
+    && typeof window.CardikzCost === 'function'
+    && Number(window.CardikzCost(cardID)) === 2;
+}
+
 function AzukiDeckHypergeoResult(value, explanation, requiredCardID) {
   return {
     value: value,
@@ -129,6 +135,13 @@ function HyperGeo(cardID) {
       return AzukiDeckHypergeoResult(
         AzukiDeckTopCardsHitRate(deck, cardID, 6, AzukiDeckCardIsZeroCostSpell),
         'Given that your opening hand contains Pip, this is the chance that at least one of the other 6 cards is a 0-cost spell.',
+        'S1-AZK01-126_Gate-of-Echoed-Waves-Gate_G_G_die'
+      );
+    case 'S1-AZK01-026_Moonlit-Crane_E_C_die':
+      if (AzukiDeckGateCardID() !== 'S1-AZK01-126_Gate-of-Echoed-Waves-Gate_G_G_die') return -1;
+      return AzukiDeckHypergeoResult(
+        AzukiDeckTopCardsHitRate(deck, cardID, 10, AzukiDeckCardIsTwoCostSpell),
+        'Given that you draw Moonlit Crane, this is the chance that at least one of the other 6 cards in your opening hand or your next 4 draws by turn 5 is a 2-cost spell.',
         'S1-AZK01-126_Gate-of-Echoed-Waves-Gate_G_G_die'
       );
     case 'S1-AZK01-003_Black-Jade-Courier_E_C_die':
