@@ -118,3 +118,36 @@ _(Resolved — affected players re-entered sideboards; future reports handled by
   backups when the corruption hit; recovery now leans entirely on the in-DB `assetversions` snapshots.
   Take a `Games/` tar + DB dump before any migration/mass-op, even (especially) when you "didn't have
   a backup before."
+## 2026-07-18 — Deck-image redesign + friendly links + newhost prod-provisioning ordeal
+- **Reproduce the failure before theorizing — read the ACTUAL fatal first.** A prod "MainMenu 500"
+  cost many round-trips because I hypothesized from `gd.so` startup *warnings* (noise). One
+  `sudo tail -30 /opt/lampp/logs/error_log` named it in one line (`ActiveSite: MYSQL_DATABASE_NAME
+  is not set`). Ask for the Apache error_log's `PHP Fatal error:` line up front; warnings ≠ the 500.
+- **Deploying code ≠ provisioning a host — never run setup scripts as part of an update.** The whole
+  swustats outage was `harden-htaccess.sh` (a *setup* script) run on a live box: it regenerates the
+  docroot `.htaccess`, wiping the `SetEnv MYSQL_DATABASE_NAME` that lived there → site-wide 500. A code
+  update is just back up → pull → `lampp restart` → verify. Wrote `newhost/UPDATE-runbook.md` to enforce.
+- **A prod box runs TWO stacks; always use LAMPP's binaries.** LAMPP PHP 8.2 serves the site; the
+  system PHP is 7.4 (composer failed on it: missing `ext-curl`), and system `mysqldump` points at the
+  wrong socket. Use `/opt/lampp/bin/{php,mysql,mysqldump}`. Fixed `install-php-deps.sh` to run composer
+  under LAMPP's PHP + `--ignore-platform-reqs` (CLI ext-set ≠ web SAPI).
+- **One box = one site; env belongs in `httpd.conf`, not `.htaccess`.** `ActiveSite.php` maps the single
+  `MYSQL_DATABASE_NAME` to a site, so conflicting/stale `httpd-*-env.conf` Includes silently serve the
+  wrong app (swusim conf → "Petranaki Arena"). `harden-htaccess.sh` overwrites `.htaccess`, so env must
+  live in `httpd.conf` (provision-app's job).
+- **Provisioning scripts must be safe-by-default and fail loud BEFORE changing anything.** `provision-app.sh`
+  had lethal footguns: DB step DROPped by default (only `--skip-db` opted out), DB_NAME defaulted to
+  `swusim` (single-positional run → wrong DB/site), passwordless default. Hardened: flipped to env-only
+  by default with `--reset-db` as the explicit destructive opt-in; `DB_PASS` now required; DB-name defaults
+  to the app; added a connectivity preflight + a conflicting-env-conf guard.
+- **CreateImage.php `require vendor/autoload.php` fatals when vendor/ is unprovisioned** — and vendor is
+  gitignored, so a fresh box has none. That (not the clipboard-timing theory) was the primary "Failed to
+  copy image!" cause; provisioning vendor (or removing the dead require) fixes it. Also: the endpoint
+  refused private decks (`assetVisibility == 0`, and `NULL == 0` in PHP) — most decks are private, so most
+  copies failed. Removed that gate per the owner.
+- **Deck-image layout: full `WebpImages` beats the concat/jpg cache; fixed width = uniform cards.** The
+  jpg cache (`SWUDeck/jpg/*`) was never generated locally; the full-card `WebpImages/` cache was present.
+  Switching to it + a fixed-column grid (no arenas) made shareable images uniform. Iterated screenshot-first.
+- **Karabast import needs `?gameName=` in the URL; make LoadDeck accept the code additively.** forceteki's
+  regex extracts `gameName=` and forwards it to `LoadDeck.php?deckID=`, so LoadDeck resolving a 12-letter
+  code (numeric stays byte-identical) means friendly links import with zero Karabast changes.

@@ -15,6 +15,7 @@ include_once __DIR__ . '/../AccountFiles/AccountDatabaseAPI.php';
 include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../Assets/patreon-php-master/src/PatreonLibraries.php';
 include_once __DIR__ . '/../Assets/patreon-php-master/src/PatreonDictionary.php';
+include_once __DIR__ . '/lib/qr/QRRenderer.php';
 
 
 if(!isset($gameName)) {
@@ -233,11 +234,47 @@ if ($sideRowsN > 0) {
 } else {
   $contentBottom = $mainBottom;
 }
-$height = $contentBottom + $margin;
 
-// ----- Canvas + background (solid dark; arenas removed) -----
+// ----- QR code prep (encodes the deck's friendly share link; drawn bottom-right in a footer) -----
+// Built before the canvas so we can reserve a footer band and the QR never overlaps the last card
+// row. Any failure (no friendly code, encoder error) degrades gracefully: no QR, image still renders.
+$qrImg = null; $qrW = $qrH = 0; $qrPanelW = $qrPanelH = 0;
+$qrPad = 16; $qrCaptionH = 26; $qrCaption = "swustats.net";
+try {
+  $friendlyCode = function_exists("AssignFriendlyCode") ? AssignFriendlyCode(1, (int) $gameName) : null;
+  if (!empty($friendlyCode)) {
+    $qrLink = "https://swustats.net/deck/" . $friendlyCode;
+    $qrImg  = RenderQR($qrLink, 200, 3); // GD image: black modules on white, quiet zone baked in
+    $qrW = imagesx($qrImg); $qrH = imagesy($qrImg);
+    $qrPanelW = $qrW + 2 * $qrPad;
+    $qrPanelH = $qrH + 2 * $qrPad + $qrCaptionH;
+  }
+} catch (\Throwable $e) {
+  if (is_resource($qrImg) || $qrImg instanceof \GdImage) { imagedestroy($qrImg); }
+  $qrImg = null; $qrPanelW = $qrPanelH = 0;
+}
+
+$footerH = $qrImg ? ($qrPanelH + $gap) : 0;
+$height = $contentBottom + $footerH + $margin;
+
+// ----- Canvas + background (space starfield, matching the main menu's gamebg) -----
 $image = imagecreatetruecolor($width, $height);
+// Solid dark fill first: matches the darkest tone of gamebg, and shows through if the
+// asset is missing/unreadable so text contrast is preserved either way.
 imagefilledrectangle($image, 0, 0, $width, $height, imagecolorallocate($image, 10, 20, 40));
+$bgPath = __DIR__ . '/../Assets/Images/gamebg.jpg';
+if (file_exists($bgPath) && ($bg = @imagecreatefromjpeg($bgPath)) !== false) {
+  // COVER-fit (same as the menu's `background-size: cover; background-position: center;`):
+  // scale the source so it fills the whole canvas, then center-crop the overflow.
+  $bw = imagesx($bg); $bh = imagesy($bg);
+  $scale = max($width / $bw, $height / $bh);
+  $sw = (int) round($width / $scale);   // width of the source rect to sample
+  $sh = (int) round($height / $scale);  // height of the source rect to sample
+  $sx = (int) round(($bw - $sw) / 2);   // center horizontally
+  $sy = (int) round(($bh - $sh) / 2);   // center vertically
+  imagecopyresampled($image, $bg, 0, 0, $sx, $sy, $width, $height, $sw, $sh);
+  imagedestroy($bg);
+}
 $white = imagecolorallocate($image, 255, 255, 255);
 
 // ----- Title (auto-shrink to fit width) -----
@@ -302,6 +339,33 @@ if ($sideRowsN > 0) {
   $drawGrid($sideRows, $sideGridTop);
 }
 
+
+// ----- QR panel: white rounded quiet-zone panel, bottom-right in the reserved footer band -----
+if ($qrImg) {
+  $panelX = $width - $margin - $qrPanelW;
+  $panelY = $contentBottom + $gap;
+  $panelBg = imagecolorallocate($image, 255, 255, 255);
+  $panelInk = imagecolorallocate($image, 20, 30, 55); // caption ink (dark, on white)
+  // Rounded rectangle via straight fills + corner discs (GD has no native rounded rect).
+  $rad = 14;
+  imagefilledrectangle($image, $panelX + $rad, $panelY, $panelX + $qrPanelW - $rad, $panelY + $qrPanelH, $panelBg);
+  imagefilledrectangle($image, $panelX, $panelY + $rad, $panelX + $qrPanelW, $panelY + $qrPanelH - $rad, $panelBg);
+  imagefilledellipse($image, $panelX + $rad, $panelY + $rad, 2 * $rad, 2 * $rad, $panelBg);
+  imagefilledellipse($image, $panelX + $qrPanelW - $rad, $panelY + $rad, 2 * $rad, 2 * $rad, $panelBg);
+  imagefilledellipse($image, $panelX + $rad, $panelY + $qrPanelH - $rad, 2 * $rad, 2 * $rad, $panelBg);
+  imagefilledellipse($image, $panelX + $qrPanelW - $rad, $panelY + $qrPanelH - $rad, 2 * $rad, 2 * $rad, $panelBg);
+  // QR (centered horizontally in the panel), then the swustats.net wordmark beneath it.
+  $qx = $panelX + (int) (($qrPanelW - $qrW) / 2);
+  $qy = $panelY + $qrPad;
+  imagecopy($image, $qrImg, $qx, $qy, 0, 0, $qrW, $qrH);
+  imagedestroy($qrImg);
+  $capFs = 13;
+  $cbb = imagettfbbox($capFs, 0, $fontPath, $qrCaption);
+  $cw = $cbb[2] - $cbb[0];
+  $cx = $panelX + ($qrPanelW - $cw) / 2;
+  $cy = $qy + $qrH + $qrCaptionH - 6;
+  imagettftext($image, $capFs, 0, $cx, $cy, $panelInk, $fontPath, $qrCaption);
+}
 
 imagejpeg($image, $destFile);
 imagedestroy($image);
