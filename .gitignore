@@ -19,6 +19,7 @@ RBSim
 Data/RB.json
 vendor
 HostFiles/
+DevTools/local/_backups/
 SWUDeck/concat
 SWUDeck/crops
 SWUDeck/Games
