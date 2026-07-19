@@ -17,6 +17,10 @@
   ],
   'head' => [
     'styles'  => [   // SWUDeck-specific visual overrides layered over the shared theme stack
+      // Shared responsive base (@media max-width:768px): collapses .core-wrapper to a column,
+      // zeroes .flex-padder, stacks tabs/panels. MUST load before swudeck-overrides.css, which
+      // is authored to layer on top of it. (Regressed when pages moved to the SiteDef system.)
+      '/TCGEngine/SharedUI/css/mobile-responsive.css',
       '/TCGEngine/SharedUI/Sites/SWUDeck/css/swudeck-overrides.css',
     ],
     'scripts' => ['/TCGEngine/SharedUI/js/device-detector.js',
