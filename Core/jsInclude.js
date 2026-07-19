@@ -23,6 +23,11 @@ var cardDetailRequestToken = 0;
 var CARD_DETAIL_LONG_PRESS_MS = 430;
 var CARD_DETAIL_TOUCH_MOVE_TOLERANCE = 12;
 var SWUDECK_CARD_DETAIL_HOVER_MS = 240;
+// Touch preview: fraction of the viewport the full card may occupy. Desktop hover keeps its own
+// fixed 400px ceiling (see ShowDetail) — these apply only to the touch branch.
+var CARD_DETAIL_TOUCH_VIEWPORT_W = 0.92;
+var CARD_DETAIL_TOUCH_VIEWPORT_H = 0.90;
+var cardDetailPersistent = false;
 
 function TrackCardDetailMouse(e) {
   if (!e || typeof e.clientX !== "number" || typeof e.clientY !== "number") return;
@@ -113,29 +118,22 @@ function PositionCardDetail(el, cx, cy, w, h, avoidEl) {
   el.style.top = top + 'px';
 }
 
-function ShowDetail(e, imgSource, avoidEl, requestToken) {
-  if (IsCardDetailSuppressed()) return;
-  if (typeof requestToken !== "number") requestToken = ++cardDetailRequestToken;
-  TrackCardDetailMouse(e);
-  imgSource = imgSource.replace("_cropped", "");
-  imgSource = imgSource.replace("/crops/", "/WebpImages/");
-  imgSource = imgSource.replace("_concat", "");
-  imgSource = imgSource.replace("/concat/", "/WebpImages/");
-  imgSource = imgSource.replace(".png", ".webp");
-  var el = document.getElementById("cardDetail");
-  var cx = e.clientX, cy = e.clientY; // capture: pointer may move before the image loads
-  el.style.display = "none";
-  el.style.zIndex = 100000;
-  var img = new Image();
-  img.onload = function() {
-    // Ignore an image load that completed after another card was entered or the pointer left.
-    if (requestToken !== cardDetailRequestToken) return;
-    //Original dimension: height:523px; width:375px;
+// A touch preview is requested by the long-press path, which synthesizes an event of this type
+// (see BeginCardDetailLongPress). Detecting it here keeps ShowDetail/ShowSubcardDetail's public
+// signatures unchanged, so every existing caller — and the whole desktop hover path — is untouched.
+function IsTouchPreviewEvent(e) {
+  return !!(e && e.type === "touchlongpress");
+}
+
+// Desktop keeps the historical fixed 400px box. Touch fits the card to the viewport instead:
+// on a 390px-wide phone the 400px ceiling renders a clipped, unreadable card. Never upscale past
+// natural size — a 449x628 asset blown up reads blurry, and there is no detail to gain.
+function ComputeCardDetailSize(naturalW, naturalH, touch) {
+  if (!touch) {
     var maxWidth = 400;
     var maxHeight = 400;
-    var width = img.width;
-    var height = img.height;
-
+    var width = naturalW;
+    var height = naturalH;
     if (width > height) {
       if (width > maxWidth) {
         height *= maxWidth / width;
@@ -147,9 +145,85 @@ function ShowDetail(e, imgSource, avoidEl, requestToken) {
         height = maxHeight;
       }
     }
+    return { width: width, height: height };
+  }
+
+  var availW = window.innerWidth * CARD_DETAIL_TOUCH_VIEWPORT_W;
+  var availH = window.innerHeight * CARD_DETAIL_TOUCH_VIEWPORT_H;
+  var scale = Math.min(availW / naturalW, availH / naturalH, 1);
+  return { width: Math.round(naturalW * scale), height: Math.round(naturalH * scale) };
+}
+
+function PlaceCardDetail(el, cx, cy, w, h, avoidEl, touch) {
+  if (!touch) {
+    PositionCardDetail(el, cx, cy, w, h, avoidEl);
+    return;
+  }
+  // Centered, not finger-anchored: PositionCardDetail's geometry exists to dodge the cursor,
+  // which is meaningless for a touch that has already lifted.
+  el.style.left = Math.max(0, Math.round((window.innerWidth - w) / 2)) + 'px';
+  el.style.top = Math.max(0, Math.round((window.innerHeight - h) / 2)) + 'px';
+}
+
+// Purely visual dim behind a persistent touch preview — it signals "tap to close" and lifts the
+// card off a busy board. Deliberately pointer-events:none: dismissal is handled at the document
+// level in BeginCardDetailLongPress, which sidesteps the `#cardDetail { pointer-events: none
+// !important }` rules in SWUDeck/AzukiDeck GameLayout.php that a clickable scrim would fight.
+function EnsureCardDetailScrim() {
+  var scrim = document.getElementById("cardDetailScrim");
+  if (scrim) return scrim;
+  scrim = document.createElement("div");
+  scrim.id = "cardDetailScrim";
+  scrim.style.cssText = "position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:99999; " +
+    "display:none; pointer-events:none; opacity:0; transition:opacity 0.2s;";
+  document.body.appendChild(scrim);
+  return scrim;
+}
+
+function ShowCardDetailScrim() {
+  var scrim = EnsureCardDetailScrim();
+  scrim.style.display = "block";
+  // next frame, so the opacity transition actually runs
+  window.requestAnimationFrame(function() { scrim.style.opacity = 1; });
+}
+
+function HideCardDetailScrim() {
+  var scrim = document.getElementById("cardDetailScrim");
+  if (!scrim) return;
+  scrim.style.opacity = 0;
+  scrim.style.display = "none";
+}
+
+function ShowDetail(e, imgSource, avoidEl, requestToken) {
+  if (IsCardDetailSuppressed()) return;
+  if (typeof requestToken !== "number") requestToken = ++cardDetailRequestToken;
+  TrackCardDetailMouse(e);
+  var originalSource = imgSource;   // tile art, kept as the onerror fallback
+  imgSource = imgSource.replace("_cropped", "");
+  imgSource = imgSource.replace("/crops/", "/WebpImages/");
+  imgSource = imgSource.replace("_concat", "");
+  imgSource = imgSource.replace("/concat/", "/WebpImages/");
+  imgSource = imgSource.replace(".png", ".webp");
+  var el = document.getElementById("cardDetail");
+  var cx = e.clientX, cy = e.clientY; // capture: pointer may move before the image loads
+  var touch = IsTouchPreviewEvent(e);
+  el.style.display = "none";
+  el.style.zIndex = 100000;
+  var img = new Image();
+  img.onload = function() {
+    // Ignore an image load that completed after another card was entered or the pointer left.
+    if (requestToken !== cardDetailRequestToken) return;
+    //Original dimension: height:523px; width:375px;
+    var size = ComputeCardDetailSize(img.width, img.height, touch);
+    var width = size.width;
+    var height = size.height;
 
     el.innerHTML = "<img style='height:" + height + "px; width:" + width + "px;' src='" + imgSource + "' />";
-    PositionCardDetail(el, cx, cy, width, height, avoidEl);
+    PlaceCardDetail(el, cx, cy, width, height, avoidEl, touch);
+    if (touch) {
+      cardDetailPersistent = true;
+      ShowCardDetailScrim();
+    }
     el.style.display = "inline";
     el.style.opacity = 0;
     showDetailTimeout = setTimeout(function() {
@@ -157,6 +231,13 @@ function ShowDetail(e, imgSource, avoidEl, requestToken) {
       el.style.transition = "opacity 0.5s";
       el.style.opacity = 1;
     }, 100);
+  };
+  // The /concat/ -> /WebpImages/ rewrite above is string-based and never checks the asset exists.
+  // Fall back to the tile art rather than showing an empty frame when a full card is missing.
+  img.onerror = function() {
+    if (requestToken !== cardDetailRequestToken) return;
+    if (img.src === originalSource) return;   // already the fallback; give up
+    img.src = originalSource;
   };
   img.src = imgSource;
 }
@@ -176,9 +257,17 @@ function ShowSubcardDetail(e, imgEl, options) {
     src = src.replace('/concat/', '/WebpImages/');
     src = src.replace('.webp', '.webp'); // Keep as webp
     var el = document.getElementById('cardDetail');
-    var displayHeight = 400;
-    var displayWidth = Math.round(400 * 0.71);
+    // Subcards have no natural dimensions to hand ComputeCardDetailSize (the image is not
+    // preloaded here), so feed it the standard SWU portrait ratio: 0.71 wide per 1 tall.
+    var touch = IsTouchPreviewEvent(e);
+    var size = ComputeCardDetailSize(Math.round(400 * 0.71), 400, touch);
+    var displayWidth = size.width;
+    var displayHeight = size.height;
     el.innerHTML = "<img style='height:" + displayHeight + "px; width:" + displayWidth + "px;' src='" + src + "' />";
+    if (touch) {
+      cardDetailPersistent = true;
+      ShowCardDetailScrim();
+    }
     el.style.display = 'inline';
     el.style.opacity = 0;
     showDetailTimeout = setTimeout(function() {
@@ -186,7 +275,7 @@ function ShowSubcardDetail(e, imgEl, options) {
       el.style.transition = 'opacity 0.5s';
       el.style.opacity = 1;
     }, 100);
-    PositionCardDetail(el, e.clientX, e.clientY, displayWidth, displayHeight);
+    PlaceCardDetail(el, e.clientX, e.clientY, displayWidth, displayHeight, null, touch);
     el.style.zIndex = 100000;
   }, options.skipDelay ? 0 : 1);
 }
@@ -197,6 +286,8 @@ function HideCardDetail(force) {
   clearTimeout(showDetailTimeout);
   var el = document.getElementById("cardDetail");
   el.style.display = "none";
+  cardDetailPersistent = false;
+  HideCardDetailScrim();
 }
 
 document.addEventListener("mousemove", function(e) {
@@ -250,6 +341,18 @@ function ClearCardDetailLongPress() {
 
 function BeginCardDetailLongPress(e) {
   suppressMouseCardDetailUntil = Date.now() + 900;
+
+  // A persistent touch preview is open: this tap dismisses it and does nothing else. Returning
+  // early (rather than arming another long press) means the dismissing tap cannot immediately
+  // reopen a preview on whatever card sits under the finger. The click suppression stops that
+  // same tap from also adding or removing a card.
+  if (cardDetailPersistent) {
+    ClearCardDetailLongPress();
+    HideCardDetail(true);
+    suppressNextCardDetailClickUntil = Date.now() + 1200;
+    return;
+  }
+
   if (IsCardDetailOpen()) HideCardDetail(true);
   ClearCardDetailLongPress();
 
@@ -296,7 +399,10 @@ function EndCardDetailLongPress(e) {
   if (!previewWasShown) return;
 
   suppressNextCardDetailClickUntil = Date.now() + 700;
-  HideCardDetail(true);
+  // A touch preview stays up after the finger lifts so the card can actually be read; it is
+  // dismissed by the next tap (see BeginCardDetailLongPress). Desktop and any non-persistent
+  // preview still hide here.
+  if (!cardDetailPersistent) HideCardDetail(true);
   if (e && typeof e.preventDefault === "function" && e.cancelable) e.preventDefault();
   if (e && typeof e.stopPropagation === "function") e.stopPropagation();
 }
@@ -324,6 +430,16 @@ document.addEventListener("contextmenu", function(e) {
   if (!FindLongPressCardDetailTarget(e)) return;
   if (typeof e.preventDefault === "function") e.preventDefault();
 }, true);
+
+// A persistent preview is sized and centered against the viewport it opened in, so a rotation
+// leaves it mispositioned. Dismiss rather than resize: rotating mid-inspect is rare, and losing
+// the preview is a cheaper outcome than a half-resized frame.
+window.addEventListener("orientationchange", function() {
+  if (cardDetailPersistent) HideCardDetail(true);
+});
+window.addEventListener("resize", function() {
+  if (cardDetailPersistent) HideCardDetail(true);
+});
 
 function ChatKey(event) {
   if (event.keyCode === 13) {
