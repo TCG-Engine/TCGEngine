@@ -222,6 +222,12 @@ function ShowDetail(e, imgSource, avoidEl, requestToken) {
     PlaceCardDetail(el, cx, cy, width, height, avoidEl, touch);
     if (touch) {
       cardDetailPersistent = true;
+      // #cardDetail computes pointer-events:auto on the mobile layout — the
+      // `pointer-events:none !important` rule in SWUDeck/Custom/GameLayout.php:663 does not reach
+      // GameLayoutMobile.php. Left interactive, the centered preview sits under the pointer and
+      // ping-pongs: it covers the card (mouseout -> hide), which uncovers the card (mouseover ->
+      // show), forever. Set it here rather than in CSS so only the touch preview is affected.
+      el.style.pointerEvents = "none";
       ShowCardDetailScrim();
     }
     el.style.display = "inline";
@@ -293,6 +299,7 @@ function HideCardDetail(force) {
   clearTimeout(showDetailTimeout);
   var el = document.getElementById("cardDetail");
   el.style.display = "none";
+  el.style.pointerEvents = "";   // release the touch-preview override; desktop keeps its own rules
   cardDetailPersistent = false;
   HideCardDetailScrim();
 }
