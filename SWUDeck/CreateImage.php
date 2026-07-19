@@ -16,6 +16,7 @@ include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../Assets/patreon-php-master/src/PatreonLibraries.php';
 include_once __DIR__ . '/../Assets/patreon-php-master/src/PatreonDictionary.php';
 include_once __DIR__ . '/lib/qr/QRRenderer.php';
+include_once __DIR__ . '/lib/CardImageLoader.php';
 
 
 if(!isset($gameName)) {
@@ -204,7 +205,7 @@ $headerIDs = array_values(array_filter(array_merge($leaderIDs, [$baseID]), funct
 $headerImgs = [];
 foreach ($headerIDs as $hid) {
   $p = __DIR__ . '/WebpImages/' . $hid . '.webp';
-  $img = file_exists($p) ? imagecreatefromwebp($p) : false;
+  $img = LoadCardImageAsGd($p);
   if ($img === false) { $img = imagecreatetruecolor($headerW, $headerW); imagefilledrectangle($img, 0, 0, $headerW, $headerW, imagecolorallocate($img, 200, 200, 200)); }
   $ow = imagesx($img); $oh = imagesy($img);
   $nh = (int) round($headerW * $oh / $ow);
@@ -306,7 +307,7 @@ $drawGrid = function ($rows, $gy0) use (&$image, $cardW, $cardH, $cols, $gap, $m
   $col = 0; $gx = $margin; $gy = $gy0;
   foreach ($rows as $r) {
     $p = __DIR__ . '/WebpImages/' . $r['id'] . '.webp';
-    $card = file_exists($p) ? imagecreatefromwebp($p) : false;
+    $card = LoadCardImageAsGd($p);
     if ($card === false) { $card = imagecreatetruecolor($cardW, $cardH); imagefilledrectangle($card, 0, 0, $cardW, $cardH, imagecolorallocate($card, 200, 200, 200)); }
     $resized = imagecreatetruecolor($cardW, $cardH);
     imagealphablending($resized, false); imagesavealpha($resized, true);
