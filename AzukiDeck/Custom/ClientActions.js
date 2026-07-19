@@ -137,6 +137,13 @@ function HyperGeo(cardID) {
         'Given that your opening hand contains Pip, this is the chance that at least one of the other 6 cards is a 0-cost spell.',
         'S1-AZK01-126_Gate-of-Echoed-Waves-Gate_G_G_die'
       );
+    case 'S1-STT01-007_Alley-Guy_E_C_die':
+      if (AzukiDeckGateCardID() !== 'S1-AZK01-126_Gate-of-Echoed-Waves-Gate_G_G_die') return -1;
+      return AzukiDeckHypergeoResult(
+        AzukiDeckTopCardsHitRate(deck, cardID, 7, AzukiDeckCardIsZeroCostSpell),
+        'Given that you draw Alley Guy by turn 2, this is the chance that at least one of the other 6 cards in your opening hand or your turn-2 draw is a 0-cost spell.',
+        'S1-AZK01-126_Gate-of-Echoed-Waves-Gate_G_G_die'
+      );
     case 'S1-AZK01-026_Moonlit-Crane_E_C_die':
       if (AzukiDeckGateCardID() !== 'S1-AZK01-126_Gate-of-Echoed-Waves-Gate_G_G_die') return -1;
       return AzukiDeckHypergeoResult(
