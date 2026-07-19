@@ -654,6 +654,42 @@ function setTransferStatus(message, kind = '') {
     abilityTransferStatus.dataset.kind = kind;
 }
 
+// Self-contained styled confirmation (this standalone mod page does not load the shared
+// StyledConfirm bundle). Returns a Promise<boolean>.
+function styledConfirm(message, { confirmLabel = 'Confirm', danger = false } = {}) {
+    return new Promise((resolve) => {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;';
+        const box = document.createElement('div');
+        box.style.cssText = 'background:#12202f;border:1px solid ' + (danger ? 'rgba(255,100,100,.4)' : 'rgba(255,255,255,.15)') + ';border-radius:10px;padding:20px;max-width:420px;color:#eef4ff;box-shadow:0 14px 40px rgba(0,0,0,.5);font-size:15px;';
+        const msg = document.createElement('div');
+        msg.textContent = message;
+        msg.style.cssText = 'margin-bottom:18px;line-height:1.4;';
+        const row = document.createElement('div');
+        row.style.cssText = 'display:flex;gap:10px;justify-content:flex-end;';
+        const cancel = document.createElement('button');
+        cancel.type = 'button'; cancel.textContent = 'Cancel';
+        cancel.style.cssText = 'padding:8px 16px;border-radius:6px;border:1px solid #44576d;background:#25384c;color:#fff;cursor:pointer;';
+        const ok = document.createElement('button');
+        ok.type = 'button'; ok.textContent = confirmLabel;
+        ok.style.cssText = 'padding:8px 16px;border-radius:6px;border:1px solid ' + (danger ? '#c0392b' : '#4ca7ff') + ';background:' + (danger ? '#c0392b' : '#1769aa') + ';color:#fff;cursor:pointer;';
+        function done(result) {
+            if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            document.removeEventListener('keydown', onKey);
+            resolve(result);
+        }
+        function onKey(e) { if (e.key === 'Escape') done(false); }
+        cancel.onclick = () => done(false);
+        ok.onclick = () => done(true);
+        overlay.onclick = (e) => { if (e.target === overlay) done(false); };
+        document.addEventListener('keydown', onKey);
+        row.appendChild(cancel); row.appendChild(ok);
+        box.appendChild(msg); box.appendChild(row); overlay.appendChild(box);
+        document.body.appendChild(overlay);
+        ok.focus();
+    });
+}
+
 function exportAbilities() {
     if (!selectedApp || pipelineRunning || transferRunning) return;
     const url = new URL('CardEditor/API/AdminCardAbilityTransfer.php', window.location.href);
@@ -674,7 +710,8 @@ async function importAbilities() {
     const file = importAbilitiesFile.files && importAbilitiesFile.files[0];
     const app = importApp;
     if (!file || !app) return;
-    if (!window.confirm(`Replace all card abilities for ${app.rootName} with the contents of ${file.name}? Other apps will not be changed.`)) return;
+    const confirmed = await styledConfirm(`Replace all card abilities for ${app.rootName} with the contents of ${file.name}? Other apps will not be changed.`, { confirmLabel: 'Replace', danger: true });
+    if (!confirmed) return;
 
     transferRunning = true;
     render();

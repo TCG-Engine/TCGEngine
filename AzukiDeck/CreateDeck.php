@@ -37,6 +37,20 @@ if (!SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, 'st
   exit();
 }
 
+// Every deck gets a share slug at creation (idempotent) and starts Private.
+AssignFriendlyCode(1, $gameName);
+$conn = GetLocalMySQLConnection();
+if ($conn) {
+  $vis = 0; // 0 = Private
+  $stmt = $conn->prepare('UPDATE ownership SET assetVisibility = ? WHERE assetType = 1 AND assetIdentifier = ?');
+  if ($stmt) {
+    $stmt->bind_param('ii', $vis, $gameName);
+    $stmt->execute();
+    $stmt->close();
+  }
+  $conn->close();
+}
+
 if ($deckLink !== '') {
   if ($resolved['leader'] !== '') {
     SetAssetKeyIdentifier(1, $gameName, 1, $resolved['leader']);

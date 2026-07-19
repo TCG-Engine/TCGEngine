@@ -4,6 +4,7 @@ None
 AssetOwner
 Header: title=Home, link=/TCGEngine/AzukiDeck/
 Header: title=Edit, link=/TCGEngine/NextTurn.php?gameName>$gameName&playerID>1&folderPath>AzukiDeck
+Header: title=Visibility, module=AssetVisibility, AssetType=1
 Header: title=Versions, module=Versions, Zones=myLeader;myGate;myMainDeck;mySideboard
 PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
 AssetReflection: AzukiSim

@@ -10,7 +10,8 @@ function AzukiDeckLoadOwnedDecks($userID) {
   if (!$conn) return [];
 
   $stmt = $conn->prepare(
-    'SELECT * FROM ownership WHERE assetType = 1 AND assetOwner = ? AND assetStatus = 1 ORDER BY assetIdentifier DESC'
+    'SELECT * FROM ownership WHERE assetType = 1 AND assetOwner = ? AND assetStatus = 1 ' .
+    'ORDER BY (assetFolder = 1) DESC, assetIdentifier DESC'
   );
   if (!$stmt) {
     $conn->close();

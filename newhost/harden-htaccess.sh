@@ -103,6 +103,10 @@ tmp="$(mktemp)"
   echo "    # 3b. swustats.net friendly deck links: /deck/{12-letter code} -> resolver."
   printf '    RewriteCond %%{HTTP_HOST} ^(www\\.)?swustats\\.net$ [NC]\n'
   printf '    RewriteRule ^deck/([A-Za-z]{12})/?$ TCGEngine/APIs/GoToDeck.php?code=$1 [L,QSA]\n'
+  echo
+  echo "    # 3c. zendo.gg friendly deck links: /deck/{12-letter code} -> AzukiDeck resolver."
+  printf '    RewriteCond %%{HTTP_HOST} ^(www\\.)?zendo\\.gg$ [NC]\n'
+  printf '    RewriteRule ^deck/([A-Za-z]{12})/?$ TCGEngine/APIs/GoToAzukiDeck.php?code=$1 [L,QSA]\n'
   echo "</IfModule>"
   echo
   echo "# 4. Never expose an Apache directory listing of the filesystem."
