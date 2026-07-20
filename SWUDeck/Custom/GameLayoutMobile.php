@@ -1381,10 +1381,14 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
   // Mirrors GameLayout.php's updateLeaderTabVisibility() — Twin Suns decks show separate
   // "Leader1"/"Leader2" tabs instead of the single "Leaders" tab.
   function updateLeaderTabVisibilityMobile(){
-    var pane = document.getElementById('myCardPane');
-    if(!pane) return;
+    // Query document-wide, NOT scoped to #myCardPane. Switching panes re-renders the browse
+    // tabs outside that container (and leaves a second, hidden copy behind), so a scoped query
+    // matches nothing and silently stops filtering — premier decks then show Leader1/Leader2 and
+    // Twin Suns decks gain a stray "Leaders" tab. The labels are unique, so a document-wide
+    // query is safe and correctly covers both copies. Desktop keeps its own scoped version in
+    // GameLayout.php: there the tabs never leave #myCardPane, so it is unaffected.
     var isTwinSuns = window.SWU_DECK_FORMAT === 'twinsuns';
-    var tabs = pane.querySelectorAll('.panelTab');
+    var tabs = document.querySelectorAll('.panelTab');
     tabs.forEach(function(tab){
       var label = tab.textContent.trim();
       if(label === 'Leaders') tab.style.display = isTwinSuns ? 'none' : '';
