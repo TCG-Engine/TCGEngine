@@ -36,6 +36,16 @@ if (!IsUserLoggedIn()) {
     exit;
 }
 
+// The login page returns here without the original query string. Restore the
+// authorization request that was saved immediately before the login redirect.
+// Without this, client_id is empty and the invalid-client response redirects
+// back to this endpoint indefinitely.
+CheckSession();
+if (empty($_GET['client_id']) && isset($_SESSION['oauth_request']) && is_array($_SESSION['oauth_request'])) {
+    $_GET = $_SESSION['oauth_request'];
+    unset($_SESSION['oauth_request']);
+}
+
 // Get the logged-in user's ID
 $userId = LoggedInUser();
 
@@ -53,7 +63,7 @@ $error = null;
 $clientDetails = $server->getClientDetails($clientId);
 if (!$clientDetails) {
     $error = 'invalid_client';
-} else if ($redirectUri && strpos($clientDetails['redirect_uri'], $redirectUri) === false) {
+} else if ($redirectUri && $clientDetails['redirect_uri'] !== $redirectUri) {
     $error = 'invalid_request';
 } else if ($responseType !== 'code') {
     $error = 'unsupported_response_type';
@@ -61,6 +71,15 @@ if (!$clientDetails) {
 
 // If there's an error, redirect with error parameter
 if ($error) {
+    // Never redirect to an unregistered URI. This also prevents an invalid or
+    // missing client from producing a relative "?error=..." redirect loop.
+    if (!$clientDetails || ($redirectUri && $clientDetails['redirect_uri'] !== $redirectUri)) {
+        http_response_code(400);
+        header('Content-Type: text/plain; charset=UTF-8');
+        echo 'OAuth authorization error: ' . $error;
+        exit;
+    }
+
     $redirectUrl = $redirectUri ?: $clientDetails['redirect_uri'];
     $redirectUrl .= (strpos($redirectUrl, '?') !== false ? '&' : '?') . 'error=' . $error;
     
