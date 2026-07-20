@@ -52,8 +52,25 @@ node snap.mjs --url http://localhost:3100/TCGEngine/SharedUI/Sites/SWUDeck/MainM
 | `--viewport WxH` / `--dpr n` | `1600x950` / `2` | Viewport + device scale. |
 | `--wait <ms>` | `1500` | Settle delay after navigation. |
 
+## Regression suites
+
+`snap.mjs` is for ad-hoc inspection. Standing checks for behaviors that have broken before live in
+[`regression/`](regression/README.md) — mobile long-press preview, iOS callout/drag suppression,
+and leader-tab visibility per deck format:
+
+```bash
+node regression/run-all.mjs        # all suites
+node regression/touch-preview.mjs  # just one
+```
+
+Note their limits: Playwright cannot verify iOS **native** gesture interception, so touch work
+still needs sign-off on a physical device. See that README's "What these CANNOT verify".
+
 ## Notes
 
 - Mutating flows (leader swap/remove, import) should run against a **throwaway** deck, not a real
   one — the editor autosaves. This harness only navigates + reads by default.
-- Related memory: `verifying-swudeck-ui-cross-browser`, `css-percentage-height-flex-gotcha`.
+- Deck ids only load if `SWUDeck/Games/<id>/` exists. Known-good: `100431` (premier, single
+  leader), `201009` (twinsuns, two leaders).
+- Related memory: `verifying-swudeck-ui-cross-browser`, `css-percentage-height-flex-gotcha`,
+  `playwright-cannot-verify-native-touch-gestures`, `swudeck-mobile-layout-dom-gotchas`.

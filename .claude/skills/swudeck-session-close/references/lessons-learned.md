@@ -151,3 +151,39 @@ _(Resolved — affected players re-entered sideboards; future reports handled by
 - **Karabast import needs `?gameName=` in the URL; make LoadDeck accept the code additively.** forceteki's
   regex extracts `gameName=` and forwards it to `LoadDeck.php?deckID=`, so LoadDeck resolving a 12-letter
   code (numeric stays byte-identical) means friendly links import with zero Karabast changes.
+
+## 2026-07-19 — Mobile card preview (iOS callout) + leader-tab visibility
+- **When a harness can't reproduce what the user sees, ask for a SCREENSHOT before building a bigger
+  harness.** The bug was never in our code — iOS Safari's native image callout was eating the long-press
+  and magnifying the concat tile. Playwright's WebKit doesn't implement that callout, so a 3-engine run
+  passed clean while the bug was 100% present on device. Two user screenshots (the OS "Save to Photos"
+  sheet was right there in the pixels) identified it in one step after many wasted tool calls. Saved:
+  [[playwright-cannot-verify-native-touch-gestures]].
+- **A harness step that silently fails to change state reports FALSE coverage.** My "all five panes" loop
+  never switched panes — it tested one tile five times and printed five identical PASS rows — and the
+  WebKit half returned nothing at all because `elementFromPoint` failed. Assert that each step changed
+  what it claims to have changed, and print the discriminator (the tile src, the pane name), not just OK.
+- **Suppressing one native gesture consumer promotes the next one in line.** Killing the iOS callout
+  unmasked HTML5 drag-from-long-press (cards are `draggable='true'`), which painted the yellow dashed
+  `.droppable` targets in prod. Then removing that unmasked a hover ping-pong. Expect a QUEUE of gesture
+  consumers and re-test the whole gesture after each suppression, not just the symptom you aimed at.
+- **Don't cite a CSS rule as load-bearing without checking it applies in the layout you're in.** I leaned
+  on `#cardDetail { pointer-events:none !important }` (GameLayout.php:663) twice — in the design and in
+  the spec — and it never reaches GameLayoutMobile.php, where it computes `auto`. That was the flicker
+  enabler. Dump the computed value in the actual layout. Saved: [[swudeck-mobile-layout-dom-gotchas]].
+- **"Appears then vanishes" means something ACTIVELY hides it — go read the hide path.** That reframing
+  went straight to `HideCardDetail` lacking the synthetic-mouse guard that `ShowCardDetail` already had
+  (`suppressMouseCardDetailUntil`). Asymmetric guards between a show/hide pair are a smell worth grepping.
+- **A DOM-scoped query is a bug waiting for a re-render.** `updateLeaderTabVisibilityMobile()` scoped to
+  `#myCardPane`; a pane switch re-renders the tabs OUTSIDE it (and duplicates them), so the filter
+  silently no-opped and premier decks showed Twin Suns tabs. Evidence that cracked it: 0 `.panelTab` in
+  the pane vs 10 in the document.
+- **When a check fails, decide whether the TEST or the CODE is wrong — and say which, out loud.** The
+  `-webkit-touch-callout` computed-style assertion was unobservable by construction (mobile-only property,
+  dropped at parse time by desktop engines). I changed the test, not the code, and flagged the reasoning
+  for scrutiny rather than quietly making it green.
+- **Stage a fix so the unverifiable part ships first and alone.** Splitting callout-suppression (tiny,
+  device-verifiable) from the preview modal (bigger JS) meant the owner confirmed the real fix on their
+  iPhone before the risky change landed. Worth doing whenever automation can't cover the critical piece.
+- **Temporal bugs need temporal assertions.** A flicker is invisible to a single snapshot; sampling
+  visibility 12x over ~1.2s and asserting all samples match is what actually covers it.

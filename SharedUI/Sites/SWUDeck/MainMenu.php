@@ -993,7 +993,11 @@ function LoadDecks() {
     var tr = table.getElementsByTagName("tr");
 
     for (var i = 0; i < tr.length; i++) {
-      var td = tr[i].getElementsByTagName("td")[2]; // Assuming the deck name is in the third column
+      // Match the name cell by class, not by index. The art cell carries
+      // colspan='2', so the name sits at td[1] even though it is visually the
+      // third column -- indexing td[2] read the (empty) actions cell and hid
+      // every row on any non-empty query.
+      var td = tr[i].querySelector("td.deck-name");
       if (td) {
         var txtValue = td.textContent || td.innerText;
         if (txtValue.toLowerCase().indexOf(filter) > -1) {
