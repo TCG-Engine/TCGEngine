@@ -46,3 +46,26 @@ WithP2GroundArena: SOR_046:1:0
 P1SPACEARENACOUNT:0
 P2SPACEARENACOUNT:0
 P2GROUNDARENACOUNT:0
+
+---
+
+# NoOtherResistance_NoSentinel
+#// JTL_104 Raddus — the Sentinel is conditional on controlling ANOTHER Resistance card. Alone (its only
+#// friendly is a non-Resistance SOR_095), Raddus does NOT have Sentinel.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_104:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_104
+P1SPACEARENAUNIT:0:NOTKEYWORD:Sentinel

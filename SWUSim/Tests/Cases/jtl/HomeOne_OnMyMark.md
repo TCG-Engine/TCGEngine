@@ -22,3 +22,32 @@ WithP2SpaceArena: JTL_069:1:0
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:JTL_204
 P1RESAVAILABLE:0
+
+---
+
+# NotThreeEnemySpace_FullCost
+#// JTL_204 Home One — the −3 cost only applies when an OPPONENT controls 3+ SPACE units. P2 has only 2
+#// space units (friendly space units and enemy GROUND units are ignored), so Home One costs the full 9 —
+#// with 9 resources provisioned it consumes all 9.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_204
+WithP1Resources: 9
+WithP1SpaceArena: SOR_237:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:1:CARDID:JTL_204
+P1RESAVAILABLE:0

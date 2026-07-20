@@ -82,3 +82,54 @@ P1LEADER:READY
 P1NODECISION
 P2GROUNDARENAUNIT:0:READY
 P2SPACEARENACOUNT:0
+
+---
+
+# LeaderAction_ExhaustFriendly_YouGetXWing
+#// JTL_016 Admiral Ackbar (leader) — the exhaust may target a FRIENDLY unit; its controller (P1) then
+#// creates the X-Wing. P1 exhausts its own SOR_095 → P1 gets an X-Wing in its space arena.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1Resources: 1
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_T02
+P1LEADER:EXHAUSTED
+
+---
+
+# LeaderAction_ExhaustedTarget_NoXWing
+#// JTL_016 Admiral Ackbar (leader) — "Exhaust a non-leader unit. IF YOU DO, its controller creates an
+#// X-Wing." Targeting an ALREADY-exhausted unit exhausts nothing, so no X-Wing is created (the leader
+#// still exhausts and the resource is still spent).
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:0:0
+WithP1Resources: 1
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1LEADER:EXHAUSTED

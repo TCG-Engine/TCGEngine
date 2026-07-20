@@ -24,3 +24,31 @@ P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# ExhaustedEnemyChosen_NoReady
+#// JTL_195 Cat and Mouse — "Exhaust an enemy unit; IF YOU DO, ready a friendly …". Choosing an ALREADY
+#// exhausted enemy exhausts nothing, so the "if you do" fails and no friendly unit readies. The enemy
+#// SOR_046 is pre-exhausted; the friendly SOR_095 stays exhausted.
+
+## GIVEN
+CommonSetup: gyk/bbk/{
+  myLeader:JTL_015;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_195
+WithP1Resources: 3
+WithP1GroundArena: SOR_095:0:0
+WithP2GroundArena: SOR_046:0:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:EXHAUSTED

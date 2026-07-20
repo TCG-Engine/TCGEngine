@@ -310,17 +310,64 @@ function HasInitiative(int $player): bool {
 // ═════════════════════════════════════════════════════════════════════════════
 function _SWUUnitHasKeyword($u, string $kw): bool {
     switch ($kw) {
-        case 'AMBUSH':    return HasKeyword_Ambush($u);
-        case 'GRIT':      return HasKeyword_Grit($u);
-        case 'HIDDEN':    return HasKeyword_Hidden($u);
-        case 'OVERWHELM': return HasKeyword_Overwhelm($u);
-        case 'SABOTEUR':  return HasKeyword_Saboteur($u);
-        case 'SENTINEL':  return HasKeyword_Sentinel($u);
-        case 'SHIELDED':  return HasKeyword_Shielded($u);
-        case 'RAID':      return HasKeyword_Raid($u);
-        case 'RESTORE':   return HasKeyword_Restore($u);
+        case 'AMBUSH':     return HasKeyword_Ambush($u);
+        case 'GRIT':       return HasKeyword_Grit($u);
+        case 'HIDDEN':     return HasKeyword_Hidden($u);
+        case 'OVERWHELM':  return HasKeyword_Overwhelm($u);
+        case 'SABOTEUR':   return HasKeyword_Saboteur($u);
+        case 'SENTINEL':   return HasKeyword_Sentinel($u);
+        case 'SHIELDED':   return HasKeyword_Shielded($u);
+        case 'RAID':       return HasKeyword_Raid($u);
+        case 'RESTORE':    return HasKeyword_Restore($u);
+        case 'BOUNTY':     return HasKeyword_Bounty($u);
+        case 'COORDINATE': return HasKeyword_Coordinate($u);
     }
     return false;
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// JTL_053 The Ghost — "Each other friendly Spectre unit gains this unit's keywords."
+// A friendly Spectre (NOT The Ghost itself) gains keyword K while a friendly in-play The Ghost has K.
+// The Ghost is excluded as a recipient, so HasKeyword_K($ghost) never re-enters the share branch for the
+// simple case.
+// ═════════════════════════════════════════════════════════════════════════════
+function _SWUGhostSharesKeyword($obj, string $kw): bool {
+    static $inProgress = [];
+    if (($obj->CardID ?? '') === 'JTL_053') return false;   // The Ghost is not its own recipient
+    if (!HasTrait($obj->CardID ?? '', 'Spectre')) return false;
+    $ctrl = intval($obj->Controller ?? 0);
+    if ($ctrl <= 0) return false;
+    $guard = intval($obj->UniqueID ?? 0) . '|' . $kw;
+    if (isset($inProgress[$guard])) return false;
+    $inProgress[$guard] = true;
+    $has = false;
+    foreach (GetUnitsInPlay($ctrl) as $u) {
+        if (($u->CardID ?? '') === 'JTL_053' && empty($u->removed) && _SWUUnitHasKeyword($u, $kw)) { $has = true; break; }
+    }
+    unset($inProgress[$guard]);
+    return $has;
+}
+
+// Value-keyword variant (Raid / Restore): the additive value a friendly Spectre gains from a friendly
+// The Ghost that has keyword $kw. Same recipient + re-entrancy rules as _SWUGhostSharesKeyword.
+function _SWUGhostSharesKeywordValue($obj, string $kw): int {
+    static $inProgress = [];
+    if (($obj->CardID ?? '') === 'JTL_053') return 0;
+    if (!HasTrait($obj->CardID ?? '', 'Spectre')) return 0;
+    $ctrl = intval($obj->Controller ?? 0);
+    if ($ctrl <= 0) return 0;
+    $guard = intval($obj->UniqueID ?? 0) . '|' . $kw;
+    if (isset($inProgress[$guard])) return 0;
+    $inProgress[$guard] = true;
+    $best = 0;
+    foreach (GetUnitsInPlay($ctrl) as $u) {
+        if (($u->CardID ?? '') === 'JTL_053' && empty($u->removed)) {
+            $v = ($kw === 'RAID') ? intval(GetKeyword_Raid_Value($u)) : intval(GetKeyword_Restore_Value($u));
+            if ($v > $best) $best = $v;
+        }
+    }
+    unset($inProgress[$guard]);
+    return $best;
 }
 function _SWUMirrorAnotherFriendlyHasKeyword($obj, string $kw): bool {
     $self = intval($obj->UniqueID ?? -1);
@@ -337,6 +384,7 @@ function _SWUMirrorAnotherFriendlyHasKeyword($obj, string $kw): bool {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Ambush($obj) {
+    if (_SWUGhostSharesKeyword($obj, 'AMBUSH')) return true;   // JTL_053 The Ghost keyword share
     // TS26_75 Jango Fett — "While an enemy unit has attacked your base this phase, this unit gains Ambush."
     if (($obj->CardID ?? '') === 'TS26_75'
         && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_BASE_ATTACKED') > 0) return true;
@@ -412,6 +460,7 @@ function _SWUYularenGrants($obj, string $kw): bool {
 }
 
 function HasConditionalKeyword_Grit($obj) {
+    if (_SWUGhostSharesKeyword($obj, 'GRIT')) return true;   // JTL_053 The Ghost keyword share
     if (is_object($obj) && _SWUUnitHasUpgrade($obj, 'SEC_054')) return true;   // SEC_054 grants Grit
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'GRIT')) return true;
     if (_SWUYularenGrants($obj, 'GRIT')) return true;
@@ -482,6 +531,7 @@ function _SWUSavageFrontGrants($obj): bool {
 }
 
 function HasConditionalKeyword_Overwhelm($obj) {
+    if (_SWUGhostSharesKeyword($obj, 'OVERWHELM')) return true;   // JTL_053 The Ghost keyword share
     // TWI_009 Maul (deployed) — "Each other friendly unit gains Overwhelm."
     if (($obj->CardID ?? '') !== 'TWI_009' && intval($obj->Controller ?? 0) > 0 && _SWULeaderDeployed(intval($obj->Controller), 'TWI_009')) return true;
     // TS26_05 Savage Opress (deployed) — "Each other friendly unit gains Overwhelm."
@@ -542,6 +592,7 @@ function HasConditionalKeyword_Overwhelm($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Saboteur($obj) {
+    if (_SWUGhostSharesKeyword($obj, 'SABOTEUR')) return true;   // JTL_053 The Ghost keyword share
     // TWI_010 Pre Vizsla (deployed) — "While you have 3 or more cards in your hand, this unit gains Saboteur."
     if (($obj->CardID ?? '') === 'TWI_010' && IsLeaderUnit($obj) && count(GetHand(intval($obj->Controller ?? 0))) >= 3) return true;
     // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." A unit gains it while an opponent of
@@ -695,17 +746,8 @@ function HasConditionalKeyword_Sentinel($obj) {
         case 'JTL_104': // Raddus — while you control ANOTHER Resistance card (unit, upgrade, or leader)
             return _SWUControlsAnotherResistance(intval($obj->Controller ?? 0), intval($obj->UniqueID ?? 0));
     }
-    // JTL_053 The Ghost aura — each OTHER friendly Spectre unit gains The Ghost's keywords. The Ghost's
-    // only keyword is Sentinel (while it is upgraded), so a friendly Spectre unit gains Sentinel while a
-    // friendly upgraded The Ghost is in play.
-    if (HasTrait($obj->CardID ?? '', 'Spectre') && ($obj->CardID ?? '') !== 'JTL_053') {
-        $controller = intval($obj->Controller ?? 0);
-        if ($controller > 0) {
-            foreach (GetUnitsInPlay($controller) as $u) {
-                if (($u->CardID ?? '') === 'JTL_053' && empty($u->removed) && count(GetUpgradesOnUnit($u)) > 0) return true;
-            }
-        }
-    }
+    // JTL_053 The Ghost — shares Sentinel with friendly Spectres (general keyword share, see helper).
+    if (_SWUGhostSharesKeyword($obj, 'SENTINEL')) return true;
     foreach (GetUpgradesOnUnit($obj) as $u) {
         switch ($u->CardID) {
             case 'SOR_057': // Protector
@@ -727,6 +769,7 @@ function HasConditionalKeyword_Sentinel($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Shielded($obj) {
+    if (_SWUGhostSharesKeyword($obj, 'SHIELDED')) return true;   // JTL_053 The Ghost keyword share
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SHIELDED')) return true;
     if (_SWUYularenGrants($obj, 'SHIELDED')) return true;
     switch ($obj->CardID) {
@@ -747,6 +790,7 @@ function HasConditionalKeyword_Shielded($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Bounty($obj) {
+    if (_SWUGhostSharesKeyword($obj, 'BOUNTY')) return true;   // JTL_053 The Ghost keyword share
     switch ($obj->CardID) {
         case 'SHD_033': // Synara San — while exhausted (Status 0; 1 = ready)
         case 'SHD_165': // Unlicensed Headhunter — while exhausted
@@ -786,6 +830,7 @@ function HasConditionalKeyword_Smuggle($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Coordinate($obj) {
+    if (_SWUGhostSharesKeyword($obj, 'COORDINATE')) return true;   // JTL_053 The Ghost keyword share
     foreach (GetUpgradesOnUnit($obj) as $u) {
         if ($u->CardID === 'TWI_051') return true; // For the Republic
     }
@@ -801,6 +846,7 @@ function HasConditionalKeyword_Piloting($obj) {
 }
 
 function HasConditionalKeyword_Hidden($obj) {
+    if (_SWUGhostSharesKeyword($obj, 'HIDDEN')) return true;   // JTL_053 The Ghost keyword share
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'HIDDEN')) return true;
     if ($obj === null) return false;
     // ASH_177 Onyx Cinder — "Other friendly units gain Hidden." Granted to any unit whose controller
@@ -856,6 +902,7 @@ function HasConditionalKeyword_Support($obj) {
 
 function GetConditionalKeyword_Raid_Value($obj) {
     $amount = 0;
+    $amount += _SWUGhostSharesKeywordValue($obj, 'RAID');   // JTL_053 The Ghost keyword share (additive)
     // TWI_169 Clone Cohort (upgrade) — "Attached unit gains Raid 2."
     if (_SWUUnitHasUpgrade($obj, 'TWI_169')) $amount += 2;
     // TWI_164 Hevy — "Coordinate - Raid 2."
@@ -1013,6 +1060,7 @@ function GetConditionalKeyword_Raid_Value($obj) {
 
 function GetConditionalKeyword_Restore_Value($obj) {
     $amount = 0;
+    $amount += _SWUGhostSharesKeywordValue($obj, 'RESTORE');   // JTL_053 The Ghost keyword share (additive)
     // ASH_114 Sabine's Lightsaber (upgrade) — "If attached unit is Sabine Wren or a Force unit, it gains Restore 2."
     if (_SWUUnitHasUpgrade($obj, 'ASH_114')
         && (CardTitle($obj->CardID ?? '') === 'Sabine Wren' || HasTrait($obj->CardID ?? '', 'Force'))) $amount += 2;

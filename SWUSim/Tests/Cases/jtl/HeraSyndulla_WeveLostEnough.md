@@ -19,3 +19,26 @@ WithP1SpaceArenaUpgrade: 0:JTL_045
 ## EXPECT
 P2BASEDMG:4
 P1BASEDMG:2
+
+---
+
+# AsUnit_Restore1
+#// JTL_045 Hera Syndulla — as a UNIT she has Restore 1 herself. Hera (2/3) attacks the enemy base for 2 and
+#// heals P1's base from 3 to 2.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBaseDamage:3;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: JTL_045:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:2
+P1BASEDMG:2

@@ -183,6 +183,8 @@ class SchemaTestRunner {
                              'WithP1SpaceArenaUpgrade',   'WithP2SpaceArenaUpgrade',
                              'WithP1GroundArenaPilot',    'WithP2GroundArenaPilot',
                              'WithP1SpaceArenaPilot',     'WithP2SpaceArenaPilot',
+                             'WithP1GroundArenaCaptive',  'WithP2GroundArenaCaptive',
+                             'WithP1SpaceArenaCaptive',   'WithP2SpaceArenaCaptive',
                              'WithP1Deck',                'WithP2Deck',
                              'WithP3Deck',                'WithP4Deck'];
         // List-valued keys accept either one spec per line OR a bracketed, whitespace-separated
@@ -198,7 +200,9 @@ class SchemaTestRunner {
                             'WithP1GroundArenaUpgrade', 'WithP2GroundArenaUpgrade',
                             'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade',
                             'WithP1GroundArenaPilot', 'WithP2GroundArenaPilot',
-                            'WithP1SpaceArenaPilot', 'WithP2SpaceArenaPilot'];
+                            'WithP1SpaceArenaPilot', 'WithP2SpaceArenaPilot',
+                            'WithP1GroundArenaCaptive', 'WithP2GroundArenaCaptive',
+                            'WithP1SpaceArenaCaptive', 'WithP2SpaceArenaCaptive'];
         $out = [];
         foreach ($lines as $line) {
             if (!str_contains($line, ':')) continue;
@@ -447,6 +451,32 @@ class SchemaTestRunner {
             }
         }
 
+        // Initial CAPTIVE units held by an arena unit (WithP{n}{Ground|Space}ArenaCaptive: idx:CARD_ID).
+        // Seeds a captured-unit subcard (IsCaptive=true) on the captor at $unitIdx, OWNED by the OTHER
+        // player (captives are enemy units) — so a rescue (CR 8.34.4, e.g. JTL_050 Phantom II leaving play
+        // as a unit) returns it to that owner's arena. The only harness way to pre-seat a captive.
+        foreach ([1, 2] as $pn) {
+            $owner = ($pn === 1) ? 2 : 1;
+            foreach (['Ground', 'Space'] as $arenaType) {
+                $key    = "WithP{$pn}{$arenaType}ArenaCaptive";
+                $byUnit = [];
+                foreach ($given[$key] ?? [] as $spec) {
+                    [$idxStr, $cardID] = array_pad(explode(':', trim($spec), 2), 2, '');
+                    $byUnit[intval($idxStr)][] = trim($cardID);
+                }
+                $method = "WithUpgradesOn{$arenaType}UnitForPlayer";
+                foreach ($byUnit as $unitIdx => $cardIDs) {
+                    $captives = array_map(function($cid) use ($pn, $owner) {
+                        $c = GameStateBuilder::Upgrade($cid, $owner);   // Owner = the captive's owner (opponent)
+                        $c['Controller'] = $pn;                          // controlled/guarded by the captor
+                        $c['IsCaptive']  = true;
+                        return $c;
+                    }, $cardIDs);
+                    $b->$method($pn, $unitIdx, $captives);
+                }
+            }
+        }
+
         // Defeated players (sets gWinner + max base damage).
         foreach (explode(',', $given['WithDefeatedPlayer'] ?? '') as $dpStr) {
             $dp = intval(trim($dpStr));
@@ -634,6 +664,18 @@ class SchemaTestRunner {
         $damage       = isset($parts[1]) ? intval($parts[1]) : 0;
         $epicUsed     = isset($parts[2]) ? (intval($parts[2]) === 1) : false;
         return [$cardId, $damage, $epicUsed];
+    }
+
+    // The exact legal-target set of a pending target-choice decision, as an array of candidate mzIDs.
+    // A target choice stores its candidates in Param as an '&'-joined mzID list; MZMULTICHOOSE prefixes
+    // it with "min|max|" (e.g. "1|2|theirGroundArena-0&theirSpaceArena-1"). Non-target decisions
+    // (OPTIONCHOOSE labels, YESNO, TOPDECKSEARCH) return [] — SELECTABLE asserts don't apply to them.
+    private static function _selectableTargets(object $pending): array {
+        $type  = strtoupper((string)($pending->Type ?? ''));
+        if (!in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE', 'MZMULTICHOOSE'], true)) return [];
+        $param = (string)($pending->Param ?? '');
+        if ($type === 'MZMULTICHOOSE' && preg_match('/^\d+\|\d+\|(.*)$/s', $param, $mm)) $param = $mm[1];
+        return array_values(array_filter(array_map('trim', explode('&', $param)), fn($s) => $s !== '' && $s !== '-'));
     }
 
     // "SOR_014"       → ['SOR_014', ready:true,  deployed:false, epicActionUsed:false]
@@ -1100,6 +1142,42 @@ class SchemaTestRunner {
                         $failures[] = "{$line}: option '{$label}' not offered [" . implode(',', $opts) . "]";
                     if (!$wantHas && $present)
                         $failures[] = "{$line}: option '{$label}' unexpectedly offered [" . implode(',', $opts) . "]";
+                }
+
+            } elseif (preg_match('/^P(\d+)SELECTABLE(HAS|NOT):(.+)$/', $line, $m)) {
+                // Membership of a target mzID in a pending target-choice's exact legal-target set (the
+                // SWUSim analog of the reference engine's exact-legal-target assertion, membership form). Reads the
+                // pending decision's Param — the '&'-joined candidate mzIDs (MZCHOOSE / MZMAYCHOOSE /
+                // MZMULTICHOOSE, the latter prefixed "min|max|"). Leave the decision pending (don't answer
+                // it) so it can be inspected. mzIDs are in the DECIDING player's frame (my*/their*).
+                $p        = intval($m[1]);
+                $wantHas  = ($m[2] === 'HAS');
+                $mzWanted = $m[3];
+                $pending  = $g->state->pendingDecision($p);
+                if ($pending === null) {
+                    $failures[] = "{$line}: expected a pending target-choice decision, but none found";
+                } else {
+                    $cands   = self::_selectableTargets($pending);
+                    $present = in_array($mzWanted, $cands, true);
+                    if ($wantHas && !$present)
+                        $failures[] = "{$line}: '{$mzWanted}' not selectable [" . implode(',', $cands) . "]";
+                    if (!$wantHas && $present)
+                        $failures[] = "{$line}: '{$mzWanted}' unexpectedly selectable [" . implode(',', $cands) . "]";
+                }
+
+            } elseif (preg_match('/^P(\d+)SELECTABLEEXACT:(.*)$/', $line, $m)) {
+                // The FULL exact legal-target set of a pending target-choice, order-insensitive ('&'-joined
+                // mzIDs, deciding player's frame). Direct port of toBeAbleToSelectExactly.
+                $p       = intval($m[1]);
+                $want    = array_values(array_filter(explode('&', $m[2]), fn($s) => $s !== ''));
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null) {
+                    $failures[] = "{$line}: expected a pending target-choice decision, but none found";
+                } else {
+                    $cands = self::_selectableTargets($pending);
+                    $a = $cands; $b = $want; sort($a); sort($b);
+                    if ($a !== $b)
+                        $failures[] = "{$line}: expected exactly [" . implode('&', $b) . "], got [" . implode('&', $a) . "]";
                 }
 
             } elseif (preg_match('/^P(\d+)HASFORCE$/', $line, $m)) {

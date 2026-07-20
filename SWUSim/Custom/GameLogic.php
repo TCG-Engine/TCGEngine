@@ -257,6 +257,11 @@ function ObjectCurrentPower($obj) {
 
     // SOR_001 Director Krennic: each friendly damaged unit gets +1/+0 (both sides).
     $controller = intval($obj->Controller ?? $obj->Owner ?? 0);
+    // A unit that has LOST ALL ABILITIES (JTL_244 There Is No Escape, SOR_138 Force Lightning, SHD_072 …)
+    // keeps its printed base but loses every one of its OWN stat-modifying passives (they are abilities).
+    // Gate the SELF-conditional buffs below on this. External grants (Krennic/Obi-Wan/Motti/Gar Saxon/
+    // trait-commander auras/upgrade grants) are OTHER cards' abilities and are NOT suppressed here.
+    $lost = LostAbilities($obj);
     // LAW_036 Obi-Wan Kenobi: "While you control 7 or more units, their printed power is considered to
     // be 7." (Overrides the printed base for ALL the controller's units while Obi-Wan is in play.)
     if (_SWULaw036Active($controller)) $base = 7;
@@ -280,7 +285,7 @@ function ObjectCurrentPower($obj) {
 
     // SHD_015 Doctor Aphra (deployed): "While there are 5 or more different costs among cards in your
     // discard pile, this unit gets +3/+0." (Self passive on the deployed leader unit; power only.)
-    if (($obj->CardID ?? '') === 'SHD_015' && IsLeaderUnit($obj) && $controller > 0) {
+    if (!$lost && ($obj->CardID ?? '') === 'SHD_015' && IsLeaderUnit($obj) && $controller > 0) {
         $aphraCosts = [];
         foreach (GetDiscard($controller) as $dc) {
             if (!empty($dc->removed)) continue;
@@ -290,7 +295,7 @@ function ObjectCurrentPower($obj) {
     }
 
     // SEC_212 Libertine: gets +1/+0 for each captured card it's guarding.
-    if (($obj->CardID ?? '') === 'SEC_212' && is_array($obj->Subcards ?? null)) {
+    if (!$lost && ($obj->CardID ?? '') === 'SEC_212' && is_array($obj->Subcards ?? null)) {
         foreach ($obj->Subcards as $sub) {
             $isCaptive = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
             $isRemoved = is_array($sub) ? !empty($sub['removed'])   : !empty($sub->removed);
@@ -317,38 +322,38 @@ function ObjectCurrentPower($obj) {
     if ($controller > 0 && CardTitle($obj->CardID ?? '') === 'Zuckuss'
         && _SWUCountUnitsWithCardID($controller, 'SHD_188') > 0) $base += 1;
     // SHD_056 Follower of The Way — "While this unit is upgraded, it gets +1/+1."
-    if (($obj->CardID ?? '') === 'SHD_056' && _SWUIsUpgraded($obj)) $base += 1;
+    if (!$lost && ($obj->CardID ?? '') === 'SHD_056' && _SWUIsUpgraded($obj)) $base += 1;
     // TWI_090 Echo — "Coordinate - This unit gets +2/+2." (the +2 power half).
-    if (($obj->CardID ?? '') === 'TWI_090' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_090' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
     // TWI_158 Clone Heavy Gunner — "Coordinate - This unit gets +2/+0." (power only).
-    if (($obj->CardID ?? '') === 'TWI_158' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_158' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
     // TWI_163 Relentless Rocket Droid — "While you control another Trooper unit, this unit gets +2/+0."
-    if (($obj->CardID ?? '') === 'TWI_163' && $controller > 0
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_163' && $controller > 0
         && PlayerHasUnitWithTraitInPlay($controller, 'Trooper', $obj->UniqueID ?? null)) $base += 2;
     // TWI_142 Anakin's Interceptor — "While your base has 15 or more damage on it, this unit gets +2/+0."
-    if (($obj->CardID ?? '') === 'TWI_142' && $controller > 0) {
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_142' && $controller > 0) {
         $b142 = GetBase($controller);
         if (!empty($b142) && isset($b142[0]) && intval($b142[0]->Damage ?? 0) >= 15) $base += 2;
     }
     // TWI_130 Bo-Katan Kryze — "While you control another Trooper unit, this unit gets +1/+0."
-    if (($obj->CardID ?? '') === 'TWI_130' && $controller > 0
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_130' && $controller > 0
         && PlayerHasUnitWithTraitInPlay($controller, 'Trooper', $obj->UniqueID ?? null)) $base += 1;
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gets +1/+0."
-    if (($obj->CardID ?? '') === 'TWI_143' && $controller > 0
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_143' && $controller > 0
         && GlobalEffectCount($controller, 'SWU_ENEMY_DEFEATED') > 0) $base += 1;
     // TWI_240 332nd Stalwart — "Coordinate - This unit gets +1/+1." (power half).
-    if (($obj->CardID ?? '') === 'TWI_240' && $controller > 0 && IsCoordinateActive($controller)) $base += 1;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_240' && $controller > 0 && IsCoordinateActive($controller)) $base += 1;
     // TWI_028 Petranaki Arena (base) — "Each leader unit you control gets +1/+0."
     if (IsLeaderUnit($obj) && $controller > 0) {
         $b28 = GetBase($controller);
         if (!empty($b28) && isset($b28[0]) && ($b28[0]->CardID ?? '') === 'TWI_028') $base += 1;
     }
     // TWI_010 Pre Vizsla (deployed) — "While you have 6 or more cards in your hand, this unit gets +2/+0."
-    if (($obj->CardID ?? '') === 'TWI_010' && $controller > 0 && count(GetHand($controller)) >= 6) $base += 2;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_010' && $controller > 0 && count(GetHand($controller)) >= 6) $base += 2;
     // TWI_011 Ahsoka Tano (deployed) — "Coordinate - This unit gets +2/+0."
-    if (($obj->CardID ?? '') === 'TWI_011' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_011' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
     // TWI_012 Anakin Skywalker (deployed) — "This unit gets +1/+0 for every 5 damage on your base."
-    if (($obj->CardID ?? '') === 'TWI_012' && $controller > 0) {
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_012' && $controller > 0) {
         $b012 = GetBase($controller);
         if (!empty($b012) && isset($b012[0])) $base += intdiv(intval($b012[0]->Damage ?? 0), 5);
     }
@@ -358,7 +363,7 @@ function ObjectCurrentPower($obj) {
     if ($controller > 0 && is_array($obj->TurnEffects ?? null) && in_array('SWU_HEALED_PHASE', $obj->TurnEffects, true)
         && _SWUCountUnitsWithCardID($controller, 'TWI_042') > 0) $base += 1;
     // TWI_058 Padawan Starfighter — "While you control a Force unit or a Force upgrade, +1/+1." (power half).
-    if (($obj->CardID ?? '') === 'TWI_058' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_058' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
     // TWI_094 Shaak Ti — "Each friendly token unit gets +1/+0." (power only; +1 per Shaak Ti in play).
     if ($controller > 0 && strpos(CardType($obj->CardID ?? '') ?? '', 'Token') !== false) {
         $base += _SWUCountUnitsWithCardID($controller, 'TWI_094');
@@ -372,10 +377,11 @@ function ObjectCurrentPower($obj) {
         $base += $tr;
     }
     // SHD_083 Seasoned Shoretrooper — "While you control 6 or more resources, this unit gets +2/+0."
-    if (($obj->CardID ?? '') === 'SHD_083' && $controller > 0 && SWUResourceCount($controller) >= 6) $base += 2;
+    if (!$lost && ($obj->CardID ?? '') === 'SHD_083' && $controller > 0 && SWUResourceCount($controller) >= 6) $base += 2;
 
-    // Self-conditional buffs.
-    switch ($obj->CardID) {
+    // Self-conditional buffs (the unit's OWN printed stat abilities) — suppressed while it has lost all
+    // abilities.
+    if (!$lost) switch ($obj->CardID) {
         case 'LOF_004': // Kanan Jarrus (deployed): while you control ANOTHER Creature or Spectre unit, +2/+2.
             if ($controller > 0) {
                 $selfUid = intval($obj->UniqueID ?? 0);
@@ -552,7 +558,7 @@ function ObjectCurrentPower($obj) {
     $base += SWUTraitCommanderBonus($obj, 'SOR_242', 'Rebel');    // General Dodonna
     $base += SWUTraitCommanderBonus($obj, 'TS26_13', 'Separatist'); // Darth Sidious (other friendly Separatist +1/+0, power only)
     // TS26_07 Asajj Ventress (deployed) — "While you've attacked with a token unit this phase, +2/+0."
-    if (($obj->CardID ?? '') === 'TS26_07' && $controller > 0
+    if (!$lost && ($obj->CardID ?? '') === 'TS26_07' && $controller > 0
             && GlobalEffectCount($controller, 'SWU_ATTACKED_TOKEN') > 0) {
         $base += 2;
     }
@@ -564,7 +570,7 @@ function ObjectCurrentPower($obj) {
     $base += 6 * SWUTraitCommanderBonus($obj, 'LOF_089', 'Vehicle'); // Supremacy (other friendly Vehicles +6/+6)
     $base += _SWUTheSonBonus($obj);                              // LOF_237 The Son (+2/+0 while you have the Force)
     // SEC_011 Governor Pryce (deployed) — "+1/+0 for each ready friendly token unit."
-    if (($obj->CardID ?? '') === 'SEC_011') {
+    if (!$lost && ($obj->CardID ?? '') === 'SEC_011') {
         foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $tu) {
             if (empty($tu->removed) && intval($tu->Status ?? 0) === 1
                 && EffectiveCardType($tu) === 'Token Unit') $base += 1;
@@ -618,6 +624,8 @@ function ObjectCurrentHP($obj) {
 
     // SOR_100 Wedge Antilles: each friendly VEHICLE unit gets +0/+1.
     $controller = intval($obj->Controller ?? $obj->Owner ?? 0);
+    // Suppress the unit's OWN stat passives while it has lost all abilities (see ObjectCurrentPower).
+    $lost = LostAbilities($obj);
     // LAW_036 Obi-Wan Kenobi: "While you control 7 or more units, their printed HP is considered to be 7."
     if (_SWULaw036Active($controller)) $base = 7;
     // LAW_139 Admiral Motti: "Friendly leader units get +2/+2." (Deployed-leader units only.)
@@ -662,15 +670,15 @@ function ObjectCurrentHP($obj) {
             && _SWUCountUnitsWithCardID($c190, 'SHD_188') > 0) $base += 1;
     }
     // SHD_056 Follower of The Way — "While this unit is upgraded, it gets +1/+1" (the +1 HP half).
-    if (($obj->CardID ?? '') === 'SHD_056' && _SWUIsUpgraded($obj)) $base += 1;
+    if (!$lost && ($obj->CardID ?? '') === 'SHD_056' && _SWUIsUpgraded($obj)) $base += 1;
     // TWI_045 41st Elite Corps — "Coordinate - This unit gets +0/+3." (the +3 HP; power unchanged).
-    if (($obj->CardID ?? '') === 'TWI_045' && $controller > 0 && IsCoordinateActive($controller)) $base += 3;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_045' && $controller > 0 && IsCoordinateActive($controller)) $base += 3;
     // TWI_090 Echo — "Coordinate - This unit gets +2/+2." (the +2 HP half).
-    if (($obj->CardID ?? '') === 'TWI_090' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_090' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
     // TWI_114 Clone Commander Cody — "Coordinate - Each OTHER friendly unit gets +1/+1." (HP half).
     $base += _SWUTwi114Bonus($obj);
     // TWI_058 Padawan Starfighter — "While you control a Force unit or a Force upgrade, +1/+1." (HP half).
-    if (($obj->CardID ?? '') === 'TWI_058' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_058' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
     // TWI_110 Huyang — chosen unit gets +2/+2 while Huyang is in play. (HP half).
     if (_SWUTwi110HasBuff($obj)) $base += 2;
     // TWI_122 Squad Support — "Attached unit gets +1/+1 for each Trooper unit you control." (HP half).
@@ -687,18 +695,18 @@ function ObjectCurrentHP($obj) {
         }
     }
     // TWI_240 332nd Stalwart — "Coordinate - This unit gets +1/+1." (HP half).
-    if (($obj->CardID ?? '') === 'TWI_240' && $controller > 0 && IsCoordinateActive($controller)) $base += 1;
+    if (!$lost && ($obj->CardID ?? '') === 'TWI_240' && $controller > 0 && IsCoordinateActive($controller)) $base += 1;
     // JTL_150 Biggs Darklighter (pilot): if the attached unit is a Transport, +0/+1.
     if (_SWUUnitHasUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Transport')) $base += 1;
     // JTL_050 Phantom II attached to The Ghost — "Attached unit gets +3/+3" (the +3 HP half).
     if (_SWUUnitHasUpgrade($obj, 'JTL_050')) $base += 3;
     // JTL_247 Resistance X-Wing: while it has a Pilot on it, +1/+1 (the +1 HP half).
-    if (($obj->CardID ?? '') === 'JTL_247' && _SWUHasPilotOnIt($obj)) $base += 1;
+    if (!$lost && ($obj->CardID ?? '') === 'JTL_247' && _SWUHasPilotOnIt($obj)) $base += 1;
 
     // SOR_082 Emperor's Royal Guard: +0/+1 while you control Emperor Palpatine
     // (SOR_006) — as a leader or as a deployed leader unit (the leader-zone entry
     // is present in both states).
-    if ($obj->CardID === 'SOR_082' && $controller > 0) {
+    if (!$lost && $obj->CardID === 'SOR_082' && $controller > 0) {
         foreach (GetLeader($controller) as $l) {
             if (!empty($l->removed)) continue;
             if (($l->CardID ?? '') === 'SOR_006') { $base += 1; break; }
@@ -706,13 +714,13 @@ function ObjectCurrentHP($obj) {
     }
 
     // SOR_118 97th Legion / TS26_50 General Grievous: +1/+1 for each resource you control.
-    if (in_array($obj->CardID ?? '', ['SOR_118', 'TS26_50'], true) && $controller > 0) $base += SWUResourceCount($controller);
+    if (!$lost && in_array($obj->CardID ?? '', ['SOR_118', 'TS26_50'], true) && $controller > 0) $base += SWUResourceCount($controller);
     // LOF_060 Padawan Starfighter: while you control a Force unit or upgrade, +1/+1 (the +1 HP half).
-    if (($obj->CardID ?? '') === 'LOF_060' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
+    if (!$lost && ($obj->CardID ?? '') === 'LOF_060' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
     // LOF_062 Axe Woves: +1/+1 for each upgrade on him (the +1 HP half, on top of each upgrade's own HP).
-    if (($obj->CardID ?? '') === 'LOF_062') $base += count(GetUpgradesOnUnit($obj));
+    if (!$lost && ($obj->CardID ?? '') === 'LOF_062') $base += count(GetUpgradesOnUnit($obj));
     // LOF_004 Kanan Jarrus (deployed): while you control ANOTHER Creature or Spectre unit, +2/+2 (the +2 HP half).
-    if (($obj->CardID ?? '') === 'LOF_004' && $controller > 0) {
+    if (!$lost && ($obj->CardID ?? '') === 'LOF_004' && $controller > 0) {
         $selfUid = intval($obj->UniqueID ?? 0);
         foreach (GetUnitsInPlay($controller) as $u) {
             if (empty($u->removed) && intval($u->UniqueID ?? -1) !== $selfUid
@@ -1878,8 +1886,14 @@ function _SWUIsUpgraded($obj): bool {
 // attached upgrade, or a controller field-passive. CALL SITES apply these only for ENEMY-sourced
 // ability actions (actor ≠ the unit's controller/owner) — these immunities never restrict the
 // controller's own abilities, combat, or state-based "no remaining HP" defeat (see SWUImmuneToHpDefeat).
+// ⚠ These immunities are ABILITIES of the unit (innate, or gained from an attached upgrade), so a unit
+// that has LOST ALL ABILITIES (SOR_138 Force Lightning, SHD_072, etc. — see LostAbilities()) no longer
+// has them. Gate the self/attached-grant sources on !LostAbilities. A FIELD-PASSIVE granted by ANOTHER
+// card's constant ability (LOF_073 Mythosaur) is NOT the unit's own ability, so losing the unit's
+// abilities does not remove it — those checks stay OUTSIDE the gate.
 function SWUAvoidsDefeat($obj): bool {
     if ($obj === null) return false;
+    if (LostAbilities($obj)) return false;
     $cid = $obj->CardID ?? '';
     if ($cid === 'SHD_187' || $cid === 'JTL_103' || $cid === 'LAW_149') return true;        // self
     if (_SWUUnitHasUpgrade($obj, 'TWI_220')) return true;  // Shadowed Intentions (attached grant)
@@ -1888,33 +1902,41 @@ function SWUAvoidsDefeat($obj): bool {
 }
 function SWUAvoidsBounce($obj): bool {
     if ($obj === null) return false;
-    $cid = $obj->CardID ?? '';
-    if ($cid === 'JTL_103') return true;                                                     // self
-    if (_SWUUnitHasUpgrade($obj, 'TWI_220')) return true;  // Shadowed Intentions
-    if (_SWUUnitHasUpgrade($obj, 'JTL_103')) return true;  // Chewbacca as a Pilot
+    if (!LostAbilities($obj)) {
+        $cid = $obj->CardID ?? '';
+        if ($cid === 'JTL_103') return true;                                                 // self
+        if (_SWUUnitHasUpgrade($obj, 'TWI_220')) return true;  // Shadowed Intentions
+        if (_SWUUnitHasUpgrade($obj, 'JTL_103')) return true;  // Chewbacca as a Pilot
+    }
     // LOF_073 Mythosaur: friendly UPGRADED units can't be returned to hand by enemy abilities.
+    // External field-passive — survives the unit losing its OWN abilities.
     if (_SWUIsUpgraded($obj) && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'LOF_073') > 0) return true;
     return false;
 }
 function SWUAvoidsCapture($obj): bool {
     if ($obj === null) return false;
+    if (LostAbilities($obj)) return false;
     if (($obj->CardID ?? '') === 'SHD_187') return true;                                     // self
     if (_SWUUnitHasUpgrade($obj, 'TWI_220')) return true;  // Shadowed Intentions
     return false;
 }
 function SWUAvoidsAbilityDamage($obj): bool {
     if ($obj === null) return false;
+    if (LostAbilities($obj)) return false;
     return ($obj->CardID ?? '') === 'SHD_187';  // "can't be damaged by enemy card abilities"
 }
 function SWUAvoidsTakeControl($obj): bool {
     if ($obj === null) return false;
+    if (LostAbilities($obj)) return false;
     return ($obj->CardID ?? '') === 'LAW_149';  // "Opponents can't take control of this unit."
 }
 function SWUAvoidsExhaust($obj): bool {
     if ($obj === null) return false;
     // LOF_040 Kylo Ren's Lightsaber: attached FORCE unit can't be exhausted by enemy abilities.
-    if (_SWUUnitHasUpgrade($obj, 'LOF_040') && _SWUUnitHasTrait($obj, 'Force')) return true;
+    // A gained ability of the host → removed if the host has lost all abilities.
+    if (!LostAbilities($obj) && _SWUUnitHasUpgrade($obj, 'LOF_040') && _SWUUnitHasTrait($obj, 'Force')) return true;
     // LOF_073 Mythosaur: friendly UPGRADED units can't be exhausted by enemy abilities.
+    // External field-passive — survives the unit losing its OWN abilities.
     if (_SWUIsUpgraded($obj) && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'LOF_073') > 0) return true;
     return false;
 }
@@ -3861,6 +3883,16 @@ function SWUMoveUnitToUpgrade(string $unitMz, string $hostMz, bool $isPilot = tr
     // Remove the unit from its arena (NOT defeated — it becomes an upgrade).
     $unit->removed = true;
 
+    // A unit that becomes a NON-pilot special upgrade (JTL_050 Phantom II) leaves play AS A UNIT, so per
+    // CR 8.34.4 it rescues any units it had captured — they return to their owner's arena exhausted (the
+    // "rescue all captured units" clause of Phantom II's attach rider). A real PILOT (leader deploy-as-pilot
+    // / Poe hop) instead keeps its captives on the subcard so SWUMoveUpgradeToUnit can restore them if the
+    // pilot later becomes a unit again.
+    if (!$isPilot && !empty($captives)) {
+        foreach ($captives as $cap) DoRescueUnit($cap, $unit);
+        $captives = [];
+    }
+
     if (!is_array($host->Subcards)) $host->Subcards = [];
     $pilotSub = (object)[
         'CardID'      => $cardID,
@@ -3945,6 +3977,14 @@ function SWUMoveUnitBetweenArenas(string $unitMz, string $targetArena): string {
     $newMz = SWUFindMzByUID($uid) ?? '';
     $playerID = $savedPID;
     return $newMz;
+}
+
+// Pilot UPGRADES that "can't be defeated as an upgrade by enemy card abilities" — the immunity lives on
+// the pilot subcard itself (protecting it, not its host), and applies only to ENEMY defeats. Currently
+// JTL_012 Luke Skywalker (Hero of Yavin). Keep this list as the single source of truth so both the
+// upgrade-defeat enforcement (SWUDefeatUpgrade) and any future target-filtering agree.
+function _SWUUpgradeImmuneToEnemyDefeat(string $upgradeCardID): bool {
+    return $upgradeCardID === 'JTL_012';
 }
 
 // Detach the first non-removed upgrade matching $cardID from $hostMz and return it to its owner's hand.
@@ -4066,6 +4106,22 @@ function SWUReturnUpgradeToHand(string $hostMz, string $cardID, int $actor = 0):
         $sctrl = is_array($sub) ? intval($sub['Controller'] ?? $owner) : intval($sub->Controller ?? $owner);
         if (_SWUWillrowProtectsUpgrade($host, $sctrl, $actor)) return;   // SEC_061 protection
         array_splice($host->Subcards, $i, 1);
+        // A leader attached as a Pilot can't be returned to hand — losing its host DEFEATS it, and it
+        // returns to the leader zone exhausted. This is a STATE-BASED consequence, not a direct
+        // enemy-ability defeat, so the leader's "can't be defeated/returned by enemy abilities" immunity
+        // does NOT apply. Mirrors SWUDefeatUpgrade's leader-pilot branch (a leader subcard is always a
+        // pilot). Used by ASH_042 Jabba, JTL_197, and every other "return an upgrade to hand" effect.
+        if (strpos(CardType($cardID) ?? '', 'Leader') !== false) {
+            $ldr = SWUFindLeaderByCardID($owner, $cardID);
+            if ($ldr === null) $ldr = SWUGetLeaderByIndex($owner, 0);
+            if ($ldr !== null) {
+                $ldr->Deployed         = false;
+                $ldr->DeployedUniqueID = 0;
+                $ldr->Ready            = false;
+                $ldr->Damage           = 0;
+            }
+            return;
+        }
         AddHand($owner, CardID:$cardID);
         return;
     }
@@ -4285,6 +4341,15 @@ function OnReadyCard($player, $mzID) {
         if (_SWUUnitHasUpgrade($obj, 'SHD_193')) { $playerID = $savedPID; return $mzID; }
         $obj->Status = 1;
         _SWUTs26063OnEnemyReady($obj);   // Rex's DC-17s — ready its host when an enemy unit readies (action phase)
+        // JTL_192 In Debt to Crimson Dawn — "When attached unit readies: exhaust it unless its controller
+        // pays 2 resources." Fires for ANY ready, not just the regroup ready step (which is handled directly
+        // in RegroupPhaseStart via SWUQueueJTL192RegroupTriggers, NOT through OnReadyCard — so no double-tax):
+        // a mid-phase ready effect (e.g. SOR_169 Keep Fighting) triggers the tax here.
+        if (_SWUUnitHasUpgrade($obj, 'JTL_192')) {
+            DecisionQueueController::AddDecision($ctrl, 'YESNO', '', 1,
+                'Pay_2_resources_to_keep_this_unit_ready?_(No_exhausts_it)');
+            DecisionQueueController::AddDecision($ctrl, 'CUSTOM', "JTL_192#0|{$mzID}", 1);
+        }
     }
     $playerID = $savedPID;
     return $mzID;
@@ -5278,6 +5343,30 @@ function ActionPhaseStart() {
             tooltip:"Pay_1_resource_each_to_keep_units_ready_(unselected_are_exhausted)");
         DecisionQueueController::AddDecision($target, "CUSTOM", "SEC_073#0|{$target}", 1);
         // leave $playerID = $target so MZCountChoices validates the relative mzIDs correctly
+    }
+
+    // JTL_028 Nabat Village — "At the start of the FIRST action phase, put 3 cards from your hand on the
+    // bottom of your deck." (The +3 starting hand + no-mulligan halves live in the pregame setup —
+    // SWUStartingHandModifier / SWUBaseSuppressesMulligan.) Fires exactly once per game, guarded by the
+    // per-player SWU_NABAT_BOTTOM_DONE flag. Interactive: the base's controller chooses which 3 (an
+    // MZMULTICHOOSE over their hand → JTL_028#0 moves them to the bottom, mirroring TWI_257).
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
+        $nabatBase = GetBase($p);
+        $hasNabat  = false;
+        foreach ($nabatBase as $bObj) {
+            if (empty($bObj->removed) && ($bObj->CardID ?? '') === 'JTL_028') { $hasNabat = true; break; }
+        }
+        if (!$hasNabat) continue;
+        if (GlobalEffectCount($p, 'SWU_NABAT_BOTTOM_DONE') > 0) continue;   // first action phase only
+        AddGlobalEffects($p, 'SWU_NABAT_BOTTOM_DONE');
+        $playerID = $p;
+        $hand = array_values(ZoneSearch("myHand"));
+        $n = min(3, count($hand));
+        if ($n <= 0) continue;
+        DecisionQueueController::AddDecision($p, "MZMULTICHOOSE", "{$n}|{$n}|" . implode('&', $hand), 1,
+            tooltip:"Put_3_cards_from_your_hand_on_the_bottom_of_your_deck_(Nabat_Village)");
+        DecisionQueueController::AddDecision($p, "CUSTOM", "JTL_028#0", 1);
+        // leave $playerID = $p so MZCountChoices validates the myHand-* relative mzIDs
     }
 
     $playerID = $savedPID;
@@ -7023,6 +7112,9 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             SWUCollectThrawnReuse($player, $cardID, $mzID); // JTL_002 Thrawn "when you use a When Defeated ability"
             break;
         case 'JTL_169':   ShadowCasterReuseTrigger($player, $cardID, $mzID); break;
+        // JTL_169 Shadow Caster reuse of a GRANTED When-Defeated: $cardID = the granting card's ID (the
+        // granted trigger type), $mzID = the param the original granted dispatch carried. Offer to reuse it.
+        case 'JTL_169G':  ShadowCasterReuseTrigger($player, $cardID, $mzID, $cardID); break;
         case 'OnAttack':
             OnAttackTrigger($player, $mzID);
             SWUCollectEnfysReuse($player, $cardID, $mzID); // LAW_014 Enfys Nest "when you use an On Attack ability"
@@ -7646,6 +7738,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // a card" to each OTHER friendly unit. The leaving unit qualifies if it isn't Krell.
             if (($d['cardID'] ?? '') !== 'SOR_105' && _SWUCountUnitsWithCardID($controller, 'SOR_105') > 0) {
                 AddTrigger($controller, 'SOR_105', 'SOR_105', '');
+                _SWUAddShadowCasterGrantedReuse($controller, 'SOR_105', ''); // JTL_169 Shadow Caster reuse of this granted WD
             }
             // SOR_115 Agent Kallus: "When another UNIQUE unit is defeated: you may draw a card. Use
             // only once each round." Any unique unit (friendly OR enemy) other than Kallus himself —
@@ -7919,6 +8012,97 @@ function Shd172Reaction(int $reactor, string $payload): void {
     DecisionQueueController::AddDecision(intval($reactor), "CUSTOM", "SHD_172#0|{$amount}|{$count}", 1);
 }
 
+// ─── Granted "When Defeated" registry — SINGLE SOURCE OF TRUTH ───────────────────────────────
+// A unit can GAIN a "When Defeated" ability from three places. Each grant dispatches under its OWN
+// per-card trigger type (not the generic 'WhenDefeated' window), so every consumer must agree on the
+// same list:
+//   • CollectWhenDefeatedTriggers  — fires them on a REAL defeat.
+//   • JTL_039 Chimaera             — activates one on demand on a LIVING unit.
+//   • JTL_002 Thrawn / JTL_169 Shadow Caster — re-use one via SWUUseWhenDefeatedAbility($grantedType).
+// Keeping the list in one place is load-bearing: a hand-maintained second copy is exactly how Thrawn
+// silently lost six granted-WD cases (fixed session 82) and how Chimaera lost ALL of them (fixed here).
+//
+// Grant mechanisms:
+//   1. ATTACHED UPGRADE  — an upgrade subcard on the unit grants the ability.
+//   2. PHASE/TURN EFFECT — an event stamped a marker into the unit's TurnEffects.
+//   3. FIELD PRESENCE    — the controller controls a unit that grants to its fellow units.
+
+// Upgrade CardID => param-builder name (or null). The builder supplies the value passed in the
+// trigger's mzID/extraParams slot for grants whose effect depends on the HOST, snapshotted while the
+// host is still intact (the host is gone by dispatch time on a real defeat).
+function _SWUGrantedWDUpgradeRegistry(): array {
+    return [
+        'JTL_073' => null,  // Grim Valor          — "you may exhaust a unit"
+        'SHD_104' => null,  // Inspiring Mentor    — "give an Experience token to another friendly unit"
+        'TS26_52' => null,  // Sith Traditions     — "give an Experience token to a friendly unit"
+        'TS26_35' => null,  // Ahsoka's Lightsabers— "may Shield an enemy → next event -2"
+        'SEC_039' => null,  // Creditor's Claim    — "you may defeat a unit with 3 or less remaining HP"
+        'SEC_156' => null,
+        'ASH_134' => null,  // Warrior's Legacy    — "create a Mandalorian token"
+        'TWI_218' => null,  // Droid Cohort        — "create a Battle Droid token"
+        'TWI_169' => null,  // Clone Cohort        — "create a Clone Trooper token"
+        'LAW_141' => '_SWUGrantedWDParamHostCost',  // Targeted For Removal — Credits = host's printed cost
+        'LAW_201' => '_SWUGrantedWDParamHostReady', // Thermal Detonator    — only if host was ready
+    ];
+}
+function _SWUGrantedWDParamHostCost($hostObj, string $hostCardID): string {
+    return (string)intval(CardCost($hostCardID));
+}
+function _SWUGrantedWDParamHostReady($hostObj, string $hostCardID): string {
+    return (intval($hostObj->Status ?? 0) === 1) ? '1' : '0';
+}
+
+// TurnEffects markers stamped by an event that grants a When Defeated for the phase.
+function _SWUGrantedWDTurnEffectRegistry(): array {
+    return [
+        'TWI_103',  // Pyrrhic Assault      — "deal 2 damage to an enemy unit"
+        'TWI_129',  // In Defense of Kamino — "create a Clone Trooper token" (friendly Republic units)
+    ];
+}
+
+// Field-presence grants: $controller controls a unit that grants a When Defeated to its fellows.
+// $hostCardID is the unit that would be using the ability (a granter never grants to itself).
+function _SWUFieldPresenceGrantedWDTypes(int $controller, string $hostCardID): array {
+    $types = [];
+    if ($controller <= 0) return $types;
+    // ASH_063 Bo-Katan's Gauntlet — "Each OTHER friendly NON-TOKEN unit gains: create a Mandalorian token."
+    if ($hostCardID !== 'ASH_063'
+        && strpos(CardType($hostCardID) ?? '', 'Token') === false
+        && _SWUCountUnitsWithCardID($controller, 'ASH_063') > 0) {
+        $types[] = 'ASH_063';
+    }
+    // SOR_105 General Krell — "Each OTHER friendly unit gains: you may draw a card."
+    if ($hostCardID !== 'SOR_105' && _SWUCountUnitsWithCardID($controller, 'SOR_105') > 0) {
+        $types[] = 'SOR_105';
+    }
+    return $types;
+}
+
+// All GRANTED When-Defeated trigger types currently available on a LIVING unit, in a stable order
+// (upgrades → phase effects → field presence). Does NOT include the unit's own innate When Defeated —
+// callers test that separately with HasWhenDefeatedAbility($cardID).
+function _SWUGrantedWhenDefeatedTypes(int $controller, string $mzID): array {
+    $obj = GetZoneObject($mzID);
+    if ($obj === null || !empty($obj->removed)) return [];
+    $hostCardID = $obj->CardID ?? '';
+    $types = [];
+    $upgReg = _SWUGrantedWDUpgradeRegistry();
+    if (is_array($obj->Subcards ?? null)) {
+        foreach ($obj->Subcards as $sub) {
+            $scid = is_array($sub) ? ($sub['CardID'] ?? '')   : ($sub->CardID ?? '');
+            $srem = is_array($sub) ? !empty($sub['removed'])  : !empty($sub->removed);
+            if (!$srem && array_key_exists($scid, $upgReg)) $types[] = $scid;
+        }
+    }
+    if (is_array($obj->TurnEffects ?? null)) {
+        foreach (_SWUGrantedWDTurnEffectRegistry() as $te) {
+            if (in_array($te, $obj->TurnEffects, true)) $types[] = $te;
+        }
+    }
+    foreach (_SWUFieldPresenceGrantedWDTypes($controller, $hostCardID) as $t) $types[] = $t;
+    return array_values(array_unique($types));
+}
+
 function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void {
     global $gPendingTriggers, $gExploitDeferTriggers, $gExploitDeferredBag;
 
@@ -7928,10 +8112,9 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
         // create a Mandalorian token." Field-presence grant: a friendly non-token unit's defeat creates
         // a Mandalorian for its controller while they control an ASH_063 unit.
         $dctrl63 = intval($d['player'] ?? 0);
-        if ($dctrl63 > 0 && ($d['cardID'] ?? '') !== 'ASH_063'
-            && strpos(CardType($d['cardID'] ?? '') ?? '', 'Token') === false
-            && _SWUCountUnitsWithCardID($dctrl63, 'ASH_063') > 0) {
+        if ($dctrl63 > 0 && in_array('ASH_063', _SWUFieldPresenceGrantedWDTypes($dctrl63, $d['cardID'] ?? ''), true)) {
             AddTrigger($dctrl63, 'ASH_063', 'ASH_063', '');
+            _SWUAddShadowCasterGrantedReuse($dctrl63, 'ASH_063', ''); // JTL_169 Shadow Caster reuse of this granted WD
         }
         // SEC_046 Galen Erso — a named card that lost its abilities fires no When Defeated.
         if (HasWhenDefeatedAbility($d['cardID']) && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])) {
@@ -7958,37 +8141,30 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             $GLOBALS['gCombatDefeatByMz'][$d['mzID']] = ($defObj !== null
                 && GlobalEffectCount(intval($d['player'] ?? 0), 'SWU_COMBATDEF_' . intval($defObj->UniqueID ?? 0)) > 0);
             if ($defObj !== null) RemoveGlobalEffect(intval($d['player'] ?? 0), 'SWU_COMBATDEF_' . intval($defObj->UniqueID ?? 0));
-            // TWI_103 Pyrrhic Assault — phase-granted "When Defeated: deal 2 damage to an enemy unit."
-            // Detect the grant marker on the (removed, intact) defeated object.
-            if ($defObj !== null && is_array($defObj->TurnEffects ?? null) && in_array('TWI_103', $defObj->TurnEffects, true)) {
-                AddTrigger($d['player'], 'TWI_103', 'TWI_103', '');
-            }
-            // TWI_129 In Defense of Kamino — phase-granted "When Defeated: Create a Clone Trooper token."
-            if ($defObj !== null && is_array($defObj->TurnEffects ?? null) && in_array('TWI_129', $defObj->TurnEffects, true)) {
-                AddTrigger($d['player'], 'TWI_129', 'TWI_129', '');
+            // Phase-granted When Defeated abilities (event-stamped TurnEffects markers) — see
+            // _SWUGrantedWDTurnEffectRegistry(). Detected on the (removed, still-intact) defeated object.
+            if ($defObj !== null && is_array($defObj->TurnEffects ?? null)) {
+                foreach (_SWUGrantedWDTurnEffectRegistry() as $teType) {
+                    if (in_array($teType, $defObj->TurnEffects, true)) {
+                        AddTrigger($d['player'], $teType, $teType, '');
+                        _SWUAddShadowCasterGrantedReuse(intval($d['player']), $teType, ''); // JTL_169 Shadow Caster reuse
+                    }
+                }
             }
             if ($defObj !== null && is_array($defObj->Subcards ?? null)) {
+                // Upgrade-granted When Defeated abilities — see _SWUGrantedWDUpgradeRegistry().
+                // Each dispatches under its own per-card trigger type. Grants whose effect depends on
+                // the HOST carry a param built here (the host is gone by dispatch time, and the
+                // FlushTriggerBag path drops extraParams, so it rides in the mzID slot).
+                $upgReg = _SWUGrantedWDUpgradeRegistry();
                 foreach ($defObj->Subcards as $sub) {
                     $scid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
                     $srem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
-                    if (!$srem && $scid === 'JTL_073') { AddTrigger($d['player'], 'JTL_073', 'JTL_073', ''); }
-                    // SHD_104 Inspiring Mentor — granted "When Defeated: give an Experience token to another friendly unit."
-                    if (!$srem && $scid === 'SHD_104') { AddTrigger($d['player'], 'SHD_104', 'SHD_104', ''); }
-                    if (!$srem && $scid === 'TS26_52') { AddTrigger($d['player'], 'TS26_52', 'TS26_52', ''); } // Sith Traditions — granted "When Defeated: give an Experience token to a friendly unit"
-                    if (!$srem && $scid === 'TS26_35') { AddTrigger($d['player'], 'TS26_35', 'TS26_35', ''); } // Ahsoka's Lightsabers — granted "When Defeated: may Shield an enemy → next event -2"
-                    if (!$srem && $scid === 'SEC_039') { AddTrigger($d['player'], 'SEC_039', 'SEC_039', ''); }
-                    if (!$srem && $scid === 'SEC_156') { AddTrigger($d['player'], 'SEC_156', 'SEC_156', ''); }
-                    if (!$srem && $scid === 'ASH_134') { AddTrigger($d['player'], 'ASH_134', 'ASH_134', ''); } // Warrior's Legacy — granted "When Defeated: create a Mandalorian token"
-                    if (!$srem && $scid === 'TWI_218') { AddTrigger($d['player'], 'TWI_218', 'TWI_218', ''); } // Droid Cohort — granted "When Defeated: create a Battle Droid token"
-                    if (!$srem && $scid === 'TWI_169') { AddTrigger($d['player'], 'TWI_169', 'TWI_169', ''); } // Clone Cohort — granted "When Defeated: create a Clone Trooper token"
-                    // LAW_141 Targeted For Removal — "When Defeated: An opponent creates Credit tokens
-                    // equal to this unit's cost." Pass the host's printed cost via the mzID slot (the
-                    // FlushTriggerBag path drops extraParams), since the host is gone by dispatch time.
-                    if (!$srem && $scid === 'LAW_141') { AddTrigger($d['player'], 'LAW_141', 'LAW_141', (string)intval(CardCost($d['cardID'] ?? ''))); }
-                    // LAW_201 Thermal Detonator — "When Defeated: If this unit was ready, deal 2 damage
-                    // to each enemy ground unit." Snapshot the host's ready status now (still intact);
-                    // pass it via the mzID slot ('1' = was ready).
-                    if (!$srem && $scid === 'LAW_201') { AddTrigger($d['player'], 'LAW_201', 'LAW_201', (intval($defObj->Status ?? 0) === 1) ? '1' : '0'); }
+                    if ($srem || !array_key_exists($scid, $upgReg)) continue;
+                    $builder = $upgReg[$scid];
+                    $param   = ($builder === null) ? '' : $builder($defObj, $d['cardID'] ?? '');
+                    AddTrigger($d['player'], $scid, $scid, $param);
+                    _SWUAddShadowCasterGrantedReuse(intval($d['player']), $scid, $param); // JTL_169 Shadow Caster reuse
                 }
                 // SHD_001 Gar Saxon (deployed grant) — "Each friendly upgraded unit gains: When Defeated:
                 // you may return an upgrade that was attached to this unit to its owner's hand." Field-
@@ -8184,6 +8360,18 @@ function SWUUseWhenDefeatedAbility(int $owner, string $cardID, string $mzID, ?st
     FlushTriggerBag($owner);
 }
 
+// A unit holding MORE than one "When Defeated" (its innate one plus any it gained) must let the
+// controller pick which to use when an ability activates one on demand (JTL_039 Chimaera). Options are
+// labelled by the CardID that SUPPLIES the ability — the host's own CardID for the innate one, the
+// granting card's CardID for each granted one — which is stable, unambiguous, and directly assertable.
+function SWUQueueChooseWhenDefeatedAbility(int $owner, string $hostCardID, string $mzID, array $options): void {
+    $labels = [];
+    foreach ($options as $o) $labels[] = ($o === null) ? $hostCardID : $o;
+    DecisionQueueController::AddDecision($owner, "OPTIONCHOOSE", implode('&', $labels), 1,
+        tooltip:"Choose_a_When_Defeated_ability_to_use");
+    DecisionQueueController::AddDecision($owner, "CUSTOM", "JTL_039#1|{$owner}|{$hostCardID}|{$mzID}", 1);
+}
+
 // JTL_002 Grand Admiral Thrawn — usability of the "use that ability again" reaction.
 // Undeployed: may exhaust the (ready) leader. Deployed leader unit: no cost, once each round.
 function _SWUThrawnReuseMode(int $owner): ?string {
@@ -8303,11 +8491,37 @@ function SWUCollectEnfysReuse(int $owner, string $cardID, string $mzID, bool $fr
 }
 
 // Dispatch target for the Shadow Caster (JTL_169) reuse trigger collected at defeat time.
-function ShadowCasterReuseTrigger(int $owner, string $cardID, string $mzID): void {
-    if (!HasWhenDefeatedAbility($cardID)) return;
+// $grantedType (non-null) = the reuse is of a GRANTED When-Defeated ability (dispatched via its per-card
+// trigger type, e.g. 'TWI_129'), so skip the innate-WD gate — the unit GAINED that ability. This is the
+// Shadow-Caster analog of the Thrawn (JTL_002) / Chimaera (JTL_039) granted-WD support; without it
+// Shadow Caster silently ignored event-/upgrade-/field-granted When Defeateds (only innate ones were
+// offered). For a granted type $cardID carries the granting card's ID and $mzID carries the param the
+// original dispatch used (empty for token-creation grants).
+function ShadowCasterReuseTrigger(int $owner, string $cardID, string $mzID, ?string $grantedType = null): void {
+    if ($grantedType === null && !HasWhenDefeatedAbility($cardID)) return;
     DecisionQueueController::AddDecision($owner, "YESNO", "-", 1,
         tooltip:"Use_its_When_Defeated_ability_again_(Shadow_Caster)?");
-    DecisionQueueController::AddDecision($owner, "CUSTOM", "SHADOW_CASTER_REUSE|{$owner}|{$cardID}|{$mzID}", 1);
+    DecisionQueueController::AddDecision($owner, "CUSTOM",
+        "SHADOW_CASTER_REUSE|{$owner}|{$cardID}|{$mzID}|" . ($grantedType ?? ''), 1);
+}
+
+// True if $player controls at least one non-removed Shadow Caster (JTL_169) in an arena.
+function _SWUControlsShadowCaster(int $player): bool {
+    if ($player <= 0) return false;
+    foreach (array_merge(GetGroundArena($player) ?? [], GetSpaceArena($player) ?? []) as $u) {
+        if (empty($u->removed) && ($u->CardID ?? '') === 'JTL_169') return true;
+    }
+    return false;
+}
+
+// Queue a Shadow Caster (JTL_169) reuse offer for a GRANTED When-Defeated ability on a defeated unit,
+// but only if that unit's controller ($owner) controls a Shadow Caster. $param is the value the original
+// granted dispatch carried in its mzID slot (host cost / ready flag / '' for token-creation grants) —
+// threaded through so the reuse resolves identically. Called from CollectWhenDefeatedTriggers alongside
+// each granted-When-Defeated trigger add, mirroring the SWUCollectThrawnReuse calls in DispatchTrigger.
+function _SWUAddShadowCasterGrantedReuse(int $owner, string $grantedType, string $param): void {
+    if (!_SWUControlsShadowCaster($owner)) return;
+    AddTrigger($owner, 'JTL_169G', $grantedType, $param);
 }
 
 // Drain all static DQ entries for both players after each action.
@@ -8388,13 +8602,16 @@ $customDQHandlers["ENFYS_REUSE"] = function($player, $parts, $lastDecision) {
     SWUUseOnAttackAbility($owner, $cardID, $mzID, $fromUpgrade);
 };
 
-// JTL_169 Shadow Caster — resolve the "use its When Defeated ability again" offer.
+// JTL_169 Shadow Caster — resolve the "use its When Defeated ability again" offer. $parts[3] (when
+// non-empty) = the GRANTED trigger type; the reuse then re-arms that per-card type instead of the
+// generic innate 'WhenDefeated' window (see SWUUseWhenDefeatedAbility).
 $customDQHandlers["SHADOW_CASTER_REUSE"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== "YES") return;
-    $owner  = intval($parts[0] ?? $player);
-    $cardID = $parts[1] ?? '';
-    $mzID   = $parts[2] ?? '';
-    SWUUseWhenDefeatedAbility($owner, $cardID, $mzID);
+    $owner       = intval($parts[0] ?? $player);
+    $cardID      = $parts[1] ?? '';
+    $mzID        = $parts[2] ?? '';
+    $grantedType = ($parts[3] ?? '') !== '' ? $parts[3] : null;
+    SWUUseWhenDefeatedAbility($owner, $cardID, $mzID, $grantedType);
 };
 
 // DQ handler: cleanup + swap turn player after all When Played triggers fully resolve.
@@ -10293,7 +10510,11 @@ function SWUBounceUnit(int $player, string $mzID): bool {
         $playerID = $savedPID;
         return false;
     }
-    if (IsLeaderUnit($obj)) {
+    // A deployed LEADER UNIT (the leader itself IS the arena unit, own CardID is a leader) can't be
+    // returned to hand. A vehicle merely CARRYING a leader-pilot upgrade is NOT a leader unit for this
+    // purpose — it bounces normally, and its leader pilot is returned to the leader zone below. (The
+    // old `IsLeaderUnit` guard conflated the two and blocked bouncing any leader-piloted vehicle.)
+    if (strpos(CardType($obj->CardID ?? '') ?? '', 'Leader') !== false) {
         $playerID = $savedPID;
         return false;
     }
@@ -10302,6 +10523,17 @@ function SWUBounceUnit(int $player, string $mzID): bool {
     // only exists while in play.
     $cardID = !empty($obj->IsClone) ? 'TWI_116' : $obj->CardID;
     $owner  = intval($obj->Owner);
+
+    // Return any leader-pilot subcards to the leader zone (exhausted) FIRST — a leader pilot can't go to
+    // hand or discard; losing its host defeats it as a STATE-BASED consequence (CR), not a direct
+    // enemy-ability defeat, so the leader's "can't be defeated/returned by enemy abilities" immunity does
+    // NOT apply here. Must run before the upgrade-discard loop so a leader pilot is never discarded.
+    SWUReturnLeaderPilotSubcards($obj, $owner);
+    // A pilot UPGRADE with a "would be defeated → may move to ground" replacement (JTL_094 Luke) is
+    // still "would be defeated" when its host is RETURNED TO HAND (the upgrade doesn't bounce with the
+    // host; CR 9.3 defeats it). Snapshot it so the controller is offered the move at action end, exactly
+    // as on a host DEFEAT — the discard loop below then skips it (SWU_SELF_HANDLED_DEFEAT_SUBCARDS).
+    _SWUDeferPilotDefeatReplacements($obj);
 
     // Defeat all attached upgrades (CR 9.3)
     if (!empty($obj->Subcards) && is_array($obj->Subcards)) {
@@ -10312,6 +10544,7 @@ function SWUBounceUnit(int $player, string $mzID): bool {
             $subCardID  = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
             $subOwner   = is_array($sub) ? intval($sub['Owner'] ?? $owner) : intval($sub->Owner ?? $owner);
             if ($subCardID === '') continue;
+            if (in_array($subCardID, SWU_SELF_HANDLED_DEFEAT_SUBCARDS, true)) continue; // own defeat disposition (deferred above)
             if (strpos(strtolower(CardType($subCardID) ?? ''), 'token') === false) {
                 SWUAddToDiscard($subOwner, $subCardID, 'PLAY');
             }
@@ -12183,10 +12416,15 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         case 'SOR_177': // Bib Fortuna: play an EVENT from hand at −1.
             if (empty(SWUHandPlayablesAtDiscount($player, ['Event'], 1))) $ok = false;
             break;
-        case 'JTL_050': { // Phantom II: attach to The Ghost — needs The Ghost (JTL_053) in play.
+        case 'JTL_050': { // Phantom II: "attach it as an upgrade to The Ghost" — needs ANY unit titled
+            // "The Ghost" in play, on EITHER player's side (JTL_053 Heart of the Family, SOR_050 Spectre
+            // Home Base, …). The card targets by title, not a specific CardID, and an opponent's Ghost is
+            // a legal host too (CR — an ability that says "The Ghost" refers to any card with that title).
             $hasGhost = false;
-            foreach (array_merge(GetGroundArena($player) ?? [], GetSpaceArena($player) ?? []) as $u) {
-                if (empty($u->removed) && ($u->CardID ?? '') === 'JTL_053') { $hasGhost = true; break; }
+            foreach ([1, 2] as $pl) {
+                foreach (array_merge(GetGroundArena($pl) ?? [], GetSpaceArena($pl) ?? []) as $u) {
+                    if (empty($u->removed) && CardTitle($u->CardID ?? '') === 'The Ghost') { $hasGhost = true; break 2; }
+                }
             }
             if (!$hasGhost) $ok = false;
             break;
@@ -23030,11 +23268,18 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
     foreach($zoneArr as $i => $obj) {
         $cardTypeStr = EffectiveCardType($obj);
         $cardTypes_arr = $cardTypeStr ? explode(",", $cardTypeStr) : [];
-        // A deployed leader in an arena has CardType 'Leader', but it IS a leader unit and should
-        // match the 'Leader Unit' filter token that effects use for "a unit" targeting (deal damage,
-        // give -X/-Y, etc.). Without this, the ['Unit','Token Unit','Leader Unit'] pattern silently
-        // skips deployed leaders everywhere.
-        if (IsLeaderUnit($obj) && !in_array('Leader Unit', $cardTypes_arr, true)) $cardTypes_arr[] = 'Leader Unit';
+        // A leader unit — a deployed leader (CardType 'Leader') OR a normal unit hosting a leader Pilot
+        // (base CardType 'Unit', e.g. Luke JTL_012 / Asajj JTL_001 piloting a Vehicle) — matches ONLY the
+        // 'Leader Unit' filter token, never plain 'Unit'/'Token Unit'. Adding 'Leader Unit' lets the
+        // ['Unit','Token Unit','Leader Unit'] "any unit" pattern (AnyUnitFilter) find it; STRIPPING
+        // 'Unit'/'Token Unit' makes NonLeaderUnitFilter (["Unit","Token Unit"]) correctly EXCLUDE it — a
+        // unit with a leader as a Pilot is a leader unit (CR), so "defeat/return/affect a NON-leader unit"
+        // (Vanquish, Lethal Crackdown, Rehabilitation, …) can't target it. Deployed leaders were already
+        // excluded (base type 'Leader'); this closes the gap for leader-PILOT hosts (base type 'Unit').
+        if (IsLeaderUnit($obj)) {
+            $cardTypes_arr = array_values(array_filter($cardTypes_arr, fn($t) => $t !== 'Unit' && $t !== 'Token Unit'));
+            if (!in_array('Leader Unit', $cardTypes_arr, true)) $cardTypes_arr[] = 'Leader Unit';
+        }
         $cardSubtypesStr = EffectiveCardSubtypes($obj);
         $cardSubtypes_arr = $cardSubtypesStr ? explode(",", $cardSubtypesStr) : [];
         $cardClassesStr = EffectiveCardClasses($obj);

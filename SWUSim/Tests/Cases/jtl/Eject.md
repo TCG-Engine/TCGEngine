@@ -89,3 +89,125 @@ WithP1GroundArena: SEC_214:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:JTL_046
 P1GROUNDARENAUNIT:1:SHIELDCOUNT:1
+
+---
+
+# DetachSpacePilot_MovesToGround
+#// JTL_126 Eject — the ejected Pilot always lands in the GROUND arena, even off a SPACE host. P1's SOR_237
+#// (space Vehicle) carries Paige (JTL_046); Eject detaches her to P1's GROUND arena (exhausted), SOR_237
+#// stays in space with no upgrade, and P1 draws.
+
+## GIVEN
+CommonSetup: gbk/gbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:4
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_126
+WithP1Deck: SOR_095
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_046
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_046
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1HANDCOUNT:1
+
+---
+
+# EjectEnemyPilot_MovesToOwnerGround
+#// JTL_126 Eject — "Detach a Pilot upgrade" spans BOTH players' arenas. P1 ejects the enemy's pilot: P2's
+#// SEC_214 carries Paige (JTL_046, owned by P2); Eject detaches her to P2's (the owner's) GROUND arena as an
+#// exhausted unit, and P1 — the event's controller — draws the card.
+
+## GIVEN
+CommonSetup: gbk/gbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:4
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_126
+WithP1Deck: SOR_095
+WithP2GroundArena: SEC_214:1:0
+WithP2GroundArenaUpgrade: 0:JTL_046
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:CARDID:SEC_214
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:1:CARDID:JTL_046
+P2GROUNDARENAUNIT:1:EXHAUSTED
+P1HANDCOUNT:1
+
+---
+
+# ChooseAmongPilots
+#// JTL_126 Eject — with more than one host carrying a Pilot, P1 chooses which. Two ground Vehicles: SEC_214
+#// (JTL_046 Paige) and SOR_249 (JTL_141 IG-88). P1 ejects Paige off SEC_214; IG-88 stays attached to SOR_249.
+
+## GIVEN
+CommonSetup: gbk/gbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:4
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_126
+WithP1Deck: SOR_095
+WithP1GroundArena: SEC_214:1:0
+WithP1GroundArena: SOR_249:1:0
+WithP1GroundArenaUpgrade: 0:JTL_046
+WithP1GroundArenaUpgrade: 1:JTL_141
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_214
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:1:CARDID:SOR_249
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:2:CARDID:JTL_046
+P1GROUNDARENAUNIT:2:EXHAUSTED
+
+---
+
+# NoPilotInPlay_NoDraw
+#// JTL_126 Eject — with no Pilot upgrade anywhere, the detach has no legal target: the event fizzles to the
+#// discard and the draw (which happens only after a successful detach) does NOT occur.
+
+## GIVEN
+CommonSetup: gbk/gbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:4
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_126
+WithP1Deck: SOR_095
+WithP1GroundArena: SEC_214:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:0
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:JTL_126

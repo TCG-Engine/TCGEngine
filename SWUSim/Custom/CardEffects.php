@@ -3270,7 +3270,13 @@ function OnPlayEvent(int $player, string $cardID): void {
             global $playerID;
             $playerID = intval($player);
             $space = ZoneSearch("mySpaceArena", AnyUnitFilter);
-            $space = array_values(array_filter($space, function($mz) { $o = GetZoneObject($mz); return $o !== null && !IsLeaderUnit($o); }));
+            // Exclude only a deployed LEADER UNIT (own CardID is a leader) — a vehicle carrying a leader
+            // PILOT is a valid target: it returns to hand and its leader pilot is defeated to the leader
+            // zone (SWUBounceUnit handles the pilot). Don't use IsLeaderUnit here (it's true for both).
+            $space = array_values(array_filter($space, function($mz) {
+                $o = GetZoneObject($mz);
+                return $o !== null && strpos(CardType($o->CardID ?? '') ?? '', 'Leader') === false;
+            }));
             if (empty($space)) return;
             SWUQueueChooseTarget(intval($player), $space, "Return_a_friendly_space_unit_to_hand", "JTL_232#0");
             return;

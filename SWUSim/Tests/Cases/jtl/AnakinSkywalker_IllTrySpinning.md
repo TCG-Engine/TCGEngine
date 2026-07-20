@@ -38,3 +38,22 @@ WithP1GroundArenaUpgrade: 0:JTL_197
 P2BASEDMG:5
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1HANDCOUNT:1
+
+---
+
+# AsUnit_NoReturnAbility
+#// JTL_197 Anakin Skywalker — the "return this upgrade" trigger belongs to the PILOT upgrade. Played/seated
+#// as a UNIT, Anakin (2/3) attacks the base and there is no return offer (no decision), and he stays in play.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1GroundArena: JTL_197:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:JTL_197
+P2BASEDMG:2

@@ -21,3 +21,29 @@ WithP1GroundArena: SOR_046:1:3
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# PlayedAsUnit_NoHeal
+#// JTL_057 Astromech Pilot — the "heal 2 damage" is a WHEN-PLAYED-AS-AN-UPGRADE (Piloting) ability. Played
+#// as a normal UNIT it does nothing: the damaged SOR_046 stays at 3 damage.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: JTL_057
+WithP1SpaceArena: SOR_225:1:0
+WithP1GroundArena: SOR_046:1:3
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Unit
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:DAMAGE:3

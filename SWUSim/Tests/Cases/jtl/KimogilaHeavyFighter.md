@@ -23,3 +23,32 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# PartlyToBase_OnlyUnitExhausted
+#// JTL_222 Kimogila Heavy Fighter — only UNITS damaged by the indirect are exhausted, not the base. P2
+#// splits the 3 indirect as 2 to its SOR_046 and 1 to its base: SOR_046 (damaged this way) is exhausted;
+#// the base just takes 1.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1Resources: 8
+WithP1Hand: JTL_222
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:myGroundArena-0:2,myBase-0:1
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2BASEDMG:1

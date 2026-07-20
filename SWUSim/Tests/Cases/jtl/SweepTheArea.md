@@ -23,3 +23,29 @@ WithP2GroundArena: LAW_180:1:0
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P2HANDCOUNT:2
+
+---
+
+# SingleThreeCostUnit
+#// JTL_233 Sweep the Area — "up to 2 non-leader units in the same arena with combined cost 3 or less." A
+#// single cost-3 unit (SOR_144 Red Three) uses the whole budget, so only it returns (no second unit fits).
+
+## GIVEN
+CommonSetup: gyw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_233
+WithP1Resources: 3
+WithP2SpaceArena: SOR_144:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P2HANDCOUNT:1

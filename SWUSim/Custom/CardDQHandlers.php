@@ -3121,7 +3121,11 @@ $customDQHandlers["JTL_016#0"] = function($player, $parts, $lastDecision) {
     $obj = GetZoneObject($lastDecision);
     if ($obj === null || !empty($obj->removed)) return;
     $controller = intval($obj->Controller ?? $player);
+    // "Exhaust a non-leader unit. IF YOU DO, its controller creates an X-Wing." Exhausting an already-
+    // exhausted unit does nothing, so the "if you do" fails and no X-Wing is created.
+    $wasReady = intval($obj->Status ?? 0) === 1;
     OnExhaustCard(intval($player), $lastDecision);
+    if (!$wasReady) return;
     SWUCreateUnitToken($controller, 'JTL_T02'); // X-Wing (Space, 2/2)
 };
 
@@ -4064,9 +4068,30 @@ $customDQHandlers["JTL_129#0"] = function($player, $parts, $lastDecision) {
     if ($sum > 0) SWUDealDamageToUnit($lastDecision, $sum, intval($player));
 };
 
+// Whether a candidate On-Attack ability ($abilityCardID, on host unit $hostUnit) is CURRENTLY active for
+// $player — i.e. whether it would actually fire if the unit attacked now. Most On-Attack abilities are
+// unconditional (return true); the exceptions gate on a condition the ability's own handler checks with an
+// early `return`, which a structural key-count can't see. Consulted by JTL_174 Hotshot Maneuver's "for
+// each of its On Attack abilities" count so a Coordinate ability with Coordinate inactive, or a Force-host
+// upgrade grant on a non-Force host, is NOT counted (matching the ruling). Extend this switch when adding
+// another conditional On-Attack ability whose count must respect its activation condition.
+function _SWUOnAttackAbilityActive(string $abilityCardID, $hostUnit, int $player): bool {
+    switch ($abilityCardID) {
+        // "Coordinate - On Attack: …" — active only while the controller has Coordinate.
+        case 'TWI_192': // Padmé Amidala
+        case 'TWI_096': // Aayla Secura
+            return IsCoordinateActive($player);
+        // Jedi Lightsaber grants its On-Attack only while attached to a Force unit.
+        case 'SOR_054':
+            return _SWUUnitHasTrait($hostUnit, 'Force');
+        default:
+            return true; // unconditional On-Attack ability
+    }
+}
+
 // ── JTL_174 Hotshot Maneuver — friendly unit chosen; count its On Attack abilities (the same set
-// CollectCombatStep1Triggers fires: printed windows + upgrade-granted), deal 2 to that many DIFFERENT
-// enemy units, then attack with the chosen unit. ──────────────────────────────────────────────────────
+// CollectCombatStep1Triggers fires: printed windows + upgrade-granted, each gated on its activation
+// condition), deal 2 to that many DIFFERENT enemy units, then attack with the chosen unit. ─────────────
 $customDQHandlers["JTL_174#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
     global $playerID, $onAttackAbilities;
@@ -4074,13 +4099,18 @@ $customDQHandlers["JTL_174#0"] = function($player, $parts, $lastDecision) {
     $u = GetZoneObject($lastDecision);
     if ($u === null || !empty($u->removed)) return;
     $uid = intval($u->UniqueID ?? 0);
-    // Count On Attack abilities: printed windows for this CardID + upgrade-granted on-attack.
+    // Count On Attack abilities that would ACTUALLY fire: printed windows for this CardID + upgrade-granted
+    // on-attack, each gated on its activation condition (_SWUOnAttackAbilityActive) — a structurally-present
+    // but condition-unmet ability (Coordinate inactive, non-Force host) does NOT count.
     $n = 0;
     foreach (array_keys($onAttackAbilities) as $k) {
-        if (preg_match('/^' . preg_quote($u->CardID, '/') . ':\d+$/', $k)) $n++;
+        if (preg_match('/^' . preg_quote($u->CardID, '/') . ':\d+$/', $k)
+            && _SWUOnAttackAbilityActive($u->CardID, $u, intval($player))) $n++;
     }
     foreach (GetUpgradesOnUnit($u) as $up) {
-        if (isset($onAttackAbilities[($up->CardID ?? '') . ':0'])) $n++;
+        $ucid = $up->CardID ?? '';
+        if (isset($onAttackAbilities[$ucid . ':0'])
+            && _SWUOnAttackAbilityActive($ucid, $u, intval($player))) $n++;
     }
     $enemies = array_values(array_merge(
         ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)));
@@ -4421,7 +4451,11 @@ $customDQHandlers["JTL_195#0"] = function($player, $parts, $lastDecision) {
     $eo = GetZoneObject($lastDecision);
     if ($eo === null || !empty($eo->removed)) return;
     $epower = ObjectCurrentPower($eo);
+    // "Exhaust an enemy unit. IF YOU DO, ready a friendly unit …" — exhausting an ALREADY-exhausted unit
+    // does nothing, so the "if you do" clause fails and no friendly unit readies.
+    $wasReady = intval($eo->Status ?? 0) === 1;
     OnExhaustCard(intval($player), $lastDecision);
+    if (!$wasReady) return;
     $arena = (strpos($lastDecision, 'Space') !== false) ? 'mySpaceArena' : 'myGroundArena';
     $friendly = [];
     foreach (ZoneSearch($arena, AnyUnitFilter) as $mz) {
@@ -4683,7 +4717,10 @@ $whenPlayedAbilities["JTL_039:0"] = function($player, $mzID) {
         if ($mz === $self) continue;
         $o = GetZoneObject($mz);
         if ($o === null || !empty($o->removed)) continue;
-        if (!HasWhenDefeatedAbility($o->CardID)) continue;
+        // A unit qualifies on its INNATE When Defeated or on any it has GAINED (attached upgrade,
+        // phase effect, or a field-presence granter) — see _SWUGrantedWhenDefeatedTypes().
+        if (!HasWhenDefeatedAbility($o->CardID)
+            && empty(_SWUGrantedWhenDefeatedTypes(intval($player), $mz))) continue;
         $targets[] = $mz;
     }
     if (empty($targets)) return;
@@ -4696,8 +4733,32 @@ $customDQHandlers["JTL_039#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
     $obj = GetZoneObject($lastDecision);
     if ($obj === null || !empty($obj->removed)) return;
-    SWUUseWhenDefeatedAbility(intval($player), $obj->CardID, $lastDecision);
+    // The chosen unit may hold MORE than one "When Defeated" — its innate one plus any it gained.
+    // Innate resolves under the generic 'WhenDefeated' window (grantedType null); each granted one
+    // dispatches under its own per-card trigger type.
+    $granted = _SWUGrantedWhenDefeatedTypes(intval($player), $lastDecision);
+    $options = [];
+    if (HasWhenDefeatedAbility($obj->CardID)) $options[] = null;
+    foreach ($granted as $g) $options[] = $g;
+    if (empty($options)) return;
+    if (count($options) === 1) {
+        SWUUseWhenDefeatedAbility(intval($player), $obj->CardID, $lastDecision, $options[0]);
+        return;
+    }
+    // More than one available — let the controller pick which ability to use.
+    SWUQueueChooseWhenDefeatedAbility(intval($player), $obj->CardID, $lastDecision, $options);
 };
+// JTL_039 continuation — the controller picked WHICH When Defeated ability to use on the chosen
+// unit (label = the CardID supplying it; the host's own CardID means its innate one).
+$customDQHandlers["JTL_039#1"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
+    $owner      = intval($parts[0] ?? $player);
+    $hostCardID = $parts[1] ?? '';
+    $mzID       = $parts[2] ?? '';
+    if ($hostCardID === '' || $mzID === '') return;
+    SWUUseWhenDefeatedAbility($owner, $hostCardID, $mzID, ($lastDecision === $hostCardID) ? null : $lastDecision);
+};
+
 // JTL_039 — When Defeated: Create 2 TIE Fighter tokens.
 $whenDefeatedAbilities["JTL_039:0"] = function($player, $mzID) {
     SWUCreateUnitTokens(intval($player), 'JTL_T01', 2);
@@ -7595,7 +7656,10 @@ $whenPlayedAbilities["TWI_256:0"] = function($player, $mzID) {
 };
 
 // TWI_257 Private Manufacturing (event continuation) — put the chosen hand cards on the bottom of the deck.
-$customDQHandlers["TWI_257#0"] = function($player, $parts, $lastDecision) {
+$customDQHandlers["TWI_257#0"] =
+// JTL_028 Nabat Village — move the chosen hand cards ($lastDecision, &-joined) to the bottom of the deck
+// (same mechanic as TWI_257 "put 2 cards from hand on the bottom"), fired at the first action phase.
+$customDQHandlers["JTL_028#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $picks = (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS')
         ? [] : array_values(array_filter(explode('&', $lastDecision), fn($s) => $s !== '' && $s !== '-' && $s !== 'PASS'));
@@ -15169,7 +15233,27 @@ $customDQHandlers["LAW_103#0"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["OPP_DEFEAT_OWN_UNIT"] = function($player, $parts, $lastDecision) {
     $nonLeader = (($parts[0] ?? '1') === '1');
     $tip = $nonLeader ? 'Choose_a_non-leader_unit_to_defeat' : 'Choose_a_unit_to_defeat';
-    SWUOpponentChoosesOwnUnit(intval($player), $nonLeader, $tip, 'DEFEAT_UNIT');
+    // The opponent CHOOSES the target, but the defeat is caused by the CASTER's card ability — so it
+    // must be attributed to the caster for "can't be defeated by ENEMY card abilities" to apply
+    // (SOR_040 Avenger, SOR_041, etc.). Thread the caster ($player) into ENEMY_SOURCED_DEFEAT.
+    SWUOpponentChoosesOwnUnit(intval($player), $nonLeader, $tip, "ENEMY_SOURCED_DEFEAT|" . intval($player));
+};
+
+// Defeat a unit the OPPONENT chose among their own, attributing the defeat to the CASTER (the ability's
+// controller) rather than the chooser. $chooser = the player who answered the pick (owns the unit);
+// $parts[0] = the caster. The chooser-frame mzID ('my…Arena-N') is translated to the caster's frame
+// ('their…Arena-N') — same physical unit — so SWUDefeatUnit sees actor ≠ controller and correctly
+// evaluates the enemy-ability defeat immunity.
+$customDQHandlers["ENEMY_SOURCED_DEFEAT"] = function($chooser, $parts, $lastDecision) {
+    if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
+    $caster = intval($parts[0] ?? OtherPlayer(intval($chooser)));
+    $casterMz = str_replace(
+        ['myGroundArena', 'mySpaceArena'],
+        ['theirGroundArena', 'theirSpaceArena'],
+        $lastDecision
+    );
+    global $playerID; $playerID = $caster;
+    SWUDefeatUnit($caster, $casterMz);
 };
 
 // SOR_040 Avenger — "When Played/On Attack: An opponent chooses a non-leader unit they control.
@@ -20474,24 +20558,37 @@ $customDQHandlers["SOR_110#0"] = function($player, $parts, $lastDecision) {
 // Once-per-round: gated by the Poe leader's NumUses budget (refreshed by SWUResetAllNumUses each round).
 // JTL_050 Phantom II — "Action [1 resource]: If this card is a unit, attach it as an upgrade to The Ghost.
 // (It's no longer a unit. Defeat all upgrades on it and remove all damage from it.)" costKind 'none'
-// (resource-only, no exhaust). Reuses SWUMoveUnitToUpgrade with the named host JTL_053; the +3/+3 + Grit
-// grant lives in ObjectCurrentPower/HP + the Grit conditional. Affordability gated on The Ghost in play.
+// (resource-only, no exhaust). Reuses SWUMoveUnitToUpgrade; the +3/+3 + Grit grant lives in
+// ObjectCurrentPower/HP + the Grit conditional. "The Ghost" is TITLE-based — any unit titled "The Ghost"
+// on EITHER player's side is a legal host (JTL_053, SOR_050, …), so when >1 is in play the player picks.
+// SWUMoveUnitToUpgrade handles the "defeat all upgrades on it and remove all damage" rider. Affordability
+// (SWUUnitActionAffordable) gates on any "The Ghost" being in play.
 $unitActionCostKind["JTL_050"] = 'none';
 $unitActionResourceCosts["JTL_050"] = 1;
 $unitAbilities["JTL_050"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $ghostMz = null;
-    foreach (['mySpaceArena', 'myGroundArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && ($o->CardID ?? '') === 'JTL_053') { $ghostMz = $mz; break 2; }
-        }
+    $self    = GetZoneObject($mzID);
+    $selfUID = $self ? intval($self->UniqueID ?? -1) : -1;
+    $hosts   = _SWUCollectUnits($selfUID, fn($o) => CardTitle($o->CardID ?? '') === 'The Ghost');
+    if (empty($hosts)) { SWUAfterAction($player); return; }
+    // 1 host → auto-attach (PASSPARAMETER, no prompt); 2+ → MZCHOOSE. JTL_050#1 finalizes the attach
+    // (and the terminal SWUAfterAction) on the chosen host — the Phantom's own mzID rides in the token.
+    SWUQueueChooseTarget(intval($player), $hosts,
+        'Choose_a_The_Ghost_to_attach_Phantom_II_to', 'JTL_050#1|' . (string)$mzID);
+};
+
+// JTL_050#1 — receives the chosen host mzID as $lastDecision; Phantom II's own mzID rides in $parts[0].
+// Attaches Phantom (as a special upgrade, not a Pilot) to the chosen "The Ghost", then ends the action.
+$customDQHandlers["JTL_050#1"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $playerID  = intval($player);
+    $phantomMz = $parts[0] ?? '';
+    $hostMz    = $lastDecision ?? '';
+    if ($phantomMz !== '' && $hostMz !== '' && $hostMz !== '-') {
+        SWUMoveUnitToUpgrade($phantomMz, $hostMz, false); // Phantom II is a special upgrade, not a Pilot
     }
-    if ($ghostMz !== null) {
-        SWUMoveUnitToUpgrade($mzID, $ghostMz, false); // Phantom II is a special upgrade, not a Pilot
-    }
-    SWUAfterAction($player);
+    SWUAfterAction(intval($player));
 };
 
 $unitActionCostKind["JTL_013"] = 'none';

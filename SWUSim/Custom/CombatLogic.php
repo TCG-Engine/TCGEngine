@@ -504,6 +504,16 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
         return false;
     }
 
+    // JTL_012 Luke Skywalker (Hero of Yavin), deployed as a Pilot — "This unit can't be defeated as an
+    // upgrade by enemy card abilities." The immunity protects the pilot UPGRADE itself (not the host)
+    // from an ENEMY-controlled DEFEAT only. It does NOT stop a bounce/return (Bamboozle returns the
+    // pilot — a leader pilot goes back to the leader zone, not hand), and a FRIENDLY ability (e.g. Power
+    // Failure) can still defeat it.
+    if (!$bounce && _SWUUpgradeImmuneToEnemyDefeat($foundCardID) && intval($player) !== intval($foundCtrl)) {
+        $playerID = $savedPID;
+        return false;
+    }
+
     // Rebuild Subcards without the defeated upgrade (explicit reassignment ensures the
     // property on the live zone object is updated even when $host was obtained without &).
     $newSubcards = [];
@@ -514,8 +524,9 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
 
     // JTL_094 Luke pilot-upgrade defeat-replacement (host SURVIVES this "defeat an upgrade" effect):
     // park a snapshot and offer the controller the move-to-ground at action end (same kind as the
-    // host-leaves-play path; the upgrade is already off the host).
-    if (!$skipReplacement && $foundCardID === 'JTL_094') {
+    // host-leaves-play path; the upgrade is already off the host). Only a DEFEAT qualifies — a BOUNCE
+    // (return-to-hand, e.g. Bamboozle) is not "would be defeated", so Luke simply goes to hand below.
+    if (!$skipReplacement && !$bounce && $foundCardID === 'JTL_094') {
         if (intval($foundUID) <= 0) $foundUID = NextUniqueID();
         $gDeferredReplacements[] = ['kind' => 'upgrade_to_unit', 'uid' => intval($foundUID),
             'controller' => intval($foundCtrl), 'owner' => intval($foundOwner), 'cardID' => $foundCardID,

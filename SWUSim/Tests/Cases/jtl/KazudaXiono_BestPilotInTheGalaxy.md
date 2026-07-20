@@ -80,3 +80,31 @@ WithP1GroundArena: SOR_063:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 P2BASEDMG:2
+
+---
+
+# Deployed_OnAttack_MultipleUnits
+#// JTL_018 Kazuda Xiono (deployed leader unit) — On Attack: choose ANY NUMBER of friendly units; they lose
+#// all abilities for this round. Kazuda attacks the base and P1 chooses BOTH friendly Sentinel units
+#// (SOR_063 and SOR_035); both lose Sentinel.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_063:1:0
+WithP1GroundArena: SOR_035:1:0
+
+## WHEN
+- P1>AttackGroundArena:2:BASE
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_063
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+P1GROUNDARENAUNIT:1:CARDID:SOR_035
+P1GROUNDARENAUNIT:1:NOTKEYWORD:Sentinel

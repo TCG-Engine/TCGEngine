@@ -41,3 +41,32 @@ P2Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# ReadiedOutsideRegroup_TaxFires
+#// JTL_192 In Debt to Crimson Dawn — "When attached unit readies" fires for ANY ready, not just the regroup
+#// ready step. P1's exhausted SOR_095 carries In Debt; P1 plays Keep Fighting (SOR_169) to ready it
+#// mid-phase — the tax triggers immediately, P1 declines to pay, and SOR_095 is exhausted right back.
+#// (Regression guard: this path was previously wired only for the regroup ready step.)
+
+## GIVEN
+CommonSetup: rrk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:4
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:0:0
+WithP1GroundArenaUpgrade: 0:JTL_192
+WithP1Hand: SOR_169
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:EXHAUSTED

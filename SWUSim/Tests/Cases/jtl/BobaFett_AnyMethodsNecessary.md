@@ -92,3 +92,60 @@ WithP2GroundArena: SOR_128:1:0
 P2BASEDMG:5
 P2GROUNDARENAUNIT:0:CARDID:SOR_128
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# NonCombatReaction_Declined
+#// JTL_009 Boba Fett — the "when you deal non-combat damage, you may exhaust this leader" reaction is a MAY.
+#// P1 plays Shoot Down (JTL_176) dealing 3 non-combat to SOR_046, but DECLINES the exhaust — so no indirect
+#// damage is dealt and Boba stays ready.
+
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:JTL_009;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1Resources: 8
+WithP1Hand: JTL_176
+WithP2SpaceArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P2SPACEARENAUNIT:0:DAMAGE:3
+P2BASEDMG:0
+P1LEADER:READY
+
+---
+
+# CombatDamage_NoReaction
+#// JTL_009 Boba Fett — the reaction is for NON-combat damage only. A friendly unit dealing COMBAT damage
+#// (SOR_095 attacks SOR_046) does NOT offer Boba's exhaust reaction: no decision is queued and Boba stays
+#// ready.
+
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:JTL_009;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P1NODECISION
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1LEADER:READY

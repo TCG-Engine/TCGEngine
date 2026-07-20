@@ -19,3 +19,22 @@ P2SPACEARENAUNIT:0:UPGRADECOUNT:1
 P2SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_213
 P2SPACEARENAUNIT:0:POWER:0
 P2SPACEARENAUNIT:0:HP:1
+
+---
+
+# PlayedAsUnit_NoEnemyVehicle
+#// JTL_213 Sidon Ithano — the "attach to an enemy Vehicle without a Pilot" is a WHEN-PLAYED "may". With no
+#// eligible enemy Vehicle (the opponent has only a ground non-Vehicle unit), Sidon simply enters as a normal
+#// ground unit.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:6;handCardIds:JTL_213}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_213

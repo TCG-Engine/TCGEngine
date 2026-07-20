@@ -56,3 +56,28 @@ WithP1SpaceArenaUpgrade: 0:JTL_046
 ## EXPECT
 P1SPACEARENAUNIT:0:DAMAGE:1
 P1SPACEARENAUNIT:0:POWER:5
+
+---
+
+# AsUnit_NoOnAttackGrant
+#// JTL_046 Paige Tico — the "On Attack: give an Experience token, then deal 1 to it" is a PILOTING grant to
+#// the attached Vehicle, not one of Paige's own abilities. Seated as a UNIT (so she's ready and can attack),
+#// Paige (3/2) attacks the base for 3 with NO Experience token and NO self-damage.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: JTL_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_046
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2BASEDMG:3

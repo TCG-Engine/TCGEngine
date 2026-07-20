@@ -43,3 +43,23 @@ WithP1Deck: SOR_046
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1HANDCOUNT:1
+
+---
+
+# OnAttack_NextResistanceDiscount
+#// JTL_098 Snap Wexley — the discount also fires on the "On Attack" half. Seated as a unit (ready), Snap
+#// attacks the base; then P1 plays the Resistance unit JTL_099 (cost 3) for 2. Resources: 5 − 2 = 3 left.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: JTL_098:1:0
+WithP1Hand: JTL_099
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1RESAVAILABLE:3

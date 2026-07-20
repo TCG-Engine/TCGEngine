@@ -54,3 +54,26 @@ WithP2GroundArena: SOR_095:1:0
 ## EXPECT
 P1BASEDMG:1
 P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# OnAttack_NoMatchingAspect
+#// JTL_250 Sabine's Masterpiece — the four branches key on Vigilance/Command/Aggression/Cunning units you
+#// control. Sabine is Heroism and is alone, so NONE of the four fire: it just attacks the base for 3 with no
+#// menu or prompt.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_250:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1NODECISION
+P2BASEDMG:3
