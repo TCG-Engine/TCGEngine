@@ -99,17 +99,24 @@ attack declaration; the pass that merely commits combat receives no combat
 reward. Replay attack steps include `combatRewardResolvedAtStep`, and the
 resolving response step includes `combatRewardAttributedToStep`.
 
-Fresh Azuki training uses the context-gated `AzukiSim:compact-v3` state and
-`semantic-v1` action keys. It retains IKZ availability, hand and life buckets,
+Fresh Azuki training uses the context-gated `AzukiSim:compact-v4` state and
+`semantic-v2` action keys. It retains IKZ availability, hand and life buckets,
 then includes board and legal-action summaries only in the contexts where they
 matter. This avoids the cross-product state growth seen in `compact-v2`. Logits
 are keyed by stable meanings such as
-`play:<cardID>`, `attack:<cardID>`, `target:<role>:<cardID>`, and distinct main
-and response passes instead of by legal-list position.
+`play:<cardID>`, `attack:<cardID>`, and
+`target:<decision>:<role>:atk=<attack>:hp=<remainingHP>:threat=<threat>`, plus
+distinct main and response passes instead of by legal-list position. Own-card
+actions retain exact card IDs; opposing targets use their current attack,
+remaining HP, and threat profile so target learning transfers across decks.
 
-Legacy `lite-v2`/index and `compact-v2` checkpoints remain loadable for evaluation
-and continued same-version training, but they do not migrate into the v3 table.
-Omit `--checkpoint` when starting the v3 generation from a fresh policy.
+Threat defaults to `1` for every card. Future per-card overrides belong in
+`AzukiRlBotCardThreatValue()` in `AzukiSim/Custom/GameLogic.php`.
+
+Legacy `lite-v2`/index, `compact-v2`, and `compact-v3`/`semantic-v1`
+checkpoints remain loadable for evaluation and continued same-version training,
+but they do not migrate into the v4 table. Omit `--checkpoint` when starting the
+v4 generation from a fresh policy.
 
 To compile a published checkpoint for low-memory live inference:
 

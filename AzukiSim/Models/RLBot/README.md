@@ -33,3 +33,8 @@ directory together. Re-run the exporter after every model replacement. If the
 server disables OPcache timestamp validation, invalidate/reset OPcache as part
 of deployment so the stable manifest filename is refreshed; shard directories
 are content-addressed and therefore never overwritten in place.
+
+Fresh `compact-v4` models use opponent target profiles (current attack,
+remaining HP, and threat) instead of opposing card IDs. Threat is `1` by default;
+future per-card overrides are configured in `AzukiRlBotCardThreatValue()` in
+`AzukiSim/Custom/GameLogic.php` before training and inference.

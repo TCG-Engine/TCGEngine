@@ -167,7 +167,7 @@ function RlRandomFloat() {
 }
 
 function RlDefaultStateKeyVersion($root) {
-  return strval($root) === 'AzukiSim' ? 'AzukiSim:compact-v3' : 'lite-v2';
+  return strval($root) === 'AzukiSim' ? 'AzukiSim:compact-v4' : 'lite-v2';
 }
 
 function RlStateKeyVersion() {
@@ -175,11 +175,16 @@ function RlStateKeyVersion() {
 }
 
 function RlCompatibleStateKeyVersions() {
-  return ['lite-v2' => true, 'AzukiSim:azuki-v1' => true, 'AzukiSim:compact-v2' => true, 'AzukiSim:compact-v3' => true, 'strategy-v1' => true];
+  return ['lite-v2' => true, 'AzukiSim:azuki-v1' => true, 'AzukiSim:compact-v2' => true, 'AzukiSim:compact-v3' => true, 'AzukiSim:compact-v4' => true, 'strategy-v1' => true];
 }
 
 function RlDefaultActionKeyVersion($stateKeyVersion) {
+  if (strval($stateKeyVersion) === 'AzukiSim:compact-v4') return 'semantic-v2';
   return in_array(strval($stateKeyVersion), ['AzukiSim:compact-v2', 'AzukiSim:compact-v3'], true) ? 'semantic-v1' : 'index-v1';
+}
+
+function RlUsesSemanticActionKeys($actionKeyVersion) {
+  return in_array(strval($actionKeyVersion), ['semantic-v1', 'semantic-v2'], true);
 }
 
 function RlStrategyEnabled($mode) {
@@ -301,6 +306,7 @@ function RlAzukiV1StateKeyFromSnapshot($snapshot, $actingPlayer = 0) {
 
 function RlStateKeyFromSnapshot($snapshot, $stateKeyVersion = null, $actingPlayer = 0, $legal = []) {
   $version = $stateKeyVersion === null ? RlStateKeyVersion() : strval($stateKeyVersion);
+  if ($version === 'AzukiSim:compact-v4') return BridgeAzukiCompactV4StateKey($snapshot, $actingPlayer, $legal);
   if ($version === 'AzukiSim:compact-v3') return BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal);
   if ($version === 'AzukiSim:compact-v2') return BridgeAzukiCompactStateKey($snapshot, $actingPlayer, $legal);
   if ($version === 'AzukiSim:azuki-v1') return RlAzukiV1StateKeyFromSnapshot($snapshot, $actingPlayer);
@@ -521,7 +527,7 @@ class RlTabularPolicy {
   }
 
   public function storageKeyForAction($actionIndex, $actionKeys = []) {
-    if ($this->actionKeyVersion === 'semantic-v1') {
+    if (RlUsesSemanticActionKeys($this->actionKeyVersion)) {
       return strval($actionKeys[intval($actionIndex)] ?? ('unknown-index:' . intval($actionIndex)));
     }
     return strval(intval($actionIndex));
@@ -621,7 +627,7 @@ class RlTabularPolicy {
       $stateKey = strval($stateKey);
       foreach ((array)$values as $actionKey => $value) {
         $key = strval($actionKey);
-        if ($this->actionKeyVersion !== 'semantic-v1') {
+        if (!RlUsesSemanticActionKeys($this->actionKeyVersion)) {
           $actionIdx = intval($actionKey);
           if ($actionIdx < 0 || $actionIdx >= $this->maxActions) continue;
           $key = strval($actionIdx);
@@ -660,8 +666,8 @@ class RlTabularPolicy {
   }
 
   public function payloadWithStrategy($includeStrategy) {
-    $logits = $this->actionKeyVersion === 'semantic-v1' ? $this->logits : [];
-    if ($this->actionKeyVersion !== 'semantic-v1') {
+    $logits = RlUsesSemanticActionKeys($this->actionKeyVersion) ? $this->logits : [];
+    if (!RlUsesSemanticActionKeys($this->actionKeyVersion)) {
       foreach ($this->logits as $stateKey => $values) {
         if (!empty($values)) $logits[$stateKey] = (object)$values;
       }
@@ -672,7 +678,7 @@ class RlTabularPolicy {
       'learning_rate' => $this->learningRate,
       'state_key_version' => $this->stateKeyVersion,
       'action_key_version' => $this->actionKeyVersion,
-      'logits_format' => $this->actionKeyVersion === 'semantic-v1' ? 'sparse_action_key_map' : 'sparse_index_map',
+      'logits_format' => RlUsesSemanticActionKeys($this->actionKeyVersion) ? 'sparse_action_key_map' : 'sparse_index_map',
       'logits' => $logits,
     ];
     if ($includeStrategy && $this->strategyPolicy !== null && RlStrategyEnabled($this->strategyMode)) {
@@ -711,7 +717,7 @@ class RlTabularPolicy {
       $valuesArray = (array)$values;
       foreach ($valuesArray as $actionKey => $value) {
         $key = strval($actionKey);
-        if ($obj->actionKeyVersion !== 'semantic-v1') {
+        if (!RlUsesSemanticActionKeys($obj->actionKeyVersion)) {
           $actionIdx = intval($actionKey);
           if ($actionIdx < 0 || $actionIdx >= $obj->maxActions) continue;
           $key = strval($actionIdx);
@@ -788,8 +794,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     ($policy instanceof RlTabularPolicy && RlStrategyEnabled($policy->strategyMode))
     || ($opponent instanceof RlTabularPolicy && RlStrategyEnabled($opponent->strategyMode));
   $GLOBALS['bridgeIncludeAzukiCompactState'] =
-    ($policy instanceof RlTabularPolicy && in_array($policy->stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3'], true))
-    || ($opponent instanceof RlTabularPolicy && in_array($opponent->stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3'], true));
+    ($policy instanceof RlTabularPolicy && in_array($policy->stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3', 'AzukiSim:compact-v4'], true))
+    || ($opponent instanceof RlTabularPolicy && in_array($opponent->stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3', 'AzukiSim:compact-v4'], true));
   $startPayload = BridgeStartSelfplayGame($args['root'], $gameName, intval($epSeed), $deckText, $deckText, $memoryArg);
   if (empty($startPayload['success'])) RlFail('start-selfplay-game failed: ' . json_encode($startPayload));
 
@@ -827,7 +833,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     $actingPolicy = $turnPlayer === 1 ? $policy : $opponent;
     $actionKeys = [];
     foreach ($lastLegalActions as $idx => $legalAction) {
-      $actionKeys[intval($idx)] = BridgeRlSemanticActionKey($legalAction, $legal);
+      $actionKeys[intval($idx)] = BridgeRlSemanticActionKey($legalAction, $legal, $actingPolicy->actionKeyVersion);
     }
     $stateKey = RlStateKeyFromSnapshot($snapshot, $actingPolicy->stateKeyVersion, $turnPlayer, $legal);
     $boundedMask = array_slice($mask, 0, intval($args['max-actions']));

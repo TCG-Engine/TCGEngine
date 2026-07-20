@@ -88,6 +88,16 @@ function AzukiRlBotEnsureBridgeLoaded() {
     return function_exists('BridgeEnumerateLegalActionsLoaded');
 }
 
+function AzukiRlBotCardThreatValue($cardID) {
+    // Add card-specific overrides here as matchup knowledge improves. Keeping
+    // the default at 1 makes unknown cards generalize by combat profile rather
+    // than silently falling back to an unseen exact-card action key.
+    static $threatByCardID = [
+        // 'CARD_ID' => 2,
+    ];
+    return max(0, intval($threatByCardID[strval($cardID)] ?? 1));
+}
+
 function AzukiRlBotPublishedCheckpointPath() {
     $modelDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'RLBot';
     $defaultModel = 'raizan-lite-v2.json';
@@ -208,7 +218,9 @@ function AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) {
         && strpos($raw, '"state_key_version": "AzukiSim:compact-v2"') === false
         && strpos($raw, '"state_key_version":"AzukiSim:compact-v2"') === false
         && strpos($raw, '"state_key_version": "AzukiSim:compact-v3"') === false
-        && strpos($raw, '"state_key_version":"AzukiSim:compact-v3"') === false) return null;
+        && strpos($raw, '"state_key_version":"AzukiSim:compact-v3"') === false
+        && strpos($raw, '"state_key_version": "AzukiSim:compact-v4"') === false
+        && strpos($raw, '"state_key_version":"AzukiSim:compact-v4"') === false) return null;
 
     $encodedKey = json_encode(strval($stateKey), JSON_UNESCAPED_SLASHES);
     if(!is_string($encodedKey) || $encodedKey === '') return null;
@@ -231,6 +243,7 @@ function AzukiRlBotCheckpointStateKeyVersion($path) {
     if(is_array($manifest)) return strval($manifest['state_key_version'] ?? 'lite-v2');
     $raw = @file_get_contents($path, false, null, 0, 4096);
     if(!is_string($raw) || $raw === '') return 'lite-v2';
+    if(strpos($raw, '"state_key_version": "AzukiSim:compact-v4"') !== false || strpos($raw, '"state_key_version":"AzukiSim:compact-v4"') !== false) return 'AzukiSim:compact-v4';
     if(strpos($raw, '"state_key_version": "AzukiSim:compact-v3"') !== false || strpos($raw, '"state_key_version":"AzukiSim:compact-v3"') !== false) return 'AzukiSim:compact-v3';
     if(strpos($raw, '"state_key_version": "AzukiSim:compact-v2"') !== false || strpos($raw, '"state_key_version":"AzukiSim:compact-v2"') !== false) return 'AzukiSim:compact-v2';
     if(strpos($raw, '"state_key_version": "AzukiSim:azuki-v1"') !== false || strpos($raw, '"state_key_version":"AzukiSim:azuki-v1"') !== false) return 'AzukiSim:azuki-v1';
@@ -242,6 +255,7 @@ function AzukiRlBotCheckpointActionKeyVersion($path) {
     if(is_array($manifest)) return strval($manifest['action_key_version'] ?? 'index-v1');
     $raw = @file_get_contents($path, false, null, 0, 4096);
     if(!is_string($raw) || $raw === '') return 'index-v1';
+    if(strpos($raw, '"action_key_version": "semantic-v2"') !== false || strpos($raw, '"action_key_version":"semantic-v2"') !== false) return 'semantic-v2';
     if(strpos($raw, '"action_key_version": "semantic-v1"') !== false || strpos($raw, '"action_key_version":"semantic-v1"') !== false) return 'semantic-v1';
     return 'index-v1';
 }
@@ -384,6 +398,9 @@ function AzukiRlBotV1StateKeyFromSnapshot($snapshot, $actingPlayer = 0) {
 }
 
 function AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion = 'lite-v2', $actingPlayer = 0, $legal = []) {
+    if($stateKeyVersion === 'AzukiSim:compact-v4' && function_exists('BridgeAzukiCompactV4StateKey')) {
+        return BridgeAzukiCompactV4StateKey($snapshot, $actingPlayer, $legal);
+    }
     if($stateKeyVersion === 'AzukiSim:compact-v3' && function_exists('BridgeAzukiCompactV3StateKey')) {
         return BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal);
     }
@@ -401,8 +418,8 @@ function AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion = 'ind
     $bestIndex = 0;
     $bestScore = null;
     for($i = 0; $i < count($actions); ++$i) {
-        if($actionKeyVersion === 'semantic-v1' && function_exists('BridgeRlSemanticActionKey')) {
-            $scoreKey = BridgeRlSemanticActionKey($actions[$i], $legal);
+        if(in_array($actionKeyVersion, ['semantic-v1', 'semantic-v2'], true) && function_exists('BridgeRlSemanticActionKey')) {
+            $scoreKey = BridgeRlSemanticActionKey($actions[$i], $legal, $actionKeyVersion);
         } else {
             $scoreKey = strval(isset($actions[$i]['_rlActionIndex']) ? intval($actions[$i]['_rlActionIndex']) : $i);
         }
@@ -507,7 +524,7 @@ function ProcessAzukiRlBotStep() {
     $actionKeyVersion = AzukiRlBotCheckpointActionKeyVersion($checkpointPath);
     $strategyMode = AzukiRlBotCheckpointStrategyMode($checkpointPath);
     $GLOBALS['bridgeIncludeAzukiRlState'] = $stateKeyVersion === 'AzukiSim:azuki-v1';
-    $GLOBALS['bridgeIncludeAzukiCompactState'] = in_array($stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3'], true);
+    $GLOBALS['bridgeIncludeAzukiCompactState'] = in_array($stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3', 'AzukiSim:compact-v4'], true);
     $GLOBALS['bridgeIncludeAzukiStrategyState'] = $strategyMode === 'aggro-control';
     $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
     $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];

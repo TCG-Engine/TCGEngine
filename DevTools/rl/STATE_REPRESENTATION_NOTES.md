@@ -90,10 +90,18 @@ That would let the state omit exact hand contents while still letting the policy
 
 ## Implemented Compact Generation
 
-`AzukiSim:compact-v3` is the current compression-friendly generation. It pairs
-an IKZ-aware, context-gated state with `semantic-v1` action keys, so identical
-card actions share learning even when their live zone indexes or legal-list
-positions change. Main-phase and response-window passes have distinct keys.
+`AzukiSim:compact-v4` is the current compression-friendly generation. It pairs
+an IKZ-aware, context-gated state with `semantic-v2` action keys. Own play,
+attack, activation, and target actions still use exact card IDs. Opposing target
+actions instead use role, current attack, remaining HP, and a generic threat
+value, for example
+`target:mzchoose:enemy-garden:atk=3:hp=2:threat=1`. This allows target-choice
+learning to transfer to unfamiliar opposing cards with the same combat profile.
+Main-phase and response-window passes have distinct keys.
+
+Threat currently defaults to `1` for every card. Per-card threat overrides can
+be added to `AzukiRlBotCardThreatValue()` in `AzukiSim/Custom/GameLogic.php` as
+we identify engine cards that deserve a different strategic priority.
 
 The compact state deliberately summarizes rather than enumerates exact hands
 and boards. Shared fields use buckets for available IKZ, hand count, and life.
@@ -101,5 +109,9 @@ Main decisions add board pressure and legal play/attack summaries; response and
 chooser decisions receive smaller context-specific summaries. `compact-v2`
 included most of these dimensions at every decision and grew to 334,606 states
 after only 4,300 games, so it remains loadable but is no longer the default.
+
+`compact-v3`/`semantic-v1` remains loadable and resumable for existing models,
+but its opposing target keys contain exact card IDs and do not share logits with
+the v4 generation.
 
 The broad goal is not less accurate state. It is more reusable state: strategic situation plus stable action identity, instead of nearly complete visible-game-state memorization.

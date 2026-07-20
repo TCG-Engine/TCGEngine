@@ -1148,7 +1148,47 @@ function BridgeRlActionTargetRole($action) {
   return 'other';
 }
 
-function BridgeRlSemanticActionKey($action, $legal = []) {
+function BridgeRlEnemyTargetProfile($action) {
+  if (!is_array($action)) return null;
+  $role = BridgeRlActionTargetRole($action);
+  if ($role !== 'leader' && !str_starts_with($role, 'enemy-')) return null;
+
+  $raw = strval($action['cardID'] ?? '');
+  $cardID = strval($action['resolvedCardID'] ?? '');
+  $actingPlayer = intval($action['playerID'] ?? 0);
+  $targetPlayer = $actingPlayer === 1 ? 2 : ($actingPlayer === 2 ? 1 : 0);
+  $obj = function_exists('GetZoneObject') && $raw !== '' ? GetZoneObject($raw) : null;
+  $attack = 0;
+  $remainingHP = 0;
+
+  if ($role === 'leader' && $targetPlayer !== 0) {
+    $leader = BridgeAzukiLeaderSummary($targetPlayer);
+    $remainingHP = max(0, intval($leader['remainingLife'] ?? 0));
+  }
+  if (is_object($obj)) {
+    $attack = function_exists('ResolveEntityAttackValue') && $targetPlayer !== 0
+      ? intval(ResolveEntityAttackValue($targetPlayer, $obj))
+      : (function_exists('CardAttack') ? intval(CardAttack($cardID)) : 0);
+    if ($role !== 'leader') {
+      $health = function_exists('ResolveEntityHealthValue') && $targetPlayer !== 0
+        ? intval(ResolveEntityHealthValue($targetPlayer, $obj))
+        : (function_exists('CardHealth') ? intval(CardHealth($cardID)) : 0);
+      $remainingHP = max(0, $health - intval($obj->Damage ?? 0));
+    }
+  } else {
+    if (function_exists('CardAttack')) $attack = intval(CardAttack($cardID));
+    if ($role !== 'leader' && function_exists('CardHealth')) $remainingHP = max(0, intval(CardHealth($cardID)));
+  }
+
+  $threat = function_exists('AzukiRlBotCardThreatValue') ? intval(AzukiRlBotCardThreatValue($cardID)) : 1;
+  return [
+    'attack' => max(0, $attack),
+    'hp' => max(0, $remainingHP),
+    'threat' => max(0, $threat),
+  ];
+}
+
+function BridgeRlSemanticActionKey($action, $legal = [], $actionKeyVersion = 'semantic-v2') {
   if (!is_array($action)) return 'invalid';
   $raw = strval($action['cardID'] ?? '');
   $rawUpper = strtoupper($raw);
@@ -1175,6 +1215,16 @@ function BridgeRlSemanticActionKey($action, $legal = []) {
   }
 
   if ($resolved !== '') {
+    if (strval($actionKeyVersion) === 'semantic-v2') {
+      $profile = BridgeRlEnemyTargetProfile($action);
+      if (is_array($profile)) {
+        return 'target:' . ($decisionType !== '' ? strtolower($decisionType) : 'card')
+          . ':' . BridgeRlActionTargetRole($action)
+          . ':atk=' . intval($profile['attack'] ?? 0)
+          . ':hp=' . intval($profile['hp'] ?? 0)
+          . ':threat=' . intval($profile['threat'] ?? 1);
+      }
+    }
     return 'target:' . ($decisionType !== '' ? strtolower($decisionType) : 'card') . ':' . BridgeRlActionTargetRole($action) . ':' . $resolved;
   }
 
@@ -1255,7 +1305,7 @@ function BridgeAzukiCompactCountBucket($value) {
   return '8+';
 }
 
-function BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal = []) {
+function BridgeAzukiCompactStateKeyForVersion($snapshot, $actingPlayer, $legal, $version) {
   $actingPlayer = intval($actingPlayer);
   if ($actingPlayer !== 1 && $actingPlayer !== 2) $actingPlayer = 1;
   $opp = $actingPlayer === 1 ? 2 : 1;
@@ -1278,13 +1328,13 @@ function BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal = []) {
   }
 
   if ($kind === 'free-play-fsm') $context = 'main';
-  else if ($kind === 'attack-response-fsm') $context = 'response';
+  else if ($kind === 'attack-response-fsm' || ($version === 'AzukiSim:compact-v4' && $kind === 'azuki-attack-response-fsm')) $context = 'response';
   else if ($kind === 'opportunity-fsm') $context = 'opportunity';
   else if ($decision !== '') $context = 'decision';
   else $context = $kind === '' ? 'other' : $kind;
 
   $key = [
-    'version' => 'AzukiSim:compact-v3',
+    'version' => strval($version),
     'context' => $context,
     'decision' => $decision,
     'isTurnPlayer' => intval($snapshot['turnPlayer'] ?? 0) === $actingPlayer ? 1 : 0,
@@ -1318,6 +1368,14 @@ function BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal = []) {
 
   ksort($key);
   return json_encode($key, JSON_UNESCAPED_SLASHES);
+}
+
+function BridgeAzukiCompactV3StateKey($snapshot, $actingPlayer, $legal = []) {
+  return BridgeAzukiCompactStateKeyForVersion($snapshot, $actingPlayer, $legal, 'AzukiSim:compact-v3');
+}
+
+function BridgeAzukiCompactV4StateKey($snapshot, $actingPlayer, $legal = []) {
+  return BridgeAzukiCompactStateKeyForVersion($snapshot, $actingPlayer, $legal, 'AzukiSim:compact-v4');
 }
 
 function BridgeGetOpportunityState() {
