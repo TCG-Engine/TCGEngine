@@ -4350,6 +4350,15 @@ function OnReadyCard($player, $mzID) {
                 'Pay_2_resources_to_keep_this_unit_ready?_(No_exhausts_it)');
             DecisionQueueController::AddDecision($ctrl, 'CUSTOM', "JTL_192#0|{$mzID}", 1);
         }
+        // ASH_088 The Conflict Within — "When this unit readies: you may pay 3 resources. If you don't,
+        // exhaust this unit." Same structure as JTL_192: the regroup ready step is handled directly in
+        // RegroupPhaseStart (SWUQueueASH088RegroupTriggers, NOT through OnReadyCard → no double-tax); a
+        // mid-phase ready effect (e.g. SOR_169 Keep Fighting) triggers the tax here.
+        if (_SWUUnitHasUpgrade($obj, 'ASH_088')) {
+            DecisionQueueController::AddDecision($ctrl, 'YESNO', '', 1,
+                'Pay_3_resources_to_keep_this_unit_ready?_(No_exhausts_it)');
+            DecisionQueueController::AddDecision($ctrl, 'CUSTOM', "ASH_088#0|{$mzID}", 1);
+        }
     }
     $playerID = $savedPID;
     return $mzID;
@@ -5672,8 +5681,14 @@ function SWUDefeatResource(int $player, string $mzID): bool {
 // True if a unit's printed text makes it enter play ready (e.g. SOR_193 Millennium
 // Falcon). Most units enter exhausted; these enter with Status:1.
 function SWUUnitEntersReady(string $cardID): bool {
+    // Only a SELF-referential "this unit enters play ready" makes the played unit itself enter ready
+    // (SOR_193 Millennium Falcon, and the conditional cards SEC_170/LAW_210/LAW_223/ASH_224 which are then
+    // re-gated at the call site). Cards whose "…it/that unit/the next unit/each token unit… enters play
+    // ready" clause grants readiness to a DIFFERENT unit (SOR_129 Ozzel, SHD_194, TWI_189, TWI_203, LAW_074,
+    // ASH_245, ASH_248 Neel) must NOT self-ready — that readiness is applied to the other unit via
+    // $gForceEnterReady / the ASH_248 flag / dedicated play paths, never by this text-match.
     $text = CardText($cardID) ?? '';
-    return stripos($text, 'enters play ready') !== false;
+    return stripos($text, 'this unit enters play ready') !== false;
 }
 
 // ─── Twin Suns seat helpers (Phase 1) ─────────────────────────────────────────
@@ -10882,6 +10897,8 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
         }
         // ASH_248 Neel — "The next unit you play this phase with 1 or less power enters play ready."
         // Armed flag consumed by the next ≤1-power unit the controller plays.
+        // ASH_248 Neel — the flag he arms is consumed by the next ≤1-power unit you play (never by Neel
+        // himself; SWUUnitEntersReady now only self-readies "this unit"-phrased cards).
         if (GlobalEffectCount(intval($player), 'SWU_ASH248_READY') > 0 && intval(CardPower($cardID)) <= 1) {
             $entersReady = true;
             RemoveGlobalEffect(intval($player), 'SWU_ASH248_READY');

@@ -520,3 +520,150 @@ WithP1GroundArena: SOR_095:1:0   # Battlefield Marine (3/3, ready)
 ## EXPECT
 P2BASEDMG:3
 P1BASEDMG:2
+
+---
+
+# ASH033_DefenderSurvives_NoReady
+#// ASH_033 Grand Admiral Thrawn — the ready-self rider needs the DEFENDER DEFEATED. Attacking the wall
+#// SOR_046 (3/7) which survives, Thrawn does not ready and stays exhausted.
+## GIVEN
+CommonSetup: grk/grk
+WithP1GroundArena: ASH_033:1:0
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# ASH036_DefenderSurvives_NoAdvantage
+#// ASH_036 Rukh — the Advantage rider needs the defender defeated. Attacking the surviving SOR_046, Rukh
+#// gives no Advantage and leaves no pending decision.
+## GIVEN
+CommonSetup: grk/grk
+WithP1GroundArena: ASH_036:1:0
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
+
+---
+
+# ASH223_DefenderSurvives_NoShield
+#// ASH_223 Halo — the Shield rider needs the defender defeated. Attacking the surviving space wall ASH_081
+#// (3/6), Halo gains no Shield token.
+## GIVEN
+CommonSetup: grk/grk
+WithP1SpaceArena: ASH_223:1:0
+WithP2SpaceArena: ASH_081:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:0
+## EXPECT
+P1SPACEARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# ASH059_OnAttack_Decline_NoSelfDamage
+#// ASH_059 Leia Organa — the On Attack self-damage/heal is optional. Declining leaves Leia undamaged and
+#// the base unhealed (stays at 3).
+## GIVEN
+CommonSetup: bbw/bbk/{myBaseDamage:3}
+WithP1GroundArena: ASH_059:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:-
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1BASEDMG:3
+P2BASEDMG:3
+
+---
+
+# ASH050_WhenDefeated_Decline_NoDebuff
+#// ASH_050 Morgan Elsbeth — the When Defeated -2/-2 is optional. A near-dead Morgan dies attacking SOR_046
+#// and P1 declines, so SOR_046 keeps its 3 power.
+## GIVEN
+CommonSetup: grk/grk
+WithP1GroundArena: ASH_050:1:5
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:-
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# ASH156_OnAttack_DefeatsAllUpgrades
+#// ASH_156 R5-D4 — On Attack defeats ALL upgrades on the defender (not just one). SOR_046 wears SOR_120 and
+#// a Shield token; attacking it strips both (upgrade count → 0) before combat.
+## GIVEN
+CommonSetup: grk/grk
+WithP1GroundArena: ASH_156:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArenaUpgrade: 0:SOR_T02
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# ASH241_OverwhelmExcessToBase
+#// ASH_241 Marrok's Fiend Fighter — Overwhelm + "+2/+0 while attacking a damaged unit." Marrok (3 power)
+#// attacks the pre-damaged SOR_237 (1 HP remaining): the +2 makes it 5 power, kills the 1-HP unit, and
+#// Overwhelm spills the 4 excess to the enemy base.
+## GIVEN
+CommonSetup: grk/grk
+WithP1SpaceArena: ASH_241:1:0
+WithP2SpaceArena: SOR_237:1:2
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:0
+## EXPECT
+P2SPACEARENACOUNT:0
+P2BASEDMG:4
+
+---
+
+# ASH209_Upgraded_Decline_NoDebuff
+#// ASH_209 Ezra Bridger — even while upgraded, the -3/-0 is a "may". Ezra (carrying SOR_120) attacks the
+#// base but P1 declines, so the enemy SEC_080 keeps its full 3 power.
+## GIVEN
+CommonSetup: bbw/bbk
+WithP1GroundArena: ASH_209:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:-
+## EXPECT
+P2GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# ASH037_CrossArena_AttacksSentinelUnit
+#// ASH_037 Red Leader — its cross-arena reach can target an enemy GROUND Sentinel from space. Red Leader
+#// (6/6, space) attacks the enemy SOR_063 (2/4 Sentinel) cross-arena and defeats it.
+## GIVEN
+CommonSetup: grk/grk
+WithP1SpaceArena: ASH_037:1:0
+WithP2GroundArena: SOR_063:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:G0
+## EXPECT
+P2GROUNDARENACOUNT:0

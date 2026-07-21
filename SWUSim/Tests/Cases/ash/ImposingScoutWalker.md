@@ -12,3 +12,17 @@ P1OnlyActions: true
 P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:CARDID:ASH_176
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:3
+
+---
+
+# WhenPlayed_Decline_NoDamage
+#// ASH_176 Imposing Scout Walker — the 3-damage is optional. Declining deals nothing.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:6;handCardIds:ASH_176}
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0

@@ -24,3 +24,19 @@ P1OnlyActions: true
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:ASH_041
 P1SPACEARENAUNIT:0:POWER:2
+
+---
+
+# EachEnteringUnitBuffed
+#// ASH_041 Outcast — the buff fires for EACH friendly unit that enters. P1 plays SOR_095 then SEC_080; both
+#// enter at power 4 (base 3 + 1).
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:12;handCardIds:SOR_095,SEC_080}
+WithP1SpaceArena: ASH_041:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:1:POWER:4

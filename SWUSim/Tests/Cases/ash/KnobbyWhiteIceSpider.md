@@ -12,3 +12,19 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:ASH_178
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:2
+
+---
+
+# WhenPlayed_AdvantagePerEnemy
+#// ASH_178 Knobby White Ice Spider — When Played: for each enemy unit, give an Advantage token to this unit.
+#// With 2 enemy units in play, Knobby enters with 2 Advantage tokens.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:7;handCardIds:ASH_178}
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:ASH_178
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:2

@@ -13,3 +13,19 @@ P1OnlyActions: true
 - P1>AnswerDecision:theirGroundArena-0
 ## EXPECT
 P2GROUNDARENACOUNT:0
+
+---
+
+# NoDamageOnUnits_DealsZero
+#// ASH_187 Reckoning — the damage equals total damage on your units; with all your units undamaged, it
+#// deals 0. The chosen enemy SEC_080 takes nothing.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3;handCardIds:ASH_187}
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0

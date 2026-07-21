@@ -16,3 +16,19 @@ P1BASEDMG:3
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:DAMAGE:4
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# AttackEnd_DealsFourAndDefeatsSelf
+#// ASH_085 Grav Charge — "When attached unit's attack ends: deal 4 damage to it and defeat this upgrade."
+#// The host SOR_095 attacks the base, then takes 4 and the upgrade is gone.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_085
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:4
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0

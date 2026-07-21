@@ -16,3 +16,21 @@ P1OnlyActions: true
 P2BASEDMG:3
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:3
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:0
+
+---
+
+# GiveAdvantageToNonAttacker
+#// ASH_184 Follow Me — the post-attack 3 Advantage may go to a unit that did NOT attack. SOR_095 attacks
+#// the base, but P1 gives the tokens to the space SOR_237 instead.
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:1;handCardIds:ASH_184}
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:mySpaceArena-0
+## EXPECT
+P1SPACEARENAUNIT:0:ADVANTAGECOUNT:3
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0

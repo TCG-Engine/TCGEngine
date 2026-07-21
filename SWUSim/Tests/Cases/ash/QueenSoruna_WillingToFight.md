@@ -11,3 +11,32 @@ P1OnlyActions: true
 - P1>AnswerDecision:myHand-0
 ## EXPECT
 P2GROUNDARENACOUNT:0
+
+---
+
+# DeclineReveal_NoDamage
+#// ASH_132 Queen Soruna — the reveal is optional. Declining deals no damage.
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:6;handCardIds:ASH_132,SOR_237}
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# RevealNoSameCostUnit_NoDamage
+#// ASH_132 Queen Soruna — revealing SOR_237 (cost 2) deals 3 to a cost-2 unit; with only SOR_046 (cost 4)
+#// in play there is no valid target, so no damage is dealt.
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:6;handCardIds:ASH_132,SOR_237}
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0

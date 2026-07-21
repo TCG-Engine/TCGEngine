@@ -40,3 +40,20 @@ WithP1SpaceArena: SOR_225:1:0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:2
+
+---
+
+# OnlyTargetUnit_ZeroAdvantage
+#// ASH_015 Emperor Palpatine — the count is per OTHER friendly unit. With SEC_135 the only friendly unit,
+#// there are zero others, so it receives 0 Advantage tokens (Palpatine still exhausts).
+## GIVEN
+CommonSetup: gyk/brk/{myLeader:ASH_015}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 0
+WithP1GroundArena: SEC_135:0:0
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
+P1LEADER:EXHAUSTED

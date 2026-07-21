@@ -29,3 +29,18 @@ P1OnlyActions: true
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:2
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:2
 P1SPACEARENAUNIT:1:ADVANTAGECOUNT:0
+
+---
+
+# WhenPlayed_TwoAdvantageToEachOther
+#// ASH_149 Eviscerator — When Played: give 2 Advantage tokens to each other friendly unit. Played with a
+#// friendly SOR_237 present, SOR_237 gains 2 Advantage tokens.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:14;handCardIds:ASH_149}
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:ADVANTAGECOUNT:2

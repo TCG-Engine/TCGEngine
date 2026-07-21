@@ -79,3 +79,75 @@ WithP1Hand: ASH_109
 - P1>AnswerDecision:YES
 ## EXPECT
 P1LEADER:DEPLOYED
+
+---
+
+# Undeployed_UniqueFourPlus_MayDeploy
+#// ASH_018 Grogu (undeployed, ready) — "When you play a unique unit that costs 4 or more: if this leader is
+#// ready, you may deploy him." P1 plays SOR_242 (General Dodonna, unique cost 4) and chooses YES; Grogu
+#// deploys, joining Dodonna in the ground arena (count 2).
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Hand: SOR_242
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENACOUNT:2
+
+---
+
+# Undeployed_UniqueFourPlus_DeclineNoDeploy
+#// ASH_018 Grogu — the deploy is optional; declining leaves Grogu undeployed and ready.
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Hand: SOR_242
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+## EXPECT
+P1LEADER:READY
+P1GROUNDARENACOUNT:1
+
+---
+
+# Undeployed_NonUniqueFour_NoTrigger
+#// ASH_018 Grogu — the trigger requires a UNIQUE unit. Playing SOR_046 (non-unique, cost 4) offers no
+#// deploy; Grogu stays undeployed and only SOR_046 is in the arena.
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Hand: SOR_046
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1LEADER:READY
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+
+---
+
+# Undeployed_UniqueThree_NoTrigger
+#// ASH_018 Grogu — the trigger requires cost 4+. Playing SOR_230 (General Veers, unique, cost 3) offers no
+#// deploy; Grogu stays undeployed.
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Hand: SOR_230
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1LEADER:READY
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_230

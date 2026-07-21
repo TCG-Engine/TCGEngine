@@ -14,3 +14,20 @@ P1OnlyActions: true
 P2BASEDMG:3
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# SpaceArena_SelfDamage
+#// ASH_186 Treacherous Minefield — the chosen arena may be Space. Choosing Space grants the self-damage On
+#// Attack to space units: SOR_237 (2 power) attacks P2's base for 2 and takes 2 self-damage.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:2;handCardIds:ASH_186}
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Space
+- P1>AttackSpaceArena:0:BASE
+## EXPECT
+P2BASEDMG:2
+P1SPACEARENAUNIT:0:DAMAGE:2

@@ -11,3 +11,18 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:ASH_105
 P1GROUNDARENAUNIT:0:HASKEYWORD:Raid
+
+---
+
+# RaidWithAnotherMandalorian
+#// ASH_105 (For All of Mandalore) — "While you control another Mandalorian unit, this unit gains Raid 2."
+#// With a Mandalorian token present, it attacks the base for 2 + 2 = 4.
+## GIVEN
+CommonSetup: ggk/ggk
+WithP1GroundArena: ASH_105:1:0
+WithP1GroundArena: ASH_T01:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P2BASEDMG:4

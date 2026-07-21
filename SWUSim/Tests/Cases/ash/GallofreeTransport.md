@@ -14,3 +14,19 @@ P1OnlyActions: true
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:2
+
+---
+
+# SoleFriendlyUnit_NoTarget
+#// ASH_254 Gallofree Transport — When Defeated gives 2 Advantage to a friendly unit, but the defeated
+#// Gallofree is itself gone. As the only friendly unit, its death leaves no target and nothing happens.
+## GIVEN
+CommonSetup: yyw/yyk
+WithP1SpaceArena: ASH_254:1:4
+WithP2SpaceArena: SOR_225:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:0
+## EXPECT
+P1SPACEARENACOUNT:0
+P1NODECISION

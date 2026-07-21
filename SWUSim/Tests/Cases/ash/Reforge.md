@@ -46,3 +46,20 @@ WithP1Deck: LOF_091
 P1HASDECISION
 P1SEARCHPLAYABLEHAS:SOR_069
 P1SEARCHPLAYABLENOT:LOF_091
+
+---
+
+# NoFriendlyUpgrade_NoEffect
+#// ASH_090 Reforge — the whole effect is gated on defeating a friendly upgrade. With no upgrade in play, the
+#// event fizzles: no search, and SOR_095 stays a plain 3-power unit.
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:2;handCardIds:ASH_090}
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_120 SOR_095 SOR_095]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:POWER:3

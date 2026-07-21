@@ -12,3 +12,18 @@ P1OnlyActions: true
 P1GROUNDARENAUNIT:0:CARDID:ASH_238
 P1SPACEARENAUNIT:0:CARDID:SOR_225
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:2
+
+---
+
+# Decline_NoAdvantage
+#// ASH_238 Attendant Navigator — the grant is optional. With a space unit present, P1 declines; SOR_225
+#// gains nothing.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:2;handCardIds:ASH_238}
+WithP1SpaceArena: SOR_225:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P1SPACEARENAUNIT:0:ADVANTAGECOUNT:0

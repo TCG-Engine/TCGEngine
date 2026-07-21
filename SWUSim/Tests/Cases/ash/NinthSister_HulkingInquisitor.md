@@ -93,3 +93,20 @@ P1GROUNDARENAUNIT:0:CARDID:ASH_148
 P2HANDCOUNT:0
 P2DISCARDCOUNT:0
 P1NODECISION
+
+---
+
+# WhenPlayed_OpponentDiscards_DealByCost
+#// ASH_148 Ninth Sister — When Played: an opponent discards a card; you may deal damage equal to its cost
+#// divided among any number of units. The opponent's only card SEC_080 (cost 2) is discarded, and P1 deals
+#// all 2 to the enemy SOR_046.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:10;handCardIds:ASH_148}
+WithP2Hand: SEC_080
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0:2
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:2

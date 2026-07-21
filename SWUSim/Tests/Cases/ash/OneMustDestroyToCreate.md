@@ -50,3 +50,19 @@ P1OnlyActions: true
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:ASH_191
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:3
+
+---
+
+# DefeatFriendlyThenReplayFree
+#// ASH_247 One Must Destroy to Create — Defeat a friendly non-leader unit; then you may play that unit from
+#// your discard for free. P1 defeats SOR_095 (the only friendly non-leader) and replays it for free.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3;handCardIds:ASH_247}
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095

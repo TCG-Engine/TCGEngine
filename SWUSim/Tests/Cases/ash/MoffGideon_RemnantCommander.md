@@ -13,3 +13,19 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P1HANDCOUNT:1
+
+---
+
+# WhenDefeated_Decline_NoReturn
+#// ASH_097 Moff Gideon — the When Defeated return is optional. A pre-damaged Gideon dies attacking SOR_046;
+#// P1 declines, so the Imperial SEC_080 stays in the discard (nothing returns to hand).
+## GIVEN
+CommonSetup: ggk/ggk/{discardCardIds:SEC_080}
+WithP1GroundArena: ASH_097:1:3
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:-
+## EXPECT
+P1HANDCOUNT:0

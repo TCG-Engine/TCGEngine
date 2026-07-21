@@ -50,3 +50,18 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:1
 P1LEADER:EXHAUSTED
+
+---
+
+# CantTargetOneHpUnit
+#// ASH_011 Cad Bane — the action can only hit a unit with 2 or more remaining HP. With only a 1-HP enemy
+#// (SOR_128, 3/1) in play, there is no legal target: the ability does nothing.
+## GIVEN
+CommonSetup: grk/brk/{myLeader:ASH_011}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0

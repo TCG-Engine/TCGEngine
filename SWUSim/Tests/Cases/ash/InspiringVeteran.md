@@ -21,3 +21,21 @@ P1GROUNDARENAUNIT:2:CARDID:ASH_205
 P1GROUNDARENAUNIT:2:ADVANTAGECOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:1
+
+---
+
+# GiveToSubsetOnly
+#// ASH_205 Inspiring Veteran — "up to 3" may be fewer. P1 gives an Advantage token to only SOR_095; the
+#// other exhausted units (ASH_205 itself, SOR_237) get none.
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:3;handCardIds:ASH_205}
+WithP1GroundArena: SOR_095:0:0
+WithP1SpaceArena: SOR_237:0:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1
+P1GROUNDARENAUNIT:1:ADVANTAGECOUNT:0
+P1SPACEARENAUNIT:0:ADVANTAGECOUNT:0

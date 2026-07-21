@@ -17,3 +17,17 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# WhenPlayed_DeclinePay
+#// ASH_219 Jod Na Nawood — the pay-4-and-exhaust is optional. Declining leaves the enemy SOR_046 ready.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:8;handCardIds:ASH_219}
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P2GROUNDARENAUNIT:0:READY

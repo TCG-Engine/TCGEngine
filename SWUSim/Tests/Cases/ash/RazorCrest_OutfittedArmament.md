@@ -29,3 +29,18 @@ P1OnlyActions: true
 ## EXPECT
 P2BASEDMG:5
 P1HANDCOUNT:0
+
+---
+
+# OnAttack_DeclineDiscard_NoBuff
+#// ASH_172 Razor Crest — the +2/+0 requires discarding a card. Declining leaves it at base 3 power when it
+#// attacks the enemy base.
+## GIVEN
+CommonSetup: rrk/rrk/{handCardIds:SOR_063}
+WithP1SpaceArena: ASH_172:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:-
+## EXPECT
+P2BASEDMG:3

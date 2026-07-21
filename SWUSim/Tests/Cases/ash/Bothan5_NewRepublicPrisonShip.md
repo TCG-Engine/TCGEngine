@@ -32,3 +32,20 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P1DISCARDCOUNT:1
+
+---
+
+# EnemyDefeated_NoCapture
+#// ASH_128 Bothan-5 — the trigger is a FRIENDLY unit's defeat. When an enemy unit dies (SOR_128 killed by
+#// SOR_046), Bothan-5 is not offered a capture.
+## GIVEN
+CommonSetup: ggk/ggk
+WithP1SpaceArena: ASH_128:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1NODECISION
+P2GROUNDARENACOUNT:0

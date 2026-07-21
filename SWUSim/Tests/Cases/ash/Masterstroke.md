@@ -13,3 +13,18 @@ P1OnlyActions: true
 - P1>AnswerDecision:theirBase-0
 ## EXPECT
 P2BASEDMG:5
+
+---
+
+# NoEnemyUnits_NoBonus
+#// ASH_234 Masterstroke — the +1/+0 is per enemy unit in the attacker's arena. With no enemy ground units,
+#// SOR_095 attacks the base for its base 3 (no bonus).
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:2;handCardIds:ASH_234}
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2BASEDMG:3

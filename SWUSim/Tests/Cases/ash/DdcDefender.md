@@ -21,3 +21,26 @@ P1GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENAUNIT:0:CARDID:SOR_095
 P2GROUNDARENAUNIT:0:DAMAGE:1
 P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# OnDefense_Decline
+#// ASH_210 DDC Defender — the On Defense deal/exhaust is optional. When P2's SEC_080 attacks the host
+#// SOR_046, P1 declines; the bystander SOR_095 takes no damage and stays ready. (SEC_080 dies to the
+#// counter, so SOR_095 reindexes to ground-0.)
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_210
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_095:1:0
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+## WHEN
+- P2>AttackGroundArena:0:0
+- P1>AnswerDecision:-
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:READY

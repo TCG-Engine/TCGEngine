@@ -37,3 +37,19 @@ WithP1GroundArena: SOR_095:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:1:POWER:5
 P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_OnAttack_Decline
+#// ASH_009 Ahsoka Tano (deployed) — the On Attack buff is optional. Declining leaves the X-Wing at its base
+#// power 2.
+## GIVEN
+CommonSetup: ggw/brk/{myLeader:ASH_009:1:1:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:-
+## EXPECT
+P1SPACEARENAUNIT:0:POWER:2

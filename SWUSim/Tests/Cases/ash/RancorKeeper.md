@@ -15,3 +15,20 @@ P1BASEDMG:1
 P2BASEDMG:1
 P1GROUNDARENAUNIT:0:CARDID:ASH_032
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# DealToSingleBase
+#// ASH_032 Rancor Keeper — "any number of bases" may be just one. Rancor attacks SEC_080 and survives the
+#// counter; P1 deals the 1 damage to only the enemy base.
+## GIVEN
+CommonSetup: grk/grk
+WithP1GroundArena: ASH_032:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2BASEDMG:1
+P1BASEDMG:0

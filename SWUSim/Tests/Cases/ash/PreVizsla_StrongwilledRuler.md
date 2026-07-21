@@ -19,3 +19,19 @@ P1OnlyActions: true
 P2GROUNDARENACOUNT:0
 P1GROUNDARENACOUNT:3
 P1GROUNDARENAUNIT:0:CARDID:ASH_053
+
+---
+
+# DefeatNone_NoTokens
+#// ASH_053 Pre Vizsla — "any number" may be zero. Declining defeats nothing and creates no Mandalorian
+#// tokens (only Pre Vizsla enters; the enemy Stormtrooper lives).
+## GIVEN
+CommonSetup: brk/rrk/{myResources:8;handCardIds:ASH_053}
+WithP2GroundArena: SOR_128:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1GROUNDARENACOUNT:1

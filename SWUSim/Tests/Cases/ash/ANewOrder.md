@@ -14,3 +14,19 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:1
+
+---
+
+# SingleUnit
+#// ASH_264 A New Order — "up to 2" may be just one. P1 gives an Advantage token to only SOR_095.
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:1;handCardIds:ASH_264}
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1
+P1SPACEARENAUNIT:0:ADVANTAGECOUNT:0

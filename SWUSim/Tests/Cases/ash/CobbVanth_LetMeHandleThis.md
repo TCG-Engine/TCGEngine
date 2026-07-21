@@ -14,3 +14,19 @@ P1GROUNDARENAUNIT:0:CARDID:ASH_060
 P1GROUNDARENAUNIT:0:DAMAGE:2
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:SHIELDCOUNT:1
+
+---
+
+# PlayUnit_Decline_NoShield
+#// ASH_060 Cobb Vanth — the self-damage/shield is optional. Declining leaves Cobb undamaged and the played
+#// unit unshielded.
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:6;handCardIds:SOR_095}
+WithP1GroundArena: ASH_060:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:1:SHIELDCOUNT:0

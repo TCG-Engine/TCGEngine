@@ -26,3 +26,18 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:ASH_T01
 P1GROUNDARENAUNIT:1:ADVANTAGECOUNT:1
+
+---
+
+# HealMode_CapsAtBaseDamage
+#// ASH_257 Choose Your Path — Heal mode heals up to 5 but is capped at the base's actual damage. With only
+#// 2 damage on P1's base, healing 5 removes just those 2 (→ 0).
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:3;myBaseDamage:2;handCardIds:ASH_257}
+WithP1GroundArena: SOR_049:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Heal
+## EXPECT
+P1BASEDMG:0

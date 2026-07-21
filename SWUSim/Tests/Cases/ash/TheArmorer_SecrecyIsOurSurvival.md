@@ -15,3 +15,17 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_207
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
 P1GROUNDARENAUNIT:1:CARDID:ASH_064
 P1GROUNDARENAUNIT:1:SHIELDCOUNT:2
+
+---
+
+# NonShieldedUnit_NoShield
+#// ASH_064 The Armorer — the When Played shields only friendly units WITH Shielded. The plain SOR_095 (no
+#// Shielded) gets no Shield token.
+## GIVEN
+CommonSetup: brk/rrk/{myResources:6;handCardIds:ASH_064}
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0

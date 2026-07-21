@@ -11,3 +11,18 @@ P1OnlyActions: true
 - P1>AnswerDecision:SEC_080
 ## EXPECT
 P1HANDCOUNT:1
+
+---
+
+# NoTraitMatch_NoDraw
+#// ASH_107 Clan Wren Loyalist — the search only draws a card sharing a Trait with a unit you control. Clan
+#// Wren (Mandalorian/Trooper) is the only unit; the top card SOR_237 (Vehicle/Fighter) shares neither, so
+#// nothing is drawn.
+## GIVEN
+CommonSetup: ggw/ggk/{myResources:3;handCardIds:ASH_107}
+WithP1Deck: SOR_237
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1HANDCOUNT:0

@@ -15,3 +15,21 @@ P1OnlyActions: true
 ## EXPECT
 P2BASEDMG:8
 P2GROUNDARENACOUNT:0
+
+---
+
+# OnAttack_DealsTwoPerExhaustedFriendly
+#// ASH_035 Tatooine Repulsor Train — On Attack: deal 2 damage to a ground unit for each friendly exhausted
+#// unit. Attacking (which exhausts the Train itself) plus the already-exhausted SEC_080 = 2 exhausted, so it
+#// deals 2 × 2 = 4 to the enemy SOR_046.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: ASH_035:1:0
+WithP1GroundArena: SEC_080:0:0
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:4

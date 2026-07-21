@@ -86,3 +86,18 @@ WithP2GroundArena: SOR_095:1:0
 
 ## EXPECT
 P2GROUNDARENACOUNT:0
+
+---
+
+# Deployed_OnAttack_EqualUnits_NoDefeat
+#// ASH_004 Grand Admiral Thrawn (deployed) — the On Attack defeat needs MORE units than the defender, not
+#// equal. Thrawn (P1's only unit) vs P2's single SOR_095 is 1-1, so no defeat is offered and SOR_095 lives.
+## GIVEN
+CommonSetup: gbk/brk/{myLeader:ASH_004:1:1:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P2GROUNDARENACOUNT:1

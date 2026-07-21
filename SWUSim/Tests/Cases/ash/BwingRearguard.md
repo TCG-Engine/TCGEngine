@@ -11,3 +11,16 @@ P1OnlyActions: true
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:ASH_078
 P1SPACEARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# NoGroundUnit_NoSentinel
+#// ASH_078 B-Wing Rearguard — without a friendly ground unit, it does NOT have Sentinel.
+## GIVEN
+CommonSetup: bbw/bbk
+WithP1SpaceArena: ASH_078:1:0
+P1OnlyActions: true
+## WHEN
+- P1>Pass
+## EXPECT
+P1SPACEARENAUNIT:0:NOTKEYWORD:Sentinel
