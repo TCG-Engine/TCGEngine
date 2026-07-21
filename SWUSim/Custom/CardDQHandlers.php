@@ -3149,7 +3149,7 @@ $onAttackAbilities["JTL_016:0"] = function($player, $mzID) {
 $customDQHandlers["JTL_018#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== '' && $lastDecision !== 'PASS') {
         $o = GetZoneObject($lastDecision);
-        if ($o !== null && empty($o->removed)) AddTurnEffect($lastDecision, 'JTL_018');
+        if ($o !== null && empty($o->removed)) { AddTurnEffect($lastDecision, 'JTL_018'); _SWUCheckDefeatAfterAbilityLoss($lastDecision); }
     }
     SWUAfterActionExtra(intval($player)); // "Take an extra action after this one."
 };
@@ -3172,7 +3172,7 @@ $customDQHandlers["JTL_018#1"] = function($player, $parts, $lastDecision) {
     foreach (explode('&', $lastDecision) as $mz) {
         if ($mz === '' || $mz === '-') continue;
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed)) AddTurnEffect($mz, 'JTL_018');
+        if ($o !== null && empty($o->removed)) { AddTurnEffect($mz, 'JTL_018'); _SWUCheckDefeatAfterAbilityLoss($mz); }
     }
 };
 
@@ -3902,7 +3902,7 @@ $customDQHandlers["JTL_244#0"] = function($player, $parts, $lastDecision) {
     foreach (explode("&", $lastDecision) as $mz) {
         if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed)) AddTurnEffect($mz, 'JTL_244');
+        if ($o !== null && empty($o->removed)) { AddTurnEffect($mz, 'JTL_244'); _SWUCheckDefeatAfterAbilityLoss($mz); }
     }
 };
 
@@ -4959,10 +4959,13 @@ $customDQHandlers["JTL_041#0"] = function($player, $parts, $lastDecision) {
     SWUQueueShowOpponentDeck(intval($player));
     // Name-hunt the controller's hand + deck (discard every card sharing the defeated unit's name).
     $hand = &GetHand($controller);
+    $handDiscarded = false;
     foreach ($hand as $h) {
         if (!empty($h->removed)) continue;
-        if (CardTitle($h->CardID) === $name) { $h->Remove(); SWUAddToDiscard($controller, $h->CardID, 'HAND'); }
+        if (CardTitle($h->CardID) === $name) { $h->Remove(); SWUAddToDiscard($controller, $h->CardID, 'HAND'); $handDiscarded = true; }
     }
+    // SEC_016 Padmé — fire ONCE (collective) if the controller lost 1+ cards from their hand this way.
+    if ($handDiscarded && function_exists('_SWUSec016React')) _SWUSec016React($controller);
     $deck = &GetDeck($controller);
     foreach ($deck as $c) {
         if (!empty($c->removed)) continue;
@@ -6017,9 +6020,18 @@ $customDQHandlers["DISCARD_FROM_OWN_HAND"] = function($player, $parts, $lastDeci
     $obj = GetZoneObject($lastDecision);
     if ($obj !== null && !($obj->removed ?? false)) {
         $obj->Remove();
-        SWUAddToDiscard($targetPlayer, $obj->CardID, 'HAND');
+        SWUAddToDiscard($targetPlayer, $obj->CardID, 'HAND'); // sets the LAW_179/LAW_076 counters
     }
     $playerID = $savedPID;
+};
+
+// Fires the SEC_016 Padmé "when you discard 1+ from your hand" reaction ONCE after a choice-based
+// SWUDiscardCards batch completes (queued after the per-card DISCARD_FROM_OWN_HAND decisions). The
+// auto-discard-all branch fires the reaction inline instead. Collective: one "discard N" event → one
+// trigger, per the reference.
+$customDQHandlers["SEC016_BATCH_REACT"] = function($player, $parts, $lastDecision) {
+    $p = intval($parts[0] ?? $player);
+    if (function_exists('_SWUSec016React')) _SWUSec016React($p);
 };
 
 // ── SHD_135 Kylo's TIE Silencer — On Discard ────────────────────────────────
@@ -9292,6 +9304,7 @@ $customDQHandlers["SOR_138#0"] = function($player, $parts, $lastDecision) {
     if ($o === null || !empty($o->removed)) return;
     if (!isset($o->TurnEffects) || !is_array($o->TurnEffects)) $o->TurnEffects = [];
     if (!in_array('SOR_138', $o->TurnEffects, true)) $o->TurnEffects[] = 'SOR_138';
+    _SWUCheckDefeatAfterAbilityLoss($lastDecision); // SEC_012 Cassian at 0 HP loses initiative-survival → defeated
     if (_SWUControlsForceUnit(intval($player))) {
         $maxX = SWUResourceCount(intval($player), readyOnly: true);
         if ($maxX > 0) {
@@ -9496,6 +9509,9 @@ $customDQHandlers["SOR_174#0"] = function($player, $parts, $lastDecision) {
         SWUAddToDiscard($p, $cid, 'HAND');
     }
     DecisionQueueController::CleanupRemovedCards();
+    // SEC_016 Padmé "when you discard 1+ cards from your hand" — fire ONCE (collective) for this player's
+    // batch. (SOR_174 runs this handler once per player, so each player's own Padmé triggers correctly.)
+    if (!empty($toDiscard) && function_exists('_SWUSec016React')) _SWUSec016React($p);
 };
 
 // ── SOR_223 Don't Get Cocky — iterative reveal-until-stop ────────────────────
@@ -15096,6 +15112,7 @@ $customDQHandlers["LAW_132#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if ($o === null || !empty($o->removed)) return;
     AddTurnEffect($lastDecision, 'LAW_132');     // loses all abilities (LostAbilities checks this token)
+    _SWUCheckDefeatAfterAbilityLoss($lastDecision); // SEC_012 Cassian at 0 HP loses initiative-survival → defeated
     if (intval(CardCost($o->CardID ?? '')) <= 3) SWUDefeatUnit(intval($player), $lastDecision);
 };
 
@@ -20923,12 +20940,17 @@ $customDQHandlers["SOR_147#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES' && $lastDecision !== '1') return;
     global $playerID;
     $playerID = intval($player);
+    $discarded = false;
     foreach (GetHand(intval($player)) as $h) {
         if (!empty($h->removed)) continue;
         $cid = $h->CardID;
         $h->Remove();
         SWUAddToDiscard(intval($player), $cid, 'HAND');
+        $discarded = true;
     }
+    // SEC_016 Padmé "when you discard 1+ cards from your hand" — fire ONCE for the whole-hand discard
+    // (collective), then draw. (This bulk-discard path bypasses DoDiscardCard's inline reaction.)
+    if ($discarded && function_exists('_SWUSec016React')) _SWUSec016React(intval($player));
     DoDrawCard(intval($player), 3);
 };
 

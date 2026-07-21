@@ -177,3 +177,51 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_236
 P1GROUNDARENAUNIT:0:READY
 P1RESCOUNT:0
 P1RESAVAILABLE:0
+
+---
+
+# DroidsPayForEvent
+#// SEC_122 Vuutun Palaa — "Each friendly Droid unit may be exhausted to pay costs as if it were a resource"
+#// applies to EVENTS too, not just units. With Vuutun in play, 2 ready Battle Droids and 0 resources, P1 plays
+#// SOR_218 Asteroid Sanctuary (cost 2, Cunning) by exhausting both Droids (real resources paid = 0); the event
+#// resolves and exhausts the enemy SOR_046.
+## GIVEN
+CommonSetup: yyk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1Resources: 0
+WithP1Hand: SOR_218
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1RESAVAILABLE:0
+
+---
+
+# ExhaustedDroidsDoNotCount_CannotPay
+#// SEC_122 Vuutun Palaa — an already-exhausted Droid is NOT available to pay. With 1 ready + 1 exhausted
+#// Battle Droid and 0 resources, LAW_231 (cost 2) can't be covered (1 Droid pays only 1), so it can't be
+#// played and stays in hand.
+## GIVEN
+CommonSetup: yyk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:0:0
+WithP1Resources: 0
+WithP1Hand: LAW_231
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1HANDCOUNT:1
+P1GROUNDARENACOUNT:2

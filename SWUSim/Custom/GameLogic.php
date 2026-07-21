@@ -64,7 +64,14 @@ function SWUAddToDiscard(int $player, string $cardID, string $from, string $modi
     OnCardDiscarded($player, $cardID, $entry, $sourceObject);
     // SHD_163 Migs Mayfeld observes FORCED hand-discards (SWUDiscardCards / DISCARD_FROM_OWN_HAND route
     // through here with from='HAND'; self-chosen discards go through DoDiscardCard's MZMove instead).
-    if ($from === 'HAND' && function_exists('_SWUShd163React')) _SWUShd163React();
+    if ($from === 'HAND') {
+        // Per-card hand-discard counters (LAW_179 "1 less per card discarded from your hand this phase";
+        // LAW_076 boolean gate). Every forced-discard path lands here, so counting centrally covers them
+        // all. DoDiscardCard's MZMove does NOT route through here, so it sets these itself (no double).
+        AddGlobalEffects($player, 'SWU_DISCARDED_HAND');
+        AddGlobalEffects($player, 'SWU_DISCARDED_PHASE');
+        if (function_exists('_SWUShd163React')) _SWUShd163React();
+    }
     return $entry;
 }
 
@@ -1810,6 +1817,11 @@ function SWUImmuneToHpDefeat($obj): bool {
     $cid = $obj->CardID ?? '';
     // SOR_004 Chirrut: not defeated by no remaining HP while it's not the regroup phase.
     if ($cid === 'SOR_004' && IsLeaderUnit($obj)) return GetCurrentPhase() !== 'RGS';
+    // SEC_012 Cassian Andor (deployed): "While you have the initiative, this unit isn't defeated by
+    // having no remaining HP." Innate leader-unit ability, so it's lost if the unit loses all abilities
+    // (ref: "immediately defeated if an effect causes him to lose all abilities").
+    if ($cid === 'SEC_012' && IsLeaderUnit($obj) && !LostAbilities($obj)
+            && _SWUHasInitiative(intval($obj->Controller ?? 0))) return true;
     // LOF_043 The Tragedy of Plagueis — a chosen unit "can't be defeated by having no remaining HP" for
     // this phase (NO_HP_DEFEAT turn-effect marker; expires at RegroupPhaseStart).
     if (is_array($obj->TurnEffects ?? null) && in_array('NO_HP_DEFEAT', $obj->TurnEffects, true)) return true;
@@ -1896,6 +1908,9 @@ function SWUAvoidsDefeat($obj): bool {
     if (LostAbilities($obj)) return false;
     $cid = $obj->CardID ?? '';
     if ($cid === 'SHD_187' || $cid === 'JTL_103' || $cid === 'LAW_149') return true;        // self
+    // SEC_012 Cassian Andor (deployed): "While you have the initiative, this unit can't be defeated by
+    // enemy card abilities." (LostAbilities gated above.)
+    if ($cid === 'SEC_012' && IsLeaderUnit($obj) && _SWUHasInitiative(intval($obj->Controller ?? 0))) return true;
     if (_SWUUnitHasUpgrade($obj, 'TWI_220')) return true;  // Shadowed Intentions (attached grant)
     if (_SWUUnitHasUpgrade($obj, 'JTL_103')) return true;  // Chewbacca as a Pilot (attached grant)
     return false;
@@ -3087,18 +3102,26 @@ function SWUDiscardCards(int $player, int $numCards, ?int $target = null): void 
         global $playerID;
         $savedPID = $playerID;
         $playerID = $opponent;
+        $discarded = false;
         foreach ($hand as $card) {
             if (isset($card->removed) && $card->removed) continue;
             $card->Remove();
-            SWUAddToDiscard($opponent, $card->CardID, 'HAND');
+            SWUAddToDiscard($opponent, $card->CardID, 'HAND'); // sets the LAW_179/LAW_076 counters
+            $discarded = true;
         }
         $playerID = $savedPID;
+        // SEC_016 Padmé "when you discard 1+ cards from your hand" — this forced-discard path bypasses
+        // DoDiscardCard (which fires the Padmé reaction), so fire it here ONCE for the whole batch
+        // (collective: one "discard N" event = one trigger, per the reference).
+        if ($discarded && function_exists('_SWUSec016React')) _SWUSec016React($opponent);
     } else {
         for ($n = 0; $n < $numCards; $n++) {
             DecisionQueueController::AddDecision($opponent, "MZCHOOSE", "myHand", 1,
                 tooltip:"Choose_card_to_discard");
             DecisionQueueController::AddDecision($opponent, "CUSTOM", "DISCARD_FROM_OWN_HAND|{$opponent}", 1);
         }
+        // Fire the SEC_016 Padmé reaction ONCE after all chosen cards are discarded (collective trigger).
+        DecisionQueueController::AddDecision($opponent, "CUSTOM", "SEC016_BATCH_REACT|{$opponent}", 1);
     }
 }
 
@@ -6793,6 +6816,26 @@ $customDQHandlers["LOF_017#0"] = function($player, $parts, $lastDecision) {
     if ($mz !== '') { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) DoGiveExperienceToken(intval($player), $mz); }
 };
 
+// LOF_017 Darth Revan (DEPLOYED leader unit) — "When a friendly unit attacks and defeats a unit: give an
+// Experience token to that friendly unit." Same trigger as the front side but with NO exhaust cost; still
+// optional ("you may"), and — unlike the front side — not exhaust-limited, so it can fire every attack.
+function RevanExpTriggerDeployed($player, $mzID): void {
+    global $playerID;
+    $playerID = intval($player);
+    if (!_SWULeaderDeployed(intval($player), 'LOF_017')) return;
+    $obj = GetZoneObject($mzID);
+    if ($obj === null || !empty($obj->removed)) return; // attacker gone → nothing to give Exp to
+    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
+        tooltip: "Darth_Revan:_give_an_Experience_token_to_the_attacker?");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LOF_017D#0|{$mzID}", 1);
+}
+$customDQHandlers["LOF_017D#0"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision !== 'YES') return;
+    global $playerID; $playerID = intval($player);
+    $mz = $parts[0] ?? '';
+    if ($mz !== '') { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) DoGiveExperienceToken(intval($player), $mz); }
+};
+
 // SOR_133 Seventh Sister — "deals combat damage to an opponent's base: you may deal 3 damage to a
 // ground unit that opponent controls." (Opponent = the attacker's opponent in 2-player.)
 function SeventhSisterBaseTrigger($player): void {
@@ -7287,6 +7330,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'SEC_017':         SEC017DeployBaseHitTrigger($player);           break;
         case 'SEC_017#1':       SEC017LeaderBaseHitTrigger($player);           break;
         case 'LOF_017':         RevanExpTrigger($player, $mzID);               break;
+        case 'LOF_017D':        RevanExpTriggerDeployed($player, $mzID);       break;
         case 'SOR_133': SeventhSisterBaseTrigger($player);            break;
         case 'SOR_088':    BlizzardExcessTrigger($player, intval($extra[0] ?? 0)); break;
         case 'SHD_138':    DoDrawCard($player, 1); break;   // Jango Fett — attacks and defeats a unit: draw a card
@@ -9503,8 +9547,14 @@ function SWUApplyIndirectAssignment(int $controller, int $damagedPlayer, string 
     foreach ($hits as $h) {
         $mz = SWUFindMzByUID($h['uid']); if ($mz === null) continue;
         $o  = GetZoneObject($mz); if ($o === null || !empty($o->removed)) continue;
-        $o->Damage = intval($o->Damage) + $h['amount'];
-        SWUQueueDamageAnim($mz, $h['amount'], $controller);
+        $amt = $h['amount'];
+        // SEC_050 Vigil — "If damage would be dealt to THIS unit by another card, deal that much +1 instead."
+        // Indirect damage is unpreventable, so the "prevent 1 to another friendly" half never applies here —
+        // but Vigil's INCREASE still does for the portion assigned to Vigil, added at the damage step (indirect
+        // is dealt all together). "Deal N indirect" is card-ability damage, so it qualifies as "by another card."
+        if (($o->CardID ?? '') === 'SEC_050') $amt += 1;
+        $o->Damage = intval($o->Damage) + $amt;
+        SWUQueueDamageAnim($mz, $amt, $controller);
     }
 
     // Base damage — attributed to the controller (self-target suppresses the enemy-base flags).

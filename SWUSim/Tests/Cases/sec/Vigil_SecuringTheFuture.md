@@ -34,3 +34,30 @@ WithP2SpaceArena: SOR_237:1:0
 
 ## EXPECT
 P1SPACEARENAUNIT:0:DAMAGE:3
+
+---
+
+# IndirectToVigilPlusOne_OthersUnreduced
+#// SEC_050 Vigil — indirect damage is UNPREVENTABLE, so the "prevent 1 to another friendly" half never
+#// applies to it; but Vigil's own "+1 if damage would be dealt to this unit" DOES apply to the portion
+#// assigned to Vigil (added at the damage step, since indirect is dealt all together). P2's Torpedo Barrage
+#// (JTL_234, 5 indirect) is assigned by P1: 2 to Vigil → it takes 3; 2 to the friendly SOR_237 → it takes the
+#// full 2 (NOT reduced to 1); 1 to base.
+## GIVEN
+CommonSetup: yyk/yyk
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP2Resources: 3
+WithP2Hand: JTL_234
+WithP1SpaceArena: SEC_050:1:0
+WithP1SpaceArena: SOR_237:1:0
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Opponent
+- P1>AnswerDecision:mySpaceArena-0:2,mySpaceArena-1:2,myBase-0:1
+## EXPECT
+P1SPACEARENAUNIT:0:DAMAGE:3
+P1SPACEARENAUNIT:1:DAMAGE:2
+P1BASEDMG:1

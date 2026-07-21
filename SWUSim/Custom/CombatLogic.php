@@ -1171,13 +1171,19 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
         OnHealUnit(intval($activePlayer), $attackerMzID, 2);
     }
 
-    // LOF_017 Darth Revan (leader) — "When a friendly unit attacks and defeats a unit: you may exhaust this
-    // leader. If you do, give an Experience token to that friendly unit." Controller-based reaction; fires
-    // only while Revan is still in leader form (undeployed) and ready (the exhaust is the cost).
+    // LOF_017 Darth Revan — "When a friendly unit attacks and defeats a unit: give an Experience token to
+    // that friendly unit." Front (leader form, ready): "you may exhaust this leader" is the cost (LOF_017).
+    // Deployed (leader unit): "you may" give the token with NO exhaust cost (LOF_017D). Controller-based;
+    // the recipient is the attacker ($attackerMzID). Gated on the DEFENDER being defeated (defenderDefeated),
+    // so an ability defeating a non-defender during the attack does not qualify.
     if (!empty($combatCtx['defenderDefeated'])) {
         foreach (GetLeader(intval($activePlayer)) as $l) {
-            if (empty($l->removed) && ($l->CardID ?? '') === 'LOF_017' && empty($l->Deployed) && !empty($l->Ready)) {
-                AddTrigger($activePlayer, 'LOF_017', 'LOF_017', $attackerMzID);
+            if (empty($l->removed) && ($l->CardID ?? '') === 'LOF_017') {
+                if (empty($l->Deployed) && !empty($l->Ready)) {
+                    AddTrigger($activePlayer, 'LOF_017', 'LOF_017', $attackerMzID);
+                } elseif (!empty($l->Deployed)) {
+                    AddTrigger($activePlayer, 'LOF_017D', 'LOF_017D', $attackerMzID);
+                }
                 break;
             }
         }

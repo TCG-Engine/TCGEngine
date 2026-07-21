@@ -92,6 +92,24 @@ function LostAbilities($obj): bool {
     return false;
 }
 
+// After a "loses all abilities" effect is applied to a unit, a unit that was surviving with no
+// remaining HP PURELY because of one of its own abilities (SEC_012 Cassian's "while you have the
+// initiative, isn't defeated by having no remaining HP") loses that protection and must be defeated
+// by the state-based no-remaining-HP check. Call this right after applying any whole-unit
+// LOSE_ABILITIES marker. Only ever fires for a unit already at 0 remaining HP — a rare state — so it
+// is inert for the common case.
+function _SWUCheckDefeatAfterAbilityLoss(string $mzID): void {
+    global $playerID;
+    $o = GetZoneObject($mzID);
+    if ($o === null || !empty($o->removed)) return;
+    $hp = ObjectCurrentHP($o);
+    if ($hp > 0 && intval($o->Damage ?? 0) >= $hp && !SWUImmuneToHpDefeat($o)) {
+        // $mzID is in the CURRENT perspective ($playerID) — defeat under that same perspective so the
+        // zone resolves to the right arena (SWUDefeatUnit resets $playerID to its first arg).
+        SWUDefeatUnit(intval($playerID), $mzID, false, true); // SBA no-remaining-HP after ability loss
+    }
+}
+
 // SEC_046 Galen Erso — true if $cardID, owned by $owner, is a NON-LEADER card whose title an OPPOSING
 // in-play Galen named (so it loses all abilities AND can't gain abilities). Works for cards NOT in play
 // (by CardID + owner) — used at every ability surface that keys on a card title rather than an object.
