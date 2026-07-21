@@ -88,3 +88,92 @@ P1NODECISION
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2BASEDMG:3
+
+---
+
+# OnAttack_TakeUpgradeWithFriendlyAttachCondition
+#// JTL_056 Hondo Ohnaka — the moved upgrade can itself have a "friendly unit" attach condition. The enemy
+#// SOR_207 Crafty Smuggler carries LOF_091 Craving Power (+2/+2, "Attach to a friendly unit") and SOR_072
+#// Entrenched. Hondo attacks the base and takes Craving Power (temp idx 0); it re-attaches to the friendly
+#// (P1) Hondo, leaving Entrenched behind on the Crafty Smuggler. Moving the upgrade does NOT re-fire its
+#// When Played, but its +2/+2 rides along: the base takes 5 (Hondo 3 power + 2). The other enemy unit
+#// (LOF_061 Secretive Sage) is present so the destination is a real pick.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1GroundArena: JTL_056:1:0
+WithP2GroundArena: LOF_061:1:0
+WithP2GroundArena: SOR_207:1:0
+WithP2GroundArenaUpgrade: 1:LOF_091
+WithP2GroundArenaUpgrade: 1:SOR_072
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_056
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:LOF_091
+P2GROUNDARENAUNIT:1:CARDID:SOR_207
+P2GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:1:UPGRADE:0:CARDID:SOR_072
+P2BASEDMG:5
+
+---
+
+# OnAttack_MoveTokenUpgradeGainControl
+#// JTL_056 Hondo Ohnaka — the move works on a TOKEN upgrade, and taking it grants control (and, for a
+#// token, ownership) to Hondo's controller. The enemy LOF_061 Secretive Sage holds an Experience token
+#// (SOR_T01). Hondo attacks the base, takes the token, and — Hondo being the only other unit — auto-attaches
+#// it to himself. The Experience now sits on the friendly (P1) Hondo; the Secretive Sage has no upgrade.
+#// The +1/+1 rides along before combat damage resolves, so the base takes 4 (Hondo 3 power + 1).
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1GroundArena: JTL_056:1:0
+WithP2GroundArena: LOF_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_056
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_T01
+P2GROUNDARENAUNIT:0:CARDID:LOF_061
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2BASEDMG:4
+
+---
+
+# OnAttack_CannotMoveToIneligibleUnit
+#// JTL_056 Hondo Ohnaka — "attach it to a DIFFERENT ELIGIBLE unit" is gated on the moved upgrade's OWN
+#// printed attach restriction. The enemy LOF_061 Secretive Sage carries LOF_261 Constructed Lightsaber
+#// ("Attach to a Force unit"). The only other unit in play is Hondo, who is NOT a Force unit. P1 takes the
+#// lightsaber, but it has no eligible destination — the non-Force Hondo is rejected — so the move fizzles
+#// and the lightsaber stays on the Secretive Sage (it is NOT illegally attached to Hondo). Nothing is left
+#// pending afterward.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1GroundArena: JTL_056:1:0
+WithP2GroundArena: LOF_061:1:0
+WithP2GroundArenaUpgrade: 0:LOF_261
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:LOF_061
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:LOF_261
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION

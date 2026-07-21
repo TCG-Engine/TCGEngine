@@ -17,3 +17,23 @@ WithP1Deck: SOR_095
 P1NOFORCE
 P1HANDCOUNT:1
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# PlayUpgrade_NoForce_NoTrigger
+#// LOF_229 Kylo Ren — negative: with no Force token, playing an upgrade on Kylo cannot use the Force, so
+#// the reaction does nothing and no card is drawn. The upgrade still attaches.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:1;handCardIds:SOR_069}
+P1OnlyActions: true
+WithP1GroundArena: LOF_229:1:0
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NOFORCE
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1

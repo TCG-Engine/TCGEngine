@@ -49,3 +49,30 @@ WithP2SpaceArena: SOR_237:1:0
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P2SPACEARENAUNIT:0:DAMAGE:0
 P1DISCARDCOUNT:1
+
+---
+
+# DealsBothSpaceArena
+#// JTL_173 Fight Fire With Fire (event) — the same "choose a friendly + an enemy in the SAME arena; deal
+#// 3 to each" also resolves in the SPACE arena. Both are JTL_221 (Stolen AT-Hauler, 4/5 space) → each
+#// takes 3 and survives. Single friendly + single enemy in space → both picks auto-resolve.
+
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_173
+WithP1Resources: 1
+WithP1SpaceArena: JTL_221:1:0
+WithP2SpaceArena: JTL_221:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:DAMAGE:3
+P2SPACEARENAUNIT:0:DAMAGE:3

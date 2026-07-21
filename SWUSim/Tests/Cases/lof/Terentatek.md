@@ -9,3 +9,17 @@ WithP2GroundArena: LOF_050:1:0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:HASKEYWORD:Ambush
+
+---
+
+# NoOpponentForce_NoAmbush
+#// LOF_118 Terentatek — negative: while the opponent controls NO Force unit, this unit does NOT gain
+#// Ambush. P2's SOR_046 (Consular Security Force) is a non-Force unit, so Terentatek lacks Ambush.
+
+## GIVEN
+CommonSetup: rrk/ggw
+WithP1GroundArena: LOF_118:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Ambush

@@ -57,3 +57,49 @@ WithP1GroundArena: JTL_197:1:0
 P1NODECISION
 P1GROUNDARENAUNIT:0:CARDID:JTL_197
 P2BASEDMG:2
+
+---
+
+# NoTriggerIfHostDies
+#// JTL_197 Anakin Skywalker — the return offer requires the piloted host to SURVIVE the attack. JTL_068
+#// (3/5) carries Anakin (+2/+3 → 8 HP) but is pre-damaged to 6, leaving 2 HP; it attacks SOR_046 (3 power)
+#// and dies to the 3 counter damage. Anakin is defeated with his host — no return decision is offered, and
+#// he goes to the discard rather than back to hand.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1GroundArena: JTL_068:1:6
+WithP1GroundArenaUpgrade: 0:JTL_197
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:0
+
+---
+
+# NoTriggerIfDifferentUnitAttacks
+#// JTL_197 Anakin Skywalker — the return trigger is host-specific: it only fires when the unit Anakin
+#// pilots completes an attack. Anakin pilots the ground JTL_068, but a DIFFERENT unit (the space JTL_033)
+#// makes the attack — no return decision is offered and Anakin stays attached to his host.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1GroundArena: JTL_068:1:0
+WithP1GroundArenaUpgrade: 0:JTL_197
+WithP1SpaceArena: JTL_033:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:JTL_068
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2BASEDMG:2

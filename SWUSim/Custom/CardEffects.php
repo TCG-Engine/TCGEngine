@@ -2286,17 +2286,28 @@ function OnPlayEvent(int $player, string $cardID): void {
         }
 
         // ── LOF Events (Phase 13) ──────────────────────────────────────────────
-        case 'LOF_042': { // Always Two — "Choose 2 friendly Sith units. If you do, give 2 Shield tokens
+        case 'LOF_042': { // Always Two — "Choose 2 friendly <uq> Sith units. If you do, give 2 Shield tokens
                           // and 2 Experience tokens to each chosen unit. Defeat all other friendly units."
+                          // Only UNIQUE (<uq>) Sith are selectable. "Defeat all OTHER friendly units" runs even
+                          // when you can't choose 2 (none spared → ALL friendly units are defeated).
             global $playerID; $playerID = intval($player);
             $sith = [];
             foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
                 $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Sith')) $sith[] = $mz;
+                if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Sith') && CardUnique($o->CardID ?? '')) $sith[] = $mz;
             }
-            if (count($sith) < 2) return; // can't choose 2 → whole effect fizzles, no defeats
+            if (count($sith) < 2) {
+                // Fewer than 2 unique Sith → cannot spare 2 → "all OTHER friendly units" = ALL of them.
+                $allUids = [];
+                foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed)) $allUids[] = intval($o->UniqueID ?? -1);
+                }
+                foreach ($allUids as $uid) { $mz = SWUFindMzByUID($uid); if ($mz !== null && $mz !== '') SWUDefeatUnit(intval($player), $mz); }
+                return;
+            }
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "2|2|" . implode('&', $sith), 1,
-                tooltip: "Choose_2_friendly_Sith_units");
+                tooltip: "Choose_2_friendly_unique_Sith_units");
             DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_042#0", 1);
             return;
         }
@@ -2542,7 +2553,14 @@ function OnPlayEvent(int $player, string $cardID): void {
                           // this phase."
             global $playerID; $playerID = intval($player);
             $enemy = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
-            if (empty($enemy)) return;
+            if (empty($enemy)) {
+                // Two independent sentences: with no enemy to exhaust, still resolve the unconditional
+                // Sentinel-grant clause (mirror of the LOF_223#0 handler's friendly-grant step).
+                $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+                if (empty($friendly)) return;
+                SWUQueueChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_Sentinel_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL^LOF_223");
+                return;
+            }
             SWUQueueChooseTarget(intval($player), $enemy, "Exhaust_an_enemy_unit", "LOF_223#0");
             return;
         }
@@ -3106,10 +3124,23 @@ function OnPlayEvent(int $player, string $cardID): void {
                           // deals damage equal to its power to that unit."
             global $playerID;
             $playerID = intval($player);
-            $targets = array_values(array_merge(
-                ZoneSearch('myGroundArena',    AnyUnitFilter), ZoneSearch('mySpaceArena',    AnyUnitFilter),
-                ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-            ));
+            // A unit is only a legal target if at least one friendly Vehicle shares its arena — otherwise
+            // the effect would deal 0 damage, and such a zero-effect selection is disallowed.
+            $friendlyVehicleIn = function(string $arenaZone): bool {
+                foreach (ZoneSearch($arenaZone, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Vehicle')) return true;
+                }
+                return false;
+            };
+            $targets = [];
+            if ($friendlyVehicleIn('myGroundArena')) {
+                $targets = array_merge($targets, ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('theirGroundArena', AnyUnitFilter));
+            }
+            if ($friendlyVehicleIn('mySpaceArena')) {
+                $targets = array_merge($targets, ZoneSearch('mySpaceArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter));
+            }
+            $targets = array_values($targets);
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Each_friendly_Vehicle_in_that_arena_deals_its_power", "JTL_129#0");
             return;
@@ -3620,7 +3651,10 @@ function OnPlayEvent(int $player, string $cardID): void {
                     if ($o !== null && empty($o->removed) && _SWUFindPilotSubcard($o) !== null) $hosts[] = $mz;
                 }
             }
-            if (empty($hosts)) return;
+            // "Draw a card" is a separate, unconditional clause — it happens even if there is no Pilot to
+            // detach (the detach simply does nothing). Draw here on the no-host path (the with-host path
+            // draws in the JTL_126#0 continuation after the detach).
+            if (empty($hosts)) { DoDrawCard(intval($player), 1); return; }
             SWUQueueChooseTarget(intval($player), $hosts, "Detach_a_Pilot_upgrade", "JTL_126#0");
             return;
         }
@@ -4451,6 +4485,7 @@ function OnPlayEvent(int $player, string $cardID): void {
                 for ($i = 0; $i < count($arr); $i++) {
                     $u = $arr[$i];
                     if ($u === null || !empty($u->removed) || intval($u->Status) !== 1) continue;
+                    if (_SWUUnitHardCantAttack($u)) continue;  // JTL_059 "can't attack" etc. aren't legal Outflank attackers
                     $units[] = "{$z}-{$i}";
                 }
             }
@@ -5364,6 +5399,7 @@ function OnPlayEvent(int $player, string $cardID): void {
                 for ($i = 0; $i < count($arr); $i++) {
                     $u = $arr[$i];
                     if ($u === null || !empty($u->removed) || intval($u->Status) !== 1) continue;
+                    if (_SWUUnitHardCantAttack($u)) continue;  // JTL_059 "can't attack" etc. aren't legal Outflank attackers
                     $units[] = "{$z}-{$i}";
                 }
             }
@@ -5444,11 +5480,21 @@ function OnPlayEvent(int $player, string $cardID): void {
         }
 
         case 'SHD_233': { // Evacuate — "Return each non-leader unit to its owner's hand." (mass bounce, UID-safe)
+            // "Return each ... unit" resolves SIMULTANEOUSLY (CR): evaluate each unit's "can't be returned by
+            // enemy abilities" protection (LOF_073 Mythosaur / JTL_103 / TWI_220) against the PRE-resolution
+            // board — snapshot it BEFORE bouncing any unit, else returning the Mythosaur first would strip the
+            // protection off the upgraded units that should have been kept. Skip the protected ones.
             $uids = [];
             foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
                 foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
                     $o = GetZoneObject($mz);
-                    if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? 0);
+                    if ($o !== null && empty($o->removed)) {
+                        $uid = intval($o->UniqueID ?? 0);
+                        // Protected only vs an ENEMY return (the caster's own units are not "returned by an
+                        // enemy ability"), mirroring SWUBounceUnit's guard.
+                        $protected = (intval($player) !== intval($o->Controller ?? $player)) && SWUAvoidsBounce($o);
+                        if (!$protected) $uids[] = $uid;
+                    }
                 }
             }
             foreach ($uids as $uid) {

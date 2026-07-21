@@ -265,3 +265,48 @@ WithP2Resources: 5
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SEC_119
 P1RESAVAILABLE:1
+
+---
+
+# KrennicDiscountAppliesToSmuggledWhenDefeatedUnit
+#// JTL_032 Director Krennic — "the first When-Defeated unit you play each round costs 1 less." This passive
+#// FIELD discount must also reduce such a unit played via SMUGGLE (Phase 3: the Smuggle path now applies the
+#// used-flag bucket). P1 controls Krennic and smuggles SHD_107 Enterprising Lackeys (a When-Defeated unit;
+#// Smuggle [6 Command,Command], ggw base covers only one Command → bracket 6 + 2 penalty = 8, minus Krennic's
+#// -1 = 7). With exactly 7 ready resources it plays (enters ground index 1, after Krennic). Paired with the
+#// no-Krennic control below (which needs 8) to prove the -1 reaches Smuggle.
+
+## GIVEN
+CommonSetup: ggw/bbk/{myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1GroundArena: JTL_032:1:0
+WithP1Resources: 1:SHD_107:1,6:SOR_251:1
+
+## WHEN
+- P1>SmuggleResource:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SHD_107
+
+---
+
+# NoKrennic_SmuggledWhenDefeatedUnitCostsFull
+#// Control: same as above but WITHOUT Krennic in play. SHD_107's Smuggle cost is the full 8 (bracket 6 +
+#// 2 penalty), so 7 ready resources cannot pay it and it stays in resources (space/ground arena empty).
+#// This proves the 7-resource play above only succeeds because of Krennic's -1.
+
+## GIVEN
+CommonSetup: ggw/bbk/{myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1Resources: 1:SHD_107:1,6:SOR_251:1
+
+## WHEN
+- P1>SmuggleResource:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0

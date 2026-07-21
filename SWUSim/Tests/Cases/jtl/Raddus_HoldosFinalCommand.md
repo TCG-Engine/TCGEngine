@@ -69,3 +69,87 @@ WithP1GroundArena: SOR_095:1:0
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:JTL_104
 P1SPACEARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# AnotherResistance_Sentinel_UpgradeSource
+#// JTL_104 Raddus — "another Resistance card (unit, upgrade, or leader)". Here the Resistance card is an
+#// UPGRADE: Paige Tico (JTL_046, Resistance Pilot) is attached as a pilot upgrade on a friendly Vehicle
+#// (SOR_237, a non-Resistance Rebel X-Wing). The only Resistance card in play besides Raddus is that upgrade,
+#// so Raddus gains Sentinel from an upgrade source.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_104:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArenaUpgrade: 1:JTL_046
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_104
+P1SPACEARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# AnotherResistance_Sentinel_LeaderSource
+#// JTL_104 Raddus — "another Resistance card (unit, upgrade, or leader)". Here the Resistance card is the
+#// LEADER: P1's leader is Admiral Holdo (JTL_007, Resistance), undeployed in the leader zone. Raddus is the
+#// only unit in play, so the leader is the sole "another Resistance card" and Raddus gains Sentinel from a
+#// leader source.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_104:1:0
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_104
+P1SPACEARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# WhenDefeated_DealPower_IncludesUpgrades
+#// JTL_104 Raddus — When Defeated deals damage equal to this unit's power INCLUDING upgrade bonuses. Raddus
+#// (8/6) carries Academy Training (SOR_120, +2/+2) → a 10/8 unit. It attacks P2's Devastator (SOR_090, 10/10):
+#// Raddus deals 10 (defeats Devastator) and Devastator's 10-power counter defeats Raddus. Raddus's When
+#// Defeated then deals its buffed power (10, not the printed 8) to the only remaining enemy unit, The Purrgil
+#// King (LOF_121, 4/12), which survives with 10 damage — proving the upgrade bonus is counted. (The power is
+#// snapshotted at When-Defeated collection time, while the upgrade is still attached.)
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_104:1:0
+WithP1SpaceArenaUpgrade: 0:SOR_120
+WithP2SpaceArena: SOR_090:1:0
+WithP2SpaceArena: LOF_121:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:LOF_121
+P2SPACEARENAUNIT:0:DAMAGE:10

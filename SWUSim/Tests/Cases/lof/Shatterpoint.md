@@ -33,3 +33,24 @@ WithP2GroundArena: LAW_124:1:0
 ## EXPECT
 P1NOFORCE
 P2GROUNDARENACOUNT:0
+
+---
+
+# ForceMode_NoForce_NoEffect
+#// LOF_079 Shatterpoint — picking the "Use the Force. If you do, defeat a non-leader unit" mode WITHOUT a
+#// Force token does nothing (the button reads "(No effect)"). P1 chooses ForceDefeat with no Force; the enemy
+#// 4/7 (LAW_124) survives and P1 gains no Force. (FT: "choose the 'use the force' option but without the
+#// force nothing happen".)
+
+## GIVEN
+CommonSetup: bbk/ggw/{myResources:4;handCardIds:LOF_079}
+P1OnlyActions: true
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:ForceDefeat
+
+## EXPECT
+P1NOFORCE
+P2GROUNDARENACOUNT:1

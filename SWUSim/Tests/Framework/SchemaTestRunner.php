@@ -1146,7 +1146,7 @@ class SchemaTestRunner {
 
             } elseif (preg_match('/^P(\d+)SELECTABLE(HAS|NOT):(.+)$/', $line, $m)) {
                 // Membership of a target mzID in a pending target-choice's exact legal-target set (the
-                // SWUSim analog of the reference engine's exact-legal-target assertion, membership form). Reads the
+                // SWUSim exact-legal-target assertion (membership form). Reads the
                 // pending decision's Param — the '&'-joined candidate mzIDs (MZCHOOSE / MZMAYCHOOSE /
                 // MZMULTICHOOSE, the latter prefixed "min|max|"). Leave the decision pending (don't answer
                 // it) so it can be inspected. mzIDs are in the DECIDING player's frame (my*/their*).
@@ -1167,7 +1167,7 @@ class SchemaTestRunner {
 
             } elseif (preg_match('/^P(\d+)SELECTABLEEXACT:(.*)$/', $line, $m)) {
                 // The FULL exact legal-target set of a pending target-choice, order-insensitive ('&'-joined
-                // mzIDs, deciding player's frame). Direct port of toBeAbleToSelectExactly.
+                // mzIDs, deciding player's frame). Asserts the exact legal-target set of a choice.
                 $p       = intval($m[1]);
                 $want    = array_values(array_filter(explode('&', $m[2]), fn($s) => $s !== ''));
                 $pending = $g->state->pendingDecision($p);

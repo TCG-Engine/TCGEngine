@@ -63,3 +63,24 @@ WithP1Hand: JTL_099
 ## EXPECT
 P1GROUNDARENACOUNT:2
 P1RESAVAILABLE:3
+
+---
+
+# BB8ForZero_WithZeroResources
+#// JTL_098 Snap Wexley — played as a unit, his "next Resistance card costs 1 less" discount can bring a
+#// 1-cost card to 0 and it stays playable with 0 ready resources. Snap (cost 3) is played with exactly 3
+#// resources → 0 ready; then BB-8 (JTL_145, Resistance, cost 1) is discounted to 0 and still enters play.
+#// (Aspect rgw covers Aggression+Command+Heroism so neither play takes an off-aspect penalty.)
+
+## GIVEN
+CommonSetup: rgw/rrk/{myResources:3;handCardIds:JTL_098}
+P1OnlyActions: true
+WithP1Hand: JTL_145
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1RESAVAILABLE:0

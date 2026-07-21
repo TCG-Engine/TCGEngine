@@ -88,3 +88,30 @@ P1SPACEARENAUNIT:1:CARDID:SOR_141
 P1SPACEARENAUNIT:1:UPGRADECOUNT:1
 P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:SOR_T01
 P1DISCARDCOUNT:1
+
+---
+
+# WhenPlayed_MovesOwnShieldFromShielded
+#// JTL_242 — the token the move relocates can be the Shuttle's OWN Shield created by its Shielded keyword.
+#// Resolving the Shielded entry trigger FIRST (EffectStack-1) gives the Shuttle a Shield; the When Played
+#// move then takes that Shield token (the only token in play) and attaches it to the one other eligible
+#// unit, SOR_237 (auto-resolved destination). The Shuttle ends with no Shield; SOR_237 gains it.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_242
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:SHIELDCOUNT:1
+P1SPACEARENAUNIT:1:CARDID:JTL_242
+P1SPACEARENAUNIT:1:SHIELDCOUNT:0

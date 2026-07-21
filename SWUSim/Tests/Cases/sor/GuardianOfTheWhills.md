@@ -115,3 +115,75 @@ WithP1Hand: SOR_069
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
 P1RESAVAILABLE:3
+
+---
+
+# GuardianUpgradeDiscountAppliesToSmuggledUpgrade
+#// SOR_061 Guardian of the Whills — "the first upgrade you play on this unit each round costs 1 less." This
+#// host-conditional discount must also reduce an upgrade played onto the Guardian via SMUGGLE (Phase 3: the
+#// Smuggle path applies the used-flag bucket, and SMUGGLE_ATTACH consumes host-conditional flags against the
+#// REAL chosen host). P1 controls the Guardian and smuggles SHD_174 Hotshot DL-44 Blaster (Smuggle [3
+#// Cunning]; yyk base covers Cunning → bracket 3, minus Guardian's -1 = 2). With exactly 2 ready resources
+#// it attaches to the Guardian (only host → auto-resolves). Paired with the non-Guardian host below (needs 3).
+
+## GIVEN
+CommonSetup: yyk/bbk/{myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_061:1:0
+WithP1Resources: 1:SHD_174:1,1:SOR_251:1
+
+## WHEN
+- P1>SmuggleResource:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# NonGuardianHost_SmuggledUpgradeCostsFull
+#// Control: same as above but the only host is a vanilla SOR_046 (not a Guardian), so no Guardian discount
+#// exists — SHD_174 costs the full bracket 3. With only 2 ready resources it CANNOT be played and does not
+#// attach (upgrade count 0). This proves the 2-resource attach above only succeeds because of the Guardian's
+#// -1, and that the discount is evaluated host-correctly (a best-case peek is not mis-applied here).
+
+## GIVEN
+CommonSetup: yyk/bbk/{myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_046:1:0
+WithP1Resources: 1:SHD_174:1,1:SOR_251:1
+
+## WHEN
+- P1>SmuggleResource:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# SmuggledUpgradeConsumesGuardianCharge
+#// Phase 3 consume guard: smuggling an upgrade onto the Guardian must SPEND its once-per-round "first
+#// upgrade" charge (via SMUGGLE_ATTACH → _SWUConsumeUpgradeUsedFlags against the real host), so a LATER
+#// upgrade on the Guardian pays full. P1 smuggles SHD_174 onto the Guardian for 2 (bracket 3 - 1), leaving
+#// 0 ready. Then P1 tries to play SOR_214 Smuggling Compartment (cost 1 Cunning) from hand onto the
+#// Guardian: the charge is spent, so it costs the full 1 > 0 ready → it CANNOT attach (Guardian upgrade
+#// count stays 1). Were the charge NOT consumed, SOR_214 would be discounted to 0 and attach free (count 2).
+
+## GIVEN
+CommonSetup: yyk/bbk/{myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_061:1:0
+WithP1Resources: 1:SHD_174:1,1:SOR_251:1
+WithP1Hand: SOR_214
+
+## WHEN
+- P1>SmuggleResource:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1

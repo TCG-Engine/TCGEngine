@@ -45,3 +45,39 @@ WithP2SpaceArena: SOR_237:0:0
 P1SPACEARENACOUNT:1
 P2SPACEARENACOUNT:0
 P1SPACEARENAUNIT:0:READY
+
+---
+
+# DefeatedStaysInDiscard
+#// JTL_235 Commandeer — the delayed "return that unit to its owner's hand at the next regroup" must NOT
+#// resurrect a unit that was defeated in the meantime. P1 commandeers P2's SOR_237 (now P1-controlled);
+#// P2 (the owner) then plays SOR_078 Vanquish on it, sending it to P2's discard. At the next regroup the
+#// return effect finds nothing to move: SOR_237 stays in P2's discard and does NOT come back to P2's hand.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithP1Hand: JTL_235
+WithP1Resources: 13
+WithP2SpaceArena: SOR_237:0:0
+WithP2Hand: SOR_078
+WithP2Resources: 6
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirSpaceArena-0
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:0
+P2DISCARDUNIT:1:CARDID:SOR_237
+P2HANDCOUNT:0

@@ -73,3 +73,34 @@ WithP2SpaceArena: SOR_225:1:0
 ## EXPECT
 P2SPACEARENACOUNT:0
 P2BASEDMG:0
+
+---
+
+# ShieldedTarget_NoBase
+#// JTL_176 Shoot Down — the follow-up base damage only fires if the target is DEFEATED this way. A shielded
+#// TIE (SOR_225, 2/1 + Shield token SOR_T02) has its Shield prevent the entire 3-damage instance, so it
+#// survives (0 damage, 0 shields) and is NOT defeated → no "deal 2 to a base" option is offered.
+
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_176
+WithP1Resources: 2
+WithP2SpaceArena: SOR_225:1:0
+WithP2SpaceArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_225
+P2SPACEARENAUNIT:0:DAMAGE:0
+P2SPACEARENAUNIT:0:SHIELDCOUNT:0
+P2BASEDMG:0
+P1NODECISION

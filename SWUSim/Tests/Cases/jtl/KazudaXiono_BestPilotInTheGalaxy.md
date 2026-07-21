@@ -108,3 +108,147 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_063
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 P1GROUNDARENAUNIT:1:CARDID:SOR_035
 P1GROUNDARENAUNIT:1:NOTKEYWORD:Sentinel
+
+---
+
+# LeaderAction_NoFriendlyTarget_StillGrantsExtraAction
+#// JTL_018 Kazuda Xiono (undeployed) — Leader Action [Exhaust]: a friendly unit loses all abilities;
+#// take an extra action. P1 has ZERO friendly units, yet the ability is STILL usable:
+#// Kazuda exhausts (the action was spent, not soft-passed) AND the turn does NOT pass to P2 because the
+#// mandatory extra action keeps it P1's turn (TURNPLAYER:1). The blank clause simply finds no target.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:EXHAUSTED
+TURNPLAYER:1
+
+---
+
+# Deployed_OnAttack_CanSelectSelf
+#// JTL_018 Kazuda Xiono (deployed leader unit) — On Attack: choose any number of friendly units.
+#// Kazuda (deployed,
+#// ground idx 1) attacks the base; the on-attack "choose any number of friendly units" target set must
+#// include KAZUDA HIMSELF (myGroundArena-1) alongside the other friendly unit (SOR_063, myGroundArena-0).
+#// Left pending to inspect the exact legal-target set — self-target is legal (the legal-target set is
+#// exactly Kazuda plus the other friendly unit).
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_063:1:0
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEHAS:myGroundArena-1
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# Deployed_OnAttack_CanChooseZero
+#// JTL_018 Kazuda Xiono (deployed leader unit) — On Attack: choose ANY NUMBER of friendly units (may be
+#// zero). Kazuda attacks the base and P1
+#// declines the choose-any-number target (AnswerDecision:-); no unit is blanked, so SOR_063 KEEPS its
+#// innate Sentinel, and the attack still resolves for Kazuda's 2 power.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_063:1:0
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_063
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P2BASEDMG:2
+
+---
+
+# DeployAsPilot_OnAttack_CanSelectHost
+#// JTL_018 Kazuda Xiono (leader) deployed AS A PILOT onto the friendly Vehicle SOR_237 (space). The host
+#// gains Kazuda's "On Attack: choose any number of friendly units. They lose all abilities for this round."
+#// When the
+#// host attacks the base, the granted on-attack target set must include the ATTACHED HOST itself
+#// (mySpaceArena-0) alongside the other friendly unit (SOR_063, myGroundArena-0). Left pending to inspect
+#// the exact legal-target set — host-target is legal.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1SpaceArena: SOR_237:1:0
+WithP1GroundArena: SOR_063:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1HASDECISION
+P1SELECTABLEHAS:mySpaceArena-0
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+
+---
+
+# DeployAsPilot_OnAttack_CanChooseZero
+#// JTL_018 Kazuda Xiono deployed AS A PILOT onto SOR_237 (space). The host's granted On Attack lets P1
+#// choose ANY NUMBER of friendly units (may be zero). The host attacks the base and P1 declines the target (AnswerDecision:-):
+#// no unit is blanked, SOR_063 KEEPS its innate Sentinel, and the host still hits the base for 5
+#// (SOR_237's 2 power + Kazuda's +3 pilot bonus).
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1SpaceArena: SOR_237:1:0
+WithP1GroundArena: SOR_063:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:-
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENAUNIT:0:CARDID:SOR_063
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P2BASEDMG:5

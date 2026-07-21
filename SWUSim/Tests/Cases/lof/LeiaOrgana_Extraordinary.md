@@ -21,3 +21,24 @@ P1GROUNDARENAUNIT:0:HP:5
 P1GROUNDARENAUNIT:1:CARDID:LOF_098
 P1GROUNDARENAUNIT:1:POWER:7
 P1GROUNDARENAUNIT:1:HP:7
+
+---
+
+# NoForce_CannotMoveToGround
+#// LOF_098 — the space-arena move action costs the Force. With no Force token available, the ability is
+#// not usable: attempting it is a no-op and Leia stays in the space arena. Ref: "can't move to
+#// the ground arena if player does not have the Force."
+
+## GIVEN
+CommonSetup: rrk/ggw
+P1OnlyActions: true
+WithP1SpaceArena: LOF_098:0:0
+
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+
+## EXPECT
+P1NOFORCE
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:LOF_098
+P1GROUNDARENACOUNT:0

@@ -133,3 +133,63 @@ WithP1Resources: 1
 ## EXPECT
 P1SPACEARENACOUNT:0
 P1LEADER:EXHAUSTED
+
+---
+
+# Deploy_OnAttack_ExhaustFriendly_YouGetXWing
+#// JTL_016 Admiral Ackbar (deployed leader) — On Attack: You may exhaust a unit; if you do, its controller
+#// creates an X-Wing. Deployed-side FRIENDLY variant: Ackbar attacks P2's base then exhausts P1's own ready
+#// SOR_237, so P1 (its controller) creates an X-Wing (JTL_T02) in P1's space arena. Costs no resources.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:EXHAUSTED
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:1:CARDID:JTL_T02
+P2BASEDMG:3
+P1LEADER:DEPLOYED
+
+---
+
+# Deploy_OnAttack_ExhaustedTarget_NoXWing
+#// JTL_016 Admiral Ackbar (deployed leader) — deployed-side "IF YOU DO" gate: targeting an ALREADY-exhausted
+#// unit exhausts nothing, so no X-Wing is created. Ackbar attacks P2's base then targets the already-exhausted
+#// friendly SOR_237; P1's space arena still holds only SOR_237 (no token added).
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1SpaceArena: SOR_237:0:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P2BASEDMG:3
+P1LEADER:DEPLOYED

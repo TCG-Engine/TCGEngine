@@ -155,7 +155,7 @@ P1NODECISION
 #// (grants Padawan Starfighter a "When Defeated: create a Clone Trooper" this phase). P2's Rivals Fall
 #// defeats the Padawan → its granted When Defeated makes Clone Trooper #1. P1 then accepts BOTH reuse
 #// offers (Thrawn exhausts to use it again; Shadow Caster uses it again) → Clone Troopers #2 and #3. End =
-#// 3 Clone Troopers. (The reference engine tests both offer orders via explicit prompt buttons; SWUSim
+#// 3 Clone Troopers. (Both offer orders are valid; SWUSim
 #// auto-sequences the two YES/NO offers, and the end state is 3 regardless of order.)
 
 ## GIVEN

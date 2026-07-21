@@ -45,6 +45,7 @@ WithP1Resources: 3
 
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1SPACEARENACOUNT:1
@@ -103,6 +104,7 @@ WithP1Resources: 3
 
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:mySpaceArena-0
 
 ## EXPECT
@@ -112,3 +114,33 @@ P1SPACEARENAUNIT:0:SHIELDCOUNT:1
 P1RESAVAILABLE:0
 P1HANDCOUNT:0
 P1LEADER:EXHAUSTED
+
+---
+
+# LeaderAction_SoftPass_DeclinePlay
+#// JTL_003 Lando Calrissian (leader) — "Play a unit from your hand" is OPTIONAL: the player may decline
+#// (a soft pass), so even with an affordable unit in hand nothing is played. The action still costs 1
+#// resource + exhausts Lando (already paid when the action started), and the hand is untouched. Ports the
+#// reference "can be used as a soft pass by choosing nothing (hand is hidden information)".
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_003;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_237
+WithP1Resources: 3
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1HANDCOUNT:1
+P1RESAVAILABLE:2
+P1LEADER:EXHAUSTED
+P1NODECISION
