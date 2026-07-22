@@ -115,7 +115,7 @@ MAIN
 
 {"P2_StartingIKZTokenPending":"0","mzID":"EffectStack-0","mzIDCardID":"S1-STT03-001_Bobu_L_L_die","P2_EntitiesPlayedThisTurn":"1","P2_BobuWardActive":"0","discarded":"myHand-4"}
 0
-{"EndTurnAbilityCalls":{"1":1},"EndTurnAbility":{"1":{"S1-STT03-001_Bobu_L_L_die":1}},"PlayCardCalls":{"2":5},"PlayCard":{"2":{"S1-STT03-008_Midnight-Courier_E_C_die":4,"S1-AZK01-107_Offering-to-Stillstone_S_C_die":1}},"EnterCalls":{"2":1},"Enter":{"2":{"S1-STT03-008_Midnight-Courier_E_C_die":1}},"EnterGardenCalls":{"2":1},"EnterGarden":{"2":{"S1-STT03-008_Midnight-Courier_E_C_die":1}},"OnPlayCalls":{"2":2},"OnPlay":{"2":{"S1-STT03-008_Midnight-Courier_E_C_die":1,"S1-AZK01-107_Offering-to-Stillstone_S_C_die":1}}}
+{"EndTurnAbilityCalls":{"1":1},"EndTurnAbility":{"1":{"S1-STT03-001_Bobu_L_L_die":1}},"PlayCardCalls":{"2":5},"PlayCard":{"2":{"S1-STT03-008_Midnight-Courier_E_C_die":4,"S1-AZK01-107_Offering-to-Stillstone_S_C_die":1}},"EnterCalls":{"2":1},"Enter":{"2":{"S1-STT03-008_Midnight-Courier_E_C_die":1}},"EnterGardenCalls":{"2":1},"EnterGarden":{"2":{"S1-STT03-008_Midnight-Courier_E_C_die":1}},"OnPlayCalls":{"2":2},"OnPlay":{"2":{"S1-STT03-008_Midnight-Courier_E_C_die":1,"S1-AZK01-107_Offering-to-Stillstone_S_C_die":1}},"AzukiHandDiscardTurn":{"2":2}}
 0
 {"PlayCardCalls":{"2":1},"PlayCard":{"2":{"S1-AZK01-107_Offering-to-Stillstone_S_C_die":1}},"OnPlayCalls":{"2":1},"OnPlay":{"2":{"S1-AZK01-107_Offering-to-Stillstone_S_C_die":1}}}
 

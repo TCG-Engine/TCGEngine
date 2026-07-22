@@ -4549,7 +4549,7 @@ function OnPlayCard($player, $mzID) {
 }
 
 function OnEndTurnAbility($player, $mzID) {
-    global $endTurnAbilityAbilities;
+    global $endTurnAbilityAbilities, $endTurnAbilityPrereqs;
     if(!isset($endTurnAbilityAbilities) || !is_array($endTurnAbilityAbilities)) {
         return 'END_TURN_ABILITY';
     }
@@ -4576,6 +4576,10 @@ function OnEndTurnAbility($player, $mzID) {
         for($i = 0; $i < count($cardIDCandidates); ++$i) {
             $key = $cardIDCandidates[$i] . ':0';
             if(isset($endTurnAbilityAbilities[$key])) {
+                if(isset($endTurnAbilityPrereqs[$key])
+                    && !$endTurnAbilityPrereqs[$key]($player, $mzID)) {
+                    continue;
+                }
                 $endTurnAbilityAbilities[$key]($player);
                 break;
             }
@@ -4587,6 +4591,10 @@ function OnEndTurnAbility($player, $mzID) {
         for($j = 0; $j < count($cardIDCandidates); ++$j) {
             $key = $cardIDCandidates[$j] . ':' . $i;
             if(isset($endTurnAbilityAbilities[$key])) {
+                if(isset($endTurnAbilityPrereqs[$key])
+                    && !$endTurnAbilityPrereqs[$key]($player, $mzID)) {
+                    continue;
+                }
                 $endTurnAbilityAbilities[$key]($player);
                 break;
             }
