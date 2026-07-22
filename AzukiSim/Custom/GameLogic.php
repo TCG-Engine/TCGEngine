@@ -3477,7 +3477,10 @@ function IsAttackTargetLegal($player, $targetMZ) {
     for($i = 0; $i < count($garden); ++$i) {
         if(isset($garden[$i]->removed) && $garden[$i]->removed) continue;
         if(intval($garden[$i]->Status ?? 2) !== 1) continue;
-        if(IsDefenderEntity($garden[$i]) || IsTauntEntity($garden[$i])) {
+        // Defender only redirects the current attack while it can tap to do so.
+        // Once tapped, it must not continue restricting future attack targets as
+        // though it also had Taunt.
+        if(IsTauntEntity($garden[$i])) {
             $guardTargets[] = $i;
         }
     }
