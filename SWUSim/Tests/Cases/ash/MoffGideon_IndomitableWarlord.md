@@ -19,3 +19,20 @@ WithP2GroundArena: SOR_038:1:0
 P1GROUNDARENAUNIT:0:CARDID:SEC_080
 P1RESAVAILABLE:1
 P1LEADER:EXHAUSTED
+
+---
+
+# NoImperialDefeated_NoPlay
+#// ASH_008 Moff Gideon — the discounted play requires a friendly Imperial unit to have been defeated this
+#// phase. With none defeated, using the ability plays nothing; the hand unit stays put.
+## GIVEN
+CommonSetup: ggk/brk/{myLeader:ASH_008}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SEC_080
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1

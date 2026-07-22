@@ -15,3 +15,23 @@ P1OnlyActions: true
 P1BASEDMG:6
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1RESAVAILABLE:0
+
+---
+
+# DealZero_NoDiscount
+#// ASH_027 Enoch — the discount scales with damage dealt to your base; dealing 0 gives no discount. Enoch
+#// (pre-damaged) dies attacking SEC_080; P1 deals 0 to its base, so the next unit SOR_046 costs the full 4
+#// (from 4 resources → 0 left).
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:4;handCardIds:SOR_046}
+WithP1GroundArena: ASH_027:1:3
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:0
+- P1>PlayHand:0
+## EXPECT
+P1BASEDMG:0
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1RESAVAILABLE:0

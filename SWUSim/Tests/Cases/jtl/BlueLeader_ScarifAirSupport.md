@@ -138,3 +138,149 @@ P1GROUNDARENAUNIT:0:CARDID:JTL_096
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
 P1GROUNDARENAUNIT:0:POWER:5
 P1GROUNDARENAUNIT:0:HP:5
+
+---
+
+# GroundAfterMove_HitByGroundAOE
+#// JTL_096 Blue Leader — once it pays 2 to move to the GROUND arena it is a ground unit for all purposes.
+#// A "deal to each other GROUND unit" effect hits it. P1 plays Blue Leader into an empty enemy board
+#// (Ambush fizzles) and pays 2 → it becomes a 5/5 in the ground arena. P2 then plays SHD_158 Wild Rancor
+#// ("When Played: Deal 2 damage to each other ground unit"), which damages Blue Leader for 2.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;theirResources:6}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: JTL_096
+WithP2Hand: SHD_158
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P2>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_096
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1SPACEARENACOUNT:0
+
+---
+
+# GroundAfterMove_NotSpaceTargetable
+#// JTL_096 Blue Leader — after moving to the ground arena it is no longer a SPACE unit, so a
+#// "choose a space unit" effect can't reach it. P1 plays Blue Leader (Ambush fizzles — no enemy unit)
+#// and pays 2 → it becomes a 5/5 GROUND unit; P1 also has SOR_209 in the SPACE arena. P2 plays JTL_176
+#// Shoot Down ("Deal 3 damage to a SPACE unit"): the only legal target is SOR_209 (Blue Leader is now
+#// ground and unreachable), so it auto-resolves onto SOR_209 (3 damage) and Blue Leader is untouched.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;theirResources:4}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: JTL_096
+WithP1SpaceArena: SOR_209:1:0
+WithP2Hand: JTL_176
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P2>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_096
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_209
+P1SPACEARENAUNIT:0:DAMAGE:3
+
+---
+
+# GroundAfterMove_NotCountedForControlSpaceCondition
+#// JTL_096 Blue Leader — after moving to the ground arena it does NOT count for "if you control another
+#// space unit" conditions. P1 plays Blue Leader and pays 2 → 5/5 ground unit. P1 then plays JTL_217
+#// Death Space Skirmisher ("When Played: If you control another space unit, you may exhaust a unit"):
+#// Death Space Skirmisher is now P1's ONLY space unit (Blue Leader is ground), so the condition is
+#// false and no exhaust is offered at all — no decision is pending.
+
+## GIVEN
+CommonSetup: ygw/rrk/{myResources:8}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_096
+WithP1Hand: JTL_217
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_096
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_217
+P1NODECISION
+
+---
+
+# AmbushFirst_ThenMoveToGround
+#// JTL_096 Blue Leader — the two entry triggers (Ambush + "When Played: pay 2 → move to ground") may be
+#// resolved in EITHER order. Here P1 resolves AMBUSH FIRST against a weak 2/2 (JTL_160 Supporting Eta-2):
+#// Blue Leader (3/3) deals 3 (defeating it) and takes 2 back. THEN the When-Played resolves — P1 pays 2
+#// and Blue Leader moves to the ground arena as a 5/5 (3/3 + 2 Experience) still carrying its 2 combat
+#// damage → a 5-power unit with 3 remaining HP. (With a single enemy unit the Ambush auto-targets, so no
+#// target answer is needed — the two YES answers are the may-attack opt-in and the pay-2 opt-in.)
+
+## GIVEN
+CommonSetup: ggw/yrk/{myResources:8;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_096
+WithP2SpaceArena: JTL_160:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>ResolveTrigger:Ambush
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_096
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:HP:5
+P1GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# AmbushFirst_LethalCounter_WhenPlayedFizzles
+#// JTL_096 Blue Leader — resolving Ambush FIRST into a unit whose counter DEFEATS Blue Leader means the
+#// When-Played "move to the ground arena" has nothing left to move, so it fizzles harmlessly. Blue Leader
+#// (3/3) ambushes JTL_249 Millennium Falcon (3/4): it deals 3 (Falcon survives at 3 damage) and takes 3
+#// back — its own 3 HP → defeated to the discard. The When-Played then dispatches, finds Blue Leader gone,
+#// and does nothing (no pay prompt, no move, no error).
+
+## GIVEN
+CommonSetup: ggw/yrk/{myResources:8;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_096
+WithP2SpaceArena: JTL_249:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>ResolveTrigger:Ambush
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P2SPACEARENAUNIT:0:CARDID:JTL_249
+P2SPACEARENAUNIT:0:DAMAGE:3
+P1NODECISION

@@ -40,3 +40,20 @@ WithP1GroundArena: SEC_080:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:HASKEYWORD:Overwhelm
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# ChooseGround_SentinelAndOverwhelm
+#// ASH_007 Grand Admiral Sloane — Action: choose one — give each ground unit Sentinel and Overwhelm for the
+#// phase. Choosing Ground, the friendly SOR_095 gains both keywords.
+## GIVEN
+CommonSetup: gbk/brk/{myLeader:ASH_007}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:Ground
+## EXPECT
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P1GROUNDARENAUNIT:0:HASKEYWORD:Overwhelm

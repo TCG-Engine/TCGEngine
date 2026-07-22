@@ -14,3 +14,22 @@ P1OnlyActions: true
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
 P1RESAVAILABLE:1
+
+---
+
+# SecondUpgrade_NoDiscount
+#// ASH_075 Pit Droid Team — only the FIRST upgrade each phase is discounted. P1 plays two SOR_120s onto
+#// SOR_095: the first costs 1 (−1), the second the full 2. From 5 resources, 5−1−2 = 2 left.
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:5;handCardIds:SOR_120,SOR_120}
+WithP1GroundArena: ASH_075:1:0
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:2
+P1RESAVAILABLE:2

@@ -12,3 +12,19 @@ P1OnlyActions: true
 P1SPACEARENAUNIT:0:CARDID:ASH_071
 P1SPACEARENAUNIT:0:DAMAGE:1
 P2SPACEARENACOUNT:0
+
+---
+
+# WhenPlayed_DamagesSelfAndEnemy
+#// ASH_071 Battered Haulcraft — When Played: deal 1 to this unit and 1 to an enemy space unit. Played with
+#// an enemy SOR_237 present, it takes 1 and deals 1 to SOR_237.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:2;handCardIds:ASH_071}
+WithP2SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+## EXPECT
+P1SPACEARENAUNIT:0:DAMAGE:1
+P2SPACEARENAUNIT:0:DAMAGE:1

@@ -35,3 +35,18 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:0:CARDID:ASH_T01
 P1GROUNDARENAUNIT:1:CARDID:ASH_T01
+
+---
+
+# CombatDefeat_NoTokens
+#// ASH_028 Paz Vizsla — the 2-token When Defeated fires only if he WASN'T defeated by combat damage. A
+#// near-dead Paz dies to SOR_046's counter (combat damage), so no Mandalorian tokens are created.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: ASH_028:1:6
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1GROUNDARENACOUNT:0

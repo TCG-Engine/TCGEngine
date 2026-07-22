@@ -60,3 +60,30 @@ P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENAUNIT:1:CARDID:SEC_080
 P2GROUNDARENAUNIT:1:UPGRADECOUNT:1
 P2DISCARDCOUNT:1
+
+---
+
+# PlayedAsUnit_NoDefeatUpgrade
+#// JTL_148 Frisk — the "defeat an upgrade costing 2 or less" is a WHEN-PLAYED-AS-A-PILOT (upgrade) ability.
+#// Played as a normal UNIT it does nothing: the enemy SOR_046's SOR_069 upgrade stays attached.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: JTL_148
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_069
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Unit
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1

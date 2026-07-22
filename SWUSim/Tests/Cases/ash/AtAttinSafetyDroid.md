@@ -26,3 +26,34 @@ WithP2GroundArena: SOR_095:1:0
 - P2>AttackGroundArena:0:BASE
 ## EXPECT
 P1BASEDMG:3
+
+---
+
+# OpponentBaseUncapped
+#// ASH_070 At Attin Safety Droid — the cap protects only ITS controller's base. P1's Droid does nothing for
+#// P2's base: P1's SOR_038 (5 power) attacks P2's base for the full 5 (> 4, uncapped).
+## GIVEN
+CommonSetup: bbw/bbk
+WithP1GroundArena: ASH_070:1:0
+WithP1GroundArena: SOR_038:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:1:BASE
+## EXPECT
+P2BASEDMG:5
+
+---
+
+# UnitDamageUncapped
+#// ASH_070 At Attin Safety Droid — the cap is for BASE damage only. P2's SOR_038 (5 power) attacks P1's
+#// SOR_046 (7 HP); the 5 combat damage is not capped to 4 — SOR_046 takes the full 5.
+## GIVEN
+CommonSetup: bbw/bbk
+WithP1GroundArena: ASH_070:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_038:1:0
+## WHEN
+- P1>Pass
+- P2>AttackGroundArena:0:1
+## EXPECT
+P1GROUNDARENAUNIT:1:DAMAGE:5

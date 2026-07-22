@@ -14,3 +14,19 @@ P1OnlyActions: true
 ## EXPECT
 P1RESAVAILABLE:5
 P1GROUNDARENAUNIT:2:CARDID:SOR_095
+
+---
+
+# Decline_NoFreePlay
+#// ASH_108 Crix Madine — the discounted play is optional. Declining leaves SOR_095 in hand; only Crix's own
+#// cost (3, from 8) is spent, leaving 5.
+## GIVEN
+CommonSetup: ggw/ggk/{myResources:8;handCardIds:ASH_108,SOR_095}
+WithP1GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P1RESAVAILABLE:5
+P1GROUNDARENACOUNT:2

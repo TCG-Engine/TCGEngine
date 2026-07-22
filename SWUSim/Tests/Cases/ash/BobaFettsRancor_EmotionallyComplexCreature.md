@@ -28,3 +28,17 @@ P1OnlyActions: true
 ## EXPECT
 P1BASEDMG:5
 P2GROUNDARENACOUNT:0
+
+---
+
+# OnAttack_LessThanFiveBaseDamage_NoBonus
+#// ASH_179 Boba Fett's Rancor — the On Attack deals 1 per FULL 5 damage on your base. With only 4 damage on
+#// P1's base (< 5), the bonus is 0, so the enemy base takes just the 8 combat damage.
+## GIVEN
+CommonSetup: rrk/rrk/{myBaseDamage:4}
+WithP1GroundArena: ASH_179:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P2BASEDMG:8

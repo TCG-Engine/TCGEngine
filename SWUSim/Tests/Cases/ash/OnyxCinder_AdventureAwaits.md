@@ -13,3 +13,19 @@ P1SPACEARENAUNIT:0:CARDID:ASH_177
 P1SPACEARENAUNIT:0:HASKEYWORD:Hidden
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:HASKEYWORD:Hidden
+
+---
+
+# OtherFriendlyGainsHidden
+#// ASH_177 Onyx Cinder — "Other friendly units gain Hidden." The friendly SOR_237 gains Hidden while Onyx
+#// Cinder is in play.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1SpaceArena: ASH_177:1:0
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>Pass
+## EXPECT
+P1SPACEARENAUNIT:1:CARDID:SOR_237
+P1SPACEARENAUNIT:1:HASKEYWORD:Hidden

@@ -24,3 +24,31 @@ P1SPACEARENAUNIT:0:CARDID:JTL_062
 P1SPACEARENAUNIT:0:DAMAGE:0
 P2SPACEARENAUNIT:0:DAMAGE:1
 P2BASEDMG:2
+
+---
+
+# WhenHealed_Declined
+#// JTL_062 Silver Angel — the "deal 1 to a space unit" is a MAY. After Rose Tico heals it, P1 declines
+#// (Pass): SOR_237 takes no damage.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_062:1:2
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>UseLeaderAbility
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_062
+P1SPACEARENAUNIT:0:DAMAGE:0
+P2SPACEARENAUNIT:0:DAMAGE:0
+P2BASEDMG:2

@@ -16,3 +16,24 @@ WithP1SpaceArenaUpgrade: 0:JTL_034
 
 ## EXPECT
 P1SPACEARENAUNIT:0:POWER:5
+
+---
+
+# NonPilotUpgrade_NoBuff
+#// JTL_247 Resistance X-Wing — the +1/+1 applies only while it has a PILOT upgrade. A non-pilot upgrade
+#// (a Shield token, SOR_T02) does not count, so its power stays at the base 2.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_247:1:0
+WithP1SpaceArenaUpgrade: 0:SOR_T02
+
+## WHEN
+
+## EXPECT
+P1SPACEARENAUNIT:0:POWER:2

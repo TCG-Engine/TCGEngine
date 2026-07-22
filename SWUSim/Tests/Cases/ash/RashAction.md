@@ -30,3 +30,20 @@ P1OnlyActions: true
 ## EXPECT
 P2HANDCOUNT:1
 P2GROUNDARENACOUNT:1
+
+---
+
+# AttackBaseThenOpponentDiscards
+#// ASH_162 Rash Action — Attack with a unit (+1/+0); "When Attack Ends: if it dealt combat damage to a base,
+#// that opponent discards a card." SOR_095 (3+1=4) hits P2's base for 4, then P2 discards its only card.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:6;handCardIds:ASH_162}
+WithP1GroundArena: SOR_095:1:0
+WithP2Hand: SEC_080
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2BASEDMG:4
+P2HANDCOUNT:0

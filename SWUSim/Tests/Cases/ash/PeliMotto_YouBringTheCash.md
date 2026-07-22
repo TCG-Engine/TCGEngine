@@ -13,3 +13,22 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:1:POWER:6
 P1RESAVAILABLE:0
+
+---
+
+# SecondNonUnit_PaysPenalty
+#// ASH_212 Peli Motto — only the FIRST non-unit card each phase ignores aspect penalties. P1 plays two
+#// off-aspect Command events (ASH_136) under a Vigilance base: the first is waived (2), the second pays the
+#// +2 penalty (4). Starting from 6 resources, both plays leave 0 — proving the second was NOT waived.
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:6;handCardIds:ASH_136,ASH_136}
+WithP1GroundArena: ASH_212:1:0
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P1RESAVAILABLE:0

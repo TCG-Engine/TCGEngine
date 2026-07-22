@@ -27,3 +27,16 @@ P1OnlyActions: true
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# GritPowerScalesWithDamage
+#// ASH_147 The Cyborg Mech — Grit gives +1/+0 per damage on it. Seated with 2 damage, its power is 3 + 2 = 5.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: ASH_147:1:2
+P1OnlyActions: true
+## WHEN
+- P1>Pass
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:5

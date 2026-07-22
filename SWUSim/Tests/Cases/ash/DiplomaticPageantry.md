@@ -23,3 +23,18 @@ P1GROUNDARENAUNIT:1:READY
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P2SPACEARENAUNIT:0:READY
+
+---
+
+# NoEnemyUnit_NoEffect
+#// ASH_231 Diplomatic Pageantry — it must exhaust a friendly AND an enemy unit. With no enemy unit in play,
+#// the effect can't complete: nobody is exhausted and no Advantage is given.
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:1;handCardIds:ASH_231}
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0

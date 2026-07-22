@@ -48,3 +48,27 @@ WithP2GroundArena: SOR_128:1:0
 P2GROUNDARENACOUNT:0
 P2BASEDMG:4
 P1NODECISION
+
+---
+
+# OnAttack_Indirect3_UnderworldHost
+#// JTL_139 Dengar (pilot) — the granted "On Attack: deal 2 indirect to a player" becomes 3 when the
+#// attached unit is an UNDERWORLD unit. On SOR_178 Cartel Spacer (Underworld, 2 power → 3 with Dengar),
+#// attacking the base with no enemy units: 3 combat + 3 indirect = 6 to P2's base.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_178:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_139
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P2BASEDMG:6

@@ -30,3 +30,20 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:5
 P1HANDCOUNT:1
+
+---
+
+# WhenPlayed_ReturnsOtherUpgrade
+#// ASH_199 There Is No Conflict — When Played: return any number of OTHER upgrades on the attached unit to
+#// their owners' hands. Played on SOR_095 (which wears SOR_120), it returns SOR_120 to hand; SOR_095 is left
+#// wearing only There Is No Conflict.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3;handCardIds:ASH_199}
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1HANDCOUNT:1

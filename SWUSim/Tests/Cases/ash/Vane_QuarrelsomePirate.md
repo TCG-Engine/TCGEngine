@@ -43,3 +43,22 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:5
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# DefeatUpgrade_DealOwnBase
+#// ASH_012 Vane — the "deal 2 damage to a base" target is the player's choice; P1 may point it at their OWN
+#// base. Same upgrade-defeat cost, but P1 chooses myBase.
+## GIVEN
+CommonSetup: grk/brk/{myLeader:ASH_012}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myBase-0
+## EXPECT
+P1BASEDMG:2
+P2BASEDMG:0
+P1LEADER:EXHAUSTED

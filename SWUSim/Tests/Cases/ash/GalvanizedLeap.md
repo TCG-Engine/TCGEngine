@@ -15,3 +15,18 @@ P1OnlyActions: true
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:DAMAGE:3
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# NotDamagedThisPhase_NoReady
+#// ASH_188 Galvanized Leap — it can only ready a unit that was DAMAGED this phase. With an exhausted but
+#// undamaged SOR_046, there is no legal target: the event fizzles and SOR_046 stays exhausted.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:4;handCardIds:ASH_188}
+WithP1GroundArena: SOR_046:0:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:EXHAUSTED

@@ -91,3 +91,78 @@ P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_046
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SEC_214
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# Restore2_HealsBaseOnAttack
+#// JTL_038 Corvus has Restore 2 — when it attacks it heals 2 damage from your base. P1's base starts with 3
+#// damage; Corvus (4/5, in space) attacks P2's base, dealing 4 there and restoring 2 at home (3 → 1).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myBaseDamage:3
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1SpaceArena: JTL_038:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1BASEDMG:1
+P2BASEDMG:4
+
+---
+
+# DeclineAttach_EntersAlone
+#// JTL_038 Corvus — the When-Played attach is a MAY. With a friendly Pilot (JTL_046 Paige) in play P1
+#// declines (Pass): Corvus enters with no pilot subcard and Paige is untouched.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:6
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_038
+WithP1GroundArena: JTL_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_038
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_046
+
+---
+
+# NoFriendlyPilot_EntersAlone
+#// JTL_038 Corvus — with NO friendly Pilot in play, no attach is offered and Corvus simply enters the space
+#// arena on its own.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:6
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_038
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1SPACEARENAUNIT:0:CARDID:JTL_038
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0

@@ -37,3 +37,25 @@ WithP2SpaceArena: SHD_187:1:0
 ## EXPECT
 P2SPACEARENAUNIT:0:CARDID:SHD_187
 P2SPACEARENAUNIT:0:DAMAGE:0
+
+---
+
+# OnAttackBase_NoBonus
+#// JTL_187 Bossk — the On Attack "exhaust the defender and deal 1 to it" only applies to a UNIT defender.
+#// Attacking the P2 base, the bonus does nothing — the base just takes Bossk's 4 combat damage.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: JTL_187:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:4
+P1NODECISION

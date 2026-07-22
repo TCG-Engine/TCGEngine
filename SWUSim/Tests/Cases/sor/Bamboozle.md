@@ -118,3 +118,32 @@ P2HANDCOUNT:0
 P2DISCARDCOUNT:0
 P1RESAVAILABLE:0
 P1DISCARDCOUNT:1
+
+---
+
+# ReturnsLeaderPilotToBase
+#// SOR_199 Bamboozle ("Exhaust a unit and return each upgrade on it to its owner's hand") vs a unit
+#// piloted by a LEADER. A leader attached as a Pilot can't be returned to hand, so instead it is
+#// defeated and returns to the leader zone exhausted — a state-based consequence, NOT a direct
+#// enemy-ability defeat, so any leader enemy-immunity is irrelevant. P1 has JTL_012 Luke Skywalker
+#// deployed as a Pilot on SOR_237; P2 plays Bamboozle at SOR_237. The host is exhausted and keeps no
+#// upgrades; Luke returns to P1's base, undeployed and exhausted.
+
+## GIVEN
+CommonSetup: gyw/yyw/{myLeader:JTL_012;myLeaderDeployedPilot:true;theirResources:2}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1SpaceArena: SOR_237:1:0
+WithP2Hand: SOR_199
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1SPACEARENAUNIT:0:EXHAUSTED
+P1LEADER:NOTDEPLOYED
+P1LEADER:EXHAUSTED

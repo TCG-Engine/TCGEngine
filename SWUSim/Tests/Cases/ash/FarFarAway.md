@@ -12,3 +12,18 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
+
+---
+
+# NoEnemyUnit_OnlyFriendlyReturns
+#// ASH_236 Far Far Away — the enemy return is gated on the friendly return, but needs an enemy target too.
+#// With only a friendly unit in play, SOR_095 returns to hand and the enemy half simply finds no target.
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:3;handCardIds:ASH_236}
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1

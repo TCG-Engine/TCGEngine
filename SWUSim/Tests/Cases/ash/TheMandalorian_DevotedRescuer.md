@@ -103,3 +103,22 @@ P2GROUNDARENAUNIT:0:CARDID:ASH_062
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P1GROUNDARENAUNIT:0:DAMAGE:5
+
+---
+
+# BaseDamage_NotPrevented
+#// ASH_062 The Mandalorian — his Shield-defeat only prevents damage to another friendly UNIT, not to the
+#// base. An enemy attack on P1's base is not intercepted: the base takes 3 and Mando keeps his Shield.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: ASH_062:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArena: SOR_046:1:0
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+## WHEN
+- P2>AttackGroundArena:0:BASE
+## EXPECT
+P1BASEDMG:3
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1

@@ -13,3 +13,37 @@ P1OnlyActions: true
 - P1>AnswerDecision:YES
 ## EXPECT
 P1GROUNDARENACOUNT:2
+
+---
+
+# AttackEnd_Decline
+#// ASH_229 Camtono — the free play is optional. SOR_046 attacks base; the top card SOR_095 (cost 2) is
+#// eligible but P1 declines, so nothing is played.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_229
+WithP1Deck: [SOR_095 SOR_063 SOR_063]
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:NO
+## EXPECT
+P1GROUNDARENACOUNT:1
+
+---
+
+# AttackEnd_TopCostsThree_NoOffer
+#// ASH_229 Camtono — only a top card costing 2 or less is playable. With SOR_063 (cost 3) on top, no free
+#// play is offered.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_229
+WithP1Deck: [SOR_063 SOR_063 SOR_063]
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:1

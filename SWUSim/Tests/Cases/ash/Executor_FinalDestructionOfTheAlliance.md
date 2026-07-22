@@ -20,3 +20,20 @@ P1SPACEARENAUNIT:0:ADVANTAGECOUNT:1
 P1SPACEARENAUNIT:1:CARDID:ASH_197
 P1SPACEARENAUNIT:1:POWER:8
 P1SPACEARENAUNIT:1:ADVANTAGECOUNT:0
+
+---
+
+# PowerScalesWithUpgradesOnOthers
+#// ASH_197 Executor — "gets +1/+0 for each upgrade on OTHER friendly units." With SOR_095 wearing 2 upgrades
+#// (SOR_120 + a Shield token), Executor's power is 5 + 2 = 7.
+## GIVEN
+CommonSetup: bbk/bbk
+WithP1SpaceArena: ASH_197:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP1GroundArenaUpgrade: 0:SOR_T02
+P1OnlyActions: true
+## WHEN
+- P1>Pass
+## EXPECT
+P1SPACEARENAUNIT:0:POWER:7

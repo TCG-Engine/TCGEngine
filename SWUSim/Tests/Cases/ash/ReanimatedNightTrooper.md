@@ -16,3 +16,22 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:0
 P2DECKCOUNT:1
 P2DISCARDCOUNT:1
+
+---
+
+# Decline_NoDiscard
+#// ASH_045 Reanimated Night Trooper — the discard is optional. On defeat P1 looks at the opponent's deck top
+#// but declines, so nothing is discarded.
+## GIVEN
+CommonSetup: bbk/bbk
+WithP1GroundArena: ASH_045:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2Deck: [SEC_080 SOR_095]
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Opponent
+- P1>AnswerDecision:NO
+## EXPECT
+P2DECKCOUNT:2
+P2DISCARDCOUNT:0

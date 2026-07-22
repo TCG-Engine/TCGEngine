@@ -11,3 +11,18 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:HASKEYWORD:Overwhelm
+
+---
+
+# GrantsOverwhelm
+#// ASH_181 Mark My Words — attaches to a damaged unit and grants Overwhelm. The damaged SOR_095 gains
+#// Overwhelm.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: SOR_095:1:2
+WithP1GroundArenaUpgrade: 0:ASH_181
+P1OnlyActions: true
+## WHEN
+- P1>Pass
+## EXPECT
+P1GROUNDARENAUNIT:0:HASKEYWORD:Overwhelm

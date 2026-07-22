@@ -132,3 +132,28 @@ P1SPACEARENAUNIT:0:SHIELDCOUNT:1
 P1SPACEARENAUNIT:1:SHIELDCOUNT:1
 P1SPACEARENAUNIT:2:SHIELDCOUNT:1
 P1SPACEARENAUNIT:3:SHIELDCOUNT:1
+
+---
+
+# NonVehicle_DoesNotGainKeyword
+#// JTL_047 Admiral Yularen — the grant is only to friendly VEHICLE units. Choosing Grit, a non-Vehicle
+#// friendly (SOR_046 Trooper) does NOT gain Grit.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_047
+WithP1Resources: 7
+WithP1GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Grit
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Grit

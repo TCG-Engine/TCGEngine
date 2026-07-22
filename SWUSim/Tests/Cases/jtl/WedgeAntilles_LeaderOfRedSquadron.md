@@ -74,3 +74,69 @@ P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_108
 P1RESAVAILABLE:0
 P1HANDCOUNT:0
 P1LEADER:EXHAUSTED
+
+---
+
+# Deploy_AsGroundUnit_Stats
+#// JTL_008 Wedge Antilles — deployed as a normal ground unit (no friendly Vehicle → DeployLeader skips the
+#// Unit/Pilot choice). Wedge enters the ground arena as a 3/6 leader unit.
+
+## GIVEN
+CommonSetup: bgw/bbk/{
+  myLeader:JTL_008;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_008
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:6
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1LEADER:DEPLOYED
+
+---
+
+# Deploy_AsPilot_DoesNotDiscountNonPilot
+#// JTL_008 Wedge deployed as a PILOT grants the host "On Attack: the next PILOT card you play this phase
+#// costs 1 less." That discount applies ONLY to Pilot cards. After the host attacks (arming the effect),
+#// P1 plays SOR_237 Alliance X-Wing (a Vehicle, NOT a Pilot; cost 2, Heroism on-aspect) — it is NOT
+#// discounted, so 10 ready resources drop by the full 2 → 8 (a discount would leave 9).
+
+## GIVEN
+CommonSetup: bgw/rrk/{myResources:10;myLeader:JTL_008;myLeaderDeployedPilot:true;myhandCardIds:SOR_237}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1RESAVAILABLE:8
+
+---
+
+# Deploy_AsGroundUnit_AttackDoesNotDiscountPilot
+#// JTL_008 Wedge — the "next Pilot costs 1 less" effect is a PILOT-deploy grant on the host, NOT something
+#// Wedge does when deployed as a normal GROUND UNIT. Wedge is deployed as a ground unit and attacks P2's
+#// base; P1 then plays a Pilot (JTL_046 Paige Tico, cost 2) as a unit — it is NOT discounted (full cost 2),
+#// so 10 ready resources → 8.
+
+## GIVEN
+CommonSetup: bgw/rrk/{myResources:10;myLeader:JTL_008;myLeaderDeployed:true;myhandCardIds:JTL_046}
+P1OnlyActions: true
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1RESAVAILABLE:8

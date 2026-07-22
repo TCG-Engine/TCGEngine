@@ -42,3 +42,28 @@ P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:JTL_069
 P2BASEDMG:0
 P1NODECISION
+
+---
+
+# IndirectAssignedToEnemyUnit
+#// JTL_127 Lightspeed Assault — the follow-up indirect is assigned by the DAMAGED player among their base
+#// and units. P1 defeats JTL_069 (power 4) → 4 to the enemy SOR_225 (2/1) which dies → 2 indirect (its
+#// power) to P2, who still controls SOR_044 and dumps all 2 onto it (base stays clean).
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:JTL_127}
+WithActivePlayer: 1
+WithP1SpaceArena: JTL_069:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP2SpaceArena: SOR_044:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P2>AnswerDecision:mySpaceArena-0:2
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_044
+P2SPACEARENAUNIT:0:DAMAGE:2
+P2BASEDMG:0

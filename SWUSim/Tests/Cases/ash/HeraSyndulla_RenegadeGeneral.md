@@ -11,3 +11,18 @@ P1OnlyActions: true
 ## EXPECT
 P2BASEDMG:3
 P1BASEDMG:0
+
+---
+
+# AttackUnit_NoBaseHit_NoHeal
+#// ASH_031 Hera Syndulla — the heal requires combat damage to a BASE. Hera attacks the enemy unit SEC_080
+#// (no base damage), so P1's base is not healed (stays at 3).
+## GIVEN
+CommonSetup: bbw/bbk/{myBaseDamage:3}
+WithP1GroundArena: ASH_031:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1BASEDMG:3

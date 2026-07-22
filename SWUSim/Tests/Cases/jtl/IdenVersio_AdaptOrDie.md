@@ -33,3 +33,27 @@ P1SPACEARENAUNIT:0:POWER:5
 P1SPACEARENAUNIT:0:HP:4
 P1HANDCOUNT:0
 P1RESAVAILABLE:0
+
+---
+
+# AsUnit_Shielded
+#// JTL_036 Iden Versio — played as a UNIT (no friendly Vehicle to pilot), her Shielded keyword gives her a
+#// Shield token as she enters. Iden (4/3) enters P1's ground arena with SHIELDCOUNT 1.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_019;
+  theirBase:SOR_019
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: JTL_036
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_036
+P1GROUNDARENAUNIT:0:HASKEYWORD:Shielded
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1

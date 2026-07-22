@@ -9,3 +9,18 @@ P1OnlyActions: true
 - P1>AnswerDecision:myBase-0
 ## EXPECT
 P1BASEDMG:0
+
+---
+
+# HealDamagedUnit
+#// ASH_081 Nebulon-C Frigate — the heal may target a unit instead of a base. P1 heals 3 from the damaged
+#// SOR_046 (3 damage → 0).
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:5;handCardIds:ASH_081}
+WithP1GroundArena: SOR_046:1:3
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0

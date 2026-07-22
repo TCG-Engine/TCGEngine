@@ -71,3 +71,28 @@ P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_225
 P1SPACEARENAUNIT:0:POWER:2
 P1LEADER:EXHAUSTED
+
+---
+
+# DeployedAsUnit_NoOnAttackGrant
+#// JTL_011 Major Vonreg — the "On Attack: buff another unit" is a deploy-AS-A-PILOT grant. Deployed as a
+#// normal ground UNIT, Vonreg has no On Attack ability: attacking gives no buff and no decision pends.
+
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:JTL_011;
+  myLeaderDeployed:true;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:POWER:2
+P1NODECISION

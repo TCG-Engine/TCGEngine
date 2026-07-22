@@ -20,3 +20,18 @@ WithInitiativeClaimed: true
 - P1>AttackGroundArena:0:BASE
 ## EXPECT
 P2BASEDMG:5
+
+---
+
+# NoLeaderDefeated_NoRaid
+#// ASH_093 Captain Pellaeon — the Raid 3 only applies while a leader unit has been defeated this phase. With
+#// no leader defeated, Pellaeon (2 power) attacks the enemy base for just 2.
+## GIVEN
+CommonSetup: brw/bbk/{myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: ASH_093:1:0
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P2BASEDMG:2

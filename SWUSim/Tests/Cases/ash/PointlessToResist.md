@@ -12,3 +12,19 @@ WithInitiativeClaimed: true
 - P2>AttackGroundArena:0:BASE
 ## EXPECT
 P1BASEDMG:0
+
+---
+
+# AttackingUnit_NoPenalty
+#// ASH_054 Pointless to Resist — the -3/-0 applies only while attacking a BASE. Attacking a UNIT, the host
+#// SOR_046 keeps its full 3 power and defeats SEC_080 (3/3).
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_054
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P2GROUNDARENACOUNT:0

@@ -18,3 +18,30 @@ WithP1Deck: SOR_237
 
 ## EXPECT
 P1HANDCOUNT:1
+
+---
+
+# NoBaseDamaged_NoDraw
+#// JTL_152 Tactical Heavy Bomber — the draw only happens "if a base is damaged this way" (by the indirect).
+#// Attacking an enemy UNIT, the power-3 indirect goes to the defending player P2, who assigns it across
+#// their units (not the base) → no base damaged this way → P1 does NOT draw.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1SpaceArena: JTL_152:1:0
+WithP1Deck: SOR_237
+WithP2SpaceArena: SOR_237:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP2SpaceArena: JTL_069:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:0
+- P2>AnswerDecision:mySpaceArena-0:1,mySpaceArena-1:1,mySpaceArena-2:1
+
+## EXPECT
+P1HANDCOUNT:0

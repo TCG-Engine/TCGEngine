@@ -6,6 +6,7 @@
   require_once "../Core/StatsHelpers.php";
   require_once "../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
   require_once "../Core/StatsBaseRegistry.php";
+  require_once "../AccountFiles/AccountDatabaseAPI.php"; // ResolveFriendlyCode()
 
   $input = file_get_contents('php://input');
   $data = json_decode($input, true);
@@ -87,6 +88,17 @@
     if (preg_match('#^https?://(localhost|127\.0\.0\.1|host\.docker\.internal)(:\d+)?/#i', (string)$link)) return true;
     return false;
   };
+  // Resolve the ?gameName= identifier to a numeric deckID. A numeric id passes through unchanged
+  // (existing consumers stay byte-identical — this endpoint is a forceteki contract), while a
+  // 12-letter friendly code is resolved via ResolveFriendlyCode(), exactly as LoadDeck.php does.
+  // Returns null when a friendly code can't be resolved so the caller can skip deck stats instead
+  // of feeding a non-numeric string into integer deckID columns (mysqli STRICT fatals otherwise).
+  $resolveDeckID = function($raw) {
+    if (preg_match('/^[A-Za-z]{12}$/', (string)$raw)) {
+      return ResolveFriendlyCode($raw); // int deckID, or null if unknown
+    }
+    return $raw; // numeric id -> unchanged
+  };
   $p1SWUStatsToken = isset($data["p1SWUStatsToken"]) ? $data["p1SWUStatsToken"] : "";
   $p2SWUStatsToken = isset($data["p2SWUStatsToken"]) ? $data["p2SWUStatsToken"] : "";
 
@@ -141,7 +153,8 @@
 	if(count($arr) >= 2)
 	{
 		$arr = explode("&", $arr[1]);
-		$deckID = $arr[0];
+		$deckID = $resolveDeckID($arr[0]);
+	  if($deckID !== null && $deckID !== "") {
 		$sql = "SELECT * FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
@@ -163,6 +176,7 @@
 		$won = ($winner == 1 ? true : ($winner == 2 ? false : null));
 		$opponentData = isset($data["player2"]) ? $data["player2"] : null;
 		SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
+	  }
 	}
   }
   if($statsDeckLinkOK($p2DeckLink)) {
@@ -170,8 +184,8 @@
 	if(count($arr) >= 2)
 	{
 		$arr = explode("&", $arr[1]);
-		$deckID = $arr[0];
-
+		$deckID = $resolveDeckID($arr[0]);
+	  if($deckID !== null && $deckID !== "") {
 		$sql = "SELECT * FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
@@ -193,6 +207,7 @@
 		$won = ($winner == 2 ? true : ($winner == 1 ? false : null));
 		$opponentData = isset($data["player1"]) ? $data["player1"] : null;
 		SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
+	  }
 	}
   }
 

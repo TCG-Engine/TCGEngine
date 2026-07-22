@@ -87,3 +87,64 @@ P1GROUNDARENAUNIT:0:CARDID:SEC_214
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:JTL_049
 P1DISCARDCOUNT:0
+
+---
+
+# 049_NoFriendlyVehicle_DefeatedNormally
+#// JTL_049 L3-37 — the replacement needs a friendly Vehicle WITHOUT a Pilot to attach to. With no such
+#// Vehicle in play, there is no legal replacement: P2 Takedowns L3-37 and she is defeated normally, going
+#// to P1's discard.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP2Resources: 6
+WithP2Hand: SOR_077
+WithP1GroundArena: JTL_049:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:JTL_049
+
+---
+
+# 049_AttachClearsUpgradesAndDamage
+#// JTL_049 L3-37 — on the replacement attach, "defeat all upgrades on her and remove all damage from her."
+#// L3-37 has 2 damage and a normal upgrade (SOR_120). P2 Takedowns her; P1 replaces the defeat by attaching
+#// her onto SEC_214, so SOR_120 is defeated to P1's discard and she attaches clean (as a pilot upgrade).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP2Resources: 6
+WithP2Hand: SOR_077
+WithP1GroundArena: JTL_049:1:2
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP1GroundArena: SEC_214:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_214
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:JTL_049
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SOR_120

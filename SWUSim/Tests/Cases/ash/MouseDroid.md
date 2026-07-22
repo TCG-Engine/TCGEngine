@@ -11,3 +11,17 @@ P1OnlyActions: true
 ## EXPECT
 P1RESAVAILABLE:0
 P1GROUNDARENAUNIT:1:CARDID:SEC_080
+
+---
+
+# Raid1_WhileAttacking
+#// ASH_237 Mouse Droid — Raid 1 gives +1/+0 while attacking. Mouse Droid (1 power) attacks P2's base for
+#// 1 + 1 = 2.
+## GIVEN
+CommonSetup: ggk/ggk
+WithP1GroundArena: ASH_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P2BASEDMG:2

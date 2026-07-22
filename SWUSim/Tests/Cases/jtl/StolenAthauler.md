@@ -73,3 +73,27 @@ P1SPACEARENACOUNT:2
 P2SPACEARENACOUNT:0
 P1SPACEARENAUNIT:1:CARDID:JTL_221
 P1DISCARDCOUNT:0
+
+---
+
+# FreePlayExpiresAtPhaseEnd
+#// Stolen AT-Hauler: the free-play permission is "For THIS phase." JTL_221 (3 pre-damage) is defeated by
+#// SOR_237, setting OTPF on P1's discard entry. But if the opponent does NOT play it before the phase ends,
+#// the permission expires — both players pass, the action phase ends, and RegroupPhaseStart clears the
+#// discard-entry modifier (OTPF → ''). JTL_221 is still in P1's discard, no longer free-playable.
+
+## GIVEN
+CommonSetup: grw/grw
+WithP1SpaceArena: JTL_221:1:3
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>Pass
+- P2>AttackSpaceArena:0:0
+- P1>Pass
+- P2>Pass
+
+## EXPECT
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:JTL_221
+P1DISCARDUNIT:0:MODIFIER:

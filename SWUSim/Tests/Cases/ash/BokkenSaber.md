@@ -12,3 +12,18 @@ P1OnlyActions: true
 ## EXPECT
 P2BASEDMG:4
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1
+
+---
+
+# AttackEnd_GivesAdvantage
+#// ASH_180 Bokken Saber — grants "When Attack Ends: give an Advantage token to this unit." The host SOR_095
+#// attacks the base and gains an Advantage token.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:ASH_180
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1

@@ -25,3 +25,62 @@ P1GROUNDARENAUNIT:0:POWER:5
 P1GROUNDARENAUNIT:0:HP:5
 P1SPACEARENAUNIT:0:POWER:4
 P1SPACEARENAUNIT:0:HP:5
+
+---
+
+# OnlyGround_DeclineSpace
+#// JTL_253 Coordinated Front — each half is independent ("You MAY give"). P1 buffs the ground unit but
+#// declines the space half (Pass): SOR_095 becomes 5/5 while SOR_237 stays at its printed 2/3.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_253
+WithP1Resources: 2
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:HP:5
+P1SPACEARENAUNIT:0:POWER:2
+P1SPACEARENAUNIT:0:HP:3
+
+---
+
+# DeclineBoth_NoBuff
+#// JTL_253 Coordinated Front — both halves declined (Pass, Pass): the event resolves with no buffs.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_253
+WithP1Resources: 2
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:3
+P1SPACEARENAUNIT:0:POWER:2
+P1SPACEARENAUNIT:0:HP:3

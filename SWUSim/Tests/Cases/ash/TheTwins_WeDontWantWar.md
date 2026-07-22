@@ -29,3 +29,52 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# GrantSentinel_Pass
+#// ASH_127 The Twins — the Sentinel grant is optional. P1 plays The Twins and declines; SOR_095 gains
+#// nothing.
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:4;handCardIds:ASH_127}
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# SelfDefeated_NoHeal
+#// ASH_127 The Twins — the heal is for ANOTHER friendly unit's defeat, not its own. A near-dead Twins dies
+#// attacking SOR_046, but since it is the defeated unit itself, no heal occurs (base stays at 2).
+## GIVEN
+CommonSetup: ggk/ggk/{myBaseDamage:2}
+WithP1GroundArena: ASH_127:1:6
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1BASEDMG:2
+
+---
+
+# EnemyUnitDefeated_NoHeal
+#// ASH_127 The Twins — only a FRIENDLY unit's defeat heals. P1's SOR_046 kills the enemy SOR_128 (3/1);
+#// an enemy dying is not friendly, so no heal (base stays at 2).
+## GIVEN
+CommonSetup: ggk/ggk/{myBaseDamage:2}
+WithP1GroundArena: ASH_127:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:1:0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1BASEDMG:2

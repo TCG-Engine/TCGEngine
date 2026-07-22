@@ -79,3 +79,42 @@ WithP2GroundArenaUpgrade: 0:SOR_069
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1DISCARDCOUNT:1
 P2DISCARDCOUNT:1
+
+---
+
+# WillrowDefeated_UpgradeStillDefeated
+#// SEC_061 Willrow Hood — the protection is only against enemy ABILITIES defeating the upgrade; it does not
+#// keep the upgrade alive when Willrow himself dies. A near-dead Willrow (1 HP) wearing SOR_120 attacks
+#// SOR_046 and dies to the counter, so both Willrow and his upgrade go to the discard (count 2).
+## GIVEN
+CommonSetup: rrk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_061:1:4
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:2
+
+---
+
+# ProtectionScopedToWillrowsOwnUpgrade
+#// SEC_061 Willrow Hood — the protection covers only the upgrade on Willrow, not upgrades on other units.
+#// P2 has Willrow (wearing SOR_120, protected) AND SOR_046 (wearing SOR_120). P1's Confiscate targeting
+#// SOR_046 defeats its upgrade normally, while Willrow's own upgrade is untouched.
+## GIVEN
+CommonSetup: grw/grw/{myResources:1;handCardIds:SOR_251}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 1:SOR_120
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-1
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_061
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:1:CARDID:SOR_046
+P2GROUNDARENAUNIT:1:UPGRADECOUNT:0

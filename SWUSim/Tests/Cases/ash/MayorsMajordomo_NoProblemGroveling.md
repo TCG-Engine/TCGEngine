@@ -15,3 +15,20 @@ P1GROUNDARENAUNIT:0:CARDID:ASH_217
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# Action_ExhaustEnemyUnit
+#// ASH_217 Mayor's Majordomo — Action [Exhaust, discard a card from hand]: exhaust a unit. Discarding SOR_095
+#// as the cost, it exhausts the enemy SOR_046.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: ASH_217:1:0
+WithP1Hand: SOR_095
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED

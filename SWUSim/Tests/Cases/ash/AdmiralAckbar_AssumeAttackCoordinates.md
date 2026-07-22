@@ -13,3 +13,19 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P1SPACEARENACOUNT:2
+
+---
+
+# DeclineSelfDefeat_StaysInPlay
+#// ASH_110 Admiral Ackbar — the self-defeat is optional. Declining leaves Ackbar in play and triggers no
+#// search.
+## GIVEN
+CommonSetup: ggw/ggk/{myResources:5;handCardIds:ASH_110}
+WithP1Deck: [SOR_225 SOR_237]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1SPACEARENACOUNT:0

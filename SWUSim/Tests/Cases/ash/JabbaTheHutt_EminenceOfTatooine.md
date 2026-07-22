@@ -50,3 +50,36 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:1:POWER:4
+
+---
+
+# ReturnEnemyLeaderPilotDefeatsItToBase
+#// ASH_042 Jabba the Hutt — "When Played: You may return an upgrade to its owner's hand." When the
+#// chosen upgrade is an enemy LEADER attached as a Pilot, it can't go to hand: losing its host defeats
+#// it and it returns to its owner's leader zone exhausted (a state-based consequence, not a direct
+#// enemy-ability defeat, so a leader's enemy-immunity would not apply). P2 has JTL_012 Luke Skywalker
+#// deployed as a Pilot on SOR_237; P1 plays Jabba and returns that pilot. Luke goes back to P2's base
+#// (undeployed, exhausted), its host survives with no upgrades, and — since P1 doesn't own the returned
+#// card — there is no free-replay offer.
+
+## GIVEN
+CommonSetup: ybk/rrw/{theirLeader:JTL_012;theirLeaderDeployedPilot:true}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: ASH_042
+WithP1Resources: 4
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_237
+P2SPACEARENAUNIT:0:UPGRADECOUNT:0
+P2LEADER:NOTDEPLOYED
+P2LEADER:EXHAUSTED
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:ASH_042
+P1NODECISION

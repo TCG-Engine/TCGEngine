@@ -21,3 +21,28 @@ WithP1Resources: 4
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:JTL_138
 P1RESAVAILABLE:0
+
+---
+
+# Overwhelm_ExcessToBase
+#// JTL_138 Decimator of Dissidents has Overwhelm — attacking a weaker enemy unit spills the excess onto the
+#// base. Decimator (3 power, seated) attacks P2's SOR_225 (2/1): 1 damage defeats it, the other 2 overwhelm
+#// onto P2's base.
+
+## GIVEN
+CommonSetup: grk/bbk/{
+  myLeader:JTL_011;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_138:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P2BASEDMG:2

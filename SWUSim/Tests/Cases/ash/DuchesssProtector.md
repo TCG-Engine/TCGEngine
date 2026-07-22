@@ -37,3 +37,19 @@ WithP2GroundArena: SEC_080:1:0
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:ASH_T01
 P2GROUNDARENACOUNT:1
+
+---
+
+# WhenDefeated_CreatesMandalorianToken
+#// ASH_058 Duchess's Protector — When Defeated: create a Mandalorian token. It dies attacking SOR_046 and
+#// leaves a Mandalorian token.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: ASH_058:1:0
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:ASH_T01

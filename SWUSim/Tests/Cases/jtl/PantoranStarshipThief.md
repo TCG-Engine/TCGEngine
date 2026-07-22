@@ -44,3 +44,46 @@ P1SPACEARENACOUNT:0
 P2SPACEARENACOUNT:1
 P2SPACEARENAUNIT:0:CARDID:SOR_237
 P2SPACEARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# DeclinePay_EntersAsUnit
+#// JTL_083 Pantoran Starship Thief — the "You may pay 3 resources" is optional. P1 declines (Pass): the
+#// Thief simply enters P1's ground arena as a normal 2/2 unit and no enemy unit is stolen.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:8;handCardIds:JTL_083}
+P1OnlyActions: true
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_083
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_237
+
+---
+
+# CannotTargetPilotedVehicle
+#// JTL_083 Pantoran Starship Thief — the attach target must be a Fighter/Transport WITHOUT a Pilot. The
+#// enemy SOR_237 already carries a pilot (JTL_046), so it is not eligible: with no legal target the Thief
+#// just enters P1's ground arena as a unit and SOR_237 stays under P2's control.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:8;handCardIds:JTL_083}
+P1OnlyActions: true
+WithP2SpaceArena: SOR_237:1:0
+WithP2SpaceArenaUpgrade: 0:JTL_046
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_083
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_237

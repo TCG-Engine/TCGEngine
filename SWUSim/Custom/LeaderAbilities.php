@@ -1864,8 +1864,12 @@ $leaderAbilities["SEC_015"] = function(int $player): void {
 
 // ── SEC_018 DJ ────────────────────────────────────────────────────────────────
 // Action [Exhaust]: Choose a friendly unit. If you do, play a unit from your hand. It costs 1 resource
-// less. The chosen unit captures it. (When Played abilities resolve after the unit is captured — here
-// the captured unit's When Played fires on the normal play path, before capture; an edge for non-vanilla.)
+// less. The chosen unit captures it. (When Played abilities resolve AFTER the unit is captured.)
+// Ordering is CORRECT: ActivateCard only QUEUES the played unit's When Played (FlushEntryTriggerBag →
+// orchestration, not inline), so the SYNCHRONOUS DoCaptureUnit below runs first — the unit is captured
+// (out of play) before its When Played drains, so a self-referencing When Played fizzles per CR. Same
+// mechanism proven by SHD_013 Han Solo "Worth the Risk" (play a unit, deal 2 to it → unit ends with 2
+// damage AND its Shielded shield, i.e. the leader's deal-2 resolves before the played unit's When Played).
 $leaderAbilities["SEC_018"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $captors = [];

@@ -15,3 +15,19 @@ P1SPACEARENAUNIT:0:CARDID:ASH_245
 P1SPACEARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:0:CARDID:SEC_080
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# NoAffordableUnit_NothingPlayed
+#// ASH_245 Eye of Sion — the search only finds a unit costing ≤ its power (5). With just SOR_038 (cost 7)
+#// in the deck, there is no legal unit, so nothing is played.
+## GIVEN
+CommonSetup: ggk/ggk
+WithP1SpaceArena: ASH_245:1:0
+WithP1Deck: SOR_038
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+## EXPECT
+P1SPACEARENACOUNT:1
+P1GROUNDARENACOUNT:0
