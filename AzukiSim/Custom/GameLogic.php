@@ -2961,7 +2961,12 @@ function CanAttackWith($player, $mzID) {
 
     $entity = &$garden[$index];
 
-    if(CardType($entity->CardID ?? '') === 'LEADER' && !HasEquippedWeapon($entity)) {
+    // Leaders normally need a weapon to attack, but card effects can grant them
+    // attack directly. Keep equipped leaders legal and use the resolved value
+    // for unarmed leaders so temporary attack bonuses work as displayed.
+    if(CardType($entity->CardID ?? '') === 'LEADER'
+        && !HasEquippedWeapon($entity)
+        && ResolveEntityAttackValue($player, $entity) <= 0) {
         return false;
     }
 
