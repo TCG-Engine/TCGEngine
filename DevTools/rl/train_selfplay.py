@@ -2,6 +2,7 @@ import argparse
 import csv
 import json
 import random
+import re
 import time
 from collections import Counter
 from collections import defaultdict
@@ -13,8 +14,16 @@ from env import EnvConfig, GrandArchiveSelfPlayEnv
 from policy import TabularMaskedCategoricalPolicy, state_key_from_observation
 
 
-def read_deck_text(path: Path) -> str:
-    return path.read_text(encoding="utf-8")
+def read_deck_source(root: str, source: str) -> str:
+    path = Path(source)
+    if path.is_file():
+        return path.read_text(encoding="utf-8")
+    is_azuki_url = re.search(r"[?&]gameName=\d+(?:&|$)", source, re.IGNORECASE) and re.search(
+        r"[?&]folderPath=AzukiDeck(?:&|$)", source, re.IGNORECASE
+    )
+    if root == "AzukiSim" and (re.fullmatch(r"\d+", source.strip()) or is_azuki_url):
+        return source.strip()
+    raise RuntimeError(f"Deck file not found: {source}. For AzukiSim, --deck also accepts an AzukiDeck number or URL.")
 
 
 def _candidate_indices(mask: List[int], actions: List[Dict], no_op_keys: set, state_key: str) -> List[int]:
@@ -66,7 +75,9 @@ def _build_stuck_diagnostics(step_trace: List[Dict], window: int = 200) -> Dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description="TCGEngine deterministic self-play RL MVP trainer")
     parser.add_argument("--root", default="GrandArchiveSim")
-    parser.add_argument("--deck-file", required=True)
+    deck_group = parser.add_mutually_exclusive_group(required=True)
+    deck_group.add_argument("--deck")
+    deck_group.add_argument("--deck-file")
     parser.add_argument("--episodes", type=int, default=100)
     parser.add_argument("--seed", type=int, default=123)
     parser.add_argument("--max-steps", type=int, default=1000)
@@ -84,7 +95,8 @@ def main() -> None:
     args = parser.parse_args()
 
     random.seed(args.seed)
-    deck_text = read_deck_text(Path(args.deck_file))
+    deck_source = args.deck or args.deck_file
+    deck_text = read_deck_source(args.root, deck_source)
 
     run_id = time.strftime("%Y%m%d-%H%M%S")
     run_dir = Path(__file__).resolve().parent / "artifacts" / "runs" / run_id
@@ -377,7 +389,8 @@ def main() -> None:
 
     run_config = {
         "root": args.root,
-        "deckFile": args.deck_file,
+        "deckSource": deck_source,
+        "deckFile": args.deck_file or "",
         "episodes": args.episodes,
         "seed": args.seed,
         "maxSteps": args.max_steps,

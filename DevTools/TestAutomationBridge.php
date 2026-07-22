@@ -1958,7 +1958,49 @@ function BridgeAzukiDeckTextParts($deckText) {
   if (preg_match('/^starter\s*:\s*(raizan|shao|bobu|zero)\s*$/i', $trimmed, $matches)) {
     return ['preconstructed' => ucfirst(strtolower($matches[1])), 'deckLink' => ''];
   }
-  return ['preconstructed' => 'Raizan', 'deckLink' => $trimmed];
+  $deckID = BridgeAzukiDeckIDFromText($trimmed);
+  return ['preconstructed' => 'Raizan', 'deckLink' => $deckID === '' ? $trimmed : '', 'deckID' => $deckID];
+}
+
+function BridgeAzukiDeckIDFromText($deckText) {
+  $trimmed = trim(strval($deckText));
+  if (preg_match('/^\d+$/', $trimmed)) return $trimmed;
+  if (preg_match('/^azukideck:(\d+)$/i', $trimmed, $matches)) return $matches[1];
+
+  $parsed = parse_url($trimmed);
+  if (!is_array($parsed) || empty($parsed['query'])) return '';
+  parse_str(strval($parsed['query']), $query);
+  if (strcasecmp(strval($query['folderPath'] ?? ''), 'AzukiDeck') !== 0) return '';
+  $gameName = trim(strval($query['gameName'] ?? ''));
+  return preg_match('/^\d+$/', $gameName) ? $gameName : '';
+}
+
+function BridgeLoadLocalAzukiDeck($playerID, $deckID) {
+  if (!function_exists('AzukiDeckReadDeckState')) {
+    return ['success' => false, 'message' => 'AzukiDeck deck reader is not available.'];
+  }
+  $resolved = AzukiCanonicalizeResolvedDeck(AzukiDeckReadDeckState($deckID));
+  if (!is_array($resolved) || empty($resolved['success'])) return $resolved;
+
+  $deck = &GetDeck($playerID);
+  $garden = &GetGarden($playerID);
+  $gate = &GetGate($playerID);
+
+  $leaderCard = new Garden($resolved['leader']);
+  NormalizeStartingGardenCard($leaderCard, $playerID);
+  $garden[] = $leaderCard;
+
+  $gateCard = new Gate($resolved['gate']);
+  NormalizeStartingGateCard($gateCard, $playerID);
+  $gate[] = $gateCard;
+
+  foreach ($resolved['mainDeck'] as $cardID) $deck[] = new Deck($cardID);
+  if (!empty($GLOBALS['bridgeDeterministicDeckShuffle'])) {
+    AzukiDeterministicStartingDeckShuffle($deck, $playerID);
+  } else {
+    EngineShuffle($deck, true);
+  }
+  return $resolved;
 }
 
 function BridgeLoadAzukiDeckForPlayer($playerID, $deckText, &$summary) {
@@ -1969,7 +2011,14 @@ function BridgeLoadAzukiDeckForPlayer($playerID, $deckText, &$summary) {
 
   $parts = BridgeAzukiDeckTextParts($deckText);
   try {
-    LoadPlayer($playerID, $parts['preconstructed'], $parts['deckLink']);
+    if (($parts['deckID'] ?? '') !== '') {
+      $resolved = BridgeLoadLocalAzukiDeck($playerID, $parts['deckID']);
+      if (empty($resolved['success'])) {
+        throw new RuntimeException(strval($resolved['message'] ?? 'Could not load the selected AzukiDeck deck.'));
+      }
+    } else {
+      LoadPlayer($playerID, $parts['preconstructed'], $parts['deckLink']);
+    }
   } catch (Throwable $throwable) {
     return [
       'success' => false,
@@ -2013,6 +2062,7 @@ function BridgeLoadAzukiDeckForPlayer($playerID, $deckText, &$summary) {
     'message' => '',
     'preconstructed' => $parts['preconstructed'],
     'deckLink' => $parts['deckLink'],
+    'deckID' => strval($parts['deckID'] ?? ''),
     'leader' => $leader,
     'gate' => $gateID,
     'mainDeckCount' => is_array($deck) ? count($deck) : 0,

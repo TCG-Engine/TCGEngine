@@ -30,6 +30,14 @@ Raizan
 
 Supported starter names are `Raizan`, `Shao`, `Bobu`, and `Zero`. A thegateikz.com deck slug or URL can also be used, in which case AzukiSim's normal deck importer is used.
 
+An AzukiDeck deck can also be loaded directly by its numeric deck number (the `gameName` in an AzukiDeck editor URL). Use `--deck` instead of creating a text file:
+
+```bash
+php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck 51 --episodes 10 --seed 123 --max-steps 200
+```
+
+The full editor URL is accepted too. A deck text file containing only the number or URL also works. For compatibility, a number or URL may be supplied directly as the value of `--deck-file`, although `--deck` is clearer.
+
 ## Train
 
 ```bash

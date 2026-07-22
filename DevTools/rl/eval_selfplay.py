@@ -1,13 +1,22 @@
 import argparse
 import json
+import re
 from pathlib import Path
 
 from env import EnvConfig, GrandArchiveSelfPlayEnv
 from policy import TabularMaskedCategoricalPolicy, state_key_from_observation
 
 
-def read_deck_text(path: Path) -> str:
-    return path.read_text(encoding="utf-8")
+def read_deck_source(root: str, source: str) -> str:
+    path = Path(source)
+    if path.is_file():
+        return path.read_text(encoding="utf-8")
+    is_azuki_url = re.search(r"[?&]gameName=\d+(?:&|$)", source, re.IGNORECASE) and re.search(
+        r"[?&]folderPath=AzukiDeck(?:&|$)", source, re.IGNORECASE
+    )
+    if root == "AzukiSim" and (re.fullmatch(r"\d+", source.strip()) or is_azuki_url):
+        return source.strip()
+    raise RuntimeError(f"Deck file not found: {source}. For AzukiSim, --deck also accepts an AzukiDeck number or URL.")
 
 
 def run_match(env: GrandArchiveSelfPlayEnv, policy: TabularMaskedCategoricalPolicy, deck_text: str, seed: int, game_name: str):
@@ -32,7 +41,9 @@ def run_match(env: GrandArchiveSelfPlayEnv, policy: TabularMaskedCategoricalPoli
 def main() -> None:
     parser = argparse.ArgumentParser(description="GrandArchiveSim deterministic self-play RL evaluator")
     parser.add_argument("--root", default="GrandArchiveSim")
-    parser.add_argument("--deck-file", required=True)
+    deck_group = parser.add_mutually_exclusive_group(required=True)
+    deck_group.add_argument("--deck")
+    deck_group.add_argument("--deck-file")
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--matches", type=int, default=50)
     parser.add_argument("--seed", type=int, default=123)
@@ -42,7 +53,7 @@ def main() -> None:
     parser.add_argument("--disk-games", dest="memory_only", action="store_const", const=False)
     args = parser.parse_args()
 
-    deck_text = read_deck_text(Path(args.deck_file))
+    deck_text = read_deck_source(args.root, args.deck or args.deck_file)
     policy = TabularMaskedCategoricalPolicy.load(Path(args.checkpoint))
     env = GrandArchiveSelfPlayEnv(
         EnvConfig(root=args.root, max_steps=args.max_steps, max_turns=args.max_turns, memory_only=args.memory_only)

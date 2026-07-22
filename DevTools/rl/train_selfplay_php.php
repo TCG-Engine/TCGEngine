@@ -6,6 +6,7 @@ require_once __DIR__ . '/../TestAutomationBridge.php';
 function RlParseArgs($argv) {
   $args = [
     'root' => 'GrandArchiveSim',
+    'deck' => '',
     'deck-file' => '',
     'episodes' => 100,
     'seed' => 123,
@@ -99,6 +100,27 @@ function RlJsonStreamAppend($handle, &$buffer, $text) {
   if (strlen($buffer) < 1048576) return;
   if (fwrite($handle, $buffer) !== strlen($buffer)) throw new RuntimeException('Unable to write JSON stream.');
   $buffer = '';
+}
+
+function RlDeckSource($args) {
+  $deck = trim(strval($args['deck'] ?? ''));
+  $deckFile = trim(strval($args['deck-file'] ?? ''));
+  if ($deck !== '' && $deckFile !== '') RlFail('Use either --deck or --deck-file, not both.');
+  return $deck !== '' ? $deck : $deckFile;
+}
+
+function RlLoadDeckText($root, $source) {
+  $source = trim(strval($source));
+  if ($source === '') RlFail('--deck or --deck-file is required.');
+  if (is_file($source)) {
+    $text = file_get_contents($source);
+    if ($text === false) RlFail('Unable to read deck file: ' . $source);
+    return $text;
+  }
+  if (strval($root) === 'AzukiSim' && function_exists('BridgeAzukiDeckIDFromText') && BridgeAzukiDeckIDFromText($source) !== '') {
+    return $source;
+  }
+  RlFail('Deck file not found: ' . $source . '. For AzukiSim, --deck also accepts an AzukiDeck number or URL.');
 }
 
 function RlJsonStreamValue($handle, &$buffer, $value, $forceObject = false) {
@@ -1069,6 +1091,7 @@ function RlPrintProgress($args, $policy, $epsDone, $steps, $outcome, $timedOutEp
 function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $completedSteps, $timedOutEpisodes, $totalElapsedMs, $episodeSummaries) {
   return [
     'root' => $args['root'],
+    'deckSource' => RlDeckSource($args),
     'deckFile' => $args['deck-file'],
     'episodes' => intval($args['episodes']),
     'seed' => intval($args['seed']),
@@ -1107,13 +1130,11 @@ function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $compl
 }
 
 function RlRunWorker($args) {
-  if (trim(strval($args['deck-file'])) === '') RlFail('--deck-file is required.');
-  if (!is_file($args['deck-file'])) RlFail('Deck file not found: ' . $args['deck-file']);
   if (!is_file(strval($args['policy-file']))) RlFail('Worker policy file not found: ' . strval($args['policy-file']));
   if (trim(strval($args['result-file'])) === '') RlFail('--result-file is required for worker mode.');
 
   mt_srand(intval($args['episode-seed']) + intval($args['worker-id']));
-  $deckText = file_get_contents($args['deck-file']);
+  $deckText = RlLoadDeckText($args['root'], RlDeckSource($args));
   $policy = RlTabularPolicy::load(strval($args['policy-file']), $args['max-actions'], $args['temperature'], $args['learning-rate']);
   RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
   $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
@@ -1179,7 +1200,7 @@ function RlRunWorker($args) {
 
 function RlRunSequential($args) {
   mt_srand(intval($args['seed']));
-  $deckText = file_get_contents($args['deck-file']);
+  $deckText = RlLoadDeckText($args['root'], RlDeckSource($args));
   $runId = date('Ymd-His');
   $baseDir = __DIR__ . DIRECTORY_SEPARATOR . 'artifacts' . DIRECTORY_SEPARATOR . 'runs' . DIRECTORY_SEPARATOR . $runId;
   $ckptDir = $baseDir . DIRECTORY_SEPARATOR . 'checkpoints';
@@ -1255,7 +1276,7 @@ function RlWorkerCommand($args, $runId, $policyPath, $resultPath, $episodeNumber
     RlQuoteArg(__FILE__),
     '--worker',
     '--root', RlQuoteArg($args['root']),
-    '--deck-file', RlQuoteArg($args['deck-file']),
+    '--deck', RlQuoteArg(RlDeckSource($args)),
     '--policy-file', RlQuoteArg($policyPath),
     '--result-file', RlQuoteArg($resultPath),
     '--run-id', RlQuoteArg($runId),
@@ -1410,8 +1431,7 @@ if (!empty($args['worker'])) {
   RlRunWorker($args);
   exit(0);
 }
-if (trim(strval($args['deck-file'])) === '') RlFail('--deck-file is required.');
-if (!is_file($args['deck-file'])) RlFail('Deck file not found: ' . $args['deck-file']);
+RlLoadDeckText($args['root'], RlDeckSource($args));
 if (intval($args['workers']) > 1) {
   RlRunParallel($args);
 } else {
