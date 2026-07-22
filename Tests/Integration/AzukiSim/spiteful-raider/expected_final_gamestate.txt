@@ -39,11 +39,11 @@ S1-STT02-003_Hayabusa-Itto_E_C_die
 S1-STT02-012_Young-Shao_E_UC_die
 S1-STT02-010_Selis-of-the-Shore_E_R_die
 S1-STT02-009_Aya_E_C_die
-2
+1
 S1-STT04-004_Fanatic-Kindler_E_C_die
-S1-STT02-007_Benzai-the-Merchant_E_C_die
-2
+3
 S1-STT02-014_Chilling-Water_S_C_die
+S1-STT02-007_Benzai-the-Merchant_E_C_die
 S1-STT02-003_Hayabusa-Itto_E_C_die
 9
 S1-STT04-017_Wrath-of-Sinder_S_R_die

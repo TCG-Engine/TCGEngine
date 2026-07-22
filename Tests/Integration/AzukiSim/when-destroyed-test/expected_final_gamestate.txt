@@ -45,10 +45,10 @@ S1-STT02-015_Commune-with-Water_S_UC_die
 S1-STT02-003_Hayabusa-Itto_E_C_die
 S1-STT02-009_Aya_E_C_die
 2
-S1-AZK01-078_Fermented-Beanz_E_C_die
+S1-STT03-006_Cactus-Farmer_E_UC_die
 S1-STT03-015_Jar-of-Beans_S_UC_die
 1
-S1-STT03-006_Cactus-Farmer_E_UC_die
+S1-AZK01-078_Fermented-Beanz_E_C_die
 10
 S1-STT03-007_Koyama-Farm-Caretaker_E_R_die
 S1-STT03-003_Koyama-Farm-Potter_E_C_die

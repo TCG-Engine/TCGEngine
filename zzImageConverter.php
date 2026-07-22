@@ -57,6 +57,22 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
 {
     _requireImagick();
 
+    // ImageMagick resolves relative paths against the native process working directory,
+    // which can differ from PHP's script directory under Apache on Windows. Normalize the
+    // game root once so downloads, Imagick reads/writes, and derived assets use absolute paths.
+    if ($rootPath === "") {
+        $candidateRootPath = __DIR__;
+    } elseif (preg_match('~^(?:[A-Za-z]:[\\\\/]|[\\\\/]{2}|/)~', $rootPath)) {
+        $candidateRootPath = $rootPath;
+    } else {
+        $candidateRootPath = __DIR__ . DIRECTORY_SEPARATOR . $rootPath;
+    }
+    $resolvedRootPath = realpath($candidateRootPath);
+    if ($resolvedRootPath === false || !is_dir($resolvedRootPath)) {
+        throw new Exception("Invalid image root path: $rootPath");
+    }
+    $rootPath = rtrim($resolvedRootPath, "/\\") . DIRECTORY_SEPARATOR;
+
     $filename      = $rootPath . "WebpImages/" . $cardID . ".webp";
     $concatFilename = $rootPath . "concat/" . $cardID . ".webp";
     $cropFilename  = $rootPath . "crops/" . $cardID . "_cropped.png";

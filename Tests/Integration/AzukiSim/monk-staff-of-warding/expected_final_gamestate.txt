@@ -55,7 +55,7 @@ S1-STT01-003_Crate-Rat-Kurobo_E_C_die
 S1-STT01-015_Tenraku_W_UC_die
 S1-STT01-010_Indra_E_R_die
 S1-STT01-003_Crate-Rat-Kurobo_E_C_die
-20
+19
 S1-STT01-003_Crate-Rat-Kurobo_E_C_die
 S1-STT01-008_Black-Jade-Crewleader_E_UC_die
 S1-STT01-005_Alpine-Prowler_E_C_die
@@ -75,8 +75,7 @@ S1-STT01-008_Black-Jade-Crewleader_E_UC_die
 S1-AZK01-016_Sleight-of-Hand_S_C_die
 S1-AZK01-013_Gou-the-Iron-Judge_E_C_die
 S1-AZK01-011_Rooftop-Hunter_E_C_die
-S1-STT01-007_Alley-Guy_E_C_die
-8
+9
 S1-STT01-012_Lightning-Shuriken_W_C_die
 S1-STT01-003_Crate-Rat-Kurobo_E_C_die
 S1-STT01-004_Black-Jade-Recruit_E_C_die
@@ -85,6 +84,7 @@ S1-STT01-004_Black-Jade-Recruit_E_C_die
 S1-STT01-013_Black-Jade-Dagger_W_C_die
 S1-STT01-005_Alpine-Prowler_E_C_die
 S1-STT01-010_Indra_E_R_die
+S1-STT01-007_Alley-Guy_E_C_die
 10
 S1-STT01-015_Tenraku_W_UC_die
 S1-STT01-010_Indra_E_R_die

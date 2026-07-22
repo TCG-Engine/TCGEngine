@@ -31,7 +31,7 @@ S1-STT01-009_Mastersmith-Yamada_E_UC_die
 S1-STT03-017_Sprout-of-Fortune_S_C_die
 S1-STT03-006_Cactus-Farmer_E_UC_die
 S1-STT03-014_Sandcoil-Python_E_UC_die
-14
+13
 S1-STT01-010_Indra_E_R_die
 S1-STT01-016_Ikazuchi_W_SR_die
 S1-STT01-010_Indra_E_R_die
@@ -45,10 +45,10 @@ S1-STT01-004_Black-Jade-Recruit_E_C_die
 S1-STT01-003_Crate-Rat-Kurobo_E_C_die
 S1-STT01-003_Crate-Rat-Kurobo_E_C_die
 S1-STT01-013_Black-Jade-Dagger_W_C_die
-S1-STT03-005_Wobbly-Cabbage-Cart_E_C_die
-2
+3
 S1-STT03-003_Koyama-Farm-Potter_E_C_die
 S1-STT03-016_Quicksand_S_R_die
+S1-STT03-005_Wobbly-Cabbage-Cart_E_C_die
 6
 S1-STT01-005_Alpine-Prowler_E_C_die
 S1-STT01-009_Mastersmith-Yamada_E_UC_die

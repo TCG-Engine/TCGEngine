@@ -862,8 +862,11 @@ fwrite($handler, "  if(\$removed === null) return null;\r\n");
 fwrite($handler, "  if(property_exists(\$removed, 'removed') && \$removed->removed === true) return null;\r\n");
 fwrite($handler, "  \$removed->_sourceZone = strtok(\$mzIndex, '-');\r\n");
 fwrite($handler, "  \$removed->Remove();\r\n");
+fwrite($handler, "  // The zone names above are normalized to the request viewer's perspective.\r\n");
+fwrite($handler, "  // Use that same player for the destination so cross-player moves keep their owner.\r\n");
+fwrite($handler, "  \$destinationPlayer = intval(\$playerID) > 0 ? intval(\$playerID) : intval(\$player);\r\n");
 fwrite($handler, "  // Pass the removed object to MZAddZone so properties are copied before AfterAdd hooks fire\r\n");
-fwrite($handler, "  \$newObj = MZAddZone(\$player, \$toZone, \$removed->CardID, \$removed);\r\n");
+fwrite($handler, "  \$newObj = MZAddZone(\$destinationPlayer, \$toZone, \$removed->CardID, \$removed);\r\n");
 fwrite($handler, "  return \$newObj;\r\n");
 fwrite($handler, "}\r\n\r\n");
 
