@@ -39,6 +39,7 @@ Display: Visibility=Private, Mode=Single, BindTo=DeckSlot
 Macros: Shuffle
 Discard - CardID:string
 Display: Visibility=Public, Mode=Single, BindTo=DiscardSlot
+AfterAdd: DiscardAfterAdd
 Click: FSM()
 Hand - CardID:string
 Display: Visibility=Self, Mode=All, BindTo=HandSlot

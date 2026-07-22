@@ -2183,6 +2183,30 @@ function GateAfterAdd($player, $CardID, $Status, $Owner, $Controller, $TurnEffec
     NormalizeFieldOwnership($gate[$idx], $player);
 }
 
+function DiscardAfterAdd($player, $CardID) {
+    $discard = &GetDiscard($player);
+    if(empty($discard)) return;
+
+    $idx = count($discard) - 1;
+    if($idx < 0 || !isset($discard[$idx])) return;
+    $sourceZone = strval($discard[$idx]->_sourceZone ?? '');
+    if($sourceZone !== 'myHand' && $sourceZone !== 'theirHand') return;
+
+    $turnIndex = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(!isset($turnIndex['AzukiHandDiscardTurn']) || !is_array($turnIndex['AzukiHandDiscardTurn'])) {
+        $turnIndex['AzukiHandDiscardTurn'] = [];
+    }
+    $player = intval($player);
+    $turnIndex['AzukiHandDiscardTurn'][$player] = intval(GetTurnNumber());
+    SetMacroTurnIndex(json_encode($turnIndex));
+}
+
+function PlayerDiscardedCardThisTurn($player) {
+    $turnIndex = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    $discardTurn = intval($turnIndex['AzukiHandDiscardTurn'][intval($player)] ?? -1);
+    return $discardTurn === intval(GetTurnNumber());
+}
+
 // CardAttack(), CardHealth(), CardElement(), CardSubtypes() are provided by GeneratedCardDictionaries.php
 
 function CardCost($cardID) {
