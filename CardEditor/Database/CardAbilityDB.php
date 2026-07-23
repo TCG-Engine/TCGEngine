@@ -13,6 +13,14 @@ class CardAbilityDB {
         static $checked = false;
         if ($checked) return;
 
+        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'card_id'");
+        if ($result && ($column = mysqli_fetch_assoc($result))) {
+            if (preg_match('/^varchar\\((\\d+)\\)$/i', $column['Type'], $matches) && (int)$matches[1] < 128) {
+                mysqli_query($this->conn, "ALTER TABLE card_abilities MODIFY COLUMN card_id VARCHAR(128) NOT NULL COMMENT 'Card identifier (including canonical asset IDs)'");
+            }
+        }
+        if ($result) mysqli_free_result($result);
+
         $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'prereq_code'");
         if ($result && mysqli_num_rows($result) === 0) {
             mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN prereq_code LONGTEXT NULL AFTER ability_code");
