@@ -48,3 +48,31 @@ P1GROUNDARENACOUNT:3
 P1GROUNDARENAUNIT:2:CARDID:SEC_T01
 P1RESAVAILABLE:1
 P1LEADER:EXHAUSTED
+
+---
+
+# LeaderAction_LessThanFour_NoToken
+#// SEC_014 Sly Moore (leader) — Action [1 resource, Exhaust]: If there are 4 or more exhausted units in
+#// play, create a Spy. Here only 3 units are exhausted (2 P1 + 1 P2), so the condition fails and NO Spy
+#// is created — but the leader still pays 1 and exhausts. Board stays at the 2 seeded units.
+
+## GIVEN
+CommonSetup: byk/bbk/{
+  myLeader:SEC_014;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1GroundArena: SOR_095:0:0
+WithP1GroundArena: SOR_095:0:0
+WithP2GroundArena: SOR_095:0:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1RESAVAILABLE:1
+P1LEADER:EXHAUSTED

@@ -45,3 +45,24 @@ P2BASEDMG:2
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:1:READY
 P1NODECISION
+
+---
+
+# DieOnAttack_NoDisclose
+#// SEC_096 Ahsoka Tano (2/5) — the disclose window only opens if she SURVIVES the attack. She attacks
+#//   SOR_232 AT-ST (6/7); the AT-ST deals 6 back and defeats Ahsoka (5 HP), so no disclose is offered
+#//   and P1 has no follow-up decision. The AT-ST takes her 2 power.
+
+## GIVEN
+CommonSetup: ggw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_096:1:0
+WithP2GroundArena: SOR_232:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P1NODECISION

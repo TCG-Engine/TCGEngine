@@ -183,3 +183,111 @@ WithP2GroundArena: SEC_080:1:0
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P1LEADER:EXHAUSTED
+
+---
+
+# FriendlyDamagedOwnBase_NotProtected
+#// SEC_012 Cassian Andor (leader front) — damaging YOUR OWN base does not grant the protection. Sabine
+#// Wren (SOR_142) attacks Warrior Drone and uses her On-Attack to deal 1 to P1's OWN base (not the
+#// opponent's). She never damaged the opponent's base, so she remains attackable: P2's Warrior Drone
+#// attacks her (she takes 1 → total 2 damage: 1 counter from her own attack + 1 here), proving no
+#// protection was applied.
+## GIVEN
+CommonSetup: brw/bbk/{myLeader:SEC_012;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_142:1:0
+WithP2GroundArena: TWI_057:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:myBase-0
+- P2>AttackGroundArena:0:0
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_142
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1BASEDMG:1
+
+---
+
+# EnemyDamagedOurBase_NotProtected
+#// SEC_012 Cassian Andor (leader front) — the protection is only for FRIENDLY units. An enemy unit that
+#// damages P1's base is not protected by Cassian. P2's Battlefield Marine (SOR_095) attacks P1's base
+#// (3). On P1's turn, Warrior Drone can freely attack that Battlefield Marine (deals 1 → it takes 1),
+#// proving the enemy attacker gained no protection.
+## GIVEN
+CommonSetup: brw/bbk/{myLeader:SEC_012;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: TWI_057:1:0
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1BASEDMG:3
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# FriendlyDamagedBase_ViaWhenPlayed_CantBeAttacked
+#// SEC_012 (front passive) also protects a unit that damaged the enemy base via a NON-combat source.
+#// P1 plays SHD_160 (When Played: deal 1 to each base) — its 1 to P2's base flags it as having damaged
+#// the enemy base. When P2 attacks, SHD_160 is excluded, so P2's lone SOR_128 auto-resolves onto P1's
+#// base (proving the exclusion). SHD_160 ends undamaged; P1 base takes SHD_160's own 1 + SOR_128's 3 = 4.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:SEC_012;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 5
+WithP1Hand: SHD_160
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>AttackGroundArena:0
+
+## EXPECT
+P2BASEDMG:1
+P1BASEDMG:4
+P1GROUNDARENAUNIT:0:CARDID:SHD_160
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# FriendlyDamagedBase_ViaIndirect_CantBeAttacked
+#// SEC_012 also protects a unit that damaged the enemy base via INDIRECT damage. P1 plays JTL_218
+#// (When Played: 3 indirect to a player), aims it at P2, who assigns all 3 to their own base — flagging
+#// JTL_218 as having damaged the enemy base (the SWU_DMG_SRC source survives the async assignment).
+#// When P2 attacks, JTL_218 is excluded, so P2's lone SOR_128 auto-resolves onto P1's base.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:SEC_012;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 8
+WithP1Hand: JTL_218
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:myBase-0:3
+- P2>AttackGroundArena:0
+
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:3
+P1GROUNDARENAUNIT:0:CARDID:JTL_218
+P1GROUNDARENAUNIT:0:DAMAGE:0

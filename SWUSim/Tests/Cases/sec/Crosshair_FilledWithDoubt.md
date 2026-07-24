@@ -16,3 +16,24 @@ WithP1GroundArena: SOR_095:1:0
 P2BASEDMG:4
 P1GROUNDARENAUNIT:1:DAMAGE:1
 P1NODECISION
+
+---
+
+# OnAttack_PassAbility_NoPingOnlyCombat
+#// SEC_162 Crosshair (2/3) — the On Attack ping is optional. P1 declines it, so no friendly damage and
+#// only the 2 combat damage lands on P2's base (no extra +2).
+
+## GIVEN
+CommonSetup: rrw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_162:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:-
+
+## EXPECT
+P2BASEDMG:2
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P1NODECISION

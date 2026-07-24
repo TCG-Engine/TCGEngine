@@ -3629,22 +3629,25 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
     if (intval($player) !== intval($captive->Controller ?? $player) && SWUAvoidsCapture($captive)) return "-";
 
     // SHD_170 IG-11 — "If this unit would be captured, defeat him and deal 3 damage to each enemy ground
-    // unit instead." Replacement, only vs an ENEMY captor. "Enemy ground unit" = the capturer's ground units.
-    if (($captive->CardID ?? '') === 'SHD_170'
-        && intval($player) !== intval($captive->Controller ?? $player)) {
+    // unit instead." ABSOLUTE replacement — fires for ANY captor, enemy OR friendly. (DJ SEC_018 plays a
+    // unit from your hand and has a FRIENDLY unit capture it, so IG-11 can be captured by its own
+    // controller.) "Each enemy ground unit" = the ground units of IG-11's CONTROLLER's opponent — for an
+    // enemy capture that opponent IS the captor, so the result matches the old capturer-frame version.
+    if (($captive->CardID ?? '') === 'SHD_170') {
+        $igEnemy = OtherPlayer(intval($captive->Controller ?? $captive->Owner ?? $player));
         SWUDefeatUnit(intval($player), $capturedMZ);   // capturedMZ is in the capturer's frame
-        // "each enemy ground unit" = the capturer's ground. Resolve everything in the capturer's frame so
-        // the found mzIDs and the damage calls agree.
-        $savedPID2 = $playerID; $playerID = intval($player);
+        // Resolve "each enemy ground unit" in the IG-11-opponent's frame so the found mzIDs and the damage
+        // calls agree.
+        $savedPID2 = $playerID; $playerID = $igEnemy;
         $uids = [];
         foreach (ZoneSearch('myGroundArena', AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? 0);
         }
         foreach ($uids as $uid) {
-            $playerID = intval($player);
+            $playerID = $igEnemy;
             $mz = SWUFindMzByUID($uid);
-            if ($mz !== null) SWUDealDamageToUnit($mz, 3, intval($player));
+            if ($mz !== null) SWUDealDamageToUnit($mz, 3, $igEnemy);
         }
         $playerID = $savedPID2;
         return "-";
@@ -4132,14 +4135,25 @@ function _SWUAmidalaPreventTargets(object $amidala): array {
     $ctrl = intval($amidala->Controller ?? 0);
     if ($ctrl <= 0) return [];
     $auid = intval($amidala->UniqueID ?? 0);
-    global $playerID; $sv = $playerID; $playerID = $ctrl;
+    global $playerID, $traitData; $sv = $playerID; $playerID = $ctrl;
+    // "shares a trait with THIS unit" — use Amidala's LIVE traits (printed Naboo/Official + any granted, e.g.
+    // Foundling SHD_069 → Mandalorian), not a hardcoded pair. Candidate-side grants are handled by
+    // _SWUUnitHasTrait. Grantable traits are unioned in so a granted trait on Amidala is discovered.
+    $grantable = ['Mandalorian', 'Rebel', 'Underworld', 'Jedi', 'Clone', 'Force'];
+    $printed   = array_filter(array_map('trim', explode(',', $traitData[$amidala->CardID ?? ''] ?? '')));
+    $amidalaTraits = [];
+    foreach (array_unique(array_merge($printed, $grantable)) as $t) {
+        if ($t !== '' && _SWUUnitHasTrait($amidala, $t)) $amidalaTraits[] = $t;
+    }
     $out = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
         foreach (ZoneSearch($zone, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o === null || !empty($o->removed)) continue;
             if (intval($o->UniqueID ?? 0) === $auid) continue;   // "another" unit
-            if (_SWUUnitHasTrait($o, 'Naboo') || _SWUUnitHasTrait($o, 'Official')) $out[] = $mz; // SEC_101 traits
+            foreach ($amidalaTraits as $t) {
+                if (_SWUUnitHasTrait($o, $t)) { $out[] = $mz; break; }   // shares a live trait with Amidala
+            }
         }
     }
     $playerID = $sv;
@@ -5302,6 +5316,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_PLAYED_FROM_HAND_'); // SHD_161/SHD_204 hand-source flag
         SWUClearGlobalEffectsByPrefix($p, 'SWU_UNIT_ATTACKED_');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_DEALT_BASEDMG_');
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_UNITDMGBASE_');       // SEC_012 "damaged an enemy base this phase" (any source)
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ATTACKED_');  // clears SWU_ATTACKED_{uid} + ..._MANDALORIAN_{uid} + ..._VEHICLE
         SWUClearGlobalEffectsByPrefix($p, 'SWU_JTL232_FREE');       // JTL_232 Jump to Lightspeed: free-replay charge is "this phase" only
         SWUClearGlobalEffectsByPrefix($p, 'SWU_NEUTRAL_DISCOUNT');  // SOR_056 Bendu: "this phase" charge
@@ -5381,6 +5396,28 @@ function RegroupPhaseStart(): void {
         }
     }
     $playerID = $savedPID;
+}
+
+// SEC_073 The Eye of Aldhani — queue ONE pay-or-exhaust resolution for $target, threading the number of
+// copies STILL to resolve after this one so each subsequent copy recomputes its resource cap live (chained
+// via SEC_073#0). $count = total resolutions remaining (this one included). Recurses on the can't-pay branch
+// so remaining copies still exhaust. No-op once no units remain to affect.
+function _SWUQueueEyeOfAldhaniResolution(int $target, int $count): void {
+    if ($count <= 0) return;
+    global $playerID;
+    $playerID = $target;
+    $units = array_values(array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)));
+    if (empty($units)) return;
+    $cap = min(count($units), SWUResourceCount($target, true));
+    if ($cap <= 0) {                                   // can't pay → all exhausted, then resolve the rest
+        foreach ($units as $mz) OnExhaustCard($target, $mz);
+        _SWUQueueEyeOfAldhaniResolution($target, $count - 1);
+        return;
+    }
+    DecisionQueueController::AddDecision($target, "MZMULTICHOOSE", "0|{$cap}|" . implode('&', $units), 1,
+        tooltip:"Pay_1_resource_each_to_keep_units_ready_(unselected_are_exhausted)");
+    DecisionQueueController::AddDecision($target, "CUSTOM", "SEC_073#0|{$target}|" . ($count - 1), 1);
+    // leave $playerID = $target so MZCountChoices validates the relative mzIDs correctly
 }
 
 function ActionPhaseStart() {
@@ -5472,21 +5509,16 @@ function ActionPhaseStart() {
     }
 
     // SEC_073 The Eye of Aldhani — "At the start of the next action phase, for each enemy unit, its
-    // controller must pay 1 resource or exhaust that unit." The affected (enemy) player picks which units
-    // to pay for via ONE MZMULTICHOOSE (capped at their ready resources); unselected units are exhausted.
+    // controller must pay 1 resource or exhaust that unit." Each COPY played is a SEPARATE delayed ability
+    // (CR: they don't merge), so N copies resolve N times — chained so each copy's resource cap reflects
+    // what earlier copies already spent (a unit kept ready by paying for copy 1 must be paid for AGAIN in
+    // copy 2, or it's exhausted). _SWUQueueEyeOfAldhaniResolution queues the first and threads the rest.
     for ($armer = 1; $armer <= 2; $armer++) {
-        if (GlobalEffectCount($armer, 'SWU_EYE_ALDHANI') <= 0) continue;
-        SWUClearGlobalEffectsByPrefix($armer, 'SWU_EYE_ALDHANI');   // consume (all stacks → resolve once)
-        $target = OtherPlayer($armer);
-        $playerID = $target;
-        $units = array_values(array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)));
-        if (empty($units)) continue;
-        $cap = min(count($units), SWUResourceCount($target, true));
-        if ($cap <= 0) { foreach ($units as $mz) OnExhaustCard($target, $mz); continue; }  // can't pay → all exhausted
-        DecisionQueueController::AddDecision($target, "MZMULTICHOOSE", "0|{$cap}|" . implode('&', $units), 1,
-            tooltip:"Pay_1_resource_each_to_keep_units_ready_(unselected_are_exhausted)");
-        DecisionQueueController::AddDecision($target, "CUSTOM", "SEC_073#0|{$target}", 1);
-        // leave $playerID = $target so MZCountChoices validates the relative mzIDs correctly
+        $stacks = GlobalEffectCount($armer, 'SWU_EYE_ALDHANI');
+        if ($stacks <= 0) continue;
+        SWUClearGlobalEffectsByPrefix($armer, 'SWU_EYE_ALDHANI');   // consume all stacks; the count drives N resolutions
+        _SWUQueueEyeOfAldhaniResolution(OtherPlayer($armer), $stacks);
+        // leave $playerID = the target so MZCountChoices validates the relative mzIDs correctly
     }
 
     // JTL_028 Nabat Village — "At the start of the FIRST action phase, put 3 cards from your hand on the
@@ -5634,6 +5666,13 @@ function SWUCreditAbilitiesDisabled(int $player): bool {
         if ($u === null || !empty($u->removed)) continue;
         if (($u->CardID ?? '') === 'LAW_117' && !HasNoAbilities($u)) return true;
     }
+    // SEC_046 Galen Erso naming "Credit": the player's Credit tokens are non-leader cards an opponent
+    // (Galen's controller) owns-from-Galen's-side, so they lose all abilities and can't be defeated to
+    // pay 1 less. Checked on the player's actual token CardID (Galen matches by title, robust to reprints).
+    foreach (GetResources($player) ?? [] as $r) {
+        if ($r === null || !empty($r->removed)) continue;
+        if (SWUIsCreditToken($r->CardID ?? '') && _SWUGalenSuppressesCard($player, $r->CardID ?? '')) return true;
+    }
     return false;
 }
 
@@ -5703,7 +5742,10 @@ function SWUResourceCount(int $player, bool $readyOnly = false): int {
     return $n;
 }
 
-function SWUExhaustResources($player, $count) {
+// $partial=true → exhaust min($count, ready) instead of requiring the full $count (all-or-nothing).
+// Cost-payment callers must leave $partial false; effects that read "exhaust N enemy resources"
+// (e.g. SEC_235 The Wrong Ride) pass true so they exhaust as many as available, capped at N.
+function SWUExhaustResources($player, $count, $partial = false) {
     $resources = &GetResources($player);
     $readyCount = 0;
     for ($i = 0; $i < count($resources); $i++) {
@@ -5711,6 +5753,7 @@ function SWUExhaustResources($player, $count) {
         if (SWUIsCreditToken($resources[$i]->CardID ?? '')) continue; // never exhaust a Credit token
         if (intval($resources[$i]->Status) === 1) $readyCount++;
     }
+    if ($partial) { $count = min($count, $readyCount); if ($count <= 0) return false; }
     if ($readyCount < $count) return false;
     $exhausted = 0;
     for ($i = 0; $i < count($resources) && $exhausted < $count; $i++) {
@@ -6795,7 +6838,18 @@ function HeroicSacrificeDefeatTrigger($player, $mzID): void {
     $playerID = intval($player);
     $obj = GetZoneObject($mzID);
     if ($obj === null || !empty($obj->removed)) return;
+    $wasLuthenHimself = (($obj->CardID ?? '') === 'SEC_013');
     SWUDefeatUnit(intval($player), $mzID);
+    // SEC_013 Luthen Rael — "When a friendly unit is defeated while attacking." This EFFECT-driven
+    // self-defeat (SOR_150 Heroic Sacrifice / LAW_205 / LAW_062) happens while the unit is the attacker, so
+    // it must fire Luthen too — the combat-counter-death path fires it in ExecuteSWUAttack. If Luthen HIMSELF
+    // is the self-defeated attacker he has already returned to the leader zone (undeployed), so force the
+    // deployed-self branch.
+    if ($wasLuthenHimself) {
+        AddTrigger(intval($player), 'SEC_013', 'SEC_013', 'DEPLOYED_SELF');
+    } elseif (_SWULeaderReadyUndeployed(intval($player), 'SEC_013') || _SWULeaderDeployed(intval($player), 'SEC_013')) {
+        AddTrigger(intval($player), 'SEC_013', 'SEC_013', '');
+    }
 }
 
 // ASH_102 Ravager — "When you play a unit: you may have it deal damage equal to its power to a unit in
@@ -7468,7 +7522,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'SEC_147':         SEC147EachDiscardTrigger($player, $mzID);      break;
         case 'SEC_150':         SEC150SacTrigger($player, $mzID);              break;
         case 'SEC_205':         SEC205MillTrigger($player, $mzID);            break;
-        case 'SEC_013':         SEC013AttackerDefeatedTrigger($player);        break;
+        case 'SEC_013':         SEC013AttackerDefeatedTrigger($player, $mzID);  break;
         case 'SEC_017':         SEC017DeployBaseHitTrigger($player);           break;
         case 'SEC_017#1':       SEC017LeaderBaseHitTrigger($player);           break;
         case 'LOF_017':         RevanExpTrigger($player, $mzID);               break;
@@ -8433,9 +8487,18 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             // runs after they're stripped, so it reads base power without this. Keyed by mzID (the
             // same string the closure receives).
             if ($defObj !== null && ($d['cardID'] ?? '') === 'SEC_035') {
-                global $gSec035DefeatSnapshot;
+                global $gSec035DefeatSnapshot, $gSec035AttackPower;
+                // "had 7 or more power" reads his power AT THE MOMENT OF DEFEAT. If he was defeated while
+                // ATTACKING, that includes any "for this attack" bonus (e.g. Surprise Strike +3), which was
+                // stashed at combat-power time (the SWU_ATK_POWER bonus is consumed before this point).
+                $power = intval(ObjectCurrentPower($defObj));
+                $uid035 = intval($defObj->UniqueID ?? 0);
+                if (is_array($gSec035AttackPower ?? null) && isset($gSec035AttackPower[$uid035])) {
+                    $power = max($power, intval($gSec035AttackPower[$uid035]));
+                    unset($gSec035AttackPower[$uid035]);
+                }
                 $gSec035DefeatSnapshot[$d['mzID']] = [
-                    'power' => intval(ObjectCurrentPower($defObj)),
+                    'power' => $power,
                     'owner' => intval($defObj->Owner ?? $d['player']),
                 ];
             }
@@ -9432,7 +9495,9 @@ function SWUDealDamageToUnit(string $unitMzID, int $amount, int $player, ?string
                 $tstr = $targets ? implode('&', $targets) : '';
                 DecisionQueueController::AddDecision($ctrl, 'MZMAYCHOOSE', $tstr, 1,
                     tooltip: 'Defeat_a_trait-sharing_friendly_to_prevent_damage_to_Queen_Amidala?');
-                DecisionQueueController::AddDecision($ctrl, 'CUSTOM', "AMIDALA_PREVENT_ABILITY|{$uid}|{$amount}|{$player}", 1);
+                // dontSkipOnPass: the continuation MUST run even when the MZMAYCHOOSE is PASSED (declined) —
+                // otherwise the deferred damage is silently dropped instead of applied in full.
+                DecisionQueueController::AddDecision($ctrl, 'CUSTOM', "AMIDALA_PREVENT_ABILITY|{$uid}|{$amount}|{$player}", 1, dontSkipOnPass: 1);
                 $playerID = $saved;
                 return;   // damage deferred to the handler
             }
@@ -9490,8 +9555,9 @@ function SWUDealDamageToUnit(string $unitMzID, int $amount, int $player, ?string
         // JTL_009 Boba Fett — effect damage to a unit is always non-combat (combat damage to units never
         // routes through this funnel; it modifies Damage directly in SWUCombatDamage).
         if ($amount > 0) _SWUCollectBobaNonCombatReaction(intval($player));
-        // "When damage is dealt to this unit" reactions (SEC_143, SEC_002) — only if it survived.
-        if ($amount > 0 && empty($unit->removed)) _SWUOnUnitDamaged($unit, intval($amount));
+        // "When damage is dealt to this unit" reactions. Call even when this damage defeated the unit —
+        // SEC_143 fires regardless (no "survives" clause); the $survived flag gates the survival-only ones.
+        if ($amount > 0) _SWUOnUnitDamaged($unit, intval($amount), false, empty($unit->removed));
     }
     $playerID = $saved;
 }
@@ -9775,6 +9841,13 @@ function SWUApplyIndirectAssignment(int $controller, int $damagedPlayer, string 
     // indirect so an unpreventable base-prevention one-shot (JTL_074) is consumed but does NOT prevent it.
     if ($baseDmg > 0) {
         SWUDealDamageToBase($baseDmg, $damagedPlayer, $controller, true);
+        // SEC_012 Cassian — indirect base damage counts as the source unit "damaging an opponent's base"
+        // (CR 35.4 attributes indirect damage to the controller). Arm the per-unit marker directly with the
+        // threaded $sourceUID: SWU_DMG_SRC is already cleared by the action boundary before the opponent
+        // answers the assignment, so the central read in SWUDealDamageToBase can't see it here. Enemy base only.
+        if ($sourceUID > 0 && intval($damagedPlayer) !== intval($controller)) {
+            AddGlobalEffects(intval($controller), 'SWU_UNITDMGBASE_' . intval($sourceUID));
+        }
     }
 
     // Phase 2: simultaneous defeat sweep (re-resolve by UID — SWUDefeatUnit shifts indices).
@@ -10512,6 +10585,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'SOR_122':
         case 'SHD_072':
         case 'SEC_038':
+        case 'SEC_175': // Ambition's Reward — printed "attach to a unit" (no restriction): friendly OR enemy
         case 'ASH_054': // Pointless to Resist — debuff Condition, attach to any unit (typically an enemy)
         case 'ASH_085': // Grav Charge — Condition, attach to any unit (typically an enemy)
         case 'ASH_198': // Nowhere to Hide — Condition (grants Sentinel), attach to any unit
@@ -10549,6 +10623,12 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
             if (SWUIsCreditToken($r->CardID ?? '')) continue; // Credit tokens aren't resources
             if (empty($r->removed) && intval($r->Status) === 1) $ready++;
         }
+        // Alt-payment capacity (mirrors the actual payment chain SWUOfferAltPayment → Credits then SEC_122
+        // Droids): a host is affordable if ready resources PLUS defeatable Credit tokens PLUS — with Vuutun
+        // Palaa in play — exhaustible friendly Droids cover its cost. Without this, an upgrade payable only
+        // via Droids/Credits was filtered out entirely, so the play silently fizzled ("No valid targets").
+        $ready += count(SWUUsableCreditTokenMzIDs($player));
+        if (SWUPlayerControlsSEC122($player)) $ready += count(SWUReadyFriendlyDroids($player));
         $all = array_values(array_filter($all, function($mz) use ($player, $upgradeObj, $ready) {
             $candidateObj = GetZoneObject($mz);
             if ($candidateObj === null || !empty($candidateObj->removed)) return false;
@@ -11762,6 +11842,15 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
 // not restore $playerID here either — callers (SWUBeginPlayCard, EXPLOIT_RESOLVE) handle that.
 function SWUContinuePlayAfterExploit($player, $mzID, $discount) {
     $obj  = GetZoneObject($mzID);
+    // Upgrades pay their cost HOST-SIDE in ATTACH_UPGRADE (which runs its own Credit/Droid alt-pay offer),
+    // so the PLAY_CARD-level alt-pay offer here is spurious for them: with SEC_122 it would exhaust Droids
+    // that ActivateCard's upgrade branch never spends, then ATTACH_UPGRADE would ask a second time (the
+    // upgrade ends up stuck in hand, Droids wasted). Route upgrades straight to ActivateCard (prepaid 0).
+    if ($obj !== null && empty($obj->removed)
+            && strpos(strtolower(CardType($obj->CardID ?? '') ?? ''), 'upgrade') !== false) {
+        SWUDispatchDroidContinuation(intval($player), 'PLAY_CARD', "{$mzID}|{$discount}", 0);
+        return;
+    }
     $cost = ($obj !== null && empty($obj->removed))
           ? max(0, SWUComputePlayCost($player, $obj) - intval($discount))
           : 0;
@@ -11848,6 +11937,23 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
             return;
         }
         SWUExhaustResources($player, 3);
+    } elseif ($cardID === 'SEC_008') {
+        // Bail Organa Action [Exhaust, discard 2 cards from your hand]: deploy if you control 4+ resources.
+        // Non-epic, repeatable. The discard-2 is an interactive cost paid BEFORE the deploy commits: on the
+        // first call queue a 2-card hand pick + a continuation (SEC_008_DEPLOY) that discards them and
+        // re-enters here; the flagged re-entry falls through to the commit below. The leader is exhausted
+        // by the shared commit ($leader->Ready = false).
+        if (empty($leader->Ready) || SWUResourceCount($player) < 4) { $playerID = $savedPID; return; }
+        if (GlobalEffectCount($player, 'SWU_SEC008_DEPLOY_PAID') <= 0) {
+            $bailHand = array_values(ZoneSearch("myHand"));
+            if (count($bailHand) < 2) { $playerID = $savedPID; return; }
+            DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
+                "2|2|" . implode('&', $bailHand), 1, tooltip: "Discard_2_cards_from_your_hand_to_deploy_Bail_Organa");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SEC_008_DEPLOY|{$leaderIndex}", 1);
+            $playerID = $savedPID;
+            return;
+        }
+        RemoveGlobalEffect($player, 'SWU_SEC008_DEPLOY_PAID');
     } elseif ($cardID === 'LOF_007') {
         // Avar Kriss Epic Action: deploy if (resources you control) + (times you used the Force this
         // phase) ≥ 9 (her printed deploy threshold).
@@ -11889,7 +11995,7 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
 
     // Mark the leader side: epic action consumed (NOT for JTL_014's non-epic repeatable deploy),
     // leader flipped to deployed state.
-    $leader->EpicActionUsed = ($cardID !== 'JTL_014');
+    $leader->EpicActionUsed = ($cardID !== 'JTL_014' && $cardID !== 'SEC_008');
     $leader->Deployed       = true;
     $leader->Ready          = false; // leader side exhausted after the deploy action
 
@@ -11980,8 +12086,8 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     $cost = SWUApplyCostHalving($player, $cost); // JTL_105 The Starhawk — halves activation costs too
     if ($cost > 0 && SWUResourceCount($player, readyOnly: true) < $cost) return false;
 
-    // SHD_017 Lando (front) — needs a smugglable UNIT resource affordable at the -2 discount.
-    if ($cardID === 'SHD_017' && !_SWUShd017HasTarget($player)) return false;
+    // SHD_017 Lando (front) — "Play a card using Smuggle" (effect target) is NOT gated (CR 6.4.587.c): the
+    // [Exhaust, defeat a resource] cost changes game state, so usable even with no smugglable card.
 
     // TWI_002 Nute Gunray: only if 2 or more friendly units were defeated this phase.
     if ($cardID === 'TWI_002' && GlobalEffectCount($player, 'SWU_FRIENDLY_DEFEATED') < 2) return false;
@@ -12001,14 +12107,8 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
         }
         if (!$hasExh) return false;
     }
-    // TS26_07 Asajj Ventress (front): "Attack with a token unit" — needs a ready friendly token unit.
-    if ($cardID === 'TS26_07') {
-        $hasTok = false;
-        foreach (GetUnitsInPlay($player) as $u) {
-            if (empty($u->removed) && intval($u->Status ?? 0) === 1 && EffectiveCardType($u) === 'Token Unit') { $hasTok = true; break; }
-        }
-        if (!$hasTok) return false;
-    }
+    // TS26_07 Asajj Ventress (front): "Attack with a token unit" — effect target only. NOT gated
+    // (CR 6.4.587.c): the [Exhaust] cost changes game state, so usable even with no ready token unit.
     // TWI_006 Wat Tambor: only if a friendly unit was defeated this phase.
     if ($cardID === 'TWI_006' && GlobalEffectCount($player, 'SWU_FRIENDLY_DEFEATED') <= 0) return false;
     // TWI_007 Captain Rex: only if a friendly unit attacked this phase.
@@ -12017,68 +12117,17 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     if ($cardID === 'TWI_008' && !IsCoordinateActive($player)) return false;
     // TWI_011 Ahsoka Tano: Coordinate — only while you control 3 or more units.
     if ($cardID === 'TWI_011' && !IsCoordinateActive($player)) return false;
-    // TWI_009 / TWI_011 / TWI_012: "Attack with a unit" — needs a ready friendly unit.
-    if ($cardID === 'TWI_009' || $cardID === 'TWI_011' || $cardID === 'TWI_012') {
-        $savedPID = $playerID; $playerID = $player;
-        $has = false;
-        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) { $has = true; break 2; }
-            }
-        }
-        $playerID = $savedPID;
-        if (!$has) return false;
-    }
-    // TWI_010 Pre Vizsla: only if you've drawn a card this phase (else 0 damage).
+    // TWI_009 / TWI_011 / TWI_012 / TWI_014 (attack with a unit), TWI_013 Mace (damaged enemy), TWI_015
+    // Grievous (a Droid to give Sentinel), TWI_003 Obi-Wan (damaged unit to heal) — effect targets only.
+    // NOT gated (CR 6.4.587.c): their [Exhaust]/[cost] changes game state, usable even with no valid target.
+    // (TWI_011's Coordinate activation-condition is a SEPARATE gate above and stays enforced.)
+    // TWI_010 Pre Vizsla: only if you've drawn a card this phase (its damage = cards drawn; a genuine
+    // activation condition, not just an effect target) — kept.
     if ($cardID === 'TWI_010' && GlobalEffectCount($player, 'SWU_DREW_PHASE') <= 0) return false;
-    // TWI_014 Asajj Ventress: "Attack with a unit" — needs a ready friendly unit.
-    if ($cardID === 'TWI_014') {
-        $savedPID = $playerID; $playerID = $player;
-        $has = false;
-        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) { $has = true; break 2; } }
-        }
-        $playerID = $savedPID;
-        if (!$has) return false;
-    }
-    // TWI_013 Mace Windu: needs a damaged enemy unit.
-    if ($cardID === 'TWI_013') {
-        $savedPID = $playerID; $playerID = $player;
-        $has = false;
-        foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) { $has = true; break 2; } }
-        }
-        $playerID = $savedPID;
-        if (!$has) return false;
-    }
-    // TWI_015 General Grievous: needs a Droid unit to give Sentinel.
-    if ($cardID === 'TWI_015') {
-        $savedPID = $playerID; $playerID = $player;
-        $has = false;
-        foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Droid')) { $has = true; break 2; } }
-        }
-        $playerID = $savedPID;
-        if (!$has) return false;
-    }
-    // TWI_004 Yoda: only if a unit left play this phase.
+    // TWI_004 Yoda: only if a unit left play this phase (activation condition) — kept.
     if ($cardID === 'TWI_004'
         && GlobalEffectCount($player, 'SWU_FRIENDLY_LEFT_PLAY') <= 0
         && GlobalEffectCount($player, 'SWU_ENEMY_LEFT_PLAY') <= 0) return false;
-    // TWI_003 Obi-Wan: needs a damaged unit to heal.
-    if ($cardID === 'TWI_003') {
-        $savedPID = $playerID; $playerID = $player;
-        $found = false;
-        foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) { $found = true; break 2; }
-            }
-        }
-        $playerID = $savedPID;
-        if (!$found) return false;
-    }
 
     // SOR_006 Emperor Palpatine: "defeat a friendly unit" is part of the cost.
     if ($cardID === 'SOR_006') {
@@ -12092,28 +12141,9 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
         if (empty($friendlies)) return false;
     }
 
-    // SOR_017 Han Solo: "Put a card from your hand into play as a resource" —
-    // requires at least one card in hand, else there is nothing to resource.
-    if ($cardID === 'SOR_017') {
-        $savedPID = $playerID;
-        $playerID = $player;
-        $hand = ZoneSearch("myHand");
-        $playerID = $savedPID;
-        if (empty($hand)) return false;
-    }
-
-    // SHD_006 Jabba the Hutt: "Choose a unit" to give a Bounty — requires ≥1 unit in play (any arena,
-    // either side), else there's nothing to choose.
-    if ($cardID === 'SHD_006') {
-        $savedPID = $playerID;
-        $playerID = $player;
-        $hasUnit = !empty(ZoneSearch('myGroundArena', AnyUnitFilter))
-                || !empty(ZoneSearch('mySpaceArena',  AnyUnitFilter))
-                || !empty(ZoneSearch('theirGroundArena', AnyUnitFilter))
-                || !empty(ZoneSearch('theirSpaceArena',  AnyUnitFilter));
-        $playerID = $savedPID;
-        if (!$hasUnit) return false;
-    }
+    // SOR_017 Han Solo ("put a card from hand into play as a resource"), SHD_006 Jabba ("choose a unit" to
+    // give a Bounty) — effect targets only. NOT gated (CR 6.4.587.c): their [Exhaust] cost changes game
+    // state, so each Action is usable even with an empty hand / no unit in play (it just does nothing).
 
     // JTL_013 Poe Dameron: "attach to a friendly Vehicle without a Pilot" — requires ≥1
     // such Vehicle in play, else the action has no valid target (leader stays ready).
@@ -12124,32 +12154,12 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
         if (empty($vehicles)) return false;
     }
 
-    // TWI_005 Count Dooku: "Play a Separatist card from your hand" — requires ≥1
-    // affordable Separatist card in hand, else the ability has no valid target.
-    if ($cardID === 'TWI_005') {
-        $savedPID = $playerID;
-        $playerID = $player;
-        $hasSeparatist = !empty(_SWUSeparatistHandPlayables($player));
-        $playerID = $savedPID;
-        if (!$hasSeparatist) return false;
-    }
+    // TWI_005 Count Dooku: "Play a Separatist card from your hand" (effect target) is NOT gated
+    // (CR 6.4.587.c): the [Exhaust] cost changes game state, so usable even with no affordable Separatist.
 
-    // SEC_002 Jabba the Hutt: "a friendly damaged unit deals damage to an enemy unit" — needs both a
-    // friendly damaged unit AND an enemy unit in play.
-    if ($cardID === 'SEC_002') {
-        $savedPID = $playerID; $playerID = $player;
-        $hasDamaged = false;
-        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && intval($o->Damage) > 0) { $hasDamaged = true; break 2; }
-            }
-        }
-        $hasEnemy = !empty(ZoneSearch('theirGroundArena', AnyUnitFilter))
-                 || !empty(ZoneSearch('theirSpaceArena',  AnyUnitFilter));
-        $playerID = $savedPID;
-        if (!$hasDamaged || !$hasEnemy) return false;
-    }
+    // SEC_002 Jabba the Hutt ("a friendly damaged unit deals damage to an enemy unit") — effect targets only.
+    // NOT gated (CR 6.4.587.c): the [1 resource, Exhaust] cost changes game state, so the Action is usable
+    // even with no friendly damaged unit / no enemy unit (it just does nothing).
 
     // SEC_003 Lama Su: "play an upgrade from your hand on a friendly non-Vehicle unit" — needs ≥1 hand
     // upgrade with a valid non-Vehicle host, affordable at the −1 discount.
@@ -12160,157 +12170,46 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
         if (empty($playable)) return false;
     }
 
-    // SEC_004 Leia Organa: "Disclose ... If you do, give Experience" — needs ≥1 hand card with one of
-    // the disclosable aspect icons (Vigilance/Command/Aggression/Cunning/Heroism).
-    if ($cardID === 'SEC_004') {
-        $savedPID = $playerID;
-        $ok = !empty(_SWUSec004DiscloseableHand($player));
-        $playerID = $savedPID;
-        if (!$ok) return false;
-    }
+    // SEC_004 Leia Organa (Disclose), SEC_005 Satine Kryze (heal a unit) — effect targets only. NOT gated
+    // (CR 6.4.587.c): their [1 resource, Exhaust] / [Exhaust] cost changes game state, so the Action is usable
+    // even with no disclosable card / no damaged unit (it just does nothing).
 
-    // SEC_005 Satine Kryze: "Heal up to 2 from a unit" — needs ≥1 damaged unit.
-    if ($cardID === 'SEC_005') {
-        $savedPID = $playerID; $playerID = $player;
-        $hasDamaged = false;
-        foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && intval($o->Damage) > 0) { $hasDamaged = true; break 2; }
-            }
-        }
-        $playerID = $savedPID;
-        if (!$hasDamaged) return false;
-    }
+    // SEC_006 Colonel Yularen: "Attack with a unit" — the effect's target. NOT gated (CR 6.4.587.c): the
+    // [Exhaust] cost changes game state, so the Action is usable even with no ready unit (it just does nothing).
 
-    // SEC_006 Colonel Yularen: "Attack with a unit" — needs ≥1 ready friendly unit.
-    if ($cardID === 'SEC_006') {
-        $savedPID = $playerID; $playerID = $player;
-        $hasReady = false;
-        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && intval($o->Status) === 1) { $hasReady = true; break 2; }
-            }
-        }
-        $playerID = $savedPID;
-        if (!$hasReady) return false;
-    }
-
-    // SEC_007 Dryden Vos: additional cost "discard a card costing 6+" + effect "play a unit costing ≤5".
-    // Needs a 6+ card to discard AND ≥1 affordable ≤5 unit in hand.
+    // SEC_007 Dryden Vos: cost "[Exhaust, discard a card costing 6+]" + effect "play a unit costing ≤5".
+    // The 6+ discard is part of the COST → keep it gated. The "≤5 playable unit" is the effect's target →
+    // NOT gated (CR 6.4.587.c): usable with a 6+ card to discard even if no ≤5 unit is playable.
     if ($cardID === 'SEC_007') {
         $savedPID = $playerID; $playerID = $player;
-        $has6 = false; $hasPlayable = false;
-        $ready = SWUResourceCount($player, readyOnly: true);
+        $has6 = false;
         foreach (ZoneSearch('myHand') as $mz) {
             $o = GetZoneObject($mz);
             if ($o === null || !empty($o->removed)) continue;
-            if (intval(CardCost($o->CardID)) >= 6) $has6 = true;
-            if (stripos(CardType($o->CardID) ?? '', 'Unit') !== false
-                    && intval(CardCost($o->CardID)) <= 5
-                    && SWUComputePlayCost($player, $o) <= $ready) $hasPlayable = true;
+            if (intval(CardCost($o->CardID)) >= 6) { $has6 = true; break; }
         }
         $playerID = $savedPID;
-        if (!$has6 || !$hasPlayable) return false;
+        if (!$has6) return false;
     }
 
-    // SEC_010 Dedra Meero: "Choose an enemy unit" — needs ≥1 enemy unit.
-    if ($cardID === 'SEC_010') {
-        $savedPID = $playerID; $playerID = $player;
-        $hasEnemy = !empty(ZoneSearch('theirGroundArena', AnyUnitFilter))
-                 || !empty(ZoneSearch('theirSpaceArena',  AnyUnitFilter));
-        $playerID = $savedPID;
-        if (!$hasEnemy) return false;
-    }
-
-    // SEC_011 Governor Pryce: "Ready a token unit" — needs ≥1 friendly EXHAUSTED token unit.
-    if ($cardID === 'SEC_011') {
-        $savedPID = $playerID; $playerID = $player;
-        $hasToken = false;
-        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && EffectiveCardType($o) === 'Token Unit'
-                        && intval($o->Status ?? 0) !== 1) { $hasToken = true; break 2; }
-            }
-        }
-        $playerID = $savedPID;
-        if (!$hasToken) return false;
-    }
-
-    // SEC_018 DJ: "Choose a friendly unit … play a unit from your hand … the chosen unit captures it." —
-    // needs ≥1 friendly unit (captor) AND ≥1 affordable (−1) hand unit.
-    if ($cardID === 'SEC_018') {
-        $savedPID = $playerID; $playerID = $player;
-        $hasCaptor = !empty(ZoneSearch('myGroundArena', AnyUnitFilter)) || !empty(ZoneSearch('mySpaceArena', AnyUnitFilter));
-        $ready = SWUResourceCount($player, readyOnly: true);
-        $hasPlayable = false;
-        foreach (ZoneSearch('myHand') as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o === null || !empty($o->removed)) continue;
-            if (stripos(CardType($o->CardID) ?? '', 'Unit') !== false
-                    && max(0, SWUComputePlayCost($player, $o) - 1) <= $ready) { $hasPlayable = true; break; }
-        }
-        $playerID = $savedPID;
-        if (!$hasCaptor || !$hasPlayable) return false;
-    }
+    // SEC_010 Dedra Meero (choose an enemy unit), SEC_011 Governor Pryce (ready a token unit), SEC_018 DJ
+    // (choose a friendly + play a unit) — effect targets only. NOT gated (CR 6.4.587.c): their
+    // [1 resource, Exhaust] / [Exhaust] cost changes game state, so each Action is usable even with no valid
+    // target (it just does nothing).
 
     // LOF leaders whose Action cost includes "use the Force (lose your Force token)" — the player must
     // control their Force token to pay, else the Action isn't available.
     global $leaderActionForceCost;
     if (!empty($leaderActionForceCost[$cardID]) && !PlayerHasTheForce($player)) return false;
 
-    // LAW_001 Saw Gerrera (front) — needs a ready friendly unit to attack with.
-    if ($cardID === 'LAW_001') {
-        $savedPID = $playerID; $playerID = $player;
-        $ok = false;
-        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) { $ok = true; break 2; }
-            }
-        }
-        $playerID = $savedPID;
-        if (!$ok) return false;
-    }
-    // LAW_002 Tobias Beckett (front) — needs a friendly non-leader unit to give away.
-    if ($cardID === 'LAW_002') {
-        $savedPID = $playerID; $playerID = $player;
-        $ok = !empty(ZoneSearch('myGroundArena', NonLeaderUnitFilter)) || !empty(ZoneSearch('mySpaceArena', NonLeaderUnitFilter));
-        $playerID = $savedPID;
-        if (!$ok) return false;
-    }
-    // LAW_003 Agent Kallus (front) — needs a hand card affordable after waiving its full aspect penalty.
-    if ($cardID === 'LAW_003') {
-        $savedPID = $playerID; $playerID = $player;
-        $ready = SWUResourceCount($player, readyOnly: true);
-        $ok = false;
-        foreach (ZoneSearch('myHand') as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o === null || !empty($o->removed) || _SWUCantPlayFromHand($o->CardID)) continue;
-            // the [1 resource] cost is already paid before this card's cost; require it affordable then
-            if (max(0, SWUComputePlayCost($player, $o) - SWUAspectPenalty($player, $o->CardID)) <= $ready - 1) { $ok = true; break; }
-        }
-        $playerID = $savedPID;
-        if (!$ok) return false;
-    }
-    // LAW_004 Aurra Sing (front) — needs a non-leader unit with 1 or less remaining HP.
-    if ($cardID === 'LAW_004') {
-        if (empty(_SWULaw004Targets($player, 1))) return false;
-    }
+    // LAW_001 Saw Gerrera (attack with a unit), LAW_002 Tobias Beckett (a friendly non-leader to give away),
+    // LAW_003 Agent Kallus (a playable hand card), LAW_004 Aurra Sing (a non-leader unit with ≤1 HP to
+    // defeat) — effect targets only. NOT gated (CR 6.4.587.c): their [Exhaust]/[1 resource, Exhaust] cost
+    // changes game state, so each Action is usable even with no valid target (it just does nothing).
     // LAW_005 Jyn Erso (front) — needs a friendly Rebel unit to have been defeated this phase.
     if ($cardID === 'LAW_005' && GlobalEffectCount($player, 'SWU_REBEL_DEFEATED') <= 0) return false;
-    // LAW_006 Vel Sartha (front) — needs at least one unit in play to give the Experience token to.
-    if ($cardID === 'LAW_006') {
-        $savedPID = $playerID; $playerID = $player;
-        $any = false;
-        foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-            if (!empty(ZoneSearch($z, AnyUnitFilter))) { $any = true; break; }
-        }
-        $playerID = $savedPID;
-        if (!$any) return false;
-    }
+    // LAW_006 Vel Sartha (front) — "Give an Experience token to a unit" (effect target) is NOT gated
+    // (CR 6.4.587.c): the [Exhaust] cost changes game state, so usable even with no unit in play.
     // LAW_008 Director Krennic (front) — needs a friendly unit to defeat (the cost).
     if ($cardID === 'LAW_008') {
         $savedPID = $playerID; $playerID = $player;
@@ -12320,14 +12219,8 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     }
     // LAW_009 Hera Syndulla — passive only, no front Action.
     if ($cardID === 'LAW_009') return false;
-    // LAW_010 Leia Organa (front) — needs a unit to buff (cost 2 gated above).
-    if ($cardID === 'LAW_010') {
-        $savedPID = $playerID; $playerID = $player;
-        $any = false;
-        foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) { if (!empty(ZoneSearch($z, AnyUnitFilter))) { $any = true; break; } }
-        $playerID = $savedPID;
-        if (!$any) return false;
-    }
+    // LAW_010 Leia Organa (front) — "give a unit +1/+1 per aspect" (effect target) is NOT gated
+    // (CR 6.4.587.c): the [2 resources, Exhaust] cost changes game state, so usable even with no unit.
     // LAW_011 Darth Vader (front) — needs a card in hand to discard (the cost).
     if ($cardID === 'LAW_011') {
         $savedPID = $playerID; $playerID = $player;
@@ -12335,13 +12228,8 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
         $playerID = $savedPID;
         if (!$ok) return false;
     }
-    // LAW_012 Sebulba (front) — needs a friendly unit to grant Raid 1.
-    if ($cardID === 'LAW_012') {
-        $savedPID = $playerID; $playerID = $player;
-        $ok = !empty(ZoneSearch('myGroundArena', AnyUnitFilter)) || !empty(ZoneSearch('mySpaceArena', AnyUnitFilter));
-        $playerID = $savedPID;
-        if (!$ok) return false;
-    }
+    // LAW_012 Sebulba (front) — "A friendly unit gains Raid 1" (effect target) is NOT gated (CR 6.4.587.c):
+    // the [Exhaust, discard a card from your deck] cost changes game state, so usable even with no unit.
     // LAW_014 Enfys Nest — front is a reaction (no Action).
     if ($cardID === 'LAW_014') return false;
     // LAW_015 Jabba (front) — needs a friendly Underworld unit to return (the additional cost); the
@@ -12353,13 +12241,12 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     if ($cardID === 'LAW_017') {
         if (empty(_SWULaw017Tokens($player))) return false;
     }
-    // LAW_016 The Client (front) — needs a token created this phase AND an enemy unit to exhaust.
+    // LAW_016 The Client (front) — "If you created a token this phase, exhaust an enemy unit." The
+    // created-a-token clause is an activation CONDITION printed on the card → kept. The "an enemy unit to
+    // exhaust" is the effect target → NOT gated (CR 6.4.587.c): usable (exhaust the leader, no effect) even
+    // with no enemy unit, as long as the token-condition holds.
     if ($cardID === 'LAW_016') {
         if (GlobalEffectCount($player, 'SWU_CREATED_TOKEN') <= 0) return false;
-        $savedPID = $playerID; $playerID = $player;
-        $ok = !empty(ZoneSearch('theirGroundArena', AnyUnitFilter)) || !empty(ZoneSearch('theirSpaceArena', AnyUnitFilter));
-        $playerID = $savedPID;
-        if (!$ok) return false;
     }
 
     return true;
@@ -12612,17 +12499,9 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         case 'LAW_156': // Hunter For Hire: cost is defeating a friendly Credit token (the acting player's).
             if (empty(SWUUsableCreditTokenMzIDs($player))) $ok = false;
             break;
-        case 'LAW_003': { // Agent Kallus (deployed): needs a hand card affordable after waiving its full aspect penalty (the 1-resource action cost is already gated above).
-            $ready = SWUResourceCount($player, readyOnly: true);
-            $hasPlay = false;
-            foreach (ZoneSearch('myHand') as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o === null || !empty($o->removed) || _SWUCantPlayFromHand($o->CardID)) continue;
-                if (max(0, SWUComputePlayCost($player, $o) - SWUAspectPenalty($player, $o->CardID)) <= $ready - 1) { $hasPlay = true; break; }
-            }
-            if (!$hasPlay) $ok = false;
-            break;
-        }
+        // LAW_003 Agent Kallus (deployed): "play a card ignoring aspect penalties" is the EFFECT target. The
+        // cost is [1 resource, Exhaust] — both paid by SWUUnitAction before the handler runs (a game-state
+        // change), so per CR 6.4.587.c the Action is usable even with no playable hand card. NOT gated here.
         case 'ASH_002': { // Fennec Shand (deployed): needs 1 ready resource, a hand unit, and a ready friendly unit (the cost).
             if (SWUResourceCount($player, readyOnly: true) < 1) { $ok = false; break; }
             if (empty(ZoneSearch('myHand', ['Unit', 'Token Unit']))) { $ok = false; break; }
@@ -12636,41 +12515,22 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             if (!$hasReady) $ok = false;
             break;
         }
-        case 'LOF_013': // Barriss Offee (deployed): needs the Force token + a playable event (at the −1 discount).
-            if (!PlayerHasTheForce($player) || empty(SWUHandPlayablesAtDiscount($player, ['Event'], 1))) $ok = false;
+        case 'LOF_013': // Barriss Offee (deployed): the cost is [use the Force] → keep the Force gate. The
+            // playable event is the effect target → NOT gated (CR 6.4.587.c). The handler spends the Force
+            // (UseTheForce) BEFORE checking for an event, so the cost is paid even when nothing is played.
+            if (!PlayerHasTheForce($player)) $ok = false;
             break;
-        case 'LOF_018': { // Anakin (deployed): needs the Force token + a playable Villainy non-unit at printed
-                          // cost, OR a Villainy Pilot playable as an upgrade (has Piloting + a valid friendly
-                          // Vehicle + affordable Piloting cost ignoring aspect). Mirrors $leaderAbilities["LOF_018"].
-            if (!PlayerHasTheForce($player)) { $ok = false; break; }
-            $ready = SWUResourceCount($player, readyOnly: true);
-            $has = false;
-            foreach (GetHand($player) as $c) {
-                if ($c === null || !empty($c->removed)) continue;
-                $cid = $c->CardID;
-                if (strpos(CardAspect($cid) ?? '', 'Villainy') === false) continue;
-                if (CardType($cid) === 'Unit') {
-                    if (HasKeyword_Piloting($c) && !empty(SWUGetPilotValidTargets($player, $cid))
-                            && $ready >= intval(CardPilotingCost($cid))) { $has = true; break; }
-                    continue;
-                }
-                if ($ready >= intval(CardCost($cid))) { $has = true; break; }
-            }
-            if (!$has) $ok = false;
+        case 'LOF_018': // Anakin (deployed): the cost is [use the Force] → keep the Force gate. The playable
+            // Villainy card is the effect target → NOT gated (CR 6.4.587.c). The handler spends the Force
+            // (UseTheForce) BEFORE checking for a target, so the cost is paid even when nothing is played.
+            if (!PlayerHasTheForce($player)) $ok = false;
             break;
-        }
-        case 'SEC_007': { // Dryden Vos (deployed): needs a card to discard + a playable unit in hand.
-            if (empty(ZoneSearch('myHand'))) { $ok = false; break; }
-            $ready = SWUResourceCount($player, readyOnly: true);
-            $has = false;
-            foreach (ZoneSearch('myHand') as $hmz) {
-                $u = GetZoneObject($hmz);
-                if ($u !== null && empty($u->removed) && stripos(CardType($u->CardID) ?? '', 'Unit') !== false
-                    && SWUComputePlayCost($player, $u) <= $ready) { $has = true; break; }
-            }
-            if (!$has) $ok = false;
+        case 'SEC_007': // Dryden Vos (deployed): the cost is [discard a card] → keep the "card in hand" gate.
+            // "Play a unit" is the effect target → NOT gated (CR 6.4.587.c): usable with a card to discard
+            // even with no playable unit. The handler (SEC_007D) discards the chosen card BEFORE checking for
+            // a playable unit, so the cost is paid even when nothing is played.
+            if (empty(ZoneSearch('myHand'))) $ok = false;
             break;
-        }
         case 'LAW_126': { // Adventurer Sniper Rifle: needs an undamaged non-leader ground unit to target.
             $has = false;
             foreach (["myGroundArena", "theirGroundArena"] as $z) {
@@ -12727,22 +12587,12 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         case 'SOR_184': // Fett's Firespray: "Exhaust a non-unique unit" — needs ≥1 in play.
             if (empty(_SWUNonUniqueUnitTargets($player))) $ok = false;
             break;
-        case 'JTL_013': // Poe Dameron hop: once-per-round + needs ≥1 empty Vehicle target (not self).
-            if (!SWUHasUseAvailable(SWUGetLeader($player))) { $ok = false; break; }
-            $hopTargets = array_values(array_filter(
-                array_merge(
-                    ZoneSearch("myGroundArena", AnyUnitFilter),
-                    ZoneSearch("mySpaceArena",  AnyUnitFilter)
-                ),
-                function($mz) use ($mzID) {
-                    if ($mz === $mzID) return false;
-                    $hostObj = GetZoneObject($mz);
-                    if ($hostObj === null || !empty($hostObj->removed)) return false;
-                    if (!HasTrait($hostObj->CardID ?? '', 'Vehicle')) return false;
-                    return SWUVehiclePilotCount($hostObj) === 0;
-                }
-            ));
-            if (empty($hopTargets)) $ok = false;
+        case 'JTL_013': // Poe Dameron hop: once-per-round (activation condition → keep). The empty-Vehicle to
+            // hop to is the effect target → NOT gated (CR 6.4.587.c): the [1 resource] cost is a game-state
+            // change, so the hop is usable even with no other ship to hop to — spend 1 and don't hop (a soft
+            // pass); Poe stays on his current Vehicle. The dispatcher pays the resource; the handler no-ops on
+            // no target (and does NOT consume the once-per-round, since no hop occurred).
+            if (!SWUHasUseAvailable(SWUGetLeader($player))) $ok = false;
             break;
     }
     $playerID = $savedPID;
@@ -13545,6 +13395,22 @@ function SWUPlayFromOpponentDiscard(int $player, int $discardIdx): void {
     }
 
     $entry->removed = true;
+
+    // EVENT played from the opponent's discard (SEC_205 Obi-Wan mills then plays their event): it resolves
+    // under the CASTER ($player) — so "an opponent" (SOR_041) is the caster's opponent, and "put into play
+    // as a resource" (SOR_126) makes the CASTER a resource — and the card goes to its OWNER's discard. Mirror
+    // the normal from-hand event close (OnPlayEvent + a block-10 FINISH_PLAY_CARD terminator), then drain the
+    // static continuation inline: the PlayFromOpponentDiscard input case does NOT auto-drain (unlike the
+    // unit-ability path at CustomInput.php ~120), so the event's block-1 decisions would otherwise never run.
+    if (strpos(CardType($cardID) ?? '', 'Event') !== false) {
+        SWUAddToDiscard($opponent, $cardID, 'PLAY');
+        if (!_SWUGalenSuppressesCard(intval($player), $cardID)) OnPlayEvent(intval($player), $cardID);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISH_PLAY_CARD", 10, dontSkipOnPass: 1);
+        (new DecisionQueueController())->ExecuteStaticMethods(intval($player), "-");
+        $playerID = $savedPID;
+        return;
+    }
+
     $targetArena = CardTargetArena($cardID);
     $uid = NextUniqueID();
     if ($targetArena === 'SpaceArena') {
@@ -13637,6 +13503,12 @@ function SWUComputeActionsData(int $player): array {
             $deployByIdx[$liveIdx] = $ready && !$deployed
                 && SWUResourceCount($player) >= 6
                 && SWUResourceCount($player, readyOnly: true) >= 3;
+        } elseif ($cid === 'SEC_008') {
+            // Bail Organa: non-epic repeatable Action [Exhaust, discard 2 cards from hand]: deploy if you
+            // control 4+ resources. Needs the leader ready + 2 cards in hand to discard as the cost.
+            $bailHand = 0; foreach (GetHand($player) as $bh) if (empty($bh->removed)) $bailHand++;
+            $deployByIdx[$liveIdx] = $ready && !$deployed
+                && SWUResourceCount($player) >= 4 && $bailHand >= 2;
         } elseif ($cid === 'TWI_017') {
             // TWI_017 "Flipatine" has NO deploy — both faces are flip Actions (its empty printed cost
             // would otherwise make the generic ">= CardCost" check pass and offer a bogus Deploy option).

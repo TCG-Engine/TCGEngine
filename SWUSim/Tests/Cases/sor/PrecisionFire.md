@@ -63,3 +63,24 @@ WithP1Hand: SOR_168
 P2BASEDMG:5
 P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# EventAttack_PassesTheTurn
+#// SOR_168 Precision Fire — an "Attack with a unit" EVENT must pass the turn after its attack, like any
+#// other action. (Regression: the event's play-finalizer and the attack's combat BOTH used to run the
+#// after-action, double-swapping the turn so it never actually passed. Fixed centrally in BeginSWUAttack:
+#// an attack launched while a play-finalizer is pending lets the combat own the single turn pass.) Here
+#// P1 plays Precision Fire, its lone Trooper auto-attacks the enemy base, and the turn passes to P2.
+
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:1}
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: SOR_168
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2BASEDMG:5
+TURNPLAYER:2

@@ -173,6 +173,9 @@ function OnPlayEvent(int $player, string $cardID): void {
                 $refs = [];
                 foreach (GetHand($rp) as $c) { if (empty($c->removed)) $refs[] = GameLogCardRef($c->CardID); }
                 AddGameLogEntry('REVEAL', "P{$rp} revealed their hand: " . (empty($refs) ? '(empty)' : implode(', ', $refs)), 'ALL');
+                // SEC_016 Padmé — a player revealing 1+ cards from their hand fires her react (no-op when
+                // no Padmé / empty hand).
+                if (!empty($refs) && function_exists('_SWUSec016React')) _SWUSec016React($rp);
             }
             // Player order (active player first): each discards a card from the opponent's hand.
             $playerID = $P;
@@ -1836,7 +1839,7 @@ function OnPlayEvent(int $player, string $cardID): void {
 
         case 'SEC_235': { // The Wrong Ride — Exhaust 2 enemy resources.
             global $playerID; $playerID = intval($player);
-            SWUExhaustResources(OtherPlayer(intval($player)), 2);
+            SWUExhaustResources(OtherPlayer(intval($player)), 2, true); // exhaust up to 2 (as many as ready)
             return;
         }
 
@@ -3951,7 +3954,17 @@ function OnPlayEvent(int $player, string $cardID): void {
         case 'SOR_126': { // Resupply — "Put this event into play as a resource."
             global $playerID;
             $playerID = intval($player);
-            $mz = _SWUFindDiscardMzID(intval($player), 'SOR_126'); // event is in discard at this point
+            $mz = _SWUFindDiscardMzID(intval($player), 'SOR_126'); // own discard (normal play)
+            if ($mz === null) {
+                // Played from the OPPONENT's discard (SEC_205 Obi-Wan): "this event" sits in their discard —
+                // it still becomes a resource under the CASTER (the player who played it).
+                $opp = OtherPlayer(intval($player));
+                $od  = GetDiscard($opp);
+                for ($i = 0; $i < count($od); $i++) {
+                    if (!empty($od[$i]->removed)) continue;
+                    if (($od[$i]->CardID ?? '') === 'SOR_126') { $mz = "theirDiscard-{$i}"; break; }
+                }
+            }
             if ($mz !== null) SWURampResourceExhausted(intval($player), $mz); // enters exhausted (no "ready" wording)
             return;
         }

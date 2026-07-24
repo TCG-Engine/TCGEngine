@@ -420,3 +420,328 @@ WithP2Hand: SEC_097
 ## EXPECT
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SEC_097
+
+---
+
+# FriendlyUnit_KeepsKeyword
+#// SEC_046 Galen Erso — the name-a-card blank only touches cards an OPPONENT owns. When Galen's own
+#// controller owns the named card, it is untouched. P1 owns SOR_063 Cloud City Wing Guard (Sentinel) and
+#// names "Cloud City Wing Guard" with its own Galen; the friendly SOR_063 KEEPS Sentinel.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1GroundArena: SOR_063:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Cloud City Wing Guard
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_063
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P1GROUNDARENAUNIT:1:CARDID:SEC_046
+
+---
+
+# FriendlyWhenPlayed_StillFires
+#// SEC_046 Galen Erso — a friendly (Galen-owner) named card keeps its abilities. P1 names "Beloved Orator"
+#// then plays its own SEC_097 Beloved Orator ("When Played: Create a Spy token"). Because P1 owns it, the
+#// When Played still fires: a Spy token (SEC_T01) is created → Galen + Beloved Orator + Spy = 3 units.
+
+## GIVEN
+CommonSetup: bbw/ggw
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1Hand: SEC_097
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Beloved Orator
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:1:CARDID:SEC_097
+P1GROUNDARENAUNIT:2:CARDID:SEC_T01
+
+---
+
+# FriendlyWhenDefeated_StillFires
+#// SEC_046 Galen Erso — a friendly named card keeps its When Defeated. P1 owns SEC_132 Imperial Occupier
+#// ("When Defeated: Create a Spy token") and names "Imperial Occupier". P1's SEC_132 (2/2) attacks an 8/8
+#// (SOR_039) and dies; because P1 owns it the When Defeated fires → a Spy token replaces it (Galen + Spy).
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1GroundArena: SEC_132:1:0
+WithP2GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Imperial Occupier
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SEC_046
+P1GROUNDARENAUNIT:1:CARDID:SEC_T01
+
+---
+
+# FriendlyEvent_StillResolves
+#// SEC_046 Galen Erso — a friendly named EVENT still resolves. P1 owns SEC_092 I Am the Senate ("Create 5
+#// Spy tokens") and names "I Am the Senate". Because P1 owns it, playing it creates all 5 Spy tokens →
+#// Galen + 5 Spies = 6 units, and the event goes to P1's discard.
+
+## GIVEN
+CommonSetup: bbw/ggk
+P1OnlyActions: true
+WithP1Resources: 20
+WithP1Hand: SEC_046
+WithP1Hand: SEC_092
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:I Am the Senate
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:6
+P1DISCARDCOUNT:1
+
+---
+
+# FriendlyBase_KeepsEpicAction
+#// SEC_046 Galen Erso — naming a FRIENDLY base does not deny its Epic Action. P1's base is SOR_019 Security
+#// Complex ("Epic Action: Give a Shield token to a non-leader unit"). P1 names "Security Complex"; the only
+#// non-leader unit in play is Galen himself, so the Epic auto-targets him and he gains a Shield token.
+
+## GIVEN
+CommonSetup: bbw/brk/{
+  myBase:SOR_019
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Security Complex
+- P1>UseBaseAbility
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1BASE:EPICUSED
+
+---
+
+# FriendlyForceBase_KeepsAbility
+#// SEC_046 Galen Erso — naming a FRIENDLY Force base does not deny its ability. P1's base is LOF_024
+#// Starlight Temple ("When a friendly Force unit attacks: The Force is with you"). P1 names "Starlight
+#// Temple"; when P1's Force unit (LOF_231) attacks, P1 still gains the Force.
+
+## GIVEN
+CommonSetup: bbw/grk/{
+  myBase:LOF_024
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1GroundArena: LOF_231:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Starlight Temple
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASFORCE
+
+---
+
+# FriendlySpy_RaidStillDeals
+#// SEC_046 Galen Erso — naming "Spy" does not deny a FRIENDLY Spy token's Raid 2. P1 owns a Spy token
+#// (SEC_T01, 0 power, Raid 2) and names "Spy"; when it attacks P1's opponent's base it still deals 2.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1GroundArena: SEC_T01:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Spy
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:2
+
+---
+
+# FriendlyShield_PreventsAsNormal
+#// SEC_046 Galen Erso — naming "Shield" does not deny a FRIENDLY Shield token's prevention. P1's SOR_063
+#// (2/4) carries a Shield token and P1 names "Shield". When P2 attacks it with SOR_095 (3 power), the
+#// friendly Shield still prevents all the damage and is consumed → SOR_063 takes 0, shield gone.
+
+## GIVEN
+CommonSetup: bbw/rrk
+WithActivePlayer: 1
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1GroundArena: SOR_063:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Shield
+- P2>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# FriendlyShielded_GetsEntryShield
+#// SEC_046 Galen Erso — naming a FRIENDLY Shielded card does not deny the keyword. P1 names "Crafty
+#// Smuggler" then plays its own SOR_207 (Shielded); because P1 owns it, it enters with a Shield token.
+
+## GIVEN
+CommonSetup: bbw/yyk
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1Hand: SOR_207
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Crafty Smuggler
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_207
+P1GROUNDARENAUNIT:1:SHIELDCOUNT:1
+
+---
+
+# FriendlyUpgrade_GrantsOnAttack
+#// SEC_046 Galen Erso — naming a FRIENDLY upgrade does not deny the ability it grants. P1's Force unit
+#// (LOF_231) wears SOR_137 Fallen Lightsaber ("On Attack: if the attached unit is a Force unit, deal 1 to
+#// each ground unit the defending player controls"). P1 names "Fallen Lightsaber"; when LOF_231 attacks
+#// P2's base, the granted On Attack STILL fires → P2's ground unit (SOR_046) takes 1.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1GroundArena: LOF_231:1:0
+WithP1GroundArenaUpgrade: 0:SOR_137
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Fallen Lightsaber
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# FriendlyCombatHit_StillFires
+#// SEC_046 Galen Erso — naming a FRIENDLY unit does not deny its "deals combat damage to a base" trigger.
+#// P1 owns SEC_147 Chopper (4/1, "...deals combat damage to a base: Each player discards a card") and names
+#// "Chopper". Chopper attacks P2's base for 4; because P1 owns it the discard trigger fires — both players
+#// discard their one held card (each hand → 0).
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1Hand: SOR_095
+WithP1GroundArena: SEC_147:1:0
+WithP2Hand: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Chopper
+- P1>AttackGroundArena:0:BASE
+- P2>AnswerDecision:myHand-0
+
+## EXPECT
+P2BASEDMG:4
+P1HANDCOUNT:0
+P2HANDCOUNT:0
+
+---
+
+# FriendlyPiloting_UnitOrPilotChoice
+#// SEC_046 Galen Erso — naming a FRIENDLY Piloting card does not deny the keyword. P1 owns a Vehicle
+#// (JTL_069) and JTL_034 Interceptor Ace (Piloting) and names "Interceptor Ace". Because P1 owns it, the
+#// Piloting keyword survives: playing JTL_034 offers the Unit/Pilot choice, and choosing Pilot attaches it
+#// to the lone friendly Vehicle rather than entering as a separate unit.
+
+## GIVEN
+CommonSetup: bbw/bbk
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1Hand: JTL_034
+WithP1SpaceArena: JTL_069:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Interceptor Ace
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_069
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENACOUNT:1
+
+---
+
+# NamedCredit_EnemyCreditCantReducePayment
+#// SEC_046 Galen Erso — naming "Credit" disables an opponent's Credit tokens (a non-leader card they own
+#// loses all abilities), so they can't be defeated to pay 1 less. P2 plays Galen and names "Credit"; on
+#// P1's turn P1 plays SOR_095 (cost 2) with a Credit token available — but no pay-1-less offer appears and
+#// P1 pays the full 2 resources; the Credit token stays. (Mirror of LAW_117 Conveyex Security Captain.)
+
+## GIVEN
+CommonSetup: ggw/bbw/{
+  theirResources:4
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2Hand: SEC_046
+WithP1Hand: SOR_095
+WithP1Resources: 2
+WithP1Credits: 1
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Credit
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1CREDITCOUNT:1
+P1RESAVAILABLE:0
+P1NODECISION

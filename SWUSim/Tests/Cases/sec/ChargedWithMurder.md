@@ -61,3 +61,28 @@ P1HANDCOUNT:1
 P1DISCARDCOUNT:1
 P1RESAVAILABLE:0
 P1NODECISION
+
+---
+
+# DeclineDisclose_NoDefeat
+#// SEC_076 Charged with Murder — the disclose is optional. P1 holds a Vigilance disclose card but
+#// declines, so no defeat is offered; the event still goes to the discard pile and the enemy unit
+#// remains in play.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:4}
+P1OnlyActions: true
+WithP1Hand: SEC_076
+WithP1Hand: SEC_054
+WithP2GroundArena: SOR_095:1:1
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P1DISCARDCOUNT:1
+P1HANDCOUNT:1
+P1NODECISION

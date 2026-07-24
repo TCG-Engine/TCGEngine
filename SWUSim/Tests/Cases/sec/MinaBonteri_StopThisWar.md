@@ -52,3 +52,30 @@ P1HANDCOUNT:3
 P1DECKCOUNT:1
 P2GROUNDARENAUNIT:0:DAMAGE:2
 P2NODECISION
+
+---
+
+# WhenDefeated_CannotSatisfyAspects_Skipped
+#// SEC_094 Mina Bonteri — the disclose ability is skipped entirely when the cards in hand cannot cover
+#//   the required CommandCommandHeroism aspects. Mina's hand holds only two Cartel Spacers (SOR_178,
+#//   Cunning/Villainy) — no Command and no Heroism — so on defeat there is no prompt and no draw.
+#// Mina (2/4) attacks LAW_124 (4/7): simultaneous damage defeats Mina while LAW_124 survives.
+
+## GIVEN
+CommonSetup: ggw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_094:1:0
+WithP2GroundArena: LAW_124:1:0
+WithP1Hand: SOR_178
+WithP1Hand: SOR_178
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P1HANDCOUNT:2
+P1DECKCOUNT:2
+P2NODECISION

@@ -1787,6 +1787,21 @@ $customDQHandlers["SEC_008#0"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::CleanupRemovedCards();
     SWUAfterAction(intval($player));
 };
+// SEC_008 Bail Organa deploy cost — discard the 2 chosen hand cards, then commit the deploy (re-enter
+// SWUDeployLeader with the SWU_SEC008_DEPLOY_PAID flag set so it skips the discard-cost and commits).
+$customDQHandlers["SEC_008_DEPLOY"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $leaderIndex = intval($parts[0] ?? 0);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return; // cancelled → no deploy, no discard
+    $mzs = array_values(array_filter(explode('&', $lastDecision), fn($m) => $m !== '' && $m !== '-' && $m !== 'PASS'));
+    if (count($mzs) < 2) return; // must discard exactly 2 to pay the cost
+    // discard highest hand index first so earlier indices don't shift out from under later picks
+    usort($mzs, fn($a, $b) => intval(substr(strrchr($b, '-'), 1)) <=> intval(substr(strrchr($a, '-'), 1)));
+    foreach ($mzs as $mz) DoDiscardCard(intval($player), $mz);
+    DecisionQueueController::CleanupRemovedCards();
+    AddGlobalEffects(intval($player), 'SWU_SEC008_DEPLOY_PAID');
+    SWUDeployLeader(intval($player), 'Unit', '', $leaderIndex);
+};
 
 // ── SEC_010 Dedra Meero ───────────────────────────────────────────────────────
 // Action [1 resource, Exhaust]: Choose an enemy unit. Its controller may deal 2 damage to it. If they

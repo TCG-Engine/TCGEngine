@@ -37,3 +37,29 @@ WithP1Hand: SEC_083
 P1SPACEARENAUNIT:0:CARDID:SEC_083
 P1GROUNDARENACOUNT:0
 P1NODECISION
+
+---
+
+# PilotUpgradeDefeated_NoSpy
+#// SEC_083 ISB Shuttle — "if a friendly UNIT was defeated this phase". A friendly Pilot defeated while
+#//   attached as an UPGRADE is not a unit defeat: P1 Confiscates (SOR_251) its own JTL_196 Dagger Squadron
+#//   Pilot off SHD_042 Concord Dawn Interceptors (the vehicle survives). Playing ISB Shuttle then creates
+#//   NO Spy because no friendly unit was defeated.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1SpaceArena: SHD_042:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_196
+WithP1Hand: SOR_251
+WithP1Hand: SEC_083
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1SPACEARENAUNIT:1:CARDID:SEC_083
+P1GROUNDARENACOUNT:0
+P1NODECISION

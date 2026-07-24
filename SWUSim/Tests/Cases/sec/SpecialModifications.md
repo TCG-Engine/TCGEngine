@@ -19,3 +19,24 @@ P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SEC_T01
 P1NODECISION
+
+---
+
+# NonTransportVehicle_NoSpy
+#// SEC_227 Special Modifications — attaches to a Vehicle, but the "create a Spy" clause only fires if the
+#//   attached unit is a Transport. Host SOR_232 AT-ST is a Vehicle but NOT a Transport → no Spy token,
+#//   no prompt. The upgrade still attaches.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SOR_232:1:0
+WithP1Hand: SEC_227
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENACOUNT:1
+P1NODECISION

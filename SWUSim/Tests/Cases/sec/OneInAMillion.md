@@ -86,3 +86,37 @@ P2GROUNDARENAUNIT:0:CARDID:SOR_037
 P2DISCARDCOUNT:0
 P1DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# Plot_MultipleValidTargets_ChooseAcrossArenas
+#// SEC_053 One in a Million — "Defeat a unit with power and remaining HP both equal to the number of
+#// ready resources you control." When more than one unit qualifies, the caster chooses (any arena, any
+#// controller). Same Plot setup as the positive case: N = 5 ready resources at resolution.
+#//   Enemy SOR_037 (5/5, ground) → power 5, HP 5 → VALID.
+#//   Enemy SOR_050 (5/5, space)  → power 5, HP 5 → VALID.
+#//   Enemy SOR_046 (3/7, 2 dmg)  → power 3, remaining HP 5 → NOT valid.
+#// Two valid targets across both arenas → a choice is offered. P1 defeats the space unit; the ground
+#// 5/5 and the 3/7 distractor both survive.
+
+## GIVEN
+CommonSetup: bbw/grw
+P1OnlyActions: true
+WithP1Resources: 1:SEC_053:1,5:SOR_095:1
+WithP1Deck: [SOR_095 SOR_095]
+WithP2GroundArena: SOR_037:1:0
+WithP2GroundArena: SOR_046:1:2
+WithP2SpaceArena: SOR_050:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P2SPACEARENACOUNT:0
+P2GROUNDARENACOUNT:2
+P2DISCARDCOUNT:1
+P1DISCARDCOUNT:1
+P1NODECISION

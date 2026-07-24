@@ -31,3 +31,24 @@ WithP1Hand: SEC_055
 
 ## EXPECT
 P1BASEDMG:2
+
+---
+
+# WhenDefeated_HealsController_AfterControlChange
+#// SEC_055 Dhani Pilgrim — the When Defeated "heal 1 from your base" heals the CONTROLLER's base, not the
+#//   owner's. P2 owns Dhani; P1 plays JTL_043 No Glory Only Results (Vigilance/Villainy) to take control of
+#//   Dhani and immediately defeat it. Because P1 controls it at the moment of defeat, P1's base heals 3 -> 2
+#//   (P2's base is untouched). Lone enemy non-leader target auto-resolves, so no target answer is needed.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:5;myBaseDamage:3}
+P1OnlyActions: true
+WithP1Hand: JTL_043
+WithP2GroundArena: SEC_055:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1BASEDMG:2

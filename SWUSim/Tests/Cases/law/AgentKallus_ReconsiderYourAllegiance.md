@@ -21,3 +21,22 @@ WithP1Hand: SOR_095
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1RESAVAILABLE:0
+
+---
+
+# Deployed_NoPlayableCard_UsableCostPaid
+#// LAW_003 Agent Kallus (deployed) — CR 6.4.587.c: the deployed action's cost is [1 resource] (no self-
+#// exhaust; the leader-unit side has no exhaustSelf), a game-state change, so the Action is usable even with
+#// no affordable card to play. It spends 1 resource and plays nothing; the deployed unit stays ready.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:LAW_003:1:1:1;myBase:JTL_019;theirBase:SOR_021;myResources:1}
+SkipPreGame: true
+P1OnlyActions: true
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:READY
+P1RESAVAILABLE:0

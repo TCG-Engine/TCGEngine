@@ -241,3 +241,65 @@ P1GROUNDARENAUNIT:0:CARDID:JTL_013
 P1GROUNDARENAUNIT:0:POWER:4
 P2BASEDMG:4
 P1NODECISION
+
+---
+
+# Hop_NoOtherVehicle_SpendsOneNoHop
+#// JTL_013 Poe Dameron (deployed hop) — CR 6.4.587.c: the [1 resource] cost is a game-state change, so the
+#// hop Action is usable even with no OTHER empty Vehicle to hop to. Poe is pre-attached to the only Vehicle
+#// (SOR_225). Using the hop spends 1 resource and does NOT hop (a soft pass) — Poe stays on his current
+#// Vehicle. (The once-per-round hop is not consumed, since no hop occurred.)
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:JTL_013;myBase:SOR_022;theirLeader:JTL_013;theirBase:SOR_022}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 2
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_013
+
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+
+## EXPECT
+P1RESAVAILABLE:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_013
+
+---
+
+# Hop_OncePerRound_BlockedWithFreshVehicleAvailable
+#// JTL_013 Poe Dameron (deployed hop) — the once-per-round clause blocks a SECOND hop even when another
+#// untouched empty Vehicle is available (not just when Poe would hop back to the ship he left). THREE
+#// SOR_225 in Space: Poe pre-attached to index-0, index-1 and index-2 both empty. First hop (UseUnitAbility
+#// on index-0) → pick index-1 (pay 1). Second hop attempt (UseUnitAbility on index-1) → blocked by the
+#// once-per-round guard even though index-2 is a fresh empty Vehicle → no-op, no resource spent.
+
+## GIVEN
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 2
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_013
+
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+- P1>AnswerDecision:mySpaceArena-1
+- P1>UseUnitAbility:mySpaceArena-1
+
+## EXPECT
+P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_013
+P1SPACEARENAUNIT:2:UPGRADECOUNT:0
+P1RESAVAILABLE:1
+P1NODECISION

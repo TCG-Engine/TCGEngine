@@ -285,3 +285,26 @@ P1HANDCOUNT:0
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SHD_038
 P1RESAVAILABLE:0
+
+---
+
+# Deployed_NoPlayable_UsesForceNoPlay
+#// LOF_018 Anakin (deployed) — CR 6.4.587.c: "use the Force" is the COST, so the Action is usable with the
+#// Force even when no Villainy card is playable (only SOR_095, a Command/Heroism unit, in hand). The handler
+#// spends the Force (UseTheForce) before checking targets, so the Force is spent and nothing is played.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Force: true
+WithP1GroundArena: LOF_018:1:0
+WithP1Hand: SOR_095
+WithP1Resources: 0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P1NOFORCE
+P1GROUNDARENAUNIT:0:READY

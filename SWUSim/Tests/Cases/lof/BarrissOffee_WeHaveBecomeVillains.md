@@ -151,10 +151,11 @@ P1GROUNDARENAUNIT:0:EXHAUSTED
 
 ---
 
-# Deployed_UnitInHand_ActionUnavailable
-#// LOF_013 Barriss Offee (deployed) — the Action plays an EVENT. With the Force but only a unit in hand
-#// (SOR_095 Battlefield Marine, not an event) there is no playable target, so the ability is unavailable and
-#// using it is a no-op: the Force is retained and the unit stays in hand. (Guards the Event-only target gate.)
+# Deployed_UnitInHand_UsesForceNoPlay
+#// LOF_013 Barriss Offee (deployed) — CR 6.4.587.c: "use the Force" is the COST (a game-state change), so
+#// the Action is usable with the Force even when only a unit (SOR_095, not an event) is in hand. It SPENDS
+#// the Force and plays nothing (the effect plays an event only); the unit stays in hand, Barriss stays ready.
+#// (Intended per CR: paying the cost is the state change, so the Action stays available and "chooses nothing".)
 
 ## GIVEN
 CommonSetup: yyk/bbk/{myLeader:LOF_013;myBase:SOR_021;theirBase:SOR_021}
@@ -169,6 +170,6 @@ WithP1Resources: 5
 - P1>UseUnitAbility:myGroundArena-0
 
 ## EXPECT
-P1HASFORCE
+P1NOFORCE
 P1HANDCOUNT:1
 P1GROUNDARENAUNIT:0:READY

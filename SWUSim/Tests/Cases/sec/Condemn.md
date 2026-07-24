@@ -128,3 +128,46 @@ WithP1SpaceArenaUpgrade: 0:SEC_038
 ## EXPECT
 P2BASEDMG:1
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# GrantedDisclose_AutoSkip_NoAspectCards
+#// SEC_038 Condemn — the granted "On Attack: defending player may disclose VigilanceVillainy → -6/-0" is
+#//   auto-skipped when the defender can't cover those aspects (CR 38.3). P1's SEC_118 (6/5) bears 1 Condemn
+#//   and attacks P2's base; P2 has an empty hand → no disclose prompt, full 6 to the base.
+
+## GIVEN
+CommonSetup: ggw/grk
+P1OnlyActions: true
+WithP1GroundArena: SEC_118:1:0
+WithP1GroundArenaUpgrade: 0:SEC_038
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:6
+P2NODECISION
+
+---
+
+# SuppressesOverwhelm_NoSpillToBase
+#// SEC_038 Condemn — "loses all other abilities" while attacking suppresses keyword abilities like
+#//   Overwhelm. P1's SOR_164 (Wampa, 4/5 Overwhelm) bears 1 Condemn and attacks P2's TWI_T02 (2/2). The
+#//   defender has no disclose cards (auto-skip). Wampa defeats the 2/2, but with Overwhelm suppressed the
+#//   2 excess damage does NOT spill to the base. Wampa takes the 2 counter damage.
+
+## GIVEN
+CommonSetup: ggw/grk
+P1OnlyActions: true
+WithP1GroundArena: SOR_164:1:0
+WithP1GroundArenaUpgrade: 0:SEC_038
+WithP2GroundArena: TWI_T02:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:0
+P1GROUNDARENAUNIT:0:DAMAGE:2

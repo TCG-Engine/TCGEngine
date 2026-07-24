@@ -30,3 +30,39 @@ WithP1GroundArena: TWI_192:1:0
 
 ## EXPECT
 P2BASEDMG:5
+
+---
+
+# RaidWithPadmeLeader
+#// SEC_201 Anakin Skywalker — "While you control Padmé Amidala (as a leader or unit)" also counts an
+#//   undeployed Padmé LEADER. With TWI_008 Padmé Amidala as P1's leader, Anakin gains Raid 2 and
+#//   attacks P2's base for 3+2 = 5.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myLeader:TWI_008:0}
+WithActivePlayer: 1
+WithP1GroundArena: SEC_201:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:5
+
+---
+
+# EnemyPadme_NoRaid
+#// SEC_201 Anakin Skywalker — the Raid clause only counts a Padmé YOU control. A Padmé (TWI_192) on
+#//   the OPPONENT's side does not grant Raid, so Anakin attacks the base for only 3.
+
+## GIVEN
+CommonSetup: yyk/rrk
+WithActivePlayer: 1
+WithP1GroundArena: SEC_201:1:0
+WithP2GroundArena: TWI_192:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:3

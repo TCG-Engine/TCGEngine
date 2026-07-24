@@ -56,3 +56,50 @@ WithP1Hand: SEC_133
 P2BASEDMG:3
 P1BASEDMG:0
 P1NODECISION
+
+---
+
+# NonAggressionCardInHand_CantDisclose
+#// SEC_164 Warrior of Clan Ordo — a non-Aggression card in hand (SOR_232 AT-ST, no Aggression icon)
+#//   cannot satisfy the disclose, so no prompt is offered and the "if you don't" clause auto-deals 2 to
+#//   your own base.
+
+## GIVEN
+CommonSetup: rrw/grw/{myResources:1}
+P1OnlyActions: true
+WithP1GroundArena: SEC_164:1:0
+WithP1Hand: SOR_232
+
+## WHEN
+- P1>AttackGroundArena:0
+
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:2
+P1NODECISION
+
+---
+
+# SelfBaseDamage_TriggersBobaNonCombatReaction
+#// SEC_164 Warrior of Clan Ordo dealing 2 to YOUR OWN base is "you deal non-combat damage", so JTL_009
+#//   Boba Fett's "When you deal non-combat damage: you may exhaust this leader → deal 1 indirect" fires.
+#//   Warrior (power 3) attacks P2's base (3 combat); with no Aggression to disclose it deals 2 to P1's own
+#//   base; Boba then exhausts to deal 1 indirect to P2 → P2 base 3+1=4, P1 base 2, Boba exhausted.
+#//   (Regression: self-base damage must attribute the DEALER as its controller, not the opponent.)
+
+## GIVEN
+CommonSetup: rrk/rrk/{myLeader:JTL_009}
+WithActivePlayer: 1
+WithP1GroundArena: SEC_164:1:0
+WithP1Deck: SOR_095
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P2BASEDMG:4
+P1BASEDMG:2
+P1LEADER:EXHAUSTED

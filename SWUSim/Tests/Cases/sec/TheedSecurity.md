@@ -17,3 +17,25 @@ WithP1Hand: SEC_095
 P1GROUNDARENAUNIT:0:CARDID:SEC_095
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1NODECISION
+
+---
+
+# NoOppUpgrade_NoExperience
+#// SEC_095 Theed Security — the When Played Experience grant is gated on an opponent controlling an
+#//   upgrade. With no enemy upgrade anywhere, SEC_095 just enters play; no Experience token is granted and
+#//   there is no target decision. P2's SOR_095 has no upgrade.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:2}
+P1OnlyActions: true
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: SEC_095
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION

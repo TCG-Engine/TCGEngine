@@ -47,10 +47,10 @@ P1DISCARDCOUNT:1
 
 ---
 
-# LeaderAction_EmptyHand_NoOp
-#// SOR_017 Han Solo — Leader Action requires a card in hand to put into play as a resource.
-#// With an empty hand there is nothing to resource, so the action is a complete no-op:
-#// Han stays ready, resources unchanged, and the player keeps their action (no decision pending).
+# LeaderAction_EmptyHand_UsableNoResource
+#// SOR_017 Han Solo — CR 6.4.587.c: the [Exhaust] cost changes game state, so the Action is usable even with
+#// an empty hand. It exhausts Han and puts no resource into play (nothing to resource); the resource count
+#// is unchanged this phase.
 
 ## GIVEN
 CommonSetup: gyw/grw
@@ -62,10 +62,8 @@ WithP1Resources: 2
 - P1>UseLeaderAbility
 
 ## EXPECT
-P1LEADER:READY
+P1LEADER:EXHAUSTED
 P1RESCOUNT:2
-P1RESAVAILABLE:2
-P1NODECISION
 
 ---
 

@@ -17,8 +17,33 @@ WithP1Hand: SOR_046
 P1GROUNDARENACOUNT:2
 P1RESAVAILABLE:1
 
+---
 
+# OnAttack_DiscountExpiresNextPhase
+#// SEC_110 GNK Power Droid — the armed "next unit costs 1 less" is "for this phase". If the discounted unit
+#//   is not played before the phase ends, the discount is gone next action phase. GNK attacks (arms -1), P1
+#//   passes to the next action phase, then plays SOR_046 (cost 4) at FULL price on 4 refreshed resources →
+#//   0 left. (If the -1 had wrongly persisted, 1 would remain.)
 
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: SEC_110:1:0
+WithP1Hand: SOR_046
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1RESAVAILABLE:0
 
 ---
 
