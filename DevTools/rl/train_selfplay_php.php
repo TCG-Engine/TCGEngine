@@ -402,6 +402,19 @@ function RlCandidateIndices($mask, $actions, $noOpKeys, $stateKey) {
   return $indices;
 }
 
+function RlClassifyEpisodeTermination($isTerminal, $stepCount, $turnNumber, $args) {
+  if (!empty($isTerminal)) {
+    return ['done' => true, 'timedOut' => false, 'failed' => false, 'terminationReason' => 'terminal'];
+  }
+  if (intval($stepCount) >= intval($args['max-steps'] ?? 0)) {
+    return ['done' => true, 'timedOut' => true, 'failed' => false, 'terminationReason' => 'max_steps'];
+  }
+  if (intval($turnNumber) > intval($args['max-turns'] ?? 0)) {
+    return ['done' => true, 'timedOut' => true, 'failed' => false, 'terminationReason' => 'max_turns'];
+  }
+  return ['done' => false, 'timedOut' => false, 'failed' => false, 'terminationReason' => ''];
+}
+
 function RlActionTargetRole($action) {
   if (!is_array($action)) return '';
   $cardID = strval($action['cardID'] ?? '');
@@ -833,7 +846,15 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   $stepTrace = [];
   $noOpKeys = [];
   $pendingAttackCredit = null;
-  $info = ['winner' => 0, 'isTerminal' => false, 'timedOut' => false, 'stepCount' => 0, 'gamestateHash' => strval($snapshot['gamestateHash'] ?? '')];
+  $info = [
+    'winner' => 0,
+    'isTerminal' => false,
+    'timedOut' => false,
+    'failed' => false,
+    'terminationReason' => '',
+    'stepCount' => 0,
+    'gamestateHash' => strval($snapshot['gamestateHash'] ?? ''),
+  ];
   $reward = 0.0;
   $done = false;
   $episodeStart = microtime(true);
@@ -847,7 +868,10 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     if (!in_array(1, $mask, true)) {
       $done = true;
       $reward = 0.0;
-      $info['timedOut'] = true;
+      $info['failed'] = true;
+      $info['terminationReason'] = 'no_legal_actions';
+      $info['legalKind'] = strval($legal['kind'] ?? '');
+      $info['legalCount'] = 0;
       break;
     }
     $turnPlayer = intval($legal['playerID'] ?? ($snapshot['turnPlayer'] ?? 1));
@@ -863,7 +887,10 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     if (empty($legalIndices)) {
       $done = true;
       $reward = 0.0;
-      $info['timedOut'] = true;
+      $info['failed'] = true;
+      $info['terminationReason'] = 'all_actions_filtered';
+      $info['legalKind'] = strval($legal['kind'] ?? '');
+      $info['legalCount'] = count($lastLegalActions);
       break;
     }
     $strategyPosture = null;
@@ -943,14 +970,18 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
       $isTerminal = !empty($terminal['isTerminal']);
       $winner = intval($terminal['winner'] ?? 0);
-      $timedOut = count($replayActions) >= intval($args['max-steps']) || intval($snapshot['turnNumber'] ?? 0) > intval($args['max-turns']);
-      $done = $isTerminal || $timedOut;
+      $termination = RlClassifyEpisodeTermination($isTerminal, count($replayActions), intval($snapshot['turnNumber'] ?? 0), $args);
+      $timedOut = !empty($termination['timedOut']);
+      $terminationReason = strval($termination['terminationReason'] ?? '');
+      $done = !empty($termination['done']);
       $reward = 0.0;
       if ($done && $isTerminal) $reward = $winner === 1 ? 1.0 : ($winner === 2 ? -1.0 : 0.0);
       $info = [
         'winner' => $winner,
         'isTerminal' => $isTerminal,
         'timedOut' => $timedOut,
+        'failed' => false,
+        'terminationReason' => $terminationReason,
         'stepCount' => count($replayActions),
         'gamestateHash' => strval($snapshot['gamestateHash'] ?? ''),
         'legalKind' => strval($legal['kind'] ?? ''),
@@ -963,7 +994,17 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     } catch (Throwable $throwable) {
       $done = true;
       $reward = 0.0;
-      $info = ['winner' => 0, 'isTerminal' => false, 'timedOut' => true, 'stepCount' => count($replayActions), 'legalKind' => 'engine-error', 'error' => $throwable->getMessage(), 'chosenAction' => $cleanAction];
+      $info = [
+        'winner' => 0,
+        'isTerminal' => false,
+        'timedOut' => false,
+        'failed' => true,
+        'terminationReason' => 'engine_error',
+        'stepCount' => count($replayActions),
+        'legalKind' => 'engine-error',
+        'error' => $throwable->getMessage(),
+        'chosenAction' => $cleanAction,
+      ];
       if ($strategyPosture !== null) {
         $episodeSteps[$stepIndex]['tactical_reward'] = -floatval($args['tactical-no-state-change-penalty']);
         $replayActions[$stepIndex]['tacticalReward'] = $episodeSteps[$stepIndex]['tactical_reward'];
@@ -990,7 +1031,9 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   $elapsedMs = intval(round((microtime(true) - $episodeStart) * 1000));
   $steps = intval($info['stepCount'] ?? count($replayActions));
   $episodeTimedOut = !empty($info['timedOut']);
-  if ($episodeTimedOut && empty($info['isTerminal'])) {
+  $episodeFailed = !empty($info['failed']);
+  $episodeIncomplete = ($episodeTimedOut || $episodeFailed) && empty($info['isTerminal']);
+  if ($episodeIncomplete) {
     $reward = floatval($args['timeout-reward']);
   }
   $tacticalTerminalWeight = RlStrategyEnabled(strval($args['strategy-mode'])) ? floatval($args['tactical-terminal-weight']) : 1.0;
@@ -998,14 +1041,14 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   $p1StrategyDelta = ($policy instanceof RlTabularPolicy && $policy->strategyPolicy instanceof RlTabularPolicy)
     ? $policy->strategyPolicy->episodeDeltaForPlayer($strategySteps, 1, floatval($reward))
     : [];
-  $p2Reward = ($episodeTimedOut && empty($info['isTerminal'])) ? floatval($args['timeout-reward']) : -floatval($reward);
+  $p2Reward = $episodeIncomplete ? floatval($args['timeout-reward']) : -floatval($reward);
   $p2Delta = $updateP2 ? $policy->episodeDeltaForPlayer($episodeSteps, 2, $p2Reward, $tacticalTerminalWeight) : [];
   $p2StrategyDelta = ($updateP2 && $policy instanceof RlTabularPolicy && $policy->strategyPolicy instanceof RlTabularPolicy)
     ? $policy->strategyPolicy->episodeDeltaForPlayer($strategySteps, 2, $p2Reward)
     : [];
   $episodeWinner = intval($info['winner'] ?? 0);
   $replay = null;
-  if ($captureReplay || $episodeTimedOut) {
+  if ($captureReplay || $episodeIncomplete) {
     $replay = [
       'episode' => intval($episodeNumber),
       'seed' => intval($epSeed),
@@ -1017,7 +1060,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       'result' => $info,
       'actions' => $replayActions,
     ];
-    if ($episodeTimedOut) {
+    if ($episodeIncomplete) {
       $replay['stuckDiagnostics'] = RlBuildStuckDiagnostics($stepTrace);
     }
   }
@@ -1034,6 +1077,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     'p2Reward' => floatval($p2Reward),
     'steps' => $steps,
     'timedOut' => $episodeTimedOut,
+    'failed' => $episodeFailed,
+    'terminationReason' => strval($info['terminationReason'] ?? ''),
     'elapsedMs' => $elapsedMs,
     'info' => $info,
     'p1Delta' => $p1Delta,
@@ -1045,9 +1090,27 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
 }
 
 function RlEpisodeOutcome($summary) {
-  if (!empty($summary['timedOut'])) return 'timeout';
+  $terminationReason = strval($summary['terminationReason'] ?? '');
+  if (!empty($summary['timedOut'])) return 'timeout=' . ($terminationReason !== '' ? $terminationReason : 'unknown');
+  if (!empty($summary['failed'])) return 'failed=' . ($terminationReason !== '' ? $terminationReason : 'unknown');
   $winner = intval($summary['winner'] ?? 0);
   return $winner > 0 ? ('winner=P' . $winner) : 'ended';
+}
+
+function RlIncrementTerminationReason(&$terminationReasonCounts, $summary) {
+  $reason = strval($summary['terminationReason'] ?? '');
+  if ($reason === '') $reason = !empty($summary['timedOut']) ? 'timeout_unknown' : (!empty($summary['failed']) ? 'failure_unknown' : 'ended');
+  $terminationReasonCounts[$reason] = intval($terminationReasonCounts[$reason] ?? 0) + 1;
+}
+
+function RlFormatTerminationReasonCounts($terminationReasonCounts) {
+  if (!is_array($terminationReasonCounts) || empty($terminationReasonCounts)) return '-';
+  $parts = [];
+  foreach ($terminationReasonCounts as $reason => $count) {
+    if (strval($reason) === 'terminal') continue;
+    $parts[] = strval($reason) . '=' . intval($count);
+  }
+  return empty($parts) ? '-' : implode(',', $parts);
 }
 
 function RlWriteCheckpoint($ckptDir, $episodeNumber, $policy, &$frozenPool, $retainFrozenPolicy = true) {
@@ -1061,7 +1124,7 @@ function RlWriteCheckpoint($ckptDir, $episodeNumber, $policy, &$frozenPool, $ret
   return $ckptPath;
 }
 
-function RlPrintProgress($args, $policy, $epsDone, $steps, $outcome, $timedOutEpisodes, $completedSteps, $trainStart) {
+function RlPrintProgress($args, $policy, $epsDone, $steps, $outcome, $timedOutEpisodes, $failedEpisodes, $terminationReasonCounts, $completedSteps, $trainStart) {
   $elapsedS = max(0.000001, microtime(true) - $trainStart);
   $epsPerS = intval($epsDone) / $elapsedS;
   $stepsPerS = intval($completedSteps) / $elapsedS;
@@ -1070,7 +1133,7 @@ function RlPrintProgress($args, $policy, $epsDone, $steps, $outcome, $timedOutEp
   $etaText = date('Y-m-d H:i:s', time() + intval(round($etaS)));
   $pct = intval($args['episodes']) > 0 ? (100.0 * intval($epsDone) / intval($args['episodes'])) : 100.0;
   echo sprintf(
-    "[progress] ep %d/%d (%.1f%%) | epSteps %d | outcome %s | timeouts %d/%d | mem %.1fMB | states %d | elapsed %.1fs | eps/s %.3f | steps/s %.1f | avgSteps/ep %.1f | ETA %s\n",
+    "[progress] ep %d/%d (%.1f%%) | epSteps %d | outcome %s | timeouts %d/%d | failures %d/%d | reasons %s | mem %.1fMB | states %d | elapsed %.1fs | eps/s %.3f | steps/s %.1f | avgSteps/ep %.1f | ETA %s\n",
     intval($epsDone),
     intval($args['episodes']),
     $pct,
@@ -1078,6 +1141,9 @@ function RlPrintProgress($args, $policy, $epsDone, $steps, $outcome, $timedOutEp
     $outcome,
     intval($timedOutEpisodes),
     intval($epsDone),
+    intval($failedEpisodes),
+    intval($epsDone),
+    RlFormatTerminationReasonCounts($terminationReasonCounts),
     memory_get_usage(true) / 1048576.0,
     $policy->stateCount(),
     $elapsedS,
@@ -1088,7 +1154,7 @@ function RlPrintProgress($args, $policy, $epsDone, $steps, $outcome, $timedOutEp
   );
 }
 
-function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $completedSteps, $timedOutEpisodes, $totalElapsedMs, $episodeSummaries) {
+function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $failureReplayPath, $completedSteps, $timedOutEpisodes, $failedEpisodes, $terminationReasonCounts, $totalElapsedMs, $episodeSummaries) {
   return [
     'root' => $args['root'],
     'deckSource' => RlDeckSource($args),
@@ -1119,9 +1185,12 @@ function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $compl
     'checkpointEvery' => intval($args['checkpoint-every']),
     'finalReplay' => $replayDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', intval($args['episodes'])) . '.json',
     'firstTimeoutReplay' => $timeoutReplayPath,
+    'firstFailureReplay' => $failureReplayPath,
     'summary' => [
       'totalSteps' => intval($completedSteps),
       'timedOutEpisodes' => intval($timedOutEpisodes),
+      'failedEpisodes' => intval($failedEpisodes),
+      'terminationReasonCounts' => $terminationReasonCounts,
       'elapsedMs' => intval($totalElapsedMs),
       'stepsPerSecond' => $totalElapsedMs > 0 ? (intval($completedSteps) / ($totalElapsedMs / 1000.0)) : 0.0,
     ],
@@ -1172,12 +1241,17 @@ function RlRunWorker($args) {
       'reward' => floatval($result['reward']),
       'steps' => intval($result['steps']),
       'timedOut' => !empty($result['timedOut']),
+      'failed' => !empty($result['failed']),
+      'terminationReason' => strval($result['terminationReason'] ?? ''),
+      'error' => strval($result['info']['error'] ?? ''),
       'elapsedMs' => intval($result['elapsedMs']),
     ];
     if (is_array($result['replay'] ?? null)) {
       $replays[] = [
         'episode' => intval($result['episode']),
         'timedOut' => !empty($result['timedOut']),
+        'failed' => !empty($result['failed']),
+        'terminationReason' => strval($result['terminationReason'] ?? ''),
         'replay' => $result['replay'],
       ];
     }
@@ -1218,7 +1292,10 @@ function RlRunSequential($args) {
   $frozenPool = [];
   $completedSteps = 0;
   $timedOutEpisodes = 0;
+  $failedEpisodes = 0;
+  $terminationReasonCounts = [];
   $timeoutReplayPath = null;
+  $failureReplayPath = null;
   $trainStart = microtime(true);
   $episodeSummaries = [];
 
@@ -1234,6 +1311,8 @@ function RlRunSequential($args) {
     if ($opponent === $policy && $policy->strategyPolicy instanceof RlTabularPolicy) $policy->strategyPolicy->applyDelta($result['p2StrategyDelta'] ?? []);
 
     if (!empty($result['timedOut'])) ++$timedOutEpisodes;
+    if (!empty($result['failed'])) ++$failedEpisodes;
+    RlIncrementTerminationReason($terminationReasonCounts, $result);
     $completedSteps += intval($result['steps']);
     $episodeSummaries[] = [
       'episode' => $epNumber,
@@ -1242,12 +1321,19 @@ function RlRunSequential($args) {
       'reward' => floatval($result['reward']),
       'steps' => intval($result['steps']),
       'timedOut' => !empty($result['timedOut']),
+      'failed' => !empty($result['failed']),
+      'terminationReason' => strval($result['terminationReason'] ?? ''),
+      'error' => strval($result['info']['error'] ?? ''),
       'elapsedMs' => intval($result['elapsedMs']),
     ];
 
     if (!empty($result['timedOut']) && $timeoutReplayPath === null && is_array($result['replay'] ?? null)) {
       $timeoutReplayPath = $replayDir . DIRECTORY_SEPARATOR . 'timeout_episode_' . sprintf('%04d', $epNumber) . '.json';
       RlWriteJson($timeoutReplayPath, $result['replay']);
+    }
+    if (!empty($result['failed']) && $failureReplayPath === null && is_array($result['replay'] ?? null)) {
+      $failureReplayPath = $replayDir . DIRECTORY_SEPARATOR . 'failure_episode_' . sprintf('%04d', $epNumber) . '.json';
+      RlWriteJson($failureReplayPath, $result['replay']);
     }
     if ($captureReplay && is_array($result['replay'] ?? null)) {
       RlWriteJson($replayDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', $epNumber) . '.json', $result['replay']);
@@ -1256,12 +1342,12 @@ function RlRunSequential($args) {
       RlWriteCheckpoint($ckptDir, $epNumber, $policy, $frozenPool);
     }
     if (intval($args['log-every']) > 0 && (($epNumber % intval($args['log-every']) === 0) || $epNumber === intval($args['episodes']))) {
-      RlPrintProgress($args, $policy, $epNumber, intval($result['steps']), RlEpisodeOutcome($result), $timedOutEpisodes, $completedSteps, $trainStart);
+      RlPrintProgress($args, $policy, $epNumber, intval($result['steps']), RlEpisodeOutcome($result), $timedOutEpisodes, $failedEpisodes, $terminationReasonCounts, $completedSteps, $trainStart);
     }
   }
 
   $totalElapsedMs = intval(round((microtime(true) - $trainStart) * 1000));
-  $runConfig = RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $completedSteps, $timedOutEpisodes, $totalElapsedMs, $episodeSummaries);
+  $runConfig = RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $failureReplayPath, $completedSteps, $timedOutEpisodes, $failedEpisodes, $terminationReasonCounts, $totalElapsedMs, $episodeSummaries);
   RlWriteJson($baseDir . DIRECTORY_SEPARATOR . 'run_config.json', $runConfig);
   echo json_encode(['success' => true, 'runDir' => $baseDir, 'latestCheckpoint' => $ckptDir . DIRECTORY_SEPARATOR . 'latest.json'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL;
 }
@@ -1328,7 +1414,10 @@ function RlRunParallel($args) {
   $frozenPool = [];
   $completedSteps = 0;
   $timedOutEpisodes = 0;
+  $failedEpisodes = 0;
+  $terminationReasonCounts = [];
   $timeoutReplayPath = null;
+  $failureReplayPath = null;
   $trainStart = microtime(true);
   $episodeSummaries = [];
   $nextEpisode = 1;
@@ -1387,6 +1476,8 @@ function RlRunParallel($args) {
       foreach ($summaries as $summary) {
         if (!is_array($summary)) continue;
         if (!empty($summary['timedOut'])) ++$timedOutEpisodes;
+        if (!empty($summary['failed'])) ++$failedEpisodes;
+        RlIncrementTerminationReason($terminationReasonCounts, $summary);
         $completedSteps += intval($summary['steps'] ?? 0);
         $episodeSummaries[] = $summary;
         $summaryEpisode = intval($summary['episode'] ?? 0);
@@ -1396,11 +1487,15 @@ function RlRunParallel($args) {
           $timeoutReplayPath = $replayDir . DIRECTORY_SEPARATOR . 'timeout_episode_' . sprintf('%04d', $summaryEpisode) . '.json';
           RlWriteJson($timeoutReplayPath, $replay);
         }
+        if (!empty($summary['failed']) && $failureReplayPath === null && $replay !== null) {
+          $failureReplayPath = $replayDir . DIRECTORY_SEPARATOR . 'failure_episode_' . sprintf('%04d', $summaryEpisode) . '.json';
+          RlWriteJson($failureReplayPath, $replay);
+        }
         if ($summaryEpisode === intval($args['episodes']) && $replay !== null) {
           RlWriteJson($replayDir . DIRECTORY_SEPARATOR . 'episode_' . sprintf('%04d', intval($args['episodes'])) . '.json', $replay);
         }
         if (intval($args['log-every']) > 0 && (($summaryEpisode % intval($args['log-every']) === 0) || $summaryEpisode === intval($args['episodes']))) {
-          RlPrintProgress($args, $policy, $summaryEpisode, intval($summary['steps'] ?? 0), RlEpisodeOutcome($summary), $timedOutEpisodes, $completedSteps, $trainStart);
+          RlPrintProgress($args, $policy, $summaryEpisode, intval($summary['steps'] ?? 0), RlEpisodeOutcome($summary), $timedOutEpisodes, $failedEpisodes, $terminationReasonCounts, $completedSteps, $trainStart);
         }
       }
       RlDeleteWorkerScratch($worker['resultPath']);
@@ -1419,21 +1514,23 @@ function RlRunParallel($args) {
 
   usort($episodeSummaries, fn($a, $b) => intval($a['episode'] ?? 0) <=> intval($b['episode'] ?? 0));
   $totalElapsedMs = intval(round((microtime(true) - $trainStart) * 1000));
-  $runConfig = RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $completedSteps, $timedOutEpisodes, $totalElapsedMs, $episodeSummaries);
+  $runConfig = RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $failureReplayPath, $completedSteps, $timedOutEpisodes, $failedEpisodes, $terminationReasonCounts, $totalElapsedMs, $episodeSummaries);
   $runConfig['parallel'] = ['workers' => intval($args['workers']), 'workerEpisodes' => intval($args['worker-episodes']), 'mode' => 'batched-frozen-policy-rollout'];
   RlWriteJson($baseDir . DIRECTORY_SEPARATOR . 'run_config.json', $runConfig);
   echo json_encode(['success' => true, 'runDir' => $baseDir, 'latestCheckpoint' => $ckptDir . DIRECTORY_SEPARATOR . 'latest.json'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL;
 }
 
-$args = RlParseArgs($argv);
-$GLOBALS['rlStateKeyVersion'] = RlDefaultStateKeyVersion($args['root']);
-if (!empty($args['worker'])) {
-  RlRunWorker($args);
-  exit(0);
-}
-RlLoadDeckText($args['root'], RlDeckSource($args));
-if (intval($args['workers']) > 1) {
-  RlRunParallel($args);
-} else {
-  RlRunSequential($args);
+if (!defined('RL_TRAINER_LIBRARY_ONLY') || !RL_TRAINER_LIBRARY_ONLY) {
+  $args = RlParseArgs($argv);
+  $GLOBALS['rlStateKeyVersion'] = RlDefaultStateKeyVersion($args['root']);
+  if (!empty($args['worker'])) {
+    RlRunWorker($args);
+    exit(0);
+  }
+  RlLoadDeckText($args['root'], RlDeckSource($args));
+  if (intval($args['workers']) > 1) {
+    RlRunParallel($args);
+  } else {
+    RlRunSequential($args);
+  }
 }

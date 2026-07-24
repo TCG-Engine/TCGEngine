@@ -621,6 +621,12 @@ function BridgeEnumerateDecisionActions($decision, $player) {
             BridgeActionCardMetadata($choice)
           );
         }
+        // Runtime DecisionQueueController auto-passes a mandatory MZCHOOSE when
+        // all queued candidates have disappeared. Mirror that behavior for
+        // self-play so a stale post-cleanup choice cannot strand an episode.
+        if ($decision->Type === 'MZCHOOSE' && empty($actions)) {
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''];
+        }
         if ($decision->Type === 'MZMAYCHOOSE') {
           $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''];
         }

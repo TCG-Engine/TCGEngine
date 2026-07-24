@@ -151,13 +151,14 @@ PHP trainer artifacts:
 
 - `checkpoints/*.json`: tabular policy snapshots for evaluation or later reuse. Controlled by `--checkpoint-every`; the final episode always writes a checkpoint. Checkpoints are streamed to disk so saving does not allocate a second model-sized JSON string.
 - `replays/episode_*.json`: exact initial gamestate plus chosen actions for the final episode only, used for regression conversion and UI debugging.
-- `replays/timeout_episode_*.json`: exact initial gamestate plus chosen actions for the first timed-out episode, only written when a timeout occurs.
+- `replays/timeout_episode_*.json`: exact initial gamestate plus chosen actions for the first episode that reaches `--max-steps` or `--max-turns`.
+- `replays/failure_episode_*.json`: exact initial gamestate plus chosen actions for the first episode that cannot continue because it has no legal actions, all actions were filtered, or the engine threw an error.
 - `run_config.json`: run arguments, final throughput summary, and per-episode summaries.
 - `workers/*.json`: coordinator/worker scratch files for the active parallel batch. Successful batches delete these files after their deltas and replays are merged; failed-batch files are retained for diagnosis. Parallel mode does not retain unused in-memory frozen checkpoint copies.
 
 The PHP trainer intentionally does not write CSV timing/metrics files. Progress and throughput are printed to the console, while `run_config.json` keeps the compact final summary.
 
-Timeouts default to reward `-0.25` in the PHP trainer, so max-step caps are treated as failed trajectories instead of neutral draws. To tune that penalty:
+Incomplete trajectories default to reward `-0.25` in the PHP trainer. This applies to genuine max-step/max-turn timeouts and separately reported engine/action failures instead of treating either as a neutral draw. To tune that penalty:
 
 ```bash
 php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck-file DevTools/rl/azuki_raizan.txt --episodes 1000 --seed 126 --max-steps 500 --checkpoint-every 50 --log-every 1 --timeout-reward -0.25
