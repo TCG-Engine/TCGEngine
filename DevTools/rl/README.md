@@ -36,7 +36,15 @@ An AzukiDeck deck can also be loaded directly by its numeric deck number (the `g
 php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck 51 --episodes 10 --seed 123 --max-steps 200
 ```
 
-The full editor URL is accepted too. A deck text file containing only the number or URL also works. For compatibility, a number or URL may be supplied directly as the value of `--deck-file`, although `--deck` is clearer.
+The full editor URL is accepted too:
+
+```bash
+php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck "https://zendo.gg/TCGEngine/NextTurn.php?gameName=51&playerID=1&folderPath=AzukiDeck" --episodes 10
+```
+
+The trainer converts the editor link to the dedicated AzukiDeck `AzukiDeck/LoadDeck.php` JSON endpoint. Set `TCGENGINE_AZUKIDECK_API_URL` to override that endpoint for local development. If the API is unavailable and the deck exists under the local `AzukiDeck/Games` directory, the PHP trainer falls back to the local saved deck state.
+
+A deck text file containing only the number or URL also works. For compatibility, a number or URL may be supplied directly as the value of `--deck-file`, although `--deck` is clearer.
 
 ## Train
 

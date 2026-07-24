@@ -1975,11 +1975,125 @@ function BridgeAzukiDeckIDFromText($deckText) {
   return preg_match('/^\d+$/', $gameName) ? $gameName : '';
 }
 
-function BridgeLoadLocalAzukiDeck($playerID, $deckID) {
+function BridgeAzukiDeckAPIURL($deckText, $deckID) {
+  $configured = trim(strval(getenv('TCGENGINE_AZUKIDECK_API_URL') ?: ''));
+  if ($configured !== '') {
+    $separator = str_contains($configured, '?') ? '&' : '?';
+    return $configured . $separator . http_build_query([
+      'deckID' => $deckID,
+      'format' => 'json',
+      'folderPath' => 'AzukiDeck',
+    ]);
+  }
+
+  $parsed = parse_url(trim(strval($deckText)));
+  if (is_array($parsed) && isset($parsed['scheme'], $parsed['host'])) {
+    $scheme = strtolower(strval($parsed['scheme']));
+    $host = strval($parsed['host']);
+    $port = isset($parsed['port']) ? ':' . intval($parsed['port']) : '';
+    if (($scheme === 'https' || $scheme === 'http') && $host !== '') {
+      $path = strval($parsed['path'] ?? '');
+      $enginePath = preg_replace('#/NextTurn\.php$#i', '', $path);
+      if ($enginePath === $path) $enginePath = '/TCGEngine';
+      return $scheme . '://' . $host . $port . rtrim($enginePath, '/') . '/AzukiDeck/LoadDeck.php?' . http_build_query([
+        'deckID' => $deckID,
+        'format' => 'json',
+      ]);
+    }
+  }
+
+  return 'https://zendo.gg/TCGEngine/AzukiDeck/LoadDeck.php?' . http_build_query([
+    'deckID' => $deckID,
+    'format' => 'json',
+  ]);
+}
+
+function BridgeNormalizeAzukiDeckAPIResponse($payload) {
+  if (!is_array($payload)) {
+    return ['success' => false, 'message' => 'AzukiDeck API returned invalid JSON.'];
+  }
+  if (isset($payload['error'])) {
+    return ['success' => false, 'message' => 'AzukiDeck API error: ' . strval($payload['error'])];
+  }
+
+  $leader = trim(strval($payload['leader']['id'] ?? ''));
+  $gate = trim(strval($payload['gate']['id'] ?? ($payload['base']['id'] ?? '')));
+  $mainDeck = [];
+  foreach (($payload['deck'] ?? []) as $entry) {
+    if (!is_array($entry)) continue;
+    $cardID = trim(strval($entry['id'] ?? ''));
+    $quantity = max(0, intval($entry['count'] ?? 0));
+    if ($cardID === '' || $quantity === 0) continue;
+    for ($i = 0; $i < $quantity; ++$i) $mainDeck[] = $cardID;
+  }
+
+  $resolved = [
+    'success' => $leader !== '' && $gate !== '' && count($mainDeck) > 0,
+    'message' => '',
+    'leader' => $leader,
+    'gate' => $gate,
+    'mainDeck' => $mainDeck,
+    'unresolved' => [],
+  ];
+  if (!$resolved['success']) {
+    $resolved['message'] = 'AzukiDeck API response needs a leader, gate, and at least one main-deck card.';
+  }
+  return function_exists('AzukiCanonicalizeResolvedDeck') ? AzukiCanonicalizeResolvedDeck($resolved) : $resolved;
+}
+
+function BridgeFetchAzukiDeckAPI($deckText, $deckID) {
+  static $cache = [];
+  $url = BridgeAzukiDeckAPIURL($deckText, $deckID);
+  if (isset($cache[$url])) return $cache[$url];
+
+  $body = false;
+  if (function_exists('curl_init')) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
+    $body = curl_exec($ch);
+    $httpCode = intval(curl_getinfo($ch, CURLINFO_RESPONSE_CODE));
+    $curlError = curl_error($ch);
+    curl_close($ch);
+    if ($body === false || $httpCode < 200 || $httpCode >= 300) {
+      $detail = $curlError !== '' ? $curlError : 'HTTP ' . $httpCode;
+      return ['success' => false, 'message' => 'Could not load AzukiDeck deck from API (' . $detail . ').', 'apiURL' => $url];
+    }
+  } else {
+    $context = stream_context_create(['http' => [
+      'timeout' => 15,
+      'header' => "Accept: application/json\r\n",
+      'ignore_errors' => true,
+    ]]);
+    $body = @file_get_contents($url, false, $context);
+    if ($body === false) {
+      return ['success' => false, 'message' => 'Could not load AzukiDeck deck from API.', 'apiURL' => $url];
+    }
+  }
+
+  $resolved = BridgeNormalizeAzukiDeckAPIResponse(json_decode(strval($body), true));
+  $resolved['apiURL'] = $url;
+  if (!empty($resolved['success'])) $cache[$url] = $resolved;
+  return $resolved;
+}
+
+function BridgeResolveAzukiDeck($deckText, $deckID) {
+  $apiResolved = BridgeFetchAzukiDeckAPI($deckText, $deckID);
+  if (!empty($apiResolved['success'])) return $apiResolved;
+
   if (!function_exists('AzukiDeckReadDeckState')) {
-    return ['success' => false, 'message' => 'AzukiDeck deck reader is not available.'];
+    return $apiResolved;
   }
   $resolved = AzukiCanonicalizeResolvedDeck(AzukiDeckReadDeckState($deckID));
+  if (!is_array($resolved) || empty($resolved['success'])) return $apiResolved;
+  $resolved['apiURL'] = strval($apiResolved['apiURL'] ?? '');
+  $resolved['source'] = 'local-fallback';
+  return $resolved;
+}
+
+function BridgePopulateAzukiDeck($playerID, $resolved) {
   if (!is_array($resolved) || empty($resolved['success'])) return $resolved;
 
   $deck = &GetDeck($playerID);
@@ -2010,12 +2124,14 @@ function BridgeLoadAzukiDeckForPlayer($playerID, $deckText, &$summary) {
   }
 
   $parts = BridgeAzukiDeckTextParts($deckText);
+  $resolved = null;
   try {
     if (($parts['deckID'] ?? '') !== '') {
-      $resolved = BridgeLoadLocalAzukiDeck($playerID, $parts['deckID']);
+      $resolved = BridgeResolveAzukiDeck($deckText, $parts['deckID']);
       if (empty($resolved['success'])) {
         throw new RuntimeException(strval($resolved['message'] ?? 'Could not load the selected AzukiDeck deck.'));
       }
+      BridgePopulateAzukiDeck($playerID, $resolved);
     } else {
       LoadPlayer($playerID, $parts['preconstructed'], $parts['deckLink']);
     }
@@ -2063,6 +2179,8 @@ function BridgeLoadAzukiDeckForPlayer($playerID, $deckText, &$summary) {
     'preconstructed' => $parts['preconstructed'],
     'deckLink' => $parts['deckLink'],
     'deckID' => strval($parts['deckID'] ?? ''),
+    'deckAPI' => is_array($resolved) ? strval($resolved['apiURL'] ?? '') : '',
+    'deckSource' => is_array($resolved) ? strval($resolved['source'] ?? 'api') : '',
     'leader' => $leader,
     'gate' => $gateID,
     'mainDeckCount' => is_array($deck) ? count($deck) : 0,
