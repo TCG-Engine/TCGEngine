@@ -35,6 +35,10 @@
     if(is_file($azukiDeckImportPath)) {
       include_once $azukiDeckImportPath;
     }
+    $azukiRlBotProfilesPath = __DIR__ . '/../../AzukiSim/Custom/RlBotProfiles.php';
+    if(is_file($azukiRlBotProfilesPath)) {
+      include_once $azukiRlBotProfilesPath;
+    }
   } else if($rootName === 'SWUSim') {
     $swuDeckImportPath = __DIR__ . '/../../SWUSim/Custom/DeckImport.php';
     if(is_file($swuDeckImportPath)) {
@@ -52,6 +56,9 @@
   $createPrivate = isset($_POST['createPrivate']) && ($_POST['createPrivate'] === '1' || strtolower($_POST['createPrivate']) === 'true');
   $createGoldfish = isset($_POST['createGoldfish']) && ($_POST['createGoldfish'] === '1' || strtolower($_POST['createGoldfish']) === 'true');
   $createRlBot = isset($_POST['createRlBot']) && ($_POST['createRlBot'] === '1' || strtolower($_POST['createRlBot']) === 'true');
+  $azukiRlBotProfile = function_exists('NormalizeAzukiRlBotProfile')
+    ? NormalizeAzukiRlBotProfile($_POST['rlBotOpponent'] ?? 'raizan')
+    : 'raizan';
   $createTutorial = isset($_POST['createTutorial']) && ($_POST['createTutorial'] === '1' || strtolower($_POST['createTutorial']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';
 
@@ -130,7 +137,12 @@
     $hostPlayer = $isAzukiTutorial
       ? new Player(1, '', 'Raizan', $joiningUserId)
       : new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
-    if ($isAzukiRlBot || $isAzukiTutorial) {
+    if ($isAzukiRlBot) {
+      $botProfile = function_exists('GetAzukiRlBotProfile')
+        ? GetAzukiRlBotProfile($azukiRlBotProfile)
+        : ['deck' => 'Raizan'];
+      $secondPlayer = new Player(2, '', strval($botProfile['deck'] ?? 'Raizan'));
+    } else if ($isAzukiTutorial) {
       $secondPlayer = new Player(2, '', 'Raizan');
     } else if ($isHotseat) {
       // Hotseat: a real second deck; one person plays both seats.
@@ -152,6 +164,7 @@
     $lobby->isGoldfish = true;            // reuse the "skip matchmaking / skip Bo3 match" plumbing
     $lobby->goldfishPlayers = $isHotseat ? [] : [2];
     $lobby->azukiRlBotPlayers = $isAzukiRlBot ? [2] : [];
+    $lobby->azukiRlBotProfile = $isAzukiRlBot ? $azukiRlBotProfile : '';
     $lobby->players = [$hostPlayer, $secondPlayer];
 
     // CreateGame is pre-included via MatchFlow (SWU + GA), so call the setup function directly rather

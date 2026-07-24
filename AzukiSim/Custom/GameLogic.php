@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/Stats.php';
+require_once __DIR__ . '/RlBotProfiles.php';
 
 $debugMode = true;
 $customDQHandlers = [];
@@ -100,6 +101,17 @@ function AzukiRlBotCardThreatValue($cardID) {
 
 function AzukiRlBotPublishedCheckpointPath() {
     $modelDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'RLBot';
+    $gameProfile = strval(DecisionQueueController::GetVariable('AzukiRlBotProfile') ?? '');
+    if($gameProfile !== '') {
+        $profile = GetAzukiRlBotProfile($gameProfile);
+        $profileModel = strval($profile['model'] ?? '');
+        if($profileModel !== '' && basename($profileModel) === $profileModel) {
+            return $modelDir . DIRECTORY_SEPARATOR . $profileModel;
+        }
+    }
+
+    // Backward compatibility for RL-bot games created before profiles were
+    // persisted in gamestate.
     $defaultModel = 'raizan-lite-v2.json';
     $selectorPath = $modelDir . DIRECTORY_SEPARATOR . 'selected-model.txt';
     $selected = is_file($selectorPath) ? trim(strval(@file_get_contents($selectorPath))) : '';
@@ -132,18 +144,23 @@ function AzukiRlBotCompiledManifest($checkpointPath) {
     static $cache = [];
     $checkpointPath = strval($checkpointPath);
     $manifestPath = AzukiRlBotCompiledManifestPath($checkpointPath);
-    if(!is_file($checkpointPath) || !is_file($manifestPath)) return null;
-    $cacheKey = $checkpointPath . '|' . intval(@filesize($checkpointPath)) . '|' . intval(@filemtime($manifestPath));
+    if(!is_file($manifestPath)) return null;
+    $checkpointExists = is_file($checkpointPath);
+    $cacheKey = $checkpointPath . '|' . ($checkpointExists ? intval(@filesize($checkpointPath)) : 'compiled-only') . '|' . intval(@filemtime($manifestPath));
     if(array_key_exists($cacheKey, $cache)) return $cache[$cacheKey];
 
     $manifest = require $manifestPath;
     if(!is_array($manifest)
         || strval($manifest['format'] ?? '') !== 'tcgengine-rl-php-shards-v1'
-        || intval($manifest['checkpoint_size'] ?? -1) !== intval(@filesize($checkpointPath))
         || strval($manifest['checkpoint_basename'] ?? '') !== basename($checkpointPath)
         || strval($manifest['checkpoint_edge_sha256'] ?? '') === ''
-        || !hash_equals(strval($manifest['checkpoint_edge_sha256']), AzukiRlBotCheckpointEdgeHash($checkpointPath))
         || !is_dir(strval($manifest['shard_dir'] ?? ''))) {
+        $cache[$cacheKey] = null;
+        return null;
+    }
+    if($checkpointExists
+        && (intval($manifest['checkpoint_size'] ?? -1) !== intval(@filesize($checkpointPath))
+            || !hash_equals(strval($manifest['checkpoint_edge_sha256']), AzukiRlBotCheckpointEdgeHash($checkpointPath)))) {
         $cache[$cacheKey] = null;
         return null;
     }
@@ -272,11 +289,13 @@ function AzukiRlBotCheckpointStrategyMode($path) {
 function AzukiRlBotLoadStateLogits($stateKey) {
     static $cache = [];
     $path = AzukiRlBotPublishedCheckpointPath();
-    $mtime = intval(@filemtime($path));
+    $mtime = max(intval(@filemtime($path)), intval(@filemtime(AzukiRlBotCompiledManifestPath($path))));
     $cacheKey = $path . '|' . $mtime . '|' . strval($stateKey);
     if(array_key_exists($cacheKey, $cache)) return $cache[$cacheKey];
 
-    $logits = is_file($path) ? AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey) : null;
+    $logits = (is_file($path) || is_file(AzukiRlBotCompiledManifestPath($path)))
+        ? AzukiRlBotStateLogitsFromCheckpoint($path, $stateKey)
+        : null;
     if($logits === null) $logits = [];
 
     if(count($cache) > 256) $cache = [];

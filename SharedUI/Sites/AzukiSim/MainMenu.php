@@ -99,7 +99,7 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
         <button onclick="window.location.href='/TCGEngine/AzukiDeck/'" style="background-color: #1769aa;">Build a Deck</button>
         <button onclick="joinQueue()">Join Queue</button>
         <button onclick="createTutorialGame()" style="background-color: #c18b2f;">Learn to Play</button>
-        <button onclick="createRlBotGame()" style="background-color: #7b5fc9;">Play RL Bot</button>
+        <button onclick="createRlBotGame()" aria-haspopup="dialog" style="background-color: #7b5fc9;">Play RL Bot</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button id="rejoin-last-game-btn" onclick="rejoinLastGame()" style="display: none; background-color: #5b4aa3;">Rejoin Last Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
@@ -147,6 +147,31 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
       <h2 style="margin: 0;">Your Replays</h2>
       <p style="margin: 0; color: #ccc; font-size: 13px; line-height: 1.4;">Saved in this browser.</p>
       <div id="match-replay-menu-list" class="ga-replay-list"></div>
+    </div>
+  </div>
+</div>
+
+<div id="rl-bot-opponent-modal" class="rl-bot-opponent-modal" aria-hidden="true">
+  <div class="rl-bot-opponent-modal__backdrop" onclick="closeRlBotOpponentModal()" aria-hidden="true"></div>
+  <div class="rl-bot-opponent-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="rl-bot-opponent-title" aria-describedby="rl-bot-opponent-description">
+    <button type="button" class="rl-bot-opponent-modal__close" onclick="closeRlBotOpponentModal()" aria-label="Close opponent selection">&times;</button>
+    <h2 id="rl-bot-opponent-title">Choose Your Opponent</h2>
+    <p id="rl-bot-opponent-description">Your selected deck will face one of these trained RL bots.</p>
+    <div class="rl-bot-opponent-grid">
+      <button type="button" class="rl-bot-opponent-choice" onclick="startRlBotGame('raizan')">
+        <img src="/TCGEngine/AzukiSim/WebpImages/S1-STT01-001_Raizan_L_L_die.webp" alt="" aria-hidden="true">
+        <span>
+          <strong>Raizan</strong>
+          <small>Starter Deck</small>
+        </span>
+      </button>
+      <button type="button" class="rl-bot-opponent-choice" onclick="startRlBotGame('zero')">
+        <img src="/TCGEngine/AzukiSim/WebpImages/S1-STT04-001_Zero_L_L_die.webp" alt="" aria-hidden="true">
+        <span>
+          <strong>Zero</strong>
+          <small>Deck 51</small>
+        </span>
+      </button>
     </div>
   </div>
 </div>
@@ -221,6 +246,116 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
     color: #b9b9b9;
     font-size: 12px;
     line-height: 1.35;
+  }
+  .rl-bot-opponent-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .rl-bot-opponent-modal.is-open {
+    display: flex;
+  }
+  .rl-bot-opponent-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: rgba(5, 7, 10, 0.84);
+    cursor: default;
+  }
+  .rl-bot-opponent-modal__dialog {
+    position: relative;
+    width: min(560px, 100%);
+    padding: 24px;
+    border: 1px solid rgba(118, 196, 255, 0.32);
+    border-radius: 14px;
+    background: linear-gradient(145deg, #20232a, #121419);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+    color: #fff;
+  }
+  .rl-bot-opponent-modal__dialog h2 {
+    margin: 0 36px 6px 0;
+    font-size: 24px;
+  }
+  .rl-bot-opponent-modal__dialog > p {
+    margin: 0 0 20px;
+    color: #bfc5ce;
+    font-size: 14px;
+  }
+  .rl-bot-opponent-modal__close {
+    position: absolute !important;
+    top: 10px;
+    right: 12px;
+    min-width: 36px;
+    padding: 4px 8px;
+    border: 0;
+    background: transparent;
+    color: #bfc5ce;
+    font-size: 28px;
+    line-height: 1;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .rl-bot-opponent-modal__close:hover {
+    transform: none !important;
+  }
+  .rl-bot-opponent-modal__close::before,
+  .rl-bot-opponent-modal__close::after,
+  .rl-bot-opponent-choice::before,
+  .rl-bot-opponent-choice::after {
+    content: none !important;
+  }
+  .rl-bot-opponent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .rl-bot-opponent-choice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    background: rgba(53, 58, 69, 0.9);
+    color: #fff;
+    text-align: left;
+  }
+  .rl-bot-opponent-choice:hover,
+  .rl-bot-opponent-choice:focus-visible {
+    border-color: #76c4ff;
+    background: rgba(79, 96, 124, 0.95);
+    box-shadow: 0 0 0 2px rgba(118, 196, 255, 0.16);
+    transform: none !important;
+  }
+  .rl-bot-opponent-choice img {
+    width: 64px;
+    height: 88px;
+    flex: 0 0 auto;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+  .rl-bot-opponent-choice span {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .rl-bot-opponent-choice strong {
+    font-size: 18px;
+  }
+  .rl-bot-opponent-choice small {
+    color: #c7ccd5;
+    font-size: 12px;
   }
   .azuki-builder-deck-grid {
     display: grid;
@@ -627,6 +762,12 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
       align-items: flex-start;
       line-height: 1.35;
     }
+    .rl-bot-opponent-grid {
+      grid-template-columns: 1fr;
+    }
+    .rl-bot-opponent-modal__dialog {
+      padding: 18px;
+    }
   }
   @media (max-width: 370px) {
     .azuki-queue-card > div > div[style*="display: flex"] {
@@ -923,11 +1064,39 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
       }
 
       function createRlBotGame() {
+        var modal = document.getElementById('rl-bot-opponent-modal');
+        if (!modal) return;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        var firstChoice = modal.querySelector('.rl-bot-opponent-choice');
+        if (firstChoice) firstChoice.focus();
+      }
+
+      function closeRlBotOpponentModal() {
+        var modal = document.getElementById('rl-bot-opponent-modal');
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+
+      function startRlBotGame(opponent) {
+        opponent = opponent === 'zero' ? 'zero' : 'raizan';
+        closeRlBotOpponentModal();
         submitQueueJoin({
           createRlBot: true,
+          rlBotOpponent: opponent,
           waitingMessage: 'Starting RL bot game...'
         });
       }
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key !== 'Escape') return;
+        var modal = document.getElementById('rl-bot-opponent-modal');
+        if (modal && modal.classList.contains('is-open')) {
+          event.preventDefault();
+          closeRlBotOpponentModal();
+        }
+      });
 
       function createTutorialGame() {
         submitQueueJoin({
@@ -1008,6 +1177,7 @@ $hasAzukiBuilderDecks = !empty($azukiBuilderDecks);
         }
         if (options.createRlBot) {
           params += '&createRlBot=1&format=rlbot';
+          params += '&rlBotOpponent=' + encodeURIComponent(options.rlBotOpponent || 'raizan');
         }
         if (options.createTutorial) {
           params += '&createTutorial=1&format=tutorial';

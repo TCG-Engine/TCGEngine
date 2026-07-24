@@ -28,6 +28,8 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     $azukiCreateMode = isset($lobby->format) ? strtolower(strval($lobby->format)) : '';
     if ($azukiCreateMode === 'rlbot') {
         DecisionQueueController::StoreVariable('GameMode', 'rlbot');
+        $azukiRlBotProfile = NormalizeAzukiRlBotProfile($lobby->azukiRlBotProfile ?? 'raizan');
+        DecisionQueueController::StoreVariable('AzukiRlBotProfile', $azukiRlBotProfile);
         if (function_exists('SetAzukiRlBotPlayers')) {
             SetAzukiRlBotPlayers(isset($lobby->azukiRlBotPlayers) && is_array($lobby->azukiRlBotPlayers) ? $lobby->azukiRlBotPlayers : [2]);
         } else {
@@ -157,6 +159,31 @@ function GetPreconstructedDeckConfig($deckName) {
                 'S1-STT04-015_Detonation-Pact_S_C_die',
                 'S1-STT04-016_Collateral-Burst_S_UC_die',
                 'S1-STT04-017_Wrath-of-Sinder_S_R_die',
+            ],
+        ];
+    }
+
+    // The custom Zero list used for the Deck 51 self-play policy. Keep this
+    // local so playable bot games do not depend on the training deck endpoint.
+    if($normalized === 'zerorl') {
+        return [
+            'name' => 'Zero (Deck 51)',
+            'leader' => 'S1-STT04-001_Zero_L_L_die',
+            'gate' => 'S1-AZK01-122_Rushfire-Gate_G_G_die',
+            'deckList' => [
+                'S1-AZK01-004_Alley-Thug_E_C_die','S1-AZK01-004_Alley-Thug_E_C_die','S1-AZK01-004_Alley-Thug_E_C_die','S1-AZK01-004_Alley-Thug_E_C_die',
+                'S1-AZK01-059_Spice_E_UC_die','S1-AZK01-059_Spice_E_UC_die','S1-AZK01-059_Spice_E_UC_die','S1-AZK01-059_Spice_E_UC_die',
+                'S1-STT04-015_Detonation-Pact_S_C_die','S1-STT04-015_Detonation-Pact_S_C_die','S1-STT04-015_Detonation-Pact_S_C_die','S1-STT04-015_Detonation-Pact_S_C_die',
+                'S1-STT04-005_Ruby_E_C_die','S1-STT04-005_Ruby_E_C_die','S1-STT04-005_Ruby_E_C_die','S1-STT04-005_Ruby_E_C_die',
+                'S1-AZK01-058_Black-Jade-Warlord_E_C_die','S1-AZK01-058_Black-Jade-Warlord_E_C_die','S1-AZK01-058_Black-Jade-Warlord_E_C_die','S1-AZK01-058_Black-Jade-Warlord_E_C_die',
+                'S1-STT04-003_Cinderwake-Seer_E_UC_die','S1-STT04-003_Cinderwake-Seer_E_UC_die','S1-STT04-003_Cinderwake-Seer_E_UC_die','S1-STT04-003_Cinderwake-Seer_E_UC_die',
+                'S1-AZK01-116_Tenmoku-Daiki_E_R_die','S1-AZK01-116_Tenmoku-Daiki_E_R_die','S1-AZK01-116_Tenmoku-Daiki_E_R_die',
+                'S1-STT04-016_Collateral-Burst_S_UC_die','S1-STT04-016_Collateral-Burst_S_UC_die','S1-STT04-016_Collateral-Burst_S_UC_die','S1-STT04-016_Collateral-Burst_S_UC_die',
+                'S1-AZK01-060_Scarlett_E_R_die','S1-AZK01-060_Scarlett_E_R_die','S1-AZK01-060_Scarlett_E_R_die',
+                'S1-AZK01-062_Pekiro_E_R_die','S1-AZK01-062_Pekiro_E_R_die','S1-AZK01-062_Pekiro_E_R_die','S1-AZK01-062_Pekiro_E_R_die',
+                'S1-AZK01-056_Glass-Blower-Hokuto_E_C_die','S1-AZK01-056_Glass-Blower-Hokuto_E_C_die','S1-AZK01-056_Glass-Blower-Hokuto_E_C_die','S1-AZK01-056_Glass-Blower-Hokuto_E_C_die',
+                'S1-STT04-004_Fanatic-Kindler_E_C_die','S1-STT04-004_Fanatic-Kindler_E_C_die','S1-STT04-004_Fanatic-Kindler_E_C_die','S1-STT04-004_Fanatic-Kindler_E_C_die',
+                'S1-AZK01-065_Fire-Orb_S_C_die','S1-AZK01-065_Fire-Orb_S_C_die','S1-AZK01-065_Fire-Orb_S_C_die','S1-AZK01-065_Fire-Orb_S_C_die',
             ],
         ];
     }
