@@ -26,6 +26,14 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     ParseGamestate(__DIR__ . "/");
 
     $azukiCreateMode = isset($lobby->format) ? strtolower(strval($lobby->format)) : '';
+    if ($azukiCreateMode !== 'tutorial') {
+        GameLogEnableForHumanSession($azukiCreateMode === 'rlbot' ? 'human_vs_bot' : 'human_pvp');
+        GameLogBeginFrame();
+        GameLogEvent('game_start', [
+            'method' => 'lobby',
+            'choice' => 'p1',
+        ]);
+    }
     if ($azukiCreateMode === 'rlbot') {
         DecisionQueueController::StoreVariable('GameMode', 'rlbot');
         $azukiRlBotProfile = NormalizeAzukiRlBotProfile($lobby->azukiRlBotProfile ?? 'raizan');
@@ -44,6 +52,10 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
         $player->setGamePlayerID($playerCounter);
         LoadPlayer($playerCounter, $player->getPreconstructedDeck(), $player->getDeckLink(), $player->getUserId());
         ++$playerCounter;
+    }
+    if ($azukiCreateMode !== 'tutorial') {
+        GameLogEvent('shuffle', ['by' => 'p1', 'zone' => 'deck']);
+        GameLogEvent('shuffle', ['by' => 'p2', 'zone' => 'deck']);
     }
 
     $firstPlayer = &GetFirstPlayer();
@@ -80,6 +92,9 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
         AutoAdvanceAndExecute();
     }
 
+    if ($azukiCreateMode !== 'tutorial') {
+        GameLogCommitFrame($gameName, $updateNumber);
+    }
     WriteGamestate(__DIR__ . "/");
 
     $lobby->gameName = $gameName;

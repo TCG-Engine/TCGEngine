@@ -287,6 +287,11 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
   if ($result['updateCache']) {
     SetFrameAnimationCache($gameName, []);
   }
+  // Bot transport mode is only a wrapper. Its nested gameplay action owns and
+  // commits the semantic frame because the wrapper itself never writes state.
+  if($mode !== 10017 && function_exists('GameLogBeginFrame')) {
+    GameLogBeginFrame($action, $options);
+  }
 
   if ($mode !== 10015 && function_exists('SetFlashMessage')) SetFlashMessage('');
 
@@ -509,6 +514,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       break;
     case 10006:
       if (($playerID === 1 || $playerID === 2) && function_exists('TriggerGameOver')) {
+        if(function_exists('GameLogEvent')) {
+          GameLogEvent('concede', ['by' => 'p' . intval($playerID)]);
+        }
         TriggerGameOver($playerID);
         if (function_exists('SetFlashMessage')) {
           SetFlashMessage('Player ' . $playerID . ' conceded.');
@@ -817,6 +825,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     // states) BEFORE writing, so the GAMEOVER flash persists to the client. No-op for other sims.
     if (function_exists('SWUCheckBaseDefeatState')) SWUCheckBaseDefeatState();
     ++$updateNumber;
+    if(function_exists('GameLogCommitFrame')) {
+      GameLogCommitFrame($gameName, $updateNumber, $action, $result);
+    }
     WriteGamestate('./' . $folderPath . '/');
     // SWUSim-only Bo3 match advance (function exists only when MatchFlow is loaded; no-op for other sims).
     if (function_exists('SWUAfterActionMatchHook')) {

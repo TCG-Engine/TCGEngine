@@ -13,6 +13,7 @@ AssetReflection: AzukiSim
 Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZArea,myIKZPile,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZArea,theirIKZPile,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex,UniqueIDCounter,MacroGameIndex
 Module: UniqueID=Garden,UniqueID,UniqueIDCounter;Alley,UniqueID,UniqueIDCounter
 Module: MatchReplay=MatchReplayInitialState,MatchReplayCommands
+Module: GameLog
 Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Toast=Card; ToastCardParam=mzID; ToastLabel=Played; Action={}
 Macro: Name=OnPlay(mzID); ChoiceFunction=OnPlayCard; Action={}
 Macro: Name=AttackWith(mzID,targetMZ); ChoiceFunction=DoAttack; PrereqFunction=CanAttack; SourceParam=mzID; Action={}

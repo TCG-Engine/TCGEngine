@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/Stats.php';
 require_once __DIR__ . '/RlBotProfiles.php';
+require_once __DIR__ . '/GameLog.php';
 
 $debugMode = true;
 $customDQHandlers = [];
@@ -1902,6 +1903,21 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
 
     DiscardEquippedWeaponsFromObject(intval($owner), $obj);
 
+    if($toZone === 'myHand' || $toZone === 'theirHand') {
+        GameLogEvent('bounce', [
+            'by' => 'p' . intval($player),
+            'card' => AzukiGameLogCardLabel($cardID),
+            'from' => strtolower(preg_replace('/^(my|their)/', '', $sourceZone)),
+        ]);
+    }
+    else if($toZone === 'myDeck' || $toZone === 'theirDeck') {
+        GameLogEvent('bottom_deck', [
+            'by' => 'p' . intval($player),
+            'card' => AzukiGameLogCardLabel($cardID),
+            'from' => strtolower(preg_replace('/^(my|their)/', '', $sourceZone)),
+        ]);
+    }
+
     if($toZone !== 'myDiscard' && $toZone !== 'theirDiscard') return;
 
     if(is_string($cardID) && $cardID !== '') {
@@ -1911,6 +1927,12 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
         if(!is_string($resolvedCardID) || $resolvedCardID === '') {
             $resolvedCardID = $cardID;
         }
+        $gameLogLeaveEvent = $leaveReason === 'SACRIFICE' ? 'sacrifice' : ($leaveReason === 'REPLACE' ? 'replace' : 'destroy');
+        GameLogEvent($gameLogLeaveEvent, [
+            'by' => 'p' . intval($player),
+            'card' => AzukiGameLogCardLabel($resolvedCardID),
+            'from' => strtolower(preg_replace('/^(my|their)/', '', $sourceZone)),
+        ]);
         if($leaveReason === 'SACRIFICE') {
             WhenSacrificed(intval($owner), $resolvedCardID);
         }
@@ -1977,6 +1999,21 @@ function SafeMZMove($player, $mzIndex, $toZone) {
     }
 
     return $result;
+}
+
+function ReplaceFieldCard($player, $mzCard) {
+    $obj = GetZoneObject($mzCard);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
+    $owner = intval(ResolveObjectOwner($obj));
+    if($owner <= 0) $owner = intval($player);
+    $leaveReasonVar = 'P' . $owner . '_LeaveFieldReason';
+    $previousReason = strval(DecisionQueueController::GetVariable($leaveReasonVar) ?? '');
+    DecisionQueueController::StoreVariable($leaveReasonVar, 'REPLACE');
+    try {
+        return SafeMZMove($player, $mzCard, 'myDiscard');
+    } finally {
+        DecisionQueueController::StoreVariable($leaveReasonVar, $previousReason);
+    }
 }
 
 function SacrificeCards($player, $mzCards, $toZone = 'myDiscard') {
@@ -2378,6 +2415,12 @@ function TriggerGameOver($loserPlayer) {
 
     $winner = ($loserPlayer === 1) ? 2 : 1;
     DecisionQueueController::StoreVariable('GAMEOVER_WINNER', strval($winner));
+    $gameLogEndReason = strval(DecisionQueueController::GetVariable('AzukiGameLogEndReason') ?? 'leader_ko');
+    GameLogEvent('game_end', [
+        'winner' => 'p' . $winner,
+        'reason' => $gameLogEndReason !== '' ? $gameLogEndReason : 'leader_ko',
+    ]);
+    DecisionQueueController::ClearVariable('AzukiGameLogEndReason');
     try {
         AzukiRecordGameStats($winner);
     } catch(Throwable $e) {
@@ -2570,7 +2613,7 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
         if(CountActiveEntities($garden, true) >= 5) {
             $replaceIndex = FindReplaceableIndex($garden);
             if($replaceIndex >= 0) {
-                SafeMZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
+                ReplaceFieldCard($player, 'myGarden-' . $replaceIndex);
                 DecisionQueueController::CleanupRemovedCards();
             }
         }
@@ -2580,12 +2623,22 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
         if(CountActiveEntities($alley, true) >= 5) {
             $replaceIndex = FindReplaceableIndex($alley);
             if($replaceIndex >= 0) {
-                SafeMZMove($player, 'myAlley-' . $replaceIndex, 'myDiscard');
+                ReplaceFieldCard($player, 'myAlley-' . $replaceIndex);
                 DecisionQueueController::CleanupRemovedCards();
             }
         }
     }
 
+    $pendingPlayVar = 'P' . intval($player) . '_AzukiGameLogPendingPlay';
+    $pendingPlay = json_decode(strval(DecisionQueueController::GetVariable($pendingPlayVar) ?? ''), true);
+    $playingObj = GetZoneObject($mzCard);
+    GameLogEvent('play', [
+        'by' => 'p' . intval($player),
+        'card' => AzukiGameLogCardLabel(is_object($playingObj) ? ($playingObj->CardID ?? '') : ($pendingPlay['cardID'] ?? '')),
+        'pay' => intval($pendingPlay['pay'] ?? 0),
+        'to' => $destination === 'myGarden' ? 'garden' : 'alley',
+    ]);
+    DecisionQueueController::ClearVariable($pendingPlayVar);
     SafeMZMove($player, $mzCard, $destination);
     DecisionQueueController::CleanupRemovedCards();
 
@@ -2665,6 +2718,13 @@ function DealDamageToLeader($player, $amount, $sourceKey = null, $statsSourceKey
     $resolvedStatsSourceKey = is_string($statsSourceKey) && $statsSourceKey !== '' ? NormalizeDamageSourceKey($statsSourceKey) : $resolvedSourceKey;
     TrackMacroGameOpponentLeaderDamage($player, $amount, $resolvedStatsSourceKey);
     QueueLeaderDamageAnimation($player, $amount);
+    GameLogEvent('damage', [
+        'tgt' => 'p' . intval($player) . '.leader',
+        'amt' => $amount,
+        'dealt' => $amount,
+        'via' => strval($resolvedSourceKey),
+        'hp' => strval(LeaderCurrentHealth($player)),
+    ]);
 
     if(LeaderCurrentHealth($player) <= 0) {
         TriggerGameOver($player);
@@ -2688,6 +2748,14 @@ function HealLeader($player, $amount) {
     $leaderObj->Damage = min($maxHealth, $newDamage);
     $actualHealed = max(0, $currentDamage - $leaderObj->Damage);
     QueueLeaderRestoreAnimation($player, $actualHealed);
+    if($actualHealed > 0) {
+        GameLogEvent('heal', [
+            'tgt' => 'p' . intval($player) . '.leader',
+            'amt' => $amount,
+            'healed' => $actualHealed,
+            'hp' => strval(LeaderCurrentHealth($player)),
+        ]);
+    }
 }
 
 function ClearPekiroPendingDamageVars() {
@@ -2810,6 +2878,13 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
         if(TryHandlePreDamageReplacement($player, $targetMZ, $amount, $resolvedSourceKey, $isCardEffect, $allowReplacement)) return;
 
         $garden[$index]->Damage = intval($garden[$index]->Damage ?? 0) + $amount;
+        GameLogEvent('damage', [
+            'tgt' => AzukiGameLogObjectLabel($garden[$index]),
+            'amt' => $amount,
+            'dealt' => $amount,
+            'via' => strval($resolvedSourceKey),
+            'hp' => max(0, ResolveEntityHealthValue($targetPlayer, $garden[$index]) - intval($garden[$index]->Damage ?? 0)),
+        ]);
         QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true);
         TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
         RecordDamageSourceOnObject($garden[$index], $resolvedSourceKey);
@@ -2847,6 +2922,13 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
     if(TryHandlePreDamageReplacement($player, $targetMZ, $amount, $resolvedSourceKey, $isCardEffect, $allowReplacement)) return;
 
     $alley[$index]->Damage = intval($alley[$index]->Damage ?? 0) + $amount;
+    GameLogEvent('damage', [
+        'tgt' => AzukiGameLogObjectLabel($alley[$index]),
+        'amt' => $amount,
+        'dealt' => $amount,
+        'via' => strval($resolvedSourceKey),
+        'hp' => max(0, ResolveEntityHealthValue($targetPlayer, $alley[$index]) - intval($alley[$index]->Damage ?? 0)),
+    ]);
     QueueDamageAnimation('p' . $targetPlayer . 'Alley-' . $index, $amount, 500, true);
     TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
     RecordDamageSourceOnObject($alley[$index], $resolvedSourceKey);
@@ -3074,6 +3156,12 @@ function GainIKZ($player, $amount, $status=2) {
     // Add IKZ to area (untapped, Status=2)
     for($i = 0; $i < $toAdd; ++$i) {
         AddIKZArea($player, "IKZ-001_IKZ!_IKZ_die", $status);
+    }
+    if($toAdd > 0) {
+        GameLogEvent('ikz_gain', [
+            'by' => 'p' . intval($player),
+            'total' => $currentCount + $toAdd,
+        ]);
     }
 }
 
@@ -3606,6 +3694,21 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
     }
 
     if($cardType === 'ENTITY') {
+        DecisionQueueController::StoreVariable('P' . intval($player) . '_AzukiGameLogPendingPlay', json_encode([
+            'cardID' => $cardID,
+            'pay' => $ignoreCost ? 0 : $cardCost,
+        ]));
+    }
+    else {
+        GameLogEvent($cardType === 'SPELL' ? 'cast' : 'play', [
+            'by' => 'p' . intval($player),
+            'card' => AzukiGameLogCardLabel($cardID),
+            'pay' => $ignoreCost ? 0 : $cardCost,
+            'to' => $cardType === 'SPELL' ? 'discard' : strtolower($cardType),
+        ]);
+    }
+
+    if($cardType === 'ENTITY') {
         DecisionQueueController::AddDecision($player, 'CHOOSEZONE', 'myGarden&myAlley', 1, 'NO_SELECTION_MESSAGE');
         DecisionQueueController::AddDecision($player, 'CUSTOM', 'PLAY_ENTITY_DEST|' . $mzCard, 1);
         return 'PLAY';
@@ -3645,11 +3748,20 @@ function DoDrawCard($player, $amount) {
     $deck = &GetDeck($player);
     $hand = &GetHand($player);
 
+    $drawn = [];
     for($i = 0; $i < $amount; ++$i) {
         if(empty($deck)) break;
         $card = array_shift($deck);
         AzukiStatsTrackGameCardEvent('AzukiDrawn', $player, $card->CardID ?? '');
+        $drawn[] = AzukiGameLogObjectLabel($card);
         array_push($hand, $card);
+    }
+    if(!empty($drawn)) {
+        GameLogEvent('draw', [
+            'by' => 'p' . intval($player),
+            'n' => count($drawn),
+            'hidden' => ['for' => 'p' . intval($player), 'cards' => $drawn],
+        ]);
     }
 
     return 'DRAW';
@@ -3675,6 +3787,19 @@ function ResolveOpeningMulligan($player) {
         $cardID = $hand[$i]->CardID ?? '';
         if($cardID === '') continue;
         $bottomCards[] = new Deck($cardID, 'Deck', $player, count($deck) + count($bottomCards));
+    }
+
+    if(!empty($bottomCards)) {
+        GameLogEvent('mulligan', [
+            'by' => 'p' . $player,
+            'action' => 'bottom_all',
+            'hidden' => [
+                'for' => 'p' . $player,
+                'bottomed' => array_map(function($card) {
+                    return AzukiGameLogObjectLabel($card);
+                }, $bottomCards),
+            ],
+        ]);
     }
 
     $hand = [];
@@ -5257,6 +5382,12 @@ function DoAttack($player, $mzCard, $targetMZ) {
 
     if(!$isPendingResolution) {
         SaveActionSnapshot($player);
+        GameLogEvent('attack_declare', [
+            'by' => 'p' . intval($player),
+            'atk' => AzukiGameLogObjectLabel(GetZoneObject($mzCard)),
+            'tgt' => AzukiGameLogObjectLabel(GetZoneObject($targetMZ)),
+            'taps' => 'atk',
+        ]);
     }
 
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'RESOLVE_ATTACK_COMBAT|' . $mzCard . '|' . $targetMZ, 1);
@@ -5279,6 +5410,11 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         $abilityKey = $cardIDCandidates[$i] . ':' . $abilityIndex;
         if(isset($activateAbilityAbilities[$abilityKey]) && is_callable($activateAbilityAbilities[$abilityKey])) {
             SaveActionSnapshot($player);
+            GameLogEvent('activate', [
+                'by' => 'p' . intval($player),
+                'card' => AzukiGameLogCardLabel($cardID),
+                'ability' => $abilityIndex,
+            ]);
             $activateAbilityAbilities[$abilityKey]($player);
             CardActivated($player, $mzCard);
             return 'ACTIVATE_ABILITY';
@@ -5322,12 +5458,16 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
             if(CountActiveEntities($garden, true) >= 5) {
                 $replaceIndex = FindReplaceableIndex($garden);
                 if($replaceIndex >= 0) {
-                    SafeMZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
+                    ReplaceFieldCard($player, 'myGarden-' . $replaceIndex);
                     DecisionQueueController::CleanupRemovedCards();
                 }
             }
 
             SafeMZMove($player, $entityMZ, 'myGarden');
+            GameLogEvent('portal', [
+                'by' => 'p' . intval($player),
+                'card' => AzukiGameLogCardLabel($entityCardID),
+            ]);
             DecisionQueueController::CleanupRemovedCards();
 
             $garden = &GetGarden($player);
@@ -5422,6 +5562,7 @@ function ActionMap($actionCard) {
 // --- Phase Handlers ---
 
 function OnStartOfTurn($player) {
+    AzukiGameLogRecordTurnStart($player);
     DecisionQueueController::StoreVariable('P' . intval($player) . '_EntitiesPlayedThisTurn', '0');
     DecisionQueueController::StoreVariable('P' . intval($player) . '_BobuWardActive', '0');
     global $gCurrentPhase;
@@ -5916,6 +6057,10 @@ function EndOfTurnPhase() {
     } finally {
         DecisionQueueController::ResumeAutoAdvance();
     }
+    GameLogEvent('turn_end', [
+        'by' => 'p' . $endingPlayer,
+        'turn' => intval(GetTurnNumber()),
+    ]);
     // Switch turn player and increment turn number
     $turnPlayer = &GetTurnPlayer();
     $turnNumber = &GetTurnNumber();

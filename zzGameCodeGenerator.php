@@ -2013,6 +2013,12 @@ if (in_array($rootName, ['SWUSim'], true)) {
   fwrite($handler, "if(\$actionsData === false) \$actionsData = '{}';\r\n");
   fwrite($handler, "echo(\$actionsData);\r\n");
 }
+if (GetModule("GameLog") !== null) {
+  fwrite($handler, "echo(\"<~>GAMELOG:\");\r\n");
+  fwrite($handler, "\$gameLogPayload = function_exists('GameLogClientPayload') ? GameLogClientPayload(\$viewerPerspective, \$gameName) : ['enabled' => false, 'game_id' => strval(\$gameName), 'events' => []];\r\n");
+  fwrite($handler, "\$gameLogJson = json_encode(\$gameLogPayload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);\r\n");
+  fwrite($handler, "echo(\$gameLogJson === false ? '{\"enabled\":false,\"events\":[]}' : \$gameLogJson);\r\n");
+}
 fwrite($handler, "echo(\"<~>\");\r\n");
 // Frame animations live under a DEDICATED cache key (not cache piece 15) so the unlocked
 // read-modify-write of the shared multi-piece game-state blob can't clobber them — see

@@ -326,6 +326,17 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     if (file_exists($macroCountFile)) {
       echo '<script src="' . $macroCountFile . '"></script>';
     }
+    $gameLogClientFile = "./" . $folderPath . "/Custom/GameLogClient.js";
+    $supportsGameLog = function_exists('GetModuleConfig') && GetModuleConfig('GameLog') !== null;
+    if ($supportsGameLog && file_exists($gameLogClientFile)) {
+      echo '<script src="' . $gameLogClientFile . '?v=' . @filemtime($gameLogClientFile) . '"></script>';
+      echo '<script>if(window.GameLogClient){window.GameLogClient.init('
+        . json_encode([
+          'gameName' => strval($gameName),
+          'viewer' => intval($viewerPerspective),
+        ], JSON_UNESCAPED_SLASHES)
+        . ');}</script>';
+    }
 
     ?>
 
@@ -1194,6 +1205,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         if (botControllerPayload && typeof SetBotControllerState === "function") {
           SetBotControllerState(botControllerPayload);
         }
+        if (window.GameLogClient && typeof window.GameLogClient.ingestResponse === 'function') {
+          window.GameLogClient.ingestResponse(responseArr);
+        }
         if (typeof FreezeCardDetailUntilMouseMove === 'function') FreezeCardDetailUntilMouseMove();
         // Twin Suns cross-view targeting: a repaint from the cached responseArr (a pair-switcher swipe)
         // sets this one-shot flag so an in-progress targeting decision survives the repaint and its cards
@@ -1266,6 +1280,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                   window.GAShowEndGameMenu(_goStatsHtml);
                 } else {
                   ShowGameOver(viewerCanAct && playerID === _goWinner, undefined, _goStatsHtml);
+                }
+                if (window.GameLogClient && typeof window.GameLogClient.addGameOverButton === 'function') {
+                  window.GameLogClient.addGameOverButton(document.getElementById('game-over-overlay'));
                 }
               }
             }
