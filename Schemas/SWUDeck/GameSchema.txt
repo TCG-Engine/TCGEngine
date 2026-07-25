@@ -35,9 +35,11 @@ Display: Visibility=Self, Mode=Panel, BindTo=CardPaneSlot, Split=None
 Leaders - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Add(myLeader)
+Filter: InLegalFilter
 Leader1 - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Add(myLeader)
+Filter: InLegalFilter
 Leader2 - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Add(myLeader)
@@ -45,6 +47,7 @@ Filter: InAlignmentClashFilter
 Bases - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Swap(myBase)
+Filter: InLegalFilter
 Cards - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Add(myMainDeck)
