@@ -10110,14 +10110,16 @@ $customDQHandlers["LAW_170#1"] = function($player, $parts, $lastDecision) {
     $costFriendly = intval(CardCost($fObj->CardID ?? ''));
     $costEnemy    = intval(CardCost($enemyObj->CardID ?? ''));
     // Caster takes the enemy unit; opponent takes the (former) friendly unit.
-    SWUTakeControlOfUnit(intval($player), $lastDecision);
+    $enemyNew = SWUTakeControlOfUnit(intval($player), $lastDecision);
     $fMz2 = SWUFindMzByUID($fUID);                  // re-resolve (caster's arena shifted)
-    if ($fMz2 !== null) SWUTakeControlOfUnit($opp, $fMz2);
-    // The player who took the LOWER-cost unit creates Credits = |difference|.
+    $friendlyNew = ($fMz2 !== null) ? SWUTakeControlOfUnit($opp, $fMz2) : '';
+    // The player who took the LOWER-cost unit creates Credits = |difference| — but ONLY if that control
+    // transfer actually happened. LAW_149 Rey ("opponents can't take control of this unit") blocks its
+    // half of the exchange, so the player who would have received Rey gets no Credit.
     $diff = abs($costEnemy - $costFriendly);
     if ($diff > 0) {
-        if ($costEnemy < $costFriendly)      SWUCreateCreditToken(intval($player), $diff);  // caster took enemy (cheaper)
-        else                                  SWUCreateCreditToken($opp, $diff);             // opp took friendly (cheaper)
+        if ($costEnemy < $costFriendly) { if ($enemyNew    !== '') SWUCreateCreditToken(intval($player), $diff); } // caster took enemy (cheaper)
+        else                            { if ($friendlyNew !== '') SWUCreateCreditToken($opp, $diff); }            // opp took friendly (cheaper)
     }
 };
 
@@ -16352,6 +16354,12 @@ $unitAbilities["LAW_084"] = function($player, $mzID) {
 // LAW_094 Hondo Ohnaka — Action: play the top card of your deck (paying its cost). Once each round.
 $unitAbilities["LAW_094"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
+    // Defensive: don't play (or consume the once-per-round) a top card blocked by a play-restriction
+    // (SOR_062 Regional Governor). The availability gate already refuses this, but guard here too.
+    $topIdx = _SWUTopDeckFrontIdx(intval($player));
+    $deck   = GetDeck(intval($player));
+    $topCid = ($topIdx !== -1) ? ($deck[$topIdx]->CardID ?? '') : '';
+    if ($topCid === '' || SWUCardPlayBlocked(intval($player), $topCid)) { SWUAfterAction($player); return; }
     AddGlobalEffects(intval($player), 'SWU_LAW094_USED');
     SWUPlayTopDeckCard(intval($player), false, 0);
     SWUAfterAction($player);

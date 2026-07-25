@@ -7901,7 +7901,12 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
                 }
             }
             // LAW_005 Jyn Erso — track "a friendly Rebel unit was defeated this phase" on the controller.
-            if (HasTrait($d['cardID'] ?? '', 'Rebel')) AddGlobalEffects($controller, 'SWU_REBEL_DEFEATED');
+            // Read the LIVE traits of the defeated unit (incl. GRANTED Rebel from Nemik's Manifesto SEC_156 /
+            // Fulcrum LAW_150), not just its printed CardID — the object is still reachable (removed but
+            // intact) here. Fall back to the printed trait for entries built without an mzID.
+            $law005Rebel = (!empty($d['mzID']) && _SWUUnitHasTrait(GetZoneObject($d['mzID']), 'Rebel'))
+                        || HasTrait($d['cardID'] ?? '', 'Rebel');
+            if ($law005Rebel) AddGlobalEffects($controller, 'SWU_REBEL_DEFEATED');
             // ASH_008 Moff Gideon — "a friendly Imperial unit was defeated this phase" on the controller.
             if (HasTrait($d['cardID'] ?? '', 'Imperial')) AddGlobalEffects($controller, 'SWU_IMPERIAL_DEFEATED');
             // ASH_093 Captain Pellaeon — "While a leader unit has been defeated this phase, gains Raid 3."
@@ -7996,7 +8001,15 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // is defeated: create a Credit token. Use only once each round." The defeated unit
             // (controlled by $controller, i.e. an enemy of $opp) was the highest-cost enemy iff its cost
             // is >= every other still-in-play unit of $controller. Per-round flag cleared at RGS.
-            if (_SWUCountActiveUnitsWithCardID($opp, 'LAW_053') > 0 && GlobalEffectCount($opp, 'SWU_LAW053_USED') <= 0) {
+            $law053Active = _SWUCountActiveUnitsWithCardID($opp, 'LAW_053') > 0;
+            if (!$law053Active) {
+                // CR simultaneous-removal: the trigger condition is evaluated as of the state that caused
+                // it (before the batch's removals), so a Dengar defeated in the SAME batch still triggers.
+                foreach ($leftCards as $lc053) {
+                    if (($lc053['cardID'] ?? '') === 'LAW_053' && intval($lc053['player'] ?? 0) === $opp) { $law053Active = true; break; }
+                }
+            }
+            if ($law053Active && GlobalEffectCount($opp, 'SWU_LAW053_USED') <= 0) {
                 $defCost  = intval(CardCost($d['cardID'] ?? ''));
                 $maxOther = 0;
                 foreach (GetUnitsInPlay($controller) as $u) {
@@ -10465,6 +10478,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
     switch ($cardID) {
         // "Attach to a non-Vehicle unit."
         case 'SOR_054': // Jedi Lightsaber
+        case 'SHD_126': // The Darksaber
         case 'LOF_215': // Ascension Cable
         case 'SOR_137': // Fallen Lightsaber
         case 'SOR_136': // Vader's Lightsaber
@@ -12206,8 +12220,10 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     // LAW_003 Agent Kallus (a playable hand card), LAW_004 Aurra Sing (a non-leader unit with ≤1 HP to
     // defeat) — effect targets only. NOT gated (CR 6.4.587.c): their [Exhaust]/[1 resource, Exhaust] cost
     // changes game state, so each Action is usable even with no valid target (it just does nothing).
-    // LAW_005 Jyn Erso (front) — needs a friendly Rebel unit to have been defeated this phase.
-    if ($cardID === 'LAW_005' && GlobalEffectCount($player, 'SWU_REBEL_DEFEATED') <= 0) return false;
+    // LAW_005 Jyn Erso (front) — "If a friendly Rebel was defeated this phase, search…" is a conditional
+    // EFFECT, not an activation gate: the [1 resource, Exhaust] cost changes game state, so the Action is
+    // usable anyway (CR 6.4.587.c — "Use it anyway": pay + exhaust, no draw). The handler no-ops the search
+    // when the condition isn't met. NOT gated (matches LAW_001-004/006).
     // LAW_006 Vel Sartha (front) — "Give an Experience token to a unit" (effect target) is NOT gated
     // (CR 6.4.587.c): the [Exhaust] cost changes game state, so usable even with no unit in play.
     // LAW_008 Director Krennic (front) — needs a friendly unit to defeat (the cost).
@@ -12542,8 +12558,14 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             if (!$has) $ok = false;
             break;
         }
-        case 'LAW_094': // Hondo Ohnaka: deck non-empty AND not used this round.
-            if (_SWUTopDeckFrontIdx($player) === -1 || GlobalEffectCount($player, 'SWU_LAW094_USED') > 0) $ok = false;
+        case 'LAW_094': // Hondo Ohnaka: deck non-empty, not used this round, top card actually playable.
+            $topIdx094 = _SWUTopDeckFrontIdx($player);
+            if ($topIdx094 === -1 || GlobalEffectCount($player, 'SWU_LAW094_USED') > 0) { $ok = false; break; }
+            // "Play the top card of your deck" respects play-restrictions: can't use it on a card an
+            // opponent named (SOR_062 Regional Governor) — the top card must be playable.
+            $deck094 = GetDeck($player);
+            $topCid094 = $deck094[$topIdx094]->CardID ?? '';
+            if ($topCid094 !== '' && SWUCardPlayBlocked($player, $topCid094)) $ok = false;
             break;
         case 'SOR_094': // Bail Organa: "Give Experience to ANOTHER friendly unit" — needs one.
             $others = SWUOtherFriendlyUnits($player, $mzID);

@@ -60,3 +60,23 @@ WithP2GroundArena: SOR_046:1:0
 
 ## EXPECT
 P1GROUNDARENAUNIT:1:POWER:3
+
+---
+
+# NonVehicleRestriction_OnlyVehicle_NoAttach
+#// SHD_126 The Darksaber — "Attach to a non-Vehicle unit." With ONLY a Vehicle in play (AT-ST), there is no
+#// legal host, so the upgrade cannot be attached — the Vehicle gains nothing and the Darksaber stays in hand.
+
+## GIVEN
+CommonSetup: ggk/rrk
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SHD_126
+WithP1GroundArena: SOR_232:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1HANDCOUNT:1

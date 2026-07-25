@@ -118,3 +118,299 @@ WithP2Deck: SOR_095
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P2CREDITCOUNT:2
+
+---
+
+# NothingIfVermillionDefeated
+#// LAW_215 Vermillion — the When Attack Ends ability only fires if Vermillion survived combat. Here the
+#// 5/7 Vermillion attacks P2's 7/7 Home One and takes 7 back → Vermillion is defeated, so the reveal/play
+#// ability never triggers. No card is played and no Credits are created.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP2SpaceArena: SOR_102:1:0
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP2Deck: SOR_095
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0
+P1NODECISION
+
+---
+
+# YourDeck_ChooseOpp_Decline
+#// LAW_215 Vermillion — reveal P1's own deck-top (Battlefield Marine), choose the OPPONENT to play it,
+#// but P2 declines. Nothing is played (the Credit clause is gated on "if they do"), the card stays on top
+#// of P1's deck, and neither player gets Credits.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:NO
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1DECKCOUNT:2
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0
+
+---
+
+# OppDeck_ChooseSelf_Decline
+#// LAW_215 Vermillion — reveal the OPPONENT's deck-top (Battlefield Marine, only P2's deck is non-empty so
+#// it is auto-selected), choose YOURSELF to play it, then decline. Nothing is played, the card stays on top
+#// of P2's deck, and no Credits are created.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP2Deck: SOR_095
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2DECKCOUNT:2
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0
+
+---
+
+# OppDeck_ChooseOpp_Play
+#// LAW_215 Vermillion — reveal the OPPONENT's deck-top (Battlefield Marine, cost 2), choose the OPPONENT to
+#// play it. P2 plays it for free — it enters P2's arena, owned and controlled by P2 (its own deck) — and the
+#// DIFFERENT player (P1) creates 2 Credits.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP2Deck: SOR_095
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:YES
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P1CREDITCOUNT:2
+P2CREDITCOUNT:0
+
+---
+
+# OppDeck_ChooseOpp_Decline
+#// LAW_215 Vermillion — reveal the OPPONENT's deck-top, choose the OPPONENT to play it, but P2 declines.
+#// Nothing is played, the card stays on top of P2's deck, and no Credits are created.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP2Deck: SOR_095
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:NO
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2DECKCOUNT:2
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0
+
+---
+
+# YourDeckEmpty_OppDeckAutoRevealed
+#// LAW_215 Vermillion — "reveal the top card of a deck": only decks with a card are offered. P1's deck is
+#// empty, so the engine auto-reveals the OPPONENT's deck-top (Battlefield Marine) with no deck-choice
+#// prompt. P1 chooses itself to play it for free → P1 gets a free unit and P2 creates 2 Credits.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP2Deck: SOR_095
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P2CREDITCOUNT:2
+
+---
+
+# BothDecksEmpty_NoTrigger
+#// LAW_215 Vermillion — with BOTH decks empty there is no deck with a top card to reveal, so the ability
+#// never triggers. No card is played and no Credits are created.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0
+P1NODECISION
+
+---
+
+# RevealedCost0_NoCredits
+#// LAW_215 Vermillion — the "different player creates Credits = the card's cost" clause creates 0 Credits
+#// for a cost-0 card. P1 reveals its own deck-top Porg (cost 0), plays it for free, and P2 creates 0 Credits.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP1Deck: LOF_254
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LOF_254
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0
+
+---
+
+# RevealedUpgrade_NoValidHost_Fizzles
+#// LAW_215 Vermillion — the revealed card is Nemik's Manifesto (attach to a non-Vehicle unit). Neither
+#// player has a non-Vehicle unit in play (only the vehicle ships Vermillion and Desperado Freighter), so
+#// once P1 chooses to play it the attach finds no legal host and fizzles: the upgrade stays in the deck and
+#// no Credits are created.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP2SpaceArena: SHD_152:1:0
+WithP1Deck: SEC_156
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1DECKCOUNT:1
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0
+
+---
+
+# RevealedUpgrade_FriendlyRestriction_AttachesToChooserUnit
+#// LAW_215 Vermillion — reveal the OPPONENT's Darth Maul's Lightsaber (cost 3, "attach to a friendly
+#// non-Vehicle unit"). P1 is chosen to play it, so "friendly" is relative to P1: the only legal host is
+#// P1's Battlefield Marine (auto-selected). The upgrade attaches to it and P2 creates 3 Credits.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: LOF_254
+WithP2Deck: LOF_140
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Theirs
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:LOF_140
+P2CREDITCOUNT:3

@@ -2044,8 +2044,10 @@ $customDQHandlers["LAW_002#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
     $o = GetZoneObject($lastDecision);
     if ($o === null || !empty($o->removed)) return;
-    SWUTakeControlOfUnit(OtherPlayer(intval($player)), $lastDecision);   // opponent takes control
-    SWUCreateCreditToken(intval($player), 1);
+    $newMz = SWUTakeControlOfUnit(OtherPlayer(intval($player)), $lastDecision);   // opponent takes control
+    // "If they do, create a Credit token." — only when control ACTUALLY transferred. LAW_149 Rey
+    // ("opponents can't take control of this unit") blocks the transfer ($newMz === '') → no Credit.
+    if ($newMz !== '') SWUCreateCreditToken(intval($player), 1);
 };
 $whenPlayedAbilities["LAW_002:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);

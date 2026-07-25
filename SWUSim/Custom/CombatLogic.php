@@ -1024,7 +1024,25 @@ function _SWUCollectOnUnitDamagedReactions(int $activePlayer, string $attackerMz
 // ride the EffectStack flush (decisions defer SWUAfterAction). $activePlayer = the attacker's controller.
 function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID, array $combatCtx): void {
     $attacker = GetZoneObject($attackerMzID);
-    if ($attacker === null || !empty($attacker->removed)) return; // attacker defeated → its triggers don't fire
+    // LAW_007 Boba Fett is a FIELD observer owned by BOBA (not by the attacker): "When a friendly Bounty
+    // Hunter unit's attack ends, if the defending unit was defeated, [deployed] create a Credit / [leader
+    // form] you may exhaust Boba → create a Credit." It must fire even when the attacking Bounty Hunter was
+    // DEFEATED in the same combat (or blanked), so compute it here BEFORE the attacker-survival early-returns
+    // that gate the attacker's OWN triggers. Keyed on the attacker's (printed) Bounty Hunter trait.
+    $law007AtkCardID = ($attacker !== null) ? ($attacker->CardID ?? '') : '';
+    if (!empty($combatCtx['defenderDefeated']) && $law007AtkCardID !== '' && HasTrait($law007AtkCardID, 'Bounty Hunter')) {
+        if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_007') > 0) {
+            SWUCreateCreditToken($activePlayer, 1);   // deployed Boba: mandatory
+        } else {
+            foreach (GetLeader($activePlayer) as $l) {
+                if (empty($l->removed) && ($l->CardID ?? '') === 'LAW_007' && empty($l->Deployed) && !empty($l->Ready)) {
+                    AddTrigger($activePlayer, 'LAW_007', 'LAW_007', '');   // leader form: may exhaust → Credit
+                    break;
+                }
+            }
+        }
+    }
+    if ($attacker === null || !empty($attacker->removed)) return; // attacker defeated → its OWN triggers don't fire
     if (LostAbilities($attacker)) return; // SEC_046 Galen — a named attacker fires no "deals combat damage" trigger
     $cardID = $attacker->CardID ?? '';
     // ASH_101 The Great Mothers (Support) — When Attack Ends: if it dealt combat damage to 1+ non-leader
@@ -1213,22 +1231,6 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                     AddTrigger($activePlayer, 'LOF_017D', 'LOF_017D', $attackerMzID);
                 }
                 break;
-            }
-        }
-    }
-
-    // LAW_007 Boba Fett — "When a friendly Bounty Hunter unit's attack ends: if the defending unit was
-    // defeated, [deployed] create a Credit token / [leader form, ready] you may exhaust this leader →
-    // create a Credit." The attacker ($cardID) is the friendly Bounty Hunter.
-    if (!empty($combatCtx['defenderDefeated']) && HasTrait($cardID, 'Bounty Hunter')) {
-        if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_007') > 0) {
-            SWUCreateCreditToken($activePlayer, 1);   // deployed Boba: mandatory
-        } else {
-            foreach (GetLeader($activePlayer) as $l) {
-                if (empty($l->removed) && ($l->CardID ?? '') === 'LAW_007' && empty($l->Deployed) && !empty($l->Ready)) {
-                    AddTrigger($activePlayer, 'LAW_007', 'LAW_007', '');   // leader form: may exhaust → Credit
-                    break;
-                }
             }
         }
     }
@@ -2856,6 +2858,12 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     if (_SWULeaderDeployed(intval($attacker->Controller ?? $player), 'SOR_018')) $defDebuff += 1;
     if (($attacker->CardID ?? '') !== 'ASH_018' && _SWULeaderDeployed(intval($attacker->Controller ?? $player), 'ASH_018')) $defDebuff += 1;
     if ($defDebuff > 0) { $D1 = max(0, $D1 - $defDebuff); $D2 = max(0, $D2 - $defDebuff); }
+    // "Can't deal combat damage this phase" (LAW_130 Betrayed Trust) — zero the marked unit's outgoing
+    // combat damage. On the attacker → 0 to each defender; on a defender → that defender deals no counter.
+    // (Mirrors the single-defender path, which the 2-defender path previously skipped.)
+    if (is_array($attacker->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $attacker->TurnEffects, true)) $P = 0;
+    if (is_array($def1->TurnEffects ?? null)     && in_array('NO_COMBAT_DAMAGE', $def1->TurnEffects, true))     $D1 = 0;
+    if (is_array($def2->TurnEffects ?? null)     && in_array('NO_COMBAT_DAMAGE', $def2->TurnEffects, true))     $D2 = 0;
 
     // Maul → each defender (his full power to each, not split).
     _SWUMaulDealCombat($attacker, $def1, $def1Mz, $P, $player);
