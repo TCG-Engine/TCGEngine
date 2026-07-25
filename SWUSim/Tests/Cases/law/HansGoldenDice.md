@@ -34,3 +34,22 @@ WithP1Deck: SOR_128
 
 ## EXPECT
 P1CREDITCOUNT:1
+
+---
+
+# EmptyDeckNoEffect
+#// LAW_225 Han's Golden Dice — On Attack discards the top card of your deck. With an EMPTY deck there is
+#// nothing to discard and no Credit is created.
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_225
+WithP1Deck: []
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1CREDITCOUNT:0

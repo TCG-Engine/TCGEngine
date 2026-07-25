@@ -15,3 +15,22 @@ WithP1Hand: LAW_198
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# DeclineNoDamage
+#// LAW_198 Dogged Pursuers — When Played "you may pay 1 resource" is optional. Decline: no resource is
+#// paid, no damage is dealt, the enemy SOR_046 is unharmed.
+
+## GIVEN
+CommonSetup: rrw/bgw/{myResources:6}
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: LAW_198
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:0

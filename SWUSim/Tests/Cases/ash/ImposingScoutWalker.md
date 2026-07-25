@@ -26,3 +26,20 @@ P1OnlyActions: true
 - P1>AnswerDecision:-
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# DealThreeSurvivor_NoAdvantage
+#// ASH_176 Imposing Scout Walker — the 3 Advantage tokens are only granted if the target is defeated by the
+#// damage. Dealing 3 to Wampa (SOR_164, 4/5) leaves it alive, so the Walker gains no Advantage tokens.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:6;handCardIds:ASH_176}
+WithP2GroundArena: SOR_164:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:CARDID:ASH_176
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0

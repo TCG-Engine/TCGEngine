@@ -49,3 +49,88 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
+
+---
+
+# WhenPlayed_ReturnDamageFriendly
+#// ASH_038 Purrgil Ultra — the deal-damage rider may target ANY unit, including a friendly one. P1 returns
+#// SEC_135 (cost 3) and deals 3 damage to its own SEC_080 (3/3), defeating it. Both friendly ground units
+#// leave play (one returned, one defeated).
+## GIVEN
+CommonSetup: gyk/gyk/{myResources:8;handCardIds:ASH_038}
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArena: SEC_135:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1SPACEARENACOUNT:1
+
+---
+
+# WhenDefeated_ReturnDamageEnemy
+#// ASH_038 Purrgil Ultra — the When Defeated trigger. Purrgil (pre-damaged to 9 = 1 HP) attacks SOR_237 (2/3),
+#// defeating it and dying to the 2 counter. When Defeated: return friendly SEC_135 (cost 3) and deal 3 to the
+#// surviving enemy SEC_080 (3/3), defeating it.
+## GIVEN
+CommonSetup: gyk/gyk
+WithP1SpaceArena: ASH_038:1:9
+WithP1GroundArena: SEC_135:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:0
+P2SPACEARENACOUNT:0
+P2GROUNDARENACOUNT:0
+
+---
+
+# WhenDefeated_ReturnDamageFriendly
+#// ASH_038 Purrgil Ultra — the When Defeated deal-damage rider may target a friendly unit. Purrgil dies to
+#// the counter; it returns friendly SEC_135 (cost 3) and deals 3 to its own SEC_080 (3/3), defeating it.
+## GIVEN
+CommonSetup: gyk/gyk
+WithP1SpaceArena: ASH_038:1:9
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArena: SEC_135:1:0
+WithP2SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:0
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:0
+P2SPACEARENACOUNT:0
+
+---
+
+# WhenDefeated_Pass
+#// ASH_038 Purrgil Ultra — the When Defeated ability is optional. Declining the return leaves the board
+#// untouched: SEC_135 stays in play and no damage is dealt.
+## GIVEN
+CommonSetup: gyk/gyk
+WithP1SpaceArena: ASH_038:1:9
+WithP1GroundArena: SEC_135:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:0
+- P1>AnswerDecision:-
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P2GROUNDARENAUNIT:0:DAMAGE:0

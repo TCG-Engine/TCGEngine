@@ -52,3 +52,124 @@ P1OnlyActions: true
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P1BASEDMG:1
+
+---
+
+# WhenPlayed_EnemyNotDefeatable
+#// ASH_052 Chimaera — the When Played defeat still resolves against an enemy that "can't be defeated by enemy
+#// card abilities" (JTL_103 Chewbacca): the friendly SOR_095 is chosen and defeated, but Chewbacca's immunity
+#// keeps it in play. No enemy was defeated, so the reactive heal does not fire (base stays at 3).
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:7;handCardIds:ASH_052;myBaseDamage:3}
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: JTL_103:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:1
+P1BASEDMG:3
+
+---
+
+# WhenPlayed_CannotChooseEnemyLeader
+#// ASH_052 Chimaera — an enemy leader unit is not a legal "enemy non-leader unit" target. With P2's only unit
+#// being a deployed leader, the When Played pair can't be completed, so nothing is defeated (friendly SOR_095
+#// survives) and there is no decision to answer.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:7;handCardIds:ASH_052;theirLeader:SOR_011:1:1:1}
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:1
+
+---
+
+# WhenPlayed_NoEnemyUnit_NoOp
+#// ASH_052 Chimaera — the pair requires BOTH a friendly unit and an enemy non-leader unit. With no enemy units
+#// at all, the ability does nothing: the friendly SOR_095 stays and no prompt appears.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:7;handCardIds:ASH_052}
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:1
+
+---
+
+# Reactive_EnemyDefeatedByEvent_Heal2
+#// ASH_052 Chimaera — the reactive "when an enemy unit is defeated: heal 2" fires for a non-combat defeat too.
+#// A seated Chimaera watches SOR_078 Vanquish defeat the enemy SOR_095 → heal 2 (base 5 → 3).
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:5;handCardIds:SOR_078;myBaseDamage:5}
+WithP1SpaceArena: ASH_052:1:0
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1BASEDMG:3
+
+---
+
+# Reactive_EachEnemyDefeat_Heals
+#// ASH_052 Chimaera — the reactive heal fires once per enemy unit defeated. Two separate removals (SOR_078
+#// Vanquish, then SOR_077 Takedown) defeat two enemy units → heal 2 each (base 10 → 8 → 6).
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:9;handCardIds:SOR_078,SOR_077;myBaseDamage:10}
+WithP1SpaceArena: ASH_052:1:0
+WithP2GroundArena: [SOR_095:1:0 SHD_098:1:0]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1BASEDMG:6
+
+---
+
+# Reactive_FriendlyDefeat_NoHeal
+#// ASH_052 Chimaera — the reactive heal only cares about ENEMY defeats. Defeating a friendly unit (SOR_077
+#// Takedown on the friendly SOR_164) heals nothing (base stays at 5).
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:4;handCardIds:SOR_077;myBaseDamage:5}
+WithP1SpaceArena: ASH_052:1:0
+WithP1GroundArena: SOR_164:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1BASEDMG:5
+
+---
+
+# Reactive_EnemyControlledFriendlyDefeat_Heal2
+#// ASH_052 Chimaera — "enemy unit" is by control, not ownership. A P1-owned SOR_164 that P2 controls counts as
+#// an enemy unit for P1's Chimaera; defeating it (SOR_077 Takedown) heals 2 (base 5 → 3).
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:4;handCardIds:SOR_077;myBaseDamage:5}
+WithP1SpaceArena: ASH_052:1:0
+WithP2GroundArenaControlled: SOR_164:1
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1BASEDMG:3

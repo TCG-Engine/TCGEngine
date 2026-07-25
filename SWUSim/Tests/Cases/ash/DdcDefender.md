@@ -44,3 +44,26 @@ WithInitiativeClaimed: true
 P2GROUNDARENAUNIT:0:CARDID:SOR_095
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:READY
+
+---
+
+# OnDefense_KillAttacker_NoCombatDamage
+#// ASH_210 DDC Defender — On Defense resolves before combat damage, so defeating the attacker with the 1
+#// damage stops it from dealing its combat damage. The host SOR_046 wears ASH_210; the enemy SEC_080 (3/3,
+#// pre-damaged to 1 HP) attacks it. P1 deals 1 to the attacker, defeating it, and SOR_046 takes 0 damage.
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_210
+WithP2GroundArena: SEC_080:1:2
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+## WHEN
+- P2>AttackGroundArena:0:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENACOUNT:0
+

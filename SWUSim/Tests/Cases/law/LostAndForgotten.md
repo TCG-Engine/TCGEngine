@@ -15,3 +15,44 @@ P2GROUNDARENACOUNT:0
 P1BASEDMG:0
 P1DISCARDCOUNT:1
 P2DISCARDCOUNT:1
+
+---
+
+# DefeatFriendlyHealBase
+#// LAW_133 Lost and Forgotten — the defeated unit may be FRIENDLY. With only P1's SEC_080 in play it is
+#// the lone legal target (auto): P1 defeats its own unit and heals 3 from base (3 -> 0). P1 discard = 2
+#// (the event + the defeated unit), P2 untouched.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:6;myBaseDamage:3}
+WithP1GroundArena: SEC_080:1:0
+WithP1Hand: LAW_133
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1BASEDMG:0
+P1DISCARDCOUNT:2
+P2DISCARDCOUNT:0
+
+---
+
+# NoDefeatNoHeal_PhantomImmune
+#// LAW_133 Lost and Forgotten — Lurking TIE Phantom (SHD_187) can't be defeated by enemy card abilities.
+#// It is the lone legal target (auto): the defeat is prevented, so "if you do" never triggers and the
+#// base is NOT healed (stays at 4). The phantom remains in the space arena.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:6;myBaseDamage:4}
+WithP2SpaceArena: SHD_187:1:0
+WithP1Hand: LAW_133
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P1BASEDMG:4
+P1DISCARDCOUNT:1

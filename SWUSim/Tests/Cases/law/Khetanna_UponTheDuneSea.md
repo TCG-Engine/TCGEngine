@@ -76,3 +76,47 @@ WithP1Hand: LAW_134
 ## EXPECT
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:SHD_113
+
+---
+
+# WhenPlayed_UnderworldDiscount
+#// LAW_158 Khetanna — the SAME "next Underworld unit costs 1 less" also triggers on its WHEN PLAYED (not
+#// just On Attack). Khetanna is played from hand (cost 3), arming the discount; then LAW_134 Bib Fortuna
+#// (Underworld, cost 2) plays for 1. With exactly 4 ready resources both enter and 0 remain — proving the
+#// -1 (without it, LAW_134 would cost 2 > 1 left and could not be played).
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:4}
+P1OnlyActions: true
+WithP1Hand: [LAW_158 LAW_134]
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:LAW_134
+P1RESAVAILABLE:0
+
+---
+
+# WhenPlayed_NoDiscountNonUnderworld
+#// LAW_158 Khetanna — the When Played discount only applies to an UNDERWORLD unit. Khetanna plays (cost 3)
+#// arming the charge; then SOR_164 Wampa (Aggression, NOT Underworld, cost 4) plays at full price. Starting
+#// from 7 ready resources, 3 are spent on Khetanna and 4 on Wampa, leaving 0 — so Wampa was not discounted
+#// (a wrongly-applied -1 would leave 1 ready).
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:7}
+P1OnlyActions: true
+WithP1Hand: [LAW_158 SOR_164]
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_164
+P1RESAVAILABLE:0

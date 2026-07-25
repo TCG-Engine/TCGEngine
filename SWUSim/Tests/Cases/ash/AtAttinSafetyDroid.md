@@ -57,3 +57,36 @@ WithP2GroundArena: SOR_038:1:0
 - P2>AttackGroundArena:0:1
 ## EXPECT
 P1GROUNDARENAUNIT:1:DAMAGE:5
+
+---
+
+# ExactlyFourUnaffected
+#// ASH_070 At Attin Safety Droid — the cap only prevents damage ABOVE 4, so exactly 4 is untouched. P2's
+#// SOR_164 Wampa (4 power) attacks P1's base directly; 4 is not more than 4, so all 4 land (the prevention
+#// does not fire).
+## GIVEN
+CommonSetup: bbw/bbk
+WithP1GroundArena: ASH_070:1:0
+WithP2GroundArena: SOR_164:1:0
+## WHEN
+- P1>Pass
+- P2>AttackGroundArena:0:BASE
+## EXPECT
+P1BASEDMG:4
+
+---
+
+# UnpreventableCombatNotCapped
+#// ASH_070 is a PREVENTION, so it can't reduce UNPREVENTABLE damage. ASH_196 Gorian Shard's Corsair (6 power,
+#// Underworld → "damage dealt by friendly Underworld cards is unpreventable") attacks P1's base: the full 6
+#// lands despite ASH_070 (not capped to 4). (Gorian's On-Attack deal-2 is declined.)
+## GIVEN
+CommonSetup: bbw/yyk
+WithP1GroundArena: ASH_070:1:0
+WithP2SpaceArena: ASH_196:1:0
+WithActivePlayer: 2
+## WHEN
+- P2>AttackSpaceArena:0:BASE
+- P2>AnswerDecision:-
+## EXPECT
+P1BASEDMG:6

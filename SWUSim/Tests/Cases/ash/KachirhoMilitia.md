@@ -32,3 +32,37 @@ WithInitiativeClaimed: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:ASH_160
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# SpaceAttack_DoesNotReady
+#// ASH_160 Kachirho Militia — the reaction is gated on an enemy GROUND unit. When P2's space unit SOR_237
+#// attacks P1's base, the exhausted Kachirho does NOT ready.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: ASH_160:0:0
+WithP2SpaceArena: SOR_237:1:0
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+## WHEN
+- P2>AttackSpaceArena:0:BASE
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:ASH_160
+P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# FriendlyAttack_DoesNotReady
+#// ASH_160 Kachirho Militia — the reaction requires an ENEMY unit attacking YOUR base. A friendly ground
+#// unit (SOR_095) attacking the enemy base does not ready the exhausted Kachirho.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: ASH_160:0:0
+WithP1GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:1:BASE
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:ASH_160
+P1GROUNDARENAUNIT:0:EXHAUSTED

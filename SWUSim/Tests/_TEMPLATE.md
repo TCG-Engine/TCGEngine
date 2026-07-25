@@ -34,6 +34,11 @@ WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SOR_085:1:0
 WithP1SpaceArena: SOR_237:1:0
 WithP2SpaceArena: SOR_225:1:0
+# Split owner/controller (the end state after a control-take — NGOR / Change of Heart), so a return-to-hand
+# goes to the OWNER's hand: WithP{n}{Ground|Space}ArenaControlled: CARD:ownerSeat  (owner defaults to the
+# other seat). e.g. P1 controls a Krrsantan OWNED by P2:  WithP1GroundArenaControlled: LAW_084:2
+# Foreign-owned RESOURCE (e.g. after SHD_122 Arquitens resources an enemy card into your zone), so a
+# return-to-hand goes to the OWNER: WithP{n}ResourceControlled: CARD:ownerSeat  (seated at resource index 0).
 
 ## WHEN
 # - P1>PlayHand:0                         # play hand card at index 0
@@ -54,6 +59,12 @@ WithP2SpaceArena: SOR_225:1:0
 # - P1>AnswerDecision:theirGroundArena-0  # answer a pending picker with a raw target token
 # - P1>ChooseMyGroundUnit:0               # sugar for AnswerDecision:myGroundArena-0   (also ChooseMySpaceUnit / ChooseTheirGroundUnit / ChooseTheirSpaceUnit)
 # - P1>ResolveTrigger:WHEN_PLAYED         # pick a pending EffectStack trigger by type (optional :CardID filter)
+#
+# OPPONENT PLAYS A CARD MID-PHASE (e.g. to test a "when an opponent plays a card" reaction, or a combat
+# trick the opponent pumps into): do NOT set `P1OnlyActions: true` (it makes P2 pass for the round). Let the
+# turn reach P2 — `P1>Pass` (or a P1 event/action auto-swaps the turn), then `P2>PlayHand:0`. A NON-active
+# reaction the play triggers sits on the reactor's EffectStack — surface it with `P1>AnswerDecision:EffectStack-0`
+# (or `P1>Drain`), then answer it. See shd/KraytDragon.md (OppPlays_*) and law/BetrayedTrust.md.
 
 ## EXPECT
 # P1WIN  /  P2WIN                         # game winner

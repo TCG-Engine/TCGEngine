@@ -2139,12 +2139,21 @@ function _SWULaw015FriendlyUnderworldUnits(int $player): array {
     }
     return $out;
 }
-$leaderAbilities["LAW_015"] = function(int $player): void {
+// After the [1 resource] cost is paid (with or without a Credit defeated): return a friendly Underworld
+// unit (the additional cost), then create a Credit token. Reached via the LAW_015_FRONT_PAY continuation.
+function _SWULaw015AfterPay(int $player, bool $paidOk): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; } // affordability-gated; defensive
+    if (!$paidOk) { SWUAfterAction($player); return; } // affordability-gated; defensive
     $targets = _SWULaw015FriendlyUnderworldUnits($player);
     if (empty($targets)) { SWUAfterAction($player); return; } // defensive (affordability requires one)
     SWUQueueChooseTarget($player, $targets, "Return_a_friendly_Underworld_unit_to_its_owner's_hand", "LAW_015_FRONT");
+}
+$leaderAbilities["LAW_015"] = function(int $player): void {
+    global $playerID; $playerID = $player;
+    // The [1 resource] cost may be paid by defeating a Credit token (CR 3.13) — route through the alt-pay
+    // funnel (Credit offer → then the LAW_015_FRONT_PAY continuation pays any remainder + runs the effect).
+    $cost = SWUApplyCostHalving($player, 1);
+    SWUOfferAltPayment($player, $cost, 'LAW_015_FRONT_PAY', strval($cost), 1);
 };
 $leaderActionResourceCosts["LAW_015"] = 1;
 $customDQHandlers["LAW_015_FRONT"] = function($player, $parts, $lastDecision) {
@@ -2223,7 +2232,12 @@ $leaderAbilities["LAW_006"] = function(int $player): void {
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $targets[] = $mz; }
-    if (empty($targets)) { SWUAfterAction($player); return; }
+    if (empty($targets)) {
+        // "An opponent creates a Credit token" is a separate, UNCONDITIONAL sentence — it still happens even
+        // when there is no unit to receive the Experience (unlike the deployed On-Attack "if you do" side).
+        SWUCreateCreditToken(OtherPlayer($player), 1);
+        SWUAfterAction($player); return;
+    }
     SWUQueueChooseTarget($player, $targets, "Give_an_Experience_token_to_a_unit_(an_opponent_creates_a_Credit)", "LAW_006#0");
     SWUQueueAfterAction($player);
 };
@@ -2381,11 +2395,11 @@ $customDQHandlers["LAW_011_ATK"] = function($player, $parts, $lastDecision) {
 // Deployed: Raid 1 (auto) + On Attack: discard a card from your deck.
 $leaderAbilities["LAW_012"] = function(int $player): void {
     global $playerID; $playerID = $player;
+    SWUMillTopCard($player);   // pay the [discard a card from your deck] cost (deck non-empty per the gate)
     $friendly = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $friendly[] = $mz; }
-    if (empty($friendly)) { SWUAfterAction($player); return; }
-    SWUMillTopCard($player);   // pay the [discard a card from your deck] cost
+    if (empty($friendly)) { SWUAfterAction($player); return; }   // costs paid; no legal target → no Raid granted
     SWUQueueChooseTarget($player, $friendly, "A_friendly_unit_gains_Raid_1_for_this_phase", "LAW_012#0");
     SWUQueueAfterAction($player);
 };
@@ -2475,14 +2489,50 @@ $onAttackAbilities["LAW_016:0"] = function($player, $mzID) {
 // ── LAW_017 Han Solo ──────────────────────────────────────────────────────────
 // Front Action [Exhaust, defeat a friendly token]: deal 1 to a unit.
 // Deployed: Saboteur (auto) + On Attack: defeat any number of friendly tokens; deal that many to a unit.
-// "Friendly token" = Token Units (arena) + Credit tokens.
-function _SWULaw017Tokens(int $player): array {
+// "Friendly token" (CR: tokens are Shield / Experience / the Force token / Credit tokens / Token units).
+// Each defeatable token becomes a distinct OPTIONCHOOSE option decodable back to the token to defeat.
+// (Subcards and the Force token aren't zone objects, so they can't be MZCHOOSE targets — hence a menu.)
+// Field separator '~' avoids the ':' / '&' the DSL uses for args/lists; host mzIDs keep their '-'.
+function _SWULaw017TokenOptions(int $player): array {
     global $playerID; $playerID = $player;
-    $out = [];
+    $opts = [];
+    if (PlayerHasTheForce($player)) $opts[] = 'Force';
+    $c = 0;
+    foreach (SWUUsableCreditTokenMzIDs($player) as $mz) { $opts[] = 'Credit' . $c; $c++; }
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz); if ($o === null || !empty($o->removed)) continue;
+            $ex = _CountExperienceSubcards($o); for ($k = 0; $k < $ex; $k++) $opts[] = 'Exp~' . $mz . '~' . $k;
+            $sh = _SWUCountShieldSubcards($o);  for ($k = 0; $k < $sh; $k++) $opts[] = 'Shield~' . $mz . '~' . $k;
+        }
+    }
     foreach (['myGroundArena', 'mySpaceArena'] as $z)
-        foreach (ZoneSearch($z, ["Token Unit"]) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $out[] = $mz; }
-    foreach (SWUUsableCreditTokenMzIDs($player) as $mz) $out[] = $mz;
-    return $out;
+        foreach (ZoneSearch($z, ["Token Unit"]) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $opts[] = 'Unit~' . $mz; }
+    return $opts;
+}
+// Defeat the token identified by one option string. Returns true if one was defeated. Callers recompute
+// the option list after each defeat, so an mzID inside an option is always freshly resolved.
+function _SWULaw017DefeatOption(int $player, string $opt): bool {
+    global $playerID; $playerID = $player;
+    if ($opt === 'Force') {
+        if (!PlayerHasTheForce($player)) return false;
+        RemoveGlobalEffect($player, 'SWU_HAS_FORCE'); // the Force token is defeated (set aside), not "used"
+        return true;
+    }
+    if (strncmp($opt, 'Credit', 6) === 0) {            // any usable credit (all interchangeable)
+        $cr = SWUUsableCreditTokenMzIDs($player);
+        if (empty($cr)) return false;
+        SWUDefeatCreditToken($cr[0]);
+        return true;
+    }
+    $p = explode('~', $opt);
+    if ($p[0] === 'Exp'    && isset($p[1])) return SWUDefeatExperienceToken($p[1]);
+    if ($p[0] === 'Shield' && isset($p[1])) return _SWUDefeatNamedUpgrade(GetZoneObject($p[1]), 'SOR_T02');
+    if ($p[0] === 'Unit'   && isset($p[1])) {
+        $o = GetZoneObject($p[1]);
+        if ($o !== null && empty($o->removed)) { SWUDefeatUnit($player, $p[1]); return true; }
+    }
+    return false;
 }
 function _SWULaw017DealNToUnit(int $player, int $n): void {
     if ($n <= 0) return;
@@ -2492,46 +2542,52 @@ function _SWULaw017DealNToUnit(int $player, int $n): void {
     if (empty($units)) return;
     SWUQueueChooseTarget($player, $units, "Deal_{$n}_damage_to_a_unit", "DEAL_UNIT_DAMAGE|{$n}");
 }
+// FRONT Action [Exhaust, defeat a friendly token]: the token-defeat is a COST (exactly one), then deal 1.
 $leaderAbilities["LAW_017"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    $tokens = _SWULaw017Tokens($player);
-    if (empty($tokens)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget($player, $tokens, "Defeat_a_friendly_token_(cost)", "LAW_017#0");
+    $opts = _SWULaw017TokenOptions($player);
+    if (empty($opts)) { SWUAfterAction($player); return; }   // no token to pay the cost → action unusable
+    DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", implode('&', $opts), 1, tooltip: "Choose_a_friendly_token_to_defeat");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_017#0", 1);
     SWUQueueAfterAction($player);
 };
 $customDQHandlers["LAW_017#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    if (!$lastDecision || !str_contains($lastDecision, '-')) return;
-    $o = GetZoneObject($lastDecision);
-    if ($o === null || !empty($o->removed)) return;
-    if (($o->CardID ?? '') === 'LAW_T01') SWUDefeatCreditToken($lastDecision); else SWUDefeatUnit(intval($player), $lastDecision);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    if (!_SWULaw017DefeatOption(intval($player), $lastDecision)) return;
     DecisionQueueController::CleanupRemovedCards();
     _SWULaw017DealNToUnit(intval($player), 1);
 };
+// DEPLOYED On Attack: defeat ANY NUMBER of friendly tokens (0..N); deal that many to a unit. Implemented
+// as a pick-one-then-re-offer loop (with a Done option), accumulating the count in a SWUVar. Recomputing
+// the options each pass keeps mzIDs fresh after each defeat.
+function _SWULaw017QueueDeployedPick(int $player): void {
+    $opts = _SWULaw017TokenOptions($player);
+    if (empty($opts)) { _SWULaw017FinishDeployed($player); return; }
+    $opts[] = 'Done';
+    DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", implode('&', $opts), 1, tooltip: "Defeat_a_friendly_token_(or_Done)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_017_ATK", 1);
+}
+function _SWULaw017FinishDeployed(int $player): void {
+    $n = intval(GetSWUVar("LAW017_CNT_{$player}", '0'));
+    SetSWUVar("LAW017_CNT_{$player}", '0');
+    _SWULaw017DealNToUnit($player, $n);
+}
 $onAttackAbilities["LAW_017:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $tokens = _SWULaw017Tokens(intval($player));
-    if (empty($tokens)) return;
-    $max = count($tokens);
-    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tokens), 1, tooltip: "Defeat_any_number_of_friendly_tokens");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_017_ATK", 1);
+    SetSWUVar("LAW017_CNT_{$player}", '0');
+    _SWULaw017QueueDeployedPick(intval($player));
 };
 $customDQHandlers["LAW_017_ATK"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    if (!$lastDecision || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
-    $mzs = array_filter(explode('&', $lastDecision), fn($m) => $m !== '' && $m !== '-' && $m !== 'PASS');
-    // Token units: defeat by UID (stable). Credits: count then re-resolve each (index-shift safe).
-    $creditCount = 0; $unitUids = [];
-    foreach ($mzs as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o === null || !empty($o->removed)) continue;
-        if (($o->CardID ?? '') === 'LAW_T01') $creditCount++; else $unitUids[] = intval($o->UniqueID ?? 0);
+    if (!$lastDecision || $lastDecision === 'Done' || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') {
+        _SWULaw017FinishDeployed(intval($player)); return;
     }
-    $n = $creditCount + count($unitUids);
-    foreach ($unitUids as $uid) { if ($uid <= 0) continue; $m = SWUFindMzByUID($uid); if ($m !== null) SWUDefeatUnit(intval($player), $m); }
-    for ($i = 0; $i < $creditCount; $i++) { $cr = SWUUsableCreditTokenMzIDs(intval($player)); if (!empty($cr)) SWUDefeatCreditToken($cr[0]); }
-    DecisionQueueController::CleanupRemovedCards();
-    _SWULaw017DealNToUnit(intval($player), $n);
+    if (_SWULaw017DefeatOption(intval($player), $lastDecision)) {
+        SetSWUVar("LAW017_CNT_{$player}", strval(intval(GetSWUVar("LAW017_CNT_{$player}", '0')) + 1));
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    _SWULaw017QueueDeployedPick(intval($player));   // re-offer with the remaining tokens
 };
 
 // ── LAW_018 Lando Calrissian ──────────────────────────────────────────────────
@@ -2655,7 +2711,18 @@ $customDQHandlers["ASH_001#1"] = function($player, $parts, $lastDecision) {
         if ($h !== null && empty($h->removed) && ($h->CardID ?? '') === $cardID) $handMz = $mz;
     }
     if ($handMz === '') { SWUAfterAction($player); return; }
-    $attached = _SWUFinalizeUpgradeAttach(intval($player), $cardID, $handMz, $hostMz, 0, false, false, true);
+    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $handMz, $hostMz, 0, false, false, true);
+    // "If you do, resource the top card of your deck." Verify the upgrade actually landed on the host by
+    // scanning its upgrades — the attach return is the TRIGGER count (0 for a vanilla upgrade), NOT a success
+    // flag, so gating the ramp on it wrongly skipped the deck-resource (the deployed side already does this).
+    $host2 = GetZoneObject($hostMz);
+    $attached = false;
+    if ($host2 !== null) {
+        foreach (GetUpgradesOnUnit($host2) as $u) {
+            $ucid = is_array($u) ? ($u['CardID'] ?? '') : ($u->CardID ?? '');
+            if ($ucid === $cardID) { $attached = true; break; }
+        }
+    }
     if ($attached) _SWUSec245Ramp(intval($player));   // "If you do, resource the top card of your deck."
     SWUAfterAction($player);
 };
@@ -2784,6 +2851,16 @@ $customDQHandlers["ASH_017#0"] = function($player, $parts, $lastDecision) {
     $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
     if ($mz !== null) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) DoGiveAdvantageToken(intval($player), $mz); }
 };
+
+// ASH_017 Greef Karga (DEPLOYED unit side) — "When you play a unit or a token is created under your control:
+// give an Advantage token to that unit." Non-optional, no exhaust cost (unlike the undeployed side).
+function Ash017DeployedTrigger($player, $uid): void {
+    global $playerID; $playerID = intval($player);
+    $mz = SWUFindMzByUID(intval($uid));
+    if ($mz === null) return;
+    $o = GetZoneObject($mz);
+    if ($o !== null && empty($o->removed)) DoGiveAdvantageToken(intval($player), $mz);
+}
 
 // ASH_018 Grogu — triggered (play a uq unit costing 4+): if Grogu is ready, you may deploy him.
 function Ash018Trigger($player): void {
@@ -3016,6 +3093,54 @@ $customDQHandlers["ASH_013#0"] = function($player, $parts, $lastDecision) {
     }
     if (empty($targets)) return;
     SWUQueueChooseTarget(intval($player), $targets, "Give_an_Advantage_token_to_a_different_unit", "GIVE_ADVANTAGE|1");
+};
+
+// ASH_013 Ezra Bridger (DEPLOYED unit side) — "When a friendly unit's attack ends: if it dealt 3+ combat
+// damage to a base, you may give an Advantage token to a different unit." Unlike the undeployed side there is
+// NO self-exhaust cost — it's a straight optional give. ($mzID = attacker, captured at trigger time.)
+function Ash013DeployedTrigger($player, $mzID): void {
+    global $playerID; $playerID = intval($player);
+    $attObj = ($mzID && str_contains($mzID, '-')) ? GetZoneObject($mzID) : null;
+    $attUID = $attObj ? intval($attObj->UniqueID ?? -1) : -1;
+    $targets = [];
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -1) !== $attUID) $targets[] = $mz;
+        }
+    }
+    if (empty($targets)) return;   // no unit other than the attacker → nothing to give
+    SWUQueueMayChooseTarget(intval($player), $targets, "Give_an_Advantage_token_to_a_different_unit?",
+        "Give_an_Advantage_token_to_a_different_unit", "GIVE_ADVANTAGE|1");
+}
+
+// ASH_016 Shin Hati (DEPLOYED unit side) — "When a friendly unit's attack ends: you may exhaust a unit that
+// costs less than the combat damage dealt to a base this attack. Use this ability only once per round." NO
+// self-exhaust cost; the once-per-round is tracked on the leader's NumUses budget (reset each regroup). The
+// use is consumed only when a target is actually exhausted (declining leaves it available — "pass and reuse").
+function Ash016DeployedTrigger($player, $mzID, $baseDmg): void {
+    global $playerID; $playerID = intval($player);
+    if ($baseDmg <= 0) return;                                  // no base damage → nothing costs "less than 0"
+    if (!SWUHasUseAvailable(SWUGetLeader(intval($player)))) return;   // once-per-round already spent
+    $targets = [];
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID ?? '')) < $baseDmg) $targets[] = $mz;
+        }
+    }
+    if (empty($targets)) return;
+    SWUQueueMayChooseTarget(intval($player), $targets, "Exhaust_a_unit_costing_less_than_{$baseDmg}?",
+        "Exhaust_a_unit_costing_less_than_{$baseDmg}", "ASH_016#1");
+}
+$customDQHandlers["ASH_016#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || !str_contains($lastDecision, '-')) return;   // declined → use NOT consumed
+    $o = GetZoneObject($lastDecision);
+    if ($o !== null && empty($o->removed)) {
+        $o->Status = 0;                                          // exhaust the cheaper unit
+        SWUConsumeUse(SWUGetLeader(intval($player)));            // consume the once-per-round use
+    }
 };
 
 // ASH_014 The Mandalorian — "When you take the initiative: may pay 1 resource → draw a card." (Hooked in

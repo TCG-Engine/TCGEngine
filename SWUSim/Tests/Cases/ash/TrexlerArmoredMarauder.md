@@ -41,3 +41,35 @@ P1OnlyActions: true
 - P1>AnswerDecision:theirGroundArena-0
 ## EXPECT
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# WhenPlayed_ShieldFriendlySpace
+#// ASH_082 Trexler — the "unit that costs 3 or less" target may be a SPACE unit. P1 shields its own
+#// friendly SOR_141 Green Squadron A-Wing (cost 2) in the space arena.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:6;handCardIds:ASH_082}
+WithP1SpaceArena: SOR_141:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_141
+P1SPACEARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# WhenPlayed_ShieldEnemySpace
+#// ASH_082 Trexler — the cheap target may be an ENEMY space unit. P1 shields the enemy SHD_187 Lurking
+#// TIE Phantom (cost 3) in the space arena.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:6;handCardIds:ASH_082}
+WithP2SpaceArena: SHD_187:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+## EXPECT
+P2SPACEARENAUNIT:0:CARDID:SHD_187
+P2SPACEARENAUNIT:0:SHIELDCOUNT:1

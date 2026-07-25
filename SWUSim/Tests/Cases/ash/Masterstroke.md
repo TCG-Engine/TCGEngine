@@ -28,3 +28,42 @@ P1OnlyActions: true
 - P1>AnswerDecision:theirBase-0
 ## EXPECT
 P2BASEDMG:3
+
+---
+
+# SpaceBonusPerEnemy
+#// ASH_234 Masterstroke — the +1/+0 counts enemy units in the ATTACKER's arena, so it applies to a space
+#// attacker too. P1's SOR_237 (2 power) attacks while P2 has 1 space unit, so it gets +1 → 3; attacking the
+#// enemy base deals 3.
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:2;handCardIds:ASH_234}
+WithP1SpaceArena: SOR_237:1:0
+WithP2SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2BASEDMG:3
+
+---
+
+# BuffLockedWhenCountedEnemyDiesOnAttack
+#// ASH_234 Masterstroke — the +1/+0 per enemy in the attacker's arena is locked in for the attack. P1's
+#// SEC_171 Punishing One (3 power) gets +1 from the lone enemy space unit SOR_241 (Wing Leader, 2/1) → 4.
+#// Punishing One's On Attack deals 1 to Wing Leader, defeating it, yet the buff stays: the base still takes
+#// 4 (not 3), and after the attack Punishing One reverts to its base 3.
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:2;handCardIds:ASH_234}
+WithP1SpaceArena: SEC_171:1:0
+WithP2SpaceArena: SOR_241:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:theirSpaceArena-0
+## EXPECT
+P2BASEDMG:4
+P2SPACEARENACOUNT:0
+P1SPACEARENAUNIT:0:CARDID:SEC_171
+P1SPACEARENAUNIT:0:POWER:3

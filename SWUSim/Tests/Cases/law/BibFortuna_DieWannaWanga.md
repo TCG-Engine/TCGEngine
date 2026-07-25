@@ -12,3 +12,18 @@ WithP1Hand: LAW_134
 
 ## EXPECT
 P1CREDITCOUNT:1
+
+---
+
+# NoCreditWithoutUnderworld
+#// LAW_134 Bib Fortuna — When Played with NO other friendly Underworld unit in play, no Credit is created.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:2}
+WithP1Hand: LAW_134
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1CREDITCOUNT:0

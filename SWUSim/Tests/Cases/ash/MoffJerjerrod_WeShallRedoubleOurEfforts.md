@@ -102,3 +102,58 @@ WithP1GroundArena: ASH_094:1:0
 ## EXPECT
 P1GROUNDARENACOUNT:3
 P1GROUNDARENAUNIT:0:CARDID:SEC_097
+
+---
+
+# ForceToken_NoDouble
+#// ASH_094 Moff Jerjerrod — a FORCE token is NOT a doubled token type, so Jerjerrod does not fire. P1
+#// plays LOF_193 Youngling Padawan (When Played: create your Force token); no doubling offer appears,
+#// Jerjerrod survives, and P1 has The Force.
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:8;handCardIds:LOF_193}
+WithActivePlayer: 1
+WithP1GroundArena: ASH_094:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:ASH_094
+P1HASFORCE
+P1NODECISION
+
+---
+
+# OpponentCreates_NoDouble
+#// ASH_094 Moff Jerjerrod — the doubling keys off who CREATES the tokens. When the OPPONENT creates
+#// tokens, Jerjerrod (P1's) does not fire. P2 plays JTL_090 Executor (When Played: create 3 TIE Fighters);
+#// P2 gets 3 TIEs, Jerjerrod survives and gets no offer.
+## GIVEN
+CommonSetup: ggk/ggk/{theirResources:11;theirhandCardIds:JTL_090}
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: ASH_094:1:0
+## WHEN
+- P2>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:ASH_094
+P2SPACEARENACOUNT:4
+P1NODECISION
+
+---
+
+# DoubleCredit_Accept
+#// ASH_094 Moff Jerjerrod — the doubling applies to CREDIT token creation too (not just unit tokens). P1
+#// controls Jerjerrod and plays LAW_248 Windfall (create 3 Credits); accepting the double defeats Jerjerrod
+#// and creates 3 MORE Credits (6 total).
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:5;handCardIds:LAW_248}
+WithActivePlayer: 1
+WithP1GroundArena: ASH_094:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1CREDITCOUNT:6
+P1GROUNDARENACOUNT:0

@@ -72,3 +72,82 @@ WithP1GroundArena: LAW_149:1:0
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LAW_149
 P2GROUNDARENACOUNT:0
+
+---
+
+# EnemyUnitDefeat_Immune
+#// LAW_149 Rey — the immunity covers enemy UNIT abilities too, not just events. P2 plays TWI_036
+#// Devastating Gunship ("When Played: Defeat an enemy unit with 2 or less remaining HP"). Rey (9/9, damaged
+#// 7 = 2 remaining HP) is the only legal target, but the enemy-ability defeat is blocked → Rey survives.
+
+## GIVEN
+CommonSetup: rrk/bbk/{theirResources:6;theirhandCardIds:TWI_036}
+WithActivePlayer: 2
+WithP1GroundArena: LAW_149:1:7
+
+## WHEN
+- P2>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_149
+
+---
+
+# OwnUnitDefeat_Defeats
+#// LAW_149 Rey — the immunity is to ENEMY abilities only, so your OWN unit's ability still defeats her. P1
+#// plays SOR_038 Count Dooku ("When Played: You may defeat a unit with 4 or less remaining HP") and targets
+#// his own Rey (damaged 7 = 2 remaining HP) → she is defeated.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:7;myhandCardIds:SOR_038}
+P1OnlyActions: true
+WithP1GroundArena: LAW_149:1:7
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_038
+
+---
+
+# EnemyEventPick_Immune
+#// LAW_149 Rey — "cannot be defeated by opponent event even if you pick". P1 plays SOR_041 Power of the Dark
+#// Side ("An opponent chooses a unit they control. Defeat that unit."). The opponent (P2) picks their own
+#// Rey, but the defeat originates from an enemy (P1) ability → Rey is not defeated. Both P2 units survive.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:3;myhandCardIds:SOR_041}
+WithP2GroundArena: [LAW_149:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+
+---
+
+# GiveControlToOpponent_Immune
+#// LAW_149 Rey — "cannot be given control of to an opponent". P1 plays TWI_204 Impropriety Among Thieves
+#// (each player swaps control of a chosen unit). P1 picks their own Rey and P2's SOR_095 marine; P1 gains
+#// the marine, but Rey can't be handed to P2 so she stays under P1's control. At regroup the marine reverts
+#// to P2 while Rey remains P1's.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:4;myhandCardIds:TWI_204}
+WithP1GroundArena: [LAW_149:1:0 SOR_164:1:0]
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:0:CARDID:LAW_149

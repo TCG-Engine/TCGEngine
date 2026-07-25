@@ -14,3 +14,22 @@ WithP1Hand: LAW_257
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# DeclineNoExperience
+#// LAW_257 Hidden Hand Supplier — When Played "you may pay 1 resource" is optional. Decline: no resource
+#// is paid and no Experience token is given, so the other unit SOR_095 keeps 0 upgrades.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:2}
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: LAW_257
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0

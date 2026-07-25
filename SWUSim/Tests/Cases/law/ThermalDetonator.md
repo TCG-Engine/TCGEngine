@@ -43,3 +43,29 @@ WithP2GroundArena: SOR_128:1:0
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_039
+
+---
+
+# UpgradeDefeatedDoesNotTrigger
+#// LAW_201 Thermal Detonator — the granted When Defeated fires only when the HOST UNIT is defeated, NOT
+#// when the upgrade itself is removed. P2 plays Disabling Fang Fighter (SOR_162), which defeats the
+#// detonator upgrade on P1's ready host (SEC_080). The host survives, no blast, so P2's ground unit
+#// (SOR_095, 3/3) takes 0 damage.
+
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_201
+WithP2GroundArena: SOR_095:1:0
+WithP2Hand: SOR_162
+WithP2Resources: 3
+
+## WHEN
+- P1>Pass
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:0

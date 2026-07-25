@@ -99,3 +99,54 @@ WithP2Hand: SOR_062
 ## EXPECT
 P1GROUNDARENACOUNT:1
 P1DECKCOUNT:2
+
+---
+
+# StolenHondo_PlaysNewControllersDeck
+#// LAW_094 Hondo — "Action: play the top card of YOUR deck." When an opponent steals Hondo (control-take),
+#// the action plays the top of the NEW CONTROLLER's deck, not the owner's. P2 controls a stolen Hondo
+#// (owned by P1, seated directly); P2 uses the action and plays P2's deck-top SOR_095 into P2's arena.
+
+## GIVEN
+CommonSetup: ggw/ggw/{}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 3
+WithP2GroundArenaControlled: LAW_094:1
+WithP2Deck: SOR_095
+WithP2Deck: SOR_128
+
+## WHEN
+- P2>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:1:CARDID:SOR_095
+
+---
+
+# StolenHondo_OncePerRound
+#// LAW_094 Hondo — "Use this ability only once each round" is tracked per player. The new controller (P2)
+#// can use the stolen Hondo once; a second use the same round is a no-op (SOR_128 stays on top of P2's deck).
+
+## GIVEN
+CommonSetup: ggw/ggw/{}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 6
+WithP2GroundArenaControlled: LAW_094:1
+WithP2Deck: SOR_095
+WithP2Deck: SOR_128
+
+## WHEN
+- P2>UseUnitAbility:myGroundArena-0
+- P2>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:1:CARDID:SOR_095
+P2DECKCOUNT:1

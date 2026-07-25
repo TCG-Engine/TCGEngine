@@ -59,3 +59,85 @@ WithP1Deck: SOR_095
 ## EXPECT
 P1HANDCOUNT:1
 P1DECKCOUNT:0
+
+---
+
+# Initiative_NoResources_NoDraw
+#// ASH_014 The Mandalorian (leader) — the draw requires paying 1 resource. With 0 resources the payment
+#// can't be made, so claiming the initiative draws nothing.
+## GIVEN
+CommonSetup: grw/brk/{
+  myLeader:ASH_014
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 0
+WithP1Deck: SOR_095
+## WHEN
+- P1>Claim
+## EXPECT
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# Deployed_OnAttack_NoInitiative_NoDraw
+#// ASH_014 The Mandalorian (deployed) — On Attack the draw only happens if YOU have the initiative. Here P2
+#// holds the initiative, so when the Mandalorian attacks the enemy SOR_095 no card is drawn.
+## GIVEN
+CommonSetup: grw/brk/{
+  myLeader:ASH_014:1:1:1
+}
+SkipPreGame: true
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithActivePlayer: 1
+WithP1Deck: SOR_095
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1HANDCOUNT:0
+P1DECKCOUNT:1
+
+---
+
+# Initiative_OpponentClaims_NoTrigger
+#// ASH_014 The Mandalorian (leader) — the draw only fires when YOU take the initiative. Here P2 takes it,
+#// so P1's Mandalorian does not draw even though P1 has resources to spend.
+## GIVEN
+CommonSetup: grw/brk/{
+  myLeader:ASH_014
+}
+SkipPreGame: true
+WithInitiativePlayer: 1
+WithActivePlayer: 2
+WithP1Resources: 3
+WithP1Deck: SOR_095
+## WHEN
+- P2>Claim
+## EXPECT
+P1HANDCOUNT:0
+P1RESAVAILABLE:3
+
+---
+
+# Support_DeployedOnAttackDraw_LentToChosenUnit
+#// ASH_014 The Mandalorian has Support (when deployed, may attack with another unit; it gains his other
+#// abilities for that attack). With initiative, deploying him lets SOR_095 Battlefield Marine make the attack
+#// and inherit his On Attack "may draw a card". The Marine hits P2's base for 3 and P1 draws a card (hand 1).
+## GIVEN
+CommonSetup: grw/brk/{myLeader:ASH_014;myResources:12}
+SkipPreGame: true
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: SOR_095,SOR_046
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:YES
+## EXPECT
+P2BASEDMG:3
+P1HANDCOUNT:1

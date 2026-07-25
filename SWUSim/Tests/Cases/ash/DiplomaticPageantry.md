@@ -38,3 +38,32 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:READY
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
+
+---
+
+# NoReadyEnemy_NoAdvantage
+#// ASH_231 — you can't exhaust an already-exhausted unit, so with only an EXHAUSTED enemy present the enemy
+#// half can't be paid; the "if you do" gate fails and NO Advantage is given to the friendly.
+## GIVEN
+CommonSetup: byw/byk/{myResources:2;handCardIds:ASH_231}
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:0:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
+
+---
+
+# NoReadyFriendly_NoAdvantage
+#// ASH_231 — with only an EXHAUSTED friendly present, the friendly half can't be paid; no Advantage is given.
+## GIVEN
+CommonSetup: byw/byk/{myResources:2;handCardIds:ASH_231}
+WithP1GroundArena: SOR_095:0:0
+WithP2GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0

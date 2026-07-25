@@ -36,3 +36,25 @@ WithP1Hand: LAW_207
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:DAMAGE:5
+
+---
+
+# FourAspectsChooseThree
+#// LAW_207 Attack From All Sides — with 4+ different aspects among friendly units you MAY deal 5, but you
+#// can decline and deal the base 3. Target the enemy SOR_046, then choose 3.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:3}
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: LAW_207
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:3

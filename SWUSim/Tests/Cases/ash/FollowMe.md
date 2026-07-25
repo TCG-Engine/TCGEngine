@@ -34,3 +34,19 @@ P1OnlyActions: true
 ## EXPECT
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:3
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
+
+---
+
+# NoReadyAttacker_NoEffect
+#// ASH_184 Follow Me — the event attacks with a unit first. With only an exhausted A-Wing (SEC_213) and no
+#// legal attacker, playing it has no effect: no attack happens and no Advantage tokens are given.
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:1;handCardIds:ASH_184}
+WithP1SpaceArena: SEC_213:0:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SPACEARENAUNIT:0:ADVANTAGECOUNT:0
+P2BASEDMG:0
+P1NODECISION

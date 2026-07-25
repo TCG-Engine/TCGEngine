@@ -17,3 +17,21 @@ P1CREDITCOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LAW_121
 P1GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENACOUNT:0
+
+---
+
+# AttackingDoesNotTrigger
+#// LAW_121 Canto Bight Security — On Defense fires only when DEFENDING. When Canto Bight attacks (here
+#// the enemy base), the On Defense ability does NOT trigger, so P1 gains no Credit. Combat deals 3.
+
+## GIVEN
+CommonSetup: bbk/grk/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_121:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1CREDITCOUNT:0
+P2BASEDMG:3

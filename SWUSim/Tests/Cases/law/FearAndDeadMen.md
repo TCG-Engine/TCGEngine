@@ -51,3 +51,24 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P1RESAVAILABLE:0
 P2GROUNDARENAUNIT:0:DAMAGE:4
+
+---
+
+# NoEnemyGroundUnits_NoEffectStillPlays
+#// LAW_179 Fear and Dead Men — with no enemy GROUND units in play the event has nothing to damage; it
+#// still resolves with no effect and goes to the discard pile. A friendly ground unit (SOR_095) and an
+#// enemy SPACE unit (SOR_237) are both untouched.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:7}
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP1Hand: LAW_179
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DISCARDCOUNT:1
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2SPACEARENAUNIT:0:DAMAGE:0

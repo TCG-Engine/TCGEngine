@@ -6380,10 +6380,13 @@ function _SWUConsumeUpgradeUsedFlags($player, $hostObj, $cardID): void {
         && _SWUCountUnitsWithCardID($player, 'SEC_064') > 0) {
         AddGlobalEffects($player, 'SWU_SEC064_USED');
     }
-    // ASH_075 Pit Droid Team — mark the once-per-phase "first upgrade on ANOTHER friendly unit -1" used.
+    // ASH_075 Pit Droid Team — mark the once-per-phase "first upgrade on ANOTHER friendly unit" used. Set on
+    // ANY qualifying play (host is a friendly unit other than a Pit Droid), NOT only while controlling one, so
+    // an upgrade played on another friendly BEFORE Pit Droid entered still counts (mirrors the PeliMotto/JTL_260
+    // per-phase flag). The discount itself (cost pipeline) additionally requires controlling a Pit Droid.
     if (GlobalEffectCount($player, 'SWU_ASH075_USED') <= 0
-        && _SWUCountUnitsWithCardID($player, 'ASH_075') > 0
-        && ($hostObj === null || ($hostObj->CardID ?? '') !== 'ASH_075')) {
+        && $hostObj !== null && intval($hostObj->Controller ?? 0) === intval($player)
+        && ($hostObj->CardID ?? '') !== 'ASH_075') {
         AddGlobalEffects($player, 'SWU_ASH075_USED');
     }
 }
@@ -6455,6 +6458,13 @@ function _SWUFinalizeUpgradeAttach(
             return 0;
             // Upgrade remains in hand — rollback is natural (nothing was removed yet).
         }
+        // ASH_212 Peli Motto — a real Upgrade card charges its cost HERE (not in ActivateCard, which excludes
+        // upgrades), so mark the "first non-unit played this phase" flag now that the (possibly-waived) cost is
+        // locked in. Pilots ($isPilot) are UNIT cards → don't count. Cleared at RegroupPhaseStart.
+        if (!$isPilot && GlobalEffectCount($player, 'SWU_ASH212_USED') <= 0
+                && stripos(CardType($upgradeForCost->CardID ?? '') ?? '', 'Upgrade') !== false) {
+            AddGlobalEffects($player, 'SWU_ASH212_USED');
+        }
         // Consume the one-shot Piloting discount now that the pilot has been paid for (the reduction was
         // already folded into $hostCost above). Clear ALL instances — a discount may be multiple (e.g.
         // LOF_188's −4 pre-loads 4) and applies wholly to this one play. No-op if none pending.
@@ -6484,6 +6494,10 @@ function _SWUFinalizeUpgradeAttach(
         $pilotSub->UniqueID = NextUniqueID();
         AddGlobalEffects($player, 'SWU_PLAYED_UNIT_' . $pilotSub->UniqueID);
     }
+    // LOF_056 Size Matters Not — stamp an attach-order UID so its "printed value is considered to be 5"
+    // replacement can be timestamp-compared against LAW_036 Obi-Wan's entry UID (most recent wins). A
+    // seated SMN (no stamp → 0) is treated as older than any played source, per _SWUSizeOverride.
+    if (!$isPilot && $cardID === 'LOF_056') $pilotSub->UniqueID = NextUniqueID();
     $hostObj->Subcards[] = $pilotSub;
 
     // CR 8.19.1.b / 29.3 — uniqueness for upgrades: if this player already controlled a copy of this
@@ -6512,6 +6526,10 @@ function _SWUFinalizeUpgradeAttach(
         && _SWUAsh208OnUpgradeAttach($player, $hostObj208)) {
         $triggered++;
     }
+    // SBA — no remaining HP: a stat-reducing upgrade (e.g. LAW_127 Kill Switch's -1/-1) can drop the host's
+    // current HP to <= 0 with no damage marked. A unit at 0-or-less remaining HP is defeated immediately.
+    SWUCheckShrinkDefeats();
+
     if ($triggered === 0) {
         DecisionQueueController::CleanupRemovedCards();
         if (!$suppressAfterAction) SWUAfterAction($player);
@@ -10246,7 +10264,11 @@ $customDQHandlers["LAW_217#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
     $o = GetZoneObject($lastDecision);
     if ($o === null || !empty($o->removed)) return;
+    // "Exhaust an enemy unit. IF YOU DO, look at its controller's hand and discard…" — an ALREADY-exhausted
+    // unit can't be exhausted (no state change), so "if you do" is false → no hand-look/discard.
+    $wasReady = (intval($o->Status ?? 1) === 1);
     OnExhaustCard(intval($player), $lastDecision);
+    if (!$wasReady) return;
     $unitAspects = array_filter(array_map('trim', explode(',', (string)(CardAspect($o->CardID ?? '') ?? ''))));
     if (empty($unitAspects)) return;                          // no aspect to share → nothing to discard
     $targets = SWULookAtOpponentHand(intval($player), function($cid) use ($unitAspects) {
@@ -10366,10 +10388,15 @@ $whenPlayedAbilities["LAW_061:0"] = function($player, $mzID) {
     $self = GetZoneObject($mzID);
     $uid  = $self ? intval($self->UniqueID ?? 0) : 0;
     $bh = [];
-    foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+    // "Ready ANOTHER Bounty Hunter unit" — no "friendly" qualifier, so an ENEMY Bounty Hunter is a legal
+    // target too (and deployed BH leaders, which live in the arena zones, qualify). Search all four arenas.
+    foreach (array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    ) as $mz) {
         $o = GetZoneObject($mz);
         if ($o === null || !empty($o->removed) || intval($o->UniqueID ?? 0) === $uid) continue;
-        if (HasTrait($o->CardID ?? '', 'Bounty Hunter')) $bh[] = $mz;
+        if (_SWUUnitHasTrait($o, 'Bounty Hunter')) $bh[] = $mz;
     }
     if (empty($bh)) return;
     SWUQueueMayChooseTarget(intval($player), $bh, "Ready_another_Bounty_Hunter_unit?", "Choose_a_Bounty_Hunter", "READY_UNIT");
@@ -13468,13 +13495,24 @@ $whenPlayedAbilities["ASH_194:0"] = function($player, $mzID) {
     SWUQueueChooseTarget(intval($player), $tg, "Deal_1_to_a_space_unit", "DEAL_UNIT_DAMAGE|1");
 };
 
-// ASH_196 Gorian Shard's Corsair — When Played/On Attack: you may deal 2 damage to a unit. (The
-// "friendly Underworld damage is unpreventable" passive is DEFERRED — see plan backlog.)
+// ASH_196 Gorian Shard's Corsair — When Played/On Attack: you may deal 2 damage to a unit. Gorian is an
+// Underworld card, so his own "Damage dealt by friendly Underworld cards is unpreventable" passive applies
+// to THIS damage — thread his own UniqueID as the source so SWUDealDamageToUnit bypasses Shields/prevention.
 $whenPlayedAbilities["ASH_196:0"] = $onAttackAbilities["ASH_196:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $tg = _SWUAllUnits();
     if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_2_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|2");
+    $self = GetZoneObject($mzID);
+    $srcUID = $self ? intval($self->UniqueID ?? 0) : 0;
+    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_2_damage_to_a_unit?", "Choose_a_unit", "ASH_196#DMG|{$srcUID}");
+};
+// Deal Gorian's 2, threading his own mzID (resolved by UID) as the source so the Underworld-unpreventable
+// passive is honored (SWUDealDamageToUnit checks _SWUDamageUnpreventable on the threaded source).
+$customDQHandlers["ASH_196#DMG"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
+    global $playerID; $playerID = intval($player);
+    $srcMz = SWUFindMzByUID(intval($parts[0] ?? 0));
+    SWUDealDamageToUnit($lastDecision, 2, intval($player), $srcMz);
 };
 
 // ASH_170 Desert Sharpshooter — When Played: you may deal 2 damage to an upgraded ground unit.
@@ -13630,7 +13668,17 @@ $customDQHandlers["ASH_077#0"] = function($player, $parts, $lastDecision) {
 // ASH_081 Nebulon-C Frigate — When Played: you may heal 3 damage from a unit or base.
 $whenPlayedAbilities["ASH_081:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $tg = array_merge(_SWUAllUnits(), ['myBase-0', 'theirBase-0']);
+    // Only offer targets that actually carry damage — a "heal" with nothing to heal shows no prompt.
+    $tg = [];
+    foreach (_SWUAllUnits() as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) $tg[] = $mz;
+    }
+    foreach (['myBase-0', 'theirBase-0'] as $bmz) {
+        $b = GetZoneObject($bmz);
+        if ($b !== null && intval($b->Damage ?? 0) > 0) $tg[] = $bmz;
+    }
+    if (empty($tg)) return;
     SWUQueueMayChooseTarget(intval($player), $tg, "Heal_3_from_a_unit_or_base?", "Choose_a_unit_or_base", "HEAL_TARGET|3");
 };
 
@@ -13685,11 +13733,18 @@ $onAttackAbilities["ASH_056:0"] = function($player, $mzID) {
 $customDQHandlers["ASH_060#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
-    $cobbMz = SWUFindMzByUID(intval($parts[0] ?? 0));
-    $playedMz = SWUFindMzByUID(intval($parts[1] ?? 0));
+    $cobbMz    = SWUFindMzByUID(intval($parts[0] ?? 0));
+    $playedUID = intval($parts[1] ?? 0);
     if ($cobbMz === null) return;
     SWUDealDamageToUnit($cobbMz, 2, intval($player));
-    if ($playedMz !== null) DoGiveShieldToken(intval($player), $playedMz);   // "give a Shield to that unit"
+    // Re-resolve the played unit by UID AFTER the self-damage: if the 2 defeats Cobb, CleanupRemovedCards
+    // shifts arena indices, so the mzID captured earlier would be stale. The Shield is still given even when
+    // Cobb dies to the cost (the "if you do" gate is paying the damage, not surviving it).
+    $playedMz = SWUFindMzByUID($playedUID);
+    if ($playedMz !== null) {
+        $po = GetZoneObject($playedMz);
+        if ($po !== null && empty($po->removed)) DoGiveShieldToken(intval($player), $playedMz);   // "give a Shield to that unit"
+    }
 };
 
 // ASH_064 The Armorer — Shielded (auto) + When Played: give a Shield token to each friendly unit with
@@ -14064,8 +14119,11 @@ $customDQHandlers["ASH_231#0"] = function($player, $parts, $lastDecision) {
     if ($friendly === null || !empty($friendly->removed)) return;
     $fuid = intval($friendly->UniqueID ?? 0);
     OnExhaustCard(intval($player), $lastDecision);
-    $enemy = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
-    if (empty($enemy)) return;   // no enemy unit → "exhaust an enemy unit" can't be done
+    $enemy = [];
+    foreach (array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)) as $emz) {
+        $eo = GetZoneObject($emz); if ($eo !== null && empty($eo->removed) && intval($eo->Status ?? 1) === 1) $enemy[] = $emz;
+    }
+    if (empty($enemy)) return;   // no READY enemy unit → "exhaust an enemy unit" can't be done → no Advantage
     SWUQueueChooseTarget(intval($player), $enemy, "Exhaust_an_enemy_unit", "ASH_231#1|{$fuid}");
 };
 $customDQHandlers["ASH_231#1"] = function($player, $parts, $lastDecision) {
@@ -14511,14 +14569,15 @@ $customDQHandlers["LAW_174#0"] = function($player, $parts, $lastDecision) {
 // that arena.
 $law178 = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Ground&Space", 1, "Deal_3_to_each_unit_in_which_arena?");
+    // "You MAY deal 3 damage to each unit in that arena" — offer a Pass so the optional effect can be declined.
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Ground&Space&Pass", 1, "Deal_3_to_each_unit_in_which_arena?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_178#0", 1);
 };
 $whenPlayedAbilities["LAW_178:0"] = $law178;
 $onAttackAbilities["LAW_178:0"]   = $law178;
 $customDQHandlers["LAW_178#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS' || $lastDecision === 'Pass') return;
     $zones = ($lastDecision === 'Space') ? ["mySpaceArena", "theirSpaceArena"] : ["myGroundArena", "theirGroundArena"];
     $uids = [];
     foreach ($zones as $z) {
@@ -14534,10 +14593,11 @@ $customDQHandlers["LAW_178#0"] = function($player, $parts, $lastDecision) {
     }
 };
 
-// LAW_181 Cloud-Rider Veteran — On Attack: deal 2 damage to a base (the enemy base directly).
+// LAW_181 Cloud-Rider Veteran — On Attack: deal 2 damage to a base. "A base" has no "enemy" qualifier, so
+// the attacker MAY choose their own base or the enemy base.
 $onAttackAbilities["LAW_181:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    SWUDealDamageToBase(2, OtherPlayer(intval($player)));
+    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_damage_to_a_base", "DEAL_BASE_DAMAGE|2");
 };
 
 // LAW_182 Weazel — On Attack: another friendly unit gains Raid 2 for this phase.
@@ -14603,7 +14663,7 @@ $onAttackAbilities["LAW_194:0"] = function($player, $mzID) {
     $targets = []; $usedIdx = [];
     $discard = GetDiscard(intval($player));
     foreach ($milled as $cid) {
-        if (!HasTrait($cid, 'Underworld')) continue;
+        if (!_SWUCardHasTrait(intval($player), $cid, 'Underworld')) continue; // LAW_212 Malakili: owned Creatures count
         for ($j = 0; $j < count($discard); $j++) {
             if (in_array($j, $usedIdx, true) || !empty($discard[$j]->removed)) continue;
             if (($discard[$j]->CardID ?? '') === $cid) { $targets[] = "myDiscard-{$j}"; $usedIdx[] = $j; break; }
@@ -15104,7 +15164,13 @@ $customDQHandlers["LAW_073#0"] = function($player, $parts, $lastDecision) {
 // phase costs 1 less.
 $whenPlayedAbilities["LAW_058:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    SWUDealDamageToBase(1, OtherPlayer(intval($player)));
+    // "Deal 1 damage to a base" — a base (no "enemy" qualifier) → the player chooses EITHER base.
+    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_1_damage_to_a_base", "LAW_058_WP");
+};
+$customDQHandlers["LAW_058_WP"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    SWUDealDamageToBase(1, SWUMzOwner((string)$lastDecision, intval($player)));
 };
 $whenDefeatedAbilities["LAW_058:0"] = function($player, $mzID) {
     AddGlobalEffects(intval($player), 'SWU_LAW058_DISCOUNT_NEXT');
@@ -16132,14 +16198,17 @@ $customDQHandlers["ASH_230#0"] = function($player, $parts, $lastDecision) {
     $chosen   = $resolved['drawn'];
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
     AddGlobalEffects(intval($player), 'SWU_ASH230_USED');   // once each round (the ability was used)
-    if (empty($chosen)) { SWUAfterAction(intval($player)); return; }
-    $discardedID = $chosen[0];
-    SWUAddToDiscard(intval($player), $discardedID, 'DECK');   // "and discard it"
+    // "Then, you may attack with this unit" is UNCONDITIONAL (offered even when no ground unit was in the top 3
+    // or the search was declined — just with no ability grant). Only the discard-and-grant is conditional.
+    $discardedID = empty($chosen) ? '' : $chosen[0];
+    if ($discardedID !== '') SWUAddToDiscard(intval($player), $discardedID, 'DECK');   // "and discard it"
     $hostMz = SWUFindMzByUID($hostUID);
     $host   = $hostMz !== null ? GetZoneObject($hostMz) : null;
     if ($host === null || !empty($host->removed) || intval($host->Status) !== 1) { SWUAfterAction(intval($player)); return; }
-    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
-        tooltip: "Attack_with_this_unit_(gaining_" . GameLogCardRef($discardedID) . "'s_abilities)?");
+    $tip = $discardedID !== ''
+        ? ("Attack_with_this_unit_(gaining_" . GameLogCardRef($discardedID) . "'s_abilities)?")
+        : "Attack_with_this_unit?";
+    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: $tip);
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_230#1|{$hostUID}|{$discardedID}", 1);
 };
 $customDQHandlers["ASH_230#1"] = function($player, $parts, $lastDecision) {
@@ -16151,8 +16220,21 @@ $customDQHandlers["ASH_230#1"] = function($player, $parts, $lastDecision) {
     if ($hostMz === null) { SWUAfterAction(intval($player)); return; }
     $host = GetZoneObject($hostMz);
     if ($host === null || !empty($host->removed)) { SWUAfterAction(intval($player)); return; }
-    // Transplant the discarded unit's abilities for this attack (Support's SUPPORT_GRANT carrier).
-    AddTurnEffect($hostMz, SWUMakeTurnEffect('SUPPORT_GRANT', [$discardedID, 0], SWU_DUR_ATTACK));
+    if ($discardedID !== '') {
+        // Transplant the discarded unit's abilities for this attack. Its KEYWORDS come from the printed-keyword
+        // lookup arrays (the card is in the discard pile, not a live object); its triggered/constant abilities
+        // ride the SUPPORT_GRANT carrier (same mechanism the Support keyword uses).
+        global $Grit_Cards, $Overwhelm_Cards, $Saboteur_Cards, $Sentinel_Cards, $Raid_Cards, $Restore_Cards;
+        if (isset($Grit_Cards[$discardedID]))      AddTurnEffect($hostMz, SWUMakeTurnEffect('GRIT',      [], SWU_DUR_ATTACK, $discardedID));
+        if (isset($Overwhelm_Cards[$discardedID])) AddTurnEffect($hostMz, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK, $discardedID));
+        if (isset($Saboteur_Cards[$discardedID]))  AddTurnEffect($hostMz, SWUMakeTurnEffect('SABOTEUR',  [], SWU_DUR_ATTACK, $discardedID));
+        if (isset($Sentinel_Cards[$discardedID]))  AddTurnEffect($hostMz, SWUMakeTurnEffect('SENTINEL',  [], SWU_DUR_ATTACK, $discardedID));
+        $raid = intval($Raid_Cards[$discardedID] ?? 0);
+        if ($raid > 0)    AddTurnEffect($hostMz, SWUMakeTurnEffect('RAID',    [$raid],    SWU_DUR_ATTACK, $discardedID));
+        $restore = intval($Restore_Cards[$discardedID] ?? 0);
+        if ($restore > 0) AddTurnEffect($hostMz, SWUMakeTurnEffect('RESTORE', [$restore], SWU_DUR_ATTACK, $discardedID));
+        AddTurnEffect($hostMz, SWUMakeTurnEffect('SUPPORT_GRANT', [$discardedID, 0], SWU_DUR_ATTACK));
+    }
     BeginSWUAttack(intval($player), $hostMz);   // combat owns the after-action
 };
 
@@ -16625,9 +16707,46 @@ $customDQHandlers["LAW_215#2"] = function($player, $parts, $lastDecision) {
             "LAW_215#3|{$D}|{$P}|{$cardID}|{$deckMz}");
         return;
     }
+    // A revealed PILOTING unit may be played as a Pilot upgrade — offer the Unit-vs-Pilot choice, but only
+    // when P has a valid Vehicle host. The play is FREE, so query hosts ignoring affordability (ignoreCost).
+    if (CardPilotingCost($cardID) !== null && !empty(SWUGetPilotValidTargets($P, $cardID, true))) {
+        DecisionQueueController::AddDecision($P, "OPTIONCHOOSE", "Unit&Pilot", 1,
+            tooltip: "Play_" . str_replace(' ', '_', CardTitle($cardID)) . "_as_Unit_or_Pilot?");
+        DecisionQueueController::AddDecision($P, "CUSTOM", "LAW_215#2P|{$D}|{$P}|{$cardID}|{$deckMz}", 1);
+        return;
+    }
     if (_SWUPlayForeignResourceFree($P, $D, $deckMz, $cardID, $type)) {
         SWUCreateCreditToken(SWUChooseOpponent($P), intval(CardCost($cardID))); // "a different player" creates Credits = cost (Twin Suns: a null-safe other seat)
     }
+};
+// LAW_215 revealed PILOTING unit — the Unit-vs-Pilot choice. "Pilot" → pick a Vehicle host (free);
+// anything else → play it as a unit (the normal foreign free-play). Credits fire in either branch's finish.
+$customDQHandlers["LAW_215#2P"] = function($player, $parts, $lastDecision) {
+    $D = intval($parts[0] ?? $player); $P = intval($parts[1] ?? $player); $cardID = $parts[2] ?? ''; $deckMz = $parts[3] ?? '';
+    global $playerID; $playerID = $P;
+    if ($lastDecision === 'Pilot') {
+        $vehicles = SWUGetPilotValidTargets($P, $cardID, true); // free play → ignore affordability
+        if (empty($vehicles)) return;
+        SWUQueueChooseTarget($P, $vehicles,
+            "Attach_" . str_replace(' ', '_', CardTitle($cardID)) . "_as_a_Pilot_for_free",
+            "LAW_215#3P|{$D}|{$P}|{$cardID}|{$deckMz}");
+        return;
+    }
+    // "Unit" — play the revealed card as a unit (as before).
+    if (_SWUPlayForeignResourceFree($P, $D, $deckMz, $cardID, CardType($cardID))) {
+        SWUCreateCreditToken(SWUChooseOpponent($P), intval(CardCost($cardID)));
+    }
+};
+// LAW_215 pilot host chosen — attach the revealed Piloting unit as a free Pilot upgrade; the "different
+// player" creates Credits equal to the card's (unit) cost.
+$customDQHandlers["LAW_215#3P"] = function($player, $parts, $lastDecision) {
+    $D = intval($parts[0] ?? $player); $P = intval($parts[1] ?? $player); $cardID = $parts[2] ?? ''; $deckMz = $parts[3] ?? '';
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    global $playerID; $playerID = $P;
+    AddGlobalEffects($P, 'SWU_CARDS_PLAYED');
+    AddGameLogEntry('PLAY', 'P' . $P . ' played ' . GameLogCardRef($cardID) . ' as a Pilot for free');
+    _SWUFinalizeUpgradeAttach($P, $cardID, $deckMz, $lastDecision, 0, true, true, true); // ignoreCost, isPilot, suppress after-action
+    SWUCreateCreditToken(SWUChooseOpponent($P), intval(CardCost($cardID)));
 };
 $customDQHandlers["LAW_215#3"] = function($player, $parts, $lastDecision) {
     $D = intval($parts[0] ?? $player); $P = intval($parts[1] ?? $player); $cardID = $parts[2] ?? ''; $deckMz = $parts[3] ?? '';
@@ -17159,8 +17278,10 @@ $customDQHandlers["LOF_239#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if ($o === null || !empty($o->removed)) return;
-    DoGiveExperienceToken(intval($player), $lastDecision);
-    DoGiveExperienceToken(intval($player), $lastDecision);
+    DoGiveExperienceToken(intval($player), $lastDecision, false);   // fire the ASH_208 observer once, after both
+    DoGiveExperienceToken(intval($player), $lastDecision, false);
+    $h239 = GetZoneObject($lastDecision);
+    if ($h239 !== null && empty($h239->removed)) _SWUAsh208OnUpgradeAttach(intval($player), $h239);   // one attach event
     SWUDealDamageToUnit($lastDecision, 2, intval($player));
 };
 
@@ -18773,9 +18894,14 @@ $customDQHandlers["ASH_094_DOUBLE"] = function($player, $parts, $lastDecision) {
     $ready      = intval($parts[2] ?? 0) === 1;
     $jUID       = intval($parts[3] ?? 0);
     $turnEffect = $parts[4] ?? '';
+    $kind       = $parts[5] ?? 'unit';
     $jMz = SWUFindMzByUID($jUID);
     if ($jMz === null || $tokenID === '' || $count < 1) return;   // Jerjerrod gone → can't pay
     SWUDefeatUnit(intval($player), $jMz);
+    if ($kind === 'credit') {
+        SWUCreateCreditToken(intval($player), $count, false);   // create $count MORE Credits (net 2×); no re-offer
+        return;
+    }
     for ($i = 0; $i < $count; $i++) {
         $uid = _SWUCreateOneToken(intval($player), $tokenID, $ready);
         if ($turnEffect !== '') { $mz = SWUFindMzByUID($uid); if ($mz !== null) AddTurnEffect($mz, $turnEffect); }

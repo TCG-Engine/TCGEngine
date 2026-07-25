@@ -18,3 +18,66 @@ WithP1Hand: LAW_075
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P2HANDCOUNT:1
+
+---
+
+# NoDiscardIfAlreadyExhausted
+#// LAW_075 Interrogation Droid — When Played: target an already-exhausted enemy unit (SHD_029 Pyke
+#// Sentinel, cost 2). Exhausting does nothing (already exhausted) -> "if you do" fails -> no discard.
+
+## GIVEN
+CommonSetup: ryk/bgw/{myResources:2}
+WithActivePlayer: 1
+WithP2GroundArena: SHD_029:0:0
+WithP2Hand: SOR_095
+WithP2Hand: SOR_237
+WithP1Hand: LAW_075
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SHD_029
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2HANDCOUNT:2
+
+---
+
+# NoDiscardIfCostAboveThree
+#// LAW_075 Interrogation Droid — When Played: exhaust an enemy unit costing more than 3 (SOR_164 Wampa,
+#// cost 4) -> exhausted but NO discard.
+
+## GIVEN
+CommonSetup: ryk/bgw/{myResources:2}
+WithActivePlayer: 1
+WithP2GroundArena: SOR_164:1:0
+WithP2Hand: SOR_095
+WithP2Hand: SOR_237
+WithP1Hand: LAW_075
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_164
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2HANDCOUNT:2
+
+---
+
+# NoEnemyUnitsNothingHappens
+#// LAW_075 Interrogation Droid — When Played with no enemy units: nothing to exhaust, no discard.
+
+## GIVEN
+CommonSetup: ryk/bgw/{myResources:2}
+WithActivePlayer: 1
+WithP2Hand: SOR_095
+WithP2Hand: SOR_237
+WithP1Hand: LAW_075
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2HANDCOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:LAW_075

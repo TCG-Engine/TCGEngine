@@ -32,3 +32,20 @@ P1OnlyActions: true
 ## EXPECT
 P1SPACEARENACOUNT:0
 P2GROUNDARENACOUNT:0
+
+---
+
+# OnAttack_Passed
+#// ASH_043 Corona Four — the On Attack -2/-0 is optional. Corona Four attacks P2's base and declines the
+#// debuff, so SEC_135 keeps its 4 power and the base still takes 2.
+## GIVEN
+CommonSetup: byk/byk
+WithP1SpaceArena: ASH_043:1:0
+WithP2GroundArena: SEC_135:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:-
+## EXPECT
+P2GROUNDARENAUNIT:0:POWER:4
+P2BASEDMG:2

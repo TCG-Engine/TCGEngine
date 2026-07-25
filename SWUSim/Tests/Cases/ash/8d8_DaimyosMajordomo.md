@@ -33,3 +33,26 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:1:DAMAGE:1
 P1HANDCOUNT:1
+
+---
+
+# DamageReplacedByShield_StillSearches
+#// ASH_118 8D8 — the "deal 1 damage" targets another friendly unit; if that unit has a Shield, the shield
+#// absorbs the damage (unit takes 0, shield removed) but the deal-damage still resolves, so 8D8 still
+#// searches the top 5 and draws a unit. SOR_095 has a Shield; it takes 0 and the shield is gone, yet SEC_080
+#// is still drawn.
+## GIVEN
+CommonSetup: ggk/ggk
+WithP1GroundArena: ASH_118:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 1:SOR_T02
+WithP1Deck: SEC_080
+P1OnlyActions: true
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SEC_080
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P1GROUNDARENAUNIT:1:SHIELDCOUNT:0
+P1HANDCOUNT:1

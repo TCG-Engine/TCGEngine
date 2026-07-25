@@ -9,3 +9,19 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENACOUNT:1
 LOGCONTAINS:looked at
+
+---
+
+# PlayableWhenOppHandEmpty
+#// ASH_250 Imperial Defector — When Played: look at an opponent's hand. With the opponent holding no cards,
+#// the ability still resolves harmlessly and the Defector enters play; no decision is left pending.
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:2;handCardIds:ASH_250}
+WithP2GroundArena: SOR_032:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:ASH_250
+P1NODECISION

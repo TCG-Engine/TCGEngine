@@ -13,3 +13,17 @@ P1BASEDMG:5
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:DAMAGE:5
 P2GROUNDARENACOUNT:0
+
+---
+
+# NoUnits_BaseStill5
+#// ASH_151 Operation Cinder — deals 5 damage to your base even with no units in play. P1's base takes 5;
+#// the enemy base is untouched.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:6;handCardIds:ASH_151}
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1BASEDMG:5
+P2BASEDMG:0

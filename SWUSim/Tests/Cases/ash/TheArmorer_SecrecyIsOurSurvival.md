@@ -29,3 +29,28 @@ P1OnlyActions: true
 - P1>PlayHand:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# GainedShielded_GetsShield
+#// ASH_064 The Armorer — the When Played gives a Shield to each friendly unit WITH Shielded, and a Shielded
+#// keyword GAINED from another source counts. Admiral Yularen (JTL_047) grants Shielded to friendly
+#// Vehicles, so SOR_237 (Alliance X-Wing) gains Shielded; The Armorer then gives it 1 Shield token. The
+#// Armorer herself ends with 2 (her own Shielded keyword on entry plus her When Played). Yularen (not a
+#// Vehicle) gains nothing. (Resolve The Armorer's simultaneous entry triggers via EffectStack-0.)
+## GIVEN
+CommonSetup: bbw/bbw
+WithP1Resources: 12
+WithP1Hand: [JTL_047 ASH_064]
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Shielded
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:SHIELDCOUNT:1
+P1GROUNDARENAUNIT:1:CARDID:ASH_064
+P1GROUNDARENAUNIT:1:SHIELDCOUNT:2

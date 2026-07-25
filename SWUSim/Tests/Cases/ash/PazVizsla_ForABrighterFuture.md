@@ -50,3 +50,26 @@ P1OnlyActions: true
 - P1>AttackGroundArena:0:0
 ## EXPECT
 P1GROUNDARENACOUNT:0
+
+---
+
+# EffectDefeat_TokensToNewController
+#// ASH_028 Paz Vizsla — the When Defeated tokens are created by whoever CONTROLS Paz at the moment of
+#// defeat. P2 plays No Glory, Only Results (JTL_043) to take control of P1's Paz and then defeat it (not
+#// combat damage), so the 2 Mandalorian tokens (ASH_T01, each entering with a Shield) appear in P2's arena.
+## GIVEN
+CommonSetup: bbw/bbk/{}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 8
+WithP2Hand: JTL_043
+WithP1GroundArena: ASH_028:1:0
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:CARDID:ASH_T01
+P2GROUNDARENAUNIT:1:CARDID:ASH_T01

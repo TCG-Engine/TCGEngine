@@ -52,3 +52,55 @@ P2GROUNDARENACOUNT:0
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LAW_086
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# AttackingBase_NoPrompt
+#// LAW_086 The Stranger — the "defender deals damage first" choice only exists when attacking a UNIT.
+#// Attacking the enemy base is not a unit, so no prompt appears; The Stranger (power 1) simply deals 1 to
+#// the base.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LAW_086:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_086
+P1NODECISION
+
+---
+
+# DefenderFirst_DefenderSurvives
+#// LAW_086 The Stranger (1/7, Grit) — choosing defender-first against SOR_046 Consular Security Force
+#// (3/7): the CSF deals 3 to The Stranger first (7 HP → survives, 3 damage); Grit then raises The
+#// Stranger's power to 4, so it deals 4 to the CSF (7 HP → survives with 4 damage). Neither unit dies.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LAW_086:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P2GROUNDARENAUNIT:0:DAMAGE:4

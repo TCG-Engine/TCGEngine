@@ -763,8 +763,17 @@ function OnPlayEvent(int $player, string $cardID): void {
         case 'ASH_231': { // Diplomatic Pageantry — "Exhaust a friendly unit and an enemy unit. If you do,
                           // give 2 Advantage tokens to that friendly unit." Fizzles unless both exist.
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
-            $enemy    = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
+            // Only READY units are legal targets — you can't exhaust an already-exhausted unit, so if there is
+            // no ready friendly OR no ready enemy the "exhaust both" cost can't be paid and the whole ability
+            // (including the "if you do" 2 Advantage) fizzles.
+            $friendly = [];
+            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+                $o = GetZoneObject($mz); if ($o !== null && empty($o->removed) && intval($o->Status ?? 1) === 1) $friendly[] = $mz;
+            }
+            $enemy = [];
+            foreach (array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)) as $mz) {
+                $o = GetZoneObject($mz); if ($o !== null && empty($o->removed) && intval($o->Status ?? 1) === 1) $enemy[] = $mz;
+            }
             if (empty($friendly) || empty($enemy)) return;   // can't exhaust both → fizzle
             SWUQueueChooseTarget(intval($player), $friendly, "Exhaust_a_friendly_unit", "ASH_231#0");
             return;
@@ -1315,7 +1324,13 @@ function OnPlayEvent(int $player, string $cardID): void {
                 ZoneSearch("theirGroundArena", AnyUnitFilter),
                 ZoneSearch("theirSpaceArena",  AnyUnitFilter)
             );
-            if (empty($units)) return;
+            if (empty($units)) {
+                // No units in play → the first "deal 2 to a unit" clause has no target, but the second
+                // clause still resolves: "a base or another unit in the same arena" reduces to just a base
+                // (a base is not in an arena). Offer the base choice directly (deal 2 to a base).
+                SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_damage_to_a_base", "LAW_208#1");
+                return;
+            }
             SWUQueueChooseTarget(intval($player), $units, "Deal_2_damage_to_a_unit", "LAW_208#0");
             return;
         }

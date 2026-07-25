@@ -16,3 +16,60 @@ WithP1Hand: LAW_233
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:HASKEYWORD:Raid
 P2GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
+
+---
+
+# GiveControlToOpponent
+#// LAW_233 Galen Erso — When Played you MAY have the opponent take control. Accept: Galen leaves P1's arena
+#// and is now controlled by P2.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1Hand: LAW_233
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:LAW_233
+
+---
+
+# EnemyRaidAddsDamage
+#// LAW_233 Galen Erso — the granted Raid 1 is a real power buff. With Galen on P1's board, P2's units are
+#// "enemy" and gain Raid 1: an enemy Battlefield Marine (3/3) attacks P1's base for 3 + 1 = 4.
+
+## GIVEN
+CommonSetup: yyk/bgw/{}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: LAW_233:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+
+## EXPECT
+P1BASEDMG:4
+
+---
+
+# FriendlyUnitsNoRaid
+#// LAW_233 Galen Erso — only ENEMY units gain Raid 1. A friendly Battlefield Marine (3/3) attacks the enemy
+#// base for 3 (no Raid bonus).
+
+## GIVEN
+CommonSetup: yyk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_233:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+
+## EXPECT
+P2BASEDMG:3

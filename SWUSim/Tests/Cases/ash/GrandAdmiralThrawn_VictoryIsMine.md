@@ -101,3 +101,41 @@ WithP2GroundArena: SOR_095:1:0
 - P1>AttackGroundArena:0:BASE
 ## EXPECT
 P2GROUNDARENACOUNT:1
+
+---
+
+# MoreUnitsThanDefender_NoRestore
+#// ASH_004 Grand Admiral Thrawn — the Restore 2 is granted only when P1 controls the SAME number of units as
+#// the defending player. Here P1 controls 1 unit (SOR_095) and P2 controls 0, so 1 does not equal 0 and no
+#// Restore is granted; P1's base stays at 5 damage when SOR_095 attacks P2's base.
+## GIVEN
+CommonSetup: gbk/brk/{
+  myLeader:ASH_004;
+  myBaseDamage:5
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 0
+WithP1GroundArena: SOR_095:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:BASE
+## EXPECT
+P1BASEDMG:5
+P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_OnAttack_FewerUnits_NoDefeat
+#// ASH_004 Grand Admiral Thrawn (deployed) — the On Attack defeat needs MORE units than the defender. P1's
+#// only unit is Thrawn (1) while P2 controls 2, so 1 is not more than 2: no defeat is offered and both enemy
+#// units survive.
+## GIVEN
+CommonSetup: gbk/brk/{myLeader:ASH_004:1:1:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: [SOR_095:1:0 SEC_080:1:0]
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P2GROUNDARENACOUNT:2

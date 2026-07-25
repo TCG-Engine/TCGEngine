@@ -83,3 +83,88 @@ P2LEADER:EXHAUSTED
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:ASH_042
 P1NODECISION
+
+---
+
+# PassReturnAbility_Optional
+#// ASH_042 Jabba the Hutt — the "return an upgrade" ability is optional. P1 plays Jabba and declines,
+#// leaving SOR_120 attached to SOR_095 (which keeps its +2 power).
+## GIVEN
+CommonSetup: byk/byk/{myResources:4;handCardIds:ASH_042}
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:POWER:5
+
+---
+
+# ReturnFriendlyUpgradeOnEnemyUnit_ReplayFree
+#// ASH_042 Jabba the Hutt — a friendly-owned upgrade attached to an ENEMY unit still returns to P1's hand
+#// (its owner), so the free replay IS offered. P1 first plays Condemn (SEC_038) onto the enemy SEC_080,
+#// then plays Jabba and returns that Condemn; because it went to P1's hand, P1 replays it free onto the
+#// enemy SOR_046.
+## GIVEN
+CommonSetup: byk/byk/{myResources:10;handCardIds:ASH_042,SEC_038}
+WithP2GroundArena: [SEC_080:1:0 SOR_046:1:0]
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:1
+- P1>AnswerDecision:theirGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirGroundArena-1
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:1:UPGRADE:0:CARDID:SEC_038
+
+---
+
+# ReturnTokenUpgrade_Ceases_NoFreeReplay
+#// ASH_042 Jabba — returning a TOKEN upgrade (a Shield token) removes it and it CEASES to exist: it does not
+#// go to hand and there is no "play it for free" offer. SOR_095 wears a Shield; Jabba returns it → shield gone,
+#// hand empty, no decision.
+## GIVEN
+CommonSetup: byk/byk/{myResources:4;handCardIds:ASH_042}
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T02
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P1HANDCOUNT:0
+P1NODECISION
+
+---
+
+# ReturnPilotUpgrade_ReplayFreeOnAnotherUnit
+#// ASH_042 Jabba the Hutt — a non-leader Pilot (a unit played as a pilot upgrade) is a valid return target,
+#// and because the returned card is P1's own, the free replay is offered. P1 plays JTL_211 Independent
+#// Smuggler as a pilot on LOF_192 N-1 Starfighter, then plays Jabba and returns that pilot. It goes back to
+#// P1's hand and is replayed for free as a pilot onto a different unit (SOR_237), leaving LOF_192 bare.
+## GIVEN
+CommonSetup: byk/byk/{myResources:12;handCardIds:JTL_211,ASH_042}
+WithP1SpaceArena: LOF_192:1:0
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:mySpaceArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+- P1>AnswerDecision:mySpaceArena-1
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:LOF_192
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1SPACEARENAUNIT:1:CARDID:SOR_237
+P1SPACEARENAUNIT:1:UPGRADECOUNT:1
+P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_211
+P1NODECISION

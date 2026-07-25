@@ -414,3 +414,66 @@ WithP2Deck: LOF_140
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:LOF_140
 P2CREDITCOUNT:3
+
+---
+
+# RevealPilotingUnit_PlayAsPilotForFree
+#// LAW_215 Vermillion — a revealed PILOTING unit may be played as a Pilot upgrade for free. P1 reveals its
+#// own deck-top JTL_103 Chewbacca (a 5-cost Piloting unit), chooses itself, and plays it as a Pilot; the
+#// only valid Vehicle host is Vermillion, so Chewbacca attaches to it (upgrade count 1). The play is FREE
+#// (no resources spent), and the other player (P2) creates Credits equal to Chewbacca's cost (5).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP1Deck: JTL_103
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:LAW_215
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P2CREDITCOUNT:5
+
+---
+
+# RevealPilotingUnit_PlayAsUnitForFree
+#// LAW_215 Vermillion — the same revealed Piloting unit may instead be played as a UNIT (the Unit branch
+#// of the Unit-vs-Pilot choice). Chewbacca (JTL_103) is a ground unit, so it enters P1's GROUND arena;
+#// Vermillion keeps no upgrade, and P2 still creates 5 Credits.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP1Deck: JTL_103
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:Unit
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_103
+P2CREDITCOUNT:5

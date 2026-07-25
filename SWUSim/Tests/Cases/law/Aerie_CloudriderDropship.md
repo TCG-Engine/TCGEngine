@@ -15,3 +15,21 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:2
 P2BASEDMG:5
+
+---
+
+# OnAttackNoGroundUnitJustBase
+#// LAW_184 Aerie — On Attack with NO enemy ground unit in play, the "deal 2 to an enemy ground unit" part
+#// has no target; you still deal 2 to a base. Attacks the base: 3 (combat) + 2 (ability) = 5.
+
+## GIVEN
+CommonSetup: rrw/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_184:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:P2BASE
+
+## EXPECT
+P2BASEDMG:5

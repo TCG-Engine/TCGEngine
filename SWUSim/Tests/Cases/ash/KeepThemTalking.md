@@ -49,3 +49,54 @@ P1OnlyActions: true
 ## EXPECT
 P2GROUNDARENAUNIT:0:READY
 P2SPACEARENAUNIT:0:READY
+
+---
+
+# ExhaustTwoFriendly
+#// ASH_233 Keep Them Talking — the targets may be FRIENDLY units. P1 exhausts both its own cheap units:
+#// SOR_095 (cost 2, ground) and SOR_141 (cost 2, space).
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:2;handCardIds:ASH_233}
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_141:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0&mySpaceArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1SPACEARENAUNIT:0:EXHAUSTED
+
+---
+
+# ExhaustOneFriendly
+#// ASH_233 Keep Them Talking — "up to 2" may be a single FRIENDLY unit. P1 exhausts only its SOR_095;
+#// its SOR_141 stays ready.
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:2;handCardIds:ASH_233}
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_141:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1SPACEARENAUNIT:0:READY
+
+---
+
+# ExhaustOneFriendlyOneEnemy
+#// ASH_233 Keep Them Talking — the two targets may mix sides: one friendly (SOR_095, cost 2) and one
+#// enemy (SEC_080, cost 2) are both exhausted.
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:2;handCardIds:ASH_233}
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0&theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:EXHAUSTED

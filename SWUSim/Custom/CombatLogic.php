@@ -31,6 +31,11 @@ function SWUConsumeShieldToken($unit): bool {
         $removed = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
         if (!$removed && $cardID === 'SOR_T02') {
             array_splice($unit->Subcards, $key, 1);
+            // CR: a Shield token consumed to prevent damage is DEFEATED — fire the "a friendly upgrade was
+            // defeated this phase" observers (ASH_039 Baylan flag / ASH_161 Zeb deal-1). Token upgrades count.
+            $shCtrl  = intval($unit->Controller ?? $unit->Owner ?? 0);
+            $shOwner = intval($unit->Owner ?? $shCtrl);
+            if ($shCtrl > 0) _SWUOnUpgradeDefeated($shCtrl, 'SOR_T02', $unit, $shOwner);
             return true;
         }
     }
@@ -167,21 +172,29 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
     $base = &GetBase($targetPlayer);
     for ($i = 0; $i < count($base); $i++) {
         if (isset($base[$i]->removed) && $base[$i]->removed) continue;
+        // Base damage is UNPREVENTABLE when it is indirect ($isIndirect) OR its source is a friendly
+        // Underworld card while ASH_196 Gorian's Corsair is in play (_SWUDamageUnpreventable on the threaded
+        // combat attacker). Unpreventable base damage bypasses BOTH the Close the Shield Gate one-shot
+        // (JTL_074) and the At Attin cap (ASH_070) below.
+        $baseDmgUnpreventable = $isIndirect
+            || ($damager !== null && is_object($damager) && _SWUDamageUnpreventable($damager));
         // JTL_074 Close the Shield Gate — "the next time damage would be dealt to this base this phase,
         // prevent it." One-shot per chosen base, consumed here; any leftover is cleared at regroup.
-        // Indirect damage is UNPREVENTABLE: it still CONSUMES the one-shot (it is "the next damage") but is
-        // NOT prevented — it lands in full and the shield is spent, so subsequent damage lands too.
+        // Unpreventable damage still CONSUMES the one-shot (it is "the next damage") but is NOT prevented —
+        // it lands in full and the shield is spent, so subsequent damage lands too.
         if (intval($damage) > 0 && GlobalEffectCount(intval($targetPlayer), 'SWU_SHIELD_GATE') > 0) {
             RemoveGlobalEffect(intval($targetPlayer), 'SWU_SHIELD_GATE');
-            if (!$isIndirect) {
+            if (!$baseDmgUnpreventable) {
                 SetFlashMessage("Damage to the base was prevented (Close the Shield Gate).");
                 $playerID = $savedPID;
                 return;
             }
         }
         // ASH_070 At Attin Safety Droid — "If your base would be dealt more than 4 damage, prevent all but
-        // 4 of that damage." Caps each damage EVENT to 4 while its controller has it in play.
-        if (intval($damage) > 4 && _SWUControlsCardInPlay(intval($targetPlayer), 'ASH_070')) {
+        // 4 of that damage." This is a PREVENTION, so it does NOT apply to UNPREVENTABLE damage: indirect
+        // damage ($isIndirect) or damage from a source whose damage is unpreventable (ASH_196 Gorian's friendly
+        // Underworld cards). Those land in full.
+        if (intval($damage) > 4 && !$baseDmgUnpreventable && _SWUControlsCardInPlay(intval($targetPlayer), 'ASH_070')) {
             $damage = 4;
             SetFlashMessage("At Attin Safety Droid: base damage reduced to 4.");
         }
@@ -214,8 +227,13 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             // An explicit $damager (e.g. indirect damage attributes to the ability's controller,
             // CR 35.4) wins; otherwise infer from the caller's context. When the damager equals
             // the target (self-inflicted), the guard below suppresses the enemy-base flags.
-            $damager = ($damager !== null)
-                ? intval($damager)
+            // $damager may be an int (a player, e.g. indirect) OR a unit OBJECT (combat attacker, threaded for
+            // the ASH_070 unpreventable check) — normalize an object to its controller player here.
+            $damagerPlayer = is_object($damager)
+                ? intval($damager->Controller ?? $damager->Owner ?? 0)
+                : intval($damager ?? 0);
+            $damager = ($damager !== null && $damagerPlayer > 0)
+                ? $damagerPlayer
                 : (($savedPID > 0 && $savedPID !== intval($targetPlayer)) ? intval($savedPID) : OtherPlayer(intval($targetPlayer)));
             if ($damager !== intval($targetPlayer)) {
                 AddGlobalEffects($damager, 'SWU_DMGBASE_' . intval($targetPlayer));
@@ -1042,12 +1060,37 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
             }
         }
     }
+    // LAW_252 Fett's Firespray — "When Attack Ends: If the defending unit was defeated, create a Credit."
+    // Its OWN ability, but it has NO "if this unit survived" clause, so the credit is still created when
+    // Firespray is defeated in the same combat (the attack still ended + the defender was defeated). Fire it
+    // here, above the attacker-survival early-return that gates the "if survived" abilities below.
+    if (!empty($combatCtx['defenderDefeated']) && $law007AtkCardID === 'LAW_252') {
+        SWUCreateCreditToken($activePlayer, 1);
+    }
+    // ASH_013 Ezra / ASH_016 Shin — leader field observers: "When a friendly unit's attack ends [dealing 3+
+    // combat / any combat damage to a base]: …". Keyed on the LEADER, not the attacker, so they must fire even
+    // when the attacking unit was DEFEATED in the same combat (e.g. dealt Overwhelm base damage then died to
+    // the defender's counter). Placed ABOVE the attacker-survival early-return below, like the Boba hooks.
+    if (intval($combatCtx['baseCombatDmg'] ?? 0) >= 3 && _SWULeaderReadyUndeployed($activePlayer, 'ASH_013')) {
+        AddTrigger($activePlayer, 'ASH_013', 'ASH_013', $attackerMzID);   // undeployed: may exhaust → Advantage to a different unit
+    }
+    if (intval($combatCtx['baseCombatDmg'] ?? 0) >= 3 && _SWULeaderDeployed($activePlayer, 'ASH_013')) {
+        AddTrigger($activePlayer, 'ASH_013#1', 'ASH_013#1', $attackerMzID);   // deployed: may give Advantage (no exhaust)
+    }
+    if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_016')) {
+        AddTrigger($activePlayer, 'ASH_016', 'ASH_016', $attackerMzID, strval(intval($combatCtx['baseCombatDmg'] ?? 0)));   // undeployed
+    }
+    if (_SWULeaderDeployed($activePlayer, 'ASH_016')) {
+        AddTrigger($activePlayer, 'ASH_016#1', 'ASH_016#1', $attackerMzID, strval(intval($combatCtx['baseCombatDmg'] ?? 0)));   // deployed (once/round)
+    }
     if ($attacker === null || !empty($attacker->removed)) return; // attacker defeated → its OWN triggers don't fire
     if (LostAbilities($attacker)) return; // SEC_046 Galen — a named attacker fires no "deals combat damage" trigger
     $cardID = $attacker->CardID ?? '';
     // ASH_101 The Great Mothers (Support) — When Attack Ends: if it dealt combat damage to 1+ non-leader
-    // units, defeat those units (the defending unit). Support-aware (own CardID or SUPPORT_GRANT).
-    if (_SWUAttackerGrants($attacker, 'ASH_101')
+    // units, defeat those units (the defending unit). Support-aware: own CardID, OR the SUPPORT_GRANT captured
+    // in combatCtx before expiry (the live marker is already stripped by the time this attack-END path runs).
+    $ash101Granted = ($cardID === 'ASH_101') || (($combatCtx['supportGrant']['cardID'] ?? '') === 'ASH_101');
+    if ($ash101Granted
         && !empty($combatCtx['dealtToUnit']) && empty($combatCtx['defenderIsLeader'])) {
         AddTrigger($activePlayer, 'ASH_101', 'ASH_101', $defenderMzID);
     }
@@ -1072,12 +1115,8 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                 AddTrigger($activePlayer, 'LAW_034', 'LAW_034', $attackerMzID);
             }
             break;
-        case 'LAW_252': // Fett's Firespray — "When Attack Ends: If the defending unit was defeated,
-                        // create a Credit token." Mandatory, no decision → inline. (Both-died edge is
-                        // missed by the line-665 survival gate, consistent with the whole "if defender
-                        // defeated" family in this switch — an engine-wide limitation.)
-            if (!empty($combatCtx['defenderDefeated'])) SWUCreateCreditToken($activePlayer, 1);
-            break;
+        // LAW_252 Fett's Firespray — handled ABOVE the survival early-return (its credit fires even when
+        // Firespray itself is defeated, since it has no "if this unit survived" clause).
         case 'LAW_046': // Chirrut Îmwe — "When Attack Ends: if this unit dealt combat damage to a base,
                         // you may heal 4 from another unit."
             if (!empty($combatCtx['dealtToBase'])) {
@@ -1254,6 +1293,9 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
 
     // ASH_137 Wipe Them Out (granted, this attack) — "you may deal its excess damage to another unit in
     // the same arena." Marker captured into combatCtx at combat start; fires when there is overkill.
+    // NOTE: does NOT currently fire when the attacker TRADES (dies in the same combat) — the trigger fires
+    // and its MayChoose queues, but the prompt doesn't surface through the combat trigger flush once the
+    // attacker is removed (a combat trigger-ordering / index-shift edge). Deferred — see ash.md.
     if (!empty($combatCtx['ash137Excess']) && intval($combatCtx['excess'] ?? 0) > 0) {
         AddTrigger($activePlayer, 'ASH_137', 'ASH_137', $attackerMzID, strval(intval($combatCtx['excess'])));
     }
@@ -1272,16 +1314,8 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     if (_SWULeaderDeployed($activePlayer, 'ASH_005')) {
         AddTrigger($activePlayer, 'ASH_005#1', 'ASH_005#1', $attackerMzID);
     }
-    // ASH_013 Ezra Bridger — "When a friendly unit's attack ends: if it dealt 3+ combat damage to a base, you
-    // may exhaust this leader; if you do, give an Advantage token to a different unit."
-    if (intval($combatCtx['baseCombatDmg'] ?? 0) >= 3 && _SWULeaderReadyUndeployed($activePlayer, 'ASH_013')) {
-        AddTrigger($activePlayer, 'ASH_013', 'ASH_013', $attackerMzID);
-    }
-    // ASH_016 Shin Hati — "When a friendly unit's attack ends: you may exhaust this leader; if you do, exhaust
-    // a unit that costs less than the combat damage dealt to a base this attack." (baseCombatDmg via extra.)
-    if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_016')) {
-        AddTrigger($activePlayer, 'ASH_016', 'ASH_016', $attackerMzID, strval(intval($combatCtx['baseCombatDmg'] ?? 0)));
-    }
+    // (ASH_013 Ezra + ASH_016 Shin leader-observer hooks moved ABOVE the attacker-survival early-return —
+    //  they are field observers on the leader and must fire even when the attacker dies dealing base damage.)
 
     // LOF_025 Temple of Destruction (base) — "When a friendly unit deals 3 or more combat damage to an
     // enemy base: The Force is with you." Controller-based (any friendly attacker), so it rides this
@@ -1351,6 +1385,7 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     if ($attacker !== null && !isset($attacker->removed)) {
         global $onAttackEndFromUpgradeAbilities;
         foreach (GetUpgradesOnUnit($attacker) as $upgrade) {
+            if (($upgrade->CardID ?? '') === 'ASH_183') continue;   // ASH_183 fires from combatCtx below (survives host death)
             if (isset($onAttackEndFromUpgradeAbilities[$upgrade->CardID])
                 && !_SWUGalenSuppressesCard(intval($upgrade->Owner ?? $attacker->Controller ?? $activePlayer), $upgrade->CardID ?? '')) { // SEC_046 Galen
                 AddTrigger($activePlayer, 'OnAttackEndFromUpgrade', $upgrade->CardID, $attackerMzID);
@@ -1360,8 +1395,10 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // Support (ASH) — fire the supporting unit's "When Attack Ends" ability for this attack (closure
     // runs against A's mzID). The surviving-attacker null check above also gates this naturally.
     if ($attacker !== null && !isset($attacker->removed) && !LostAbilities($attacker)) {
-        $sgEnd = _SWUSupportGrant($attacker);
-        if ($sgEnd !== null && $sgEnd['cardID'] !== '' && HasOnAttackEndAbility($sgEnd['cardID'])) {
+        // Read the SUPPORT_GRANT from combatCtx (captured before the SWU_DUR_ATTACK expiry that runs before
+        // this collection), falling back to the live marker for any caller that didn't capture it.
+        $sgEnd = $combatCtx['supportGrant'] ?? _SWUSupportGrant($attacker);
+        if ($sgEnd !== null && ($sgEnd['cardID'] ?? '') !== '' && HasOnAttackEndAbility($sgEnd['cardID'])) {
             AddTrigger($activePlayer, 'SupportOnAttackEnd', $sgEnd['cardID'], $attackerMzID);
         }
     }
@@ -1377,6 +1414,22 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // was defeated this attack (the grant targets any unit, not the attacker). Rides the EffectStack.
     if (!empty($combatCtx['ash184GiveAdv'])) {
         AddTrigger($activePlayer, 'ASH_184', 'ASH_184', '');
+    }
+    // ASH_183 Whistling Birds — deal 2 to each enemy in the captured arena if the host dealt combat damage to a
+    // base this attack. Fires from combatCtx (captured at combat start) so it still resolves when the host died.
+    if (!empty($combatCtx['ash183Arena']) && intval($combatCtx['baseCombatDmg'] ?? 0) > 0) {
+        global $playerID; $spAsh183 = $playerID; $playerID = intval($activePlayer);
+        $arena183 = $combatCtx['ash183Arena'];
+        $uids183 = [];
+        foreach (ZoneSearch("their{$arena183}", AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed)) $uids183[] = intval($o->UniqueID ?? 0);
+        }
+        foreach ($uids183 as $u183) {
+            $mz183 = SWUFindMzByUID($u183);
+            if ($mz183 !== null) SWUDealDamageToUnit($mz183, 2, intval($activePlayer));
+        }
+        $playerID = $spAsh183;
     }
     SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID, $combatCtx);
     // Route after-attack triggers through the EffectStack (not the flat FlushTriggerBag), so the
@@ -1506,7 +1559,12 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // ObjectCurrentPower and its lethality via ObjectCurrentHP). Own attack OR Support-lent (_SWUAttackerGrants).
     if (_SWUAttackerGrants($attacker, 'ASH_046') && strpos($targetMzID, 'Arena') !== false) {
         $d46 = GetZoneObject($targetMzID);
-        if ($d46 !== null && empty($d46->removed)) AddTurnEffect($targetMzID, SWUMakeTurnEffect('ASH_046', [1, 1], SWU_DUR_ATTACK));
+        if ($d46 !== null && empty($d46->removed)) {
+            AddTurnEffect($targetMzID, SWUMakeTurnEffect('ASH_046', [1, 1], SWU_DUR_ATTACK));
+            // If the -1 HP drops the defender to no remaining HP, it is defeated by SBA BEFORE combat damage
+            // (so it deals no counter). Run the shrink-defeat sweep now, while the -1/-1 marker is live.
+            SWUCheckShrinkDefeats();
+        }
     }
     // LOF_014 Grand Inquisitor (deployed) — On Attack: "the defender gets -2/-0 for this attack." Applied
     // synchronously here (not via the deferred OnAttack trigger) so the marker exists before SWUCombatDamage
@@ -1851,6 +1909,16 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if ($teBase === 'TWI_096') $preventAttackerDmg            = true;   // Aayla Secura — prevent all combat damage to her this attack
         if ($teBase === 'TS26_59') $preventAttackerDmg          = true;   // Brothers — prevent all combat damage to the chosen attacker this attack
     }
+    // Support (ASH) — capture the SUPPORT_GRANT marker NOW (before SWUExpireTurnEffects strips it). The
+    // attack-END consumers (the When-Attack-Ends graft + ASH_101's combat-hit defeat) run AFTER expiry, so
+    // reading the live marker there returns nothing — the lent card's identity must ride combatCtx instead.
+    $combatCtx['supportGrant'] = _SWUSupportGrant($attacker);   // ['cardID'=>..,'uid'=>..] or null
+    // ASH_183 Whistling Birds (upgrade) — "When Attack Ends: if this unit dealt combat damage to a base, deal
+    // 2 to each enemy in this unit's arena." No "and survives" clause, so capture the arena NOW (the upgrade
+    // is defeated with the host if it dies) and fire from combatCtx at attack-end regardless of host survival.
+    if (_SWUUnitHasUpgrade($attacker, 'ASH_183')) {
+        $combatCtx['ash183Arena'] = strpos($attackerMzID, 'SpaceArena') !== false ? 'SpaceArena' : 'GroundArena';
+    }
 
     // "Can't deal combat damage this phase" (LAW_130 Betrayed Trust) — zero the attacker's outgoing
     // combat damage (to a unit OR a base). The same marker on the defender zeroes its counter (below).
@@ -1863,7 +1931,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // base in N-player). Damage goes to that base's owner — derived from the mzID, not a 2-player ?1:2.
     if (str_ends_with($targetZone, 'Base') && $targetZone !== 'myBase') {
         $GLOBALS['gInCombatDamage'] = true;
-        SWUDealDamageToBase($attackPower, SWUMzOwner($targetMzID, $player));
+        SWUDealDamageToBase($attackPower, SWUMzOwner($targetMzID, $player), $attacker);   // thread attacker for ASH_070 unpreventable check
         $GLOBALS['gInCombatDamage'] = false;
         $combatCtx['dealtToBase'] = ($attackPower > 0);
         // SEC_077 Retaliation — mark a unit that dealt damage to a base this phase (per-unit, cleared at

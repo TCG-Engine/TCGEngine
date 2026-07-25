@@ -2,6 +2,14 @@
 global $baseAbilities;
 $baseAbilities = [];
 
+// Base Epic Actions that carry a printed [N resource] cost. SWUBaseAction checks this BEFORE consuming the
+// once-per-game EpicActionUsed flag: an unaffordable Epic is "not selectable" (CR), so it must be a true
+// no-op that leaves the Epic AVAILABLE — not consumed by a failed activation. Maps base CardID → resources.
+global $baseEpicResourceCosts;
+$baseEpicResourceCosts = [
+    'LAW_029' => 1, // Citadel Research Center — Epic Action [1 resource].
+];
+
 // Repeatable base Actions (NOT once-per-game Epic Actions). Maps base CardID → per-GAME use budget,
 // tracked in the base's NumUses field. SWUBaseAction gates/consumes via NumUses (instead of the
 // once-per-game EpicActionUsed flag), and SWUResetAllNumUses EXEMPTS these bases from the per-round

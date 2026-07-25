@@ -29,3 +29,36 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:1
 P1RESCOUNT:2
 P1DECKCOUNT:1
+
+---
+
+# DefeatImperialLeaderUnit
+#// ASH_103 Long Live the Empire — a friendly Imperial LEADER unit is a valid target. P1's deployed
+#// SOR_011 Grand Inquisitor (Imperial) is defeated; it returns to the leader zone (no longer deployed) and
+#// the top card of the deck is resourced (2 → 3).
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:2;handCardIds:ASH_103;myLeader:SOR_011:1:1}
+WithP1Deck: SOR_095
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1RESCOUNT:3
+
+---
+
+# EmptyDeck_NoBreak
+#// ASH_103 Long Live the Empire — defeating the Imperial with an empty deck resources nothing and does not
+#// break. P1 defeats SEC_080 with no cards left in the deck; resources stay at 2 and the play resolves.
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:2;handCardIds:ASH_103}
+WithP1GroundArena: SEC_080:1:0
+WithP1Deck: []
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1RESCOUNT:2

@@ -35,3 +35,20 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:ASH_T01
+
+---
+
+# GauntletSelfDefeat_NoToken
+#// ASH_063 Bo-Katan's Gauntlet — the granted "When Defeated: create a Mandalorian token" is on each OTHER
+#// friendly non-token unit, NOT the Gauntlet itself. When the Gauntlet is defeated (here in combat vs
+#// SOR_225), no Mandalorian token is created.
+## GIVEN
+CommonSetup: ggk/ggk
+WithP1SpaceArena: ASH_063:1:4
+WithP2SpaceArena: SOR_225:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:0
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:0
