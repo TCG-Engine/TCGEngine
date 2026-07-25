@@ -1438,11 +1438,17 @@ function LoadDecks() {
 
     popup.innerHTML = `
       <h3>Create Deck</h3>
+      <input type="text" id="createDeckName" placeholder="Deck name (optional)" maxlength="100" style="width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box;" />
       <select id="createDeckFormat" style="width: 100%; padding: 10px; margin-bottom: 10px;">${createOptions}</select>
       <button onclick="submitCreateDeck()" style="padding: 10px 20px; margin-right: 10px;">Create</button>
       <button onclick="closeCreateDeckPopup()" style="padding: 10px 20px;">Cancel</button>
     `;
     document.body.appendChild(popup);
+    var nameInput = document.getElementById("createDeckName");
+    nameInput.focus();
+    nameInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") submitCreateDeck();
+    });
   }
 
   function closeCreateDeckPopup() {
@@ -1452,7 +1458,10 @@ function LoadDecks() {
 
   function submitCreateDeck() {
     var format = document.getElementById("createDeckFormat").value;
-    window.location.href = "/TCGEngine/SWUDeck/CreateDeck.php?format=" + encodeURIComponent(format);
+    var name = document.getElementById("createDeckName").value.trim();
+    var url = "/TCGEngine/SWUDeck/CreateDeck.php?format=" + encodeURIComponent(format);
+    if (name !== "") url += "&name=" + encodeURIComponent(name);
+    window.location.href = url;
   }
 
   function importDeck() {
