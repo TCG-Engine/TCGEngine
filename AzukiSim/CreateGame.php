@@ -29,10 +29,6 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     if ($azukiCreateMode !== 'tutorial') {
         GameLogEnableForHumanSession($azukiCreateMode === 'rlbot' ? 'human_vs_bot' : 'human_pvp');
         GameLogBeginFrame();
-        GameLogEvent('game_start', [
-            'method' => 'lobby',
-            'choice' => 'p1',
-        ]);
     }
     if ($azukiCreateMode === 'rlbot') {
         DecisionQueueController::StoreVariable('GameMode', 'rlbot');
@@ -58,8 +54,11 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
         GameLogEvent('shuffle', ['by' => 'p2', 'zone' => 'deck']);
     }
 
+    // The random-roll winner chooses whether to take the first or second turn.
+    // Use the rolled player provisionally until that pregame decision resolves.
+    $rollWinner = $azukiCreateMode === 'tutorial' ? 1 : EngineRandomInt(1, 2);
     $firstPlayer = &GetFirstPlayer();
-    $firstPlayer = 1;
+    $firstPlayer = $rollWinner;
     $turnPlayer = &GetTurnPlayer();
     $turnPlayer = $firstPlayer;
     $currentTurn = &GetTurnNumber();
@@ -77,17 +76,12 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
         for ($p = 1; $p <= 2; ++$p) {
             DrawOpeningHand($p);
         }
-        QueueOpeningMulligans();
+        GameLogEvent('random_roll', [
+            'winner' => 'p' . $rollWinner,
+        ]);
+        QueueFirstPlayerChoice($rollWinner);
 
-        // Set up starting resources
-        // Player 1 gets 1 IKZ; player 2 gains theirs on their first turn.
-        GainIKZ(1, 1);
-
-        // Player 2 gains their first IKZ during their first start-of-turn step.
-        // Their one-use token also remains unavailable until that turn begins.
-        DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '1');
-
-        // Advance to Main phase after both opening mulligan decisions resolve.
+        // Advance to Main after the turn-order choice and both mulligans resolve.
         AdvanceAndExecute("PASS");
         AutoAdvanceAndExecute();
     }

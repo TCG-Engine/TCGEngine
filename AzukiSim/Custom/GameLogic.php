@@ -2506,21 +2506,23 @@ function CanPayIKZCost($player, $cost) {
 }
 
 function GetAccessibleIKZTokenCount($player) {
+    $player = intval($player);
     $token = intval(GetIKZToken($player));
     if($token <= 0) return 0;
-    if(intval($player) !== 2) return $token;
-    return intval(DecisionQueueController::GetVariable('P2_StartingIKZTokenPending')) === 1 ? 0 : $token;
+    return intval(DecisionQueueController::GetVariable('P' . $player . '_StartingIKZTokenPending')) === 1 ? 0 : $token;
 }
 
-function GrantSecondPlayerStartingIKZTokenIfPending($player) {
-    if(intval($player) !== 2) return;
+function GrantStartingIKZTokenIfPending($player) {
+    $player = intval($player);
+    if($player !== 1 && $player !== 2) return;
+    $pendingVar = 'P' . $player . '_StartingIKZTokenPending';
     // Replays and restored snapshots can deserialize this flag as either "1" or 1.
-    if(intval(DecisionQueueController::GetVariable('P2_StartingIKZTokenPending')) !== 1) return;
+    if(intval(DecisionQueueController::GetVariable($pendingVar)) !== 1) return;
     $ikzToken = &GetIKZToken($player);
     if(intval($ikzToken) <= 0) {
         $ikzToken = 1;
     }
-    DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '0');
+    DecisionQueueController::StoreVariable($pendingVar, '0');
 }
 
 function PayIKZCost($player, $cost) {
@@ -3825,6 +3827,49 @@ function QueueOpeningMulliganDecision($player) {
 function QueueOpeningMulligans() {
     QueueOpeningMulliganDecision(1);
 }
+
+function QueueFirstPlayerChoice($rollWinner) {
+    $rollWinner = intval($rollWinner);
+    if($rollWinner !== 1 && $rollWinner !== 2) return;
+
+    DecisionQueueController::StoreVariable('AzukiRandomRollWinner', strval($rollWinner));
+    DecisionQueueController::AddDecision(
+        $rollWinner,
+        'MZMODAL',
+        '1|1|Go_first&Go_second',
+        0,
+        'You_won_the_random_roll._Choose_whether_to_go_first_or_second.'
+    );
+    DecisionQueueController::AddDecision($rollWinner, 'CUSTOM', 'CHOOSE_FIRST_PLAYER', 0, '', 1);
+}
+
+$customDQHandlers['CHOOSE_FIRST_PLAYER'] = function($player, $parts, $lastDecision) {
+    $chooser = intval($player);
+    if($chooser !== 1 && $chooser !== 2) return;
+    if(intval(DecisionQueueController::GetVariable('AzukiFirstPlayerChoiceResolved')) === 1) return;
+
+    $rollWinner = intval(DecisionQueueController::GetVariable('AzukiRandomRollWinner'));
+    if($rollWinner !== $chooser) return;
+
+    $selectedIndex = intval(explode(',', strval($lastDecision))[0] ?? 0);
+    $firstPlayer = $selectedIndex === 1 ? ($chooser === 1 ? 2 : 1) : $chooser;
+    $secondPlayer = $firstPlayer === 1 ? 2 : 1;
+
+    DecisionQueueController::StoreVariable('AzukiFirstPlayerChoiceResolved', '1');
+    SetFirstPlayer($firstPlayer);
+    SetTurnPlayer($firstPlayer);
+    GainIKZ($firstPlayer, 1);
+    DecisionQueueController::StoreVariable('P' . $secondPlayer . '_StartingIKZTokenPending', '1');
+
+    GameLogEvent('game_start', [
+        'method' => 'random_roll',
+        'chooser' => 'p' . $chooser,
+        'choice' => $firstPlayer === $chooser ? 'first' : 'second',
+        'first_player' => 'p' . $firstPlayer,
+    ]);
+
+    QueueOpeningMulligans();
+};
 
 $customDQHandlers['OPENING_MULLIGAN'] = function($player, $parts, $lastDecision) {
     if($lastDecision === 'YES') {
@@ -5571,8 +5616,8 @@ function OnStartOfTurn($player) {
     WakeAllCards($player);
     UntapAllIKZ($player);
 
-    // 2. Player 2's starting token unlocks at the beginning of their first turn.
-    GrantSecondPlayerStartingIKZTokenIfPending($player);
+    // 2. The second player's starting token unlocks at the beginning of their first turn.
+    GrantStartingIKZTokenIfPending($player);
 
     // Clear any effects that were intentionally carried to the start of this turn.
     ExpireTurnEffects($player, false);
@@ -5584,9 +5629,9 @@ function OnStartOfTurn($player) {
     // 4. Gain 1 IKZ (up to a maximum of 10 in area)
     GainIKZ($player, 1);
 
-    // 5. Draw 1 card (except player 1 on turn 1)
+    // 5. Draw 1 card (except the first player on turn 1)
     $turnNumber = GetTurnNumber();
-    if(!($player === 1 && $turnNumber === 1)) {
+    if(!(intval($player) === intval(GetFirstPlayer()) && $turnNumber === 1)) {
         // Resolve draw immediately so SOT can auto-advance into MAIN.
         DoDrawCard($player, 1);
     }
