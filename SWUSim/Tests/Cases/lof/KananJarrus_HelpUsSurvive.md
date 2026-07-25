@@ -60,3 +60,25 @@ WithP1GroundArena: LOF_044:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
 P1RESAVAILABLE:0
+
+---
+
+# Deployed_Passive_SpectreBuff
+#// LOF_004 Kanan Jarrus (deployed, 3/6) — passive +2/+2 branch via a SPECTRE unit (the Creature branch is
+#// covered above). With Ezra Bridger (LOF_046, a Spectre) in play, Kanan is 5/8. (FT: "should get +2/+2 while
+#// controlling another Creature or Spectre unit" — Spectre case.)
+
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:LOF_004:1:1:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LOF_046:1:0
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENAUNIT:1:POWER:5
+P1GROUNDARENAUNIT:1:HP:8

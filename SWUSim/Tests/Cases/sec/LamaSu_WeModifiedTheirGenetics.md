@@ -89,3 +89,27 @@ P1GROUNDARENAUNIT:0:DAMAGE:1
 P1RESAVAILABLE:3
 P1HANDCOUNT:0
 P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_DoesNotSurvive_NoUpgradePlayed
+#// SEC_003 Lama Su (deployed) — the on-attack ability is gated on SURVIVING the attack. Lama Su (3/7)
+#//   attacks the enemy Maul SHD_090 (7/6): Lama Su deals 3 (Maul lives at 6-3), Maul counters for 7 →
+#//   Lama Su is defeated. Because she does not survive, no upgrade is played from discard (the discard
+#//   pile is untouched) and Maul keeps its 3 damage.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:3;discardCardIds:SOR_070}
+P1OnlyActions: true
+WithP1GroundArena: SEC_003:1:0
+WithP2GroundArena: SHD_090:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SHD_090
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1DISCARDCOUNT:1
+P1NODECISION

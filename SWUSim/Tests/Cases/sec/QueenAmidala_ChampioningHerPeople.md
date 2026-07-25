@@ -207,3 +207,110 @@ WithP2GroundArena: SEC_T01:1:0
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P1GROUNDARENACOUNT:1
+
+---
+
+# WhenPlayed_CreatesTwoSpyTokens
+#// SEC_101 Queen Amidala (Ground, 5/3, Command/Heroism, cost 5) — When Played: Create 2 Spy tokens. P1
+#// plays her; two SEC_T01 Spy tokens enter the ground arena exhausted alongside her (3 friendly ground
+#// units total).
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:5}
+P1OnlyActions: true
+WithP1Hand: SEC_101
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:0:CARDID:SEC_101
+P1GROUNDARENAUNIT:1:CARDID:SEC_T01
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:2:CARDID:SEC_T01
+P1NODECISION
+
+---
+
+# NoTraitSharer_NoPreventPrompt_Dies
+#// SEC_101 Queen Amidala — the prevention requires ANOTHER friendly unit that shares a trait (Naboo/
+#// Official). With only SOR_095 Battlefield Marine (Rebel/Trooper — shares neither) as the other friendly,
+#// no prevention is offered: P1's Open Fire (SOR_172, deal 4) kills Amidala (3 HP), no decision to P2.
+## GIVEN
+CommonSetup: rrk/ggw/{myResources:3;handCardIds:SOR_172}
+P1OnlyActions: true
+WithP2GroundArena: SEC_101:1:0
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2NODECISION
+
+---
+
+# PreventsFriendlySourceDamage
+#// SEC_101 Queen Amidala — the prevention works no matter the damage SOURCE, including a FRIENDLY one. P1
+#// owns Amidala + SEC_118 (Official) and Open-Fires (SOR_172, deal 4) its OWN Amidala. P1 defeats its own
+#// SEC_118 (shares Official) → Amidala takes 0 and survives.
+## GIVEN
+CommonSetup: rrk/ggw/{myResources:3;handCardIds:SOR_172}
+P1OnlyActions: true
+WithP1GroundArena: SEC_101:1:0
+WithP1GroundArena: SEC_118:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_101
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# EventDamage_DeclinePrevent_TakesFullDamage
+#// SEC_101 Queen Amidala — DECLINING the prevention must apply the full damage, not drop it. P1's SEC_246
+#// (deal 2 to a non-Vehicle unit) targets Amidala; P2 declines the "defeat a trait-sharer" offer, so
+#// Amidala takes the full 2. (Bug: the decline branch re-applied 0.)
+
+## GIVEN
+CommonSetup: rrk/ggw/{myResources:2;handCardIds:SEC_246}
+P1OnlyActions: true
+WithP2GroundArena: SEC_101:1:0
+WithP2GroundArena: SEC_118:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:PASS
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_101
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENACOUNT:2
+
+---
+
+# GrantedTrait_MandalorianAllyIsValidPreventTarget
+#// SEC_101 Queen Amidala — the prevention offers a friendly unit that shares any of Amidala's LIVE traits,
+#// not just her printed Naboo/Official. Foundling (SHD_069) on Amidala grants her Mandalorian, so a friendly
+#// Mandalorian (SHD_056) that shares no printed trait with her becomes a valid unit to defeat. P1's SEC_246
+#// targets Amidala; P2 defeats the Mandalorian ally → Amidala takes 0.
+
+## GIVEN
+CommonSetup: rrk/ggw/{myResources:2;handCardIds:SEC_246}
+P1OnlyActions: true
+WithP2GroundArena: SEC_101:1:0
+WithP2GroundArena: SHD_056:1:0
+WithP2GroundArenaUpgrade: 0:SHD_069
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_101
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENACOUNT:1

@@ -58,3 +58,59 @@ P1DECKCOUNT:5
 P1RESAVAILABLE:1
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# Deploy_PlotFromHand_NotReduced
+#// SEC_001 Chancellor Palpatine (deployed) — the "next Plot card costs 3 less" discount only applies to a
+#// card actually played USING Plot (from the resource row). A Plot card played from HAND pays full cost.
+#// Deploy arms the -3; SEC_036 Dogmatic Shock Squad (Plot, cost 6) is then played from hand for the full
+#// 6 (10 ready → 4), not 3.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: SEC_036
+
+## WHEN
+- P1>DeployLeader
+- P1>PlayHand:0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENAUNIT:1:CARDID:SEC_036
+P1RESAVAILABLE:4
+
+---
+
+# Deploy_SmuggleCard_NotReduced
+#// SEC_001 Chancellor Palpatine (deployed) — the "next Plot card costs 3 less" discount applies ONLY to
+#// the Plot keyword, not Smuggle. Deploy arms the -3, then SHD_075 Covert Strength is played via Smuggle
+#// [3 Vigilance]; it still costs the full 3. Resources: 10 total, cost 3 + the replaced slot's deck card
+#// enters exhausted (1) = 4 exhausted → 6 available (would be 9 if the -3 wrongly hit Smuggle).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 9:SOR_095:1,1:SHD_075:1
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>DeployLeader
+- P1>SmuggleResource:9
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1RESAVAILABLE:6
+P1NODECISION

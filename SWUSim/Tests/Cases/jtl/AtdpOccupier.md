@@ -70,3 +70,29 @@ WithP2GroundArena: SOR_128:1:0
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P2BASEDMG:2
+
+---
+
+# DamagedSpaceUnits_NoDiscount
+#// JTL_163 AT-DP Occupier — the discount counts only damaged GROUND units. With damaged space units on
+#// both sides but no damaged ground units, the cost-4 Occupier plays at full cost 4 (no discount).
+
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_163
+WithP1Resources: 4
+WithP1SpaceArena: JTL_033:1:1
+WithP2SpaceArena: JTL_037:1:2
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_163
+P1RESAVAILABLE:0

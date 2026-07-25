@@ -77,3 +77,37 @@ P1HANDCOUNT:0
 P1DECKCOUNT:1
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:JTL_177
+
+---
+
+# OverwhelmExcessToBase_Draws
+#// JTL_177 Stay on Target — the granted "when this unit deals damage to a base: draw a card" fires on
+#// OVERWHELM spillover, not just a direct base hit. SHD_242 Gideon's Light Cruiser (7/8, Overwhelm) gets
+#// +2/+0 → 9 power and attacks a 1-HP enemy (SOR_225 TIE/ln Fighter): 1 defeats the TIE, the 8 excess
+#// spills to P2's base via Overwhelm, and because that excess is damage the attacker deals to a base, the
+#// granted ability draws a card. (Regression guard for Overwhelm excess setting dealtToBase.)
+
+## GIVEN
+CommonSetup: rrk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_177
+WithP1Resources: 5
+WithP1SpaceArena: SHD_242:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P2BASEDMG:8
+P1HANDCOUNT:1
+P1DECKCOUNT:0
+P1SPACEARENAUNIT:0:CARDID:SHD_242
+P1SPACEARENAUNIT:0:DAMAGE:2

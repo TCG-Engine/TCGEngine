@@ -70,3 +70,73 @@ WithP2SpaceArena: SOR_044:1:0
 
 ## EXPECT
 P2SPACEARENACOUNT:0
+
+---
+
+# NoFriendlySpaceUnit_Fizzles
+#// JTL_131 Turbolaser Salvo — with NO friendly space unit, the event has no legal effect: it is played
+#// anyway (goes to discard) and nothing happens. P1 has only a ground unit; the enemy space unit is
+#// untouched. (Intended: nothing happens if the player controls no space units.)
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:JTL_131}
+P1OnlyActions: true
+WithP1GroundArena: SOR_128:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_225
+P2SPACEARENAUNIT:0:DAMAGE:0
+
+---
+
+# DoesNotDamageFriendlySpaceUnits
+#// JTL_131 Turbolaser Salvo — the chosen space unit deals to EACH ENEMY unit only; friendly space units in
+#// the chosen arena take no damage. P1 has two friendly space units (SOR_237 power 2, SOR_052 power 6); P1
+#// picks SOR_052 to hit the Space arena. Enemy SOR_044 (2/3) takes 6 and dies; both friendly units stay at 0
+#// damage. (Intended: friendly units take no damage.)
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:JTL_131}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArena: SOR_052:1:0
+WithP2SpaceArena: SOR_044:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Space
+- P1>AnswerDecision:mySpaceArena-1
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:0:DAMAGE:0
+P1SPACEARENAUNIT:1:DAMAGE:0
+
+---
+
+# ChooseEmptyArena_NoEffect
+#// JTL_131 Turbolaser Salvo — choosing an arena with no enemy units is legal and simply does nothing. P1's
+#// lone friendly space unit SOR_237 is auto-selected as the dealer, but P1 chooses the Ground arena which
+#// holds no enemy units, so no damage is dealt. The enemy space unit in the other arena is untouched.
+#// (Intended: choosing an empty arena is legal.)
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:JTL_131}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Ground
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_225
+P2SPACEARENAUNIT:0:DAMAGE:0

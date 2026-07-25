@@ -70,3 +70,27 @@ WithP1Hand: SOR_169
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# EnemyUnit_ControllerPrompted
+#// JTL_192 In Debt to Crimson Dawn — when attached to an ENEMY unit, the tax prompts the CONTROLLER of that
+#// unit (P2), not the upgrade's owner. P2's exhausted SOR_095 carries In Debt; at the regroup ready step P2
+#// is the one asked to pay-or-exhaust. P2 declines, so the enemy unit is exhausted right back.
+
+## GIVEN
+CommonSetup: gyk/gyk/{myResources:5}
+P1OnlyActions: true
+WithP2GroundArena: SOR_095:0:0
+WithP2GroundArenaUpgrade: 0:JTL_192
+P1Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
+P2Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
+
+## WHEN
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>AnswerDecision:NO
+
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED

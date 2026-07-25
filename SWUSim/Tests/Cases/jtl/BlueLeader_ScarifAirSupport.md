@@ -284,3 +284,35 @@ P1DISCARDCOUNT:1
 P2SPACEARENAUNIT:0:CARDID:JTL_249
 P2SPACEARENAUNIT:0:DAMAGE:3
 P1NODECISION
+
+---
+
+# MovedToGround_LosesSpaceUnitAura
+#// JTL_096 Blue Leader — When Played it may pay 2 to MOVE to the ground arena (+2 Experience). Once it
+#// leaves the space arena it must STOP receiving "each other friendly space unit" ongoing auras. P1 has
+#// JTL_085 Victor Leader ("Each other friendly space unit gets +1/+1") plus a filler space unit (SOR_209).
+#// P1 plays Blue Leader (base 3/3), pays 2 → moves to ground as a 5/5 (3/3 + 2 Experience). It must be
+#// 5/5, NOT 6/6 — Victor Leader's +1/+1 no longer applies to a GROUND unit. The genuine space unit
+#// SOR_209 (2/4) still gets the aura → 3/5, confirming the aura is live. Regression guard: _SWUSpaceUnitBonus
+#// previously gated the recipient on its PRINTED arena (CardTargetArena), so the moved unit kept the aura.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;theirResources:4}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1Hand: JTL_096
+WithP1SpaceArena: JTL_085:1:0
+WithP1SpaceArena: SOR_209:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_096
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:HP:5
+P1SPACEARENAUNIT:1:CARDID:SOR_209
+P1SPACEARENAUNIT:1:POWER:3
+P1SPACEARENAUNIT:1:HP:5

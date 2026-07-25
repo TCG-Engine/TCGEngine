@@ -225,3 +225,33 @@ WithP1Hand: LAW_231
 ## EXPECT
 P1HANDCOUNT:1
 P1GROUNDARENACOUNT:2
+
+---
+
+# DroidsPayForUpgrade
+#// SEC_122 Vuutun Palaa — "Each friendly Droid unit may be exhausted to pay costs as if it were a resource"
+#// applies to UPGRADES too. With Vuutun in play, 2 ready Battle Droids and 0 resources, P1 plays SOR_214
+#// Smuggling Compartment (cost 1) onto Vuutun by exhausting 1 Droid. Previously the upgrade was (a) filtered
+#// out of valid targets (affordability ignored Droid capacity) and (b) double-offered a spurious PLAY_CARD
+#// Droid step, leaving it stuck in hand.
+
+## GIVEN
+CommonSetup: yyk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1Resources: 0
+WithP1Hand: SOR_214
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1HANDCOUNT:0
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:SOR_214
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1RESAVAILABLE:0

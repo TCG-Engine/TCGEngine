@@ -188,9 +188,11 @@ P1GROUNDARENAUNIT:2:EXHAUSTED
 
 ---
 
-# NoPilotInPlay_NoDraw
-#// JTL_126 Eject — with no Pilot upgrade anywhere, the detach has no legal target: the event fizzles to the
-#// discard and the draw (which happens only after a successful detach) does NOT occur.
+# NoPilotInPlay_StillDraws
+#// JTL_126 Eject — "Detach a Pilot upgrade, move it..., and exhaust it. Draw a card." The draw is a SEPARATE,
+#// UNCONDITIONAL clause: with no Pilot upgrade anywhere the detach simply does nothing, but the card is still
+#// played and the controller STILL draws. P1 has only JTL_126 in hand + SOR_095 on top of deck: Eject goes to
+#// discard, no detach happens (SEC_214 keeps 0 upgrades), and P1 draws SOR_095. (Was wrongly a no-draw fizzle.)
 
 ## GIVEN
 CommonSetup: gbk/gbk/{
@@ -208,6 +210,109 @@ WithP1GroundArena: SEC_214:1:0
 - P1>PlayHand:0
 
 ## EXPECT
-P1HANDCOUNT:0
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_095
+P1GROUNDARENAUNIT:0:CARDID:SEC_214
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:JTL_126
+
+---
+
+# DetachFriendlyPilotLeader_BecomesGroundUnit
+#// JTL_126 Eject — detach a friendly Pilot LEADER upgrade. JTL_008 Wedge is deployed AS A PILOT onto P1's
+#// SEC_214 (myLeaderDeployedPilot attaches him to the first friendly unit). Eject detaches Wedge: he leaves
+#// the host as an upgrade and lands in P1's GROUND arena as an exhausted leader UNIT; the host keeps 0
+#// upgrades; P1 draws.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:6;
+  myLeader:JTL_008;
+  myLeaderDeployedPilot:true
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_126
+WithP1Deck: SOR_095
+WithP1GroundArena: SEC_214:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SEC_214
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:1:CARDID:JTL_008
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1HANDCOUNT:1
+
+---
+
+# DetachEnemyPilotLeader_MovesToOwnerGround
+#// JTL_126 Eject — "Detach a Pilot upgrade" spans both players, including an enemy Pilot LEADER. P2's leader
+#// JTL_008 Wedge is deployed AS A PILOT onto P2's SEC_214. P1 plays Eject and detaches the enemy leader: Wedge
+#// lands in P2's (the owner's) GROUND arena as an exhausted leader unit, the host keeps 0 upgrades, and P1 —
+#// the event's controller — draws.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:6;
+  theirLeader:JTL_008;
+  theirLeaderDeployedPilot:true
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_126
+WithP1Deck: SOR_095
+WithP2GroundArena: SEC_214:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:CARDID:SEC_214
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:1:CARDID:JTL_008
+P2GROUNDARENAUNIT:1:EXHAUSTED
+P1HANDCOUNT:1
+
+---
+
+# HostLosesPilotingGrantedAbility
+#// JTL_126 Eject — a Pilot grants its host an ability while attached; after eject the host loses it. JTL_058
+#// Academy Graduate ("Attached unit gains Sentinel") pilots P1's SEC_214, so the host has Sentinel. Eject
+#// detaches JTL_058 to the ground as an exhausted unit: the host SEC_214 loses Sentinel (the granted ability),
+#// while JTL_058 — now its own ground unit — keeps its innate Sentinel. P1 draws.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:4
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_126
+WithP1Deck: SOR_095
+WithP1GroundArena: SEC_214:1:0
+WithP1GroundArenaUpgrade: 0:JTL_058
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SEC_214
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+P1GROUNDARENAUNIT:1:CARDID:JTL_058
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:1:HASKEYWORD:Sentinel
+P1HANDCOUNT:1

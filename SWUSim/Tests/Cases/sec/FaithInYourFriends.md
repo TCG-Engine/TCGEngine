@@ -49,3 +49,30 @@ P1GROUNDARENAUNIT:0:CARDID:SEC_T01
 P1HANDCOUNT:4
 P1DECKCOUNT:2
 P1NODECISION
+
+---
+
+# EmptyDeck_NoSearch_StillDisclose_TwoSpy
+#// SEC_211 Faith in Your Friends — with an EMPTY deck the search-and-draw does nothing (no cards to look
+#//   at), but the "then, you may disclose" clause still resolves. Disclose 3x SEC_211 (Cunning,Heroism each)
+#//   → 2 exhausted Spy tokens. Hand: play 1 of 4 SEC_211 → 3 left, no draw (empty deck), disclose reveals
+#//   those 3 (no discard). Deck stays 0.
+
+## GIVEN
+CommonSetup: yyw/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: SEC_211
+WithP1Hand: SEC_211
+WithP1Hand: SEC_211
+WithP1Hand: SEC_211
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0&myHand-1&myHand-2
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SEC_T01
+P1HANDCOUNT:3
+P1DECKCOUNT:0
+P1NODECISION

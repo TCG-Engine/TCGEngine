@@ -72,3 +72,30 @@ WithP1Deck: SOR_063
 P1HANDCOUNT:0
 P1DECKCOUNT:1
 P2BASEDMG:3
+
+---
+
+# CassianAsUnit_NoMill
+#// JTL_048 Cassian Andor — the discard/draw is granted only to the Vehicle he PILOTS. Played as a plain
+#// ground UNIT, Cassian has no on-attack ability: attacking P2's base deals his 3 damage but does NOT
+#// discard the top of the defending deck and draws nothing. Ports "should not trigger if he is a unit."
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: JTL_048:1:0
+WithP1Deck: SOR_063
+WithP2Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:3
+P1HANDCOUNT:0
+P1DECKCOUNT:1
+P2DECKCOUNT:1

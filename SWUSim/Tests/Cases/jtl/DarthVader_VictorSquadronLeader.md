@@ -79,3 +79,33 @@ P1SPACEARENACOUNT:0
 P2BASEDMG:3
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# AttackedTokenVehicle_NoTIE
+#// JTL_006 Darth Vader (leader) — the token is only created if you attacked with a NON-TOKEN Vehicle.
+#// Here the only attacker this phase is a TIE Fighter TOKEN (JTL_T01, itself a Vehicle but a token), so
+#// the "non-token Vehicle" condition is NOT met — using the action creates NO new token (leader still
+#// exhausts). Using the action anyway when the prior-phase attacker was a token creates no new token (no
+#// effect).
+
+## GIVEN
+CommonSetup: ggk/bbk/{
+  myLeader:JTL_006;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_T01:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_T01
+P2BASEDMG:1
+P1LEADER:EXHAUSTED
+P1NODECISION

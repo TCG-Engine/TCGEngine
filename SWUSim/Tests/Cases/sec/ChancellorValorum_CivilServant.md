@@ -47,3 +47,31 @@ P2BASEDMG:3
 P1RESCOUNT:2
 P1DECKCOUNT:2
 P1NODECISION
+
+---
+
+# DiesOnAttack_NoRamp
+#// SEC_107 Chancellor Valorum (3/7) — the ramp fires on "completes an attack". If Valorum is DEFEATED
+#// during his own attack he does not complete it, so no disclose/ramp is offered. He attacks the 8/8
+#// SOR_039: deals 3 (survives), takes 8 → dies. Resources and deck are untouched and he is in discard.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SEC_107:1:0
+WithP1Hand: SEC_080
+WithP1Hand: SEC_094
+WithP1Hand: SEC_096
+WithP1Deck: [SOR_095 SOR_095]
+WithP2GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SEC_107
+P1RESCOUNT:2
+P1DECKCOUNT:2
+P1NODECISION

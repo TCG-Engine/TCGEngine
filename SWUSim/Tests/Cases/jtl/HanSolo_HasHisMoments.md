@@ -157,3 +157,65 @@ P2SPACEARENACOUNT:0
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:DAMAGE:2
 P1SPACEARENAUNIT:0:EXHAUSTED
+
+---
+
+# FalconGetOutAndPush_ShootsFirst
+#// JTL_203 Han Solo (pilot) — the "If it's the Millennium Falcon, deals combat damage before the defender"
+#// clause matches by TITLE across Falcon variants. Han attaches to JTL_249 Millennium Falcon (Get Out And
+#// Push, 3/4 → 6/7 with Han's +2/+3 plus its own +1/Pilot) and shoots first: it defeats P2's SOR_237 (2/3)
+#// and takes 0 counter damage.
+
+## GIVEN
+CommonSetup: yyw/bbk/{
+  theirBase:SOR_021;
+  myResources:8
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1Hand: JTL_203
+WithP1SpaceArena: JTL_249:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P1SPACEARENAUNIT:0:CARDID:JTL_249
+P1SPACEARENAUNIT:0:DAMAGE:0
+P1SPACEARENAUNIT:0:EXHAUSTED
+
+---
+
+# FalconLandosPride_ShootsFirst
+#// JTL_203 Han Solo (pilot) — same TITLE-match shoot-first on SHD_204 Millennium Falcon (Lando's Pride,
+#// 5/5 → 7/8 with Han's +2/+3). It defeats P2's SOR_237 (2/3) before the counter and takes 0 damage.
+
+## GIVEN
+CommonSetup: yyw/bbk/{
+  theirBase:SOR_021;
+  myResources:8
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1Hand: JTL_203
+WithP1SpaceArena: SHD_204:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P1SPACEARENAUNIT:0:CARDID:SHD_204
+P1SPACEARENAUNIT:0:DAMAGE:0
+P1SPACEARENAUNIT:0:EXHAUSTED

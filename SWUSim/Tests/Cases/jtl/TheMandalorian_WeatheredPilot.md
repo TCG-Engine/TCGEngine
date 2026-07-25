@@ -51,3 +51,33 @@ P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:JTL_210
+
+---
+
+# AsPilot_ExhaustOneEnemySpace
+#// JTL_210 The Mandalorian — played as a PILOT onto a SPACE Vehicle, the when-played effect exhausts ONE
+#// enemy unit IN THAT ARENA (space), not the ground. Piloted onto the friendly SOR_237 X-Wing, P1 exhausts
+#// the enemy space SOR_237.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 14
+WithP1Hand: JTL_210
+WithP1SpaceArena: SOR_237:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENAUNIT:0:CARDID:SOR_237
+P2SPACEARENAUNIT:0:EXHAUSTED
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_210

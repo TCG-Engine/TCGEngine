@@ -22,3 +22,31 @@ WithP2GroundArena: SEC_080:1:0
 P2SPACEARENACOUNT:0
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
+
+---
+
+# CannotTargetLeaderVehicle
+#// JTL_078 Direct Hit — "Defeat a NON-LEADER Vehicle unit." A Vehicle piloted by a deployed leader is a
+#// LEADER unit and is NOT a legal target. P1's leader (JTL_001 Asajj) is deployed as a Pilot onto its
+#// first friendly unit — the ground Vehicle SOR_232 (AT-ST) → that host becomes a LEADER unit. P1 also
+#// controls a plain non-leader Vehicle SOR_225 (space). The only legal Direct Hit target is the non-leader
+#// SOR_225, which auto-resolves and is defeated; the leader-piloted AT-ST is excluded and survives with
+#// its leader upgrade intact.
+
+## GIVEN
+SkipPreGame: true
+P1OnlyActions: true
+CommonSetup: rrk/ggw/{myResources:12; myLeader:JTL_001; myLeaderDeployedPilot:1}
+WithP1Hand: JTL_078
+WithP1SpaceArena: SOR_225:1:0
+WithP1GroundArena: SOR_232:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_232
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1HANDCOUNT:0

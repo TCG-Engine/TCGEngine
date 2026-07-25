@@ -35,3 +35,35 @@ P2GROUNDARENAUNIT:0:POWER:4
 P2GROUNDARENAUNIT:0:HP:4
 P2GROUNDARENAUNIT:0:DAMAGE:2
 P2NODECISION
+
+---
+
+# WhenDefeatedByEnemy_PassiveOwnerDisclose
+#// SEC_059 Senate Warden — the When Defeated disclose ALSO fires when the Warden is defeated by the
+#//   OPPONENT (a cross-player, non-active-player reaction). P2's Battlefield Marine attacks and defeats
+#//   P1's Warden; P1's When Defeated is queued on P1's own queue and is raised via P1's static drain, then
+#//   P1 discloses SEC_062 (Vigilance) and puts the Experience token on the surviving friendly (SOR_046 →
+#//   4/8, +1 upgrade). (Cross-player When-Defeated reactions need the defender-controller's Drain.)
+
+## GIVEN
+CommonSetup: bbk/grw
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: [SEC_059:1:0 SOR_046:1:0]
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: SEC_062
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080]
+
+## WHEN
+- P2>AttackGroundArena:0:0
+- P1>Drain
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1HANDCOUNT:1

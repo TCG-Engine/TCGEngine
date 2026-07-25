@@ -468,3 +468,153 @@ WithP1Hand: JTL_105
 P1SPACEARENACOUNT:0
 P1HANDCOUNT:1
 P1RESAVAILABLE:8
+
+---
+
+# HalvesSmuggleCost
+#// JTL_105 The Starhawk — "While paying costs, you pay half as many resources, rounded up." Smuggle is a
+#// cost paid to play a card, so it is halved too. P1 controls the Starhawk and smuggles SHD_111 Collections
+#// Starhopper (Smuggle [3 Command]; ggw base covers Command → no aspect penalty). Halved to ceil(3/2)=2, so
+#// P1 (with exactly 2 ready resources: the SHD_111 resource itself + 1 filler) can pay it → 0 left, and
+#// SHD_111 enters the space arena (2 units: Starhawk + Starhopper). Regression guard: the Smuggle payment
+#// path (SWUSmuggleResource) previously bypassed SWUApplyCostHalving, so the full 3 was charged and a
+#// 2-resource smuggle was wrongly rejected.
+
+## GIVEN
+CommonSetup: ggw/bbk/{myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_105:1:0
+WithP1Resources: 1:SHD_111:1,1:SOR_251:1
+
+## WHEN
+- P1>SmuggleResource:0
+
+## EXPECT
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:1:CARDID:SHD_111
+P1RESAVAILABLE:0
+
+---
+
+# DoesNotHalveNonActivationCost
+#// JTL_105 The Starhawk halves PLAY and ability-ACTIVATION costs, but NOT an effect-embedded payment
+#// ("pay N as part of resolving an ability"). Blue Leader (JTL_096, printed cost 3, Command/Heroism —
+#// on-aspect via ggw) is played while P1 controls a Starhawk: its PLAY cost is halved to ceil(3/2)=2.
+#// Its When Played "You may pay 2 resources. If you do, move this unit to the ground arena + 2 Experience"
+#// is an effect payment, NOT a cost the Starhawk touches, so it is charged the FULL 2. Total = 2 (halved
+#// play) + 2 (unhalved effect) = 4. P1 has exactly 4 ready resources → 0 left. (If the effect payment were
+#// wrongly halved to 1, total would be 3 and 1 resource would remain.)
+
+## GIVEN
+CommonSetup: ggw/bbk/{myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: JTL_096
+WithP1SpaceArena: JTL_105:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_105
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_096
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:HP:5
+P1RESAVAILABLE:0
+
+---
+
+# HalvingWorksWithExploit
+#// JTL_105 The Starhawk halving stacks with Exploit, applied AFTER the Exploit reduction. Infiltrating
+#// Demolisher (TWI_182, printed cost 4, Cunning/Villainy — on-aspect via yyk; Exploit 1 = "defeat up to 1
+#// friendly unit, costs 2 less per unit defeated") is played while P1 controls a Starhawk and a fodder
+#// unit (SEC_080). P1 exploits the fodder → cost 4 − 2 = 2, THEN halved to ceil(2/2)=1. P1 has exactly 1
+#// ready resource → 0 left. (Order matters: halving the printed 4 first, ceil(4/2)=2, then −2 Exploit,
+#// would be free and leave the resource unspent.)
+
+## GIVEN
+CommonSetup: yyk/bbk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1
+WithP1Hand: TWI_182
+WithP1SpaceArena: JTL_105:1:0
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:TWI_182
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_105
+P1RESAVAILABLE:0
+
+---
+
+# PaidCostCheckSeesReducedValue
+#// JTL_105 The Starhawk — a downstream "number of resources paid to play this unit" check sees the REDUCED
+#// (halved) value. Osi Sobeck (TWI_115, printed cost 6, Command — on-aspect via ggw; Exploit 3, When
+#// Played: capture an enemy non-leader ground unit with cost ≤ resources paid) is played while P1 controls
+#// a Starhawk. P1 DECLINES Exploit (AnswerDecision:-), so cost 6 is halved to ceil(6/2)=3 → paid 3. The
+#// capture may only take a unit costing ≤ 3: P2's SOR_095 Battlefield Marine (cost 2) is eligible, but
+#// SOR_164 Wampa (cost 4) is not — so the lone legal target auto-resolves and Osi captures the Marine.
+#// (If the check saw the unreduced 6, both would be eligible and the capture would not auto-resolve to the
+#// Marine.) P1 has exactly 3 ready resources → 0 left.
+
+## GIVEN
+CommonSetup: ggw/bbk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1Hand: TWI_115
+WithP1SpaceArena: JTL_105:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:TWI_115
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_095
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_164
+P1RESAVAILABLE:0
+
+---
+
+# ReducesCostForOtherStarhawkCopies
+#// JTL_105 The Starhawk's halving applies to EVERY card its controller plays — including a SECOND copy of
+#// The Starhawk. P1 controls one Starhawk (space) and holds another (JTL_105, printed cost 9, Command/
+#// Heroism — on-aspect via ggw). The in-play copy halves the played copy's cost to ceil(9/2)=5. P1 has
+#// exactly 5 ready resources → 0 left, two Starhawks in the space arena. (Contrast NotAffectOwnPlayCost_*:
+#// a lone Starhawk pays the full 9, since a card can't discount its own play.)
+
+## GIVEN
+CommonSetup: ggw/ggw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: JTL_105
+WithP1SpaceArena: JTL_105:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:0:CARDID:JTL_105
+P1SPACEARENAUNIT:1:CARDID:JTL_105
+P1HANDCOUNT:0
+P1RESAVAILABLE:0

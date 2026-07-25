@@ -46,3 +46,28 @@ WithP2GroundArena: LAW_124:1:0
 ## EXPECT
 P1NOFORCE
 P2GROUNDARENAUNIT:0:POWER:2
+
+---
+
+# NoForce_NoPrompt
+#// LOF_031 Karis (2/4) — negative: without a Force token there is nothing to spend, so the "You may use the
+#// Force" When-Defeated ability offers no decision at all. Karis attacks the 4/7, dies to the 4 counter, and
+#// the enemy 4/7 keeps its full power 4 (no -2/-2). Ref: "should not allow using the force if player has not".
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LOF_031:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P1NOFORCE
+P2GROUNDARENAUNIT:0:POWER:4
+P1NODECISION

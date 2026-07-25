@@ -140,3 +140,78 @@ P1OnlyActions: true
 
 ## EXPECT
 P1RESAVAILABLE:8
+
+---
+
+# LeaderAction_EmptyHand_Fizzle
+#// JTL_008 Wedge Antilles (leader) — with a friendly Vehicle in play but an EMPTY hand, there is no card
+#// to play using Piloting, so the leader action fizzles: Wedge just exhausts, nothing is played, and no
+#// decision is left pending (ports "should only exhaust if the hand is empty").
+
+## GIVEN
+CommonSetup: bgw/bbk/{
+  myLeader:JTL_008;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_069:1:0
+WithP1Resources: 4
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1LEADER:EXHAUSTED
+P1NODECISION
+
+---
+
+# OnAttack_NextPilotUpgradeCostsLess
+#// JTL_008 Wedge deployed as a PILOT grants the host "On Attack: the next Pilot card you play this phase
+#// costs 1 less (includes Piloting costs)." Wedge is attached to SOR_237 (first friendly unit); a second
+#// free Vehicle JTL_069 is in space. After the host attacks (arming the discount), P1 plays JTL_108 (pure
+#// Pilot, Piloting cost 2, Command on-aspect) AS A PILOT UPGRADE onto JTL_069 for 2 − 1 = 1: 10 → 9.
+
+## GIVEN
+CommonSetup: bgw/rrk/{myResources:10;myLeader:JTL_008;myLeaderDeployedPilot:true;myhandCardIds:JTL_108}
+P1OnlyActions: true
+WithP1SpaceArena: [SOR_237:1:0 JTL_069:1:0]
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1SPACEARENAUNIT:1:CARDID:JTL_069
+P1SPACEARENAUNIT:1:UPGRADECOUNT:1
+P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_108
+P1RESAVAILABLE:9
+
+---
+
+# OnAttack_DoesNotDiscountBothPilotUnitAndUpgrade
+#// JTL_008 Wedge deployed as a PILOT — the "next Pilot costs 1 less" discount is a ONE-SHOT: only the
+#// FIRST Pilot card played this phase is reduced. After arming, P1 first plays JTL_108 as a Pilot upgrade
+#// onto JTL_069 for 1 (discount consumed), then plays JTL_046 (a Pilot, cost 2) as a UNIT at FULL cost 2.
+#// 10 → 9 (first, discounted) → 7 (second, full).
+
+## GIVEN
+CommonSetup: bgw/rrk/{myResources:10;myLeader:JTL_008;myLeaderDeployedPilot:true}
+P1OnlyActions: true
+WithP1SpaceArena: [SOR_237:1:0 JTL_069:1:0]
+WithP1Hand: [JTL_108 JTL_046]
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_108
+P1RESAVAILABLE:7

@@ -35,3 +35,52 @@ P1RESCOUNT:6
 P1RESAVAILABLE:1
 P1DECKCOUNT:1
 P1NODECISION
+
+---
+
+# WhenPlayed_MayDecline
+#// SEC_034 Cad Bane — "When Played: You may defeat a unit with 2 or less remaining HP" is OPTIONAL.
+#//   Played from hand with a friendly 2-HP unit (SOR_140) and an enemy 2-HP unit (SOR_140) available,
+#//   declining (Pass) defeats nothing; a high-HP enemy (SOR_164 Wampa) was never eligible.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SOR_140:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP2GroundArena: SOR_140:1:0
+WithP1Hand: SEC_034
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P2GROUNDARENACOUNT:2
+P1DISCARDCOUNT:0
+P2DISCARDCOUNT:0
+P1NODECISION
+
+---
+
+# WhenPlayed_DefeatFriendly
+#// SEC_034 Cad Bane — the "defeat a unit with 2 or less remaining HP" target may be a FRIENDLY unit.
+#//   Cad Bane is played and defeats P1's own SOR_140 SpecForce Soldier (2/2). Cad Bane itself (5 HP) is
+#//   never eligible.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SOR_140:1:0
+WithP1Hand: SEC_034
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_034
+P1DISCARDCOUNT:1
+P1NODECISION

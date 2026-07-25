@@ -104,3 +104,115 @@ WithP1Deck: JTL_069
 P2BASEDMG:4
 P1SPACEARENAUNIT:0:POWER:4
 P1LEADER:EXHAUSTED
+
+
+---
+
+# DeployAsPilot_OddCount_ExcludesEnemyAndFriendlyEven
+#// JTL_017 Han Solo — "When deployed as an upgrade: for each friendly unit or upgrade that has an odd cost,
+#// ready a resource." Verifies the exclusions: only FRIENDLY, only ODD. Board: host SOR_237 (cost 2, even),
+#// friendly SOR_063 (cost 3, odd → counts), friendly SOR_046 (cost 4, even → excluded), enemy SOR_108
+#// (cost 1, odd → excluded because enemy). Odd-cost friendly permanents = SOR_063 + Han-as-pilot (cost 5)
+#// = 2, so 2 of P1's 5 exhausted resources ready.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_017;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5:SOR_095:0
+WithP1SpaceArena: SOR_237:1:0
+WithP1GroundArena: SOR_063:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_108:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1RESAVAILABLE:2
+
+---
+
+# LeaderAction_NoFriendlyUnits_RevealOnly_TurnPasses
+#// JTL_017 Han Solo (leader) — Action: "Reveal the top card of your deck, then attack with a unit." With
+#// ZERO friendly units in play, the reveal still resolves (top card SOR_225 is shown) but there is no unit
+#// to attack, so the attack step is simply skipped. Han exhausts and, being a normal action, the turn
+#// passes to P2. No damage is dealt.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_017;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Deck: SOR_225
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:EXHAUSTED
+P2BASEDMG:0
+P1NODECISION
+TURNPLAYER:2
+
+---
+
+# LeaderAction_EmptyDeck_AttackNoBuff
+#// JTL_017 Han Solo (leader) — with an EMPTY deck there is no card to reveal, so the +1/+0 condition can
+#// never be met. The attack still proceeds: the lone odd-cost attacker JTL_069 (cost 5, odd, power 4)
+#// deals its BASE 4 to P2's base — proving no buff was granted because nothing was revealed. Han exhausts.
+#// Intended: empty deck → attack only, at base power.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_017;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_069:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P2BASEDMG:4
+P1SPACEARENAUNIT:0:POWER:4
+P1LEADER:EXHAUSTED
+
+---
+
+# DeployedAsUnit_NoLeaderAction
+#// JTL_017 Han Solo (leader) — the reveal-then-attack ability is a LEADER action. Deployed as a normal
+#// ground UNIT (3/7), Han has no such ability: he simply attacks as a 3/7, dealing his base 3 to P2's base
+#// with no reveal and no +1/+0 decision pending. Intended: does nothing if deployed as a unit.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_017;
+  myLeaderDeployed:true;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Deck: SOR_225
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_017
+P1GROUNDARENAUNIT:0:POWER:3
+P2BASEDMG:3
+P1NODECISION

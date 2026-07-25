@@ -45,3 +45,36 @@ WithP2GroundArena: SOR_128:1:0
 P2GROUNDARENACOUNT:0
 P2BASEDMG:2
 P1NODECISION
+
+---
+
+# WhenDefeated_Indirect
+#// JTL_132 First Order Stormtrooper — When Defeated: deal 1 indirect to a player. (This card has both an
+#// On Attack and a When Defeated ability; this section covers the When Defeated half.) P2 (active) attacks
+#// the 2/1 trooper with SOR_128 (3/1): they trade — the trooper dies, and its 2 combat damage defeats
+#// the 1-HP SOR_128. The trooper's controller P1 then resolves its When Defeated for 1 indirect to the
+#// opponent; with no surviving P2 unit it lands on P2's base.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: JTL_132:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:theirGroundArena-0
+- P1>Drain
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P2BASEDMG:1
+P1NODECISION

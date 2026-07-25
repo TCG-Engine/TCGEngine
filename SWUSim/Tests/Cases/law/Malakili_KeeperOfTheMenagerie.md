@@ -21,3 +21,26 @@ WithP1Hand: LAW_249
 P1GROUNDARENAUNIT:1:CARDID:SOR_164
 P1GROUNDARENAUNIT:1:POWER:5
 P1GROUNDARENAUNIT:1:HP:6
+
+---
+
+# EnemyCreatureNotUnderworld_FriendlyOnlyGrant
+#// LAW_212 Malakili — the grant applies only to Creatures you control; enemy Creatures do NOT gain
+#// Underworld. P1 has Malakili (Underworld) + SOR_164 Wampa (friendly Creature, granted Underworld); P2 has
+#// LOF_044 Loth-Wolf (enemy Creature). LAW_249 Black Sun Cabalist ("give Experience to another friendly
+#// Underworld unit") can select exactly Malakili and Wampa — NOT the enemy Loth-Wolf. The target decision
+#// stays pending to prove the enemy Creature is excluded from the granted-Underworld set. (Verified genuine:
+#// without Malakili, Wampa loses the grant, leaving a single legal target that auto-resolves with no prompt.)
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_212:1:0 SOR_164:1:0]
+WithP2GroundArena: LOF_044:1:0
+WithP1Hand: LAW_249
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1

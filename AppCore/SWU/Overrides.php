@@ -44,6 +44,7 @@ function CardIDOverride($cardID) {
     case "GG_004": return "SHD_026"; //Jabba's Palace
     case "GG_005": return "SOR_001"; //Experience Token
     case "GG_006": return "SOR_002"; //Shield Token
+    case "JTL_029": return "SOR_030"; //Chopper Base
     case "JTL_258": return "SOR_250"; //Corellian Freighter
     case "JTL_113": return "SOR_113"; //Homestead Militia
     case "JTL_167": return "SOR_165"; //Occupier Siege Tank

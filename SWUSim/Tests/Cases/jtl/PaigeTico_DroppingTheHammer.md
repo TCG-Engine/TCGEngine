@@ -81,3 +81,34 @@ P1GROUNDARENAUNIT:0:CARDID:JTL_046
 P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P2BASEDMG:3
+
+---
+
+# PlayedAsPilotFromHand_OnAttackFires
+#// JTL_046 Paige Tico — PLAYED from hand with Piloting [2 Vigilance Heroism] onto a friendly Vehicle (the
+#// existing section pre-attaches her; this ports the actual play-as-pilot path). She attaches to the ready
+#// host SOR_237; when it attacks, the granted On Attack fires: SOR_237 (power 2 + pilot +2 = 4) gets an
+#// Experience token (+1/+1 → 5) then takes 1 self-damage.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: JTL_046
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_046
+P1SPACEARENAUNIT:0:POWER:5
+P1SPACEARENAUNIT:0:DAMAGE:1

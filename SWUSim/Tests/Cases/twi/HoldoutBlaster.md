@@ -10,6 +10,7 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0    # attach to the friendly host (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:-
 
 ## EXPECT
@@ -31,6 +32,7 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0    # attach to the friendly host (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT

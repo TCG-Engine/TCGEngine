@@ -47,3 +47,31 @@ WithP2GroundArena: SOR_095:1:0
 
 ## EXPECT
 P2GROUNDARENACOUNT:0
+
+---
+
+# NoFriendlyVehicleInArena_NotSelectable
+#// JTL_129 Focus Fire — a unit is only a legal target if a friendly Vehicle shares its arena (otherwise the
+#// effect deals 0, which is disallowed). P1 has only a SPACE Vehicle (SOR_237) and no ground
+#// Vehicle, so space units are selectable but the enemy GROUND unit (SOR_095) is NOT offered.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_129
+WithP1Resources: 10
+WithP1SpaceArena: SOR_237:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEHAS:mySpaceArena-0
+P1SELECTABLEHAS:theirSpaceArena-0
+P1SELECTABLENOT:theirGroundArena-0

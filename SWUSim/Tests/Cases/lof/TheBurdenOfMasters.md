@@ -17,3 +17,92 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_059
 P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:0:HP:5
+
+---
+
+# ChooseNothingFromDiscard_NoForceUnit
+#// LOF_125 The Burden of Masters — the discard-return targets only FORCE units. With just a non-Force unit
+#// (SOR_128) in the discard there is nothing to bank; the "if you do... play a unit" clause is gated on
+#// actually banking a Force unit, so no unit is played and both hand units stay put. (FT: "should do nothing
+#// when choosing nothing from discard"; SWUSim fizzles the whole event with no Play-Anyway prompt.)
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:5;handCardIds:LOF_125,SOR_059,LOF_050;discardCardIds:SOR_128}
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:2
+
+---
+
+# ChooseNothingFromHand
+#// LOF_125 The Burden of Masters — after banking a Force unit from discard, the follow-up "play a unit" is a
+#// may. P1 banks Plo Koon (LOF_050, Force) to the bottom of the deck, then declines to play a unit. The hand
+#// unit stays put and nothing enters play. (FT: "should do nothing when choosing nothing from hand".)
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:LOF_125,SOR_059,SEC_080;discardCardIds:SOR_128,LOF_050}
+P1OnlyActions: true
+WithP1Deck: SOR_111
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myDiscard-1
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:2
+P1DECKCOUNT:2
+P1DECKTOPCARD:SOR_111
+
+---
+
+# PlayPilotAsUnit
+#// LOF_125 The Burden of Masters — the played card enters as a UNIT even when it is a Pilot. P1 banks Plo
+#// Koon (LOF_050, Force) to the bottom, then plays the Piloting card Astromech Pilot (JTL_057) from hand; it
+#// enters the ground arena as a unit with 2 Experience tokens (1/3 -> 3/5). (FT: "should only play pilots as
+#// units".)
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:LOF_125,JTL_057;discardCardIds:LOF_050}
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myDiscard-0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_057
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:5
+
+---
+
+# CantAffordHandUnit_NotSelectable
+#// LOF_125 The Burden of Masters — the "play a unit" step can only target units you can afford. P1 banks Plo
+#// Koon (LOF_050, Force) to the bottom, but the only unit in hand is Industrious Team (LAW_124, cost 8) which
+#// is unaffordable on the remaining resources, so it is not offered and nothing is played. (FT: "should not
+#// allow selecting targets that can't be afforded".)
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:5;handCardIds:LOF_125,LAW_124;discardCardIds:LOF_050}
+P1OnlyActions: true
+WithP1Deck: SOR_111
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myDiscard-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1DECKCOUNT:2
+P1DECKTOPCARD:SOR_111

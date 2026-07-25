@@ -40,3 +40,93 @@ P2HANDCOUNT:0
 P2DISCARDCOUNT:1
 P1GROUNDARENACOUNT:0
 P1NODECISION
+
+---
+
+# OppDiscardsCostExactly3_CreatesSpy
+#// SEC_178 Pursue the Lead — boundary: "costs 3 or less" INCLUDES 3. P2's only card SOR_126 (cost 3) is
+#//   discarded → a Spy is created (exhausted) in P1's ground arena.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: SEC_178
+WithP2Hand: SOR_126
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P2HANDCOUNT:0
+P2DISCARDCOUNT:1
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1NODECISION
+
+---
+
+# OppEmptyHand_NoDiscardNoSpy
+#// SEC_178 Pursue the Lead — choosing an opponent with an empty hand discards nothing, so no Spy is
+#//   created. Only Pursue the Lead itself ends up in P1's discard.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: SEC_178
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P2HANDCOUNT:0
+P2DISCARDCOUNT:0
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P1NODECISION
+
+---
+
+# SelfDiscard_InFlightEventNotSelectable
+#// SEC_178 Pursue the Lead — choosing YOURSELF discards from your own hand, but the just-played Pursue
+#//   the Lead has already left your hand (it is in your discard). With one other card (SOR_095, cost 2)
+#//   left, that card is discarded and — cost ≤ 3 — a Spy is created. P1 discard holds both cards.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: [SEC_178 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:You
+
+## EXPECT
+P1HANDCOUNT:0
+P1DISCARDCOUNT:2
+P1GROUNDARENACOUNT:1
+P1NODECISION
+
+---
+
+# SelfDiscard_OnlyTheEventInHand_NothingToDiscard
+#// SEC_178 Pursue the Lead — if Pursue the Lead was the ONLY card in hand, then after it leaves the hand
+#//   there is nothing left to discard, so no card is discarded and no Spy is created (the in-flight event
+#//   must NOT discard itself). Only Pursue the Lead ends up in P1's discard.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: SEC_178
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:You
+
+## EXPECT
+P1HANDCOUNT:0
+P1DISCARDCOUNT:1
+P1GROUNDARENACOUNT:0
+P1NODECISION
+

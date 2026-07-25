@@ -74,3 +74,33 @@ P1GROUNDARENAUNIT:0:CARDID:SEC_192
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P2SPACEARENACOUNT:0
+
+---
+
+# LeavesPlay_ControlRevertsOnBounce
+#// SEC_192 Grand Moff Tarkin — the "when this unit leaves play" revert fires no matter HOW he leaves, not
+#//   only on defeat. P1 plays Tarkin and takes control of P2's SOR_237 (into P1's space arena). P2 then
+#//   returns Tarkin to P1's hand with Waylay (SOR_222). With Tarkin gone, the revert sweep hands SOR_237
+#//   back to its owner P2, and Tarkin sits in P1's hand rather than the discard.
+
+## GIVEN
+CommonSetup: yyk/yyk
+WithActivePlayer: 1
+WithP1Resources: 6
+WithP1Hand: SEC_192
+WithP2Hand: SOR_222
+WithP2Resources: 3
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1SPACEARENACOUNT:0
+P1HANDCOUNT:1
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_237

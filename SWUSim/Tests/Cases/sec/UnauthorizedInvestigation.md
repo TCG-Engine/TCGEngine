@@ -36,3 +36,22 @@ WithP1Hand: SEC_133
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:0:CARDID:SEC_T01
 P1NODECISION
+
+---
+
+# EmptyHand_NoDisclosePrompt
+#// SEC_181 Unauthorized Investigation — with no other card in hand the optional "disclose Aggression"
+#//   window has nothing to reveal, so it never prompts. Only the first Spy token is created.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1Hand: SEC_181
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_T01
+P1NODECISION

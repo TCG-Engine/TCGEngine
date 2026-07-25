@@ -23,3 +23,55 @@ WithP2GroundArena: LAW_124:1:0
 P1NOFORCE
 P1RESCOUNT:3
 P1DISCARDCOUNT:0
+
+---
+
+# DeclineForce_Discard
+#// LOF_097 Eeth Koth — the When-Defeated is optional ("You may use the Force"). P1 declines: Eeth goes to
+#// the discard pile (not a resource), P1 KEEPS the Force token, and resources stay at 2.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Force: true
+WithP1Resources: 2
+WithP1GroundArena: LOF_097:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1HASFORCE
+P1RESCOUNT:2
+P1DISCARDCOUNT:1
+
+---
+
+# NoForceToken_Discard
+#// LOF_097 Eeth Koth — with no Force token the When-Defeated cannot be used at all (no prompt); Eeth just
+#// goes to the discard pile and resources stay at 2.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1GroundArena: LOF_097:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P1NOFORCE
+P1RESCOUNT:2
+P1DISCARDCOUNT:1

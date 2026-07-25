@@ -57,3 +57,42 @@ WithP1Hand: JTL_036
 P1GROUNDARENAUNIT:0:CARDID:JTL_036
 P1GROUNDARENAUNIT:0:HASKEYWORD:Shielded
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# ReAttach_ReShields_AfterLeaveAndReEnter
+#// JTL_036 Iden Versio — her OnAttached "give the host a Shield" ability re-registers correctly after she
+#// leaves and re-enters play. P1 plays Iden as a Pilot on SOR_225 (tieln) → tieln gets Iden + a Shield. P2's
+#// Bamboozle (SOR_199) exhausts tieln and returns its upgrades to hand — Iden goes back to P1's hand and
+#// tieln is left bare. P1 replays Iden as a Pilot, this time onto SOR_232 (AT-ST): the OnAttached fires
+#// AGAIN, so AT-ST gets Iden + a fresh Shield (proving the trigger was not left dangling on the old host).
+
+## GIVEN
+CommonSetup: bbk/bbk/{myBase:SOR_019;theirBase:SOR_019}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1Resources: 12
+WithP2Resources: 12
+WithP1Hand: JTL_036
+WithP2Hand: SOR_199
+WithP1SpaceArena: SOR_225:1:0
+WithP1GroundArena: SOR_232:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:mySpaceArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirSpaceArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_232
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:JTL_036
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_225
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0

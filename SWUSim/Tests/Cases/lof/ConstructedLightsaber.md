@@ -15,3 +15,21 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Restore
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Raid
 P1GROUNDARENAUNIT:1:HASKEYWORD:Raid
 P1GROUNDARENAUNIT:1:NOTKEYWORD:Restore
+
+---
+
+# NeutralHost_GainsSentinelNotRaidOrRestore
+#// LOF_261 Constructed Lightsaber — third branch: "If attached unit is a non-Heroism, non-Villainy unit, it
+#// gains Sentinel." Attached to SOR_061 Guardian of the Whills (Vigilance Force — neither Heroism nor
+#// Villainy), which gains Sentinel and NOT Raid/Restore. (Regression: this branch was unimplemented — the
+#// Villainy→Raid 2 and Heroism→Restore 2 branches existed but a neutral host got no keyword at all.)
+
+## GIVEN
+CommonSetup: bbw/rrk
+WithP1GroundArena: SOR_061:1:0
+WithP1GroundArenaUpgrade: 0:LOF_261
+
+## EXPECT
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Raid
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Restore

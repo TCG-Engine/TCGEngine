@@ -190,3 +190,116 @@ P2GROUNDARENAUNIT:0:CARDID:SOR_095
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# LeaderAction_EnemyHalfFiresWhenFriendlyDefeated
+#// JTL_001 Asajj Ventress (leader) — the "if you do" enemy half STILL fires when the friendly ping
+#// DEFEATS the friendly unit. SOR_083 Superlaser Technician (2/1, ground) is the only friendly unit, so
+#// the 1 damage defeats it — yet the same-arena enemy SOR_095 (Battlefield Marine, ground) still takes 1.
+#// SOR_237 sits in the SPACE arena (different arena) and is untouched, proving both the defeat-survives
+#// behavior and the "in the same arena" clause together.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_083:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P2SPACEARENAUNIT:0:DAMAGE:0
+P1LEADER:EXHAUSTED
+
+---
+
+# LeaderAction_EnemyHalfFiresWhenFriendlyShieldPops
+#// JTL_001 Asajj Ventress (leader) — the enemy half STILL fires when the friendly ping only POPS A
+#// SHIELD (no HP damage). SEC_080 (3/3, ground) carries a Shield token (SOR_T02); the 1 damage is
+#// prevented and pops the shield (DAMAGE stays 0, SHIELDCOUNT 1 → 0), yet the "if you do" half still
+#// fires (damage WAS dealt to the friendly, just absorbed) and the same-arena enemy SOR_095 takes 1.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_080
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1LEADER:EXHAUSTED
+
+---
+
+# DeployedAsGroundUnit_HasGrit
+#// JTL_001 Asajj Ventress deployed as a normal GROUND leader unit (not a Pilot) gains Grit. Printed 4/6;
+#// seeded with 2 damage, Grit makes her effective POWER = 4 + 2 = 6. Verifies the keyword and stat.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001:1:1:1:2;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENAUNIT:0:CARDID:JTL_001
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:0:HASKEYWORD:Grit
+P1GROUNDARENAUNIT:0:POWER:6
+
+---
+
+# DeployedAsUnit_NoOnAttackAbility
+#// JTL_001 Asajj Ventress deployed as a normal GROUND leader unit has NO on-attack ability — the friendly
+#// ping / enemy-damage effect belongs to the PILOT deploy side only. She attacks P2's base for her 4 power;
+#// no friendly-ping decision is offered and nothing else happens (negative check).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:4
+P1GROUNDARENAUNIT:0:CARDID:JTL_001
+P1LEADER:DEPLOYED
+P1NODECISION

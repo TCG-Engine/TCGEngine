@@ -19,3 +19,32 @@ P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:LAW_124
 P1NODECISION
+
+---
+
+# NoTrigger_WhenUpgradeItselfDefeated
+#// SEC_039 Creditor's Claim — the granted "When Defeated: defeat a unit with 3 or less HP" belongs to the
+#//   attached UNIT, not to the upgrade. When only the UPGRADE is defeated (host survives), the ability must
+#//   NOT fire. P2's Disabling Fang Fighter (SOR_162, "When Played: you may defeat an upgrade") strips
+#//   Creditor's Claim off P1's host; no defeat effect triggers, and no player is prompted.
+
+## GIVEN
+CommonSetup: bbk/rrk
+WithActivePlayer: 2
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SEC_039
+WithP2GroundArena: SOR_128:1:0
+WithP2Resources: 3
+WithP2Hand: SOR_162
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENACOUNT:1
+P1NODECISION
+P2NODECISION

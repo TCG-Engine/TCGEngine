@@ -117,3 +117,43 @@ WithP2Deck: SEC_080
 P1HANDCOUNT:2
 P2HANDCOUNT:2
 PHASE:MAIN
+
+---
+
+# StartOfRegroupTriggersFireInAdditionalRegroup
+#// LAW_072 Max Rebo — abilities that trigger "at the start of the regroup phase" fire in the ADDITIONAL
+#// regroup phase too, not just the first. Fireball (JTL_198) deals 1 damage to itself at the start of
+#// each regroup phase. With Max Rebo in play there are two regroup phases this round, so Fireball takes
+#// 1 damage in the first and 1 more in the additional = 2 damage total (it would take only 1 without the
+#// extra regroup).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LAW_072:1:0
+WithP1SpaceArena: JTL_198:1:0
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP2Deck: SEC_080
+WithP2Deck: SEC_080
+WithP2Deck: SEC_080
+WithP2Deck: SEC_080
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+P1SPACEARENAUNIT:0:DAMAGE:2
+PHASE:MAIN

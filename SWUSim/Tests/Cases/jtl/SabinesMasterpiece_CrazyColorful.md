@@ -20,6 +20,7 @@ WithP1GroundArena: SOR_213:1:0
 - P1>AttackSpaceArena:0:BASE
 - P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:Exhaust
+- P1>AnswerDecision:You
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:4
@@ -76,4 +77,90 @@ WithP1SpaceArena: JTL_250:1:0
 
 ## EXPECT
 P1NODECISION
+P2BASEDMG:3
+
+---
+
+# OnAttack_Cunning_ReadyOwnResource
+#// JTL_250 Sabine's Masterpiece — Cunning branch "ready a resource". SWUSim previously only exercised the
+#// Exhaust choice; this drives the Ready choice. P1 controls a lone Cunning unit (SOR_213) and has 3
+#// exhausted + 2 ready resources (RESAVAILABLE 2). The Cunning branch offers Exhaust-or-Ready; P1 picks
+#// Ready, which readies one of the controller's own resources: RESAVAILABLE 2 -> 3.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3:SOR_095:0,2:SOR_095:1
+WithP1SpaceArena: JTL_250:1:0
+WithP1GroundArena: SOR_213:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Ready
+- P1>AnswerDecision:You
+
+## EXPECT
+P1RESAVAILABLE:3
+P2BASEDMG:3
+
+---
+
+# OnAttack_Cunning_BiColorLawUnit
+#// JTL_250 Sabine's Masterpiece — Cunning aspect detection on a multi-aspect LAW unit. LAW_089 Kanan Jarrus
+#// is Cunning+Vigilance+Heroism. With no base damage, the Vigilance "heal a base" branch has nothing to heal
+#// and silently no-ops, so only the Cunning branch fires. P1 picks Exhaust, exhausting one of their own
+#// resources (RESAVAILABLE 3 -> 2), confirming Cunning is detected on the bi-color/multi-aspect unit.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1SpaceArena: JTL_250:1:0
+WithP1GroundArena: LAW_089:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Exhaust
+- P1>AnswerDecision:You
+
+## EXPECT
+P1RESAVAILABLE:2
+P2BASEDMG:3
+
+---
+
+# OnAttack_Cunning_ExhaustOpponentResource
+#// JTL_250 Sabine's Masterpiece — the Cunning "exhaust or ready a resource" has NO "your", so the controller
+#// chooses WHICH player's resource. P1 controls a lone Cunning unit (SOR_213). The Cunning branch offers
+#// Exhaust/Ready, then a You/Opponent player pick; P1 picks Exhaust → Opponent, exhausting one of P2's ready
+#// resources (P2 RESAVAILABLE 3 -> 2) while P1's own resources are untouched.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP2Resources: 3
+WithP1SpaceArena: JTL_250:1:0
+WithP1GroundArena: SOR_213:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Exhaust
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P1RESAVAILABLE:2
+P2RESAVAILABLE:2
 P2BASEDMG:3

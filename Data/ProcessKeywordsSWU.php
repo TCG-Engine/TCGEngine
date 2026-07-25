@@ -75,10 +75,24 @@ foreach ($cardArray as $card) {
             // Each segment is checked independently.
             $segments = preg_split('/,\s*/', $ls);
 
+            // A keyword is innate only if a LINE starts with the keyword name. The comma-split above
+            // supports genuine multi-keyword declaration lines ("Ambush, Overwhelm (...)"), but it must
+            // NOT mine keyword names out of a prose sentence that merely lists them mid-clause — e.g.
+            // Oppo Rancisis (LOF_105): "The same is true for Grit, Hidden, Overwhelm, Saboteur, Sentinel,
+            // and Shielded." Here segments 2+ ("Hidden"/"Overwhelm"/...) start with a keyword name but the
+            // line is prose (a conditional grant), so they are NOT printed keywords. Gate: only honor
+            // segments beyond the first when the FIRST segment itself starts with a keyword.
+            $firstSeg = trim($segments[0] ?? '');
+            $firstSegIsKeyword = false;
+            foreach ($kwList as $kw) {
+                if (preg_match('/^' . preg_quote($kw, '/') . '(\s|\d|\(|\[|\.|$)/i', $firstSeg)) { $firstSegIsKeyword = true; break; }
+            }
+
             foreach ($segments as $idx => $seg) {
                 $seg = trim($seg);
                 // Strip leading reminder-text continuation that can appear after a comma
                 // (e.g. "Ambush, Overwhelm (When attacking...)" — the paren belongs to Overwhelm)
+                if ($idx > 0 && !$firstSegIsKeyword) continue;   // prose sentence → later segments aren't printed keywords
 
                 foreach ($kwList as $kw) {
                     // Keyword must be at the start of the segment.
@@ -149,6 +163,9 @@ PHP;
             $php .= <<<PHP
 function GetKeyword_{$kwKey}_Value(\$obj) {
     global \${$kwKey}_Cards;
+    // Suppression ("loses all abilities"/"loses {$kw}"): a suppressed unit has NO {$kw} — innate,
+    // granted, or conditional — mirroring the boolean-keyword path (LOF_202 Mind Trick blanks Raid).
+    if (SWUKeywordSuppressed(\$obj, '{$teKey}')) return null;
     \$val = \${$kwKey}_Cards[\$obj->CardID] ?? 0;
     \$val += SWUTurnEffectKeywordValueSum(\$obj, '{$teKey}');   // TurnEffect grants, additive (CR 16.b)
     if (function_exists('HasGrantedKeyword') && HasGrantedKeyword(\$obj, '{$teKey}')) \$val += 1;
@@ -161,6 +178,9 @@ PHP;
             $php .= <<<PHP
 function GetKeyword_{$kwKey}_Value(\$obj) {
     global \${$kwKey}_Cards;
+    // Suppression ("loses all abilities"/"loses {$kw}"): a suppressed unit has NO {$kw} — innate,
+    // granted, or conditional — mirroring the boolean-keyword path (LOF_202 Mind Trick blanks Raid).
+    if (SWUKeywordSuppressed(\$obj, '{$teKey}')) return null;
     \$val = \${$kwKey}_Cards[\$obj->CardID] ?? 0;
     \$val = max(\$val, SWUTurnEffectKeywordValue(\$obj, '{$teKey}'));   // TurnEffect grants, highest instance
     if (HasGrantedKeyword(\$obj, '{$teKey}')) \$val = max(\$val, 1);

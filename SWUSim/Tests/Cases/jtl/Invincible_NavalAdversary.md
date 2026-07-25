@@ -155,3 +155,82 @@ WithP1GroundArena: SOR_038:1:0
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:JTL_191
 P1RESAVAILABLE:0
+
+---
+
+# NonUniqueSeparatist_NoDiscount
+#// JTL_191 Invincible — the discount requires a UNIQUE Separatist. Controlling only a NON-unique
+#// Separatist (JTL_059 Corporate Defense Shuttle) does NOT satisfy it, so the cost-6 Invincible plays
+#// for its full 6. With 6 resources, 6 → 0 left (a reduced cost of 5 would leave 1, so RESAVAILABLE:0
+#// discriminates full cost).
+
+## GIVEN
+CommonSetup: byk/bbk/{
+  myLeader:JTL_015;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_191
+WithP1Resources: 6
+WithP1SpaceArena: JTL_059:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:1:CARDID:JTL_191
+P1RESAVAILABLE:0
+
+---
+
+# OpponentSeparatist_NoDiscount
+#// JTL_191 Invincible — the discount is a CONTROL check: "if YOU control a unique Separatist". The
+#// opponent controlling the unique Separatist SOR_038 Count Dooku does not count, so the cost-6
+#// Invincible plays for full 6 (6 resources → 0 left; a reduced 5 would leave 1).
+
+## GIVEN
+CommonSetup: byk/bbk/{
+  myLeader:JTL_015;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_191
+WithP1Resources: 6
+WithP2GroundArena: SOR_038:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_191
+P1RESAVAILABLE:0
+
+---
+
+# NoSeparatist_NoDiscount
+#// JTL_191 Invincible — with no Separatist in play at all (P1 controls only the non-Separatist SOR_095
+#// Battlefield Marine), the discount does not apply and the cost-6 Invincible plays for full 6
+#// (6 resources → 0 left; a reduced 5 would leave 1).
+
+## GIVEN
+CommonSetup: byk/bbk/{
+  myLeader:JTL_015;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_191
+WithP1Resources: 6
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_191
+P1RESAVAILABLE:0

@@ -36,3 +36,143 @@ WithP1Hand: SEC_051
 P2GROUNDARENAUNIT:0:POWER:0
 P2GROUNDARENAUNIT:0:HP:4
 P1NODECISION
+
+---
+
+# WhenPlayed_Minus33_KillsAndFriendlyUnaffected
+#// SEC_051 Bo-Katan Kryze — the When Played -3/-3 hits every enemy unit: SOR_164 Wampa (4/5) → 1/2, and
+#//   IBH_076 Rampaging Wampa (6/3) → 3/0 which is defeated. Friendly LOF_254 Porg is untouched (1/1). The
+#//   Rampaging Wampa defeat triggers "when an enemy unit is defeated: give a friendly unit an Experience
+#//   token"; here the token goes to Bo-Katan.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:9}
+P1OnlyActions: true
+WithP1GroundArena: LOF_254:1:0
+WithP1Hand: SEC_051
+WithP2GroundArena: SOR_164:1:0
+WithP2GroundArena: IBH_076:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:POWER:1
+P2GROUNDARENAUNIT:0:HP:2
+P1GROUNDARENAUNIT:0:POWER:1
+P1GROUNDARENAUNIT:0:HP:1
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1NODECISION
+
+---
+
+# WhenPlayed_Minus33_ExpiresNextPhase
+#// SEC_051 Bo-Katan Kryze — the -3/-3 lasts "for this phase" only. After passing to the next action phase,
+#//   the surviving SOR_164 Wampa is back to its printed 4/5.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:9}
+P1OnlyActions: true
+WithP1Hand: SEC_051
+WithP2GroundArena: SOR_164:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+P2GROUNDARENAUNIT:0:POWER:4
+P2GROUNDARENAUNIT:0:HP:5
+
+---
+
+# OnPlayDefeat_ExpSelectableExactly
+#// SEC_051 Bo-Katan Kryze — when the -3/-3 defeats IBH_076 Rampaging Wampa on play, the Experience
+#//   token may go to any friendly unit: exactly Bo-Katan or the Porg.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:9}
+P1OnlyActions: true
+WithP1GroundArena: LOF_254:1:0
+WithP1Hand: SEC_051
+WithP2GroundArena: IBH_076:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# EnemyDefeat_ExpToPorg
+#// SEC_051 Bo-Katan Kryze — routing the on-play-defeat Experience token to the Porg makes it a 2/2.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:9}
+P1OnlyActions: true
+WithP1GroundArena: LOF_254:1:0
+WithP1Hand: SEC_051
+WithP2GroundArena: IBH_076:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:2
+P1GROUNDARENAUNIT:0:HP:2
+P1NODECISION
+
+---
+
+# FriendlyDefeat_NoExp
+#// SEC_051 Bo-Katan Kryze — the reaction is "when an ENEMY unit is defeated". A FRIENDLY unit dying does
+#//   not trigger it: P2's Wampa attacks and defeats the friendly Porg, and Bo-Katan gains no Experience.
+
+## GIVEN
+CommonSetup: bbw/rrk
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: SEC_051:1:0
+WithP1GroundArena: LOF_254:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:1
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_051
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
+# ControllerNGOR_NoTrigger
+#// SEC_051 Bo-Katan Kryze — Bo-Katan's controller (P1) uses No Glory, Only Results (JTL_043) on the enemy
+#//   Wampa. No Glory takes control FIRST, so the defeat is FRIENDLY and Bo-Katan's enemy-defeat reaction
+#//   does not fire — no Experience token.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:13;handCardIds:JTL_043}
+P1OnlyActions: true
+WithP1GroundArena: SEC_051:1:0
+WithP1GroundArena: LOF_254:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION

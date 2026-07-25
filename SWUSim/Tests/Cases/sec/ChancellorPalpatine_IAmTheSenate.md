@@ -46,3 +46,24 @@ P1GROUNDARENAUNIT:2:CARDID:SEC_T01
 P1GROUNDARENAUNIT:2:HASKEYWORD:Sentinel
 P1GROUNDARENAUNIT:3:HASKEYWORD:Sentinel
 P1NODECISION
+
+---
+
+# WhenPlayed_MoffJerjerrod_DoublesOnce
+#// SEC_082 Chancellor Palpatine — "create 2 Spy tokens" is ONE create-a-number-of-tokens instruction, so
+#//   ASH_094 Moff Jerjerrod's "you may defeat this unit → create twice that number" replacement is offered
+#//   exactly ONCE (not per token). Accepting defeats Moff and creates 4 Spy tokens instead of 2. Final
+#//   ground: deployed leader + Palpatine + 4 Spy = 6 (Moff gone).
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:SOR_010:1:1:1;myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: ASH_094:1:0
+WithP1Hand: SEC_082
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:6

@@ -62,3 +62,51 @@ WithP2GroundArena: SOR_095:1:0
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P1DISCARDCOUNT:1
+
+---
+
+# CaptureWithUpgrade_UpgradeDiscarded_RescuedExhausted
+#// SEC_195 Arrest — capturing an upgraded unit drops the upgrade to its owner's discard (upgrades don't
+#//   travel into capture). At the start of the regroup phase the owner rescues the unit: it returns to its
+#//   arena EXHAUSTED and with no upgrades. P1 captures P2's SOR_095 bearing SOR_120 (Academy Training);
+#//   SOR_120 hits P2's discard immediately, then both players pass to regroup and SOR_095 comes back bare.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SEC_195
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>Pass
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2DISCARDCOUNT:1
+
+---
+
+# NoEnemyNonLeaderUnit_NoEffect
+#// SEC_195 Arrest — with no enemy non-leader unit in play there is nothing to capture; the event simply
+#//   resolves with no effect and goes to P1's discard. P2 controls no units.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SEC_195
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P1HANDCOUNT:0

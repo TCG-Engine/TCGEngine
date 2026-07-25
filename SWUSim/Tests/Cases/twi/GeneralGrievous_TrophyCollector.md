@@ -70,3 +70,38 @@ WithP2GroundArena: [SOR_095:1:0 SEC_080:1:0 SOR_128:1:0 LAW_180:1:0]
 - P1>AttackGroundArena:0:BASE
 ## EXPECT
 P2GROUNDARENACOUNT:4
+
+
+
+
+---
+
+# GeneralsBlade_OnAttack_SmuggleGetsDiscount
+#// TWI_121 General's Blade grants a Jedi host "On Attack: the next unit costs 2 less" — the discount also
+#// reduces a unit played via SMUGGLE (regression: the Smuggle payment path formerly bypassed it). The Blade
+#// is played onto Jedi Yoda (SOR_045); Yoda attacks (arms -2). SHD_113 has an effective Smuggle cost of 8
+#// here; after the Blade there are exactly 6 ready, so the smuggle succeeds ONLY because the -2 brings it
+#// to 6. (Without the armed discount the same 6 resources cannot pay 8.)
+
+## GIVEN
+CommonSetup: ggk/bbk/{
+  myLeader:JTL_009;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_045:1:0
+WithP1Hand: TWI_121
+WithP1Resources: 10:SOR_046:1,1:SHD_113:1
+
+## WHEN
+- P1>PlayHand:0
+- P1>AttackGroundArena:0:BASE
+- P1>SmuggleResource:10
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SHD_113
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1

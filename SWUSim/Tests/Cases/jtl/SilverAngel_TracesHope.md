@@ -52,3 +52,33 @@ P1SPACEARENAUNIT:0:CARDID:JTL_062
 P1SPACEARENAUNIT:0:DAMAGE:0
 P2SPACEARENAUNIT:0:DAMAGE:0
 P2BASEDMG:2
+
+---
+
+# WhenHealed_HealZero_NoTrigger
+#// JTL_062 Silver Angel — the reactive fires only on "1 or more damage healed". Here JTL_062 has 0 damage;
+#// it attacks P2's base (marking it as a Vehicle that attacked), then Rose Tico's leader action heals it.
+#// 0 damage is actually healed, so the "you may deal 1 to a space unit" NEVER triggers — SOR_237 is
+#// untouched and the turn passes to P2 with no pending decision.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_062:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_062
+P1SPACEARENAUNIT:0:DAMAGE:0
+P2SPACEARENAUNIT:0:DAMAGE:0
+P2BASEDMG:2
+P1NODECISION

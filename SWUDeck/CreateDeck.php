@@ -22,6 +22,7 @@
   $deckLink = TryGet("deckLink", "");
   $format = TryGet("format", "premier");
   if (!array_key_exists($format, SWUDeckBuildableFormats())) $format = "premier"; // guard unknown/garbage input
+  $deckName = substr(trim(TryGet("name", "")), 0, 100); // optional user-supplied name; blank keeps the default "Deck #<id>"
 
   $gameName = GetGameCounter();
 
@@ -238,7 +239,9 @@
       SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, $format);//assetType 1 = Deck
       AssignFriendlyCode(1, $gameName);
       $deckObj = json_decode($json);
-      if (isset($deckObj->metadata->name)) {
+      if ($deckName !== "") {
+        UpdateAssetName(1, $gameName, $deckName); // user-supplied name wins over the imported list's name
+      } else if (isset($deckObj->metadata->name)) {
         UpdateAssetName(1, $gameName, $deckObj->metadata->name); // Update deck name if available
       }
       if(isset($deckObj->leader)) {
@@ -290,6 +293,7 @@
   } else {
     SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, $format);//assetType 1 = Deck
     AssignFriendlyCode(1, $gameName);
+    if ($deckName !== "") UpdateAssetName(1, $gameName, $deckName); // optional name for a blank new deck
   }
 
   WriteGamestate();

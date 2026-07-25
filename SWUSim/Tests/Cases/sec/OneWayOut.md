@@ -42,3 +42,23 @@ WithP2SpaceArena: LOF_047:1:0
 P2SPACEARENACOUNT:0
 P2BASEDMG:1
 P2NODECISION
+
+---
+
+# AttackBase_PlusOne
+#// SEC_157 One Way Out — the +1/+0 also applies when the chosen unit attacks the enemy BASE directly (no
+#//   unit defender, so the "loses all abilities" / Overwhelm clauses are inert). SOR_095 (3 power) + One Way
+#//   Out attacks P2's base for 3+1 = 4.
+
+## GIVEN
+CommonSetup: rrw/grk/{myResources:1;handCardIds:SEC_157}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_239:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase
+
+## EXPECT
+P2BASEDMG:4

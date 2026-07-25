@@ -205,3 +205,40 @@ P1SPACEARENAUNIT:0:UPGRADECOUNT:0
 P1SPACEARENAUNIT:1:CARDID:JTL_T02
 P1HANDCOUNT:0
 P1RESAVAILABLE:0
+
+---
+
+# WhenPlayedUnit_MoveToXWingToken
+#// JTL_100 Poe Dameron — "When played as a unit": the free-attach may target the very X-Wing token it
+#// just created (JTL_T02), not only pre-existing Vehicles. Player picks "Unit", then attaches Poe onto
+#// the freshly-made token instead of SOR_237. Ports "can move to the x-wing token Poe's ability created."
+#//
+#// After token creation the space arena is SOR_237 (idx 0), JTL_T02 (idx 1); both are 0-pilot Vehicles,
+#// so both are free-attach targets. Player answers mySpaceArena-1 (the token). Poe leaves the ground and
+#// becomes a Pilot upgrade on JTL_T02; SOR_237 stays clean.
+
+## GIVEN
+CommonSetup: ggw/ggw
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 4
+WithP1Hand: JTL_100
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Unit
+- P1>AnswerDecision:mySpaceArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1SPACEARENAUNIT:1:CARDID:JTL_T02
+P1SPACEARENAUNIT:1:UPGRADECOUNT:1
+P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_100
+P1HANDCOUNT:0
+P1RESAVAILABLE:0

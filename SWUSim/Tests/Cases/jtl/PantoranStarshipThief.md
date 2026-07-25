@@ -87,3 +87,52 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:JTL_083
 P2SPACEARENACOUNT:1
 P2SPACEARENAUNIT:0:CARDID:SOR_237
+
+---
+
+# AttachEnemyTransport_TakeControl_Costs
+#// JTL_083 Pantoran Starship Thief — the attach target may be a TRANSPORT (not only a Fighter), and the
+#// player playing the card pays all costs. P1 (8 resources) plays the 2-cost Thief and pays the 3-resource
+#// ability (5 exhausted → 3 left), attaching onto the enemy Transport SOR_250 and taking control: the
+#// Corellian Freighter moves into P1's space arena with the Thief as its upgrade.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:8;handCardIds:JTL_083}
+P1OnlyActions: true
+WithP2SpaceArena: SOR_250:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2SPACEARENACOUNT:0
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_250
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_083
+P1RESAVAILABLE:3
+
+---
+
+# AttachFriendly_NoControlChange
+#// JTL_083 Pantoran Starship Thief — it can attach to a FRIENDLY Fighter/Transport without a Pilot too. P1
+#// pays 3 and attaches the Thief onto its own SOR_237; the X-Wing stays under P1's control (no control
+#// change) and carries the Thief as an upgrade, so P1 has one space unit and nothing in the ground arena.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:8;handCardIds:JTL_083}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_083

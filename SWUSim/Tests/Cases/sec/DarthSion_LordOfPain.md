@@ -71,3 +71,48 @@ WithP1Hand: SEC_035
 P1GROUNDARENAUNIT:0:CARDID:SEC_035
 P1GROUNDARENAUNIT:0:POWER:6
 P1NODECISION
+
+---
+
+# WhenPlayed_NoEnemyDefeated_NoExp
+#// SEC_035 Darth Sion — When Played gives an Experience token PER enemy unit defeated THIS phase.
+#// With no enemy defeated this phase, Sion enters with ZERO Experience tokens (stays base 5/5).
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5}
+P1OnlyActions: true
+WithP1Hand: SEC_035
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_035
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
+# WhenDefeated_TempAttackBuff_CountsTowardReturn
+#// SEC_035 Darth Sion — "had 7 or more power" reads his power AT THE MOMENT OF DEFEAT, INCLUDING a
+#//   temporary "for this attack" buff. Base 5/5 Sion attacks the exhausted 8/8 Sentinel (SOR_039 +
+#//   SEC_071) via Surprise Strike (SOR_220, +3/+0 this attack) → attacking power 8. He dies to the
+#//   counter, and because his at-defeat power was 8 (≥ 7) he RETURNS TO HAND (not discard). Discriminator:
+#//   without counting the temp buff his base 5 (< 7) would send him to the discard instead.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SEC_035:1:0
+WithP2GroundArena: SOR_039:0:0
+WithP2GroundArenaUpgrade: 0:SEC_071
+WithP1Hand: SOR_220
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1DISCARDCOUNT:1

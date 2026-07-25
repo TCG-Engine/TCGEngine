@@ -23,6 +23,7 @@ P1NODECISION
 # WhenPlayed_EnemyCapturesFriendly
 #// SEC_212 Libertine (Space, 3/7, Cunning/Cunning, cost 4) — When Played: choose an enemy unit and a
 #//   non-leader friendly unit; the enemy unit captures the friendly unit. SOR_046 captures SOR_095.
+#//   (The lone enemy auto-resolves; the friendly pick — SOR_095 or Libertine — is a real prompt.)
 
 ## GIVEN
 CommonSetup: yyk/rrk/{myResources:4}
@@ -33,11 +34,50 @@ WithP1Hand: SEC_212
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SEC_212
+P1NODECISION
+
+---
+
+# WhenPlayed_NoEnemyUnits_NoEffect
+#// SEC_212 Libertine — with no enemy units in play there is nothing to capture with, so the When Played
+#//   ability has no effect and Libertine simply remains in the space arena.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1Hand: SEC_212
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SEC_212
+P1NODECISION
+
+---
+
+# WhenPlayed_OnlyFriendly_CapturesItself
+#// SEC_212 Libertine — "a non-leader friendly unit" has no "another", so when Libertine is the ONLY
+#//   friendly unit in play it is the lone valid target and the chosen enemy captures Libertine itself.
+#//   With one enemy (SOR_046) and no other friendly, both picks auto-resolve → SOR_046 guards Libertine.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:4}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: SEC_212
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1NODECISION

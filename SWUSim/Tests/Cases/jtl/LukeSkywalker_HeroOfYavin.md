@@ -213,3 +213,61 @@ P2HASDECISION
 P2SELECTABLENOT:theirSpaceArena-0
 P2SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
 P1NODECISION
+
+---
+
+# Deploy_AsGroundUnit
+#// JTL_012 Luke Skywalker — deployed as a normal ground UNIT (a friendly Vehicle is present, so the deploy
+#// offers the Unit/Pilot choice). Choosing Unit puts Luke into the ground arena as a 5/6 leader unit; no
+#// On-Attack grant is created and nothing is damaged (ports "should deploy as a unit").
+
+## GIVEN
+CommonSetup: yrk/grw/{myLeader:JTL_012;myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:Unit
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_012
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:HP:6
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1NODECISION
+
+---
+
+# DeployedPilot_ImmuneToAggressionUpgradeDefeat
+#// JTL_012 Luke deployed as a Pilot "cannot be defeated as an upgrade by enemy card abilities" — the
+#// immunity holds even inside a multi-target modal. P2 plays SOR_155 Aggression choosing "Defeat up to 2
+#// upgrades": P2 can SELECT Luke (the host's only upgrade) but the defeat is PREVENTED (Luke stays attached
+#// and DEPLOYED). The rest of the modal still resolves — the second mode "Deal 4 damage to a unit" hits
+#// P2's own Wampa (SOR_164) for 4. Ports the "aggression" immunity variant.
+
+## GIVEN
+CommonSetup: yrk/grw/{myLeader:JTL_012;myLeaderDeployedPilot:true;theirResources:14}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP2Hand: SOR_155
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:DefeatUpgrades
+- P2>AnswerDecision:theirSpaceArena-0
+- P2>AnswerDecision:myTempZone-0
+- P2>AnswerDecision:PASS
+- P2>AnswerDecision:Deal4
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_012
+P1LEADER:DEPLOYED
+P2GROUNDARENAUNIT:0:DAMAGE:4

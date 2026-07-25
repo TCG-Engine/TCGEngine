@@ -690,7 +690,10 @@ $leaderAbilities["JTL_003"] = function(int $player): void {
         if ($o !== null && empty($o->removed)) $targets[] = $mz;
     }
     if (empty($targets)) { SWUAfterAction($player); return; } // no affordable unit → action spent
-    SWUQueueChooseTarget($player, $targets, "Play_a_unit_from_your_hand", "JTL_003#0");
+    // MAY-choose: "Play a unit from your hand" is optional — the player may decline (a soft pass that still
+    // paid 1 + exhausted the leader), and hand contents stay hidden. Even with one affordable unit, the
+    // decline option must be offered (so it does NOT auto-resolve like a mandatory single-target choose).
+    SWUQueueMayChooseTarget($player, $targets, "Play_a_unit_from_your_hand?", "Play_a_unit_from_your_hand", "JTL_003#0");
 };
 
 // JTL_004 Rose Tico — Leader Action [Exhaust]: Heal 2 damage from a Vehicle unit that attacked this
@@ -1415,9 +1418,18 @@ $leaderAbilities["LOF_018"] = function(int $player): void {
     for ($i = 0; $i < count($hand); $i++) {
         $c = $hand[$i]; if ($c === null || !empty($c->removed)) continue;
         $cid = $c->CardID;
-        if (CardType($cid) === 'Unit') continue;                                  // non-unit only
         if (strpos(CardAspect($cid) ?? '', 'Villainy') === false) continue;       // Villainy only
-        if ($ready >= intval(CardCost($cid))) $targets[] = "myHand-{$i}";          // affordable at printed cost
+        if (CardType($cid) === 'Unit') {
+            // A Villainy Unit is not a valid "non-unit card" — EXCEPT a Pilot, which may be played AS A
+            // PILOT (upgrade) when it can attach to a friendly Vehicle and its Piloting cost (ignoring
+            // aspect penalties) is affordable. (Ref: Anakin plays a Villainy pilot "only as a pilot".)
+            if (HasKeyword_Piloting($c) && !empty(SWUGetPilotValidTargets($player, $cid))
+                    && $ready >= intval(CardPilotingCost($cid))) {
+                $targets[] = "myHand-{$i}";
+            }
+            continue;
+        }
+        if ($ready >= intval(CardCost($cid))) $targets[] = "myHand-{$i}";          // non-unit at printed cost
     }
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Play_a_Villainy_non-unit_card_(ignoring_aspect_penalties)", "LOF_018#0");
@@ -1427,7 +1439,20 @@ $customDQHandlers["LOF_018#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') { SWUAfterAction(intval($player)); return; }
     $o = GetZoneObject($lastDecision);
     if ($o === null || !empty($o->removed)) { SWUAfterAction(intval($player)); return; }
-    $penalty = SWUAspectPenalty(intval($player), $o->CardID);  // discount cancels the off-aspect surcharge
+    $cid = $o->CardID;
+    // A chosen Villainy Pilot is played AS A PILOT (upgrade) on a friendly Vehicle, ignoring its aspect
+    // penalties. Cancel the Piloting aspect surcharge by pre-loading SWU_PILOT_DISCOUNT with the penalty
+    // amount (SWUComputePilotCost = base + penalty − discount = base), then hand off to the vehicle pick
+    // (which owns the attach, charge, and after-action).
+    if (CardType($cid) === 'Unit' && HasKeyword_Piloting($o)) {
+        $vehicles = SWUGetPilotValidTargets(intval($player), $cid);
+        if (empty($vehicles)) { SWUAfterAction(intval($player)); return; }
+        $penalty = SWUAspectPenalty(intval($player), $cid);
+        for ($k = 0; $k < $penalty; $k++) AddGlobalEffects(intval($player), 'SWU_PILOT_DISCOUNT');
+        SWUQueuePilotVehiclePick(intval($player), $lastDecision, $cid, $vehicles);
+        return;
+    }
+    $penalty = SWUAspectPenalty(intval($player), $cid);  // discount cancels the off-aspect surcharge
     $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
     ActivateCard(intval($player), $lastDecision, false, $penalty);
     $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
@@ -1762,6 +1787,21 @@ $customDQHandlers["SEC_008#0"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::CleanupRemovedCards();
     SWUAfterAction(intval($player));
 };
+// SEC_008 Bail Organa deploy cost — discard the 2 chosen hand cards, then commit the deploy (re-enter
+// SWUDeployLeader with the SWU_SEC008_DEPLOY_PAID flag set so it skips the discard-cost and commits).
+$customDQHandlers["SEC_008_DEPLOY"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $leaderIndex = intval($parts[0] ?? 0);
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return; // cancelled → no deploy, no discard
+    $mzs = array_values(array_filter(explode('&', $lastDecision), fn($m) => $m !== '' && $m !== '-' && $m !== 'PASS'));
+    if (count($mzs) < 2) return; // must discard exactly 2 to pay the cost
+    // discard highest hand index first so earlier indices don't shift out from under later picks
+    usort($mzs, fn($a, $b) => intval(substr(strrchr($b, '-'), 1)) <=> intval(substr(strrchr($a, '-'), 1)));
+    foreach ($mzs as $mz) DoDiscardCard(intval($player), $mz);
+    DecisionQueueController::CleanupRemovedCards();
+    AddGlobalEffects(intval($player), 'SWU_SEC008_DEPLOY_PAID');
+    SWUDeployLeader(intval($player), 'Unit', '', $leaderIndex);
+};
 
 // ── SEC_010 Dedra Meero ───────────────────────────────────────────────────────
 // Action [1 resource, Exhaust]: Choose an enemy unit. Its controller may deal 2 damage to it. If they
@@ -2004,8 +2044,10 @@ $customDQHandlers["LAW_002#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
     $o = GetZoneObject($lastDecision);
     if ($o === null || !empty($o->removed)) return;
-    SWUTakeControlOfUnit(OtherPlayer(intval($player)), $lastDecision);   // opponent takes control
-    SWUCreateCreditToken(intval($player), 1);
+    $newMz = SWUTakeControlOfUnit(OtherPlayer(intval($player)), $lastDecision);   // opponent takes control
+    // "If they do, create a Credit token." — only when control ACTUALLY transferred. LAW_149 Rey
+    // ("opponents can't take control of this unit") blocks the transfer ($newMz === '') → no Credit.
+    if ($newMz !== '') SWUCreateCreditToken(intval($player), 1);
 };
 $whenPlayedAbilities["LAW_002:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
@@ -3555,7 +3597,9 @@ function _SWUShd017HasTarget(int $player): bool {
         $cid = $r->CardID ?? '';
         if (stripos(CardType($cid) ?? '', 'Unit') === false) continue;
         $c = GetEffectiveSmuggleCost($player, $cid);
-        if ($c >= 0 && $ready >= max(0, $c - 2)) return true;
+        // Lando -2, then the shared modifier delta (surcharge/discount), then halve — matching
+        // SWUSmuggleResource's paid amount so Lando only offers a resource the player can actually afford.
+        if ($c >= 0 && $ready >= SWUApplyCostHalving($player, max(0, $c - 2 + _SWUPlayCostModifierDelta($player, $r, null, true)))) return true;
     }
     return false;
 }
@@ -3569,7 +3613,9 @@ function _SWUShd017Offer(int $player): bool {
         $cid = $r->CardID ?? '';
         if (stripos(CardType($cid) ?? '', 'Unit') !== false) {
             $c = GetEffectiveSmuggleCost($player, $cid);
-            if ($c >= 0 && $ready >= max(0, $c - 2)) $specs[] = "myResources-{$logical}";
+            // Lando -2, then the shared modifier delta (surcharge/discount), then halve — matching
+            // SWUSmuggleResource's paid amount so Lando's offer matches what can actually be paid.
+            if ($c >= 0 && $ready >= SWUApplyCostHalving($player, max(0, $c - 2 + _SWUPlayCostModifierDelta($player, $r, null, true)))) $specs[] = "myResources-{$logical}";
         }
         $logical++;   // logical index counts every non-credit non-removed resource (matches SWUSmuggleResource)
     }

@@ -77,3 +77,50 @@ P2HANDCOUNT:2
 P2DISCARDCOUNT:0
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1GROUNDARENACOUNT:0
+
+---
+
+# OnDefense_MillUpgrade_NoOption
+#// SEC_090 Director Krennic — when the milled card is an UPGRADE (SOR_057 Protector), there is no return
+#//   option (return is "if it's a unit"). The upgrade stays in the discard and combat proceeds with no
+#//   decision. Deck 3->2, discard 0->1.
+
+## GIVEN
+CommonSetup: ggw/grk/{theirHandCardIds:SOR_225}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_090:1:0
+WithP2Deck: SOR_057
+WithP2Deck: SOR_046
+WithP2Deck: SOR_046
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P2DECKCOUNT:2
+P2DISCARDCOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1NODECISION
+P2NODECISION
+
+---
+
+# OnDefense_EmptyDeck_NoBreak
+#// SEC_090 Director Krennic — On Defense with an EMPTY deck must not break the game: there is nothing to
+#//   mill, no decision appears, and combat resolves normally (Krennic takes 3, counters, defeats SOR_046).
+
+## GIVEN
+CommonSetup: ggw/grk/{theirHandCardIds:SOR_225}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_090:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENACOUNT:0
+P1NODECISION
+P2NODECISION

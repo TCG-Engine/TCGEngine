@@ -40,3 +40,25 @@ WithP1Hand: SEC_069
 ## EXPECT
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# WhenPlayed_ExhaustInArena_Space
+#// SEC_069 Nimble Prowess — space-arena variant. P1 attaches it to a friendly SPACE unit (SOR_141), then
+#//   the When Played "exhaust a unit in attached unit's arena" offers the SPACE arena, so P1 exhausts the
+#//   enemy space unit (SOR_141). Proves the arena of the exhaust follows the attached unit's arena.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:1}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_141:1:0
+WithP2SpaceArena: SOR_141:1:0
+WithP1Hand: SEC_069
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENAUNIT:0:EXHAUSTED
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1

@@ -48,3 +48,70 @@ P2GROUNDARENAUNIT:0:DAMAGE:1
 P1GROUNDARENAUNIT:0:DAMAGE:5
 P1GROUNDARENAUNIT:0:POWER:3
 P2HANDCOUNT:2
+
+---
+
+# SpaceUnitDefending_Disclose
+#// SEC_052 Diplomatic Immunity — the granted On Defense disclose works for a SPACE host too. P2's host
+#//   SOR_178 (2/3) + SEC_052 = 4/5. P1's LOF_119 (4/10, power 4) attacks it; P2 discloses 2x SOR_046
+#//   (Vigilance,Heroism each → covers VVHH) → attacker gets -2/-0 → power 2 for this attack. Host takes
+#//   2, counters 4 onto the attacker. After the attack the debuff expires (attacker POWER back to 4).
+
+## GIVEN
+CommonSetup: ggw/ggw/{theirHandCardIds:SOR_046,SOR_046}
+P1OnlyActions: true
+WithP1SpaceArena: LOF_119:1:0
+WithP2SpaceArena: SOR_178:1:0
+WithP2SpaceArenaUpgrade: 0:SEC_052
+
+## WHEN
+- P1>AttackSpaceArena:0:theirSpaceArena-0
+- P2>AnswerDecision:myHand-0&myHand-1
+
+## EXPECT
+P2SPACEARENAUNIT:0:DAMAGE:2
+P1SPACEARENAUNIT:0:DAMAGE:4
+P1SPACEARENAUNIT:0:POWER:4
+
+---
+
+# AttachedUnitAttacking_NoDebuff
+#// SEC_052 Diplomatic Immunity — the disclose reaction is On DEFENSE only ("When this unit is attacked").
+#//   When the attached unit is the ATTACKER, there is no disclose and no -2/-0. P1's host SOR_046 (3/7)
+#//   + SEC_052 = 5/9 attacks P2's base for its full power 5, with no decision offered.
+
+## GIVEN
+CommonSetup: ggw/ggw
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:SEC_052
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:5
+P1NODECISION
+
+---
+
+# NoDiscloseCards_AutoSkip
+#// SEC_052 Diplomatic Immunity — the disclose is auto-skipped when the defending player cannot cover
+#//   VigilanceVigilanceHeroismHeroism (CR 38.3). P2's host SOR_046 (3/7) + SEC_052 = 5/9 is attacked by
+#//   P1's SOR_046 (power 3); P2 has an empty hand → no prompt, attacker keeps full power 3. Host takes 3,
+#//   counters 5.
+
+## GIVEN
+CommonSetup: ggw/ggw
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SEC_052
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:DAMAGE:5
+P2NODECISION

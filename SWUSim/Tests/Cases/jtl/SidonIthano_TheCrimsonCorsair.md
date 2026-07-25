@@ -38,3 +38,25 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:JTL_213
+
+---
+
+# AttachToEnemyHost_FiresHostPilotAttachReaction
+#// JTL_213 Sidon Ithano attaches as a Pilot onto an ENEMY Red Leader (JTL_101), whose "When a Pilot upgrade
+#// attaches to this unit: Create an X-Wing token" reaction must fire for the HOST'S controller (P2), not the
+#// player who played Sidon. P2 should gain a JTL_T02 X-Wing token in its space arena.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:6;handCardIds:JTL_213}
+P1OnlyActions: true
+WithP2SpaceArena: JTL_101:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENAUNIT:0:CARDID:JTL_101
+P2SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_213
+P2SPACEARENACOUNT:2
+P2SPACEARENAUNIT:1:CARDID:JTL_T02

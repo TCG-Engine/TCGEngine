@@ -16,3 +16,25 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SEC_T01
 P1DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# NGOR_SpyToCaster
+#// SEC_132 Imperial Occupier — When Defeated: create a Spy token. P1 plays No Glory, Only Results
+#//   (JTL_043) to take control of the ENEMY Occupier and then defeat it. Because control transfers to
+#//   the No Glory caster first, the When Defeated resolves for P1, so the Spy token is created on P1's side.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:13}
+P1OnlyActions: true
+WithP1Hand: JTL_043
+WithP2GroundArena: SEC_132:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_T01
+P1NODECISION

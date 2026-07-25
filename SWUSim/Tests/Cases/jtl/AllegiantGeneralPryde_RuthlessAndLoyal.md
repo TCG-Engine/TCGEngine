@@ -27,3 +27,56 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:2
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# IndirectToBase_WithInitiative
+#// JTL_133 Allegiant General Pryde — On Attack: if you have the initiative, deal 2 indirect damage to a
+#// player. Pryde (with initiative) attacks P2's base; P2 puts both points of indirect on its own base. Base
+#// then takes those 2 indirect plus Pryde's 2 combat damage (total 4); the enemy unit is untouched.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1GroundArena: JTL_133:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:myBase-0:2
+
+## EXPECT
+P2BASEDMG:4
+P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# NoInitiative_NoIndirect
+#// JTL_133 Allegiant General Pryde — the On Attack indirect requires the initiative. With initiative held by
+#// P2, Pryde attacks P2's base and the ability does NOT trigger: no indirect decision is offered and the
+#// base takes only Pryde's 2 combat damage.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 2
+WithP1GroundArena: JTL_133:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1NODECISION
+P2BASEDMG:2
+P2GROUNDARENAUNIT:0:DAMAGE:0

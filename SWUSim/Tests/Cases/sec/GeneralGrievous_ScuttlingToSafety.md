@@ -44,3 +44,53 @@ P2HANDCOUNT:2
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P2BASEDMG:0
+
+---
+
+# NoBounce_WhenHeIsAttacking
+#// SEC_187 General Grievous — the return is only "When this unit is ATTACKED". While Grievous is the
+#//   ATTACKER he does not bounce. P1's ready Grievous (3/3) attacks P2's Rebel Pathfinder (SOR_239, 2/3):
+#//   Grievous deals 3 (kills the pathfinder) and stays in play, taking the 2 counter damage.
+
+## GIVEN
+CommonSetup: ggw/grk
+P1OnlyActions: true
+WithP1GroundArena: SEC_187:1:0
+WithP2GroundArena: SOR_239:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_187
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENACOUNT:0
+P1NODECISION
+
+---
+
+# NoBounce_FriendlyUnitAttacked
+#// SEC_187 General Grievous — the return only fires for Grievous himself, not for a friendly unit standing
+#//   next to him. P2's Rebel Pathfinder (2/3) attacks P1's Battlefield Marine (SOR_095, 3/3). The marine
+#//   takes 2 damage and stays (it does not bounce), Grievous is untouched, and the pathfinder dies to the
+#//   marine's 3 counter damage.
+
+## GIVEN
+CommonSetup: ggw/grk
+WithActivePlayer: 2
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SEC_187:1:0
+WithP2GroundArena: SOR_239:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:1:CARDID:SEC_187
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P2GROUNDARENACOUNT:0
+P1NODECISION

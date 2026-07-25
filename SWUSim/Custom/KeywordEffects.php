@@ -464,15 +464,23 @@ function HasConditionalKeyword_Ambush($obj) {
 // GRIT
 // ═════════════════════════════════════════════════════════════════════════════
 
-// JTL_047 Admiral Yularen — true if $obj is a friendly Vehicle and the controller controls a JTL_047
-// whose chosen keyword (stored per-UID as SWU_YULAREN_<uid>_<KW> on play) is $kw.
+// JTL_047 Admiral Yularen — true if $obj is a Vehicle whose controller PLAYED an in-play JTL_047 that
+// chose keyword $kw. The chosen keyword is stored per-UID as SWU_YULAREN_<uid>_<KW> under the player who
+// PLAYED Yularen (see the JTL_047#0 handler). The grant follows that player, NOT Yularen's current
+// controller: per official ruling the effect "is not changed if an opponent takes control of Yularen"
+// (errata: "each Vehicle unit you control or play"). So iterate every in-play Yularen (any controller)
+// and ask whether the Vehicle's controller is the one who played it (i.e. owns that uid's keyword flag).
+// The in-play gate below is what stops the grant when Yularen leaves play (so a rescued Yularen — a new
+// object with a new uid — does not resume the flag, matching the capture-and-rescue ruling).
 function _SWUYularenGrants($obj, string $kw): bool {
     if (!HasTrait($obj->CardID ?? '', 'Vehicle')) return false;
     $ctrl = intval($obj->Controller ?? 0);
     if ($ctrl <= 0) return false;
-    foreach (GetUnitsInPlay($ctrl) as $u) {
-        if (($u->CardID ?? '') !== 'JTL_047' || !empty($u->removed)) continue;
-        if (GlobalEffectCount($ctrl, "SWU_YULAREN_" . intval($u->UniqueID ?? 0) . "_{$kw}") > 0) return true;
+    foreach ([GetGroundArena(1), GetGroundArena(2), GetSpaceArena(1), GetSpaceArena(2)] as $arena) {
+        foreach ($arena as $u) {
+            if (($u->CardID ?? '') !== 'JTL_047' || !empty($u->removed)) continue;
+            if (GlobalEffectCount($ctrl, "SWU_YULAREN_" . intval($u->UniqueID ?? 0) . "_{$kw}") > 0) return true;
+        }
     }
     return false;
 }
@@ -635,6 +643,7 @@ function HasConditionalKeyword_Saboteur($obj) {
         switch ($u->CardID) {
             case 'SOR_166': // Infiltrator's Skill
             case 'LOF_215': // Ascension Cable
+            case 'JTL_015': // Rio Durant deployed as a Pilot — "Attached unit … gains Saboteur"
                 return true;
         }
     }
@@ -675,6 +684,10 @@ function HasConditionalKeyword_Sentinel($obj) {
     if (_SWUUnitHasUpgrade($obj, 'ASH_066') && CardTitle($obj->CardID ?? '') === 'Luke Skywalker') return true;
     // ASH_198 Nowhere to Hide (upgrade) — "Attached unit gains Sentinel."
     if (_SWUUnitHasUpgrade($obj, 'ASH_198')) return true;
+    // LOF_261 Constructed Lightsaber (upgrade) — "If attached unit is a non-Heroism, non-Villainy unit, it
+    // gains Sentinel." (Its Villainy→Raid 2 and Heroism→Restore 2 branches live in the Raid/Restore keyword
+    // functions; this third branch was missing.)
+    if (_SWUUnitHasUpgrade($obj, 'LOF_261') && _SWUIsNeutralCard($obj->CardID ?? '')) return true;
     // ASH_007 Grand Admiral Sloane (deployed) — each OTHER friendly unit gains Sentinel.
     if (intval($obj->Controller ?? 0) > 0) {
         $self007 = intval($obj->UniqueID ?? 0);
@@ -1032,6 +1045,7 @@ function GetConditionalKeyword_Raid_Value($obj) {
     }
     foreach (GetUnitsInPlay($obj->Controller) as $u) {
         if ($u->UniqueID === $obj->UniqueID) continue;
+        if (LostAbilities($u)) continue; // a blanked source (LOF_202 Mind Trick) can't grant keywords to allies
         switch ($u->CardID) {
             case 'SOR_012': // IG-88 Leader Unit — all other friendly units get +1 Raid
                 $amount += 1;
@@ -1111,6 +1125,7 @@ function GetConditionalKeyword_Restore_Value($obj) {
     }
     foreach (GetUnitsInPlay($obj->Controller) as $u) {
         if ($u->UniqueID === $obj->UniqueID) continue;
+        if (LostAbilities($u)) continue; // a blanked source (LOF_202 Mind Trick) can't grant keywords to allies
         switch ($u->CardID) {
             case 'SOR_102': // Home One — other friendly units get +1 Restore
                 $amount += 1;

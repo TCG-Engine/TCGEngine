@@ -53,3 +53,29 @@ WithP2GroundArena: SOR_039:1:0
 P2BASEDMG:0
 P1GROUNDARENACOUNT:1
 P2GROUNDARENACOUNT:1
+
+---
+
+# AttachRestriction_NonVehicleOnly
+#// SEC_156 Nemik's Manifesto — "Attach to a non-Vehicle unit." With a friendly Vehicle (SOR_232 AT-ST) and
+#//   a friendly non-Vehicle (SOR_128) in play, the Vehicle is NOT a legal host, so the only legal target is
+#//   SOR_128 — it auto-attaches there and gains the Rebel trait. The AT-ST is untouched (no Rebel grant).
+
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_232:1:0
+WithP1GroundArena: SOR_128:1:0
+WithP1Hand: SEC_156
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_128
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:1:HASTRAIT:Rebel
+P1GROUNDARENAUNIT:0:CARDID:SOR_232
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:NOTTRAIT:Rebel
+P1NODECISION

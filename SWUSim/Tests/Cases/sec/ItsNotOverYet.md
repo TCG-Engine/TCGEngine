@@ -39,3 +39,26 @@ WithP1Hand: SEC_177
 P1GROUNDARENAUNIT:0:READY
 P1GROUNDARENACOUNT:2
 P1NODECISION
+
+---
+
+# PassReadyButStillCreateSpy
+#// SEC_177 It's Not Over Yet — the ready is a "you may", but the Spy is not optional. With an eligible
+#//   exhausted SOR_095 present, P1 declines the ready: SOR_095 stays exhausted, yet the Spy token is
+#//   still created.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:0:0
+WithP1Hand: SEC_177
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SEC_T01
+P1NODECISION

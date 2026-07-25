@@ -40,3 +40,28 @@ WithP2GroundArena: SEC_080:1:0
 ## EXPECT
 P1HASFORCE
 P1GROUNDARENACOUNT:0
+
+---
+
+# WhenDefeated_ByNoGlory_OpponentGetsForce
+#// LOF_129 Acolyte of the Beyond — "When Defeated: The Force is with you (create YOUR Force token)" gives the
+#// Force to whoever CONTROLS the Acolyte at the moment of defeat. P2 plays No Glory, Only Results (JTL_043,
+#// "Take control of a non-leader unit, then defeat it") on P1's Acolyte → P2 controls it, defeats it, and the
+#// When Defeated token goes to P2. (FT: "should allow the opponent to create a Force token when defeated by
+#// No Glory Only Results".)
+
+## GIVEN
+CommonSetup: rrk/bbk/{myResources:2;theirResources:5}
+SkipPreGame: true
+WithP1GroundArena: LOF_129:1:0
+WithP2Hand: JTL_043
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+
+## WHEN
+- P2>PlayHand:0
+
+## EXPECT
+P2HASFORCE
+P1GROUNDARENACOUNT:0

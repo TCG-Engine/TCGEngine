@@ -45,3 +45,30 @@ WithP1GroundArena: JTL_035:1:0
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:JTL_101
 P1RESAVAILABLE:0
+
+---
+
+# CostReduction_CountsPilotUpgrade
+#// JTL_101 Red Leader — the cost reduction counts friendly Pilot UPGRADES, not just Pilot units. A single
+#// Vehicle (SOR_237) carrying one Pilot upgrade (JTL_034 attached as a pilot) reduces Red Leader's printed
+#// cost 4 by 1 → 3. With exactly 3 resources it plays and leaves 0. Ports the "friendly Pilot unit OR
+#// friendly Pilot upgrade" clause (SWUSim's other section only exercises Pilot units).
+
+## GIVEN
+CommonSetup: ggw/bbk/{
+  myLeader:JTL_004;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_101
+WithP1Resources: 3
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArenaPilot: 0:JTL_034
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:1:CARDID:JTL_101
+P1RESAVAILABLE:0

@@ -21,3 +21,74 @@ WithP1Deck: [SOR_095]
 P1SPACEARENAUNIT:0:CARDID:SOR_111
 P1GROUNDARENACOUNT:2
 P1NODECISION
+
+---
+
+# OnDraw_Decline_NoSpy
+#// SEC_159 Chairman Papanoida — the disclose is optional ("you may"). P1 plays SOR_111 (draw a card), the draw
+#//   fires the reaction, and P1 declines the disclose → no Spy token is created (ground keeps only Papanoida).
+
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SEC_159:1:0
+WithP1Hand: SOR_111
+WithP1Hand: SEC_133
+WithP1Hand: SEC_133
+WithP1Deck: [SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_111
+P1GROUNDARENACOUNT:1
+P1NODECISION
+
+---
+
+# OnDraw_CannotDisclose_NoSpy
+#// SEC_159 Chairman Papanoida — with no two Aggression cards in hand the disclose cannot be paid, so no Spy is
+#//   created. P1 plays SOR_111 (draw); the only card drawn is the non-Aggression SOR_095 → disclose impossible.
+
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SEC_159:1:0
+WithP1Hand: SOR_111
+WithP1Deck: [SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_111
+P1GROUNDARENACOUNT:1
+P1NODECISION
+
+---
+
+# OnDraw_OpponentDrawsMultiple_OneSpy
+#// SEC_159 Chairman Papanoida — the reaction fires when ANY player draws during the action phase, and a single
+#//   multi-card draw yields only one Spy. P1 passes; P2 plays TWI_175 Strategic Analysis (draw 3) → P1's
+#//   Papanoida triggers once → disclose two SEC_133 (Aggression) → exactly one Spy token joins P1's ground.
+
+## GIVEN
+CommonSetup: rrk/rrk
+WithActivePlayer: 1
+WithP1GroundArena: SEC_159:1:0
+WithP1Hand: SEC_133
+WithP1Hand: SEC_133
+WithP2Resources: 5
+WithP2Hand: TWI_175
+WithP2Deck: [SOR_095, SOR_046, SOR_095]
+
+## WHEN
+- P1>Pass
+- P2>PlayHand:0
+- P1>AnswerDecision:myHand-0&myHand-1
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1NODECISION

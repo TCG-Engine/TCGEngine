@@ -147,3 +147,159 @@ P1GROUNDARENACOUNT:0
 P1LEADER:READY
 P1LEADER:EPICAVAILABLE
 P1NODECISION
+
+---
+
+# LeaderAction_Exhausted_NoOp
+#// JTL_013 Poe Dameron (LEADER) — the flip-and-attach action requires an unexhausted leader. With Poe
+#// already EXHAUSTED (myLeader:JTL_013:0) and an eligible host Vehicle (SOR_225) present plus 2 ready
+#// resources, the action is unavailable: no-op. The vehicle gains no upgrade, no resource is spent, no
+#// decision pends. Intended: does nothing if leader is exhausted.
+
+## GIVEN
+CommonSetup: grw/grw/{
+  myLeader:JTL_013:0;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 2
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:EXHAUSTED
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_225
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:2
+P1NODECISION
+
+---
+
+# LeaderAction_VehiclePresentButNoResource_NoOp
+#// JTL_013 Poe Dameron (LEADER) — the action costs 1 resource. An eligible host Vehicle (SOR_225) is
+#// present, but P1 has ZERO ready resources, so the cost cannot be paid: the action is unavailable, no-op.
+#// Leader stays READY, the vehicle gains no upgrade, no decision pends. Intended: does
+#// nothing if resource cost cannot be paid.
+
+## GIVEN
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 0
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:READY
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_225
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
+# DeployedAsUnit_NoAttachAbility_AttacksFor4
+#// JTL_013 Poe Dameron (LEADER) — the flip-and-attach action is the UNDEPLOYED leader ability. Deployed as
+#// a unit via the Epic action (myLeaderDeployed:true), Poe is a plain 4/6 ground unit with NO attach
+#// ability: even with an eligible host Vehicle (SOR_225) present, he simply attacks for his base 4 to P2's
+#// base and no attach decision pends. Intended: has no ability when deployed as a unit.
+
+## GIVEN
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myLeaderDeployed:true;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_013
+P1GROUNDARENAUNIT:0:POWER:4
+P2BASEDMG:4
+P1NODECISION
+
+---
+
+# Hop_NoOtherVehicle_SpendsOneNoHop
+#// JTL_013 Poe Dameron (deployed hop) — CR 6.4.587.c: the [1 resource] cost is a game-state change, so the
+#// hop Action is usable even with no OTHER empty Vehicle to hop to. Poe is pre-attached to the only Vehicle
+#// (SOR_225). Using the hop spends 1 resource and does NOT hop (a soft pass) — Poe stays on his current
+#// Vehicle. (The once-per-round hop is not consumed, since no hop occurred.)
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:JTL_013;myBase:SOR_022;theirLeader:JTL_013;theirBase:SOR_022}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 2
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_013
+
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+
+## EXPECT
+P1RESAVAILABLE:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_013
+
+---
+
+# Hop_OncePerRound_BlockedWithFreshVehicleAvailable
+#// JTL_013 Poe Dameron (deployed hop) — the once-per-round clause blocks a SECOND hop even when another
+#// untouched empty Vehicle is available (not just when Poe would hop back to the ship he left). THREE
+#// SOR_225 in Space: Poe pre-attached to index-0, index-1 and index-2 both empty. First hop (UseUnitAbility
+#// on index-0) → pick index-1 (pay 1). Second hop attempt (UseUnitAbility on index-1) → blocked by the
+#// once-per-round guard even though index-2 is a fresh empty Vehicle → no-op, no resource spent.
+
+## GIVEN
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 2
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_013
+
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+- P1>AnswerDecision:mySpaceArena-1
+- P1>UseUnitAbility:mySpaceArena-1
+
+## EXPECT
+P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_013
+P1SPACEARENAUNIT:2:UPGRADECOUNT:0
+P1RESAVAILABLE:1
+P1NODECISION

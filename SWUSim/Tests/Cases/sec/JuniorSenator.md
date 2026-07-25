@@ -16,3 +16,25 @@ WithP1Hand: SEC_200
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2HANDCOUNT:1
+
+---
+
+# WhenPlayed_ReturnTokenUpgrade_DefeatsIt
+#// SEC_200 Junior Senator — a token upgrade (Experience, cost 0) is a legal "cost 3 or less" target, but a
+#//   token can't move to a non-play zone, so "returning" it DEFEATS it instead (CR). Targeting the enemy
+#//   SOR_046 that holds only an Experience token removes the token and puts NOTHING in P2's hand.
+
+## GIVEN
+CommonSetup: yyw/rrk/{myResources:2}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+WithP1Hand: SEC_200
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2HANDCOUNT:0

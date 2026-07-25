@@ -118,3 +118,88 @@ P2GROUNDARENAUNIT:0:CARDID:SEC_061
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:1:CARDID:SOR_046
 P2GROUNDARENAUNIT:1:UPGRADECOUNT:0
+
+---
+
+# OwnerReturnsOwnUpgradeNotBlocked
+#// SEC_061 Willrow Hood — the protection is only against ENEMY card abilities. The controller's OWN
+#//   return effect still works. P2 controls Willrow with exactly 1 friendly upgrade (SOR_120, cost 2 <=3)
+#//   and plays its OWN Junior Senator (SEC_200, "may return an upgrade that costs 3 or less to its owner's
+#//   hand") targeting Willrow. Actor == controller, so the protection does not apply and SOR_120 returns
+#//   to P2's hand.
+
+## GIVEN
+CommonSetup: grw/yyw/{theirResources:2;theirHandCardIds:SEC_200}
+WithActivePlayer: 2
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_061
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENACOUNT:2
+
+---
+
+# EnemyReturnsWillrowHimself_UpgradeDefeated
+#// SEC_061 Willrow Hood — the protection covers the UPGRADE, not Willrow himself. An enemy Waylay
+#//   (SOR_222, "Return a non-leader unit to its owner's hand") returns Willrow to P2's hand. Willrow
+#//   leaving play is a state-based consequence, so his lone friendly upgrade (SOR_120, a non-token
+#//   upgrade) is defeated to P2's discard. Willrow himself returns to hand (not the discard).
+
+## GIVEN
+CommonSetup: yyw/grw/{myResources:3;handCardIds:SOR_222}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2DISCARDCOUNT:1
+P1DISCARDCOUNT:1
+
+---
+
+# TokenShieldUpgrade_EnemyCantDefeat
+#// SEC_061 Willrow Hood — the lone friendly upgrade may be a TOKEN upgrade. P2's Willrow bears exactly
+#//   1 friendly Shield token (SOR_T02). P1 plays Confiscate ("Defeat an upgrade") targeting it, but the
+#//   enemy defeat is blocked, so the Shield survives (Confiscate is spent for nothing).
+
+## GIVEN
+CommonSetup: grw/grw/{myResources:1;handCardIds:SOR_251}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1DISCARDCOUNT:1
+P2DISCARDCOUNT:0
+
+---
+
+# SystemShock_ProtectedUpgrade_NoDamage
+#// SEC_061 Willrow Hood — JTL_175 System Shock is "Defeat a non-leader upgrade attached to a unit. If you
+#// do, deal 1 damage to that unit." P2's Willrow bears exactly 1 friendly upgrade (SOR_120), so the enemy
+#// defeat is blocked; because the defeat is prevented, the "if you do" 1 damage must NOT fire. Willrow
+#// keeps the upgrade AND takes 0 damage.
+
+## GIVEN
+CommonSetup: rrw/grw/{myResources:1;handCardIds:JTL_175}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:0

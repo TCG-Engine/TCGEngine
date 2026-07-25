@@ -25,3 +25,287 @@ WithP1Deck: SOR_128
 ## EXPECT
 P1HANDCOUNT:1
 P1RESAVAILABLE:1
+
+---
+
+# FrontFewerThan3Cards_Works
+#// LAW_005 Jyn Erso (front) — the search works with fewer than 3 cards in the deck. A friendly Rebel
+#// (SOR_095) dies attacking the 8/8 SOR_039; Jyn's action then searches a 2-card deck and draws SOR_046.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_039:1:0
+WithP1Deck: SOR_046
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>UseLeaderAbility
+- P1>AnswerDecision:SOR_046
+
+## EXPECT
+P1HANDCOUNT:1
+P1RESAVAILABLE:1
+
+---
+
+# FrontEmptyDeck_UsableButNoDraw
+#// LAW_005 Jyn Erso (front) — with a friendly Rebel defeated this phase the action is still usable even if
+#// the deck is empty: the [1 resource, Exhaust] cost is paid, but the search finds nothing so no card is
+#// drawn (and no draw-from-empty base damage). SOR_095 dies attacking the 8/8 SOR_039, then Jyn's action
+#// exhausts and draws nothing.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>UseLeaderAbility
+
+## EXPECT
+P1HANDCOUNT:0
+P1DECKCOUNT:0
+P1BASEDMG:0
+P1RESAVAILABLE:1
+P1LEADER:EXHAUSTED
+P1NODECISION
+
+---
+
+# DeployedOnAttack_RebelDefeated_Searches
+#// LAW_005 Jyn Erso (deployed) — same effect as the front, but it triggers On Attack instead of as an
+#// action. A friendly Rebel (SOR_095) dies attacking the 8/8 SOR_039; then Jyn (deployed) attacks P2's base,
+#// her On Attack fires automatically, and P1 draws SOR_046 from the top 3.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005:1:1:1;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_039:1:0
+WithP1Deck: SOR_046
+WithP1Deck: SOR_095
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:SOR_046
+
+## EXPECT
+P1HANDCOUNT:1
+P1LEADER:DEPLOYED
+
+---
+
+# DeployedOnAttack_NoRebelDefeated_NoEffect
+#// LAW_005 Jyn Erso (deployed) — no friendly Rebel was defeated this phase, so Jyn's On Attack has no
+#// effect. Jyn simply attacks P2's base; no card is drawn and the deck is untouched.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005:1:1:1;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Deck: SOR_046
+WithP1Deck: SOR_095
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HANDCOUNT:0
+P1DECKCOUNT:3
+P1NODECISION
+
+---
+
+# DeployedOnAttack_EnemyRebelDefeated_NoEffect
+#// LAW_005 Jyn Erso (deployed) — only a FRIENDLY Rebel defeat counts. P1's SOR_046 defeats the enemy Rebel
+#// SOR_095 (and survives), but that is an enemy Rebel, so Jyn's On Attack has no effect: no card is drawn.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005:1:1:1;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: SOR_046
+WithP1Deck: SOR_095
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:1:BASE
+
+## EXPECT
+P1HANDCOUNT:0
+P1DECKCOUNT:3
+P1NODECISION
+
+---
+
+# DeployedOnAttack_FriendlyNonRebelDefeated_NoEffect
+#// LAW_005 Jyn Erso (deployed) — a friendly NON-Rebel unit (SEC_080) dying doesn't count. It dies attacking
+#// the 8/8 SOR_039, then Jyn attacks P2's base and her On Attack has no effect: no card is drawn.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005:1:1:1;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_039:1:0
+WithP1Deck: SOR_046
+WithP1Deck: SOR_095
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HANDCOUNT:0
+P1DECKCOUNT:3
+P1NODECISION
+
+---
+
+# DeployedOnAttack_FewerThan3Cards_Works
+#// LAW_005 Jyn Erso (deployed) — the On Attack search works with fewer than 3 cards in the deck. SOR_095
+#// dies attacking the 8/8 SOR_039, then Jyn attacks P2's base and draws SOR_046 from a 2-card deck.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005:1:1:1;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_039:1:0
+WithP1Deck: SOR_046
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:SOR_046
+
+## EXPECT
+P1HANDCOUNT:1
+P1LEADER:DEPLOYED
+
+---
+
+# DeployedOnAttack_EmptyDeck_NoEffect
+#// LAW_005 Jyn Erso (deployed) — with an empty deck the On Attack search finds nothing, so no card is drawn
+#// and there is no draw-from-empty base damage. SOR_095 dies attacking the 8/8 SOR_039, then Jyn attacks
+#// P2's base with no effect.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005:1:1:1;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HANDCOUNT:0
+P1DECKCOUNT:0
+P1BASEDMG:0
+P1NODECISION
+
+---
+
+# FrontNoRebelDefeated_UsableAnyway
+#// LAW_005 Jyn Erso (front) — "If a friendly Rebel was defeated this phase, search…" is a conditional
+#// EFFECT, not an activation gate: the [1 resource, Exhaust] cost is a game-state change, so the Action is
+#// usable even with NO Rebel defeated (CR 6.4.587.c — "Use it anyway"). It pays 1 + exhausts Jyn, draws
+#// nothing (deck untouched, hand stays empty).
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1Deck: SOR_046
+WithP1Deck: SOR_095
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1HANDCOUNT:0
+P1RESAVAILABLE:1
+P1DECKCOUNT:3
+P1LEADER:EXHAUSTED
+
+---
+
+# FrontGainedRebelTrait_Triggers
+#// LAW_005 Jyn Erso (front) — the "friendly Rebel defeated this phase" condition reads GRANTED traits, not
+#// just printed ones. P1's Republic unit (SEC_167, NOT printed Rebel) wears Nemik's Manifesto (SEC_156,
+#// grants the Rebel trait); it attacks the 8/8 SOR_039 and dies (a gained-Rebel unit defeated), so Jyn's
+#// action then searches and draws SOR_046.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1GroundArena: SEC_167:1:0
+WithP1GroundArenaUpgrade: 0:SEC_156
+WithP2GroundArena: SOR_039:1:0
+WithP1Deck: SOR_046
+WithP1Deck: SOR_095
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>UseLeaderAbility
+- P1>AnswerDecision:SOR_046
+
+## EXPECT
+P1HANDCOUNT:1
+P1RESAVAILABLE:1

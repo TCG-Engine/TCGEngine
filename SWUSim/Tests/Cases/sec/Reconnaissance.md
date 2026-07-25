@@ -36,3 +36,24 @@ WithP1Deck: SOR_095
 
 ## EXPECT
 P1HANDCOUNT:0
+
+---
+
+# OnlySpace_NoDraw
+#// SEC_125 — mirror of the ground-only guard on the space side. P1 controls only space units (no ground
+#//   unit), so the "ground AND space" condition fails and SEC_125 draws nothing (hand ends empty).
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_141:1:0
+WithP1SpaceArena: JTL_095:1:0
+WithP1Hand: SEC_125
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:0

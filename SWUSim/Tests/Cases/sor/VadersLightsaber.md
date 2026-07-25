@@ -12,6 +12,7 @@ WithP2GroundArena: SEC_080:1:0    # enemy unit — must be untouched
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0    # attach to the friendly host (enemy is now a legal host too, CR 2.e)
 
 ## EXPECT
 P2GROUNDARENACOUNT:1
@@ -36,6 +37,7 @@ WithP2GroundArena: SEC_080:1:0    # enemy ground unit — the deal-4 target
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0    # attach to Vader (enemy is now a legal host too, CR 2.e)
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT

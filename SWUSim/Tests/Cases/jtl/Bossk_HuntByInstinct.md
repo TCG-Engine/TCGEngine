@@ -59,3 +59,62 @@ WithP1GroundArena: JTL_187:1:0
 ## EXPECT
 P2BASEDMG:4
 P1NODECISION
+
+---
+
+# Piloting_AttackUnit_ExhaustDamage
+#// JTL_187 Bossk — Bossk's On Attack is granted to its host when played as a Pilot upgrade (Piloting).
+#// Bossk is played with Piloting onto Stolen Landspeeder (SHD_161, 3/2 → power 5 with Bossk). The piloted
+#// host attacks the ready SOR_046 (3/7): the On Attack exhausts the defender and deals it 1, then 5 combat
+#// = 6 total damage.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: JTL_187
+WithP1GroundArena: SHD_161:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:myGroundArena-0
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:6
+P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# Piloting_AttackBase_NoBonus
+#// JTL_187 Bossk — the granted On Attack does nothing against a base defender. The Bossk-piloted Stolen
+#// Landspeeder (power 5) attacks P2's base: no exhaust, no +1; the base just takes 5 combat.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: JTL_187
+WithP1GroundArena: SHD_161:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:myGroundArena-0
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2BASEDMG:5
+P1NODECISION
