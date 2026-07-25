@@ -10,7 +10,7 @@ function AzukiRlBotProfiles(): array {
         'zero' => [
             'label' => 'Zero (Deck 51)',
             'deck' => 'ZeroRL',
-            'model' => 'zero-aggro-control-20260724-160200-ep30000.json',
+            'model' => 'zero-aggro-control-20260725-033343-ep150000.json',
         ],
     ];
 }
