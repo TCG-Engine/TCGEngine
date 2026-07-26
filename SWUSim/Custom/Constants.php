@@ -11,3 +11,7 @@ const AnyUnitFilter = ["Unit", "Token Unit", "Leader Unit"];
 // Non-leader units only — deployed leaders are excluded. In hand/discard zones
 // (where a leader unit can never appear) this is simply "unit cards".
 const NonLeaderUnitFilter = ["Unit", "Token Unit"];
+
+// Arena types — used in ZoneSearch and other functions to identify the battlefield zones.
+const GroundArena = "Ground";
+const SpaceArena = "Space";

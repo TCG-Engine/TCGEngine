@@ -185,3 +185,36 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENACOUNT:0
 P2RESCOUNT:1
 P2DECKCOUNT:0
+
+---
+
+# StealEvent_AppliesSawGerreraTax
+#// Behavior change (LAW_066 routed through ActivateCard): playing an opponent's EVENT from their resources
+#// now applies play-time taxes like any event play. P2 controls Saw Gerrera SOR_153 → P1 (its opponent)
+#// playing an event pays 2 to P1's base. P1 plays LAW_066 (its OWN event, from hand) → Saw Gerrera taxes 2;
+#// then LAW_066 steals LAW_244 (Unmarked Credits) from P2's resources → playing THAT event now also taxes 2,
+#// so P1's base takes 4 total, AND P1 gets a Credit token. (Before routing the stolen play through
+#// ActivateCard the bypass path skipped Saw Gerrera on it → P1BASEDMG was only 2.)
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 13
+WithP1Hand: LAW_066
+WithP2Resources: 1:LAW_244:1
+WithP2GroundArena: SOR_153:1:0
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirResources-0
+
+## EXPECT
+P1BASEDMG:4
+P1CREDITCOUNT:1
+P2DISCARDCOUNT:1

@@ -1,0 +1,15 @@
+<?php
+// LAW_173
+// Cost 2 - BT-1 - Blastomech - [Aggression,Villainy] - Power 2 - HP 4
+// Text: On Attack: Discard a card from your deck. If it's Aggression, you may deal 1 damage to a ground unit.
+
+// LAW_173 BT-1 — On Attack: discard a card from your deck. If it's Aggression, you may deal 1 to a
+// ground unit.
+$onAttackAbilities["LAW_173:0"] = function($player, $mzID) {
+    global $playerID; $playerID = intval($player);
+    $milled = SWUMillTopCard(intval($player));
+    if ($milled === null || strpos((string)(CardAspect($milled) ?? ''), 'Aggression') === false) return;
+    $ground = SWUAllUnits(null, GroundArena);
+    if (empty($ground)) return;
+    SWUQueueMayChooseTarget(intval($player), $ground, "Deal_1_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|1");
+};

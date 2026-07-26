@@ -372,7 +372,7 @@ const SWU_SELF_HANDLED_DEFEAT_SUBCARDS = ['JTL_094'];
 // re-attached (the caller then skips the normal discard); false if there is no eligible token.
 function _SWURogerRogerReattach(int $controller, int $owner, int $excludeUID): bool {
     foreach (array_merge(GetGroundArena($controller), GetSpaceArena($controller)) as $u) {
-        if ($u === null || !empty($u->removed)) continue;
+        if (SWUObjGone($u)) continue;
         if (($u->CardID ?? '') !== 'TWI_T01') continue;
         if (intval($u->UniqueID ?? 0) === $excludeUID) continue;
         if (!is_array($u->Subcards ?? null)) $u->Subcards = [];
@@ -766,7 +766,7 @@ function SWUGetValidSupportAttackers(int $activePlayer, $supportObj): array {
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
-            if ($o === null || !empty($o->removed)) continue;
+            if (SWUObjGone($o)) continue;
             if (intval($o->UniqueID ?? 0) === $sUid) continue;   // "another unit"
             if (intval($o->Status ?? 0) !== 1) continue;          // must be ready (1=ready, 0=exhausted)
             $out[] = $mz;
@@ -780,7 +780,7 @@ function SWUGetValidSupportAttackers(int $activePlayer, $supportObj): array {
 function _SWUSupportGrantAbilities(int $player, string $supportMz, string $attackerMz): void {
     $S = GetZoneObject($supportMz);
     $A = GetZoneObject($attackerMz);
-    if ($S === null || $A === null || !empty($A->removed)) return;
+    if ($S === null || SWUObjGone($A)) return;
 
     // Combat-relevant keywords — effective reads so conditional/granted keywords on S transfer. Each
     // lent keyword names S as its source (^S CardID) so the Active Effects popup shows the supporting
@@ -852,7 +852,7 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
     // attacks: The Force is with you (create your Force token)." Reactive trigger (NOT an Action); it
     // rides the combat trigger bag so it orders correctly with any other On-Attack triggers and with
     // multi-unit plays. The attacker is always controlled by the active player.
-    if ($attacker !== null && !isset($attacker->removed) && _SWUUnitHasTrait($attacker, 'Force')) {
+    if ($attacker !== null && !isset($attacker->removed) && TraitContains($attacker, 'Force')) {
         foreach (GetBase($activePlayer) as $b) {
             if (!empty($b->removed)) continue;
             // SEC_046 Galen Erso — if the enemy Galen named this base, it has lost its abilities.
@@ -865,7 +865,7 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
     // SEC_081 Major Partagaz — "When another friendly Official unit attacks: this unit gets +2/+2 for
     // this phase." The attacker is always the active player's; only OTHER Official attackers trigger it.
     // Apply directly (no decision) to each friendly SEC_081 that isn't the attacker.
-    if ($attacker !== null && !isset($attacker->removed) && _SWUUnitHasTrait($attacker, 'Official')) {
+    if ($attacker !== null && !isset($attacker->removed) && TraitContains($attacker, 'Official')) {
         global $playerID; $savedPid81 = $playerID; $playerID = intval($activePlayer);
         $atkUID81 = intval($attacker->UniqueID ?? 0);
         foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
@@ -1083,7 +1083,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     if (_SWULeaderDeployed($activePlayer, 'ASH_016')) {
         AddTrigger($activePlayer, 'ASH_016#1', 'ASH_016#1', $attackerMzID, strval(intval($combatCtx['baseCombatDmg'] ?? 0)));   // deployed (once/round)
     }
-    if ($attacker === null || !empty($attacker->removed)) return; // attacker defeated → its OWN triggers don't fire
+    if (SWUObjGone($attacker)) return; // attacker defeated → its OWN triggers don't fire
     if (LostAbilities($attacker)) return; // SEC_046 Galen — a named attacker fires no "deals combat damage" trigger
     $cardID = $attacker->CardID ?? '';
     // ASH_101 The Great Mothers (Support) — When Attack Ends: if it dealt combat damage to 1+ non-leader
@@ -1203,7 +1203,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
             for ($i = 0; $i < $cassians; $i++) SWUDealDamageToBase(2, OtherPlayer($activePlayer));
         } else {
             for ($i = 0; $i < $cassians; $i++)
-                SWUQueueChooseOpponent($activePlayer, "LAW_056_BASE", "Cassian:_deal_2_to_which_opponent's_base?");
+                SWUQueueChooseOpponent($activePlayer, "LAW_056#0", "Cassian:_deal_2_to_which_opponent's_base?");
         }
     }
 
@@ -1626,7 +1626,7 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     if (($attacker->CardID ?? '') === 'LAW_086' && strpos($targetMzID, 'Arena') !== false) {
         DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
             tooltip: "Have_the_defending_unit_deal_combat_damage_first?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_086_DEFFIRST|{$attackerMzID}", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_086#0|{$attackerMzID}", 1);
     }
 
     // Step 1: collect On Attack / On Defense triggers, then flush them onto the
@@ -1714,7 +1714,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // slot). A base target (expected UID 0) skips this entirely.
     $defUidExpected = intval(GetSWUVar('SWU_CURRENT_DEFENDER_UID', '0'));
     if ($defUidExpected > 0 && (
-            $target === null || !empty($target->removed)
+            SWUObjGone($target)
             || intval($target->UniqueID ?? 0) !== $defUidExpected)) {
         $tzone = explode('-', $targetMzID)[0];
         $found = null;
@@ -1799,7 +1799,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     }
     // LOF_090 Inquisitor's Lightsaber: attached unit gains "While attacking a Force unit, +2/+0."
     if (_SWUUnitHasUpgrade($attacker, 'LOF_090') && $target !== null && empty($target->removed)
-        && _SWUUnitHasTrait($target, 'Force')) $attackPower += 2;
+        && TraitContains($target, 'Force')) $attackPower += 2;
     // SOR_071 Electrostaff: "While attached unit is defending, the attacker gets -1/-0." If the
     // defender (host of this upgrade) is being attacked, reduce the attacker's power by 1.
     if ($target !== null && empty($target->removed) && _SWUUnitHasUpgrade($target, 'SOR_071')) {
@@ -2380,7 +2380,7 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
     $oppArena = GetZone($opArenaZone);
     for ($i = 0; $i < count($oppArena); $i++) {
         $u = $oppArena[$i];
-        if ($u === null || !empty($u->removed)) continue;
+        if (SWUObjGone($u)) continue;
         // SOR_142 Sabine Wren: "While there are at least 3 aspects among other friendly units, this
         // unit can't be attacked (unless she gains Sentinel)." Exclude her as a valid target — but if
         // she has Sentinel, the protection is off (she becomes a forced Sentinel target instead).
@@ -2413,7 +2413,7 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
         $groundArena = GetZone("{$tp}GroundArena");
         for ($i = 0; $i < count($groundArena); $i++) {
             $u = $groundArena[$i];
-            if ($u === null || !empty($u->removed)) continue;
+            if (SWUObjGone($u)) continue;
             $oppUnits[] = "{$tp}GroundArena-{$i}";
         }
     }
@@ -2423,7 +2423,7 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
         $groundArena = GetZone("{$tp}GroundArena");
         for ($i = 0; $i < count($groundArena); $i++) {
             $u = $groundArena[$i];
-            if ($u === null || !empty($u->removed)) continue;
+            if (SWUObjGone($u)) continue;
             $oppUnits[] = "{$tp}GroundArena-{$i}";
         }
     }
@@ -2433,7 +2433,7 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
         $spaceArena = GetZone("{$tp}SpaceArena");
         for ($i = 0; $i < count($spaceArena); $i++) {
             $u = $spaceArena[$i];
-            if ($u === null || !empty($u->removed)) continue;
+            if (SWUObjGone($u)) continue;
             $oppUnits[] = "{$tp}SpaceArena-{$i}";
         }
     }
@@ -2444,7 +2444,7 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
         $otherArena = GetZone($otherZone);
         for ($i = 0; $i < count($otherArena); $i++) {
             $u = $otherArena[$i];
-            if ($u === null || !empty($u->removed)) continue;
+            if (SWUObjGone($u)) continue;
             $oppUnits[] = "{$otherZone}-{$i}";
         }
     }
@@ -2464,7 +2464,7 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
         $oppBase = GetZone("{$tp}Base");
         for ($i = 0; $i < count($oppBase); $i++) {
             $b = $oppBase[$i];
-            if ($b === null || !empty($b->removed)) continue;
+            if (SWUObjGone($b)) continue;
             $oppUnits[] = "{$tp}Base-{$i}";
         }
     }
@@ -2506,7 +2506,7 @@ function _SWUUnitHardCantAttack($unit): bool {
 // the attacker glow matches what a click would actually permit. Caller must have global $playerID = $player
 // (SWUGetValidAttackTargets reads "their{arena}" relative to it).
 function _SWUUnitCanAttackNow(int $player, $unit, string $arenaName): bool {
-    if ($unit === null || !empty($unit->removed)) return false;
+    if (SWUObjGone($unit)) return false;
     if (intval($unit->Status ?? 0) !== 1) return false;                        // exhausted
     $cid = $unit->CardID ?? '';
     if ($cid === 'JTL_059' || $cid === 'LOF_044') return false;                // "This unit can't attack."
@@ -2525,7 +2525,7 @@ function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName
     $oppArena = GetZone($opArenaZone);
     for ($i = 0; $i < count($oppArena); $i++) {
         $u = $oppArena[$i];
-        if ($u === null || !empty($u->removed)) continue;
+        if (SWUObjGone($u)) continue;
         if (_SWUHiddenBlocksAttack($u)) continue; // Hidden — can't be attacked (incl. Ambush) the phase it was played
         if (_SWUUnitCantBeAttacked($u)) continue; // LOF_211/LOF_262 phase-duration "can't be attacked"
         if (_SWUSec012Protected($u) && !HasKeyword_Sentinel($u)) continue; // SEC_012 — damaged a base this phase
@@ -2773,7 +2773,7 @@ $customDQHandlers["TWI135_MODE"] = function($player, $parts, $lastDecision) {
     }
     // "Units": re-derive the legal unit targets (board unchanged since the mode prompt) and offer the pick.
     $attacker = GetZoneObject($attackerMzID);
-    if ($attacker === null || !empty($attacker->removed)) { $playerID = $savedPID; return; }
+    if (SWUObjGone($attacker)) { $playerID = $savedPID; return; }
     $valid = SWUGetAllValidAttackTargets(intval($player), $attacker, $attacker->Location, true); // noBases; union all opponents
     $legalUnits = array_values(array_filter($valid, fn($t) => strpos((string)$t, 'Base') === false));
     if (empty($legalUnits)) { $playerID = $savedPID; return; }
@@ -2814,7 +2814,7 @@ $customDQHandlers["TWI135_PICK"] = function($player, $parts, $lastDecision) {
 // Apply one instance of combat damage from $source to $target through the standard prevention/shield
 // chain (mirrors the "normal simultaneous" block of SWUCombatDamage). Returns the damage actually dealt.
 function _SWUMaulDealCombat($source, $target, string $mzID, int $amount, int $animPlayer): int {
-    if ($amount <= 0 || $target === null || !empty($target->removed)) return 0;
+    if ($amount <= 0 || SWUObjGone($target)) return 0;
     if ($source !== null && _SWUDamageUnpreventable($source)) {   // ASH_196 — bypass Shield + all prevention
         $target->Damage = intval($target->Damage) + $amount;
         SWUQueueDamageAnim($mzID, $amount, $animPlayer);
@@ -2877,15 +2877,15 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     $playerID = intval($player);
 
     $attacker = GetZoneObject($attackerMzID);
-    if ($attacker === null || !empty($attacker->removed)) {
+    if (SWUObjGone($attacker)) {
         $playerID = $savedPID;
         if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
         return;
     }
     $def1 = GetZoneObject($def1Mz);
     $def2 = GetZoneObject($def2Mz);
-    $d1Gone = ($def1 === null || !empty($def1->removed));
-    $d2Gone = ($def2 === null || !empty($def2->removed));
+    $d1Gone = (SWUObjGone($def1));
+    $d2Gone = (SWUObjGone($def2));
     // If a defender vanished before damage, degrade to a single attack on whichever remains.
     if ($d1Gone && !$d2Gone) { $playerID = $savedPID; ExecuteSWUAttack($player, $attackerMzID, $def2Mz); return; }
     if ($d2Gone && !$d1Gone) { $playerID = $savedPID; ExecuteSWUAttack($player, $attackerMzID, $def1Mz); return; }
@@ -2962,7 +2962,7 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     $excessByOwner = [];
     foreach ([[$def1, $def1Mz, false], [$def2, $def2Mz, false], [$attacker, $attackerMzID, true]] as $ent) {
         [$o, $mz, $isAtk] = $ent;
-        if ($o === null || !empty($o->removed)) continue;
+        if (SWUObjGone($o)) continue;
         $hp = intval(ObjectCurrentHP($o)) - intval($o->Damage);
         if ($hp > 0 || SWUImmuneToHpDefeat($o)) continue;
         $rep = _SWUUnitDefeatReplacement($o);
@@ -3095,7 +3095,7 @@ function OnDefenseFromUpgradeTrigger(int $player, string $upgradeCardID, string 
 function SEC101PreventTrigger($player, $mzID): void {
     global $playerID; $playerID = intval($player);
     $u = GetZoneObject($mzID);
-    if ($u === null || !empty($u->removed) || ($u->CardID ?? '') !== 'SEC_101') return;
+    if (SWUObjGone($u) || ($u->CardID ?? '') !== 'SEC_101') return;
     $tg = _SWUAmidalaPreventTargets($u);
     if (empty($tg)) return;
     $uid = intval($u->UniqueID ?? 0);
@@ -3112,7 +3112,7 @@ function SEC101PreventTrigger($player, $mzID): void {
 function Ash062PreventTrigger($player, $mzID): void {
     global $playerID; $playerID = intval($player);
     $u = GetZoneObject($mzID);
-    if ($u === null || !empty($u->removed)) return;
+    if (SWUObjGone($u)) return;
     if (_SWUAsh062Provider($u) === null) return;
     $uid = intval($u->UniqueID ?? 0);
     DecisionQueueController::AddDecision(intval($player), 'YESNO', '-', 1,

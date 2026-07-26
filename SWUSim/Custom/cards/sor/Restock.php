@@ -1,0 +1,44 @@
+<?php
+// SOR_252
+// Cost 1 - Restock
+// Text: Choose up to 4 cards in a discard pile. Put them on the bottom of their owner's deck in a random order.
+
+// SOR_252 Restock — move the chosen discard cards to the bottom of their owner's deck (random order).
+$customDQHandlers["SOR_252#0"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision === null || $lastDecision === '' || $lastDecision === '-' || $lastDecision === 'PASS') return;
+    global $playerID;
+    $playerID = intval($player);
+    $byOwner = [1 => [], 2 => []];
+    foreach (explode("&", $lastDecision) as $mz) {
+        if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
+        $o = GetZoneObject($mz);
+        if (SWUObjGone($o)) continue;
+        $owner = (strpos($mz, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+        $byOwner[$owner][] = $o->CardID;
+        $o->removed = true;
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    foreach ($byOwner as $owner => $ids) {
+        if (!empty($ids)) _topDeckPutRemainingToBottom($owner, $ids);   // shuffles → bottom of deck
+    }
+};
+
+// When Played (event) — migrated from OnPlayEvent.
+$whenPlayedAbilities["SOR_252:0"] = function($player, $mzID = '') {
+// Restock — choose up to 4 cards in a discard pile; bottom of owner's deck (random).
+            global $playerID;
+            $playerID = intval($player);
+            $cards = [];
+            $myD = GetDiscard($player);
+            for ($i = 0; $i < count($myD); $i++) {
+                if ($myD[$i] !== null && empty($myD[$i]->removed)) $cards[] = "myDiscard-{$i}";
+            }
+            $thD = GetDiscard(GetOpponent($player));
+            for ($i = 0; $i < count($thD); $i++) {
+                if ($thD[$i] !== null && empty($thD[$i]->removed)) $cards[] = "theirDiscard-{$i}";
+            }
+            if (empty($cards)) return;
+            DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|4|" . implode("&", $cards), 1, "Choose_up_to_4_cards_for_deck_bottom");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_252#0", 1);
+            return;
+};

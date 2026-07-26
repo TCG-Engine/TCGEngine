@@ -151,9 +151,11 @@
       }
     },
     remove: function (deckID) {
-      if (!window.confirm("Are you sure you want to delete this deck?")) return;
-      request("/TCGEngine/AccountFiles/DeleteAsset.php?assetID=" + encodeURIComponent(deckID) + "&assetType=1", function () {
-        window.location.reload();
+      StyledConfirm("Are you sure you want to delete this deck?", { title: 'Delete deck', danger: true, confirmLabel: 'Delete' }).then(function (ok) {
+        if (!ok) return;
+        request("/TCGEngine/AccountFiles/DeleteAsset.php?assetID=" + encodeURIComponent(deckID) + "&assetType=1", function () {
+          window.location.reload();
+        });
       });
     }
   };

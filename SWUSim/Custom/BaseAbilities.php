@@ -17,13 +17,8 @@ $baseEpicResourceCosts = [
 global $baseActionNumUses;
 $baseActionNumUses = [];
 
-// LOF_022 Mystic Monastery — "Action: The Force is with you (create your Force token). Use this ability
-// no more than 3 times each game." Repeatable base Action (no Epic Action / EpicActionUsed).
-$baseAbilities["LOF_022"] = function($player) {
-    TheForceIsWithYou($player);
-    SWUAfterAction($player);
-};
-$baseActionNumUses["LOF_022"] = 3;
+
+
 
 // Repeatable base Actions whose only limit is paying a card-cost (not a per-game NumUses budget and not
 // the once-per-game Epic Action). SWUBaseAction runs these every time without touching EpicActionUsed;
@@ -31,96 +26,16 @@ $baseActionNumUses["LOF_022"] = 3;
 global $baseActionRepeatable;
 $baseActionRepeatable = [];
 
-// LOF_028 Tomb of Eilram — "Action [exhaust a friendly unit]: The Force is with you (create your Force
-// token)." Repeatable; the cost is exhausting one ready friendly unit (any arena, incl. a deployed
-// leader unit). With no ready friendly unit the action is unavailable.
-$baseActionRepeatable["LOF_028"] = true;
-$baseAbilities["LOF_028"] = function($player) {
-    $targets = [];
-    foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o === null || !empty($o->removed)) continue;
-        if (intval($o->Status ?? 0) === 1) $targets[] = $mz; // ready only — can't exhaust an exhausted unit
-    }
-    if (empty($targets)) { SWUAfterAction($player); return; }
-    $targetStr = implode("&", $targets);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Exhaust_a_friendly_unit");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_028#0", 1);
-};
 
-// SOR_022 Energy Conversion Lab — Epic Action: Play a unit costing ≤6 from hand; give it AMBUSH.
-// Eligibility uses printed cost (no modifiers per official ruling). Payment is normal (printed + aspect penalty).
-// AMBUSH is injected via $gPendingEntryEffects keyed by UniqueID before ActivateCard checks keywords.
-$baseAbilities["SOR_022"] = function($player) {
-    global $playerID;
-    $savedPID = $playerID;
-    $playerID = $player;
-    $handUnits = ZoneSearch("myHand", ["Unit"]);
-    $eligible  = array_values(array_filter($handUnits, function($mzID) {
-        $obj = GetZoneObject($mzID);
-        return $obj !== null && intval(CardCost($obj->CardID)) <= 6;
-    }));
-    $playerID = $savedPID;
-    if (empty($eligible)) { SWUAfterAction($player); return; }
-    $targetStr = implode("&", $eligible);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Choose_a_unit_costing_6_or_less");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_022#0", 1);
-};
 
-// SOR_019 Security Complex — Epic Action: Give a Shield token to a non-leader unit.
-// ZoneSearch with type ["Unit"] already excludes deployed leaders (CardType="Leader").
-// SOR_028 Jedha City — Epic Action: Give a non-leader unit -4/-0 for this phase.
-$baseAbilities["SOR_028"] = function($player) {
-    global $playerID;
-    $savedPID = $playerID;
-    $playerID = $player;
-    $targets = array_merge(
-        ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-        ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-        ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-        ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-    );
-    $playerID = $savedPID;
-    if (empty($targets)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget(intval($player), $targets, "Give_a_non-leader_unit_-4/-0_for_this_phase", "APPLY_PHASE_DEBUFF|4|0|SOR_028");
-    SWUQueueAfterAction($player);
-};
 
-// SOR_025 Tarkintown — Epic Action: Deal 3 damage to a damaged non-leader unit.
-// ["Unit","Token Unit"] excludes deployed leaders; filter to Damage > 0.
-$baseAbilities["SOR_025"] = function($player) {
-    global $playerID;
-    $savedPID = $playerID;
-    $playerID = $player;
-    $targets = [];
-    foreach (array_merge(
-        ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-        ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-        ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-        ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-    ) as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o === null || !empty($o->removed)) continue;
-        if (intval($o->Damage ?? 0) > 0) $targets[] = $mz;
-    }
-    $playerID = $savedPID;
-    if (empty($targets)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_3_to_a_damaged_non-leader_unit", "DEAL_UNIT_DAMAGE|3");
-    SWUQueueAfterAction($player);
-};
 
-$baseAbilities["SOR_019"] = function($player) {
-    $targets = array_merge(
-        ZoneSearch("myGroundArena", ["Unit"]),
-        ZoneSearch("theirGroundArena", ["Unit"]),
-        ZoneSearch("mySpaceArena", ["Unit"]),
-        ZoneSearch("theirSpaceArena", ["Unit"])
-    );
-    if (empty($targets)) { SWUAfterAction($player); return; }
-    $targetStr = implode("&", $targets);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Choose_a_non-leader_unit_to_shield");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_019#0", 1);
-};
+
+
+
+
+
+
 
 // ── LAW common bases (Vigilance 020/021, Command 022/024, Aggression 025/027, Cunning 028/030) ──
 // Epic Action: "Play a card from your hand, ignoring 1 of its Vigilance, Command, Aggression, or
@@ -134,7 +49,7 @@ $lawCommonBaseEpic = function($player) {
     $targets = [];
     for ($i = 0; $i < count($hand); $i++) {
         $c = $hand[$i];
-        if ($c === null || !empty($c->removed)) continue;
+        if (SWUObjGone($c)) continue;
         $cid = $c->CardID;
         if (_SWUCantPlayFromHand($cid)) continue;            // SEC_053-style "can't be played from hand"
         $discount = min(_SWUCommonBaseWaivePenalty($player, $cid), SWUAspectPenalty($player, $cid));
@@ -168,142 +83,25 @@ $baseAbilities["LAW_019"] = function($player) {
     SWUQueueChooseTarget(intval($player), $tokens, "Defeat_a_friendly_token_(cost)", "LAW_019#0");
 };
 
-// LAW_023 Great Pit of Carkoon — Epic Action [discard a unit from your hand]: Search your deck for a
-// card named The Sarlacc of Carkoon (LAW_163), reveal it, and draw it.
-$baseAbilities["LAW_023"] = function($player) {
-    global $playerID; $playerID = intval($player);
-    $handUnits = array_values(ZoneSearch("myHand", ["Unit"]));
-    if (empty($handUnits)) { SWUAfterAction($player); return; }   // can't pay the cost
-    SWUQueueChooseTarget(intval($player), $handUnits, "Discard_a_unit_from_your_hand_(cost)", "LAW_023#0");
-};
 
-// LAW_026 Shipbreaking Yard — Epic Action: Discard 3 cards from your deck. You may return a card
-// discarded this way to the top of your deck.
-$baseAbilities["LAW_026"] = function($player) {
-    global $playerID; $playerID = intval($player);
-    $milledMz = [];
-    for ($i = 0; $i < 3; $i++) {
-        $c = SWUMillTopCard(intval($player));
-        if ($c === null) break;
-        $disc = array_values(ZoneSearch("myDiscard"));
-        if (!empty($disc)) $milledMz[] = end($disc);  // the just-milled card is the newest discard entry
-    }
-    if (empty($milledMz)) { SWUAfterAction($player); return; }
-    SWUQueueMayChooseTarget(intval($player), $milledMz, "Return_a_discarded_card_to_the_top_of_your_deck?", "Choose_a_card", "LAW_026#0");
-    SWUQueueAfterAction($player);
-};
 
-// LAW_029 Citadel Research Center — Epic Action [1 resource]: Return a friendly resource to its owner's
-// hand. If you do, resource the top card of your deck.
-$baseAbilities["LAW_029"] = function($player) {
-    global $playerID; $playerID = intval($player);
-    if (SWUResourceCount(intval($player), readyOnly: true) < 1) { SWUAfterAction($player); return; }
-    if (!SWUExhaustResources(intval($player), 1)) { SWUAfterAction($player); return; }   // pay [1 resource]
-    $res = &GetResources(intval($player));
-    $targets = [];
-    for ($i = 0, $idx = 0; $i < count($res); $i++) {
-        if (isset($res[$i]->removed) && $res[$i]->removed) continue;
-        $targets[] = "myResources-{$idx}"; $idx++;
-    }
-    if (empty($targets)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget(intval($player), $targets, "Return_a_friendly_resource_to_its_owner's_hand", "LAW_029#0");
-    SWUQueueAfterAction($player);
-};
+
+
+
 
 // ── TS26 bases — Epic Actions that scale with friendly leader units ──────────────
 global $customDQHandlers;
 
-// TS26_09 First Battle Memorial — Epic Action: for each friendly leader unit, give an Experience token
-// to a unit. (Loops one "give Experience to a unit" pick per leader unit.)
-function _SWUTs26009Give(int $player, int $remaining): void {
-    global $playerID; $playerID = intval($player);
-    if ($remaining <= 0) { SWUAfterAction($player); return; }
-    $tg = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-    );
-    if (empty($tg)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget($player, $tg, "Give_an_Experience_token_to_a_unit", "TS26_09#0|{$remaining}");
-}
-$baseAbilities["TS26_09"] = function($player) {
-    global $playerID; $playerID = intval($player);
-    $n = 0;
-    foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
-    _SWUTs26009Give(intval($player), $n);
-};
-$customDQHandlers["TS26_09#0"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
-    $remaining = intval($parts[0] ?? 0);
-    if ($lastDecision && str_contains($lastDecision, '-')) DoGiveExperienceToken(intval($player), $lastDecision);
-    _SWUTs26009Give(intval($player), $remaining - 1);
-};
 
-// TS26_11 Executioner's Arena — Epic Action: for each friendly leader unit, you may deal 2 damage to a
-// unit. (Loops one "may deal 2 to a unit" pick per leader unit.)
-function _SWUTs26011Deal(int $player, int $remaining): void {
-    global $playerID; $playerID = intval($player);
-    if ($remaining <= 0) { SWUAfterAction($player); return; }
-    $tg = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-    );
-    if (empty($tg)) { SWUAfterAction($player); return; }
-    SWUQueueMayChooseTarget($player, $tg, "Deal_2_damage_to_a_unit?", "Choose_a_unit", "TS26_11#0|{$remaining}");
-}
-$baseAbilities["TS26_11"] = function($player) {
-    global $playerID; $playerID = intval($player);
-    $n = 0;
-    foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
-    _SWUTs26011Deal(intval($player), $n);
-};
-$customDQHandlers["TS26_11#0"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
-    $remaining = intval($parts[0] ?? 0);
-    if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS' && str_contains($lastDecision, '-')) {
-        SWUDealDamageToUnit($lastDecision, 2, intval($player));
-    }
-    _SWUTs26011Deal(intval($player), $remaining - 1);
-};
 
-// TS26_10 Dooku's Palace — Epic Action: play a unit from your hand; it costs 1 less per friendly leader
-// unit. (DISCOUNT_PLAY_FROM_HAND|N owns the after-action.)
-$baseAbilities["TS26_10"] = function($player) {
-    global $playerID; $savedPID = $playerID; $playerID = intval($player);
-    $n = 0;
-    foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
-    $ready = SWUResourceCount(intval($player), true);
-    $eligible = [];
-    foreach (ZoneSearch("myHand", ["Unit"]) as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && max(0, SWUComputePlayCost(intval($player), $o) - $n) <= $ready) $eligible[] = $mz;
-    }
-    $playerID = $savedPID;
-    if (empty($eligible)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget(intval($player), $eligible, "Play_a_unit_from_hand_(-1_per_friendly_leader_unit)", "DISCOUNT_PLAY_FROM_HAND|{$n}");
-};
 
-// TS26_12 Sundari Palace — Epic Action: for each friendly leader unit, you may resource a card from your
-// hand and ready it; if you do, defeat that many friendly resources at the start of the regroup phase.
-function _SWUTs26012Offer(int $player, int $remaining): void {
-    global $playerID; $playerID = intval($player);
-    if ($remaining <= 0) { SWUAfterAction($player); return; }
-    $hand = ZoneSearch("myHand");
-    if (empty($hand)) { SWUAfterAction($player); return; }
-    SWUQueueMayChooseTarget($player, $hand, "Resource_a_card_from_hand_and_ready_it?", "Choose_a_card", "TS26_12#0|{$remaining}");
-}
-$baseAbilities["TS26_12"] = function($player) {
-    global $playerID; $playerID = intval($player);
-    $n = 0;
-    foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
-    _SWUTs26012Offer(intval($player), $n);
-};
-$customDQHandlers["TS26_12#0"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
-    $remaining = intval($parts[0] ?? 0);
-    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS' || !str_contains($lastDecision, '-')) {
-        SWUAfterAction(intval($player)); return;   // declined → stop the loop
-    }
-    SWURampResourceReady(intval($player), $lastDecision);              // hand card → resource, READY
-    AddGlobalEffects(intval($player), 'SWU_SUNDARI_DEFEAT');           // defeat 1 friendly resource at regroup
-    _SWUTs26012Offer(intval($player), $remaining - 1);
-};
+
+
+
+
+
+
+
+
+
+

@@ -87,13 +87,13 @@ class UnitAccessor {
         return (bool)$v;
     }
 
-    // Object-aware trait check (dispatches to _SWUUnitHasTrait so granted traits — e.g. the
+    // Object-aware trait check (dispatches to TraitContains so granted traits — e.g. the
     // Clone trait a TWI_116 copy gains via its IsClone flag — are honored, not just printed traits).
     public function hasTrait(string $trait): bool {
         global $playerID;
         $saved = $playerID;
         $playerID = intval($this->obj->PlayerID);
-        $v = _SWUUnitHasTrait($this->obj, $trait);
+        $v = TraitContains($this->obj, $trait);
         $playerID = $saved;
         return (bool)$v;
     }

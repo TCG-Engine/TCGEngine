@@ -101,7 +101,7 @@ function LostAbilities($obj): bool {
 function _SWUCheckDefeatAfterAbilityLoss(string $mzID): void {
     global $playerID;
     $o = GetZoneObject($mzID);
-    if ($o === null || !empty($o->removed)) return;
+    if (SWUObjGone($o)) return;
     $hp = ObjectCurrentHP($o);
     if ($hp > 0 && intval($o->Damage ?? 0) >= $hp && !SWUImmuneToHpDefeat($o)) {
         // $mzID is in the CURRENT perspective ($playerID) — defeat under that same perspective so the
@@ -979,7 +979,7 @@ function GetConditionalKeyword_Raid_Value($obj) {
     if (($obj->CardID ?? '') === 'ASH_105') {
         $selfUid105 = intval($obj->UniqueID ?? 0);
         foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
-            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid105 && _SWUUnitHasTrait($u, 'Mandalorian')) { $amount += 2; break; }
+            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid105 && TraitContains($u, 'Mandalorian')) { $amount += 2; break; }
         }
     }
     if (_SWUSEC104AuraActive($obj)) $amount += 1;   // SEC_104 aura — Raid 1
@@ -1164,14 +1164,14 @@ function GetConditionalKeyword_Restore_Value($obj) {
                 $amount += 1;
                 break;
             case 'TS26_40': // Obi-Wan Kenobi — other friendly Republic units gain Restore 1
-                if (_SWUUnitHasTrait($obj, 'Republic')) $amount += 1;
+                if (TraitContains($obj, 'Republic')) $amount += 1;
                 break;
         }
     }
     foreach (GetUpgradesOnUnit($obj) as $u) {
         switch ($u->CardID) {
             case 'LOF_053': // Heirloom Lightsaber — "If attached unit is a Force unit, it gains Restore 1."
-                if (_SWUUnitHasTrait($obj, 'Force')) $amount += 1;
+                if (TraitContains($obj, 'Force')) $amount += 1;
                 break;
             case 'SOR_070': // Devotion — +2 Restore
                 $amount += 2;
