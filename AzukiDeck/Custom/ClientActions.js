@@ -60,7 +60,7 @@ function AzukiCardPlayWinRateTurnGraph(cardID) {
   return {
     value: typeof row.playWinRate === 'number' ? row.playWinRate : -1,
     deltaSeries: deltaSeries,
-    graphTitle: 'Play WR difference vs overall'
+    graphTitle: ''
   };
 }
 

@@ -344,7 +344,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             if (heatmapDeltaSeries !== null && heatmapDeltaSeries.some(function(point) {
               return point && point.value !== null && point.value !== "" && Number.isFinite(Number(point.value));
             })) {
-              rv += RenderHeatmapDeltaGraph(heatmapDeltaSeries, heatmapGraphTitle || "Difference vs overall");
+              rv += RenderHeatmapDeltaGraph(heatmapDeltaSeries, heatmapGraphTitle);
             } else {
             var overlayColor = "rgba(0, 0, 0, .7)"; // Initialize to gray color
             if (heatmapColorMap == "HigherIsBetter") {
