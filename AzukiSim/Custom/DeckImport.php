@@ -282,6 +282,7 @@ function AzukiResolveImportedCardID($card) {
 
     if (!is_array($card)) return '';
 
+    $importType = strtolower(trim((string)($card['card_type'] ?? '')));
     $imageUrl = trim((string)($card['image_url'] ?? ''));
     if ($imageUrl !== '') {
         $path = parse_url($imageUrl, PHP_URL_PATH);
@@ -289,12 +290,29 @@ function AzukiResolveImportedCardID($card) {
         if ($basename !== '' && isset($idData[$basename])) {
             return AzukiCanonicalImportedCardID($basename);
         }
+
+        // The Gate may point at alternate-art image filenames whose collector
+        // number is stable but whose print suffix is not present in our card data
+        // (for example S1-STT04-001AC instead of S1-STT04-001).
+        $collectorNumber = AzukiExtractImportedCollectorNumber($basename);
+        if ($collectorNumber !== '') {
+            $collectorMatches = AzukiFindLocalCardIDsByCollectorNumber($collectorNumber);
+            if ($importType !== '') {
+                foreach ($collectorMatches as $candidateCardID) {
+                    if (strtolower((string)(CardCategory($candidateCardID) ?? '')) === $importType) {
+                        return $candidateCardID;
+                    }
+                }
+            }
+            if (!empty($collectorMatches)) {
+                return $collectorMatches[0];
+            }
+        }
     }
 
     $cardName = trim((string)($card['name'] ?? ''));
     if ($cardName === '') return '';
 
-    $importType = strtolower(trim((string)($card['card_type'] ?? '')));
     $normalizedName = AzukiNormalizeImportedCardName($cardName);
     $matches = AzukiFindLocalCardIDsByName($normalizedName);
     if (empty($matches)) return '';
@@ -309,6 +327,43 @@ function AzukiResolveImportedCardID($card) {
     }
 
     return AzukiCanonicalImportedCardID($matches[0]);
+}
+
+function AzukiExtractImportedCollectorNumber($cardID) {
+    $cardID = trim((string)$cardID);
+    if ($cardID === '') return '';
+
+    if (!preg_match('/^((?:S\d+-)?[A-Z0-9]+-\d{3})[A-Z0-9]*(?:_|$)/i', $cardID, $matches)) {
+        return '';
+    }
+
+    return strtoupper($matches[1]);
+}
+
+function AzukiFindLocalCardIDsByCollectorNumber($collectorNumber) {
+    global $idData;
+    static $index = null;
+
+    if ($index === null) {
+        $index = [];
+        if (is_array($idData)) {
+            foreach (array_keys($idData) as $cardID) {
+                $key = AzukiExtractImportedCollectorNumber($cardID);
+                if ($key === '') continue;
+
+                $canonicalCardID = AzukiCanonicalImportedCardID($cardID);
+                if (!isset($index[$key])) {
+                    $index[$key] = [];
+                }
+                if (!in_array($canonicalCardID, $index[$key], true)) {
+                    $index[$key][] = $canonicalCardID;
+                }
+            }
+        }
+    }
+
+    $collectorNumber = strtoupper(trim((string)$collectorNumber));
+    return $index[$collectorNumber] ?? [];
 }
 
 function AzukiNormalizeImportedCardName($cardName) {
