@@ -1,7 +1,7 @@
 # Stats database migrations
 
 Migrations 01–03 apply to the **SWUStats stats database** (local docker DB: `swudeck`; prod: the
-SWUStats DB). Migrations 04–05 apply to the application database shared by AzukiSim and AzukiDeck.
+SWUStats DB). Migrations 04–06 apply to the application database shared by AzukiSim and AzukiDeck.
 They are **not** needed for a fresh install — `Database/database.sql` already contains the final
 definitions.
 
@@ -19,10 +19,11 @@ Apply in numeric order:
 | 03 | `03_metastats_format.sql` | `deckmetastats`, `cardmetastats`, `deckmetamatchupstats` (PK) | Phase 3 |
 | 04 | `04_azuki_deck_card_stats.sql` | Creates isolated `azukicarddeckstats` | AzukiSim/AzukiDeck bridge |
 | 05 | `05_azuki_card_event_stats.sql` | Adds draw, attack, and attack-target counters | Azuki card analytics |
+| 06 | `06_azuki_card_play_turn_stats.sql` | Adds play/win counters for full-turn cycles 1-9 and 10+ | Azuki turn analytics |
 
 The first three are **independent** of each other (disjoint tables) — the numbering is the phase order they
 were designed and tested in, and is a safe, canonical sequence. There is no cross-file dependency.
-Migrations 04–05 create and extend the independent Azuki card-stat aggregation table. They do not
+Migrations 04–06 create and extend the independent Azuki card-stat aggregation table. They do not
 alter the SWU stats tables.
 
 ## Notes

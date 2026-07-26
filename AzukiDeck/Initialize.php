@@ -41,6 +41,20 @@ function AzukiDeckCardStat(cardID, property) {
 function AzukiCardPlayWinRate(cardID) {
   return AzukiDeckCardStat(cardID, 'playWinRate');
 }
+function AzukiCardTurnStat(cardID, property) {
+  var row = window.AzukiDeckCardStats && window.AzukiDeckCardStats[cardID];
+  var values = row && row[property];
+  return values && typeof values === 'object' ? values : {};
+}
+function AzukiCardPlayWinRateByTurn(cardID) {
+  return AzukiCardTurnStat(cardID, 'playWinRateByTurn');
+}
+function AzukiCardPlayWinRateDeltaByTurn(cardID) {
+  return AzukiCardTurnStat(cardID, 'playWinRateDeltaByTurn');
+}
+function AzukiCardPlaysByTurn(cardID) {
+  return AzukiCardTurnStat(cardID, 'playsByTurn');
+}
 function AzukiCardInclusionWinRate(cardID) {
   return AzukiDeckCardStat(cardID, 'inclusionWinRate');
 }
@@ -54,6 +68,9 @@ function AzukiCardAttackedFrequency(cardID) {
   return AzukiDeckCardStat(cardID, 'attackedFrequency');
 }
 window.AzukiCardPlayWinRate = AzukiCardPlayWinRate;
+window.AzukiCardPlayWinRateByTurn = AzukiCardPlayWinRateByTurn;
+window.AzukiCardPlayWinRateDeltaByTurn = AzukiCardPlayWinRateDeltaByTurn;
+window.AzukiCardPlaysByTurn = AzukiCardPlaysByTurn;
 window.AzukiCardInclusionWinRate = AzukiCardInclusionWinRate;
 window.AzukiCardPlayFrequency = AzukiCardPlayFrequency;
 window.AzukiCardAttackFrequency = AzukiCardAttackFrequency;

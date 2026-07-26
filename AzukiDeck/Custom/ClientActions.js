@@ -36,6 +36,36 @@ function InLegalFilter(cardID) {
 
 window.InLegalFilter = InLegalFilter;
 
+function AzukiCardPlayWinRateTurnGraph(cardID) {
+  var row = window.AzukiDeckCardStats && window.AzukiDeckCardStats[cardID];
+  if (!row || !row.playWinRateDeltaByTurn || !row.playsByTurn) return -1;
+
+  var labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10+'];
+  var hasData = false;
+  var deltaSeries = labels.map(function(label) {
+    var rawDelta = row.playWinRateDeltaByTurn[label];
+    var sampleSize = Number(row.playsByTurn[label]) || 0;
+    var value = typeof rawDelta === 'number' && rawDelta >= -1 && sampleSize > 0
+      ? rawDelta
+      : null;
+    if (value !== null) hasData = true;
+    return {
+      label: label,
+      value: value,
+      sampleSize: sampleSize
+    };
+  });
+  if (!hasData) return -1;
+
+  return {
+    value: typeof row.playWinRate === 'number' ? row.playWinRate : -1,
+    deltaSeries: deltaSeries,
+    graphTitle: 'Play WR difference vs overall'
+  };
+}
+
+window.AzukiCardPlayWinRateTurnGraph = AzukiCardPlayWinRateTurnGraph;
+
 function AzukiDeckMainDeckCardIDs() {
   if (!window.myMainDeckData) return [];
   return String(window.myMainDeckData)

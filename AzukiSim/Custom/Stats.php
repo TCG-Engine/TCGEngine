@@ -20,6 +20,26 @@ function AzukiStatsEnsureSchema($conn) {
         timesAttacksInWins int(11) NOT NULL DEFAULT 0,
         timesTargetedByAttacks int(11) NOT NULL DEFAULT 0,
         timesTargetedByAttacksInWins int(11) NOT NULL DEFAULT 0,
+        t1TimesPlayed int(11) NOT NULL DEFAULT 0,
+        t1TimesPlayedInWins int(11) NOT NULL DEFAULT 0,
+        t2TimesPlayed int(11) NOT NULL DEFAULT 0,
+        t2TimesPlayedInWins int(11) NOT NULL DEFAULT 0,
+        t3TimesPlayed int(11) NOT NULL DEFAULT 0,
+        t3TimesPlayedInWins int(11) NOT NULL DEFAULT 0,
+        t4TimesPlayed int(11) NOT NULL DEFAULT 0,
+        t4TimesPlayedInWins int(11) NOT NULL DEFAULT 0,
+        t5TimesPlayed int(11) NOT NULL DEFAULT 0,
+        t5TimesPlayedInWins int(11) NOT NULL DEFAULT 0,
+        t6TimesPlayed int(11) NOT NULL DEFAULT 0,
+        t6TimesPlayedInWins int(11) NOT NULL DEFAULT 0,
+        t7TimesPlayed int(11) NOT NULL DEFAULT 0,
+        t7TimesPlayedInWins int(11) NOT NULL DEFAULT 0,
+        t8TimesPlayed int(11) NOT NULL DEFAULT 0,
+        t8TimesPlayedInWins int(11) NOT NULL DEFAULT 0,
+        t9TimesPlayed int(11) NOT NULL DEFAULT 0,
+        t9TimesPlayedInWins int(11) NOT NULL DEFAULT 0,
+        t10PlusTimesPlayed int(11) NOT NULL DEFAULT 0,
+        t10PlusTimesPlayedInWins int(11) NOT NULL DEFAULT 0,
         PRIMARY KEY (deckID, cardID)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
 
@@ -73,6 +93,45 @@ function AzukiStatsTrackGameCardEvent($bucketName, $player, $cardID, $amount = 1
     }
 }
 
+function AzukiStatsTurnCycleBucket($rawTurnNumber) {
+    // TurnNumber advances after each individual player's turn. Pair 1/2 into
+    // cycle 1, 3/4 into cycle 2, and cap the final analytics bucket at 10+.
+    $rawTurnNumber = max(1, intval($rawTurnNumber));
+    return min(10, intdiv($rawTurnNumber + 1, 2));
+}
+
+function AzukiStatsTrackPlay($player, $cardID, $amount = 1) {
+    $player = intval($player);
+    $cardID = trim((string)$cardID);
+    $amount = max(0, intval($amount));
+    if(($player !== 1 && $player !== 2) || $cardID === '' || $amount <= 0) return;
+    if(!function_exists('GetMacroGameIndexArray') || !function_exists('SetMacroGameIndex')) return;
+
+    $turnNumber = function_exists('GetTurnNumber') ? GetTurnNumber() : 1;
+    $turnBucket = AzukiStatsTurnCycleBucket($turnNumber);
+    $index = GetMacroGameIndexArray();
+
+    if(!isset($index['AzukiPlays']) || !is_array($index['AzukiPlays'])) $index['AzukiPlays'] = [];
+    if(!isset($index['AzukiPlays'][$player]) || !is_array($index['AzukiPlays'][$player])) {
+        $index['AzukiPlays'][$player] = [];
+    }
+    $index['AzukiPlays'][$player][$cardID] = intval($index['AzukiPlays'][$player][$cardID] ?? 0) + $amount;
+
+    if(!isset($index['AzukiPlaysByTurn']) || !is_array($index['AzukiPlaysByTurn'])) {
+        $index['AzukiPlaysByTurn'] = [];
+    }
+    if(!isset($index['AzukiPlaysByTurn'][$player]) || !is_array($index['AzukiPlaysByTurn'][$player])) {
+        $index['AzukiPlaysByTurn'][$player] = [];
+    }
+    if(!isset($index['AzukiPlaysByTurn'][$player][$turnBucket]) || !is_array($index['AzukiPlaysByTurn'][$player][$turnBucket])) {
+        $index['AzukiPlaysByTurn'][$player][$turnBucket] = [];
+    }
+    $index['AzukiPlaysByTurn'][$player][$turnBucket][$cardID] =
+        intval($index['AzukiPlaysByTurn'][$player][$turnBucket][$cardID] ?? 0) + $amount;
+
+    SetMacroGameIndex(json_encode($index));
+}
+
 function AzukiStatsGameCardCounts($bucketName, $player) {
     $index = function_exists('GetMacroGameIndexArray') ? GetMacroGameIndexArray() : [];
     $bucket = $index[$bucketName][intval($player)] ?? $index[$bucketName][strval(intval($player))] ?? [];
@@ -87,12 +146,36 @@ function AzukiStatsGameCardCounts($bucketName, $player) {
     return $counts;
 }
 
-function AzukiStatsRecordDeck($conn, $deckID, $includedCards, $playedCards, $drawnCards, $attackCards, $targetedCards, $won) {
+function AzukiStatsGameCardTurnCounts($player) {
+    $index = function_exists('GetMacroGameIndexArray') ? GetMacroGameIndexArray() : [];
+    $player = intval($player);
+    $buckets = $index['AzukiPlaysByTurn'][$player] ?? $index['AzukiPlaysByTurn'][strval($player)] ?? [];
+    $counts = [];
+    for($turn = 1; $turn <= 10; ++$turn) {
+        $counts[$turn] = [];
+        $bucket = $buckets[$turn] ?? $buckets[strval($turn)] ?? [];
+        if(!is_array($bucket)) continue;
+        foreach($bucket as $cardID => $amount) {
+            $cardID = trim((string)$cardID);
+            $amount = max(0, intval($amount));
+            if($cardID !== '' && $amount > 0) $counts[$turn][$cardID] = $amount;
+        }
+    }
+    return $counts;
+}
+
+function AzukiStatsRecordDeck($conn, $deckID, $includedCards, $playedCards, $playedCardsByTurn, $drawnCards, $attackCards, $targetedCards, $won) {
     $sql = "INSERT INTO azukicarddeckstats
         (deckID, cardID, gamesIncluded, gamesIncludedInWins, copiesIncluded, copiesIncludedInWins,
          timesPlayed, timesPlayedInWins, timesDrawn, timesDrawnInWins, timesAttacks, timesAttacksInWins,
-         timesTargetedByAttacks, timesTargetedByAttacksInWins)
-        VALUES (?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         timesTargetedByAttacks, timesTargetedByAttacksInWins,
+         t1TimesPlayed, t1TimesPlayedInWins, t2TimesPlayed, t2TimesPlayedInWins,
+         t3TimesPlayed, t3TimesPlayedInWins, t4TimesPlayed, t4TimesPlayedInWins,
+         t5TimesPlayed, t5TimesPlayedInWins, t6TimesPlayed, t6TimesPlayedInWins,
+         t7TimesPlayed, t7TimesPlayedInWins, t8TimesPlayed, t8TimesPlayedInWins,
+         t9TimesPlayed, t9TimesPlayedInWins, t10PlusTimesPlayed, t10PlusTimesPlayedInWins)
+        VALUES (?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
           gamesIncluded = gamesIncluded + 1,
           gamesIncludedInWins = gamesIncludedInWins + VALUES(gamesIncludedInWins),
@@ -105,7 +188,27 @@ function AzukiStatsRecordDeck($conn, $deckID, $includedCards, $playedCards, $dra
           timesAttacks = timesAttacks + VALUES(timesAttacks),
           timesAttacksInWins = timesAttacksInWins + VALUES(timesAttacksInWins),
           timesTargetedByAttacks = timesTargetedByAttacks + VALUES(timesTargetedByAttacks),
-          timesTargetedByAttacksInWins = timesTargetedByAttacksInWins + VALUES(timesTargetedByAttacksInWins)";
+          timesTargetedByAttacksInWins = timesTargetedByAttacksInWins + VALUES(timesTargetedByAttacksInWins),
+          t1TimesPlayed = t1TimesPlayed + VALUES(t1TimesPlayed),
+          t1TimesPlayedInWins = t1TimesPlayedInWins + VALUES(t1TimesPlayedInWins),
+          t2TimesPlayed = t2TimesPlayed + VALUES(t2TimesPlayed),
+          t2TimesPlayedInWins = t2TimesPlayedInWins + VALUES(t2TimesPlayedInWins),
+          t3TimesPlayed = t3TimesPlayed + VALUES(t3TimesPlayed),
+          t3TimesPlayedInWins = t3TimesPlayedInWins + VALUES(t3TimesPlayedInWins),
+          t4TimesPlayed = t4TimesPlayed + VALUES(t4TimesPlayed),
+          t4TimesPlayedInWins = t4TimesPlayedInWins + VALUES(t4TimesPlayedInWins),
+          t5TimesPlayed = t5TimesPlayed + VALUES(t5TimesPlayed),
+          t5TimesPlayedInWins = t5TimesPlayedInWins + VALUES(t5TimesPlayedInWins),
+          t6TimesPlayed = t6TimesPlayed + VALUES(t6TimesPlayed),
+          t6TimesPlayedInWins = t6TimesPlayedInWins + VALUES(t6TimesPlayedInWins),
+          t7TimesPlayed = t7TimesPlayed + VALUES(t7TimesPlayed),
+          t7TimesPlayedInWins = t7TimesPlayedInWins + VALUES(t7TimesPlayedInWins),
+          t8TimesPlayed = t8TimesPlayed + VALUES(t8TimesPlayed),
+          t8TimesPlayedInWins = t8TimesPlayedInWins + VALUES(t8TimesPlayedInWins),
+          t9TimesPlayed = t9TimesPlayed + VALUES(t9TimesPlayed),
+          t9TimesPlayedInWins = t9TimesPlayedInWins + VALUES(t9TimesPlayedInWins),
+          t10PlusTimesPlayed = t10PlusTimesPlayed + VALUES(t10PlusTimesPlayed),
+          t10PlusTimesPlayedInWins = t10PlusTimesPlayedInWins + VALUES(t10PlusTimesPlayedInWins)";
     $stmt = $conn->prepare($sql);
     if(!$stmt) return false;
 
@@ -122,11 +225,22 @@ function AzukiStatsRecordDeck($conn, $deckID, $includedCards, $playedCards, $dra
         $drawnInWins = $won ? $drawn : 0;
         $attacksInWins = $won ? $attacks : 0;
         $targetedInWins = $won ? $targeted : 0;
+        $turnPlays = [];
+        $turnPlaysInWins = [];
+        for($turn = 1; $turn <= 10; ++$turn) {
+            $turnPlays[$turn] = max(0, intval($playedCardsByTurn[$turn][$cardID] ?? 0));
+            $turnPlaysInWins[$turn] = $won ? $turnPlays[$turn] : 0;
+        }
         $stmt->bind_param(
-            'isiiiiiiiiiii',
+            'isiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
             $deckID, $cardID, $winValue, $copies, $copiesInWins,
             $played, $playedInWins, $drawn, $drawnInWins,
-            $attacks, $attacksInWins, $targeted, $targetedInWins
+            $attacks, $attacksInWins, $targeted, $targetedInWins,
+            $turnPlays[1], $turnPlaysInWins[1], $turnPlays[2], $turnPlaysInWins[2],
+            $turnPlays[3], $turnPlaysInWins[3], $turnPlays[4], $turnPlaysInWins[4],
+            $turnPlays[5], $turnPlaysInWins[5], $turnPlays[6], $turnPlaysInWins[6],
+            $turnPlays[7], $turnPlaysInWins[7], $turnPlays[8], $turnPlaysInWins[8],
+            $turnPlays[9], $turnPlaysInWins[9], $turnPlays[10], $turnPlaysInWins[10]
         );
         if(!$stmt->execute()) $success = false;
     }
@@ -161,7 +275,8 @@ function AzukiRecordGameStats($winner) {
             $conn,
             $snapshot['deckID'],
             $snapshot['counts'],
-            AzukiStatsGameCardCounts('PlayCard', $player),
+            AzukiStatsGameCardCounts('AzukiPlays', $player),
+            AzukiStatsGameCardTurnCounts($player),
             AzukiStatsGameCardCounts('AzukiDrawn', $player),
             AzukiStatsGameCardCounts('AzukiAttacks', $player),
             AzukiStatsGameCardCounts('AzukiTargetedByAttacks', $player),
@@ -193,7 +308,13 @@ function AzukiLoadDeckCardStats($deckID) {
     }
 
     $stmt = $conn->prepare('SELECT cardID, gamesIncluded, gamesIncludedInWins, timesPlayed, timesPlayedInWins,
-        timesDrawn, timesAttacks, timesTargetedByAttacks FROM azukicarddeckstats WHERE deckID = ?');
+        timesDrawn, timesAttacks, timesTargetedByAttacks,
+        t1TimesPlayed, t1TimesPlayedInWins, t2TimesPlayed, t2TimesPlayedInWins,
+        t3TimesPlayed, t3TimesPlayedInWins, t4TimesPlayed, t4TimesPlayedInWins,
+        t5TimesPlayed, t5TimesPlayedInWins, t6TimesPlayed, t6TimesPlayedInWins,
+        t7TimesPlayed, t7TimesPlayedInWins, t8TimesPlayed, t8TimesPlayedInWins,
+        t9TimesPlayed, t9TimesPlayedInWins, t10PlusTimesPlayed, t10PlusTimesPlayedInWins
+        FROM azukicarddeckstats WHERE deckID = ?');
     if(!$stmt) {
         $conn->close();
         return [];
@@ -203,8 +324,29 @@ function AzukiLoadDeckCardStats($deckID) {
     $result = $stmt->get_result();
     $stats = [];
     while($row = $result->fetch_assoc()) {
+        $playWinRate = intval($row['timesPlayed']) > 0
+            ? round(intval($row['timesPlayedInWins']) / intval($row['timesPlayed']), 4)
+            : -1;
+        $playWinRateByTurn = [];
+        $playWinRateDeltaByTurn = [];
+        $playsByTurn = [];
+        for($turn = 1; $turn <= 10; ++$turn) {
+            $prefix = $turn === 10 ? 't10Plus' : 't' . $turn;
+            $label = $turn === 10 ? '10+' : strval($turn);
+            $plays = intval($row[$prefix . 'TimesPlayed']);
+            $wins = intval($row[$prefix . 'TimesPlayedInWins']);
+            $turnRate = $plays > 0 ? round($wins / $plays, 4) : -1;
+            $playsByTurn[$label] = $plays;
+            $playWinRateByTurn[$label] = $turnRate;
+            $playWinRateDeltaByTurn[$label] = $turnRate >= 0 && $playWinRate >= 0
+                ? round($turnRate - $playWinRate, 4)
+                : -1;
+        }
         $stats[$row['cardID']] = [
-            'playWinRate' => intval($row['timesPlayed']) > 0 ? round(intval($row['timesPlayedInWins']) / intval($row['timesPlayed']), 4) : -1,
+            'playWinRate' => $playWinRate,
+            'playWinRateByTurn' => $playWinRateByTurn,
+            'playWinRateDeltaByTurn' => $playWinRateDeltaByTurn,
+            'playsByTurn' => $playsByTurn,
             'inclusionWinRate' => intval($row['gamesIncluded']) > 0 ? round(intval($row['gamesIncludedInWins']) / intval($row['gamesIncluded']), 4) : -1,
             'playFrequency' => intval($row['timesDrawn']) > 0 ? round(intval($row['timesPlayed']) / intval($row['timesDrawn']), 4) : -1,
             'attackFrequency' => intval($row['timesDrawn']) > 0 ? round(intval($row['timesAttacks']) / intval($row['timesDrawn']), 4) : -1,

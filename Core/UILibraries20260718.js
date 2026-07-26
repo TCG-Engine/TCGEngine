@@ -332,11 +332,20 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             var heatmapValue = heatmapResult;
             var heatmapExplanation = "";
             var heatmapRequiredCardID = "";
+            var heatmapDeltaSeries = null;
+            var heatmapGraphTitle = "";
             if (heatmapResult != null && typeof heatmapResult === "object") {
               heatmapValue = heatmapResult.value;
               heatmapExplanation = typeof heatmapResult.explanation === "string" ? heatmapResult.explanation : "";
               heatmapRequiredCardID = typeof heatmapResult.requiredCardID === "string" ? heatmapResult.requiredCardID : "";
+              heatmapDeltaSeries = Array.isArray(heatmapResult.deltaSeries) ? heatmapResult.deltaSeries : null;
+              heatmapGraphTitle = typeof heatmapResult.graphTitle === "string" ? heatmapResult.graphTitle : "";
             }
+            if (heatmapDeltaSeries !== null && heatmapDeltaSeries.some(function(point) {
+              return point && point.value !== null && point.value !== "" && Number.isFinite(Number(point.value));
+            })) {
+              rv += RenderHeatmapDeltaGraph(heatmapDeltaSeries, heatmapGraphTitle || "Difference vs overall");
+            } else {
             var overlayColor = "rgba(0, 0, 0, .7)"; // Initialize to gray color
             if (heatmapColorMap == "HigherIsBetter") {
               overlayColor = heatmapValue == -1 ? "rgba(0, 0, 0, .7)" : getOverlayColorHigherIsBetter(heatmapValue);
@@ -368,6 +377,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
               rv += "<span tabindex='0' role='button' aria-label='Explain this heatmap calculation' data-heatmap-explanation='" + escapedHeatmapExplanation + "' data-required-card-id='" + escapedRequiredCardID + "' data-required-card-path='" + escapedRequiredCardPath + "' onmouseover='event.stopPropagation(); ShowHeatmapExplanation(event, this);' onmouseout='event.stopPropagation(); HideHeatmapExplanation();' onfocus='ShowHeatmapExplanation(event, this);' onblur='HideHeatmapExplanation();' onclick='event.stopPropagation();' style='position:absolute; left:50%; bottom:4px; transform:translateX(-50%); width:20px; height:20px; border:1px solid rgba(255,255,255,.9); border-radius:50%; background:rgba(0,0,0,.65); display:flex; align-items:center; justify-content:center; font:700 14px/1 sans-serif; color:white; text-shadow:none; cursor:help;'>?</span>";
             }
             rv += "</div>";
+            }
             }
         } else {
           var overlayTypeList = [];
@@ -498,6 +508,68 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
       // Preserve the HTML card renderer before dictionary scripts define their own Card(cardID).
       if (typeof window !== 'undefined' && typeof window.RenderCardHTML !== 'function') {
         window.RenderCardHTML = Card;
+      }
+
+      function EscapeHeatmapGraphText(value) {
+        return String(value == null ? "" : value)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function RenderHeatmapDeltaGraph(series, title) {
+        var points = Array.isArray(series) ? series : [];
+        var validPoints = points.filter(function(point) {
+          return point && point.value !== null && point.value !== "" && Number.isFinite(Number(point.value));
+        });
+        if (validPoints.length === 0) return "";
+
+        var maxAbs = validPoints.reduce(function(maximum, point) {
+          return Math.max(maximum, Math.abs(Number(point.value)));
+        }, 0);
+        // Keep tiny samples legible while preserving a symmetric positive/negative scale.
+        maxAbs = Math.max(maxAbs, 0.05);
+
+        var chartTop = 20;
+        var baselineY = 54;
+        var chartHalfHeight = 29;
+        var chartLeft = 5;
+        var chartWidth = 90;
+        var slotWidth = chartWidth / Math.max(points.length, 1);
+        var barWidth = Math.max(2.5, Math.min(6, slotWidth * 0.58));
+        var html = "<div style='visibility:visible; width:calc(100% - 2px); height:calc(100% - 2px); top:1px; left:1px; border-radius:6px; position:absolute; background:rgba(5,10,18,.88); z-index:1; color:white; text-shadow:1px 1px 2px black;'>";
+        html += "<svg viewBox='0 0 100 100' preserveAspectRatio='none' aria-label='" + EscapeHeatmapGraphText(title) + "' style='width:100%; height:100%; display:block; overflow:visible;'>";
+        html += "<text x='50' y='10' text-anchor='middle' fill='white' font-size='7.5' font-weight='700'>" + EscapeHeatmapGraphText(title) + "</text>";
+        html += "<text x='3' y='" + (chartTop - 2) + "' fill='#aab4c3' font-size='5.5'>+" + (maxAbs * 100).toFixed(1) + "pp</text>";
+        html += "<line x1='" + chartLeft + "' y1='" + baselineY + "' x2='" + (chartLeft + chartWidth) + "' y2='" + baselineY + "' stroke='rgba(255,255,255,.72)' stroke-width='0.8'/>";
+        html += "<text x='3' y='" + (baselineY + chartHalfHeight + 7) + "' fill='#aab4c3' font-size='5.5'>-" + (maxAbs * 100).toFixed(1) + "pp</text>";
+
+        points.forEach(function(point, index) {
+          var x = chartLeft + slotWidth * index + slotWidth / 2;
+          var label = point && point.label != null ? String(point.label) : String(index + 1);
+          var value = point && point.value !== null && point.value !== "" && Number.isFinite(Number(point.value))
+            ? Number(point.value)
+            : null;
+          if (value !== null) {
+            var barHeight = Math.max(1, Math.abs(value) / maxAbs * chartHalfHeight);
+            var y = value >= 0 ? baselineY - barHeight : baselineY;
+            var color = value >= 0 ? "#35d07f" : "#ff626b";
+            var sampleSize = Math.max(0, Number(point.sampleSize) || 0);
+            var signedValue = (value >= 0 ? "+" : "") + (value * 100).toFixed(1) + " pp";
+            var tooltip = "Turn " + label + ": " + signedValue + " (" + sampleSize + " plays)";
+            html += "<rect x='" + (x - barWidth / 2).toFixed(2) + "' y='" + y.toFixed(2) + "' width='" + barWidth.toFixed(2) + "' height='" + barHeight.toFixed(2) + "' rx='0.8' fill='" + color + "'>";
+            html += "<title>" + EscapeHeatmapGraphText(tooltip) + "</title></rect>";
+          } else {
+            html += "<circle cx='" + x.toFixed(2) + "' cy='" + baselineY + "' r='1.2' fill='#667085'><title>Turn " + EscapeHeatmapGraphText(label) + ": no data</title></circle>";
+          }
+          html += "<text x='" + x.toFixed(2) + "' y='94' text-anchor='middle' fill='#d8dee9' font-size='5.5'>" + EscapeHeatmapGraphText(label) + "</text>";
+        });
+
+        html += "<text x='50' y='99' text-anchor='middle' fill='#aab4c3' font-size='4.8'>full-turn cycle</text>";
+        html += "</svg></div>";
+        return html;
       }
 
       function getOverlayColorHigherIsBetter(value) {

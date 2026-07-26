@@ -3695,6 +3695,8 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         RemovePlayerLeaderTurnEffect($player, 'BENZAI_SLY_NEXT_PLAY_DISCOUNT');
     }
 
+    AzukiStatsTrackPlay($player, $cardID);
+
     if($cardType === 'ENTITY') {
         DecisionQueueController::StoreVariable('P' . intval($player) . '_AzukiGameLogPendingPlay', json_encode([
             'cardID' => $cardID,
