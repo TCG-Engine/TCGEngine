@@ -2649,8 +2649,67 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
       display: flex !important;
       flex-direction: column !important;
     }
+    .azuki-menu-grid > .card {
+      height: auto;
+      max-height: none;
+      flex: 0 0 auto !important;
+    }
   }
   @media (max-width: 768px) {
+    .home-header {
+      width: 100%;
+      max-width: none;
+      min-height: 92px;
+      padding: 14px 76px 12px 96px !important;
+    }
+    .home-header::before {
+      top: 11px;
+      left: 17px;
+      width: 68px;
+      height: 68px;
+    }
+    .home-header h1 {
+      white-space: nowrap;
+    }
+    .home-header h1::after {
+      width: 42px;
+      height: 26px;
+      margin-left: 6px;
+      font-size: 16px;
+      vertical-align: 3px;
+    }
+    .nav-bar {
+      top: 0 !important;
+      right: 0 !important;
+      gap: 0;
+      transform: translateX(100%);
+    }
+    .nav-bar.active {
+      right: 0 !important;
+      transform: translateX(0);
+    }
+    .nav-bar-user {
+      height: auto;
+    }
+    .nav-bar-user .rightnav {
+      display: block !important;
+      height: auto;
+    }
+    .nav-bar-user .rightnav > li {
+      display: block;
+      height: auto;
+    }
+    .nav-bar-user .rightnav > li + li::before,
+    .nav-bar-links::before {
+      content: none;
+    }
+    .nav-bar-links {
+      height: auto;
+      padding-left: 0;
+    }
+    .nav-bar-links > ul {
+      height: auto;
+    }
     .azuki-rejoin-banner {
       margin-top: 8px;
     }
@@ -2675,6 +2734,21 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
       font-size: 22px;
       line-height: 1.15;
       margin-bottom: 16px;
+    }
+    .azuki-prepare-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+    .azuki-prepare-heading::after {
+      display: none;
+    }
+    .azuki-prepare-heading h2 {
+      margin: 0;
+    }
+    .azuki-prepare-heading p {
+      line-height: 1.35;
     }
     #starter-deck-select {
       min-width: 0 !important;
