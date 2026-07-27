@@ -63,6 +63,38 @@ echo(<<<'HTML'
     display: flex !important;
     align-items: center !important;
   }
+  #azukiDeckNameControl {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    min-width: 0;
+    max-width: min(260px, 24vw);
+    margin: 0 3px 0 7px;
+    color: var(--swu-control-text);
+  }
+  #azukiDeckNameLabel {
+    min-width: 0;
+    overflow: hidden;
+    color: rgba(213, 233, 244, 0.94);
+    font: 600 13px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.025em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .flex-container > .flex-item:first-child #azukiDeckRenameButton {
+    flex: 0 0 24px !important;
+    width: 24px !important;
+    min-width: 24px !important;
+    height: 24px !important;
+    padding: 5px !important;
+    margin: 0 !important;
+  }
+  #azukiDeckRenameButton svg {
+    display: block;
+    width: 13px;
+    height: 13px;
+    fill: currentColor;
+  }
 
   /* Base: strip the stock look, draw the chamfer with ::before (cyan rim) + ::after (fill). */
   .widget-button, .widget-button-selected, .panelTab,
@@ -143,6 +175,8 @@ echo(<<<'HTML'
       margin: 0 1px !important;
       font-size: 12px !important;
     }
+    #azukiDeckNameControl { max-width: min(180px, 20vw); margin-left: 4px; }
+    #azukiDeckNameLabel { font-size: 12px; }
     .flex-container > .flex-item:first-child > #AssetVisibility { padding-left: 5px !important; }
   }
   /* Dropdown menus (visibility + version popups) â€” cyan-HUD panel to match the buttons. */
@@ -206,6 +240,91 @@ echo(<<<'HTML'
   }
 </style>
 HTML);
+
+// InitialLayout.php is generated, so persistent editor-only toolbar controls are
+// installed here. Only the asset owner sees the rename action; the shared endpoint
+// repeats that ownership check before saving.
+if(isset($assetData) && (string)($assetData['assetOwner'] ?? '') === (string)LoggedInUser()) {
+  $azukiDeckName = trim((string)($assetData['assetName'] ?? ''));
+  if($azukiDeckName === '') $azukiDeckName = 'Deck #' . $gameName;
+  $azukiDeckNameJson = json_encode($azukiDeckName, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+  $azukiDeckIDJson = json_encode((string)$gameName, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+  echo(<<<HTML
+<script>
+(function () {
+  var deckID = {$azukiDeckIDJson};
+  var currentName = {$azukiDeckNameJson};
+
+  function installRenameButton() {
+    var toolbar = document.querySelector('.flex-container > .flex-item:first-child');
+    if (!toolbar || document.getElementById('azukiDeckRenameButton')) return;
+
+    var control = document.createElement('div');
+    control.id = 'azukiDeckNameControl';
+    control.setAttribute('aria-label', 'Deck name');
+
+    var nameLabel = document.createElement('span');
+    nameLabel.id = 'azukiDeckNameLabel';
+    nameLabel.textContent = currentName;
+    nameLabel.title = currentName;
+
+    var button = document.createElement('button');
+    button.id = 'azukiDeckRenameButton';
+    button.type = 'button';
+    button.title = 'Rename deck';
+    button.setAttribute('aria-label', 'Rename deck');
+    button.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M11.73 1.27a1.75 1.75 0 0 1 2.47 0l.53.53a1.75 1.75 0 0 1 0 2.47L6.25 12.75 2 14l1.25-4.25 8.48-8.48ZM4.13 10.38l-.55 1.87 1.87-.55 7.97-7.96a.25.25 0 0 0 0-.36l-.8-.8a.25.25 0 0 0-.36 0l-7.97 7.97-.16-.17Z"/></svg>';
+    button.addEventListener('click', function () {
+      if (typeof window.StyledPrompt !== 'function') return;
+      window.StyledPrompt('Enter a name for this deck.', {
+        title: 'Deck Name',
+        initial: currentName,
+        confirmLabel: 'Save'
+      }).then(function (newName) {
+        if (!newName || newName === currentName) return;
+
+        var params = new URLSearchParams({
+          assetID: deckID,
+          newName: newName,
+          assetType: '1'
+        });
+        fetch('/TCGEngine/AccountFiles/RenameAsset.php?' + params.toString(), {
+          credentials: 'same-origin'
+        }).then(function (response) {
+          return response.json().then(function (data) {
+            if (!response.ok || !data.success) {
+              throw new Error(data.error || 'Failed to rename deck.');
+            }
+            currentName = newName;
+            nameLabel.textContent = currentName;
+            nameLabel.title = currentName;
+            if (typeof window.Toast === 'function') {
+              window.Toast('Deck renamed successfully.', { type: 'success' });
+            }
+          });
+        }).catch(function (error) {
+          if (typeof window.Toast === 'function') {
+            window.Toast(error.message || 'Failed to rename deck.', { type: 'danger' });
+          }
+        });
+      });
+    });
+
+    control.appendChild(nameLabel);
+    control.appendChild(button);
+    var visibility = document.getElementById('AssetVisibility');
+    toolbar.insertBefore(control, visibility || null);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', installRenameButton);
+  } else {
+    installRenameButton();
+  }
+})();
+</script>
+HTML);
+}
 
 // DeckStats.php reuses InitialLayout.php purely for the toolbar chrome (Home/Edit/Stats/â€¦),
 // so it needs the shared cyan-HUD button styling emitted above â€” but NOT the deck-builder
