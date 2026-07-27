@@ -1125,7 +1125,7 @@ function GetConditionalKeyword_Restore_Value($obj) {
     $amount += _SWUGhostSharesKeywordValue($obj, 'RESTORE');   // JTL_053 The Ghost keyword share (additive)
     // ASH_114 Sabine's Lightsaber (upgrade) — "If attached unit is Sabine Wren or a Force unit, it gains Restore 2."
     if (_SWUUnitHasUpgrade($obj, 'ASH_114')
-        && (CardTitle($obj->CardID ?? '') === 'Sabine Wren' || HasTrait($obj->CardID ?? '', 'Force'))) $amount += 2;
+        && (CardTitle($obj->CardID ?? '') === 'Sabine Wren' || TraitContains($obj, 'Force'))) $amount += 2;
     // ASH_122 Consortium StarViper — "While you have the initiative, this unit gains Restore 2."
     if (($obj->CardID ?? '') === 'ASH_122' && HasInitiative(intval($obj->Controller ?? 0))) $amount += 2;
     // ASH_057 Lothal E-Wing — "While an enemy unit is upgraded, this unit gains Restore 2."

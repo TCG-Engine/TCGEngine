@@ -21,7 +21,7 @@ $customDQHandlers["LOF_082#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
     if (!SWUDefeatExperienceToken($lastDecision)) return;
-    $targets = SWUAllUnits('my');
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_an_Experience_token_to_a_friendly_unit", "GIVE_EXPERIENCE|1");
+    GiveTokenUpgrade(intval($player), '', [
+        'prompt' => "Give_an_Experience_token_to_a_friendly_unit",
+    ]);
 };

@@ -13,8 +13,9 @@ $whenPlayedAbilities["JTL_125:0"] = function($player, $mzID = '') {
             $mine = 0; foreach (GetSpaceArena(intval($player)) as $u) { if (empty($u->removed)) $mine++; }
             $thrs = 0; foreach (GetSpaceArena($opp)             as $u) { if (empty($u->removed)) $thrs++; }
             if ($mine <= $thrs) return;
-            $targets = array_values(ZoneSearch('theirGroundArena', AnyUnitFilter));
-            if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Deal_4_to_an_enemy_ground_unit", "DEAL_UNIT_DAMAGE|4");
+            SWUOfferUnitTarget(intval($player), '', [
+                'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 4, 'side' => 'their', 'arena' => 'Ground',
+                'prompt' => "Deal_4_to_an_enemy_ground_unit",
+            ]);
             return;
 };

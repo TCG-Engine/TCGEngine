@@ -8,10 +8,10 @@
 // unit wasn't defeated by COMBAT damage, give 3 instead. (gCombatDefeatByMz marks combat defeats — same
 // signal as ASH_028.)
 $whenDefeatedAbilities["ASH_191:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
     $fromCombat = !empty($GLOBALS['gCombatDefeatByMz'][$mzID] ?? false);
     $n = $fromCombat ? 2 : 3;
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Give_{$n}_Advantage_tokens_to_a_unit?", "Choose_a_unit", "GIVE_ADVANTAGE|{$n}");
+    GiveTokenUpgrade($player, '', [
+        'token' => 'ADVANTAGE', 'amount' => $n, 'may' => true, 'friendlyOnly' => false,
+        'question' => "Give_{$n}_Advantage_tokens_to_a_unit?", 'prompt' => "Choose_a_unit",
+    ]);
 };

@@ -8,3 +8,14 @@ $customDQHandlers["ASH_047#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     SWUCreateUnitToken(intval($player), 'ASH_T01');
 };
+
+function Ash047UpgradeReaction($player)
+{
+  global $playerID;
+  $playerID = intval($player);
+  if (GlobalEffectCount(intval($player), 'SWU_ASH047_USED') > 0)
+    return;
+  AddGlobalEffects(intval($player), 'SWU_ASH047_USED');  // cleared at RegroupPhaseStart
+  DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Create_a_Mandalorian_token?");
+  DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_047#0", 1);
+}

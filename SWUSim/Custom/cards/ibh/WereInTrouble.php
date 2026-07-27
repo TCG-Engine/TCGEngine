@@ -4,9 +4,8 @@
 // Text: Deal 3 damage to a unit.
 
 $whenPlayedAbilities["IBH_061:0"] = function($player, $mzID = '') {
-    global $playerID; $playerID = intval($player);
-    $targets = SWUAllUnits();
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_3_damage_to_a_unit", "DEAL_UNIT_DAMAGE|3");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'prompt' => "Deal_3_damage_to_a_unit",
+    ]);
 };
 $whenPlayedAbilities["IBH_086:0"] = $whenPlayedAbilities["IBH_061:0"];

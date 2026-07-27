@@ -15,10 +15,9 @@ $whenPlayedAbilities["JTL_208:0"] = function($player, $mzID = '') {
             for ($i = 0; $i < 3; $i++) { $c = SWUMillTopCard($opp);            if ($c !== null && (intval(CardCost($c)) % 2) === 1) $odd++; }
             for ($i = 0; $i < 3; $i++) { $c = SWUMillTopCard(intval($player)); if ($c !== null && (intval(CardCost($c)) % 2) === 1) $odd++; }
             if ($odd <= 0) return;
-            $units = array_merge(
-                ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-                ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-            );
-            SWUQueueChooseTarget(intval($player), $units, "Deal_{$odd}_damage_to_a_unit", "DEAL_UNIT_DAMAGE|{$odd}");
+            SWUOfferUnitTarget(intval($player), '', [
+                'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $odd, 'side' => 'any',
+                'prompt' => "Deal_{$odd}_damage_to_a_unit",
+            ]);
             return;
 };

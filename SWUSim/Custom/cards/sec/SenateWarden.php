@@ -9,10 +9,8 @@ $whenDefeatedAbilities["SEC_059:0"] = function($player, $mzID) {
 };
 
 $customDQHandlers["SEC_059#0"] = function ($player, $parts, $lastDecision) {
-  global $playerID;
-  $playerID = intval($player);
-  $units = SWUAllUnits();
-  if (empty($units))
-    return;
-  SWUQueueChooseTarget(intval($player), $units, "Give_an_Experience_token_to_a_unit", "GIVE_EXPERIENCE|1");
+  GiveTokenUpgrade(intval($player), '', [
+    'friendlyOnly' => false,
+    'prompt'       => "Give_an_Experience_token_to_a_unit",
+  ]);
 };

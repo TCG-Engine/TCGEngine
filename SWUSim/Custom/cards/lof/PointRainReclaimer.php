@@ -9,7 +9,7 @@ $whenPlayedAbilities["LOF_092:0"] = function($player, $mzID) {
     $hasJedi = false;
     foreach (GetUnitsInPlay(intval($player)) as $u) {
         if (!empty($u->removed)) continue;
-        if (HasTrait($u->CardID ?? '', 'Jedi')) { $hasJedi = true; break; }
+        if (TraitContains($u, 'Jedi')) { $hasJedi = true; break; }
     }
     if (!$hasJedi) return;
     $o = GetZoneObject($mzID);

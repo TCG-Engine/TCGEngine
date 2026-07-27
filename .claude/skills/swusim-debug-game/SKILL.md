@@ -76,11 +76,11 @@ Useful lookups:
 ```bash
 # Card title / text / type for a CardID (from the generated dictionary):
 grep -o '"SEC_069":"[^"]*"' SWUSim/GeneratedCode/GeneratedCardDictionaries_*.js
-# Where a card's ability handler lives:
-grep -rn "SEC_069" SWUSim/Custom/*.php SWUSim/GeneratedCode/GeneratedAbilityStubs.php
+# Where a card's ability handler lives (-r into Custom/ descends the per-card files under cards/<set>/):
+grep -rn "SEC_069" SWUSim/Custom/ SWUSim/GeneratedCode/GeneratedAbilityStubs.php
 ```
 
-Handlers live in `SWUSim/Custom/*.php` (hand-written). **Never hand-edit `SWUSim/GeneratedCode/*` or the parser/accessors — they're regenerated** (see the "generated engine files" project memory). Prefer the existing convention: grep for a comparable card and match how it does the same thing.
+Handlers live under `SWUSim/Custom/` (hand-written) — a card's own logic in its `cards/<set>/<TitleSubtitle>.php` file (since the session-95 split), shared helper families / engine glue in the monoliths (`CardDQHandlers.php`, `GameLogic.php`, `CombatLogic.php`, `KeywordEffects.php`, `CardHelpers.php`). Resolve a CardID→file by grepping the registration key or via `cards/_index.generated.php`. **Never hand-edit `SWUSim/GeneratedCode/*` or the parser/accessors — they're regenerated** (see the "generated engine files" project memory). Prefer the existing convention: grep for a comparable card and match how it does the same thing.
 
 ---
 
@@ -140,7 +140,7 @@ Handy assertions seen in cases: `P1NODECISION` (no pending decision — proves a
 
 - **Container:** `swustats-swusim-web-server-1`, web root `/var/www/html/TCGEngine` (the repo is mounted there, `.claude/` included).
 - **Games:** `SWUSim/Games/<id>/Gamestate.txt`. **Snapshots:** `SWUSim/Tests/Snapshots/`. **Tests:** `SWUSim/Tests/Cases/<set>/*.md`.
-- **Handlers:** `SWUSim/Custom/*.php` (edit these). **Generated (never edit):** `SWUSim/GeneratedCode/*`, `GamestateParser.php`, `ZoneAccessors.php`, `ZoneClasses.php`.
+- **Handlers:** `SWUSim/Custom/` (edit these) — per-card logic in `cards/<set>/<TitleSubtitle>.php`, shared families/glue in the monoliths. **Generated (never edit):** `SWUSim/GeneratedCode/*`, `GamestateParser.php`, `ZoneAccessors.php`, `ZoneClasses.php`.
 - Add `-d xdebug.mode=off` to every `php` call to skip the Xdebug connect delay.
 
 ## Common mistakes

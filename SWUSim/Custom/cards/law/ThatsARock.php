@@ -10,9 +10,10 @@ $cardDiscardedHandlers['LAW_206:0'] = function(int $player, object $entry, ?obje
     if ($from !== 'HAND' && $from !== 'DECK') return;          // not "discarded from hand or deck"
     if (($GLOBALS['gPlayingEventCardID'] ?? '') === ($entry->CardID ?? '')) return; // the event's own play, not a discard
     global $playerID; $playerID = intval($player);
-    $units = SWUAllUnits();
-    if (empty($units)) return;
-    SWUQueueMayChooseTarget(intval($player), $units, "Deal_1_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|1");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'may' => true,
+        'question' => "Deal_1_damage_to_a_unit?", 'prompt' => "Choose_a_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.
@@ -20,13 +21,8 @@ $whenPlayedAbilities["LAW_206:0"] = function($player, $mzID = '') {
 // That's a Rock — "Deal 1 damage to a unit." (The "when discarded from hand or
                           // deck" rider lives in $cardDiscardedHandlers['LAW_206:0'].)
             global $playerID; $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
-            if (empty($units)) return;
-            SWUQueueChooseTarget(intval($player), $units, "Deal_1_damage_to_a_unit", "DEAL_UNIT_DAMAGE|1");
+            SWUOfferUnitTarget(intval($player), $mzID, [
+                'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'prompt' => "Deal_1_damage_to_a_unit",
+            ]);
             return;
 };

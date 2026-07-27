@@ -10,13 +10,9 @@ $customDQHandlers["TWI_184#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     $maxCost = intval($parts[0] ?? 0);
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, ['Unit', 'Token Unit', 'Leader Unit']) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID)) <= $maxCost) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Exhaust_a_unit_costing_the_same_or_less?", "Choose_a_unit_to_exhaust", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'EXHAUST_UNIT', 'side' => 'any', 'may' => true,
+        'extraFilter' => fn($o) => intval(CardCost($o->CardID)) <= $maxCost,
+        'question' => "Exhaust_a_unit_costing_the_same_or_less?", 'prompt' => "Choose_a_unit_to_exhaust",
+    ]);
 };

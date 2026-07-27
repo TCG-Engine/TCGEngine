@@ -25,10 +25,8 @@ $customDQHandlers["TWI_195#0"] = function($player, $parts, $lastDecision) {
     $baseArr = GetBase(intval($player));
     $baseCid = (!empty($baseArr) && isset($baseArr[0])) ? ($baseArr[0]->CardID ?? '') : '';
     if (!empty(array_intersect(SWUCardAspectIcons($milled), SWUCardAspectIcons($baseCid)))) return; // shares aspect → no damage
-    $targets = array_merge(
-        ZoneSearch('myGroundArena', ['Unit', 'Token Unit', 'Leader Unit']),
-        ZoneSearch('theirGroundArena', ['Unit', 'Token Unit', 'Leader Unit'])
-    );
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_2_damage_to_a_ground_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'arena' => 'Ground',
+        'prompt' => "Deal_2_damage_to_a_ground_unit",
+    ]);
 };

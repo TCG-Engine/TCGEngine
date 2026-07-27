@@ -6,11 +6,9 @@
 // LAW_079 K-2SO — Ambush + On Attack: you may deal 3 damage to a damaged ground unit.
 $onAttackAbilities["LAW_079:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits(null, GroundArena) as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_3_to_a_damaged_ground_unit?", "Choose_a_damaged_ground_unit", "DEAL_UNIT_DAMAGE|3");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'arena' => 'Ground', 'may' => true,
+        'extraFilter' => fn($o) => intval($o->Damage ?? 0) > 0,
+        'question' => "Deal_3_to_a_damaged_ground_unit?", 'prompt' => "Choose_a_damaged_ground_unit",
+    ]);
 };

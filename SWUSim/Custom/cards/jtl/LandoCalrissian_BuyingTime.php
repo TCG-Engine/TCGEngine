@@ -28,9 +28,7 @@ $customDQHandlers["JTL_003#1"] = function($player, $parts, $lastDecision) {
     $hasGround = !empty(ZoneSearch("myGroundArena", AnyUnitFilter));
     $hasSpace  = !empty(ZoneSearch("mySpaceArena",  AnyUnitFilter));
     if (!$hasGround || !$hasSpace) return; // condition not met → no Shield
-    $targets = SWUAllUnits();
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_a_Shield_token_to_a_unit", "GIVE_SHIELD");
+    GiveTokenUpgrade($player, '', ['token'=>'SHIELD','friendlyOnly'=>false,'prompt'=>"Give_a_Shield_token_to_a_unit"]);
 };
 
 // JTL_003 Lando Calrissian — When deployed as an upgrade: You may give a Shield token to a unit in a

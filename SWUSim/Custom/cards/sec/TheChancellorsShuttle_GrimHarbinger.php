@@ -8,7 +8,10 @@
 $whenDefeatedAbilities["SEC_027:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (!_SWUControlsTitle(intval($player), ['Chancellor Palpatine'])) return;
-    $units = SWUAllUnits();
-    if (empty($units)) return;
-    SWUQueueMayChooseTarget(intval($player), $units, "Give_an_Experience_token_to_a_unit?", "Choose_a_unit", "GIVE_EXPERIENCE|1");
+    GiveTokenUpgrade($player, $mzID, [
+        'friendlyOnly' => false,
+        'may'          => true,
+        'prompt'       => "Choose_a_unit",
+        'question'     => "Give_an_Experience_token_to_a_unit?",
+    ]);
 };

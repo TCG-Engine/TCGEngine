@@ -14,6 +14,6 @@ $onAttackAbilities["IBH_053:0"] = function($player, $mzID) {
 $leaderAbilities["IBH_053"] = function(int $player): void {
     global $playerID; $playerID = $player;
     if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget($player, ['myBase-0', 'theirBase-0'], "Deal_1_damage_to_a_base", "DEAL_BASE_DAMAGE|1");
+    SWUOfferBaseTarget($player, ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>1,'prompt'=>"Deal_1_damage_to_a_base"]);
     SWUQueueAfterAction($player);
 };

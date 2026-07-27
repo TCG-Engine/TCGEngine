@@ -8,14 +8,13 @@
 // ASH_004 Grand Admiral Thrawn — if you control more units than the defending player,
 // may defeat a non-leader unit they control.
 $onAttackAbilities["ASH_004:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
     $opp = OtherPlayer(intval($player));
     if (count(GetUnitsInPlay(intval($player))) <= count(GetUnitsInPlay($opp))) return;
-    $targets = array_merge(ZoneSearch('theirGroundArena', NonLeaderUnitFilter),
-                           ZoneSearch('theirSpaceArena',  NonLeaderUnitFilter));
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Defeat_an_enemy_unit?",
-        "Defeat_a_non-leader_unit_the_defending_player_controls", "DEFEAT_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEFEAT_UNIT', 'side' => 'their', 'nonLeader' => true, 'may' => true,
+        'question' => "Defeat_an_enemy_unit?",
+        'prompt'   => "Defeat_a_non-leader_unit_the_defending_player_controls",
+    ]);
 };
 
 // ASH_004 Grand Admiral Thrawn — Action [Exhaust]: attack with a unit. It gains Restore 2 for this attack

@@ -28,7 +28,7 @@ $whenPlayedAbilities["LOF_221:0"] = function($player, $mzID = '') {
                           // +2/+0 for this attack and deals its combat damage before the defender."
             if (!PlayerHasTheForce(intval($player))) return;
             UseTheForce(intval($player));
-            global $playerID, $gShootFirstPending;
+            global $playerID;
             $playerID = intval($player);
             $readyUnits = [];
             foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
@@ -40,7 +40,8 @@ $whenPlayedAbilities["LOF_221:0"] = function($player, $mzID = '') {
                 }
             }
             if (empty($readyUnits)) return;
-            $gShootFirstPending = true;
+            // The event-owns-after-action flag is set centrally by BeginSWUAttack (LOF_221#0 → BeginSWUAttack),
+            // which detects the pending FINISH_PLAY_CARD terminator. No manual flag needed.
             SWUQueueChooseTarget(intval($player), $readyUnits, "Choose_a_unit_to_attack_with", "LOF_221#0", 1);
             return;
 };

@@ -5,10 +5,7 @@
 
 // SEC_230 Charged with Espionage — disclose succeeded → look at the opponent's hand, discard a unit.
 $customDQHandlers["SEC_230#0"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
-    $units = SWULookAtOpponentHand(intval($player), fn($cid) => stripos(CardType($cid) ?? '', 'unit') !== false);
-    if (empty($units)) return;
-    SWUQueueChooseTarget(intval($player), $units, "Discard_a_unit_from_the_opponent's_hand", "DISCARD_FROM_OPP_HAND");
+    SWUOfferDiscard($player, ['from'=>'opp', 'filter'=>fn($cid)=>stripos(CardType($cid) ?? '', 'unit') !== false, 'prompt'=>"Discard_a_unit_from_the_opponent's_hand"]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

@@ -7,9 +7,10 @@ $customDQHandlers["LAW_191#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
     if (!SWUDefeatCreditToken($lastDecision)) return;
-    $targets = _SWUAllUnitsAndBases(intval($player));
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_1_damage_to_a_unit_or_base", "DEAL_TARGET|1");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_TARGET', 'amount' => 1, 'includeBases' => true,
+        'prompt' => "Deal_1_damage_to_a_unit_or_base",
+    ]);
 };
 
 // LAW_191 Arvel Skeen — When Played/On Attack: you may defeat a Credit token (any player's). If you do,

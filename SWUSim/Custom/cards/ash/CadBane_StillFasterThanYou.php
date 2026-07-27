@@ -10,19 +10,11 @@
 // "you may ping a unit" shape as SOR_010, restricted to targets that have ≥2
 // remaining HP (matching Cad Bane's front-side leader Action filter).
 $onAttackAbilities["ASH_011:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && (intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0)) >= 2) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $targets), 0,
-        'Deal_1_to_a_unit_with_2+_remaining_HP?');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'DEAL_UNIT_DAMAGE|1', 0);
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'may' => true, 'block' => 0,
+        'extraFilter' => fn($o) => (intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0)) >= 2,
+        'question' => 'Deal_1_to_a_unit_with_2+_remaining_HP?', 'prompt' => 'Deal_1_to_a_unit_with_2+_remaining_HP?',
+    ]);
 };
 
 // ASH_011 Cad Bane — Action [Exhaust]: deal 1 damage to a unit with 2 or more remaining HP.

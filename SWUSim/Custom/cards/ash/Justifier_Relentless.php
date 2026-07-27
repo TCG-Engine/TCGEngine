@@ -21,7 +21,9 @@ $customDQHandlers["ASH_146#0"] = function($player, $parts, $lastDecision) {
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
     // if that unit was defeated this way → give an Advantage token to a unit
     if (SWUFindMzByUID($uid) === null) {
-        $tg = SWUAllUnits();
-        if (!empty($tg)) SWUQueueChooseTarget(intval($player), $tg, "Give_an_Advantage_token_to_a_unit", "GIVE_ADVANTAGE");
+        GiveTokenUpgrade($player, '', [
+            'token' => 'ADVANTAGE', 'friendlyOnly' => false,
+            'prompt' => "Give_an_Advantage_token_to_a_unit",
+        ]);
     }
 };

@@ -32,5 +32,20 @@ $customDQHandlers["JTL_142#0"] = function($player, $parts, $lastDecision) {
     ));
     $targets[] = 'theirBase-0';
     $targets[] = 'myBase-0';
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_1_damage_to_a_unit_or_base", "Choose_a_target", "JTL_1422#0");
+    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_1_damage_to_a_unit_or_base", "Choose_a_target", "JTL_142#1");
+};
+
+// JTL_142 step 2 — deal 1 to the chosen unit or base (the "if a unit is defeated this way" chain).
+$customDQHandlers["JTL_142#1"] = function($player, $parts, $lastDecision) {
+    if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
+    global $playerID;
+    $playerID = intval($player);
+    if (strpos($lastDecision, 'Base') !== false) {
+        $dp = (strpos($lastDecision, 'my') === 0) ? intval($player) : OtherPlayer(intval($player));
+        SWUDealDamageToBase(1, $dp, intval($player));
+        return;
+    }
+    $obj = GetZoneObject($lastDecision);
+    if (SWUObjGone($obj)) return;
+    SWUDealDamageToUnit($lastDecision, 1, intval($player));
 };

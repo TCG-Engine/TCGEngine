@@ -14,7 +14,11 @@ $onAttackAbilities["LAW_228:0"] = function($player, $mzID) {
         }
     }
     if ($attackers > 1) return;   // another unit has already attacked this phase
-    $units = SWUAllUnits();
-    if (empty($units)) return;
-    SWUQueueMayChooseTarget(intval($player), $units, "Give_a_unit_-2/-0_for_this_phase?", "Choose_a_unit", "APPLY_PHASE_DEBUFF|2|0|LAW_228");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'APPLY_PHASE_DEBUFF|2|0|LAW_228',
+        'side'         => 'any',
+        'may'          => true,
+        'question'     => "Give_a_unit_-2/-0_for_this_phase?",
+        'prompt'       => "Choose_a_unit",
+    ]);
 };

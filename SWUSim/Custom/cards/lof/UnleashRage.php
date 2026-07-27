@@ -8,8 +8,8 @@ $whenPlayedAbilities["LOF_173:0"] = function($player, $mzID = '') {
 // Unleash Rage — "Use the Force. If you do, give a friendly unit +3/+0 this phase."
             if (!PlayerHasTheForce(intval($player))) return;
             UseTheForce(intval($player));
-            $targets = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
-            if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Give_a_friendly_unit_+3/+0", "APPLY_PHASE_BUFF|3|0|LOF_173");
-            return;
+            SWUOfferUnitTarget($player, $mzID, [
+                'continuation' => 'APPLY_PHASE_BUFF|3|0|LOF_173',
+                'side' => 'my', 'prompt' => "Give_a_friendly_unit_+3/+0",
+            ]);
 };

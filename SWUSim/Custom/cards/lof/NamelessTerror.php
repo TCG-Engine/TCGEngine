@@ -8,15 +8,11 @@
 // NO_TRAIT_FORCE phase marker (read by _SWUUnitHasTrait at the arena-object trait sites). Snapshot of
 // enemy units in play when it resolves — units entering later this phase are NOT affected.
 $whenPlayedAbilities["LOF_033:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o)) continue;
-        if (TraitContains($o, 'Force') && intval($o->Status ?? 0) === 1) $targets[] = $mz; // ready Force units
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), array_values($targets), "Exhaust_a_Force_unit?", "Choose_a_Force_unit", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'traits' => 'Force', 'may' => true,
+        'extraFilter' => fn($o) => intval($o->Status ?? 0) === 1, // ready Force units
+        'question' => "Exhaust_a_Force_unit?", 'prompt' => "Choose_a_Force_unit",
+    ]);
 };
 
 $onAttackAbilities["LOF_033:0"] = function($player, $mzID) {

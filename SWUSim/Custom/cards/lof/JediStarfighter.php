@@ -5,8 +5,8 @@
 
 // LOF_144 Jedi Starfighter — On Attack: may deal 1 damage to a space unit.
 $onAttackAbilities["LOF_144:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = SWUAllUnits(null, SpaceArena);
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_1_to_a_space_unit?", "Choose_a_space_unit", "DEAL_UNIT_DAMAGE|1");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'arena' => 'Space', 'may' => true,
+        'question' => "Deal_1_to_a_space_unit?", 'prompt' => "Choose_a_space_unit",
+    ]);
 };

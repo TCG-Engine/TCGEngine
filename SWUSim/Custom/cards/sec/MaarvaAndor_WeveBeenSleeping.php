@@ -8,6 +8,6 @@ $whenDefeatedAbilities["SEC_252:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     foreach (SWUAllUnits('my') as $mz) {
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Rebel')) DoGiveExperienceToken(intval($player), $mz);
+        if ($o !== null && empty($o->removed) && TraitContains($o, 'Rebel')) DoGiveExperienceToken(intval($player), $mz);
     }
 };

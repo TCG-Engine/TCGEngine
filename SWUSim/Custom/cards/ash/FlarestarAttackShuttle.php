@@ -6,8 +6,8 @@
 // ── ASH Phase 2 — Advantage-token givers ──
 // ASH_167 Flarestar Attack Shuttle — When Played/When Defeated: you may give an Advantage token to a unit.
 $whenPlayedAbilities["ASH_167:0"] = $whenDefeatedAbilities["ASH_167:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Give_an_Advantage_token_to_a_unit?", "Choose_a_unit", "GIVE_ADVANTAGE");
+    GiveTokenUpgrade($player, '', [
+        'token' => 'ADVANTAGE', 'may' => true, 'friendlyOnly' => false,
+        'question' => "Give_an_Advantage_token_to_a_unit?", 'prompt' => "Choose_a_unit",
+    ]);
 };

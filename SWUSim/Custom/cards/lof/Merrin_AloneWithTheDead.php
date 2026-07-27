@@ -16,7 +16,8 @@ $customDQHandlers["LOF_160#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
     DoDiscardCard(intval($player), $lastDecision);
-    $targets = array_values(SWUAllUnits());
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_2_to_a_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2,
+        'prompt' => "Deal_2_to_a_unit",
+    ]);
 };

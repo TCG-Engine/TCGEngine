@@ -5,22 +5,11 @@
 
 // SEC_076 Charged with Murder (Event) — "if you do" effect: defeat a damaged non-leader unit.
 $customDQHandlers["SEC_076#0"] = function ($player, $parts, $lastDecision) {
-  global $playerID;
-  $playerID = intval($player);
-  $targets = [];
-  foreach (array_merge(
-    ZoneSearch("myGroundArena", NonLeaderUnitFilter),
-    ZoneSearch("mySpaceArena", NonLeaderUnitFilter),
-    ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-    ZoneSearch("theirSpaceArena", NonLeaderUnitFilter)
-  ) as $mz) {
-    $o = GetZoneObject($mz);
-    if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0)
-      $targets[] = $mz;
-  }
-  if (empty($targets))
-    return;
-  SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_damaged_non-leader_unit", "DEFEAT_UNIT");
+  SWUOfferUnitTarget($player, '', [
+      'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true,
+      'extraFilter' => fn($o) => intval($o->Damage ?? 0) > 0,
+      'prompt' => "Defeat_a_damaged_non-leader_unit",
+  ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

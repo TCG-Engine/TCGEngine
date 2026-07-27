@@ -16,3 +16,25 @@ $customDQHandlers["SHD_018#front"] = function($player, $parts, $lastDecision) {
     if (empty($targets)) return;
     SWUQueueChooseTarget(intval($player), $targets, "Exhaust_an_enemy_unit", "EXHAUST_UNIT");   // mandatory once the leader is exhausted
 };
+
+function Shd018Reaction($player, int $maxHP, bool $frontCost): void
+{
+  global $playerID;
+  $playerID = intval($player);
+  if ($frontCost && !_SWULeaderReadyUndeployed(intval($player), 'SHD_018'))
+    return;
+  if (empty(_SWUEnemyUnitsRemainingHPAtMost(intval($player), $maxHP)))
+    return;   // no valid enemy → no offer
+  if ($frontCost) {
+    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_The_Mandalorian_to_exhaust_an_enemy_unit?");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_018#front|{$maxHP}", 1);
+  } else {
+    SWUQueueMayChooseTarget(
+      intval($player),
+      _SWUEnemyUnitsRemainingHPAtMost(intval($player), $maxHP),
+      "The_Mandalorian:_exhaust_an_enemy_unit?",
+      "Exhaust_an_enemy_unit",
+      "EXHAUST_UNIT"
+    );
+  }
+}

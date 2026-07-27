@@ -6,5 +6,5 @@
 // LAW_189 Cavern Angels X-Wing — When Defeated: deal 2 damage to a base.
 $whenDefeatedAbilities["LAW_189:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_to_a_base", "DEAL_BASE_DAMAGE|2");
+    SWUOfferBaseTarget(intval($player), ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>2,'prompt'=>"Deal_2_to_a_base"]);
 };

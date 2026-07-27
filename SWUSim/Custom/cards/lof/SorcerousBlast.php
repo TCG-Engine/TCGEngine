@@ -10,12 +10,9 @@ $whenPlayedAbilities["LOF_172:0"] = function($player, $mzID = '') {
             // they did not Use the Force, so the "If you do" rider fails and the event fizzles.
             if (!PlayerHasTheForce(intval($player))) return;
             UseTheForce(intval($player)); // defeat the Force token
-            $targets = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
-            SWUQueueChooseTarget(intval($player), $targets, "Deal_3_damage_to_a_unit", "DEAL_UNIT_DAMAGE|3");
+            SWUOfferUnitTarget(intval($player), $mzID, [
+                'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3,
+                'prompt' => "Deal_3_damage_to_a_unit",
+            ]);
             return;
 };

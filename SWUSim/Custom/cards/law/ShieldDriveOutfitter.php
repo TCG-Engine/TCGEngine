@@ -16,7 +16,5 @@ $customDQHandlers["LAW_113#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
     if (!SWUExhaustResources(intval($player), 1)) return;
-    $units = SWUAllUnits();
-    if (empty($units)) return;
-    SWUQueueChooseTarget(intval($player), $units, "Give_a_Shield_token_to_a_unit", "GIVE_SHIELD");
+    GiveTokenUpgrade($player, '', ['token'=>'SHIELD','friendlyOnly'=>false,'prompt'=>"Give_a_Shield_token_to_a_unit"]);
 };

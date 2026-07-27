@@ -12,9 +12,7 @@ $customDQHandlers["TWI_223#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) return;
     $o->Remove();
     SWUAddToDiscard(intval($player), $o->CardID, 'HAND'); // discard the chosen own card
-    $tips = SWULookAtOpponentHand(intval($player));
-    if (empty($tips)) return;
-    SWUQueueChooseTarget(intval($player), $tips, "Discard_a_card_from_the_opponent's_hand", "DISCARD_FROM_OPP_HAND");
+    SWUOfferDiscard($player, ['from'=>'opp', 'prompt'=>"Discard_a_card_from_the_opponent's_hand"]);
 };
 
 // When Played (event) — migrated from OnPlayEvent. ($cardID hardcoded: the played event still sits

@@ -5,12 +5,11 @@
 
 // LOF_095 Lor San Tekka — When Defeated: may give an Experience token to a unique unit.
 $whenDefeatedAbilities["LOF_095:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && CardUnique($o->CardID ?? '')) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_Exp_to_a_unique_unit?", "Choose_a_unique_unit", "GIVE_EXPERIENCE|1");
+    // A unique unit (either player).
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'GIVE_EXPERIENCE', 'may' => true,
+        'extraFilter' => fn($o) => CardUnique($o->CardID ?? ''),
+        'question' => "Give_Exp_to_a_unique_unit?",
+        'prompt'   => "Choose_a_unique_unit",
+    ]);
 };

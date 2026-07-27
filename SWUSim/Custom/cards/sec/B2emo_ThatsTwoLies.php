@@ -11,8 +11,5 @@ $onAttackAbilities["SEC_248:0"] = function($player, $mzID) {
 };
 
 $customDQHandlers["SEC_248#0"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
-    $units = SWUAllUnits();
-    if (empty($units)) return;
-    SWUQueueChooseTarget(intval($player), $units, "Give_a_unit_Sentinel_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL^SEC_248");
+    SWUOfferUnitTarget($player, '', ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^SEC_248', 'prompt'=>"Give_a_unit_Sentinel_this_phase"]);
 };

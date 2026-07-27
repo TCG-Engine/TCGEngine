@@ -19,9 +19,10 @@ $customDQHandlers["TS26_58#0"] = function($player, $parts, $lastDecision) {
         }
     }
     if ($count <= 0) return;
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_{$count}_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|{$count}");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $count, 'may' => true,
+        'question' => "Deal_{$count}_damage_to_a_unit?", 'prompt' => "Choose_a_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

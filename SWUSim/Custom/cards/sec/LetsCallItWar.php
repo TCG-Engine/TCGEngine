@@ -11,16 +11,11 @@ $customDQHandlers["SEC_180#0"] = function($player, $parts, $lastDecision) {
     $isSpace = ($first !== null) && strpos((string)($first->Location ?? ''), 'Space') !== false;
     SWUDealDamageToUnit($lastDecision, 3, intval($player));
     if (!PlayerHasIniative(intval($player))) return;
-    $zones = $isSpace ? ['mySpaceArena', 'theirSpaceArena'] : ['myGroundArena', 'theirGroundArena'];
-    $targets = [];
-    foreach ($zones as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $firstUID) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_2_to_another_unit_in_the_same_arena?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'may' => true,
+        'arena' => $isSpace ? 'Space' : 'Ground', 'excludeUID' => $firstUID,
+        'question' => "Deal_2_to_another_unit_in_the_same_arena?", 'prompt' => "Choose_a_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

@@ -6,8 +6,8 @@
 // ASH_050 Morgan Elsbeth — When Defeated: you may give a unit -2/-2 for this phase. (When Defeated is
 // NOT lent by Support; fires only on Morgan's own defeat.)
 $whenDefeatedAbilities["ASH_050:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Give_a_unit_-2/-2_this_phase?", "Choose_a_unit", "APPLY_PHASE_DEBUFF|2|2|ASH_050");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'APPLY_PHASE_DEBUFF|2|2|ASH_050', 'side' => 'any', 'may' => true,
+        'question' => "Give_a_unit_-2/-2_this_phase?", 'prompt' => "Choose_a_unit",
+    ]);
 };

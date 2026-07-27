@@ -11,7 +11,8 @@ $whenPlayedAbilities["LOF_091:0"] = function($player, $mzID) {
     if ($host === null) return;
     $dmg = intval(ObjectCurrentPower($host));
     if ($dmg <= 0) return;
-    $targets = SWUAllUnits('their');
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_{$dmg}_to_an_enemy_unit", "DEAL_UNIT_DAMAGE|{$dmg}");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $dmg, 'side' => 'their',
+        'prompt' => "Deal_{$dmg}_to_an_enemy_unit",
+    ]);
 };

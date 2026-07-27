@@ -125,30 +125,13 @@ if (!function_exists('SWUPlayablesAtDiscount')) {
 //   'excludeUID'   int|null      skip this UniqueID (the "another …" clause); default null
 if (!function_exists('_SWUCollectTokenTargets')) {
     function _SWUCollectTokenTargets(int $player, array $opts = []): array {
-        global $playerID; $playerID = intval($player);
         $friendlyOnly = array_key_exists('friendlyOnly', $opts) ? !empty($opts['friendlyOnly']) : true;
-        $traits    = $opts['traits']    ?? [];
-        $notTraits = $opts['notTraits'] ?? [];
-        if (is_string($traits))    $traits    = ($traits === '')    ? [] : [$traits];
-        if (is_string($notTraits)) $notTraits = ($notTraits === '') ? [] : [$notTraits];
-        $excludeUID = (array_key_exists('excludeUID', $opts) && $opts['excludeUID'] !== null)
-            ? intval($opts['excludeUID']) : null;
-        $out = [];
-        foreach (SWUAllUnits($friendlyOnly ? 'my' : null) as $mz) {
-            $o = GetZoneObject($mz);
-            if (SWUObjGone($o)) continue;
-            if ($excludeUID !== null && intval($o->UniqueID ?? -1) === $excludeUID) continue;
-            $skip = false;
-            foreach ($notTraits as $nt) { if (TraitContains($o, $nt)) { $skip = true; break; } }
-            if ($skip) continue;
-            if (!empty($traits)) {
-                $match = false;
-                foreach ($traits as $t) { if (TraitContains($o, $t)) { $match = true; break; } }
-                if (!$match) continue;
-            }
-            $out[] = $mz;
-        }
-        return $out;
+        return _SWUCollectUnitTargets($player, [
+            'side'       => $friendlyOnly ? 'my' : 'any',
+            'traits'     => $opts['traits']     ?? [],
+            'notTraits'  => $opts['notTraits']  ?? [],
+            'excludeUID' => $opts['excludeUID'] ?? null,
+        ]);
     }
 }
 
@@ -169,23 +152,194 @@ if (!function_exists('_SWUCollectTokenTargets')) {
 //   'question'     string may yes/no tooltip; default = prompt
 if (!function_exists('GiveTokenUpgrade')) {
     function GiveTokenUpgrade(int $player, string $mzID, array $opts = []): void {
-        global $playerID; $playerID = intval($player);
-        $token  = strtoupper($opts['token'] ?? 'EXPERIENCE');
-        $amount = max(1, intval($opts['amount'] ?? 1));
-        $may    = !empty($opts['may']);
-        $block  = intval($opts['block'] ?? 1);
-        $excludeUID = !empty($opts['excludeSelf']) ? SWUObjUID(GetZoneObject($mzID)) : null;
-        $targets = _SWUCollectTokenTargets($player, [
-            'friendlyOnly' => array_key_exists('friendlyOnly', $opts) ? $opts['friendlyOnly'] : true,
+        $token = strtoupper($opts['token'] ?? 'EXPERIENCE');
+        $cont  = ($token === 'SHIELD') ? 'GIVE_SHIELD' : "GIVE_{$token}";  // SHIELD is bare; EXP/ADV take |N
+        $friendlyOnly = array_key_exists('friendlyOnly', $opts) ? $opts['friendlyOnly'] : true;
+        $prompt = $opts['prompt'] ?? 'Give_a_token_to_a_unit';
+        SWUOfferUnitTarget($player, $mzID, [
+            'continuation' => $cont,
+            'amount'       => max(1, intval($opts['amount'] ?? 1)),
+            'may'          => !empty($opts['may']),
             'traits'       => $opts['traits']    ?? [],
             'notTraits'    => $opts['notTraits'] ?? [],
+            'excludeSelf'  => !empty($opts['excludeSelf']),
+            'side'         => $friendlyOnly ? 'my' : 'any',
+            'block'        => intval($opts['block'] ?? 1),
+            'prompt'       => $prompt,
+            'question'     => $opts['question'] ?? $prompt,
+        ]);
+    }
+}
+
+// Generalized "collect a set of target mzIDs" for the choose-a-unit-and-apply-effect families.
+// Object-aware (trait matching via TraitContains). Units come first in SWUAllUnits order
+// (myGround, mySpace, theirGround, theirSpace — filtered by side/arena), then bases, so single-target
+// auto-resolve and first-target picks match the historical inline loops.
+//   'side'         'my'|'their'|'any'          default 'any'
+//   'arena'        'Ground'|'Space'|null(both) default null
+//   'traits'       string|array   OR-list; ''/[] = any
+//   'notTraits'    string|array   exclude if it matches any; default []
+//   'nonLeader'    bool           exclude IsLeaderUnit units; default false
+//   'excludeUID'   int|null       exclude this UniqueID; default null
+//   'extraFilter'  callable(object):bool   per-target predicate on the unit object; default null
+//   'includeBases' bool           append base mzIDs to the result; default false
+//   'baseSide'     'my'|'their'|'any'   which base(s) when includeBases; default 'any'
+if (!function_exists('_SWUCollectUnitTargets')) {
+    function _SWUCollectUnitTargets(int $player, array $opts = []): array {
+        global $playerID; $playerID = intval($player);
+        $side  = $opts['side']  ?? 'any';
+        $arena = $opts['arena'] ?? null;
+        $traits    = $opts['traits']    ?? [];
+        $notTraits = $opts['notTraits'] ?? [];
+        if (is_string($traits))    $traits    = ($traits === '')    ? [] : [$traits];
+        if (is_string($notTraits)) $notTraits = ($notTraits === '') ? [] : [$notTraits];
+        $nonLeader   = !empty($opts['nonLeader']);
+        $excludeUID  = (array_key_exists('excludeUID', $opts) && $opts['excludeUID'] !== null)
+            ? intval($opts['excludeUID']) : null;
+        $extraFilter = $opts['extraFilter'] ?? null;
+        $sideArg = ($side === 'any') ? null : $side;   // SWUAllUnits: 'my'|'their'|null
+        $out = [];
+        foreach (SWUAllUnits($sideArg, $arena) as $mz) {
+            $o = GetZoneObject($mz);
+            if (SWUObjGone($o)) continue;
+            if ($excludeUID !== null && intval($o->UniqueID ?? -1) === $excludeUID) continue;
+            if ($nonLeader && IsLeaderUnit($o)) continue;
+            $skip = false;
+            foreach ($notTraits as $nt) { if (TraitContains($o, $nt)) { $skip = true; break; } }
+            if ($skip) continue;
+            if (!empty($traits)) {
+                $match = false;
+                foreach ($traits as $t) { if (TraitContains($o, $t)) { $match = true; break; } }
+                if (!$match) continue;
+            }
+            if ($extraFilter !== null && !$extraFilter($o)) continue;
+            $out[] = $mz;
+        }
+        if (!empty($opts['includeBases'])) {
+            $baseSide = $opts['baseSide'] ?? 'any';
+            if ($baseSide === 'my'    || $baseSide === 'any') $out[] = 'myBase-0';
+            if ($baseSide === 'their' || $baseSide === 'any') $out[] = 'theirBase-0';
+        }
+        return $out;
+    }
+}
+
+// Canonical "choose one target and apply an effect" helper. Collects via _SWUCollectUnitTargets,
+// no-ops on empty, then queues a mandatory (SWUQueueChooseTarget) or optional (may) pick whose
+// continuation applies the effect to the chosen mzID.
+//   (all _SWUCollectUnitTargets opts, plus:)
+//   'continuation' string   REQUIRED — universal handler, e.g. 'DEFEAT_UNIT','BOUNCE_UNIT','DEAL_TARGET'
+//   'amount'       int      default 1 — appended as '|N' iff continuation is amount-taking
+//                           (GIVE_EXPERIENCE|GIVE_ADVANTAGE|HEAL_TARGET|DEAL_TARGET) and has no '|' yet
+//   'excludeSelf'  bool     exclude the source unit (resolves $mzID's UID → excludeUID); default false
+//   'may'          bool     default false
+//   'block'        int      default 1
+//   'prompt'       string   choose tooltip; default 'Choose_a_target'
+//   'question'     string   may yes/no tooltip; default = prompt
+if (!function_exists('SWUOfferUnitTarget')) {
+    function SWUOfferUnitTarget(int $player, string $mzID, array $opts = []): void {
+        global $playerID; $playerID = intval($player);
+        $may    = !empty($opts['may']);
+        $block  = intval($opts['block'] ?? 1);
+        $amount = max(1, intval($opts['amount'] ?? 1));
+        $excludeUID = !empty($opts['excludeSelf'])
+            ? SWUObjUID(GetZoneObject($mzID))
+            : ((array_key_exists('excludeUID', $opts) && $opts['excludeUID'] !== null) ? intval($opts['excludeUID']) : null);
+        $targets = _SWUCollectUnitTargets($player, [
+            'side'         => $opts['side']         ?? 'any',
+            'arena'        => $opts['arena']        ?? null,
+            'traits'       => $opts['traits']       ?? [],
+            'notTraits'    => $opts['notTraits']    ?? [],
+            'nonLeader'    => !empty($opts['nonLeader']),
             'excludeUID'   => $excludeUID,
+            'extraFilter'  => $opts['extraFilter']  ?? null,
+            'includeBases' => !empty($opts['includeBases']),
+            'baseSide'     => $opts['baseSide']     ?? 'any',
         ]);
         if (empty($targets)) return;
-        $cont     = ($token === 'SHIELD') ? 'GIVE_SHIELD' : "GIVE_{$token}|{$amount}";
-        $prompt   = $opts['prompt']   ?? 'Give_a_token_to_a_unit';
+        $cont = (string)($opts['continuation'] ?? '');
+        static $amountTaking = ['GIVE_EXPERIENCE' => 1, 'GIVE_ADVANTAGE' => 1, 'HEAL_TARGET' => 1, 'DEAL_TARGET' => 1, 'DEAL_UNIT_DAMAGE' => 1, 'DEAL_BASE_DAMAGE' => 1];
+        if (strpos($cont, '|') === false && isset($amountTaking[$cont])) $cont .= "|{$amount}";
+        $prompt   = $opts['prompt']   ?? 'Choose_a_target';
         $question = $opts['question'] ?? $prompt;
         if ($may) SWUQueueMayChooseTarget(intval($player), $targets, $question, $prompt, $cont, $block);
         else      SWUQueueChooseTarget(intval($player), $targets, $prompt, $cont, $block);
+    }
+}
+
+// Choose one BASE (my/their/any) and apply an effect — the base-only sibling of SWUOfferUnitTarget,
+// for effects whose target set is just the base slots (DEAL_BASE_DAMAGE, base heals). Continuation
+// applies to the chosen base mzID (the universal handlers route base-vs-unit off the mzID string).
+//   'continuation' string   REQUIRED (e.g. 'DEAL_BASE_DAMAGE', 'HEAL_TARGET')
+//   'baseSide'     'my'|'their'|'any'   default 'any' (both bases)
+//   'amount'       int      default 1 — appended '|N' for amount-taking handlers (DEAL_BASE_DAMAGE/HEAL_TARGET/DEAL_TARGET)
+//   'may'          bool     default false
+//   'block'        int      default 1
+//   'prompt'       string   choose tooltip; default 'Choose_a_base'
+//   'question'     string   may yes/no tooltip; default = prompt
+if (!function_exists('SWUOfferBaseTarget')) {
+    function SWUOfferBaseTarget(int $player, array $opts = []): void {
+        global $playerID; $playerID = intval($player);
+        $baseSide = $opts['baseSide'] ?? 'any';
+        $targets = [];
+        if ($baseSide === 'my'    || $baseSide === 'any') $targets[] = 'myBase-0';
+        if ($baseSide === 'their' || $baseSide === 'any') $targets[] = 'theirBase-0';
+        if (empty($targets)) return;
+        $amount = max(1, intval($opts['amount'] ?? 1));
+        $cont   = (string)($opts['continuation'] ?? '');
+        static $amountTaking = ['DEAL_BASE_DAMAGE' => 1, 'HEAL_TARGET' => 1, 'DEAL_TARGET' => 1];
+        if (strpos($cont, '|') === false && isset($amountTaking[$cont])) $cont .= "|{$amount}";
+        $prompt   = $opts['prompt']   ?? 'Choose_a_base';
+        $question = $opts['question'] ?? $prompt;
+        $block    = intval($opts['block'] ?? 1);
+        if (!empty($opts['may'])) SWUQueueMayChooseTarget(intval($player), $targets, $question, $prompt, $cont, $block);
+        else                      SWUQueueChooseTarget(intval($player), $targets, $prompt, $cont, $block);
+    }
+}
+
+// Choose one card from a hand (opponent's or your own, optionally filtered) and discard it — the
+// hand-target sibling of SWUOfferUnitTarget. For 'opp' it routes through SWULookAtOpponentHand (which
+// also reveals the opponent's hand to the caster, per the "look at an opponent's hand" text). No-ops
+// when no card matches. The universal DISCARD_FROM_OPP_HAND / DISCARD_FROM_OWN_HAND handlers do the
+// discard on the chosen mzID.
+//   'from'   'opp' | 'own'   default 'opp'
+//   'filter' callable(string $cardID): bool   optional (unit-only, event-only, aspect-match, …)
+//   'may'    bool   default false
+//   'block'  int    default 1
+//   'prompt' string ;  'question' string (may yes/no; default = prompt)
+if (!function_exists('SWUOfferDiscard')) {
+    function SWUOfferDiscard(int $player, array $opts = []): void {
+        global $playerID; $playerID = intval($player);
+        $from   = $opts['from'] ?? 'opp';
+        $filter = $opts['filter'] ?? null;
+        if ($from === 'own') {
+            $targets = [];
+            foreach (ZoneSearch('myHand', null) as $mz) {
+                $o = GetZoneObject($mz);
+                if (SWUObjGone($o)) continue;
+                if ($filter !== null && !$filter($o->CardID ?? '')) continue;
+                $targets[] = $mz;
+            }
+            $cont    = 'DISCARD_FROM_OWN_HAND|' . intval($player);
+            $default = "Discard_a_card_from_your_hand";
+        } else {
+            $targets = ($filter !== null)
+                ? SWULookAtOpponentHand(intval($player), $filter)
+                : SWULookAtOpponentHand(intval($player));
+            $cont    = 'DISCARD_FROM_OPP_HAND';
+            $default = "Discard_a_card_from_the_opponent's_hand";
+        }
+        // Viper-Probe presentation: when the discard auto-resolves (0 or 1 legal target → no MZCHOOSE, so
+        // the player never sees the hand), explicitly show it — queued AFTER the discard (as the original
+        // sites did) and fired even on 0 targets. Only meaningful for 'opp'.
+        $showHand = (!empty($opts['showHandIfAuto']) && count($targets) <= 1);
+        if (!empty($targets)) {
+            $prompt   = $opts['prompt']   ?? $default;
+            $question = $opts['question'] ?? $prompt;
+            $block    = intval($opts['block'] ?? 1);
+            if (!empty($opts['may'])) SWUQueueMayChooseTarget(intval($player), $targets, $question, $prompt, $cont, $block);
+            else                      SWUQueueChooseTarget(intval($player), $targets, $prompt, $cont, $block);
+        }
+        if ($showHand) SWUQueueShowOpponentHand(intval($player));
     }
 }

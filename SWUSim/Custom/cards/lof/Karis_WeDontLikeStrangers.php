@@ -11,8 +11,8 @@ $whenDefeatedAbilities["LOF_031:0"] = function($player, $mzID) {
 $customDQHandlers["LOF_031#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     UseTheForce(intval($player));
-    global $playerID; $playerID = intval($player);
-    $targets = array_values(SWUAllUnits());
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_-2/-2_for_this_phase", "APPLY_PHASE_DEBUFF|2|2|LOF_031");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'APPLY_PHASE_DEBUFF|2|2|LOF_031',
+        'side' => 'any', 'prompt' => "Give_a_unit_-2/-2_for_this_phase",
+    ]);
 };

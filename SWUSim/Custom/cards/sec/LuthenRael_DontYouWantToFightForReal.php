@@ -14,7 +14,8 @@ $customDQHandlers["SEC_013#0"] = function($player, $parts, $lastDecision) {
         if (($l->CardID ?? '') === 'SEC_013' && empty($l->removed)) { $l->Ready = false; break; }
     }
     unset($l);
-    $targets = _SWUAllUnitsAndBases(intval($player));
-    if (empty($targets)) return;
-    SWUQueueChooseTarget($player, $targets, "Deal_1_damage_to_a_unit_or_base", "DEAL_TARGET|1");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_TARGET', 'amount' => 1, 'includeBases' => true,
+        'prompt' => "Deal_1_damage_to_a_unit_or_base",
+    ]);
 };

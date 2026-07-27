@@ -29,12 +29,11 @@ $customDQHandlers["JTL_210#0"] = function($player, $parts, $lastDecision) {
 
 // When played as an upgrade: Exhaust an enemy unit in this arena.
 $whenPlayedAsUpgradeAbilities["JTL_210:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    $arena = $host->Location ?? 'GroundArena';
-    $targets = array_values(ZoneSearch('their' . $arena, AnyUnitFilter));
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Exhaust_an_enemy_unit_in_this_arena", "EXHAUST_UNIT");
+    $arena = (($host->Location ?? 'GroundArena') === 'SpaceArena') ? 'Space' : 'Ground';
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'side' => 'their', 'arena' => $arena,
+        'prompt' => "Exhaust_an_enemy_unit_in_this_arena",
+    ]);
 };

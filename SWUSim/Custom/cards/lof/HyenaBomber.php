@@ -14,7 +14,8 @@ $whenPlayedAbilities["LOF_158:0"] = function($player, $mzID) {
         if (strpos(CardAspect($u->CardID ?? '') ?? '', 'Aggression') !== false) { $hasAggr = true; break; }
     }
     if (!$hasAggr) return;
-    $targets = SWUAllUnits(null, GroundArena);
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_2_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_2_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

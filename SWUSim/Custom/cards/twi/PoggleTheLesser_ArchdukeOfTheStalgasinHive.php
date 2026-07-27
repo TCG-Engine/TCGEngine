@@ -11,3 +11,17 @@ $customDQHandlers["TWI_080#0"] = function($player, $parts, $lastDecision) {
     OnExhaustCard(intval($player), $mz);
     SWUCreateUnitToken(intval($player), 'TWI_T01');
 };
+
+function Twi080Reaction(int $player, int $uid): void
+{
+  global $playerID;
+  $playerID = intval($player);
+  $mz = SWUFindMzByUID($uid);
+  if ($mz === null)
+    return;
+  $o = GetZoneObject($mz);
+  if (SWUObjGone($o) || intval($o->Status ?? 0) !== 1)
+    return; // must be ready to exhaust
+  DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Poggle_to_create_a_Battle_Droid?");
+  DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TWI_080#0|" . $uid, 1);
+}

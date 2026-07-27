@@ -5,22 +5,9 @@
 
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SOR_222:0"] = function($player, $mzID = '') {
-global $playerID;
-            $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch('myGroundArena',    NonLeaderUnitFilter),
-                ZoneSearch('mySpaceArena',     NonLeaderUnitFilter),
-                ZoneSearch('theirGroundArena', NonLeaderUnitFilter),
-                ZoneSearch('theirSpaceArena',  NonLeaderUnitFilter)
-            );
-            if (empty($targets)) return;
-            if (count($targets) === 1) {
-                // Single valid target — auto-bounce (Waylay is mandatory, no "you may").
-                DecisionQueueController::AddDecision($player, 'PASSPARAMETER', $targets[0], 1);
-                DecisionQueueController::AddDecision($player, 'CUSTOM', 'BOUNCE_UNIT', 1);
-            } else {
-                DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $targets), 1, 'Choose_a_unit_to_return_to_hand');
-                DecisionQueueController::AddDecision($player, 'CUSTOM', 'BOUNCE_UNIT', 1);
-            }
-            return;
+    // Waylay — mandatory return of a non-leader unit (single valid target auto-resolves).
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'BOUNCE_UNIT', 'nonLeader' => true,
+        'prompt' => "Choose_a_unit_to_return_to_hand",
+    ]);
 };

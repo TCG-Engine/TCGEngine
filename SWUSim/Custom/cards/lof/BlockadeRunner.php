@@ -9,3 +9,11 @@ $customDQHandlers["LOF_166#0"] = function($player, $parts, $lastDecision) {
     $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
     if ($mz !== null) DoGiveExperienceToken(intval($player), $mz);
 };
+
+function LOF166BaseReaction(int $player, string $mzID): void
+{
+  $o = GetZoneObject($mzID);
+  $uid = SWUObjUID($o, 0);
+  DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Give_this_unit_an_Experience_token?");
+  DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_166#0|{$uid}", 1);
+}

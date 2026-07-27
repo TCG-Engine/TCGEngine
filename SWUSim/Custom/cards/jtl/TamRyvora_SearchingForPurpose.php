@@ -5,12 +5,12 @@
 
 // JTL_035 Tam Ryvora (pilot) — granted "On Attack: Give an enemy unit in this arena -1/-1 for this phase."
 $onAttackAbilities["JTL_035:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    $arena = $host->Location ?? 'GroundArena';            // 'GroundArena' or 'SpaceArena' — "this arena"
-    $targets = array_values(ZoneSearch('their' . $arena, AnyUnitFilter));
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_an_enemy_unit_in_this_arena_-1/-1", "APPLY_PHASE_DEBUFF|1|1|JTL_035");
+    $arena = ($host->Location ?? 'GroundArena');          // 'GroundArena' or 'SpaceArena' — "this arena"
+    $arenaKey = (strpos($arena, 'Space') !== false) ? 'Space' : 'Ground';
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'APPLY_PHASE_DEBUFF|1|1|JTL_035', 'side' => 'their', 'arena' => $arenaKey,
+        'prompt' => "Give_an_enemy_unit_in_this_arena_-1/-1",
+    ]);
 };

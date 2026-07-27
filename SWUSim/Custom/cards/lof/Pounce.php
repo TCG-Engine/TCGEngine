@@ -23,7 +23,7 @@ $whenPlayedAbilities["LOF_224:0"] = function($player, $mzID = '') {
                 for ($i = 0; $i < count($arr); $i++) {
                     $u = $arr[$i];
                     if (SWUObjGone($u)) continue;
-                    if (HasTrait($u->CardID ?? '', 'Creature') && intval($u->Status ?? 0) === 1) $units[] = "{$zone}-{$i}";
+                    if (TraitContains($u, 'Creature') && intval($u->Status ?? 0) === 1) $units[] = "{$zone}-{$i}";
                 }
             }
             if (empty($units)) return;

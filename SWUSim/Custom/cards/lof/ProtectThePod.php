@@ -12,9 +12,10 @@ $customDQHandlers["LOF_128#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) return;
     $remHP = intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0);
     if ($remHP <= 0) return;
-    $enemy = SWUAllUnits('their');
-    if (empty($enemy)) return;
-    SWUQueueChooseTarget(intval($player), $enemy, "Deal_{$remHP}_damage_to_an_enemy_unit", "DEAL_UNIT_DAMAGE|{$remHP}");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $remHP, 'side' => 'their',
+        'prompt' => "Deal_{$remHP}_damage_to_an_enemy_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

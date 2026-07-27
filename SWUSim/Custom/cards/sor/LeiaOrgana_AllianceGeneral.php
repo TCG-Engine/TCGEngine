@@ -39,7 +39,7 @@ $leaderAbilities["SOR_009"] = function(int $player): void {
     $rebels = array_values(array_filter(array_merge(
         ZoneSearch('myGroundArena', AnyUnitFilter),
         ZoneSearch('mySpaceArena',  AnyUnitFilter)
-    ), function($mz) { $o = GetZoneObject($mz); return $o !== null && intval($o->Status) === 1 && HasTrait($o->CardID, 'Rebel'); }));
+    ), function($mz) { $o = GetZoneObject($mz); return $o !== null && intval($o->Status) === 1 && TraitContains($o, 'Rebel'); }));
     if (empty($rebels)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $rebels, 'Attack_with_a_Rebel_unit', 'SOR_009#0');
 };

@@ -538,6 +538,33 @@ class GameTestAdapter {
     }
 
     /**
+     * Simulate an HTTP request boundary mid-decision. In production every interactive decision ends the
+     * request; the next answer arrives in a genuinely fresh PHP process that (1) re-ParseGamestates the
+     * serialized state (zones, decision queue, EffectStack, $gDecisionQueueVariables / SWUVars) from disk
+     * and (2) starts every NON-serialized in-memory continuation global from scratch. A step-driven test
+     * runs ONE process, so both effects are absent — masking two bug classes:
+     *   • cross-decision state parked in a transient global instead of the serialized gamestate; and
+     *   • state that survives serialization but is RECONSTRUCTED in a different order/shape on re-parse
+     *     (e.g. combat/trigger orchestration whose after-action coordination is queue-ordering sensitive).
+     *
+     * Reproduce both: WriteGamestate → reset transient continuation globals → ParseGamestate — the exact
+     * round-trip production performs at each boundary. A test that inserts this between an action and the
+     * answer to its interactive decision exercises the real fresh-process boundary.
+     */
+    public function simulateRequestBoundary(): void {
+        global $gameName, $gShootFirstPending;
+        // Round-trip through a scratch dir under the system temp — never the repo working tree.
+        $base = rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary/';
+        $dir  = $base . "Games/{$gameName}";
+        if (!is_dir($dir)) @mkdir($dir, 0777, true);
+        ob_start();
+        WriteGamestate($base);                // 1) serialize (production writes on every pending-decision response)
+        $gShootFirstPending = null;           // 2) fresh process: transient continuation globals start empty
+        ParseGamestate($base);                // 3) re-parse — repopulates ONLY the serialized state
+        ob_end_clean();
+    }
+
+    /**
      * Public drain — run pending STATIC decisions (RESOLVE_TRIGGER / CUSTOM / SYSTEM) on $player's
      * queue without popping or answering anything, stopping at the first interactive decision.
      *

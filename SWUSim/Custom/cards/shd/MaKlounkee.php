@@ -9,14 +9,10 @@ $customDQHandlers["SHD_229#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
     if (!SWUBounceUnit(intval($player), $lastDecision)) return;
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed)) $targets[] = $mz;
-        }
-    }
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_3_to_a_unit", "DEAL_UNIT_DAMAGE|3");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'side' => 'any',
+        'prompt' => "Deal_3_to_a_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.
@@ -27,7 +23,7 @@ $whenPlayedAbilities["SHD_229:0"] = function($player, $mzID = '') {
             foreach (['myGroundArena', 'mySpaceArena'] as $z) {
                 foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
                     $o = GetZoneObject($mz);
-                    if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Underworld')) $targets[] = $mz;
+                    if ($o !== null && empty($o->removed) && TraitContains($o, 'Underworld')) $targets[] = $mz;
                 }
             }
             if (empty($targets)) return;   // no friendly Underworld unit → no return, no damage

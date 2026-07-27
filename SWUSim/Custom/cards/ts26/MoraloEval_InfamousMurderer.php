@@ -6,9 +6,9 @@
 // TS26_73 Moralo Eval — the base owner (Moralo's controller) may deal 1 damage to a unit after their
 // base takes combat damage. Runs under the base owner's frame (queued as a CUSTOM from SWUDealDamageToBase).
 $customDQHandlers["TS26_73#0"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_1_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|1");
     // leave $playerID = $player so the queued MZMAYCHOOSE validates the base owner's mzIDs
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'may' => true,
+        'question' => "Deal_1_damage_to_a_unit?", 'prompt' => "Choose_a_unit",
+    ]);
 };

@@ -6,13 +6,9 @@
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["JTL_079:0"] = function($player, $mzID = '') {
 // Out the Airlock — give a unit -5/-5 for this phase.
-            global $playerID;
-            $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
-            if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_-5/-5_this_phase", "APPLY_PHASE_DEBUFF|5|5|JTL_079");
+            SWUOfferUnitTarget(intval($player), $mzID, [
+                'continuation' => 'APPLY_PHASE_DEBUFF|5|5|JTL_079', 'side' => 'any',
+                'prompt' => "Give_a_unit_-5/-5_this_phase",
+            ]);
             return;
 };

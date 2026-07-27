@@ -5,14 +5,7 @@
 
 // LAW_095 Finn — Ambush + On Attack: you may give a Shield token to a non-unique unit.
 $onAttackAbilities["LAW_095:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && !CardUnique($o->CardID ?? '')) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_a_Shield_token_to_a_non-unique_unit?", "Choose_a_unit", "GIVE_SHIELD");
+    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GIVE_SHIELD','may'=>true,
+        'extraFilter'=>fn($o)=>!CardUnique($o->CardID ?? ''),
+        'question'=>"Give_a_Shield_token_to_a_non-unique_unit?",'prompt'=>"Choose_a_unit"]);
 };

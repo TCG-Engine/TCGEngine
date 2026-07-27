@@ -5,8 +5,8 @@
 
 // IBH_020 Luke Skywalker — Restore 2 (keyword) + When Played: you may deal 3 damage to a ground unit.
 $whenPlayedAbilities["IBH_020:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = SWUAllUnits(null, GroundArena);
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_3_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|3");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_3_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

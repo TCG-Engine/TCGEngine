@@ -5,15 +5,6 @@
 
 // LOF_051 Jedi Holocron — attached unit gains "On Attack: may heal 3 damage from another unit."
 $onAttackAbilities["LOF_051:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $self = GetZoneObject($mzID);
-    $selfUID = SWUObjUID($self);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o) || intval($o->UniqueID ?? -1) === $selfUID) continue;
-        $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Heal_3_from_another_unit?", "Choose_a_unit", "HEAL_TARGET|3");
+    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'HEAL_TARGET','amount'=>3,'may'=>true,'excludeSelf'=>true,
+        'question'=>"Heal_3_from_another_unit?",'prompt'=>"Choose_a_unit"]);
 };

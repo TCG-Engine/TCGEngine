@@ -23,15 +23,10 @@ $customDQHandlers["LAW_115#0"] = function($player, $parts, $lastDecision) {
     AddGameLogEntry('REVEAL', 'P' . intval($player) . ' revealed ' . GameLogCardRef($topID) . ' (top of deck)', 'ALL');
     if (stripos(CardType($topID) ?? '', 'Unit') !== false) return;   // it IS a unit → no Experience
     $uid = intval($parts[0] ?? 0);
-    $others = [];
-    foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $uid) $others[] = $mz;
-        }
-    }
-    if (empty($others)) return;
-    SWUQueueChooseTarget(intval($player), $others, "Give_an_Experience_token_to_another_unit", "GIVE_EXPERIENCE|1");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'GIVE_EXPERIENCE', 'excludeUID' => $uid,
+        'prompt' => "Give_an_Experience_token_to_another_unit",
+    ]);
 };
 
 // ─── SHD_057 Rickety Quadjumper ───────────────────────────────────────────────
@@ -55,12 +50,8 @@ $customDQHandlers["SHD_057#0"] = function($player, $parts, $lastDecision) {
     $top = $deck[$idx]->CardID;
     AddGameLogEntry('ABILITY', 'Revealed ' . CardTitle($top) . ' (left on top of deck)', 'ALL');
     if (strpos(CardType($top) ?? '', 'Unit') !== false) return;    // it IS a unit → no Experience
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID) $targets[] = $mz;
-        }
-    }
-    SWUQueueChooseTarget(intval($player), $targets, "Give_an_Experience_token_to_another_unit", "GIVE_EXPERIENCE|1");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'GIVE_EXPERIENCE', 'excludeUID' => $selfUID,
+        'prompt' => "Give_an_Experience_token_to_another_unit",
+    ]);
 };

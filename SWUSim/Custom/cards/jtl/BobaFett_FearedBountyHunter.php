@@ -10,10 +10,8 @@ $whenPlayedAsUpgradeAbilities["JTL_189:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $host = GetZoneObject($mzID);
     $amt = ($host !== null && HasTrait($host->CardID ?? '', 'Transport')) ? 2 : 1;
-    $units = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter), ZoneSearch('mySpaceArena',    AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-    ));
-    if (empty($units)) return;
-    SWUQueueMayChooseTarget(intval($player), $units, "Deal_{$amt}_damage_to_a_unit", "Choose_a_unit", "DEAL_UNIT_DAMAGE|{$amt}");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $amt, 'side' => 'any', 'may' => true,
+        'question' => "Deal_{$amt}_damage_to_a_unit", 'prompt' => "Choose_a_unit",
+    ]);
 };

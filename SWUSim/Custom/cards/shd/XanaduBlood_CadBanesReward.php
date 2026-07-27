@@ -43,7 +43,7 @@ $shd191XanaduBlood = function ($player, $mzID) {
       $o = GetZoneObject($mz);
       if (
         $o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID
-        && HasTrait($o->CardID ?? '', 'Underworld')
+        && TraitContains($o, 'Underworld')
       )
         $targets[] = $mz;
     }

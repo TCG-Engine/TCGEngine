@@ -5,8 +5,8 @@
 
 // ASH_153 Green Leader — When Defeated: you may deal 2 damage to a unit.
 $whenDefeatedAbilities["ASH_153:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_2_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'may' => true,
+        'question' => "Deal_2_damage_to_a_unit?", 'prompt' => "Choose_a_unit",
+    ]);
 };

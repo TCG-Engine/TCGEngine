@@ -17,12 +17,12 @@ $customDQHandlers["LAW_217#0"] = function($player, $parts, $lastDecision) {
     if (!$wasReady) return;
     $unitAspects = array_filter(array_map('trim', explode(',', (string)(CardAspect($o->CardID ?? '') ?? ''))));
     if (empty($unitAspects)) return;                          // no aspect to share → nothing to discard
-    $targets = SWULookAtOpponentHand(intval($player), function($cid) use ($unitAspects) {
-        $cardAspects = array_filter(array_map('trim', explode(',', (string)(CardAspect($cid) ?? ''))));
-        return !empty(array_intersect($unitAspects, $cardAspects));
-    });
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Discard_a_card_sharing_an_aspect_with_that_unit", "DISCARD_FROM_OPP_HAND");
+    SWUOfferDiscard($player, ['from'=>'opp',
+        'filter'=>function($cid) use ($unitAspects) {
+            $cardAspects = array_filter(array_map('trim', explode(',', (string)(CardAspect($cid) ?? ''))));
+            return !empty(array_intersect($unitAspects, $cardAspects));
+        },
+        'prompt'=>"Discard_a_card_sharing_an_aspect_with_that_unit"]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

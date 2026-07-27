@@ -7,16 +7,12 @@
 // HP than this unit's power." (LOF_044 "can't attack" + LOF_049 "while defending +2/+0" are wired in
 // CombatLogic; LOF_047's OnDefense "give an Experience token" is wired below.)
 $onAttackEndAbilities["LOF_038:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID);
     if (SWUObjGone($self)) return;
     $pow = intval(ObjectCurrentPower($self));
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o)) continue;
-        if (intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0) < $pow) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Defeat_a_unit_with_less_HP_than_this_unit's_power?", "Choose_a_unit", "DEFEAT_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEFEAT_UNIT', 'may' => true,
+        'extraFilter' => fn($o) => intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0) < $pow,
+        'question' => "Defeat_a_unit_with_less_HP_than_this_unit's_power?", 'prompt' => "Choose_a_unit",
+    ]);
 };

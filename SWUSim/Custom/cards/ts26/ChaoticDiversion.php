@@ -11,8 +11,7 @@ $customDQHandlers["TS26_31#0"] = function($player, $parts, $lastDecision) {
         OnReadyCard(intval($player), $lastDecision);
         AddTurnEffect($lastDecision, 'CANT_ATTACK');
     }
-    $fr = SWUAllUnits('my');
-    if (!empty($fr)) SWUQueueChooseTarget(intval($player), $fr, "Give_a_Shield_to_a_friendly_unit", "GIVE_SHIELD");
+    GiveTokenUpgrade($player, '', ['token'=>'SHIELD','prompt'=>"Give_a_Shield_to_a_friendly_unit"]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.
@@ -22,7 +21,6 @@ $whenPlayedAbilities["TS26_31:0"] = function($player, $mzID = '') {
     if (!empty($enemy)) {
         SWUQueueChooseTarget(intval($player), $enemy, "Ready_an_enemy_unit_(it_can't_attack_you)", "TS26_31#0");
     } else {
-        $fr = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
-        if (!empty($fr)) SWUQueueChooseTarget(intval($player), $fr, "Give_a_Shield_to_a_friendly_unit", "GIVE_SHIELD");
+        GiveTokenUpgrade($player, '', ['token'=>'SHIELD','prompt'=>"Give_a_Shield_to_a_friendly_unit"]);
     }
 };

@@ -35,3 +35,19 @@ $customDQHandlers["SHD_014#0"] = function($opp, $parts, $lastDecision) {
     $mz = SWUFindMzByUID($uid);                       // UID is frame-independent
     if ($mz !== null) SWUDealDamageToUnit($mz, 1, $caster);
 };
+
+function Shd014FrontReaction($player): void
+{
+  global $playerID;
+  $playerID = intval($player);
+  if (!_SWULeaderReadyUndeployed(intval($player), 'SHD_014'))
+    return;
+  $opp = OtherPlayer(intval($player));
+  $playerID = $opp;   // resolve "my..." as the opponent's own board to test for targets
+  $oppUnits = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter));
+  $playerID = intval($player);
+  if (empty($oppUnits))
+    return;   // no enemy unit to damage → don't bother offering the exhaust
+  DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Cad_Bane_to_deal_1_to_an_opponent's_unit?");
+  DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_014#exhaust", 1);
+}

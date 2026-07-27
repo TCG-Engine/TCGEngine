@@ -13,7 +13,7 @@ $leaderAbilities["LOF_004"] = function(int $player): void {
     foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
                          ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)) as $mz) {
         $o = GetZoneObject($mz); if (SWUObjGone($o)) continue;
-        if (HasTrait($o->CardID ?? '', 'Creature') || HasTrait($o->CardID ?? '', 'Spectre')) $targets[] = $mz;
+        if (TraitContains($o, 'Creature') || HasTrait($o->CardID ?? '', 'Spectre')) $targets[] = $mz;
     }
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Give_a_Shield_to_a_Creature_or_Spectre_unit", "LOF_004#0");

@@ -12,13 +12,12 @@ $customDQHandlers["SOR_107#0"] = function($player, $parts, $lastDecision) {
     $dealer = GetZoneObject($lastDecision);
     if (SWUObjGone($dealer)) return;
     $power = intval(ObjectCurrentPower($dealer));
-    $enemies = [];
-    foreach (SWUAllUnits('their') as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && !CardUnique($o->CardID)) $enemies[] = $mz;
-    }
-    if ($power <= 0 || empty($enemies)) return;
-    SWUQueueChooseTarget($player, array_values($enemies), "Deal_power_to_a_non-unique_enemy_unit", "DEAL_UNIT_DAMAGE|{$power}");
+    if ($power <= 0) return;
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'side' => 'their',
+        'extraFilter' => fn($o) => !CardUnique($o->CardID),
+        'prompt' => "Deal_power_to_a_non-unique_enemy_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

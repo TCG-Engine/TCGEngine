@@ -10,11 +10,12 @@ $whenDefeatedAbilities["TS26_54:0"] = function($player, $mzID) {
 };
 
 $customDQHandlers["TS26_54#0"] = function($player, $parts, $lastDecision) {
-    global $playerID;
     $opp = OtherPlayer(intval($player));
-    $playerID = $opp;
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget($opp, $tg, "Give_an_Experience_token_to_a_unit?", "Choose_a_unit", "GIVE_EXPERIENCE|1");
-    // leave $playerID = $opp
+    // The opponent is the giver; GiveTokenUpgrade sets/leaves $playerID = $opp.
+    GiveTokenUpgrade($opp, '', [
+        'friendlyOnly' => false,
+        'may'          => true,
+        'prompt'       => "Choose_a_unit",
+        'question'     => "Give_an_Experience_token_to_a_unit?",
+    ]);
 };

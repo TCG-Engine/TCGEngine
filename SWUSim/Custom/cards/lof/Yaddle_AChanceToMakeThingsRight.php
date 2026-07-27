@@ -13,6 +13,6 @@ $onAttackAbilities["LOF_045:0"] = function($player, $mzID) {
         if (SWUObjGone($o) || intval($o->UniqueID ?? -1) === $selfUID) continue;
         // CardID-based token (not bare 'RESTORE') so the Active Effects popup shows Yaddle's art as
         // the source — registry row 'LOF_045' => GRANT_KEYWORD_VALUE RESTORE amount 1.
-        if (HasTrait($o->CardID ?? '', 'Jedi')) AddTurnEffect($mz, 'LOF_045');
+        if (TraitContains($o, 'Jedi')) AddTurnEffect($mz, 'LOF_045');
     }
 };

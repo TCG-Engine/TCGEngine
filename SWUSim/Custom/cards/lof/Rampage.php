@@ -10,7 +10,7 @@ $whenPlayedAbilities["LOF_127:0"] = function($player, $mzID = '') {
             foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
-                if (HasTrait($o->CardID ?? '', 'Creature')) SWUApplyPhaseBuff($mz, 2, 2, 'LOF_127');
+                if (TraitContains($o, 'Creature')) SWUApplyPhaseBuff($mz, 2, 2, 'LOF_127');
             }
             return;
 };

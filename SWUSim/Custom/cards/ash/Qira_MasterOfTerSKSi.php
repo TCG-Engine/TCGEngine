@@ -20,7 +20,8 @@ $customDQHandlers["ASH_226#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision) || !str_contains($lastDecision, '-')) return; // declined
     DoDiscardCard(intval($player), $lastDecision);
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;   // discarded but no unit to damage → fizzle
-    SWUQueueChooseTarget(intval($player), $tg, "Deal_3_damage_to_a_unit", "DEAL_UNIT_DAMAGE|3");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3,
+        'prompt' => "Deal_3_damage_to_a_unit",
+    ]);
 };

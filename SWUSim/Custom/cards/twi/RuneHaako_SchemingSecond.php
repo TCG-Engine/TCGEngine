@@ -7,12 +7,8 @@
 // -1/-1 for this phase."
 $whenPlayedAbilities["TWI_031:0"] = function($player, $mzID) {
     if (GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') <= 0) return;
-    global $playerID;
-    $playerID = intval($player);
-    $targets = array_merge(
-        ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-    );
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_a_unit_-1/-1_this_phase?", "Choose_a_unit", "APPLY_PHASE_DEBUFF|1|1|TWI_031");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'APPLY_PHASE_DEBUFF|1|1|TWI_031', 'side' => 'any', 'may' => true,
+        'question' => "Give_a_unit_-1/-1_this_phase?", 'prompt' => "Choose_a_unit",
+    ]);
 };

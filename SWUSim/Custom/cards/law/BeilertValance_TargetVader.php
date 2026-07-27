@@ -9,7 +9,9 @@ $onAttackAbilities["LAW_051:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     DoDrawCard(intval($player), 1);
     $n = GlobalEffectCount(intval($player), 'SWU_DREW_PHASE');
-    $ground = SWUAllUnits(null, GroundArena);
-    if (empty($ground) || $n <= 0) return;
-    SWUQueueMayChooseTarget(intval($player), $ground, "Deal_{$n}_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|{$n}");
+    if ($n <= 0) return;
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $n, 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_{$n}_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

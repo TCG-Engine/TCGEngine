@@ -12,3 +12,17 @@ $customDQHandlers["TWI_101#0"] = function($player, $parts, $lastDecision) {
     if (count(GetDeck(intval($player))) === 0) return;
     DoTopDeckSearch(intval($player), 4, fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false, 1);
 };
+
+function Twi101Reaction(int $player, int $uid): void
+{
+  global $playerID;
+  $playerID = intval($player);
+  $mz = SWUFindMzByUID($uid);
+  if ($mz === null)
+    return;
+  $o = GetZoneObject($mz);
+  if (SWUObjGone($o) || intval($o->Status ?? 0) !== 1)
+    return;
+  DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Mas_Amedda_to_search_the_top_4_for_a_unit?");
+  DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TWI_101#0|" . $uid, 1);
+}

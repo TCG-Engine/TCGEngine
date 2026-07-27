@@ -8,10 +8,10 @@ $sor134RuthlessRaider = function ($player, $mzID) {
   global $playerID;
   $playerID = intval($player);
   SWUDealDamageToBase(2, GetOpponent(intval($player)));
-  $enemy = SWUAllUnits('their');
-  if (empty($enemy))
-    return;
-  SWUQueueChooseTarget(intval($player), $enemy, "Deal_2_to_an_enemy_unit", "DEAL_UNIT_DAMAGE|2");
+  SWUOfferUnitTarget($player, $mzID, [
+    'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'their',
+    'prompt' => "Deal_2_to_an_enemy_unit",
+  ]);
 };
 
 $whenPlayedAbilities["SOR_134:0"] = $sor134RuthlessRaider;

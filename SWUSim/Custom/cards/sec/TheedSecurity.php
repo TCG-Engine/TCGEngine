@@ -17,7 +17,8 @@ $whenPlayedAbilities["SEC_095:0"] = function($player, $mzID) {
         }
     }
     if (!$oppHasUpgrade) return;
-    $units = SWUAllUnits();
-    if (empty($units)) return;
-    SWUQueueChooseTarget(intval($player), $units, "Give_an_Experience_token_to_a_unit", "GIVE_EXPERIENCE|1");
+    GiveTokenUpgrade($player, $mzID, [
+        'friendlyOnly' => false,
+        'prompt'       => "Give_an_Experience_token_to_a_unit",
+    ]);
 };

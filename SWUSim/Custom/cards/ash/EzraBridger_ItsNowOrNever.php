@@ -14,13 +14,8 @@ $customDQHandlers["ASH_013#0"] = function($player, $parts, $lastDecision) {
     $attMz  = $parts[0] ?? '';
     $attObj = ($attMz && str_contains($attMz, '-')) ? GetZoneObject($attMz) : null;
     $attUID = SWUObjUID($attObj);
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -1) !== $attUID) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_an_Advantage_token_to_a_different_unit", "GIVE_ADVANTAGE|1");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'GIVE_ADVANTAGE', 'excludeUID' => $attUID,
+        'prompt' => "Give_an_Advantage_token_to_a_different_unit",
+    ]);
 };

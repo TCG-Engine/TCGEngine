@@ -5,14 +5,9 @@
 
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SOR_078:0"] = function($player, $mzID = '') {
-// Vanquish — "Defeat a non-leader unit." (["Unit","Token Unit"] excludes leader units.)
-            $targets = array_merge(
-                ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-                ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-                ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-                ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-            );
-            if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_non-leader_unit", "DEFEAT_UNIT");
-            return;
+    // Vanquish — "Defeat a non-leader unit."
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true,
+        'prompt' => "Defeat_a_non-leader_unit",
+    ]);
 };

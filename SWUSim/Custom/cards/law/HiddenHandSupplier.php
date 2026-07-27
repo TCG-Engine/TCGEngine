@@ -19,13 +19,9 @@ $customDQHandlers["LAW_257#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!SWUExhaustResources(intval($player), 1)) return;
     $uid = intval($parts[0] ?? 0);
-    $others = [];
-    foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $uid) $others[] = $mz;
-        }
-    }
-    if (empty($others)) return;
-    SWUQueueChooseTarget(intval($player), $others, "Give_an_Experience_token_to_another_unit", "GIVE_EXPERIENCE|1");
+    // Give an Experience token to ANOTHER unit (either player; exclude self by UID).
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'any', 'excludeUID' => $uid,
+        'prompt' => "Give_an_Experience_token_to_another_unit",
+    ]);
 };

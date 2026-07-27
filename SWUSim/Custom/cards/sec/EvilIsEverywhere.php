@@ -13,15 +13,9 @@ $whenPlayedAbilities["SEC_247:0"] = function($player, $mzID = '') {
                 if (!empty($u->removed)) continue;
                 foreach (SWUCardAspectIcons($u->CardID ?? '') as $ic) if ($ic === 'Villainy') $vill++;
             }
-            $targets = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),    ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID ?? '')) <= $vill) $targets[] = $mz;
-            }
-            if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_unit_(cost<={$vill})", "DEFEAT_UNIT");
-            return;
+            SWUOfferUnitTarget($player, $mzID, [
+                'continuation' => 'DEFEAT_UNIT',
+                'extraFilter' => fn($o) => intval(CardCost($o->CardID ?? '')) <= $vill,
+                'prompt' => "Defeat_a_unit_(cost<={$vill})",
+            ]);
 };

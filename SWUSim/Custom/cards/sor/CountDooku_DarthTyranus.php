@@ -5,14 +5,9 @@
 
 // SOR_038 Count Dooku — When Played: you may defeat a unit with 4 or less remaining HP.
 $whenPlayedAbilities["SOR_038:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o)) continue;
-        if (intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0) <= 4) $targets[] = $mz;
-    }
-    SWUQueueMayChooseTarget(intval($player), $targets,
-        "Defeat_a_unit_with_4_or_less_remaining_HP?", "Defeat_a_unit_with_4_or_less_remaining_HP", "DEFEAT_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEFEAT_UNIT', 'may' => true,
+        'extraFilter' => fn($o) => intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0) <= 4,
+        'question' => "Defeat_a_unit_with_4_or_less_remaining_HP?", 'prompt' => "Defeat_a_unit_with_4_or_less_remaining_HP",
+    ]);
 };

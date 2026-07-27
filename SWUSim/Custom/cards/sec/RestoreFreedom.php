@@ -13,8 +13,6 @@ $whenPlayedAbilities["SEC_257:0"] = function($player, $mzID = '') {
                 if (!empty($u->removed)) continue;
                 foreach (SWUCardAspectIcons($u->CardID ?? '') as $a) { if ($a === 'Heroism') $disc++; }
             }
-            $targets = SWUHandPlayablesAtDiscount(intval($player), ['Unit'], $disc);
-            if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Play_a_unit_(1_less_per_Heroism_icon_among_friendly_units)", "DISCOUNT_PLAY_FROM_HAND|" . $disc);
-            return;
+            SWUOfferDiscountPlay(intval($player), ['discount'=>$disc, 'types'=>['Unit'], 'afterAction'=>false,
+                'prompt'=>"Play_a_unit_(1_less_per_Heroism_icon_among_friendly_units)"]);
 };

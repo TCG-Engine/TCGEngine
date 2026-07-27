@@ -5,12 +5,9 @@
 
 // SEC_204 Blue Ace — Ambush + On Attack: ready an exhausted enemy unit (mandatory; 1 target auto-resolves).
 $onAttackAbilities["SEC_204:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits('their') as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && intval($o->Status ?? 1) === 0) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Ready_an_exhausted_enemy_unit", "READY_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'READY_UNIT', 'side' => 'their',
+        'extraFilter' => fn($o) => intval($o->Status ?? 1) === 0,
+        'prompt' => "Ready_an_exhausted_enemy_unit",
+    ]);
 };

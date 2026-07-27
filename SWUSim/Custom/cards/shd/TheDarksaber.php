@@ -14,7 +14,7 @@ $onAttackAbilities["SHD_126:0"] = function($player, $mzID) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;
             if (intval($o->UniqueID ?? 0) === $hostUID) continue;              // "other"
-            if (!HasTrait($o->CardID ?? '', 'Mandalorian')) continue;
+            if (!TraitContains($o, 'Mandalorian')) continue;
             DoGiveExperienceToken(intval($player), $mz);
         }
     }

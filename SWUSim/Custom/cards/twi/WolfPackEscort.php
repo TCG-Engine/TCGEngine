@@ -6,16 +6,8 @@
 // TWI_191 Wolf Pack Escort — "When Played: You may return a friendly non-leader, non-Vehicle unit to its
 // owner's hand."
 $whenPlayedAbilities["TWI_191:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    $targets = [];
-    foreach (["myGroundArena", "mySpaceArena"] as $z) {
-        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && !HasTrait($o->CardID ?? '', 'Vehicle')) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets,
-        "You_may_return_a_friendly_non-Vehicle_unit_to_hand", "Return_a_friendly_non-Vehicle_unit", "BOUNCE_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'BOUNCE_UNIT', 'side' => 'my', 'nonLeader' => true, 'notTraits' => ['Vehicle'], 'may' => true,
+        'question' => "You_may_return_a_friendly_non-Vehicle_unit_to_hand", 'prompt' => "Return_a_friendly_non-Vehicle_unit",
+    ]);
 };

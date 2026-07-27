@@ -13,7 +13,7 @@ $whenPlayedAbilities["TWI_250:0"] = function($player, $mzID = '') {
                     $o = GetZoneObject($mz);
                     if (SWUObjGone($o)) continue;
                     if (HasTrait($o->CardID ?? '', 'Trooper')) AddTurnEffect($mz, SWUMakeTurnEffect('RAID', [1], SWU_DUR_PHASE, 'TWI_250'));
-                    if (HasTrait($o->CardID ?? '', 'Jedi')) AddTurnEffect($mz, 'SENTINEL');
+                    if (TraitContains($o, 'Jedi')) AddTurnEffect($mz, 'SENTINEL');
                 }
             }
             return;

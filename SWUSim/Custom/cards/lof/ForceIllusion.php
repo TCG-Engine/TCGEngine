@@ -10,9 +10,7 @@ $customDQHandlers["LOF_223#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $o->Status = 0; // exhaust the enemy unit
-    $friendly = SWUAllUnits('my');
-    if (empty($friendly)) return;
-    SWUQueueChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_Sentinel_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL^LOF_223");
+    SWUOfferUnitTarget($player, '', ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^LOF_223', 'side'=>'my', 'prompt'=>"Give_a_friendly_unit_Sentinel_this_phase"]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.
@@ -24,9 +22,7 @@ $whenPlayedAbilities["LOF_223:0"] = function($player, $mzID = '') {
             if (empty($enemy)) {
                 // Two independent sentences: with no enemy to exhaust, still resolve the unconditional
                 // Sentinel-grant clause (mirror of the LOF_223#0 handler's friendly-grant step).
-                $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
-                if (empty($friendly)) return;
-                SWUQueueChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_Sentinel_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL^LOF_223");
+                SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^LOF_223', 'side'=>'my', 'prompt'=>"Give_a_friendly_unit_Sentinel_this_phase"]);
                 return;
             }
             SWUQueueChooseTarget(intval($player), $enemy, "Exhaust_an_enemy_unit", "LOF_223#0");

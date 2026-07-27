@@ -6,7 +6,7 @@
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SOR_217:0"] = function($player, $mzID = '') {
 // Shoot First — "Attack with a unit. It gets +1/+0 for this attack..."
-            global $playerID, $gShootFirstPending;
+            global $playerID;
             $readyUnits = [];
             foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
                 $arr = GetZone($zone);
@@ -17,7 +17,8 @@ $whenPlayedAbilities["SOR_217:0"] = function($player, $mzID = '') {
                 }
             }
             if (!empty($readyUnits)) {
-                $gShootFirstPending = true;
+                // The event-owns-after-action flag is set centrally by BeginSWUAttack (it detects the
+                // pending FINISH_PLAY_CARD terminator) — no need to set it here.
                 // Mandatory "attack with a unit" → auto-PASSPARAMETER when only 1 ready unit, MZCHOOSE for 2+.
                 SWUQueueChooseTarget($player, $readyUnits, "Choose_a_unit_to_attack_with", "SHOOT_FIRST_ATTACK", 1);
             }

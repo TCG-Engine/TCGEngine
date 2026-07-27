@@ -70,3 +70,26 @@ $whenPlayedAbilities["SHD_131:0"] = function($player, $mzID = '') {
                 'Choose_a_friendly_unit_to_capture_with', 'SHD_131#0');
             return;
 };
+
+// ─── TWI_128 Take Captive (reprint of SHD_131) — identical When Played, reuses the SHD_131#0/#1 chain ───
+$whenPlayedAbilities["TWI_128:0"] = function($player, $mzID = '') {
+            global $playerID;
+            $playerID = intval($player);
+            $capturers = [];
+            foreach (['myGroundArena' => 'theirGroundArena', 'mySpaceArena' => 'theirSpaceArena'] as $myZone => $theirZone) {
+                $enemyNonLeaders = array_values(array_filter(
+                    ZoneSearch($theirZone, NonLeaderUnitFilter),
+                    function($emz) { $eo = GetZoneObject($emz); return $eo !== null && empty($eo->removed); }
+                ));
+                if (empty($enemyNonLeaders)) continue;
+                foreach (ZoneSearch($myZone, AnyUnitFilter) as $fmz) {
+                    $fo = GetZoneObject($fmz);
+                    if (SWUObjGone($fo)) continue;
+                    $capturers[] = $fmz;
+                }
+            }
+            if (empty($capturers)) return;
+            SWUQueueChooseTarget(intval($player), array_values(array_unique($capturers)),
+                'Choose_a_friendly_unit_to_capture_with', 'SHD_131#0');
+            return;
+};

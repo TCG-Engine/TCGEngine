@@ -11,11 +11,15 @@ $onAttackEndAbilities["ASH_039:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $opp = OtherPlayer(intval($player));
     if (GlobalEffectCount(intval($player), 'SWU_DMGBASE_' . $opp) > 0) {
-        $tg = SWUAllUnits();
-        if (!empty($tg)) SWUQueueChooseTarget(intval($player), $tg, "Give_an_Advantage_token_to_a_unit", "GIVE_ADVANTAGE|1");
+        GiveTokenUpgrade($player, '', [
+            'token' => 'ADVANTAGE', 'friendlyOnly' => false,
+            'prompt' => "Give_an_Advantage_token_to_a_unit",
+        ]);
     }
     if (GlobalEffectCount(intval($player), 'SWU_FRIENDLY_UPGRADE_DEFEATED') > 0) {
-        $tg2 = SWUAllUnits();
-        if (!empty($tg2)) SWUQueueMayChooseTarget(intval($player), $tg2, "Exhaust_a_unit?", "Choose_a_unit", "EXHAUST_UNIT");
+        SWUOfferUnitTarget($player, $mzID, [
+            'continuation' => 'EXHAUST_UNIT', 'may' => true,
+            'question' => "Exhaust_a_unit?", 'prompt' => "Choose_a_unit",
+        ]);
     }
 };

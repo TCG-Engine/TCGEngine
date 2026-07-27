@@ -22,13 +22,8 @@ $customDQHandlers["IBH_005#0"] = function($player, $parts, $lastDecision) {
     $first    = GetZoneObject($lastDecision);
     $firstUID = ($first !== null) ? intval($first->UniqueID ?? 0) : 0;
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
-    $targets = [];
-    foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $firstUID) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_1_to_another_enemy_unit", "DEAL_UNIT_DAMAGE|1");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'side' => 'their', 'excludeUID' => $firstUID,
+        'prompt' => "Deal_1_to_another_enemy_unit",
+    ]);
 };

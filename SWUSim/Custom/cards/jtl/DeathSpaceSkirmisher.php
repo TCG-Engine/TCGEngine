@@ -16,7 +16,8 @@ $whenPlayedAbilities["JTL_217:0"] = function($player, $mzID) {
         if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUid) { $another = true; break; }
     }
     if (!$another) return;
-    $targets = SWUAllUnits();
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "You_may_exhaust_a_unit", "Exhaust_a_unit", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'may' => true,
+        'question' => "You_may_exhaust_a_unit", 'prompt' => "Exhaust_a_unit",
+    ]);
 };

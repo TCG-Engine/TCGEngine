@@ -9,11 +9,5 @@ $whenPlayedAbilities["LOF_075:0"] = function($player, $mzID = '') {
                           // use (auto if you control the Force; fizzles if you don't).
             if (!PlayerHasTheForce(intval($player))) return;
             UseTheForce(intval($player));
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
-            if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Heal_6_damage_from_a_unit", "HEAL_TARGET|6");
-            return;
+            SWUOfferUnitTarget($player, $mzID, ['continuation'=>'HEAL_TARGET','amount'=>6,'prompt'=>"Heal_6_damage_from_a_unit"]);
 };

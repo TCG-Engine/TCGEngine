@@ -7,9 +7,9 @@
 // When Played: You may defeat a unit with 5 or less REMAINING HP (ObjectCurrentHP − Damage —
 // buffs/upgrades raise it, damage lowers it). Fizzles with no qualifying unit.
 $whenPlayedAbilities["SHD_050:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = _SWUCollectUnits(0, fn($o) => (ObjectCurrentHP($o) - intval($o->Damage ?? 0)) <= 5);
-    SWUQueueMayChooseTarget(intval($player), $targets,
-        "Defeat_a_unit_with_5_or_less_remaining_HP?", "Defeat_a_unit_with_5_or_less_remaining_HP",
-        "DEFEAT_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEFEAT_UNIT', 'may' => true,
+        'extraFilter' => fn($o) => (ObjectCurrentHP($o) - intval($o->Damage ?? 0)) <= 5,
+        'question' => "Defeat_a_unit_with_5_or_less_remaining_HP?", 'prompt' => "Defeat_a_unit_with_5_or_less_remaining_HP",
+    ]);
 };

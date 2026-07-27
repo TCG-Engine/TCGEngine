@@ -18,12 +18,8 @@ $customDQHandlers["SHD_154#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
     if (!SWUDefeatResource(intval($player), $lastDecision)) return;
-    $targets = [];
-    foreach (['myGroundArena', 'theirGroundArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed)) $targets[] = $mz;
-        }
-    }
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_5_to_a_ground_unit", "DEAL_UNIT_DAMAGE|5");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 5, 'side' => 'any', 'arena' => 'Ground',
+        'prompt' => "Deal_5_to_a_ground_unit",
+    ]);
 };

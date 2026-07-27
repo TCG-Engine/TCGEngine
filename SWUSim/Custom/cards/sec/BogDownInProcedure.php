@@ -17,17 +17,10 @@ $customDQHandlers["SEC_234#0"] = function($player, $parts, $lastDecision) {
 };
 
 $customDQHandlers["SEC_234#1"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
-    $firstUID = intval($parts[0] ?? 0);
-    $others = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o)) continue;
-        if (intval($o->UniqueID ?? 0) === $firstUID) continue;   // "another unit"
-        $others[] = $mz;
-    }
-    if (empty($others)) return;
-    SWUQueueChooseTarget(intval($player), $others, "Exhaust_another_unit", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'EXHAUST_UNIT', 'excludeUID' => intval($parts[0] ?? 0), // "another unit"
+        'prompt' => "Exhaust_another_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

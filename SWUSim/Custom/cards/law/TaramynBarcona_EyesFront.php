@@ -21,12 +21,9 @@ $customDQHandlers["LAW_040#0"] = function($player, $parts, $lastDecision) {
     $uid  = intval($parts[0] ?? 0);
     $self = SWUFindMzByUID($uid);
     if ($self !== null) DoGiveExperienceToken(intval($player), $self);
-    // Give an Experience token to ANOTHER friendly unit.
-    $others = [];
-    foreach (SWUAllUnits('my') as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $uid) $others[] = $mz;
-    }
-    if (empty($others)) return;
-    SWUQueueChooseTarget(intval($player), $others, "Give_an_Experience_token_to_another_friendly_unit", "GIVE_EXPERIENCE|1");
+    // Give an Experience token to ANOTHER friendly unit (exclude self by UID).
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'my', 'excludeUID' => $uid,
+        'prompt' => "Give_an_Experience_token_to_another_friendly_unit",
+    ]);
 };

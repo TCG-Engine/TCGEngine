@@ -8,3 +8,8 @@ $customDQHandlers["LOF_229#0"] = function($player, $parts, $lastDecision) {
     UseTheForce(intval($player));
     DoDrawCard(intval($player), 1);
 };
+
+function KyloRenUpgradeReaction(int $player): void
+{
+  SWUQueueMayUseTheForce($player, "Use_the_Force_to_draw_a_card?", "LOF_229#0");
+}

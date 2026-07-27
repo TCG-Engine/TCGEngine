@@ -857,6 +857,13 @@ class SchemaTestRunner {
                 $g->drainQueue($player);
                 break;
 
+            case 'SimulateRequestBoundary':
+                // Model the fresh-process boundary a real interactive decision creates: transient
+                // in-memory continuation globals reset while serialized gamestate persists. Catches
+                // bugs that park cross-decision state in a transient global. No args (player ignored).
+                $g->simulateRequestBoundary();
+                break;
+
             case 'ChooseMyGroundUnit':
                 $g->answerDecision($player, "myGroundArena-{$args}");
                 break;

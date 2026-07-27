@@ -6,7 +6,7 @@
 // TS26_42 Relief Frigate — When Played: choose a base; heal 3 from each OTHER base.
 $whenPlayedAbilities["TS26_42:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Choose_a_base_(heal_3_from_each_OTHER_base)", "TS26_42#0");
+    SWUOfferBaseTarget(intval($player), ['continuation'=>'TS26_42#0','prompt'=>"Choose_a_base_(heal_3_from_each_OTHER_base)"]);
 };
 
 $customDQHandlers["TS26_42#0"] = function($player, $parts, $lastDecision) {

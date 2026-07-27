@@ -15,9 +15,10 @@ $customDQHandlers["LOF_176#0"] = function($player, $parts, $lastDecision) {
     SWUAddToDiscard(intval($player), $cardID, 'HAND');
     DecisionQueueController::CleanupRemovedCards();
     DoDrawCard(intval($player), 1);
-    $ground = SWUAllUnits(null, GroundArena);
-    if (empty($ground)) return;
-    SWUQueueChooseTarget(intval($player), $ground, "Deal_4_damage_to_a_ground_unit", "DEAL_UNIT_DAMAGE|4");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 4, 'arena' => 'Ground',
+        'prompt' => "Deal_4_damage_to_a_ground_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

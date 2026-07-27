@@ -11,8 +11,8 @@ $whenPlayedAbilities["LOF_149:0"] = function($player, $mzID) {
 $customDQHandlers["LOF_149#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     UseTheForce(intval($player));
-    global $playerID; $playerID = intval($player);
-    $targets = array_values(SWUAllUnits());
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_4_damage_to_a_unit", "DEAL_UNIT_DAMAGE|4");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 4,
+        'prompt' => "Deal_4_damage_to_a_unit",
+    ]);
 };

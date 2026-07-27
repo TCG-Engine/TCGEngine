@@ -11,8 +11,8 @@ $whenPlayedAbilities["ASH_259:0"] = function($player, $mzID) {
 
 // ASH_259 LEP Ratcatcher — When Played: you may deal 1 damage to a ground unit.
 $whenPlayedAbilities["ASH_259:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $tg = SWUAllUnits(null, GroundArena);
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Deal_1_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|1");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'may' => true, 'arena' => 'Ground',
+        'question' => "Deal_1_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

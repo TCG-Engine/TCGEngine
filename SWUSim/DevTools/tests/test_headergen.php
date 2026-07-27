@@ -1,6 +1,6 @@
 <?php
 // Test: dictionary-driven header + filename generation.
-require __DIR__ . '/../../../GeneratedCode/GeneratedCardDictionaries.php';
+require __DIR__ . '/../../GeneratedCode/GeneratedCardDictionaries.php';
 require __DIR__ . '/../HeaderGen.php';
 
 // Basename is clean CamelCase from the card's own title/subtitle — equals the test

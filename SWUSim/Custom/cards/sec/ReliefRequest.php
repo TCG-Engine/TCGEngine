@@ -17,17 +17,9 @@ $customDQHandlers["SEC_074#0"] = function($player, $parts, $lastDecision) {
 };
 
 $customDQHandlers["SEC_074#1"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
     $firstUID = intval($parts[0] ?? 0);
-    $damaged = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o)) continue;
-        if (intval($o->UniqueID ?? 0) === $firstUID) continue;   // "another unit"
-        if (intval($o->Damage ?? 0) > 0) $damaged[] = $mz;
-    }
-    if (empty($damaged)) return;
-    SWUQueueChooseTarget(intval($player), $damaged, "Heal_3_damage_from_another_unit", "HEAL_TARGET|3");
+    SWUOfferUnitTarget($player, '', ['continuation'=>'HEAL_TARGET','amount'=>3,'excludeUID'=>$firstUID,
+        'extraFilter'=>fn($o)=>intval($o->Damage ?? 0) > 0,'prompt'=>"Heal_3_damage_from_another_unit"]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.
@@ -35,16 +27,6 @@ $whenPlayedAbilities["SEC_074:0"] = function($player, $mzID = '') {
 // Relief Request — "Heal 3 damage from a unit. You may disclose Vigilance →
                           // heal 3 damage from another unit." First heal (mandatory) over damaged units,
                           // then the optional disclose → a second heal on a DIFFERENT damaged unit.
-            global $playerID; $playerID = intval($player);
-            $damaged = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),    ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
-                $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) $damaged[] = $mz;
-            }
-            if (empty($damaged)) return;
-            SWUQueueChooseTarget(intval($player), $damaged, "Heal_3_damage_from_a_unit", "SEC_074#0");
-            return;
+            SWUOfferUnitTarget($player, $mzID, ['continuation'=>'SEC_074#0',
+                'extraFilter'=>fn($o)=>intval($o->Damage ?? 0) > 0,'prompt'=>"Heal_3_damage_from_a_unit"]);
 };

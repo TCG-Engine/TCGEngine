@@ -8,19 +8,16 @@
 // LOF_008 Obi-Wan Kenobi — On Attack: You may give an Experience token to ANOTHER unit without an
 // Experience token on it.
 $onAttackAbilities["LOF_008:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $self = GetZoneObject($mzID);
-    $selfUID = SWUObjUID($self);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o) || intval($o->UniqueID ?? -1) === $selfUID) continue;
-        $hasExp = false;
-        foreach (($o->Subcards ?? []) as $sc) { if (($sc->CardID ?? '') === 'SOR_T01') { $hasExp = true; break; } }
-        if (!$hasExp) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), array_values($targets), "Give_an_Experience_token_to_a_unit_without_one?", "Choose_a_unit", "GIVE_EXPERIENCE|1");
+    // Another unit (either player) without an Experience token on it.
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'GIVE_EXPERIENCE', 'excludeSelf' => true, 'may' => true,
+        'extraFilter' => function($o) {
+            foreach (($o->Subcards ?? []) as $sc) { if (($sc->CardID ?? '') === 'SOR_T01') return false; }
+            return true;
+        },
+        'question' => "Give_an_Experience_token_to_a_unit_without_one?",
+        'prompt'   => "Choose_a_unit",
+    ]);
 };
 
 // LOF_008 Obi-Wan Kenobi — Action [Exhaust, use the Force]: Give an Experience token to a unit without an

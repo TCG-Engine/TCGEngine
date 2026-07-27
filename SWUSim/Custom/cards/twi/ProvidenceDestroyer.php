@@ -5,10 +5,9 @@
 
 // TWI_038 Providence Destroyer — "On Attack: Give an enemy space unit -2/-2 for this phase."
 $onAttackAbilities["TWI_038:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    $targets = ZoneSearch('theirSpaceArena', ['Unit', 'Token Unit', 'Leader Unit']);
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_an_enemy_space_unit_-2/-2?", "Choose_an_enemy_space_unit", "APPLY_PHASE_DEBUFF|2|2|TWI_038");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'APPLY_PHASE_DEBUFF|2|2|TWI_038', 'side' => 'their', 'arena' => 'Space', 'may' => true,
+        'question' => "Give_an_enemy_space_unit_-2/-2?", 'prompt' => "Choose_an_enemy_space_unit",
+    ]);
     // Combat owns the after-action.
 };

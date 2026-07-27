@@ -11,7 +11,7 @@ $whenPlayedAbilities["SHD_047:0"] = function($player, $mzID) {
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Mandalorian')) $specs[] = $mz;
+            if ($o !== null && empty($o->removed) && TraitContains($o, 'Mandalorian')) $specs[] = $mz;
         }
     }
     if (empty($specs)) return;
@@ -27,7 +27,7 @@ $customDQHandlers["SHD_047#0"] = function($player, $parts, $lastDecision) {
         $mz = trim($mz);
         if ($mz === '' || $mz === '-') continue;
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Mandalorian')) {
+        if ($o !== null && empty($o->removed) && TraitContains($o, 'Mandalorian')) {
             DoGiveShieldToken(intval($player), $mz);
         }
     }

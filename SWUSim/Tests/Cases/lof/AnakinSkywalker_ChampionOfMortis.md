@@ -1,6 +1,6 @@
 # BothAspectsInDiscard_DoubleDebuff
 #// LOF_070 Anakin Skywalker — two When-Played windows: a Heroism card AND a Villainy card are in P1's
-#// discard, so both -3/-3 effects fire. P1 debuffs the enemy 3/7 twice → power 0, remaining HP 1.
+#// discard, so both -3/-3 effects fire. P1 debuffs two different enemy 3/7 → power 1, remaining HP 4.
 
 ## GIVEN
 CommonSetup: bbk/ggw/{myResources:6;handCardIds:LOF_070;discardCardIds:SOR_095,SEC_080}
@@ -73,3 +73,24 @@ WithP2GroundArena: LAW_124:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:POWER:1
 P2GROUNDARENAUNIT:0:HP:4
+
+---
+
+# BothAspectsInDiscard_DoubleDebuffDefeats
+#// LOF_070 Anakin Skywalker — two When-Played windows: a Heroism card AND a Villainy card are in P1's
+#// discard, so both -3/-3 effects fire. P1 debuffs the enemy twice, defeating it
+
+## GIVEN
+CommonSetup: bbk/ggw/{myResources:6;handCardIds:LOF_070;discardCardIds:SOR_095,SEC_080}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: LAW_110
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2SPACEARENACOUNT:0

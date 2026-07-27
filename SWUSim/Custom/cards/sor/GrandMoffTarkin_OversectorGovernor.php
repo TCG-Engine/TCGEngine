@@ -8,13 +8,14 @@
 // SOR_007 Grand Moff Tarkin — deployed leader unit On Attack: You may give an Experience token
 // to ANOTHER Imperial unit. $mzID = the attacking Tarkin leader-unit's mzID (excluded by UID).
 $onAttackAbilities["SOR_007:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    $self    = GetZoneObject($mzID);
-    $selfUID = SWUObjUID($self);
-    SWUQueueMayChooseTarget(intval($player),
-        _SWUCollectUnits($selfUID, fn($o) => HasTrait($o->CardID, 'Imperial')),
-        'Give_an_Experience_token_to_another_Imperial_unit?', 'Choose_an_Imperial_unit_for_an_Experience_token', 'GIVE_EXPERIENCE|1');
+    GiveTokenUpgrade($player, $mzID, [
+        'traits'       => 'Imperial',
+        'excludeSelf'  => true,
+        'friendlyOnly' => false,
+        'may'          => true,
+        'prompt'       => 'Choose_an_Imperial_unit_for_an_Experience_token',
+        'question'     => 'Give_an_Experience_token_to_another_Imperial_unit?',
+    ]);
 };
 
 // SOR_007 Grand Moff Tarkin — Leader Action [1 resource, exhaust]: Give an Experience token

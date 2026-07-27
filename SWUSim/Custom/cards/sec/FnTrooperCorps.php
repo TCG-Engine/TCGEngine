@@ -5,14 +5,8 @@
 
 // SEC_243 FN Trooper Corps — When Played: give an Experience token to another friendly unit. (Plot auto.)
 $whenPlayedAbilities["SEC_243:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $self = GetZoneObject($mzID);
-    $selfUID = SWUObjUID($self, 0);
-    $friendly = [];
-    foreach (SWUAllUnits('my') as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID) $friendly[] = $mz;
-    }
-    if (empty($friendly)) return;
-    SWUQueueChooseTarget(intval($player), $friendly, "Give_an_Experience_token_to_another_friendly_unit", "GIVE_EXPERIENCE|1");
+    GiveTokenUpgrade($player, $mzID, [
+        'excludeSelf' => true,
+        'prompt'      => "Give_an_Experience_token_to_another_friendly_unit",
+    ]);
 };

@@ -11,7 +11,5 @@ $whenPlayedAbilities["LAW_111:0"] = function($player, $mzID) {
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
     if (CardTitle($host->CardID ?? '') !== 'Leia Organa') return;
-    $targets = array_values(SWUAllUnits('my'));
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_a_Shield_token_to_a_friendly_unit", "GIVE_SHIELD");
+    GiveTokenUpgrade($player, $mzID, ['token'=>'SHIELD','prompt'=>"Give_a_Shield_token_to_a_friendly_unit"]);
 };

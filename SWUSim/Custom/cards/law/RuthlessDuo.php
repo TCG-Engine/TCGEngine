@@ -14,7 +14,8 @@ $whenPlayedAbilities["LAW_137:0"] = function($player, $mzID) {
         if (strpos((string)(CardAspect($u->CardID ?? '') ?? ''), 'Villainy') !== false) { $has = true; break; }
     }
     if (!$has) return;
-    $ground = SWUAllUnits(null, GroundArena);
-    if (empty($ground)) return;
-    SWUQueueMayChooseTarget(intval($player), $ground, "Deal_2_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_2_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

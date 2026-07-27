@@ -13,7 +13,7 @@ $whenPlayedAbilities["SHD_215:0"] = function($player, $mzID) {
     $gate = false;
     foreach (GetUnitsInPlay(intval($player)) as $u) {
         if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUID
-            && HasTrait($u->CardID ?? '', 'Underworld')) { $gate = true; break; }
+            && TraitContains($u, 'Underworld')) { $gate = true; break; }
     }
     if (!$gate) return;
     $targets = [];

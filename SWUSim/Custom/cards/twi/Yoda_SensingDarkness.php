@@ -67,15 +67,9 @@ $customDQHandlers["TWI_004#2"] = function ($player, $parts, $lastDecision) {
   if ($milled === null)
     return;
   $maxCost = intval(CardCost($milled));
-  $targets = [];
-  foreach (["theirGroundArena", "theirSpaceArena"] as $z) {
-    foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
-      $o = GetZoneObject($mz);
-      if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID ?? '')) <= $maxCost)
-        $targets[] = $mz;
-    }
-  }
-  if (empty($targets))
-    return;
-  SWUQueueChooseTarget(intval($player), $targets, "Defeat_an_enemy_non-leader_unit_costing_{$maxCost}_or_less", "DEFEAT_UNIT");
+  SWUOfferUnitTarget($player, '', [
+      'continuation' => 'DEFEAT_UNIT', 'side' => 'their', 'nonLeader' => true,
+      'extraFilter' => fn($o) => intval(CardCost($o->CardID ?? '')) <= $maxCost,
+      'prompt' => "Defeat_an_enemy_non-leader_unit_costing_{$maxCost}_or_less",
+  ]);
 };

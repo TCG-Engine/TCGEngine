@@ -6,15 +6,9 @@
 // TWI_215 Geonosis Patrol Fighter — "Exploit 2. When Played: You may return a non-leader unit that
 // costs 3 or less to its owner's hand."
 $whenPlayedAbilities["TWI_215:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID)) <= 3) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Return_a_non-leader_unit_costing_3_or_less_to_hand?", "Choose_a_unit_to_return", "BOUNCE_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'BOUNCE_UNIT', 'nonLeader' => true, 'may' => true,
+        'extraFilter' => fn($o) => intval(CardCost($o->CardID)) <= 3,
+        'question' => "Return_a_non-leader_unit_costing_3_or_less_to_hand?", 'prompt' => "Choose_a_unit_to_return",
+    ]);
 };

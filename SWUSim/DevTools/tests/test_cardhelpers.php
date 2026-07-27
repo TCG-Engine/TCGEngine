@@ -1,6 +1,6 @@
 <?php
 // Test: SWUDecisionDeclined mirrors the inline predicate exactly.
-require __DIR__ . '/../../../Custom/CardHelpers.php';
+require __DIR__ . '/../../Custom/CardHelpers.php';
 
 // Declined forms.
 assert(SWUDecisionDeclined(null) === true, 'null');

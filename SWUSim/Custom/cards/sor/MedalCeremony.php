@@ -26,7 +26,7 @@ $whenPlayedAbilities["SOR_245:0"] = function($player, $mzID = '') {
             ) as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
-                if (!HasTrait($o->CardID, 'Rebel')) continue;
+                if (!TraitContains($o, 'Rebel')) continue;
                 $uid = intval($o->UniqueID ?? 0);
                 if (GlobalEffectCount(intval($player), 'SWU_ATTACKED_' . $uid) <= 0) continue;
                 $targets[] = $mz;

@@ -12,7 +12,5 @@ $whenPlayedAbilities["TWI_208:0"] = function($player, $mzID) {
 $whenDefeatedAbilities["TWI_208:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     DecisionQueueController::CleanupRemovedCards();
-    $hand = array_values(ZoneSearch("myHand"));
-    if (empty($hand)) return;
-    SWUQueueChooseTarget(intval($player), $hand, "Discard_a_card_from_your_hand", "DISCARD_FROM_OWN_HAND|" . intval($player));
+    SWUOfferDiscard($player, ['from'=>'own']);
 };

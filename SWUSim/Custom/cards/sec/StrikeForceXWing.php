@@ -5,12 +5,9 @@
 
 // SEC_152 Strike Force X-Wing — When Played: you may deal 2 to a READY unit. (Plot auto.)
 $whenPlayedAbilities["SEC_152:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_2_to_a_ready_unit?", "Choose_a_ready_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'may' => true,
+        'extraFilter' => fn($o) => intval($o->Status ?? 0) === 1,
+        'question' => "Deal_2_to_a_ready_unit?", 'prompt' => "Choose_a_ready_unit",
+    ]);
 };

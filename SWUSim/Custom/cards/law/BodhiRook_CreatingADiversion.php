@@ -9,7 +9,7 @@ $onAttackAbilities["LAW_104:0"] = function($player, $mzID) {
     $targets = [];
     foreach (SWUAllUnits('my') as $mz) {
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Rebel')) $targets[] = $mz;
+        if ($o !== null && empty($o->removed) && TraitContains($o, 'Rebel')) $targets[] = $mz;
     }
     if (empty($targets)) return;
     SWUQueueMayChooseTarget(intval($player), $targets, "Give_a_friendly_Rebel_unit_Sentinel?", "Choose_a_Rebel_unit", "LAW_104#0");

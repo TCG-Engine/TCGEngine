@@ -20,9 +20,10 @@ $customDQHandlers["TS26_51#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;   // declined → no heal, no Experience
     $playerID = intval($player);
     OnHealBase(intval($player), intval($player), 5);   // the opponent heals their own base
-    $playerID = $caster;                               // the caster gives 2 Experience to a unit
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueChooseTarget($caster, $tg, "Give_2_Experience_to_a_unit", "GIVE_EXPERIENCE|2");
-    // leave $playerID = $caster for the queued MZCHOOSE validation
+    // the caster gives 2 Experience to a unit; GiveTokenUpgrade sets/leaves $playerID = $caster
+    GiveTokenUpgrade($caster, '', [
+        'friendlyOnly' => false,
+        'amount'       => 2,
+        'prompt'       => "Give_2_Experience_to_a_unit",
+    ]);
 };

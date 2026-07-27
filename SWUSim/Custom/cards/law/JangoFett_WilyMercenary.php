@@ -8,7 +8,8 @@ $onAttackAbilities["LAW_087:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID);
     if ($self === null || !_SWUIsUpgraded($self)) return;
-    $enemy = SWUAllUnits('their');
-    if (empty($enemy)) return;
-    SWUQueueMayChooseTarget(intval($player), $enemy, "Exhaust_an_enemy_unit?", "Choose_an_enemy_unit", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'side' => 'their', 'may' => true,
+        'question' => "Exhaust_an_enemy_unit?", 'prompt' => "Choose_an_enemy_unit",
+    ]);
 };

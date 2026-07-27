@@ -26,7 +26,9 @@ $customDQHandlers["LAW_163#0"] = function($player, $parts, $lastDecision) {
     $o->removed = true;
     DecisionQueueController::CleanupRemovedCards();
     _topDeckPutRemainingToBottom(intval($player), [$cardID]);
-    $ground = ZoneSearch("theirGroundArena", AnyUnitFilter);
-    if (empty($ground) || $power <= 0) return;
-    SWUQueueChooseTarget(intval($player), $ground, "Deal_{$power}_to_an_enemy_ground_unit", "DEAL_UNIT_DAMAGE|{$power}");
+    if ($power <= 0) return;
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'side' => 'their', 'arena' => 'Ground',
+        'prompt' => "Deal_{$power}_to_an_enemy_ground_unit",
+    ]);
 };

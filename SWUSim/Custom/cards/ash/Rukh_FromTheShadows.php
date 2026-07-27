@@ -8,7 +8,8 @@
 $onAttackEndAbilities["ASH_036:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (GetSWUVar('SWU_LAST_DEFENDER_DEFEATED', '') !== '1') return;
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Give_3_Advantage_tokens_to_a_unit?", "Choose_a_unit", "GIVE_ADVANTAGE|3");
+    GiveTokenUpgrade($player, '', [
+        'token' => 'ADVANTAGE', 'amount' => 3, 'may' => true, 'friendlyOnly' => false,
+        'question' => "Give_3_Advantage_tokens_to_a_unit?", 'prompt' => "Choose_a_unit",
+    ]);
 };

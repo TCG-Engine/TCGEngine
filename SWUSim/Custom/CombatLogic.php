@@ -1657,6 +1657,22 @@ function _SWUInTriggerResumeMode(): bool {
     return false;
 }
 
+// A combat's terminal After Action must be skipped when the attack is a BONUS attack nested inside a
+// larger action (a Support attack launched by a deploy/play trigger) — that outer action owns the single
+// After Action via its deferred SWU_TRIGGER_RESUME terminal. _SWUInTriggerResumeMode() detects a pending
+// resume in the live queue, but across a request boundary (an interactive target/On-Attack decision mid
+// bonus-attack) the resume may already have executed by the time combat damage resolves, so the live scan
+// returns false and combat would run a SECOND After Action → the turn double-swaps = a free extra action
+// (masked only when the seat/initiative state makes the second swap idempotent). So ALSO honor a PERSISTED
+// flag set at the bonus attack's launch (BeginSWUAttack, when the attacker bears a SUPPORT_GRANT marker),
+// which survives the boundary in the serialized gamestate. Consume it here so it can't leak to a later attack.
+function _SWUCombatFinishAction($player): void {
+    $skip = _SWUInTriggerResumeMode();
+    if (GetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', '') === '1') $skip = true;
+    SetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', '');   // consume regardless of which combat terminal is reached
+    if (!$skip) SWUAfterAction($player);
+}
+
 // DQ handler: resolve combat damage after Step 1 triggers have fully resolved.
 global $customDQHandlers;
 $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) {
@@ -1696,7 +1712,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
 
     if ($attacker === null || (isset($attacker->removed) && $attacker->removed)) {
         $playerID = $savedPID;
-        if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+        _SWUCombatFinishAction($player);
         return;
     }
 
@@ -1725,7 +1741,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         }
         if ($found === null) {  // defender left play before damage → attack fizzles
             $playerID = $savedPID;
-            if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+            _SWUCombatFinishAction($player);
             return;
         }
         $target = $found;
@@ -2287,7 +2303,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     }
 
     $playerID = $savedPID;
-    if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+    _SWUCombatFinishAction($player);
 };
 
 // Returns valid attack targets for $attacker in $arenaName, respecting Sentinel/Saboteur (CR 5.9).
@@ -2585,25 +2601,41 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     }
     // EVENT-INITIATED ATTACK: if a FINISH_PLAY_CARD terminator is pending on the attacking player's queue,
     // this attack was launched by an "Attack with a unit" EVENT (SOR_168 Precision Fire, SOR_150 Heroic
-    // Sacrifice, ASH_234 Masterstroke, LAW_202, ASH_162, …). This combat owns the after-action, so flag
-    // FINISH_PLAY_CARD to skip its duplicate turn pass — otherwise the combat swaps the turn and
-    // FINISH_PLAY_CARD swaps it right back (net: the turn never passes). Set only once the attack is
-    // committed to proceed (past the can't-attack no-ops above), so a fizzled attack still lets
-    // FINISH_PLAY_CARD close the action. (Shoot First SOR_217 sets the same flag by hand; the guard here
-    // makes that a harmless no-op.)
-    global $gShootFirstPending;
-    if (empty($gShootFirstPending)) {
-        foreach (GetDecisionQueue(intval($player)) as $d) {
-            if ($d !== null && strpos((string)($d->Param ?? ''), 'FINISH_PLAY_CARD') !== false) {
-                $gShootFirstPending = true;
-                break;
-            }
+    // Sacrifice, ASH_234 Masterstroke, LAW_202, ASH_162, …) or a Support unit played from hand. This combat
+    // owns the after-action, so flag FINISH_PLAY_CARD to skip its duplicate turn pass — otherwise the combat
+    // swaps the turn and FINISH_PLAY_CARD swaps it right back (net: the turn never passes = a free extra
+    // action). Set only once the attack is committed to proceed (past the can't-attack no-ops above), so a
+    // fizzled attack still lets FINISH_PLAY_CARD close the action.
+    //
+    // ⚠ PERSIST this via an SWUVar ($gDecisionQueueVariables), NOT a transient in-memory global: an
+    // interactive target/defender/On-Attack decision mid-attack ends the HTTP request, and the answer
+    // arrives in a FRESH PHP process where a transient global is gone — so FINISH_PLAY_CARD would run its
+    // own after-action and double-swap the turn. The SWUVar rides the serialized gamestate across the
+    // boundary. Compute unconditionally (set OR clear) so a stale flag from a prior action can't leak.
+    // (Shoot First SOR_217 / Trust Your Instincts LOF_221 no longer set a flag by hand — this detection
+    // is authoritative for every event-initiated attack.)
+    $combatOwnsAfterAction = false;
+    foreach (GetDecisionQueue(intval($player)) as $d) {
+        if ($d !== null && strpos((string)($d->Param ?? ''), 'FINISH_PLAY_CARD') !== false) {
+            $combatOwnsAfterAction = true;
+            break;
         }
     }
+    SetSWUVar('SWU_COMBAT_OWNS_AFTERACTION', $combatOwnsAfterAction ? '1' : '');
+
+    // A SUPPORT bonus attack (the attacker bears a SUPPORT_GRANT marker) is nested inside a deploy/play
+    // action whose deferred SWU_TRIGGER_RESUME terminal owns the single After Action — so THIS combat must
+    // skip its own. In-process the live _SWUInTriggerResumeMode() scan catches it, but across the request
+    // boundary a mid-attack decision creates, the resume may run before combat damage resolves and the scan
+    // returns false → a double turn-swap (a free extra action, seen only when initiative isn't yet claimed).
+    // Persist the skip decision here (committed attack, past the can't-attack no-ops) so it survives the
+    // boundary; _SWUCombatFinishAction consumes it. NOT set for a plain event-attack (no SUPPORT_GRANT) —
+    // that path uses SWU_COMBAT_OWNS_AFTERACTION (combat owns, FINISH_PLAY_CARD skips) instead.
+    SetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', _SWUSupportGrant($attacker) !== null ? '1' : '');
 
     $attackedUid = intval($attacker->UniqueID ?? 0);
     AddGlobalEffects($player, 'SWU_ATTACKED_' . $attackedUid);  // any unit attacked this phase (SOR_245)
-    if (HasTrait($attacker->CardID, 'Mandalorian')) {
+    if (TraitContains($attacker, 'Mandalorian')) {
         AddGlobalEffects($player, 'SWU_ATTACKED_MANDALORIAN_' . $attackedUid);
     }
     // LAW_112 Boonta Eve Flagbearer — "When a friendly unit attacks: if no other units have attacked
@@ -2642,7 +2674,7 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
         AddGlobalEffects($player, 'SWU_ATTACKED_FIGHTER');
     }
     // LOF_011 Kit Fisto: "attacked with a Jedi unit this phase."
-    if (HasTrait($attacker->CardID, 'Jedi')) {
+    if (TraitContains($attacker, 'Jedi')) {
         AddGlobalEffects($player, 'SWU_ATTACKED_JEDI');
     }
     // TWI_134 Asajj Ventress: "attacked with a Separatist unit this phase" (count-based, incl. this attack).
@@ -2879,7 +2911,7 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     $attacker = GetZoneObject($attackerMzID);
     if (SWUObjGone($attacker)) {
         $playerID = $savedPID;
-        if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+        _SWUCombatFinishAction($player);
         return;
     }
     $def1 = GetZoneObject($def1Mz);
@@ -2891,7 +2923,7 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     if ($d2Gone && !$d1Gone) { $playerID = $savedPID; ExecuteSWUAttack($player, $attackerMzID, $def1Mz); return; }
     if ($d1Gone && $d2Gone) {
         $playerID = $savedPID;
-        if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+        _SWUCombatFinishAction($player);
         return;
     }
 
@@ -3022,7 +3054,7 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     }
 
     $playerID = $savedPID;
-    if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+    _SWUCombatFinishAction($player);
 }
 
 // Dispatch the OnAttack ability for the given unit mzID.

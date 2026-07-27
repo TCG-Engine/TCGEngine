@@ -6,9 +6,7 @@
 // LAW_035 Ezra Bridger — When Played: heal 2 from a unit (4 instead if you control an Aggression or
 // Cunning unit). "You may heal."
 $whenPlayedAbilities["LAW_035:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
     $amount = (PlayerHasUnitWithAspectInPlay(intval($player), 'Aggression') || PlayerHasUnitWithAspectInPlay(intval($player), 'Cunning')) ? 4 : 2;
-    $units = SWUAllUnits();
-    if (empty($units)) return;
-    SWUQueueMayChooseTarget(intval($player), $units, "Heal_{$amount}_from_a_unit?", "Choose_a_unit", "HEAL_TARGET|{$amount}");
+    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'HEAL_TARGET','amount'=>$amount,'may'=>true,
+        'question'=>"Heal_{$amount}_from_a_unit?",'prompt'=>"Choose_a_unit"]);
 };

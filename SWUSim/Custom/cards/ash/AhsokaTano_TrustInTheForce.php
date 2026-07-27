@@ -7,20 +7,15 @@
 
 // ASH_009 Ahsoka Tano — may give a unit with less power than THIS unit +2/+0 for this phase.
 $onAttackAbilities["ASH_009:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID);
     if ($self === null) return;
     $selfPow = intval(ObjectCurrentPower($self));
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval(ObjectCurrentPower($o)) < $selfPow) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Buff_a_weaker_unit?",
-        "Give_+2/+0_to_a_unit_with_less_power_than_this_unit", "APPLY_PHASE_BUFF|2|0|ASH_009");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'APPLY_PHASE_BUFF|2|0|ASH_009', 'side' => 'any', 'may' => true,
+        'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) < $selfPow,
+        'question' => "Buff_a_weaker_unit?",
+        'prompt' => "Give_+2/+0_to_a_unit_with_less_power_than_this_unit",
+    ]);
 };
 
 // ASH_009 Ahsoka Tano — Action [Exhaust]: choose a unit with less power than a friendly unit; +2/+0 this

@@ -8,12 +8,10 @@ $customDQHandlers["SHD_091#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') {
         SWUDealDamageToUnit($lastDecision, 3, intval($player));
     }
-    $enemy = [];
-    foreach (ZoneSearch('theirGroundArena', AnyUnitFilter) as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed)) $enemy[] = $mz;
-    }
-    SWUQueueChooseTarget(intval($player), $enemy, "Deal_3_to_an_enemy_ground_unit", "DEAL_UNIT_DAMAGE|3");
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'side' => 'their', 'arena' => 'Ground',
+        'prompt' => "Deal_3_to_an_enemy_ground_unit",
+    ]);
 };
 
 // ─── SHD_091 Jabba's Rancor ───────────────────────────────────────────────────

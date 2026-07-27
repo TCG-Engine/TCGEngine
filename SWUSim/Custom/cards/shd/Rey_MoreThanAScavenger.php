@@ -15,10 +15,12 @@ $leaderAbilities["SHD_004"] = function(int $player): void {
 };
 
 $onAttackAbilities["SHD_004:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = ReyMoreThanaScavengerLowPowerTargets(intval($player));
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_an_Experience_token_to_a_unit_with_2_or_less_power?", "Choose_a_unit", "GIVE_EXPERIENCE|1");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'GIVE_EXPERIENCE', 'may' => true,
+        'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) <= 2,
+        'question' => "Give_an_Experience_token_to_a_unit_with_2_or_less_power?",
+        'prompt'   => "Choose_a_unit",
+    ]);
 };
 
 // ── SHD_004 Rey ────────────────────────────────────────────────────────────────

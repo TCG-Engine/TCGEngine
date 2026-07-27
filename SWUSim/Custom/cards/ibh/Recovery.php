@@ -4,8 +4,5 @@
 // Text: Heal 5 damage from a unit.
 
 $whenPlayedAbilities["IBH_013:0"] = function($player, $mzID = '') {
-    global $playerID; $playerID = intval($player);
-    $targets = SWUAllUnits();
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Heal_5_damage_from_a_unit", "HEAL_TARGET|5");
+    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'HEAL_TARGET','amount'=>5,'prompt'=>"Heal_5_damage_from_a_unit"]);
 };

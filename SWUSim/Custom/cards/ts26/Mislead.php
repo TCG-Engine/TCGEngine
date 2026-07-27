@@ -7,9 +7,10 @@
 $customDQHandlers["TS26_81#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if ($lastDecision && str_contains($lastDecision, '-')) DoGiveShieldToken(intval($player), $lastDecision);
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueChooseTarget(intval($player), $tg, "Give_a_unit_-3/-0_for_this_phase", "APPLY_PHASE_DEBUFF|3|0|TS26_81");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'APPLY_PHASE_DEBUFF|3|0|TS26_81', 'side' => 'any',
+        'prompt' => "Give_a_unit_-3/-0_for_this_phase",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

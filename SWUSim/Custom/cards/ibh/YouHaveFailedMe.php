@@ -19,13 +19,9 @@ $customDQHandlers["IBH_095#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
     SWUDefeatUnit(intval($player), $lastDecision);
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && ObjectCurrentPower($o) <= 5) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Ready_a_friendly_unit_with_5_or_less_power", "READY_UNIT");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'READY_UNIT', 'side' => 'my',
+        'extraFilter' => fn($o) => ObjectCurrentPower($o) <= 5,
+        'prompt' => "Ready_a_friendly_unit_with_5_or_less_power",
+    ]);
 };

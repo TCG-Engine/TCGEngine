@@ -31,5 +31,5 @@ $onAttackAbilities["ASH_179:0"] = function($player, $mzID) {
     $dmg = (!empty($base) && !empty($base[0])) ? intval($base[0]->Damage ?? 0) : 0;
     $n = intdiv($dmg, 5);
     if ($n <= 0) return;
-    SWUQueueMayChooseTarget(intval($player), ['theirBase-0', 'myBase-0'], "Deal_{$n}_damage_to_a_base?", "Choose_a_base", "DEAL_BASE_DAMAGE|{$n}");
+    SWUOfferBaseTarget(intval($player), ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>$n,'may'=>true,'question'=>"Deal_{$n}_damage_to_a_base?",'prompt'=>"Choose_a_base"]);
 };

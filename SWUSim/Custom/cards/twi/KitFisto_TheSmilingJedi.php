@@ -6,13 +6,9 @@
 // TWI_165 Kit Fisto — "Saboteur. Coordinate - On Attack: You may deal 3 damage to a ground unit."
 $onAttackAbilities["TWI_165:0"] = function($player, $mzID) {
     if (!IsCoordinateActive(intval($player))) return;
-    global $playerID;
-    $playerID = intval($player);
-    $targets = array_merge(
-        ZoneSearch('myGroundArena', ['Unit', 'Token Unit', 'Leader Unit']),
-        ZoneSearch('theirGroundArena', ['Unit', 'Token Unit', 'Leader Unit'])
-    );
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_3_damage_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|3");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_3_damage_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
     // Combat owns the after-action.
 };

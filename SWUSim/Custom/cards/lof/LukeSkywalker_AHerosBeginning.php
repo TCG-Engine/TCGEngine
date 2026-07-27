@@ -12,3 +12,8 @@ $customDQHandlers["LOF_249#0"] = function($player, $parts, $lastDecision) {
     DoGiveExperienceToken(intval($player), $mz);
     GiveShieldToken(intval($player), $mz);
 };
+
+function LukeSkywalkerReaction(int $player, int $sourceUID): void
+{
+  SWUQueueMayUseTheForce($player, "Use_the_Force_to_give_Luke_an_Experience_and_a_Shield?", "LOF_249#0|{$sourceUID}");
+}

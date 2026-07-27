@@ -5,9 +5,8 @@
 
 // TWI_217 Tri-Droid Suppressor — "Exploit 2. When Played: Exhaust an enemy ground unit."
 $whenPlayedAbilities["TWI_217:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    $targets = ZoneSearch('theirGroundArena', ['Unit', 'Token Unit', 'Leader Unit']);
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Exhaust_an_enemy_ground_unit", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'side' => 'their', 'arena' => 'Ground',
+        'prompt' => "Exhaust_an_enemy_ground_unit",
+    ]);
 };

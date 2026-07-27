@@ -14,3 +14,24 @@ $customDQHandlers["TWI_216#0"] = function($player, $parts, $lastDecision) {
     _topDeckPutRemainingToBottom(intval($player), [$cid]);
     DoDrawCard(intval($player), 1);
 };
+
+function Twi216Reaction(int $player, int $uid): void
+{
+  global $playerID;
+  $playerID = intval($player);
+  $targets = [];
+  foreach (ZoneSearch("myDiscard", ['Unit', 'Token Unit']) as $mz) {
+    $o = GetZoneObject($mz);
+    if ($o !== null && empty($o->removed) && TraitContains($o, 'Clone'))
+      $targets[] = $mz;
+  }
+  if (empty($targets))
+    return;
+  SWUQueueMayChooseTarget(
+    intval($player),
+    $targets,
+    "You_may_recycle_a_Clone_unit_from_discard_to_draw",
+    "Put_a_Clone_unit_on_the_bottom_of_your_deck",
+    "TWI_216#0"
+  );
+}

@@ -6,26 +6,18 @@
 // LAW_059 Highsinger — When Played: Experience to another friendly Command unit. When Defeated:
 // Experience to a friendly Aggression unit.
 $whenPlayedAbilities["LAW_059:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $self = GetZoneObject($mzID);
-    $uid  = SWUObjUID($self, 0);
-    $targets = [];
-    foreach (SWUAllUnits('my') as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o) || intval($o->UniqueID ?? 0) === $uid) continue;
-        if (strpos((string)(CardAspect($o->CardID ?? '') ?? ''), 'Command') !== false) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_an_Experience_token_to_another_friendly_Command_unit", "GIVE_EXPERIENCE|1");
+    // Command/Aggression are ASPECTS (not traits), so match via CardAspect in extraFilter.
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'my', 'excludeSelf' => true,
+        'extraFilter' => fn($o) => strpos((string)(CardAspect($o->CardID ?? '') ?? ''), 'Command') !== false,
+        'prompt' => "Give_an_Experience_token_to_another_friendly_Command_unit",
+    ]);
 };
 
 $whenDefeatedAbilities["LAW_059:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits('my') as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && strpos((string)(CardAspect($o->CardID ?? '') ?? ''), 'Aggression') !== false) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_an_Experience_token_to_a_friendly_Aggression_unit", "GIVE_EXPERIENCE|1");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'my',
+        'extraFilter' => fn($o) => strpos((string)(CardAspect($o->CardID ?? '') ?? ''), 'Aggression') !== false,
+        'prompt' => "Give_an_Experience_token_to_a_friendly_Aggression_unit",
+    ]);
 };

@@ -5,10 +5,9 @@
 
 // SEC_182 Charged with Treason — disclose succeeded → choose a unit, deal 5 to it.
 $customDQHandlers["SEC_182#0"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
-    $units = SWUAllUnits();
-    if (empty($units)) return;
-    SWUQueueChooseTarget(intval($player), $units, "Deal_5_damage_to_a_unit", "DEAL_UNIT_DAMAGE|5");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 5, 'prompt' => "Deal_5_damage_to_a_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

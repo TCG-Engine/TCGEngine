@@ -6,8 +6,8 @@
 // TS26_75 Jango Fett — On Attack: give an enemy unit -3/-0 for this phase. (MZMAYCHOOSE — the in-combat
 // safe choose; a mandatory OnAttack MZCHOOSE auto-skips.)
 $onAttackAbilities["TS26_75:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $enemy = SWUAllUnits('their');
-    if (empty($enemy)) return;
-    SWUQueueMayChooseTarget(intval($player), $enemy, "Give_an_enemy_unit_-3/-0?", "Choose_an_enemy_unit", "APPLY_PHASE_DEBUFF|3|0|TS26_75");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'APPLY_PHASE_DEBUFF|3|0|TS26_75', 'side' => 'their',
+        'may' => true, 'prompt' => "Choose_an_enemy_unit", 'question' => "Give_an_enemy_unit_-3/-0?",
+    ]);
 };

@@ -496,11 +496,7 @@ function _SWULaw017TokenOptions(int $player): array {
 
 function _SWULaw017DealNToUnit(int $player, int $n): void {
     if ($n <= 0) return;
-    $units = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $units[] = $mz; }
-    if (empty($units)) return;
-    SWUQueueChooseTarget($player, $units, "Deal_{$n}_damage_to_a_unit", "DEAL_UNIT_DAMAGE|{$n}");
+    SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>$n,'prompt'=>"Deal_{$n}_damage_to_a_unit"]);
 }
 
 
@@ -657,19 +653,13 @@ function Ash013Trigger($player, $mzID): void {
 // damage to a base, you may give an Advantage token to a different unit." Unlike the undeployed side there is
 // NO self-exhaust cost — it's a straight optional give. ($mzID = attacker, captured at trigger time.)
 function Ash013DeployedTrigger($player, $mzID): void {
-    global $playerID; $playerID = intval($player);
     $attObj = ($mzID && str_contains($mzID, '-')) ? GetZoneObject($mzID) : null;
     $attUID = SWUObjUID($attObj);
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -1) !== $attUID) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;   // no unit other than the attacker → nothing to give
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_an_Advantage_token_to_a_different_unit?",
-        "Give_an_Advantage_token_to_a_different_unit", "GIVE_ADVANTAGE|1");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'GIVE_ADVANTAGE', 'excludeUID' => $attUID, 'may' => true,
+        'question' => "Give_an_Advantage_token_to_a_different_unit?",
+        'prompt'   => "Give_an_Advantage_token_to_a_different_unit",
+    ]);
 }
 
 // ASH_016 Shin Hati (DEPLOYED unit side) — "When a friendly unit's attack ends: you may exhaust a unit that

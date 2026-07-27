@@ -9,17 +9,7 @@
 $sec031 = function ($player, $mzID) {
   global $playerID;
   $playerID = intval($player);
-  $self = GetZoneObject($mzID);
-  $selfUID = SWUObjUID($self, 0);
-  $officials = [];
-  foreach (SWUAllUnits('my') as $mz) {
-    $o = GetZoneObject($mz);
-    if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID && HasTrait($o->CardID ?? '', 'Official'))
-      $officials[] = $mz;
-  }
-  if (empty($officials))
-    return;
-  SWUQueueMayChooseTarget(intval($player), $officials, "Give_another_Official_unit_Sentinel?", "Choose_an_Official_unit", "GRANT_PHASE_KEYWORD|SENTINEL^SEC_031");
+  SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^SEC_031', 'side'=>'my', 'traits'=>['Official'], 'excludeSelf'=>true, 'may'=>true, 'question'=>"Give_another_Official_unit_Sentinel?", 'prompt'=>"Choose_an_Official_unit"]);
 };
 
 $whenPlayedAbilities["SEC_031:0"] = $sec031;

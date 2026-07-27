@@ -5,12 +5,9 @@
 
 // ASH_214 Amnesty Officer — When Played: you may exhaust a unit with one or more keywords.
 $whenPlayedAbilities["ASH_214:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $tg = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && _SWUUnitHasAnyKeyword($o)) $tg[] = $mz;
-    }
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Exhaust_a_unit_with_a_keyword?", "Choose_a_unit_with_a_keyword", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'may' => true,
+        'extraFilter' => fn($o) => _SWUUnitHasAnyKeyword($o),
+        'question' => "Exhaust_a_unit_with_a_keyword?", 'prompt' => "Choose_a_unit_with_a_keyword",
+    ]);
 };

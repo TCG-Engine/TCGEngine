@@ -9,8 +9,6 @@ $unitActionCostKind["TWI_056"] = 'exhaust';
 $unitActionResourceCosts["TWI_056"] = 2;
 
 $unitAbilities["TWI_056"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    SWUQueueChooseTarget(intval($player), _SWUAllUnitsAndBases(intval($player)), "Heal_2_damage_from_a_unit_or_base", "HEAL_TARGET|2");
+    SWUOfferUnitTarget($player, '', ['continuation'=>'HEAL_TARGET','amount'=>2,'includeBases'=>true,'prompt'=>"Heal_2_damage_from_a_unit_or_base"]);
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SWU_AFTER_ACTION", 1);
 };

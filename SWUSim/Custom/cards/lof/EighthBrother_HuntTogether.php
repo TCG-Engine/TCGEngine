@@ -6,8 +6,13 @@
 $customDQHandlers["LOF_087#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     UseTheForce(intval($player));
-    global $playerID; $playerID = intval($player);
-    $targets = array_values(SWUAllUnits());
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_+2/+2_for_this_phase", "APPLY_PHASE_BUFF|2|2|LOF_087");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'APPLY_PHASE_BUFF|2|2|LOF_087',
+        'side' => 'any', 'prompt' => "Give_a_unit_+2/+2_for_this_phase",
+    ]);
 };
+
+function EighthBrotherReaction(int $player): void
+{
+  SWUQueueMayUseTheForce($player, "Use_the_Force_to_give_a_unit_+2/+2?", "LOF_087#0");
+}

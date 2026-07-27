@@ -19,6 +19,32 @@ P2BASEDMG:3
 
 ---
 
+# EventAttack_PassesTurn_NoExtraAction
+#// SEC_179 Aggressive Negotiations is an EVENT that ends in an attack. The event play is P1's single action,
+#//   so after the attack resolves the turn must pass to P2 — the combat's after-action must not double up
+#//   with the event's FINISH_PLAY_CARD terminator (a double swap would leave it P1's turn = a free extra action).
+#//   P2 has a unit so the attack pauses for a TARGET choice; SimulateRequestBoundary models the real HTTP
+#//   request boundary that decision creates (the after-action ownership must live in the SERIALIZED gamestate,
+#//   not a transient global that a fresh process would drop). P1 attacks P2's base.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3}
+WithActivePlayer: 1
+WithP1GroundArena: SEC_041:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: SEC_179
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:1
+TURNPLAYER:2
+
+---
+
 # BonusSnapshotNotReducedByDiscardDuringOnAttack
 #// SEC_179 Aggressive Negotiations — the +1/+0-per-card bonus is locked in when the attack is declared and
 #//   is NOT recomputed if the hand shrinks mid-attack. The attacker (SOR_095, base power 3) carries

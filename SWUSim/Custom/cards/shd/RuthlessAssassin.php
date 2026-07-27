@@ -8,12 +8,8 @@
 // valid friendly target).
 $whenPlayedAbilities["SHD_235:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed)) $targets[] = $mz;
-        }
-    }
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_2_to_a_friendly_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'my',
+        'prompt' => "Deal_2_to_a_friendly_unit",
+    ]);
 };

@@ -13,17 +13,11 @@ $customDQHandlers["LAW_041#0"] = function($player, $parts, $lastDecision) {
     SWUApplyPhaseBuff($lastDecision, 2, 2, 'LAW_041');
     $chosen = GetZoneObject($lastDecision);            // re-read so the buff is reflected
     $chosenPower = ObjectCurrentPower($chosen);
-    $targets = [];
-    foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $zone) {
-        foreach (ZoneSearch($zone, NonLeaderUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if (SWUObjGone($o)) continue;
-            if (ObjectCurrentPower($o) <= $chosenPower) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets,
-        "Defeat_a_non-leader_unit?", "Choose_a_non-leader_unit_to_defeat", "DEFEAT_UNIT");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true,
+        'extraFilter' => fn($o) => ObjectCurrentPower($o) <= $chosenPower,
+        'question' => "Defeat_a_non-leader_unit?", 'prompt' => "Choose_a_non-leader_unit_to_defeat",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

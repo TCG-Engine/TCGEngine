@@ -11,17 +11,14 @@ $onAttackAbilities["LAW_152:0"] = function($player, $mzID) {
     if ($leader === null) return;
     $leaderTraits = array_filter(array_map('trim', explode(',', (string)(CardTrait($leader->CardID ?? '') ?? ''))));
     if (empty($leaderTraits)) return;
-    $self = GetZoneObject($mzID);
-    $uid  = SWUObjUID($self, 0);
-    $targets = [];
-    foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
-        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if (SWUObjGone($o) || intval($o->UniqueID ?? 0) === $uid) continue;
+    // Another non-leader unit (either player) that shares a printed Trait with the friendly leader.
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'any', 'nonLeader' => true, 'excludeSelf' => true, 'may' => true,
+        'extraFilter' => function($o) use ($leaderTraits) {
             $ut = array_filter(array_map('trim', explode(',', (string)(CardTrait($o->CardID ?? '') ?? ''))));
-            if (!empty(array_intersect($leaderTraits, $ut))) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_an_Experience_token_to_a_unit_sharing_a_Trait_with_your_leader?", "Choose_a_unit", "GIVE_EXPERIENCE|1");
+            return !empty(array_intersect($leaderTraits, $ut));
+        },
+        'question' => "Give_an_Experience_token_to_a_unit_sharing_a_Trait_with_your_leader?",
+        'prompt'   => "Choose_a_unit",
+    ]);
 };

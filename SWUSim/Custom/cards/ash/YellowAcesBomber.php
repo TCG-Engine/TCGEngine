@@ -8,5 +8,5 @@ $onAttackAbilities["ASH_253:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID);
     if (SWUObjGone($self) || !_SWUIsUpgraded($self)) return;
-    SWUQueueChooseTarget(intval($player), ['theirBase-0', 'myBase-0'], "Deal_2_damage_to_a_base", "DEAL_BASE_DAMAGE|2");
+    SWUOfferBaseTarget(intval($player), ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>2,'prompt'=>"Deal_2_damage_to_a_base"]);
 };

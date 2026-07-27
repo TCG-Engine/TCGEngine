@@ -14,7 +14,5 @@ $whenPlayedAbilities["JTL_199:0"] = function($player, $mzID) {
         if ($u !== null && empty($u->removed) && intval($u->Status) === 0) $cnt++; // Status 0 = exhausted
     }
     if ($cnt < 3) return;
-    $targets = SWUAllUnits();
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_a_Shield_token_to_a_unit", "GIVE_SHIELD");
+    GiveTokenUpgrade($player, $mzID, ['token'=>'SHIELD','friendlyOnly'=>false,'prompt'=>"Give_a_Shield_token_to_a_unit"]);
 };

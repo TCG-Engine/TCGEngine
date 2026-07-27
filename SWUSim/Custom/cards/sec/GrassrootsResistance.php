@@ -15,11 +15,8 @@ $whenPlayedAbilities["SEC_258:0"] = function($player, $mzID = '') {
 // Grassroots Resistance — "Deal 3 to a unit. Heal 3 from your base."
             global $playerID; $playerID = intval($player);
             OnHealBase(intval($player), intval($player), 3);
-            $units = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),    ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
-            if (empty($units)) return;
-            SWUQueueChooseTarget(intval($player), $units, "Deal_3_to_a_unit", "DEAL_UNIT_DAMAGE|3");
+            SWUOfferUnitTarget($player, $mzID, [
+                'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'prompt' => "Deal_3_to_a_unit",
+            ]);
             return;
 };

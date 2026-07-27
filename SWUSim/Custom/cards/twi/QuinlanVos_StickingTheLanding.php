@@ -16,3 +16,25 @@ $customDQHandlers["TWI_018#0"] = function ($player, $parts, $lastDecision) {
     $leaderArr[0]->Ready = false;
   SWUDealDamageToUnit($lastDecision, 1, intval($player));
 };
+
+function Twi018Reaction(int $player, int $playedCost, bool $isFront): void
+{
+  global $playerID;
+  $playerID = intval($player);
+  $targets = [];
+  foreach (["theirGroundArena", "theirSpaceArena"] as $z) {
+    foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+      $o = GetZoneObject($mz);
+      if (SWUObjGone($o))
+        continue;
+      $c = intval(CardCost($o->CardID ?? ''));
+      if ($isFront ? ($c === $playedCost) : ($c <= $playedCost))
+        $targets[] = $mz;
+    }
+  }
+  if (empty($targets))
+    return;
+  // Front side exhausts the leader as the cost; deployed has no cost. Offer a may-choose either way.
+  $tag = $isFront ? "TWI_018#0" : "DEAL_UNIT_DAMAGE|1";
+  SWUQueueMayChooseTarget(intval($player), $targets, "Deal_1_damage_to_a_qualifying_enemy_unit?", "Choose_an_enemy_unit", $tag);
+}

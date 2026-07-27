@@ -11,10 +11,7 @@ $sec048 = function ($player, $mzID) {
   $self = GetZoneObject($mzID);
   if ($self !== null && empty($self->removed))
     AddTurnEffect($mzID, 'SENTINEL^SEC_048');   // give itself Sentinel
-  $enemy = SWUAllUnits('their');
-  if (empty($enemy))
-    return;
-  SWUQueueChooseTarget(intval($player), $enemy, "Give_an_enemy_unit_Sentinel", "GRANT_PHASE_KEYWORD|SENTINEL^SEC_048");
+  SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^SEC_048', 'side'=>'their', 'prompt'=>"Give_an_enemy_unit_Sentinel"]);
 };
 
 $whenPlayedAbilities["SEC_048:0"] = $sec048;

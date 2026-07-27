@@ -5,8 +5,8 @@
 
 // ASH_194 Snub Fighter Squadron — Ambush (keyword) + When Played: deal 1 damage to a space unit.
 $whenPlayedAbilities["ASH_194:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $tg = SWUAllUnits(null, SpaceArena);
-    if (empty($tg)) return;
-    SWUQueueChooseTarget(intval($player), $tg, "Deal_1_to_a_space_unit", "DEAL_UNIT_DAMAGE|1");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'arena' => 'Space',
+        'prompt' => "Deal_1_to_a_space_unit",
+    ]);
 };

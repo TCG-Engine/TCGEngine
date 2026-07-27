@@ -5,12 +5,10 @@
 
 // SEC_171 Punishing One — (Raid passive in KeywordEffects) + When Played / On Attack: may deal 1 to a unit.
 $sec171 = function ($player, $mzID) {
-  global $playerID;
-  $playerID = intval($player);
-  $targets = SWUAllUnits();
-  if (empty($targets))
-    return;
-  SWUQueueMayChooseTarget(intval($player), $targets, "Deal_1_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|1");
+  SWUOfferUnitTarget($player, $mzID, [
+    'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'may' => true,
+    'question' => "Deal_1_to_a_unit?", 'prompt' => "Choose_a_unit",
+  ]);
 };
 
 $whenPlayedAbilities["SEC_171:0"] = $sec171;

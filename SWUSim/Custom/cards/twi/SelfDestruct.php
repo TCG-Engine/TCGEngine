@@ -12,9 +12,10 @@ $customDQHandlers["TWI_140#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     SWUDefeatUnit(intval($player), $lastDecision);
-    $targets = SWUAllUnits();
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_4_damage_to_a_unit", "DEAL_UNIT_DAMAGE|4");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 4,
+        'prompt' => "Deal_4_damage_to_a_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

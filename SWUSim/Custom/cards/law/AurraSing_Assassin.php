@@ -14,10 +14,11 @@ $leaderAbilities["LAW_004"] = function(int $player): void {
 };
 
 $whenPlayedAbilities["LAW_004:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = AurraSingAssassinTargets(intval($player), 5);
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Defeat_a_non-leader_unit_with_5_or_less_remaining_HP?", "Choose_a_unit", "DEFEAT_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true, 'may' => true,
+        'extraFilter' => fn($o) => intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0) <= 5,
+        'question' => "Defeat_a_non-leader_unit_with_5_or_less_remaining_HP?", 'prompt' => "Choose_a_unit",
+    ]);
 };
 
 // ── LAW_004 Aurra Sing ────────────────────────────────────────────────────────

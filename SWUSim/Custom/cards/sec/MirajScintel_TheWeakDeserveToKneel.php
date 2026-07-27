@@ -5,12 +5,9 @@
 
 // SEC_139 Miraj Scintel — (Overwhelm passive in CombatLogic) + When Played: may deal 3 to an undamaged unit.
 $whenPlayedAbilities["SEC_139:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) === 0) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_3_to_an_undamaged_unit?", "Choose_an_undamaged_unit", "DEAL_UNIT_DAMAGE|3");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'may' => true,
+        'extraFilter' => fn($o) => intval($o->Damage ?? 0) === 0,
+        'question' => "Deal_3_to_an_undamaged_unit?", 'prompt' => "Choose_an_undamaged_unit",
+    ]);
 };

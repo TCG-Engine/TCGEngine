@@ -5,15 +5,6 @@
 
 // LOF_250 Medical Frigate — On Attack: may heal 2 damage from another unit.
 $onAttackAbilities["LOF_250:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $self = GetZoneObject($mzID);
-    $selfUID = SWUObjUID($self);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o) || intval($o->UniqueID ?? -1) === $selfUID) continue;
-        $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Heal_2_from_another_unit?", "Choose_a_unit", "HEAL_TARGET|2");
+    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'HEAL_TARGET','amount'=>2,'may'=>true,'excludeSelf'=>true,
+        'question'=>"Heal_2_from_another_unit?",'prompt'=>"Choose_a_unit"]);
 };

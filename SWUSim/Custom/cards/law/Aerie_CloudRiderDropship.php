@@ -7,7 +7,8 @@
 $onAttackAbilities["LAW_184:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     SWUDealDamageToBase(2, OtherPlayer(intval($player)));   // 2 to the enemy base (direct)
-    $ground = ZoneSearch("theirGroundArena", AnyUnitFilter);
-    if (empty($ground)) return;
-    SWUQueueMayChooseTarget(intval($player), $ground, "Deal_2_to_an_enemy_ground_unit?", "Choose_an_enemy_ground_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'their', 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_2_to_an_enemy_ground_unit?", 'prompt' => "Choose_an_enemy_ground_unit",
+    ]);
 };

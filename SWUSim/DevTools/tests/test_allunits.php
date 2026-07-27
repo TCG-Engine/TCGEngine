@@ -10,7 +10,7 @@ function ZoneSearch($zone, $filter) { return [$zone]; }  // stub: one id == zone
 // Constants can also be passed for $arena.
 
 
-require __DIR__ . '/../../../Custom/CardHelpers.php';
+require __DIR__ . '/../../Custom/CardHelpers.php';
 
 assert(SWUAllUnits() === ['myGroundArena','mySpaceArena','theirGroundArena','theirSpaceArena'], 'all: '.json_encode(SWUAllUnits()));
 assert(SWUAllUnits('my') === ['myGroundArena','mySpaceArena'], 'my');

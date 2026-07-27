@@ -18,7 +18,7 @@ $onAttackAbilities["SHD_090:0"] = function($player, $mzID) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;
             if (intval($o->UniqueID ?? 0) === $selfUID) continue;             // "another"
-            if (!HasTrait($o->CardID ?? '', 'Underworld')) continue;
+            if (!TraitContains($o, 'Underworld')) continue;
             $targets[] = $mz;
         }
     }

@@ -19,28 +19,19 @@ $customDQHandlers["TWI_055#0"] = function($player, $parts, $lastDecision) {
     $tgtCount = count(GetUnitsInPlay($tgtCtrl));
     if ($myCount >= $tgtCount) return;   // only if you control FEWER units than that unit's controller
     // Offer a second (different) unit -2/-2.
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, ['Unit', 'Token Unit', 'Leader Unit']) as $mz) {
-            $u = GetZoneObject($mz);
-            if ($u !== null && empty($u->removed) && intval($u->UniqueID ?? -2) !== $firstUID) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_another_unit_-2/-2_for_this_phase", "APPLY_PHASE_DEBUFF|2|2|TWI_055");
+    SWUOfferUnitTarget(intval($player), $lastDecision, [
+        'continuation' => 'APPLY_PHASE_DEBUFF|2|2|TWI_055', 'side' => 'any', 'excludeUID' => $firstUID,
+        'prompt' => "Give_another_unit_-2/-2_for_this_phase",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["TWI_055:0"] = function($player, $mzID = '') {
 // Equalize — "Give a unit -2/-2 for this phase. Then, if you control fewer units
                           // than that unit's controller, give another unit -2/-2 for this phase."
-            global $playerID;
-            $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-                ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-            );
-            if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_-2/-2_for_this_phase", "TWI_055#0");
+            SWUOfferUnitTarget(intval($player), $mzID, [
+                'continuation' => 'TWI_055#0', 'side' => 'any',
+                'prompt' => "Give_a_unit_-2/-2_for_this_phase",
+            ]);
             return;
 };

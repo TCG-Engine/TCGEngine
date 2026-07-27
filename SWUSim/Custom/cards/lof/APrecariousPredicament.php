@@ -52,20 +52,11 @@ $customDQHandlers["LOF_222#2"] = function($player, $parts, $lastDecision) {
 
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["LOF_264:0"] = function($player, $mzID = '') {
-// It's Worse — "Defeat a non-leader unit."
-            global $playerID; $playerID = intval($player);
-            $targets = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
-                $o = GetZoneObject($mz);
-                if (SWUObjGone($o) || IsLeaderUnit($o)) continue;
-                $targets[] = $mz;
-            }
-            if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_non-leader_unit", "DEFEAT_UNIT");
-            return;
+    // It's Worse — "Defeat a non-leader unit."
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true,
+        'prompt' => "Defeat_a_non-leader_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

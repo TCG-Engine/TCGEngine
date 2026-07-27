@@ -25,7 +25,7 @@ $whenPlayedAbilities["SOR_103:0"] = function($player, $mzID = '') {
             $rebels = array_values(array_filter(array_merge(
                 ZoneSearch('myGroundArena', AnyUnitFilter),
                 ZoneSearch('mySpaceArena',  AnyUnitFilter)
-            ), function($mz) { $o = GetZoneObject($mz); return $o !== null && intval($o->Status) === 1 && HasTrait($o->CardID, 'Rebel'); }));
+            ), function($mz) { $o = GetZoneObject($mz); return $o !== null && intval($o->Status) === 1 && TraitContains($o, 'Rebel'); }));
             if (empty($rebels)) return;
             // First attacker → SOR_103 handler (+1/+0, arms the mandatory chained second attack).
             SWUQueueChooseTarget($player, $rebels, 'Attack_with_a_Rebel_unit', 'SOR_103#0');

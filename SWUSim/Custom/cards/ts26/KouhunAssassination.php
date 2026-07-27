@@ -11,16 +11,10 @@ $customDQHandlers["TS26_33#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
     $playerID = intval($player);          // opponent frame — discard their chosen card
     DoDiscardCard(intval($player), $lastDecision);
-    $playerID = $caster;                  // caster picks the -8/-8 target
-    $tg = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, ['Unit', 'Token Unit', 'Leader Unit']) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && !HasTrait($o->CardID ?? '', 'Vehicle')) $tg[] = $mz;
-        }
-    }
-    if (empty($tg)) return;
-    SWUQueueChooseTarget($caster, $tg, "Give_a_non-Vehicle_unit_-8/-8", "APPLY_PHASE_DEBUFF|8|8|TS26_33");
+    SWUOfferUnitTarget($caster, '', [   // caster picks the -8/-8 target
+        'continuation' => 'APPLY_PHASE_DEBUFF|8|8|TS26_33', 'side' => 'any', 'notTraits' => ['Vehicle'],
+        'prompt' => "Give_a_non-Vehicle_unit_-8/-8",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

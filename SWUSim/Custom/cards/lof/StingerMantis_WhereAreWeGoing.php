@@ -5,12 +5,9 @@
 
 // LOF_198 Stinger Mantis — When Played: may deal 2 damage to an exhausted unit.
 $whenPlayedAbilities["LOF_198:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) !== 1) $targets[] = $mz; // exhausted (Status != ready)
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_2_to_an_exhausted_unit?", "Choose_an_exhausted_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'may' => true,
+        'extraFilter' => fn($o) => intval($o->Status ?? 0) !== 1, // exhausted (Status != ready)
+        'question' => "Deal_2_to_an_exhausted_unit?", 'prompt' => "Choose_an_exhausted_unit",
+    ]);
 };

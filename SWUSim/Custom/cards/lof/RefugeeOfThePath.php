@@ -5,12 +5,7 @@
 
 // LOF_242 Refugee of The Path — When Played: may give a Shield token to a unit with Sentinel.
 $whenPlayedAbilities["LOF_242:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && HasKeyword_Sentinel($o)) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_a_Shield_to_a_Sentinel_unit?", "Choose_a_Sentinel_unit", "GIVE_SHIELD");
+    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GIVE_SHIELD','may'=>true,
+        'extraFilter'=>fn($o)=>HasKeyword_Sentinel($o),
+        'question'=>"Give_a_Shield_to_a_Sentinel_unit?",'prompt'=>"Choose_a_Sentinel_unit"]);
 };

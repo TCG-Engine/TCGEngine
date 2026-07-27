@@ -7,5 +7,5 @@
 $whenDefeatedAbilities["JTL_033:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Heal_2_damage_from_a_base", "HEAL_TARGET|2");
+    SWUOfferBaseTarget(intval($player), ['continuation'=>'HEAL_TARGET','amount'=>2,'prompt'=>"Heal_2_damage_from_a_base"]);
 };

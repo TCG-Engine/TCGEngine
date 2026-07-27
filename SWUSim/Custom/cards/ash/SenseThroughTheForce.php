@@ -25,15 +25,10 @@ $customDQHandlers["ASH_235#1"] = function($player, $parts, $lastDecision) {
     }
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
     if ($drawnCost === null || $drawnCost !== $num) return;   // cost must equal the chosen number
-    $force = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && TraitContains($o, 'Force')) $force[] = $mz;
-        }
-    }
-    if (empty($force)) return;
-    SWUQueueMayChooseTarget(intval($player), $force, "Give_3_Advantage_to_a_Force_unit?", "Choose_a_Force_unit", "GIVE_ADVANTAGE|3");
+    GiveTokenUpgrade($player, '', [
+        'token' => 'ADVANTAGE', 'amount' => 3, 'may' => true, 'traits' => ['Force'], 'friendlyOnly' => false,
+        'question' => "Give_3_Advantage_to_a_Force_unit?", 'prompt' => "Choose_a_Force_unit",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

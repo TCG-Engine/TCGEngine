@@ -7,7 +7,8 @@
 $whenPlayedAbilities["LOF_145:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (!PlayerHasIniative(intval($player))) return;
-    $targets = ZoneSearch("theirGroundArena", AnyUnitFilter);
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_2_to_an_enemy_ground_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'their', 'arena' => 'Ground',
+        'prompt' => "Deal_2_to_an_enemy_ground_unit",
+    ]);
 };

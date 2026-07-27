@@ -34,12 +34,7 @@ $customDQHandlers["LOF_005#0"] = function($player, $parts, $lastDecision) {
     foreach (['Ambush'=>'AMBUSH','Grit'=>'GRIT','Hidden'=>'HIDDEN','Overwhelm'=>'OVERWHELM','Saboteur'=>'SABOTEUR','Sentinel'=>'SENTINEL','Shielded'=>'SHIELDED','Raid'=>'RAID','Restore'=>'RESTORE'] as $name => $kw) {
         if (!in_array($name, $chosenKw, true) && _SWUUnitHasKeyword($chosen, $kw)) $chosenKw[] = $name;
     }
-    $targets = [];
-    foreach (SWUHandPlayablesAtDiscount(intval($player), ['Unit'], 1) as $mz) {
-        $h = GetZoneObject($mz);
-        if (SWUObjGone($h)) continue;
-        if (!empty(array_intersect($chosenKw, _SWUCardKeywordSet($h->CardID ?? '')))) $targets[] = $mz;
-    }
-    if (empty($targets)) { SWUAfterAction(intval($player)); return; }
-    SWUQueueChooseTarget(intval($player), $targets, "Play_a_unit_sharing_a_keyword_(it_costs_1_less)", "DISCOUNT_PLAY_FROM_HAND|1");
+    SWUOfferDiscountPlay(intval($player), ['discount'=>1, 'types'=>['Unit'],
+        'filter'=>fn($cid)=>!empty(array_intersect($chosenKw, _SWUCardKeywordSet($cid))),
+        'prompt'=>"Play_a_unit_sharing_a_keyword_(it_costs_1_less)"]);
 };

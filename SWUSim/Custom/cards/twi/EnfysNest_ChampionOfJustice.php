@@ -6,19 +6,12 @@
 // TWI_198 Enfys Nest — "When Played/On Attack: You may return an enemy non-leader unit with less power
 // than this unit to its owner's hand." (Saboteur is a keyword.)
 $whenPlayedAbilities["TWI_198:0"] = $onAttackAbilities["TWI_198:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
     $self = GetZoneObject($mzID);
     if (SWUObjGone($self)) return;
     $myPower = intval(ObjectCurrentPower($self));
-    $targets = [];
-    foreach (["theirGroundArena", "theirSpaceArena"] as $z) {
-        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval(ObjectCurrentPower($o)) < $myPower) $targets[] = $mz;
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets,
-        "You_may_return_a_weaker_enemy_unit_to_hand", "Return_a_weaker_enemy_unit", "BOUNCE_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'BOUNCE_UNIT', 'side' => 'their', 'nonLeader' => true, 'may' => true,
+        'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) < $myPower,
+        'question' => "You_may_return_a_weaker_enemy_unit_to_hand", 'prompt' => "Return_a_weaker_enemy_unit",
+    ]);
 };

@@ -5,8 +5,5 @@
 
 // SEC_255 Remote Escort Tank — When Played: give a unit Sentinel for this phase.
 $whenPlayedAbilities["SEC_255:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = array_values(SWUAllUnits());
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_Sentinel_for_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL^SEC_255");
+    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^SEC_255', 'prompt'=>"Give_a_unit_Sentinel_for_this_phase"]);
 };

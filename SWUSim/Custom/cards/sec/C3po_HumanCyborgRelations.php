@@ -15,15 +15,11 @@ $onAttackAbilities["SEC_015:0"] = function($player, $mzID) {
         if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUID && intval($u->Status ?? 0) !== 1) { $hasOther = true; break; }
     }
     if (!$hasOther) return;
-    $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $targets[] = $mz; // ready (meaningful)
-        }
-    }
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Exhaust_a_unit?", "Choose_a_unit_to_exhaust", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'may' => true,
+        'extraFilter' => fn($o) => intval($o->Status ?? 0) === 1, // ready (meaningful)
+        'question' => "Exhaust_a_unit?", 'prompt' => "Choose_a_unit_to_exhaust",
+    ]);
 };
 
 // ── SEC_015 C-3PO ─────────────────────────────────────────────────────────────

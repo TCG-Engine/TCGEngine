@@ -6,10 +6,8 @@
 // SOR_209 Pirated Starfighter — When Played: Return a friendly non-leader unit to hand
 // (mandatory). (Raid 1 is an auto keyword.)
 $whenPlayedAbilities["SOR_209:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    SWUQueueChooseTarget(intval($player), array_merge(
-        ZoneSearch('myGroundArena', NonLeaderUnitFilter),
-        ZoneSearch('mySpaceArena',  NonLeaderUnitFilter)
-    ), 'Return_a_friendly_non-leader_unit_to_hand', 'BOUNCE_UNIT');
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'BOUNCE_UNIT', 'side' => 'my', 'nonLeader' => true,
+        'prompt' => "Return_a_friendly_non-leader_unit_to_hand",
+    ]);
 };

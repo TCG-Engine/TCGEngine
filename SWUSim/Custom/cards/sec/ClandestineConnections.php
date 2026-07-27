@@ -16,5 +16,5 @@ $customDQHandlers["SEC_264#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
     if (!SWUExhaustResources(intval($player), 2)) return;
-    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_to_a_base", "DEAL_BASE_DAMAGE|2");
+    SWUOfferBaseTarget(intval($player), ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>2,'prompt'=>"Deal_2_to_a_base"]);
 };

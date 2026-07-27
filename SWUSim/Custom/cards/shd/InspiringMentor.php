@@ -8,8 +8,8 @@
 // The On Attack half fires via the upgrade-granted OnAttack scan ($mzID = host attacker); the When
 // Defeated half is collected in CollectWhenDefeatedTriggers' Subcards scan → DispatchTrigger 'SHD_104'.
 $onAttackAbilities["SHD_104:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = SWUOtherFriendlyUnits(intval($player), $mzID);
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_an_Experience_token_to_another_friendly_unit", "GIVE_EXPERIENCE|1");
+    GiveTokenUpgrade($player, $mzID, [
+        'excludeSelf' => true,
+        'prompt' => "Give_an_Experience_token_to_another_friendly_unit",
+    ]);
 };

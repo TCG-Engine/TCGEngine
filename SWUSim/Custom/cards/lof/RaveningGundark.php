@@ -5,8 +5,8 @@
 
 // LOF_259 Ravening Gundark — When Played: deal 1 damage to a ground unit.
 $whenPlayedAbilities["LOF_259:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = SWUAllUnits(null, GroundArena);
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_1_to_a_ground_unit", "DEAL_UNIT_DAMAGE|1");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'arena' => 'Ground',
+        'prompt' => "Deal_1_to_a_ground_unit",
+    ]);
 };

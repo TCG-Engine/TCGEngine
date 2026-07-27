@@ -7,6 +7,8 @@
 $whenPlayedAbilities["ASH_158:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     SWUDealDamageToUnit($mzID, 3, intval($player));   // 3 to this unit
-    $tg = SWUAllUnits();
-    if (!empty($tg)) SWUQueueChooseTarget(intval($player), $tg, "Give_3_Advantage_tokens_to_a_unit", "GIVE_ADVANTAGE|3");
+    GiveTokenUpgrade($player, '', [
+        'token' => 'ADVANTAGE', 'amount' => 3, 'friendlyOnly' => false,
+        'prompt' => "Give_3_Advantage_tokens_to_a_unit",
+    ]);
 };

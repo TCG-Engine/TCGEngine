@@ -22,7 +22,9 @@ $customDQHandlers["LAW_039#0"] = function($player, $parts, $lastDecision) {
     else                            DoGiveExperienceToken(intval($player), $mz);
     $mz = SWUFindMzByUID($uid);                       // re-resolve (Exp adds a subcard)
     $power = intval(ObjectCurrentPower(GetZoneObject($mz)));
-    $ground = ZoneSearch("theirGroundArena", AnyUnitFilter);
-    if (empty($ground) || $power <= 0) return;
-    SWUQueueChooseTarget(intval($player), $ground, "Deal_{$power}_to_an_enemy_ground_unit", "DEAL_UNIT_DAMAGE|{$power}");
+    if ($power <= 0) return;
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'side' => 'their', 'arena' => 'Ground',
+        'prompt' => "Deal_{$power}_to_an_enemy_ground_unit",
+    ]);
 };

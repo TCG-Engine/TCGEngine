@@ -6,21 +6,16 @@
 // ASH_043 Corona Four — On Attack: you may give a unit -2/-0 for this phase. When Defeated: you may defeat
 // a non-leader unit with 0 power.
 $onAttackAbilities["ASH_043:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Give_a_unit_-2/-0_this_phase?", "Choose_a_unit", "APPLY_PHASE_DEBUFF|2|0|ASH_043");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'APPLY_PHASE_DEBUFF|2|0|ASH_043', 'side' => 'any', 'may' => true,
+        'question' => "Give_a_unit_-2/-0_this_phase?", 'prompt' => "Choose_a_unit",
+    ]);
 };
 
 $whenDefeatedAbilities["ASH_043:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $tg = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && !IsLeaderUnit($o) && intval(ObjectCurrentPower($o)) === 0) $tg[] = $mz;
-        }
-    }
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Defeat_a_non-leader_unit_with_0_power?", "Choose_a_unit", "DEFEAT_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true,
+        'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) === 0,
+        'question' => "Defeat_a_non-leader_unit_with_0_power?", 'prompt' => "Choose_a_unit",
+    ]);
 };

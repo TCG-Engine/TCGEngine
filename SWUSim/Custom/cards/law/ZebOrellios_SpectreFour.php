@@ -8,7 +8,8 @@
 $whenPlayedAbilities["LAW_045:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $amount = (PlayerHasUnitWithAspectInPlay(intval($player), 'Command') || PlayerHasUnitWithAspectInPlay(intval($player), 'Cunning')) ? 5 : 3;
-    $ground = SWUAllUnits(null, GroundArena);
-    if (empty($ground)) return;
-    SWUQueueMayChooseTarget(intval($player), $ground, "Deal_{$amount}_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|{$amount}");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $amount, 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_{$amount}_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

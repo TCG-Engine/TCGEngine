@@ -7,5 +7,5 @@
 $whenDefeatedAbilities["TWI_131:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    SWUQueueChooseTarget(intval($player), ["myBase-0", "theirBase-0"], "Deal_2_damage_to_a_base", "DEAL_BASE_DAMAGE|2");
+    SWUOfferBaseTarget(intval($player), ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>2,'prompt'=>"Deal_2_damage_to_a_base"]);
 };

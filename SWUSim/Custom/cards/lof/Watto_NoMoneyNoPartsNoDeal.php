@@ -22,7 +22,7 @@ $customDQHandlers["LOF_065#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = $caster;
     if ($lastDecision === 'Draw') { DoDrawCard($caster, 1); return; }
     // GiveExp → the caster gives an Experience token to a friendly unit.
-    $targets = SWUAllUnits('my');
-    if (empty($targets)) return;
-    SWUQueueChooseTarget($caster, $targets, "Give_an_Experience_token_to_a_friendly_unit", "GIVE_EXPERIENCE|1");
+    GiveTokenUpgrade($caster, '', [
+        'prompt' => "Give_an_Experience_token_to_a_friendly_unit",
+    ]);
 };

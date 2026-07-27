@@ -11,7 +11,20 @@ $customDQHandlers["SHD_005#exhaust"] = function($player, $parts, $lastDecision) 
     $leaderArr = &GetLeader(intval($player));
     foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SHD_005' && empty($l->removed)) { $l->Ready = false; break; } }  // exhaust the leader (cost)
     unset($l);
-    $targets = SWUAllUnits();
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_an_Experience_token", "GIVE_EXPERIENCE|1");
+    GiveTokenUpgrade(intval($player), '', [
+        'friendlyOnly' => false,
+        'prompt' => "Give_a_unit_an_Experience_token",
+    ]);
 };
+
+function Shd005FrontReaction($player): void
+{
+  global $playerID;
+  $playerID = intval($player);
+  if (!_SWULeaderReadyUndeployed(intval($player), 'SHD_005'))
+    return;
+  if (empty(SWUAllUnits()))
+    return;   // no unit to receive the Experience token → no offer
+  DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Hondo_to_give_a_unit_an_Experience_token?");
+  DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_005#exhaust", 1);
+}

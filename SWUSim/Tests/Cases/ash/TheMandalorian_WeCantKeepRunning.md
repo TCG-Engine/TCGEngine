@@ -122,6 +122,27 @@ P1RESAVAILABLE:3
 
 ---
 
+# Deployed_TakeInitiative_NoLeaderSideTrigger
+#// ASH_014 The Mandalorian — "When you take the initiative: may pay 1 resource → draw" is printed on the
+#// UNDEPLOYED leader side. Once deployed as a leader unit, only the leader-unit-side abilities are active, so
+#// claiming the initiative offers no pay/draw prompt: P1 keeps all resources, draws nothing, no pending decision.
+## GIVEN
+CommonSetup: grw/brk/{
+  myLeader:ASH_014:1:1:1
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 3
+WithP1Deck: SOR_095
+## WHEN
+- P1>Claim
+## EXPECT
+P1HANDCOUNT:0
+P1RESAVAILABLE:3
+P1NODECISION
+
+---
+
 # Support_DeployedOnAttackDraw_LentToChosenUnit
 #// ASH_014 The Mandalorian has Support (when deployed, may attack with another unit; it gains his other
 #// abilities for that attack). With initiative, deploying him lets SOR_095 Battlefield Marine make the attack
@@ -141,3 +162,31 @@ WithP1Deck: SOR_095,SOR_046
 ## EXPECT
 P2BASEDMG:3
 P1HANDCOUNT:1
+
+---
+
+# Support_DeployPassesTurn_NoExtraAction
+#// ASH_014's Support bonus attack (lent to another unit on deploy) must not leak a free extra action: the
+#// deploy is P1's single action, so after the Support attack resolves the turn passes to P2. The bonus
+#// attack's combat and the deploy's own (deferred) After Action must not BOTH swap the turn.
+#//
+#// This is the user-reported scenario. It only surfaces across a real request boundary: the Support attack
+#// pauses for a TARGET choice (P2 has a unit), and — when initiative has NOT yet been claimed this round —
+#// a fresh-process re-parse reorders the combat vs deferred-resume terminals so both run their After Action.
+#// SimulateRequestBoundary reproduces that boundary; without the fix the turn double-swaps back to P1.
+## GIVEN
+CommonSetup: grw/brk/{myLeader:ASH_014;myResources:12}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Deck: SOR_095,SOR_046
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:YES
+## EXPECT
+P2BASEDMG:3
+TURNPLAYER:2

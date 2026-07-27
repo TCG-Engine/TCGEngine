@@ -21,14 +21,9 @@ $whenPlayedAbilities["SOR_178:0"] = function($player, $mzID) {
         if (strpos(CardAspect($o->CardID) ?? '', 'Cunning') !== false) { $hasCunning = true; break; }
     }
     if (!$hasCunning) return;
-    $targets = [];
-    foreach (array_merge(
-        ZoneSearch('theirGroundArena', AnyUnitFilter),
-        ZoneSearch('theirSpaceArena',  AnyUnitFilter)
-    ) as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o)) continue;
-        if (intval(CardCost($o->CardID) ?? 99) <= 4) $targets[] = $mz;
-    }
-    SWUQueueChooseTarget(intval($player), $targets, 'Exhaust_an_enemy_unit_(cost_4_or_less)', 'EXHAUST_UNIT');
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'side' => 'their',
+        'extraFilter' => fn($o) => intval(CardCost($o->CardID) ?? 99) <= 4,
+        'prompt' => 'Exhaust_an_enemy_unit_(cost_4_or_less)',
+    ]);
 };

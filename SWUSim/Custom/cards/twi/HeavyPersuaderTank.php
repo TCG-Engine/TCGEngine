@@ -5,12 +5,8 @@
 
 // TWI_167 Heavy Persuader Tank — "Exploit 2. When Played: You may deal 2 damage to a ground unit."
 $whenPlayedAbilities["TWI_167:0"] = function($player, $mzID) {
-    global $playerID;
-    $playerID = intval($player);
-    $targets = array_merge(
-        ZoneSearch('myGroundArena', ['Unit', 'Token Unit', 'Leader Unit']),
-        ZoneSearch('theirGroundArena', ['Unit', 'Token Unit', 'Leader Unit'])
-    );
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Deal_2_damage_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_2_damage_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

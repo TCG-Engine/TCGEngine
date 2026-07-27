@@ -11,5 +11,5 @@ $whenPlayedAbilities["LOF_048:0"] = function($player, $mzID) {
 $customDQHandlers["LOF_048#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     UseTheForce(intval($player));
-    SWUQueueChooseTarget(intval($player), ["myBase-0", "theirBase-0"], "Heal_3_damage_from_a_base", "HEAL_TARGET|3");
+    SWUOfferBaseTarget(intval($player), ['continuation'=>'HEAL_TARGET','amount'=>3,'prompt'=>"Heal_3_damage_from_a_base"]);
 };

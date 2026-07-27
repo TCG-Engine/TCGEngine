@@ -9,7 +9,8 @@ $onAttackAbilities["LAW_173:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $milled = SWUMillTopCard(intval($player));
     if ($milled === null || strpos((string)(CardAspect($milled) ?? ''), 'Aggression') === false) return;
-    $ground = SWUAllUnits(null, GroundArena);
-    if (empty($ground)) return;
-    SWUQueueMayChooseTarget(intval($player), $ground, "Deal_1_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|1");
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_1_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

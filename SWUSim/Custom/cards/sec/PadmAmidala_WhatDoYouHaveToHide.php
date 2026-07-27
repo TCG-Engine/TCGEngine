@@ -12,7 +12,7 @@ $customDQHandlers["SEC_016#0"] = function($player, $parts, $lastDecision) {
     $leaderArr = &GetLeader(intval($player));
     foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SEC_016' && empty($l->removed)) { $l->Ready = false; break; } }
     unset($l);
-    $targets = _SWUAllUnitsOnly(intval($player));
-    if (empty($targets)) return;
-    SWUQueueChooseTarget($player, $targets, "Deal_1_damage_to_a_unit", "DEAL_UNIT_DAMAGE|1");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'prompt' => "Deal_1_damage_to_a_unit",
+    ]);
 };

@@ -5,8 +5,8 @@
 
 // ASH_051 Reinforcing Light Cruiser — Restore 1 (keyword) + When Played: you may exhaust a unit.
 $whenPlayedAbilities["ASH_051:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Exhaust_a_unit?", "Choose_a_unit", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'may' => true,
+        'question' => "Exhaust_a_unit?", 'prompt' => "Choose_a_unit",
+    ]);
 };

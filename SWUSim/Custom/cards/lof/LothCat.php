@@ -6,8 +6,8 @@
 // LOF_207 Loth-Cat — When Played/When Defeated: may exhaust a ground unit.
 $whenPlayedAbilities["LOF_207:0"] =
 $whenDefeatedAbilities["LOF_207:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = SWUAllUnits(null, GroundArena);
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Exhaust_a_ground_unit?", "Choose_a_ground_unit", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'arena' => 'Ground', 'may' => true,
+        'question' => "Exhaust_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

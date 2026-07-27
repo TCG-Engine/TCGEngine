@@ -7,20 +7,11 @@
 // its owner's hand. If you do, deal damage to a unit equal to the returned unit's cost.
 $whenPlayedAbilities["ASH_038:0"] =
 $whenDefeatedAbilities["ASH_038:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $self = GetZoneObject($mzID);
-    $selfUID = SWUObjUID($self);
-    $tg = [];
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if (SWUObjGone($o) || IsLeaderUnit($o)) continue;
-            if (intval($o->UniqueID ?? -1) === $selfUID) continue;   // "another" unit
-            $tg[] = $mz;
-        }
-    }
-    if (empty($tg)) return;
-    SWUQueueMayChooseTarget(intval($player), $tg, "Return_another_friendly_unit_to_hand_(then_deal_its_cost)?", "Choose_a_unit_to_return", "ASH_038#0");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'ASH_038#0', 'may' => true,
+        'side' => 'my', 'nonLeader' => true, 'excludeSelf' => true,
+        'question' => "Return_another_friendly_unit_to_hand_(then_deal_its_cost)?", 'prompt' => "Choose_a_unit_to_return",
+    ]);
 };
 
 $customDQHandlers["ASH_038#0"] = function($player, $parts, $lastDecision) {
@@ -30,7 +21,8 @@ $customDQHandlers["ASH_038#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) return;
     $cost = intval(CardCost($o->CardID ?? ''));
     if (!SWUBounceUnit(intval($player), $lastDecision)) return;   // couldn't return → no damage
-    $tg = SWUAllUnits();
-    if (empty($tg)) return;
-    SWUQueueChooseTarget(intval($player), $tg, "Deal_{$cost}_damage_to_a_unit", "DEAL_UNIT_DAMAGE|{$cost}");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $cost,
+        'prompt' => "Deal_{$cost}_damage_to_a_unit",
+    ]);
 };

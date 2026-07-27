@@ -19,23 +19,21 @@ $lof070HasAspectInDiscard = function ($player, $aspect) {
 };
 
 $whenPlayedAbilities["LOF_070:0"] = function ($player, $mzID) use ($lof070HasAspectInDiscard) {
-  global $playerID;
-  $playerID = intval($player);
   if (!$lof070HasAspectInDiscard($player, 'Heroism'))
     return;
-  $allUnits = array_values(SWUAllUnits());
-  if (empty($allUnits))
-    return;
-  SWUQueueMayChooseTarget(intval($player), $allUnits, "Heroism_in_discard:_give_a_unit_-3/-3?", "Choose_a_unit", "APPLY_PHASE_DEBUFF|3|3|LOF_070");
+  SWUOfferUnitTarget($player, $mzID, [
+    'continuation' => 'APPLY_PHASE_DEBUFF|3|3|LOF_070',
+    'side' => 'any', 'may' => true,
+    'question' => "Heroism_in_discard:_give_a_unit_-3/-3?", 'prompt' => "Choose_a_unit",
+  ]);
 };
 
 $whenPlayedAbilities["LOF_070:1"] = function ($player, $mzID) use ($lof070HasAspectInDiscard) {
-  global $playerID;
-  $playerID = intval($player);
   if (!$lof070HasAspectInDiscard($player, 'Villainy'))
     return;
-  $allUnits = array_values(SWUAllUnits());
-  if (empty($allUnits))
-    return;
-  SWUQueueMayChooseTarget(intval($player), $allUnits, "Villainy_in_discard:_give_a_unit_-3/-3?", "Choose_a_unit", "APPLY_PHASE_DEBUFF|3|3|LOF_070");
+  SWUOfferUnitTarget($player, $mzID, [
+    'continuation' => 'APPLY_PHASE_DEBUFF|3|3|LOF_070',
+    'side' => 'any', 'may' => true,
+    'question' => "Villainy_in_discard:_give_a_unit_-3/-3?", 'prompt' => "Choose_a_unit",
+  ]);
 };

@@ -7,10 +7,11 @@
 
 // LOF_002 Mother Talzin — On Attack: You may give a unit -1/-1 for this phase.
 $onAttackAbilities["LOF_002:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = array_values(SWUAllUnits());
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_a_unit_-1/-1_this_phase?", "Choose_a_unit", "APPLY_PHASE_DEBUFF|1|1|LOF_002");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'APPLY_PHASE_DEBUFF|1|1|LOF_002',
+        'side' => 'any', 'may' => true,
+        'question' => "Give_a_unit_-1/-1_this_phase?", 'prompt' => "Choose_a_unit",
+    ]);
 };
 
 // LOF_002 Mother Talzin — Action [Exhaust, use the Force]: Give a unit -1/-1 for this phase.

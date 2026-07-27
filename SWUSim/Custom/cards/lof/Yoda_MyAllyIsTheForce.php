@@ -28,8 +28,8 @@ $customDQHandlers["LOF_101#0"] = function ($player, $parts, $lastDecision) {
   $n = 2 * count(GetUnitsInPlay(intval($player)));
   if ($n <= 0)
     return;
-  $targets = array_values(SWUAllUnits());
-  if (empty($targets))
-    return;
-  SWUQueueChooseTarget(intval($player), $targets, "Deal_{$n}_damage_to_a_unit", "DEAL_UNIT_DAMAGE|{$n}");
+  SWUOfferUnitTarget(intval($player), '', [
+      'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $n,
+      'prompt' => "Deal_{$n}_damage_to_a_unit",
+  ]);
 };

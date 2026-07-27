@@ -5,8 +5,8 @@
 
 // SEC_189 Lurking Snub Fighter — When Played: you may exhaust a unit.
 $whenPlayedAbilities["SEC_189:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $targets = array_values(SWUAllUnits());
-    if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Exhaust_a_unit?", "Choose_a_unit", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'may' => true,
+        'question' => "Exhaust_a_unit?", 'prompt' => "Choose_a_unit",
+    ]);
 };

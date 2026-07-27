@@ -17,9 +17,8 @@ $customDQHandlers["SOR_204#0"] = function($player, $parts, $lastDecision) {
     $milled = SWUMillTopCard(intval($player));
     if ($milled === null) return;
     if (strpos(CardType($milled) ?? '', 'Unit') !== false) return; // a unit → no damage
-    $targets = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter)
-    ));
-    SWUQueueChooseTarget(intval($player), $targets, 'Deal_2_damage_to_a_ground_unit', 'DEAL_UNIT_DAMAGE|2');
+    SWUOfferUnitTarget(intval($player), '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'any', 'arena' => 'Ground',
+        'prompt' => 'Deal_2_damage_to_a_ground_unit',
+    ]);
 };

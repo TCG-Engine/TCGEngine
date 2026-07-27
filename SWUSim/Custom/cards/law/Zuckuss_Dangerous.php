@@ -17,7 +17,9 @@ $onAttackAbilities["LAW_064:0"] = function($player, $mzID) {
     }
     if (!$hasBH) return;
     $power = intval(ObjectCurrentPower($self));
-    $ground = SWUAllUnits(null, GroundArena);
-    if (empty($ground) || $power <= 0) return;
-    SWUQueueMayChooseTarget(intval($player), $ground, "Deal_{$power}_to_a_ground_unit?", "Choose_a_ground_unit", "DEAL_UNIT_DAMAGE|{$power}");
+    if ($power <= 0) return;
+    SWUOfferUnitTarget(intval($player), $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'arena' => 'Ground', 'may' => true,
+        'question' => "Deal_{$power}_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+    ]);
 };

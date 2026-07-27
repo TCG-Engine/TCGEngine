@@ -17,9 +17,10 @@ $leaderAbilities["LAW_016"] = function(int $player): void {
 $onAttackAbilities["LAW_016:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (GlobalEffectCount(intval($player), 'SWU_CREATED_TOKEN') <= 0) return;
-    $enemies = TheClientPleaseLowerYourBlasterEnemies(intval($player));
-    if (empty($enemies)) return;
-    SWUQueueChooseTarget(intval($player), $enemies, "Exhaust_an_enemy_unit", "EXHAUST_UNIT");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'EXHAUST_UNIT', 'side' => 'their',
+        'prompt' => "Exhaust_an_enemy_unit",
+    ]);
 };
 
 // ── LAW_016 The Client ────────────────────────────────────────────────────────

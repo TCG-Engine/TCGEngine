@@ -46,7 +46,8 @@ $customDQHandlers["LAW_011#1"] = function($player, $parts, $lastDecision) {
     }
     DecisionQueueController::CleanupRemovedCards();
     if ($n <= 0) return;
-    $targets = _SWUAllUnitsAndBases(intval($player));
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Deal_{$n}_damage_to_a_unit_or_base", "DEAL_TARGET|{$n}");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_TARGET', 'amount' => $n, 'includeBases' => true,
+        'prompt' => "Deal_{$n}_damage_to_a_unit_or_base",
+    ]);
 };

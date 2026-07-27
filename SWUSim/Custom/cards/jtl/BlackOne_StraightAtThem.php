@@ -8,10 +8,8 @@ $onAttackAbilities["JTL_147:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
     if (!_SWUControlsTitle(intval($player), ['Poe Dameron'])) return;
-    $units = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter), ZoneSearch('mySpaceArena',    AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-    ));
-    if (empty($units)) return;
-    SWUQueueMayChooseTarget(intval($player), $units, "Deal_1_damage_to_a_unit", "Choose_a_unit", "DEAL_UNIT_DAMAGE|1");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'side' => 'any', 'may' => true,
+        'question' => "Deal_1_damage_to_a_unit", 'prompt' => "Choose_a_unit",
+    ]);
 };

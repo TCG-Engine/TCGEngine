@@ -23,10 +23,12 @@ $customDQHandlers["LAW_068#0"] = function($player, $parts, $lastDecision) {
 
 function MillenniumFalconDodgingPatrolsGround(int $player)
 {
-  global $playerID;
-  $playerID = $player;
-  $ground = SWUAllUnits(null, GroundArena);
-  if (empty($ground))
-    return;
-  SWUQueueMayChooseTarget($player, $ground, "Give_a_ground_unit_+2/+0?", "Choose_a_ground_unit", "APPLY_PHASE_BUFF|2|0|LAW_068");
+  SWUOfferUnitTarget($player, '', [
+    'continuation' => 'APPLY_PHASE_BUFF|2|0|LAW_068',
+    'side'         => 'any',
+    'arena'        => 'Ground',
+    'may'          => true,
+    'question'     => "Give_a_ground_unit_+2/+0?",
+    'prompt'       => "Choose_a_ground_unit",
+  ]);
 }

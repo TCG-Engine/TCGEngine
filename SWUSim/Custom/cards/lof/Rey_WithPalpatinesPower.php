@@ -14,7 +14,7 @@ $customDQHandlers["LOF_148#0"] = function($player, $parts, $lastDecision) {
     if (!empty($units)) {
         SWUQueueChooseTarget(intval($player), $units, "Deal_2_damage_to_a_unit", "LOF_148#1");
     } else {
-        SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_damage_to_a_base", "DEAL_BASE_DAMAGE|2");
+        SWUOfferBaseTarget(intval($player), ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>2,'prompt'=>"Deal_2_damage_to_a_base"]);
     }
 };
 
@@ -23,5 +23,5 @@ $customDQHandlers["LOF_148#1"] = function($player, $parts, $lastDecision) {
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== '' && $lastDecision !== 'PASS') {
         SWUDealDamageToUnit($lastDecision, 2, intval($player));
     }
-    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_damage_to_a_base", "DEAL_BASE_DAMAGE|2");
+    SWUOfferBaseTarget(intval($player), ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>2,'prompt'=>"Deal_2_damage_to_a_base"]);
 };

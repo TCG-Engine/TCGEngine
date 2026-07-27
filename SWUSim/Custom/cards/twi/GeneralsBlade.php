@@ -8,6 +8,6 @@
 $onAttackAbilities["TWI_121:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host = GetZoneObject($mzID);
-    if (SWUObjGone($host) || !HasTrait($host->CardID ?? '', 'Jedi')) return;
+    if (SWUObjGone($host) || !TraitContains($host, 'Jedi')) return;
     AddGlobalEffects(intval($player), 'SWU_TWI121_DISCOUNT_NEXT'); // next unit -2 this phase
 };

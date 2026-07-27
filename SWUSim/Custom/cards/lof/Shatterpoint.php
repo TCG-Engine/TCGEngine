@@ -9,24 +9,18 @@ $customDQHandlers["LOF_079#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision === 'ForceDefeat') {
         if (!PlayerHasTheForce(intval($player))) return; // can't use the Force you don't have → fizzle
         UseTheForce(intval($player));
-        $targets = [];
-        foreach (SWUAllUnits() as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && !IsLeaderUnit($o)) $targets[] = $mz;
-        }
-        if (empty($targets)) return;
-        SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_non-leader_unit", "DEFEAT_UNIT");
+        SWUOfferUnitTarget($player, '', [
+            'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true,
+            'prompt' => "Defeat_a_non-leader_unit",
+        ]);
         return;
     }
     // 'DefeatWeak' — defeat a non-leader unit with 3 or less remaining HP.
-    $targets = [];
-    foreach (SWUAllUnits() as $mz) {
-        $o = GetZoneObject($mz);
-        if (SWUObjGone($o) || IsLeaderUnit($o)) continue;
-        if (intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0) <= 3) $targets[] = $mz;
-    }
-    if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_non-leader_unit_with_3_or_less_HP", "DEFEAT_UNIT");
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true,
+        'extraFilter' => fn($o) => intval(ObjectCurrentHP($o)) - intval($o->Damage ?? 0) <= 3,
+        'prompt' => "Defeat_a_non-leader_unit_with_3_or_less_HP",
+    ]);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

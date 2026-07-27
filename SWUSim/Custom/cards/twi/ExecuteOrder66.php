@@ -14,7 +14,7 @@ $whenPlayedAbilities["TWI_239:0"] = function($player, $mzID = '') {
             foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
                 foreach (ZoneSearch($z, ['Unit', 'Token Unit', 'Leader Unit']) as $mz) {
                     $o = GetZoneObject($mz);
-                    if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Jedi')) {
+                    if ($o !== null && empty($o->removed) && TraitContains($o, 'Jedi')) {
                         $jedi[] = ['uid' => intval($o->UniqueID ?? 0), 'ctrl' => intval($o->Controller ?? 0)];
                     }
                 }

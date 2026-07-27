@@ -11,7 +11,8 @@ $whenPlayedAbilities["SEC_254:0"] = function($player, $mzID) {
         if (empty($u->removed) && intval($u->Damage ?? 0) > 0) { $hasDamaged = true; break; }
     }
     if (!$hasDamaged) return;
-    $enemy = SWUAllUnits('their');
-    if (empty($enemy)) return;
-    SWUQueueMayChooseTarget(intval($player), $enemy, "Deal_2_to_an_enemy_unit?", "Choose_an_enemy_unit", "DEAL_UNIT_DAMAGE|2");
+    SWUOfferUnitTarget($player, $mzID, [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'their', 'may' => true,
+        'question' => "Deal_2_to_an_enemy_unit?", 'prompt' => "Choose_an_enemy_unit",
+    ]);
 };
