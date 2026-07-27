@@ -39,8 +39,10 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
 <div class="row-wrapper azuki-menu-grid">
   <!-- Active Games Section -->
   <div class="card azuki-glass-card azuki-active-card is-empty">
-    <button class="azuki-active-refresh" type="button" onclick="refreshOpenGames()" aria-label="Refresh active games">
-      <img src="/TCGEngine/Assets/Icons/refresh.svg" width="16" height="16" alt="">
+    <button class="azuki-active-refresh" type="button" onclick="refreshOpenGames(this)" aria-label="Refresh active games">
+      <img class="azuki-active-refresh-icon" src="/TCGEngine/Assets/Icons/refresh.svg" width="16" height="16" alt="">
+      <span class="azuki-active-refresh-spinner" aria-hidden="true"></span>
+      <span class="azuki-active-refresh-check" aria-hidden="true">&#10003;</span>
     </button>
     <h2>Active Games <span id="active-game-count" class="azuki-active-count" aria-live="polite">0</span></h2>
     <div id="active-games-list" class="active-games-list"></div>
@@ -1446,7 +1448,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     background: url('/TCGEngine/Assets/Images/Zendo/active-games-users.svg') center / contain no-repeat;
   }
   .azuki-active-count {
-    display: none;
+    display: inline-grid;
     min-width: 18px;
     height: 18px;
     place-items: center;
@@ -1456,9 +1458,6 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     font-family: var(--zendo-font-ui);
     font-size: 10px;
     letter-spacing: 0;
-  }
-  .azuki-active-card:not(.is-empty) .azuki-active-count {
-    display: inline-grid;
   }
   .azuki-active-refresh {
     position: absolute !important;
@@ -1485,11 +1484,44 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     background: rgba(199, 152, 89, 0.12) !important;
     outline: 1px solid rgba(199, 152, 89, 0.45);
   }
-  .azuki-active-refresh img {
+  .azuki-active-refresh-icon {
     display: block;
     width: 16px;
     height: 16px;
     filter: invert(86%) sepia(20%) saturate(809%) hue-rotate(356deg) brightness(94%);
+  }
+  .azuki-active-refresh-spinner,
+  .azuki-active-refresh-check {
+    display: none;
+  }
+  .azuki-active-refresh-spinner {
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(199, 152, 89, 0.3);
+    border-top-color: #c79859;
+    border-radius: 50%;
+    animation: azuki-active-refresh-spin 0.7s linear infinite;
+  }
+  .azuki-active-refresh-check {
+    color: #c79859;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .azuki-active-refresh.is-loading .azuki-active-refresh-icon,
+  .azuki-active-refresh.is-complete .azuki-active-refresh-icon {
+    display: none;
+  }
+  .azuki-active-refresh.is-loading .azuki-active-refresh-spinner,
+  .azuki-active-refresh.is-complete .azuki-active-refresh-check {
+    display: block;
+  }
+  .azuki-active-refresh:disabled {
+    cursor: default;
+  }
+  @keyframes azuki-active-refresh-spin {
+    to { transform: rotate(360deg); }
   }
   .azuki-active-card .active-games-list {
     display: flex;
@@ -3684,10 +3716,37 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         });
       }
 
-      function refreshOpenGames() {
+      function setActiveGamesRefreshState(button, state) {
+        if (!button) return;
+        window.clearTimeout(button._azukiRefreshResetTimer);
+        button.classList.toggle('is-loading', state === 'loading');
+        button.classList.toggle('is-complete', state === 'complete');
+        button.disabled = state === 'loading';
+        button.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
+
+        if (state === 'complete') {
+          button._azukiRefreshResetTimer = window.setTimeout(function() {
+            setActiveGamesRefreshState(button, 'idle');
+          }, 900);
+        }
+      }
+
+      function refreshOpenGames(refreshButton) {
         console.log('Refreshing open games');
         var gameCountElement = document.getElementById('active-game-count');
         var gameListElement = document.getElementById('active-games-list');
+        var feedbackStartedAt = Date.now();
+        if (refreshButton) setActiveGamesRefreshState(refreshButton, 'loading');
+
+        function finishRefreshFeedback(succeeded) {
+          if (!refreshButton) return;
+          var minimumLoadingTime = 300;
+          var remainingLoadingTime = Math.max(0, minimumLoadingTime - (Date.now() - feedbackStartedAt));
+          window.setTimeout(function() {
+            setActiveGamesRefreshState(refreshButton, succeeded ? 'complete' : 'idle');
+          }, remainingLoadingTime);
+        }
+
         var xhr = new XMLHttpRequest();
         xhr.open('GET', azukiAppBase() + 'APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
         xhr.responseType = 'json';
@@ -3704,10 +3763,12 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
             gameCountElement.textContent = '0';
             renderActiveGames([]);
           }
+          finishRefreshFeedback(true);
           } else {
           console.error('Error fetching open games:', xhr.statusText);
           gameCountElement.textContent = '0';
           renderActiveGames([]);
+          finishRefreshFeedback(false);
           }
         };
 
@@ -3715,6 +3776,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
           console.error('Error fetching open games:', xhr.statusText);
           gameCountElement.textContent = '0';
           renderActiveGames([]);
+          finishRefreshFeedback(false);
         };
 
         xhr.send();
