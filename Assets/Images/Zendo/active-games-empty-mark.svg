@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 92" fill="none">
+  <defs>
+    <linearGradient id="moonFade" x1="42" y1="48" x2="95" y2="8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b7894f" stop-opacity=".14"/>
+      <stop offset=".38" stop-color="#b7894f" stop-opacity=".62"/>
+      <stop offset=".7" stop-color="#b7894f" stop-opacity=".88"/>
+      <stop offset="1" stop-color="#b7894f" stop-opacity=".24"/>
+    </linearGradient>
+    <mask id="moonInFrontOfPavilion">
+      <rect width="120" height="92" fill="#fff"/>
+      <path d="M28 63 60 41l32 22v13H28Z" fill="#000"/>
+    </mask>
+  </defs>
+  <circle cx="68" cy="29" r="25.5" stroke="url(#moonFade)" stroke-width="1.7" mask="url(#moonInFrontOfPavilion)"/>
+  <path d="M59.35 31.5Q60 30.7 60.65 31.5L61.55 45h-3.1l.9-13.5Z" fill="#b7894f" opacity=".82"/>
+  <g stroke="#b7894f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M57.8 40.5h4.4M57 43.5h6"/>
+    <path d="M20 76h80M29 82h62M40 87h40"/>
+    <path d="m32 61 28-17 28 17-56 0Z"/>
+    <path d="M42 61h36v11H42z"/>
+    <path d="M51 62v6h18v-6"/>
+  </g>
+</svg>

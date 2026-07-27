@@ -11,10 +11,13 @@ function RenderTemplate(string $name, array $def): string {
     $html = file_get_contents($path);
     $id = $def['identity'] ?? [];
     $tokens = [
-        '{{rootName}}' => $id['rootName'] ?? '',
-        '{{appName}}'  => $id['appName'] ?? '',
-        '{{ipOwner}}'  => $id['ipOwner'] ?? '',
-        '{{tcgName}}'  => $id['tcgName'] ?? '',
+        '{{rootName}}'       => $id['rootName'] ?? '',
+        '{{appName}}'        => $id['appName'] ?? '',
+        '{{ipOwner}}'        => $id['ipOwner'] ?? '',
+        '{{assetOwner}}'     => $id['assetOwner'] ?? ($id['ipOwner'] ?? ''),
+        '{{tcgName}}'        => $id['tcgName'] ?? '',
+        '{{disclaimerLead}}' => $id['disclaimerLead']
+            ?? (($id['appName'] ?? '') . ' is in no way affiliated with ' . ($id['ipOwner'] ?? '') . '.'),
     ];
     $out = strtr($html, $tokens);
     if (preg_match('/\{\{[a-zA-Z]+\}\}/', $out, $m)) {

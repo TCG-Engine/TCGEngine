@@ -1,14 +1,16 @@
 <?php return [
   'identity' => [
     'rootName' => 'AzukiSim',
-    'appName'  => 'Azuki Sim',
+    'appName'  => 'Zendō',
     'ipOwner'  => 'the creators of Azuki',
+    'assetOwner' => 'their respective owners',
     'tcgName'  => 'Azuki',
+    'disclaimerLead' => 'Zendō is a fan-made project and is not affiliated with the creators of Azuki.',
   ],
   'theme' => 'clarent',
   'branding' => [
-    'title'          => 'Azuki Sim',                       // home-header h1
-    'headTitle'      => 'Azuki Simulator',                 // browser-tab <title>
+    'title'          => 'Zendō',                           // home-header h1
+    'headTitle'      => 'Zendō — Azuki Simulator',         // browser-tab <title>
     'tagline'        => 'Fan-made automated Azuki simulator',
     'homeHref'       => '/TCGEngine/SharedUI/Sites/AzukiSim/MainMenu.php',
     'favicon'        => '/TCGEngine/Assets/Images/icons/gudnakIcon.png',
@@ -21,16 +23,16 @@
       '/TCGEngine/SharedUI/Sites/AzukiSim/css/azuki-overrides.css',
     ],
     'scripts' => ['/TCGEngine/SharedUI/js/burger-menu.js'],
-    'fonts'   => ['Barlow', 'Teko'],
+    'fonts'   => ['Barlow'],
   ],
   'nav' => [
-    ['label'=>'Support','href'=>'https://www.patreon.com/c/OotTheMonk','target'=>'_blank'],
-    ['label'=>'Profile','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Profile.php','visibility'=>'loggedIn'],
-    ['label'=>'Log Out','href'=>'/TCGEngine/AccountFiles/LogoutUser.php','visibility'=>'loggedIn'],
+    ['label'=>'Support','icon'=>'zendo-support.svg','href'=>'https://www.patreon.com/c/OotTheMonk','target'=>'_blank'],
+    ['label'=>'Profile','icon'=>'zendo-profile.svg','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Profile.php','visibility'=>'loggedIn'],
+    ['label'=>'Log Out','icon'=>'zendo-logout.svg','href'=>'/TCGEngine/AccountFiles/LogoutUser.php','visibility'=>'loggedIn'],
   ],
   'navLinks' => [
-    ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/b9nfNyVFpM'],
-    ['kind'=>'icon','icon'=>'github.svg','href'=>'https://github.com/TCG-Engine/TCGEngine'],
+    ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/b9nfNyVFpM','title'=>'Join the Zendō Discord'],
+    ['kind'=>'icon','icon'=>'github.svg','href'=>'https://github.com/TCG-Engine/TCGEngine','title'=>'View Zendō on GitHub'],
   ],
   'deckLibrary' => [
     'storage'         => 'local',

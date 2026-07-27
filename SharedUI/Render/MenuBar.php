@@ -27,7 +27,10 @@ function _RenderNavItem(array $item): string {
               </li>";
     }
     $target = isset($item['target']) ? " target='{$item['target']}'" : '';
-    return "<li><a href='{$item['href']}'$target class='NavBarItem'>{$item['label']}</a></li>";
+    $icon = !empty($item['icon'])
+        ? "<img class=\"nav-item-icon\" src=\"/TCGEngine/Assets/Images/icons/{$item['icon']}\" alt=\"\" aria-hidden=\"true\">"
+        : '';
+    return "<li><a href='{$item['href']}'$target class='NavBarItem'>$icon<span>{$item['label']}</span></a></li>";
 }
 
 // Items in the separate nav-bar-links group: 'icon' (external link w/ image) or 'raw' (verbatim HTML, e.g. a settings button).
@@ -35,7 +38,7 @@ function _RenderNavLink(array $item): string {
     $kind = $item['kind'] ?? 'icon';
     if ($kind === 'raw') return $item['html'] ?? '';
     $title = isset($item['title']) ? " title=\"{$item['title']}\"" : '';
-    return "<li><a target=\"_blank\" href=\"{$item['href']}\"$title><img src=\"/TCGEngine/Assets/Images/icons/{$item['icon']}\"></img></a></li>";
+    return "<li><a target=\"_blank\" href=\"{$item['href']}\"$title><img src=\"/TCGEngine/Assets/Images/icons/{$item['icon']}\" alt=\"\" aria-hidden=\"true\"></a></li>";
 }
 
 function RenderMenuBar(array $def, array $ctx): string {
