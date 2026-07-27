@@ -36,6 +36,31 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     <span class="azuki-rejoin-banner-action" aria-hidden="true">Rejoin</span>
   </button>
 </div>
+<script>
+  (function() {
+    var desktopRejoinLayout = window.matchMedia('(min-width: 1280px)');
+
+    function placeRejoinBanner() {
+      var banner = document.getElementById('rejoin-last-game-banner');
+      var nav = document.querySelector('.nav-bar');
+      var menuGrid = document.querySelector('.azuki-menu-grid');
+      if (!banner || !nav || !menuGrid) return;
+
+      if (desktopRejoinLayout.matches) {
+        nav.insertBefore(banner, nav.firstElementChild);
+      } else {
+        menuGrid.parentNode.insertBefore(banner, menuGrid);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', placeRejoinBanner);
+    } else {
+      placeRejoinBanner();
+    }
+    desktopRejoinLayout.addEventListener('change', placeRejoinBanner);
+  })();
+</script>
 <div class="row-wrapper azuki-menu-grid">
   <!-- Active Games Section -->
   <div class="card azuki-glass-card azuki-active-card is-empty">
@@ -320,13 +345,12 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
 
 <style>
   .azuki-rejoin-banner {
-    position: absolute;
-    top: 20px;
-    left: 50%;
+    position: static;
     z-index: 80;
-    width: min(600px, calc(100vw - 850px));
-    min-width: 360px;
-    transform: translateX(-50%);
+    width: clamp(320px, calc(100vw - 950px), 580px);
+    min-width: 320px;
+    flex: 0 1 auto;
+    margin: 0;
   }
   .azuki-rejoin-banner > button.azuki-rejoin-banner-button {
     display: flex;
@@ -2612,16 +2636,15 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     color: #e0b86d !important;
     text-decoration-color: currentColor;
   }
-  @media (max-width: 1180px) {
+  @media (max-width: 1279px) {
     .azuki-rejoin-banner {
       position: relative;
-      top: auto;
-      left: auto;
       width: auto;
       min-width: 0;
       margin: 0 10px 12px;
-      transform: none;
     }
+  }
+  @media (max-width: 1180px) {
     .azuki-menu-grid {
       display: flex !important;
       flex-direction: column !important;
