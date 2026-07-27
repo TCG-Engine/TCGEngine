@@ -249,8 +249,18 @@ if(isset($assetData) && (string)($assetData['assetOwner'] ?? '') === (string)Log
   if($azukiDeckName === '') $azukiDeckName = 'Deck #' . $gameName;
   $azukiDeckNameJson = json_encode($azukiDeckName, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
   $azukiDeckIDJson = json_encode((string)$gameName, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+  $azukiDeckPlaybookConfigJson = json_encode([
+    'deckID' => (string)$gameName,
+    'endpoint' => '/TCGEngine/AzukiDeck/Playbook.php',
+    'cardImageBase' => '/TCGEngine/AzukiSim/WebpImages/',
+    'assetVersion' => (string)max(
+      intval(@filemtime(__DIR__ . '/Playbook.css')),
+      intval(@filemtime(__DIR__ . '/Playbook.js'))
+    )
+  ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES);
   echo(<<<HTML
 <script>
+window.AzukiDeckPlaybookConfig = {$azukiDeckPlaybookConfigJson};
 (function () {
   var deckID = {$azukiDeckIDJson};
   var currentName = {$azukiDeckNameJson};

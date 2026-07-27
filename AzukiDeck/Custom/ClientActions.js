@@ -244,3 +244,30 @@ function HyperGeo(cardID) {
 }
 
 window.HyperGeo = HyperGeo;
+
+(function AzukiDeckPlaybookBootstrap() {
+  function loadPlaybookClient() {
+    if (!window.AzukiDeckPlaybookConfig || document.getElementById('azukiPlaybookClient')) return;
+    var version = encodeURIComponent(window.AzukiDeckPlaybookConfig.assetVersion || '');
+    var versionQuery = version ? '?v=' + version : '';
+
+    if (!document.getElementById('azukiPlaybookStyles')) {
+      var styles = document.createElement('link');
+      styles.id = 'azukiPlaybookStyles';
+      styles.rel = 'stylesheet';
+      styles.href = '/TCGEngine/AzukiDeck/Custom/Playbook.css' + versionQuery;
+      document.head.appendChild(styles);
+    }
+
+    var script = document.createElement('script');
+    script.id = 'azukiPlaybookClient';
+    script.src = '/TCGEngine/AzukiDeck/Custom/Playbook.js' + versionQuery;
+    document.body.appendChild(script);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadPlaybookClient);
+  } else {
+    loadPlaybookClient();
+  }
+})();
