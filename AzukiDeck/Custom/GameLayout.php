@@ -65,10 +65,10 @@ echo(<<<'HTML'
   }
   #azukiDeckNameControl {
     display: flex;
+    flex: 1 1 auto;
     align-items: center;
     gap: 3px;
     min-width: 0;
-    max-width: min(260px, 24vw);
     margin: 0 3px 0 7px;
     color: var(--swu-control-text);
   }
@@ -175,7 +175,7 @@ echo(<<<'HTML'
       margin: 0 1px !important;
       font-size: 12px !important;
     }
-    #azukiDeckNameControl { max-width: min(180px, 20vw); margin-left: 4px; }
+    #azukiDeckNameControl { margin-left: 4px; }
     #azukiDeckNameLabel { font-size: 12px; }
     .flex-container > .flex-item:first-child > #AssetVisibility { padding-left: 5px !important; }
   }
