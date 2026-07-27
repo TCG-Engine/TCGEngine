@@ -12,7 +12,7 @@ include_once '../AccountFiles/AccountSessionAPI.php';
 include_once '../AzukiSim/Custom/DeckImport.php';
 
 if (!IsUserLoggedIn()) {
-  header('location: /TCGEngine/SharedUI/Sites/AzukiSim/LoginPage.php?redirect=%2FTCGEngine%2FAzukiDeck%2F');
+  header('location: /TCGEngine/SharedUI/Sites/AzukiSim/LoginPage.php?redirect=%2FTCGEngine%2FSharedUI%2FSites%2FAzukiSim%2FMainMenu.php');
   exit();
 }
 
@@ -21,7 +21,7 @@ $resolved = null;
 if ($deckLink !== '') {
   $resolved = AzukiResolveDeckInput($deckLink);
   if (!$resolved['success']) {
-    header('location: ./index.php?error=' . rawurlencode($resolved['message']));
+    header('location: /TCGEngine/SharedUI/Sites/AzukiSim/MainMenu.php?deckError=' . rawurlencode($resolved['message']));
     exit();
   }
 }
@@ -33,7 +33,7 @@ $assetSource = null;
 $assetSourceID = null;
 
 if (!SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID, 'standard')) {
-  header('location: ./index.php?error=' . rawurlencode('Could not reserve an ownership record for this deck. Please try again.'));
+  header('location: /TCGEngine/SharedUI/Sites/AzukiSim/MainMenu.php?deckError=' . rawurlencode('Could not reserve an ownership record for this deck. Please try again.'));
   exit();
 }
 

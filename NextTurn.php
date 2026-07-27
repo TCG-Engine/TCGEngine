@@ -591,7 +591,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <audio id="yourTurnSound" src="../Assets/prioritySound.wav"></audio>
 -->
     <script>
-      (function persistMostRecentSimGame() {
+      window.RefreshMostRecentSimGameTimestamp = function() {
         var rawPlayerID = <?php echo json_encode(strval($playerID)); ?>;
         if (rawPlayerID !== "1" && rawPlayerID !== "2") return;
         var authKey = <?php echo json_encode(strval($authKey)); ?>;
@@ -614,7 +614,8 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         } else {
           document.cookie = 'lastAuthKey=' + encodeURIComponent(authKey) + '; max-age=' + (30 * 24 * 60 * 60) + '; path=/; SameSite=Lax';
         }
-      })();
+      };
+      window.RefreshMostRecentSimGameTimestamp();
 
       function reload() {
         CheckReloadNeeded(0);
@@ -1195,6 +1196,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       }
 
       function RenderUpdate(responseArr, renderedUpdate) {
+        if (typeof window.RefreshMostRecentSimGameTimestamp === 'function') {
+          window.RefreshMostRecentSimGameTimestamp();
+        }
         if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
           window.TCGRenderTrace.mark('render:start', {
             update: renderedUpdate,
