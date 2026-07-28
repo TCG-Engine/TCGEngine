@@ -232,6 +232,19 @@ CREATE TABLE `assetautoversions` (
   KEY `idx_assetautoversions_parent` (`parentVersionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `assetversionstats` (
+  `appKey` varchar(32) NOT NULL,
+  `assetType` int(11) NOT NULL,
+  `assetID` int(11) NOT NULL,
+  `versionID` bigint(20) UNSIGNED NOT NULL,
+  `gamesPlayed` int(11) NOT NULL DEFAULT 0,
+  `wins` int(11) NOT NULL DEFAULT 0,
+  `losses` int(11) NOT NULL DEFAULT 0,
+  `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`appKey`,`assetType`,`assetID`,`versionID`),
+  KEY `idx_assetversionstats_version` (`versionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 CREATE TABLE `deck_game_raw_data` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -408,17 +421,6 @@ CREATE TABLE `azukicarddeckstats` (
   `t10PlusTimesPlayed` int(11) NOT NULL DEFAULT 0,
   `t10PlusTimesPlayedInWins` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`deckID`,`cardID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE `azukideckversionstats` (
-  `deckID` int(11) NOT NULL,
-  `versionID` bigint(20) UNSIGNED NOT NULL,
-  `gamesPlayed` int(11) NOT NULL DEFAULT 0,
-  `wins` int(11) NOT NULL DEFAULT 0,
-  `losses` int(11) NOT NULL DEFAULT 0,
-  `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`deckID`,`versionID`),
-  KEY `idx_azukideckversionstats_version` (`versionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

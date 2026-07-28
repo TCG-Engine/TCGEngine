@@ -1,7 +1,7 @@
 # Stats database migrations
 
 Migrations 01–03 apply to the **SWUStats stats database** (local docker DB: `swudeck`; prod: the
-SWUStats DB). Migrations 04–07 apply to the application database shared by AzukiSim and AzukiDeck.
+SWUStats DB). Migrations 04–08 apply to the application database shared by AzukiSim and AzukiDeck.
 They are **not** needed for a fresh install — `Database/database.sql` already contains the final
 definitions.
 
@@ -21,6 +21,7 @@ Apply in numeric order:
 | 05 | `05_azuki_card_event_stats.sql` | Adds draw, attack, and attack-target counters | Azuki card analytics |
 | 06 | `06_azuki_card_play_turn_stats.sql` | Adds play/win counters for full-turn cycles 1-9 and 10+ | Azuki turn analytics |
 | 07 | `07_auto_versioning.sql` | Adds a separate automatic-version graph and Azuki per-version W/L aggregates | Shared version graph + Azuki opt-in |
+| 08 | `08_engine_asset_versioning.sql` | Adds engine-level version aggregates and backfills existing Azuki W/L rows | Engine capability extraction |
 
 The first three are **independent** of each other (disjoint tables) — the numbering is the phase order they
 were designed and tested in, and is a safe, canonical sequence. There is no cross-file dependency.
@@ -32,6 +33,8 @@ alter the SWU stats tables.
 - Migration 07 deliberately does not import manual snapshots embedded in AzukiDeck or SWUDeck
   gamestate files. It enables database-backed automatic versions for Azuki only; SWU keeps its
   existing manual workflow. The prior `assetversions` draft table remains untouched.
+- Migration 08 preserves all `assetautoversions` rows and version IDs. It idempotently copies
+  Azuki's existing aggregate rows into the shared `assetversionstats` table.
 
 - **Expand-first / safe before the code push.** Migrations 01–03 backfill existing rows to `premier`
   (via a `DEFAULT 'premier'` column) and every reader defaults to premier, so the old code keeps

@@ -3,6 +3,7 @@
 include_once __DIR__ . '/RegressionTestFramework.php';
 include_once __DIR__ . '/MatchReplay.php';
 include_once __DIR__ . '/BotController.php';
+include_once __DIR__ . '/Versioning/AssetVersioningCapability.php';
 
 function ConvertMzIDToAbsolute($mzID, $playerPerspective) {
   if (!$mzID || strpos($mzID, "-") === false) return $mzID;
@@ -396,7 +397,8 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       if ($version == 'current') {
         break;
       } elseif ($version == 'new') {
-        if (function_exists('AutomaticAssetVersioningEnabled') && AutomaticAssetVersioningEnabled()) {
+        $versioningAdapter = AssetVersioningGetLoadedAdapter();
+        if (AssetVersioningAdapterEnabled($versioningAdapter)) {
           $result['success'] = false;
           $result['message'] = 'Versions are created automatically when a game result is recorded.';
           break;
@@ -404,8 +406,14 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $versionName = $options['versionName'] ?? $inputText;
         SaveVersion($playerID, $versionName);
       } else {
-        if (str_starts_with((string)$version, 'auto:') && function_exists('LoadAutomaticAssetVersion')) {
-          $loaded = LoadAutomaticAssetVersion($playerID, intval(substr((string)$version, 5)));
+        $versioningAdapter = AssetVersioningGetLoadedAdapter();
+        if (str_starts_with((string)$version, 'auto:') && AssetVersioningAdapterEnabled($versioningAdapter)) {
+          $loaded = AssetVersioningApplyVersion(
+            $versioningAdapter,
+            $gameName,
+            $playerID,
+            intval(substr((string)$version, 5))
+          );
           if(!$loaded) {
             $result['success'] = false;
             $result['message'] = 'That version could not be loaded.';
@@ -523,7 +531,8 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       $result['botControllerState'] = BuildBotControllerClientState($folderPath, $gameName);
       break;
     case 10005:
-      if (function_exists('AutomaticAssetVersioningEnabled') && AutomaticAssetVersioningEnabled()) {
+      $versioningAdapter = AssetVersioningGetLoadedAdapter();
+      if (AssetVersioningAdapterEnabled($versioningAdapter)) {
         $result['success'] = false;
         $result['message'] = 'Versions are created automatically when a game result is recorded.';
       } else {

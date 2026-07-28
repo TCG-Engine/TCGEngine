@@ -4100,7 +4100,8 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
       function UpdateVersionDropdown(versionsData) {
         var wrapper = document.getElementById('versionDropdownWrapper');
         if (!wrapper) return;
-        // Auto-versioned apps render their database-backed hierarchy server-side.
+        // Auto-versioned apps render their database-backed hierarchy through the
+        // shared versioning capability instead of the legacy gamestate Versions zone.
         // Their gamestate Versions zone remains untouched for backward compatibility.
         if (wrapper.getAttribute('data-auto-versioning') === '1') return;
 

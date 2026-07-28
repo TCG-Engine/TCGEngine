@@ -1,7 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../../Database/ConnectionManager.php';
-require_once __DIR__ . '/../../AzukiDeck/AutoVersioning.php';
+require_once __DIR__ . '/../../Core/Versioning/AssetVersioningCapability.php';
+require_once __DIR__ . '/../../AppCore/Azuki/AssetVersioningAdapter.php';
 
 function AzukiStatsEnsureSchema($conn) {
     if(!$conn) return false;
@@ -44,20 +45,7 @@ function AzukiStatsEnsureSchema($conn) {
         PRIMARY KEY (deckID, cardID)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
 
-    if($conn->query($sql) !== true) return false;
-
-    $versionStatsSQL = "CREATE TABLE IF NOT EXISTS azukideckversionstats (
-        deckID int(11) NOT NULL,
-        versionID bigint(20) UNSIGNED NOT NULL,
-        gamesPlayed int(11) NOT NULL DEFAULT 0,
-        wins int(11) NOT NULL DEFAULT 0,
-        losses int(11) NOT NULL DEFAULT 0,
-        lastUpdated timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-        PRIMARY KEY (deckID, versionID),
-        KEY idx_azukideckversionstats_version (versionID)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
-
-    return $conn->query($versionStatsSQL) === true;
+    return $conn->query($sql) === true && AssetVersioningEnsureStatsSchema($conn);
 }
 
 function AzukiStatsSavedDeckID($deckLink) {
@@ -284,12 +272,8 @@ function AzukiRecordGameStats($winner) {
 
     $conn->begin_transaction();
     $success = true;
+    $versioningAdapter = CreateAzukiAssetVersioningAdapter();
     foreach($snapshots as $player => $snapshot) {
-        $version = AzukiAutoVersioningResolve($conn, $snapshot['deckID']);
-        if($version === null) {
-            $success = false;
-            break;
-        }
         if(!AzukiStatsRecordDeck(
             $conn,
             $snapshot['deckID'],
@@ -304,12 +288,12 @@ function AzukiRecordGameStats($winner) {
             $success = false;
             break;
         }
-        if(!AzukiAutoVersioningRecordAggregate(
+        if(AssetVersioningRecordResult(
             $conn,
+            $versioningAdapter,
             $snapshot['deckID'],
-            intval($version['versionID']),
             intval($player) === $winner
-        )) {
+        ) === null) {
             $success = false;
             break;
         }

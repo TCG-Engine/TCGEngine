@@ -1,0 +1,127 @@
+#versionDropdownMenu {
+  box-sizing: border-box !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.flex-container > .flex-item:first-child [data-auto-versioning="1"] #versionDropdownMenu {
+  left: auto !important;
+  right: 0 !important;
+  width: min(440px, calc(100vw - 16px)) !important;
+  min-width: min(360px, calc(100vw - 16px)) !important;
+  max-height: 70vh !important;
+  overflow: auto !important;
+}
+
+#versionDropdownMenu .asset-version-current,
+#versionDropdownMenu .asset-version-empty,
+#versionDropdownMenu .asset-version-row {
+  color: var(--text, #fff) !important;
+  font-size: 13px;
+}
+
+#versionDropdownMenu .asset-version-current {
+  padding: 7px 12px;
+  cursor: pointer;
+  color: rgba(213, 233, 244, 0.94) !important;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+}
+
+#versionDropdownMenu .asset-version-empty {
+  padding: 9px 12px;
+  color: rgba(180, 197, 208, 0.82) !important;
+  font-size: 12px;
+  white-space: normal;
+}
+
+#versionDropdownMenu .asset-version-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  padding: 7px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#versionDropdownMenu .asset-version-current:hover,
+#versionDropdownMenu .asset-version-row:hover {
+  background: var(--check-fill, rgba(255, 255, 255, 0.06)) !important;
+}
+
+#versionDropdownMenu .asset-version-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+#versionDropdownMenu .asset-version-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#versionDropdownMenu .asset-version-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+#versionDropdownMenu .asset-version-record {
+  flex-shrink: 0;
+  color: rgba(179, 222, 246, 0.92) !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+#versionDropdownMenu .asset-version-delta {
+  display: block;
+  margin-top: 3px;
+  color: rgba(180, 197, 208, 0.82) !important;
+  font-size: 11px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+#versionDropdownMenu .asset-version-actions {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  align-self: center;
+  gap: 12px;
+}
+
+#versionDropdownMenu .asset-version-load {
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #1a73e8;
+  color: #fff;
+  cursor: pointer;
+  font-size: 9px;
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+#versionDropdownMenu .asset-version-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #c0392b;
+  color: #fff;
+  cursor: pointer;
+  font-size: 9px;
+  line-height: 1;
+}
+
+#swuMobileToolbarMenu [data-auto-versioning="1"] #versionDropdownMenu {
+  position: static !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-height: 210px !important;
+  margin-top: 5px;
+  overflow-y: auto !important;
+  box-sizing: border-box;
+}
