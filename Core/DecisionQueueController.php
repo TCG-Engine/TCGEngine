@@ -201,9 +201,11 @@ class DecisionQueueController {
         $numChoices = 0;
         foreach($specs as $spec) {
             if ($spec['specificIndex'] !== null) {
-                // Specific card - counts as 1 if the card exists in the zone
-                $zoneCount = MZZoneCount($spec['zone']);
-                if ($spec['specificIndex'] < $zoneCount) {
+                // Specific card - validate the actual slot. Live-zone counts cannot
+                // validate sparse arrays because a removed earlier slot shifts the
+                // relationship between an index and the number of live objects.
+                $obj = GetZoneObject($spec['original']);
+                if ($obj !== null && !(isset($obj->removed) && $obj->removed)) {
                     $numChoices += 1;
                 }
             } else {
@@ -218,7 +220,8 @@ class DecisionQueueController {
     private function MZFirstChoiceMzID($zoneStr) {
         foreach ($this->MZParseSpecs($zoneStr) as $spec) {
             if ($spec['specificIndex'] !== null) {
-                if ($spec['specificIndex'] < MZZoneCount($spec['zone'])) return $spec['original'];
+                $obj = GetZoneObject($spec['original']);
+                if ($obj !== null && !(isset($obj->removed) && $obj->removed)) return $spec['original'];
             } else {
                 if (MZZoneCount($spec['zone']) > 0) return $spec['zone'] . '-0';
             }
