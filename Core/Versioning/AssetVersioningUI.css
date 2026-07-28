@@ -43,11 +43,30 @@
   min-width: 0;
   padding: 7px 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background-color 120ms ease, box-shadow 120ms ease;
 }
 
 #versionDropdownMenu .asset-version-current:hover,
 #versionDropdownMenu .asset-version-row:hover {
-  background: var(--check-fill, rgba(255, 255, 255, 0.06)) !important;
+  background:
+    linear-gradient(rgba(var(--accent-rgb, 87, 215, 255), 0.15), rgba(var(--accent-rgb, 87, 215, 255), 0.15)),
+    var(--surface-raised, #2b2f36) !important;
+}
+
+#versionDropdownMenu .asset-version-row:hover {
+  box-shadow: inset 3px 0 rgba(var(--accent-rgb, 87, 215, 255), 0.72);
+}
+
+#versionDropdownMenu .asset-version-row:hover .asset-version-name {
+  color: var(--text, #fff) !important;
+}
+
+#versionDropdownMenu .asset-version-row:hover .asset-version-record {
+  color: rgba(207, 235, 250, 0.98) !important;
+}
+
+#versionDropdownMenu .asset-version-row:hover .asset-version-delta {
+  color: rgba(211, 225, 234, 0.92) !important;
 }
 
 #versionDropdownMenu .asset-version-copy {
@@ -83,6 +102,15 @@
   white-space: normal;
 }
 
+#versionDropdownMenu .asset-version-card-link {
+  border-bottom: 1px dotted currentColor;
+  cursor: help;
+}
+
+#versionDropdownMenu .asset-version-preview-image {
+  display: none;
+}
+
 #versionDropdownMenu .asset-version-actions {
   display: inline-flex;
   flex-shrink: 0;
@@ -91,15 +119,62 @@
   gap: 12px;
 }
 
+#versionDropdownMenu .asset-version-rename,
 #versionDropdownMenu .asset-version-load {
   padding: 1px 5px;
   border-radius: 3px;
-  background: #1a73e8;
   color: #fff;
   cursor: pointer;
   font-size: 9px;
   line-height: 14px;
   white-space: nowrap;
+}
+
+#versionDropdownMenu .asset-version-rename {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+#versionDropdownMenu .asset-version-load {
+  background: #1a73e8;
+}
+
+#versionDropdownMenu .asset-version-rename-editor {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+}
+
+#versionDropdownMenu .asset-version-rename-input {
+  width: min(190px, 34vw);
+  min-width: 90px;
+  padding: 3px 6px;
+  border: 1px solid rgba(179, 222, 246, 0.65);
+  border-radius: 3px;
+  outline: none;
+  background: rgba(0, 0, 0, 0.32);
+  color: #fff;
+  font: inherit;
+}
+
+#versionDropdownMenu .asset-version-rename-input:focus {
+  border-color: #8fd5ff;
+  box-shadow: 0 0 0 2px rgba(70, 164, 220, 0.22);
+}
+
+#versionDropdownMenu .asset-version-rename-save,
+#versionDropdownMenu .asset-version-rename-cancel {
+  cursor: pointer;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+#versionDropdownMenu .asset-version-rename-save {
+  color: #8fd5ff;
+}
+
+#versionDropdownMenu .asset-version-rename-cancel {
+  color: rgba(220, 230, 237, 0.75);
 }
 
 #versionDropdownMenu .asset-version-delete {

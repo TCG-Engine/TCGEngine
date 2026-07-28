@@ -25,7 +25,7 @@
       : Promise.resolve(global.confirm(promptText));
   }
 
-  function request(config, action, versionID) {
+  function request(config, action, versionID, fields) {
     var params = new URLSearchParams({
       folderPath: config.folderPath,
       assetID: String(config.assetID),
@@ -37,6 +37,9 @@
       url += '?' + params.toString();
     } else {
       params.set('versionID', String(versionID));
+      Object.keys(fields || {}).forEach(function(key) {
+        params.set(key, String(fields[key]));
+      });
       options.method = 'POST';
       options.headers = { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' };
       options.body = params.toString();
@@ -60,6 +63,108 @@
       callback();
     });
     return action;
+  }
+
+  function startRename(config, version, nameElement) {
+    var row = nameElement.closest('.asset-version-row');
+    if (!row || row.querySelector('.asset-version-rename-editor')) return;
+
+    var originalName = version.versionName || ('Version ' + version.versionNumber);
+    var editor = document.createElement('span');
+    editor.className = 'asset-version-rename-editor';
+    var input = document.createElement('input');
+    input.className = 'asset-version-rename-input';
+    input.type = 'text';
+    input.maxLength = 255;
+    input.value = originalName;
+    input.setAttribute('aria-label', 'Version name');
+    var save = createAction('Save', 'asset-version-rename-save', submitRename);
+    var cancel = createAction('Cancel', 'asset-version-rename-cancel', cancelRename);
+    editor.appendChild(input);
+    editor.appendChild(save);
+    editor.appendChild(cancel);
+    nameElement.replaceWith(editor);
+
+    function restoreName(nextName) {
+      var depth = Math.max(0, Number(version.depth) || 0);
+      nameElement.textContent = (depth > 0 ? '\u21b3 ' : '') + nextName;
+      editor.replaceWith(nameElement);
+    }
+
+    function cancelRename() {
+      restoreName(originalName);
+    }
+
+    function submitRename() {
+      var nextName = input.value.trim();
+      if (!nextName) {
+        showError(new Error('Enter a version name.'));
+        input.focus();
+        return;
+      }
+      input.disabled = true;
+      request(config, 'rename', version.versionID, { versionName: nextName })
+        .then(function(payload) {
+          var savedName = payload.versionName || nextName;
+          version.versionName = savedName;
+          restoreName(savedName);
+          var currentLabel = document.getElementById('versionDropdownLabel');
+          if (currentLabel && currentLabel.textContent === originalName) {
+            currentLabel.textContent = savedName;
+          }
+        })
+        .catch(function(error) {
+          input.disabled = false;
+          showError(error);
+          input.focus();
+        });
+    }
+
+    input.addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+    input.addEventListener('keydown', function(event) {
+      event.stopPropagation();
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitRename();
+      } else if (event.key === 'Escape') {
+        event.preventDefault();
+        cancelRename();
+      }
+    });
+    input.focus();
+    input.select();
+  }
+
+  function renderDelta(delta, version) {
+    var segments = Array.isArray(version.deltaSegments) ? version.deltaSegments : [];
+    if (!segments.length) {
+      delta.textContent = version.deltaText || '';
+      return;
+    }
+
+    segments.forEach(function(segment) {
+      var text = document.createElement('span');
+      text.textContent = segment && segment.text ? String(segment.text) : '';
+      if (segment && segment.itemID && segment.previewURL) {
+        text.className = 'asset-version-card-link';
+        var previewImage = document.createElement('img');
+        previewImage.className = 'asset-version-preview-image';
+        previewImage.src = String(segment.previewURL);
+        previewImage.alt = '';
+        text.appendChild(previewImage);
+        text.addEventListener('mouseenter', function(event) {
+          if (typeof ShowCardDetail === 'function') {
+            ShowCardDetail(event, text);
+          }
+        });
+        text.addEventListener('mouseleave', function() {
+          if (typeof HideCardDetail === 'function') HideCardDetail();
+        });
+      }
+      delta.appendChild(text);
+    });
   }
 
   function render(config, versions) {
@@ -108,15 +213,19 @@
 
       var delta = document.createElement('span');
       delta.className = 'asset-version-delta';
-      delta.textContent = version.deltaText || '';
+      renderDelta(delta, version);
       copy.appendChild(heading);
       copy.appendChild(delta);
 
       var actions = document.createElement('span');
       actions.className = 'asset-version-actions';
+      actions.appendChild(createAction('Rename', 'asset-version-rename', function() {
+        startRename(config, version, name);
+      }));
       actions.appendChild(createAction('Load', 'asset-version-load', function() {
+        var currentLabel = version.versionName || ('Version ' + version.versionNumber);
         if (typeof global.selectVersion === 'function') {
-          global.selectVersion('auto:' + version.versionID, label);
+          global.selectVersion('auto:' + version.versionID, currentLabel);
         }
       }));
       actions.appendChild(createAction('\u2715', 'asset-version-delete', function() {

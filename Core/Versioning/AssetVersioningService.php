@@ -273,6 +273,37 @@ function AssetVersionGet($conn, $appKey, $assetType, $assetID, $versionID) {
     return $row;
 }
 
+function AssetVersionRename($conn, $appKey, $assetType, $assetID, $versionID, $versionName) {
+    if(!$conn) return false;
+    $appKey = trim((string)$appKey);
+    $assetType = intval($assetType);
+    $assetID = intval($assetID);
+    $versionID = intval($versionID);
+    $versionName = trim((string)$versionName);
+    $nameLength = function_exists('mb_strlen')
+        ? mb_strlen($versionName, 'UTF-8')
+        : strlen($versionName);
+    if($appKey === '' || $assetType <= 0 || $assetID <= 0 || $versionID <= 0) return false;
+    if($versionName === '' || $nameLength > 255) return false;
+
+    $stmt = $conn->prepare(
+        'UPDATE assetautoversions
+         SET versionName = ?
+         WHERE appKey = ? AND assetType = ? AND assetID = ? AND versionID = ?'
+    );
+    if(!$stmt) return false;
+    $stmt->bind_param('ssiii', $versionName, $appKey, $assetType, $assetID, $versionID);
+    $success = $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    $stmt->close();
+    if(!$success) return false;
+    if($affectedRows === 1) return true;
+
+    // MySQL reports zero affected rows when the submitted name already matches.
+    $existing = AssetVersionGet($conn, $appKey, $assetType, $assetID, $versionID);
+    return $existing !== null && (string)$existing['versionName'] === $versionName;
+}
+
 function AssetVersionDeleteAndReparent($conn, $appKey, $assetType, $assetID, $versionID) {
     $versions = AssetVersionList($conn, $appKey, $assetType, $assetID);
     $byID = [];

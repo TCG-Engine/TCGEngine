@@ -66,6 +66,30 @@ function AssetVersioningRunEndpoint() {
         AssetVersioningEndpointRespond(['success' => true]);
     }
 
+    if($action === 'rename') {
+        if(($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+            AssetVersioningEndpointRespond(['success' => false, 'error' => 'Version renaming requires POST.'], 405);
+        }
+        $versionID = intval($request['versionID'] ?? 0);
+        $versionName = trim((string)($request['versionName'] ?? ''));
+        $nameLength = function_exists('mb_strlen')
+            ? mb_strlen($versionName, 'UTF-8')
+            : strlen($versionName);
+        if($versionID <= 0 || $versionName === '' || $nameLength > 255) {
+            AssetVersioningEndpointRespond([
+                'success' => false,
+                'error' => 'Enter a version name between 1 and 255 characters.'
+            ], 400);
+        }
+        if(!AssetVersioningRenameVersion($adapter, $assetID, $versionID, $versionName)) {
+            AssetVersioningEndpointRespond(['success' => false, 'error' => 'The version could not be renamed.'], 404);
+        }
+        AssetVersioningEndpointRespond([
+            'success' => true,
+            'versionName' => $versionName
+        ]);
+    }
+
     AssetVersioningEndpointRespond(['success' => false, 'error' => 'Unsupported versioning action.'], 400);
 }
 

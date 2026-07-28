@@ -72,6 +72,10 @@ function CreateAzukiAssetVersioningAdapter() {
         'describeItem' => function($itemID) {
             AzukiAssetVersioningEnsureCardNames();
             return function_exists('CardName') ? CardName($itemID) : $itemID;
+        },
+
+        'previewItem' => function($itemID) {
+            return '/TCGEngine/AzukiSim/WebpImages/' . rawurlencode((string)$itemID) . '.webp';
         }
     ];
 }

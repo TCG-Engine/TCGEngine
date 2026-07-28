@@ -28,6 +28,9 @@ function GetAssetVersioningAdapter() {
         },
         'describeItem' => function($itemID) {
             return $itemID;
+        },
+        'previewItem' => function($itemID) {
+            return '/TCGEngine/MyApp/WebpImages/' . rawurlencode($itemID) . '.webp';
         }
     ];
 }
@@ -39,6 +42,9 @@ replacement edit.
 
 The adapter may optionally provide `deleteVersionStats($conn, $assetID,
 $versionID)` to clean app-specific derived statistics in the same transaction.
+`describeItem` and `previewItem` are optional display adapters. When a preview
+URL is provided, item names in hierarchy deltas reuse the engine's standard
+hover preview.
 
 ## Recording a result
 
@@ -65,5 +71,8 @@ The shared API loads the root's adapter by convention, applies its authorization
 callback, and returns preformatted hierarchy rows. `EngineActionRunner.php`
 automatically disables manual creation and handles `auto:<versionID>` loading
 when the current root exposes an enabled adapter.
+
+The shared hierarchy API also owns inline version renaming and deletion. Both
+mutations use POST and run through the adapter's authorization callback.
 
 Apps without `Custom/AssetVersioning.php` retain their existing version behavior.

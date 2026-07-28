@@ -200,31 +200,73 @@ function AssetVersioningDescribeItem($adapter, $itemID) {
     return (string)$itemID;
 }
 
-function AssetVersioningDescribeDelta($adapter, $version) {
-    if($version['parentVersionID'] === null) return 'Root configuration';
-    $labels = [];
+function AssetVersioningPreviewItem($adapter, $itemID) {
+    $itemID = (string)$itemID;
+    if($itemID === '') return '';
+    $preview = $adapter['previewItem'] ?? null;
+    if(!is_callable($preview)) return '';
+    return trim((string)$preview($itemID));
+}
+
+function AssetVersioningDeltaSegments($adapter, $version) {
+    if($version['parentVersionID'] === null) {
+        return [['text' => 'Root configuration']];
+    }
+
+    $distance = intval($version['distanceFromParent'] ?? 0);
+    $segments = [[
+        'text' => $distance . ' edit' . ($distance === 1 ? '' : 's')
+    ]];
+    $changes = [];
     $delta = is_array($version['delta'] ?? null) ? $version['delta'] : [];
+
+    $itemSegment = function($itemID) use ($adapter) {
+        $itemID = (string)$itemID;
+        return [
+            'text' => AssetVersioningDescribeItem($adapter, $itemID),
+            'itemID' => $itemID,
+            'previewURL' => AssetVersioningPreviewItem($adapter, $itemID)
+        ];
+    };
+
     foreach((array)($delta['identities'] ?? []) as $slot => $change) {
-        $labels[] = ucfirst((string)$slot)
-            . ': ' . AssetVersioningDescribeItem($adapter, $change['from'] ?? '')
-            . ' → ' . AssetVersioningDescribeItem($adapter, $change['to'] ?? '');
+        $changes[] = [
+            ['text' => ucfirst((string)$slot) . ': '],
+            $itemSegment($change['from'] ?? ''),
+            ['text' => ' → '],
+            $itemSegment($change['to'] ?? '')
+        ];
     }
     foreach((array)($delta['zones'] ?? []) as $zoneDelta) {
         foreach((array)($zoneDelta['added'] ?? []) as $itemID => $quantity) {
-            $labels[] = '+' . intval($quantity) . ' ' . AssetVersioningDescribeItem($adapter, $itemID);
+            $changes[] = [
+                ['text' => '+' . intval($quantity) . ' '],
+                $itemSegment($itemID)
+            ];
         }
         foreach((array)($zoneDelta['removed'] ?? []) as $itemID => $quantity) {
-            $labels[] = '−' . intval($quantity) . ' ' . AssetVersioningDescribeItem($adapter, $itemID);
+            $changes[] = [
+                ['text' => '−' . intval($quantity) . ' '],
+                $itemSegment($itemID)
+            ];
         }
     }
-    $distance = intval($version['distanceFromParent'] ?? 0);
-    $text = $distance . ' edit' . ($distance === 1 ? '' : 's');
-    return $text . (empty($labels) ? '' : ' · ' . implode(', ', $labels));
+
+    foreach($changes as $change) {
+        $segments[] = ['text' => count($segments) === 1 ? ' · ' : ', '];
+        foreach($change as $segment) $segments[] = $segment;
+    }
+    return $segments;
+}
+
+function AssetVersioningDescribeDelta($adapter, $version) {
+    return implode('', array_column(AssetVersioningDeltaSegments($adapter, $version), 'text'));
 }
 
 function AssetVersioningBuildClientPayload($adapter, $assetID) {
     $payload = [];
     foreach(AssetVersioningTreeOrder(AssetVersioningListWithStats($adapter, $assetID)) as $version) {
+        $deltaSegments = AssetVersioningDeltaSegments($adapter, $version);
         $payload[] = [
             'versionID' => intval($version['versionID']),
             'versionNumber' => intval($version['versionNumber']),
@@ -234,7 +276,8 @@ function AssetVersioningBuildClientPayload($adapter, $assetID) {
                 : intval($version['parentVersionID']),
             'depth' => intval($version['displayDepth'] ?? 0),
             'distance' => intval($version['distanceFromParent'] ?? 0),
-            'deltaText' => AssetVersioningDescribeDelta($adapter, $version),
+            'deltaText' => implode('', array_column($deltaSegments, 'text')),
+            'deltaSegments' => $deltaSegments,
             'gamesPlayed' => intval($version['gamesPlayed'] ?? 0),
             'wins' => intval($version['wins'] ?? 0),
             'losses' => intval($version['losses'] ?? 0)
@@ -260,6 +303,32 @@ function AssetVersioningApplyVersion($adapter, $assetID, $playerID, $versionID) 
     $snapshot = $row ? AssetVersionDecodeConfig($row['assetJSON']) : null;
     return is_array($snapshot)
         && (bool)$adapter['applySnapshot'](intval($assetID), intval($playerID), $snapshot);
+}
+
+function AssetVersioningRenameVersion($adapter, $assetID, $versionID, $versionName) {
+    $assetID = intval($assetID);
+    $versionID = intval($versionID);
+    $versionName = trim((string)$versionName);
+    $nameLength = function_exists('mb_strlen')
+        ? mb_strlen($versionName, 'UTF-8')
+        : strlen($versionName);
+    if($assetID <= 0 || $versionID <= 0 || $versionName === '' || $nameLength > 255) {
+        return false;
+    }
+    if(!AssetVersioningAdapterEnabled($adapter)) return false;
+
+    $conn = GetLocalMySQLConnection();
+    if(!$conn) return false;
+    $success = AssetVersionRename(
+        $conn,
+        AssetVersioningAdapterAppKey($adapter),
+        AssetVersioningAdapterAssetType($adapter),
+        $assetID,
+        $versionID,
+        $versionName
+    );
+    $conn->close();
+    return $success;
 }
 
 function AssetVersioningDeleteVersion($adapter, $assetID, $versionID) {
