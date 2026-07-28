@@ -139,7 +139,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     position: static !important;
     width: 100%;
     min-width: 0 !important;
-    max-height: 210px;
+    max-height: 210px !important;
     margin-top: 5px;
     overflow-y: auto !important;
     box-sizing: border-box;

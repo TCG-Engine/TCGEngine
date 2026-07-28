@@ -184,9 +184,45 @@ echo(<<<'HTML'
     background: var(--surface-raised) !important; border: 1px solid rgba(var(--accent-rgb),0.34) !important;
     border-radius: 0 !important;
     box-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 8px rgba(var(--accent-rgb),0.08) !important;
+    box-sizing: border-box !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+  /* The version trigger is the right-most desktop control. Anchor its wider hierarchy
+     panel to the trigger's right edge so records, deltas, and actions stay on-screen. */
+  .flex-container > .flex-item:first-child #versionDropdownMenu {
+    left: auto !important;
+    right: 0 !important;
+    width: min(440px, calc(100vw - 16px)) !important;
+    min-width: min(360px, calc(100vw - 16px)) !important;
+    max-height: 70vh !important;
+    overflow: auto !important;
   }
   #visibilityDropdownMenu > div, #versionDropdownMenu > div { color: var(--text) !important; }
   #visibilityDropdownMenu > div:hover, #versionDropdownMenu > div:hover { background: var(--check-fill) !important; }
+  #versionDropdownMenu .azuki-auto-version-current {
+    color: rgba(213, 233, 244, 0.94) !important;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+  }
+  #versionDropdownMenu .azuki-auto-version-row {
+    min-width: 0;
+  }
+  #versionDropdownMenu .azuki-auto-version-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  #versionDropdownMenu .azuki-auto-version-record {
+    color: rgba(179, 222, 246, 0.92) !important;
+    font-variant-numeric: tabular-nums;
+  }
+  #versionDropdownMenu .azuki-auto-version-delta {
+    color: rgba(180, 197, 208, 0.82) !important;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+  #versionDropdownMenu .azuki-auto-version-actions {
+    align-self: center;
+  }
 
   /* Control + filter labels â€” were dark/black on the board. Match the button text:
      cyan-HUD, all-caps, soft glow. (Menu items stay normal-case for readability.) */

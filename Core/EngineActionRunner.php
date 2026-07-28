@@ -396,9 +396,22 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       if ($version == 'current') {
         break;
       } elseif ($version == 'new') {
+        if (function_exists('AutomaticAssetVersioningEnabled') && AutomaticAssetVersioningEnabled()) {
+          $result['success'] = false;
+          $result['message'] = 'Versions are created automatically when a game result is recorded.';
+          break;
+        }
         $versionName = $options['versionName'] ?? $inputText;
         SaveVersion($playerID, $versionName);
       } else {
+        if (str_starts_with((string)$version, 'auto:') && function_exists('LoadAutomaticAssetVersion')) {
+          $loaded = LoadAutomaticAssetVersion($playerID, intval(substr((string)$version, 5)));
+          if(!$loaded) {
+            $result['success'] = false;
+            $result['message'] = 'That version could not be loaded.';
+          }
+          break;
+        }
         if ($folderPath == 'SoulMastersDB') {
           SoulMastersSwitchVersion($version);
           break;
@@ -510,7 +523,12 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       $result['botControllerState'] = BuildBotControllerClientState($folderPath, $gameName);
       break;
     case 10005:
-      SaveVersion($playerID);
+      if (function_exists('AutomaticAssetVersioningEnabled') && AutomaticAssetVersioningEnabled()) {
+        $result['success'] = false;
+        $result['message'] = 'Versions are created automatically when a game result is recorded.';
+      } else {
+        SaveVersion($playerID);
+      }
       break;
     case 10006:
       if (($playerID === 1 || $playerID === 2) && function_exists('TriggerGameOver')) {

@@ -38,4 +38,34 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
   }
 }
 
+require_once __DIR__ . '/../AutoVersioning.php';
+
+function AutomaticAssetVersioningEnabled() {
+  return AzukiAutoVersioningEnabled();
+}
+
+function LoadAutomaticAssetVersion($playerID, $versionID) {
+  global $gameName;
+  $config = AzukiAutoVersioningGetConfig($gameName, $versionID);
+  if(!is_array($config)) return false;
+
+  $leaderID = trim((string)($config['identities']['leader'] ?? ''));
+  $gateID = trim((string)($config['identities']['gate'] ?? ''));
+  $mainCounts = (array)($config['zones']['mainDeck'] ?? []);
+  if($leaderID === '' || $gateID === '' || empty($mainCounts)) return false;
+
+  $leader = &GetLeader($playerID);
+  $gate = &GetGate($playerID);
+  $mainDeck = &GetMainDeck($playerID);
+  $leader = [new Leader($leaderID, 'Leader', $playerID, 0)];
+  $gate = [new Gate($gateID, 'Gate', $playerID, 0)];
+  $mainDeck = [];
+  foreach($mainCounts as $cardID => $quantity) {
+    for($i = 0; $i < intval($quantity); ++$i) {
+      $mainDeck[] = new MainDeck($cardID, 'MainDeck', $playerID, count($mainDeck));
+    }
+  }
+  return true;
+}
+
 ?>

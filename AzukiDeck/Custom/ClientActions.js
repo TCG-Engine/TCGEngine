@@ -36,6 +36,199 @@ function InLegalFilter(cardID) {
 
 window.InLegalFilter = InLegalFilter;
 
+function showDeleteAutoVersionConfirm(versionID, versionNumber) {
+  var promptText = 'Delete Version ' + versionNumber + '? Its children will be reparented and its aggregate stats will be deleted.';
+  var confirmPromise = typeof StyledConfirm === 'function'
+    ? StyledConfirm(promptText, {
+        title: 'Delete version',
+        danger: true,
+        confirmLabel: 'Delete'
+      })
+    : Promise.resolve(window.confirm(promptText));
+
+  confirmPromise.then(function(confirmed) {
+    if (!confirmed) return;
+    var gameNameInput = document.getElementById('gameName');
+    var deckID = gameNameInput ? gameNameInput.value : '';
+    var url = '/TCGEngine/AzukiDeck/DeleteVersion.php?deckID='
+      + encodeURIComponent(deckID)
+      + '&versionID='
+      + encodeURIComponent(versionID);
+    fetch(url, { credentials: 'same-origin' })
+      .then(function(response) {
+        return response.json().catch(function() { return {}; }).then(function(payload) {
+          if (!response.ok || !payload.success) {
+            throw new Error(payload.error || 'The version could not be deleted.');
+          }
+        });
+      })
+      .then(function() { window.location.reload(); })
+      .catch(function(error) {
+        if (typeof showFlashMessage === 'function') showFlashMessage(error.message, 6000);
+        else window.alert(error.message);
+      });
+  });
+}
+
+window.showDeleteAutoVersionConfirm = showDeleteAutoVersionConfirm;
+
+function AzukiAutoVersionCardLabel(cardID) {
+  if (typeof window.Cardname === 'function') {
+    var name = window.Cardname(cardID);
+    if (name) return String(name);
+  }
+  return String(cardID || '');
+}
+
+function AzukiAutoVersionDeltaText(version) {
+  if (version.parentVersionID === null) return 'Root configuration';
+  var labels = [];
+  var delta = version.delta || {};
+  var identities = delta.identities || {};
+  Object.keys(identities).forEach(function(slot) {
+    var change = identities[slot] || {};
+    labels.push(
+      slot.charAt(0).toUpperCase() + slot.slice(1)
+      + ': ' + AzukiAutoVersionCardLabel(change.from)
+      + ' \u2192 ' + AzukiAutoVersionCardLabel(change.to)
+    );
+  });
+  var mainDeck = delta.zones && delta.zones.mainDeck ? delta.zones.mainDeck : {};
+  Object.keys(mainDeck.added || {}).forEach(function(cardID) {
+    labels.push('+' + mainDeck.added[cardID] + ' ' + AzukiAutoVersionCardLabel(cardID));
+  });
+  Object.keys(mainDeck.removed || {}).forEach(function(cardID) {
+    labels.push('\u2212' + mainDeck.removed[cardID] + ' ' + AzukiAutoVersionCardLabel(cardID));
+  });
+  var editLabel = version.distance + ' edit' + (version.distance === 1 ? '' : 's');
+  return editLabel + (labels.length ? ' \u00b7 ' + labels.join(', ') : '');
+}
+
+function RenderAzukiAutoVersions(versions) {
+  var menu = document.getElementById('versionDropdownMenu');
+  if (!menu) return;
+  menu.innerHTML = '';
+
+  var current = document.createElement('div');
+  current.className = 'azuki-auto-version-current';
+  current.textContent = 'Current Version';
+  current.style.cssText = 'padding:7px 12px;cursor:pointer;font-size:13px;color:#fff;white-space:nowrap;';
+  current.onmouseover = function() { this.style.background = '#3a3a3a'; };
+  current.onmouseout = function() { this.style.background = ''; };
+  current.onclick = function() { selectVersion('current', 'Current Version'); };
+  menu.appendChild(current);
+
+  if (!versions.length) {
+    var empty = document.createElement('div');
+    empty.textContent = 'The first version will be created when this deck records a completed game.';
+    empty.style.cssText = 'padding:9px 12px;color:#aaa;font-size:12px;white-space:normal;';
+    menu.appendChild(empty);
+    return;
+  }
+
+  versions.forEach(function(version) {
+    var label = version.versionName || ('Version ' + version.versionNumber);
+    var depth = Math.max(0, Number(version.depth) || 0);
+    var row = document.createElement('div');
+    row.className = 'azuki-auto-version-row';
+    row.setAttribute('data-version-id', String(version.versionID));
+    row.style.cssText = 'padding:7px 12px 7px '
+      + (12 + depth * 18)
+      + 'px;cursor:default;font-size:13px;color:#fff;display:flex;justify-content:space-between;'
+      + 'align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.06);';
+    row.onmouseover = function() { this.style.background = '#3a3a3a'; };
+    row.onmouseout = function() { this.style.background = ''; };
+
+    var copy = document.createElement('span');
+    copy.style.cssText = 'flex:1;min-width:0;';
+    var heading = document.createElement('span');
+    heading.style.cssText = 'display:flex;justify-content:space-between;gap:10px;';
+    var name = document.createElement('strong');
+    name.className = 'azuki-auto-version-name';
+    name.textContent = (depth > 0 ? '\u21b3 ' : '') + label;
+    var record = document.createElement('span');
+    record.className = 'azuki-auto-version-record';
+    record.style.cssText = 'white-space:nowrap;';
+    record.textContent = version.wins + ' W \u00b7 ' + version.losses + ' L';
+    heading.appendChild(name);
+    heading.appendChild(record);
+    var delta = document.createElement('span');
+    delta.className = 'azuki-auto-version-delta';
+    delta.style.cssText = 'display:block;margin-top:3px;font-size:11px;white-space:normal;';
+    delta.textContent = AzukiAutoVersionDeltaText(version);
+    copy.appendChild(heading);
+    copy.appendChild(delta);
+
+    var actions = document.createElement('span');
+    actions.className = 'azuki-auto-version-actions';
+    actions.style.cssText = 'display:inline-flex;align-items:center;gap:12px;flex-shrink:0;';
+    var load = document.createElement('span');
+    load.textContent = 'Load';
+    load.style.cssText = 'padding:1px 5px;border-radius:3px;background:#1a73e8;color:#fff;'
+      + 'font-size:9px;cursor:pointer;line-height:14px;white-space:nowrap;';
+    load.onclick = function(event) {
+      event.stopPropagation();
+      selectVersion('auto:' + version.versionID, label);
+    };
+    var remove = document.createElement('span');
+    remove.textContent = '\u2715';
+    remove.style.cssText = 'width:15px;height:15px;border-radius:50%;background:#c0392b;color:#fff;'
+      + 'font-size:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;';
+    remove.onclick = function(event) {
+      event.stopPropagation();
+      closeVersionDropdown();
+      showDeleteAutoVersionConfirm(version.versionID, version.versionNumber);
+    };
+    actions.appendChild(load);
+    actions.appendChild(remove);
+    row.appendChild(copy);
+    row.appendChild(actions);
+    menu.appendChild(row);
+  });
+}
+
+function InitializeAzukiAutoVersions() {
+  var wrapper = document.getElementById('versionDropdownWrapper');
+  var gameNameInput = document.getElementById('gameName');
+  if (!wrapper || !gameNameInput) return;
+  wrapper.setAttribute('data-auto-versioning', '1');
+
+  var menu = document.getElementById('versionDropdownMenu');
+  if (menu) {
+    menu.innerHTML = '';
+    var loading = document.createElement('div');
+    loading.textContent = 'Loading version history\u2026';
+    loading.style.cssText = 'padding:9px 12px;color:#aaa;font-size:12px;';
+    menu.appendChild(loading);
+  }
+
+  fetch(
+    '/TCGEngine/AzukiDeck/GetVersions.php?deckID=' + encodeURIComponent(gameNameInput.value),
+    { credentials: 'same-origin' }
+  )
+    .then(function(response) {
+      return response.json().catch(function() { return {}; }).then(function(payload) {
+        if (!response.ok || !payload.success) throw new Error(payload.error || 'Version history is unavailable.');
+        return payload.versions || [];
+      });
+    })
+    .then(RenderAzukiAutoVersions)
+    .catch(function(error) {
+      if (!menu) return;
+      menu.innerHTML = '';
+      var message = document.createElement('div');
+      message.textContent = error.message;
+      message.style.cssText = 'padding:9px 12px;color:#aaa;font-size:12px;white-space:normal;';
+      menu.appendChild(message);
+    });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', InitializeAzukiAutoVersions);
+} else {
+  InitializeAzukiAutoVersions();
+}
+
 function AzukiCardPlayWinRateTurnGraph(cardID) {
   var row = window.AzukiDeckCardStats && window.AzukiDeckCardStats[cardID];
   if (!row || !row.playWinRateDeltaByTurn || !row.playsByTurn) return -1;
