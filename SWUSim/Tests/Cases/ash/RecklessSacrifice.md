@@ -27,3 +27,24 @@ P1OnlyActions: true
 ## EXPECT
 P1DISCARDCOUNT:2
 P2GROUNDARENACOUNT:1
+
+---
+
+# ChooseDiscard_ThenDamageFriendly
+#// ASH_163 Reckless Sacrifice — with several units in hand the player chooses WHICH unit to discard, and
+#// the 5 damage may hit ANY unit (friendly or enemy) costing more than the chosen discard. P1 discards
+#// Greedo (SOR_204, cost 1); both SEC_135 (friendly, cost 3) and SEC_080 (enemy, cost 2) then qualify.
+#// P1 damages its own SEC_135 (4/3) for 5, defeating it (a can't-be-attacked unit is still damageable).
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:2;handCardIds:ASH_163,SOR_095,SOR_204}
+WithP1GroundArena: SEC_135:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-1
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:1
+P1DISCARDCOUNT:3

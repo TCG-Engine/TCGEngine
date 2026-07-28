@@ -25,3 +25,20 @@ P1OnlyActions: true
 - P1>PlayHand:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
+
+---
+
+# TwoSeparateDraws_TwoAdvantages
+#// ASH_169 Axe Woves — the token is given once per draw EVENT. Two separate draw events (playing SOR_111
+#// twice, each "When Played: draw a card") trigger the ability twice → two Advantage tokens on Axe Woves.
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:4;handCardIds:SOR_111,SOR_111}
+WithP1Deck: [SOR_095 SOR_095]
+WithP1GroundArena: ASH_169:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:ASH_169
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:2

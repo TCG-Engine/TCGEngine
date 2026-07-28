@@ -27,3 +27,18 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P1HANDCOUNT:1
+
+---
+
+# NoFriendlyUnit_EnemyStays
+#// ASH_236 Far Far Away — the enemy return is gated on returning a friendly unit first. With no friendly
+#// non-leader unit to return, the event resolves with no effect and the enemy SEC_080 stays in play.
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:3;handCardIds:ASH_236}
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1HANDCOUNT:0

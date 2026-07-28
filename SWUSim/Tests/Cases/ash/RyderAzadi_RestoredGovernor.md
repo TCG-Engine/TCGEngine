@@ -12,3 +12,20 @@ WithActivePlayer: 1
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P2HANDCOUNT:1
+
+---
+
+# NamingPlayerCanStillPlay
+#// ASH_077 Ryder Azadi — the restriction hits only OPPONENTS; the player who named the card can still play
+#// it. P1 plays Ryder, names "Battlefield Marine", then plays its own SOR_095 (Battlefield Marine) — it
+#// resolves normally, so P1 ends with 2 units (Ryder + Marine).
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:9;handCardIds:ASH_077,SOR_095}
+WithActivePlayer: 1
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Battlefield Marine
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:2

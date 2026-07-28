@@ -29,3 +29,19 @@ P1OnlyActions: true
 ## EXPECT
 P1SPACEARENAUNIT:1:CARDID:SOR_237
 P1SPACEARENAUNIT:1:HASKEYWORD:Hidden
+
+---
+
+# EnemyDoesNotGainHidden
+#// ASH_177 Onyx Cinder — "OTHER FRIENDLY units gain Hidden" grants only to friendly units. An enemy ground
+#// unit (SOR_095) does NOT gain Hidden while Onyx Cinder is in play.
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1SpaceArena: ASH_177:1:0
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>Pass
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Hidden

@@ -26,3 +26,19 @@ P1OnlyActions: true
 - P1>AnswerDecision:myGroundArena-0
 ## EXPECT
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
+
+---
+
+# HealOne_OneAdvantage
+#// ASH_044 Barriss Offee — Advantage is one token per damage HEALED. Healing a unit with only 1 damage heals
+#// 1 (capped by the damage present), so it gains exactly 1 Advantage token.
+## GIVEN
+CommonSetup: byk/rrk/{myResources:6;handCardIds:ASH_044}
+WithP1GroundArena: SEC_080:1:1
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1

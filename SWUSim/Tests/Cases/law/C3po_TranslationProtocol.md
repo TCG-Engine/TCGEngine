@@ -15,3 +15,23 @@ WithP1GroundArena: SOR_095:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+
+---
+
+# OnAttackExpDecline
+#// LAW_152 C-3PO — On Attack ability is optional ("you may"): decline -> no Experience token given to the
+#// trait-sharing unit (SOR_095 stays with 0 upgrades).
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_152:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:0

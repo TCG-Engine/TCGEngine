@@ -27,3 +27,17 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:ASH_049
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# DarksaberMakesLeaderUnit_LosesSentinel
+#// ASH_049 Shin Hati — her Sentinel requires her to BE a non-leader ground unit. Attaching ASH_135 The
+#// Darksaber makes her a LEADER unit, so even as the only friendly ground unit she loses Sentinel.
+## GIVEN
+CommonSetup: gyk/gyk
+WithP1GroundArena: ASH_049:1:0
+WithP1GroundArenaUpgrade: 0:ASH_135
+P1OnlyActions: true
+## EXPECT
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel

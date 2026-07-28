@@ -13,3 +13,21 @@ WithP1GroundArena: LAW_235:1:0
 ## EXPECT
 P1CREDITCOUNT:1
 P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# ActionUnusableWhenExhausted
+#// LAW_235 Lady Proxima — the Credit action costs [Exhaust], so an already-exhausted Lady Proxima
+#// cannot use it. No Credit is created and she stays exhausted.
+
+## GIVEN
+CommonSetup: yyk/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_235:0:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P1CREDITCOUNT:0
+P1GROUNDARENAUNIT:0:EXHAUSTED

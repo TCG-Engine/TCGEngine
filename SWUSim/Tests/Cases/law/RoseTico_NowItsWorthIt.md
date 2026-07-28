@@ -33,3 +33,41 @@ WithP1Hand: LAW_223
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:LAW_223
 P1GROUNDARENAUNIT:1:READY
+
+---
+
+# EntersExhausted_NoUnits
+#// LAW_223 Rose Tico — controlling NO units at all does not satisfy "a non-unique unit", so Rose enters
+#// EXHAUSTED. Played into an empty board (P2 has a unit, but that is not friendly).
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:10}
+P1OnlyActions: true
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: LAW_223
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_223
+P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# EntersReady_NonUniqueSpaceUnit
+#// LAW_223 Rose Tico — the non-unique unit can be in EITHER arena. Controlling only SOR_178 Cartel Spacer
+#// (a non-unique SPACE unit) still lets Rose (a ground unit) enter play READY.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:10}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_178:1:0
+WithP1Hand: LAW_223
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_223
+P1GROUNDARENAUNIT:0:READY

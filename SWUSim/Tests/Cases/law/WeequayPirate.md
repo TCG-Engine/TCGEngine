@@ -48,3 +48,75 @@ P1GROUNDARENAUNIT:0:POWER:2
 P1GROUNDARENAUNIT:0:HP:3
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1RESAVAILABLE:0
+
+---
+
+# CreditPartialPay_NoExperience
+#// LAW_231 Weequay Pirate — "If no resources were paid, give an Experience token." P1 has 1 real
+#// resource + 1 Credit token. Playing Weequay (cost 2) defeats the Credit to pay 1 less and pays the
+#// remaining 1 from a real resource → 1 resource paid ≠ 0 → NO Experience. Bare 3/2 enters.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:1}
+P1OnlyActions: true
+WithP1Hand: LAW_231
+WithP1Credits: 1
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myResources-1
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_231
+P1GROUNDARENAUNIT:0:POWER:2
+P1GROUNDARENAUNIT:0:HP:3
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1CREDITCOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# CreditFullPay_GetsExperience
+#// LAW_231 Weequay Pirate — if Credit tokens pay the FULL cost, no real resources are paid → Experience
+#// is granted. P1 has 0 real resources + 2 Credit tokens. Playing Weequay (cost 2) defeats both Credits
+#// to cover the whole cost → 0 resources paid → +1 Experience (4/3, one upgrade).
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:0}
+P1OnlyActions: true
+WithP1Hand: LAW_231
+WithP1Credits: 2
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myResources-0&myResources-1
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_231
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:4
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1CREDITCOUNT:0
+
+---
+
+# SneakAttackDiscount_GetsExperience
+#// LAW_231 Weequay Pirate — played for free via a resource discount still triggers Experience. P1 plays
+#// SOR_219 Sneak Attack (Cunning event, cost 2), which plays Weequay (cost 2) for 3 less → free (0 paid).
+#// Weequay is the only unit in hand, auto-selected. 0 resources paid → +1 Experience (4/3, one upgrade).
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:2;handCardIds:SOR_219,LAW_231}
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_231
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:4
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1

@@ -17,3 +17,92 @@ WithP1Hand: LAW_167
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:POWER:6
 P1GROUNDARENAUNIT:0:HP:6
+
+---
+
+# SingleAspect
+#// LAW_167 Common Cause — +1/+1 per DIFFERENT aspect among units you control. P1 controls only
+#// SOR_164 Wampa (Aggression) = 1 aspect, so the chosen Wampa gets +1/+1 (4/5 -> 5/6).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:2}
+WithP1GroundArena: SOR_164:1:0
+WithP2GroundArena: SHD_029:1:0
+WithP1Hand: LAW_167
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_164
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:HP:6
+
+---
+
+# NoUnitsControlled
+#// LAW_167 Common Cause — with NO units controlled, the buff is +0/+0. The lone enemy SOR_164 Wampa
+#// auto-targets and stays at its base 4/5.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:2}
+WithP2GroundArena: SOR_164:1:0
+WithP1Hand: LAW_167
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_164
+P2GROUNDARENAUNIT:0:POWER:4
+P2GROUNDARENAUNIT:0:HP:5
+
+---
+
+# NoAspectUnitControlled
+#// LAW_167 Common Cause — a controlled unit with NO aspects (SOR_247 Underworld Thug) contributes no
+#// aspect, so the buff is +0/+0. Target the enemy SOR_164 Wampa; it stays 4/5.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:2}
+WithP1GroundArena: SOR_247:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP1Hand: LAW_167
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_164
+P2GROUNDARENAUNIT:0:POWER:4
+P2GROUNDARENAUNIT:0:HP:5
+
+---
+
+# OnlyThisPhase
+#// LAW_167 Common Cause — the +1/+1 (1 aspect, Aggression Wampa) lasts only for THIS phase. After the
+#// action phase ends and the next one begins, Wampa is back to its base 4/5.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:2}
+WithP1Deck: SOR_095
+WithP1Deck: SOR_237
+WithP2Deck: SOR_095
+WithP2Deck: SOR_237
+WithP1GroundArena: SOR_164:1:0
+WithP1Hand: LAW_167
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_164
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HP:5

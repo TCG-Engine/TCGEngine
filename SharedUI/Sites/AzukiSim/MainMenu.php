@@ -341,7 +341,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
 <script>
   window.AZUKI_DECK_CODES = <?php echo json_encode($azukiDeckCodes, JSON_UNESCAPED_SLASHES); ?>;
 </script>
-<script src="/TCGEngine/AzukiDeck/HomeActions.js?v=20260726"></script>
+<script src="/TCGEngine/AzukiDeck/HomeActions.js?v=20260727"></script>
 
 <style>
   .azuki-rejoin-banner {

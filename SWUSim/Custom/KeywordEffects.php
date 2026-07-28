@@ -101,7 +101,7 @@ function LostAbilities($obj): bool {
 function _SWUCheckDefeatAfterAbilityLoss(string $mzID): void {
     global $playerID;
     $o = GetZoneObject($mzID);
-    if ($o === null || !empty($o->removed)) return;
+    if (SWUObjGone($o)) return;
     $hp = ObjectCurrentHP($o);
     if ($hp > 0 && intval($o->Damage ?? 0) >= $hp && !SWUImmuneToHpDefeat($o)) {
         // $mzID is in the CURRENT perspective ($playerID) — defeat under that same perspective so the
@@ -401,7 +401,28 @@ function _SWUMirrorAnotherFriendlyHasKeyword($obj, string $kw): bool {
 // AMBUSH
 // ═════════════════════════════════════════════════════════════════════════════
 
+// ASH_008 Moff Gideon (DEPLOYED leader unit) — "This unit gains <keyword> if there is an Imperial unit with
+// <keyword> in your discard pile." One constant ability per keyword (Ambush/Grit/Hidden/Overwhelm/Saboteur/
+// Sentinel/Shielded/Support). $keywordCardsGlobal is the innate-keyword lookup array name (e.g. 'Sentinel_Cards');
+// a discard card is a printed-keyword source (not in play), so the innate array is the correct check.
+function _SWUAsh008GrantsKeyword($obj, string $keywordCardsGlobal): bool {
+    if (($obj->CardID ?? '') !== 'ASH_008') return false;   // only the deployed Moff Gideon leader unit
+    $ctrl = intval($obj->Controller ?? 0);
+    if ($ctrl <= 0) return false;
+    global $$keywordCardsGlobal;
+    $cards = $$keywordCardsGlobal ?? [];
+    foreach (GetDiscard($ctrl) ?? [] as $d) {
+        if (!empty($d->removed)) continue;
+        $cid = $d->CardID ?? '';
+        if ($cid === '' || strpos(CardType($cid) ?? '', 'Unit') === false) continue;
+        if (!HasTrait($cid, 'Imperial')) continue;
+        if (isset($cards[$cid])) return true;
+    }
+    return false;
+}
+
 function HasConditionalKeyword_Ambush($obj) {
+    if (_SWUAsh008GrantsKeyword($obj, 'Ambush_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     if (_SWUGhostSharesKeyword($obj, 'AMBUSH')) return true;   // JTL_053 The Ghost keyword share
     // TS26_75 Jango Fett — "While an enemy unit has attacked your base this phase, this unit gains Ambush."
     if (($obj->CardID ?? '') === 'TS26_75'
@@ -486,6 +507,7 @@ function _SWUYularenGrants($obj, string $kw): bool {
 }
 
 function HasConditionalKeyword_Grit($obj) {
+    if (_SWUAsh008GrantsKeyword($obj, 'Grit_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     if (_SWUGhostSharesKeyword($obj, 'GRIT')) return true;   // JTL_053 The Ghost keyword share
     if (is_object($obj) && _SWUUnitHasUpgrade($obj, 'SEC_054')) return true;   // SEC_054 grants Grit
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'GRIT')) return true;
@@ -557,6 +579,7 @@ function _SWUSavageFrontGrants($obj): bool {
 }
 
 function HasConditionalKeyword_Overwhelm($obj) {
+    if (_SWUAsh008GrantsKeyword($obj, 'Overwhelm_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     if (_SWUGhostSharesKeyword($obj, 'OVERWHELM')) return true;   // JTL_053 The Ghost keyword share
     // TWI_009 Maul (deployed) — "Each other friendly unit gains Overwhelm."
     if (($obj->CardID ?? '') !== 'TWI_009' && intval($obj->Controller ?? 0) > 0 && _SWULeaderDeployed(intval($obj->Controller), 'TWI_009')) return true;
@@ -618,6 +641,7 @@ function HasConditionalKeyword_Overwhelm($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Saboteur($obj) {
+    if (_SWUAsh008GrantsKeyword($obj, 'Saboteur_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     if (_SWUGhostSharesKeyword($obj, 'SABOTEUR')) return true;   // JTL_053 The Ghost keyword share
     // TWI_010 Pre Vizsla (deployed) — "While you have 3 or more cards in your hand, this unit gains Saboteur."
     if (($obj->CardID ?? '') === 'TWI_010' && IsLeaderUnit($obj) && count(GetHand(intval($obj->Controller ?? 0))) >= 3) return true;
@@ -671,6 +695,7 @@ function _SWUControlsAnotherResistance(int $player, int $selfUid): bool {
 }
 
 function HasConditionalKeyword_Sentinel($obj) {
+    if (_SWUAsh008GrantsKeyword($obj, 'Sentinel_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     // TS26_50 General Grievous / TS26_20 501st Veteran — "While this unit is undamaged, it gains Sentinel."
     if (in_array($obj->CardID ?? '', ['TS26_50', 'TS26_20'], true) && intval($obj->Damage ?? 0) === 0) return true;
     if (_SWUUnitHasUpgrade($obj, 'TWI_071')) return true;   // TWI_071 Unshakeable Will — "Attached unit gains Sentinel."
@@ -708,8 +733,10 @@ function HasConditionalKeyword_Sentinel($obj) {
             if (empty($gu->removed)) return true;
         }
     }
-    // ASH_049 Shin Hati — "While this is the only friendly non-leader ground unit, she gains Sentinel."
-    if (($obj->CardID ?? '') === 'ASH_049') {
+    // ASH_049 Shin Hati — "While this is the only friendly non-leader ground unit, she gains Sentinel." She
+    // must herself BE a non-leader ground unit to qualify — once she becomes a leader unit (e.g. via ASH_135
+    // The Darksaber) she is no longer "the only friendly non-leader ground unit" and loses Sentinel.
+    if (($obj->CardID ?? '') === 'ASH_049' && !IsLeaderUnit($obj)) {
         $ctrl049 = intval($obj->Controller ?? 0);
         $others = 0;
         foreach (GetGroundArena($ctrl049) as $u) {
@@ -800,6 +827,7 @@ function HasConditionalKeyword_Sentinel($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Shielded($obj) {
+    if (_SWUAsh008GrantsKeyword($obj, 'Shielded_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     if (_SWUGhostSharesKeyword($obj, 'SHIELDED')) return true;   // JTL_053 The Ghost keyword share
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SHIELDED')) return true;
     if (_SWUYularenGrants($obj, 'SHIELDED')) return true;
@@ -877,6 +905,7 @@ function HasConditionalKeyword_Piloting($obj) {
 }
 
 function HasConditionalKeyword_Hidden($obj) {
+    if (_SWUAsh008GrantsKeyword($obj, 'Hidden_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     if (_SWUGhostSharesKeyword($obj, 'HIDDEN')) return true;   // JTL_053 The Ghost keyword share
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'HIDDEN')) return true;
     if ($obj === null) return false;
@@ -924,6 +953,7 @@ function ResourceHasPlot($obj): int {
 // if/when implemented. No card grants Support conditionally to a field unit yet.
 // ═════════════════════════════════════════════════════════════════════════════
 function HasConditionalKeyword_Support($obj) {
+    if (_SWUAsh008GrantsKeyword($obj, 'Support_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     return false;
 }
 
@@ -949,7 +979,7 @@ function GetConditionalKeyword_Raid_Value($obj) {
     if (($obj->CardID ?? '') === 'ASH_105') {
         $selfUid105 = intval($obj->UniqueID ?? 0);
         foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
-            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid105 && _SWUUnitHasTrait($u, 'Mandalorian')) { $amount += 2; break; }
+            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid105 && TraitContains($u, 'Mandalorian')) { $amount += 2; break; }
         }
     }
     if (_SWUSEC104AuraActive($obj)) $amount += 1;   // SEC_104 aura — Raid 1
@@ -1095,7 +1125,7 @@ function GetConditionalKeyword_Restore_Value($obj) {
     $amount += _SWUGhostSharesKeywordValue($obj, 'RESTORE');   // JTL_053 The Ghost keyword share (additive)
     // ASH_114 Sabine's Lightsaber (upgrade) — "If attached unit is Sabine Wren or a Force unit, it gains Restore 2."
     if (_SWUUnitHasUpgrade($obj, 'ASH_114')
-        && (CardTitle($obj->CardID ?? '') === 'Sabine Wren' || HasTrait($obj->CardID ?? '', 'Force'))) $amount += 2;
+        && (CardTitle($obj->CardID ?? '') === 'Sabine Wren' || TraitContains($obj, 'Force'))) $amount += 2;
     // ASH_122 Consortium StarViper — "While you have the initiative, this unit gains Restore 2."
     if (($obj->CardID ?? '') === 'ASH_122' && HasInitiative(intval($obj->Controller ?? 0))) $amount += 2;
     // ASH_057 Lothal E-Wing — "While an enemy unit is upgraded, this unit gains Restore 2."
@@ -1134,14 +1164,14 @@ function GetConditionalKeyword_Restore_Value($obj) {
                 $amount += 1;
                 break;
             case 'TS26_40': // Obi-Wan Kenobi — other friendly Republic units gain Restore 1
-                if (_SWUUnitHasTrait($obj, 'Republic')) $amount += 1;
+                if (TraitContains($obj, 'Republic')) $amount += 1;
                 break;
         }
     }
     foreach (GetUpgradesOnUnit($obj) as $u) {
         switch ($u->CardID) {
             case 'LOF_053': // Heirloom Lightsaber — "If attached unit is a Force unit, it gains Restore 1."
-                if (_SWUUnitHasTrait($obj, 'Force')) $amount += 1;
+                if (TraitContains($obj, 'Force')) $amount += 1;
                 break;
             case 'SOR_070': // Devotion — +2 Restore
                 $amount += 2;

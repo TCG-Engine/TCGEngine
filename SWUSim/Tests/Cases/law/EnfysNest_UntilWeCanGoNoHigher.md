@@ -164,3 +164,62 @@ P2BASEDMG:3
 P1LEADER:READY
 P1RESAVAILABLE:1
 P1NODECISION
+
+---
+
+# Undeployed_ExhaustedLeaderNoSecondReuse
+#// LAW_014 Enfys Nest (undeployed) — the reuse exhausts the leader, so a LATER On Attack the same
+#// phase gets NO reuse offer (the leader is already exhausted / no resources left). Two IBH_006 Y-Wings
+#// attack P2's base in space. First attack: On Attack 1 + reuse 1 + combat 2 = 4 (leader exhausts, 2
+#// resources spent). Second attack: On Attack 1 + combat 2 = 3, no reuse offered. P2 base = 7.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:LAW_014;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1SpaceArena: IBH_006:1:0
+WithP1SpaceArena: IBH_006:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:YES
+- P1>AttackSpaceArena:1:BASE
+
+## EXPECT
+P2BASEDMG:7
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:0
+P1NODECISION
+
+---
+
+# Undeployed_NoReuseForEnemyOnAttack
+#// LAW_014 Enfys Nest (undeployed) — the reuse only applies to a FRIENDLY On Attack. P2 attacks P1's
+#// base with IBH_006 Y-Wing (On Attack: deal 1 to a base). Enfys (P1's leader) offers nothing, stays
+#// ready, and P1's base just takes On Attack 1 + combat 2 = 3.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:LAW_014;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 5
+WithP2SpaceArena: IBH_006:1:0
+
+## WHEN
+- P2>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1BASEDMG:3
+P1LEADER:READY
+P1NODECISION

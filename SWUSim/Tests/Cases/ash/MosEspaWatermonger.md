@@ -28,3 +28,20 @@ P1OnlyActions: true
 ## EXPECT
 P1HANDCOUNT:0
 P1DISCARDCOUNT:1
+
+---
+
+# DrawEmptyDeck_BaseDamageAndDiscard
+#// ASH_260 Mos Espa Watermonger — accepting the draw with an EMPTY deck can't draw a card, so 3 damage is
+#// dealt to your base instead; because the draw was taken you still discard a card. P1 accepts with an
+#// empty deck: base takes 3, the spare SOR_095 is discarded, and the hand empties.
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:2;handCardIds:ASH_260,SOR_095}
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1HANDCOUNT:0
+P1DISCARDCOUNT:1
+P1BASEDMG:3

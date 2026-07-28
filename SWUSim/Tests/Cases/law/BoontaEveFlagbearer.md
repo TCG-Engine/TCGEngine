@@ -14,3 +14,65 @@ WithP1GroundArena: SOR_046:1:0
 
 ## EXPECT
 P1BASEDMG:0
+
+---
+
+# BoontaItselfAttacksHeals
+#// LAW_112 Boonta Eve Flagbearer — its own attack counts as "a friendly unit attacks". If nothing else has
+#// attacked this phase, heal 2. Boonta (1/3) attacks the enemy base; P1's base (dmg 5) heals to 3.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myBaseDamage:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_112:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1BASEDMG:3
+
+---
+
+# NoHealIfEnemyAttackedThisPhase
+#// LAW_112 Boonta Eve Flagbearer — "no OTHER units have attacked this phase (including enemy units)". An
+#// enemy A-Wing (Raid 1) attacks P1's base for 2 first; when Boonta then attacks, no heal occurs. Base stays
+#// at 5 + 2 = 7.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myBaseDamage:5}
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithActivePlayer: 2
+WithP1GroundArena: LAW_112:1:0
+WithP2SpaceArena: SEC_213:1:0
+
+## WHEN
+- P2>AttackSpaceArena:0:BASE
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1BASEDMG:7
+
+---
+
+# NonAttackActionBeforeStillHeals
+#// LAW_112 Boonta Eve Flagbearer — a non-attack action does not count as "a unit attacked". The enemy
+#// PLAYS a unit (a non-attack action) first, then Boonta attacks as the first ATTACKER of the phase: base
+#// (dmg 5) still heals to 3.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myBaseDamage:5}
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithActivePlayer: 2
+WithP1GroundArena: LAW_112:1:0
+WithP2Hand: SOR_046
+WithP2Resources: 6
+
+## WHEN
+- P2>PlayHand:0
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1BASEDMG:3

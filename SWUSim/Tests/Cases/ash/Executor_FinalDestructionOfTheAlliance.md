@@ -37,3 +37,25 @@ P1OnlyActions: true
 - P1>Pass
 ## EXPECT
 P1SPACEARENAUNIT:0:POWER:7
+
+---
+
+# PowerExcludesSelfAndEnemyUpgrades
+#// ASH_197 Executor — "+1/+0 for each upgrade on OTHER FRIENDLY units": a Shield on Executor itself is not
+#// counted, and upgrades on an enemy unit are not counted. Only the 2 upgrades on the friendly SOR_095
+#// count, so Executor's power is 5 + 2 = 7 (not 8, which would wrongly count its own Shield, nor more from
+#// the enemy's upgrade).
+## GIVEN
+CommonSetup: bbk/bbk
+WithP1SpaceArena: ASH_197:1:0
+WithP1SpaceArenaUpgrade: 0:SOR_T02
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP1GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+P1OnlyActions: true
+## WHEN
+- P1>Pass
+## EXPECT
+P1SPACEARENAUNIT:0:POWER:7

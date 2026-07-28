@@ -29,3 +29,27 @@ P1OnlyActions: true
 - P1>AnswerDecision:-
 ## EXPECT
 P1HANDCOUNT:0
+
+---
+
+# NGOR_ReturnResolvesForNewController
+#// ASH_097 Moff Gideon — the When Defeated "return a non-unique Imperial unit from your discard to your
+#// hand" resolves for whoever controls Gideon at defeat. P2 uses No Glory, Only Results (JTL_043) to take
+#// control of P1's Gideon and defeat it, so the return pulls from P2's own discard: the non-unique Imperial
+#// SEC_080 goes to P2's hand.
+## GIVEN
+CommonSetup: ggk/bbk/{}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 10
+WithP2Hand: JTL_043
+WithP2Discard: SEC_080
+WithP1GroundArena: ASH_097:1:0
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myDiscard-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2HANDCOUNT:1
+P2HANDCARD:0:SEC_080

@@ -120,3 +120,22 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P1BASEDMG:3
 INITIATIVECOUNTER:P1_CLAIMED
+
+---
+
+# OppClaimsInitiative_OwnerControl_NoTrigger
+#// ASH_155 Grogu — the bonus attack keys off YOU taking the initiative. When the OPPONENT claims initiative
+#// (while Grogu is still under his owner P1's control), Grogu's trigger does not fire for P1: P2's base is
+#// untouched and no dangling decision is left. Initiative is P2_CLAIMED.
+## GIVEN
+CommonSetup: rrk/rgw
+WithActivePlayer: 2
+WithP1GroundArena: ASH_155:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P2>Claim
+## EXPECT
+P2BASEDMG:0
+P1NODECISION
+INITIATIVECOUNTER:P2_CLAIMED

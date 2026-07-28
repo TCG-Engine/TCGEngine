@@ -27,3 +27,19 @@ P1OnlyActions: true
 ## EXPECT
 P2DISCARDCOUNT:1
 P2HANDCOUNT:1
+
+---
+
+# EmptyOppHand_Skipped
+#// ASH_220 Remnant Lookouts — if the opponent has no cards in hand, the look-and-discard ability is simply
+#// skipped (no decision surfaces). The Lookouts still enter play and P1 has no pending choice.
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:3;handCardIds:ASH_220}
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:ASH_220
+P1NODECISION
+P2HANDCOUNT:0

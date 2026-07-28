@@ -162,3 +162,30 @@ WithP2Deck: SOR_046
 P1GROUNDARENAUNIT:0:CARDID:TWI_135
 P1GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENACOUNT:0
+
+---
+
+# BuffedByOpponentTrick_StillNoCombatDamage
+#// LAW_130 Betrayed Trust — a unit marked "deals no combat damage this phase" still deals none even after
+#// the opponent pumps it. P1 plays Betrayed Trust on the enemy AT-ST (SOR_232). The turn passes to P2, who
+#// plays Surprise Strike (SOR_220, "+3/+0 for this attack") on the AT-ST and attacks P1's base — 0 damage.
+#// (Demonstrates an OPPONENT playing a card mid-phase: P1 event → turn swaps → P2 plays + attacks.)
+
+## GIVEN
+CommonSetup: bbw/yyk/{myResources:2}
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP2Resources: 2
+WithP1Hand: LAW_130
+WithP2Hand: SOR_220
+WithP2GroundArena: SOR_232
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+- P2>AnswerDecision:theirBase-0
+
+## EXPECT
+P1BASEDMG:0

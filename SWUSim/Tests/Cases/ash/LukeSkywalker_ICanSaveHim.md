@@ -151,3 +151,92 @@ WithP1Resources: 3
 ## EXPECT
 P1LEADER:READY
 P1NODECISION
+
+---
+
+# FrontSide_NoExhaustIfAttackerDies
+#// ASH_005 Luke Skywalker (LEADER front) — "you may exhaust Luke; if you do, heal 1 from that unit." If the
+#// attacking unit dies during the attack there is no unit left to heal, so the ability offers nothing and
+#// Luke is not exhausted. SOR_095 (3/3) attacks SEC_080 (3/3): both deal 3 and both die. Luke stays ready.
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:ASH_005
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1LEADER:READY
+P1NODECISION
+
+---
+
+# Deployed_HealSpaceAttacker
+#// ASH_005 Luke Skywalker (DEPLOYED) — the heal works for a SPACE attacker. Deployed Luke (ground) with a
+#// pre-damaged SOR_237 X-Wing (2 damage) in space and a damaged base (5). The X-Wing attacks the enemy base;
+#// P1 heals 2 from the X-Wing (2 → 0), leaving the base at 5.
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:ASH_005:1:1:1;
+  myBaseDamage:5;
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:2
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:mySpaceArena-0
+## EXPECT
+P1SPACEARENAUNIT:0:DAMAGE:0
+P1BASEDMG:5
+
+---
+
+# Deployed_HealBase_MultipleAttacks
+#// ASH_005 Luke Skywalker (DEPLOYED) — the attack-end heal fires on EVERY friendly attack this phase.
+#// Deployed Luke + AT-ST (SOR_232) + Marine (SOR_095), base damaged 5. Three different units attack the
+#// enemy base in turn; each time P1 heals 2 from its own base: 5 → 3 → 1 → 0.
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:ASH_005:1:1:1;
+  myBaseDamage:5;
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_232:1:0
+WithP1GroundArena: SOR_095:1:0
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myBase-0
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:myBase-0
+- P1>AttackGroundArena:2:BASE
+- P1>AnswerDecision:myBase-0
+## EXPECT
+P1BASEDMG:0
+
+---
+
+# FrontSide_OpponentAttack_NoTrigger
+#// ASH_005 Luke Skywalker (LEADER front) — the reactive heal fires only when a FRIENDLY unit's attack ends.
+#// An enemy unit attacking does not trigger it. P2's SEC_080 attacks P1's base; Luke offers no heal and stays
+#// ready with no decision queued.
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:ASH_005
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P2>AttackGroundArena:0:BASE
+## EXPECT
+P1BASEDMG:3
+P1LEADER:READY
+P1NODECISION

@@ -151,3 +151,146 @@ WithP1Hand: SOR_230
 P1LEADER:READY
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_230
+
+---
+
+# TriggerAgainAfterDecline
+#// ASH_018 Grogu — declining the deploy on one unique unit does not consume the trigger. P1 plays ASH_109
+#// (unique cost 4, space), declines; then plays SOR_242 (General Dodonna, unique cost 4, ground) and accepts.
+#// Grogu deploys on the second play.
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 14
+WithP1Hand: ASH_109 SOR_242
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1LEADER:DEPLOYED
+
+---
+
+# UniqueFivePlus_Deploy
+#// ASH_018 Grogu — the trigger fires for a unique unit costing MORE than 4 too. P1 plays SOR_196 (Chewbacca,
+#// unique cost 5) and deploys Grogu, joining Chewbacca in the ground arena (count 2).
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: SOR_196
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENACOUNT:2
+
+---
+
+# Exhausted_NoTrigger
+#// ASH_018 Grogu — the deploy trigger requires "if this leader is ready". With Grogu exhausted, playing a
+#// unique cost-4 unit (SOR_242) offers no deploy; Grogu stays exhausted on the leader side.
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018:0}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: SOR_242
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1LEADER:EXHAUSTED
+P1GROUNDARENACOUNT:1
+
+---
+
+# OpponentPlaysUnique_NoTrigger
+#// ASH_018 Grogu — the trigger only fires when GROGU'S controller plays the unit. P2 playing a unique cost-4
+#// unit (SOR_242) does not deploy P1's Grogu.
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018;theirResources:10;theirhandCardIds:SOR_242}
+SkipPreGame: true
+WithActivePlayer: 2
+## WHEN
+- P2>PlayHand:0
+## EXPECT
+P1LEADER:NOTDEPLOYED
+
+---
+
+# UniqueUpgrade_NoTrigger
+#// ASH_018 Grogu — the trigger requires a unique UNIT, not any unique card. Playing SHD_126 (The Darksaber,
+#// unique cost 4 upgrade) on a friendly unit does not deploy Grogu.
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: SHD_126
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1LEADER:NOTDEPLOYED
+
+---
+
+# Deployed_SelfDefending_NoSelfBuff
+#// ASH_018 Grogu (deployed, 0/3) — his defender buff is "another friendly unit"; it does NOT apply to himself.
+#// P2's SEC_080 (3/3) attacks Grogu directly: Grogu deals 0 back (no +1 self-buff) and is defeated, flipping
+#// to the leader side.
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018:1:1:1}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P2>AttackGroundArena:0:0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1LEADER:NOTDEPLOYED
+
+---
+
+# Deployed_SelfAttacking_NoEnemyDebuff
+#// ASH_018 Grogu (deployed, 0/3) — his attacker debuff is "another friendly unit is attacking"; it does NOT
+#// apply when Grogu himself attacks. Grogu attacks SEC_080 (3/3): the enemy gets no -1/-0, deals 3 back, and
+#// Grogu is defeated. SEC_080 takes 0 (Grogu has 0 power).
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018:1:1:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1LEADER:NOTDEPLOYED
+
+---
+
+# UniquePilotAsUpgrade_NoTrigger
+#// ASH_018 Grogu — the trigger requires playing a unique UNIT costing 4+. A unique Pilot costing 5 (JTL_103
+#// Chewbacca) that is played as an UPGRADE via Piloting onto a friendly Vehicle does not enter as a unit, so
+#// Grogu does not deploy. P1 plays Chewbacca with Piloting onto the seated A-Wing; Grogu stays on leader side.
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: JTL_103
+WithP1SpaceArena: SEC_213:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1GROUNDARENACOUNT:0
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1

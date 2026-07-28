@@ -122,3 +122,99 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2RESCOUNT:1
 P2RESAVAILABLE:0
 P2DECKCOUNT:0
+
+---
+
+# NoOpponentResources
+#// LAW_066 Tear This Ship Apart — with the opponent holding NO resources there is nothing to look at, so
+#// the event resolves with no effect: nothing enters P1's board and P2's deck/resources are untouched.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 13
+WithP1Hand: LAW_066
+WithP2Resources: 0
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:0
+P1GROUNDARENACOUNT:0
+P2RESCOUNT:0
+P2DECKCOUNT:1
+P1NODECISION
+
+---
+
+# StealUpgradeWithFriendlyRestriction
+#// LAW_066 Tear This Ship Apart — an upgrade with a "friendly unit" restriction (LOF_091 Craving Power)
+#// stolen from P2's resources still attaches to a FRIENDLY unit (P1's SOR_046, the only host) and its
+#// When Played fires under P1: it deals damage equal to the attached unit's power (3) to the enemy SOR_095
+#// Battlefield Marine (3/3), defeating it. P2 then refills its resource from deck.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 13
+WithP1Hand: LAW_066
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2Resources: 1:LOF_091:1
+WithP2Deck: SOR_237
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirResources-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENACOUNT:0
+P2RESCOUNT:1
+P2DECKCOUNT:0
+
+---
+
+# StealEvent_AppliesSawGerreraTax
+#// Behavior change (LAW_066 routed through ActivateCard): playing an opponent's EVENT from their resources
+#// now applies play-time taxes like any event play. P2 controls Saw Gerrera SOR_153 → P1 (its opponent)
+#// playing an event pays 2 to P1's base. P1 plays LAW_066 (its OWN event, from hand) → Saw Gerrera taxes 2;
+#// then LAW_066 steals LAW_244 (Unmarked Credits) from P2's resources → playing THAT event now also taxes 2,
+#// so P1's base takes 4 total, AND P1 gets a Credit token. (Before routing the stolen play through
+#// ActivateCard the bypass path skipped Saw Gerrera on it → P1BASEDMG was only 2.)
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 13
+WithP1Hand: LAW_066
+WithP2Resources: 1:LAW_244:1
+WithP2GroundArena: SOR_153:1:0
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirResources-0
+
+## EXPECT
+P1BASEDMG:4
+P1CREDITCOUNT:1
+P2DISCARDCOUNT:1

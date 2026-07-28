@@ -11,6 +11,8 @@ Verify a set is genuinely **card complete** and surface any gaps. "In the Done l
 
 Run from the repo root: `/Users/mariotorresjr/Documents/GitHub/Karabast-SWU/SWUStats`. Set `SET=JTL` (uppercase) below.
 
+> **⚠ Card code layout (since the session-95 split).** Per-card ability/DQ registrations now live in **`SWUSim/Custom/cards/<set>/<TitleSubtitle>.php`** (one file per card; reprints consolidated into the earliest printing's file), loaded by `cards/_loader.php`. The monoliths (`CardDQHandlers.php`, `LeaderAbilities.php`, `BaseAbilities.php`) keep only shared helper families, engine glue, and a few load-order-coupled cards. **Every scan/grep below therefore recurses the whole `SWUSim/Custom/` tree** (`glob('…/**/*.php', recursive=True)` / `grep -r … SWUSim/Custom/`) — a non-recursive `SWUSim/Custom/*.php` misses every split card and would falsely flag all of them as unwired. To resolve a CardID→file, grep the registration key (`grep -rln "'<CID>'" SWUSim/Custom/cards/`) or consult `cards/_index.generated.php` (regen it with `php SWUSim/DevTools/regen-card-index.php` if it looks stale — the loader doesn't depend on it, so it can lag).
+
 ---
 
 ## Why two methods (both are required)
@@ -75,7 +77,7 @@ funcs={
 }
 bare={'leaderAbilities','baseAbilities'}  # keyed by bare CardID, not CardID:N
 custom=''
-for f in glob.glob('SWUSim/Custom/*.php'): custom+=open(f).read()
+for f in glob.glob('SWUSim/Custom/**/*.php', recursive=True): custom+=open(f).read()  # ** = incl. per-card files under cards/<set>/
 def cases(fn):
     m=re.search(r'function '+fn+r'\(.*?switch.*?\{(.*?)\n\s*\}', stub, re.S)
     return set(re.findall(r"case '("+SET+r"_[0-9]+)'", m.group(1))) if m else set()
@@ -116,7 +118,7 @@ def arr(name):
         for cid,val in re.findall(r"'("+SET+r"_\d+)' => '((?:[^'\\]|\\.)*)'",m.group(1)): d[cid]=val
     return d
 typ=arr('typeData'); dep=arr('deployTextData')
-custom=''.join(open(f).read() for f in glob.glob('SWUSim/Custom/*.php'))
+custom=''.join(open(f).read() for f in glob.glob('SWUSim/Custom/**/*.php', recursive=True))  # ** = incl. cards/<set>/
 def has(reg,cid,bare=False):
     return (f'{reg}["{cid}:' in custom or f"{reg}['{cid}:" in custom or
             (bare and (f'{reg}["{cid}"]' in custom or f"{reg}['{cid}']" in custom)))
@@ -146,7 +148,7 @@ The sweep is a heuristic. Confirm each hit before reporting it as a gap — read
 ```bash
 CID=JTL_039
 awk '/\$textData = array \(/,/^\);/' SWUSim/GeneratedCode/GeneratedCardDictionaries.php | grep -A1 "'$CID'"
-grep -rn "$CID" SWUSim/Custom/*.php | grep -iE "abilities|customDQ|cardDiscarded|leaderAbilities|baseAbilities"
+grep -rn "$CID" SWUSim/Custom/ | grep -iE "abilities|customDQ|cardDiscarded|leaderAbilities|baseAbilities"   # -r into Custom/ so it descends cards/<set>/
 ```
 
 Classify:

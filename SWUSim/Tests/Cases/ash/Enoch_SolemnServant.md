@@ -35,3 +35,41 @@ P1OnlyActions: true
 P1BASEDMG:0
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1RESAVAILABLE:0
+
+---
+
+# DealFour_ReduceTwo
+#// ASH_027 Enoch — the discount is 1 less per 2 damage dealt. Enoch (pre-damaged) dies attacking SEC_080;
+#// P1 deals 4 to its base = 2 charges, so SOR_046 (cost 4) costs 2 (from 2 resources → 0 left).
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:2;handCardIds:SOR_046}
+WithP1GroundArena: ASH_027:1:3
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:4
+- P1>PlayHand:0
+## EXPECT
+P1BASEDMG:4
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1RESAVAILABLE:0
+
+---
+
+# DealOne_ReduceZero
+#// ASH_027 Enoch — the discount rounds down (1 less per FULL 2 damage). Enoch (pre-damaged) dies attacking
+#// SEC_080; P1 deals only 1 to its base = 0 charges, so SOR_046 costs the full 4 (from 4 resources → 0 left).
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:4;handCardIds:SOR_046}
+WithP1GroundArena: ASH_027:1:3
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:1
+- P1>PlayHand:0
+## EXPECT
+P1BASEDMG:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1RESAVAILABLE:0

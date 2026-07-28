@@ -213,13 +213,16 @@
 
   function deleteLine() {
     var line = selectedLine();
-    if (!line || !window.confirm('Delete "' + line.title + '"?')) return;
-    state.playbook.lines = state.playbook.lines.filter(function (candidate) {
-      return candidate.id !== line.id;
+    if (!line) return;
+    StyledConfirm('Delete "' + line.title + '"?', { title: 'Delete line', danger: true, confirmLabel: 'Delete' }).then(function (ok) {
+      if (!ok) return;
+      state.playbook.lines = state.playbook.lines.filter(function (candidate) {
+        return candidate.id !== line.id;
+      });
+      state.selectedLineID = state.playbook.lines.length ? state.playbook.lines[0].id : '';
+      render();
+      scheduleSave();
     });
-    state.selectedLineID = state.playbook.lines.length ? state.playbook.lines[0].id : '';
-    render();
-    scheduleSave();
   }
 
   function createStep() {

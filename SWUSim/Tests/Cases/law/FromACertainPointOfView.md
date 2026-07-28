@@ -17,3 +17,77 @@ WithP1Hand: LAW_264
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1RESAVAILABLE:0
+
+---
+
+# PlayEventIgnoringPenalty
+#// LAW_264 From a Certain Point of View — the "play a card ignoring aspect penalties" also covers events.
+#// With a Command/Heroism leader+base (ggw), Waylay (SOR_222, Cunning, cost 3) is off-aspect (+2 -> would
+#// cost 5). Played via this event the penalty is waived so Waylay costs just 3. It bounces the lone enemy
+#// SEC_080 back to P2's hand. Resources 4: event(1) + Waylay(3) = 4 spent (0 left), proving the waiver
+#// (without it Waylay would be 5 and unaffordable).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:4}
+WithP2GroundArena: SEC_080:1:0
+WithP1Hand: SOR_222
+WithP1Hand: LAW_264
+
+## WHEN
+#// Only SOR_222 remains in hand after the event, so the play-choice auto-resolves; the lone enemy is the
+#// only Waylay target, so that auto-resolves too.
+- P1>PlayHand:1
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2HANDCOUNT:1
+P1RESAVAILABLE:0
+
+---
+
+# PlayUpgradeIgnoringPenalty
+#// LAW_264 From a Certain Point of View — also covers upgrades. With a Command/Heroism leader+base (ggw),
+#// Mastery (LAW_129, Vigilance, cost 4) is off-aspect (+2 -> would cost 6). Played via this event onto the
+#// friendly non-unique host SOR_095 the penalty is waived so Mastery costs its full 4 (no unique discount).
+#// Resources 5: event(1) + Mastery(4) = 5 spent (0 left), proving the waiver (without it Mastery would be
+#// 6 and unaffordable).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:5}
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: LAW_129
+WithP1Hand: LAW_264
+
+## WHEN
+#// Only LAW_129 remains in hand after the event (auto-resolves as the card to play); SOR_095 is the only
+#// unit, so the attach target auto-resolves.
+- P1>PlayHand:1
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:LAW_129
+P1RESAVAILABLE:0
+
+---
+
+# ChooseNothing_NoPlay
+#// LAW_264 From a Certain Point of View — the player may choose to play nothing. With two other playable
+#// cards in hand the play-choice is a real decision; declining it (answer "-") leaves both cards in hand and
+#// only the event itself is discarded. Just its own 1 resource is spent (of 5).
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1Hand: LAW_264
+WithP1Hand: SOR_095
+WithP1Hand: SOR_237
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1HANDCOUNT:2
+P1DISCARDCOUNT:1
+P1RESAVAILABLE:4

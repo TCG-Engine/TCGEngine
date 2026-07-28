@@ -76,13 +76,15 @@ P2SPACEARENAUNIT:0:DAMAGE:1
 
 # LentDefenderDebuff
 #// Support lending of a CONTINUOUS ability (ASH_046 Scion Shuttle's "-1/-1 to the defender"). ASH_046 is
-#// played; the player supports with SOR_237 (the other ready space unit), which attacks SOR_225 (2/1). The
-#// lent -1/-1 reduces SOR_225's counter from 2 to 1, so SOR_237 takes only 1 (proves the SUPPORT_GRANT
-#// graft of the passive). SOR_225 is defeated by SOR_237's 2 damage.
+#// played; the player supports with SOR_237 (the other ready space unit), which attacks IBH_075 (2/2). The
+#// lent -1/-1 makes IBH_075 1/1, so its counter is reduced from 2 to 1 (SOR_237 takes 1 — proves the
+#// SUPPORT_GRANT graft of the passive) and SOR_237's 2 combat damage still defeats it. (A 2-HP defender is
+#// used so it SURVIVES the -1 HP and combat actually happens; a 1-HP defender would be defeated by the -1 HP
+#// before combat — see the separate ScionShuttle defeat-before-combat case.)
 ## GIVEN
 CommonSetup: bbk/bbk/{myResources:4;handCardIds:ASH_046}
 WithP1SpaceArena: SOR_237:1:0
-WithP2SpaceArena: SOR_225:1:0
+WithP2SpaceArena: IBH_075:1:0
 P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0

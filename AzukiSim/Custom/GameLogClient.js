@@ -257,8 +257,10 @@
       link.remove();
       window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
     } catch (error) {
-      if (typeof window.StyledAlert === 'function') window.StyledAlert(error.message || 'Could not export the game log.');
-      else window.alert(error.message || 'Could not export the game log.');
+      var msg = error.message || 'Could not export the game log.';
+      if (typeof window.StyledAlert === 'function') window.StyledAlert(msg);
+      else if (typeof window.Toast === 'function') window.Toast(msg, { type: 'error' });
+      else console.error(msg);
     }
   }
 

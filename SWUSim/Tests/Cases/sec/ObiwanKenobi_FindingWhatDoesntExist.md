@@ -196,3 +196,31 @@ WithP2Deck: [SOR_126 SOR_095]
 ## EXPECT
 P1RESCOUNT:4
 P2BASEDMG:4
+
+---
+
+# ForeignEventPlay_AppliesSawGerreraTax
+#// Behavior change: a foreign-owned event play (routed through ActivateCard) now applies the same
+#// play-time taxes as any event play. P2 controls Saw Gerrera SOR_153 ("as an additional cost for each
+#// opponent to play an event, deal 2 to their base") — P1 is P2's opponent, so P1 playing an event pays 2
+#// to P1's base. P1's Obi-Wan mills LAW_244 (Unmarked Credits, cost 1) from P2's deck with the OTPN
+#// modifier, then P1 plays it: P1's base takes 2 (Saw Gerrera) AND P1 gets a Credit token (event resolved).
+#// (Before routing through ActivateCard the bypass path skipped Saw Gerrera → P1BASEDMG was 0.)
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP2GroundArena: SOR_153:1:0
+WithP1Resources: 2
+WithP2Deck: [LAW_244 LAW_244 LAW_244]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayFromOpponentDiscard:0
+
+## EXPECT
+P1BASEDMG:2
+P2BASEDMG:4
+P1CREDITCOUNT:1
+P2DECKCOUNT:2

@@ -16,3 +16,26 @@ WithP2GroundArena: SOR_039:1:0
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P2CREDITCOUNT:2
+
+---
+
+# ReturnedToHand_NoCredits
+#// LAW_141 Targeted For Removal — the granted ability is "When Defeated", so returning the attached unit to
+#// hand (not a defeat) does NOT trigger it. P2's SEC_080 wears the upgrade; P1 plays Waylay (SOR_222) to
+#// bounce it to P2's hand. No Credit tokens are created for either player.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArenaUpgrade: 0:LAW_141
+WithP1Hand: SOR_222
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2HANDCOUNT:1
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0

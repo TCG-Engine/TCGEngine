@@ -56,3 +56,52 @@ P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:POWER:5
 P2DISCARDCOUNT:1
 P2RESAVAILABLE:0
+
+---
+
+# OnlyAttachesToNonVehicle
+#// LAW_200 Salvaged Blaster (+2/+0) — attaches only to a NON-Vehicle unit. With a Creature (Wampa SOR_164)
+#// and a Vehicle (AT-ST SOR_232) in play, the Vehicle is not a legal host, so the Blaster auto-attaches to
+#// Wampa (4 -> 6 power); AT-ST gets no upgrade.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: LAW_200
+WithP1GroundArena: [SOR_164 SOR_232]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:POWER:6
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
+
+---
+
+# PlayFromDiscardAfterDeckMill
+#// LAW_200 Salvaged Blaster — "discarded from your hand OR DECK this phase" also covers a DECK mill. P2's
+#// Kanan Jarrus (SOR_047) mills the top of P1's deck (the Blaster → P1's discard, stamped playable this
+#// phase); P1 then plays it from discard (cost 2, on-aspect Aggression) onto SOR_046, non-Vehicle host.
+
+## GIVEN
+CommonSetup: rrw/grw/{theirResources:5}
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP2GroundArena: SOR_047:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP1Resources: 2
+WithP1Deck: LAW_200
+WithP1Deck: SOR_095
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P2>AnswerDecision:YES
+- P1>PlayFromDiscard:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1DISCARDCOUNT:0

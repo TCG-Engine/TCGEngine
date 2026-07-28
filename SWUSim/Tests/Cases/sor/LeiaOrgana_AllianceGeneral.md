@@ -100,3 +100,33 @@ WithP2GroundArena: SOR_128:1:0
 P2GROUNDARENACOUNT:0
 P2BASEDMG:3
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# LeaderActionChain_SurvivesRequestBoundary
+#// SOR_009 Leia's Leader Action is a GENUINE chained action (attack with a Rebel, THEN may attack with
+#// another) — its single After Action is owned by the leader-action path, NOT by the event/Support extra-
+#// action flags (both are inert here: no FINISH_PLAY_CARD, no SUPPORT_GRANT). Verify the chain still resolves
+#// correctly when every interactive decision crosses a request boundary: first Rebel (3/7) attacks the enemy
+#// 3/1 (a real target choice) and defeats it; the chained second Rebel then attacks the base for 3.
+## GIVEN
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:3
+P1GROUNDARENAUNIT:0:DAMAGE:3

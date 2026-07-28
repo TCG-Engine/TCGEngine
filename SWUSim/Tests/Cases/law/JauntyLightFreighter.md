@@ -17,3 +17,42 @@ P1SPACEARENAUNIT:1:CARDID:LAW_147
 P1SPACEARENAUNIT:1:UPGRADECOUNT:3
 P1SPACEARENAUNIT:1:POWER:4
 P1SPACEARENAUNIT:1:HP:4
+
+---
+
+# ExpItselfOnlyTwoAspects
+#// LAW_147 — with no other friendly units, the Freighter counts only its own two aspects
+#// (Command + Heroism) -> 2 Experience tokens (1/1 -> 3/3).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:4}
+WithP1Hand: LAW_147
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:LAW_147
+P1SPACEARENAUNIT:0:UPGRADECOUNT:2
+P1SPACEARENAUNIT:0:POWER:3
+P1SPACEARENAUNIT:0:HP:3
+
+---
+
+# ExpOverlappingAspectNoIncrease
+#// LAW_147 — a friendly Battlefield Marine (Command) shares an aspect with the Freighter
+#// (Command + Heroism) and adds no new aspect, so the count stays 2 -> 2 Experience (1/1 -> 3/3).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:4}
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: LAW_147
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:LAW_147
+P1SPACEARENAUNIT:0:UPGRADECOUNT:2
+P1SPACEARENAUNIT:0:POWER:3
+P1SPACEARENAUNIT:0:HP:3

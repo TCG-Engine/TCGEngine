@@ -32,3 +32,21 @@ WithP1Hand: LAW_202
 
 ## EXPECT
 P2BASEDMG:3
+
+---
+
+# EqualResourcesNoBuff
+#// LAW_202 Commence the Festivities — the +2/+0 requires controlling FEWER resources than an opponent.
+#// With EQUAL resources (3 vs 3) the condition is false, so SEC_080 (power 3) attacks the base for 3.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:3;theirResources:3}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1Hand: LAW_202
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2BASEDMG:3

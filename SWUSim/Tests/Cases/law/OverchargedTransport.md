@@ -17,3 +17,24 @@ WithP1Hand: LAW_195
 ## EXPECT
 P2SPACEARENAUNIT:0:CARDID:SOR_237
 P2SPACEARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# WhenPlayedMayDecline
+#// LAW_195 Overcharged Transport — the When Played defeat is a "you may". Play it while an enemy space unit
+#// wears an upgrade, then decline: the upgrade stays attached.
+
+## GIVEN
+CommonSetup: rrw/bgw/{myResources:4}
+P1OnlyActions: true
+WithP2SpaceArena: SOR_237:1:0
+WithP2SpaceArenaUpgrade: 0:SOR_120
+WithP1Hand: LAW_195
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P2SPACEARENAUNIT:0:CARDID:SOR_237
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1

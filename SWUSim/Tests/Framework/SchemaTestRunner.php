@@ -185,6 +185,9 @@ class SchemaTestRunner {
                              'WithP1SpaceArenaPilot',     'WithP2SpaceArenaPilot',
                              'WithP1GroundArenaCaptive',  'WithP2GroundArenaCaptive',
                              'WithP1SpaceArenaCaptive',   'WithP2SpaceArenaCaptive',
+                             'WithP1GroundArenaControlled', 'WithP2GroundArenaControlled',
+                             'WithP1SpaceArenaControlled',  'WithP2SpaceArenaControlled',
+                             'WithP1ResourceControlled',    'WithP2ResourceControlled',
                              'WithP1Deck',                'WithP2Deck',
                              'WithP3Deck',                'WithP4Deck'];
         // List-valued keys accept either one spec per line OR a bracketed, whitespace-separated
@@ -202,7 +205,10 @@ class SchemaTestRunner {
                             'WithP1GroundArenaPilot', 'WithP2GroundArenaPilot',
                             'WithP1SpaceArenaPilot', 'WithP2SpaceArenaPilot',
                             'WithP1GroundArenaCaptive', 'WithP2GroundArenaCaptive',
-                            'WithP1SpaceArenaCaptive', 'WithP2SpaceArenaCaptive'];
+                            'WithP1SpaceArenaCaptive', 'WithP2SpaceArenaCaptive',
+                            'WithP1GroundArenaControlled', 'WithP2GroundArenaControlled',
+                            'WithP1SpaceArenaControlled', 'WithP2SpaceArenaControlled',
+                            'WithP1ResourceControlled', 'WithP2ResourceControlled'];
         $out = [];
         foreach ($lines as $line) {
             if (!str_contains($line, ':')) continue;
@@ -356,6 +362,25 @@ class SchemaTestRunner {
         foreach ($given['WithP2SpaceArena'] ?? [] as $spec) {
             [$cid, $ready, $dmg, $te] = self::_parseUnitSpec($spec);
             $b->WithSpaceUnitForPlayer(2, $cid, $ready, $dmg, 0, $te);
+        }
+        // Split owner/controller seats (the end state after a control-take: NGOR / Change of Heart).
+        // "WithP{n}{Ground|Space}ArenaControlled: CARD:ownerSeat" — CARD sits in P{n}'s arena, CONTROLLED
+        // by P{n} but OWNED by ownerSeat, so a return-to-hand sends it to the owner's hand.
+        foreach ([1, 2] as $seat) {
+            foreach ($given["WithP{$seat}GroundArenaControlled"] ?? [] as $spec) {
+                [$cid, $owner] = array_pad(explode(':', $spec), 2, '');
+                $b->WithControlledGroundUnitForPlayer($seat, $cid, intval($owner) ?: (3 - $seat));
+            }
+            foreach ($given["WithP{$seat}SpaceArenaControlled"] ?? [] as $spec) {
+                [$cid, $owner] = array_pad(explode(':', $spec), 2, '');
+                $b->WithControlledSpaceUnitForPlayer($seat, $cid, intval($owner) ?: (3 - $seat));
+            }
+            // A resource in P{seat}'s zone OWNED by another seat (e.g. after SHD_122 Arquitens resources an
+            // enemy card): "WithP{seat}ResourceControlled: CARD:ownerSeat".
+            foreach ($given["WithP{$seat}ResourceControlled"] ?? [] as $spec) {
+                [$cid, $owner] = array_pad(explode(':', $spec), 2, '');
+                $b->WithControlledResourceForPlayer($seat, $cid, intval($owner) ?: (3 - $seat));
+            }
         }
         // Twin Suns seats 3/4 — plain arena units for storage-layer tests.
         foreach ([3, 4] as $seat) {
@@ -830,6 +855,13 @@ class SchemaTestRunner {
                 // Run pending STATIC entries on $player's queue (cross-player reaction drain —
                 // mirrors production's post-action ProcessGoldfishAutomation). No args.
                 $g->drainQueue($player);
+                break;
+
+            case 'SimulateRequestBoundary':
+                // Model the fresh-process boundary a real interactive decision creates: transient
+                // in-memory continuation globals reset while serialized gamestate persists. Catches
+                // bugs that park cross-decision state in a transient global. No args (player ignored).
+                $g->simulateRequestBoundary();
                 break;
 
             case 'ChooseMyGroundUnit':

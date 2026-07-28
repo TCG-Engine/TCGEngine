@@ -117,7 +117,8 @@ Report each confirmed-unbuilt mechanic as: **name + CR section ref + dependent-c
 - **Unbuilt core mechanic(s) confirmed → HARD STOP.** Report the blockers; write **no** plan.
   Tell the user to build those foundations first (a separate `swusim-implement-card` / agent
   effort), then re-invoke this skill. The re-run re-surveys; once the mechanic is wired into
-  `SWUSim/Custom/*.php` (or the keyword code), the engine-reference check finds it and the gate
+  `SWUSim/Custom/` (anywhere in the tree — per-card `cards/<set>/*.php` or the shared monoliths /
+  keyword code; scan recursively), the engine-reference check finds it and the gate
   clears — no hand-maintained "implemented mechanics" list to update.
 - **None → continue to Stage 2.**
 
@@ -193,3 +194,13 @@ reading only; `swusim-implement-card` looks up full card text itself at run time
 After writing the doc, tell the user: the plan is at `SWUSim/docs/<set>-implement.md`, the
 scratch inventory can be deleted, and `swusim-implement-set-plan` can now drive it.
 **Never commit** — the user commits manually.
+
+## Bootstrap the per-card files (optional but recommended)
+
+Once the dictionaries for the new set exist, **stub every non-vanilla card's per-card file up front** so the implementer fills in skeletons rather than hand-creating each:
+
+```bash
+php SWUSim/DevTools/scaffold-cards.php <SET>          # or --dry to preview
+```
+
+It creates `SWUSim/Custom/cards/<set>/<TitleSubtitle>.php` for each non-vanilla card (Leader / trigger-stub / text-beyond-keywords, reprints folded into the earliest printing) with the card's header + a `// TODO: UNIMPLEMENTED` marker, then refreshes `cards/_index.generated.php`. It is **additive-only** (never overwrites an existing file) and skips vanilla / keyword-only / `_T##` token cards. Track remaining work with `grep -rl UNIMPLEMENTED SWUSim/Custom/cards/<set>/`; each implementer deletes the marker when the card is done. The tool doubles as a gap sweep on a supposedly-complete set — any stub it proposes is a non-vanilla card with no handler anywhere (this is how SOR_035 / SOR_067 were found).

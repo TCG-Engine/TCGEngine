@@ -15,3 +15,61 @@ WithP1Hand: LAW_089
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P2HANDCOUNT:1
+
+---
+
+# WhenPlayedThreshold4Command
+#// LAW_089 Kanan Jarrus — the return threshold rises to 4 when you control a Command unit. P1 controls
+#// SEC_080 (Command), so Kanan can return the enemy SHD_107 Enterprising Lackeys (cost 4), which would be
+#// out of range at the base threshold of 2.
+
+## GIVEN
+CommonSetup: byw/bgw/{myResources:4}
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SHD_107:1:0
+WithP1Hand: LAW_089
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2HANDCOUNT:1
+
+---
+
+# WhenPlayedThreshold4Aggression
+#// LAW_089 Kanan Jarrus — the threshold also rises to 4 when you control an Aggression unit. P1 controls
+#// SOR_128 (Aggression), so Kanan returns the cost-4 enemy SHD_107 to its owner's hand.
+
+## GIVEN
+CommonSetup: byw/bgw/{myResources:4}
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: SHD_107:1:0
+WithP1Hand: LAW_089
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2HANDCOUNT:1
+
+---
+
+# WhenPlayedThreshold2ExcludesCost4
+#// LAW_089 Kanan Jarrus — with no Command or Aggression unit controlled the threshold stays 2. The enemy
+#// SHD_107 (cost 4) is NOT a legal return target; only the cost-2 SEC_080 is selectable.
+
+## GIVEN
+CommonSetup: byw/bgw/{myResources:4}
+WithP2GroundArena: [SHD_107:1:0 SEC_080:1:0]
+WithP1Hand: LAW_089
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-1

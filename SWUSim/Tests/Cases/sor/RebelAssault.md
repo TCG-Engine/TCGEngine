@@ -47,3 +47,28 @@ WithP1GroundArena: SOR_046:1:0
 P2BASEDMG:8
 P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:1:POWER:3
+
+---
+
+# ChainSurvivesRequestBoundary
+#// SOR_103 Rebel Assault is a GENUINE chained action (attack with a Rebel, THEN another) — distinct from the
+#// event/Support "extra action" bug. The event owns the single After Action via SWU_COMBAT_OWNS_AFTERACTION
+#// (persisted), so both chained attacks resolve and the turn passes to P2 exactly ONCE even when each attack's
+#// target choice crosses a request boundary. Two Rebels (3 power) each attack P2's base for 3+1 = 4 → 8; P2's
+#// unit is left untouched (both chose the base). No initiative claimed (so a double-swap would surface).
+## GIVEN
+CommonSetup: ggw/grk/{myResources:1;handCardIds:SOR_103}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_021:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2BASEDMG:8
+TURNPLAYER:2

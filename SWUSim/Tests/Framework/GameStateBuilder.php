@@ -146,6 +146,20 @@ class GameStateBuilder {
         return $this;
     }
 
+    // A single resource in $seat's resource zone OWNED by $owner (e.g. an enemy card put into your
+    // resources by SHD_122 Arquitens Assault Cruiser). A return-to-hand of it goes to the OWNER's hand.
+    public function WithControlledResourceForPlayer(int $seat, string $cardID, int $owner, bool $ready = true): self {
+        $this->_resources[] = [
+            'player'     => $seat,
+            'cardID'     => $cardID,
+            'count'      => 1,
+            'allReady'   => $ready,
+            'controller' => $seat,
+            'owner'      => $owner,
+        ];
+        return $this;
+    }
+
     // ── Hand / Deck ───────────────────────────────────────────────
 
     public function WithCardInHandForPlayer(int $player, string $cardID): self {
@@ -194,6 +208,21 @@ class GameStateBuilder {
     // ≠ arena seat, needed for elimination-cleanup tests.
     public function WithControlledGroundUnitForPlayer(int $seat, string $cardID, int $owner): self {
         $this->_groundUnits[$seat][] = [
+            'cardID'      => $cardID,
+            'ready'       => true,
+            'damage'      => 0,
+            'controller'  => $seat,
+            'owner'       => $owner,
+            'upgrades'    => [],
+            'turnEffects' => '-',
+        ];
+        return $this;
+    }
+
+    // Space analogue of WithControlledGroundUnitForPlayer: a space unit in $seat's arena OWNED by $owner
+    // (controlled by $seat) — the end state after a control-take (NGOR / Change of Heart).
+    public function WithControlledSpaceUnitForPlayer(int $seat, string $cardID, int $owner): self {
+        $this->_spaceUnits[$seat][] = [
             'cardID'      => $cardID,
             'ready'       => true,
             'damage'      => 0,
@@ -349,8 +378,9 @@ class GameStateBuilder {
         // Resources — Status 1=ready, 0=exhausted
         foreach ($this->_resources as $r) {
             $status = $r['allReady'] ? 1 : 0;
+            $owner  = $r['owner'] ?? '-'; // '-' → AddResources defaults Owner to the seating player
             for ($i = 0; $i < $r['count']; $i++) {
-                AddResources($r['player'], $r['cardID'], $status);
+                AddResources($r['player'], $r['cardID'], $status, $owner);
             }
         }
 
@@ -408,7 +438,7 @@ class GameStateBuilder {
                 $uid      = $this->_nextUID++;
                 $status   = $unit['ready'] ? 1 : 0;
                 $subcards = empty($unit['upgrades']) ? '-' : $unit['upgrades'];
-                AddSpaceArena($player, $unit['cardID'], $status, $player, $unit['damage'],
+                AddSpaceArena($player, $unit['cardID'], $status, $unit['owner'] ?? $player, $unit['damage'],
                               $unit['controller'], $unit['turnEffects'] ?? '-', $subcards, $uid);
             }
         }

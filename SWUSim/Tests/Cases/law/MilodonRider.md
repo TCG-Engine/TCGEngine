@@ -16,3 +16,24 @@ WithP1Hand: LAW_240
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LAW_240
 P1HANDCOUNT:1
+
+---
+
+# DeclineReturn
+#// LAW_240 Milodon Rider — the When Played return is optional ("you may"). Decline it: nothing is
+#// returned, SEC_080 stays in play, and Milodon Rider resolves normally alongside it.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1Hand: LAW_240
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SEC_080
+P1HANDCOUNT:0

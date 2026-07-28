@@ -27,3 +27,34 @@ P1OnlyActions: true
 - P1>AnswerDecision:-
 ## EXPECT
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:0
+
+---
+
+# GiveTwoToEnemySpaceUnit
+#// ASH_238 Attendant Navigator — "a space unit" is not restricted to friendly. With only an enemy space unit
+#// present, P1 may target it, giving the enemy SOR_225 2 Advantage tokens.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:2;handCardIds:ASH_238}
+WithP2SpaceArena: SOR_225:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+## EXPECT
+P2SPACEARENAUNIT:0:CARDID:SOR_225
+P2SPACEARENAUNIT:0:ADVANTAGECOUNT:2
+
+---
+
+# NoSpaceUnit_DoNothing
+#// ASH_238 Attendant Navigator — the may-ability needs a space unit. With only ground units on the board,
+#// there is no legal target, so no decision is presented and nothing happens.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:2;handCardIds:ASH_238}
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:ASH_238

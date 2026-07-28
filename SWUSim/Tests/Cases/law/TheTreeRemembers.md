@@ -34,3 +34,21 @@ P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_035
 P2GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 P1DISCARDCOUNT:1
+
+---
+
+# WipesLeaderNotDefeated
+#// LAW_132 The Tree Remembers — a deployed enemy LEADER unit is a legal target: it loses all abilities for
+#// the phase but is NOT defeated (a leader is not "cost 3 or less"). Lone enemy auto-resolves as the target.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:4;theirLeader:SOR_005:1:1:1}
+WithP1Hand: LAW_132
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2LEADER:DEPLOYED
+P2GROUNDARENACOUNT:1
+P1DISCARDCOUNT:1

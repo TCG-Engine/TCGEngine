@@ -26,3 +26,24 @@ P1OnlyActions: true
 ## EXPECT
 P1NODECISION
 P2GROUNDARENAUNIT:0:READY
+
+---
+
+# GainedKeyword_CanExhaust
+#// ASH_214 Amnesty Officer — the exhaust needs a unit with one or more keywords, and a keyword GAINED this
+#// phase counts. Admiral Yularen (JTL_047) grants Sentinel to friendly Vehicles, so SOR_237 (Alliance
+#// X-Wing, no innate keyword) now has Sentinel; Amnesty Officer can then exhaust it.
+## GIVEN
+CommonSetup: ybw/ybw
+WithP1Resources: 12
+WithP1Hand: [JTL_047 ASH_214]
+WithP1SpaceArena: SOR_237:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Sentinel
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:EXHAUSTED

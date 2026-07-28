@@ -14,3 +14,23 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P1CREDITCOUNT:1
 P2CREDITCOUNT:1
+
+---
+
+# WhenDefeatedByEvent
+#// LAW_116 Rodian Bondsman — the When Defeated ability also fires when defeated by an event, not just in
+#// combat. P1 plays Vanquish (SOR_078) on the lone enemy Rodian; both players still gain a Credit.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:5}
+WithP1Hand: SOR_078
+WithP2GroundArena: LAW_116
+
+## WHEN
+- P1>PlayHand:0
+- P2>Drain
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1CREDITCOUNT:1
+P2CREDITCOUNT:1
