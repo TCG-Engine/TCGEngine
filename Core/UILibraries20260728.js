@@ -656,7 +656,13 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
       }
 
       function IsDragDropEnabled() {
-        return window.rootPath != './GrandArchiveSim' && window.rootPath != './AzukiSim' && window.rootPath != './AzukiDeck';
+        // The drag-to-move affordance submits input 10014 (EngineActionRunner), which REMOVES the dragged
+        // card and re-adds a FRESH copy from just its CardID at the destination — wiping Damage/Subcards/
+        // Status and letting a player move ANY card, including the opponent's. That's a sandbox-only tool,
+        // not valid competitive play (e.g. "opponent dragged my damaged leader and it reset his health").
+        // Disable it for SWUSim, as already done for GrandArchive/Azuki. Card play in SWUSim is click-based.
+        return window.rootPath != './GrandArchiveSim' && window.rootPath != './AzukiSim'
+            && window.rootPath != './AzukiDeck' && window.rootPath != './SWUSim';
       }
 
       // Function to handle drag start event
