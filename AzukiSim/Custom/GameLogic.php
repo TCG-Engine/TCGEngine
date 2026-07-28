@@ -3771,6 +3771,25 @@ function DoDrawCard($player, $amount) {
     return 'DRAW';
 }
 
+function AzukiGameLogReveal($player, $revealedMZ) {
+    $obj = GetZoneObject($revealedMZ);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return;
+
+    $cardID = strval($obj->CardID ?? '');
+    if($cardID === '') return;
+
+    GameLogEvent('reveal', [
+        'by' => 'p' . intval($player),
+        'card' => AzukiGameLogCardLabel($cardID),
+        'from' => 'deck',
+    ]);
+}
+
+function DoRevealCard($player, $revealedMZ) {
+    AzukiGameLogReveal($player, $revealedMZ);
+    return $revealedMZ;
+}
+
 function DrawOpeningHand($player, $amount = 7) {
     DoDrawCard(intval($player), $amount);
 }
@@ -3938,6 +3957,7 @@ $customDQHandlers['MIZUKI_SEARCH_REVEAL'] = function($player, $parts, $lastDecis
         $obj = GetZoneObject($chosenMZ);
         if($obj !== null && !(isset($obj->removed) && $obj->removed)) {
             $chosenCardID = $obj->CardID ?? '';
+            Reveal($player, $chosenMZ);
             MZMove($player, $chosenMZ, 'myHand');
             DecisionQueueController::CleanupRemovedCards();
 
@@ -4273,6 +4293,7 @@ function CanActivateAbilityWithCopiedText($player, $mzID, $abilityIndex = 0) {
 
 $customDQHandlers['BOTTOM_DECK_SEARCHER_REVEAL'] = function($player, $parts, $lastDecision) {
     if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
+        Reveal($player, $lastDecision);
         MZMove($player, $lastDecision, 'myHand');
         DecisionQueueController::CleanupRemovedCards();
     }
@@ -4425,6 +4446,7 @@ $customDQHandlers['LOTUS_OF_REFLECTION_CHOOSE'] = function($player, $parts, $las
         return;
     }
 
+    Reveal($player, $chosenMZ);
     DecisionQueueController::StoreVariable('LotusOfReflectionChosenMZ', $chosenMZ);
     DecisionQueueController::AddDecision($player, 'MZMODAL', '1|1|Add_to_hand&Play_it', 1, 'Choose_what_to_do_with_the_revealed_card');
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'LOTUS_OF_REFLECTION_MODE', 1);

@@ -32,6 +32,7 @@ Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=EnterGarden(mzID); ChoiceFunction=OnEnterGarden; Action={}
 Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Action={}
 Macro: Name=DiscardCard(mzID); ChoiceFunction=DoDiscardCard; Action={}
+Macro: Name=Reveal(revealedMZ); ChoiceFunction=DoRevealCard; Toast=Card; ToastCardParam=revealedMZ; ToastLabel=Revealed; Action={}
 Macro: Name=CardActivated(mzID); ChoiceFunction=OnCardActivated; Action={}
 Macro: Name=ExhaustCard(mzID); ChoiceFunction=OnExhaustCard; Action={}
 Macro: Name=WakeupCard(mzID); ChoiceFunction=OnWakeupCard; Action={}
