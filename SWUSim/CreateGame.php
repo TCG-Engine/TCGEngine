@@ -186,13 +186,21 @@ function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolve
         array_push($baseZone, $newBase);
     }
 
+    // Per-game secret RNG seed — established ONCE (idempotent across the per-player calls), before any
+    // shuffle, so the deterministic shuffles (Task 3) are unpredictable yet reproducible for undo.
+    if (GetSWUVar('RNG_SEED', '') === '') {
+        SetSWUVar('RNG_SEED', bin2hex(random_bytes(16)));
+    }
+
     // Main deck → Deck zone (shuffled)
     if (!empty($resolved['mainDeck'])) {
         $gameDeck = &GetDeck($playerID);
         foreach ($resolved['mainDeck'] as $cardID) {
             array_push($gameDeck, new Deck($cardID));
         }
-        EngineShuffle($gameDeck, true);
+        // Deterministic (counter-based) so an undo that restores the counter+seed replays the same
+        // shuffle (Task 3, undo redesign). Unpredictable to players via the per-game secret seed.
+        EngineShuffle($gameDeck, false);
     }
 
     return true;
@@ -240,6 +248,9 @@ function QueuePregameSetup($firstPlayer) {
     foreach ($decisionOrder as $seat) {
         $skipGoldfishBot = (SWUGameMode() === 'goldfish' && $seat === 2);
         if (!$baseSuppressesMulligan($seat) && !$skipGoldfishBot) {
+            // Undo snapshot before the mulligan decision (captures pre-reshuffle RNG counter → deterministic
+            // undo/redo of the mulligan; requirement #6). Same block so it stays ahead of resources (50).
+            DecisionQueueController::AddDecision($seat, "CUSTOM", "PushPregameSnapshot|$seat", 10);
             DecisionQueueController::AddDecision($seat, "YESNO", "mulligan", 10,
                 tooltip:"Take_a_mulligan_(discard_hand_and_draw_6_new_cards)?");
             DecisionQueueController::AddDecision($seat, "CUSTOM", "MulliganDecision|$seat", 10);
@@ -249,8 +260,11 @@ function QueuePregameSetup($firstPlayer) {
     // Step f: Resource 2 cards — each player chooses 2 from their hand.
     // Block 50 keeps these behind the mulligan decisions (block 10) in the queue.
     foreach ($decisionOrder as $seat) {
+        // Undo snapshot before each starting-resource pick so a player can step back through them.
+        DecisionQueueController::AddDecision($seat, "CUSTOM", "PushPregameSnapshot|$seat", 50);
         DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50,
             tooltip:"Choose_a_card_to_resource_(1/2)");
+        DecisionQueueController::AddDecision($seat, "CUSTOM", "PushPregameSnapshot|$seat", 50);
         DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50,
             tooltip:"Choose_a_card_to_resource_(2/2)");
     }

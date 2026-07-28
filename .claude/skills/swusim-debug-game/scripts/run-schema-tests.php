@@ -41,6 +41,7 @@ if (!function_exists('QueueShieldBreakAnimation'))  { function QueueShieldBreakA
 // ── Engine + framework includes (same chain as zzRegressionSWUSim.php) ──
 include_once './Core/DeterministicRNG.php';
 include_once './Core/CoreZoneModifiers.php';
+include_once './Core/GameAuth.php';   // SimGameIsPrivateGame — undo consent gate (SWUUndoNeedsConsent)
 include_once './SWUSim/ZoneClasses.php';
 include_once './SWUSim/ZoneAccessors.php';
 include_once './SWUSim/GeneratedCode/GeneratedCardDictionaries.php';

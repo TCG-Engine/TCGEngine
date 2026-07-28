@@ -8,6 +8,7 @@ include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/../../../AppCore/SWU/Formats.php';
+include_once __DIR__ . '/../../../SWUSim/Mod/DevGate.php';   // SWUIsLocalDevRequest() — dev/localhost gate
 require_once __DIR__ . '/../../Render/DeckLibrary.php';
 
 include_once __DIR__ . '/Header.php';
@@ -119,7 +120,11 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         </div>
       </div>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <button onclick="joinQueue()" disabled title="Public matchmaking isn't open yet — use Create Private Game." style="opacity: 0.5; cursor: not-allowed;">Join Queue</button>
+        <?php if (SWUIsLocalDevRequest()): ?>
+        <!-- Public matchmaking is hidden in production for now; enabled only in the dev environment
+             (DEVENV or a localhost Host) so Playwright suites can still exercise the queue flow. -->
+        <button onclick="joinQueue()">Join Queue</button>
+        <?php endif; ?>
         <button onclick="saveCurrentDeck()" style="background-color: #6b4f9f;" title="Save this deck link to your library">Save Deck</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>

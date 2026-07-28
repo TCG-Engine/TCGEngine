@@ -267,7 +267,17 @@ class GameTestAdapter {
 
     /** Restore all globals from a builder snapshot and reset the accessor. */
     public function loadState(GameStateBuilder $state): void {
+        // Route the undo-stack file to a fast container-local dir (NOT the bind-mounted repo Games/) so the
+        // per-action append doesn't dominate the suite runtime. Set before _applyToGlobals so any snapshot
+        // taken during setup already uses it.
+        $undoDir = sys_get_temp_dir() . '/swu_undo_test';
+        if (!is_dir($undoDir)) @mkdir($undoDir, 0777, true);
+        $GLOBALS['SWU_UNDO_DIR'] = $undoDir;
+
         $state->_applyToGlobals();
+        // Start each test with a clean undo stack + top (they always move together).
+        if (function_exists('UndoStackClear')) UndoStackClear();
+        if (function_exists('SetSWUVar')) SetSWUVar('UNDO_TOP', '-1');
         $this->state = new GameStateAccessor();
     }
 
@@ -356,6 +366,25 @@ class GameTestAdapter {
         LoadVersion($player);
         ob_end_clean();
         $playerID = $saved;
+    }
+
+    /** Multi-step undo: revert one action (or, kind='phase', jump to the start of the current phase). */
+    public function undo(int $player, string $kind = 'step'): void {
+        global $playerID; $saved = $playerID; $playerID = $player;
+        ob_start(); SWUDoUndo($player, $kind); $this->_drainDQ($player); ob_end_clean();
+        $playerID = $saved;
+    }
+    /** Undo Phase — jump to the beginning of the current phase (post-resource first action). */
+    public function undoPhase(int $player): void { $this->undo($player, 'phase'); }
+    /** Opponent approves a pending undo request (public-queue consent flow). */
+    public function approveUndo(int $player): void {
+        global $playerID; $saved = $playerID; $playerID = $player;
+        ob_start(); SWUApproveUndo(); $this->_drainDQ($player); ob_end_clean();
+        $playerID = $saved;
+    }
+    /** Opponent denies a pending undo request. */
+    public function denyUndo(int $player): void {
+        ob_start(); SWUDenyUndo(); ob_end_clean();
     }
 
     /** Use a leader's action ability (exhausts the leader, fires its handler). */

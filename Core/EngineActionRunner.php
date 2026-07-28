@@ -428,28 +428,11 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       }
       break;
     case 10004:
-      if (function_exists('GetSWUVar')) {
-        // SWUSim two-tier undo
-        $requiresConsent = GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true';
-        if (!$requiresConsent) {
-          // Free undo — reapply permanent block flags after restore
-          // LoadVersion restores gDecisionQueueVariables from a pre-block snapshot;
-          // reapply permanent block flags so they survive the restore.
-          $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
-          $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
-          LoadVersion($playerID);
-          if ($bl1) SetSWUVar('UNDO_BLOCKED_1', 'true');
-          if ($bl2) SetSWUVar('UNDO_BLOCKED_2', 'true');
-          SetFlashMessage('Undo applied.');
-        } else {
-          $blocked = GetSWUVar('UNDO_BLOCKED_' . $playerID, 'false') === 'true';
-          if ($blocked) {
-            SetFlashMessage('Your opponent has blocked your undo requests.');
-          } else {
-            SetSWUVar('PENDING_UNDO_FROM', (string)$playerID);
-            SetFlashMessage('Undo requested. Waiting for opponent.');
-          }
-        }
+      if (function_exists('SWUDoUndo')) {
+        // SWUSim multi-step undo. 'undoKind' selects step (default) vs phase (Undo Phase button).
+        $undoKind = ($options['undoKind'] ?? ($_POST['undoKind'] ?? '')) === 'phase' ? 'phase' : 'step';
+        // Pass root/game so SWUUndoNeedsConsent can gate on private-vs-public (private = always free).
+        SWUDoUndo($playerID, $undoKind, $folderPath, $gameName);
       } else {
         // Legacy behaviour for other sims
         LoadVersion($playerID);
@@ -458,33 +441,11 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       break;
     case 10008:
       // Approve undo request (called by the opponent)
-      if (!function_exists('GetSWUVar')) break;
-      $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
-      if ($requestingPlayer < 1 || $requestingPlayer > 2) break;
-      // LoadVersion restores gDecisionQueueVariables from a pre-block snapshot;
-      // reapply permanent block flags so they survive the restore.
-      $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
-      $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
-      LoadVersion($requestingPlayer);
-      if ($bl1) SetSWUVar('UNDO_BLOCKED_1', 'true');
-      if ($bl2) SetSWUVar('UNDO_BLOCKED_2', 'true');
-      SetFlashMessage('Undo approved.');
+      if (function_exists('SWUApproveUndo')) SWUApproveUndo();
       break;
     case 10009:
       // Deny undo request (called by the opponent)
-      if (!function_exists('GetSWUVar')) break;
-      $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
-      SetSWUVar('PENDING_UNDO_FROM', '');
-      SetSWUVar('UNDO_REQUIRES_CONSENT', 'false');
-      if ($requestingPlayer >= 1 && $requestingPlayer <= 2) {
-        $denyKey = 'UNDO_DENY_COUNT_' . $requestingPlayer;
-        $newCount = intval(GetSWUVar($denyKey, '0')) + 1;
-        SetSWUVar($denyKey, (string)$newCount);
-        if ($newCount >= 2) {
-          SetSWUVar('PENDING_BLOCK_PROMPT_FOR', (string)$requestingPlayer);
-        }
-      }
-      SetFlashMessage('Undo denied.');
+      if (function_exists('SWUDenyUndo')) SWUDenyUndo();
       break;
     case 10010:
       // Block future undo requests permanently (called by the opponent)

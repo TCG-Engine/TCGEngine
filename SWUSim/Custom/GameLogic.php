@@ -5,6 +5,7 @@ $customDQHandlers = [];
 $_computingPowerLifeSwap = false;
 
 include_once __DIR__ . '/Constants.php';
+include_once __DIR__ . '/UndoStack.php';   // per-game append-only undo-stack file helpers
 include_once __DIR__ . '/CardHelpers.php';
 include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
@@ -3071,6 +3072,9 @@ function DoDrawCard($player, $amount) {
     }
 
     $playerID = $savedPID;
+    // A draw reveals a hidden card to the drawing player; undoing back through it un-reveals that info,
+    // so this action's snapshot needs opponent consent to undo in a public game (undo redesign).
+    if (!empty($drawn)) MarkUndoRequiresConsent();
     // Per-phase "cards you've drawn this phase" counter (LAW_051 Beilert Valance). Action phase only;
     // cleared at RegroupPhaseStart.
     if (!empty($drawn) && GetCurrentPhase() === 'MAIN') {
@@ -4568,6 +4572,16 @@ function _SWUTs26063OnEnemyReady($readied): void {
 
 // ── Pregame DQ handlers ─────────────────────────────────────────────────────
 
+// Undo boundary for a pregame step (each mulligan decision + each starting-resource choice). Queued
+// immediately BEFORE the step it guards, so the snapshot captures the still-pending decision and the
+// pre-step RNG counter: an undo restores both, so re-driving an undone mulligan replays the identical
+// redraw (deterministic — requirement #6), and a player can step back through their pregame choices.
+// 'pregame-step' is a non-'action' boundary, so in a public game the undo requires opponent consent.
+$customDQHandlers["PushPregameSnapshot"] = function($player, $parts, $lastDecision) {
+    $seat = isset($parts[0]) ? intval($parts[0]) : intval($player);
+    PushUndoSnapshot($seat, 'pregame-step');
+};
+
 $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision) {
     $targetPlayer = isset($parts[0]) ? intval($parts[0]) : intval($player);
     if (strtoupper($lastDecision) !== "YES") return;
@@ -4584,7 +4598,9 @@ $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision)
         }
     }
     $deck = &GetDeck($targetPlayer);
-    EngineShuffle($deck, true);
+    // Deterministic mulligan reshuffle: restoring the counter+seed on undo replays the same redraw,
+    // so undo + re-mulligan yields the identical second hand (Task 3, undo redesign).
+    EngineShuffle($deck, false);
 
     for ($i = 0; $i < 6; $i++) DoDrawCard($targetPlayer, 1);
 
@@ -4699,6 +4715,10 @@ function ResourcePhase() {
     };
     $queueResource($firstPlayer);   // initiative holder resources first (CR 5.4.c)
     $queueResource($secondPlayer);
+    // Undo boundary: snapshot AFTER the resource prompt is queued so a regular Undo from the action-phase
+    // start lands here with the resource choice re-presented (re-pick your resource); it also floors Undo
+    // Phase (the phase jump stops at the first action ABOVE this boundary).
+    PushUndoSnapshot($firstPlayer, 'resource');
 }
 
 function ReadyPhase() {
@@ -6215,6 +6235,9 @@ function SetSWUVar(string $key, string $value): void {
 }
 
 function MarkUndoRequiresConsent(): void {
+    // O(1): just raise the live per-action flag (called on every draw/scry/search/reveal). The flag is
+    // folded into the top snapshot's revealedInfo LATER — at the next PushUndoSnapshot, or read live at
+    // undo time — so reveals never rewrite the undo file per draw (that was O(n^2)). See PushUndoSnapshot.
     SetSWUVar('UNDO_REQUIRES_CONSENT', 'true');
 }
 
@@ -10212,6 +10235,7 @@ function SWUDrawTopCardFront(int $player): ?string {
     if ($idx === -1) { $playerID = $saved; return null; }
     $obj = MZMove($player, "myDeck-$idx", "myHand");
     $playerID = $saved;
+    if ($obj !== null) MarkUndoRequiresConsent();   // top card revealed to the player (undo redesign)
     return $obj ? $obj->CardID : null;
 }
 
@@ -13795,30 +13819,185 @@ function SWUComputePilotPlayableHand(int $player): array {
 //   'condition'    => callable($player) that returns true if the option should be offered
 $additionalActivationCosts = [];
 
-function SaveUndoVersion($targetPlayerID, $name = "") {
-    global $playerID;
+// Append a full-state snapshot to the per-game undo-stack FILE (whole-game, multi-step undo) with
+// metadata (acting seat, phase, boundary, revealed-info). Replaces the old single-slot
+// SaveUndoVersion (which cleared myVersions each action). The live Gamestate.txt no longer carries
+// the undo history — only UNDO_TOP (the top ordinal) — so the per-action hot path stays lean.
+// $boundary: 'action' (default) | 'phase-boundary' | 'pregame-step'.
+function PushUndoSnapshot($actingSeat, $boundary = 'action', $name = '') {
+    global $playerID, $gRandomCounter, $gCurrentPhase;
     $savedPlayerID = $playerID;
-    $targetPlayer = intval($targetPlayerID);
-    $playerID = $targetPlayer;
+    $seat = intval($actingSeat);
+    $playerID = $seat;
+
+    // Fold the just-finished action's live reveal flag into ITS snapshot (the current top) before we
+    // move on — one file rewrite per revealing action instead of one per draw. (At undo time, the last
+    // action's reveal is read live from UNDO_REQUIRES_CONSENT since it isn't stamped yet — see the scan.)
+    if (GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true' && UndoTop() >= 0) {
+        UndoStackSetRevealed(UndoTop());
+    }
 
     // Reset per-action undo state so every snapshot is born with clean flags.
     // UNDO_BLOCKED flags are intentionally NOT reset here — they're permanent.
     SetSWUVar('UNDO_REQUIRES_CONSENT', 'false');
     SetSWUVar('PENDING_UNDO_FROM', '');
+    SetSWUVar('PENDING_UNDO_TARGET', '');
     SetSWUVar('PENDING_BLOCK_PROMPT_FOR', '');
-    SetSWUVar('UNDO_DENY_COUNT_' . $targetPlayer, '0');
+    SetSWUVar('UNDO_DENY_COUNT_' . $seat, '0');
     SetSWUVar('PASS', GetSWUVar('PASS', '0')); // ensure format is key=value
 
-    $zones = Versions::GetSerializedZones();
-    global $gRandomCounter;
-    $zones .= "<v0>" . $gRandomCounter;
-
-    MZClearZone($targetPlayer, "myVersions");
-
-    $namePrefix = (strlen($name) > 0 ? $name . '<vname>' : '');
-    AddVersions($targetPlayer, '0:' . $namePrefix . $zones);
+    $payload = Versions::GetSerializedZones() . '<v0>' . $gRandomCounter;
+    $record  = UndoRecordBuild($seat, (string)($gCurrentPhase ?? ''), (string)$boundary, 0, (string)$name, $payload);
+    $ordinal = UndoTop() + 1;          // O(1) — the file+UNDO_TOP are always advanced together
+    UndoStackAppend($record);
+    SetSWUVar('UNDO_TOP', (string)$ordinal);
 
     $playerID = $savedPlayerID;
+}
+
+// Backward-compatible alias — the ~15 existing 'action' call sites keep working unchanged.
+function SaveUndoVersion($targetPlayerID, $name = "") {
+    PushUndoSnapshot($targetPlayerID, 'action', $name);
+}
+
+// Current top ordinal of the undo stack (-1 if none). Source of truth is the serialized SWUVar.
+function UndoTop() {
+    return intval(GetSWUVar('UNDO_TOP', '-1'));
+}
+
+// Restore the game to the exact state stored in undo-stack entry $restoreOrdinal, then POP it: the
+// next undo targets the entry below (new top = $restoreOrdinal - 1). Reuses the (untouched, generated)
+// LoadVersion by feeding the stored payload through a throwaway version slot — so the 700-line restore
+// body is not duplicated or forked. Returns false if $restoreOrdinal is out of range.
+function LoadUndoSnapshot($restoreOrdinal) {
+    $restoreOrdinal = intval($restoreOrdinal);
+    $line = UndoStackRead($restoreOrdinal);
+    if ($line === null) return false;
+    $rec = UndoRecordParse($line);
+    $seat = intval($rec['seat']) ?: 1;
+
+    // Hard-empty the throwaway Versions scratch zone (a plain [] reset — MZClearZone only flags entries
+    // ->Remove() without shrinking the array, so slot 0 would stick to the FIRST-ever payload and every
+    // later undo in the same process would re-load THAT instead of the one just added). Versions is not in
+    // GetSerializedZones, so it never rides inside a payload — this scratch slot is purely local.
+    $vzone = &GetVersions($seat); $vzone = [];
+    AddVersions($seat, '0:' . $rec['payload']);   // .Version = payload ('0:' DisplayNumber stripped, no name)
+    LoadVersion($seat, 0);
+    $vzone2 = &GetVersions($seat); $vzone2 = [];
+
+    // Pop the restored snapshot. UNDO_TOP is written AFTER LoadVersion (which restored the snapshot-era
+    // $gDecisionQueueVariables) so it reflects the popped position, not the stale snapshot value.
+    $newTop = $restoreOrdinal - 1;
+    UndoStackTruncateTo($newTop);
+    SetSWUVar('UNDO_TOP', (string)$newTop);
+    return true;
+}
+
+// ── Undo actions (shared by EngineActionRunner cases 10004/10008/10009 AND the test harness) ─────────
+// Kept here (not inline in the Core switch) so the logic is reusable + directly testable. Tasks 8-11
+// flesh these out (multi-step target, Undo Phase, the private/public consent scan). Interim behavior
+// below = single-step free undo gated on the legacy UNDO_REQUIRES_CONSENT flag.
+
+// Apply the permanent per-player block flags after a restore (LoadUndoSnapshot restores a pre-block
+// snapshot's $gDecisionQueueVariables, so the current blocks must be re-stamped to survive).
+function _SWUReapplyUndoBlocks(bool $bl1, bool $bl2): void {
+    if ($bl1) SetSWUVar('UNDO_BLOCKED_1', 'true');
+    if ($bl2) SetSWUVar('UNDO_BLOCKED_2', 'true');
+}
+
+// The snapshot ordinal an undo of the given kind should restore.
+//   'step'  — restore the current top (one action / one boundary back; LoadUndoSnapshot then pops).
+//   'phase' — jump to the FIRST action of the current phase: the lowest run of contiguous 'action'
+//             entries above the most recent non-action boundary ('resource'/'pregame-step'). Restoring
+//             it lands at the action-phase start; the pop then leaves the top at that boundary, so a
+//             following 'step' Undo crosses into it (the regroup RES step).
+function SWUComputeUndoTarget(string $kind): int {
+    $top = UndoTop();
+    if ($kind !== 'phase') return $top;
+    $target = $top;
+    for ($i = $top; $i >= 0; $i--) {
+        $line = UndoStackRead($i);
+        if ($line === null) break;
+        if (UndoRecordParse($line)['boundary'] !== 'action') break;   // hit a boundary → stop
+        $target = $i;                                                  // lowest 'action' seen so far
+    }
+    return $target;
+}
+
+// Does an undo TO $targetOrdinal by $requesterSeat need opponent consent (a public-queue request)?
+//   • PRIVATE games: never — undo is always free (requirement #7).
+//   • Undo Phase ('phase'): always a request in public (requirement #4), regardless of what it crosses.
+//   • Otherwise scan every entry being reverted — ordinals [targetOrdinal .. UndoTop()] — plus the LIVE
+//     (unsnapshotted, top+1) action whose reveal is still in UNDO_REQUIRES_CONSENT. Consent is needed if
+//     any reverted action (a) revealed new info, (b) belongs to the opponent, or (c) is a phase boundary
+//     ('resource'/'pregame-step' — the undo crosses out of the current phase; requirement #3).
+// Record ord_i stores the PRE-state of action i+1 and that action's metadata (seat/revealed/boundary), so
+// reverting to $targetOrdinal undoes actions whose records are exactly [targetOrdinal .. top].
+function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kind = 'step', string $rootName = '', string $gameName = ''): bool {
+    if (SimGameIsPrivateGame($rootName, $gameName)) return false;
+    if ($kind === 'phase') return true;
+    // The live action's reveal flag hasn't been folded into a record yet — read it directly.
+    if (GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true') return true;
+    $top = UndoTop();
+    for ($i = $targetOrdinal; $i <= $top; $i++) {
+        $line = UndoStackRead($i);
+        if ($line === null) continue;
+        $r = UndoRecordParse($line);
+        if ($r['revealed']) return true;                          // (a) new info revealed
+        if (intval($r['seat']) !== $requesterSeat) return true;   // (b) opponent's action
+        if ($r['boundary'] !== 'action') return true;             // (c) crosses a phase boundary
+    }
+    return false;
+}
+
+function SWUDoUndo(int $playerID, string $kind = 'step', string $rootName = '', string $gameName = ''): void {
+    $target = SWUComputeUndoTarget($kind);
+    if (!SWUUndoNeedsConsent($playerID, $target, $kind, $rootName, $gameName)) {
+        $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
+        $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
+        LoadUndoSnapshot($target);
+        _SWUReapplyUndoBlocks($bl1, $bl2);
+        SetFlashMessage('Undo applied.');
+    } else {
+        $blocked = GetSWUVar('UNDO_BLOCKED_' . $playerID, 'false') === 'true';
+        if ($blocked) {
+            SetFlashMessage('Your opponent has blocked your undo requests.');
+        } else {
+            // Remember the exact multi-step/phase target so the approval reverts to the SAME point the
+            // requester saw — not merely the single top action (SWUApproveUndo consumes PENDING_UNDO_TARGET).
+            SetSWUVar('PENDING_UNDO_FROM', (string)$playerID);
+            SetSWUVar('PENDING_UNDO_TARGET', (string)$target);
+            SetFlashMessage('Undo requested. Waiting for opponent.');
+        }
+    }
+}
+
+function SWUApproveUndo(): void {
+    $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
+    if ($requestingPlayer < 1 || $requestingPlayer > 2) return;
+    $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
+    $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
+    // Revert to the SAME target the requester chose (multi-step / Undo Phase), not just the top action.
+    $target = intval(GetSWUVar('PENDING_UNDO_TARGET', (string)UndoTop()));
+    LoadUndoSnapshot($target);
+    _SWUReapplyUndoBlocks($bl1, $bl2);
+    SetSWUVar('PENDING_UNDO_FROM', '');
+    SetSWUVar('PENDING_UNDO_TARGET', '');
+    SetFlashMessage('Undo approved.');
+}
+
+function SWUDenyUndo(): void {
+    $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
+    SetSWUVar('PENDING_UNDO_FROM', '');
+    SetSWUVar('PENDING_UNDO_TARGET', '');
+    SetSWUVar('UNDO_REQUIRES_CONSENT', 'false');
+    if ($requestingPlayer >= 1 && $requestingPlayer <= 2) {
+        $denyKey = 'UNDO_DENY_COUNT_' . $requestingPlayer;
+        $newCount = intval(GetSWUVar($denyKey, '0')) + 1;
+        SetSWUVar($denyKey, (string)$newCount);
+        if ($newCount >= 2) SetSWUVar('PENDING_BLOCK_PROMPT_FOR', (string)$requestingPlayer);
+    }
+    SetFlashMessage('Undo denied.');
 }
 
 function GetStartingChampionChoices($player) {
@@ -22249,6 +22428,7 @@ function DoRevealCard($player, $revealedMZ) {
     $obj = GetZoneObject($revealedMZ);
     if($obj === null) return null;
     $CardID = $obj->CardID;
+    MarkUndoRequiresConsent();   // a reveal exposes hidden info; undoing it would un-reveal (undo redesign)
     // Accumulate REVEAL: messages so multiple reveals in one response all display.
     // Format: REVEAL:id1|id2|id3
     $existing = GetFlashMessage();
