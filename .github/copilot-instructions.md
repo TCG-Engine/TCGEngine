@@ -57,6 +57,7 @@ Important notes and gotchas
 - The generator (`zzGameCodeGenerator.php`) outputs a number of server files and a key client JS file (`GeneratedUI_<timestamp>.js`). Important generator behaviours:
   - It emits `OverlayRules` and `CounterRules` as `const` JS objects in the generated JS. Client code reads these constants for overlays/counters.
   - It emits zone metadata accessible by `GetZoneData(zoneName)` on the client.
+  - `Display: Mode=Single(Stacked)` opts a single-card zone into visual card-depth layers instead of the numeric zone-count badge. Plain `Mode=Single` keeps the count badge.
   - It deletes old `GeneratedUI_*.js` files in the target folder and writes a new timestamped copy.
   - Browser-owned game logs opt in with `Module: GameLog`. An opted-in root defines the server hook
     `GameLogClientPayload($viewerPerspective, $gameName)`, plus any lifecycle hooks it supports:

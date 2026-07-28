@@ -1128,6 +1128,53 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         return mode === "All";
       }
 
+      function ShouldUseVisualSingleZoneStack(zoneMetadata) {
+        if (!zoneMetadata || !Array.isArray(zoneMetadata.DisplayParameters)) return false;
+        return zoneMetadata.DisplayParameters.some(function(parameter) {
+          return String(parameter).trim().toLowerCase() === "stacked";
+        });
+      }
+
+      function GetSingleZoneStackCardCount(zoneArr, cardArr) {
+        // Public/Self Single zones send every card so individual mzIDs remain addressable.
+        // Private Single zones send one CardBack whose counter contains the hidden zone count.
+        if (zoneArr.length > 1) return zoneArr.length;
+        var hiddenCount = parseInt(cardArr[1], 10);
+        return Number.isFinite(hiddenCount) && hiddenCount > 0 ? hiddenCount : zoneArr.length;
+      }
+
+      function CreateVisualSingleZoneStackHTML(cardHTML, cardCount) {
+        // A logarithmic scale keeps small piles visibly distinct while allowing full decks to
+        // grow taller without consuming excessive board space.
+        var layerCount = cardCount > 1
+          ? Math.min(8, Math.ceil(Math.log(cardCount) / Math.log(2)))
+          : 0;
+        if (layerCount === 0) return cardHTML;
+
+        var stackHTML = "<span class='tcg-single-zone-stack' data-card-count='" + cardCount
+          + "' style='position:relative; display:inline-block; vertical-align:top; line-height:normal;"
+          + " --tcg-stack-layer-step:2px;"
+          + " padding-right:calc(" + layerCount + " * var(--tcg-stack-layer-step));"
+          + " padding-bottom:calc(" + layerCount + " * var(--tcg-stack-layer-step));'>";
+
+        for (var layer = layerCount; layer >= 1; --layer) {
+          var farEdgeLayers = layerCount - layer;
+          var shade = 42 + (layerCount - layer) * 5;
+          stackHTML += "<span aria-hidden='true' style='position:absolute; pointer-events:none;"
+            + " top:calc(" + layer + " * var(--tcg-stack-layer-step));"
+            + " left:calc(" + layer + " * var(--tcg-stack-layer-step));"
+            + " right:calc(" + farEdgeLayers + " * var(--tcg-stack-layer-step));"
+            + " bottom:calc(" + farEdgeLayers + " * var(--tcg-stack-layer-step));"
+            + " box-sizing:border-box; border-radius:8px; border:1px solid rgba(245,239,220,0.34);"
+            + " background:rgb(" + shade + "," + shade + "," + (shade + 4) + ");"
+            + " box-shadow:1px 2px 3px rgba(0,0,0,0.28); z-index:" + (layerCount - layer + 1) + ";'></span>";
+        }
+
+        stackHTML += "<span style='position:relative; display:inline-block; z-index:" + (layerCount + 1) + ";'>"
+          + cardHTML + "</span></span>";
+        return stackHTML;
+      }
+
       //Note: 96 = Card Size
       function PopulateZone(zone, zoneData, size = 96, folder = "concat", row = 1, mode = 'All', filter="") {
           // Skip rendering if zone visibility is None
@@ -1147,10 +1194,14 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             var useReverse = zoneMetadata.Sort && zoneMetadata.Sort.Reverse;
             var displayIndex = useReverse ? (zoneArr.length - 1) : 0;
             var cardArr = zoneArr[displayIndex].split(" ");
+            var useVisualStack = ShouldUseVisualSingleZoneStack(zoneMetadata);
+            var stackCardCount = useVisualStack ? GetSingleZoneStackCardCount(zoneArr, cardArr) : 0;
 
             // Override counter to show total zone count (cardArr[1] is normally counter data)
             // This replicates the count bubble that was previously shown
-            if(zoneArr.length > 1) {
+            if(useVisualStack) {
+              cardArr[1] = "0";
+            } else if(zoneArr.length > 1) {
               cardArr[1] = String(zoneArr.length);
             }
 
@@ -1169,7 +1220,10 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
 
             // For single-display zones, surface playability when any card in that zone is highlighted.
             var singleDisplayHighlightMetadata = GetSingleDisplayHighlightMetadata(zoneName, zoneArr);
-            newHTML += createCardHTML(zone, zoneName, folder, size, cardArr, displayIndex, heatmapFunction, heatmapColorMap, singleDisplayHighlightMetadata);
+            var singleCardHTML = createCardHTML(zone, zoneName, folder, size, cardArr, displayIndex, heatmapFunction, heatmapColorMap, singleDisplayHighlightMetadata);
+            newHTML += useVisualStack
+              ? CreateVisualSingleZoneStackHTML(singleCardHTML, stackCardCount)
+              : singleCardHTML;
             newHTML += "</span>";
             return newHTML;
           }

@@ -2530,6 +2530,14 @@ function AddNextTurn() {
   return $header . $setData . $myStuff . $theirStuff . $myStaticStuff . $theirStaticStuff . $globalStaticStuff . $footer;
 }
 
+function ZoneHasDisplayParameter($zone, $expectedParameter) {
+  if(!isset($zone->DisplayParameters) || !is_array($zone->DisplayParameters)) return false;
+  foreach($zone->DisplayParameters as $parameter) {
+    if(strcasecmp(trim($parameter), $expectedParameter) === 0) return true;
+  }
+  return false;
+}
+
 function GeneratedGlobalZoneElement($zone, $index, &$setData) {
   global $rootPath;
   $rv = "";
@@ -2537,8 +2545,11 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
   $onclick = "onclick=\\\"ZoneClickHandler(\\\'" . $zone->Name . "\\\');\\\"";
   $onscroll = $zone->DisplayMode == "Panel" ? "onscroll=\\\"ZoneScrollHandler(\\\'" . $zone->Name . "\\\');\\\"" : "";
   $hasRotations = isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0;
-  $needsVisibleOverflow = $hasRotations || $zone->Name === "Field" || $zone->Name === "Intent";
-  $overflowStyle = ($zone->DisplayMode != "Pane") ? ($needsVisibleOverflow ? " overflow-y:visible;" : " overflow-y:auto;") : "";
+  $hasVisualStack = $zone->DisplayMode === "Single" && ZoneHasDisplayParameter($zone, "Stacked");
+  $needsVisibleOverflow = $hasRotations || $hasVisualStack || $zone->Name === "Field" || $zone->Name === "Intent";
+  $overflowStyle = ($zone->DisplayMode != "Pane")
+    ? ($hasVisualStack ? " overflow:visible;" : ($needsVisibleOverflow ? " overflow-y:visible;" : " overflow-y:auto;"))
+    : "";
 
   if (!empty($zone->BindTo)) {
     // BindTo mode: render global zone into an existing DOM element identified by {BindTo}
@@ -2618,8 +2629,11 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
   if($zone->Bottom > -1) $style .= ($prefix == "my" ? " bottom:" : " top:") . $zone->Bottom . ";";
   if($zone->Width > -1) $style .= " width:" . $zone->Width . ";";
   $hasRotations = isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0;
-  $needsVisibleOverflow = $hasRotations || $zone->Name === "Field" || $zone->Name === "Intent";
-  $overflowStyle = ($zone->DisplayMode != "Pane") ? ($needsVisibleOverflow ? " overflow-y:visible;" : " overflow-y:auto;") : "";
+  $hasVisualStack = $zone->DisplayMode === "Single" && ZoneHasDisplayParameter($zone, "Stacked");
+  $needsVisibleOverflow = $hasRotations || $hasVisualStack || $zone->Name === "Field" || $zone->Name === "Intent";
+  $overflowStyle = ($zone->DisplayMode != "Pane")
+    ? ($hasVisualStack ? " overflow:visible;" : ($needsVisibleOverflow ? " overflow-y:visible;" : " overflow-y:auto;"))
+    : "";
   if($zone->DisplayMode != "Pane") $style .= $overflowStyle;
   if (!empty($zone->BindTo)) {
     // BindTo mode: render zone into an existing DOM element identified by {prefix}{BindTo}
