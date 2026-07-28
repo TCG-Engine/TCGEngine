@@ -3039,6 +3039,10 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       <button class="btn btn-primary swu-settings-action" onclick="SWUGearConcede(true)">Return to Main Menu</button>
       <div id="swuSettingsBlockMount"></div>
     </div>
+    <div class="swu-settings-section" style="border-top:1px solid var(--border);">
+      <div class="swu-settings-section-title">Report</div>
+      <button class="btn swu-settings-action" onclick="SWUReportBug()">Report Bug</button>
+    </div>
   </div>
 </div>
 <script>

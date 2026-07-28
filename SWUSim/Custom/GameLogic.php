@@ -4686,17 +4686,20 @@ function MainPhase() {
 function DrawPhase() {
     // Draw is a step WITHIN the Regroup phase (not a separate phase in the log) — only the
     // "— Regroup Phase —" banner is emitted (by RegroupPhaseStart).
-    // CR 5.4.b: each player draws 2 cards.
-    DoDrawCard(1, 2);
-    DoDrawCard(2, 2);
+    // CR 5.4.b: each player draws 2 cards. Twin Suns: EVERY live seat draws, not just seats 1-2.
+    foreach (GetLiveSeatsArray() as $p) DoDrawCard($p, 2);
 }
 
 function ResourcePhase() {
     // Resource is a step WITHIN the Regroup phase (not a separate phase in the log).
     // CR 5.4.c: starting with the active player (initiative holder), each player
     // may resource 1 card from hand. Player selects a card or declines with "-".
+    // Twin Suns: go clockwise across EVERY live seat starting from the initiative holder (not just P1/P2).
     $firstPlayer = intval(GetFirstPlayer());
-    $secondPlayer = $firstPlayer === 1 ? 2 : 1;
+    $order = GetLiveSeatsArray();
+    $startIdx = array_search($firstPlayer, $order, true);
+    if ($startIdx === false) $startIdx = 0;
+    $orderedSeats = array_merge(array_slice($order, $startIdx), array_slice($order, 0, $startIdx));
     // P2 is a passive, non-interactive seat in goldfish (and in an interrupted "Play from Here"
     // replay) — it can never answer a decision. Its regroup-resource MZMAYCHOOSE would otherwise
     // sit in the queue forever and hang the RES step (the ghost has an empty hand + empty deck, so
@@ -4713,8 +4716,7 @@ function ResourcePhase() {
         DecisionQueueController::AddDecision($pl, "MZMAYCHOOSE", "myHand", 1, tooltip:"Resource_up_to_1_card");
         DecisionQueueController::AddDecision($pl, "CUSTOM",      "SWUApplyRegroupResource", 1);
     };
-    $queueResource($firstPlayer);   // initiative holder resources first (CR 5.4.c)
-    $queueResource($secondPlayer);
+    foreach ($orderedSeats as $pl) $queueResource($pl);   // initiative holder first, then clockwise (CR 5.4.c)
     // Undo boundary: snapshot AFTER the resource prompt is queued so a regular Undo from the action-phase
     // start lands here with the resource choice re-presented (re-pick your resource); it also floors Undo
     // Phase (the phase jump stops at the first action ABOVE this boundary).
@@ -5011,10 +5013,9 @@ function RegroupPhaseStart(): void {
     if (SWUGetGameWinner() !== 0) return;
     AddGameLogEntry('PHASE', '— Regroup Phase —');
     // Telemetry: finalize each seat's per-round counters into a turnResults entry (once per round).
-    if (function_exists('SWUTelemetrySnapshotTurn')) { SWUTelemetrySnapshotTurn(1); SWUTelemetrySnapshotTurn(2); }
+    if (function_exists('SWUTelemetrySnapshotTurn')) { for ($tp = 1; $tp <= SeatCountForGame(); $tp++) SWUTelemetrySnapshotTurn($tp); }
     SetSWUVar('SWU_REGROUP_NUM', (string)(intval(GetSWUVar('SWU_REGROUP_NUM', '0')) + 1)); // LAW_072: count regroups this round
-    ResetUndoDenyCount(1);
-    ResetUndoDenyCount(2);
+    for ($udp = 1; $udp <= SeatCountForGame(); $udp++) ResetUndoDenyCount($udp);
     SWUClearDiscardModifiers();
     SetSWUVar('SWU_LAST_ACTION', '');      // SEC_194 per-action tracking resets each phase
     SetSWUVar('SWU_ACTION_BASEATK', '');
@@ -5023,7 +5024,7 @@ function RegroupPhaseStart(): void {
     _SWUCheckFinalShowdownLose();          // SHD_208 Final Showdown — caster loses the game (before the draw step)
     _SWULawRegroupStartTriggers();         // LAW_071 (credit), LAW_073 (Exp + can't-ready) at regroup start
     // TWI_067 The Zillo Beast — "When the regroup phase starts: Heal 5 damage from this unit."
-    for ($zp = 1; $zp <= 2; $zp++) {
+    for ($zp = 1; $zp <= SeatCountForGame(); $zp++) {
         foreach (GetUnitsInPlay($zp) as $zu) {
             if (empty($zu->removed) && ($zu->CardID ?? '') === 'TWI_067' && intval($zu->Damage ?? 0) > 0) {
                 $zmz = SWUFindMzByUID(intval($zu->UniqueID ?? -1));
@@ -5032,7 +5033,7 @@ function RegroupPhaseStart(): void {
         }
     }
     // TS26_23 Assault Lander LAAT — "When the regroup phase starts: Deal 4 damage to this unit."
-    for ($lp = 1; $lp <= 2; $lp++) {
+    for ($lp = 1; $lp <= SeatCountForGame(); $lp++) {
         foreach (GetUnitsInPlay($lp) as $lu) {
             if (empty($lu->removed) && ($lu->CardID ?? '') === 'TS26_23') {
                 $lmz = SWUFindMzByUID(intval($lu->UniqueID ?? -1));
@@ -5045,7 +5046,7 @@ function RegroupPhaseStart(): void {
     // host — if Jetpack's own shield was already consumed and the host gained another shield since,
     // that other token is removed instead (individual tokens aren't identifiable across requests).
     global $playerID;
-    foreach ([1, 2] as $jp) {
+    for ($jp = 1; $jp <= SeatCountForGame(); $jp++) {
         $jge = &GetGlobalEffects($jp);
         for ($ji = count($jge) - 1; $ji >= 0; $ji--) {
             $jflag = (string)($jge[$ji]->CardID ?? '');
@@ -5070,7 +5071,7 @@ function RegroupPhaseStart(): void {
     // SHD_203 Zorii Bliss — each attack armed "at the start of the regroup phase, discard a card
     // from your hand." One mandatory discard per armed instance (zone-name MZCHOOSE, Han-loop style;
     // an empty hand auto-resolves to '-' and the handler no-ops). Consumed here, NOT prefix-cleared.
-    for ($zp = 1; $zp <= 2; $zp++) {
+    for ($zp = 1; $zp <= SeatCountForGame(); $zp++) {
         $zPending = GlobalEffectCount($zp, 'SWU_SHD203_DISCARD');
         for ($zk = 0; $zk < $zPending; $zk++) {
             RemoveGlobalEffect($zp, 'SWU_SHD203_DISCARD');
@@ -5090,7 +5091,7 @@ function RegroupPhaseStart(): void {
     $law074Found = true;
     while ($law074Found) {
         $law074Found = false;
-        for ($lp = 1; $lp <= 2; $lp++) {
+        for ($lp = 1; $lp <= SeatCountForGame(); $lp++) {
             $playerID = $lp;
             foreach (['myGroundArena', 'mySpaceArena'] as $lz) {
                 foreach (ZoneSearch($lz, AnyUnitFilter) as $lmz) {
@@ -5115,7 +5116,7 @@ function RegroupPhaseStart(): void {
     $shd194Found = true;
     while ($shd194Found) {
         $shd194Found = false;
-        for ($vp = 1; $vp <= 2; $vp++) {
+        for ($vp = 1; $vp <= SeatCountForGame(); $vp++) {
             $playerID = $vp;
             foreach (['myGroundArena', 'mySpaceArena'] as $vz) {
                 foreach (ZoneSearch($vz, AnyUnitFilter) as $vmz) {
@@ -5133,7 +5134,7 @@ function RegroupPhaseStart(): void {
 
     // SHD_015 Doctor Aphra (leader FRONT side, undeployed) — "When the regroup phase starts: Discard a
     // card from your deck." (Once deployed, the deployed side replaces this — so gate on !Deployed.)
-    for ($ap = 1; $ap <= 2; $ap++) {
+    for ($ap = 1; $ap <= SeatCountForGame(); $ap++) {
         foreach (GetLeader($ap) as $lo) {
             if (empty($lo->removed) && ($lo->CardID ?? '') === 'SHD_015' && empty($lo->Deployed)) {
                 SWUMillTopCard($ap);
@@ -5150,7 +5151,7 @@ function RegroupPhaseStart(): void {
     $sneakFound = true;
     while ($sneakFound) {
         $sneakFound = false;
-        for ($sp = 1; $sp <= 2; $sp++) {
+        for ($sp = 1; $sp <= SeatCountForGame(); $sp++) {
             $playerID = $sp;
             foreach (['myGroundArena', 'mySpaceArena'] as $szone) {
                 foreach (ZoneSearch($szone, AnyUnitFilter) as $smz) {
@@ -5168,7 +5169,7 @@ function RegroupPhaseStart(): void {
 
     // JTL_198 Fireball — "When the regroup phase starts: deal 1 damage to this unit." (one pass; any
     // resulting defeat is handled by the SWUDealDamageToUnit/state-based checks below.)
-    for ($rp = 1; $rp <= 2; $rp++) {
+    for ($rp = 1; $rp <= SeatCountForGame(); $rp++) {
         $playerID = $rp;
         foreach (['myGroundArena', 'mySpaceArena'] as $rz) {
             foreach (ZoneSearch($rz, AnyUnitFilter) as $rmz) {
@@ -5187,7 +5188,7 @@ function RegroupPhaseStart(): void {
 
     // LOF_019 Vergence Temple — "When the regroup phase starts: If you control a unit with 4 or more
     // remaining HP, the Force is with you." Checked for whichever player's base is Vergence Temple.
-    for ($vp = 1; $vp <= 2; $vp++) {
+    for ($vp = 1; $vp <= SeatCountForGame(); $vp++) {
         $vbaseArr = GetBase($vp);
         if (empty($vbaseArr) || ($vbaseArr[0]->CardID ?? '') !== 'LOF_019') continue;
         $playerID = $vp;
@@ -5205,7 +5206,7 @@ function RegroupPhaseStart(): void {
 
     // LOF_055 Dume — "When the regroup phase starts: give an Experience token to each OTHER friendly
     // non-Vehicle unit." (Loop per Dume so multiple copies each grant.)
-    for ($dp = 1; $dp <= 2; $dp++) {
+    for ($dp = 1; $dp <= SeatCountForGame(); $dp++) {
         $playerID = $dp;
         $dumeUIDs = [];
         foreach (['myGroundArena', 'mySpaceArena'] as $dz) {
@@ -5229,7 +5230,7 @@ function RegroupPhaseStart(): void {
     $j235Found = true;
     while ($j235Found) {
         $j235Found = false;
-        for ($jp = 1; $jp <= 2; $jp++) {
+        for ($jp = 1; $jp <= SeatCountForGame(); $jp++) {
             $playerID = $jp;
             foreach (['myGroundArena', 'mySpaceArena'] as $jz) {
                 foreach (ZoneSearch($jz, AnyUnitFilter) as $jmz) {
@@ -5266,7 +5267,7 @@ function RegroupPhaseStart(): void {
         $chFound = true;
         while ($chFound) {
             $chFound = false;
-            for ($cp = 1; $cp <= 2; $cp++) {
+            for ($cp = 1; $cp <= SeatCountForGame(); $cp++) {
                 $playerID = $cp;
                 foreach (['myGroundArena', 'mySpaceArena'] as $cz) {
                     foreach (ZoneSearch($cz, AnyUnitFilter) as $cmz) {
