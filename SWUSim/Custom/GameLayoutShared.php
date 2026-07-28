@@ -559,9 +559,24 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     display: flex !important; flex-wrap: wrap !important;
     justify-content: center !important; align-items: center !important;
     gap: 6px !important; margin: 0 0 18px 0 !important;
-    max-width: min(86vw, 560px) !important;
+    /* Wide enough for 6 cards in one row (the square 124px concat tiles: 6 x 124 + 5 x 6px gap = 774px),
+       but never wider than the game area (board = 100vw - sidebar) so it can't spill under the chat
+       sidebar on a narrow window (there it falls back to wrapping). */
+    max-width: min(786px, calc(var(--swu-board-w, 92vw) - 40px)) !important;
     max-height: 46vh !important; overflow-y: auto !important; overflow-x: hidden !important;
 }
+/* Center the mulligan modal on the GAME AREA, not the whole viewport — i.e. excluding the right
+   chat/log sidebar — matching the board's other centered elements (translateX(... - sidebar/2)).
+   The 0px fallback means no shift on mobile / when no sidebar var is defined. Marker set by the
+   ShowYesNoDecisionPopup wrapper so this only affects the mulligan prompt, not every YES/NO modal. */
+#yesno-decision-modal[data-swu-mulligan] > .yesno-decision-panel {
+    transform: translateX(calc(-1 * var(--swu-sidebar-w, 0px) / 2)) !important;
+}
+.swu-mulligan-hand .swu-mulligan-card {
+    display: inline-flex !important; cursor: pointer !important; line-height: 0 !important;
+    border-radius: 5px !important; transition: transform 0.12s ease !important;
+}
+.swu-mulligan-hand .swu-mulligan-card:hover { transform: translateY(-3px) !important; }
 .swu-mulligan-hand img {
     height: 124px !important; width: auto !important; border-radius: 5px !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6) !important;
@@ -2194,6 +2209,24 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             get: function () { return _myResourcesInternal; },
             set: function (v) { _myResourcesInternal = v; }
         });
+        // The OPPONENT resource count badge (swuTheirResCount) otherwise refreshes ONLY via a
+        // MutationObserver on the hidden theirResourcesSlot. But the opponent's resources are masked
+        // (face-down '-') and collapsed by CardID, so their rendered markup is frequently byte-identical
+        // across turns — ReplaceRenderedZoneHTML then skips the DOM update, the observer never fires, and
+        // the count goes stale ("opponent resources not updating", while their OWN client — which is
+        // data-driven — looks fine). Recompute the count straight from the data on every write, the way
+        // parseResCountFromData already counts masked entries. (The observer stays as a harmless backup.)
+        var _theirResourcesInternal = window.theirResourcesData || '';
+        Object.defineProperty(window, 'theirResourcesData', {
+            configurable: true,
+            get: function () { return _theirResourcesInternal; },
+            set: function (v) {
+                _theirResourcesInternal = v;
+                if (typeof updateResCounterFromData === 'function') {
+                    updateResCounterFromData('theirResourcesData', 'swuTheirResCount');
+                }
+            }
+        });
         Object.defineProperty(window, 'TurnPlayerData', {
             configurable: true,
             get: function () { return _turnPlayerInternal; },
@@ -2549,6 +2582,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 
     // Build a thumbnail row from the current hand (window.myHandData: "<|>"-joined
     // entries, each a space-separated token list whose first token is the CardID).
+    // Each thumbnail is wrapped in a hover target wired to the SAME zoomed preview the board
+    // uses (ShowCardDetail reads the inner IMG's src) — so a mulligan card can be previewed
+    // instead of being stuck as a small thumbnail. This row is shown IN the bright modal panel
+    // (desktop + mobile), which also sidesteps the board hand being dimmed/blocked by the modal's
+    // full-screen backdrop (the "cards too dark / can't hover during mulligan" report).
     function buildHandRow() {
         var raw = (typeof window.myHandData === 'string') ? window.myHandData.trim() : '';
         if (!raw) return null;
@@ -2559,11 +2597,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         for (var i = 0; i < entries.length; i++) {
             var cardID = (entries[i] || '').trim().split(' ')[0];
             if (!cardID || cardID === '-') continue;
+            var cell = document.createElement('span');   // hover target (ShowCardDetail looks up its inner IMG)
+            cell.className = 'swu-mulligan-card';
             var img = document.createElement('img');
             img.loading = 'lazy';
             img.alt = cardID;
             img.src = './SWUSim/concat/' + cardID + '.webp';
-            row.appendChild(img);
+            cell.appendChild(img);
+            cell.onmouseover = function (e) { if (typeof window.ShowCardDetail === 'function') ShowCardDetail(e, this); };
+            cell.onmouseout  = function ()  { if (typeof window.HideCardDetail === 'function') HideCardDetail(); };
+            row.appendChild(cell);
             rendered++;
         }
         return rendered > 0 ? row : null;
@@ -2631,7 +2674,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return;
         }
         if (!isMulligan(decision)) return;
-        if (!window.SWU_MOBILE_LAYOUT) return; // desktop: the hand is already visible on the board
+        // Mark the overlay so the CSS centers the panel on the game area (excluding the chat sidebar).
+        var mulOverlay = document.getElementById('yesno-decision-modal');
+        if (mulOverlay) mulOverlay.setAttribute('data-swu-mulligan', '1');
+        // Show the hoverable hand row IN the modal panel on BOTH desktop and mobile. On desktop the board
+        // hand is technically present behind the modal, but the modal's full-screen rgba(0,0,0,0.5) backdrop
+        // dims it AND intercepts its hover events — so the in-panel row is what makes the hand bright and
+        // previewable during mulligan (the reported "cards too dark / can't hover" fix).
         var modal = document.querySelector('#yesno-decision-modal > div');
         if (!modal) return;
         var row = buildHandRow();

@@ -86,6 +86,8 @@ foreach (array_merge(array_keys($mainCounts), array_keys($sideCounts), [$deck['l
   #submit:disabled { opacity:.4; filter:none; transform:none; cursor:default; color: rgba(200,225,245,0.7); }
   #submit:disabled::before { background: rgba(120,200,255,0.30); }
   #status { margin-left:14px; color: var(--swu-cyan-soft); font-family:var(--swu-font-label); letter-spacing:0.06em; font-size:13px; }
+  #sbPreview { position:fixed; display:none; pointer-events:none; z-index:9999; max-height:70vh; max-width:340px;
+    width:auto; height:auto; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,0.75); }
 </style></head>
 <body>
 <h2>Sideboard — game <?= count($m['games'])+1 ?> of best-of-<?= intval($m['bestOf']) ?></h2>
@@ -122,6 +124,38 @@ var side=<?= json_encode((object)array_map('intval',$sideCounts), JSON_FORCE_OBJ
 
 function totalOf(m){ var n=0; for(var k in m) n+=m[k]; return n; }
 
+// ── Zoomed card hover preview (self-contained; the Core hover system isn't on this page) ──
+var sbPreview=null;
+function ensureSbPreview(){
+  if(sbPreview) return sbPreview;
+  sbPreview=document.createElement('img'); sbPreview.id='sbPreview'; document.body.appendChild(sbPreview);
+  return sbPreview;
+}
+function showSbPreview(id, ev){
+  var p=ensureSbPreview(); p.src='./concat/'+id+'.webp'; p.style.display='block'; positionSbPreview(ev);
+}
+function positionSbPreview(ev){
+  if(!sbPreview || sbPreview.style.display!=='block') return;
+  var pad=18, w=sbPreview.offsetWidth||300, h=sbPreview.offsetHeight||420;
+  var x=ev.clientX+pad, y=ev.clientY+pad;
+  if(x+w>window.innerWidth)  x=ev.clientX-w-pad;   // flip left near the right edge
+  if(y+h>window.innerHeight) y=window.innerHeight-h-8;
+  if(y<8) y=8;
+  sbPreview.style.left=x+'px'; sbPreview.style.top=y+'px';
+}
+function hideSbPreview(){ if(sbPreview) sbPreview.style.display='none'; }
+
+// Wire the fixed Leader / Base slots too (rendered as static <img> above).
+(function(){
+  document.querySelectorAll('.fixed .slot img').forEach(function(img){
+    var id=(img.getAttribute('src')||'').replace('./concat/','').replace('.webp','');
+    if(!id) return;
+    img.parentNode.onmouseenter=function(ev){ showSbPreview(id, ev); };
+    img.parentNode.onmousemove=function(ev){ positionSbPreview(ev); };
+    img.parentNode.onmouseleave=hideSbPreview;
+  });
+})();
+
 function move(id, from, to){
   if(!from[id]) return;
   from[id]--; if(from[id]<=0) delete from[id];
@@ -139,6 +173,11 @@ function renderGrid(el, map, from, to){
     c.appendChild(img);
     if(map[id]>1){ var q=document.createElement('div'); q.className='qty'; q.textContent=map[id]; c.appendChild(q); }
     c.onclick=function(){ if(submitting) return; move(id, from, to); };
+    // Zoomed hover preview — this standalone page doesn't load the Core ShowCardDetail system, so cards
+    // were only readable via the tiny thumbnail + native title tooltip ("hover does not work in sideboard").
+    c.onmouseenter=function(ev){ showSbPreview(id, ev); };
+    c.onmousemove=function(ev){ positionSbPreview(ev); };
+    c.onmouseleave=hideSbPreview;
     el.appendChild(c);
   });
 }
