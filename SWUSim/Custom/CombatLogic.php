@@ -455,6 +455,16 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     if ($obj === null || (isset($obj->removed) && $obj->removed)) { $playerID = $savedPID; return true; }
     $owner = isset($obj->Owner) ? intval($obj->Owner) : intval($player);
     if (strpos(CardType($obj->CardID) ?? '', 'Leader') !== false) {
+        // A deployed leader IS a unit — its defeat must register the same "unit defeated this phase" flags
+        // as any other unit (ASH_079 Koska / SOR_051 Luke "a friendly unit was defeated", the enemy-defeated
+        // flag, and Heroism-defeated for TWI_017), even though it returns to the leader zone rather than a
+        // discard. Set them BEFORE the early return (SWUReturnLeaderToZone removes $obj). No SWU_DEFEATED_CARD_
+        // — that tracks discard contents for SOR_091-style return-from-discard, and a leader never discards.
+        $ldrController = isset($obj->Controller) ? intval($obj->Controller) : $owner;
+        $ldrCardID     = $obj->CardID;
+        if ($owner !== intval($player)) AddGlobalEffects(intval($player), 'SWU_ENEMY_DEFEATED');
+        AddGlobalEffects($ldrController, 'SWU_FRIENDLY_DEFEATED');
+        _SWUMarkHeroismDefeated($ldrController, $ldrCardID);
         SWUReturnLeaderToZone($owner, $unitMzID);
         DecisionQueueController::CleanupRemovedCards();
         $playerID = $savedPID;
@@ -2155,6 +2165,13 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 if (($attacker->CardID ?? '') === 'SEC_013') {
                     AddTrigger($attCtrl, 'SEC_013', 'SEC_013', 'DEPLOYED_SELF');
                 }
+                // A deployed leader IS a unit — register the same unit-defeat flags as the non-leader branch
+                // below (ASH_079 Koska / SOR_051 "a friendly unit was defeated", enemy-defeated from the
+                // defender's side, Heroism-defeated) even though it returns to its leader zone. No
+                // SWU_DEFEATED_CARD_ — that tracks discard contents (SOR_091), and a leader never discards.
+                AddGlobalEffects(SWUMzOwner($targetMzID, $player), 'SWU_ENEMY_DEFEATED');
+                AddGlobalEffects($attCtrl, 'SWU_FRIENDLY_DEFEATED');
+                _SWUMarkHeroismDefeated($attCtrl, $attacker->CardID ?? '');
                 SWUReturnLeaderToZone($atkOwner, $attackerMzID);
             } else {
                 $atkHasSecondChance = _SWUUnitHasUpgrade($attacker, 'SHD_053');
@@ -2195,6 +2212,13 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             AddGlobalEffects(intval($target->Controller ?? ($player === 1 ? 2 : 1)), 'SWU_COMBATDEF_' . intval($target->UniqueID ?? 0)); // "defeated by combat damage" marker (ASH_028/191)
             $defOwner = intval($target->Owner ?? ($player === 1 ? 2 : 1));
             if (strpos(CardType($target->CardID) ?? '', 'Leader') !== false) {
+                // A deployed leader IS a unit — register the same unit-defeat flags as the non-leader branch
+                // (enemy-defeated for the attacker, ASH_079/SOR_051 friendly-defeated for the leader's
+                // controller, Heroism-defeated) even though it returns to its leader zone. No
+                // SWU_DEFEATED_CARD_ — that tracks discard contents (SOR_091), and a leader never discards.
+                AddGlobalEffects($player, 'SWU_ENEMY_DEFEATED');
+                AddGlobalEffects(intval($target->Controller ?? GetOpponent($player)), 'SWU_FRIENDLY_DEFEATED');
+                _SWUMarkHeroismDefeated(intval($target->Controller ?? GetOpponent($player)), $target->CardID ?? '');
                 SWUReturnLeaderToZone($defOwner, $targetMzID);
             } else {
                 $defHasSecondChance = _SWUUnitHasUpgrade($target, 'SHD_053');

@@ -2967,6 +2967,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-settings-overlay { position: fixed; inset: 0; z-index: 10001; display: flex;
     align-items: center; justify-content: center; background: var(--overlay-scrim);
     backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  /* The shared StyledConfirm/StyledAlert overlay (.sd-overlay, z-index 10000 in Core/StyledDialog.js) must
+     sit ABOVE the gear settings overlay (10001) so a Concede / Return-to-Main-Menu confirmation opened FROM
+     the settings menu appears on top of it, not behind. Both mount at <body>, so a plain z-index bump orders
+     them (same stacking context — consistent across Chromium/Firefox/WebKit). */
+  .sd-overlay { z-index: 10010 !important; }
   .swu-settings-panel { width: min(92vw, 360px); background: var(--surface-raised);
     border: 1px solid var(--border); border-radius: 12px;
     box-shadow: 0 18px 50px rgba(0,0,0,0.6); color: var(--text); overflow: hidden; }

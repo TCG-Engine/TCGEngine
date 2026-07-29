@@ -371,9 +371,18 @@
     document.body.appendChild(createBanner(tooltip, decisionIndex));
     refreshUI();
 
-    // Generated updates mount decision UI only after the new board DOM exists, so per-card controls
-    // can be attached synchronously and appear in the same browser paint as the cards.
+    // Attach the per-card +/- controls. Two callers, two DOM orderings:
+    //   • Some callers mount the decision UI AFTER the new board DOM exists → the synchronous inject
+    //     below attaches in the same paint as the cards (no flicker).
+    //   • SWUSim's NextTurnRender.php calls CheckAndShowDecisionQueue BEFORE its PopulateZone() calls
+    //     rebuild every zone's innerHTML — so a synchronous inject lands on card spans that are then
+    //     WIPED by the zone repopulate (the banner survives on document.body, but the on-card controls
+    //     vanish — "Assign N / Remaining:N shows but no +/- buttons"). Re-inject on a 0ms timeout, which
+    //     runs after the current render stack (past PopulateZone), re-attaching to the fresh card spans.
+    // The `mzsplit-overlay-<mzID>` guard in injectCardOverlays makes whichever call runs second a no-op,
+    // so no duplicate overlays regardless of ordering.
     injectCardOverlays();
+    setTimeout(injectCardOverlays, 0);
   }
 
   // ── Cleanup ──────────────────────────────────────────────────────────

@@ -12,6 +12,9 @@ $customDQHandlers["LAW_208#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) return;
     $firstUID = intval($o->UniqueID ?? 0);
     $isSpace  = (strpos($lastDecision, 'Space') !== false);
+    // "Then" (CR 8.29.1): the whole event must resolve before a first-hit When-Defeated reaction (Onyx's
+    // heal, an opponent's disclose, …) may resolve — hold it until the second clause is done (flushed in #1).
+    SWUBeginDeferWhenDefeated();
     SWUDealDamageToUnit($lastDecision, 2, intval($player));
     // Second target: a base, or another unit in the same arena (excluding the first).
     $zones = $isSpace ? ["mySpaceArena", "theirSpaceArena"] : ["myGroundArena", "theirGroundArena"];
@@ -29,14 +32,18 @@ $customDQHandlers["LAW_208#0"] = function($player, $parts, $lastDecision) {
 
 $customDQHandlers["LAW_208#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    if (SWUDecisionDeclined($lastDecision)) return;
-    if (strpos($lastDecision, 'Base') !== false) {
-        $tp = SWUMzOwner((string)$lastDecision, intval($player));   // Twin Suns: my/their/p{n} → owner seat
-        SWUDealDamageToBase(2, $tp);
-    } else {
-        $u = GetZoneObject($lastDecision);
-        if ($u !== null && empty($u->removed)) SWUDealDamageToUnit($lastDecision, 2, intval($player));
+    if (!SWUDecisionDeclined($lastDecision)) {
+        if (strpos($lastDecision, 'Base') !== false) {
+            $tp = SWUMzOwner((string)$lastDecision, intval($player));   // Twin Suns: my/their/p{n} → owner seat
+            SWUDealDamageToBase(2, $tp);
+        } else {
+            $u = GetZoneObject($lastDecision);
+            if ($u !== null && empty($u->removed)) SWUDealDamageToUnit($lastDecision, 2, intval($player));
+        }
     }
+    // Event fully resolved — release the first clause's parked When-Defeated / bounty (CR 8.29.1 / 7.6.14.a),
+    // now ordered active-player-first alongside any second-hit defeat trigger.
+    SWUFlushDeferredWhenDefeated(intval($player));
 };
 
 // When Played (event) — migrated from OnPlayEvent.

@@ -6737,6 +6737,38 @@ function SWUFlushExploitDeferredTriggers(int $player): void {
     $gExploitDeferredBag = [];
 }
 
+// ── General multi-clause "then" trigger deferral (CR 8.29.1 + 7.6.14.a / 7.6.8) ───────────────────────
+// While an ability with a "then"/"if you do" clause is mid-resolution (e.g. Collateral Damage between its
+// two "deal 2" hits), a triggered ability set up by an earlier clause (a first-hit When-Defeated, an
+// opponent's disclose reaction, …) must WAIT to RESOLVE until the whole ability finishes — it may not jump
+// ahead of the "then" clause, and both players' triggers then resolve active-player-first (CR 7.6.10).
+// Unlike the Exploit defer (transient, same-action), a "then" event's clauses are separated by an
+// INTERACTIVE choice, so this state is stored in SWUVars — it survives the HTTP request boundary between
+// the clauses. CollectWhenDefeatedTriggers parks into SWU_DEFER_WD_BAG while SWU_DEFER_WD is set; the card
+// flushes once its final clause resolves.
+function SWUBeginDeferWhenDefeated(): void {
+    SetSWUVar('SWU_DEFER_WD', 'true');
+    if (GetSWUVar('SWU_DEFER_WD_BAG', '') === '') SetSWUVar('SWU_DEFER_WD_BAG', '[]');
+}
+function SWUFlushDeferredWhenDefeated(int $activePlayer): void {
+    if (GetSWUVar('SWU_DEFER_WD', 'false') !== 'true') return;
+    SetSWUVar('SWU_DEFER_WD', 'false');
+    $bag = json_decode(GetSWUVar('SWU_DEFER_WD_BAG', '[]'), true);
+    SetSWUVar('SWU_DEFER_WD_BAG', '[]');
+    if (!is_array($bag) || empty($bag)) return;
+    global $gPendingTriggers;
+    $bounty = [];
+    foreach ($bag as $entry) {
+        if (($entry['__kind__'] ?? 'trigger') === 'bounty') { $bounty[] = $entry; continue; }
+        AddTrigger($entry['player'], $entry['triggerType'], $entry['cardID'], $entry['mzID'], $entry['extraParams'] ?? '');
+    }
+    FlushTriggerBag($activePlayer);                    // When-Defeated (and friends), active-player-first
+    foreach ($bounty as $entry) {                      // bounty is offered AFTER When-Defeated (CR 7.6.3 / 13.f)
+        DecisionQueueController::AddDecision($entry['activePlayer'], "YESNO", "-", 1, tooltip:"Collect_bounty?");
+        DecisionQueueController::AddDecision($entry['activePlayer'], "CUSTOM", "SWUCollectBounty|{$entry['cardID']}", 1);
+    }
+}
+
 // FlushCombatTriggerBag — like FlushEntryTriggerBag but for combat Step 1 triggers.
 // Instead of finalising via SWUAfterAction when the EffectStack empties, the queued
 // SWU_TRIGGER_RESUME carries a COMBAT continuation that queues SWUCombatDamage.
@@ -8627,6 +8659,26 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
     // of whether $gPendingTriggers is non-empty — this ensures a unit with Bounty but
     // no WhenDefeated is also deferred (Bug B fix), and a unit with both does not lose
     // its bounty via an early return (Bug A fix).
+    // General multi-clause "then" deferral (CR 8.29.1 + 7.6.14.a): while an event is between its clauses
+    // (Collateral Damage's two "deal 2" hits), a first-clause defeat's When-Defeated / bounty must WAIT
+    // until the whole event resolves. Serialized (SWU_DEFER_WD/_BAG SWUVars) so it survives the request
+    // boundary between the clauses; SWUFlushDeferredWhenDefeated() replays it after the final clause.
+    // Distinct from the transient, same-action Exploit park below.
+    if (GetSWUVar('SWU_DEFER_WD', 'false') === 'true') {
+        $bag = json_decode(GetSWUVar('SWU_DEFER_WD_BAG', '[]'), true);
+        if (!is_array($bag)) $bag = [];
+        foreach ($gPendingTriggers as $t) { $bag[] = ['__kind__' => 'trigger'] + $t; }
+        global $Bounty_Cards;
+        foreach ($defeatedCards as $d) {
+            if (isset($Bounty_Cards[$d['cardID']]) && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])) {
+                $bag[] = ['__kind__' => 'bounty', 'activePlayer' => OtherPlayer(intval($d['player'] ?? $activePlayer)), 'cardID' => $d['cardID']];
+            }
+        }
+        SetSWUVar('SWU_DEFER_WD_BAG', json_encode($bag));
+        $gPendingTriggers = [];
+        return;
+    }
+
     if (!empty($gExploitDeferTriggers)) {
         // Park trigger descriptors (tagged with __kind__ = 'trigger').
         foreach ($gPendingTriggers as $t) {
