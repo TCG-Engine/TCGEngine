@@ -96,18 +96,27 @@ function getHighestRoundIdFromTournament($tournamentId) {
     return end($roundIds);
 }
 
-function importMeleeTournamentById($tournamentId, $progressCallback = null) {
+// $failureReason is filled in with the specific reason when this returns false, so callers
+// can surface something more useful than "Failed to import tournament from melee.gg."
+function importMeleeTournamentById($tournamentId, $progressCallback = null, &$failureReason = null) {
+    $failureReason = null;
+    $collect = function($update) use ($progressCallback, &$failureReason) {
+        if (isset($update['error']) && $failureReason === null) $failureReason = $update['error'];
+        if ($progressCallback) $progressCallback($update);
+    };
     $roundId = getHighestRoundIdFromTournament($tournamentId);
     if (!$roundId) {
-        if ($progressCallback) $progressCallback(['error' => 'Could not determine roundId for tournament.']);
+        $failureReason = 'Could not determine a roundId for this tournament (no round-selector buttons found on the melee.gg page).';
+        $collect(['error' => $failureReason]);
         return false;
     }
     $conn = GetLocalMySQLConnection();
     if ($conn === false) {
-        if ($progressCallback) $progressCallback(['error' => 'Error connecting to the database.']);
+        $failureReason = 'Error connecting to the database.';
+        $collect(['error' => $failureReason]);
         return false;
     }
-    $result = parseMeleeTournament($roundId, $conn, $progressCallback);
+    $result = parseMeleeTournament($roundId, $conn, $collect);
     if (is_numeric($result) && $result > 0) {
         $conn->close();
         return $result;
@@ -125,6 +134,9 @@ function importMeleeTournamentById($tournamentId, $progressCallback = null) {
     }
     $checkStmt->close();
     $conn->close();
+    if ($failureReason === null) {
+        $failureReason = "Parsed round $roundId but no tournament row was written.";
+    }
     return false;
 }
 

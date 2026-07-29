@@ -663,6 +663,35 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #selection-message > button:not([id]):hover::before {
     background: var(--accent-strong) !important;
 }
+/* MZSplitAssign +/- steppers → chamfered HUD, red (minus) / green (plus). The design-system migration
+   (7468247d) dropped the .mzsplit-* selectors from the decision-UI chamfer sweep, so these steppers fell
+   back to the bespoke ROUND .mzsplit-btn styling in Core/MZSplitAssignUI.js. Re-skin them here like the
+   sibling .numchoose steppers, keeping the +/- red/green affordance — all theme-driven (danger/success),
+   so they follow petranaki-hud (and every other theme). !important beats the non-!important base rules. */
+.mzsplit-btn-minus, .mzsplit-btn-plus {
+    position: relative !important; z-index: 0 !important; isolation: isolate !important;
+    border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important;
+    transition: filter 150ms, color 150ms, transform 110ms !important;
+}
+.mzsplit-btn-minus::before, .mzsplit-btn-plus::before {
+    content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
+}
+.mzsplit-btn-minus::after, .mzsplit-btn-plus::after {
+    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
+    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
+}
+.mzsplit-btn-minus            { color: var(--on-danger) !important; text-shadow: 0 0 6px rgba(0,0,0,0.5) !important; filter: drop-shadow(0 0 4px var(--danger)) !important; }
+.mzsplit-btn-minus::before    { background: var(--danger) !important; }
+.mzsplit-btn-minus::after     { background: var(--danger-surface) !important; }
+.mzsplit-btn-minus:hover:not(:disabled) { color: #fff !important; filter: drop-shadow(0 0 9px var(--danger)) !important; transform: translateY(-1px) !important; }
+.mzsplit-btn-plus             { color: var(--on-success) !important; text-shadow: 0 0 6px rgba(0,0,0,0.5) !important; filter: drop-shadow(0 0 4px var(--success)) !important; }
+.mzsplit-btn-plus::before     { background: var(--success) !important; }
+.mzsplit-btn-plus::after      { background: var(--success-surface) !important; }
+.mzsplit-btn-plus:hover:not(:disabled)  { color: #fff !important; filter: drop-shadow(0 0 9px var(--success)) !important; transform: translateY(-1px) !important; }
+.mzsplit-btn-minus:disabled, .mzsplit-btn-plus:disabled { color: var(--text-muted) !important; filter: none !important; }
+.mzsplit-btn-minus:disabled::before, .mzsplit-btn-plus:disabled::before { background: var(--border) !important; }
+.mzsplit-btn-minus:disabled::after,  .mzsplit-btn-plus:disabled::after  { background: var(--surface-sunken) !important; }
 /* "Waiting for the other player…" — center it over the board (both bases), not pinned above the
    hand. !important beats the shared JS's per-frame inline top/bottom (_positionMessageNearAnchor).
    left:50% comes from the base rule; the -sidebar/2 X-shift matches how the bases/midbar center over
