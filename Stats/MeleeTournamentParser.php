@@ -18,6 +18,29 @@ if ($conn === false) {
 // Get the roundId from GET parameter or use default
 $roundId = isset($_GET['roundId']) ? (int)$_GET['roundId'] : 977630;
 
+// Case/whitespace-insensitive key for comparing player names across melee's payloads.
+function SWUMeleeNormalizeName($name) {
+    return preg_replace('/\s+/', ' ', trim(mb_strtolower((string)$name)));
+}
+
+// Every string melee might use to refer to one player. Team.Username is a handle ("Pixz3l")
+// while match Result strings name the winner by real name ("Michael Swanson"), and Team.Name
+// stores it reversed ("Swanson, Michael") — so all three forms must be candidates.
+function SWUMeleePlayerIdentities($username, $teamName) {
+    $out = [];
+    if ($username !== null && $username !== '') $out[] = SWUMeleeNormalizeName($username);
+    if ($teamName !== null && $teamName !== '') {
+        $out[] = SWUMeleeNormalizeName($teamName);
+        if (strpos($teamName, ',') !== false) {
+            $parts = array_map('trim', explode(',', $teamName, 2));
+            if (count($parts) === 2 && $parts[0] !== '' && $parts[1] !== '') {
+                $out[] = SWUMeleeNormalizeName($parts[1] . ' ' . $parts[0]);
+            }
+        }
+    }
+    return array_values(array_unique(array_filter($out, function ($v) { return $v !== ''; })));
+}
+
 function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
     // Check if this tournament round already exists in the database
     $checkQuery = "SELECT mt.tournamentId, mt.tournamentName FROM meleetournament mt WHERE mt.roundId = ?";
@@ -339,6 +362,11 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
       } else {
         $decklistjsonResponse = $decklistBody;
         $playerName = $decklistjsonResponse["Team"]["Username"] ?? 'Unknown Player';
+        // Used by the match-result attribution below; see the comment there.
+        $myIdentities = SWUMeleePlayerIdentities(
+            $decklistjsonResponse["Team"]["Username"] ?? '',
+            $decklistjsonResponse["Team"]["Name"] ?? ''
+        );
         
         // Extract leader and base information from the decklist
         $leader = null;
@@ -476,37 +504,51 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
                   'matchDraws' => $matchDraws ?? null
               ]);
           }
-          //$matchResult is a space delimited string, 
-          // there are 4 format: 
-          //    "Avestator won 2-0-0", 
-          //    "0-0-3 Draw", 
-          //    "fziki was assigned a bye",
-          //    "Fireshow forfeited the match, Servetz forfeited the match",
+          // melee's Result string, by observed format:
+          //    "Michael Swanson won 2-1-0"   <- winner named by REAL name, not username
+          //    "0-0-3 Draw"
+          //    "fziki was assigned a bye"
+          //    "Fireshow forfeited the match, Servetz forfeited the match"
           //    "Not reported"
-          // for the first and third format, I need to get the last element of the string
-          // for the second format, I need to get the first element of the string
-          // for the last format, set matchWins, matchLosses, matchDraws to 0
-          if (strpos($matchResult, "forfeited") !== false || strpos($matchResult, "Not reported") !== false) {
-            list($matchWins, $matchLosses, $matchDraws) = [0, 0, 0];
-          } else {
-            $matchResult = explode(' ', $matchResult);
-            if (end($matchResult) == "Draw") {
-              // $matchResult should be the first element of the array         
-              $matchResult = $matchResult[0];
-            } else {
-              //get the last element of the array
-              $winningPlayerName = $matchResult[0];
-              $matchResult = end($matchResult);
-            }
+          //
+          // The winner is identified by DISPLAY name while Team.Username is a handle
+          // ("Michael Swanson" vs "Pixz3l"), so the old `explode(' ')[0] == $playerName`
+          // test failed for every such player and the else-branch silently swapped their
+          // wins and losses. Only their WINS flipped (a loss already took the else branch),
+          // which is why ~15% of pairings ended up self-contradictory and every mirror
+          // matchup drifted off its structural 50%. Match against all known identities
+          // instead — username, "Last, First", and "First Last".
+          $matchWins = 0; $matchLosses = 0; $matchDraws = 0;
+          $resultText = trim((string)$matchResult);
 
-            if ($matchResult == "bye") {
-              list($matchWins, $matchLosses, $matchDraws) = [2, 0, 0];
+          if (stripos($resultText, 'forfeited') !== false || stripos($resultText, 'Not reported') !== false) {
+            list($matchWins, $matchLosses, $matchDraws) = [0, 0, 0];
+          } else if (preg_match('/\bbye\b/i', $resultText)) {
+            list($matchWins, $matchLosses, $matchDraws) = [2, 0, 0];
+          } else if (preg_match('/^(\d+)-(\d+)-(\d+)\s+Draw$/i', $resultText, $rm)) {
+            list($matchWins, $matchLosses, $matchDraws) = [(int)$rm[1], (int)$rm[2], (int)$rm[3]];
+          } else if (preg_match('/^(.*?)\s+won\s+(\d+)-(\d+)-(\d+)$/i', $resultText, $rm)) {
+            $winnerName = SWUMeleeNormalizeName($rm[1]);
+            $a = (int)$rm[2]; $b = (int)$rm[3]; $c = (int)$rm[4];
+            if (in_array($winnerName, $myIdentities, true)) {
+              list($matchWins, $matchLosses, $matchDraws) = [$a, $b, $c];
             } else {
-              if ($winningPlayerName == $playerName) {
-                list($matchWins, $matchLosses, $matchDraws) = explode('-', $matchResult);
-              } else {
-                list($matchLosses, $matchWins, $matchDraws) = explode('-', $matchResult);
+              // A match has exactly two players, so "not me" is the opponent — but only
+              // because $myIdentities is now reliable. Flag the unmatched name so a future
+              // identity format melee introduces surfaces instead of silently inverting.
+              list($matchWins, $matchLosses, $matchDraws) = [$b, $a, $c];
+              if ($progressCallback && !in_array(SWUMeleeNormalizeName($opponentName), [$winnerName], true)) {
+                $progressCallback([
+                    'type' => 'attribution_by_elimination',
+                    'player' => $playerName,
+                    'winnerInResult' => $rm[1],
+                    'result' => $resultText,
+                ]);
               }
+            }
+          } else {
+            if ($progressCallback) {
+                $progressCallback(['type' => 'unparsed_result', 'player' => $playerName, 'result' => $resultText]);
             }
           }
           // Insert a record to table meleetournamentmatchup with decklistid, opponentDeckId, matchWins, matchLosses, matchDraws

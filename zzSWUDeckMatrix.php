@@ -66,10 +66,13 @@ function MatrixTournamentRows($conn, $withAudit = false) {
         $res = MatrixQuery($conn, "
             SELECT d.tournamentId,
                    COUNT(*) AS pairings,
-                   SUM(CASE WHEN NOT (a.wins = b.losses AND a.losses = b.wins AND a.draws = b.draws)
+                   SUM(CASE WHEN NOT (a.w = b.l AND a.l = b.w AND a.d = b.d)
                             THEN 1 ELSE 0 END) AS inconsistent
-            FROM meleetournamentmatchup a
-            JOIN meleetournamentmatchup b ON b.player = a.opponent AND b.opponent = a.player
+            FROM (SELECT player, opponent, SUM(wins) w, SUM(losses) l, SUM(draws) d
+                    FROM meleetournamentmatchup GROUP BY player, opponent) a
+            JOIN (SELECT player, opponent, SUM(wins) w, SUM(losses) l, SUM(draws) d
+                    FROM meleetournamentmatchup GROUP BY player, opponent) b
+              ON b.player = a.opponent AND b.opponent = a.player
             JOIN meleetournamentdeck d ON d.deckID = a.player
             WHERE a.player < a.opponent
             GROUP BY d.tournamentId");
@@ -102,16 +105,21 @@ function MatrixTournamentRows($conn, $withAudit = false) {
     return $rows;
 }
 
-// A pairing is two matchup rows describing the same match from each side. They must mirror
-// each other exactly; if they do not, one side's win/loss was attributed wrongly.
+// A pairing is the two matchup rows describing one meeting, from each side; they must mirror.
+// Both queries AGGREGATE per (player, opponent) first: two decks can meet more than once
+// (swiss then top cut), and a naive row-level self-join cross-matches round 3's result
+// against round 8's, reporting phantom inconsistencies that are not attribution errors.
 function MatrixAuditTournament($conn, $tournamentId) {
     $sql = "
         SELECT
           COUNT(*) AS pairings,
-          SUM(CASE WHEN NOT (a.wins = b.losses AND a.losses = b.wins AND a.draws = b.draws)
+          SUM(CASE WHEN NOT (a.w = b.l AND a.l = b.w AND a.d = b.d)
                    THEN 1 ELSE 0 END) AS inconsistent
-        FROM meleetournamentmatchup a
-        JOIN meleetournamentmatchup b ON b.player = a.opponent AND b.opponent = a.player
+        FROM (SELECT player, opponent, SUM(wins) w, SUM(losses) l, SUM(draws) d
+                FROM meleetournamentmatchup GROUP BY player, opponent) a
+        JOIN (SELECT player, opponent, SUM(wins) w, SUM(losses) l, SUM(draws) d
+                FROM meleetournamentmatchup GROUP BY player, opponent) b
+          ON b.player = a.opponent AND b.opponent = a.player
         WHERE a.player < a.opponent
           AND a.player IN (SELECT deckID FROM meleetournamentdeck WHERE tournamentId = ?)";
     $stmt = mysqli_prepare($conn, $sql);
@@ -188,6 +196,29 @@ if ($action !== '') {
         exit;
     }
 
+    // Delete only — no re-import. For clearing bad data ahead of a manual re-import.
+    if ($action === 'delete') {
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $stmt = mysqli_prepare($conn, "SELECT tournamentLink, tournamentName FROM meleetournament WHERE tournamentID = ?");
+        mysqli_stmt_bind_param($stmt, 'i', $id);
+        mysqli_stmt_execute($stmt);
+        $row = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+        mysqli_stmt_close($stmt);
+        if (!$row) {
+            echo json_encode(['success' => false, 'message' => "No tournament with id $id."]);
+            exit;
+        }
+        $deleted = MatrixDeleteTournament($conn, $id);
+        echo json_encode([
+            'success' => true,
+            'id' => $id,
+            'meleeId' => (int)$row['tournamentLink'],
+            'name' => $row['tournamentName'],
+            'deleted' => $deleted,
+        ]);
+        exit;
+    }
+
     if ($action === 'refetch') {
         set_time_limit(1800);
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -246,6 +277,15 @@ if ($action !== '') {
                 'message' => $failureReason ?: 'Import failed.',
                 'stray' => $stray !== '' ? mb_substr(strip_tags($stray), 0, 400) : null,
             ]);
+            exit;
+        }
+
+        // Stats/MeleeTournamentParser.php runs `$conn->close()` at file scope, so requiring it
+        // closes the shared mysqli handle out from under us — every read-back below would fail
+        // with "mysqli object is already closed". Re-open before touching the DB again.
+        $conn = GetLocalMySQLConnection();
+        if ($conn === false) {
+            echo json_encode(['success' => false, 'message' => 'Import finished but the DB connection could not be re-opened.']);
             exit;
         }
 
@@ -326,6 +366,8 @@ if ($action !== '') {
     button { background:#0e639c; color:#fff; border:0; padding:6px 12px; font-family:monospace; font-size:12px; cursor:pointer; }
     button:hover { background:#1177bb; }
     button:disabled { background:#444; color:#888; cursor:default; }
+    button.danger { background:#8b2f2f; }
+    button.danger:hover { background:#a83a3a; }
     .bar { margin-bottom:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
     table { border-collapse:collapse; width:100%; }
     th, td { padding:5px 8px; text-align:left; border-bottom:1px solid #333; white-space:nowrap; }
@@ -356,6 +398,7 @@ if ($action !== '') {
   <button id="audit">Run consistency audit</button>
   <button id="runAll">Re-fetch ALL</button>
   <button id="runSelected">Re-fetch selected</button>
+  <button id="delSelected" class="danger">Delete selected</button>
   <button id="stop" disabled>Stop</button>
   <span id="status" class="muted"></span>
 </div>
@@ -394,6 +437,7 @@ function setBusy(b) {
   running = b;
   document.getElementById('runAll').disabled = b;
   document.getElementById('runSelected').disabled = b;
+  document.getElementById('delSelected').disabled = b;
   document.getElementById('reload').disabled = b;
   document.getElementById('stop').disabled = !b;
 }
@@ -498,6 +542,43 @@ async function refetch(id) {
   }
 }
 
+async function deleteOne(id) {
+  setState(id, 'deleting…', 'spin');
+  try {
+    const res = await fetch('zzSWUDeckMatrix.php?action=delete&id=' + id);
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); }
+    catch (e) { setState(id, 'bad response', 'bad'); log(`[${id}] non-JSON: ` + text.slice(0, 300)); return false; }
+    if (!data.success) { setState(id, 'FAILED', 'bad'); log(`[${id}] delete failed — ${data.message}`); return false; }
+    setState(id, 'deleted', 'warnc');
+    log(`[${id}] deleted: ${data.deleted.decks} decks, ${data.deleted.matchups} matchups, ` +
+        `${data.deleted.tournament} tournament row (melee ${data.meleeId})`);
+    return true;
+  } catch (e) { setState(id, 'error', 'bad'); log(`[${id}] error: ${e.message}`); return false; }
+}
+
+async function deleteSequential(ids) {
+  if (ids.length === 0) { statusEl.textContent = 'nothing selected'; return; }
+  const ok = await StyledConfirm(
+    `DELETE ${ids.length} tournament(s)? Decks, matchups and the tournament rows are removed. ` +
+    `Nothing is re-imported — you will need to import them again yourself.`,
+    { title: 'Delete tournaments', danger: true, confirmLabel: 'Delete' });
+  if (!ok) return;
+  setBusy(true);
+  let done = 0, failed = 0;
+  for (const id of ids) {
+    if (stopRequested) { log('stopped by user'); break; }
+    statusEl.textContent = `deleting ${done + 1}/${ids.length} (id ${id})…`;
+    if (!(await deleteOne(id))) failed++;
+    done++;
+  }
+  setBusy(false);
+  statusEl.textContent = `deleted ${done - failed} of ${ids.length}` + (failed ? `, ${failed} failed` : '');
+  log(`--- delete finished: ${done - failed} removed, ${failed} failed ---`);
+  await loadList(audited);
+}
+
 async function runSequential(ids) {
   if (ids.length === 0) { statusEl.textContent = 'nothing selected'; return; }
   const ok = await StyledConfirm(
@@ -531,6 +612,9 @@ document.getElementById('all').addEventListener('change', e => {
 });
 document.getElementById('runAll').addEventListener('click', () => {
   runSequential(rows.map(r => r.tournamentID));
+});
+document.getElementById('delSelected').addEventListener('click', () => {
+  deleteSequential([...document.querySelectorAll('.pick:checked')].map(c => parseInt(c.value, 10)));
 });
 document.getElementById('runSelected').addEventListener('click', () => {
   runSequential([...document.querySelectorAll('.pick:checked')].map(c => parseInt(c.value, 10)));

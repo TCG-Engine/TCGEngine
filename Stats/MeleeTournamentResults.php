@@ -1064,14 +1064,19 @@ if ($tournamentId <= 0) {
                     const tr = document.createElement('tr');
                     if (rate === null) tr.classList.add('thin');
                     if (o.isMirror) tr.classList.add('mirror');
-                    // rate === null renders an em dash: never print a % for a thin sample.
+                    // A mirror is 50% by construction — every mirror match is recorded from
+                    // both sides, contributing one win and one loss to the same archetype — so
+                    // the figure carries no information and is suppressed. This is deliberately
+                    // separate from the thin-sample rule: the mirror keeps its sorted position
+                    // and normal weight rather than being demoted below the divider.
+                    const showRate = (rate === null || o.isMirror) ? '&mdash;' : rate.toFixed(1) + '%';
                     tr.innerHTML =
                         `<td><span class="opp-cell">` +
                             `<span class="opp-imgs">${cardImg(o.leaderUuid, o.leaderName)}${cardImg(o.baseUuid, o.baseLabel)}</span>` +
                             `<span>${escapeHTML(o.leaderName)} / ${escapeHTML(o.baseLabel)}</span>` +
                         `</span></td>` +
                         `<td>${o.matches}</td>` +
-                        `<td>${rate === null ? '&mdash;' : rate.toFixed(1) + '%'}</td>` +
+                        `<td>${showRate}</td>` +
                         `<td>${o.matchWins}-${o.matchLosses}-${o.matchDraws}</td>`;
                     tbody.appendChild(tr);
                 });
