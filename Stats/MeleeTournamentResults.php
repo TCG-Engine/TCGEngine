@@ -270,6 +270,31 @@ if ($tournamentId <= 0) {
             z-index: 5;
             cursor: pointer;
         }
+        .archetype-grid {
+            display: flex; flex-wrap: wrap; gap: 12px;
+        }
+        .archetype-tile {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 8px; min-width: 96px; cursor: pointer;
+            background: var(--surface-raised); border: 1px solid var(--border);
+        }
+        .archetype-tile:hover { box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.35); }
+        .archetype-tile .tile-imgs { display: flex; gap: 4px; }
+        .archetype-tile img { width: 44px; height: 44px; object-fit: cover; border-radius: 4px; }
+        .archetype-tile .tile-meta { margin-top: 6px; font-size: 12px; text-align: center; }
+        .archetype-detail-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+        .archetype-detail-head .tile-imgs { display: flex; gap: 4px; }
+        .archetype-detail-head img { width: 44px; height: 44px; object-fit: cover; border-radius: 4px; }
+        .archetype-back { cursor: pointer; text-decoration: underline; }
+        .archetype-rows { width: 100%; border-collapse: collapse; }
+        .archetype-rows th, .archetype-rows td { padding: 6px 10px; text-align: left; }
+        .archetype-rows tr.thin { opacity: 0.5; }
+        .archetype-rows .opp-cell { display: inline-flex; align-items: center; gap: 8px; vertical-align: middle; }
+        .archetype-rows .opp-imgs { display: flex; gap: 3px; flex: 0 0 auto; }
+        .archetype-rows .opp-imgs img { width: 30px; height: 30px; object-fit: cover; border-radius: 3px; }
+        .archetype-rows tr.mirror td:first-child::after { content: ' (mirror)'; opacity: 0.7; }
+        .archetype-divider td { padding-top: 14px; font-size: 12px; opacity: 0.7; }
+        .archetype-notice { margin: 8px 0; font-size: 13px; opacity: 0.8; }
         .leader-tooltip {
             position: absolute;
             background-color: var(--overlay-scrim);
@@ -443,8 +468,8 @@ if ($tournamentId <= 0) {
     </div>
     <div id="matchup-matrix" class="tab-content">
         <div class="chart-container">
-            <div id="leader-matchups">
-                <!-- Leader matchup matrix will be inserted here -->
+            <div id="archetype-explorer">
+                <!-- Archetype gallery / matchup detail will be inserted here -->
             </div>
         </div>
     </div>
@@ -789,13 +814,14 @@ if ($tournamentId <= 0) {
             const leaderMetaShare = calculateLeaderMetaShare(decks);
             const leaderComboMetaShare = calculateLeaderComboMetaShare(decks);
             const leaderPerformance = calculateLeaderPerformance(decks);
-            const leaderMatchups = calculateLeaderMatchups(decks);
+            const archetypeMatchups = calculateArchetypeMatchups(decks);
+            window.archetypeMatchups = archetypeMatchups;   // read by the harness checks
             
             // Render charts and tables
             renderLeaderMetaChart(leaderMetaShare);
             renderLeaderComboChart(leaderComboMetaShare);
             renderLeaderPerformanceCards(leaderPerformance);
-            renderLeaderMatchupMatrix(leaderMatchups, decks); // Pass decks as parameter
+            renderArchetypeExplorer(archetypeMatchups);
         }
         
         // Calculate leader meta share
@@ -870,7 +896,193 @@ if ($tournamentId <= 0) {
             // Limit to top 10 for readability
             return comboMetaShare.slice(0, 10);
         }
-        
+
+        // ---- Archetype matchup explorer -------------------------------------------------
+        // Archetype identity. MUST stay byte-identical to the key scheme used by
+        // calculateLeaderComboMetaShare(), or the two views disagree about what an
+        // archetype is (notably for decks with no leader UUID, i.e. no-shows).
+        function archetypeIdentity(deck) {
+            const l = (deck && deck.leader) || {};
+            const b = (deck && deck.base) || {};
+            const leaderName = l.name || l.uuid || 'Unknown';
+            const leaderUuid = l.uuid || null;
+            const baseKey = b.groupKey || b.uuid || 'Unknown';
+            return {
+                key: `${leaderUuid || leaderName}||${baseKey}`,
+                leaderName: leaderName,
+                leaderUuid: leaderUuid,
+                baseLabel: b.groupLabel || b.name || b.uuid || 'Unknown',
+                baseUuid: b.groupUuid || b.uuid || null
+            };
+        }
+
+        // Same identity, derived from a matchup's opponent_* fields.
+        function opponentIdentity(matchup) {
+            return archetypeIdentity({
+                leader: matchup.opponent_leader,
+                base: matchup.opponent_base
+            });
+        }
+
+        // One entry per leader/base archetype in this tournament, each carrying its full
+        // opponent list. Unit of measure is MATCHES: a matchup row is one match whose
+        // wins/losses are games within it, so a match is won when wins > losses.
+        function calculateArchetypeMatchups(decks) {
+            const archetypes = {};
+
+            decks.forEach(deck => {
+                const me = archetypeIdentity(deck);
+                if (!archetypes[me.key]) {
+                    archetypes[me.key] = Object.assign({}, me, {
+                        deckCount: 0, totalMatches: 0, opponentMap: {}
+                    });
+                }
+                const a = archetypes[me.key];
+                a.deckCount++;
+
+                (deck.matchups || []).forEach(m => {
+                    const opp = opponentIdentity(m);
+                    if (!a.opponentMap[opp.key]) {
+                        a.opponentMap[opp.key] = Object.assign({}, opp, {
+                            matchWins: 0, matchLosses: 0, matchDraws: 0, matches: 0,
+                            isMirror: opp.key === me.key
+                        });
+                    }
+                    const o = a.opponentMap[opp.key];
+                    // Own perspective ONLY. The old calculateLeaderMatchups() also wrote the
+                    // opponent's side of each pairing, which double-counted every match.
+                    const w = m.wins || 0, l = m.losses || 0;
+                    if (w > l) o.matchWins++;
+                    else if (w < l) o.matchLosses++;
+                    else o.matchDraws++;
+                    o.matches++;
+                    a.totalMatches++;
+                });
+            });
+
+            return Object.keys(archetypes).map(k => {
+                const a = archetypes[k];
+                const opponents = Object.keys(a.opponentMap)
+                    .map(ok => a.opponentMap[ok])
+                    .sort((x, y) => y.matches - x.matches
+                                 || x.leaderName.localeCompare(y.leaderName));
+                delete a.opponentMap;
+                return Object.assign({}, a, { opponents: opponents });
+            }).sort((x, y) => y.deckCount - x.deckCount
+                           || x.leaderName.localeCompare(y.leaderName));
+        }
+
+        // Win rate over MATCHES; draws are shown in the record but excluded here.
+        // Returns null below the display threshold so callers cannot print a percentage
+        // for a sample too thin to support one.
+        const ARCHETYPE_MIN_MATCHES = 4;
+        function archetypeWinRate(opponent) {
+            if (opponent.matches < ARCHETYPE_MIN_MATCHES) return null;
+            const decided = opponent.matchWins + opponent.matchLosses;
+            if (decided === 0) return null;
+            return (opponent.matchWins / decided) * 100;
+        }
+
+        // Two-state view inside the Matchup Matrix tab: a gallery of every archetype, and a
+        // per-archetype matchup list. Detail replaces the gallery in place; no URL state.
+        function renderArchetypeExplorer(archetypes) {
+            const container = document.getElementById('archetype-explorer');
+            const totalDecks = archetypes.reduce((s, a) => s + a.deckCount, 0);
+
+            function cardImg(uuid, alt) {
+                if (!uuid) return '';
+                return `<img src="../SWUDeck/jpg/concat/${uuid}.jpg" alt="${escapeHTML(alt)}" title="${escapeHTML(alt)}"
+                             onerror="this.onerror=null;this.src='../SWUDeck/concat/${uuid}.webp';">`;
+            }
+
+            function renderGallery() {
+                container.innerHTML = '';
+                if (archetypes.length === 0) {
+                    container.innerHTML = '<p>No archetype data available.</p>';
+                    return;
+                }
+                const grid = document.createElement('div');
+                grid.className = 'archetype-grid';
+                archetypes.forEach(a => {
+                    const share = totalDecks ? (a.deckCount / totalDecks * 100).toFixed(1) : '0.0';
+                    const tile = document.createElement('div');
+                    tile.className = 'archetype-tile';
+                    tile.innerHTML =
+                        `<div class="tile-imgs">${cardImg(a.leaderUuid, a.leaderName)}${cardImg(a.baseUuid, a.baseLabel)}</div>` +
+                        `<div class="tile-meta">${share}% (${a.deckCount})</div>`;
+                    tile.title = `${a.leaderName} / ${a.baseLabel}`;
+                    tile.addEventListener('click', () => renderDetail(a));
+                    grid.appendChild(tile);
+                });
+                container.appendChild(grid);
+            }
+
+            function renderDetail(a) {
+                container.innerHTML = '';
+
+                const head = document.createElement('div');
+                head.className = 'archetype-detail-head';
+                head.innerHTML =
+                    `<span class="archetype-back">&larr; All archetypes</span>` +
+                    `<div class="tile-imgs">${cardImg(a.leaderUuid, a.leaderName)}${cardImg(a.baseUuid, a.baseLabel)}</div>` +
+                    `<strong>${escapeHTML(a.leaderName)} / ${escapeHTML(a.baseLabel)}</strong>` +
+                    `<span>${a.deckCount} decks &middot; ${a.totalMatches} matches &middot; ${a.opponents.length} opponents</span>`;
+                head.querySelector('.archetype-back').addEventListener('click', renderGallery);
+                container.appendChild(head);
+
+                if (a.totalMatches === 0) {
+                    const p = document.createElement('p');
+                    p.className = 'archetype-notice';
+                    p.textContent = 'No recorded matches for this archetype.';
+                    container.appendChild(p);
+                    return;
+                }
+
+                const strong = a.opponents.filter(o => o.matches >= ARCHETYPE_MIN_MATCHES);
+                if (strong.length === 0) {
+                    const p = document.createElement('p');
+                    p.className = 'archetype-notice';
+                    p.textContent = `No opponent reaches ${ARCHETYPE_MIN_MATCHES} matches — not enough games for reliable rates.`;
+                    container.appendChild(p);
+                }
+
+                const table = document.createElement('table');
+                table.className = 'archetype-rows';
+                table.innerHTML = '<thead><tr><th>Opponent</th><th>Matches</th><th>Win rate</th><th>Record</th></tr></thead>';
+                const tbody = document.createElement('tbody');
+                let dividerDone = false;
+
+                a.opponents.forEach(o => {
+                    const rate = archetypeWinRate(o);
+                    if (rate === null && !dividerDone) {
+                        dividerDone = true;
+                        const d = document.createElement('tr');
+                        d.className = 'archetype-divider';
+                        d.innerHTML = `<td colspan="4">below ${ARCHETYPE_MIN_MATCHES} matches — win rates not shown</td>`;
+                        tbody.appendChild(d);
+                    }
+                    const tr = document.createElement('tr');
+                    if (rate === null) tr.classList.add('thin');
+                    if (o.isMirror) tr.classList.add('mirror');
+                    // rate === null renders an em dash: never print a % for a thin sample.
+                    tr.innerHTML =
+                        `<td><span class="opp-cell">` +
+                            `<span class="opp-imgs">${cardImg(o.leaderUuid, o.leaderName)}${cardImg(o.baseUuid, o.baseLabel)}</span>` +
+                            `<span>${escapeHTML(o.leaderName)} / ${escapeHTML(o.baseLabel)}</span>` +
+                        `</span></td>` +
+                        `<td>${o.matches}</td>` +
+                        `<td>${rate === null ? '&mdash;' : rate.toFixed(1) + '%'}</td>` +
+                        `<td>${o.matchWins}-${o.matchLosses}-${o.matchDraws}</td>`;
+                    tbody.appendChild(tr);
+                });
+
+                table.appendChild(tbody);
+                container.appendChild(table);
+            }
+
+            renderGallery();
+        }
+
         // Calculate leader performance statistics
         function calculateLeaderPerformance(decks) {
             const leaderStats = {};
@@ -938,87 +1150,6 @@ if ($tournamentId <= 0) {
             return leaderPerformance;
         }
         
-        // Calculate leader vs leader matchup statistics
-        function calculateLeaderMatchups(decks) {
-            const matchupData = {};
-            const leaderList = new Set();
-            
-            // First pass: collect all unique leader names
-            decks.forEach(deck => {
-                if (deck.leader) {
-                    // Use the leader name if available, otherwise fall back to UUID
-                    const leaderName = deck.leader.name || deck.leader.uuid || 'Unknown';
-                    leaderList.add(leaderName);
-                }
-            });
-            
-            // Initialize matchup data structure
-            const leaders = Array.from(leaderList);
-            leaders.forEach(leader1 => {
-                matchupData[leader1] = {};
-                leaders.forEach(leader2 => {
-                    matchupData[leader1][leader2] = {
-                        wins: 0,
-                        losses: 0,
-                        draws: 0,
-                        matches: 0
-                    };
-                });
-            });
-            
-            // Second pass: collect matchup data
-            decks.forEach(deck => {
-                if (!deck.leader || !deck.matchups || deck.matchups.length === 0) {
-                    return;
-                }
-                
-                // Get the leader name for this deck
-                const deckLeaderName = deck.leader.name || deck.leader.uuid || 'Unknown';
-                
-                // Process each matchup
-                deck.matchups.forEach(matchup => {
-                    // Skip if opponent leader info is missing
-                    if (!matchup.opponent_leader) {
-                        return;
-                    }
-                    
-                    // Get the leader name for the opponent
-                    const opponentLeaderName = matchup.opponent_leader.name || matchup.opponent_leader.uuid || 'Unknown';
-                    
-                    // Skip if any leader name is missing
-                    if (!deckLeaderName || !opponentLeaderName) {
-                        return;
-                    }
-                    
-                    // Record matchup result
-                    if (matchup.wins > matchup.losses) {
-                        // This deck won against opponent
-                        matchupData[deckLeaderName][opponentLeaderName].wins++;
-                        // Update the mirror data for opponent's perspective
-                        matchupData[opponentLeaderName][deckLeaderName].losses++;
-                    } else if (matchup.wins < matchup.losses) {
-                        // This deck lost to opponent
-                        matchupData[deckLeaderName][opponentLeaderName].losses++;
-                        // Update the mirror data for opponent's perspective
-                        matchupData[opponentLeaderName][deckLeaderName].wins++;
-                    } else {
-                        // This was a draw
-                        matchupData[deckLeaderName][opponentLeaderName].draws++;
-                        // Update the mirror data for opponent's perspective
-                        matchupData[opponentLeaderName][deckLeaderName].draws++;
-                    }
-                    
-                    // Increment match count for both perspectives
-                    matchupData[deckLeaderName][opponentLeaderName].matches++;
-                    matchupData[opponentLeaderName][deckLeaderName].matches++;
-                });
-            });
-            
-            return {
-                matchupData,
-                leaders
-            };
-        }
         
         // Render leader meta share chart
         function renderLeaderMetaChart(leaderMetaShare) {
@@ -1316,212 +1447,6 @@ if ($tournamentId <= 0) {
             }
         }
         
-        // Render leader matchup matrix
-        function renderLeaderMatchupMatrix(matchupData, decks) {
-            const container = document.getElementById('leader-matchups');
-            container.innerHTML = '';
-            
-            // Extract data
-            const { matchupData: data, leaders } = matchupData;
-            
-            // Store leader UUID mapping
-            const leaderUUIDs = {};
-            
-            // Create a mapping of leader names to their UUIDs
-            decks.forEach(deck => {
-                if (deck.leader && deck.leader.uuid && deck.leader.name) {
-                    leaderUUIDs[deck.leader.name] = deck.leader.uuid;
-                }
-            });
-            
-            // Only show leaders with significant data (more than 3 matches)
-            const significantLeaders = leaders.filter(leader => {
-                const totalMatches = leaders.reduce((sum, opponent) => {
-                    return sum + (data[leader][opponent]?.matches || 0);
-                }, 0);
-                return totalMatches >= 3;
-            });
-            
-            // If we don't have enough data, show a message
-            if (significantLeaders.length < 2) {
-                container.innerHTML = '<p>Not enough matchup data available for analysis.</p>';
-                return;
-            }
-            
-            // Create tooltip container (will be reused for all leader images)
-            const tooltip = document.createElement('div');
-            tooltip.classList.add('leader-tooltip');
-            document.body.appendChild(tooltip);
-            
-            // Create matchup matrix table
-            const table = document.createElement('table');
-            table.classList.add('matchup-table');
-            
-            // Create header row
-            const headerRow = document.createElement('tr');
-            headerRow.appendChild(document.createElement('th')); // Empty corner cell
-            
-            significantLeaders.forEach(leader => {
-                const th = document.createElement('th');
-                
-                const uuid = leaderUUIDs[leader];
-                if (uuid) {
-                    // Use the UUID to create an image element
-                    const img = document.createElement('img');
-                    img.classList.add('leader-img');
-                    img.src = `../SWUDeck/concat/${uuid}.webp`;
-                    img.alt = leader;
-                    img.title = leader;
-                    
-                    // Add hover events for the tooltip
-                    img.addEventListener('mouseenter', (e) => {
-                        tooltip.innerHTML = `
-                            <img src="../SWUDeck/concat/${uuid}.webp" alt="${leader}">
-                            <h4>${leader}</h4>
-                        `;
-                        tooltip.style.display = 'block';
-                        updateTooltipPosition(e);
-                    });
-                    
-                    img.addEventListener('mousemove', updateTooltipPosition);
-                    
-                    img.addEventListener('mouseleave', () => {
-                        tooltip.style.display = 'none';
-                    });
-                    
-                    th.appendChild(img);
-                } else {
-                    // Fallback to text if no UUID is available
-                    th.textContent = leader;
-                }
-                
-                headerRow.appendChild(th);
-            });
-            
-            table.appendChild(headerRow);
-            
-            // Create data rows
-            significantLeaders.forEach(rowLeader => {
-                const row = document.createElement('tr');
-                
-                // Row header (leader image)
-                const rowHeader = document.createElement('th');
-                const uuid = leaderUUIDs[rowLeader];
-                
-                if (uuid) {
-                    // Use the UUID to create an image element
-                    const img = document.createElement('img');
-                    img.classList.add('leader-img');
-                    img.src = `../SWUDeck/concat/${uuid}.webp`;
-                    img.alt = rowLeader;
-                    img.title = rowLeader;
-                    
-                    // Add hover events for the tooltip
-                    img.addEventListener('mouseenter', (e) => {
-                        tooltip.innerHTML = `
-                            <img src="../SWUDeck/concat/${uuid}.webp" alt="${rowLeader}">
-                            <h4>${rowLeader}</h4>
-                        `;
-                        tooltip.style.display = 'block';
-                        updateTooltipPosition(e);
-                    });
-                    
-                    img.addEventListener('mousemove', updateTooltipPosition);
-                    
-                    img.addEventListener('mouseleave', () => {
-                        tooltip.style.display = 'none';
-                    });
-                    
-                    rowHeader.appendChild(img);
-                } else {
-                    // Fallback to text if no UUID is available
-                    rowHeader.textContent = rowLeader;
-                }
-                
-                row.appendChild(rowHeader);
-                
-                // Matchup cells
-                significantLeaders.forEach(colLeader => {
-                    const td = document.createElement('td');
-                    
-                    if (rowLeader === colLeader) {
-                        // Mirror matchup, show only the actual mirror matches
-                        const mirrorMatchup = data[rowLeader][colLeader];
-                        const mirrorMatches = mirrorMatchup ? Math.ceil(mirrorMatchup.matches / 2) : 0;
-                        
-                        td.innerHTML = `<div class="matchup-cell matchup-na">Mirror<br>${mirrorMatches} matches</div>`;
-                    } else {
-                        // Regular matchup
-                        const matchup = data[rowLeader][colLeader];
-                        
-                        if (matchup && matchup.matches > 0) {
-                            // Calculate win rate based only on wins and losses (ignore draws)
-                            const totalDecisiveGames = matchup.wins + matchup.losses;
-                            const winRate = totalDecisiveGames > 0 
-                                ? ((matchup.wins / totalDecisiveGames) * 100).toFixed(0) 
-                                : '50';
-                                
-                            // Determine cell class based on win rate
-                            let cellClass = 'matchup-even';
-                            if (winRate > 55) cellClass = 'matchup-win';
-                            if (winRate < 45) cellClass = 'matchup-loss';
-                            
-                            td.innerHTML = `
-                                <div class="matchup-cell ${cellClass}">
-                                    ${winRate}%<br>
-                                    <small>${matchup.wins}-${matchup.losses}</small>
-                                </div>
-                            `;
-                        } else {
-                            td.innerHTML = `<div class="matchup-cell matchup-na">N/A</div>`;
-                        }
-                    }
-                    
-                    row.appendChild(td);
-                });
-                
-                table.appendChild(row);
-            });
-            
-            container.appendChild(table);
-            
-            // Function to update tooltip position
-            function updateTooltipPosition(e) {
-                // Position tooltip relative to mouse cursor
-                const x = e.pageX;
-                const y = e.pageY;
-                
-                // Get viewport dimensions
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                
-                // Get tooltip dimensions
-                const tooltipWidth = tooltip.offsetWidth;
-                const tooltipHeight = tooltip.offsetHeight;
-                
-                // Default position
-                let posX = x + 15;
-                let posY = y + 15;
-                
-                // Check if tooltip would go off-screen to the right
-                if (posX + tooltipWidth > viewportWidth) {
-                    posX = x - tooltipWidth - 15;
-                }
-                
-                // Check if tooltip would go off-screen at the bottom
-                if (posY + tooltipHeight > viewportHeight) {
-                    posY = y - tooltipHeight - 15;
-                }
-                
-                // Ensure tooltip doesn't go off-screen to the left or top
-                posX = Math.max(10, posX);
-                posY = Math.max(10, posY);
-                
-                // Apply the position
-                tooltip.style.left = `${posX}px`;
-                tooltip.style.top = `${posY}px`;
-            }
-        }
         
         // Load tournament data on page load
         document.addEventListener('DOMContentLoaded', fetchTournamentData);
