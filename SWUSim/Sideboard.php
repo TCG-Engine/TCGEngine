@@ -132,7 +132,7 @@ function ensureSbPreview(){
   return sbPreview;
 }
 function showSbPreview(id, ev){
-  var p=ensureSbPreview(); p.src='./concat/'+id+'.webp'; p.style.display='block'; positionSbPreview(ev);
+  var p=ensureSbPreview(); p.src='./WebpImages/'+id+'.webp'; p.style.display='block'; positionSbPreview(ev);
 }
 function positionSbPreview(ev){
   if(!sbPreview || sbPreview.style.display!=='block') return;
