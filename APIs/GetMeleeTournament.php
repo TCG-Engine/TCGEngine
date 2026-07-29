@@ -20,6 +20,11 @@ require_once "../SWUDeck/Custom/CardIdentifiers.php"; // Include the card identi
 // Load the card dictionaries for name lookups
 include_once "../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
 
+// Shared common-base bucketing registry — the same source of truth Stats/Decks.php uses.
+// Must come after the card dictionaries: ResolveOpponentBase()'s fallback path calls
+// CardAspect()/CardTitle() for bases that are not in its static lists.
+require_once "../Core/StatsBaseRegistry.php";
+
 // Function to get card name from UUID
 function getCardNameFromUUID($uuid) {
     global $titleData, $subtitleData;
@@ -81,7 +86,8 @@ $tournament = mysqli_fetch_assoc($tournamentResult);
 mysqli_stmt_close($tournamentStmt);
 
 // Fetch all decks in this tournament
-$decksSql = "SELECT * FROM meleetournamentdeck WHERE tournamentID = ? ORDER BY rank ASC, points DESC";
+// `rank` is a reserved word in MySQL 8+/9 (unreserved on MariaDB) — must be backticked.
+$decksSql = "SELECT * FROM meleetournamentdeck WHERE tournamentID = ? ORDER BY `rank` ASC, points DESC";
 $decksStmt = mysqli_prepare($conn, $decksSql);
 mysqli_stmt_bind_param($decksStmt, "i", $tournamentId);
 mysqli_stmt_execute($decksStmt);
@@ -100,6 +106,25 @@ while ($deck = mysqli_fetch_assoc($decksResult)) {
     $totalGames = $deck['gameWins'] + $deck['gameLosses'] + $deck['gameDraws'];
     $gameWinRate = $totalGames > 0 ? round(($deck['gameWins'] / $totalGames) * 100, 2) : 0;
     
+    // Read-time common-base consolidation. Commons (30HP / Force / Splash) collapse to a
+    // per-(type,color) bucket; rares and unresolvable GUIDs stay individual, in which case
+    // groupKey == uuid and groupLabel == name so the client needs no special case.
+    $baseId = $deck['base'];
+    $baseName = getCardNameFromUUID($baseId);
+    if ($baseId === null || $baseId === '') {
+        $baseGroupKey = null;
+        $baseGroupLabel = null;
+        $baseGroupUuid = null;
+    } else {
+        $baseBucket = StatsBaseBucket($baseId);
+        $baseResolved = ResolveOpponentBase($baseId);
+        $baseGroupKey = $baseBucket['key'];
+        $baseGroupUuid = $baseBucket['displayBase'];
+        $baseGroupLabel = ($baseResolved && $baseResolved['kind'] === 'common')
+            ? BaseGroupDisplayLabel($baseResolved['type'], $baseResolved['color'])
+            : $baseName;
+    }
+
     // Format deck data
     $deckData = [
         "id" => (int)$deck['deckID'],
@@ -110,8 +135,11 @@ while ($deck = mysqli_fetch_assoc($decksResult)) {
             "name" => getCardNameFromUUID($deck['leader'])
         ],
         "base" => [
-            "uuid" => $deck['base'],
-            "name" => getCardNameFromUUID($deck['base'])
+            "uuid" => $baseId,
+            "name" => $baseName,
+            "groupKey" => $baseGroupKey,
+            "groupLabel" => $baseGroupLabel,
+            "groupUuid" => $baseGroupUuid
         ],
         "rank" => (int)$deck['rank'],
         "standings" => [
