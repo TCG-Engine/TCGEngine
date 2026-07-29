@@ -33,7 +33,10 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
     }
     $checkStmt->close();
 
-    $targetLength = 1000;
+    // Hard cap on imported standings rows. Raised 1000 -> 2000 because the 2026 GC Last
+    // Chance Qualifier (melee 403891) has 1485 players and was being silently truncated to
+    // its top 1000. Each row costs one extra decklist HTTP fetch, so this is not unbounded.
+    $targetLength = 2000;
     $incrementLength = 500;
     $batch = 0;
     $fetchedCount = 0;
@@ -294,9 +297,13 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
     }
 
     foreach ($deckListIdArray as $decklistId) {
-      // Perform any additional operations on each decklist ID
-      //$decksCount++;
-      //if($decksCount > 10) continue;
+      // A standings row with no decklist ID means the player never submitted a list —
+      // a no-show / DQ. That is expected data, not a failure, so skip it without spending
+      // a request (this is also what used to produce json_decode(null) deprecations).
+      if ($decklistId === null || $decklistId === '') {
+        continue;
+      }
+
       $decklistUrl = "https://melee.gg/Decklist/GetTournamentViewData/".$decklistId;
 
       $decklistOptions = [
@@ -306,13 +313,31 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
           ],
       ];
       $decklistContext = stream_context_create($decklistOptions);
-      $decklistResponse = file_get_contents($decklistUrl, false, $decklistContext);
+
+      // Retry once. A large event makes one sequential request per deck (1485 for the 2026
+      // GC LCQ) and melee intermittently drops one; with no retry that deck was silently
+      // lost. @-suppressed because a failed fetch is handled below, not warned about.
+      $decklistResponse = @file_get_contents($decklistUrl, false, $decklistContext);
       if ($decklistResponse === FALSE) {
-        echo "Error occurred while fetching the decklist.<br>";
-        echo "Decklist URL: <a href=\"$decklistUrl\" target=\"_blank\">$decklistUrl</a><br>";
+        $decklistResponse = @file_get_contents($decklistUrl, false, $decklistContext);
+      }
+
+      // Unwrap defensively: melee answers with {"Json": null} for a decklist that exists as
+      // an ID but has no submitted body, so neither decode may be assumed to yield an array.
+      $decklistOuter = ($decklistResponse === FALSE) ? null : json_decode($decklistResponse, true);
+      $decklistBody = (is_array($decklistOuter) && isset($decklistOuter["Json"]) && is_string($decklistOuter["Json"]))
+          ? json_decode($decklistOuter["Json"], true)
+          : null;
+
+      if (!is_array($decklistBody)) {
+        // Reported as 'type', NOT 'error': a no-show must not mark the whole import failed.
+        if ($progressCallback) $progressCallback([
+            'type' => 'decklist_skipped',
+            'decklistId' => $decklistId,
+            'reason' => ($decklistResponse === FALSE) ? 'fetch failed after retry' : 'no decklist body',
+        ]);
       } else {
-        $decklistjsonResponse = json_decode($decklistResponse, true);
-        $decklistjsonResponse = json_decode($decklistjsonResponse["Json"], true);
+        $decklistjsonResponse = $decklistBody;
         $playerName = $decklistjsonResponse["Team"]["Username"] ?? 'Unknown Player';
         
         // Extract leader and base information from the decklist

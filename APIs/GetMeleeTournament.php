@@ -191,6 +191,7 @@ if ($includeMatchups) {
             $opponentIdx = $deckIds[$opponentId];
             $opponentName = $decks[$opponentIdx]['player'];
             $opponentLeader = $decks[$opponentIdx]['leader'];
+            $opponentBase = $decks[$opponentIdx]['base'];
             
             // Add the matchup data to the player's deck
             $decks[$playerIdx]['matchups'][] = [
@@ -199,6 +200,15 @@ if ($includeMatchups) {
                 "opponent_leader" => [
                     "uuid" => $opponentLeader['uuid'],
                     "name" => $opponentLeader['name']
+                ],
+                // Mirrors the opponent deck's own bucketed base, so matchup aggregation can
+                // key on leader+base archetypes without a second lookup.
+                "opponent_base" => [
+                    "uuid" => $opponentBase['uuid'],
+                    "name" => $opponentBase['name'],
+                    "groupKey" => $opponentBase['groupKey'],
+                    "groupLabel" => $opponentBase['groupLabel'],
+                    "groupUuid" => $opponentBase['groupUuid']
                 ],
                 "wins" => (int)$matchup['wins'],
                 "losses" => (int)$matchup['losses'],
