@@ -7,7 +7,12 @@
 // in SWUCollectLeavePlayReactions.)
 $whenPlayedAbilities["SEC_051:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
+    // Apply -3/-3 to EVERY enemy unit simultaneously (defer the per-unit defeat check), THEN resolve
+    // state-based defeats once. Otherwise the first unit killed by the debuff is removed mid-loop and
+    // shifts the remaining captured mzIDs, leaving later enemy units undebuffed (and its defeat reaction
+    // would interrupt the resolution) — the reported bug.
     foreach (SWUAllUnits('their') as $mz) {
-        SWUApplyPhaseDebuff($mz, 3, 3, 'SEC_051');
+        SWUApplyPhaseDebuff($mz, 3, 3, 'SEC_051', true);
     }
+    SWUCheckShrinkDefeats();
 };

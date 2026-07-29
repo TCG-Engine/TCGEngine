@@ -1858,13 +1858,18 @@ function SWUEnemySnokeCount($obj): int {
 // state-based defeat check: a shrink lowers HP directly (it is NOT damage, so shields
 // do not prevent it), and a unit reduced to 0 remaining HP is defeated.
 // Caller must have $playerID set so the relative $mzID resolves to the right arena.
-function SWUApplyPhaseDebuff(string $mzID, int $power, int $hp, string $source = ''): void {
+// $deferDefeatCheck: when applying a defeating debuff to MULTIPLE units in a loop, pass true so the
+// per-unit state-based defeat check is skipped — a mid-loop defeat removes its unit and shifts the other
+// units' mzIDs, which would leave later units in the loop undebuffed (and any defeat/heal reaction would
+// interrupt the resolution). The caller runs SWUCheckShrinkDefeats() ONCE after applying to every unit,
+// matching the rules (all "give each enemy -X/-X" reductions apply simultaneously, then defeats resolve).
+function SWUApplyPhaseDebuff(string $mzID, int $power, int $hp, string $source = '', bool $deferDefeatCheck = false): void {
     global $turnEffectRegistry;
     // "{source}-{power}-{hp}" (registry kind STAT_DEBUFF, phase). CardID base for provenance when
     // registered; synthetic 'SWUDEBUFF' fallback otherwise. params are amounts to SUBTRACT.
     $base = ($source !== '' && isset($turnEffectRegistry[$source])) ? $source : 'SWUDEBUFF';
     AddTurnEffect($mzID, _SWUStackingStatToken($mzID, "{$base}-{$power}-{$hp}"));
-    SWUCheckShrinkDefeats();
+    if (!$deferDefeatCheck) SWUCheckShrinkDefeats();
 }
 
 // SOR_004 Chirrut Îmwe (deployed): "During the action phase, this unit isn't defeated by having
