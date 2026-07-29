@@ -267,17 +267,9 @@ class GameTestAdapter {
 
     /** Restore all globals from a builder snapshot and reset the accessor. */
     public function loadState(GameStateBuilder $state): void {
-        // Route the undo-stack file to a fast container-local dir (NOT the bind-mounted repo Games/) so the
-        // per-action append doesn't dominate the suite runtime. Set before _applyToGlobals so any snapshot
-        // taken during setup already uses it.
-        $undoDir = sys_get_temp_dir() . '/swu_undo_test';
-        if (!is_dir($undoDir)) @mkdir($undoDir, 0777, true);
-        $GLOBALS['SWU_UNDO_DIR'] = $undoDir;
-
         $state->_applyToGlobals();
-        // Start each test with a clean undo stack + top (they always move together).
+        // Start each test with a clean undo stack (now player 1's Versions zone, part of the gamestate).
         if (function_exists('UndoStackClear')) UndoStackClear();
-        if (function_exists('SetSWUVar')) SetSWUVar('UNDO_TOP', '-1');
         $this->state = new GameStateAccessor();
     }
 

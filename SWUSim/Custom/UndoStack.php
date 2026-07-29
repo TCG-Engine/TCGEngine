@@ -1,74 +1,61 @@
 <?php
-// Per-game append-only undo stack (SWUSim undo redesign).
+// Per-game multi-step undo stack (SWUSim undo redesign).
 //
-// Stored OUTSIDE the live Gamestate.txt (in Games/<gameName>/UndoStack.txt) so the per-action hot
-// path stays lean under whole-game / unlimited retention — the growing history is only read when an
-// undo actually happens. One line = one snapshot entry; the LINE INDEX is the entry's ordinal.
-// Record layout (see PushUndoSnapshot): "{seat}\t{phase}\t{boundary}\t{revealedInfo}\t{base64(payload)}".
-// The payload is base64, so every record is exactly one newline-free line.
+// Stored INSIDE the serialized gamestate via player 1's Versions zone (GetVersions(1)):
+//   • WriteGamestate serializes the Versions zones, so the whole undo history rides inside Gamestate.txt
+//     — and therefore inside any bug report that captures the gamestate (the manager's intake + loader
+//     get the undo states for free; loading the gamestate restores them, and in-game Undo can step back
+//     to last round / begin game).
+//   • GetSerializedZones (the per-snapshot undo PAYLOAD) EXCLUDES the Versions zone, so snapshots never
+//     recursively nest (that recursion is why the stack briefly lived in a separate file).
+//   • The client render path (GetNextTurn) iterates GetVersions(1) but emits only entry separators, never
+//     the payload contents, so no hidden info (opponent hands/decks inside a snapshot) leaks to a client.
+// One Versions entry = one snapshot; the array index = the entry's ordinal.
+// Record layout (see PushUndoSnapshot / UndoRecordBuild):
+//   "{seat}\t{phase}\t{boundary}\t{revealedInfo}\t{base64(name)}\t{base64(payload)}"  (one newline-free line)
 
-function UndoStackPath(): string {
-    // Production: co-located with the game's other files. Tests set $GLOBALS['SWU_UNDO_DIR'] to a fast
-    // container-local dir so the per-action append doesn't cross the slow macOS->container bind mount
-    // (~3x whole-suite slowdown otherwise). Prod never sets it, so behavior there is unchanged.
-    $base = $GLOBALS['SWU_UNDO_DIR'] ?? ('./Games/' . ($GLOBALS['gameName'] ?? ''));
-    return rtrim($base, '/') . '/UndoStack.txt';
+// The full undo record is stored as the entry's ->Version. A fixed "0:" DisplayNumber prefix makes the
+// Versions constructor parse cleanly (the record itself contains no ':' before its first tab), and it
+// round-trips through WriteGamestate/ParseGamestate as an ordinary Versions line.
+function UndoStackAppend(string $line): void {
+    $z = &GetVersions(1);
+    $z[] = new Versions('0:' . $line, 'Versions', 1, count($z));
 }
 
 function UndoStackCount(): int {
-    $p = UndoStackPath();
-    if (!is_file($p)) return 0;
-    $lines = file($p, FILE_IGNORE_NEW_LINES);
-    return $lines === false ? 0 : count($lines);
-}
-
-// Append one entry line — O(1) (no whole-file count). The caller owns the ordinal (PushUndoSnapshot
-// derives it from UNDO_TOP), so appends stay cheap even when the whole-game stack is large. Ensures the
-// game dir exists first.
-function UndoStackAppend(string $line): void {
-    $p = UndoStackPath();
-    $dir = dirname($p);
-    if (!is_dir($dir)) @mkdir($dir, 0777, true);
-    file_put_contents($p, $line . "\n", FILE_APPEND);
+    $z = &GetVersions(1);
+    $n = 0;
+    foreach ($z as $e) { if ($e !== null && empty($e->removed)) $n++; }
+    return $n;
 }
 
 function UndoStackRead(int $ordinal): ?string {
     if ($ordinal < 0) return null;
-    $p = UndoStackPath();
-    if (!is_file($p)) return null;
-    $lines = file($p, FILE_IGNORE_NEW_LINES);
-    if ($lines === false || $ordinal >= count($lines)) return null;
-    return $lines[$ordinal];
+    $z = &GetVersions(1);
+    return (isset($z[$ordinal]) && $z[$ordinal] !== null) ? (string)$z[$ordinal]->Version : null;
 }
 
 // Overwrite the record at $ordinal (used by UndoStackSetRevealed). No-op if out of range.
 function UndoStackWrite(int $ordinal, string $line): void {
-    $p = UndoStackPath();
-    if (!is_file($p)) return;
-    $lines = file($p, FILE_IGNORE_NEW_LINES);
-    if ($lines === false || $ordinal < 0 || $ordinal >= count($lines)) return;
-    $lines[$ordinal] = $line;
-    file_put_contents($p, implode("\n", $lines) . "\n");
+    $z = &GetVersions(1);
+    if (isset($z[$ordinal]) && $z[$ordinal] !== null) $z[$ordinal]->Version = $line;
 }
 
-// Keep entries 0..$ordinal (drop everything above) so the file matches the restored state after undo.
+// Keep entries 0..$ordinal (drop everything above) so the stack matches the restored state after undo.
 function UndoStackTruncateTo(int $ordinal): void {
-    $p = UndoStackPath();
-    if (!is_file($p)) return;
-    $lines = file($p, FILE_IGNORE_NEW_LINES);
-    if ($lines === false) return;
-    $kept = array_slice($lines, 0, max(0, $ordinal + 1));
-    file_put_contents($p, $kept ? implode("\n", $kept) . "\n" : '');
+    $z = &GetVersions(1);
+    if ($ordinal < 0) { $z = []; return; }
+    array_splice($z, $ordinal + 1);
 }
 
 function UndoStackClear(): void {
-    $p = UndoStackPath();
-    if (is_file($p)) @unlink($p);
+    $z = &GetVersions(1);
+    $z = [];
 }
 
 // ── Record schema ─────────────────────────────────────────────────────────────
 // "{seat}\t{phase}\t{boundary}\t{revealedInfo}\t{base64(name)}\t{base64(payload)}"
-// name + payload are base64 so a record is exactly one newline/tab-free-in-the-payload line.
+// name + payload are base64 so a record is exactly one newline-free, colon-free-until-first-tab line.
 
 function UndoRecordBuild(int $seat, string $phase, string $boundary, int $revealed, string $name, string $payload): string {
     return implode("\t", [$seat, $phase, $boundary, $revealed ? '1' : '0', base64_encode($name), base64_encode($payload)]);

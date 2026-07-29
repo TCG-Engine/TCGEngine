@@ -13820,11 +13820,11 @@ function SWUComputePilotPlayableHand(int $player): array {
 //   'condition'    => callable($player) that returns true if the option should be offered
 $additionalActivationCosts = [];
 
-// Append a full-state snapshot to the per-game undo-stack FILE (whole-game, multi-step undo) with
-// metadata (acting seat, phase, boundary, revealed-info). Replaces the old single-slot
-// SaveUndoVersion (which cleared myVersions each action). The live Gamestate.txt no longer carries
-// the undo history — only UNDO_TOP (the top ordinal) — so the per-action hot path stays lean.
-// $boundary: 'action' (default) | 'phase-boundary' | 'pregame-step'.
+// Append a full-state snapshot to the whole-game, multi-step undo stack (player 1's Versions zone) with
+// metadata (acting seat, phase, boundary, revealed-info). The stack IS serialized in the gamestate (the
+// Versions zones ride in Gamestate.txt), so the undo history is captured by any bug report and restored
+// by loading the gamestate — while GetSerializedZones (the snapshot payload) excludes the Versions zone,
+// so snapshots never recursively nest. $boundary: 'action' (default) | 'resource' | 'pregame-step'.
 function PushUndoSnapshot($actingSeat, $boundary = 'action', $name = '') {
     global $playerID, $gRandomCounter, $gCurrentPhase;
     $savedPlayerID = $playerID;
@@ -13849,9 +13849,7 @@ function PushUndoSnapshot($actingSeat, $boundary = 'action', $name = '') {
 
     $payload = Versions::GetSerializedZones() . '<v0>' . $gRandomCounter;
     $record  = UndoRecordBuild($seat, (string)($gCurrentPhase ?? ''), (string)$boundary, 0, (string)$name, $payload);
-    $ordinal = UndoTop() + 1;          // O(1) — the file+UNDO_TOP are always advanced together
-    UndoStackAppend($record);
-    SetSWUVar('UNDO_TOP', (string)$ordinal);
+    UndoStackAppend($record);          // ordinal is implicit (the array index); UndoTop() derives from the count
 
     $playerID = $savedPlayerID;
 }
@@ -13861,36 +13859,30 @@ function SaveUndoVersion($targetPlayerID, $name = "") {
     PushUndoSnapshot($targetPlayerID, 'action', $name);
 }
 
-// Current top ordinal of the undo stack (-1 if none). Source of truth is the serialized SWUVar.
+// Current top ordinal of the undo stack (-1 if empty). Derived from the stack itself (the Versions zone),
+// so it is always consistent and needs no separate serialized counter — the stack rides in the gamestate.
 function UndoTop() {
-    return intval(GetSWUVar('UNDO_TOP', '-1'));
+    return UndoStackCount() - 1;
 }
 
-// Restore the game to the exact state stored in undo-stack entry $restoreOrdinal, then POP it: the
-// next undo targets the entry below (new top = $restoreOrdinal - 1). Reuses the (untouched, generated)
-// LoadVersion by feeding the stored payload through a throwaway version slot — so the 700-line restore
-// body is not duplicated or forked. Returns false if $restoreOrdinal is out of range.
+// Restore the game to the exact state stored in undo-stack entry $restoreOrdinal, then POP it: the next
+// undo targets the entry below (new top = $restoreOrdinal - 1). The stack lives in player 1's Versions
+// zone; to restore, append the stored payload as a TEMPORARY slot at the end, LoadVersion from it (reusing
+// the untouched generated 700-line restore body), then array_splice away the temp slot AND everything at/
+// above $restoreOrdinal in one step. LoadVersion never touches the Versions zone (the payload excludes it),
+// so the rest of the stack survives the restore. Returns false if $restoreOrdinal is out of range.
 function LoadUndoSnapshot($restoreOrdinal) {
     $restoreOrdinal = intval($restoreOrdinal);
     $line = UndoStackRead($restoreOrdinal);
     if ($line === null) return false;
     $rec = UndoRecordParse($line);
-    $seat = intval($rec['seat']) ?: 1;
 
-    // Hard-empty the throwaway Versions scratch zone (a plain [] reset — MZClearZone only flags entries
-    // ->Remove() without shrinking the array, so slot 0 would stick to the FIRST-ever payload and every
-    // later undo in the same process would re-load THAT instead of the one just added). Versions is not in
-    // GetSerializedZones, so it never rides inside a payload — this scratch slot is purely local.
-    $vzone = &GetVersions($seat); $vzone = [];
-    AddVersions($seat, '0:' . $rec['payload']);   // .Version = payload ('0:' DisplayNumber stripped, no name)
-    LoadVersion($seat, 0);
-    $vzone2 = &GetVersions($seat); $vzone2 = [];
-
-    // Pop the restored snapshot. UNDO_TOP is written AFTER LoadVersion (which restored the snapshot-era
-    // $gDecisionQueueVariables) so it reflects the popped position, not the stale snapshot value.
-    $newTop = $restoreOrdinal - 1;
-    UndoStackTruncateTo($newTop);
-    SetSWUVar('UNDO_TOP', (string)$newTop);
+    $z = &GetVersions(1);
+    $tmpIdx = count($z);
+    $z[] = new Versions('0:' . $rec['payload'], 'Versions', 1, $tmpIdx);   // payload = raw GetSerializedZones blob
+    LoadVersion(1, $tmpIdx);
+    $z = &GetVersions(1);                    // re-grab post-restore (defensive; LoadVersion leaves Versions alone)
+    array_splice($z, $restoreOrdinal);       // drop the temp slot AND pop entries restoreOrdinal..top
     return true;
 }
 
