@@ -72,7 +72,7 @@ function MatchWithLock($rootName, $matchId, callable $fn) {
     return $match;
 }
 
-function MatchCreate($rootName, $format, $queueType, $players) {
+function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = false) {
     $qt = MatchGetQueueType($queueType);
     $bestOf = $qt ? intval($qt['bestOf']) : 1;
     $winsNeeded = intval(floor($bestOf / 2)) + 1;
@@ -95,6 +95,7 @@ function MatchCreate($rootName, $format, $queueType, $players) {
         'rootName'          => strval($rootName),
         'format'            => strval($format),
         'queueType'         => strval($queueType),
+        'isPrivate'         => (bool)$isPrivate,   // private lobbies get no forced sideboard timer
         'bestOf'            => $bestOf,
         'winsNeeded'        => $winsNeeded,
         'players'           => $matchPlayers,
@@ -177,7 +178,13 @@ function MatchBeginSideboarding($rootName, $matchId, $loserSeat) {
             '1' => ['ready' => false, 'deck' => null],
             '2' => ['ready' => false, 'deck' => null],
         ];
-        $m['sideboardDeadline'] = time() + $seconds;
+        // Private matches have NO forced sideboard timer — leaving the deadline unset makes
+        // MatchSideboardTimeoutCheck (which treats an absent deadline as PHP_INT_MAX) never fire, so
+        // players take as long as they want. Public/queued matches keep the shared countdown.
+        unset($m['sideboardDeadline']);
+        if (empty($m['isPrivate'])) {
+            $m['sideboardDeadline'] = time() + $seconds;
+        }
     });
 }
 function MatchSideboardSeatReady(array $m, $seat) {

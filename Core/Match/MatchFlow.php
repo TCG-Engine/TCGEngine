@@ -112,7 +112,7 @@ function MatchCreateFromLobby($rootName, $lobby) {
         if (empty($wrapper)) return null; // every present seat must have resolved
     }
 
-    $matchId = MatchCreate($rootName, $format, $queueType, $resolved);
+    $matchId = MatchCreate($rootName, $format, $queueType, $resolved, !empty($lobby->isPrivate));
 
     // Spawn game 1 from the real lobby, injecting the already-resolved decks. matchId/gameNumber are
     // offered so a sim's setupGame MAY stamp them into the gamestate for its own client match-detection
@@ -249,7 +249,7 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
     $newId = MatchCreate($rootName, strval($m['format'] ?? ''), $queueType, [
         1 => ['originalDeck' => $m['players']['1']['originalDeck'] ?? [], 'authKey' => $m['players']['1']['authKey'] ?? ''],
         2 => ['originalDeck' => $m['players']['2']['originalDeck'] ?? [], 'authKey' => $m['players']['2']['authKey'] ?? ''],
-    ]);
+    ], !empty($m['isPrivate']));   // a private match rematches private (no forced sideboard timer)
     MatchWithLock($rootName, $oldMatchId, function (&$mm) { unset($mm['rematchRequests']); }); // fire once
 
     $oldGame = !empty($m['games']) ? $m['games'][count($m['games'])-1]['gameName'] : '';
