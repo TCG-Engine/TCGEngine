@@ -10,6 +10,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="./Core/AppSettings.js"></script>
+    <script src="./Core/CardMotion.js?v=<?php echo filemtime('./Core/CardMotion.js'); ?>"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
@@ -935,6 +936,11 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       }
 
       function ApplySingleFrameAnimation(animation, perspectivePlayerID) {
+        var semanticType = String(animation && animation.type || "").toUpperCase();
+        if (semanticType === "ZONE_MOVE") return 0;
+        if (semanticType === "CARD_LUNGE" && window.TCGCardMotion) {
+          return window.TCGCardMotion.playLunge(animation, perspectivePlayerID);
+        }
         var element = ResolveAnimationTargetElement(animation, perspectivePlayerID);
         if (!element) return 0;
 
@@ -1045,8 +1051,12 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             // Shield breaks fire simultaneously: exempt from the same-target stagger so multiple
             // shields stripped (e.g. by Saboteur) all play at once and the break isn't pushed
             // behind the prevented-damage "-0" on the same unit.
-            var isShieldBreak = String(animation.type || "").toUpperCase() === "SHIELD_BREAK";
-            var targetKey = isShieldBreak ? "" : GetFrameAnimationTargetKey(animation, perspectivePlayerID);
+            var animationType = String(animation.type || "").toUpperCase();
+            var isShieldBreak = animationType === "SHIELD_BREAK";
+            // A lunge is the motion that damage on either participant accompanies; it should not
+            // consume that participant's same-target effect stagger. Zone moves run post-render.
+            var skipsTargetStagger = isShieldBreak || animationType === "CARD_LUNGE" || animationType === "ZONE_MOVE";
+            var targetKey = skipsTargetStagger ? "" : GetFrameAnimationTargetKey(animation, perspectivePlayerID);
             if (targetKey) {
               var existingDelayMs = parseInt(animation.delayMs || 0, 10);
               if (Number.isNaN(existingDelayMs) || existingDelayMs < 0) existingDelayMs = 0;
@@ -1073,7 +1083,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         var queuedUpdate = _renderQueue.shift();
         _renderInProgress = true;
         var frameAnimations = ParseFrameAnimations(queuedUpdate.responseArr);
-        if(<?php echo(AreAnimationsDisabled($playerID) ? 'true' : 'false');?>) frameAnimations = [];
+        if (!window.TCGCardMotion || !window.TCGCardMotion.isEnabled(<?php echo json_encode($folderPath); ?>)) {
+          frameAnimations = [];
+        }
         if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
           window.TCGRenderTrace.mark('queue:dequeue', {
             update: queuedUpdate.update,
@@ -1091,6 +1103,14 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         }
 
         var finishRender = function() {
+          var preparedZoneMoves = window.TCGCardMotion
+            ? window.TCGCardMotion.prepareZoneMoves(frameAnimations, <?php echo($viewerPerspective); ?>)
+            : [];
+          var postRenderBlockingMs = 0;
+          var releaseRenderQueue = function() {
+            _renderInProgress = false;
+            ProcessRenderQueue();
+          };
           try {
             if (window.TCGRenderTrace && window.TCGRenderTrace.enabled) {
               window.TCGRenderTrace.mark('render:dispatch', { update: queuedUpdate.update });
@@ -1098,10 +1118,19 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             RenderUpdate(queuedUpdate.responseArr, queuedUpdate.update);
             _lastRenderedUpdate = queuedUpdate.update;
             window.__lastRenderedGameUpdate = _lastRenderedUpdate;
-          } finally {
-            _renderInProgress = false;
-            ProcessRenderQueue();
+            if (window.TCGCardMotion) {
+              postRenderBlockingMs = window.TCGCardMotion.playPreparedZoneMoves(
+                preparedZoneMoves,
+                <?php echo($viewerPerspective); ?>
+              );
+            }
+          } catch (e) {
+            if (window.TCGCardMotion) window.TCGCardMotion.discardPrepared(preparedZoneMoves);
+            releaseRenderQueue();
+            throw e;
           }
+          if (postRenderBlockingMs > 0) window.setTimeout(releaseRenderQueue, postRenderBlockingMs);
+          else releaseRenderQueue();
         };
 
         if (timeoutAmount > 0) window.setTimeout(finishRender, timeoutAmount);
@@ -1900,12 +1929,22 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             </div>
             <?php endif; ?>
         </div>
+        <div id='chatWidgetControls' style='display:flex; gap:4px; align-items:center;'>
         <button id='chatToggleBtn'
                 onclick='_ToggleChat()'
                 style='border:1px solid #555; border-radius:5px; background:#222; color:white; height:28px; padding:0 12px;
                        font-size:13px; font-weight:600; box-shadow:none; cursor:pointer; margin-top:2px;'>
             &#128172; Chat
         </button>
+        <button id='cardMotionToggleBtn'
+                type='button'
+                onclick='window.TCGCardMotion && window.TCGCardMotion.toggle(<?php echo json_encode($folderPath); ?>, this)'
+                aria-pressed='true'
+                style='border:1px solid #555; border-radius:5px; background:#222; color:white; height:28px; padding:0 9px;
+                       font-size:12px; font-weight:600; box-shadow:none; cursor:pointer; margin-top:2px; white-space:nowrap;'>
+            Motion: On
+        </button>
+        </div>
     </div>
     <script>
     function _ToggleChat() {
@@ -1922,6 +1961,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             var inp = document.getElementById('chatText');
             if (inp) inp.focus();
         }
+    }
+    if (window.TCGCardMotion) {
+        window.TCGCardMotion.updateToggleButton('cardMotionToggleBtn', <?php echo json_encode($folderPath); ?>);
     }
     StartChatPoll();
     </script>

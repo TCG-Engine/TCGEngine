@@ -1310,7 +1310,7 @@
             max-width: 220px !important;
         }
 
-        #chatExpanded[style*="display: flex"] + #chatToggleBtn {
+        #chatExpanded[style*="display: flex"] + #chatWidgetControls #chatToggleBtn {
             position: absolute !important;
             top: 0 !important;
             left: 0 !important;
@@ -1320,7 +1320,7 @@
             font-size: 0 !important;
         }
 
-        #chatExpanded[style*="display: flex"] + #chatToggleBtn::before {
+        #chatExpanded[style*="display: flex"] + #chatWidgetControls #chatToggleBtn::before {
             content: "\00d7  Close";
             font-size: 13px;
         }

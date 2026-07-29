@@ -52,12 +52,52 @@ function QueueCardAnimation($targetMzID, $name, $durationMs = 400, $blocking = t
   ]);
 }
 
-function QueueDamageAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true, $uniqueID = null) {
+function QueueCardLungeAnimation($sourceMzID, $targetMzID, $durationMs = 360, $blocking = true, $sourceUniqueID = null, $targetUniqueID = null, $distanceRatio = 0.7) {
+  $animation = [
+    'type' => 'CARD_LUNGE',
+    'target' => strval($sourceMzID),
+    'source' => strval($sourceMzID),
+    'destination' => strval($targetMzID),
+    'durationMs' => intval($durationMs),
+    'blocking' => $blocking ? true : false,
+    'distanceRatio' => max(0.1, min(1.0, floatval($distanceRatio))),
+  ];
+  if ($sourceUniqueID !== null && intval($sourceUniqueID) > 0) {
+    $animation['sourceUniqueID'] = intval($sourceUniqueID);
+  }
+  if ($targetUniqueID !== null && intval($targetUniqueID) > 0) {
+    $animation['destinationUniqueID'] = intval($targetUniqueID);
+  }
+  QueueFrameAnimation($animation);
+}
+
+function QueueZoneMoveAnimation($sourceMzID, $destinationMzID, $durationMs = 420, $blocking = true, $sourceUniqueID = null, $destinationUniqueID = null, $delayMs = 0) {
+  $animation = [
+    'type' => 'ZONE_MOVE',
+    // QueueFrameAnimation requires a target. For movement events it is the old-board source.
+    'target' => strval($sourceMzID),
+    'source' => strval($sourceMzID),
+    'destination' => strval($destinationMzID),
+    'durationMs' => intval($durationMs),
+    'delayMs' => max(0, intval($delayMs)),
+    'blocking' => $blocking ? true : false,
+  ];
+  if ($sourceUniqueID !== null && intval($sourceUniqueID) > 0) {
+    $animation['sourceUniqueID'] = intval($sourceUniqueID);
+  }
+  if ($destinationUniqueID !== null && intval($destinationUniqueID) > 0) {
+    $animation['destinationUniqueID'] = intval($destinationUniqueID);
+  }
+  QueueFrameAnimation($animation);
+}
+
+function QueueDamageAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true, $uniqueID = null, $delayMs = 0) {
   $animation = [
     'type' => 'DAMAGE',
     'target' => strval($targetMzID),
     'amount' => intval($amount),
     'durationMs' => intval($durationMs),
+    'delayMs' => max(0, intval($delayMs)),
     'blocking' => $blocking ? true : false,
   ];
   if ($uniqueID !== null && intval($uniqueID) > 0) {

@@ -2647,7 +2647,11 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
         'to' => $destination === 'myGarden' ? 'garden' : 'alley',
     ]);
     DecisionQueueController::ClearVariable($pendingPlayVar);
-    SafeMZMove($player, $mzCard, $destination);
+    $animationSourceMZ = ConvertMzIDToAbsolute($mzCard, $player);
+    $placedObj = SafeMZMove($player, $mzCard, $destination);
+    if($placedObj === null || $placedObj === false) {
+        return;
+    }
     DecisionQueueController::CleanupRemovedCards();
 
     $placedZone = ($destination === 'myGarden') ? GetGarden($player) : GetAlley($player);
@@ -2663,6 +2667,14 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
     }
 
     NormalizeFieldOwnership($newObj, $player);
+    QueueZoneMoveAnimation(
+        $animationSourceMZ,
+        ConvertMzIDToAbsolute($newMZ, $player),
+        420,
+        true,
+        null,
+        intval($newObj->UniqueID ?? 0)
+    );
 
     if($destination === 'myGarden') {
         if(!isset($newObj->TurnEffects) || !is_array($newObj->TurnEffects)) {
@@ -2685,16 +2697,16 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
     return $newMZ;
 }
 
-function QueueLeaderDamageAnimation($player, $amount) {
+function QueueLeaderDamageAnimation($player, $amount, $delayMs = 0) {
     if(intval($amount) <= 0) return;
 
     $leaderIndex = FindLeaderIndexInGarden($player);
     if($leaderIndex >= 0) {
-        QueueDamageAnimation('p' . $player . 'Garden-' . $leaderIndex, intval($amount), 500, true);
+        QueueDamageAnimation('p' . $player . 'Garden-' . $leaderIndex, intval($amount), 500, true, null, $delayMs);
         return;
     }
 
-    QueueDamageAnimation(intval($player) === 1 ? 'P1BASE' : 'P2BASE', intval($amount), 500, true);
+    QueueDamageAnimation(intval($player) === 1 ? 'P1BASE' : 'P2BASE', intval($amount), 500, true, null, $delayMs);
 }
 
 function QueueLeaderRestoreAnimation($player, $amount) {
@@ -2709,7 +2721,7 @@ function QueueLeaderRestoreAnimation($player, $amount) {
     QueueRestoreAnimation(intval($player) === 1 ? 'P1BASE' : 'P2BASE', intval($amount), 500, true);
 }
 
-function DealDamageToLeader($player, $amount, $sourceKey = null, $statsSourceKey = null) {
+function DealDamageToLeader($player, $amount, $sourceKey = null, $statsSourceKey = null, $animationDelayMs = 0) {
     $amount = max(0, intval($amount));
     if($amount <= 0) return;
 
@@ -2725,7 +2737,7 @@ function DealDamageToLeader($player, $amount, $sourceKey = null, $statsSourceKey
     RecordDamageSourceOnObject($leaderObj, $resolvedSourceKey);
     $resolvedStatsSourceKey = is_string($statsSourceKey) && $statsSourceKey !== '' ? NormalizeDamageSourceKey($statsSourceKey) : $resolvedSourceKey;
     TrackMacroGameOpponentLeaderDamage($player, $amount, $resolvedStatsSourceKey);
-    QueueLeaderDamageAnimation($player, $amount);
+    QueueLeaderDamageAnimation($player, $amount, $animationDelayMs);
     GameLogEvent('damage', [
         'tgt' => 'p' . intval($player) . '.leader',
         'amt' => $amount,
@@ -5288,6 +5300,40 @@ function TriggerSaekoStartTurnAbilities($player) {
     }
 }
 
+function QueueAzukiCombatLunge($player, $attackerMZ, $targetMZ, $attackerObj = null, $targetObj = null) {
+    if(!is_string($attackerMZ) || $attackerMZ === '') return;
+    if(!is_string($targetMZ) || $targetMZ === '') return;
+
+    // Pending attacks can resolve during the defending player's engine action. In that case the
+    // stored mzIDs are still in the attacker's perspective, while GetZoneObject interprets my/their
+    // using the current request player. Flip only the lookup references; absolute animation refs
+    // below must remain based on the attacking player.
+    if($attackerObj === null || $targetObj === null) {
+        global $playerID;
+        $lookupAttackerMZ = $attackerMZ;
+        $lookupTargetMZ = $targetMZ;
+        if(intval($playerID) !== intval($player)) {
+            $lookupAttackerMZ = FlipZonePerspective($lookupAttackerMZ);
+            $lookupTargetMZ = FlipZonePerspective($lookupTargetMZ);
+        }
+        if($attackerObj === null) $attackerObj = GetZoneObject($lookupAttackerMZ);
+        if($targetObj === null) $targetObj = GetZoneObject($lookupTargetMZ);
+    }
+    if($attackerObj === null || $targetObj === null) return;
+    if((isset($attackerObj->removed) && $attackerObj->removed)
+        || (isset($targetObj->removed) && $targetObj->removed)) return;
+
+    QueueCardLungeAnimation(
+        ConvertMzIDToAbsolute($attackerMZ, $player),
+        ConvertMzIDToAbsolute($targetMZ, $player),
+        360,
+        true,
+        intval($attackerObj->UniqueID ?? 0),
+        intval($targetObj->UniqueID ?? 0),
+        0.7
+    );
+}
+
 function ResolveAttackCombat($player, $mzCard, $targetMZ) {
     $opponent = ($player == 1) ? 2 : 1;
     $attackerParts = explode('-', $mzCard);
@@ -5349,7 +5395,8 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
             $combatDamage = max(0, $attackerAttack - LeaderCombatDamageReduction($opponent));
             if($combatDamage > 0) {
                 $combatSourceKey = 'P' . intval($player) . ':COMBAT:' . NormalizeDamageSourceKey($mzCard);
-                DealDamageToLeader($opponent, $combatDamage, $combatSourceKey, $combatSourceKey);
+                QueueAzukiCombatLunge($player, $mzCard, $targetZone . '-' . $targetIndex, $attackerObj, $targetField[$targetIndex]);
+                DealDamageToLeader($opponent, $combatDamage, $combatSourceKey, $combatSourceKey, 140);
                 TriggerEquippedWeaponOnCombatDamage($player, $attackerObj, $targetZone, $targetIndex, $combatDamage);
             }
         } else {
@@ -5360,7 +5407,8 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                     if($damageDealt > 0) {
                         $targetField[$targetIndex]->Damage = intval($targetField[$targetIndex]->Damage ?? 0) + $damageDealt;
                         $animTarget = ($targetZone === 'theirGarden' ? 'Garden' : 'Alley');
-                        QueueDamageAnimation('p' . $opponent . $animTarget . '-' . $targetIndex, $damageDealt, 500, true);
+                        QueueAzukiCombatLunge($player, $mzCard, $targetZone . '-' . $targetIndex, $attackerObj, $targetField[$targetIndex]);
+                        QueueDamageAnimation('p' . $opponent . $animTarget . '-' . $targetIndex, $damageDealt, 500, true, null, 140);
                         TriggerZeroStarterDamageReactions($player, $targetZone . '-' . $targetIndex, $damageDealt, false);
                         $targetOwnerMZ = FlipZonePerspective($targetZone . '-' . $targetIndex);
                         RecordDamageSourceOnObject($targetField[$targetIndex], 'P' . intval($player) . ':COMBAT:' . NormalizeDamageSourceKey($mzCard));
@@ -5379,7 +5427,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
             $combatDamage = max(0, $defenderAttack - LeaderCombatDamageReduction($player));
             if($combatDamage > 0) {
                 $combatSourceKey = 'P' . intval($opponent) . ':COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex);
-                DealDamageToLeader($player, $combatDamage, $combatSourceKey, $combatSourceKey);
+                DealDamageToLeader($player, $combatDamage, $combatSourceKey, $combatSourceKey, 140);
             }
         } else {
             $myGarden = &GetGarden($player);
@@ -5388,7 +5436,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                     $damageDealt = max(0, $defenderAttack - EntityDamageReduction($myGarden[$attackerIndex]));
                     if($damageDealt > 0) {
                         $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $damageDealt;
-                        QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $damageDealt, 500, true);
+                        QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $damageDealt, 500, true, null, 140);
                         TriggerZeroStarterDamageReactions($opponent, 'myGarden-' . $attackerIndex, $damageDealt, false);
                         RecordDamageSourceOnObject($myGarden[$attackerIndex], 'P' . intval($opponent) . ':COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex));
                         DamageTaken($player, 'myGarden-' . $attackerIndex, $damageDealt);

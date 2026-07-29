@@ -82,6 +82,13 @@ Important notes and gotchas
 - The request uses the viewing player's normal authentication. Never expose a bot seat auth key to the browser; `ProcessBotControllerStep()` must re-evaluate the authoritative pending bot seat on the server before applying an action.
 - Keep game-specific layouts and waiting-message renderers free of bot invocation hooks. They may display turn/response state, but the shared update transport owns bot scheduling.
 
+## Semantic card motion
+- Shared server helpers live in `Core/EngineActionRunner.php`: use `QueueCardLungeAnimation(...)` for an out-and-back attack motion and `QueueZoneMoveAnimation(...)` for a card moving between rendered zones.
+- `CARD_LUNGE` runs against the old board before the authoritative repaint. `ZONE_MOVE` captures its source before repaint, then `Core/CardMotion.js` flies a DOM clone to the destination on the new board.
+- Both phases belong to `NextTurn.php`'s ordered render queue. Do not schedule a separate delayed `RenderUpdate(...)`; post-render movement keeps `_renderInProgress` locked until its blocking motion completes.
+- Use absolute `pNZone-index` animation references in server events. Include source/destination `UniqueID` values when the involved schema zones provide them, but do not add private card IDs to the shared animation payload.
+- Card motion is a browser-local per-root preference (`EnableCardMotion`) exposed through `window.TCGSettings`. New semantic motion must respect that shared client gate.
+
 ---
 
 ## Card Ability Implementation Workflow (for AI agents)
