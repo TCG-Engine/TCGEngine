@@ -59,17 +59,37 @@ if (!function_exists('importMeleeTournamentById')) {
 // A DB/parse fatal here would emit an HTML error page instead of JSON, which the caller
 // reports as an opaque failure. Convert it into a readable JSON message.
 $failureReason = null;
+$diag = null;
 try {
-    $tournamentId = importMeleeTournamentById($meleeId, null, $failureReason);
+    $tournamentId = importMeleeTournamentById($meleeId, null, $failureReason, $diag);
 } catch (Throwable $e) {
     $tournamentId = false;
     $failureReason = $e->getMessage();
+    $diag = is_array($diag) ? $diag : [];
+    $diag['exception'] = [
+        'type' => get_class($e),
+        'message' => $e->getMessage(),
+        'file' => basename($e->getFile()),
+        'line' => $e->getLine(),
+    ];
 }
 if ($tournamentId) {
     echo json_encode(['success' => true, 'tournament_id' => $tournamentId]);
-} else {
-    $message = 'Failed to import tournament from melee.gg.';
-    if (!empty($failureReason)) $message .= ' ' . $failureReason;
-    echo json_encode(['success' => false, 'message' => $message]);
+    exit;
 }
+
+// Failure: report the specific reason plus the step-by-step trace. `diagnostics` is an
+// additive field on the existing {success, message} shape — existing consumers that only
+// read `success`/`message` are unaffected.
+$message = 'Failed to import tournament from melee.gg.';
+if (!empty($failureReason)) $message .= ' ' . $failureReason;
+if (!is_array($diag)) $diag = [];
+$diag += ['parserVersion' => defined('MELEE_PARSER_VERSION') ? MELEE_PARSER_VERSION : 'unknown'];
+$diag['meleeTournamentId'] = $meleeId;
+echo json_encode([
+    'success' => false,
+    'message' => $message,
+    'reason' => $failureReason,
+    'diagnostics' => $diag,
+], JSON_UNESCAPED_SLASHES);
 exit;
