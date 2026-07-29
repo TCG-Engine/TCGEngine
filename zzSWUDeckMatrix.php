@@ -1,5 +1,5 @@
 <?php
-// zzSWUSimMatrix.php — mod tool to re-fetch melee tournament data.
+// zzSWUDeckMatrix.php — mod tool to re-fetch melee tournament data.
 //
 // Each tournament is re-imported by its own request: the largest event in the archive
 // (1485 decks) takes ~6 minutes because the parser makes one HTTP call per decklist, so a
@@ -19,12 +19,30 @@ if ($error !== '') {
     exit;
 }
 
-// Per-tournament row counts plus the pairing-consistency audit.
-// Built from four whole-table aggregates merged in PHP rather than correlated subqueries per
+// mysqli_query returns false on error; feeding that to mysqli_fetch_assoc() is a fatal, which
+// would emit an HTML error page in place of the JSON the client expects. Fail loudly instead.
+class MatrixQueryError extends Exception {}
+
+function MatrixQuery($conn, $sql) {
+    $res = mysqli_query($conn, $sql);
+    if ($res === false) {
+        throw new MatrixQueryError(mysqli_error($conn));
+    }
+    return $res;
+}
+
+// Per-tournament row counts plus (optionally) the pairing-consistency audit.
+// Built from whole-table aggregates merged in PHP rather than correlated subqueries per
 // tournament: the per-row form issued ~245 queries for 61 tournaments and took ~10s.
-function MatrixTournamentRows($conn, $withAudit = true) {
+//
+// The audit is OPT-IN and off by default. It self-joins meleetournamentmatchup, which carries
+// no index on player/opponent — only PRIMARY(matchupID) — so the join is ~69k x 69k rows.
+// MySQL 8+/9 hides that behind a hash join (~0.4s locally); MariaDB, which prod runs, falls
+// back to a block nested loop and the request hangs. Applying migration
+// 10_meleetournamentmatchup_indexes.sql makes it fast everywhere.
+function MatrixTournamentRows($conn, $withAudit = false) {
     $decks = [];
-    $res = mysqli_query($conn, "
+    $res = MatrixQuery($conn, "
         SELECT tournamentId,
                COUNT(*) AS decks,
                SUM(CASE WHEN leader IS NULL OR leader = '' THEN 1 ELSE 0 END) AS noLeader
@@ -34,7 +52,7 @@ function MatrixTournamentRows($conn, $withAudit = true) {
     }
 
     $matchups = [];
-    $res = mysqli_query($conn, "
+    $res = MatrixQuery($conn, "
         SELECT d.tournamentId, COUNT(*) AS matchups
         FROM meleetournamentmatchup m
         JOIN meleetournamentdeck d ON d.deckID = m.player
@@ -45,7 +63,7 @@ function MatrixTournamentRows($conn, $withAudit = true) {
 
     $audits = [];
     if ($withAudit) {
-        $res = mysqli_query($conn, "
+        $res = MatrixQuery($conn, "
             SELECT d.tournamentId,
                    COUNT(*) AS pairings,
                    SUM(CASE WHEN NOT (a.wins = b.losses AND a.losses = b.wins AND a.draws = b.draws)
@@ -67,7 +85,7 @@ function MatrixTournamentRows($conn, $withAudit = true) {
     }
 
     $rows = [];
-    $res = mysqli_query($conn, "
+    $res = MatrixQuery($conn, "
         SELECT tournamentID, tournamentLink, tournamentName, tournamentDate, roundId
         FROM meleetournament ORDER BY tournamentID DESC");
     while ($r = mysqli_fetch_assoc($res)) {
@@ -150,8 +168,17 @@ if ($action !== '') {
         exit;
     }
 
+    // Any query failure becomes a JSON error rather than an HTML fatal the client can't parse.
+    try {
+
     if ($action === 'list') {
-        echo json_encode(['success' => true, 'tournaments' => MatrixTournamentRows($conn)]);
+        // audit=1 is opt-in: see the note on MatrixTournamentRows() for why it is not default.
+        $withAudit = isset($_GET['audit']) && $_GET['audit'] === '1';
+        echo json_encode([
+            'success' => true,
+            'audited' => $withAudit,
+            'tournaments' => MatrixTournamentRows($conn, $withAudit),
+        ]);
         exit;
     }
 
@@ -272,13 +299,25 @@ if ($action !== '') {
 
     echo json_encode(['success' => false, 'message' => "Unknown action '$action'."]);
     exit;
+
+    } catch (MatrixQueryError $e) {
+        echo json_encode(['success' => false, 'message' => 'SQL error: ' . $e->getMessage()]);
+        exit;
+    } catch (Throwable $e) {
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage(),
+            'where' => basename($e->getFile()) . ':' . $e->getLine(),
+        ]);
+        exit;
+    }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SWUSim Matrix — Tournament Re-fetch</title>
+  <title>SWUDeck Matrix — Tournament Re-fetch</title>
   <style>
     body { background:#1e1e1e; color:#d4d4d4; font-family:monospace; font-size:13px; padding:24px; margin:0; }
     h2 { color:#9cdcfe; margin:0 0 8px; }
@@ -302,7 +341,7 @@ if ($action !== '') {
   </style>
 </head>
 <body>
-<h2>SWUSim Matrix — Tournament Re-fetch</h2>
+<h2>SWUDeck Matrix — Tournament Re-fetch</h2>
 <p class="sub">Re-imports melee tournament data. Each tournament is deleted and re-fetched from melee.gg; the largest event in the archive takes several minutes because the parser makes one request per decklist.</p>
 
 <div class="warn">
@@ -314,6 +353,7 @@ if ($action !== '') {
 
 <div class="bar">
   <button id="reload">Reload list</button>
+  <button id="audit">Run consistency audit</button>
   <button id="runAll">Re-fetch ALL</button>
   <button id="runSelected">Re-fetch selected</button>
   <button id="stop" disabled>Stop</button>
@@ -341,6 +381,7 @@ const tbody  = document.querySelector('#grid tbody');
 const statusEl = document.getElementById('status');
 const logEl  = document.getElementById('log');
 let rows = [];
+let audited = false;
 let stopRequested = false;
 let running = false;
 
@@ -376,8 +417,8 @@ function render() {
       `<td class="num">${r.decks}</td>` +
       `<td class="num ${r.noLeader > 0 ? 'warnc' : 'muted'}">${r.noLeader}</td>` +
       `<td class="num">${r.matchups}</td>` +
-      `<td class="num">${a.pairings}</td>` +
-      `<td class="num ${incClass}">${a.inconsistent}${a.pairings ? ' (' + a.pct + '%)' : ''}</td>` +
+      `<td class="num muted">${audited ? a.pairings : '—'}</td>` +
+      `<td class="num ${audited ? incClass : 'muted'}">${audited ? a.inconsistent + (a.pairings ? ' (' + a.pct + '%)' : '') : '—'}</td>` +
       `<td class="state muted">—</td>`;
     tbody.appendChild(tr);
   });
@@ -391,24 +432,45 @@ function setState(id, text, cls) {
   cell.className = 'state ' + (cls || 'muted');
 }
 
-async function loadList() {
-  statusEl.textContent = 'loading…';
-  const res = await fetch('zzSWUSimMatrix.php?action=list');
-  const data = await res.json();
-  if (!data.success) { statusEl.textContent = data.message || 'failed to load'; return; }
-  rows = data.tournaments;
-  render();
-  const totalInc = rows.reduce((s, r) => s + (r.audit ? r.audit.inconsistent : 0), 0);
-  const totalPair = rows.reduce((s, r) => s + (r.audit ? r.audit.pairings : 0), 0);
-  statusEl.textContent = `${rows.length} tournaments · ${totalInc} inconsistent pairings of ${totalPair}` +
-    (totalPair ? ` (${(100 * totalInc / totalPair).toFixed(1)}%)` : '');
+async function loadList(withAudit) {
+  statusEl.textContent = withAudit ? 'running audit (heavy — may take a while)…' : 'loading…';
+  document.getElementById('audit').disabled = true;
+  try {
+    const res = await fetch('zzSWUDeckMatrix.php?action=list' + (withAudit ? '&audit=1' : ''));
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); }
+    catch (e) {
+      statusEl.textContent = 'server returned non-JSON (see log)';
+      log('load failed, raw response: ' + text.slice(0, 500));
+      return;
+    }
+    if (!data.success) {
+      statusEl.textContent = data.message || 'failed to load';
+      log('load failed: ' + (data.message || '') + (data.where ? ' @ ' + data.where : ''));
+      return;
+    }
+    rows = data.tournaments;
+    audited = !!data.audited;
+    render();
+    if (audited) {
+      const totalInc = rows.reduce((s, r) => s + (r.audit ? r.audit.inconsistent : 0), 0);
+      const totalPair = rows.reduce((s, r) => s + (r.audit ? r.audit.pairings : 0), 0);
+      statusEl.textContent = `${rows.length} tournaments · ${totalInc} inconsistent pairings of ${totalPair}` +
+        (totalPair ? ` (${(100 * totalInc / totalPair).toFixed(1)}%)` : '');
+    } else {
+      statusEl.textContent = `${rows.length} tournaments`;
+    }
+  } finally {
+    document.getElementById('audit').disabled = false;
+  }
 }
 
 async function refetch(id) {
   setState(id, 'fetching…', 'spin');
   const started = Date.now();
   try {
-    const res = await fetch('zzSWUSimMatrix.php?action=refetch&id=' + id);
+    const res = await fetch('zzSWUDeckMatrix.php?action=refetch&id=' + id);
     const text = await res.text();
     let data;
     try { data = JSON.parse(text); }
@@ -455,10 +517,11 @@ async function runSequential(ids) {
   setBusy(false);
   statusEl.textContent = `finished: ${done} processed, ${failed} failed`;
   log(`--- finished: ${done} processed, ${failed} failed ---`);
-  await loadList();
+  await loadList(audited);
 }
 
-document.getElementById('reload').addEventListener('click', loadList);
+document.getElementById('reload').addEventListener('click', () => loadList(false));
+document.getElementById('audit').addEventListener('click', () => loadList(true));
 document.getElementById('stop').addEventListener('click', () => {
   stopRequested = true;
   statusEl.textContent = 'stopping after current tournament…';
@@ -475,7 +538,7 @@ document.getElementById('runSelected').addEventListener('click', () => {
 
 window.addEventListener('beforeunload', e => { if (running) { e.preventDefault(); e.returnValue = ''; } });
 
-loadList();
+loadList(false);
 </script>
 </body>
 </html>
