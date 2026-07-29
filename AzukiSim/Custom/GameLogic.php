@@ -2420,13 +2420,19 @@ function TriggerGameOver($loserPlayer) {
         'winner' => 'p' . $winner,
         'reason' => $gameLogEndReason !== '' ? $gameLogEndReason : 'leader_ko',
     ]);
-    DecisionQueueController::ClearVariable('AzukiGameLogEndReason');
     try {
         AzukiRecordGameStats($winner);
     } catch(Throwable $e) {
         // Stats must never prevent the authoritative game-over state from being saved.
         error_log('Azuki game stats aggregation failed: ' . $e->getMessage());
     }
+    try {
+        AzukiRecordMatchHistory($winner);
+    } catch(Throwable $e) {
+        // Match history is supplementary and must never block the authoritative game-over state.
+        error_log('Azuki match history recording failed: ' . $e->getMessage());
+    }
+    DecisionQueueController::ClearVariable('AzukiGameLogEndReason');
 }
 
 function CardHasKeyword($cardID, $keyword) {

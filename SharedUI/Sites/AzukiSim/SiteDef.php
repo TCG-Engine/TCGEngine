@@ -21,12 +21,14 @@
   'head' => [
     'styles'  => [   // shared stack derived from `theme` (clarent); only the app override remains
       '/TCGEngine/SharedUI/Sites/AzukiSim/css/azuki-overrides.css',
+      '/TCGEngine/SharedUI/Sites/AzukiSim/css/matches.css',
     ],
     'scripts' => ['/TCGEngine/SharedUI/js/burger-menu.js'],
     'fonts'   => ['Barlow'],
   ],
   'nav' => [
     ['label'=>'Support','icon'=>'zendo-support.svg','href'=>'https://www.patreon.com/c/OotTheMonk','target'=>'_blank'],
+    ['label'=>'Matches','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Matches.php','visibility'=>'loggedIn'],
     ['label'=>'Profile','icon'=>'zendo-profile.svg','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Profile.php','visibility'=>'loggedIn'],
     ['label'=>'Log Out','icon'=>'zendo-logout.svg','href'=>'/TCGEngine/AccountFiles/LogoutUser.php','visibility'=>'loggedIn'],
   ],

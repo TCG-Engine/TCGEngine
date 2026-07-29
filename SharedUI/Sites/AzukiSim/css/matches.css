@@ -1,0 +1,364 @@
+.azuki-matches-page {
+  width: min(1280px, calc(100% - 40px));
+  margin: 12px auto 48px;
+  color: #e7dfcf;
+  font-family: var(--zendo-font-ui, Barlow, Arial, sans-serif);
+}
+
+.azuki-matches-heading {
+  margin: 0 0 24px;
+}
+
+.azuki-matches-heading p {
+  margin: 0 0 4px;
+  color: #c79859;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.azuki-matches-heading h1 {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding-bottom: 12px;
+  color: #f2ebdc;
+  font-family: var(--zendo-font-display, Georgia, serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.azuki-matches-heading h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: #d2a65c;
+  box-shadow: 0 0 10px rgba(210, 166, 92, .55);
+}
+
+.azuki-match-summary,
+.azuki-match-list {
+  background: linear-gradient(150deg, rgba(8, 25, 42, .94), rgba(3, 15, 28, .92));
+  border: 1px solid rgba(198, 148, 76, .42);
+  border-radius: 14px;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .36), inset 0 1px 0 rgba(255, 255, 255, .035);
+}
+
+.azuki-match-summary {
+  margin-bottom: 18px;
+  padding: 22px 24px;
+}
+
+.azuki-match-totals {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.azuki-match-totals span {
+  padding: 0 22px;
+  color: #9fa9b1;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.azuki-match-totals span:first-child {
+  padding-left: 0;
+}
+
+.azuki-match-totals span + span {
+  border-left: 1px solid rgba(209, 165, 92, .2);
+}
+
+.azuki-match-totals strong {
+  margin-left: 7px;
+  color: #f2ebdc;
+  font-size: 16px;
+}
+
+.azuki-match-totals strong.is-win {
+  color: #56c99b;
+}
+
+.azuki-match-totals strong.is-loss {
+  color: #ec7880;
+}
+
+.azuki-win-rate-copy {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #aeb6bd;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.azuki-win-rate-copy strong {
+  color: #efe5d2;
+}
+
+.azuki-win-rate-track {
+  height: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .04);
+  border-radius: 999px;
+}
+
+.azuki-win-rate-track span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #9f7243, #dfb865);
+  border-radius: inherit;
+  box-shadow: 0 0 12px rgba(210, 166, 92, .32);
+}
+
+.azuki-match-list {
+  overflow: hidden;
+}
+
+.azuki-match-row {
+  display: grid;
+  grid-template-columns: 90px 54px minmax(170px, 1.4fr) minmax(150px, 1fr) 150px minmax(180px, auto);
+  gap: 16px;
+  align-items: center;
+  min-height: 92px;
+  padding: 14px 22px;
+  border-left: 3px solid transparent;
+}
+
+.azuki-match-row + .azuki-match-row {
+  border-top: 1px solid rgba(198, 148, 76, .16);
+}
+
+.azuki-match-row.is-win {
+  border-left-color: rgba(51, 184, 137, .72);
+}
+
+.azuki-match-row.is-loss {
+  border-left-color: rgba(201, 70, 82, .72);
+}
+
+.azuki-match-row > time {
+  color: #9fa9b1;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.azuki-match-opponent-leader {
+  display: grid;
+  width: 50px;
+  height: 62px;
+  overflow: hidden;
+  place-items: center;
+  color: #c79859;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(198, 148, 76, .22);
+  border-radius: 8px;
+  font: 24px var(--zendo-font-display, Georgia, serif);
+}
+
+.azuki-match-opponent-leader img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.azuki-match-opponent,
+.azuki-match-deck,
+.azuki-match-result {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.azuki-match-row small {
+  color: #87939d;
+  font-size: 11px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.azuki-match-opponent strong,
+.azuki-match-deck strong,
+.azuki-match-deck a {
+  overflow: hidden;
+  color: #eee5d6;
+  font-size: 16px;
+  line-height: 1.4;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.azuki-match-opponent span {
+  overflow: hidden;
+  color: #9fa9b1;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.azuki-match-deck a:hover {
+  color: #e4ba70;
+  text-decoration: underline;
+}
+
+.azuki-match-result {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+}
+
+.azuki-result-mark {
+  display: grid;
+  grid-row: 1 / 3;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.is-win .azuki-result-mark {
+  color: #52d4a4;
+  background: rgba(22, 112, 82, .42);
+}
+
+.is-loss .azuki-result-mark {
+  color: #f18a91;
+  background: rgba(129, 35, 48, .48);
+}
+
+.azuki-match-result strong {
+  color: #e9dfcf;
+  font-size: 14px;
+}
+
+.azuki-match-result small {
+  text-transform: none;
+}
+
+.azuki-match-tags {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.azuki-match-tags span {
+  padding: 5px 8px;
+  color: #a9b4bc;
+  background: rgba(255, 255, 255, .035);
+  border: 1px solid rgba(255, 255, 255, .065);
+  border-radius: 999px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.azuki-match-empty {
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.azuki-match-empty > span {
+  display: block;
+  color: rgba(199, 152, 89, .42);
+  font: 52px var(--zendo-font-display, Georgia, serif);
+}
+
+.azuki-match-empty h2 {
+  margin: 8px 0;
+  color: #eadfcf;
+  font-family: var(--zendo-font-display, Georgia, serif);
+  font-weight: 500;
+}
+
+.azuki-match-empty p {
+  margin: 0 auto 20px;
+  color: #98a4ad;
+}
+
+.azuki-match-empty a {
+  display: inline-block;
+  padding: 9px 14px;
+  color: #f2e6d0;
+  background: rgba(167, 116, 61, .18);
+  border: 1px solid rgba(210, 166, 92, .42);
+  border-radius: 7px;
+  text-decoration: none;
+}
+
+@media (max-width: 980px) {
+  .azuki-match-row {
+    grid-template-columns: 70px 54px minmax(150px, 1fr) 125px;
+  }
+
+  .azuki-match-deck {
+    display: none;
+  }
+
+  .azuki-match-tags {
+    grid-column: 3 / -1;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .azuki-matches-page {
+    width: calc(100% - 24px);
+    margin-top: 8px;
+  }
+
+  .azuki-match-summary {
+    padding: 18px;
+  }
+
+  .azuki-match-totals span {
+    padding: 0 12px;
+    font-size: 11px;
+  }
+
+  .azuki-match-totals strong {
+    display: block;
+    margin: 3px 0 0;
+  }
+
+  .azuki-match-row {
+    grid-template-columns: 46px minmax(120px, 1fr) 108px;
+    gap: 12px;
+    min-height: 82px;
+    padding: 12px;
+  }
+
+  .azuki-match-row > time,
+  .azuki-match-deck {
+    display: none;
+  }
+
+  .azuki-match-opponent-leader {
+    width: 44px;
+    height: 55px;
+  }
+
+  .azuki-match-opponent strong {
+    font-size: 14px;
+  }
+
+  .azuki-match-tags {
+    grid-column: 2 / -1;
+  }
+
+  .azuki-match-tags span:nth-child(3) {
+    display: none;
+  }
+}

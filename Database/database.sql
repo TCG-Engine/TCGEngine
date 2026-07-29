@@ -245,6 +245,34 @@ CREATE TABLE `assetversionstats` (
   KEY `idx_assetversionstats_version` (`versionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `matchhistory` (
+  `matchHistoryID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `rootName` varchar(64) NOT NULL,
+  `gameName` varchar(64) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `userSeat` tinyint(4) NOT NULL,
+  `opponentUserID` int(11) DEFAULT NULL,
+  `opponentName` varchar(128) NOT NULL DEFAULT 'Guest',
+  `result` char(1) NOT NULL,
+  `gameMode` varchar(24) NOT NULL DEFAULT 'pvp',
+  `deckID` int(11) DEFAULT NULL,
+  `deckName` varchar(128) NOT NULL DEFAULT '',
+  `keyCard1ID` varchar(128) NOT NULL DEFAULT '',
+  `keyCard2ID` varchar(128) NOT NULL DEFAULT '',
+  `keyCard3ID` varchar(128) NOT NULL DEFAULT '',
+  `opponentKeyCard1ID` varchar(128) NOT NULL DEFAULT '',
+  `opponentKeyCard2ID` varchar(128) NOT NULL DEFAULT '',
+  `opponentKeyCard3ID` varchar(128) NOT NULL DEFAULT '',
+  `wentFirst` tinyint(1) NOT NULL DEFAULT 0,
+  `turnCount` int(11) NOT NULL DEFAULT 0,
+  `endReason` varchar(32) NOT NULL DEFAULT '',
+  `completedAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`matchHistoryID`),
+  UNIQUE KEY `uq_match_history_seat` (`rootName`,`gameName`,`userID`,`userSeat`),
+  KEY `idx_match_history_user_time` (`rootName`,`userID`,`completedAt`),
+  KEY `idx_match_history_user_deck` (`rootName`,`userID`,`deckID`,`completedAt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 CREATE TABLE `deck_game_raw_data` (
   `id` bigint(20) UNSIGNED NOT NULL,

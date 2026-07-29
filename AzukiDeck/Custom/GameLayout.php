@@ -8,6 +8,7 @@
 // baked inline in NextTurnRender.php, so desktop rendering is unchanged.
 require_once __DIR__ . '/GameLayoutDevice.php';
 require_once __DIR__ . '/../../Core/Versioning/AssetVersioningLayout.php';
+require_once __DIR__ . '/../../AzukiSim/Custom/Stats.php';
 RenderAssetVersioningUI('AzukiDeck');
 
 // Signal the shared UILibraries to skip its legacy MobileDeckEditorLayout() JS reflow:
@@ -240,6 +241,225 @@ echo(<<<'HTML'
     background: rgba(1, 13, 25, 0.12) !important;
     box-shadow: inset 0 0 12px rgba(var(--accent-rgb),0.08) !important;
   }
+
+  #azukiDeckMatchesButton {
+    gap: 6px !important;
+  }
+  #azukiDeckMatchesCount {
+    display: inline-grid;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    place-items: center;
+    box-sizing: border-box;
+    color: rgba(219,238,248,0.94);
+    background: rgba(var(--accent-rgb),0.13);
+    border: 1px solid rgba(var(--accent-rgb),0.28);
+    border-radius: 9px;
+    font-size: 9px;
+    line-height: 15px;
+  }
+  #azukiDeckMatchHistoryModal[hidden] { display: none !important; }
+  #azukiDeckMatchHistoryModal {
+    position: fixed;
+    inset: 0;
+    z-index: 2147482000;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    box-sizing: border-box;
+    background: rgba(0,7,14,0.76);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .azuki-deck-history-panel {
+    width: min(720px,100%);
+    max-height: min(760px,calc(100dvh - 36px));
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    color: rgba(223,235,241,0.94);
+    background:
+      radial-gradient(circle at 90% 0,rgba(var(--accent-rgb),0.10),transparent 34%),
+      linear-gradient(150deg,rgba(8,25,42,0.99),rgba(3,15,28,0.99));
+    border: 1px solid rgba(var(--accent-rgb),0.38);
+    border-radius: 11px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.62),inset 0 1px 0 rgba(255,255,255,0.035);
+    font-family: Arial,Helvetica,sans-serif;
+  }
+  .azuki-deck-history-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 22px 15px;
+    border-bottom: 1px solid rgba(var(--accent-rgb),0.16);
+  }
+  .azuki-deck-history-kicker {
+    margin: 0 0 5px;
+    color: rgba(var(--accent-rgb),0.78);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  #azukiDeckMatchHistoryTitle {
+    margin: 0;
+    color: rgba(234,244,249,0.98);
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+  }
+  #azukiDeckMatchHistoryClose {
+    width: 31px !important;
+    min-width: 31px !important;
+    height: 31px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: rgba(196,218,230,0.82) !important;
+    background: rgba(7,22,35,0.88) !important;
+    border: 1px solid rgba(var(--accent-rgb),0.26) !important;
+    border-radius: 5px !important;
+    font-size: 20px !important;
+    cursor: pointer;
+  }
+  #azukiDeckMatchHistoryClose:hover,
+  #azukiDeckMatchHistoryClose:focus-visible {
+    color: #fff !important;
+    border-color: rgba(var(--accent-rgb),0.58) !important;
+    outline: none;
+  }
+  .azuki-deck-history-summary {
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    border-bottom: 1px solid rgba(var(--accent-rgb),0.15);
+  }
+  .azuki-deck-history-stat {
+    padding: 14px 18px;
+  }
+  .azuki-deck-history-stat + .azuki-deck-history-stat {
+    border-left: 1px solid rgba(var(--accent-rgb),0.12);
+  }
+  .azuki-deck-history-stat small {
+    display: block;
+    margin-bottom: 5px;
+    color: rgba(166,194,210,0.62);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  .azuki-deck-history-stat strong {
+    color: rgba(229,240,246,0.96);
+    font-size: 21px;
+    font-weight: 650;
+  }
+  .azuki-deck-history-stat.is-win strong { color: #66d5a9; }
+  .azuki-deck-history-stat.is-loss strong { color: #ef858d; }
+  .azuki-deck-history-list {
+    min-height: 120px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .azuki-deck-history-row {
+    display: grid;
+    grid-template-columns: 34px minmax(130px,1fr) minmax(110px,.8fr) 80px;
+    gap: 12px;
+    align-items: center;
+    min-height: 58px;
+    padding: 9px 20px;
+    box-sizing: border-box;
+  }
+  .azuki-deck-history-row + .azuki-deck-history-row {
+    border-top: 1px solid rgba(var(--accent-rgb),0.10);
+  }
+  .azuki-deck-history-result {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .azuki-deck-history-row.is-win .azuki-deck-history-result {
+    color: #63dbae;
+    background: rgba(24,111,82,0.40);
+  }
+  .azuki-deck-history-row.is-loss .azuki-deck-history-result {
+    color: #f19097;
+    background: rgba(126,37,50,0.45);
+  }
+  .azuki-deck-history-opponent,
+  .azuki-deck-history-meta {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+  .azuki-deck-history-opponent strong {
+    overflow: hidden;
+    color: rgba(228,239,245,0.94);
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .azuki-deck-history-row small,
+  .azuki-deck-history-meta span {
+    color: rgba(157,184,199,0.62);
+    font-size: 10px;
+  }
+  .azuki-deck-history-date {
+    color: rgba(171,198,212,0.72);
+    font-size: 10px;
+    text-align: right;
+  }
+  .azuki-deck-history-empty {
+    padding: 42px 22px;
+    color: rgba(165,192,207,0.70);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .azuki-deck-history-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 20px;
+    border-top: 1px solid rgba(var(--accent-rgb),0.14);
+    background: rgba(2,13,23,0.66);
+  }
+  .azuki-deck-history-footer span {
+    color: rgba(151,181,198,0.62);
+    font-size: 10px;
+  }
+  .azuki-deck-history-footer a {
+    color: rgba(190,220,236,0.90);
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .azuki-deck-history-footer a:hover { color: #fff; }
+  @media (max-width: 640px) {
+    #azukiDeckMatchesButton {
+      width: 100% !important;
+      margin: 0 !important;
+      justify-content: space-between !important;
+    }
+    .azuki-deck-history-panel { max-height: calc(100dvh - 20px); }
+    .azuki-deck-history-header { padding: 16px; }
+    .azuki-deck-history-summary { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .azuki-deck-history-stat:nth-child(3) { border-left: 0; border-top: 1px solid rgba(var(--accent-rgb),0.12); }
+    .azuki-deck-history-stat:nth-child(4) { border-top: 1px solid rgba(var(--accent-rgb),0.12); }
+    .azuki-deck-history-row {
+      grid-template-columns: 30px minmax(110px,1fr) 76px;
+      gap: 9px;
+      padding: 9px 13px;
+    }
+    .azuki-deck-history-meta { display: none; }
+    .azuki-deck-history-footer { padding: 11px 14px; }
+  }
 </style>
 HTML);
 
@@ -251,6 +471,14 @@ if(isset($assetData) && (string)($assetData['assetOwner'] ?? '') === (string)Log
   if($azukiDeckName === '') $azukiDeckName = 'Deck #' . $gameName;
   $azukiDeckNameJson = json_encode($azukiDeckName, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
   $azukiDeckIDJson = json_encode((string)$gameName, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+  $azukiDeckMatchHistory = AzukiLoadDeckMatchHistory(LoggedInUser(), $gameName, 20);
+  $azukiDeckMatchHistoryJson = json_encode(
+    $azukiDeckMatchHistory,
+    JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES
+  );
+  if($azukiDeckMatchHistoryJson === false) {
+    $azukiDeckMatchHistoryJson = '{"wins":0,"losses":0,"draws":0,"matches":[]}';
+  }
   $azukiDeckPlaybookConfigJson = json_encode([
     'deckID' => (string)$gameName,
     'endpoint' => '/TCGEngine/AzukiDeck/Playbook.php',
@@ -266,6 +494,7 @@ window.AzukiDeckPlaybookConfig = {$azukiDeckPlaybookConfigJson};
 (function () {
   var deckID = {$azukiDeckIDJson};
   var currentName = {$azukiDeckNameJson};
+  var matchHistory = {$azukiDeckMatchHistoryJson};
 
   function installRenameButton() {
     var toolbar = document.querySelector('.flex-container > .flex-item:first-child');
@@ -310,6 +539,8 @@ window.AzukiDeckPlaybookConfig = {$azukiDeckPlaybookConfigJson};
             currentName = newName;
             nameLabel.textContent = currentName;
             nameLabel.title = currentName;
+            var historyTitle = document.getElementById('azukiDeckMatchHistoryTitle');
+            if (historyTitle) historyTitle.textContent = currentName;
             if (typeof window.Toast === 'function') {
               window.Toast('Deck renamed successfully.', { type: 'success' });
             }
@@ -328,10 +559,147 @@ window.AzukiDeckPlaybookConfig = {$azukiDeckPlaybookConfigJson};
     toolbar.insertBefore(control, visibility || null);
   }
 
+  function matchHistoryTotal() {
+    return Number(matchHistory.wins || 0) + Number(matchHistory.losses || 0) + Number(matchHistory.draws || 0);
+  }
+
+  function formatMatchDate(value) {
+    if (!value) return '';
+    var date = new Date(String(value).replace(' ', 'T'));
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleDateString([], { month: 'short', day: 'numeric', year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined });
+  }
+
+  function createMatchHistoryRow(match) {
+    var won = String(match.result || '').toUpperCase() === 'W';
+    var row = document.createElement('div');
+    row.className = 'azuki-deck-history-row ' + (won ? 'is-win' : 'is-loss');
+
+    var result = document.createElement('span');
+    result.className = 'azuki-deck-history-result';
+    result.textContent = won ? 'W' : 'L';
+
+    var opponent = document.createElement('div');
+    opponent.className = 'azuki-deck-history-opponent';
+    var opponentName = document.createElement('strong');
+    opponentName.textContent = 'vs ' + String(match.opponentName || 'Guest');
+    var mode = document.createElement('small');
+    mode.textContent = String(match.gameMode || '') === 'rlbot' ? 'Training match' : 'Player match';
+    opponent.appendChild(opponentName);
+    opponent.appendChild(mode);
+
+    var meta = document.createElement('div');
+    meta.className = 'azuki-deck-history-meta';
+    var order = document.createElement('span');
+    order.textContent = Number(match.wentFirst || 0) === 1 ? 'Went first' : 'Went second';
+    var turns = document.createElement('span');
+    turns.textContent = String(Number(match.turnCount || 0)) + ' turns';
+    meta.appendChild(order);
+    meta.appendChild(turns);
+
+    var completed = document.createElement('time');
+    completed.className = 'azuki-deck-history-date';
+    completed.textContent = formatMatchDate(match.completedAt);
+    completed.dateTime = String(match.completedAt || '');
+
+    row.appendChild(result);
+    row.appendChild(opponent);
+    row.appendChild(meta);
+    row.appendChild(completed);
+    return row;
+  }
+
+  function installMatchHistory() {
+    var toolbar = document.querySelector('.flex-container > .flex-item:first-child');
+    if (!toolbar || document.getElementById('azukiDeckMatchesButton')) return;
+
+    var total = matchHistoryTotal();
+    var button = document.createElement('button');
+    button.id = 'azukiDeckMatchesButton';
+    button.type = 'button';
+    button.setAttribute('aria-haspopup', 'dialog');
+    button.innerHTML = '<span>Matches</span><span id="azukiDeckMatchesCount">' + String(total) + '</span>';
+
+    var modal = document.createElement('div');
+    modal.id = 'azukiDeckMatchHistoryModal';
+    modal.hidden = true;
+    modal.innerHTML =
+      '<section class="azuki-deck-history-panel" role="dialog" aria-modal="true" aria-labelledby="azukiDeckMatchHistoryTitle">' +
+        '<header class="azuki-deck-history-header">' +
+          '<div><p class="azuki-deck-history-kicker">Deck record</p><h2 id="azukiDeckMatchHistoryTitle"></h2></div>' +
+          '<button id="azukiDeckMatchHistoryClose" type="button" aria-label="Close match history">&times;</button>' +
+        '</header>' +
+        '<div class="azuki-deck-history-summary">' +
+          '<div class="azuki-deck-history-stat"><small>Matches</small><strong data-history-stat="total"></strong></div>' +
+          '<div class="azuki-deck-history-stat is-win"><small>Wins</small><strong data-history-stat="wins"></strong></div>' +
+          '<div class="azuki-deck-history-stat is-loss"><small>Losses</small><strong data-history-stat="losses"></strong></div>' +
+          '<div class="azuki-deck-history-stat"><small>Win rate</small><strong data-history-stat="rate"></strong></div>' +
+        '</div>' +
+        '<div class="azuki-deck-history-list"></div>' +
+        '<footer class="azuki-deck-history-footer"><span>Results recorded while using this saved deck.</span><a href="/TCGEngine/SharedUI/Sites/AzukiSim/Matches.php">All matches</a></footer>' +
+      '</section>';
+
+    modal.querySelector('#azukiDeckMatchHistoryTitle').textContent = currentName;
+    modal.querySelector('[data-history-stat="total"]').textContent = String(total);
+    modal.querySelector('[data-history-stat="wins"]').textContent = String(Number(matchHistory.wins || 0));
+    modal.querySelector('[data-history-stat="losses"]').textContent = String(Number(matchHistory.losses || 0));
+    modal.querySelector('[data-history-stat="rate"]').textContent =
+      (total > 0 ? Math.round((Number(matchHistory.wins || 0) / total) * 100) : 0) + '%';
+
+    var list = modal.querySelector('.azuki-deck-history-list');
+    var matches = Array.isArray(matchHistory.matches) ? matchHistory.matches : [];
+    if (matches.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'azuki-deck-history-empty';
+      empty.textContent = 'No completed matches are associated with this deck yet.';
+      list.appendChild(empty);
+    } else {
+      matches.forEach(function (match) {
+        list.appendChild(createMatchHistoryRow(match));
+      });
+    }
+
+    var previouslyFocused = null;
+    function closeModal() {
+      modal.hidden = true;
+      document.body.style.removeProperty('overflow');
+      button.setAttribute('aria-expanded', 'false');
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') previouslyFocused.focus();
+    }
+    function openModal() {
+      previouslyFocused = document.activeElement;
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      button.setAttribute('aria-expanded', 'true');
+      modal.querySelector('#azukiDeckMatchHistoryClose').focus();
+    }
+
+    button.setAttribute('aria-expanded', 'false');
+    button.addEventListener('click', openModal);
+    modal.querySelector('#azukiDeckMatchHistoryClose').addEventListener('click', closeModal);
+    modal.addEventListener('click', function (event) {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !modal.hidden) closeModal();
+    });
+
+    var visibility = document.getElementById('AssetVisibility');
+    toolbar.insertBefore(button, visibility || null);
+    document.body.appendChild(modal);
+
+    var mobilePanel = document.getElementById('swuMobileToolbarMenuPanel');
+    if (mobilePanel) mobilePanel.appendChild(button);
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', installRenameButton);
+    document.addEventListener('DOMContentLoaded', function () {
+      installRenameButton();
+      installMatchHistory();
+    });
   } else {
     installRenameButton();
+    installMatchHistory();
   }
 })();
 </script>

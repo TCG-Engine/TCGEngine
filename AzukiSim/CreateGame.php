@@ -24,6 +24,7 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     InitializeGamestate();
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");
+    DecisionQueueController::StoreVariable('AzukiMatchGameName', strval($gameName));
 
     $azukiCreateMode = isset($lobby->format) ? strtolower(strval($lobby->format)) : '';
     if ($azukiCreateMode !== 'tutorial') {
@@ -251,6 +252,13 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '', $
 
         $deckList = $resolvedDeck['mainDeck'];
         AzukiStatsCaptureDeck($playerID, $deckLink, $deckList);
+        $historyDeckName = trim((string)CardName($resolvedDeck['leader'])) . ' deck';
+        if(preg_match('/^azukideck:(\d+)$/i', $deckLink, $historyDeckMatch)) {
+            $historyDeck = AzukiDeckLoadOwnedDeck($historyDeckMatch[1], $userID);
+            $savedDeckName = trim((string)($historyDeck['assetName'] ?? ''));
+            if($savedDeckName !== '') $historyDeckName = $savedDeckName;
+        }
+        if($historyDeckName === ' deck') $historyDeckName = 'Imported deck';
     } else {
         $deckConfig = GetPreconstructedDeckConfig($preconstructedDeck);
 
@@ -264,7 +272,17 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '', $
         array_push($gate, $gateCard);
 
         $deckList = $deckConfig['deckList'];
+        $historyDeckName = strval($deckConfig['name'] ?? $preconstructedDeck ?: 'Starter deck') . ' starter';
     }
+
+    AzukiMatchHistoryCaptureSeat(
+        $playerID,
+        $userID,
+        $deckLink,
+        $historyDeckName,
+        strval($garden[0]->CardID ?? ''),
+        strval($gate[0]->CardID ?? '')
+    );
 
     for($i = 0; $i < count($deckList); ++$i) {
         $cardID = $deckList[$i];

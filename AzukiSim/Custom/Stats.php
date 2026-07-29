@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../Database/ConnectionManager.php';
+require_once __DIR__ . '/../../Core/MatchHistory.php';
 require_once __DIR__ . '/../../Core/Versioning/AssetVersioningCapability.php';
 require_once __DIR__ . '/../../AppCore/Azuki/AssetVersioningAdapter.php';
 
@@ -46,6 +47,55 @@ function AzukiStatsEnsureSchema($conn) {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
 
     return $conn->query($sql) === true && AssetVersioningEnsureStatsSchema($conn);
+}
+
+function AzukiMatchHistoryEnsureSchema($conn) {
+    return MatchHistoryEnsureSchema($conn);
+}
+
+function AzukiMatchHistoryCaptureSeat($player, $userID, $deckLink, $deckName, $leaderCardID, $gateCardID = '') {
+    $deckLink = trim((string)$deckLink);
+    $deckID = preg_match('/^azukideck:(\d+)$/i', $deckLink, $matches) ? intval($matches[1]) : 0;
+    $displayName = 'Guest';
+    $mode = trim((string)DecisionQueueController::GetVariable('GameMode'));
+    if($mode === 'rlbot' && function_exists('GetAzukiRlBotProfile')) {
+        $profile = GetAzukiRlBotProfile(DecisionQueueController::GetVariable('AzukiRlBotProfile'));
+        $displayName = trim((string)($profile['label'] ?? 'Training bot'));
+    }
+    return MatchHistoryCaptureSeat(
+        'AzukiSim',
+        $player,
+        $userID,
+        $deckID,
+        $deckName,
+        [$leaderCardID, $gateCardID],
+        $displayName
+    );
+}
+
+function AzukiRecordMatchHistory($winner) {
+    $winner = intval($winner);
+    if($winner !== 1 && $winner !== 2) return false;
+
+    $mode = trim((string)DecisionQueueController::GetVariable('GameMode'));
+    if($mode === 'tutorial') return false;
+    if($mode === '') $mode = 'pvp';
+
+    $gameName = trim((string)DecisionQueueController::GetVariable('AzukiMatchGameName'));
+    if($gameName === '') return false;
+    $firstPlayer = function_exists('GetFirstPlayer') ? intval(GetFirstPlayer()) : 0;
+    $turnCount = function_exists('GetTurnNumber') ? max(0, intval(GetTurnNumber())) : 0;
+    $endReason = trim((string)DecisionQueueController::GetVariable('AzukiGameLogEndReason'));
+    if($endReason === '') $endReason = 'leader_ko';
+    return MatchHistoryRecord('AzukiSim', $gameName, $winner, $mode, $firstPlayer, $turnCount, $endReason);
+}
+
+function AzukiLoadMatchHistory($userID, $limit = 100) {
+    return MatchHistoryLoad('AzukiSim', $userID, $limit);
+}
+
+function AzukiLoadDeckMatchHistory($userID, $deckID, $limit = 25) {
+    return MatchHistoryLoad('AzukiSim', $userID, min(100, intval($limit)), $deckID);
 }
 
 function AzukiStatsSavedDeckID($deckLink) {

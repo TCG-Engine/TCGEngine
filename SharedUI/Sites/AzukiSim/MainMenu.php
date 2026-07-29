@@ -26,41 +26,6 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
 }
 
 ?>
-<div id="rejoin-last-game-banner" class="azuki-rejoin-banner" style="display: none;">
-  <button id="rejoin-last-game-btn" class="azuki-rejoin-banner-button" type="button" onclick="rejoinLastGame()" aria-describedby="rejoin-last-game-note">
-    <span class="azuki-rejoin-banner-icon" aria-hidden="true">↩</span>
-    <span class="azuki-rejoin-banner-copy">
-      <strong>Rejoin recent game</strong>
-      <span id="rejoin-last-game-note"></span>
-    </span>
-    <span class="azuki-rejoin-banner-action" aria-hidden="true">Rejoin</span>
-  </button>
-</div>
-<script>
-  (function() {
-    var desktopRejoinLayout = window.matchMedia('(min-width: 1280px)');
-
-    function placeRejoinBanner() {
-      var banner = document.getElementById('rejoin-last-game-banner');
-      var nav = document.querySelector('.nav-bar');
-      var menuGrid = document.querySelector('.azuki-menu-grid');
-      if (!banner || !nav || !menuGrid) return;
-
-      if (desktopRejoinLayout.matches) {
-        nav.insertBefore(banner, nav.firstElementChild);
-      } else {
-        menuGrid.parentNode.insertBefore(banner, menuGrid);
-      }
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', placeRejoinBanner);
-    } else {
-      placeRejoinBanner();
-    }
-    desktopRejoinLayout.addEventListener('change', placeRejoinBanner);
-  })();
-</script>
 <div class="row-wrapper azuki-menu-grid">
   <!-- Active Games Section -->
   <div class="card azuki-glass-card azuki-active-card is-empty">
@@ -70,6 +35,16 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
       <span class="azuki-active-refresh-check" aria-hidden="true">&#10003;</span>
     </button>
     <h2>Active Games <span id="active-game-count" class="azuki-active-count" aria-live="polite">0</span></h2>
+    <div id="rejoin-last-game-banner" class="azuki-rejoin-banner" style="display: none;">
+      <button id="rejoin-last-game-btn" class="azuki-rejoin-banner-button" type="button" onclick="rejoinLastGame()" aria-describedby="rejoin-last-game-note">
+        <span class="azuki-rejoin-banner-icon" aria-hidden="true">↩</span>
+        <span class="azuki-rejoin-banner-copy">
+          <strong>Rejoin recent game</strong>
+          <span id="rejoin-last-game-note"></span>
+        </span>
+        <span class="azuki-rejoin-banner-action" aria-hidden="true">Rejoin</span>
+      </button>
+    </div>
     <div id="active-games-list" class="active-games-list"></div>
   </div>
 
@@ -345,12 +320,11 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
 
 <style>
   .azuki-rejoin-banner {
-    position: static;
-    z-index: 80;
-    width: clamp(320px, calc(100vw - 950px), 580px);
-    min-width: 320px;
-    flex: 0 1 auto;
-    margin: 0;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-width: 0;
+    margin: 14px 0 10px;
   }
   .azuki-rejoin-banner > button.azuki-rejoin-banner-button {
     display: flex;
@@ -1036,18 +1010,6 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     overflow-wrap: anywhere !important;
     word-break: break-word !important;
   }
-  .home-header {
-    height: 92px;
-    padding: 10px 0 6px 40px;
-  }
-  .home-header h1 {
-    font-size: 42px;
-    margin: 0 0 2px;
-    line-height: 1;
-  }
-  .home-header p {
-    margin: 0;
-  }
   .azuki-menu-grid {
     display: grid !important;
     grid-template-columns: minmax(260px, 0.9fr) minmax(360px, 1.2fr) minmax(300px, 1fr);
@@ -1171,27 +1133,6 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
   }
 
   /* Zendo menu treatment */
-  body {
-    --zendo-font-display: Georgia, 'Times New Roman', serif;
-    --zendo-font-ui: Barlow, Arial, sans-serif;
-    --zendo-font-code: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
-    min-height: 100vh;
-    background:
-      linear-gradient(90deg, rgba(3, 14, 27, 0.2), rgba(5, 20, 35, 0.04) 46%, rgba(3, 13, 24, 0.18)),
-      url('/TCGEngine/Assets/Images/Zendo/zendo-temple-background.webp') center top / cover fixed no-repeat,
-      #061524 !important;
-    color: #e7dfcf;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background:
-      radial-gradient(circle at 54% -4%, rgba(100, 137, 159, 0.12), transparent 36%),
-      linear-gradient(180deg, transparent 58%, rgba(0, 7, 14, 0.72));
-  }
   .zendo-icon {
     display: block;
     width: 18px;
@@ -1209,193 +1150,6 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     height: 24px;
     flex: 0 0 auto;
     object-fit: contain;
-  }
-  .home-header {
-    position: relative;
-    width: min(570px, 52vw);
-    height: 102px;
-    padding: 18px 0 8px 116px;
-    box-sizing: border-box;
-  }
-  .home-header::before {
-    content: "";
-    position: absolute;
-    top: 10px;
-    left: 27px;
-    width: 78px;
-    height: 78px;
-    background: url('/TCGEngine/Assets/Images/Zendo/zendo-enso.png') center / contain no-repeat;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.42));
-  }
-  .home-header h1 {
-    color: #f2ebdc;
-    font-family: var(--zendo-font-display);
-    font-size: 42px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-  }
-  .home-header h1::after {
-    content: "禅堂";
-    display: inline-grid;
-    width: 50px;
-    height: 31px;
-    margin-left: 8px;
-    place-items: center;
-    color: #b73a32;
-    border: 1px solid #b73a32;
-    border-radius: 3px;
-    font-size: 19px;
-    letter-spacing: 0;
-    vertical-align: 5px;
-  }
-  .home-header p {
-    color: #d6ad69;
-    font-family: var(--zendo-font-ui);
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-  }
-  .nav-bar {
-    top: 24px !important;
-    right: 30px !important;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .nav-bar-user {
-    height: 58px;
-    padding: 0 10px;
-    box-sizing: border-box;
-    background:
-      linear-gradient(180deg, rgba(11, 27, 43, 0.7), rgba(3, 15, 28, 0.78)) !important;
-    border: 1px solid rgba(190, 143, 73, 0.32) !important;
-    border-radius: 13px !important;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 239, 204, 0.025),
-      0 10px 28px rgba(0, 5, 12, 0.2);
-    backdrop-filter: blur(10px);
-  }
-  .nav-bar-user .rightnav {
-    display: flex !important;
-    height: 100%;
-    align-items: center;
-    margin: 0 !important;
-    padding: 0 !important;
-    list-style: none;
-  }
-  .nav-bar-user .rightnav > li {
-    position: relative;
-    display: flex;
-    height: 100%;
-    align-items: center;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .nav-bar-user .rightnav > li + li::before {
-    content: "";
-    position: absolute;
-    top: 17px;
-    left: 0;
-    width: 1px;
-    height: 24px;
-    background: linear-gradient(transparent, rgba(209, 165, 92, 0.3), transparent);
-  }
-  .nav-bar a,
-  .nav-bar .NavBarItem {
-    color: #e7dfcf !important;
-  }
-  .nav-bar-user .NavBarItem {
-    display: flex !important;
-    height: 56px;
-    align-items: center;
-    gap: 9px;
-    padding: 0 14px !important;
-    box-sizing: border-box;
-    font-family: var(--zendo-font-ui);
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    line-height: 1.1;
-    text-decoration: none !important;
-    white-space: nowrap;
-    transition: color 150ms ease, background-color 150ms ease;
-  }
-  .nav-bar-user .nav-item-icon {
-    display: block;
-    width: 19px;
-    height: 19px;
-    flex: 0 0 auto;
-  }
-  .nav-bar-user .NavBarItem:hover,
-  .nav-bar-user .NavBarItem:focus-visible {
-    color: #f2cf88 !important;
-    background: linear-gradient(180deg, rgba(213, 167, 89, 0.075), rgba(213, 167, 89, 0.025));
-    outline: none;
-  }
-  .nav-bar-links {
-    position: relative;
-    height: 58px;
-    padding-left: 17px;
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-  }
-  .nav-bar-links::before {
-    content: "";
-    position: absolute;
-    top: 14px;
-    left: 0;
-    width: 1px;
-    height: 30px;
-    background: linear-gradient(transparent, rgba(209, 165, 92, 0.32), transparent);
-  }
-  .nav-bar-links > ul {
-    display: flex !important;
-    height: 58px;
-    align-items: center;
-    gap: 10px;
-    margin: 0 !important;
-    padding: 0 !important;
-    list-style: none;
-  }
-  .nav-bar-links > ul > li {
-    display: block;
-    width: 56px;
-    height: 56px;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .nav-bar-links a {
-    display: grid !important;
-    width: 56px;
-    height: 56px;
-    padding: 0 !important;
-    place-items: center;
-    box-sizing: border-box;
-    background:
-      linear-gradient(180deg, rgba(11, 27, 43, 0.72), rgba(3, 15, 28, 0.8));
-    border: 1px solid rgba(190, 143, 73, 0.27);
-    border-radius: 12px;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 239, 204, 0.025),
-      0 8px 22px rgba(0, 5, 12, 0.16);
-    backdrop-filter: blur(10px);
-    transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
-  }
-  .nav-bar-links a:hover,
-  .nav-bar-links a:focus-visible {
-    background: linear-gradient(180deg, rgba(19, 40, 58, 0.93), rgba(6, 22, 37, 0.95));
-    border-color: rgba(222, 178, 101, 0.58);
-    outline: none;
-    transform: translateY(-1px);
-  }
-  .nav-bar-links img {
-    display: block;
-    width: 23px;
-    height: 23px;
-    margin: 0;
   }
   .azuki-menu-grid {
     grid-template-columns: minmax(250px, 0.82fr) minmax(520px, 1.62fr) minmax(300px, 0.92fr);
@@ -2636,14 +2390,6 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     color: #e0b86d !important;
     text-decoration-color: currentColor;
   }
-  @media (max-width: 1279px) {
-    .azuki-rejoin-banner {
-      position: relative;
-      width: auto;
-      min-width: 0;
-      margin: 0 10px 12px;
-    }
-  }
   @media (max-width: 1180px) {
     .azuki-menu-grid {
       display: flex !important;
@@ -2656,60 +2402,6 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     }
   }
   @media (max-width: 768px) {
-    .home-header {
-      width: 100%;
-      max-width: none;
-      min-height: 92px;
-      padding: 14px 76px 12px 96px !important;
-    }
-    .home-header::before {
-      top: 11px;
-      left: 17px;
-      width: 68px;
-      height: 68px;
-    }
-    .home-header h1 {
-      white-space: nowrap;
-    }
-    .home-header h1::after {
-      width: 42px;
-      height: 26px;
-      margin-left: 6px;
-      font-size: 16px;
-      vertical-align: 3px;
-    }
-    .nav-bar {
-      top: 0 !important;
-      right: 0 !important;
-      gap: 0;
-      transform: translateX(100%);
-    }
-    .nav-bar.active {
-      right: 0 !important;
-      transform: translateX(0);
-    }
-    .nav-bar-user {
-      height: auto;
-    }
-    .nav-bar-user .rightnav {
-      display: block !important;
-      height: auto;
-    }
-    .nav-bar-user .rightnav > li {
-      display: block;
-      height: auto;
-    }
-    .nav-bar-user .rightnav > li + li::before,
-    .nav-bar-links::before {
-      content: none;
-    }
-    .nav-bar-links {
-      height: auto;
-      padding-left: 0;
-    }
-    .nav-bar-links > ul {
-      height: auto;
-    }
     .azuki-rejoin-banner {
       margin-top: 8px;
     }
@@ -3176,6 +2868,8 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
   var _lastSimGameStorageKey = 'tcgengine:lastSimGame:' + rootName;
   var _rejoinFreshnessMs = 5 * 60 * 1000;
   var _rejoinExpiryTimer = null;
+  var _activeGamesServerCount = 0;
+  var _activeGamesSnapshot = [];
 
       function getLastSimGame() {
         try {
@@ -3203,6 +2897,22 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         return _rejoinFreshnessMs - age;
       }
 
+      function syncRejoinActiveGamesState() {
+        var gameList = document.getElementById('active-games-list');
+        var gameCount = document.getElementById('active-game-count');
+        var record = getLastSimGame();
+        var hasFreshRejoin = lastSimGameFreshnessRemaining(record) > 0;
+        var rejoinAlreadyListed = hasFreshRejoin && _activeGamesSnapshot.some(function(game) {
+          return String(game && game.gameName || '') === String(record.gameName);
+        });
+        if (gameCount) {
+          gameCount.textContent = String(_activeGamesServerCount + (hasFreshRejoin && !rejoinAlreadyListed ? 1 : 0));
+        }
+        if (gameList && !gameList.querySelector('.active-game-card')) {
+          renderActiveGames([]);
+        }
+      }
+
       function updateRejoinLastGameUI() {
         var banner = document.getElementById('rejoin-last-game-banner');
         var button = document.getElementById('rejoin-last-game-btn');
@@ -3217,10 +2927,12 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         if (freshnessRemaining <= 0) {
           banner.style.display = 'none';
           note.textContent = '';
+          syncRejoinActiveGamesState();
           return;
         }
         banner.style.display = '';
-        note.textContent = 'Game ' + record.gameName + ' · Player ' + record.playerID + ' · Active within 5 minutes';
+        note.textContent = 'Game ' + record.gameName + ' · Player ' + record.playerID;
+        syncRejoinActiveGamesState();
         _rejoinExpiryTimer = setTimeout(updateRejoinLastGameUI, freshnessRemaining + 50);
       }
 
@@ -3830,8 +3542,6 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
 
       function refreshOpenGames(refreshButton) {
         console.log('Refreshing open games');
-        var gameCountElement = document.getElementById('active-game-count');
-        var gameListElement = document.getElementById('active-games-list');
         var feedbackStartedAt = Date.now();
         if (refreshButton) setActiveGamesRefreshState(refreshButton, 'loading');
 
@@ -3854,16 +3564,22 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
           
           if (data.data && Array.isArray(data.data)) {
             var totalCount = (typeof data.totalCount === 'number') ? data.totalCount : data.data.length;
-            gameCountElement.textContent = totalCount;
+            _activeGamesServerCount = totalCount;
+            _activeGamesSnapshot = data.data;
+            syncRejoinActiveGamesState();
             renderActiveGames(data.data);
           } else {
-            gameCountElement.textContent = '0';
+            _activeGamesServerCount = 0;
+            _activeGamesSnapshot = [];
+            syncRejoinActiveGamesState();
             renderActiveGames([]);
           }
           finishRefreshFeedback(true);
           } else {
           console.error('Error fetching open games:', xhr.statusText);
-          gameCountElement.textContent = '0';
+          _activeGamesServerCount = 0;
+          _activeGamesSnapshot = [];
+          syncRejoinActiveGamesState();
           renderActiveGames([]);
           finishRefreshFeedback(false);
           }
@@ -3871,7 +3587,9 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
 
         xhr.onerror = function() {
           console.error('Error fetching open games:', xhr.statusText);
-          gameCountElement.textContent = '0';
+          _activeGamesServerCount = 0;
+          _activeGamesSnapshot = [];
+          syncRejoinActiveGamesState();
           renderActiveGames([]);
           finishRefreshFeedback(false);
         };
@@ -3914,8 +3632,10 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         if (!gameListElement) return;
         var activeCard = gameListElement.closest('.azuki-active-card');
         if (!games || !games.length) {
-          if (activeCard) activeCard.classList.add('is-empty');
-          gameListElement.innerHTML =
+          var rejoinBanner = document.getElementById('rejoin-last-game-banner');
+          var hasRejoinGame = !!rejoinBanner && rejoinBanner.style.display !== 'none';
+          if (activeCard) activeCard.classList.toggle('is-empty', !hasRejoinGame);
+          gameListElement.innerHTML = hasRejoinGame ? '' :
             '<div class="active-game-empty">' +
               '<img src="/TCGEngine/Assets/Images/Zendo/active-games-empty-mark.svg?v=20260726e" alt="">' +
               '<p>No active games right now.<span>Start one or refresh again<br>in a moment.</span></p>' +
