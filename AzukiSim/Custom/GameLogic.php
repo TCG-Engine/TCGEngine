@@ -5576,6 +5576,8 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
             if($entityCardID !== '') {
                 DecisionQueueController::StoreVariable('entityMZCardID', $entityCardID);
             }
+            $animationSourceMZ = ConvertMzIDToAbsolute($entityMZ, $player);
+            $animationSourceUniqueID = intval($entityObj->UniqueID ?? 0);
 
             $garden = &GetGarden($player);
             if(CountActiveEntities($garden, true) >= 5) {
@@ -5586,7 +5588,10 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
                 }
             }
 
-            SafeMZMove($player, $entityMZ, 'myGarden');
+            $portaledObj = SafeMZMove($player, $entityMZ, 'myGarden');
+            if($portaledObj === null || $portaledObj === false) {
+                return '';
+            }
             GameLogEvent('portal', [
                 'by' => 'p' . intval($player),
                 'card' => AzukiGameLogCardLabel($entityCardID),
@@ -5602,6 +5607,14 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
                 $addedObj = &$garden[$addedIndex];
                 if($addedObj !== null && !(isset($addedObj->removed) && $addedObj->removed)) {
                     NormalizeFieldOwnership($addedObj, $player);
+                    QueueZoneMoveAnimation(
+                        $animationSourceMZ,
+                        ConvertMzIDToAbsolute('myGarden-' . $addedIndex, $player),
+                        420,
+                        true,
+                        $animationSourceUniqueID,
+                        intval($addedObj->UniqueID ?? 0)
+                    );
                     if(!isset($addedObj->TurnEffects) || !is_array($addedObj->TurnEffects)) {
                         $addedObj->TurnEffects = [];
                     }
