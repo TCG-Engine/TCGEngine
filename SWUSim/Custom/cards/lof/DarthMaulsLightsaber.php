@@ -9,7 +9,7 @@ $whenPlayedAbilities["LOF_140:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    if (CardTitle($host->CardID ?? '') !== 'Darth Maul') return;
+    if (SWUObjectTitle($host) !== 'Darth Maul') return;
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Attack_with_Darth_Maul_(Overwhelm,_can't_attack_bases)?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_140#0|" . intval($host->UniqueID ?? -1), 1);
 };

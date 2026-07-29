@@ -16,7 +16,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
-    <script src="./Core/UILibraries20260728.js?v=<?php echo filemtime('./Core/UILibraries20260728.js'); ?>"></script>
+    <script src="./Core/UILibraries20260729.js?v=<?php echo filemtime('./Core/UILibraries20260729.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
@@ -428,7 +428,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
     </script>
 
-    <script src="./Core/jsInclude.js"></script>
+    <script src="./Core/jsInclude.js?v=<?php echo filemtime('./Core/jsInclude.js'); ?>"></script>
     <script src="./<?php
       $generateFilename = glob("./" . $folderPath . "/GeneratedUI*.js")[0];
       $lastSlashPos = strrpos($generateFilename, '/');

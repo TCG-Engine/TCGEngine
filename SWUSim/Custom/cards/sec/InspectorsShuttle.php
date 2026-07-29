@@ -20,7 +20,7 @@ $customDQHandlers["SEC_260#0"] = function($player, $parts, $lastDecision) {
     $named = trim($lastDecision);
     $opp = OtherPlayer(intval($player));
     $count = 0;
-    foreach (GetHand($opp) as $c) { if (!empty($c->removed)) continue; if (CardTitle($c->CardID ?? '') === $named) $count++; }
+    foreach (GetHand($opp) as $c) { if (!empty($c->removed)) continue; if (SWUObjectTitle($c) === $named) $count++; }
     $smz = SWUFindMzByUID(intval($parts[0] ?? 0));
     if ($smz !== null) for ($i = 0; $i < $count; $i++) DoGiveExperienceToken(intval($player), $smz);
 };

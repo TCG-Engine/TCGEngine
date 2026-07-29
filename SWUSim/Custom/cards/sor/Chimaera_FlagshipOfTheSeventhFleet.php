@@ -35,7 +35,7 @@ $customDQHandlers["SOR_185#0"] = function($player, $parts, $lastDecision) {
 
     // "discards a card with that name from it" — the first matching copy (by card title).
     foreach ($oppHand as $card) {
-        if (empty($card->removed) && CardTitle($card->CardID) === $namedName) {
+        if (empty($card->removed) && SWUObjectTitle($card) === $namedName) {
             $cid = $card->CardID;
             $card->Remove();
             SWUAddToDiscard($opp, $cid, 'HAND');

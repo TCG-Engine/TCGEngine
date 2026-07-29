@@ -10,7 +10,7 @@ $whenPlayedAbilities["SOR_136:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    if (CardTitle($host->CardID) !== 'Darth Vader') return;
+    if (SWUObjectTitle($host) !== 'Darth Vader') return;
     SWUQueueMayChooseTarget(intval($player), array_merge(
         ZoneSearch('myGroundArena',    AnyUnitFilter),
         ZoneSearch('theirGroundArena', AnyUnitFilter)

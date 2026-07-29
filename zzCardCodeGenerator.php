@@ -115,6 +115,7 @@ if($rootName == "SWUDeck" || $rootName == "SWUSim") {
     "SOR",/*2024-03-08*/"SHD",/*2024-07-12*/"TWI",/*2024-11-05*/
     "JTL",/*2025-03-14*/"LOF",/*2025-07-11*/"IBH",/*2025-10-03*/"SEC",/*2025-11-07*/
     "LAW",/*2026-03-06*/"TS26",/*2026-03-08*/"ASH",/*2026-07-17*/
+    "HMW",/*2026-10-09*/"IC27",/*2026-11-20*/
   ];
 }
 
@@ -409,6 +410,38 @@ if($supplementalCardCount > 0) {
   logLine("Appended " . $supplementalCardCount . " supplemental cards from ImportSchema cardEditorSupplement sources.");
 }
 
+// Mock (preview) cards — tracked source in SWUSim/Custom/CardMocks.php, merged here so every
+// downstream artifact (dictionaries, client JS, ability stubs) includes them. Runs AFTER the
+// cache load/write so cardArrayCache.json stays pure API data: deleting a mock entry removes
+// the card on the next ordinary regen with no withPreview refetch.
+if($rootName == "SWUSim") {
+  require_once __DIR__ . '/SWUSim/DevTools/MockCardMerge.php';
+  $mockResult = SWUSimMergeMockCards($cardArray, true);
+  $count = count($cardArray);
+  foreach($mockResult['superseded'] as $supersededID) {
+    logLine("mock " . $supersededID . " superseded by official data — safe to remove");
+  }
+  if(count($mockResult['added']) > 0) {
+    logLine("Merged " . count($mockResult['added']) . " mock card(s): " . implode(", ", $mockResult['added']));
+  }
+
+  // Mock art: stored as mock_<CardID>.webp so stale preview art can never masquerade as official
+  // art once the real card downloads. CheckImage handles webp conversion, concat and crops — and
+  // the Imagick-not-GD path prod requires.
+  $mockDefs = SWUSimLoadMockCards();
+  foreach($mockResult['added'] as $mockID) {
+    $def = $mockDefs[$mockID] ?? [];
+    $front = trim((string)($def['imageUrl'] ?? ''));
+    $back  = trim((string)($def['imageUrlBack'] ?? ''));
+    if($front !== '') {
+      CheckImage("mock_" . $mockID, $front, "", "", rootPath:"./" . $rootName . "/", overwriteImages:$overwriteImages);
+    }
+    if($back !== '') {
+      CheckImage("mock_" . $mockID . "_back", $back, "", "", rootPath:"./" . $rootName . "/", overwriteImages:$overwriteImages);
+    }
+  }
+}
+
 // Phase 1b (SWUSim only): migrate stale token image files that were downloaded under the
 // wrong SET_NNN name (before Phase 1 got the early re-ID logic). For each token in the
 // card array, if WebpImages/SET_NNN.webp exists but WebpImages/SET_T##.webp does not,
@@ -501,6 +534,16 @@ for ($i = 0; $i < count($cardArray); ++$i) {
   } else {
     $allCardIds[] = $card->id;
   }
+}
+
+// Trait supplement (SWUSim): the upstream API publishes NO traits for bases (all 91 come back
+// empty) even though every base prints one. Fill those gaps from tracked source BEFORE the
+// dictionaries + client JS are written, so CardTrait()/TraitContains() and the browse UI all see
+// the same data. Fill-gaps only: anything the API did provide is left untouched.
+if($rootName == "SWUSim") {
+  require_once __DIR__ . '/SWUSim/DevTools/TraitSupplement.php';
+  $traitFilled = SWUSimApplyTraitSupplement($associativeArrays["trait"]);
+  if($traitFilled > 0) logLine("Trait supplement: filled " . $traitFilled . " card(s) the API left empty.");
 }
 
 // Process keywords file if it exists
@@ -816,6 +859,14 @@ if(($rootName == "SWUDeck" || $rootName == "SoulMastersDB") && file_exists($allS
 }
 $allSetsJson = json_encode($allSetsOrdered, JSON_FORCE_OBJECT);
 fwrite($handler, "var allSetsData = " . $allSetsJson . ";\r\n");
+if($rootName == "SWUSim") {
+  // CardIDs whose art lives under a mock_ filename. The CardID itself is NEVER prefixed, so the
+  // client resolves ID -> image filename through this map (resolveCardImageID in jsInclude.js).
+  $mockImageIDs = [];
+  foreach(array_keys(SWUSimLoadMockCards()) as $mockID) { $mockImageIDs[$mockID] = true; }
+  fwrite($handler, "var MockCardImageIDs = " . json_encode($mockImageIDs, JSON_FORCE_OBJECT) . ";\r\n");
+  fwrite($handler, "if(typeof window !== 'undefined') window.MockCardImageIDs = MockCardImageIDs;\r\n");
+}
 // Build reprint set map: canonicalUUID => [reprintSetCode, ...] for ordered set filtering
 $reprintSetsMap = [];
 if($rootName == "SWUDeck" && file_exists("./AppCore/SWU/Overrides.php")) { // Overrides.php lives in the shared AppCore/SWU/ dir

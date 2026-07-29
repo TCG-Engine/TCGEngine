@@ -9,7 +9,7 @@ $whenPlayedAbilities["SHD_251:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    if (CardTitle($host->CardID ?? '') !== 'The Mandalorian') return;
+    if (SWUObjectTitle($host) !== 'The Mandalorian') return;
     $hostUID = intval($host->UniqueID ?? 0);
     $enemies = [];
     foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {

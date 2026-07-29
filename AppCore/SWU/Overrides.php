@@ -119,6 +119,7 @@ function CardIDOverride($cardID) {
     case "ASH_122": return "SOR_112"; //Consortium StarViper
     case "ASH_152": return "LAW_180"; //Inspired Recruit
     case "ASH_258": return "SEC_258"; //Grassroots Resistance
+    case "IC27_097": return "SOR_128"; //Death Star Stormtrooper
     default: return $cardID;
   }
 }

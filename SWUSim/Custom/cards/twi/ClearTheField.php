@@ -9,7 +9,7 @@ $customDQHandlers["TWI_199#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $name = CardTitle($o->CardID ?? '');
+    $name = SWUObjectTitle($o);
     $opp = OtherPlayer(intval($player));
     // Snapshot the opponent's same-name non-leader units by UID before any bounce shifts indices.
     $sameUids = [];
@@ -17,7 +17,7 @@ $customDQHandlers["TWI_199#0"] = function($player, $parts, $lastDecision) {
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
             $eo = GetZoneObject($mz);
-            if ($eo !== null && empty($eo->removed) && CardTitle($eo->CardID ?? '') === $name) $sameUids[] = intval($eo->UniqueID ?? 0);
+            if ($eo !== null && empty($eo->removed) && SWUObjectTitle($eo) === $name) $sameUids[] = intval($eo->UniqueID ?? 0);
         }
     }
     $playerID = $sp;

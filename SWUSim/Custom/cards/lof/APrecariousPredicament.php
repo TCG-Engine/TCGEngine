@@ -27,7 +27,7 @@ $customDQHandlers["LOF_222#1"] = function($player, $parts, $lastDecision) {
         $playerID = $caster;
         $hand = GetHand($caster); $found = -1;
         for ($i = 0; $i < count($hand); $i++) {
-            if ($hand[$i] !== null && empty($hand[$i]->removed) && CardTitle($hand[$i]->CardID ?? '') === "It's Worse") { $found = $i; break; }
+            if ($hand[$i] !== null && empty($hand[$i]->removed) && SWUObjectTitle($hand[$i]) === "It's Worse") { $found = $i; break; }
         }
         if ($found < 0) return; // none in hand (the "or resources" path is deferred)
         DecisionQueueController::AddDecision($caster, "YESNO", "-", 1, tooltip: "Play_It's_Worse_from_your_hand_for_free?");

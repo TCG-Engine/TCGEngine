@@ -18,7 +18,7 @@ $onAttackAbilities["TWI_179:0"] = function($player, $mzID) {
             $u = $arr[$i];
             if (SWUObjGone($u) || intval($u->Status) !== 1) continue;
             if (intval($u->UniqueID ?? -2) === $selfUID) continue;
-            if (TraitContains($u, 'Droid') || CardTitle($u->CardID ?? '') === 'General Grievous') $targets[] = "{$zone}-{$i}";
+            if (TraitContains($u, 'Droid') || SWUObjectTitle($u) === 'General Grievous') $targets[] = "{$zone}-{$i}";
         }
     }
     if (empty($targets)) return;

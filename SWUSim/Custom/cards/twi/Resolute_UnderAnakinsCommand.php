@@ -19,13 +19,13 @@ $customDQHandlers["TWI_151#0"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $chosen = GetZoneObject($lastDecision);
     if (SWUObjGone($chosen)) return;
-    $name = CardTitle($chosen->CardID ?? '');
+    $name = SWUObjectTitle($chosen);
     // Snapshot every enemy unit sharing the chosen unit's name (incl. the chosen one) by UID.
     $uids = [];
     foreach (["theirGroundArena", "theirSpaceArena"] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && CardTitle($o->CardID ?? '') === $name) $uids[] = intval($o->UniqueID ?? 0);
+            if ($o !== null && empty($o->removed) && SWUObjectTitle($o) === $name) $uids[] = intval($o->UniqueID ?? 0);
         }
     }
     foreach ($uids as $uid) {

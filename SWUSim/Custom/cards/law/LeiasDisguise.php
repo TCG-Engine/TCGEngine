@@ -10,6 +10,6 @@ $whenPlayedAbilities["LAW_111:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    if (CardTitle($host->CardID ?? '') !== 'Leia Organa') return;
+    if (SWUObjectTitle($host) !== 'Leia Organa') return;
     GiveTokenUpgrade($player, $mzID, ['token'=>'SHIELD','prompt'=>"Give_a_Shield_token_to_a_friendly_unit"]);
 };

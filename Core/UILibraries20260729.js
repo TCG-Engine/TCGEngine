@@ -253,6 +253,11 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
 
 //Rotate is deprecated
       function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "", overlayDescriptorsJSON = "", hasForce = 0) {
+        // Mock (preview) cards store art as mock_<CardID>.* while the CardID itself stays plain, so
+        // resolve ID -> filename HERE: Card() is the single choke point every zone renders through
+        // (leader, base, arenas, hand, discard, resources), and the server-side layout only passes
+        // a FOLDER, never a filename. Must run before the "_cropped" suffix below.
+        if (typeof resolveCardImageID === 'function') cardNumber = resolveCardImageID(cardNumber);
         if (folder == "crops") {
           cardNumber += "_cropped";
         }
@@ -1811,8 +1816,8 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
               var scIsLeaderPilot = scIsPilot && scType.indexOf('Leader') !== -1;
               var scIsUnitPilot   = scIsPilot && !scIsLeaderPilot && scType.indexOf('Unit') !== -1;
               var lineageSrc;
-              if (scIsLeaderPilot)    lineageSrc = "./" + subFolder + "/WebpImages/" + scID + "_back.webp";
-              else if (scIsUnitPilot) lineageSrc = "./" + subFolder + "/WebpImages/" + scID + ".webp";
+              if (scIsLeaderPilot)    lineageSrc = "./" + subFolder + "/WebpImages/" + resolveCardImageID(scID) + "_back.webp";
+              else if (scIsUnitPilot) lineageSrc = "./" + subFolder + "/WebpImages/" + resolveCardImageID(scID) + ".webp";
               else                    lineageSrc = "./" + subFolder + "/concat/" + scID + ".webp";
               var li = sliverIdx++;
               // Peek from below: bottom-most sliver of upgrade card (or top sliver of captive). Pilots
@@ -6726,7 +6731,7 @@ function _getMacroGameCardImageUrl(cardID) {
   if (!cardID) return '';
   var rootPath = typeof window !== 'undefined' && window.rootPath ? String(window.rootPath) : './GrandArchiveSim';
   rootPath = rootPath.replace(/^(\.\/|\/)/, '');
-  return './' + rootPath + '/WebpImages/' + encodeURIComponent(cardID) + '.webp';
+  return './' + rootPath + '/WebpImages/' + encodeURIComponent(resolveCardImageID(cardID)) + '.webp';
 }
 
 function _getMacroGameRootName() {

@@ -11,7 +11,7 @@ $whenPlayedAbilities["SOR_053:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    if (CardTitle($host->CardID) !== 'Luke Skywalker') return;
+    if (SWUObjectTitle($host) !== 'Luke Skywalker') return;
     OnHealUnit(intval($player), $mzID, 99);   // heal ALL damage (clamped at 0)
     GiveShieldToken(intval($player), $mzID);
 };

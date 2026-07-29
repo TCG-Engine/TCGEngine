@@ -45,10 +45,10 @@ function HunterOutcastSergeantResolve(int $player, string $resMz): void {
     global $playerID; $playerID = intval($player);
     $res = GetZoneObject($resMz);
     if (SWUObjGone($res)) return;
-    $name = CardTitle($res->CardID ?? '');
+    $name = SWUObjectTitle($res);
     $match = false;
     foreach (GetUnitsInPlay($player) as $u) {
-        if (empty($u->removed) && CardUnique($u->CardID ?? '') && CardTitle($u->CardID ?? '') === $name) { $match = true; break; }
+        if (empty($u->removed) && CardUnique($u->CardID ?? '') && SWUObjectTitle($u) === $name) { $match = true; break; }
     }
     if (!$match) return;   // reveal only; no name-match with a friendly unique unit → nothing happens
     if (!SWUReturnResourceToHand($player, $resMz)) return;

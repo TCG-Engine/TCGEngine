@@ -2943,7 +2943,7 @@ function AddGeneratedUI() {
     $rv .= "  overlay.appendChild(label);\r\n";
     $rv .= "  var img = document.createElement('img');\r\n";
     $rv .= "  var rootPath = typeof AssetReflectionPath === 'function' ? AssetReflectionPath() : '';\r\n";
-    $rv .= "  img.src = './' + rootPath + '/WebpImages/' + cardID + '.webp';\r\n";
+    $rv .= "  img.src = './' + rootPath + '/WebpImages/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cardID) : cardID) + '.webp';\r\n";
     $rv .= "  img.style.maxHeight = '60vh';\r\n";
     $rv .= "  img.style.maxWidth = '80vw';\r\n";
     $rv .= "  img.style.borderRadius = '12px';\r\n";
@@ -2993,7 +2993,7 @@ function AddGeneratedUI() {
     $rv .= "  var maxImgH = Math.min(55, Math.floor(80 / cardIDs.length)) + 'vh';\r\n";
     $rv .= "  for(var i = 0; i < cardIDs.length; i++) {\r\n";
     $rv .= "    var img = document.createElement('img');\r\n";
-    $rv .= "    img.src = './' + rootPath + '/WebpImages/' + cardIDs[i] + '.webp';\r\n";
+    $rv .= "    img.src = './' + rootPath + '/WebpImages/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cardIDs[i]) : cardIDs[i]) + '.webp';\r\n";
     $rv .= "    img.style.maxHeight = maxImgH;\r\n";
     $rv .= "    img.style.borderRadius = '10px';\r\n";
     $rv .= "    img.style.boxShadow = '0 0 20px rgba(255,215,0,0.35), 0 6px 20px rgba(0,0,0,0.5)';\r\n";

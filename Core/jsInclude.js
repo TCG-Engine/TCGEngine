@@ -194,6 +194,23 @@ function HideCardDetailScrim() {
   scrim.style.display = "none";
 }
 
+// Mock (preview) cards store their art as mock_<CardID>.webp — the CardID itself is never
+// prefixed, so anywhere a filename is built from a CardID must resolve it through here.
+// window.MockCardImageIDs is emitted by zzCardCodeGenerator into the client card dictionary;
+// absent (real cards, or other games) means the CardID is returned unchanged.
+function resolveCardImageID(cardID) {
+  if (!cardID) return cardID;
+  var mocks = (typeof window !== 'undefined' && window.MockCardImageIDs) || null;
+  if (!mocks) return cardID;
+  if (mocks[cardID]) return 'mock_' + cardID;
+  // A deployed leader renders its UNIT side as "<CardID>_back" (SWUArenaDisplayCardID), so the id
+  // reaching here is not always a bare CardID. Resolve against the base id and keep the suffix:
+  // "HMW_004_back" -> "mock_HMW_004_back".
+  var suffixed = /^(.*)(_back)$/.exec(cardID);
+  if (suffixed && mocks[suffixed[1]]) return 'mock_' + suffixed[1] + suffixed[2];
+  return cardID;
+}
+
 function ShowDetail(e, imgSource, avoidEl, requestToken) {
   if (IsCardDetailSuppressed()) return;
   if (typeof requestToken !== "number") requestToken = ++cardDetailRequestToken;

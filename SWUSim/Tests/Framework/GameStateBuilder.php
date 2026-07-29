@@ -453,8 +453,17 @@ class GameStateBuilder {
             $uid    = $this->_nextUID++;
             $status = $leader['ready'] ? 1 : 0;
             $leaderUps = $leaderGroundUpgrades[$player] ?? [];   // WithP{n}GroundArenaUpgrade aimed at the leader's index
-            AddGroundArena($player, $leader['cardID'], $status, $player, $leader['damage'] ?? 0, $player, '-',
-                           empty($leaderUps) ? '-' : $leaderUps, $uid);
+            // A leader whose deployed side prints a different arena (HMW_004 → The Death Star, a
+            // Space unit) must be seeded there, matching SWUDeployLeader's LeaderDeployArena
+            // branch — otherwise the fixture contradicts a real deploy. Leader-aimed upgrades are
+            // a ground-only fixture (WithP{n}GroundArenaUpgrade), so space leaders seed bare.
+            if (LeaderDeployArena($leader['cardID']) === 'SpaceArena') {
+                AddSpaceArena($player, $leader['cardID'], $status, $player, $leader['damage'] ?? 0, $player, '-',
+                              '-', $uid);
+            } else {
+                AddGroundArena($player, $leader['cardID'], $status, $player, $leader['damage'] ?? 0, $player, '-',
+                               empty($leaderUps) ? '-' : $leaderUps, $uid);
+            }
             $leaderObjs[$player]->DeployedUniqueID = $uid;
 
             // indexOverride: scoot the just-appended leader unit to a specific ground-arena index,

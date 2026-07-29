@@ -19,7 +19,7 @@ $unitAbilities["JTL_050"] = function($player, $mzID) {
     $playerID = intval($player);
     $self    = GetZoneObject($mzID);
     $selfUID = SWUObjUID($self);
-    $hosts   = _SWUCollectUnits($selfUID, fn($o) => CardTitle($o->CardID ?? '') === 'The Ghost');
+    $hosts   = _SWUCollectUnits($selfUID, fn($o) => SWUObjectTitle($o) === 'The Ghost');
     if (empty($hosts)) { SWUAfterAction($player); return; }
     // 1 host → auto-attach (PASSPARAMETER, no prompt); 2+ → MZCHOOSE. JTL_050#1 finalizes the attach
     // (and the terminal SWUAfterAction) on the chosen host — the Phantom's own mzID rides in the token.

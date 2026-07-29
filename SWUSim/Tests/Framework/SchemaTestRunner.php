@@ -1425,13 +1425,14 @@ class SchemaTestRunner {
                         $failures[] = "{$line}: " . $e->getMessage();
                     }
 
-                } elseif (preg_match('/^HASTRAIT:(\w+)$/', $assert, $am)) {
-                    if (!$unit->hasTrait($am[1]))
-                        $failures[] = "{$line}: expected unit to have trait {$am[1]}";
+                // Traits may be multi-word ("Capital Ship", "Force Wielder"), so spaces are allowed.
+                } elseif (preg_match('/^HASTRAIT:([\w ]+)$/', $assert, $am)) {
+                    if (!$unit->hasTrait(trim($am[1])))
+                        $failures[] = "{$line}: expected unit to have trait " . trim($am[1]);
 
-                } elseif (preg_match('/^NOTTRAIT:(\w+)$/', $assert, $am)) {
-                    if ($unit->hasTrait($am[1]))
-                        $failures[] = "{$line}: expected unit to NOT have trait {$am[1]}";
+                } elseif (preg_match('/^NOTTRAIT:([\w ]+)$/', $assert, $am)) {
+                    if ($unit->hasTrait(trim($am[1])))
+                        $failures[] = "{$line}: expected unit to NOT have trait " . trim($am[1]);
 
                 } elseif (preg_match('/^HASKEYWORD:(\w+)$/', $assert, $am)) {
                     if (!$unit->hasKeyword($am[1]))
