@@ -22,14 +22,14 @@ $customDQHandlers["SHD_099#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $name = CardTitle($o->CardID ?? '');
+    $name = SWUObjectTitle($o);
     MZMove(intval($player), $lastDecision, "myDiscard");
     DecisionQueueController::CleanupRemovedCards();
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $u = GetZoneObject($mz);
-            if ($u !== null && empty($u->removed) && CardTitle($u->CardID ?? '') === $name) $targets[] = $mz;
+            if ($u !== null && empty($u->removed) && SWUObjectTitle($u) === $name) $targets[] = $mz;
         }
     }
     if (empty($targets)) return;

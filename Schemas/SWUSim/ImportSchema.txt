@@ -4,7 +4,7 @@ png
 data
 pagination[page]
 meta->pagination->pageCount
-title,subtitle,cardNumber:number,cost:number,hp:number,power:number,text,deployText,unique:boolean,upgradeHp:number,upgradePower:number,aspect,trait,arena,type,rarity,set
+title,subtitle,cardNumber:number,cost:number,hp:number,power:number,text,deployText,unique:boolean,upgradeHp:number,upgradePower:number,aspect,trait,arena,type,rarity,set,leaderUnitTitle,leaderUnitSubtitle,leaderUnitTrait,leaderUnitArena,leaderUnitType
 
 # ── CardID construction ────────────────────────────────────────────────────────
 # The canonical SWUSim CardID is built from two API fields:
@@ -34,3 +34,15 @@ title,subtitle,cardNumber:number,cost:number,hp:number,power:number,text,deployT
 #   $setData         SET_NNN → set abbreviation
 #   $effectData      SET_NNN → ability text
 #   $deployTextData  SET_NNN → leader unit side text
+#
+# ── Deployed leader-unit side (OVERRIDE-ONLY) ──────────────────────────────────
+#   $leaderUnitTitleData    SET_NNN → deployed side's title    (null = same as the leader side)
+#   $leaderUnitSubtitleData SET_NNN → deployed side's subtitle (null = same as the leader side)
+#   $leaderUnitTraitData    SET_NNN → deployed side's comma-separated traits (REPLACES leader traits)
+#   $leaderUnitArenaData    SET_NNN → deployed side's arena, 'Ground' | 'Space'
+#   $leaderUnitTypeData     SET_NNN → deployed side's card type
+#
+# Absent for every leader whose deployed side matches its leader side, so all pre-existing
+# leaders resolve to null and behave exactly as before. Introduced for HMW_004 (Grand Moff
+# Tarkin, whose deployed side is The Death Star — different name, different traits, and it
+# enters the SPACE arena). Consumed by LeaderDeployArena() / TraitContains() / SWUObjectTitle().

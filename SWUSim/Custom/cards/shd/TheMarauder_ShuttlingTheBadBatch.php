@@ -22,10 +22,10 @@ $customDQHandlers["SHD_102#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $name = CardTitle($o->CardID ?? '');
+    $name = SWUObjectTitle($o);
     $shares = false;
     foreach (GetUnitsInPlay(intval($player)) as $u) {
-        if (empty($u->removed) && CardTitle($u->CardID ?? '') === $name) { $shares = true; break; }
+        if (empty($u->removed) && SWUObjectTitle($u) === $name) { $shares = true; break; }
     }
     if ($shares) SWURampResourceExhausted(intval($player), $lastDecision);
 };

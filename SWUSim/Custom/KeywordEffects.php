@@ -429,7 +429,7 @@ function HasConditionalKeyword_Ambush($obj) {
         && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_BASE_ATTACKED') > 0) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'AMBUSH')) return true;
     // SHD_188 4-LOM: each friendly unit named Zuckuss gains Ambush.
-    if (CardTitle($obj->CardID ?? '') === 'Zuckuss'
+    if (SWUObjectTitle($obj) === 'Zuckuss'
         && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_188') > 0) return true;
     // SHD_204 Millennium Falcon — "If you play this unit from your hand, it gains Ambush."
     // The per-UID hand-source flag is set in ActivateCard before entry triggers collect
@@ -653,7 +653,7 @@ function HasConditionalKeyword_Saboteur($obj) {
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gains Saboteur."
     if (($obj->CardID ?? '') === 'TWI_143' && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_ENEMY_DEFEATED') > 0) return true;
     // SHD_190 Zuckuss: each friendly unit named 4-LOM gains Saboteur.
-    if (CardTitle($obj->CardID ?? '') === '4-LOM'
+    if (SWUObjectTitle($obj) === '4-LOM'
         && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_190') > 0) return true;
     // ASH_030 Marrok — "While this unit is upgraded, he loses Sentinel and gains Saboteur."
     if (($obj->CardID ?? '') === 'ASH_030' && _SWUIsUpgraded($obj)) return true;
@@ -706,7 +706,7 @@ function HasConditionalKeyword_Sentinel($obj) {
     // ASH_243 Darth Vader — Shielded + "While this unit is ready, he gains Sentinel."
     if (($obj->CardID ?? '') === 'ASH_243' && intval($obj->Status ?? 1) === 1) return true;
     // ASH_066 Luke's Jedi Lightsaber (upgrade) — "If attached unit is Luke Skywalker, he gains Sentinel."
-    if (_SWUUnitHasUpgrade($obj, 'ASH_066') && CardTitle($obj->CardID ?? '') === 'Luke Skywalker') return true;
+    if (_SWUUnitHasUpgrade($obj, 'ASH_066') && SWUObjectTitle($obj) === 'Luke Skywalker') return true;
     // ASH_198 Nowhere to Hide (upgrade) — "Attached unit gains Sentinel."
     if (_SWUUnitHasUpgrade($obj, 'ASH_198')) return true;
     // LOF_261 Constructed Lightsaber (upgrade) — "If attached unit is a non-Heroism, non-Villainy unit, it
@@ -1125,7 +1125,7 @@ function GetConditionalKeyword_Restore_Value($obj) {
     $amount += _SWUGhostSharesKeywordValue($obj, 'RESTORE');   // JTL_053 The Ghost keyword share (additive)
     // ASH_114 Sabine's Lightsaber (upgrade) — "If attached unit is Sabine Wren or a Force unit, it gains Restore 2."
     if (_SWUUnitHasUpgrade($obj, 'ASH_114')
-        && (CardTitle($obj->CardID ?? '') === 'Sabine Wren' || TraitContains($obj, 'Force'))) $amount += 2;
+        && (SWUObjectTitle($obj) === 'Sabine Wren' || TraitContains($obj, 'Force'))) $amount += 2;
     // ASH_122 Consortium StarViper — "While you have the initiative, this unit gains Restore 2."
     if (($obj->CardID ?? '') === 'ASH_122' && HasInitiative(intval($obj->Controller ?? 0))) $amount += 2;
     // ASH_057 Lothal E-Wing — "While an enemy unit is upgraded, this unit gains Restore 2."

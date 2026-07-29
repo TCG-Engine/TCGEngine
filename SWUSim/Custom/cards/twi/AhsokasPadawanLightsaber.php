@@ -8,7 +8,7 @@
 $whenPlayedAbilities["TWI_248:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host = GetZoneObject($mzID);
-    if (SWUObjGone($host) || CardTitle($host->CardID ?? '') !== 'Ahsoka Tano') return;
+    if (SWUObjGone($host) || SWUObjectTitle($host) !== 'Ahsoka Tano') return;
     $ready = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
         $arr = GetZone($zone);

@@ -17,7 +17,7 @@ $customDQHandlers["SOR_055#0"] = function($player, $parts, $lastDecision) {
     if (_SWUControlsForceUnit(intval($player))) DoGiveShieldToken(intval($player), $mz);
     // YESNO prompt text lives in the TOOLTIP (param "-"); the client renders Tooltip (underscores→
     // spaces), else falls back to "Please choose Yes or No:". Resolve the unit's title from its CardID.
-    $title = ($obj !== null) ? CardTitle($obj->CardID ?? '') : '';
+    $title = ($obj !== null) ? SWUObjectTitle($obj) : '';
     $prompt = ($title !== '') ? "Attack_with_" . str_replace(' ', '_', $title) . "?" : "Attack_with_the_chosen_unit?";
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip:$prompt);
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SOR_055#1|" . $mz, 1);

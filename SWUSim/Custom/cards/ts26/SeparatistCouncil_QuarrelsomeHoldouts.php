@@ -19,7 +19,7 @@ $customDQHandlers["TS26_49#0"] = function($player, $parts, $lastDecision) {
         foreach (['myGroundArena', 'mySpaceArena'] as $z) {
             foreach (ZoneSearch($z, ['Token Unit']) as $mz) {
                 $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && CardTitle($o->CardID ?? '') === 'Battle Droid') $tg[] = $mz;
+                if ($o !== null && empty($o->removed) && SWUObjectTitle($o) === 'Battle Droid') $tg[] = $mz;
             }
         }
         if (empty($tg)) return;   // no Battle Droid token → fizzle

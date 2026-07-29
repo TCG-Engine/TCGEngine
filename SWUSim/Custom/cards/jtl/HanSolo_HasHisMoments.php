@@ -23,6 +23,6 @@ $customDQHandlers["JTL_203#0"] = function($player, $parts, $lastDecision) {
     if ($mz === null) return;
     $obj = GetZoneObject($mz);
     if (SWUObjGone($obj)) return;
-    if (CardTitle($obj->CardID ?? '') === 'Millennium Falcon') AddTurnEffect($mz, 'SHOOT_FIRST');
+    if (SWUObjectTitle($obj) === 'Millennium Falcon') AddTurnEffect($mz, 'SHOOT_FIRST');
     BeginSWUAttack(intval($player), $mz);
 };

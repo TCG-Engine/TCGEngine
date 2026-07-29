@@ -15,7 +15,7 @@ $whenPlayedAbilities["JTL_106:0"] = function($player, $mzID = '') {
             $names = [];
             foreach ($myUnits as $mz) {
                 $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed)) $names[CardTitle($o->CardID)] = true;
+                if ($o !== null && empty($o->removed)) $names[SWUObjectTitle($o)] = true;
             }
             $n = count($names);
             if ($n <= 0) return;

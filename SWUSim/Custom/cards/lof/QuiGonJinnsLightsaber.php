@@ -9,6 +9,6 @@ $whenPlayedAbilities["LOF_201:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    if (CardTitle($host->CardID ?? '') !== 'Qui-Gon Jinn') return;
+    if (SWUObjectTitle($host) !== 'Qui-Gon Jinn') return;
     _SWUCombinedBudgetOffer(intval($player), 6, 'cost', 0);
 };

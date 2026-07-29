@@ -24,7 +24,7 @@ $customDQHandlers["SEC_186#0"] = function($player, $parts, $lastDecision) {
     $playerID = $opp;
     foreach (ZoneSearch("myHand", null) as $mz) {       // opponent's hand, in opp frame
         $c = GetZoneObject($mz);
-        if ($c !== null && empty($c->removed) && CardTitle($c->CardID ?? '') === $named) {
+        if ($c !== null && empty($c->removed) && SWUObjectTitle($c) === $named) {
             $c->Remove();
             SWUAddToDiscard($opp, $c->CardID, 'HAND');
             break;                                       // discard one matching card

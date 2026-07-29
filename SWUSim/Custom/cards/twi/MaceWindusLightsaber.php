@@ -9,5 +9,5 @@ $whenPlayedAbilities["TWI_152:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    if (CardTitle($host->CardID ?? '') === 'Mace Windu') DoDrawCard(intval($player), 2);
+    if (SWUObjectTitle($host) === 'Mace Windu') DoDrawCard(intval($player), 2);
 };

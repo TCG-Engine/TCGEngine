@@ -100,7 +100,7 @@
 
   function getCardImageUrl(cardId) {
     if (!cardId) return '';
-    return './' + getAssetFolder() + '/WebpImages/' + encodeURIComponent(cardId) + '.webp';
+    return './' + getAssetFolder() + '/WebpImages/' + encodeURIComponent(resolveCardImageID(cardId)) + '.webp';
   }
 
   function showHoverPreview(event, imageUrl) {

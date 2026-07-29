@@ -16,7 +16,7 @@ $whenPlayedAbilities["SHD_015:0"] = function($player, $mzID) {
     foreach (ZoneSearch("myDiscard", null) as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
-        $name = CardTitle($o->CardID ?? '');
+        $name = SWUObjectTitle($o);
         if ($name === '' || isset($seen[$name])) continue;
         $seen[$name] = true; $specs[] = $mz;
     }

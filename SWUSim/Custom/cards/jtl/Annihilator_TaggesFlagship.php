@@ -22,7 +22,7 @@ $customDQHandlers["JTL_041#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) return;
     $controller = intval($o->Controller ?? 0);
     if ($controller <= 0) $controller = GetOpponent(intval($player));
-    $name = CardTitle($o->CardID);
+    $name = SWUObjectTitle($o);
     // "If you do, search…" — gate the name-hunt on a defeat EVENT actually firing. SWUDefeatUnit returns
     // false ONLY when the target AVOIDS defeat (immune to enemy-ability defeat, e.g. SHD_187 Lurking TIE
     // Phantom) → no name-hunt, no peek. A defeat that is REPLACED (e.g. L3-37 attaches as an upgrade instead
@@ -42,7 +42,7 @@ $customDQHandlers["JTL_041#0"] = function($player, $parts, $lastDecision) {
     $handDiscarded = false;
     foreach ($hand as $h) {
         if (!empty($h->removed)) continue;
-        if (CardTitle($h->CardID) === $name) { $h->Remove(); SWUAddToDiscard($controller, $h->CardID, 'HAND'); $handDiscarded = true; }
+        if (SWUObjectTitle($h) === $name) { $h->Remove(); SWUAddToDiscard($controller, $h->CardID, 'HAND'); $handDiscarded = true; }
     }
     // SEC_016 Padmé — fire ONCE (collective) if the controller lost 1+ cards from their hand this way.
     if ($handDiscarded && function_exists('_SWUSec016React')) _SWUSec016React($controller);
@@ -51,7 +51,7 @@ $customDQHandlers["JTL_041#0"] = function($player, $parts, $lastDecision) {
     // JTL_041_DECK_FINALIZE handler discards the chosen, returns the kept ones, and reshuffles the deck.
     $deck = &GetDeck($controller);
     $matchIdx = [];
-    foreach ($deck as $i => $c) { if (empty($c->removed) && CardTitle($c->CardID) === $name) $matchIdx[] = $i; }
+    foreach ($deck as $i => $c) { if (empty($c->removed) && SWUObjectTitle($c) === $name) $matchIdx[] = $i; }
     if (empty($matchIdx)) { DecisionQueueController::CleanupRemovedCards(); $d0 = &GetDeck($controller); EngineShuffle($d0, true); return; }
     rsort($matchIdx); // splice high→low so earlier indices stay valid
     $matchIDs = [];

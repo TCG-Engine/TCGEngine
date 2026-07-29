@@ -348,10 +348,10 @@ function ObjectCurrentPower($obj) {
     $base += SWUTraitCommanderBonus($obj, 'ASH_010', 'Mandalorian');
 
     // SHD_190 Zuckuss: each friendly unit named 4-LOM gets +1/+1 (Saboteur granted in KeywordEffects).
-    if ($controller > 0 && CardTitle($obj->CardID ?? '') === '4-LOM'
+    if ($controller > 0 && SWUObjectTitle($obj) === '4-LOM'
         && _SWUCountUnitsWithCardID($controller, 'SHD_190') > 0) $base += 1;
     // SHD_188 4-LOM: each friendly unit named Zuckuss gets +1/+1 (Ambush granted in KeywordEffects).
-    if ($controller > 0 && CardTitle($obj->CardID ?? '') === 'Zuckuss'
+    if ($controller > 0 && SWUObjectTitle($obj) === 'Zuckuss'
         && _SWUCountUnitsWithCardID($controller, 'SHD_188') > 0) $base += 1;
     // SHD_056 Follower of The Way — "While this unit is upgraded, it gets +1/+1."
     if (!$lost && ($obj->CardID ?? '') === 'SHD_056' && _SWUIsUpgraded($obj)) $base += 1;
@@ -701,9 +701,9 @@ function ObjectCurrentHP($obj) {
     // SHD_190 Zuckuss: each friendly unit named 4-LOM gets +1/+1 (the +1 HP half).
     {
         $c190 = intval($obj->Controller ?? $obj->Owner ?? 0);
-        if ($c190 > 0 && CardTitle($obj->CardID ?? '') === '4-LOM'
+        if ($c190 > 0 && SWUObjectTitle($obj) === '4-LOM'
             && _SWUCountUnitsWithCardID($c190, 'SHD_190') > 0) $base += 1;
-        if ($c190 > 0 && CardTitle($obj->CardID ?? '') === 'Zuckuss'
+        if ($c190 > 0 && SWUObjectTitle($obj) === 'Zuckuss'
             && _SWUCountUnitsWithCardID($c190, 'SHD_188') > 0) $base += 1;
     }
     // SHD_056 Follower of The Way — "While this unit is upgraded, it gets +1/+1" (the +1 HP half).
@@ -1937,7 +1937,7 @@ function _SWUApplyDamagePrevention($obj, int $amount, bool $peek = false): int {
     }
     // SHD_224 Boba Fett's Armor — "If attached unit is Boba Fett and damage would be dealt to him,
     // prevent 2 of that damage." Continuous while attached; applies to every damage instance.
-    if ($amount > 0 && CardTitle($obj->CardID ?? '') === 'Boba Fett' && _SWUUnitHasUpgrade($obj, 'SHD_224')) {
+    if ($amount > 0 && SWUObjectTitle($obj) === 'Boba Fett' && _SWUUnitHasUpgrade($obj, 'SHD_224')) {
         $amount = max(0, $amount - 2);
     }
     // TWI_053 Finn — "For this phase, if damage would be dealt to that unit, prevent 1 of that damage."
@@ -2839,7 +2839,7 @@ function SWUComputePlayCost($player, $obj, $host = null): int {
         $cost -= SWUAspectPenalty($player, $cardID);
     }
     // TWI_236 Grievous's Wheel Bike — costs 2 less on General Grievous.
-    if ($cardID === 'TWI_236' && $host !== null && CardTitle($host->CardID ?? '') === 'General Grievous') {
+    if ($cardID === 'TWI_236' && $host !== null && SWUObjectTitle($host) === 'General Grievous') {
         $cost -= 2;
     }
     // TWI_034 General Grievous — waive aspect penalty on Lightsaber upgrades played on this unit.
@@ -5629,6 +5629,18 @@ function CardTargetArena($cardID) {
     $arena = CardArena($cardID);
     if ($arena === 'Space') return 'SpaceArena';
     return 'GroundArena'; // default Ground
+}
+
+// Which arena a LEADER's deployed unit side enters. Almost every leader deploys into the arena
+// its leader row implies, but a card may print a deployed side in a DIFFERENT arena — HMW_004
+// Grand Moff Tarkin deploys as The Death Star, a Space unit. The override lives in the
+// leaderUnitArena dictionary dimension and is absent (null) for every ordinary leader, so they
+// keep resolving through CardTargetArena exactly as before.
+function LeaderDeployArena($cardID) {
+    $override = CardLeaderUnitArena($cardID);
+    if ($override === 'Space') return 'SpaceArena';
+    if ($override === 'Ground') return 'GroundArena';
+    return CardTargetArena($cardID);
 }
 
 // Increment and return the next UniqueID counter value.
@@ -12236,15 +12248,24 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
     }
 
     // ── Unit branch (default): create the arena unit entry ──────────────────
+    // The deployed side may print a different arena than the leader side (HMW_004 → The Death
+    // Star, a Space unit), so the destination comes from LeaderDeployArena, not a hardcoded
+    // ground zone. Every leader without a leaderUnitArena override still lands in GroundArena.
     $uid = NextUniqueID();
-    $newCard = AddGroundArena($player, CardID:$cardID, Status:1,
-        Owner:$player, Damage:0, Controller:$player, UniqueID:$uid);
+    $deployArena = LeaderDeployArena($cardID);
+    if ($deployArena === 'SpaceArena') {
+        $newCard = AddSpaceArena($player, CardID:$cardID, Status:1,
+            Owner:$player, Damage:0, Controller:$player, UniqueID:$uid);
+    } else {
+        $newCard = AddGroundArena($player, CardID:$cardID, Status:1,
+            Owner:$player, Damage:0, Controller:$player, UniqueID:$uid);
+    }
     $leader->DeployedUniqueID = $uid;
 
     $newCardMzID = $newCard->GetMzID();
     // A leader deploy is not "playing a card": its When Deployed (WhenPlayed) entry trigger still
     // fires, but reactive "when you play a card" observers (FFF/Bossk/Cunning) must not. ($isPlay=false)
-    $triggered = CollectEntryTriggers($player, $cardID, $newCardMzID, 'GroundArena', false);
+    $triggered = CollectEntryTriggers($player, $cardID, $newCardMzID, $deployArena, false);
 
     if ($triggered === 0) {
         DecisionQueueController::CleanupRemovedCards();
@@ -12798,7 +12819,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             $hasGhost = false;
             foreach ([1, 2] as $pl) {
                 foreach (array_merge(GetGroundArena($pl) ?? [], GetSpaceArena($pl) ?? []) as $u) {
-                    if (empty($u->removed) && CardTitle($u->CardID ?? '') === 'The Ghost') { $hasGhost = true; break 2; }
+                    if (empty($u->removed) && SWUObjectTitle($u) === 'The Ghost') { $hasGhost = true; break 2; }
                 }
             }
             if (!$hasGhost) $ok = false;
@@ -12830,11 +12851,11 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
 // Jango Fett (as a leader, unit, or upgrade)"). Title match is exact (CardTitle).
 function _SWUControlsTitle(int $player, array $titles): bool {
     foreach (GetLeader($player) as $l) {
-        if (empty($l->removed) && in_array(CardTitle($l->CardID ?? ''), $titles, true)) return true;
+        if (empty($l->removed) && in_array(SWUObjectTitle($l), $titles, true)) return true;
     }
     foreach (GetUnitsInPlay($player) as $u) {
         if (!empty($u->removed)) continue;
-        if (in_array(CardTitle($u->CardID ?? ''), $titles, true)) return true;
+        if (in_array(SWUObjectTitle($u), $titles, true)) return true;
         if (is_array($u->Subcards ?? null)) {
             foreach ($u->Subcards as $sub) {
                 $scid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
@@ -23275,7 +23296,46 @@ function TraitContains($obj, $trait): bool {
             }
         }
     }
+    // A deployed leader whose deployed side prints its OWN trait line (HMW_004 → The Death Star:
+    // Imperial Vehicle Capital Ship, not the leader side's Imperial Official). The override
+    // REPLACES the printed leader traits because the deployed side is a different printed face;
+    // the upgrade-based grants above still apply on top, since they're checked first.
+    $luTraits = _SWUDeployedLeaderTraitOverride($obj);
+    if ($luTraits !== null) {
+        foreach ($luTraits as $t) {
+            if (strcasecmp(trim($t), trim($trait)) === 0) return true;
+        }
+        return false;
+    }
     return HasTrait($obj->CardID ?? '', $trait);
+}
+
+// The deployed side's trait list for a deployed leader's arena unit, or null when $obj isn't one
+// or its card prints no leaderUnitTrait override. IsLeaderUnit also covers a normal unit hosting
+// a leader Pilot upgrade, but there $obj->CardID is the HOST's id, which carries no override —
+// so that case correctly falls through to null.
+function _SWUDeployedLeaderTraitOverride($obj): ?array {
+    if (!is_object($obj)) return null;
+    $cardID = $obj->CardID ?? '';
+    if ($cardID === '' || !IsLeaderUnit($obj)) return null;
+    $raw = CardLeaderUnitTrait($cardID);
+    if ($raw === null || trim((string)$raw) === '') return null;
+    return array_map('trim', explode(',', (string)$raw));
+}
+
+// The title to use for NAME MATCHING and display. A deployed leader with a printed deployed-side
+// name matches on that name (deployed HMW_004 is "The Death Star", not "Grand Moff Tarkin").
+// Unique-conflict resolution deliberately does NOT use this — uniqueness is keyed on the leader,
+// so two copies of the leader still conflict regardless of the deployed side's name.
+function SWUObjectTitle($obj): string {
+    if (!is_object($obj)) return (string)(CardTitle((string)$obj) ?? '');
+    $cardID = $obj->CardID ?? '';
+    if ($cardID === '') return '';
+    if (IsLeaderUnit($obj)) {
+        $override = CardLeaderUnitTitle($cardID);
+        if ($override !== null && trim((string)$override) !== '') return (string)$override;
+    }
+    return (string)(CardTitle($cardID) ?? '');
 }
 
 function CardHasAbility($obj) {

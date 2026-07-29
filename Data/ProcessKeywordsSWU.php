@@ -29,13 +29,21 @@ if (!isset($cacheData['cardArray'])) {
 }
 $cardArray = $cacheData['cardArray'];
 
+// Mock (preview) cards live in tracked source, not the cache — merge them so previewed cards
+// get keyword arrays too. Array mode: this file works on assoc arrays, not objects.
+require_once __DIR__ . '/../SWUSim/DevTools/MockCardMerge.php';
+$mockResult = SWUSimMergeMockCards($cardArray, false);
+if (count($mockResult['added']) > 0) {
+    echo "Merged " . count($mockResult['added']) . " mock card(s) for keyword parsing\n";
+}
+
 // --- Keyword definitions ---
 
 // Boolean keywords: HasKeyword_X($obj) → true/false
 $booleanKeywords = [
     'Ambush', 'Grit', 'Overwhelm', 'Saboteur', 'Sentinel', 'Shielded',
     'Bounty', 'Smuggle', 'Coordinate', 'Piloting', 'Hidden', 'Plot',
-    'Support',
+    'Support', 'Fortify',
 ];
 
 // Value keywords: HasKeyword_X($obj) + GetKeyword_X_Value($obj) → int|null

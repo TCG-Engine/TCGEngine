@@ -261,7 +261,7 @@ function showCardIdsBadgePopup(badgeEl, event) {
       }
       // Try concat folder first, fallback to WebpImages, then hide to avoid infinite 404 spam
       var imgPath = rootPath + '/concat/' + displayCardId + '.webp';
-      var imgFallback = rootPath + '/WebpImages/' + displayCardId + '.webp';
+      var imgFallback = rootPath + '/WebpImages/' + resolveCardImageID(displayCardId) + '.webp';
       html += '<div class="cardids-popup-card">';
       html += '<img src="' + imgPath + '" alt="' + displayCardId + '" loading="lazy"'
            + ' onerror="if(this.dataset.tried){this.onerror=null;this.style.display=\'none\';}else{this.dataset.tried=\'1\';this.src=\'' + imgFallback + '\';}" />';

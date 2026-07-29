@@ -22,7 +22,7 @@ $customDQHandlers["SEC_210#0"] = function($player, $parts, $lastDecision) {
     $count = 0;
     foreach (GetHand($opp) as $c) {
         if (!empty($c->removed)) continue;
-        if (CardTitle($c->CardID ?? '') === $named) $count++;
+        if (SWUObjectTitle($c) === $named) $count++;
     }
     SWUCreateUnitTokens(intval($player), 'SEC_T01', $count);
 };

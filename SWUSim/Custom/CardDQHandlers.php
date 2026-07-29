@@ -1660,7 +1660,7 @@ function _SWUTwi016CheckObserve($damagedObj, int $srcController): void
     return;
   $jango = $srcController; // the source's controller is Jango's controller
   // Tooltip names the enemy unit being exhausted; underscore-encode so the client's _→space render works.
-  $enemyName = str_replace(' ', '_', CardTitle($damagedObj->CardID ?? ''));
+  $enemyName = str_replace(' ', '_', SWUObjectTitle($damagedObj));
   global $playerID;
   // Deployed side — no leader-exhaust cost.
   if (_SWULeaderDeployed($jango, 'TWI_016')) {
