@@ -31,6 +31,8 @@
     ['label'=>'Matches','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Matches.php','visibility'=>'loggedIn'],
     ['label'=>'Profile','icon'=>'zendo-profile.svg','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Profile.php','visibility'=>'loggedIn'],
     ['label'=>'Log Out','icon'=>'zendo-logout.svg','href'=>'/TCGEngine/AccountFiles/LogoutUser.php','visibility'=>'loggedIn'],
+    ['label'=>'Create Account','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Signup.php?redirect=%2FTCGEngine%2FSharedUI%2FSites%2FAzukiSim%2FMainMenu.php','visibility'=>'loggedOut'],
+    ['label'=>'Log In','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/LoginPage.php?redirect=%2FTCGEngine%2FSharedUI%2FSites%2FAzukiSim%2FMainMenu.php','visibility'=>'loggedOut'],
   ],
   'navLinks' => [
     ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/b9nfNyVFpM','title'=>'Join the Zendō Discord'],

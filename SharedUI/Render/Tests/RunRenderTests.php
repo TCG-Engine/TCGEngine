@@ -52,6 +52,15 @@ check('loggedout hides Profile', strpos($navOut, 'SWUDeck/Profile.php') === fals
 checkContains('loggedin has Profile', $navIn, '/TCGEngine/SharedUI/Sites/SWUDeck/Profile.php');
 check('loggedin hides Log In', strpos($navIn, 'SWUDeck/LoginPage.php') === false);
 
+$azukiDef = LoadSiteDef('AzukiSim');
+$azukiNavOut = RenderMenuBar($azukiDef, ['isLoggedIn'=>false,'isPatron'=>false,'username'=>null,'userId'=>null]);
+$azukiNavIn = RenderMenuBar($azukiDef, ['isLoggedIn'=>true,'isPatron'=>false,'username'=>'tester','userId'=>5]);
+checkContains('Azuki loggedout nav offers account creation', $azukiNavOut, '>Create Account<');
+checkContains('Azuki loggedout nav offers login', $azukiNavOut, '/TCGEngine/SharedUI/Sites/AzukiSim/LoginPage.php');
+checkContains('Azuki auth links return to main menu', $azukiNavOut, 'redirect=%2FTCGEngine%2FSharedUI%2FSites%2FAzukiSim%2FMainMenu.php');
+check('Azuki loggedin nav hides account creation', strpos($azukiNavIn, 'AzukiSim/Signup.php') === false);
+check('Azuki loggedin nav hides login', strpos($azukiNavIn, 'AzukiSim/LoginPage.php') === false);
+
 // --- Task 4 tests: RenderHeader ---
 require_once __DIR__ . '/../Header.php';
 $hdr = RenderHeader($def);
