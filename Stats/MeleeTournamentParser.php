@@ -95,6 +95,14 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
         }
     }
 
+    // A round with an empty standings table (top-cut bracket rounds do this) would otherwise
+    // fall through and still `return true` at the end, leaving the caller to report a generic
+    // failure with no reason. Fail loudly and specifically instead.
+    if (count($deckArray) === 0) {
+        if ($progressCallback) $progressCallback(['error' => "Round $roundId has no standings rows on melee.gg."]);
+        return false;
+    }
+
     $tournamentRecordExists = false;
 
     $playerDeckMap = [];
@@ -235,7 +243,8 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
         $OGWP = $record['OpponentGameWinPercentage'] ?? 0;
 
         // I think we have enough data to add a record to table meleetournamentdeck
-        $insertDeckQuery = "INSERT INTO meleetournamentdeck (tournamentId, rank, player, leader, base, matchWins, matchLosses, matchDraws, gameWins, gameLosses, gameDraws, points, OMWP, TGWP, OGWP, sourceID) 
+        // `rank` is a reserved word in MySQL 8+/9 (fine unquoted on MariaDB) — must be backticked.
+        $insertDeckQuery = "INSERT INTO meleetournamentdeck (tournamentId, `rank`, player, leader, base, matchWins, matchLosses, matchDraws, gameWins, gameLosses, gameDraws, points, OMWP, TGWP, OGWP, sourceID)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $insertDeckStmt = $conn->prepare($insertDeckQuery);
         // Don't overwrite our extracted leader and base values - we've already set them above from DecklistName

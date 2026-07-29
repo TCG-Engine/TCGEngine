@@ -39,6 +39,34 @@ P1NODECISION
 
 ---
 
+# WhenPlayed_DefeatedUnitFirst_LaterUnitStillDebuffed
+#// SEC_051 Bo-Katan Kryze — the -3/-3 must hit EVERY enemy unit even when an EARLIER-indexed unit is
+#//   defeated by the debuff mid-resolution. IBH_076 Rampaging Wampa (6/3) at index 0 drops to 3/0 and is
+#//   defeated; the later SOR_164 Wampa (4/5) at index 1 must STILL become 1/2 — regression: the defeat
+#//   removed index 0 and shifted the remaining captured mzIDs, so the later unit was skipped and stayed 4/5.
+#//   Fix: all debuffs apply simultaneously, then state-based defeats resolve once.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:9}
+P1OnlyActions: true
+WithP1GroundArena: LOF_254:1:0
+WithP1Hand: SEC_051
+WithP2GroundArena: IBH_076:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_164
+P2GROUNDARENAUNIT:0:POWER:1
+P2GROUNDARENAUNIT:0:HP:2
+P1NODECISION
+
+---
+
 # WhenPlayed_Minus33_KillsAndFriendlyUnaffected
 #// SEC_051 Bo-Katan Kryze — the When Played -3/-3 hits every enemy unit: SOR_164 Wampa (4/5) → 1/2, and
 #//   IBH_076 Rampaging Wampa (6/3) → 3/0 which is defeated. Friendly LOF_254 Porg is untouched (1/1). The

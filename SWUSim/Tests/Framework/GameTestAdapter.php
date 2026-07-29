@@ -268,6 +268,8 @@ class GameTestAdapter {
     /** Restore all globals from a builder snapshot and reset the accessor. */
     public function loadState(GameStateBuilder $state): void {
         $state->_applyToGlobals();
+        // Start each test with a clean undo stack (now player 1's Versions zone, part of the gamestate).
+        if (function_exists('UndoStackClear')) UndoStackClear();
         $this->state = new GameStateAccessor();
     }
 
@@ -356,6 +358,25 @@ class GameTestAdapter {
         LoadVersion($player);
         ob_end_clean();
         $playerID = $saved;
+    }
+
+    /** Multi-step undo: revert one action (or, kind='phase', jump to the start of the current phase). */
+    public function undo(int $player, string $kind = 'step'): void {
+        global $playerID; $saved = $playerID; $playerID = $player;
+        ob_start(); SWUDoUndo($player, $kind); $this->_drainDQ($player); ob_end_clean();
+        $playerID = $saved;
+    }
+    /** Undo Phase — jump to the beginning of the current phase (post-resource first action). */
+    public function undoPhase(int $player): void { $this->undo($player, 'phase'); }
+    /** Opponent approves a pending undo request (public-queue consent flow). */
+    public function approveUndo(int $player): void {
+        global $playerID; $saved = $playerID; $playerID = $player;
+        ob_start(); SWUApproveUndo(); $this->_drainDQ($player); ob_end_clean();
+        $playerID = $saved;
+    }
+    /** Opponent denies a pending undo request. */
+    public function denyUndo(int $player): void {
+        ob_start(); SWUDenyUndo(); ob_end_clean();
     }
 
     /** Use a leader's action ability (exhausts the leader, fires its handler). */

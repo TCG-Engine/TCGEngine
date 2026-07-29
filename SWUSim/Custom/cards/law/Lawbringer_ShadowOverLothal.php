@@ -7,15 +7,19 @@ $customDQHandlers["LAW_101#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
     $opp = intval($parts[0] ?? OtherPlayer(intval($player)));
+    // Apply -2/-2 to every matching enemy unit simultaneously (defer the per-unit defeat check), THEN
+    // resolve defeats once — else a unit killed mid-loop shifts the remaining arena indices and later
+    // matching units get skipped (same bug class as SEC_051 Bo-Katan's -3/-3).
     foreach (["theirGroundArena", "theirSpaceArena"] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;
             if (strpos((string)(CardAspect($o->CardID ?? '') ?? ''), $lastDecision) !== false) {
-                SWUApplyPhaseDebuff($mz, 2, 2, 'LAW_101');
+                SWUApplyPhaseDebuff($mz, 2, 2, 'LAW_101', true);
             }
         }
     }
+    SWUCheckShrinkDefeats();
 };
 
 // LAW_101 Lawbringer — When Played/On Attack: choose an aspect; give each enemy unit with that aspect

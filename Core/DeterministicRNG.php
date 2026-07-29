@@ -85,13 +85,26 @@ function EngineDeterministicHashMaterial() {
   return serialize(EngineSnapshotState());
 }
 
+// Per-game secret seed (SWUSim). Mixed into the deterministic stream so the now-deterministic
+// shuffles (deck / mulligan) are UNPREDICTABLE to players (they lack the secret) yet REPRODUCIBLE
+// on undo (the seed is a persisted SWUVar restored by LoadVersion). Empty for other roots / games
+// created before this change (GetSWUVar absent, or RNG_SEED unset) — see EngineDeterministicBytes,
+// which then hashes the exact pre-change input so their randomness is byte-identical to before.
+function GetEngineRandomSeed() {
+  return function_exists('GetSWUVar') ? (string) GetSWUVar('RNG_SEED', '') : '';
+}
+
 function EngineDeterministicBytes($length) {
   $bytes = '';
   $counter = GetDeterministicRandomCounter();
   $material = EngineDeterministicHashMaterial();
+  // Prefix the secret ONLY when present — an empty seed leaves the hashed input byte-identical to
+  // the historical formula ($material . '|' . $counter), preserving every other root's stream.
+  $seed = GetEngineRandomSeed();
+  $prefix = $seed !== '' ? $seed . '|' : '';
 
   while (strlen($bytes) < $length) {
-    $bytes .= hash('sha256', $material . '|' . $counter, true);
+    $bytes .= hash('sha256', $prefix . $material . '|' . $counter, true);
     ++$counter;
   }
 

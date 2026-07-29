@@ -823,29 +823,50 @@ if ($tournamentId <= 0) {
             return leaderMetaShare;
         }
         
-        // Calculate leader/base combo meta share
+        // Calculate leader/base combo meta share.
+        // Bases are bucketed server-side (see APIs/GetMeleeTournament.php): functionally
+        // identical common bases share a groupKey, so they aggregate into one entry.
         function calculateLeaderComboMetaShare(decks) {
             const comboCounts = {};
             const totalDecks = decks.length;
-            
-            // Count leader/base combinations
+
             decks.forEach(deck => {
-                const leaderName = deck.leader && deck.leader.name ? deck.leader.name : (deck.leader && deck.leader.uuid ? deck.leader.uuid : 'Unknown');
-                const baseName = deck.base && deck.base.name ? deck.base.name : (deck.base && deck.base.uuid ? deck.base.uuid : 'Unknown');
-                const combo = `${leaderName} / ${baseName}`;
-                comboCounts[combo] = (comboCounts[combo] || 0) + 1;
+                const leaderName = deck.leader && deck.leader.name
+                    ? deck.leader.name
+                    : (deck.leader && deck.leader.uuid ? deck.leader.uuid : 'Unknown');
+                const leaderUuid = deck.leader && deck.leader.uuid ? deck.leader.uuid : null;
+
+                // Fall back to the raw base so an older/cached API response still renders.
+                const base = deck.base || {};
+                const baseKey = base.groupKey || base.uuid || 'Unknown';
+                const baseLabel = base.groupLabel || base.name || base.uuid || 'Unknown';
+                const baseUuid = base.groupUuid || base.uuid || null;
+
+                // Structured key: never re-parsed, so a leader title containing '/' is safe.
+                const key = `${leaderUuid || leaderName}||${baseKey}`;
+                if (!comboCounts[key]) {
+                    comboCounts[key] = { leaderName, leaderUuid, baseLabel, baseUuid, count: 0 };
+                }
+                comboCounts[key].count++;
             });
-            
-            // Calculate percentages and sort by popularity
-            const comboMetaShare = Object.keys(comboCounts).map(combo => ({
-                name: combo,
-                count: comboCounts[combo],
-                percentage: (comboCounts[combo] / totalDecks * 100).toFixed(1)
-            }));
-            
+
+            const comboMetaShare = Object.keys(comboCounts).map(key => {
+                const c = comboCounts[key];
+                return {
+                    key: key,
+                    name: `${c.leaderName} / ${c.baseLabel}`,  // display + bar-colour hash only
+                    leaderName: c.leaderName,
+                    leaderUuid: c.leaderUuid,
+                    baseLabel: c.baseLabel,
+                    baseUuid: c.baseUuid,
+                    count: c.count,
+                    percentage: (c.count / totalDecks * 100).toFixed(1)
+                };
+            });
+
             // Sort by count descending
             comboMetaShare.sort((a, b) => b.count - a.count);
-            
+
             // Limit to top 10 for readability
             return comboMetaShare.slice(0, 10);
         }
@@ -1081,19 +1102,6 @@ if ($tournamentId <= 0) {
             const chartContainer = document.getElementById('combo-meta-chart');
             chartContainer.innerHTML = '';
             
-            // Store leader and base UUID mapping
-            const cardUUIDs = {};
-            
-            // Create a mapping of card names to their UUIDs
-            window.decksData.forEach(deck => {
-                if (deck.leader && deck.leader.uuid && deck.leader.name) {
-                    cardUUIDs[deck.leader.name] = deck.leader.uuid;
-                }
-                if (deck.base && deck.base.uuid && deck.base.name) {
-                    cardUUIDs[deck.base.name] = deck.base.uuid;
-                }
-            });
-            
             // Find the maximum count for scaling
             const maxCount = Math.max(...comboMetaShare.map(combo => combo.count));
             const maxHeight = 150; // Maximum bar height in pixels
@@ -1130,13 +1138,12 @@ if ($tournamentId <= 0) {
                 barLabel.style.flexDirection = 'column';
                 barLabel.style.alignItems = 'center';
                 
-                // Parse combo name to get leader and base names
-                const parts = combo.name.split(' / ');
-                const leaderName = parts[0].trim();
-                const baseName = parts[1] ? parts[1].trim() : 'Unknown';
-                
+                // Leader and base come straight off the combo object — no string parsing.
+                const leaderName = combo.leaderName;
+                const baseName = combo.baseLabel;
+
                 // Create leader image
-                const leaderUUID = cardUUIDs[leaderName];
+                const leaderUUID = combo.leaderUuid;
                 if (leaderUUID) {
                     const leaderImg = document.createElement('img');
                     leaderImg.classList.add('leader-img');
@@ -1178,7 +1185,7 @@ if ($tournamentId <= 0) {
                 }
                 
                 // Create base image
-                const baseUUID = cardUUIDs[baseName];
+                const baseUUID = combo.baseUuid;
                 if (baseUUID) {
                     const baseImg = document.createElement('img');
                     baseImg.classList.add('leader-img');

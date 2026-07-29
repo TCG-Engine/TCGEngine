@@ -864,6 +864,11 @@ class SchemaTestRunner {
                 $g->simulateRequestBoundary();
                 break;
 
+            case 'Undo':        $g->undo($player); break;         // multi-step: revert one action
+            case 'UndoPhase':   $g->undoPhase($player); break;    // jump to start of current phase
+            case 'ApproveUndo': $g->approveUndo($player); break;  // opponent approves a pending request
+            case 'DenyUndo':    $g->denyUndo($player); break;     // opponent denies a pending request
+
             case 'ChooseMyGroundUnit':
                 $g->answerDecision($player, "myGroundArena-{$args}");
                 break;
@@ -951,6 +956,9 @@ class SchemaTestRunner {
      */
     public static function applyPostSetupDirectives(array $givenLines): void {
         $given = self::_parseGiven($givenLines);
+        // WithPrivateGame: true -> SimGameIsPrivateGame returns true, so undo is always free (no consent).
+        // Default public (false). Reset every test so it never leaks across cases in one process.
+        $GLOBALS['SWU_TEST_FORCE_PRIVATE'] = strtolower($given['WithPrivateGame'] ?? 'false') === 'true';
         if (strtolower($given['P1OnlyActions'] ?? '') === 'true') {
             SetInitiativeCounter('P2_CLAIMED');
             SetTurnPlayer(1);

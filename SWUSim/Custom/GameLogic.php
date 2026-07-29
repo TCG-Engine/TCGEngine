@@ -5,6 +5,7 @@ $customDQHandlers = [];
 $_computingPowerLifeSwap = false;
 
 include_once __DIR__ . '/Constants.php';
+include_once __DIR__ . '/UndoStack.php';   // per-game append-only undo-stack file helpers
 include_once __DIR__ . '/CardHelpers.php';
 include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
@@ -1857,13 +1858,18 @@ function SWUEnemySnokeCount($obj): int {
 // state-based defeat check: a shrink lowers HP directly (it is NOT damage, so shields
 // do not prevent it), and a unit reduced to 0 remaining HP is defeated.
 // Caller must have $playerID set so the relative $mzID resolves to the right arena.
-function SWUApplyPhaseDebuff(string $mzID, int $power, int $hp, string $source = ''): void {
+// $deferDefeatCheck: when applying a defeating debuff to MULTIPLE units in a loop, pass true so the
+// per-unit state-based defeat check is skipped — a mid-loop defeat removes its unit and shifts the other
+// units' mzIDs, which would leave later units in the loop undebuffed (and any defeat/heal reaction would
+// interrupt the resolution). The caller runs SWUCheckShrinkDefeats() ONCE after applying to every unit,
+// matching the rules (all "give each enemy -X/-X" reductions apply simultaneously, then defeats resolve).
+function SWUApplyPhaseDebuff(string $mzID, int $power, int $hp, string $source = '', bool $deferDefeatCheck = false): void {
     global $turnEffectRegistry;
     // "{source}-{power}-{hp}" (registry kind STAT_DEBUFF, phase). CardID base for provenance when
     // registered; synthetic 'SWUDEBUFF' fallback otherwise. params are amounts to SUBTRACT.
     $base = ($source !== '' && isset($turnEffectRegistry[$source])) ? $source : 'SWUDEBUFF';
     AddTurnEffect($mzID, _SWUStackingStatToken($mzID, "{$base}-{$power}-{$hp}"));
-    SWUCheckShrinkDefeats();
+    if (!$deferDefeatCheck) SWUCheckShrinkDefeats();
 }
 
 // SOR_004 Chirrut Îmwe (deployed): "During the action phase, this unit isn't defeated by having
@@ -3071,6 +3077,9 @@ function DoDrawCard($player, $amount) {
     }
 
     $playerID = $savedPID;
+    // A draw reveals a hidden card to the drawing player; undoing back through it un-reveals that info,
+    // so this action's snapshot needs opponent consent to undo in a public game (undo redesign).
+    if (!empty($drawn)) MarkUndoRequiresConsent();
     // Per-phase "cards you've drawn this phase" counter (LAW_051 Beilert Valance). Action phase only;
     // cleared at RegroupPhaseStart.
     if (!empty($drawn) && GetCurrentPhase() === 'MAIN') {
@@ -4568,6 +4577,16 @@ function _SWUTs26063OnEnemyReady($readied): void {
 
 // ── Pregame DQ handlers ─────────────────────────────────────────────────────
 
+// Undo boundary for a pregame step (each mulligan decision + each starting-resource choice). Queued
+// immediately BEFORE the step it guards, so the snapshot captures the still-pending decision and the
+// pre-step RNG counter: an undo restores both, so re-driving an undone mulligan replays the identical
+// redraw (deterministic — requirement #6), and a player can step back through their pregame choices.
+// 'pregame-step' is a non-'action' boundary, so in a public game the undo requires opponent consent.
+$customDQHandlers["PushPregameSnapshot"] = function($player, $parts, $lastDecision) {
+    $seat = isset($parts[0]) ? intval($parts[0]) : intval($player);
+    PushUndoSnapshot($seat, 'pregame-step');
+};
+
 $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision) {
     $targetPlayer = isset($parts[0]) ? intval($parts[0]) : intval($player);
     if (strtoupper($lastDecision) !== "YES") return;
@@ -4584,7 +4603,9 @@ $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision)
         }
     }
     $deck = &GetDeck($targetPlayer);
-    EngineShuffle($deck, true);
+    // Deterministic mulligan reshuffle: restoring the counter+seed on undo replays the same redraw,
+    // so undo + re-mulligan yields the identical second hand (Task 3, undo redesign).
+    EngineShuffle($deck, false);
 
     for ($i = 0; $i < 6; $i++) DoDrawCard($targetPlayer, 1);
 
@@ -4670,17 +4691,20 @@ function MainPhase() {
 function DrawPhase() {
     // Draw is a step WITHIN the Regroup phase (not a separate phase in the log) — only the
     // "— Regroup Phase —" banner is emitted (by RegroupPhaseStart).
-    // CR 5.4.b: each player draws 2 cards.
-    DoDrawCard(1, 2);
-    DoDrawCard(2, 2);
+    // CR 5.4.b: each player draws 2 cards. Twin Suns: EVERY live seat draws, not just seats 1-2.
+    foreach (GetLiveSeatsArray() as $p) DoDrawCard($p, 2);
 }
 
 function ResourcePhase() {
     // Resource is a step WITHIN the Regroup phase (not a separate phase in the log).
     // CR 5.4.c: starting with the active player (initiative holder), each player
     // may resource 1 card from hand. Player selects a card or declines with "-".
+    // Twin Suns: go clockwise across EVERY live seat starting from the initiative holder (not just P1/P2).
     $firstPlayer = intval(GetFirstPlayer());
-    $secondPlayer = $firstPlayer === 1 ? 2 : 1;
+    $order = GetLiveSeatsArray();
+    $startIdx = array_search($firstPlayer, $order, true);
+    if ($startIdx === false) $startIdx = 0;
+    $orderedSeats = array_merge(array_slice($order, $startIdx), array_slice($order, 0, $startIdx));
     // P2 is a passive, non-interactive seat in goldfish (and in an interrupted "Play from Here"
     // replay) — it can never answer a decision. Its regroup-resource MZMAYCHOOSE would otherwise
     // sit in the queue forever and hang the RES step (the ghost has an empty hand + empty deck, so
@@ -4697,8 +4721,11 @@ function ResourcePhase() {
         DecisionQueueController::AddDecision($pl, "MZMAYCHOOSE", "myHand", 1, tooltip:"Resource_up_to_1_card");
         DecisionQueueController::AddDecision($pl, "CUSTOM",      "SWUApplyRegroupResource", 1);
     };
-    $queueResource($firstPlayer);   // initiative holder resources first (CR 5.4.c)
-    $queueResource($secondPlayer);
+    foreach ($orderedSeats as $pl) $queueResource($pl);   // initiative holder first, then clockwise (CR 5.4.c)
+    // Undo boundary: snapshot AFTER the resource prompt is queued so a regular Undo from the action-phase
+    // start lands here with the resource choice re-presented (re-pick your resource); it also floors Undo
+    // Phase (the phase jump stops at the first action ABOVE this boundary).
+    PushUndoSnapshot($firstPlayer, 'resource');
 }
 
 function ReadyPhase() {
@@ -4991,10 +5018,9 @@ function RegroupPhaseStart(): void {
     if (SWUGetGameWinner() !== 0) return;
     AddGameLogEntry('PHASE', '— Regroup Phase —');
     // Telemetry: finalize each seat's per-round counters into a turnResults entry (once per round).
-    if (function_exists('SWUTelemetrySnapshotTurn')) { SWUTelemetrySnapshotTurn(1); SWUTelemetrySnapshotTurn(2); }
+    if (function_exists('SWUTelemetrySnapshotTurn')) { for ($tp = 1; $tp <= SeatCountForGame(); $tp++) SWUTelemetrySnapshotTurn($tp); }
     SetSWUVar('SWU_REGROUP_NUM', (string)(intval(GetSWUVar('SWU_REGROUP_NUM', '0')) + 1)); // LAW_072: count regroups this round
-    ResetUndoDenyCount(1);
-    ResetUndoDenyCount(2);
+    for ($udp = 1; $udp <= SeatCountForGame(); $udp++) ResetUndoDenyCount($udp);
     SWUClearDiscardModifiers();
     SetSWUVar('SWU_LAST_ACTION', '');      // SEC_194 per-action tracking resets each phase
     SetSWUVar('SWU_ACTION_BASEATK', '');
@@ -5003,7 +5029,7 @@ function RegroupPhaseStart(): void {
     _SWUCheckFinalShowdownLose();          // SHD_208 Final Showdown — caster loses the game (before the draw step)
     _SWULawRegroupStartTriggers();         // LAW_071 (credit), LAW_073 (Exp + can't-ready) at regroup start
     // TWI_067 The Zillo Beast — "When the regroup phase starts: Heal 5 damage from this unit."
-    for ($zp = 1; $zp <= 2; $zp++) {
+    for ($zp = 1; $zp <= SeatCountForGame(); $zp++) {
         foreach (GetUnitsInPlay($zp) as $zu) {
             if (empty($zu->removed) && ($zu->CardID ?? '') === 'TWI_067' && intval($zu->Damage ?? 0) > 0) {
                 $zmz = SWUFindMzByUID(intval($zu->UniqueID ?? -1));
@@ -5012,7 +5038,7 @@ function RegroupPhaseStart(): void {
         }
     }
     // TS26_23 Assault Lander LAAT — "When the regroup phase starts: Deal 4 damage to this unit."
-    for ($lp = 1; $lp <= 2; $lp++) {
+    for ($lp = 1; $lp <= SeatCountForGame(); $lp++) {
         foreach (GetUnitsInPlay($lp) as $lu) {
             if (empty($lu->removed) && ($lu->CardID ?? '') === 'TS26_23') {
                 $lmz = SWUFindMzByUID(intval($lu->UniqueID ?? -1));
@@ -5025,7 +5051,7 @@ function RegroupPhaseStart(): void {
     // host — if Jetpack's own shield was already consumed and the host gained another shield since,
     // that other token is removed instead (individual tokens aren't identifiable across requests).
     global $playerID;
-    foreach ([1, 2] as $jp) {
+    for ($jp = 1; $jp <= SeatCountForGame(); $jp++) {
         $jge = &GetGlobalEffects($jp);
         for ($ji = count($jge) - 1; $ji >= 0; $ji--) {
             $jflag = (string)($jge[$ji]->CardID ?? '');
@@ -5050,7 +5076,7 @@ function RegroupPhaseStart(): void {
     // SHD_203 Zorii Bliss — each attack armed "at the start of the regroup phase, discard a card
     // from your hand." One mandatory discard per armed instance (zone-name MZCHOOSE, Han-loop style;
     // an empty hand auto-resolves to '-' and the handler no-ops). Consumed here, NOT prefix-cleared.
-    for ($zp = 1; $zp <= 2; $zp++) {
+    for ($zp = 1; $zp <= SeatCountForGame(); $zp++) {
         $zPending = GlobalEffectCount($zp, 'SWU_SHD203_DISCARD');
         for ($zk = 0; $zk < $zPending; $zk++) {
             RemoveGlobalEffect($zp, 'SWU_SHD203_DISCARD');
@@ -5070,7 +5096,7 @@ function RegroupPhaseStart(): void {
     $law074Found = true;
     while ($law074Found) {
         $law074Found = false;
-        for ($lp = 1; $lp <= 2; $lp++) {
+        for ($lp = 1; $lp <= SeatCountForGame(); $lp++) {
             $playerID = $lp;
             foreach (['myGroundArena', 'mySpaceArena'] as $lz) {
                 foreach (ZoneSearch($lz, AnyUnitFilter) as $lmz) {
@@ -5095,7 +5121,7 @@ function RegroupPhaseStart(): void {
     $shd194Found = true;
     while ($shd194Found) {
         $shd194Found = false;
-        for ($vp = 1; $vp <= 2; $vp++) {
+        for ($vp = 1; $vp <= SeatCountForGame(); $vp++) {
             $playerID = $vp;
             foreach (['myGroundArena', 'mySpaceArena'] as $vz) {
                 foreach (ZoneSearch($vz, AnyUnitFilter) as $vmz) {
@@ -5113,7 +5139,7 @@ function RegroupPhaseStart(): void {
 
     // SHD_015 Doctor Aphra (leader FRONT side, undeployed) — "When the regroup phase starts: Discard a
     // card from your deck." (Once deployed, the deployed side replaces this — so gate on !Deployed.)
-    for ($ap = 1; $ap <= 2; $ap++) {
+    for ($ap = 1; $ap <= SeatCountForGame(); $ap++) {
         foreach (GetLeader($ap) as $lo) {
             if (empty($lo->removed) && ($lo->CardID ?? '') === 'SHD_015' && empty($lo->Deployed)) {
                 SWUMillTopCard($ap);
@@ -5130,7 +5156,7 @@ function RegroupPhaseStart(): void {
     $sneakFound = true;
     while ($sneakFound) {
         $sneakFound = false;
-        for ($sp = 1; $sp <= 2; $sp++) {
+        for ($sp = 1; $sp <= SeatCountForGame(); $sp++) {
             $playerID = $sp;
             foreach (['myGroundArena', 'mySpaceArena'] as $szone) {
                 foreach (ZoneSearch($szone, AnyUnitFilter) as $smz) {
@@ -5148,7 +5174,7 @@ function RegroupPhaseStart(): void {
 
     // JTL_198 Fireball — "When the regroup phase starts: deal 1 damage to this unit." (one pass; any
     // resulting defeat is handled by the SWUDealDamageToUnit/state-based checks below.)
-    for ($rp = 1; $rp <= 2; $rp++) {
+    for ($rp = 1; $rp <= SeatCountForGame(); $rp++) {
         $playerID = $rp;
         foreach (['myGroundArena', 'mySpaceArena'] as $rz) {
             foreach (ZoneSearch($rz, AnyUnitFilter) as $rmz) {
@@ -5167,7 +5193,7 @@ function RegroupPhaseStart(): void {
 
     // LOF_019 Vergence Temple — "When the regroup phase starts: If you control a unit with 4 or more
     // remaining HP, the Force is with you." Checked for whichever player's base is Vergence Temple.
-    for ($vp = 1; $vp <= 2; $vp++) {
+    for ($vp = 1; $vp <= SeatCountForGame(); $vp++) {
         $vbaseArr = GetBase($vp);
         if (empty($vbaseArr) || ($vbaseArr[0]->CardID ?? '') !== 'LOF_019') continue;
         $playerID = $vp;
@@ -5185,7 +5211,7 @@ function RegroupPhaseStart(): void {
 
     // LOF_055 Dume — "When the regroup phase starts: give an Experience token to each OTHER friendly
     // non-Vehicle unit." (Loop per Dume so multiple copies each grant.)
-    for ($dp = 1; $dp <= 2; $dp++) {
+    for ($dp = 1; $dp <= SeatCountForGame(); $dp++) {
         $playerID = $dp;
         $dumeUIDs = [];
         foreach (['myGroundArena', 'mySpaceArena'] as $dz) {
@@ -5209,7 +5235,7 @@ function RegroupPhaseStart(): void {
     $j235Found = true;
     while ($j235Found) {
         $j235Found = false;
-        for ($jp = 1; $jp <= 2; $jp++) {
+        for ($jp = 1; $jp <= SeatCountForGame(); $jp++) {
             $playerID = $jp;
             foreach (['myGroundArena', 'mySpaceArena'] as $jz) {
                 foreach (ZoneSearch($jz, AnyUnitFilter) as $jmz) {
@@ -5246,7 +5272,7 @@ function RegroupPhaseStart(): void {
         $chFound = true;
         while ($chFound) {
             $chFound = false;
-            for ($cp = 1; $cp <= 2; $cp++) {
+            for ($cp = 1; $cp <= SeatCountForGame(); $cp++) {
                 $playerID = $cp;
                 foreach (['myGroundArena', 'mySpaceArena'] as $cz) {
                     foreach (ZoneSearch($cz, AnyUnitFilter) as $cmz) {
@@ -6215,6 +6241,9 @@ function SetSWUVar(string $key, string $value): void {
 }
 
 function MarkUndoRequiresConsent(): void {
+    // O(1): just raise the live per-action flag (called on every draw/scry/search/reveal). The flag is
+    // folded into the top snapshot's revealedInfo LATER — at the next PushUndoSnapshot, or read live at
+    // undo time — so reveals never rewrite the undo file per draw (that was O(n^2)). See PushUndoSnapshot.
     SetSWUVar('UNDO_REQUIRES_CONSENT', 'true');
 }
 
@@ -6706,6 +6735,38 @@ function SWUFlushExploitDeferredTriggers(int $player): void {
         }
     }
     $gExploitDeferredBag = [];
+}
+
+// ── General multi-clause "then" trigger deferral (CR 8.29.1 + 7.6.14.a / 7.6.8) ───────────────────────
+// While an ability with a "then"/"if you do" clause is mid-resolution (e.g. Collateral Damage between its
+// two "deal 2" hits), a triggered ability set up by an earlier clause (a first-hit When-Defeated, an
+// opponent's disclose reaction, …) must WAIT to RESOLVE until the whole ability finishes — it may not jump
+// ahead of the "then" clause, and both players' triggers then resolve active-player-first (CR 7.6.10).
+// Unlike the Exploit defer (transient, same-action), a "then" event's clauses are separated by an
+// INTERACTIVE choice, so this state is stored in SWUVars — it survives the HTTP request boundary between
+// the clauses. CollectWhenDefeatedTriggers parks into SWU_DEFER_WD_BAG while SWU_DEFER_WD is set; the card
+// flushes once its final clause resolves.
+function SWUBeginDeferWhenDefeated(): void {
+    SetSWUVar('SWU_DEFER_WD', 'true');
+    if (GetSWUVar('SWU_DEFER_WD_BAG', '') === '') SetSWUVar('SWU_DEFER_WD_BAG', '[]');
+}
+function SWUFlushDeferredWhenDefeated(int $activePlayer): void {
+    if (GetSWUVar('SWU_DEFER_WD', 'false') !== 'true') return;
+    SetSWUVar('SWU_DEFER_WD', 'false');
+    $bag = json_decode(GetSWUVar('SWU_DEFER_WD_BAG', '[]'), true);
+    SetSWUVar('SWU_DEFER_WD_BAG', '[]');
+    if (!is_array($bag) || empty($bag)) return;
+    global $gPendingTriggers;
+    $bounty = [];
+    foreach ($bag as $entry) {
+        if (($entry['__kind__'] ?? 'trigger') === 'bounty') { $bounty[] = $entry; continue; }
+        AddTrigger($entry['player'], $entry['triggerType'], $entry['cardID'], $entry['mzID'], $entry['extraParams'] ?? '');
+    }
+    FlushTriggerBag($activePlayer);                    // When-Defeated (and friends), active-player-first
+    foreach ($bounty as $entry) {                      // bounty is offered AFTER When-Defeated (CR 7.6.3 / 13.f)
+        DecisionQueueController::AddDecision($entry['activePlayer'], "YESNO", "-", 1, tooltip:"Collect_bounty?");
+        DecisionQueueController::AddDecision($entry['activePlayer'], "CUSTOM", "SWUCollectBounty|{$entry['cardID']}", 1);
+    }
 }
 
 // FlushCombatTriggerBag — like FlushEntryTriggerBag but for combat Step 1 triggers.
@@ -8598,6 +8659,26 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
     // of whether $gPendingTriggers is non-empty — this ensures a unit with Bounty but
     // no WhenDefeated is also deferred (Bug B fix), and a unit with both does not lose
     // its bounty via an early return (Bug A fix).
+    // General multi-clause "then" deferral (CR 8.29.1 + 7.6.14.a): while an event is between its clauses
+    // (Collateral Damage's two "deal 2" hits), a first-clause defeat's When-Defeated / bounty must WAIT
+    // until the whole event resolves. Serialized (SWU_DEFER_WD/_BAG SWUVars) so it survives the request
+    // boundary between the clauses; SWUFlushDeferredWhenDefeated() replays it after the final clause.
+    // Distinct from the transient, same-action Exploit park below.
+    if (GetSWUVar('SWU_DEFER_WD', 'false') === 'true') {
+        $bag = json_decode(GetSWUVar('SWU_DEFER_WD_BAG', '[]'), true);
+        if (!is_array($bag)) $bag = [];
+        foreach ($gPendingTriggers as $t) { $bag[] = ['__kind__' => 'trigger'] + $t; }
+        global $Bounty_Cards;
+        foreach ($defeatedCards as $d) {
+            if (isset($Bounty_Cards[$d['cardID']]) && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])) {
+                $bag[] = ['__kind__' => 'bounty', 'activePlayer' => OtherPlayer(intval($d['player'] ?? $activePlayer)), 'cardID' => $d['cardID']];
+            }
+        }
+        SetSWUVar('SWU_DEFER_WD_BAG', json_encode($bag));
+        $gPendingTriggers = [];
+        return;
+    }
+
     if (!empty($gExploitDeferTriggers)) {
         // Park trigger descriptors (tagged with __kind__ = 'trigger').
         foreach ($gPendingTriggers as $t) {
@@ -10212,6 +10293,7 @@ function SWUDrawTopCardFront(int $player): ?string {
     if ($idx === -1) { $playerID = $saved; return null; }
     $obj = MZMove($player, "myDeck-$idx", "myHand");
     $playerID = $saved;
+    if ($obj !== null) MarkUndoRequiresConsent();   // top card revealed to the player (undo redesign)
     return $obj ? $obj->CardID : null;
 }
 
@@ -13795,30 +13877,177 @@ function SWUComputePilotPlayableHand(int $player): array {
 //   'condition'    => callable($player) that returns true if the option should be offered
 $additionalActivationCosts = [];
 
-function SaveUndoVersion($targetPlayerID, $name = "") {
-    global $playerID;
+// Append a full-state snapshot to the whole-game, multi-step undo stack (player 1's Versions zone) with
+// metadata (acting seat, phase, boundary, revealed-info). The stack IS serialized in the gamestate (the
+// Versions zones ride in Gamestate.txt), so the undo history is captured by any bug report and restored
+// by loading the gamestate — while GetSerializedZones (the snapshot payload) excludes the Versions zone,
+// so snapshots never recursively nest. $boundary: 'action' (default) | 'resource' | 'pregame-step'.
+function PushUndoSnapshot($actingSeat, $boundary = 'action', $name = '') {
+    global $playerID, $gRandomCounter, $gCurrentPhase;
     $savedPlayerID = $playerID;
-    $targetPlayer = intval($targetPlayerID);
-    $playerID = $targetPlayer;
+    $seat = intval($actingSeat);
+    $playerID = $seat;
+
+    // Fold the just-finished action's live reveal flag into ITS snapshot (the current top) before we
+    // move on — one file rewrite per revealing action instead of one per draw. (At undo time, the last
+    // action's reveal is read live from UNDO_REQUIRES_CONSENT since it isn't stamped yet — see the scan.)
+    if (GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true' && UndoTop() >= 0) {
+        UndoStackSetRevealed(UndoTop());
+    }
 
     // Reset per-action undo state so every snapshot is born with clean flags.
     // UNDO_BLOCKED flags are intentionally NOT reset here — they're permanent.
     SetSWUVar('UNDO_REQUIRES_CONSENT', 'false');
     SetSWUVar('PENDING_UNDO_FROM', '');
+    SetSWUVar('PENDING_UNDO_TARGET', '');
     SetSWUVar('PENDING_BLOCK_PROMPT_FOR', '');
-    SetSWUVar('UNDO_DENY_COUNT_' . $targetPlayer, '0');
+    SetSWUVar('UNDO_DENY_COUNT_' . $seat, '0');
     SetSWUVar('PASS', GetSWUVar('PASS', '0')); // ensure format is key=value
 
-    $zones = Versions::GetSerializedZones();
-    global $gRandomCounter;
-    $zones .= "<v0>" . $gRandomCounter;
-
-    MZClearZone($targetPlayer, "myVersions");
-
-    $namePrefix = (strlen($name) > 0 ? $name . '<vname>' : '');
-    AddVersions($targetPlayer, '0:' . $namePrefix . $zones);
+    $payload = Versions::GetSerializedZones() . '<v0>' . $gRandomCounter;
+    $record  = UndoRecordBuild($seat, (string)($gCurrentPhase ?? ''), (string)$boundary, 0, (string)$name, $payload);
+    UndoStackAppend($record);          // ordinal is implicit (the array index); UndoTop() derives from the count
 
     $playerID = $savedPlayerID;
+}
+
+// Backward-compatible alias — the ~15 existing 'action' call sites keep working unchanged.
+function SaveUndoVersion($targetPlayerID, $name = "") {
+    PushUndoSnapshot($targetPlayerID, 'action', $name);
+}
+
+// Current top ordinal of the undo stack (-1 if empty). Derived from the stack itself (the Versions zone),
+// so it is always consistent and needs no separate serialized counter — the stack rides in the gamestate.
+function UndoTop() {
+    return UndoStackCount() - 1;
+}
+
+// Restore the game to the exact state stored in undo-stack entry $restoreOrdinal, then POP it: the next
+// undo targets the entry below (new top = $restoreOrdinal - 1). The stack lives in player 1's Versions
+// zone; to restore, append the stored payload as a TEMPORARY slot at the end, LoadVersion from it (reusing
+// the untouched generated 700-line restore body), then array_splice away the temp slot AND everything at/
+// above $restoreOrdinal in one step. LoadVersion never touches the Versions zone (the payload excludes it),
+// so the rest of the stack survives the restore. Returns false if $restoreOrdinal is out of range.
+function LoadUndoSnapshot($restoreOrdinal) {
+    $restoreOrdinal = intval($restoreOrdinal);
+    $line = UndoStackRead($restoreOrdinal);
+    if ($line === null) return false;
+    $rec = UndoRecordParse($line);
+
+    $z = &GetVersions(1);
+    $tmpIdx = count($z);
+    $z[] = new Versions('0:' . $rec['payload'], 'Versions', 1, $tmpIdx);   // payload = raw GetSerializedZones blob
+    LoadVersion(1, $tmpIdx);
+    $z = &GetVersions(1);                    // re-grab post-restore (defensive; LoadVersion leaves Versions alone)
+    array_splice($z, $restoreOrdinal);       // drop the temp slot AND pop entries restoreOrdinal..top
+    return true;
+}
+
+// ── Undo actions (shared by EngineActionRunner cases 10004/10008/10009 AND the test harness) ─────────
+// Kept here (not inline in the Core switch) so the logic is reusable + directly testable. Tasks 8-11
+// flesh these out (multi-step target, Undo Phase, the private/public consent scan). Interim behavior
+// below = single-step free undo gated on the legacy UNDO_REQUIRES_CONSENT flag.
+
+// Apply the permanent per-player block flags after a restore (LoadUndoSnapshot restores a pre-block
+// snapshot's $gDecisionQueueVariables, so the current blocks must be re-stamped to survive).
+function _SWUReapplyUndoBlocks(bool $bl1, bool $bl2): void {
+    if ($bl1) SetSWUVar('UNDO_BLOCKED_1', 'true');
+    if ($bl2) SetSWUVar('UNDO_BLOCKED_2', 'true');
+}
+
+// The snapshot ordinal an undo of the given kind should restore.
+//   'step'  — restore the current top (one action / one boundary back; LoadUndoSnapshot then pops).
+//   'phase' — jump to the FIRST action of the current phase: the lowest run of contiguous 'action'
+//             entries above the most recent non-action boundary ('resource'/'pregame-step'). Restoring
+//             it lands at the action-phase start; the pop then leaves the top at that boundary, so a
+//             following 'step' Undo crosses into it (the regroup RES step).
+function SWUComputeUndoTarget(string $kind): int {
+    $top = UndoTop();
+    if ($kind !== 'phase') return $top;
+    $target = $top;
+    for ($i = $top; $i >= 0; $i--) {
+        $line = UndoStackRead($i);
+        if ($line === null) break;
+        if (UndoRecordParse($line)['boundary'] !== 'action') break;   // hit a boundary → stop
+        $target = $i;                                                  // lowest 'action' seen so far
+    }
+    return $target;
+}
+
+// Does an undo TO $targetOrdinal by $requesterSeat need opponent consent (a public-queue request)?
+//   • PRIVATE games: never — undo is always free (requirement #7).
+//   • Undo Phase ('phase'): always a request in public (requirement #4), regardless of what it crosses.
+//   • Otherwise scan every entry being reverted — ordinals [targetOrdinal .. UndoTop()] — plus the LIVE
+//     (unsnapshotted, top+1) action whose reveal is still in UNDO_REQUIRES_CONSENT. Consent is needed if
+//     any reverted action (a) revealed new info, (b) belongs to the opponent, or (c) is a phase boundary
+//     ('resource'/'pregame-step' — the undo crosses out of the current phase; requirement #3).
+// Record ord_i stores the PRE-state of action i+1 and that action's metadata (seat/revealed/boundary), so
+// reverting to $targetOrdinal undoes actions whose records are exactly [targetOrdinal .. top].
+function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kind = 'step', string $rootName = '', string $gameName = ''): bool {
+    if (SimGameIsPrivateGame($rootName, $gameName)) return false;
+    if ($kind === 'phase') return true;
+    // The live action's reveal flag hasn't been folded into a record yet — read it directly.
+    if (GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true') return true;
+    $top = UndoTop();
+    for ($i = $targetOrdinal; $i <= $top; $i++) {
+        $line = UndoStackRead($i);
+        if ($line === null) continue;
+        $r = UndoRecordParse($line);
+        if ($r['revealed']) return true;                          // (a) new info revealed
+        if (intval($r['seat']) !== $requesterSeat) return true;   // (b) opponent's action
+        if ($r['boundary'] !== 'action') return true;             // (c) crosses a phase boundary
+    }
+    return false;
+}
+
+function SWUDoUndo(int $playerID, string $kind = 'step', string $rootName = '', string $gameName = ''): void {
+    $target = SWUComputeUndoTarget($kind);
+    if (!SWUUndoNeedsConsent($playerID, $target, $kind, $rootName, $gameName)) {
+        $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
+        $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
+        LoadUndoSnapshot($target);
+        _SWUReapplyUndoBlocks($bl1, $bl2);
+        SetFlashMessage('Undo applied.');
+    } else {
+        $blocked = GetSWUVar('UNDO_BLOCKED_' . $playerID, 'false') === 'true';
+        if ($blocked) {
+            SetFlashMessage('Your opponent has blocked your undo requests.');
+        } else {
+            // Remember the exact multi-step/phase target so the approval reverts to the SAME point the
+            // requester saw — not merely the single top action (SWUApproveUndo consumes PENDING_UNDO_TARGET).
+            SetSWUVar('PENDING_UNDO_FROM', (string)$playerID);
+            SetSWUVar('PENDING_UNDO_TARGET', (string)$target);
+            SetFlashMessage('Undo requested. Waiting for opponent.');
+        }
+    }
+}
+
+function SWUApproveUndo(): void {
+    $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
+    if ($requestingPlayer < 1 || $requestingPlayer > 2) return;
+    $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
+    $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
+    // Revert to the SAME target the requester chose (multi-step / Undo Phase), not just the top action.
+    $target = intval(GetSWUVar('PENDING_UNDO_TARGET', (string)UndoTop()));
+    LoadUndoSnapshot($target);
+    _SWUReapplyUndoBlocks($bl1, $bl2);
+    SetSWUVar('PENDING_UNDO_FROM', '');
+    SetSWUVar('PENDING_UNDO_TARGET', '');
+    SetFlashMessage('Undo approved.');
+}
+
+function SWUDenyUndo(): void {
+    $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
+    SetSWUVar('PENDING_UNDO_FROM', '');
+    SetSWUVar('PENDING_UNDO_TARGET', '');
+    SetSWUVar('UNDO_REQUIRES_CONSENT', 'false');
+    if ($requestingPlayer >= 1 && $requestingPlayer <= 2) {
+        $denyKey = 'UNDO_DENY_COUNT_' . $requestingPlayer;
+        $newCount = intval(GetSWUVar($denyKey, '0')) + 1;
+        SetSWUVar($denyKey, (string)$newCount);
+        if ($newCount >= 2) SetSWUVar('PENDING_BLOCK_PROMPT_FOR', (string)$requestingPlayer);
+    }
+    SetFlashMessage('Undo denied.');
 }
 
 function GetStartingChampionChoices($player) {
@@ -22249,6 +22478,7 @@ function DoRevealCard($player, $revealedMZ) {
     $obj = GetZoneObject($revealedMZ);
     if($obj === null) return null;
     $CardID = $obj->CardID;
+    MarkUndoRequiresConsent();   // a reveal exposes hidden info; undoing it would un-reveal (undo redesign)
     // Accumulate REVEAL: messages so multiple reveals in one response all display.
     // Format: REVEAL:id1|id2|id3
     $existing = GetFlashMessage();

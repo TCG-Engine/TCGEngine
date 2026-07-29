@@ -114,6 +114,9 @@ function SimGameResolvePresentedAuthKey($authKey = '')
 
 function SimGameIsPrivateGame($rootName, $gameName)
 {
+  // Test-only override: the schema harness has no auth-key file, so WithPrivateGame sets this global to
+  // exercise the private-vs-public undo consent paths. Never set in production.
+  if (!empty($GLOBALS['SWU_TEST_FORCE_PRIVATE'])) return true;
   $authKeys = SimGameReadAuthKeys($rootName, $gameName);
   return !empty($authKeys['isPrivate']);
 }

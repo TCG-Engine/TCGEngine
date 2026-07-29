@@ -559,9 +559,24 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     display: flex !important; flex-wrap: wrap !important;
     justify-content: center !important; align-items: center !important;
     gap: 6px !important; margin: 0 0 18px 0 !important;
-    max-width: min(86vw, 560px) !important;
+    /* Wide enough for 6 cards in one row (the square 124px concat tiles: 6 x 124 + 5 x 6px gap = 774px),
+       but never wider than the game area (board = 100vw - sidebar) so it can't spill under the chat
+       sidebar on a narrow window (there it falls back to wrapping). */
+    max-width: min(786px, calc(var(--swu-board-w, 92vw) - 40px)) !important;
     max-height: 46vh !important; overflow-y: auto !important; overflow-x: hidden !important;
 }
+/* Center the mulligan modal on the GAME AREA, not the whole viewport — i.e. excluding the right
+   chat/log sidebar — matching the board's other centered elements (translateX(... - sidebar/2)).
+   The 0px fallback means no shift on mobile / when no sidebar var is defined. Marker set by the
+   ShowYesNoDecisionPopup wrapper so this only affects the mulligan prompt, not every YES/NO modal. */
+#yesno-decision-modal[data-swu-mulligan] > .yesno-decision-panel {
+    transform: translateX(calc(-1 * var(--swu-sidebar-w, 0px) / 2)) !important;
+}
+.swu-mulligan-hand .swu-mulligan-card {
+    display: inline-flex !important; cursor: pointer !important; line-height: 0 !important;
+    border-radius: 5px !important; transition: transform 0.12s ease !important;
+}
+.swu-mulligan-hand .swu-mulligan-card:hover { transform: translateY(-3px) !important; }
 .swu-mulligan-hand img {
     height: 124px !important; width: auto !important; border-radius: 5px !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6) !important;
@@ -648,6 +663,35 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #selection-message > button:not([id]):hover::before {
     background: var(--accent-strong) !important;
 }
+/* MZSplitAssign +/- steppers → chamfered HUD, red (minus) / green (plus). The design-system migration
+   (7468247d) dropped the .mzsplit-* selectors from the decision-UI chamfer sweep, so these steppers fell
+   back to the bespoke ROUND .mzsplit-btn styling in Core/MZSplitAssignUI.js. Re-skin them here like the
+   sibling .numchoose steppers, keeping the +/- red/green affordance — all theme-driven (danger/success),
+   so they follow petranaki-hud (and every other theme). !important beats the non-!important base rules. */
+.mzsplit-btn-minus, .mzsplit-btn-plus {
+    position: relative !important; z-index: 0 !important; isolation: isolate !important;
+    border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important;
+    transition: filter 150ms, color 150ms, transform 110ms !important;
+}
+.mzsplit-btn-minus::before, .mzsplit-btn-plus::before {
+    content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
+}
+.mzsplit-btn-minus::after, .mzsplit-btn-plus::after {
+    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
+    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
+}
+.mzsplit-btn-minus            { color: var(--on-danger) !important; text-shadow: 0 0 6px rgba(0,0,0,0.5) !important; filter: drop-shadow(0 0 4px var(--danger)) !important; }
+.mzsplit-btn-minus::before    { background: var(--danger) !important; }
+.mzsplit-btn-minus::after     { background: var(--danger-surface) !important; }
+.mzsplit-btn-minus:hover:not(:disabled) { color: #fff !important; filter: drop-shadow(0 0 9px var(--danger)) !important; transform: translateY(-1px) !important; }
+.mzsplit-btn-plus             { color: var(--on-success) !important; text-shadow: 0 0 6px rgba(0,0,0,0.5) !important; filter: drop-shadow(0 0 4px var(--success)) !important; }
+.mzsplit-btn-plus::before     { background: var(--success) !important; }
+.mzsplit-btn-plus::after      { background: var(--success-surface) !important; }
+.mzsplit-btn-plus:hover:not(:disabled)  { color: #fff !important; filter: drop-shadow(0 0 9px var(--success)) !important; transform: translateY(-1px) !important; }
+.mzsplit-btn-minus:disabled, .mzsplit-btn-plus:disabled { color: var(--text-muted) !important; filter: none !important; }
+.mzsplit-btn-minus:disabled::before, .mzsplit-btn-plus:disabled::before { background: var(--border) !important; }
+.mzsplit-btn-minus:disabled::after,  .mzsplit-btn-plus:disabled::after  { background: var(--surface-sunken) !important; }
 /* "Waiting for the other player…" — center it over the board (both bases), not pinned above the
    hand. !important beats the shared JS's per-frame inline top/bottom (_positionMessageNearAnchor).
    left:50% comes from the base rule; the -sidebar/2 X-shift matches how the bases/midbar center over
@@ -2194,6 +2238,24 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             get: function () { return _myResourcesInternal; },
             set: function (v) { _myResourcesInternal = v; }
         });
+        // The OPPONENT resource count badge (swuTheirResCount) otherwise refreshes ONLY via a
+        // MutationObserver on the hidden theirResourcesSlot. But the opponent's resources are masked
+        // (face-down '-') and collapsed by CardID, so their rendered markup is frequently byte-identical
+        // across turns — ReplaceRenderedZoneHTML then skips the DOM update, the observer never fires, and
+        // the count goes stale ("opponent resources not updating", while their OWN client — which is
+        // data-driven — looks fine). Recompute the count straight from the data on every write, the way
+        // parseResCountFromData already counts masked entries. (The observer stays as a harmless backup.)
+        var _theirResourcesInternal = window.theirResourcesData || '';
+        Object.defineProperty(window, 'theirResourcesData', {
+            configurable: true,
+            get: function () { return _theirResourcesInternal; },
+            set: function (v) {
+                _theirResourcesInternal = v;
+                if (typeof updateResCounterFromData === 'function') {
+                    updateResCounterFromData('theirResourcesData', 'swuTheirResCount');
+                }
+            }
+        });
         Object.defineProperty(window, 'TurnPlayerData', {
             configurable: true,
             get: function () { return _turnPlayerInternal; },
@@ -2549,6 +2611,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 
     // Build a thumbnail row from the current hand (window.myHandData: "<|>"-joined
     // entries, each a space-separated token list whose first token is the CardID).
+    // Each thumbnail is wrapped in a hover target wired to the SAME zoomed preview the board
+    // uses (ShowCardDetail reads the inner IMG's src) — so a mulligan card can be previewed
+    // instead of being stuck as a small thumbnail. This row is shown IN the bright modal panel
+    // (desktop + mobile), which also sidesteps the board hand being dimmed/blocked by the modal's
+    // full-screen backdrop (the "cards too dark / can't hover during mulligan" report).
     function buildHandRow() {
         var raw = (typeof window.myHandData === 'string') ? window.myHandData.trim() : '';
         if (!raw) return null;
@@ -2559,11 +2626,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         for (var i = 0; i < entries.length; i++) {
             var cardID = (entries[i] || '').trim().split(' ')[0];
             if (!cardID || cardID === '-') continue;
+            var cell = document.createElement('span');   // hover target (ShowCardDetail looks up its inner IMG)
+            cell.className = 'swu-mulligan-card';
             var img = document.createElement('img');
             img.loading = 'lazy';
             img.alt = cardID;
             img.src = './SWUSim/concat/' + cardID + '.webp';
-            row.appendChild(img);
+            cell.appendChild(img);
+            cell.onmouseover = function (e) { if (typeof window.ShowCardDetail === 'function') ShowCardDetail(e, this); };
+            cell.onmouseout  = function ()  { if (typeof window.HideCardDetail === 'function') HideCardDetail(); };
+            row.appendChild(cell);
             rendered++;
         }
         return rendered > 0 ? row : null;
@@ -2631,7 +2703,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return;
         }
         if (!isMulligan(decision)) return;
-        if (!window.SWU_MOBILE_LAYOUT) return; // desktop: the hand is already visible on the board
+        // Mark the overlay so the CSS centers the panel on the game area (excluding the chat sidebar).
+        var mulOverlay = document.getElementById('yesno-decision-modal');
+        if (mulOverlay) mulOverlay.setAttribute('data-swu-mulligan', '1');
+        // Show the hoverable hand row IN the modal panel on BOTH desktop and mobile. On desktop the board
+        // hand is technically present behind the modal, but the modal's full-screen rgba(0,0,0,0.5) backdrop
+        // dims it AND intercepts its hover events — so the in-panel row is what makes the hand bright and
+        // previewable during mulligan (the reported "cards too dark / can't hover" fix).
         var modal = document.querySelector('#yesno-decision-modal > div');
         if (!modal) return;
         var row = buildHandRow();
@@ -2918,6 +2996,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-settings-overlay { position: fixed; inset: 0; z-index: 10001; display: flex;
     align-items: center; justify-content: center; background: var(--overlay-scrim);
     backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  /* The shared StyledConfirm/StyledAlert overlay (.sd-overlay, z-index 10000 in Core/StyledDialog.js) must
+     sit ABOVE the gear settings overlay (10001) so a Concede / Return-to-Main-Menu confirmation opened FROM
+     the settings menu appears on top of it, not behind. Both mount at <body>, so a plain z-index bump orders
+     them (same stacking context — consistent across Chromium/Firefox/WebKit). */
+  .sd-overlay { z-index: 10010 !important; }
   .swu-settings-panel { width: min(92vw, 360px); background: var(--surface-raised);
     border: 1px solid var(--border); border-radius: 12px;
     box-shadow: 0 18px 50px rgba(0,0,0,0.6); color: var(--text); overflow: hidden; }
@@ -2989,6 +3072,10 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       <button class="btn btn-danger swu-settings-action" onclick="SWUGearConcede(false)">Concede</button>
       <button class="btn btn-primary swu-settings-action" onclick="SWUGearConcede(true)">Return to Main Menu</button>
       <div id="swuSettingsBlockMount"></div>
+    </div>
+    <div class="swu-settings-section" style="border-top:1px solid var(--border);">
+      <div class="swu-settings-section-title">Report</div>
+      <button class="btn swu-settings-action" onclick="SWUReportBug()">Report Bug</button>
     </div>
   </div>
 </div>
