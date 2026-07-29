@@ -179,6 +179,7 @@ class SchemaTestRunner {
                              'WithP3Hand',                'WithP4Hand',
                              'WithP1Discard',             'WithP2Discard',
                              'WithP3Discard',             'WithP4Discard',
+                             'WithP1BaseUpgrade',         'WithP2BaseUpgrade',
                              'WithP1GroundArenaUpgrade',  'WithP2GroundArenaUpgrade',
                              'WithP1SpaceArenaUpgrade',   'WithP2SpaceArenaUpgrade',
                              'WithP1GroundArenaPilot',    'WithP2GroundArenaPilot',
@@ -200,6 +201,7 @@ class SchemaTestRunner {
                             'WithP1Deck', 'WithP2Deck', 'WithP3Deck', 'WithP4Deck',
                             'WithP1GroundArena', 'WithP2GroundArena', 'WithP1SpaceArena', 'WithP2SpaceArena',
                             'WithP3GroundArena', 'WithP4GroundArena', 'WithP3SpaceArena', 'WithP4SpaceArena',
+                            'WithP1BaseUpgrade', 'WithP2BaseUpgrade',
                             'WithP1GroundArenaUpgrade', 'WithP2GroundArenaUpgrade',
                             'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade',
                             'WithP1GroundArenaPilot', 'WithP2GroundArenaPilot',
@@ -434,6 +436,17 @@ class SchemaTestRunner {
             foreach ($given["WithP{$pn}Hand"] ?? [] as $cid) $b->WithCardInHandForPlayer($pn, trim($cid));
             foreach ($given["WithP{$pn}Discard"] ?? [] as $cid) $b->WithCardInDiscardForPlayer($pn, trim($cid));
             foreach ($given["WithP{$pn}Deck"] ?? [] as $cid) $b->WithCardInDeckForPlayer($pn, trim($cid));
+        }
+
+        // FORTIFY upgrades attached to a BASE (WithP{n}BaseUpgrade: CARD_ID). No index — a base is a
+        // single host, unlike an arena which needs idx:CARD_ID.
+        foreach ([1, 2] as $pn) {
+            foreach ($given["WithP{$pn}BaseUpgrade"] ?? [] as $spec) {
+                foreach (explode(',', trim($spec)) as $cid) {
+                    $cid = trim($cid);
+                    if ($cid !== '') $b->WithUpgradeOnBaseForPlayer($pn, $cid);
+                }
+            }
         }
 
         // Initial upgrades on arena units (multi-value: WithP{n}{Ground|Space}ArenaUpgrade: idx:CARD_ID).
@@ -1520,6 +1533,32 @@ class SchemaTestRunner {
                 } else {
                     $failures[] = "Unknown leader assertion in: {$line}";
                 }
+
+            } elseif (preg_match('/^P(\d+)(NO)?GLOBALEFFECT:(\S+)$/', $line, $m)) {
+                // GlobalEffects phase/round flags (SWU_FRIENDLY_UPGRADE_DEFEATED, SWU_PLAYED_*, …).
+                // There was a GIVEN seeder (WithP{n}GlobalEffect) but no way to OBSERVE one.
+                $has = GlobalEffectCount(intval($m[1]), $m[3]) > 0;
+                $want = ($m[2] ?? '') !== 'NO';
+                if ($has !== $want)
+                    $failures[] = "{$line}: expected flag {$m[3]} " . ($want ? "SET" : "ABSENT")
+                                . " for P{$m[1]}, it was " . ($has ? "set" : "absent");
+
+            } elseif (preg_match('/^P(\d+)BASE:UPGRADECOUNT:(\d+)$/', $line, $m)) {
+                // Attached FORTIFY upgrades on that player's base.
+                try {
+                    $got = $g->state->player(intval($m[1]))->base->upgradeCount;
+                } catch (RuntimeException $e) { $failures[] = "{$line}: " . $e->getMessage(); continue; }
+                if ($got !== intval($m[2]))
+                    $failures[] = "{$line}: expected {$m[2]} base upgrade(s), got {$got}";
+
+            } elseif (preg_match('/^P(\d+)BASE:UPGRADE:(\d+):CARDID:(\S+)$/', $line, $m)) {
+                try {
+                    $ups = $g->state->player(intval($m[1]))->base->upgrades;
+                } catch (RuntimeException $e) { $failures[] = "{$line}: " . $e->getMessage(); continue; }
+                $idx = intval($m[2]);
+                $got = isset($ups[$idx]) ? ($ups[$idx]->CardID ?? '') : '(none)';
+                if ($got !== $m[3])
+                    $failures[] = "{$line}: expected {$m[3]} at base upgrade index {$idx}, got {$got}";
 
             } elseif (preg_match('/^P(\d+)BASE:(EPICUSED|EPICAVAILABLE)$/', $line, $m)) {
                 $p      = intval($m[1]);

@@ -83,6 +83,9 @@ grep -rilE 'sentinel|grit|shielded|restore|saboteur|ambush|overwhelm|raid' SWUSi
 
 ```bash
 grep -rn "CARD_ID" SWUSim/Custom/     # -r descends cards/<set>/ (split cards) AND the monoliths + KeywordEffects.php
+# ⚠ Hits in CardMocks.php / CardTraitSupplement.php are DATA, not an implementation — those files
+# list CardIDs for preview cards and API-gap traits. They carry a SCAFFOLD-IGNORE marker; ignore
+# them when judging "is this card already implemented?" (a mocked card usually is NOT).
 ```
 
 > **⚠ Card code layout (since the session-95 split).** A card's ability/DQ registrations now live in its own file **`SWUSim/Custom/cards/<set>/<TitleSubtitle>.php`** (reprints consolidated into the earliest printing's file), loaded by `cards/_loader.php`. The monoliths (`CardDQHandlers.php`, `LeaderAbilities.php`, `BaseAbilities.php`) keep only shared helper families, generic utilities, engine glue, and a few load-order-coupled cards; **`CardEffects.php` was deleted** (its `OnPlayEvent` event-play logic was inlined into `ActivateCard` in `GameLogic.php`). Shared helpers `SWUOfferUnitTarget`/`SWUOfferBaseTarget`/`SWUOfferDiscard`/`GiveTokenUpgrade` live in `CardHelpers.php`; the object-aware trait check is **`TraitContains($obj,$trait)`** (`_SWUUnitHasTrait` was deleted — don't re-add it). Because file names are `TitleSubtitle` (not derivable from the CardID), resolve a card by grepping its registration key (`grep -rln "'<CID>'" SWUSim/Custom/cards/`) or via `cards/_index.generated.php` (regen with `php SWUSim/DevTools/regen-card-index.php` if stale). **Always grep/scan recursively (`SWUSim/Custom/` or `…/**/*.php`), never a bare `Custom/*.php`** — the latter misses every split card.

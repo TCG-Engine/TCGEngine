@@ -51,6 +51,16 @@ check(!isset($loaded['HMW_095']), 'entry gone');
 check(isset($loaded['HMW_096']), 'sibling untouched');
 check(SWUSimDeleteMockCard('HMW_000', $mockFile) === false, 'deleting a missing entry is false');
 
+// --- the SCAFFOLD-IGNORE marker must survive every rewrite ---
+// It lives in the writer's header constant, not patched into the file: a hand-added marker is lost the
+// next time any mock is created/edited, which silently re-poisons the scaffolder's coverage oracle
+// (scaffold-cards.php HMW then proposes 0 stubs while its cards sit unimplemented).
+$rendered = file_get_contents($mockFile);
+check(strpos($rendered, 'SCAFFOLD-IGNORE') !== false,
+      'written mock file carries the SCAFFOLD-IGNORE marker');
+check(strpos(file_get_contents(SWUSimMockCardsPath()), 'SCAFFOLD-IGNORE') !== false,
+      'the REAL CardMocks.php carries the marker too');
+
 // --- override writer ---
 $ovFile = sys_get_temp_dir() . '/writer_overrides_' . getmypid() . '.php';
 file_put_contents($ovFile, "<?php\nfunction CardIDOverrideFixture(\$cardID) {\n  switch(\$cardID) {\n    case \"SHD_030\": return \"SOR_033\"; //Death Trooper\n    default: return \$cardID;\n  }\n}\n");

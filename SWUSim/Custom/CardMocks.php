@@ -9,6 +9,11 @@
 // Managed by zzPreviewTool.php?rootName=SWUSim (dev only) — hand-editing is fine too.
 // This file must stay inert at runtime: it returns data and registers nothing.
 //
+// SCAFFOLD-IGNORE: pure DATA, not a card implementation. Tools that infer "is this card implemented?"
+// by grepping quoted CardIDs under SWUSim/Custom/ must skip this file, or every card listed here looks
+// implemented and gets no stub / is dropped from gap reports. This marker lives in the WRITER's header
+// constant on purpose — patching it into the file by hand is lost on the next mock write.
+//
 // Fields (all optional except title/type/set):
 //   title, subtitle, type, arena, cost, power, hp, upgradePower, upgradeHp,
 //   aspect[], trait[], text, epicAction, deployText, unique, rarity, set,
@@ -145,7 +150,7 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
   'HMW_060' => 
   array (
     'title' => 'Vice Admiral Rampart',
-    'subtitle' => 'A New Era of Safery',
+    'subtitle' => 'A New Era of Safety',
     'type' => 'Unit',
     'arena' => 'Ground',
     'rarity' => 'Special',
@@ -318,8 +323,6 @@ When Played: This unit doesn\'t ready during the next regroup phase.',
     'subtitle' => 'Handcrafted Tradition',
     'type' => 'Upgrade',
     'arena' => '',
-    'rarity' => 'Special',
-    'set' => 'HMW',
     'cost' => 3,
     'upgradePower' => 3,
     'upgradeHp' => 1,
@@ -338,8 +341,17 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'epicAction' => '',
     'deployText' => '',
     'unique' => true,
+    'rarity' => 'Special',
+    'set' => 'HMW',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/127.png',
     'imageUrlBack' => '',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
   ),
   'HMW_142' => 
   array (
@@ -347,8 +359,6 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'subtitle' => '',
     'type' => 'Unit',
     'arena' => 'Ground',
-    'rarity' => 'Common',
-    'set' => 'HMW',
     'cost' => 5,
     'power' => 5,
     'hp' => 6,
@@ -360,12 +370,21 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     array (
       0 => 'Wookiee',
     ),
-    'text' => 'While you control another Wookiee unit or a TraitKashyyyk{/trait} base, this unit gains Sentinel. (Enemy units in this arena must attack a Sentinel when they attack you.)',
+    'text' => 'While you control another Wookiee unit or a Kashyyyk base, this unit gains Sentinel. (Enemy units in this arena must attack a Sentinel when they attack you.)',
     'epicAction' => '',
     'deployText' => '',
     'unique' => false,
+    'rarity' => 'Common',
+    'set' => 'HMW',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/142.png',
     'imageUrlBack' => '',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
   ),
   'HMW_158' => 
   array (
@@ -454,8 +473,6 @@ When a non-leader ground unit enters play (including token units): You may defea
     'subtitle' => 'Protect and Punish',
     'type' => 'Upgrade',
     'arena' => '',
-    'rarity' => 'Special',
-    'set' => 'HMW',
     'cost' => 1,
     'aspect' => 
     array (
@@ -466,14 +483,23 @@ When a non-leader ground unit enters play (including token units): You may defea
     array (
       0 => 'Law',
     ),
-    'text' => 'Fortify(Attach this to your base, not a unit.)
+    'text' => 'Fortify (Attach this to your base, not a unit.)
 Attached base gains: "When you play a Fortification upgrade: Exhaust an enemy unit."
 When Played: If you control Grand Moff Tarkin, give an enemy unit -3/-0 for this phase.',
     'epicAction' => '',
     'deployText' => '',
     'unique' => true,
+    'rarity' => 'Special',
+    'set' => 'HMW',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/206.png',
     'imageUrlBack' => '',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
   ),
   'HMW_234' => 
   array (

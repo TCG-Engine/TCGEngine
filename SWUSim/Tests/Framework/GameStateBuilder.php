@@ -21,6 +21,7 @@ class GameStateBuilder {
     private array  $_groundUnits     = [1 => [], 2 => [], 3 => [], 4 => []];
     private array  $_spaceUnits      = [1 => [], 2 => [], 3 => [], 4 => []];
     private array  $_groundUpgradeRequests = [1 => [], 2 => [], 3 => [], 4 => []]; // WithP{n}GroundArenaUpgrade, keyed by FINAL arena index
+    private array  $_baseUpgradeRequests   = [1 => [], 2 => [], 3 => [], 4 => []]; // WithP{n}BaseUpgrade (Fortify)
     private array  $_defeatedPlayers = [];
     private array  $_forcePlayers    = []; // players who control their Force token (CR §37)
     private int    $_nextUID         = 1;
@@ -257,6 +258,12 @@ class GameStateBuilder {
         return $this;
     }
 
+    // FORTIFY upgrade attached to a player's BASE. A base is a single host, so there is no index.
+    public function WithUpgradeOnBaseForPlayer(int $player, string $cardID): self {
+        $this->_baseUpgradeRequests[$player][] = $cardID;
+        return $this;
+    }
+
     public function WithUpgradesOnSpaceUnitForPlayer(int $player, int $unitIndex, array $upgrades): self {
         $this->_spaceUnits[$player][$unitIndex]['upgrades'] = $upgrades;
         return $this;
@@ -331,6 +338,30 @@ class GameStateBuilder {
             $nu = ($b['numUses'] === 0 && isset($baseActionNumUses[$b['cardID']]))
                 ? intval($baseActionNumUses[$b['cardID']]) : $b['numUses'];
             AddBase(2, $b['cardID'], $b['damage'], $b['epicActionUsed'], $nu);
+        }
+
+        // Base-attached (Fortify) upgrades. The subcard shape MUST match what _SWUFinalizeUpgradeAttach
+        // builds (CardDQHandlers.php) — a fixture that seeds a DIFFERENT shape than the engine produces
+        // will happily contradict the engine it is testing (cf. the deployed-leader arena fixture).
+        foreach ([1, 2, 3, 4] as $bp) {
+            $reqs = $this->_baseUpgradeRequests[$bp] ?? [];
+            if (empty($reqs)) continue;
+            // GetBase() returns the base ZONE (an array) — the base itself is index 0, matching the
+            // "myBase-0" mzID. It is NOT a bare object.
+            $baseZone = &GetBase($bp);
+            if (!isset($baseZone[0])) { unset($baseZone); continue; }
+            $baseObj = $baseZone[0];
+            if (!is_array($baseObj->Subcards)) $baseObj->Subcards = [];
+            foreach ($reqs as $upCid) {
+                $baseObj->Subcards[] = (object) [
+                    'CardID'      => $upCid,
+                    'Owner'       => $bp,
+                    'Controller'  => $bp,
+                    'TurnEffects' => [],
+                    'IsPilot'     => false,
+                ];
+            }
+            unset($baseZone);
         }
 
         // Leaders — AddLeader signature: (player, CardID, EpicActionUsed, Ready, Deployed, ...)

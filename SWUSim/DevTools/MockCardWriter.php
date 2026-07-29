@@ -17,6 +17,11 @@ const SWU_MOCK_FILE_HEADER = <<<'PHP'
 // Managed by zzPreviewTool.php?rootName=SWUSim (dev only) — hand-editing is fine too.
 // This file must stay inert at runtime: it returns data and registers nothing.
 //
+// SCAFFOLD-IGNORE: pure DATA, not a card implementation. Tools that infer "is this card implemented?"
+// by grepping quoted CardIDs under SWUSim/Custom/ must skip this file, or every card listed here looks
+// implemented and gets no stub / is dropped from gap reports. This marker lives in the WRITER's header
+// constant on purpose — patching it into the file by hand is lost on the next mock write.
+//
 // Fields (all optional except title/type/set):
 //   title, subtitle, type, arena, cost, power, hp, upgradePower, upgradeHp,
 //   aspect[], trait[], text, epicAction, deployText, unique, rarity, set,

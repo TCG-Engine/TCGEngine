@@ -938,6 +938,14 @@ function HasConditionalKeyword_Plot($obj) {
     return false;
 }
 
+// Fortify (HMW) — "Attach this to your base, not a unit." No card conditionally GAINS Fortify: it is
+// printed on the upgrade itself and drives where the upgrade may attach (SWUGetUpgradeValidTargets).
+// Required even so — the generated HasKeyword_Fortify() ends by delegating here, so its absence is a
+// fatal the moment anything asks whether a card has the keyword.
+function HasConditionalKeyword_Fortify($obj) {
+    return false;
+}
+
 // Display flag for the resource-zone Plot icon (schema Virtual: HasPlot). 1 when a card
 // in the resource zone has the Plot keyword (CR 19) — it can be played from resources when
 // you deploy your leader. Returns 1/0 for the Image counter (ShowZero=false hides 0).

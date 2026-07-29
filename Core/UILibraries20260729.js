@@ -1770,6 +1770,11 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             // directive, e.g. GrandArchive) = lineage cards stack above with a "+N" popup.
             var subcardZoneMeta = (typeof GetZoneData === 'function') ? GetZoneData(zoneName) : null;
             var subcardFlow = (subcardZoneMeta && subcardZoneMeta.SubcardFlow) ? subcardZoneMeta.SubcardFlow : 'Above';
+            // Flow=Badge (SWU Base): the zone renders its subcards as a COUNT BADGE (schema
+            // Counters: UpgradeCardIDs, Mode=CardIDs) instead of inline art — the Above-flow stack
+            // overlaps and hides the base card. Emptying the list skips every inline render below
+            // (slivers, lineage stack, shield orbs) without throwing into the enclosing catch.
+            if (subcardFlow === 'Badge') subcards = [];
             var shieldCount = 0, sliverIdx = 0, lineageCards = [];
             var sliver = 18; // px each SWU subcard sliver shows below the unit card
             // Vertical anchor (object-position-y) for a pilot sliver — unit pilots (full portrait) and
@@ -1818,7 +1823,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
               var lineageSrc;
               if (scIsLeaderPilot)    lineageSrc = "./" + subFolder + "/WebpImages/" + resolveCardImageID(scID) + "_back.webp";
               else if (scIsUnitPilot) lineageSrc = "./" + subFolder + "/WebpImages/" + resolveCardImageID(scID) + ".webp";
-              else                    lineageSrc = "./" + subFolder + "/concat/" + scID + ".webp";
+              else                    lineageSrc = "./" + subFolder + "/concat/" + resolveCardImageID(scID) + ".webp";
               var li = sliverIdx++;
               // Peek from below: bottom-most sliver of upgrade card (or top sliver of captive). Pilots
               // (unit or leader) anchor on their +X/+Y band (~88% down) rather than the very bottom (artist strip).
@@ -1837,7 +1842,10 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             for (var gi = visibleLineageCount - 1; gi >= 0; gi--) {
               var offsetTop = (gi + 1) * 10;
               var offsetLeft = (gi + 1) * 3;
-              var subSrc = "./" + subFolder + "/concat/" + lineageCards[gi] + ".webp";
+              // resolveCardImageID: mock (preview) cards store art as mock_<CardID>.* — a Fortify upgrade
+              // on a base renders through this "Above" lineage path, so it needs the same resolution the
+              // Below-flow slivers and Card() already do, or the image 404s to broken alt text.
+              var subSrc = "./" + subFolder + "/concat/" + resolveCardImageID(lineageCards[gi]) + ".webp";
               newHTML += "<img data-subcard-id='" + lineageCards[gi] + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
                 + "loading='lazy' class='lineage-subcard subcard-above' style='position:absolute; top:-" + offsetTop + "px; left:" + offsetLeft + "px; height:" + size + "px; width:" + size + "px; "
                 + "border:1px solid transparent; opacity:0.85; z-index:-" + (gi + 1) + "; pointer-events:auto;' "
@@ -2055,7 +2063,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           for (var i = 0; i < payload.subcards.length; ++i) {
             var cardId = payload.subcards[i];
             if (!cardId) continue;
-            var subSrc = "./" + payload.folder + "/concat/" + cardId + ".webp";
+            var subSrc = "./" + payload.folder + "/concat/" + resolveCardImageID(cardId) + ".webp";
             html += "<span class='ga-lineage-popup-card' data-lineage-order='" + (i + 1) + "'>"
               + "<img data-subcard-id='" + cardId + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()'"
               + " loading='lazy' src='" + subSrc + "' alt='Lineage card' style='height:" + payload.size + "px; width:" + payload.size + "px;' />"

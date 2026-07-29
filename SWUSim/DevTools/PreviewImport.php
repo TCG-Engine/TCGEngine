@@ -129,9 +129,17 @@ function SWUPreviewNormalizeText(string $raw): string {
     // Paragraphs -> newline separated.
     $t = preg_replace('/\{\/p[^}]*\}\s*/', "\n", $t);
     $t = preg_replace('/\{p[^}]*\}/', '', $t);
-    // Emphasis wrappers leave their contents behind.
-    $t = preg_replace('/\{\/?(b|i|u|em|strong)\}/', '', $t);
-    $t = preg_replace('/\{keyword\}(.*?)\{\/keyword\}/s', '$1', $t);
+    // PAIRED tags leave their contents behind — ANY tag with a matching closer, not just a known
+    // list: the source wraps trait references as "{trait}Kashyyyk{/trait}", and treating the opener
+    // as a standalone icon yields "TraitKashyyyk{/trait}" — garbage that leaks a literal closing tag
+    // into card text, and from there into every text-derived keyword/ability stub. Loop for nesting
+    // (HMW_206 has {b}…{trait}…{/trait}…{/b}).
+    do {
+        $before = $t;
+        $t = preg_replace('/\{([a-z][a-z0-9-]*)\}(.*?)\{\/\1\}/is', '$2', $t);
+    } while ($t !== $before);
+    // Any closer left over (unbalanced markup upstream) must not survive into card text.
+    $t = preg_replace('/\{\/[a-z0-9-]+\}/i', '', $t);
     // Cost icons ({R1} resources, {T} exhaust) are BRACKET-CONTEXT SENSITIVE in the real
     // dictionaries: bare words inside an existing cost list ("Action [1 resource, Exhaust]"), but
     // bracket-wrapped when they stand alone in prose ("It costs [5 resources] less"). Resolve
@@ -146,6 +154,9 @@ function SWUPreviewNormalizeText(string $raw): string {
     $t = preg_replace_callback('/\{([a-z]+)\}/i', function ($m) {
         return ucfirst(strtolower($m[1]));
     }, $t);
+    // Upstream omits the space before a parenthetical when the keyword was an icon tag
+    // ("{fortify}{i}(Attach…" -> "Fortify(Attach…"). Card text always reads with the space.
+    $t = preg_replace('/([A-Za-z0-9])\(/', '$1 (', $t);
     // Collapse whitespace the tag removal left behind.
     $t = preg_replace('/[ \t]+/', ' ', $t);
     $t = preg_replace('/ *\n */', "\n", $t);

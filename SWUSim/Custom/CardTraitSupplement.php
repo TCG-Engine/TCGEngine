@@ -8,6 +8,9 @@
 //
 // Generated/extended by: php SWUSim/DevTools/backfill-base-traits.php [--dry]
 // Hand-editing is fine — the backfill preserves entries it can't improve.
+// SCAFFOLD-IGNORE: pure DATA, not a card implementation. Tools that infer "is this card
+// implemented?" by grepping quoted CardIDs under SWUSim/Custom/ must skip this file, or every
+// card listed here looks implemented and gets no stub / is dropped from gap reports.
 return array (
   'ASH_019' => 'Peridea',
   'ASH_020' => 'Nevarro',

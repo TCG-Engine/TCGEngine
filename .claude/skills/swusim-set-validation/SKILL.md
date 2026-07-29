@@ -77,7 +77,13 @@ funcs={
 }
 bare={'leaderAbilities','baseAbilities'}  # keyed by bare CardID, not CardID:N
 custom=''
-for f in glob.glob('SWUSim/Custom/**/*.php', recursive=True): custom+=open(f).read()  # ** = incl. per-card files under cards/<set>/
+# ** = incl. per-card files under cards/<set>/. SKIP data files (CardMocks.php,
+# CardTraitSupplement.php): they list CardIDs without implementing anything, so counting them
+# makes every mocked/supplemented card look wired and hides real gaps. They carry SCAFFOLD-IGNORE.
+for f in glob.glob('SWUSim/Custom/**/*.php', recursive=True):
+    src=open(f).read()
+    if 'SCAFFOLD-IGNORE' in src: continue
+    custom+=src
 def cases(fn):
     m=re.search(r'function '+fn+r'\(.*?switch.*?\{(.*?)\n\s*\}', stub, re.S)
     return set(re.findall(r"case '("+SET+r"_[0-9]+)'", m.group(1))) if m else set()
@@ -118,7 +124,9 @@ def arr(name):
         for cid,val in re.findall(r"'("+SET+r"_\d+)' => '((?:[^'\\]|\\.)*)'",m.group(1)): d[cid]=val
     return d
 typ=arr('typeData'); dep=arr('deployTextData')
-custom=''.join(open(f).read() for f in glob.glob('SWUSim/Custom/**/*.php', recursive=True))  # ** = incl. cards/<set>/
+# ** = incl. cards/<set>/; SCAFFOLD-IGNORE data files excluded (they list CardIDs, implement nothing)
+custom=''.join(src for src in (open(f).read() for f in glob.glob('SWUSim/Custom/**/*.php', recursive=True))
+               if 'SCAFFOLD-IGNORE' not in src)
 def has(reg,cid,bare=False):
     return (f'{reg}["{cid}:' in custom or f"{reg}['{cid}:" in custom or
             (bare and (f'{reg}["{cid}"]' in custom or f"{reg}['{cid}']" in custom)))

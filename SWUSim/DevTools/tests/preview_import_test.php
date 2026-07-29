@@ -39,6 +39,39 @@ check(SWUPreviewNormalizeText('{p-epic-action}If you control 7 resources, deploy
       === 'Epic Action: If you control 7 resources, deploy this leader.',
       'epic-action paragraph gains its label');
 
+// --- PAIRED tags must be UNWRAPPED, not word-ified ---
+// The source wraps trait references: "{trait}Kashyyyk{/trait}". Treating the opener as a standalone
+// icon produced "TraitKashyyyk{/trait}" — garbage that also leaks a literal closing tag into card
+// text (and therefore into every text-derived keyword/ability stub).
+check(SWUPreviewNormalizeText('{p}a {trait}Kashyyyk{/trait} base{/p}') === 'a Kashyyyk base',
+      'paired {trait} unwrapped');
+check(SWUPreviewNormalizeText('{p}play a {trait}Fortification{/trait} upgrade{/p}')
+      === 'play a Fortification upgrade', 'paired tag mid-sentence');
+check(strpos(SWUPreviewNormalizeText('{p}{trait}X{/trait}{/p}'), '{') === false,
+      'no leftover braces from paired tags');
+// Standalone icon tags still become their word (they have no closing partner).
+check(SWUPreviewNormalizeText('{p}another {wookiee} unit gains {sentinel}.{/p}')
+      === 'another Wookiee unit gains Sentinel.', 'standalone icons still word-ified');
+// A capitalized icon tag works too ({Vehicle} appears on HMW_127).
+check(SWUPreviewNormalizeText('{p}a non-{Vehicle} unit{/p}') === 'a non-Vehicle unit',
+      'capitalized icon tag');
+// Paragraph-class variants beyond {p}: {p-keyword-border}, {p-epic-action}.
+check(SWUPreviewNormalizeText('{p-keyword-border}Text here{/p}') === 'Text here',
+      'unknown paragraph class stripped');
+// Upstream omits the space before a parenthetical when the keyword is an icon tag.
+check(SWUPreviewNormalizeText('{p}{fortify}{i}(Attach this to your base.){/i}{/p}')
+      === 'Fortify (Attach this to your base.)', 'space inserted before a parenthetical');
+
+// --- HMW_142 / HMW_206 fixtures: the real-world cases ---
+$m = SWUPreviewToMock(fixture('hmw_142'));
+check(strpos($m['text'], '{') === false, 'HMW_142 text has no leftover markup: ' . $m['text']);
+check(strpos($m['text'], 'Kashyyyk base') !== false, 'HMW_142 trait reference reads correctly');
+check(strpos($m['text'], 'another Wookiee unit') !== false, 'HMW_142 wookiee icon reads correctly');
+$m = SWUPreviewToMock(fixture('hmw_206'));
+check(strpos($m['text'], '{') === false, 'HMW_206 text has no leftover markup: ' . $m['text']);
+check(strpos($m['text'], 'Fortify (Attach') === 0, 'HMW_206 keyword line starts clean');
+check(strpos($m['text'], 'a Fortification upgrade') !== false, 'HMW_206 nested trait in quoted ability');
+
 // --- HMW_095: Fortify upgrade ---
 $m = SWUPreviewToMock(fixture('hmw_095'));
 check($m['title'] === 'Carbonite Chamber', 'title');

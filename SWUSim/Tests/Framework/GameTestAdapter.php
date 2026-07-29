@@ -185,6 +185,9 @@ class BaseAccessor {
             case 'epicActionUsed': return (bool)($this->obj->EpicActionUsed ?? false);
             // Remaining per-game uses of a repeatable base Action (e.g. LOF_022); 0 for non-action bases.
             case 'actionUsesLeft': return _SWUBaseActionUsesLeft($this->obj, $this->obj->CardID ?? '');
+            // Attached FORTIFY upgrades. Absent Subcards (every base before Fortify) reads as none.
+            case 'upgradeCount':   return is_array($this->obj->Subcards ?? null) ? count($this->obj->Subcards) : 0;
+            case 'upgrades':       return is_array($this->obj->Subcards ?? null) ? $this->obj->Subcards : [];
         }
         throw new RuntimeException("BaseAccessor: unknown property '$name'");
     }

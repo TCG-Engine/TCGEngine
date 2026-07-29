@@ -1407,6 +1407,23 @@ function SWUEnforceUpgradeUniqueness(int $player, string $cardID, object $keepSu
                 }
             }
         }
+        // (c) A copy attached to this player's BASE (Fortify — HMW_206 The Tarkin Doctrine is unique).
+        // The arena sweeps above never look at bases, so without this the player would illegally
+        // control two copies of a unique upgrade.
+        if (!$defeated) {
+            $baseZone = &GetBase(intval($player));
+            if (isset($baseZone[0]) && is_array($baseZone[0]->Subcards ?? null)) {
+                foreach ($baseZone[0]->Subcards as $bIdx => $bSub) {
+                    if (($bSub->CardID ?? '') !== $cardID) continue;
+                    if (is_object($bSub) && $bSub === $keepSub) continue;   // never the copy just attached
+                    SWUDefeatUpgrade(intval($player), 'myBase-0', $bIdx);
+                    DecisionQueueController::CleanupRemovedCards();
+                    $defeated = true;
+                    break;
+                }
+            }
+            unset($baseZone);
+        }
         if (!$defeated) break;
     }
     $playerID = $saved;
@@ -10584,6 +10601,16 @@ $customDQHandlers["SOR_199#1"] = function($player, $parts, $lastDecision) {
 function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = null): array {
     global $playerID;
     $savedPID = $playerID;
+    // FORTIFY (HMW) — "Attach this to your base, not a unit." The ONLY legal host is the player's own
+    // base, so returning it here gives BOTH guards from one branch: a Fortify upgrade is never offered
+    // a unit, and no other upgrade is ever offered the base. ActivateCard's single-target path then
+    // auto-passes it into ATTACH_UPGRADE → _SWUFinalizeUpgradeAttach, which hosts on any zone object —
+    // so payment, the aspect surcharge, Tarkin's HMW_004 penalty waiver ($discount), uniqueness, and
+    // the WhenPlayedAsUpgrade / OnAttached triggers all come along unchanged.
+    if (HasKeyword_Fortify((object) ['CardID' => $cardID, 'TurnEffects' => []])) {
+        $playerID = $savedPID;
+        return ['myBase-0'];
+    }
     $playerID = $player;
     $all = array_merge(
         ZoneSearch("myGroundArena", AnyUnitFilter),
@@ -10948,6 +10975,9 @@ function SWUCheckAlternateCost(int $player, string $cardID): bool {
 // least one non-captive upgrade. Caller must have $playerID set correctly.
 // A host counts only if it carries >=1 upgrade matching $filter (empty filter =
 // every upgrade matches, so this is backward-compatible for all existing callers).
+// NOTE the name is historical: since Fortify (base-attached upgrades) this returns every upgrade
+// HOST — arena units AND bases — which is required so "defeat an upgrade" cards can reach a base
+// upgrade at all. Only 2 callers, both in the defeat-upgrade flow, both intending to include bases.
 function SWUGetUnitsWithUpgrades(string $filter = ''): array {
     $result = [];
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
@@ -10959,6 +10989,19 @@ function SWUGetUnitsWithUpgrades(string $filter = ''): array {
                     $result[] = $mzID;
                     break;
                 }
+            }
+        }
+    }
+    // Bases: FORTIFY upgrades live in Base.Subcards. GetUpgradesOnUnit expects a unit, so read the
+    // subcards directly (a base holds only Fortify upgrades — no pilots, no captives). Without this,
+    // a base upgrade is invisible to EVERY "defeat an upgrade" card in the game (Confiscate SOR_251).
+    foreach (['myBase-0', 'theirBase-0'] as $baseMz) {
+        $base = GetZoneObject($baseMz);
+        if ($base === null || !is_array($base->Subcards ?? null)) continue;
+        foreach ($base->Subcards as $up) {
+            if (SWUUpgradeMatchesFilter($up->CardID ?? '', $filter)) {
+                $result[] = $baseMz;
+                break;
             }
         }
     }
@@ -24824,6 +24867,40 @@ function PlayerHasTheForce(int $player): bool {
 // Virtual: directive passes the zone object; the client's Force token reads this flag).
 function BaseHasForce($obj): bool {
     return isset($obj->PlayerID) ? PlayerHasTheForce(intval($obj->PlayerID)) : false;
+}
+
+// ── Fortify: upgrades attached to a base (HMW) ──────────────────────────────────
+// Number of upgrades attached to a base ZONE OBJECT. This is the display hook: the Base zone's
+// UpgradeCount virtual feeds the bottom-left badge. Tolerates a base with no Subcards at all —
+// every base predates Fortify, and a null-guard here is cheaper than backfilling them.
+function BaseUpgradeCount($obj): int {
+    return is_array($obj->Subcards ?? null) ? count($obj->Subcards) : 0;
+}
+
+// Player-keyed form — the card-facing primitive (HMW_061 Director Krennic, "If your base is
+// upgraded, draw a card"). GetBase() returns the base ZONE (an array); the base itself is index 0,
+// matching the "myBase-0" mzID — treating it as a bare object would count the zone, not the upgrades.
+function SWUBaseUpgradeCount(int $player): int {
+    $zone = GetBase($player);
+    return isset($zone[0]) ? BaseUpgradeCount($zone[0]) : 0;
+}
+
+// Comma-separated CardIDs of the upgrades attached to a base ZONE OBJECT — the source for the
+// bottom-left badge (Counters: UpgradeCardIDs=Badge(...,Mode=CardIDs)). CardIDs-mode badges show the
+// count and pop the source cards' art on hover, which is exactly the "click the number to see the
+// upgrades" affordance, so this reuses that machinery instead of a bespoke popup.
+function BaseUpgradeCardIDs($obj): string {
+    if (!is_array($obj->Subcards ?? null)) return '';
+    $ids = [];
+    foreach ($obj->Subcards as $sub) {
+        $cid = is_object($sub) ? ($sub->CardID ?? '') : (string)$sub;
+        if ($cid !== '' && $cid !== '-') $ids[] = $cid;
+    }
+    return implode(',', $ids);
+}
+
+function SWUBaseIsUpgraded(int $player): bool {
+    return SWUBaseUpgradeCount($player) > 0;
 }
 
 // CR 37.2 — "The Force is with you": the player creates their Force token. If they already control it,

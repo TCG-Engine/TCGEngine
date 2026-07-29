@@ -195,13 +195,25 @@ Rotation: Ready=false:9
 #   EpicActionUsed — true if the base's once-per-game ability has been used (some bases have one)
 #   NumUses        — usage counter for bases with limited-use abilities
 #   TurnEffects    — temporary effects
-Base - CardID:string, Damage:number=0, EpicActionUsed:boolean=false, NumUses:number=1, TurnEffects:array[string]
+#   Subcards       — JSON array of attached FORTIFY upgrades: {CardID, Owner, Controller, TurnEffects[], IsPilot}
+#                    Same shape as an arena unit's upgrades (see GroundArena below), so the shared
+#                    attach/defeat primitives (_SWUFinalizeUpgradeAttach / SWUDefeatUpgrade) work on a
+#                    base host unchanged. Bases never leave play, so there is no cleanup path.
+Base - CardID:string, Damage:number=0, EpicActionUsed:boolean=false, NumUses:number=1, TurnEffects:array[string], Subcards:json
 Display: Visibility=Public, Mode=All, BindTo=BaseSlot
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 # HasForce drives the Force token shown in the base's top-right corner (client refreshForceToken).
 Virtual: HasForce=BaseHasForce()
+# UpgradeCount drives the bottom-left badge showing how many Fortify upgrades are attached.
+Virtual: UpgradeCount=BaseUpgradeCount()
 Counters: Damage=Image(Path=Assets/Icons/swusim-damage.png,Position=Center,ShowZero=false,Size=48,TextColor=White,OffsetY=-8)
+# Attached FORTIFY upgrades. Flow=Badge suppresses the default inline subcard render (the "Above"
+# lineage stack overlaps and hides the base art); the count shows as a bottom-left badge instead, and
+# Mode=CardIDs makes the badge pop the attached cards' art on hover.
+Subcards: Flow=Badge
+Virtual: UpgradeCardIDs=BaseUpgradeCardIDs()
+Counters: UpgradeCardIDs=Badge(Color=White,Position=BottomLeft,ShowZero=false,Mode=CardIDs)
 
 # GroundArena ──────────────────────────────────────────────────────────────────
 # Units in the ground arena controlled by this player (including deployed leader units
