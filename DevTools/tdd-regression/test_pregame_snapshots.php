@@ -34,7 +34,10 @@ $check = function ($ok, $msg) use (&$fails) { echo ($ok ? 'PASS' : 'FAIL') . ": 
 $check(isset($customDQHandlers['PushPregameSnapshot']) && is_callable($customDQHandlers['PushPregameSnapshot']),
     'PushPregameSnapshot handler is registered');
 
-// Queue the pregame decisions and count the snapshot boundaries across both players' queues.
+// Queue the pregame decisions and count the QUEUED snapshot boundaries across both players' queues.
+// NOTE: the mulligan step does NOT queue a PushPregameSnapshot (a static ahead of the mulligan YESNO would
+// be popped by the player's mode-100 answer, re-prompting the mulligan). Only the two starting-resource
+// picks per player queue one, and the begin-game snapshot is taken INLINE by QueuePregameSetup.
 SetSWUVar('RNG_SEED', 'seed'); UndoStackClear(); SetSWUVar('UNDO_TOP', '-1');
 ob_start(); QueuePregameSetup(1); ob_end_clean();
 $countSnapshots = 0;
@@ -43,8 +46,16 @@ foreach ([1, 2] as $p) {
         if (empty($d->removed) && strpos(serialize($d), 'PushPregameSnapshot') !== false) $countSnapshots++;
     }
 }
-// Expected per non-goldfish player: 1 (mulligan) + 2 (resource picks) = 3; two players = 6.
-$check($countSnapshots === 6, "queued 6 pregame-step boundaries (1 mulligan + 2 resource × 2 players), got $countSnapshots");
+// Expected per non-goldfish player: 2 (resource picks); two players = 4. NONE ahead of the mulligan YESNO.
+$check($countSnapshots === 4, "queued 4 pregame-step boundaries (2 resource picks × 2 players), got $countSnapshots");
+// The mulligan YESNO must be the FRONT decision of each seat's queue (nothing static ahead of it).
+$mullFront = true;
+foreach ([1, 2] as $p) { $q = array_values(array_filter(GetDecisionQueue($p), fn($d) => empty($d->removed))); $f = $q[0] ?? null; if (!($f && $f->Type === 'YESNO' && strpos((string)$f->Param, 'mulligan') !== false)) $mullFront = false; }
+$check($mullFront, 'mulligan YESNO is the FRONT decision for both seats (no static ahead of it)');
+// QueuePregameSetup took ONE inline begin-game snapshot (not a queued decision).
+$check(UndoStackCount() === 1, 'inline begin-game snapshot pushed by QueuePregameSetup (undo stack count 1), got ' . UndoStackCount());
+$bg = UndoStackRead(0); $bgRec = $bg === null ? [] : UndoRecordParse($bg);
+$check(($bgRec['boundary'] ?? '') === 'pregame-step', "inline snapshot boundary == 'pregame-step'");
 
 // The handler actually appends a 'pregame-step' entry.
 $before = UndoStackCount();

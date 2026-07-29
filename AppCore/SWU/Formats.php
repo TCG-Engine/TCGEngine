@@ -153,10 +153,17 @@ function SWUGetQueueType($id) {
     return $defs[$id] ?? null;
 }
 
-// Public matchmaking (anonymous "Join Queue") is off at launch — SWUSim only.
-// Flip to true when there's enough player volume to keep queues from sitting empty.
-// Private invites, solo modes (goldfish/hotseat), and Twin Suns rooms are UNAFFECTED —
-// they don't go through the public-queue scan this gates (see JoinQueue.php).
+// Public matchmaking (anonymous "Join Queue") is off in PRODUCTION at launch — SWUSim only — but ENABLED
+// in the dev environment so Playwright/local dev can exercise the queue flow. This mirrors the Join Queue
+// button gate exactly (SWUIsLocalDevRequest, SWUSim/Mod/DevGate.php): DEVENV, or a localhost/loopback Host
+// over HTTP where php-fpm doesn't see DEVENV. Flip the production side on (return true) when there's enough
+// player volume. Private invites, solo modes (goldfish/hotseat), and Twin Suns rooms are UNAFFECTED — they
+// don't go through the public-queue scan this gates (see JoinQueue.php).
 function SWUPublicQueueEnabled() {
-    return false;
+    if (function_exists('SWUIsLocalDevRequest')) return SWUIsLocalDevRequest();
+    if (getenv('DEVENV') === 'true') return true;
+    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+    return str_starts_with($host, 'localhost')
+        || str_starts_with($host, '127.0.0.1')
+        || str_starts_with($host, '[::1]');
 }

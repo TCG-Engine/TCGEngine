@@ -248,9 +248,11 @@ function QueuePregameSetup($firstPlayer) {
     foreach ($decisionOrder as $seat) {
         $skipGoldfishBot = (SWUGameMode() === 'goldfish' && $seat === 2);
         if (!$baseSuppressesMulligan($seat) && !$skipGoldfishBot) {
-            // Undo snapshot before the mulligan decision (captures pre-reshuffle RNG counter → deterministic
-            // undo/redo of the mulligan; requirement #6). Same block so it stays ahead of resources (50).
-            DecisionQueueController::AddDecision($seat, "CUSTOM", "PushPregameSnapshot|$seat", 10);
+            // NOTE: do NOT queue a static (e.g. a PushPregameSnapshot) AHEAD of this YESNO. The mulligan is
+            // the FIRST interactive decision, GetNextTurn renders the raw queue WITHOUT running statics, and
+            // a mode-100 answer pops the FRONT decision — so a static in front of the YESNO would be popped
+            // by the player's answer, leaving the YESNO to re-prompt. The pre-mulligan undo snapshot is taken
+            // INLINE at the end of this function instead (deterministic re-mulligan; requirement #6).
             DecisionQueueController::AddDecision($seat, "YESNO", "mulligan", 10,
                 tooltip:"Take_a_mulligan_(discard_hand_and_draw_6_new_cards)?");
             DecisionQueueController::AddDecision($seat, "CUSTOM", "MulliganDecision|$seat", 10);
@@ -268,4 +270,10 @@ function QueuePregameSetup($firstPlayer) {
         DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50,
             tooltip:"Choose_a_card_to_resource_(2/2)");
     }
+
+    // Begin-game undo boundary: snapshot the freshly-dealt pregame state (opening hands + the pending
+    // mulligan/resource decisions, pre-reshuffle RNG counter) INLINE — not as a queued decision — so it
+    // never sits in front of the mulligan YESNO in the queue. Undo lands here (re-present the mulligan) and
+    // the seeded reshuffle makes an undone-then-redone mulligan reproduce the same hand (requirement #6).
+    if (function_exists('PushUndoSnapshot')) PushUndoSnapshot($firstPlayer, 'pregame-step');
 }
