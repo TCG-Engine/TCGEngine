@@ -5281,16 +5281,7 @@ function QueueSaekoStartTurnDamage($player, $sourceMZ) {
         $myTargets[] = 'myGarden-' . $i;
     }
 
-    $opponent = $player == 1 ? 2 : 1;
-    $theirTargets = [];
-    $theirGarden = &GetGarden($opponent);
-    for($i = 0; $i < count($theirGarden); ++$i) {
-        if(isset($theirGarden[$i]->removed) && $theirGarden[$i]->removed) continue;
-        if(CardType($theirGarden[$i]->CardID ?? '') !== 'ENTITY') continue;
-        $theirTargets[] = 'theirGarden-' . $i;
-    }
-
-    if(empty($myTargets) || empty($theirTargets)) return;
+    if(empty($myTargets)) return;
 
     $myTargetStr = implode('&', $myTargets);
     DecisionQueueController::AddDecision($player, 'MZCHOOSE', $myTargetStr, 1, 'Choose_an_entity_in_your_Garden_to_deal_1_damage_to');
