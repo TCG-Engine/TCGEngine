@@ -241,6 +241,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     <div class="azuki-info-tabs" role="tablist" aria-label="Azuki information">
       <button type="button" id="azuki-info-tab-welcome" class="azuki-info-tab is-active" onclick="switchInfoTab('welcome')" role="tab" aria-selected="true" aria-controls="azuki-info-panel-welcome">Welcome</button>
       <button type="button" id="azuki-info-tab-replays" class="azuki-info-tab" onclick="switchInfoTab('replays')" role="tab" aria-selected="false" aria-controls="azuki-info-panel-replays">Replays</button>
+      <button type="button" id="azuki-info-tab-game-logs" class="azuki-info-tab" onclick="switchInfoTab('game-logs')" role="tab" aria-selected="false" aria-controls="azuki-info-panel-game-logs">Game Logs</button>
     </div>
     <div id="azuki-info-panel-welcome" class="azuki-info-panel is-active" role="tabpanel" aria-labelledby="azuki-info-tab-welcome">
     <h2 style="margin: 0 0 4px 0;">Welcome to Zendō</h2>
@@ -272,7 +273,12 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     <div id="azuki-info-panel-replays" class="azuki-info-panel" role="tabpanel" aria-labelledby="azuki-info-tab-replays">
       <h2 style="margin: 0;">Your Replays</h2>
       <p style="margin: 0; color: #ccc; font-size: 13px; line-height: 1.4;">Saved in this browser.</p>
-      <div id="match-replay-menu-list" class="ga-replay-list"></div>
+      <div id="match-replay-menu-list" class="ga-replay-list azuki-saved-list"></div>
+    </div>
+    <div id="azuki-info-panel-game-logs" class="azuki-info-panel" role="tabpanel" aria-labelledby="azuki-info-tab-game-logs">
+      <h2 style="margin: 0;">Your Game Logs</h2>
+      <p style="margin: 0; color: #ccc; font-size: 13px; line-height: 1.4;">Captured automatically and saved in this browser.</p>
+      <div id="azuki-game-log-menu-list" class="ga-replay-list azuki-saved-list"></div>
     </div>
   </div>
 </div>
@@ -313,6 +319,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
   </div>
 </div>
 <script src="/TCGEngine/Core/MatchReplayClient.js"></script>
+<script src="/TCGEngine/AzukiSim/Custom/GameLogClient.js?v=<?php echo @filemtime(__DIR__ . '/../../../AzukiSim/Custom/GameLogClient.js'); ?>"></script>
 <script>
   window.AZUKI_DECK_CODES = <?php echo json_encode($azukiDeckCodes, JSON_UNESCAPED_SLASHES); ?>;
 </script>
@@ -2217,18 +2224,20 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
   .azuki-info-card .hotkey-row {
     color: #392f25 !important;
   }
-  .azuki-info-card #azuki-info-panel-replays > p {
+  .azuki-info-card #azuki-info-panel-replays > p,
+  .azuki-info-card #azuki-info-panel-game-logs > p {
     color: #4a3d30 !important;
   }
-  .azuki-info-card #azuki-info-panel-replays {
+  .azuki-info-card #azuki-info-panel-replays,
+  .azuki-info-card #azuki-info-panel-game-logs {
     gap: 12px;
   }
-  .azuki-info-card #match-replay-menu-list {
+  .azuki-info-card .azuki-saved-list {
     gap: 9px;
     margin-top: 2px;
     padding-right: 2px;
   }
-  .azuki-info-card #match-replay-menu-list .match-replay-row {
+  .azuki-info-card .azuki-saved-list .match-replay-row {
     grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 7px;
     min-height: 58px;
@@ -2243,21 +2252,24 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     backdrop-filter: blur(7px) saturate(88%);
     -webkit-backdrop-filter: blur(7px) saturate(88%);
   }
-  .azuki-info-card #match-replay-menu-list .match-replay-meta {
+  .azuki-info-card .azuki-saved-list .azuki-game-log-row {
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+  }
+  .azuki-info-card .azuki-saved-list .match-replay-meta {
     color: #574632 !important;
     font-size: 12px;
     line-height: 1.45;
   }
-  .azuki-info-card #match-replay-menu-list .match-replay-meta > span {
+  .azuki-info-card .azuki-saved-list .match-replay-meta > span {
     color: #54422f !important;
   }
-  .azuki-info-card #match-replay-menu-list .match-replay-meta strong {
+  .azuki-info-card .azuki-saved-list .match-replay-meta strong {
     color: #182b3e !important;
     font-family: var(--zendo-font-display);
     font-size: 14px;
     font-weight: 700;
   }
-  .azuki-info-card #match-replay-menu-list .match-replay-button {
+  .azuki-info-card .azuki-saved-list .match-replay-button {
     min-width: 56px;
     min-height: 32px;
     padding: 6px 10px !important;
@@ -2275,26 +2287,26 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     text-transform: uppercase;
     transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
   }
-  .azuki-info-card #match-replay-menu-list .match-replay-button:hover,
-  .azuki-info-card #match-replay-menu-list .match-replay-button:focus-visible {
+  .azuki-info-card .azuki-saved-list .match-replay-button:hover,
+  .azuki-info-card .azuki-saved-list .match-replay-button:focus-visible {
     background: linear-gradient(180deg, #f2d99f, #d4a158) !important;
     border-color: #765026 !important;
     outline: none;
     transform: translateY(-1px);
   }
-  .azuki-info-card #match-replay-menu-list .match-replay-button:last-child {
+  .azuki-info-card .azuki-saved-list .match-replay-button:last-child {
     color: #7b302a !important;
     background: rgba(255, 247, 225, 0.52) !important;
     border-color: rgba(126, 55, 45, 0.5) !important;
     box-shadow: inset 0 1px 0 rgba(255, 252, 240, 0.55);
   }
-  .azuki-info-card #match-replay-menu-list .match-replay-button:last-child:hover,
-  .azuki-info-card #match-replay-menu-list .match-replay-button:last-child:focus-visible {
+  .azuki-info-card .azuki-saved-list .match-replay-button:last-child:hover,
+  .azuki-info-card .azuki-saved-list .match-replay-button:last-child:focus-visible {
     color: #68231f !important;
     background: rgba(213, 135, 116, 0.2) !important;
     border-color: rgba(112, 39, 32, 0.7) !important;
   }
-  .azuki-info-card #match-replay-menu-list .match-replay-muted {
+  .azuki-info-card .azuki-saved-list .match-replay-muted {
     color: #514331 !important;
   }
   .azuki-info-card hr {
@@ -2420,6 +2432,10 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
       padding: 16px !important;
       box-sizing: border-box;
     }
+    .azuki-info-tabs > button.azuki-info-tab {
+      padding-inline: 4px !important;
+      font-size: 12px;
+    }
     .azuki-queue-card h2,
     .azuki-active-card h2,
     .azuki-info-card h2 {
@@ -2536,6 +2552,16 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
       align-items: flex-start;
       line-height: 1.35;
     }
+    .azuki-info-card .azuki-saved-list .azuki-game-log-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .azuki-info-card .azuki-saved-list .azuki-game-log-row .match-replay-meta {
+      grid-column: 1 / -1;
+    }
+    .azuki-info-card .azuki-saved-list .azuki-game-log-row .match-replay-button {
+      width: 100%;
+      min-width: 0;
+    }
     .rl-bot-opponent-grid {
       grid-template-columns: 1fr;
     }
@@ -2589,18 +2615,16 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
   }
 
   function switchInfoTab(tab) {
-    var isReplays = tab === 'replays';
-    var welcomeTab = document.getElementById('azuki-info-tab-welcome');
-    var replaysTab = document.getElementById('azuki-info-tab-replays');
-    var welcomePanel = document.getElementById('azuki-info-panel-welcome');
-    var replaysPanel = document.getElementById('azuki-info-panel-replays');
-    if (!welcomeTab || !replaysTab || !welcomePanel || !replaysPanel) return;
-    welcomeTab.classList.toggle('is-active', !isReplays);
-    replaysTab.classList.toggle('is-active', isReplays);
-    welcomeTab.setAttribute('aria-selected', isReplays ? 'false' : 'true');
-    replaysTab.setAttribute('aria-selected', isReplays ? 'true' : 'false');
-    welcomePanel.classList.toggle('is-active', !isReplays);
-    replaysPanel.classList.toggle('is-active', isReplays);
+    ['welcome', 'replays', 'game-logs'].forEach(function (name) {
+      var isActive = tab === name;
+      var tabElement = document.getElementById('azuki-info-tab-' + name);
+      var panelElement = document.getElementById('azuki-info-panel-' + name);
+      if (tabElement) {
+        tabElement.classList.toggle('is-active', isActive);
+        tabElement.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      }
+      if (panelElement) panelElement.classList.toggle('is-active', isActive);
+    });
   }
 
   function selectDeckSource(mode) {
@@ -3717,6 +3741,9 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
           window.MatchReplayClient.renderReplayLibrary('match-replay-menu-list', {
             rootName: rootName
           });
+        }
+        if (window.GameLogClient && typeof window.GameLogClient.renderGameLibrary === 'function') {
+          window.GameLogClient.renderGameLibrary('azuki-game-log-menu-list');
         }
         initializeDeckLinkFromUrl();
         initializeAzukiDeckPicker();

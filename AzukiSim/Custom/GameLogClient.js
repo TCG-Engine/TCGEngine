@@ -41,6 +41,14 @@
     });
   }
 
+  function transactionAsPromise(tx, errorMessage) {
+    return new Promise(function (resolve, reject) {
+      tx.oncomplete = resolve;
+      tx.onerror = function () { reject(tx.error || new Error(errorMessage)); };
+      tx.onabort = function () { reject(tx.error || new Error(errorMessage)); };
+    });
+  }
+
   async function pruneStoredGames(db) {
     var readTx = db.transaction(GAME_STORE, 'readonly');
     var allGames = await requestAsPromise(readTx.objectStore(GAME_STORE).getAll());
@@ -68,11 +76,7 @@
         cursor.continue();
       };
     });
-    await new Promise(function (resolve, reject) {
-      writeTx.oncomplete = resolve;
-      writeTx.onerror = function () { reject(writeTx.error || new Error('Could not prune old game logs.')); };
-      writeTx.onabort = function () { reject(writeTx.error || new Error('Game-log pruning was aborted.')); };
-    });
+    await transactionAsPromise(writeTx, 'Could not prune old game logs.');
   }
 
   function parsePayload(responseArr) {
@@ -125,11 +129,7 @@
       if (!event || !Number.isFinite(Number(event.seq))) return;
       events.put({ gameId: id, seq: Number(event.seq), event: event });
     });
-    await new Promise(function (resolve, reject) {
-      tx.oncomplete = resolve;
-      tx.onerror = function () { reject(tx.error || new Error('Could not store the game log.')); };
-      tx.onabort = function () { reject(tx.error || new Error('Game-log storage was aborted.')); };
-    });
+    await transactionAsPromise(tx, 'Could not store the game log.');
     if (!current) {
       pruneStoredGames(db).catch(function (error) {
         console.warn('Could not prune old Azuki game logs:', error);
@@ -232,35 +232,296 @@
     return lines.join('\n');
   }
 
-  async function loadCurrentGame() {
+  async function listGames() {
+    await storeChain;
     var db = await openDb();
-    var id = gameKey(config.gameName, config.viewer);
+    var tx = db.transaction(GAME_STORE, 'readonly');
+    var games = await requestAsPromise(tx.objectStore(GAME_STORE).getAll());
+    return (Array.isArray(games) ? games : []).sort(function (a, b) {
+      return String(b.startedAt || b.updatedAt || '').localeCompare(String(a.startedAt || a.updatedAt || ''));
+    });
+  }
+
+  async function loadGame(id) {
+    await storeChain;
+    var db = await openDb();
     var tx = db.transaction([GAME_STORE, EVENT_STORE], 'readonly');
-    var game = await requestAsPromise(tx.objectStore(GAME_STORE).get(id));
+    var gameRequest = tx.objectStore(GAME_STORE).get(String(id));
+    var rowsRequest = tx.objectStore(EVENT_STORE).index('by_game').getAll(String(id));
+    var loaded = await Promise.all([
+      requestAsPromise(gameRequest),
+      requestAsPromise(rowsRequest)
+    ]);
+    var game = loaded[0];
     if (!game) throw new Error('No local game log was found.');
-    var rows = await requestAsPromise(tx.objectStore(EVENT_STORE).index('by_game').getAll(id));
-    return { game: game, rows: rows || [] };
+    return { game: game, rows: loaded[1] || [] };
+  }
+
+  function loadCurrentGame() {
+    return loadGame(gameKey(config.gameName, config.viewer));
+  }
+
+  async function deleteGame(id) {
+    await storeChain;
+    var db = await openDb();
+    var tx = db.transaction([GAME_STORE, EVENT_STORE], 'readwrite');
+    tx.objectStore(GAME_STORE).delete(String(id));
+    var eventIndex = tx.objectStore(EVENT_STORE).index('by_game');
+    var cursorRequest = eventIndex.openCursor(IDBKeyRange.only(String(id)));
+    cursorRequest.onsuccess = function () {
+      var cursor = cursorRequest.result;
+      if (!cursor) return;
+      cursor.delete();
+      cursor.continue();
+    };
+    await transactionAsPromise(tx, 'Could not delete the game log.');
+  }
+
+  function downloadLoadedGame(loaded) {
+    var markdown = renderMarkdown(loaded.game, loaded.rows);
+    var blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'azuki-game-' + loaded.game.gameId + '-p' + loaded.game.viewer + '.md';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  async function exportGame(id) {
+    downloadLoadedGame(await loadGame(id));
+  }
+
+  function notifyError(error, fallback) {
+    var msg = (error && error.message) || fallback;
+    if (typeof window.StyledAlert === 'function') window.StyledAlert(msg);
+    else if (typeof window.Toast === 'function') window.Toast(msg, { type: 'error' });
+    else console.error(msg);
+  }
+
+  function formatDate(value) {
+    if (!value) return 'Unknown date';
+    var parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return 'Unknown date';
+    return parsed.toLocaleString([], {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+  }
+
+  function leaderLabel(game, player) {
+    var key = 'p' + player;
+    return (game.leader && game.leader[key]) || key.toUpperCase();
+  }
+
+  function gameResultLabel(game) {
+    if (!game.complete || !game.winner) return 'Incomplete';
+    return Number(game.winner) === Number(game.viewer) ? 'Won' : 'Lost';
+  }
+
+  function ensureViewerStyles() {
+    if (document.getElementById('azuki-game-log-client-styles')) return;
+    var style = document.createElement('style');
+    style.id = 'azuki-game-log-client-styles';
+    style.textContent =
+      '.azuki-game-log-modal{position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;}' +
+      '.azuki-game-log-modal-backdrop{position:absolute;inset:0;border:0;background:rgba(3,10,18,.82);cursor:pointer;}' +
+      '.azuki-game-log-dialog{position:relative;width:min(920px,96vw);height:min(760px,90vh);display:flex;flex-direction:column;overflow:hidden;background:#102238;border:1px solid rgba(214,184,109,.62);border-radius:12px;box-shadow:0 24px 70px rgba(0,0,0,.55);color:#f8f1df;}' +
+      '.azuki-game-log-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid rgba(214,184,109,.28);}' +
+      '.azuki-game-log-heading{min-width:0;}' +
+      '.azuki-game-log-heading strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px;}' +
+      '.azuki-game-log-heading span{display:block;margin-top:2px;color:#bec9d5;font-size:12px;}' +
+      '.azuki-game-log-close{flex:0 0 auto;border:1px solid rgba(214,184,109,.45);border-radius:7px;background:rgba(255,255,255,.06);color:#fff4cf;padding:7px 11px;cursor:pointer;font-weight:700;}' +
+      '.azuki-game-log-document{flex:1;overflow:auto;margin:0;padding:16px;background:rgba(3,10,18,.46);color:#e5edf5;font:12px/1.55 Consolas,Monaco,monospace;white-space:pre-wrap;word-break:break-word;}' +
+      '.azuki-game-log-modal-actions{display:flex;justify-content:flex-end;gap:8px;padding:10px 16px;border-top:1px solid rgba(214,184,109,.22);}' +
+      '.azuki-game-log-modal-actions button{border:1px solid rgba(214,184,109,.45);border-radius:7px;background:#d6b86d;color:#102238;padding:8px 12px;cursor:pointer;font-weight:800;}' +
+      'body.azuki-game-log-modal-open{overflow:hidden;}';
+    document.head.appendChild(style);
+  }
+
+  async function viewGame(id) {
+    var loaded = await loadGame(id);
+    ensureViewerStyles();
+    var existing = document.getElementById('azuki-game-log-modal');
+    if (existing) existing.remove();
+
+    var modal = document.createElement('div');
+    modal.id = 'azuki-game-log-modal';
+    modal.className = 'azuki-game-log-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'azuki-game-log-modal-title');
+
+    var backdrop = document.createElement('button');
+    backdrop.type = 'button';
+    backdrop.className = 'azuki-game-log-modal-backdrop';
+    backdrop.setAttribute('aria-label', 'Close game log');
+    modal.appendChild(backdrop);
+
+    var dialog = document.createElement('div');
+    dialog.className = 'azuki-game-log-dialog';
+    modal.appendChild(dialog);
+
+    var header = document.createElement('div');
+    header.className = 'azuki-game-log-header';
+    dialog.appendChild(header);
+
+    var heading = document.createElement('div');
+    heading.className = 'azuki-game-log-heading';
+    var title = document.createElement('strong');
+    title.id = 'azuki-game-log-modal-title';
+    title.textContent = leaderLabel(loaded.game, 1) + ' vs ' + leaderLabel(loaded.game, 2);
+    heading.appendChild(title);
+    var subtitle = document.createElement('span');
+    subtitle.textContent = formatDate(loaded.game.startedAt) + ' - ' + gameResultLabel(loaded.game);
+    heading.appendChild(subtitle);
+    header.appendChild(heading);
+
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'azuki-game-log-close';
+    close.textContent = 'Close';
+    header.appendChild(close);
+
+    var documentView = document.createElement('pre');
+    documentView.className = 'azuki-game-log-document';
+    documentView.textContent = renderMarkdown(loaded.game, loaded.rows);
+    dialog.appendChild(documentView);
+
+    var actions = document.createElement('div');
+    actions.className = 'azuki-game-log-modal-actions';
+    var exportButton = document.createElement('button');
+    exportButton.type = 'button';
+    exportButton.textContent = 'Export Markdown';
+    exportButton.addEventListener('click', function () { downloadLoadedGame(loaded); });
+    actions.appendChild(exportButton);
+    dialog.appendChild(actions);
+
+    var previousFocus = document.activeElement;
+    function closeModal() {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.classList.remove('azuki-game-log-modal-open');
+      modal.remove();
+      if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
+    }
+    function onKeyDown(event) {
+      if (event.key === 'Escape') closeModal();
+    }
+    backdrop.addEventListener('click', closeModal);
+    close.addEventListener('click', closeModal);
+    document.addEventListener('keydown', onKeyDown);
+    document.body.appendChild(modal);
+    document.body.classList.add('azuki-game-log-modal-open');
+    close.focus();
+  }
+
+  function confirmDelete() {
+    if (typeof window.StyledConfirm === 'function') {
+      return window.StyledConfirm('Delete this saved game log from this browser?', {
+        danger: true,
+        confirmLabel: 'Delete'
+      });
+    }
+    return Promise.resolve(window.confirm('Delete this saved game log from this browser?'));
+  }
+
+  function makeLibraryButton(label, handler) {
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'match-replay-button';
+    button.textContent = label;
+    button.addEventListener('click', handler);
+    return button;
+  }
+
+  function renderGameLibrary(containerOrId) {
+    var container = typeof containerOrId === 'string'
+      ? document.getElementById(containerOrId)
+      : containerOrId;
+    if (!container) return;
+    container.classList.add('match-replay-library');
+    container.innerHTML = '';
+
+    if (!window.indexedDB) {
+      var unavailable = document.createElement('div');
+      unavailable.className = 'match-replay-muted';
+      unavailable.textContent = 'Game-log storage is not available in this browser.';
+      container.appendChild(unavailable);
+      return;
+    }
+
+    var loading = document.createElement('div');
+    loading.className = 'match-replay-muted';
+    loading.textContent = 'Loading saved game logs...';
+    container.appendChild(loading);
+
+    listGames().then(function (games) {
+      container.innerHTML = '';
+      if (!games.length) {
+        var empty = document.createElement('div');
+        empty.className = 'match-replay-muted';
+        empty.textContent = 'No game logs have been saved in this browser yet.';
+        container.appendChild(empty);
+        return;
+      }
+
+      games.forEach(function (game) {
+        var row = document.createElement('div');
+        row.className = 'match-replay-row azuki-game-log-row';
+
+        var meta = document.createElement('div');
+        meta.className = 'match-replay-meta';
+        var title = document.createElement('strong');
+        title.textContent = leaderLabel(game, 1) + ' vs ' + leaderLabel(game, 2);
+        meta.appendChild(title);
+        var details = document.createElement('span');
+        var turnCount = Number(game.turn || 0);
+        details.textContent = formatDate(game.startedAt) + ' - ' + turnCount + ' ' +
+          (turnCount === 1 ? 'turn' : 'turns') + ' - ' + gameResultLabel(game);
+        meta.appendChild(details);
+        row.appendChild(meta);
+
+        row.appendChild(makeLibraryButton('View', function () {
+          viewGame(game.id).catch(function (error) {
+            notifyError(error, 'Could not open the game log.');
+          });
+        }));
+        row.appendChild(makeLibraryButton('Export', function () {
+          exportGame(game.id).catch(function (error) {
+            notifyError(error, 'Could not export the game log.');
+          });
+        }));
+        row.appendChild(makeLibraryButton('Delete', function () {
+          confirmDelete().then(function (confirmed) {
+            if (!confirmed) return;
+            deleteGame(game.id).then(function () {
+              renderGameLibrary(container);
+            }).catch(function (error) {
+              notifyError(error, 'Could not delete the game log.');
+            });
+          });
+        }));
+        container.appendChild(row);
+      });
+    }).catch(function (error) {
+      container.innerHTML = '';
+      var errorEl = document.createElement('div');
+      errorEl.className = 'match-replay-muted';
+      errorEl.textContent = (error && error.message) || 'Could not load saved game logs.';
+      container.appendChild(errorEl);
+    });
   }
 
   async function exportCurrentGame() {
     try {
-      await storeChain;
-      var loaded = await loadCurrentGame();
-      var markdown = renderMarkdown(loaded.game, loaded.rows);
-      var blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
-      var url = URL.createObjectURL(blob);
-      var link = document.createElement('a');
-      link.href = url;
-      link.download = 'azuki-game-' + loaded.game.gameId + '-p' + loaded.game.viewer + '.md';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      downloadLoadedGame(await loadCurrentGame());
     } catch (error) {
-      var msg = error.message || 'Could not export the game log.';
-      if (typeof window.StyledAlert === 'function') window.StyledAlert(msg);
-      else if (typeof window.Toast === 'function') window.Toast(msg, { type: 'error' });
-      else console.error(msg);
+      notifyError(error, 'Could not export the game log.');
     }
   }
 
@@ -288,6 +549,12 @@
       });
     },
     addGameOverButton: addGameOverButton,
-    exportCurrentGame: exportCurrentGame
+    exportCurrentGame: exportCurrentGame,
+    listGames: listGames,
+    loadGame: loadGame,
+    viewGame: viewGame,
+    exportGame: exportGame,
+    deleteGame: deleteGame,
+    renderGameLibrary: renderGameLibrary
   };
 })();
