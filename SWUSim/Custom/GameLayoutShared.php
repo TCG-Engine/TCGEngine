@@ -3015,6 +3015,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
      the settings menu appears on top of it, not behind. Both mount at <body>, so a plain z-index bump orders
      them (same stacking context — consistent across Chromium/Firefox/WebKit). */
   .sd-overlay { z-index: 10010 !important; }
+  /* The shared bug-report modal (#bugReportOverlay, z-index 3001 in UILibraries) sits far below SWUSim's
+     HUD overlays — the "Waiting for the other player" turn-miasma pill (4999), the mulligan modal (5000),
+     the settings overlay (10001) — so it opened BEHIND them (e.g. the waiting pill covered it during a
+     mulligan). Lift it above everything so Report Bug is always usable. */
+  #bugReportOverlay { z-index: 10011 !important; }
   .swu-settings-panel { width: min(92vw, 360px); background: var(--surface-raised);
     border: 1px solid var(--border); border-radius: 12px;
     box-shadow: 0 18px 50px rgba(0,0,0,0.6); color: var(--text); overflow: hidden; }

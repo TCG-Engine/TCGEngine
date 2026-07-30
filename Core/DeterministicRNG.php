@@ -25,6 +25,12 @@ function EngineDeterministicIgnoredStateNames() {
     'MatchReplayCommands' => true,
     'gMatchReplayInitialState' => true,
     'gMatchReplayCommands' => true,
+    // The Versions zone is engine bookkeeping — the undo stack (SWUSim) or asset-version snapshots —
+    // NOT live game state, and it changes as you undo/redo/version. It must not sway gameplay randomness,
+    // else e.g. mulligan → undo → mulligan reseeds off a different undo-stack and draws a different hand.
+    // Every name form GetAllZones (my/their-prefixed) or the $GLOBALS fallback (p1..p4 / g) can emit:
+    'Versions' => true, 'myVersions' => true, 'theirVersions' => true,
+    'p1Versions' => true, 'p2Versions' => true, 'p3Versions' => true, 'p4Versions' => true, 'gVersions' => true,
   ];
 
   if (function_exists('GetModuleConfig')) {

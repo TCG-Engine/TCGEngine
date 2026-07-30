@@ -14212,7 +14212,21 @@ function _SWUReapplyUndoBlocks(bool $bl1, bool $bl2): void {
 //             it lands at the action-phase start; the pop then leaves the top at that boundary, so a
 //             following 'step' Undo crosses into it (the regroup RES step).
 function SWUComputeUndoTarget(string $kind): int {
+    global $gRandomCounter;
     $top = UndoTop();
+    // Skip "no-op" snapshots at the top of the stack: a snapshot whose stored payload equals the CURRENT
+    // serialized state (nothing has changed since it was taken — e.g. the pregame pre-resource
+    // PushPregameSnapshot captured right before the resource pick, which matches the live pre-pick state).
+    // Undoing to such a snapshot appears to do nothing, so one Undo should step PAST it to the first state
+    // that actually differs. Payload format mirrors PushUndoSnapshot exactly so the comparison is byte-exact
+    // (production canonicalizes zones across the request boundary, so the compare holds there too).
+    $cur = Versions::GetSerializedZones() . '<v0>' . $gRandomCounter;
+    while ($top > 0) {
+        $line = UndoStackRead($top);
+        if ($line === null) break;
+        if (UndoRecordParse($line)['payload'] !== $cur) break;
+        $top--;
+    }
     if ($kind !== 'phase') return $top;
     $target = $top;
     for ($i = $top; $i >= 0; $i--) {

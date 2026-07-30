@@ -232,7 +232,18 @@ function _brvRenderRow(array $r, bool $loadable = false): string {
 
     $desc = strval($r['description'] ?? '');
     $descShort = mb_strlen($desc) > 140 ? mb_substr($desc, 0, 140) . '…' : $desc;
-    $descCell = '<span title="' . _brvEsc($desc) . '">' . _brvEsc($descShort) . '</span>';
+    // "view" button → modal with the FULL description + game/root/hash context + Copy-to-Clipboard
+    // (descriptions are truncated in the table; the modal is for reading + pasting into an AI agent).
+    $viewBtn = ($desc !== '' && ($r['id'] ?? 0))
+        ? ' <button class="brv-details-btn"'
+            . ' data-id="' . intval($r['id']) . '"'
+            . ' data-root="' . _brvEsc($r['root_name'] ?? '') . '"'
+            . ' data-game="' . _brvEsc($r['game_name'] ?? '') . '"'
+            . ' data-hash="' . _brvEsc($r['gamestate_hash'] ?? '') . '"'
+            . ' data-desc="' . _brvEsc($desc) . '"'
+            . ' onclick="brvDetails(this)" title="View full description + copy">view</button>'
+        : '';
+    $descCell = '<span title="' . _brvEsc($desc) . '">' . _brvEsc($descShort) . '</span>' . $viewBtn;
 
     $reporter = strval($r['discord_username'] ?? ($r['reporter_account_name'] ?? '')) ?: 'Unknown';
 
@@ -286,6 +297,41 @@ function _brvActionScript(): string {
             }
           })
           .catch(function(e){ if(s){ s.className='brv-status brv-status-err'; s.textContent='❌ '+e; } if(btn){ btn.disabled=false; btn.textContent='Close'; } });
+      }
+
+      // Full-description modal + Copy-to-Clipboard (for pasting a report into an AI agent). The button
+      // carries the full text + game/root/hash in data-* attributes (dataset decodes them safely; we only
+      // ever assign to textarea.value / textContent, so no HTML injection).
+      function brvDetails(btn){
+        var d = btn.dataset;
+        var text = 'Bug Report #' + d.id
+                 + '\\nRoot: ' + (d.root || '(none)') + '   Game: ' + (d.game || '-')
+                 + '\\nGamestate hash: ' + (d.hash || '-')
+                 + '\\n\\n' + (d.desc || '');
+        var old = document.getElementById('brv-detail-overlay'); if(old) old.remove();
+        var ov = document.createElement('div'); ov.id = 'brv-detail-overlay'; ov.className = 'brv-detail-overlay';
+        ov.addEventListener('click', function(e){ if(e.target === ov) ov.remove(); });
+        document.addEventListener('keydown', function esc(e){ if(e.key === 'Escape'){ var o=document.getElementById('brv-detail-overlay'); if(o)o.remove(); document.removeEventListener('keydown', esc); } });
+
+        var box = document.createElement('div'); box.className = 'brv-detail-box';
+        var title = document.createElement('div'); title.className = 'brv-detail-title';
+        title.textContent = 'Bug #' + d.id + ' · ' + (d.root || '(no root)') + (d.game ? (' · game ' + d.game) : '');
+        var ta = document.createElement('textarea'); ta.className = 'brv-detail-text'; ta.readOnly = true; ta.value = text;
+
+        var actions = document.createElement('div'); actions.className = 'brv-detail-actions';
+        var copyBtn = document.createElement('button'); copyBtn.className = 'brv-copy-btn'; copyBtn.textContent = 'Copy Text to Clipboard';
+        var closeBtn = document.createElement('button'); closeBtn.className = 'brv-detail-closebtn'; closeBtn.textContent = 'Close';
+        closeBtn.addEventListener('click', function(){ ov.remove(); });
+        copyBtn.addEventListener('click', function(){
+          function done(ok){ copyBtn.textContent = ok ? '✓ Copied!' : 'Copy failed — select + Ctrl/Cmd+C'; setTimeout(function(){ copyBtn.textContent = 'Copy Text to Clipboard'; }, 2000); }
+          function fallback(){ ta.focus(); ta.select(); try { done(document.execCommand('copy')); } catch(e){ done(false); } }
+          if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(function(){ done(true); }, fallback); }
+          else { fallback(); }
+        });
+        actions.appendChild(copyBtn); actions.appendChild(closeBtn);
+        box.appendChild(title); box.appendChild(ta); box.appendChild(actions);
+        ov.appendChild(box); document.body.appendChild(ov);
+        ta.scrollTop = 0;
       }
     </script>";
 }
@@ -351,5 +397,16 @@ function _brvViewerStyles(): string {
       .brv-close-btn{background:#2a1e10;border:1px solid #5a4420;color:#ffcf8f;border-radius:6px;padding:2px 8px;margin-left:6px;font-size:11px;cursor:pointer;}
       .brv-close-btn:hover:not(:disabled){background:#7a5a1d;border-color:#7a5a1d;color:#fff;}
       .brv-close-btn:disabled{opacity:0.6;cursor:default;}
+      .brv-details-btn{background:#16233a;border:1px solid #2a4a6b;color:#9fd0ff;border-radius:6px;padding:1px 7px;margin-left:6px;font-size:11px;cursor:pointer;vertical-align:middle;}
+      .brv-details-btn:hover{background:#1f6feb;border-color:#1f6feb;color:#fff;}
+      .brv-detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.66);display:flex;align-items:center;justify-content:center;z-index:10000;}
+      .brv-detail-box{background:#0f141b;border:1px solid #2a3543;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,0.6);width:min(760px,calc(100vw - 40px));max-height:calc(100vh - 80px);display:flex;flex-direction:column;padding:16px;}
+      .brv-detail-title{font-size:15px;font-weight:600;color:#e6edf3;margin-bottom:10px;}
+      .brv-detail-text{flex:1 1 auto;min-height:240px;width:100%;box-sizing:border-box;background:#0b1620;border:1px solid #2a3543;color:#e6edf3;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;resize:vertical;white-space:pre-wrap;}
+      .brv-detail-actions{display:flex;gap:10px;margin-top:12px;}
+      .brv-copy-btn{background:#1f6feb;border:1px solid #1f6feb;color:#fff;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;}
+      .brv-copy-btn:hover{filter:brightness(1.1);}
+      .brv-detail-closebtn{background:#1b2430;border:1px solid #2a3543;color:#c9d4df;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;}
+      .brv-detail-closebtn:hover{background:#26313f;}
     </style>';
 }

@@ -84,6 +84,15 @@ $chk(strpos($gaClose, 'brvClose(3,') !== false, 'Close works on non-SWUSim views
 $rz1 = BugReportViewerResolve('', '', 5);      $chk(isset($rz1['error']), 'Resolve: unconfigured → error');
 $rz2 = BugReportViewerResolve('https://x', 'k', 0); $chk(isset($rz2['error']), 'Resolve: invalid id → error');
 
+// ── "view" full-description modal + Copy-to-Clipboard ────────────────────────────────────────────────
+$allV = BugReportViewerRenderPage($fetch, '');
+$chk(strpos($allV, 'onclick="brvDetails(this)"') !== false, 'view button present');
+$chk(strpos($allV, 'function brvDetails') !== false, 'brvDetails JS emitted');
+$chk(strpos($allV, 'Copy Text to Clipboard') !== false, 'Copy button label present');
+// data-desc carries the FULL description, HTML-escaped in the attribute (XSS-safe, not raw <script>)
+$chk(strpos($allV, 'data-desc="&lt;script&gt;evilXss&lt;/script&gt; injection attempt"') !== false, 'view data-desc has full escaped description');
+$chk(strpos($allV, 'data-desc="Devastator did not set friendly-defeated"') !== false, 'view data-desc has the full (untruncated) description');
+
 // ── Fetch error surfaces in the page, no table ─────────────────────────────
 $errPage = BugReportViewerRenderPage(['ok' => false, 'error' => 'boom', 'reports' => []], 'SWUSim');
 $chk(strpos($errPage, 'boom') !== false && strpos($errPage, '<table') === false, 'fetch error rendered, no table');
