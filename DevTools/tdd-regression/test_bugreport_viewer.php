@@ -71,6 +71,19 @@ $chk(strpos(BugReportViewerHandleLoad('u', 'k', 1, 'current', 'abc', '/tmp')['er
 $chk(!BugReportViewerFetchOne('', '', 5)['ok'], 'FetchOne: unconfigured → error');
 $chk(!BugReportViewerFetchOne('https://x', 'k', 0)['ok'], 'FetchOne: invalid id → error');
 
+// ── Close (resolve) button: shown for OPEN reports only; status line + JS on every view ──────────────
+$allClose = BugReportViewerRenderPage($fetch, '');
+$chk(strpos($allClose, 'brvClose(5,') !== false && strpos($allClose, 'brvClose(3,') !== false && strpos($allClose, 'brvClose(2,') !== false, 'Close buttons present for the 3 open reports');
+$chk(strpos($allClose, 'brvClose(4,') === false, 'NO Close button for the resolved report (#4)');
+$chk(strpos($allClose, 'id="brv-status"') !== false, 'status line present (all views)');
+$chk(strpos($allClose, 'function brvClose') !== false, 'brvClose JS emitted (all views)');
+$gaClose = BugReportViewerRenderPage($fetch, 'GrandArchiveSim');
+$chk(strpos($gaClose, 'brvClose(3,') !== false, 'Close works on non-SWUSim views too (GA open report)');
+
+// ── Resolve config/id guards (hermetic — no network) ─────────────────────────────────────────────────
+$rz1 = BugReportViewerResolve('', '', 5);      $chk(isset($rz1['error']), 'Resolve: unconfigured → error');
+$rz2 = BugReportViewerResolve('https://x', 'k', 0); $chk(isset($rz2['error']), 'Resolve: invalid id → error');
+
 // ── Fetch error surfaces in the page, no table ─────────────────────────────
 $errPage = BugReportViewerRenderPage(['ok' => false, 'error' => 'boom', 'reports' => []], 'SWUSim');
 $chk(strpos($errPage, 'boom') !== false && strpos($errPage, '<table') === false, 'fetch error rendered, no table');

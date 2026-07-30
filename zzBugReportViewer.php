@@ -43,6 +43,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'load'
     exit;
 }
 
+// ── Close/resolve action (POST) — marks a report resolved via the intake API (any root). ────────────
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'resolve') {
+    header('Content-Type: application/json');
+    echo json_encode(BugReportViewerResolve(
+        $bugReportApiUrl,
+        $bugReportApiKey,
+        intval($_POST['id'] ?? 0),
+        substr(trim(strval($_POST['note'] ?? '')), 0, 1000)
+    ));
+    exit;
+}
+
 $fetch = BugReportViewerFetch($bugReportApiUrl, $bugReportApiKey);
 
 header('Content-Type: text/html; charset=utf-8');

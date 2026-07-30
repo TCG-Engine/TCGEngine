@@ -94,6 +94,36 @@ function BugReportViewerHandleLoad(string $apiUrl, string $apiKey, int $id, stri
     ];
 }
 
+// Close (resolve) a bug report via the intake API (POST operation:resolve). The API updates the DB to
+// status='resolved' independently of Discord (and returns success even if the Discord notify fails —
+// which it does for engine-ui reports, whose discord_channel_id is empty). Returns ['success'|'error', …].
+function BugReportViewerResolve(string $apiUrl, string $apiKey, int $id, string $note = ''): array {
+    $apiUrl = trim($apiUrl); $apiKey = trim($apiKey);
+    if ($apiUrl === '' || $apiKey === '') return ['error' => 'Bug report API is not configured.'];
+    if ($id <= 0)                         return ['error' => 'Invalid report id.'];
+
+    $payload = json_encode(['operation' => 'resolve', 'id' => $id, 'resolution_note' => $note]);
+    $ch = curl_init($apiUrl);
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $payload,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 25,
+        CURLOPT_HTTPHEADER     => ['X-API-Key: ' . $apiKey, 'Content-Type: application/json'],
+    ]);
+    $body = curl_exec($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $err  = curl_error($ch);
+    curl_close($ch);
+
+    if ($body === false) return ['error' => 'Request failed: ' . $err];
+    $json = json_decode((string)$body, true);
+    if ($code < 200 || $code >= 300) {
+        return ['error' => (is_array($json) && isset($json['error'])) ? $json['error'] : ('Close failed (HTTP ' . $code . ').')];
+    }
+    return ['success' => true, 'id' => $id, 'message' => (is_array($json) && isset($json['message'])) ? $json['message'] : 'Bug report #' . $id . ' closed.'];
+}
+
 // A stable label for a report's root (blank root → Discord-origin reports with no game).
 function BugReportViewerRootLabel(string $rootName): string {
     return $rootName === '' ? '(no root · Discord)' : $rootName;
@@ -149,8 +179,10 @@ function BugReportViewerRenderPage(array $fetch, string $rootName): string {
         $out .= '<div class="brv-load-bar">Load into local SWUSim game #'
               . '<input id="brv-target-game" class="brv-target" inputmode="numeric" placeholder="e.g. 42">'
               . '<span class="brv-load-hint">— open that game once in the engine first, then Load a report\'s state into it.</span>'
-              . '</div><div id="brv-status" class="brv-status"></div>';
+              . '</div>';
     }
+    // Shared status line for Load + Close actions (present on every view — Close works for any root).
+    $out .= '<div id="brv-status" class="brv-status"></div>';
 
     // ── Table ───────────────────────────────────────────────────────────────
     if (empty($rows)) {
@@ -169,6 +201,7 @@ function BugReportViewerRenderPage(array $fetch, string $rootName): string {
     }
 
     if ($loadable) $out .= _brvLoadScript();
+    $out .= _brvActionScript();   // brvClose — available on every view
     $out .= '</body></html>';
     return $out;
 }
@@ -182,6 +215,12 @@ function _brvRenderRow(array $r, bool $loadable = false): string {
     $status = strval($r['status'] ?? '');
     $statusBadge = '<span class="brv-badge ' . ($status === 'resolved' ? 'brv-badge-resolved' : 'brv-badge-open') . '">'
         . _brvEsc($status !== '' ? $status : 'open') . '</span>';
+    // Close (resolve) button for still-open reports — works for any root.
+    $rid = intval($r['id'] ?? 0);
+    $statusCell = $statusBadge;
+    if ($status !== 'resolved' && $rid > 0) {
+        $statusCell .= ' <button class="brv-close-btn" onclick="brvClose(' . $rid . ', this)">Close</button>';
+    }
 
     $hasSnap = !empty($r['has_snapshot']);
     $snap = $hasSnap ? _brvEsc($r['snapshot_format'] ?? 'snapshot') : '<span class="brv-muted">—</span>';
@@ -219,12 +258,36 @@ function _brvRenderRow(array $r, bool $loadable = false): string {
         . '<td>' . _brvEsc($r['game_name'] ?? '') . '</td>'
         . '<td>' . $originBadge . '</td>'
         . '<td>' . _brvEsc($reporter) . '</td>'
-        . '<td>' . $statusBadge . '</td>'
+        . '<td class="brv-nowrap">' . $statusCell . '</td>'
         . '<td>' . $snap . '</td>'
         . '<td>' . $hashCell . '</td>'
         . '<td class="brv-desc">' . $descCell . '</td>'
         . $loadCell
         . '</tr>';
+}
+
+// Client JS for the Close (resolve) buttons — posts ?action=resolve and flips the row to "resolved".
+function _brvActionScript(): string {
+    return "<script>
+      function brvClose(id, btn){
+        var s = document.getElementById('brv-status');
+        if(btn){ btn.disabled = true; btn.textContent = 'Closing…'; }
+        var body = new URLSearchParams({action:'resolve', id:id});
+        fetch(window.location.pathname + window.location.search, {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:body})
+          .then(function(r){ return r.json(); })
+          .then(function(j){
+            if(j && j.success){
+              if(s){ s.className='brv-status brv-status-ok'; s.textContent='✅ '+(j.message||('Bug #'+id+' closed.')); }
+              var td = btn && btn.closest('td');
+              if(td){ td.innerHTML = '<span class=\"brv-badge brv-badge-resolved\">resolved</span>'; }
+            } else {
+              if(s){ s.className='brv-status brv-status-err'; s.textContent='❌ '+((j&&j.error)||'Close failed.'); }
+              if(btn){ btn.disabled=false; btn.textContent='Close'; }
+            }
+          })
+          .catch(function(e){ if(s){ s.className='brv-status brv-status-err'; s.textContent='❌ '+e; } if(btn){ btn.disabled=false; btn.textContent='Close'; } });
+      }
+    </script>";
 }
 
 // Client JS for the Load buttons — posts back to this page (?action=load) and shows an inline status
@@ -285,5 +348,8 @@ function _brvViewerStyles(): string {
       .brv-load-cell{white-space:nowrap;}
       .brv-lbtn{background:#1b2430;border:1px solid #2a3543;color:#cfe8ff;border-radius:6px;padding:3px 8px;margin:0 2px;font-size:12px;cursor:pointer;}
       .brv-lbtn:hover{background:#1f6feb;border-color:#1f6feb;color:#fff;}
+      .brv-close-btn{background:#2a1e10;border:1px solid #5a4420;color:#ffcf8f;border-radius:6px;padding:2px 8px;margin-left:6px;font-size:11px;cursor:pointer;}
+      .brv-close-btn:hover:not(:disabled){background:#7a5a1d;border-color:#7a5a1d;color:#fff;}
+      .brv-close-btn:disabled{opacity:0.6;cursor:default;}
     </style>';
 }
