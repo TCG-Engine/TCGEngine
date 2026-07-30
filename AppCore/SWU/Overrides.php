@@ -120,6 +120,12 @@ function CardIDOverride($cardID) {
     case "ASH_152": return "LAW_180"; //Inspired Recruit
     case "ASH_258": return "SEC_258"; //Grassroots Resistance
     case "IC27_097": return "SOR_128"; //Death Star Stormtrooper
+    case "IC27_015": return "JTL_033"; //Onyx Squadron Brute
+    case "IC27_108": return "TWI_137"; //Savage Opress
+    case "IC27_136": return "SOR_172"; //Open Fire
+    case "IC27_154": return "SHD_196"; //Grogu
+    case "IC27_188": return "SOR_238"; //C-3PO
+    case "IC27_194": return "SOR_246"; //You're My Only Hope
     default: return $cardID;
   }
 }

@@ -181,6 +181,3 @@ SubmitBugReportRespond(200, [
 ]);
 
 ?>
-if ($playerID === '') {
-  SubmitBugReportRespond(400, ['error' => 'Invalid player ID.']);
-}
