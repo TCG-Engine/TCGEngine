@@ -2304,7 +2304,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // The root SharedUI/MainMenu.php pointer renders whatever Sites/<ActiveSite>/ is set (SWUSim here);
     // there is NO MainMenu.php at the TCGEngine root, so the old './MainMenu.php' fallback 404'd.
     function SWUGoMainMenu() { window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
-    function SWUReportBug() { if (typeof openBugReportModal === 'function') openBugReportModal(); }
+    function SWUReportBug() {
+      // Close the gear settings overlay first — it sits at a much higher z-index than the shared bug
+      // report modal (z-index 3001), so leaving it open renders the modal BEHIND it. Harmless no-op
+      // for the end-of-game callers (the gear menu isn't open there).
+      if (typeof swuCloseSettings === 'function') swuCloseSettings();
+      if (typeof openBugReportModal === 'function') openBugReportModal();
+    }
     // These are defined inside this IIFE but are also invoked from a LATER top-level <script> block
     // (SWUGearConcede) and from inline gear-menu onclick handlers — both resolve against global scope.
     // Without these window exports, `onclick="SWUReportBug()"` throws "SWUReportBug is not defined" and
@@ -2637,7 +2643,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             var img = document.createElement('img');
             img.loading = 'lazy';
             img.alt = cardID;
-            img.src = './SWUSim/concat/' + cardID + '.webp';
+            // Mock (preview) cards store their art as concat/mock_<CardID>.webp — resolve the image id the
+            // same way the board does (jsInclude.js), else unreleased-set mock cards 404 and don't render.
+            img.src = './SWUSim/concat/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cardID) : cardID) + '.webp';
             cell.appendChild(img);
             cell.onmouseover = function (e) { if (typeof window.ShowCardDetail === 'function') ShowCardDetail(e, this); };
             cell.onmouseout  = function ()  { if (typeof window.HideCardDetail === 'function') HideCardDetail(); };
