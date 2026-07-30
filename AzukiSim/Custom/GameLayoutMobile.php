@@ -2312,12 +2312,17 @@
             return '';
         }
 
-        function isUndoPoint(gesture, y) {
+        function isUndoPoint(gesture, x, y) {
             if(!gesture || !gesture.playStarted) return false;
-            // The initial upward threshold can still be inside the viewport's bottom band.
-            // Require the pointer to come back to its original hand height so staging the
-            // play cannot immediately undo itself on the same move event.
-            return y >= gesture.startY - 8 && y >= window.innerHeight - undoBandHeight;
+            var reachedBottomEdge = y >= gesture.startY - 8 &&
+                y >= window.innerHeight - undoBandHeight;
+            if(reachedBottomEdge) return true;
+
+            // Portrait has a dedicated hand row well above the viewport edge. Returning the
+            // dragged card to that row is the natural undo gesture there; landscape keeps the
+            // intentionally narrow bottom-edge target so it cannot overlap the Alley.
+            var isPortrait = !!(window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
+            return isPortrait && pointInElement(x, y, 'myHandSlot');
         }
 
         function clearDropTarget() {
@@ -2507,7 +2512,7 @@
             if(!gesture.playStarted && gesture.startY - event.clientY >= playThreshold) {
                 submitPlay(gesture);
             }
-            var overUndo = isUndoPoint(gesture, event.clientY);
+            var overUndo = isUndoPoint(gesture, event.clientX, event.clientY);
             setUndoTarget(overUndo);
             if(overUndo) clearDropTarget();
             else updateDropTarget(gesture, event.clientX, event.clientY);
@@ -2534,7 +2539,7 @@
             event.preventDefault();
             event.stopPropagation();
             if(gesture.playStarted && !gesture.undoSubmitted) {
-                if(isUndoPoint(gesture, event.clientY)) submitUndo(gesture);
+                if(isUndoPoint(gesture, event.clientX, event.clientY)) submitUndo(gesture);
                 else submitDestination(gesture, destinationAt(event.clientX, event.clientY));
             }
             cleanupGesture(gesture);
