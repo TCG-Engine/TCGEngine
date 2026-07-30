@@ -8,7 +8,7 @@ previews land — the phases below cover only what is currently previewed.
 **18 needs-work, 3 auto-wired.**
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060
 
 <!-- HMW_019 Dune Sea = blank-text base (52 of 92 released bases are likewise vanilla).
      HMW_T02 Weakness / HMW_T03 Beast = token CARDS; the engine handles tokens generically, so they
@@ -57,74 +57,82 @@ round-trip `Subcards` decode as associative ARRAYS; direct property reads return
     full prevention plus a draw is what that player would choose anyway (both effects are theirs).
   - New helper `SWUFindUpgradeIndex($obj, $cardID)` → the `$upgradeIndex` `SWUDefeatUpgrade` expects.
 
-- [ ] **HMW_060 Vice Admiral Rampart** ⛔ DEFERRED — needs a ruling, not more code
-  - "If an upgrade on your base would be defeated, you may defeat this unit instead." A genuine
-    interactive REPLACEMENT inside `SWUDefeatUpgrade`, which is synchronous, returns a bool, and has 12
-    call sites. The mechanics are reachable (queue the owner's YESNO, return early un-mutated, and let
-    the continuation either defeat Rampart or re-enter with `$skipReplacement`), but which call sites may
-    be replaced is a CR judgment per site, and two of them are genuinely arguable:
-    - **Uniqueness enforcement** (3 sites) must NOT be replaceable — saving the duplicate would leave a
-      player controlling two copies of a unique upgrade, an illegal state. Clear.
-    - **HMW_095's own `Action [defeat this upgrade]`** is a COST. CR 3.13 says paying a cost is not an
-      effect, so it should not be replaceable — otherwise Rampart lets you use the Chamber for free.
-    - **HMW_081's "If you do, defeat this upgrade"** is NOT a cost — it is part of the effect, so by the
-      text Rampart *should* be able to save the generator (a one-time save; Rampart is unique). That
-      makes the prevention non-atomic, which is why it wants an explicit decision rather than a guess.
-  - Recommendation: allow the replacement for ability-driven defeats, block it for the uniqueness rule
-    and for HMW_095's cost, and confirm the HMW_081 interaction before wiring.
+- [x] **HMW_060 Vice Admiral Rampart** — DONE (ruling settled; see the dedicated section below). "If an
+  upgrade on your base would be defeated, you may defeat this unit instead" is an interactive REPLACEMENT in
+  `SWUDefeatUpgrade`. Final ruling: replaceable for **any** ability/cost/effect defeat of a base upgrade
+  (HMW_081, HMW_095, HMW_171). ⚠ An earlier draft here claimed a cost/effect distinction citing a made-up
+  "CR 3.13"; that was wrong — the SWU CR states a replacement effect CAN replace a cost (the cost still
+  counts as paid) and the "If you do" payoff still resolves. Uniqueness enforcement only hosts on arena
+  units, so it never reaches the base branch.
 
 ## Phase 2 — Entry triggers & "doesn't ready" (autonomous)
 
-- [ ] **Batch 2.1 — HMW_121, HMW_171**
+- [x] **Batch 2.1 — HMW_121, HMW_171** — done, 8 cases (2 + 6), suite 6010/0.
   - HMW_121 Hijacked AT-ST: Overwhelm (auto-wired keyword) + When Played — this unit doesn't ready
-    during the next regroup phase. Same marker as HMW_095, self-targeted.
+    during the next regroup phase. `$whenPlayedAbilities["HMW_121:0"]` self-targets HMW_095's
+    `SWUSkipNextRegroupReady` (one-shot; NOT SOR_186's `SWU_CANT_READY_`).
   - HMW_171 Trap Field: Fortify; when a non-leader ground unit enters play (**including token units**)
-    you may defeat this upgrade and deal 3 to that unit. A base-hosted REACTIVE entry observer —
-    verify it fires for tokens (`SWUCreateUnitToken`) and not just played units, and for BOTH players'
-    units (the text is unrestricted).
-- [ ] **Batch 2.2 — HMW_085, HMW_127**
-  - HMW_085 Remote Scout: When Played — search the top 8 for an upgrade, reveal, draw it; others to the
-    bottom in random order. Mirrors SOR_125 (search 8 for Vehicle units).
-  - HMW_127 Chewbacca's Bowcaster: When Played — if the attached unit is Chewbacca, resource the top
-    card of your deck (enters exhausted). ⚠ Its mock text has an upstream typo, "Attach **of** a
-    non-Vehicle unit"; fix to "Attach to" first — that phrase is what attach logic pattern-matches.
+    you may defeat this upgrade and deal 3 to that unit. **First base-hosted REACTIVE entry observer.**
+    New seam `SWUCollectTrapFieldReactions($mzID)` (GameLogic.php) loops BOTH bases, arms one
+    `AddTrigger($baseOwner,'HMW_171',...,uid,count)` per base with Trap Field; hooked at the played-unit
+    funnel (`CollectEntryTriggers`, batches with the existing flush) AND the token funnel
+    (`_SWUCreateOneToken`, explicit flush since token creation has none). Reaction owned by the base
+    owner → cross-player when the enemy's base reacts (drains like SHD_172; the test needs an extra
+    `AnswerDecision` to drain `RESOLVE_NEXT_TRIGGER` before the YESNO). Entered unit carried by UID
+    (frame-independent). `DispatchTrigger` case → `Hmw171TrapFieldReaction` → `HMW_171#0` continuation
+    (`SWUDefeatUpgrade('myBase-0')` + `SWUDealDamageToUnit(...,3)`; loops for the rare 2-Trap-Field base).
+    HMW_171 has NO generated stub — "When a non-leader ground unit enters play" isn't matched by the
+    WhenPlayed detection ("When Played:"/"When Deployed:" only), so the observer is wired by hand and
+    stub-independent.
+- [x] **Batch 2.2 — HMW_085, HMW_127** — done, 5 cases (2 + 3), suite 6015/0.
+  - HMW_085 Remote Scout: When Played — `DoTopDeckSearch($player, 8, fn upgrade, 1)` (mirror SOR_125).
+    Note: a no-match search still PRESENTS the TOPDECKSEARCH decision (the player looks at the top 8);
+    choosing none (empty `AnswerDecision:`) draws nothing and bottoms all peeked cards — it does NOT
+    auto-skip.
+  - HMW_127 Chewbacca's Bowcaster: `$whenPlayedAbilities["HMW_127:0"]` gets the HOST mzID (non-pilot
+    upgrade WhenPlayed fallback); if `CardTitle(host) === 'Chewbacca'` → `SWURampResourceExhausted(
+    'myDeck-0')`. Attach restriction = HMW_127 added to the non-Vehicle attach group in
+    `SWUGetUpgradeValidTargets`. The mock typo "Attach **of**" was corrected to "Attach to" in
+    CardMocks.php (cosmetic only — attach is per-card case, not text-matched; no regen done).
 
 ## Phase 3 — Conditional keywords & base-trait conditions (autonomous)
 
-- [ ] **Batch 3.1 — HMW_142, HMW_234, HMW_257**
-  - HMW_142 Wookie Rangers: while you control another Wookiee unit **or a Kashyyyk base**, gains
-    Sentinel → `HasConditionalKeyword_Sentinel`.
-  - HMW_234 Ritual Dragon: Saboteur (auto-wired) + while you control a **Tatooine base**, friendly
-    units enter play ready (**including this one** — so it must apply to its own entry).
-  - HMW_257 Ewok Archers: while you control another unit costing 3 or less, gains Ambush →
-    `HasConditionalKeyword_Ambush`.
-  - All three read a BASE trait or a cheap-unit count; the conditional-keyword functions live in
-    DIFFERENT files per keyword, so grep the CardID after implementing and confirm the hit count
-    matches the branch count.
-- [ ] **Batch 3.2 — HMW_177, HMW_255**
-  - HMW_177 Adamant Ewoks: When Played — if you control another Ewok unit **or an Endor base**, you may
-    deal 1 to a base and 1 to an enemy unit. Two targets, one optional gate.
-  - HMW_255 C-3PO: When Played — you may give an Ewok unit +2/+2 for this phase; you may give a Rebel
-    unit +2/+2 for this phase. TWO INDEPENDENT may-choices (declining the first must still offer the
-    second), and per-application phase buffs must use `_SWUStackingStatToken` so two buffs on one unit
-    stack rather than de-dup.
+- [x] **Batch 3.1 — HMW_142, HMW_234, HMW_257** — done, 8 cases, suite 6023/0.
+  - Shared helper `_SWUControlsBaseWithTrait($player, $trait)` (GameLogic.php) — `HasTrait` resolves base
+    traits (CardTraitSupplement backfill), verified against JTL_030 Mos Eisley (Tatooine).
+  - HMW_142 Wookie Rangers: `HasConditionalKeyword_Sentinel` case — another Wookiee unit (`TraitContains`,
+    self-excluded by UID) OR a Kashyyyk base. ⚠ **No Kashyyyk base is previewed in any set**, so that
+    branch is currently unexercisable; it reuses the base-trait helper covered by HMW_234/HMW_177.
+  - HMW_234 Ritual Dragon: Saboteur (auto-wired) + `_SWURitualDragonEntersReady` hooked in BOTH entry
+    paths (ActivateCard unit-entry + `_SWUCreateOneToken` token path). "Including this one" = the helper's
+    `$cardID === 'HMW_234'` self-clause (it isn't in play yet at entry-status time).
+  - HMW_257 Ewok Archers: `HasConditionalKeyword_Ambush` case — another unit costing ≤3 (self-excluded;
+    tokens cost 0 so qualify).
+- [x] **Batch 3.2 — HMW_177, HMW_255** — done, 8 cases (5 + 3), suite 6031/0.
+  - HMW_177 Adamant Ewoks: gate = another Ewok (`TraitContains`, self-excluded) OR Endor base
+    (`_SWUControlsBaseWithTrait`). The base `SWUQueueMayChooseTarget` (`myBase-0`/`theirBase-0`) IS the
+    "may" entry (decline = neither); `HMW_177#0` deals 1 to the chosen base then `SWUQueueChooseTarget`s
+    the enemy-unit half (fizzles cleanly with no enemy unit).
+  - HMW_255 C-3PO: two independent `SWUQueueMayChooseTarget` queued up front (`HMW_255#0`/`#1`), so
+    declining/empty-first still offers the second. Any Ewok / any Rebel (no friendly qualifier).
+    `SWUApplyPhaseBuff(...,'HMW_255')` (registered STAT_BUFF) stacks per-application; no Ewok is also a
+    Rebel in the pool, so same-unit +4/+4 isn't exercisable. Phase-expiry verified.
 
 ## Phase 4 — Tokens (autonomous)
 
-- [ ] **Batch 4.1 — token-upgrade give path + HMW_059**
-  - **Foundation first:** `DoGiveExperienceToken` hardcodes `SOR_T01`, so there is no way to attach an
-    arbitrary token upgrade. Generalize it (or add a sibling) plus a `GIVE_WEAKNESS` DQ continuation so
-    `GiveTokenUpgrade(['token' => 'WEAKNESS'])` works — that helper already builds the continuation
-    name as `GIVE_{TOKEN}`.
-  - HMW_059 Clone X Assassin: When Defeated — you may give a **Weakness token** (HMW_T02) to a unit.
-    The −1/−1 needs no stat code: it comes from the token's `upgradePower`/`upgradeHp`, which the
-    upgrade stat loop already reads. ⚠ Assert a unit reduced to 0 HP by it is defeated
-    (`SWUCheckShrinkDefeats`), and that it is attachable to an ENEMY unit (the text says "a unit").
-- [ ] **Batch 4.2 — HMW_158**
-  - HMW_158 Ezra Bridger: when you take the initiative — you may deal 3 damage to YOUR OWN base; if you
-    do, create a **Beast token** (`SWUCreateUnitToken($player, 'HMW_T03')`). Needs a "when you take the
-    initiative" observer on `SWUTakeInitiative`; check whether one exists before adding. Self-damage is
-    the cost, so the "if you do" gate must not fire when the damage is prevented.
+- [x] **Batch 4.1 — token-upgrade give path + HMW_059** — done, 3 cases, suite 6037/0.
+  - New generic `DoGiveTokenUpgrade($player, $targetMZ, $tokenCardID)` (GameLogic.php) — the arbitrary-token
+    generalisation the hardcoded Shield/Exp/Advantage givers lacked; token Owner/Controller follow the
+    HOST's controller (so a Weakness on an enemy unit is an enemy upgrade). New `GIVE_WEAKNESS` continuation
+    attaches HMW_T02 then runs `SWUCheckShrinkDefeats` (the -1 HP has no SBA of its own).
+  - HMW_059 Clone X Assassin: `$whenDefeatedAbilities["HMW_059:0"]` → `GiveTokenUpgrade(token:'WEAKNESS',
+    friendlyOnly:false, may:true)`. -1/-1 flows through the upgrade stat loop; enemy-attachable + lethal
+    shrink both verified.
+- [x] **Batch 4.2 — HMW_158** — done, 3 cases, suite 6037/0.
+  - HMW_158 Ezra Bridger: the "when you take the initiative" offer is armed in `SWUTakeInitiative` (beside
+    ASH_155/SEC_168). `HMW_158#0` deals 3 to your OWN base then gates the Beast (`SWUCreateUnitToken('HMW_T03')`)
+    on the base damage actually rising (skipped when prevented — Close the Shield Gate verified). ⚠ Test note:
+    Claim ends the round → seed decks or the empty-deck regroup penalty (+6 to each base) masks base assertions.
 
 ## Phase 5 — Leaders (pair-programmed)
 
@@ -140,8 +148,8 @@ round-trip `Subcards` decode as associative ARRAYS; direct property reads return
     RegroupPhaseStart), not a bespoke `SWU_*_USED` flag.
   - Asymmetric target-gating, deliberate: the deployed Action has NO cost, so it is gated in
     `SWUUnitActionAffordable` on a legal attacker existing (otherwise activating would burn the round's
-    use on nothing); the front side's `[2 resources, Exhaust]` cost changes game state, so per
-    CR 6.4.587.c it stays available and fizzles (matching TWI_009/TWI_012).
+    use on nothing); the front side's `[2 resources, Exhaust]` cost changes game state, so it stays
+    available and fizzles (matching TWI_009/TWI_012).
 - [x] **Batch 5.2 — HMW_004 Grand Moff Tarkin** — done, 8 cases (3 pre-existing deploy + 5 new).
   - Both sides: "Ignore the aspect penalties on upgrades with Fortify you play" — one line at the
     `SWUAspectPenalty` chokepoint (the SOR_008 Hera / TWI_001 Nala Se shape), which covers every play
@@ -151,8 +159,8 @@ round-trip `Subcards` decode as associative ARRAYS; direct property reads return
     on-aspect under him and proves nothing. The waiver test uses **HMW_171** (Aggression + Heroism,
     both uncovered, 2 + 4 = 6 → attaches on 2 resources only if waived).
   - Deployed side: "When the regroup phase starts: you may defeat a base with 10 or less remaining HP."
-    **Resolved, not blocked** — defeating a base is not a distinct board state: a base at or above its
-    printed HP in damage IS defeated and its controller loses (CR 3.2.5), so `SWUDefeatBase` fills the
+    **Resolved, not blocked** — defeating a base is not a distinct board state: a base with damage >= its
+    HP IS defeated and its owner immediately loses (SWU CR, base section), so `SWUDefeatBase` fills the
     damage in and lets the existing `SWUCheckBaseDefeatState` sweep declare the outcome (which already
     handles Twin Suns seat elimination too). "A base" carries no friendly/enemy qualifier, so your own
     base is a legal — if suicidal — target, and the "10 or less remaining HP" wording is the multi-base
@@ -160,20 +168,30 @@ round-trip `Subcards` decode as associative ARRAYS; direct property reads return
 
 ## Phase 6 — Base-granted abilities (pair-programmed)
 
-- [ ] **Batch 6.1 — HMW_206 The Tarkin Doctrine** ⛔ blocked on a new capability
-  - Fortify; **"Attached base gains: 'When you play a Fortification upgrade: Exhaust an enemy unit.'"**
-    An upgrade granting a triggered ability TO A BASE does not exist — base-hosted granted abilities
-    are new, and the granted trigger keys on playing a **Fortification-trait** upgrade.
-  - Plus When Played: if you control Grand Moff Tarkin, give an enemy unit −3/−0 for this phase (that
-    half is ordinary, and depends on HMW_004 existing for a full test).
+- [x] **Batch 6.1 — HMW_206 The Tarkin Doctrine** — done, 4 cases, suite 6041/0. **NOT blocked after all.**
+  - The grant clause needed NO general "base-hosted granted abilities" framework — it's a targeted
+    extension of the own-play-upgrade reaction path. `_SWUFinalizeUpgradeAttach` (the Fortify-play path)
+    already calls `CollectWhenPlayedAsUpgradeTriggers`, so a one-line `AddTrigger('HMW_206')` there —
+    gated on `HasTrait($cardID,'Fortification') && _SWUBaseHasUpgrade($player,'HMW_206')` — arms the
+    "exhaust an enemy unit" reaction (DispatchTrigger `HMW_206` case). **Self-trigger ruling resolved by
+    data:** HMW_206's own trait is `Law`, not `Fortification`, so playing The Tarkin Doctrine itself never
+    triggers its own grant (guarded by a test).
+  - When Played half: `$whenPlayedAbilities["HMW_206:0"]` — gate on `_SWUControlsTitle(['Grand Moff
+    Tarkin'])`, then `APPLY_PHASE_DEBUFF|3|0|HMW_206` on an enemy unit (registered STAT_DEBUFF).
 
-## Blocked summary
+## HMW_060 Vice Admiral Rampart — DONE (ruling settled by the user 2026-07-30)
 
-| Card | Blocker |
-|---|---|
-| HMW_206 (grant clause only) | no base-hosted granted abilities; its When Played half is ordinary |
+- [x] **HMW_060 Vice Admiral Rampart** — done, 3 cases, suite 6044/0. Interactive REPLACEMENT in
+  `SWUDefeatUpgrade` (the 12-call-site chokepoint), deferred to action end via `$gDeferredReplacements`
+  (`kind:'rampart_save'`) → `SWUFlushDeferredReplacements` → `RAMPART_SAVE` continuation (JTL_094 timing;
+  HMW CR unreleased, user gave the ruling). **Ruling:** replaceable for ability/effect defeats (HMW_081);
+  NOT for a COST-defeat (HMW_095 Action + HMW_171 self-sacrifice both now pass `$skipReplacement=true`).
+  Uniqueness enforcement only hosts on arena units so it never reaches the base branch (no change needed).
+  The subcard is stamped a UID at defer time so the flush re-finds it (`_SWUBaseUpgradeIndexByUID`). The
+  cross-player deferred YESNO (defender reacts to the attacker's action) drains without an extra step.
 
-HMW_004's "no base-defeat primitive" blocker is **resolved** — see Batch 5.2. `SWUDefeatBase($player)` /
-`SWUBaseRemainingHp($player)` in `GameLogic.php` are now available to any later card.
+## Status
 
-17 of 18 needs-work cards are implementable today; the one remaining blocker affects no other card.
+**ALL 21 currently-previewed HMW cards are implemented.** The "no base-hosted granted abilities" (HMW_206)
+and "no base-defeat primitive" (HMW_004) blockers both turned out to be non-blockers; HMW_060 landed once
+the user settled the replacement-timing ruling.

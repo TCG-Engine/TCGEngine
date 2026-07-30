@@ -78,9 +78,14 @@ function BugReportViewerHandleLoad(string $apiUrl, string $apiKey, int $id, stri
     $step = ['stepped' => false, 'mode' => $mode, 'ordinal' => -1];
     if ($mode !== 'current') {
         $cli = $baseDir . '/SWUSim/DevTools/bugreport-load-state.php';
-        $cmd = 'php ' . escapeshellarg($cli) . ' ' . escapeshellarg($targetGame) . ' ' . escapeshellarg($mode) . ' 2>&1';
-        $out = shell_exec($cmd);
-        $step = json_decode(trim((string)$out), true) ?: ['error' => 'Undo-step failed: ' . trim((string)$out)];
+        // XDEBUG_MODE=off (env): the dev container sets XDEBUG_MODE=debug, so the child php emits an
+        // "Xdebug: [Step Debug] Could not connect…" notice that corrupts the JSON we parse. The env var
+        // takes precedence over php.ini, so `-d xdebug.mode=off` alone does NOT silence it — set the env.
+        // Belt-and-suspenders: also parse from the first '{' in case any other stdout noise leads the output.
+        $cmd = 'XDEBUG_MODE=off php -d xdebug.mode=off ' . escapeshellarg($cli) . ' ' . escapeshellarg($targetGame) . ' ' . escapeshellarg($mode) . ' 2>&1';
+        $out = (string)shell_exec($cmd);
+        $jsonPart = (($p = strpos($out, '{')) !== false) ? substr($out, $p) : $out;
+        $step = json_decode(trim($jsonPart), true) ?: ['error' => 'Undo-step failed: ' . trim($out)];
         if (!empty($step['error'])) return ['error' => $step['error']];
     }
 

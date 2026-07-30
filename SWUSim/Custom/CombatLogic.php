@@ -579,6 +579,31 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
         return false;
     }
 
+    // HMW_060 Vice Admiral Rampart — "If an upgrade on your base would be defeated, you may defeat this
+    // unit instead." Applies to ANY ability/cost/effect defeat of a base upgrade (HMW_081 Alliance Shield
+    // Generator's effect-defeat, HMW_095 Carbonite Chamber's cost-defeat, HMW_171 Trap Field's self-
+    // sacrifice) — per the SWU CR a replacement effect CAN replace a cost (the cost still counts as paid),
+    // and when it replaces the text before "If you do" the player still resolves the "If you do" payoff. A
+    // BOUNCE is not "would be defeated" ($bounce), and $skipReplacement suppresses re-entry when the flush
+    // resolves the declined defeat. Uniqueness enforcement only hosts on arena units, so it never reaches
+    // this branch. Deferred to action end (JTL_094 timing, user-specified) so the base controller chooses;
+    // the upgrade stays on the base until then, stamped a UID so the flush can re-find it. HMW CR unreleased.
+    if (!$skipReplacement && !$bounce && strpos($hostMzID, 'Base') !== false) {
+        $baseCtrl = intval($host->Controller ?? $player);
+        if ($baseCtrl <= 0) $baseCtrl = intval($player);
+        if (_SWUControlsCardInPlay($baseCtrl, 'HMW_060')) {
+            if (intval($foundUID) <= 0) {
+                $foundUID = NextUniqueID();
+                if (is_array($host->Subcards[$foundKey])) $host->Subcards[$foundKey]['UniqueID'] = $foundUID;
+                elseif (is_object($host->Subcards[$foundKey])) $host->Subcards[$foundKey]->UniqueID = $foundUID;
+            }
+            $gDeferredReplacements[] = ['kind' => 'rampart_save', 'controller' => $baseCtrl,
+                'hostMz' => $hostMzID, 'uid' => intval($foundUID), 'cardID' => $foundCardID];
+            $playerID = $savedPID;
+            return true;   // handled via the replacement — the base upgrade stays for now
+        }
+    }
+
     // Rebuild Subcards without the defeated upgrade (explicit reassignment ensures the
     // property on the live zone object is updated even when $host was obtained without &).
     $newSubcards = [];

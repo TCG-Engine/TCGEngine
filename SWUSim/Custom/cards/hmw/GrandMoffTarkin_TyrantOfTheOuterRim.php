@@ -13,8 +13,8 @@
 //
 // The regroup clause is DEPLOYED-only and is collected in _SWUHmw004RegroupBaseDefeat (called from
 // RegroupPhaseStart); only its resolution lives here. Defeating a base is not a separate board state in
-// SWU — a base at or above its printed HP in damage IS defeated and its controller loses (CR 3.2.5), so
-// SWUDefeatBase fills the damage in and lets the existing state-based sweep declare the result.
+// SWU — a base with damage >= its HP IS defeated and its owner immediately loses the game (SWU CR, base
+// section), so SWUDefeatBase fills the damage in and lets the existing state-based sweep declare the result.
 
 $customDQHandlers["HMW_004#0"] = function ($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);

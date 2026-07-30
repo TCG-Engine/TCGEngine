@@ -297,6 +297,34 @@ $customDQHandlers["DEFEAT_REPLACE_UPG"] = function ($player, $parts, $lastDecisi
   );
   $playerID = $saved;
 };
+// HMW_060 Vice Admiral Rampart — "If an upgrade on your base would be defeated, you may defeat this unit
+// instead." YES → defeat Rampart, the saved base upgrade stays. NO → defeat the base upgrade for real
+// ($skipReplacement so it doesn't re-offer). If Rampart has left play since the offer, the upgrade is
+// defeated regardless.
+$customDQHandlers["RAMPART_SAVE"] = function ($player, $parts, $lastDecision) {
+  global $gReplaceSnapshots, $playerID;
+  $ctrl = intval($parts[0] ?? $player);
+  $uid  = intval($parts[1] ?? 0);
+  $e = $gReplaceSnapshots[$uid] ?? null;
+  unset($gReplaceSnapshots[$uid]);
+  if ($e === null)
+    return;
+  $playerID = $ctrl;
+  $hostMz = (string) ($e['hostMz'] ?? '');
+  $idx = _SWUBaseUpgradeIndexByUID($ctrl, $hostMz, $uid);
+
+  // Find Rampart (unique) among the base controller's units.
+  $rampartMz = null;
+  foreach (GetUnitsInPlay($ctrl) as $u) {
+    if (empty($u->removed) && ($u->CardID ?? '') === 'HMW_060') { $rampartMz = $u->GetMzID(); break; }
+  }
+
+  if (!SWUDecisionDeclined($lastDecision) && $rampartMz !== null) {
+    SWUDefeatUnit($ctrl, $rampartMz);           // "defeat this unit instead" — the base upgrade is saved
+  } elseif ($idx >= 0) {
+    SWUDefeatUpgrade($ctrl, $hostMz, $idx, false, true);  // declined (or no Rampart) → defeat the upgrade
+  }
+};
 // Universal "deal N damage to the chosen base" — param DEAL_BASE_DAMAGE|N, chosen mzID = myBase-0/theirBase-0.
 // No-ops on a '-' decline (used with MZMAYCHOOSE). Reference: SOR_143 Fighters for Freedom.
 $customDQHandlers["DEAL_BASE_DAMAGE"] = function ($player, $parts, $lastDecision) {
@@ -2074,6 +2102,17 @@ $customDQHandlers["GIVE_SHIELD"] = function ($player, $parts, $lastDecision) {
   if (SWUDecisionDeclined($lastDecision))
     return;
   GiveShieldToken(intval($player), $lastDecision);
+};
+// Universal: attach a Weakness token (HMW_T02, -1/-1) to the chosen unit (HMW_059 Clone X Assassin). No-op
+// on a '-'/PASS decline (composes with SWUQueueMayChooseTarget). The -1 HP can drop the host's remaining HP
+// to 0, which has no state-based defeat of its own — so run a shrink-defeat sweep after attaching.
+$customDQHandlers["GIVE_WEAKNESS"] = function ($player, $parts, $lastDecision) {
+  if (SWUDecisionDeclined($lastDecision))
+    return;
+  global $playerID;
+  $playerID = intval($player);
+  DoGiveTokenUpgrade(intval($player), $lastDecision, 'HMW_T02');
+  SWUCheckShrinkDefeats();
 };// Universal: discard the chosen card ($lastDecision = "theirHand-N") from the opponent's hand to
 // the opponent's discard (From=HAND). Used by the "look at an opponent's hand and discard a card
 // from it" family (SOR_200, SOR_201).
