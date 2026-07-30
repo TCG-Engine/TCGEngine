@@ -69,7 +69,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       </div>
       <div id="deck-input-link">
         <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a deck link:</label>
-        <input type="text" id="deck-link" name="deck_link" placeholder="https://swustats.net/TCGEngine/NextTurn.php?gameName=..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        <input type="text" id="deck-link" name="deck_link" placeholder="https://swustats.net/deck/..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
         <div style="margin-top: 8px; color: var(--text-muted); font-size: 12px; line-height: 1.35;">
           Supported deck links: SWUStats, SWUDB
         </div>
@@ -125,6 +125,11 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
              (DEVENV or a localhost Host) so Playwright suites can still exercise the queue flow. -->
         <button onclick="joinQueue()">Join Queue</button>
         <?php endif; ?>
+        <!-- Solo / local modes (Goldfish, Hotseat) are NOT matchmade — JoinQueue.php creates the
+             game immediately. They used to ride the "Join Queue" button, which is dev-only in
+             production, leaving those formats unstartable; this button is their own entry point.
+             Hidden unless a mode format is selected (see applyFormatUI). -->
+        <button id="start-solo-btn" onclick="startSoloGame()" style="display: none; background-color: #8a5f2f;">Start 1P Game</button>
         <button onclick="saveCurrentDeck()" style="background-color: #6b4f9f;" title="Save this deck link to your library">Save Deck</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
@@ -592,6 +597,14 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         });
       }
 
+      // Goldfish / Hotseat: same submission path, but the server creates the game immediately
+      // (no matchmaking), so this never actually waits — the response comes back ready.
+      function startSoloGame() {
+        submitQueueJoin({
+          waitingMessage: 'Starting game... (Esc to cancel)'
+        });
+      }
+
       // ── Saved deck links ──────────────────────────────────────────────────
       // This page is served at two URL depths (the ActiveSite root /TCGEngine/SharedUI/MainMenu.php
       // AND /TCGEngine/SharedUI/Sites/SWUSim/MainMenu.php), so a fixed '../../../' prefix overshoots
@@ -646,8 +659,18 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           }
           var joinBtn = document.querySelector('button[onclick="joinQueue()"]');
           var createBtn = document.querySelector('button[onclick="createPrivateGame()"]');
-          if (joinBtn) joinBtn.style.display = isTwinSuns ? 'none' : '';
-          if (createBtn) createBtn.textContent = isTwinSuns ? 'Create Twin Suns Room' : 'Create Private Game';
+          var soloBtn = document.getElementById('start-solo-btn');
+          // Solo/local modes: only the Start button applies — matchmaking and private invites
+          // are meaningless for a game that has no remote opponent.
+          if (joinBtn) joinBtn.style.display = (isTwinSuns || isMode) ? 'none' : '';
+          if (createBtn) {
+            createBtn.style.display = isMode ? 'none' : '';
+            createBtn.textContent = isTwinSuns ? 'Create Twin Suns Room' : 'Create Private Game';
+          }
+          if (soloBtn) {
+            soloBtn.style.display = isMode ? '' : 'none';
+            soloBtn.textContent = (fmt.value === 'hotseat') ? 'Start Hotseat Game' : 'Start 1P Game';
+          }
         }
         fmt.addEventListener('change', applyFormatUI);
         applyFormatUI();

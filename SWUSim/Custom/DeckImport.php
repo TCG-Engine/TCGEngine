@@ -114,11 +114,18 @@ function SWUResolveDeckInput($deckLink) {
     // ── SWUStats / SWUDeck game link (a deck stored as a SWUStats game) ────────
     // Prod: https://swustats.net/TCGEngine/NextTurn.php?gameName=<id>&folderPath=SWUDeck
     // Dev:  http://localhost:3100/TCGEngine/NextTurn.php?gameName=<id>&folderPath=SWUDeck
+    // Friendly/short link (what SWUDeck's "Copy Link" now hands out):
+    //       https://swustats.net/deck/<12-letter code>   (Karabast variant appends ?gameName=<code>)
     // The localhost/loopback form is accepted ONLY under DEVENV (dev-only; avoids a prod
     // SWUSim fetching arbitrary internal hosts).
     if (stripos($deckLink, 'swustats.net') !== false
         || (getenv('DEVENV') === 'true'
             && preg_match('#^https?://(localhost|127\.0\.0\.1|host\.docker\.internal)(:\d+)?/#i', $deckLink))) {
+        return SWUImportFromSWUStats($deckLink);
+    }
+
+    // ── Bare friendly deck code (the short code on its own, no URL) ────────────
+    if (preg_match('/^[A-Za-z]{12}$/', $deckLink)) {
         return SWUImportFromSWUStats($deckLink);
     }
 
@@ -260,19 +267,42 @@ function SWUImportFromSWUDB($url) {
 
 // ─── Source: SWUStats / SWUDeck game link ────────────────────────────────────
 
+/**
+ * Extract the deck identifier from a SWUStats/SWUDeck deck link.
+ *
+ * Accepted shapes (in precedence order):
+ *   ?gameName=<numericId>          legacy game link
+ *   ?gameName=<12-letter code>     the "Karabast import link" variant
+ *   /deck/<12-letter code>         the friendly short link ("Copy Link")
+ *   <12-letter code>               the bare short code
+ *
+ * A 12-letter code is passed through verbatim — LoadDeck.php resolves it to the numeric
+ * deck id itself (ResolveFriendlyCode), so no lookup is needed on this side.
+ * Returns '' when nothing identifiable is present.
+ */
+function SWUExtractSWUStatsDeckId($url) {
+    if (preg_match('/[?&]gameName=(\d+)/', $url, $m))                     return $m[1];
+    if (preg_match('/[?&]gameName=([A-Za-z]{12})(?![A-Za-z])/', $url, $m)) return $m[1];
+    if (preg_match('#/deck/([A-Za-z]{12})(?![A-Za-z0-9])#', $url, $m))     return $m[1];
+    if (preg_match('/^[A-Za-z]{12}$/', trim($url), $m))                    return $m[0];
+    return '';
+}
+
 function SWUImportFromSWUStats($url) {
-    // A SWUStats deck lives as a "game"; the link carries ?gameName=<numericId>.
-    if (!preg_match('/[?&]gameName=(\d+)/', $url, $m)) {
-        return SWUDeckError('Could not extract a gameName from the SWUStats link.');
+    // A SWUStats deck lives as a "game" (?gameName=<numericId>) and is also reachable by its
+    // friendly short code (/deck/<code>) — accept either.
+    $deckId = SWUExtractSWUStatsDeckId($url);
+    if ($deckId === '') {
+        return SWUDeckError('Could not extract a deck id or share code from the SWUStats link.');
     }
-    $deckId = $m[1];
 
     // Fetch base follows the link host: swustats.net stays swustats.net; a local/loopback link
-    // (dev only) is reached via the Docker host gateway, since "localhost" inside this game
-    // container is the container itself, not the host's :3100 SWUDeck mapping.
+    // or a bare share code (dev only) is reached via the Docker host gateway, since "localhost"
+    // inside this game container is the container itself, not the host's :3100 SWUDeck mapping.
     $base = 'https://swustats.net';
     if (getenv('DEVENV') === 'true'
-        && preg_match('#^https?://(localhost|127\.0\.0\.1|host\.docker\.internal)(:\d+)?#i', $url)) {
+        && (preg_match('#^https?://(localhost|127\.0\.0\.1|host\.docker\.internal)(:\d+)?#i', $url)
+            || preg_match('/^[A-Za-z]{12}$/', trim($url)))) {
         $base = 'http://host.docker.internal:3100';
     }
 
