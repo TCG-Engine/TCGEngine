@@ -352,8 +352,14 @@ class GameStateBuilder {
             if (!isset($baseZone[0])) { unset($baseZone); continue; }
             $baseObj = $baseZone[0];
             if (!is_array($baseObj->Subcards)) $baseObj->Subcards = [];
+            // Seeded as ASSOCIATIVE ARRAYS on purpose — that is what a real gamestate deserialize
+            // produces (Base::__construct does json_decode(base64_decode($f), true)), and it is the
+            // shape that hides bugs: reading $sub->CardID on it yields NULL, and (string)$sub emits an
+            // "Array to string conversion" warning that corrupts the response stream. Engine code must
+            // go through GetUpgradesOnUnit, which normalizes both shapes. The object shape is covered
+            // by the tests that PLAY a Fortify upgrade (_SWUFinalizeUpgradeAttach builds objects).
             foreach ($reqs as $upCid) {
-                $baseObj->Subcards[] = (object) [
+                $baseObj->Subcards[] = [
                     'CardID'      => $upCid,
                     'Owner'       => $bp,
                     'Controller'  => $bp,

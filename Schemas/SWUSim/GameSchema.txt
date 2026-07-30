@@ -208,12 +208,15 @@ Virtual: HasForce=BaseHasForce()
 # UpgradeCount drives the bottom-left badge showing how many Fortify upgrades are attached.
 Virtual: UpgradeCount=BaseUpgradeCount()
 Counters: Damage=Image(Path=Assets/Icons/swusim-damage.png,Position=Center,ShowZero=false,Size=48,TextColor=White,OffsetY=-8)
-# Attached FORTIFY upgrades. Flow=Badge suppresses the default inline subcard render (the "Above"
-# lineage stack overlaps and hides the base art); the count shows as a bottom-left badge instead, and
-# Mode=CardIDs makes the badge pop the attached cards' art on hover.
+# Attached FORTIFY upgrades. Flow=Badge suppresses the default inline subcard render — the "Above"
+# lineage stack overlaps and hides the base art (verified by screenshot).
 Subcards: Flow=Badge
+# The badge binds to the INT count, NOT to UpgradeCardIDs with Mode=CardIDs: that mode DEDUPES by
+# source CardID (Core/CounterRendering.js resolveEffectSourceCardId), so two copies of a non-unique
+# Fortify upgrade — HMW_081/095/171 are all non-unique — would display "1". UpgradeCardIDs stays
+# because it is the data source for the click-to-see-the-upgrades popup (still to be wired).
 Virtual: UpgradeCardIDs=BaseUpgradeCardIDs()
-Counters: UpgradeCardIDs=Badge(Color=White,Position=BottomLeft,ShowZero=false,Mode=CardIDs)
+Counters: UpgradeCount=Badge(Color=White,Position=BottomLeft,ShowZero=false,PopupFrom=UpgradeCardIDs)
 
 # GroundArena ──────────────────────────────────────────────────────────────────
 # Units in the ground arena controlled by this player (including deployed leader units

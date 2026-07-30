@@ -1414,7 +1414,10 @@ function SWUEnforceUpgradeUniqueness(int $player, string $cardID, object $keepSu
             $baseZone = &GetBase(intval($player));
             if (isset($baseZone[0]) && is_array($baseZone[0]->Subcards ?? null)) {
                 foreach ($baseZone[0]->Subcards as $bIdx => $bSub) {
-                    if (($bSub->CardID ?? '') !== $cardID) continue;
+                    // Round-tripped subcards are associative arrays, not objects — read both shapes.
+                    // The index is needed for SWUDefeatUpgrade, so this can't use GetUpgradesOnUnit.
+                    $bCid = is_array($bSub) ? ($bSub['CardID'] ?? '') : ($bSub->CardID ?? '');
+                    if ($bCid !== $cardID) continue;
                     if (is_object($bSub) && $bSub === $keepSub) continue;   // never the copy just attached
                     SWUDefeatUpgrade(intval($player), 'myBase-0', $bIdx);
                     DecisionQueueController::CleanupRemovedCards();
@@ -1611,6 +1614,29 @@ function _SWUMonMothmaOffer(int $player): void {
     if (empty($units)) { SetSWUVar('SWU_MONMOTHMA_LOOP', ''); return; }   // no more eligible units → stop
     SWUQueueMayChooseTarget($player, $units, 'Attack_with_another_unit_even_if_exhausted',
         'Choose_a_unit_to_attack_with', 'MONMOTHMA_ATTACK');
+}
+
+// HMW_009 Chewbacca (Relentless Rebel), BOTH sides — "Attack with a unit, even if it's exhausted. It
+// can't attack bases for this attack." Every friendly unit in either arena is a candidate REGARDLESS of
+// ready/exhausted status (that is the whole point of the card), minus the hard "can't attack" cases. A
+// unit with no valid NON-BASE target is excluded: the base is not a legal target here, so picking it
+// could accomplish nothing. An empty list means the ability fizzles.
+function _SWUHmw009Attackers(int $player): array {
+    global $playerID; $playerID = $player;
+    $units = [];
+    foreach (['myGroundArena' => 'GroundArena', 'mySpaceArena' => 'SpaceArena'] as $zone => $arena) {
+        $arr = GetZone($zone);
+        for ($i = 0; $i < count($arr); $i++) {
+            $u = $arr[$i];
+            if (SWUObjGone($u)) continue;
+            if (_SWUUnitHardCantAttack($u)) continue;
+            // LOF_063 Oggdo Bogdo — "can't attack unless it's damaged."
+            if (($u->CardID ?? '') === 'LOF_063' && intval($u->Damage ?? 0) <= 0) continue;
+            if (empty(SWUGetAllValidAttackTargets($player, $u, $arena, true))) continue; // noBases
+            $units[] = "{$zone}-{$i}";
+        }
+    }
+    return $units;
 }
 
 // SHD_145 Headhunting — "Attack with up to 3 units (one at a time). They can't attack bases for these
@@ -2152,6 +2178,15 @@ function _SWUControlsHera(int $player): bool {
     }
     return false;
 }
+// HMW_004 Grand Moff Tarkin — the aspect waiver is printed on BOTH faces ("Ignore the aspect penalties on
+// upgrades with Fortify you play"), so the player has it while HMW_004 is their leader, deployed or not
+// (the leader-zone entry persists either way). Same shape as _SWUControlsHera / _SWUControlsMonMothma.
+function _SWUControlsTarkinHmw004(int $player): bool {
+    foreach (GetLeader($player) as $l) {
+        if ($l !== null && empty($l->removed) && ($l->CardID ?? '') === 'HMW_004') return true;
+    }
+    return false;
+}
 // SEC_009 Mon Mothma — both the leader front side and the deployed unit carry the same passive, so the
 // player has it while SEC_009 is their leader (undeployed or deployed — the leader-zone entry persists).
 function _SWUControlsMonMothma(int $player): bool {
@@ -2191,6 +2226,10 @@ function SWUAspectPenalty($player, $cardID): int {
             && strpos($raw, 'Villainy') === false && _SWUControlsMonMothma(intval($player))) {
         return 0;
     }
+
+    // HMW_004 Grand Moff Tarkin (both sides): "Ignore the aspect penalties on upgrades with Fortify you
+    // play." Scoped to Fortify upgrades — a plain upgrade still pays its penalty.
+    if (isset($GLOBALS['Fortify_Cards'][$cardID]) && _SWUControlsTarkinHmw004(intval($player))) return 0;
 
     // ASH_212 Peli Motto: "Ignore the aspect penalties of the first non-unit card you play each phase."
     // The waiver applies until SWU_ASH212_USED is set (locked in by ActivateCard on the first non-unit play).
@@ -4761,6 +4800,14 @@ function ReadyPhase() {
                 SWUClearGlobalEffectsByPrefix($p, 'SWU_CANT_READY_' . $uid);
                 return true;
             }
+            // HMW_095 Carbonite Chamber (and HMW_121) — "doesn't ready during the NEXT regroup phase."
+            // Deliberately a SEPARATE flag from SOR_186's SWU_CANT_READY_: that one also blocks explicit
+            // mid-phase "ready a unit" effects, which this wording does not. Read only here, and consumed
+            // so the unit readies the round after.
+            if ($uid > 0 && GlobalEffectCount($p, 'SWU_SKIP_REGROUP_READY_' . $uid) > 0) {
+                SWUClearGlobalEffectsByPrefix($p, 'SWU_SKIP_REGROUP_READY_' . $uid);
+                return true;
+            }
             // JTL_182 Rampart: doesn't ready during regroup unless its power is 4 or more.
             if (($u->CardID ?? '') === 'JTL_182' && ObjectCurrentPower($u) < 4) return true;
             // SEC_037: locked "can't ready while [the source] is in play" (not consumed — lifts when
@@ -4961,6 +5008,30 @@ function _SWULawRegroupStartTriggers(): void {
     $playerID = $saved;
 }
 
+// HMW_004 Grand Moff Tarkin, DEPLOYED side (The Death Star) — "When the regroup phase starts: You may
+// defeat a base with 10 or less remaining HP." The printed text carries no friendly/enemy qualifier, so
+// EITHER base is a legal target once it is at 10 or less remaining HP — including your own, which simply
+// loses you the game. The threshold wording matters in Twin Suns, where several bases can qualify; in
+// 2-player it is my base and their base.
+function _SWUHmw004RegroupBaseDefeat(): void {
+    global $playerID; $saved = $playerID;
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
+        if (!_SWULeaderDeployed($p, 'HMW_004')) continue;   // deployed side only
+        $playerID = $p;
+        $targets = [];
+        foreach (['myBase-0' => $p, 'theirBase-0' => OtherPlayer($p)] as $mz => $owner) {
+            $b = GetBase($owner);
+            if (empty($b) || !empty($b[0]->removed)) continue;
+            if (intval(CardHp($b[0]->CardID)) <= 0) continue;
+            if (SWUBaseRemainingHp($owner) <= 10) $targets[] = $mz;
+        }
+        if (empty($targets)) continue;
+        SWUQueueMayChooseTarget($p, $targets, "Defeat_a_base_with_10_or_less_remaining_HP?",
+            "Choose_a_base_to_defeat", 'HMW_004#0');
+    }
+    $playerID = $saved;
+}
+
 // ── LAW_072 Max Rebo — "There is an additional regroup phase after the first regroup phase each round." ──
 // Each Max Rebo in play adds ONE additional regroup phase — they STACK, so total regroups = 1 + count
 // (both players' Max Rebos count). SWU_REGROUP_NUM counts the regroup phases run this round (incremented
@@ -5045,6 +5116,7 @@ function RegroupPhaseStart(): void {
     _SWUCheckConfidenceWin();              // SEC_145 Confidence in Victory — arena-control win check
     _SWUCheckFinalShowdownLose();          // SHD_208 Final Showdown — caster loses the game (before the draw step)
     _SWULawRegroupStartTriggers();         // LAW_071 (credit), LAW_073 (Exp + can't-ready) at regroup start
+    _SWUHmw004RegroupBaseDefeat();         // HMW_004 (deployed) — may defeat a base at 10 or less remaining HP
     // TWI_067 The Zillo Beast — "When the regroup phase starts: Heal 5 damage from this unit."
     for ($zp = 1; $zp <= SeatCountForGame(); $zp++) {
         foreach (GetUnitsInPlay($zp) as $zu) {
@@ -6614,6 +6686,13 @@ $gExploitDeferredBag   = $gExploitDeferredBag   ?? [];
 
 // JTL defeat-replacement bag ("if this would be defeated, you may instead …"). A would-be-defeated
 // unit with an available replacement is parked here (NOT discarded) and resolved at action end.
+// Actions granted to a base by an attached Fortify upgrade, keyed by the UPGRADE's CardID:
+//   $baseUpgradeAbilities[$upgradeCardID] = fn(int $player, int $upgradeIndex): void
+// Reached through SWUBaseAction (see _SWUBaseActionProviders); the closure pays its own cost and owns
+// its After Action, exactly like a $baseAbilities closure.
+global $baseUpgradeAbilities;
+$baseUpgradeAbilities = $baseUpgradeAbilities ?? [];
+
 global $gDeferredReplacements, $gReplaceSnapshots, $gSec035DefeatSnapshot, $gAsh195DefeatSnapshot, $gCombatDefeatByMz;
 $gDeferredReplacements = $gDeferredReplacements ?? [];
 $gReplaceSnapshots     = $gReplaceSnapshots     ?? []; // uid → snapshot for pilot-upgrade→unit replacement
@@ -10196,6 +10275,20 @@ $customDQHandlers["SWU_AFTER_ACTION"] = function($player, $parts, $lastDecision)
     SWUAfterAction(intval($player));
 };
 
+// Resolves the "which base ability?" OPTIONCHOOSE SWUBaseAction raises when a base has both its own
+// Action and one or more Fortify-upgrade Actions. Labels are re-derived from the current board (nothing
+// can have changed in between), so no state rides the decision. An unrecognised answer keeps the action.
+$customDQHandlers["BASE_ACTION_PICK"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $playerID = intval($player);
+    foreach (_SWUBaseActionProviders(intval($player)) as $prov) {
+        if ($prov['label'] === (string)$lastDecision) {
+            _SWUDispatchBaseAction(intval($player), $prov);
+            return;
+        }
+    }
+};
+
 // Like SWU_AFTER_ACTION but DON'T swap the turn player — JTL_018 Kazuda's "take an extra action".
 $customDQHandlers["SWU_AFTER_ACTION_EXTRA"] = function($player, $parts, $lastDecision) {
     SWUAfterActionExtra(intval($player));
@@ -10740,9 +10833,11 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
             break;
         // "Attach to a Capital Ship or Transport unit." (JTL_227 Superheavy Ion Cannon)
         case 'JTL_227':
+            // TraitContains, not bare-CardID HasTrait: the host is IN PLAY, so a deployed leader's
+            // deployed-side trait line (HMW_004 → The Death Star, a Capital Ship) must count.
             $all = array_values(array_filter($all, function($mz) {
-                $cid = GetZoneObject($mz)->CardID ?? '';
-                return HasTrait($cid, 'Capital Ship') || HasTrait($cid, 'Transport');
+                $o = GetZoneObject($mz);
+                return TraitContains($o, 'Capital Ship') || TraitContains($o, 'Transport');
             }));
             break;
         // SOR_122 Traitorous / SHD_072 (loses abilities) / SEC_038 Condemn — attach to any unit, any
@@ -10997,8 +11092,9 @@ function SWUGetUnitsWithUpgrades(string $filter = ''): array {
     // a base upgrade is invisible to EVERY "defeat an upgrade" card in the game (Confiscate SOR_251).
     foreach (['myBase-0', 'theirBase-0'] as $baseMz) {
         $base = GetZoneObject($baseMz);
-        if ($base === null || !is_array($base->Subcards ?? null)) continue;
-        foreach ($base->Subcards as $up) {
+        if ($base === null) continue;
+        // GetUpgradesOnUnit normalizes round-tripped array subcards to objects (see BaseUpgradeCount).
+        foreach (GetUpgradesOnUnit($base) as $up) {
             if (SWUUpgradeMatchesFilter($up->CardID ?? '', $filter)) {
                 $result[] = $baseMz;
                 break;
@@ -12581,7 +12677,98 @@ function _SWUBaseActionUsesLeft($base, string $cardID): int {
     return ($n < 0) ? intval($baseActionNumUses[$cardID]) : $n;
 }
 
+// ── Base Actions: the base's own Action, plus Actions hosted on Fortify upgrades ─────────────────────
+// A base can now carry upgrades (Fortify), and such an upgrade may itself grant an activated Action
+// (HMW_095 Carbonite Chamber) — registered in $baseUpgradeAbilities, keyed by the UPGRADE's CardID, and
+// called as fn($player, $upgradeIndex). Clicking the base is a single undifferentiated input, so when
+// more than one Action is available the player is asked which to use rather than one silently shadowing
+// the other (the deliberate difference from the single-provider unit model in SWUGetUnitActionProvider).
+//
+// Returns every AVAILABLE base Action as
+//   ['kind' => 'own'|'upgrade', 'cardID' => …, 'index' => <upgrade index, or -1 for 'own'>, 'label' => …]
+// Labels are single-token (DecisionQueue params split on spaces) and are re-derived, not stored — the
+// board cannot change between the OPTIONCHOOSE and the CUSTOM that reads its answer.
+function _SWUBaseActionProviders(int $player): array {
+    global $baseAbilities, $baseActionNumUses, $baseActionRepeatable, $baseUpgradeAbilities;
+    $baseArr = GetBase($player);
+    $base = null;
+    foreach ($baseArr as $b) { if (empty($b->removed)) { $base = $b; break; } }
+    if ($base === null) return [];
+    $cardID = $base->CardID ?? '';
+    $out = [];
+
+    // The base's own Action — only when it actually has one registered, so clicking a vanilla base can
+    // no longer burn its (nonexistent) Epic slot. SEC_046 Galen Erso suppresses it by name.
+    if (isset($baseAbilities[$cardID]) && !_SWUGalenSuppressesCard($player, $cardID)) {
+        $available = true;
+        if (isset($baseActionRepeatable[$cardID])) {
+            // Repeatable card-cost Action (LOF_028 Tomb of Eilram): available iff the cost can be paid,
+            // i.e. the player has a ready friendly unit to exhaust.
+            $available = false;
+            foreach (array_merge(GetGroundArena($player), GetSpaceArena($player)) as $ru) {
+                if (SWUObjGone($ru)) continue;
+                if (intval($ru->Status ?? 0) === 1) { $available = true; break; }
+            }
+        } elseif (isset($baseActionNumUses[$cardID])) {
+            $available = _SWUBaseActionUsesLeft($base, $cardID) > 0; // per-GAME budget
+        } else {
+            $available = empty($base->EpicActionUsed);
+        }
+        if ($available) $out[] = ['kind' => 'own', 'cardID' => $cardID, 'index' => -1, 'label' => 'EpicAction'];
+    }
+
+    // Actions granted by upgrades attached to the base. Index is the position among non-captive,
+    // non-removed subcards — what SWUDefeatUpgrade's $upgradeIndex means.
+    $idx = 0;
+    foreach (GetUpgradesOnUnit($base) as $sub) {
+        $ucid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+        if ($ucid !== '' && isset($baseUpgradeAbilities[$ucid])) {
+            $label = preg_replace('/[^A-Za-z0-9]/', '', (string)CardTitle($ucid));
+            if ($label === '') $label = str_replace('_', '', $ucid);
+            foreach ($out as $o) { if ($o['label'] === $label) { $label .= ($idx + 1); break; } }
+            $out[] = ['kind' => 'upgrade', 'cardID' => $ucid, 'index' => $idx, 'label' => $label];
+        }
+        $idx++;
+    }
+    return $out;
+}
+
+// Run one resolved base Action.
+function _SWUDispatchBaseAction(int $player, array $prov): void {
+    global $playerID, $baseUpgradeAbilities;
+    if ($prov['kind'] === 'own') { _SWUBaseOwnAction($player); return; }
+    $playerID = $player;
+    $fn = $baseUpgradeAbilities[$prov['cardID']] ?? null;
+    if (is_callable($fn)) $fn($player, intval($prov['index']));
+    else SWUAfterAction($player);
+}
+
 function SWUBaseAction(int $player): void {
+    global $playerID;
+    $savedPID = $playerID;
+    $playerID = $player;
+
+    $providers = _SWUBaseActionProviders($player);
+    if (empty($providers)) { $playerID = $savedPID; return; }   // nothing available — keep the action
+    if (count($providers) === 1) {
+        _SWUDispatchBaseAction($player, $providers[0]);
+        $playerID = $savedPID;
+        return;
+    }
+    // More than one Action on the base — let the player pick. The leading "@CardID" segment renders the
+    // base's art above the buttons (OptionChooseUI strips it from the options).
+    $labels = array_column($providers, 'label');
+    $baseArr = GetBase($player);
+    $bcid = '';
+    foreach ($baseArr as $b) { if (empty($b->removed)) { $bcid = $b->CardID ?? ''; break; } }
+    DecisionQueueController::AddDecision($player, 'OPTIONCHOOSE',
+        ($bcid !== '' ? '@' . $bcid . '&' : '') . implode('&', $labels), 1,
+        tooltip: 'Which_base_ability_do_you_want_to_use?');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'BASE_ACTION_PICK', 1);
+    $playerID = $savedPID;
+}
+
+function _SWUBaseOwnAction(int $player): void {
     global $playerID, $baseAbilities, $baseActionNumUses, $baseActionRepeatable;
     $savedPID = $playerID;
     $playerID = $player;
@@ -12717,6 +12904,15 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
                 }
             }
             if (!$found) $ok = false;
+            break;
+        }
+        case 'HMW_009': { // Chewbacca (deployed): "Use this ability only once each round" — and, since the
+                          // ability has NO cost at all (no exhaust, no resources), it must not be offerable
+                          // when it could do nothing: it needs a friendly unit with a valid NON-BASE target.
+                          // (The FRONT side deliberately is NOT target-gated — its [2 resources, Exhaust]
+                          // cost changes game state, so per CR 6.4.587.c it stays available and fizzles.)
+            if (!SWUHasUseAvailable($actor)) { $ok = false; break; }
+            if (empty(_SWUHmw009Attackers($player))) $ok = false;
             break;
         }
         case 'ASH_119': // Greef Karga: only useful if your base was attacked this phase.
@@ -13755,20 +13951,10 @@ function SWUComputeActionsData(int $player): array {
     foreach ($baseArr as $b) {
         if (isset($b->removed) && $b->removed) continue;
         $bCardID = $b->CardID ?? '';
-        if (isset($baseActionRepeatable[$bCardID])) {
-            // Repeatable card-cost action (LOF_028): available iff the cost can be paid (a ready friendly unit).
-            $hasReady = false;
-            foreach (array_merge(GetGroundArena($player), GetSpaceArena($player)) as $ru) {
-                if (SWUObjGone($ru)) continue;
-                if (intval($ru->Status ?? 0) === 1) { $hasReady = true; break; }
-            }
-            $data['baseEpic'] = $hasReady && isset($baseAbilities[$bCardID]);
-        } elseif (isset($baseActionNumUses[$bCardID])) {
-            $data['baseEpic'] = _SWUBaseActionUsesLeft($b, $bCardID) > 0 && isset($baseAbilities[$bCardID]);
-        } else {
-            $epicUsed = (bool)($b->EpicActionUsed ?? false);
-            $data['baseEpic'] = !$epicUsed && isset($baseAbilities[$bCardID]);
-        }
+        // Any available base Action lights the base — its own Epic and/or a Fortify-upgrade Action
+        // (HMW_095). _SWUBaseActionProviders is the same list SWUBaseAction dispatches from, so the glow
+        // and the click can't drift.
+        $data['baseEpic'] = !empty(_SWUBaseActionProviders($player));
         break; // only one live base per player
     }
 
@@ -18689,6 +18875,43 @@ function SWUCheckBaseDefeatState() {
             }
         }
     }
+}
+
+// Remaining HP of a player's base = printed HP minus damage on it (never below 0). What a "with N or less
+// remaining HP" base condition reads (HMW_004 Grand Moff Tarkin).
+function SWUBaseRemainingHp(int $player): int {
+    $b = GetBase($player);
+    if (empty($b) || !empty($b[0]->removed)) return 0;
+    $hp = intval(CardHp($b[0]->CardID));
+    return max(0, $hp - intval($b[0]->Damage ?? 0));
+}
+
+// "It doesn't ready during the next regroup phase" (HMW_095 Carbonite Chamber, HMW_121 Hijacked AT-ST).
+// Flags the unit on its CONTROLLER; the regroup ready loop skips it once and consumes the flag. Distinct
+// from SOR_186's SWU_CANT_READY_, which additionally blocks mid-phase "ready a unit" effects.
+function SWUSkipNextRegroupReady(string $mzID): void {
+    $obj = GetZoneObject($mzID);
+    if (SWUObjGone($obj)) return;
+    $uid = intval($obj->UniqueID ?? 0);
+    if ($uid <= 0) return;
+    AddGlobalEffects(intval($obj->Controller ?? 0), 'SWU_SKIP_REGROUP_READY_' . $uid);
+    AddGameLogEntry('EFFECT', GameLogCardRef((string)($obj->CardID ?? '')) . " won't ready during the next regroup phase");
+}
+
+// Defeat a base as an EFFECT (HMW_004 Grand Moff Tarkin's deployed side). SWU has no separate "base
+// defeated" state to model: a base holding damage equal to or above its printed HP IS defeated, and that
+// means its controller loses the game (2-player) / is eliminated (Twin Suns). So filling the damage in and
+// running the state-based sweep IS the whole primitive — it reuses every existing loss path rather than
+// adding a second one. Returns false when there is no base to defeat.
+function SWUDefeatBase(int $targetPlayer): bool {
+    $b = &GetBase($targetPlayer);
+    if (empty($b) || !empty($b[0]->removed)) return false;
+    $hp = intval(CardHp($b[0]->CardID));
+    if ($hp <= 0) return false;
+    $b[0]->Damage = $hp;
+    AddGameLogEntry('ABILITY', "Player {$targetPlayer}'s base is defeated!");
+    SWUCheckBaseDefeatState();
+    return true;
 }
 
 function SWUGetGameWinner() {
@@ -24874,7 +25097,24 @@ function BaseHasForce($obj): bool {
 // UpgradeCount virtual feeds the bottom-left badge. Tolerates a base with no Subcards at all —
 // every base predates Fortify, and a null-guard here is cheaper than backfilling them.
 function BaseUpgradeCount($obj): int {
-    return is_array($obj->Subcards ?? null) ? count($obj->Subcards) : 0;
+    // GetUpgradesOnUnit is the CANONICAL subcard reader: after a gamestate round-trip Subcards come
+    // back as associative ARRAYS (json_decode($x, true)), not objects, and it normalizes them (and
+    // skips removed/captive entries). Reading $sub->CardID directly works only in the same request
+    // the subcard was attached — which is exactly how a bug here hides from tests.
+    return count(GetUpgradesOnUnit($obj));
+}
+
+// Index of the first attached upgrade with $cardID among a host's non-captive, non-removed subcards —
+// the $upgradeIndex SWUDefeatUpgrade expects. Returns -1 when absent. Reads through GetUpgradesOnUnit so
+// it is safe on both sides of the gamestate round-trip (see BaseUpgradeCount).
+function SWUFindUpgradeIndex($obj, string $cardID): int {
+    $i = 0;
+    foreach (GetUpgradesOnUnit($obj) as $sub) {
+        $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+        if ($cid === $cardID) return $i;
+        $i++;
+    }
+    return -1;
 }
 
 // Player-keyed form — the card-facing primitive (HMW_061 Director Krennic, "If your base is
@@ -24890,10 +25130,9 @@ function SWUBaseUpgradeCount(int $player): int {
 // count and pop the source cards' art on hover, which is exactly the "click the number to see the
 // upgrades" affordance, so this reuses that machinery instead of a bespoke popup.
 function BaseUpgradeCardIDs($obj): string {
-    if (!is_array($obj->Subcards ?? null)) return '';
     $ids = [];
-    foreach ($obj->Subcards as $sub) {
-        $cid = is_object($sub) ? ($sub->CardID ?? '') : (string)$sub;
+    foreach (GetUpgradesOnUnit($obj) as $sub) {
+        $cid = (string)($sub->CardID ?? '');
         if ($cid !== '' && $cid !== '-') $ids[] = $cid;
     }
     return implode(',', $ids);

@@ -581,4 +581,54 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/257.png',
     'imageUrlBack' => '',
   ),
+  'HMW_T02' => 
+  array (
+    'title' => 'Weakness',
+    'subtitle' => '',
+    'type' => 'Token Upgrade',
+    'arena' => '',
+    'cost' => 0,
+    'upgradePower' => -1,
+    'upgradeHp' => -1,
+    'aspect' => 
+    array (
+    ),
+    'trait' => 
+    array (
+      0 => 'Condition',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'rarity' => '',
+    'set' => 'HMW',
+    'imageUrl' => '',
+    'imageUrlBack' => '',
+  ),
+  'HMW_T03' => 
+  array (
+    'title' => 'Beast',
+    'subtitle' => '',
+    'type' => 'Token Unit',
+    'arena' => 'Ground',
+    'cost' => 0,
+    'power' => 3,
+    'hp' => 3,
+    'aspect' => 
+    array (
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'rarity' => '',
+    'set' => 'HMW',
+    'imageUrl' => '',
+    'imageUrlBack' => '',
+  ),
 );

@@ -186,8 +186,10 @@ class BaseAccessor {
             // Remaining per-game uses of a repeatable base Action (e.g. LOF_022); 0 for non-action bases.
             case 'actionUsesLeft': return _SWUBaseActionUsesLeft($this->obj, $this->obj->CardID ?? '');
             // Attached FORTIFY upgrades. Absent Subcards (every base before Fortify) reads as none.
-            case 'upgradeCount':   return is_array($this->obj->Subcards ?? null) ? count($this->obj->Subcards) : 0;
-            case 'upgrades':       return is_array($this->obj->Subcards ?? null) ? $this->obj->Subcards : [];
+            // GetUpgradesOnUnit normalizes round-tripped ARRAY subcards to objects, so assertions
+            // behave the same before and after a gamestate round-trip.
+            case 'upgradeCount':   return count(GetUpgradesOnUnit($this->obj));
+            case 'upgrades':       return GetUpgradesOnUnit($this->obj);
         }
         throw new RuntimeException("BaseAccessor: unknown property '$name'");
     }

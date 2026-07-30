@@ -260,7 +260,7 @@ function showCardIdsBadgePopup(badgeEl, event) {
         if (durLabel) durHtml = '<div class="cardids-popup-chip dur-' + durKey + '">' + durLabel + '</div>';
       }
       // Try concat folder first, fallback to WebpImages, then hide to avoid infinite 404 spam
-      var imgPath = rootPath + '/concat/' + displayCardId + '.webp';
+      var imgPath = rootPath + '/concat/' + resolveCardImageID(displayCardId) + '.webp';
       var imgFallback = rootPath + '/WebpImages/' + resolveCardImageID(displayCardId) + '.webp';
       html += '<div class="cardids-popup-card">';
       html += '<img src="' + imgPath + '" alt="' + displayCardId + '" loading="lazy"'
@@ -663,8 +663,39 @@ function CreateCountersHTML(zoneName, cardArr, id) {
           html += "onmouseenter='showCardIdsBadgePopup(this, event)' onmouseleave='hideCardIdsBadgePopup(this)' ";
           html += "style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6); cursor:pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" + visualStateStyle + "'>" + displayValue + "</div>";
         } else {
-          // Standard badge
-          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);" + visualStateStyle + "'>" + displayValue + "</div>";
+          // Standard badge. PopupFrom=<field> makes the badge CLICKABLE, opening the card-art popup for
+          // the comma-separated CardIDs held in ANOTHER field (SWU base: Fortify upgrades). Why not
+          // Mode=CardIDs? That mode derives its NUMBER from the id list and dedupes by source CardID,
+          // so two copies of a non-unique upgrade would display "1". This keeps the accurate count from
+          // this counter's own numeric field and borrows only the popup.
+          var popupFrom = params.PopupFrom || '';
+          var popupIds = [];
+          if (popupFrom && cardData.hasOwnProperty(popupFrom) && cardData[popupFrom] !== null) {
+            popupIds = String(cardData[popupFrom]).split(',').map(function (t) { return t.trim(); })
+                                                  .filter(function (t) { return t !== ''; });
+          }
+          if (popupIds.length > 0) {
+            // HOVER preview using the shared card-grid panel (showLineageOverflowPopup) — the same
+            // card-image idiom as the "choose an upgrade to defeat" picker, NOT the active-effects
+            // badge popup (that one is for turn-effect sources) and NOT a modal (hover must not
+            // block the board).
+            var popupRoot = (typeof AssetReflectionPath === 'function' && AssetReflectionPath())
+              ? AssetReflectionPath()
+              : ((typeof window !== 'undefined' && window.rootPath) ? String(window.rootPath).replace(/^\.\//, '') : '');
+            var lineagePayload = encodeURIComponent(JSON.stringify({
+              subcards: popupIds,
+              folder: popupRoot,
+              size: 150,
+              title: params.PopupTitle || 'Attached Upgrades'
+            }));
+            html += "<div data-counter-field='" + field + "' data-lineage-subcards='" + lineagePayload + "' ";
+            html += "class='counter-badge-cardids' title='Hover to preview attached cards' tabindex='0' ";
+            html += "onmouseenter='showLineageOverflowPopup(this)' onmouseleave='hideLineageOverflowPopup()' ";
+            html += "onfocusin='showLineageOverflowPopup(this)' onfocusout='hideLineageOverflowPopup()' ";
+            html += "style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6); cursor:pointer;" + visualStateStyle + "'>" + displayValue + "</div>";
+          } else {
+            html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);" + visualStateStyle + "'>" + displayValue + "</div>";
+          }
         }
       } else if (type.toLowerCase() === 'icon') {
         // If an icon name is provided as positional param, use it as img src fallback

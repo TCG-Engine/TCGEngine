@@ -54,3 +54,168 @@ P1SPACEARENAUNIT:0:HASTRAIT:Vehicle
 P1SPACEARENAUNIT:0:HASTRAIT:Capital Ship
 P1SPACEARENAUNIT:0:HASTRAIT:Imperial
 P1SPACEARENAUNIT:0:NOTTRAIT:Official
+
+---
+
+# FortifyUpgradeIgnoresTheAspectPenalty
+#// "Ignore the aspect penalties on upgrades with Fortify you play." Tarkin provides Vigilance + Villainy
+#// and the `g` base provides Command, so HMW_171 Trap Field (cost 2, Aggression + Heroism) has BOTH pips
+#// uncovered: 2 + 4 = 6 normally. On exactly 2 resources it can only attach if the waiver drops the whole
+#// penalty, so the attach IS the assertion. (Baseline for the unwaived case:
+#// keywords/Fortify.md::AFortifyUpgradePaysTheOffAspectPenalty.)
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myResources:2;myhandCardIds:HMW_171}
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1BASE:UPGRADECOUNT:1
+P1BASE:UPGRADE:0:CARDID:HMW_171
+P1RESAVAILABLE:0
+
+---
+
+# NonFortifyUpgradeStillPaysTheAspectPenalty
+#// The waiver is scoped to upgrades WITH Fortify. SOR_166 Infiltrator's Skill is a cost-1 Aggression
+#// upgrade with no Fortify, so Aggression stays uncovered: 1 + 2 = 3, unaffordable on 2 resources, which
+#// makes PlayHand a silent no-op. Without the Fortify scoping it would attach for 1.
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myResources:2;myhandCardIds:SOR_166}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:2
+
+---
+
+# DeployedRegroupDefeatsAnEnemyBaseAtTenOrLess
+#// Deployed side: "When the regroup phase starts: You may defeat a base with 10 or less remaining HP."
+#// P2's base is a 30-HP colour base at 25 damage = 5 remaining, so it qualifies; P1's own base is
+#// undamaged (30 remaining) and must NOT be offered. Defeating a base means its controller loses, so
+#// this ends the game — there is no separate "defeated base" state (CR 3.2.5).
+#// Both decks are stocked so the regroup DRAW deals no deck-out damage (that alone would end the game
+#// from 25 and hand a false pass).
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myLeaderDeployed:true;myResources:9;theirBaseDamage:25}
+P1OnlyActions: true
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>Pass
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1WIN
+
+---
+
+# DeployedRegroupMayDefeatYourOwnBase
+#// The printed text says "a base" with no friendly/enemy qualifier, so YOUR OWN base is a legal target
+#// when it is at 10 or less remaining HP — and defeating it makes YOU lose. Legal, not advisable.
+#// Here only P1's base qualifies (25 damage = 5 remaining), so P2 wins.
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myLeaderDeployed:true;myResources:9;myBaseDamage:25}
+P1OnlyActions: true
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>Pass
+- P1>AnswerDecision:myBase-0
+
+## EXPECT
+P2WIN
+
+---
+
+# DeployedRegroupDeclineLeavesTheBaseAlive
+#// It is a "may" — declining must leave the base exactly as it was and the game running.
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myLeaderDeployed:true;myResources:9;theirBaseDamage:25}
+P1OnlyActions: true
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>Pass
+- P1>AnswerDecision:-
+
+## EXPECT
+P2BASEDMG:25
+
+---
+
+# DeployedRegroupElevenRemainingIsNotOffered
+#// The threshold is "10 or less remaining HP", so 11 remaining (30 - 19) must not qualify. Proven by
+#// driving the regroup all the way through to the next action phase: an unoffered prompt lets the two
+#// ResourcePasses reach PHASE:MAIN, while a wrongly-offered base-defeat would sit in front of them and
+#// strand the game in the regroup. Guards a > / >= slip on the boundary.
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myLeaderDeployed:true;myResources:9;theirBaseDamage:19}
+P1OnlyActions: true
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+P2BASEDMG:19
+PHASE:MAIN
+
+---
+
+# DeployedRegroupExactlyTenRemainingIsOffered
+#// The inclusive edge: 10 remaining (30 - 20) qualifies.
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myLeaderDeployed:true;myResources:9;theirBaseDamage:20}
+P1OnlyActions: true
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>Pass
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1WIN
+
+---
+
+# UndeployedTarkinHasNoRegroupBaseDefeat
+#// The base-defeat clause is printed only on the DEPLOYED side (The Death Star). An undeployed Tarkin
+#// keeps the aspect waiver but must offer nothing at the regroup phase — so the enemy base survives even
+#// though it sits at 5 remaining HP; the regroup runs straight through to the next action phase.
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myResources:9;theirBaseDamage:25}
+P1OnlyActions: true
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+P2BASEDMG:25
+PHASE:MAIN

@@ -168,6 +168,8 @@ return [
     'ASH_259' => 'ash/LepRatcatcher.php',
     'ASH_260' => 'ash/MosEspaWatermonger.php',
     'ASH_264' => 'ash/ANewOrder.php',
+    'HMW_004' => 'hmw/GrandMoffTarkin_TyrantOfTheOuterRim.php',
+    'HMW_009' => 'hmw/Chewbacca_RelentlessRebel.php',
     'IBH_001' => 'ibh/LeiaOrgana_GetToYourTransports.php',
     'IBH_005' => 'ibh/IllCoverForYou.php',
     'IBH_006' => 'ibh/RebellionYWing.php',

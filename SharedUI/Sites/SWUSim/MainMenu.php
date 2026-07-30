@@ -238,15 +238,8 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   }
   .ga-info-panel { display: none; flex-direction: column; gap: 16px; }
   .ga-info-panel.is-active { display: flex; }
-  .ga-glass-card {
-    background: var(--surface-raised);
-    border: 1px solid rgba(var(--accent-rgb), 0.30);
-    box-shadow: 0 14px 36px rgba(10, 4, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(10px) saturate(110%);
-    -webkit-backdrop-filter: blur(10px) saturate(110%);
-    color: var(--text) !important;
-  }
-  .ga-glass-card * { color: var(--text); }
+  /* .ga-glass-card (the frosted grey panel) + its descendant colour rule now live in
+     css/swusim-overrides.css so every SWUSim page can use the class, not just this one. */
   .swu-queue-select {
     width: 100%;
     padding: 8px 12px;
@@ -643,11 +636,12 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         function applyFormatUI(){
           var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat');
           var isTwinSuns = (fmt.value === 'twinsuns');
+          var isTwinSunsPreview = (fmt.value === 'twinsuns-preview');
           var g = document.getElementById('swu-deck2-group');
           if (g) g.style.display = (fmt.value === 'hotseat') ? '' : 'none';
           var qt = document.getElementById('swu-queuetype-select');
           if (qt) {
-            if (isMode || isTwinSuns) { qt.value = 'bo1'; qt.disabled = true; }
+            if (isMode || isTwinSuns || isTwinSunsPreview) { qt.value = 'bo1'; qt.disabled = true; }
             else { qt.disabled = false; }
           }
           var joinBtn = document.querySelector('button[onclick="joinQueue()"]');

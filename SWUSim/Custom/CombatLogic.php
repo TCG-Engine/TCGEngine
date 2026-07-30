@@ -190,6 +190,25 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
                 return;
             }
         }
+        // HMW_081 Alliance Shield Generator (Fortify) — "If attached base would be dealt 5 or more damage,
+        // prevent that damage. If you do, defeat this upgrade and draw a card." A PREVENTION, so it does
+        // not apply to UNPREVENTABLE damage (indirect / ASH_196 Gorian's Corsair); and it is conditional,
+        // not a one-shot shield, so a sub-threshold hit neither triggers nor consumes it.
+        // Checked BEFORE the ASH_070 cap so the threshold reads the damage as it would be dealt: capping
+        // 6 down to 4 first would silently disarm the generator. Both effects belong to the base's
+        // controller, and full prevention plus a draw is strictly better for them than a cap at 4, so the
+        // fixed order matches the choice that player would make (CR lets them order their own effects).
+        if (intval($damage) >= 5 && !$baseDmgUnpreventable) {
+            $genIdx = SWUFindUpgradeIndex($base[$i], 'HMW_081');
+            if ($genIdx >= 0) {
+                SWUQueuePreventedAnim("myBase-0", intval($targetPlayer));
+                SWUDefeatUpgrade(intval($targetPlayer), 'myBase-0', $genIdx);
+                DoDrawCard(intval($targetPlayer), 1);
+                SetFlashMessage("Damage to the base was prevented (Alliance Shield Generator).");
+                $playerID = $savedPID;
+                return;
+            }
+        }
         // ASH_070 At Attin Safety Droid — "If your base would be dealt more than 4 damage, prevent all but
         // 4 of that damage." This is a PREVENTION, so it does NOT apply to UNPREVENTABLE damage: indirect
         // damage ($isIndirect) or damage from a source whose damage is unpreventable (ASH_196 Gorian's friendly

@@ -10,7 +10,9 @@ $whenPlayedAbilities["JTL_181:0"] = function($player, $mzID = '') {
             global $playerID;
             $playerID = intval($player);
             $cap = false;
-            foreach (GetUnitsInPlay(intval($player)) as $u) { if (HasTrait($u->CardID ?? '', 'Capital Ship')) { $cap = true; break; } }
+            // TraitContains (not bare-CardID HasTrait) so live traits count: a deployed leader's
+            // deployed-side trait line (HMW_004 → The Death Star, a Capital Ship) and upgrade grants.
+            foreach (GetUnitsInPlay(intval($player)) as $u) { if (TraitContains($u, 'Capital Ship')) { $cap = true; break; } }
             SWUDealIndirectToChosenPlayer(intval($player), $cap ? 12 : 8);
             return;
 };

@@ -7,19 +7,22 @@
 // but SWUGetFormat()/SWUCheckFormat() still resolve them for anything mid-flight.
 
 function SWUFormatDefinitions() {
+    $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
+    $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
+    $previewSets  = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW'];
     return [
         // NOTE: JTL_256 (Vulture Droid) copy-exception and JTL_024/025 deck-size modifiers are
         // GLOBAL card-intrinsic rules (see SWUGlobal*() below) — applied to every format EXCEPT
         // Open. Do NOT re-list them per format.
         'premier' => [
             'displayName' => 'Premier',
-            'legalSets'   => ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'],  // curated rotation
+            'legalSets'   => $premierSets,
             'banned'      => [],
             'enabled'     => true,
         ],
         'eternal' => [
             'displayName' => 'Eternal',
-            'legalSets'   => '*',                                 // every printed set
+            'legalSets'   => $eternalSets,
             'banned'      => ['JTL_140', 'JTL_170'],
             'enabled'     => true,
         ],
@@ -64,7 +67,7 @@ function SWUFormatDefinitions() {
         // stripped from our CR copy; needs the exact aspect pair before implementing.
         'twinsuns' => [
             'displayName' => 'Twin Suns',
-            'legalSets'   => '*',                                 // every printed set
+            'legalSets'   => $eternalSets,                        // every printed set
             'banned'      => [],                                  // no bans yet
             'minDeck'     => 80,                                  // CR §12.2.1.a
             'maxCopies'   => 1,                                   // CR §12.2.2 (highlander)
@@ -77,10 +80,19 @@ function SWUFormatDefinitions() {
         // add the new set code to 'legalSets' when a preview window opens; set it
         // back to false (or comment out) when the window closes.
         'preview' => [
-            'displayName' => 'Preview',
-            'legalSets'   => ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'],  // + '<NEXT_SET>' when live
+            'displayName' => 'Premier Preview',
+            'legalSets'   => array_merge($premierSets, ['HMW']),
             'banned'      => [],
-            'enabled'     => false,
+            'enabled'     => true,
+        ],
+        'twinsuns-preview' => [
+            'displayName' => 'Twin Suns Preview',
+            'legalSets'   => array_merge($eternalSets, ['HMW']),
+            'banned'      => [],
+            'minDeck'     => 80,
+            'maxCopies'   => 1,
+            'leaderCount' => 2,
+            'enabled'     => true,
         ],
     ];
 }

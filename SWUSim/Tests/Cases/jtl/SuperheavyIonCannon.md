@@ -54,3 +54,29 @@ P2GROUNDARENACOUNT:0
 P2SPACEARENACOUNT:1
 P2BASEDMG:6
 P1NODECISION
+
+---
+
+# AttachesToADeployedLeaderCapitalShip
+#// "Attach to a Capital Ship or Transport unit." — the restriction must read the LIVE trait of the unit in
+#// play. HMW_004's deployed side is The Death Star, an Imperial Vehicle Capital Ship, so it is a legal
+#// host even though the leader row prints Imperial Official (same family as
+#// PlanetaryBombardment::DeployedLeaderCapitalShipCounts).
+
+## GIVEN
+CommonSetup: grw/grw/{
+  myLeader:HMW_004;
+  myLeaderDeployed:true
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_227
+WithP1Resources: 20
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_227
+P1HANDCOUNT:0

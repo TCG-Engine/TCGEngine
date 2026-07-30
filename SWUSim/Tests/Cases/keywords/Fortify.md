@@ -164,3 +164,44 @@ WithP1BaseUpgrade: HMW_206
 ## EXPECT
 P1BASE:UPGRADECOUNT:1
 P1BASE:UPGRADE:0:CARDID:HMW_206
+
+---
+
+# BaseUpgradesSurviveTheRequestBoundary
+#// REGRESSION (found in a live game): a gamestate round-trip decodes Subcards as associative ARRAYS
+#// (json_decode($x, true)), not objects. Every base-subcard reader that used $sub->CardID directly
+#// therefore broke AFTER serialization while passing in-request: BaseUpgradeCardIDs hit
+#// "(string)$array", emitting an "Array to string conversion" WARNING into the response that corrupted
+#// the zone-data stream so the base did not render at all; the removal/uniqueness sweeps silently saw
+#// no base upgrades. All of them now go through GetUpgradesOnUnit, which normalizes arrays to objects.
+
+## GIVEN
+CommonSetup: grw/grw/{myResources:4;myhandCardIds:SOR_251}
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_095
+
+## WHEN
+- P1>SimulateRequestBoundary
+
+## EXPECT
+P1BASE:UPGRADECOUNT:1
+P1BASE:UPGRADE:0:CARDID:HMW_095
+
+---
+
+# ConfiscateReachesABaseUpgradeAfterTheRequestBoundary
+#// The teeth of the regression above: with array-shaped subcards, SWUGetUnitsWithUpgrades returned no
+#// base host, so Confiscate silently fizzled and the upgrade was unremovable.
+
+## GIVEN
+CommonSetup: grw/grw/{myResources:4;myhandCardIds:SOR_251}
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_095
+
+## WHEN
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+
+## EXPECT
+P1BASE:UPGRADECOUNT:0
+P1GLOBALEFFECT:SWU_FRIENDLY_UPGRADE_DEFEATED

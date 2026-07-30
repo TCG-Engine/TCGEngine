@@ -2059,7 +2059,10 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           if (!payload || !Array.isArray(payload.subcards) || payload.subcards.length === 0) return;
 
           var popup = getOrCreateLineageOverflowPopup();
-          var html = "<div class='ga-lineage-popup-shell'><div class='ga-lineage-popup-title'>Champion Lineage</div><div class='ga-lineage-popup-grid'>";
+          // Title is payload-driven so this hover panel is reusable: GrandArchive's champion lineage
+          // keeps the historical default, SWU's base-Fortify badge passes "Attached Upgrades".
+          var popupTitle = payload.title || 'Champion Lineage';
+          var html = "<div class='ga-lineage-popup-shell'><div class='ga-lineage-popup-title'>" + popupTitle + "</div><div class='ga-lineage-popup-grid'>";
           for (var i = 0; i < payload.subcards.length; ++i) {
             var cardId = payload.subcards[i];
             if (!cardId) continue;

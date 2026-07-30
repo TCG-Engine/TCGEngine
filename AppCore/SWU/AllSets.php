@@ -8,7 +8,7 @@
     'SEC' => 5,
     'IBH' => 6,
     'LAW' => 7,
-    'TS26' => 8, //not Premier legal. maybe comment out later if it causes issues
+    'TS26' => 8,
     'ASH' => 9,
     'HMW' => 10,
     'IC27' => 11,
