@@ -489,6 +489,56 @@
         flex: 0 0 auto;
     }
 
+    #myHand > span[id] {
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    #myHand > span[id].azuki-mobile-hand-source {
+        opacity: 0.22;
+        filter: grayscale(0.35);
+    }
+
+    .azuki-mobile-hand-ghost {
+        position: fixed !important;
+        z-index: 10020 !important;
+        margin: 0 !important;
+        pointer-events: none !important;
+        transform: translate3d(-50%, -50%, 0) rotate(0deg) scale(1.08) !important;
+        transform-origin: 50% 50% !important;
+        opacity: 0.96;
+        filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.72));
+        transition: filter 100ms ease, opacity 100ms ease !important;
+        will-change: left, top, transform;
+    }
+
+    .azuki-mobile-play-drop-target {
+        outline: 3px solid rgba(99, 255, 205, 0.96) !important;
+        outline-offset: 4px !important;
+        box-shadow: 0 0 28px rgba(52, 255, 190, 0.5) !important;
+    }
+
+    .azuki-mobile-undo-target::after {
+        content: "Release to undo";
+        position: fixed;
+        left: 50%;
+        bottom: max(8px, env(safe-area-inset-bottom));
+        z-index: 10021;
+        transform: translateX(-50%);
+        padding: 8px 14px;
+        border: 1px solid rgba(255, 205, 112, 0.7);
+        border-radius: 999px;
+        background: rgba(33, 22, 11, 0.92);
+        color: #ffe1a0;
+        font: 800 11px/1.1 Bahnschrift, Aptos, sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.48);
+        pointer-events: none;
+    }
+
     #myHand > * + * {
         margin-left: -15px !important;
     }
@@ -1238,9 +1288,6 @@
             transform-origin: 50% 100%;
             transform: translateY(var(--azuki-hand-drop, 0px)) rotate(var(--azuki-hand-angle, 0deg));
             transition: transform 130ms ease, filter 130ms ease;
-            touch-action: none;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         #myHand:not(.azuki-hand-fan-ready) > span[id] {
@@ -1261,50 +1308,6 @@
         #myHand > span[id] > a > img {
             width: var(--azuki-l-hand-card) !important;
             height: var(--azuki-l-hand-card) !important;
-        }
-
-        #myHand > span[id].azuki-mobile-hand-source {
-            opacity: 0.22;
-            filter: grayscale(0.35);
-        }
-
-        .azuki-mobile-hand-ghost {
-            position: fixed !important;
-            z-index: 10020 !important;
-            margin: 0 !important;
-            pointer-events: none !important;
-            transform: translate3d(-50%, -50%, 0) rotate(0deg) scale(1.08) !important;
-            transform-origin: 50% 50% !important;
-            opacity: 0.96;
-            filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.72));
-            transition: filter 100ms ease, opacity 100ms ease !important;
-            will-change: left, top, transform;
-        }
-
-        .azuki-mobile-play-drop-target {
-            outline: 3px solid rgba(99, 255, 205, 0.96) !important;
-            outline-offset: 4px !important;
-            box-shadow: 0 0 28px rgba(52, 255, 190, 0.5) !important;
-        }
-
-        .azuki-mobile-undo-target::after {
-            content: "Release to undo";
-            position: fixed;
-            left: 50%;
-            bottom: max(8px, env(safe-area-inset-bottom));
-            z-index: 10021;
-            transform: translateX(-50%);
-            padding: 8px 14px;
-            border: 1px solid rgba(255, 205, 112, 0.7);
-            border-radius: 999px;
-            background: rgba(33, 22, 11, 0.92);
-            color: #ffe1a0;
-            font: 800 11px/1.1 Bahnschrift, Aptos, sans-serif;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            white-space: nowrap;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.48);
-            pointer-events: none;
         }
 
         @media (max-height: 430px) {
