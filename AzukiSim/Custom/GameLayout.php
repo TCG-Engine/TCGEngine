@@ -640,23 +640,27 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
      */
     @media (min-width: 1001px) {
         :root {
-            --azuki-field-w: 64vw;
-            --azuki-field-half-w: 32vw;
+            /* NextTurn.php updates card-size from both viewport axes. Keeping all
+             * desktop geometry on this token prevents large displays from mixing
+             * 160px rendered cards with laptop-sized 96/104px containers. */
+            --azuki-card-size: 96px;
+            --azuki-field-w: min(68vw, 2200px);
+            --azuki-field-half-w: min(34vw, 1100px);
             --azuki-field-shift: 4.6vw;
-            --azuki-field-h: clamp(96px, 12.5vh, 140px);
+            --azuki-field-h: calc(var(--azuki-card-size) + 20px);
             --azuki-lane-gap: clamp(6px, 0.7vh, 8px);
             --azuki-top-center-gap: clamp(12px, 1.4vh, 14px);
             --azuki-bottom-center-gap: clamp(18px, 2.2vh, 20px);
-            --azuki-pile-w: 104px;
-            --azuki-pile-gap: clamp(28px, 2vw, 40px);
+            --azuki-pile-w: var(--azuki-card-size);
+            --azuki-pile-gap: clamp(24px, 1.8vw, 42px);
             --azuki-lane-left: calc(50vw - var(--azuki-field-shift) - var(--azuki-field-half-w));
             --azuki-my-pile-left: calc(var(--azuki-lane-left) - var(--azuki-pile-w) - var(--azuki-pile-gap));
             --azuki-pile-right: calc(100vw - (var(--azuki-lane-left) + var(--azuki-field-w) + var(--azuki-pile-w) + var(--azuki-pile-gap)));
             --azuki-rail-left: var(--azuki-my-pile-left);
             --azuki-rail-card-w: var(--azuki-pile-w);
-            --azuki-ikz-row-w: min(28vw, 340px);
-            --azuki-field-card-size: clamp(88px, 5.2vw, 96px);
-            --azuki-ikz-card-size: 68px;
+            --azuki-ikz-row-w: min(30vw, 460px);
+            --azuki-field-card-size: var(--azuki-card-size);
+            --azuki-ikz-card-size: clamp(68px, 8vh, 96px);
         }
 
         #mainDiv,
@@ -872,11 +876,59 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         #myDiscardSlot,
         #theirDiscardSlot {
             right: var(--azuki-pile-right);
+            box-sizing: border-box;
+            width: var(--azuki-pile-w);
+            min-height: var(--azuki-card-size);
+            padding-left: 0;
+            padding-right: 0;
         }
 
-        #theirGateSlot { top: 86px; }
-        #theirDeckSlot { top: 196px; }
-        #theirDiscardSlot { top: 306px; }
+        /* Deck and discard are generated with overflow-y:auto, but Single-mode
+         * piles never need an internal scroller. At laptop widths the reserved
+         * scrollbar gutter makes the square wrapper overflow horizontally too,
+         * producing the paired scrollbars seen beside and below the card. */
+        #myDeckSlot,
+        #theirDeckSlot,
+        #myDiscardSlot,
+        #theirDiscardSlot,
+        #myDeckWrapper,
+        #theirDeckWrapper,
+        #myDiscardWrapper,
+        #theirDiscardWrapper,
+        #myDeck,
+        #theirDeck,
+        #myDiscard,
+        #theirDiscard {
+            overflow: visible !important;
+            scrollbar-width: none;
+        }
+
+        #myDeckWrapper,
+        #theirDeckWrapper,
+        #myDiscardWrapper,
+        #theirDiscardWrapper {
+            width: var(--azuki-pile-w);
+            min-height: var(--azuki-card-size);
+        }
+
+        #myDeckWrapper::-webkit-scrollbar,
+        #theirDeckWrapper::-webkit-scrollbar,
+        #myDiscardWrapper::-webkit-scrollbar,
+        #theirDiscardWrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        #theirGateSlot {
+            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap) - var(--azuki-lane-gap));
+        }
+
+        #theirDeckSlot {
+            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap));
+        }
+
+        #theirDiscardSlot {
+            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h));
+        }
 
         #myGateSlot,
         #myDeckSlot,
@@ -899,6 +951,16 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         #myDiscardSlot {
             top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap) + var(--azuki-field-h) + var(--azuki-lane-gap));
             bottom: auto;
+        }
+
+        #myGate > span[id] > a > img,
+        #theirGate > span[id] > a > img,
+        #myDeck > span[id] > a > img,
+        #theirDeck > span[id] > a > img,
+        #myDiscard > span[id] > a > img,
+        #theirDiscard > span[id] > a > img {
+            width: var(--azuki-card-size) !important;
+            height: var(--azuki-card-size) !important;
         }
 
         #myLeaderHealthSlot,
@@ -982,13 +1044,19 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         #myHandSlot,
         #theirHandSlot {
             box-sizing: border-box;
-            width: min(64vw, 1040px);
-            min-height: 98px;
+            width: var(--azuki-field-w);
+            min-height: calc(var(--azuki-card-size) + 2px);
             padding: 0 8px;
             border: 0;
             border-radius: 0;
             background: transparent;
             box-shadow: none;
+        }
+
+        #myHand > span[id] > a > img,
+        #theirHand > span[id] > a > img {
+            width: var(--azuki-card-size) !important;
+            height: var(--azuki-card-size) !important;
         }
 
         #myHandSlot {

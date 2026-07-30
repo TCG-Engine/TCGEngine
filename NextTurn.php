@@ -412,16 +412,29 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           var calculatedSize = Math.floor((viewportWidth - rowPadding - (mobileColumns * perCardHorizontalSpacing)) / mobileColumns);
           return Math.max(36, Math.min(maxCardSize, calculatedSize));
         }
+        // AzukiSim's desktop board has six field rows plus the two hands. Size its
+        // cards from both viewport axes so ultrawide/4K displays grow without a
+        // short browser window making the board overflow vertically.
+        <?php if ($folderPath === 'AzukiSim') { ?>
+        return Math.max(88, Math.min(window.innerWidth / 16, window.innerHeight / 11.25, 168));
+        <?php } else { ?>
         // SWUDeck's desktop deck editor shows larger cards (smaller divisor => bigger card,
         // fewer per row); other sims keep the historical /16 sizing.
         return window.innerWidth / <?php echo (in_array($folderPath, ['SWUDeck', 'AzukiDeck'], true) ? '13.5' : '16'); ?>;
+        <?php } ?>
       }
 
       var cardSize = CalculateCardSize();
       window.cardSize = cardSize;
+      <?php if ($folderPath === 'AzukiSim') { ?>
+      document.documentElement.style.setProperty('--azuki-card-size', cardSize + 'px');
+      <?php } ?>
 
       window.addEventListener('resize', function() {
         window.cardSize = CalculateCardSize();
+        <?php if ($folderPath === 'AzukiSim') { ?>
+        document.documentElement.style.setProperty('--azuki-card-size', window.cardSize + 'px');
+        <?php } ?>
       });
 
       // Note: 96 is the historical default card size.
