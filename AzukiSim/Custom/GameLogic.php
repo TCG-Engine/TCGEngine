@@ -2793,21 +2793,30 @@ function QueuePekiroDamageReplacement($sourcePlayer, $targetMZ, $amount, $source
 
     $parts = explode('-', $targetMZ);
     $zone = $parts[0] ?? '';
+    $index = intval($parts[1] ?? -1);
     if($zone !== 'myGarden' && $zone !== 'theirGarden' && $zone !== 'myAlley' && $zone !== 'theirAlley') return false;
 
     $targetPlayer = (strpos($zone, 'my') === 0) ? $sourcePlayer : ($sourcePlayer === 1 ? 2 : 1);
-    $resolvedTargetMZ = NormalizeMZForPlayerPerspective($targetPlayer, $targetMZ);
-    $targetObj = GetZoneObject($resolvedTargetMZ);
-    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return false;
+    $targetZoneName = strpos($zone, 'Garden') !== false ? 'Garden' : 'Alley';
+    if($targetZoneName === 'Garden') {
+        $targetZone = &GetGarden($targetPlayer);
+    } else {
+        $targetZone = &GetAlley($targetPlayer);
+    }
+    if($index < 0 || $index >= count($targetZone)) return false;
+
+    $targetObj = &$targetZone[$index];
+    if(isset($targetObj->removed) && $targetObj->removed) return false;
     if(($targetObj->CardID ?? '') !== 'S1-AZK01-062_Pekiro_E_R_die') return false;
     if(HasTurnEffect($targetObj, 'PEKIRO_USED')) return false;
+    $targetOwnerMZ = 'my' . $targetZoneName . '-' . $index;
 
     $targets = [];
     $myGarden = &GetGarden($targetPlayer);
     for($i = 0; $i < count($myGarden); ++$i) {
         if(isset($myGarden[$i]->removed) && $myGarden[$i]->removed) continue;
         if(CardType($myGarden[$i]->CardID ?? '') !== 'ENTITY') continue;
-        if($resolvedTargetMZ === 'myGarden-' . $i) continue;
+        if($targetOwnerMZ === 'myGarden-' . $i) continue;
         $targets[] = 'myGarden-' . $i;
     }
 
@@ -4568,7 +4577,7 @@ $customDQHandlers['SAEKO_SELF_DAMAGE'] = function($player, $parts, $lastDecision
 
     $chosen = is_string($lastDecision) ? $lastDecision : '';
     if($chosen === '' || $chosen === '-') return;
-    DealDamageToEntityTarget($player, $chosen, 1, false);
+    DealDamageToEntityTarget($player, $chosen, 1, true, $sourceMZ);
 
     $opponent = $player == 1 ? 2 : 1;
     $theirTargets = [];
@@ -4589,14 +4598,11 @@ $customDQHandlers['SAEKO_OPP_DAMAGE'] = function($player, $parts, $lastDecision)
     $sourceMZ = $parts[0] ?? '';
     if(!is_string($sourceMZ) || $sourceMZ === '') return;
 
-    $sourceObj = GetZoneObject($sourceMZ);
-    if($sourceObj === null || (isset($sourceObj->removed) && $sourceObj->removed)) return;
-    if(($sourceObj->CardID ?? '') !== 'S1-AZK01-057_Lounge-Siren-Saeko_E_C_die') return;
-    if(($sourceObj->Location ?? '') !== 'Garden') return;
-
+    // This is the second half of one triggered ability, so it still resolves if
+    // Saiko was destroyed by the damage dealt to her controller's Garden.
     $chosen = is_string($lastDecision) ? $lastDecision : '';
     if($chosen === '' || $chosen === '-') return;
-    DealDamageToEntityTarget($player, $chosen, 1, false);
+    DealDamageToEntityTarget($player, $chosen, 1, true, $sourceMZ);
 };
 
 $customDQHandlers['HOREN_OF_TWO_PATHS_CHOICE'] = function($player, $parts, $lastDecision) {
