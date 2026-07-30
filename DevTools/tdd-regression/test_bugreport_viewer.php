@@ -51,6 +51,26 @@ $chk(strpos($all, '(no root · Discord)') !== false, 'blank root labeled');
 $chk(strpos($all, '<script>evilXss</script>') === false, 'XSS: raw <script> NOT emitted');
 $chk(strpos($all, '&lt;script&gt;') !== false, 'XSS: script tag HTML-escaped');
 
+// ── Load UI appears only on the SWUSim view, only for in-game reports with a snapshot ───────────────
+$swLoad = BugReportViewerRenderPage($fetch, 'SWUSim');
+$chk(strpos($swLoad, 'id="brv-target-game"') !== false, 'SWUSim view: target-game input present');
+$chk(strpos($swLoad, '<th>Load</th>') !== false, 'SWUSim view: Load column header present');
+$chk(strpos($swLoad, "brvLoad(5,'current')") !== false && strpos($swLoad, "brvLoad(5,'last-round')") !== false && strpos($swLoad, "brvLoad(5,'begin')") !== false,
+    'SWUSim view: Current/Last Round/Game Begin buttons for the engine-ui+snapshot report');
+$chk(strpos($swLoad, 'function brvLoad') !== false, 'SWUSim view: load JS emitted');
+
+$gaLoad = BugReportViewerRenderPage($fetch, 'GrandArchiveSim');
+$chk(strpos($gaLoad, 'id="brv-target-game"') === false && strpos($gaLoad, '<th>Load</th>') === false && strpos($gaLoad, 'brvLoad(') === false,
+    'non-SWUSim view: NO load UI (loading is SWUSim-only)');
+
+// ── HandleLoad pre-fetch validation (hermetic — rejects before any network) ─────────────────────────
+$chk((BugReportViewerHandleLoad('u', 'k', 1, 'bogus', '5', '/tmp')['error'] ?? '') === 'Invalid mode.', 'HandleLoad: invalid mode rejected');
+$chk(strpos(BugReportViewerHandleLoad('u', 'k', 1, 'current', 'abc', '/tmp')['error'] ?? '', 'numeric') !== false, 'HandleLoad: non-numeric game rejected');
+
+// ── FetchOne config/id guards (hermetic) ────────────────────────────────────────────────────────────
+$chk(!BugReportViewerFetchOne('', '', 5)['ok'], 'FetchOne: unconfigured → error');
+$chk(!BugReportViewerFetchOne('https://x', 'k', 0)['ok'], 'FetchOne: invalid id → error');
+
 // ── Fetch error surfaces in the page, no table ─────────────────────────────
 $errPage = BugReportViewerRenderPage(['ok' => false, 'error' => 'boom', 'reports' => []], 'SWUSim');
 $chk(strpos($errPage, 'boom') !== false && strpos($errPage, '<table') === false, 'fetch error rendered, no table');

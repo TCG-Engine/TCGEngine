@@ -28,6 +28,21 @@ $bugReportApiUrl = '';
 $bugReportApiKey = '';
 @include './APIKeys/APIKeys.php';
 
+// ── Load action (POST) — write a report's snapshot into a local SWUSim game, at Current/Last Round/
+//    Game Begin. SWUSim-only; the undo-stepping runs in SWUSim/DevTools/bugreport-load-state.php. ──────
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'load') {
+    header('Content-Type: application/json');
+    echo json_encode(BugReportViewerHandleLoad(
+        $bugReportApiUrl,
+        $bugReportApiKey,
+        intval($_POST['id'] ?? 0),
+        strval($_POST['mode'] ?? ''),
+        preg_replace('/[^0-9]/', '', strval($_POST['targetGame'] ?? '')),
+        __DIR__
+    ));
+    exit;
+}
+
 $fetch = BugReportViewerFetch($bugReportApiUrl, $bugReportApiKey);
 
 header('Content-Type: text/html; charset=utf-8');
