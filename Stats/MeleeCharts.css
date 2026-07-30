@@ -1,0 +1,129 @@
+/* MeleeCharts.css — styles for the shared renderers in MeleeCharts.js.
+   Linked by BOTH Stats/MeleeTournamentResults.php and Stats/MeleeTournamentAggregate.php.
+   Extracted verbatim; renderers and their styles travel together so the two pages cannot
+   drift visually the way they could if this were duplicated. */
+        .meta-chart {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .meta-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .bar {
+            width: 40px;
+            background-color: var(--accent);
+            margin-bottom: 5px;
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .bar:hover {
+            background-color: var(--accent);
+            filter: brightness(1.2);
+        }
+        .bar-label {
+            text-align: center;
+            font-size: 0.8em;
+            color: white;
+            word-break: break-word;
+            max-width: 60px;
+        }
+        .bar-value {
+            position: absolute;
+            bottom: -20px;
+            font-size: 0.8em;
+            color: white;
+        }
+        .leader-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            display: inline-block;
+            border: 2px solid var(--surface-raised);
+            transition: transform 0.2s;
+        }
+        .leader-img:hover {
+            transform: scale(1.2);
+            border-color: var(--accent);
+            z-index: 5;
+            cursor: pointer;
+        }
+        .archetype-grid {
+            display: flex; flex-wrap: wrap; gap: 12px;
+        }
+        .archetype-tile {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 8px; min-width: 96px; cursor: pointer;
+            background: var(--surface-raised); border: 1px solid var(--border);
+        }
+        .archetype-tile:hover { box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.35); }
+        .archetype-tile .tile-imgs { display: flex; gap: 4px; }
+        .archetype-tile img { width: 44px; height: 44px; object-fit: cover; border-radius: 4px; }
+        .archetype-tile .tile-meta { margin-top: 6px; font-size: 12px; text-align: center; }
+        .archetype-detail-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+        .archetype-detail-head .tile-imgs { display: flex; gap: 4px; }
+        .archetype-detail-head img { width: 44px; height: 44px; object-fit: cover; border-radius: 4px; }
+        .archetype-back { cursor: pointer; text-decoration: underline; }
+        .archetype-rows { width: 100%; border-collapse: collapse; }
+        .archetype-rows th, .archetype-rows td { padding: 6px 10px; text-align: left; }
+        .archetype-rows tr.thin { opacity: 0.5; }
+        .archetype-rows .opp-cell { display: inline-flex; align-items: center; gap: 8px; vertical-align: middle; }
+        .archetype-rows .opp-imgs { display: flex; gap: 3px; flex: 0 0 auto; }
+        .archetype-rows .opp-imgs img { width: 30px; height: 30px; object-fit: cover; border-radius: 3px; }
+        .archetype-rows tr.mirror td:first-child::after { content: ' (mirror)'; opacity: 0.7; }
+        .archetype-divider td { padding-top: 14px; font-size: 12px; opacity: 0.7; }
+        .archetype-notice { margin: 8px 0; font-size: 13px; opacity: 0.8; }
+        .leader-tooltip {
+            position: absolute;
+            background-color: var(--overlay-scrim);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            text-align: center;
+            min-width: 150px;
+            display: none;
+            pointer-events: none;
+        }
+        .leader-tooltip img {
+            max-width: 150px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        .leader-tooltip h4 {
+            margin: 0 0 5px 0;
+            font-weight: bold;
+            color: white;
+        }
+        .leader-tooltip p {
+            margin: 0;
+            font-size: 0.85em;
+            color: var(--text-muted);
+        }
+        .leader-card {
+            display: inline-flex;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            margin: 5px;
+            padding: 10px;
+            flex-direction: column;
+            align-items: center;
+            width: 120px;
+        }
+        .leader-card-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: center;
+            color: white;
+        }
+        .leader-card-stats {
+            font-size: 0.9em;
+            color: white;
+        }

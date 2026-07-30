@@ -43,6 +43,19 @@ include_once "../SharedUI/Header.php";
             gap: 15px;
             margin-bottom: 15px;
         }
+        .agg-bar {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 12px; flex-wrap: wrap;
+        }
+        .agg-bar button {
+            width: auto; padding: 6px 14px; cursor: pointer;
+            background: var(--surface-raised); color: var(--text);
+            border: 1px solid var(--border); font-size: 0.9rem;
+        }
+        .agg-bar button:hover:not(:disabled) { border-color: var(--accent); }
+        .agg-bar button:disabled { opacity: 0.45; cursor: default; }
+        #aggregate-btn:not(:disabled) { background: var(--accent); color: #06121f; font-weight: 600; }
+        #sel-count { color: var(--text-muted); font-size: 0.9rem; }
         .filter-group {
             flex: 1;
             min-width: 200px;
@@ -182,9 +195,16 @@ include_once "../SharedUI/Header.php";
     <div id="loading" class="loading">Loading tournaments...</div>
     
     <div id="tournaments-container" style="display: none;">
+        <div class="agg-bar">
+            <button type="button" id="select-filtered">Select all matching filter</button>
+            <span id="sel-count">0 selected</span>
+            <button type="button" id="clear-sel">Clear</button>
+            <button type="button" id="aggregate-btn" disabled>Aggregate &rarr;</button>
+        </div>
         <table id="tournaments-table">
             <thead>
                 <tr>
+                    <th style="width:36px;"></th>
                     <th>Tournament Name</th>
                     <th>Date</th>
                     <th>Actions</th>
@@ -210,6 +230,18 @@ include_once "../SharedUI/Header.php";
     <script>
         // Configuration
         const API_ENDPOINT = '../APIs/GetMeleeTournaments.php';
+
+        // Selected tournament ids for the aggregate view. Kept in a Set rather than read off the
+        // DOM so selection survives paging and re-filtering.
+        const selected = new Set();
+
+        function syncSelectionUI() {
+            document.querySelectorAll('.pick').forEach(cb => {
+                cb.checked = selected.has(parseInt(cb.value, 10));
+            });
+            document.getElementById('sel-count').textContent = `${selected.size} selected`;
+            document.getElementById('aggregate-btn').disabled = selected.size === 0;
+        }
         let currentPage = 1;
         const itemsPerPage = 20;
         let totalItems = 0;
@@ -323,6 +355,7 @@ include_once "../SharedUI/Header.php";
                 });
                 
                 row.innerHTML = `
+                    <td><input type="checkbox" class="pick" value="${tournament.id}"></td>
                     <td>${escapeHTML(tournament.name)}</td>
                     <td>${formattedDate}</td>
                     <td>
@@ -334,6 +367,17 @@ include_once "../SharedUI/Header.php";
                 
                 tournamentsBody.appendChild(row);
             });
+
+            // The table is rebuilt on every page change and filter apply, so ticks held only in
+            // the DOM would silently vanish. Re-apply them from the Set instead.
+            tournamentsBody.querySelectorAll('.pick').forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const id = parseInt(cb.value, 10);
+                    if (cb.checked) selected.add(id); else selected.delete(id);
+                    syncSelectionUI();
+                });
+            });
+            syncSelectionUI();
             
             tournamentsContainer.style.display = 'block';
             noResultsElement.style.display = 'none';
@@ -412,6 +456,40 @@ include_once "../SharedUI/Header.php";
                 hideLoading();
                 showError('Error: ' + err.message);
             });
+        });
+        // ---- aggregate selection handlers ----
+        document.getElementById('clear-sel').addEventListener('click', () => {
+            selected.clear();
+            syncSelectionUI();
+        });
+
+        // Must select the WHOLE filtered set, not just the visible page — re-query with a high
+        // limit and no offset rather than reading the 20 rows on screen.
+        document.getElementById('select-filtered').addEventListener('click', async () => {
+            const btn = document.getElementById('select-filtered');
+            btn.disabled = true;
+            try {
+                const params = new URLSearchParams();
+                const from = document.getElementById('date-from').value;
+                const to = document.getElementById('date-to').value;
+                if (from) params.set('date_from', from);
+                if (to) params.set('date_to', to);
+                params.set('sort', document.getElementById('sort-by').value);
+                params.set('limit', '1000');
+                params.set('offset', '0');
+                const res = await fetch(`${API_ENDPOINT}?${params.toString()}`);
+                const data = await res.json();
+                (data.tournaments || []).forEach(t => selected.add(parseInt(t.id, 10)));
+                syncSelectionUI();
+            } finally {
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('aggregate-btn').addEventListener('click', () => {
+            if (selected.size === 0) return;
+            const ids = [...selected].sort((a, b) => a - b).join(',');
+            window.location.href = `MeleeTournamentAggregate.php?ids=${ids}`;
         });
     </script>
 </body>

@@ -19,6 +19,8 @@ if ($tournamentId <= 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournament Results - SWU Stats</title>
+    <!-- Styles for the shared renderers in MeleeCharts.js; also linked by MeleeTournamentAggregate.php. -->
+    <link rel="stylesheet" href="MeleeCharts.css?v=20260729">
     <style>
         body {
             font-family: 'Barlow', sans-serif;
@@ -167,7 +169,6 @@ if ($tournamentId <= 0) {
             font-size: 0.9em;
             color: var(--text-muted);
         }
-        /* Leader Analysis Styles */
         .chart-container {
             margin: 20px 0;
             padding: 10px;
@@ -177,43 +178,6 @@ if ($tournamentId <= 0) {
         .chart-title {
             margin-bottom: 15px;
             font-weight: bold;
-            color: white;
-        }
-        .meta-chart {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .meta-bar {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .bar {
-            width: 40px;
-            background-color: var(--accent);
-            margin-bottom: 5px;
-            border-radius: 3px 3px 0 0;
-            position: relative;
-            transition: all 0.3s;
-        }
-        .bar:hover {
-            background-color: var(--accent);
-            filter: brightness(1.2);
-        }
-        .bar-label {
-            text-align: center;
-            font-size: 0.8em;
-            color: white;
-            word-break: break-word;
-            max-width: 60px;
-        }
-        .bar-value {
-            position: absolute;
-            bottom: -20px;
-            font-size: 0.8em;
             color: white;
         }
         .matchup-table {
@@ -255,74 +219,6 @@ if ($tournamentId <= 0) {
             background-color: var(--surface-sunken);
             color: var(--text-muted);
         }
-        .leader-img {
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            border-radius: 50%;
-            display: inline-block;
-            border: 2px solid var(--surface-raised);
-            transition: transform 0.2s;
-        }
-        .leader-img:hover {
-            transform: scale(1.2);
-            border-color: var(--accent);
-            z-index: 5;
-            cursor: pointer;
-        }
-        .archetype-grid {
-            display: flex; flex-wrap: wrap; gap: 12px;
-        }
-        .archetype-tile {
-            display: flex; flex-direction: column; align-items: center;
-            padding: 8px; min-width: 96px; cursor: pointer;
-            background: var(--surface-raised); border: 1px solid var(--border);
-        }
-        .archetype-tile:hover { box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.35); }
-        .archetype-tile .tile-imgs { display: flex; gap: 4px; }
-        .archetype-tile img { width: 44px; height: 44px; object-fit: cover; border-radius: 4px; }
-        .archetype-tile .tile-meta { margin-top: 6px; font-size: 12px; text-align: center; }
-        .archetype-detail-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-        .archetype-detail-head .tile-imgs { display: flex; gap: 4px; }
-        .archetype-detail-head img { width: 44px; height: 44px; object-fit: cover; border-radius: 4px; }
-        .archetype-back { cursor: pointer; text-decoration: underline; }
-        .archetype-rows { width: 100%; border-collapse: collapse; }
-        .archetype-rows th, .archetype-rows td { padding: 6px 10px; text-align: left; }
-        .archetype-rows tr.thin { opacity: 0.5; }
-        .archetype-rows .opp-cell { display: inline-flex; align-items: center; gap: 8px; vertical-align: middle; }
-        .archetype-rows .opp-imgs { display: flex; gap: 3px; flex: 0 0 auto; }
-        .archetype-rows .opp-imgs img { width: 30px; height: 30px; object-fit: cover; border-radius: 3px; }
-        .archetype-rows tr.mirror td:first-child::after { content: ' (mirror)'; opacity: 0.7; }
-        .archetype-divider td { padding-top: 14px; font-size: 12px; opacity: 0.7; }
-        .archetype-notice { margin: 8px 0; font-size: 13px; opacity: 0.8; }
-        .leader-tooltip {
-            position: absolute;
-            background-color: var(--overlay-scrim);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 10;
-            text-align: center;
-            min-width: 150px;
-            display: none;
-            pointer-events: none;
-        }
-        .leader-tooltip img {
-            max-width: 150px;
-            border-radius: 5px;
-            margin-bottom: 8px;
-        }
-        .leader-tooltip h4 {
-            margin: 0 0 5px 0;
-            font-weight: bold;
-            color: white;
-        }
-        .leader-tooltip p {
-            margin: 0;
-            font-size: 0.85em;
-            color: var(--text-muted);
-        }
         .pie-chart {
             position: relative;
             width: 200px;
@@ -342,26 +238,6 @@ if ($tournamentId <= 0) {
             margin-top: 10px;
             color: white;
             font-size: 0.9em;
-        }
-        .leader-card {
-            display: inline-flex;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 5px;
-            margin: 5px;
-            padding: 10px;
-            flex-direction: column;
-            align-items: center;
-            width: 120px;
-        }
-        .leader-card-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-            text-align: center;
-            color: white;
-        }
-        .leader-card-stats {
-            font-size: 0.9em;
-            color: white;
         }
         .flex-container {
             display: flex;
@@ -474,6 +350,8 @@ if ($tournamentId <= 0) {
         </div>
     </div>
     
+    <!-- Shared chart/explorer renderers, also used by MeleeTournamentAggregate.php. -->
+    <script src="MeleeCharts.js?v=20260729"></script>
     <script>
         // Configuration
         const tournamentId = <?php echo $tournamentId; ?>;
@@ -795,15 +673,6 @@ if ($tournamentId <= 0) {
         }
         
         // Security helper
-        function escapeHTML(str) {
-            if (!str) return '';
-            return str
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
         
         // Leader Analysis Functions
         function renderLeaderAnalysis(decks) {
@@ -827,18 +696,25 @@ if ($tournamentId <= 0) {
         // Calculate leader meta share
         function calculateLeaderMetaShare(decks) {
             const leaderCounts = {};
+            const leaderUuids = {};
             const totalDecks = decks.length;
-            
+
             // Count leaders
             decks.forEach(deck => {
                 // Use the leader name if available, otherwise use the UUID
                 const leaderName = deck.leader && deck.leader.name ? deck.leader.name : (deck.leader && deck.leader.uuid ? deck.leader.uuid : 'Unknown');
                 leaderCounts[leaderName] = (leaderCounts[leaderName] || 0) + 1;
+                // Carried through so renderLeaderMetaChart can show card art without reaching
+                // for window.decksData — a shared renderer must not depend on page globals.
+                if (deck.leader && deck.leader.uuid && !leaderUuids[leaderName]) {
+                    leaderUuids[leaderName] = deck.leader.uuid;
+                }
             });
-            
+
             // Calculate percentages and sort by popularity
             const leaderMetaShare = Object.keys(leaderCounts).map(leader => ({
                 name: leader,
+                uuid: leaderUuids[leader] || null,
                 count: leaderCounts[leader],
                 percentage: (leaderCounts[leader] / totalDecks * 100).toFixed(1)
             }));
@@ -975,118 +851,9 @@ if ($tournamentId <= 0) {
         // Win rate over MATCHES; draws are shown in the record but excluded here.
         // Returns null below the display threshold so callers cannot print a percentage
         // for a sample too thin to support one.
-        const ARCHETYPE_MIN_MATCHES = 4;
-        function archetypeWinRate(opponent) {
-            if (opponent.matches < ARCHETYPE_MIN_MATCHES) return null;
-            const decided = opponent.matchWins + opponent.matchLosses;
-            if (decided === 0) return null;
-            return (opponent.matchWins / decided) * 100;
-        }
 
         // Two-state view inside the Matchup Matrix tab: a gallery of every archetype, and a
         // per-archetype matchup list. Detail replaces the gallery in place; no URL state.
-        function renderArchetypeExplorer(archetypes) {
-            const container = document.getElementById('archetype-explorer');
-            const totalDecks = archetypes.reduce((s, a) => s + a.deckCount, 0);
-
-            function cardImg(uuid, alt) {
-                if (!uuid) return '';
-                return `<img src="../SWUDeck/jpg/concat/${uuid}.jpg" alt="${escapeHTML(alt)}" title="${escapeHTML(alt)}"
-                             onerror="this.onerror=null;this.src='../SWUDeck/concat/${uuid}.webp';">`;
-            }
-
-            function renderGallery() {
-                container.innerHTML = '';
-                if (archetypes.length === 0) {
-                    container.innerHTML = '<p>No archetype data available.</p>';
-                    return;
-                }
-                const grid = document.createElement('div');
-                grid.className = 'archetype-grid';
-                archetypes.forEach(a => {
-                    const share = totalDecks ? (a.deckCount / totalDecks * 100).toFixed(1) : '0.0';
-                    const tile = document.createElement('div');
-                    tile.className = 'archetype-tile';
-                    tile.innerHTML =
-                        `<div class="tile-imgs">${cardImg(a.leaderUuid, a.leaderName)}${cardImg(a.baseUuid, a.baseLabel)}</div>` +
-                        `<div class="tile-meta">${share}% (${a.deckCount})</div>`;
-                    tile.title = `${a.leaderName} / ${a.baseLabel}`;
-                    tile.addEventListener('click', () => renderDetail(a));
-                    grid.appendChild(tile);
-                });
-                container.appendChild(grid);
-            }
-
-            function renderDetail(a) {
-                container.innerHTML = '';
-
-                const head = document.createElement('div');
-                head.className = 'archetype-detail-head';
-                head.innerHTML =
-                    `<span class="archetype-back">&larr; All archetypes</span>` +
-                    `<div class="tile-imgs">${cardImg(a.leaderUuid, a.leaderName)}${cardImg(a.baseUuid, a.baseLabel)}</div>` +
-                    `<strong>${escapeHTML(a.leaderName)} / ${escapeHTML(a.baseLabel)}</strong>` +
-                    `<span>${a.deckCount} decks &middot; ${a.totalMatches} matches &middot; ${a.opponents.length} opponents</span>`;
-                head.querySelector('.archetype-back').addEventListener('click', renderGallery);
-                container.appendChild(head);
-
-                if (a.totalMatches === 0) {
-                    const p = document.createElement('p');
-                    p.className = 'archetype-notice';
-                    p.textContent = 'No recorded matches for this archetype.';
-                    container.appendChild(p);
-                    return;
-                }
-
-                const strong = a.opponents.filter(o => o.matches >= ARCHETYPE_MIN_MATCHES);
-                if (strong.length === 0) {
-                    const p = document.createElement('p');
-                    p.className = 'archetype-notice';
-                    p.textContent = `No opponent reaches ${ARCHETYPE_MIN_MATCHES} matches — not enough games for reliable rates.`;
-                    container.appendChild(p);
-                }
-
-                const table = document.createElement('table');
-                table.className = 'archetype-rows';
-                table.innerHTML = '<thead><tr><th>Opponent</th><th>Matches</th><th>Win rate</th><th>Record</th></tr></thead>';
-                const tbody = document.createElement('tbody');
-                let dividerDone = false;
-
-                a.opponents.forEach(o => {
-                    const rate = archetypeWinRate(o);
-                    if (rate === null && !dividerDone) {
-                        dividerDone = true;
-                        const d = document.createElement('tr');
-                        d.className = 'archetype-divider';
-                        d.innerHTML = `<td colspan="4">below ${ARCHETYPE_MIN_MATCHES} matches — win rates not shown</td>`;
-                        tbody.appendChild(d);
-                    }
-                    const tr = document.createElement('tr');
-                    if (rate === null) tr.classList.add('thin');
-                    if (o.isMirror) tr.classList.add('mirror');
-                    // A mirror is 50% by construction — every mirror match is recorded from
-                    // both sides, contributing one win and one loss to the same archetype — so
-                    // the figure carries no information and is suppressed. This is deliberately
-                    // separate from the thin-sample rule: the mirror keeps its sorted position
-                    // and normal weight rather than being demoted below the divider.
-                    const showRate = (rate === null || o.isMirror) ? '&mdash;' : rate.toFixed(1) + '%';
-                    tr.innerHTML =
-                        `<td><span class="opp-cell">` +
-                            `<span class="opp-imgs">${cardImg(o.leaderUuid, o.leaderName)}${cardImg(o.baseUuid, o.baseLabel)}</span>` +
-                            `<span>${escapeHTML(o.leaderName)} / ${escapeHTML(o.baseLabel)}</span>` +
-                        `</span></td>` +
-                        `<td>${o.matches}</td>` +
-                        `<td>${showRate}</td>` +
-                        `<td>${o.matchWins}-${o.matchLosses}-${o.matchDraws}</td>`;
-                    tbody.appendChild(tr);
-                });
-
-                table.appendChild(tbody);
-                container.appendChild(table);
-            }
-
-            renderGallery();
-        }
 
         // Calculate leader performance statistics
         function calculateLeaderPerformance(decks) {
@@ -1157,300 +924,10 @@ if ($tournamentId <= 0) {
         
         
         // Render leader meta share chart
-        function renderLeaderMetaChart(leaderMetaShare) {
-            const chartContainer = document.getElementById('leader-meta-chart');
-            chartContainer.innerHTML = '';
-            
-            // Store leader UUID mapping from global data
-            const leaderUUIDs = {};
-            
-            // Create a mapping of leader names to their UUIDs (populated in renderLeaderAnalysis)
-            window.decksData.forEach(deck => {
-                if (deck.leader && deck.leader.uuid && deck.leader.name) {
-                    leaderUUIDs[deck.leader.name] = deck.leader.uuid;
-                }
-            });
-            
-            // Find the maximum count for scaling
-            const maxCount = Math.max(...leaderMetaShare.map(leader => leader.count));
-            const maxHeight = 150; // Maximum bar height in pixels
-            
-            // Create a bar for each leader
-            leaderMetaShare.forEach(leader => {
-                const barHeight = Math.max((leader.count / maxCount) * maxHeight, 20); // Minimum height of 20px
-                
-                const barContainer = document.createElement('div');
-                barContainer.classList.add('meta-bar');
-                
-                const bar = document.createElement('div');
-                bar.classList.add('bar');
-                bar.style.height = `${barHeight}px`;
-                
-                // Generate a distinct color based on leader name
-                const hue = Math.abs(leader.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 360);
-                bar.style.backgroundColor = `hsl(${hue}, 70%, 50%)`;
-                
-                const barValue = document.createElement('div');
-                barValue.classList.add('bar-value');
-                barValue.textContent = `${leader.percentage}% (${leader.count})`;
-                bar.appendChild(barValue);
-                
-                // Create label with image if UUID available
-                const barLabel = document.createElement('div');
-                barLabel.classList.add('bar-label');
-                
-                const uuid = leaderUUIDs[leader.name];
-                if (uuid) {
-                    // Create image element
-                    const img = document.createElement('img');
-                    img.classList.add('leader-img');
-                    img.style.marginBottom = '5px'; // Add spacing below image
-                    
-                    // Try to use JPG version first (faster loading)
-                    img.src = `../SWUDeck/jpg/concat/${uuid}.jpg`;
-                    img.alt = leader.name;
-                    img.title = leader.name;
-                    
-                    // If JPG fails, fall back to WebP version
-                    img.onerror = function() {
-                        this.src = `../SWUDeck/concat/${uuid}.webp`;
-                    };
-                    
-                    barLabel.appendChild(img);
-                } else {
-                    // Fall back to text if no UUID is available
-                    barLabel.textContent = leader.name;
-                }
-                
-                barContainer.appendChild(bar);
-                barContainer.appendChild(barLabel);
-                chartContainer.appendChild(barContainer);
-            });
-            
-            // Show message if no data available
-            if (leaderMetaShare.length === 0) {
-                chartContainer.innerHTML = '<p>No leader data available.</p>';
-            }
-        }
         
         // Render leader/base combo meta share chart
-        function renderLeaderComboChart(comboMetaShare) {
-            const chartContainer = document.getElementById('combo-meta-chart');
-            chartContainer.innerHTML = '';
-            
-            // Find the maximum count for scaling
-            const maxCount = Math.max(...comboMetaShare.map(combo => combo.count));
-            const maxHeight = 150; // Maximum bar height in pixels
-            
-            // Create a tooltip for hover effects
-            const tooltip = document.createElement('div');
-            tooltip.classList.add('leader-tooltip');
-            document.body.appendChild(tooltip);
-            
-            // Create a bar for each combo
-            comboMetaShare.forEach(combo => {
-                const barHeight = Math.max((combo.count / maxCount) * maxHeight, 20); // Minimum height of 20px
-                
-                const barContainer = document.createElement('div');
-                barContainer.classList.add('meta-bar');
-                
-                const bar = document.createElement('div');
-                bar.classList.add('bar');
-                bar.style.height = `${barHeight}px`;
-                
-                // Generate a distinct color based on combo name
-                const hue = Math.abs(combo.name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 360);
-                bar.style.backgroundColor = `hsl(${hue}, 70%, 50%)`;
-                
-                const barValue = document.createElement('div');
-                barValue.classList.add('bar-value');
-                barValue.textContent = `${combo.percentage}% (${combo.count})`;
-                bar.appendChild(barValue);
-                
-                // Create label with combo images if UUIDs available
-                const barLabel = document.createElement('div');
-                barLabel.classList.add('bar-label');
-                barLabel.style.display = 'flex';
-                barLabel.style.flexDirection = 'column';
-                barLabel.style.alignItems = 'center';
-                
-                // Leader and base come straight off the combo object — no string parsing.
-                const leaderName = combo.leaderName;
-                const baseName = combo.baseLabel;
-
-                // Create leader image
-                const leaderUUID = combo.leaderUuid;
-                if (leaderUUID) {
-                    const leaderImg = document.createElement('img');
-                    leaderImg.classList.add('leader-img');
-                    leaderImg.style.marginBottom = '5px';
-                    
-                    // Try to use JPG version first (faster loading)
-                    leaderImg.src = `../SWUDeck/jpg/concat/${leaderUUID}.jpg`;
-                    leaderImg.alt = leaderName;
-                    leaderImg.title = leaderName;
-                    
-                    // If JPG fails, fall back to WebP version
-                    leaderImg.onerror = function() {
-                        this.src = `../SWUDeck/concat/${leaderUUID}.webp`;
-                    };
-                    
-                    // Add hover for tooltip
-                    leaderImg.addEventListener('mouseenter', (e) => {
-                        tooltip.innerHTML = `
-                            <img src="../SWUDeck/jpg/concat/${leaderUUID}.jpg" onerror="this.src='../SWUDeck/concat/${leaderUUID}.webp';" alt="${leaderName}">
-                            <h4>${leaderName}</h4>
-                            <p>Leader</p>
-                        `;
-                        tooltip.style.display = 'block';
-                        updateTooltipPosition(e);
-                    });
-                    
-                    leaderImg.addEventListener('mousemove', updateTooltipPosition);
-                    
-                    leaderImg.addEventListener('mouseleave', () => {
-                        tooltip.style.display = 'none';
-                    });
-                    
-                    barLabel.appendChild(leaderImg);
-                } else {
-                    const leaderText = document.createElement('div');
-                    leaderText.textContent = leaderName;
-                    leaderText.style.marginBottom = '5px';
-                    barLabel.appendChild(leaderText);
-                }
-                
-                // Create base image
-                const baseUUID = combo.baseUuid;
-                if (baseUUID) {
-                    const baseImg = document.createElement('img');
-                    baseImg.classList.add('leader-img');
-                    
-                    // Try to use JPG version first
-                    baseImg.src = `../SWUDeck/jpg/concat/${baseUUID}.jpg`;
-                    baseImg.alt = baseName;
-                    baseImg.title = baseName;
-                    
-                    // Fall back to WebP if JPG fails
-                    baseImg.onerror = function() {
-                        this.src = `../SWUDeck/concat/${baseUUID}.webp`;
-                    };
-                    
-                    // Add hover for tooltip
-                    baseImg.addEventListener('mouseenter', (e) => {
-                        tooltip.innerHTML = `
-                            <img src="../SWUDeck/jpg/concat/${baseUUID}.jpg" onerror="this.src='../SWUDeck/concat/${baseUUID}.webp';" alt="${baseName}">
-                            <h4>${baseName}</h4>
-                            <p>Base</p>
-                        `;
-                        tooltip.style.display = 'block';
-                        updateTooltipPosition(e);
-                    });
-                    
-                    baseImg.addEventListener('mousemove', updateTooltipPosition);
-                    
-                    baseImg.addEventListener('mouseleave', () => {
-                        tooltip.style.display = 'none';
-                    });
-                    
-                    barLabel.appendChild(baseImg);
-                } else {
-                    const baseText = document.createElement('div');
-                    baseText.textContent = baseName;
-                    barLabel.appendChild(baseText);
-                }
-                
-                barContainer.appendChild(bar);
-                barContainer.appendChild(barLabel);
-                chartContainer.appendChild(barContainer);
-            });
-            
-            // Show message if no data available
-            if (comboMetaShare.length === 0) {
-                chartContainer.innerHTML = '<p>No leader/base combo data available.</p>';
-            }
-            
-            // Helper function to update tooltip position
-            function updateTooltipPosition(e) {
-                // Position tooltip relative to mouse cursor
-                const x = e.pageX;
-                const y = e.pageY;
-                
-                // Get viewport dimensions
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                
-                // Get tooltip dimensions
-                const tooltipWidth = tooltip.offsetWidth;
-                const tooltipHeight = tooltip.offsetHeight;
-                
-                // Default position
-                let posX = x + 15;
-                let posY = y + 15;
-                
-                // Check if tooltip would go off-screen to the right
-                if (posX + tooltipWidth > viewportWidth) {
-                    posX = x - tooltipWidth - 15;
-                }
-                
-                // Check if tooltip would go off-screen at the bottom
-                if (posY + tooltipHeight > viewportHeight) {
-                    posY = y - tooltipHeight - 15;
-                }
-                
-                // Ensure tooltip doesn't go off-screen to the left or top
-                posX = Math.max(10, posX);
-                posY = Math.max(10, posY);
-                
-                // Apply the position
-                tooltip.style.left = `${posX}px`;
-                tooltip.style.top = `${posY}px`;
-            }
-        }
         
         // Render leader performance cards
-        function renderLeaderPerformanceCards(leaderPerformance) {
-            const container = document.getElementById('leader-performance');
-            container.innerHTML = '';
-            
-            // Create a card for each leader, limit to top 8
-            leaderPerformance.slice(0, 8).forEach(leader => {
-                const card = document.createElement('div');
-                card.classList.add('leader-card');
-                
-                // Calculate color based on win rate (green for high, red for low)
-                const winRate = parseFloat(leader.matchWinRate);
-                let color;
-                if (winRate >= 60) {
-                    color = 'var(--success)'; // Strong green
-                } else if (winRate >= 50) {
-                    color = 'var(--success)'; // Light green
-                } else if (winRate >= 40) {
-                    color = 'var(--accent-gold)'; // Orange
-                } else {
-                    color = 'var(--danger)'; // Red
-                }
-                
-                card.style.borderLeft = `4px solid ${color}`;
-                
-                card.innerHTML = `
-                    <div class="leader-card-name">${escapeHTML(leader.name)}</div>
-                    <div class="leader-card-stats">
-                        <div>Win rate: <strong>${leader.matchWinRate}%</strong></div>
-                        <div>Count: <strong>${leader.count}</strong></div>
-                        <div>Record: <strong>${leader.matchWins}-${leader.matchLosses}</strong></div>
-                        <div>Top cut: <strong>${leader.topCut}/${leader.count}</strong></div>
-                    </div>
-                `;
-                
-                container.appendChild(card);
-            });
-            
-            // Show message if no data available
-            if (leaderPerformance.length === 0) {
-                container.innerHTML = '<p>No leader performance data available.</p>';
-            }
-        }
         
         
         // Load tournament data on page load
