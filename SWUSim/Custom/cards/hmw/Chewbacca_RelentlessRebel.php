@@ -25,7 +25,7 @@ $customDQHandlers["HMW_009#0"] = function ($player, $parts, $lastDecision) {
 // FRONT (undeployed) — "Action [2 resources, Exhaust]: …". SWULeaderAction already gate-checked
 // affordability and exhausted the leader, so the closure only pays the resources. Not target-gated: the
 // cost changes game state, so the action stays available and simply fizzles with no legal attacker
-// (CR 6.4.587.c — same treatment as TWI_009/TWI_012's "attack with a unit" leaders).
+// (same treatment as TWI_009/TWI_012's "attack with a unit" leaders).
 $leaderActionResourceCosts["HMW_009"] = 2;
 
 $leaderAbilities["HMW_009"] = function (int $player): void {

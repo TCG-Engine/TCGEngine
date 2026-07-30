@@ -451,6 +451,14 @@ function HasConditionalKeyword_Ambush($obj) {
             if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid098 && !CardUnique($u->CardID ?? '')) return true;
         }
     }
+    // HMW_257 Ewok Archers — "While you control another unit that costs 3 or less, this unit gains Ambush."
+    // (Token units cost 0, so they qualify.)
+    if (($obj->CardID ?? '') === 'HMW_257') {
+        $selfUid257 = intval($obj->UniqueID ?? 0);
+        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
+            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid257 && intval(CardCost($u->CardID ?? '')) <= 3) return true;
+        }
+    }
     switch ($obj->CardID) {
         case 'SOR_114': // Escort Skiff — while you have a Cunning unit
             return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Cunning', $obj->UniqueID);
@@ -746,6 +754,17 @@ function HasConditionalKeyword_Sentinel($obj) {
     }
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SENTINEL')) return true;
     if (_SWUYularenGrants($obj, 'SENTINEL')) return true;
+    // HMW_142 Wookie Rangers — "While you control another Wookiee unit or a Kashyyyk base, this unit gains
+    // Sentinel." (No Kashyyyk base is previewed yet, so the base branch is currently unexercisable — but it
+    // reuses the same _SWUControlsBaseWithTrait helper covered by HMW_234 Tatooine / HMW_177 Endor.)
+    if (($obj->CardID ?? '') === 'HMW_142') {
+        $ctrl142 = intval($obj->Controller ?? 0);
+        $self142 = intval($obj->UniqueID ?? 0);
+        foreach (GetUnitsInPlay($ctrl142) as $u) {
+            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $self142 && TraitContains($u, 'Wookiee')) return true;
+        }
+        if (_SWUControlsBaseWithTrait($ctrl142, 'Kashyyyk')) return true;
+    }
     switch ($obj->CardID) {
         case 'ASH_079': // Koska Reeves — "While you control a token unit, this unit gains Sentinel."
             foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {

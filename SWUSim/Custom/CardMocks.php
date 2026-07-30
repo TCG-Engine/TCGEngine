@@ -336,7 +336,7 @@ When Played: This unit doesn\'t ready during the next regroup phase.',
       0 => 'Item',
       1 => 'Weapon',
     ),
-    'text' => 'Attach of a non-Vehicle unit.
+    'text' => 'Attach to a non-Vehicle unit.
 When Played: if attached unit is Chewbacca, resource the top card of your deck. (It enters play exhausted.)',
     'epicAction' => '',
     'deployText' => '',

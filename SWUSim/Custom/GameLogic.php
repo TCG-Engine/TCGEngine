@@ -947,6 +947,8 @@ $turnEffectRegistry = [
     'SOR_004' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Chirrut Îmwe leader action (+0/+2)
     'SOR_124' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Tactical Advantage
     'JTL_007' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Admiral Holdo (+2/+2 to a Resistance unit)
+    'HMW_255' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // C-3PO (+2/+2 to an Ewok and/or a Rebel this phase)
+    'HMW_206' => ['kind' => 'STAT_DEBUFF', 'label' => '-{0}/-{1}'], // The Tarkin Doctrine When Played (-3/-0 to an enemy unit this phase)
     'JTL_011' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Major Vonreg (+1/+0 to another unit)
     'JTL_042' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Power from Pain (+1/+0 per damage on it)
     'JTL_060' => ['kind' => 'STAT_DEBUFF', 'label' => '-{0}/-{1}'], // Desperate Commando (-1/-1)
@@ -2949,6 +2951,9 @@ function _SWUCreateOneToken(int $player, string $tokenID, bool $ready = false): 
     $playerID = $player;
     // TWI_203 Chancellor Palpatine — "Each token unit you create enters play ready."
     if (!$ready && _SWUCountActiveUnitsWithCardID($player, 'TWI_203') > 0) $ready = true;
+    // HMW_234 Ritual Dragon — "friendly units enter play ready" includes created tokens (while HMW_234 is
+    // in play and you control a Tatooine base). A token is never HMW_234, so this reads the in-play copy.
+    if (!$ready && _SWURitualDragonEntersReady($player, $tokenID)) $ready = true;
     $uid    = NextUniqueID();
     $status = $ready ? 1 : 0;
     if (CardTargetArena($tokenID) === 'SpaceArena') {
@@ -2983,6 +2988,15 @@ function _SWUCreateOneToken(int $player, string $tokenID, bool $ready = false): 
             if (empty($u->removed) && ($u->CardID ?? '') === 'ASH_041') $a041c++;
         }
         for ($i = 0; $i < $a041c; $i++) SWUApplyPhaseBuff($newCard->GetMzID(), 1, 0, 'ASH_041');
+    }
+    // HMW_171 Trap Field — a created ground token is a non-leader ground unit "entering play", so either
+    // player's Trap Field may react. Token creation has no trigger-bag flush of its own (it happens inside
+    // another effect's resolution), so flush explicitly when a reaction was armed. $gPendingTriggers is
+    // empty here (entry triggers are collected+flushed within their own collector, never spanning a token
+    // creation), so this flushes only the Trap Field trigger(s).
+    if ($newCard !== null && empty($newCard->removed)
+        && SWUCollectTrapFieldReactions($newCard->GetMzID()) > 0) {
+        FlushEntryTriggerBag($player);
     }
     $playerID = $savedPID;
     return $uid;
@@ -3585,6 +3599,33 @@ function DoGiveAdvantageToken($player, $targetMZ) {
         'IsPilot'     => false,
     ];
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
+    return $targetMZ;
+}
+
+// Generic token-upgrade attach (HMW_T02 Weakness, and any future token upgrade) — the arbitrary-CardID
+// generalisation the hardcoded DoGiveShieldToken/DoGiveExperienceToken/DoGiveAdvantageToken lacked. The
+// token's Owner/Controller follow the HOST's controller (an upgrade belongs to the unit it is attached to),
+// so a Weakness given to an ENEMY unit is correctly an enemy-controlled upgrade. The token's stat modifier
+// (e.g. Weakness -1/-1) flows through the normal upgrade stat loop, controller-agnostic. Returns $targetMZ
+// or "-" if the host is gone.
+function DoGiveTokenUpgrade($player, $targetMZ, string $tokenCardID) {
+    global $playerID;
+    $savedPID = $playerID;
+    $playerID = $player;
+    $obj = GetZoneObject($targetMZ);
+    $playerID = $savedPID;
+    if ($obj === null || (isset($obj->removed) && $obj->removed)) return "-";
+    if (!is_array($obj->Subcards)) $obj->Subcards = [];
+    $hostCtrl = intval($obj->Controller ?? $player);
+    $obj->Subcards[] = (object)[
+        'CardID'      => $tokenCardID,
+        'Owner'       => $hostCtrl,
+        'Controller'  => $hostCtrl,
+        'TurnEffects' => [],
+        'IsPilot'     => false,
+    ];
+    AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
+    _SWUAsh208OnUpgradeAttach(intval($player), $obj);       // self-gates to ASH_208 Sabine hosts
     return $targetMZ;
 }
 
@@ -4508,6 +4549,23 @@ function SWUFlushDeferredReplacements(): void {
             DecisionQueueController::AddDecision($ctrl, "YESNO", "-", 1,
                 tooltip:"Move_this_Pilot_to_the_ground_arena_as_a_unit_instead_of_defeating_it?");
             DecisionQueueController::AddDecision($ctrl, "CUSTOM", "DEFEAT_REPLACE_UPG|{$ctrl}|{$uid}", 1);
+            continue;
+        }
+        if (($e['kind'] ?? '') === 'rampart_save') {
+            // HMW_060 Vice Admiral Rampart — offer the base controller "defeat Rampart instead of the base
+            // upgrade?". The upgrade is still on the base (re-find by the stamped UID). If Rampart has since
+            // left play, or the upgrade is already gone, resolve directly with no prompt.
+            $hostMz = (string)($e['hostMz'] ?? '');
+            $idx = _SWUBaseUpgradeIndexByUID($ctrl, $hostMz, $uid);
+            if ($idx < 0) continue;                                   // upgrade already gone
+            if (!_SWUControlsCardInPlay($ctrl, 'HMW_060')) {          // no Rampart → defeat the upgrade for real
+                SWUDefeatUpgrade($ctrl, $hostMz, $idx, false, true);
+                continue;
+            }
+            $gReplaceSnapshots[$uid] = $e;
+            DecisionQueueController::AddDecision($ctrl, "YESNO", "-", 1,
+                tooltip:"Defeat_Vice_Admiral_Rampart_instead_of_the_base_upgrade?");
+            DecisionQueueController::AddDecision($ctrl, "CUSTOM", "RAMPART_SAVE|{$ctrl}|{$uid}", 1);
             continue;
         }
         // Unit → pilot upgrade (JTL_049). The unit is still parked in play; re-find by UID.
@@ -6061,6 +6119,54 @@ function SWUUnitEntersReady(string $cardID): bool {
     return stripos($text, 'this unit enters play ready') !== false;
 }
 
+// True if $player's base carries $trait. Base traits are published by CardTraitSupplement.php (the API
+// omits them), merged into $traitData at generation, so HasTrait resolves them like any card trait.
+// Used by the HMW base-condition cards (HMW_142 Kashyyyk, HMW_234 Tatooine, HMW_177 Endor).
+function _SWUControlsBaseWithTrait(int $player, string $trait): bool {
+    $zone = GetBase($player);
+    $base = $zone[0] ?? null;
+    if ($base === null) return false;
+    return HasTrait($base->CardID ?? '', $trait);
+}
+
+// True if $player's base has a Fortify upgrade with CardID $cardID attached (HMW_206 The Tarkin Doctrine).
+function _SWUBaseHasUpgrade(int $player, string $cardID): bool {
+    $zone = GetBase($player);
+    $base = $zone[0] ?? null;
+    if ($base === null) return false;
+    return SWUFindUpgradeIndex($base, $cardID) >= 0;
+}
+
+// The SWUDefeatUpgrade-style index (non-captive, non-removed order) of the base-attached upgrade carrying
+// $uid, or -1 if not found. Used by HMW_060 Rampart's deferred replacement to re-locate the saved upgrade.
+function _SWUBaseUpgradeIndexByUID(int $player, string $hostMz, int $uid): int {
+    if ($uid <= 0) return -1;
+    global $playerID; $sp = $playerID; $playerID = intval($player);
+    $host = GetZoneObject($hostMz);
+    $playerID = $sp;
+    if (SWUObjGone($host) || !is_array($host->Subcards ?? null)) return -1;
+    $idx = 0;
+    foreach ($host->Subcards as $sub) {
+        $isCaptive = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
+        $isRemoved = is_array($sub) ? !empty($sub['removed'])   : !empty($sub->removed);
+        if ($isCaptive || $isRemoved) continue;
+        $suid = is_array($sub) ? intval($sub['UniqueID'] ?? 0) : intval($sub->UniqueID ?? 0);
+        if ($suid === $uid) return $idx;
+        $idx++;
+    }
+    return -1;
+}
+
+// HMW_234 Ritual Dragon — "While you control a Tatooine base, friendly units enter play ready (including
+// this one)." A continuous passive: while HMW_234 is in play and its controller has a Tatooine base, that
+// player's units enter ready. "Including this one" means HMW_234's OWN entry also readies — it isn't in
+// play yet at entry-status time, so its own CardID short-circuits the "controls HMW_234" check.
+function _SWURitualDragonEntersReady(int $player, string $cardID): bool {
+    if (!_SWUControlsBaseWithTrait($player, 'Tatooine')) return false;
+    if ($cardID === 'HMW_234') return true;   // self-inclusion on its own entry
+    return _SWUCountActiveUnitsWithCardID($player, 'HMW_234') > 0;
+}
+
 // ─── Twin Suns seat helpers (Phase 1) ─────────────────────────────────────────
 // SeatOrder / LiveSeats are single-digit seat lists stored as global Value scalars
 // (seats are always 1..4, so no separator is needed — "123" = seats 1,2,3). SeatOrder is
@@ -6442,6 +6548,15 @@ function SWUTakeInitiative($player) {
             SWUQueueMayChooseTarget(intval($player), $readyUnits, "Grogu:_attack_with_a_unit?",
                 "Choose_a_unit_to_attack_with", "ASH_155#0");
         }
+    }
+    // HMW_158 Ezra Bridger — "When you take the initiative: You may deal 3 damage to your base. If you do,
+    // create a Beast token." One offer per controlled Ezra; self-damage is the cost, so the Beast (HMW_158#0)
+    // is gated on the damage actually landing (skipped if prevented, e.g. Close the Shield Gate).
+    foreach (GetUnitsInPlay(intval($player)) as $ez) {
+        if (!empty($ez->removed) || ($ez->CardID ?? '') !== 'HMW_158') continue;
+        DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
+            tooltip: "Deal_3_to_your_base_to_create_a_Beast_token?");
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_158#0", 1);
     }
     SWUPassAction($player);
 }
@@ -7565,6 +7680,16 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'LOF_026': case 'LOF_027': case 'LOF_029': case 'LOF_030':
             TheForceIsWithYou($player); break;
         case 'LOF_087': EighthBrotherReaction($player); break; // "When you play another unit": may use the Force → +2/+2
+        case 'HMW_171': Hmw171TrapFieldReaction($player, intval($mzID), max(1, intval($extra[0] ?? 1))); break; // Trap Field — non-leader ground unit entered: may defeat this upgrade → deal 3
+        case 'HMW_206': { // The Tarkin Doctrine base-grant — "When you play a Fortification upgrade: Exhaust an enemy unit."
+            global $playerID; $playerID = intval($player);
+            $enemies = array_merge(
+                ZoneSearch("theirGroundArena", AnyUnitFilter),
+                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
+            );
+            if (!empty($enemies)) SWUQueueChooseTarget(intval($player), $enemies, "Exhaust_an_enemy_unit", "EXHAUST_UNIT");
+            break;
+        }
         case 'TWI_080': Twi080Reaction($player, intval($extra[0] ?? 0)); break; // may exhaust self → create Battle Droid
         case 'TWI_018':  Twi018Reaction($player, intval($extra[0] ?? 0), true);  break; // front: exhaust leader → deal 1 to =cost
         case 'TWI_018D': Twi018Reaction($player, intval($extra[0] ?? 0), false); break; // deployed: deal 1 to ≤cost
@@ -7890,7 +8015,55 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
         // doesn't trigger its own copy ("another …").
         SWUCollectOwnPlayReactions($activePlayer, $cardID, ($obj !== null ? intval($obj->UniqueID ?? 0) : 0));
     }
+    // HMW_171 Trap Field — a base-hosted reactive fires when a non-leader ground unit enters play.
+    SWUCollectTrapFieldReactions($mzID);
     return FlushEntryTriggerBag($activePlayer);
+}
+
+// HMW_171 Trap Field (Fortify) — "When a non-leader ground unit enters play (including token units):
+// You may defeat this upgrade. If you do, deal 3 damage to that unit." A base-hosted REACTIVE entry
+// observer — the first of its kind. Unrestricted: fires for BOTH players' bases and for friendly OR
+// enemy ground units, played OR created (see _SWUCreateOneToken). The reaction is owned by the base
+// owner, who may be the NON-ACTIVE player (cross-player, drains like SHD_172). The entering unit is
+// carried by UniqueID (frame-independent) because the trigger owner may differ from the frame the
+// entering mzID was captured in. Returns the number of triggers added (so the token path knows to flush).
+function SWUCollectTrapFieldReactions(string $enteredMzID): int {
+    if (strpos($enteredMzID, 'GroundArena') === false) return 0;   // ground units only
+    $obj = GetZoneObject($enteredMzID);
+    if (SWUObjGone($obj)) return 0;
+    if (IsLeaderUnit($obj)) return 0;                              // "non-leader" excludes deployed leaders
+    $enteredUID = intval($obj->UniqueID ?? 0);
+    if ($enteredUID <= 0) return 0;
+    $added = 0;
+    foreach ([1, 2] as $bp) {
+        $zone = GetBase($bp);
+        $base = $zone[0] ?? null;
+        if ($base === null) continue;
+        $n = 0;
+        foreach (GetUpgradesOnUnit($base) as $sub) {
+            $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+            if ($cid === 'HMW_171') $n++;
+        }
+        if ($n > 0) {
+            // ONE trigger carrying the count (not N identical triggers — two identical reactive triggers
+            // hang the EffectStack flush, per SHD_172). The handler loops up to $n sequential may-defeats.
+            AddTrigger($bp, 'HMW_171', 'HMW_171', (string)$enteredUID, (string)$n);
+            $added++;
+        }
+    }
+    return $added;
+}
+
+// Queue the base owner's "you may defeat Trap Field → deal 3" decision. Guarded so it only prompts while
+// a Trap Field is still on their base and the entering unit is still in play.
+function Hmw171TrapFieldReaction(int $player, int $enteredUID, int $count): void {
+    global $playerID; $playerID = $player;
+    if (SWUFindMzByUID($enteredUID) === null) return;             // entering unit already gone
+    $zone = GetBase($player); $base = $zone[0] ?? null;
+    if ($base === null || SWUFindUpgradeIndex($base, 'HMW_171') < 0) return;
+    DecisionQueueController::AddDecision($player, 'YESNO', '-', 1,
+        tooltip: "Defeat_Trap_Field_to_deal_3_damage_to_that_unit?");
+    DecisionQueueController::AddDecision($player, 'CUSTOM', "HMW_171#0|{$enteredUID}|{$count}", 1);
 }
 
 // CollectWhenPlayedAsUpgradeTriggers — parallel to CollectEntryTriggers for upgrades.
@@ -7933,6 +8106,12 @@ function CollectWhenPlayedAsUpgradeTriggers(int $player, string $cardID, string 
         for ($i = 0; $i < $dengars && $hostUID133 > 0; $i++) {
             AddTrigger($player, 'SHD_133', 'SHD_133', strval($hostUID133));
         }
+    }
+    // HMW_206 The Tarkin Doctrine — "Attached base gains: 'When you play a Fortification upgrade: Exhaust an
+    // enemy unit.'" Fires when a Fortification-TRAIT upgrade is played while HMW_206 is attached to the
+    // player's base. HMW_206 is itself trait 'Law' (not Fortification), so playing it never self-triggers.
+    if (HasTrait($cardID, 'Fortification') && _SWUBaseHasUpgrade(intval($player), 'HMW_206')) {
+        AddTrigger($player, 'HMW_206', 'HMW_206', '');
     }
     return FlushEntryTriggerBag($player);
 }
@@ -10754,6 +10933,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'TS26_35': // Ahsoka's Lightsabers
         case 'TS26_52': // Sith Traditions
         case 'TS26_63': // Rex's DC-17s
+        case 'HMW_127': // Chewbacca's Bowcaster
             // "Attach to a non-Vehicle unit." No "friendly" qualifier → any non-Vehicle unit, friendly OR
             // enemy, is a legal host (CR 2.e — a player may play an upgrade onto an enemy unit; if it grants
             // abilities, the attached unit's controller resolves them). Rebuild from all four arenas, then
@@ -11537,6 +11717,10 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
                 if (empty($el->removed) && TraitContains($el, 'Force')) { $entersReady = true; break; }
             }
         }
+        // HMW_234 Ritual Dragon — "While you control a Tatooine base, friendly units enter play ready
+        // (including this one)." Applies to any friendly unit entering while HMW_234 is in play (or on
+        // HMW_234's own entry via the self-inclusion in the helper).
+        if (_SWURitualDragonEntersReady(intval($player), $effectiveCardID)) $entersReady = true;
         // ASH_248 Neel — "The next unit you play this phase with 1 or less power enters play ready."
         // Armed flag consumed by the next ≤1-power unit the controller plays.
         // ASH_248 Neel — the flag he arms is consumed by the next ≤1-power unit you play (never by Neel
