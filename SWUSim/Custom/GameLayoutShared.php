@@ -2305,6 +2305,12 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // there is NO MainMenu.php at the TCGEngine root, so the old './MainMenu.php' fallback 404'd.
     function SWUGoMainMenu() { window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
     function SWUReportBug() { if (typeof openBugReportModal === 'function') openBugReportModal(); }
+    // These are defined inside this IIFE but are also invoked from a LATER top-level <script> block
+    // (SWUGearConcede) and from inline gear-menu onclick handlers — both resolve against global scope.
+    // Without these window exports, `onclick="SWUReportBug()"` throws "SWUReportBug is not defined" and
+    // SWUGearConcede's `typeof SWUGoMainMenu === 'function'` is false (so Return-to-Main-Menu never navigates).
+    window.SWUGoMainMenu = SWUGoMainMenu;
+    window.SWUReportBug  = SWUReportBug;
     // Block the current opponent. Server resolves who the opponent is and whether to forfeit
     // (an in-progress Bo3 set). The blocked player is never told — privacy invariant.
     function SWUBlockOpponent(opts) {
@@ -3119,6 +3125,15 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     var pf = document.getElementById('playerID');
     var pid = pf ? parseInt(pf.value || '', 10) : NaN;
     if (pid !== 1 && pid !== 2) return; // spectators can't concede
+    // 1P practice (goldfish): there is no opponent to concede to, so "Return to Main Menu" (goHome)
+    // just closes the solo game and leaves — no concede confirm prompt. "Concede" (goHome=false) still
+    // prompts. The server re-checks the mode, so this is inert outside goldfish.
+    if (goHome && window.SWUIsGoldfish) {
+      SubmitInput('10006', '');       // end the solo game
+      swuCloseSettings();
+      if (typeof SWUGoMainMenu === 'function') SWUGoMainMenu();
+      return;
+    }
     var gnEl = document.getElementById('gameName');
     var akEl = document.getElementById('authKey');
     var gn = gnEl ? gnEl.value : '';
