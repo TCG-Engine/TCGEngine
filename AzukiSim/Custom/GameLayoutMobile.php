@@ -1238,6 +1238,9 @@
             transform-origin: 50% 100%;
             transform: translateY(var(--azuki-hand-drop, 0px)) rotate(var(--azuki-hand-angle, 0deg));
             transition: transform 130ms ease, filter 130ms ease;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         #myHand:not(.azuki-hand-fan-ready) > span[id] {
@@ -1258,6 +1261,50 @@
         #myHand > span[id] > a > img {
             width: var(--azuki-l-hand-card) !important;
             height: var(--azuki-l-hand-card) !important;
+        }
+
+        #myHand > span[id].azuki-mobile-hand-source {
+            opacity: 0.22;
+            filter: grayscale(0.35);
+        }
+
+        .azuki-mobile-hand-ghost {
+            position: fixed !important;
+            z-index: 10020 !important;
+            margin: 0 !important;
+            pointer-events: none !important;
+            transform: translate3d(-50%, -50%, 0) rotate(0deg) scale(1.08) !important;
+            transform-origin: 50% 50% !important;
+            opacity: 0.96;
+            filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.72));
+            transition: filter 100ms ease, opacity 100ms ease !important;
+            will-change: left, top, transform;
+        }
+
+        .azuki-mobile-play-drop-target {
+            outline: 3px solid rgba(99, 255, 205, 0.96) !important;
+            outline-offset: 4px !important;
+            box-shadow: 0 0 28px rgba(52, 255, 190, 0.5) !important;
+        }
+
+        .azuki-mobile-undo-target::after {
+            content: "Release to undo";
+            position: fixed;
+            left: 50%;
+            bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 10021;
+            transform: translateX(-50%);
+            padding: 8px 14px;
+            border: 1px solid rgba(255, 205, 112, 0.7);
+            border-radius: 999px;
+            background: rgba(33, 22, 11, 0.92);
+            color: #ffe1a0;
+            font: 800 11px/1.1 Bahnschrift, Aptos, sans-serif;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.48);
+            pointer-events: none;
         }
 
         @media (max-height: 430px) {
@@ -2211,8 +2258,355 @@
         window.setInterval(updateAvailability, 700);
     }
 
+    function setupMobileHandGestures() {
+        var activeGesture = null;
+        var blockHandClickUntil = 0;
+        var dragStartDistance = 18;
+        var playThreshold = 30;
+        var undoBandHeight = 28;
+        var supportsPointerEvents = !!window.PointerEvent;
+
+        function handCardFromTarget(target) {
+            if(!target || typeof target.closest !== 'function') return null;
+            var card = target.closest('#myHand > span[id]');
+            return card && /^myHand-\d+$/.test(card.id || '') ? card : null;
+        }
+
+        function isSelectionActive() {
+            return !!(window.SelectionMode && window.SelectionMode.active);
+        }
+
+        function createGhost(card, x, y) {
+            var rect = card.getBoundingClientRect();
+            var ghost = card.cloneNode(true);
+            ghost.removeAttribute('id');
+            ghost.removeAttribute('onclick');
+            ghost.className = 'azuki-mobile-hand-ghost';
+            ghost.style.width = rect.width + 'px';
+            ghost.style.height = rect.height + 'px';
+            ghost.style.left = x + 'px';
+            ghost.style.top = y + 'px';
+            document.body.appendChild(ghost);
+            return ghost;
+        }
+
+        function updateGhost(gesture, x, y) {
+            if(!gesture.ghost) return;
+            gesture.ghost.style.left = x + 'px';
+            gesture.ghost.style.top = y + 'px';
+        }
+
+        function pointInElement(x, y, id) {
+            var el = document.getElementById(id);
+            if(!el) return false;
+            var rect = el.getBoundingClientRect();
+            return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+        }
+
+        function destinationAt(x, y) {
+            if(pointInElement(x, y, 'myGardenSlot')) return 'myGarden';
+            if(pointInElement(x, y, 'myAlleySlot')) return 'myAlley';
+            return '';
+        }
+
+        function isUndoPoint(gesture, y) {
+            if(!gesture || !gesture.playStarted) return false;
+            // The initial upward threshold can still be inside the viewport's bottom band.
+            // Require the pointer to come back to its original hand height so staging the
+            // play cannot immediately undo itself on the same move event.
+            return y >= gesture.startY - 8 && y >= window.innerHeight - undoBandHeight;
+        }
+
+        function clearDropTarget() {
+            Array.prototype.forEach.call(
+                document.querySelectorAll('.azuki-mobile-play-drop-target'),
+                function(el) { el.classList.remove('azuki-mobile-play-drop-target'); }
+            );
+        }
+
+        function updateDropTarget(gesture, x, y) {
+            clearDropTarget();
+            if(!gesture.playStarted) return;
+            var destination = destinationAt(x, y);
+            var target = destination === 'myGarden'
+                ? document.getElementById('myGardenSlot')
+                : (destination === 'myAlley' ? document.getElementById('myAlleySlot') : null);
+            if(target) target.classList.add('azuki-mobile-play-drop-target');
+        }
+
+        function setUndoTarget(active) {
+            var section = document.querySelector('.azuki-m-section.is-mine');
+            if(section) section.classList.toggle('azuki-mobile-undo-target', !!active);
+        }
+
+        function queueRefresh() {
+            if(typeof window.QueueGameUpdate === 'function') window.QueueGameUpdate();
+        }
+
+        function submitEngine(mode, params) {
+            if(typeof window.SubmitEngineInput === 'function') {
+                return window.SubmitEngineInput(mode, params || '', {}).then(function(result) {
+                    queueRefresh();
+                    return result;
+                });
+            }
+            if(typeof window.SubmitInput === 'function') {
+                window.SubmitInput(mode, params || '');
+            }
+            return Promise.resolve('');
+        }
+
+        function waitForEntityDestination(timeoutMs) {
+            var started = Date.now();
+            return new Promise(function(resolve) {
+                function check() {
+                    var selection = window.SelectionMode;
+                    if(selection && selection.active && selection.mode === 'CHOOSEZONE') {
+                        resolve(selection);
+                        return;
+                    }
+                    if(Date.now() - started >= timeoutMs) {
+                        resolve(null);
+                        return;
+                    }
+                    window.setTimeout(check, 35);
+                }
+                check();
+            });
+        }
+
+        function submitPlay(gesture) {
+            if(gesture.playStarted) return;
+            gesture.playStarted = true;
+            gesture.card.classList.add('azuki-mobile-hand-source');
+            if(typeof window.HideCardDetail === 'function') window.HideCardDetail(true);
+            if(typeof window.suppressNextCardDetailClickUntil !== 'undefined') {
+                window.suppressNextCardDetailClickUntil = Date.now() + 1600;
+            }
+            blockHandClickUntil = Date.now() + 1600;
+            gesture.playPromise = submitEngine(
+                10002,
+                '&cardID=' + encodeURIComponent(gesture.cardID + '!FSM!')
+            );
+        }
+
+        function submitUndo(gesture) {
+            if(gesture.undoSubmitted) return;
+            gesture.undoSubmitted = true;
+            gesture.pendingDestination = '';
+            var afterPlay = gesture.playPromise || Promise.resolve('');
+            afterPlay.then(function() {
+                return submitEngine(10004, '&suppressUndoFlash=1');
+            }).catch(function(error) {
+                if(window.console && console.error) console.error(error);
+            });
+        }
+
+        function submitDestination(gesture, destination) {
+            if(!destination || gesture.undoSubmitted || gesture.destinationSubmitted) return;
+            gesture.destinationSubmitted = true;
+            var afterPlay = gesture.playPromise || Promise.resolve('');
+            afterPlay.then(function() {
+                return waitForEntityDestination(2600);
+            }).then(function(selection) {
+                if(!selection || gesture.undoSubmitted) {
+                    gesture.destinationSubmitted = false;
+                    return;
+                }
+                var matching = (selection.allowedDecisionZones || []).filter(function(spec) {
+                    return spec && spec.zone === destination;
+                })[0];
+                if(!matching) {
+                    gesture.destinationSubmitted = false;
+                    return;
+                }
+                var submittedValue = matching.submittedValue || destination;
+                var decisionIndex = selection.decisionIndex;
+                if(typeof window.ClearSelectionMode === 'function') window.ClearSelectionMode();
+                return submitEngine(
+                    'DECISION',
+                    '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(submittedValue)
+                );
+            }).catch(function(error) {
+                gesture.destinationSubmitted = false;
+                if(window.console && console.error) console.error(error);
+            });
+        }
+
+        function cleanupGesture(gesture) {
+            if(!gesture) return;
+            if(gesture.ghost && gesture.ghost.parentNode) gesture.ghost.parentNode.removeChild(gesture.ghost);
+            if(gesture.card) gesture.card.classList.remove('azuki-mobile-hand-source');
+            clearDropTarget();
+            setUndoTarget(false);
+            if(activeGesture === gesture) activeGesture = null;
+        }
+
+        function showHandPreview(gesture, event) {
+            var anchor = gesture.card.querySelector("a[onmouseover*='ShowCardDetail']");
+            if(!anchor || typeof window.ShowCardDetail !== 'function') return;
+            var previewEvent = {
+                type: 'touchlongpress',
+                target: event.target || anchor,
+                clientX: event.clientX,
+                clientY: event.clientY
+            };
+            window.ShowCardDetail(previewEvent, anchor, { allowTouch: true, skipDelay: true });
+            if(typeof window.suppressNextCardDetailClickUntil !== 'undefined') {
+                window.suppressNextCardDetailClickUntil = Date.now() + 1200;
+            }
+            blockHandClickUntil = Date.now() + 1200;
+        }
+
+        function beginGesture(event) {
+            if(event.pointerType !== 'touch' && event.pointerType !== 'pen') return;
+            var card = handCardFromTarget(event.target);
+            if(!card || isSelectionActive()) return;
+            activeGesture = {
+                pointerId: event.pointerId,
+                card: card,
+                cardID: card.id,
+                startX: event.clientX,
+                startY: event.clientY,
+                lastX: event.clientX,
+                lastY: event.clientY,
+                moved: false,
+                dragging: false,
+                playStarted: false,
+                playPromise: null,
+                undoSubmitted: false,
+                destinationSubmitted: false,
+                dismissOnly: !!window.cardDetailPersistent ||
+                    (typeof window.suppressNextCardDetailClickUntil !== 'undefined' &&
+                        Date.now() < window.suppressNextCardDetailClickUntil),
+                ghost: null
+            };
+        }
+
+        function moveGesture(event) {
+            var gesture = activeGesture;
+            if(!gesture || gesture.pointerId !== event.pointerId || gesture.dismissOnly) return;
+            gesture.lastX = event.clientX;
+            gesture.lastY = event.clientY;
+            var dx = event.clientX - gesture.startX;
+            var dy = event.clientY - gesture.startY;
+            var distance = Math.sqrt(dx * dx + dy * dy);
+            if(distance >= dragStartDistance) gesture.moved = true;
+            if(!gesture.dragging && gesture.moved) {
+                gesture.dragging = true;
+                gesture.ghost = createGhost(gesture.card, event.clientX, event.clientY);
+                blockHandClickUntil = Date.now() + 1600;
+            }
+            if(!gesture.dragging) return;
+
+            event.preventDefault();
+            updateGhost(gesture, event.clientX, event.clientY);
+            if(!gesture.playStarted && gesture.startY - event.clientY >= playThreshold) {
+                submitPlay(gesture);
+            }
+            var overUndo = isUndoPoint(gesture, event.clientY);
+            setUndoTarget(overUndo);
+            if(overUndo) clearDropTarget();
+            else updateDropTarget(gesture, event.clientX, event.clientY);
+        }
+
+        function finishPointer(event) {
+            var gesture = activeGesture;
+            if(!gesture || gesture.pointerId !== event.pointerId) return;
+            blockHandClickUntil = Date.now() + 1200;
+
+            if(gesture.dismissOnly) {
+                cleanupGesture(gesture);
+                return;
+            }
+
+            if(!gesture.dragging) {
+                showHandPreview(gesture, event);
+                cleanupGesture(gesture);
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+            if(gesture.playStarted && !gesture.undoSubmitted) {
+                if(isUndoPoint(gesture, event.clientY)) submitUndo(gesture);
+                else submitDestination(gesture, destinationAt(event.clientX, event.clientY));
+            }
+            cleanupGesture(gesture);
+        }
+
+        function cancelPointer(event) {
+            var gesture = activeGesture;
+            if(!gesture || gesture.pointerId !== event.pointerId) return;
+            cleanupGesture(gesture);
+        }
+
+        function touchForGesture(event) {
+            var lists = [event.changedTouches, event.touches];
+            for(var listIndex = 0; listIndex < lists.length; ++listIndex) {
+                var list = lists[listIndex];
+                if(!list) continue;
+                for(var touchIndex = 0; touchIndex < list.length; ++touchIndex) {
+                    if(!activeGesture || list[touchIndex].identifier === activeGesture.pointerId) {
+                        return list[touchIndex];
+                    }
+                }
+            }
+            return null;
+        }
+
+        function touchGestureEvent(event, touch) {
+            return {
+                pointerType: 'touch',
+                pointerId: touch.identifier,
+                target: event.target,
+                clientX: touch.clientX,
+                clientY: touch.clientY,
+                preventDefault: function() {
+                    if(event.cancelable) event.preventDefault();
+                },
+                stopPropagation: function() {
+                    event.stopPropagation();
+                }
+            };
+        }
+
+        if(supportsPointerEvents) {
+            document.addEventListener('pointerdown', beginGesture, true);
+            document.addEventListener('pointermove', moveGesture, { passive: false, capture: true });
+            document.addEventListener('pointerup', finishPointer, { passive: false, capture: true });
+            document.addEventListener('pointercancel', cancelPointer, { passive: false, capture: true });
+        } else {
+            document.addEventListener('touchstart', function(event) {
+                if(!event.touches || event.touches.length !== 1) return;
+                beginGesture(touchGestureEvent(event, event.touches[0]));
+            }, { passive: true, capture: true });
+            document.addEventListener('touchmove', function(event) {
+                var touch = touchForGesture(event);
+                if(touch) moveGesture(touchGestureEvent(event, touch));
+            }, { passive: false, capture: true });
+            document.addEventListener('touchend', function(event) {
+                var touch = touchForGesture(event);
+                if(touch) finishPointer(touchGestureEvent(event, touch));
+            }, { passive: false, capture: true });
+            document.addEventListener('touchcancel', function(event) {
+                var touch = touchForGesture(event);
+                if(touch) cancelPointer(touchGestureEvent(event, touch));
+            }, { passive: false, capture: true });
+        }
+
+        document.addEventListener('click', function(event) {
+            if(Date.now() >= blockHandClickUntil || !handCardFromTarget(event.target)) return;
+            event.preventDefault();
+            event.stopPropagation();
+        }, true);
+    }
+
     installResponseWatcher();
     setupAdminMenu();
+    setupMobileHandGestures();
     setupIKZTokenIndicator();
     setupLandscapeToastCompaction();
     updateIKZSummaries();

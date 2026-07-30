@@ -160,6 +160,7 @@ $actionResult = EngineExecuteLoadedAction([
   'updateCache' => true,
   'versionName' => $_GET["versionName"] ?? $inputText,
   'createdBy' => function_exists('LoggedInUser') && IsUserLoggedIn() ? strval(LoggedInUser()) : 'anonymous',
+  'suppressUndoFlash' => strval($_GET["suppressUndoFlash"] ?? '') === '1',
 ]);
 
 if (ProcessInputWantsJsonResponse()) {
