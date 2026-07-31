@@ -55,6 +55,7 @@ check('loggedin hides Log In', strpos($navIn, 'SWUDeck/LoginPage.php') === false
 $azukiDef = LoadSiteDef('AzukiSim');
 $azukiNavOut = RenderMenuBar($azukiDef, ['isLoggedIn'=>false,'isPatron'=>false,'username'=>null,'userId'=>null]);
 $azukiNavIn = RenderMenuBar($azukiDef, ['isLoggedIn'=>true,'isPatron'=>false,'username'=>'tester','userId'=>5]);
+check('Azuki nav omits Support', strpos($azukiNavOut, '>Support<') === false && strpos($azukiNavIn, '>Support<') === false);
 checkContains('Azuki loggedout nav offers account creation', $azukiNavOut, '>Create Account<');
 checkContains('Azuki loggedout nav offers login', $azukiNavOut, '/TCGEngine/SharedUI/Sites/AzukiSim/LoginPage.php');
 checkContains('Azuki auth links return to main menu', $azukiNavOut, 'redirect=%2FTCGEngine%2FSharedUI%2FSites%2FAzukiSim%2FMainMenu.php');
@@ -190,6 +191,8 @@ $welD = RenderProfile($defWD, $pCtx, []);
 checkContains('welcome greets the user', $welD, 'Welcome Tester!');
 check('welcome shows discord when configured', strpos($welD, 'discord-button') !== false || strpos($welD, 'Discord Account') !== false);
 check('welcome hides discord when not configured', strpos(RenderProfile($defWN, $pCtx, []), 'discord-button') === false);
+$azukiProfile = RenderProfile(LoadSiteDef('AzukiSim'), $pCtx, []);
+check('Azuki profile omits Patreon login', strpos($azukiProfile, 'containerPatreon') === false);
 
 // --- All sites validate under the new panel keys + render their listed panels ---
 $expectPanels = [

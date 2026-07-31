@@ -27,7 +27,6 @@
     'fonts'   => ['Barlow'],
   ],
   'nav' => [
-    ['label'=>'Support','icon'=>'zendo-support.svg','href'=>'https://www.patreon.com/c/OotTheMonk','target'=>'_blank'],
     ['label'=>'Matches','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Matches.php','visibility'=>'loggedIn'],
     ['label'=>'Profile','icon'=>'zendo-profile.svg','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/Profile.php','visibility'=>'loggedIn'],
     ['label'=>'Log Out','icon'=>'zendo-logout.svg','href'=>'/TCGEngine/AccountFiles/LogoutUser.php','visibility'=>'loggedIn'],
@@ -46,7 +45,6 @@
   'profile' => [
     'sections'         => ['welcome'],
     'oauthAppLabel'    => 'Azuki Sim',
-    'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordOAuth'     => true,
   ],
 ];
