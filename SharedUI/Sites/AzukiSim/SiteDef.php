@@ -22,6 +22,7 @@
     'styles'  => [   // shared stack derived from `theme` (clarent); only the app override remains
       '/TCGEngine/SharedUI/Sites/AzukiSim/css/azuki-overrides.css',
       '/TCGEngine/SharedUI/Sites/AzukiSim/css/matches.css',
+      '/TCGEngine/SharedUI/Sites/AzukiSim/css/main-menu.css',
     ],
     'scripts' => ['/TCGEngine/SharedUI/js/burger-menu.js'],
     'fonts'   => ['Barlow'],
