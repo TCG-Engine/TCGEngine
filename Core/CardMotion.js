@@ -48,6 +48,7 @@
   }
 
   function isEnabled(rootName) {
+    if (getRootName(rootName) === 'AzukiSim') return true;
     if (!window.TCGSettings || typeof window.TCGSettings.get !== 'function') {
       return defaultMotionEnabled();
     }

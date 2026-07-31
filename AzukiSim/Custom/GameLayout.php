@@ -41,52 +41,6 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         pointer-events: auto;
     }
 
-    .azuki-glass {
-        border: 1px solid rgba(212, 175, 55, 0.24);
-        border-radius: 12px;
-        background:
-            linear-gradient(180deg, rgba(232, 220, 200, 0.10), rgba(255, 255, 255, 0.02)),
-            linear-gradient(160deg, rgba(26, 31, 58, 0.84), rgba(26, 31, 58, 0.72));
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(12px) saturate(130%);
-        -webkit-backdrop-filter: blur(12px) saturate(130%);
-        padding: 24px 12px 10px;
-        transition: transform 140ms ease, border-color 140ms ease;
-    }
-
-    .azuki-glass::before {
-        content: attr(data-label);
-        position: absolute;
-        top: 8px;
-        left: 12px;
-        right: 12px;
-        color: rgba(212, 175, 55, 0.88);
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        font: 700 10px/1 var(--azuki-font-label);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        pointer-events: none;
-    }
-
-    .azuki-glass::after {
-        content: "";
-        position: absolute;
-        left: 12px;
-        right: 12px;
-        top: 21px;
-        height: 1px;
-        background: linear-gradient(90deg, rgba(212, 175, 55, 0.16), rgba(232, 220, 200, 0.04));
-        pointer-events: none;
-    }
-
-    .azuki-glass:hover {
-        transform: translateY(-2px);
-        border-color: rgba(212, 175, 55, 0.42);
-        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
     .azuki-pile {
         width: 104px;
         min-height: 92px;
@@ -464,12 +418,6 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         display: none !important;
     }
 
-    /* Hand slots (bottom/top center) */
-    #myHandSlot.azuki-glass,
-    #theirHandSlot.azuki-glass {
-        padding: 6px 8px;
-    }
-
     #myHandSlot {
         left: 50%;
         transform: translateX(-50%);
@@ -532,13 +480,6 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 
     #theirHandSlot.is-collapsed:hover {
         transform: translateX(-50%) translateY(calc(-100% + 18px)) !important;
-    }
-
-    #myHandSlot.azuki-glass::before,
-    #theirHandSlot.azuki-glass::before,
-    #myHandSlot.azuki-glass::after,
-    #theirHandSlot.azuki-glass::after {
-        display: none;
     }
 
     #myHand > span:not([id]),
@@ -647,39 +588,54 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
              * desktop geometry on this token prevents large displays from mixing
              * 160px rendered cards with laptop-sized 96/104px containers. */
             --azuki-card-size: 96px;
-            --azuki-field-w: min(68vw, 2200px);
-            --azuki-field-half-w: min(34vw, 1100px);
-            --azuki-field-shift: 4.6vw;
+            --azuki-zone-gap: clamp(8px, 0.9vw, 14px);
+            --azuki-side-w: var(--azuki-card-size);
+            /* Seven cards remain visible on a large display. On narrower desktop
+             * viewports the lane contracts and its existing scroller takes over. */
+            --azuki-lane-w: min(72vw, 760px);
+            --azuki-lane-half-w: min(36vw, 380px);
+            --azuki-board-w: calc(var(--azuki-lane-w) + var(--azuki-side-w) + var(--azuki-side-w) + var(--azuki-zone-gap) + var(--azuki-zone-gap));
+            --azuki-board-left: calc((100vw - var(--azuki-board-w)) / 2);
+            --azuki-garden-w: calc(var(--azuki-board-w) - var(--azuki-side-w) - var(--azuki-zone-gap));
+            --azuki-resource-w: var(--azuki-lane-w);
+            --azuki-hand-w: min(84vw, 1160px, calc(var(--azuki-board-left) + var(--azuki-lane-w) - 24px));
+            --azuki-hand-left: calc(var(--azuki-board-left) + var(--azuki-lane-w) - var(--azuki-hand-w));
+            --azuki-field-w: var(--azuki-lane-w);
             --azuki-field-h: calc(var(--azuki-card-size) + 20px);
             --azuki-lane-gap: clamp(6px, 0.7vh, 8px);
             --azuki-top-center-gap: clamp(12px, 1.4vh, 14px);
             --azuki-bottom-center-gap: clamp(18px, 2.2vh, 20px);
-            --azuki-pile-w: var(--azuki-card-size);
-            --azuki-pile-gap: clamp(24px, 1.8vw, 42px);
-            --azuki-lane-left: calc(50vw - var(--azuki-field-shift) - var(--azuki-field-half-w));
-            --azuki-my-pile-left: calc(var(--azuki-lane-left) - var(--azuki-pile-w) - var(--azuki-pile-gap));
-            --azuki-pile-right: calc(100vw - (var(--azuki-lane-left) + var(--azuki-field-w) + var(--azuki-pile-w) + var(--azuki-pile-gap)));
-            --azuki-rail-left: var(--azuki-my-pile-left);
-            --azuki-rail-card-w: var(--azuki-pile-w);
+            --azuki-pile-w: var(--azuki-side-w);
+            --azuki-rail-left: var(--azuki-board-left);
+            --azuki-rail-card-w: var(--azuki-side-w);
             --azuki-ikz-row-w: min(30vw, 460px);
             --azuki-field-card-size: var(--azuki-card-size);
             --azuki-ikz-card-size: clamp(68px, 8vh, 96px);
+            --azuki-ink: #0b0b0d;
+            --azuki-panel-top: rgba(27, 27, 29, 0.94);
+            --azuki-panel-bottom: rgba(15, 15, 17, 0.96);
+            --azuki-hairline: rgba(226, 216, 198, 0.09);
+            --azuki-muted-ivory: rgba(226, 216, 198, 0.5);
         }
 
-        #mainDiv,
+        #mainDiv {
+            background: var(--azuki-ink) !important;
+        }
+
         .stuffParent,
         .theirStuffWrapper,
         .myStuffWrapper,
         #myStuff,
         #theirStuff {
-            background: #182b3e !important;
+            background: transparent !important;
         }
 
         .azuki-board-bg {
             z-index: 10;
             background:
-                radial-gradient(ellipse 62% 28% at 45% 50%, rgba(80, 132, 158, 0.14), transparent 72%),
-                linear-gradient(180deg, #223b52 0%, #223b52 49.75%, #17293a 49.9%, #17293a 100%);
+                radial-gradient(ellipse 58% 30% at 50% 50%, rgba(140, 24, 35, 0.09), transparent 72%),
+                radial-gradient(circle at 82% 10%, rgba(173, 35, 45, 0.045), transparent 30%),
+                linear-gradient(180deg, #19191b 0%, #141416 49.72%, #101012 49.9%, #0b0b0d 100%);
         }
 
         .azuki-board-bg::before,
@@ -694,14 +650,14 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         .azuki-board-bg::before {
             top: calc(50% - 1px);
             height: 2px;
-            background: linear-gradient(90deg, transparent 0%, rgba(174, 207, 224, 0.2) 16%, rgba(174, 207, 224, 0.28) 50%, rgba(174, 207, 224, 0.2) 84%, transparent 100%);
-            box-shadow: 0 1px 20px rgba(0, 0, 0, 0.22);
+            background: linear-gradient(90deg, transparent 0%, rgba(126, 25, 35, 0.18) 18%, rgba(226, 216, 198, 0.16) 50%, rgba(126, 25, 35, 0.18) 82%, transparent 100%);
+            box-shadow: 0 1px 22px rgba(0, 0, 0, 0.42);
         }
 
         .azuki-board-bg::after {
             top: 0;
             bottom: 0;
-            background: linear-gradient(90deg, rgba(9, 18, 29, 0.26), transparent 14%, transparent 78%, rgba(9, 18, 29, 0.18));
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.42), transparent 16%, transparent 80%, rgba(0, 0, 0, 0.34));
         }
 
         .azuki-zone {
@@ -715,30 +671,41 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
             min-height: var(--azuki-field-h);
             padding: 10px 18px 8px;
             overflow: visible;
-            border: 1px solid rgba(137, 178, 199, 0.09);
+            border: 1px solid var(--azuki-hairline);
             border-radius: 11px;
-            background: linear-gradient(180deg, rgba(29, 51, 70, 0.96), rgba(25, 45, 63, 0.96));
-            box-shadow: inset 0 1px 0 rgba(232, 247, 255, 0.025), 0 10px 24px rgba(7, 15, 25, 0.12);
+            background: linear-gradient(180deg, var(--azuki-panel-top), var(--azuki-panel-bottom));
+            box-shadow: inset 0 1px 0 rgba(255, 248, 235, 0.025), 0 10px 26px rgba(0, 0, 0, 0.24);
         }
 
         .azuki-field::before {
-            content: attr(data-label);
-            position: absolute;
-            top: 7px;
-            left: 14px;
-            color: rgba(205, 224, 235, 0.52);
-            font: 700 9px/1 var(--azuki-font-label);
-            letter-spacing: 0.13em;
-            text-transform: uppercase;
-            pointer-events: none;
+            display: none;
         }
 
         #myGardenSlot,
         #theirGardenSlot,
         #myAlleySlot,
         #theirAlleySlot {
-            left: calc(50% - var(--azuki-field-shift));
-            transform: translateX(-50%);
+            transform: none;
+        }
+
+        #myGardenSlot {
+            left: var(--azuki-board-left);
+            width: var(--azuki-garden-w);
+        }
+
+        #theirGardenSlot {
+            left: var(--azuki-board-left);
+            width: var(--azuki-garden-w);
+        }
+
+        #myAlleySlot {
+            left: var(--azuki-board-left);
+            width: var(--azuki-lane-w);
+        }
+
+        #theirAlleySlot {
+            left: var(--azuki-board-left);
+            width: var(--azuki-lane-w);
         }
 
         #theirGardenSlot {
@@ -770,6 +737,18 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
             border-radius: 8px;
         }
 
+        /* Keep the aligned Leader inside the lane while extending only the
+         * scrollport edge used to paint its glow and action affordances. */
+        #myGardenWrapper {
+            margin-right: -58px;
+            padding-right: 58px;
+        }
+
+        #theirGardenWrapper {
+            margin-right: -58px;
+            padding-right: 58px;
+        }
+
         #myGarden > span[id] > a > img,
         #theirGarden > span[id] > a > img,
         #myAlley > span[id] > a > img,
@@ -778,21 +757,60 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
             height: var(--azuki-field-card-size) !important;
         }
 
+        /* The leader is the stable first Garden object. Put it in the dedicated
+         * end-cap recommended by the tabletop mat while preserving its real
+         * Garden zone identity and click behavior. */
+        #myGarden > span[id="myGarden-0"] {
+            order: 0;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            transform: translateX(21.6px);
+        }
+
+        #theirGarden > span[id="theirGarden-0"] {
+            order: 0;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            transform: translateX(21.6px);
+        }
+
+        /* Mirror both entity flows around the shared right-side leader track.
+         * Index 1 is nearest the leader; later cards continue toward the left. */
+        #myGarden,
+        #myAlley,
+        #theirGarden,
+        #theirAlley {
+            flex-direction: row-reverse !important;
+            justify-content: flex-start !important;
+        }
+
+        #myGardenSlot::after,
+        #theirGardenSlot::after {
+            display: none;
+        }
+
+        #myGardenSlot::after { right: 10px; }
+        #theirGardenSlot::after { left: 10px; }
+
         #myIKZAreaSlot,
         #theirIKZAreaSlot {
-            left: calc(50% - var(--azuki-field-shift));
             box-sizing: border-box;
-            width: var(--azuki-field-w);
+            width: var(--azuki-resource-w);
             height: var(--azuki-field-h);
             min-height: var(--azuki-field-h);
             padding: 8px 18px;
-            transform: translateX(-50%);
+            transform: none;
             z-index: 35;
             overflow: visible;
-            border: 1px solid rgba(137, 178, 199, 0.09);
-            border-radius: 11px;
-            background: linear-gradient(180deg, rgba(29, 51, 70, 0.96), rgba(25, 45, 63, 0.96));
-            box-shadow: inset 0 1px 0 rgba(232, 247, 255, 0.025), 0 10px 24px rgba(7, 15, 25, 0.12);
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        #myIKZAreaSlot::before,
+        #theirIKZAreaSlot::before {
+            display: none;
         }
 
         #myIKZAreaWrapper,
@@ -805,13 +823,23 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
             overflow: visible !important;
         }
 
+        #myIKZAreaWrapper {
+            transform: translateY(-16px);
+        }
+
+        #theirIKZAreaWrapper {
+            transform: translateY(16px);
+        }
+
         #theirIKZAreaSlot {
             top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap) - var(--azuki-lane-gap));
+            left: var(--azuki-board-left);
         }
 
         #myIKZAreaSlot {
             top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap) + var(--azuki-field-h) + var(--azuki-lane-gap));
             bottom: auto;
+            left: var(--azuki-board-left);
         }
 
         #myIKZArea,
@@ -878,7 +906,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         #theirDeckSlot,
         #myDiscardSlot,
         #theirDiscardSlot {
-            right: var(--azuki-pile-right);
+            right: auto;
             box-sizing: border-box;
             width: var(--azuki-pile-w);
             min-height: var(--azuki-card-size);
@@ -922,38 +950,77 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         }
 
         #theirGateSlot {
-            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap) - var(--azuki-lane-gap));
+            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap) + 10px);
+            left: calc(var(--azuki-board-left) + var(--azuki-lane-w) + var(--azuki-zone-gap));
         }
 
         #theirDeckSlot {
-            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap));
+            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap) - var(--azuki-lane-gap));
+            left: calc(var(--azuki-board-left) + var(--azuki-resource-w) + var(--azuki-zone-gap));
         }
 
         #theirDiscardSlot {
-            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h));
+            top: calc(50% - var(--azuki-top-center-gap) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-field-h) - var(--azuki-lane-gap) - var(--azuki-lane-gap));
+            left: calc(var(--azuki-board-left) + var(--azuki-resource-w) + var(--azuki-zone-gap) + var(--azuki-side-w) + var(--azuki-zone-gap));
         }
 
         #myGateSlot,
         #myDeckSlot,
         #myDiscardSlot {
             right: auto;
-            left: var(--azuki-my-pile-left);
             z-index: 38;
         }
 
         #myGateSlot {
-            top: calc(50% + var(--azuki-bottom-center-gap));
+            top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap) + 10px);
             bottom: auto;
+            left: calc(var(--azuki-board-left) + var(--azuki-lane-w) + var(--azuki-zone-gap));
         }
 
         #myDeckSlot {
-            top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap));
+            top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap) + var(--azuki-field-h) + var(--azuki-lane-gap));
             bottom: auto;
+            left: calc(var(--azuki-board-left) + var(--azuki-resource-w) + var(--azuki-zone-gap));
         }
 
         #myDiscardSlot {
             top: calc(50% + var(--azuki-bottom-center-gap) + var(--azuki-field-h) + var(--azuki-lane-gap) + var(--azuki-field-h) + var(--azuki-lane-gap));
             bottom: auto;
+            left: calc(var(--azuki-board-left) + var(--azuki-resource-w) + var(--azuki-zone-gap) + var(--azuki-side-w) + var(--azuki-zone-gap));
+        }
+
+        #myGateSlot,
+        #theirGateSlot,
+        #myDeckSlot,
+        #theirDeckSlot,
+        #myDiscardSlot,
+        #theirDiscardSlot {
+            height: var(--azuki-field-h);
+            min-height: var(--azuki-field-h);
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        #myGateSlot::before,
+        #theirGateSlot::before,
+        #myDeckSlot::before,
+        #theirDeckSlot::before,
+        #myDiscardSlot::before,
+        #theirDiscardSlot::before {
+            content: attr(data-label);
+            position: absolute;
+            top: 7px;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            color: var(--azuki-muted-ivory);
+            font: 700 9px/1 var(--azuki-font-label);
+            letter-spacing: 0.13em;
+            text-align: center;
+            text-transform: uppercase;
+            pointer-events: none;
         }
 
         #myGate > span[id] > a > img,
@@ -968,12 +1035,12 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 
         #myLeaderHealthSlot,
         #theirLeaderHealthSlot {
-            right: calc(var(--azuki-pile-right) + 120px);
+            right: var(--azuki-board-left);
             width: 96px;
             min-height: 58px;
-            border: 1px solid rgba(137, 178, 199, 0.12);
+            border: 1px solid rgba(226, 216, 198, 0.12);
             border-radius: 8px;
-            background: rgba(17, 34, 49, 0.72);
+            background: rgba(15, 15, 17, 0.78);
         }
 
         #theirLeaderHealthSlot {
@@ -982,7 +1049,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 
         #myLeaderHealthSlot {
             right: auto;
-            left: calc(var(--azuki-my-pile-left) + 4px);
+            left: calc(var(--azuki-board-left) + var(--azuki-board-w) - var(--azuki-side-w) - 5px);
             top: calc(50% + var(--azuki-bottom-center-gap) - 64px);
             bottom: auto;
             z-index: 40;
@@ -1047,7 +1114,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         #myHandSlot,
         #theirHandSlot {
             box-sizing: border-box;
-            width: var(--azuki-field-w);
+            width: var(--azuki-hand-w);
             min-height: calc(var(--azuki-card-size) + 2px);
             padding: 0 8px;
             border: 0;
@@ -1062,45 +1129,161 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
             height: var(--azuki-card-size) !important;
         }
 
+        #myHandWrapper,
+        #theirHandWrapper {
+            overflow: visible !important;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        #myHandWrapper::-webkit-scrollbar,
+        #theirHandWrapper::-webkit-scrollbar {
+            display: none;
+        }
+
         #myHandSlot {
-            left: calc(50% - var(--azuki-field-shift));
+            left: var(--azuki-hand-left);
             bottom: -48px;
-            transform: translateX(-50%);
+            transform: none;
         }
 
         #theirHandSlot {
-            left: calc(50% - var(--azuki-field-shift));
+            left: var(--azuki-hand-left);
             top: -48px;
-            transform: translateX(-50%);
+            transform: none;
         }
 
         #myHandSlot:hover,
         #theirHandSlot:hover {
-            transform: translateX(-50%);
+            transform: none;
             border-color: transparent;
             box-shadow: none;
         }
 
         #myHandSlot.is-collapsed,
         #myHandSlot.is-collapsed:hover {
-            transform: translateX(-50%) translateY(calc(100% - 66px)) !important;
+            transform: translateY(calc(100% - 66px)) !important;
         }
 
         #theirHandSlot.is-collapsed,
         #theirHandSlot.is-collapsed:hover {
-            transform: translateX(-50%) translateY(calc(-100% + 18px)) !important;
+            transform: translateY(calc(-100% + 18px)) !important;
         }
 
         .azuki-hand-collapse-btn {
-            background: rgba(17, 34, 49, 0.86);
-            border-color: rgba(165, 202, 220, 0.3);
+            left: calc(100% - var(--azuki-lane-half-w));
+            color: rgba(235, 226, 209, 0.78);
+            background: rgba(17, 17, 19, 0.94);
+            border-color: rgba(226, 216, 198, 0.24);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.32);
         }
 
         #azukiResponseOpportunity {
             top: calc(50% - 24px);
             bottom: auto;
-            border-color: rgba(165, 202, 220, 0.42);
-            background: rgba(17, 34, 49, 0.96);
+            border-color: rgba(226, 216, 198, 0.22);
+            background: rgba(15, 14, 15, 0.97);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 248, 235, 0.035);
+        }
+
+        .azuki-lane-scroll-btn {
+            color: rgba(235, 226, 209, 0.82);
+            border-color: rgba(226, 216, 198, 0.2);
+            background: linear-gradient(180deg, rgba(30, 29, 30, 0.98), rgba(13, 13, 15, 0.96));
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.38);
+        }
+
+        #manualControls,
+        #regressionControls {
+            color: rgba(235, 226, 209, 0.9) !important;
+            border-color: rgba(226, 216, 198, 0.2) !important;
+            background: rgba(14, 14, 16, 0.95) !important;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42) !important;
+        }
+
+        #bug-report-button {
+            border-color: rgba(166, 49, 59, 0.58) !important;
+            background: rgba(23, 14, 16, 0.96) !important;
+            box-shadow: 0 0 14px rgba(139, 34, 44, 0.22) !important;
+        }
+
+        #copy-spectate-link-button {
+            border-color: rgba(226, 216, 198, 0.24) !important;
+            background: rgba(16, 16, 18, 0.96) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.34) !important;
+        }
+
+        #concede-button {
+            border-color: rgba(166, 49, 59, 0.52) !important;
+            background: rgba(28, 12, 15, 0.96) !important;
+            box-shadow: 0 0 14px rgba(139, 34, 44, 0.2) !important;
+        }
+
+        #macro-card-toast-toggle {
+            border-color: rgba(226, 216, 198, 0.18) !important;
+            background: rgba(14, 14, 16, 0.94) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.34) !important;
+        }
+
+        .mzmodal-overlay {
+            background: rgba(0, 0, 0, 0.72) !important;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+        }
+
+        .mzmodal-panel {
+            color: rgba(244, 237, 224, 0.94) !important;
+            border-color: rgba(226, 216, 198, 0.2) !important;
+            background: linear-gradient(145deg, rgba(29, 28, 29, 0.99), rgba(12, 12, 14, 0.99)) !important;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.62), 0 0 36px rgba(126, 25, 35, 0.08) !important;
+        }
+
+        .mzmodal-title {
+            color: rgba(244, 237, 224, 0.94) !important;
+        }
+
+        .mzmodal-option {
+            color: rgba(244, 237, 224, 0.9) !important;
+            border-color: rgba(226, 216, 198, 0.12) !important;
+            background: rgba(255, 248, 235, 0.025) !important;
+        }
+
+        .mzmodal-option:hover:not(.mzmodal-option-disabled) {
+            border-color: rgba(226, 216, 198, 0.3) !important;
+            background: rgba(255, 248, 235, 0.055) !important;
+        }
+
+        .mzmodal-check {
+            border-color: rgba(226, 216, 198, 0.32) !important;
+        }
+
+        .mzmodal-option.mzmodal-option-selected {
+            border-color: rgba(181, 55, 65, 0.82) !important;
+            background: rgba(126, 25, 35, 0.22) !important;
+            box-shadow: 0 0 14px rgba(139, 34, 44, 0.2) !important;
+        }
+
+        .mzmodal-option-selected .mzmodal-check {
+            border-color: #9d2d38 !important;
+            background: #9d2d38 !important;
+        }
+
+        .mzmodal-counter {
+            color: rgba(226, 216, 198, 0.58) !important;
+        }
+
+        #mzmodal-submit {
+            color: #f7f0e4 !important;
+            border-color: rgba(181, 55, 65, 0.78) !important;
+            background: linear-gradient(180deg, #9d2d38, #661a23) !important;
+            box-shadow: 0 8px 20px rgba(92, 17, 25, 0.34) !important;
+        }
+
+        #mzmodal-submit:disabled {
+            color: rgba(226, 216, 198, 0.42) !important;
+            border-color: rgba(226, 216, 198, 0.1) !important;
+            background: rgba(51, 49, 50, 0.88) !important;
+            box-shadow: none !important;
         }
 
         #chatWidget {
@@ -1211,10 +1394,10 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 
 <!-- =================== MY ZONES (bottom half) =================== -->
 
-<div id="myGardenSlot" class="azuki-zone azuki-field" data-label="Garden (Front)">
+<div id="myGardenSlot" class="azuki-zone azuki-field" data-label="">
 </div>
 
-<div id="myAlleySlot" class="azuki-zone azuki-field" data-label="Alley (Back)">
+<div id="myAlleySlot" class="azuki-zone azuki-field" data-label="">
 </div>
 
 <div id="myGateSlot" class="azuki-zone" data-label="Gate">
@@ -1235,15 +1418,15 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 <div id="myDeckSlot" class="azuki-zone azuki-pile" data-label="Deck">
 </div>
 
-<div id="myHandSlot" class="azuki-zone azuki-glass azuki-hand" data-label="">
+<div id="myHandSlot" class="azuki-zone azuki-hand" data-label="">
 </div>
 
 <!-- =================== THEIR ZONES (top half) =================== -->
 
-<div id="theirGardenSlot" class="azuki-zone azuki-field" data-label="Garden (Front)">
+<div id="theirGardenSlot" class="azuki-zone azuki-field" data-label="">
 </div>
 
-<div id="theirAlleySlot" class="azuki-zone azuki-field" data-label="Alley (Back)">
+<div id="theirAlleySlot" class="azuki-zone azuki-field" data-label="">
 </div>
 
 <div id="theirGateSlot" class="azuki-zone" data-label="Gate">
@@ -1264,7 +1447,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
 <div id="theirDeckSlot" class="azuki-zone azuki-pile" data-label="Deck">
 </div>
 
-<div id="theirHandSlot" class="azuki-zone azuki-glass azuki-hand" data-label="">
+<div id="theirHandSlot" class="azuki-zone azuki-hand" data-label="">
 </div>
 
 <script>
@@ -1580,6 +1763,52 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         installForSlot('theirAlleySlot', 'theirAlleyWrapper');
     }
 
+    function setupHandPlayAreaAlignment() {
+        function install(prefix) {
+            var slotId = prefix + 'HandSlot';
+            var handId = prefix + 'Hand';
+            var laneId = prefix + 'AlleySlot';
+            var slot = document.getElementById(slotId);
+            if(!slot) return;
+            var pending = false;
+
+            function update() {
+                pending = false;
+                var hand = document.getElementById(handId);
+                var lane = document.getElementById(laneId);
+                if(!hand || !lane) return;
+
+                hand.style.transform = 'translateX(0px)';
+                var cards = Array.from(hand.querySelectorAll(':scope > span[id]'));
+                if(!cards.length) return;
+
+                var cardRects = cards.map(function(card) { return card.getBoundingClientRect(); });
+                var cardsLeft = Math.min.apply(null, cardRects.map(function(rect) { return rect.left; }));
+                var cardsRight = Math.max.apply(null, cardRects.map(function(rect) { return rect.right; }));
+                var laneRect = lane.getBoundingClientRect();
+                var slotRect = slot.getBoundingClientRect();
+                var idealShift = ((laneRect.left + laneRect.right) / 2) - ((cardsLeft + cardsRight) / 2);
+                var minimumShift = (slotRect.left + 8) - cardsLeft;
+                var maximumShift = (laneRect.right - 8) - cardsRight;
+                var shift = Math.min(maximumShift, Math.max(minimumShift, idealShift));
+                hand.style.transform = 'translateX(' + shift.toFixed(2) + 'px)';
+            }
+
+            function scheduleUpdate() {
+                if(pending) return;
+                pending = true;
+                window.requestAnimationFrame(update);
+            }
+
+            new MutationObserver(scheduleUpdate).observe(slot, { childList: true, subtree: true });
+            window.addEventListener('resize', scheduleUpdate);
+            scheduleUpdate();
+        }
+
+        install('my');
+        install('their');
+    }
+
     function setupIKZTokenIndicator() {
         var tokenCardID = 'IKZ-002_IKZ!_IKZ-Token_Die';
 
@@ -1696,6 +1925,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
     installResponsePassHotkey();
     setupHandCollapse();
     setupLaneScrollButtons();
+    setupHandPlayAreaAlignment();
     setupIKZTokenIndicator();
     setupPassAvailabilityGlow();
     window.UpdateAzukiResponseOpportunity();

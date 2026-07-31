@@ -1969,6 +1969,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                        font-size:13px; font-weight:600; box-shadow:none; cursor:pointer; margin-top:2px;'>
             &#128172; Chat
         </button>
+        <?php if ($folderPath !== 'AzukiSim'): ?>
         <button id='cardMotionToggleBtn'
                 type='button'
                 onclick='window.TCGCardMotion && window.TCGCardMotion.toggle(<?php echo json_encode($folderPath); ?>, this)'
@@ -1977,6 +1978,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                        font-size:12px; font-weight:600; box-shadow:none; cursor:pointer; margin-top:2px; white-space:nowrap;'>
             Motion: On
         </button>
+        <?php endif; ?>
         </div>
     </div>
     <script>
@@ -1995,7 +1997,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             if (inp) inp.focus();
         }
     }
-    if (window.TCGCardMotion) {
+    if (window.TCGCardMotion && <?php echo $folderPath !== 'AzukiSim' ? 'true' : 'false'; ?>) {
         window.TCGCardMotion.updateToggleButton('cardMotionToggleBtn', <?php echo json_encode($folderPath); ?>);
     }
     StartChatPoll();
