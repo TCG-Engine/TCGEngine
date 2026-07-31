@@ -336,8 +336,10 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     return $rejectedResult;
   }
 
-  // Mode 10017 is only the browser-to-controller transport. The bot's chosen
-  // gameplay action is executed recursively and recorded in its own right.
+  // Mode 10017 is normally only the browser-to-controller transport. The bot's
+  // chosen gameplay action is executed recursively and recorded in its own
+  // right. A controller may explicitly request persistence when it recovers
+  // engine-owned static queue work that has no nested gameplay action.
   $matchReplayPendingAction = ($result['recordAction'] && !$matchReplayInterrupted && $mode !== 10017)
     ? MatchReplayBeginPotentialAction($folderPath, $gameName)
     : null;
@@ -535,8 +537,8 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $botResult = ProcessBotControllerStep($playerID, $folderPath, $gameName);
         $result['success'] = !empty($botResult['success']);
         $result['message'] = strval($botResult['message'] ?? '');
-        $result['writeGamestate'] = false;
-        $result['updateCache'] = false;
+        $result['writeGamestate'] = !empty($botResult['writeGamestate']);
+        $result['updateCache'] = !empty($botResult['updateCache']);
         $result['recordAction'] = false;
         $result['botStepApplied'] = !empty($botResult['applied']);
         $result['botStepRetryable'] = !array_key_exists('retryable', $botResult) || !empty($botResult['retryable']);

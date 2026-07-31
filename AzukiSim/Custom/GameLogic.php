@@ -614,11 +614,38 @@ function ProcessAzukiGoldfishStep() {
     ];
 }
 
+function ProcessAzukiRlBotPendingStaticStep() {
+    $pendingBotPlayer = AzukiRlBotPendingPlayerForClient();
+    if($pendingBotPlayer === 0) return null;
+
+    $dqController = new DecisionQueueController();
+    $decision = $dqController->NextDecision($pendingBotPlayer);
+    if($decision === null) return null;
+
+    $staticTypes = ['PASSPARAMETER', 'MZMOVE', 'CUSTOM', 'SYSTEM'];
+    if(!in_array(strtoupper(strval($decision->Type ?? '')), $staticTypes, true)) return null;
+
+    $dqController->ExecuteStaticMethods($pendingBotPlayer, '-');
+    return [
+        'success' => true,
+        'message' => '',
+        'applied' => true,
+        'retryable' => AzukiGameOverWinner() === 0,
+        // Bot transport normally delegates persistence to its nested gameplay
+        // action. A recovered static step has no nested action, so the wrapper
+        // must persist this engine-owned transition itself.
+        'writeGamestate' => true,
+        'updateCache' => true,
+    ];
+}
+
 function ProcessAzukiRlBotStep() {
     global $gameName;
     if(AzukiGameMode() !== 'rlbot') return ['success' => false, 'message' => 'Azuki RL bot mode is not active.', 'applied' => false, 'retryable' => false];
     if(!AzukiRlBotEnsureBridgeLoaded()) return ['success' => false, 'message' => 'Azuki RL bot bridge is not available.', 'applied' => false, 'retryable' => false];
     if(!is_string($gameName) && !is_numeric($gameName)) return ['success' => false, 'message' => 'Azuki RL bot game is not loaded.', 'applied' => false, 'retryable' => false];
+    $staticResult = ProcessAzukiRlBotPendingStaticStep();
+    if(is_array($staticResult)) return $staticResult;
     if(IsAzukiGoldfishBot()) return ProcessAzukiGoldfishStep();
 
     @set_time_limit(15);
