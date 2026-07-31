@@ -92,10 +92,11 @@
       animation.destinationUniqueID,
       perspectivePlayerID
     );
-    if (!source || !destination || typeof source.animate !== 'function') return 0;
+    if (!source || !destination) return 0;
 
     var sourceRect = source.getBoundingClientRect();
     var destinationRect = destination.getBoundingClientRect();
+    if (!sourceRect.width || !sourceRect.height) return 0;
     var ratio = Number(animation.distanceRatio);
     if (!Number.isFinite(ratio)) ratio = 0.7;
     ratio = Math.max(0.1, Math.min(1, ratio));
@@ -103,12 +104,38 @@
     var dy = (destinationRect.top + destinationRect.height / 2 - sourceRect.top - sourceRect.height / 2) * ratio;
     var durationMs = Math.max(120, parseInt(animation.durationMs || 360, 10));
     var delayMs = Math.max(0, parseInt(animation.delayMs || 0, 10));
-    source.style.zIndex = '15000';
+
+    // Scrollable lanes clip their descendants regardless of z-index. Animate a fixed clone
+    // on the document body so lunges can cross Garden/field boundaries, and include attached
+    // subcards in the motion without changing the source lane's layout or scroll position.
+    var sourceStyle = window.getComputedStyle ? window.getComputedStyle(source) : null;
+    var sourceTransform = sourceStyle && sourceStyle.transform ? sourceStyle.transform : 'none';
+    var sourceTransformOrigin = sourceStyle && sourceStyle.transformOrigin
+      ? sourceStyle.transformOrigin
+      : 'center center';
+    var sourceWidth = source.offsetWidth || sourceRect.width;
+    var sourceHeight = source.offsetHeight || sourceRect.height;
+    var cloneLeft = sourceRect.left + (sourceRect.width - sourceWidth) / 2;
+    var cloneTop = sourceRect.top + (sourceRect.height - sourceHeight) / 2;
+    var clone = source.cloneNode(true);
+    stripCloneIdentity(clone);
+    clone.classList.add('tcg-card-lunge-clone');
+    clone.style.cssText += ';position:fixed!important;left:' + cloneLeft + 'px!important;top:'
+      + cloneTop + 'px!important;width:' + sourceWidth + 'px!important;height:'
+      + sourceHeight + 'px!important;margin:0!important;z-index:20000!important;'
+      + 'pointer-events:none!important;transform:' + sourceTransform + '!important;transform-origin:'
+      + sourceTransformOrigin + '!important;overflow:visible!important;will-change:transform,translate!important;';
+    document.body.appendChild(clone);
+    if (typeof clone.animate !== 'function') {
+      if (clone.parentNode) clone.parentNode.removeChild(clone);
+      return 0;
+    }
+
+    source.style.visibility = 'hidden';
     // Animate the independent translate property rather than composing into transform.
     // Opponent cards are commonly rotated by the board layout; composing translation into
     // that matrix mirrors the travel vector for the defending viewer.
-    source.style.willChange = 'translate';
-    var motion = source.animate([
+    var motion = clone.animate([
       { translate: '0px 0px', offset: 0 },
       { translate: dx + 'px ' + dy + 'px', offset: 0.46 },
       { translate: dx + 'px ' + dy + 'px', offset: 0.58 },
@@ -119,16 +146,18 @@
       easing: 'cubic-bezier(0.22, 0.78, 0.2, 1)',
       iterations: 1
     });
+    var cleaned = false;
     var cleanup = function() {
-      source.style.willChange = '';
-      source.style.zIndex = '';
+      if (cleaned) return;
+      cleaned = true;
+      if (source.isConnected) source.style.visibility = '';
+      if (clone.parentNode) clone.parentNode.removeChild(clone);
     };
     try {
       motion.addEventListener('finish', cleanup, { once: true });
       motion.addEventListener('cancel', cleanup, { once: true });
-    } catch (e) {
-      window.setTimeout(cleanup, durationMs + delayMs);
-    }
+    } catch (e) {}
+    window.setTimeout(cleanup, durationMs + delayMs + 80);
     return durationMs + delayMs;
   }
 

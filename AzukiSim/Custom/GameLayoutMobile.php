@@ -473,6 +473,17 @@
         overflow: hidden;
     }
 
+    /* Equipped weapons use Above-flow subcards and intentionally protrude beyond
+     * their entity. Garden paint must escape the compact portrait lane. */
+    #myGardenSlot,
+    #theirGardenSlot,
+    #myGardenWrapper,
+    #theirGardenWrapper,
+    #myGarden,
+    #theirGarden {
+        overflow: visible !important;
+    }
+
     #myHand,
     #theirHand {
         width: 100%;
@@ -1198,6 +1209,7 @@
         #theirGardenSlot {
             top: 0;
             bottom: -11px;
+            overflow: visible !important;
         }
 
         #myGardenWrapper,

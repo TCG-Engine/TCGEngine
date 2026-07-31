@@ -115,9 +115,12 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         position: relative;
         overflow-x: auto !important;
         overflow-y: hidden !important;
-        padding-top: 14px;
+        /* Three Above-flow weapon subcards can sit up to 30px above their entity.
+         * A horizontal scroller necessarily clips on the other axis, so reserve
+         * paint room inside the scrollport and cancel it with the outer margin. */
+        padding-top: 34px;
         padding-bottom: 14px;
-        margin-top: -14px;
+        margin-top: -34px;
         margin-bottom: -14px;
         border-radius: 18px;
         scrollbar-width: none;
@@ -762,8 +765,8 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
         #theirGardenWrapper,
         #myAlleyWrapper,
         #theirAlleyWrapper {
-            margin: -10px -6px -12px;
-            padding: 10px 6px 12px;
+            margin: -34px -6px -12px;
+            padding: 34px 6px 12px;
             border-radius: 8px;
         }
 
