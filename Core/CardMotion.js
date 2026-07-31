@@ -200,7 +200,7 @@
       clone.style.cssText += ';position:fixed!important;left:' + rect.left + 'px!important;top:' + rect.top
         + 'px!important;width:' + rect.width + 'px!important;height:' + rect.height
         + 'px!important;margin:0!important;z-index:20000!important;pointer-events:none!important;'
-        + 'transform-origin:top left!important;will-change:transform,opacity!important;';
+        + 'visibility:visible!important;transform-origin:top left!important;will-change:transform,opacity!important;';
       document.body.appendChild(clone);
       source.style.visibility = 'hidden';
       prepared.push({ event: event, clone: clone, source: source, sourceRect: rect, order: prepared.length });

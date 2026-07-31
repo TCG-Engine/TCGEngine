@@ -4023,7 +4023,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
     return 'PLAY';
 }
 
-function DoDrawCard($player, $amount) {
+function DoDrawCard($player, $amount, $animate = true) {
     $amount = max(0, intval($amount));
     $deck = &GetDeck($player);
     $hand = &GetHand($player);
@@ -4035,6 +4035,15 @@ function DoDrawCard($player, $amount) {
         AzukiStatsTrackGameCardEvent('AzukiDrawn', $player, $card->CardID ?? '');
         $drawn[] = AzukiGameLogObjectLabel($card);
         array_push($hand, $card);
+        if($animate && function_exists('QueueZoneMoveAnimation')) {
+            $handIndex = count($hand) - 1;
+            QueueZoneMoveAnimation(
+                ConvertMzIDToAbsolute('myDeck-0', $player),
+                ConvertMzIDToAbsolute('myHand-' . $handIndex, $player),
+                420,
+                true
+            );
+        }
     }
     if(!empty($drawn)) {
         GameLogEvent('draw', [
@@ -4067,7 +4076,7 @@ function DoRevealCard($player, $revealedMZ) {
 }
 
 function DrawOpeningHand($player, $amount = 7) {
-    DoDrawCard(intval($player), $amount);
+    DoDrawCard(intval($player), $amount, false);
 }
 
 function ResolveOpeningMulligan($player) {
