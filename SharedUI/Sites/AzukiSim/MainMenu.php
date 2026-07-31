@@ -299,7 +299,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
   <div class="rl-bot-opponent-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="rl-bot-opponent-title" aria-describedby="rl-bot-opponent-description">
     <button type="button" class="rl-bot-opponent-modal__close" onclick="closeRlBotOpponentModal()" aria-label="Close opponent selection">&times;</button>
     <h2 id="rl-bot-opponent-title">Choose Your Opponent</h2>
-    <p id="rl-bot-opponent-description">Your selected deck will face one of these trained RL bots.</p>
+    <p id="rl-bot-opponent-description">Choose a trained bot or a passive opponent that automatically passes.</p>
     <div class="rl-bot-opponent-grid">
       <button type="button" class="rl-bot-opponent-choice" onclick="startRlBotGame('raizan')">
         <img src="/TCGEngine/AzukiSim/WebpImages/S1-STT01-001_Raizan_L_L_die.webp" alt="" aria-hidden="true">
@@ -313,6 +313,13 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         <span>
           <strong>Zero</strong>
           <small>Deck 51</small>
+        </span>
+      </button>
+      <button type="button" class="rl-bot-opponent-choice" onclick="startRlBotGame('goldfish')">
+        <img src="/TCGEngine/Assets/Images/Zendo/UIIconsRaster/bot.webp?v=4" alt="" aria-hidden="true">
+        <span>
+          <strong>Goldfish</strong>
+          <small>Automatically passes</small>
         </span>
       </button>
     </div>
@@ -3184,12 +3191,12 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
       }
 
       function startRlBotGame(opponent) {
-        opponent = opponent === 'zero' ? 'zero' : 'raizan';
+        opponent = ['raizan', 'zero', 'goldfish'].indexOf(opponent) !== -1 ? opponent : 'raizan';
         closeRlBotOpponentModal();
         submitQueueJoin({
           createRlBot: true,
           rlBotOpponent: opponent,
-          waitingMessage: 'Starting RL bot game...'
+          waitingMessage: opponent === 'goldfish' ? 'Starting goldfish game...' : 'Starting RL bot game...'
         });
       }
 

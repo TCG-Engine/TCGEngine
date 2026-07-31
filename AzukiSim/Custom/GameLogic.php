@@ -41,6 +41,11 @@ function IsAzukiRlBotPlayer($player) {
     return in_array(intval($player), GetAzukiRlBotPlayers(), true);
 }
 
+function IsAzukiGoldfishBot(): bool {
+    if(AzukiGameMode() !== 'rlbot') return false;
+    return NormalizeAzukiRlBotProfile(DecisionQueueController::GetVariable('AzukiRlBotProfile')) === 'goldfish';
+}
+
 function AzukiGameMode(): string {
     $mode = DecisionQueueController::GetVariable('GameMode');
     return in_array($mode, ['rlbot', 'tutorial'], true) ? $mode : '';
@@ -530,11 +535,91 @@ function AzukiRlBotLegalActions($gameName, $requestedPlayer) {
     return BridgeEnumerateLegalActionsLoaded('AzukiSim', strval($gameName));
 }
 
+function AzukiGoldfishChooseAction($legal) {
+    $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
+    if(empty($actions)) return null;
+
+    // Pass every optional window. Decision-queue choices use mode 100 and
+    // represent their pass result directly, while phase/response passes use
+    // Azuki's CustomInput widget action.
+    foreach($actions as $action) {
+        $cardID = strtoupper(strval($action['cardID'] ?? ''));
+        if($cardID === 'PASS' || str_ends_with($cardID, '!CUSTOMINPUT!PASS')) return $action;
+    }
+
+    $decisionType = strtoupper(strval($legal['decisionType'] ?? ''));
+    if($decisionType === 'YESNO') {
+        foreach($actions as $action) {
+            if(strtoupper(strval($action['cardID'] ?? '')) === 'NO') return $action;
+        }
+    }
+
+    if($decisionType === 'MZMULTICHOOSE' || $decisionType === 'MZMODAL') {
+        foreach($actions as $action) {
+            if(strval($action['cardID'] ?? '') === '-') return $action;
+        }
+    }
+
+    // If the goldfish wins the opening roll, choose to go second so the human
+    // gets the first active turn. Other mandatory decisions take the first
+    // legal result to keep the passive seat from stalling the game.
+    if($decisionType === 'MZMODAL' && str_contains(strval($legal['decisionParam'] ?? ''), 'Go_first&Go_second')) {
+        foreach($actions as $action) {
+            if(strval($action['cardID'] ?? '') === '1') return $action;
+        }
+    }
+
+    return $actions[0];
+}
+
+function ProcessAzukiGoldfishStep() {
+    global $gameName;
+    if(!IsAzukiGoldfishBot()) return ['success' => false, 'message' => 'Azuki goldfish mode is not active.', 'applied' => false, 'retryable' => false];
+    if(AzukiGameOverWinner() !== 0) return ['success' => true, 'message' => 'Game is over.', 'applied' => false, 'retryable' => false];
+
+    $pendingBotPlayer = AzukiRlBotPendingPlayerForClient();
+    if($pendingBotPlayer === 0) {
+        return ['success' => true, 'message' => 'No goldfish action is currently pending.', 'applied' => false, 'retryable' => false];
+    }
+
+    $legal = AzukiRlBotLegalActions(strval($gameName), $pendingBotPlayer);
+    if(intval($legal['playerID'] ?? 0) !== $pendingBotPlayer) {
+        return ['success' => true, 'message' => 'No goldfish action is pending for player ' . $pendingBotPlayer . '.', 'applied' => false];
+    }
+
+    $action = AzukiGoldfishChooseAction($legal);
+    if(!is_array($action)) return ['success' => true, 'message' => 'No legal goldfish action is available.', 'applied' => false];
+
+    $cleanAction = AzukiRlBotCleanAction($action);
+    $outerPlayerID = $GLOBALS['playerID'] ?? null;
+    $result = EngineExecuteLoadedAction($cleanAction, 'AzukiSim', strval($gameName), [
+        'updateCache' => true,
+    ]);
+    if($outerPlayerID === null) unset($GLOBALS['playerID']);
+    else $GLOBALS['playerID'] = $outerPlayerID;
+    if(empty($result['success'])) {
+        return [
+            'success' => false,
+            'message' => strval($result['message'] ?? $result['error'] ?? 'Azuki goldfish action failed.'),
+            'applied' => false,
+        ];
+    }
+
+    return [
+        'success' => true,
+        'message' => '',
+        'applied' => true,
+        'retryable' => AzukiGameOverWinner() === 0,
+        'action' => $cleanAction,
+    ];
+}
+
 function ProcessAzukiRlBotStep() {
     global $gameName;
     if(AzukiGameMode() !== 'rlbot') return ['success' => false, 'message' => 'Azuki RL bot mode is not active.', 'applied' => false, 'retryable' => false];
     if(!AzukiRlBotEnsureBridgeLoaded()) return ['success' => false, 'message' => 'Azuki RL bot bridge is not available.', 'applied' => false, 'retryable' => false];
     if(!is_string($gameName) && !is_numeric($gameName)) return ['success' => false, 'message' => 'Azuki RL bot game is not loaded.', 'applied' => false, 'retryable' => false];
+    if(IsAzukiGoldfishBot()) return ProcessAzukiGoldfishStep();
 
     @set_time_limit(15);
     @ini_set('max_execution_time', '15');
