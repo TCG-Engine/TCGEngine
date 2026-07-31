@@ -440,15 +440,26 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     }
 
     /* ── Arena columns ───────────────────────────────────────────────────────── */
+    /* --swu-rot-bleed: an EXHAUSTED card is rotated 9° (RotationRules), which makes its
+       axis-aligned box ~8px taller and wider than the card itself. Cards sit flush against
+       this column's edges, so with a plain `overflow: hidden` that bleed got clipped — the
+       top of every exhausted card, and a whole corner off the first unit in a row (the one
+       pinned to the column's center-facing edge). The column is INFLATED by the bleed on all
+       four sides and the same amount is given back as padding, so the content box — and
+       therefore every card position and the wrap points — is unchanged; only the clip
+       boundary moves outward. Keep the two in sync if either changes. */
     .swu-arena-col {
+        --swu-rot-bleed: 8px;
         position: fixed; z-index: 30; pointer-events: auto;
-        width: calc(var(--swu-col-w) - 2 * var(--swu-arena-margin));
+        box-sizing: border-box;
+        width: calc(var(--swu-col-w) - 2 * var(--swu-arena-margin) + 2 * var(--swu-rot-bleed));
+        padding: var(--swu-rot-bleed);
         overflow: hidden; border-radius: 0;
     }
-    .swu-arena-col-space  { background: transparent; left: calc(var(--swu-space-left)  + var(--swu-arena-margin)); }
-    .swu-arena-col-ground { background: transparent; left: calc(var(--swu-ground-left) + var(--swu-arena-margin)); }
-    .swu-arena-col-top    { top: calc(var(--swu-hand-h) + var(--swu-arena-margin)); bottom: calc(var(--swu-midline) + 4px); }
-    .swu-arena-col-bot    { top: calc(var(--swu-midline) + 4px); bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin)); }
+    .swu-arena-col-space  { background: transparent; left: calc(var(--swu-space-left)  + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
+    .swu-arena-col-ground { background: transparent; left: calc(var(--swu-ground-left) + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
+    .swu-arena-col-top    { top: calc(var(--swu-hand-h) + var(--swu-arena-margin) - var(--swu-rot-bleed)); bottom: calc(var(--swu-midline) + 4px - var(--swu-rot-bleed)); }
+    .swu-arena-col-bot    { top: calc(var(--swu-midline) + 4px - var(--swu-rot-bleed)); bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
 
     /* Twin Suns home "replace" mode — the preview windows take over the opponent's whole board region:
        hide every opponent (top-half) zone and expand the strip grid to fill from the hand row to the

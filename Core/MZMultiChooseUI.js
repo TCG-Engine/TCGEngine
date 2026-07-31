@@ -591,7 +591,13 @@
 
     const title = document.createElement('div');
     title.className = 'mzmulti-title';
-    title.textContent = tooltip || 'Choose cards';
+    // Disclose: render the requirement as aspect icons (shared with the inline prompt). The ~REQ~
+    // suffix was already split off above, so re-join it for the parser rather than duplicating it.
+    const titleDisclose = (requiredAspects.length && typeof window.ParseDisclosePromptHTML === 'function')
+      ? window.ParseDisclosePromptHTML(tooltip + '~REQ~' + requiredAspects.join('-'))
+      : null;
+    if (titleDisclose) title.innerHTML = titleDisclose.html;
+    else title.textContent = tooltip || 'Choose cards';
     titleWrap.appendChild(title);
 
     const subtitle = document.createElement('div');
@@ -619,7 +625,14 @@
     const guidance = document.createElement('div');
     guidance.className = 'mzmulti-guidance';
     if (requiredAspects.length) {
-      guidance.textContent = 'Disclose cards covering ' + requiredAspects.join(' ') + ', or confirm with none to skip.';
+      const guidanceIcons = (typeof window.SWUAspectIconHTML === 'function')
+        ? requiredAspects.map(window.SWUAspectIconHTML).join('')
+        : '';
+      if (guidanceIcons) {
+        guidance.innerHTML = 'Disclose cards covering ' + guidanceIcons + ', or confirm with none to skip.';
+      } else {
+        guidance.textContent = 'Disclose cards covering ' + requiredAspects.join(' ') + ', or confirm with none to skip.';
+      }
     } else {
       guidance.textContent = min === 0 ? 'Confirm with nothing selected to skip.' : 'Selected cards are highlighted in green.';
     }

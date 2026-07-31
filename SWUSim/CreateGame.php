@@ -259,16 +259,14 @@ function QueuePregameSetup($firstPlayer) {
         }
     }
 
-    // Step f: Resource 2 cards — each player chooses 2 from their hand.
+    // Step f: Resource 2 cards — each player picks BOTH in one multi-select prompt (they're a pair
+    // of decisions the player wants to weigh together, so ChooseStartingResource queues a single
+    // 2-of MZMULTICHOOSE over the hand rather than two sequential single picks).
     // Block 50 keeps these behind the mulligan decisions (block 10) in the queue.
     foreach ($decisionOrder as $seat) {
-        // Undo snapshot before each starting-resource pick so a player can step back through them.
+        // Undo snapshot before the starting-resource pick so a player can step back to it.
         DecisionQueueController::AddDecision($seat, "CUSTOM", "PushPregameSnapshot|$seat", 50);
-        DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50,
-            tooltip:"Choose_a_card_to_resource_(1/2)");
-        DecisionQueueController::AddDecision($seat, "CUSTOM", "PushPregameSnapshot|$seat", 50);
-        DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50,
-            tooltip:"Choose_a_card_to_resource_(2/2)");
+        DecisionQueueController::AddDecision($seat, "CUSTOM", "ChooseStartingResource", 50);
     }
 
     // Begin-game undo boundary: snapshot the freshly-dealt pregame state (opening hands + the pending

@@ -32,9 +32,14 @@ $customDQHandlers["SEC_133#1"] = function($player, $parts, $lastDecision) {
         return;
     }
     // The controller decides: discard a card to prevent the damage, or take 2.
+    // NAME the unit: this decision is queued onto the OPPONENT, who did not pick the target and has
+    // no other way to tell which of their units is under threat ("your unit" is ambiguous the moment
+    // they control more than one). The board highlight can't cover this — HighlightRules only render
+    // for the active player, and the active player here is the attacker.
+    $tgtName = CardTitle($o->CardID ?? '') ?? 'your unit';
     $playerID = $ctrl;
     DecisionQueueController::AddDecision($ctrl, "YESNO", "-", 1,
-        tooltip: "Discard_a_card_to_prevent_2_damage_to_your_unit?");
+        tooltip: "Discard_a_card_to_prevent_2_damage_to_{$tgtName}?");
     DecisionQueueController::AddDecision($ctrl, "CUSTOM", "SEC_133#2|{$tgtUID}|{$attacker}", 1);
 };
 

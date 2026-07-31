@@ -5699,6 +5699,51 @@ function ExpandInlineMultiSelectableCards() {
   return out;
 }
 
+// ── Disclose prompt rendering (CR §38) ──────────────────────────────────────
+// SWUQueueDisclose appends a "~REQ~Aspect-Aspect-Aspect" side channel to the tooltip so the client
+// knows which aspect icons the selection has to cover. That suffix is machinery, not prose — it must
+// never reach the player, and the inline prompt was printing it verbatim.
+//
+// The prompt text ALSO spells the same requirement out as run-together words ("Disclose
+// AggressionAggressionVillainy to pressure a unit") because the printed card text does. Rather than
+// re-author every card's tooltip, swap that run of names for the real aspect icons in place, so the
+// sentence reads naturally and the requirement is shown the way it appears on a card.
+//
+// Returns null for any tooltip with no disclose requirement — i.e. every other prompt is untouched.
+function _SWUEscapeHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function SWUAspectIconHTML(aspect) {
+  var slug = String(aspect || '').toLowerCase().replace(/[^a-z]/g, '');
+  if (!slug) return '';
+  var label = _SWUEscapeHtml(aspect);
+  return "<img src='./Assets/Icons/swusim-" + slug + "-icon.webp' alt='" + label + "' title='" + label
+    + "' style='height:1.25em; width:1.25em; vertical-align:-0.22em; margin:0 1px;' />";
+}
+
+function ParseDisclosePromptHTML(tooltip) {
+  var raw = String(tooltip == null ? '' : tooltip);
+  var sep = raw.indexOf('~REQ~');
+  if (sep === -1) return null;
+  var text = raw.slice(0, sep).trim();
+  var aspects = raw.slice(sep + 5).split('-').map(function(a) { return a.trim(); }).filter(Boolean);
+  if (!aspects.length) return { text: text, aspects: [], html: _SWUEscapeHtml(text) };
+
+  var icons = aspects.map(SWUAspectIconHTML).join('');
+  // The names appear in the prompt exactly as the concatenation of the requirement list, because
+  // that is how the card prints them. Splice the icons in at that spot; if a card words it
+  // generically instead ("Disclose an aspect"), append them rather than dropping them.
+  var joined = aspects.join('');
+  var at = joined ? text.indexOf(joined) : -1;
+  var html = (at !== -1)
+    ? _SWUEscapeHtml(text.slice(0, at)) + icons + _SWUEscapeHtml(text.slice(at + joined.length))
+    : _SWUEscapeHtml(text) + ' ' + icons;
+  return { text: text, aspects: aspects, html: html };
+}
+
 function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   let existing = document.getElementById('selection-message');
   if (!existing) {
@@ -5739,7 +5784,9 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   existing.style.userSelect = 'none';
   existing.innerHTML = '';
   const msgSpan = document.createElement('span');
-  msgSpan.textContent = msg;
+  const discloseMsg = ParseDisclosePromptHTML(msg);
+  if (discloseMsg) msgSpan.innerHTML = discloseMsg.html;   // aspect icons; text is escaped inside
+  else msgSpan.textContent = msg;
   msgSpan.style.flex = '1 1 260px';
   msgSpan.style.minWidth = '0';
   msgSpan.style.cursor = 'grab';

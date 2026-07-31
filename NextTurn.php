@@ -20,7 +20,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
-    <script src="./Core/MZMultiChooseUI.js"></script>
+    <script src="./Core/MZMultiChooseUI.js?v=<?php echo filemtime('./Core/MZMultiChooseUI.js'); ?>"></script>
     <script src="./Core/MZModalUI.js"></script>
     <script src="./Core/TwoSidedSliderUI.js"></script>
     <script src="./Core/IconChoiceUI.js"></script>
@@ -1008,21 +1008,38 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           element.innerHTML += "<div class='shield-break-animation' style='" + shieldStyle + "'></div>";
           if (totalMs < 600) totalMs = 600;
         } else if (type === "EXHAUST") {
-          var exhaustAnimation = [
-            { transform: "rotate(0deg) scale(1)" },
-            { transform: "rotate(5deg) scale(1)" },
-          ];
-          var exhaustTiming = { duration: 60, delay: delayMs, iterations: 1 };
-          element.animate(exhaustAnimation, exhaustTiming);
-          var exhaustOverlayStyle = "position:absolute; text-align:center; font-size:36px; top: 0px; left:-2px; width:100%; height: calc(100% - 16px); padding: 0 2px; border-radius:12px; background-color:rgba(0,0,0,0.5);";
-          if (delayMs > 0) exhaustOverlayStyle += " animation: damageFlash 60ms ease-out " + delayMs + "ms 1 forwards; opacity:0;";
-          element.innerHTML += "<div style='" + exhaustOverlayStyle + "'><div style='width:100%; height:100%:'></div></div>";
-          if (delayMs > 0) {
-            window.setTimeout(function() { element.className += " exhausted"; }, delayMs);
-          } else {
-            element.className += " exhausted";
+          // Tilt the card to its exhausted angle NOW, at the front of the animation window.
+          //
+          // Exhausting is a COST — it is paid when the action is declared, so it has to be visible
+          // BEFORE the effect it paid for. The board re-render that would otherwise show it is held
+          // back by ProcessRenderQueue until every blocking animation finishes, so on an attack that
+          // declares and resolves in one update (a single-target attack — e.g. hitting the base when
+          // the defender controls no units) the whole damage animation played with the attacker still
+          // sitting upright, and it only snapped over afterwards.
+          //
+          // The angle is read from the app's own RotationRules (the generated schema visual) so this
+          // matches whatever "exhausted" looks like in each sim, rather than hardcoding one. The
+          // transform is inline on the pre-render element and is replaced wholesale by the board
+          // re-render that follows — this only covers the gap until then.
+          var exhaustDegrees = 0;
+          try {
+            var exhaustMzID = element.dataset ? (element.dataset.mzid || "") : "";
+            var exhaustZone = String(exhaustMzID).replace(/-\d+$/, "").replace(/^(my|their|p\d)/, "");
+            if (typeof RotationRules !== "undefined" && RotationRules[exhaustZone]) {
+              RotationRules[exhaustZone].forEach(function(rule) {
+                if (rule && rule.degrees) exhaustDegrees = rule.degrees;
+              });
+            }
+          } catch (e) {}
+          if (exhaustDegrees) {
+            var applyExhaustTilt = function() {
+              element.style.transformOrigin = "center center";
+              element.style.transition = "transform " + (durationMs > 0 ? durationMs : 120) + "ms ease-out";
+              element.style.transform = "rotate(" + exhaustDegrees + "deg)";
+            };
+            if (delayMs > 0) window.setTimeout(applyExhaustTilt, delayMs);
+            else applyExhaustTilt();
           }
-          if (totalMs < 60) totalMs = 60;
         } else {
           var animationName = animation.name || (animation.params && animation.params.animationName) || "";
           var cssClass = animation.className || (animation.params && animation.params.className) || "";
@@ -1068,7 +1085,10 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             var isShieldBreak = animationType === "SHIELD_BREAK";
             // A lunge is the motion that damage on either participant accompanies; it should not
             // consume that participant's same-target effect stagger. Zone moves run post-render.
-            var skipsTargetStagger = isShieldBreak || animationType === "CARD_LUNGE" || animationType === "ZONE_MOVE";
+            // An exhaust tilt is the same shape — it is the cost being paid, not an effect landing on
+            // the card, so damage to that same card (a counter-attack) must not be pushed behind it.
+            var skipsTargetStagger = isShieldBreak || animationType === "CARD_LUNGE"
+              || animationType === "ZONE_MOVE" || animationType === "EXHAUST";
             var targetKey = skipsTargetStagger ? "" : GetFrameAnimationTargetKey(animation, perspectivePlayerID);
             if (targetKey) {
               var existingDelayMs = parseInt(animation.delayMs || 0, 10);

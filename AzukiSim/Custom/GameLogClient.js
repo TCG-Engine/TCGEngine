@@ -420,14 +420,14 @@
     close.focus();
   }
 
+  // StyledDialog.js is loaded by both pages that pull this file in — NextTurn.php directly, and the
+  // AzukiSim menu via RenderMenuBar -> RenderHead — so StyledConfirm is always defined here.
   function confirmDelete() {
-    if (typeof window.StyledConfirm === 'function') {
-      return window.StyledConfirm('Delete this saved game log from this browser?', {
-        danger: true,
-        confirmLabel: 'Delete'
-      });
-    }
-    return Promise.resolve(window.confirm('Delete this saved game log from this browser?'));
+    return window.StyledConfirm('Delete this saved game log from this browser?', {
+      title: 'Delete game log',
+      danger: true,
+      confirmLabel: 'Delete'
+    });
   }
 
   function makeLibraryButton(label, handler) {

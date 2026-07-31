@@ -64,6 +64,17 @@ function SWUQueueDamageAnim(string $relMzID, int $amount, int $perspective): voi
     }
 }
 
+// Tilt a card to the exhausted angle immediately, without waiting for the board re-render.
+// Needed because a SINGLE-TARGET attack declares and resolves in ONE update (see the DQ drain at the
+// end of BeginSWUAttack) — so the attacker's exhaust and the target's damage animation arrive together,
+// and the render that would show the exhaust is held until the damage animation finishes. Exhausting is
+// a COST (CR 6.3.1, paid at declaration), so it has to land first.
+function SWUQueueExhaustAnim(string $relMzID, int $perspective, ?int $uniqueID = null): void {
+    $abs = ConvertMzIDToAbsolute($relMzID, intval($perspective));
+    if ($abs === '') return;
+    QueueExhaustAnimation($abs, uniqueID: $uniqueID);
+}
+
 function SWUQueueHealAnim(string $relMzID, int $actualHealed, int $perspective): void {
     if ($actualHealed <= 0) return;
     $abs = ConvertMzIDToAbsolute($relMzID, intval($perspective));
@@ -2782,6 +2793,12 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
         $playerID = $savedPID;
         return;
     }
+
+    // The exhaust is committed (past every no-op / no-target bail), so show it NOW. A single-target
+    // attack resolves its damage later in THIS same request, and the damage animation blocks the board
+    // re-render — without this the attacker stayed upright for the whole animation and only tipped over
+    // afterwards, reading as though exhausting were an effect of the attack rather than its cost.
+    SWUQueueExhaustAnim($attackerMzID, intval($player), intval($attacker->UniqueID ?? 0) ?: null);
 
     // TWI_135 Darth Maul — "This unit can attack 2 units instead of 1." UX by number of LEGAL targets
     // (Maul has no Saboteur, so $validTargets is already Sentinel-restricted — a Sentinel present drops the

@@ -4726,37 +4726,57 @@ $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision)
     $playerID = $savedPID;
 };
 
+// CR 5.2.1.f "resource two cards" — ONE multi-select prompt for both, not two sequential picks:
+// the player marks 2 cards in hand and confirms, so they can weigh the pair together.
+//
+// The count is derived as "how many of the 2 am I still missing" rather than a literal 2. A game
+// created BEFORE this change has TWO ChooseStartingResource entries sitting in its saved queue; the
+// first now takes both cards and the second sees 2 resources already down and no-ops, so in-flight
+// games finish with 2 resources instead of 4. (Also why the handler name is unchanged.)
 $customDQHandlers["ChooseStartingResource"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
     $hand = GetHand($player);
-    $hasCards = false;
+    $liveHand = 0;
     for ($i = 0; $i < count($hand); $i++) {
-        if (!isset($hand[$i]->removed) || !$hand[$i]->removed) { $hasCards = true; break; }
+        if (!isset($hand[$i]->removed) || !$hand[$i]->removed) $liveHand++;
     }
     $playerID = $savedPID;
-    if (!$hasCards) return;
 
-    // Use zone reference ("myHand") rather than specific indices so the MZCHOOSE
+    $want = max(0, 2 - SWUResourceCount(intval($player)));
+    $n = min($want, $liveHand);
+    if ($n <= 0) return;
+
+    // Use zone reference ("myHand") rather than specific indices so the choice
     // remains valid after WriteGamestate rewrites the hand. WriteGamestate strips
     // removed tombstones and resets indices to 0-N; a saved "myHand-6" would point
     // at nothing on the next load, whereas "myHand" always means "any live card".
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", "myHand", 40, "Choose_a_card_to_resource");
+    // The client expands a bare zone spec into every card of that zone, so the whole
+    // hand is selectable inline (glow + "N selected / 2 max" confirm bar).
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "{$n}|{$n}|myHand", 40,
+        "Choose_2_cards_to_resource");
     DecisionQueueController::AddDecision($player, "CUSTOM", "ApplyStartingResource", 40);
 };
 
+// Answer is the '&'-joined mzID list from the MZMULTICHOOSE. MZMove tombstones the source rather
+// than splicing the hand, so every mzID in the list stays valid across the loop.
 $customDQHandlers["ApplyStartingResource"] = function($player, $parts, $lastDecision) {
-    if ($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    if (SWUDecisionDeclined($lastDecision)) return;
+    $picks = array_values(array_filter(explode('&', $lastDecision),
+        fn($s) => $s !== '' && $s !== '-' && $s !== 'PASS'));
+    if (empty($picks)) return;
 
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
-    $newResource = MZMove($player, $lastDecision, "myResources");
-    // Hand cards don't carry a Status field; Resources must default to 1 (ready).
-    if ($newResource !== null) {
-        $newResource->Status = 1;
-        if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newResource->CardID ?? '', 'resourced'); // Plan D telemetry
+    foreach ($picks as $mz) {
+        $newResource = MZMove($player, $mz, "myResources");
+        // Hand cards don't carry a Status field; Resources must default to 1 (ready).
+        if ($newResource !== null) {
+            $newResource->Status = 1;
+            if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newResource->CardID ?? '', 'resourced'); // Plan D telemetry
+        }
     }
     $playerID = $savedPID;
 };

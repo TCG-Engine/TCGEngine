@@ -132,6 +132,24 @@ function QueueBlockedRecoveryAnimation($targetMzID, $durationMs = 500, $blocking
   QueueFrameAnimation($animation);
 }
 
+// Tilt a card to its exhausted angle (the app's RotationRules visual) at the FRONT of the animation
+// window, rather than waiting for the board re-render. Exhausting is a cost — paid at declaration —
+// so it must be visible before the effect it paid for; the re-render is deferred until every blocking
+// animation finishes, which is too late when an action declares and resolves in one update.
+// NON-blocking by default: this is a pre-render catch-up, it must not extend the render delay.
+function QueueExhaustAnimation($targetMzID, $durationMs = 120, $blocking = false, $uniqueID = null) {
+  $animation = [
+    'type' => 'EXHAUST',
+    'target' => strval($targetMzID),
+    'durationMs' => intval($durationMs),
+    'blocking' => $blocking ? true : false,
+  ];
+  if ($uniqueID !== null && intval($uniqueID) > 0) {
+    $animation['uniqueID'] = intval($uniqueID);
+  }
+  QueueFrameAnimation($animation);
+}
+
 function QueueRestoreAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true) {
   QueueFrameAnimation([
     'type' => 'RESTORE',
