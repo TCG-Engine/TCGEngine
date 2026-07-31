@@ -2848,6 +2848,160 @@ function TryHandlePreDamageReplacement($player, $targetMZ, $amount, $sourceKey, 
     return QueuePekiroDamageReplacement($player, $targetMZ, $amount, $sourceKey);
 }
 
+function GetPendingAzukiDamageTakenEvents() {
+    $events = json_decode(strval(DecisionQueueController::GetVariable('AzukiPendingDamageTakenEvents') ?? '[]'), true);
+    return is_array($events) ? array_values($events) : [];
+}
+
+function SetPendingAzukiDamageTakenEvents($events) {
+    DecisionQueueController::StoreVariable(
+        'AzukiPendingDamageTakenEvents',
+        json_encode(is_array($events) ? array_values($events) : [])
+    );
+}
+
+function ClaimAzukiDamageTriggerOncePerTurn($triggerKey, $player, $sourceUniqueID) {
+    $triggerKey = strval($triggerKey);
+    $player = intval($player);
+    $sourceUniqueID = intval($sourceUniqueID);
+    if($triggerKey === '' || ($player !== 1 && $player !== 2) || $sourceUniqueID <= 0) return false;
+
+    $claimedTriggers = json_decode(
+        strval(DecisionQueueController::GetVariable('AzukiDamageTakenClaimedTriggers') ?? '{}'),
+        true
+    );
+    if(!is_array($claimedTriggers)) $claimedTriggers = [];
+    $claimKey = $triggerKey . ':P' . $player . ':UID' . $sourceUniqueID;
+    if(!empty($claimedTriggers[$claimKey])) return false;
+
+    $claimedTriggers[$claimKey] = 1;
+    DecisionQueueController::StoreVariable('AzukiDamageTakenClaimedTriggers', json_encode($claimedTriggers));
+    return true;
+}
+
+function RecordMissingAzukiDamageTakenInvocation($player, $cardID) {
+    $player = intval($player);
+    $cardID = strval($cardID);
+
+    $turnIndex = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(!isset($turnIndex['DamageTakenCalls']) || !is_array($turnIndex['DamageTakenCalls'])) {
+        $turnIndex['DamageTakenCalls'] = [];
+    }
+    $turnIndex['DamageTakenCalls'][$player] = ($turnIndex['DamageTakenCalls'][$player] ?? 0) + 1;
+    if($cardID !== '') {
+        if(!isset($turnIndex['DamageTaken']) || !is_array($turnIndex['DamageTaken'])) $turnIndex['DamageTaken'] = [];
+        if(!isset($turnIndex['DamageTaken'][$player]) || !is_array($turnIndex['DamageTaken'][$player])) {
+            $turnIndex['DamageTaken'][$player] = [];
+        }
+        $turnIndex['DamageTaken'][$player][$cardID] = ($turnIndex['DamageTaken'][$player][$cardID] ?? 0) + 1;
+    }
+    SetMacroTurnIndex(json_encode($turnIndex));
+
+    $gameIndex = GetMacroGameIndexArray();
+    if(!isset($gameIndex['DamageTakenCalls']) || !is_array($gameIndex['DamageTakenCalls'])) {
+        $gameIndex['DamageTakenCalls'] = [];
+    }
+    $gameIndex['DamageTakenCalls'][$player] = ($gameIndex['DamageTakenCalls'][$player] ?? 0) + 1;
+    if($cardID !== '') {
+        if(!isset($gameIndex['DamageTaken']) || !is_array($gameIndex['DamageTaken'])) $gameIndex['DamageTaken'] = [];
+        if(!isset($gameIndex['DamageTaken'][$player]) || !is_array($gameIndex['DamageTaken'][$player])) {
+            $gameIndex['DamageTaken'][$player] = [];
+        }
+        $gameIndex['DamageTaken'][$player][$cardID] = ($gameIndex['DamageTaken'][$player][$cardID] ?? 0) + 1;
+    }
+    SetMacroGameIndex(json_encode($gameIndex));
+}
+
+function DamageTakenFromSnapshot($player, $cardID, $amount, $sourceUniqueID) {
+    global $damageTakenAbilities, $systemDQHandlers;
+
+    $player = intval($player);
+    $cardID = strval($cardID);
+    $amount = max(0, intval($amount));
+    $sourceUniqueID = intval($sourceUniqueID);
+    RecordMissingAzukiDamageTakenInvocation($player, $cardID);
+
+    DecisionQueueController::StoreVariable('mzID', 'damageSnapshot-' . $sourceUniqueID);
+    DecisionQueueController::StoreVariable('mzIDCardID', $cardID);
+    DecisionQueueController::StoreVariable('amount', strval($amount));
+
+    if($cardID !== '' && $amount > 0 && isset($damageTakenAbilities) && is_array($damageTakenAbilities)) {
+        $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+        $abilityCount = function_exists('CardDamageTakenCount') ? intval(CardDamageTakenCount($cardID)) : 0;
+        if($abilityCount <= 0) $abilityCount = 1;
+        for($i = 0; $i < $abilityCount; ++$i) {
+            for($j = 0; $j < count($cardIDCandidates); ++$j) {
+                $key = $cardIDCandidates[$j] . ':' . $i;
+                if(!isset($damageTakenAbilities[$key])) continue;
+                $damageTakenAbilities[$key]($player);
+                break;
+            }
+        }
+    }
+
+    $result = 'DAMAGE_TAKEN';
+    if(isset($systemDQHandlers['DamageTaken_Action'])) {
+        $systemDQHandlers['DamageTaken_Action']($player, $result, null);
+    }
+    DecisionQueueController::AddDecision($player, 'PASSPARAMETER', $result, 99);
+    DecisionQueueController::AddDecision($player, 'SYSTEM', 'DamageTaken_AfterAction', 99);
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($player, '-');
+}
+
+function ScheduleNextAzukiDamageTakenEvent($coordinatorPlayer) {
+    $coordinatorPlayer = intval($coordinatorPlayer);
+    if($coordinatorPlayer !== 1 && $coordinatorPlayer !== 2) return;
+    if(DecisionQueueController::GetVariable('AzukiDamageTakenActiveToken') !== null
+        && strval(DecisionQueueController::GetVariable('AzukiDamageTakenActiveToken')) !== '') return;
+    if(DecisionQueueController::GetVariable('AzukiDamageTakenResolverScheduled') === '1') return;
+    if(empty(GetPendingAzukiDamageTakenEvents())) {
+        DecisionQueueController::ClearVariable('AzukiPendingDamageTakenEvents');
+        DecisionQueueController::ClearVariable('AzukiDamageTakenNextEventID');
+        DecisionQueueController::ClearVariable('AzukiDamageTakenClaimedTriggers');
+        return;
+    }
+
+    DecisionQueueController::StoreVariable('AzukiDamageTakenResolverScheduled', '1');
+    DecisionQueueController::AddDecision(
+        $coordinatorPlayer,
+        'CUSTOM',
+        'AZUKI_RESOLVE_NEXT_DAMAGE_TAKEN',
+        90,
+        '',
+        1
+    );
+}
+
+function EnqueueAzukiDamageTakenEvent($targetPlayer, &$targetObj, $amount, $isCardEffect, $sourceKey, $coordinatorPlayer) {
+    $targetPlayer = intval($targetPlayer);
+    $coordinatorPlayer = intval($coordinatorPlayer);
+    $amount = max(0, intval($amount));
+    if(($targetPlayer !== 1 && $targetPlayer !== 2) || $amount <= 0) return;
+    if(!is_object($targetObj) || (isset($targetObj->removed) && $targetObj->removed)) return;
+
+    $uniqueID = EnsureAzukiFieldUniqueID($targetObj);
+    if($uniqueID <= 0) return;
+    if($coordinatorPlayer !== 1 && $coordinatorPlayer !== 2) $coordinatorPlayer = $targetPlayer;
+
+    $nextEventID = intval(DecisionQueueController::GetVariable('AzukiDamageTakenNextEventID') ?? '1');
+    if($nextEventID <= 0) $nextEventID = 1;
+    DecisionQueueController::StoreVariable('AzukiDamageTakenNextEventID', strval($nextEventID + 1));
+
+    $events = GetPendingAzukiDamageTakenEvents();
+    $events[] = [
+        'id' => $nextEventID,
+        'targetPlayer' => $targetPlayer,
+        'targetUniqueID' => $uniqueID,
+        'targetCardID' => strval($targetObj->CardID ?? ''),
+        'amount' => $amount,
+        'isCardEffect' => $isCardEffect ? 1 : 0,
+        'sourceKey' => strval($sourceKey),
+    ];
+    SetPendingAzukiDamageTakenEvents($events);
+    ScheduleNextAzukiDamageTakenEvent($coordinatorPlayer);
+}
+
 function TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect = false) {
     $amount = max(0, intval($amount));
     if($amount <= 0) return;
@@ -2918,9 +3072,14 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
         TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
         RecordDamageSourceOnObject($garden[$index], $resolvedSourceKey);
         if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
-            DecisionQueueController::StoreVariable('P' . intval($targetPlayer) . '_LastDamageWasCardEffect', $isCardEffect ? '1' : '0');
-            DecisionQueueController::StoreVariable('P' . intval($targetPlayer) . '_LastDamageSourceKey', strval($resolvedSourceKey));
-            DamageTaken($targetPlayer, $targetOwnerMZ, $amount);
+            EnqueueAzukiDamageTakenEvent(
+                $targetPlayer,
+                $garden[$index],
+                $amount,
+                $isCardEffect,
+                $resolvedSourceKey,
+                $player
+            );
         }
 
         $targetHealth = ResolveEntityHealthValue($targetPlayer, $garden[$index]);
@@ -2962,9 +3121,14 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
     TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
     RecordDamageSourceOnObject($alley[$index], $resolvedSourceKey);
     if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
-        DecisionQueueController::StoreVariable('P' . intval($targetPlayer) . '_LastDamageWasCardEffect', $isCardEffect ? '1' : '0');
-        DecisionQueueController::StoreVariable('P' . intval($targetPlayer) . '_LastDamageSourceKey', strval($resolvedSourceKey));
-        DamageTaken($targetPlayer, $targetOwnerMZ, $amount);
+        EnqueueAzukiDamageTakenEvent(
+            $targetPlayer,
+            $alley[$index],
+            $amount,
+            $isCardEffect,
+            $resolvedSourceKey,
+            $player
+        );
     }
 
     $targetHealth = ResolveEntityHealthValue($targetPlayer, $alley[$index]);
@@ -5429,7 +5593,14 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                         $targetOwnerMZ = FlipZonePerspective($targetZone . '-' . $targetIndex);
                         RecordDamageSourceOnObject($targetField[$targetIndex], 'P' . intval($player) . ':COMBAT:' . NormalizeDamageSourceKey($mzCard));
                         if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
-                            DamageTaken($opponent, $targetOwnerMZ, $damageDealt);
+                            EnqueueAzukiDamageTakenEvent(
+                                $opponent,
+                                $targetField[$targetIndex],
+                                $damageDealt,
+                                false,
+                                'P' . intval($player) . ':COMBAT:' . NormalizeDamageSourceKey($mzCard),
+                                $player
+                            );
                         }
                         TriggerEquippedWeaponOnCombatDamage($player, $attackerObj, $targetZone, $targetIndex, $damageDealt);
                     }
@@ -5454,8 +5625,16 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                         $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $damageDealt;
                         QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $damageDealt, 500, true, null, 140);
                         TriggerZeroStarterDamageReactions($opponent, 'myGarden-' . $attackerIndex, $damageDealt, false);
-                        RecordDamageSourceOnObject($myGarden[$attackerIndex], 'P' . intval($opponent) . ':COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex));
-                        DamageTaken($player, 'myGarden-' . $attackerIndex, $damageDealt);
+                        $combatSourceKey = 'P' . intval($opponent) . ':COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex);
+                        RecordDamageSourceOnObject($myGarden[$attackerIndex], $combatSourceKey);
+                        EnqueueAzukiDamageTakenEvent(
+                            $player,
+                            $myGarden[$attackerIndex],
+                            $damageDealt,
+                            false,
+                            $combatSourceKey,
+                            $player
+                        );
                     }
                 }
             }
@@ -5834,6 +6013,112 @@ function ExpireTurnEffects($player, $isEndTurn = true) {
 }
 
 // --- DQ Handlers ---
+$customDQHandlers['AZUKI_RESOLVE_NEXT_DAMAGE_TAKEN'] = function($player, $params, $lastDecision) {
+    DecisionQueueController::ClearVariable('AzukiDamageTakenResolverScheduled');
+    $activeToken = strval(DecisionQueueController::GetVariable('AzukiDamageTakenActiveToken') ?? '');
+    if($activeToken !== '') return;
+
+    $events = GetPendingAzukiDamageTakenEvents();
+    if(empty($events)) return;
+    $event = array_shift($events);
+    SetPendingAzukiDamageTakenEvents($events);
+
+    $eventID = intval($event['id'] ?? 0);
+    $targetPlayer = intval($event['targetPlayer'] ?? 0);
+    $targetUniqueID = intval($event['targetUniqueID'] ?? 0);
+    $amount = max(0, intval($event['amount'] ?? 0));
+    if($eventID <= 0 || ($targetPlayer !== 1 && $targetPlayer !== 2)
+        || $targetUniqueID <= 0 || $amount <= 0) {
+        ScheduleNextAzukiDamageTakenEvent($player);
+        return;
+    }
+
+    $savedPlayerID = $GLOBALS['playerID'] ?? null;
+    $GLOBALS['playerID'] = $targetPlayer;
+    try {
+        DecisionQueueController::StoreVariable(
+            'P' . $targetPlayer . '_LastDamageWasCardEffect',
+            intval($event['isCardEffect'] ?? 0) === 1 ? '1' : '0'
+        );
+        DecisionQueueController::StoreVariable(
+            'P' . $targetPlayer . '_LastDamageSourceKey',
+            strval($event['sourceKey'] ?? '')
+        );
+
+        $token = 'damage-' . $eventID;
+        DecisionQueueController::StoreVariable('AzukiDamageTakenActiveToken', $token);
+        DecisionQueueController::StoreVariable('AzukiDamageTakenSourceUniqueID', strval($targetUniqueID));
+        DecisionQueueController::StoreVariable('AzukiDamageTakenSourceCardID', strval($event['targetCardID'] ?? ''));
+        // This sentinel sorts after generated macro continuations (block 99),
+        // so the next DamageTaken event cannot create a chooser until this one
+        // has resolved or passed.
+        DecisionQueueController::AddDecision(
+            $targetPlayer,
+            'CUSTOM',
+            'AZUKI_FINISH_DAMAGE_TAKEN|' . $token,
+            100,
+            '',
+            1
+        );
+
+        $targetMZ = ResolveOwnedFieldMZByUniqueID($targetPlayer, $targetUniqueID);
+        if($targetMZ === '') {
+            // Resolve the already-created trigger from its damage-time identity,
+            // without ever reusing the old zone index for a replacement entity.
+            $restoreVariables = [];
+            foreach(['mzID', 'mzIDCardID', 'amount'] as $variableName) {
+                $previousValue = DecisionQueueController::GetVariable($variableName);
+                $restoreVariables[$variableName] = [
+                    'exists' => $previousValue !== null,
+                    'value' => $previousValue,
+                ];
+            }
+            DecisionQueueController::StoreVariable(
+                'AzukiDamageTakenSnapshotRestore',
+                json_encode($restoreVariables)
+            );
+            DamageTakenFromSnapshot(
+                $targetPlayer,
+                $event['targetCardID'] ?? '',
+                $amount,
+                $targetUniqueID
+            );
+            return;
+        }
+
+        DamageTaken($targetPlayer, $targetMZ, $amount);
+    } finally {
+        if($savedPlayerID === null) unset($GLOBALS['playerID']);
+        else $GLOBALS['playerID'] = $savedPlayerID;
+    }
+};
+
+$customDQHandlers['AZUKI_FINISH_DAMAGE_TAKEN'] = function($player, $params, $lastDecision) {
+    $token = strval($params[0] ?? '');
+    $activeToken = strval(DecisionQueueController::GetVariable('AzukiDamageTakenActiveToken') ?? '');
+    if($token === '' || $token !== $activeToken) return;
+
+    DecisionQueueController::ClearVariable('AzukiDamageTakenActiveToken');
+    DecisionQueueController::ClearVariable('AzukiDamageTakenSourceUniqueID');
+    DecisionQueueController::ClearVariable('AzukiDamageTakenSourceCardID');
+    $restoreVariables = json_decode(
+        strval(DecisionQueueController::GetVariable('AzukiDamageTakenSnapshotRestore') ?? ''),
+        true
+    );
+    if(is_array($restoreVariables)) {
+        foreach(['mzID', 'mzIDCardID', 'amount'] as $variableName) {
+            $restoreEntry = $restoreVariables[$variableName] ?? null;
+            if(is_array($restoreEntry) && !empty($restoreEntry['exists'])) {
+                DecisionQueueController::StoreVariable($variableName, $restoreEntry['value'] ?? '');
+            } else {
+                DecisionQueueController::ClearVariable($variableName);
+            }
+        }
+    }
+    DecisionQueueController::ClearVariable('AzukiDamageTakenSnapshotRestore');
+    ScheduleNextAzukiDamageTakenEvent($player);
+};
+
 $customDQHandlers['TriggerStartTurnAbility'] = function($player, $params, $lastDecision) {
     $turnPlayer = isset($params[0]) ? intval($params[0]) : intval($player);
     $uniqueID = isset($params[1]) ? intval($params[1]) : 0;
