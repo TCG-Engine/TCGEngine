@@ -1896,6 +1896,7 @@ fwrite($handler, "\$playerID = \$viewerPerspective;\r\n");
 for ($cspSeat = 1; $cspSeat <= $maxSeats; ++$cspSeat) {
   fwrite($handler, "\$canSeePrivatePlayer{$cspSeat} = !\$viewerInfo[\"isSpectator\"] && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) === {$cspSeat};\r\n");
 }
+fwrite($handler, "\$spectatorCanSeeHands = SimGameViewerCanSeeHands('" . $rootName . "', \$gameName, \$viewerInfo);\r\n");
 fwrite($handler, "\$authKey = TryGet(\"authKey\", \"\");\r\n");
 fwrite($handler, "if(\$viewerInfo[\"viewerID\"] === \"\") {\r\n");
 fwrite($handler, "  echo(\"Invalid player.\");\r\n");
@@ -1943,7 +1944,11 @@ if($rootName == "SWUSim") {
   for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
     $cshReveal = ($cshSeat === 1) ? " || (\$viewerLooksAtOppHand && \$vSeat === 2)"
                : (($cshSeat === 2) ? " || (\$viewerLooksAtOppHand && \$vSeat === 1)" : "");
-    fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat}{$cshReveal};\r\n");
+    fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands{$cshReveal};\r\n");
+  }
+} else {
+  for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
+    fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands;\r\n");
   }
 }
 fwrite($handler, "SetCachePiece(\$gameName, 1, \$updateNumber);\r\n");
@@ -2312,7 +2317,8 @@ function AddGetNextTurnForPlayer($player) {
         } else {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
         }
-        $getNextTurn .= "  if(\$canSeePrivatePlayer" . $player . ") {\r\n";
+        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
+        $getNextTurn .= "  if(\$" . $selfFlag . $player . ") {\r\n";
         $getNextTurn .= "    for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
         $getNextTurn .= "      if(!isset(\$arr[\$i])) continue;\r\n";
         $getNextTurn .= "      if(\$i > 0) echo(\"<|>\");\r\n";
@@ -2354,7 +2360,7 @@ function AddGetNextTurnForPlayer($player) {
       } else if ($zone->Visibility == "Self") {
         // SWUSim Hand uses the look-at-opponent's-hand-aware flag so a "look at an opponent's hand"
         // decision reveals it to the chooser; all other Self zones keep the plain privacy flag.
-        $selfFlag = ($rootName == "SWUSim" && $zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
+        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
         $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         // SWUSim Resources: Credit tokens (CR 3.13) are public info (count + targetable by LAW_106),
         // so they render face-up even to the opponent; real resources stay Self-only (CardBack).

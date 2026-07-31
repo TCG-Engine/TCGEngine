@@ -16,15 +16,25 @@ $dir = __DIR__ . '/../../SWUSim/Games/' . $gameName;
 
 $lobby = new stdClass();
 $lobby->isPrivate = false;
+$lobby->casterMode = true;
 $lobby->players = [ new _TestPlayer(1, 'KEY_P1_ABC'), new _TestPlayer(2, 'KEY_P2_XYZ') ];
 
 $ok = SimGameWriteAuthKeysFromLobby('SWUSim', $gameName, $lobby);
 $read = SimGameReadAuthKeys('SWUSim', $gameName);
+$legacyLobby = new stdClass();
+$legacyLobby->isPrivate = false;
+$legacyLobby->players = [];
+$legacyAuth = SimGameBuildAuthKeysFromLobby($legacyLobby);
 
 $pass = $ok === true
      && is_file($dir . '/AuthKeys.json')
      && $read['p1'] === 'KEY_P1_ABC'
-     && $read['p2'] === 'KEY_P2_XYZ';
+     && $read['p2'] === 'KEY_P2_XYZ'
+     && $read['casterMode'] === true
+     && SimGameIsCasterMode('SWUSim', $gameName) === true
+     && SimGameViewerCanSeeHands('SWUSim', $gameName, ['isSpectator' => true]) === true
+     && SimGameViewerCanSeeHands('SWUSim', $gameName, ['isSpectator' => false]) === false
+     && $legacyAuth['casterMode'] === false;
 
 // cleanup
 @unlink($dir . '/AuthKeys.json');

@@ -24,10 +24,12 @@ foreach ($index as $key => $game) {
   $gRoot = isset($game['rootName']) ? strval($game['rootName']) : '';
   $gName = isset($game['gameName']) ? strval($game['gameName']) : '';
   $isPrivate = isset($game['isPrivate']) ? boolval($game['isPrivate']) : false;
+  $casterMode = isset($game['casterMode']) ? boolval($game['casterMode']) : false;
   $lastUpdatedAt = isset($game['lastUpdatedAt']) ? intval($game['lastUpdatedAt']) : 0;
   if ($gRoot === '' || $gName === '' || $lastUpdatedAt <= 0) continue;
   if (SimGameAuthKeysPath($gRoot, $gName) !== '' && file_exists(SimGameAuthKeysPath($gRoot, $gName))) {
     $isPrivate = SimGameIsPrivateGame($gRoot, $gName);
+    $casterMode = SimGameIsCasterMode($gRoot, $gName);
   }
   if ($rootName !== '' && $gRoot !== $rootName) continue;
   if (($now - $lastUpdatedAt) > $activeWithinSeconds) continue;
@@ -42,6 +44,7 @@ foreach ($index as $key => $game) {
     'rootName' => $gRoot,
     'gameName' => $gName,
     'isPrivate' => $isPrivate,
+    'casterMode' => $casterMode,
     'lastUpdatedAt' => $lastUpdatedAt,
     'createdAt' => isset($game['createdAt']) ? intval($game['createdAt']) : $lastUpdatedAt,
   ];

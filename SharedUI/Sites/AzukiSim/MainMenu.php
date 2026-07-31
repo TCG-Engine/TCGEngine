@@ -952,6 +952,38 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     flex-wrap: wrap;
     padding-top: 2px;
   }
+  .azuki-waiting-caster-option {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: min(420px, calc(100vw - 40px));
+    margin: 14px 0 4px;
+    padding: 11px 14px;
+    border: 1px solid rgba(201, 168, 76, 0.34);
+    border-radius: 9px;
+    background: rgba(9, 25, 40, 0.9);
+    color: #dce8f4;
+    cursor: pointer;
+  }
+  .azuki-waiting-caster-option input {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 auto;
+    accent-color: #d1a553;
+  }
+  .azuki-waiting-caster-option span {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .azuki-waiting-caster-option strong { font-size: 13px; }
+  .azuki-waiting-caster-option small { color: #91a3b5; font-size: 11px; }
+  .azuki-waiting-caster-status {
+    min-height: 16px;
+    margin: 2px 0 0;
+    color: #9ed9b4;
+    font-size: 11px;
+  }
   .azuki-game-actions > button {
     min-height: 38px;
     padding: 7px 13px;
@@ -2888,6 +2920,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
   function azukiAppBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0 ? p.slice(0, i+11) : '/TCGEngine/'; }
   var _lobby_id = "";
   var _privateInviteCode = "";
+  var _privateInviteCasterMode = false;
   var _waitingEscHandler = null;
   var _lastSimGameStorageKey = 'tcgengine:lastSimGame:' + rootName;
   var _rejoinFreshnessMs = 5 * 60 * 1000;
@@ -3011,6 +3044,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
           var notice = document.getElementById('private-invite-notice');
 
           _privateInviteCode = '';
+          _privateInviteCasterMode = false;
           if (joinBtn) joinBtn.classList.remove('is-visible');
           if (notice) {
             notice.style.display = 'none';
@@ -3020,11 +3054,17 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
           if (!params.has('privateInvite')) return;
           _privateInviteCode = (params.get('privateInvite') || '').trim();
           if (!_privateInviteCode) return;
+          _privateInviteCasterMode = params.get('casterMode') === '1';
 
-          if (joinBtn) joinBtn.classList.add('is-visible');
+          if (joinBtn) {
+            joinBtn.classList.add('is-visible');
+            joinBtn.textContent = 'Join Private Invite';
+          }
           if (notice) {
             notice.style.display = '';
-            notice.textContent = 'Private invite detected. Choose your deck, then click Join Private Invite.';
+            notice.textContent = _privateInviteCasterMode
+              ? 'Caster-mode invite detected. Spectators can see both players\' hands. Joining this game opts you in.'
+              : 'Private invite detected. Choose your deck, then click Join Private Invite.';
           }
         } catch (e) {
           console.error('Failed to parse private invite URL:', e);
@@ -3084,9 +3124,11 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         };
       }
 
-      function buildPrivateInviteLink(inviteCode) {
+      function buildPrivateInviteLink(inviteCode, casterMode) {
         var url = new URL(window.location.href);
         url.searchParams.set('privateInvite', inviteCode);
+        if (casterMode) url.searchParams.set('casterMode', '1');
+        else url.searchParams.delete('casterMode');
         return url.toString();
       }
 
@@ -3188,6 +3230,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         }
         submitQueueJoin({
           privateInviteCode: _privateInviteCode,
+          casterMode: _privateInviteCasterMode,
           waitingMessage: 'Waiting for host to start... (Esc to cancel)'
         });
       }
@@ -3226,9 +3269,9 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
               _lobby_id = response.lobbyID;
               var inviteLink = '';
               if (response.inviteCode) {
-                inviteLink = buildPrivateInviteLink(response.inviteCode);
+                inviteLink = buildPrivateInviteLink(response.inviteCode, !!response.casterMode);
               }
-              DisplayWaitingPopup(options.waitingMessage || 'Waiting for opponent... (Esc to cancel)', response.playerID, response.authKey, inviteLink);
+              DisplayWaitingPopup(options.waitingMessage || 'Waiting for opponent... (Esc to cancel)', response.playerID, response.authKey, inviteLink, !!response.casterMode);
               // Start polling for lobby updates
               pollLobbyUpdates(response.playerID, response.authKey);
             }
@@ -3248,6 +3291,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         var params = 'deckLink=' + encodeURIComponent(deckLink) + '&game_type=' + encodeURIComponent(submission.gameType);
         params += '&preconstructedDeck=' + encodeURIComponent(preconstructedDeck);
         params += "&rootName=" + encodeURIComponent(rootName);
+        if (options.casterMode) params += '&casterMode=1';
         if (options.createPrivate) {
           params += '&createPrivate=1';
         }
@@ -3304,7 +3348,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         });
       }
 
-      function DisplayWaitingPopup(message, playerID, authKey, inviteLink) {
+      function DisplayWaitingPopup(message, playerID, authKey, inviteLink, casterMode) {
         var existingWaitingPopup = document.getElementById('waiting-popup');
         if (existingWaitingPopup) existingWaitingPopup.remove();
         if (_waitingEscHandler) {
@@ -3354,6 +3398,74 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         waitingPopup.appendChild(animation);
         waitingPopup.appendChild(messageElement);
 
+        var currentInviteLink = inviteLink || '';
+        var linkPreview = null;
+        if (inviteLink && String(playerID) === '1') {
+          var casterOption = document.createElement('label');
+          casterOption.className = 'azuki-waiting-caster-option';
+
+          var casterCheckbox = document.createElement('input');
+          casterCheckbox.type = 'checkbox';
+          casterCheckbox.checked = !!casterMode;
+          casterCheckbox.setAttribute('aria-describedby', 'azuki-waiting-caster-status');
+
+          var casterCopy = document.createElement('span');
+          var casterTitle = document.createElement('strong');
+          casterTitle.textContent = 'Caster mode';
+          var casterDescription = document.createElement('small');
+          casterDescription.textContent = 'Allow spectators to see both players\' hands.';
+          casterCopy.appendChild(casterTitle);
+          casterCopy.appendChild(casterDescription);
+          casterOption.appendChild(casterCheckbox);
+          casterOption.appendChild(casterCopy);
+          waitingPopup.appendChild(casterOption);
+
+          var casterStatus = document.createElement('p');
+          casterStatus.id = 'azuki-waiting-caster-status';
+          casterStatus.className = 'azuki-waiting-caster-status';
+          casterStatus.textContent = casterCheckbox.checked ? 'Caster mode is enabled for this invite.' : '';
+          waitingPopup.appendChild(casterStatus);
+
+          casterCheckbox.addEventListener('change', function() {
+            var requestedMode = casterCheckbox.checked;
+            casterCheckbox.disabled = true;
+            casterStatus.textContent = 'Saving caster mode...';
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', azukiAppBase() + 'APIs/Lobbies/UpdateLobbyCasterMode.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+              var response = null;
+              try { response = JSON.parse(xhr.responseText || '{}'); } catch (e) {}
+              if (xhr.status >= 200 && xhr.status < 300 && response && response.success) {
+                var inviteUrl = new URL(currentInviteLink, window.location.href);
+                if (requestedMode) inviteUrl.searchParams.set('casterMode', '1');
+                else inviteUrl.searchParams.delete('casterMode');
+                currentInviteLink = inviteUrl.toString();
+                if (linkPreview) linkPreview.textContent = currentInviteLink;
+                casterStatus.textContent = requestedMode
+                  ? 'Caster mode is enabled. Share the updated invite link below.'
+                  : 'Caster mode is off.';
+              } else {
+                casterCheckbox.checked = !requestedMode;
+                casterStatus.textContent = (response && response.message) || 'Could not update caster mode.';
+              }
+              casterCheckbox.disabled = false;
+            };
+            xhr.onerror = function() {
+              casterCheckbox.checked = !requestedMode;
+              casterCheckbox.disabled = false;
+              casterStatus.textContent = 'Could not update caster mode.';
+            };
+            var params = 'rootName=' + encodeURIComponent(rootName)
+              + '&lobbyID=' + encodeURIComponent(_lobby_id)
+              + '&playerID=' + encodeURIComponent(playerID)
+              + '&authKey=' + encodeURIComponent(authKey)
+              + '&casterMode=' + (requestedMode ? '1' : '0');
+            xhr.send(params);
+          });
+        }
+
         if (inviteLink) {
           var inviteHint = document.createElement('p');
           inviteHint.textContent = 'Share this invite link with your opponent:';
@@ -3363,8 +3475,8 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
           inviteHint.style.fontSize = '14px';
           waitingPopup.appendChild(inviteHint);
 
-          var linkPreview = document.createElement('div');
-          linkPreview.textContent = inviteLink;
+          linkPreview = document.createElement('div');
+          linkPreview.textContent = currentInviteLink;
           linkPreview.style.maxWidth = '680px';
           linkPreview.style.wordBreak = 'break-all';
           linkPreview.style.color = '#9ed9b4';
@@ -3380,7 +3492,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
           copyButton.textContent = 'Copy Invite Link';
           copyButton.style.backgroundColor = '#2d8a57';
           copyButton.onclick = function() {
-            copyTextToClipboard(inviteLink)
+            copyTextToClipboard(currentInviteLink)
               .then(function() {
                 copyButton.textContent = 'Copied!';
                 setTimeout(function() {
@@ -3671,7 +3783,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         var html = '';
         games.forEach(function(game) {
           var visibilityClass = game.isPrivate ? 'private' : 'public';
-          var visibilityLabel = game.isPrivate ? 'Private' : 'Public';
+          var visibilityLabel = game.isPrivate ? 'Private' : (game.casterMode ? 'Caster' : 'Public');
           var gameName = String(game.gameName || '');
           html += '<div class="active-game-card">';
           html +=   '<div class="active-game-meta">';

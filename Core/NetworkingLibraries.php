@@ -275,6 +275,7 @@ function RegisterActiveGame($rootName, $gameName, $isPrivate = false)
     'rootName' => strval($rootName),
     'gameName' => strval($gameName),
     'isPrivate' => boolval($isPrivate),
+    'casterMode' => SimGameIsCasterMode($rootName, $gameName),
     'createdAt' => isset($existing['createdAt']) ? intval($existing['createdAt']) : $now,
     'lastUpdatedAt' => $now,
   ];
@@ -291,6 +292,7 @@ function TouchActiveGame($rootName, $gameName)
     return;
   }
   $index[$key]['isPrivate'] = SimGameIsPrivateGame($rootName, $gameName);
+  $index[$key]['casterMode'] = SimGameIsCasterMode($rootName, $gameName);
   $index[$key]['lastUpdatedAt'] = time();
   WriteActiveGameIndex($index);
 }

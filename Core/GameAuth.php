@@ -26,6 +26,7 @@ function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
     'p4' => strval($authKeys['p4'] ?? ''),
     'spectator' => strval($authKeys['spectator'] ?? ''),
     'isPrivate' => !empty($authKeys['isPrivate']),
+    'casterMode' => !empty($authKeys['casterMode']),
     'updatedAt' => time(),
   ];
 
@@ -41,6 +42,7 @@ function SimGameBuildAuthKeysFromLobby($lobby)
     'p1' => '', 'p2' => '', 'p3' => '', 'p4' => '',
     'spectator' => '',
     'isPrivate' => is_object($lobby) && !empty($lobby->isPrivate),
+    'casterMode' => is_object($lobby) && !empty($lobby->casterMode),
   ];
   if (!is_object($lobby) || !isset($lobby->players) || !is_array($lobby->players)) return $authKeys;
 
@@ -77,12 +79,12 @@ function SimGameReadAuthKeys($rootName, $gameName)
 {
   $path = SimGameAuthKeysPath($rootName, $gameName);
   if ($path === '' || !is_file($path)) {
-    return ['p1' => '', 'p2' => '', 'p3' => '', 'p4' => '', 'spectator' => '', 'isPrivate' => false];
+    return ['p1' => '', 'p2' => '', 'p3' => '', 'p4' => '', 'spectator' => '', 'isPrivate' => false, 'casterMode' => false];
   }
 
   $decoded = json_decode(file_get_contents($path), true);
   if (!is_array($decoded)) {
-    return ['p1' => '', 'p2' => '', 'p3' => '', 'p4' => '', 'spectator' => '', 'isPrivate' => false];
+    return ['p1' => '', 'p2' => '', 'p3' => '', 'p4' => '', 'spectator' => '', 'isPrivate' => false, 'casterMode' => false];
   }
 
   return [
@@ -92,7 +94,21 @@ function SimGameReadAuthKeys($rootName, $gameName)
     'p4' => strval($decoded['p4'] ?? ''),
     'spectator' => strval($decoded['spectator'] ?? ''),
     'isPrivate' => !empty($decoded['isPrivate']),
+    'casterMode' => !empty($decoded['casterMode']),
   ];
+}
+
+function SimGameIsCasterMode($rootName, $gameName)
+{
+  $authKeys = SimGameReadAuthKeys($rootName, $gameName);
+  return !empty($authKeys['casterMode']);
+}
+
+function SimGameViewerCanSeeHands($rootName, $gameName, $viewerInfo)
+{
+  return is_array($viewerInfo)
+    && !empty($viewerInfo['isSpectator'])
+    && SimGameIsCasterMode($rootName, $gameName);
 }
 
 function SimGameGetSeatAuthKey($rootName, $gameName, $playerID)

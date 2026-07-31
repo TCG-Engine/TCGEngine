@@ -82,6 +82,12 @@ Important notes and gotchas
 - The request uses the viewing player's normal authentication. Never expose a bot seat auth key to the browser; `ProcessBotControllerStep()` must re-evaluate the authoritative pending bot seat on the server before applying an action.
 - Keep game-specific layouts and waiting-message renderers free of bot invocation hooks. They may display turn/response state, but the shared update transport owns bot scheduling.
 
+## Caster mode for sim apps
+- A lobby opts in with `$lobby->casterMode = true`; `Core/GameAuth.php` persists the flag in the game's `AuthKeys.json` alongside the normal seat and spectator authorization metadata.
+- Public matchmaking must separate caster-mode and normal lobbies. Private invite links must carry the mode and require the joining player to submit the same value so both players consent before the game starts. AzukiSim lets the authenticated host toggle the mode from the private waiting overlay only while the lobby has one player; the invite link is updated to reflect the saved mode.
+- Generated `GetNextTurn.php` exposes `Self`-visibility zones named `Hand` to authenticated spectators only when `SimGameIsCasterMode($rootName, $gameName)` is true. Other private zones, including decks, temp zones, and decision queues, remain private.
+- App menus opt in separately. AzukiSim is the initial caster-mode UI; other sims should add their own explicit consent control before sending `casterMode=1` to the shared lobby endpoint.
+
 ## Semantic card motion
 - Shared server helpers live in `Core/EngineActionRunner.php`: use `QueueCardLungeAnimation(...)` for an out-and-back attack motion and `QueueZoneMoveAnimation(...)` for a card moving between rendered zones.
 - `CARD_LUNGE` runs against the old board before the authoritative repaint. `ZONE_MOVE` captures its source before repaint, then `Core/CardMotion.js` flies a DOM clone to the destination on the new board.

@@ -60,6 +60,7 @@
     ? NormalizeAzukiRlBotProfile($_POST['rlBotOpponent'] ?? 'raizan')
     : 'raizan';
   $createTutorial = isset($_POST['createTutorial']) && ($_POST['createTutorial'] === '1' || strtolower($_POST['createTutorial']) === 'true');
+  $casterMode = isset($_POST['casterMode']) && ($_POST['casterMode'] === '1' || strtolower($_POST['casterMode']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';
 
   $format = isset($_POST['format']) ? strtolower(trim($_POST['format'])) : 'premier';
@@ -161,6 +162,7 @@
     $lobby->format = $format;
     $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
+    $lobby->casterMode = $casterMode;
     $lobby->isGoldfish = true;            // reuse the "skip matchmaking / skip Bo3 match" plumbing
     $lobby->goldfishPlayers = $isHotseat ? [] : [2];
     $lobby->azukiRlBotPlayers = $isAzukiRlBot ? [2] : [];
@@ -208,6 +210,7 @@
         if (($lobby->queueType ?? 'bo1') !== $queueType) continue;
         if (!isset($lobby->isPrivate) || !$lobby->isPrivate) continue;
         if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
+        if (!empty($lobby->casterMode) !== $casterMode) continue;
         if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // blocked: fall through to generic "invalid/expired/full"
         if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
         if (($lobby->rootName === 'SWUSim') && (($lobby->format ?? '') === 'twinsuns') && !empty($lobby->gameName)) continue; // already started
@@ -248,6 +251,7 @@
         $response->maxPlayers = $lobby->maxPlayers;
         $response->isRoom = $isTwinSunsRoom;
         $response->inviteCode = $lobby->inviteCode;
+        $response->casterMode = !empty($lobby->casterMode);
         if (isset($lobby->gameName) && $lobby->gameName) $response->gameName = $lobby->gameName;
         header('Content-Type: application/json');
         echo json_encode($response);
@@ -274,6 +278,7 @@
     $lobby->format = $format;
     $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
+    $lobby->casterMode = $casterMode;
     $lobby->hostUserId = $joiningUserId;
     $lobby->inviteCode = bin2hex(random_bytes(12));
     $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
@@ -289,6 +294,7 @@
     $response->authKey = $newPlayer->getAuthKey();
     $response->lobbyID = $lobby->id;
     $response->inviteCode = $lobby->inviteCode;
+    $response->casterMode = !empty($lobby->casterMode);
     $response->maxPlayers = $lobby->maxPlayers;
     $response->isRoom = ($rootName === 'SWUSim' && $format === 'twinsuns');
 
@@ -320,6 +326,7 @@
             (($lobby->format ?? 'premier') === $format) &&
             (($lobby->queueType ?? 'bo1') === $queueType) &&
             (!isset($lobby->isPrivate) || !$lobby->isPrivate) &&
+            (!empty($lobby->casterMode) === $casterMode) &&
             intval($lobby->numPlayers) < intval($lobby->maxPlayers)
           ) {
               if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // skip blocked host, keep scanning
@@ -374,6 +381,7 @@
       $lobby->format = $format;
       $lobby->queueType = $queueType;
       $lobby->isPrivate = false;
+      $lobby->casterMode = $casterMode;
       $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
       $lobby->players = array($newPlayer);
 
