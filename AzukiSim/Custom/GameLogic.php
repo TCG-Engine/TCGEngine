@@ -4566,45 +4566,6 @@ $customDQHandlers['MINA_START_TURN_DAMAGE'] = function($player, $parts, $lastDec
     DealDamageToLeader($targetPlayer, 1);
 };
 
-$customDQHandlers['SAEKO_SELF_DAMAGE'] = function($player, $parts, $lastDecision) {
-    $sourceMZ = $parts[0] ?? '';
-    if(!is_string($sourceMZ) || $sourceMZ === '') return;
-
-    $sourceObj = GetZoneObject($sourceMZ);
-    if($sourceObj === null || (isset($sourceObj->removed) && $sourceObj->removed)) return;
-    if(($sourceObj->CardID ?? '') !== 'S1-AZK01-057_Lounge-Siren-Saeko_E_C_die') return;
-    if(($sourceObj->Location ?? '') !== 'Garden') return;
-
-    $chosen = is_string($lastDecision) ? $lastDecision : '';
-    if($chosen === '' || $chosen === '-') return;
-    DealDamageToEntityTarget($player, $chosen, 1, true, $sourceMZ);
-
-    $opponent = $player == 1 ? 2 : 1;
-    $theirTargets = [];
-    $theirGarden = &GetGarden($opponent);
-    for($i = 0; $i < count($theirGarden); ++$i) {
-        if(isset($theirGarden[$i]->removed) && $theirGarden[$i]->removed) continue;
-        if(CardType($theirGarden[$i]->CardID ?? '') !== 'ENTITY') continue;
-        $theirTargets[] = 'theirGarden-' . $i;
-    }
-    if(empty($theirTargets)) return;
-
-    $theirTargetStr = implode('&', $theirTargets);
-    DecisionQueueController::AddDecision($player, 'MZCHOOSE', $theirTargetStr, 1, 'Choose_an_entity_in_your_opponents_Garden_to_deal_1_damage_to');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'SAEKO_OPP_DAMAGE|' . $sourceMZ, 1);
-};
-
-$customDQHandlers['SAEKO_OPP_DAMAGE'] = function($player, $parts, $lastDecision) {
-    $sourceMZ = $parts[0] ?? '';
-    if(!is_string($sourceMZ) || $sourceMZ === '') return;
-
-    // This is the second half of one triggered ability, so it still resolves if
-    // Saiko was destroyed by the damage dealt to her controller's Garden.
-    $chosen = is_string($lastDecision) ? $lastDecision : '';
-    if($chosen === '' || $chosen === '-') return;
-    DealDamageToEntityTarget($player, $chosen, 1, true, $sourceMZ);
-};
-
 $customDQHandlers['HOREN_OF_TWO_PATHS_CHOICE'] = function($player, $parts, $lastDecision) {
     $sourcePerspectiveMZ = $parts[0] ?? '';
     $owner = intval($parts[1] ?? 0);
@@ -4847,6 +4808,42 @@ function OnEndTurnAbility($player, $mzID) {
     }
 
     return 'END_TURN_ABILITY';
+}
+
+function OnStartTurnAbility($player, $mzID) {
+    global $startTurnAbilityAbilities, $startTurnAbilityPrereqs;
+    if(!isset($startTurnAbilityAbilities) || !is_array($startTurnAbilityAbilities)) {
+        return 'START_TURN_ABILITY';
+    }
+
+    $obj = GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) {
+        return 'START_TURN_ABILITY';
+    }
+
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
+    $abilityCount = 0;
+    if(function_exists('CardStartTurnAbilityCount')) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $abilityCount = max($abilityCount, intval(CardStartTurnAbilityCount($cardIDCandidates[$i])));
+        }
+    }
+
+    $abilityCount = max(1, $abilityCount);
+    for($i = 0; $i < $abilityCount; ++$i) {
+        for($j = 0; $j < count($cardIDCandidates); ++$j) {
+            $key = $cardIDCandidates[$j] . ':' . $i;
+            if(!isset($startTurnAbilityAbilities[$key])) continue;
+            if(isset($startTurnAbilityPrereqs[$key])
+                && !$startTurnAbilityPrereqs[$key]($player, $mzID)) {
+                continue;
+            }
+            $startTurnAbilityAbilities[$key]($player);
+            break;
+        }
+    }
+
+    return 'START_TURN_ABILITY';
 }
 
 function OnWhenAttacked($player, $mzID, $attackerMZ) {
@@ -5272,28 +5269,50 @@ function TriggerMinaStartTurnAbilities($player) {
     }
 }
 
-function QueueSaekoStartTurnDamage($player, $sourceMZ) {
-    $myTargets = [];
-    $myGarden = &GetGarden($player);
-    for($i = 0; $i < count($myGarden); ++$i) {
-        if(isset($myGarden[$i]->removed) && $myGarden[$i]->removed) continue;
-        if(CardType($myGarden[$i]->CardID ?? '') !== 'ENTITY') continue;
-        $myTargets[] = 'myGarden-' . $i;
+function TriggerStartTurnAbilitiesForZone($player, &$zone) {
+    $sourceUniqueIDs = [];
+    for($i = count($zone) - 1; $i >= 0; --$i) {
+        if(!is_object($zone[$i])) continue;
+        if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+
+        $hasStartTurnAbility = false;
+        foreach(GetObjectMacroCardIDCandidates($zone[$i]) as $cardIDCandidate) {
+            if(function_exists('CardStartTurnAbilityCount')
+                && CardStartTurnAbilityCount($cardIDCandidate) > 0) {
+                $hasStartTurnAbility = true;
+                break;
+            }
+        }
+        if(!$hasStartTurnAbility) continue;
+
+        $uniqueID = EnsureAzukiFieldUniqueID($zone[$i]);
+        if($uniqueID <= 0) continue;
+        $sourceUniqueIDs[] = $uniqueID;
     }
 
-    if(empty($myTargets)) return;
+    if(empty($sourceUniqueIDs)) return;
 
-    $myTargetStr = implode('&', $myTargets);
-    DecisionQueueController::AddDecision($player, 'MZCHOOSE', $myTargetStr, 1, 'Choose_an_entity_in_your_Garden_to_deal_1_damage_to');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'SAEKO_SELF_DAMAGE|' . $sourceMZ, 1);
-}
+    // Start-of-turn is often entered while processing the previous player's
+    // request. Put later sources behind the first generated ability, then invoke
+    // the first source in the turn player's perspective so its initial chooser
+    // is already at the front when that player receives the next update.
+    for($i = 1; $i < count($sourceUniqueIDs); ++$i) {
+        DecisionQueueController::AddDecision(
+            $player,
+            'CUSTOM',
+            'TriggerStartTurnAbility|' . intval($player) . '|' . $sourceUniqueIDs[$i],
+            2
+        );
+    }
 
-function TriggerSaekoStartTurnAbilities($player) {
-    $garden = &GetGarden($player);
-    for($i = 0; $i < count($garden); ++$i) {
-        if(isset($garden[$i]->removed) && $garden[$i]->removed) continue;
-        if(($garden[$i]->CardID ?? '') !== 'S1-AZK01-057_Lounge-Siren-Saeko_E_C_die') continue;
-        QueueSaekoStartTurnDamage($player, 'myGarden-' . $i);
+    $savedPlayerID = $GLOBALS['playerID'] ?? null;
+    $GLOBALS['playerID'] = intval($player);
+    try {
+        $mzID = ResolveOwnedFieldMZByUniqueID($player, $sourceUniqueIDs[0]);
+        if($mzID !== '') StartTurnAbility($player, $mzID);
+    } finally {
+        if($savedPlayerID === null) unset($GLOBALS['playerID']);
+        else $GLOBALS['playerID'] = $savedPlayerID;
     }
 }
 
@@ -5712,7 +5731,8 @@ function OnStartOfTurn($player) {
 
     // 3. Start-of-turn triggered abilities that may queue player choices.
     TriggerMinaStartTurnAbilities($player);
-    TriggerSaekoStartTurnAbilities($player);
+    $garden = &GetGarden($player);
+    TriggerStartTurnAbilitiesForZone($player, $garden);
     
     // 4. Gain 1 IKZ (up to a maximum of 10 in area)
     GainIKZ($player, 1);
@@ -5814,6 +5834,16 @@ function ExpireTurnEffects($player, $isEndTurn = true) {
 }
 
 // --- DQ Handlers ---
+$customDQHandlers['TriggerStartTurnAbility'] = function($player, $params, $lastDecision) {
+    $turnPlayer = isset($params[0]) ? intval($params[0]) : intval($player);
+    $uniqueID = isset($params[1]) ? intval($params[1]) : 0;
+    if(($turnPlayer !== 1 && $turnPlayer !== 2) || $uniqueID <= 0) return;
+
+    $mzID = ResolveOwnedFieldMZByUniqueID($turnPlayer, $uniqueID);
+    if($mzID === '') return;
+    StartTurnAbility($turnPlayer, $mzID);
+};
+
 $customDQHandlers['TriggerEndTurnAbility'] = function($player, $params, $lastDecision) {
     $endingPlayer = isset($params[0]) ? intval($params[0]) : intval($player);
     $uniqueID = isset($params[1]) ? intval($params[1]) : 0;
