@@ -1558,6 +1558,35 @@ function BridgeEnumerateLegalActions($root, $gameName) {
   return BridgeEnumerateLegalActionsLoaded($root, $gameName);
 }
 
+function BridgeIsStaticDecision($decision) {
+  if ($decision === null || !is_object($decision)) return false;
+  return in_array(strtoupper(strval($decision->Type ?? '')), ['PASSPARAMETER', 'MZMOVE', 'CUSTOM', 'SYSTEM'], true);
+}
+
+/**
+ * An action can enqueue static work for the other player while the acting
+ * player's queue is already executing. DecisionQueueController intentionally
+ * refuses same-player recursion, and no caller automatically enters that other
+ * queue. Drain those cross-player continuations before self-play asks for its
+ * next interactive action.
+ */
+function BridgeDrainStaticDecisionQueuesLoaded($maxPasses = 32) {
+  $dqController = new DecisionQueueController();
+  $drainedPasses = 0;
+  for ($pass = 0; $pass < max(1, intval($maxPasses)); ++$pass) {
+    $progressed = false;
+    for ($player = 1; $player <= 2; ++$player) {
+      $decision = $dqController->NextDecision($player);
+      if (!BridgeIsStaticDecision($decision)) continue;
+      $dqController->ExecuteStaticMethods($player, '-');
+      ++$drainedPasses;
+      $progressed = true;
+    }
+    if (!$progressed) return $drainedPasses;
+  }
+  throw new RuntimeException('Static decision queues did not settle after ' . intval($maxPasses) . ' bridge drain passes.');
+}
+
 function BridgeEnumerateLegalActionsLoaded($root, $gameName) {
   $dqController = new DecisionQueueController();
   for ($player = 1; $player <= 2; ++$player) {
@@ -1648,6 +1677,9 @@ function BridgeApplyEngineAction($root, $gameName, $actionBase64) {
     $gameDir = BridgeEnsureDraftGame($root, $gameName);
     BridgeHydrateDiskGamestateIntoMemory($root, strval($gameName), $gameDir);
     $result = EngineRunAction($action, $root, $gameName, ['updateCache' => false, 'disableRecording' => true]);
+    $drainedStaticPasses = !empty($result['success']) ? BridgeDrainStaticDecisionQueuesLoaded() : 0;
+    if ($drainedStaticPasses > 0 && function_exists('WriteGamestate')) WriteGamestate('./' . $root . '/');
+    $result['staticDecisionDrainPasses'] = $drainedStaticPasses;
     BridgeExportMemoryGamestateToDiskIfBacked($root, $gameName);
     $result['gamestateHash'] = RegressionCurrentGamestateHash($root, $gameName);
     return $result;
@@ -1673,6 +1705,9 @@ function BridgeDecodeActionPayload($actionBase64) {
 function BridgeApplyEngineActionLoaded($root, $gameName, $action) {
   try {
     $result = EngineExecuteLoadedAction($action, $root, $gameName, ['updateCache' => false, 'disableRecording' => true]);
+    $drainedStaticPasses = !empty($result['success']) ? BridgeDrainStaticDecisionQueuesLoaded() : 0;
+    if ($drainedStaticPasses > 0 && function_exists('WriteGamestate')) WriteGamestate('./' . $root . '/');
+    $result['staticDecisionDrainPasses'] = $drainedStaticPasses;
     $result['gamestateHash'] = RegressionCurrentGamestateHash($root, $gameName);
     return $result;
   } catch (Throwable $throwable) {

@@ -115,6 +115,22 @@ attack declaration; the pass that merely commits combat receives no combat
 reward. Replay attack steps include `combatRewardResolvedAtStep`, and the
 resolving response step includes `combatRewardAttributedToStep`.
 
+Zero residual-policy training delegates choices covered by the deterministic
+Zero heuristics and updates the tabular policy only for choices where those
+heuristics abstain:
+
+```powershell
+php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck 51 --episodes 20000 --seed 126 --max-steps 500 --checkpoint-every 250 --log-every 100 --memory-only --workers 8 --worker-episodes 4 --heuristic-policy zero --train-fallback-only
+```
+
+Residual checkpoints are tagged with `policy_role: residual` and
+`heuristic_policy: zero`. Replays mark every action with `heuristicCovered` and
+`heuristicRule`; run summaries report heuristic and fallback step counts. A
+fallback run can be continued with `--checkpoint`, but only from another Zero
+residual checkpoint using the current `AzukiSim:compact-v4` / `semantic-v2`
+representation. Fallback-only mode is intentionally incompatible with
+`--strategy-mode`.
+
 Fresh Azuki training uses the context-gated `AzukiSim:compact-v4` state and
 `semantic-v2` action keys. It retains IKZ availability, hand and life buckets,
 then includes board and legal-action summaries only in the contexts where they

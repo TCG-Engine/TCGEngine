@@ -293,6 +293,24 @@ function AzukiRlBotCheckpointStrategyMode($path) {
     return 'none';
 }
 
+function AzukiRlBotCheckpointPolicyRole($path) {
+    $manifest = AzukiRlBotCompiledManifest($path);
+    if(is_array($manifest)) return strval($manifest['policy_role'] ?? 'full');
+    $raw = @file_get_contents($path, false, null, 0, 4096);
+    if(!is_string($raw) || $raw === '') return 'full';
+    if(strpos($raw, '"policy_role": "residual"') !== false || strpos($raw, '"policy_role":"residual"') !== false) return 'residual';
+    return 'full';
+}
+
+function AzukiRlBotCheckpointHeuristicPolicy($path) {
+    $manifest = AzukiRlBotCompiledManifest($path);
+    if(is_array($manifest)) return strval($manifest['heuristic_policy'] ?? 'none');
+    $raw = @file_get_contents($path, false, null, 0, 4096);
+    if(!is_string($raw) || $raw === '') return 'none';
+    if(strpos($raw, '"heuristic_policy": "zero"') !== false || strpos($raw, '"heuristic_policy":"zero"') !== false) return 'zero';
+    return 'none';
+}
+
 function AzukiRlBotLoadStateLogits($stateKey) {
     static $cache = [];
     $path = AzukiRlBotPublishedCheckpointPath();
@@ -656,8 +674,11 @@ function ProcessAzukiRlBotStep() {
     $stateKeyVersion = AzukiRlBotCheckpointStateKeyVersion($checkpointPath);
     $actionKeyVersion = AzukiRlBotCheckpointActionKeyVersion($checkpointPath);
     $strategyMode = AzukiRlBotCheckpointStrategyMode($checkpointPath);
+    $policyRole = AzukiRlBotCheckpointPolicyRole($checkpointPath);
+    $checkpointHeuristic = AzukiRlBotCheckpointHeuristicPolicy($checkpointPath);
     $profileName = NormalizeAzukiRlBotProfile(DecisionQueueController::GetVariable('AzukiRlBotProfile'));
     $useZeroHeuristics = $profileName === 'zero';
+    $useZeroResidual = $useZeroHeuristics && $policyRole === 'residual' && $checkpointHeuristic === 'zero';
     $GLOBALS['bridgeIncludeAzukiRlState'] = $stateKeyVersion === 'AzukiSim:azuki-v1';
     // Zero's deterministic policy consumes compact live-board features directly.
     // Do not make those inputs depend on an optional ignored model artifact being
@@ -694,9 +715,16 @@ function ProcessAzukiRlBotStep() {
         $actions = AzukiRlBotFilterActionsForPosture($actions, $posture);
     }
     $stateLogits = AzukiRlBotLoadStateLogits($stateKey);
-    $action = $useZeroHeuristics
-        ? AzukiZeroHeuristicChooseAction($stateLogits, $actions, $legal, $snapshot, $actingPlayer)
-        : AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion, $legal);
+    if($useZeroResidual) {
+        $heuristicChoice = AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $actingPlayer);
+        $action = !empty($heuristicChoice['covered'])
+            ? ($heuristicChoice['action'] ?? null)
+            : AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion, $legal);
+    } else {
+        $action = $useZeroHeuristics
+            ? AzukiZeroHeuristicChooseAction($stateLogits, $actions, $legal, $snapshot, $actingPlayer)
+            : AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion, $legal);
+    }
     if(!is_array($action)) return ['success' => true, 'message' => 'No bot action was selected.', 'applied' => false];
 
     $beforeHash = function_exists('RegressionCurrentGamestateHash') ? RegressionCurrentGamestateHash('AzukiSim', strval($gameName)) : '';

@@ -29,6 +29,8 @@ function RlParseArgs($argv) {
     'workers' => 1,
     'worker-episodes' => 1,
     'strategy-mode' => 'none',
+    'heuristic-policy' => 'none',
+    'train-fallback-only' => false,
     'worker' => false,
     'worker-id' => 0,
     'policy-file' => '',
@@ -58,6 +60,10 @@ function RlParseArgs($argv) {
     }
     if ($arg === '--disk-games') {
       $args['memory-only'] = false;
+      continue;
+    }
+    if ($arg === '--train-fallback-only') {
+      $args['train-fallback-only'] = true;
       continue;
     }
     if (!str_starts_with($arg, '--')) continue;
@@ -402,6 +408,36 @@ function RlCandidateIndices($mask, $actions, $noOpKeys, $stateKey) {
   return $indices;
 }
 
+function RlFallbackTrainingEnabled($args) {
+  return !empty($args['train-fallback-only']);
+}
+
+function RlValidateHeuristicTrainingArgs($args) {
+  $heuristic = strtolower(trim(strval($args['heuristic-policy'] ?? 'none')));
+  if (!RlFallbackTrainingEnabled($args)) {
+    if ($heuristic !== '' && $heuristic !== 'none') RlFail('--heuristic-policy requires --train-fallback-only.');
+    return;
+  }
+  if (strval($args['root'] ?? '') !== 'AzukiSim') RlFail('--train-fallback-only currently supports only --root AzukiSim.');
+  if ($heuristic !== 'zero') RlFail('--train-fallback-only currently requires --heuristic-policy zero.');
+  if (RlStrategyEnabled(strval($args['strategy-mode'] ?? 'none'))) RlFail('--train-fallback-only cannot currently be combined with --strategy-mode.');
+}
+
+function RlEnsureHeuristicPolicyLoaded($args) {
+  if (!RlFallbackTrainingEnabled($args)) return;
+  if (strtolower(strval($args['heuristic-policy'] ?? '')) !== 'zero') return;
+  if (!function_exists('AzukiZeroHeuristicCoveredChoice')) {
+    require_once RegressionRepoRoot() . DIRECTORY_SEPARATOR . 'AzukiSim' . DIRECTORY_SEPARATOR . 'Custom' . DIRECTORY_SEPARATOR . 'RlBotHeuristics.php';
+  }
+  if (!function_exists('AzukiZeroHeuristicCoveredChoice')) RlFail('Unable to load the Zero heuristic coverage policy.');
+}
+
+function RlHeuristicCoveredChoice($args, $actions, $legal, $snapshot, $player) {
+  if (!RlFallbackTrainingEnabled($args)) return ['covered' => false, 'rule' => '', 'action' => null];
+  RlEnsureHeuristicPolicyLoaded($args);
+  return AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $player);
+}
+
 function RlClassifyEpisodeTermination($isTerminal, $stepCount, $turnNumber, $args) {
   if (!empty($isTerminal)) {
     return ['done' => true, 'timedOut' => false, 'failed' => false, 'terminationReason' => 'terminal'];
@@ -541,6 +577,8 @@ class RlTabularPolicy {
   public string $stateKeyVersion;
   public string $actionKeyVersion;
   public string $strategyMode = 'none';
+  public string $policyRole = 'full';
+  public string $heuristicPolicy = 'none';
   public ?RlTabularPolicy $strategyPolicy = null;
   // Sparse map: stateKey => action key => logit. Legacy checkpoints use
   // numeric action-index strings; compact Azuki checkpoints use semantic keys.
@@ -714,6 +752,8 @@ class RlTabularPolicy {
       'state_key_version' => $this->stateKeyVersion,
       'action_key_version' => $this->actionKeyVersion,
       'logits_format' => RlUsesSemanticActionKeys($this->actionKeyVersion) ? 'sparse_action_key_map' : 'sparse_index_map',
+      'policy_role' => $this->policyRole,
+      'heuristic_policy' => $this->heuristicPolicy,
       'logits' => $logits,
     ];
     if ($includeStrategy && $this->strategyPolicy !== null && RlStrategyEnabled($this->strategyMode)) {
@@ -745,6 +785,8 @@ class RlTabularPolicy {
       $stateKeyVersion,
       $actionKeyVersion
     );
+    $obj->policyRole = strval($payload['policy_role'] ?? 'full');
+    $obj->heuristicPolicy = strval($payload['heuristic_policy'] ?? 'none');
     $format = strval($payload['logits_format'] ?? '');
     $rawLogits = is_array($payload['logits'] ?? null) ? $payload['logits'] : [];
     foreach ($rawLogits as $stateKey => $values) {
@@ -789,9 +831,25 @@ class RlTabularPolicy {
     $obj = new RlTabularPolicy($this->maxActions, $this->temperature, $this->learningRate, $this->stateKeyVersion, $this->actionKeyVersion);
     $obj->logits = $this->logits;
     $obj->strategyMode = $this->strategyMode;
+    $obj->policyRole = $this->policyRole;
+    $obj->heuristicPolicy = $this->heuristicPolicy;
     $obj->strategyPolicy = $this->strategyPolicy !== null ? $this->strategyPolicy->copy() : null;
     return $obj;
   }
+}
+
+function RlConfigureFallbackPolicy($policy, $args) {
+  if (!$policy instanceof RlTabularPolicy || !RlFallbackTrainingEnabled($args)) return;
+  $heuristic = strtolower(strval($args['heuristic-policy'] ?? 'none'));
+  $checkpoint = trim(strval($args['checkpoint'] ?? ''));
+  if ($checkpoint !== '' && ($policy->policyRole !== 'residual' || strtolower($policy->heuristicPolicy) !== $heuristic)) {
+    RlFail('Fallback-only training can continue only from a residual checkpoint for heuristic policy ' . $heuristic . '.');
+  }
+  if ($policy->stateKeyVersion !== 'AzukiSim:compact-v4' || $policy->actionKeyVersion !== 'semantic-v2') {
+    RlFail('Zero fallback training requires AzukiSim:compact-v4 state keys and semantic-v2 action keys.');
+  }
+  $policy->policyRole = 'residual';
+  $policy->heuristicPolicy = $heuristic;
 }
 
 function RlEnsureStrategyPolicy($policy, $strategyMode) {
@@ -907,7 +965,23 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     }
     $filteredMask = array_fill(0, count($boundedMask), 0);
     foreach ($legalIndices as $idx) $filteredMask[$idx] = 1;
-    $actionIndex = $actingPolicy->selectAction($stateKey, $filteredMask, floatval($args['epsilon']), $actionKeys);
+    $heuristicActions = [];
+    foreach ($legalIndices as $idx) {
+      $candidate = $lastLegalActions[$idx] ?? [];
+      if (!is_array($candidate)) continue;
+      $candidate['_rlActionIndex'] = intval($idx);
+      $heuristicActions[] = $candidate;
+    }
+    $heuristicDecision = RlHeuristicCoveredChoice($args, $heuristicActions, $legal, $snapshot, $turnPlayer);
+    $heuristicCovered = !empty($heuristicDecision['covered']) && is_array($heuristicDecision['action'] ?? null);
+    if ($heuristicCovered) {
+      $actionIndex = intval($heuristicDecision['action']['_rlActionIndex'] ?? -1);
+      if (!in_array($actionIndex, $legalIndices, true)) {
+        throw new Exception('Heuristic policy selected an action outside the filtered legal set.');
+      }
+    } else {
+      $actionIndex = $actingPolicy->selectAction($stateKey, $filteredMask, floatval($args['epsilon']), $actionKeys);
+    }
     $action = $lastLegalActions[$actionIndex] ?? [];
     $cleanAction = [
       'playerID' => intval($action['playerID'] ?? 0),
@@ -918,13 +992,27 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       'inputText' => strval($action['inputText'] ?? ''),
       'resolvedCardID' => strval($action['resolvedCardID'] ?? ''),
     ];
-    $stepIndex = count($episodeSteps);
-    $episodeSteps[] = ['state_key' => $stateKey, 'action_index' => $actionIndex, 'action_key' => strval($actionKeys[$actionIndex] ?? ''), 'action_keys' => $actionKeys, 'legal_indices' => $legalIndices, 'turn_player' => $turnPlayer, 'strategy_posture' => $strategyPosture];
-    $replayActions[] = ['step' => count($replayActions) + 1, 'turnPlayer' => $turnPlayer, 'actionIndex' => $actionIndex, 'actionKey' => strval($actionKeys[$actionIndex] ?? ''), 'legalCount' => count($legalIndices), 'strategyPosture' => $strategyPosture, 'action' => $cleanAction];
+    $stepIndex = null;
+    if (!$heuristicCovered) {
+      $stepIndex = count($episodeSteps);
+      $episodeSteps[] = ['state_key' => $stateKey, 'action_index' => $actionIndex, 'action_key' => strval($actionKeys[$actionIndex] ?? ''), 'action_keys' => $actionKeys, 'legal_indices' => $legalIndices, 'turn_player' => $turnPlayer, 'strategy_posture' => $strategyPosture];
+    }
+    $replayStepIndex = count($replayActions);
+    $replayActions[] = [
+      'step' => $replayStepIndex + 1,
+      'turnPlayer' => $turnPlayer,
+      'actionIndex' => $actionIndex,
+      'actionKey' => strval($actionKeys[$actionIndex] ?? ''),
+      'legalCount' => count($legalIndices),
+      'strategyPosture' => $strategyPosture,
+      'heuristicCovered' => $heuristicCovered,
+      'heuristicRule' => strval($heuristicDecision['rule'] ?? ''),
+      'action' => $cleanAction,
+    ];
 
     try {
       $beforeSnapshot = $snapshot;
-      if ($args['root'] === 'AzukiSim' && $strategyPosture !== null && RlIsAttackDeclarationAction($cleanAction)) {
+      if ($args['root'] === 'AzukiSim' && $strategyPosture !== null && $stepIndex !== null && RlIsAttackDeclarationAction($cleanAction)) {
         $pendingAttackCredit = [
           'step_index' => $stepIndex,
           'player' => $turnPlayer,
@@ -941,16 +1029,16 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
         $unusedIkzPenalty = $args['root'] === 'AzukiSim' ? RlUnusedIkzPassPenalty($beforeSnapshot, $turnPlayer, $cleanAction, $legal, $args) : 0.0;
         if ($unusedIkzPenalty > 0) {
           $episodeSteps[$stepIndex]['tactical_reward'] -= $unusedIkzPenalty;
-          $replayActions[$stepIndex]['unusedIkzPenalty'] = $unusedIkzPenalty;
+          $replayActions[$replayStepIndex]['unusedIkzPenalty'] = $unusedIkzPenalty;
         }
-        $replayActions[$stepIndex]['tacticalReward'] = $episodeSteps[$stepIndex]['tactical_reward'];
+        $replayActions[$replayStepIndex]['tacticalReward'] = $episodeSteps[$stepIndex]['tactical_reward'];
       }
       $wasAttackResponse = RlIsAttackResponseLegalPayload($legal);
       $isAttackResponse = RlIsAttackResponseLegalPayload($stepPayload['legalActions'] ?? null);
       if ($args['root'] === 'AzukiSim' && $wasAttackResponse && !$isAttackResponse && is_array($pendingAttackCredit)) {
         if (RlIsPassAction($cleanAction) && $strategyPosture !== null) {
           $episodeSteps[$stepIndex]['tactical_reward'] = 0.0;
-          $replayActions[$stepIndex]['tacticalReward'] = 0.0;
+          $replayActions[$replayStepIndex]['tacticalReward'] = 0.0;
         }
         $attributed = RlAttributeResolvedAttackReward(
           $episodeSteps,
@@ -961,7 +1049,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
           $stepIndex + 1
         );
         if (is_array($attributed)) {
-          $replayActions[$stepIndex]['combatRewardAttributedToStep'] = intval($attributed['attack_step_index']) + 1;
+          $replayActions[$replayStepIndex]['combatRewardAttributedToStep'] = intval($attributed['attack_step_index']) + 1;
         }
       }
       $legal = $stepPayload['legalActions'];
@@ -1005,9 +1093,9 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
         'error' => $throwable->getMessage(),
         'chosenAction' => $cleanAction,
       ];
-      if ($strategyPosture !== null) {
+      if ($strategyPosture !== null && $stepIndex !== null) {
         $episodeSteps[$stepIndex]['tactical_reward'] = -floatval($args['tactical-no-state-change-penalty']);
-        $replayActions[$stepIndex]['tacticalReward'] = $episodeSteps[$stepIndex]['tactical_reward'];
+        $replayActions[$replayStepIndex]['tacticalReward'] = $episodeSteps[$stepIndex]['tactical_reward'];
       }
     }
     $mode = intval($cleanAction['mode']);
@@ -1047,6 +1135,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     ? $policy->strategyPolicy->episodeDeltaForPlayer($strategySteps, 2, $p2Reward)
     : [];
   $episodeWinner = intval($info['winner'] ?? 0);
+  $fallbackSteps = RlFallbackTrainingEnabled($args) ? count($episodeSteps) : 0;
+  $heuristicSteps = RlFallbackTrainingEnabled($args) ? max(0, count($replayActions) - $fallbackSteps) : 0;
   $replay = null;
   if ($captureReplay || $episodeIncomplete) {
     $replay = [
@@ -1058,6 +1148,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       'initialGamestateText' => strval($initialFull['gamestateText'] ?? ''),
       'deckParseSummary' => $startPayload['deckParseSummary'] ?? [],
       'result' => $info,
+      'heuristicSteps' => $heuristicSteps,
+      'fallbackSteps' => $fallbackSteps,
       'actions' => $replayActions,
     ];
     if ($episodeIncomplete) {
@@ -1076,6 +1168,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     'reward' => floatval($reward),
     'p2Reward' => floatval($p2Reward),
     'steps' => $steps,
+    'heuristicSteps' => $heuristicSteps,
+    'fallbackSteps' => $fallbackSteps,
     'timedOut' => $episodeTimedOut,
     'failed' => $episodeFailed,
     'terminationReason' => strval($info['terminationReason'] ?? ''),
@@ -1155,6 +1249,12 @@ function RlPrintProgress($args, $policy, $epsDone, $steps, $outcome, $timedOutEp
 }
 
 function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $failureReplayPath, $completedSteps, $timedOutEpisodes, $failedEpisodes, $terminationReasonCounts, $totalElapsedMs, $episodeSummaries) {
+  $heuristicSteps = 0;
+  $fallbackSteps = 0;
+  foreach ($episodeSummaries as $summary) {
+    $heuristicSteps += intval($summary['heuristicSteps'] ?? 0);
+    $fallbackSteps += intval($summary['fallbackSteps'] ?? 0);
+  }
   return [
     'root' => $args['root'],
     'deckSource' => RlDeckSource($args),
@@ -1180,6 +1280,8 @@ function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $failu
     'stateKeyVersion' => RlStateKeyVersion(),
     'actionKeyVersion' => RlDefaultActionKeyVersion(RlStateKeyVersion()),
     'strategyMode' => strval($GLOBALS['rlStrategyMode'] ?? 'none'),
+    'heuristicPolicy' => strval($args['heuristic-policy'] ?? 'none'),
+    'trainFallbackOnly' => RlFallbackTrainingEnabled($args),
     'workers' => intval($args['workers']),
     'workerEpisodes' => intval($args['worker-episodes']),
     'checkpointEvery' => intval($args['checkpoint-every']),
@@ -1188,6 +1290,8 @@ function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $failu
     'firstFailureReplay' => $failureReplayPath,
     'summary' => [
       'totalSteps' => intval($completedSteps),
+      'heuristicSteps' => $heuristicSteps,
+      'fallbackSteps' => $fallbackSteps,
       'timedOutEpisodes' => intval($timedOutEpisodes),
       'failedEpisodes' => intval($failedEpisodes),
       'terminationReasonCounts' => $terminationReasonCounts,
@@ -1205,6 +1309,7 @@ function RlRunWorker($args) {
   mt_srand(intval($args['episode-seed']) + intval($args['worker-id']));
   $deckText = RlLoadDeckText($args['root'], RlDeckSource($args));
   $policy = RlTabularPolicy::load(strval($args['policy-file']), $args['max-actions'], $args['temperature'], $args['learning-rate']);
+  RlConfigureFallbackPolicy($policy, $args);
   RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
   $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
   $GLOBALS['rlStateKeyVersion'] = $policy->stateKeyVersion;
@@ -1240,6 +1345,8 @@ function RlRunWorker($args) {
       'winner' => intval($result['winner']),
       'reward' => floatval($result['reward']),
       'steps' => intval($result['steps']),
+      'heuristicSteps' => intval($result['heuristicSteps'] ?? 0),
+      'fallbackSteps' => intval($result['fallbackSteps'] ?? 0),
       'timedOut' => !empty($result['timedOut']),
       'failed' => !empty($result['failed']),
       'terminationReason' => strval($result['terminationReason'] ?? ''),
@@ -1286,6 +1393,7 @@ function RlRunSequential($args) {
   $policy = trim(strval($args['checkpoint'])) !== ''
     ? RlTabularPolicy::load(strval($args['checkpoint']), $args['max-actions'], $args['temperature'], $args['learning-rate'])
     : new RlTabularPolicy($args['max-actions'], $args['temperature'], $args['learning-rate']);
+  RlConfigureFallbackPolicy($policy, $args);
   RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
   $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
   $GLOBALS['rlStateKeyVersion'] = $policy->stateKeyVersion;
@@ -1320,6 +1428,8 @@ function RlRunSequential($args) {
       'winner' => intval($result['winner']),
       'reward' => floatval($result['reward']),
       'steps' => intval($result['steps']),
+      'heuristicSteps' => intval($result['heuristicSteps'] ?? 0),
+      'fallbackSteps' => intval($result['fallbackSteps'] ?? 0),
       'timedOut' => !empty($result['timedOut']),
       'failed' => !empty($result['failed']),
       'terminationReason' => strval($result['terminationReason'] ?? ''),
@@ -1386,7 +1496,9 @@ function RlWorkerCommand($args, $runId, $policyPath, $resultPath, $episodeNumber
     '--tactical-no-state-change-penalty', strval(floatval($args['tactical-no-state-change-penalty'])),
     '--tactical-unused-ikz-penalty', strval(floatval($args['tactical-unused-ikz-penalty'])),
     '--strategy-mode', RlQuoteArg($args['strategy-mode']),
+    '--heuristic-policy', RlQuoteArg($args['heuristic-policy']),
   ];
+  if (RlFallbackTrainingEnabled($args)) $parts[] = '--train-fallback-only';
   if ($args['memory-only'] === true) $parts[] = '--memory-only';
   if ($args['memory-only'] === false) $parts[] = '--disk-games';
   if ($captureReplay) $parts[] = '--capture-replay';
@@ -1408,6 +1520,7 @@ function RlRunParallel($args) {
   $policy = trim(strval($args['checkpoint'])) !== ''
     ? RlTabularPolicy::load(strval($args['checkpoint']), $args['max-actions'], $args['temperature'], $args['learning-rate'])
     : new RlTabularPolicy($args['max-actions'], $args['temperature'], $args['learning-rate']);
+  RlConfigureFallbackPolicy($policy, $args);
   RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
   $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
   $GLOBALS['rlStateKeyVersion'] = $policy->stateKeyVersion;
@@ -1522,6 +1635,7 @@ function RlRunParallel($args) {
 
 if (!defined('RL_TRAINER_LIBRARY_ONLY') || !RL_TRAINER_LIBRARY_ONLY) {
   $args = RlParseArgs($argv);
+  RlValidateHeuristicTrainingArgs($args);
   $GLOBALS['rlStateKeyVersion'] = RlDefaultStateKeyVersion($args['root']);
   if (!empty($args['worker'])) {
     RlRunWorker($args);

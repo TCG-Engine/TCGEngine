@@ -245,6 +245,8 @@ if (!is_file($bundleDir . DIRECTORY_SEPARATOR . 'manifest.php')) {
   $stateKeyVersion = CompileCheckpointMetadataValue($prefixText, 'state_key_version', 'lite-v2');
   $actionKeyVersion = CompileCheckpointMetadataValue($prefixText, 'action_key_version', 'index-v1');
   $logitsFormat = CompileCheckpointMetadataValue($prefixText, 'logits_format', 'sparse_index_map');
+  $policyRole = CompileCheckpointMetadataValue($prefixText, 'policy_role', 'full');
+  $heuristicPolicy = CompileCheckpointMetadataValue($prefixText, 'heuristic_policy', 'none');
   CompileCheckpointEnterObjectAfterToken($handle, 'logits');
   $tacticalStates = CompileCheckpointParseLogitsObject($handle, $emit, intval($args['progress-every']), 'tactical');
 
@@ -273,6 +275,8 @@ if (!is_file($bundleDir . DIRECTORY_SEPARATOR . 'manifest.php')) {
     'state_key_version' => $stateKeyVersion,
     'action_key_version' => $actionKeyVersion,
     'logits_format' => $logitsFormat,
+    'policy_role' => $policyRole,
+    'heuristic_policy' => $heuristicPolicy,
     'strategy_mode' => $strategyMode,
     'shard_prefix_length' => $prefixLength,
     'tactical_states' => $tacticalStates,

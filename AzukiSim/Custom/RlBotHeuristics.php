@@ -431,6 +431,95 @@ function AzukiZeroHeuristicActionScore($action, $actions, $legal, $snapshot, $pl
     return 100;
 }
 
+/**
+ * Name the deterministic rule that covers this whole choice, or return an
+ * empty string when the heuristic has no intentional opinion. The residual
+ * trainer uses this as its abstention boundary; the live heuristic chooser is
+ * deliberately unchanged and may still use its published model as a tie-break.
+ */
+function AzukiZeroHeuristicCoverageRule($actions, $legal, $snapshot, $player): string {
+    if(!is_array($actions) || empty($actions)) return '';
+    if(count($actions) === 1) return 'forced-action';
+
+    $ids = AzukiZeroHeuristicCardIDs();
+    $state = AzukiZeroHeuristicState($snapshot, $player);
+    $type = strtoupper(strval($legal['decisionType'] ?? ''));
+    $tooltip = strtolower(str_replace('_', ' ', strval($legal['decisionTooltipRaw'] ?? $legal['decisionTooltip'] ?? '')));
+    $param = strtolower(strval($legal['decisionParam'] ?? ''));
+    $source = AzukiZeroHeuristicDecisionSourceCardID($state);
+
+    if($type !== '') {
+        if($type === 'YESNO') {
+            if(str_contains($tooltip, 'mulligan') || str_contains($param, 'review:myhand')) return 'mulligan';
+            if($source === $ids['warlord']) return 'warlord-optional';
+            if($source === $ids['kindler']) return 'kindler-optional';
+            if($source === $ids['scarlett']) return 'scarlett-optional';
+            return '';
+        }
+        if($type === 'CHOOSEZONE') return 'entity-placement';
+        if($type === 'MZMODAL' && str_contains($param, 'go_first')) return 'go-first';
+        if(str_contains($tooltip, 'select entity to portal')) return 'portal-target';
+        if(str_contains($tooltip, 'attack target')) return 'attack-target';
+
+        $handler = AzukiZeroHeuristicPendingHandler(intval($state['player'] ?? 0));
+        if(str_starts_with($handler, $ids['rushfire_gate'] . ':')) return 'rushfire-gate-choice';
+        if(in_array($source, [
+            $ids['zero'],
+            $ids['warlord'],
+            $ids['spice'],
+            $ids['kindler'],
+            $ids['fire_orb'],
+            $ids['collateral_burst'],
+            $ids['detonation_pact'],
+        ], true)) return 'known-card-target';
+        return '';
+    }
+
+    $knownPlayCards = array_values(array_diff($ids, [$ids['zero'], $ids['rushfire_gate']]));
+    foreach($actions as $action) {
+        if(!is_array($action)) return '';
+        $key = AzukiZeroHeuristicActionKey($action, $legal);
+        $cardID = AzukiZeroHeuristicActionCardID($action);
+        if(str_starts_with($key, 'pass:') || str_starts_with($key, 'attack:')) continue;
+        if(str_starts_with($key, 'play:') && in_array($cardID, $knownPlayCards, true)) continue;
+        if(str_starts_with($key, 'activate:') && in_array($cardID, [$ids['zero'], $ids['rushfire_gate']], true)) continue;
+        return '';
+    }
+    return 'known-free-play';
+}
+
+/**
+ * Return a deterministic action only when the heuristic fully covers the
+ * choice. Exact top-score ties between different semantic actions abstain so
+ * the residual policy can learn the distinction.
+ */
+function AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $player): array {
+    $rule = AzukiZeroHeuristicCoverageRule($actions, $legal, $snapshot, $player);
+    if($rule === '') return ['covered' => false, 'rule' => '', 'action' => null];
+
+    $best = null;
+    $bestScore = null;
+    $bestKey = '';
+    $ambiguous = false;
+    foreach($actions as $action) {
+        if(!is_array($action)) continue;
+        $score = AzukiZeroHeuristicActionScore($action, $actions, $legal, $snapshot, $player);
+        $key = AzukiZeroHeuristicActionKey($action, $legal);
+        if($best === null || $score > $bestScore) {
+            $best = $action;
+            $bestScore = $score;
+            $bestKey = $key;
+            $ambiguous = false;
+        } else if($score === $bestScore && $key !== $bestKey) {
+            $ambiguous = true;
+        }
+    }
+    if($best === null || $ambiguous) {
+        return ['covered' => false, 'rule' => $ambiguous ? 'ambiguous-' . $rule : '', 'action' => null];
+    }
+    return ['covered' => true, 'rule' => $rule, 'action' => $best, 'score' => $bestScore];
+}
+
 function AzukiZeroHeuristicChooseAction($stateLogits, $actions, $legal, $snapshot, $player) {
     if(!is_array($actions) || empty($actions)) return null;
     $best = null;
