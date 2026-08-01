@@ -277,6 +277,15 @@
     await transactionAsPromise(tx, 'Could not delete the game log.');
   }
 
+  async function clearAllGames() {
+    await storeChain;
+    var db = await openDb();
+    var tx = db.transaction([GAME_STORE, EVENT_STORE], 'readwrite');
+    tx.objectStore(GAME_STORE).clear();
+    tx.objectStore(EVENT_STORE).clear();
+    await transactionAsPromise(tx, 'Could not clear the saved game logs.');
+  }
+
   function downloadLoadedGame(loaded) {
     var markdown = renderMarkdown(loaded.game, loaded.rows);
     downloadMarkdown(markdown, 'azuki-game-' + loaded.game.gameId + '-p' + loaded.game.viewer + '.md');
@@ -480,6 +489,17 @@
     });
   }
 
+  function confirmClearAll() {
+    return window.StyledConfirm(
+      'Delete all saved game logs from this browser? Downloaded Markdown exports will not be affected.',
+      {
+        title: 'Clear saved game logs',
+        danger: true,
+        confirmLabel: 'Clear all'
+      }
+    );
+  }
+
   function makeLibraryButton(label, handler) {
     var button = document.createElement('button');
     button.type = 'button';
@@ -557,6 +577,21 @@
         });
       });
       toolbar.appendChild(exportAll);
+
+      var clearAll = makeLibraryButton('Clear saved logs', function () {
+        confirmClearAll().then(function (confirmed) {
+          if (!confirmed) return;
+          clearAll.disabled = true;
+          clearAllGames().then(function () {
+            delete container.dataset.azukiSelectedDeck;
+            renderGameLibrary(container);
+          }).catch(function (error) {
+            clearAll.disabled = false;
+            notifyError(error, 'Could not clear the saved game logs.');
+          });
+        });
+      });
+      toolbar.appendChild(clearAll);
       container.appendChild(toolbar);
 
       var list = document.createElement('div');
@@ -671,6 +706,7 @@
     viewGame: viewGame,
     exportGame: exportGame,
     deleteGame: deleteGame,
+    clearAllGames: clearAllGames,
     renderGameLibrary: renderGameLibrary
   };
 })();
