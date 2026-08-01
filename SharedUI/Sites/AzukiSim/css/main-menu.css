@@ -1883,171 +1883,6 @@
       overflow-y: auto;
     }
   }
-  .azuki-info-card {
-    color: #162435;
-    background:
-      linear-gradient(90deg, rgba(245, 226, 188, 0.15), rgba(229, 200, 146, 0.08)),
-      url('/TCGEngine/Assets/Images/Zendo/zendo-parchment-panel.webp') center / cover no-repeat !important;
-    border-color: #b88a4b !important;
-    box-shadow: inset 0 0 50px rgba(89, 57, 25, 0.16), 0 18px 44px rgba(0,0,0,0.42);
-  }
-  .azuki-info-tabs {
-    padding: 2px 0 0;
-    background: linear-gradient(90deg, rgba(255, 247, 226, 0.62), rgba(244, 222, 179, 0.46));
-    border: 1px solid rgba(103, 76, 44, 0.2);
-    border-bottom-color: rgba(78, 57, 33, 0.3);
-    border-radius: 9px 9px 0 0;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 253, 243, 0.62),
-      0 2px 8px rgba(76, 48, 21, 0.05);
-    backdrop-filter: blur(7px) saturate(90%);
-    -webkit-backdrop-filter: blur(7px) saturate(90%);
-  }
-  .azuki-info-tabs > button.azuki-info-tab {
-    color: #4b3925;
-    font-family: var(--zendo-font-ui);
-    font-weight: 600;
-    text-shadow:
-      0 1px 0 rgba(255, 248, 227, 0.78),
-      0 0 10px rgba(255, 239, 199, 0.48);
-  }
-  .azuki-info-tabs > button.azuki-info-tab.is-active {
-    color: #122438;
-    background: transparent !important;
-    border-color: transparent transparent #795326 !important;
-    box-shadow: none !important;
-    font-weight: 600;
-  }
-  .azuki-info-card .azuki-info-panel h2 {
-    color: #13263b;
-    font-family: var(--zendo-font-display);
-    font-size: 31px;
-    line-height: 1.1;
-  }
-  .azuki-info-card .login-message,
-  .azuki-info-card #did-you-know-text,
-  .azuki-info-card .hotkey-row {
-    color: #392f25 !important;
-  }
-  .azuki-info-card #azuki-info-panel-replays > p,
-  .azuki-info-card #azuki-info-panel-game-logs > p {
-    color: #4a3d30 !important;
-  }
-  .azuki-info-card #azuki-info-panel-replays,
-  .azuki-info-card #azuki-info-panel-game-logs {
-    gap: 12px;
-  }
-  .azuki-info-card .azuki-saved-list {
-    gap: 9px;
-    margin-top: 2px;
-    padding-right: 2px;
-  }
-  .azuki-info-card .azuki-saved-list .match-replay-row {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    gap: 7px;
-    min-height: 58px;
-    padding: 10px 11px;
-    box-sizing: border-box;
-    background: linear-gradient(90deg, rgba(255, 249, 231, 0.74), rgba(247, 226, 184, 0.5));
-    border: 1px solid rgba(98, 70, 38, 0.27);
-    border-radius: 8px;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 254, 246, 0.72),
-      0 3px 10px rgba(78, 49, 22, 0.08);
-    backdrop-filter: blur(7px) saturate(88%);
-    -webkit-backdrop-filter: blur(7px) saturate(88%);
-  }
-  .azuki-info-card .azuki-saved-list .azuki-game-log-row {
-    grid-template-columns: minmax(0, 1fr) auto auto auto;
-  }
-  .azuki-info-card .azuki-saved-list .match-replay-meta {
-    color: #574632 !important;
-    font-size: 12px;
-    line-height: 1.45;
-  }
-  .azuki-info-card .azuki-saved-list .match-replay-meta > span {
-    color: #54422f !important;
-  }
-  .azuki-info-card .azuki-saved-list .match-replay-meta strong {
-    color: #182b3e !important;
-    font-family: var(--zendo-font-display);
-    font-size: 14px;
-    font-weight: 700;
-  }
-  .azuki-info-card .azuki-saved-list .match-replay-button {
-    min-width: 56px;
-    min-height: 32px;
-    padding: 6px 10px !important;
-    color: #1d2d3b !important;
-    background: linear-gradient(180deg, rgba(239, 208, 145, 0.82), rgba(205, 157, 82, 0.72)) !important;
-    border: 1px solid rgba(113, 76, 32, 0.55) !important;
-    border-radius: 6px !important;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 245, 216, 0.72),
-      0 2px 5px rgba(76, 48, 19, 0.12);
-    font-family: var(--zendo-font-ui);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.035em;
-    text-transform: uppercase;
-    transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
-  }
-  .azuki-info-card .azuki-saved-list .match-replay-button:hover,
-  .azuki-info-card .azuki-saved-list .match-replay-button:focus-visible {
-    background: linear-gradient(180deg, #f2d99f, #d4a158) !important;
-    border-color: #765026 !important;
-    outline: none;
-    transform: translateY(-1px);
-  }
-  .azuki-info-card .azuki-saved-list .match-replay-button:last-child {
-    color: #7b302a !important;
-    background: rgba(255, 247, 225, 0.52) !important;
-    border-color: rgba(126, 55, 45, 0.5) !important;
-    box-shadow: inset 0 1px 0 rgba(255, 252, 240, 0.55);
-  }
-  .azuki-info-card .azuki-saved-list .match-replay-button:last-child:hover,
-  .azuki-info-card .azuki-saved-list .match-replay-button:last-child:focus-visible {
-    color: #68231f !important;
-    background: rgba(213, 135, 116, 0.2) !important;
-    border-color: rgba(112, 39, 32, 0.7) !important;
-  }
-  .azuki-info-card .azuki-saved-list .match-replay-muted {
-    color: #514331 !important;
-  }
-  .azuki-info-card hr {
-    border-color: rgba(78, 57, 33, 0.38) !important;
-  }
-  .azuki-info-card #did-you-know-box {
-    min-height: 112px;
-    background: rgba(255, 247, 227, 0.18);
-    border-color: rgba(93, 66, 34, 0.28);
-  }
-  .azuki-info-card .azuki-inline-section-title {
-    color: #67533a;
-  }
-  .azuki-info-card .hotkey-badge {
-    color: #eee2ca;
-    background: #2b2b28;
-    border-color: #1d1d1a;
-  }
-  .azuki-quick-reference-title {
-    margin-bottom: 8px;
-    color: #58462f;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-shadow: 0 1px 0 rgba(255, 246, 220, 0.65);
-  }
-  .azuki-info-card #hotkey-list .hotkey-row > span:last-child {
-    color: #30271f;
-    font-weight: 500;
-    text-shadow: 0 1px 0 rgba(255, 247, 225, 0.5);
-  }
-  .azuki-info-card #did-you-know-box button {
-    color: #6d5433 !important;
-    background: transparent !important;
-  }
   .disclaimer {
     position: relative !important;
     inset: auto !important;
@@ -2279,3 +2114,603 @@
       grid-template-columns: 1fr;
     }
   }
+/* Zendo graphite main menu ------------------------------------------------
+   This final layer intentionally overrides the earlier ornamental skin while
+   preserving its layout, responsive rules, and component behavior. */
+.azuki-menu-grid {
+  gap: 18px;
+}
+
+.azuki-active-card,
+.azuki-queue-card,
+.azuki-info-card {
+  color: var(--zendo-ivory, #f4efe5);
+  background:
+    radial-gradient(circle at 92% -18%, rgba(198, 161, 91, 0.045), transparent 34%),
+    linear-gradient(155deg, rgba(25, 25, 27, 0.96), rgba(13, 13, 15, 0.97)) !important;
+  border: 1px solid var(--zendo-hairline, rgba(226, 216, 198, 0.11)) !important;
+  border-radius: 9px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 248, 235, 0.018);
+  backdrop-filter: blur(10px);
+}
+
+.azuki-queue-card::before {
+  content: none;
+}
+
+.azuki-active-card,
+.azuki-active-card.is-empty {
+  background: linear-gradient(155deg, rgba(22, 22, 24, 0.95), rgba(12, 12, 14, 0.96)) !important;
+  backdrop-filter: blur(10px);
+}
+
+.azuki-active-card h2,
+.azuki-deck-section-heading h3,
+.azuki-selected-deck-label,
+.azuki-ready-label {
+  color: #ddd7ca;
+  font-family: var(--zendo-font-ui);
+  font-weight: 600;
+  letter-spacing: 0.035em;
+}
+
+.azuki-prepare-heading {
+  gap: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+}
+
+.azuki-prepare-heading::after {
+  content: none;
+}
+
+.azuki-prepare-heading h2 {
+  color: var(--zendo-ivory, #f4efe5);
+  font-size: 19px;
+  letter-spacing: 0.025em;
+  text-transform: none;
+}
+
+.azuki-prepare-heading p {
+  color: var(--zendo-muted, #9b9891);
+  font-weight: 400;
+}
+
+.azuki-active-count {
+  color: #15120d;
+  background: var(--zendo-gold, #c6a15b);
+}
+
+.azuki-active-refresh:hover,
+.azuki-active-refresh:focus-visible {
+  background: rgba(255, 248, 235, 0.04) !important;
+  outline-color: rgba(198, 161, 91, 0.42);
+}
+
+.azuki-active-card .active-game-empty {
+  padding-top: 48px;
+  color: #d4cfc5;
+}
+
+.azuki-active-card .active-game-empty img {
+  width: 78px;
+  height: 62px;
+  margin-bottom: 18px;
+  opacity: 0.68;
+}
+
+.azuki-active-card .active-game-empty p > span {
+  color: var(--zendo-muted, #9b9891);
+}
+
+.azuki-active-card .active-game-card,
+.azuki-builder-deck-option {
+  background: rgba(255, 248, 235, 0.022);
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+  box-shadow: none;
+}
+
+.azuki-active-card .spectate-button,
+.azuki-deck-edit-action,
+.azuki-deck-more summary {
+  color: #ddd8cf;
+  background: #19191b;
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+}
+
+.azuki-owned-decks {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.azuki-deck-section-heading {
+  padding: 0 10px 11px;
+  border-bottom-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+}
+
+.azuki-deck-section-heading h3 {
+  font-size: 14px;
+  text-transform: none;
+}
+
+.azuki-deck-management-button,
+.azuki-deck-management-button.primary {
+  color: #dfd9cf;
+  background: transparent;
+  border-color: rgba(198, 161, 91, 0.48);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.azuki-deck-management-button.primary {
+  color: var(--zendo-gold, #c6a15b);
+}
+
+.azuki-deck-management-button:hover,
+.azuki-deck-management-button:focus-visible,
+.azuki-deck-management-button.primary:hover,
+.azuki-deck-management-button.primary:focus-visible {
+  color: #f2d79d;
+  background: rgba(198, 161, 91, 0.075);
+  border-color: var(--zendo-gold, #c6a15b);
+}
+
+.azuki-import-toggle,
+.azuki-import-toggle:hover,
+.azuki-import-toggle:focus-visible,
+.azuki-import-toggle.is-active,
+.azuki-import-icon,
+.azuki-deck-import-row .azuki-deck-management-button {
+  color: #ded9cf !important;
+  background: #19191b !important;
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11)) !important;
+  box-shadow: none;
+}
+
+.azuki-import-toggle:hover,
+.azuki-import-toggle:focus-visible,
+.azuki-import-toggle.is-active {
+  color: var(--zendo-gold, #c6a15b) !important;
+  border-color: rgba(198, 161, 91, 0.55) !important;
+}
+
+.azuki-import-popover,
+.azuki-deck-picker-dialog {
+  color: #ded9cf;
+  background:
+    radial-gradient(circle at 92% -12%, rgba(198, 161, 91, 0.07), transparent 34%),
+    linear-gradient(155deg, #1b1b1d, #0d0d0f);
+  border-color: rgba(198, 161, 91, 0.42);
+}
+
+.azuki-import-popover::before {
+  background: #171719;
+  border-color: rgba(198, 161, 91, 0.42);
+}
+
+.azuki-import-copy strong,
+.azuki-deck-picker-dialog h2 {
+  color: var(--zendo-ivory, #f4efe5);
+}
+
+.azuki-import-copy small,
+.azuki-deck-picker-dialog > p {
+  color: var(--zendo-muted, #9b9891);
+}
+
+.azuki-library-tabs {
+  padding: 0 12px;
+  border-bottom-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+}
+
+.azuki-library-tabs > button {
+  color: var(--zendo-muted, #9b9891);
+}
+
+.azuki-library-tabs > button.is-active {
+  color: var(--zendo-ivory, #f4efe5);
+  border-bottom-color: var(--zendo-gold, #c6a15b) !important;
+}
+
+.azuki-selected-deck-heading {
+  border-bottom-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+}
+
+.azuki-selected-deck-label,
+.azuki-ready-label,
+.azuki-selected-deck-stats .zendo-icon,
+.azuki-selected-deck-stats .zendo-raster-icon {
+  color: var(--zendo-gold, #c6a15b);
+}
+
+.azuki-change-deck-button {
+  color: var(--zendo-gold, #c6a15b);
+  border: 0 !important;
+}
+
+.azuki-selected-deck-card {
+  padding: 9px;
+  background: linear-gradient(110deg, rgba(31, 31, 33, 0.98), rgba(17, 17, 19, 0.98));
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+  border-left: 2px solid var(--zendo-gold, #c6a15b);
+  border-radius: 7px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+}
+
+.azuki-selected-deck-card .azuki-builder-deck-selected {
+  top: 12px;
+  right: 14px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: var(--zendo-gold, #c6a15b);
+  background: rgba(198, 161, 91, 0.035);
+  border: 1px solid var(--zendo-gold, #c6a15b);
+  border-radius: 50%;
+  filter: none;
+}
+
+.azuki-selected-deck-card .azuki-builder-deck-selected::after {
+  content: "\2713";
+  font: 20px/1 var(--zendo-font-ui);
+}
+
+.azuki-selected-deck-actions > a,
+.azuki-selected-deck-actions > button {
+  color: #ddd8cf !important;
+  background: #161618 !important;
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11)) !important;
+}
+
+.azuki-selected-deck-actions > a:hover,
+.azuki-selected-deck-actions > button:hover,
+.azuki-selected-deck-actions > a:focus-visible,
+.azuki-selected-deck-actions > button:focus-visible {
+  color: var(--zendo-gold, #c6a15b) !important;
+  background: #202023 !important;
+  border-color: rgba(198, 161, 91, 0.55) !important;
+}
+
+.azuki-builder-deck-option:has(> label > input:checked) {
+  background: #19191b;
+  border-color: rgba(198, 161, 91, 0.52);
+  box-shadow: none;
+}
+
+.azuki-builder-deck-copy > span,
+.azuki-selected-deck-stats {
+  color: var(--zendo-muted, #9b9891) !important;
+}
+
+.azuki-starter-source,
+.azuki-starter-source.is-source-active,
+.azuki-link-source {
+  background: rgba(255, 248, 235, 0.022);
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+  box-shadow: none;
+}
+
+.azuki-starter-source:hover,
+.azuki-link-source:hover {
+  background: rgba(255, 248, 235, 0.038);
+  border-color: rgba(198, 161, 91, 0.34);
+}
+
+.azuki-starter-source strong,
+.azuki-link-source-body > label {
+  color: #ddd8cf;
+}
+
+.azuki-starter-source small,
+.azuki-link-source-body > p,
+.azuki-link-source > summary {
+  color: var(--zendo-muted, #9b9891);
+}
+
+.azuki-starter-source select,
+.azuki-link-source-body > input,
+.azuki-deck-import-row input {
+  color: var(--zendo-ivory, #f4efe5);
+  background-color: #111113;
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+  box-shadow: none;
+}
+
+.azuki-starter-source select:focus,
+.azuki-link-source-body > input:focus,
+.azuki-deck-import-row input:focus {
+  border-color: rgba(198, 161, 91, 0.62);
+  box-shadow: 0 0 0 2px rgba(198, 161, 91, 0.09);
+}
+
+.azuki-ready-label {
+  border-bottom-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+}
+
+.azuki-game-actions {
+  gap: 10px;
+}
+
+.azuki-game-actions > button,
+.azuki-game-actions > .azuki-game-action-learn,
+.azuki-game-actions > .azuki-game-action-bot,
+.azuki-game-actions > .azuki-game-action-private {
+  height: 58px;
+  min-height: 58px;
+  color: #e7e1d7;
+  background: linear-gradient(180deg, #202023, #161618) !important;
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11)) !important;
+  border-radius: 5px;
+  box-shadow: none;
+  transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.azuki-game-actions > button:hover,
+.azuki-game-actions > button:focus-visible {
+  background: linear-gradient(180deg, #29292c, #1a1a1d) !important;
+  border-color: rgba(198, 161, 91, 0.38) !important;
+  transform: translateY(-1px) !important;
+}
+
+.azuki-game-actions > .azuki-game-action-primary {
+  color: #fff5eb;
+  background: linear-gradient(180deg, #9b303b, #741e28) !important;
+  border-color: #ae3b46 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 238, 218, 0.1), 0 7px 20px rgba(85, 12, 21, 0.2);
+}
+
+.azuki-game-actions > .azuki-game-action-primary:hover,
+.azuki-game-actions > .azuki-game-action-primary:focus-visible {
+  background: linear-gradient(180deg, #ad3945, #82242f) !important;
+  border-color: #c14b55 !important;
+}
+
+.azuki-game-actions > button small {
+  color: var(--zendo-muted, #9b9891);
+}
+
+.azuki-info-card {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: var(--zendo-ivory, #f4efe5);
+  background: linear-gradient(155deg, rgba(24, 24, 26, 0.97), rgba(12, 12, 14, 0.98)) !important;
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11)) !important;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+}
+
+.azuki-info-card::before {
+  content: "";
+  position: absolute;
+  right: -48px;
+  bottom: 0;
+  width: 230px;
+  height: 230px;
+  pointer-events: none;
+  background: url('/TCGEngine/Assets/Images/Zendo/zendo-enso.png') center / contain no-repeat;
+  opacity: 0.035;
+  filter: grayscale(1);
+}
+
+.azuki-info-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.azuki-info-tabs {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.azuki-info-tabs > button.azuki-info-tab {
+  color: var(--zendo-muted, #9b9891);
+  text-shadow: none;
+}
+
+.azuki-info-tabs > button.azuki-info-tab:hover,
+.azuki-info-tabs > button.azuki-info-tab:focus-visible {
+  color: var(--zendo-ivory, #f4efe5) !important;
+}
+
+.azuki-info-tabs > button.azuki-info-tab.is-active {
+  color: var(--zendo-ivory, #f4efe5);
+  background: transparent !important;
+  border-bottom-color: var(--zendo-gold, #c6a15b) !important;
+  box-shadow: none !important;
+  font-weight: 600;
+}
+
+.azuki-info-card .azuki-info-panel h2 {
+  color: var(--zendo-ivory, #f4efe5);
+  font-family: var(--zendo-font-display);
+  font-size: 29px;
+  line-height: 1.1;
+}
+
+.azuki-info-card .login-message,
+.azuki-info-card #did-you-know-text,
+.azuki-info-card .hotkey-row,
+.azuki-info-card #azuki-info-panel-replays > p,
+.azuki-info-card #azuki-info-panel-game-logs > p {
+  color: var(--zendo-muted, #9b9891) !important;
+}
+
+.azuki-info-card .azuki-saved-list .match-replay-row {
+  background: rgba(255, 248, 235, 0.025);
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+  border-radius: 6px;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.azuki-info-card .azuki-saved-list .match-replay-meta,
+.azuki-info-card .azuki-saved-list .match-replay-meta > span,
+.azuki-info-card .azuki-saved-list .match-replay-muted {
+  color: var(--zendo-muted, #9b9891) !important;
+}
+
+.azuki-info-card .azuki-saved-list .match-replay-meta strong {
+  color: var(--zendo-ivory, #f4efe5) !important;
+  font-family: var(--zendo-font-ui);
+  font-weight: 600;
+}
+
+.azuki-info-card .azuki-saved-list .match-replay-button {
+  color: var(--zendo-gold, #c6a15b) !important;
+  background: transparent !important;
+  border-color: rgba(198, 161, 91, 0.42) !important;
+  border-radius: 4px !important;
+  box-shadow: none;
+}
+
+.azuki-info-card .azuki-saved-list .match-replay-button:hover,
+.azuki-info-card .azuki-saved-list .match-replay-button:focus-visible {
+  color: #f2d79d !important;
+  background: rgba(198, 161, 91, 0.075) !important;
+  border-color: var(--zendo-gold, #c6a15b) !important;
+}
+
+.azuki-info-card .azuki-saved-list .match-replay-button:last-child {
+  color: #cf6668 !important;
+  background: transparent !important;
+  border-color: rgba(142, 40, 51, 0.62) !important;
+  box-shadow: none;
+}
+
+.azuki-info-card .azuki-saved-list .match-replay-button:last-child:hover,
+.azuki-info-card .azuki-saved-list .match-replay-button:last-child:focus-visible {
+  color: #f08b8d !important;
+  background: rgba(142, 40, 51, 0.12) !important;
+  border-color: #a83a45 !important;
+}
+
+.azuki-info-card hr {
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11)) !important;
+}
+
+.azuki-info-card #did-you-know-box {
+  background: rgba(255, 248, 235, 0.025);
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11));
+}
+
+.azuki-info-card .azuki-inline-section-title,
+.azuki-quick-reference-title,
+.azuki-info-card #hotkey-list .hotkey-row > span:last-child {
+  color: #c7c0b4;
+  text-shadow: none;
+}
+
+.azuki-quick-reference-title {
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.azuki-info-card #did-you-know-box button {
+  color: var(--zendo-gold, #c6a15b) !important;
+}
+
+.azuki-info-card #did-you-know-box > div > span:last-child {
+  color: var(--zendo-gold, #c6a15b) !important;
+}
+
+.azuki-rejoin-banner-button {
+  color: #ded9cf !important;
+  background: rgba(255, 248, 235, 0.025) !important;
+  border-color: rgba(198, 161, 91, 0.42) !important;
+  box-shadow: none !important;
+}
+
+.azuki-rejoin-banner-button:hover,
+.azuki-rejoin-banner-button:focus-visible {
+  color: var(--zendo-ivory, #f4efe5) !important;
+  background: rgba(198, 161, 91, 0.065) !important;
+  border-color: var(--zendo-gold, #c6a15b) !important;
+}
+
+.rl-bot-opponent-modal__backdrop,
+.azuki-deck-picker-backdrop {
+  background: rgba(5, 5, 7, 0.86) !important;
+}
+
+.rl-bot-opponent-modal__dialog {
+  color: var(--zendo-ivory, #f4efe5);
+  background:
+    radial-gradient(circle at 92% -12%, rgba(198, 161, 91, 0.07), transparent 34%),
+    linear-gradient(155deg, #1b1b1d, #0d0d0f);
+  border-color: rgba(198, 161, 91, 0.42);
+  border-radius: 10px;
+}
+
+.rl-bot-opponent-modal__dialog > p,
+.rl-bot-opponent-choice small,
+.rl-bot-opponent-modal__close {
+  color: var(--zendo-muted, #9b9891);
+}
+
+.rl-bot-opponent-modal__close {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.rl-bot-opponent-choice {
+  color: var(--zendo-ivory, #f4efe5);
+  background: rgba(255, 248, 235, 0.025) !important;
+  border-color: var(--zendo-hairline, rgba(226, 216, 198, 0.11)) !important;
+  border-radius: 7px;
+}
+
+.rl-bot-opponent-choice:hover,
+.rl-bot-opponent-choice:focus-visible {
+  background: rgba(255, 248, 235, 0.055) !important;
+  border-color: rgba(198, 161, 91, 0.52) !important;
+  box-shadow: 0 0 0 2px rgba(198, 161, 91, 0.07) !important;
+}
+
+@media (min-width: 1181px) {
+  .azuki-menu-grid {
+    grid-template-columns: minmax(250px, 0.75fr) minmax(560px, 1.65fr) minmax(310px, 0.88fr);
+  }
+
+  .azuki-active-card.is-empty {
+    height: min(400px, 62vh);
+    align-self: start;
+  }
+
+  .azuki-info-card {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .azuki-prepare-heading {
+    padding-bottom: 12px;
+  }
+
+  .azuki-prepare-heading h2 {
+    font-size: 22px;
+  }
+
+  .azuki-selected-deck-card {
+    border-left-width: 2px;
+  }
+
+  .azuki-game-actions > button,
+  .azuki-game-actions > .azuki-game-action-learn,
+  .azuki-game-actions > .azuki-game-action-bot,
+  .azuki-game-actions > .azuki-game-action-private {
+    height: auto;
+    min-height: 52px;
+  }
+}
