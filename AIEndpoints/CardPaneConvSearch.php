@@ -64,6 +64,15 @@ Valid rarities are Common (C), Uncommon (U), Rare (R), Legendary (L), and Specia
 
 Aspects are also associated with colors. Green is called Command. Blue is Vigilance. Red is Aggression. Yellow is Cunning. Black is Villainy. White is Heroism.
 
+Aspect/colour filtering (key: aspect, alias c). Colour letters: b=Vigilance, g=Command, r=Aggression, y=Cunning, w=Heroism, k=Villainy. Combine letters in one value: c:gbk. Use n for Neutral (cards with no aspects), on its own: c:n
+  c:gbk or c>=gbk  cards containing ALL of these aspects; repeat a letter for doubles (c:rr = double Aggression)
+  c=gbk            cards with EXACTLY these aspects
+  c<=gbk           cards with these aspects or fewer (includes Neutral) -- use for deckbuilding
+  c<gbk            strictly fewer than these
+  c>gbk            strictly more than these
+  c!=gbk           cards containing NONE of these aspects
+Any filter key also supports != for negation, e.g. cost!=3, type!=unit.
+
 Unique is 1 if unique or 0 if not.
 
 Start of user request:
