@@ -279,11 +279,15 @@
 
   function downloadLoadedGame(loaded) {
     var markdown = renderMarkdown(loaded.game, loaded.rows);
+    downloadMarkdown(markdown, 'azuki-game-' + loaded.game.gameId + '-p' + loaded.game.viewer + '.md');
+  }
+
+  function downloadMarkdown(markdown, filename) {
     var blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
     var url = URL.createObjectURL(blob);
     var link = document.createElement('a');
     link.href = url;
-    link.download = 'azuki-game-' + loaded.game.gameId + '-p' + loaded.game.viewer + '.md';
+    link.download = filename;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -324,6 +328,47 @@
     return Number(game.winner) === Number(game.viewer) ? 'Won' : 'Lost';
   }
 
+  function deckKey(game) {
+    return String(leaderLabel(game, Number(game.viewer) || 1));
+  }
+
+  function deckDisplayName(key) {
+    var label = String(key || 'Unknown deck');
+    return label.replace(/\s+\([^()]+\)\s*$/, '') || label;
+  }
+
+  function safeFilenamePart(value) {
+    return String(value || 'deck')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'deck';
+  }
+
+  async function exportCompletedGamesForDeck(games, selectedDeck) {
+    var completed = games.filter(function (game) {
+      return game.complete && Number(game.winner || 0) > 0 && deckKey(game) === selectedDeck;
+    });
+    if (!completed.length) throw new Error('No completed game logs were found for this deck.');
+
+    var loadedGames = await Promise.all(completed.map(function (game) {
+      return loadGame(game.id);
+    }));
+    var heading = [
+      '# Azuki Completed Game Logs',
+      '',
+      'Deck: ' + deckDisplayName(selectedDeck),
+      'Games: ' + loadedGames.length,
+      'Exported: ' + new Date().toISOString(),
+      ''
+    ].join('\n');
+    var separator = '\n\n<!-- azuki-game-log-boundary -->\n\n';
+    var markdown = heading + loadedGames.map(function (loaded) {
+      return renderMarkdown(loaded.game, loaded.rows);
+    }).join(separator);
+    var date = new Date().toISOString().slice(0, 10);
+    downloadMarkdown(markdown, 'azuki-' + safeFilenamePart(deckDisplayName(selectedDeck)) + '-completed-games-' + date + '.md');
+  }
+
   function ensureViewerStyles() {
     if (document.getElementById('azuki-game-log-client-styles')) return;
     var style = document.createElement('style');
@@ -340,6 +385,11 @@
       '.azuki-game-log-document{flex:1;overflow:auto;margin:0;padding:16px;background:rgba(3,10,18,.46);color:#e5edf5;font:12px/1.55 Consolas,Monaco,monospace;white-space:pre-wrap;word-break:break-word;}' +
       '.azuki-game-log-modal-actions{display:flex;justify-content:flex-end;gap:8px;padding:10px 16px;border-top:1px solid rgba(214,184,109,.22);}' +
       '.azuki-game-log-modal-actions button{border:1px solid rgba(214,184,109,.45);border-radius:7px;background:#d6b86d;color:#102238;padding:8px 12px;cursor:pointer;font-weight:800;}' +
+      '.azuki-game-log-toolbar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;padding:10px 12px;border:1px solid rgba(201,168,76,.28);border-radius:8px;background:rgba(10,24,42,.72);}' +
+      '.azuki-game-log-deck-label{display:flex;flex:1 1 240px;flex-direction:column;gap:4px;color:#bfc8d7;font-size:12px;font-weight:700;}' +
+      '.azuki-game-log-deck-select{width:100%;min-width:180px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-sunken);color:var(--input-text,var(--text));padding:7px 9px;}' +
+      '.azuki-game-log-row{grid-template-columns:minmax(0,1fr) auto auto auto;}' +
+      '@media(max-width:640px){.azuki-game-log-row{grid-template-columns:minmax(0,1fr) auto auto auto;}.azuki-game-log-row .match-replay-meta{grid-column:1/-1;}}' +
       'body.azuki-game-log-modal-open{overflow:hidden;}';
     document.head.appendChild(style);
   }
@@ -444,6 +494,7 @@
       ? document.getElementById(containerOrId)
       : containerOrId;
     if (!container) return;
+    ensureViewerStyles();
     container.classList.add('match-replay-library');
     container.innerHTML = '';
 
@@ -470,44 +521,109 @@
         return;
       }
 
-      games.forEach(function (game) {
-        var row = document.createElement('div');
-        row.className = 'match-replay-row azuki-game-log-row';
-
-        var meta = document.createElement('div');
-        meta.className = 'match-replay-meta';
-        var title = document.createElement('strong');
-        title.textContent = leaderLabel(game, 1) + ' vs ' + leaderLabel(game, 2);
-        meta.appendChild(title);
-        var details = document.createElement('span');
-        var turnCount = Number(game.turn || 0);
-        details.textContent = formatDate(game.startedAt) + ' - ' + turnCount + ' ' +
-          (turnCount === 1 ? 'turn' : 'turns') + ' - ' + gameResultLabel(game);
-        meta.appendChild(details);
-        row.appendChild(meta);
-
-        row.appendChild(makeLibraryButton('View', function () {
-          viewGame(game.id).catch(function (error) {
-            notifyError(error, 'Could not open the game log.');
-          });
-        }));
-        row.appendChild(makeLibraryButton('Export', function () {
-          exportGame(game.id).catch(function (error) {
-            notifyError(error, 'Could not export the game log.');
-          });
-        }));
-        row.appendChild(makeLibraryButton('Delete', function () {
-          confirmDelete().then(function (confirmed) {
-            if (!confirmed) return;
-            deleteGame(game.id).then(function () {
-              renderGameLibrary(container);
-            }).catch(function (error) {
-              notifyError(error, 'Could not delete the game log.');
-            });
-          });
-        }));
-        container.appendChild(row);
+      var deckNames = {};
+      games.forEach(function (game) { deckNames[deckKey(game)] = true; });
+      var decks = Object.keys(deckNames).sort(function (a, b) {
+        return deckDisplayName(a).localeCompare(deckDisplayName(b));
       });
+      var selectedDeck = container.dataset.azukiSelectedDeck;
+      if (!selectedDeck || !deckNames[selectedDeck]) selectedDeck = decks[0];
+      container.dataset.azukiSelectedDeck = selectedDeck;
+
+      var toolbar = document.createElement('div');
+      toolbar.className = 'azuki-game-log-toolbar';
+      var deckLabel = document.createElement('label');
+      deckLabel.className = 'azuki-game-log-deck-label';
+      deckLabel.textContent = 'Deck';
+      var deckSelect = document.createElement('select');
+      deckSelect.className = 'azuki-game-log-deck-select';
+      decks.forEach(function (deck) {
+        var option = document.createElement('option');
+        option.value = deck;
+        option.textContent = deckDisplayName(deck);
+        option.selected = deck === selectedDeck;
+        deckSelect.appendChild(option);
+      });
+      deckLabel.appendChild(deckSelect);
+      toolbar.appendChild(deckLabel);
+
+      var exportAll = makeLibraryButton('', function () {
+        exportAll.disabled = true;
+        exportCompletedGamesForDeck(games, deckSelect.value).catch(function (error) {
+          notifyError(error, 'Could not export the completed game logs.');
+        }).finally(function () {
+          exportAll.disabled = false;
+          updateBulkExportButton();
+        });
+      });
+      toolbar.appendChild(exportAll);
+      container.appendChild(toolbar);
+
+      var list = document.createElement('div');
+      list.className = 'match-replay-library';
+      container.appendChild(list);
+
+      function selectedGames() {
+        return games.filter(function (game) { return deckKey(game) === deckSelect.value; });
+      }
+
+      function updateBulkExportButton() {
+        var count = selectedGames().filter(function (game) {
+          return game.complete && Number(game.winner || 0) > 0;
+        }).length;
+        exportAll.textContent = 'Export completed (' + count + ')';
+        exportAll.disabled = count === 0;
+      }
+
+      function renderSelectedGames() {
+        list.innerHTML = '';
+        selectedGames().forEach(function (game) {
+          var row = document.createElement('div');
+          row.className = 'match-replay-row azuki-game-log-row';
+
+          var meta = document.createElement('div');
+          meta.className = 'match-replay-meta';
+          var title = document.createElement('strong');
+          title.textContent = leaderLabel(game, 1) + ' vs ' + leaderLabel(game, 2);
+          meta.appendChild(title);
+          var details = document.createElement('span');
+          var turnCount = Number(game.turn || 0);
+          details.textContent = formatDate(game.startedAt) + ' - ' + turnCount + ' ' +
+            (turnCount === 1 ? 'turn' : 'turns') + ' - ' + gameResultLabel(game);
+          meta.appendChild(details);
+          row.appendChild(meta);
+
+          row.appendChild(makeLibraryButton('View', function () {
+            viewGame(game.id).catch(function (error) {
+              notifyError(error, 'Could not open the game log.');
+            });
+          }));
+          row.appendChild(makeLibraryButton('Export', function () {
+            exportGame(game.id).catch(function (error) {
+              notifyError(error, 'Could not export the game log.');
+            });
+          }));
+          row.appendChild(makeLibraryButton('Delete', function () {
+            confirmDelete().then(function (confirmed) {
+              if (!confirmed) return;
+              deleteGame(game.id).then(function () {
+                container.dataset.azukiSelectedDeck = deckSelect.value;
+                renderGameLibrary(container);
+              }).catch(function (error) {
+                notifyError(error, 'Could not delete the game log.');
+              });
+            });
+          }));
+          list.appendChild(row);
+        });
+        updateBulkExportButton();
+      }
+
+      deckSelect.addEventListener('change', function () {
+        container.dataset.azukiSelectedDeck = deckSelect.value;
+        renderSelectedGames();
+      });
+      renderSelectedGames();
     }).catch(function (error) {
       container.innerHTML = '';
       var errorEl = document.createElement('div');
