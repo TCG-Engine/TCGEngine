@@ -131,6 +131,9 @@ function AzukiZeroHeuristicHasCard($zone, $cardID): bool {
 }
 
 function AzukiZeroHeuristicHasValidEmpowerTarget($player): bool {
+    if(function_exists('GetTurnPlayer') && intval(GetTurnPlayer()) !== intval($player)) return false;
+    if(function_exists('GetCurrentPhase') && strval(GetCurrentPhase()) !== 'MAIN') return false;
+    if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) return false;
     $garden = AzukiZeroHeuristicPlayerZone('GetGarden', $player);
     foreach($garden as $index => $obj) {
         $cardID = strval($obj->CardID ?? '');
@@ -139,6 +142,15 @@ function AzukiZeroHeuristicHasValidEmpowerTarget($player): bool {
         $mzID = 'myGarden-' . intval($obj->mzIndex ?? $index);
         if(function_exists('CanAttackWith') && !CanAttackWith(intval($player), $mzID)) continue;
         return true;
+    }
+    return false;
+}
+
+function AzukiZeroHeuristicHasCollateralSetup($player): bool {
+    foreach(AzukiZeroHeuristicPlayerZone('GetGarden', $player) as $obj) {
+        $cardID = strval($obj->CardID ?? '');
+        if(AzukiZeroHeuristicCardType($cardID) !== 'ENTITY') continue;
+        if(AzukiZeroHeuristicRemainingHP($player, $obj, $cardID) > 1) return true;
     }
     return false;
 }
@@ -198,6 +210,11 @@ function AzukiZeroHeuristicPlayScore($cardID, $state, $legal): float {
     }
     if(in_array($cardID, [$ids['collateral_burst'], $ids['detonation_pact']], true)
         && intval($state['theirBoardCount'] ?? 0) <= 1) $score -= 140;
+    // With the current generated Decision Queue, passing Collateral's first
+    // optional chooser skips its continuation. Only cast it when a friendly
+    // entity can survive the enabling point of damage.
+    if($cardID === $ids['collateral_burst']
+        && !AzukiZeroHeuristicHasCollateralSetup(intval($state['player'] ?? 0))) return -10000;
 
     if(strval($legal['kind'] ?? '') === 'azuki-attack-response-fsm') {
         $incoming = intval($state['theirReadyAttack'] ?? 0);
@@ -340,9 +357,12 @@ function AzukiZeroHeuristicDecisionScore($action, $legal, $state): float {
         $remaining = AzukiZeroHeuristicRemainingHP($targetPlayer, $target, $cardID);
         $ready = is_object($target) && intval($target->Status ?? 2) === 2;
         $attack = AzukiZeroHeuristicCardAttack($targetPlayer, $target, $cardID);
-        // Deck 51 has no profitable "take damage" payoff for Collateral
-        // Burst. Its first target is optional, so preserve the entity instead.
-        if($source === $ids['collateral_burst']) return -10000;
+        if($source === $ids['collateral_burst']) {
+            if($remaining <= 1) return -10000;
+            // Prefer the least valuable survivor; taking this damage is the
+            // current runtime's cost of reaching Collateral's enemy target.
+            return 650 - ($attack * 30) - ($remaining * 5);
+        }
         if($source === $ids['zero']) {
             $canAttack = str_starts_with($targetMZ, 'myGarden-') && $ready;
             if($canAttack && function_exists('CanAttackWith')) {
