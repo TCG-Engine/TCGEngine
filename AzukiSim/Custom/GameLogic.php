@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/Stats.php';
 require_once __DIR__ . '/RlBotProfiles.php';
+require_once __DIR__ . '/RlBotHeuristics.php';
 require_once __DIR__ . '/GameLog.php';
 
 $debugMode = true;
@@ -681,12 +682,17 @@ function ProcessAzukiRlBotStep() {
 
     $stateKey = AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion, $actingPlayer, $legal);
 
-    if($strategyMode === 'aggro-control') {
+    $profileName = NormalizeAzukiRlBotProfile(DecisionQueueController::GetVariable('AzukiRlBotProfile'));
+    $useZeroHeuristics = $profileName === 'zero';
+    if(!$useZeroHeuristics && $strategyMode === 'aggro-control') {
         $strategyKey = AzukiRlBotStrategyStateKeyFromSnapshot($snapshot, $actingPlayer);
         $posture = AzukiRlBotChoosePosture(AzukiRlBotLoadStateLogits($strategyKey));
         $actions = AzukiRlBotFilterActionsForPosture($actions, $posture);
     }
-    $action = AzukiRlBotChooseAction(AzukiRlBotLoadStateLogits($stateKey), $actions, $actionKeyVersion, $legal);
+    $stateLogits = AzukiRlBotLoadStateLogits($stateKey);
+    $action = $useZeroHeuristics
+        ? AzukiZeroHeuristicChooseAction($stateLogits, $actions, $legal, $snapshot, $actingPlayer)
+        : AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion, $legal);
     if(!is_array($action)) return ['success' => true, 'message' => 'No bot action was selected.', 'applied' => false];
 
     $beforeHash = function_exists('RegressionCurrentGamestateHash') ? RegressionCurrentGamestateHash('AzukiSim', strval($gameName)) : '';
@@ -6058,6 +6064,13 @@ function OnStartOfTurn($player) {
         if(($theirGarden[$i]->CardID ?? '') !== 'S1-STT04-003_Cinderwake-Seer_E_UC_die') continue;
         DealDamageToGardenTarget($player, 'theirGarden-' . $i, 1);
     }
+
+    // Start-of-turn damage can enqueue engine-owned CUSTOM/SYSTEM work. Drain
+    // it now so SOT either advances to MAIN or stops on a real player choice;
+    // otherwise the human receives an unclickable board with a static decision
+    // stranded at the front of their queue.
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($player, '-');
 }
 
 function OnEndOfTurn($player) {

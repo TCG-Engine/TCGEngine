@@ -46,3 +46,13 @@ Fresh `compact-v4` models use opponent target profiles (current attack,
 remaining HP, and threat) instead of opposing card IDs. Threat is `1` by default;
 future per-card overrides are configured in `AzukiRlBotCardThreatValue()` in
 `AzukiSim/Custom/GameLogic.php` before training and inference.
+
+## Zero heuristic policy
+
+The `zero` opponent profile applies `Custom/RlBotHeuristics.php` before its
+published checkpoint. The deterministic layer was distilled from completed
+human Zero game logs and handles mulligans, paid Alley/Garden placement,
+Rushfire portal sequencing, charging payoff selection, Zero and Warlord attack
+ordering, removal targets, and lethal. Checkpoint logits break ties between
+actions with equal heuristic scores; they do not override stronger tactical
+rules. Other bot profiles continue to use their checkpoint policy unchanged.
