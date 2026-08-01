@@ -4,7 +4,7 @@ Standing Playwright checks for behaviors that have broken before. Each file is a
 script that logs `PASS`/`FAIL` per assertion.
 
 Suites are grouped into **per-rootname folders** — one folder per app (`SWUDeck/`, and `SWUSim/`
-etc. as they're added). All six current suites are `SWUDeck` (the deck-viewer UI); they do not
+etc. as they're added). All seven current suites are `SWUDeck` (the deck-viewer UI); they do not
 cover the SWUSim game board.
 
 ```
@@ -34,6 +34,7 @@ Requires the local stack up (`http://localhost:3100/TCGEngine`, override with `B
 | `preview-stability.mjs` | After a long (>2s) hold the preview stays stably visible — samples visibility 12x, so flicker can't hide between snapshots — and does not intercept pointer events. |
 | `touch-drag-suppression.mjs` | `dragstart` is prevented on coarse-pointer devices (no yellow `.droppable` borders) but **still allowed on desktop**. |
 | `leader-tab-visibility.mjs` | Premier decks never show `Leader1`/`Leader2`; Twin Suns decks never show `Leaders` — including after pane switches, which re-render the tabs. |
+| `mobile-clipboard.mjs` | The deck menu's **Copy Text / Copy JSON / Copy Image** actually reach the clipboard on WebKit (every iOS browser), not just Chromium/Firefox. Pastes back to check the real symptom, **and** asserts each clipboard call is issued inside the click turn — the user-activation rule WebKit enforces but Playwright's WebKit does not, so an "await the payload first" refactor can't silently re-break iOS. Also asserts the menu no longer flashes an unconditional "copied!". |
 
 ## Shared harness (`lib.mjs`) — the de-brittling rules
 
