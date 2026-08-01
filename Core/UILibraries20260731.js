@@ -3115,6 +3115,23 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         propertyLookup.forEach(property => {
           helpText += `- "${property.Name}" (${property.Type})${property.Alias ? ` | alias: "${property.Alias}"` : ''}\n`;
         });
+        // Aspect supports set comparison, unlike the plain substring properties above.
+        helpText += `
+Aspect filtering (key: "aspect", alias "c")
+  Colour letters: b=Vigilance  g=Command  r=Aggression  y=Cunning  w=Heroism  k=Villainy
+  Combine letters in one value, e.g. c:gbk. Full names also work: c:vigilance, c:blue
+  n = Neutral (no aspects at all), used on its own: c:n
+
+  c:gbk   c>=gbk   has ALL of these aspects (repeat a letter for doubles: c:rr)
+  c=gbk            has EXACTLY these aspects
+  c<=gbk           has these or fewer, including Neutral (useful for deckbuilding)
+  c<gbk            has strictly fewer than these
+  c>gbk            has strictly more than these
+  c!=gbk           has NONE of these aspects
+
+  Note: for aspect, "!=" means "contains none of" — not "is not exactly".
+  Every other property supports "!=" as ordinary negation, e.g. cost!=3, type!=unit.
+`;
         let modalOverlay = document.createElement('div');
         modalOverlay.style.position = 'fixed';
         modalOverlay.style.top = 0;

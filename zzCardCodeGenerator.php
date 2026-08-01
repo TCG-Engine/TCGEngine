@@ -902,11 +902,23 @@ if(!in_array("title", $lowercaseProperties, true)) {
   }
 }
 logLine("Reprint map: " . count($reprintSetsMap) . " canonical cards have reprints");
+if($rootName == "SWUDeck") {
+  // Inline the tracked helper verbatim rather than re-emitting the logic as fwrite strings:
+  // one source of truth, reviewable in git, and unit-testable by node without regenerating.
+  // Same pattern as the Overrides.php read above.
+  $aspectFilterPath = __DIR__ . "/SWUDeck/Custom/AspectFilter.js";
+  if(!file_exists($aspectFilterPath)) {
+    die("FATAL: missing $aspectFilterPath — aspect filtering would silently degrade to substring matching.\n");
+  }
+  fwrite($handler, "// ---- inlined from SWUDeck/Custom/AspectFilter.js (edit THAT file, not this one) ----\r\n");
+  fwrite($handler, file_get_contents($aspectFilterPath));
+  fwrite($handler, "\r\n// ---- end AspectFilter.js ----\r\n\r\n");
+}
 fwrite($handler, "function ShouldFilter(cardID,filter) {\r\n");
 fwrite($handler, "  var filterArr = filter.match(/(?:[^\\s\"]+|\"[^\"]*\")+/g) || [];\r\n");
 fwrite($handler, "  for(var i=0; i<filterArr.length; ++i) {\r\n");
 fwrite($handler, "    var operand = '';\r\n");
-fwrite($handler, "    var operandArr = [':', '=', '<', '>', '<=', '>='];\r\n");
+fwrite($handler, "    var operandArr = [':', '=', '<', '>', '<=', '>=', '!='];\r\n");
 fwrite($handler, "    for(var j=0; j<operandArr.length; ++j) {\r\n");
 fwrite($handler, "      if(filterArr[i].includes(operandArr[j])) {\r\n");
 fwrite($handler, "        operand = operandArr[j];\r\n");
@@ -927,9 +939,21 @@ fwrite($handler, "      thisValue = thisValue.slice(1, -1);\r\n");
 fwrite($handler, "    }\r\n");
 fwrite($handler, "    if(thisValue == \"\") continue;\r\n");
 if($rootName == "SWUDeck") {
-  fwrite($handler, "    var _filterAliases = {t:\"text\",p:\"power\",tr:\"trait\",up:\"upgradepower\",uhp:\"upgradehp\",r:\"rarity\",a:\"arena\",is:\"type\",unq:\"unique\"};\r\n");
+  fwrite($handler, "    var _filterAliases = {c:\"aspect\",t:\"text\",p:\"power\",tr:\"trait\",up:\"upgradepower\",uhp:\"upgradehp\",r:\"rarity\",a:\"arena\",is:\"type\",unq:\"unique\"};\r\n");
   fwrite($handler, "    if(_filterAliases[thisFilter]) thisFilter = _filterAliases[thisFilter];\r\n");
 }
+fwrite($handler, "    if(operand === '!=' && thisFilter !== 'aspect') {\r\n");
+fwrite($handler, "      // Generic negation: hide the card iff it MATCHES the positive form. Re-entering\r\n");
+fwrite($handler, "      // ShouldFilter reuses every type branch (string, number, boolean, set ordering)\r\n");
+fwrite($handler, "      // instead of duplicating negation logic six times.\r\n");
+fwrite($handler, "      // Aspect is EXCLUDED: there != means 'contains none of', which is NOT the\r\n");
+fwrite($handler, "      // negation of '='. It is handled inside the aspect case.\r\n");
+fwrite($handler, "      // Re-quote values with spaces, since quotes were stripped above and the\r\n");
+fwrite($handler, "      // recursive call re-tokenizes on whitespace.\r\n");
+fwrite($handler, "      var _neg = (thisValue.indexOf(' ') !== -1) ? '\\\"' + thisValue + '\\\"' : thisValue;\r\n");
+fwrite($handler, "      if(!ShouldFilter(cardID, thisFilter + '=' + _neg)) return true;\r\n");
+fwrite($handler, "      continue;\r\n");
+fwrite($handler, "    }\r\n");
 fwrite($handler, "    switch(thisFilter) {\r\n");
 for ($i = 0; $i < count($properties); ++$i) {
   $property = $properties[$i];
@@ -954,6 +978,15 @@ for ($i = 0; $i < count($properties); ++$i) {
       fwrite($handler, "            else if(operand == '<=' && cardOrder > targetOrder) return true;\r\n");
       fwrite($handler, "          }\r\n");
       fwrite($handler, "        }\r\n");
+    } else if(strtolower($property) == "aspect" && $rootName == "SWUDeck") {
+      // Aspect uses set/multiset comparison (SWUAspectMatch, inlined above). A null return
+      // means "not an aspect query" (e.g. `aspect:vig`), so fall back to the legacy substring
+      // match to stay backward compatible.
+      fwrite($handler, "        var _aspectCsv = Card" . $property . "(cardID);\r\n");
+      fwrite($handler, "        var _am = SWUAspectMatch(_aspectCsv, operand, thisValue);\r\n");
+      fwrite($handler, "        if(_am === null) {\r\n");
+      fwrite($handler, "          if(_aspectCsv == null || !_aspectCsv.toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
+      fwrite($handler, "        } else if(!_am) return true;\r\n");
     } else {
       fwrite($handler, "        var propertyValue = Card" . $property . "(cardID);\r\n");
       fwrite($handler, "        if(propertyValue == null || !propertyValue.toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
@@ -976,17 +1009,9 @@ fwrite($handler, "      case \"specificcards\":\r\n");
 fwrite($handler, "        var cardArr = thisValue.split(',');\r\n");
 fwrite($handler, "        if(cardArr.indexOf(cardID) === -1) return true;\r\n");
 fwrite($handler, "        break;\r\n");
-if($rootName == "SWUDeck") {
-  fwrite($handler, "      case \"c\":\r\n");
-  fwrite($handler, "        var _aspectColorMap = {b:\"Vigilance\",g:\"Command\",r:\"Aggression\",y:\"Cunning\",w:\"Heroism\",k:\"Villainy\"};\r\n");
-  fwrite($handler, "        var _pv = Cardaspect(cardID);\r\n");
-  fwrite($handler, "        if(_pv == null) return true;\r\n");
-  fwrite($handler, "        for(var _ci = 0; _ci < thisValue.length; ++_ci) {\r\n");
-  fwrite($handler, "          var _fa = _aspectColorMap[thisValue[_ci].toLowerCase()];\r\n");
-  fwrite($handler, "          if(_fa && !_pv.toLowerCase().includes(_fa.toLowerCase())) return true;\r\n");
-  fwrite($handler, "        }\r\n");
-  fwrite($handler, "        break;\r\n");
-}
+// NOTE: the old standalone "c" case (a naive per-character substring loop) was removed. `c` is
+// now a plain alias for `aspect` (see _filterAliases above), and the aspect case routes through
+// SWUAspectMatch for real set/multiset comparison.
 fwrite($handler, "      default: break;\r\n");
 fwrite($handler, "    }\r\n");
 fwrite($handler, "  }\r\n");
@@ -996,13 +1021,11 @@ fwrite($handler, "}\r\n\r\n");
 // Build reverse alias map: property name (lowercase) => shortest alias
 $reverseAliasMap = [];
 if($rootName == "SWUDeck") {
-  $aliasMap = ["t" => "text", "p" => "power", "tr" => "trait", "up" => "upgradepower", "uhp" => "upgradehp", "r" => "rarity", "a" => "arena", "is" => "type", "unq" => "unique"];
+  $aliasMap = ["c" => "aspect", "t" => "text", "p" => "power", "tr" => "trait", "up" => "upgradepower", "uhp" => "upgradehp", "r" => "rarity", "a" => "arena", "is" => "type", "unq" => "unique"];
   foreach($aliasMap as $alias => $prop) {
     if(!isset($reverseAliasMap[$prop])) $reverseAliasMap[$prop] = $alias;
     else if(strlen($alias) < strlen($reverseAliasMap[$prop])) $reverseAliasMap[$prop] = $alias;
   }
-  // c is a special-case handler (character map), not a simple string alias — document for display only
-  $reverseAliasMap["aspect"] = "c";
 }
 fwrite($handler, "var propertyLookup = [\r\n");
 for ($i = 0; $i < count($properties); ++$i) {

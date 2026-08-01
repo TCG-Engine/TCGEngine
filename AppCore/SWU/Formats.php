@@ -8,8 +8,7 @@
 
 function SWUFormatDefinitions() {
     $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
-    $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
-    $previewSets  = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW'];
+    $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH',];
     return [
         // NOTE: JTL_256 (Vulture Droid) copy-exception and JTL_024/025 deck-size modifiers are
         // GLOBAL card-intrinsic rules (see SWUGlobal*() below) — applied to every format EXCEPT
