@@ -48,7 +48,7 @@ function AzukiZeroHeuristicDecisionSourceCardID($state): string {
     $handler = AzukiZeroHeuristicPendingHandler(intval($state['player'] ?? 0));
     if(str_starts_with($handler, 'PLAY_ENTITY_DEST|')) {
         $sourceMZ = explode('|', $handler, 2)[1] ?? '';
-        $obj = AzukiZeroHeuristicObject($sourceMZ);
+        $obj = AzukiZeroHeuristicObject($sourceMZ, intval($state['player'] ?? 0));
         $cardID = strval($obj->CardID ?? '');
         if($cardID !== '') return $cardID;
     }
@@ -72,9 +72,21 @@ function AzukiZeroHeuristicMZFromAction($action): string {
     return $separator === false ? $raw : substr($raw, 0, $separator);
 }
 
-function AzukiZeroHeuristicObject($mzID) {
+function AzukiZeroHeuristicObject($mzID, $player = 0) {
     if(!function_exists('GetZoneObject') || !is_string($mzID) || $mzID === '') return null;
-    $obj = GetZoneObject($mzID);
+    $player = intval($player);
+    if($player === 1 || $player === 2) {
+        $originalPlayerID = $GLOBALS['playerID'] ?? null;
+        $GLOBALS['playerID'] = $player;
+        try {
+            $obj = GetZoneObject($mzID);
+        } finally {
+            if($originalPlayerID === null) unset($GLOBALS['playerID']);
+            else $GLOBALS['playerID'] = $originalPlayerID;
+        }
+    } else {
+        $obj = GetZoneObject($mzID);
+    }
     return is_object($obj) && empty($obj->removed) ? $obj : null;
 }
 
@@ -119,14 +131,13 @@ function AzukiZeroHeuristicHasCard($zone, $cardID): bool {
 }
 
 function AzukiZeroHeuristicHasValidEmpowerTarget($player): bool {
-    foreach(array_merge(
-        AzukiZeroHeuristicPlayerZone('GetGarden', $player),
-        AzukiZeroHeuristicPlayerZone('GetAlley', $player)
-    ) as $obj) {
+    $garden = AzukiZeroHeuristicPlayerZone('GetGarden', $player);
+    foreach($garden as $index => $obj) {
         $cardID = strval($obj->CardID ?? '');
         if(AzukiZeroHeuristicCardType($cardID) !== 'ENTITY') continue;
-        if(intval($obj->Status ?? 2) !== 2) continue;
         if(AzukiZeroHeuristicRemainingHP($player, $obj, $cardID) <= 1) continue;
+        $mzID = 'myGarden-' . intval($obj->mzIndex ?? $index);
+        if(function_exists('CanAttackWith') && !CanAttackWith(intval($player), $mzID)) continue;
         return true;
     }
     return false;
@@ -293,13 +304,13 @@ function AzukiZeroHeuristicDecisionScore($action, $legal, $state): float {
     }
 
     $targetMZ = AzukiZeroHeuristicMZFromAction($action);
-    $target = AzukiZeroHeuristicObject($targetMZ);
+    $target = AzukiZeroHeuristicObject($targetMZ, intval($state['player'] ?? 0));
     $targetPlayer = str_starts_with($targetMZ, 'their') ? intval($state['opponent']) : intval($state['player']);
     $targetType = AzukiZeroHeuristicCardType($cardID);
 
     if(str_contains($tooltip, 'attack target')) {
         $attackerMZ = strval(AzukiZeroHeuristicVariable('CombatTarget'));
-        $attacker = AzukiZeroHeuristicObject($attackerMZ);
+        $attacker = AzukiZeroHeuristicObject($attackerMZ, intval($state['player'] ?? 0));
         $attack = AzukiZeroHeuristicCardAttack(intval($state['player']), $attacker);
         if($targetType === 'LEADER') {
             if($attack >= intval($state['theirLife'] ?? 20)) return 10000;
@@ -317,7 +328,11 @@ function AzukiZeroHeuristicDecisionScore($action, $legal, $state): float {
         $source = AzukiZeroHeuristicDecisionSourceCardID($state);
         if($source === $ids['fire_orb']) $damage = 5;
         else if($source === $ids['collateral_burst']) $damage = 2;
-        return 500 + ($remaining > 0 && $damage >= $remaining ? 260 : 0) + ($targetAttack * 30) - ($remaining * 5);
+        else if($source === $ids['detonation_pact']) $damage = 2;
+        $killBonus = $remaining > 0 && $damage >= $remaining ? 260 : 0;
+        if($targetType === 'LEADER' && $damage >= intval($state['theirLife'] ?? 20)) return 10000;
+        if($targetType !== 'LEADER' && $killBonus > 0 && intval($state['myLife'] ?? 20) <= 6) $killBonus += 500;
+        return 500 + $killBonus + ($targetAttack * 30) - ($remaining * 5);
     }
 
     if(str_starts_with($targetMZ, 'my')) {
@@ -325,7 +340,16 @@ function AzukiZeroHeuristicDecisionScore($action, $legal, $state): float {
         $remaining = AzukiZeroHeuristicRemainingHP($targetPlayer, $target, $cardID);
         $ready = is_object($target) && intval($target->Status ?? 2) === 2;
         $attack = AzukiZeroHeuristicCardAttack($targetPlayer, $target, $cardID);
-        if($source === $ids['zero'] && (!$ready || $remaining <= 1)) return -10000;
+        // Deck 51 has no profitable "take damage" payoff for Collateral
+        // Burst. Its first target is optional, so preserve the entity instead.
+        if($source === $ids['collateral_burst']) return -10000;
+        if($source === $ids['zero']) {
+            $canAttack = str_starts_with($targetMZ, 'myGarden-') && $ready;
+            if($canAttack && function_exists('CanAttackWith')) {
+                $canAttack = CanAttackWith(intval($state['player']), $targetMZ);
+            }
+            if(!$canAttack || $remaining <= 1) return -10000;
+        }
         $score = 300 + ($ready ? 100 : 0) + ($attack * 20);
         if($cardID === $ids['spice']) $score += 220;
         if($source === $ids['warlord'] && $targetType === 'LEADER') $score += 120;
@@ -358,7 +382,7 @@ function AzukiZeroHeuristicActionScore($action, $actions, $legal, $snapshot, $pl
     }
 
     if(str_starts_with($key, 'attack:')) {
-        $obj = AzukiZeroHeuristicObject(AzukiZeroHeuristicMZFromAction($action));
+        $obj = AzukiZeroHeuristicObject(AzukiZeroHeuristicMZFromAction($action), $player);
         $attack = AzukiZeroHeuristicCardAttack($player, $obj, $cardID);
         $score = 650 + ($attack * 20);
         if($cardID === $ids['warlord']) $score += 180;
@@ -369,8 +393,13 @@ function AzukiZeroHeuristicActionScore($action, $actions, $legal, $snapshot, $pl
 
     if(str_starts_with($key, 'activate:')) {
         if($cardID === $ids['zero']) {
-            if(intval($state['myLife'] ?? 20) <= 1) return -1000;
-            if(!AzukiZeroHeuristicHasValidEmpowerTarget($player)) return -1000;
+            $myLife = intval($state['myLife'] ?? 20);
+            $theirLife = intval($state['theirLife'] ?? 20);
+            $lethalBoost = $theirLife > 0 && $theirLife <= intval($state['myReadyAttack'] ?? 0) + 1;
+            // These must score below the normal pass action (-1000), otherwise
+            // checkpoint tie-breaking can still choose an invalid activation.
+            if($myLife <= 6 && !$lethalBoost) return -10000;
+            if(!AzukiZeroHeuristicHasValidEmpowerTarget($player)) return -10000;
             return 780;
         }
         if($cardID === $ids['rushfire_gate']) return 850;

@@ -656,9 +656,15 @@ function ProcessAzukiRlBotStep() {
     $stateKeyVersion = AzukiRlBotCheckpointStateKeyVersion($checkpointPath);
     $actionKeyVersion = AzukiRlBotCheckpointActionKeyVersion($checkpointPath);
     $strategyMode = AzukiRlBotCheckpointStrategyMode($checkpointPath);
+    $profileName = NormalizeAzukiRlBotProfile(DecisionQueueController::GetVariable('AzukiRlBotProfile'));
+    $useZeroHeuristics = $profileName === 'zero';
     $GLOBALS['bridgeIncludeAzukiRlState'] = $stateKeyVersion === 'AzukiSim:azuki-v1';
-    $GLOBALS['bridgeIncludeAzukiCompactState'] = in_array($stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3', 'AzukiSim:compact-v4'], true);
-    $GLOBALS['bridgeIncludeAzukiStrategyState'] = $strategyMode === 'aggro-control';
+    // Zero's deterministic policy consumes compact live-board features directly.
+    // Do not make those inputs depend on an optional ignored model artifact being
+    // present in a particular deployment.
+    $GLOBALS['bridgeIncludeAzukiCompactState'] = $useZeroHeuristics
+        || in_array($stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3', 'AzukiSim:compact-v4'], true);
+    $GLOBALS['bridgeIncludeAzukiStrategyState'] = !$useZeroHeuristics && $strategyMode === 'aggro-control';
     $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
     $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
     if(!empty($terminal['isTerminal'])) {
@@ -682,8 +688,6 @@ function ProcessAzukiRlBotStep() {
 
     $stateKey = AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion, $actingPlayer, $legal);
 
-    $profileName = NormalizeAzukiRlBotProfile(DecisionQueueController::GetVariable('AzukiRlBotProfile'));
-    $useZeroHeuristics = $profileName === 'zero';
     if(!$useZeroHeuristics && $strategyMode === 'aggro-control') {
         $strategyKey = AzukiRlBotStrategyStateKeyFromSnapshot($snapshot, $actingPlayer);
         $posture = AzukiRlBotChoosePosture(AzukiRlBotLoadStateLogits($strategyKey));
