@@ -11,27 +11,33 @@
 
   var intro = [
     { title: 'Welcome to Azuki TCG', body: 'This short guided match teaches the core turn loop of Azuki TCG.' },
-    { title: 'Leader and Garden', body: 'Your Leader begins in the Garden. Entities in the Garden can attack and can usually be attacked while tapped.' },
+    { title: 'Opening hand', body: 'Each player draws 7 cards before the game. You may take one mulligan: put your entire hand on the bottom of your deck, draw 7 new cards, then shuffle the cards you put back into your deck.' },
+    { title: 'Drawing cards', body: 'At the start of each turn, the active player draws 1 card. The player who goes first skips that draw on the first turn; the second player draws normally on their first turn.' },
+    { title: 'Leader and Garden', body: 'Your Leader begins in the Garden. A Leader has no attack power on its own and cannot attack until a Weapon or another effect gives it attack power.' },
+    { title: 'Choosing attack targets', body: 'Leaders can be attacked while they are standing. Other entities in the Garden normally cannot be chosen as attack targets until they are tapped.' },
     { title: 'Starting IKZ', body: 'The first player begins with 1 ready IKZ. The second player receives their first IKZ and a one-use IKZ token when their first turn begins. At the start of later turns, you ready your IKZ and gain another, up to 10.' },
     { title: 'Alley and Gate', body: 'The Alley protects developing entities. Your Gate can tap to portal a ready Alley entity into the Garden. An entity\'s Gate Power can determine the strength of the Gate\'s When Gated ability.' },
-    { title: 'This lesson', body: 'You will spend your single starting IKZ, portal an entity with Gate Power 1, and use Surge Gate\'s When Gated ability to recover a cost-1 Weapon from your discard.' }
+    { title: 'This lesson', body: 'You will use Black Jade Recruit to discard Lightning Shuriken, portal Recruit with Gate Power 1, and use Surge Gate to recover and equip that Weapon.' }
   ];
 
   var steps = {
     0: { title: 'Spend your starting IKZ', body: 'Select Black Jade Recruit in your hand, then choose the Alley. Its cost of 1 uses the only ready IKZ you start with.', target: targetPlayRecruit },
-    1: { title: 'Gate Black Jade Recruit', body: 'Select Surge Gate to portal Black Jade Recruit into the Garden. Recruit has Gate Power 1.', target: function() { return document.getElementById('myGate-0') || document.getElementById('myGateSlot'); } },
-    2: { title: 'Resolve When Gated', body: 'Surge Gate\'s When Gated ability may play a Weapon from your discard whose cost is no greater than the portaled entity\'s Gate Power. Recruit has Gate Power 1, so the cost-1 Lightning Shuriken is eligible.', target: targetDiscardZone, continueAction: true },
-    3: { title: 'Choose Lightning Shuriken', body: 'Now select Lightning Shuriken from the card-selection popup.', target: targetPopupShuriken },
-    4: { title: 'Equip Raizan', body: 'Attach Lightning Shuriken to your Leader, Raizan. Weapons add their attack and abilities to the equipped entity.', target: targetEquipLeader },
-    5: { title: 'Make your first attack', body: 'Lightning Shuriken lets the equipped Raizan attack. Select Raizan, then choose the opposing Leader.', target: targetLeaderAttack },
-    6: { title: 'Response window', body: 'Before combat damage resolves, the defending player may play a Response card or pass. Continue to have the scripted opponent pass.', target: null, continueAction: true },
-    7: { title: 'When Attacking and self-mill', body: 'Lightning Shuriken\'s When Attacking ability put the top card of your deck into your discard before damage. This is often helpful: discarded cards can fuel gated abilities, recursion, and other discard synergies.', target: null, continueAction: true },
-    8: { title: 'End your turn', body: 'Black Jade Recruit entered the Garden this turn, so it still has cooldown. Pass so it can ready for a follow-up attack next turn.', target: function() { return document.querySelector('#myLeaderHealth .widget-button-pass'); } },
-    9: { title: 'Opponent turn and IKZ', body: 'Your opponent receives their first IKZ and one-use IKZ token at the start of this scripted turn, then passes. Your next turn will ready your cards and give you a second IKZ.', target: null, continueAction: true },
-    10: { title: 'Make a follow-up attack', body: 'Black Jade Recruit is now ready. Select it, then choose the opposing Leader for your second attack of the lesson.', target: targetRecruitAttack },
-    11: { title: 'Another response window', body: 'Every attack gives the defending player this chance to respond before combat damage. Continue to have the opponent pass.', target: null, continueAction: true },
-    12: { title: 'Follow-up damage', body: 'Black Jade Recruit dealt its damage and became tapped. This was your second attack; the first came from Raizan with Lightning Shuriken.', target: null, continueAction: true },
-    13: { title: 'Lesson complete', body: 'You spent IKZ, used Gate Power, equipped a Weapon, triggered a When Attacking ability, and made two attacks. Now it\'s your turn to play a full game against the bot or another player!', target: null, complete: true }
+    1: { title: 'Discard Lightning Shuriken', body: 'Black Jade Recruit may discard a Weapon when played. Choose Lightning Shuriken from your hand; Surge Gate will recover it shortly.', target: targetPopupChoice },
+    2: { title: 'Search the top five', body: 'Recruit now looks at the top five cards of your deck. Choose Black Jade Dagger to reveal it and add it to your hand.', target: targetPopupChoice },
+    3: { title: 'Bottom the remaining cards', body: 'Put the other four revealed cards on the bottom of your deck in any order, then confirm. This completes Recruit\'s On Play ability.', target: targetRearrangePopup },
+    4: { title: 'Gate Black Jade Recruit', body: 'Select Surge Gate to portal Black Jade Recruit into the Garden. Recruit has Gate Power 1.', target: function() { return document.getElementById('myGate-0') || document.getElementById('myGateSlot'); } },
+    5: { title: 'Resolve When Gated', body: 'Surge Gate may play a Weapon from your discard whose cost is no greater than the portaled entity\'s Gate Power. Recruit has Gate Power 1, so the cost-1 Lightning Shuriken is eligible.', target: targetDiscardZone, continueAction: true },
+    6: { title: 'Recover Lightning Shuriken', body: 'Choose the Lightning Shuriken that Recruit discarded earlier.', target: targetPopupChoice },
+    7: { title: 'Equip Raizan', body: 'Attach Lightning Shuriken to your Leader, Raizan. Leaders have no attack power by themselves; this Weapon gives Raizan attack power and makes the attack legal.', target: targetEquipLeader },
+    8: { title: 'Make your first attack', body: 'Select the now-armed Raizan, then choose the opposing Leader. A non-Leader entity would normally need to be tapped before you could choose it instead.', target: targetLeaderAttack },
+    9: { title: 'First response window', body: 'The defender may play a [Response] card or pass, but the second player has not received any IKZ yet and cannot pay for Lightning Orb. Continue to have them pass.', target: targetOpponentHand, continueAction: true },
+    10: { title: 'No IKZ, no Response', body: 'Because the opponent could not pay for Lightning Orb, Raizan\'s attack resolved normally. Having a Response card in hand is not enough—you must still pay its IKZ cost.', target: null, continueAction: true },
+    11: { title: 'End your turn', body: 'Black Jade Recruit entered the Garden this turn, so it still has cooldown. Pass so it can ready for a follow-up attack next turn.', target: function() { return document.querySelector('#myLeaderHealth .widget-button-pass'); } },
+    12: { title: 'Opponent turn and IKZ', body: 'Your opponent receives their first IKZ and one-use IKZ token, then passes while keeping that IKZ ready. Your next turn will ready your cards, draw a card, and give you a second IKZ.', target: null, continueAction: true },
+    13: { title: 'Make a follow-up attack', body: 'Black Jade Recruit is now ready. Select it, then choose the opposing Leader for your second attack of the lesson.', target: targetRecruitAttack },
+    14: { title: 'A funded Response', body: 'This time the opponent has 1 ready IKZ. Continue to have them pay it and cast Lightning Orb on the attacking Black Jade Recruit.', target: targetOpponentHand, continueAction: true },
+    15: { title: 'Attack stopped', body: 'Lightning Orb dealt 1 damage to the 1-health Recruit and defeated it before combat damage. The attack ended without damaging the opposing Leader.', target: targetOpponentDiscard, continueAction: true },
+    16: { title: 'Lesson complete', body: 'You covered opening draws and mulligans, IKZ, card searching, Gate Power, Weapons, legal attack targets, and Responses. Continue this full Raizan starter match against the bot with the tutorial rails removed.', target: null, complete: true }
   };
 
   function parseVars() {
@@ -57,7 +63,15 @@
     return document.getElementById('myDiscard-0') || document.getElementById('myDiscardSlot');
   }
 
-  function targetPopupShuriken() {
+  function targetOpponentHand() {
+    return document.getElementById('theirHand-0') || document.getElementById('theirHandSlot');
+  }
+
+  function targetOpponentDiscard() {
+    return document.getElementById('theirDiscard-0') || document.getElementById('theirDiscardSlot');
+  }
+
+  function targetPopupChoice() {
     var popup = document.getElementById('mzchoose-popup');
     if(!popup) return null;
     var image = popup.querySelector('img');
@@ -67,6 +81,11 @@
       node = node.parentElement;
     }
     return image;
+  }
+
+  function targetRearrangePopup() {
+    var popup = document.getElementById('mzrearrange-popup');
+    return popup ? (popup.querySelector('.mzrearrange-btn-submit') || popup.querySelector('.mzrearrange-modal') || popup) : null;
   }
 
   function targetEquipLeader() {
@@ -136,17 +155,22 @@
   }
 
   function renderStep() {
+    if(parseVars().GameMode !== 'tutorial') {
+      if(cutout) cutout.style.display = 'none';
+      if(panel) panel.style.display = 'none';
+      return;
+    }
     if(!introDone) { renderIntro(); return; }
     ensureUI();
     var number = tutorialStep();
-    var step = steps[number] || steps[13];
+    var step = steps[number] || steps[16];
     currentTarget = step.target ? step.target() : null;
     if(lastStepContent !== number) {
       lastStepContent = number;
-      panel.innerHTML = '<div class="azuki-tutorial-kicker">Basics &middot; Step ' + (Math.min(number, 13) + 1) + ' of 14</div>' +
-        '<h2>' + step.title + '</h2><p>' + step.body + '</p>' + progressHTML(Math.min(number, 13), 14) +
+      panel.innerHTML = '<div class="azuki-tutorial-kicker">Basics &middot; Step ' + (Math.min(number, 16) + 1) + ' of 17</div>' +
+        '<h2>' + step.title + '</h2><p>' + step.body + '</p>' + progressHTML(Math.min(number, 16), 17) +
         (step.continueAction ? '<div class="azuki-tutorial-actions"><button type="button" class="azuki-tutorial-button">Continue</button></div>' : '') +
-        (step.complete ? '<div class="azuki-tutorial-actions"><button type="button" class="azuki-tutorial-button">Return to menu</button></div>' : '');
+        (step.complete ? '<div class="azuki-tutorial-actions"><button type="button" class="azuki-tutorial-button" data-action="bot">Continue vs bot</button><button type="button" class="azuki-tutorial-button" data-action="menu">Return to menu</button></div>' : '');
       if(step.continueAction) {
         panel.querySelector('button').addEventListener('click', function(event) {
           event.currentTarget.disabled = true;
@@ -155,7 +179,12 @@
         });
       }
       if(step.complete) {
-        panel.querySelector('button').addEventListener('click', function() {
+        panel.querySelector('[data-action="bot"]').addEventListener('click', function(event) {
+          event.currentTarget.disabled = true;
+          event.currentTarget.textContent = 'Starting...';
+          SubmitInput('10001', '&cardID=' + encodeURIComponent('Tutorial!CustomInput!Continue'));
+        });
+        panel.querySelector('[data-action="menu"]').addEventListener('click', function() {
           window.location.href = '/TCGEngine/SharedUI/Sites/AzukiSim/MainMenu.php';
         });
       }

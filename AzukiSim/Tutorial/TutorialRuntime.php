@@ -3,6 +3,8 @@
 const AZUKI_TUTORIAL_RECRUIT_CARD = 'S1-STT01-004_Black-Jade-Recruit_E_C_die';
 const AZUKI_TUTORIAL_SHURIKEN_CARD = 'S1-STT01-012_Lightning-Shuriken_W_C_die';
 const AZUKI_TUTORIAL_RAIZAN_CARD = 'S1-STT01-001_Raizan_L_L_die';
+const AZUKI_TUTORIAL_DAGGER_CARD = 'S1-STT01-013_Black-Jade-Dagger_W_C_die';
+const AZUKI_TUTORIAL_RESPONSE_CARD = 'S1-STT01-017_Lightning-Orb_S_UC_die';
 
 function AzukiTutorialIsActive(): bool {
     return strval(DecisionQueueController::GetVariable('GameMode') ?? '') === 'tutorial';
@@ -16,38 +18,65 @@ function AzukiTutorialSetStep($step): void {
     DecisionQueueController::StoreVariable('TutorialStep', strval(max(0, intval($step))));
 }
 
+function AzukiTutorialTakeCards(&$pool, $cardIDs): array {
+    $taken = [];
+    foreach($cardIDs as $cardID) {
+        $index = array_search($cardID, $pool, true);
+        if($index === false) continue;
+        $taken[] = $pool[$index];
+        array_splice($pool, $index, 1);
+    }
+    return $taken;
+}
+
+function AzukiTutorialBuildStarterZones($player, $openingIDs, $authoredTopIDs = []): void {
+    $starter = GetPreconstructedDeckConfig('Raizan');
+    $pool = array_values($starter['deckList'] ?? []);
+    $opening = AzukiTutorialTakeCards($pool, $openingIDs);
+    $authoredTop = AzukiTutorialTakeCards($pool, $authoredTopIDs);
+
+    $hand = &GetHand($player);
+    $hand = [];
+    foreach($opening as $index => $cardID) $hand[] = new Hand($cardID, 'Hand', $player, $index);
+
+    $deck = &GetDeck($player);
+    $deck = [];
+    foreach(array_merge($authoredTop, $pool) as $index => $cardID) {
+        $deck[] = new Deck($cardID, 'Deck', $player, $index);
+    }
+}
+
 function AzukiTutorialSetupGame(): void {
     DecisionQueueController::StoreVariable('GameMode', 'tutorial');
     DecisionQueueController::StoreVariable('TutorialLesson', 'basics');
     AzukiTutorialSetStep(0);
 
-    $p1Hand = &GetHand(1);
-    $p1Hand = [new Hand(AZUKI_TUTORIAL_RECRUIT_CARD, 'Hand', 1, 0)];
-    $p2Hand = &GetHand(2);
-    $p2Hand = [];
-
-    // The tutorial never uses the lobby's selected deck or a random shuffle. These authored draw
-    // piles make reloads, future lesson steps, and scripted opponent turns fully reproducible.
-    $p1DeckIDs = [
-        'S1-STT01-013_Black-Jade-Dagger_W_C_die',
-        'S1-STT01-004_Black-Jade-Recruit_E_C_die',
+    // Both seats use the complete Raizan starter list. The authored opening cards and deck top make
+    // the lesson deterministic while leaving a real match for the unguided bot continuation.
+    AzukiTutorialBuildStarterZones(1, [
+        AZUKI_TUTORIAL_RECRUIT_CARD,
+        AZUKI_TUTORIAL_SHURIKEN_CARD,
+        'S1-STT01-005_Alpine-Prowler_E_C_die',
+        'S1-STT01-007_Alley-Guy_E_C_die',
         'S1-STT01-003_Crate-Rat-Kurobo_E_C_die',
-        'S1-STT01-012_Lightning-Shuriken_W_C_die',
         'S1-STT01-009_Mastersmith-Yamada_E_UC_die',
-    ];
-    $p2DeckIDs = [
+        'S1-STT01-006_Silver-Current-Haruhi_E_R_die',
+    ], [
+        AZUKI_TUTORIAL_DAGGER_CARD,
+        AZUKI_TUTORIAL_RECRUIT_CARD,
         'S1-STT01-003_Crate-Rat-Kurobo_E_C_die',
-        'S1-STT01-004_Black-Jade-Recruit_E_C_die',
-        'S1-STT01-013_Black-Jade-Dagger_W_C_die',
-        'S1-STT01-012_Lightning-Shuriken_W_C_die',
         'S1-STT01-009_Mastersmith-Yamada_E_UC_die',
-    ];
-    $p1Deck = &GetDeck(1);
-    $p1Deck = [];
-    foreach($p1DeckIDs as $index => $cardID) $p1Deck[] = new Deck($cardID, 'Deck', 1, $index);
-    $p2Deck = &GetDeck(2);
-    $p2Deck = [];
-    foreach($p2DeckIDs as $index => $cardID) $p2Deck[] = new Deck($cardID, 'Deck', 2, $index);
+        'S1-STT01-006_Silver-Current-Haruhi_E_R_die',
+    ]);
+    AzukiTutorialBuildStarterZones(2, [
+        AZUKI_TUTORIAL_RESPONSE_CARD,
+        AZUKI_TUTORIAL_RECRUIT_CARD,
+        'S1-STT01-005_Alpine-Prowler_E_C_die',
+        'S1-STT01-007_Alley-Guy_E_C_die',
+        'S1-STT01-003_Crate-Rat-Kurobo_E_C_die',
+        AZUKI_TUTORIAL_DAGGER_CARD,
+        'S1-STT01-009_Mastersmith-Yamada_E_UC_die',
+    ]);
 
     $p1Alley = &GetAlley(1);
     $p1Alley = [];
@@ -55,7 +84,7 @@ function AzukiTutorialSetupGame(): void {
     $p2Alley = [];
 
     $p1Discard = &GetDiscard(1);
-    $p1Discard = [new Discard(AZUKI_TUTORIAL_SHURIKEN_CARD, 'Discard', 1, 0)];
+    $p1Discard = [];
     $p2Discard = &GetDiscard(2);
     $p2Discard = [];
 
@@ -97,18 +126,21 @@ function AzukiTutorialFindCard($player, $zoneName, $cardID) {
 function AzukiTutorialExpectedMessage(): string {
     switch(AzukiTutorialStep()) {
         case 0: return 'Play Black Jade Recruit from your hand and choose the Alley.';
-        case 1: return 'Use Surge Gate to portal Black Jade Recruit.';
-        case 2: return 'Review Gate Power and the discard pile, then continue.';
-        case 3: return 'Choose Lightning Shuriken from the selection popup.';
-        case 4: return 'Attach Lightning Shuriken to Raizan.';
-        case 5: return 'Attack the opposing leader with Raizan.';
-        case 6: return 'Review the response window, then continue.';
-        case 7: return 'Review Lightning Shuriken and the combat result, then continue.';
-        case 8: return 'Pass the turn so Black Jade Recruit can clear cooldown.';
-        case 9: return 'Review the opposing turn, then continue.';
-        case 10: return 'Make a follow-up attack with Black Jade Recruit.';
-        case 11: return 'Review the response window, then continue.';
-        case 12: return 'Review the follow-up combat result, then continue.';
+        case 1: return 'Discard Lightning Shuriken for Black Jade Recruit\'s On Play ability.';
+        case 2: return 'Choose Black Jade Dagger from the top five cards.';
+        case 3: return 'Put the remaining revealed cards on the bottom in any order.';
+        case 4: return 'Use Surge Gate to portal Black Jade Recruit.';
+        case 5: return 'Review Gate Power and the discard pile, then continue.';
+        case 6: return 'Choose Lightning Shuriken from the selection popup.';
+        case 7: return 'Attach Lightning Shuriken to Raizan.';
+        case 8: return 'Attack the opposing leader with Raizan.';
+        case 9: return 'Review the response window, then continue.';
+        case 10: return 'Review Lightning Orb and the combat result, then continue.';
+        case 11: return 'Pass the turn so Black Jade Recruit can clear cooldown.';
+        case 12: return 'Review the opposing turn, then continue.';
+        case 13: return 'Make a follow-up attack with Black Jade Recruit.';
+        case 14: return 'Review the response window, then continue.';
+        case 15: return 'Review the follow-up combat result, then continue.';
         default: return 'The basics lesson is complete.';
     }
 }
@@ -146,20 +178,44 @@ function AzukiTutorialIsContinueAction($mode, $cardID): bool {
 function AzukiTutorialContinue($player): void {
     if(!AzukiTutorialIsActive() || intval($player) !== 1) return;
     $step = AzukiTutorialStep();
-    if($step === 6 || $step === 11) {
-        // Scripted tutorial actions resolve synchronously with Continue. This keeps explanatory
-        // pauses learner-controlled without relying on a second browser polling/controller cycle.
+    if($step === 9) {
+        // The second player has not received any IKZ yet, so they cannot cast Lightning Orb during
+        // this first-turn response window. Pass and let the attack resolve normally.
         HandlePassButton(2);
         AzukiTutorialUpdateProgress();
-    } else if($step === 9) {
-        HandlePassButton(2);
+    } else if($step === 14) {
+        // On the following turn the opponent has a ready IKZ. Pay its real cost and cast Lightning
+        // Orb on the attacking 1-health Recruit, demonstrating that a Response can stop an attack.
+        $outerPlayerID = $GLOBALS['playerID'] ?? null;
+        $GLOBALS['playerID'] = 2;
+        DoPlayCard(2, 'myHand-0', false);
+        $dqController = new DecisionQueueController();
+        $responseChoice = $dqController->NextDecision(2);
+        if(is_object($responseChoice) && strval($responseChoice->Type ?? '') === 'MZCHOOSE') {
+            $dqController->PopDecision(2);
+            $dqController->ExecuteStaticMethods(2, 'theirGarden-1');
+        }
+        if($outerPlayerID === null) unset($GLOBALS['playerID']);
+        else $GLOBALS['playerID'] = $outerPlayerID;
+        if(HasPendingAttackResponse()) HandlePassButton(2);
         AzukiTutorialUpdateProgress();
-    } else if($step === 2) {
-        AzukiTutorialSetStep(3);
-    } else if($step === 7) {
-        AzukiTutorialSetStep(8);
     } else if($step === 12) {
-        AzukiTutorialSetStep(13);
+        HandlePassButton(2);
+        AzukiTutorialUpdateProgress();
+    } else if($step === 5) {
+        AzukiTutorialSetStep(6);
+    } else if($step === 10) {
+        AzukiTutorialSetStep(11);
+    } else if($step === 15) {
+        AzukiTutorialSetStep(16);
+    } else if($step === 16) {
+        // Preserve the lesson's current board and remove the action rails. From this point onward,
+        // seat 2 is driven by the same browser-safe RL bot controller as a normal bot match.
+        DecisionQueueController::StoreVariable('TutorialCompleted', '1');
+        DecisionQueueController::StoreVariable('GameMode', 'rlbot');
+        DecisionQueueController::StoreVariable('AzukiRlBotProfile', 'raizan');
+        SetAzukiRlBotPlayers([2]);
+        SetFlashMessage('Tutorial complete. Play the rest of this match against the bot!');
     }
 }
 
@@ -183,7 +239,7 @@ function GameValidateEngineAction($action): array {
 
     if($player !== 1) return AzukiTutorialReject();
 
-    if(in_array($step, [2, 6, 7, 9, 11, 12], true) && AzukiTutorialIsContinueAction($mode, $cardID)) {
+    if(in_array($step, [5, 9, 10, 12, 14, 15, 16], true) && AzukiTutorialIsContinueAction($mode, $cardID)) {
         return ['allowed' => true];
     }
 
@@ -193,13 +249,19 @@ function GameValidateEngineAction($action): array {
         }
         if($mode === 100 && $cardID === 'myAlley') return ['allowed' => true];
     } else if($step === 1) {
+        if($mode === 100 && AzukiTutorialActionCardID($cardID) === AZUKI_TUTORIAL_SHURIKEN_CARD) return ['allowed' => true];
+    } else if($step === 2) {
+        if($mode === 100 && AzukiTutorialActionCardID($cardID) === AZUKI_TUTORIAL_DAGGER_CARD) return ['allowed' => true];
+    } else if($step === 3) {
+        if($mode === 100) return ['allowed' => true];
+    } else if($step === 4) {
         if($mode === 10002 && strpos($cardID, 'myGate-0!') === 0) return ['allowed' => true];
         if($mode === 10001 && strpos($cardID, 'myGate') === 0) return ['allowed' => true];
-    } else if($step === 3) {
+    } else if($step === 6) {
         if($mode === 100 && AzukiTutorialActionCardID($cardID) === AZUKI_TUTORIAL_SHURIKEN_CARD) return ['allowed' => true];
-    } else if($step === 4) {
+    } else if($step === 7) {
         if($mode === 100 && AzukiTutorialActionCardID($cardID) === AZUKI_TUTORIAL_RAIZAN_CARD) return ['allowed' => true];
-    } else if($step === 5) {
+    } else if($step === 8) {
         if($mode === 10002 && AzukiTutorialActionCardID(explode('!', $cardID)[0] ?? '') === AZUKI_TUTORIAL_RAIZAN_CARD) {
             return ['allowed' => true];
         }
@@ -207,9 +269,9 @@ function GameValidateEngineAction($action): array {
             && CardType(AzukiTutorialActionCardID($cardID)) === 'LEADER') {
             return ['allowed' => true];
         }
-    } else if($step === 8) {
+    } else if($step === 11) {
         if(AzukiTutorialIsPassAction($mode, $cardID)) return ['allowed' => true];
-    } else if($step === 10) {
+    } else if($step === 13) {
         if($mode === 10002 && AzukiTutorialActionCardID(explode('!', $cardID)[0] ?? '') === AZUKI_TUTORIAL_RECRUIT_CARD) {
             return ['allowed' => true];
         }
@@ -228,57 +290,71 @@ function AzukiTutorialUpdateProgress(): void {
 
     if($step === 0 && AzukiTutorialFindCard(1, 'Alley', AZUKI_TUTORIAL_RECRUIT_CARD) !== null) {
         AzukiTutorialSetStep(1);
-        SetFlashMessage('Black Jade Recruit is protected in the Alley. Now use Surge Gate.');
+        SetFlashMessage('Black Jade Recruit may discard a Weapon to search the top five cards.');
         return;
     }
-    if($step === 1 && AzukiTutorialFindCard(1, 'Garden', AZUKI_TUTORIAL_RECRUIT_CARD) !== null) {
+    if($step === 1 && AzukiTutorialFindCard(1, 'Discard', AZUKI_TUTORIAL_SHURIKEN_CARD) !== null) {
         AzukiTutorialSetStep(2);
-        SetFlashMessage('Recruit has Gate Power 1, so Surge Gate can play a cost-1 Weapon from discard.');
         return;
     }
-    if($step === 3 && strval(DecisionQueueController::GetVariable('chosenWeapon') ?? '') !== '') {
+    $dqController = new DecisionQueueController();
+    $nextDecision = $dqController->NextDecision(1);
+    if($step === 2 && is_object($nextDecision) && strval($nextDecision->Type ?? '') === 'MZREARRANGE') {
+        AzukiTutorialSetStep(3);
+        return;
+    }
+    if($step === 3 && $nextDecision === null) {
         AzukiTutorialSetStep(4);
         return;
     }
-    if($step === 4) {
+    if($step === 4 && AzukiTutorialFindCard(1, 'Garden', AZUKI_TUTORIAL_RECRUIT_CARD) !== null) {
+        AzukiTutorialSetStep(5);
+        SetFlashMessage('Recruit has Gate Power 1, so Surge Gate can play the cost-1 Shuriken from discard.');
+        return;
+    }
+    if($step === 6 && strval(DecisionQueueController::GetVariable('chosenWeapon') ?? '') !== '') {
+        AzukiTutorialSetStep(7);
+        return;
+    }
+    if($step === 7) {
         $leader = AzukiTutorialFindCard(1, 'Garden', AZUKI_TUTORIAL_RAIZAN_CARD);
         if(is_object($leader) && in_array(AZUKI_TUTORIAL_SHURIKEN_CARD, $leader->Subcards ?? [], true)) {
-            AzukiTutorialSetStep(5);
+            AzukiTutorialSetStep(8);
             SetFlashMessage('Raizan can attack while equipped. Lightning Shuriken triggers whenever Raizan attacks.');
             return;
         }
     }
-    if($step === 5 && HasPendingAttackResponse()) {
-        AzukiTutorialSetStep(6);
+    if($step === 8 && HasPendingAttackResponse()) {
+        AzukiTutorialSetStep(9);
         SetFlashMessage('The defending player now has a response window before combat resolves.');
         return;
     }
-    if($step === 6) {
+    if($step === 9) {
         $leader = AzukiTutorialFindCard(1, 'Garden', AZUKI_TUTORIAL_RAIZAN_CARD);
         if(is_object($leader) && intval($leader->Status ?? 2) === 1 && LeaderCurrentHealth(2) < 20 && !HasPendingAttackResponse()) {
-            AzukiTutorialSetStep(7);
-            SetFlashMessage('Lightning Shuriken milled the top card of your deck before combat damage.');
+            AzukiTutorialSetStep(10);
+            SetFlashMessage('The opponent had no IKZ for a Response, so Raizan\'s attack resolved.');
             return;
         }
     }
-    if($step === 8 && intval(GetTurnPlayer()) === 2) {
-        AzukiTutorialSetStep(9);
+    if($step === 11 && intval(GetTurnPlayer()) === 2) {
+        AzukiTutorialSetStep(12);
         return;
     }
-    if($step === 9 && intval(GetTurnPlayer()) === 1 && GetCurrentPhase() === 'MAIN') {
-        AzukiTutorialSetStep(10);
+    if($step === 12 && intval(GetTurnPlayer()) === 1 && GetCurrentPhase() === 'MAIN') {
+        AzukiTutorialSetStep(13);
         SetFlashMessage('Black Jade Recruit is ready and its cooldown is gone. Make your follow-up attack.');
         return;
     }
-    if($step === 10 && HasPendingAttackResponse()) {
-        AzukiTutorialSetStep(11);
+    if($step === 13 && HasPendingAttackResponse()) {
+        AzukiTutorialSetStep(14);
         return;
     }
-    if($step === 11) {
+    if($step === 14) {
         $recruit = AzukiTutorialFindCard(1, 'Garden', AZUKI_TUTORIAL_RECRUIT_CARD);
-        if(is_object($recruit) && intval($recruit->Status ?? 2) === 1 && LeaderCurrentHealth(2) <= 18 && !HasPendingAttackResponse()) {
-            AzukiTutorialSetStep(12);
-            SetFlashMessage('Black Jade Recruit completed the follow-up attack.');
+        if($recruit === null && AzukiTutorialFindCard(2, 'Discard', AZUKI_TUTORIAL_RESPONSE_CARD) !== null && !HasPendingAttackResponse()) {
+            AzukiTutorialSetStep(15);
+            SetFlashMessage('Lightning Orb defeated the attacking Recruit before combat damage.');
             return;
         }
     }
