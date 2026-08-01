@@ -646,39 +646,78 @@ function LoadDecks() {
       xhr.send();
     }
 
-    function CopyDeckJSON(deckID, event) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "/TCGEngine/APIs/LoadDeck.php?deckID=" + deckID + "&setId=true", true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          var deckJSON = JSON.parse(xhr.responseText);
-          var tempInput = document.createElement("textarea");
-          tempInput.value = JSON.stringify(deckJSON, null, 2);
-          document.body.appendChild(tempInput);
-          tempInput.select();
-          document.execCommand("copy");
-          document.body.removeChild(tempInput);
-          showFlashMessage("Deck JSON copied!", event);
+    // --- Clipboard: keeping the write inside the user-activation window -----------------------
+    // WebKit — so EVERY browser on iOS, Safari and Brave alike — only permits a clipboard write
+    // that STARTS inside the click handler's transient user activation. Fetching the deck first
+    // and copying in the completion callback loses that window: document.execCommand("copy")
+    // returns false and nothing reaches the clipboard. Chromium and Firefox don't enforce it,
+    // which is why this looked fine on desktop, and why Copy Link / Copy Karabast Import Link
+    // (which copy synchronously) always worked while Copy Text / Copy JSON / Copy Image did not.
+    //
+    // The fix is to hand ClipboardItem the PENDING promise: the write is issued during the
+    // gesture and the data arrives later. Callers must build that promise synchronously — never
+    // await anything before calling this.
+    function copyPending(mimeType, pendingBlob, event, successMessage) {
+      if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+        var payload = {};
+        payload[mimeType] = pendingBlob;
+        try {
+          navigator.clipboard.write([new ClipboardItem(payload)]).then(function() {
+            showFlashMessage(successMessage, event);
+          }, function(err) {
+            console.error("Clipboard write failed:", err);
+            copyPendingFallback(mimeType, pendingBlob, event, successMessage);
+          });
+          return;
+        } catch (err) {
+          console.error("ClipboardItem unavailable:", err);
         }
-      };
-      xhr.send();
+      }
+      copyPendingFallback(mimeType, pendingBlob, event, successMessage);
+    }
+
+    // Engines without ClipboardItem/clipboard.write, plus any rejected write. Text can still go
+    // through writeText or the legacy execCommand path; images have no legacy equivalent, so say
+    // so instead of flashing a success the user can't act on.
+    function copyPendingFallback(mimeType, pendingBlob, event, successMessage) {
+      if (mimeType !== "text/plain") {
+        showFlashMessage("Couldn't copy the image — press and hold it to save instead.", event);
+        return;
+      }
+      pendingBlob.then(function(blob) {
+        return blob.text();
+      }).then(function(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text).then(function() { return true; },
+                                                          function() { return copyTextToClipboard(text); });
+        }
+        return copyTextToClipboard(text);
+      }).then(function(ok) {
+        showFlashMessage(ok ? successMessage : "Couldn't copy — try again.", event);
+      }).catch(function(err) {
+        console.error("Copy failed:", err);
+        showFlashMessage("Couldn't copy — try again.", event);
+      });
+    }
+
+    // Shared by the two text exports: start the request, hand the pending body to the clipboard.
+    function copyFetchedText(url, event, successMessage, transform) {
+      var pending = fetch(url, { credentials: "same-origin" }).then(function(resp) {
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        return resp.text();
+      }).then(function(text) {
+        return new Blob([transform ? transform(text) : text], { type: "text/plain" });
+      });
+      copyPending("text/plain", pending, event, successMessage);
+    }
+
+    function CopyDeckJSON(deckID, event) {
+      copyFetchedText("/TCGEngine/APIs/LoadDeck.php?deckID=" + deckID + "&setId=true", event, "Deck JSON copied!",
+        function(text) { return JSON.stringify(JSON.parse(text), null, 2); });
     }
 
     function CopyDeckText(deckID, event) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "/TCGEngine/APIs/LoadDeck.php?deckID=" + deckID + "&format=text", true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          var tempInput = document.createElement("textarea");
-          tempInput.value = xhr.responseText;
-          document.body.appendChild(tempInput);
-          tempInput.select();
-          document.execCommand("copy");
-          document.body.removeChild(tempInput);
-          showFlashMessage("Deck text copied!", event);
-        }
-      };
-      xhr.send();
+      copyFetchedText("/TCGEngine/APIs/LoadDeck.php?deckID=" + deckID + "&format=text", event, "Deck text copied!");
     }
 
     async function convertBlobToPNG(blob) {
@@ -705,43 +744,25 @@ function LoadDecks() {
       });
     }
 
-    async function CopyDeckImage(deckID, event) {
-      try {
-        const response = await fetch(`/TCGEngine/SWUDeck/CreateImage.php?gameName=${deckID}`);
-        if (!response.ok) {
-          showFlashMessage("Failed to load image!", event);
-          return;
-        }
-        const blob = await response.blob();
-
-        // If the image is JPEG, convert it to PNG.
-        let imageBlob = blob;
-        if (blob.type === "image/jpeg") {
-          imageBlob = await convertBlobToPNG(blob);
-        }
-
-        const clipboardItem = new ClipboardItem({ "image/png": imageBlob });
-        await navigator.clipboard.write([clipboardItem]);
-        showFlashMessage("Deck image copied!", event);
-      } catch (error) {
-        console.error("Error copying image:", error);
-        showFlashMessage("Failed to copy image!", event);
-      }
+    // CreateImage.php always serves image/jpeg, so the canvas conversion below ALWAYS runs — which
+    // means awaiting it before building the ClipboardItem always cost us the gesture on WebKit.
+    // Pass the pending PNG instead so the write starts inside the click (see copyPending).
+    function pendingPNGFrom(blob) {
+      return blob.type === "image/png" ? Promise.resolve(blob) : convertBlobToPNG(blob);
     }
 
-    async function copyDeckImageBlob(blob, event) {
-      try {
-        let imageBlob = blob;
-        if (blob.type === "image/jpeg") {
-          imageBlob = await convertBlobToPNG(blob);
-        }
-        const clipboardItem = new ClipboardItem({ "image/png": imageBlob });
-        await navigator.clipboard.write([clipboardItem]);
-        showFlashMessage("Deck image copied!", event);
-      } catch (error) {
-        console.error("Error copying image:", error);
-        showFlashMessage("Failed to copy image!", event);
-      }
+    function CopyDeckImage(deckID, event) {
+      var pending = fetch(`/TCGEngine/SWUDeck/CreateImage.php?gameName=${deckID}`, { credentials: "same-origin" })
+        .then(function(response) {
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          return response.blob();
+        })
+        .then(pendingPNGFrom);
+      copyPending("image/png", pending, event, "Deck image copied!");
+    }
+
+    function copyDeckImageBlob(blob, event) {
+      copyPending("image/png", pendingPNGFrom(blob), event, "Deck image copied!");
     }
 
     const DECK_IMAGE_SORTS = [["cost","Cost"],["setnum","Set Number"],["power","Power"],["aspect","Aspect"],["name","Name"]];
@@ -888,13 +909,19 @@ function LoadDecks() {
       }
     }
 
+    // Legacy synchronous copy. Still correct for callers that already hold the text when the click
+    // arrives (Copy Link / Copy Karabast Import Link) — the copy happens inside the gesture, so
+    // WebKit permits it. Returns whether the copy was actually accepted, which copyPendingFallback
+    // relies on to avoid flashing a success that didn't happen.
     function copyTextToClipboard(text) {
       var tempInput = document.createElement("input");
       tempInput.value = text;
       document.body.appendChild(tempInput);
       tempInput.select();
-      document.execCommand("copy");
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (err) { ok = false; }
       document.body.removeChild(tempInput);
+      return ok;
     }
 
     function CopyDeckLink(deckID, event) {
@@ -1055,9 +1082,9 @@ function LoadDecks() {
     menu.innerHTML = `
       <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); window.location.href="/TCGEngine/SWUDeck/DeckStats.php?gameName=${deckID}";'>${icons.stats}Stats</button>
       ${window.innerWidth <= 768 ? `
-        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckLink("${deckID}", event); showFlashMessage("Link copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Link</button>
-        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckText("${deckID}", event); showFlashMessage("Text copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Text</button>
-        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckJSON("${deckID}", event); showFlashMessage("Deck JSON copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy JSON</button>
+        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckLink("${deckID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Link</button>
+        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckText("${deckID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Text</button>
+        <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckJSON("${deckID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy JSON</button>
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyKarabastLink("${deckID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Karabast Import Link</button>
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); GenerateDeckImage("${deckID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.image}Generate Image</button>
       ` : `
