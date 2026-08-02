@@ -337,9 +337,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
   .swu-mobile-library-bar .swu-mobile-page-dots { flex: 0 0 auto; }
   .swu-mobile-page-title { display: inline-flex; align-items: center; min-width: 0; }
   #swuMobileDeckCount {
-    margin-left: 7px;
-    padding-left: 7px;
-    border-left: 1px solid rgba(var(--accent-rgb),0.22);
+    margin-left: 5px;
     color: rgba(205,228,240,0.88);
     font: 700 9px/28px Arial, Helvetica, sans-serif;
     letter-spacing: 0.06em;
@@ -923,13 +921,38 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     overflow: visible !important;
     box-sizing: border-box;
   }
+  /* Deck grid fills its width by construction so there is never a right-hand gap, on any device.
+     Previously the tiles were fixed-px (window.cardSize) in a flex-wrap row packed flex-start, so
+     leftover width after the last column that fit became empty space on the right — worst on iOS
+     Safari where visualViewport-derived cardSize + the 120px cap landed badly (only ~3 columns).
+     CSS grid with 1fr columns always spans the full width; auto-fill picks the column count from a
+     minimum tile size, and each tile's image is stretched to its cell (width:100%), ignoring the
+     fixed cardSize px for this grid. */
   #swuMobileDeckPage #myMainDeck,
   #swuMobileDeckPage #mySideboard {
     width: 100%;
     padding: 5px 7px 9px;
     box-sizing: border-box;
-    justify-content: flex-start !important;
-    align-content: flex-start;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 4px;
+    align-content: start;
+  }
+  /* Tiles are grid items: drop the engine's 1px margins (gap handles spacing) and let the card
+     image fill the cell at its natural aspect ratio. */
+  #swuMobileDeckPage #myMainDeck > span[data-mzid],
+  #swuMobileDeckPage #mySideboard > span[data-mzid] {
+    margin: 0 !important;
+    width: 100%;
+    min-width: 0;
+  }
+  #swuMobileDeckPage #myMainDeck > span[data-mzid] > a,
+  #swuMobileDeckPage #mySideboard > span[data-mzid] > a { display: block; width: 100%; }
+  #swuMobileDeckPage #myMainDeck > span[data-mzid] > a > img:first-child,
+  #swuMobileDeckPage #mySideboard > span[data-mzid] > a > img:first-child {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
   }
   #swuMobileDeckPage #mySideboard > span:only-child:not([data-mzid]) { display: none !important; }
   #swuMobileDeckPage .counter-bubble {
@@ -1151,7 +1174,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
         </div>
         <div id="swuMobileDeckScroll">
           <div id="myMainDeckSlot" onclick="ZoneClickHandler('myMainDeck');"></div>
-          <div class="swu-dm-title"><span>Sideboard</span></div>
+          <div class="swu-dm-title"><span id="swuMobileSideboardTitle">Sideboard (0)</span></div>
           <div id="mySideboardSlot" onclick="ZoneClickHandler('mySideboard');"></div>
         </div>
         <div id="swuMobileDeckActions" aria-label="Selected card actions" aria-hidden="true">
@@ -1294,8 +1317,10 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     var source = document.getElementById('myDeckSlot');
     var output = document.getElementById('swuMobileDeckCount');
     if(!source || !output) return;
+    // Format as "(N)" to match the Sideboard title. Source is the hidden Count(MainDeck) widget
+    // (#myDeckSlot); fall back to 0 before the first render so the parens are always present.
     var match = String(source.textContent || '').match(/deck\s*count\s*:\s*(\d+)/i);
-    output.textContent = match ? match[1] + ' cards' : '';
+    output.textContent = '(' + (match ? match[1] : '0') + ')';
   }
   function observeDeckCount(){
     var source = document.getElementById('myDeckSlot');
@@ -1303,6 +1328,22 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     new MutationObserver(function(){ requestAnimationFrame(updateDeckCount); })
       .observe(source,{childList:true,subtree:true,characterData:true});
     updateDeckCount();
+  }
+
+  // Sideboard header shows a live card count: "Sideboard (N)". zoneEntries('mySideboard') reads
+  // the zone DATA string and filters '-' placeholders, so its length is the true count including
+  // duplicate copies (DOM tiles collapse duplicates and would undercount).
+  function updateSideboardCount(){
+    var output = document.getElementById('swuMobileSideboardTitle');
+    if(!output) return;
+    output.textContent = 'Sideboard (' + zoneEntries('mySideboard').length + ')';
+  }
+  function observeSideboardCount(){
+    var slot = document.getElementById('mySideboardSlot');
+    if(!slot) return;
+    new MutationObserver(function(){ requestAnimationFrame(updateSideboardCount); })
+      .observe(slot,{childList:true,subtree:true});
+    updateSideboardCount();
   }
 
   function updateMobileFilterSummary(menu){
@@ -2022,6 +2063,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     bindSwipe();
     installAddTracker();
     observeDeckCount();
+    observeSideboardCount();
     setupMobileValidation();
     observeMobilePaneFilters();
     if(recentConfirm) recentConfirm.addEventListener('click', confirmRecent);

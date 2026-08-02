@@ -375,9 +375,32 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     top: calc(var(--swu-identity-height) + 20px) !important;
     overflow: hidden;
   }
-  #swuDeckBoard #myDeckSlot {
-    left: calc(26% + 12px) !important;
-    top: 10px !important;
+  /* The main-deck count now lives in the "Main deck (N)" section title, so the "Deck Count: N"
+     TEXT here is redundant. But this same slot also renders the Hand Draw widget button (schema:
+     Deck zone Widgets: CustomInput=Hand Draw) and is the mutation source that re-triggers deck
+     validation. So DON'T hide the slot — suppress only the count text via font-size:0 (which
+     collapses the inherited text node), while .widget-button keeps its own explicit font-size.
+     The button stays put just above the validation chip (same left, chip is at top:30px). */
+  /* Left toolbar group: [validation chip] [Hand Draw], one flex row at the top-left of the
+     workspace area (right of the card panel). Chip and Hand Draw sit snugly; when the chip is
+     display:none (Open-format decks) the flex row simply collapses to just Hand Draw, no gap. */
+  #swuDeckBoard #swuToolbarLeft {
+    position: absolute;
+    left: calc(26% + 12px);
+    top: 10px;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  /* Hand Draw slot flows inside the flex group (override the engine's inline position:absolute).
+     font-size:0 still suppresses the redundant "Deck Count: N" text; .widget-button keeps 12px. */
+  #swuDeckBoard #swuToolbarLeft #myDeckSlot {
+    position: static !important;
+    font-size: 0 !important;
+  }
+  #swuDeckBoard #myDeckSlot .widget-button {
+    font-size: 12px !important;
   }
   #swuDeckBoard #myStatsSlot {
     left: 48% !important;
@@ -391,11 +414,11 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   /* Live deck-legality badge (design §D). Sits just under the DECK COUNT readout. Hidden for Open
      decks (no legality rules) and until the first validation result arrives. Its issue list is a
      child of the board (not the overflow:hidden banner) so it can expand downward. */
+  /* The chip now flows as the first item of #swuToolbarLeft (no absolute positioning). It stays
+     display:none until validation runs; renderValidation flips it to inline-flex, at which point
+     it becomes the leading flex item, left of Hand Draw. */
   #swuDeckBoard #swuValidationBadge {
-    position: absolute;
-    top: 30px;
-    left: calc(26% + 12px);
-    z-index: 40;
+    position: static;
     display: none;
     align-items: center;
     gap: 6px;
@@ -426,7 +449,7 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   #swuValidationBadge .swu-val-caret { font-size: 9px; opacity: 0.75; }
   #swuDeckBoard #swuValidationIssues {
     position: absolute;
-    top: 52px;
+    top: 40px;
     left: calc(26% + 12px);
     z-index: 39;
     display: none;
@@ -672,16 +695,19 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     <div id="myBaseSlot"></div>
   </div>
   <div id="myCardPaneSlot"  style="position:absolute; left:10px; top:10px; bottom:10px; width:25%;"></div>
-  <div id="myDeckSlot"      style="position:absolute; left:26%; top:16%;"></div>
+  <!-- Left toolbar group: validation chip (prepended by ensureValidationEls) then the Hand Draw
+       widget slot, laid out as a flex row so they sit snugly and collapse cleanly when the chip
+       is hidden (Open-format decks). -->
+  <div id="swuToolbarLeft"><div id="myDeckSlot"></div></div>
   <div id="myStatsSlot"     style="position:absolute; left:46%; top:16%;"></div>
   <div id="mySortSlot"      style="position:absolute; left:82%; top:16%;"></div>
   <div id="swuDeckWorkspace">
     <section class="swu-deck-section" aria-label="Main deck">
-      <div class="swu-deck-section-title">Main deck</div>
+      <div class="swu-deck-section-title" id="swuMainDeckTitle">Main deck (0)</div>
       <div id="myMainDeckSlot"></div>
     </section>
     <section class="swu-deck-section" aria-label="Sideboard">
-      <div class="swu-deck-section-title">Sideboard</div>
+      <div class="swu-deck-section-title" id="swuSideboardTitle">Sideboard (0)</div>
       <div id="mySideboardSlot"></div>
     </section>
   </div>
@@ -915,7 +941,10 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
       badge.setAttribute('tabindex', '0');
       badge.setAttribute('aria-expanded', 'false');
       badge.innerHTML = "<span class='swu-val-label'></span><span class='swu-val-caret' aria-hidden='true'>&#9662;</span>";
-      board.appendChild(badge);
+      // Prepend into the left toolbar group so the order is [chip] [Hand Draw]. Falls back to the
+      // board if the group is somehow absent (keeps the badge from vanishing).
+      var leftGroup = document.getElementById('swuToolbarLeft') || board;
+      leftGroup.insertBefore(badge, leftGroup.firstChild);
       var issues = document.createElement('div');
       issues.id = 'swuValidationIssues';
       issues.setAttribute('role', 'region');
@@ -1000,10 +1029,40 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
       .observe(banner, { childList: true, subtree: true });
     enhanceIdentityBanner();
   }
+  // Section headers show a live card count: "Main deck (N)" / "Sideboard (N)". Count the zone
+  // DATA string (window.<zone>Data) rather than DOM tiles, since tiles collapse duplicate CardIDs
+  // and would undercount copies. NextTurnRender sets the data before it repopulates the slot, so
+  // reading it when the slot mutates is consistent. The main-deck count makes the separate
+  // "Deck Count: N" pane (#myDeckSlot, hidden via CSS) visually redundant.
+  function zoneDataCount(zoneName){
+    var raw = window[zoneName + 'Data'];
+    if(typeof raw !== 'string' || raw === '') return 0;
+    return raw.split('<|>').filter(function(entry){
+      var cardID = String(entry || '').split(' ')[0];
+      return cardID && cardID !== '-';
+    }).length;
+  }
+  function makeZoneCountObserver(slotID, titleID, label){
+    return function(){
+      var slot = document.getElementById(slotID);
+      if(!slot) return;
+      function update(){
+        var title = document.getElementById(titleID);
+        if(title) title.textContent = label + ' (' + zoneDataCount(slot.id.replace(/Slot$/, '')) + ')';
+      }
+      new MutationObserver(function(){ requestAnimationFrame(update); })
+        .observe(slot, { childList: true, subtree: true });
+      update();
+    };
+  }
+  var observeMainDeckCount = makeZoneCountObserver('myMainDeckSlot', 'swuMainDeckTitle', 'Main deck');
+  var observeSideboardCount = makeZoneCountObserver('mySideboardSlot', 'swuSideboardTitle', 'Sideboard');
   function initializeLayoutEnhancements(){
     bindPaneFilterDismissal();
     observeCardPane();
     observeIdentityBanner();
+    observeMainDeckCount();
+    observeSideboardCount();
     observeValidation();
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeLayoutEnhancements);
