@@ -743,7 +743,7 @@ if (AzukiDeckIsMobileRequest()) {
      The leader-unit crop and base crop share a shallow identity banner above the browser. */
   #swuDeckBoard {
     --swu-deck-card-size: calc(100vw / 13);
-    --swu-identity-height: clamp(64px, 6vw, 105px);
+    --swu-identity-height: clamp(52px, 4.4vw, 72px);
     overflow: hidden;
   }
   #swuDeckBoard #swuIdentityBanner {
@@ -816,19 +816,61 @@ if (AzukiDeckIsMobileRequest()) {
     top: calc(var(--swu-identity-height) + 20px) !important;
     overflow: hidden;
   }
-  #swuDeckBoard #myDeckSlot {
-    left: calc(26% + 12px) !important;
-    top: 10px !important;
+  #swuDeckBoard #myDeckSlot { display: none !important; }
+  #swuDeckToolbar {
+    position: static;
+    z-index: 100200;
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 30px;
+    align-items: center;
+    gap: 8px;
+    margin-left: 14px;
+    padding: 0;
+    box-sizing: border-box;
+    pointer-events: auto;
   }
+  .swu-deck-toolbar-label {
+    color: rgba(196,192,184,0.62);
+    font: 700 10px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .swu-deck-view-control,
+  .swu-deck-sort-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .swu-deck-view-segment {
+    display: inline-flex;
+    padding: 2px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.045);
+  }
+  #swuDeckToolbar .swu-deck-view-button {
+    min-width: 48px !important;
+    height: 26px !important;
+    min-height: 26px !important;
+    margin: 0 !important;
+    padding: 0 8px !important;
+    font-size: 10px !important;
+  }
+  #swuDeckToolbar .swu-deck-view-button.is-active {
+    color: var(--text) !important;
+  }
+  #swuDeckToolbar .swu-deck-view-button.is-active::before { background: rgba(242,238,229,0.26) !important; }
+  #swuDeckToolbar .swu-deck-view-button.is-active::after { background: rgba(242,238,229,0.10) !important; }
   #swuDesktopOverlayMenu {
-    position: absolute;
-    top: 10px;
-    right: 212px;
+    position: relative;
+    margin-left: auto;
     z-index: 100200;
   }
   #swuDesktopOverlayButton {
-    width: 32px !important;
-    min-width: 32px !important;
+    gap: 6px;
+    width: auto !important;
+    min-width: 82px !important;
     height: 28px !important;
     margin: 0 !important;
     padding: 4px 6px !important;
@@ -841,6 +883,7 @@ if (AzukiDeckIsMobileRequest()) {
     margin: auto;
     fill: currentColor;
   }
+  #swuDesktopOverlayButton span { font-family: inherit !important; }
   #swuDesktopOverlayMenu.has-active-overlay #swuDesktopOverlayButton,
   #swuDesktopOverlayMenu.is-open #swuDesktopOverlayButton {
     color: rgba(217,240,251,0.98) !important;
@@ -905,17 +948,25 @@ if (AzukiDeckIsMobileRequest()) {
     white-space: nowrap !important;
   }
   #swuDeckBoard #mySortSlot {
-    left: auto !important;
-    right: 10px !important;
-    top: 10px !important;
+    position: relative !important;
+    inset: auto !important;
+    width: 150px !important;
+    min-width: 0;
   }
+  #swuDeckToolbar #mySortWrapper,
+  #swuDeckToolbar #mySort {
+    position: static !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  #swuDeckToolbar #mySort > span:first-child { display: none !important; }
   /* Main deck + Maybe share one normal-flow workspace. The Maybe section therefore follows
      the final main-deck row instead of being stranded against the bottom of the viewport. */
   #swuDeckBoard #swuDeckWorkspace {
     position: absolute;
     left: 26%;
     right: 10px;
-    top: 50px;
+    top: 8px;
     bottom: 10px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -946,6 +997,17 @@ if (AzukiDeckIsMobileRequest()) {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     pointer-events: none;
+  }
+  #swuDeckBoard .swu-deck-section-count {
+    min-width: 18px;
+    margin-left: 7px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    color: rgba(242,238,229,0.72);
+    background: rgba(242,238,229,0.08);
+    font-size: 10px;
+    line-height: 14px;
+    text-align: center;
   }
   #swuDeckBoard #myMainDeckSlot,
   #swuDeckBoard #mySideboardSlot {
@@ -1081,11 +1143,87 @@ if (AzukiDeckIsMobileRequest()) {
   }
   #myMainDeck,
   #mySideboard {
+    display: grid !important;
+    grid-template-columns: repeat(8,minmax(0,1fr));
+    gap: 10px;
     width: 100%;
     box-sizing: border-box;
     justify-content: flex-start !important;
     align-content: flex-start;
-    padding: 6px 7px 8px;
+    padding: 10px;
+  }
+  #swuDeckBoard.is-dense #myMainDeck,
+  #swuDeckBoard.is-dense #mySideboard {
+    grid-template-columns: repeat(10,minmax(0,1fr));
+    gap: 6px;
+  }
+  #myMainDeck > span[data-mzid],
+  #mySideboard > span[data-mzid] {
+    position: relative !important;
+    width: 100% !important;
+    min-width: 0;
+    margin: 0 !important;
+  }
+  #myMainDeck > span[data-mzid] > a,
+  #mySideboard > span[data-mzid] > a {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  #myMainDeck > span[data-mzid] > a > img:first-child,
+  #mySideboard > span[data-mzid] > a > img:first-child {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  #mySideboardWrapper {
+    max-height: 250px;
+    overflow-y: auto !important;
+  }
+  #myMainDeck .azuki-deck-group-heading {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    min-height: 24px;
+    margin: 3px 0 -2px;
+    color: rgba(242,238,229,0.66);
+    font: 800 10px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  #myMainDeck .azuki-deck-group-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    margin-left: 10px;
+    background: rgba(242,238,229,0.08);
+  }
+  #myMainDeck > span[data-mzid]::after {
+    content: '\00d7';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 8;
+    display: grid;
+    width: 22px;
+    height: 22px;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(190,31,47,0.94);
+    box-shadow: 0 2px 7px rgba(0,0,0,0.62);
+    font: 800 16px/1 Arial, Helvetica, sans-serif;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.82);
+    transition: opacity 120ms ease, transform 120ms ease;
+  }
+  #myMainDeck > span[data-mzid]:hover::after {
+    opacity: 1;
+    transform: scale(1);
   }
   #mySideboard > span:only-child:not([data-mzid]) { display: none !important; }
 
@@ -1119,23 +1257,43 @@ if (AzukiDeckIsMobileRequest()) {
   </div>
   <div id="myCardPaneSlot"  style="position:absolute; left:10px; top:10px; bottom:10px; width:25%;"></div>
   <div id="myDeckSlot"      style="position:absolute; left:26%; top:16%;"></div>
-  <div id="swuDesktopOverlayMenu">
-    <button id="swuDesktopOverlayButton" class="widget-button" type="button" aria-label="Card overlays" aria-haspopup="true" aria-expanded="false">
-      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 13.5h12v1H1v-13h1v12Zm2-2.5h2V7H4v4Zm3.5 0h2V3h-2v8Zm3.5 0h2V5h-2v6Z"/></svg>
-    </button>
-    <div id="swuDesktopOverlayPanel">
-      <div class="swu-desktop-overlay-heading">Card overlays</div>
-      <div id="myStatsSlot"></div>
-    </div>
-  </div>
-  <div id="mySortSlot"      style="position:absolute; left:82%; top:16%;"></div>
   <div id="swuDeckWorkspace">
     <section class="swu-deck-section" aria-label="Main deck">
-      <div class="swu-deck-section-title">Main deck</div>
+      <div class="swu-deck-section-title">
+        <span>Main deck</span>
+        <span id="azukiDeckHeaderSummary">
+          <span id="azukiDeckHeaderCount" class="swu-deck-section-count"></span>
+        </span>
+        <div id="swuDeckToolbar" aria-label="Deck controls">
+          <div class="swu-deck-view-control">
+            <div class="swu-deck-view-segment" role="group" aria-label="Deck density">
+              <button id="swuDeckGridView" class="widget-button swu-deck-view-button is-active" type="button" data-density="grid" aria-label="Comfortable grid" title="Comfortable grid" aria-pressed="true">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+              </button>
+              <button id="swuDeckDenseView" class="widget-button swu-deck-view-button" type="button" data-density="dense" aria-label="Dense grid" title="Dense grid" aria-pressed="false">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 1h4v4H1V1Zm5 0h4v4H6V1Zm5 0h4v4h-4V1ZM1 6h4v4H1V6Zm5 0h4v4H6V6Zm5 0h4v4h-4V6ZM1 11h4v4H1v-4Zm5 0h4v4H6v-4Zm5 0h4v4h-4v-4Z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="swu-deck-sort-control">
+            <div id="mySortSlot"></div>
+          </div>
+          <div id="swuDesktopOverlayMenu">
+            <button id="swuDesktopOverlayButton" class="widget-button" type="button" aria-label="Card overlays" aria-haspopup="true" aria-expanded="false">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 13.5h12v1H1v-13h1v12Zm2-2.5h2V7H4v4Zm3.5 0h2V3h-2v8Zm3.5 0h2V5h-2v6Z"/></svg>
+              <span>Overlays</span>
+            </button>
+            <div id="swuDesktopOverlayPanel">
+              <div class="swu-desktop-overlay-heading">Card overlays</div>
+              <div id="myStatsSlot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div id="myMainDeckSlot"></div>
     </section>
     <section class="swu-deck-section" aria-label="Maybe">
-      <div class="swu-deck-section-title">Maybe</div>
+      <div class="swu-deck-section-title"><span>Maybe</span><span id="azukiMaybeCount" class="swu-deck-section-count">0</span></div>
       <div id="mySideboardSlot"></div>
     </section>
   </div>
@@ -1163,18 +1321,50 @@ if (AzukiDeckIsMobileRequest()) {
   }
   function compactPaneFilters(){
     var pane = document.getElementById('myCardPane');
-    var legal = document.getElementById('legalFilterCheckbox');
-    if(!pane || !legal) return;
-    var filterRow = legal.parentElement && legal.parentElement.parentElement;
+    if(!pane) return;
     var tab = pane.querySelector('.panelTab');
     var tabsRow = tab && tab.parentElement;
-    if(!filterRow || !tabsRow) return;
+    if(!tabsRow) return;
+    tabsRow.classList.add('swu-pane-tabs-row');
+    updatePaneTabState(tabsRow);
+
+    // Leaders has no legality/aspect filters, but the control stays in place so switching
+    // categories does not make the tab row jump horizontally.
+    var legal = document.getElementById('legalFilterCheckbox');
+    if(!legal) {
+      if(!tabsRow.querySelector('.swu-pane-filter-menu')) {
+        var emptyMenu = document.createElement('details');
+        emptyMenu.className = 'swu-pane-filter-menu is-empty';
+
+        var emptyTrigger = document.createElement('summary');
+        emptyTrigger.className = 'widget-button swu-pane-filter-trigger';
+        emptyTrigger.setAttribute('role', 'button');
+        emptyTrigger.setAttribute('aria-label', 'Filters, none available for Leaders');
+        emptyTrigger.setAttribute('aria-expanded', 'false');
+        emptyTrigger.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3h13L10 8v4.1l-4 1.8V8L1.5 3Zm2.7 1.2L7.3 7.6v4.5l1.4-.6V7.6l3.1-3.4H4.2Z"/></svg>';
+
+        var emptyPopover = document.createElement('div');
+        emptyPopover.className = 'swu-pane-filter-popover swu-pane-filter-empty';
+        emptyPopover.textContent = 'No filters available for Leaders';
+
+        emptyMenu.appendChild(emptyTrigger);
+        emptyMenu.appendChild(emptyPopover);
+        tabsRow.appendChild(emptyMenu);
+        emptyMenu.addEventListener('toggle', function(){
+          emptyTrigger.setAttribute('aria-expanded', emptyMenu.open ? 'true' : 'false');
+        });
+      }
+      updatePaneTabState(tabsRow);
+      return;
+    }
+    var filterRow = legal.parentElement && legal.parentElement.parentElement;
+    if(!filterRow) return;
     var existingMenu = filterRow.closest('.swu-pane-filter-menu');
     if(existingMenu) {
       updatePaneFilterSummary(existingMenu);
+      updatePaneTabState(tabsRow);
       return;
     }
-    tabsRow.classList.add('swu-pane-tabs-row');
     filterRow.classList.add('swu-pane-filter-options');
 
     var menu = document.createElement('details');
@@ -1185,7 +1375,7 @@ if (AzukiDeckIsMobileRequest()) {
     trigger.className = 'widget-button swu-pane-filter-trigger';
     trigger.setAttribute('role', 'button');
     trigger.setAttribute('aria-expanded', menu.open ? 'true' : 'false');
-    trigger.innerHTML = '<span>Filters</span><span class="swu-pane-filter-count"></span><span class="swu-pane-filter-chevron" aria-hidden="true">&#9662;</span>';
+    trigger.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3h13L10 8v4.1l-4 1.8V8L1.5 3Zm2.7 1.2L7.3 7.6v4.5l1.4-.6V7.6l3.1-3.4H4.2Z"/></svg><span class="swu-pane-filter-count"></span>';
 
     var popover = document.createElement('div');
     popover.className = 'swu-pane-filter-popover';
@@ -1211,6 +1401,18 @@ if (AzukiDeckIsMobileRequest()) {
       updatePaneFilterSummary(menu);
     }, true);
     updatePaneFilterSummary(menu);
+    updatePaneTabState(tabsRow);
+  }
+  function updatePaneTabState(tabsRow){
+    if(!tabsRow) return;
+    var active = Number(window._my_CardPane_activePane || 0);
+    tabsRow.setAttribute('role', 'tablist');
+    Array.prototype.forEach.call(tabsRow.querySelectorAll('.panelTab'), function(tab, index){
+      var selected = index === active;
+      tab.classList.toggle('is-active', selected);
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+    });
   }
   function updatePaneFilterSummary(menu){
     if(!menu) return;
@@ -1218,8 +1420,142 @@ if (AzukiDeckIsMobileRequest()) {
     var checked = menu.querySelectorAll('input[type="checkbox"]:checked').length;
     var count = menu.querySelector('.swu-pane-filter-count');
     var trigger = menu.querySelector('.swu-pane-filter-trigger');
-    if(count) count.textContent = String(checked);
+    if(count) {
+      count.textContent = String(checked);
+      count.hidden = checked === 0;
+    }
     if(trigger) trigger.setAttribute('aria-label', 'Filters, ' + checked + ' of ' + boxes.length + ' active');
+  }
+  function zoneCardCount(value){
+    if(!value) return 0;
+    return String(value).split('<|>').filter(function(entry){ return entry.trim() !== ''; }).length;
+  }
+  function updateDeckSummary(){
+    var mainCount = zoneCardCount(window.myMainDeckData);
+    var maybeCount = zoneCardCount(window.mySideboardData);
+    var control = document.getElementById('azukiDeckNameControl');
+    var count = document.getElementById('azukiDeckHeaderCount');
+    if(control && !count) {
+      var summary = document.createElement('span');
+      summary.id = 'azukiDeckHeaderSummary';
+      summary.innerHTML = '<span class="azuki-deck-summary-separator" aria-hidden="true">&middot;</span><span id="azukiDeckHeaderCount" class="swu-deck-section-count"></span>';
+      control.insertBefore(summary, document.getElementById('azukiDeckRenameButton'));
+      count = document.getElementById('azukiDeckHeaderCount');
+    }
+    if(count) {
+      var valid = mainCount === 50;
+      var validityMessage = valid
+        ? 'Deck is valid: exactly 50 cards.'
+        : (mainCount < 50
+          ? 'Deck is illegal: add ' + (50 - mainCount) + ' card' + (50 - mainCount === 1 ? '' : 's') + ' to reach 50.'
+          : 'Deck is illegal: remove ' + (mainCount - 50) + ' card' + (mainCount - 50 === 1 ? '' : 's') + ' to reach 50.');
+      count.textContent = mainCount + '/50';
+      count.classList.toggle('is-valid', valid);
+      count.classList.toggle('is-invalid', !valid);
+      count.title = validityMessage;
+      count.setAttribute('aria-label', mainCount + ' of 50 cards. ' + validityMessage);
+    }
+    var maybe = document.getElementById('azukiMaybeCount');
+    if(maybe) maybe.textContent = String(maybeCount);
+  }
+  function setupToolbarChrome(){
+    var toolbar = document.querySelector('.flex-container > .flex-item:first-child');
+    if(!toolbar) return;
+    Array.prototype.forEach.call(toolbar.querySelectorAll(':scope > button'), function(button){
+      var label = String(button.textContent || '').trim().toLowerCase();
+      if(label === 'home' && !button.id) {
+        button.id = 'azukiDeckBackButton';
+        button.innerHTML = '<span aria-hidden="true">\u2190</span><span>Decks</span>';
+        button.setAttribute('aria-label', 'Back to decks');
+      } else if(label === 'edit' && !button.id) {
+        button.id = 'azukiDeckLegacyEditButton';
+      }
+    });
+    updateDeckSummary();
+  }
+  function setDeckDensity(density){
+    var dense = density === 'dense';
+    var board = document.getElementById('swuDeckBoard');
+    if(board) board.classList.toggle('is-dense', dense);
+    Array.prototype.forEach.call(document.querySelectorAll('.swu-deck-view-button'), function(button){
+      var selected = button.dataset.density === (dense ? 'dense' : 'grid');
+      button.classList.toggle('is-active', selected);
+      button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    });
+    try { localStorage.setItem('azukiDeckDensity', dense ? 'dense' : 'grid'); } catch(error) {}
+  }
+  function setupDensityControl(){
+    var buttons = document.querySelectorAll('.swu-deck-view-button');
+    Array.prototype.forEach.call(buttons, function(button){
+      if(button.dataset.densityBound === '1') return;
+      button.dataset.densityBound = '1';
+      button.addEventListener('click', function(){ setDeckDensity(button.dataset.density); });
+    });
+    var saved = 'grid';
+    try { saved = localStorage.getItem('azukiDeckDensity') || 'grid'; } catch(error) {}
+    setDeckDensity(saved === 'dense' ? 'dense' : 'grid');
+  }
+  function groupLabel(cardID, sortValue){
+    var sort = String(sortValue || '').toLowerCase();
+    if(sort === 'category' && typeof window.Cardcategory === 'function') {
+      var category = String(window.Cardcategory(cardID) || 'Other');
+      var labels = { unit: 'Units', entity: 'Units', action: 'Actions', spell: 'Actions', weapon: 'Regalia', regalia: 'Regalia', ikz: 'IKZ' };
+      return labels[category.toLowerCase()] || category;
+    }
+    if(sort === 'ikzcost' && typeof window.CardikzCost === 'function') return 'Cost ' + String(window.CardikzCost(cardID));
+    if(sort === 'element' && typeof window.Cardelement === 'function') return String(window.Cardelement(cardID) || 'Neutral');
+    return '';
+  }
+  function updateDeckGroupHeadings(){
+    var deck = document.getElementById('myMainDeck');
+    if(!deck) return;
+    var sortValue = String(window.mySortData || '').split(' ')[0];
+    var cards = Array.prototype.slice.call(deck.querySelectorAll(':scope > span[data-mzid]'));
+    var signature = sortValue + '|' + cards.map(function(card){ return cardIDFromImage(card.querySelector('img')); }).join('|');
+    if(deck.dataset.azukiGroupingSignature === signature) return;
+    deck.dataset.azukiGroupingSignature = signature;
+    Array.prototype.forEach.call(deck.querySelectorAll('.azuki-deck-group-heading'), function(heading){ heading.remove(); });
+    if(['category','ikzcost','element'].indexOf(sortValue.toLowerCase()) === -1) return;
+    var previous = null;
+    cards.forEach(function(card){
+      var label = groupLabel(cardIDFromImage(card.querySelector('img')), sortValue);
+      if(!label || label === previous) return;
+      var heading = document.createElement('div');
+      heading.className = 'azuki-deck-group-heading';
+      heading.textContent = label;
+      deck.insertBefore(heading, card);
+      previous = label;
+    });
+  }
+  function decorateDeckCards(){
+    Array.prototype.forEach.call(document.querySelectorAll('#myMainDeck > span[data-mzid]'), function(card){
+      card.title = 'Click to remove from deck';
+    });
+  }
+  var workspaceUpdateQueued = false;
+  function queueWorkspaceUpdate(){
+    if(workspaceUpdateQueued) return;
+    workspaceUpdateQueued = true;
+    requestAnimationFrame(function(){
+      workspaceUpdateQueued = false;
+      updateDeckSummary();
+      decorateDeckCards();
+      updateDeckGroupHeadings();
+    });
+  }
+  function observeDeckWorkspace(){
+    var workspace = document.getElementById('swuDeckWorkspace');
+    if(!workspace || workspace.dataset.azukiObserved === '1') return;
+    workspace.dataset.azukiObserved = '1';
+    new MutationObserver(queueWorkspaceUpdate).observe(workspace, { childList: true, subtree: true });
+    queueWorkspaceUpdate();
+  }
+  function observeToolbar(){
+    var toolbar = document.querySelector('.flex-container > .flex-item:first-child');
+    if(!toolbar || toolbar.dataset.azukiObserved === '1') return;
+    toolbar.dataset.azukiObserved = '1';
+    new MutationObserver(function(){ requestAnimationFrame(setupToolbarChrome); }).observe(toolbar, { childList: true });
+    setupToolbarChrome();
   }
   function bindPaneFilterDismissal(){
     if(document.documentElement.dataset.swuPaneFilterDismissal === '1') return;
@@ -1314,6 +1650,9 @@ if (AzukiDeckIsMobileRequest()) {
     bindPaneFilterDismissal();
     observeCardPane();
     observeIdentityBanner();
+    observeToolbar();
+    observeDeckWorkspace();
+    setupDensityControl();
     setupDesktopOverlayMenu();
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeLayoutEnhancements);

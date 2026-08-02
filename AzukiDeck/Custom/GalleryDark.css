@@ -168,8 +168,8 @@ label[for="customFilterCheckbox"] {
 #visibilityDropdownMenu,
 #versionDropdownMenu,
 #swuDesktopOverlayPanel,
-#myCardPane .swu-pane-filter-popover,
-#swuMobileToolbarMenuPanel {
+  #myCardPane .swu-pane-filter-popover,
+  #swuMobileToolbarMenuPanel {
   color: #f2eee5 !important;
   background: #18181c !important;
   border: 1px solid #484850 !important;
@@ -328,5 +328,385 @@ label[for="customFilterCheckbox"] {
   #swuMobileToolbarMenuButton .swu-mobile-menu-line {
     background: #f2eee5 !important;
     box-shadow: none !important;
+  }
+}
+
+/* Desktop deck editor: editorial hierarchy, quiet utility chrome, and open surfaces. */
+@media (min-width: 1001px) {
+  .flex-container > .flex-item:first-child {
+    min-height: 58px !important;
+    padding: 0 14px !important;
+    gap: 4px !important;
+    background: #101012 !important;
+    border-bottom: 1px solid #29292e !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,.28) !important;
+  }
+
+  #azukiDeckBackButton { order: 0; }
+  #azukiDeckNameControl { order: 1; }
+  #azukiDeckMatchesButton { order: 10; }
+  #azukiPlaybookButton { order: 11; }
+  .flex-container > .flex-item:first-child > #AssetVisibility { order: 12; }
+  .flex-container > .flex-item:first-child > #Versions { order: 13; }
+  #azukiDeckLegacyEditButton { display: none !important; }
+
+  #azukiDeckBackButton,
+  #azukiDeckMatchesButton,
+  #azukiPlaybookButton,
+  #visibilityDropdownTrigger,
+  #versionDropdownTrigger,
+  #azukiDeckRenameButton {
+    min-height: 30px !important;
+    color: #aaa8a2 !important;
+  }
+
+  #azukiDeckBackButton::before,
+  #azukiDeckMatchesButton::before,
+  #azukiPlaybookButton::before,
+  #visibilityDropdownTrigger::before,
+  #versionDropdownTrigger::before,
+  #azukiDeckRenameButton::before {
+    background: transparent !important;
+  }
+
+  #azukiDeckBackButton::after,
+  #azukiDeckMatchesButton::after,
+  #azukiPlaybookButton::after,
+  #visibilityDropdownTrigger::after,
+  #versionDropdownTrigger::after,
+  #azukiDeckRenameButton::after {
+    background: transparent !important;
+  }
+
+  #azukiDeckBackButton:hover::after,
+  #azukiDeckMatchesButton:hover::after,
+  #azukiPlaybookButton:hover::after,
+  #visibilityDropdownTrigger:hover::after,
+  #versionDropdownTrigger:hover::after,
+  #azukiDeckRenameButton:hover::after {
+    background: #242428 !important;
+  }
+
+  #azukiDeckBackButton {
+    gap: 7px;
+    padding: 0 8px 0 2px !important;
+  }
+
+  #azukiDeckBackButton > span:first-child {
+    color: #f2eee5;
+    font-size: 17px;
+  }
+
+  #azukiDeckNameControl {
+    flex: 1 1 auto;
+    margin: 0 auto 0 4px;
+    gap: 8px;
+  }
+
+  #azukiDeckNameLabel {
+    flex: 0 1 auto;
+    color: #f2eee5 !important;
+    font-size: 20px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -.015em !important;
+    text-shadow: none !important;
+  }
+
+  #azukiDeckHeaderSummary {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 5px;
+    margin-left: 7px;
+    color: #8f8e89;
+    font: 700 11px/1 Arial, Helvetica, sans-serif;
+    white-space: nowrap;
+  }
+
+  #azukiDeckHeaderSummary .swu-deck-section-count {
+    margin-left: 0;
+    color: #aaa8a2;
+    background: #252529;
+    cursor: help;
+    pointer-events: auto;
+  }
+
+  .azuki-deck-summary-separator { color: #57575e; font-size: 16px; }
+
+  #azukiDeckHeaderSummary .swu-deck-section-count.is-valid {
+    color: #73d5ad;
+    background: rgba(61,165,129,.14);
+  }
+
+  #azukiDeckHeaderSummary .swu-deck-section-count.is-invalid {
+    color: #ffb9be;
+    background: rgba(238,59,76,.22);
+    box-shadow: inset 0 0 0 1px rgba(238,59,76,.25);
+  }
+
+  #azukiDeckMatchesCount {
+    min-width: 18px;
+    margin-left: 5px;
+    padding: 2px 5px;
+    border-radius: 999px;
+    color: #c6c3bc;
+    background: #28282d;
+    font-size: 9px;
+  }
+
+  .flex-container > .flex-item:first-child > #AssetVisibility {
+    margin-left: 0 !important;
+    padding-left: 6px !important;
+    border-left: 1px solid #2d2d32 !important;
+  }
+
+  .flex-container > .flex-item:first-child > #Versions {
+    margin: 0 !important;
+  }
+
+  #visibilityDropdownTrigger,
+  #versionDropdownTrigger {
+    padding: 0 7px !important;
+  }
+
+  #swuDeckBoard #swuIdentityBanner {
+    background: #151518 !important;
+    border: 1px solid #303036 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+  }
+
+  #my_CardPane_content {
+    background: #111114 !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+  }
+
+  .filterBar {
+    min-height: 28px !important;
+    height: 28px !important;
+    padding: 0 9px !important;
+    border-color: #303036 !important;
+    border-radius: 7px !important;
+    box-shadow: none !important;
+    font-size: 12px !important;
+  }
+
+  #myCardPane .swu-pane-tabs-row {
+    gap: 0 !important;
+    margin: 5px 0 6px;
+    padding: 2px;
+    border: 1px solid #2f2f35;
+    border-radius: 8px;
+    background: #151518;
+  }
+
+  #myCardPane .panelTab {
+    flex: 1 1 0;
+    height: 28px !important;
+    min-height: 28px !important;
+    margin: 0 !important;
+    padding: 0 6px !important;
+    border-radius: 6px !important;
+    color: #85858d !important;
+  }
+
+  #myCardPane .panelTab::before,
+  #myCardPane .panelTab::after { background: transparent !important; }
+
+  #myCardPane .panelTab.is-active {
+    color: #f2eee5 !important;
+    border-bottom-color: transparent !important;
+    box-shadow: none !important;
+  }
+  #myCardPane .panelTab.is-active::after {
+    content: '' !important;
+    inset: 1px !important;
+    z-index: -1 !important;
+    background: #29292e !important;
+    box-shadow: none !important;
+    clip-path: none !important;
+    transform: none !important;
+  }
+
+  #myCardPane .swu-pane-filter-menu {
+    display: flex;
+    flex: 0 0 32px;
+    height: 28px;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    margin: 0 0 0 2px;
+  }
+
+  #myCardPane .swu-pane-filter-trigger {
+    display: inline-flex !important;
+    flex: 0 0 32px;
+    width: 32px !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    box-sizing: border-box !important;
+    line-height: 1 !important;
+  }
+
+  #myCardPane .swu-pane-filter-trigger::before,
+  #myCardPane .swu-pane-filter-trigger::after { background: transparent !important; }
+
+  #myCardPane .swu-pane-filter-empty {
+    min-width: 190px;
+    padding: 9px 11px;
+    color: #aaa8a2;
+    font: 600 11px/1.35 Arial, Helvetica, sans-serif;
+    white-space: nowrap;
+  }
+
+  #myCardPane .swu-pane-filter-trigger:hover::after,
+  #myCardPane .swu-pane-filter-menu[open] .swu-pane-filter-trigger::after {
+    background: #29292e !important;
+  }
+
+  #myCardPane .swu-pane-filter-trigger svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+  }
+
+  #myCardPane .swu-pane-filter-count {
+    position: absolute;
+    top: -5px;
+    right: -4px;
+    min-width: 15px;
+    height: 15px;
+    padding: 0 3px;
+    border: 1px solid #111114;
+    border-radius: 8px;
+    color: #fff;
+    background: var(--accent);
+    line-height: 13px;
+  }
+
+  #swuDeckToolbar {
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  #swuDeckToolbar .widget-button::before { background: #34343a !important; }
+  #swuDeckToolbar .widget-button::after { background: #1b1b1f !important; }
+  #swuDeckToolbar .swu-deck-view-button.is-active::before { background: #5b5b63 !important; }
+  #swuDeckToolbar .swu-deck-view-button.is-active::after { background: #303036 !important; }
+  #swuDeckToolbar .swu-deck-view-button {
+    display: inline-flex !important;
+    width: 34px !important;
+    min-width: 34px !important;
+    padding: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 0 !important;
+  }
+
+  #swuDeckToolbar .swu-deck-view-button svg {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    pointer-events: none;
+  }
+
+  #swuDesktopOverlayButton,
+  #swuDesktopOverlayMenu.has-active-overlay #swuDesktopOverlayButton,
+  #swuDesktopOverlayMenu.is-open #swuDesktopOverlayButton {
+    color: #c9c6bf !important;
+    filter: none !important;
+  }
+  #swuDesktopOverlayMenu {
+    display: flex;
+    height: 30px;
+    margin-left: 0;
+    align-items: center;
+  }
+
+  #swuDeckToolbar .swu-deck-sort-control { margin-left: auto; }
+
+  #swuDesktopOverlayButton {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    width: 100px !important;
+    min-width: 100px !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    margin: 0 !important;
+    padding: 0 9px !important;
+    box-sizing: border-box !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  #swuDesktopOverlayButton svg {
+    flex: 0 0 16px;
+    margin: 0 !important;
+  }
+
+  #swuDesktopOverlayButton span {
+    display: inline-block !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  #swuDeckBoard #swuDeckWorkspace { top: 8px; padding-top: 0; }
+
+  #swuDeckBoard .swu-deck-section,
+  #swuDeckBoard .swu-deck-section + .swu-deck-section {
+    background: #151518 !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+  }
+
+  #swuDeckBoard .swu-deck-section + .swu-deck-section { margin-top: 12px; }
+
+  #swuDeckBoard .swu-deck-section-title {
+    min-height: 40px !important;
+    height: 40px !important;
+    padding: 0 10px !important;
+    color: #c9c6bf !important;
+    background: transparent !important;
+    border-bottom: 1px solid #242429 !important;
+    font-size: 11px !important;
+    letter-spacing: .03em !important;
+    text-shadow: none !important;
+  }
+
+  #mySideboardWrapper { max-height: 220px; }
+  #mySideboard { min-height: 0 !important; }
+
+  #swuDeckWorkspace,
+  #my_CardPane_content,
+  #mySideboardWrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #414149 transparent;
+  }
+
+  #swuDeckWorkspace::-webkit-scrollbar,
+  #my_CardPane_content::-webkit-scrollbar,
+  #mySideboardWrapper::-webkit-scrollbar { width: 7px; }
+
+  #swuDeckWorkspace::-webkit-scrollbar-thumb,
+  #my_CardPane_content::-webkit-scrollbar-thumb,
+  #mySideboardWrapper::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: #414149;
+    background-clip: padding-box;
   }
 }
