@@ -1225,7 +1225,7 @@ if (AzukiDeckIsMobileRequest()) {
     opacity: 1;
     transform: scale(1);
   }
-  #mySideboard > span:only-child:not([data-mzid]) { display: none !important; }
+  #mySideboard > span:not([data-mzid]):not(.azuki-maybe-placeholder) { display: none !important; }
 
   /* Card actions are the primary hover affordance. Keep previews non-interactive and
      preserve the actions above them as a final safeguard on constrained viewports. */
@@ -1267,10 +1267,10 @@ if (AzukiDeckIsMobileRequest()) {
         <div id="swuDeckToolbar" aria-label="Deck controls">
           <div class="swu-deck-view-control">
             <div class="swu-deck-view-segment" role="group" aria-label="Deck density">
-              <button id="swuDeckGridView" class="widget-button swu-deck-view-button is-active" type="button" data-density="grid" aria-label="Comfortable grid" title="Comfortable grid" aria-pressed="true">
+              <button id="swuDeckGridView" class="widget-button swu-deck-view-button is-active" type="button" data-density="grid" aria-label="Comfortable grid view, larger cards with more spacing" title="Comfortable grid view — larger cards with more spacing" aria-pressed="true">
                 <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
               </button>
-              <button id="swuDeckDenseView" class="widget-button swu-deck-view-button" type="button" data-density="dense" aria-label="Dense grid" title="Dense grid" aria-pressed="false">
+              <button id="swuDeckDenseView" class="widget-button swu-deck-view-button" type="button" data-density="dense" aria-label="Dense grid view, smaller cards with less spacing" title="Dense grid view — smaller cards with less spacing" aria-pressed="false">
                 <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 1h4v4H1V1Zm5 0h4v4H6V1Zm5 0h4v4h-4V1ZM1 6h4v4H1V6Zm5 0h4v4H6V6Zm5 0h4v4h-4V6ZM1 11h4v4H1v-4Zm5 0h4v4H6v-4Zm5 0h4v4h-4v-4Z"/></svg>
               </button>
             </div>
@@ -1449,7 +1449,7 @@ if (AzukiDeckIsMobileRequest()) {
         : (mainCount < 50
           ? 'Deck is illegal: add ' + (50 - mainCount) + ' card' + (50 - mainCount === 1 ? '' : 's') + ' to reach 50.'
           : 'Deck is illegal: remove ' + (mainCount - 50) + ' card' + (mainCount - 50 === 1 ? '' : 's') + ' to reach 50.');
-      count.textContent = mainCount + '/50';
+      count.innerHTML = '<span class="azuki-deck-count-text">' + mainCount + '/50</span>';
       count.classList.toggle('is-valid', valid);
       count.classList.toggle('is-invalid', !valid);
       count.title = validityMessage;
@@ -1483,6 +1483,7 @@ if (AzukiDeckIsMobileRequest()) {
       button.setAttribute('aria-pressed', selected ? 'true' : 'false');
     });
     try { localStorage.setItem('azukiDeckDensity', dense ? 'dense' : 'grid'); } catch(error) {}
+    updateMaybePlaceholders();
   }
   function setupDensityControl(){
     var buttons = document.querySelectorAll('.swu-deck-view-button');
@@ -1541,7 +1542,28 @@ if (AzukiDeckIsMobileRequest()) {
       updateDeckSummary();
       decorateDeckCards();
       updateDeckGroupHeadings();
+      updateMaybePlaceholders();
     });
+  }
+  function updateMaybePlaceholders(){
+    var maybeBoard = document.getElementById('mySideboard');
+    if(!maybeBoard) return;
+    var board = document.getElementById('swuDeckBoard');
+    var columnCount = board && board.classList.contains('is-dense') ? 10 : 8;
+    var cardCount = maybeBoard.querySelectorAll(':scope > span[data-mzid]').length;
+    var desiredCount = Math.max(0, columnCount - Math.min(cardCount, columnCount));
+    var placeholders = maybeBoard.querySelectorAll(':scope > .azuki-maybe-placeholder');
+    while(placeholders.length > desiredCount) {
+      placeholders[placeholders.length - 1].remove();
+      placeholders = maybeBoard.querySelectorAll(':scope > .azuki-maybe-placeholder');
+    }
+    while(placeholders.length < desiredCount) {
+      var placeholder = document.createElement('span');
+      placeholder.className = 'azuki-maybe-placeholder';
+      placeholder.setAttribute('aria-hidden', 'true');
+      maybeBoard.appendChild(placeholder);
+      placeholders = maybeBoard.querySelectorAll(':scope > .azuki-maybe-placeholder');
+    }
   }
   function observeDeckWorkspace(){
     var workspace = document.getElementById('swuDeckWorkspace');

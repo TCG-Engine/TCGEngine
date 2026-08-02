@@ -424,10 +424,17 @@ label[for="customFilterCheckbox"] {
   }
 
   #azukiDeckHeaderSummary .swu-deck-section-count {
+    display: inline-flex;
+    height: 20px;
     margin-left: 0;
+    padding: 0 7px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
     color: #aaa8a2;
     background: #252529;
     cursor: help;
+    line-height: 1;
     pointer-events: auto;
   }
 
@@ -439,9 +446,21 @@ label[for="customFilterCheckbox"] {
   }
 
   #azukiDeckHeaderSummary .swu-deck-section-count.is-invalid {
+    gap: 4px;
     color: #ffb9be;
     background: rgba(238,59,76,.22);
     box-shadow: inset 0 0 0 1px rgba(238,59,76,.25);
+  }
+
+  #azukiDeckHeaderSummary .swu-deck-section-count.is-invalid::before {
+    content: '\26A0';
+    color: #ff747e;
+    font: 700 11px/1 "Segoe UI Symbol", sans-serif;
+  }
+
+  #azukiDeckHeaderSummary .azuki-deck-count-text {
+    display: inline-block;
+    transform: translateY(1px);
   }
 
   #azukiDeckMatchesCount {
@@ -689,6 +708,39 @@ label[for="customFilterCheckbox"] {
 
   #mySideboardWrapper { max-height: 220px; }
   #mySideboard { min-height: 0 !important; }
+
+  #mySideboard > .azuki-maybe-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    box-sizing: border-box;
+    border: 1px dashed #34343a;
+    border-radius: 6px;
+    background: rgba(255,255,255,.012);
+    pointer-events: none;
+  }
+
+  #myMainDeck > span[data-mzid],
+  #mySideboard > span[data-mzid] {
+    aspect-ratio: 1;
+    align-self: start;
+  }
+
+  #myMainDeck > span[data-mzid] > a,
+  #mySideboard > span[data-mzid] > a {
+    position: relative !important;
+    height: 100% !important;
+  }
+
+  #myMainDeck .counter-bubble,
+  #mySideboard .counter-bubble {
+    top: auto !important;
+    right: auto !important;
+    bottom: 5px !important;
+    left: 5px !important;
+    margin: 0 !important;
+    margin-right: 0 !important;
+    transform: none !important;
+  }
 
   #swuDeckWorkspace,
   #my_CardPane_content,
