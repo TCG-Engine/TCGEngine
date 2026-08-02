@@ -58,3 +58,39 @@ WithP2Deck: SOR_095
 ## EXPECT
 P1HANDCOUNT:4
 P1DECKCOUNT:6
+
+---
+
+# NoBottomThreeAtSecondActionPhase
+#// JTL_028 Nabat Village — "When the FIRST action phase starts: put 3 cards from your hand on the bottom
+#// of your deck." Once-per-game: the second action phase must NOT re-fire it. This drives two full rounds.
+#// Round 1: hand 5 / deck 8 → regroup draws 2 (hand 7, deck 6) → the bottom-3 fires (answered) → hand 4,
+#// deck 9. Round 2: regroup draws 2 → hand 6, deck 7, and NO bottom-3 prompt is raised (P1NODECISION) —
+#// the hand is simply 2 bigger than it was, with nothing put back.
+#// Companion negative to BottomThreeAtFirstActionPhase above, which proves the first phase DOES fire.
+#// ⚠ Both decks are seeded deep enough that neither empties across two regroups (an empty deck would add
+#// the +6 base penalty and draw fewer cards, corrupting the hand/deck counts this section asserts).
+
+## GIVEN
+CommonSetup: grw/grw/{myBase:JTL_028;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>AnswerDecision:myHand-0&myHand-1&myHand-2
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+P1HANDCOUNT:6
+P1DECKCOUNT:7
+P1NODECISION

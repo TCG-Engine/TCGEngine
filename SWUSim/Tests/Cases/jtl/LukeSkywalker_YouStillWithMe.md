@@ -332,3 +332,69 @@ P2GROUNDARENACOUNT:0
 P2SPACEARENACOUNT:1
 P2SPACEARENAUNIT:0:CARDID:JTL_095
 P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# PilotDefeatReplaced_SurvivesRequestBoundary
+#// JTL_094 Luke — REGRESSION GUARD for a request-boundary bug. The replacement offer is queued in one
+#// request and ANSWERED in the next, so every piece of state the answer needs must live in the
+#// serialized gamestate (or ride the decision's own param) — never in a plain in-memory global.
+#// Identical to PilotDefeatReplaced_MovesToGround but with a real serialize → fresh-process → re-parse
+#// round-trip inserted between the host's defeat and P1's YES. Previously Luke's rebuild data was held
+#// in the transient $gReplaceSnapshots, so after the boundary the handler found nothing and returned
+#// silently: Luke was neither rebuilt as a ground unit NOR discarded — he vanished from the game
+#// entirely (ground arena 0, discard held only the host).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP2Resources: 8
+WithP2Hand: JTL_078
+WithP1GroundArena: SEC_214:1:0
+WithP1GroundArenaUpgrade: 0:JTL_094
+
+## WHEN
+- P2>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_094
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1DISCARDCOUNT:1
+
+---
+
+# PilotDefeatDeclined_SurvivesRequestBoundary
+#// JTL_094 Luke — the DECLINE half of the same boundary guard. Across a fresh-process boundary a NO
+#// must still discard Luke (the real defeat happens), not silently drop him. With the transient-global
+#// bug both branches degraded to the same silent no-op, so only asserting the YES branch would have
+#// left the decline path unguarded.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP2Resources: 8
+WithP2Hand: JTL_078
+WithP1GroundArena: SEC_214:1:0
+WithP1GroundArenaUpgrade: 0:JTL_094
+
+## WHEN
+- P2>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:2

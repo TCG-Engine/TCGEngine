@@ -270,10 +270,11 @@ $customDQHandlers["DEFEAT_REPLACE_ATTACH"] = function ($player, $parts, $lastDec
 // JTL_094 Luke (pilot UPGRADE defeat-replacement): YES → rebuild him as an exhausted ground unit from
 // the snapshot (host is already gone), preserving UID + any carried captives; NO → discard him.
 $customDQHandlers["DEFEAT_REPLACE_UPG"] = function ($player, $parts, $lastDecision) {
-  global $gReplaceSnapshots, $playerID;
+  global $playerID;
   $uid = intval($parts[1] ?? 0);
-  $e = $gReplaceSnapshots[$uid] ?? null;
-  unset($gReplaceSnapshots[$uid]);
+  // The rebuild data rides this decision's own Param (serialized with the gamestate) — the player
+  // answers in a LATER request, so an in-memory snapshot would be gone by now.
+  $e = _SWUDecodeReplacementSnapshot((string) ($parts[2] ?? ''));
   if ($e === null)
     return;
   $cardID = $e['cardID'];
@@ -302,11 +303,11 @@ $customDQHandlers["DEFEAT_REPLACE_UPG"] = function ($player, $parts, $lastDecisi
 // ($skipReplacement so it doesn't re-offer). If Rampart has left play since the offer, the upgrade is
 // defeated regardless.
 $customDQHandlers["RAMPART_SAVE"] = function ($player, $parts, $lastDecision) {
-  global $gReplaceSnapshots, $playerID;
+  global $playerID;
   $ctrl = intval($parts[0] ?? $player);
   $uid  = intval($parts[1] ?? 0);
-  $e = $gReplaceSnapshots[$uid] ?? null;
-  unset($gReplaceSnapshots[$uid]);
+  // Rides the decision's own Param — see DEFEAT_REPLACE_UPG above.
+  $e = _SWUDecodeReplacementSnapshot((string) ($parts[2] ?? ''));
   if ($e === null)
     return;
   $playerID = $ctrl;

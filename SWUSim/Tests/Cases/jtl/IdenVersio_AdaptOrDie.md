@@ -96,3 +96,37 @@ P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:JTL_036
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_225
 P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# MovedToAnotherVehicle_ReShields
+#// JTL_036 Iden Versio — "When this upgrade ATTACHES to a unit: give a Shield token to that unit." The
+#// trigger keys off the ATTACH event, not off being played, so RELOCATING Iden onto a different Vehicle
+#// shields the new host as well. Iden starts as a pilot upgrade on the Vehicle SEC_214; playing JTL_038
+#// Corvus ("attach a friendly Pilot unit or upgrade" — it relocates an existing pilot upgrade onto
+#// itself) moves Iden across. Corvus therefore ends with TWO upgrades: Iden plus a freshly created
+#// Shield token, while SEC_214 is left with none.
+#// Complements ReAttach_ReShields_AfterLeaveAndReEnter (leaving and re-entering the arena) and
+#// OnAttach_GivesShield (the initial play).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1Hand: JTL_038
+WithP1GroundArena: SEC_214:1:0
+WithP1GroundArenaUpgrade: 0:JTL_036
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_038
+P1SPACEARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SEC_214
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0

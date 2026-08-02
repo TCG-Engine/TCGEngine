@@ -4174,7 +4174,14 @@ function SWUMoveUnitToUpgrade(string $unitMz, string $hostMz, bool $isPilot = tr
     // A unit becoming a PILOT upgrade must still fire the host's "when a Pilot attaches" reactions (JTL_101
     // Red Leader / JTL_223 Razor Crest) — this path bypasses _SWUFinalizeUpgradeAttach's dispatch. Fire for
     // the host's controller (matters for Sidon Ithano JTL_213 attaching onto an ENEMY host).
-    if ($isPilot) _SWUFireHostPilotAttachReactions($host, true, $cardID);
+    $hostCtl = intval($host->Controller ?? ($host->Owner ?? 0));
+    // The reactions are only BAGGED here; this path has no play ceremony to flush them, so flush explicitly.
+    if ($isPilot && _SWUFireHostPilotAttachReactions($host, true, $cardID) > 0 && $hostCtl > 0) {
+        FlushEntryTriggerBag($hostCtl);
+    }
+    // …and the newly-attached card's OWN "when this upgrade attaches" ability (JTL_036 Iden Versio),
+    // which likewise only ran on the normal play path.
+    if ($hostCtl > 0) CollectOnAttachedTriggers($hostCtl, $cardID, $hostMz);
 }
 
 // Move a Pilot UPGRADE (subcard at $subIdx on $hostMz) to become a UNIT in $targetArena (defaults to the
@@ -4416,6 +4423,28 @@ function SWUReturnUpgradeToHand(string $hostMz, string $cardID, int $actor = 0):
 // Relocate a Pilot subcard (index $subIdx) from one host to another, intact (UniqueID + carried captives
 // preserved). Used by Corvus (JTL_038) when it attaches a Pilot that is ALREADY an upgrade on another
 // friendly Vehicle (a pilot upgrade has no upgrades/damage of its own, so it simply moves).
+// An upgrade that MOVES to a new host has still "attached to" that host, so the same two trigger families
+// the normal play path fires (_SWUFinalizeUpgradeAttach) must fire here too:
+//   • the HOST's "when a Pilot attaches to this unit" reactions (JTL_101 Red Leader / JTL_223 Razor Crest);
+//   • the UPGRADE's OWN "when this upgrade attaches to a unit" ability (JTL_036 Iden Versio re-shielding
+//     its new host, SOR_122 Traitorous) — $onAttachedAbilities, whose collector documents itself as firing
+//     for "any source" but was wired ONLY into the normal play path, so every relocation silently skipped it.
+// Subcards decode as associative ARRAYS after a gamestate round-trip, so read defensively.
+function _SWUFireUpgradeAttachTriggersOnMove($sub, ?object $toHost, string $toHostMz): void {
+    if ($toHost === null || $sub === null) return;
+    $cardID  = is_array($sub) ? ($sub['CardID'] ?? '')  : ($sub->CardID ?? '');
+    if ($cardID === '') return;
+    $isPilot = is_array($sub) ? !empty($sub['IsPilot']) : !empty($sub->IsPilot);
+    $hostController = intval($toHost->Controller ?? ($toHost->Owner ?? 0));
+    // ⚠ _SWUFireHostPilotAttachReactions only ADDS to the pending-trigger bag; the normal play path flushes
+    // it as part of the play ceremony, but a relocation has no ceremony of its own — so flush explicitly or
+    // the reaction is queued and silently never surfaced (JTL_223 Razor Crest looked like it "didn't fire").
+    if (_SWUFireHostPilotAttachReactions($toHost, $isPilot, $cardID) > 0 && $hostController > 0) {
+        FlushEntryTriggerBag($hostController);
+    }
+    if ($hostController > 0) CollectOnAttachedTriggers($hostController, $cardID, $toHostMz);
+}
+
 function SWURelocatePilotSubcard(string $fromHostMz, int $subIdx, string $toHostMz): void {
     $from = GetZoneObject($fromHostMz);
     $to   = GetZoneObject($toHostMz);
@@ -4425,6 +4454,7 @@ function SWURelocatePilotSubcard(string $fromHostMz, int $subIdx, string $toHost
     array_splice($from->Subcards, $subIdx, 1);
     if (!is_array($to->Subcards)) $to->Subcards = [];
     $to->Subcards[] = $sub;
+    _SWUFireUpgradeAttachTriggersOnMove($sub, $to, $toHostMz);
 }
 
 // Move an existing (non-pilot) upgrade SUBCARD from one host to another. Splices it out of $fromHostMz's
@@ -4442,6 +4472,7 @@ function SWUMoveUpgradeCrossUnit(string $fromHostMz, int $subIdx, string $toHost
     }
     if (!is_array($to->Subcards)) $to->Subcards = [];
     $to->Subcards[] = $sub;
+    _SWUFireUpgradeAttachTriggersOnMove($sub, $to, $toHostMz);
 }
 
 // Predicate for "move an upgrade" target filtering. Pilots and captives are never movable here.
@@ -4535,8 +4566,28 @@ function _SWUDeferPilotDefeatReplacements($hostObj): void {
 // Drain the deferred defeat-replacement bag (CR replacement effects). Called at action end (and at
 // combat resolution). For each deferred would-be-defeated unit still in play, offer its controller the
 // optional replacement; if declined or no valid target remains, the defeat is carried out for real.
+// A deferred replacement queues an interactive YESNO and is resolved by the CUSTOM decision behind it —
+// but the player ANSWERS in a LATER request, in a fresh process. Any rebuild data parked in an in-memory
+// global is therefore gone by the time the handler runs (this used to be `$gReplaceSnapshots`, and the
+// handlers silently returned on the miss, so JTL_094 Luke was neither rebuilt nor discarded — he vanished).
+// The snapshot instead rides the CUSTOM decision's own Param, which IS serialized with the gamestate, and
+// is discarded automatically with the decision. Zone fields are space-delimited, so use base64url (no
+// spaces, no '+' or '/') and strip '=' padding.
+function _SWUEncodeReplacementSnapshot(array $e): string {
+    return rtrim(strtr(base64_encode(json_encode($e)), '+/', '-_'), '=');
+}
+function _SWUDecodeReplacementSnapshot(string $s): ?array {
+    if ($s === '') return null;
+    $pad = strlen($s) % 4;
+    if ($pad) $s .= str_repeat('=', 4 - $pad);
+    $json = base64_decode(strtr($s, '-_', '+/'), true);
+    if ($json === false) return null;
+    $a = json_decode($json, true);
+    return is_array($a) ? $a : null;
+}
+
 function SWUFlushDeferredReplacements(): void {
-    global $gDeferredReplacements, $gReplaceSnapshots, $playerID;
+    global $gDeferredReplacements, $playerID;
     if (empty($gDeferredReplacements)) return;
     $bag = $gDeferredReplacements;
     $gDeferredReplacements = [];
@@ -4544,11 +4595,12 @@ function SWUFlushDeferredReplacements(): void {
         $ctrl = intval($e['controller']);
         $uid  = intval($e['uid']);
         if (($e['kind'] ?? '') === 'upgrade_to_unit') {
-            // Pilot UPGRADE → ground unit (JTL_094). Host is already gone; rebuild from the snapshot.
-            $gReplaceSnapshots[$uid] = $e;
+            // Pilot UPGRADE → ground unit (JTL_094). Host is already gone; rebuild from the snapshot,
+            // which rides the CUSTOM param so it survives the request boundary before the answer.
+            $snap = _SWUEncodeReplacementSnapshot($e);
             DecisionQueueController::AddDecision($ctrl, "YESNO", "-", 1,
                 tooltip:"Move_this_Pilot_to_the_ground_arena_as_a_unit_instead_of_defeating_it?");
-            DecisionQueueController::AddDecision($ctrl, "CUSTOM", "DEFEAT_REPLACE_UPG|{$ctrl}|{$uid}", 1);
+            DecisionQueueController::AddDecision($ctrl, "CUSTOM", "DEFEAT_REPLACE_UPG|{$ctrl}|{$uid}|{$snap}", 1);
             continue;
         }
         if (($e['kind'] ?? '') === 'rampart_save') {
@@ -4562,10 +4614,10 @@ function SWUFlushDeferredReplacements(): void {
                 SWUDefeatUpgrade($ctrl, $hostMz, $idx, false, true);
                 continue;
             }
-            $gReplaceSnapshots[$uid] = $e;
+            $snap = _SWUEncodeReplacementSnapshot($e);
             DecisionQueueController::AddDecision($ctrl, "YESNO", "-", 1,
                 tooltip:"Defeat_Vice_Admiral_Rampart_instead_of_the_base_upgrade?");
-            DecisionQueueController::AddDecision($ctrl, "CUSTOM", "RAMPART_SAVE|{$ctrl}|{$uid}", 1);
+            DecisionQueueController::AddDecision($ctrl, "CUSTOM", "RAMPART_SAVE|{$ctrl}|{$uid}|{$snap}", 1);
             continue;
         }
         // Unit → pilot upgrade (JTL_049). The unit is still parked in play; re-find by UID.
@@ -5959,6 +6011,21 @@ function SWUUsableCreditTokenMzIDs(int $player): array {
     return $out;
 }
 
+// How much $player can actually pay right now: ready resources PLUS every alternate payment the real
+// payment chain (SWUOfferAltPayment → Credit tokens → SEC_122 Droids) would accept. Use this — never a
+// bare ready-resource count — to gate whether a "you may pay N" effect is OFFERED, or the offer is
+// hidden from a player who can in fact pay (e.g. 1 ready resource + 1 Credit token for a cost of 2).
+function SWUTotalPaymentCapacity(int $player): int {
+    $ready = 0;
+    foreach (GetResources($player) as $r) {
+        if (SWUIsCreditToken($r->CardID ?? '')) continue; // Credit tokens aren't resources (CR 3.13)
+        if (empty($r->removed) && intval($r->Status) === 1) $ready++;
+    }
+    $ready += count(SWUUsableCreditTokenMzIDs($player));
+    if (SWUPlayerControlsSEC122($player)) $ready += count(SWUReadyFriendlyDroids($player));
+    return $ready;
+}
+
 // mzIDs ("theirResources-N", from $player's frame) of the OPPONENT's Credit tokens — for LAW_106
 // "defeat an enemy Credit token". Raw zone indices, matching GetZoneObject resolution.
 function SWUEnemyCreditTokenMzIDs(int $player): array {
@@ -6828,9 +6895,12 @@ $gExploitDeferredBag   = $gExploitDeferredBag   ?? [];
 global $baseUpgradeAbilities;
 $baseUpgradeAbilities = $baseUpgradeAbilities ?? [];
 
-global $gDeferredReplacements, $gReplaceSnapshots, $gSec035DefeatSnapshot, $gAsh195DefeatSnapshot, $gCombatDefeatByMz;
+global $gDeferredReplacements, $gSec035DefeatSnapshot, $gAsh195DefeatSnapshot, $gCombatDefeatByMz;
+// ⚠ $gDeferredReplacements is filled and drained WITHIN one request (park at defeat → flush at the end of
+// the action / trigger drain). Nothing may read it after an interactive decision — the replacement's own
+// rebuild data rides the CUSTOM decision Param instead (see _SWUEncodeReplacementSnapshot). The former
+// `$gReplaceSnapshots` global was removed for exactly that reason.
 $gDeferredReplacements = $gDeferredReplacements ?? [];
-$gReplaceSnapshots     = $gReplaceSnapshots     ?? []; // uid → snapshot for pilot-upgrade→unit replacement
 // SEC_035 Darth Sion — power-at-defeat snapshot (mzID → ['power','owner']). Captured in
 // CollectWhenDefeatedTriggers while subcards (Experience) are still intact, read by the
 // When Defeated closure after they've been stripped.
@@ -9255,6 +9325,14 @@ function ProcessGoldfishAutomation(): bool {
         $before = [];
         foreach ($seats as $s) $before[$s] = count(GetDecisionQueue($s));
         foreach ($seats as $s) $dqController->ExecuteStaticMethods($s);
+        // A defeat resolved INSIDE this drain (e.g. a non-active player's When Defeated that defeats a
+        // unit) parks any "if this would be defeated, you may instead …" replacement. SWUAfterAction
+        // already flushed before this drain began, and it is the only other flush point — so without
+        // this the bag is never drained and the would-be-defeated unit is stranded in play forever,
+        // neither defeated nor replaced. Flushing here queues the offer, which changes the queue counts
+        // and therefore costs one more (terminating) cycle: the offer is interactive, so the following
+        // cycle drains nothing new and the loop goes stable.
+        SWUFlushDeferredReplacements();
         $stable = true;
         foreach ($seats as $s) { if (count(GetDecisionQueue($s)) !== $before[$s]) { $stable = false; break; } }
         if ($stable) break;
@@ -12357,6 +12435,18 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $falconMz = $args;
             $paidOk   = SWUPayCost($player, 1, $prepaid, false); // effect cost ("pay 1 to keep it ready"), not halved by JTL_105
             _SWUFalconKeepOrBounce($player, $falconMz, $paidOk);
+            break;
+        }
+        case 'JTL_096_MOVE_PAY': {
+            // Blue Leader "you may pay 2 resources → move to the ground arena + 2 Experience", after the
+            // Credit/Droid alt-pay offer. $args = the moving unit's UniqueID; $prepaid = alt-payments made.
+            $paidOk = SWUPayCost($player, 2, $prepaid, false); // effect cost, not halved by JTL_105
+            if (!$paidOk) break;
+            $mz = SWUFindMzByUID(intval($args));
+            if ($mz === null) break;
+            $newMz = SWUMoveUnitBetweenArenas($mz, 'GroundArena');
+            if ($newMz === '') break;
+            for ($i = 0; $i < 2; $i++) DoGiveExperienceToken($player, $newMz);
             break;
         }
         case 'LAW_015_FRONT_PAY': {

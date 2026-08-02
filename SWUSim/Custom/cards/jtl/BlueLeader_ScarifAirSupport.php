@@ -10,7 +10,10 @@ $whenPlayedAbilities["JTL_096:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $o = GetZoneObject($mzID);
     if (SWUObjGone($o)) return;
-    if (SWUResourceCount(intval($player), true) < 2) return; // can't pay → no offer
+    // Gate the OFFER on total payment capacity, not on ready resources alone: a Credit token may be
+    // defeated to pay 1 resource of any cost (CR 3.13) and a SEC_122 Droid may be exhausted, so a player
+    // holding 1 ready resource + 1 Credit CAN pay the 2 and must be offered the move.
+    if (SWUTotalPaymentCapacity(intval($player)) < 2) return; // can't pay → no offer
     $uid = intval($o->UniqueID ?? 0);
     DecisionQueueController::AddDecision($player, 'YESNO', '-', 1,
         tooltip: "Pay_2_to_move_Blue_Leader_to_the_ground_arena_with_2_Experience?");
@@ -21,12 +24,11 @@ $customDQHandlers["JTL_096#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID;
     $playerID = intval($player);
-    if (SWUResourceCount(intval($player), true) < 2) return;
+    if (SWUTotalPaymentCapacity(intval($player)) < 2) return;
     $uid = intval($parts[0] ?? 0);
-    $mz = SWUFindMzByUID($uid);
-    if ($mz === null) return;
-    SWUPayCost(intval($player), 2, 0, false);   // effect cost ("you may pay 2..."), not halved by JTL_105
-    $newMz = SWUMoveUnitBetweenArenas($mz, 'GroundArena');
-    if ($newMz === '') return;
-    for ($i = 0; $i < 2; $i++) DoGiveExperienceToken(intval($player), $newMz);
+    if (SWUFindMzByUID($uid) === null) return;
+    // Route the payment through the shared alt-payment funnel (Credit tokens, then SEC_122 Droids, then
+    // resources for the remainder). The JTL_096_MOVE_PAY continuation pays what's left and performs the
+    // move + 2 Experience, so the whole cost is honored no matter which mix the player uses.
+    SWUOfferAltPayment(intval($player), 2, 'JTL_096_MOVE_PAY', strval($uid), 1);
 };

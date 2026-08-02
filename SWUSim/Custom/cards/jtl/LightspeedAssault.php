@@ -14,7 +14,14 @@ $customDQHandlers["JTL_127#0"] = function($player, $parts, $lastDecision) {
     $fuid = intval($f->UniqueID ?? 0);
     $fpow = intval(ObjectCurrentPower($f));
     $enemy = ZoneSearch('theirSpaceArena', AnyUnitFilter);
-    if (empty($enemy)) return; // no enemy space unit → don't defeat the friendly (fizzle)
+    if (empty($enemy)) {
+        // "Defeat a friendly space unit AND deal damage … to an enemy space unit." The defeat is NOT
+        // conditional on an enemy existing — the ability resolves as much of itself as it can, so with
+        // no enemy space unit the chosen friendly still dies and simply nothing else happens (no damage,
+        // hence no "if you do" indirect either).
+        SWUDefeatUnit(intval($player), $lastDecision);
+        return;
+    }
     SWUQueueChooseTarget(intval($player), $enemy,
         "Deal_{$fpow}_damage_to_an_enemy_space_unit", "JTL_127#1|{$fuid}|{$fpow}");
 };
@@ -44,13 +51,15 @@ $customDQHandlers["JTL_127#1"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["JTL_127:0"] = function($player, $mzID = '') {
 // Lightspeed Assault — "Defeat a friendly space unit and deal damage equal to
                           // its power to an enemy space unit. If you do, deal indirect damage equal to the
-                          // enemy unit's power to its controller." Needs both a friendly and an enemy
-                          // space unit to do anything.
+                          // enemy unit's power to its controller."
+                          // Only a FRIENDLY space unit is required: the defeat is the first half of the
+                          // sentence and is not conditional on an enemy being available (JTL_127#0 defeats
+                          // it and stops when the enemy arena is empty). With no friendly space unit the
+                          // event is still playable but does nothing at all.
             global $playerID;
             $playerID = intval($player);
             $friendly = ZoneSearch('mySpaceArena', AnyUnitFilter);
-            $enemy    = ZoneSearch('theirSpaceArena', AnyUnitFilter);
-            if (empty($friendly) || empty($enemy)) return; // can't complete the combined effect → fizzle
+            if (empty($friendly)) return; // nothing to defeat → the whole ability does nothing
             SWUQueueChooseTarget(intval($player), $friendly, "Defeat_a_friendly_space_unit", "JTL_127#0");
             return;
 };

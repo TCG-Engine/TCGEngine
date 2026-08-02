@@ -555,12 +555,27 @@ class GameTestAdapter {
         $dq = new DecisionQueueController();
         $dq->PopDecision($player);
         $dq->ExecuteStaticMethods($player, $value);
+        $this->_mirrorProductionPostAction();
         ob_end_clean();
+    }
+
+    /**
+     * Production runs ProcessGoldfishAutomation() after EVERY successful gamestate-writing engine action
+     * — including answering a decision (Core/EngineActionRunner.php). Anything that function does after
+     * the static drain must therefore also happen here, or the harness observes a state production never
+     * reaches. Currently that is the deferred defeat-replacement flush: a "would be defeated → you may
+     * instead …" replacement parked by a defeat that resolved inside a trigger/answer (rather than inside
+     * the acting player's own SWUAfterAction) is only offered by this post-action flush. Without it the
+     * unit is stranded in play, and a test would report that stranded state as correct.
+     */
+    private function _mirrorProductionPostAction(): void {
+        SWUFlushDeferredReplacements();
     }
 
     private function _drainDQ(int $player): void {
         $dq = new DecisionQueueController();
         $dq->ExecuteStaticMethods($player, '-');
+        $this->_mirrorProductionPostAction();
     }
 
     /**
@@ -578,14 +593,25 @@ class GameTestAdapter {
      * answer to its interactive decision exercises the real fresh-process boundary.
      */
     public function simulateRequestBoundary(): void {
-        global $gameName, $gShootFirstPending;
+        global $gameName, $gShootFirstPending, $gDeferredReplacements,
+               $gSec035DefeatSnapshot, $gAsh195DefeatSnapshot, $gCombatDefeatByMz, $gPlayGrantedExploit;
         // Round-trip through a scratch dir under the system temp — never the repo working tree.
         $base = rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary/';
         $dir  = $base . "Games/{$gameName}";
         if (!is_dir($dir)) @mkdir($dir, 0777, true);
         ob_start();
         WriteGamestate($base);                // 1) serialize (production writes on every pending-decision response)
-        $gShootFirstPending = null;           // 2) fresh process: transient continuation globals start empty
+        // 2) fresh process: EVERY non-serialized in-memory continuation global starts empty. This list must
+        //    mirror the transient-global block in GameLogic.php (search `$gDeferredReplacements = $gDeferred`).
+        //    Anything omitted here silently survives the boundary and hides a whole bug class — that is
+        //    exactly how the JTL_094 pilot-replacement disappearance went unnoticed: only $gShootFirstPending
+        //    was reset, so the pilot-replacement snapshot leaked across the boundary and every guard passed.
+        $gShootFirstPending    = null;
+        $gDeferredReplacements = [];
+        $gSec035DefeatSnapshot = [];
+        $gAsh195DefeatSnapshot = [];
+        $gCombatDefeatByMz     = [];
+        $gPlayGrantedExploit   = 0;
         ParseGamestate($base);                // 3) re-parse — repopulates ONLY the serialized state
         ob_end_clean();
     }

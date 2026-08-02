@@ -207,10 +207,10 @@ class GameStateBuilder {
     // Twin Suns Phase 5: a ground unit placed in $seat's arena but OWNED by $owner (mind-controlled
     // onto $seat's board). Controller = $seat, Owner = $owner — the only builder path that sets Owner
     // ≠ arena seat, needed for elimination-cleanup tests.
-    public function WithControlledGroundUnitForPlayer(int $seat, string $cardID, int $owner): self {
+    public function WithControlledGroundUnitForPlayer(int $seat, string $cardID, int $owner, bool $ready = true): self {
         $this->_groundUnits[$seat][] = [
             'cardID'      => $cardID,
-            'ready'       => true,
+            'ready'       => $ready,
             'damage'      => 0,
             'controller'  => $seat,
             'owner'       => $owner,

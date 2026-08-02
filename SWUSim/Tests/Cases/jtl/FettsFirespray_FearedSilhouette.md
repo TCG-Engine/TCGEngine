@@ -151,3 +151,40 @@ WithP1SpaceArena: JTL_240:1:0
 ## EXPECT
 P1LEADER:DEPLOYED
 P2BASEDMG:6
+
+---
+
+# OnAttack_2Indirect_ControlBobaAsPilotUpgrade
+#// JTL_240 Fett's Firespray — the ON ATTACK half must read the "control Boba Fett" clause the same way the
+#// When Played half does, including Boba existing only as a pilot UPGRADE. P1's leader Boba (JTL_009) is
+#// deployed as a Pilot onto SOR_249 (Frontier AT-RT, 3/5, absorbing his deploy damage and surviving), and
+#// Firespray is already in the space arena. Firespray (power 4) attacks P2's unit-less base for 4 combat,
+#// then its On Attack finds Boba through the host unit's Subcards and deals 2 indirect instead of 1 →
+#// P2 base = 6. Completes the matrix against OnAttack_2Indirect_ControlBobaLeaderUnit (Boba as a leader
+#// UNIT) and WhenPlayed_2Indirect_ControlBobaAsPilotUpgrade (the same upgrade form, When Played).
+#// ⚠ Unlike the When Played variant, Firespray is ALREADY in play here, so P1 controls TWO pilot-less
+#// Vehicles and the deploy-as-Pilot raises an extra HOST choice before the deploy-damage split.
+
+## GIVEN
+CommonSetup: rrk/bbk/{
+  myLeader:JTL_009;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_249:1:0
+WithP1SpaceArena: JTL_240:1:0
+WithP1Resources: 12
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-0:4
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2BASEDMG:6

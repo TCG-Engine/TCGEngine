@@ -87,3 +87,37 @@ WithP2GroundArenaUpgrade: 0:SOR_069
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# AsUpgrade_DefeatZeroCostTokenUpgrade
+#// JTL_148 Frisk — "you may defeat an upgrade that costs 2 OR LESS" includes cost-0 upgrades, and TOKEN
+#// upgrades (Experience SOR_T01 / Shield SOR_T02) cost 0, so they are legal targets too. Frisk is played
+#// as a Pilot onto the friendly SOR_237 and defeats the Experience token sitting on the enemy SOR_046,
+#// leaving that unit with no upgrades and back at its printed 3/7 (the Experience had made it 4/8).
+#// Complements AsUpgrade_DefeatCheapUpgrade (a real cost-1 upgrade) and AsUpgrade_Decline.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: JTL_148
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:POWER:3
+P2GROUNDARENAUNIT:0:HP:7

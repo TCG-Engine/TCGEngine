@@ -731,6 +731,17 @@ for($i=0; $i<count($zones); ++$i) {
         } else {
           fwrite($handler, "(is_array(\$" . $property->Name . ") ? base64_encode(json_encode(\$" . $property->Name . ")) : \$" . $property->Name . ")");
         }
+      } else if($property->Type == "array") {
+        // Array fields (e.g. TurnEffects:array[string]) must be joined with the SAME "~" delimiter the
+        // zone class serializes/parses them with, or the constructor line receives PHP's "Array" string
+        // and every element is silently destroyed. A caller may pass either a real array (e.g.
+        // SWUMoveUnitBetweenArenas carrying a unit's TurnEffects to its new arena) or the already-
+        // serialized string default, so guard on is_array exactly like the json branch above.
+        if(IsUniqueIDManagedProperty($zoneName, $property->Name)) {
+          fwrite($handler, $propertyExpr);
+        } else {
+          fwrite($handler, "(is_array(\$" . $property->Name . ") ? (count(\$" . $property->Name . ") > 0 ? implode('~', \$" . $property->Name . ") : '-') : \$" . $property->Name . ")");
+        }
       } else {
         fwrite($handler, $propertyExpr);
       }

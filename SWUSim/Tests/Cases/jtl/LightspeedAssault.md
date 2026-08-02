@@ -24,9 +24,17 @@ P2BASEDMG:2
 
 ---
 
-# NoEnemySpace_Fizzle
-#// JTL_127 Lightspeed Assault — with no enemy SPACE unit to damage, the event fizzles cleanly: the
-#// friendly space unit is NOT defeated and no indirect is dealt. (P2 has only a ground unit.)
+# NoEnemySpace_FriendlyStillDefeated
+#// JTL_127 Lightspeed Assault — "Defeat a friendly space unit AND deal damage equal to its power to an
+#// enemy space unit." The defeat is the first half of the sentence and is NOT conditional on an enemy
+#// being available: an ability resolves as much of itself as it can. With P2 holding only a GROUND unit
+#// there is no enemy space unit, so the chosen friendly is still defeated and simply nothing else
+#// happens — no damage is dealt, and therefore the "if you do" indirect never triggers either.
+#// (A single friendly space unit auto-resolves the choose, so no target answer is needed.)
+#//
+#// ⚠ BEHAVIOR CHANGE (approved by the user, 2026-08-02): this section previously asserted the OPPOSITE
+#// — that the whole event fizzled and the friendly SURVIVED. The engine gated the friendly's defeat on
+#// an enemy space unit existing, in both the entry condition and JTL_127#0. Both gates were removed.
 
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:8;handCardIds:JTL_127}
@@ -38,8 +46,10 @@ WithP2GroundArena: SEC_080:1:0
 - P1>PlayHand:0
 
 ## EXPECT
-P1SPACEARENACOUNT:1
-P1SPACEARENAUNIT:0:CARDID:JTL_069
+P1SPACEARENACOUNT:0
+P1DISCARDCOUNT:2
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:0
 P2BASEDMG:0
 P1NODECISION
 
@@ -67,3 +77,57 @@ P2SPACEARENACOUNT:1
 P2SPACEARENAUNIT:0:CARDID:SOR_044
 P2SPACEARENAUNIT:0:DAMAGE:2
 P2BASEDMG:0
+
+---
+
+# ShieldedEnemyTarget_ShieldAbsorbs_IndirectStillDealt
+#// JTL_127 Lightspeed Assault — "…deal damage equal to its power to an enemy space unit. If you do,
+#// deal indirect damage equal to the enemy unit's power to its controller." The "if you do" is keyed on
+#// the damage EVENT happening, not on damage sticking, so a Shield on the target changes only the first
+#// half: the Shield absorbs the hit (target ends at 0 damage, Shield consumed) and the indirect is STILL
+#// dealt for the enemy unit's power. P1 defeats JTL_069 (power 4) → 4 at the shielded SOR_044 → the
+#// Shield eats it (0 damage, upgrade gone) → 2 indirect (SOR_044's power) which P2 assigns to its base.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:JTL_127}
+WithActivePlayer: 1
+WithP1SpaceArena: JTL_069:1:0
+WithP2SpaceArena: SOR_044:1:0
+WithP2SpaceArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:myBase-0:2
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_044
+P2SPACEARENAUNIT:0:DAMAGE:0
+P2SPACEARENAUNIT:0:UPGRADECOUNT:0
+P2BASEDMG:2
+
+---
+
+# NoFriendlySpaceUnit_PlayedWithNoEffect
+#// JTL_127 Lightspeed Assault — with NO friendly space unit there is nothing to defeat, so the event is
+#// still playable but does nothing at all: it goes to the discard, the enemy space unit is untouched and
+#// no indirect is dealt. Proves the event is not blocked from being played (a player may cycle it) and
+#// that the enemy half never runs without the friendly half.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:JTL_127}
+P1OnlyActions: true
+WithP2SpaceArena: SOR_044:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_044
+P2SPACEARENAUNIT:0:DAMAGE:0
+P2BASEDMG:0
+P1DISCARDCOUNT:1
+P1NODECISION

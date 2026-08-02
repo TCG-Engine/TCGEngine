@@ -316,3 +316,106 @@ P1GROUNDARENAUNIT:0:HP:5
 P1SPACEARENAUNIT:1:CARDID:SOR_209
 P1SPACEARENAUNIT:1:POWER:3
 P1SPACEARENAUNIT:1:HP:5
+
+---
+
+# MoveToGround_PreservesReadyState
+#// JTL_096 Blue Leader — moving arenas is a MOVE, not a re-entry, so the unit keeps what was already
+#// true of it. Sneak Attack (SOR_219) plays Blue Leader for 3 less and makes it enter play READY; Blue
+#// Leader then pays 2 to move to the ground arena. It must still be READY afterwards (an arena move
+#// must not re-exhaust it) and carry its 2 Experience tokens.
+#// ⚠ Blue Leader is the ONLY unit left in hand after Sneak Attack is played, so its "play a unit"
+#// choice AUTO-RESOLVES — do not feed it a target answer or that answer lands on the pay-2 YESNO.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [SOR_219 JTL_096]
+WithP1Deck: [SOR_046 SOR_046 SOR_046]
+WithP2Deck: [SOR_046 SOR_046 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_096
+P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+
+---
+
+# MoveToGround_PreservesDelayedDefeat
+#// JTL_096 Blue Leader — an arena move must carry the unit's TurnEffects, including DELAYED effects
+#// attached by whatever played it. Sneak Attack (SOR_219) marks the unit "at the start of the regroup
+#// phase, defeat it"; Blue Leader then pays 2 to move to the ground arena. When the round ends the
+#// delayed defeat must still find it, so the arena is empty and Blue Leader is in the discard.
+#//
+#// REGRESSION GUARD (engine + GENERATOR): the generated Add<Zone> accessors joined every field into one
+#// space-delimited constructor line, but only `json` fields were guarded against being passed an array.
+#// `TurnEffects` is `array[string]`, so handing SWUMoveUnitBetweenArenas' carried array to
+#// AddGroundArena stringified it to the literal "Array" (with an `Array to string conversion` warning)
+#// and DESTROYED every TurnEffect on the moved unit — phase buffs/debuffs, granted phase keywords and
+#// markers like the Sneak Attack defeat flag alike. Blue Leader simply survived the regroup.
+#// Fixed in zzGameCodeGenerator.php (an `array` branch emitting the same "~" join the zone class
+#// parses with) + regenerated; do not hand-edit ZoneAccessors.php.
+#// Pair with MoveToGround_PreservesReadyState above: together they cover "the move preserves state".
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [SOR_219 JTL_096]
+WithP1Deck: [SOR_046 SOR_046 SOR_046]
+WithP2Deck: [SOR_046 SOR_046 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>Pass
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:0
+P1DISCARDUNIT:1:CARDID:JTL_096
+
+---
+
+# MoveCost_PayableWithCreditToken
+#// JTL_096 Blue Leader — "You may pay 2 resources" is a cost, and a Credit token may be defeated to pay
+#// 1 resource of any cost (CR 3.13), so 1 ready resource + 1 Credit token is enough to move. P1 has 4
+#// resources and 1 Credit; playing Blue Leader for 3 leaves exactly 1 ready resource, so the move must
+#// still be OFFERED and must be payable by spending that resource plus the Credit.
+#//
+#// REGRESSION GUARD: the offer AND the payment were both gated on ready resources alone
+#// (SWUResourceCount(..., true) < 2), so at 1 resource + 1 Credit the move was never offered at all —
+#// the ability silently did nothing. Both gates now use SWUTotalPaymentCapacity (ready resources +
+#// defeatable Credits + exhaustible SEC_122 Droids) and the payment routes through SWUOfferAltPayment,
+#// which asks which Credits to spend and pays the remainder from resources.
+#// The Credit choice is an MZMULTICHOOSE: answer it with the Credit's resource mzID.
+#// ⚠ Holding a Credit means PLAYING Blue Leader raises its OWN Credit offer first — decline that with
+#// `-` (pay the 3 from resources) before the pay-2 YESNO, or the answers shift by one.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:4}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_096
+WithP1Credits: 1
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:myResources-4
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_096
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1CREDITCOUNT:0
+P1RESAVAILABLE:0

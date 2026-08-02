@@ -369,9 +369,12 @@ class SchemaTestRunner {
         // "WithP{n}{Ground|Space}ArenaControlled: CARD:ownerSeat" — CARD sits in P{n}'s arena, CONTROLLED
         // by P{n} but OWNED by ownerSeat, so a return-to-hand sends it to the owner's hand.
         foreach ([1, 2] as $seat) {
+            // Optional 3rd field = status (1 ready / 0 exhausted), defaulting to ready — needed for any
+            // "when this unit readies" effect on a unit whose control has changed (JTL_192 In Debt).
             foreach ($given["WithP{$seat}GroundArenaControlled"] ?? [] as $spec) {
-                [$cid, $owner] = array_pad(explode(':', $spec), 2, '');
-                $b->WithControlledGroundUnitForPlayer($seat, $cid, intval($owner) ?: (3 - $seat));
+                [$cid, $owner, $st] = array_pad(explode(':', $spec), 3, '');
+                $b->WithControlledGroundUnitForPlayer($seat, $cid, intval($owner) ?: (3 - $seat),
+                    $st === '' ? true : (intval($st) === 1));
             }
             foreach ($given["WithP{$seat}SpaceArenaControlled"] ?? [] as $spec) {
                 [$cid, $owner] = array_pad(explode(':', $spec), 2, '');

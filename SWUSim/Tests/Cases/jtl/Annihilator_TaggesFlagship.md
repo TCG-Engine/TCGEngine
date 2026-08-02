@@ -265,3 +265,169 @@ P2HANDCOUNT:1
 P2DECKCOUNT:2
 P2DISCARDCOUNT:4
 P1NODECISION
+
+---
+
+# WhenPlayed_HandMatchesOnly_NoDeckPrompt
+#// JTL_041 Annihilator — the two searched zones are independent. Here the controller's DECK holds NO
+#// name-match, so after the (unconditional) hand discard the deck branch must short-circuit: no deck
+#// selection prompt is raised at all and the flow ends. P1 defeats the enemy SOR_179 Boba Fett; P2's
+#// hand holds both "Boba Fett" cards (SOR_179 + the pilot JTL_189, matched by TITLE with the subtitle
+#// excluded) plus a non-matching Cartel Spacer — the two Bobas are discarded, the Spacer stays. P2's
+#// deck is a single Cartel Spacer, so the deck is left untouched and P1 has NO decision pending after
+#// answering only the hand-reveal OK. P2 discard = 3 (defeated Boba + 2 hand).
+#// ⚠ Flow note: the hand-reveal OK popup is only raised when the opponent's hand is NON-empty — see
+#// WhenPlayed_DeckMatchesOnly_EmptyHand below, which must NOT answer an OK.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_041
+WithP1Resources: 11
+WithP2SpaceArena: SOR_179:1:0
+WithP2Hand: [SOR_179 JTL_189 SOR_178]
+WithP2Deck: SOR_178
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:OK
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P2HANDCOUNT:1
+P2DECKCOUNT:1
+P2DISCARDCOUNT:3
+P1NODECISION
+
+---
+
+# WhenPlayed_DeckMatchesOnly_EmptyHand
+#// JTL_041 Annihilator — the mirror of the hand-only case: the controller's HAND holds no name-match
+#// (it is empty), so the unconditional hand sweep discards nothing, but the DECK search still runs and
+#// still offers its per-card pick. P1 defeats the enemy SOR_179 Boba Fett; P2's deck holds both
+#// "Boba Fett" cards (SOR_179 + the pilot JTL_189) plus a non-matching Cartel Spacer. P1 selects both
+#// matches, leaving a 1-card deck. P2 discard = 3 (defeated Boba + 2 deck) and the hand stays empty —
+#// proving neither zone's result is a precondition for the other.
+#// ⚠ With an EMPTY opponent hand the hand-reveal OK popup is skipped entirely, so the deck selection is
+#// the very next decision — answering a stray OK here would be consumed by the deck search (selecting
+#// nothing) and silently no-op the whole deck discard.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_041
+WithP1Resources: 11
+WithP2SpaceArena: SOR_179:1:0
+WithP2Deck: [SOR_179 JTL_189 SOR_178]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:SOR_179,JTL_189
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P2HANDCOUNT:0
+P2DECKCOUNT:1
+P2DISCARDCOUNT:3
+P1NODECISION
+
+---
+
+# WhenPlayed_NameHuntSkipsUnitsInPlayAndDeployedLeader
+#// JTL_041 Annihilator — "search its controller's deck and hand" names exactly two zones. Cards with the
+#// matching name that are anywhere ELSE are untouched: other units already in PLAY and a DEPLOYED LEADER
+#// of the same name both survive. P2 has the leader JTL_009 Boba Fett (Any Methods Necessary) deployed as
+#// a leader unit, plus JTL_189 Boba Fett (Feared Bounty Hunter) as a normal unit, alongside the SOR_179
+#// Boba Fett that P1 defeats. The name-hunt discards the SOR_179 copy from hand and the JTL_189 copy from
+#// deck, but P2's ground arena still holds BOTH the deployed leader and the in-play JTL_189 unit.
+#// P2 discard = 3 (the defeated SOR_179 + 1 hand + 1 deck).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirLeader:JTL_009:1:1:1;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_041
+WithP1Resources: 11
+WithP2GroundArena: SOR_179:1:0
+WithP2GroundArena: JTL_189:1:0
+WithP2Hand: [SOR_179 SOR_178]
+WithP2Deck: [JTL_189 SOR_178]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:OK
+- P1>AnswerDecision:JTL_189
+
+## EXPECT
+P2HANDCOUNT:1
+P2DECKCOUNT:1
+P2DISCARDCOUNT:3
+P2LEADER:DEPLOYED
+P1NODECISION
+
+---
+
+# WhenDefeated_NameHuntFiresEvenIfDefeatReplaced
+#// JTL_041 Annihilator — the WHEN DEFEATED half must behave exactly like the When Played half when the
+#// chosen target's defeat is REPLACED rather than prevented (the When Played case is covered by
+#// WhenPlayed_NameHuntFiresEvenIfDefeatReplaced above). P2 (active) plays Rival's Fall (SHD_079) to defeat
+#// P1's Annihilator → its When Defeated triggers for the non-active controller P1, so it must be drained.
+#// P1 targets P2's JTL_049 L3-37, whose own replacement attaches her as a Pilot upgrade to P2's AT-ST
+#// (SOR_232) instead of defeating her. A defeat EVENT still fired, so the name-hunt runs: every "L3-37"
+#// card (SHD_197 Droid Revolutionary + the JTL_049 copy, matched by TITLE) leaves P2's hand and deck.
+#// L3-37 herself is NOT in the discard — she is an upgrade on the AT-ST.
+#// P2 discard = 5 (P2's spent Rival's Fall + 2 hand + 2 deck).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1SpaceArena: JTL_041:1:0
+WithP2GroundArena: JTL_049:1:0
+WithP2GroundArena: SOR_232:1:0
+WithP2Hand: [SHD_079 SHD_197 JTL_049 SOR_178]
+WithP2Deck: [SHD_197 JTL_049 SOR_178]
+WithP2Resources: 6
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirSpaceArena-0
+- P1>Drain
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:OK
+- P1>AnswerDecision:SHD_197,JTL_049
+- P2>AnswerDecision:YES
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_232
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:JTL_049
+P2HANDCOUNT:1
+P2DECKCOUNT:1
+P2DISCARDCOUNT:5
+P1NODECISION
