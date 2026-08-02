@@ -164,7 +164,13 @@ Operate on the NEEDS-WORK cards.
   before the first human checkpoint).
 - Each phase is a **shared-mechanic group**; order phases so a foundational mechanic precedes
   the cards that depend on it.
-- Batches ~2–5 cards.
+- Batches ~2–5 cards. ⚠ Size for the **98% coverage matrix**, not a happy-path test: a single
+  non-trivial card routinely needs 6–12 sections once its per-clause negatives, take/decline,
+  no-target, boundary, dispatch-path and persistence cells are written (see the coverage matrix in
+  `swusim-implement-card`). Prefer 2–3 cards per batch for anything with multiple clauses, a
+  leader (two independent sides), or a trigger reachable by more than one dispatch path — a batch
+  that looks small is correct here; under-sizing coverage to fit more cards per batch is the
+  failure mode this bar exists to prevent.
 
 ## Output Doc Format — `SWUSim/docs/<set>-implement.md` (the only persistent artifact)
 

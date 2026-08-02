@@ -66,11 +66,11 @@ Map their plain-language action to the board you just snapshotted (which player 
 
 ---
 
-## Step 4 — Investigate to root cause (94% confidence gate)
+## Step 4 — Investigate to root cause (98% confidence gate)
 
 Follow systematic-debugging Phase 1–2: read the card text from the generated dictionaries, find the handler, trace the data flow to the origin. **Do not propose a fix until you understand WHY.**
 
-**Confidence gate:** if your confidence in *both understanding and fixing* the bug is **below 94%** — the repro is ambiguous, expected behavior is unclear, or multiple root causes are plausible — **ASK a clarifying question** before continuing. Cheap places this bites: which unit/player the action targets, whether a "may" was expected to auto-pass, what the correct game-rules outcome is.
+**Confidence gate:** if your confidence in *both understanding and fixing* the bug is **below 98%** — the repro is ambiguous, expected behavior is unclear, or multiple root causes are plausible — **ASK a clarifying question** before continuing. Cheap places this bites: which unit/player the action targets, whether a "may" was expected to auto-pass, what the correct game-rules outcome is.
 
 Useful lookups:
 ```bash
@@ -149,4 +149,4 @@ Handy assertions seen in cases: `P1NODECISION` (no pending decision — proves a
 - **Trusting a `curl` full-suite 500 as "the suite is broken."** It's the gateway timeout. Use the helper.
 - **Trusting `zzRunSWUSimTests.php`'s failure count.** Missing stubs → phantom fails. Use the helper.
 - **Editing a generated file.** The next regen wipes it. Fix the `Custom/` handler (or the generator, gated by `$rootName`).
-- **Skipping the 94% gate** and burning a fix on a misread repro. Ask the cheap clarifying question first.
+- **Skipping the 98% gate** and burning a fix on a misread repro. Ask the cheap clarifying question first.

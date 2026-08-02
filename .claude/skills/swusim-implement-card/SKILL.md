@@ -1,6 +1,6 @@
 ---
 name: swusim-implement-card
-description: Use when implementing SWU card abilities — looks up card text, writes all DSL tests first, then self peer-reviews against the CR + game logic + card data and implements; only stops for the user on a card it can't verify to 94% alone. Supports single cards and batches.
+description: Use when implementing SWU card abilities — looks up card text, writes all DSL tests first, then self peer-reviews against the CR + game logic + card data and implements; only stops for the user on a card it can't verify to 98% alone. Supports single cards and batches.
 ---
 
 # SWUSim Implement Card
@@ -17,9 +17,9 @@ There is **no tier-based hard stop**. After writing tests and RED-checking, revi
 - **Game logic** — trace the actual code path the card will take (the combat-pause, the disclose flow, the trigger collection point) and confirm the tests drive the real execution path, not just a fixture stand-in.
 - **Card data** — every stat/cost/aspect/trait in the tests derived from the dictionary arrays (not memory or a prose doc), for *every* fixture including the incidental ones.
 
-If that self-review leaves you at **≥94% confidence** the tests are correct and the implementation is clear, just implement it (show the tests + design in the eventual batch summary so the user can course-correct *after*).
+If that self-review leaves you at **≥98% confidence** the tests are correct and the implementation is clear, just implement it (show the tests + design in the eventual batch summary so the user can course-correct *after*).
 
-**Only STOP and ask** when a card is **too complex to verify confidently on your own** — i.e. the self-review can't get you to 94%:
+**Only STOP and ask** when a card is **too complex to verify confidently on your own** — i.e. the self-review can't get you to 98%:
 - an ambiguous ruling / interaction the dictionary + CR don't settle;
 - new shared infrastructure with a **real design choice** the user alone should make (a *mechanical mirror* of an existing seam is NOT a real choice — verify and proceed);
 - a scope/realism decision (which scenarios matter); or you simply can't reach confident correctness.
@@ -28,21 +28,40 @@ Flag that *specific* card/fork — don't gate the whole batch. Rationale: the me
 
 ---
 
-## Confidence bar — 94% minimum on every new card (policy set 2026-06-15, raised to 94% 2026-06-22)
+## Confidence bar — 98% minimum on every new card (policy set 2026-06-15; 94% 2026-06-22; **raised to 98% 2026-08-02**)
 
-**No card is "Done" until you'd honestly rate correctness ≥ 94%.** This is a per-card bar, not a batch average — one shaky card at 80% is not offset by four solid ones. Before marking a card Done, ask yourself: *"If the user manually playtested this right now, what's the chance they find a wrong number or a broken interaction?"* If that chance is over ~6%, the card is not done.
+**No card is "Done" until you'd honestly rate correctness ≥ 98%.** This is a per-card bar, not a batch average — one shaky card at 80% is not offset by four solid ones. Before marking a card Done, ask yourself: *"If the user manually playtested this right now, what's the chance they find a wrong number or a broken interaction?"* If that chance is over ~2%, the card is not done.
 
-**What 94% requires — coverage, not just a green happy-path test.** A single passing test proves the *one* path it drives; it says nothing about the edges where bugs actually hide. For each card, confirm you have a test (or a deliberate, stated reason one isn't needed) for every applicable axis:
-- **The distinctive behavior** (the positive case).
-- **Every "may" / optional branch** — both take AND decline (`AnswerDecision:-`). A decline that silently does the wrong thing is the most common latent bug.
-- **No-valid-target / empty-input fizzle** — the effect must no-op cleanly (no crash, no dangling decision). E.g. a "deal N to a ground unit" rider with no enemy units.
-- **Counting/quantity logic, exercised at a value that distinguishes the *intended* rule from a plausible wrong one** — "distinct aspects" vs "card count" needs a same-aspect case that heals 1, not just a 2-distinct case that heals 2. A single data point can't tell the two formulas apart.
-- **Boundary/resource conditions** — deck runs empty mid-mill, unaffordable cost (full no-op), full-resources skip, etc.
+**Why the bar is this high.** A later independent validation pass over an already-"finished" set routinely finds a dozen behaviors nobody tested — and every one of those is a bug that shipped, or a bug that *could* ship on the next refactor with nothing to catch it. **The target is that such a pass finds ZERO new behaviors.** So the standard is not "my tests pass"; it is *"an independent test-writer, working only from the printed card text, could not think of a scenario I haven't written."* Write the tests you would want to find if you were auditing someone else's work.
+
+### The coverage matrix — derive it from the CARD TEXT, mechanically
+Decompose the printed text into **clauses** first (see the clause-decomposition gate below), then walk both lists. Every cell is either a section or a **written, specific reason it is N/A** ("no cost, so no payment axis") — never a silent omission.
+
+**Per CLAUSE (do this for each clause independently, then once for all clauses firing together):**
+1. **Positive** — the clause does its thing.
+2. **Negative — prove the gate is load-bearing.** Every `if` / `while` / "you control a X" / "that costs N or less" / "while defending" needs its FALSE case asserting the clause does NOT fire. This is the single most commonly missing test, and it is missing even when the code is right (Gold Leader JTL_054's aura was correct but neither "when IT attacks" nor "when another friendly unit defends" was tested).
+3. **Optional branch** — take AND decline (`AnswerDecision:-` / `PASS`). A decline that silently does the wrong thing is a classic latent bug.
+4. **No valid target** — must no-op cleanly (no crash, no dangling decision) — and decide explicitly whether the *sibling* clauses still resolve. "Defeat X **and** do Y" is NOT gated by Y being possible; only an explicit "**If you do,**" gates. Getting this backwards fizzles the whole card (Lightspeed Assault).
+5. **Quantity discrimination** — pick a value that separates the intended formula from a plausible wrong one ("distinct aspects" vs "card count" needs a same-aspect case that heals 1, not a 2-distinct case that heals 2), and include the **zero** case.
+6. **Boundary** — exactly-N vs N±1 for any threshold ("2 or less", "prevent all but 4", "6 or more power").
+
+**Per CARD (cross-cutting — these are where the deep bugs live):**
+7. **Dispatch-path matrix — every way the ability can be REACHED is a different code path.** Played from hand · played as an upgrade via Piloting · created as a token · put into play / played for free by another card · **relocated or moved** · leader FRONT side vs DEPLOYED side. Cross this with the trigger halves: a card with When Played *and* On Attack needs the condition tested on **both** halves (Fett's Firespray read "control Boba" correctly on When Played but On Attack was untested; Iden Versio's attach trigger fired on play but not on relocation).
+8. **Value-CLASS variants, not just different numbers.** A cost-0 **token** upgrade is a different case from a cheap real upgrade; a token unit from a real unit; a leader unit from a normal unit; a deployed leader from an undeployed one. If the text says "an upgrade that costs 2 or less", a Shield/Experience token IS a legal target — test it.
+9. **Persistence across state transitions.** Whatever the card writes must survive every transition it can experience: an **arena move**, a **control change** (owner ≠ controller), a host change, leaving and re-entering play, and the **request boundary** (see the transient-globals shape below). Assert the effect still applies *after* the transition, not just before.
+10. **Duration edges.** A "for this phase" restriction must **expire** — test the next phase, where the restricted thing now works. A "once per round/game" must **not re-fire** on the second attempt. A delayed "at the start of the regroup phase" must still find its target after the unit has moved arenas.
+11. **Interaction with the standard modifiers.** Shields absorbing damage (does the rider still fire?), "can't be defeated/damaged/captured by enemy card abilities", indirect/unpreventable damage, prevention caps — and for ANY cost, that **Credit tokens / SEC_122 Droids can pay it** (gate offers on `SWUTotalPaymentCapacity`, never a bare ready-resource count).
+12. **Scope exclusions — what the effect must NOT touch.** An effect naming zones or sets must leave the adjacent ones alone: "search their deck and hand" must not hit units in play or a same-named **deployed leader**; "another" excludes self; "friendly" excludes enemy (and an unqualified "a unit" includes enemies); "a base" with no qualifier means EITHER base.
+
+### Before marking Done — the adversarial audit (mandatory)
+Re-read the printed text **as if you had never seen the implementation**, list every scenario an independent auditor would write from that text alone, and diff that list against your sections. Anything unmatched becomes a section or a stated N/A. Two failure modes this catches, both seen repeatedly:
+- **A test NAME that doesn't match what it asserts** — audit by reading assertions, never titles.
+- **"The code obviously does this"** — that reasoning is exactly what leaves a correct behavior untested until a refactor breaks it silently.
 - **The REAL execution path, not just a fixture stand-in.** A deployed-leader ability dropped into the arena via `WithP*GroundArena` tests the handler but NOT the deploy→attack dispatch; add one test that actually `DeployLeader`s and acts. (And note `CommonSetup`'s leader codes map to a *fixed* leader per aspect-combo — `bw` is Luke SOR_005, not every Vigilance+Heroism leader; either override it with the `myLeader:CARDID` opt or use explicit `P1LeaderBase: <CARDID>/<BASE>:<dmg>` when you need a specific leader. For a *pre-deployed* leader, `myLeaderDeployed:true` (as a unit) / `myLeaderDeployedPilot:true` (as a Pilot on the first friendly unit) set it up without a DeployLeader step. `_parseBaseSpec` accepts `BASEID:damage` to pre-damage a base for heal assertions.)
 
-**When in doubt, ASK — don't guess and don't silently ship at 70%.** If a card's ruling is ambiguous, an interaction is unclear, or you can't get a scenario to a confident green, **stop and ask the user** a specific question (ruling? intended scenario? acceptable to defer this edge?), OR propose the extra tests you'd write to close the gap and let them confirm. Surfacing "I'm at ~80% on card X because edge Y is untested — want me to add tests A/B or is that out of scope?" is always correct; quietly marking it Done is not. A confidence self-review at the end of a batch (per-card %, with anything <94% flagged for the user) is a good habit — the user may opt to manually playtest the flagged ones.
+**When in doubt, ASK — don't guess and don't silently ship at 70%.** If a card's ruling is ambiguous, an interaction is unclear, or you can't get a scenario to a confident green, **stop and ask the user** a specific question (ruling? intended scenario? acceptable to defer this edge?), OR propose the extra tests you'd write to close the gap and let them confirm. Surfacing "I'm at ~80% on card X because edge Y is untested — want me to add tests A/B or is that out of scope?" is always correct; quietly marking it Done is not. A confidence self-review at the end of a batch (per-card %, with anything <98% flagged for the user) is a good habit — the user may opt to manually playtest the flagged ones.
 
-**Leaders are two-sided — the 94% bar applies to EACH side independently, never averaged.** A leader card has a *leader (front) side* (its Epic deploy + any "Action:" / "When you take the initiative:" ability it has **while undeployed**) AND a *leader unit (deployed) side* (`deployTextData[CID]` — On Attack, When Deployed, attack-end / "completes an attack", passives, a deployed `Action [...]:`, and granted keywords). These are **separate ability sets dispatched by different code**, so a rock-solid front side tells you *nothing* about the deployed side. Treat them as two cards: a leader is not Done until you'd honestly rate **both** sides ≥94% on their own — a 99% front side does not offset an unimplemented deployed side (that's two verdicts, and the deployed one fails). Before marking any leader Done:
+**Leaders are two-sided — the 98% bar applies to EACH side independently, never averaged.** A leader card has a *leader (front) side* (its Epic deploy + any "Action:" / "When you take the initiative:" ability it has **while undeployed**) AND a *leader unit (deployed) side* (`deployTextData[CID]` — On Attack, When Deployed, attack-end / "completes an attack", passives, a deployed `Action [...]:`, and granted keywords). These are **separate ability sets dispatched by different code**, so a rock-solid front side tells you *nothing* about the deployed side. Treat them as two cards: a leader is not Done until you'd honestly rate **both** sides ≥98% on their own — a 99% front side does not offset an unimplemented deployed side (that's two verdicts, and the deployed one fails). Before marking any leader Done:
 - **Read `deployTextData[CID]` separately from the front text** and enumerate every deployed-side ability.
 - **Confirm a real handler is registered for each.** A generated `Has<Trigger>Ability(CID)` detector returning true with **no** matching `$*Abilities["CID:0"]` handler is a **silent in-game no-op**, not a false positive — this is the ASH_011 / `SWUSim/docs/leader-gaps.md` class. Mapping: On Attack → `$onAttackAbilities["CID:0"]`; When Deployed → `$whenPlayedAbilities["CID:0"]` (**NOT** `leaderAbilities[CID]` — that's the *front* Action); attack-end/completes → `$onAttackEndAbilities["CID:0"]`; deployed `Action [...]:` → `$unitAbilities[CID]` + `$unitActionCostKind`/`$unitActionResourceCosts` (`SWUUnitAction` does **not** fall back to `leaderAbilities`); passive → `ObjectCurrentPower`/`ObjectCurrentHP` field-presence or keyword-grant code.
 - **Add at least one test that actually `DeployLeader`s and exercises the deployed ability** (cf. `Tests/Cases/ash/CadBane_PingLeaders.md`). `WithP*GroundArena` placement tests the handler closure but NOT the deploy→dispatch wiring — see the REAL-execution-path axis above.
@@ -463,9 +482,9 @@ Do NOT blanket-stop here. Run the **self peer-review** against the CR + game log
 - Each test drives the **real execution path** (trace it in the engine code), with stats/costs/aspects derived from the dictionary.
 - The implementation plan is clear (shared infra first, then which card depends on which), and any "new" seam is a verified mechanical mirror of an existing one — not a real design choice.
 
-If that gets you to **≥94% confidence**, proceed straight into Step 3 and surface the tests + design in the eventual batch summary so the user can course-correct after.
+If that gets you to **≥98% confidence**, proceed straight into Step 3 and surface the tests + design in the eventual batch summary so the user can course-correct after.
 
-**STOP and present only the specific card** you can't verify to 94% on your own (ambiguous ruling, a real design choice on new shared infra, or you can't reach confident correctness) — show its tests, the new DSL, and the open question; keep going on the rest of the batch.
+**STOP and present only the specific card** you can't verify to 98% on your own (ambiguous ruling, a real design choice on new shared infra, or you can't reach confident correctness) — show its tests, the new DSL, and the open question; keep going on the rest of the batch.
 
 ---
 
