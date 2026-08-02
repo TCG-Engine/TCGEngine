@@ -196,6 +196,19 @@
 
       var clone = source.cloneNode(true);
       stripCloneIdentity(clone);
+      // Quantity badges describe the stack/zone, not the individual card being moved.
+      // Leaving one on the detached clone makes it carry the source stack's old count.
+      var stackMetadata = clone.querySelectorAll('.counter-bubble');
+      for (var metadataIndex = 0; metadataIndex < stackMetadata.length; ++metadataIndex) {
+        if (stackMetadata[metadataIndex].parentNode) {
+          stackMetadata[metadataIndex].parentNode.removeChild(stackMetadata[metadataIndex]);
+        }
+      }
+      var existingDestination = resolveElement(
+        event.destination,
+        event.destinationUniqueID,
+        perspectivePlayerID
+      );
       clone.classList.add('tcg-zone-move-clone');
       clone.style.cssText += ';position:fixed!important;left:' + rect.left + 'px!important;top:' + rect.top
         + 'px!important;width:' + rect.width + 'px!important;height:' + rect.height
@@ -203,7 +216,14 @@
         + 'visibility:visible!important;transform-origin:top left!important;will-change:transform,opacity!important;';
       document.body.appendChild(clone);
       source.style.visibility = 'hidden';
-      prepared.push({ event: event, clone: clone, source: source, sourceRect: rect, order: prepared.length });
+      prepared.push({
+        event: event,
+        clone: clone,
+        source: source,
+        sourceRect: rect,
+        destinationExisted: !!existingDestination,
+        order: prepared.length
+      });
     }
     return prepared;
   }
@@ -252,7 +272,10 @@
       var scaleY = item.sourceRect.height > 0 ? destinationRect.height / item.sourceRect.height : 1;
       var durationMs = Math.max(120, parseInt(event.durationMs || 420, 10));
       var delayMs = Math.max(0, parseInt(event.delayMs || 0, 10)) + item.order * 60;
-      destination.style.visibility = 'hidden';
+      // A destination that already existed is a collapsed stack. Keep its newly rendered
+      // quantity visible while the single-card clone flies in. New destinations stay hidden
+      // until landing so the arriving card is not shown twice.
+      if (!item.destinationExisted) destination.style.visibility = 'hidden';
 
       var motion = item.clone.animate([
         { transform: 'translate(0px, 0px) scale(1, 1)', opacity: 1 },

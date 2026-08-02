@@ -1,0 +1,189 @@
+@import url("azuki-gallery.tokens.css");
+
+/* Azuki Gallery Neon — gallery geometry under magenta signage and cyan edge light. */
+:root {
+  --surface: #09070e;
+  --surface-raised: #18101f;
+  --surface-sunken: #060409;
+  --border: #4b2757;
+  --text: #fff2f8;
+  --text-muted: #b197ba;
+  --input-text: #fff2f8;
+  --input-placeholder: #907696;
+  --accent: #ff3b7a;
+  --accent-strong: #ff77a3;
+  --accent-surface: linear-gradient(135deg,#ff4c69,#f32a91 62%,#be35d2);
+  --on-accent: #ffffff;
+  --danger: #ff5266;
+  --danger-surface: #180c17;
+  --success: #29e0c1;
+  --success-surface: linear-gradient(135deg,#168b82,#155a67);
+  --on-danger: #ffffff;
+  --on-success: #021a1a;
+  --check-fill: #ff3b7a;
+  --check-mark: #ffffff;
+  --glow: rgba(255,59,122,.52);
+  --btn-surface: linear-gradient(145deg,#21142a,#130d1a);
+  --btn-fill: linear-gradient(145deg,#21142a,#130d1a);
+  --btn-border: #5b2b69;
+  --btn-bw: 1px;
+  --btn-shadow: inset 0 1px rgba(255,255,255,.045), 0 0 0 1px rgba(26,239,231,.04);
+  --btn-text: #fff2f8;
+  --btn-hover-surface: linear-gradient(145deg,#321a3f,#1d1027);
+  --btn-hover-border: #ff4c91;
+  --btn-glow: 12px;
+  --btn-glow-color: rgba(255,59,122,.5);
+  --accent-secondary: #22dfe5;
+  --on-accent-secondary: #03191d;
+  --accent-gold: #ffc44d;
+  --on-accent-gold: #201006;
+  --switch-track: #38203f;
+  --switch-knob: #ffd9ec;
+  --switch-on: linear-gradient(90deg,#ff3b7a,#b83ddd);
+  --switch-on-knob: #ffffff;
+  --panel-scrim: rgba(10,7,15,.97);
+  --overlay-scrim: rgba(2,0,6,.78);
+  --card-frame: #030204;
+  --badge-surface: #100916;
+  --badge-glow: rgba(34,223,229,.5);
+  --glow-strong: rgba(255,59,122,.72);
+  --accent-rgb: 255,59,122;
+}
+
+.preview-masthead {
+  background:
+    linear-gradient(90deg,rgba(255,59,122,.08),transparent 36%,rgba(34,223,229,.06)),
+    #020103;
+  border-bottom-color: #ff3b7a;
+  box-shadow: 0 3px 18px rgba(255,59,122,.28);
+}
+
+.preview-brand {
+  text-shadow: 2px 0 rgba(255,59,122,.7), -2px 0 rgba(34,223,229,.52);
+}
+
+.preview-brand small {
+  color: #22dfe5;
+  text-shadow: 0 0 8px rgba(34,223,229,.5);
+}
+
+.preview-masthead h1 {
+  text-shadow: 0 0 18px rgba(255,59,122,.24);
+}
+
+.preview-masthead button.sds-trigger:not(.btn):not(.switch) {
+  color: #fff2f8;
+  background: #100916;
+  border-color: #ff3b7a;
+  box-shadow: 0 0 12px rgba(255,59,122,.24);
+}
+
+.preview-masthead button.sds-trigger:not(.btn):not(.switch):hover {
+  background: #21102b;
+  border-color: #22dfe5;
+  box-shadow: 0 0 14px rgba(34,223,229,.25);
+}
+
+button.btn-primary,
+.azuki-filter-row button.is-active {
+  box-shadow: 0 5px 0 #90174f, 0 0 18px rgba(255,59,122,.28);
+}
+
+button.btn-danger {
+  background: #180c17;
+  border-color: #ff5266;
+  box-shadow: inset 0 0 14px rgba(255,82,102,.08);
+}
+
+button.btn-success {
+  box-shadow: 0 5px 0 #0f5558, 0 0 14px rgba(34,223,229,.2);
+}
+
+.azuki-filter-row button {
+  color: #fff2f8;
+  background: linear-gradient(145deg,#21142a,#130d1a);
+  border-color: #4b2757;
+}
+
+.azuki-filter-row button:hover {
+  background: linear-gradient(145deg,#321a3f,#1d1027);
+  border-color: #22dfe5;
+  filter: drop-shadow(0 0 8px rgba(34,223,229,.28));
+}
+
+.azuki-filter-row button.is-active,
+.azuki-filter-row button.is-active:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg,#ff4c69,#f32a91 62%,#be35d2);
+  border-color: #ff77a3;
+  filter: none;
+}
+
+.azuki-element-mark {
+  box-shadow: 0 0 9px currentColor;
+}
+
+.dropdown-content, .dropdown-panel, .widget-dd-menu {
+  background: #18101f;
+  border-color: #ff3b7a;
+  box-shadow: 0 8px 0 rgba(0,0,0,.5), 0 0 18px rgba(255,59,122,.2);
+}
+
+.dropdown-content a:hover, .dropdown-panel__item:hover,
+.dropdown-panel__item.is-active, .widget-dd-item:hover, .widget-dd-item.is-active {
+  color: #ffffff;
+  background: linear-gradient(90deg,#f32a91,#be35d2);
+}
+
+.panelTab {
+  color: #9d83a7;
+}
+
+.panelTab:hover,
+.panelTab.is-active {
+  color: #fff2f8;
+  text-shadow: 0 0 10px rgba(255,59,122,.38);
+}
+
+.panelTab.is-active {
+  border-bottom-color: #ff3b7a;
+}
+
+.panelTab.is-active::after {
+  color: #22dfe5;
+  text-shadow: 0 0 7px rgba(34,223,229,.72);
+}
+
+.ds-table,
+.panel {
+  color: #fff2f8;
+  background: linear-gradient(145deg,#18101f,#0d0912);
+  border-color: #030204;
+  box-shadow: 0 8px 0 rgba(0,0,0,.54), 0 0 0 1px #ff3b7a, 0 0 20px rgba(255,59,122,.14);
+}
+
+.ds-table thead,
+.panel > .u-label:first-child {
+  color: #ffffff;
+  background: linear-gradient(90deg,#0a050d,#1b0b22);
+  border-bottom: 1px solid #ff3b7a;
+}
+
+.ds-table th,
+.ds-table td {
+  border-bottom-color: #41224c;
+}
+
+.ds-table tbody tr:hover {
+  background: #27142e;
+}
+
+.interactive-row:hover {
+  box-shadow: inset 5px 0 #22dfe5;
+}
+
+.panel > .u-label:first-child::before {
+  color: #fff;
+  border-color: #22dfe5;
+  box-shadow: 0 0 9px rgba(34,223,229,.45);
+}

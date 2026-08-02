@@ -344,6 +344,12 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     ? MatchReplayBeginPotentialAction($folderPath, $gameName)
     : null;
 
+  // Optional game-owned observation seam for features that need the pre-mutation state
+  // (for example semantic zone-transition animations). It cannot alter action legality.
+  if (function_exists('GameBeforeEngineAction')) {
+    GameBeforeEngineAction($action);
+  }
+
   $frameAnimations = [];
   if ($result['updateCache']) {
     SetFrameAnimationCache($gameName, []);

@@ -457,8 +457,8 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           //rv += "<div style='margin: 0px; top: 50%; left:" + left + "; margin-right: -50%; border-radius: 50%; width:" + counterHeight + "px; height:" + counterHeight + "px; padding: 5px; border: 3px solid " + PopupBorderColor(darkMode) + "; text-align: center; line-height:" + imgCounterHeight / 1.5 + "px;";
           //rv += "transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); position:absolute; z-index: 10; background:" + BackgroundColor(darkMode) + "; font-family: Helvetica; font-size:" + (counterHeight - 2) + "px; font-weight:550; color:" + TextCounterColor(darkMode) + "; text-shadow: 2px 0 0 " + PopupBorderColor(darkMode) + ", 0 -2px 0 " + PopupBorderColor(darkMode) + ", 0 2px 0 " + PopupBorderColor(darkMode) + ", -2px 0 0 " + PopupBorderColor(darkMode) + ";'>" + counters + "</div>";
             left = "50%";
-            rv += "<div class='counter-bubble' style='margin: 0px; top: 85%; left:" + left + "; margin-right: -50%; width: " + counterHeight + "px; height: " + counterHeight + "px; border-radius: 50%; border: 3px solid " + PopupBorderColor(darkMode) + "; text-align: center; line-height:" + imgCounterHeight / 1.5 + "px; cursor: pointer;";
-            rv += "transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); position:absolute; z-index: 10; background: radial-gradient(circle, rgba(64,64,64,1) 40%, rgba(142,142,142,1) 100%); font-family: 'Orbitron', sans-serif; font-size:" + (counterHeight - 2) + "px; font-weight:700; color:" + TextCounterColor(darkMode) + "; text-shadow: 0 0 5px " + PopupBorderColor(darkMode) + ", 0 0 10px " + PopupBorderColor(darkMode) + ";' onclick='event.stopPropagation(); ShowZonePopup(\"" + mzId + "\");'>" + counters + "</div>";
+            rv += "<div class='counter-bubble' style='margin:var(--zone-count-margin,0); top:var(--zone-count-top,85%); right:var(--zone-count-right,auto); bottom:var(--zone-count-bottom,auto); left:var(--zone-count-left," + left + "); margin-right:var(--zone-count-margin-right,-50%); width:var(--zone-count-size," + counterHeight + "px); height:var(--zone-count-size," + counterHeight + "px); border-radius:var(--zone-count-radius,50%); border:var(--zone-count-border-width,3px) solid var(--zone-count-border-color," + PopupBorderColor(darkMode) + "); text-align:center; line-height:var(--zone-count-line-height," + imgCounterHeight / 1.5 + "px); cursor:pointer;";
+            rv += "transform:var(--zone-count-transform,translate(-50%,-50%)); -ms-transform:var(--zone-count-transform,translate(-50%,-50%)); position:absolute; z-index:10; background:var(--zone-count-surface,radial-gradient(circle,rgba(64,64,64,1) 40%,rgba(142,142,142,1) 100%)); box-shadow:var(--zone-count-shadow,none); font-family:var(--zone-count-font-family,Orbitron,sans-serif); font-size:var(--zone-count-font-size," + (counterHeight - 2) + "px); font-weight:var(--zone-count-font-weight,700); color:var(--zone-count-text," + TextCounterColor(darkMode) + "); text-shadow:var(--zone-count-text-shadow,0 0 5px " + PopupBorderColor(darkMode) + ",0 0 10px " + PopupBorderColor(darkMode) + ");' onclick='event.stopPropagation(); ShowZonePopup(\"" + mzId + "\");'>" + counters + "</div>";
         }
         //-1 Defense & Endurance Counters style
         if (defCounters != 0 && isBroken != 1) {
@@ -3209,6 +3209,10 @@ Aspect filtering (key: "aspect", alias "c")
       // Add a help icon next to the filter bar
       function RenderPane(prefix, zoneName, panes) {
         var fullName = prefix + zoneName;
+        var paneRoot = document.getElementById(fullName);
+        // One-sided tools such as AzukiDeck only bind the local pane. Generated render
+        // calls still include the opponent pane, so treat an unbound pane as intentional.
+        if (!paneRoot) return;
         var filterText = window.filterText ? window.filterText : "";//TODO: Separate filter text for each zone
         var customFilterStatus = window.customFilter ? window.customFilter : false;
         var storedLegalFilter = localStorage.getItem('swuLegalFilter');
@@ -3218,7 +3222,8 @@ Aspect filtering (key: "aspect", alias "c")
         var html = "<div style='display: flex; flex-direction: column; width:100%; overflow-y: auto;'>";
         html += `<div style='position: relative; width: 100%; box-sizing: border-box;'>`;
         setTimeout(() => {
-          document.getElementById(fullName + "Wrapper").scrollTop = scrollPosition;
+          var wrapper = document.getElementById(fullName + "Wrapper");
+          if (wrapper) wrapper.scrollTop = scrollPosition;
         }, 0);
         html += `<input type="text" style='height:28px; margin-top:3px; width:100%; box-sizing:border-box; padding-right:20px;' class='filterBar' id="${fullName}FilterText" onkeydown="PaneFilterKeyDown('${prefix}', '${zoneName}', event);" oninput="PaneFilterCards('${prefix}', '${zoneName}', event, 'textFilter');" placeholder="Filter cards..." ${filterText ? `value="${filterText.replace(/"/g, '&quot;')}"` : ''}></input>`;
         html += `<img src='./Assets/Images/infoicon.png' style='cursor: pointer; position: absolute; top: 2px; right: 2px; height:12px; width:12px;' onclick='ShowFilterBarHelp()' aria-label='Click for filter syntax' />`;
@@ -3268,7 +3273,7 @@ Aspect filtering (key: "aspect", alias "c")
         }
         paneHTML += "</span>";
         html += "</div>";
-        document.getElementById(fullName).innerHTML = html + paneHTML;
+        paneRoot.innerHTML = html + paneHTML;
       }
       function PaneTabClick(prefix, zoneName, index) {
         var activePaneVar = `_${prefix}_${zoneName}_activePane`;

@@ -70,6 +70,28 @@
   --badge-glow:          rgba(120,160,255,0.40);
   --glow-strong:         rgba(120,200,255,0.65);
 
+  /* Collapsed-zone quantity badge. These are consumed by the counter's own inline
+     layout, so detached animation clones retain the selected theme without selectors. */
+  --zone-count-top:          85%;
+  --zone-count-right:        auto;
+  --zone-count-bottom:       auto;
+  --zone-count-left:         50%;
+  --zone-count-margin:       0;
+  --zone-count-margin-right: -50%;
+  --zone-count-size:         28px;
+  --zone-count-transform:    translate(-50%, -50%);
+  --zone-count-border-width: 3px;
+  --zone-count-border-color: #1a1a1a;
+  --zone-count-radius:       50%;
+  --zone-count-surface:      radial-gradient(circle, rgba(64,64,64,1) 40%, rgba(142,142,142,1) 100%);
+  --zone-count-shadow:       none;
+  --zone-count-text:         #ededed;
+  --zone-count-font-family:  Orbitron, sans-serif;
+  --zone-count-font-size:    26px;
+  --zone-count-font-weight:  700;
+  --zone-count-line-height:  28px;
+  --zone-count-text-shadow:  0 0 5px #1a1a1a, 0 0 10px #1a1a1a;
+
   /* Turn/initiative ownership palette — RGB triples for rgba(var(--x), a) alpha compositing.
      Neutral defaults = the current SWUSim semantic green/red, so non-hud sims are unchanged. */
   --turn-mine-rgb:       64,214,110;   /* "my turn / my initiative" */

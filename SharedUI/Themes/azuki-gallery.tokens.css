@@ -1,0 +1,312 @@
+/* Azuki Gallery — graphic TCG styling based on the official card-gallery language:
+   warm gallery canvas, near-black card framing, heavy type, and crimson selection. */
+:root {
+  --surface: #efeee9;
+  --surface-raised: #faf9f5;
+  --surface-sunken: #e5e3dc;
+  --border: #c9c6bc;
+  --text: #081326;
+  --text-muted: #6f716f;
+  --input-text: #081326;
+  --input-placeholder: #6f7d91;
+  --accent: #e93545;
+  --accent-strong: #c91f31;
+  --accent-surface: #e93545;
+  --on-accent: #ffffff;
+  --danger: #e93545;
+  --danger-surface: #141414;
+  --success: #23785f;
+  --success-surface: #23785f;
+  --on-danger: #ffffff;
+  --on-success: #ffffff;
+  --check-fill: #e93545;
+  --check-mark: #ffffff;
+  --glow: rgba(233,53,69,.24);
+  --radius: 10px;
+  --border-width: 1px;
+  --backdrop-blur: 0px;
+  --font-display: "Arial Black","Segoe UI Variable Display","Bahnschrift",Arial,sans-serif;
+  --font-body: "Segoe UI Variable","Aptos",Arial,sans-serif;
+  --tracking-caps: .035em;
+
+  --btn-surface: #e5e3dc;
+  --btn-fill: #e5e3dc;
+  --btn-border: transparent;
+  --btn-bw: 0;
+  --btn-radius: 10px;
+  --btn-shadow: inset 0 -1px rgba(8,19,38,.06);
+  --btn-text: #090909;
+  --btn-transform: none;
+  --btn-tracking: -.01em;
+  --btn-pad: 13px 22px;
+  --btn-hover-surface: #d9d6cd;
+  --btn-hover-border: transparent;
+  --btn-hover-transform: translateY(-2px);
+  --btn-glow: 0px;
+  --btn-glow-color: transparent;
+
+  --accent-secondary: #081326;
+  --on-accent-secondary: #ffffff;
+  --accent-gold: #f4ad19;
+  --on-accent-gold: #111111;
+  --switch-track: #c9c6bc;
+  --switch-knob: #ffffff;
+  --switch-on: #e93545;
+  --switch-on-knob: #ffffff;
+  --panel-scrim: rgba(250,249,245,.97);
+  --overlay-scrim: rgba(0,0,0,.68);
+  --card-frame: #070707;
+  --badge-surface: #070707;
+  --badge-glow: rgba(233,53,69,.28);
+  --glow-strong: rgba(233,53,69,.48);
+  --accent-rgb: 233,53,69;
+}
+
+/* Preview masthead — mirrors the black site navigation and compact wordmark. */
+body {
+  padding: 0 32px 56px;
+}
+
+.preview-masthead {
+  display: flex;
+  min-height: 108px;
+  align-items: center;
+  gap: 44px;
+  margin: 0 -32px 54px;
+  padding: 0 44px;
+  color: #fff8e8;
+  background: #030303;
+  border-bottom: 1px solid #171717;
+  box-sizing: border-box;
+}
+
+.preview-brand {
+  display: flex;
+  min-width: 116px;
+  flex-direction: column;
+  color: #ffffff;
+  font-family: "Arial Black",Impact,sans-serif;
+  font-size: 29px;
+  font-weight: 950;
+  letter-spacing: -.08em;
+  line-height: .82;
+  transform: skewX(-4deg);
+}
+
+.preview-brand small {
+  margin-top: 6px;
+  color: #f1db7b;
+  font: 700 7px/1 Arial,sans-serif;
+  letter-spacing: .04em;
+  text-align: center;
+  transform: skewX(4deg);
+}
+
+.preview-masthead h1 {
+  margin: 0;
+  color: #fff8e8;
+  font-family: var(--font-display);
+  font-size: clamp(20px,2vw,30px);
+  letter-spacing: .025em;
+}
+
+.preview-masthead .preview-toolbar {
+  margin: 12px 0 0;
+}
+
+.preview-masthead .preview-toolbar label {
+  color: #8d8a81;
+}
+
+.preview-masthead button.sds-trigger:not(.btn):not(.switch) {
+  min-width: 210px;
+  color: #fff8e8;
+  background: #090909;
+  border: 1px solid #4d483b;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.preview-masthead button.sds-trigger:not(.btn):not(.switch):hover {
+  color: #ffffff;
+  background: #171717;
+  border-color: #8d8268;
+}
+
+/* Gallery controls — broad, confident blocks with solid selection states. */
+button:not(.btn):not(.switch),
+input[type=submit],
+input[type=button],
+input[type=reset] {
+  min-height: 48px;
+  font-weight: 850;
+}
+
+button.btn-primary {
+  box-shadow: 0 5px 0 #b71d2b;
+}
+
+button.btn-danger {
+  border: 2px solid #e93545;
+  background: #090909;
+}
+
+button.btn-success {
+  box-shadow: 0 5px 0 #195845;
+}
+
+.azuki-filter-row button {
+  min-width: 138px;
+}
+
+.azuki-filter-row button.is-active {
+  color: #fff;
+  background: #e93545;
+  box-shadow: 0 5px 0 #b71d2b;
+}
+
+.azuki-element-chip {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.azuki-element-mark {
+  display: inline-grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  color: #fff;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  font: 900 11px/1 Arial,sans-serif;
+}
+
+.azuki-element-mark.water { color: #159fe1; }
+.azuki-element-mark.fire { color: #ef334e; }
+.azuki-element-mark.earth { color: #f2aa18; }
+.azuki-element-mark.lightning { color: #8846b5; }
+
+/* Inputs and menus use the same warm filter-tile material. */
+input[type=text], input[type=password], input[type=email], input[type=url],
+input[type=number], input[type=search], input[type=tel], input[type=date],
+select, textarea {
+  min-height: 46px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  font-weight: 650;
+}
+
+.dropdown-content, .dropdown-panel, .widget-dd-menu {
+  overflow: hidden;
+  border: 2px solid #090909;
+  box-shadow: 0 8px 0 rgba(9,9,9,.14);
+}
+
+.dropdown-panel__item {
+  font-weight: 700;
+}
+
+/* Navigation tabs borrow the gallery's underlined title and three-diamond marker. */
+.panelTab {
+  margin: 0 18px 18px 0;
+  padding: 10px 2px 9px;
+  color: #686861;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0;
+  border-bottom-width: 4px;
+}
+
+.panelTab:hover,
+.panelTab.is-active {
+  color: #081326;
+}
+
+.panelTab.is-active {
+  border-bottom-color: #e93545;
+}
+
+.panelTab.is-active::after {
+  content: "◆ ◆ ◆";
+  position: absolute;
+  inset: auto auto -17px 50%;
+  z-index: 1;
+  color: #081326;
+  background: none;
+  box-shadow: none;
+  clip-path: none;
+  font: 700 5px/1 Arial,sans-serif;
+  letter-spacing: 3px;
+  transform: translateX(-50%);
+}
+
+/* Tables and panels read like enlarged physical card frames. */
+.ds-table {
+  overflow: hidden;
+  background: #faf9f5;
+  border: 4px solid #090909;
+  border-radius: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 8px 0 rgba(9,9,9,.14);
+}
+
+.ds-table thead {
+  color: #ffffff;
+  background: #090909;
+}
+
+.ds-table th,
+.ds-table td {
+  padding: 12px 14px;
+}
+
+.ds-table tbody tr:hover {
+  background: #eeeae1;
+}
+
+.interactive-row:hover {
+  box-shadow: inset 5px 0 #e93545;
+  transform: none;
+}
+
+.panel {
+  overflow: hidden;
+  padding: 0 20px 20px;
+  background: #faf9f5;
+  border: 4px solid #090909;
+  border-radius: 12px;
+  box-shadow: 0 8px 0 rgba(9,9,9,.14);
+}
+
+.panel > .u-label:first-child {
+  margin: 0 -20px 18px;
+  padding: 10px 14px;
+  color: #ffffff;
+  background: #090909;
+  font-size: 14px;
+  letter-spacing: .01em;
+}
+
+.panel > .u-label:first-child::before {
+  content: "2";
+  display: inline-grid;
+  width: 23px;
+  height: 23px;
+  margin-right: 9px;
+  place-items: center;
+  color: #ffffff;
+  border: 2px solid #a3a3a3;
+  border-radius: 50%;
+  font: 900 12px/1 Arial,sans-serif;
+  vertical-align: -1px;
+}
+
+@media (max-width: 720px) {
+  body { padding: 0 18px 40px; }
+  .preview-masthead { align-items: flex-start; flex-direction: column; gap: 18px; margin: 0 -18px 36px; padding: 26px 22px; }
+  .preview-masthead .preview-toolbar { margin-bottom: 0; }
+  .azuki-filter-row button { min-width: 0; flex: 1 1 130px; }
+}

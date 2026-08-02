@@ -1,0 +1,332 @@
+/* AzukiDeck application layer for the shared Azuki Gallery Dark theme.
+   Loaded after the generated/editor layout so it can replace the legacy cyan HUD skin. */
+
+html,
+body,
+#mainDiv,
+.stuffParent,
+.myStuffWrapper,
+.theirStuffWrapper {
+  background: #0b0b0e !important;
+  color: var(--text) !important;
+}
+
+#myStuff.myStuff {
+  background-color: #0b0b0e !important;
+  background-image:
+    radial-gradient(circle at 18% 8%, rgba(238,59,76,.055), transparent 30%),
+    linear-gradient(180deg,#101014,#0b0b0e) !important;
+}
+
+/* Black gallery masthead with compact, rounded utility tiles. */
+.flex-container > .flex-item:first-child {
+  min-height: 50px !important;
+  background: #030303 !important;
+  border-bottom: 1px solid rgba(var(--accent-rgb),.55) !important;
+  box-shadow: 0 5px 18px rgba(0,0,0,.55) !important;
+}
+
+#azukiDeckNameLabel {
+  color: #f2eee5 !important;
+  font-family: "Arial Black","Bahnschrift",Arial,sans-serif !important;
+  font-weight: 800 !important;
+}
+
+.widget-button,
+.widget-button-selected,
+.panelTab,
+.flex-container > .flex-item:first-child button {
+  min-height: 30px !important;
+  color: #f2eee5 !important;
+  font-family: "Arial Black","Bahnschrift",Arial,sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .01em !important;
+  text-transform: none !important;
+}
+
+.widget-button::before,
+.widget-button-selected::before,
+.panelTab::before,
+.flex-container > .flex-item:first-child button::before {
+  background: #3a3a41 !important;
+  border-radius: 8px !important;
+  clip-path: none !important;
+}
+
+.widget-button::after,
+.widget-button-selected::after,
+.panelTab::after,
+.flex-container > .flex-item:first-child button::after {
+  background: #1c1c21 !important;
+  border-radius: 7px !important;
+  clip-path: none !important;
+}
+
+.widget-button:hover,
+.panelTab:hover,
+.flex-container > .flex-item:first-child button:hover {
+  color: #ffffff !important;
+  filter: none !important;
+  transform: translateY(-1px) !important;
+}
+
+.widget-button:hover::before,
+.panelTab:hover::before,
+.flex-container > .flex-item:first-child button:hover::before {
+  background: #66666f !important;
+}
+
+.widget-button:hover::after,
+.panelTab:hover::after,
+.flex-container > .flex-item:first-child button:hover::after {
+  background: #29292f !important;
+}
+
+.widget-button-selected,
+.panelTab.active,
+.panelTab.is-active {
+  color: #ffffff !important;
+}
+
+.widget-button-selected::before,
+.panelTab.active::before,
+.panelTab.is-active::before {
+  background: var(--accent-strong) !important;
+}
+
+.widget-button-selected::after,
+.panelTab.active::after,
+.panelTab.is-active::after {
+  background: var(--accent) !important;
+}
+
+/* Card-library tabs are compact controls; the shared button minimum height otherwise
+   leaves their labels sitting inside an unnecessarily tall hit area. */
+#myCardPane .panelTab {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  margin: 2px 3px 2px 0 !important;
+  padding: 0 8px !important;
+  box-sizing: border-box !important;
+  line-height: 1 !important;
+}
+
+/* Warm card-list typography and crimson selection replace the blue HUD treatment. */
+#myDeckWrapper,
+#myStatsWrapper,
+#mySortWrapper,
+label[for="legalFilterCheckbox"],
+label[for="customFilterCheckbox"] {
+  color: #d8d4cc !important;
+  font-family: "Arial Black","Bahnschrift",Arial,sans-serif !important;
+  letter-spacing: .02em !important;
+  text-transform: none !important;
+}
+
+.filterBar {
+  min-height: 38px !important;
+  padding: 0 12px !important;
+  color: #f2eee5 !important;
+  background: #151518 !important;
+  border: 1px solid #3b3b42 !important;
+  border-radius: 9px !important;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,.4) !important;
+}
+
+.filterBar:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px rgba(var(--accent-rgb),.14) !important;
+}
+
+.filterBar::placeholder {
+  color: #777883 !important;
+}
+
+#legalFilterCheckbox,
+#customFilterCheckbox {
+  background: #151518 !important;
+  border-color: #55555d !important;
+  border-radius: 4px !important;
+}
+
+#legalFilterCheckbox:checked,
+#customFilterCheckbox:checked {
+  background: var(--accent) !important;
+  border-color: var(--accent-strong) !important;
+}
+
+#legalFilterCheckbox:checked::after,
+#customFilterCheckbox:checked::after {
+  border-color: #ffffff !important;
+}
+
+.widget-dd-menu,
+#visibilityDropdownMenu,
+#versionDropdownMenu,
+#swuDesktopOverlayPanel,
+#myCardPane .swu-pane-filter-popover,
+#swuMobileToolbarMenuPanel {
+  color: #f2eee5 !important;
+  background: #18181c !important;
+  border: 1px solid #484850 !important;
+  border-radius: 9px !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,.62) !important;
+}
+
+.widget-dd-item:hover,
+.widget-dd-item.is-active,
+#visibilityDropdownMenu > div:hover,
+#versionDropdownMenu > div:hover {
+  color: #ffffff !important;
+  background: var(--accent) !important;
+}
+
+/* Physical-card framing for the editor's major surfaces. */
+#swuDeckBoard #swuIdentityBanner,
+#swuDeckMobileIdentity {
+  background: #111114 !important;
+  border: 3px solid #050505 !important;
+  border-radius: 11px !important;
+  box-shadow: 0 6px 0 rgba(0,0,0,.38), 0 0 0 1px #34343a !important;
+}
+
+#my_CardPane_content {
+  background: #101014 !important;
+  border: 1px solid #34343a !important;
+  border-radius: 9px !important;
+  box-shadow: inset 0 0 14px rgba(0,0,0,.25) !important;
+}
+
+#swuDeckBoard .swu-deck-section,
+.swu-mobile-deck-section {
+  background: #151518 !important;
+  border: 3px solid #050505 !important;
+  border-radius: 11px !important;
+  box-shadow: 0 5px 0 rgba(0,0,0,.32), 0 0 0 1px #303036 !important;
+}
+
+#swuDeckBoard .swu-deck-section-title,
+.swu-mobile-deck-section-title {
+  min-height: 28px !important;
+  color: #ffffff !important;
+  background: #050505 !important;
+  border-bottom: 0 !important;
+  font-family: "Arial Black","Bahnschrift",Arial,sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: .03em !important;
+  text-transform: none !important;
+}
+
+#swuMobileDeckPage .swu-dm-title {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+/* Dialog-like editor surfaces. */
+#azukiDeckMatchHistoryModal,
+#azukiPlaybookOverlay {
+  background: rgba(0,0,0,.8) !important;
+}
+
+.azuki-deck-history-panel {
+  color: #f2eee5 !important;
+  background: #18181c !important;
+  border: 3px solid #050505 !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,.68), 0 0 0 1px #3a3a41 !important;
+}
+
+.azuki-deck-history-header,
+.azuki-deck-history-footer {
+  background: #050505 !important;
+  border-color: rgba(var(--accent-rgb),.45) !important;
+}
+
+#azukiPlaybookOverlay {
+  --playbook-bg: #0b0b0e;
+  --playbook-panel: #18181c;
+  --playbook-panel-raised: #242429;
+  --playbook-border: rgba(242,238,229,.16);
+  --playbook-border-strong: rgba(238,59,76,.72);
+  --playbook-text: #f2eee5;
+  --playbook-muted: #98989f;
+  --playbook-accent: #ee3b4c;
+  --playbook-danger: #ff6674;
+}
+
+.azuki-playbook-shell,
+.azuki-playbook-sidebar {
+  background: #101014 !important;
+  border-color: var(--playbook-border) !important;
+}
+
+.azuki-playbook-line:hover,
+.azuki-playbook-picker-card:hover {
+  background: #242429 !important;
+}
+
+.azuki-playbook-line.is-selected,
+.azuki-playbook-picker-card.is-selected {
+  background: rgba(var(--accent-rgb),.16) !important;
+  border-color: var(--accent) !important;
+}
+
+.azuki-playbook-button {
+  color: #f2eee5 !important;
+  background: #242429 !important;
+  border-color: #484850 !important;
+  border-radius: 8px !important;
+}
+
+.azuki-playbook-button:hover {
+  background: #303036 !important;
+  border-color: #707079 !important;
+}
+
+.azuki-playbook-button.is-primary {
+  color: #ffffff !important;
+  background: var(--accent) !important;
+  border-color: var(--accent-strong) !important;
+}
+
+.azuki-playbook-step,
+.azuki-playbook-input,
+.azuki-playbook-textarea,
+.azuki-playbook-search {
+  color: #f2eee5 !important;
+  background: #111114 !important;
+  border-color: #3a3a41 !important;
+}
+
+.azuki-playbook-input:focus,
+.azuki-playbook-textarea:focus,
+.azuki-playbook-search:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px rgba(var(--accent-rgb),.14) !important;
+}
+
+/* Phone workspace retains its layout while sharing the dark gallery material. */
+@media (max-width: 1000px) {
+  html,
+  body,
+  #mainDiv,
+  #swuDeckMobileRoot,
+  .swu-mobile-page {
+    background: #0b0b0e !important;
+  }
+
+  .swu-mobile-toolbar-setting,
+  .swu-mobile-card-browser,
+  .swu-mobile-deck-workspace {
+    background-color: #151518 !important;
+    border-color: #34343a !important;
+  }
+
+  #swuMobileToolbarMenuButton .swu-mobile-menu-line {
+    background: #f2eee5 !important;
+    box-shadow: none !important;
+  }
+}

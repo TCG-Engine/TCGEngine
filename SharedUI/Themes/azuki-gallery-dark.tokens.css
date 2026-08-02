@@ -1,0 +1,165 @@
+@import url("azuki-gallery.tokens.css");
+
+/* Azuki Gallery Dark — the same graphic TCG system on a tournament-night canvas. */
+:root {
+  --surface: #0b0b0e;
+  --surface-raised: #18181c;
+  --surface-sunken: #07070a;
+  --border: #38383f;
+  --text: #f2eee5;
+  --text-muted: #98989f;
+  --input-text: #f2eee5;
+  --input-placeholder: #777883;
+  --accent: #ee3b4c;
+  --accent-strong: #ff6674;
+  --accent-surface: #ee3b4c;
+  --on-accent: #ffffff;
+  --danger: #ff6674;
+  --danger-surface: #111114;
+  --success: #3da581;
+  --success-surface: #23785f;
+  --check-fill: #ee3b4c;
+  --glow: rgba(238,59,76,.3);
+  --btn-surface: #1c1c21;
+  --btn-fill: #1c1c21;
+  --btn-border: #35353c;
+  --btn-bw: 1px;
+  --btn-shadow: inset 0 1px rgba(255,255,255,.025), inset 0 -1px rgba(0,0,0,.45);
+  --btn-text: #f2eee5;
+  --btn-hover-surface: #28282e;
+  --btn-hover-border: #5a5a63;
+  --accent-secondary: #f2eee5;
+  --on-accent-secondary: #09090b;
+  --switch-track: #303037;
+  --switch-knob: #dedbd3;
+  --switch-on: #ee3b4c;
+  --panel-scrim: rgba(15,15,18,.97);
+  --card-frame: #050505;
+  --badge-surface: #050505;
+  --badge-glow: rgba(238,59,76,.34);
+  --glow-strong: rgba(238,59,76,.55);
+  --accent-rgb: 238,59,76;
+  --zone-count-top: auto;
+  --zone-count-right: 5px;
+  --zone-count-bottom: 5px;
+  --zone-count-left: auto;
+  --zone-count-margin: 0;
+  --zone-count-margin-right: 0;
+  --zone-count-size: 22px;
+  --zone-count-transform: none;
+  --zone-count-border-width: 1px;
+  --zone-count-border-color: var(--accent);
+  --zone-count-radius: 5px;
+  --zone-count-surface: #070709;
+  --zone-count-shadow: 0 2px 6px rgba(0,0,0,.58);
+  --zone-count-text: #ffffff;
+  --zone-count-font-family: Arial, Helvetica, sans-serif;
+  --zone-count-font-size: 12px;
+  --zone-count-font-weight: 700;
+  --zone-count-line-height: 20px;
+  --zone-count-text-shadow: none;
+}
+
+.preview-masthead {
+  background: #020203;
+  border-bottom-color: #28282d;
+}
+
+.preview-masthead button.sds-trigger:not(.btn):not(.switch) {
+  color: #f2eee5;
+  background: #151518;
+  border-color: #4a4a51;
+}
+
+.preview-masthead button.sds-trigger:not(.btn):not(.switch):hover {
+  background: #222228;
+  border-color: #777780;
+}
+
+button.btn-primary,
+.azuki-filter-row button.is-active {
+  box-shadow: 0 5px 0 #981b29;
+}
+
+button.btn-danger {
+  background: #111114;
+  border-color: #ee3b4c;
+}
+
+.azuki-filter-row button {
+  color: #f2eee5;
+  background: #1c1c21;
+  border-color: #35353c;
+}
+
+.azuki-filter-row button:hover {
+  background: #28282e;
+  border-color: #5a5a63;
+}
+
+.azuki-filter-row button.is-active,
+.azuki-filter-row button.is-active:hover {
+  color: #ffffff;
+  background: #ee3b4c;
+  border-color: #ee3b4c;
+}
+
+.dropdown-content, .dropdown-panel, .widget-dd-menu {
+  background: #18181c;
+  border-color: #4a4a51;
+  box-shadow: 0 8px 0 rgba(0,0,0,.48);
+}
+
+.dropdown-content a:hover, .dropdown-panel__item:hover,
+.dropdown-panel__item.is-active, .widget-dd-item:hover, .widget-dd-item.is-active {
+  color: #ffffff;
+  background: #ee3b4c;
+}
+
+.panelTab {
+  color: #888890;
+}
+
+.panelTab:hover,
+.panelTab.is-active {
+  color: #f2eee5;
+}
+
+.panelTab.is-active {
+  border-bottom-color: #ee3b4c;
+}
+
+.panelTab.is-active::after {
+  color: #f2eee5;
+}
+
+.ds-table,
+.panel {
+  color: #f2eee5;
+  background: #18181c;
+  border-color: #050505;
+  box-shadow: 0 8px 0 rgba(0,0,0,.5), 0 0 0 1px #34343a;
+}
+
+.ds-table thead,
+.panel > .u-label:first-child {
+  color: #ffffff;
+  background: #050505;
+}
+
+.ds-table th,
+.ds-table td {
+  border-bottom-color: #34343a;
+}
+
+.ds-table tbody tr:hover {
+  background: #242429;
+}
+
+.interactive-row:hover {
+  box-shadow: inset 5px 0 #ee3b4c;
+}
+
+.panel > .u-label:first-child::before {
+  border-color: #777780;
+}

@@ -891,21 +891,6 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     align-content: flex-start;
   }
   #swuMobileDeckPage #mySideboard > span:only-child:not([data-mzid]) { display: none !important; }
-  #swuMobileDeckPage .counter-bubble {
-    top: auto !important;
-    right: 4px !important;
-    bottom: 4px !important;
-    left: auto !important;
-    width: 22px !important;
-    height: 22px !important;
-    margin: 0 !important;
-    transform: none !important;
-    border: 1px solid rgba(var(--accent-rgb),0.50) !important;
-    border-radius: 6px !important;
-    background: rgba(5,17,27,0.95) !important;
-    color: rgba(215,236,247,0.96) !important;
-    font: 700 12px/20px Arial, Helvetica, sans-serif !important;
-  }
   #swuMobileDeckPage span[data-mzid].swu-mobile-deck-card-selected > a > img:first-child {
     position: relative;
     z-index: 2;
@@ -1107,7 +1092,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
         </div>
         <div id="swuMobileDeckScroll">
           <div id="myMainDeckSlot" onclick="ZoneClickHandler('myMainDeck');"></div>
-          <div class="swu-dm-title"><span>Sideboard</span></div>
+          <div class="swu-dm-title"><span>Maybe</span></div>
           <div id="mySideboardSlot" onclick="ZoneClickHandler('mySideboard');"></div>
         </div>
         <div id="swuMobileDeckActions" aria-label="Selected card actions" aria-hidden="true">
@@ -1115,7 +1100,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
             <span class="swu-mobile-deck-action-icon" aria-hidden="true">+</span><span>Copy</span>
           </button>
           <button id="swuMobileDeckMove" class="swu-mobile-deck-action" type="button">
-            <span class="swu-mobile-deck-action-icon" aria-hidden="true">&#8645;</span><span id="swuMobileDeckMoveLabel">To sideboard</span>
+            <span class="swu-mobile-deck-action-icon" aria-hidden="true">&#8645;</span><span id="swuMobileDeckMoveLabel">To Maybe</span>
           </button>
           <button id="swuMobileDeckRemove" class="swu-mobile-deck-action" type="button">
             <span class="swu-mobile-deck-action-icon" aria-hidden="true">&minus;</span><span>Remove</span>
@@ -1501,8 +1486,8 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     cardNode.classList.add('swu-mobile-deck-card-selected');
     cardNode.setAttribute('aria-selected','true');
     var toSideboard = zone === 'myMainDeck';
-    if(deckMoveLabel) deckMoveLabel.textContent = toSideboard ? 'To sideboard' : 'To main deck';
-    if(deckMove) deckMove.setAttribute('aria-label', toSideboard ? 'Move selected card to sideboard' : 'Move selected card to main deck');
+    if(deckMoveLabel) deckMoveLabel.textContent = toSideboard ? 'To Maybe' : 'To main deck';
+    if(deckMove) deckMove.setAttribute('aria-label', toSideboard ? 'Move selected card to Maybe' : 'Move selected card to main deck');
     if(deckActions) {
       deckActions.classList.add('is-open');
       deckActions.setAttribute('aria-hidden','false');
@@ -1663,7 +1648,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
       button.type = 'button';
       button.className = 'swu-mobile-recent-card';
       button.dataset.recentID = entry.id;
-      button.setAttribute('aria-label', 'Remove one ' + title + ' from ' + (entry.destination === 'mySideboard' ? 'sideboard' : 'main deck'));
+      button.setAttribute('aria-label', 'Remove one ' + title + ' from ' + (entry.destination === 'mySideboard' ? 'Maybe' : 'main deck'));
       var img = document.createElement('img');
       img.src = concatAssetRoot() + '/' + encodeURIComponent(entry.cardID) + '.webp';
       img.alt = '';
@@ -1672,7 +1657,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
       var strong = document.createElement('strong');
       strong.textContent = title;
       var destination = document.createElement('span');
-      destination.textContent = entry.destination === 'mySideboard' ? 'Sideboard' : 'Main deck';
+      destination.textContent = entry.destination === 'mySideboard' ? 'Maybe' : 'Main deck';
       copy.appendChild(strong);
       copy.appendChild(destination);
       button.appendChild(img);

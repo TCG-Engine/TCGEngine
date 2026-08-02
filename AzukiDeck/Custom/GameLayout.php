@@ -15,20 +15,18 @@ RenderAssetVersioningUI('AzukiDeck');
 // AzukiDeck now lays itself out natively per-device in PHP, so the reflow would fight it.
 echo("<script>window.SWUDeckSlotLayout = true; window.AzukiDeckSlotLayout = true;</script>");
 
-// Chamfered cyan-HUD buttons for the deck builder â€” the same visual language as the
-// SWUSim board (recipe 2: closed chamfer drawn with two negative-z pseudos, so it works
-// on engine/generated buttons we can't add a <span> to). Emitted BEFORE the mobile
-// routing so both desktop and mobile pick it up. AzukiDeck-scoped (only loads on this page).
+// Base editor controls. GalleryDark.css is loaded after the layout and replaces this
+// legacy skin with the Azuki Gallery Dark application treatment on desktop and mobile.
 echo(<<<'HTML'
 <style>
   :root {
-    --swu-control-text: rgba(190, 216, 232, 0.88);
-    --swu-control-rim: rgba(103, 151, 180, 0.52);
-    --swu-control-rim-hover: rgba(143, 196, 226, 0.78);
-    --swu-control-fill: rgba(7, 22, 35, 0.94);
-    --swu-control-fill-hover: rgba(11, 31, 47, 0.97);
-    --swu-control-fill-active: rgba(15, 40, 59, 0.98);
-    --swu-control-glow: rgba(91, 164, 204, 0.24);
+    --swu-control-text: #f2eee5;
+    --swu-control-rim: #3a3a41;
+    --swu-control-rim-hover: #66666f;
+    --swu-control-fill: #1c1c21;
+    --swu-control-fill-hover: #29292f;
+    --swu-control-fill-active: #ee3b4c;
+    --swu-control-glow: rgba(238,59,76,.24);
   }
 
   /* AzukiDeck top rail: replace the generated gray flex row with a compact HUD header.
@@ -46,9 +44,7 @@ echo(<<<'HTML'
     overflow: visible !important;
     position: relative !important;
     z-index: 100 !important;
-    background:
-      linear-gradient(180deg, rgba(7,20,32,0.94), rgba(2,12,22,0.90)),
-      url('/TCGEngine/Assets/Images/gamebg.jpg') center top / cover !important;
+    background: #030303 !important;
     border-bottom: 1px solid rgba(var(--accent-rgb),0.24) !important;
     box-shadow: 0 5px 18px rgba(0,0,0,0.42), inset 0 -1px 0 rgba(255,255,255,0.03) !important;
   }
@@ -706,14 +702,23 @@ window.AzukiDeckPlaybookConfig = {$azukiDeckPlaybookConfigJson};
 HTML);
 }
 
+$azukiDeckGalleryDarkPath = '/TCGEngine/AzukiDeck/Custom/GalleryDark.css';
+$azukiDeckGalleryDarkVersion = @filemtime(__DIR__ . '/GalleryDark.css');
+$azukiDeckGalleryDarkHref = $azukiDeckGalleryDarkPath . ($azukiDeckGalleryDarkVersion ? '?v=' . $azukiDeckGalleryDarkVersion : '');
+$azukiDeckGalleryDarkLink = '<link rel="stylesheet" href="' . htmlspecialchars($azukiDeckGalleryDarkHref, ENT_QUOTES) . '">';
+
 // DeckStats.php reuses InitialLayout.php purely for the toolbar chrome (Home/Edit/Stats/â€¦),
-// so it needs the shared cyan-HUD button styling emitted above â€” but NOT the deck-builder
+// so it needs the shared Gallery Dark button styling emitted above â€” but NOT the deck-builder
 // board. Rendering #swuDeckBoard (position:absolute; inset:0; z-index:11) would overlay the
 // stats injected into #myStuff (z-index:10) and swallow every click + wheel/scroll event.
 // Bail here: keep the button skin, skip the board (and the mobile board routing below).
-if (!empty($suppressDeckBoard)) return;
+if (!empty($suppressDeckBoard)) { echo $azukiDeckGalleryDarkLink; return; }
 
-if (AzukiDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
+if (AzukiDeckIsMobileRequest()) {
+  include __DIR__ . '/GameLayoutMobile.php';
+  echo $azukiDeckGalleryDarkLink;
+  return;
+}
 ?>
 <style>
   /* The shared shell normally insets #myStuff by 4px inside a gray wrapper. On this
@@ -904,7 +909,7 @@ if (AzukiDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; ret
     right: 10px !important;
     top: 10px !important;
   }
-  /* Main deck + sideboard share one normal-flow workspace. The sideboard therefore follows
+  /* Main deck + Maybe share one normal-flow workspace. The Maybe section therefore follows
      the final main-deck row instead of being stranded against the bottom of the viewport. */
   #swuDeckBoard #swuDeckWorkspace {
     position: absolute;
@@ -1084,25 +1089,6 @@ if (AzukiDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; ret
   }
   #mySideboard > span:only-child:not([data-mzid]) { display: none !important; }
 
-  /* Deck quantities should read as compact metadata, not large floating game counters. */
-  #myMainDeck .counter-bubble,
-  #mySideboard .counter-bubble {
-    top: auto !important;
-    right: 5px !important;
-    bottom: 5px !important;
-    left: auto !important;
-    width: 22px !important;
-    height: 22px !important;
-    margin: 0 !important;
-    transform: none !important;
-    border: 1px solid rgba(var(--accent-rgb),0.48) !important;
-    border-radius: 6px !important;
-    background: rgba(5,17,27,0.94) !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.55), inset 0 0 5px rgba(var(--accent-rgb),0.08) !important;
-    color: rgba(205,228,240,0.94) !important;
-    font: 700 12px/20px Arial, Helvetica, sans-serif !important;
-    text-shadow: none !important;
-  }
   /* Card actions are the primary hover affordance. Keep previews non-interactive and
      preserve the actions above them as a final safeguard on constrained viewports. */
   #cardDetail { pointer-events: none !important; }
@@ -1148,8 +1134,8 @@ if (AzukiDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; ret
       <div class="swu-deck-section-title">Main deck</div>
       <div id="myMainDeckSlot"></div>
     </section>
-    <section class="swu-deck-section" aria-label="Sideboard">
-      <div class="swu-deck-section-title">Sideboard</div>
+    <section class="swu-deck-section" aria-label="Maybe">
+      <div class="swu-deck-section-title">Maybe</div>
       <div id="mySideboardSlot"></div>
     </section>
   </div>
@@ -1334,3 +1320,4 @@ if (AzukiDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; ret
   else initializeLayoutEnhancements();
 })();
 </script>
+<?php echo $azukiDeckGalleryDarkLink; ?>

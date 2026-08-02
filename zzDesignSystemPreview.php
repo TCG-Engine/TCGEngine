@@ -12,21 +12,42 @@ $themeFiles = [
   'circuit-sigil-cyan' => '/TCGEngine/SharedUI/Themes/circuit-sigil-cyan.tokens.css',
   'circuit-sigil-gold' => '/TCGEngine/SharedUI/Themes/circuit-sigil-gold.tokens.css',
   'infernal-edge'      => '/TCGEngine/SharedUI/Themes/infernal-edge.tokens.css',
+  'azuki-gallery'       => '/TCGEngine/SharedUI/Themes/azuki-gallery.tokens.css',
+  'azuki-gallery-dark'  => '/TCGEngine/SharedUI/Themes/azuki-gallery-dark.tokens.css',
+  'azuki-gallery-neon'  => '/TCGEngine/SharedUI/Themes/azuki-gallery-neon.tokens.css',
 ];
+$themeLabel = $theme === '' ? 'Neutral' : ucwords(str_replace('-', ' ', $theme));
 ?>
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Design System Preview<?= $theme ? " — $theme" : '' ?></title>
+<title>Design System Preview<?= $theme ? ' — ' . htmlspecialchars($themeLabel, ENT_QUOTES, 'UTF-8') : '' ?></title>
 <link rel="stylesheet" href="/TCGEngine/SharedUI/css/tokens.css">
 <link rel="stylesheet" href="/TCGEngine/SharedUI/css/components.css">
+<style>body{background:var(--surface);color:var(--text);font-family:var(--font-body,barlow,sans-serif);margin:0;padding:32px;min-height:100vh;box-sizing:border-box;}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:0 0 22px;}
+.preview-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 22px;}
+.preview-toolbar label{font-size:12px;}
+.preview-brand{display:none;}
+h2{letter-spacing:.1em;text-transform:uppercase;font-size:15px;opacity:.7;margin:26px 0 10px;}</style>
 <?php if ($theme && isset($themeFiles[$theme])): ?>
 <link rel="stylesheet" href="<?= $themeFiles[$theme] ?>">
 <?php endif; ?>
-<style>body{background:#0e1420;color:#fff;font-family:barlow,sans-serif;margin:0;padding:32px;}
-.row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:0 0 22px;}
-h2{letter-spacing:.1em;text-transform:uppercase;font-size:15px;opacity:.7;margin:26px 0 10px;}</style>
 </head><body>
-  <h1 class="u-label">Design System Preview — theme: <?= $theme ?: 'neutral' ?></h1>
+  <header class="preview-masthead">
+    <div class="preview-brand" aria-hidden="true">AZUKI<small>TRADING CARD GAME</small></div>
+    <div>
+      <h1 class="u-label">Design System Preview — theme: <?= htmlspecialchars($themeLabel, ENT_QUOTES, 'UTF-8') ?></h1>
+      <form class="preview-toolbar" id="theme-picker">
+        <label class="u-label" for="theme-select">Preview theme</label>
+        <select class="styled-select" id="theme-select" name="theme">
+          <option value=""<?= $theme === '' ? ' selected' : '' ?>>Neutral</option>
+          <?php foreach ($themeFiles as $themeName => $themeFile): ?>
+            <option value="<?= htmlspecialchars($themeName, ENT_QUOTES, 'UTF-8') ?>"<?= $theme === $themeName ? ' selected' : '' ?>><?= htmlspecialchars(ucwords(str_replace('-', ' ', $themeName)), ENT_QUOTES, 'UTF-8') ?></option>
+          <?php endforeach; ?>
+        </select>
+      </form>
+    </div>
+  </header>
   <h2>Buttons</h2>
   <div class="row">
     <button>Default</button>
@@ -34,6 +55,19 @@ h2{letter-spacing:.1em;text-transform:uppercase;font-size:15px;opacity:.7;margin
     <button class="btn-success">Success</button>
     <button class="btn-danger">Danger</button>
     <button disabled>Disabled</button>
+  </div>
+  <h2>Gallery filters</h2>
+  <div class="row azuki-filter-row">
+    <button class="is-active">Name</button>
+    <button>Card ID</button>
+    <button>IKZ Cost</button>
+    <button>Attack</button>
+  </div>
+  <div class="row azuki-filter-row">
+    <button class="azuki-element-chip">Water <span class="azuki-element-mark water">≈</span></button>
+    <button class="azuki-element-chip">Lightning <span class="azuki-element-mark lightning">ϟ</span></button>
+    <button class="azuki-element-chip">Earth <span class="azuki-element-mark earth">△</span></button>
+    <button class="azuki-element-chip">Fire <span class="azuki-element-mark fire">火</span></button>
   </div>
   <h2>Input-type buttons (no pseudos)</h2>
   <div class="row">
@@ -86,4 +120,12 @@ h2{letter-spacing:.1em;text-transform:uppercase;font-size:15px;opacity:.7;margin
   </div>
   <script src="/TCGEngine/Core/StyledDialog.js"></script>
   <script src="/TCGEngine/Core/StyledSelect.js"></script>
+  <script>
+    document.getElementById('theme-select').addEventListener('change', function () {
+      const url = new URL(window.location.href);
+      if (this.value) url.searchParams.set('theme', this.value);
+      else url.searchParams.delete('theme');
+      window.location.assign(url.toString());
+    });
+  </script>
 </body></html>
