@@ -6647,8 +6647,11 @@ function UpdateTurnPlayerMiasma() {
  * @param {boolean} didWin  true = "You Won", false = "You Lost"
  * @param {string}  [menuUrl]  Optional explicit URL for the "Return to Menu" button.
  *   If omitted, derived from window.rootPath (e.g. "./GrandArchiveSim" → "./SharedUI/Sites/GrandArchiveSim/MainMenu.php").
+ * @param {string}  [subtitle]  Optional line under the title, e.g. "Winner(s): Drixx". In a game with
+ *   more than two seats "You Lost" alone doesn't say who actually won, so the caller names them.
+ *   Plain text (not HTML) — usernames are user-supplied.
  */
-function ShowGameOver(didWin, menuUrl, statsHtml, buttons) {
+function ShowGameOver(didWin, menuUrl, statsHtml, buttons, subtitle) {
   if (document.getElementById('game-over-overlay')) return; // already shown
 
   var overlay = document.createElement('div');
@@ -6657,6 +6660,14 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons) {
   var title = document.createElement('div');
   title.id = 'game-over-title';
   title.textContent = didWin ? 'You Won!' : 'You Lost';
+
+  var sub = null;
+  if (subtitle) {
+    sub = document.createElement('div');
+    sub.id = 'game-over-subtitle';
+    sub.textContent = subtitle;   // textContent, never innerHTML — this can contain a username
+    sub.style.cssText = 'margin-top:6px;font-size:18px;font-weight:600;color:#f0e6c8;opacity:0.92;text-align:center;';
+  }
 
   var stats = document.createElement('div');
   stats.id = 'game-over-stats';
@@ -6693,6 +6704,7 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons) {
   if (!url) url = './MainMenu.php';
 
   overlay.appendChild(title);
+  if (sub) overlay.appendChild(sub);
   overlay.appendChild(stats);
   if (typeof window.MatchReplayAddGameOverButton === 'function') {
     window.MatchReplayAddGameOverButton(overlay);
@@ -6724,6 +6736,10 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons) {
   document.body.appendChild(overlay);
 
   overlay.classList.add(didWin ? 'won' : 'lost');
+  // Marker for layouts that place the overlay's children explicitly (SWUSim lays it out as a named
+  // grid). Only when a subtitle actually exists — an unconditional extra row would add a row-gap of
+  // dead space to every game that doesn't name winners.
+  if (sub) overlay.classList.add('has-subtitle');
   void overlay.offsetWidth; // force reflow so the entering animation fires
   overlay.classList.add('active');
 }

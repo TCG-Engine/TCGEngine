@@ -24,7 +24,11 @@ function SWUCaptureCurrentGameDetail() {
                'baseHpLeft'=>['1'=>0,'2'=>0],'telemetry'=>['cards'=>[],'turns'=>[]]];
     if (function_exists('GetFirstPlayer')) { $fp=&GetFirstPlayer(); $detail['firstPlayer']=intval($fp); }
     if (function_exists('GetTurnNumber'))  { $tn=&GetTurnNumber();  $detail['turns']=intval($tn); }
-    foreach ([1,2] as $s) {
+    // Every seat in the game, not just 1 and 2 — Twin Suns runs four, and seats 3/4 were coming out
+    // of the end-game panel with no leader/base/HP at all. Seats 1 and 2 are always present, so the
+    // 2-player shape (and the SWUStats payload built from it) is byte-identical to before.
+    $seats = function_exists('GetSeatOrderArray') ? GetSeatOrderArray() : [1, 2];
+    foreach ($seats as $s) {
         if (function_exists('GetLeader')) { $l=GetLeader($s); $detail['leader'][strval($s)] = !empty($l)?strval($l[0]->CardID ?? ''):''; }
         if (function_exists('GetBase')) {
             $b=GetBase($s);
@@ -90,6 +94,15 @@ function SWUBuildGameResultPayload($match, $game) {
 function SWUSubmitMatchResults($matchId) {
     $m = SWUReadMatch($matchId);
     if (!is_array($m) || ($m['state'] ?? '')!=='complete' || !empty($m['statsSubmitted'])) return;
+    // SWUStats' SubmitGameResult is a strictly 2-player contract (one winner, one opponent deck,
+    // pairwise matchup rows) and is consumed externally, so a 4-seat Twin Suns result has nowhere
+    // to go — it would land as a bogus 1v1. Skip submission entirely, matching the same guard in
+    // SWURecordDeckStatsForGame. (This became reachable only once Twin Suns matches started
+    // completing at all; before the winner-storage fix they never reached state=complete.)
+    if (count($m['players'] ?? []) > 2) {
+        SWUWithMatchLock($matchId, function(&$mm){ $mm['statsSubmitted']=true; $mm['statsStatus']='skipped_multiplayer'; });
+        return;
+    }
     SWUWithMatchLock($matchId, function(&$mm){ $mm['statsSubmitted']=true; });
     $m = SWUReadMatch($matchId);
     $apiKey = $GLOBALS['petranakiAPIKey'] ?? ($GLOBALS['karabastAPIKey'] ?? '');
@@ -133,10 +146,12 @@ function SWUBuildStatsHtml($match, $game, $viewerSeat = null) {
         return $esc($sub !== '' && $sub !== null ? "$title - $sub" : $title);
     };
     $tel = $game['detail']['telemetry'] ?? ['cards'=>[], 'turns'=>[]];
-    // Only show the viewing player's own stats; spectators (no seat) see both.
-    $vs = ($viewerSeat === '1' || $viewerSeat === 1) ? 1
-        : (($viewerSeat === '2' || $viewerSeat === 2) ? 2 : 0);
-    $seats = $vs ? [strval($vs)] : ['1','2'];
+    // Only show the viewing player's own stats; spectators (no seat) see every seat.
+    // Any seat is a viewer — the old 1|2 test made Twin Suns seats 3 and 4 fall through to the
+    // spectator branch, so they were shown P1's and P2's card tables instead of their own.
+    $vs = max(0, intval($viewerSeat));
+    $seats = $vs ? [strval($vs)] : array_map('strval', array_keys($tel['cards'] ?? []));
+    if (!$vs && empty($seats)) $seats = ['1','2'];
     // Bordered, sectioned-off tables.
     $tableCss = 'width:100%;border-collapse:collapse;font-size:13px;border:1px solid #5a6b7a;margin-bottom:6px;';
     $thC = 'color:#f0e6c8;border:1px solid #5a6b7a;padding:3px 6px;';

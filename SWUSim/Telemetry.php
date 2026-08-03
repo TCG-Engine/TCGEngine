@@ -3,6 +3,13 @@
 // Shape: {cards:{seat:{cardId:{played,resourced,activated,drawn,discarded}}},
 //         turns:[{seat,cardsUsed,resourcesUsed,resourcesLeft,cardsLeft,damageDealt,damageTaken,restored}],
 //         cur:{seat:{...running per-turn...}}}
+// Seats this game actually has. Was hardcoded to 1|2, so a Twin Suns seat 3/4 accumulated nothing
+// and its end-game stats panel came up blank.
+function SWUTelemetrySeatOk($seat) {
+    $s = intval($seat);
+    $max = function_exists('SeatCountForGame') ? SeatCountForGame() : 2;
+    return $s >= 1 && $s <= $max;
+}
 function SWUTelemetryGet() {
     global $gTelemetry;
     $d = json_decode((string)$gTelemetry, true);
@@ -20,7 +27,7 @@ function SWUTelemetryInit() {
 }
 function SWUTelemetryBumpCard($seat, $cardId, $field, $n = 1) {
     $seat = strval(intval($seat)); $cardId = strval($cardId);
-    if (($seat !== '1' && $seat !== '2') || $cardId === '') return;
+    if (!SWUTelemetrySeatOk($seat) || $cardId === '') return;
     $d = SWUTelemetryGet();
     $cur = $d['cards'][$seat][$cardId] ?? ['played'=>0,'resourced'=>0,'activated'=>0,'drawn'=>0,'discarded'=>0];
     if (!isset($cur[$field])) $cur[$field] = 0;
@@ -30,7 +37,7 @@ function SWUTelemetryBumpCard($seat, $cardId, $field, $n = 1) {
 }
 function SWUTelemetryBumpTurn($seat, $field, $n = 1) {
     $seat = strval(intval($seat));
-    if ($seat !== '1' && $seat !== '2') return;
+    if (!SWUTelemetrySeatOk($seat)) return;
     $d = SWUTelemetryGet();
     $cur = $d['cur'][$seat] ?? [];
     $cur[$field] = ($cur[$field] ?? 0) + $n;
@@ -40,7 +47,7 @@ function SWUTelemetryBumpTurn($seat, $field, $n = 1) {
 // Finalize the running per-turn counters for $seat into a turns[] record, then clear them.
 function SWUTelemetrySnapshotTurn($seat) {
     $seat = strval(intval($seat));
-    if ($seat !== '1' && $seat !== '2') return;
+    if (!SWUTelemetrySeatOk($seat)) return;
     $d = SWUTelemetryGet();
     $cur = $d['cur'][$seat] ?? [];
     $handLeft = function_exists('GetHand') ? count(array_filter(GetHand(intval($seat)), fn($c)=>empty($c->removed))) : 0;

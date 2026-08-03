@@ -48,7 +48,16 @@ function SWUValidateResolvedDeck($resolved, $format) {
 }
 
 // Match-over flash: the client's GAMEOVER banner is reused for MATCHOVER (GameLayoutShared).
+// The banner is only the fallback — the flash's real job is to open the end-game menu, which names
+// the winners properly. Twin Suns has no series score to report (Bo1, and a "1-0" over four seats
+// reads as nonsense), so >2 seats gets the result without one.
 function SWUFlashMatchResult($gameName, $winnerSeat, $m) {
+    if (count($m['players'] ?? []) > 2) {
+        $winners = is_array($m['winners'] ?? null) && !empty($m['winners']) ? $m['winners'] : [intval($winnerSeat)];
+        $labels = array_map(fn($s) => 'Player ' . intval($s), $winners);
+        SetFlashMessage("MATCHOVER:" . implode(', ', $labels) . " " . (count($labels) > 1 ? 'win' : 'wins') . " the game!");
+        return;
+    }
     SetFlashMessage("MATCHOVER:Player " . intval($winnerSeat) . " wins the match " .
         intval($m['wins']['1'] ?? 0) . "-" . intval($m['wins']['2'] ?? 0) . "!");
 }

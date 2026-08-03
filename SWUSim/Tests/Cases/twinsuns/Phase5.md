@@ -286,3 +286,74 @@ WithActivePlayer: 1
 
 ## EXPECT
 GAMEWINNERS:2,4
+
+---
+
+# WinnerSet_SurvivesLaterVariableWrite
+#// Phase 5 — A declared winner must not be erased by the next game-variable write.
+#//
+#// GAMEOVER_WINNER/GAMEOVER_WINNERS live in the same decision-queue variable slot as every other
+#// game variable (PASS, undo bookkeeping, ...). That slot used to be written in TWO incompatible
+#// encodings — JSON by StoreVariable, pipe "K=V|K=V" by SetSWUVar — and each writer wiped the
+#// other's keys. So the game scored a winner correctly and then the very next pass-counter write
+#// deleted it: the match layer read "no winner", never recorded the result, and ALL FOUR seats
+#// were shown "You Lost". Passing here exercises SetSWUVar (the pass counter) after the winner
+#// was declared; both must coexist.
+
+## GIVEN
+CommonSetup: grw
+WithSeatOrder: 1234
+WithLiveSeats: 24
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+
+## WHEN
+- P1>DeclareWinners:2,4
+- P1>Pass
+
+## EXPECT
+GAMEWINNERS:2,4
+
+---
+
+# WinnerSet_SurvivesRequestBoundary
+#// Phase 5 — The winner set is serialized, so it survives the fresh-process boundary between
+#// requests. The match layer reads it on a LATER request than the one that scored it (that read is
+#// what records the result and drives every seat's end-game overlay), so a winner held only in
+#// memory would be lost before anyone could act on it.
+
+## GIVEN
+CommonSetup: grw
+WithSeatOrder: 1234
+WithLiveSeats: 24
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+
+## WHEN
+- P1>DeclareWinners:2,4
+- P1>SimulateRequestBoundary
+
+## EXPECT
+GAMEWINNERS:2,4
+
+---
+
+# SingleWinner_AlsoPopulatesWinnerSet
+#// Phase 5 — A single-winner (2-player) game populates the winner SET too, so every read point
+#// (match layer, end-game overlay) has ONE shape to handle regardless of format. Same final blow as
+#// win_con/EndGameFinalBlow: P1's 3-power unit finishes P2's base at 27 of 30.
+
+## GIVEN
+CommonSetup: grw/grw/{theirBaseDamage:27}
+P1Deck: [SOR_095]
+P2Deck: [ ]
+WithP1GroundArena: SOR_095:1:1
+WithInitiativePlayer: 1
+WithInitiativeClaimed: false
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1WIN
+GAMEWINNERS:1

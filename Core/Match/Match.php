@@ -127,12 +127,63 @@ function MatchWinner(array $match) {
     return 0;
 }
 
+// Human-readable name per seat: the player's PUBLIC username when they were logged in, otherwise
+// the neutral "Player N". Used by the end-game overlay, which has to name winners in a game with
+// more than two seats ("Player 2" alone is meaningless when there are four of them).
+// Best-effort by design: no DB (schema-test harness, local dev without MySQL), no userId (guest),
+// or a deleted account all degrade to "Player N" rather than failing the whole endpoint.
+// Returns [seat(int) => name(string)] for every seat present in the match.
+function MatchSeatDisplayNames(array $match) {
+    $names = [];
+    $conn = null;
+    $tried = false;
+    foreach (array_keys($match['players'] ?? []) as $seatKey) {
+        $seat = intval($seatKey);
+        if ($seat < 1) continue;
+        $names[$seat] = 'Player ' . $seat;
+        $userId = intval($match['players'][$seatKey]['userId'] ?? 0);
+        if ($userId <= 0) continue;                      // not logged in → keep the seat name
+        if (!$tried) {                                   // connect at most once, and only if needed
+            $tried = true;
+            $dbPath = __DIR__ . '/../../Database/ConnectionManager.php';
+            $mhPath = __DIR__ . '/../MatchHistory.php';
+            if (is_file($dbPath) && is_file($mhPath)) {
+                require_once $dbPath;
+                require_once $mhPath;
+                if (function_exists('GetLocalMySQLConnection')) $conn = GetLocalMySQLConnection();
+            }
+        }
+        if (!$conn || !function_exists('MatchHistoryUsername')) continue;
+        $uid = MatchHistoryUsername($conn, $userId);
+        if ($uid !== null && $uid !== '') $names[$seat] = $uid;
+    }
+    if ($conn) $conn->close();
+    return $names;
+}
+
+// Every seat that reached winsNeeded. Normally a single seat (MatchWinner returns the same one), but
+// a multiplayer format can end in a shared victory — see MatchGetGameWinners / SWU CR §12.7.3.
+function MatchWinners(array $match) {
+    $need = intval($match['winsNeeded'] ?? 1);
+    $seats = [];
+    foreach (($match['wins'] ?? []) as $seat => $w) {
+        if (intval($w) >= $need) $seats[] = intval($seat);
+    }
+    sort($seats);
+    return $seats;
+}
+
 // Idempotent by gameName: recording the same game twice does not double-count.
 // Games may be pre-seeded as shells (winner => null) when spawned; fill the shell
 // rather than appending a duplicate, and skip games already decided.
-function MatchRecordGameResult($rootName, $matchId, $gameName, $winnerSeat, $roundNumber = null) {
-    return MatchWithLock($rootName, $matchId, function (&$match) use ($rootName, $gameName, $winnerSeat, $roundNumber) {
+// $winnerSeats (optional) is the full winner SET for a shared victory — see MatchGetGameWinners.
+// Omitted / empty means "just $winnerSeat", so every existing 2-player caller behaves identically.
+function MatchRecordGameResult($rootName, $matchId, $gameName, $winnerSeat, $roundNumber = null, $winnerSeats = null) {
+    return MatchWithLock($rootName, $matchId, function (&$match) use ($rootName, $gameName, $winnerSeat, $roundNumber, $winnerSeats) {
         $seat = intval($winnerSeat);
+        $seats = is_array($winnerSeats) ? array_values(array_unique(array_map('intval', $winnerSeats))) : [];
+        if (empty($seats)) $seats = [$seat];
+        sort($seats);
         $idx = null;
         foreach ($match['games'] as $i => $g) {
             if (($g['gameName'] ?? null) === strval($gameName)) {
@@ -146,7 +197,13 @@ function MatchRecordGameResult($rootName, $matchId, $gameName, $winnerSeat, $rou
         }
         if (isset($match['players'][strval($seat)])) {
             $match['games'][$idx]['winner'] = $seat;
-            $match['wins'][strval($seat)] = intval($match['wins'][strval($seat)] ?? 0) + 1;
+            // 'winners' is written alongside (not instead of) the scalar so readers that only know
+            // about 'winner' — stats, history, the Bo3 sideboard flow — are untouched.
+            $match['games'][$idx]['winners'] = $seats;
+            foreach ($seats as $s) {
+                if (!isset($match['players'][strval($s)])) continue;
+                $match['wins'][strval($s)] = intval($match['wins'][strval($s)] ?? 0) + 1;
+            }
             // Reached only on the null→seat transition (idempotent early-return above) → count once.
             // Skip a game that ended before Round 2 (early concede) — same rule as the stats submit.
             // ($roundNumber null = caller didn't supply it → record, preserving non-hook callers.)
@@ -157,8 +214,9 @@ function MatchRecordGameResult($rootName, $matchId, $gameName, $winnerSeat, $rou
             }
         }
         if (MatchIsOver($match)) {
-            $match['state']  = 'complete';
-            $match['winner'] = MatchWinner($match);
+            $match['state']    = 'complete';
+            $match['winner']   = MatchWinner($match);
+            $match['winners']  = MatchWinners($match);
         }
     });
 }

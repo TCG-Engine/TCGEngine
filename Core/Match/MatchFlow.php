@@ -57,6 +57,26 @@ function MatchGetGameWinner() {
     return ($w >= 1 && $w <= 4) ? $w : 0;
 }
 
+// The full winner SET. Most games have exactly one winner, but a multiplayer format can end in a
+// shared victory (SWU Twin Suns, CR §12.7.3: tied-highest remaining base HP all win), so the engine
+// also writes GAMEOVER_WINNERS — a concat of the winning seats, e.g. "24". GAMEOVER_WINNER holds the
+// first of them so every existing scalar "is the game over / who won" read keeps working unchanged.
+function MatchGetGameWinners() {
+    if (!class_exists('DecisionQueueController')) return [];
+    $raw = strval(DecisionQueueController::GetVariable('GAMEOVER_WINNERS'));
+    $seats = [];
+    foreach (str_split($raw) as $ch) {
+        $s = intval($ch);
+        if ($s >= 1 && $s <= 4 && !in_array($s, $seats, true)) $seats[] = $s;
+    }
+    if (empty($seats)) {
+        $w = MatchGetGameWinner();
+        if ($w > 0) $seats[] = $w;
+    }
+    sort($seats);
+    return $seats;
+}
+
 // Resolve the opponent of $userId in the match backing $gameName.
 // Returns null if no match/ref, the user isn't a seat, or the game store is unavailable.
 function MatchResolveOpponent($rootName, $gameName, $userId) {
@@ -349,11 +369,12 @@ function MatchAfterActionHook($rootName, $gameName) {
     if ($ref === null) return;                 // not a match game (goldfish/legacy)
     if (MatchGetGameWinner() === 0) return;     // game not over
 
-    $winner = MatchGetGameWinner();
+    $winner  = MatchGetGameWinner();
+    $winners = MatchGetGameWinners();   // shared victory (Twin Suns tie) records every winning seat
     // Capture per-game telemetry/detail while this game's gamestate is loaded (for stats).
     $detail = MatchHook($rootName, 'captureGameDetail');
     $roundNumber = is_array($detail) ? intval($detail['turns'] ?? 0) : null; // gate early-concede stats (round < 2)
-    MatchRecordGameResult($rootName, $ref['matchId'], $gameName, $winner, $roundNumber);
+    MatchRecordGameResult($rootName, $ref['matchId'], $gameName, $winner, $roundNumber, $winners);
     if ($detail !== null) {
         MatchWithLock($rootName, $ref['matchId'], function (&$mm) use ($gameName, $detail) {
             foreach ($mm['games'] as &$g) { if (($g['gameName'] ?? '') === strval($gameName)) { $g['detail'] = $detail; break; } }

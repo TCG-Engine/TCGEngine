@@ -27,6 +27,9 @@ https://swudb.com/deck/oNDdHLCHkyz|double arena aggro. Kylo on the ground. Vonre
 https://swudb.com/deck/UENBLWzTHT|two Cads. tempo aggro
 https://swudb.com/deck/jVTCfqAe|tribal Mandalorian deck
 
+Padaawan:
+
+
 ## GrandArchiveSim
 https://sleeved.gg/grand-archive/decks/4f04a8b3-4ea0-42dd-9872-f00dff259d87|
 
