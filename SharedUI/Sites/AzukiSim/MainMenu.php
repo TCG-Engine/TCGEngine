@@ -326,6 +326,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
   </div>
 </div>
 <script src="/TCGEngine/Core/MatchReplayClient.js"></script>
+<script src="/TCGEngine/SharedUI/js/private-invite.js"></script>
 <script src="/TCGEngine/AzukiSim/Custom/GameLogClient.js?v=<?php echo @filemtime(__DIR__ . '/../../../AzukiSim/Custom/GameLogClient.js'); ?>"></script>
 <script>
   window.AZUKI_DECK_CODES = <?php echo json_encode($azukiDeckCodes, JSON_UNESCAPED_SLASHES); ?>;
@@ -762,34 +763,23 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         window.location.href = buildGameUrl(record.playerID, record.gameName, record.authKey, false);
       }
 
+      // Shared private-invite lobby UI (SharedUI/js/private-invite.js). Azuki reveals the join button
+      // with a CSS class rather than inline display, and has its own caster-mode copy, so both are
+      // passed as options; everything else (hiding Create Private Game / Join Queue, re-applying after
+      // the page's own handlers run) is the shared behavior.
       function initializePrivateInviteFromUrl() {
         try {
-          var params = new URLSearchParams(window.location.search || '');
-          var joinBtn = document.getElementById('join-private-invite-btn');
-          var notice = document.getElementById('private-invite-notice');
-
-          _privateInviteCode = '';
-          _privateInviteCasterMode = false;
-          if (joinBtn) joinBtn.classList.remove('is-visible');
-          if (notice) {
-            notice.style.display = 'none';
-            notice.textContent = '';
-          }
-
-          if (!params.has('privateInvite')) return;
-          _privateInviteCode = (params.get('privateInvite') || '').trim();
-          if (!_privateInviteCode) return;
-          _privateInviteCasterMode = params.get('casterMode') === '1';
-
-          if (joinBtn) {
-            joinBtn.classList.add('is-visible');
-            joinBtn.textContent = 'Join Private Invite';
-          }
-          if (notice) {
-            notice.style.display = '';
-            notice.textContent = _privateInviteCasterMode
-              ? 'Caster-mode invite detected. Spectators can see both players\' hands. Joining this game opts you in.'
-              : 'Private invite detected. Choose your deck, then click Join Private Invite.';
+          _privateInviteCode = window.PrivateInviteUI ? window.PrivateInviteUI.init({
+            rootName: 'AzukiSim',
+            joinBtnVisibleClass: 'is-visible',
+            noticeText: 'Private invite detected. Choose your deck, then click Join Private Invite.',
+            noticeTextCaster: 'Caster-mode invite detected. Spectators can see both players\' hands. '
+                            + 'Joining this game opts you in.'
+          }) : '';
+          _privateInviteCasterMode = window.PrivateInviteUI ? !!window.PrivateInviteUI.casterMode : false;
+          if (_privateInviteCode) {
+            var joinBtn = document.getElementById('join-private-invite-btn');
+            if (joinBtn) joinBtn.textContent = 'Join Private Invite';
           }
         } catch (e) {
           console.error('Failed to parse private invite URL:', e);

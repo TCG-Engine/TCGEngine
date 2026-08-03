@@ -53,8 +53,21 @@ function GroundArenaAfterAdd($player, $CardID, $Status, $Owner, $Damage, $Contro
 function SpaceArenaAfterAdd($player, $CardID, $Status, $Owner, $Damage, $Controller,
                              $TurnEffects, $Subcards, $UniqueID) {}
 
-function SWUAddToDiscard(int $player, string $cardID, string $from, string $modifier = '', ?object $sourceObject = null): object {
+function SWUAddToDiscard(int $player, string $cardID, string $from, string $modifier = '', ?object $sourceObject = null): ?object {
     global $gTurnNumber;
+    // ⚠ TOKENS CEASE TO EXIST when they leave play — a Shield / Experience / token unit / Credit / Force
+    // token NEVER enters a discard pile. Enforced here because this is the single funnel every leave-play
+    // path uses (unit defeat, the host-subcard strip on a defeated unit, forced discards), so guarding it
+    // once covers them all. No entry is created and NO "when discarded" observer fires (a token that
+    // ceases was not discarded). This is load-bearing beyond cosmetics: discard COUNT and CONTENTS gate
+    // real effects ("play a unit from your discard", discard-size conditions, SOR_091-style returns), and
+    // a token sitting in a discard pile is both an illegal state and a replayable card that shouldn't be.
+    // ⚠ Ordered BEFORE the Clone rewrite below on purpose: a Clone leaves play as TWI_116, a REAL card
+    // that must still be discarded normally — only genuinely token-typed cards cease.
+    if (strncmp((string)(CardType($cardID) ?? ''), 'Token', 5) === 0
+        || CardType($cardID) === 'Credit Token' || CardType($cardID) === 'Force Token') {
+        return null;
+    }
     // TWI_116 Clone — a Clone copy leaves play as the REAL card (TWI_116), never as the card it copied:
     // the printed copy only exists while in play, so it returns to its owner's discard as Clone. (Its
     // When Defeated / "a <copied card> was defeated" triggers still fire from the copied identity, which
@@ -5885,6 +5898,32 @@ function SWUTakeControlOfUnit(int $newController, string $mzID): string {
     // "Opponents can't take control of this unit" (LAW_149 Rey). Block when someone OTHER than the
     // owner is taking control (an opponent); returning control to the owner is always allowed.
     if (intval($newController) !== intval($unit->Owner ?? $newController) && SWUAvoidsTakeControl($unit)) {
+        $playerID = $savedPID;
+        return '';
+    }
+    // CR 3.4.6 — "If an ability would cause a Leader Unit to move to an out-of-play zone or CHANGE CONTROL
+    // for any reason, it is defeated instead." A leader unit can only ever be controlled by its leader's
+    // controller, so ANY control change defeats it rather than transferring it. Covers both forms:
+    //   • a deployed leader in the arena (returns to its leader zone exhausted, CR 3.4.5); and
+    //   • a normal unit MADE a leader unit by a leader Pilot upgrade (CR 3.4.7 — the host goes to its
+    //     owner's discard, the Leader Upgrade flips back to the leader zone).
+    // Reachable both by a take-control effect aimed at a leader unit (Sly Moore TWI_211, Change of Heart,
+    // No Glory Only Results) AND by the RETURN half of a temporary steal whose target has become a leader
+    // unit in the meantime (LOF_189 Liberated by Darkness + a pilot leader deployed onto the stolen unit) —
+    // that second path previously handed the opponent a unit still carrying the other player's leader.
+    // ⚠ Only a genuine change of controller qualifies; re-asserting the SAME controller must stay a no-op.
+    // The defeat is attributed to the CURRENT controller so it is not treated as an enemy-ability defeat
+    // (this is a rules replacement, not a card ability, so "can't be defeated by enemy abilities" is moot).
+    // ⚠ $mzID is RELATIVE to the CALLER's frame ($savedPID), but the defeat must be attributed to the
+    // current controller — and SWUDefeatUnit re-resolves the mzID under the player it is given. Passing
+    // the caller's mzID with the controller as actor resolves to a DIFFERENT unit (it defeated the
+    // card that was doing the stealing). Re-find the unit by UID under the controller's own frame.
+    $curController = intval($unit->Controller ?? ($unit->Owner ?? $newController));
+    if (intval($newController) !== $curController && IsLeaderUnit($unit)) {
+        $leaderUid = intval($unit->UniqueID ?? 0);
+        $playerID  = $curController;
+        $ownerMz   = $leaderUid > 0 ? SWUFindMzByUID($leaderUid) : null;
+        if ($ownerMz !== null) SWUDefeatUnit($curController, $ownerMz);
         $playerID = $savedPID;
         return '';
     }

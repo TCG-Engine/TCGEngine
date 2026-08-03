@@ -1,5 +1,23 @@
 <?php
 
+// A Twin Suns deck stores BOTH leaders in the ordinary Leader zone — element [1] is the second one.
+// This mirrors SWUDeck's own validator (SWUDeck/ValidateDeckState.php), which builds its leader list by
+// iterating GetLeader(1); it is the authoritative reader for what a deck's leaders are.
+// ⚠ Do NOT use the separate Leader2 zone. It is legacy and its contents are garbage on real decks —
+// measured locally: it holds a default SOR_005 on dozens of ordinary Premier decks and even a Unit
+// ("Cell Block Guard") on others, while only 6 of 81 decks have a genuine second entry in Leader[].
+// Trusting Leader2 silently turns valid Premier decks into invalid 2-leader ones.
+function _LoadDeckSecondLeaderID($leaderZone) {
+  if (!is_array($leaderZone) || count($leaderZone) < 2) return '';
+  if (!isset($leaderZone[1]->CardID)) return '';
+  $cid = trim((string)$leaderZone[1]->CardID);
+  if ($cid === '') return '';
+  // Defensive: a deck file that has drifted shouldn't be able to publish a non-Leader as a leader.
+  if (function_exists('CardType') && CardType($cid) !== 'Leader') return '';
+  return $cid;
+}
+
+
   // CORS headers for public API
   header("Access-Control-Allow-Origin: *");
   header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
@@ -87,6 +105,18 @@
 		$response->leader = new stdClass();
 		$response->leader->id = $setId ? CardIDLookup($leader[0]->CardID) : $leader[0]->CardID;
 		$response->leader->count = 1;
+		// Twin Suns decks carry a SECOND leader as element [1] of the same Leader zone. Emit it as
+		// `secondleader` — the same shape as `leader`, and the field name swudb.com uses, which SWUSim's
+		// importer (SWUNormalizeStandardJSON) already reads. Without it a Twin Suns deck imports with one
+		// leader and fails validation as "requires exactly 2 leaders; found 1".
+		// ADDITIVE: only present when the deck genuinely has two leaders, so every single-leader (Premier,
+		// Eternal, …) response stays byte-identical and existing consumers are unaffected.
+		$secondLeaderID = _LoadDeckSecondLeaderID($leader);
+		if ($secondLeaderID !== '') {
+			$response->secondleader = new stdClass();
+			$response->secondleader->id = $setId ? CardIDLookup($secondLeaderID) : $secondLeaderID;
+			$response->secondleader->count = 1;
+		}
 		$base = &GetBase(1);
 		$response->base = new stdClass();
 		$response->base->id = $setId ? CardIDLookup($base[0]->CardID) : $base[0]->CardID;
@@ -201,7 +231,14 @@
   function SWUDeckText() {
 	$deckText = "";
 	$leader = &GetLeader(1);
-	$deckText .= "Leader\r\n1 " . CardTitle($leader[0]->CardID) . " | " . CardSubtitle($leader[0]->CardID) . "\r\n\r\n";
+	$deckText .= "Leader\r\n1 " . CardTitle($leader[0]->CardID) . " | " . CardSubtitle($leader[0]->CardID) . "\r\n";
+	// Twin Suns decks carry a second leader in the separate Leader2 zone — list it under the same
+	// "Leader" header so an exported deck list round-trips instead of silently losing a leader.
+	$secondLeaderID = _LoadDeckSecondLeaderID($leader);
+	if ($secondLeaderID !== '') {
+		$deckText .= "1 " . CardTitle($secondLeaderID) . " | " . CardSubtitle($secondLeaderID) . "\r\n";
+	}
+	$deckText .= "\r\n";
 	$base = &GetBase(1);
 	$deckText .= "Base\r\n1 " . CardTitle($base[0]->CardID) . "\r\n\r\n";
 

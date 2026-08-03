@@ -192,6 +192,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
 
 <audio id="ga-player-joined-sound" src="/TCGEngine/Assets/playerJoinedSound.mp3" preload="auto"></audio>
 <script src="/TCGEngine/Core/MatchReplayClient.js"></script>
+<script src="/TCGEngine/SharedUI/js/private-invite.js"></script>
 
 <style>
   .home-header {
@@ -771,19 +772,12 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         if (saved === 'text') switchDeckTab('text');
       })();
 
+      // Shared private-invite lobby UI (SharedUI/js/private-invite.js): reveal Join Private Invite,
+      // hide the competing Create Private Game / Join Queue actions, and disable the format +
+      // match-type selects (the server adopts the HOST lobby's settings for an invite join).
       function initializePrivateInviteFromUrl() {
         try {
-          var params = new URLSearchParams(window.location.search || '');
-          _privateInviteCode = (params.get('privateInvite') || params.get('invite') || '').trim();
-          if (!_privateInviteCode) return;
-
-          var joinBtn = document.getElementById('join-private-invite-btn');
-          var notice = document.getElementById('private-invite-notice');
-          if (joinBtn) joinBtn.style.display = '';
-          if (notice) {
-            notice.style.display = '';
-            notice.textContent = 'Private invite detected. Choose your deck, then click Join Private Invite.';
-          }
+          _privateInviteCode = window.PrivateInviteUI ? window.PrivateInviteUI.init({ rootName: 'GrandArchiveSim' }) : '';
         } catch (e) {
           console.error('Failed to parse private invite URL:', e);
         }
