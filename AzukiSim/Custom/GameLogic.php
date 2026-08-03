@@ -3218,7 +3218,8 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
             'via' => strval($resolvedSourceKey),
             'hp' => max(0, ResolveEntityHealthValue($targetPlayer, $garden[$index]) - intval($garden[$index]->Damage ?? 0)),
         ]);
-        QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true);
+        $targetUniqueID = EnsureAzukiFieldUniqueID($garden[$index]);
+        QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true, $targetUniqueID);
         TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
         RecordDamageSourceOnObject($garden[$index], $resolvedSourceKey);
         if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
@@ -3267,7 +3268,8 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
         'via' => strval($resolvedSourceKey),
         'hp' => max(0, ResolveEntityHealthValue($targetPlayer, $alley[$index]) - intval($alley[$index]->Damage ?? 0)),
     ]);
-    QueueDamageAnimation('p' . $targetPlayer . 'Alley-' . $index, $amount, 500, true);
+    $targetUniqueID = EnsureAzukiFieldUniqueID($alley[$index]);
+    QueueDamageAnimation('p' . $targetPlayer . 'Alley-' . $index, $amount, 500, true, $targetUniqueID);
     TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
     RecordDamageSourceOnObject($alley[$index], $resolvedSourceKey);
     if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
