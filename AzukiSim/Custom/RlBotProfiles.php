@@ -10,7 +10,7 @@ function AzukiRlBotProfiles(): array {
         'zero' => [
             'label' => 'Zero (Deck 51)',
             'deck' => 'ZeroRL',
-            'model' => 'zero-aggro-control-20260725-033343-ep150000.json',
+            'model' => 'zero-residual-deck51-20260801-ep125040.json',
         ],
         'goldfish' => [
             'label' => 'Goldfish (Auto-pass)',
