@@ -7,9 +7,17 @@ window.legalFilter = true;
 // outside the deck-builder page's normal render path).
 var legalSets = window.SWU_FORMAT_LEGAL_SETS || ["JTL", "LOF", "SEC", "IBH", "LAW", "ASH"];
 var bannedUUIDs = window.SWU_FORMAT_BANNED_UUIDS || [];
+// Rarity-restricted formats (Padawan) ship a server-computed allowlist of every legal PRINTING.
+// null for every other format, in which case the set-based logic below is the only gate — so
+// Premier/Eternal/Twin Suns/Open behavior is untouched. Computed server-side because this rule is
+// not expressible here: cardReprintSets holds reprint set codes, not per-printing rarity, so a
+// client-side rarity check would wrongly hide the SOR printing of Prepare for Takeoff.
+var rarityLegalUUIDs = window.SWU_FORMAT_RARITY_LEGAL_UUIDS || null;
 
+// Returns TRUE to HIDE the card.
 function InLegalFilter(cardID) {
   if(bannedUUIDs.includes(cardID)) return true;
+  if(rarityLegalUUIDs && !rarityLegalUUIDs.includes(cardID)) return true;
   var cardSet = Cardset(cardID);
   if(cardSet && legalSets.includes(cardSet)) return false;
   var reprints = cardReprintSets[cardID];

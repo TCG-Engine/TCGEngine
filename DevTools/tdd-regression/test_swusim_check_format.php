@@ -156,5 +156,93 @@ $checks['injected leader aspects are honored'] =
                            ['SOR_005' => 'Villainy', 'JTL_012' => 'Heroism']),
             'Heroism and Villainy');
 
+// ═══ PADAWAN ═══════════════════════════════════════════════════════════════════
+// A 50-card all-Common main deck: 16 cards x3 (=48) + 2 singles. Every id below was verified
+// Common AND self-canonical (no reprint indirection), so the fixture isolates the rarity rule.
+// NOTE: _legalMain() is deliberately NOT reused — it contains IBH_010/IBH_011, both Special.
+function _padawanMain() {
+    $trip = ['JTL_033','JTL_034','JTL_040','JTL_044','JTL_051','JTL_052','JTL_058','JTL_060',
+             'JTL_061','JTL_063','JTL_064','JTL_065','JTL_067','JTL_068','JTL_069','JTL_071'];
+    $deck = [];
+    foreach ($trip as $c) { $deck[] = $c; $deck[] = $c; $deck[] = $c; }  // 48
+    $deck[] = 'JTL_076'; $deck[] = 'JTL_078';                            // 50
+    return $deck;
+}
+$pLeader = 'JTL_001';   // Asajj Ventress — a RARE leader; must pass via the leader exemption
+$pBase   = 'JTL_023';   // Theed Palace — Common
+
+// 1. Baseline: an all-Common deck with a Rare leader and a Common base is legal.
+$checks['padawan legal deck'] = SWUCheckFormat('padawan', $pLeader, $pBase, _padawanMain(), []) === [];
+
+// 2. LEADER EXEMPTION — "Any Leader". A Rare leader and an IBH Special leader both pass.
+$checks['padawan allows rare leader'] = SWUCheckFormat('padawan', 'JTL_001', $pBase, _padawanMain(), []) === [];
+$checks['padawan allows IBH leader']  = SWUCheckFormat('padawan', 'IBH_001', $pBase, _padawanMain(), []) === [];
+
+// 3. IBH CARDS ARE NOT LEGAL, even though IBH leaders are (they are Special, like every IBH card).
+$ibhCardDeck = _padawanMain(); $ibhCardDeck[0] = 'IBH_003';
+$checks['padawan rejects IBH card'] = !empty(SWUCheckFormat('padawan', $pLeader, $pBase, $ibhCardDeck, []));
+
+// 4. NO S CARDS — SOR_236 R2-D2 is Special. This is the "weekly play pack Common variant" ruling:
+//    the promo Common printing lives under a set code absent from legalSets, so it cannot rescue it.
+$r2Deck = _padawanMain(); $r2Deck[0] = 'SOR_236';
+$checks['padawan rejects SOR R2-D2'] = !empty(SWUCheckFormat('padawan', $pLeader, $pBase, $r2Deck, []));
+
+// 5. Rare and Uncommon cards are rejected.
+$rareDeck = _padawanMain(); $rareDeck[0] = 'JTL_140';       // IG-2000, Rare
+$uncDeck  = _padawanMain(); $uncDeck[0]  = 'JTL_170';       // War Juggernaut, Uncommon
+$checks['padawan rejects rare card']     = !empty(SWUCheckFormat('padawan', $pLeader, $pBase, $rareDeck, []));
+$checks['padawan rejects uncommon card'] = !empty(SWUCheckFormat('padawan', $pLeader, $pBase, $uncDeck, []));
+
+// 6. BASES — "Any Common Base (no ECL, TT, DV)".
+$checks['padawan rejects ECL base'] = !empty(SWUCheckFormat('padawan', $pLeader, 'SOR_022', _padawanMain(), []));
+$checks['padawan rejects TT base']  = !empty(SWUCheckFormat('padawan', $pLeader, 'SOR_025', _padawanMain(), []));
+$checks['padawan rejects DV base']  = !empty(SWUCheckFormat('padawan', $pLeader, 'JTL_024', _padawanMain(), []));
+$checks['padawan accepts common base (SOR)'] = SWUCheckFormat('padawan', $pLeader, 'SOR_024', _padawanMain(), []) === [];
+
+// 7. REPRINT GROUP, upward — SHD_030 Death Trooper is Special but SOR_033 is Common.
+$dtDeck = _padawanMain(); $dtDeck[0] = 'SHD_030';
+$checks['padawan accepts special reprint of a common'] =
+    SWUCheckFormat('padawan', $pLeader, $pBase, $dtDeck, []) === [];
+
+// 8. REPRINT GROUP, downshift — Prepare for Takeoff: SOR_125 Uncommon / JTL_128 Common.
+//    BOTH printings must be accepted; a deck may list either.
+$pftCommon   = _padawanMain(); $pftCommon[0]   = 'JTL_128';
+$pftUncommon = _padawanMain(); $pftUncommon[0] = 'SOR_125';
+$checks['padawan accepts PfT common printing']   = SWUCheckFormat('padawan', $pLeader, $pBase, $pftCommon, []) === [];
+$checks['padawan accepts PfT uncommon printing'] = SWUCheckFormat('padawan', $pLeader, $pBase, $pftUncommon, []) === [];
+
+// 9. SIDEBOARD is rarity-checked too (cards swap into the deck between games).
+$checks['padawan rejects rare in sideboard'] =
+    !empty(SWUCheckFormat('padawan', $pLeader, $pBase, _padawanMain(), ['JTL_140']));
+$checks['padawan accepts common in sideboard'] =
+    SWUCheckFormat('padawan', $pLeader, $pBase, _padawanMain(), ['JTL_079']) === [];   // Out the Airlock, Common
+// The 3-copy limit still spans main deck + sideboard: _padawanMain() already holds 3x JTL_033.
+$checks['padawan enforces combined copy limit'] =
+    !empty(SWUCheckFormat('padawan', $pLeader, $pBase, _padawanMain(), ['JTL_033']));
+
+// 10. COPY EXCEPTION survives — Swarming Vulture Droid is Common, so 15 copies are legal.
+$vultureDeck = [];
+for ($i = 0; $i < 15; $i++) $vultureDeck[] = 'JTL_256';
+$vultureDeck = array_merge($vultureDeck, array_slice(_padawanMain(), 0, 35));   // 50 total
+$checks['padawan allows 15x vulture droid'] =
+    SWUCheckFormat('padawan', $pLeader, $pBase, $vultureDeck, []) === [];
+
+// 11. Error message is SPECIFIC — a wrong-rarity card must not be reported as "not legal in".
+$rarityErr = SWUCheckFormat('padawan', $pLeader, $pBase, $rareDeck, []);
+$checks['rarity error names the rarity'] = _errHas($rarityErr, 'Common printing');
+$checks['rarity error is not a set error'] = !_errHas($rarityErr, 'not legal in');
+
+// 12. PADAWAN PREVIEW accepts HMW commons; plain Padawan does not.
+$hmwDeck = _padawanMain(); $hmwDeck[0] = 'HMW_059';          // Clone X Assassin, Common
+$checks['padawan rejects HMW card']          = !empty(SWUCheckFormat('padawan', $pLeader, $pBase, $hmwDeck, []));
+$checks['padawan-preview accepts HMW card']  = SWUCheckFormat('padawan-preview', $pLeader, $pBase, $hmwDeck, []) === [];
+$checks['padawan-preview accepts HMW base']  = SWUCheckFormat('padawan-preview', $pLeader, 'HMW_019', _padawanMain(), []) === [];
+
+// 13. NO REGRESSION: the rarity code path must not alter any pre-existing format's verdict.
+$checks['premier verdict unchanged'] = SWUCheckFormat('premier', $leader, $base, _legalMain(), []) === [];
+$checks['eternal verdict unchanged'] = SWUCheckFormat('eternal', $leader, $base, _legalMain(), []) === [];
+$checks['premier still accepts its rares'] =
+    SWUCheckFormat('premier', $leader, $base, $rareDeck, []) === [];
+
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";

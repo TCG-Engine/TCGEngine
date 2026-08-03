@@ -74,6 +74,37 @@ function SWUFormatDefinitions() {
             'enabled'     => true,                                // private-room lobby ships this session
         ],
 
+        // ── PADAWAN (SWU Pauper / Commons) ───────────────────────────────────
+        // Community format run by Indy SWU. Eternal pool, but every card EXCEPT the leader must be
+        // printed as a Common in a main/Twin Suns set. Leaders are unrestricted ("Any Leader") —
+        // enforced structurally, since SWUCheckFormat receives leaders in their own parameter and
+        // simply never rarity-checks them.
+        //
+        // legalSets is the Eternal list VERBATIM, deliberately including IBH. Per the ruling, IBH
+        // LEADERS are legal but IBH CARDS are not — and that falls out for free, because all 104
+        // IBH non-leader cards and both IBH bases are Special. Do NOT add a set-exclusion here.
+        //
+        // Nothing else needs configuring; the rarity rule already subsumes it:
+        //   • "no ECL/TT/DV" — SOR_022 / SOR_025 / JTL_024 are all Rare bases
+        //   • Eternal's bans  — JTL_140 is Rare, JTL_170 is Uncommon
+        //   • deck size is always 50 — both deck-size-modifier bases (JTL_024, JTL_025) are Rare
+        // JTL_256 Swarming Vulture Droid IS Common, so this must NOT set 'ignoreGlobalCardRules'
+        // — its 15-copy exception stays live.
+        'padawan' => [
+            'displayName'   => 'Padawan',
+            'legalSets'     => $eternalSets,
+            'banned'        => [],
+            'legalRarities' => ['Common'],
+            'enabled'       => true,
+        ],
+        'padawan-preview' => [
+            'displayName'   => 'Padawan Preview',
+            'legalSets'     => array_merge($eternalSets, ['HMW']),
+            'banned'        => [],
+            'legalRarities' => ['Common'],
+            'enabled'       => true,
+        ],
+
         // ── PREVIEW (temporary) ──────────────────────────────────────────────
         // Premier pool + the upcoming set's previews. Flip 'enabled' => true and
         // add the new set code to 'legalSets' when a preview window opens; set it
@@ -119,6 +150,9 @@ function SWUGetFormat($formatId) {
         'displayName'       => $f['displayName']       ?? $formatId,
         'legalSets'         => $f['legalSets']         ?? [],
         'banned'            => $f['banned']            ?? [],
+        // null = no rarity restriction. Every pre-Padawan format omits the key and so keeps
+        // byte-identical verdicts — this is the blast-radius guard for a shared AppCore file.
+        'legalRarities'     => $f['legalRarities']     ?? null,
         'copyExceptions'    => $copyExceptions,
         'deckSizeModifiers' => $deckSizeModifiers,
         'minDeck'           => $f['minDeck']           ?? 50,   // min "other cards" (units/events/upgrades)

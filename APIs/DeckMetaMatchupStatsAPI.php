@@ -39,7 +39,7 @@ if ($startWeek === null && $endWeek === null) {
 // Opt-in format filter (default premier keeps existing responses byte-identical). Whitelisted, so
 // safe to inline like the intval'd week clause.
 $format = isset($_GET['format']) ? strtolower($_GET['format']) : 'premier';
-if (!in_array($format, ['premier','eternal','twinsuns'], true)) { $format = 'premier'; }
+if (!in_array($format, ['premier','eternal','twinsuns','padawan'], true)) { $format = 'premier'; }
 $weekWhere = '(' . $weekWhere . ") AND format = '$format'";
 
 // By default the selected weeks are AGGREGATED into one row per opponent (all-time

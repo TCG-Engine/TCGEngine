@@ -13,10 +13,11 @@ function SWUDeckBuildableFormats() {
         'premier'  => '#a8d8ff', // light blue
         'eternal'  => '#d3b8f0', // light purple
         'twinsuns' => '#a8e6c9', // seafoam green
+        'padawan'  => '#f0d9a8', // amber / sand
         'open'     => '#f5b8b0', // light red / salmon
     ];
     $out = [];
-    foreach (['premier', 'eternal', 'twinsuns', 'open'] as $id) {
+    foreach (['premier', 'eternal', 'twinsuns', 'padawan', 'open'] as $id) {
         $f = SWUGetFormat($id);
         if ($f === null) continue; // defensive: format removed from config
         $out[$id] = [
@@ -49,22 +50,31 @@ function SWUDeckFormatDisplayName($formatId) {
 // SWUReprintGroup looks for it. Idempotent + cheap-once; call before any legality check.
 function SWUDeckSetReprintUniverse() {
     if (isset($GLOBALS['SWUReprintUniverse']) && is_array($GLOBALS['SWUReprintUniverse'])) return;
-    global $titleData;
-    $sets = [];
+    global $titleData, $rarityData;
+    $sets     = [];
+    $rarities = [];
     if (is_array($titleData)) {
         foreach (array_keys($titleData) as $uuid) {
             $s = CardIDLookup($uuid);
-            if ($s !== null && $s !== '') $sets[$s] = true;
+            if ($s === null || $s === '') continue;
+            $sets[$s] = true;
+            // Rarity-restricted formats (Padawan) need rarity keyed by SET_NNN, but SWUDeck's
+            // $rarityData is keyed by UUID with single-letter values. Rekey it in this same sweep —
+            // one extra array write, no second pass. AppCore's SWUCardRarity() reads this global.
+            // Without it every SET_NNN rarity lookup returns null and, since the rarity predicate
+            // fails CLOSED, the builder rejects every card and no Padawan deck can be saved legal.
+            if (isset($rarityData[$uuid])) $rarities[$s] = $rarityData[$uuid];
         }
     }
     $GLOBALS['SWUReprintUniverse'] = array_keys($sets);
+    $GLOBALS['SWURarityUniverse']  = $rarities;
 }
 
 function SWUDeckClientFormatData($formatId) {
     SWUDeckSetReprintUniverse(); // so the banned-card reprint expansion below sees all printings
     $fmt = SWUGetFormat($formatId);
     if ($fmt === null) {
-        return ['legalSets' => [], 'bannedUUIDs' => []];
+        return ['legalSets' => [], 'bannedUUIDs' => [], 'rarityLegalUUIDs' => null];
     }
     $legalSets = array_values(SWUFormatLegalSets($formatId));
 
@@ -76,9 +86,32 @@ function SWUDeckClientFormatData($formatId) {
         }
     }
 
+    // Rarity-restricted formats (Padawan) need the browse panes filtered by rarity, which the
+    // client cannot compute: cardReprintSets exposes reprint SET CODES only, not per-printing
+    // rarity, so a client-side check would wrongly hide the SOR printing of Prepare for Takeoff.
+    // Derive the allowlist here from the same predicate the validator uses — one source of truth,
+    // and it cannot go stale. null for every unrestricted format, so their payload is unchanged.
+    $rarityLegalUUIDs = null;
+    if (!empty($fmt['legalRarities'])) {
+        global $typeData;
+        $rarityLegalUUIDs = [];
+        foreach (array_keys($GLOBALS['SWURarityUniverse'] ?? []) as $setID) {
+            $uuid = UUIDLookup(NormalizeCardID($setID));
+            if (!$uuid) continue;
+            // Leaders are exempt from the rarity rule ("Any Leader") — set check only. This mirrors
+            // SWUCheckFormat, where the exemption is structural (leaders arrive in their own param).
+            $ok = (($typeData[$uuid] ?? '') === 'Leader')
+                ? SWUCardHasLegalPrint($setID, $legalSets)
+                : SWUCardHasLegalRarityPrint($setID, $legalSets, $fmt['legalRarities']);
+            if ($ok) $rarityLegalUUIDs[] = $uuid;
+        }
+        $rarityLegalUUIDs = array_values(array_unique($rarityLegalUUIDs));
+    }
+
     return [
-        'legalSets'   => $legalSets,
-        'bannedUUIDs' => array_values(array_unique($bannedUUIDs)),
+        'legalSets'        => $legalSets,
+        'bannedUUIDs'      => array_values(array_unique($bannedUUIDs)),
+        'rarityLegalUUIDs' => $rarityLegalUUIDs,
     ];
 }
 

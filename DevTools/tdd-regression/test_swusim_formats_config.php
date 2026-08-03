@@ -14,7 +14,12 @@ $checks['premier copyEx'] = ($premier['copyExceptions']['JTL_256'] ?? null) === 
 $eternalSets = SWUFormatLegalSets('eternal');
 $checks['eternal has SOR'] = in_array('SOR', $eternalSets, true);
 $checks['eternal has ASH'] = in_array('ASH', $eternalSets, true);
-$checks['open same as eternal'] = SWUFormatLegalSets('open') === $eternalSets;
+// Open resolves '*' to every set in AllSets.php, which INCLUDES the preview sets (HMW, IC27);
+// Eternal is the released-only list. The divergence is intentional — see AppCore/SWU/PreviewSets.php.
+$openSets = SWUFormatLegalSets('open');
+$checks['open is a superset of eternal'] = empty(array_diff($eternalSets, $openSets));
+$checks['open includes preview sets eternal excludes'] = in_array('HMW', $openSets, true)
+                                                      && !in_array('HMW', $eternalSets, true);
 
 // Open has no bans; defaults fill missing keys.
 $open = SWUGetFormat('open');
@@ -34,7 +39,10 @@ $checks['open ignores global copyEx'] = $open['copyExceptions'] === [];
 
 // Disable-not-delete: preview is disabled by default.
 $listed = SWUListFormats();
-$checks['preview hidden from list'] = !array_key_exists('preview', $listed);
+// 'preview' is ENABLED while an HMW preview window is open, so it is listed. The durable guarantee
+// is disable-not-delete: a disabled format stays RESOLVABLE for in-flight matches even when hidden.
+$checks['preview listed while enabled'] = array_key_exists('preview', $listed)
+                                       === (SWUGetFormat('preview')['enabled'] === true);
 $checks['preview still resolvable'] = SWUGetFormat('preview') !== null;
 $checks['enabled formats listed'] = array_key_exists('premier', $listed)
                                  && array_key_exists('eternal', $listed)
@@ -45,6 +53,38 @@ $checks['unknown format null'] = SWUGetFormat('nope') === null;
 $checks['bo3 bestOf 3'] = (SWUGetQueueType('bo3')['bestOf'] ?? null) === 3;
 $checks['bo3 sideboard on'] = (SWUGetQueueType('bo3')['sideboard'] ?? null) === true;
 $checks['bo1 sideboard off'] = (SWUGetQueueType('bo1')['sideboard'] ?? null) === false;
+
+// ── PADAWAN ──────────────────────────────────────────────────────────────────
+$padawan = SWUGetFormat('padawan');
+$checks['padawan resolves']       = $padawan !== null;
+$checks['padawan is enabled']     = $padawan['enabled'] === true;
+$checks['padawan display name']   = $padawan['displayName'] === 'Padawan';
+$checks['padawan rarities']       = $padawan['legalRarities'] === ['Common'];
+// Eternal pool VERBATIM — IBH stays in, so its 2 Special leaders remain legal (leaders are exempt
+// from the rarity rule); IBH's 104 non-leader cards and 2 bases are all Special, so the rarity rule
+// alone enforces "no Intro Battle Hoth cards".
+$checks['padawan sets == eternal'] = SWUFormatLegalSets('padawan') === SWUFormatLegalSets('eternal');
+$checks['padawan has IBH']         = in_array('IBH', SWUFormatLegalSets('padawan'), true);
+$checks['padawan no bans']         = $padawan['banned'] === [];
+$checks['padawan minDeck 50']      = $padawan['minDeck'] === 50;
+$checks['padawan maxCopies 3']     = $padawan['maxCopies'] === 3;
+$checks['padawan 1 leader']        = $padawan['leaderCount'] === 1;
+// Vulture Droid is Common, so its 15-copy exception MUST survive into Padawan.
+$checks['padawan keeps vulture exception'] = ($padawan['copyExceptions']['JTL_256'] ?? null) === 15;
+
+$padawanPreview = SWUGetFormat('padawan-preview');
+$checks['padawan-preview resolves']  = $padawanPreview !== null;
+$checks['padawan-preview rarities']  = $padawanPreview['legalRarities'] === ['Common'];
+$checks['padawan-preview adds HMW']  = in_array('HMW', SWUFormatLegalSets('padawan-preview'), true);
+$checks['padawan-preview keeps eternal'] =
+    empty(array_diff(SWUFormatLegalSets('eternal'), SWUFormatLegalSets('padawan-preview')));
+
+// ── NO REGRESSION: every pre-existing format stays rarity-unrestricted ───────
+foreach (['premier','eternal','twinsuns','open','goldfish','hotseat','preview','twinsuns-preview'] as $f) {
+    $checks["$f has no rarity restriction"] = SWUGetFormat($f)['legalRarities'] === null;
+}
+
+$checks['padawan listed'] = array_key_exists('padawan', SWUListFormats());
 
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";

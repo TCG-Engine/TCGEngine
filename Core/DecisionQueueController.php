@@ -258,18 +258,46 @@ class DecisionQueueController {
     }
 
     // Variable storage for await syntax using DecisionQueueVariables zone
+    /**
+     * Decode the decision-queue variable store.
+     *
+     * ⚠ ONE slot, historically TWO encodings. This JSON map is the canonical format, but SWUSim's
+     * SetSWUVar/GetSWUVar used to write the same slot as pipe text ("PASS=0|UNDO_DENY_COUNT_4=0").
+     * Each writer destroyed the other's keys: json_decode on a pipe string fails and restarted from
+     * [], while the pipe parser found no "|" in JSON and rewrote the slot as pipe. A value written
+     * ONCE and read later — the game-over winner — could silently vanish between the two (this is
+     * what made every seat in a finished Twin Suns game see "You Lost").
+     * Both writers now emit JSON; this decoder still accepts the legacy pipe form so games saved
+     * before the unification keep loading.
+     */
+    private static function DecodeVariables($raw) {
+        $raw = (string)$raw;
+        if (trim($raw) === '') return [];
+        $json = json_decode($raw, true);
+        if (is_array($json)) return $json;
+        // ── legacy pipe form ──
+        if (preg_match('/^\d+$/', trim($raw))) return ['PASS' => trim($raw)]; // oldest form: bare PASS count
+        $out = [];
+        foreach (explode('|', $raw) as $pair) {
+            $kv = explode('=', $pair, 2);
+            if (count($kv) === 2) $out[$kv[0]] = $kv[1];
+        }
+        return $out;
+    }
+
     public static function StoreVariable($name, $value) {
-        $vars = json_decode(GetDecisionQueueVariables(), true);
-        if (!is_array($vars)) $vars = [];
+        $vars = self::DecodeVariables(GetDecisionQueueVariables());
         $vars[$name] = $value;
         SetDecisionQueueVariables(json_encode($vars));
     }
-    
+
     public static function GetVariable($name) {
-        $vars = json_decode(GetDecisionQueueVariables(), true);
-        if (!is_array($vars)) return null;
+        $vars = self::DecodeVariables(GetDecisionQueueVariables());
         return $vars[$name] ?? null;
     }
+
+    /** Shared decoder for callers that keep their own accessor pair (SWUSim's GetSWUVar/SetSWUVar). */
+    public static function DecodeVariablesPublic($raw) { return self::DecodeVariables($raw); }
 
     public static function ClearVariable($name) {
         $vars = json_decode(GetDecisionQueueVariables(), true);

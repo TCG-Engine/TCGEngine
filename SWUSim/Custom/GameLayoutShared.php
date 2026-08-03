@@ -368,6 +368,23 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 }
 #game-over-overlay.active { display: grid !important; }  /* shared sets display:flex */
 
+/* "Winner(s): …" line under the title. It only exists when the caller names winners (Twin Suns,
+   where three of four seats read "You Lost" and nothing else would say who took it), so the extra
+   grid row is scoped to .has-subtitle — otherwise every ordinary game would pay a row-gap of dead
+   space for an empty area. An unplaced child in a grid with named areas gets AUTO-placed into an
+   implicit cell, which is why this needs its own area rather than just appearing in the DOM. */
+#game-over-overlay.has-subtitle {
+    grid-template-rows: auto auto minmax(0, 1fr) !important;
+    grid-template-areas: "title title" "subtitle subtitle" "buttons stats" !important;
+}
+#game-over-subtitle {
+    grid-area: subtitle !important;
+    margin: 0 !important; align-self: center !important;   /* the grid row-gap does the spacing */
+    font-size: clamp(14px, 1.5vw, 20px) !important;
+    letter-spacing: 1px !important;
+    color: var(--text) !important; opacity: 0.9 !important;
+}
+
 #game-over-title {
     grid-area: title !important;
     font-size: clamp(30px, 4.4vw, 64px) !important;
@@ -439,6 +456,11 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
         grid-template-areas: "title" "buttons" "stats" !important;
         row-gap: 10px !important;
     }
+    #game-over-overlay.has-subtitle {
+        grid-template-rows: auto auto auto minmax(0, 1fr) !important;
+        grid-template-areas: "title" "subtitle" "buttons" "stats" !important;
+    }
+    #game-over-subtitle { font-size: clamp(12px, 2.6vw, 16px) !important; letter-spacing: 0.5px !important; }
     #game-over-buttons { align-self: start !important; }
     /* Compact the win-screen content to ~75% on phones (zoom on the fixed panel breaks
        its inset sizing, so scale the content metrics down instead — panel stays 80%).
@@ -2426,9 +2448,18 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var bestOf = info ? info.bestOf : 1;
         var seriesOver = info ? info.seriesOver : true;
         var spectator = info ? info.isSpectator : false;
+        var multiSeat = !!(info && info.seatCount > 2);
         if (spectator || !mid) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
-            if (!mid && !spectator) b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+            if (!mid && !spectator && !multiSeat) b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+            b.push({label:'Report Bug', onClick: SWUReportBug});
+            return b;
+        }
+        // Twin Suns (>2 seats): every rematch/sideboard/convert flow below is built for a PAIR of
+        // seats, so none of them apply. Every seat still gets Main Menu + Report Bug, in the usual
+        // place — losing seats need the exit and the bug button just as much as the winner does.
+        if (multiSeat) {
+            b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
             b.push({label:'Report Bug', onClick: SWUReportBug});
             return b;
         }
@@ -2474,6 +2505,37 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
               return (v && v.GAMEOVER_WINNER) ? parseInt(v.GAMEOVER_WINNER, 10) : 0; }
         catch (e) { return 0; }
     }
+    // The full winner SET from the gamestate (GAMEOVER_WINNERS, a concat of seats like "24"). Twin
+    // Suns can end in a shared victory (CR 12.7.3), so "who won" is a list, not a seat.
+    function SWULocalGameWinners() {
+        var out = [];
+        try {
+            var v = JSON.parse(window.DecisionQueueVariablesData || '{}');
+            var raw = (v && v.GAMEOVER_WINNERS) ? String(v.GAMEOVER_WINNERS) : '';
+            for (var i = 0; i < raw.length; i++) {
+                var s = parseInt(raw.charAt(i), 10);
+                if (s >= 1 && s <= 4 && out.indexOf(s) === -1) out.push(s);
+            }
+        } catch (e) { /* fall through to the scalar */ }
+        if (!out.length) { var w = SWULocalGameWinner(); if (w > 0) out.push(w); }
+        return out.sort(function (a, b) { return a - b; });
+    }
+    // "Winner(s): Drixx, Player 3" — names the winning seats under the You Won / You Lost title.
+    // A logged-in player shows their public username (from EndGameInfo); anyone else is "Player N".
+    // Returned as plain text: the caller must NOT inject it as HTML.
+    //
+    // Only shown when naming the winner adds information: more than two seats (Twin Suns, where
+    // "You Lost" leaves three players with no idea who took it) or a shared victory. In a normal
+    // 1v1 the title already says everything, so the line would be pure noise.
+    function SWUWinnersLine(seats, nameMap, seatCount) {
+        if (!seats || !seats.length) return '';
+        if (seats.length < 2 && !(seatCount > 2)) return '';
+        var names = seats.map(function (s) {
+            var n = nameMap && nameMap[String(s)];
+            return (typeof n === 'string' && n !== '') ? n : ('Player ' + s);
+        });
+        return 'Winner(s): ' + names.join(', ');
+    }
     function SWUShowEndGameMenu() {
         if (document.getElementById('game-over-overlay')) return;
         var gn = document.getElementById('gameName').value;
@@ -2485,11 +2547,19 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // EndGameInfo returns {isMatch:false} with no didWin. Show the plain overlay using the
                 // locally-known winner — not a match menu whose buttons (Rematch / Next Game) don't apply.
                 if (!info || !info.isMatch) {
-                    var w = SWULocalGameWinner();
-                    ShowGameOver(w > 0 && parseInt(pid, 10) === w, window.SWUMainMenuUrl || null, '');
+                    var ws = SWULocalGameWinners();
+                    // No match layer ⇒ goldfish / harness game, always 2 seats: no winners line.
+                    ShowGameOver(ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
+                                 null, SWUWinnersLine(ws, null, 2));
                     return;
                 }
-                ShowGameOver(!!info.didWin, window.SWUMainMenuUrl || null, info.statsHtml || '', SWUBuildEndGameButtons(info));
+                // Prefer the match record's winner set; fall back to the gamestate's if this record
+                // predates it. Naming the winners matters most in Twin Suns, where three of the four
+                // seats see "You Lost" and nothing else would say who took it.
+                var winners = (info.winners && info.winners.length) ? info.winners : SWULocalGameWinners();
+                ShowGameOver(!!info.didWin, window.SWUMainMenuUrl || null, info.statsHtml || '',
+                             SWUBuildEndGameButtons(info),
+                             SWUWinnersLine(winners, info.winnerNames, info.seatCount));
                 // Collapsible Block Player, placed below the stats panel.
                 var goStats = document.getElementById('game-over-stats');
                 if (goStats) {
@@ -2508,6 +2578,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     var stMap = {
                         success:       ['Game sent to SWUStats successfully!', '#7CFC9E'],
                         skipped_early: ['Game not sent to SWUStats due to ending before Round 2', '#F0B429'],
+                        skipped_multiplayer: ['Multiplayer games are not sent to SWUStats', '#F0B429'],
                         failed:        ['Game failed to send to SWUStats', '#E06666']
                     };
                     var st = stMap[info.statsStatus];
@@ -2521,8 +2592,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 }
                 if (info.convertible) SWUStartEndGamePoll(gn, pid, ak);
             }).catch(function(){
-                var w = SWULocalGameWinner();
-                ShowGameOver(w > 0 && parseInt(pid, 10) === w, window.SWUMainMenuUrl || null, '');
+                var ws = SWULocalGameWinners();
+                ShowGameOver(ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
+                             null, SWUWinnersLine(ws, null, 2));
             });
     }
     window.SWUShowEndGameMenu = SWUShowEndGameMenu;

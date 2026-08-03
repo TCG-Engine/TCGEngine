@@ -1908,7 +1908,7 @@ function BridgeTerminalStateFromDQVariables() {
   if (is_array($vars) && isset($vars['GAMEOVER_WINNER'])) {
     $winner = intval($vars['GAMEOVER_WINNER']);
   }
-  $isTerminal = $winner === 1 || $winner === 2;
+  $isTerminal = $winner >= 1 && $winner <= 4;   // seats 3-4 exist in multiplayer formats (Twin Suns)
   return [
     'isTerminal' => $isTerminal,
     'winner' => $winner,

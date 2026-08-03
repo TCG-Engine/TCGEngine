@@ -6387,9 +6387,11 @@ function _SWUScoreTwinSunsEndOfPhase(): void {
     if (SWUGetGameWinner() !== 0) return;                 // already scored / ended
     $live = GetLiveSeatsArray();
     if (empty($live)) return;
-    // Consume the flag FIRST (a SWUVar write, pipe format) — it must not run AFTER the winner
-    // StoreVariable below, because SetSWUVar can't parse the JSON DQ-var string and would wipe
-    // the freshly-stored GAMEOVER_WINNER(S). See the DQ-var format-clash note in the plan.
+    // Consume the flag so scoring can't run twice. (This used to have to happen BEFORE the winner
+    // was stored, because SetSWUVar and StoreVariable wrote the shared variable slot in different
+    // encodings and each wiped the other — an ordering workaround that only ever helped locally,
+    // since the next SetSWUVar anywhere still erased the winner. Both encodings are unified now,
+    // so the order here is free; see the note above _parseSWUVars.)
     SetSWUVar('SWU_TS_GAME_ENDING', '');
     $best = -PHP_INT_MAX; $remain = [];
     foreach ($live as $p) {
@@ -6543,14 +6545,27 @@ function SWUSwapTurnPlayer() {
 }
 
 // ── SWU game-variable helpers ─────────────────────────────────────────────────
-// gDecisionQueueVariables holds a pipe-delimited KEY=VALUE string.
-// Legacy format (plain integer) is treated as PASS=N for backwards compat.
+// $gDecisionQueueVariables holds a JSON object of KEY => VALUE.
+//
+// ⚠ This slot is SHARED with the engine's DecisionQueueController::StoreVariable/GetVariable. These
+// helpers used to write it as pipe-delimited "K=V|K=V" text instead, so the two APIs silently
+// destroyed each other: StoreVariable json_decode'd a pipe string, got a non-array, and restarted
+// from []; this parser found no "|" in JSON and rewrote the slot as pipe. A value written once and
+// read later would just vanish — that is how a completed Twin Suns game lost its GAMEOVER_WINNER
+// between scoring and the match hook, leaving every seat with "You Lost".
+// Both writers now emit JSON. Reads still accept the legacy pipe form (and the oldest bare-integer
+// PASS form) so games saved before the unification keep loading — see Core/DecisionQueueController.
+// The decode is duplicated rather than shared to keep this file free of a load-order dependency.
 
 function _parseSWUVars(): array {
     global $gDecisionQueueVariables;
-    $raw = (string)$gDecisionQueueVariables;
-    if (preg_match('/^\d+$/', trim($raw))) {
-        return ['PASS' => trim($raw)];
+    $raw = trim((string)$gDecisionQueueVariables);
+    if ($raw === '') return [];
+    $json = json_decode($raw, true);
+    if (is_array($json)) return $json;
+    // ── legacy formats ──
+    if (preg_match('/^\d+$/', $raw)) {
+        return ['PASS' => $raw];
     }
     $result = [];
     foreach (explode('|', $raw) as $pair) {
@@ -6561,16 +6576,16 @@ function _parseSWUVars(): array {
 }
 
 function GetSWUVar(string $key, string $default = ''): string {
-    return _parseSWUVars()[$key] ?? $default;
+    $value = _parseSWUVars()[$key] ?? $default;
+    // StoreVariable() shares this map and may park arrays/objects in it; never return one as a string.
+    return is_scalar($value) ? (string)$value : $default;
 }
 
 function SetSWUVar(string $key, string $value): void {
     global $gDecisionQueueVariables;
     $vars = _parseSWUVars();
     $vars[$key] = $value;
-    $pairs = [];
-    foreach ($vars as $k => $v) $pairs[] = "$k=$v";
-    $gDecisionQueueVariables = implode('|', $pairs);
+    $gDecisionQueueVariables = json_encode($vars);
 }
 
 function MarkUndoRequiresConsent(): void {
@@ -19187,13 +19202,16 @@ function TriggerGameOver($loserPlayer) {
 // One idempotent place that records the winner. $gWinner is ephemeral (reset on
 // every ParseGamestate); GAMEOVER_WINNER is serialized in the gamestate, so it is
 // the durable read point the Match layer relies on. First declared winner wins.
+// Always writes the winner SET too (GAMEOVER_WINNERS), so every read point has one
+// shape to handle whether the format has one winner or several — see SWUDeclareTwinSunsWinners.
 function SWUDeclareGameWinner($winner, $flashMessage = null) {
     global $gWinner;
     if (DecisionQueueController::GetVariable("GAMEOVER_WINNER") !== null) return; // already decided
     $w = intval($winner);
-    if ($w !== 1 && $w !== 2) return;
+    if ($w < 1 || $w > SeatCountForGame()) return;
     $gWinner = $w;
     DecisionQueueController::StoreVariable("GAMEOVER_WINNER", strval($w));
+    DecisionQueueController::StoreVariable("GAMEOVER_WINNERS", strval($w));
     if ($flashMessage !== null) SetFlashMessage($flashMessage);
 }
 
@@ -19266,10 +19284,11 @@ function SWUGetGameWinner() {
     return $w === null ? 0 : intval($w);
 }
 
-// Twin Suns end-game (CR §12.7): a winner SET (ties share). Writes GAMEOVER_WINNERS (a concat
-// of winning seats, e.g. "24") and mirrors the first seat into GAMEOVER_WINNER so every existing
-// `SWUGetGameWinner() !== 0` "is the game over?" guard keeps firing. Intentionally bypasses the
-// 1/2-only guard in SWUDeclareGameWinner (which stays untouched for the 2-player path).
+// Twin Suns end-game (CR §12.7): a winner SET, because tied-highest remaining base HP SHARES the
+// victory (§12.7.3). Writes GAMEOVER_WINNERS (a concat of winning seats, e.g. "24") and mirrors the
+// first seat into GAMEOVER_WINNER so every existing `SWUGetGameWinner() !== 0` "is the game over?"
+// guard keeps firing. SWUDeclareGameWinner writes the same pair for a single winner, so every read
+// point sees one shape regardless of format.
 function SWUDeclareTwinSunsWinners(array $seats, string $msg = null): void {
     if (DecisionQueueController::GetVariable("GAMEOVER_WINNER") !== null) return; // first-wins
     $seats = array_values(array_unique(array_map('intval', $seats)));

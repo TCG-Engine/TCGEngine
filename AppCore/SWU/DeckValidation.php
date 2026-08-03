@@ -58,6 +58,55 @@ function SWUCardHasLegalPrint($cardID, array $legalSets) {
     return false;
 }
 
+// Rarity of one printing, normalized to a single-letter code.
+//
+// The two SWU sites' dictionaries disagree on BOTH the key scheme and the value vocabulary:
+//     SWUSim   $rarityData['SOR_005']   = 'Special'
+//     SWUDeck  $rarityData[2579145458]  = 'S'        (int UUID key, single-letter value)
+// This validator always speaks SET_NNN (SWUDeck converts UUID→SET_NNN before calling
+// SWUCheckFormat), so SWUDeck publishes a SET_NNN-keyed rarity map in $GLOBALS['SWURarityUniverse']
+// — see SWUDeckSetReprintUniverse(). SWUSim needs nothing: its global $rarityData is already
+// SET_NNN-keyed, so the fallback below reads it directly.
+//
+// ⚠ Never compare a raw CardRarity() result to 'Common'. Both sites export a function by that exact
+// name with incompatible semantics; on SWUDeck it returns null for every SET_NNN id, so a naive
+// check silently passes a deck of 50 Rares.
+//
+// Common/Uncommon/Rare/Legendary/Special have distinct first letters (C/U/R/L/S), which is exactly
+// SWUDeck's vocabulary — so first-letter normalization is total and unambiguous over both.
+function _SWURarityCode($rarity) {
+    $r = (string)$rarity;
+    return $r === '' ? '' : strtoupper(substr($r, 0, 1));
+}
+
+function SWUCardRarity($cardID) {
+    $map = $GLOBALS['SWURarityUniverse'] ?? null;
+    if (!is_array($map)) {
+        global $rarityData;
+        $map = is_array($rarityData) ? $rarityData : [];
+    }
+    return $map[$cardID] ?? null;
+}
+
+// True when $cardID — by ANY of its printings — appears in one of $legalSets AT one of
+// $legalRarities. Deliberately group-wide, matching the Padawan ruling "card must be printed as a
+// Common in a Main/Twin Suns Set":
+//   • SHD_030 Death Trooper is Special, but SOR_033 is Common          -> legal
+//   • SOR_125 Prepare for Takeoff is Uncommon, but JTL_128 is Common   -> legal from EITHER printing
+// The $legalSets gate is what excludes weekly-play-pack Common variants: those live under promo set
+// codes (C24_/J24_/GG_/JTLW_) that are absent from AllSets.php and therefore from every legalSets.
+// A printing with NO rarity data fails closed (never matches).
+function SWUCardHasLegalRarityPrint($cardID, array $legalSets, array $legalRarities) {
+    $codes = array_map('_SWURarityCode', $legalRarities);
+    foreach (SWUReprintGroup($cardID) as $print) {
+        if (!in_array(SWUCardSet($print), $legalSets, true)) continue;
+        $r = SWUCardRarity($print);
+        if ($r === null) continue;                                  // fail closed on missing data
+        if (in_array(_SWURarityCode($r), $codes, true)) return true;
+    }
+    return false;
+}
+
 // Starting-side alignment of a leader, for the Twin Suns leader-pairing rule (CR §12.2.1.a: the two
 // leaders' faceup sides can't combine Heroism + Villainy). Returns 'HEROISM' | 'VILLAINY' | 'NEUTRAL'
 // (color-only leaders have neither and pair with anyone). $leaderAspects (optional) maps cardID →
@@ -110,6 +159,8 @@ function SWUCheckFormat($formatId, $leader, $base, array $mainDeck, array $sideb
 
     $minDeck = $fmt['minDeck'];   // format-configured minimum (50 default, 80 for Twin Suns)
 
+    $legalRarities = $fmt['legalRarities'];   // null = no rarity restriction (every pre-Padawan format)
+
     // 1. Leader(s) legality + ban + count.
     $leaders = is_array($leader)
         ? array_values(array_filter($leader, fn($l) => $l !== '' && $l !== null))
@@ -150,6 +201,13 @@ function SWUCheckFormat($formatId, $leader, $base, array $mainDeck, array $sideb
         if (isset($bannedCanon[CardIDOverride($base)])) {
             $errors[] = "Base $base is banned in $formatId.";
         }
+        // Rarity-restricted formats (Padawan): the base must have a legal-rarity printing. Only
+        // checked when the set check above already passed, so an off-pool base yields ONE error.
+        if ($legalRarities !== null
+            && SWUCardHasLegalPrint($base, $legalSets)
+            && !SWUCardHasLegalRarityPrint($base, $legalSets, $legalRarities)) {
+            $errors[] = "Base $base must have a " . implode('/', $legalRarities) . " printing in $formatId.";
+        }
         $baseCanon = CardIDOverride($base);
         if (isset($deckSizeModifiers[$baseCanon])) {
             $minDeck += $deckSizeModifiers[$baseCanon];
@@ -166,8 +224,16 @@ function SWUCheckFormat($formatId, $leader, $base, array $mainDeck, array $sideb
     $illegalCards = [];
     $bannedCards  = [];
     $overLimit    = [];
+    $wrongRarity  = [];
     foreach ($cardCounts as $cardID => $count) {   // $cardID is already canonical
-        if (!SWUCardHasLegalPrint($cardID, $legalSets)) $illegalCards[] = $cardID;
+        if (!SWUCardHasLegalPrint($cardID, $legalSets)) {
+            $illegalCards[] = $cardID;
+        } elseif ($legalRarities !== null
+                  && !SWUCardHasLegalRarityPrint($cardID, $legalSets, $legalRarities)) {
+            // Only reached when the card IS in the pool, so each card produces at most one of
+            // "not legal in <format>" / "must have a <rarity> printing".
+            $wrongRarity[] = $cardID;
+        }
         if (isset($bannedCanon[$cardID]))               $bannedCards[]  = $cardID;
         $limit = $copyExceptions[$cardID] ?? $fmt['maxCopies'];
         if ($count > $limit) $overLimit[] = "$cardID ($count copies, max $limit)";
@@ -176,6 +242,12 @@ function SWUCheckFormat($formatId, $leader, $base, array $mainDeck, array $sideb
         $shown = array_slice($illegalCards, 0, 5);
         $more  = count($illegalCards) > 5 ? ' +' . (count($illegalCards) - 5) . ' more' : '';
         $errors[] = "Cards not legal in $formatId: " . implode(', ', $shown) . $more;
+    }
+    if (!empty($wrongRarity)) {
+        $shown = array_slice($wrongRarity, 0, 5);
+        $more  = count($wrongRarity) > 5 ? ' +' . (count($wrongRarity) - 5) . ' more' : '';
+        $errors[] = 'Cards must have a ' . implode('/', $legalRarities) . " printing in $formatId: "
+                  . implode(', ', $shown) . $more;
     }
     if (!empty($bannedCards)) {
         $errors[] = "Banned in $formatId: " . implode(', ', array_slice($bannedCards, 0, 5));
