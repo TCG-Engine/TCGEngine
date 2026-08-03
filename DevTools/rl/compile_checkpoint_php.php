@@ -9,7 +9,7 @@ function CompileCheckpointArgs($argv) {
   $args = [
     'checkpoint' => '',
     'output' => '',
-    'shard-prefix-length' => 2,
+    'shard-prefix-length' => 3,
     'progress-every' => 25000,
   ];
   $items = array_slice($argv, 1);
@@ -210,7 +210,11 @@ $checkpointHash = hash_file('sha256', $checkpoint);
 $checkpointSize = intval(filesize($checkpoint));
 $edgeHash = CompileCheckpointEdgeHash($checkpoint);
 $safeStem = preg_replace('/[^A-Za-z0-9._-]+/', '-', pathinfo($checkpoint, PATHINFO_FILENAME));
-$relativeBundleDir = 'Compiled/' . $safeStem . '/' . substr($checkpointHash, 0, 16);
+$prefixLength = intval($args['shard-prefix-length']);
+// The shard width changes the compiled artifact. Include it in the bundle
+// identity so recompiling the same checkpoint with a safer width cannot
+// silently reuse an older, larger-shard bundle.
+$relativeBundleDir = 'Compiled/' . $safeStem . '/' . substr($checkpointHash, 0, 16) . '-p' . $prefixLength;
 $bundleDir = $manifestDir . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $relativeBundleDir);
 $tempBundleDir = $bundleDir . '.tmp-' . getmypid();
 $shardDir = $tempBundleDir . DIRECTORY_SEPARATOR . 'shards';
@@ -221,7 +225,6 @@ if (!is_file($bundleDir . DIRECTORY_SEPARATOR . 'manifest.php')) {
   $writers = [];
   $shardCounts = [];
   $shardNames = [];
-  $prefixLength = intval($args['shard-prefix-length']);
   $emit = function($stateKey, $values) use (&$writers, &$shardCounts, &$shardNames, $shardDir, $prefixLength) {
     $prefix = substr(hash('sha256', strval($stateKey)), 0, $prefixLength);
     if (!isset($writers[$prefix])) {
