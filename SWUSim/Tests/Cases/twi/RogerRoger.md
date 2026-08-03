@@ -23,7 +23,8 @@ P1GROUNDARENAUNIT:0:POWER:2
 # NoToken_GoesToDiscard
 #// TWI_069 Roger Roger — with NO other friendly Battle Droid token to receive it, the "When Defeated"
 #// re-attach has no target, so Roger Roger goes to its owner's discard normally when its host is defeated.
-#// (Discard holds Roger Roger at idx0 and the defeated host token at idx1.)
+#// The defeated host is a TOKEN, which CEASES to exist rather than entering a discard pile, so the discard
+#// holds ONLY Roger Roger (a real card) at idx0.
 ## GIVEN
 CommonSetup: rrk/bbw/{}
 P1OnlyActions: true
@@ -34,5 +35,5 @@ WithP2GroundArena: SOR_095:1:0
 - P1>AttackGroundArena:0:0
 ## EXPECT
 P1GROUNDARENACOUNT:0
-P1DISCARDCOUNT:2
+P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:TWI_069

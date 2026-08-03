@@ -70,6 +70,34 @@
     $format = 'tutorial';
   }
   $queueType = isset($_POST['queueType']) ? strtolower(trim($_POST['queueType'])) : 'bo1';
+
+  // ── Private invite: ADOPT the host lobby's format + match type ────────────────────────────────
+  // An invite link carries only the code, never the settings the host chose. The joiner's own
+  // format/queueType dropdowns are therefore meaningless here — they are whatever their menu happened
+  // to be showing. Previously the lobby lookup further down REQUIRED them to match the host's
+  // ($lobby->format !== $format → continue), so a Twin Suns Bo3 invite opened by someone sitting on
+  // Premier Bo1 silently skipped the correct lobby and failed as "invalid or expired invite".
+  // Resolve the invite HERE, before anything reads $format — in particular before the deck is
+  // validated below, which must check the deck against the format the game will actually be played in.
+  // Read-only pre-pass: it only learns the settings; the authoritative join (capacity, blocks, caster
+  // mode, seat assignment) still happens in the invite branch further down.
+  if ($privateInviteCode !== '' && function_exists('apcu_cache_info')) {
+    $inviteInfo = apcu_cache_info();
+    if (isset($inviteInfo['cache_list'])) {
+      foreach ($inviteInfo['cache_list'] as $inviteEntry) {
+        if (!isset($inviteEntry['info'])) continue;
+        $inviteLobby = apcu_fetch($inviteEntry['info']);
+        if ($inviteLobby === false || !is_object($inviteLobby)) continue;
+        if (($inviteLobby->rootName ?? '') !== $rootName) continue;
+        if (empty($inviteLobby->isPrivate)) continue;
+        if (!isset($inviteLobby->inviteCode) || strval($inviteLobby->inviteCode) !== $privateInviteCode) continue;
+        $format    = strtolower(strval($inviteLobby->format ?? $format));
+        $queueType = strtolower(strval($inviteLobby->queueType ?? $queueType));
+        break;
+      }
+    }
+  }
+
   // Solo/local modes are created immediately (no matchmaking). 'goldfish' = 1 deck (empty P2);
   // 'hotseat' = 2 decks, shared authKey.
   $isModeFormat =
@@ -80,12 +108,17 @@
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
     if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
-    // Only logged-in users may join the public queue for non-Open formats (Open is the
-    // anonymous-friendly format). Goldfish (solo) and private games (invite link) are exempt.
-    $swuPublicQueue = !$createGoldfish && !$isModeFormat && !$createPrivate && $privateInviteCode === '';
-    if ($format !== 'open' && $swuPublicQueue && !$joiningUserId) {
+    // Login is required to START a non-Open game — both the public queue and HOSTING a private one.
+    // Open is the anonymous-friendly format; Goldfish/Hotseat are local-only.
+    // ⚠ JOINING by invite code is deliberately EXEMPT: a logged-in host already created the lobby and
+    // vouched for the format, so an anonymous friend following the link may join a Premier/Twin Suns
+    // game they could not have started themselves.
+    $swuNeedsAccount = !$createGoldfish && !$isModeFormat && $privateInviteCode === '';
+    if ($format !== 'open' && $swuNeedsAccount && !$joiningUserId) {
       $response->success = false;
-      $response->message = "You must be logged in to join this queue.";
+      $response->message = $createPrivate
+        ? "You must be logged in to host a private game in this format."
+        : "You must be logged in to join this queue.";
       header('Content-Type: application/json');
       echo json_encode($response);
       exit;
@@ -206,8 +239,11 @@
         if ($lobby === false || !is_object($lobby)) continue;
         if (!isset($lobby->id, $lobby->numPlayers, $lobby->maxPlayers, $lobby->rootName)) continue;
         if ($lobby->rootName !== $rootName) continue;
-        if (($lobby->format ?? 'premier') !== $format) continue;
-        if (($lobby->queueType ?? 'bo1') !== $queueType) continue;
+        // NOTE: deliberately NOT filtered by format/queueType. The invite code alone identifies the
+        // lobby, and the pre-pass above already adopted this lobby's settings into $format/$queueType.
+        // Re-filtering on them here would reintroduce the original bug the moment the two disagree
+        // (e.g. the pre-pass found nothing because the lobby expired between the two scans) — the join
+        // would fail with a confusing "invalid or expired invite" instead of the real reason.
         if (!isset($lobby->isPrivate) || !$lobby->isPrivate) continue;
         if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
         if (!empty($lobby->casterMode) !== $casterMode) continue;

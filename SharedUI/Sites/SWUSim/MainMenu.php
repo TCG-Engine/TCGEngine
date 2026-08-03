@@ -123,7 +123,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         <?php if (SWUIsLocalDevRequest()): ?>
         <!-- Public matchmaking is hidden in production for now; enabled only in the dev environment
              (DEVENV or a localhost Host) so Playwright suites can still exercise the queue flow. -->
-        <button onclick="joinQueue()">Join Queue</button>
+        <button id="join-queue-btn" onclick="joinQueue()">Join Queue</button>
         <?php endif; ?>
         <!-- Solo / local modes (Goldfish, Hotseat) are NOT matchmade — JoinQueue.php creates the
              game immediately. They used to ride the "Join Queue" button, which is dev-only in
@@ -131,7 +131,11 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
              Hidden unless a mode format is selected (see applyFormatUI). -->
         <button id="start-solo-btn" onclick="startSoloGame()" style="display: none; background-color: #8a5f2f;">Start 1P Game</button>
         <button onclick="saveCurrentDeck()" style="background-color: #6b4f9f;" title="Save this deck link to your library">Save Deck</button>
-        <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
+        <!-- Hidden when the URL carries a privateInvite code: that visitor is JOINING someone else's
+             invite, so offering "Create Private Game" right next to "Join Private Invite" is ambiguous
+             (and creating one would silently abandon the invite they followed). See
+             initializePrivateInviteFromUrl. -->
+        <button id="create-private-game-btn" onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
       </div>
       <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
@@ -196,6 +200,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
 </div>
 
 <script src="/TCGEngine/Core/MatchReplayClient.js"></script>
+<script src="/TCGEngine/SharedUI/js/private-invite.js"></script>
 
 <div id="ga-settings-modal" class="ga-settings-modal" aria-hidden="true">
   <div class="ga-settings-modal__overlay" data-close-settings-modal="true"></div>
@@ -532,19 +537,13 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         if (saved === 'text') switchDeckTab('text');
       })();
 
+      // Private-invite lobby UI lives in the shared module (SharedUI/js/private-invite.js) so every
+      // sim behaves identically: reveal Join Private Invite, hide the competing Create Private Game /
+      // Join Queue actions, disable the format + match-type selects (the server adopts the HOST
+      // lobby's settings for an invite join), and RE-APPLY after applyFormatUI re-runs.
       function initializePrivateInviteFromUrl() {
         try {
-          var params = new URLSearchParams(window.location.search || '');
-          _privateInviteCode = (params.get('privateInvite') || params.get('invite') || '').trim();
-          if (!_privateInviteCode) return;
-
-          var joinBtn = document.getElementById('join-private-invite-btn');
-          var notice = document.getElementById('private-invite-notice');
-          if (joinBtn) joinBtn.style.display = '';
-          if (notice) {
-            notice.style.display = '';
-            notice.textContent = 'Private invite detected. Choose your deck, then click Join Private Invite.';
-          }
+          _privateInviteCode = window.PrivateInviteUI ? window.PrivateInviteUI.init({ rootName: 'SWUSim' }) : '';
         } catch (e) {
           console.error('Failed to parse private invite URL:', e);
         }
@@ -652,19 +651,27 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           var isTwinSunsPreview = (fmt.value === 'twinsuns-preview');
           var g = document.getElementById('swu-deck2-group');
           if (g) g.style.display = (fmt.value === 'hotseat') ? '' : 'none';
+          // Followed someone else's invite link? Then the ONLY sensible action is Join Private Invite.
+          // Public matchmaking and hosting your own private game both abandon the invite they came for,
+          // and the server adopts the host's format/match type regardless of these selects.
+          // ⚠ This gate must live here as well as in initializePrivateInviteFromUrl: applyFormatUI owns
+          // these controls and re-runs on every format change, so without it one dropdown change would
+          // silently bring the buttons back and re-enable the match-type select.
+          var joiningInvite = !!_privateInviteCode;
           var qt = document.getElementById('swu-queuetype-select');
           if (qt) {
-            if (isMode || isTwinSuns || isTwinSunsPreview) { qt.value = 'bo1'; qt.disabled = true; }
+            if (joiningInvite) { qt.disabled = true; }
+            else if (isMode || isTwinSuns || isTwinSunsPreview) { qt.value = 'bo1'; qt.disabled = true; }
             else { qt.disabled = false; }
           }
-          var joinBtn = document.querySelector('button[onclick="joinQueue()"]');
-          var createBtn = document.querySelector('button[onclick="createPrivateGame()"]');
+          var joinBtn = document.getElementById('join-queue-btn');
+          var createBtn = document.getElementById('create-private-game-btn');
           var soloBtn = document.getElementById('start-solo-btn');
           // Solo/local modes: only the Start button applies — matchmaking and private invites
           // are meaningless for a game that has no remote opponent.
-          if (joinBtn) joinBtn.style.display = (isTwinSuns || isMode) ? 'none' : '';
+          if (joinBtn) joinBtn.style.display = (joiningInvite || isTwinSuns || isMode) ? 'none' : '';
           if (createBtn) {
-            createBtn.style.display = isMode ? 'none' : '';
+            createBtn.style.display = (joiningInvite || isMode) ? 'none' : '';
             createBtn.textContent = isTwinSuns ? 'Create Twin Suns Room' : 'Create Private Game';
           }
           if (soloBtn) {

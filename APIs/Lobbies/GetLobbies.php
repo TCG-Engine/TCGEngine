@@ -9,6 +9,13 @@
 
   $rootName = isset($_GET['rootName']) ? $_GET['rootName'] : null;
   $includePrivate = isset($_GET['includePrivate']) && ($_GET['includePrivate'] === '1' || strtolower($_GET['includePrivate']) === 'true');
+  // Optional lookup by invite code: returns just that lobby so a visitor following an invite link can
+  // SHOW the host's format / match type instead of whatever their own dropdowns defaulted to (the
+  // server already adopts the host's settings on join — see JoinQueue.php — this keeps the UI honest).
+  // Additive and backward-compatible: absent the param, responses are byte-identical to before.
+  // Narrowing, not widening: the caller must already know the secret code, and inviteCode is never
+  // echoed back in the payload, so this cannot be used to enumerate or discover private lobbies.
+  $inviteCode = isset($_GET['inviteCode']) ? trim($_GET['inviteCode']) : '';
   $response->data = [];
   $response->totalCount = 0;
   $response->publicCount = 0;
@@ -30,6 +37,12 @@
         if (!isset($lobby->rootName) || $lobby->rootName !== $rootName) continue;
       }
 
+      // Invite-code lookup short-circuits every other visibility rule: knowing the code IS the
+      // authorization, and the caller wants exactly this lobby.
+      if ($inviteCode !== '') {
+        if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $inviteCode) continue;
+      }
+
       $isPrivate = isset($lobby->isPrivate) ? boolval($lobby->isPrivate) : false;
       ++$response->totalCount;
       if ($isPrivate) {
@@ -37,7 +50,8 @@
       } else {
         ++$response->publicCount;
       }
-      if ($isPrivate && !$includePrivate) continue;
+      // A code lookup is inherently a request for a private lobby, so it implies includePrivate.
+      if ($isPrivate && !$includePrivate && $inviteCode === '') continue;
 
       $response->data[] = [
         'id' => $lobby->id,
