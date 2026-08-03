@@ -35,7 +35,6 @@
     ['label'=>'Log In','href'=>'/TCGEngine/SharedUI/Sites/AzukiSim/LoginPage.php?redirect=%2FTCGEngine%2FSharedUI%2FSites%2FAzukiSim%2FMainMenu.php','visibility'=>'loggedOut'],
   ],
   'navLinks' => [
-    ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/b9nfNyVFpM','title'=>'Join the Zendō Discord'],
     ['kind'=>'icon','icon'=>'github.svg','href'=>'https://github.com/TCG-Engine/TCGEngine','title'=>'View Zendō on GitHub'],
   ],
   'deckLibrary' => [

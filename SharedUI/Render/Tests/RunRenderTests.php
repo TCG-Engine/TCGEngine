@@ -56,6 +56,8 @@ $azukiDef = LoadSiteDef('AzukiSim');
 $azukiNavOut = RenderMenuBar($azukiDef, ['isLoggedIn'=>false,'isPatron'=>false,'username'=>null,'userId'=>null]);
 $azukiNavIn = RenderMenuBar($azukiDef, ['isLoggedIn'=>true,'isPatron'=>false,'username'=>'tester','userId'=>5]);
 check('Azuki nav omits Support', strpos($azukiNavOut, '>Support<') === false && strpos($azukiNavIn, '>Support<') === false);
+check('Azuki nav omits Discord invite', strpos($azukiNavOut, 'discord.gg') === false && strpos($azukiNavIn, 'discord.gg') === false);
+checkContains('Azuki nav keeps GitHub link', $azukiNavOut, 'https://github.com/TCG-Engine/TCGEngine');
 checkContains('Azuki loggedout nav offers account creation', $azukiNavOut, '>Create Account<');
 checkContains('Azuki loggedout nav offers login', $azukiNavOut, '/TCGEngine/SharedUI/Sites/AzukiSim/LoginPage.php');
 checkContains('Azuki auth links return to main menu', $azukiNavOut, 'redirect=%2FTCGEngine%2FSharedUI%2FSites%2FAzukiSim%2FMainMenu.php');
