@@ -48,12 +48,16 @@
   }
 
   function isEnabled(rootName) {
-    if (getRootName(rootName) === 'AzukiSim') return true;
+    var root = getRootName(rootName);
+    if (root === 'AzukiSim') return true;
+    // AzukiDeck's phone layout uses a horizontally paged workspace. Flying fixed-position
+    // clones across those translated pages is distracting and can cross the viewport seam.
+    if (root === 'AzukiDeck' && document.getElementById('swuDeckMobileRoot')) return false;
     if (!window.TCGSettings || typeof window.TCGSettings.get !== 'function') {
       return defaultMotionEnabled();
     }
     return window.TCGSettings.get('EnableCardMotion', {
-      rootName: getRootName(rootName),
+      rootName: root,
       type: 'boolean',
       defaultValue: defaultMotionEnabled()
     }) !== false;
@@ -179,6 +183,31 @@
     }
   }
 
+  // Zone/card CSS is often scoped through its live container (for example
+  // #myMainDeck > span > a). A motion clone is appended directly to document.body, so those
+  // selectors no longer match and its inner anchor/image can fall back to their smaller
+  // generated dimensions. Freeze the rendered visual boxes before detaching the clone.
+  function preserveDetachedCardGeometry(source, clone) {
+    if (!source || !clone || typeof source.querySelector !== 'function') return;
+    var selectors = [':scope > a', ':scope > a > img:first-child'];
+    for (var i = 0; i < selectors.length; ++i) {
+      var sourcePart = source.querySelector(selectors[i]);
+      var clonePart = clone.querySelector(selectors[i]);
+      if (!sourcePart || !clonePart) continue;
+      var partRect = sourcePart.getBoundingClientRect();
+      if (!partRect.width || !partRect.height) continue;
+      var partStyle = window.getComputedStyle ? window.getComputedStyle(sourcePart) : null;
+      clonePart.style.setProperty('display', 'block', 'important');
+      clonePart.style.setProperty('width', partRect.width + 'px', 'important');
+      clonePart.style.setProperty('height', partRect.height + 'px', 'important');
+      clonePart.style.setProperty('max-width', 'none', 'important');
+      clonePart.style.setProperty('max-height', 'none', 'important');
+      clonePart.style.setProperty('margin', '0', 'important');
+      clonePart.style.setProperty('box-sizing', partStyle && partStyle.boxSizing ? partStyle.boxSizing : 'border-box', 'important');
+      if (i === 0) clonePart.style.setProperty('position', 'relative', 'important');
+    }
+  }
+
   function prepareZoneMoves(animations, perspectivePlayerID) {
     if (!Array.isArray(animations)) return [];
     var prepared = [];
@@ -210,6 +239,7 @@
         perspectivePlayerID
       );
       clone.classList.add('tcg-zone-move-clone');
+      preserveDetachedCardGeometry(source, clone);
       clone.style.cssText += ';position:fixed!important;left:' + rect.left + 'px!important;top:' + rect.top
         + 'px!important;width:' + rect.width + 'px!important;height:' + rect.height
         + 'px!important;margin:0!important;z-index:20000!important;pointer-events:none!important;'

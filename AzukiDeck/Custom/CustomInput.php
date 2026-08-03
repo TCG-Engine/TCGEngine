@@ -54,6 +54,9 @@ function GameAfterEngineAction($action, $result): void {
 
   $sourceZone = $transition['sourceZone'];
   $destinationZone = $transition['destinationZone'];
+  // Leader and Gate swaps update the identity banner directly. Flying their cropped pane
+  // cards into that shallow banner is visually noisy, so keep motion for deck-card zones only.
+  if (AzukiDeckIsIdentityZone($sourceZone) || AzukiDeckIsIdentityZone($destinationZone)) return;
   $cardID = $transition['cardID'];
   $sourceCount = AzukiDeckActiveCardCount($sourceZone, $cardID);
   $destinationCount = AzukiDeckActiveCardCount($destinationZone, $cardID);
@@ -91,6 +94,14 @@ function GameAfterEngineAction($action, $result): void {
       $i * 35
     );
   }
+}
+
+function AzukiDeckIsIdentityZone($zoneName) {
+  return in_array(strtolower(trim(strval($zoneName))), [
+    'leader', 'leaders', 'gate', 'gates',
+    'myleader', 'myleaders', 'mygate', 'mygates',
+    'theirleader', 'theirleaders', 'theirgate', 'theirgates',
+  ], true);
 }
 
 function AzukiDeckCaptureZoneTransition($action) {

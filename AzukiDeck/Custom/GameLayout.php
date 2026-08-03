@@ -1471,7 +1471,54 @@ if (AzukiDeckIsMobileRequest()) {
         button.id = 'azukiDeckLegacyEditButton';
       }
     });
+    setupDeckSettingsMenu(toolbar);
     updateDeckSummary();
+  }
+  function setupDeckSettingsMenu(toolbar){
+    if(!toolbar) return;
+    if(window.TCGSettings && typeof window.TCGSettings.registerSchema === 'function') {
+      window.TCGSettings.registerSchema('AzukiDeck', {
+        EnableCardMotion: { type: 'boolean', defaultValue: true }
+      });
+    }
+
+    var existing = document.getElementById('azukiDeckSettingsMenu');
+    if(existing) {
+      var existingToggle = existing.querySelector('#azukiDeckMotionSetting');
+      if(existingToggle && window.TCGCardMotion) existingToggle.checked = window.TCGCardMotion.isEnabled('AzukiDeck');
+      return;
+    }
+
+    var menu = document.createElement('details');
+    menu.id = 'azukiDeckSettingsMenu';
+    menu.innerHTML =
+      '<summary id="azukiDeckSettingsButton" class="widget-button" aria-label="Deck settings" title="Deck settings">' +
+        '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.9 1h2.2l.35 1.55c.35.13.68.31.98.53l1.5-.48 1.1 1.9-1.15 1.08c.03.2.05.42.05.63s-.02.42-.05.63l1.15 1.08-1.1 1.9-1.5-.48c-.3.22-.63.4-.98.53L9.1 11.4H6.9l-.35-1.53a5.1 5.1 0 0 1-.98-.53l-1.5.48-1.1-1.9 1.15-1.08a4.1 4.1 0 0 1 0-1.26L2.97 4.5l1.1-1.9 1.5.48c.3-.22.63-.4.98-.53L6.9 1ZM8 4.35a1.86 1.86 0 1 0 0 3.72 1.86 1.86 0 0 0 0-3.72Z"/></svg>' +
+      '</summary>' +
+      '<div id="azukiDeckSettingsPanel" role="group" aria-label="Deck settings">' +
+        '<div class="azuki-deck-settings-heading">Deck settings</div>' +
+        '<label class="azuki-deck-settings-row" for="azukiDeckMotionSetting">' +
+          '<span><strong>Card animations</strong><small>Animate cards moving between visible zones</small></span>' +
+          '<input id="azukiDeckMotionSetting" type="checkbox" role="switch">' +
+        '</label>' +
+      '</div>';
+    toolbar.appendChild(menu);
+
+    var toggle = menu.querySelector('#azukiDeckMotionSetting');
+    if(toggle) {
+      toggle.checked = window.TCGCardMotion ? window.TCGCardMotion.isEnabled('AzukiDeck') : true;
+      toggle.addEventListener('change', function(){
+        if(window.TCGSettings && typeof window.TCGSettings.set === 'function') {
+          window.TCGSettings.set('EnableCardMotion', !!toggle.checked, {
+            rootName: 'AzukiDeck',
+            type: 'boolean'
+          });
+        }
+      });
+    }
+    document.addEventListener('click', function(event){
+      if(menu.open && !menu.contains(event.target)) menu.open = false;
+    });
   }
   function setDeckDensity(density){
     var dense = density === 'dense';

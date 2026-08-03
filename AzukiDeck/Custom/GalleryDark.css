@@ -348,6 +348,7 @@ label[for="customFilterCheckbox"] {
   #azukiPlaybookButton { order: 11; }
   .flex-container > .flex-item:first-child > #AssetVisibility { order: 12; }
   .flex-container > .flex-item:first-child > #Versions { order: 13; }
+  #azukiDeckSettingsMenu { order: 14; }
   #azukiDeckLegacyEditButton { display: none !important; }
 
   #azukiDeckBackButton,
@@ -358,6 +359,89 @@ label[for="customFilterCheckbox"] {
   #azukiDeckRenameButton {
     min-height: 30px !important;
     color: #aaa8a2 !important;
+  }
+
+  #azukiDeckSettingsMenu {
+    position: relative;
+    flex: 0 0 auto;
+    margin-left: 2px;
+  }
+
+  #azukiDeckSettingsButton {
+    display: inline-flex !important;
+    width: 30px !important;
+    min-width: 30px !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #aaa8a2 !important;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  #azukiDeckSettingsButton::-webkit-details-marker { display: none; }
+  #azukiDeckSettingsButton::before { background: transparent !important; }
+  #azukiDeckSettingsButton::after { background: transparent !important; }
+  #azukiDeckSettingsButton:hover::after,
+  #azukiDeckSettingsMenu[open] #azukiDeckSettingsButton::after { background: #242428 !important; }
+
+  #azukiDeckSettingsButton svg {
+    position: relative;
+    z-index: 1;
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  #azukiDeckSettingsPanel {
+    position: absolute;
+    top: calc(100% + 7px);
+    right: 0;
+    z-index: 100500;
+    width: 270px;
+    padding: 10px;
+    box-sizing: border-box;
+    color: #f2eee5;
+    background: #18181c;
+    border: 1px solid #484850;
+    border-radius: 9px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.62);
+  }
+
+  .azuki-deck-settings-heading {
+    padding: 1px 2px 9px;
+    color: #8f8e89;
+    font: 700 9px/1 Arial, Helvetica, sans-serif;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .azuki-deck-settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 9px;
+    border-radius: 7px;
+    background: #202024;
+    cursor: pointer;
+  }
+
+  .azuki-deck-settings-row > span { min-width: 0; }
+  .azuki-deck-settings-row strong,
+  .azuki-deck-settings-row small { display: block; }
+  .azuki-deck-settings-row strong { color: #e9e5dc; font: 700 12px/1.2 Arial, Helvetica, sans-serif; }
+  .azuki-deck-settings-row small { margin-top: 4px; color: #8f8e89; font: 500 10px/1.3 Arial, Helvetica, sans-serif; }
+
+  #azukiDeckMotionSetting {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 17px;
+    accent-color: #ee3b4c;
+    cursor: pointer;
   }
 
   #azukiDeckBackButton::before,
