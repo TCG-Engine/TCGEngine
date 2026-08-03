@@ -34,10 +34,21 @@ function DiscordOAuthStartUrl(string $action, string $site, string $redirect = '
     ]);
 }
 
+// Live app domains, apex form — mirrors APP_DOMAINS in newhost/harden-htaccess.sh. A "www."
+// prefix of any of these is accepted too. swustats.net is deliberately absent: its callback is
+// pinned to the www form below because that exact URI is what the SWUDeck Discord app registers.
+function DiscordOAuthCallbackHosts(): array {
+    return ['zendo.gg', 'petranaki.net', 'clarent.net', 'soulmastersdb.net'];
+}
+
+// The callback must land on the SAME host the flow started from — the OAuth state lives in that
+// origin's session, so a cross-host callback can neither be verified nor sign the player in (on
+// top of Discord rejecting any redirect_uri the app has not registered).
 function DiscordOAuthDefaultRedirectUri(): string {
     $host = strtolower(trim((string)($_SERVER['HTTP_HOST'] ?? '')));
     $host = preg_replace('/:\d+$/', '', $host);
-    if (in_array($host, ['zendo.gg', 'www.zendo.gg'], true)) {
+    $apex = preg_replace('/^www\./', '', $host);
+    if ($host !== '' && in_array($apex, DiscordOAuthCallbackHosts(), true)) {
         return 'https://' . $host . '/TCGEngine/APIs/DiscordLogin.php';
     }
     return 'https://www.swustats.net/TCGEngine/APIs/DiscordLogin.php';
