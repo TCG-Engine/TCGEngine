@@ -39,3 +39,25 @@ body {
   color: var(--text) !important;
 }
 .ga-glass-card * { color: var(--text); }
+
+/* ── Small-screen main menu ───────────────────────────────────────────────────
+   Measured at 780x438: the page was 1260px tall (2.9x the viewport) and the Join
+   Queue button — the primary action — sat at y=688, a full 250px below the fold.
+   The header alone took 180px (41% of the viewport) to show a 50px title.
+
+   Scoped to this file rather than the shared menuStyles.css / component CSS: those
+   are loaded by SWUDeck and SoulMastersDB too, and this trim is tuned to SWUSim's
+   lobby. The !important is needed because the panels carry INLINE padding.
+   Both a height and a width trigger: a short landscape laptop and a narrow window
+   are the same problem for this layout. */
+@media (max-height: 680px), (max-width: 900px) {
+  /* menuStyles.css pins height:140px, so trimming the title alone left a 160px header
+     wrapping ~64px of content. height:auto lets it collapse to what it actually holds. */
+  .home-header               { height: auto !important; min-height: 0 !important;
+                               padding: 10px 0 10px 16px !important; }
+  .home-header h1, h1.h1     { font-size: 28px !important; line-height: 1.1 !important; }
+  .home-header p             { font-size: 12px !important; margin: 2px 0 0 0 !important; }
+  .card                      { padding: 12px !important; }
+  .card h2, h2.h2            { font-size: 18px !important; }
+  .row-wrapper               { gap: 10px !important; }
+}
