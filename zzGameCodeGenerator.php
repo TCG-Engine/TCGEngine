@@ -3060,7 +3060,7 @@ function WriteInitialLayout() {
     fwrite($handler, "\$assetData = LoadAssetData(1, \$gameName);\r\n");
     fwrite($handler, "\$_deckFormat = \$assetData['format'] ?? 'premier';\r\n");
     fwrite($handler, "\$_clientFormatData = SWUDeckClientFormatData(\$_deckFormat);\r\n");
-    fwrite($handler, "echo(\"<script>window.SWU_FORMAT_LEGAL_SETS = \" . json_encode(\$_clientFormatData['legalSets']) . \"; window.SWU_FORMAT_BANNED_UUIDS = \" . json_encode(\$_clientFormatData['bannedUUIDs']) . \";</script>\");\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_FORMAT_LEGAL_SETS = \" . json_encode(\$_clientFormatData['legalSets']) . \"; window.SWU_FORMAT_BANNED_UUIDS = \" . json_encode(\$_clientFormatData['bannedUUIDs']) . \"; window.SWU_FORMAT_RARITY_LEGAL_UUIDS = \" . json_encode(\$_clientFormatData['rarityLegalUUIDs']) . \";</script>\");\r\n");
     fwrite($handler, "echo(\"<script>window.SWU_DECK_FORMAT = \" . json_encode(\$_deckFormat) . \";</script>\");\r\n");
     fwrite($handler, "\$_leaderZone = &GetLeader(1);\r\n");
     fwrite($handler, "\$_currentAlignments = [];\r\n");

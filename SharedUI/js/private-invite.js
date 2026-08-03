@@ -46,6 +46,7 @@
   // Values are stored normalized (e.g. 'premier', 'bo3'); these are for display only.
   var LABELS = {
     premier: 'Premier', open: 'Open', eternal: 'Eternal', twinsuns: 'Twin Suns',
+    padawan: 'Padawan', 'padawan-preview': 'Padawan Preview',
     'twinsuns-preview': 'Twin Suns (Preview)', preview: 'Preview', standard: 'Standard',
     bo1: 'Best of 1', bo3: 'Best of 3'
   };

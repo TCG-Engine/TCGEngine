@@ -44,7 +44,7 @@
 	// Premier meta aggregates stay gated to premier + not-opted-out + not-private (UNCHANGED behavior).
 	// $privateDeck may be set true in the deck-link blocks below; the completedgame gate is recomputed
 	// after those blocks.
-	$disableMetaStats = !in_array($format, ['premier','eternal','twinsuns'], true) || $explicitOptOut;
+	$disableMetaStats = !in_array($format, ['premier','eternal','twinsuns','padawan'], true) || $explicitOptOut;
 
   $conn = GetLocalMySQLConnection();
 		// Validate SWU tokens (if provided). Returns:
