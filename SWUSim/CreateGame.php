@@ -25,7 +25,16 @@ $ttl = 600;
  */
 function SWUSetupGame($lobby, $opts = []) {
     global $gameName;
-    $gameName = GetGameCounter(__DIR__ . '/Games', createGameDirectory: !GamestateUsesMemoryStorage());
+    // ⚠ SWUSim ALWAYS needs its game directory, even though it is apcu-mode. Unlike the other sims,
+    // SWUSim's generated WriteGamestate does a durable WRITE-THROUGH: it stores to APCu *and* always
+    // writes Games/<id>/Gamestate.txt, because the APCu entry has a 600s TTL and ParseGamestate falls
+    // back to that file — so a game idle for >10 minutes (or an FPM restart) would otherwise be lost.
+    // `createGameDirectory: !GamestateUsesMemoryStorage()` is correct for GrandArchiveSim/AzukiSim
+    // (their generator writes a file only when NOT apcu), but for SWUSim it skipped the directory that
+    // the write-through still targets — every new game then failed with
+    // "file_put_contents(.../Games/<id>/Gamestate.txt): No such file or directory" and the warning text
+    // corrupted the JoinQueue JSON response ("Unexpected server response while joining queue").
+    $gameName = GetGameCounter(__DIR__ . '/Games');
     InitializeGamestate();
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");

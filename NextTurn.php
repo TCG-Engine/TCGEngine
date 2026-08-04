@@ -1066,14 +1066,42 @@ if (session_status() === PHP_SESSION_NONE) session_start();
               });
             }
           } catch (e) {}
-          if (exhaustDegrees) {
-            var applyExhaustTilt = function() {
-              element.style.transformOrigin = "center center";
-              element.style.transition = "transform " + (durationMs > 0 ? durationMs : 120) + "ms ease-out";
-              element.style.transform = "rotate(" + exhaustDegrees + "deg)";
+          // Some apps (SWU) shade an exhausted card as well as tilting it — the server opts in with
+          // `dim`. Reproduce the geometry UILibraries uses for the real .exhausted-status-overlay-layer
+          // (its wrapper is inset 2px at z-index 1, the layer itself 50% black with a 10px radius) so
+          // the catch-up and the re-rendered card look the same and nothing pops between them. Sitting
+          // at z-index 1 also keeps it under the badges the real overlay draws on top of the shade.
+          //
+          // The shade is created at full opacity and faded in with WAAPI rather than a CSS transition:
+          // a later DAMAGE animation on the same card does `innerHTML +=`, which re-parses this node,
+          // and a re-parse mid-fade must land on the FINAL state, not restart. It also means an attack
+          // lunge — which clones the card after this frame runs — clones it already shaded.
+          var applyExhaustDim = function() {
+            if (element.querySelector(".tcg-exhaust-dim-layer")) return;
+            var shade = document.createElement("div");
+            shade.className = "tcg-exhaust-dim-layer";
+            shade.style.cssText = "position:absolute;top:2px;left:2px;width:calc(100% - 4px);"
+              + "height:calc(100% - 4px);border-radius:10px;background:rgba(0, 0, 0, 0.5);"
+              + "pointer-events:none;z-index:1;opacity:1;";
+            element.appendChild(shade);
+            try {
+              if (typeof shade.animate === "function") {
+                shade.animate([{ opacity: 0 }, { opacity: 1 }],
+                  { duration: durationMs > 0 ? durationMs : 120, easing: "ease-out", fill: "none" });
+              }
+            } catch (e) {}
+          };
+          if (exhaustDegrees || animation.dim) {
+            var applyExhaustPose = function() {
+              if (exhaustDegrees) {
+                element.style.transformOrigin = "center center";
+                element.style.transition = "transform " + (durationMs > 0 ? durationMs : 120) + "ms ease-out";
+                element.style.transform = "rotate(" + exhaustDegrees + "deg)";
+              }
+              if (animation.dim) applyExhaustDim();
             };
-            if (delayMs > 0) window.setTimeout(applyExhaustTilt, delayMs);
-            else applyExhaustTilt();
+            if (delayMs > 0) window.setTimeout(applyExhaustPose, delayMs);
+            else applyExhaustPose();
           }
         } else {
           var animationName = animation.name || (animation.params && animation.params.animationName) || "";

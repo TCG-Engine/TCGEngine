@@ -4805,7 +4805,13 @@ $customDQHandlers["MulliganDecision"] = function($player, $parts, $lastDecision)
     // so undo + re-mulligan yields the identical second hand (Task 3, undo redesign).
     EngineShuffle($deck, false);
 
-    for ($i = 0; $i < 6; $i++) DoDrawCard($targetPlayer, 1);
+    // Redraw the player's OWN starting hand size, not a flat 6 — a base may modify it (JTL_021
+    // Colossus -1, JTL_028 Nabat Village +3). Same helper QueuePregameSetup uses for the opening hand;
+    // hardcoding 6 here meant Colossus dealt 5 to start and then handed back 6 on the mulligan.
+    $mullBaseArr = &GetBase($targetPlayer);
+    $mullBaseID  = !empty($mullBaseArr) ? ($mullBaseArr[0]->CardID ?? '') : '';
+    $mullHandSize = max(0, 6 + SWUStartingHandModifier($mullBaseID));
+    for ($i = 0; $i < $mullHandSize; $i++) DoDrawCard($targetPlayer, 1);
 
     $playerID = $savedPID;
 };
@@ -6635,6 +6641,36 @@ function ResetUndoDenyCount(int $playerID): void {
     SetSWUVar('UNDO_DENY_COUNT_' . $playerID, '0');
 }
 
+// Which seat's pending decision is holding the action-phase exit open (EvaluateTransition returns
+// PENDING_DECISION while ANY queue is non-empty)? Returns null when no seat has one.
+//
+// This is where SWU_RETRY_ENDPHASE has to be queued, and it is NOT always the passing player.
+// DecisionQueueController::ExecuteStaticMethods drains one seat's queue in an UNCAPPED while-loop, so a
+// static handler that re-queues itself into a queue with nothing interactive ahead of it spins forever
+// — the request burns CPU until max_execution_time and the game looks frozen. That is exactly what a
+// goldfish "when you take the initiative" trigger did: P1 claims, its YESNO lands in P1's queue, then
+// the goldfish auto-pass runs SWUPassAction(2), the exit is blocked by P1's prompt, and the retry went
+// onto seat 2 — whose queue held only the retry itself. Queuing on the blocking seat puts the retry
+// BEHIND that seat's interactive decision, which is what already made the normal 2-player path safe
+// (there the claimant and the blocker are the same seat, so this returns $player unchanged).
+//
+// Prefer a seat whose FRONT decision is interactive: the static types below are drained inline by
+// ExecuteStaticMethods, so a queue of only those will empty on its own and can't hold the retry.
+function _SWUEndPhaseBlockingSeat(): ?int {
+    static $staticTypes = ['CUSTOM', 'SYSTEM', 'MZMOVE', 'PASSPARAMETER'];
+    $seats = GetLiveSeatsArray();
+    if (empty($seats)) $seats = [1, 2];
+    $anyPending = null;
+    foreach ($seats as $s) {
+        $queue = [];
+        foreach (GetDecisionQueue(intval($s)) as $d) { if (empty($d->removed)) $queue[] = $d; }
+        if (empty($queue)) continue;
+        if ($anyPending === null) $anyPending = intval($s);
+        if (!in_array((string)($queue[0]->Type ?? ''), $staticTypes, true)) return intval($s);
+    }
+    return $anyPending;
+}
+
 // Handle a pass action for $player.
 // $gDecisionQueueVariables stores game-state variables as a pipe-delimited KEY=VALUE string.
 // The PASS key tracks the consecutive-pass counter: 0 = no prior pass; 1 = opponent just passed.
@@ -6653,11 +6689,17 @@ function SWUPassAction($player) {
         // action sequence, letting BOTH players keep acting (the Grogu bug). So only clear PASS
         // when the exit really fires; otherwise keep PASS=1 and retry once the queue drains
         // (high block so it runs after the triggers; DontSkipOnPass so a PASS answer can't skip it).
+        //
+        // ⚠ The retry must be queued on the seat that is actually BLOCKING, which is not always
+        // $player — see _SWUEndPhaseBlockingSeat.
         if (AdvanceAndExecute("PASS")) {
             SetSWUVar('PASS', '0');
             AutoAdvanceAndExecute();
         } else {
-            DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'SWU_RETRY_ENDPHASE', 9, '', 1);
+            $blocker = _SWUEndPhaseBlockingSeat();
+            if ($blocker !== null) {
+                DecisionQueueController::AddDecision($blocker, 'CUSTOM', 'SWU_RETRY_ENDPHASE', 9, '', 1);
+            }
         }
     } else {
         // A player who has already claimed the initiative is locked out for the rest of the action

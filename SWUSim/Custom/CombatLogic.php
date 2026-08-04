@@ -69,10 +69,13 @@ function SWUQueueDamageAnim(string $relMzID, int $amount, int $perspective): voi
 // end of BeginSWUAttack) — so the attacker's exhaust and the target's damage animation arrive together,
 // and the render that would show the exhaust is held until the damage animation finishes. Exhausting is
 // a COST (CR 6.3.1, paid at declaration), so it has to land first.
+// dim: SWU's exhausted look is a 9° tilt AND a shade, so the pre-render catch-up has to do both — a
+// tilted-but-bright attacker still darkens abruptly at the re-render. An attacking unit picks this up
+// through its lunge: the lunge clones the card AFTER this frame has run, so the clone flies shaded.
 function SWUQueueExhaustAnim(string $relMzID, int $perspective, ?int $uniqueID = null): void {
     $abs = ConvertMzIDToAbsolute($relMzID, intval($perspective));
     if ($abs === '') return;
-    QueueExhaustAnimation($abs, uniqueID: $uniqueID);
+    QueueExhaustAnimation($abs, uniqueID: $uniqueID, dim: true);
 }
 
 function SWUQueueHealAnim(string $relMzID, int $actualHealed, int $perspective): void {
