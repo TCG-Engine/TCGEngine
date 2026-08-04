@@ -122,11 +122,12 @@ function SWUQueueLungeAnim(string $attackerRel, string $targetRel, int $perspect
 // PARALLEL with a 60ms per-card stagger, and blocks for the MAX rather than the sum — so a burst
 // (e.g. returning 3 resources at once) costs ~540ms, not 1.3s. No pacing work is needed here.
 function SWUQueueZoneMoveAnim(string $fromRel, string $toRel, int $perspective,
-                              int $durationMs = 420, ?int $uid = null): void {
+                              int $durationMs = 420, ?int $uid = null, ?int $onlySeat = null): void {
     $absFrom = ConvertMzIDToAbsolute($fromRel, intval($perspective));
     $absTo   = ConvertMzIDToAbsolute($toRel, intval($perspective));
     if ($absFrom === '' || $absTo === '') return;
-    QueueZoneMoveAnimation($absFrom, $absTo, $durationMs, true, $uid, null, 0);
+    // $onlySeat scopes the slide to one viewer — used for moves into a self-visible zone.
+    QueueZoneMoveAnimation($absFrom, $absTo, $durationMs, true, $uid, null, 0, $onlySeat);
 }
 
 // True when a card CEASES to exist on leaving play instead of entering a discard pile — so there is

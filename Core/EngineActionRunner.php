@@ -71,7 +71,7 @@ function QueueCardLungeAnimation($sourceMzID, $targetMzID, $durationMs = 360, $b
   QueueFrameAnimation($animation);
 }
 
-function QueueZoneMoveAnimation($sourceMzID, $destinationMzID, $durationMs = 420, $blocking = true, $sourceUniqueID = null, $destinationUniqueID = null, $delayMs = 0) {
+function QueueZoneMoveAnimation($sourceMzID, $destinationMzID, $durationMs = 420, $blocking = true, $sourceUniqueID = null, $destinationUniqueID = null, $delayMs = 0, $onlySeat = null) {
   $animation = [
     'type' => 'ZONE_MOVE',
     // QueueFrameAnimation requires a target. For movement events it is the old-board source.
@@ -87,6 +87,11 @@ function QueueZoneMoveAnimation($sourceMzID, $destinationMzID, $durationMs = 420
   }
   if ($destinationUniqueID !== null && intval($destinationUniqueID) > 0) {
     $animation['destinationUniqueID'] = intval($destinationUniqueID);
+  }
+  // Optional owner scoping: only the named seat plays this move. Used for zones the opponent cannot
+  // see anyway (SWU resources are Display: Visibility=Self). Omitted => every viewer plays it.
+  if ($onlySeat !== null && intval($onlySeat) > 0) {
+    $animation['onlySeat'] = intval($onlySeat);
   }
   QueueFrameAnimation($animation);
 }

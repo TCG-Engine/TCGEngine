@@ -226,6 +226,11 @@
     for (var i = 0; i < animations.length; ++i) {
       var event = animations[i];
       if (!event || String(event.type || '').toUpperCase() !== 'ZONE_MOVE') continue;
+      // Optional owner scoping: a move into a self-visible zone (SWU resources are
+      // Display: Visibility=Self) should play only for the seat it belongs to. Absent the field,
+      // every viewer plays it as before — so this is inert for existing callers.
+      if (event.onlySeat !== undefined && event.onlySeat !== null
+          && Number(event.onlySeat) !== Number(perspectivePlayerID)) continue;
       var source = resolveElement(
         event.source || event.target,
         event.sourceUniqueID || event.uniqueID,

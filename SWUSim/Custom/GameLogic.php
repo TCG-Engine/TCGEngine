@@ -4890,10 +4890,9 @@ $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDe
     $newResource = MZMove($player, $lastDecision, "myResources");
     if ($newResource !== null) {
         $newResource->Status = 0; // enters exhausted, readied in ReadyPhase
-        // Hand slides into the resource row (the regroup resource step). Destination is the LAST
-        // array slot (MZMove appends); Resources has no GetMzID(), unlike the arena classes.
-        $resIdx = count(GetResources(intval($player))) - 1;
-        if ($resIdx >= 0) SWUQueueZoneMoveAnim($lastDecision, 'myResources-' . $resIdx, intval($player));
+        // Hand slides into the RESOURCE ZONE ANCHOR (the collapsed badge), scoped to the resourcing
+        // player — see the note in SWURampResourceReady for why both apply.
+        SWUQueueZoneMoveAnim($lastDecision, 'myResources-0', intval($player), 420, null, intval($player));
         if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newResource->CardID ?? '', 'resourced'); // Plan D telemetry
         AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' resourced a card');
     }
@@ -6210,10 +6209,13 @@ function SWURampResourceReady(int $player, string $mzID): ?object {
         $newResource->Owner      = intval($player);
         $newResource->Controller = intval($player);
         AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' put a card into play as a ready resource');
-        // Card slides from its source zone (hand or deck) into the resource row. The destination is
-        // the LAST array slot (MZMove appends); Resources has no GetMzID(), unlike the arena classes.
-        $resIdx = count(GetResources(intval($player))) - 1;
-        if ($resIdx >= 0) SWUQueueZoneMoveAnim($mzID, 'myResources-' . $resIdx, intval($player));
+        // Card slides into the RESOURCE ZONE ANCHOR, not a per-card slot: resources collapse to a
+        // single DOM element (CollapseGroupBy CardID — GameLayoutShared), so 'myResources-N' for N>0
+        // resolves to nothing and the card flew at whatever the fallback picked. 'myResources-0' is
+        // the collapsed badge and is always present.
+        // Scoped to the resourcing player: the Resources zone is Display: Visibility=Self, so the
+        // opponent has no business seeing a card slide into it.
+        SWUQueueZoneMoveAnim($mzID, 'myResources-0', intval($player), 420, null, intval($player));
     }
     $playerID = $savedPID;
     return $newResource;
@@ -6232,10 +6234,13 @@ function SWURampResourceExhausted(int $player, string $mzID): ?object {
         $newResource->Owner      = intval($player);
         $newResource->Controller = intval($player);
         AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' put a card into play as a resource');
-        // Card slides from its source zone (hand or deck) into the resource row. The destination is
-        // the LAST array slot (MZMove appends); Resources has no GetMzID(), unlike the arena classes.
-        $resIdx = count(GetResources(intval($player))) - 1;
-        if ($resIdx >= 0) SWUQueueZoneMoveAnim($mzID, 'myResources-' . $resIdx, intval($player));
+        // Card slides into the RESOURCE ZONE ANCHOR, not a per-card slot: resources collapse to a
+        // single DOM element (CollapseGroupBy CardID — GameLayoutShared), so 'myResources-N' for N>0
+        // resolves to nothing and the card flew at whatever the fallback picked. 'myResources-0' is
+        // the collapsed badge and is always present.
+        // Scoped to the resourcing player: the Resources zone is Display: Visibility=Self, so the
+        // opponent has no business seeing a card slide into it.
+        SWUQueueZoneMoveAnim($mzID, 'myResources-0', intval($player), 420, null, intval($player));
     }
     $playerID = $savedPID;
     return $newResource;
