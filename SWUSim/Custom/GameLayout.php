@@ -33,8 +33,21 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            JS; the 80px fallback only applies for the first paint before the JS runs.
            The <=1100px / <=800px media queries below can still override. */
         --swu-center-w:     calc(var(--swu-cardsize, 80px) * 1.35 + 18px);
-        --swu-hand-h:       118px;
-        --swu-pile-w:       88px;
+        /* min() not a breakpoint: whether the board is height-constrained depends on BOTH
+           axes (at 1920 wide it is height-bound below ~972px tall), so no fixed max-height
+           value can cover it — a 1280x600 window slipped through one and overlapped by 13px.
+           118px is the historical fixed value and 1.475 the measured ratio (118px at cardSize
+           80), so this is exactly "never larger than today, shrink when the cards shrink".
+           CalculateCardSize() in NextTurn.php makes --swu-cardsize height-aware. */
+        --swu-hand-h:       min(118px, calc(var(--swu-cardsize, 80px) * 1.475));
+        /* Same min() rule as the hand band: never wider than the historical 88px, but
+           proportional once the cards shrink below the 80px reference. The deck/discard
+           containers are otherwise fixed-size and dominate a small board. */
+        --swu-pile-w:       min(88px, calc(var(--swu-cardsize, 80px) * 1.1));
+        /* Ratio of the current card size to the 80px reference the engine's counter sizes
+           (Schemas/SWUSim/GameSchema.txt "Size=") were chosen against. Never above 1, so
+           normal boards are untouched. --swu-cardsize-n is set by GameLayoutShared JS. */
+        --swu-counter-scale: min(1, calc(var(--swu-cardsize-n, 80) / 80));
         /* Width the deck+discard pile rows occupy on the right (2 piles + gap +
            breathing room). Hand panels stop before this so they never bleed
            under the piles. */
@@ -509,7 +522,12 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         gap: 6px; padding: 8px 6px;
     }
     .swu-center-col-bot {
-        top: calc(var(--swu-midline) + 4px); bottom: var(--swu-hand-h);
+        /* --swu-pass-reserve keeps the column clear of the KEEP-INITIATIVE/PASS cluster that
+           is anchored just above the hand. It is 0 by default and only set on short boards:
+           the column lays its children out flex-start, so on a tall board they never reach
+           the bottom edge and reserving there would change nothing anyway. */
+        top: calc(var(--swu-midline) + 4px);
+        bottom: calc(var(--swu-hand-h) + var(--swu-pass-reserve, 0px));
         display: flex; flex-direction: column; align-items: center;
         justify-content: flex-start; /* P1: Leader → Base → piles */
         gap: 6px; padding: 8px 6px;
@@ -543,11 +561,49 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     #myPileRow    { bottom: 0; height: var(--swu-hand-h); }
     #theirPileRow { top: 0;    height: var(--swu-hand-h); }
 
+    /* Engine-drawn overlays carry INLINE px sizes from the schema (Core/CounterRendering.js
+       writes width/height from "Size=", and .counter-bubble is the zone stack-count), so they
+       cannot be re-sized by width/height without also fixing up their inner <img> and text.
+       The `scale` PROPERTY is used rather than `transform: scale()` because several counter
+       positions (Center/Top/Bottom) already carry an inline `transform: translate(...)` for
+       centering — `scale` composes with it instead of clobbering it. At the reference card
+       size the ratio is 1, so full-size boards render exactly as before. */
+    /* `zoom`, NOT `scale` / `transform: scale()`. Centre-positioned counters (the Damage
+       bubble, Hidden) are placed with `top:50%; left:50%; transform: translate(-50%,-50%)`.
+       A scale leaves that -50% resolving against the UNSCALED box and then rescales the
+       displacement, so the centring stops cancelling — measured against a 1920x1080
+       reference, Damage drifted from dx 0% to dx +7.7% and visibly sat off-centre on the
+       card. `zoom` scales the layout box itself, so the -50% resolves against the scaled box
+       and centring holds (Damage back to dx 0%; the corner counters also land nearer their
+       reference insets, -40.4% vs -43.4%, against -33.7% under scale).
+       Verified in Chromium and Firefox; Firefox has supported `zoom` since 126. */
+    [data-counter-field], .counter-bubble {
+        zoom: var(--swu-counter-scale, 1);
+    }
+
+    /* Card corner radii are flat px — 8px on the image (inline, from the engine's Card()) and
+       4px on the selection frame, which is 2px LARGER than the image on each side. At cardSize
+       120 the 8-vs-4 mismatch is 6.7% vs 3.3% of the card and invisible; at 59px it is 13.5%
+       vs 6.8% and the frame's squarer corner visibly protrudes past the image's rounder one.
+       Scale both by the same factor so the relationship holds at every size. min() makes this
+       exact at the 80px reference, so normal boards render unchanged. */
+    .selectable-card     { border-radius: min(4px, calc(var(--swu-cardsize, 80px) * 0.05)) !important; }
+    .selectable-card img { border-radius: min(8px, calc(var(--swu-cardsize, 80px) * 0.10)) !important; }
+
     .swu-pile {
-        width: var(--swu-pile-w); min-height: 96px;
+        /* Piles live inside the hand band, which now shrinks with the card size — same
+           fixed-96px problem as the slot wrappers above. */
+        width: var(--swu-pile-w); min-height: min(96px, calc(var(--swu-cardsize, 80px) * 1.2));
         border: 1px solid var(--swu-border); border-radius: 10px;
         background: var(--swu-surface); overflow: visible; position: relative;
     }
+    /* Was an inline style="min-height:96px" on each of the four slots, which beat every
+       stylesheet rule and kept the deck/discard boxes 98px tall inside a hand band that had
+       shrunk to 72px. Same min() rule as the pile itself. */
+    #myDeckSlot, #myDiscardSlot, #theirDeckSlot, #theirDiscardSlot {
+        min-height: min(96px, calc(var(--swu-cardsize, 80px) * 1.2));
+    }
+
     .swu-pile-label {
         position: absolute; top: 4px; left: 0; right: 0;
         text-align: center; font: 700 8px/1 var(--swu-font-label);
@@ -627,7 +683,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* Leader and Base slot wrappers inside center column */
     .swu-leader-slot-wrap, .swu-base-slot-wrap {
         width: 100%; flex-shrink: 0;
-        min-height: 96px;
+        /* Was a flat 96px — the last fixed-px constraint in the centre column. With a 55px
+           card inside, two 98px wrappers + gap + padding needed 218px in a 143px column, so
+           the leader overflowed past the column and back into the hand band. min() keeps the
+           historical 96px wherever there is room. */
+        min-height: min(96px, calc(var(--swu-cardsize, 80px) * 1.2));
         border: 1px solid var(--swu-border); border-radius: 10px;
         background: var(--swu-surface); overflow: visible; position: relative;
     }
@@ -1012,6 +1072,61 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         #chatExpanded { display: none !important; flex: none !important; }
         #chatToggleBtn { display: block !important; }
     }
+    /* The two width-gated blocks above pin --swu-center-w to a fixed px, which defeats the
+       card-size derivation when HEIGHT is the binding constraint: at 780x438 the leader/base
+       column stayed 140px wide (so ~95px tall, since the art fills the column width) and the
+       leader rendered INSIDE the hand band, overlapping the hand cards. Same min() rule as
+       --swu-hand-h: never wider than the width-gated value, but proportional once the cards
+       shrink below it. Declared after those blocks so it wins on source order; the sidebar /
+       chat rules they also carry are deliberately left alone. */
+    @media (max-width: 1100px) {
+        :root { --swu-center-w: min(160px, calc(var(--swu-cardsize, 80px) * 1.35 + 18px)); }
+    }
+    @media (max-width: 800px) {
+        :root { --swu-center-w: min(140px, calc(var(--swu-cardsize, 80px) * 1.35 + 18px)); }
+    }
+
+    /* ── Short boards: lay the initiative cluster out horizontally ─────────────────
+       Stacked, the Take/Keep + Pass buttons are ~35px tall and sit directly below the
+       leader — on a 780x438 board that landed ON the leader card. Side by side they are
+       ~18px, which the centre column can reserve without shrinking the cards to the point
+       of being unreadable. The cluster is position:fixed, so it may be wider than the
+       centre column and overhang into the arena gutters; it is re-centred on the column
+       rather than on the viewport because the column is not exactly centred (the chat
+       sidebar shifts it). See the solved budget in CalculateCardSize(), NextTurn.php. */
+    @media (max-height: 680px) {
+        /* The lane becomes TWO cards wide and each half lays out as a row, so a half board
+           costs one card row instead of two:
+               [their leader][their base]
+               [my leader   ][my base   ]
+               [Take/Keep   ][Pass      ]
+               [Blast       ][Plan      ]   (Twin Suns; hidden in 2-player)
+           --swu-center-w is the whole LANE, so the arena columns re-flow around it for free
+           (--swu-col-w / --swu-center-left / --swu-ground-left all derive from it). */
+        :root {
+            --swu-center-w: calc(2 * (var(--swu-cardsize, 80px) * 1.35 + 18px) + 6px);
+            --swu-pass-reserve: 45px;   /* two button rows + the gap above the hand */
+        }
+        .swu-center-col-top { flex-direction: row;         justify-content: center; }
+        /* DOM order below the midline is [base][leader]; row-reverse puts the leader on the
+           left so both halves read leader-then-base. */
+        .swu-center-col-bot { flex-direction: row-reverse; justify-content: center; }
+        .swu-center-col-top > *, .swu-center-col-bot > * {
+            flex: 1 1 0; width: auto; min-width: 0;
+        }
+
+        .swu-init-pass {
+            flex-direction: row; flex-wrap: wrap; justify-content: center;
+            gap: 3px; width: var(--swu-center-w);
+        }
+        /* Two per row, matching the card pair above. */
+        .swu-init-pass-btn {
+            flex: 0 0 calc(50% - 3px); width: auto; white-space: nowrap;
+            padding: 0.3em 0.4em; letter-spacing: 0.06em;
+        }
+        /* No room for keyboard affordances at this size, and they would break the 2-up grid. */
+        .swu-init-pass-hint, .swu-kb-hints { display: none !important; }
+    }
 </style>
 
 <!-- Board background + decorative -->
@@ -1173,21 +1288,21 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 <div id="theirPileRow" class="swu-pile-row">
     <div class="swu-pile">
         <div class="swu-pile-label">Deck</div>
-        <div id="theirDeckSlot" style="min-height:96px;"></div>
+        <div id="theirDeckSlot"></div>
     </div>
     <div class="swu-pile">
         <div class="swu-pile-label">Discard</div>
-        <div id="theirDiscardSlot" style="min-height:96px;"></div>
+        <div id="theirDiscardSlot"></div>
     </div>
 </div>
 <div id="myPileRow" class="swu-pile-row">
     <div class="swu-pile">
         <div class="swu-pile-label">Deck</div>
-        <div id="myDeckSlot" style="min-height:96px;"></div>
+        <div id="myDeckSlot"></div>
     </div>
     <div class="swu-pile">
         <div class="swu-pile-label">Discard</div>
-        <div id="myDiscardSlot" style="min-height:96px;"></div>
+        <div id="myDiscardSlot"></div>
     </div>
 </div>
 

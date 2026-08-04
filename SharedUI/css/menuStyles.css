@@ -667,10 +667,20 @@ html, body, h1, h2, h3, h4, h5, h6, p, a, b, ul, ol, li, dl, dd, form, details, 
 
   /* DISCLAIMER ---------------------------------------------------------------------------------------------- */
 
+  /* In normal flow, at the end of the document. It used to be
+     `position:absolute; bottom:15px`, which takes it OUT of flow and anchors it to the
+     containing block rather than to the content — so on any page taller than the viewport it
+     landed in the middle of the page, on top of whatever was there (on the SWUSim main menu
+     at 1200x400 it covered the deck-link input, the Test Deck button and the Create-a-New-Game
+     card). The .lobby-footer variant below already had to opt back into flow for the same
+     reason; this makes flow the default so each new page does not have to rediscover it.
+     margin-top:auto keeps it pinned to the bottom when an ancestor is a flex column and the
+     content is shorter than the viewport; it is inert otherwise. */
   .disclaimer {
-    position: absolute;
-    bottom: 15px;
+    position: static;
     width: 100%;
+    padding: 15px 0;
+    margin-top: auto;
   }
 
   .disclaimer p {

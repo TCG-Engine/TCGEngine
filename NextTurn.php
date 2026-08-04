@@ -390,7 +390,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     </head>
 
     <script>
-      function CalculateCardSize() {
+      function CalculateCardSizeByWidth() {
         if (window.innerWidth <= 1000) {
           var viewportWidth = (window.visualViewport && window.visualViewport.width) ? window.visualViewport.width : window.innerWidth;
           // Phone-specific layouts can show fewer, larger cards. Gate on the same
@@ -422,6 +422,41 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         // fewer per row); other sims keep the historical /16 sizing.
         return window.innerWidth / <?php echo (in_array($folderPath, ['SWUDeck', 'AzukiDeck'], true) ? '13.5' : '16'); ?>;
         <?php } ?>
+      }
+
+      function CalculateCardSize() {
+        var size = CalculateCardSizeByWidth();
+<?php if ($folderPath === 'SWUSim') {
+        require_once __DIR__ . '/SWUSim/Custom/GameLayoutDevice.php';   // SWUSimIsMobileRequest
+        if (!SWUSimIsMobileRequest()) { ?>
+        // SWUSim's wide board is constrained by HEIGHT before width: it stacks two hand
+        // bands plus a leader+base centre column per side. Measured, in units of cardSize:
+        // hands 2 x 1.475, leader+base 4 x ~1.2, plus fixed gaps/padding/arena margins —
+        // about 8 cardSizes plus ~48px. So clamp by height as well as width.
+        //
+        // Deliberately a CLAMP on top of the width result, not a replacement: the width
+        // branches above stay authoritative, so every viewport that already fit is
+        // untouched (1920x1080 stays 120, 800x1000 stays 80). Only viewports whose height
+        // is the binding constraint change — which is the bug. Without this, a 780x438
+        // laptop fell into the <=1000 phone-grid branch, which forced cardSize UP to 80 and
+        // left the leader rendering inside the hand band, on top of the hand cards.
+        //
+        // Phones are excluded: they get GameLayoutMobile's vertical stack, a different
+        // budget entirely. The floor stops the board becoming unreadable below ~400px tall,
+        // where it can no longer fit at any size.
+        //
+        // Solved rather than guessed. Below 680px tall the centre lane puts leader and base
+        // SIDE BY SIDE (see the max-height block in SWUSim/Custom/GameLayout.php), so a half
+        // board costs one card row, not two: leader-or-base (cs + 13.3) + 16px padding, the
+        // hand band at 1.475*cs, and ~45px reserved for the two-row initiative/pass cluster.
+        //     cs + 29.3  <=  H/2 - 4 - 1.475cs - 45   ->   cs <= (H - 157) / 4.95
+        // Every common resolution stays width-bound and therefore unchanged (1920x1080 -> 120,
+        // 1366x768 -> 85.4, 1280x800 -> 80, 1024x640 -> 64), and 780x438 comes back up to the
+        // width-derived 48.75 rather than the 39.3 the stacked lane forced.
+        size = Math.max(38, Math.min(size, (window.innerHeight - 157) / 4.95));
+<?php   }
+      } ?>
+        return size;
       }
 
       var cardSize = CalculateCardSize();

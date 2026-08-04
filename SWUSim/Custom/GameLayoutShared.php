@@ -613,9 +613,28 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     transform: translateX(calc(-50% - var(--swu-sidebar-w)/2)) !important;
     pointer-events: none !important; /* context only during the choice — no card clicks/zoom */
 }
-@media (orientation: portrait), (max-width: 760px) {
+/* max-height is the third trigger on purpose: a 780x438 laptop clears the 760px width
+   breakpoint by 20px AND is landscape, so it kept the full 124px tiles — 6 of them
+   (774px) no longer fit, the 6th wrapped to a second row, and that row collided with
+   the prompt text while pushing YES/NO down onto the hand band. At 92px the six tiles
+   are 572px and stay on one row. */
+@media (orientation: portrait), (max-width: 760px), (max-height: 560px) {
     .swu-mulligan-hand img { height: 92px !important; }
     .swu-mulligan-hand { gap: 4px !important; margin-bottom: 12px !important; }
+}
+
+/* ── Short viewports — keep decision panels inside the window ──────────────────
+   Every panel above is positioned for a tall window. At 780x438 the mulligan modal
+   filled the entire viewport and its buttons landed on top of the hand band. Cap the
+   panels to the viewport and let them scroll instead of overlapping the board.
+   Height-gated, so nothing above 560px tall is affected. */
+@media (max-height: 560px) {
+    #topdecksearch-panel > div, #scry-panel > div, #revealarrange-panel > div,
+    #yesno-decision-modal > div, .optchoose-banner {
+        max-height: calc(100vh - 12px) !important;
+        max-width:  calc(100vw - 12px) !important;
+        overflow-y: auto !important; overflow-x: hidden !important;
+    }
 }
 
 /* ── Decision-queue sweep, part 2 — the remaining modules ──────────────────────
@@ -1287,6 +1306,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var cs = parseFloat(window.cardSize);
         if (!cs || isNaN(cs)) return;
         document.documentElement.style.setProperty('--swu-cardsize', cs + 'px');
+        // Unitless twin. CSS can't divide two lengths to get a ratio, and the counter/badge
+        // overlays are sized in px by the engine (Core/CounterRendering.js writes inline
+        // width/height from the schema's Size=), so scaling them needs a plain number.
+        // 80 is the reference card size those schema sizes were chosen against.
+        document.documentElement.style.setProperty('--swu-cardsize-n', String(cs));
     }
     function pollGlobals() {
         syncCardSizeVar();
