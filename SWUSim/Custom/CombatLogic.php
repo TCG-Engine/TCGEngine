@@ -112,6 +112,10 @@ function SWUQueueShieldBreakAnim(string $relMzID, int $perspective, int $slot = 
 // board element with its own mzID, and base attacks are the commonest attack in the game.
 function SWUQueueLungeAnim(string $attackerRel, string $targetRel, int $perspective,
                            ?int $atkUid = null, ?int $tgtUid = null): void {
+    // The animation layer is NOT loaded on every path that runs game logic — CreateGame.php includes
+    // GameLogic.php but not Core/EngineActionRunner.php, so pregame setup (QueuePregameSetup ->
+    // DoDrawCard) would fatal on an undefined function. Same guard AzukiDeck uses.
+    if (!function_exists('ConvertMzIDToAbsolute') || !function_exists('QueueCardLungeAnimation')) return;
     $absAtk = ConvertMzIDToAbsolute($attackerRel, intval($perspective));
     $absTgt = ConvertMzIDToAbsolute($targetRel, intval($perspective));
     if ($absAtk === '' || $absTgt === '') return;
@@ -123,6 +127,9 @@ function SWUQueueLungeAnim(string $attackerRel, string $targetRel, int $perspect
 // (e.g. returning 3 resources at once) costs ~540ms, not 1.3s. No pacing work is needed here.
 function SWUQueueZoneMoveAnim(string $fromRel, string $toRel, int $perspective,
                               int $durationMs = 420, ?int $uid = null, ?int $onlySeat = null): void {
+    // See SWUQueueLungeAnim: the animation layer is absent during game creation (the opening-hand
+    // DoDrawCard runs there), so this must degrade to a no-op rather than fatal.
+    if (!function_exists('ConvertMzIDToAbsolute') || !function_exists('QueueZoneMoveAnimation')) return;
     $absFrom = ConvertMzIDToAbsolute($fromRel, intval($perspective));
     $absTo   = ConvertMzIDToAbsolute($toRel, intval($perspective));
     if ($absFrom === '' || $absTo === '') return;
