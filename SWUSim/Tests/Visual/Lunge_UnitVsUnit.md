@@ -9,6 +9,11 @@
 #
 # What to look at:
 #   • P1's Dark Trooper LEANS toward the enemy Consular Security Force, then snaps back.
+#   • It leans ALREADY EXHAUSTED — tilted 9° AND shaded for the whole lean, because exhausting is the
+#     attack's cost and must read as paid BEFORE the motion it paid for. An upright or full-brightness
+#     lean that tips over / darkens once the motion ends is the bug.
+#   • The shade is the same 50%-black the re-rendered exhausted card carries: there must be no visible
+#     step in darkness when the lunge finishes and the real board comes back.
 #   • The lunge happens BEFORE the damage numbers land.
 #   • Neither card is left duplicated or displaced once the motion ends (the clone is cleaned up).
 

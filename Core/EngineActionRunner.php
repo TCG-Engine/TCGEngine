@@ -142,7 +142,10 @@ function QueueBlockedRecoveryAnimation($targetMzID, $durationMs = 500, $blocking
 // so it must be visible before the effect it paid for; the re-render is deferred until every blocking
 // animation finishes, which is too late when an action declares and resolves in one update.
 // NON-blocking by default: this is a pre-render catch-up, it must not extend the render delay.
-function QueueExhaustAnimation($targetMzID, $durationMs = 120, $blocking = false, $uniqueID = null) {
+// $dim: also darken the card, for an app whose "exhausted" look is a tilt PLUS a shade (SWU renders
+// both; UILibraries draws the shade as .exhausted-status-overlay-layer once the board re-renders).
+// Opt-in per app rather than assumed, because a sim that only tilts must not start dimming.
+function QueueExhaustAnimation($targetMzID, $durationMs = 120, $blocking = false, $uniqueID = null, $dim = false) {
   $animation = [
     'type' => 'EXHAUST',
     'target' => strval($targetMzID),
@@ -151,6 +154,9 @@ function QueueExhaustAnimation($targetMzID, $durationMs = 120, $blocking = false
   ];
   if ($uniqueID !== null && intval($uniqueID) > 0) {
     $animation['uniqueID'] = intval($uniqueID);
+  }
+  if ($dim) {
+    $animation['dim'] = true;
   }
   QueueFrameAnimation($animation);
 }
