@@ -48,6 +48,61 @@ $IMG_WEB    = $APP_WEB . 'WebpImages/';
 $CONCAT_WEB = $APP_WEB . 'concat/';
 $CROP_WEB   = $APP_WEB . 'crops/';
 
+function CropTesterParseSections($rawSections)
+{
+    $sections = [];
+    foreach (array_slice((array)$rawSections, 0, 8) as $sstr) {
+        if (!is_string($sstr)) continue;
+        $p = array_map('intval', explode(',', $sstr));
+        if (count($p) === 4 && $p[2] > 0 && $p[2] <= 4096 && $p[3] > 0 && $p[3] <= 4096) {
+            $sections[] = $p;
+        }
+    }
+    return $sections;
+}
+
+function CropTesterBuildImage($src, $sections, $resizeW = 0, $resizeH = 0)
+{
+    $outW = 0;
+    $outH = 0;
+    foreach ($sections as $p) {
+        $outW = max($outW, $p[2]);
+        $outH += $p[3];
+    }
+    if ($outW <= 0 || $outW > 4096 || $outH <= 0 || $outH > 8192) {
+        throw new InvalidArgumentException('Requested output is too large');
+    }
+    if (!class_exists('Imagick')) {
+        throw new RuntimeException('Imagick is required to regenerate images');
+    }
+
+    $imgsrc = new Imagick($src);
+    $out = new Imagick();
+    $out->newImage($outW, $outH, new ImagickPixel('transparent'));
+
+    $y = 0;
+    foreach ($sections as $p) {
+        [$sx, $sy, $w, $h] = $p;
+        $piece = clone $imgsrc;
+        $piece->cropImage($w, $h, $sx, $sy);
+        $piece->setImagePage($w, $h, 0, 0);
+        $out->compositeImage($piece, Imagick::COMPOSITE_COPY, 0, $y);
+        $piece->clear();
+        $piece->destroy();
+        $y += $h;
+    }
+    $imgsrc->clear();
+    $imgsrc->destroy();
+
+    $resizeW = min(4096, max(0, (int)$resizeW));
+    $resizeH = min(4096, max(0, (int)$resizeH));
+    if ($resizeW > 0 && $resizeH > 0 && ($resizeW !== $outW || $resizeH !== $outH)) {
+        $out->resizeImage($resizeW, $resizeH, Imagick::FILTER_LANCZOS, 1, false);
+    }
+    $out->setImagePage(0, 0, 0, 0);
+    return $out;
+}
+
 // ----------------------------------------------------------------------------
 // Image endpoint: stack the requested sections vertically and stream the result.
 // A "section" is sx,sy,w,h taken from the source; output is (max w) x (sum h).
@@ -70,12 +125,7 @@ if (isset($_GET['render'])) {
         exit;
     }
 
-    $sections = [];
-    foreach (array_slice((array)($_GET['s'] ?? []), 0, 8) as $sstr) {
-        if (!is_string($sstr)) continue;
-        $p = array_map('intval', explode(',', $sstr));
-        if (count($p) === 4 && $p[2] > 0 && $p[2] <= 4096 && $p[3] > 0 && $p[3] <= 4096) $sections[] = $p;
-    }
+    $sections = CropTesterParseSections($_GET['s'] ?? []);
     if (!$sections) {
         http_response_code(400);
         header('Content-Type: text/plain');
@@ -84,45 +134,21 @@ if (isset($_GET['render'])) {
     }
 
     $fmt  = (($_GET['fmt'] ?? 'webp') === 'png') ? 'png' : 'webp';
-    $outW = 0; $outH = 0;
-    foreach ($sections as $p) { $outW = max($outW, $p[2]); $outH += $p[3]; }
-    if ($outW > 4096 || $outH > 8192) {
-        http_response_code(400);
-        header('Content-Type: text/plain');
-        echo 'Requested output is too large';
-        exit;
-    }
-
-    // Imagick-only, matching the migrated zzImageConverter.php production pipeline
-    // (XAMPP's GD lacks WebP; see newhost/harden-webp.sh).
-    try { $imgsrc = new Imagick($src); }
-    catch (Exception $e) { http_response_code(500); echo 'decode failed'; exit; }
-
-    $out = new Imagick();
-    $out->newImage($outW, $outH, new ImagickPixel('transparent'));
-
-    $y = 0;
-    foreach ($sections as $p) {
-        list($sx, $sy, $w, $h) = $p;
-        $piece = clone $imgsrc;
-        $piece->cropImage($w, $h, $sx, $sy);
-        $piece->setImagePage($w, $h, 0, 0);
-        $out->compositeImage($piece, Imagick::COMPOSITE_COPY, 0, $y);
-        $piece->clear(); $piece->destroy();
-        $y += $h;
-    }
-
     $resizeW = min(4096, max(0, (int)($_GET['ow'] ?? 0)));
     $resizeH = min(4096, max(0, (int)($_GET['oh'] ?? 0)));
-    if ($resizeW > 0 && $resizeH > 0 && ($resizeW !== $outW || $resizeH !== $outH)) {
-        $out->resizeImage($resizeW, $resizeH, Imagick::FILTER_LANCZOS, 1, false);
+    try {
+        $out = CropTesterBuildImage($src, $sections, $resizeW, $resizeH);
+    } catch (Throwable $e) {
+        http_response_code(500);
+        header('Content-Type: text/plain');
+        echo 'Could not render crop: ' . $e->getMessage();
+        exit;
     }
 
     if ($fmt === 'png') { $out->setImageFormat('png'); header('Content-Type: image/png'); }
     else                { $out->setImageFormat('webp'); header('Content-Type: image/webp'); }
     echo $out->getImageBlob();
     $out->clear(); $out->destroy();
-    $imgsrc->clear(); $imgsrc->destroy();
     exit;
 }
 
@@ -159,11 +185,14 @@ if ($cardTypes) {
     }
 }
 
+$allImageIds = [];
 $allSamples = [];
 foreach (glob($IMG_BASE . '*.webp') ?: [] as $imagePath) {
-    if (count($allSamples) >= 500) break;
     $id = pathinfo($imagePath, PATHINFO_FILENAME);
-    $allSamples[$id] = isset($cardTitles[$id]) ? (string)$cardTitles[$id] : $id;
+    $allImageIds[] = $id;
+    if (count($allSamples) < 500) {
+        $allSamples[$id] = isset($cardTitles[$id]) ? (string)$cardTitles[$id] : $id;
+    }
 }
 
 // Scenarios mirror the actual branches in zzImageConverter.php. Each carries
@@ -245,6 +274,251 @@ $genericScenarios = [
 ];
 $scenarios = ($app === 'SWUSim' || $app === 'SWUDeck') ? $swuScenarios : $genericScenarios;
 
+function CropTesterScenarioImageIds($scenario, $allImageIds, $cardTypes)
+{
+    $types = $scenario['types'] ?? [];
+    if (!$types) return $allImageIds;
+
+    $matches = [];
+    foreach ($allImageIds as $id) {
+        $type = isset($cardTypes[$id]) ? (string)$cardTypes[$id] : '';
+        if ($type === '' && str_ends_with($id, '_back')) {
+            $frontID = substr($id, 0, -5);
+            if (($cardTypes[$frontID] ?? '') === 'Leader') $type = 'LeaderUnit';
+        }
+        if (in_array($type, $types, true)) $matches[] = $id;
+    }
+    return $matches;
+}
+
+function CropTesterWriteImage($image, $destination, $format)
+{
+    $directory = dirname($destination);
+    if (!is_dir($directory) && !mkdir($directory, 0755, true) && !is_dir($directory)) {
+        throw new RuntimeException('Could not create output directory');
+    }
+
+    $temporary = tempnam($directory, '.crop-');
+    if ($temporary === false) throw new RuntimeException('Could not create temporary output');
+    $backup = null;
+    try {
+        $image->setImageFormat($format);
+        if (!$image->writeImage($temporary) || !is_file($temporary)) {
+            throw new RuntimeException('Could not write temporary output');
+        }
+        if (is_file($destination)) {
+            $backup = $destination . '.bak-' . bin2hex(random_bytes(4));
+            if (!rename($destination, $backup)) throw new RuntimeException('Could not prepare existing output for replacement');
+        }
+        if (!rename($temporary, $destination)) {
+            if ($backup !== null && is_file($backup)) rename($backup, $destination);
+            throw new RuntimeException('Could not install regenerated output');
+        }
+        if ($backup !== null && is_file($backup)) unlink($backup);
+    } finally {
+        if (is_file($temporary)) unlink($temporary);
+    }
+}
+
+function CropTesterFindCodexCLI()
+{
+    $configured = getenv('CODEX_CLI_PATH');
+    if (is_string($configured) && $configured !== '' && is_file($configured)) return $configured;
+
+    $candidates = [];
+    $home = getenv('USERPROFILE');
+    if (is_string($home) && $home !== '') {
+        $binRoot = $home . '/AppData/Local/OpenAI/Codex/bin';
+        foreach (glob($binRoot . '/*/codex.exe') ?: [] as $candidate) $candidates[] = $candidate;
+        if (is_file($binRoot . '/codex.exe')) $candidates[] = $binRoot . '/codex.exe';
+    }
+    foreach (glob('C:/Users/*/AppData/Local/OpenAI/Codex/bin/*/codex.exe') ?: [] as $candidate) $candidates[] = $candidate;
+    foreach (glob('C:/Users/*/AppData/Local/OpenAI/Codex/bin/codex.exe') ?: [] as $candidate) $candidates[] = $candidate;
+    $candidates = array_values(array_unique(array_filter($candidates, 'is_file')));
+    usort($candidates, static function ($a, $b) {
+        return (filemtime($b) ?: 0) <=> (filemtime($a) ?: 0);
+    });
+    if ($candidates) {
+        return $candidates[0];
+    }
+    return null;
+}
+
+function CropTesterFindCodexModel()
+{
+    $configured = getenv('CODEX_IMAGE_MODEL');
+    if (is_string($configured) && preg_match('/^[A-Za-z0-9._-]+$/', $configured)) return $configured;
+
+    $configPaths = [];
+    $home = getenv('USERPROFILE');
+    if (is_string($home) && $home !== '') $configPaths[] = $home . '/.codex/config.toml';
+    foreach (glob('C:/Users/*/.codex/config.toml') ?: [] as $path) $configPaths[] = $path;
+    foreach (array_unique($configPaths) as $path) {
+        if (!is_file($path)) continue;
+        $contents = file_get_contents($path);
+        if ($contents !== false && preg_match('/^model\s*=\s*["\']([A-Za-z0-9._-]+)["\']/m', $contents, $match)) {
+            return $match[1];
+        }
+    }
+    return 'gpt-5.6-sol';
+}
+
+function CropTesterGeneratedImageRoots($codexPath)
+{
+    $roots = [];
+    $codexHome = getenv('CODEX_HOME');
+    if (is_string($codexHome) && $codexHome !== '') $roots[] = rtrim($codexHome, '/\\') . '/generated_images';
+    $normalized = str_replace('\\', '/', $codexPath);
+    if (preg_match('~^([A-Za-z]:/Users/[^/]+)(?:/|$)~i', $normalized, $match)) {
+        $roots[] = $match[1] . '/.codex/generated_images';
+    }
+    foreach (glob('C:/Users/*/.codex/generated_images', GLOB_ONLYDIR) ?: [] as $root) $roots[] = $root;
+    return array_values(array_unique(array_filter($roots, 'is_dir')));
+}
+
+function CropTesterListGeneratedImages($roots)
+{
+    $images = [];
+    foreach ($roots as $root) {
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS)
+        );
+        foreach ($iterator as $file) {
+            if (!$file->isFile()) continue;
+            $extension = strtolower($file->getExtension());
+            if (!in_array($extension, ['png', 'jpg', 'jpeg', 'webp'], true)) continue;
+            $images[$file->getPathname()] = $file->getMTime();
+        }
+    }
+    return $images;
+}
+
+function CropTesterCollectGeneratedImage($codexPath, $stdout, $beforeImages, $destination)
+{
+    $roots = CropTesterGeneratedImageRoots($codexPath);
+    $threadID = null;
+    foreach (preg_split('/\R/', $stdout) as $line) {
+        $event = json_decode($line, true);
+        if (is_array($event) && ($event['type'] ?? '') === 'thread.started' && isset($event['thread_id'])) {
+            $threadID = (string)$event['thread_id'];
+            break;
+        }
+    }
+
+    $candidates = [];
+    if ($threadID !== null && preg_match('/^[A-Za-z0-9_-]+$/', $threadID)) {
+        foreach ($roots as $root) {
+            $threadDirectory = $root . '/' . $threadID;
+            if (!is_dir($threadDirectory)) continue;
+            foreach (glob($threadDirectory . '/*.{png,jpg,jpeg,webp}', GLOB_BRACE) ?: [] as $path) {
+                if (is_file($path)) $candidates[$path] = filemtime($path) ?: 0;
+            }
+        }
+    }
+    if (!$candidates) {
+        $afterImages = CropTesterListGeneratedImages($roots);
+        $candidates = array_diff_key($afterImages, $beforeImages);
+    }
+    if (!$candidates) return false;
+
+    arsort($candidates, SORT_NUMERIC);
+    $source = array_key_first($candidates);
+    return is_string($source) && copy($source, $destination);
+}
+
+function CropTesterNormalizeGeneratedImage($path)
+{
+    $image = new Imagick($path);
+    $srcW = $image->getImageWidth();
+    $srcH = $image->getImageHeight();
+    if ($srcW <= 0 || $srcH <= 0) throw new RuntimeException('Generated image has invalid dimensions');
+    $scale = max(450 / $srcW, 450 / $srcH);
+    $scaledW = (int)round($srcW * $scale);
+    $scaledH = (int)round($srcH * $scale);
+    $image->resizeImage($scaledW, $scaledH, Imagick::FILTER_LANCZOS, 1, false);
+    $image->cropImage(450, 450, max(0, (int)round(($scaledW - 450) / 2)), max(0, (int)round(($scaledH - 450) / 2)));
+    $image->setImagePage(0, 0, 0, 0);
+    return $image;
+}
+
+function CropTesterRunCodexImageEdit($codexPath, $workingRoot, $source, $output, $userPrompt, $emitProgress, $cardID, $completed, $total)
+{
+    $beforeImages = CropTesterListGeneratedImages(CropTesterGeneratedImageRoots($codexPath));
+    $instruction = '$imagegen Edit the attached card image and save the final edited image exactly to "' . str_replace('\\', '/', $output) . '". '
+        . 'The result must be a clean square arena-display asset. Preserve the card identity, original illustration, top title bar, cost, and icons exactly. '
+        . 'Do not invent or alter names, numbers, symbols, characters, or branding. Remove partial rules text and textbox fragments from the lower edge. '
+        . 'Repair or extend only the artwork and frame needed to make all four border edges visually consistent. Do not modify any other file. '
+        . 'Additional direction from the user: ' . trim($userPrompt);
+
+    $command = [
+        $codexPath, 'exec', '--ignore-user-config', '--ephemeral', '--sandbox', 'workspace-write', '--json',
+        '--model', CropTesterFindCodexModel(), '--skip-git-repo-check', '--cd', $workingRoot, '--image', $source, '-',
+    ];
+    $pipes = [];
+    $process = proc_open($command, [
+        0 => ['pipe', 'r'],
+        1 => ['pipe', 'w'],
+        2 => ['pipe', 'w'],
+    ], $pipes, $workingRoot, null, ['bypass_shell' => true]);
+    if (!is_resource($process)) throw new RuntimeException('Could not start Codex CLI');
+    fwrite($pipes[0], $instruction);
+    fclose($pipes[0]);
+    stream_set_blocking($pipes[1], false);
+    stream_set_blocking($pipes[2], false);
+
+    $started = microtime(true);
+    $lastHeartbeat = 0.0;
+    $stdout = '';
+    $stderr = '';
+    $exitCode = -1;
+    try {
+        while (true) {
+            $status = proc_get_status($process);
+            $stdout .= stream_get_contents($pipes[1]);
+            $stderr .= stream_get_contents($pipes[2]);
+            if (strlen($stdout) > 1048576) $stdout = substr($stdout, -1048576);
+            if (strlen($stderr) > 1048576) $stderr = substr($stderr, -1048576);
+
+            $now = microtime(true);
+            if ($now - $lastHeartbeat >= 2.0) {
+                $emitProgress([
+                    'type' => 'active', 'completed' => $completed, 'total' => $total,
+                    'card' => $cardID, 'elapsed' => (int)($now - $started),
+                ]);
+                $lastHeartbeat = $now;
+            }
+            if (!$status['running']) {
+                $exitCode = (int)$status['exitcode'];
+                break;
+            }
+            if ($now - $started > 1200) {
+                proc_terminate($process);
+                throw new RuntimeException('Codex image edit timed out after 20 minutes');
+            }
+            usleep(200000);
+        }
+    } finally {
+        $stdout .= stream_get_contents($pipes[1]);
+        $stderr .= stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        $closeCode = proc_close($process);
+        if ($exitCode < 0 && $closeCode >= 0) $exitCode = $closeCode;
+    }
+
+    if ($exitCode !== 0) {
+        $detail = trim($stderr) ?: trim($stdout);
+        if (strlen($detail) > 600) $detail = substr($detail, -600);
+        throw new RuntimeException('Codex exited with code ' . $exitCode . ($detail !== '' ? ': ' . $detail : ''));
+    }
+    if ((!is_file($output) || filesize($output) === 0)
+        && !CropTesterCollectGeneratedImage($codexPath, $stdout, $beforeImages, $output)) {
+        $detail = trim($stdout);
+        if (strlen($detail) > 600) $detail = substr($detail, -600);
+        throw new RuntimeException('Codex completed without returning a collectible image' . ($detail !== '' ? ': ' . $detail : ''));
+    }
+}
+
 // Build a JS-friendly bundle: per scenario, its defaults + an actual sample pool.
 $jsScenarios = [];
 foreach ($scenarios as $key => $s) {
@@ -255,9 +529,160 @@ foreach ($scenarios as $key => $s) {
         }
     }
     if (!$pool) $pool = $allSamples;
+    $s['regenerateCount'] = count(CropTesterScenarioImageIds($s, $allImageIds, $cardTypes));
     $s['samples'] = $pool;
     $jsScenarios[$key] = $s;
 }
+
+$batchAction = isset($_POST['action']) && is_string($_POST['action']) ? $_POST['action'] : '';
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && in_array($batchAction, ['regenerate', 'regenerate_ai'], true)) {
+    header('Content-Type: application/json; charset=utf-8');
+    ob_start();
+    include_once $ROOT . '/AccountFiles/AccountSessionAPI.php';
+    ob_end_clean();
+    $authError = CheckLoggedInUserMod();
+    if ($authError !== '') {
+        http_response_code(403);
+        echo json_encode(['error' => $authError]);
+        exit;
+    }
+
+    CheckSession();
+    $sessionToken = isset($_SESSION['crop_tester_csrf']) ? (string)$_SESSION['crop_tester_csrf'] : '';
+    $requestToken = isset($_POST['csrf']) && is_string($_POST['csrf']) ? $_POST['csrf'] : '';
+    if ($sessionToken === '' || !hash_equals($sessionToken, $requestToken)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid security token; reload the crop tester and try again']);
+        exit;
+    }
+    session_write_close();
+
+    $scenarioKey = isset($_POST['scenario']) && is_string($_POST['scenario']) ? $_POST['scenario'] : '';
+    if (!isset($scenarios[$scenarioKey])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid crop scenario']);
+        exit;
+    }
+    $isAI = $batchAction === 'regenerate_ai';
+    $sections = CropTesterParseSections($_POST['s'] ?? []);
+    if (!$isAI && !$sections) {
+        http_response_code(400);
+        echo json_encode(['error' => 'No valid crop sections']);
+        exit;
+    }
+
+    $scenario = $scenarios[$scenarioKey];
+    $pipeline = $scenario['pipeline'];
+    if ($isAI && $pipeline !== 'concat') {
+        http_response_code(400);
+        echo json_encode(['error' => 'AI image editing is available only for concat scenarios']);
+        exit;
+    }
+    $aiPrompt = isset($_POST['prompt']) && is_string($_POST['prompt']) ? trim($_POST['prompt']) : '';
+    if ($isAI && ($aiPrompt === '' || strlen($aiPrompt) > 4000)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Enter an AI image-editing prompt of 1–4000 characters']);
+        exit;
+    }
+    $codexPath = $isAI ? CropTesterFindCodexCLI() : null;
+    if ($isAI && $codexPath === null) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Codex CLI was not found. Set CODEX_CLI_PATH for the Apache process.']);
+        exit;
+    }
+    $format = $pipeline === 'crop' ? 'png' : 'webp';
+    $suffix = $pipeline === 'crop' ? '_cropped.png' : '.webp';
+    $destinationDirectory = $APP_ROOT . '/' . ($pipeline === 'crop' ? 'crops' : 'concat');
+    $candidateIDs = CropTesterScenarioImageIds($scenario, $allImageIds, $cardTypes);
+    $completed = 0;
+    $failed = 0;
+    $consecutiveFailures = 0;
+    $stagingDirectory = null;
+    if ($isAI) {
+        $stagingDirectory = $APP_ROOT . '/TempImages/CodexConcat/' . date('Ymd-His') . '-' . bin2hex(random_bytes(3));
+        if (!mkdir($stagingDirectory, 0755, true) && !is_dir($stagingDirectory)) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Could not create the Codex staging directory']);
+            exit;
+        }
+    }
+    set_time_limit(0);
+    ignore_user_abort(true);
+
+    ini_set('zlib.output_compression', '0');
+    header('Content-Type: application/x-ndjson; charset=utf-8');
+    header('Cache-Control: no-store');
+    header('X-Accel-Buffering: no');
+    while (ob_get_level() > 0) {
+        if (!@ob_end_flush()) break;
+    }
+    $emitProgress = static function ($payload) {
+        echo json_encode($payload, JSON_UNESCAPED_SLASHES) . "\n";
+        flush();
+    };
+
+    try {
+        $emitProgress(['type' => 'start', 'total' => count($candidateIDs), 'pipeline' => $pipeline, 'app' => $app, 'mode' => $isAI ? 'ai' : 'crop']);
+        foreach ($candidateIDs as $id) {
+            $source = $IMG_BASE . $id . '.webp';
+            $destination = $destinationDirectory . '/' . $id . $suffix;
+            if ($isAI) {
+                $stagedOutput = $stagingDirectory . '/' . $id . '.png';
+                try {
+                    CropTesterRunCodexImageEdit(
+                        $codexPath, $stagingDirectory, $source, $stagedOutput, $aiPrompt,
+                        $emitProgress, $id, $completed + $failed, count($candidateIDs)
+                    );
+                    $image = CropTesterNormalizeGeneratedImage($stagedOutput);
+                    try {
+                        CropTesterWriteImage($image, $destination, 'webp');
+                    } finally {
+                        $image->clear();
+                        $image->destroy();
+                    }
+                    if (is_file($stagedOutput)) unlink($stagedOutput);
+                    $completed++;
+                    $consecutiveFailures = 0;
+                    $emitProgress(['type' => 'progress', 'completed' => $completed, 'failed' => $failed, 'total' => count($candidateIDs), 'card' => $id]);
+                } catch (Throwable $cardError) {
+                    $failed++;
+                    $consecutiveFailures++;
+                    $emitProgress(['type' => 'failed', 'completed' => $completed, 'failed' => $failed, 'total' => count($candidateIDs), 'card' => $id, 'error' => $cardError->getMessage()]);
+                    if ($consecutiveFailures >= 3) {
+                        throw new RuntimeException('Stopped after 3 consecutive Codex failures. Last error: ' . $cardError->getMessage());
+                    }
+                }
+                continue;
+            }
+            $image = CropTesterBuildImage($source, $sections, $scenario['outW'] ?? 0, $scenario['outH'] ?? 0);
+            try {
+                CropTesterWriteImage($image, $destination, $format);
+            } finally {
+                $image->clear();
+                $image->destroy();
+            }
+            $completed++;
+            $emitProgress(['type' => 'progress', 'completed' => $completed, 'total' => count($candidateIDs), 'card' => $id]);
+        }
+        if ($stagingDirectory !== null && is_dir($stagingDirectory)) @rmdir($stagingDirectory);
+        $emitProgress(['type' => 'complete', 'ok' => true, 'count' => $completed, 'failed' => $failed, 'pipeline' => $pipeline, 'app' => $app]);
+    } catch (Throwable $e) {
+        if ($stagingDirectory !== null && is_dir($stagingDirectory) && count(glob($stagingDirectory . '/*') ?: []) === 0) {
+            @rmdir($stagingDirectory);
+        }
+        $emitProgress(['type' => 'error', 'error' => 'Regeneration stopped after ' . $completed . ' images: ' . $e->getMessage()]);
+    }
+    exit;
+}
+
+ob_start();
+include_once $ROOT . '/AccountFiles/AccountSessionAPI.php';
+ob_end_clean();
+CheckSession();
+if (empty($_SESSION['crop_tester_csrf'])) $_SESSION['crop_tester_csrf'] = bin2hex(random_bytes(32));
+$cropTesterCsrf = (string)$_SESSION['crop_tester_csrf'];
+$cropTesterAuthError = CheckLoggedInUserMod();
+$codexCliAvailable = CropTesterFindCodexCLI() !== null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -275,8 +700,9 @@ foreach ($scenarios as $key => $s) {
   .controls { padding:18px 20px; border-right:1px solid var(--line); background:var(--panel); }
   .stage { padding:18px 24px; overflow:auto; }
   label.fld { display:block; margin:0 0 4px; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.4px; }
-  select, input[type=text] { width:100%; padding:7px 9px; margin-bottom:14px; background:#0e1218; color:var(--txt);
+  select, input[type=text], textarea { width:100%; padding:7px 9px; margin-bottom:14px; background:#0e1218; color:var(--txt);
     border:1px solid var(--line); border-radius:6px; font:13px monospace; }
+  textarea { min-height:116px; resize:vertical; font:12px/1.45 system-ui,sans-serif; }
   .sections { margin-bottom:12px; }
   .sec-row { display:grid; grid-template-columns:18px repeat(4,1fr) 26px; gap:5px; align-items:center; margin-bottom:6px; }
   .sec-row input { width:100%; padding:5px 4px; background:#0e1218; color:var(--txt); border:1px solid var(--line);
@@ -287,9 +713,19 @@ foreach ($scenarios as $key => $s) {
   .sec-head span { text-align:center; }
   button { cursor:pointer; border:1px solid var(--line); background:#22303f; color:var(--txt);
     padding:6px 10px; border-radius:6px; font-size:12px; }
-  button:hover { border-color:var(--accent); }
+  button:hover:not(:disabled) { border-color:var(--accent); }
+  button:disabled { cursor:not-allowed; opacity:.55; }
   button.x { background:#3a2230; padding:2px 6px; }
   .btnrow { display:flex; gap:8px; margin:6px 0 16px; }
+  .regen { width:100%; padding:9px 12px; margin:0 0 8px; border-color:#287dcc; background:#1769aa; color:#fff; font-weight:700; }
+  .regen-status { min-height:36px; margin:0 0 15px; color:var(--muted); font-size:12px; }
+  .regen-status.success { color:#72d99c; }
+  .regen-status.error { color:#ff8d8d; }
+  .progress-wrap { margin:0 0 14px; }
+  progress { width:100%; height:14px; accent-color:var(--accent); }
+  .progress-meta { display:flex; justify-content:space-between; gap:10px; color:var(--muted); font:11px monospace; }
+  .ai-tools { margin-top:16px; padding-top:15px; border-top:1px solid var(--line); }
+  .ai-help { margin:-8px 0 10px; color:var(--muted); font-size:11px; }
   .out { color:var(--muted); font:12px monospace; }
   .panels { display:flex; gap:26px; flex-wrap:wrap; align-items:flex-start; }
   .card-col h3 { margin:0 0 8px; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; }
@@ -309,7 +745,7 @@ foreach ($scenarios as $key => $s) {
 <body>
 <header>
   <h1><?= htmlspecialchars($app, ENT_QUOTES, 'UTF-8') ?> Crop Tester</h1>
-  <p>Reads local <code><?= htmlspecialchars($app, ENT_QUOTES, 'UTF-8') ?>/WebpImages/</code>. Tune the crop sections, compare against the committed output, copy the snippet back into <code>zzImageConverter.php</code>, then regenerate with <code>overwriteImages=1</code>.</p>
+  <p>Reads local <code><?= htmlspecialchars($app, ENT_QUOTES, 'UTF-8') ?>/WebpImages/</code>. Tune the crop sections, compare against the committed output, then regenerate the app's matching local images directly from this page.</p>
 </header>
 <div class="wrap">
   <div class="controls">
@@ -336,6 +772,18 @@ foreach ($scenarios as $key => $s) {
       <button id="addSec">+ section</button>
       <button id="resetSec">reset to default</button>
     </div>
+    <button class="regen" id="regenerateAll">Regenerate images</button>
+    <div class="ai-tools" id="aiTools">
+      <label class="fld" for="aiPrompt">Codex image-editing prompt</label>
+      <textarea id="aiPrompt">Keep the composition and card identity unchanged. Remove the partial rules textbox at the bottom, naturally extend the existing illustration into that space, and make the black card border clean, continuous, and uniform on every edge.</textarea>
+      <p class="ai-help">Runs one <code>$imagegen</code> edit per matching source card. Successful 450×450 results replace the corresponding concat WebP.</p>
+      <button class="regen" id="regenerateAI">AI-regenerate concat images</button>
+    </div>
+    <div class="progress-wrap" id="progressWrap" hidden>
+      <progress id="regenerateProgress" value="0" max="1"></progress>
+      <div class="progress-meta"><span id="progressCount">0 / 0</span><span id="progressCard"></span></div>
+    </div>
+    <div class="regen-status" id="regenerateStatus" role="status" aria-live="polite"></div>
     <div class="out" id="outdims"></div>
   </div>
 
@@ -366,6 +814,9 @@ const SCEN = <?php echo json_encode($jsScenarios, JSON_UNESCAPED_SLASHES); ?>;
 const CONCAT_WEB = <?php echo json_encode($CONCAT_WEB); ?>;
 const CROP_WEB   = <?php echo json_encode($CROP_WEB); ?>;
 const ACTIVE_APP = <?php echo json_encode($app); ?>;
+const CROP_CSRF  = <?php echo json_encode($cropTesterCsrf); ?>;
+const REGEN_AUTH_ERROR = <?php echo json_encode($cropTesterAuthError); ?>;
+const CODEX_CLI_AVAILABLE = <?= $codexCliAvailable ? 'true' : 'false' ?>;
 
 const $ = id => document.getElementById(id);
 let curSections = [];
@@ -389,6 +840,15 @@ function loadScenario() {
     const o = document.createElement('option'); o.value = id; o.textContent = id + ' — ' + s.samples[id];
     $('card').appendChild(o);
   }
+  const scope = s.types && s.types.length ? 'matching' : 'all';
+  const outputName = s.pipeline === 'crop' ? 'crop' : 'concat';
+  $('regenerateAll').textContent = `Regenerate ${scope} ${s.regenerateCount} ${outputName} images`;
+  $('regenerateAll').disabled = Boolean(REGEN_AUTH_ERROR);
+  $('aiTools').hidden = s.pipeline !== 'concat';
+  $('regenerateAI').textContent = `AI-regenerate ${scope} ${s.regenerateCount} concat images`;
+  $('regenerateAI').disabled = Boolean(REGEN_AUTH_ERROR) || !CODEX_CLI_AVAILABLE || s.pipeline !== 'concat';
+  $('regenerateStatus').textContent = REGEN_AUTH_ERROR;
+  $('regenerateStatus').className = REGEN_AUTH_ERROR ? 'regen-status error' : 'regen-status';
   resetSections();
 }
 
@@ -491,6 +951,133 @@ function writeSnippet(s, card) {
   $('snippet').textContent = code;
 }
 
+function resetProgress(total) {
+  $('progressWrap').hidden = false;
+  $('regenerateProgress').max = Math.max(1, total);
+  $('regenerateProgress').value = 0;
+  $('progressCount').textContent = `0 / ${total}`;
+  $('progressCard').textContent = '';
+}
+
+function applyProgressEvent(event) {
+  if (event.type === 'start') resetProgress(Number(event.total || 0));
+  if (event.type === 'active') {
+    $('regenerateProgress').value = Number(event.completed || 0) + Number(event.failed || 0);
+    $('progressCard').textContent = `${event.card || ''} · ${event.elapsed || 0}s`;
+  }
+  if (event.type === 'progress' || event.type === 'failed') {
+    const handled = Number(event.completed || 0) + Number(event.failed || 0);
+    $('regenerateProgress').value = handled;
+    $('progressCount').textContent = `${handled} / ${event.total}${event.failed ? ` · ${event.failed} failed` : ''}`;
+    $('progressCard').textContent = event.card || '';
+    if (event.type === 'failed') {
+      $('regenerateStatus').textContent = `${event.card}: ${event.error}`;
+      $('regenerateStatus').className = 'regen-status error';
+    }
+  }
+  if (event.type === 'complete') {
+    const handled = Number(event.count || 0) + Number(event.failed || 0);
+    $('regenerateProgress').value = handled;
+    $('progressCount').textContent = `${handled} / ${$('regenerateProgress').max}${event.failed ? ` · ${event.failed} failed` : ''}`;
+    $('progressCard').textContent = 'Complete';
+  }
+  if (event.type === 'error') throw new Error(event.error || 'Batch regeneration failed.');
+}
+
+async function consumeBatchResponse(response) {
+  const contentType = response.headers.get('content-type') || '';
+  if (!response.ok || !contentType.includes('application/x-ndjson')) {
+    let payload;
+    try { payload = await response.json(); }
+    catch (_) { payload = { error: `HTTP ${response.status}` }; }
+    if (!response.ok || !payload.ok) throw new Error(payload.error || `HTTP ${response.status}`);
+    return payload;
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let completedEvent = null;
+  while (true) {
+    const { value, done } = await reader.read();
+    buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
+    const lines = buffer.split('\n');
+    buffer = lines.pop() || '';
+    for (const line of lines) {
+      if (!line.trim()) continue;
+      const event = JSON.parse(line);
+      applyProgressEvent(event);
+      if (event.type === 'complete') completedEvent = event;
+    }
+    if (done) break;
+  }
+  if (buffer.trim()) {
+    const event = JSON.parse(buffer);
+    applyProgressEvent(event);
+    if (event.type === 'complete') completedEvent = event;
+  }
+  if (!completedEvent) throw new Error('The batch ended without a completion result.');
+  return completedEvent;
+}
+
+async function runBatch(useAI) {
+  if (REGEN_AUTH_ERROR) return;
+  const s = SCEN[$('scenario').value];
+  const count = Number(s.regenerateCount || 0);
+  if (!count) {
+    $('regenerateStatus').textContent = 'No source images match this scenario.';
+    $('regenerateStatus').className = 'regen-status error';
+    return;
+  }
+  if (useAI && !CODEX_CLI_AVAILABLE) {
+    $('regenerateStatus').textContent = 'Codex CLI was not found. Set CODEX_CLI_PATH for Apache.';
+    $('regenerateStatus').className = 'regen-status error';
+    return;
+  }
+  const destination = useAI || s.pipeline === 'concat' ? `${ACTIVE_APP}/concat/` : `${ACTIVE_APP}/crops/`;
+  const confirmation = useAI
+    ? `Run ${count} Codex $imagegen edits and replace successful images in ${destination}? This consumes image-generation usage and may take a long time.`
+    : `Replace ${count} generated images in ${destination} using the crop sections currently shown?`;
+  if (!window.confirm(confirmation)) return;
+
+  const button = useAI ? $('regenerateAI') : $('regenerateAll');
+  const status = $('regenerateStatus');
+  $('regenerateAll').disabled = true;
+  $('regenerateAI').disabled = true;
+  button.disabled = true;
+  status.className = 'regen-status';
+  status.textContent = useAI ? `Starting ${count} Codex image edits…` : `Regenerating ${count} images…`;
+  resetProgress(count);
+  const form = new FormData();
+  form.set('action', useAI ? 'regenerate_ai' : 'regenerate');
+  form.set('csrf', CROP_CSRF);
+  form.set('scenario', $('scenario').value);
+  if (useAI) form.set('prompt', $('aiPrompt').value);
+  curSections.forEach(section => form.append('s[]', section.join(',')));
+
+  try {
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.searchParams.set('app', ACTIVE_APP);
+    const response = await fetch(url, { method: 'POST', body: form, credentials: 'same-origin' });
+    const payload = await consumeBatchResponse(response);
+    status.textContent = payload.failed
+      ? `Finished: ${payload.count} regenerated, ${payload.failed} failed. Successful images are in ${destination}`
+      : `Regenerated ${payload.count} images in ${destination}`;
+    status.className = payload.failed ? 'regen-status error' : 'regen-status success';
+    refresh();
+  } catch (error) {
+    status.textContent = error.message || 'Image regeneration failed.';
+    status.className = 'regen-status error';
+  } finally {
+    $('regenerateAll').disabled = Boolean(REGEN_AUTH_ERROR);
+    $('regenerateAI').disabled = Boolean(REGEN_AUTH_ERROR) || !CODEX_CLI_AVAILABLE || s.pipeline !== 'concat';
+  }
+}
+
+function regenerateAll() { return runBatch(false); }
+function regenerateAllAI() { return runBatch(true); }
+
 $('scenario').onchange = loadScenario;
 $('app').onchange = () => {
   const url = new URL(window.location.href);
@@ -502,6 +1089,8 @@ $('card').onchange = () => { $('cardManual').value = ''; refresh(); };
 $('cardManual').oninput = refresh;
 $('addSec').onclick = () => { curSections.push([0, 0, SCEN[$('scenario').value].srcW || 450, 50]); renderSectionInputs(); refresh(); };
 $('resetSec').onclick = resetSections;
+$('regenerateAll').onclick = regenerateAll;
+$('regenerateAI').onclick = regenerateAllAI;
 $('srcImg').onload = drawOverlay;
 window.addEventListener('resize', drawOverlay);
 
