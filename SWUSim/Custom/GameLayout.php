@@ -31,8 +31,13 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            match that constant: card width = cardSize * 1.35 (+18px for the col's
            padding/border). --swu-cardsize is window.cardSize, set by GameLayoutShared
            JS; the 80px fallback only applies for the first paint before the JS runs.
-           The <=1100px / <=800px media queries below can still override. */
-        --swu-center-w:     calc(var(--swu-cardsize, 80px) * 1.35 + 18px);
+           The <=1100px / <=800px media queries below can still override.
+           ── raw vs capped ──
+           Every block below sets the RAW lane width; --swu-center-w is the raw width after the
+           short-board height cap (see the min-height:681px block at the end of this stylesheet).
+           Consume --swu-center-w everywhere; write --swu-center-w-raw. */
+        --swu-center-w-raw: calc(var(--swu-cardsize, 80px) * 1.35 + 18px);
+        --swu-center-w:     var(--swu-center-w-raw);
         /* min() not a breakpoint: whether the board is height-constrained depends on BOTH
            axes (at 1920 wide it is height-bound below ~972px tall), so no fixed max-height
            value can cover it — a 1280x600 window slipped through one and overlapped by 13px.
@@ -333,7 +338,13 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            Width + font scale with the center column (--swu-center-w grows with the board),
            so they stay proportional to the cards at any resolution — a fixed px looked tiny
            on wide/4K screens. --swu-init-btn-scale is the 80%-of-column knob. */
-        box-sizing: border-box; width: calc(var(--swu-center-w) * var(--swu-init-btn-scale, 0.8));
+           Sized off the RAW lane width, not the height-capped one: on a short board the lane
+           narrows to clear this very cluster, and following it down would squeeze "KEEP
+           INITIATIVE" until it wrapped to two lines — making the cluster TALLER, which shrinks
+           the lane again. nowrap is the belt to that braces. The cluster is position:fixed and
+           may overhang the lane into the arena gutters (it is centred on the lane). */
+        box-sizing: border-box; white-space: nowrap;
+        width: calc(var(--swu-center-w-raw) * var(--swu-init-btn-scale, 0.8));
         padding: 0.62em 0.9em; border: 0; background: var(--accent);   /* rim */
         color: var(--btn-text, var(--text));
         font: 700 10px/1 var(--swu-font-label); font-size: clamp(9px, 0.5vw, 15px);
@@ -358,11 +369,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-init-pass-btn:active::before { background: linear-gradient(rgba(var(--accent-rgb),0.60), rgba(var(--accent-rgb),0.60)), var(--btn-fill); }
     /* Dimmed + inert when it isn't your turn to act */
     .swu-init-pass.is-idle .swu-init-pass-btn { opacity: 0.35; pointer-events: none; cursor: default; }
-    .swu-init-pass.is-idle .swu-init-pass-hint { visibility: hidden; }
     /* Hotseat: Switch Player must stay usable even while the pass controls are idle (setup /
        waiting for the other player) — that's exactly when you hand the device to the other seat. */
     .swu-init-pass.is-idle #swuSwitchPlayerBtn { opacity: 1; pointer-events: auto; cursor: pointer; }
-    .swu-init-pass.is-idle #swuSwitchPlayerBtn + .swu-init-pass-hint { visibility: visible; }
 
     /* Take/Keep Initiative — same chamfered cyan HUD as Pass (inherits .swu-init-pass-btn);
        only difference is it's hidden until updateInitiative() shows it (canTake). */
@@ -374,29 +383,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     }
     .swu-init-pass-btn.swu-take-init.is-taken::before { background: rgba(20,24,30,0.92); }
 
-    .swu-init-pass-hint {
-        font: 700 7px/1 var(--swu-font-label); letter-spacing: 0.10em;
-        text-transform: uppercase; color: rgba(255,255,255,0.30);
-        pointer-events: none;
-    }
-    .swu-init-pass-hint kbd {
-        display: inline-block; background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.18); border-radius: 3px;
-        padding: 1px 5px; color: rgba(255,255,255,0.55); font: inherit; }
-
-    /* ── Keyboard hints ──────────────────────────────────────────────────────── */
-    .swu-kb-hints {
-        position: fixed; z-index: 16; pointer-events: none;
-        left: 50%; transform: translateX(calc(-50% - var(--swu-sidebar-w)/2));
-        display: flex; gap: 14px;
-        color: rgba(255,255,255,0.20);
-        font: 600 8px/1 var(--swu-font-label); letter-spacing: 0.07em;
-        text-transform: uppercase; white-space: nowrap;
-    }
-    .swu-kb-hints kbd {
-        display: inline-block; background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.14); border-radius: 3px;
-        padding: 1px 3px; font: inherit; margin-right: 2px; }
+    /* The on-board <kbd> hint chips (and the midline hint strip) were removed: the shortcuts are
+       listed in the gear menu's Hotkeys section instead (GameLayoutShared). The keys themselves are
+       unchanged — only the always-on board furniture is gone. Each control keeps its key in its
+       `title`, so hovering still tells you. */
 
     /* ── Base zone slot (generic) ────────────────────────────────────────────── */
     .swu-zone {
@@ -686,8 +676,13 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         /* Was a flat 96px — the last fixed-px constraint in the centre column. With a 55px
            card inside, two 98px wrappers + gap + padding needed 218px in a 143px column, so
            the leader overflowed past the column and back into the hand band. min() keeps the
-           historical 96px wherever there is room. */
-        min-height: min(96px, calc(var(--swu-cardsize, 80px) * 1.2));
+           historical 96px wherever there is room.
+           Keyed to the LANE, not --swu-cardsize: leader/base art fills the lane width, so the
+           card inside is ~0.68 * lane tall and that is the only thing this box has to contain.
+           Keying it to the global card size meant the box stayed 96px while the card inside
+           shrank to 55px — 41px of dead height per wrapper that pinned the column open and
+           put the initiative buttons back on the leader. */
+        min-height: min(96px, calc(var(--swu-center-w) * 0.68));
         border: 1px solid var(--swu-border); border-radius: 10px;
         background: var(--swu-surface); overflow: visible; position: relative;
     }
@@ -1060,10 +1055,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* ── Responsive ──────────────────────────────────────────────────────────── */
     @media (max-width: 1100px) {
-        :root { --swu-sidebar-w: 220px; --swu-center-w: 160px; --swu-res-badge-w: 0px; }
+        :root { --swu-sidebar-w: 220px; --swu-center-w-raw: 160px; --swu-res-badge-w: 0px; }
     }
     @media (max-width: 800px) {
-        :root { --swu-sidebar-w: 0px; --swu-center-w: 140px; --swu-res-badge-w: 0px; }
+        :root { --swu-sidebar-w: 0px; --swu-center-w-raw: 140px; --swu-res-badge-w: 0px; }
         #swuSidebar { display: none !important; }
         #chatWidget {
             position: fixed !important; bottom: 20px !important; left: 10px !important;
@@ -1080,10 +1075,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        shrink below it. Declared after those blocks so it wins on source order; the sidebar /
        chat rules they also carry are deliberately left alone. */
     @media (max-width: 1100px) {
-        :root { --swu-center-w: min(160px, calc(var(--swu-cardsize, 80px) * 1.35 + 18px)); }
+        :root { --swu-center-w-raw: min(160px, calc(var(--swu-cardsize, 80px) * 1.35 + 18px)); }
     }
     @media (max-width: 800px) {
-        :root { --swu-center-w: min(140px, calc(var(--swu-cardsize, 80px) * 1.35 + 18px)); }
+        :root { --swu-center-w-raw: min(140px, calc(var(--swu-cardsize, 80px) * 1.35 + 18px)); }
     }
 
     /* ── Short boards: lay the initiative cluster out horizontally ─────────────────
@@ -1104,7 +1099,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            --swu-center-w is the whole LANE, so the arena columns re-flow around it for free
            (--swu-col-w / --swu-center-left / --swu-ground-left all derive from it). */
         :root {
-            --swu-center-w: calc(2 * (var(--swu-cardsize, 80px) * 1.35 + 18px) + 6px);
+            --swu-center-w-raw: calc(2 * (var(--swu-cardsize, 80px) * 1.35 + 18px) + 6px);
             --swu-pass-reserve: 45px;   /* two button rows + the gap above the hand */
         }
         .swu-center-col-top { flex-direction: row;         justify-content: center; }
@@ -1124,8 +1119,39 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
             flex: 0 0 calc(50% - 3px); width: auto; white-space: nowrap;
             padding: 0.3em 0.4em; letter-spacing: 0.06em;
         }
-        /* No room for keyboard affordances at this size, and they would break the 2-up grid. */
-        .swu-init-pass-hint, .swu-kb-hints { display: none !important; }
+    }
+
+    /* ── Short-but-not-tiny boards: cap the STACKED lane so it clears the pass cluster ─────
+       Above the 680px breakpoint the centre lane is STACKED — base and leader are two card
+       rows per half — while the initiative/pass cluster is anchored just above the hand. The
+       lane grows from the midline downward, the cluster grows from the hand upward, and
+       between roughly 680px and 840px tall they meet: KEEP INITIATIVE / PASS landed ON the
+       leader card (reported at 1920x1080 @130% zoom, i.e. a 1477x831 viewport).
+
+       CalculateCardSize()'s height clamp does not catch this. Its budget is solved for the
+       SIDE-BY-SIDE lane below 680px — one card row per half, 45px reserved — so in this band
+       it allows a card size the stacked lane cannot fit. Rather than shrink --swu-cardsize
+       (which would shrink the arenas and the hand too, for a problem that is only in the
+       centre lane), cap the LANE: leader/base art fills the column width, so a narrower lane
+       is a shorter lane. The arenas re-flow around it for free and actually gain width, since
+       --swu-col-w / --swu-center-left / --swu-ground-left all derive from --swu-center-w.
+
+           2 * cardH + 22px (padding + inter-card gap) + 4px (lane top offset)
+               <= 50vh - hand band - pass cluster
+           cardH ≈ 0.68 * lane width  ->  lane <= (budget) * 0.72   (0.72 < 1/(2*0.68), for margin)
+
+       --swu-pass-reserve-h is MEASURED and published by GameLayoutShared's syncCardSizeVar,
+       not guessed: the button font is a vw clamp, so a hardcoded height would be wrong on wide
+       screens and would rot the moment the buttons are restyled — which is exactly how the
+       45px/680px budget above went stale. The fallback matches a 9px-font cluster.
+
+       Scoped to min-height:681px so it never fights the side-by-side lane below, whose
+       geometry (one card row, two cards wide) this formula does not describe. */
+    @media (min-height: 681px) {
+        :root {
+            --swu-center-w: min(var(--swu-center-w-raw), calc(
+                (50vh - var(--swu-hand-h) - var(--swu-pass-reserve-h, 94px) - 26px) * 0.72));
+        }
     }
 </style>
 
@@ -1163,10 +1189,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
          updateInitiative() unhides it when legal (canTake) and sets the label Take vs Keep. -->
     <button id="swuTakeInitBtn" class="swu-init-pass-btn swu-take-init" title="Take the Initiative (I)" hidden
             onclick="event.stopPropagation(); window.swuTakeInitiative();"><span>Take Initiative</span></button>
-    <!-- "I" hotkey hint — carries .swu-take-init so updateInitiative() shows/hides it with the button -->
-    <div id="swuTakeInitHint" class="swu-init-pass-hint swu-take-init" title="Press I to take/keep the initiative" hidden><kbd>I</kbd></div>
     <button id="swuPassBtn" class="swu-init-pass-btn" title="Pass (Space)"><span>Pass</span></button>
-    <div class="swu-init-pass-hint" title="Press Space to pass"><kbd>Space</kbd></div>
     <!-- Twin Suns (Phase 4) counters — shown by updateInitiative() only when this seat may take each
          counter this round (blastAvailable / planAvailable); hidden entirely in 2-player games. -->
     <button id="swuBlastBtn" class="swu-init-pass-btn swu-take-counter" title="Take the Blast counter (1 damage to each enemy base)" hidden
@@ -1178,7 +1201,6 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
          (shared authKey). Mirrors the test editor's swapPlayerBtn. -->
     <button id="swuSwitchPlayerBtn" class="swu-init-pass-btn" title="Switch Player (W)"
             onclick="event.stopPropagation(); window.swuSwitchPlayer();"><span>Switch Player</span></button>
-    <div class="swu-init-pass-hint" title="Press W to switch player"><kbd>W</kbd></div>
     <?php endif; ?>
 </div>
 
@@ -1229,15 +1251,6 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-gf-go:hover { background: rgba(200,151,30,0.35); }
 </style>
 <?php endif; ?>
-<!--
-<div class="swu-kb-hints" style="top:calc(var(--swu-midline) + 6px);">
-    <span><kbd>U</kbd> Undo</span>
-    <span><kbd>S</kbd> Save</span>
-    <span><kbd>Space</kbd> Pass</span>
-    <span><kbd>↓</kbd> Collapse hand</span>
-</div>
--->
-
 <!-- ═══════════════════ SPACE ARENA — LEFT COLUMN ══════════════════════════════ -->
 <div id="spaceArenaBg" class="swu-arena-bg swu-arena-bg-space">
     <div id="theirSpaceArenaSlot" class="swu-arena-col swu-arena-col-space swu-arena-col-top">

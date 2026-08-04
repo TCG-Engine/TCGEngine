@@ -342,7 +342,6 @@
     /* Active: accent-tinted themed fill (was hardcoded navy). */
     .swu-init-pass-btn:active::before { background: linear-gradient(rgba(var(--accent-rgb),0.60), rgba(var(--accent-rgb),0.60)), var(--btn-fill); }
     .swu-init-pass.is-idle .swu-init-pass-btn { opacity: 0.35; pointer-events: none; }
-    .swu-init-pass-hint { display: none; }
 
     /* ── Resource panel (slide-up overlay; reuses .is-open from shared JS) ────── */
     .swu-resource-panel {
@@ -495,7 +494,6 @@
                 <button class="swu-m-takeinit-btn" onclick="event.stopPropagation(); window.swuTakeInitiative();"><span>Take Initiative</span></button>
             </div>
             <button id="swuPassBtn" class="swu-init-pass-btn" title="Pass"><span>Pass</span></button>
-            <div class="swu-init-pass-hint"><kbd>Space</kbd></div>
             <!-- Twin Suns (Phase 4) counters — updateInitiative() shows these only when available (2P: hidden). -->
             <button id="swuBlastBtn" class="swu-init-pass-btn swu-take-counter" title="Take the Blast counter (1 damage to each enemy base)" hidden
                     onclick="event.stopPropagation(); window.swuTakeBlastCounter();"><span>Blast</span></button>
