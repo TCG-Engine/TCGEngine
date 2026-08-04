@@ -1319,7 +1319,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         </div>
     </div>
     <!-- My resources badge -->
-    <div id="swuMyResBadge" class="swu-res-badge">
+    <div id="swuMyResBadge" class="swu-res-badge" data-motion-anchor="myResources-0">
         <div class="swu-res-badge-btn is-clickable"
              title="Click to view your resources" onclick="swuToggleMyResources()">
             <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.webp" alt="Resources">
@@ -1331,7 +1331,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 <!-- Their control band — top-left, below their hand -->
 <div id="swuTheirControlBand" class="swu-control-band is-top">
     <!-- Opponent resources badge -->
-    <div id="swuTheirResBadge" class="swu-res-badge">
+    <div id="swuTheirResBadge" class="swu-res-badge" data-motion-anchor="theirResources-0">
         <div class="swu-res-badge-btn" title="Opponent resources (hidden)">
             <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.webp" alt="Resources">
             <span id="swuTheirResCount">0/0</span>

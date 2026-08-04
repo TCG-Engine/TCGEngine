@@ -27,8 +27,13 @@
     if (normalized === 'P1BASE' || normalized === 'P2BASE') {
       return document.getElementById(normalized);
     }
+    var escapedMz = normalized.replace(/'/g, "\\'");
     return document.getElementById(normalized)
-      || document.querySelector("[data-mzid='" + normalized.replace(/'/g, "\\'") + "']");
+      || document.querySelector("[data-mzid='" + escapedMz + "']")
+      // Explicit motion anchor: lets a layout nominate a VISIBLE element to fly to when the real zone
+      // element is hidden or has no box. Deliberately NOT data-mzid — UILibraries treats that as a card
+      // identifier, so reusing it on a HUD badge would make the badge behave like a card.
+      || document.querySelector("[data-motion-anchor='" + escapedMz + "']");
   }
 
   function getRootName(explicitRootName) {
@@ -311,8 +316,16 @@
         continue;
       }
 
-      item.destination = destination;
       var destinationRect = destination.getBoundingClientRect();
+      // A display:none / unrendered destination reports 0x0 at (0,0), which would send the card flying
+      // to the top-left corner of the viewport. Skip instead — a missing slide beats a wrong one.
+      // (SWU resources are exactly this: the resource PANEL is a click-to-open flyout that is hidden by
+      // default, so it has no box until opened.)
+      if (destinationRect.width <= 0 && destinationRect.height <= 0) {
+        cleanupPrepared(item);
+        continue;
+      }
+      item.destination = destination;
       var dx = destinationRect.left - item.sourceRect.left;
       var dy = destinationRect.top - item.sourceRect.top;
       var scaleX = item.sourceRect.width > 0 ? destinationRect.width / item.sourceRect.width : 1;
