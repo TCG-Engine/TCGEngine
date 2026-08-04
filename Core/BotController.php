@@ -47,24 +47,3 @@ function EncodeBotControllerClientPayload($folderPath = '', $gameName = '') {
   if (!is_string($encoded)) $encoded = '{"enabled":false,"mode":"","folderPath":"","players":[],"pendingPlayer":0}';
   return BOT_CONTROLLER_PAYLOAD_PREFIX . $encoded;
 }
-
-function AcquireBotControllerStepLock($folderPath, $gameName, $timeoutMilliseconds = 5000) {
-  $folderPath = strval($folderPath);
-  $gameName = strval($gameName);
-  if (!preg_match('/^[A-Za-z0-9_-]+$/', $folderPath) || !preg_match('/^[0-9]+$/', $gameName)) return null;
-
-  $gameDirectory = dirname(__DIR__) . DIRECTORY_SEPARATOR . $folderPath . DIRECTORY_SEPARATOR . 'Games' . DIRECTORY_SEPARATOR . $gameName;
-  if (!is_dir($gameDirectory)) return null;
-
-  $handle = @fopen($gameDirectory . DIRECTORY_SEPARATOR . '.bot-controller.lock', 'c+');
-  if ($handle === false) return null;
-
-  $deadline = microtime(true) + max(0, intval($timeoutMilliseconds)) / 1000;
-  do {
-    if (@flock($handle, LOCK_EX | LOCK_NB)) return $handle;
-    usleep(25000);
-  } while (microtime(true) < $deadline);
-
-  fclose($handle);
-  return null;
-}

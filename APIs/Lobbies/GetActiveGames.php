@@ -27,7 +27,7 @@ foreach ($index as $key => $game) {
   $casterMode = isset($game['casterMode']) ? boolval($game['casterMode']) : false;
   $lastUpdatedAt = isset($game['lastUpdatedAt']) ? intval($game['lastUpdatedAt']) : 0;
   if ($gRoot === '' || $gName === '' || $lastUpdatedAt <= 0) continue;
-  if (SimGameAuthKeysPath($gRoot, $gName) !== '' && file_exists(SimGameAuthKeysPath($gRoot, $gName))) {
+  if (SimGameHasAuthKeys($gRoot, $gName)) {
     $isPrivate = SimGameIsPrivateGame($gRoot, $gName);
     $casterMode = SimGameIsCasterMode($gRoot, $gName);
   }

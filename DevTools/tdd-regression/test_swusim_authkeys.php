@@ -11,8 +11,6 @@ class _TestPlayer {
 }
 
 $gameName = 'authkeystest_' . uniqid();
-$dir = __DIR__ . '/../../SWUSim/Games/' . $gameName;
-@mkdir($dir, 0777, true);
 
 $lobby = new stdClass();
 $lobby->isPrivate = false;
@@ -25,19 +23,22 @@ $legacyLobby = new stdClass();
 $legacyLobby->isPrivate = false;
 $legacyLobby->players = [];
 $legacyAuth = SimGameBuildAuthKeysFromLobby($legacyLobby);
+$missingFailsClosed = !SimGameValidateSeatAuth('SWUSim', $gameName . '_missing', 1, 'KEY_P1_ABC');
 
 $pass = $ok === true
-     && is_file($dir . '/AuthKeys.json')
+     && SimGameHasAuthKeys('SWUSim', $gameName)
      && $read['p1'] === 'KEY_P1_ABC'
      && $read['p2'] === 'KEY_P2_XYZ'
      && $read['casterMode'] === true
+     && SimGameValidateSeatAuth('SWUSim', $gameName, 1, 'KEY_P1_ABC') === true
+     && SimGameValidateSeatAuth('SWUSim', $gameName, 1, 'WRONG_KEY') === false
      && SimGameIsCasterMode('SWUSim', $gameName) === true
      && SimGameViewerCanSeeHands('SWUSim', $gameName, ['isSpectator' => true]) === true
      && SimGameViewerCanSeeHands('SWUSim', $gameName, ['isSpectator' => false]) === false
+     && $missingFailsClosed
      && $legacyAuth['casterMode'] === false;
 
 // cleanup
-@unlink($dir . '/AuthKeys.json');
-@rmdir($dir);
+SimGameDeleteAuthKeys('SWUSim', $gameName);
 
 echo $pass ? "PASS\n" : "FAIL ok=" . var_export($ok, true) . " read=" . json_encode($read) . "\n";

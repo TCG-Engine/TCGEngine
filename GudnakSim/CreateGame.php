@@ -66,7 +66,9 @@ AutoAdvanceAndExecute();
 WriteGamestate(__DIR__ . "/");
 
 $lobby->gameName = $gameName;
-SimGameWriteAuthKeysFromLobby('GudnakSim', $gameName, $lobby);
+if (!SimGameWriteAuthKeysFromLobby('GudnakSim', $gameName, $lobby)) {
+    throw new RuntimeException('Unable to store game authentication metadata in APCu.');
+}
 //TODO: Handle $gameName = ""
 
 function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {

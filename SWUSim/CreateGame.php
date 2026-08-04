@@ -116,7 +116,9 @@ function SWUSetupGame($lobby, $opts = []) {
 
     WriteGamestate(__DIR__ . "/");
     $lobby->gameName = $gameName;
-    SimGameWriteAuthKeysFromLobby('SWUSim', $gameName, $lobby);
+    if (!SimGameWriteAuthKeysFromLobby('SWUSim', $gameName, $lobby)) {
+        throw new RuntimeException('Unable to store game authentication metadata in APCu.');
+    }
     return $gameName;
 }
 

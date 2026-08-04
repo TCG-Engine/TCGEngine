@@ -27,7 +27,7 @@ $checks = [];
 $g1 = SWUSetupGame(_mkLobby(), ['forcedFirstPlayer' => 1]);
 $dir1 = __DIR__ . '/../../SWUSim/Games/' . $g1;
 $checks['game1 dir created']   = is_dir($dir1);
-$checks['game1 authkeys']      = is_file($dir1 . '/AuthKeys.json');
+$checks['game1 authkeys']      = SimGameHasAuthKeys('SWUSim', $g1);
 $checks['game1 gamestate']     = is_file($dir1 . '/Gamestate.txt');
 
 // forcedFirstPlayer = 2 → distinct game id

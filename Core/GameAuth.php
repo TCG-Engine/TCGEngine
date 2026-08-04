@@ -1,25 +1,22 @@
 <?php
 
+const SIM_GAME_AUTH_CACHE_TTL = 3600;
+
 function SimGameSanitizeRootName($rootName)
 {
   return preg_replace('/[^A-Za-z0-9_]/', '', strval($rootName));
 }
 
-function SimGameAuthKeysPath($rootName, $gameName)
+function SimGameDefaultAuthKeys()
 {
-  $rootName = SimGameSanitizeRootName($rootName);
-  $gameName = strval($gameName);
-  if ($rootName === '' || $gameName === '') return '';
-
-  return dirname(__DIR__) . '/' . $rootName . '/Games/' . $gameName . '/AuthKeys.json';
+  return ['p1' => '', 'p2' => '', 'p3' => '', 'p4' => '', 'spectator' => '', 'isPrivate' => false, 'casterMode' => false];
 }
 
-function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
+function SimGameNormalizeAuthKeys($authKeys)
 {
-  $path = SimGameAuthKeysPath($rootName, $gameName);
-  if ($path === '' || !is_array($authKeys)) return false;
+  if (!is_array($authKeys)) return SimGameDefaultAuthKeys();
 
-  $payload = [
+  return [
     'p1' => strval($authKeys['p1'] ?? ''),
     'p2' => strval($authKeys['p2'] ?? ''),
     'p3' => strval($authKeys['p3'] ?? ''),
@@ -27,13 +24,24 @@ function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
     'spectator' => strval($authKeys['spectator'] ?? ''),
     'isPrivate' => !empty($authKeys['isPrivate']),
     'casterMode' => !empty($authKeys['casterMode']),
-    'updatedAt' => time(),
   ];
+}
 
-  $encoded = json_encode($payload);
-  if ($encoded === false) return false;
+function SimGameAuthCacheKey($rootName, $gameName)
+{
+  $rootName = SimGameSanitizeRootName($rootName);
+  $gameName = strval($gameName);
+  if ($rootName === '' || $gameName === '') return '';
 
-  return file_put_contents($path, $encoded, LOCK_EX) !== false;
+  return 'tcgengine:auth:' . rawurlencode($rootName) . ':' . rawurlencode($gameName);
+}
+
+function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
+{
+  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
+  if ($cacheKey === '' || !is_array($authKeys) || !function_exists('apcu_store')) return false;
+
+  return apcu_store($cacheKey, SimGameNormalizeAuthKeys($authKeys), SIM_GAME_AUTH_CACHE_TTL);
 }
 
 function SimGameBuildAuthKeysFromLobby($lobby)
@@ -77,25 +85,31 @@ function SimGameWriteAuthKeysFromLobby($rootName, $gameName, $lobby)
 
 function SimGameReadAuthKeys($rootName, $gameName)
 {
-  $path = SimGameAuthKeysPath($rootName, $gameName);
-  if ($path === '' || !is_file($path)) {
-    return ['p1' => '', 'p2' => '', 'p3' => '', 'p4' => '', 'spectator' => '', 'isPrivate' => false, 'casterMode' => false];
-  }
+  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
+  if ($cacheKey === '' || !function_exists('apcu_fetch')) return SimGameDefaultAuthKeys();
 
-  $decoded = json_decode(file_get_contents($path), true);
-  if (!is_array($decoded)) {
-    return ['p1' => '', 'p2' => '', 'p3' => '', 'p4' => '', 'spectator' => '', 'isPrivate' => false, 'casterMode' => false];
-  }
+  $cacheHit = false;
+  $cached = apcu_fetch($cacheKey, $cacheHit);
+  if (!$cacheHit || !is_array($cached)) return SimGameDefaultAuthKeys();
 
-  return [
-    'p1' => strval($decoded['p1'] ?? ''),
-    'p2' => strval($decoded['p2'] ?? ''),
-    'p3' => strval($decoded['p3'] ?? ''),
-    'p4' => strval($decoded['p4'] ?? ''),
-    'spectator' => strval($decoded['spectator'] ?? ''),
-    'isPrivate' => !empty($decoded['isPrivate']),
-    'casterMode' => !empty($decoded['casterMode']),
-  ];
+  $normalized = SimGameNormalizeAuthKeys($cached);
+  // Keep active games alive while allowing abandoned auth entries to expire.
+  apcu_store($cacheKey, $normalized, SIM_GAME_AUTH_CACHE_TTL);
+  return $normalized;
+}
+
+function SimGameHasAuthKeys($rootName, $gameName)
+{
+  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
+  if ($cacheKey === '' || !function_exists('apcu_exists')) return false;
+  return apcu_exists($cacheKey);
+}
+
+function SimGameDeleteAuthKeys($rootName, $gameName)
+{
+  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
+  if ($cacheKey === '' || !function_exists('apcu_delete')) return false;
+  return apcu_delete($cacheKey);
 }
 
 function SimGameIsCasterMode($rootName, $gameName)
@@ -130,7 +144,7 @@ function SimGameResolvePresentedAuthKey($authKey = '')
 
 function SimGameIsPrivateGame($rootName, $gameName)
 {
-  // Test-only override: the schema harness has no auth-key file, so WithPrivateGame sets this global to
+  // Test-only override: the schema harness has no APCu auth entry, so WithPrivateGame sets this global to
   // exercise the private-vs-public undo consent paths. Never set in production.
   if (!empty($GLOBALS['SWU_TEST_FORCE_PRIVATE'])) return true;
   $authKeys = SimGameReadAuthKeys($rootName, $gameName);
@@ -145,6 +159,7 @@ function SimGameGetSpectatorAuthKey($rootName, $gameName)
 
 function SimGameValidateSeatAuth($rootName, $gameName, $playerID, $authKey = '')
 {
+  if (!SimGameHasAuthKeys($rootName, $gameName)) return false;
   $expectedKey = SimGameGetSeatAuthKey($rootName, $gameName, $playerID);
   if ($expectedKey === '') return true;
 
@@ -182,6 +197,7 @@ function SimGameSpectatorLoginRequiredMissing($rootName, $gameName, $viewerInfo)
 
 function SimGameValidateSpectatorAuth($rootName, $gameName, $authKey = '')
 {
+  if (!SimGameHasAuthKeys($rootName, $gameName)) return false;
   if (!SimGameIsPrivateGame($rootName, $gameName)) {
     // Public game: SWUSim requires a logged-in account to spectate; other sims stay open to all.
     if ($rootName === 'SWUSim') return SimGameSpectatorIsLoggedIn();

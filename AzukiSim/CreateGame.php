@@ -93,7 +93,9 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     WriteGamestate(__DIR__ . "/");
 
     $lobby->gameName = $gameName;
-    SimGameWriteAuthKeysFromLobby('AzukiSim', $gameName, $lobby);
+    if (!SimGameWriteAuthKeysFromLobby('AzukiSim', $gameName, $lobby)) {
+        throw new RuntimeException('Unable to store game authentication metadata in APCu.');
+    }
 }
 
 function GetPreconstructedDeckConfig($deckName) {

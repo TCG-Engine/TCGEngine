@@ -83,17 +83,10 @@ for ($i = 0; $i < $chkCount; ++$i) {
 }
 $inputText = $_GET["inputText"] ?? "";
 
-$botControllerStepLock = null;
 if (intval($mode) === 10017) {
+  // Bot inference may outlive the normal one-second input budget.
   @set_time_limit(15);
   @ini_set('max_execution_time', '15');
-  $botControllerStepLock = AcquireBotControllerStepLock($folderPath, $gameName);
-  if ($botControllerStepLock === null) {
-    ProcessInputReply(false, "Another bot step is already in progress.", [
-      "botStepApplied" => false,
-      "botStepRetryable" => true,
-    ]);
-  }
 }
 
 //First we need to load the root runtime
