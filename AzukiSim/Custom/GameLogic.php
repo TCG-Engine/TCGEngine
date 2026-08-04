@@ -2605,10 +2605,19 @@ function EntityHasCharge($obj) {
         return HasEquippedWeapon($obj);
     }
 
-    // Mo only gains Charge from its On Play effect when its leader is Lightning.
-    // The generated keyword list also sees the conditional rules text, so do not
-    // treat that metadata as an unconditional keyword on the card.
-    if($cardID === 'S1-AZK01-015_Mo_E_SR_die') {
+    // CardAbilities records keywords mentioned anywhere in rules text. These
+    // entities only gain Charge conditionally; their resolving abilities add
+    // the CHARGE turn effect when the condition or chosen mode succeeds.
+    $conditionalOnlyChargeCards = [
+        'S1-AZK01-015_Mo_E_SR_die' => true,
+        'S1-AZK01-076_Horen-of-Two-Paths_E_C_die' => true,
+        'S1-AZK01-099_Raikos-Wrath-Shin_E_SR_die' => true,
+        'S1-AZK01-099A_Raikos-Wrath-Shin_E_SR_die' => true,
+        'S1-AZK01-112_Enrai-Shakunetsu_E_SR_die' => true,
+        'S1-AZK01-112A_Enrai-Shakunetsu_E_SR_die' => true,
+        'S1-AZK01-113_Cinderwake-Pursuer_E_C_die' => true,
+    ];
+    if(isset($conditionalOnlyChargeCards[$cardID])) {
         return false;
     }
 
@@ -6677,6 +6686,9 @@ function EndOfTurnPhase() {
         'by' => 'p' . $endingPlayer,
         'turn' => intval(GetTurnNumber()),
     ]);
+    // MacroTurnIndex is the per-turn event ledger. Clear it only after
+    // end-of-turn abilities have resolved so the next player starts clean.
+    SetMacroTurnIndex('{}');
     // Switch turn player and increment turn number
     $turnPlayer = &GetTurnPlayer();
     $turnNumber = &GetTurnNumber();
