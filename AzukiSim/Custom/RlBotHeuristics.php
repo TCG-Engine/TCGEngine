@@ -22,6 +22,7 @@ function AzukiZeroHeuristicCardIDs(): array {
         'cinderwake' => 'S1-STT04-003_Cinderwake-Seer_E_UC_die',
         'kindler' => 'S1-STT04-004_Fanatic-Kindler_E_C_die',
         'ruby' => 'S1-STT04-005_Ruby_E_C_die',
+        'black_jade_dagger' => 'S1-STT01-013_Black-Jade-Dagger_W_C_die',
         'detonation_pact' => 'S1-STT04-015_Detonation-Pact_S_C_die',
         'collateral_burst' => 'S1-STT04-016_Collateral-Burst_S_UC_die',
     ];
@@ -130,27 +131,303 @@ function AzukiZeroHeuristicHasCard($zone, $cardID): bool {
     return false;
 }
 
+function AzukiZeroHeuristicHasTurnEffect($obj, $effectID): bool {
+    if(!is_object($obj)) return false;
+    if(function_exists('HasTurnEffect')) return HasTurnEffect($obj, strval($effectID));
+    $effects = is_array($obj->TurnEffects ?? null) ? $obj->TurnEffects : [];
+    return in_array(strval($effectID), array_map('strval', $effects), true);
+}
+
+function AzukiZeroHeuristicPekiroRedirectTargetScore($state, $targetMZ, $target, $cardID = ''): float {
+    if(!is_object($target)) return -10000;
+    $player = intval($state['player'] ?? 0);
+    $opponent = intval($state['opponent'] ?? 0);
+    $cardID = strval($target->CardID ?? $cardID);
+    if(AzukiZeroHeuristicCardType($cardID) !== 'ENTITY') return -10000;
+    if(function_exists('IsImmuneToCardEffectDamage') && IsImmuneToCardEffectDamage($target)) return -10000;
+
+    if(str_starts_with(strval($targetMZ), 'theirGarden-')) {
+        $remaining = AzukiZeroHeuristicRemainingHP($opponent, $target, $cardID);
+        $attack = AzukiZeroHeuristicCardAttack($opponent, $target, $cardID);
+        $killBonus = $remaining > 0 && $remaining <= 1 ? 500 : 0;
+        return 750 + $killBonus + ($attack * 60) - ($remaining * 10);
+    }
+
+    if(str_starts_with(strval($targetMZ), 'myGarden-')
+        && AzukiZeroHeuristicHasTurnEffect($target, 'RUSHFIRE_SAC_EOT')) {
+        $remaining = AzukiZeroHeuristicRemainingHP($player, $target, $cardID);
+        if($remaining <= 1) return -10000;
+        return 500 - ($remaining * 5);
+    }
+    return -10000;
+}
+
+function AzukiZeroHeuristicPekiroRedirectValue($state, $pekiroMZ = ''): float {
+    $player = intval($state['player'] ?? 0);
+    $opponent = intval($state['opponent'] ?? 0);
+    $best = -10000;
+    foreach(AzukiZeroHeuristicPlayerZone('GetGarden', $opponent) as $index => $obj) {
+        $mzIndex = intval($obj->mzIndex ?? $index);
+        $best = max($best, AzukiZeroHeuristicPekiroRedirectTargetScore(
+            $state,
+            'theirGarden-' . $mzIndex,
+            $obj
+        ));
+    }
+    foreach(AzukiZeroHeuristicPlayerZone('GetGarden', $player) as $index => $obj) {
+        $targetMZ = 'myGarden-' . intval($obj->mzIndex ?? $index);
+        if($targetMZ === strval($pekiroMZ)) continue;
+        $best = max($best, AzukiZeroHeuristicPekiroRedirectTargetScore($state, $targetMZ, $obj));
+    }
+    return $best;
+}
+
+function AzukiZeroHeuristicCanEmpowerPekiro($state, $pekiro, $pekiroMZ): bool {
+    $ids = AzukiZeroHeuristicCardIDs();
+    if(!is_object($pekiro) || strval($pekiro->CardID ?? '') !== $ids['pekiro']) return false;
+    if(AzukiZeroHeuristicHasTurnEffect($pekiro, 'PEKIRO_USED')) return false;
+    if(!str_starts_with(strval($pekiroMZ), 'myGarden-')) return false;
+    if(function_exists('CanAttackWith')
+        && !CanAttackWith(intval($state['player'] ?? 0), strval($pekiroMZ))) return false;
+    return AzukiZeroHeuristicPekiroRedirectValue($state, strval($pekiroMZ)) > 0;
+}
+
 function AzukiZeroHeuristicHasValidEmpowerTarget($player): bool {
     if(function_exists('GetTurnPlayer') && intval(GetTurnPlayer()) !== intval($player)) return false;
     if(function_exists('GetCurrentPhase') && strval(GetCurrentPhase()) !== 'MAIN') return false;
     if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) return false;
     $garden = AzukiZeroHeuristicPlayerZone('GetGarden', $player);
+    $state = [
+        'player' => intval($player),
+        'opponent' => intval($player) === 1 ? 2 : 1,
+    ];
     foreach($garden as $index => $obj) {
         $cardID = strval($obj->CardID ?? '');
         if(AzukiZeroHeuristicCardType($cardID) !== 'ENTITY') continue;
-        if(AzukiZeroHeuristicRemainingHP($player, $obj, $cardID) <= 1) continue;
         $mzID = 'myGarden-' . intval($obj->mzIndex ?? $index);
         if(function_exists('CanAttackWith') && !CanAttackWith(intval($player), $mzID)) continue;
+        if(AzukiZeroHeuristicRemainingHP($player, $obj, $cardID) <= 1
+            && !AzukiZeroHeuristicCanEmpowerPekiro($state, $obj, $mzID)) continue;
         return true;
     }
     return false;
 }
 
 function AzukiZeroHeuristicHasCollateralSetup($player): bool {
+    return AzukiZeroHeuristicCollateralCapacity($player) > 0;
+}
+
+function AzukiZeroHeuristicCollateralCapacity($player): int {
+    $capacity = 0;
     foreach(AzukiZeroHeuristicPlayerZone('GetGarden', $player) as $obj) {
         $cardID = strval($obj->CardID ?? '');
         if(AzukiZeroHeuristicCardType($cardID) !== 'ENTITY') continue;
-        if(AzukiZeroHeuristicRemainingHP($player, $obj, $cardID) > 1) return true;
+        $capacity += max(0, AzukiZeroHeuristicRemainingHP($player, $obj, $cardID) - 1);
+    }
+    return $capacity;
+}
+
+function AzukiZeroHeuristicLiveReadyAttack($player, $fallback = 0): int {
+    if(!function_exists('GetGarden')) return max(0, intval($fallback));
+    $garden = GetGarden(intval($player));
+    if(!is_array($garden)) return max(0, intval($fallback));
+    $total = 0;
+    foreach($garden as $index => $obj) {
+        if(!is_object($obj) || !empty($obj->removed)) continue;
+        $cardID = strval($obj->CardID ?? '');
+        $type = AzukiZeroHeuristicCardType($cardID);
+        if($type !== 'ENTITY' && $type !== 'LEADER') continue;
+        $mzID = 'myGarden-' . intval($index);
+        if(function_exists('CanAttackWith') && !CanAttackWith(intval($player), $mzID)) continue;
+        $total += AzukiZeroHeuristicCardAttack(intval($player), $obj, $cardID);
+    }
+    return $total;
+}
+
+function AzukiZeroHeuristicZeroBoostAvailable($state): bool {
+    $ids = AzukiZeroHeuristicCardIDs();
+    $player = intval($state['player'] ?? 0);
+    if(intval($state['myLife'] ?? 0) <= 1) return false;
+    if(!AzukiZeroHeuristicHasValidEmpowerTarget($player)) return false;
+    foreach(AzukiZeroHeuristicPlayerZone('GetGarden', $player) as $obj) {
+        if(strval($obj->CardID ?? '') !== $ids['zero']) continue;
+        if(function_exists('HasTurnEffect') && HasTurnEffect($obj, 'STT04_ZERO_USED')) return false;
+        return true;
+    }
+    return false;
+}
+
+function AzukiZeroHeuristicReachProfile($cardID, $state): ?array {
+    $ids = AzukiZeroHeuristicCardIDs();
+    $profiles = [
+        $ids['fire_orb'] => ['damage' => 5, 'selfDamage' => 3, 'collateralDamage' => 0],
+        $ids['detonation_pact'] => ['damage' => 2, 'selfDamage' => 1, 'collateralDamage' => 0],
+        $ids['collateral_burst'] => ['damage' => 2, 'selfDamage' => 0, 'collateralDamage' => 1],
+        // Dagger is combat reach rather than a spell: its base weapon attack
+        // and optional On Play bonus add two damage to an existing attacker.
+        $ids['black_jade_dagger'] => ['damage' => 2, 'selfDamage' => 1, 'collateralDamage' => 0],
+    ];
+    if(!isset($profiles[$cardID])) return null;
+    if($cardID === $ids['collateral_burst']
+        && !AzukiZeroHeuristicHasCollateralSetup(intval($state['player'] ?? 0))) return null;
+    if($cardID === $ids['black_jade_dagger']
+        && intval($state['myReadyAttack'] ?? 0) <= 0) return null;
+    return $profiles[$cardID];
+}
+
+function AzukiZeroHeuristicReachCards($state): array {
+    $cards = [];
+    $player = intval($state['player'] ?? 0);
+    foreach(AzukiZeroHeuristicPlayerZone('GetHand', $player) as $obj) {
+        $cardID = strval($obj->CardID ?? '');
+        $profile = AzukiZeroHeuristicReachProfile($cardID, $state);
+        if(!is_array($profile)) continue;
+        $cost = function_exists('EffectivePlayCost')
+            ? max(0, intval(EffectivePlayCost($player, $cardID, $obj)))
+            : (function_exists('CardCost') ? max(0, intval(CardCost($cardID))) : 0);
+        $cards[] = [
+            'cardID' => $cardID,
+            'cost' => $cost,
+            'damage' => intval($profile['damage'] ?? 0),
+            'selfDamage' => intval($profile['selfDamage'] ?? 0),
+            'collateralDamage' => intval($profile['collateralDamage'] ?? 0),
+        ];
+    }
+    if(AzukiZeroHeuristicZeroBoostAvailable($state)) {
+        $cards[] = [
+            'cardID' => 'ZERO_EMPOWER_REACH',
+            'cost' => 0,
+            'damage' => 1,
+            'selfDamage' => 1,
+            'collateralDamage' => 0,
+        ];
+    }
+    return $cards;
+}
+
+function AzukiZeroHeuristicMaxReachDamage($cards, $availableIKZ, $myLife, $collateralCapacity): int {
+    $availableIKZ = max(0, intval($availableIKZ));
+    $maxSelfDamage = max(0, intval($myLife) - 1);
+    $collateralCapacity = max(0, intval($collateralCapacity));
+    $best = ['0:0:0' => 0];
+    foreach($cards as $card) {
+        $next = $best;
+        $cost = max(0, intval($card['cost'] ?? 0));
+        $selfDamage = max(0, intval($card['selfDamage'] ?? 0));
+        $collateralDamage = max(0, intval($card['collateralDamage'] ?? 0));
+        $damage = max(0, intval($card['damage'] ?? 0));
+        foreach($best as $key => $currentDamage) {
+            [$spent, $selfSpent, $collateralSpent] = array_map('intval', explode(':', strval($key), 3));
+            $newSpent = $spent + $cost;
+            $newSelfSpent = $selfSpent + $selfDamage;
+            $newCollateralSpent = $collateralSpent + $collateralDamage;
+            if($newSpent > $availableIKZ
+                || $newSelfSpent > $maxSelfDamage
+                || $newCollateralSpent > $collateralCapacity) continue;
+            $newKey = $newSpent . ':' . $newSelfSpent . ':' . $newCollateralSpent;
+            $next[$newKey] = max(intval($next[$newKey] ?? 0), intval($currentDamage) + $damage);
+        }
+        $best = $next;
+    }
+    return empty($best) ? 0 : max(array_map('intval', array_values($best)));
+}
+
+function AzukiZeroHeuristicLethalPlan($state, $forcedCardID = ''): array {
+    $cards = AzukiZeroHeuristicReachCards($state);
+    $availableIKZ = max(0, intval($state['availableIKZ'] ?? 0));
+    $myLife = max(0, intval($state['myLife'] ?? 0));
+    $forcedDamage = 0;
+    $forcedCost = 0;
+    $forcedSelfDamage = 0;
+    $forcedCollateralDamage = 0;
+
+    if($forcedCardID !== '') {
+        $found = false;
+        foreach($cards as $index => $card) {
+            if(strval($card['cardID'] ?? '') !== strval($forcedCardID)) continue;
+            $forcedDamage = intval($card['damage'] ?? 0);
+            $forcedCost = intval($card['cost'] ?? 0);
+            $forcedSelfDamage = intval($card['selfDamage'] ?? 0);
+            $forcedCollateralDamage = intval($card['collateralDamage'] ?? 0);
+            unset($cards[$index]);
+            $found = true;
+            break;
+        }
+        if(!$found
+            || $forcedCost > $availableIKZ
+            || $forcedSelfDamage >= $myLife
+            || $forcedCollateralDamage > AzukiZeroHeuristicCollateralCapacity(intval($state['player'] ?? 0))) {
+            return ['lethal' => false, 'damage' => 0, 'burnDamage' => 0];
+        }
+    }
+
+    $remainingLife = $myLife - $forcedSelfDamage;
+    $burnDamage = $forcedDamage + AzukiZeroHeuristicMaxReachDamage(
+        array_values($cards),
+        $availableIKZ - $forcedCost,
+        $remainingLife,
+        AzukiZeroHeuristicCollateralCapacity(intval($state['player'] ?? 0)) - $forcedCollateralDamage
+    );
+    $totalDamage = intval($state['myReadyAttack'] ?? 0) + $burnDamage;
+    return [
+        'lethal' => intval($state['theirLife'] ?? 20) > 0
+            && $totalDamage >= intval($state['theirLife'] ?? 20),
+        'damage' => $totalDamage,
+        'burnDamage' => $burnDamage,
+    ];
+}
+
+function AzukiZeroHeuristicHasNonReachAction($actions, $legal, $state): bool {
+    $ids = AzukiZeroHeuristicCardIDs();
+    $reachCardIDs = [
+        $ids['fire_orb'],
+        $ids['detonation_pact'],
+        $ids['collateral_burst'],
+        $ids['black_jade_dagger'],
+    ];
+    foreach($actions as $candidate) {
+        if(!is_array($candidate)) continue;
+        $key = AzukiZeroHeuristicActionKey($candidate, $legal);
+        if(str_starts_with($key, 'pass:')) continue;
+        if(str_starts_with($key, 'play:')
+            && in_array(AzukiZeroHeuristicActionCardID($candidate), $reachCardIDs, true)) continue;
+        if(str_starts_with($key, 'activate:')
+            && AzukiZeroHeuristicActionCardID($candidate) === $ids['zero']) {
+            $lethalBoost = intval($state['theirLife'] ?? 20)
+                <= intval($state['myReadyAttack'] ?? 0) + 1;
+            if((intval($state['myLife'] ?? 20) <= 6 && !$lethalBoost)
+                || !AzukiZeroHeuristicHasValidEmpowerTarget(intval($state['player'] ?? 0))) continue;
+        }
+        return true;
+    }
+    return false;
+}
+
+function AzukiZeroHeuristicKindlerShouldSacrifice($state): bool {
+    $ids = AzukiZeroHeuristicCardIDs();
+    $player = intval($state['player'] ?? 0);
+    $opponent = intval($state['opponent'] ?? 0);
+    $kindlerAttack = function_exists('CardAttack') ? max(1, intval(CardAttack($ids['kindler']))) : 1;
+    $sourceMZ = strval(AzukiZeroHeuristicVariable('mzID'));
+    $sourceObj = AzukiZeroHeuristicObject($sourceMZ, $player);
+    if(is_object($sourceObj) && strval($sourceObj->CardID ?? '') === $ids['kindler']) {
+        $kindlerAttack = AzukiZeroHeuristicCardAttack($player, $sourceObj, $ids['kindler']);
+    }
+
+    foreach(AzukiZeroHeuristicPlayerZone('GetGarden', $opponent) as $obj) {
+        $cardID = strval($obj->CardID ?? '');
+        if(AzukiZeroHeuristicCardType($cardID) !== 'ENTITY') continue;
+        if(AzukiZeroHeuristicRemainingHP($opponent, $obj, $cardID) > 1) continue;
+        $targetAttack = AzukiZeroHeuristicCardAttack($opponent, $obj, $cardID);
+        $incomingAttack = max(
+            intval($state['theirReadyAttack'] ?? 0),
+            intval($state['theirBoardAttack'] ?? 0)
+        );
+        $preventsLethal = $incomingAttack >= intval($state['myLife'] ?? 20)
+            && $incomingAttack - $targetAttack < intval($state['myLife'] ?? 20);
+        // Preserve Kindler when trading it merely removes an equal-or-smaller
+        // attacker; its own future attacks are worth at least as much.
+        if($preventsLethal || $targetAttack > $kindlerAttack) return true;
     }
     return false;
 }
@@ -167,8 +444,10 @@ function AzukiZeroHeuristicState($snapshot, $player): array {
         'myLife' => intval($mine['remainingLife'] ?? 20),
         'theirLife' => intval($theirs['remainingLife'] ?? 20),
         'availableIKZ' => intval($mine['availableIKZ'] ?? 0),
-        'myReadyAttack' => intval($mine['readyAttack'] ?? 0),
-        'theirReadyAttack' => intval($theirs['readyAttack'] ?? 0),
+        'myReadyAttack' => AzukiZeroHeuristicLiveReadyAttack($player, intval($mine['readyAttack'] ?? 0)),
+        'theirReadyAttack' => AzukiZeroHeuristicLiveReadyAttack($opponent, intval($theirs['readyAttack'] ?? 0)),
+        'myBoardAttack' => intval($mine['boardAttack'] ?? $mine['readyAttack'] ?? 0),
+        'theirBoardAttack' => intval($theirs['boardAttack'] ?? $theirs['readyAttack'] ?? 0),
         'myBoardCount' => intval($mine['gardenCount'] ?? 0) + intval($mine['alleyCount'] ?? 0),
         'theirBoardCount' => intval($theirs['gardenCount'] ?? 0) + intval($theirs['alleyCount'] ?? 0),
     ];
@@ -187,6 +466,7 @@ function AzukiZeroHeuristicPlayScore($cardID, $state, $legal): float {
         $ids['pekiro'] => 365,
         $ids['scarlett'] => 330,
         $ids['warlord'] => 290,
+        $ids['black_jade_dagger'] => 265,
         $ids['collateral_burst'] => 250,
         $ids['detonation_pact'] => 245,
         $ids['fire_orb'] => 220,
@@ -286,13 +566,15 @@ function AzukiZeroHeuristicDecisionScore($action, $legal, $state): float {
             return $choiceUpper === (count($garden) > 1 ? 'YES' : 'NO') ? 900 : -900;
         }
         if($source === $ids['kindler']) {
-            $opponentGarden = AzukiZeroHeuristicPlayerZone('GetGarden', intval($state['opponent'] ?? 0));
-            $killable = false;
-            foreach($opponentGarden as $obj) {
-                if(AzukiZeroHeuristicCardType($obj->CardID ?? '') !== 'ENTITY') continue;
-                if(AzukiZeroHeuristicRemainingHP(intval($state['opponent']), $obj) <= 1) { $killable = true; break; }
-            }
-            return $choiceUpper === ($killable ? 'YES' : 'NO') ? 850 : -850;
+            $sacrifice = AzukiZeroHeuristicKindlerShouldSacrifice($state);
+            return $choiceUpper === ($sacrifice ? 'YES' : 'NO') ? 850 : -850;
+        }
+        if($source === $ids['black_jade_dagger']) {
+            $remainingBurn = AzukiZeroHeuristicLethalPlan($state);
+            $payForLethal = intval($state['myLife'] ?? 0) > 1
+                && intval($state['myReadyAttack'] ?? 0) + 1 + intval($remainingBurn['burnDamage'] ?? 0)
+                    >= intval($state['theirLife'] ?? 20);
+            return $choiceUpper === ($payForLethal ? 'YES' : 'NO') ? 850 : -850;
         }
         if($source === $ids['scarlett']) return $choiceUpper === 'YES' ? 700 : 0;
         return $choiceUpper === 'NO' ? 20 : 0;
@@ -309,10 +591,17 @@ function AzukiZeroHeuristicDecisionScore($action, $legal, $state): float {
         return (str_contains(strtolower($choice), 'first') || $choice === '0') ? 900 : 0;
     }
 
+    $handler = AzukiZeroHeuristicPendingHandler(intval($state['player'] ?? 0));
+    if(str_starts_with($handler, 'PEKIRO_REDIRECT_DAMAGE')) {
+        if($choice === '-' || $choiceUpper === 'PASS') return 0;
+        $targetMZ = AzukiZeroHeuristicMZFromAction($action);
+        $target = AzukiZeroHeuristicObject($targetMZ, intval($state['player'] ?? 0));
+        return AzukiZeroHeuristicPekiroRedirectTargetScore($state, $targetMZ, $target, $cardID);
+    }
+
     if($choice === '-' || $choiceUpper === 'PASS') return -500;
     if(str_contains($tooltip, 'select entity to portal')) return AzukiZeroHeuristicPortalScore($cardID);
 
-    $handler = AzukiZeroHeuristicPendingHandler(intval($state['player'] ?? 0));
     $gateSource = strval(AzukiZeroHeuristicVariable('entityMZCardID'));
     if(str_starts_with($handler, $ids['rushfire_gate'] . ':')
         && $gateSource !== ''
@@ -324,6 +613,7 @@ function AzukiZeroHeuristicDecisionScore($action, $legal, $state): float {
     $target = AzukiZeroHeuristicObject($targetMZ, intval($state['player'] ?? 0));
     $targetPlayer = str_starts_with($targetMZ, 'their') ? intval($state['opponent']) : intval($state['player']);
     $targetType = AzukiZeroHeuristicCardType($cardID);
+    $source = AzukiZeroHeuristicDecisionSourceCardID($state);
 
     if(str_contains($tooltip, 'attack target')) {
         $attackerMZ = strval(AzukiZeroHeuristicVariable('CombatTarget'));
@@ -342,18 +632,40 @@ function AzukiZeroHeuristicDecisionScore($action, $legal, $state): float {
         $remaining = AzukiZeroHeuristicRemainingHP($targetPlayer, $target, $cardID);
         $targetAttack = AzukiZeroHeuristicCardAttack($targetPlayer, $target, $cardID);
         $damage = 1;
-        $source = AzukiZeroHeuristicDecisionSourceCardID($state);
         if($source === $ids['fire_orb']) $damage = 5;
         else if($source === $ids['collateral_burst']) $damage = 2;
         else if($source === $ids['detonation_pact']) $damage = 2;
+        $isBurn = in_array($source, [$ids['fire_orb'], $ids['collateral_burst'], $ids['detonation_pact']], true);
+        if($isBurn && $targetType === 'LEADER') {
+            if($damage >= intval($state['theirLife'] ?? 20)) return 10000;
+            $remainingPlan = AzukiZeroHeuristicLethalPlan($state);
+            $wholeTurnDamage = intval($state['myReadyAttack'] ?? 0)
+                + $damage
+                + intval($remainingPlan['burnDamage'] ?? 0);
+            if($wholeTurnDamage >= intval($state['theirLife'] ?? 20)) return 9000 + ($damage * 10);
+            $postDamageLife = max(0, intval($state['theirLife'] ?? 20) - $damage);
+            return 700 + ($damage * 60) + ($postDamageLife <= 5 ? 300 : 0);
+        }
+        if($source === $ids['kindler']) {
+            if($targetType !== 'ENTITY' || $remaining > 1) return -10000;
+            return 700 + ($targetAttack * 80);
+        }
         $killBonus = $remaining > 0 && $damage >= $remaining ? 260 : 0;
-        if($targetType === 'LEADER' && $damage >= intval($state['theirLife'] ?? 20)) return 10000;
+        if($isBurn && $targetType !== 'LEADER') {
+            $overkill = max(0, $damage - $remaining);
+            $incomingAttack = max(
+                intval($state['theirReadyAttack'] ?? 0),
+                intval($state['theirBoardAttack'] ?? 0)
+            );
+            $preventsLethal = $incomingAttack >= intval($state['myLife'] ?? 20)
+                && $incomingAttack - $targetAttack < intval($state['myLife'] ?? 20);
+            return 350 + $killBonus + ($targetAttack * 35) - ($overkill * 60) + ($preventsLethal ? 1500 : 0);
+        }
         if($targetType !== 'LEADER' && $killBonus > 0 && intval($state['myLife'] ?? 20) <= 6) $killBonus += 500;
         return 500 + $killBonus + ($targetAttack * 30) - ($remaining * 5);
     }
 
     if(str_starts_with($targetMZ, 'my')) {
-        $source = AzukiZeroHeuristicDecisionSourceCardID($state);
         $remaining = AzukiZeroHeuristicRemainingHP($targetPlayer, $target, $cardID);
         $ready = is_object($target) && intval($target->Status ?? 2) === 2;
         $attack = AzukiZeroHeuristicCardAttack($targetPlayer, $target, $cardID);
@@ -368,8 +680,14 @@ function AzukiZeroHeuristicDecisionScore($action, $legal, $state): float {
             if($canAttack && function_exists('CanAttackWith')) {
                 $canAttack = CanAttackWith(intval($state['player']), $targetMZ);
             }
-            if(!$canAttack || $remaining <= 1) return -10000;
+            if(!$canAttack) return -10000;
+            if($cardID === $ids['pekiro']
+                && AzukiZeroHeuristicCanEmpowerPekiro($state, $target, $targetMZ)) {
+                return 1100 + AzukiZeroHeuristicPekiroRedirectValue($state, $targetMZ) + ($attack * 20);
+            }
+            if($remaining <= 1) return -10000;
         }
+        if($source === $ids['kindler']) return -10000;
         $score = 300 + ($ready ? 100 : 0) + ($attack * 20);
         if($cardID === $ids['spice']) $score += 220;
         if($source === $ids['warlord'] && $targetType === 'LEADER') $score += 120;
@@ -426,7 +744,19 @@ function AzukiZeroHeuristicActionScore($action, $actions, $legal, $snapshot, $pl
         return 360;
     }
 
-    if(str_starts_with($key, 'play:')) return AzukiZeroHeuristicPlayScore($cardID, $state, $legal);
+    if(str_starts_with($key, 'play:')) {
+        $reachProfile = AzukiZeroHeuristicReachProfile($cardID, $state);
+        if(is_array($reachProfile)) {
+            $forcedPlan = AzukiZeroHeuristicLethalPlan($state, $cardID);
+            if(!empty($forcedPlan['lethal'])) {
+                return 3000
+                    + (intval($reachProfile['damage'] ?? 0) * 20)
+                    - (intval($reachProfile['selfDamage'] ?? 0) * 10);
+            }
+            if(AzukiZeroHeuristicHasNonReachAction($actions, $legal, $state)) return -2000;
+        }
+        return AzukiZeroHeuristicPlayScore($cardID, $state, $legal);
+    }
 
     return 100;
 }
@@ -453,6 +783,7 @@ function AzukiZeroHeuristicCoverageRule($actions, $legal, $snapshot, $player): s
             if(str_contains($tooltip, 'mulligan') || str_contains($param, 'review:myhand')) return 'mulligan';
             if($source === $ids['warlord']) return 'warlord-optional';
             if($source === $ids['kindler']) return 'kindler-optional';
+            if($source === $ids['black_jade_dagger']) return 'black-jade-dagger-optional';
             if($source === $ids['scarlett']) return 'scarlett-optional';
             return '';
         }
@@ -462,6 +793,7 @@ function AzukiZeroHeuristicCoverageRule($actions, $legal, $snapshot, $player): s
         if(str_contains($tooltip, 'attack target')) return 'attack-target';
 
         $handler = AzukiZeroHeuristicPendingHandler(intval($state['player'] ?? 0));
+        if(str_starts_with($handler, 'PEKIRO_REDIRECT_DAMAGE')) return 'pekiro-redirect';
         if(str_starts_with($handler, $ids['rushfire_gate'] . ':')) return 'rushfire-gate-choice';
         if(in_array($source, [
             $ids['zero'],
@@ -475,13 +807,16 @@ function AzukiZeroHeuristicCoverageRule($actions, $legal, $snapshot, $player): s
         return '';
     }
 
-    $knownPlayCards = array_values(array_diff($ids, [$ids['zero'], $ids['rushfire_gate']]));
     foreach($actions as $action) {
         if(!is_array($action)) return '';
         $key = AzukiZeroHeuristicActionKey($action, $legal);
         $cardID = AzukiZeroHeuristicActionCardID($action);
         if(str_starts_with($key, 'pass:') || str_starts_with($key, 'attack:')) continue;
-        if(str_starts_with($key, 'play:') && in_array($cardID, $knownPlayCards, true)) continue;
+        // Main-action play legality is already enforced by the engine. Keep the
+        // deterministic policy active for an unlisted deck card and use the
+        // generic play score; any card-specific follow-up decision can still
+        // abstain to the residual policy independently.
+        if(str_starts_with($key, 'play:') && $cardID !== '') continue;
         if(str_starts_with($key, 'activate:') && in_array($cardID, [$ids['zero'], $ids['rushfire_gate']], true)) continue;
         return '';
     }
