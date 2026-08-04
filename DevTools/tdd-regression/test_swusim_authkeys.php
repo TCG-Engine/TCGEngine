@@ -25,6 +25,10 @@ $legacyLobby->players = [];
 $legacyAuth = SimGameBuildAuthKeysFromLobby($legacyLobby);
 $missingFailsClosed = !SimGameValidateSeatAuth('SWUSim', $gameName . '_missing', 1, 'KEY_P1_ABC');
 $assetWithoutLobbyAuthAllowed = SimGameValidateSeatAuth('AzukiDeck', $gameName . '_asset', 1, '');
+$memoryGameName = $gameName . '_memory';
+$memoryGamestateKey = SimGameGamestateCacheKey('AzukiDeck', $memoryGameName);
+$memoryGamestateStored = function_exists('apcu_store') && apcu_store($memoryGamestateKey, 'test-gamestate', 60);
+$memoryGameExists = SimGameExists('AzukiDeck', $memoryGameName);
 
 $pass = $ok === true
      && SimGameHasAuthKeys('SWUSim', $gameName)
@@ -38,9 +42,12 @@ $pass = $ok === true
      && SimGameViewerCanSeeHands('SWUSim', $gameName, ['isSpectator' => false]) === false
      && $missingFailsClosed
      && $assetWithoutLobbyAuthAllowed
+     && $memoryGamestateStored
+     && $memoryGameExists
      && $legacyAuth['casterMode'] === false;
 
 // cleanup
 SimGameDeleteAuthKeys('SWUSim', $gameName);
+if (function_exists('apcu_delete')) apcu_delete($memoryGamestateKey);
 
 echo $pass ? "PASS\n" : "FAIL ok=" . var_export($ok, true) . " read=" . json_encode($read) . "\n";

@@ -36,6 +36,30 @@ function SimGameAuthCacheKey($rootName, $gameName)
   return 'tcgengine:auth:' . rawurlencode($rootName) . ':' . rawurlencode($gameName);
 }
 
+function SimGameGamestateCacheKey($rootName, $gameName)
+{
+  $rootName = SimGameSanitizeRootName($rootName);
+  $gameName = strval($gameName);
+  if ($rootName === '' || $gameName === '') return '';
+
+  return 'tcgengine:gamestate:' . $rootName . ':' . $gameName;
+}
+
+function SimGameExists($rootName, $gameName)
+{
+  $rootName = SimGameSanitizeRootName($rootName);
+  $gameName = strval($gameName);
+  if ($rootName === '' || $gameName === '') return false;
+
+  if (preg_match('/^[A-Za-z0-9_-]+$/', $gameName)) {
+    $gameDirectory = dirname(__DIR__) . DIRECTORY_SEPARATOR . $rootName . DIRECTORY_SEPARATOR . 'Games' . DIRECTORY_SEPARATOR . $gameName;
+    if (is_dir($gameDirectory)) return true;
+  }
+
+  $cacheKey = SimGameGamestateCacheKey($rootName, $gameName);
+  return $cacheKey !== '' && function_exists('apcu_exists') && apcu_exists($cacheKey);
+}
+
 function SimGameRequiresManagedAuth($rootName)
 {
   $rootName = SimGameSanitizeRootName($rootName);

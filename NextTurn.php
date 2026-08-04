@@ -213,7 +213,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     // so passing a bogus value is safe. Absent/invalid → next-live (2-player = the one opponent).
     $opponentID = intval(TryGet("opponentID", "0"));
 
-    if (!file_exists("./" . $folderPath . "/Games/" . $gameName . "/")) {
+    if (!SimGameExists($folderPath, $gameName)) {
       echo ("Game does not exist");
       exit;
     }
