@@ -5444,8 +5444,19 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
   }
 
   existing.style.display = 'flex';
-  if (!TryEmbedSelectionMessage(existing, msg, showPassButton, decisionIndex)) {
-    PositionSelectionMessageForMobile(existing, msgSpan);
+  const didEmbed = TryEmbedSelectionMessage(existing, msg, showPassButton, decisionIndex);
+  if (!didEmbed) {
+    const didMobilePosition = PositionSelectionMessageForMobile(existing, msgSpan);
+    if (typeof EnableDraggableModal === 'function' && !didMobilePosition) {
+      // Preserve the banner's default bottom-center placement before replacing its transform-based
+      // centering with the absolute coordinates required by the shared drag helper.
+      const rect = existing.getBoundingClientRect();
+      existing.style.transform = 'none';
+      existing.style.left = rect.left + 'px';
+      existing.style.top = rect.top + 'px';
+      existing.style.bottom = 'auto';
+      EnableDraggableModal(existing, msgSpan, 'mzchoose-inline-position-v1');
+    }
   }
 }
 
