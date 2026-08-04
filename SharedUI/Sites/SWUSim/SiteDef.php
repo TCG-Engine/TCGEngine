@@ -12,13 +12,15 @@
     'homeHref'       => '/TCGEngine/SharedUI/Sites/SWUSim/MainMenu.php',
     'favicon'        => '/TCGEngine/Assets/Images/icons/gudnakIcon.png',
     'showBanner'     => false,
+    'menuOverlay'    => true,   // renders the burger button + overlay (see MenuBar.php); paired with burger-menu.js below
     'disclaimerName' => 'Petranaki Arena',
   ],
   'head' => [
     'styles'  => [   // shared stack derived from `theme` (hud); only the app override remains
       '/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css',
     ],
-    'scripts' => ['/TCGEngine/Core/AppSettings.js'],
+    'scripts' => ['/TCGEngine/Core/AppSettings.js',
+                  '/TCGEngine/SharedUI/js/burger-menu.js'],
     'fonts'   => ['Barlow', 'Teko'],
   ],
   'nav' => [

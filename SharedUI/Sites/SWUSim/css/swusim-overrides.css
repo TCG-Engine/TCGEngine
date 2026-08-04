@@ -61,3 +61,136 @@ body {
   .card h2, h2.h2            { font-size: 18px !important; }
   .row-wrapper               { gap: 10px !important; }
 }
+
+/* ── Mobile burger menu ───────────────────────────────────────────────────────
+   Opt-in is two lines in SiteDef.php: branding.menuOverlay renders the button +
+   overlay (SharedUI/Render/MenuBar.php), and head.scripts loads burger-menu.js.
+
+   The styling has to live here IN FULL, not as a skin: SWUDeck and AzukiSim only
+   override mobile-responsive.css, but SWUSim's stylesheet stack does not include
+   that file (Head.php loads menuStyles + tokens + components + theme + this), so
+   there is no base to inherit. Everything below the button reset is therefore the
+   panel layout as well as the paint.
+
+   burger-menu.js already reveals BOTH .nav-bar-user and .nav-bar-links, so the
+   Discord/GitHub icons come into the panel with the nav links — no JS change. */
+.burger-menu {
+  /* !important on display AND the whole position block: components.css styles
+     `button:not(.btn):not(.switch)` as `display:inline-block; position:relative`, and :not()
+     carries its argument's specificity — (0,2,1) beats a bare .burger-menu (0,1,0). Two symptoms
+     came from this one rule: the button was visible at EVERY width, and because it stayed
+     `position:relative`, `right:15px` offset it LEFTWARD from its inline position (to x = -15),
+     parking it on top of the Petranaki Arena banner instead of the top-right corner. */
+  display: none !important;      /* desktop: the nav pill is the menu */
+  position: fixed !important;
+  top: 15px !important; right: 15px !important; left: auto !important; bottom: auto !important;
+  z-index: 2300 !important;
+  width: 52px; height: 40px; padding: 9px;
+  background: transparent; border: 0; border-radius: 0;
+  box-sizing: border-box; cursor: pointer; isolation: isolate;
+  filter: drop-shadow(0 0 4px rgba(var(--accent-rgb), 0.40));
+}
+/* Chamfered HUD chip — same two-pseudo construction as the in-game buttons and the
+   Previews tabs, so the menu reads as part of the same interface. */
+.burger-menu::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  background: var(--accent);
+}
+.burger-menu::after {
+  content: ''; position: absolute; inset: 1.5px; z-index: 0;
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  background: var(--panel-scrim, rgba(20, 14, 8, 0.96));
+}
+.burger-menu span {
+  position: relative; z-index: 1; display: block;
+  width: 100%; height: 3px; margin: 0 0 5px; border-radius: 2px;
+  background: var(--text);
+  transition: transform 180ms ease, opacity 140ms ease;
+}
+.burger-menu span:last-child { margin-bottom: 0; }
+/* Open state morphs the three bars into an X. */
+.burger-menu.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.burger-menu.active span:nth-child(2) { opacity: 0; }
+.burger-menu.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+.menu-overlay {
+  position: fixed; inset: 0; z-index: 2150;
+  background: rgba(0, 0, 0, 0.70); transition: opacity 300ms ease;
+}
+
+@media (max-width: 768px) {
+  .burger-menu { display: block !important; }
+
+  /* Slide-in panel. !important throughout because menuStyles.css positions .nav-bar as the
+     desktop pill (absolute, pill radius, translucent) and would otherwise win. */
+  .nav-bar {
+    position: fixed !important; top: 0 !important; right: -100% !important;
+    left: auto !important; bottom: auto !important;
+    width: min(80%, 320px) !important; height: 100% !important;
+    padding: 64px 0 20px !important; margin: 0 !important;
+    border-radius: 0 !important;
+    background: var(--panel-scrim, rgba(20, 14, 8, 0.98)) !important;
+    border-left: 1px solid rgba(var(--accent-rgb), 0.30) !important;
+    box-shadow: -6px 0 22px rgba(0, 0, 0, 0.55) !important;
+    display: block !important; overflow-y: auto !important;
+    z-index: 2200 !important;
+    transition: right 300ms ease-in-out !important;
+  }
+  .nav-bar.active { right: 0 !important; }
+
+  .nav-bar-user, .nav-bar-links {
+    background: transparent !important; backdrop-filter: none !important;
+    width: 100% !important; margin: 0 !important; padding: 6px 18px !important;
+    border-radius: 0 !important;
+  }
+  .nav-bar ul { display: block !important; width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  .nav-bar li { display: block !important; width: 100% !important; }
+  .nav-bar .NavBarItem, .nav-bar-user a {
+    display: block !important; width: 100% !important;
+    padding: 12px 2px !important; font-size: 17px !important;
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.14) !important;
+  }
+  /* The icon group (Discord, GitHub) reads as a row of chips under the links, not a stack. */
+  .nav-bar-links {
+    border-top: 1px solid rgba(var(--accent-rgb), 0.28) !important;
+    margin-top: 10px !important; padding-top: 14px !important;
+  }
+  .nav-bar-links ul { display: flex !important; gap: 18px !important; }
+  .nav-bar-links li { width: auto !important; }
+  .nav-bar-links a { border-bottom: 0 !important; padding: 4px !important; }
+  .nav-bar-links img { width: 30px !important; height: 30px !important; }
+
+  /* ── Profile page ───────────────────────────────────────────────────────────
+     .core-wrapper is a flex ROW (menuStyles.css). Its mobile stacking rule there is
+     deliberately scoped to .core-wrapper.auth-page — "MainMenu and every other
+     .core-wrapper page is untouched" — and the GENERAL stack lives in
+     mobile-responsive.css, which SWUSim's stylesheet stack does not load. Same gap the
+     burger menu had. Measured at 390px: the profile panes were 40px, 40px and 153px wide
+     (one word per line), and because RenderProfile leaves .core-wrapper open, the
+     disclaimer was caught in the row as a fourth 59px column. */
+  .core-wrapper {
+    flex-direction: column !important;
+    height: auto !important;
+    padding: 14px !important;
+    gap: 14px !important;
+  }
+  .column-wrapper, .flex-wrapper { flex-direction: column !important; }
+  /* No explicit width here on purpose: align-items:stretch (set by _ProfilePaneStyle) already
+     sizes the panes to the wrapper's content box. Forcing width:100% instead ADDS their own
+     padding on top and overflowed the viewport by 26px at 390. */
+  .core-wrapper > .container,
+  .core-wrapper > .profile-pane,
+  .core-wrapper > .cosmetics { max-width: 100% !important; box-sizing: border-box !important; }
+  /* The desktop rule below uses flex-basis to claim a full ROW. Once the wrapper is a COLUMN,
+     flex-basis is HEIGHT — 100% there stretched the disclaimer over the panel above it. */
+  .core-wrapper > .disclaimer { flex: 0 0 auto !important; }
+}
+
+/* RenderProfile intentionally leaves .core-wrapper OPEN, so the page's disclaimer renders inside
+   the flex row. That was harmless while .disclaimer was position:absolute (out of flow), but it is
+   now static — see the menuStyles.css note — which made it a flex ITEM: at 1200px it claimed 867px
+   of the row and squeezed the three profile panes to 40/40/153px. Wrapping it onto its own
+   full-width line restores the panes at every width, mobile and desktop. */
+.core-wrapper { flex-wrap: wrap; }
+.core-wrapper > .disclaimer { flex: 0 0 100%; width: 100%; margin-top: 8px; }
