@@ -1,14 +1,17 @@
 <?php
 
+include_once __DIR__ . '/../../AppCore/Azuki/CardCanonicalization.php';
+
 function ValidateDeckCardAddition($cardID) {
-  if (strtolower((string)CardCategory($cardID)) === 'ikz') return false;
+  $canonicalID = AzukiCanonicalCardID($cardID);
+  if (strtolower((string)CardCategory($canonicalID)) === 'ikz') return false;
 
   $count = 0;
   foreach (GetMainDeck(1) as $card) {
-    if ($card->CardID == $cardID && !$card->Removed()) ++$count;
+    if (AzukiCanonicalCardID($card->CardID) === $canonicalID && !$card->Removed()) ++$count;
   }
   foreach (GetSideboard(1) as $card) {
-    if ($card->CardID == $cardID && !$card->Removed()) ++$count;
+    if (AzukiCanonicalCardID($card->CardID) === $canonicalID && !$card->Removed()) ++$count;
   }
   return $count < 4;
 }

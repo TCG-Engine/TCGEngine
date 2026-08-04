@@ -125,6 +125,7 @@ foreach ($appRoots as $rootName) {
         'rootName' => $rootName,
         'label' => GeneratorAdminAppLabel($rootName),
         'actions' => $actions,
+        'hasCropTester' => is_dir(__DIR__ . '/' . $rootName . '/WebpImages'),
     ];
 }
 
@@ -245,6 +246,7 @@ foreach ($apps as $app) {
         .button-primary { border-color: #2582ec; background: linear-gradient(180deg, #2289f5, var(--blue-deep)); color: white; box-shadow: 0 8px 24px rgba(20, 115, 230, .24); }
         .button-danger { border-color: #704247; color: #ffb2b2; }
         .button-small { min-height: 34px; padding: 0 12px; }
+        .button-link { display: inline-flex; align-items: center; text-decoration: none; }
 
         .summary {
             display: grid;
@@ -393,6 +395,7 @@ foreach ($apps as $app) {
                     <div class="root-name" id="root-name"></div>
                 </div>
                 <div class="hero-actions">
+                    <a class="button button-link" id="crop-tester-link" href="zzCropTester.php" target="_blank" rel="noopener">Crop tester</a>
                     <button type="button" class="button button-danger" id="cancel-button" hidden>Cancel</button>
                     <button type="button" class="button button-primary" id="run-all-button">Run build pipeline</button>
                 </div>
@@ -461,6 +464,7 @@ const exportAbilitiesButton = document.getElementById('export-abilities-button')
 const importAbilitiesButton = document.getElementById('import-abilities-button');
 const importAbilitiesFile = document.getElementById('import-abilities-file');
 const abilityTransferStatus = document.getElementById('ability-transfer-status');
+const cropTesterLink = document.getElementById('crop-tester-link');
 const outputs = new Map();
 const runStates = new Map();
 let selectedApp = apps.find(app => app.rootName === initialApp) || apps[0] || null;
@@ -632,6 +636,8 @@ function render() {
     if (!selectedApp) return;
     document.getElementById('app-title').textContent = selectedApp.label;
     document.getElementById('root-name').textContent = selectedApp.rootName;
+    cropTesterLink.hidden = !selectedApp.hasCropTester;
+    cropTesterLink.href = `zzCropTester.php?app=${encodeURIComponent(selectedApp.rootName)}`;
     document.getElementById('step-count').textContent = selectedApp.actions.length;
     document.getElementById('schema-count').textContent = selectedApp.actions.filter(action => ['cards', 'game', 'turn'].includes(action.id)).length;
     document.getElementById('card-options').hidden = !selectedApp.actions.some(action => action.id === 'cards');

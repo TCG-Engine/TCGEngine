@@ -2,12 +2,15 @@
 
 include_once './AzukiSim/GeneratedCode/GeneratedCardDictionaries.php';
 include_once './AzukiSim/Custom/Stats.php';
+include_once './AppCore/Azuki/CardCanonicalization.php';
 
 $p1Leaders = [];
 $p1Gates = [];
 $p1Cards = [];
 
-foreach (GetAllCardIds() as $cardID) {
+// Deckbuilding is about functional cards. Alternate-art printings remain known to the engine,
+// but the browse panes show one canonical representative until explicit art selection exists.
+foreach (AzukiCanonicalCardCatalog(GetAllCardIds()) as $cardID) {
   $category = strtolower((string)CardCategory($cardID));
   if ($category === 'leader') {
     $p1Leaders[] = new Leaders($cardID);

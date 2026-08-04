@@ -1,29 +1,52 @@
 <?php
 // ============================================================================
-// zzCropTester.php — interactive crop tuner for SWU card images.
+// zzCropTester.php — interactive crop tuner for generated card images.
 //
-//   Open:  http://localhost:3400/TCGEngine/zzCropTester.php
+//   Open:  http://localhost/TCGEngine/zzCropTester.php?app=AzukiSim
 //
 // Purpose: dial in the crop coordinates used by zzImageConverter.php (the
 // concat/ square-art and crops/ tooltip-art pipelines) WITHOUT re-running the
-// whole zzCardCodeGenerator. It reads the already-downloaded source webps from
-// SWUSim/WebpImages/, applies arbitrary crop sections live, overlays the crop
+// whole zzCardCodeGenerator. It reads an app's downloaded source webps,
+// applies arbitrary crop sections live, overlays the crop
 // rectangles on the source, compares against the currently-committed output,
 // and prints the exact PHP snippet to paste back into zzImageConverter.php.
 //
 // Two roles in one file:
-//   ?render=1&card=SET_NNN&s=sx,sy,w,h&s=...   -> streams the cropped image
+//   ?app=Root&render=1&card=ID&s=sx,sy,w,h&s=... -> streams the cropped image
 //   (no params)                                -> the HTML control panel
 // ============================================================================
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$ROOT        = __DIR__;
-$IMG_BASE    = $ROOT . '/SWUSim/WebpImages/';
-$IMG_WEB     = 'SWUSim/WebpImages/';   // browser-relative
-$CONCAT_WEB  = 'SWUSim/concat/';
-$CROP_WEB    = 'SWUSim/crops/';
+$ROOT = __DIR__;
+
+// Build an allowlist from known schema roots that have downloaded source images.
+$availableApps = [];
+foreach (glob($ROOT . '/Schemas/*', GLOB_ONLYDIR) ?: [] as $schemaDirectory) {
+    $candidate = basename($schemaDirectory);
+    if (!preg_match('/^[A-Za-z0-9_-]+$/', $candidate)) continue;
+    if (!is_dir($ROOT . '/' . $candidate . '/WebpImages')) continue;
+    $availableApps[] = $candidate;
+}
+sort($availableApps, SORT_NATURAL | SORT_FLAG_CASE);
+
+$requestedApp = isset($_GET['app']) ? (string)$_GET['app'] : '';
+$app = in_array($requestedApp, $availableApps, true)
+    ? $requestedApp
+    : (in_array('SWUSim', $availableApps, true) ? 'SWUSim' : ($availableApps[0] ?? ''));
+if ($app === '') {
+    http_response_code(404);
+    echo 'No apps with generated source images were found.';
+    exit;
+}
+
+$APP_ROOT   = $ROOT . '/' . $app;
+$IMG_BASE   = $APP_ROOT . '/WebpImages/';
+$APP_WEB    = rawurlencode($app) . '/';
+$IMG_WEB    = $APP_WEB . 'WebpImages/';
+$CONCAT_WEB = $APP_WEB . 'concat/';
+$CROP_WEB   = $APP_WEB . 'crops/';
 
 // ----------------------------------------------------------------------------
 // Image endpoint: stack the requested sections vertically and stream the result.
@@ -32,7 +55,13 @@ $CROP_WEB    = 'SWUSim/crops/';
 //   single-crop  = 1 section,  two-section = 2 sections,  art-crop = 1 section.
 // ----------------------------------------------------------------------------
 if (isset($_GET['render'])) {
-    $card = preg_replace('/[^A-Za-z0-9_]/', '', $_GET['card'] ?? '');
+    $card = isset($_GET['card']) && is_string($_GET['card']) ? $_GET['card'] : '';
+    if ($card === '' || str_contains($card, '/') || str_contains($card, '\\') || str_contains($card, "\0")) {
+        http_response_code(400);
+        header('Content-Type: text/plain');
+        echo 'Invalid card ID';
+        exit;
+    }
     $src  = $IMG_BASE . $card . '.webp';
     if ($card === '' || !is_file($src)) {
         http_response_code(404);
@@ -42,9 +71,10 @@ if (isset($_GET['render'])) {
     }
 
     $sections = [];
-    foreach ((array)($_GET['s'] ?? []) as $sstr) {
+    foreach (array_slice((array)($_GET['s'] ?? []), 0, 8) as $sstr) {
+        if (!is_string($sstr)) continue;
         $p = array_map('intval', explode(',', $sstr));
-        if (count($p) === 4 && $p[2] > 0 && $p[3] > 0) $sections[] = $p;
+        if (count($p) === 4 && $p[2] > 0 && $p[2] <= 4096 && $p[3] > 0 && $p[3] <= 4096) $sections[] = $p;
     }
     if (!$sections) {
         http_response_code(400);
@@ -56,6 +86,12 @@ if (isset($_GET['render'])) {
     $fmt  = (($_GET['fmt'] ?? 'webp') === 'png') ? 'png' : 'webp';
     $outW = 0; $outH = 0;
     foreach ($sections as $p) { $outW = max($outW, $p[2]); $outH += $p[3]; }
+    if ($outW > 4096 || $outH > 8192) {
+        http_response_code(400);
+        header('Content-Type: text/plain');
+        echo 'Requested output is too large';
+        exit;
+    }
 
     // Imagick-only, matching the migrated zzImageConverter.php production pipeline
     // (XAMPP's GD lacks WebP; see newhost/harden-webp.sh).
@@ -76,6 +112,12 @@ if (isset($_GET['render'])) {
         $y += $h;
     }
 
+    $resizeW = min(4096, max(0, (int)($_GET['ow'] ?? 0)));
+    $resizeH = min(4096, max(0, (int)($_GET['oh'] ?? 0)));
+    if ($resizeW > 0 && $resizeH > 0 && ($resizeW !== $outW || $resizeH !== $outH)) {
+        $out->resizeImage($resizeW, $resizeH, Imagick::FILTER_LANCZOS, 1, false);
+    }
+
     if ($fmt === 'png') { $out->setImageFormat('png'); header('Content-Type: image/png'); }
     else                { $out->setImageFormat('webp'); header('Content-Type: image/webp'); }
     echo $out->getImageBlob();
@@ -87,16 +129,24 @@ if (isset($_GET['render'])) {
 // ----------------------------------------------------------------------------
 // Control panel: gather real sample cards per type from the card dictionary.
 // ----------------------------------------------------------------------------
-@include_once $ROOT . '/SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
+@include_once $APP_ROOT . '/GeneratedCode/GeneratedCardDictionaries.php';
+
+// Dictionary variable names differ between apps. Normalize common names, then
+// fall back to image filenames when an app has no compatible dictionary.
+$cardTypes = isset($typeData) && is_array($typeData) ? $typeData
+    : (isset($categoryData) && is_array($categoryData) ? $categoryData : []);
+$cardTitles = isset($titleData) && is_array($titleData) ? $titleData
+    : (isset($nameData) && is_array($nameData) ? $nameData : []);
 
 $samplesByType = [];               // type => [cardID, ...]
 $titlesById    = [];               // cardID => display title
-if (isset($typeData) && is_array($typeData)) {
-    foreach ($typeData as $id => $t) {
-        if (count($samplesByType[$t] ?? []) >= 16) continue;
+if ($cardTypes) {
+    foreach ($cardTypes as $id => $t) {
+        $t = (string)$t;
+        if (count($samplesByType[$t] ?? []) >= 32) continue;
         if (is_file($IMG_BASE . $id . '.webp')) {
             $samplesByType[$t][] = $id;
-            $titlesById[$id] = (isset($titleData[$id]) ? $titleData[$id] : $id);
+            $titlesById[$id] = isset($cardTitles[$id]) ? (string)$cardTitles[$id] : $id;
         }
     }
     // Synthesize LeaderUnit (_back) samples from Leader cards.
@@ -104,41 +154,48 @@ if (isset($typeData) && is_array($typeData)) {
         if (count($samplesByType['LeaderUnit'] ?? []) >= 16) break;
         if (is_file($IMG_BASE . $id . '_back.webp')) {
             $samplesByType['LeaderUnit'][] = $id . '_back';
-            $titlesById[$id . '_back'] = (isset($titleData[$id]) ? $titleData[$id] : $id) . ' (unit side)';
+            $titlesById[$id . '_back'] = (isset($cardTitles[$id]) ? $cardTitles[$id] : $id) . ' (unit side)';
         }
     }
 }
 
+$allSamples = [];
+foreach (glob($IMG_BASE . '*.webp') ?: [] as $imagePath) {
+    if (count($allSamples) >= 500) break;
+    $id = pathinfo($imagePath, PATHINFO_FILENAME);
+    $allSamples[$id] = isset($cardTitles[$id]) ? (string)$cardTitles[$id] : $id;
+}
+
 // Scenarios mirror the actual branches in zzImageConverter.php. Each carries
 // its production-default sections so the panel opens reproducing production.
-$scenarios = [
+$swuScenarios = [
     'concat_unit' => [
         'label'    => 'concat · Unit / LeaderUnit (single crop)',
         'pipeline' => 'concat', 'fmt' => 'webp', 'srcW' => 450,
         'types'    => ['Unit', 'LeaderUnit'],
-        'sections' => [[0, 14, 450, 450]],
+        'sections' => [[14, 14, 420, 420]], 'outW' => 450, 'outH' => 450,
         'snippet'  => '_concatSingleCrop',
     ],
     'concat_event' => [
         'label'    => 'concat · Event (two-section)',
         'pipeline' => 'concat', 'fmt' => 'webp', 'srcW' => 450,
         'types'    => ['Event'],
-        'sections' => [[0, 14, 450, 184], [0, 318, 450, 266]],
+        'sections' => [[0, 20, 450, 140], [0, 310, 450, 260]], 'outW' => 450, 'outH' => 450,
         'snippet'  => '_concatTwoSection',
     ],
     'concat_upgrade' => [
         'label'    => 'concat · Upgrade / Token (two-section)',
         'pipeline' => 'concat', 'fmt' => 'webp', 'srcW' => 450,
         'types'    => ['Upgrade', 'Token Upgrade', 'Token Unit'],
-        'sections' => [[0, 14, 450, 370], [0, 516, 450, 80]],
+        'sections' => [[0, 14, 450, 342], [0, 516, 450, 80]], 'outW' => 450, 'outH' => 450,
         'snippet'  => '_concatTwoSection',
     ],
-    'concat_fallback' => [
-        'label'    => 'concat · Leader / Base / fallback (legacy two-section)',
+    'concat_landscape' => [
+        'label'    => 'concat · Leader / Base (landscape)',
         'pipeline' => 'concat', 'fmt' => 'webp', 'srcW' => 628,
         'types'    => ['Leader', 'Base'],
-        'sections' => [[0, 0, 450, 397], [0, 595, 450, 33]],
-        'snippet'  => '_concatTwoSection',
+        'sections' => [[104, 15, 420, 420]], 'outW' => 450, 'outH' => 450,
+        'snippet'  => '_concatSingleCrop',
     ],
     'crop_event' => [
         'label'    => 'crops · Event (art thumbnail)',
@@ -154,7 +211,39 @@ $scenarios = [
         'sections' => [[50, 100, 350, 270]],
         'snippet'  => 'cropImage',
     ],
+    'crop_leader' => [
+        'label'    => 'crops · Leader (portrait)',
+        'pipeline' => 'crop', 'fmt' => 'png', 'srcW' => 628,
+        'types'    => ['Leader'],
+        'sections' => [[10, 60, 200, 350]],
+        'snippet'  => 'cropImage',
+    ],
+    'crop_base' => [
+        'label'    => 'crops · Base (identity banner)',
+        'pipeline' => 'crop', 'fmt' => 'png', 'srcW' => 628,
+        'types'    => ['Base'],
+        'sections' => [[34, 125, 560, 175]],
+        'snippet'  => 'cropImage',
+    ],
 ];
+
+$genericScenarios = [
+    'concat_default' => [
+        'label'    => 'concat · default (two-section)',
+        'pipeline' => 'concat', 'fmt' => 'webp', 'srcW' => 450,
+        'types'    => [],
+        'sections' => [[0, 15, 450, 400], [0, 595, 450, 10]], 'outW' => 450, 'outH' => 450,
+        'snippet'  => '_concatTwoSection',
+    ],
+    'crop_default' => [
+        'label'    => 'crops · default (art thumbnail)',
+        'pipeline' => 'crop', 'fmt' => 'png', 'srcW' => 450,
+        'types'    => [],
+        'sections' => [[50, 100, 350, 270]],
+        'snippet'  => 'cropImage',
+    ],
+];
+$scenarios = ($app === 'SWUSim' || $app === 'SWUDeck') ? $swuScenarios : $genericScenarios;
 
 // Build a JS-friendly bundle: per scenario, its defaults + an actual sample pool.
 $jsScenarios = [];
@@ -165,6 +254,7 @@ foreach ($scenarios as $key => $s) {
             $pool[$id] = ($titlesById[$id] ?? $id);
         }
     }
+    if (!$pool) $pool = $allSamples;
     $s['samples'] = $pool;
     $jsScenarios[$key] = $s;
 }
@@ -173,7 +263,7 @@ foreach ($scenarios as $key => $s) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SWU Crop Tester</title>
+<title><?= htmlspecialchars($app, ENT_QUOTES, 'UTF-8') ?> Crop Tester</title>
 <style>
   :root { --bg:#11151c; --panel:#1b2430; --line:#2d3a4a; --txt:#dfe7ef; --muted:#8aa0b5; --accent:#4fa3ff; }
   * { box-sizing: border-box; }
@@ -218,11 +308,18 @@ foreach ($scenarios as $key => $s) {
 </head>
 <body>
 <header>
-  <h1>SWU Crop Tester</h1>
-  <p>Reads local <code>SWUSim/WebpImages/</code>. Tune the crop sections, compare against the committed output, copy the snippet back into <code>zzImageConverter.php</code>, then regenerate with <code>overwriteImages=1</code>.</p>
+  <h1><?= htmlspecialchars($app, ENT_QUOTES, 'UTF-8') ?> Crop Tester</h1>
+  <p>Reads local <code><?= htmlspecialchars($app, ENT_QUOTES, 'UTF-8') ?>/WebpImages/</code>. Tune the crop sections, compare against the committed output, copy the snippet back into <code>zzImageConverter.php</code>, then regenerate with <code>overwriteImages=1</code>.</p>
 </header>
 <div class="wrap">
   <div class="controls">
+    <label class="fld">Application</label>
+    <select id="app">
+      <?php foreach ($availableApps as $availableApp): ?>
+        <option value="<?= htmlspecialchars($availableApp, ENT_QUOTES, 'UTF-8') ?>"<?= $availableApp === $app ? ' selected' : '' ?>><?= htmlspecialchars($availableApp, ENT_QUOTES, 'UTF-8') ?></option>
+      <?php endforeach; ?>
+    </select>
+
     <label class="fld">Scenario (zzImageConverter branch)</label>
     <select id="scenario"></select>
 
@@ -268,6 +365,7 @@ foreach ($scenarios as $key => $s) {
 const SCEN = <?php echo json_encode($jsScenarios, JSON_UNESCAPED_SLASHES); ?>;
 const CONCAT_WEB = <?php echo json_encode($CONCAT_WEB); ?>;
 const CROP_WEB   = <?php echo json_encode($CROP_WEB); ?>;
+const ACTIVE_APP = <?php echo json_encode($app); ?>;
 
 const $ = id => document.getElementById(id);
 let curSections = [];
@@ -333,19 +431,22 @@ function refresh() {
   if (!card) return;
 
   // Source image.
-  $('srcImg').src = '<?php echo $IMG_WEB; ?>' + card + '.webp';
+  $('srcImg').src = '<?php echo $IMG_WEB; ?>' + encodeURIComponent(card) + '.webp';
 
   // Live preview.
   const fmt = s.fmt;
-  $('prevImg').src = '?render=1&card=' + encodeURIComponent(card) + '&fmt=' + fmt + '&' + sectionParams() + '&_=' + Date.now();
+  let resize = '';
+  if (s.outW && s.outH) resize = '&ow=' + s.outW + '&oh=' + s.outH;
+  $('prevImg').src = '?app=' + encodeURIComponent(ACTIVE_APP) + '&render=1&card=' + encodeURIComponent(card) + '&fmt=' + fmt + resize + '&' + sectionParams() + '&_=' + Date.now();
 
   // Committed file for comparison.
-  if (s.pipeline === 'concat') $('curImg').src = CONCAT_WEB + card + '.webp?_=' + Date.now();
-  else                         $('curImg').src = CROP_WEB + card + '_cropped.png?_=' + Date.now();
+  if (s.pipeline === 'concat') $('curImg').src = CONCAT_WEB + encodeURIComponent(card) + '.webp?_=' + Date.now();
+  else                         $('curImg').src = CROP_WEB + encodeURIComponent(card) + '_cropped.png?_=' + Date.now();
 
   // Output dims.
   let outW = 0, outH = 0;
   curSections.forEach(r => { outW = Math.max(outW, r[2]); outH += r[3]; });
+  if (s.outW && s.outH) { outW = s.outW; outH = s.outH; }
   $('outdims').textContent = 'output ' + outW + '×' + outH + (curSections.length > 1 ? ' (' + curSections.length + ' stacked)' : '');
   $('prevDims').textContent = outW + '×' + outH;
 
@@ -375,10 +476,12 @@ function writeSnippet(s, card) {
   let code;
   if (s.snippet === '_concatSingleCrop') {
     const r = curSections[0];
-    code = `// concat single-crop\n_concatSingleCrop($filename, $concatFilename, $cardID, ${r[0]}, ${r[1]}, ${r[2]}, ${r[3]});`;
+    const output = s.outW && s.outH ? `, ${s.outW}, ${s.outH}` : '';
+    code = `// concat single-crop\n_concatSingleCrop($filename, $concatFilename, $cardID, ${r[0]}, ${r[1]}, ${r[2]}, ${r[3]}${output});`;
   } else if (s.snippet === '_concatTwoSection') {
     const a = curSections[0], b = curSections[1] || [0,0,0,0];
-    code = `// concat two-section\n_concatTwoSection($filename, $concatFilename, $cardID,\n    topSrcY:${a[1]}, topH:${a[3]}, botSrcY:${b[1]}, botH:${b[3]});`;
+    const output = s.outW && s.outH ? `, outW:${s.outW}, outH:${s.outH}` : '';
+    code = `// concat two-section\n_concatTwoSection($filename, $concatFilename, $cardID,\n    topSrcY:${a[1]}, topH:${a[3]}, botSrcY:${b[1]}, botH:${b[3]}${output});`;
     if (curSections.length !== 2)
       code = `// NOTE: _concatTwoSection expects exactly 2 sections; you have ${curSections.length}.\n` + code;
   } else { // art crop
@@ -389,6 +492,12 @@ function writeSnippet(s, card) {
 }
 
 $('scenario').onchange = loadScenario;
+$('app').onchange = () => {
+  const url = new URL(window.location.href);
+  url.search = '';
+  url.searchParams.set('app', $('app').value);
+  window.location.href = url;
+};
 $('card').onchange = () => { $('cardManual').value = ''; refresh(); };
 $('cardManual').oninput = refresh;
 $('addSec').onclick = () => { curSections.push([0, 0, SCEN[$('scenario').value].srcW || 450, 50]); renderSectionInputs(); refresh(); };
