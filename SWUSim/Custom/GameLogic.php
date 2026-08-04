@@ -940,6 +940,7 @@ $turnEffectRegistry = [
     'SHD_006' => ['kind' => 'GRANT_KEYWORD',  'value' => 'BOUNTY',   'label' => 'Bounty'],                                    // Jabba the Hutt — chosen unit gains a Bounty this phase (custom reward, discount carried in the dash param: SHD_006-1 front / SHD_006-2 deployed)
     'SHD_031' => ['kind' => 'GRANT_KEYWORD',  'value' => 'BOUNTY',   'label' => 'Bounty'],                                    // The Client — chosen unit gains "Bounty — Heal 5 damage from a base" this phase (reward in SWUCollectBounty)
     'SHD_097' => ['kind' => 'STAT_BUFF'],                                                                                     // Freetown Backup — On Attack: another friendly unit gets +2/+2 this phase
+    'IC27_079' => ['kind' => 'STAT_BUFF'],                                                                                    // Qui-Gon Jinn — When Played: another friendly unit gets +2/+2 this phase
     'SHD_129' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Timely Intervention — the played unit gains Ambush this phase
     'SHD_215' => ['kind' => 'STAT_DEBUFF'],                                                                                   // Smuggler's Starfighter — enemy unit gets -3/-0 this phase
     'SEC_018' => ['kind' => 'MARKER',          'label' => 'DJ'],                                                               // DJ — transient findable marker on the unit just played by the leader action (captured immediately)
@@ -2229,6 +2230,12 @@ function SWUAspectPenalty($player, $cardID): int {
     // so every play path (hand / discard / affordability glow) is covered.
     if (HasTrait($cardID, 'Spectre') && _SWUControlsHera(intval($player))) return 0;
 
+    // IC27_078 Anakin Skywalker (Destined For Darkness): "While this unit is in your DISCARD PILE,
+    // ignore the aspect penalties on cards you play named Darth Vader." Matched by TITLE (subtitle
+    // excluded), and live only from the discard — not from play, hand or deck. Deploying a Darth Vader
+    // LEADER is not "playing a card", but a deploy has no aspect penalty anyway so it never reaches here.
+    if (CardTitle($cardID) === 'Darth Vader' && _SWUAnakinIC27078InDiscard(intval($player))) return 0;
+
     // TWI_001 Nala Se (both sides): "Ignore the aspect penalty on Clone units you play."
     if (stripos(CardType($cardID) ?? '', 'Unit') !== false && HasTrait($cardID, 'Clone')) {
         foreach (GetLeader(intval($player)) as $l) {
@@ -2328,6 +2335,14 @@ function _SWUCommonBaseWaivePenalty(int $player, string $cardID): int {
 // ActivateCard charges can never drift. To add a new cost-reducing card, add a
 // closure here — do NOT hand-edit the cost math in ActivateCard/affordability.
 $playCostModifiers = [];
+
+// IC27_022 Moff Gideon (Cold Calling): costs 2 less if a FRIENDLY unit was defeated this phase.
+// Mirror-image of SHD_182 below (which reads SWU_ENEMY_DEFEATED). Lives here, not in the per-card
+// file, because $playCostModifiers is initialized just above — AFTER cards/_loader.php runs — so a
+// registration from a per-card file would be wiped. Same reason LAW_179 / TS26_71 sit here.
+$playCostModifiers["IC27_022"] = function($player, $subjectObj) {
+    return GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0 ? -2 : 0;
+};
 
 // SHD_182 Bravado: costs 2 less if you've defeated an enemy unit this phase.
 $playCostModifiers["SHD_182"] = function($player, $subjectObj) {
@@ -7944,6 +7959,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'LAW_141': Law141Trigger($player, $mzID); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break;   // Targeted For Removal — opp creates Credits = host cost (granted WD; Thrawn-reusable)
         case 'LAW_201': Law201Trigger($player, $mzID); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break;   // Thermal Detonator — if host was ready, 2 to each enemy ground unit (granted WD; Thrawn-reusable)
         case 'LAW_007': Law007Trigger($player); break;          // Boba Fett (leader form) — may exhaust → Credit
+        case 'IC27_146': Ic27146ReadyResourcesTrigger($player); break;   // Boba Fett — may ready 2 resources
         case 'LAW_046': Law046Trigger($player, $mzID); break;   // Chirrut — may heal 4 from another unit
         case 'ASH_005': Ash005Trigger($player, $mzID); break;   // Luke (undeployed) — may exhaust → heal 1 from the attacker
         case 'ASH_005#1': Ash005DeployedTrigger($player, $mzID); break;   // Luke (deployed) — heal 2 from the attacker or your base
@@ -12491,6 +12507,18 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             _SWUFalconKeepOrBounce($player, $falconMz, $paidOk);
             break;
         }
+        case 'IC27_158_PAY': {
+            // Millennium Falcon "you may pay 1 → return a friendly unit costing 3 or less to its
+            // owner's hand", after the Credit/Droid alt-pay offer. $prepaid = alt-payments already
+            // made; pay the remainder, then offer the (mandatory) return.
+            $paidOk = SWUPayCost($player, 1, $prepaid, false); // effect cost, not halved by JTL_105
+            if (!$paidOk) break;
+            $targets = Ic27158EligibleReturns(intval($player));
+            if (empty($targets)) break;
+            SWUQueueChooseTarget(intval($player), $targets,
+                "Return_a_friendly_unit_(cost_3_or_less)_to_its_owner's_hand", "IC27_158#1");
+            break;
+        }
         case 'JTL_096_MOVE_PAY': {
             // Blue Leader "you may pay 2 resources → move to the ground arena + 2 Experience", after the
             // Credit/Droid alt-pay offer. $args = the moving unit's UniqueID; $prepaid = alt-payments made.
@@ -12846,8 +12874,12 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
         && GlobalEffectCount($player, 'SWU_FRIENDLY_LEFT_PLAY') <= 0
         && GlobalEffectCount($player, 'SWU_ENEMY_LEFT_PLAY') <= 0) return false;
 
-    // SOR_006 Emperor Palpatine: "defeat a friendly unit" is part of the cost.
-    if ($cardID === 'SOR_006') {
+    // IC27_001 Darth Vader (No One to Stop Us) — same shape as SOR_006 below: the front side's
+    // "defeat a friendly unit" sits INSIDE the bracketed cost, so it is a cost REQUIREMENT (kept by the
+    // CR 6.4.587.c sweep, which only dropped effect-TARGET gates). With no friendly unit the Action is
+    // unavailable and the leader must not exhaust. The DEPLOYED side is the opposite — there the defeat
+    // is an effect behind "you may … If you do", so it is never gated.
+    if ($cardID === 'SOR_006' || $cardID === 'IC27_001') {
         $savedPID = $playerID;
         $playerID = $player;
         $friendlies = array_merge(

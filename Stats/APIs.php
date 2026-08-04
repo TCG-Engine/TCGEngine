@@ -479,6 +479,10 @@ include_once "../SharedUI/Header.php";
     "p1id": "player1_id",      // Optional player IDs
     "p2id": "player2_id",
     "format": "premier",       // Optional: game format (default: "premier"). Examples: "premier", "preview"
+                               // Preview formats ("preview", "twinsuns-preview", "padawan-preview") are
+                               // ACCEPTED and still return {"success": true}, but record NO statistics --
+                               // no deck stats, no completed-game row, no meta aggregates. They are played
+                               // with unreleased mock cards whose ids are replaced on the set's release.
     "disableMetaStats": false, // Optional: set to true if one or more players opts out of meta stats collection
     "gameName": "12345",       // Game identifier
     "sequenceNumber": 1        // Optional sequence number for BO3 matches

@@ -7,6 +7,7 @@
   require_once "../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
   require_once "../Core/StatsBaseRegistry.php";
   require_once "../AccountFiles/AccountDatabaseAPI.php"; // ResolveFriendlyCode()
+  require_once "../AppCore/SWU/Formats.php"; // SWUFormatIsPreview()
 
   $input = file_get_contents('php://input');
   $data = json_decode($input, true);
@@ -45,6 +46,12 @@
 	// $privateDeck may be set true in the deck-link blocks below; the completedgame gate is recomputed
 	// after those blocks.
 	$disableMetaStats = !in_array($format, ['premier','eternal','twinsuns','padawan'], true) || $explicitOptOut;
+	// A PREVIEW format is played with hand-curated MOCK cards that can be wrong, mid-errata, or deleted
+	// outright on release day, so a preview game writes NO stats at all — no deckstats and no
+	// completedgame row (both gated below). Meta aggregates were already excluded: no preview format is
+	// in the allowlist above. Additive by construction — this is only ever true for format values no
+	// existing consumer sends, so every current request behaves byte-identically.
+	$isPreviewFormat = SWUFormatIsPreview($format);
 
   $conn = GetLocalMySQLConnection();
 		// Validate SWU tokens (if provided). Returns:
@@ -175,7 +182,7 @@
 		// If tie, $won is null so SaveDeckStats can handle it as a tie
 		$won = ($winner == 1 ? true : ($winner == 2 ? false : null));
 		$opponentData = isset($data["player2"]) ? $data["player2"] : null;
-		SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
+		if(!$isPreviewFormat) SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
 	  }
 	}
   }
@@ -206,15 +213,17 @@
 		// If tie, $won is null so SaveDeckStats can handle it as a tie
 		$won = ($winner == 2 ? true : ($winner == 1 ? false : null));
 		$opponentData = isset($data["player1"]) ? $data["player1"] : null;
-		SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
+		if(!$isPreviewFormat) SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
 	  }
 	}
   }
 
-  // Record the raw per-game row for every game EXCEPT open / opt-out / private-deck. Decoupled from
-  // $disableMetaStats so non-premier (eternal/twinsuns) games are logged with their format, while
-  // premier meta aggregates (in SaveDeckStats) stay premier-gated as before.
-  $recordCompletedGame = ($format !== 'open') && !$explicitOptOut && !$privateDeck;
+  // Record the raw per-game row for every game EXCEPT open / preview / opt-out / private-deck.
+  // Decoupled from $disableMetaStats so non-premier (eternal/twinsuns) games are logged with their
+  // format, while premier meta aggregates (in SaveDeckStats) stay premier-gated as before. Preview is
+  // excluded because this log feeds meta and matchup browsing, and rows referencing mock CardIDs
+  // would linger after the mocks are deleted on release day.
+  $recordCompletedGame = ($format !== 'open') && !$isPreviewFormat && !$explicitOptOut && !$privateDeck;
   if($recordCompletedGame) {
 
 	// Check for null winHero or loseHero
@@ -406,7 +415,11 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 				WHERE cardID = ? AND deckID = ? AND source = ? AND format = ?";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
-			mysqli_stmt_bind_param($stmt, "iiiiiiiiiiisis", $timesIncluded, $timesIncludedInWins, $timesPlayed, $timesPlayedInWins, $timesResourced, $timesResourcedInWins, $timesDiscarded, $timesDiscardedInWins, $timesDrawn, $timesDrawnInWins, $card["cardId"], $deckID, $source, $format);
+			// 10 integer stats, then cardID (STRING — varchar(16); SWUSim sends the raw SET_NNN CardID
+			// for any card without an FFG UID), then deckID (int), source (int), format (string).
+			// This was "iiiiiiiiiiisis" — one i too many, so cardID bound as an int and a non-numeric
+			// id fataled the whole request ("Truncated incorrect DOUBLE value") before completedgame.
+			mysqli_stmt_bind_param($stmt, "iiiiiiiiiisiis", $timesIncluded, $timesIncludedInWins, $timesPlayed, $timesPlayedInWins, $timesResourced, $timesResourcedInWins, $timesDiscarded, $timesDiscardedInWins, $timesDrawn, $timesDrawnInWins, $card["cardId"], $deckID, $source, $format);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_close($stmt);
 		}

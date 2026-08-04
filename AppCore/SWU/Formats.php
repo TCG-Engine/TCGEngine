@@ -186,6 +186,30 @@ function SWUFormatLegalSets($formatId) {
     return is_array($legal) ? $legal : [];
 }
 
+// True when a format's pool DELIBERATELY includes an unreleased set — i.e. its legalSets list names
+// one of AppCore/SWU/PreviewSets.php. Games in such a format are played with hand-curated mock cards
+// that can be wrong, mid-errata, or deleted on release day, so they must not write stats
+// (APIs/SubmitGameResult.php). See docs/superpowers/specs/2026-07-29-swu-preview-format-design.md §3.
+//
+// Derived from PreviewSets.php rather than a hardcoded format list, so removing a set on release day
+// (sunset checklist step 5) turns the gate off by itself.
+//
+// The wildcard pool ('*' — Open/Goldfish/Hotseat) resolves to every registered set INCLUDING preview
+// sets, but is deliberately NOT preview: it's an anything-goes pool rather than a curated preview
+// window, and treating it as preview would silently change stats behavior for those formats.
+function SWUFormatIsPreview($formatId) {
+    $f = SWUGetFormat($formatId);
+    if ($f === null) return false;
+    $legal = $f['legalSets'];
+    if (!is_array($legal)) return false;   // '*' wildcard
+    static $previewSets = null;
+    if ($previewSets === null) {
+        $p = require __DIR__ . '/PreviewSets.php';
+        $previewSets = is_array($p) ? $p : [];
+    }
+    return count(array_intersect($legal, $previewSets)) > 0;
+}
+
 function SWUQueueTypeDefinitions() {
     return [
         'bo1' => ['displayName' => 'Best of 1', 'bestOf' => 1, 'sideboard' => false],

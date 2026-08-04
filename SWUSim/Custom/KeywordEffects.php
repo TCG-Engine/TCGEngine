@@ -484,6 +484,11 @@ function HasConditionalKeyword_Ambush($obj) {
             case 'SOR_100': // Wedge Antilles — Vehicle units gain Ambush
                 if (TraitContains($obj, 'Vehicle')) return true;
                 break;
+            case 'IC27_067': // Darth Vader (Useless to Resist) — "Each other friendly unit gains Ambush."
+                // No trait/cost/arena qualifier, so every other friendly unit qualifies — including
+                // token units and deployed leader units (GetUnitsInArena applies no type filter).
+                // "other" is already handled by the UniqueID self-skip above.
+                return true;
         }
     }
     return false;
@@ -1046,6 +1051,15 @@ function GetConditionalKeyword_Raid_Value($obj) {
         }
     }
     switch ($obj->CardID) {
+        case 'IC27_071': // Avar Kriss (For Light and Life) — "gains Raid 1 for each other friendly unit."
+            // Additive on top of her PRINTED Raid 1 ($Raid_Cards), which GetKeyword_Raid_Value adds
+            // before calling this — so alone she is Raid 1, with N other friendly units Raid 1+N.
+            // Counted live on every read, so the total tracks units entering/leaving play.
+            $selfUid071 = intval($obj->UniqueID ?? 0);
+            foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $fu071) {
+                if (empty($fu071->removed) && intval($fu071->UniqueID ?? 0) !== $selfUid071) $amount += 1;
+            }
+            break;
         case 'SEC_171': // Punishing One — Raid 1 for each damaged enemy unit
             foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
                 if (empty($eu->removed) && intval($eu->Damage ?? 0) > 0) $amount += 1;
