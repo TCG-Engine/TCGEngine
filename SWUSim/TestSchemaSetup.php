@@ -9,6 +9,7 @@ header('Content-Type: application/json');
 
 include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
+include_once __DIR__ . '/../Core/GameAuth.php';   // SimGameWriteAuthKeys — see the seat-auth block below
 
 $authError = CheckLoggedInUserMod();
 if ($authError !== '') {
@@ -86,6 +87,23 @@ ob_end_clean();
 WriteGamestate(__DIR__ . '/');
 InitializeCache($gameName);
 SetCachePiece($gameName, 1, $updateNumber);
+
+// ── Seat auth for the Test Schema Editor ──────────────────────────────────────
+// Seat validation used to FAIL OPEN: SimGameValidateSeatAuth returned true whenever a game had no
+// auth key, so a schema game created here was viewable without ever registering one. That default
+// inverted when auth keys moved into APCu — SWUSim is now in SimGameRequiresManagedAuth's list, so a
+// game with NO auth-keys entry is DENIED and the editor's iframe renders "This seat link is no longer
+// valid." (Correct tightening for real games; this dev tool just never wrote keys.)
+//
+// Register an entry with EMPTY per-seat keys, which is still explicitly allowed
+// (SimGameValidateSeatAuth: `if ($expectedKey === '') return true;`). That restores editor access
+// without weakening the new model: real games write real keys from their lobby and are unaffected.
+//
+// ⚠ Must happen HERE, in the web request that creates the game — APCu is per-SAPI, so keys stored
+// from a CLI process are invisible to the browser.
+if (function_exists('SimGameWriteAuthKeys')) {
+    SimGameWriteAuthKeys('SWUSim', $gameName, SimGameDefaultAuthKeys());
+}
 
 // ── Return result ─────────────────────────────────────────────────────────────
 echo json_encode([

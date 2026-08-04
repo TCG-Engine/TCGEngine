@@ -3168,6 +3168,10 @@ function DoDrawCard($player, $amount) {
             for ($k = count($hand) - 1; $k >= 0; $k--) {
                 if (!isset($hand[$k]->removed) || !$hand[$k]->removed) {
                     $drawn[] = "myHand-$k";
+                    // Deck top slides into the hand. One per card drawn; the client staggers a
+                    // multi-card draw by 60ms each and blocks only for the longest, so a 6-card
+                    // opening hand costs ~780ms rather than 6 x 420ms.
+                    SWUQueueZoneMoveAnim("myDeck-$topIdx", "myHand-$k", intval($player));
                     break;
                 }
             }
@@ -4886,6 +4890,10 @@ $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDe
     $newResource = MZMove($player, $lastDecision, "myResources");
     if ($newResource !== null) {
         $newResource->Status = 0; // enters exhausted, readied in ReadyPhase
+        // Hand slides into the resource row (the regroup resource step). Destination is the LAST
+        // array slot (MZMove appends); Resources has no GetMzID(), unlike the arena classes.
+        $resIdx = count(GetResources(intval($player))) - 1;
+        if ($resIdx >= 0) SWUQueueZoneMoveAnim($lastDecision, 'myResources-' . $resIdx, intval($player));
         if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newResource->CardID ?? '', 'resourced'); // Plan D telemetry
         AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' resourced a card');
     }
@@ -6202,6 +6210,10 @@ function SWURampResourceReady(int $player, string $mzID): ?object {
         $newResource->Owner      = intval($player);
         $newResource->Controller = intval($player);
         AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' put a card into play as a ready resource');
+        // Card slides from its source zone (hand or deck) into the resource row. The destination is
+        // the LAST array slot (MZMove appends); Resources has no GetMzID(), unlike the arena classes.
+        $resIdx = count(GetResources(intval($player))) - 1;
+        if ($resIdx >= 0) SWUQueueZoneMoveAnim($mzID, 'myResources-' . $resIdx, intval($player));
     }
     $playerID = $savedPID;
     return $newResource;
@@ -6220,6 +6232,10 @@ function SWURampResourceExhausted(int $player, string $mzID): ?object {
         $newResource->Owner      = intval($player);
         $newResource->Controller = intval($player);
         AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' put a card into play as a resource');
+        // Card slides from its source zone (hand or deck) into the resource row. The destination is
+        // the LAST array slot (MZMove appends); Resources has no GetMzID(), unlike the arena classes.
+        $resIdx = count(GetResources(intval($player))) - 1;
+        if ($resIdx >= 0) SWUQueueZoneMoveAnim($mzID, 'myResources-' . $resIdx, intval($player));
     }
     $playerID = $savedPID;
     return $newResource;
@@ -10805,6 +10821,8 @@ function SWUMillTopCard(int $player): ?string {
     $idx  = _SWUTopDeckFrontIdx($player);
     if ($idx === -1) { $playerID = $saved; return null; }
     $cardID = $deck[$idx]->CardID;
+    // Deck top slides to the discard pile. Queued BEFORE the move so the source mzID still resolves.
+    SWUQueueZoneMoveAnim('myDeck-' . $idx, 'myDiscard-0', intval($player));
     SWUAddToDiscard($player, $cardID, 'DECK');
     $deck[$idx]->removed = true;
     DecisionQueueController::CleanupRemovedCards();
@@ -11570,6 +11588,11 @@ function SWUBounceUnit(int $player, string $mzID): bool {
     // hand or discard; losing its host defeats it as a STATE-BASED consequence (CR), not a direct
     // enemy-ability defeat, so the leader's "can't be defeated/returned by enemy abilities" immunity does
     // NOT apply here. Must run before the upgrade-discard loop so a leader pilot is never discarded.
+    // Unit slides back to its OWNER's hand — which is the OPPONENT's hand when you control a unit they
+    // own, so the animation is queued from the owner's perspective, not the actor's. Queued before the
+    // unit is removed so the source still resolves.
+    SWUQueueZoneMoveAnim($mzID, 'myHand-0', intval($owner), 420, intval($obj->UniqueID ?? 0) ?: null);
+
     SWUReturnLeaderPilotSubcards($obj, $owner);
     // A pilot UPGRADE with a "would be defeated → may move to ground" replacement (JTL_094 Luke) is
     // still "would be defeated" when its host is RETURNED TO HAND (the upgrade doesn't bounce with the
@@ -11911,6 +11934,12 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
 
         $newCardMzID = $newCard->GetMzID();
         $GLOBALS['gLastPlayedMzID'] = $newCardMzID; // result channel — see top of ActivateCard
+
+        // Hand slides into the arena. $mzID is ActivateCard's own SOURCE parameter (the card's hand
+        // slot), never reassigned; $newCardMzID is where it landed. The source card is already flagged
+        // removed by now, which is fine — the client clones from the PRE-render DOM, so the old hand
+        // slot still resolves.
+        SWUQueueZoneMoveAnim($mzID, $newCardMzID, intval($player));
 
         // Task 3.1: durable paid-resources stamp on the arena object so a deferred WhenPlayed
         // (resolved in a later request via the EffectStack) can still read it.

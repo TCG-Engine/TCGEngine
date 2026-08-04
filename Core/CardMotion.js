@@ -105,8 +105,20 @@
     var ratio = Number(animation.distanceRatio);
     if (!Number.isFinite(ratio)) ratio = 0.7;
     ratio = Math.max(0.1, Math.min(1, ratio));
-    var dx = (destinationRect.left + destinationRect.width / 2 - sourceRect.left - sourceRect.width / 2) * ratio;
-    var dy = (destinationRect.top + destinationRect.height / 2 - sourceRect.top - sourceRect.height / 2) * ratio;
+    var rawDx = (destinationRect.left + destinationRect.width / 2 - sourceRect.left - sourceRect.width / 2) * ratio;
+    var rawDy = (destinationRect.top + destinationRect.height / 2 - sourceRect.top - sourceRect.height / 2) * ratio;
+    // Clamp the travel so a lunge always reads as "leans toward" rather than "flies at". Without this,
+    // a multi-seat board — where the attacker/target vector spans the whole table rather than one
+    // opposed pair of lanes — would sweep the card most of the way across the screen. Computed here
+    // from live rects rather than passed from the server, because the SAME animation payload is
+    // replayed by every viewer and one may be zoomed in while another sees the wide board; only the
+    // client knows the real on-screen distance.
+    // 1.5x the source card's larger dimension is a no-op at ordinary two-player distances.
+    var maxTravel = Math.max(sourceRect.width, sourceRect.height) * 1.5;
+    var rawDistance = Math.sqrt(rawDx * rawDx + rawDy * rawDy);
+    var clampScale = (rawDistance > maxTravel && rawDistance > 0) ? (maxTravel / rawDistance) : 1;
+    var dx = rawDx * clampScale;
+    var dy = rawDy * clampScale;
     var durationMs = Math.max(120, parseInt(animation.durationMs || 360, 10));
     var delayMs = Math.max(0, parseInt(animation.delayMs || 0, 10));
 

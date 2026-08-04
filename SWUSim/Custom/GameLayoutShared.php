@@ -3173,6 +3173,8 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       <div class="swu-settings-section-title">Cosmetics</div>
       <label class="swu-settings-row"><span>Show playmats</span>
         <input type="checkbox" id="swuSetShowPlaymats"></label>
+      <label class="swu-settings-row"><span>Card motion</span>
+        <input type="checkbox" id="swuSetCardMotion"></label>
       <?php if ($swuGearCos !== null): ?>
         <label class="swu-settings-row swu-settings-row--stack"><span>Background</span>
           <?= SWUCosmeticSelectHtml('background', $swuGearCos['background']['id'], 'swu-gear-cos') ?></label>
@@ -3203,6 +3205,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     if (ov.parentNode !== document.body) document.body.appendChild(ov);
     var t = document.getElementById('swuSetShowPlaymats');
     if (t && window.TCGSettings) t.checked = window.TCGSettings.get('ShowPlaymats', { rootName:'SWUSim', type:'boolean', defaultValue:true }) !== false;
+    // Card motion (zone slides + attack lunge). Read through TCGCardMotion.isEnabled rather than
+    // TCGSettings directly: its default honours prefers-reduced-motion, so a player who has asked the
+    // OS for reduced motion sees this unchecked without ever having touched it.
+    var cm = document.getElementById('swuSetCardMotion');
+    if (cm && window.TCGCardMotion) cm.checked = window.TCGCardMotion.isEnabled('SWUSim');
     // Match actions are player-only (hidden for spectators / non-players).
     var ms = document.getElementById('swuSettingsMatchSection');
     if (ms) {
@@ -3267,6 +3274,10 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     if (e.target && e.target.id === 'swuSetShowPlaymats') {
       if (window.TCGSettings) window.TCGSettings.set('ShowPlaymats', e.target.checked, { rootName:'SWUSim', type:'boolean' });
       if (typeof window.ApplyCosmeticPlaymats === 'function') window.ApplyCosmeticPlaymats();
+      return;
+    }
+    if (e.target && e.target.id === 'swuSetCardMotion') {
+      if (window.TCGSettings) window.TCGSettings.set('EnableCardMotion', e.target.checked, { rootName:'SWUSim', type:'boolean' });
       return;
     }
     var sel = e.target && e.target.closest ? e.target.closest('.swu-gear-cos') : null;
