@@ -430,7 +430,7 @@
     <div id="swuTheirControlBand" class="swu-m-band is-theirs">
         <!-- Reserved init-token slot; collapses when they actually hold the token -->
         <div class="swu-init-placeholder" aria-hidden="true"></div>
-        <div id="swuTheirResBadge" class="swu-res-badge">
+        <div id="swuTheirResBadge" class="swu-res-badge" data-motion-anchor="theirResources-0">
             <div class="swu-res-badge-btn" title="Opponent resources (hidden)">
                 <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.webp" alt="Resources">
                 <span id="swuTheirResCount">0/0</span>
@@ -480,7 +480,7 @@
         </div>
         <!-- Reserved init-token slot; collapses while my band holds the token (default) -->
         <div class="swu-init-placeholder" aria-hidden="true"></div>
-        <div id="swuMyResBadge" class="swu-res-badge">
+        <div id="swuMyResBadge" class="swu-res-badge" data-motion-anchor="myResources-0">
             <div class="swu-res-badge-btn is-clickable"
                  title="View your resources" onclick="swuToggleMyResources()">
                 <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.webp" alt="Resources">

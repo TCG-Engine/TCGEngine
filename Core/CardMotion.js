@@ -27,8 +27,13 @@
     if (normalized === 'P1BASE' || normalized === 'P2BASE') {
       return document.getElementById(normalized);
     }
+    var escapedMz = normalized.replace(/'/g, "\\'");
     return document.getElementById(normalized)
-      || document.querySelector("[data-mzid='" + normalized.replace(/'/g, "\\'") + "']");
+      || document.querySelector("[data-mzid='" + escapedMz + "']")
+      // Explicit motion anchor: lets a layout nominate a VISIBLE element to fly to when the real zone
+      // element is hidden or has no box. Deliberately NOT data-mzid — UILibraries treats that as a card
+      // identifier, so reusing it on a HUD badge would make the badge behave like a card.
+      || document.querySelector("[data-motion-anchor='" + escapedMz + "']");
   }
 
   function getRootName(explicitRootName) {
@@ -105,8 +110,20 @@
     var ratio = Number(animation.distanceRatio);
     if (!Number.isFinite(ratio)) ratio = 0.7;
     ratio = Math.max(0.1, Math.min(1, ratio));
-    var dx = (destinationRect.left + destinationRect.width / 2 - sourceRect.left - sourceRect.width / 2) * ratio;
-    var dy = (destinationRect.top + destinationRect.height / 2 - sourceRect.top - sourceRect.height / 2) * ratio;
+    var rawDx = (destinationRect.left + destinationRect.width / 2 - sourceRect.left - sourceRect.width / 2) * ratio;
+    var rawDy = (destinationRect.top + destinationRect.height / 2 - sourceRect.top - sourceRect.height / 2) * ratio;
+    // Clamp the travel so a lunge always reads as "leans toward" rather than "flies at". Without this,
+    // a multi-seat board — where the attacker/target vector spans the whole table rather than one
+    // opposed pair of lanes — would sweep the card most of the way across the screen. Computed here
+    // from live rects rather than passed from the server, because the SAME animation payload is
+    // replayed by every viewer and one may be zoomed in while another sees the wide board; only the
+    // client knows the real on-screen distance.
+    // 1.5x the source card's larger dimension is a no-op at ordinary two-player distances.
+    var maxTravel = Math.max(sourceRect.width, sourceRect.height) * 1.5;
+    var rawDistance = Math.sqrt(rawDx * rawDx + rawDy * rawDy);
+    var clampScale = (rawDistance > maxTravel && rawDistance > 0) ? (maxTravel / rawDistance) : 1;
+    var dx = rawDx * clampScale;
+    var dy = rawDy * clampScale;
     var durationMs = Math.max(120, parseInt(animation.durationMs || 360, 10));
     var delayMs = Math.max(0, parseInt(animation.delayMs || 0, 10));
 
@@ -214,6 +231,11 @@
     for (var i = 0; i < animations.length; ++i) {
       var event = animations[i];
       if (!event || String(event.type || '').toUpperCase() !== 'ZONE_MOVE') continue;
+      // Optional owner scoping: a move into a self-visible zone (SWU resources are
+      // Display: Visibility=Self) should play only for the seat it belongs to. Absent the field,
+      // every viewer plays it as before — so this is inert for existing callers.
+      if (event.onlySeat !== undefined && event.onlySeat !== null
+          && Number(event.onlySeat) !== Number(perspectivePlayerID)) continue;
       var source = resolveElement(
         event.source || event.target,
         event.sourceUniqueID || event.uniqueID,
@@ -294,8 +316,16 @@
         continue;
       }
 
-      item.destination = destination;
       var destinationRect = destination.getBoundingClientRect();
+      // A display:none / unrendered destination reports 0x0 at (0,0), which would send the card flying
+      // to the top-left corner of the viewport. Skip instead — a missing slide beats a wrong one.
+      // (SWU resources are exactly this: the resource PANEL is a click-to-open flyout that is hidden by
+      // default, so it has no box until opened.)
+      if (destinationRect.width <= 0 && destinationRect.height <= 0) {
+        cleanupPrepared(item);
+        continue;
+      }
+      item.destination = destination;
       var dx = destinationRect.left - item.sourceRect.left;
       var dy = destinationRect.top - item.sourceRect.top;
       var scaleX = item.sourceRect.width > 0 ? destinationRect.width / item.sourceRect.width : 1;

@@ -172,6 +172,7 @@ checkContains('cosmetics has cardback select', $cos, "data-slot=\"cardback\"");
 checkContains('cosmetics playmat has None', $cos, '>None<');
 checkContains('cosmetics has preview', $cos, "class='cos-preview'");
 checkContains('cosmetics has show-playmats toggle', $cos, "id='cos-show-playmats'");
+checkContains('cosmetics has card-motion toggle', $cos, "id='cos-card-motion'");
 checkContains('cosmetics posts to endpoint', $cos, 'SWUSim/Cosmetics.php');
 check('SWUSim profile enables cosmetics', in_array('cosmetics', $swusimDef['profile']['sections'] ?? [], true));
 check('validator accepts cosmetics', !in_array("profile.sections has unknown section 'cosmetics'", ValidateSiteDef($swusimDef), true));

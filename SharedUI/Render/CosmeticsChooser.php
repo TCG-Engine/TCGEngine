@@ -25,6 +25,7 @@ function RenderCosmeticsChooser(int $userId): string {
       . "<div class='cos-row'><label>Card back</label>"       . $select('cardback')   . "</div>"
       . "<div class='cos-row'><label>Playmat</label>"         . $select('playmat')    . "</div>"
       . "<div class='cos-row'><label><input type='checkbox' id='cos-show-playmats' checked> Show playmats in-game</label></div>"
+      . "<div class='cos-row'><label><input type='checkbox' id='cos-card-motion' checked> Card motion (slides &amp; attack lunge)</label></div>"
       // Live preview laid out like a real board: game background behind your playmat (which
       // fills the lower half, your side), with a square card-back deck pile parked on the
       // right of each side. The playmat honors the Show-playmats toggle.
@@ -116,10 +117,21 @@ function _CosmeticsChooserScript(): string {
       if (window.TCGSettings && typeof window.TCGSettings.set==='function')
         window.TCGSettings.set('ShowPlaymats', tg.checked, { rootName:'SWUSim', type:'boolean' });
     }
+    var cm = e.target.closest('#cos-card-motion');
+    if (cm) {
+      if (window.TCGSettings && typeof window.TCGSettings.set==='function')
+        window.TCGSettings.set('EnableCardMotion', cm.checked, { rootName:'SWUSim', type:'boolean' });
+    }
   });
   // reflect persisted toggle (checkbox + preview playmat visibility)
   try { if (window.TCGSettings) { var t=document.getElementById('cos-show-playmats');
     if (t) { var show = window.TCGSettings.get('ShowPlaymats', { rootName:'SWUSim', type:'boolean', defaultValue:true }) !== false;
       t.checked = show; if (prev) prev.classList.toggle('cos-hide-mat', !show); } } } catch(e){}
+  // Card motion. This page does NOT load Core/CardMotion.js, so TCGCardMotion is unavailable here and
+  // the prefers-reduced-motion default has to be mirrored inline — otherwise a player who asked the OS
+  // for reduced motion would see this checked while the game correctly plays nothing.
+  try { if (window.TCGSettings) { var c=document.getElementById('cos-card-motion');
+    if (c) { var motionDefault = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      c.checked = window.TCGSettings.get('EnableCardMotion', { rootName:'SWUSim', type:'boolean', defaultValue:motionDefault }) !== false; } } } catch(e){}
 })();</script>";
 }

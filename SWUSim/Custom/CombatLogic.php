@@ -97,6 +97,55 @@ function SWUQueueShieldBreakAnim(string $relMzID, int $perspective, int $slot = 
     QueueShieldBreakAnimation($abs, intval($slot));
 }
 
+// ── Card-motion animation helpers ───────────────────────────────────────────
+// Thin wrappers over the shared engine primitives (Core/EngineActionRunner.php), matching the
+// damage/heal helpers above: $rel* args are perspective-relative and converted to absolute here.
+// Queue-only — these never touch gamestate. An unresolvable mzID means NO animation (never a wrong
+// one): the board simply renders without motion.
+//
+// ⚠ Nothing automated can observe these. The schema suite bypasses ProcessInput, and
+// SWUSim/TestSchemaStep.php stubs the animation functions to no-ops (ConvertMzIDToAbsolute included,
+// which returns '' there — so every call below early-returns under test). Verification is the
+// hand-loaded schemas in SWUSim/Tests/Visual/.
+
+// Attacker leans toward what it is attacking. Fires for a unit OR a base target — a base is a real
+// board element with its own mzID, and base attacks are the commonest attack in the game.
+function SWUQueueLungeAnim(string $attackerRel, string $targetRel, int $perspective,
+                           ?int $atkUid = null, ?int $tgtUid = null): void {
+    // The animation layer is NOT loaded on every path that runs game logic — CreateGame.php includes
+    // GameLogic.php but not Core/EngineActionRunner.php, so pregame setup (QueuePregameSetup ->
+    // DoDrawCard) would fatal on an undefined function. Same guard AzukiDeck uses.
+    if (!function_exists('ConvertMzIDToAbsolute') || !function_exists('QueueCardLungeAnimation')) return;
+    $absAtk = ConvertMzIDToAbsolute($attackerRel, intval($perspective));
+    $absTgt = ConvertMzIDToAbsolute($targetRel, intval($perspective));
+    if ($absAtk === '' || $absTgt === '') return;
+    QueueCardLungeAnimation($absAtk, $absTgt, 360, true, $atkUid, $tgtUid, 0.7);
+}
+
+// Slide a card from one zone to another. The client plays all zone moves queued in one frame in
+// PARALLEL with a 60ms per-card stagger, and blocks for the MAX rather than the sum — so a burst
+// (e.g. returning 3 resources at once) costs ~540ms, not 1.3s. No pacing work is needed here.
+function SWUQueueZoneMoveAnim(string $fromRel, string $toRel, int $perspective,
+                              int $durationMs = 420, ?int $uid = null, ?int $onlySeat = null): void {
+    // See SWUQueueLungeAnim: the animation layer is absent during game creation (the opening-hand
+    // DoDrawCard runs there), so this must degrade to a no-op rather than fatal.
+    if (!function_exists('ConvertMzIDToAbsolute') || !function_exists('QueueZoneMoveAnimation')) return;
+    $absFrom = ConvertMzIDToAbsolute($fromRel, intval($perspective));
+    $absTo   = ConvertMzIDToAbsolute($toRel, intval($perspective));
+    if ($absFrom === '' || $absTo === '') return;
+    // $onlySeat scopes the slide to one viewer — used for moves into a self-visible zone.
+    QueueZoneMoveAnimation($absFrom, $absTo, $durationMs, true, $uid, null, 0, $onlySeat);
+}
+
+// True when a card CEASES to exist on leaving play instead of entering a discard pile — so there is
+// no destination for an arena->discard slide to fly to. There is no general token predicate in the
+// codebase (SWUIsCreditToken is credit-only); this mirrors the exact condition SWUAddToDiscard uses
+// to enforce the cease rule, factored out so the three defeat sites share one copy.
+function _SWUCardCeasesOnLeavePlay(string $cardID): bool {
+    $t = (string)(CardType($cardID) ?? '');
+    return strncmp($t, 'Token', 5) === 0 || $t === 'Credit Token' || $t === 'Force Token';
+}
+
 // Deal $damage to player $targetPlayer's base. Sets flash on win.
 // LOF_252 The Daughter — queue the base owner's "may use the Force → heal 2 from your base" reaction when
 // they control her (SWUQueueMayUseTheForce no-ops if they don't currently hold the Force).
@@ -501,6 +550,15 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
         return true;
     }
     $cardID = $obj->CardID;
+    // Unit slides to its OWNER's discard. Queued here — after the leader early-return above (a defeated
+    // leader goes back to its leader zone, not a discard) and before the unit is removed, so the source
+    // still resolves. Perspective is the unit's CONTROLLER, not $player: an enemy ability defeating your
+    // unit still slides it to YOUR discard. Tokens are skipped — they CEASE rather than being discarded,
+    // so there is no destination to fly to.
+    if (!_SWUCardCeasesOnLeavePlay($cardID)) {
+        SWUQueueZoneMoveAnim($unitMzID, 'myDiscard-0', intval($obj->Controller ?? $player),
+            420, intval($obj->UniqueID ?? 0) ?: null);
+    }
     $hasSecondChance = _SWUUnitHasUpgrade($obj, 'SHD_053');
     $controller = isset($obj->Controller) ? intval($obj->Controller) : $owner;
     // CR 8.34.4: rescue any captives guarded by this unit before it leaves play.
@@ -1548,6 +1606,23 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         return;
     }
 
+    // Attacker leans toward its target. Queued here, once the attacker is known valid but before any
+    // of the combat mutations below, so both endpoints still resolve on the pre-render board. Fires
+    // for BOTH unit and base targets: a base has a real mzID, and base attacks are the commonest
+    // attack in the game. Queue-only — the exhaust/damage animations queued later play alongside it.
+    // $lungeTgt uses a plain null check, NOT SWUObjGone: a base object is never "removed" and must
+    // not be filtered out.
+    $lungeTgt = GetZoneObject($targetMzID);
+    if ($lungeTgt !== null) {
+        SWUQueueLungeAnim(
+            $attackerMzID,
+            $targetMzID,
+            intval($player),
+            intval($attacker->UniqueID ?? 0) ?: null,
+            intval($lungeTgt->UniqueID ?? 0) ?: null
+        );
+    }
+
     // Mark this unit as having attacked this phase (per-unit, cleared at RegroupPhaseStart). Used by
     // "ready a unit that didn't attack this phase" effects (SEC_177).
     $atkUID = intval($attacker->UniqueID ?? 0);
@@ -2258,6 +2333,12 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     SWUReturnLeaderPilotSubcards($atkObj, $atkOwner);
                     _SWUDeferPilotDefeatReplacements($atkObj); // JTL_094 pilot-upgrade defeat-replacement
                     SWUDiscardHostSubcards($atkObj);           // remaining upgrades/pilots → each owner's discard
+                    // Unit slides to its OWNER's discard. Tokens CEASE rather than being discarded,
+                    // so they get no slide. Perspective is the unit's own controller.
+                    if (!_SWUCardCeasesOnLeavePlay($atkObj->CardID ?? '')) {
+                        SWUQueueZoneMoveAnim($attackerMzID, 'myDiscard-0', intval($atkObj->Controller ?? $player),
+                            420, intval($atkObj->UniqueID ?? 0) ?: null);
+                    }
                     $atkObj->removed = true;
                     SWUAddToDiscard($atkOwner, $atkObj->CardID, 'PLAY', $atkHasSecondChance ? 'TPF' : '', $atkObj);
                     AddGlobalEffects($atkOwner, 'SWU_DEFEATED_CARD_' . $atkObj->CardID);
@@ -2305,6 +2386,12 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     SWUReturnLeaderPilotSubcards($defObj, $defOwner);
                     _SWUDeferPilotDefeatReplacements($defObj); // JTL_094 pilot-upgrade defeat-replacement
                     SWUDiscardHostSubcards($defObj);           // remaining upgrades/pilots → each owner's discard
+                    // Unit slides to its OWNER's discard. Tokens CEASE rather than being discarded,
+                    // so they get no slide. Perspective is the unit's own controller.
+                    if (!_SWUCardCeasesOnLeavePlay($defObj->CardID ?? '')) {
+                        SWUQueueZoneMoveAnim($targetMzID, 'myDiscard-0', intval($defObj->Controller ?? $player),
+                            420, intval($defObj->UniqueID ?? 0) ?: null);
+                    }
                     $defObj->removed = true;
                     SWUAddToDiscard($defOwner, $defObj->CardID, 'PLAY', $defHasSecondChance ? 'TPF' : '', $defObj);
                     AddGlobalEffects($defOwner, 'SWU_DEFEATED_CARD_' . $defObj->CardID);
@@ -2359,6 +2446,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 SWUReturnLeaderPilotSubcards($rObj, $rOwner);
                 _SWUDeferPilotDefeatReplacements($rObj);
                 SWUDiscardHostSubcards($rObj);
+                // Unit slides to its OWNER's discard (tokens cease, so no slide).
+                if (!_SWUCardCeasesOnLeavePlay($rObj->CardID ?? '')) {
+                    SWUQueueZoneMoveAnim($redirectMz, 'myDiscard-0', intval($rObj->Controller ?? $player),
+                        420, intval($rObj->UniqueID ?? 0) ?: null);
+                }
                 $rObj->removed = true;
                 SWUAddToDiscard($rOwner, $rObj->CardID, 'PLAY', _SWUUnitHasUpgrade($rObj, 'SHD_053') ? 'TPF' : '', $rObj);
                 AddGlobalEffects($rOwner, 'SWU_DEFEATED_CARD_' . $rObj->CardID);
@@ -2978,6 +3070,11 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
         SWUReturnLeaderPilotSubcards($obj, $owner);
         _SWUDeferPilotDefeatReplacements($obj);
         SWUDiscardHostSubcards($obj);
+        // Unit slides to its OWNER's discard (tokens cease, so no slide).
+        if (!_SWUCardCeasesOnLeavePlay($obj->CardID ?? '')) {
+            SWUQueueZoneMoveAnim($mzID, 'myDiscard-0', intval($obj->Controller ?? $owner),
+                420, intval($obj->UniqueID ?? 0) ?: null);
+        }
         $obj->removed = true;
         SWUAddToDiscard($owner, $obj->CardID, 'PLAY', $hasSecondChance ? 'TPF' : '', $obj);
         AddGlobalEffects($owner, 'SWU_DEFEATED_CARD_' . $obj->CardID);
