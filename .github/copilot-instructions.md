@@ -83,7 +83,7 @@ Important notes and gotchas
 - Keep game-specific layouts and waiting-message renderers free of bot invocation hooks. They may display turn/response state, but the shared update transport owns bot scheduling.
 
 ## Caster mode for sim apps
-- A lobby opts in with `$lobby->casterMode = true`; `Core/GameAuth.php` stores the flag in APCu alongside the normal seat and spectator authorization metadata. This auth state is intentionally ephemeral and missing state must fail closed.
+- A lobby opts in with `$lobby->casterMode = true`; `Core/GameAuth.php` stores the flag in APCu alongside the normal seat and spectator authorization metadata. This auth state is intentionally ephemeral and missing state must fail closed for lobby-managed sim roots; asset editors such as AzukiDeck and SWUDeck do not use lobby auth.
 - Public matchmaking must separate caster-mode and normal lobbies. Private invite links must carry the mode and require the joining player to submit the same value so both players consent before the game starts. AzukiSim lets the authenticated host toggle the mode from the private waiting overlay only while the lobby has one player; the invite link is updated to reflect the saved mode.
 - Generated `GetNextTurn.php` exposes `Self`-visibility zones named `Hand` to authenticated spectators only when `SimGameIsCasterMode($rootName, $gameName)` is true. Other private zones, including decks, temp zones, and decision queues, remain private.
 - App menus opt in separately. AzukiSim is the initial caster-mode UI; other sims should add their own explicit consent control before sending `casterMode=1` to the shared lobby endpoint.

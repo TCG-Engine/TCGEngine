@@ -24,6 +24,7 @@ $legacyLobby->isPrivate = false;
 $legacyLobby->players = [];
 $legacyAuth = SimGameBuildAuthKeysFromLobby($legacyLobby);
 $missingFailsClosed = !SimGameValidateSeatAuth('SWUSim', $gameName . '_missing', 1, 'KEY_P1_ABC');
+$assetWithoutLobbyAuthAllowed = SimGameValidateSeatAuth('AzukiDeck', $gameName . '_asset', 1, '');
 
 $pass = $ok === true
      && SimGameHasAuthKeys('SWUSim', $gameName)
@@ -36,6 +37,7 @@ $pass = $ok === true
      && SimGameViewerCanSeeHands('SWUSim', $gameName, ['isSpectator' => true]) === true
      && SimGameViewerCanSeeHands('SWUSim', $gameName, ['isSpectator' => false]) === false
      && $missingFailsClosed
+     && $assetWithoutLobbyAuthAllowed
      && $legacyAuth['casterMode'] === false;
 
 // cleanup

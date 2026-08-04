@@ -30,6 +30,8 @@ function MatchRefPath($rootName, $gameName) {
 function MatchWriteRef($rootName, $gameName, $matchId, $gameNumber) {
     $path = MatchRefPath($rootName, $gameName);
     if ($path === '') return false;
+    $directory = dirname($path);
+    if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) return false;
     return file_put_contents($path, json_encode(['matchId' => strval($matchId), 'gameNumber' => intval($gameNumber)]), LOCK_EX) !== false;
 }
 function MatchReadRef($rootName, $gameName) {

@@ -25,7 +25,7 @@ $ttl = 600;
  */
 function SWUSetupGame($lobby, $opts = []) {
     global $gameName;
-    $gameName = GetGameCounter(__DIR__ . '/Games');
+    $gameName = GetGameCounter(__DIR__ . '/Games', createGameDirectory: !GamestateUsesMemoryStorage());
     InitializeGamestate();
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");

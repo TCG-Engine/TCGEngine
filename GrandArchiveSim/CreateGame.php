@@ -47,7 +47,7 @@ function LoadEmptyGoldfishLoadout($playerID) {
 // who goes first. Backward-compat: including this file with an ambient $lobby still auto-runs setup.
 function GASetupGame($lobby, $opts = []) {
     global $gameName;
-    $gameName = GetGameCounter(__DIR__ . '/Games');
+    $gameName = GetGameCounter(__DIR__ . '/Games', createGameDirectory: !GamestateUsesMemoryStorage());
     InitializeGamestate();
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");

@@ -20,7 +20,7 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     $ttl = 600;
 
     // ASSUMES: $lobby
-    $gameName = GetGameCounter(__DIR__ . '/Games');
+    $gameName = GetGameCounter(__DIR__ . '/Games', createGameDirectory: !GamestateUsesMemoryStorage());
     InitializeGamestate();
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");

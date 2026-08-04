@@ -36,6 +36,12 @@ function SimGameAuthCacheKey($rootName, $gameName)
   return 'tcgengine:auth:' . rawurlencode($rootName) . ':' . rawurlencode($gameName);
 }
 
+function SimGameRequiresManagedAuth($rootName)
+{
+  $rootName = SimGameSanitizeRootName($rootName);
+  return in_array($rootName, ['AzukiSim', 'GrandArchiveSim', 'GudnakSim', 'SWUSim'], true);
+}
+
 function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
 {
   $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
@@ -159,7 +165,7 @@ function SimGameGetSpectatorAuthKey($rootName, $gameName)
 
 function SimGameValidateSeatAuth($rootName, $gameName, $playerID, $authKey = '')
 {
-  if (!SimGameHasAuthKeys($rootName, $gameName)) return false;
+  if (!SimGameHasAuthKeys($rootName, $gameName)) return !SimGameRequiresManagedAuth($rootName);
   $expectedKey = SimGameGetSeatAuthKey($rootName, $gameName, $playerID);
   if ($expectedKey === '') return true;
 
@@ -197,7 +203,7 @@ function SimGameSpectatorLoginRequiredMissing($rootName, $gameName, $viewerInfo)
 
 function SimGameValidateSpectatorAuth($rootName, $gameName, $authKey = '')
 {
-  if (!SimGameHasAuthKeys($rootName, $gameName)) return false;
+  if (!SimGameHasAuthKeys($rootName, $gameName)) return !SimGameRequiresManagedAuth($rootName);
   if (!SimGameIsPrivateGame($rootName, $gameName)) {
     // Public game: SWUSim requires a logged-in account to spectate; other sims stay open to all.
     if ($rootName === 'SWUSim') return SimGameSpectatorIsLoggedIn();
