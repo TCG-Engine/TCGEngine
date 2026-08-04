@@ -724,7 +724,19 @@ function OnHealBase($player, $targetPlayer, $amount) {
         $before = intval($base[$i]->Damage);
         $base[$i]->Damage = max(0, $before - intval($amount));
         $_healedBase = $before - intval($base[$i]->Damage);
-        if ($_healedBase > 0) AddGlobalEffects(1, 'SWU_BASE_HEALED_PHASE');   // TS26_38 "if a base was healed this phase" (seat-1 stored; cleared at RGS)
+        if ($_healedBase > 0) {
+            AddGlobalEffects(1, 'SWU_BASE_HEALED_PHASE');   // TS26_38 "if a base was healed this phase" (seat-1 stored; cleared at RGS)
+            // IC27_026 Darth Sidious — "When you heal damage from your base: deal that much damage to
+            // an enemy unit." Scoped to the healed base's own controller ($targetPlayer), so healing an
+            // OPPONENT's base never triggers their Sidious for you. The amount is $_healedBase — the
+            // damage ACTUALLY removed, already clamped at 0, so a nearly-full base deals less than the
+            // printed Restore value. Routed through a CUSTOM (which ExecuteStaticMethods does not
+            // $playerID-restore) because this can fire mid-combat from the Restore keyword.
+            if (_SWUCountActiveUnitsWithCardID(intval($targetPlayer), 'IC27_026') > 0) {
+                DecisionQueueController::AddDecision(intval($targetPlayer), 'CUSTOM',
+                    "IC27_026#0|{$_healedBase}", 1);
+            }
+        }
         SWUQueueHealAnim("myBase-0", $_healedBase, intval($targetPlayer));
         if ($_healedBase > 0 && function_exists('SWUTelemetryBumpTurn')) SWUTelemetryBumpTurn(intval($targetPlayer), 'restored', $_healedBase);
         break;
@@ -1131,6 +1143,14 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // here, above the attacker-survival early-return that gates the "if survived" abilities below.
     if (!empty($combatCtx['defenderDefeated']) && $law007AtkCardID === 'LAW_252') {
         SWUCreateCreditToken($activePlayer, 1);
+    }
+    // IC27_146 Boba Fett (Compensated If He Dies) — "When Attack Ends: If the defending unit was
+    // defeated, you may ready 2 resources." Identical shape to LAW_252 above: his OWN attack-end
+    // ability with no "if this unit survived" clause — the subtitle is literally about him dying — so
+    // it fires here, ABOVE the attacker-survival early-return. Interactive (a "may"), so it goes
+    // through the trigger bag rather than resolving inline.
+    if (!empty($combatCtx['defenderDefeated']) && $law007AtkCardID === 'IC27_146') {
+        AddTrigger($activePlayer, 'IC27_146', 'IC27_146', '');
     }
     // ASH_013 Ezra / ASH_016 Shin — leader field observers: "When a friendly unit's attack ends [dealing 3+
     // combat / any combat damage to a base]: …". Keyed on the LEADER, not the attacker, so they must fire even

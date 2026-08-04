@@ -1082,7 +1082,11 @@ if($rootName == "SWUSim") {
     // whenPlayed also covers a deployed leader's "When Deployed:" window — the engine collects it
     // through the WhenPlayed trigger (CollectEntryTriggers on deploy). The upstream dataset uses
     // "When Deployed:" instead of "When Played:" for leaders like SOR_006 (Palpatine).
-    if(strpos($combined, "When Played:") !== false || strpos($combined, "When Played/") !== false
+    // The slash form is matched with optional surrounding whitespace: a compound trigger header can be
+    // written either tight ("When Played/On Attack:") or spaced ("When Played / On Attack / When
+    // Defeated:", IC27_024 Grand Admiral Thrawn). A strpos on the tight form alone silently detected
+    // only the LAST window of a spaced header, leaving the other trigger halves as in-game no-ops.
+    if(strpos($combined, "When Played:") !== false || preg_match('/When Played\s*\//i', $combined) === 1
       || strpos($combined, "When Deployed:") !== false
       // Dual-mode Pilot cards trigger their unit-play ability through the WhenPlayed window when
       // played as a unit. The colon form is unit-only (JTL_100/210/213); the slash form is a compound
@@ -1104,7 +1108,7 @@ if($rootName == "SWUSim") {
     // Include if there's an UNQUOTED "On Attack:" (the unit's own ability) even when a granted
     // (quoted) "On Attack:" also appears in the text — e.g. JTL_018 Kazuda's deploy side has both.
     if(in_array($cardType, $unitTypes)
-      && (preg_match('/(?<!")On Attack:/', $combined) === 1 || strpos($combined, "On Attack/") !== false)) {
+      && (preg_match('/(?<!")On Attack:/', $combined) === 1 || preg_match('/On Attack\s*\//i', $combined) === 1)) {
       $stubs["onAttack"][] = $cardId;
     }
     // "On Defense:" and the legacy/modern phrasing "When this unit is attacked:" are the same

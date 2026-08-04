@@ -32,7 +32,7 @@
     ['label'=>'Log In','href'=>'/TCGEngine/SharedUI/Sites/SWUSim/LoginPage.php','visibility'=>'loggedOut'],
   ],
   'navLinks' => [
-    ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/b9nfNyVFpM','title'=>'Petranaki Arena Development Server'],
+    ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/VQgnHT7TQ9','title'=>'Petranaki Arena Development Server'],
     ['kind'=>'icon','icon'=>'github.svg','href'=>'https://github.com/TCG-Engine/TCGEngine'],
     // Menu-settings gear removed for now — its only control (board background) was a no-op,
     // and cosmetics are adjusted from the Profile menu. The dormant #ga-settings-modal markup
