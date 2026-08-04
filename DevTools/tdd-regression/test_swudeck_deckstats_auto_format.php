@@ -37,25 +37,49 @@ function fmtRows($conn, $deckID, $format) {
     $f = $conn->real_escape_string($format);
     return intval($conn->query("SELECT COUNT(*) c FROM deckstats WHERE deckID = $deckID AND format = '$f'")->fetch_assoc()['c']);
 }
+// The carddeckstats row's counters AFTER the update pass. Counting rows alone is not enough: the row
+// is INSERTed before the counters are applied, so a broken UPDATE leaves a row of zeroes behind.
+function cardCounters($conn, $deckID, $format) {
+    $f = $conn->real_escape_string($format);
+    return $conn->query("SELECT timesIncluded, timesPlayed, timesResourced, timesDrawn FROM carddeckstats WHERE deckID = $deckID AND format = '$f' LIMIT 1")->fetch_assoc();
+}
 
 // premier => deckstats row with format=premier
 wipe($conn, $deckID);
-postJson($endpoint, payload($apiKey, $deckID, 'premier'));
+$resp = postJson($endpoint, payload($apiKey, $deckID, 'premier'));
+// Assert the RESPONSE, not just the rows. Every row this test checks is written early in
+// SaveDeckStats, so without this the request can die partway through — taking the completedgame
+// insert with it — and every row assertion still passes.
+$checks['premier request succeeds'] = strpos((string)$resp, '"success":true') !== false;
 $checks['premier deckstats row'] = fmtRows($conn, $deckID, 'premier') === 1;
 
 // eternal => deckstats row with format=eternal
 wipe($conn, $deckID);
-postJson($endpoint, payload($apiKey, $deckID, 'eternal'));
+$resp = postJson($endpoint, payload($apiKey, $deckID, 'eternal'));
+$checks['eternal request succeeds'] = strpos((string)$resp, '"success":true') !== false;
 $checks['eternal deckstats row'] = fmtRows($conn, $deckID, 'eternal') === 1;
 $checks['eternal carddeckstats row'] = intval($conn->query("SELECT COUNT(*) c FROM carddeckstats WHERE deckID = $deckID AND format = 'eternal'")->fetch_assoc()['c']) === 1;
+// ZZCARD is a non-numeric card id on purpose: cardID is varchar(16), and SWUSim falls back to the raw
+// SET_NNN CardID for any card without an FFG UID (SWUCardToStatsId), so non-numeric ids are real
+// traffic. These counters catch a cardID bound with the wrong type — the UPDATE then matches nothing.
+$counters = cardCounters($conn, $deckID, 'eternal');
+$checks['eternal carddeckstats counted the play'] = $counters !== null
+    && intval($counters['timesIncluded']) === 1 && intval($counters['timesPlayed']) === 1
+    && intval($counters['timesResourced']) === 1 && intval($counters['timesDrawn']) === 1;
 
 // open => NO deckstats row
 wipe($conn, $deckID);
-postJson($endpoint, payload($apiKey, $deckID, 'open'));
+$resp = postJson($endpoint, payload($apiKey, $deckID, 'open'));
+$checks['open request succeeds'] = strpos((string)$resp, '"success":true') !== false;
 $checks['open no deckstats row'] = intval($conn->query("SELECT COUNT(*) c FROM deckstats WHERE deckID = $deckID")->fetch_assoc()['c']) === 0;
 
-// teardown
+// teardown — including the META aggregates, which are keyed by leader/base/card and so survive the
+// deckID-scoped wipe. Leaving them behind pollutes shared tables and makes other tests' assertions
+// collide with this test's fixture.
 wipe($conn, $deckID);
+$conn->query("DELETE FROM deckmetastats WHERE leaderID = 'ZZLEAD'");
+$conn->query("DELETE FROM deckmetamatchupstats WHERE leaderID = 'ZZLEAD'");
+$conn->query("DELETE FROM cardmetastats WHERE cardID = 'ZZCARD'");
 $conn->query("DELETE FROM ownership WHERE assetType = 1 AND assetIdentifier = $deckID");
 $conn->close();
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));

@@ -32,13 +32,26 @@ function fmtRows($conn, $deckID, $format) {
 
 // eternal manual add => eternal deckstats row
 wipe($conn, $deckID);
-postJson($endpoint, manualPayload($deckID, 'eternal'));
+$resp = postJson($endpoint, manualPayload($deckID, 'eternal'));
+// Assert the RESPONSE, not just the rows: every row below is written early in SaveDeckStats, so
+// without this the request can die partway through and each row assertion still passes.
+$checks['eternal manual request succeeds'] = strpos((string)$resp, 'Fatal error') === false
+                                          && strpos((string)$resp, 'Uncaught') === false;
 $checks['eternal manual deckstats row'] = fmtRows($conn, $deckID, 'eternal') === 1;
 $checks['eternal manual carddeckstats row'] = intval($conn->query("SELECT COUNT(*) c FROM carddeckstats WHERE deckID = $deckID AND format = 'eternal'")->fetch_assoc()['c']) === 1;
+// ZZCARD is a non-numeric card id on purpose (cardID is varchar(16), and real traffic carries raw
+// SET_NNN ids for cards without an FFG UID). The row is INSERTed before the counters are applied, so
+// counting rows cannot see a cardID bound with the wrong type — the UPDATE then matches nothing.
+$counters = $conn->query("SELECT timesIncluded, timesPlayed, timesResourced FROM carddeckstats WHERE deckID = $deckID AND format = 'eternal' LIMIT 1")->fetch_assoc();
+$checks['eternal manual carddeckstats counted the play'] = $counters !== null
+    && intval($counters['timesIncluded']) === 1 && intval($counters['timesPlayed']) === 1
+    && intval($counters['timesResourced']) === 1;
 
 // open manual add => NO deckstats row
 wipe($conn, $deckID);
-postJson($endpoint, manualPayload($deckID, 'open'));
+$resp = postJson($endpoint, manualPayload($deckID, 'open'));
+$checks['open manual request succeeds'] = strpos((string)$resp, 'Fatal error') === false
+                                       && strpos((string)$resp, 'Uncaught') === false;
 $checks['open manual no row'] = intval($conn->query("SELECT COUNT(*) c FROM deckstats WHERE deckID = $deckID")->fetch_assoc()['c']) === 0;
 
 wipe($conn, $deckID);

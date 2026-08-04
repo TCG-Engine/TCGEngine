@@ -3,6 +3,7 @@
   require_once "../Core/HTTPLibraries.php";
   require_once "../Database/ConnectionManager.php";
   require_once "../Core/StatsBaseRegistry.php";
+  require_once "../AppCore/SWU/Formats.php"; // SWUFormatIsPreview()
 
   $input = file_get_contents('php://input');
   $data = json_decode($input, true);
@@ -23,6 +24,9 @@
   // wasFirstPlayer: true if this player was the first player in the game, false if they were the second player
 function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, $winnerHealth, $gameName, $format = 'premier') {
 	if ($format === 'open') { return; }
+	// A preview format is played with hand-curated MOCK cards that are deleted on release day, so it
+	// writes no deck stats — same reasoning as 'open' above, and matching APIs/SubmitGameResult.php.
+	if (SWUFormatIsPreview($format)) { return; }
 	$playerJSON = json_decode($playerData, true);
 
 	$conn = GetLocalMySQLConnection();
@@ -87,7 +91,9 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 				WHERE cardID = ? AND deckID = ? AND format = ?";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
-			mysqli_stmt_bind_param($stmt, "iiiiiiiis", $timesIncluded, $timesIncludedInWins, $timesPlayed, $timesPlayedInWins, $timesResourced, $timesResourcedInWins, $card["cardID"], $deckID, $format);
+			// 6 integer stats, then cardID (STRING — varchar(16)), then deckID (int), format (string).
+			// Was "iiiiiiiis": cardID bound as an int, so a non-numeric card id fataled the request.
+			mysqli_stmt_bind_param($stmt, "iiiiiisis", $timesIncluded, $timesIncludedInWins, $timesPlayed, $timesPlayedInWins, $timesResourced, $timesResourcedInWins, $card["cardID"], $deckID, $format);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_close($stmt);
 		}
