@@ -12,6 +12,6 @@ $whenPlayedAsUpgradeAbilities["JTL_189:0"] = function($player, $mzID) {
     $amt = ($host !== null && HasTrait($host->CardID ?? '', 'Transport')) ? 2 : 1;
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $amt, 'side' => 'any', 'may' => true,
-        'question' => "Deal_{$amt}_damage_to_a_unit", 'prompt' => "Choose_a_unit",
+        'question' => "Deal_{$amt}_damage_to_a_unit", 'prompt' => "Deal_{$amt}_damage_to_a_unit",
     ]);
 };

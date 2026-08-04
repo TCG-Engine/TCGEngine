@@ -9,6 +9,6 @@ $whenPlayedAbilities["LAW_213:0"] = function($player, $mzID) {
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'arena' => 'Ground', 'may' => true,
         'extraFilter' => fn($o) => intval($o->Status ?? 0) === 0,   // exhausted
-        'question' => "Deal_2_to_an_exhausted_ground_unit?", 'prompt' => "Choose_a_unit",
+        'question' => "Deal_2_to_an_exhausted_ground_unit?", 'prompt' => "Deal_2_damage_to_a_unit",
     ]);
 };

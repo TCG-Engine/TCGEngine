@@ -11,6 +11,6 @@ $onAttackAbilities["LAW_173:0"] = function($player, $mzID) {
     if ($milled === null || strpos((string)(CardAspect($milled) ?? ''), 'Aggression') === false) return;
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'arena' => 'Ground', 'may' => true,
-        'question' => "Deal_1_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+        'question' => "Deal_1_to_a_ground_unit?", 'prompt' => "Deal_1_damage_to_a_ground_unit",
     ]);
 };

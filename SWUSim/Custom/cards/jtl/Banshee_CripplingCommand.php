@@ -14,5 +14,5 @@ $onAttackAbilities["JTL_037:0"] = function($player, $mzID) {
     $targets = SWUAllUnits();
     if (empty($targets)) return;
     SWUQueueMayChooseTarget(intval($player), $targets,
-        "You_may_deal_damage_equal_to_damage_on_this_unit", "Deal_damage_to_a_unit", "DEAL_UNIT_DAMAGE|" . $amount);
+        "You_may_deal_damage_equal_to_damage_on_this_unit", "Deal_{$amount}_damage_to_a_unit", "DEAL_UNIT_DAMAGE|" . $amount);
 };

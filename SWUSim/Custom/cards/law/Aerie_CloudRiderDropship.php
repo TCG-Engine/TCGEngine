@@ -9,6 +9,6 @@ $onAttackAbilities["LAW_184:0"] = function($player, $mzID) {
     SWUDealDamageToBase(2, OtherPlayer(intval($player)));   // 2 to the enemy base (direct)
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'their', 'arena' => 'Ground', 'may' => true,
-        'question' => "Deal_2_to_an_enemy_ground_unit?", 'prompt' => "Choose_an_enemy_ground_unit",
+        'question' => "Deal_2_to_an_enemy_ground_unit?", 'prompt' => "Deal_2_damage_to_an_enemy_ground_unit",
     ]);
 };

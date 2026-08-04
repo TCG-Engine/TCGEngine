@@ -15,7 +15,7 @@ $customDQHandlers["TS26_70#0"] = function($player, $parts, $lastDecision) {
     if ($count <= 0) return;
     SWUOfferUnitTarget($player, '', [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $count, 'may' => true,
-        'question' => "Deal_{$count}_damage_to_a_unit?", 'prompt' => "Choose_a_unit",
+        'question' => "Deal_{$count}_damage_to_a_unit?", 'prompt' => "Deal_{$count}_damage_to_a_unit",
     ]);
 };
 

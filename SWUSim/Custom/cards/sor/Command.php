@@ -16,7 +16,7 @@ $customDQHandlers["SOR_107#0"] = function($player, $parts, $lastDecision) {
     SWUOfferUnitTarget($player, '', [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'side' => 'their',
         'extraFilter' => fn($o) => !CardUnique($o->CardID),
-        'prompt' => "Deal_power_to_a_non-unique_enemy_unit",
+        'prompt' => "Deal_{$power}_damage_to_a_non-unique_enemy_unit",
     ]);
 };
 

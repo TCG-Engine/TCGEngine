@@ -7,7 +7,7 @@
 $sec171 = function ($player, $mzID) {
   SWUOfferUnitTarget($player, $mzID, [
     'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'may' => true,
-    'question' => "Deal_1_to_a_unit?", 'prompt' => "Choose_a_unit",
+    'question' => "Deal_1_to_a_unit?", 'prompt' => "Deal_1_damage_to_a_unit",
   ]);
 };
 

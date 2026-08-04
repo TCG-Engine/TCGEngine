@@ -8,6 +8,6 @@ $whenPlayedAbilities["SEC_139:0"] = function($player, $mzID) {
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'may' => true,
         'extraFilter' => fn($o) => intval($o->Damage ?? 0) === 0,
-        'question' => "Deal_3_to_an_undamaged_unit?", 'prompt' => "Choose_an_undamaged_unit",
+        'question' => "Deal_3_to_an_undamaged_unit?", 'prompt' => "Deal_3_damage_to_an_undamaged_unit",
     ]);
 };

@@ -8,7 +8,7 @@ $onAttackAbilities["TWI_165:0"] = function($player, $mzID) {
     if (!IsCoordinateActive(intval($player))) return;
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'arena' => 'Ground', 'may' => true,
-        'question' => "Deal_3_damage_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+        'question' => "Deal_3_damage_to_a_ground_unit?", 'prompt' => "Deal_3_damage_to_a_ground_unit",
     ]);
     // Combat owns the after-action.
 };

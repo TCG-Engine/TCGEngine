@@ -184,7 +184,18 @@ function WriteGamestate($filepath="./") {
   global $gameName;
   $filename = $filepath . "Games/$gameName/Gamestate.txt";
   $gamestateText = "";
-  $writeZone = function($zone) use (&$gamestateText) {
+  // $zoneName/$seat let an app rewrite index references into this zone before it is serialized —
+  // see the EngineRemapZoneForSave hook below. Both default, so any hand-written caller still works.
+  $writeZone = function($zone, $zoneName = '', $seat = 0) use (&$gamestateText) {
+    // A zone is serialized WITHOUT its removed tombstones, so the next ParseGamestate
+    // renumbers it 0..N-1 over the survivors. Anything holding an INDEX into the zone (a
+    // pending target choice's candidate mzIDs) is stale the instant that happens. Give the app
+    // one chance to rewrite those references into post-compaction coordinates. The hook returns
+    // a transformed COPY: nothing in memory changes, so a second WriteGamestate in the same
+    // request re-derives from the same source state instead of shifting twice.
+    if ($zoneName !== '' && function_exists('EngineRemapZoneForSave')) {
+      $zone = EngineRemapZoneForSave($zone, $zoneName, $seat);
+    }
     $zoneText = "";
     $count = 0;
     foreach($zone as $obj) {
@@ -197,54 +208,54 @@ function WriteGamestate($filepath="./") {
   };
   $gamestateText .= $currentPlayer . "\r\n";
   $gamestateText .= $updateNumber . "\r\n";
-  $writeZone($p1Deck);
-  $writeZone($p2Deck);
-  $writeZone($p3Deck);
-  $writeZone($p4Deck);
-  $writeZone($p1Hand);
-  $writeZone($p2Hand);
-  $writeZone($p3Hand);
-  $writeZone($p4Hand);
-  $writeZone($p1Discard);
-  $writeZone($p2Discard);
-  $writeZone($p3Discard);
-  $writeZone($p4Discard);
-  $writeZone($p1Resources);
-  $writeZone($p2Resources);
-  $writeZone($p3Resources);
-  $writeZone($p4Resources);
-  $writeZone($p1Leader);
-  $writeZone($p2Leader);
-  $writeZone($p3Leader);
-  $writeZone($p4Leader);
-  $writeZone($p1Base);
-  $writeZone($p2Base);
-  $writeZone($p3Base);
-  $writeZone($p4Base);
-  $writeZone($p1GroundArena);
-  $writeZone($p2GroundArena);
-  $writeZone($p3GroundArena);
-  $writeZone($p4GroundArena);
-  $writeZone($p1SpaceArena);
-  $writeZone($p2SpaceArena);
-  $writeZone($p3SpaceArena);
-  $writeZone($p4SpaceArena);
-  $writeZone($p1GlobalEffects);
-  $writeZone($p2GlobalEffects);
-  $writeZone($p3GlobalEffects);
-  $writeZone($p4GlobalEffects);
-  $writeZone($p1DecisionQueue);
-  $writeZone($p2DecisionQueue);
-  $writeZone($p3DecisionQueue);
-  $writeZone($p4DecisionQueue);
-  $writeZone($p1TempZone);
-  $writeZone($p2TempZone);
-  $writeZone($p3TempZone);
-  $writeZone($p4TempZone);
-  $writeZone($p1Versions);
-  $writeZone($p2Versions);
-  $writeZone($p3Versions);
-  $writeZone($p4Versions);
+  $writeZone($p1Deck, 'Deck', 1);
+  $writeZone($p2Deck, 'Deck', 2);
+  $writeZone($p3Deck, 'Deck', 3);
+  $writeZone($p4Deck, 'Deck', 4);
+  $writeZone($p1Hand, 'Hand', 1);
+  $writeZone($p2Hand, 'Hand', 2);
+  $writeZone($p3Hand, 'Hand', 3);
+  $writeZone($p4Hand, 'Hand', 4);
+  $writeZone($p1Discard, 'Discard', 1);
+  $writeZone($p2Discard, 'Discard', 2);
+  $writeZone($p3Discard, 'Discard', 3);
+  $writeZone($p4Discard, 'Discard', 4);
+  $writeZone($p1Resources, 'Resources', 1);
+  $writeZone($p2Resources, 'Resources', 2);
+  $writeZone($p3Resources, 'Resources', 3);
+  $writeZone($p4Resources, 'Resources', 4);
+  $writeZone($p1Leader, 'Leader', 1);
+  $writeZone($p2Leader, 'Leader', 2);
+  $writeZone($p3Leader, 'Leader', 3);
+  $writeZone($p4Leader, 'Leader', 4);
+  $writeZone($p1Base, 'Base', 1);
+  $writeZone($p2Base, 'Base', 2);
+  $writeZone($p3Base, 'Base', 3);
+  $writeZone($p4Base, 'Base', 4);
+  $writeZone($p1GroundArena, 'GroundArena', 1);
+  $writeZone($p2GroundArena, 'GroundArena', 2);
+  $writeZone($p3GroundArena, 'GroundArena', 3);
+  $writeZone($p4GroundArena, 'GroundArena', 4);
+  $writeZone($p1SpaceArena, 'SpaceArena', 1);
+  $writeZone($p2SpaceArena, 'SpaceArena', 2);
+  $writeZone($p3SpaceArena, 'SpaceArena', 3);
+  $writeZone($p4SpaceArena, 'SpaceArena', 4);
+  $writeZone($p1GlobalEffects, 'GlobalEffects', 1);
+  $writeZone($p2GlobalEffects, 'GlobalEffects', 2);
+  $writeZone($p3GlobalEffects, 'GlobalEffects', 3);
+  $writeZone($p4GlobalEffects, 'GlobalEffects', 4);
+  $writeZone($p1DecisionQueue, 'DecisionQueue', 1);
+  $writeZone($p2DecisionQueue, 'DecisionQueue', 2);
+  $writeZone($p3DecisionQueue, 'DecisionQueue', 3);
+  $writeZone($p4DecisionQueue, 'DecisionQueue', 4);
+  $writeZone($p1TempZone, 'TempZone', 1);
+  $writeZone($p2TempZone, 'TempZone', 2);
+  $writeZone($p3TempZone, 'TempZone', 3);
+  $writeZone($p4TempZone, 'TempZone', 4);
+  $writeZone($p1Versions, 'Versions', 1);
+  $writeZone($p2Versions, 'Versions', 2);
+  $writeZone($p3Versions, 'Versions', 3);
+  $writeZone($p4Versions, 'Versions', 4);
   $gamestateText .= $gTurnNumber . "\r\n";
   $gamestateText .= $gFirstPlayer . "\r\n";
   $gamestateText .= $gTurnPlayer . "\r\n";
@@ -260,7 +271,7 @@ function WriteGamestate($filepath="./") {
   $gamestateText .= $gMacroTurnIndex . "\r\n";
   $gamestateText .= $gMacroGameIndex . "\r\n";
   $gamestateText .= $gUniqueIDCounter . "\r\n";
-  $writeZone($gEffectStack);
+  $writeZone($gEffectStack, 'EffectStack', 0);
   $gamestateText .= $gGameLog . "\r\n";
   $gamestateText .= $gMatchReplayInitialState . "\r\n";
   $gamestateText .= $gMatchReplayCommands . "\r\n";

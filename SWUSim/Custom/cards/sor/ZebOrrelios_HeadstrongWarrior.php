@@ -16,5 +16,5 @@ $onAttackEndAbilities["SOR_146:0"] = function($player, $mzID) {
     ));
     if (empty($targets)) return;
     SWUQueueMayChooseTarget(intval($player), $targets,
-        'Deal_4_damage_to_a_ground_unit', 'Choose_a_ground_unit', 'DEAL_UNIT_DAMAGE|4');
+        'Deal_4_damage_to_a_ground_unit', "Deal_4_damage_to_a_ground_unit", 'DEAL_UNIT_DAMAGE|4');
 };

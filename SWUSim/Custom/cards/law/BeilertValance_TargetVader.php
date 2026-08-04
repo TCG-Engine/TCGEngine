@@ -12,6 +12,6 @@ $onAttackAbilities["LAW_051:0"] = function($player, $mzID) {
     if ($n <= 0) return;
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $n, 'arena' => 'Ground', 'may' => true,
-        'question' => "Deal_{$n}_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+        'question' => "Deal_{$n}_to_a_ground_unit?", 'prompt' => "Deal_{$n}_damage_to_a_ground_unit",
     ]);
 };

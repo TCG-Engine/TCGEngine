@@ -7596,7 +7596,7 @@ function SeventhSisterBaseTrigger($player): void {
     $playerID = intval($player);
     $targets = array_values(ZoneSearch('theirGroundArena', AnyUnitFilter));
     SWUQueueMayChooseTarget(intval($player), $targets,
-        'Deal_3_damage_to_an_enemy_ground_unit', 'Choose_an_enemy_ground_unit', 'DEAL_UNIT_DAMAGE|3');
+        'Deal_3_damage_to_an_enemy_ground_unit', "Deal_3_damage_to_an_enemy_ground_unit", 'DEAL_UNIT_DAMAGE|3');
 }
 
 // SOR_088 Blizzard Assault AT-AT — "attacks and defeats a unit: you may deal the excess damage from
@@ -7610,7 +7610,7 @@ function Ash137ExcessTrigger($player, string $attackerMz, int $excess): void {
     $atkUid = SWUObjUID($atk, 0);
     $arena = strpos($attackerMz, 'SpaceArena') !== false ? 'Space' : 'Ground';
     SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>$excess,'may'=>true,'arena'=>$arena,'excludeUID'=>$atkUid,
-        'question'=>"Deal_the_excess_damage_to_another_unit?",'prompt'=>"Choose_a_unit_in_the_same_arena"]);
+        'question'=>"Deal_the_excess_damage_to_another_unit?",'prompt'=>"Deal_{$excess}_damage_to_a_unit_in_the_same_arena"]);
 }
 
 function BlizzardExcessTrigger($player, int $excess): void {
@@ -7619,7 +7619,7 @@ function BlizzardExcessTrigger($player, int $excess): void {
     if ($excess <= 0) return;
     $targets = array_values(ZoneSearch('theirGroundArena', AnyUnitFilter));
     SWUQueueMayChooseTarget(intval($player), $targets,
-        'Deal_the_excess_damage_to_an_enemy_ground_unit', 'Choose_an_enemy_ground_unit', "DEAL_UNIT_DAMAGE|{$excess}");
+        'Deal_the_excess_damage_to_an_enemy_ground_unit', "Deal_{$excess}_damage_to_an_enemy_ground_unit", "DEAL_UNIT_DAMAGE|{$excess}");
 }
 
 // SHD_122 Arquitens Assault Cruiser — "When this unit attacks and defeats a non-leader unit: Put the
@@ -7985,7 +7985,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             );
             if (!empty($tg)) {
                 SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>1,'may'=>true,
-                    'question'=>"Deal_1_damage_to_a_unit?",'prompt'=>"Choose_a_unit"]);
+                    'question'=>"Deal_1_damage_to_a_unit?",'prompt'=>"Deal_1_damage_to_a_unit"]);
                 SetSWUVar('SWU_PENDING_DEF_REACTION', '1');   // pause combat so it drains cross-player
             }
             break;
@@ -24599,6 +24599,97 @@ function BanishSelectionMetadata($obj) {
     }
 
     return json_encode(['highlight' => false]);
+}
+
+// ── Save-time index remap for pending target choices ─────────────────────────────────────────────
+//
+// WriteGamestate serializes a zone WITHOUT its removed tombstones, so the next ParseGamestate
+// renumbers every zone 0..N-1 over the survivors. A pending target choice stores its candidates as
+// absolute `zone-index` mzIDs, so any candidate sitting after a tombstone is off by the number of
+// tombstones ahead of it the moment the game is saved — which is every time an interactive decision
+// is presented.
+//
+// The live case: an EVENT that offers a choice from its own controller's hand. The event is still in
+// hand as a tombstone while the offer is computed, so after the save the list skips one real card and
+// runs one past the end. Reported on ASH_163 Reckless Sacrifice (game 3300): Reckless Sacrifice sat at
+// hand index 6, so Imperial Door Technician at index 11 could not be selected — while Aggressive
+// Negotiations, an EVENT, slid into offered slot 7 and became a "legal" discard. ~21 event cards share
+// the shape (Force Throw, Galactic Ambition, Kreia's Whispers, Pursue the Lead, Political Pressure, …),
+// which is why this is fixed here rather than per-card.
+//
+// Fixing it at the offer site cannot work: with exactly one legal target the choice auto-resolves in
+// the SAME request, before any save, so pre-shifting the index would discard the wrong card. Only the
+// writer knows a compaction is about to happen, so the writer owns the references into it.
+//
+// Returns a transformed COPY — memory keeps its tombstones, so a second WriteGamestate in the same
+// request re-derives from the same source state instead of shifting twice.
+function EngineRemapZoneForSave(array $zone, string $zoneName, int $seat): array {
+    if ($zoneName !== 'DecisionQueue' || $seat <= 0) return $zone;
+    global $playerID;
+    $savedPID = $playerID;
+    $playerID = $seat;                 // relative names ("myHand") resolve in the queue owner's frame
+    $maps = [];
+    $out  = [];
+    foreach ($zone as $d) {
+        // Only the three target-choice types carry a candidate mzID list in Param. Every other Param
+        // (CUSTOM continuations, RESOLVE_TRIGGER payloads, …) is an arbitrary string that only
+        // sometimes contains an mzID, and blind rewriting would corrupt it.
+        $type = ($d === null) ? '' : strtoupper((string)($d->Type ?? ''));
+        if (!in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE', 'MZMULTICHOOSE'], true)) { $out[] = $d; continue; }
+        $param  = (string)($d->Param ?? '');
+        $prefix = '';
+        if ($type === 'MZMULTICHOOSE' && preg_match('/^(\d+\|\d+\|)(.*)$/s', $param, $mm)) {
+            $prefix = $mm[1];          // "min|max|" — not part of the candidate list
+            $param  = $mm[2];
+        }
+        $remapped = [];
+        foreach (explode('&', $param) as $tok) {
+            $tok = trim($tok);
+            if ($tok === '') continue;
+            $mz = _SWURemapMzIDForSave($tok, $seat, $maps);
+            if ($mz !== '') $remapped[] = $mz;
+        }
+        $newParam = $prefix . implode('&', $remapped);
+        if ($newParam === (string)($d->Param ?? '')) { $out[] = $d; continue; }
+        $copy = clone $d;              // never mutate the live decision
+        $copy->Param = $newParam;
+        $out[] = $copy;
+    }
+    $playerID = $savedPID;
+    return $out;
+}
+
+// One candidate mzID from pre- to post-compaction coordinates. '' means "drop it": either the card
+// itself is being discarded by this save, or the index runs past the compacted zone. $maps caches one
+// old=>new table per (seat, zone). A bare zone spec ("myHand", no index) is already compaction-proof
+// and is returned untouched — that is the form ChooseStartingResource uses deliberately.
+function _SWURemapMzIDForSave(string $mzID, int $seat, array &$maps): string {
+    $dash = strrpos($mzID, '-');
+    if ($dash === false) return $mzID;
+    $zoneName = substr($mzID, 0, $dash);
+    $idxStr   = substr($mzID, $dash + 1);
+    if ($idxStr === '' || !ctype_digit($idxStr)) return $mzID;
+    $key = $seat . '|' . $zoneName;
+    if (!array_key_exists($key, $maps)) {
+        $zoneArr = &GetZone($zoneName);
+        if (!is_array($zoneArr)) {
+            $maps[$key] = null;        // not a real zone (P1BASE, a label, …) — leave the token alone
+        } else {
+            $map = []; $next = 0;
+            foreach ($zoneArr as $i => $obj) {
+                // EXACTLY the writer's own skip predicate — the map has to stay in lockstep with it.
+                if ($obj == null || $obj->Removed()) { $map[$i] = null; continue; }
+                $map[$i] = $next++;
+            }
+            $maps[$key] = $map;
+        }
+        unset($zoneArr);
+    }
+    if ($maps[$key] === null) return $mzID;
+    $old = intval($idxStr);
+    if (!array_key_exists($old, $maps[$key])) return '';   // past the end once compacted
+    $new = $maps[$key][$old];
+    return $new === null ? '' : ($zoneName . '-' . $new);
 }
 
 function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null, $cardClasses=null) {

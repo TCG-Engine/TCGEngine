@@ -9,6 +9,6 @@ $customDQHandlers["TS26_73#0"] = function($player, $parts, $lastDecision) {
     // leave $playerID = $player so the queued MZMAYCHOOSE validates the base owner's mzIDs
     SWUOfferUnitTarget($player, '', [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'may' => true,
-        'question' => "Deal_1_damage_to_a_unit?", 'prompt' => "Choose_a_unit",
+        'question' => "Deal_1_damage_to_a_unit?", 'prompt' => "Deal_1_damage_to_a_unit",
     ]);
 };

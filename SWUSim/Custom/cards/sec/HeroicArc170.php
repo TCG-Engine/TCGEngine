@@ -13,6 +13,6 @@ $whenPlayedAbilities["SEC_254:0"] = function($player, $mzID) {
     if (!$hasDamaged) return;
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'their', 'may' => true,
-        'question' => "Deal_2_to_an_enemy_unit?", 'prompt' => "Choose_an_enemy_unit",
+        'question' => "Deal_2_to_an_enemy_unit?", 'prompt' => "Deal_2_damage_to_an_enemy_unit",
     ]);
 };

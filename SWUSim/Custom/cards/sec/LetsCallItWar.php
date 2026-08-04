@@ -14,7 +14,7 @@ $customDQHandlers["SEC_180#0"] = function($player, $parts, $lastDecision) {
     SWUOfferUnitTarget($player, '', [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'may' => true,
         'arena' => $isSpace ? 'Space' : 'Ground', 'excludeUID' => $firstUID,
-        'question' => "Deal_2_to_another_unit_in_the_same_arena?", 'prompt' => "Choose_a_unit",
+        'question' => "Deal_2_to_another_unit_in_the_same_arena?", 'prompt' => "Deal_2_damage_to_a_unit",
     ]);
 };
 

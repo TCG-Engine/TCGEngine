@@ -7,6 +7,6 @@
 $whenPlayedAbilities["LOF_133:0"] = function($player, $mzID) {
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'traits' => 'Force', 'may' => true,
-        'question' => "Deal_2_to_a_Force_unit?", 'prompt' => "Choose_a_Force_unit",
+        'question' => "Deal_2_to_a_Force_unit?", 'prompt' => "Deal_2_damage_to_a_Force_unit",
     ]);
 };
