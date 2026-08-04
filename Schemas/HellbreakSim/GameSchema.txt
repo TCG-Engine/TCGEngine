@@ -1,0 +1,53 @@
+HellbreakSim
+Polling
+None
+AssetOwner
+Header: title=Home, link=/TCGEngine/SharedUI/Sites/HellbreakSim/MainMenu.php
+PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
+AssetReflection: HellbreakSim
+ServerInclude: /Custom/GameLogic.php
+ServerInclude: /Custom/CustomInput.php
+Monster - CardID:string
+Display: Visibility=Public, Mode=All, Left=42%, Top=35%, Width=12%, Height=22%, Split=None
+Location - CardID:string
+Display: Visibility=Public, Mode=All, Left=42%, Top=59%, Width=12%, Height=22%, Split=None
+LeftMinions - CardID:string
+Display: Visibility=Public, Mode=All, Left=15%, Top=35%, Width=25%, Height=22%, Split=None
+RightMinions - CardID:string
+Display: Visibility=Public, Mode=All, Left=56%, Top=35%, Width=25%, Height=22%, Split=None
+Assets - CardID:string
+Display: Visibility=Public, Mode=All, Left=15%, Top=59%, Width=25%, Height=20%, Split=None
+Deck - CardID:string
+Display: Visibility=Self, Mode=Single, Right=3%, Top=59%, Width=10%, Height=20%, Split=None
+Crypt - CardID:string
+Display: Visibility=Public, Mode=Single, Right=3%, Top=35%, Width=10%, Height=20%, Split=None
+Hand - CardID:string
+Display: Visibility=Self, Mode=All, Left=15%, Bottom=10px, Right=15%, Height=18%, Split=None
+Vault - CardID:string
+Display: Visibility=Public, Mode=Single, Left=3%, Top=59%, Width=10%, Height=20%, Split=None
+HealthStack - CardID:string
+Display: Visibility=Self, Mode=Single, Left=3%, Top=35%, Width=10%, Height=20%, Split=None
+Health - Value:number=0
+Display: Visibility=Public, Mode=Value, Left=3%, Top=28%
+Blood - Value:number=0
+Display: Visibility=Public, Mode=Value, Left=15%, Top=28%
+Malice - Value:number=0
+Display: Visibility=Public, Mode=Value, Left=25%, Top=28%
+TurnNumber - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FirstPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+TurnPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+CurrentPhase - Value:string=SCAFFOLD
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+PhaseParameters - Value:string=-
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FlashMessage - Value:string
+Display: Visibility=Self, Mode=None
+DecisionQueue - Type:string, SubType:string, Player:number, Parameter1:string, Parameter2:string, Parameter3:string, Parameter4:string, Parameter5:string, Parameter6:string, Parameter7:string, Parameter8:string
+Display: Visibility=Self, Mode=None
+DecisionQueueVariables - Name:string, Value:string
+Display: Visibility=Self, Mode=None
+Versions - Version:string
+Display: Visibility=Self, Mode=None

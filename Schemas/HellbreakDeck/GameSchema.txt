@@ -1,0 +1,50 @@
+HellbreakDeck
+Auto
+None
+AssetOwner
+Header: title=Home, link=/TCGEngine/SharedUI/Sites/HellbreakSim/MainMenu.php
+Header: title=Edit, link=/TCGEngine/NextTurn.php?gameName>$gameName&playerID>1&folderPath>HellbreakDeck
+Header: title=Visibility, module=AssetVisibility, AssetType=1
+Header: title=Versions, module=Versions, Zones=myMonster;myLocation;myMainDeck;mySideboard
+PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
+AssetReflection: HellbreakSim
+Initialization: Initialize.php
+ServerInclude: /Custom/DeckValidation.php
+ServerInclude: /Custom/CustomInput.php
+Monster - CardID:string
+Display: Visibility=Self, Mode=All, Left=27%, Top=10px, Width=15%, Height=20%, Split=None
+AddValidation: ValidateMonsterAddition
+Location - CardID:string
+Display: Visibility=Self, Mode=All, Left=44%, Top=10px, Width=15%, Height=20%, Split=None
+AddValidation: ValidateLocationAddition
+MainDeck - CardID:string
+Display: Visibility=Self, Mode=Tile, Left=27%, Top=22%, Right=10px, Bottom=120px, Split=None
+Click: Remove(myMainDeck)
+AddValidation: ValidateMainDeckAddition
+Widgets: CustomInput=<&<<<&V&+
+Sort: Property=mySort
+CardPane - Value:string
+Display: Visibility=Self, Mode=Panel, Left=10px, Top=10px, Width=25%, Bottom=10px, Split=None
+Monsters - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Swap(myMonster)
+Locations - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Swap(myLocation)
+Cards - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Add(myMainDeck)
+DragMode: Clone
+Widgets: CustomInput=V&>&>>>
+Sideboard - CardID:string
+Display: Visibility=Self, Mode=Tile, Left=27%, Bottom=10px, Right=10px, Height=95px, Split=None
+Click: Remove(mySideboard)
+AddValidation: ValidateMainDeckAddition
+Widgets: CustomInput=<&<<<&^&+
+Deck - CardID:string
+Display: Visibility=Self, Mode=Count(MainDeck), Left=61%, Top=10px, Split=None
+Sort - Value:string
+Display: Visibility=Self, Mode=Dropdown(Value), Left=72%, Top=10px
+Widgets: Value=Name&Cost&Aspect&Type&CollectorNumber
+Versions - Version:string
+Display: Visibility=Self, Mode=None

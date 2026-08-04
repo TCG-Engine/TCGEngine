@@ -1,0 +1,7 @@
+https://onedrive.live.com/:x:/g/personal/8ef2128400f307a7/IQD9qTaoxlAYQZq9RRsDNjXsAaGNuTGXKyi3vU49-R5V7nE
+
+webp
+cards
+
+
+id,name,subtitle,collectorNumber,set,rarity,type,cost:number,combat:number,health:number,aspect,loyalty:number,resources,scheme,traits,text,unique:boolean,revealed:boolean,imageSource,imageBackSource,tokenSource
