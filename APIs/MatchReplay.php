@@ -105,6 +105,18 @@ if ($action === 'import') {
   }
 
   $gameName = MatchReplayApiCreateTempGameName($rootName);
+  $replayAuthKey = bin2hex(random_bytes(16));
+  $replayAuthKeys = SimGameDefaultAuthKeys();
+  $replayAuthKeys['p1'] = $replayAuthKey;
+  $replayAuthKeys['p2'] = bin2hex(random_bytes(16));
+  $replayAuthKeys['p3'] = bin2hex(random_bytes(16));
+  $replayAuthKeys['p4'] = bin2hex(random_bytes(16));
+  $replayAuthKeys['spectator'] = bin2hex(random_bytes(16));
+  $replayAuthKeys['isPrivate'] = true;
+  if (!SimGameWriteAuthKeys($rootName, $gameName, $replayAuthKeys)) {
+    MatchReplayApiRespond(500, ['success' => false, 'message' => 'Unable to create replay authentication.']);
+  }
+
   $gameDir = __DIR__ . '/../' . $rootName . '/Games/' . $gameName;
   mkdir($gameDir, 0777, true);
   file_put_contents($gameDir . '/Gamestate.txt', strval($replay['initialGamestate']));
@@ -133,7 +145,8 @@ if ($action === 'import') {
     'success' => true,
     'rootName' => $rootName,
     'gameName' => $gameName,
-    'nextTurnUrl' => './NextTurn.php?gameName=' . rawurlencode($gameName) . '&playerID=1&folderPath=' . rawurlencode($rootName) . '&replay=1',
+    'authKey' => $replayAuthKey,
+    'nextTurnUrl' => './NextTurn.php?gameName=' . rawurlencode($gameName) . '&playerID=1&folderPath=' . rawurlencode($rootName) . '&authKey=' . rawurlencode($replayAuthKey) . '&replay=1',
   ]);
 }
 

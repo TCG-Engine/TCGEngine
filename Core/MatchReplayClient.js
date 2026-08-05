@@ -225,12 +225,14 @@
       url.searchParams.set('gameName', String(payload.gameName || ''));
       url.searchParams.set('playerID', '1');
       url.searchParams.set('folderPath', String(payload.rootName || replay.rootName || replayRootName()));
+      if (payload.authKey) url.searchParams.set('authKey', String(payload.authKey));
       url.searchParams.set('replay', '1');
       return url.toString();
     }
     if (payload.nextTurnUrl) return new URL(payload.nextTurnUrl, window.location.href).toString();
     return './NextTurn.php?gameName=' + encodeURIComponent(payload.gameName || '')
       + '&playerID=1&folderPath=' + encodeURIComponent(payload.rootName || replay.rootName || replayRootName())
+      + (payload.authKey ? '&authKey=' + encodeURIComponent(payload.authKey) : '')
       + '&replay=1';
   }
 

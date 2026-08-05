@@ -26,7 +26,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <script src="./Core/IconChoiceUI.js"></script>
     <script src="./Core/NumberChooseUI.js"></script>
     <script src="./Core/NameCardUI.js?v=<?php echo filemtime('./Core/NameCardUI.js'); ?>"></script>
-    <script src="./Core/MatchReplayClient.js"></script>
+    <script src="./Core/MatchReplayClient.js?v=<?php echo filemtime('./Core/MatchReplayClient.js'); ?>"></script>
     <script src="./Core/OptionChooseUI.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
     <!-- Preload shield-break frames so the first shatter doesn't stutter fetching frames 2-5 mid-animation. -->
@@ -226,7 +226,13 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     if ($playerID == 1 && isset($_SESSION["p1AuthKey"])) $authKey = $_SESSION["p1AuthKey"];
     else if ($playerID == 2 && isset($_SESSION["p2AuthKey"])) $authKey = $_SESSION["p2AuthKey"];
     if (session_status() === PHP_SESSION_ACTIVE) session_write_close();
-    if ($authKey === "") $authKey = TryGet("authKey", "");
+    $requestedAuthKey = TryGet("authKey", "");
+    if (TryGet("replay", "") === "1" && $requestedAuthKey !== "") {
+      // Imported replays use a fresh temporary seat, so the original game's session key is stale.
+      $authKey = $requestedAuthKey;
+    } else if ($authKey === "") {
+      $authKey = $requestedAuthKey;
+    }
 
     if(in_array(intval($playerID), [1, 2, 3, 4], true) && $authKey == "")
     {
