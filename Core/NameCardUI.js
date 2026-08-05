@@ -128,8 +128,17 @@
     var previewCards = [];
     for (var i = 0; i < parsed.specs.length; ++i) {
       var directCardId = parsed.specs[i];
-      if (typeof Cardname === 'function' && Cardname(directCardId)) {
+      var nameMap = getNameMap();
+      if ((nameMap && Object.prototype.hasOwnProperty.call(nameMap, directCardId))
+          || (typeof Cardname === 'function' && Cardname(directCardId))) {
         previewCards.push({ cardId: directCardId, spec: parsed.specs[i], cardEntry: null });
+        continue;
+      }
+      var directZoneData = window[directCardId + 'Data'];
+      if (typeof directZoneData === 'string') {
+        directZoneData.split('<|>').filter(function(entry) { return entry.trim(); }).forEach(function(cardEntry, cardIndex) {
+          previewCards.push({ zoneName: directCardId, cardIndex: cardIndex, spec: directCardId + '-' + cardIndex, cardEntry: cardEntry });
+        });
         continue;
       }
       var match = /^(.+)-(\d+)$/.exec(parsed.specs[i]);
@@ -166,15 +175,18 @@
       cardId = sharedCardData.CardID || cardArr[0] || '';
     }
     if (!cardId) return null;
+    var previewCardSize = 134;
     var wrapper = document.createElement('div');
-    wrapper.style.flex = '0 0 auto';
+    wrapper.className = 'namecard-preview-card';
+    wrapper.style.flex = '0 0 ' + previewCardSize + 'px';
     wrapper.style.display = 'flex';
     wrapper.style.flexDirection = 'column';
     wrapper.style.alignItems = 'center';
     wrapper.style.gap = '6px';
-    wrapper.style.minWidth = '96px';
+    wrapper.style.minWidth = previewCardSize + 'px';
 
     var imageWrap = document.createElement('div');
+    imageWrap.className = 'namecard-preview-image';
     imageWrap.style.position = 'relative';
     imageWrap.style.cursor = 'zoom-in';
     imageWrap.style.transition = 'transform 140ms ease, box-shadow 180ms ease';
@@ -185,7 +197,7 @@
       ? window.RenderCardHTML
       : null;
     if (renderCardFn && cardId) {
-      imageWrap.innerHTML = renderCardFn(cardId, './' + getAssetFolder() + '/concat', 134, 0, 0, 0, 0, 0);
+      imageWrap.innerHTML = renderCardFn(cardId, './' + getAssetFolder() + '/concat', previewCardSize, 0, 0, 0, 0, 0);
       var img = imageWrap.querySelector('img');
       if (img) {
         img.alt = 'Reference card ' + cardId;
@@ -196,7 +208,7 @@
       img.src = getCardImageUrl(cardId);
       img.alt = cardId ? ('Reference card ' + cardId) : 'Reference card';
       img.loading = 'lazy';
-      img.style.height = '134px';
+      img.style.height = previewCardSize + 'px';
       img.style.width = '95px';
       img.style.borderRadius = '10px';
       img.style.objectFit = 'cover';
@@ -212,28 +224,32 @@
       imageWrap.style.boxShadow = 'none';
       if (typeof HideCardDetail === 'function') HideCardDetail();
     };
-    var handlePreviewClick = function(event) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      applyPreviewCardSelection(inputEl, cardId);
-    };
-    imageWrap.addEventListener('click', handlePreviewClick, true);
+    var handlePreviewClick = null;
+    if (inputEl) {
+      handlePreviewClick = function(event) {
+        if (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        applyPreviewCardSelection(inputEl, cardId);
+      };
+      imageWrap.addEventListener('click', handlePreviewClick, true);
+    }
     wrapper.appendChild(imageWrap);
 
     var label = document.createElement('div');
+    label.className = 'namecard-preview-label';
     label.textContent = cardId ? getDisplayName(cardId) : '';
-    label.style.maxWidth = '110px';
+    label.style.maxWidth = previewCardSize + 'px';
     label.style.fontSize = '11px';
     label.style.lineHeight = '1.3';
     label.style.textAlign = 'center';
     label.style.color = '#dce8ff';
-    label.style.cursor = 'pointer';
-    label.onclick = handlePreviewClick;
+    label.style.cursor = inputEl ? 'pointer' : 'default';
+    if (handlePreviewClick) label.onclick = handlePreviewClick;
     wrapper.appendChild(label);
 
-    wrapper.addEventListener('click', handlePreviewClick, true);
+    if (handlePreviewClick) wrapper.addEventListener('click', handlePreviewClick, true);
 
     return wrapper;
   }
@@ -482,6 +498,8 @@
     getAllCardNames: getAllCardNames,
     getRepresentativeCardIdForName: getRepresentativeCardIdForName,
     findMatchingCardNames: findMatchingCardNames,
-    resolveCardIdFromInput: resolveCardIdFromInput
+    resolveCardIdFromInput: resolveCardIdFromInput,
+    buildPreviewCards: buildPreviewCards,
+    renderPreviewCard: renderPreviewCard
   };
 })();

@@ -227,6 +227,8 @@ for($i = 0; $i < 3; ++$i) {
 }
 ```
 
+Directly queued `YESNO` prompts may include optional presentation fields in `Param`: `yes:Label`, `no:Label`, `review:zoneName`, and `refs:<previewParam>`. The `refs:` value uses the same preview format as `NAMECARD` (`Label||cardID&zone-0`) and may also name a whole client-visible zone (`Opening_hand||myHand`) to show every card in that zone inside the popup. These fields only affect presentation; the decision still returns `"YES"` or `"NO"`.
+
 The generator translates `await` statements into queued `DecisionQueueController::AddDecision()` calls. Each `await` becomes:
 1. A decision queue entry (YESNO, MZCHOOSE, MZMAYCHOOSE, MZMULTICHOOSE, etc.)
 2. Generated resume logic that processes the player's response

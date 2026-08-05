@@ -1815,7 +1815,7 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
           };
      })();
 
-     // App-level turn indicator config hook (consumed by Core/UILibraries20260803.js).
+     // App-level turn indicator config hook (consumed by Core/UILibraries20260805.js).
      // This keeps ownership/wording customizable per app layout.
      window.TurnIndicatorSettings = {
           showWaitingMessage: true,

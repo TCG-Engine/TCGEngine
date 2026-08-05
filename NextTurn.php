@@ -16,7 +16,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
-    <script src="./Core/UILibraries20260803.js?v=<?php echo filemtime('./Core/UILibraries20260803.js'); ?>"></script>
+    <script src="./Core/UILibraries20260805.js?v=<?php echo filemtime('./Core/UILibraries20260805.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
@@ -25,7 +25,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <script src="./Core/TwoSidedSliderUI.js"></script>
     <script src="./Core/IconChoiceUI.js"></script>
     <script src="./Core/NumberChooseUI.js"></script>
-    <script src="./Core/NameCardUI.js"></script>
+    <script src="./Core/NameCardUI.js?v=<?php echo filemtime('./Core/NameCardUI.js'); ?>"></script>
     <script src="./Core/MatchReplayClient.js"></script>
     <script src="./Core/OptionChooseUI.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">

@@ -1286,6 +1286,75 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
             box-shadow: none !important;
         }
 
+        #yesno-decision-modal.yesno-decision-has-references[data-review-zone="myHand"] {
+            background: rgba(3, 3, 4, 0.78) !important;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references[data-review-zone="myHand"] .yesno-decision-panel {
+            color: rgba(244, 237, 224, 0.94) !important;
+            border: 1px solid rgba(226, 216, 198, 0.18);
+            border-top-color: rgba(181, 55, 65, 0.5);
+            border-radius: 16px !important;
+            background: linear-gradient(145deg, rgba(29, 28, 29, 0.995), rgba(12, 12, 14, 0.995)) !important;
+            box-shadow: 0 26px 70px rgba(0, 0, 0, 0.66), 0 0 42px rgba(126, 25, 35, 0.12), inset 0 1px 0 rgba(255, 248, 235, 0.035) !important;
+            font-family: var(--azuki-font-ui) !important;
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references .yesno-decision-prompt {
+            color: rgba(247, 240, 228, 0.96) !important;
+            font-family: var(--azuki-font-ui) !important;
+            font-weight: 700 !important;
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references .yesno-decision-reference-label {
+            color: rgba(217, 93, 104, 0.94) !important;
+            font-family: var(--azuki-font-label) !important;
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references .yesno-decision-reference-cards {
+            padding: 14px 10px 12px !important;
+            border: 1px solid rgba(226, 216, 198, 0.08);
+            border-radius: 12px;
+            background: rgba(255, 248, 235, 0.018);
+            scrollbar-color: rgba(126, 25, 35, 0.78) rgba(12, 12, 14, 0.82);
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references .namecard-preview-image {
+            border: 1px solid rgba(226, 216, 198, 0.12);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.48) !important;
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references .namecard-preview-label {
+            color: rgba(235, 226, 209, 0.84) !important;
+            font-family: var(--azuki-font-ui) !important;
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references .yesno-decision-buttons button {
+            border: 1px solid transparent !important;
+            border-radius: 8px !important;
+            font-family: var(--azuki-font-label) !important;
+            font-weight: 800 !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.34);
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references .yesno-decision-yes {
+            color: #f7f0e4 !important;
+            border-color: rgba(181, 55, 65, 0.78) !important;
+            background: linear-gradient(180deg, #9d2d38, #661a23) !important;
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references .yesno-decision-no {
+            color: #171719 !important;
+            border-color: rgba(244, 237, 224, 0.5) !important;
+            background: linear-gradient(180deg, #e8dfd0, #bdb3a4) !important;
+        }
+
+        #yesno-decision-modal.yesno-decision-has-references .yesno-decision-buttons button:hover {
+            filter: brightness(1.1);
+        }
+
         #chatWidget {
             right: 8px !important;
             left: auto !important;

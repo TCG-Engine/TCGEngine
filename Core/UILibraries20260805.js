@@ -4307,14 +4307,22 @@ Aspect filtering (key: "aspect", alias "c")
       }
 
 function ParseYesNoDecisionPresentation(param) {
-  const presentation = { reviewZone: '', yesLabel: 'Yes', noLabel: 'No' };
-  String(param || '').split('|').forEach(function(part) {
-    const separator = part.indexOf(':');
-    if(separator <= 0) return;
-    const key = part.slice(0, separator).toLowerCase();
-    const value = part.slice(separator + 1);
+  const presentation = { reviewZone: '', referenceParam: '', yesLabel: 'Yes', noLabel: 'No' };
+  const rawParam = String(param || '');
+  const fields = [];
+  const fieldPattern = /(?:^|\|)(review|refs|yes|no):/gi;
+  let match;
+  while((match = fieldPattern.exec(rawParam)) !== null) {
+    fields.push({ key: match[1].toLowerCase(), valueStart: fieldPattern.lastIndex, fieldStart: match.index });
+  }
+  fields.forEach(function(field, index) {
+    const valueEnd = index + 1 < fields.length ? fields[index + 1].fieldStart : rawParam.length;
+    const value = rawParam.slice(field.valueStart, valueEnd);
+    const key = field.key;
     if(key === 'review' && /^[A-Za-z][A-Za-z0-9_-]*$/.test(value)) {
       presentation.reviewZone = value;
+    } else if(key === 'refs' && value !== '') {
+      presentation.referenceParam = value;
     } else if(key === 'yes' && value !== '') {
       presentation.yesLabel = value.replace(/_/g, ' ');
     } else if(key === 'no' && value !== '') {
@@ -4369,6 +4377,51 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
   prompt.textContent = decision.Tooltip && decision.Tooltip !== '-' ? decision.Tooltip.replace(/_/g, ' ') : 'Please choose Yes or No:';
   modal.appendChild(prompt);
 
+  const referenceAPI = typeof window !== 'undefined' ? window.NameCardLookup : null;
+  if(presentation.referenceParam && referenceAPI
+      && typeof referenceAPI.buildPreviewCards === 'function'
+      && typeof referenceAPI.renderPreviewCard === 'function') {
+    const referenceData = referenceAPI.buildPreviewCards(presentation.referenceParam);
+    if(referenceData && referenceData.cards && referenceData.cards.length > 0) {
+      overlay.classList.add('yesno-decision-has-references');
+      modal.style.width = 'min(94vw, 1120px)';
+      modal.style.maxHeight = '88vh';
+      modal.style.boxSizing = 'border-box';
+      modal.style.overflowY = 'auto';
+
+      const referenceLabel = document.createElement('div');
+      referenceLabel.className = 'yesno-decision-reference-label';
+      referenceLabel.textContent = referenceData.label;
+      referenceLabel.style.marginBottom = '10px';
+      referenceLabel.style.color = 'rgba(219, 188, 99, 0.92)';
+      referenceLabel.style.fontSize = '12px';
+      referenceLabel.style.fontWeight = '700';
+      referenceLabel.style.letterSpacing = '0.08em';
+      referenceLabel.style.textTransform = 'uppercase';
+      modal.appendChild(referenceLabel);
+
+      const referenceCards = document.createElement('div');
+      referenceCards.className = 'yesno-decision-reference-cards';
+      referenceCards.style.display = 'flex';
+      referenceCards.style.gap = '12px';
+      referenceCards.style.marginBottom = '24px';
+      referenceCards.style.padding = '3px 2px 8px';
+      referenceCards.style.overflowX = 'auto';
+      referenceCards.style.justifyContent = referenceData.cards.length <= 7 && window.innerWidth >= 820 ? 'center' : 'flex-start';
+      referenceData.cards.forEach(function(cardInfo) {
+        const cardNode = referenceAPI.renderPreviewCard(cardInfo, null);
+        if(cardNode) referenceCards.appendChild(cardNode);
+      });
+      modal.appendChild(referenceCards);
+    }
+  }
+
+  let buttonRow = document.createElement('div');
+  buttonRow.className = 'yesno-decision-buttons';
+  buttonRow.style.display = 'flex';
+  buttonRow.style.alignItems = 'center';
+  buttonRow.style.justifyContent = 'center';
+
   let yesBtn = document.createElement('button');
   yesBtn.className = 'yesno-decision-yes';
   yesBtn.textContent = presentation.yesLabel;
@@ -4384,7 +4437,7 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
     overlay.remove();
     if (onSubmit) onSubmit('YES');
   };
-  modal.appendChild(yesBtn);
+  buttonRow.appendChild(yesBtn);
 
   let noBtn = document.createElement('button');
   noBtn.className = 'yesno-decision-no';
@@ -4400,7 +4453,9 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
     overlay.remove();
     if (onSubmit) onSubmit('NO');
   };
-  modal.appendChild(noBtn);
+  buttonRow.appendChild(noBtn);
+
+  modal.appendChild(buttonRow);
 
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
