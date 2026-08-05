@@ -125,16 +125,16 @@
     if(phase === 'HORROR') {
       var types = roundLogTypes(round);
       if(types.indexOf('PLAY_CARD') === -1) return Object.assign(base, {
-        title: 'Play Transylvanian Wolf', body: 'Choose Play Card, select Transylvanian Wolf, and place it at Carfax Abbey. When prompted, pay 1 malice to ready it; minions normally enter exhausted.', target: target || document.getElementById('myHandSlot'), index: 4
+        title: 'Play Transylvanian Wolf', body: 'Click the highlighted Transylvanian Wolf directly in your hand, then place it at Carfax Abbey. When prompted, pay 1 malice to ready it; minions normally enter exhausted.', target: target || document.getElementById('myHandSlot'), index: 4
       });
       if(types.indexOf('ATTACK') === -1) return Object.assign(base, {
-        title: 'Attack with the Wolf', body: 'When priority returns, choose Attack, select Transylvanian Wolf, and attack Jaws. Attackers exhaust; combat damage is dealt simultaneously.', target: target || document.getElementById('myCharactersSlot'), index: 5
+        title: 'Attack with the Wolf', body: 'When priority returns, click the highlighted Transylvanian Wolf to attack, then click the highlighted Jaws directly on the board. Attackers exhaust; combat damage is dealt simultaneously.', target: target || document.getElementById('myCharactersSlot'), index: 5
       });
       if(types.indexOf('SCHEME') === -1) return Object.assign(base, {
-        title: 'Scheme with Dracula', body: 'When priority returns, choose Scheme and select lurking Dracula. Foresee rearranges your deck; Haunt adds malice to the location. Scheming exhausts Dracula.', target: target || document.getElementById('myMonsterSlot'), index: 5
+        title: 'Scheme with Dracula', body: 'When priority returns, click lurking Dracula and choose Scheme from its card menu. Foresee rearranges your deck; Haunt adds malice to the location. Scheming exhausts Dracula.', target: target || document.getElementById('myMonsterSlot'), index: 5
       });
       return Object.assign(base, {
-        title: 'Enter Slumber', body: 'Choose Slumber. You gain 1 malice and take no more Horror actions this round. Because the opponent passed immediately before it, Horror ends.', index: 5
+        title: 'Enter Slumber', body: 'Choose Slumber from the action bar. You gain 1 malice and take no more Horror actions this round. Because the opponent passed immediately before it, Horror ends.', index: 5
       });
     }
     if(phase === 'REFRESH_READY' || phase === 'REFRESH_FLIP' || phase === 'REFRESH_HAND') return Object.assign(base, {

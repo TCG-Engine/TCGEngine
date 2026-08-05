@@ -1223,6 +1223,63 @@ function HellbreakHorrorPhase() {
     return true;
 }
 
+function HellbreakConsumeHorrorActionPrompt(int $player): bool {
+    $queue = &GetDecisionQueue($player);
+    if(count($queue) < 2 || !is_object($queue[0]) || !is_object($queue[1])) return false;
+    $prompt = $queue[0];
+    $continuation = $queue[1];
+    if(strtoupper(strval($prompt->Type ?? '')) !== 'MZMODAL') return false;
+    if(strtolower(str_replace('_', ' ', strval($prompt->Tooltip ?? ''))) !== 'choose your horror action') return false;
+    if(strtoupper(strval($continuation->Type ?? '')) !== 'CUSTOM'
+        || strval($continuation->Param ?? '') !== 'HellbreakChooseHorrorAction') return false;
+    array_splice($queue, 0, 2);
+    return true;
+}
+
+function HellbreakTakeDirectHorrorAction(int $player, string $action, string $mzID = '', int $abilityIndex = -1): bool {
+    $action = strtoupper(trim($action));
+    $mzID = trim($mzID);
+    if(GetCurrentPhase() !== 'HORROR' || intval(GetTurnPlayer()) !== $player || intval(GetWinner()) > 0) return false;
+
+    $legalActions = HellbreakLegalActions($player);
+    $legalAction = null;
+    foreach($legalActions as $candidate) {
+        if(strtoupper(strval($candidate['id'] ?? '')) === $action) {
+            $legalAction = $candidate;
+            break;
+        }
+    }
+    if(!is_array($legalAction)) return false;
+
+    if($action === 'PLAY_CARD' || $action === 'ATTACK' || $action === 'SCHEME') {
+        if(!in_array($mzID, is_array($legalAction['cards'] ?? null) ? $legalAction['cards'] : [], true)) return false;
+    } else if($action === 'ABILITY') {
+        $matchedAbility = false;
+        foreach(is_array($legalAction['abilities'] ?? null) ? $legalAction['abilities'] : [] as $ability) {
+            if(strval($ability['mzID'] ?? '') === $mzID && intval($ability['abilityIndex'] ?? -1) === $abilityIndex) {
+                $matchedAbility = true;
+                break;
+            }
+        }
+        if(!$matchedAbility) return false;
+    } else if($action !== 'PASS' && $action !== 'SLUMBER') {
+        return false;
+    }
+
+    if(!HellbreakConsumeHorrorActionPrompt($player)) return false;
+    $resolved = false;
+    if($action === 'PLAY_CARD') $resolved = HellbreakChoosePlayCard($player, $mzID);
+    else if($action === 'ATTACK') $resolved = HellbreakChooseAttacker($player, $mzID);
+    else if($action === 'SCHEME') $resolved = HellbreakChooseSchemer($player, $mzID);
+    else if($action === 'ABILITY') $resolved = HellbreakBeginActivatedAbility($player, $mzID, $abilityIndex);
+    else $resolved = HellbreakTakePassLikeAction($player, $action);
+
+    // A legal direct action should resolve, but recover the normal prompt if a
+    // downstream validator rejected stale client state during an update race.
+    if(!$resolved && GetCurrentPhase() === 'HORROR' && intval(GetTurnPlayer()) === $player) HellbreakHorrorPhase();
+    return boolval($resolved);
+}
+
 function HellbreakReadyAllControlled(int $player): void {
     $monster = &GetMonster($player);
     $characters = &GetCharacters($player);

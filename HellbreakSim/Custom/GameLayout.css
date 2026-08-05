@@ -118,6 +118,25 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
 [role="dialog"] button { font-family: var(--hb-font); }
 .modal-content, .decision-modal, [class*="choice-modal"] { border-color: rgba(216,179,106,.35) !important; background: #171218 !important; box-shadow: 0 24px 80px rgba(0,0,0,.65) !important; }
 
+/* Horror actions live on their cards. The generic modal remains available as
+   an explicit fallback through the compact action dock. */
+.mzmodal-overlay.hb-direct-hidden { display: none !important; }
+.hb-direct-action-card { cursor: pointer !important; isolation: isolate; border-radius: 7px; outline: 2px solid rgba(216,179,106,.72); outline-offset: 2px; box-shadow: 0 0 0 1px rgba(7,7,10,.85), 0 0 18px rgba(216,179,106,.28); transition: outline-color .15s, box-shadow .15s, filter .15s; }
+.hb-direct-action-card:hover, .hb-direct-action-card:focus-visible { outline-color: #ffe1a3; box-shadow: 0 0 0 1px rgba(7,7,10,.9), 0 0 24px rgba(216,179,106,.55); filter: brightness(1.08); }
+.hb-direct-action-card::after { content: attr(data-hb-action-label); position: absolute; z-index: 20; left: 50%; bottom: 4px; transform: translateX(-50%); max-width: calc(100% - 8px); padding: 3px 6px; overflow: hidden; border: 1px solid rgba(255,225,163,.62); border-radius: 999px; background: rgba(15,10,14,.9); color: #ffe7b4; font: 800 8px/1 var(--hb-font); letter-spacing: .06em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; pointer-events: none; }
+
+.hb-horror-action-dock { position: relative; z-index: 60; display: flex; flex-wrap: wrap; align-items: center; gap: 5px; width: 100%; margin-top: 9px; padding: 6px; box-sizing: border-box; border: 1px solid rgba(216,179,106,.42); border-radius: 10px; background: rgba(13,10,14,.86); box-shadow: 0 8px 22px rgba(0,0,0,.34); }
+.hb-horror-action-dock[hidden] { display: none; }
+.hb-horror-action-dock.is-busy { opacity: .58; pointer-events: none; }
+.hb-horror-action-help { flex: 1 0 100%; color: var(--hb-muted); font-size: 9px; line-height: 1.2; }
+.hb-horror-action-dock button, .hb-card-action-menu button { border: 1px solid rgba(216,179,106,.46); border-radius: 8px; padding: 7px 10px; background: rgba(185,58,52,.22); color: var(--hb-cream); font: 750 11px/1.1 var(--hb-font); cursor: pointer; white-space: nowrap; }
+.hb-horror-action-dock button:hover, .hb-card-action-menu button:hover { border-color: var(--hb-gold); background: rgba(185,58,52,.4); }
+.hb-horror-action-dock button { flex: 1 1 auto; padding: 6px 7px; font-size: 10px; }
+.hb-horror-action-dock button.secondary { flex-basis: 100%; border-color: var(--hb-line); background: rgba(255,255,255,.04); color: var(--hb-muted); }
+.hb-horror-action-dock small { display: block; margin-top: 2px; color: var(--hb-muted); font-size: 8px; font-weight: 600; }
+.hb-card-action-menu { position: fixed; z-index: 5200; display: flex; flex-direction: column; gap: 5px; min-width: 138px; padding: 6px; border: 1px solid rgba(216,179,106,.5); border-radius: 10px; background: rgba(15,10,14,.97); box-shadow: 0 16px 38px rgba(0,0,0,.62); }
+.hb-card-action-menu button { width: 100%; text-align: left; }
+
 @media (max-width: 1050px) {
     :root { --hb-card: 78px; }
     .hb-side { grid-template-columns: 104px 142px minmax(220px, 1fr) 164px; }
@@ -153,4 +172,8 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
     .hb-locations { min-height: 180px; }
     .hb-locations #Locations { gap: 8px !important; }
     .hb-hand { min-height: 100px; }
+    .hb-horror-action-dock { position: fixed; left: 50%; bottom: 6px; width: auto; max-width: calc(100vw - 12px); margin: 0; transform: translateX(-50%); flex-wrap: nowrap; }
+    .hb-horror-action-help { display: none; }
+    .hb-horror-action-dock button { padding: 7px 8px; font-size: 10px; }
+    .hb-horror-action-dock button.secondary { flex-basis: auto; }
 }

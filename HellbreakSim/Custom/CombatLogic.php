@@ -141,15 +141,7 @@ function HellbreakQueueAttackTargets(int $player): bool {
     $targets = HellbreakAttackTargetsForRef($player, $attacker, intval($pending['locationSlot'] ?? 0));
     if(count($targets) === 0) return false;
     DecisionQueueController::StoreVariable('HellbreakPendingAttackTargets', $targets);
-    $labels = [];
-    foreach($targets as $mzID) {
-        $target = HellbreakBattlefieldRef($player, $mzID);
-        $name = $target !== null && function_exists('CardName') ? trim((string)CardName($target['object']->CardID)) : '';
-        if($name === '' && $target !== null) $name = (string)$target['object']->CardID;
-        $suffix = $target !== null && $target['kind'] === 'MONSTER' ? 'Monster' : 'Location_' . HellbreakCharacterLocation($target);
-        $labels[] = trim(preg_replace('/[^A-Za-z0-9]+/', '_', $name . '_' . $suffix), '_');
-    }
-    DecisionQueueController::AddDecision($player, 'MZMODAL', '1|1|' . implode('&', $labels), 0, 'Choose_an_enemy_character_to_attack');
+    DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $targets), 0, 'Choose_an_enemy_character_to_attack');
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'HellbreakChooseAttackTarget', 1);
     return true;
 }
@@ -216,7 +208,6 @@ function HellbreakDefenderCandidates(int $defendingPlayer, int $locationSlot): a
 function HellbreakChooseAttackTarget(int $player, string $mzID): bool {
     $pending = DecisionQueueController::GetVariable('HellbreakPendingAttack');
     $targets = DecisionQueueController::GetVariable('HellbreakPendingAttackTargets');
-    if(preg_match('/^\d+$/', trim($mzID)) && is_array($targets)) $mzID = (string)($targets[intval($mzID)] ?? '');
     if(!is_array($pending) || intval($pending['player'] ?? 0) !== $player || !is_array($targets) || !in_array($mzID, $targets, true)) return false;
     $target = HellbreakBattlefieldRef($player, $mzID);
     if($target === null) return false;
