@@ -1358,6 +1358,48 @@ function AddSubcardTurnEffect(&$obj, $subcardIndex, $effectID) {
     $obj->Counters['_subcardTurnEffects'][$key][] = $effectID;
 }
 
+function RemoveSubcardAtIndex(&$obj, $subcardIndex) {
+    $subcardIndex = intval($subcardIndex);
+    if(!is_object($obj) || $subcardIndex < 0) return [];
+    if(!isset($obj->Subcards) || !is_array($obj->Subcards) || !array_key_exists($subcardIndex, $obj->Subcards)) return [];
+
+    $removedEffects = GetSubcardTurnEffects($obj, $subcardIndex);
+    array_splice($obj->Subcards, $subcardIndex, 1);
+
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) return $removedEffects;
+    $effectMap = $obj->Counters['_subcardTurnEffects'] ?? null;
+    if(!is_array($effectMap)) return $removedEffects;
+
+    $remappedEffects = [];
+    foreach($effectMap as $index => $effects) {
+        $index = intval($index);
+        if($index === $subcardIndex || !is_array($effects) || empty($effects)) continue;
+        $newIndex = $index > $subcardIndex ? $index - 1 : $index;
+        $remappedEffects[strval($newIndex)] = array_values($effects);
+    }
+
+    if(empty($remappedEffects)) {
+        unset($obj->Counters['_subcardTurnEffects']);
+    }
+    else {
+        $obj->Counters['_subcardTurnEffects'] = $remappedEffects;
+    }
+
+    return $removedEffects;
+}
+
+function ClearSubcardTurnEffects(&$obj) {
+    if(!is_object($obj) || !isset($obj->Counters) || !is_array($obj->Counters)) return;
+    unset($obj->Counters['_subcardTurnEffects']);
+}
+
+function ClearZoneSubcardTurnEffects(&$zone) {
+    foreach($zone as &$obj) {
+        if(isset($obj->removed) && $obj->removed) continue;
+        ClearSubcardTurnEffects($obj);
+    }
+}
+
 function CountWeaponSubcardTurnEffects($obj, $weaponCardID, $effectID) {
     if(!is_object($obj) || !isset($obj->Subcards) || !is_array($obj->Subcards)) return 0;
 
@@ -2008,16 +2050,22 @@ function DiscardEquippedWeaponsFromObject($owner, $obj) {
     if(!is_object($obj)) return;
     if(!isset($obj->Subcards) || !is_array($obj->Subcards)) return;
 
-    $remaining = [];
-    foreach($obj->Subcards as $subcardID) {
+    $weaponIndexes = [];
+    $weaponIDs = [];
+    foreach($obj->Subcards as $index => $subcardID) {
         if(!is_string($subcardID) || $subcardID === '') continue;
         if(CardType($subcardID) === 'WEAPON') {
-            AddDiscard($owner, CardID:$subcardID);
-            continue;
+            $weaponIndexes[] = intval($index);
+            $weaponIDs[] = $subcardID;
         }
-        $remaining[] = $subcardID;
     }
-    $obj->Subcards = $remaining;
+
+    for($i = count($weaponIndexes) - 1; $i >= 0; --$i) {
+        RemoveSubcardAtIndex($obj, $weaponIndexes[$i]);
+    }
+    foreach($weaponIDs as $weaponID) {
+        AddDiscard($owner, CardID:$weaponID);
+    }
 }
 
 function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
@@ -2327,20 +2375,22 @@ function ReequipAttachedWeapon($player, $sourceMZ, $weaponCardID, $targetMZ) {
     if(($sourceObj->Location ?? '') !== 'Garden' || ($targetObj->Location ?? '') !== 'Garden') return false;
 
     if(!isset($sourceObj->Subcards) || !is_array($sourceObj->Subcards)) return false;
-    $removedWeapon = false;
-    $remaining = [];
+    $removedWeaponIndex = -1;
     for($i = 0; $i < count($sourceObj->Subcards); ++$i) {
         $subcardID = $sourceObj->Subcards[$i] ?? '';
-        if(!$removedWeapon && $subcardID === $weaponCardID) {
-            $removedWeapon = true;
-            continue;
+        if($subcardID === $weaponCardID) {
+            $removedWeaponIndex = $i;
+            break;
         }
-        $remaining[] = $subcardID;
     }
-    if(!$removedWeapon) return false;
+    if($removedWeaponIndex < 0) return false;
 
-    $sourceObj->Subcards = $remaining;
+    $weaponTurnEffects = RemoveSubcardAtIndex($sourceObj, $removedWeaponIndex);
     AttachWeaponCardIDToTarget($targetObj, $weaponCardID);
+    $targetSubcardIndex = count($targetObj->Subcards) - 1;
+    foreach($weaponTurnEffects as $effectID) {
+        AddSubcardTurnEffect($targetObj, $targetSubcardIndex, $effectID);
+    }
     TriggerWhenEquippedAbilities($targetObj);
 
     if($weaponCardID === 'S1-STT01-013_Black-Jade-Dagger_W_C_die') {
@@ -6178,6 +6228,12 @@ function ExpireTurnEffects($player, $isEndTurn = true) {
         FilterZoneTurnEffects($theirGarden, true, true);
         FilterZoneTurnEffects($theirAlley, true, true);
         FilterZoneTurnEffects($theirGate, true, true);
+        ClearZoneSubcardTurnEffects($garden);
+        ClearZoneSubcardTurnEffects($alley);
+        ClearZoneSubcardTurnEffects($gate);
+        ClearZoneSubcardTurnEffects($theirGarden);
+        ClearZoneSubcardTurnEffects($theirAlley);
+        ClearZoneSubcardTurnEffects($theirGate);
         return;
     }
 
