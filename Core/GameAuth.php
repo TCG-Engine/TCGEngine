@@ -66,6 +66,27 @@ function SimGameRequiresManagedAuth($rootName)
   return in_array($rootName, ['AzukiSim', 'GrandArchiveSim', 'GudnakSim', 'SWUSim'], true);
 }
 
+// Auth entries intentionally live only in APCu, while local development games may live on disk
+// indefinitely. Allow those persistent games to survive an APCu restart without weakening hosted
+// environments. DEVENV is the explicit container/CLI opt-in; otherwise both ends of the HTTP
+// request must be loopback so a forged Host header alone cannot enable the bypass.
+function SimGameIsDevelopmentEnvironment()
+{
+  if (strtolower(trim(strval(getenv('DEVENV')))) === 'true') return true;
+
+  $remoteAddr = strtolower(trim(strval($_SERVER['REMOTE_ADDR'] ?? '')));
+  $host = strtolower(trim(strval($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '')));
+  if (substr($host, 0, 1) === '[') {
+    $closeBracket = strpos($host, ']');
+    if ($closeBracket !== false) $host = substr($host, 0, $closeBracket + 1);
+  } else {
+    $host = preg_replace('/:\d+$/', '', $host);
+  }
+
+  return in_array($remoteAddr, ['127.0.0.1', '::1'], true)
+    && in_array($host, ['localhost', '127.0.0.1', '::1', '[::1]'], true);
+}
+
 function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
 {
   $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
@@ -189,6 +210,7 @@ function SimGameGetSpectatorAuthKey($rootName, $gameName)
 
 function SimGameValidateSeatAuth($rootName, $gameName, $playerID, $authKey = '')
 {
+  if (SimGameIsDevelopmentEnvironment()) return true;
   if (!SimGameHasAuthKeys($rootName, $gameName)) return !SimGameRequiresManagedAuth($rootName);
   $expectedKey = SimGameGetSeatAuthKey($rootName, $gameName, $playerID);
   if ($expectedKey === '') return true;
@@ -227,6 +249,7 @@ function SimGameSpectatorLoginRequiredMissing($rootName, $gameName, $viewerInfo)
 
 function SimGameValidateSpectatorAuth($rootName, $gameName, $authKey = '')
 {
+  if (SimGameIsDevelopmentEnvironment()) return true;
   if (!SimGameHasAuthKeys($rootName, $gameName)) return !SimGameRequiresManagedAuth($rootName);
   if (!SimGameIsPrivateGame($rootName, $gameName)) {
     // Public game: SWUSim requires a logged-in account to spectate; other sims stay open to all.
