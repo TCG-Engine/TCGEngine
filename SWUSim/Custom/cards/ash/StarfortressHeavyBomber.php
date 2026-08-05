@@ -8,6 +8,6 @@ $whenPlayedAbilities["ASH_174:0"] = function($player, $mzID) {
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 6, 'may' => true, 'arena' => 'Ground',
         'extraFilter' => fn($o) => !CardUnique($o->CardID ?? ''),
-        'question' => "Deal_6_to_a_non-unique_ground_unit?", 'prompt' => "Choose_a_non-unique_ground_unit",
+        'question' => "Deal_6_to_a_non-unique_ground_unit?", 'prompt' => "Deal_6_damage_to_a_non-unique_ground_unit",
     ]);
 };

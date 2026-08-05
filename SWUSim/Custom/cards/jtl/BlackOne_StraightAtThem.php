@@ -10,6 +10,6 @@ $onAttackAbilities["JTL_147:0"] = function($player, $mzID) {
     if (!_SWUControlsTitle(intval($player), ['Poe Dameron'])) return;
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'side' => 'any', 'may' => true,
-        'question' => "Deal_1_damage_to_a_unit", 'prompt' => "Choose_a_unit",
+        'question' => "Deal_1_damage_to_a_unit", 'prompt' => "Deal_1_damage_to_a_unit",
     ]);
 };

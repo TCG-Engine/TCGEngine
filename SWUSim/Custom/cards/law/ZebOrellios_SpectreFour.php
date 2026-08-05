@@ -10,6 +10,6 @@ $whenPlayedAbilities["LAW_045:0"] = function($player, $mzID) {
     $amount = (PlayerHasUnitWithAspectInPlay(intval($player), 'Command') || PlayerHasUnitWithAspectInPlay(intval($player), 'Cunning')) ? 5 : 3;
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $amount, 'arena' => 'Ground', 'may' => true,
-        'question' => "Deal_{$amount}_to_a_ground_unit?", 'prompt' => "Choose_a_ground_unit",
+        'question' => "Deal_{$amount}_to_a_ground_unit?", 'prompt' => "Deal_{$amount}_damage_to_a_ground_unit",
     ]);
 };

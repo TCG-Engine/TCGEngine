@@ -11,5 +11,5 @@ $whenPlayedAbilities["SOR_090:0"] = function($player, $mzID) {
     if ($n <= 0) return;
     $targets = SWUAllUnits();
     SWUQueueMayChooseTarget(intval($player), $targets,
-        "Deal_damage_equal_to_resources_you_control?", "Deal_damage_to_a_unit", "DEAL_UNIT_DAMAGE|" . $n);
+        "Deal_damage_equal_to_resources_you_control?", "Deal_{$n}_damage_to_a_unit", "DEAL_UNIT_DAMAGE|" . $n);
 };

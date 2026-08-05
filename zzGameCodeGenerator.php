@@ -2208,7 +2208,18 @@ function AddWriteGamestate() {
   $writeGamestate .= "  global \$gameName;\r\n";
   $writeGamestate .= "  \$filename = \$filepath . \"Games/\$gameName/Gamestate.txt\";\r\n";
   $writeGamestate .= "  \$gamestateText = \"\";\r\n";
-  $writeGamestate .= "  \$writeZone = function(\$zone) use (&\$gamestateText) {\r\n";
+  // $zoneName/$seat let an app rewrite index references into this zone before it is serialized —
+  // see the EngineRemapZoneForSave hook below. Both default, so any hand-written caller still works.
+  $writeGamestate .= "  \$writeZone = function(\$zone, \$zoneName = '', \$seat = 0) use (&\$gamestateText) {\r\n";
+  $writeGamestate .= "    // A zone is serialized WITHOUT its removed tombstones, so the next ParseGamestate\r\n";
+  $writeGamestate .= "    // renumbers it 0..N-1 over the survivors. Anything holding an INDEX into the zone (a\r\n";
+  $writeGamestate .= "    // pending target choice's candidate mzIDs) is stale the instant that happens. Give the app\r\n";
+  $writeGamestate .= "    // one chance to rewrite those references into post-compaction coordinates. The hook returns\r\n";
+  $writeGamestate .= "    // a transformed COPY: nothing in memory changes, so a second WriteGamestate in the same\r\n";
+  $writeGamestate .= "    // request re-derives from the same source state instead of shifting twice.\r\n";
+  $writeGamestate .= "    if (\$zoneName !== '' && function_exists('EngineRemapZoneForSave')) {\r\n";
+  $writeGamestate .= "      \$zone = EngineRemapZoneForSave(\$zone, \$zoneName, \$seat);\r\n";
+  $writeGamestate .= "    }\r\n";
   $writeGamestate .= "    \$zoneText = \"\";\r\n";
   $writeGamestate .= "    \$count = 0;\r\n";
   $writeGamestate .= "    foreach(\$zone as \$obj) {\r\n";
@@ -2231,7 +2242,7 @@ function AddWriteGamestate() {
       if ($zone->DisplayMode == 'Value') {
         $writeGamestate .= "  \$gamestateText .= \$g" . $zoneName . " . \"\\r\\n\";\r\n";
       } else {
-        $writeGamestate .= "  \$writeZone(\$g" . $zoneName . ");\r\n";
+        $writeGamestate .= "  \$writeZone(\$g" . $zoneName . ", '" . $zoneName . "', 0);\r\n";
       }
     } else {
       global $maxSeats;
@@ -2269,7 +2280,7 @@ function AddWriteGamestate() {
 
 function AddWriteZone($zoneName, $player) {
   $rv = "";
-  $rv .= "  \$writeZone(\$p" . $player . $zoneName . ");\r\n";
+  $rv .= "  \$writeZone(\$p" . $player . $zoneName . ", '" . $zoneName . "', " . $player . ");\r\n";
   return $rv;
 }
 

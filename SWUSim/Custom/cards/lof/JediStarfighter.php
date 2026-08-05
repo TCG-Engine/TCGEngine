@@ -7,6 +7,6 @@
 $onAttackAbilities["LOF_144:0"] = function($player, $mzID) {
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'arena' => 'Space', 'may' => true,
-        'question' => "Deal_1_to_a_space_unit?", 'prompt' => "Choose_a_space_unit",
+        'question' => "Deal_1_to_a_space_unit?", 'prompt' => "Deal_1_damage_to_a_space_unit",
     ]);
 };

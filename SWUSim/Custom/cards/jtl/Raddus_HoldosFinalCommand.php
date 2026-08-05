@@ -17,5 +17,5 @@ $whenDefeatedAbilities["JTL_104:0"] = function($player, $mzID) {
     $targets = SWUAllUnits('their');
     if (empty($targets)) return;
     SWUQueueChooseTarget(intval($player), $targets,
-        "Deal_Raddus's_power_to_an_enemy_unit", "DEAL_UNIT_DAMAGE|" . $power);
+        "Deal_{$power}_damage_to_an_enemy_unit", "DEAL_UNIT_DAMAGE|" . $power);
 };

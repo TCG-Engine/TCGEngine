@@ -1311,6 +1311,26 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // width/height from the schema's Size=), so scaling them needs a plain number.
         // 80 is the reference card size those schema sizes were chosen against.
         document.documentElement.style.setProperty('--swu-cardsize-n', String(cs));
+        syncPassReserveVar();
+    }
+
+    // Publish how much vertical room the initiative/pass cluster needs, so the centre lane can
+    // keep clear of it (GameLayout's min-height:681px cap on --swu-center-w). Measured rather
+    // than hardcoded: the button font is a vw clamp, so the cluster is taller on wide screens,
+    // and any constant here would rot the next time the buttons are restyled.
+    //
+    // The reserve is the WORST case — two rows — even while Take/Keep Initiative is `hidden`.
+    // Reserving only what is currently on screen would re-widen the lane whenever the button
+    // is not offered, so every claim/pass would visibly re-flow the board.
+    function syncPassReserveVar() {
+        var btn = document.getElementById('swuPassBtn');
+        if (!btn) return;
+        var rowH = btn.getBoundingClientRect().height;
+        if (rowH <= 0) return;                       // not laid out yet; the CSS fallback stands
+        // Take/Keep sits above Pass with the same class, so two rows plus the 4px gap between them,
+        // plus the clearance above the hand.
+        var reserve = rowH * 2 + 4 + 10;
+        document.documentElement.style.setProperty('--swu-pass-reserve-h', Math.round(reserve) + 'px');
     }
     function pollGlobals() {
         syncCardSizeVar();
@@ -3116,9 +3136,25 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
      the settings overlay (10001) — so it opened BEHIND them (e.g. the waiting pill covered it during a
      mulligan). Lift it above everything so Report Bug is always usable. */
   #bugReportOverlay { z-index: 10011 !important; }
-  .swu-settings-panel { width: min(92vw, 360px); background: var(--surface-raised);
+  .swu-settings-panel { width: min(94vw, 640px); background: var(--surface-raised);
     border: 1px solid var(--border); border-radius: 12px;
-    box-shadow: 0 18px 50px rgba(0,0,0,0.6); color: var(--text); overflow: hidden; }
+    box-shadow: 0 18px 50px rgba(0,0,0,0.6); color: var(--text); overflow: hidden;
+    display: flex; flex-direction: column; max-height: 88vh; }
+  /* Two columns — settings left, hotkeys right — so the hotkey list can grow downward without
+     pushing Cosmetics/Match/Report off the bottom. Single column by default and widened by the
+     media query below: that way the narrow case needs no override, so a phone (where this same
+     overlay is the mobile layout's menu too) gets the stacked panel by default rather than by
+     undoing a desktop rule. Column order follows DOM order when stacked: settings, then hotkeys. */
+  .swu-settings-body { display: grid; grid-template-columns: minmax(0, 1fr); overflow-y: auto; }
+  .swu-settings-col { min-width: 0; }
+  .swu-settings-col--keys { border-top: 1px solid var(--border); }
+  @media (min-width: 620px) {
+    /* Slightly wider left column: it holds the cosmetic <select>s, whose option text is far longer
+       than a hotkey label. */
+    .swu-settings-body { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+    /* Side by side, the divider between them is vertical, not horizontal. */
+    .swu-settings-col--keys { border-top: 0; border-left: 1px solid var(--border); }
+  }
   .swu-settings-head { display: flex; align-items: center; justify-content: space-between;
     padding: 14px 16px; border-bottom: 1px solid var(--border);
     font: 700 16px/1 var(--swu-font-label, sans-serif); color: var(--accent-strong); letter-spacing: 0.02em; }
@@ -3135,6 +3171,13 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-gear-cos { width: 100%; padding: 7px 9px; border-radius: 7px; cursor: pointer;
     background: var(--surface-raised, rgba(8,15,25,0.6)); color: var(--text, #e8d5a8);
     border: 1px solid var(--border, rgba(255,255,255,0.14)); }
+  /* Hotkeys list — a reference row, not a control, so no pointer affordance. The key chip keeps the
+     same look the on-board <kbd> hints had, just relocated into the menu. */
+  .swu-hotkey-row { cursor: default; }
+  .swu-hotkey-key { flex: 0 0 auto; display: inline-block; min-width: 22px; text-align: center;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 4px;
+    padding: 2px 7px; color: var(--text, #e8d5a8);
+    font: 600 12px/1.35 var(--swu-font-label, inherit); letter-spacing: 0.06em; }
   .swu-settings-link { display: inline-block; margin-top: 8px; color: var(--accent); font-size: 13px; text-decoration: none; }
   .swu-settings-link:hover { text-decoration: underline; }
   .swu-settings-action { display: block; width: 100%; margin: 6px 0 0;}
@@ -3169,6 +3212,31 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   <div class="swu-settings-panel" role="dialog" aria-modal="true">
     <div class="swu-settings-head"><span>Settings</span>
       <button class="swu-settings-close" onclick="swuCloseSettings()" aria-label="Close">&#10005;</button></div>
+    <?php
+      // Hotkeys — the board used to carry a <kbd> chip beside Pass / Take Initiative and a hint strip
+      // at the midline. Those were permanent furniture for something you learn once, so they were
+      // removed and the shortcuts live here instead.
+      //
+      // Keep this list in step with the handlers: Space / I / W are the keydown listeners further up
+      // this file, U is Core/UILibraries' shared Hotkeys(), Esc is the overlay's own listener.
+      // Deliberately NOT listed: S (SubmitInput 10005) is a legacy dev save-snapshot that answers
+      // "Versions are created automatically when a game result is recorded" once the asset-versioning
+      // adapter is on — a live key, but not one to advertise to players.
+      $swuHotkeys = [
+        // Keep labels short: the column is ~half the panel, so a long one wraps to two lines.
+        ['Space', 'Pass / decline a prompt'],
+        ['I',     'Take / keep the initiative'],
+        ['U',     'Undo'],
+      ];
+      if (function_exists('SWUGameMode') && SWUGameMode() === 'hotseat') {
+        $swuHotkeys[] = ['W', 'Switch player'];
+      }
+      $swuHotkeys[] = ['Esc', 'Close this menu'];
+    ?>
+    <!-- Two columns: settings on the left, the (growing) hotkey reference on the right. Collapses to
+         a single column on a narrow viewport — see .swu-settings-body. -->
+    <div class="swu-settings-body">
+    <div class="swu-settings-col swu-settings-col--main">
     <div class="swu-settings-section">
       <div class="swu-settings-section-title">Cosmetics</div>
       <label class="swu-settings-row"><span>Show playmats</span>
@@ -3194,6 +3262,17 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       <div class="swu-settings-section-title">Report</div>
       <button class="btn swu-settings-action" onclick="SWUReportBug()">Report Bug</button>
     </div>
+    </div><!-- /col--main -->
+    <div class="swu-settings-col swu-settings-col--keys">
+    <div class="swu-settings-section">
+      <div class="swu-settings-section-title">Hotkeys</div>
+      <?php foreach ($swuHotkeys as [$swuKey, $swuWhat]): ?>
+        <div class="swu-settings-row swu-hotkey-row"><span><?= htmlspecialchars($swuWhat, ENT_QUOTES) ?></span>
+          <kbd class="swu-hotkey-key"><?= htmlspecialchars($swuKey, ENT_QUOTES) ?></kbd></div>
+      <?php endforeach; ?>
+    </div>
+    </div><!-- /col--keys -->
+    </div><!-- /swu-settings-body -->
   </div>
 </div>
 <script>

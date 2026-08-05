@@ -15,5 +15,5 @@ $onAttackAbilities["SHD_170:0"] = function($player, $mzID) {
         }
     }
     SWUQueueMayChooseTarget(intval($player), $targets,
-        "Deal_3_to_a_damaged_ground_unit?", "Choose_a_damaged_ground_unit", "DEAL_UNIT_DAMAGE|3");
+        "Deal_3_to_a_damaged_ground_unit?", "Deal_3_damage_to_a_damaged_ground_unit", "DEAL_UNIT_DAMAGE|3");
 };

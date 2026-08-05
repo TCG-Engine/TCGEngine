@@ -230,7 +230,7 @@ function _SWUOnUnitHealed($obj, int $amount = 0): void
   // LAW_047 Baze Malbus — when 1+ damage is healed from this unit: you may deal THAT MUCH to a unit.
   if (($obj->CardID ?? '') === 'LAW_047' && $amount > 0) {
     SWUOfferUnitTarget($controller, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>$amount,'may'=>true,
-        'question'=>"Deal_{$amount}_to_a_unit?",'prompt'=>"Choose_a_unit"]);
+        'question'=>"Deal_{$amount}_to_a_unit?",'prompt'=>"Deal_{$amount}_damage_to_a_unit"]);
     return;
   }
 }// ── Defeat-replacement resolution (JTL_049 L3-37): the controller chose YES → pick a friendly pilot-less
@@ -1810,7 +1810,7 @@ function _SWUSec002CheckObserve($obj, int $amount): void
     $ctrl,
     $targets,
     "Deal_{$amount}_damage_to_an_enemy_unit?",
-    "Choose_an_enemy_unit",
+    "Deal_{$amount}_damage_to_an_enemy_unit",
     "DEAL_UNIT_DAMAGE|{$amount}"
   );
 }
@@ -1837,7 +1837,7 @@ function _SWUSec143Offer(int $player, int $selfUID): void
     return;   // no eligible unique unit → fizzle
   SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>2,'may'=>true,'excludeUID'=>$selfUID,
       'extraFilter'=>fn($o)=>CardUnique($o->CardID ?? ''),
-      'question'=>'Deal_2_damage_to_another_unique_unit?','prompt'=>'Choose_a_unique_unit']);
+      'question'=>'Deal_2_damage_to_another_unique_unit?','prompt'=>"Deal_2_damage_to_a_unique_unit"]);
 }
 // All unit mzIDs (both players, all arenas) plus both bases — "a unit or base" target set.
 function _SWUAllUnitsAndBases(int $player): array
@@ -1908,7 +1908,7 @@ function _SWUSec016React(int $player): void
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'SEC_016#0', 1);
   } elseif (_SWULeaderDeployed(intval($player), 'SEC_016')) {
     SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>1,'may'=>true,
-        'question'=>"Deal_1_damage_to_a_unit?",'prompt'=>"Choose_a_unit"]);
+        'question'=>"Deal_1_damage_to_a_unit?",'prompt'=>"Deal_1_damage_to_a_unit"]);
   }
 }// SEC_017 Sabé (deployed) — deals combat damage to a base: look at the defending player's hand, may
 // discard a card; if you do, that player draws a card.

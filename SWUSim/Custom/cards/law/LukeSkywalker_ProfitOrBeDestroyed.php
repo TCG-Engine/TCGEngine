@@ -24,7 +24,7 @@ $customDQHandlers["LAW_080#0"] = function($player, $parts, $lastDecision) {
         $playerID = $caster;
         $units = SWUAllUnits();
         if (empty($units)) return;
-        SWUQueueMayChooseTarget($caster, $units, "Deal_5_damage_to_a_unit?", "Choose_a_unit", "DEAL_UNIT_DAMAGE|5");
+        SWUQueueMayChooseTarget($caster, $units, "Deal_5_damage_to_a_unit?", "Deal_5_damage_to_a_unit", "DEAL_UNIT_DAMAGE|5");
         return;
     }
     // CreditAndReady: the opponent creates a Credit token; ready Luke (the caster's unit).

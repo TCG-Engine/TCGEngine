@@ -785,6 +785,10 @@ $codexCliAvailable = CropTesterFindCodexCLI() !== null;
     color:#a9d6a0; font:12px/1.5 monospace; white-space:pre-wrap; margin-top:20px; max-width:760px; }
   a { color:var(--accent); }
 </style>
+<!-- StyledConfirm for the destructive regenerate prompts (no native dialogs — DevTools/check-no-native-dialogs.sh).
+     Self-contained: it injects its own CSS and falls back to neutral values when the design-system
+     role tokens are absent, which they are on this standalone tool. -->
+<script src="/TCGEngine/Core/StyledDialog.js"></script>
 </head>
 <body>
 <header>
@@ -1202,7 +1206,12 @@ async function runBatch(useAI, selectedIDs = null) {
   const confirmation = useAI
     ? `Run ${count} Codex $imagegen edit${count === 1 ? '' : 's'} and replace successful images in ${destination}? This consumes image-generation usage and may take a long time.`
     : `Replace ${count} generated images in ${destination} using the crop sections currently shown?`;
-  if (!window.confirm(confirmation)) return;
+  const confirmed = await StyledConfirm(confirmation, {
+    title: useAI ? 'Run Codex image edits' : 'Regenerate images',
+    confirmLabel: useAI ? 'Run edits' : 'Regenerate',
+    danger: true            // both branches overwrite files in place
+  });
+  if (!confirmed) return;
 
   const button = selectedQueue ? $('retryQueued') : (useAI ? $('regenerateAI') : $('regenerateAll'));
   const status = $('regenerateStatus');

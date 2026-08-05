@@ -17,7 +17,7 @@ $onAttackAbilities["SEC_014:0"] = function($player, $mzID) {
     }
     if (empty($targets)) return;
     SWUQueueMayChooseTarget(intval($player), $targets,
-        "Deal_2_damage_to_an_exhausted_unit?", "Choose_an_exhausted_unit", "DEAL_UNIT_DAMAGE|2");
+        "Deal_2_damage_to_an_exhausted_unit?", "Deal_2_damage_to_an_exhausted_unit", "DEAL_UNIT_DAMAGE|2");
 };
 
 // ── SEC_014 Sly Moore ─────────────────────────────────────────────────────────

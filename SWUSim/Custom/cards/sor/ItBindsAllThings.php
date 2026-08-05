@@ -43,7 +43,7 @@ $customDQHandlers["SOR_075#1"] = function($player, $parts, $lastDecision) {
     if (empty($targets)) return;
     SWUQueueMayChooseTarget(intval($player), $targets,
         "You_may_deal_" . $healed . "_damage_to_another_unit",
-        "Choose_another_unit_to_damage", "DEAL_UNIT_DAMAGE|" . $healed);
+        "Deal_{$healed}_damage_to_another_unit", "DEAL_UNIT_DAMAGE|" . $healed);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

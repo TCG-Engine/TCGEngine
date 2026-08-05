@@ -8,6 +8,6 @@ $whenPlayedAbilities["LOF_198:0"] = function($player, $mzID) {
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'may' => true,
         'extraFilter' => fn($o) => intval($o->Status ?? 0) !== 1, // exhausted (Status != ready)
-        'question' => "Deal_2_to_an_exhausted_unit?", 'prompt' => "Choose_an_exhausted_unit",
+        'question' => "Deal_2_to_an_exhausted_unit?", 'prompt' => "Deal_2_damage_to_an_exhausted_unit",
     ]);
 };
