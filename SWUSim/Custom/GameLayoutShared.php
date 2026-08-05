@@ -1214,7 +1214,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 
     // ── Card link hover ───────────────────────────────────────────────────────
     window.swuLogCardHover = function(event, cardId) {
-        ShowDetail(event, './SWUSim/concat/' + cardId + '.webp');
+        ShowDetail(event, '/TCGEngine/AppCore/SWU/Images/concat/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cardId) : cardId) + '.webp');
     };
 
     // ── Log renderer ──────────────────────────────────────────────────────────
@@ -2120,13 +2120,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             var cls = 'swu-mb-card swu-mb-leader';
             if (String(o.Ready) === 'false' || o.Ready === false) cls += ' is-exhausted';
             if (!isFlipatine && (o.Deployed === true || String(o.Deployed) === 'true')) cls += ' is-deployed';
-            return '<span class="' + cls + '" style="background-image:url(./SWUSim/concat/' + cid + '.webp)"></span>';
+            return '<span class="' + cls + '" style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cid) : cid) + '.webp)"></span>';
         }).join('');
         // Base (centered damage, tint when hit)
         var dmg = b.baseObj ? (parseInt(b.baseObj.Damage, 10) || 0) : 0;
         var baseCid = b.baseObj ? String(b.baseObj.CardID || '').replace(/ /g, '_') : '';
         var baseHtml = '<span class="swu-mb-card swu-mb-base" data-mz="p' + seat + 'Base-0"' +
-            (baseCid ? ' style="background-image:url(./SWUSim/concat/' + baseCid + '.webp)"' : '') +
+            (baseCid ? ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(baseCid) : baseCid) + '.webp)"' : '') +
             '>' + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '') + '</span>';
         // A single unit thumbnail, tagged with its engine mzID (p{seat}{arena}Arena-{idx}) so it can be
         // highlighted + clicked as a cross-view attack/ability target (matches the seat-tagged targets
@@ -2137,7 +2137,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (String(u.Status) === '0') cls += ' is-exhausted';
                 var badge = (u.Damage > 0) ? '<span class="swu-mb-dmgcounter">' + u.Damage + '</span>' : '';
                 return '<span class="' + cls + '" data-mz="p' + seat + arena + 'Arena-' + i + '" ' +
-                    'style="background-image:url(./SWUSim/WebpImages/' + u.CardID + '.webp)">' + badge + '</span>';
+                    'style="background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(u.CardID) : u.CardID) + '.webp)">' + badge + '</span>';
             };
         }
         var spaceHtml  = b.spaceUnits.map(unitHtml('Space')).join('');
@@ -2761,7 +2761,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             img.alt = cardID;
             // Mock (preview) cards store their art as concat/mock_<CardID>.webp — resolve the image id the
             // same way the board does (jsInclude.js), else unreleased-set mock cards 404 and don't render.
-            img.src = './SWUSim/concat/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cardID) : cardID) + '.webp';
+            img.src = '/TCGEngine/AppCore/SWU/Images/concat/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cardID) : cardID) + '.webp';
             cell.appendChild(img);
             cell.onmouseover = function (e) { if (typeof window.ShowCardDetail === 'function') ShowCardDetail(e, this); };
             cell.onmouseout  = function ()  { if (typeof window.HideCardDetail === 'function') HideCardDetail(); };

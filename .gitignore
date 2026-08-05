@@ -20,12 +20,12 @@ Data/RB.json
 vendor
 HostFiles/
 DevTools/local/_backups/
-SWUDeck/concat
-SWUDeck/crops
 SWUDeck/Games
 SWUDeck/GeneratedCode
 SWUDeck/TempImages
-SWUDeck/WebpImages
+# SWU card art moved to the shared AppCore/SWU/Images/ corpus (2026-08-05). SWUDeck/WebpImages/
+# survives holding ONLY the Discord legacy-URL shim, which must ship — see the "/*" note below.
+SWUDeck/WebpImages/*
 SWUDeck/UnimplementedCards
 SWUDeck/GamestateParser.php
 SWUDeck/GeneratedUI*.js
@@ -110,23 +110,16 @@ CardEditor/Assets
 # Scratch fixture dir written by Core/Match framework tests (test_match_core / test_match_flow)
 MatchTestSim/
 MatchFlowTestSim4/
-# Card art is generated or downloaded, so these dirs are ignored — EXCEPT mock_* (preview) art,
-# which is TRACKED: a previewed card's art often has no fetchable URL (upstream 404s until
-# release), so unlike official art it cannot be re-downloaded on deploy.
-# NOTE the "/*" on each dir. Ignoring the DIRECTORY itself ("SWUSim/concat") makes git skip
-# walking into it, and per gitignore(5) "it is not possible to re-include a file if a parent
-# directory of that file is excluded" — the ! lines would silently never apply.
-# Extensions differ per dir: concat/ and WebpImages/ hold .webp; crops/ holds <id>_cropped.png.
-SWUSim/concat/*
-!SWUSim/concat/mock_*.webp
-SWUSim/crops/*
-!SWUSim/crops/mock_*.png
+# SWUSim's own card art trees were removed on 2026-08-05 — both SWU apps now read the shared
+# AppCore/SWU/Images/ corpus (rules at the bottom of this file). Kept as a guard so a stray
+# regeneration into the old location can never be committed.
+SWUSim/concat
+SWUSim/crops
+SWUSim/WebpImages
 SWUSim/Games
 SWUSim/Matches
 SWUSim/GeneratedCode
 SWUSim/TempImages
-SWUSim/WebpImages/*
-!SWUSim/WebpImages/mock_*.webp
 SWUSim/GamestateParser.php
 SWUSim/GeneratedUI*.js
 SWUSim/GetNextTurn.php
@@ -176,6 +169,38 @@ DevTools/.snapshots/
 */NextTurnRender.php
 */ZoneAccessors.php
 */ZoneClasses.php
-*/WebpImages
+# "/*" rather than the bare dir: SWUDeck/WebpImages/ re-includes two shim files, and git cannot
+# re-include a file whose parent DIRECTORY is excluded.
+*/WebpImages/*
+# ...except the Discord legacy-URL shim, which must ship. These sit BELOW the catch-all on purpose:
+# gitignore takes the LAST matching pattern, so re-including them next to SWUDeck's other rules
+# above would be undone by the line directly above this one.
+!SWUDeck/WebpImages/index.php
+!SWUDeck/WebpImages/.htaccess
 */crops
 */concat
+
+# Shared SWU card art (AppCore/SWU/Images/). The rules above contain a slash, so git anchors them to
+# the repo root and "*" matches exactly ONE path component — "*/WebpImages" matches SWUSim/WebpImages
+# but NOT AppCore/SWU/Images/WebpImages. Without these, the first generation run stages ~470MB.
+#
+# The "dir/*" form is load-bearing: git cannot re-include a file with "!" once its PARENT DIRECTORY
+# is excluded, so the bare-directory form used above would silently swallow the mock exceptions
+# below. Verified empirically 2026-08-04.
+AppCore/SWU/Images/WebpImages/*
+AppCore/SWU/Images/concat/*
+AppCore/SWU/Images/crops/*
+AppCore/SWU/Images/TempImages
+# ...except preview mock art, which is TRACKED SOURCE: it ships to boxes that never call the
+# upstream API, so it cannot be regenerated there.
+!AppCore/SWU/Images/WebpImages/mock_*
+!AppCore/SWU/Images/concat/mock_*
+!AppCore/SWU/Images/crops/mock_*
+# SET_NNN migration SQL is GENERATED per box (tools/materialize-id-map.php, tools/build-rekey-sql.php)
+# and encodes one box's card dictionary and schema at one moment. Committing it guarantees someone
+# eventually applies a stale map. The generators are tracked; their output is not.
+AppCore/SWU/migrations/0*.sql
+
+# Maintenance-mode flag (zzMaintenanceMode.php). Runtime operational state, per box — its ABSENCE
+# means "normal service", so it must never ship in a deploy and freeze a healthy site.
+*/maintenance.json

@@ -198,17 +198,28 @@ function HideCardDetailScrim() {
 // prefixed, so anywhere a filename is built from a CardID must resolve it through here.
 // window.MockCardImageIDs is emitted by zzCardCodeGenerator into the client card dictionary;
 // absent (real cards, or other games) means the CardID is returned unchanged.
+// CardID -> art filename stem. Mirrors SWUCardImageID() in AppCore/SWU/CardImagePath.php.
+//
+// The shared corpus (AppCore/SWU/Images/) is SET_NNN-named, so a STORED FFG UID — deck files and
+// stats rows keep theirs until the identity migration — must be normalised toward SET_NNN first.
+// SWUNormalizeDictionaryKey is emitted for SWUDeck only; SWUSim's ids are already SET_NNN, so the
+// guard makes this a no-op there.
 function resolveCardImageID(cardID) {
   if (!cardID) return cardID;
-  var mocks = (typeof window !== 'undefined' && window.MockCardImageIDs) || null;
-  if (!mocks) return cardID;
-  if (mocks[cardID]) return 'mock_' + cardID;
+
   // A deployed leader renders its UNIT side as "<CardID>_back" (SWUArenaDisplayCardID), so the id
-  // reaching here is not always a bare CardID. Resolve against the base id and keep the suffix:
-  // "HMW_004_back" -> "mock_HMW_004_back".
-  var suffixed = /^(.*)(_back)$/.exec(cardID);
-  if (suffixed && mocks[suffixed[1]]) return 'mock_' + suffixed[1] + suffixed[2];
-  return cardID;
+  // reaching here is not always a bare CardID. Split the suffix off before any lookup, then put it
+  // back: "2579145458_back" -> "SOR_005_back", "HMW_004_back" -> "mock_HMW_004_back".
+  var suffix = '';
+  var id = String(cardID);
+  var m = /^(.*)(_back)$/.exec(id);
+  if (m) { id = m[1]; suffix = m[2]; }
+
+  if (typeof SWUNormalizeDictionaryKey === 'function') id = SWUNormalizeDictionaryKey(id);
+
+  var mocks = (typeof window !== 'undefined' && window.MockCardImageIDs) || null;
+  if (mocks && mocks[id]) return 'mock_' + id + suffix;
+  return id + suffix;
 }
 
 function ShowDetail(e, imgSource, avoidEl, requestToken) {

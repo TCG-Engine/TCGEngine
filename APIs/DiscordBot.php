@@ -45,6 +45,7 @@ if (isset($interaction['type']) && $interaction['type'] === 1) {
 }
 
 include_once "../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
+include_once "../AppCore/SWU/CardImagePath.php";   // SWUCardImagePath — card art moved to the shared SET_NNN corpus
 include_once "../Database/ConnectionManager.php";
 
 // Handle an Application Command (Interaction Type 2).
@@ -249,7 +250,7 @@ if (isset($interaction['type']) && $interaction['type'] === 2) {
 		if(count($matches) == 1) {
 			$uuid = $matches[0];
 			$responseText = "Fetching details for: " . CardTitle($uuid);
-			$imageUrl = "https://swustats.net/TCGEngine/SWUDeck/WebpImages/" . $uuid . ".webp";
+			$imageUrl = "https://swustats.net" . SWUCardImagePath($uuid, 'card');
 			$response = [
 				'type' => 4, // Respond with a message
 				'data' => [
@@ -430,7 +431,7 @@ if (isset($interaction['type']) && $interaction['type'] === 2) {
 		if(count($matches) > 0) {
 			$uuid = $matches[0];
 			$responseText = "Fetching details for: " . CardTitle($uuid);
-			$imageUrl = "https://swustats.net/TCGEngine/SWUDeck/WebpImages/" . $uuid . ".webp";
+			$imageUrl = "https://swustats.net" . SWUCardImagePath($uuid, 'card');
 			$response = [
 				'type' => 4, // Respond with a message
 				'data' => [

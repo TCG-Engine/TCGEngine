@@ -68,21 +68,24 @@ function FindCard($cardName) {
     }
     else {
         $cardName = strtolower(CardNicknames($cardName));
+        // $titleData is SET_NNN-keyed since 2026-08-04 (it was UUID-keyed before), so these loop
+        // variables are card ids, not uuids. Logic is unchanged — only the names, so the next
+        // reader is not misled about which scheme is coming back.
         global $titleData;
         $matches = [];
-        foreach ($titleData as $uuid => $title) {
+        foreach ($titleData as $id => $title) {
             if (stripos($title, $cardName) !== false) {
-                $matches[] = $uuid;
+                $matches[] = $id;
             }
         }
-        
+
         // If no matches found, try normalizing further - removing apostrophes, etc.
         if(count($matches) == 0) {
             $normalizedCardName = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($cardName));
-            foreach ($titleData as $uuid => $title) {
+            foreach ($titleData as $id => $title) {
                 $normalizedTitle = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($title));
                 if (stripos($normalizedTitle, $normalizedCardName) !== false) {
-                    $matches[] = $uuid;
+                    $matches[] = $id;
                 }
             }
         }

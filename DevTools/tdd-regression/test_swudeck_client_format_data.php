@@ -9,39 +9,41 @@ $checks = [];
 // Premier: fixed curated set list, no bans.
 $premier = SWUDeckClientFormatData('premier');
 $checks['premier legalSets matches config'] = $premier['legalSets'] === ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
-$checks['premier has no banned UUIDs'] = $premier['bannedUUIDs'] === [];
+$checks['premier has no banned UUIDs'] = $premier['bannedIDs'] === [];
 
-// Eternal: every set legal, JTL_140 + JTL_170 banned — both must resolve to a UUID.
+// Eternal: every set legal, JTL_140 + JTL_170 banned.
+// Since 2026-08-04 the payload carries SET_NNN ids directly — no UUIDLookup round-trip.
 $eternal = SWUDeckClientFormatData('eternal');
 $checks['eternal legalSets includes SOR'] = in_array('SOR', $eternal['legalSets'], true);
 $checks['eternal legalSets includes ASH'] = in_array('ASH', $eternal['legalSets'], true);
-$checks['eternal has exactly 2 banned UUIDs'] = count($eternal['bannedUUIDs']) === 2;
-$expectedBannedUUIDs = [UUIDLookup('JTL_140'), UUIDLookup('JTL_170')];
-sort($expectedBannedUUIDs);
-$actualBannedUUIDs = $eternal['bannedUUIDs'];
-sort($actualBannedUUIDs);
-$checks['eternal banned UUIDs match JTL_140/JTL_170'] = $actualBannedUUIDs === $expectedBannedUUIDs;
+$checks['eternal has exactly 2 banned IDs'] = count($eternal['bannedIDs']) === 2;
+$expectedBannedIDs = ['JTL_140', 'JTL_170'];
+sort($expectedBannedIDs);
+$actualBannedIDs = $eternal['bannedIDs'];
+sort($actualBannedIDs);
+$checks['eternal banned IDs match JTL_140/JTL_170'] = $actualBannedIDs === $expectedBannedIDs;
 
 // Open and Twin Suns: no bans configured today.
 $open = SWUDeckClientFormatData('open');
-$checks['open has no banned UUIDs'] = $open['bannedUUIDs'] === [];
+$checks['open has no banned UUIDs'] = $open['bannedIDs'] === [];
 $twinsuns = SWUDeckClientFormatData('twinsuns');
-$checks['twinsuns has no banned UUIDs'] = $twinsuns['bannedUUIDs'] === [];
+$checks['twinsuns has no banned UUIDs'] = $twinsuns['bannedIDs'] === [];
 
 // Unknown format: degrades to empty/safe output, doesn't throw.
 $unknown = SWUDeckClientFormatData('nonsense');
 $checks['unknown format returns empty legalSets'] = $unknown['legalSets'] === [];
-$checks['unknown format returns empty bannedUUIDs'] = $unknown['bannedUUIDs'] === [];
+$checks['unknown format returns empty bannedIDs'] = $unknown['bannedIDs'] === [];
 
 // ── PADAWAN client payload ───────────────────────────────────────────────────
 // The client CANNOT re-derive this rule: cardReprintSets exposes reprint SET CODES only, not
 // per-printing rarity, so a client-side rarity check would wrongly hide the SOR printing of
 // Prepare for Takeoff. The list is therefore computed server-side from the same PHP predicate.
 $padawan = SWUDeckClientFormatData('padawan');
-$checks['padawan ships a rarity allowlist'] = is_array($padawan['rarityLegalUUIDs']);
-$checks['padawan allowlist is substantial']  = count($padawan['rarityLegalUUIDs'] ?? []) > 900;
+$checks['padawan ships a rarity allowlist'] = is_array($padawan['rarityLegalIDs']);
+$checks['padawan allowlist is substantial']  = count($padawan['rarityLegalIDs'] ?? []) > 900;
 
-$inList = fn($setID) => in_array(UUIDLookup($setID), $padawan['rarityLegalUUIDs'] ?? [], true);
+// The allowlist holds SET_NNN ids directly now, so membership is a straight comparison.
+$inList = fn($setID) => in_array($setID, $padawan['rarityLegalIDs'] ?? [], true);
 $checks['allowlist has a common']            = $inList('SOR_033');
 $checks['allowlist has a common base']       = $inList('JTL_023');
 $checks['allowlist omits a special']         = !$inList('SOR_236');
@@ -59,10 +61,10 @@ $checks['allowlist has the special reprint']   = $inList('SHD_030');
 
 // NO REGRESSION: formats without a rarity rule ship null, so their payload is byte-identical.
 foreach (['premier', 'eternal', 'twinsuns', 'open'] as $f) {
-    $checks["$f ships null rarity allowlist"] = SWUDeckClientFormatData($f)['rarityLegalUUIDs'] === null;
+    $checks["$f ships null rarity allowlist"] = SWUDeckClientFormatData($f)['rarityLegalIDs'] === null;
 }
 $checks['unknown format ships null rarity allowlist'] =
-    SWUDeckClientFormatData('nonsense')['rarityLegalUUIDs'] === null;
+    SWUDeckClientFormatData('nonsense')['rarityLegalIDs'] === null;
 
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";

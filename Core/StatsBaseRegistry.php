@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../AppCore/SWU/CardIdentity.php';   // accept UID or SET_NNN
 // Single source of truth for opponent common-base bucketing.
 // Maps a base GUID to {color, type, canonical}. Force/Splash come from the static
 // table below (the API's card dictionary does NOT contain these bases); Standard 30HP
@@ -53,23 +54,23 @@ function BaseGroupDisplayLabel($type, $color) {
 function StatsForceSplashRegistry() {
     return [
         // --- FORCE (28HP, LOF) ---
-        '2098652813' => ['color'=>'Blue',  'type'=>'Force', 'canonical'=>'2098652813'], // LOF_020
-        '0119018087' => ['color'=>'Blue',  'type'=>'Force', 'canonical'=>'2098652813'], // LOF_021
-        '0450346170' => ['color'=>'Green', 'type'=>'Force', 'canonical'=>'0450346170'], // LOF_023
-        '2945340801' => ['color'=>'Green', 'type'=>'Force', 'canonical'=>'0450346170'], // LOF_024
-        '5396502974' => ['color'=>'Red',   'type'=>'Force', 'canonical'=>'5396502974'], // LOF_026
-        '8710346686' => ['color'=>'Red',   'type'=>'Force', 'canonical'=>'5396502974'], // LOF_027
-        '4352576521' => ['color'=>'Yellow','type'=>'Force', 'canonical'=>'4352576521'], // LOF_029
-        '3380203065' => ['color'=>'Yellow','type'=>'Force', 'canonical'=>'4352576521'], // LOF_030
+        'LOF_020' => ['color'=>'Blue',  'type'=>'Force', 'canonical'=>'LOF_020'], // LOF_020
+        'LOF_021' => ['color'=>'Blue',  'type'=>'Force', 'canonical'=>'LOF_020'], // LOF_021
+        'LOF_023' => ['color'=>'Green', 'type'=>'Force', 'canonical'=>'LOF_023'], // LOF_023
+        'LOF_024' => ['color'=>'Green', 'type'=>'Force', 'canonical'=>'LOF_023'], // LOF_024
+        'LOF_026' => ['color'=>'Red',   'type'=>'Force', 'canonical'=>'LOF_026'], // LOF_026
+        'LOF_027' => ['color'=>'Red',   'type'=>'Force', 'canonical'=>'LOF_026'], // LOF_027
+        'LOF_029' => ['color'=>'Yellow','type'=>'Force', 'canonical'=>'LOF_029'], // LOF_029
+        'LOF_030' => ['color'=>'Yellow','type'=>'Force', 'canonical'=>'LOF_029'], // LOF_030
         // --- SPLASH (27HP, LAW) ---
-        '5043366366' => ['color'=>'Blue',  'type'=>'Splash','canonical'=>'5043366366'], // LAW_020
-        '6862472986' => ['color'=>'Blue',  'type'=>'Splash','canonical'=>'5043366366'], // LAW_021
-        '2248996839' => ['color'=>'Green', 'type'=>'Splash','canonical'=>'2248996839'], // LAW_022
-        '7297371836' => ['color'=>'Green', 'type'=>'Splash','canonical'=>'2248996839'], // LAW_024
-        '0121172430' => ['color'=>'Red',   'type'=>'Splash','canonical'=>'0121172430'], // LAW_025
-        '5020919647' => ['color'=>'Red',   'type'=>'Splash','canonical'=>'0121172430'], // LAW_027
-        '2937103129' => ['color'=>'Yellow','type'=>'Splash','canonical'=>'2937103129'], // LAW_028
-        '1156889063' => ['color'=>'Yellow','type'=>'Splash','canonical'=>'2937103129'], // LAW_030
+        'LAW_020' => ['color'=>'Blue',  'type'=>'Splash','canonical'=>'LAW_020'], // LAW_020
+        'LAW_021' => ['color'=>'Blue',  'type'=>'Splash','canonical'=>'LAW_020'], // LAW_021
+        'LAW_022' => ['color'=>'Green', 'type'=>'Splash','canonical'=>'LAW_022'], // LAW_022
+        'LAW_024' => ['color'=>'Green', 'type'=>'Splash','canonical'=>'LAW_022'], // LAW_024
+        'LAW_025' => ['color'=>'Red',   'type'=>'Splash','canonical'=>'LAW_025'], // LAW_025
+        'LAW_027' => ['color'=>'Red',   'type'=>'Splash','canonical'=>'LAW_025'], // LAW_027
+        'LAW_028' => ['color'=>'Yellow','type'=>'Splash','canonical'=>'LAW_028'], // LAW_028
+        'LAW_030' => ['color'=>'Yellow','type'=>'Splash','canonical'=>'LAW_028'], // LAW_030
     ];
 }
 
@@ -80,7 +81,7 @@ function StatsForceSplashRegistry() {
 function PromosRegistry() {
     return [
         // GG_004 Jabba's Palace — reprint of the Cunning 30HP common (SHD_026).
-        '2537094666' => ['color' => 'Yellow', 'type' => 'Standard', 'canonical' => '2376813177'],
+        '2537094666' => ['color' => 'Yellow', 'type' => 'Standard', 'canonical' => 'SEC_026'],
     ];
 }
 
@@ -91,55 +92,55 @@ function PromosRegistry() {
 function StatsRareSpecialBases() {
     return [
         // IBH
-        '1049149674' => true, // IBH_002 Echo Caverns
-        '0479107180' => true, // IBH_054 Forward Command Post
+        'IBH_002' => true, // IBH_002 Echo Caverns
+        'IBH_054' => true, // IBH_054 Forward Command Post
         // JTL
-        '1029978899' => true, // JTL_021 Colossus
-        '4028826022' => true, // JTL_024 Data Vault
-        '4301437393' => true, // JTL_025 Thermal Oscillator
-        '9586661707' => true, // JTL_028 Nabat Village
-        '1672815328' => true, // JTL_031 Lake Country
+        'JTL_021' => true, // JTL_021 Colossus
+        'JTL_024' => true, // JTL_024 Data Vault
+        'JTL_025' => true, // JTL_025 Thermal Oscillator
+        'JTL_028' => true, // JTL_028 Nabat Village
+        'JTL_031' => true, // JTL_031 Lake Country
         // LAW
-        '3469239154' => true, // LAW_019 Alliance Outpost
-        '7897278827' => true, // LAW_023 Great Pit of Carkoon
-        '2034527101' => true, // LAW_026 Shipbreaking Yard
-        '5020758299' => true, // LAW_029 Citadel Research Center
+        'LAW_019' => true, // LAW_019 Alliance Outpost
+        'LAW_023' => true, // LAW_023 Great Pit of Carkoon
+        'LAW_026' => true, // LAW_026 Shipbreaking Yard
+        'LAW_029' => true, // LAW_029 Citadel Research Center
         // LOF
-        '7204128611' => true, // LOF_019 Vergence Temple
-        '9434212852' => true, // LOF_022 Mystic Monastery
-        '9453163990' => true, // LOF_025 Temple of Destruction
-        '2699176260' => true, // LOF_028 Tomb of Eilram
+        'LOF_019' => true, // LOF_019 Vergence Temple
+        'LOF_022' => true, // LOF_022 Mystic Monastery
+        'LOF_025' => true, // LOF_025 Temple of Destruction
+        'LOF_028' => true, // LOF_028 Tomb of Eilram
         // SOR
-        '2429341052' => true, // SOR_019 Security Complex
-        '8327910265' => true, // SOR_022 Energy Conversion Lab
-        '1393827469' => true, // SOR_025 Tarkintown
-        '2569134232' => true, // SOR_028 Jedha City
+        'SOR_019' => true, // SOR_019 Security Complex
+        'SOR_022' => true, // SOR_022 Energy Conversion Lab
+        'SOR_025' => true, // SOR_025 Tarkintown
+        'SOR_028' => true, // SOR_028 Jedha City
         // TS26
-        '1352374398' => true, // TS26_09 First Battle Memorial
-        '4631699773' => true, // TS26_10 Dooku's Palace
-        '1546304694' => true, // TS26_11 Executioner's Arena
-        '0344986336' => true, // TS26_12 Sundari Palace
+        'TS26_09' => true, // TS26_09 First Battle Memorial
+        'TS26_10' => true, // TS26_10 Dooku's Palace
+        'TS26_11' => true, // TS26_11 Executioner's Arena
+        'TS26_12' => true, // TS26_12 Sundari Palace
         // TWI
-        '6594935791' => true, // TWI_019 Pau City
-        '8589863038' => true, // TWI_022 Droid Manufactory
-        '6854189262' => true, // TWI_025 Shadow Collective Camp
-        '9652861741' => true, // TWI_028 Petranaki Arena
+        'TWI_019' => true, // TWI_019 Pau City
+        'TWI_022' => true, // TWI_022 Droid Manufactory
+        'TWI_025' => true, // TWI_025 Shadow Collective Camp
+        'TWI_028' => true, // TWI_028 Petranaki Arena
     ];
 }
 
 // Existing 30HP canonicalization (moved verbatim from SubmitGameResult.php).
 function Canonical30Base($baseID) {
     $canonicalBases = [
-        'Cunning'    => '2376813177',
-        'Command'    => '7790300585',
-        'Aggression' => '2696059415',
-        'Vigilance'  => '9014930596',
+        'Cunning'    => 'SEC_026',
+        'Command'    => 'SEC_021',
+        'Aggression' => 'SEC_024',
+        'Vigilance'  => 'JTL_020',
     ];
     $baseToAspect = [
-        '2376813177' => 'Cunning',
-        '7790300585' => 'Command',
-        '2696059415' => 'Aggression',
-        '9014930596' => 'Vigilance',
+        'SEC_026' => 'Cunning',
+        'SEC_021' => 'Command',
+        'SEC_024' => 'Aggression',
+        'JTL_020' => 'Vigilance',
     ];
     if (isset($baseToAspect[$baseID])) {
         return $canonicalBases[$baseToAspect[$baseID]];
@@ -156,6 +157,15 @@ function Canonical30Base($baseID) {
 // which lets writers fall back to the legacy color-only path.
 function ResolveOpponentBase($baseID) {
     if ($baseID === null || $baseID === '') return null;
+
+    // The registry is keyed by SET_NNN (re-keyed 2026-08-05, spec §7), but a caller can still hand
+    // us an FFG UID: stored stats rows carry them until the migration runs, and read paths run
+    // against pre-migration data during the window. Normalise first so BOTH shapes resolve — a
+    // miss here does not error, it silently stops consolidating bases, which is the worst kind.
+    if (function_exists('SWUCardIdentityIsSetNnn') && !SWUCardIdentityIsSetNnn((string)$baseID)) {
+        $c = SWUCardIdentityClassify((string)$baseID, true);
+        if ($c['class'] === 1) $baseID = $c['to'];
+    }
 
     // 1. Common Force & Splash bases (dict-independent static lists).
     $reg = StatsForceSplashRegistry();
@@ -205,8 +215,8 @@ function StatsBaseBucket($baseID) {
     if ($r && $r['kind'] === 'common') {
         if ($r['type'] === 'Standard') {
             // A non-canonical 30HP common has canonical == itself, so map by color instead.
-            $stdByColor = ['Green' => '7790300585', 'Blue' => '9014930596',
-                           'Red' => '2696059415', 'Yellow' => '2376813177'];
+            $stdByColor = ['Green' => 'SEC_021', 'Blue' => 'JTL_020',
+                           'Red' => 'SEC_024', 'Yellow' => 'SEC_026'];
             $rep = isset($stdByColor[$r['color']]) ? $stdByColor[$r['color']] : (string)$baseID;
         } else {
             // Force/Splash: the registry already stores a single per-color canonical.

@@ -21,7 +21,7 @@ function postJson($url, $data) {
 function manualPayload($deckID, $format) {
     return [
         'deckID'=>$deckID, 'won'=>true, 'rounds'=>3, 'winnerHealth'=>10, 'firstPlayer'=>true, 'format'=>$format,
-        'player'=>json_encode(['opposingHero'=>'ZZLEAD2','opposingBaseColor'=>'Red','opposingBaseGroup'=>'Standard',
+        'player'=>json_encode(['opposingHero'=>'JTL_T012','opposingBaseColor'=>'Red','opposingBaseGroup'=>'Standard',
             'cardResults'=>[['cardID'=>'ZZCARD','played'=>1,'resourced'=>1]]]),
     ];
 }

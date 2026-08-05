@@ -265,7 +265,13 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         folderPath = folder;
         // Check if asset reflection path function exists to handle file paths
         var folderPath = folder;
-        if (typeof AssetReflectionPath === 'function' && AssetReflectionPath() != null) {
+        // SWU card art is ONE shared corpus at /TCGEngine/AppCore/SWU/Images/, deliberately NOT
+        // under an app root. The reflection rewrite below assumes the second path segment IS the app
+        // root ("./SWUDeck/concat" -> "./<reflection>/concat"), which mangles a shared path into
+        // "./SWUDeck/SWU/Images/concat". Skip reflection for it and keep it absolute — it is already
+        // rooted, and prefixing "./" would resolve it against the page instead.
+        var isSharedSWUArt = folderPath.indexOf('AppCore/SWU/Images') !== -1;
+        if (!isSharedSWUArt && typeof AssetReflectionPath === 'function' && AssetReflectionPath() != null) {
           var reflectionPath = AssetReflectionPath();
           // Replace the first part of the path with reflection path
           var parts = folderPath.split('/');
@@ -280,7 +286,11 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             folderPath = reflectionPath;
           }
         }
-        folderPath = "./" + folderPath;
+        if (isSharedSWUArt) {
+          if (folderPath.charAt(0) !== '/') folderPath = '/' + folderPath.replace(/^\.\//, '');
+        } else {
+          folderPath = "./" + folderPath;
+        }
         var pathArr = folder.split("/");
         folder = pathArr[pathArr.length - 1];
 

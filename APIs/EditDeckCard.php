@@ -1,4 +1,10 @@
 <?php
+// Maintenance gate — must precede any write.
+// Rewrites a deck gamestate file. The deck-file rewrite walks those files, and autosave racing a
+  // format change is exactly what caused the Leader2 sideboard data loss.
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
+SWUMaintenanceRequire('SWUDeck', 'deck');
+
   // APIs/EditDeckCard.php
   // Modify a deck's gamestate (add/remove cards) for decks owned by the token's user.
 

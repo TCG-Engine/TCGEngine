@@ -1,0 +1,10 @@
+# Legacy card-art URLs. SWU art moved to AppCore/SWU/Images/ (SET_NNN-keyed) on 2026-08-05, but
+# Discord embed history is pinned to /TCGEngine/SWUDeck/WebpImages/<uuid>.webp permanently.
+# A .webp that is not found on disk is routed to index.php, which resolves it through the shared
+# seam and streams it. Anything that IS still on disk is served directly, so this is inert until
+# the old tree is removed.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^([^/]+)\.webp$ index.php?id=$1 [L,QSA]
+</IfModule>

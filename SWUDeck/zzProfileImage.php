@@ -14,6 +14,7 @@ $T0 = microtime(true);
 function ms($a, $b) { return number_format(($b - $a) * 1000, 1) . " ms"; }
 
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../AppCore/SWU/CardImagePath.php'; // the single SWU art-path seam
 include_once __DIR__ . '/GamestateParser.php';
 include_once __DIR__ . '/ZoneAccessors.php';
 include_once __DIR__ . '/ZoneClasses.php';
@@ -66,7 +67,7 @@ if ($qrImg) { imagedestroy($qrImg); }
 $decodeTimes = [];
 $loopStart = microtime(true);
 foreach ($uniqueIds as $id) {
-  $p = __DIR__ . '/WebpImages/' . $id . '.webp';
+  $p = SWUCardImageFsPath($id, 'card');
   $ct = microtime(true);
   $img = LoadCardImageAsGd($p);
   $decodeTimes[$id] = (microtime(true) - $ct) * 1000;
@@ -78,7 +79,7 @@ $avg = count($decodeTimes) ? array_sum($decodeTimes) / count($decodeTimes) : 0;
 
 // Head-to-head on a single real card: native GD vs Imagick vs dwebp.
 $sample = null;
-foreach ($uniqueIds as $id) { $c = __DIR__ . '/WebpImages/' . $id . '.webp'; if (file_exists($c)) { $sample = $c; break; } }
+foreach ($uniqueIds as $id) { $c = SWUCardImageFsPath($id, 'card'); if (file_exists($c)) { $sample = $c; break; } }
 echo "=== Phase timings ===\n";
 echo "  includes/bootstrap : " . ms($T0, $T_includes) . "\n";
 echo "  LoadAssetData (DB) : " . ms($T_includes, $T_asset) . "\n";

@@ -1,6 +1,6 @@
 # IC27 — Card Implementation Plan
 
-**⚠ PREVIEW SET.** All 15 cards are mock entries in `SWUSim/Custom/CardMocks.php` (imported via
+**⚠ PREVIEW SET.** All 15 cards are mock entries in `AppCore/SWU/CardMocks.php` (imported via
 `zzPreviewTool.php`), not official-API data. Icons 2027 Edition releases **2026-11-20**. The card
 list GROWS as previews land — re-run `swusim-generate-set-implement-doc IC27` after each import;
 the `### Already Done` line survives regeneration.

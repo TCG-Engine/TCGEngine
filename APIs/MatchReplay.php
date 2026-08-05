@@ -1,4 +1,9 @@
 <?php
+// Maintenance gate — must precede any write.
+// Writes replay state under the game tree the rewrite walks.
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
+SWUMaintenanceRequire('SWUDeck', 'deck');
+
 
 error_reporting(E_ALL);
 

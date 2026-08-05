@@ -97,13 +97,29 @@ function _LoadDeckSecondLeaderID($leaderZone) {
 	if($folderPath == "SoulMastersDB"){
 		$response = SoulMastersDeckJSON();
 	} else {
+		// Deck zones hold MIXED identities since 2026-08-04: cards saved before the SET_NNN re-key
+		// are UUIDs, cards added from the (now SET_NNN-keyed) browse panes are SET_NNN. Normalise
+		// each stored id once, then emit the shape the caller asked for.
+		//   setId=true  -> SET_NNN (the deck-JSON interchange format swudb/Petranaki consume)
+		//   setId=false -> FFG UID (the DEFAULT, and what Stats/APIs.php documents for Karabast)
+		// Falls back to the stored id if a lookup misses, so an unmappable card degrades to
+		// something visible rather than a silent null.
+		$emitID = function ($storedID) use ($setId) {
+			if ($storedID === null || $storedID === '') return $storedID;
+			$setNnn = function_exists('SWUNormalizeDictionaryKey')
+				? SWUNormalizeDictionaryKey((string)$storedID) : (string)$storedID;
+			if ($setId) return $setNnn;
+			$uuid = UUIDLookup($setNnn);
+			return ($uuid !== null && $uuid !== '') ? $uuid : $storedID;
+		};
+
 		$response = new stdClass();
 		$response->metadata = new stdClass();
 		$response->metadata->name = $assetName;
 		$response->leader = new stdClass();
 		$leader = &GetLeader(1);
 		$response->leader = new stdClass();
-		$response->leader->id = $setId ? CardIDLookup($leader[0]->CardID) : $leader[0]->CardID;
+		$response->leader->id = $emitID($leader[0]->CardID);
 		$response->leader->count = 1;
 		// Twin Suns decks carry a SECOND leader as element [1] of the same Leader zone. Emit it as
 		// `secondleader` — the same shape as `leader`, and the field name swudb.com uses, which SWUSim's
@@ -114,12 +130,12 @@ function _LoadDeckSecondLeaderID($leaderZone) {
 		$secondLeaderID = _LoadDeckSecondLeaderID($leader);
 		if ($secondLeaderID !== '') {
 			$response->secondleader = new stdClass();
-			$response->secondleader->id = $setId ? CardIDLookup($secondLeaderID) : $secondLeaderID;
+			$response->secondleader->id = $emitID($secondLeaderID);
 			$response->secondleader->count = 1;
 		}
 		$base = &GetBase(1);
 		$response->base = new stdClass();
-		$response->base->id = $setId ? CardIDLookup($base[0]->CardID) : $base[0]->CardID;
+		$response->base->id = $emitID($base[0]->CardID);
 		$response->base->count = 1;
 		$response->deck = array();
 		$cards = &GetMainDeck(1);
@@ -145,7 +161,7 @@ function _LoadDeckSecondLeaderID($leaderZone) {
 		$response->deck = array();
 		foreach ($mainQuantityIndex as $cardID => $quantity) {
 			$cardObj = new stdClass();
-			$cardObj->id = $setId ? CardIDLookup($cardID) : $cardID;
+			$cardObj->id = $emitID($cardID);
 			$cardObj->count = $quantity;
 			$response->deck[] = $cardObj;
 		}
@@ -154,7 +170,7 @@ function _LoadDeckSecondLeaderID($leaderZone) {
 			$response->sideboard = array();
 			foreach ($sideboardQuantityIndex as $cardID => $quantity) {
 				$cardObj = new stdClass();
-				$cardObj->id = $setId ? CardIDLookup($cardID) : $cardID;
+				$cardObj->id = $emitID($cardID);
 				$cardObj->count = $quantity;
 				$response->sideboard[] = $cardObj;
 			}

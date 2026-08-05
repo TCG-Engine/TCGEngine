@@ -2639,8 +2639,15 @@ function GenImageFolder($zone) {
 }
 
 function GenImageRoot($zone = null) {
-  global $assetReflection, $rootPath;
+  global $assetReflection, $rootPath, $rootName;
   $assetRoot = !empty($assetReflection) ? "./" . $assetReflection : $rootPath;
+  // SWU card art is ONE shared corpus (AppCore/SWU/Images/, SET_NNN-keyed) read by both SWU apps.
+  // Every other root keeps its per-app folders. This is the single source for the client's
+  // assetImageFolder and for every PopulateZone(..., <folder>, ...) argument, so changing it here
+  // moves them all. Filenames are resolved through resolveCardImageID() client-side.
+  $swuRoot = ($rootName === "SWUSim" || $rootName === "SWUDeck")
+      || in_array($assetReflection, ["SWUSim", "SWUDeck"], true);
+  if ($swuRoot) $assetRoot = "/TCGEngine/AppCore/SWU/Images";
   $folder = $zone === null ? "concat" : GenImageFolder($zone);
   return $assetRoot . "/" . $folder;
 }
@@ -3071,7 +3078,7 @@ function WriteInitialLayout() {
     fwrite($handler, "\$assetData = LoadAssetData(1, \$gameName);\r\n");
     fwrite($handler, "\$_deckFormat = \$assetData['format'] ?? 'premier';\r\n");
     fwrite($handler, "\$_clientFormatData = SWUDeckClientFormatData(\$_deckFormat);\r\n");
-    fwrite($handler, "echo(\"<script>window.SWU_FORMAT_LEGAL_SETS = \" . json_encode(\$_clientFormatData['legalSets']) . \"; window.SWU_FORMAT_BANNED_UUIDS = \" . json_encode(\$_clientFormatData['bannedUUIDs']) . \"; window.SWU_FORMAT_RARITY_LEGAL_UUIDS = \" . json_encode(\$_clientFormatData['rarityLegalUUIDs']) . \";</script>\");\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_FORMAT_LEGAL_SETS = \" . json_encode(\$_clientFormatData['legalSets']) . \"; window.SWU_FORMAT_BANNED_IDS = \" . json_encode(\$_clientFormatData['bannedIDs']) . \"; window.SWU_FORMAT_RARITY_LEGAL_IDS = \" . json_encode(\$_clientFormatData['rarityLegalIDs']) . \";</script>\");\r\n");
     fwrite($handler, "echo(\"<script>window.SWU_DECK_FORMAT = \" . json_encode(\$_deckFormat) . \";</script>\");\r\n");
     fwrite($handler, "\$_leaderZone = &GetLeader(1);\r\n");
     fwrite($handler, "\$_currentAlignments = [];\r\n");
@@ -3083,7 +3090,7 @@ function WriteInitialLayout() {
     fwrite($handler, "\$_leaderCropUrls = [];\r\n");
     fwrite($handler, "foreach (\$p1Leaders as \$_leaderCard) { \$_leaderCropUrls[\$_leaderCard->CardID] = SWUDeckLeaderCropUrl(\$_leaderCard->CardID); }\r\n");
     fwrite($handler, "echo(\"<script>window.SWU_LEADER_CROP_URLS = \" . json_encode(\$_leaderCropUrls) . \";</script>\");\r\n");
-    fwrite($handler, "echo(\"<script>window.SWU_PANE_IMAGE_FOLDERS = \" . json_encode(['Leaders' => './SWUDeck/WebpImages', 'Leader1' => './SWUDeck/WebpImages', 'Leader2' => './SWUDeck/WebpImages', 'Bases' => './SWUDeck/WebpImages']) . \";</script>\");\r\n");
+    fwrite($handler, "echo(\"<script>window.SWU_PANE_IMAGE_FOLDERS = \" . json_encode(['Leaders' => '/TCGEngine/AppCore/SWU/Images/WebpImages', 'Leader1' => '/TCGEngine/AppCore/SWU/Images/WebpImages', 'Leader2' => '/TCGEngine/AppCore/SWU/Images/WebpImages', 'Bases' => '/TCGEngine/AppCore/SWU/Images/WebpImages']) . \";</script>\");\r\n");
   }
   for ($i = 0; $i < count($clientIncludes); ++$i) {
     fwrite($handler, "echo(\"<script src='\" . _VersionedClientInclude('" . $clientIncludes[$i] . "') . \"'></script>\");\r\n");

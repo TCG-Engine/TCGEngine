@@ -41,7 +41,7 @@ function renderArchetypeExplorer(archetypes) {
     function cardImg(uuid, alt) {
         if (!uuid) return '';
         return `<img src="../SWUDeck/jpg/concat/${uuid}.jpg" alt="${escapeHTML(alt)}" title="${escapeHTML(alt)}"
-                     onerror="this.onerror=null;this.src='../SWUDeck/concat/${uuid}.webp';">`;
+                     onerror="this.onerror=null;this.src=swuCardArtUrl('${uuid}', 'tile');">`;
     }
 
     function renderGallery() {
@@ -190,7 +190,7 @@ function renderLeaderMetaChart(leaderMetaShare) {
             
             // If JPG fails, fall back to WebP version
             img.onerror = function() {
-                this.src = `../SWUDeck/concat/${uuid}.webp`;
+                this.src = swuCardArtUrl(uuid, 'tile');
             };
             
             barLabel.appendChild(img);
@@ -269,13 +269,13 @@ function renderLeaderComboChart(comboMetaShare) {
             
             // If JPG fails, fall back to WebP version
             leaderImg.onerror = function() {
-                this.src = `../SWUDeck/concat/${leaderUUID}.webp`;
+                this.src = swuCardArtUrl(leaderUUID, 'tile');
             };
             
             // Add hover for tooltip
             leaderImg.addEventListener('mouseenter', (e) => {
                 tooltip.innerHTML = `
-                    <img src="../SWUDeck/jpg/concat/${leaderUUID}.jpg" onerror="this.src='../SWUDeck/concat/${leaderUUID}.webp';" alt="${leaderName}">
+                    <img src="../SWUDeck/jpg/concat/${leaderUUID}.jpg" onerror="this.src='${swuCardArtUrl(leaderUUID, 'tile')}';" alt="${leaderName}">
                     <h4>${leaderName}</h4>
                     <p>Leader</p>
                 `;
@@ -310,13 +310,13 @@ function renderLeaderComboChart(comboMetaShare) {
             
             // Fall back to WebP if JPG fails
             baseImg.onerror = function() {
-                this.src = `../SWUDeck/concat/${baseUUID}.webp`;
+                this.src = swuCardArtUrl(baseUUID, 'tile');
             };
             
             // Add hover for tooltip
             baseImg.addEventListener('mouseenter', (e) => {
                 tooltip.innerHTML = `
-                    <img src="../SWUDeck/jpg/concat/${baseUUID}.jpg" onerror="this.src='../SWUDeck/concat/${baseUUID}.webp';" alt="${baseName}">
+                    <img src="../SWUDeck/jpg/concat/${baseUUID}.jpg" onerror="this.src='${swuCardArtUrl(baseUUID, 'tile')}';" alt="${baseName}">
                     <h4>${baseName}</h4>
                     <p>Base</p>
                 `;

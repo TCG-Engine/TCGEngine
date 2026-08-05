@@ -3,7 +3,7 @@
 // can deadlock/stall the apache worker pool on docker-for-mac). Invoke:
 //   docker exec otmtcge-swustats-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_preview_stats_exclusion.php
 //
-// A PREVIEW format is played with hand-curated MOCK cards (SWUSim/Custom/CardMocks.php) that can be
+// A PREVIEW format is played with hand-curated MOCK cards (AppCore/SWU/CardMocks.php) that can be
 // wrong, mid-errata, or deleted outright on release day. Nothing about such a game should describe
 // the real meta or a player's record, so a preview submission must write NO stats at all: no
 // deckstats row, and no completedgame row (the raw log feeds meta + matchup browsing, and rows
@@ -59,7 +59,7 @@ $conn = GetLocalMySQLConnection();
 $apiKey = isset($petranakiAPIKey) ? $petranakiAPIKey : (isset($karabastAPIKey) ? $karabastAPIKey : '');
 
 $deckID   = 999900101;    // throwaway deck; every deck-keyed row this test writes carries it
-$sentinel = 'ZZPREVIEW_W'; // throwaway WinningHero; identifies this test's completedgame rows
+$sentinel = 'TWI_T01'; // throwaway WinningHero; identifies this test's completedgame rows
 
 function postJson($url, $data) {
     $ch = curl_init($url);
@@ -72,7 +72,7 @@ function postJson($url, $data) {
 function payload($apiKey, $deckID, $format, $sentinel) {
     return [
         'apiKey' => $apiKey, 'winner' => 1, 'firstPlayer' => 1, 'round' => 3, 'winnerHealth' => 10,
-        'gameName' => strval($deckID), 'winHero' => $sentinel, 'loseHero' => 'ZZPREVIEW_L',
+        'gameName' => strval($deckID), 'winHero' => $sentinel, 'loseHero' => 'TWI_T02',
         'format' => $format, 'winnerDeck' => 'x', 'loserDeck' => 'y',
         'p1DeckLink' => "http://localhost/TCGEngine/?gameName=$deckID",
         // cardResults is deliberately EMPTY: a synthetic cardId fatals in SaveDeckStats's
@@ -80,9 +80,9 @@ function payload($apiKey, $deckID, $format, $sentinel) {
         // non-numeric id against a numeric column), which would abort the request before the
         // completedgame insert and make these assertions pass for the wrong reason. The deckstats
         // row this test checks is written independently of card-level stats.
-        'player1' => json_encode(['leader' => 'ZZPREVLEAD', 'base' => 'Green',
+        'player1' => json_encode(['leader' => 'SEC_T01', 'base' => 'Green',
             'cardResults' => [], 'turnResults' => []]),
-        'player2' => json_encode(['leader' => 'ZZPREVLEAD2', 'base' => 'Red', 'cardResults' => [], 'turnResults' => []]),
+        'player2' => json_encode(['leader' => 'SEC_T02', 'base' => 'Red', 'cardResults' => [], 'turnResults' => []]),
     ];
 }
 function wipeDeck($conn, $deckID) {
@@ -158,7 +158,7 @@ function manualPayload($deckID, $format) {
     return [
         'deckID' => $deckID, 'won' => true, 'firstPlayer' => true, 'rounds' => 3, 'winnerHealth' => 10,
         'format' => $format,
-        'player' => json_encode(['leader' => 'ZZPREVLEAD', 'base' => 'Green', 'cardResults' => [], 'turnResults' => []]),
+        'player' => json_encode(['leader' => 'SEC_T01', 'base' => 'Green', 'cardResults' => [], 'turnResults' => []]),
     ];
 }
 foreach (['preview', 'twinsuns-preview', 'padawan-preview'] as $fmt) {

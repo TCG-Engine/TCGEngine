@@ -2,9 +2,13 @@
 // RUN VIA CLI:
 //   docker exec otmtcge-swusim-web-server-1 php -d xdebug.mode=off /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_rarity_universe.php
 //
-// Guards the highest-risk seam in the Padawan feature. SWUDeck's $rarityData is keyed by INT UUID
-// with single-letter values ('S'), while the shared validator speaks SET_NNN. Without the rekey in
-// SWUDeckSetReprintUniverse(), SWUCardRarity() returns null for EVERY card on the SWUDeck side.
+// Guards the highest-risk seam in the Padawan feature: SWUCardRarity() must resolve for a SET_NNN
+// id on the SWUDeck side, or the fail-closed predicate below rejects every card.
+//
+// Until 2026-08-05 SWUDeck's $rarityData was keyed by INT UUID while the shared validator spoke
+// SET_NNN, and SWUDeckSetReprintUniverse() existed largely to bridge that. The dictionary is now
+// SET_NNN-keyed on both sides, so the bridge is an identity — but the universe it publishes is
+// still what SWUCardRarity() reads, so this test guards exactly as much as it did before.
 //
 // Because SWUCardHasLegalRarityPrint() fails CLOSED on missing rarity, the resulting breakage is
 // loud rather than silent: every card — and the base — is rejected, so no Padawan deck can ever be
@@ -17,10 +21,12 @@ include_once __DIR__ . '/../../SWUDeck/Custom/DeckFormats.php';
 
 $checks = [];
 
-// Precondition: SWUDeck's raw dictionary really is UUID-keyed with letter values.
+// Precondition: SWUDeck's raw dictionary is SET_NNN-keyed with single-letter values.
 global $rarityData;
-$checks['precondition: SWUDeck rarityData is UUID-keyed'] = !isset($rarityData['SOR_033']);
-$checks['precondition: SWUDeck uses letter codes']        = ($rarityData[(int)UUIDLookup('SOR_033')] ?? null) === 'C';
+$checks['precondition: SWUDeck rarityData is SET_NNN-keyed'] = isset($rarityData['SOR_033']);
+$checks['precondition: SWUDeck uses letter codes']           = ($rarityData['SOR_033'] ?? null) === 'C';
+// ...and the pre-migration UUID key is genuinely gone, so a stale reader fails loudly.
+$checks['precondition: the old UUID key is absent'] = !isset($rarityData[(int)UUIDLookup('SOR_033')]);
 
 SWUDeckSetReprintUniverse();
 

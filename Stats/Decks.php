@@ -7,6 +7,7 @@ include_once '../Core/HTTPLibraries.php';
 include_once "../Core/UILibraries.php";
 include_once '../Database/ConnectionManager.php';
 include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
+include_once '../AppCore/SWU/CardImagePath.php';       // SWUCardImagePath / SWUCardArtScript
 include_once '../Core/StatsBaseRegistry.php';        // ResolveOpponentBase / BaseGroupDisplayLabel
 include_once '../AppCore/SWU/Formats.php';                 // SWUFormatLegalSets (dict-free; no card-dictionary collision)
 
@@ -222,8 +223,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     if($leader == "" || $base == "") continue;
     if ($premierOnly && LeaderNotPremierLegal($row['keyIndicator1'], $legalSets)) continue;
     echo "<tr onclick=\"window.location='https://swustats.net/TCGEngine/NextTurn.php?gameName=" . $row['assetIdentifier'] . "&playerID=1&folderPath=SWUDeck';\" onmouseover=\"this.style.boxShadow='0 0 10px 5px rgba(var(--accent-rgb), 0.6)'; this.style.transform='scaleY(1.02)';\" onmouseout=\"this.style.boxShadow='none'; this.style.transform='none';\" style='cursor: pointer; transition: all 0.3s ease-in-out;'>";
-    echo "    <td><img style='height:80px' src='../SWUDeck/concat/" . $leader . ".webp' title='" . CardTitle($leader) . "' /></td>";
-    echo "    <td><img style='height:80px' src='../SWUDeck/concat/" . $base . ".webp' title='" . CardTitle($base) . "' /></td>";
+    echo "    <td><img style='height:80px' src='" . SWUCardImagePath($leader, 'tile') . "' title='" . CardTitle($leader) . "' /></td>";
+    echo "    <td><img style='height:80px' src='" . SWUCardImagePath($base, 'tile') . "' title='" . CardTitle($base) . "' /></td>";
     echo "    <td>{$assetName}</td>";
     echo "    <td>{$likes}</td>";
     echo "</tr>";

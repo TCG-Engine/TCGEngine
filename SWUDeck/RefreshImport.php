@@ -1,4 +1,9 @@
 <?php
+// Maintenance gate — must precede any write.
+// Rewrites a deck gamestate file from its source list.
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
+SWUMaintenanceRequire('SWUDeck', 'deck');
+
   include_once './GamestateParser.php';
   include_once './ZoneAccessors.php';
   include_once './ZoneClasses.php';

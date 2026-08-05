@@ -23,6 +23,10 @@ ini_set('display_errors', 1);
 
 require_once __DIR__ . '/SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 require_once __DIR__ . '/AppCore/SWU/Overrides.php';
+// The classifier is SHARED with tools/materialize-id-map.php, which builds the map the migration
+// actually joins against. If this page said a value was mappable and the map omitted it, the
+// migration would silently drop rows the operator had been told were safe. One implementation.
+require_once __DIR__ . '/AppCore/SWU/migrations/lib/IdentifierMap.php';
 require_once __DIR__ . '/Database/ConnectionManager.php';
 require_once __DIR__ . '/AccountFiles/AccountDatabaseAPI.php';
 require_once __DIR__ . '/AccountFiles/AccountSessionAPI.php';
@@ -35,60 +39,7 @@ $showUnmapped = isset($_GET['showUnmapped']) ? max(1, (int)$_GET['showUnmapped']
 // (table, column) pairs holding a card identifier. Verified against information_schema below —
 // anything absent on this box is reported as missing rather than fataling.
 // 'poly' marks a column that legitimately holds a bucket key (card id OR base colour).
-$TARGETS = [
-    ['carddeckstats',          'cardID',             false],
-    ['cardmetastats',          'cardID',             false],
-    ['deckstats',              'leaderID',           false],
-    ['opponentdeckstats',      'leaderID',           false],
-    ['opponentnamedbasestats', 'leaderID',           false],
-    ['opponentnamedbasestats', 'baseID',             true],
-    ['deckmetastats',          'leaderID',           false],
-    ['deckmetastats',          'baseID',             true],
-    ['deckmetamatchupstats',   'leaderID',           false],
-    ['deckmetamatchupstats',   'baseID',             true],
-    ['deckmetamatchupstats',   'opponentLeaderID',   false],
-    ['deckmetamatchupstats',   'opponentBaseID',     true],
-    ['completedgame',          'WinningHero',        false],
-    ['completedgame',          'LosingHero',         false],
-    ['favoritedeck',           'hero',               false],
-    ['favoritedeck',           'baseId',             true],
-    ['meleetournamentdeck',    'leader',             false],
-    ['meleetournamentdeck',    'base',               true],
-    ['matchhistory',           'keyCard1ID',         false],
-    ['matchhistory',           'keyCard2ID',         false],
-    ['matchhistory',           'keyCard3ID',         false],
-    ['matchhistory',           'opponentKeyCard1ID', false],
-    ['matchhistory',           'opponentKeyCard2ID', false],
-    ['matchhistory',           'opponentKeyCard3ID', false],
-];
-
-// Class 2 — known non-card values that are legitimate data and must survive verbatim.
-$BASE_COLOURS = ['green', 'red', 'blue', 'yellow', 'colorless', 'colourless'];
-$SENTINELS    = ['-1', '0', '1'];
-
-// Already a SET_NNN / SET_NN / SET_T## identity? (matches the mock pipeline's own rule)
-function census_is_set_nnn(string $v): bool {
-    return (bool)preg_match('/^[A-Z0-9]{2,5}_(T\d{2}|\d{2,3})$/', $v);
-}
-
-// Leader-unit media-asset hash => owning CardID, built once over the whole card pool.
-// Exists because prod holds rows keyed by a two-sided leader's FLIPPED-side asset id
-// (ad86d54e97 => TWI_017 Chancellor Palpatine). Swept exhaustively, not spot-checked:
-// any other two-sided leader can carry the same defect.
-function census_leader_unit_map(): array {
-    static $map = null;
-    if ($map !== null) return $map;
-    $map = [];
-    if (!function_exists('LeaderUnitByUUID')) return $map;
-    foreach (array_keys($GLOBALS['titleData'] ?? []) as $uuid) {
-        $asset = LeaderUnitByUUID((string)$uuid);
-        if (is_string($asset) && $asset !== '') {
-            $cardID = CardIDLookup((string)$uuid);
-            if ($cardID !== null) $map[$asset] = $cardID;
-        }
-    }
-    return $map;
-}
+$TARGETS = SWUMigrationTargets();
 
 $conn = GetLocalMySQLConnection();
 $db = $conn->query('SELECT DATABASE()')->fetch_row()[0];
@@ -98,7 +49,7 @@ $res = $conn->query("SELECT TABLE_NAME, COLUMN_NAME FROM information_schema.COLU
                       WHERE TABLE_SCHEMA = '" . $conn->real_escape_string($db) . "'");
 while ($row = $res->fetch_assoc()) $existing[$row['TABLE_NAME'] . '.' . $row['COLUMN_NAME']] = true;
 
-$leaderUnits = census_leader_unit_map();
+$leaderUnits = SWUMigrationLeaderUnitMap();
 
 $class3 = [];        // identifier => total rows
 $leaderUnitHits = [];// asset hash => ['card' => CardID, 'rows' => n]
@@ -139,29 +90,25 @@ foreach ($TARGETS as [$table, $column, $poly]) {
         // counts need their own query — see the spec's blank breakdown.
         if (trim($v) === '') { $blank++; $blankRows += $n; continue; }
 
-        // Class 2 — legitimate non-card values.
-        if ($poly && in_array(strtolower($v), $BASE_COLOURS, true)) { $c2++; continue; }
-        if (in_array($v, $SENTINELS, true)) { $c2++; continue; }
+        $r = SWUMigrationClassify($v, $poly);
 
-        // Class 1 — already an identity.
-        if (census_is_set_nnn($v)) { $c1++; $canonicalSources[CardIDOverride($v)][] = $v; continue; }
+        if ($r['class'] === 2) { $c2++; continue; }
 
-        // A card UUID we can resolve.
-        $setNnn = CardIDLookup($v);
-        if ($setNnn !== null) { $mapped++; $canonicalSources[CardIDOverride($setNnn)][] = $v; continue; }
-
-        // A two-sided leader's flipped-side asset hash.
-        if (isset($leaderUnits[$v])) {
-            $owner = CardIDOverride($leaderUnits[$v]);
-            $leaderUnitHits[$v] = ['card' => $owner, 'rows' => ($leaderUnitHits[$v]['rows'] ?? 0) + $n];
-            $canonicalSources[$owner][] = $v;
-            $mapped++;
+        if ($r['class'] === 3) {
+            // Blocks cutover.
+            $c3++;
+            $class3[$v] = ($class3[$v] ?? 0) + $n;
             continue;
         }
 
-        // Class 3 — unresolvable. Blocks cutover.
-        $c3++;
-        $class3[$v] = ($class3[$v] ?? 0) + $n;
+        // Class 1 — resolves. 'via' distinguishes "was already SET_NNN" from "we translated it",
+        // which is what the CLASS1/MAPPED columns report.
+        if ($r['via'] === 'set-nnn') $c1++; else $mapped++;
+        $canonicalSources[$r['to']][] = $v;
+
+        if ($r['via'] === 'leader-unit-asset') {
+            $leaderUnitHits[$v] = ['card' => $r['to'], 'rows' => ($leaderUnitHits[$v]['rows'] ?? 0) + $n];
+        }
     }
 
     $merges = 0;

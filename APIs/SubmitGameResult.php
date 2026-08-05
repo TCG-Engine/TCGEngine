@@ -8,6 +8,8 @@
   require_once "../Core/StatsBaseRegistry.php";
   require_once "../AccountFiles/AccountDatabaseAPI.php"; // ResolveFriendlyCode()
   require_once "../AppCore/SWU/Formats.php"; // SWUFormatIsPreview()
+  require_once "../AppCore/SWU/Maintenance.php"; // SWUMaintenanceRequire()
+  require_once "../AppCore/SWU/StatsIngress.php"; // SWUStatsIngressNormalize()
 
   $input = file_get_contents('php://input');
   $data = json_decode($input, true);
@@ -22,6 +24,19 @@
 	]);
 	exit;
   }
+
+  // Freeze point. The SET_NNN migration rebuilds these tables from a snapshot and then RENAMEs the
+  // originals away, so a row written between the build and the swap is discarded with no error.
+  // 503 + Retry-After tells Karabast to retry rather than drop the submission. Placed after the key
+  // check (do not advertise ops state to strangers) and before any write.
+  SWUMaintenanceRequire('SWUDeck', 'stats');
+
+  // Translate every incoming identifier to SET_NNN BEFORE anything is read or written. Karabast
+  // sends FFG UIDs by contract; the tables are SET_NNN-keyed. Without this, each submission writes
+  // UUID rows back into the tables the migration merged and re-fragments them within hours.
+  // Accepts either shape, so a client can conform whenever it likes. Anything unresolvable is
+  // dropped at the narrowest granularity that still yields a keyable row, and logged.
+  $swuIngress = SWUStatsIngressNormalize($data);
 
 	// Meta stats (the premier meta aggregate tables) are disabled if:
 	// - It's a shared team deck
@@ -182,7 +197,9 @@
 		// If tie, $won is null so SaveDeckStats can handle it as a tie
 		$won = ($winner == 1 ? true : ($winner == 2 ? false : null));
 		$opponentData = isset($data["player2"]) ? $data["player2"] : null;
-		if(!$isPreviewFormat) SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
+		// leaderID/baseID are PRIMARY KEY components — an unresolvable one cannot be keyed at all,
+		// so that player's stat writes are skipped wholesale (the other player is unaffected).
+		if(!$isPreviewFormat && !$swuIngress['skipPlayer'][1]) SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
 	  }
 	}
   }
@@ -213,7 +230,7 @@
 		// If tie, $won is null so SaveDeckStats can handle it as a tie
 		$won = ($winner == 2 ? true : ($winner == 1 ? false : null));
 		$opponentData = isset($data["player1"]) ? $data["player1"] : null;
-		if(!$isPreviewFormat) SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
+		if(!$isPreviewFormat && !$swuIngress['skipPlayer'][2]) SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
 	  }
 	}
   }
@@ -242,6 +259,13 @@
 	  ]);
 	  exit;
 	}
+
+	// WinningHero/LosingHero is exactly where the unreadable history accumulated — zzzzzzz001,
+	// abcdefgMTL, blanks, a stray ms timestamp. Letting a new unresolvable value in would re-open
+	// that hole, so the row is skipped and logged instead of written verbatim.
+	if ($swuIngress['skipCompletedGame']) {
+	  error_log("SWU stats ingress: completedgame row skipped for game " . ($data['gameName'] ?? '?'));
+	} else {
 
 	$columns = "WinningHero, LosingHero, NumTurns, WinnerDeck, LoserDeck, WinnerHealth, FirstPlayer, WinningPlayer, Format";
 	$values = "?, ?, ?, ?, ?, ?, ?, ?, ?";
@@ -277,6 +301,7 @@
   mysqli_stmt_execute($stmt);
   $gameResultID = mysqli_insert_id($conn);
   mysqli_stmt_close($stmt);
+  } // end: completedgame row not skipped
 	}
 	mysqli_close($conn);
   }

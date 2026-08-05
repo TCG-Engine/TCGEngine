@@ -184,8 +184,6 @@ function WriteGamestate($filepath="./") {
   global $gameName;
   $filename = $filepath . "Games/$gameName/Gamestate.txt";
   $gamestateText = "";
-  // $zoneName/$seat let an app rewrite index references into this zone before it is serialized —
-  // see the EngineRemapZoneForSave hook below. Both default, so any hand-written caller still works.
   $writeZone = function($zone, $zoneName = '', $seat = 0) use (&$gamestateText) {
     // A zone is serialized WITHOUT its removed tombstones, so the next ParseGamestate
     // renumbers it 0..N-1 over the survivors. Anything holding an INDEX into the zone (a

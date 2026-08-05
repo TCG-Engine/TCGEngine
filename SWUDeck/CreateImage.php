@@ -5,6 +5,7 @@
 // response body ahead of header(), forcing Content-Type: text/html and a broken image.
 ob_start();
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../AppCore/SWU/CardImagePath.php'; // the single SWU art-path seam
 include_once __DIR__ . '/GamestateParser.php';
 include_once __DIR__ . '/ZoneAccessors.php';
 include_once __DIR__ . '/ZoneClasses.php';
@@ -204,7 +205,7 @@ $sideRows = $buildRows($sideboardQuantityIndex);
 $headerIDs = array_values(array_filter(array_merge($leaderIDs, [$baseID]), function ($v) { return $v !== ""; }));
 $headerImgs = [];
 foreach ($headerIDs as $hid) {
-  $p = __DIR__ . '/WebpImages/' . $hid . '.webp';
+  $p = SWUCardImageFsPath($hid, 'card');
   $img = LoadCardImageAsGd($p);
   if ($img === false) { $img = imagecreatetruecolor($headerW, $headerW); imagefilledrectangle($img, 0, 0, $headerW, $headerW, imagecolorallocate($img, 200, 200, 200)); }
   $ow = imagesx($img); $oh = imagesy($img);
@@ -306,7 +307,7 @@ $drawLabel = function ($labelText, $topY) use (&$image, $fontPath, $labelFontSiz
 $drawGrid = function ($rows, $gy0) use (&$image, $cardW, $cardH, $cols, $gap, $margin, $fontPath, $qtyFontSize, $white) {
   $col = 0; $gx = $margin; $gy = $gy0;
   foreach ($rows as $r) {
-    $p = __DIR__ . '/WebpImages/' . $r['id'] . '.webp';
+    $p = SWUCardImageFsPath($r['id'], 'card');
     $card = LoadCardImageAsGd($p);
     if ($card === false) { $card = imagecreatetruecolor($cardW, $cardH); imagefilledrectangle($card, 0, 0, $cardW, $cardH, imagecolorallocate($card, 200, 200, 200)); }
     $resized = imagecreatetruecolor($cardW, $cardH);

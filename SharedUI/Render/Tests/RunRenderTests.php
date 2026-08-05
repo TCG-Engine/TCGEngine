@@ -136,7 +136,7 @@ checkContains('lib renders a name dropdown', $lib, "class='dl-select'");
 checkContains('lib shows deck name', $lib, 'Aggro');
 checkContains('lib marks favorite with star', $lib, '★ Aggro');
 checkContains('lib option carries decklink id', $lib, 'data-id="https://swudb.com/deck/a"');
-check('lib shows no card art', strpos($lib, '/TCGEngine/SWUSim/concat/') === false);
+check('lib shows no card art', strpos($lib, '<img') === false);
 check('default has no action buttons', strpos($lib, 'data-action=') === false);
 // actionButtons: selector + Favorite/Rename/Delete + management wiring.
 $withBtns = RenderDeckLibrary(5, ['decks'=>$decks,'actionButtons'=>true]);

@@ -1,5 +1,5 @@
 <?php
-// Sets that are PREVIEWING — cards exist as mocks (SWUSim/Custom/CardMocks.php) but the set
+// Sets that are PREVIEWING — cards exist as mocks (AppCore/SWU/CardMocks.php) but the set
 // has not released. Excluded from the "released" card pool (Eternal, Twin Suns) while listed
 // here; still included by the wildcard pool ('*': Open, Goldfish, Hotseat).
 //

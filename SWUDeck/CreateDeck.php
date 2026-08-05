@@ -1,4 +1,9 @@
 <?php
+// Maintenance gate — must precede any write.
+// Writes a new deck gamestate file.
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
+SWUMaintenanceRequire('SWUDeck', 'deck');
+
   include_once './GamestateParser.php';
   include_once './ZoneAccessors.php';
   include_once './ZoneClasses.php';

@@ -1,6 +1,6 @@
 # SWUSim — Sync Preview Images
 
-Mirrors the `mock_` preview card art of **playable** preview cards from `SWUSim/WebpImages/` into
+Mirrors the `mock_` preview card art of **playable** preview cards from `AppCore/SWU/Images/WebpImages/` into
 `SWUSim/PreviewsImplemented/`, ready for a public "Previews" page that shows which preview cards can
 actually be played. Wraps the one-time tool `SWUSim/DevTools/sync-preview-images.php`.
 

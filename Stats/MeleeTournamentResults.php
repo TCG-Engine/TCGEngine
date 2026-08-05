@@ -2,6 +2,8 @@
 include_once "../SharedUI/MenuBar.php";
 require_once "../SharedUI/Render/Head.php"; echo RenderSiteStyles("SWUDeck");
 include_once "../SharedUI/Header.php";
+include_once "../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
+include_once "../AppCore/SWU/CardImagePath.php";   // SWUCardArtScript -> window.swuCardArtUrl
 
 // Get tournament ID from URL parameter
 $tournamentId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -351,6 +353,9 @@ if ($tournamentId <= 0) {
     </div>
     
     <!-- Shared chart/explorer renderers, also used by MeleeTournamentAggregate.php. -->
+    <!-- UUID->SET_NNN art resolver. Card art is SET_NNN-keyed under AppCore/SWU/Images/, but
+         the tournament APIs return FFG UIDs, so the client needs the map. -->
+<?php echo SWUCardArtScript(); ?>
     <script src="MeleeCharts.js?v=20260729"></script>
     <script>
         // Configuration
@@ -463,8 +468,8 @@ if ($tournamentId <= 0) {
                 row.innerHTML = `
                     <td>${deck.rank}</td>
                     <td>
-                        ${deck.leader && deck.leader.uuid ? `<img src="../SWUDeck/jpg/concat/${deck.leader.uuid}.jpg" alt="${escapeHTML(deck.leader.name || '')}" title="${escapeHTML(deck.leader.name || '')}" style="width:28px; height:28px; object-fit:cover; border-radius:4px; margin-right:2px; vertical-align:middle;" onerror="this.onerror=null;this.src='../SWUDeck/concat/${deck.leader.uuid}.webp';" />` : ''}
-                        ${deck.base && deck.base.uuid ? `<img src="../SWUDeck/jpg/concat/${deck.base.uuid}.jpg" alt="${escapeHTML(deck.base.name || '')}" title="${escapeHTML(deck.base.name || '')}" style="width:28px; height:28px; object-fit:cover; border-radius:4px; margin-right:4px; vertical-align:middle;" onerror="this.onerror=null;this.src='../SWUDeck/concat/${deck.base.uuid}.webp';" />` : ''}
+                        ${deck.leader && deck.leader.uuid ? `<img src="../SWUDeck/jpg/concat/${deck.leader.uuid}.jpg" alt="${escapeHTML(deck.leader.name || '')}" title="${escapeHTML(deck.leader.name || '')}" style="width:28px; height:28px; object-fit:cover; border-radius:4px; margin-right:2px; vertical-align:middle;" onerror="this.onerror=null;this.src='${swuCardArtUrl(deck.leader.uuid, 'tile')}';" />` : ''}
+                        ${deck.base && deck.base.uuid ? `<img src="../SWUDeck/jpg/concat/${deck.base.uuid}.jpg" alt="${escapeHTML(deck.base.name || '')}" title="${escapeHTML(deck.base.name || '')}" style="width:28px; height:28px; object-fit:cover; border-radius:4px; margin-right:4px; vertical-align:middle;" onerror="this.onerror=null;this.src='${swuCardArtUrl(deck.base.uuid, 'tile')}';" />` : ''}
                         ${escapeHTML(deck.player)}${meleeButton}${playPvpButton}
                     </td>
                     <td>
