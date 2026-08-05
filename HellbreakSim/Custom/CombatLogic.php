@@ -44,6 +44,10 @@ function HellbreakNormalizeSchemeIcons($value): array {
 }
 
 function HellbreakCardSchemeIcons(string $cardID): array {
+    if(function_exists('HellbreakTutorialSchemeIcons')) {
+        $tutorialIcons = HellbreakTutorialSchemeIcons($cardID);
+        if(is_array($tutorialIcons)) return HellbreakNormalizeSchemeIcons($tutorialIcons);
+    }
     $fixture = function_exists('HellbreakFixtureCard') ? HellbreakFixtureCard($cardID) : null;
     if(is_array($fixture) && isset($fixture['scheme'])) return HellbreakNormalizeSchemeIcons($fixture['scheme']);
     return function_exists('CardScheme') ? HellbreakNormalizeSchemeIcons(CardScheme($cardID)) : [];
@@ -548,6 +552,24 @@ function HellbreakFinalizeRevealedJumpscareCard(int $player, string $cardID): bo
     $object = HellbreakTakeRevealedJumpscareCard($player, $cardID);
     if(!is_object($object)) return false; // Card text already moved or played it.
     AddCrypt($player, $cardID, 'HealthStack', intval(GetTurnNumber()), true, $object);
+    return true;
+}
+
+function HellbreakJumpscareAddRevealedCardToHand(int $player, string $cardID): bool {
+    $object = HellbreakTakeRevealedJumpscareCard($player, $cardID);
+    if(!is_object($object)) return false;
+    AddHand($player, $cardID, $object);
+    return true;
+}
+
+function HellbreakJumpscarePlayRevealedAsset(int $player, string $cardID): bool {
+    if(HellbreakCardType($cardID) !== 'ASSET') return false;
+    $object = HellbreakTakeRevealedJumpscareCard($player, $cardID);
+    if(!is_object($object)) return false;
+    $playedObject = AddAssets($player, $cardID, 2, $player, $player, [], [], $object);
+    if(function_exists('HellbreakCardPlayedHook')) {
+        HellbreakCardPlayedHook($player, $cardID, 'ASSET', $playedObject, null, 'HealthStack');
+    }
     return true;
 }
 

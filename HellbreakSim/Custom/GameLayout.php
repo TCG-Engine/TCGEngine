@@ -9,6 +9,10 @@ if(!function_exists('_VersionedClientInclude')) {
 }
 ?>
 <link rel="stylesheet" href="<?php echo htmlspecialchars(_VersionedClientInclude('/TCGEngine/HellbreakSim/Custom/GameLayout.css'), ENT_QUOTES); ?>">
+<?php if(function_exists('HellbreakTutorialIsActive') && HellbreakTutorialIsActive()): ?>
+<link rel="stylesheet" href="<?php echo htmlspecialchars(_VersionedClientInclude('/TCGEngine/HellbreakSim/Tutorial/tutorial.css'), ENT_QUOTES); ?>">
+<script defer src="<?php echo htmlspecialchars(_VersionedClientInclude('/TCGEngine/HellbreakSim/Tutorial/tutorial-client.js'), ENT_QUOTES); ?>"></script>
+<?php endif; ?>
 
 <div class="hb-atmosphere" aria-hidden="true"></div>
 <main id="hellbreakTable" class="hb-table log-collapsed" aria-label="Hellbreak game table">

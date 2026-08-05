@@ -2,6 +2,7 @@
 
 include_once __DIR__ . '/../Fixtures/QuickStartFixtures.php';
 include_once __DIR__ . '/CombatLogic.php';
+include_once __DIR__ . '/../Tutorial/TutorialRuntime.php';
 
 $debugMode = true;
 $customDQHandlers = [];
@@ -173,6 +174,9 @@ function HellbreakCollectResources(int $player): bool {
     if(intval(DecisionQueueController::GetVariable($key)) === $round) return false;
 
     $resources = HellbreakVaultResources($player);
+    if(function_exists('HellbreakTutorialAdjustResources')) {
+        $resources = HellbreakTutorialAdjustResources($player, $resources);
+    }
     $blood = &BloodValue($player);
     $blood += $resources['blood'];
     $malice = &MaliceValue($player);

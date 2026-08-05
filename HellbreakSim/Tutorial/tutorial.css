@@ -1,0 +1,93 @@
+.hb-tutorial-focus {
+  position: fixed;
+  z-index: 10020;
+  pointer-events: none;
+  border: 3px solid #f0c96a;
+  border-radius: 14px;
+  box-shadow: 0 0 0 9999px rgba(5, 3, 7, .58), 0 0 30px rgba(240, 201, 106, .55);
+  transition: left .18s ease, top .18s ease, width .18s ease, height .18s ease;
+}
+
+.hb-tutorial-panel {
+  position: fixed;
+  z-index: 10021;
+  width: min(390px, calc(100vw - 28px));
+  padding: 20px;
+  color: #f9f2e7;
+  background: linear-gradient(145deg, #171115, #09070a);
+  border: 1px solid rgba(240, 201, 106, .62);
+  border-radius: 16px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, .55);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.hb-tutorial-panel.is-centered {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hb-tutorial-kicker {
+  color: #f0c96a;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.hb-tutorial-panel h2 {
+  margin: 7px 0 8px;
+  font: 700 27px/1.05 Georgia, serif;
+}
+
+.hb-tutorial-panel p {
+  margin: 0;
+  color: #d8cdd0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.hb-tutorial-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 17px;
+}
+
+.hb-tutorial-button {
+  appearance: none;
+  padding: 10px 15px;
+  color: #160e0a;
+  background: #f0c96a;
+  border: 0;
+  border-radius: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.hb-tutorial-button.secondary {
+  color: #f5e8d0;
+  background: #30262a;
+  border: 1px solid #655258;
+}
+
+.hb-tutorial-progress {
+  display: flex;
+  gap: 5px;
+  margin-top: 16px;
+}
+
+.hb-tutorial-progress span {
+  height: 4px;
+  flex: 1;
+  background: #3c3034;
+  border-radius: 10px;
+}
+
+.hb-tutorial-progress span.is-done { background: #f0c96a; }
+
+@media (max-width: 720px) {
+  .hb-tutorial-panel { padding: 16px; }
+  .hb-tutorial-panel h2 { font-size: 22px; }
+  .hb-tutorial-panel p { font-size: 14px; }
+}

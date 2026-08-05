@@ -119,14 +119,14 @@ function HellbreakMZForObject(int $viewer, $needle): string {
     return '';
 }
 
-function HellbreakCardPlayedHook(int $player, string $cardID, string $type, $playedObject, ?int $locationSlot): void {
+function HellbreakCardPlayedHook(int $player, string $cardID, string $type, $playedObject, ?int $locationSlot, string $fromZone = 'Hand'): void {
     $mzID = HellbreakMZForObject($player, $playedObject);
     if($mzID !== '' && function_exists('Played')) {
-        Played($player, $mzID, 'Hand', intval($locationSlot));
+        Played($player, $mzID, $fromZone, intval($locationSlot));
         return;
     }
     HellbreakDispatchMacroEvent('Played', $player, [
-        'mzID' => $mzID, 'fromZone' => 'Hand', 'locationSlot' => intval($locationSlot),
+        'mzID' => $mzID, 'fromZone' => $fromZone, 'locationSlot' => intval($locationSlot),
     ], $cardID);
 }
 

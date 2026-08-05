@@ -13,6 +13,8 @@ include_once __DIR__ . '/../Core/GameAuth.php';
 
 $gameName = GetGameCounter(__DIR__ . '/Games');
 InitializeGamestate();
+$hellbreakCreateMode = isset($lobby->format) ? strtolower(strval($lobby->format)) : '';
+$isTutorial = $hellbreakCreateMode === 'tutorial';
 
 $fixtureSeats = 0;
 $playerNumber = 1;
@@ -31,7 +33,7 @@ foreach($lobby->players as $player) {
         ++$fixtureSeats;
     }
     $deck = &GetDeck($playerNumber);
-    EngineShuffle($deck, true);
+    if(!$isTutorial) EngineShuffle($deck, true);
     HellbreakReindexZone($deck);
     ++$playerNumber;
 }
@@ -39,13 +41,13 @@ foreach($lobby->players as $player) {
 while($playerNumber <= 2) {
     HellbreakLoadFixturePlayer($playerNumber, $playerNumber === 1 ? 'DRACULA' : 'JAWS');
     $deck = &GetDeck($playerNumber);
-    EngineShuffle($deck, true);
+    if(!$isTutorial) EngineShuffle($deck, true);
     HellbreakReindexZone($deck);
     ++$fixtureSeats;
     ++$playerNumber;
 }
 
-$initiative = random_int(1, 2);
+$initiative = $isTutorial ? 1 : random_int(1, 2);
 SetTurnNumber(0);
 SetFirstPlayer($initiative);
 SetInitiativePlayer($initiative);
@@ -62,6 +64,7 @@ $autoSetupPlayers = isset($lobby->goldfishPlayers) && is_array($lobby->goldfishP
     ? array_values(array_map('intval', $lobby->goldfishPlayers))
     : [];
 DecisionQueueController::StoreVariable('HellbreakAutoSetupPlayers', $autoSetupPlayers);
+if($isTutorial && function_exists('HellbreakTutorialInitialize')) HellbreakTutorialInitialize();
 HellbreakBeginSetup();
 
 WriteGamestate(__DIR__ . '/');

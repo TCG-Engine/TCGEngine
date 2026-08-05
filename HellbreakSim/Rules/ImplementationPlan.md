@@ -236,6 +236,7 @@ Do not infer authoritative rules solely from card images in production. Use imag
 - [x] Private hand, Health, and Vault information with public pile and resource counts.
 - [x] Responsive table chrome, phase/priority status, choice prompts, public history, and end-game state.
 - [x] Desktop live-match verification and focused UI regression coverage.
+- [x] Authored Learn to Play launch with deterministic setup, contextual phase guidance, and an explicitly passive tutorial opponent.
 
 ### Milestone 8: card content
 
@@ -264,6 +265,7 @@ Do not infer authoritative rules solely from card images in production. Use imag
 - [x] Add phase-scoped, consumable next-monster-damage prevention for confirmed prevention effects.
 - [x] Implement Deputy Hendricks' live-board combat modifier and Barracuda's optional flip-triggered character damage.
 - [x] Implement the conservative quick-start Jumpscare window: only the newly revealed Health card is eligible, its listed malice is paid, it resolves before normal discard/excess damage, and explicit destination text overrides discard.
+- [x] Implement generated destination Jumpscares for all reviewed "add this card to your hand" printings and the confirmed asset "play this card for 0 blood" cases (Vampire's Coffin and Scarecrow).
 - [ ] Extend Jumpscares with response/cancellation ordering only when comprehensive rules or an official ruling defines that timing.
 - [ ] Connect other remaining lifecycle macros to card-specific resolution points as their cards are implemented.
 - [ ] Implement confirmed keyword definitions against the macro surface.

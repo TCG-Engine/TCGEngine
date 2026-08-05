@@ -45,15 +45,20 @@
     window.__hellbreakCardBackInstalled = true;
   }
 
-  function parseLog() {
+  function parseVariables() {
     var raw = window.DecisionQueueVariablesData;
-    if(raw == null || raw === '') return [];
+    if(raw == null || raw === '') return {};
     try {
       var parsed = JSON.parse(String(raw));
-      return parsed && Array.isArray(parsed.HellbreakPublicLog) ? parsed.HellbreakPublicLog : [];
+      return parsed && typeof parsed === 'object' ? parsed : {};
     } catch(error) {
-      return [];
+      return {};
     }
+  }
+
+  function parseLog() {
+    var parsed = parseVariables();
+    return Array.isArray(parsed.HellbreakPublicLog) ? parsed.HellbreakPublicLog : [];
   }
 
   function renderHistory() {
@@ -106,13 +111,14 @@
     var phase = String(window.CurrentPhaseData || 'SETUP_LOCATION').toUpperCase();
     var initiative = numberValue(window.InitiativePlayerData, 1);
     var priority = numberValue(window.TurnPlayerData, initiative);
+    var tutorial = parseVariables().GameMode === 'tutorial';
 
     setText('hbRound', 'Round ' + round);
     setText('hbPhase', phaseNames[phase] || phase.replace(/_/g, ' '));
     setText('hbInitiative', 'Initiative: Player ' + initiative);
     setText('hbPriority', 'Priority: Player ' + priority);
     setText('hbMyLabel', viewer === 1 || viewer === 2 ? 'Player ' + viewer : 'Observed Player');
-    setText('hbTheirLabel', 'Player ' + opponent);
+    setText('hbTheirLabel', tutorial ? 'Tutorial Opponent · Auto-Pass' : 'Player ' + opponent);
     ensureRenderedValue('myHealth', window.myHealthData);
     ensureRenderedValue('theirHealth', window.theirHealthData);
 

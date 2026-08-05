@@ -95,8 +95,11 @@ if (IsUserLoggedIn()) {
       </label>
 
       <div class="hellbreak-game-actions">
+        <button id="start-tutorial-btn" class="hellbreak-game-action primary" type="button" onclick="startTutorial()">
+          <span class="hellbreak-action-icon" aria-hidden="true">?</span><span><strong>Learn to Play</strong><small>Guided quick-start lesson</small></span>
+        </button>
         <button id="start-fixture-match-btn" class="hellbreak-game-action primary" type="button" onclick="startFixtureMatch()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#9654;</span><span><strong>Start Quick-Start Match</strong><small>Play the automated universal rules loop</small></span>
+          <span class="hellbreak-action-icon" aria-hidden="true">&#9654;</span><span><strong>Solo Rules Test</strong><small>Player 2 automatically passes</small></span>
         </button>
         <button id="join-queue-btn" class="hellbreak-game-action" type="button" onclick="joinQueue()">
           <span class="hellbreak-action-icon" aria-hidden="true">&#9873;</span><span><strong>Join Queue</strong><small>Find another player</small></span>
@@ -295,12 +298,18 @@ if (IsUserLoggedIn()) {
       format: options.immediate ? 'goldfish' : 'standard'
     };
     if (options.immediate) values.createGoldfish = '1';
+    if (options.tutorial) {
+      values.createTutorial = '1';
+      values.format = 'tutorial';
+      delete values.createGoldfish;
+    }
     if (options.private) values.createPrivate = '1';
     if (options.inviteCode) values.privateInviteCode = options.inviteCode;
     request.send(encodeForm(values));
   }
 
   window.startFixtureMatch = function() { submitLobby({ immediate: true }); };
+  window.startTutorial = function() { submitLobby({ immediate: true, tutorial: true }); };
   window.joinQueue = function() { submitLobby({}); };
   window.createPrivateGame = function() { submitLobby({ private: true }); };
   window.joinPrivateInvite = function() {
