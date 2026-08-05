@@ -156,7 +156,9 @@ function HellbreakChooseAttacker(int $player, string $mzID): bool {
         'locationSlot' => $attacker['kind'] === 'MINION' ? HellbreakCharacterLocation($attacker) : 0,
     ]);
     if($attacker['kind'] === 'MONSTER') {
-        DecisionQueueController::AddDecision($player, 'MZMODAL', '1|1|Location_1&Location_2', 0, 'Choose_the_monsters_attack_location');
+        $locations = HellbreakLocationChoices();
+        if(count($locations) === 0) return false;
+        DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $locations), 0, 'Choose_the_monsters_attack_location');
         DecisionQueueController::AddDecision($player, 'CUSTOM', 'HellbreakChooseAttackLocation', 1);
         return true;
     }
@@ -176,10 +178,11 @@ function HellbreakContinueAfterAttackDeclared(array $context): bool {
 }
 
 function HellbreakChooseAttackLocation(int $player, string $selection): bool {
-    if(!preg_match('/^[01]$/', trim($selection))) return false;
+    $locationSlot = HellbreakLocationSlotFromSelection($selection);
+    if($locationSlot === 0) return false;
     $pending = DecisionQueueController::GetVariable('HellbreakPendingAttack');
     if(!is_array($pending) || intval($pending['player'] ?? 0) !== $player) return false;
-    $pending['locationSlot'] = intval($selection) + 1;
+    $pending['locationSlot'] = $locationSlot;
     DecisionQueueController::StoreVariable('HellbreakPendingAttack', $pending);
     $attacker = HellbreakResolveBattlefieldDescriptor($pending['attacker'] ?? null);
     if($attacker === null || $attacker['kind'] !== 'MONSTER') return false;
@@ -1060,7 +1063,9 @@ function HellbreakChooseSchemer(int $player, string $mzID): bool {
     if($schemer === null) return false;
     if($schemer['kind'] === 'MONSTER') {
         DecisionQueueController::StoreVariable('HellbreakPendingSchemer', ['player' => $player, 'schemer' => HellbreakBattlefieldDescriptor($schemer)]);
-        DecisionQueueController::AddDecision($player, 'MZMODAL', '1|1|Location_1&Location_2', 0, 'Choose_the_monsters_scheme_location');
+        $locations = HellbreakLocationChoices();
+        if(count($locations) === 0) return false;
+        DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $locations), 0, 'Choose_the_monsters_scheme_location');
         DecisionQueueController::AddDecision($player, 'CUSTOM', 'HellbreakChooseSchemeLocation', 1);
         return true;
     }
@@ -1068,12 +1073,13 @@ function HellbreakChooseSchemer(int $player, string $mzID): bool {
 }
 
 function HellbreakChooseSchemeLocation(int $player, string $selection): bool {
-    if(!preg_match('/^[01]$/', trim($selection))) return false;
+    $locationSlot = HellbreakLocationSlotFromSelection($selection);
+    if($locationSlot === 0) return false;
     $pending = DecisionQueueController::GetVariable('HellbreakPendingSchemer');
     if(!is_array($pending) || intval($pending['player'] ?? 0) !== $player) return false;
     $schemer = HellbreakResolveBattlefieldDescriptor($pending['schemer'] ?? null);
     if($schemer === null || !HellbreakIsReadyControlledCharacter($schemer, $player)) return false;
-    return HellbreakBeginScheme($player, $schemer, intval($selection) + 1);
+    return HellbreakBeginScheme($player, $schemer, $locationSlot);
 }
 
 function HellbreakIndirectTargets(int $receivingPlayer, int $amount): array {

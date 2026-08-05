@@ -38,14 +38,33 @@
   function decisionTarget() {
     var selectors = [
       '#mzchoose-popup', '#mzmodal-popup', '#mzmultichoose-popup', '#mzrearrange-popup',
+      '#yesno-decision-modal',
       '.mzchoose-popup', '.mzmodal-popup', '.mzmultichoose-popup', '.mzmodal-panel',
-      '.mzmultichoose-panel', '.mzchoose-modal', '.modal-dialog'
+      '.mzmultichoose-panel', '.mzchoose-modal', '.yesno-decision-panel', '.modal-dialog'
     ];
     for(var i = 0; i < selectors.length; ++i) {
       var matches = document.querySelectorAll(selectors[i]);
       for(var j = 0; j < matches.length; ++j) if(visible(matches[j])) return matches[j];
     }
     return null;
+  }
+
+  function pendingDecision() {
+    try {
+      var queue = typeof window.ParseDecisionQueue === 'function'
+        ? window.ParseDecisionQueue(window.myDecisionQueueData || '')
+        : [];
+      if(!Array.isArray(queue)) return null;
+      for(var i = 0; i < queue.length; ++i) {
+        if(queue[i] && !queue[i].removed) return queue[i];
+      }
+    } catch(error) {}
+    return null;
+  }
+
+  function decisionPrompt(decision) {
+    return String((decision && (decision.Tooltip || decision.tooltip)) || '')
+      .replace(/_/g, ' ').trim().toLowerCase();
   }
 
   function parseLog() {
@@ -103,9 +122,10 @@
     var phase = String(window.CurrentPhaseData || 'SETUP_LOCATION').toUpperCase();
     var round = Math.max(0, number(window.TurnNumberData, 0));
     var target = decisionTarget();
-    var base = { target: target, index: 0, count: 7 };
+    var prompt = decisionPrompt(pendingDecision());
+    var base = { target: target, index: 0, count: 10 };
     if(round >= 2) return Object.assign(base, {
-      title: 'Round complete', body: 'You completed Feeding, bidding, card play, an attack, a scheme, Slumber, and Refresh. Continue practicing against the passive opponent or return to the menu.', target: null, index: 6, complete: true
+      title: 'Round complete', body: 'You completed Feeding, bidding, card play, an attack, a scheme, Slumber, and Refresh. Continue practicing against the passive opponent or return to the menu.', target: null, index: 9, complete: true
     });
     if(phase === 'SETUP_LOCATION') return Object.assign(base, {
       title: 'Choose your location', body: 'Choose Carfax Abbey. Locations are contested spaces where minions fight and scheme. Your unused location leaves this game.', index: 0
@@ -124,21 +144,48 @@
     });
     if(phase === 'HORROR') {
       var types = roundLogTypes(round);
+      if(prompt === 'choose a card to play') return Object.assign(base, {
+        title: 'Choose Transylvanian Wolf', body: 'Click Transylvanian Wolf directly in your hand. Cards you can legally play are highlighted on the board.', target: document.getElementById('myHandSlot'), index: 4
+      });
+      if(prompt === 'choose a location for the minion') return Object.assign(base, {
+        title: 'Place the Wolf', body: 'Click Carfax Abbey directly on the battlefield. The highlighted location cards are the legal destinations for your minion.', target: document.getElementById('LocationsSlot'), index: 5
+      });
+      if(prompt === 'pay 1 malice to ready this minion') return Object.assign(base, {
+        title: 'Ready the Wolf', body: 'Choose Yes to pay 1 malice and ready Transylvanian Wolf. Minions normally enter exhausted; a ready minion can attack when priority returns.', target: target, index: 6
+      });
+      if(prompt === 'choose a character to attack') return Object.assign(base, {
+        title: 'Attack with the Wolf', body: 'Click the highlighted Transylvanian Wolf on your board to declare it as the attacker.', target: document.getElementById('myCharactersSlot'), index: 7
+      });
+      if(prompt === 'choose an enemy character to attack') return Object.assign(base, {
+        title: 'Choose the attack target', body: 'Click the highlighted Jaws directly on the opponent\'s board. Combat damage is dealt simultaneously, and the attacker exhausts.', target: document.getElementById('theirMonsterSlot') || document.getElementById('hbTheirSide'), index: 7
+      });
+      if(prompt === 'choose the monsters attack location') return Object.assign(base, {
+        title: 'Choose an attack location', body: 'Click the highlighted location on the battlefield to say where the monster is attacking.', target: document.getElementById('LocationsSlot'), index: 7
+      });
+      if(prompt === 'choose a character to scheme') return Object.assign(base, {
+        title: 'Scheme with Dracula', body: 'Click the highlighted lurking Dracula on your board to begin scheming.', target: document.getElementById('myMonsterSlot'), index: 8
+      });
+      if(prompt === 'choose the monsters scheme location') return Object.assign(base, {
+        title: 'Choose where to scheme', body: 'Click the highlighted location directly on the battlefield. Scheming exhausts Dracula and resolves its scheme icons there.', target: document.getElementById('LocationsSlot'), index: 8
+      });
+      if(prompt === 'arrange foreseen cards on top or bottom') return Object.assign(base, {
+        title: 'Resolve Foresee', body: 'Arrange the revealed cards between Top and Bottom, then confirm. Cards on Top are drawn first; cards on Bottom go beneath your deck.', target: target, index: 8
+      });
       if(types.indexOf('PLAY_CARD') === -1) return Object.assign(base, {
         title: 'Play Transylvanian Wolf', body: 'Click the highlighted Transylvanian Wolf directly in your hand, then place it at Carfax Abbey. When prompted, pay 1 malice to ready it; minions normally enter exhausted.', target: target || document.getElementById('myHandSlot'), index: 4
       });
       if(types.indexOf('ATTACK') === -1) return Object.assign(base, {
-        title: 'Attack with the Wolf', body: 'When priority returns, click the highlighted Transylvanian Wolf to attack, then click the highlighted Jaws directly on the board. Attackers exhaust; combat damage is dealt simultaneously.', target: target || document.getElementById('myCharactersSlot'), index: 5
+        title: 'Attack with the Wolf', body: 'When priority returns, click the highlighted Transylvanian Wolf to attack, then click the highlighted Jaws directly on the board. Attackers exhaust; combat damage is dealt simultaneously.', target: target || document.getElementById('myCharactersSlot'), index: 7
       });
       if(types.indexOf('SCHEME') === -1) return Object.assign(base, {
-        title: 'Scheme with Dracula', body: 'When priority returns, click lurking Dracula and choose Scheme from its card menu. Foresee rearranges your deck; Haunt adds malice to the location. Scheming exhausts Dracula.', target: target || document.getElementById('myMonsterSlot'), index: 5
+        title: 'Scheme with Dracula', body: 'When priority returns, click lurking Dracula and choose Scheme from its card menu, then click the highlighted location on the board. Foresee rearranges your deck; Haunt adds malice there. Scheming exhausts Dracula.', target: target || document.getElementById('myMonsterSlot'), index: 8
       });
       return Object.assign(base, {
-        title: 'Enter Slumber', body: 'Choose Slumber from the action bar. You gain 1 malice and take no more Horror actions this round. Because the opponent passed immediately before it, Horror ends.', index: 5
+        title: 'Enter Slumber', body: 'Choose Slumber from the action bar. You gain 1 malice and take no more Horror actions this round. Because the opponent passed immediately before it, Horror ends.', target: document.getElementById('hbHorrorActionDock') || target, index: 9
       });
     }
     if(phase === 'REFRESH_READY' || phase === 'REFRESH_FLIP' || phase === 'REFRESH_HAND') return Object.assign(base, {
-      title: 'Refresh', body: 'Cards ready automatically, then you may flip Dracula between lurking and unleashed. Finally, discard down to six cards. Keep Dracula lurking for its larger Feeding resource bar.', index: 6
+      title: 'Refresh', body: 'Cards ready automatically, then you may flip Dracula between lurking and unleashed. Finally, discard down to six cards. Keep Dracula lurking for its larger Feeding resource bar.', index: 9
     });
     return Object.assign(base, { title: 'Continue the lesson', body: 'Follow the current game prompt.', index: 0 });
   }

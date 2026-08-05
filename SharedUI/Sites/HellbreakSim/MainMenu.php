@@ -79,12 +79,13 @@ if (IsUserLoggedIn()) {
         </div>
       </div>
 
-      <p class="hellbreak-fixture-note">Play complete quick-start rounds on the production table with private zones, live history, Health responses, Refresh, and victory.</p>
+      <p class="hellbreak-fixture-note">Play the supplied 40-card GAMA demo decks on the production table. Dracula faces Jaws with their original demo locations and card quantities.</p>
 
       <label class="hellbreak-deck-choice" for="hellbreak-match-deck">
         <span>Deck for this match</span>
         <select id="hellbreak-match-deck">
-          <option value="">Quick-start fixture</option>
+          <option value="preset:HellbreakGamaDemo">GAMA Demo - Dracula vs. Jaws (40 cards)</option>
+          <option value="preset:HellbreakFixture">Engine fixture (24 cards)</option>
           <?php foreach ($decks as $deck):
             $choiceID = (string)$deck['assetIdentifier'];
             $choiceName = trim((string)($deck['assetName'] ?? '')) ?: 'Hellbreak Deck #' . $choiceID;
@@ -99,7 +100,7 @@ if (IsUserLoggedIn()) {
           <span class="hellbreak-action-icon" aria-hidden="true">?</span><span><strong>Learn to Play</strong><small>Guided quick-start lesson</small></span>
         </button>
         <button id="start-fixture-match-btn" class="hellbreak-game-action primary" type="button" onclick="startFixtureMatch()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#9654;</span><span><strong>Solo Rules Test</strong><small>Player 2 automatically passes</small></span>
+          <span class="hellbreak-action-icon" aria-hidden="true">&#9654;</span><span><strong>Solo Quickstart</strong><small>Play Dracula; Jaws automatically passes</small></span>
         </button>
         <button id="join-queue-btn" class="hellbreak-game-action" type="button" onclick="joinQueue()">
           <span class="hellbreak-action-icon" aria-hidden="true">&#9873;</span><span><strong>Join Queue</strong><small>Find another player</small></span>
@@ -289,10 +290,13 @@ if (IsUserLoggedIn()) {
     request.onerror = function() { showError('The lobby service could not be reached.'); };
 
     var deckChoice = document.getElementById('hellbreak-match-deck');
-    var deckLink = deckChoice ? String(deckChoice.value || '') : '';
+    var selectedDeck = deckChoice ? String(deckChoice.value || '') : 'preset:HellbreakGamaDemo';
+    var presetPrefix = 'preset:';
+    var preconstructedDeck = selectedDeck.indexOf(presetPrefix) === 0 ? selectedDeck.slice(presetPrefix.length) : '';
+    var deckLink = preconstructedDeck ? '' : selectedDeck;
     var values = {
       rootName: rootName,
-      preconstructedDeck: deckLink ? '' : 'HellbreakFixture',
+      preconstructedDeck: preconstructedDeck || (deckLink ? '' : 'HellbreakGamaDemo'),
       deckLink: deckLink,
       game_type: 'casual',
       format: options.immediate ? 'goldfish' : 'standard'

@@ -63,6 +63,45 @@ function HellbreakIsAutoSetupPlayer(int $player): bool {
     return in_array($player, array_map('intval', $players), true);
 }
 
+function HellbreakSaveUndoCheckpoint(int $player, string $action): int {
+    if(!in_array($player, [1, 2], true) || HellbreakIsAutoSetupPlayer($player) || !function_exists('SaveVersion')) return -1;
+    $versions = &GetVersions($player);
+    $previousCount = count($versions);
+    $label = ucwords(strtolower(str_replace('_', ' ', trim($action))));
+    SaveVersion($player, $label === '' ? 'Before action' : 'Before ' . $label);
+    return $previousCount;
+}
+
+function HellbreakDiscardUndoCheckpoint(int $player, int $previousCount): void {
+    if($previousCount < 0) return;
+    $versions = &GetVersions($player);
+    if(count($versions) > $previousCount) array_splice($versions, $previousCount);
+}
+
+/**
+ * The legacy Horror action chooser enters through a normal Decision Queue
+ * response. Capture it before the engine pops the prompt so undo restores the
+ * complete action boundary, including the chooser itself. Direct board actions
+ * checkpoint inside HellbreakTakeDirectHorrorAction after their legality check.
+ */
+function GameBeforeEngineAction($engineAction): void {
+    $action = is_array($engineAction) ? $engineAction : [];
+    $player = intval($action['playerID'] ?? 0);
+    if(intval($action['mode'] ?? 0) !== 100 || GetCurrentPhase() !== 'HORROR'
+        || intval(GetTurnPlayer()) !== $player || HellbreakIsAutoSetupPlayer($player)) return;
+
+    $queue = &GetDecisionQueue($player);
+    $prompt = $queue[0] ?? null;
+    if(!is_object($prompt) || strtoupper(strval($prompt->Type ?? '')) !== 'MZMODAL') return;
+    $tooltip = strtolower(str_replace('_', ' ', strval($prompt->Tooltip ?? '')));
+    if($tooltip !== 'choose your horror action') return;
+
+    $selection = trim(strval($action['cardID'] ?? ''));
+    $actions = DecisionQueueController::GetVariable('HellbreakLegalActionsP' . $player);
+    if(!preg_match('/^\d+$/', $selection) || !is_array($actions) || !isset($actions[intval($selection)])) return;
+    HellbreakSaveUndoCheckpoint($player, strval($actions[intval($selection)]['id'] ?? 'action'));
+}
+
 function HellbreakDrawCards(int $player, int $amount): int {
     $deck = &GetDeck($player);
     HellbreakReindexZone($deck);
@@ -246,6 +285,25 @@ function HellbreakLocationThreshold(string $cardID): int {
     return 3;
 }
 
+function HellbreakLocationChoices(): array {
+    $choices = [];
+    foreach(HellbreakLiveZoneObjects(GetLocations()) as $index => $location) {
+        if(is_object($location) && in_array(intval($location->Slot ?? 0), [1, 2], true)) {
+            $choices[] = 'Locations-' . $index;
+        }
+    }
+    return $choices;
+}
+
+function HellbreakLocationSlotFromSelection(string $selection): int {
+    if(!preg_match('/^Locations-(\d+)$/', trim($selection), $matches)) return 0;
+    $locations = HellbreakLiveZoneObjects(GetLocations());
+    $index = intval($matches[1]);
+    if(!isset($locations[$index]) || !is_object($locations[$index])) return 0;
+    $slot = intval($locations[$index]->Slot ?? 0);
+    return in_array($slot, [1, 2], true) ? $slot : 0;
+}
+
 function HellbreakCommitLocation(int $player, string $selection): bool {
     if(GetCurrentPhase() !== 'SETUP_LOCATION') return false;
     if($player !== 1 && $player !== 2) return false;
@@ -254,7 +312,7 @@ function HellbreakCommitLocation(int $player, string $selection): bool {
     $locations = &GetLocationDeck($player);
     HellbreakReindexZone($locations);
     $selection = trim($selection);
-    if(preg_match('/^myLocationDeck-(\d+)$/', $selection, $matches)) $index = intval($matches[1]);
+    if(preg_match('/^myLocationDeck-(\d+)(?:@@.*)?$/', $selection, $matches)) $index = intval($matches[1]);
     else if(preg_match('/^\d+$/', $selection)) $index = intval($selection);
     else return false;
     if(!isset($locations[$index]) || !is_object($locations[$index])) return false;
@@ -547,13 +605,18 @@ function HellbreakSetupLocationPhase() {
         }
         $locationDeck = &GetLocationDeck($player);
         HellbreakReindexZone($locationDeck);
-        $labels = [];
-        foreach($locationDeck as $location) {
+        $choices = [];
+        foreach($locationDeck as $index => $location) {
+            if(!is_object($location)) continue;
             $name = function_exists('CardName') ? trim((string)CardName($location->CardID)) : '';
             if($name === '') $name = (string)$location->CardID;
-            $labels[] = trim(preg_replace('/[^A-Za-z0-9]+/', '_', $name), '_');
+            $label = trim(preg_replace('/[^A-Za-z0-9]+/', '_', $name), '_');
+            $choices[] = 'myLocationDeck-' . $index . '@@' . $label;
         }
-        DecisionQueueController::AddDecision($player, 'MZMODAL', '1|1|' . implode('&', $labels), 0, 'Secretly_choose_your_location');
+        if(count($choices) === 0) continue;
+        // LocationDeck is private and not rendered on the table. MZCHOOSE
+        // presents its actual cards without exposing either option publicly.
+        DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $choices), 0, 'Secretly_choose_your_location');
         DecisionQueueController::AddDecision($player, 'CUSTOM', 'HellbreakCommitLocation', 1);
     }
     HellbreakResolveLocationCommitments();
@@ -1049,30 +1112,21 @@ function HellbreakChoosePlayCard(int $player, string $mzID): bool {
     DecisionQueueController::StoreVariable('HellbreakPendingPlayP' . $player, [
         'index' => $handCard['index'], 'cardID' => $handCard['cardID'],
     ]);
-    $labels = [];
-    $slots = [];
-    foreach($locations as $location) {
-        $name = function_exists('CardName') ? trim((string)CardName($location->CardID)) : '';
-        if($name === '') $name = (string)$location->CardID;
-        $labels[] = trim(preg_replace('/[^A-Za-z0-9]+/', '_', $name), '_');
-        $slots[] = intval($location->Slot);
-    }
-    DecisionQueueController::StoreVariable('HellbreakPendingLocationSlotsP' . $player, $slots);
-    DecisionQueueController::AddDecision($player, 'MZMODAL', '1|1|' . implode('&', $labels), 0, 'Choose_a_location_for_the_minion');
+    $locationChoices = HellbreakLocationChoices();
+    if(count($locationChoices) === 0) return false;
+    DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $locationChoices), 0, 'Choose_a_location_for_the_minion');
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'HellbreakChooseMinionLocation', 1);
     return true;
 }
 
 function HellbreakChooseMinionLocation(int $player, string $selection): bool {
-    if(!preg_match('/^\d+$/', trim($selection))) return false;
     $pending = DecisionQueueController::GetVariable('HellbreakPendingPlayP' . $player);
-    $slots = DecisionQueueController::GetVariable('HellbreakPendingLocationSlotsP' . $player);
-    $choice = intval($selection);
-    if(!is_array($pending) || !is_array($slots) || !isset($slots[$choice])) return false;
+    $locationSlot = HellbreakLocationSlotFromSelection($selection);
+    if(!is_array($pending) || $locationSlot === 0) return false;
     $mzID = 'myHand-' . intval($pending['index'] ?? -1);
     $handCard = HellbreakParseHandMZ($player, $mzID);
     if($handCard === null || $handCard['cardID'] !== (string)($pending['cardID'] ?? '')) return false;
-    return HellbreakPlayCard($player, $mzID, intval($slots[$choice]));
+    return HellbreakPlayCard($player, $mzID, $locationSlot);
 }
 
 function HellbreakPlayCard(int $player, string $mzID, ?int $locationSlot = null): bool {
@@ -1266,7 +1320,11 @@ function HellbreakTakeDirectHorrorAction(int $player, string $action, string $mz
         return false;
     }
 
-    if(!HellbreakConsumeHorrorActionPrompt($player)) return false;
+    $undoVersionCount = HellbreakSaveUndoCheckpoint($player, $action);
+    if(!HellbreakConsumeHorrorActionPrompt($player)) {
+        HellbreakDiscardUndoCheckpoint($player, $undoVersionCount);
+        return false;
+    }
     $resolved = false;
     if($action === 'PLAY_CARD') $resolved = HellbreakChoosePlayCard($player, $mzID);
     else if($action === 'ATTACK') $resolved = HellbreakChooseAttacker($player, $mzID);
@@ -1276,7 +1334,10 @@ function HellbreakTakeDirectHorrorAction(int $player, string $action, string $mz
 
     // A legal direct action should resolve, but recover the normal prompt if a
     // downstream validator rejected stale client state during an update race.
-    if(!$resolved && GetCurrentPhase() === 'HORROR' && intval(GetTurnPlayer()) === $player) HellbreakHorrorPhase();
+    if(!$resolved) {
+        HellbreakDiscardUndoCheckpoint($player, $undoVersionCount);
+        if(GetCurrentPhase() === 'HORROR' && intval(GetTurnPlayer()) === $player) HellbreakHorrorPhase();
+    }
     return boolval($resolved);
 }
 

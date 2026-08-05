@@ -23,7 +23,7 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
 .hb-atmosphere::after { content: ""; position: absolute; inset: 0; opacity: .14; background-image: repeating-linear-gradient(115deg, transparent 0 28px, rgba(255,255,255,.025) 29px 30px); }
 
 .hb-table { position: fixed; inset: 0; z-index: 20; min-width: 0; display: grid; grid-template-rows: 52px minmax(0, 1fr); }
-.hb-topbar { display: grid; grid-template-columns: auto auto 1fr auto auto; align-items: center; gap: 14px; padding: 6px 14px; border-bottom: 1px solid var(--hb-line); background: rgba(8, 7, 10, .92); box-shadow: 0 8px 24px rgba(0,0,0,.28); z-index: 50; }
+.hb-topbar { display: grid; grid-template-columns: auto auto 1fr auto auto auto auto; align-items: center; gap: 10px; padding: 6px 14px; border-bottom: 1px solid var(--hb-line); background: rgba(8, 7, 10, .92); box-shadow: 0 8px 24px rgba(0,0,0,.28); z-index: 50; }
 .hb-home { width: 34px; height: 34px; border: 1px solid rgba(216,179,106,.45); border-radius: 9px; color: var(--hb-gold); background: #1b1419; font: 800 19px Georgia, serif; cursor: pointer; }
 .hb-brand { display: flex; flex-direction: column; line-height: 1; letter-spacing: .08em; }
 .hb-brand strong { font: 800 16px Georgia, serif; color: var(--hb-cream); }
@@ -33,7 +33,20 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
 .hb-round-state strong { padding: 6px 12px; border: 1px solid rgba(185,58,52,.4); border-radius: 999px; background: rgba(185,58,52,.14); color: #ffc5b8; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
 .hb-priority-state { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.3; }
 .hb-priority-state strong { font-size: 12px; color: var(--hb-gold); }
-.hb-log-toggle { border: 1px solid var(--hb-line); border-radius: 8px; padding: 7px 10px; color: var(--hb-cream); background: rgba(255,255,255,.04); cursor: pointer; }
+.hb-log-toggle, .hb-zone-guide-toggle, .hb-undo { border: 1px solid var(--hb-line); border-radius: 8px; padding: 7px 10px; color: var(--hb-cream); background: rgba(255,255,255,.04); cursor: pointer; }
+.hb-log-toggle { margin-left: 84px; }
+.hb-undo { position: fixed; z-index: 20050; top: 8px; right: 92px; border-color: rgba(216,179,106,.35); color: var(--hb-gold); }
+.hb-undo kbd { margin-left: 3px; color: var(--hb-muted); font: 700 9px var(--hb-font); }
+.hb-zone-guide-toggle[aria-expanded="true"] { border-color: rgba(216,179,106,.6); color: var(--hb-gold); background: rgba(216,179,106,.12); }
+.hb-zone-guide { position: fixed; z-index: 11000; top: 60px; right: 12px; width: min(430px, calc(100vw - 24px)); padding: 12px; box-sizing: border-box; border: 1px solid rgba(216,179,106,.45); border-radius: 12px; background: #120f16; box-shadow: 0 20px 70px rgba(0,0,0,.72); }
+.hb-zone-guide[hidden] { display: none; }
+.hb-zone-guide-heading { display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--hb-line); }
+.hb-zone-guide-heading strong { color: var(--hb-gold); font: 800 17px Georgia, serif; }
+.hb-zone-guide-heading button { width: 28px; height: 28px; border: 1px solid var(--hb-line); border-radius: 7px; color: var(--hb-cream); background: rgba(255,255,255,.04); font-size: 20px; line-height: 1; cursor: pointer; }
+.hb-zone-guide dl { margin: 10px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.hb-zone-guide dl > div { padding: 8px; border: 1px solid rgba(255,238,216,.09); border-radius: 8px; background: rgba(255,255,255,.025); }
+.hb-zone-guide dt { color: var(--hb-cream); font-size: 10px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.hb-zone-guide dd { margin: 3px 0 0; color: var(--hb-muted); font-size: 10px; line-height: 1.35; }
 
 .hb-board { min-height: 0; padding: 8px; display: grid; grid-template-rows: minmax(0, 39.5fr) minmax(142px, 21fr) minmax(0, 39.5fr); gap: 7px; }
 .hb-side { min-height: 0; position: relative; display: grid; grid-template-columns: 132px 178px minmax(260px, 1fr) 210px; grid-template-rows: minmax(0, 1fr) 82px; grid-template-areas: "summary profile field piles" "summary profile hand hand"; gap: 7px; padding: 8px; border: 1px solid var(--hb-line); border-radius: 14px; background: linear-gradient(90deg, rgba(15,13,17,.93), rgba(27,20,28,.78)); box-shadow: inset 0 1px rgba(255,255,255,.025), 0 12px 32px rgba(0,0,0,.18); transition: border-color .2s, box-shadow .2s; }
@@ -62,7 +75,7 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
 .hb-hand::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 .hb-zone { position: relative; min-width: 0; min-height: 54px; border: 1px solid rgba(255,238,216,.1); border-radius: 9px; background: rgba(5,5,7,.32); box-sizing: border-box; pointer-events: auto; }
-.hb-zone::before { content: attr(data-label); position: absolute; z-index: 0; left: 8px; top: 5px; color: rgba(244,232,215,.36); font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; pointer-events: none; }
+.hb-zone::before { content: attr(data-label); position: absolute; z-index: 12; left: 6px; top: 4px; max-width: calc(100% - 12px); padding: 2px 4px; overflow: hidden; border-radius: 4px; background: rgba(8,7,10,.76); color: rgba(244,232,215,.7); font-size: 8px; font-weight: 800; letter-spacing: .1em; line-height: 1.1; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; pointer-events: none; }
 .hb-zone > [id$="Wrapper"] { position: relative !important; width: 100% !important; height: 100%; overflow: visible !important; z-index: 1; }
 .hb-zone [id^="my"], .hb-zone [id^="their"], .hb-zone #Locations { gap: 5px; align-items: center; justify-content: center; }
 .hb-zone img { max-height: 100%; object-fit: contain; }
@@ -76,6 +89,16 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
 #myHandWrapper::-webkit-scrollbar, #theirHandWrapper::-webkit-scrollbar,
 #LocationsWrapper::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
 #myCharacters, #theirCharacters, #myAssets, #theirAssets, #myHand, #theirHand, #Locations { flex-wrap: nowrap !important; overflow: hidden !important; }
+.hb-characters #myCharacters, .hb-characters #theirCharacters { display: block !important; width: 100%; height: 100%; }
+.hb-location-lanes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; height: 100%; gap: 7px; }
+.hb-location-lane { min-width: 0; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); border: 1px solid rgba(216,179,106,.2); border-radius: 8px; background: linear-gradient(180deg, rgba(216,179,106,.08), rgba(5,5,7,.12) 45%); overflow: hidden; }
+.hb-location-lane-heading { min-width: 0; display: flex; align-items: baseline; justify-content: center; gap: 4px; padding: 3px 6px; border-bottom: 1px solid rgba(216,179,106,.15); color: var(--hb-muted); font-size: 7px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.hb-location-lane-heading strong { min-width: 0; overflow: hidden; color: var(--hb-gold); font-size: 9px; text-overflow: ellipsis; }
+.hb-location-lane-cards { min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 2px 4px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+.hb-location-lane-cards::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.hb-location-lane.is-empty .hb-location-lane-cards::after { content: "No minions"; color: rgba(244,232,215,.22); font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
+.hb-location-lane-cards > [data-mzid] { flex: 0 0 auto; }
+.hb-location-lane-cards [data-counter-field="LocationSlot"] { display: none !important; }
 .hb-zone:not(:has(img)) > [id$="Wrapper"] > [id] > span { display: none !important; }
 .hb-pile { min-height: 100px; }
 .hb-pile #myVault, .hb-pile #theirVault { flex-wrap: nowrap !important; justify-content: flex-start !important; overflow: hidden !important; scrollbar-width: none !important; }
@@ -117,6 +140,7 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
 [role="dialog"] { color: var(--hb-cream); }
 [role="dialog"] button { font-family: var(--hb-font); }
 .modal-content, .decision-modal, [class*="choice-modal"] { border-color: rgba(216,179,106,.35) !important; background: #171218 !important; box-shadow: 0 24px 80px rgba(0,0,0,.65) !important; }
+#mzchoose-popup img { width: clamp(120px, 11vw, 156px) !important; }
 
 /* Horror actions live on their cards. The generic modal remains available as
    an explicit fallback through the compact action dock. */
@@ -148,7 +172,7 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
 @media (max-width: 760px) {
     html, body { overflow: auto; }
     .hb-table { position: relative; min-width: 0; min-height: 100vh; display: block; }
-    .hb-topbar { position: sticky; top: 0; height: 48px; box-sizing: border-box; grid-template-columns: auto auto 1fr auto; padding: 5px 8px; }
+    .hb-topbar { position: sticky; top: 0; height: 48px; box-sizing: border-box; grid-template-columns: auto auto 1fr auto auto; padding: 5px 8px; }
     .hb-brand span, .hb-priority-state, .hb-log-toggle { display: none; }
     .hb-round-state { justify-self: end; gap: 5px; }
     .hb-round-state strong { padding: 5px 8px; font-size: 10px; }
@@ -176,4 +200,7 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
     .hb-horror-action-help { display: none; }
     .hb-horror-action-dock button { padding: 7px 8px; font-size: 10px; }
     .hb-horror-action-dock button.secondary { flex-basis: auto; }
+    .hb-zone-guide { top: 54px; right: 6px; width: calc(100vw - 12px); }
+    .hb-zone-guide dl { grid-template-columns: 1fr; max-height: 70vh; overflow-y: auto; }
+    .hb-undo { top: auto; right: 10px; bottom: 10px; padding: 6px 8px; }
 }

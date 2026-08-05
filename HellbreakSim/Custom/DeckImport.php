@@ -99,10 +99,11 @@ function HellbreakResolveDeckInput(string $deckLink): array {
 
 function HellbreakValidateDeckForQueue($deckLink, $preconstructedDeck = '', $userID = null): array {
     if(trim((string)$deckLink) !== '') return HellbreakResolveDeckInput((string)$deckLink);
-    if(strcasecmp(trim((string)$preconstructedDeck), 'HellbreakFixture') === 0) {
+    $preset = trim((string)$preconstructedDeck);
+    if(strcasecmp($preset, 'HellbreakFixture') === 0 || strcasecmp($preset, 'HellbreakGamaDemo') === 0) {
         return ['success' => true, 'message' => ''];
     }
-    return ['success' => false, 'message' => 'Choose a saved Hellbreak deck or the quick-start fixture.'];
+    return ['success' => false, 'message' => 'Choose a saved Hellbreak deck or a supported starter-deck preset.'];
 }
 
 function HellbreakLoadResolvedPlayer(int $player, array $deck): void {

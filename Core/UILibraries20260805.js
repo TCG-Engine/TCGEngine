@@ -5665,10 +5665,12 @@ function ShouldUseMZChoosePopupForSpec(spec) {
 
   const visibility = String(zoneData.Visibility || 'Public').toLowerCase();
   const displayMode = String(zoneData.DisplayMode || 'All').toLowerCase();
+  const display = String(zoneData.Display || 'Normal').toLowerCase();
   const isOpponentZone = String(spec.zone || '').indexOf('their') === 0;
 
   return visibility === 'private'
     || visibility === 'none'
+    || display === 'none'
     || displayMode === 'none'
     || (visibility === 'self' && isOpponentZone);
 }

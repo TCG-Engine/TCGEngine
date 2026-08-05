@@ -237,6 +237,7 @@ Do not infer authoritative rules solely from card images in production. Use imag
 - [x] Responsive table chrome, phase/priority status, choice prompts, public history, and end-game state.
 - [x] Desktop live-match verification and focused UI regression coverage.
 - [x] Authored Learn to Play launch with deterministic setup, contextual phase guidance, and an explicitly passive tutorial opponent.
+- [x] Board-first Horror controls: click hand cards to play, click ready characters for local attack/scheme/ability actions, and reserve the compact toolbar for Pass and Slumber.
 
 ### Milestone 8: card content
 

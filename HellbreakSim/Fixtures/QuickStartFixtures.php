@@ -130,6 +130,88 @@ function HellbreakFixtureCard(string $cardID): ?array
     return $fixture ?: null;
 }
 
+/**
+ * Forty-card GAMA retailer demo lists supplied from the physical deck contents.
+ * Together with one monster and two locations, each side contains 43 cards.
+ *
+ * Source-name normalization against the current imported card identities:
+ * - "Bloodsucking Vampire" -> Bloodsucking Bat (DOT_025)
+ * - "Mina Harker" -> Mina Seward, The Count's Obsession (DOT_032)
+ * - "Shark!" -> Shark in the Pond (DOT_136)
+ */
+function HellbreakGamaDemoDeck(string $archetype): array
+{
+    $archetype = strtoupper(trim($archetype));
+    if($archetype === 'JAWS') {
+        $counts = [
+            'DOT_105' => 3, // Barracuda
+            'DOT_136' => 1, // Shark in the Pond (source: "Shark!")
+            'DOT_092' => 2, // Orca, Timeworn Trawler
+            'DOT_110' => 3, // Shark Spotter
+            'DOT_106' => 3, // Man O' War
+            'DOT_109' => 3, // Rogue Shark
+            'DOT_098' => 3, // Narrow Escape
+            'DOT_068' => 2, // Deputy Hendricks
+            'DOT_076' => 3, // Veteran Harpooner
+            'DOT_112' => 2, // Larry Vaughn
+            'DOT_119' => 3, // Ravenous Predator
+            'DOT_080' => 3, // Roughtail Stingray
+            'DOT_104' => 2, // A Panic on Our Hands
+            'DOT_122' => 3, // Threat From Below
+            'DOT_127' => 3, // Giant Octopus
+            'DOT_128' => 1, // Killer Whale
+        ];
+        return [
+            'name' => 'GAMA Demo - Jaws',
+            'source' => 'GAMA retailer demo deck',
+            'monster' => 'DOT_006',
+            'locations' => ['DOT_020', 'DOT_013'],
+            'deck' => HellbreakExpandCardCounts($counts),
+            'knownMissingImages' => [],
+        ];
+    }
+
+    $counts = [
+        'DOT_052' => 3, // Drain Life
+        'DOT_049' => 2, // Vampire's Coffin
+        'DOT_025' => 2, // Bloodsucking Bat (source: "Bloodsucking Vampire")
+        'DOT_151' => 6, // Swarm of Rats
+        'DOT_053' => 2, // Coven Feast
+        'DOT_028' => 3, // Transylvanian Wolf
+        'DOT_027' => 1, // Renfield, Deranged Solicitor
+        'DOT_180' => 2, // Ancient Wisdom
+        'DOT_152' => 2, // Aleera, Alluring Bride
+        'DOT_032' => 1, // Mina Seward (source: "Mina Harker")
+        'DOT_034' => 2, // Carpathian Wildcat
+        'DOT_161' => 2, // Marishka, Cunning Bride
+        'DOT_159' => 3, // Carriage Driver
+        'DOT_165' => 2, // Verona, Bloodthirsty Bride
+        'DOT_039' => 3, // Ferocious Wolfpack
+        'DOT_040' => 1, // Lucy Weston, Back from the Dead
+        'DOT_042' => 2, // Countess Zaleska
+        'DOT_044' => 1, // Count Alucard
+    ];
+    return [
+        'name' => 'GAMA Demo - Dracula',
+        'source' => 'GAMA retailer demo deck',
+        'monster' => 'DOT_001',
+        'locations' => ['DOT_016', 'DOT_015'],
+        'deck' => HellbreakExpandCardCounts($counts),
+        // The checklist identifies the card, but neither its standard nor
+        // borderless row currently has a source image in the imported assets.
+        'knownMissingImages' => ['DOT_161'],
+    ];
+}
+
+function HellbreakExpandCardCounts(array $counts): array
+{
+    $deck = [];
+    foreach($counts as $cardID => $quantity) {
+        for($copy = 0; $copy < max(0, intval($quantity)); ++$copy) $deck[] = strval($cardID);
+    }
+    return $deck;
+}
+
 function HellbreakFixtureDeck(string $archetype): array
 {
     $archetype = strtoupper(trim($archetype));
@@ -194,6 +276,24 @@ function HellbreakLoadFixturePlayer(int $player, string $archetype): array
     $mulliganCommitted = false;
 
     return $fixture;
+}
+
+function HellbreakLoadGamaDemoPlayer(int $player, string $archetype): array
+{
+    $deck = HellbreakGamaDemoDeck($archetype);
+    $monsterData = HellbreakFixtureCard($deck['monster']) ?? [];
+    AddMonster($player, $deck['monster'], 2, (string)($monsterData['side'] ?? 'LURKING'), $player, $player, [], []);
+    foreach($deck['locations'] as $cardID) AddLocationDeck($player, $cardID);
+    foreach($deck['deck'] as $cardID) AddDeck($player, $cardID);
+
+    $health = &HealthValue($player); $health = 0;
+    $topHealth = &TopHealthRemainingValue($player); $topHealth = 0;
+    $blood = &BloodValue($player); $blood = 0;
+    $malice = &MaliceValue($player); $malice = 0;
+    $locationCommitment = &LocationCommitmentValue($player); $locationCommitment = '-';
+    $bidCommitment = &BidCommitmentValue($player); $bidCommitment = '-';
+    $mulliganCommitted = &MulliganCommittedValue($player); $mulliganCommitted = false;
+    return $deck;
 }
 
 function HellbreakInitializeFixtureGame(): array

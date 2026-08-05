@@ -12,7 +12,10 @@ ServerInclude: /Custom/CustomInput.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ClientInclude: /TCGEngine/HellbreakSim/Custom/GameUI.js
-Module: Versions=TurnPlayer,FirstPlayer,InitiativePlayer,CurrentPhase,TurnNumber,PhaseParameters,Winner,ActionSequence,PreviousActionPassLike,SlumberPlayer,SlumberUsed,Locations,DecisionQueueVariables,MacroTurnIndex,MacroGameIndex,p1Monster,p1Characters,p1Assets,p1Deck,p1Crypt,p1Hand,p1Vault,p1HealthStack,p1LocationDeck,p1DecisionQueue,p1Blood,p1Malice,p1Health,p1TopHealthRemaining,p1LocationCommitment,p1BidCommitment,p1MulliganCommitted,p2Monster,p2Characters,p2Assets,p2Deck,p2Crypt,p2Hand,p2Vault,p2HealthStack,p2LocationDeck,p2DecisionQueue,p2Blood,p2Malice,p2Health,p2TopHealthRemaining,p2LocationCommitment,p2BidCommitment,p2MulliganCommitted
+# Versions are serialized from the acting player's perspective, as in AzukiSim.
+# Value zones must use my/their names so the standard generator recognizes them
+# as scalar values; absolute p1/p2 names remain appropriate for object arrays.
+Module: Versions=TurnPlayer,FirstPlayer,InitiativePlayer,CurrentPhase,TurnNumber,PhaseParameters,Winner,ActionSequence,PreviousActionPassLike,SlumberPlayer,SlumberUsed,Locations,DecisionQueueVariables,MacroTurnIndex,MacroGameIndex,p1Monster,p1Characters,p1Assets,p1Deck,p1Crypt,p1Hand,p1Vault,p1HealthStack,p1LocationDeck,p1DecisionQueue,myBlood,myMalice,myHealth,myTopHealthRemaining,myLocationCommitment,myBidCommitment,myMulliganCommitted,p2Monster,p2Characters,p2Assets,p2Deck,p2Crypt,p2Hand,p2Vault,p2HealthStack,p2LocationDeck,p2DecisionQueue,theirBlood,theirMalice,theirHealth,theirTopHealthRemaining,theirLocationCommitment,theirBidCommitment,theirMulliganCommitted
 Module: UniqueID=Monster,UniqueID,UniqueIDCounter;Characters,UniqueID,UniqueIDCounter;Assets,UniqueID,UniqueIDCounter;Locations,UniqueID,UniqueIDCounter
 
 # Card-facing rules vocabulary. Named card interactions should attach to these macros
@@ -111,9 +114,6 @@ DecisionQueue - Type:string, Param:string, Block:number=1, Tooltip:string="", Do
 Display: Visibility=Self, Mode=None, Display=None
 Versions - Version:string
 Display: Visibility=None, Mode=All, Display=None
-FlashMessage - Value:string=""
-Display: Visibility=Self, Mode=None, Display=None
-
 # Global zones are deliberately kept after every player-owned zone. The generated
 # client indexes the second player's block by the complete schema width.
 # Two shared, contested locations. Controller drives visual orientation.
@@ -152,6 +152,8 @@ Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 UniqueIDCounter - Value:number=0
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 
+FlashMessage - Value:string=""
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 DecisionQueueVariables - Value:string=""
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 MacroTurnIndex - Value:string=""

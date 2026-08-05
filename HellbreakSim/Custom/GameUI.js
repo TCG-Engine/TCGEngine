@@ -87,6 +87,79 @@
     });
   }
 
+  function locationName(slot) {
+    var table = document.getElementById('hellbreakTable');
+    var fallback = 'Location ' + slot;
+    if(!table) return fallback;
+    var configured = table.getAttribute('data-location-' + slot + '-name') || fallback;
+    if(configured !== fallback) return configured;
+    try {
+      var names = JSON.parse(table.getAttribute('data-location-card-names') || '{}');
+      var image = document.querySelector('#Locations-' + (slot - 1) + ' img');
+      var match = image && String(image.getAttribute('src') || '').match(/\/([^/?]+)\.(?:webp|png|jpe?g)(?:[?#]|$)/i);
+      if(match && names[decodeURIComponent(match[1])]) return String(names[decodeURIComponent(match[1])]);
+    } catch(error) {}
+    return configured;
+  }
+
+  function createCharacterLocationLanes(container) {
+    var lanes = document.createElement('div');
+    lanes.className = 'hb-location-lanes';
+    [1, 2].forEach(function(slot) {
+      var lane = document.createElement('section');
+      lane.className = 'hb-location-lane';
+      lane.setAttribute('data-location-slot', String(slot));
+      lane.setAttribute('aria-label', 'Minions at ' + locationName(slot));
+
+      var heading = document.createElement('div');
+      heading.className = 'hb-location-lane-heading';
+      heading.innerHTML = '<span>At</span><strong></strong>';
+      heading.querySelector('strong').textContent = locationName(slot);
+
+      var cards = document.createElement('div');
+      cards.className = 'hb-location-lane-cards';
+      lane.appendChild(heading);
+      lane.appendChild(cards);
+      lanes.appendChild(lane);
+    });
+    container.appendChild(lanes);
+    return lanes;
+  }
+
+  function renderCharacterLocationLanes(zoneID) {
+    var container = document.getElementById(zoneID);
+    if(!container) return;
+    var lanes = container.querySelector(':scope > .hb-location-lanes') || createCharacterLocationLanes(container);
+    lanes.querySelectorAll('.hb-location-lane').forEach(function(lane) {
+      var slot = numberValue(lane.getAttribute('data-location-slot'), 0);
+      var name = locationName(slot);
+      lane.setAttribute('aria-label', 'Minions at ' + name);
+      var heading = lane.querySelector('.hb-location-lane-heading strong');
+      if(heading && heading.textContent !== name) heading.textContent = name;
+    });
+    var directCards = Array.prototype.filter.call(container.children, function(child) {
+      return child !== lanes && child.hasAttribute && child.hasAttribute('data-mzid');
+    });
+    directCards.forEach(function(card) {
+      var counter = card.querySelector('[data-counter-field="LocationSlot"]');
+      var slot = numberValue(counter ? counter.textContent : card.getAttribute('data-location-slot'), 0);
+      var destination = lanes.querySelector('.hb-location-lane[data-location-slot="' + slot + '"] .hb-location-lane-cards');
+      if(!destination) return;
+      card.setAttribute('data-location-slot', String(slot));
+      card.setAttribute('aria-label', (card.getAttribute('aria-label') || 'Minion') + ' at ' + locationName(slot));
+      destination.appendChild(card);
+    });
+    lanes.querySelectorAll('.hb-location-lane').forEach(function(lane) {
+      var cards = lane.querySelector('.hb-location-lane-cards');
+      lane.classList.toggle('is-empty', !cards || cards.children.length === 0);
+    });
+  }
+
+  function renderCharacterLocations() {
+    renderCharacterLocationLanes('myCharacters');
+    renderCharacterLocationLanes('theirCharacters');
+  }
+
   function updateWinner(viewer) {
     var winner = numberValue(window.WinnerData, 0);
     var overlay = document.getElementById('hbVictory');
@@ -343,6 +416,7 @@
     if(theirHealthStack) theirHealthStack.classList.toggle('hb-top-health-vertical', numberValue(window.theirTopHealthRemainingData, 0) === 1);
 
     table.setAttribute('data-phase', phase);
+    renderCharacterLocations();
     renderHistory();
     updateWinner(viewer);
     updateDirectHorrorActions(viewer, phase, priority);
@@ -360,6 +434,53 @@
     });
   }
 
+  function installZoneGuide() {
+    var toggle = document.getElementById('hbZoneGuideToggle');
+    var guide = document.getElementById('hbZoneGuide');
+    if(!toggle || !guide || toggle.dataset.installed === '1') return;
+    if(guide.parentElement !== document.body) document.body.appendChild(guide);
+    toggle.dataset.installed = '1';
+    var close = function() {
+      guide.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+    toggle.addEventListener('click', function() {
+      guide.hidden = !guide.hidden;
+      toggle.setAttribute('aria-expanded', guide.hidden ? 'false' : 'true');
+    });
+    var closeButton = guide.querySelector('.hb-zone-guide-heading button');
+    if(closeButton) closeButton.addEventListener('click', close);
+    document.addEventListener('keydown', function(event) {
+      if(event.key === 'Escape' && !guide.hidden) close();
+    });
+  }
+
+  function installUndoButton() {
+    var button = document.getElementById('hbUndo');
+    if(!button || button.dataset.installed === '1') return;
+    // Decision choosers live outside the table and above its stacking context.
+    // Keep Undo at the same visual header position but parent it to body so it
+    // remains clickable while a follow-up target/payment prompt is open.
+    if(button.parentElement !== document.body) document.body.appendChild(button);
+    button.dataset.installed = '1';
+    button.addEventListener('click', function() {
+      if(typeof window.SubmitInput === 'function') window.SubmitInput('10004', '');
+    });
+    if(!window.__hellbreakUndoHotkeyInstalled) {
+      window.__hellbreakUndoHotkeyInstalled = true;
+      document.addEventListener('keydown', function(event) {
+        if(event.code !== 'KeyU' || event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+        var target = event.target;
+        if(target && (target.matches('input, textarea, select') || target.isContentEditable)) return;
+        // Capture before chooser dialogs and the shared key listener so one
+        // press always produces exactly one undo request.
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        button.click();
+      }, true);
+    }
+  }
+
   var scheduled = false;
   function scheduleUpdate() {
     if(scheduled) return;
@@ -373,6 +494,8 @@
   function install() {
     installCardBack();
     installLogToggle();
+    installZoneGuide();
+    installUndoButton();
     installDirectActionEvents();
     updateTable();
     var table = document.getElementById('hellbreakTable');

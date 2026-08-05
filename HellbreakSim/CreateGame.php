@@ -15,6 +15,18 @@ $gameName = GetGameCounter(__DIR__ . '/Games');
 InitializeGamestate();
 $hellbreakCreateMode = isset($lobby->format) ? strtolower(strval($lobby->format)) : '';
 $isTutorial = $hellbreakCreateMode === 'tutorial';
+$useGamaDemo = false;
+if(!$isTutorial) {
+    foreach($lobby->players as $candidatePlayer) {
+        $candidatePreset = method_exists($candidatePlayer, 'getPreconstructedDeck')
+            ? trim((string)$candidatePlayer->getPreconstructedDeck())
+            : '';
+        if(strcasecmp($candidatePreset, 'HellbreakGamaDemo') === 0) {
+            $useGamaDemo = true;
+            break;
+        }
+    }
+}
 
 $fixtureSeats = 0;
 $playerNumber = 1;
@@ -29,7 +41,14 @@ foreach($lobby->players as $player) {
         HellbreakLoadResolvedPlayer($playerNumber, $resolved);
     } else {
         $archetype = $playerNumber === 1 ? 'DRACULA' : 'JAWS';
-        HellbreakLoadFixturePlayer($playerNumber, $archetype);
+        $playerPreset = method_exists($player, 'getPreconstructedDeck')
+            ? trim((string)$player->getPreconstructedDeck())
+            : '';
+        if(!$isTutorial && ($useGamaDemo || strcasecmp($playerPreset, 'HellbreakGamaDemo') === 0)) {
+            HellbreakLoadGamaDemoPlayer($playerNumber, $archetype);
+        } else {
+            HellbreakLoadFixturePlayer($playerNumber, $archetype);
+        }
         ++$fixtureSeats;
     }
     $deck = &GetDeck($playerNumber);
@@ -39,7 +58,9 @@ foreach($lobby->players as $player) {
 }
 
 while($playerNumber <= 2) {
-    HellbreakLoadFixturePlayer($playerNumber, $playerNumber === 1 ? 'DRACULA' : 'JAWS');
+    $archetype = $playerNumber === 1 ? 'DRACULA' : 'JAWS';
+    if($useGamaDemo) HellbreakLoadGamaDemoPlayer($playerNumber, $archetype);
+    else HellbreakLoadFixturePlayer($playerNumber, $archetype);
     $deck = &GetDeck($playerNumber);
     if(!$isTutorial) EngineShuffle($deck, true);
     HellbreakReindexZone($deck);
@@ -64,6 +85,7 @@ $autoSetupPlayers = isset($lobby->goldfishPlayers) && is_array($lobby->goldfishP
     ? array_values(array_map('intval', $lobby->goldfishPlayers))
     : [];
 DecisionQueueController::StoreVariable('HellbreakAutoSetupPlayers', $autoSetupPlayers);
+DecisionQueueController::StoreVariable('HellbreakDeckPreset', $useGamaDemo ? 'gama-demo' : ($fixtureSeats === 2 ? 'engine-fixture' : 'custom'));
 if($isTutorial && function_exists('HellbreakTutorialInitialize')) HellbreakTutorialInitialize();
 HellbreakBeginSetup();
 
