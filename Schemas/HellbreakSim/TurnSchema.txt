@@ -1,0 +1,39 @@
+DecisionQueue: Enabled
+
+# Setup choices are interactive and remain in place until game code submits READY.
+ChooseLocations; SETUP_LOCATION; HellbreakSetupLocationPhase
+AUTO -> SETUP_LOCATION
+READY -> SETUP_MULLIGAN
+
+Mulligan; SETUP_MULLIGAN; HellbreakSetupMulliganPhase
+AUTO -> SETUP_MULLIGAN
+READY -> FEED_COLLECT
+
+# Feeding collects automatically, then waits for simultaneous hidden bids.
+CollectResources; FEED_COLLECT; HellbreakFeedingCollectPhase
+AUTO -> FEED_BID
+
+BidForInitiative; FEED_BID; HellbreakFeedingBidPhase
+AUTO -> FEED_BID
+READY -> FEED_RESOLVE
+
+ResolveInitiative; FEED_RESOLVE; HellbreakFeedingResolvePhase
+AUTO -> HORROR
+
+# Horror uses alternating single actions. Game code sends PASS only when the
+# pass-like sequence actually ends the phase.
+Horror; HORROR; HellbreakHorrorPhase
+AUTO -> HORROR
+PASS -> REFRESH_READY
+
+ReadyCards; REFRESH_READY; HellbreakRefreshReadyPhase
+AUTO -> REFRESH_FLIP
+
+FlipMonsters; REFRESH_FLIP; HellbreakRefreshFlipPhase
+AUTO -> REFRESH_FLIP
+READY -> REFRESH_HAND
+
+CheckHandLimit; REFRESH_HAND; HellbreakRefreshHandPhase
+AUTO -> REFRESH_HAND
+READY -> FEED_COLLECT
+

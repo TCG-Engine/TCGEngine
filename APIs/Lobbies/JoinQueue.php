@@ -48,6 +48,9 @@
     if(is_file($swuMatchFlowPath)) {
       include_once $swuMatchFlowPath;
     }
+  } else if($rootName === 'HellbreakSim') {
+    include_once __DIR__ . '/../../HellbreakSim/GeneratedCode/GeneratedCardDictionaries.php';
+    include_once __DIR__ . '/../../HellbreakSim/Custom/DeckImport.php';
   }
 
   $deckLink = isset($_POST['deckLink']) ? $_POST['deckLink'] : '';
@@ -502,6 +505,24 @@
         return [
           'success' => false,
           'message' => 'Could not validate deck input. Please try again.'
+        ];
+      }
+    }
+
+    if($rootName === 'HellbreakSim') {
+      if(!function_exists('HellbreakValidateDeckForQueue')) {
+        return [
+          'success' => false,
+          'message' => 'Hellbreak deck validation is temporarily unavailable.'
+        ];
+      }
+      try {
+        return HellbreakValidateDeckForQueue($deckLink, $preconstructedDeck, $joiningUserId);
+      } catch (Throwable $e) {
+        error_log('HellbreakSim queue deck validation failed: ' . $e->getMessage());
+        return [
+          'success' => false,
+          'message' => 'Could not validate the Hellbreak deck. Please try again.'
         ];
       }
     }

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "cards": {
+    "DOT_040": {"identityConfidence": "manual", "identityReview": "manual_confirmed"},
+    "DOT_138": {"identityConfidence": "manual", "identityReview": "manual_confirmed"},
+    "DOT_152": {"identityConfidence": "manual", "identityReview": "manual_confirmed"},
+    "DOT_166": {"identityConfidence": "manual", "identityReview": "manual_confirmed"},
+    "DOT_173": {"identityConfidence": "manual", "identityReview": "manual_confirmed"},
+    "DOT_223": {"identityConfidence": "manual", "identityReview": "manual_confirmed"},
+    "DOT_436": {"identityConfidence": "manual", "identityReview": "manual_confirmed"},
+    "DOT_437": {"identityConfidence": "manual", "identityReview": "manual_confirmed"},
+    "DOT_440": {"status": "rejected", "identityConfidence": "manual", "identityReview": "manual_rejected", "reason": "The source is a convention booth poster containing several cards, not a card face."}
+  }
+}

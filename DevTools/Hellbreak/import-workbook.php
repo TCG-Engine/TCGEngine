@@ -20,20 +20,24 @@ $temporaryFile = null;
 try {
     $xlsxPath = resolveWorkbook($source, $temporaryFile);
     $import = readWorkbook($xlsxPath, $sheetName);
-    [$cards, $warnings, $rowToCard] = normalizeRows($import['rows']);
+    [$cards, $warnings, $rowToCard, $dataAudit] = normalizeRows($import['rows']);
 
     if (!$cards) {
         throw new RuntimeException('No card rows were found. Check the selected sheet and its headers.');
     }
 
+    $dataAudit['reviewedCardFaces'] = applyReviewedCardFaces($cards, $repoRoot, $warnings);
+    $dataAudit['cardFaceReviewQueue'] = applyCardFaceReviewQueue($cards, $repoRoot, $warnings);
+
     $target = $repoRoot . DIRECTORY_SEPARATOR . $targetRoot;
     $generated = $target . DIRECTORY_SEPARATOR . 'GeneratedCode';
     ensureDirectory($generated);
 
-    $imageReport = ['embedded' => 0, 'external' => 0, 'failed' => 0];
+    $imageReport = ['enabled' => $extractImages, 'embedded' => 0, 'external' => 0, 'failed' => 0];
     if ($extractImages) {
-        $imageReport = importImages($xlsxPath, $import, $rowToCard, $cards, $target, $warnings);
+        $imageReport = ['enabled' => true] + importImages($xlsxPath, $import, $rowToCard, $cards, $target, $warnings);
     }
+    $imageReport += imageInventory($cards, $target);
 
     $payload = [
         'cardArray' => array_values($cards),
@@ -47,13 +51,15 @@ try {
         'sheet' => $import['sheetName'],
         'importedAt' => gmdate('c'),
         'cards' => count($cards),
+        'data' => $dataAudit,
         'images' => $imageReport,
         'warnings' => $warnings,
     ];
     writeJson($generated . DIRECTORY_SEPARATOR . 'HellbreakImportReport.json', $report);
 
     echo "Imported " . count($cards) . " Hellbreak cards from {$import['sheetName']}.\n";
-    echo "Images: {$imageReport['embedded']} embedded, {$imageReport['external']} external, {$imageReport['failed']} failed.\n";
+    echo "Images: {$imageReport['front']['valid']} playable fronts from {$imageReport['front']['sources']} source links; "
+        . "{$imageReport['front']['invalid']} linked fronts are unusable.\n";
     if ($warnings) echo count($warnings) . " warning(s); see HellbreakImportReport.json.\n";
 } catch (Throwable $e) {
     fwrite(STDERR, "Hellbreak import failed: {$e->getMessage()}\n");
@@ -184,12 +190,28 @@ function normalizeRows(array $rows): array
     $cards = [];
     $warnings = [];
     $rowToCard = [];
+    $coverageFields = [
+        'collectorNumber', 'type', 'rarity', 'name', 'aspect', 'cost', 'loyalty',
+        'intellectualProperty', 'imageSource', 'imageBackSource', 'tokenSource',
+    ];
+    $coverage = array_fill_keys($coverageFields, 0);
+    $dataRows = 0;
+    $placeholderRows = 0;
     foreach ($rows as $rowNumber => $values) {
         if ($rowNumber <= $bestRow) continue;
+        if (!array_filter($values, fn($value) => trim((string)$value) !== '')) continue;
+        ++$dataRows;
         $raw = [];
         foreach ($bestMap as $field => $column) $raw[$field] = trim((string)($values[$column] ?? ''));
         $name = trim($raw['name'] ?? '');
-        if ($name === '' || normalizeHeader($name) === 'name') continue;
+        if ($name === '' || normalizeHeader($name) === 'name') {
+            ++$placeholderRows;
+            continue;
+        }
+        foreach ($coverageFields as $field) {
+            $value = trim((string)($raw[$field] ?? ''));
+            if ($value !== '' && $value !== '-') ++$coverage[$field];
+        }
         $type = canonicalType($raw['type'] ?? '');
         $collector = trim($raw['collectorNumber'] ?? $raw['id'] ?? '');
         $set = strtoupper(trim($raw['set'] ?? 'DOT'));
@@ -214,6 +236,7 @@ function normalizeRows(array $rows): array
             'health' => integerValue($raw['health'] ?? ''),
             'aspect' => normalizeList($raw['aspect'] ?? ''),
             'loyalty' => integerValue($raw['loyalty'] ?? ''),
+            'intellectualProperty' => $raw['intellectualProperty'] ?? '',
             'resources' => normalizeList($raw['resources'] ?? ''),
             'scheme' => normalizeList($raw['scheme'] ?? ''),
             'traits' => normalizeList($raw['traits'] ?? ''),
@@ -228,7 +251,153 @@ function normalizeRows(array $rows): array
         $cards[$id] = $card;
         $rowToCard[(int)$rowNumber] = $id;
     }
-    return [$cards, $warnings, $rowToCard];
+    return [$cards, $warnings, $rowToCard, [
+        'sourceRows' => $dataRows,
+        'namedCards' => count($cards),
+        'placeholderRows' => $placeholderRows,
+        'fieldCoverage' => $coverage,
+        'typeCounts' => array_count_values(array_column($cards, 'type')),
+    ]];
+}
+
+function imageInventory(array $cards, string $target): array
+{
+    $variants = [
+        'front' => ['field' => 'imageSource', 'suffix' => ''],
+        'back' => ['field' => 'imageBackSource', 'suffix' => '_back'],
+        'token' => ['field' => 'tokenSource', 'suffix' => '_token'],
+    ];
+    $inventory = [];
+    $unusableFronts = [];
+    foreach ($variants as $name => $definition) {
+        $sources = 0;
+        $valid = 0;
+        $validLinked = 0;
+        foreach ($cards as $cardID => $card) {
+            $source = trim((string)($card[$definition['field']] ?? ''));
+            if ($source !== '') ++$sources;
+            $path = $target . DIRECTORY_SEPARATOR . 'concat' . DIRECTORY_SEPARATOR . $cardID . $definition['suffix'] . '.webp';
+            $isRejected = ($card['reviewStatus'] ?? '') === 'rejected';
+            $isValid = !$isRejected && is_file($path) && filesize($path) >= 8000;
+            if ($isValid) ++$valid;
+            if ($source !== '' && $isValid) ++$validLinked;
+            if ($name === 'front' && $source !== '' && !$isValid) {
+                $unusableFronts[] = ['id' => $cardID, 'name' => $card['name'], 'source' => $source];
+            }
+        }
+        $inventory[$name] = [
+            'sources' => $sources,
+            'valid' => $valid,
+            'invalid' => $sources - $validLinked,
+            'missingSource' => count($cards) - $sources,
+        ];
+    }
+    $inventory['unusableFronts'] = $unusableFronts;
+    return $inventory;
+}
+
+function applyReviewedCardFaces(array &$cards, string $repoRoot, array &$warnings): array
+{
+    $path = $repoRoot . DIRECTORY_SEPARATOR . 'HellbreakSim' . DIRECTORY_SEPARATOR . 'CardData' . DIRECTORY_SEPARATOR . 'ReviewedCardFaces.json';
+    if (!is_file($path)) return ['cards' => 0, 'fieldCoverage' => new stdClass()];
+    $review = json_decode((string)file_get_contents($path), true);
+    if (!is_array($review) || !is_array($review['cards'] ?? null)) {
+        throw new RuntimeException('ReviewedCardFaces.json is not valid reviewed card data.');
+    }
+
+    $coverage = array_fill_keys(['combat', 'health', 'traits', 'resources', 'scheme', 'text', 'threshold', 'faces'], 0);
+    $applied = 0;
+    foreach ($review['cards'] as $cardID => $reviewed) {
+        if (!isset($cards[$cardID])) {
+            $warnings[] = "Reviewed transcription {$cardID} does not match an imported card.";
+            continue;
+        }
+        if (!is_array($reviewed)) continue;
+        $base = $reviewed;
+        if (isset($reviewed['faces']['lurking']) && is_array($reviewed['faces']['lurking'])) {
+            $base = array_replace($reviewed, $reviewed['faces']['lurking']);
+            $cards[$cardID]['faces'] = json_encode($reviewed['faces'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            ++$coverage['faces'];
+        }
+        foreach (['combat', 'health', 'threshold'] as $field) {
+            if (!array_key_exists($field, $base)) continue;
+            $cards[$cardID][$field] = max(0, intval($base[$field]));
+            ++$coverage[$field];
+        }
+        foreach (['resources', 'scheme'] as $field) {
+            if (!array_key_exists($field, $base)) continue;
+            $cards[$cardID][$field] = json_encode($base[$field], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            ++$coverage[$field];
+        }
+        if (isset($base['traits']) && is_array($base['traits'])) {
+            $cards[$cardID]['traits'] = implode(', ', array_map('strval', $base['traits']));
+            ++$coverage['traits'];
+        }
+        if (array_key_exists('text', $base)) {
+            $cards[$cardID]['text'] = trim((string)$base['text']);
+            ++$coverage['text'];
+        }
+        if (array_key_exists('unique', $reviewed)) $cards[$cardID]['unique'] = (bool)$reviewed['unique'];
+        $imagePath = $repoRoot . DIRECTORY_SEPARATOR . 'HellbreakSim' . DIRECTORY_SEPARATOR . 'WebpImages' . DIRECTORY_SEPARATOR . $cardID . '.webp';
+        $cards[$cardID]['reviewStatus'] = 'reviewed';
+        $cards[$cardID]['transcriptionSource'] = 'HellbreakSim/WebpImages/' . $cardID . '.webp';
+        $cards[$cardID]['transcriptionImageSha256'] = is_file($imagePath) ? hash_file('sha256', $imagePath) : '';
+        ++$applied;
+    }
+    return [
+        'cards' => $applied,
+        'reviewedAt' => (string)($review['reviewedAt'] ?? ''),
+        'method' => (string)($review['method'] ?? ''),
+        'fieldCoverage' => $coverage,
+    ];
+}
+
+function applyCardFaceReviewQueue(array &$cards, string $repoRoot, array &$warnings): array
+{
+    $path = $repoRoot . DIRECTORY_SEPARATOR . 'HellbreakSim' . DIRECTORY_SEPARATOR . 'CardData' . DIRECTORY_SEPARATOR . 'CardFaceReviewQueue.json';
+    if (!is_file($path)) return ['cards' => 0, 'confidence' => new stdClass()];
+    $queue = json_decode((string)file_get_contents($path), true);
+    if (!is_array($queue) || !is_array($queue['cards'] ?? null)) {
+        throw new RuntimeException('CardFaceReviewQueue.json is not valid review queue data.');
+    }
+    $confidence = ['high' => 0, 'medium' => 0, 'low' => 0, 'manual' => 0];
+    $statuses = ['needs_review' => 0, 'rejected' => 0, 'stale_source' => 0];
+    $applied = 0;
+    $stale = 0;
+    foreach ($queue['cards'] as $cardID => $candidate) {
+        if (!isset($cards[$cardID]) || !is_array($candidate)) continue;
+        if (($cards[$cardID]['reviewStatus'] ?? '') === 'reviewed') {
+            $warnings[] = "Review queue {$cardID} overlaps a manually reviewed card; the reviewed record won.";
+            continue;
+        }
+        $source = trim((string)($candidate['image'] ?? ''));
+        $imagePath = $repoRoot . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $source);
+        $currentHash = is_file($imagePath) ? hash_file('sha256', $imagePath) : '';
+        $queuedHash = strtolower(trim((string)($candidate['imageSha256'] ?? '')));
+        $requestedStatus = strtolower(trim((string)($candidate['status'] ?? 'needs_review')));
+        if (!in_array($requestedStatus, ['needs_review', 'rejected'], true)) $requestedStatus = 'needs_review';
+        $status = $currentHash !== '' && hash_equals($queuedHash, strtolower($currentHash)) ? $requestedStatus : 'stale_source';
+        if ($status === 'stale_source') ++$stale;
+        $level = strtolower(trim((string)($candidate['identityConfidence'] ?? 'low')));
+        if (!isset($confidence[$level])) $level = 'low';
+        ++$confidence[$level];
+        $cards[$cardID]['reviewStatus'] = $status;
+        $cards[$cardID]['identityConfidence'] = $level;
+        $cards[$cardID]['ocrText'] = trim((string)($candidate['ocrText'] ?? ''));
+        $cards[$cardID]['reviewReason'] = trim((string)($candidate['reason'] ?? ''));
+        $cards[$cardID]['transcriptionSource'] = $source;
+        $cards[$cardID]['transcriptionImageSha256'] = $queuedHash;
+        ++$applied;
+        ++$statuses[$status];
+    }
+    return [
+        'cards' => $applied,
+        'staleSources' => $stale,
+        'confidence' => $confidence,
+        'statuses' => $statuses,
+        'method' => (string)($queue['method'] ?? ''),
+        'extractedAt' => (string)($queue['extractedAt'] ?? ''),
+    ];
 }
 
 function importImages(string $xlsxPath, array $import, array $rowToCard, array $cards, string $target, array &$warnings): array
@@ -429,7 +598,8 @@ function headerAliases(): array
         'combat' => ['combat', 'power', 'attack', 'combat value'],
         'health' => ['health', 'hp'],
         'aspect' => ['aspect', 'aspects'],
-        'loyalty' => ['loyalty'],
+        'loyalty' => ['loyalty', 'loyalty required', 'required loyalty'],
+        'intellectualProperty' => ['ip', 'intellectual property', 'franchise', 'license'],
         'resources' => ['resource', 'resources', 'resource bar'],
         'scheme' => ['scheme', 'scheme bar'],
         'traits' => ['trait', 'traits', 'subtype', 'subtypes'],

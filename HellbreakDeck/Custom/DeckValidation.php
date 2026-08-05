@@ -24,6 +24,7 @@ function ValidateLocationAddition($cardID) {
 
 function HellbreakDeckHasValidImage($cardID) {
     if (!preg_match('/^[A-Za-z0-9_-]+$/', (string)$cardID)) return false;
+    if (function_exists('CardReviewStatus') && CardReviewStatus($cardID) === 'rejected') return false;
     $image = __DIR__ . '/../../HellbreakSim/concat/' . $cardID . '.webp';
     return is_file($image) && filesize($image) >= 8000;
 }

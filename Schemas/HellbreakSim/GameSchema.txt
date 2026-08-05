@@ -1,53 +1,160 @@
 HellbreakSim
 Polling
 None
-AssetOwner
+None
 Header: title=Home, link=/TCGEngine/SharedUI/Sites/HellbreakSim/MainMenu.php
 PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
 AssetReflection: HellbreakSim
+Layout: /Custom/GameLayout.php
 ServerInclude: /Custom/GameLogic.php
+ServerInclude: /Custom/CardLogic.php
 ServerInclude: /Custom/CustomInput.php
-Monster - CardID:string
-Display: Visibility=Public, Mode=All, Left=42%, Top=35%, Width=12%, Height=22%, Split=None
-Location - CardID:string
-Display: Visibility=Public, Mode=All, Left=42%, Top=59%, Width=12%, Height=22%, Split=None
-LeftMinions - CardID:string
-Display: Visibility=Public, Mode=All, Left=15%, Top=35%, Width=25%, Height=22%, Split=None
-RightMinions - CardID:string
-Display: Visibility=Public, Mode=All, Left=56%, Top=35%, Width=25%, Height=22%, Split=None
-Assets - CardID:string
-Display: Visibility=Public, Mode=All, Left=15%, Top=59%, Width=25%, Height=20%, Split=None
+ServerInclude: /TurnController.php
+ServerInclude: /GeneratedCode/GeneratedMacroCode.php
+ClientInclude: /TCGEngine/HellbreakSim/Custom/GameUI.js
+Module: Versions=TurnPlayer,FirstPlayer,InitiativePlayer,CurrentPhase,TurnNumber,PhaseParameters,Winner,ActionSequence,PreviousActionPassLike,SlumberPlayer,SlumberUsed,Locations,DecisionQueueVariables,MacroTurnIndex,MacroGameIndex,p1Monster,p1Characters,p1Assets,p1Deck,p1Crypt,p1Hand,p1Vault,p1HealthStack,p1LocationDeck,p1DecisionQueue,p1Blood,p1Malice,p1Health,p1TopHealthRemaining,p1LocationCommitment,p1BidCommitment,p1MulliganCommitted,p2Monster,p2Characters,p2Assets,p2Deck,p2Crypt,p2Hand,p2Vault,p2HealthStack,p2LocationDeck,p2DecisionQueue,p2Blood,p2Malice,p2Health,p2TopHealthRemaining,p2LocationCommitment,p2BidCommitment,p2MulliganCommitted
+Module: UniqueID=Monster,UniqueID,UniqueIDCounter;Characters,UniqueID,UniqueIDCounter;Assets,UniqueID,UniqueIDCounter;Locations,UniqueID,UniqueIDCounter
+
+# Card-facing rules vocabulary. Named card interactions should attach to these macros
+# through CardEditor instead of being hard-coded into phase/combat switchboards.
+Macro: Name=Played(mzID,fromZone,locationSlot); ChoiceFunction=HellbreakOnPlayed; SourceParam=mzID; Action={}
+Macro: Name=Moved(mzID,fromLocation,toLocation); ChoiceFunction=HellbreakOnMoved; SourceParam=mzID; Action={}
+Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=HellbreakOnActivateAbility; PrereqFunction=HellbreakCanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
+Macro: Name=AttackDeclared(mzID,locationSlot); ChoiceFunction=HellbreakOnAttackDeclared; SourceParam=mzID; Action={}
+Macro: Name=TargetDeclared(mzID,attackerMZ,locationSlot); ChoiceFunction=HellbreakOnTargetDeclared; SourceParam=mzID; Action={}
+Macro: Name=DefenderDeclared(mzID,attackerMZ,locationSlot); ChoiceFunction=HellbreakOnDefenderDeclared; SourceParam=mzID; Action={}
+Macro: Name=CombatCompleted(attackerMZ,targetMZ,defenderMZ); ChoiceFunction=HellbreakOnCombatCompleted; Action={}
+Macro: Name=SchemeStarted(mzID,locationSlot); ChoiceFunction=HellbreakOnSchemeStarted; SourceParam=mzID; Action={}
+Macro: Name=SchemeIcon(mzID,schemeType,amount,locationSlot); ChoiceFunction=HellbreakOnSchemeIcon; SourceParam=mzID; Action={}
+Macro: Name=LocationTaken(mzID,locationSlot,previousController); ChoiceFunction=HellbreakOnLocationTaken; SourceParam=mzID; Action={}
+Macro: Name=DamageDealt(sourceMZ,targetMZ,amount,damageType); ChoiceFunction=HellbreakOnDamageDealt; Action={}
+Macro: Name=MinionKilled(cardID,owner,locationSlot,sourceMZ); ChoiceFunction=HellbreakOnMinionKilled; Action={}
+Macro: Name=MonsterHealthRevealed(cardID,owner); ChoiceFunction=HellbreakOnMonsterHealthRevealed; Action={}
+Macro: Name=JumpscareUsed(cardID,owner); ChoiceFunction=HellbreakOnJumpscareUsed; Action={}
+Macro: Name=HealthAbilityUsed(cardID,owner); ChoiceFunction=HellbreakOnHealthAbilityUsed; Action={}
+Macro: Name=MonsterFlipped(mzID,fromSide,toSide); ChoiceFunction=HellbreakOnMonsterFlipped; SourceParam=mzID; Action={}
+Macro: Name=ResourcesCollected(owner,blood,malice,draw); ChoiceFunction=HellbreakOnResourcesCollected; Action={}
+Macro: Name=InitiativeBidRevealed(owner,cardID,bidValue); ChoiceFunction=HellbreakOnInitiativeBidRevealed; Action={}
+Macro: Name=InitiativeAssigned(winner,holder); ChoiceFunction=HellbreakOnInitiativeAssigned; Action={}
+Macro: Name=RefreshReady(round); ChoiceFunction=HellbreakOnRefreshReady; Action={}
+Macro: Name=RoundEnded(round); ChoiceFunction=HellbreakOnRoundEnded; Action={}
+Macro: Name=CombatModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=HealthModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=SchemeModifier(subjectObj,schemeType,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=PlayCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=LocationThresholdModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=DamageModifier(subjectObj,damageType,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+
+# Player-owned play zones.
+Monster - CardID:string, Status:number=2, Side:string="LURKING", Owner:number=0, Controller:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json
+Display: Visibility=Public, Mode=All, BindTo=MonsterSlot
+Index: TurnEffects
+Overlay: Status=1:exhausted
+Rotation: Status=1:9
+Counters: Side=Badge(Color=Purple,Position=Bottom,ShowZero=true)
+
+Characters - CardID:string, Status:number=2, Damage:number=0, Owner:number=0, Controller:number=0, LocationSlot:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json
+Display: Visibility=Public, Mode=All, BindTo=CharactersSlot
+Index: TurnEffects
+Overlay: Status=1:exhausted
+Rotation: Status=1:9
+Counters: Damage=Image(Path=Assets/Icons/damage-counter.webp,Position=TopRight,ShowZero=false,Size=25,TextColor=White)
+Counters: LocationSlot=Badge(Color=Purple,Position=BottomLeft,ShowZero=false)
+
+Assets - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json
+Display: Visibility=Public, Mode=All, BindTo=AssetsSlot
+Index: TurnEffects
+Overlay: Status=1:exhausted
+Rotation: Status=1:9
+
 Deck - CardID:string
-Display: Visibility=Self, Mode=Single, Right=3%, Top=59%, Width=10%, Height=20%, Split=None
-Crypt - CardID:string
-Display: Visibility=Public, Mode=Single, Right=3%, Top=35%, Width=10%, Height=20%, Split=None
+Display: Visibility=Private, Mode=Single, BindTo=DeckSlot
+Macros: Shuffle
+
+Crypt - CardID:string, From:string="", Turn:number=0, Revealed:boolean=true
+Display: Visibility=Public, Mode=Single, BindTo=CryptSlot
+
 Hand - CardID:string
-Display: Visibility=Self, Mode=All, Left=15%, Bottom=10px, Right=15%, Height=18%, Split=None
-Vault - CardID:string
-Display: Visibility=Public, Mode=Single, Left=3%, Top=59%, Width=10%, Height=20%, Split=None
-HealthStack - CardID:string
-Display: Visibility=Self, Mode=Single, Left=3%, Top=35%, Width=10%, Height=20%, Split=None
+Display: Visibility=Self, Mode=All, BindTo=HandSlot
+Click: FSM()
+
+Vault - CardID:string, TurnAdded:number=0
+Display: Visibility=Private, Mode=All, BindTo=VaultSlot
+
+HealthStack - CardID:string, RemainingHealth:number=2
+Display: Visibility=Private, Mode=Single(Stacked), BindTo=HealthStackSlot
+Counters: RemainingHealth=Badge(Color=Red,Position=TopRight,ShowZero=false)
+
+LocationDeck - CardID:string
+Display: Visibility=Self, Mode=All, Display=None
+
+TempZone - CardID:string
+Display: Visibility=Self, Mode=None, Display=None
+
+# Public per-player totals and private setup commitments.
 Health - Value:number=0
-Display: Visibility=Public, Mode=Value, Left=3%, Top=28%
+Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=HealthValueSlot
+TopHealthRemaining - Value:number=0
+Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=TopHealthSlot
 Blood - Value:number=0
-Display: Visibility=Public, Mode=Value, Left=15%, Top=28%
+Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=BloodValueSlot
 Malice - Value:number=0
-Display: Visibility=Public, Mode=Value, Left=25%, Top=28%
+Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=MaliceValueSlot
+LocationCommitment - Value:string=""
+Display: Visibility=None, Mode=Value, Display=None
+BidCommitment - Value:string=""
+Display: Visibility=None, Mode=Value, Display=None
+MulliganCommitted - Value:boolean=false
+Display: Visibility=None, Mode=Value, Display=None
+
+DecisionQueue - Type:string, Param:string, Block:number=1, Tooltip:string="", DontSkipOnPass:number=0
+Display: Visibility=Self, Mode=None, Display=None
+Versions - Version:string
+Display: Visibility=None, Mode=All, Display=None
+FlashMessage - Value:string=""
+Display: Visibility=Self, Mode=None, Display=None
+
+# Global zones are deliberately kept after every player-owned zone. The generated
+# client indexes the second player's block by the complete schema width.
+# Two shared, contested locations. Controller drives visual orientation.
+Locations - CardID:string, Slot:number=0, Owner:number=0, Controller:number=0, MaliceP1:number=0, MaliceP2:number=0, Threshold:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json
+Display: Visibility=Public, Mode=All, Scope=Global, BindTo=LocationsSlot
+Index: TurnEffects
+Counters: MaliceP1=Badge(Color=Red,Position=BottomLeft,ShowZero=false)
+Counters: MaliceP2=Badge(Color=Purple,Position=BottomRight,ShowZero=false)
+Counters: Threshold=Badge(Color=Black,Position=TopRight,ShowZero=false)
+
+# Global round and priority state.
 TurnNumber - Value:number=0
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 FirstPlayer - Value:number=1
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+InitiativePlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 TurnPlayer - Value:number=1
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-CurrentPhase - Value:string=SCAFFOLD
+CurrentPhase - Value:string="SETUP_LOCATION"
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-PhaseParameters - Value:string=-
+PhaseParameters - Value:string=""
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-FlashMessage - Value:string
-Display: Visibility=Self, Mode=None
-DecisionQueue - Type:string, SubType:string, Player:number, Parameter1:string, Parameter2:string, Parameter3:string, Parameter4:string, Parameter5:string, Parameter6:string, Parameter7:string, Parameter8:string
-Display: Visibility=Self, Mode=None
-DecisionQueueVariables - Name:string, Value:string
-Display: Visibility=Self, Mode=None
-Versions - Version:string
-Display: Visibility=Self, Mode=None
+PreviousActionPassLike - Value:boolean=false
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+SlumberPlayer - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+SlumberUsed - Value:boolean=false
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+ActionSequence - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+Winner - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FixtureMode - Value:boolean=false
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+UniqueIDCounter - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+DecisionQueueVariables - Value:string=""
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+MacroTurnIndex - Value:string=""
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+MacroGameIndex - Value:string=""
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None

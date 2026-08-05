@@ -1,7 +1,8 @@
 <?php
 
 function CustomWidgetInput($playerID, $actionCard, $action) {
-    // Hellbreak gameplay actions will be added with the card-rules implementation.
+    $action = strtoupper(trim((string)$action));
+    if($action === 'PASS' || $action === 'SLUMBER') HellbreakTakePassLikeAction(intval($playerID), $action);
 }
 
 ?>

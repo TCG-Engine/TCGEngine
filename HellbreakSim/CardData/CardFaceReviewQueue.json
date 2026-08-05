@@ -1,0 +1,20 @@
+{
+    "version":  1,
+    "extractedAt":  "2026-08-05T00:42:01.9503483Z",
+    "method":  "Windows.Media.Ocr candidate extraction; no gameplay fields promoted without manual visual review",
+    "cards":  {
+                  "DOT_440":  {
+                                  "name":  "Jaws, Scourge of Amity Island",
+                                  "type":  "Monster",
+                                  "status":  "rejected",
+                                  "identityConfidence":  "manual",
+                                  "nameWordMatch":  0,
+                                  "typeMatched":  false,
+                                  "ocrText":  "{EiSé40RSEMAN When you discard 16 e you \u0027nay —B00Ti4—z GEN CON",
+                                  "image":  "HellbreakSim/WebpImages/DOT_440.webp",
+                                  "imageSha256":  "fee6f6ae2c0a50c1614989ada1c8de390db60bde3ed300a564f35fe7712ef103",
+                                  "identityReview":  "manual_rejected",
+                                  "reason":  "The source is a convention booth poster containing several cards, not a card face."
+                              }
+              }
+}

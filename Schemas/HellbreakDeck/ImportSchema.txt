@@ -4,4 +4,4 @@ webp
 cards
 
 
-id,name,subtitle,collectorNumber,set,rarity,type,cost:number,combat:number,health:number,aspect,loyalty:number,resources,scheme,traits,text,unique:boolean,revealed:boolean,imageSource,imageBackSource,tokenSource
+id,name,subtitle,collectorNumber,set,rarity,type,cost:number,combat:number,health:number,aspect,loyalty:number,intellectualProperty,resources,scheme,traits,text,unique:boolean,revealed:boolean,threshold:number,faces,reviewStatus,reviewReason,identityConfidence,ocrText,transcriptionSource,transcriptionImageSha256,imageSource,imageBackSource,tokenSource

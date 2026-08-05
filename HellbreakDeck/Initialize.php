@@ -8,6 +8,7 @@ $p1Cards = [];
 
 foreach (GetAllCardIds() as $cardID) {
     if (function_exists('CardRevealed') && !CardRevealed($cardID)) continue;
+    if (function_exists('CardReviewStatus') && CardReviewStatus($cardID) === 'rejected') continue;
     $deckImage = __DIR__ . '/../HellbreakSim/concat/' . $cardID . '.webp';
     if (!is_file($deckImage) || filesize($deckImage) < 8000) continue;
     $type = strtolower(trim((string)CardType($cardID)));
