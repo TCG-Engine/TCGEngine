@@ -28,8 +28,7 @@ function MatchReplayApiLoadGame($rootName, $gameName) {
     MatchReplayApiRespond(400, ['success' => false, 'message' => 'Invalid game name.']);
   }
 
-  $gameDir = __DIR__ . '/../' . $rootName . '/Games/' . $gameName;
-  if (!is_dir($gameDir)) {
+  if (!SimGameExists($rootName, $gameName)) {
     MatchReplayApiRespond(404, ['success' => false, 'message' => 'Game not found.']);
   }
 
