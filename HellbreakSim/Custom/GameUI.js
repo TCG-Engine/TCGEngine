@@ -160,6 +160,45 @@
     renderCharacterLocationLanes('theirCharacters');
   }
 
+  function renderLocationControlFacing(viewer) {
+    var entries = String(window.LocationsData || '').split('<|>').filter(function(entry) { return entry.trim() !== ''; });
+    entries.forEach(function(entry, index) {
+      var parts = entry.split(' ');
+      var state = {};
+      if(parts.length > 2 && parts[2] && parts[2] !== '-') {
+        try { state = JSON.parse(parts[2]); } catch(error) {}
+      }
+      var card = document.getElementById('Locations-' + index);
+      if(!card) return;
+      var controller = numberValue(state.Controller, 0);
+      card.classList.toggle('hb-location-faces-away', (controller === 1 || controller === 2) && controller !== viewer);
+      card.setAttribute('data-controller', String(controller));
+      card.setAttribute('title', controller === viewer ? 'Location you control' : ('Controlled by Player ' + controller));
+
+      var ownPlayer = viewer === 2 ? 2 : 1;
+      var opposingPlayer = ownPlayer === 1 ? 2 : 1;
+      var ownValue = numberValue(state['MaliceP' + ownPlayer], 0);
+      var opposingValue = numberValue(state['MaliceP' + opposingPlayer], 0);
+      var track = card.querySelector(':scope > .hb-location-malice-track');
+      if(!track) {
+        track = document.createElement('div');
+        track.className = 'hb-location-malice-track';
+        track.setAttribute('aria-label', 'Malice at this location');
+        track.innerHTML = '<span class="hb-location-malice is-opponent"><i aria-hidden="true">✦</i><strong></strong></span>'
+          + '<span class="hb-location-malice is-own"><i aria-hidden="true">✦</i><strong></strong></span>';
+        card.appendChild(track);
+      }
+      var ownMarker = track.querySelector('.is-own');
+      var opposingMarker = track.querySelector('.is-opponent');
+      ownMarker.querySelector('strong').textContent = String(ownValue);
+      ownMarker.setAttribute('title', 'Player ' + ownPlayer + ': ' + ownValue + ' malice');
+      ownMarker.setAttribute('aria-label', 'Player ' + ownPlayer + ' has ' + ownValue + ' malice here');
+      opposingMarker.querySelector('strong').textContent = String(opposingValue);
+      opposingMarker.setAttribute('title', 'Player ' + opposingPlayer + ': ' + opposingValue + ' malice');
+      opposingMarker.setAttribute('aria-label', 'Player ' + opposingPlayer + ' has ' + opposingValue + ' malice here');
+    });
+  }
+
   function updateWinner(viewer) {
     var winner = numberValue(window.WinnerData, 0);
     var overlay = document.getElementById('hbVictory');
@@ -416,6 +455,7 @@
     if(theirHealthStack) theirHealthStack.classList.toggle('hb-top-health-vertical', numberValue(window.theirTopHealthRemainingData, 0) === 1);
 
     table.setAttribute('data-phase', phase);
+    renderLocationControlFacing(viewer);
     renderCharacterLocations();
     renderHistory();
     updateWinner(viewer);

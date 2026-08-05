@@ -77,24 +77,25 @@ if(function_exists('GetLocations')) {
                 </div>
             </div>
             <div class="hb-profile-zone">
-                <div id="theirHealthStackSlot" class="hb-zone hb-health-stack" data-label="Health" title="Face-down Health cards"></div>
-                <span class="hb-top-health">Top card · <span id="theirTopHealthSlot"></span> HP</span>
                 <div id="theirMonsterSlot" class="hb-zone hb-monster" data-label="Monster" title="The opponent's main character"></div>
+                <div id="theirVaultSlot" class="hb-zone hb-vault" data-label="Vault" title="Tucked cards beneath the opponent's monster"></div>
             </div>
             <div class="hb-field-zone">
                 <div id="theirCharactersSlot" class="hb-zone hb-characters" data-label="Minions by location"></div>
                 <div id="theirAssetsSlot" class="hb-zone hb-assets" data-label="Assets" title="Assets the opponent controls"></div>
             </div>
             <div class="hb-pile-zone">
-                <div id="theirVaultSlot" class="hb-zone hb-pile" data-label="Vault" title="Tucked cards that generate Feeding resources"></div>
-                <div id="theirCryptSlot" class="hb-zone hb-pile" data-label="Crypt" title="Discard pile"></div>
+                <div class="hb-health-well">
+                    <div id="theirHealthStackSlot" class="hb-zone hb-health-stack" data-label="Health Stack" title="Face-down Health cards"></div>
+                    <span class="hb-top-health">Top · <span id="theirTopHealthSlot"></span> HP</span>
+                </div>
                 <div id="theirDeckSlot" class="hb-zone hb-pile" data-label="Deck" title="Face-down draw pile"></div>
+                <div id="theirCryptSlot" class="hb-zone hb-pile" data-label="Crypt" title="Discard pile"></div>
             </div>
             <div id="theirHandSlot" class="hb-zone hb-hand hb-opponent-hand" data-label="Opponent hand"></div>
         </section>
 
         <section class="hb-center" aria-label="Contested locations and game history">
-            <div class="hb-center-copy"><span>Contested ground</span><strong>LOCATIONS</strong></div>
             <div id="LocationsSlot" class="hb-zone hb-locations" data-label=""></div>
             <aside id="hbHistory" class="hb-history" aria-label="Recent game history">
                 <div class="hb-history-heading"><strong>Recent Events</strong><span>Public</span></div>
@@ -113,18 +114,20 @@ if(function_exists('GetLocations')) {
                 </div>
             </div>
             <div class="hb-profile-zone">
-                <div id="myHealthStackSlot" class="hb-zone hb-health-stack" data-label="Health" title="Your face-down Health cards"></div>
-                <span class="hb-top-health">Top card · <span id="myTopHealthSlot"></span> HP</span>
                 <div id="myMonsterSlot" class="hb-zone hb-monster" data-label="Monster" title="Your main character"></div>
+                <div id="myVaultSlot" class="hb-zone hb-vault" data-label="Vault" title="Cards tucked beneath your monster"></div>
             </div>
             <div class="hb-field-zone">
                 <div id="myCharactersSlot" class="hb-zone hb-characters" data-label="Minions by location"></div>
                 <div id="myAssetsSlot" class="hb-zone hb-assets" data-label="Assets" title="Assets you control"></div>
             </div>
             <div class="hb-pile-zone">
-                <div id="myVaultSlot" class="hb-zone hb-pile" data-label="Vault" title="Tucked cards that generate Feeding resources"></div>
-                <div id="myCryptSlot" class="hb-zone hb-pile" data-label="Crypt" title="Your discard pile"></div>
+                <div class="hb-health-well">
+                    <div id="myHealthStackSlot" class="hb-zone hb-health-stack" data-label="Health Stack" title="Your face-down Health cards"></div>
+                    <span class="hb-top-health">Top · <span id="myTopHealthSlot"></span> HP</span>
+                </div>
                 <div id="myDeckSlot" class="hb-zone hb-pile" data-label="Deck" title="Your face-down draw pile"></div>
+                <div id="myCryptSlot" class="hb-zone hb-pile" data-label="Crypt" title="Your discard pile"></div>
             </div>
             <div id="myHandSlot" class="hb-zone hb-hand" data-label="Your hand"></div>
         </section>

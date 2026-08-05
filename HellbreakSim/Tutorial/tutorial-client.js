@@ -9,12 +9,12 @@
   var dismissed = false;
 
   var intro = [
-    { title: 'Welcome to Hellbreak', body: 'This guided Dracula-versus-Jaws scenario teaches one complete quick-start round. The tutorial opponent automatically handles setup and passes its actions.' },
+    { title: 'Welcome to Hellbreak', body: 'This guided Dracula-versus-Jaws scenario teaches the quick-start flow across several rounds. The tutorial opponent automatically handles setup and passes its actions.' },
     { title: 'The three phases', body: 'Every round is Feeding, Horror, then Refresh. Feeding builds resources and decides initiative. Horror is where you play cards, attack, and scheme. Refresh prepares the next round.' },
     { title: 'Your Vault', body: 'Your monster and every card tucked beneath it form your Vault. Their resource bars generate blood, malice, draws, and loyalty icons at the start of every round.' },
     { title: 'Initiative bids', body: 'You may tuck one hand card into your Vault. Higher printed blood cost wins the bid, and the winner chooses who acts first. A bid improves future resources but removes that card from your hand.' },
     { title: 'Health cards', body: 'Eight face-down cards represent sixteen monster Health. Each takes two damage. When a card is revealed, you may use its Jumpscare before it would be discarded.' },
-    { title: 'Your first round', body: 'Choose a location, keep the authored hand, bid for initiative, play and ready a minion, attack, scheme with Dracula, then Slumber to begin Refresh.' }
+    { title: 'Your first rounds', body: 'Choose a location, keep the authored hand, bid for initiative, play and attack with a minion, then repeatedly scheme at North Beach until you take control of it.' }
   ];
 
   function vars() {
@@ -77,6 +77,19 @@
       .map(function(entry) { return String(entry.type || '').toUpperCase(); });
   }
 
+  function hasLogType(type) {
+    type = String(type || '').toUpperCase();
+    return parseLog().some(function(entry) { return String(entry.type || '').toUpperCase() === type; });
+  }
+
+  function locationTarget(slot) {
+    var card = document.getElementById('Locations-' + slot);
+    if(card) return card;
+    var root = document.getElementById('LocationsSlot') || document.getElementById('Locations');
+    if(!root) return null;
+    return root;
+  }
+
   function progress(active, count) {
     var html = '<div class="hb-tutorial-progress" aria-hidden="true">';
     for(var i = 0; i < count; ++i) html += '<span class="' + (i <= active ? 'is-done' : '') + '"></span>';
@@ -123,10 +136,23 @@
     var round = Math.max(0, number(window.TurnNumberData, 0));
     var target = decisionTarget();
     var prompt = decisionPrompt(pendingDecision());
-    var base = { target: target, index: 0, count: 10 };
-    if(round >= 2) return Object.assign(base, {
-      title: 'Round complete', body: 'You completed Feeding, bidding, card play, an attack, a scheme, Slumber, and Refresh. Continue practicing against the passive opponent or return to the menu.', target: null, index: 9, complete: true
-    });
+    var base = { target: target, index: 0, count: 12 };
+
+    if(hasLogType('LOCATION')) {
+      if(String(vars().TutorialLocationControlExplained || '0') !== '1') return Object.assign(base, {
+        title: 'You took control of North Beach',
+        body: 'Reaching its malice value immediately clears both players\' malice rows, turns the location to face you, awards its resource icons, and resolves any Take Control ability.',
+        target: locationTarget(1), index: 10, acknowledge: 'ACK_LOCATION_CONTROL'
+      });
+      if(String(vars().TutorialRetakeExplained || '0') !== '1') return Object.assign(base, {
+        title: 'Taking control again',
+        body: 'Control does not stop you from building malice here. If your malice row reaches the value while you already control the location, clear both rows and perform the entire takeover again: turn it toward you, collect its resources, and use its Take Control ability.',
+        target: locationTarget(1), index: 11, acknowledge: 'ACK_RETAKE_CONTROL'
+      });
+      return Object.assign(base, {
+        title: 'Quick Start complete', body: 'You played, attacked, schemed, and took control of a location through normal play. Continue practicing against the passive opponent or return to the menu.', target: null, index: 11, complete: true
+      });
+    }
     if(phase === 'SETUP_LOCATION') return Object.assign(base, {
       title: 'Choose your location', body: 'Choose Carfax Abbey. Locations are contested spaces where minions fight and scheme. Your unused location leaves this game.', index: 0
     });
@@ -134,10 +160,14 @@
       title: 'Keep the authored hand', body: 'Select no cards and confirm. A normal mulligan may put any number on the bottom, then draws the same number.', index: 1
     });
     if(phase === 'FEED_COLLECT') return Object.assign(base, {
-      title: 'Collect from your Vault', body: 'This step is automatic. The lesson gives you 2 blood, 1 malice, 2 draws, and one Cursed loyalty icon. Malice pays for frightening effects and special costs.', target: document.getElementById('myVaultSlot') || document.getElementById('myMonsterSlot'), index: 2
+      title: round <= 1 ? 'Collect from your Vault' : 'Begin another round', body: round <= 1
+        ? 'This step is automatic. The lesson gives you 2 blood, 1 malice, 2 draws, and one Cursed loyalty icon. Malice pays for frightening effects and special costs.'
+        : 'Feeding happens again. Your Vault generates resources and you draw more cards; malice already placed at locations remains there between rounds.', target: document.getElementById('myVaultSlot') || document.getElementById('myMonsterSlot'), index: round <= 1 ? 2 : 9
     });
     if(phase === 'FEED_BID') return Object.assign(base, {
-      title: 'Bid for initiative', body: 'Bid Mina Seward if she is available. Both bid cards enter their Vaults; the higher printed blood cost wins. The tutorial opponent declines.', index: 3
+      title: round <= 1 ? 'Bid for initiative' : 'Confirm no bid', body: round <= 1
+        ? 'Bid Mina Seward if she is available. Both bid cards enter their Vaults; the higher printed blood cost wins. The tutorial opponent declines.'
+        : 'Select no card and confirm. You retain initiative against this passive opponent and keep your hand for normal play.', index: round <= 1 ? 3 : 9
     });
     if(phase === 'FEED_RESOLVE') return Object.assign(base, {
       title: 'Take initiative', body: 'If you won, choose Take Initiative. Initiative determines who takes the first Horror action and acts first during ordered choices.', index: 3
@@ -166,26 +196,32 @@
         title: 'Scheme with Dracula', body: 'Click the highlighted lurking Dracula on your board to begin scheming.', target: document.getElementById('myMonsterSlot'), index: 8
       });
       if(prompt === 'choose the monsters scheme location') return Object.assign(base, {
-        title: 'Choose where to scheme', body: 'Click the highlighted location directly on the battlefield. Scheming exhausts Dracula and resolves its scheme icons there.', target: document.getElementById('LocationsSlot'), index: 8
+        title: 'Scheme at North Beach', body: 'Click North Beach directly on the battlefield. Dracula\'s Haunt adds 1 malice there; reaching its value of 3 immediately takes control.', target: locationTarget(1), index: round <= 1 ? 8 : 9
       });
       if(prompt === 'arrange foreseen cards on top or bottom') return Object.assign(base, {
         title: 'Resolve Foresee', body: 'Arrange the revealed cards between Top and Bottom, then confirm. Cards on Top are drawn first; cards on Bottom go beneath your deck.', target: target, index: 8
       });
-      if(types.indexOf('PLAY_CARD') === -1) return Object.assign(base, {
+      if(round <= 1 && types.indexOf('PLAY_CARD') === -1) return Object.assign(base, {
         title: 'Play Transylvanian Wolf', body: 'Click the highlighted Transylvanian Wolf directly in your hand, then place it at Carfax Abbey. When prompted, pay 1 malice to ready it; minions normally enter exhausted.', target: target || document.getElementById('myHandSlot'), index: 4
       });
-      if(types.indexOf('ATTACK') === -1) return Object.assign(base, {
+      if(round <= 1 && types.indexOf('ATTACK') === -1) return Object.assign(base, {
         title: 'Attack with the Wolf', body: 'When priority returns, click the highlighted Transylvanian Wolf to attack, then click the highlighted Jaws directly on the board. Attackers exhaust; combat damage is dealt simultaneously.', target: target || document.getElementById('myCharactersSlot'), index: 7
       });
       if(types.indexOf('SCHEME') === -1) return Object.assign(base, {
-        title: 'Scheme with Dracula', body: 'When priority returns, click lurking Dracula and choose Scheme from its card menu, then click the highlighted location on the board. Foresee rearranges your deck; Haunt adds malice there. Scheming exhausts Dracula.', target: target || document.getElementById('myMonsterSlot'), index: 8
+        title: round <= 1 ? 'Scheme with Dracula' : 'Build toward control', body: round <= 1
+          ? 'When priority returns, click lurking Dracula and choose Scheme, then click North Beach. Foresee rearranges your deck; Haunt adds 1 malice there. Scheming exhausts Dracula.'
+          : 'Click lurking Dracula, choose Scheme, then click North Beach. Its malice persists between rounds, so each Haunt moves you closer to its value of 3.', target: target || document.getElementById('myMonsterSlot'), index: round <= 1 ? 8 : 9
       });
       return Object.assign(base, {
-        title: 'Enter Slumber', body: 'Choose Slumber from the action bar. You gain 1 malice and take no more Horror actions this round. Because the opponent passed immediately before it, Horror ends.', target: document.getElementById('hbHorrorActionDock') || target, index: 9
+        title: 'Enter Slumber', body: round <= 1
+          ? 'Choose Slumber from the action bar. You gain 1 malice and take no more Horror actions this round. Because the opponent passed immediately before it, Horror ends.'
+          : 'You have added another malice to North Beach. Enter Slumber so Refresh can ready Dracula for another round and another Scheme.', target: document.getElementById('hbHorrorActionDock') || target, index: 9
       });
     }
     if(phase === 'REFRESH_READY' || phase === 'REFRESH_FLIP' || phase === 'REFRESH_HAND') return Object.assign(base, {
-      title: 'Refresh', body: 'Cards ready automatically, then you may flip Dracula between lurking and unleashed. Finally, discard down to six cards. Keep Dracula lurking for its larger Feeding resource bar.', index: 9
+      title: 'Refresh', body: round <= 1
+        ? 'Cards ready automatically, then you may flip Dracula between lurking and unleashed. Finally, discard down to six cards. Keep Dracula lurking so it can scheme again.'
+        : 'Refresh readies Dracula. Keep it lurking and complete any hand-size prompt, then the next Feeding phase begins.', index: 9
     });
     return Object.assign(base, { title: 'Continue the lesson', body: 'Follow the current game prompt.', index: 0 });
   }
@@ -223,12 +259,21 @@
     if(dismissed || vars().GameMode !== 'tutorial') return;
     ensureUI();
     var step = lesson();
-    var signature = [step.title, step.body, step.complete ? 1 : 0].join('|');
+    var signature = [step.title, step.body, step.complete ? 1 : 0, step.acknowledge || ''].join('|');
     panel.style.display = '';
     if(signature !== lastSignature) {
       lastSignature = signature;
       panel.innerHTML = '<div class="hb-tutorial-kicker">Quick Start Lesson</div><h2>' + step.title + '</h2><p>' + step.body + '</p>' +
-        progress(step.index, step.count) + (step.complete ? '<div class="hb-tutorial-actions"><button class="hb-tutorial-button" data-action="practice" type="button">Continue practicing</button><button class="hb-tutorial-button secondary" data-action="menu" type="button">Return to menu</button></div>' : '');
+        progress(step.index, step.count) + (step.acknowledge
+          ? '<div class="hb-tutorial-actions"><button class="hb-tutorial-button" data-action="acknowledge" type="button">Continue</button></div>'
+          : (step.complete ? '<div class="hb-tutorial-actions"><button class="hb-tutorial-button" data-action="practice" type="button">Continue practicing</button><button class="hb-tutorial-button secondary" data-action="menu" type="button">Return to menu</button></div>' : ''));
+      if(step.acknowledge) {
+        panel.querySelector('[data-action="acknowledge"]').addEventListener('click', function() {
+          if(typeof window.SubmitInput === 'function') {
+            window.SubmitInput('10001', '&cardID=' + encodeURIComponent('Tutorial!CustomInput!' + step.acknowledge));
+          }
+        });
+      }
       if(step.complete) {
         panel.querySelector('[data-action="practice"]').addEventListener('click', function() { dismissed = true; panel.style.display = 'none'; focus.style.display = 'none'; });
         panel.querySelector('[data-action="menu"]').addEventListener('click', function() { location.href = '/TCGEngine/SharedUI/Sites/HellbreakSim/MainMenu.php'; });

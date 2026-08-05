@@ -8,6 +8,21 @@ function HellbreakTutorialInitialize(): void {
     DecisionQueueController::StoreVariable('GameMode', 'tutorial');
     DecisionQueueController::StoreVariable('TutorialLesson', 'quick-start');
     DecisionQueueController::StoreVariable('TutorialIntroSeen', '0');
+    DecisionQueueController::StoreVariable('TutorialLocationControlExplained', '0');
+    DecisionQueueController::StoreVariable('TutorialRetakeExplained', '0');
+}
+
+function HellbreakTutorialAcknowledge(int $player, string $stage): void {
+    if(!HellbreakTutorialIsActive() || $player !== 1) return;
+    switch(strtoupper(trim($stage))) {
+        case 'LOCATION_CONTROL':
+            DecisionQueueController::StoreVariable('TutorialLocationControlExplained', '1');
+            break;
+        case 'RETAKE_CONTROL':
+            if(strval(DecisionQueueController::GetVariable('TutorialLocationControlExplained') ?? '0') !== '1') return;
+            DecisionQueueController::StoreVariable('TutorialRetakeExplained', '1');
+            break;
+    }
 }
 
 function HellbreakTutorialContinue(int $player): void {
