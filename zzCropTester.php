@@ -529,7 +529,13 @@ foreach ($scenarios as $key => $s) {
         }
     }
     if (!$pool) $pool = $allSamples;
-    $s['regenerateCount'] = count(CropTesterScenarioImageIds($s, $allImageIds, $cardTypes));
+    $scenarioImageIds = CropTesterScenarioImageIds($s, $allImageIds, $cardTypes);
+    $reviewImages = [];
+    foreach ($scenarioImageIds as $id) {
+        $reviewImages[$id] = isset($cardTitles[$id]) ? (string)$cardTitles[$id] : ($titlesById[$id] ?? $id);
+    }
+    $s['regenerateCount'] = count($scenarioImageIds);
+    $s['reviewImages'] = $reviewImages;
     $s['samples'] = $pool;
     $jsScenarios[$key] = $s;
 }
@@ -594,6 +600,28 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && in_array($batchAction, [
     $suffix = $pipeline === 'crop' ? '_cropped.png' : '.webp';
     $destinationDirectory = $APP_ROOT . '/' . ($pipeline === 'crop' ? 'crops' : 'concat');
     $candidateIDs = CropTesterScenarioImageIds($scenario, $allImageIds, $cardTypes);
+    $selectionMode = $isAI && (($_POST['selection_mode'] ?? '') === 'selected');
+    if ($selectionMode) {
+        $requestedIDs = $_POST['cards'] ?? [];
+        if (!is_array($requestedIDs) || count($requestedIDs) > count($candidateIDs)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid review queue']);
+            exit;
+        }
+        $requestedSet = [];
+        foreach ($requestedIDs as $requestedID) {
+            if (is_string($requestedID)) $requestedSet[$requestedID] = true;
+        }
+        $allowedSet = array_fill_keys($candidateIDs, true);
+        if (!$requestedSet || array_diff_key($requestedSet, $allowedSet)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'The review queue is empty or contains cards outside this scenario']);
+            exit;
+        }
+        $candidateIDs = array_values(array_filter($candidateIDs, static function ($id) use ($requestedSet) {
+            return isset($requestedSet[$id]);
+        }));
+    }
     $completed = 0;
     $failed = 0;
     $consecutiveFailures = 0;
@@ -728,6 +756,22 @@ $codexCliAvailable = CropTesterFindCodexCLI() !== null;
   .ai-help { margin:-8px 0 10px; color:var(--muted); font-size:11px; }
   .out { color:var(--muted); font:12px monospace; }
   .panels { display:flex; gap:26px; flex-wrap:wrap; align-items:flex-start; }
+  .view-tabs { display:flex; gap:6px; margin:0 0 18px; border-bottom:1px solid var(--line); }
+  .view-tab { border:0; border-radius:6px 6px 0 0; background:transparent; color:var(--muted); padding:9px 14px; }
+  .view-tab.active { background:#22303f; color:var(--txt); box-shadow:0 2px 0 var(--accent); }
+  .review-toolbar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:14px; }
+  .review-toolbar input { width:min(360px, 100%); margin:0; }
+  .review-toolbar .spacer { flex:1; }
+  .review-count { color:var(--muted); font:12px monospace; }
+  .review-gallery { display:grid; grid-template-columns:repeat(auto-fill, minmax(155px, 1fr)); gap:12px; }
+  .review-card { display:block; position:relative; padding:7px; border:1px solid var(--line); border-radius:8px; background:#111821; cursor:pointer; }
+  .review-card:hover { border-color:#54718e; }
+  .review-card.queued { border-color:var(--accent); background:#14283b; box-shadow:0 0 0 1px var(--accent) inset; }
+  .review-card input { position:absolute; top:13px; right:13px; width:18px; height:18px; margin:0; accent-color:var(--accent); z-index:1; }
+  .review-card img { display:block; width:100%; aspect-ratio:1; object-fit:cover; border-radius:5px; background:#090d12; }
+  .review-card .review-id { margin-top:7px; color:var(--txt); font:11px/1.3 monospace; overflow-wrap:anywhere; }
+  .review-card .review-title { margin-top:2px; color:var(--muted); font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .review-empty { color:var(--muted); padding:30px 0; }
   .card-col h3 { margin:0 0 8px; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; }
   .src-box { position:relative; display:inline-block; line-height:0; border:1px solid var(--line); border-radius:4px; overflow:hidden; }
   .src-box img { display:block; }
@@ -788,7 +832,12 @@ $codexCliAvailable = CropTesterFindCodexCLI() !== null;
   </div>
 
   <div class="stage">
-    <div class="panels">
+    <div class="view-tabs" role="tablist" aria-label="Crop tester views">
+      <button class="view-tab active" id="editorTab" type="button" role="tab" aria-selected="true">Crop editor</button>
+      <button class="view-tab" id="reviewTab" type="button" role="tab" aria-selected="false">AI review &amp; retry</button>
+    </div>
+    <div id="editorView">
+      <div class="panels">
       <div class="card-col">
         <h3>Source + crop overlay</h3>
         <div class="src-box" id="srcBox"><img id="srcImg" alt="source"></div>
@@ -804,8 +853,21 @@ $codexCliAvailable = CropTesterFindCodexCLI() !== null;
         <img id="curImg" alt="current">
         <div class="dims">on disk</div>
       </div>
+      </div>
+      <pre class="snip" id="snippet"></pre>
     </div>
-    <pre class="snip" id="snippet"></pre>
+    <div id="reviewView" hidden>
+      <div class="review-toolbar">
+        <input type="search" id="reviewSearch" placeholder="Filter by card ID or title">
+        <span class="review-count" id="reviewVisibleCount"></span>
+        <span class="spacer"></span>
+        <button type="button" id="queueVisible">Queue visible</button>
+        <button type="button" id="clearQueue">Clear queue</button>
+        <button type="button" id="retryQueued">Re-run selected (0)</button>
+      </div>
+      <div class="review-gallery" id="reviewGallery"></div>
+      <div class="review-empty" id="reviewEmpty" hidden>No concat images match this filter.</div>
+    </div>
   </div>
 </div>
 
@@ -820,6 +882,11 @@ const CODEX_CLI_AVAILABLE = <?= $codexCliAvailable ? 'true' : 'false' ?>;
 
 const $ = id => document.getElementById(id);
 let curSections = [];
+let reviewQueue = new Set();
+let visibleReviewIds = [];
+let reviewRevision = Date.now();
+let activeQueuedBatch = null;
+let activeQueueStorageKey = '';
 
 // Populate scenario dropdown.
 for (const [k, s] of Object.entries(SCEN)) {
@@ -847,9 +914,104 @@ function loadScenario() {
   $('aiTools').hidden = s.pipeline !== 'concat';
   $('regenerateAI').textContent = `AI-regenerate ${scope} ${s.regenerateCount} concat images`;
   $('regenerateAI').disabled = Boolean(REGEN_AUTH_ERROR) || !CODEX_CLI_AVAILABLE || s.pipeline !== 'concat';
+  $('reviewTab').disabled = s.pipeline !== 'concat';
   $('regenerateStatus').textContent = REGEN_AUTH_ERROR;
   $('regenerateStatus').className = REGEN_AUTH_ERROR ? 'regen-status error' : 'regen-status';
+  if (s.pipeline !== 'concat') setView('editor');
+  loadReviewQueue();
   resetSections();
+}
+
+function reviewStorageKey() {
+  return `tcg-crop-review:${ACTIVE_APP}:${$('scenario').value}`;
+}
+
+function saveReviewQueue() {
+  try { localStorage.setItem(reviewStorageKey(), JSON.stringify([...reviewQueue])); }
+  catch (_) { /* The queue still works for this page session. */ }
+}
+
+function loadReviewQueue() {
+  const valid = new Set(Object.keys(SCEN[$('scenario').value].reviewImages || {}));
+  let saved = [];
+  try { saved = JSON.parse(localStorage.getItem(reviewStorageKey()) || '[]'); }
+  catch (_) { saved = []; }
+  reviewQueue = new Set(Array.isArray(saved) ? saved.filter(id => valid.has(id)) : []);
+  renderReviewGallery();
+}
+
+function setView(view) {
+  const reviewing = view === 'review' && !$('reviewTab').disabled;
+  $('editorView').hidden = reviewing;
+  $('reviewView').hidden = !reviewing;
+  $('editorTab').classList.toggle('active', !reviewing);
+  $('reviewTab').classList.toggle('active', reviewing);
+  $('editorTab').setAttribute('aria-selected', String(!reviewing));
+  $('reviewTab').setAttribute('aria-selected', String(reviewing));
+  if (reviewing) renderReviewGallery();
+}
+
+function syncReviewControls() {
+  $('reviewVisibleCount').textContent = `${visibleReviewIds.length} shown · ${reviewQueue.size} queued`;
+  $('retryQueued').textContent = `Re-run selected (${reviewQueue.size})`;
+  $('retryQueued').disabled = !reviewQueue.size || Boolean(REGEN_AUTH_ERROR) || !CODEX_CLI_AVAILABLE;
+  $('clearQueue').disabled = !reviewQueue.size;
+  $('queueVisible').disabled = !visibleReviewIds.length;
+}
+
+function renderReviewGallery() {
+  const s = SCEN[$('scenario').value];
+  const images = s.reviewImages || {};
+  const needle = $('reviewSearch').value.trim().toLowerCase();
+  visibleReviewIds = Object.keys(images).filter(id => {
+    return !needle || id.toLowerCase().includes(needle) || String(images[id]).toLowerCase().includes(needle);
+  });
+  const gallery = $('reviewGallery');
+  gallery.innerHTML = '';
+  for (const id of visibleReviewIds) {
+    const card = document.createElement('label');
+    card.className = 'review-card' + (reviewQueue.has(id) ? ' queued' : '');
+    card.dataset.cardId = id;
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = reviewQueue.has(id);
+    checkbox.setAttribute('aria-label', `Queue ${id} for regeneration`);
+    checkbox.onchange = () => {
+      if (checkbox.checked) reviewQueue.add(id); else reviewQueue.delete(id);
+      card.classList.toggle('queued', checkbox.checked);
+      saveReviewQueue();
+      syncReviewControls();
+    };
+    const image = document.createElement('img');
+    image.loading = 'lazy';
+    image.alt = `${id} generated concat`;
+    image.src = CONCAT_WEB + encodeURIComponent(id) + `.webp?_=${reviewRevision}`;
+    const idText = document.createElement('div');
+    idText.className = 'review-id'; idText.textContent = id;
+    const title = document.createElement('div');
+    title.className = 'review-title'; title.textContent = images[id]; title.title = images[id];
+    card.append(checkbox, image, idText, title);
+    gallery.appendChild(card);
+  }
+  $('reviewEmpty').hidden = visibleReviewIds.length !== 0;
+  syncReviewControls();
+}
+
+function markQueuedCardComplete(cardID) {
+  if (!activeQueuedBatch || !activeQueuedBatch.has(cardID)) return;
+  activeQueuedBatch.delete(cardID);
+  reviewQueue.delete(cardID);
+  try { localStorage.setItem(activeQueueStorageKey, JSON.stringify([...reviewQueue])); }
+  catch (_) {}
+  const card = [...document.querySelectorAll('.review-card')].find(item => item.dataset.cardId === cardID);
+  if (card) {
+    card.classList.remove('queued');
+    const checkbox = card.querySelector('input[type="checkbox"]');
+    const image = card.querySelector('img');
+    if (checkbox) checkbox.checked = false;
+    if (image) image.src = CONCAT_WEB + encodeURIComponent(cardID) + `.webp?_=${Date.now()}`;
+  }
+  syncReviewControls();
 }
 
 function resetSections() {
@@ -974,6 +1136,7 @@ function applyProgressEvent(event) {
       $('regenerateStatus').textContent = `${event.card}: ${event.error}`;
       $('regenerateStatus').className = 'regen-status error';
     }
+    if (event.type === 'progress') markQueuedCardComplete(event.card || '');
   }
   if (event.type === 'complete') {
     const handled = Number(event.count || 0) + Number(event.failed || 0);
@@ -1020,10 +1183,11 @@ async function consumeBatchResponse(response) {
   return completedEvent;
 }
 
-async function runBatch(useAI) {
+async function runBatch(useAI, selectedIDs = null) {
   if (REGEN_AUTH_ERROR) return;
   const s = SCEN[$('scenario').value];
-  const count = Number(s.regenerateCount || 0);
+  const selectedQueue = Array.isArray(selectedIDs) ? [...new Set(selectedIDs)] : null;
+  const count = selectedQueue ? selectedQueue.length : Number(s.regenerateCount || 0);
   if (!count) {
     $('regenerateStatus').textContent = 'No source images match this scenario.';
     $('regenerateStatus').className = 'regen-status error';
@@ -1036,14 +1200,17 @@ async function runBatch(useAI) {
   }
   const destination = useAI || s.pipeline === 'concat' ? `${ACTIVE_APP}/concat/` : `${ACTIVE_APP}/crops/`;
   const confirmation = useAI
-    ? `Run ${count} Codex $imagegen edits and replace successful images in ${destination}? This consumes image-generation usage and may take a long time.`
+    ? `Run ${count} Codex $imagegen edit${count === 1 ? '' : 's'} and replace successful images in ${destination}? This consumes image-generation usage and may take a long time.`
     : `Replace ${count} generated images in ${destination} using the crop sections currently shown?`;
   if (!window.confirm(confirmation)) return;
 
-  const button = useAI ? $('regenerateAI') : $('regenerateAll');
+  const button = selectedQueue ? $('retryQueued') : (useAI ? $('regenerateAI') : $('regenerateAll'));
   const status = $('regenerateStatus');
   $('regenerateAll').disabled = true;
   $('regenerateAI').disabled = true;
+  $('retryQueued').disabled = true;
+  $('app').disabled = true;
+  $('scenario').disabled = true;
   button.disabled = true;
   status.className = 'regen-status';
   status.textContent = useAI ? `Starting ${count} Codex image edits…` : `Regenerating ${count} images…`;
@@ -1053,6 +1220,12 @@ async function runBatch(useAI) {
   form.set('csrf', CROP_CSRF);
   form.set('scenario', $('scenario').value);
   if (useAI) form.set('prompt', $('aiPrompt').value);
+  if (selectedQueue) {
+    form.set('selection_mode', 'selected');
+    selectedQueue.forEach(id => form.append('cards[]', id));
+    activeQueuedBatch = new Set(selectedQueue);
+    activeQueueStorageKey = reviewStorageKey();
+  }
   curSections.forEach(section => form.append('s[]', section.join(',')));
 
   try {
@@ -1066,17 +1239,24 @@ async function runBatch(useAI) {
       : `Regenerated ${payload.count} images in ${destination}`;
     status.className = payload.failed ? 'regen-status error' : 'regen-status success';
     refresh();
+    reviewRevision = Date.now();
   } catch (error) {
     status.textContent = error.message || 'Image regeneration failed.';
     status.className = 'regen-status error';
   } finally {
     $('regenerateAll').disabled = Boolean(REGEN_AUTH_ERROR);
     $('regenerateAI').disabled = Boolean(REGEN_AUTH_ERROR) || !CODEX_CLI_AVAILABLE || s.pipeline !== 'concat';
+    $('app').disabled = false;
+    $('scenario').disabled = false;
+    activeQueuedBatch = null;
+    activeQueueStorageKey = '';
+    syncReviewControls();
   }
 }
 
 function regenerateAll() { return runBatch(false); }
 function regenerateAllAI() { return runBatch(true); }
+function regenerateQueuedAI() { return runBatch(true, [...reviewQueue]); }
 
 $('scenario').onchange = loadScenario;
 $('app').onchange = () => {
@@ -1091,6 +1271,20 @@ $('addSec').onclick = () => { curSections.push([0, 0, SCEN[$('scenario').value].
 $('resetSec').onclick = resetSections;
 $('regenerateAll').onclick = regenerateAll;
 $('regenerateAI').onclick = regenerateAllAI;
+$('retryQueued').onclick = regenerateQueuedAI;
+$('editorTab').onclick = () => setView('editor');
+$('reviewTab').onclick = () => setView('review');
+$('reviewSearch').oninput = renderReviewGallery;
+$('queueVisible').onclick = () => {
+  visibleReviewIds.forEach(id => reviewQueue.add(id));
+  saveReviewQueue();
+  renderReviewGallery();
+};
+$('clearQueue').onclick = () => {
+  reviewQueue.clear();
+  saveReviewQueue();
+  renderReviewGallery();
+};
 $('srcImg').onload = drawOverlay;
 window.addEventListener('resize', drawOverlay);
 
