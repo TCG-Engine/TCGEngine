@@ -9707,6 +9707,35 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
                 _SWUQueueOrchestration($player, "SWUCombatDamage|{$aMz}|{$tMz}|{$uid}|{$activePlayer}", 1);
             }
         } else {
+            // A BARE resume must not finalise while a COMBAT continuation is still queued: that resume
+            // carries the pending SWUCombatDamage, whose own terminal runs the After Action once damage
+            // resolves. Finalising here swaps the turn, then combat swaps it again — with two seats that
+            // lands back on the acting player, i.e. a free extra action (bug #926).
+            //
+            // It happens when an On-Attack ability opens its own decision chain, which defers combat
+            // damage past this resume: e.g. Cinta Kaz's When Played attack made with a unit piloted by
+            // JTL_142 Darth Vader ("On Attack: deal 1 to a unit; if one is defeated, deal 1 to a unit or
+            // base"). Observed order: JTL_142#0, JTL_142#1, bare resume (finalises), COMBAT resume,
+            // SWUCombatDamage (finalises again).
+            //
+            // Deliberately narrow, on BOTH axes:
+            //   • only a pending COMBAT continuation counts (a bare one may never reach a terminal), and
+            //   • only when that combat will actually finalise. A SUPPORT bonus attack sets
+            //     SWU_COMBAT_SKIP_AFTERACTION, so its combat terminal stands down and the outer action
+            //     owns the After Action — deferring to it there strands the turn instead of double-
+            //     swapping it. That is exactly what broke DoctorPershing and TheMandalorian's Support
+            //     cases when this guard was first tried without the skip check.
+            if (GetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', '') !== '1') {
+            foreach ([1, 2] as $_p) {
+                foreach (GetDecisionQueue($_p) as $_e) {
+                    $_param = (string)($_e->Param ?? '');
+                    if (str_starts_with($_param, 'SWU_TRIGGER_RESUME') && strpos($_param, '|COMBAT') !== false) {
+                        $playerID = $savedPID;
+                        return;
+                    }
+                }
+            }
+            }
             // Chained "then (may) attack with another unit" (SOR_009 / SOR_103): an attack just
             // completed its full trigger resolution (the stack emptied). If one is armed, fire it
             // NOW — after the just-finished attack and any nested OnAttackEnd chain — and re-queue a
