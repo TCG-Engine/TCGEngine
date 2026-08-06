@@ -83,6 +83,9 @@ P1GROUNDARENAUNIT:1:CARDID:SHD_113
 #// -1); SHD_113 is smuggled (consuming the charge), leaving exactly 2 ready. The following normal SOR_063
 #// (Vigilance cost 3) is then BLOCKED — it would only fit at 2 ready if a -1 had wrongly persisted (3->2).
 #// Discriminator: with the charge intact, SOR_063 plays at 2 ready; here it does not, so ground count = 2.
+#// Resource count reduced by one on 2026-08-06: the smuggled card now pays toward its OWN cost
+#// (CR 8.22.e, bug #925 family), which left one MORE ready and made SOR_063 affordable — inverting
+#// the discriminator. The SUBJECT of this test, that the one-shot charge is consumed, is unchanged.
 
 ## GIVEN
 CommonSetup: bgk/bbk/{
@@ -97,11 +100,11 @@ WithP1GroundArena: SEC_110:1:0
 WithP1Hand: SOR_063
 WithP1Deck: SOR_046
 WithP1Deck: SOR_046
-WithP1Resources: 9:SOR_046:1,1:SHD_113:1
+WithP1Resources: 8:SOR_046:1,1:SHD_113:1
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>SmuggleResource:9
+- P1>SmuggleResource:8
 - P1>PlayHand:0
 
 ## EXPECT

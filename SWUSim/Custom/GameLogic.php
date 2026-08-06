@@ -812,12 +812,22 @@ function _SWUSpaceUnitBonus($obj): int {
         if (empty($u->removed) && intval($u->UniqueID ?? 0) === $selfUid) { $selfInSpace = true; break; }
     }
     if (!$selfInSpace) return 0;
+    // Both effects below are ABILITIES, so a blanked card stops contributing its own — but keeps
+    // RECEIVING everyone else's. The two checks are therefore asymmetric and must not be collapsed:
+    //   • the aura is JTL_085's ability, so it is gated on the SOURCE having abilities
+    //   • the self-buff is JTL_115's own ability, so it is gated on the RECIPIENT having abilities
+    // Bug #924: neither was gated, so The Tree Remembers blanked a Clone Combat Squadron and it kept
+    // buffing itself — 5/5 instead of the correct 4/4 (printed 3/3, still receiving Victor Leader's
+    // aura, which is untouched because Victor Leader was not the blanked card).
+    // Mirrors "a blanked source can't grant keywords to allies" in KeywordEffects.
+
     // JTL_085 aura — each OTHER friendly space unit gets +1/+1.
     foreach ($space as $u) {
-        if (empty($u->removed) && ($u->CardID ?? '') === 'JTL_085' && intval($u->UniqueID ?? 0) !== $selfUid) $bonus++;
+        if (empty($u->removed) && ($u->CardID ?? '') === 'JTL_085' && intval($u->UniqueID ?? 0) !== $selfUid
+            && !LostAbilities($u)) $bonus++;
     }
     // JTL_115 self-buff — +1 per OTHER friendly space unit.
-    if (($obj->CardID ?? '') === 'JTL_115') {
+    if (($obj->CardID ?? '') === 'JTL_115' && !LostAbilities($obj)) {
         foreach ($space as $u) {
             if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid) $bonus++;
         }
@@ -13845,8 +13855,35 @@ $customDQHandlers["PLOT_PLAY"] = function($player, $parts, $lastDecision) {
     // A Plot is being played: mark for slot-replacement at the next After Action (CR 19.c).
     SetSWUVar('SWU_PLOT_PENDING_REPLACE', '1');
     AddGameLogEntry('PLAY', 'P' . intval($player) . ' plays ' . GameLogCardRef($resObj->CardID) . ' using Plot');
-    // Play from resources at full cost (the Plot card may exhaust itself toward its cost). ActivateCard
-    // removes it and routes unit/upgrade/event; its terminal After Action is intercepted (window stays open).
+    // Spend the Plot card toward its OWN cost, from ANY position in the zone.
+    //
+    // A Plot card is still a RESOURCE when it is played, so it may be exhausted toward its own cost, and
+    // the engine already depends on that: ChancellorPalpatine_HowLibertyDies pins a cost-2 Plot play at
+    // "7 ready -> 5", i.e. two resources consumed INCLUDING the card itself. But SWUExhaustResources
+    // sweeps from index 0, so that only ever happened when the Plot card happened to sit FIRST. A card
+    // further down was never the one spent: the player paid the full cost out of OTHER resources and
+    // still lost the slot to the top-of-deck replacement. Bug #925 (Cad Bane at index 6).
+    //
+    // Moving the chosen card to the front makes the existing sweep spend it first from any position —
+    // the same behaviour the index-0 tests already assert, now deliberate rather than positional luck.
+    // Resource ORDER carries no game meaning (the zone is a pool, and _SWUPlotReplaceSlot appends the
+    // replacement rather than filling the vacated slot), and this card leaves the zone immediately, so
+    // the reorder is unobservable. Preferred over threading a prepayment: the deferred upgrade path
+    // re-encodes its call through DROID_PAY, whose arg parser drops any extra field.
+    //
+    // An EXHAUSTED Plot card is left where it is — it cannot be exhausted again, so it pays nothing and
+    // the full cost correctly comes from elsewhere. $ans is index-based and must be remapped.
+    $plotRes = &GetResources(intval($player));
+    $plotIdx = intval(explode('-', $ans)[1] ?? -1);
+    if ($plotIdx > 0 && isset($plotRes[$plotIdx]) && intval($plotRes[$plotIdx]->Status ?? 0) === 1) {
+        $plotMoved = $plotRes[$plotIdx];
+        array_splice($plotRes, $plotIdx, 1);
+        array_unshift($plotRes, $plotMoved);
+        $ans = 'myResources-0';
+    }
+    // Play from resources at full cost (the Plot card exhausts itself toward its cost — see above).
+    // ActivateCard removes it and routes unit/upgrade/event; its terminal After Action is intercepted
+    // (the window stays open).
     ActivateCard(intval($player), $ans, false);
     _SWUSec008HealOnResourcePlay(intval($player));   // SEC_008 Bail Organa — "play a card from your resources"
     // Do NOT restore $playerID — the upgrade/event paths return without restoring and rely on $playerID
@@ -14031,9 +14068,23 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
     }
 
     // CR 8.22.e: the card can exhaust itself toward payment while still in resources.
-    // SWUExhaustResources exhausts ready resources in order, so it naturally includes the card.
-    $exhaustOk = SWUExhaustResources($player, $totalCost);
+    //
+    // This used to lean on "SWUExhaustResources exhausts ready resources in order, so it naturally
+    // includes the card" — which only holds when the smuggled card is among the LOWEST-INDEX ready
+    // resources. Every existing Smuggle case places it at index 0, so the gap stayed hidden: a card
+    // further down the zone was never the one spent, and the player paid its full cost out of OTHER
+    // resources AND still lost the card. Same defect as Plot (bug #925), same root cause.
+    //
+    // Spend it explicitly and ask the sweep for the REMAINDER. Done here rather than by reordering the
+    // zone (the fix Plot uses) because Smuggle pays INLINE and $actualIdx is still needed afterwards for
+    // removal and slot replacement — reordering would invalidate it. An already-exhausted resource pays
+    // nothing, so the full cost then correctly comes from elsewhere.
+    $smuggleSelfPaid = 0;
+    if (intval($resourceObj->Status ?? 0) === 1) { $resourceObj->Status = 0; $smuggleSelfPaid = 1; }
+    $exhaustOk = SWUExhaustResources($player, max(0, $totalCost - $smuggleSelfPaid));
     if (!$exhaustOk) {
+        // Roll the self-payment back: nothing is spent on a failed play (the card stays playable).
+        if ($smuggleSelfPaid) $resourceObj->Status = 1;
         SetFlashMessage("Not enough ready resources (need {$totalCost}).");
         $playerID = $savedPID;
         return;

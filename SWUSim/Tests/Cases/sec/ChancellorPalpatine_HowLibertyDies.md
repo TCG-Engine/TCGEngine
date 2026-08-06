@@ -112,5 +112,8 @@ WithP1Deck: SOR_095
 
 ## EXPECT
 P1LEADER:DEPLOYED
-P1RESAVAILABLE:6
+P1RESAVAILABLE:7
+#// CORRECTED 2026-08-06 (Smuggle self-pay, bug #925 family): the smuggled card is itself a READY
+#// resource and exhausts toward its OWN cost (CR 8.22.e). This case placed it LAST, where the old
+#// index-order sweep never picked it, so it recorded one resource too many being spent.
 P1NODECISION

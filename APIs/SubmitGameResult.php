@@ -37,31 +37,6 @@
   // Accepts either shape, so a client can conform whenever it likes.
   $swuIngress = SWUStatsIngressNormalize($data);
 
-  // Unresolvable identifiers are REJECTED, not partially recorded.
-  //
-  // ⚠ BREAKING, changed 2026-08-06 by explicit decision. This endpoint previously dropped an
-  // unresolvable id at the narrowest granularity that still yielded a keyable row and returned
-  // success — so a submission naming one bad card silently lost that card's stats while the caller
-  // saw {"success": true}. Every affected column is a PRIMARY KEY component, so a row keyed on an
-  // unmappable identifier can never aggregate with anything; a 400 the caller can act on beats a
-  // quiet partial write. In practice clients almost never send one.
-  //
-  // A 400 is not retried, so a rejected game is lost rather than deferred. That is why this sits
-  // ahead of every write: a rejected submission must leave nothing behind. Contrast the 503 that
-  // maintenance mode returns, which exists precisely so submissions ARE retried.
-  if ($swuIngress['skipCompletedGame'] || $swuIngress['skipPlayer'][1]
-      || $swuIngress['skipPlayer'][2] || $swuIngress['droppedCards'] > 0) {
-    http_response_code(400);
-    header('Content-Type: application/json');
-    echo json_encode([
-      "success" => false,
-      "error"   => "Unrecognized card identifier(s). Send SET_NNN codes (e.g. \"SOR_005\") or known "
-                 . "FFG UIDs. Nothing was recorded for this game.",
-      "details" => $swuIngress['notes']
-    ]);
-    exit;
-  }
-
 	// Meta stats (the premier meta aggregate tables) are disabled if:
 	// - It's a shared team deck
 	// - The format is not 'premier'
@@ -91,6 +66,43 @@
 	// in the allowlist above. Additive by construction — this is only ever true for format values no
 	// existing consumer sends, so every current request behaves byte-identically.
 	$isPreviewFormat = SWUFormatIsPreview($format);
+
+  // Unresolvable identifiers are REJECTED, not partially recorded — but ONLY for a game that would
+  // actually be recorded.
+  //
+  // ⚠ BREAKING, changed 2026-08-06 by explicit decision. This endpoint previously dropped an
+  // unresolvable id at the narrowest granularity that still yielded a keyable row and returned
+  // success — so a submission naming one bad card silently lost that card's stats while the caller
+  // saw {"success": true}. Every affected column is a PRIMARY KEY component, so a row keyed on an
+  // unmappable identifier can never aggregate with anything; a 400 the caller can act on beats a
+  // quiet partial write.
+  //
+  // The preview/open exemption is NOT a softening — it repairs a regression. The gate was first
+  // placed above, ahead of $format, so it rejected submissions this endpoint would have accepted and
+  // then deliberately ignored: a PREVIEW game is played with hand-curated MOCK cards that need not
+  // exist in SWUDeck's dictionary, and the Open/Goldfish/Hotseat wildcard pool includes preview sets
+  // too. Both write NO stats by design, so an unresolvable id in them is expected and harmless.
+  // Petranaki ships preview sets and so failed on every such game while Karabast — premier, real
+  // cards — was unaffected. Rejecting a submission we were never going to record is wrong regardless
+  // of which client hits it.
+  //
+  // A 400 is not retried, so a rejected game is lost rather than deferred. That is why this still
+  // sits ahead of every write: a rejected submission must leave nothing behind. Contrast the 503
+  // maintenance mode returns, which exists precisely so submissions ARE retried.
+  $swuRecordsNothing = $isPreviewFormat || $format === 'open';
+  if (!$swuRecordsNothing
+      && ($swuIngress['skipCompletedGame'] || $swuIngress['skipPlayer'][1]
+          || $swuIngress['skipPlayer'][2] || $swuIngress['droppedCards'] > 0)) {
+    http_response_code(400);
+    header('Content-Type: application/json');
+    echo json_encode([
+      "success" => false,
+      "error"   => "Unrecognized card identifier(s). Send SET_NNN codes (e.g. \"SOR_005\") or known "
+                 . "FFG UIDs. Nothing was recorded for this game.",
+      "details" => $swuIngress['notes']
+    ]);
+    exit;
+  }
 
   $conn = GetLocalMySQLConnection();
 		// Validate SWU tokens (if provided). Returns:

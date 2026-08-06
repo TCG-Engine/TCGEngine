@@ -124,9 +124,22 @@ function SWUSubmitMatchResults($matchId) {
         $ch=curl_init($statsUrl);
         curl_setopt_array($ch,[CURLOPT_RETURNTRANSFER=>true,CURLOPT_POST=>true,CURLOPT_TIMEOUT=>10,
             CURLOPT_POSTFIELDS=>json_encode($payload),CURLOPT_HTTPHEADER=>['Content-Type: application/json']]);
-        $resp = curl_exec($ch); $code = intval(curl_getinfo($ch, CURLINFO_HTTP_CODE)); curl_close($ch);
+        $resp = curl_exec($ch); $code = intval(curl_getinfo($ch, CURLINFO_HTTP_CODE));
+        $curlErr = curl_error($ch); curl_close($ch);
         $ok = ($resp !== false && $code >= 200 && $code < 300);
         if ($ok) { $j = json_decode($resp, true); if (is_array($j) && array_key_exists('success', $j) && $j['success'] === false) $ok = false; }
+        // Log WHY on failure. Without this the only trace of a rejected submission is statsStatus
+        // ='failed' on the match — no status code, no error body — so "stats aren't publishing"
+        // arrives with nothing to diagnose from and every theory has to be tested against prod.
+        // The response body carries the endpoint's own reason (bad identifier, maintenance 503,
+        // rejected key), which is exactly what distinguishes those cases. apiKey is NOT logged.
+        if (!$ok) {
+            error_log('SWU stats submit FAILED game=' . strval($g['gameName'] ?? '?')
+                . ' http=' . $code
+                . ($curlErr !== '' ? ' curl=' . $curlErr : '')
+                . ' format=' . strval($payload['format'] ?? '?')
+                . ' resp=' . substr((string)$resp, 0, 400));
+        }
         $ok ? $succeeded++ : $failed++;
     }
     // Outcome for the end-game "sent to SWUStats" banner: skipped_early = every decided game ended

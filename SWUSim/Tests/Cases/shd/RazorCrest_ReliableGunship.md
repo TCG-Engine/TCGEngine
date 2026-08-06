@@ -22,6 +22,9 @@ P1NODECISION
 ---
 
 # 174_SmugglePlay_AttacksWithHost
+#// CORRECTED 2026-08-06 (Smuggle self-pay, bug #925 family): the smuggled card is itself a READY
+#// resource and exhausts toward its OWN cost (CR 8.22.e). This case placed it LAST, where the old
+#// index-order sweep never picked it, so it recorded one resource too many being spent.
 #// SHD_174 Hotshot DL-44 Blaster (+2/+0 upgrade, "Attach to a non-VEHICLE unit", Smuggle 3
 #// [Cunning]) — "When played using Smuggle: Attack with attached unit." Smuggled from resources onto
 #// the ready marine (single valid host → auto), which then attacks: base takes 3+2 = 5. The spent
@@ -43,7 +46,7 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:POWER:5
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1RESCOUNT:4
-P1RESAVAILABLE:0
+P1RESAVAILABLE:1
 P1DECKCOUNT:0
 
 ---

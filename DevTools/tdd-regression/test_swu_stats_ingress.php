@@ -223,6 +223,20 @@ $posEngSave = $eng === false ? false : strpos($eng, 'SaveDeckStats(');
 $checks['engine: gate precedes write'] = $posGate2 !== false
     && ($posEngSave === false || $posGate2 < $posEngSave);
 
+// ── The gate must NOT reject a game that records nothing anyway ──────────────
+// Regression 2026-08-06: the gate was first placed ahead of $format, so it 400'd PREVIEW and OPEN
+// submissions — which are played with mock cards that need not exist in the dictionary and write no
+// stats by design. Petranaki (which ships preview sets) stopped publishing entirely while Karabast
+// (premier, real cards) was fine. Assert the exemption exists AND that the gate sits after the
+// format is known, since the ordering is what made the exemption impossible to express before.
+$posFormat  = $eng === false ? false : strpos($eng, '$isPreviewFormat = SWUFormatIsPreview(');
+$posExempt  = $eng === false ? false : strpos($eng, '$swuRecordsNothing');
+$checks['engine: exempts record-nothing formats'] = $posExempt !== false;
+$checks['engine: gate follows format resolution']  = $posFormat !== false && $posGate2 !== false
+    && $posFormat < $posGate2;
+$checks['engine: exemption covers preview'] = $eng !== false && strpos($eng, '$isPreviewFormat ||') !== false;
+$checks['engine: exemption covers open']    = $eng !== false && strpos($eng, "\$format === 'open'") !== false;
+
 // The contract change is documented — a consumer must be able to discover it without reading PHP.
 $apiDoc = file_get_contents(__DIR__ . '/../../Stats/APIs.php');
 $checks['docs: 400 documented'] = $apiDoc !== false
