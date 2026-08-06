@@ -8,6 +8,8 @@ function RlParseArgs($argv) {
     'root' => 'GrandArchiveSim',
     'deck' => '',
     'deck-file' => '',
+    'opponent-deck' => '',
+    'opponent-heuristic-policy' => 'none',
     'episodes' => 100,
     'seed' => 123,
     'max-steps' => 1000,
@@ -113,6 +115,14 @@ function RlDeckSource($args) {
   $deckFile = trim(strval($args['deck-file'] ?? ''));
   if ($deck !== '' && $deckFile !== '') RlFail('Use either --deck or --deck-file, not both.');
   return $deck !== '' ? $deck : $deckFile;
+}
+
+function RlOpponentDeckSource($args) {
+  return trim(strval($args['opponent-deck'] ?? ''));
+}
+
+function RlAsymmetricOpponentEnabled($args) {
+  return RlOpponentDeckSource($args) !== '';
 }
 
 function RlLoadDeckText($root, $source) {
@@ -414,28 +424,50 @@ function RlFallbackTrainingEnabled($args) {
 
 function RlValidateHeuristicTrainingArgs($args) {
   $heuristic = strtolower(trim(strval($args['heuristic-policy'] ?? 'none')));
+  $opponentHeuristic = strtolower(trim(strval($args['opponent-heuristic-policy'] ?? 'none')));
+  $hasOpponent = RlAsymmetricOpponentEnabled($args);
   if (!RlFallbackTrainingEnabled($args)) {
     if ($heuristic !== '' && $heuristic !== 'none') RlFail('--heuristic-policy requires --train-fallback-only.');
+    if ($hasOpponent || ($opponentHeuristic !== '' && $opponentHeuristic !== 'none')) RlFail('Asymmetric opponent options currently require --train-fallback-only.');
     return;
   }
   if (strval($args['root'] ?? '') !== 'AzukiSim') RlFail('--train-fallback-only currently supports only --root AzukiSim.');
-  if ($heuristic !== 'zero') RlFail('--train-fallback-only currently requires --heuristic-policy zero.');
+  if (!in_array($heuristic, ['zero', 'bobu'], true)) RlFail('--train-fallback-only currently requires --heuristic-policy zero or bobu.');
   if (RlStrategyEnabled(strval($args['strategy-mode'] ?? 'none'))) RlFail('--train-fallback-only cannot currently be combined with --strategy-mode.');
-}
-
-function RlEnsureHeuristicPolicyLoaded($args) {
-  if (!RlFallbackTrainingEnabled($args)) return;
-  if (strtolower(strval($args['heuristic-policy'] ?? '')) !== 'zero') return;
-  if (!function_exists('AzukiZeroHeuristicCoveredChoice')) {
-    require_once RegressionRepoRoot() . DIRECTORY_SEPARATOR . 'AzukiSim' . DIRECTORY_SEPARATOR . 'Custom' . DIRECTORY_SEPARATOR . 'RlBotHeuristics.php';
+  if ($hasOpponent && !in_array($opponentHeuristic, ['zero', 'bobu'], true)) {
+    RlFail('--opponent-deck requires --opponent-heuristic-policy zero or bobu.');
   }
-  if (!function_exists('AzukiZeroHeuristicCoveredChoice')) RlFail('Unable to load the Zero heuristic coverage policy.');
+  if (!$hasOpponent && $opponentHeuristic !== '' && $opponentHeuristic !== 'none') {
+    RlFail('--opponent-heuristic-policy requires --opponent-deck.');
+  }
 }
 
-function RlHeuristicCoveredChoice($args, $actions, $legal, $snapshot, $player) {
+function RlEnsureHeuristicPolicyLoaded($args, $heuristic = '') {
+  if (!RlFallbackTrainingEnabled($args)) return;
+  $heuristic = strtolower(trim(strval($heuristic !== '' ? $heuristic : ($args['heuristic-policy'] ?? ''))));
+  $customDir = RegressionRepoRoot() . DIRECTORY_SEPARATOR . 'AzukiSim' . DIRECTORY_SEPARATOR . 'Custom' . DIRECTORY_SEPARATOR;
+  if (!function_exists('AzukiZeroHeuristicCoveredChoice')) require_once $customDir . 'RlBotHeuristics.php';
+  if ($heuristic === 'bobu' && !function_exists('AzukiBobuHeuristicCoveredChoice')) require_once $customDir . 'RlBotBobuHeuristics.php';
+  $loaded = $heuristic === 'bobu'
+    ? function_exists('AzukiBobuHeuristicCoveredChoice')
+    : function_exists('AzukiZeroHeuristicCoveredChoice');
+  if (!$loaded) RlFail('Unable to load the ' . ucfirst($heuristic) . ' heuristic coverage policy.');
+}
+
+function RlHeuristicCoveredChoice($args, $actions, $legal, $snapshot, $player, $heuristic = '') {
   if (!RlFallbackTrainingEnabled($args)) return ['covered' => false, 'rule' => '', 'action' => null];
-  RlEnsureHeuristicPolicyLoaded($args);
-  return AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $player);
+  $heuristic = strtolower(trim(strval($heuristic !== '' ? $heuristic : ($args['heuristic-policy'] ?? ''))));
+  RlEnsureHeuristicPolicyLoaded($args, $heuristic);
+  return $heuristic === 'bobu'
+    ? AzukiBobuHeuristicCoveredChoice($actions, $legal, $snapshot, $player)
+    : AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $player);
+}
+
+function RlHeuristicForPlayer($args, $player) {
+  if (intval($player) === 2 && RlAsymmetricOpponentEnabled($args)) {
+    return strtolower(trim(strval($args['opponent-heuristic-policy'] ?? 'none')));
+  }
+  return strtolower(trim(strval($args['heuristic-policy'] ?? 'none')));
 }
 
 function RlClassifyEpisodeTermination($isTerminal, $stepCount, $turnNumber, $args) {
@@ -846,10 +878,24 @@ function RlConfigureFallbackPolicy($policy, $args) {
     RlFail('Fallback-only training can continue only from a residual checkpoint for heuristic policy ' . $heuristic . '.');
   }
   if ($policy->stateKeyVersion !== 'AzukiSim:compact-v4' || $policy->actionKeyVersion !== 'semantic-v2') {
-    RlFail('Zero fallback training requires AzukiSim:compact-v4 state keys and semantic-v2 action keys.');
+    RlFail(ucfirst($heuristic) . ' fallback training requires AzukiSim:compact-v4 state keys and semantic-v2 action keys.');
   }
   $policy->policyRole = 'residual';
   $policy->heuristicPolicy = $heuristic;
+}
+
+function RlCreateFixedOpponentPolicy($policy, $args) {
+  if (!RlAsymmetricOpponentEnabled($args)) return $policy;
+  $opponent = new RlTabularPolicy(
+    $policy->maxActions,
+    $policy->temperature,
+    $policy->learningRate,
+    $policy->stateKeyVersion,
+    $policy->actionKeyVersion
+  );
+  $opponent->policyRole = 'fixed-opponent';
+  $opponent->heuristicPolicy = strtolower(trim(strval($args['opponent-heuristic-policy'] ?? 'none')));
+  return $opponent;
 }
 
 function RlEnsureStrategyPolicy($policy, $strategyMode) {
@@ -877,7 +923,7 @@ function RlStepLoaded($root, $gameName, $action) {
   ];
 }
 
-function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumber, $epSeed, $captureReplay, $updateP2) {
+function RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $runId, $episodeNumber, $epSeed, $captureReplay, $updateP2) {
   $gameName = 'rl_train_php_' . $runId . '_' . sprintf('%04d', intval($episodeNumber)) . '_' . intval($epSeed);
   $memoryArg = $args['memory-only'] === null ? 'auto' : ($args['memory-only'] ? '1' : '0');
   $GLOBALS['bridgeIncludeAzukiRlState'] =
@@ -889,7 +935,7 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   $GLOBALS['bridgeIncludeAzukiCompactState'] =
     ($policy instanceof RlTabularPolicy && in_array($policy->stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3', 'AzukiSim:compact-v4'], true))
     || ($opponent instanceof RlTabularPolicy && in_array($opponent->stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3', 'AzukiSim:compact-v4'], true));
-  $startPayload = BridgeStartSelfplayGame($args['root'], $gameName, intval($epSeed), $deckText, $deckText, $memoryArg);
+  $startPayload = BridgeStartSelfplayGame($args['root'], $gameName, intval($epSeed), $deckText, $opponentDeckText, $memoryArg);
   if (empty($startPayload['success'])) RlFail('start-selfplay-game failed: ' . json_encode($startPayload));
 
   $snapshot = is_array($startPayload['snapshot'] ?? null) ? $startPayload['snapshot'] : BridgeSnapshotLoaded($args['root'], $gameName, 'summary');
@@ -915,6 +961,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
   ];
   $reward = 0.0;
   $done = false;
+  $trainingHeuristicSteps = 0;
+  $trainingFallbackSteps = 0;
   $episodeStart = microtime(true);
 
   while (!$done) {
@@ -972,8 +1020,10 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       $candidate['_rlActionIndex'] = intval($idx);
       $heuristicActions[] = $candidate;
     }
-    $heuristicDecision = RlHeuristicCoveredChoice($args, $heuristicActions, $legal, $snapshot, $turnPlayer);
+    $heuristicName = RlHeuristicForPlayer($args, $turnPlayer);
+    $heuristicDecision = RlHeuristicCoveredChoice($args, $heuristicActions, $legal, $snapshot, $turnPlayer, $heuristicName);
     $heuristicCovered = !empty($heuristicDecision['covered']) && is_array($heuristicDecision['action'] ?? null);
+    $isTrainingPlayer = $turnPlayer === 1 || $updateP2;
     if ($heuristicCovered) {
       $actionIndex = intval($heuristicDecision['action']['_rlActionIndex'] ?? -1);
       if (!in_array($actionIndex, $legalIndices, true)) {
@@ -993,9 +1043,13 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       'resolvedCardID' => strval($action['resolvedCardID'] ?? ''),
     ];
     $stepIndex = null;
-    if (!$heuristicCovered) {
+    if (!$heuristicCovered && $isTrainingPlayer) {
       $stepIndex = count($episodeSteps);
       $episodeSteps[] = ['state_key' => $stateKey, 'action_index' => $actionIndex, 'action_key' => strval($actionKeys[$actionIndex] ?? ''), 'action_keys' => $actionKeys, 'legal_indices' => $legalIndices, 'turn_player' => $turnPlayer, 'strategy_posture' => $strategyPosture];
+    }
+    if ($isTrainingPlayer) {
+      if ($heuristicCovered) ++$trainingHeuristicSteps;
+      else ++$trainingFallbackSteps;
     }
     $replayStepIndex = count($replayActions);
     $replayActions[] = [
@@ -1007,6 +1061,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
       'strategyPosture' => $strategyPosture,
       'heuristicCovered' => $heuristicCovered,
       'heuristicRule' => strval($heuristicDecision['rule'] ?? ''),
+      'heuristicPolicy' => $heuristicName,
+      'trainingPlayer' => $isTrainingPlayer,
       'action' => $cleanAction,
     ];
 
@@ -1135,8 +1191,8 @@ function RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $episodeNumb
     ? $policy->strategyPolicy->episodeDeltaForPlayer($strategySteps, 2, $p2Reward)
     : [];
   $episodeWinner = intval($info['winner'] ?? 0);
-  $fallbackSteps = RlFallbackTrainingEnabled($args) ? count($episodeSteps) : 0;
-  $heuristicSteps = RlFallbackTrainingEnabled($args) ? max(0, count($replayActions) - $fallbackSteps) : 0;
+  $fallbackSteps = RlFallbackTrainingEnabled($args) ? $trainingFallbackSteps : 0;
+  $heuristicSteps = RlFallbackTrainingEnabled($args) ? $trainingHeuristicSteps : 0;
   $replay = null;
   if ($captureReplay || $episodeIncomplete) {
     $replay = [
@@ -1258,6 +1314,7 @@ function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $failu
   return [
     'root' => $args['root'],
     'deckSource' => RlDeckSource($args),
+    'opponentDeckSource' => RlOpponentDeckSource($args),
     'deckFile' => $args['deck-file'],
     'episodes' => intval($args['episodes']),
     'seed' => intval($args['seed']),
@@ -1281,6 +1338,7 @@ function RlBaseRunConfig($args, $baseDir, $replayDir, $timeoutReplayPath, $failu
     'actionKeyVersion' => RlDefaultActionKeyVersion(RlStateKeyVersion()),
     'strategyMode' => strval($GLOBALS['rlStrategyMode'] ?? 'none'),
     'heuristicPolicy' => strval($args['heuristic-policy'] ?? 'none'),
+    'opponentHeuristicPolicy' => strval($args['opponent-heuristic-policy'] ?? 'none'),
     'trainFallbackOnly' => RlFallbackTrainingEnabled($args),
     'workers' => intval($args['workers']),
     'workerEpisodes' => intval($args['worker-episodes']),
@@ -1308,8 +1366,12 @@ function RlRunWorker($args) {
 
   mt_srand(intval($args['episode-seed']) + intval($args['worker-id']));
   $deckText = RlLoadDeckText($args['root'], RlDeckSource($args));
+  $opponentDeckText = RlAsymmetricOpponentEnabled($args)
+    ? RlLoadDeckText($args['root'], RlOpponentDeckSource($args))
+    : $deckText;
   $policy = RlTabularPolicy::load(strval($args['policy-file']), $args['max-actions'], $args['temperature'], $args['learning-rate']);
   RlConfigureFallbackPolicy($policy, $args);
+  $opponent = RlCreateFixedOpponentPolicy($policy, $args);
   RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
   $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
   $GLOBALS['rlStateKeyVersion'] = $policy->stateKeyVersion;
@@ -1325,13 +1387,14 @@ function RlRunWorker($args) {
     $result = RlRunEpisode(
       $args,
       $deckText,
+      $opponentDeckText,
       $policy,
-      $policy,
+      $opponent,
       strval($args['run-id']),
       $episodeNumber,
       $episodeSeed,
       $captureReplay,
-      true
+      !RlAsymmetricOpponentEnabled($args)
     );
     $episodeDelta = RlTabularPolicy::mergeDeltas([$result['p1Delta'] ?? [], $result['p2Delta'] ?? []]);
     $episodeStrategyDelta = RlTabularPolicy::mergeDeltas([$result['p1StrategyDelta'] ?? [], $result['p2StrategyDelta'] ?? []]);
@@ -1382,6 +1445,9 @@ function RlRunWorker($args) {
 function RlRunSequential($args) {
   mt_srand(intval($args['seed']));
   $deckText = RlLoadDeckText($args['root'], RlDeckSource($args));
+  $opponentDeckText = RlAsymmetricOpponentEnabled($args)
+    ? RlLoadDeckText($args['root'], RlOpponentDeckSource($args))
+    : $deckText;
   $runId = date('Ymd-His');
   $baseDir = __DIR__ . DIRECTORY_SEPARATOR . 'artifacts' . DIRECTORY_SEPARATOR . 'runs' . DIRECTORY_SEPARATOR . $runId;
   $ckptDir = $baseDir . DIRECTORY_SEPARATOR . 'checkpoints';
@@ -1394,6 +1460,7 @@ function RlRunSequential($args) {
     ? RlTabularPolicy::load(strval($args['checkpoint']), $args['max-actions'], $args['temperature'], $args['learning-rate'])
     : new RlTabularPolicy($args['max-actions'], $args['temperature'], $args['learning-rate']);
   RlConfigureFallbackPolicy($policy, $args);
+  $fixedOpponent = RlCreateFixedOpponentPolicy($policy, $args);
   RlEnsureStrategyPolicy($policy, $args['strategy-mode']);
   $GLOBALS['rlStrategyMode'] = $policy->strategyMode;
   $GLOBALS['rlStateKeyVersion'] = $policy->stateKeyVersion;
@@ -1410,9 +1477,11 @@ function RlRunSequential($args) {
   for ($ep = 0; $ep < intval($args['episodes']); ++$ep) {
     $epNumber = $ep + 1;
     $epSeed = intval($args['seed']) + $ep;
-    $opponent = (!empty($frozenPool) && ($ep % 2 === 1)) ? $frozenPool[mt_rand(0, count($frozenPool) - 1)] : $policy;
+    $opponent = RlAsymmetricOpponentEnabled($args)
+      ? $fixedOpponent
+      : ((!empty($frozenPool) && ($ep % 2 === 1)) ? $frozenPool[mt_rand(0, count($frozenPool) - 1)] : $policy);
     $captureReplay = $epNumber === intval($args['episodes']);
-    $result = RlRunEpisode($args, $deckText, $policy, $opponent, $runId, $epNumber, $epSeed, $captureReplay, $opponent === $policy);
+    $result = RlRunEpisode($args, $deckText, $opponentDeckText, $policy, $opponent, $runId, $epNumber, $epSeed, $captureReplay, !RlAsymmetricOpponentEnabled($args) && $opponent === $policy);
     $policy->applyDelta($result['p1Delta'] ?? []);
     if ($policy->strategyPolicy instanceof RlTabularPolicy) $policy->strategyPolicy->applyDelta($result['p1StrategyDelta'] ?? []);
     if ($opponent === $policy) $policy->applyDelta($result['p2Delta'] ?? []);
@@ -1498,6 +1567,12 @@ function RlWorkerCommand($args, $runId, $policyPath, $resultPath, $episodeNumber
     '--strategy-mode', RlQuoteArg($args['strategy-mode']),
     '--heuristic-policy', RlQuoteArg($args['heuristic-policy']),
   ];
+  if (RlAsymmetricOpponentEnabled($args)) {
+    $parts[] = '--opponent-deck';
+    $parts[] = RlQuoteArg(RlOpponentDeckSource($args));
+    $parts[] = '--opponent-heuristic-policy';
+    $parts[] = RlQuoteArg($args['opponent-heuristic-policy']);
+  }
   if (RlFallbackTrainingEnabled($args)) $parts[] = '--train-fallback-only';
   if ($args['memory-only'] === true) $parts[] = '--memory-only';
   if ($args['memory-only'] === false) $parts[] = '--disk-games';

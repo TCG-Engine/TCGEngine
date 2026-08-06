@@ -315,6 +315,13 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
           <small>Deck 51</small>
         </span>
       </button>
+      <button type="button" class="rl-bot-opponent-choice" onclick="startRlBotGame('bobu')">
+        <img src="/TCGEngine/AzukiSim/WebpImages/S1-STT03-001_Bobu_L_L_die.webp" alt="" aria-hidden="true">
+        <span>
+          <strong>Bobu</strong>
+          <small>Deck 241 · Midrange/control</small>
+        </span>
+      </button>
       <button type="button" class="rl-bot-opponent-choice" onclick="startRlBotGame('goldfish')">
         <img src="/TCGEngine/Assets/Images/Zendo/UIIconsRaster/bot.webp?v=4" alt="" aria-hidden="true">
         <span>
@@ -899,7 +906,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
       }
 
       function startRlBotGame(opponent) {
-        opponent = ['raizan', 'zero', 'goldfish'].indexOf(opponent) !== -1 ? opponent : 'raizan';
+        opponent = ['raizan', 'zero', 'bobu', 'goldfish'].indexOf(opponent) !== -1 ? opponent : 'raizan';
         closeRlBotOpponentModal();
         submitQueueJoin({
           createRlBot: true,

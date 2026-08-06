@@ -58,3 +58,12 @@ ordering, removal targets, and lethal. A checkpoint tagged with
 heuristics abstain; covered decisions never consult the model. Legacy full
 checkpoints retain their previous tie-breaking behavior. Other bot profiles
 continue to use their checkpoint policy unchanged.
+
+## Bobu heuristic policy
+
+The `bobu` opponent profile uses `Custom/RlBotBobuHeuristics.php` and its own
+published residual checkpoint. A checkpoint tagged with `policy_role: residual`
+is used as Bobu's fallback only when its `heuristic_policy` is `bobu`; it is not
+shared with Zero. Likewise, Zero's `heuristic_policy: zero` checkpoint is never
+used as Bobu's residual fallback. Update the `bobu` model entry in
+`Custom/RlBotProfiles.php` when publishing a newer Bobu checkpoint.

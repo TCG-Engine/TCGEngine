@@ -131,6 +131,30 @@ residual checkpoint using the current `AzukiSim:compact-v4` / `semantic-v2`
 representation. Fallback-only mode is intentionally incompatible with
 `--strategy-mode`.
 
+Bobu Deck 241 uses the same residual-policy pipeline with its dedicated
+midrange/control heuristic:
+
+```powershell
+php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck 241 --episodes 20000 --seed 126 --max-steps 500 --checkpoint-every 250 --log-every 100 --memory-only --workers 8 --worker-episodes 4 --heuristic-policy bobu --train-fallback-only
+```
+
+Bobu residual checkpoints are tagged with `heuristic_policy: bobu`; only
+decisions on which the Bobu policy abstains update the residual table.
+
+To train Bobu specifically against the aggressive Zero Deck 51 opponent, add
+an asymmetric fixed opponent. Player 1 uses Bobu's heuristic plus the trainable
+residual policy; Player 2 uses Zero's deterministic heuristic, and its choices
+are excluded from the Bobu policy update:
+
+```powershell
+php DevTools/rl/train_selfplay_php.php --root AzukiSim --deck 241 --opponent-deck 51 --episodes 150000 --seed 126 --max-steps 750 --checkpoint-every 2500 --log-every 320 --memory-only --workers 8 --worker-episodes 4 --heuristic-policy bobu --opponent-heuristic-policy zero --train-fallback-only
+```
+
+If the fixed Zero heuristic abstains, its unmodeled choice is sampled from an
+untrained opponent policy. Those opponent choices never update or contaminate
+the Bobu residual checkpoint. Omitting `--opponent-deck` preserves symmetric
+same-deck training.
+
 Fresh Azuki training uses the context-gated `AzukiSim:compact-v4` state and
 `semantic-v2` action keys. It retains IKZ availability, hand and life buckets,
 then includes board and legal-action summaries only in the contexts where they

@@ -200,6 +200,32 @@ function GetPreconstructedDeckConfig($deckName) {
         ];
     }
 
+    // The custom Bobu list from AzukiDeck 241. Keep the published bot deck
+    // local so live games do not depend on the editor API or deck ownership.
+    if($normalized === 'boburl') {
+        return [
+            'name' => 'Bobu (Deck 241)',
+            'leader' => 'S1-STT03-001_Bobu_L_L_die',
+            'gate' => 'S1-STT03-002_Stonehaven-Gate_G_G_die',
+            'deckList' => [
+                'S1-AZK01-047_Shiko-the-Priestess_E_UC_die','S1-AZK01-047_Shiko-the-Priestess_E_UC_die','S1-AZK01-047_Shiko-the-Priestess_E_UC_die','S1-AZK01-047_Shiko-the-Priestess_E_UC_die',
+                'S1-AZK01-045_Treetop-Scout_E_C_die',
+                'S1-AZK01-050_Shroom-Tender_E_R_die','S1-AZK01-050_Shroom-Tender_E_R_die','S1-AZK01-050_Shroom-Tender_E_R_die','S1-AZK01-050_Shroom-Tender_E_R_die',
+                'S1-STT03-009_Warding-Totem_E_UC_die','S1-STT03-009_Warding-Totem_E_UC_die','S1-STT03-009_Warding-Totem_E_UC_die','S1-STT03-009_Warding-Totem_E_UC_die',
+                'S1-STT03-003_Koyama-Farm-Potter_E_C_die','S1-STT03-003_Koyama-Farm-Potter_E_C_die','S1-STT03-003_Koyama-Farm-Potter_E_C_die','S1-STT03-003_Koyama-Farm-Potter_E_C_die',
+                'S1-STT03-016_Quicksand_S_R_die','S1-STT03-016_Quicksand_S_R_die','S1-STT03-016_Quicksand_S_R_die',
+                'S1-STT03-013_Stone-Masked-Ancient_E_SR_die','S1-STT03-013_Stone-Masked-Ancient_E_SR_die','S1-STT03-013_Stone-Masked-Ancient_E_SR_die','S1-STT03-013_Stone-Masked-Ancient_E_SR_die',
+                'S1-STT03-014_Sandcoil-Python_E_UC_die','S1-STT03-014_Sandcoil-Python_E_UC_die','S1-STT03-014_Sandcoil-Python_E_UC_die',
+                'S1-STT03-011_Koyama-Farm-Plowman_E_C_die','S1-STT03-011_Koyama-Farm-Plowman_E_C_die','S1-STT03-011_Koyama-Farm-Plowman_E_C_die','S1-STT03-011_Koyama-Farm-Plowman_E_C_die',
+                'S1-AZK01-069_Link_E_C_die','S1-AZK01-069_Link_E_C_die','S1-AZK01-069_Link_E_C_die','S1-AZK01-069_Link_E_C_die',
+                'S1-AZK01-002_Healing-Flutter_S_UC_die','S1-AZK01-002_Healing-Flutter_S_UC_die','S1-AZK01-002_Healing-Flutter_S_UC_die','S1-AZK01-002_Healing-Flutter_S_UC_die',
+                'S1-AZK01-067_Frida_E_C_die','S1-AZK01-067_Frida_E_C_die','S1-AZK01-067_Frida_E_C_die',
+                'S1-AZK01-048_Kale_E_C_die','S1-AZK01-048_Kale_E_C_die','S1-AZK01-048_Kale_E_C_die','S1-AZK01-048_Kale_E_C_die',
+                'S1-STT03-012_Miharu-of-the-White-Bloom_E_SR_die','S1-STT03-012_Miharu-of-the-White-Bloom_E_SR_die','S1-STT03-012_Miharu-of-the-White-Bloom_E_SR_die','S1-STT03-012_Miharu-of-the-White-Bloom_E_SR_die',
+            ],
+        ];
+    }
+
     return [
         'name' => 'Raizan',
         'leader' => 'S1-STT01-001_Raizan_L_L_die',

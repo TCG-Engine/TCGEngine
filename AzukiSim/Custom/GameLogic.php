@@ -3,6 +3,7 @@
 require_once __DIR__ . '/Stats.php';
 require_once __DIR__ . '/RlBotProfiles.php';
 require_once __DIR__ . '/RlBotHeuristics.php';
+require_once __DIR__ . '/RlBotBobuHeuristics.php';
 require_once __DIR__ . '/GameLog.php';
 
 $debugMode = true;
@@ -308,6 +309,7 @@ function AzukiRlBotCheckpointHeuristicPolicy($path) {
     $raw = @file_get_contents($path, false, null, 0, 4096);
     if(!is_string($raw) || $raw === '') return 'none';
     if(strpos($raw, '"heuristic_policy": "zero"') !== false || strpos($raw, '"heuristic_policy":"zero"') !== false) return 'zero';
+    if(strpos($raw, '"heuristic_policy": "bobu"') !== false || strpos($raw, '"heuristic_policy":"bobu"') !== false) return 'bobu';
     return 'none';
 }
 
@@ -677,15 +679,18 @@ function ProcessAzukiRlBotStep() {
     $policyRole = AzukiRlBotCheckpointPolicyRole($checkpointPath);
     $checkpointHeuristic = AzukiRlBotCheckpointHeuristicPolicy($checkpointPath);
     $profileName = NormalizeAzukiRlBotProfile(DecisionQueueController::GetVariable('AzukiRlBotProfile'));
-    $useZeroHeuristics = $profileName === 'zero';
-    $useZeroResidual = $useZeroHeuristics && $policyRole === 'residual' && $checkpointHeuristic === 'zero';
+    $heuristicProfile = in_array($profileName, ['zero', 'bobu'], true) ? $profileName : '';
+    $useProfileHeuristics = $heuristicProfile !== '';
+    $useProfileResidual = $useProfileHeuristics
+        && $policyRole === 'residual'
+        && $checkpointHeuristic === $heuristicProfile;
     $GLOBALS['bridgeIncludeAzukiRlState'] = $stateKeyVersion === 'AzukiSim:azuki-v1';
-    // Zero's deterministic policy consumes compact live-board features directly.
+    // Profile heuristics consume compact live-board features directly.
     // Do not make those inputs depend on an optional ignored model artifact being
     // present in a particular deployment.
-    $GLOBALS['bridgeIncludeAzukiCompactState'] = $useZeroHeuristics
+    $GLOBALS['bridgeIncludeAzukiCompactState'] = $useProfileHeuristics
         || in_array($stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3', 'AzukiSim:compact-v4'], true);
-    $GLOBALS['bridgeIncludeAzukiStrategyState'] = !$useZeroHeuristics && $strategyMode === 'aggro-control';
+    $GLOBALS['bridgeIncludeAzukiStrategyState'] = !$useProfileHeuristics && $strategyMode === 'aggro-control';
     $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
     $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
     if(!empty($terminal['isTerminal'])) {
@@ -709,21 +714,27 @@ function ProcessAzukiRlBotStep() {
 
     $stateKey = AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion, $actingPlayer, $legal);
 
-    if(!$useZeroHeuristics && $strategyMode === 'aggro-control') {
+    if(!$useProfileHeuristics && $strategyMode === 'aggro-control') {
         $strategyKey = AzukiRlBotStrategyStateKeyFromSnapshot($snapshot, $actingPlayer);
         $posture = AzukiRlBotChoosePosture(AzukiRlBotLoadStateLogits($strategyKey));
         $actions = AzukiRlBotFilterActionsForPosture($actions, $posture);
     }
     $stateLogits = AzukiRlBotLoadStateLogits($stateKey);
-    if($useZeroResidual) {
-        $heuristicChoice = AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $actingPlayer);
+    if($useProfileResidual) {
+        $heuristicChoice = $heuristicProfile === 'bobu'
+            ? AzukiBobuHeuristicCoveredChoice($actions, $legal, $snapshot, $actingPlayer)
+            : AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $actingPlayer);
         $action = !empty($heuristicChoice['covered'])
             ? ($heuristicChoice['action'] ?? null)
             : AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion, $legal);
     } else {
-        $action = $useZeroHeuristics
-            ? AzukiZeroHeuristicChooseAction($stateLogits, $actions, $legal, $snapshot, $actingPlayer)
-            : AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion, $legal);
+        if($heuristicProfile === 'bobu') {
+            $action = AzukiBobuHeuristicChooseAction($stateLogits, $actions, $legal, $snapshot, $actingPlayer);
+        } else if($heuristicProfile === 'zero') {
+            $action = AzukiZeroHeuristicChooseAction($stateLogits, $actions, $legal, $snapshot, $actingPlayer);
+        } else {
+            $action = AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion, $legal);
+        }
     }
     if(!is_array($action)) return ['success' => true, 'message' => 'No bot action was selected.', 'applied' => false];
 

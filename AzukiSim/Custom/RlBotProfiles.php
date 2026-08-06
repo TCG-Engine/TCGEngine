@@ -12,6 +12,11 @@ function AzukiRlBotProfiles(): array {
             'deck' => 'ZeroRL',
             'model' => 'zero-residual-deck51-20260801-ep125040.json',
         ],
+        'bobu' => [
+            'label' => 'Bobu (Deck 241)',
+            'deck' => 'BobuRL',
+            'model' => 'bobu-residual-deck241-20260806-ep150000.json',
+        ],
         'goldfish' => [
             'label' => 'Goldfish (Auto-pass)',
             'deck' => 'Raizan',
