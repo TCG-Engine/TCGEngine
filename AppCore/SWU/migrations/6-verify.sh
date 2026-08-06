@@ -32,7 +32,10 @@ for arg in "$@"; do
 done
 [ -n "$DB" ] || { echo "FATAL: --db=<database> is required." >&2; exit 2; }
 
-MYCNF="${MYCNF:-}"; MY=("${MYSQL_BIN:-${MYSQL:-mysql}}"); [ -n "$MYCNF" ] && MY+=("$MYCNF")
+# MYCNF must be the FLAG form, not a bare path: it is passed to mysql as an argument, and a
+# bare path is read as a database name. Normalise rather than fail with a misleading error.
+MYCNF="${MYCNF:-}"
+case "$MYCNF" in ""|--defaults-extra-file=*) ;; *) MYCNF="--defaults-extra-file=$MYCNF" ;; esac; MY=("${MYSQL_BIN:-${MYSQL:-mysql}}"); [ -n "$MYCNF" ] && MY+=("$MYCNF")
 sql() { "${MY[@]}" -N -B "$DB" -e "$1" 2>/dev/null; }
 
 PASS=0; FAIL=0

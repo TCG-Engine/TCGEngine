@@ -99,6 +99,15 @@ if [ "$_swu_check" -eq 1 ] && [ -z "${MYCNF:-}" ]; then
 else
 # Written once, 0600, and deleted in §2.10. Never -p on the command line: that exposes the password
 # in `ps` to every user on the box, and these scripts run in loops and under `time`.
+# Normalise a bare path into the flag form. Every script does `MY+=("$MYCNF")` and hands it to
+# mysql as an argument, so a bare path becomes a positional arg — mysql reads it as a DATABASE NAME
+# and the connection fails with "cannot connect", which points you at credentials rather than at
+# the real problem. Accept either form, store the flag form.
+case "${MYCNF:-}" in
+  "" ) ;;
+  --defaults-extra-file=* ) ;;
+  * ) MYCNF="--defaults-extra-file=$MYCNF"; export MYCNF ;;
+esac
 if [ -n "${MYCNF:-}" ] && [ -f "${MYCNF#--defaults-extra-file=}" ]; then
   _swu_ok "MYCNF          reusing $MYCNF"
 else

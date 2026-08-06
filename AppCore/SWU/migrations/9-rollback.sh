@@ -52,7 +52,10 @@ fi
 [ -n "$BACKUP_DIR" ] || { echo "FATAL: --backup-dir=<dir> is required." >&2; exit 2; }
 ROOT_DIR="${ROOT_DIR:-/opt/lampp/htdocs/TCGEngine}"
 
+# MYCNF must be the FLAG form, not a bare path: it is passed to mysql as an argument, and a
+# bare path is read as a database name. Normalise rather than fail with a misleading error.
 MYCNF="${MYCNF:-}"
+case "$MYCNF" in ""|--defaults-extra-file=*) ;; *) MYCNF="--defaults-extra-file=$MYCNF" ;; esac
 MY=("${MYSQL_BIN:-${MYSQL:-mysql}}"); [ -n "$MYCNF" ] && MY+=("$MYCNF")
 sql() { "${MY[@]}" -N -B "$DB" -e "$1"; }
 

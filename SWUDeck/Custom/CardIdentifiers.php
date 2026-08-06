@@ -1,6 +1,12 @@
 <?php
 /**
- * Helper functions for converting between card names and their internal identifiers
+ * Helper functions for converting between card names and their internal identifiers.
+ *
+ * Every function here speaks SET_NNN ("SOR_033"). It used to speak FFG UIDs ("2579145458"),
+ * because deck files and the dictionaries were UUID-keyed until the 2026-08-06 SET_NNN
+ * migration. UUIDLookup() survives only as an EXISTENCE TEST — nothing here converts to a
+ * UUID any more, and CardIDLookup() must not be called on a $titleData key, which is now
+ * already a SET_NNN id (the call returns null and the lookup fails silently).
  */
 
 // Include the necessary files for card dictionaries
@@ -31,10 +37,28 @@ function NormalizeCardID($cardID) {
 }
 
 /**
- * Converts a card name to its internal UUID
- * 
+ * Resolves an imported card identifier to the canonical SET_NNN id that deck files and
+ * ownership.keyIndicator1/2/3 store, or null if the dictionary does not know it.
+ *
+ * Import paths used to end in UUIDLookup(), which STORED the UUID — that is what kept
+ * re-introducing the old identity into deck files after the migration rewrote them. The
+ * lookup remains, but only to decide whether the id is real: an unknown one must be skipped
+ * rather than pushed into a zone as a blank CardID, which renders as a broken card image.
+ *
+ * @param string|null $cardID A SET_NNN id from an export, importer, or override table
+ * @return string|null The same id, normalized — or null if it is not a known card
+ */
+function SWUDeckImportCardID($cardID) {
+    $cardID = NormalizeCardID($cardID);
+    if ($cardID === null || $cardID === '') return null;
+    return UUIDLookup($cardID) === null ? null : $cardID;
+}
+
+/**
+ * Converts a card name to its internal SET_NNN card id
+ *
  * @param string $cardName The name of the card to look up
- * @return array Array of matching UUIDs
+ * @return array Array of matching SET_NNN card ids
  */
 function FindCard($cardName) {
     $cardName = trim($cardName);
@@ -46,25 +70,25 @@ function FindCard($cardName) {
         $characterName = trim($parts[0]);
         $subtitle = isset($parts[1]) ? trim($parts[1]) : '';
         
-        // Try exact UUID lookup with the character name
-        $uuid = UUIDLookup(substr_replace(strtoupper($characterName), '_', 3, 0));
-        if($uuid != null) {
-            return [ $uuid ];
+        // Try an exact dictionary hit on the character name
+        $id = substr_replace(strtoupper($characterName), '_', 3, 0);
+        if(UUIDLookup($id) != null) {
+            return [ $id ];
         }
-        
+
         // Try searching for the full name or subtitle separately
-        $uuid = UUIDLookup(substr_replace(strtoupper($cardName), '_', 3, 0));
-        if($uuid != null) {
-            return [ $uuid ];
+        $id = substr_replace(strtoupper($cardName), '_', 3, 0);
+        if(UUIDLookup($id) != null) {
+            return [ $id ];
         }
         
         // Try searching for variations without the subtitle
         $cardName = $characterName;
     }
     
-    $uuid = UUIDLookup(substr_replace(strtoupper($cardName), '_', 3, 0));
-    if($uuid != null) {
-        return [ $uuid ];
+    $id = substr_replace(strtoupper($cardName), '_', 3, 0);
+    if(UUIDLookup($id) != null) {
+        return [ $id ];
     }
     else {
         $cardName = strtolower(CardNicknames($cardName));
@@ -138,14 +162,14 @@ function FindCardSetCode($cardName) {
         
         // First try to find an exact match with both title and subtitle
         global $titleData, $subtitleData;
-        foreach ($titleData as $uuid => $title) {
+        foreach ($titleData as $cardID => $title) {
             if (strtolower($title) == strtolower($characterName)) {
                 // Found a match for the title, check if subtitle matches
-                if (isset($subtitleData[$uuid])) {
-                    $cardSubtitle = $subtitleData[$uuid];
+                if (isset($subtitleData[$cardID])) {
+                    $cardSubtitle = $subtitleData[$cardID];
                     if (strtolower($cardSubtitle) == strtolower($subtitle)) {
                         // Found exact match for both title and subtitle
-                        return CardIDLookup($uuid);
+                        return $cardID;
                     }
                 }
             }
@@ -167,13 +191,13 @@ function FindCardSetCode($cardName) {
     // Still not found, try more aggressive normalization
     $normalizedCardName = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($cardName));
     global $titleData;
-    foreach ($titleData as $uuid => $title) {
+    foreach ($titleData as $cardID => $title) {
         $normalizedTitle = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($title));
         if (stripos($normalizedTitle, $normalizedCardName) !== false) {
-            return CardIDLookup($uuid); // Return set code instead of UUID
+            return $cardID; // $titleData is SET_NNN-keyed — the key IS the set code
         }
     }
-    
+
     return null;
 }
 
@@ -187,46 +211,48 @@ function FindCardMatches($cardName) {
     $cardName = strtolower(CardNicknames($cardName));
     global $titleData;
     $matches = [];
-    foreach ($titleData as $uuid => $title) {
+    foreach ($titleData as $cardID => $title) {
         if (stripos(strtolower($title), $cardName) !== false) {
-            $matches[] = CardIDLookup($uuid); // Return set code instead of UUID
+            $matches[] = $cardID; // $titleData is SET_NNN-keyed — the key IS the set code
         }
     }
     return $matches;
 }
 
 /**
- * Find the internal UUID for a leader name
- * 
+ * Find the internal SET_NNN card id for a leader name
+ *
+ * Named GetLeaderUUID until 2026-08-06. It returned a mix of UUIDs and SET_NNN ids by then —
+ * the $titleData branches already yielded SET_NNN while the FindCardSetCode branches converted
+ * to a UUID — and its result is written to meleetournamentdeck.leader, one of the tables the
+ * SET_NNN migration re-keyed. Every branch now returns SET_NNN.
+ *
  * @param string $leaderName The name of the leader (e.g. "Jango Fett, Concealing the Conspiracy")
- * @return string|null The internal UUID of the leader card or null if not found
+ * @return string|null The SET_NNN id of the leader card or null if not found
  */
-function GetLeaderUUID($leaderName) {
+function GetLeaderCardID($leaderName) {
     if(empty($leaderName)) return null;
-    
+
     // Debug: log the original input via error_log only (no more file logging)
-    error_log("GetLeaderUUID input: '$leaderName'");
+    error_log("GetLeaderCardID input: '$leaderName'");
     
     // Load the title and subtitle data for direct lookup
     global $titleData, $subtitleData;
     
     // Method 1: Try exact match with combined name
-    foreach ($titleData as $uuid => $title) {
-        if (isset($subtitleData[$uuid])) {
-            $fullName = "$title, $subtitleData[$uuid]";
+    foreach ($titleData as $cardID => $title) {
+        if (isset($subtitleData[$cardID])) {
+            $fullName = "$title, $subtitleData[$cardID]";
             if (strtolower($fullName) === strtolower($leaderName)) {
-                return $uuid;
+                return $cardID;
             }
         }
     }
     
     // Method 2: Try with the set code with the full name
     $leaderSetCode = FindCardSetCode($leaderName);
-    if($leaderSetCode !== null) {
-        $uuid = UUIDLookup($leaderSetCode);
-        if ($uuid) {
-            return $uuid;
-        }
+    if($leaderSetCode !== null && UUIDLookup($leaderSetCode) !== null) {
+        return $leaderSetCode;
     }
     
     // Method 3: Parse name and subtitle and try to match them separately
@@ -236,11 +262,11 @@ function GetLeaderUUID($leaderName) {
         $subtitle = isset($parts[1]) ? trim($parts[1]) : '';
         
         // Look for exact matches on character name and subtitle
-        foreach ($titleData as $uuid => $title) {
+        foreach ($titleData as $cardID => $title) {
             if (strtolower($title) === strtolower($characterName)) {
-                if (isset($subtitleData[$uuid])) {
-                    if (strtolower($subtitleData[$uuid]) === strtolower($subtitle)) {
-                        return $uuid;
+                if (isset($subtitleData[$cardID])) {
+                    if (strtolower($subtitleData[$cardID]) === strtolower($subtitle)) {
+                        return $cardID;
                     }
                 }
             }
@@ -251,11 +277,8 @@ function GetLeaderUUID($leaderName) {
     if(strpos($leaderName, ',') !== false) {
         $pipeFormat = str_replace(',', ' | ', $leaderName);
         $leaderSetCode = FindCardSetCode($pipeFormat);
-        if($leaderSetCode !== null) {
-            $uuid = UUIDLookup($leaderSetCode);
-            if ($uuid) {
-                return $uuid;
-            }
+        if($leaderSetCode !== null && UUIDLookup($leaderSetCode) !== null) {
+            return $leaderSetCode;
         }
     }
     
@@ -265,65 +288,64 @@ function GetLeaderUUID($leaderName) {
         
         // Try with just the base character name via set code
         $leaderSetCode = FindCardSetCode($baseCharacterName);
-        if($leaderSetCode !== null) {
-            $uuid = UUIDLookup($leaderSetCode);
-            if ($uuid) {
-                return $uuid;
-            }
+        if($leaderSetCode !== null && UUIDLookup($leaderSetCode) !== null) {
+            return $leaderSetCode;
         }
-        
+
         // Try direct name lookup for the base character
-        foreach ($titleData as $uuid => $title) {
+        foreach ($titleData as $cardID => $title) {
             if (strtolower($title) === strtolower($baseCharacterName)) {
-                return $uuid;
+                return $cardID;
             }
         }
     }
     
-    // Method 6: Try direct UUID lookup
+    // Method 6: Try direct dictionary lookup
     $matches = FindCard($leaderName);
     if(count($matches) > 0) {
         return $matches[0];
     }
-    
+
     // Method 7: Fuzzy search - try to match any part of the name
-    foreach ($titleData as $uuid => $title) {
+    foreach ($titleData as $cardID => $title) {
         // Check if the leader name contains the title or vice versa
         if (stripos($leaderName, $title) !== false || stripos($title, $leaderName) !== false) {
-            return $uuid;
+            return $cardID;
         }
-        
+
         // Also check with the subtitle if available
-        if (isset($subtitleData[$uuid])) {
-            $fullName = "$title, $subtitleData[$uuid]";
+        if (isset($subtitleData[$cardID])) {
+            $fullName = "$title, $subtitleData[$cardID]";
             if (stripos($leaderName, $title) !== false || stripos($fullName, $leaderName) !== false) {
-                return $uuid;
+                return $cardID;
             }
         }
     }
-    
-    error_log("No UUID found for leader: '$leaderName'");
+
+    error_log("No card id found for leader: '$leaderName'");
     return null;
 }
 
 /**
- * Find the internal UUID for a base name
- * 
+ * Find the internal SET_NNN card id for a base name
+ *
+ * Named GetBaseUUID until 2026-08-06 — see GetLeaderCardID for why this now returns SET_NNN.
+ *
  * @param string $baseName The name of the base (e.g. "Death Watch Hideout")
- * @return string|null The internal UUID of the base card or null if not found
+ * @return string|null The SET_NNN id of the base card or null if not found
  */
-function GetBaseUUID($baseName) {
+function GetBaseCardID($baseName) {
     if(empty($baseName)) return null;
-    
+
     // First try to get the set code
     $baseSetCode = FindCardSetCode($baseName);
-    
-    // If found, convert to UUID
-    if($baseSetCode !== null) {
-        return UUIDLookup($baseSetCode);
+
+    // FindCardSetCode already returns a SET_NNN id; UUIDLookup only confirms it is a real card.
+    if($baseSetCode !== null && UUIDLookup($baseSetCode) !== null) {
+        return $baseSetCode;
     }
-    
-    // If not found by set code, try direct UUID lookup
+
+    // If not found by set code, try direct dictionary lookup
     $matches = FindCard($baseName);
     if(count($matches) > 0) {
         return $matches[0];

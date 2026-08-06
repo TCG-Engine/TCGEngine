@@ -250,7 +250,7 @@ if ($action !== '') {
         // GeneratedCardDictionaries.php (pulled in by CardIdentifiers.php) assigns $titleData
         // and friends as top-level variables, and PHP scopes an include to the *calling*
         // function — loading it inside a closure makes them function-locals, so the `global
-        // $titleData` in GetLeaderUUID() finds nothing and every leader/base lookup silently
+        // $titleData` in GetLeaderCardID() finds nothing and every leader/base lookup silently
         // returns null. The symptom is a "successful" import with every deck leaderless.
         //
         // It also needs Stats/ as the CWD, because it uses relative includes ("../Core/...").

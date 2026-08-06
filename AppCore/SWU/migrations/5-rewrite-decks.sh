@@ -17,11 +17,12 @@ ROOT_DIR="$(cd "$HERE/../../.." && pwd)"
 PHP="${PHP_BIN:-php}"
 TOOL="$HERE/tools/rewrite-deck-files.php"
 
-APPLY=0; GAMES_ARG=""; PASSTHRU=()
+APPLY=0; GAMES_ARG=""; DECK_ARG=""; PASSTHRU=()
 for arg in "$@"; do
   case "$arg" in
     --apply)      APPLY=1 ;;
     --games-dir=*) GAMES_ARG="$arg" ;;
+    --deck=*)      DECK_ARG="$arg" ;;
     --php=*)      PHP="${arg#--php=}" ;;
     *) PASSTHRU+=("$arg") ;;
   esac
@@ -33,13 +34,13 @@ BEFORE=$(count)
 echo "== $BEFORE deck file(s) in $GAMES_DIR"
 
 if [ "$APPLY" -eq 0 ]; then
-  "$PHP" -d xdebug.mode=off "$TOOL" ${GAMES_ARG:+"$GAMES_ARG"} ${PASSTHRU+"${PASSTHRU[@]}"}
+  "$PHP" -d xdebug.mode=off "$TOOL" ${GAMES_ARG:+"$GAMES_ARG"} ${DECK_ARG:+"$DECK_ARG"} ${PASSTHRU+"${PASSTHRU[@]}"}
   exit $?
 fi
 
 echo "== APPLY  (~28 min at 105k files)"
 S=$(date +%s)
-"$PHP" -d xdebug.mode=off "$TOOL" --apply ${GAMES_ARG:+"$GAMES_ARG"} ${PASSTHRU+"${PASSTHRU[@]}"} || {
+"$PHP" -d xdebug.mode=off "$TOOL" --apply ${GAMES_ARG:+"$GAMES_ARG"} ${DECK_ARG:+"$DECK_ARG"} ${PASSTHRU+"${PASSTHRU[@]}"} || {
   echo "FATAL: rewrite failed — see above. Nothing further was checked."; exit 1; }
 echo "   elapsed: $(( $(date +%s) - S ))s"
 
@@ -52,7 +53,9 @@ AFTER=$(count)
 T=$(find "$GAMES_DIR" -name '*.migtmp' 2>/dev/null | wc -l)
 [ "$T" -eq 0 ] && echo "   ok    no .migtmp left behind" || { echo "   FAIL  $T .migtmp file(s) remain"; rc=1; }
 
-N=$("$PHP" -d xdebug.mode=off "$TOOL" ${GAMES_ARG:+"$GAMES_ARG"} 2>/dev/null \
+# The re-check MUST inherit --deck. Without it a one-deck canary re-scans all 105k files — a
+# 14-minute pass that then "fails" because the rest of the corpus is, correctly, not yet migrated.
+N=$("$PHP" -d xdebug.mode=off "$TOOL" ${GAMES_ARG:+"$GAMES_ARG"} ${DECK_ARG:+"$DECK_ARG"} 2>/dev/null \
      | grep '^files:' | sed -E 's/.*seen, ([0-9]+) .*/\1/')
 [ "${N:-x}" = "0" ] && echo "   ok    a second pass finds nothing to change (idempotent)" \
   || { echo "   FAIL  a second pass would still change ${N:-?} file(s)"; rc=1; }

@@ -45,9 +45,16 @@ SAVED="$ROOT_DIR/.htaccess.premigration"
 case "$MODE" in
   on)
     [ -n "$IP" ] || { echo "FATAL: --ip=<your public IP> is required. Get it with: curl -s ifconfig.me" >&2; exit 2; }
-    # Preserve anything already there. Prod may carry an untracked .htaccess that is load-bearing.
+    # Preserve anything already there — prod may carry an untracked .htaccess that is load-bearing.
+    # But NEVER preserve our OWN maintenance file: running `on` twice would otherwise save the
+    # maintenance config as the "pre-migration" one, and `off` would then restore the site straight
+    # back INTO maintenance while reporting success. Detect our marker and skip.
     if [ -e "$HT" ] && [ ! -e "$SAVED" ]; then
-      cp -a "$HT" "$SAVED" && echo "   saved existing .htaccess -> $SAVED"
+      if grep -q "SET_NNN migration maintenance" "$HT" 2>/dev/null; then
+        echo "   .htaccess is already ours — not saving it as pre-migration (maintenance is on already)"
+      else
+        cp -a "$HT" "$SAVED" && echo "   saved existing .htaccess -> $SAVED"
+      fi
     fi
     cat > "$HT" <<EOF
 # TEMPORARY — SET_NNN migration maintenance. Remove with: 1-maintenance.sh off
@@ -75,6 +82,12 @@ EOF
     echo "     A 200 on the first URL means AllowOverride is off and this file is being IGNORED."
     ;;
   off)
+    # Belt and braces: if the saved file is our own maintenance config (from an older buggy run),
+    # restoring it would put the site back into maintenance. Discard it instead.
+    if [ -e "$SAVED" ] && grep -q "SET_NNN migration maintenance" "$SAVED" 2>/dev/null; then
+      rm -f "$SAVED"
+      echo "   discarded $SAVED — it was a copy of the maintenance file, not a real original"
+    fi
     if [ -e "$SAVED" ]; then
       mv "$SAVED" "$HT" && echo "   restored the pre-migration .htaccess"
     else

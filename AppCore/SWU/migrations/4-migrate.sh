@@ -50,7 +50,10 @@ fi
 
 # Credentials come from a defaults file, never the command line — an inline -p exposes the password
 # in `ps` to every user on the box. MYCNF is exported by the runbook's §0 environment block.
+# MYCNF must be the FLAG form, not a bare path: it is passed to mysql as an argument, and a
+# bare path is read as a database name. Normalise rather than fail with a misleading error.
 MYCNF="${MYCNF:-}"
+case "$MYCNF" in ""|--defaults-extra-file=*) ;; *) MYCNF="--defaults-extra-file=$MYCNF" ;; esac
 MY=("$MYSQL_BIN")
 MYDUMP=("$MYSQLDUMP_BIN")
 if [ -n "$MYCNF" ]; then MY+=("$MYCNF"); MYDUMP+=("$MYCNF"); fi

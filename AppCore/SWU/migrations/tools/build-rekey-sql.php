@@ -168,7 +168,25 @@ foreach ($byTable as $table => $idCols) {
         $i++;
     }
 
+    // Can two source rows COLLIDE on the new primary key? Only if an identifier column is part of
+    // that key. If none is — completedgame keys on GameID, favoritedeck on (decklink,usersId) —
+    // then the mapping is one-to-one, nothing merges, and the GROUP BY is pure waste: it sorts the
+    // whole table and runs MAX() over every column to produce exactly the rows it started with.
+    //
+    // That is not a micro-optimisation. On completedgame it meant sorting 2.6M rows, which on a
+    // 2 GB box with no swap starved MySQL of memory badly enough that even SHOW PROCESSLIST hung.
+    $canCollide = false;
+    foreach (array_keys($idCols) as $c) { if (in_array($c, $pk, true)) { $canCollide = true; break; } }
+
     foreach ($allCols as $col) {
+        if (!$canCollide) {
+            // Straight projection: translate the identifiers, pass everything else through.
+            $select[] = isset($aliasFor[$col])
+                ? sprintf("IF(%s.`disposition` = 'keep', t.%s, %s.`newID`) AS %s",
+                          $aliasFor[$col], $q($col), $aliasFor[$col], $q($col))
+                : "t." . $q($col);
+            continue;
+        }
         if (isset($aliasFor[$col])) {
             // 'keep' writes the ORIGINAL value back: class-2 base colours must survive verbatim,
             // and the ci collation means 'Green' matched the map's 'green' row.
@@ -201,7 +219,13 @@ foreach ($byTable as $table => $idCols) {
     $out[] = "  " . implode(",\n  ", $select);
     $out[] = "FROM " . $q($table) . " t";
     $out[] = implode("\n", $joins);
-    if ($groupBy) $out[] = "GROUP BY " . implode(', ', $groupBy);
+    if ($canCollide && $groupBy) {
+        $out[] = "GROUP BY " . implode(', ', $groupBy);
+    } else {
+        $out[] = "-- No GROUP BY: no identifier column is part of the primary key, so the mapping is";
+        $out[] = "-- one-to-one and nothing can merge. Grouping here would sort the whole table to";
+        $out[] = "-- reproduce the rows it started with.";
+    }
     $out[] = ";";
     $out[] = "";
 
@@ -211,7 +235,7 @@ foreach ($byTable as $table => $idCols) {
     //    side by the same JOIN, so the two sides are comparable.
     $counters = array_values(array_filter($allCols,
         fn($c) => $cols[$table][$c]['numeric'] && !in_array($c, $pk, true) && !isset($aliasFor[$c])));
-    if ($counters) {
+    if ($counters && $canCollide) {
         $beforeSel = [];
         $afterSel  = [];
         foreach ($counters as $c) {
@@ -239,6 +263,11 @@ foreach ($byTable as $table => $idCols) {
         $out[] = "";
     }
 
+    if (!$canCollide) {
+        $out[] = "-- Counter assertion skipped: nothing aggregates here, so per-row values are copied";
+        $out[] = "-- verbatim. The row-count check below is the meaningful one.";
+        $out[] = "";
+    }
     $out[] = "-- Rows NOT carried forward (class 3 + merged duplicates), for the record:";
     $out[] = "SELECT (SELECT COUNT(*) FROM " . $q($table) . ") AS before_rows,";
     $out[] = "       (SELECT COUNT(*) FROM " . $q($table . '_new') . ") AS after_rows;";
