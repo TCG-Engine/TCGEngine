@@ -7097,6 +7097,23 @@ function FlushTriggerBag($activePlayer): bool {
 // "you may" fizzles the attack's combat damage AND leaves the turn un-swapped (a free extra action).
 // dontSkipOnPass=1 is a no-op for any non-PASS lastDecision, so this only changes the broken PASS path.
 function _SWUQueueOrchestration($player, string $param, int $block): void {
+    // ONE bare resume per action. A BARE "SWU_TRIGGER_RESUME|{p}" finalises the action when the
+    // EffectStack empties, so two of them finalise twice and swap the turn twice — with two seats
+    // that lands back on the acting player, reading as a free extra action (bug #922). Two arise
+    // when an attack NESTED in a play both flush triggers: the play's entry flush queues one
+    // (ActivateCard -> CollectEntryTriggers), then the attack's after-attack flush queues another
+    // (CollectCombatStep3Triggers -> CollectAfterAttackTriggers) because an attack-end trigger
+    // fired. The pending resume already re-drives the stack until it empties, so the second is
+    // redundant, not load-bearing — dropping it changes ordering not at all.
+    //
+    // Deliberately NOT applied to a resume carrying a continuation ("…|COMBAT|…"), which is state,
+    // not just a terminal, and must always be queued. And this is a QUEUE-time guard on purpose:
+    // suppressing at finalise time instead strands actions that legitimately have only one resume.
+    if (preg_match('/^SWU_TRIGGER_RESUME\|\d+$/', $param)) {
+        foreach (GetDecisionQueue($player) as $entry) {
+            if (($entry->Param ?? '') === $param) return;   // already pending — it will finalise
+        }
+    }
     DecisionQueueController::AddDecision($player, "CUSTOM", $param, $block, '', 1);
 }
 
