@@ -5,6 +5,7 @@
   require_once "../Core/StatsBaseRegistry.php";
   require_once "../AppCore/SWU/Formats.php"; // SWUFormatIsPreview()
   require_once "../AppCore/SWU/Maintenance.php"; // SWUMaintenanceRequire()
+  require_once "../AppCore/SWU/StatsIngress.php"; // SWUStatsIngressNormalizeManual()
 
   // Same freeze point as SubmitGameResult — this writes the same tables. No API key check here to
   // sit behind, so it gates first thing.
@@ -21,6 +22,33 @@
 
   $deckID = $data["deckID"];//gameName
   $format = isset($data["format"]) ? strtolower($data["format"]) : 'premier';
+
+  // Identifier gate. cardResults[].cardID, opposingHero and opposingBase are written straight into
+  // carddeckstats.cardID, opponentdeckstats.leaderID and opponentnamedbasestats.leaderID/baseID —
+  // all re-keyed to SET_NNN by the migration, and all PRIMARY KEY components. Nothing normalised
+  // them, so a client sending FFG UIDs would re-fragment the key space the migration just merged.
+  //
+  // Either shape is accepted and translated to SET_NNN. Anything unresolvable is REJECTED rather
+  // than written or quietly dropped — a row keyed on an unmappable identifier can never aggregate
+  // with anything, so it is worse than no row. (SubmitGameResult deliberately drops instead: it
+  // serves an external consumer that cannot retry a 4xx. This endpoint is first-party.)
+  //
+  // Runs BEFORE SaveDeckStats, which writes the deck's own stats and card stats before it ever
+  // reads the opponent leader — rejecting partway through would leave half a submission committed.
+  $swuManual = SWUStatsIngressNormalizeManual($data["player"]);
+  if (!$swuManual['ok']) {
+    http_response_code(400);
+    header('Content-Type: application/json');
+    error_log("SWU manual submit: unresolvable identifier '" . $swuManual['value']
+            . "' in " . $swuManual['field'] . " — submission rejected");
+    echo json_encode([
+      'success' => false,
+      'error'   => "Unrecognized card identifier '" . $swuManual['value'] . "' in "
+                 . $swuManual['field'] . ". Send a SET_NNN code (e.g. SOR_005) or a known FFG UID.",
+    ]);
+    exit;
+  }
+  $data["player"] = $swuManual['player'];
 
   SaveDeckStats($deckID, $data["player"], $won, $wasFirstPlayer, $numRounds, $winnerHealth, $gameName, $format);
   

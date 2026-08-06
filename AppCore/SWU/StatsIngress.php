@@ -112,3 +112,51 @@ function SWUStatsIngressNormalize(array &$data): array
 
     return $r;
 }
+
+// ── Manual submissions ───────────────────────────────────────────────────────────────────────
+//
+// SubmitManualGameResult carries a different payload from the engine's: ONE player object whose
+// identifiers are `cardResults[].cardID` (capital D — not the engine's `cardId`), `opposingHero`
+// and `opposingBase`. They are written straight into carddeckstats.cardID,
+// opponentdeckstats.leaderID and opponentnamedbasestats.leaderID/baseID — every one of them a
+// PRIMARY KEY component in a table the SET_NNN migration re-keyed — and nothing normalised them.
+//
+// This REJECTS where SWUStatsIngressNormalize() drops. The difference is deliberate and is about
+// who is calling: the engine path serves an external consumer that cannot retry a 4xx, so dropping
+// the narrowest thing preserves the rest of a submission it would otherwise lose. The manual path
+// is first-party, so an unresolvable identifier is a caller bug worth surfacing loudly — and since
+// these columns are all key components, a row written with one can never aggregate with anything.
+//
+// Accepts either shape. Returns:
+//   ['ok' => true,  'player' => <JSON string with every identifier as SET_NNN>]
+//   ['ok' => false, 'field' => <where>, 'value' => <the offending raw value>]
+function SWUStatsIngressNormalizeManual($playerData): array
+{
+    $p = json_decode(is_string($playerData) ? $playerData : json_encode($playerData), true);
+    // A payload this malformed never had identifiers to check; leave it for the caller's own
+    // handling rather than inventing a 400 for a shape this function does not own.
+    if (!is_array($p)) return ['ok' => true, 'player' => $playerData];
+
+    $fail = fn($field, $raw) => ['ok' => false, 'field' => $field, 'value' => $raw];
+
+    // A base is polymorphic — a COLOUR name is legitimate data (class 2) and survives verbatim.
+    foreach ([['opposingHero', false], ['opposingBase', true]] as [$field, $poly]) {
+        if (!isset($p[$field]) || $p[$field] === null || $p[$field] === '') continue;
+        $raw = (string)$p[$field];
+        $c = SWUCardIdentityClassify($raw, $poly);
+        if ($c['class'] === 3) return $fail($field, $raw);
+        $p[$field] = $c['to'];
+    }
+
+    if (isset($p['cardResults']) && is_array($p['cardResults'])) {
+        foreach ($p['cardResults'] as $i => $card) {
+            if (!is_array($card) || !isset($card['cardID'])) continue;
+            $raw = (string)$card['cardID'];
+            $c = SWUCardIdentityClassify($raw, false);
+            if ($c['class'] === 3) return $fail("cardResults[$i].cardID", $raw);
+            $p['cardResults'][$i]['cardID'] = $c['to'];
+        }
+    }
+
+    return ['ok' => true, 'player' => json_encode($p)];
+}

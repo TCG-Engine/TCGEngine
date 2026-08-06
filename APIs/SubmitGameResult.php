@@ -34,9 +34,33 @@
   // Translate every incoming identifier to SET_NNN BEFORE anything is read or written. Karabast
   // sends FFG UIDs by contract; the tables are SET_NNN-keyed. Without this, each submission writes
   // UUID rows back into the tables the migration merged and re-fragments them within hours.
-  // Accepts either shape, so a client can conform whenever it likes. Anything unresolvable is
-  // dropped at the narrowest granularity that still yields a keyable row, and logged.
+  // Accepts either shape, so a client can conform whenever it likes.
   $swuIngress = SWUStatsIngressNormalize($data);
+
+  // Unresolvable identifiers are REJECTED, not partially recorded.
+  //
+  // ⚠ BREAKING, changed 2026-08-06 by explicit decision. This endpoint previously dropped an
+  // unresolvable id at the narrowest granularity that still yielded a keyable row and returned
+  // success — so a submission naming one bad card silently lost that card's stats while the caller
+  // saw {"success": true}. Every affected column is a PRIMARY KEY component, so a row keyed on an
+  // unmappable identifier can never aggregate with anything; a 400 the caller can act on beats a
+  // quiet partial write. In practice clients almost never send one.
+  //
+  // A 400 is not retried, so a rejected game is lost rather than deferred. That is why this sits
+  // ahead of every write: a rejected submission must leave nothing behind. Contrast the 503 that
+  // maintenance mode returns, which exists precisely so submissions ARE retried.
+  if ($swuIngress['skipCompletedGame'] || $swuIngress['skipPlayer'][1]
+      || $swuIngress['skipPlayer'][2] || $swuIngress['droppedCards'] > 0) {
+    http_response_code(400);
+    header('Content-Type: application/json');
+    echo json_encode([
+      "success" => false,
+      "error"   => "Unrecognized card identifier(s). Send SET_NNN codes (e.g. \"SOR_005\") or known "
+                 . "FFG UIDs. Nothing was recorded for this game.",
+      "details" => $swuIngress['notes']
+    ]);
+    exit;
+  }
 
 	// Meta stats (the premier meta aggregate tables) are disabled if:
 	// - It's a shared team deck

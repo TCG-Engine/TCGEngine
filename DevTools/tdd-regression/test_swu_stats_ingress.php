@@ -113,5 +113,122 @@ $d = payload(['player1' => ['leader' => $LUKE, 'base' => $BASE, 'cardResults' =>
 SWUStatsIngressNormalize($d);
 $checks['array payload stays an array'] = is_array($d['player1']) && $d['player1']['leader'] === 'SOR_005';
 
+// ── Manual submissions: same shapes accepted, but unresolvable is REJECTED ───
+// SubmitManualGameResult writes carddeckstats.cardID, opponentdeckstats.leaderID and
+// opponentnamedbasestats.leaderID/baseID — all PK components in re-keyed tables — and normalised
+// none of them until 2026-08-06. Note the field is `cardID`, not the engine payload's `cardId`.
+function manualPayload($over = []) {
+    global $LUKE, $BASE, $CARD;
+    return json_encode(array_merge([
+        'opposingHero' => $LUKE,
+        'opposingBase' => $BASE,
+        'cardResults'  => [['cardID' => $CARD, 'played' => 2, 'resourced' => 1]],
+    ], $over));
+}
+
+$m = SWUStatsIngressNormalizeManual(manualPayload());
+$mp = json_decode($m['player'] ?? '', true);
+$checks['manual: accepted']              = $m['ok'] === true;
+$checks['manual: hero -> SET_NNN']       = ($mp['opposingHero'] ?? null) === 'SOR_005';
+$checks['manual: base -> SET_NNN']       = ($mp['opposingBase'] ?? null) === 'SOR_029';
+$checks['manual: cardID -> SET_NNN']     = ($mp['cardResults'][0]['cardID'] ?? null) === 'SOR_033';
+$checks['manual: non-id fields survive'] = ($mp['cardResults'][0]['played'] ?? null) === 2;
+$checks['manual: returns a JSON string'] = is_string($m['player'] ?? null);
+
+// SET_NNN in, SET_NNN out — Petranaki sends this shape.
+$m = SWUStatsIngressNormalizeManual(manualPayload([
+    'opposingHero' => 'SOR_005', 'opposingBase' => 'SOR_029',
+    'cardResults'  => [['cardID' => 'SOR_033']]]));
+$mp = json_decode($m['player'], true);
+$checks['manual: SET_NNN passes through'] = $m['ok'] === true
+    && $mp['opposingHero'] === 'SOR_005' && $mp['cardResults'][0]['cardID'] === 'SOR_033';
+
+// Reprints still fold, so manual rows aggregate with engine rows.
+$m = SWUStatsIngressNormalizeManual(manualPayload(['cardResults' => [['cardID' => 'SHD_030']]]));
+$checks['manual: reprint folds'] = json_decode($m['player'], true)['cardResults'][0]['cardID'] === 'SOR_033';
+
+// A base COLOUR is legitimate data and must NOT be rejected.
+$m = SWUStatsIngressNormalizeManual(manualPayload(['opposingBase' => 'Green']));
+$checks['manual: base colour accepted']  = $m['ok'] === true;
+$checks['manual: base colour verbatim']  = json_decode($m['player'], true)['opposingBase'] === 'Green';
+
+// THE REGRESSION THAT MATTERS: unresolvable is rejected outright, not written and not dropped.
+$m = SWUStatsIngressNormalizeManual(manualPayload(['opposingHero' => 'zzzzzzz001']));
+$checks['manual: bad hero rejected']     = $m['ok'] === false && $m['field'] === 'opposingHero';
+$checks['manual: rejection names value'] = ($m['value'] ?? null) === 'zzzzzzz001';
+$checks['manual: rejection has no player payload'] = !isset($m['player']);
+
+$m = SWUStatsIngressNormalizeManual(manualPayload(['cardResults' => [['cardID' => 'zzzzzzz001']]]));
+$checks['manual: bad card rejected']     = $m['ok'] === false && $m['field'] === 'cardResults[0].cardID';
+
+$m = SWUStatsIngressNormalizeManual(manualPayload(['opposingBase' => 'zzzzzzz001']));
+$checks['manual: bad base rejected']     = $m['ok'] === false && $m['field'] === 'opposingBase';
+
+// Tokens resolve here too — Karabast and the UI both surface them.
+$m = SWUStatsIngressNormalizeManual(manualPayload(['cardResults' => [['cardID' => '8752877738']]]));
+$checks['manual: token resolves'] = $m['ok'] === true
+    && json_decode($m['player'], true)['cardResults'][0]['cardID'] === 'SOR_T02';
+
+// The endpoint must actually use the gate, and use it BEFORE the write. SaveDeckStats commits the
+// deck's own stats before it ever reads the opponent leader, so a check placed inside it would
+// leave half a submission behind — assert on order, not merely on presence.
+//
+// Comments are stripped first. The require_once line NAMES the function in a trailing comment, so
+// a raw substring scan reports the gate as present even when the call has been removed — which it
+// did, silently, until this was fixed.
+$epRaw = file_get_contents(__DIR__ . '/../../APIs/SubmitManualGameResult.php');
+$ep = false;
+if ($epRaw !== false) {
+    $ep = '';
+    foreach (token_get_all($epRaw) as $t) {
+        if (is_array($t)) {
+            if ($t[0] === T_COMMENT || $t[0] === T_DOC_COMMENT) continue;
+            $ep .= $t[1];
+        } else $ep .= $t;
+    }
+}
+$posGate = $ep === false ? false : strpos($ep, 'SWUStatsIngressNormalizeManual(');
+$posSave = $ep === false ? false : strpos($ep, 'SaveDeckStats($deckID');
+$checks['endpoint: calls the gate']       = $posGate !== false;
+$checks['endpoint: gate precedes write']  = $posGate !== false && $posSave !== false && $posGate < $posSave;
+$checks['endpoint: rejects with 400']     = $ep !== false && strpos($ep, 'http_response_code(400)') !== false;
+
+// ── SubmitGameResult is strict too (changed 2026-08-06, breaking, by explicit decision) ──
+// The LIBRARY still reports drops at the narrowest granularity — that reporting is what the
+// endpoint now refuses on, and it is what makes the 400's `details` specific. So the checks above
+// asserting skipPlayer/droppedCards still describe the library correctly; what changed is that the
+// endpoint no longer proceeds when any of them is set.
+$engRaw = file_get_contents(__DIR__ . '/../../APIs/SubmitGameResult.php');
+$eng = false;
+if ($engRaw !== false) {
+    $eng = '';
+    foreach (token_get_all($engRaw) as $t) {
+        if (is_array($t)) {
+            if ($t[0] === T_COMMENT || $t[0] === T_DOC_COMMENT) continue;
+            $eng .= $t[1];
+        } else $eng .= $t;
+    }
+}
+$posNorm = $eng === false ? false : strpos($eng, 'SWUStatsIngressNormalize($data)');
+$posGate2 = $eng === false ? false : strpos($eng, "\$swuIngress['skipCompletedGame']");
+$checks['engine: normalizes']            = $posNorm !== false;
+$checks['engine: refuses on any skip']   = $posGate2 !== false;
+$checks['engine: gate follows normalize']= $posNorm !== false && $posGate2 !== false && $posNorm < $posGate2;
+// All four signals must be covered — refusing on only some would let a partial write through.
+foreach (["skipCompletedGame", "skipPlayer'][1]", "skipPlayer'][2]", "droppedCards"] as $sig) {
+    $checks["engine: gate covers $sig"] = $eng !== false && strpos($eng, $sig) !== false;
+}
+// The gate must precede every write. SaveDeckStats is the first of them.
+$posEngSave = $eng === false ? false : strpos($eng, 'SaveDeckStats(');
+$checks['engine: gate precedes write'] = $posGate2 !== false
+    && ($posEngSave === false || $posGate2 < $posEngSave);
+
+// The contract change is documented — a consumer must be able to discover it without reading PHP.
+$apiDoc = file_get_contents(__DIR__ . '/../../Stats/APIs.php');
+$checks['docs: 400 documented'] = $apiDoc !== false
+    && strpos($apiDoc, 'Unrecognized Card Identifiers (HTTP 400)') !== false;
+$checks['docs: both shapes documented'] = $apiDoc !== false
+    && strpos($apiDoc, 'either format') !== false;
+
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";

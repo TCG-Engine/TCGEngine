@@ -544,6 +544,28 @@ include_once "../SharedUI/Header.php";
         "p2SWUStatsToken": "Invalid or expired"
     }
 }</code></pre>
+
+            <h5>Unrecognized Card Identifiers (HTTP 400)</h5>
+            <p>Card identifiers may be sent in either format: <code>SET_NNN</code> codes
+            (<code>"SOR_005"</code>, <code>"SOR_T02"</code>) or 10-digit FFG UIDs
+            (<code>"2579145458"</code>). Both are accepted for <code>winHero</code>,
+            <code>loseHero</code>, and each player's <code>leader</code>, <code>base</code> and
+            <code>cardResults[].cardId</code>. Reprints are folded to their canonical printing so
+            rows aggregate correctly, and a base sent as a colour name (<code>"Green"</code>) is
+            preserved as-is.</p>
+            <p>If any identifier cannot be resolved, the whole submission is rejected with a 400 and
+            <strong>nothing is recorded</strong>. <code>details</code> lists each offending field.
+            This response is not retried &mdash; correct the identifier and resubmit.</p>
+            <pre><code>{
+    "success": false,
+    "error": "Unrecognized card identifier(s). Send SET_NNN codes (e.g. \"SOR_005\") or known FFG UIDs. Nothing was recorded for this game.",
+    "details": [
+        "unresolvable cardId 'zzzzzzz001' for player1 — that card's rows skipped"
+    ]
+}</code></pre>
+            <p><em>Changed 2026-08-06:</em> unresolvable identifiers previously caused only the
+            affected card, player, or completed-game row to be skipped, while the response was still
+            <code>{"success": true}</code>. Submissions with fully valid identifiers are unaffected.</p>
         </div>
     </div>
 
