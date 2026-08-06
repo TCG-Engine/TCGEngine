@@ -7,8 +7,9 @@
 // but SWUGetFormat()/SWUCheckFormat() still resolve them for anything mid-flight.
 
 function SWUFormatDefinitions() {
-    $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
+    $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH',];
     $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH',];
+    $previewSet = ['HMW',];   // the next set to release (or a future set's preview window)
     return [
         // NOTE: JTL_256 (Vulture Droid) copy-exception and JTL_024/025 deck-size modifiers are
         // GLOBAL card-intrinsic rules (see SWUGlobal*() below) — applied to every format EXCEPT
@@ -99,7 +100,7 @@ function SWUFormatDefinitions() {
         ],
         'padawan-preview' => [
             'displayName'   => 'Padawan Preview',
-            'legalSets'     => array_merge($eternalSets, ['HMW']),
+            'legalSets'     => array_merge($eternalSets, $previewSet),
             'banned'        => [],
             'legalRarities' => ['Common'],
             'enabled'       => true,
@@ -111,13 +112,13 @@ function SWUFormatDefinitions() {
         // back to false (or comment out) when the window closes.
         'preview' => [
             'displayName' => 'Premier Preview',
-            'legalSets'   => array_merge($premierSets, ['HMW']),
+            'legalSets'   => array_merge($premierSets, $previewSet),
             'banned'      => [],
             'enabled'     => true,
         ],
         'twinsuns-preview' => [
             'displayName' => 'Twin Suns Preview',
-            'legalSets'   => array_merge($eternalSets, ['HMW']),
+            'legalSets'   => array_merge($eternalSets, $previewSet),
             'banned'      => [],
             'minDeck'     => 80,
             'maxCopies'   => 1,
