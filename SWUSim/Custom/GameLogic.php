@@ -13814,7 +13814,15 @@ function _SWUPlotReoffer(int $player): void {
     global $playerID; $playerID = $player;   // for relative mzID resolution in MZCountChoices
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode('&', $eligible), 1,
         tooltip: "Play_a_Plot_card_from_your_resources");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "PLOT_PLAY", 1);
+    // dontSkipOnPass: PLOT_PLAY is the RESOLVER, and declining is a real outcome it has to handle —
+    // it clears SWU_PLOT_IN_PROGRESS and runs the deploy's real After Action. DecisionQueueController
+    // skips the decision following a PASS unless it opts out, and the UI's PASS button submits
+    // cardID=PASS, so without this the resolver never runs on a decline: the window stays open (the
+    // next card played is redirected back into the Plot orchestrator and re-offers) and the deploy
+    // never finalises (the turn never passes = a free extra action). Bug #923.
+    // Answering '-' took the non-PASS path and resolved correctly, which is why this hid from the
+    // schema tests until one drove the PASS button's actual value.
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PLOT_PLAY", 1, dontSkipOnPass: 1);
 }
 
 // MZMAYCHOOSE resolver: $lastDecision is the chosen resource mzID, or '-'/'' to decline.

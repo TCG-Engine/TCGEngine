@@ -89,6 +89,23 @@ function BugReportViewerHandleLoad(string $apiUrl, string $apiKey, int $id, stri
         if (!empty($step['error'])) return ['error' => $step['error']];
     }
 
+    // Drop the cached gamestate so the snapshot we just wrote is what the next request reads.
+    //
+    // SWUSim runs in apcu storage mode: WriteGamestate write-THROUGHS to both APCu and the file, but
+    // ParseGamestate reads APCu FIRST and only falls back to the file when that key is missing. This
+    // handler requires the target game to already exist locally, which means it always has a live APCu
+    // entry — so without this the snapshot lands on disk, the reply says "Loaded", and the board keeps
+    // rendering the pre-load state. Evicting the key forces the file fallback; the next WriteGamestate
+    // repopulates APCu normally.
+    //
+    // Keep in sync with GetGamestateStorageKey() in SWUSim/GamestateParser.php (generated, so it cannot
+    // be required here without pulling in the whole engine). Deleting rather than storing is deliberate:
+    // for the last-round/begin modes the CLI stepper has already rewritten the file, so the file — not
+    // $snap — is the authoritative content at this point.
+    if (function_exists('apcu_delete')) {
+        apcu_delete('tcgengine:gamestate:SWUSim:' . $targetGame);
+    }
+
     $where = $mode === 'begin' ? 'game start' : ($mode === 'last-round' ? 'start of the current round' : 'the reported state');
     return [
         'success'    => true,
