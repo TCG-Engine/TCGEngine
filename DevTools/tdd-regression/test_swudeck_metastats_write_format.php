@@ -10,7 +10,7 @@ $checks = [];
 $apiKey = isset($petranakiAPIKey) ? $petranakiAPIKey : (isset($karabastAPIKey) ? $karabastAPIKey : '');
 
 // Sentinel leader/base so we can find + clean the meta rows without touching real data.
-$LEAD = 'ZZMLEAD'; $BASE = 'ZZMBASE';
+$LEAD = 'JTL_T02'; $BASE = 'TWI_T01';
 $deckID = 999900070;
 $conn->query("DELETE FROM ownership WHERE assetType=1 AND assetIdentifier=$deckID");
 $conn->query("INSERT INTO ownership (assetType, assetIdentifier, assetOwner, assetStatus, assetVisibility) VALUES (1,$deckID,999999999,1,2000000)");
@@ -20,10 +20,10 @@ function wipeMeta($conn,$LEAD){ $l=$conn->real_escape_string($LEAD);
 function post($url,$d){ $ch=curl_init($url); curl_setopt_array($ch,[CURLOPT_POST=>1,CURLOPT_RETURNTRANSFER=>1,CURLOPT_TIMEOUT=>30,CURLOPT_HTTPHEADER=>['Content-Type: application/json'],CURLOPT_POSTFIELDS=>json_encode($d)]); $r=curl_exec($ch); curl_close($ch); return $r; }
 function payload($apiKey,$deckID,$LEAD,$BASE,$format){ return [
   'apiKey'=>$apiKey,'winner'=>1,'firstPlayer'=>1,'round'=>3,'winnerHealth'=>10,'gameName'=>strval($deckID),
-  'winHero'=>$LEAD,'loseHero'=>'ZZOPP','format'=>$format,
+  'winHero'=>$LEAD,'loseHero'=>'TWI_T02','format'=>$format,
   'p1DeckLink'=>"http://localhost/TCGEngine/?gameName=$deckID",
   'player1'=>json_encode(['leader'=>$LEAD,'base'=>$BASE,'cardResults'=>[],'turnResults'=>[]]),
-  'player2'=>json_encode(['leader'=>'ZZOPP','base'=>'Red','cardResults'=>[],'turnResults'=>[]]),
+  'player2'=>json_encode(['leader'=>'TWI_T02','base'=>'Red','cardResults'=>[],'turnResults'=>[]]),
 ]; }
 function metaRows($conn,$LEAD,$format){ $l=$conn->real_escape_string($LEAD); $f=$conn->real_escape_string($format);
   return intval($conn->query("SELECT COUNT(*) c FROM deckmetastats WHERE leaderID='$l' AND format='$f'")->fetch_assoc()['c']); }
@@ -47,6 +47,13 @@ $conn->query("DELETE FROM carddeckstats WHERE deckID=$deckID");
 $conn->query("DELETE FROM opponentdeckstats WHERE deckID=$deckID");
 $conn->query("DELETE FROM opponentnamedbasestats WHERE deckID=$deckID");
 $conn->query("DELETE FROM ownership WHERE assetType=1 AND assetIdentifier=$deckID");
+
+// completedgame too. Every prior version of this test cleaned the aggregate tables and forgot the
+// raw game log, so each run left a synthetic row behind keyed by an identifier that resolves to no
+// card — 21 of them had accumulated by 2026-08-05. Those rows are class 3 to the SET_NNN migration's
+// census, and a non-empty class 3 BLOCKS the cutover, so test residue could stall a maintenance
+// window. Sentinel-scoped, so it can only ever match rows this test created.
+$conn->query("DELETE FROM completedgame WHERE WinningHero IN ('JTL_T02','TWI_T02') OR LosingHero IN ('JTL_T02','TWI_T02')");
 $conn->close();
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";

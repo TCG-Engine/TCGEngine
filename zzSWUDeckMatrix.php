@@ -1,4 +1,10 @@
 <?php
+require_once __DIR__ . '/AppCore/SWU/Maintenance.php';
+// Mod tools stay REACHABLE during maintenance — the migration itself is driven from zz
+// pages. What they must not do is write a table that is about to be RENAMEd away, so the
+// gate sits on the write action, not on the page.
+SWUMaintenanceRequire('SWUDeck', 'stats');
+
 // zzSWUDeckMatrix.php — mod tool to re-fetch melee tournament data.
 //
 // Each tournament is re-imported by its own request: the largest event in the archive
@@ -244,7 +250,7 @@ if ($action !== '') {
         // GeneratedCardDictionaries.php (pulled in by CardIdentifiers.php) assigns $titleData
         // and friends as top-level variables, and PHP scopes an include to the *calling*
         // function — loading it inside a closure makes them function-locals, so the `global
-        // $titleData` in GetLeaderUUID() finds nothing and every leader/base lookup silently
+        // $titleData` in GetLeaderCardID() finds nothing and every leader/base lookup silently
         // returns null. The symptom is a "successful" import with every deck leaderless.
         //
         // It also needs Stats/ as the CWD, because it uses relative includes ("../Core/...").

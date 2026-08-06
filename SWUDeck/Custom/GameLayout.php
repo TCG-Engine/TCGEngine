@@ -730,12 +730,12 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
       // server-side, no more client-side "_back_cropped.png" guessing/fallback needed. The Leader
       // Unit side is a portrait action-pose image, so a tight portrait crop still reads correctly.
       var resolvedUrl = window.SWU_LEADER_CROP_URLS && window.SWU_LEADER_CROP_URLS[cardID];
-      img.src = resolvedUrl || ('./SWUDeck/crops/' + encodeURIComponent(cardID) + '_cropped.png');
+      img.src = resolvedUrl || ('/TCGEngine/AppCore/SWU/Images/crops/' + encodeURIComponent(resolveCardImageID(cardID)) + '_cropped.png');
     } else {
       // Bases: crops/*_cropped.png now has its own "Base" crop branch (zzImageConverter.php's
       // CheckImage()) tailored to the true landscape WebpImages source — banner + art, border and
       // cost pip trimmed off — the same close-in identity framing the Leader crop gives leaders.
-      img.src = './SWUDeck/crops/' + encodeURIComponent(cardID) + '_cropped.png';
+      img.src = '/TCGEngine/AppCore/SWU/Images/crops/' + encodeURIComponent(resolveCardImageID(cardID)) + '_cropped.png';
     }
   }
   // myLeaderSlot can hold more than one image (Twin Suns decks place up to 2 leaders in the

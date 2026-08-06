@@ -94,12 +94,25 @@ fclose($handler);
 $nestedCardPaths = isset($importOptions["nestedCardPaths"]) && !is_array($importOptions["nestedCardPaths"]) && $importOptions["nestedCardPaths"] != "" ? array_map("trim", explode(",", $importOptions["nestedCardPaths"])) : [];
 $supplementalCardSources = ImportOptionList($importOptions, "cardEditorSupplement");
 
+// SWU card art is ONE shared corpus for both SWU apps (SET_NNN-keyed, AppCore/SWU/Images/); every
+// other root keeps its own per-app art. Used for every CheckImage() call below — for a non-SWU root
+// this evaluates to exactly the old "./<rootName>/" value, so those apps are untouched.
+$artRootPath = ($rootName === "SWUSim" || $rootName === "SWUDeck")
+    ? "./AppCore/SWU/Images/"
+    : "./" . $rootName . "/";
+
 $rootPath = "./" . $rootName;
 if(!is_dir($rootPath)) mkdir($rootPath, 0755, true);
-if(!is_dir($rootPath . "/TempImages")) mkdir($rootPath . "/TempImages", 0755, true);
-if(!is_dir($rootPath . "/WebpImages")) mkdir($rootPath . "/WebpImages", 0755, true);
-if(!is_dir($rootPath . "/concat")) mkdir($rootPath . "/concat", 0755, true);
-if(!is_dir($rootPath . "/crops")) mkdir($rootPath . "/crops", 0755, true);
+// Image dirs come from $artRootPath, NOT $rootPath. For an SWU root that is the shared corpus;
+// using $rootPath here re-created SWUDeck/concat and SWUDeck/crops on every run — empty, but they
+// are the per-app trees the shared-corpus migration deleted, and the next art write would refill
+// them. Caught by test_swu_card_art_corpus's "no per-app art tree has reappeared" guard.
+$artDir = rtrim($artRootPath, "/");
+if(!is_dir($artDir)) mkdir($artDir, 0755, true);
+if(!is_dir($artDir . "/TempImages")) mkdir($artDir . "/TempImages", 0755, true);
+if(!is_dir($artDir . "/WebpImages")) mkdir($artDir . "/WebpImages", 0755, true);
+if(!is_dir($artDir . "/concat")) mkdir($artDir . "/concat", 0755, true);
+if(!is_dir($artDir . "/crops")) mkdir($artDir . "/crops", 0755, true);
 
 for($i=0; $i<count($properties); ++$i) {
   $property = trim($properties[$i]);
@@ -109,6 +122,50 @@ for($i=0; $i<count($properties); ++$i) {
 }
 
 $cacheFile = "./$rootName/GeneratedCode/cardArrayCache.json";
+
+// SWUDeck's SET_NNN for a card, derived from set code + card number (or the SET_T## token scheme).
+//
+// SWUDeck carries the UUID as $card->id all the way through Phase 1 — the uuidLookup/cardIdLookup
+// tables depend on that — so the SET_NNN has to be computed separately in TWO places: the art
+// FILENAME in Phase 1, and the dictionary KEY in Phase 2. They must produce the same string or the
+// dictionary points at filenames that do not exist. One function, called from both.
+//
+// $tokenCounters is by-reference so the fallback numbering is stable within a run.
+function SWUDeckSetNnnFor($card, array &$tokenCounters, array $tokenTypes) {
+    // A MOCK already carries its SET_NNN as $card->id (MockCardMerge emits 'id' => $cardID) and its
+    // art is named from that same id. Never recompute it: mock tokens have no serialCode, so they
+    // would fall to the counter fallback below and be RENUMBERED (HMW_T02 -> HMW_T01) while their
+    // art file stays mock_HMW_T02 — dictionary key and filename disagreeing is exactly what this
+    // function exists to prevent.
+    if (function_exists('SWUIsMockCardID') && SWUIsMockCardID((string)($card->id ?? ''))) {
+        return (string)$card->id;
+    }
+
+    $set = $card->expansion->data->attributes->code ?? '';
+    if ($set === '') return null;
+
+    $typeName = SWURelAttr($card->type ?? null, 'name') ?? '';
+    if (in_array($typeName, $tokenTypes, true)) {
+        // Tokens are numbered separately from cards upstream, so their cardNumber collides with a
+        // real card's (LAW cardNumber 1 is BOTH Saw Gerrera and the Credit token).
+        $serialCode = $card->serialCode ?? '';
+        if (preg_match('/[Tt]0*(\d+)$/', $serialCode, $m)) {
+            return $set . "_T" . str_pad(intval($m[1]), 2, '0', STR_PAD_LEFT);
+        }
+        $tokenCounters[$set] = ($tokenCounters[$set] ?? 0) + 1;
+        return $set . "_T" . str_pad($tokenCounters[$set], 2, '0', STR_PAD_LEFT);
+    }
+
+    $cardNumber = $card->cardNumber;
+    if (in_array($set, CardIDDoubleDigitSets, true)) {
+        if ($cardNumber < 10) $cardNumber = "0" . $cardNumber;
+    } else {
+        if ($cardNumber < 10) $cardNumber = "00" . $cardNumber;
+        else if ($cardNumber < 100) $cardNumber = "0" . $cardNumber;
+    }
+    return $set . "_" . $cardNumber;
+}
+$tokenCountersArt = []; // Phase 1 (art filenames)
 
 if($rootName == "SWUDeck" || $rootName == "SWUSim") {
   $validSets = [
@@ -213,11 +270,18 @@ if(!$withPreview && file_exists($cacheFile)) {
         $reprintMap[$cardID] = true;
       }
 
-      $definedType = $card->type->data->attributes->name;
-      if($definedType == "Token Unit" || $definedType == "Token Upgrade" || $definedType == "Force Token") {
-        $pageSkipped++; $totalSkipped++;
-        continue;
-      }
+      // Tokens JOIN the dictionary but NOT the deckbuilder. Karabast submits stats for them, and on
+      // prod they are 94% of all unresolvable stat rows — 13 ids totalling 54,312 rows we have been
+      // collecting for over a year and cannot read, because this branch used to `continue` here.
+      // Admitting them is what drops the SET_NNN migration's class 3 from 57,422 rows to ~3,100,
+      // i.e. it is the single change that makes the cutover gate passable.
+      //
+      // ⚠ Catalog admission below keys off $reprintMap, which is populated ABOVE this point — so a
+      // token reaching here also reaches $reprintMap. The `!$isToken` guard at the admission site is
+      // therefore load-bearing, not defensive: without it, tokens appear in deck search and format
+      // legality. Tokens are not deckbuildable (the same treatment TS26 gets in SWUSim).
+      //
+      // Spec: docs/superpowers/specs/2026-08-03-swudeck-setnnn-identity-migration-design.md §4
     } else if($rootName == "RBDeck") {
       $cardID = $card->id;
       $cardID = explode("/", $cardID)[0];
@@ -315,14 +379,26 @@ if(!$withPreview && file_exists($cacheFile)) {
         $thisImageUrl = $imageUrl . "hJb7hcK4Fd" . "." . $imageFormat;
       }
     }
+    // One expression for one shared corpus: this value selects the rotate/_resizeCover branch in
+    // CheckImage, and a corpus generated by two apps cannot have two rules for it. SWURelAttr is
+    // shape-tolerant (Strapi v4 nested and v5 flat), which is why the two apps' separate
+    // expressions agreed in the first place — see the equality assertion in
+    // DevTools/tdd-regression/test_swu_card_art_canvas.php.
     $cardType = "";
+    if($rootName == "SWUDeck" || $rootName == "SWUSim") {
+      $cardType = SWURelAttr($card->type ?? null, 'name') ?? GetPropertyValue($card, 'type') ?? "";
+    }
+
+    // The art FILENAME is always SET_NNN in the shared corpus. SWUSim's $cardID already is one;
+    // SWUDeck's is the UUID at this point (see $cardID = $card->cardUid above), so derive it — with
+    // the SAME function Phase 2 uses for the dictionary key, or the two drift and every image 404s.
+    $artCardID = $cardID;
     if($rootName == "SWUDeck") {
-      $cardType = SWURelAttr($card->type ?? null, 'name') ?? "";
-    } else if($rootName == "SWUSim") {
-      $cardType = GetPropertyValue($card, 'type');
+      $derived = SWUDeckSetNnnFor($card, $tokenCountersArt, $tokenTypesPhase1);
+      if($derived !== null) $artCardID = $derived;
     }
     if($thisImageUrl !== null) {
-      CheckImage($cardID, $thisImageUrl, $cardType, "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
+      CheckImage($artCardID, $thisImageUrl, $cardType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:$overwriteImages);
     } else {
       logLine("WARNING: No image URL for $cardID — skipping download.");
     }
@@ -343,19 +419,23 @@ if(!$withPreview && file_exists($cacheFile)) {
       // which IS the leader's UUID for SWUDeck — see $cardID = $card->cardUid above) HERE, in
       // Phase 1, because artBack gets stripped from $card before it's cached — by Phase 2 (where
       // LeaderUnitByUUID() used to be populated) it's already gone.
-      $backCardID = $cardID . "_back";
+      // Both SWU apps name a back side "<SET_NNN>_back" in the shared corpus. SWUDeck used to name
+      // it by the Strapi media-asset hash instead, which made the art a THIRD key space.
+      $backCardID = $artCardID . "_back";
       if ($rootName === "SWUDeck") {
+        // The asset hash is still RECORDED — LeaderUnitByUUID() feeds the identity-migration census
+        // sweep that resolves stray identifiers like ad86d54e97 -> TWI_017 — but it is no longer a
+        // FILENAME. Do not repurpose or empty this map.
         $artBackHash = $card->artBack->data->attributes->hash ?? null;
         if ($artBackHash) {
           $hashParts = explode('_', $artBackHash);
           $resolvedId = end($hashParts);
           if ($resolvedId) {
-            $backCardID = $resolvedId;
             $leaderUnitByUUIDMap[$cardID] = $resolvedId;
           }
         }
       }
-      CheckImage($backCardID, $thisBackImageUrl, $backType, "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
+      CheckImage($backCardID, $thisBackImageUrl, $backType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:$overwriteImages);
     }
 
     // Drop heavy API fields that NO later phase reads (verified: 0 references), so the
@@ -410,13 +490,16 @@ if($supplementalCardCount > 0) {
   logLine("Appended " . $supplementalCardCount . " supplemental cards from ImportSchema cardEditorSupplement sources.");
 }
 
-// Mock (preview) cards — tracked source in SWUSim/Custom/CardMocks.php, merged here so every
+// Mock (preview) cards — tracked source in AppCore/SWU/CardMocks.php, merged here so every
 // downstream artifact (dictionaries, client JS, ability stubs) includes them. Runs AFTER the
 // cache load/write so cardArrayCache.json stays pure API data: deleting a mock entry removes
 // the card on the next ordinary regen with no withPreview refetch.
-if($rootName == "SWUSim") {
-  require_once __DIR__ . '/SWUSim/DevTools/MockCardMerge.php';
-  $mockResult = SWUSimMergeMockCards($cardArray, true);
+// Both SWU apps: SWUDeck needs the same preview cards in its dictionary so an HMW/IC27 deck can be
+// searched, validated and rendered in the deckbuilder. The mock row carries both Strapi shapes
+// (see SWUMockToImportRow) because the two apps' GetPropertyValue branches read different ones.
+if($rootName == "SWUSim" || $rootName == "SWUDeck") {
+  require_once __DIR__ . '/AppCore/SWU/MockCardMerge.php';
+  $mockResult = SWUMergeMockCards($cardArray, true);
   $count = count($cardArray);
   foreach($mockResult['superseded'] as $supersededID) {
     logLine("mock " . $supersededID . " superseded by official data — safe to remove");
@@ -428,16 +511,23 @@ if($rootName == "SWUSim") {
   // Mock art: stored as mock_<CardID>.webp so stale preview art can never masquerade as official
   // art once the real card downloads. CheckImage handles webp conversion, concat and crops — and
   // the Imagick-not-GD path prod requires.
-  $mockDefs = SWUSimLoadMockCards();
+  $mockDefs = SWULoadMockCards();
   foreach($mockResult['added'] as $mockID) {
     $def = $mockDefs[$mockID] ?? [];
     $front = trim((string)($def['imageUrl'] ?? ''));
     $back  = trim((string)($def['imageUrlBack'] ?? ''));
     if($front !== '') {
-      CheckImage("mock_" . $mockID, $front, "", "", rootPath:"./" . $rootName . "/", overwriteImages:$overwriteImages);
+      CheckImage("mock_" . $mockID, $front, $def['type'] ?? "", "", rootPath:$artRootPath, overwriteImages:$overwriteImages);
     }
     if($back !== '') {
-      CheckImage("mock_" . $mockID . "_back", $back, "", "", rootPath:"./" . $rootName . "/", overwriteImages:$overwriteImages);
+      // A mock leader's back is its deployed unit side (portrait), EXCEPT for a flip leader whose
+      // back is another leader face — same rule as the official path above.
+      $mockIsFlipLeader = (($def['type'] ?? '') === 'Leader')
+          && empty($def['power']) && empty($def['hp']);
+      $mockBackType = (($def['type'] ?? '') === 'Leader')
+          ? ($mockIsFlipLeader ? "Leader" : "LeaderUnit")
+          : ($def['type'] ?? "");
+      CheckImage("mock_" . $mockID . "_back", $back, $mockBackType, "", rootPath:$artRootPath, overwriteImages:$overwriteImages);
     }
   }
 }
@@ -498,8 +588,21 @@ if($rootName == "SWUSim") {
   $associativeArrays["cardUUIDData"] = [];
 }
 $allCardIds = [];
+$tokenCountersDict = []; // SET → count, fallback for tokens whose serialCode has no T## suffix
 for ($i = 0; $i < count($cardArray); ++$i) {
   $card = $cardArray[$i];
+  // SWUDeck's dictionaries key by SET_NNN, matching SWUSim and the deck-JSON interchange format.
+  // The UUID survives as a boundary translation table (uuidLookup/cardIdLookup) because deck files
+  // and stats rows still hold it. Computed HERE, before the property loop, because it is the key.
+  $dictKey = $card->id;
+  if($rootName == "SWUDeck") {
+    // Same function that named the art file in Phase 1 — the dictionary key and the filename MUST
+    // agree or every image 404s. It also owns the token rule: tokens are numbered separately
+    // upstream, so LAW cardNumber 1 is BOTH Saw Gerrera and the Credit token, and under SET_NNN the
+    // token silently overwrote the leader until they were split into SET_T##.
+    $derivedKey = SWUDeckSetNnnFor($card, $tokenCountersDict, $tokenTypesPhase1);
+    if($derivedKey !== null) $dictKey = $derivedKey;
+  }
   foreach ($properties as $property) {
     $value = GetPropertyValue($card, $property);
     // SWUSim card logic and the test suite assume ASCII punctuation (straight quotes for
@@ -508,23 +611,33 @@ for ($i = 0; $i < count($cardArray); ++$i) {
     // quotes, en/em dashes, non-breaking hyphens). Normalise it back to ASCII so regenerating
     // does not silently break text-matching card logic. (Accented letters are left intact.)
     if ($rootName == "SWUSim") $value = NormalizeCardPunctuation($value);
-    $associativeArrays[$property][$card->id] = $value;
+    $associativeArrays[$property][$dictKey] = $value;
   }
   if($rootName == "SWUDeck") {
-    $cardNumber = $card->cardNumber;
-    $set = $card->expansion->data->attributes->code;
-    if(in_array($set, CardIDDoubleDigitSets, true)) {
-      if($cardNumber < 10) $cardNumber = "0" . $cardNumber;
-    } else {
-      if($cardNumber < 10) $cardNumber = "00" . $cardNumber;
-      else if($cardNumber < 100) $cardNumber = "0" . $cardNumber;
-    }
-    $cardID= $set . "_" . $cardNumber;
-    $associativeArrays["uuidLookup"][$cardID] = $card->id;
-    $associativeArrays["cardIdLookup"][$card->id] = $cardID;
+    $associativeArrays["uuidLookup"][$dictKey] = $card->id;
+    $associativeArrays["cardIdLookup"][$card->id] = $dictKey;
     // leaderUnitByUUID itself is populated in Phase 1 (see $leaderUnitByUUIDMap), NOT here —
     // $card->artBack is already stripped by this point (dropped before $cardArray gets cached).
-    if(isset($reprintMap[$card->id])) $allCardIds[] = $card->id;
+    // The reprintMap guard is UUID-keyed and its semantics are UNCHANGED: it currently admits
+    // 2,179 of 2,278 cards to the browse catalog. Only the value pushed changes.
+    // $reprintMap is built during the API fetch and cached; mocks are merged AFTERWARDS, so they
+    // are never in it. Admit them explicitly or a preview card exists in the dictionary but is
+    // invisible to the browse panes and deck search. SWUIsMockCardID() is in scope because the
+    // merge block above requires MockCardMerge.php for both SWU apps.
+    // Tokens (SET_T##) are NOT deckbuildable, so they stay out of the browse catalog — but they ARE
+    // in the dictionary, so their stat rows resolve (see the token note in the fetch branch above).
+    // $reprintMap is populated BEFORE that branch's token handling, so official tokens DO land in
+    // it; !$isToken is the only thing keeping them out of deck search and format legality. A token
+    // MOCK must not sneak in through the $isMock clause either. Two ship with no imageUrl, so they
+    // would render as broken tiles on top of being unbuildable.
+    // Test $dictKey, NOT $card->id. SWUDeck carries the UUID as $card->id all the way through
+    // Phase 1 (uuidLookup depends on that), so an official token's $card->id is '8752877738'
+    // and never matches _T##; only $dictKey holds the SET_T##. Testing $card->id here let 11
+    // official tokens into deck search while appearing to work, because MOCK tokens DO carry
+    // their SET_NNN as $card->id and were correctly excluded.
+    $isToken = (bool)preg_match('/_T\d{2}$/', (string)$dictKey);
+    $isMock = !$isToken && function_exists('SWUIsMockCardID') && SWUIsMockCardID((string)$card->id);
+    if(!$isToken && (isset($reprintMap[$card->id]) || $isMock)) $allCardIds[] = $dictKey;
   } else if($rootName == "SWUSim") {
     // card->id is already SET_NNN (built during Phase 1).
     // Store documentId → SET_NNN mapping for stat reporting.
@@ -626,11 +739,36 @@ try {
   logLine("WARNING: Could not initialize card abilities database: " . $e->getMessage());
 }
 
+// $leaderUnitByUUIDMap is keyed by UUID from Phase 1; the dictionaries are now SET_NNN-keyed, so
+// re-key it to match. The generated accessor normalises either key, but the stored map should be
+// in the dictionary's own scheme. The VALUES (Strapi media-asset hashes) are untouched — the
+// identity-migration census sweeps them to resolve stray ids like ad86d54e97 -> TWI_017.
+if($rootName == "SWUDeck" && !empty($leaderUnitByUUIDMap)) {
+  $rekeyed = [];
+  foreach($leaderUnitByUUIDMap as $uuid => $assetId) {
+    $k = $associativeArrays["cardIdLookup"][$uuid] ?? $uuid;
+    $rekeyed[$k] = $assetId;
+  }
+  $leaderUnitByUUIDMap = $rekeyed;
+}
+
 $directory = "./" . $rootName . "/GeneratedCode";
 if(!is_dir($directory)) mkdir($directory, 777, true);
 logLine("=== Phase 5: Writing GeneratedCardDictionaries.php ===");$generateFilename = $directory . "/GeneratedCardDictionaries.php";
 $handler = fopen($generateFilename, "w");
 fwrite($handler, "<?php\r\n");
+// SWUDeck only: deck files, ownership rows and stats rows still hold UUIDs, so every generated
+// accessor must take either key. SET_NNN passes through untouched; anything else is translated.
+// The 2026-08-03 migration deletes the need for this by re-keying stored data, at which point the
+// function becomes an identity and can be dropped.
+if($rootName == "SWUDeck") {
+  fwrite($handler, "function SWUNormalizeDictionaryKey(\$cardID) {\r\n");
+  fwrite($handler, "  if (\$cardID === null || \$cardID === '') return \$cardID;\r\n");
+  fwrite($handler, "  if (preg_match('/^[A-Z0-9]{2,5}_(T\\\\d{2}|\\\\d{2,3})\$/', (string)\$cardID)) return \$cardID;\r\n");
+  fwrite($handler, "  \$s = CardIDLookup(\$cardID);\r\n");
+  fwrite($handler, "  return (\$s !== null && \$s !== '') ? \$s : \$cardID;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
 foreach ($properties as $property) {
   $arr = $associativeArrays[$property];
   // For SWUSim: strip null and empty-string entries from every property except 'text'
@@ -642,6 +780,7 @@ foreach ($properties as $property) {
   fwrite($handler, "  \$" . $property . "Data = " . var_export($arr, true) . ";\r\n");
   fwrite($handler, "function Card" . ucwords($property) . "(\$cardID) {\r\n");
   fwrite($handler, "  global \$" . $property . "Data;\r\n");
+  if($rootName == "SWUDeck") fwrite($handler, "  \$cardID = SWUNormalizeDictionaryKey(\$cardID);\r\n");
   fwrite($handler, "  return isset(\$" . $property . "Data[\$cardID]) ? \$" . $property . "Data[\$cardID] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
@@ -652,6 +791,7 @@ foreach($keywordTypes as $keywordName => $type) {
   fwrite($handler, "  \$" . $keywordName . "Data = " . var_export($keywordData[$keywordName], true) . ";\r\n");
   fwrite($handler, "function " . $functionName . "(\$cardID) {\r\n");
   fwrite($handler, "  global \$" . $keywordName . "Data;\r\n");
+  if($rootName == "SWUDeck") fwrite($handler, "  \$cardID = SWUNormalizeDictionaryKey(\$cardID);\r\n");
   if($type === 'boolean') {
     fwrite($handler, "  return isset(\$" . $keywordName . "Data[\$cardID]) ? \$" . $keywordName . "Data[\$cardID] : false;\r\n");
   } else {
@@ -675,6 +815,7 @@ if($rootName == "SWUDeck") {
   // regular crop convention — NOT "_back_cropped.png") to get the Leader Unit's own crop file.
   fwrite($handler, "function LeaderUnitByUUID(\$uuid) {\r\n");
   fwrite($handler, "  \$data = " . var_export($leaderUnitByUUIDMap, true) . ";\r\n");
+  fwrite($handler, "  \$uuid = SWUNormalizeDictionaryKey(\$uuid);\r\n");
   fwrite($handler, "  return isset(\$data[\$uuid]) ? \$data[\$uuid] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
@@ -807,6 +948,26 @@ foreach ($oldFiles as $oldFile) {
 }
 $handler = fopen($generateFilename, "w");
 logLine("=== Phase 6: Writing " . basename($generateFilename) . " ===");
+// SWUDeck only: the CLIENT needs the same either-key façade the PHP accessors got. A saved deck's
+// zones still hold UUIDs until the identity migration re-keys them, so without this every
+// client-side lookup misses against the SET_NNN-keyed maps — which renders the browse panes empty,
+// because InLegalFilter() hides any card whose Cardset() comes back null.
+if($rootName == "SWUDeck") {
+  fwrite($handler, "var cardIdLookupData = " . json_encode($associativeArrays["cardIdLookup"]) . ";\r\n");
+  // SET_NNN -> uuid, for the image seam only: SWUDeck's art files are still UUID-named until the
+  // shared art corpus lands, so resolveCardImageID() maps back. Emitted for SWUDeck alone, which
+  // is how _swuArtKey() in jsInclude.js knows to leave SWUSim (SET_NNN-named art) untouched.
+  fwrite($handler, "var uuidLookupData = " . json_encode($associativeArrays["uuidLookup"]) . ";\r\n");
+  fwrite($handler, "function SWUNormalizeDictionaryKey(cardID) {\r\n");
+  fwrite($handler, "  if (cardID === null || cardID === undefined || cardID === '') return cardID;\r\n");
+  // NOTE the single-backslash escapes: this is emitted into a JS regex LITERAL, not a quoted
+  // string, so "\\d" here produces /\d/ in the output. Doubling them yields a literal backslash
+  // and the fast path silently never matches.
+  fwrite($handler, "  if (/^[A-Z0-9]{2,5}_(T\\d{2}|\\d{2,3})\$/.test(String(cardID))) return cardID;\r\n");
+  fwrite($handler, "  var s = cardIdLookupData[cardID];\r\n");
+  fwrite($handler, "  return (s !== undefined && s !== null && s !== '') ? s : cardID;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
 foreach ($properties as $property) {
   $arr = $associativeArrays[$property];
   if($rootName === "SWUSim" && $property !== 'text') {
@@ -814,6 +975,7 @@ foreach ($properties as $property) {
   }
   fwrite($handler, "var " . $property . "Data = " . json_encode($arr) . ";\r\n");
   fwrite($handler, "function Card" . $property . "(cardID) {\r\n");
+  if($rootName == "SWUDeck") fwrite($handler, "  cardID = SWUNormalizeDictionaryKey(cardID);\r\n");
   fwrite($handler, "  return " . $property . "Data[cardID] !== undefined ? " . $property . "Data[cardID] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
@@ -859,11 +1021,12 @@ if(($rootName == "SWUDeck" || $rootName == "SoulMastersDB") && file_exists($allS
 }
 $allSetsJson = json_encode($allSetsOrdered, JSON_FORCE_OBJECT);
 fwrite($handler, "var allSetsData = " . $allSetsJson . ";\r\n");
-if($rootName == "SWUSim") {
+if($rootName == "SWUSim" || $rootName == "SWUDeck") {
   // CardIDs whose art lives under a mock_ filename. The CardID itself is NEVER prefixed, so the
   // client resolves ID -> image filename through this map (resolveCardImageID in jsInclude.js).
+  // Both SWU apps: SWUDeck renders preview cards in its browse panes and deck lists too.
   $mockImageIDs = [];
-  foreach(array_keys(SWUSimLoadMockCards()) as $mockID) { $mockImageIDs[$mockID] = true; }
+  foreach(array_keys(SWULoadMockCards()) as $mockID) { $mockImageIDs[$mockID] = true; }
   fwrite($handler, "var MockCardImageIDs = " . json_encode($mockImageIDs, JSON_FORCE_OBJECT) . ";\r\n");
   fwrite($handler, "if(typeof window !== 'undefined') window.MockCardImageIDs = MockCardImageIDs;\r\n");
 }
@@ -878,11 +1041,14 @@ if($rootName == "SWUDeck" && file_exists("./AppCore/SWU/Overrides.php")) { // Ov
     $canonicalSetNNN = $overrideMatches[2][$oi];
     $reprintSetCode = explode("_", $reprintSetNNN)[0];
     if(!isset($allSetsOrdered[$reprintSetCode])) continue; // Skip promos/non-premier sets
-    $canonicalUUID = $associativeArrays["uuidLookup"][$canonicalSetNNN] ?? null;
-    if($canonicalUUID === null) continue;
-    if(!isset($reprintSetsMap[$canonicalUUID])) $reprintSetsMap[$canonicalUUID] = [];
-    if(!in_array($reprintSetCode, $reprintSetsMap[$canonicalUUID])) {
-      $reprintSetsMap[$canonicalUUID][] = $reprintSetCode;
+    // Keyed by canonical SET_NNN to match the dictionaries and the client's card ids. The
+    // uuidLookup probe is retained only as the "is this card in our pool?" test the old
+    // $canonicalUUID null-check performed. Left UUID-keyed, every client lookup would miss and
+    // the ordered-set filter would silently stop finding reprints.
+    if(!isset($associativeArrays["uuidLookup"][$canonicalSetNNN])) continue;
+    if(!isset($reprintSetsMap[$canonicalSetNNN])) $reprintSetsMap[$canonicalSetNNN] = [];
+    if(!in_array($reprintSetCode, $reprintSetsMap[$canonicalSetNNN])) {
+      $reprintSetsMap[$canonicalSetNNN][] = $reprintSetCode;
     }
   }
 }
@@ -1216,7 +1382,7 @@ function GetResponseMetadata($response, $metadataPath)
 
 function ExpandNestedCards(&$cardArray, $nestedCardPaths, &$otherOrientationMap, $imageUrl, $imageFormat)
 {
-  global $rootName;
+  global $rootName, $artRootPath;
   if(empty($nestedCardPaths)) return 0;
 
   $seenCardIds = [];
@@ -1250,7 +1416,7 @@ function ExpandNestedCards(&$cardArray, $nestedCardPaths, &$otherOrientationMap,
         if($rootName == "GudnakSim") {
           $squareCards = true;
         }
-        CheckImage($nestedCardId, $thisImageUrl, "", "", rootPath:"./" . $rootName . "/", squareCards:$squareCards);
+        CheckImage($nestedCardId, $thisImageUrl, "", "", rootPath:$artRootPath, squareCards:$squareCards);
       }
     }
   }
@@ -1274,7 +1440,7 @@ function ImportOptionList($importOptions, $key)
 
 function AppendSupplementalImportCards(&$cardArray, $sources)
 {
-  global $rootName, $overwriteImages;
+  global $rootName, $artRootPath, $overwriteImages;
   if(empty($sources)) return 0;
 
   $seenCardIds = [];
@@ -1317,7 +1483,7 @@ function AppendSupplementalImportCards(&$cardArray, $sources)
       ++$sourceAdded;
 
       if(isset($row->image_url) && trim((string)$row->image_url) !== "") {
-        CheckImage($cardID, trim((string)$row->image_url), "", "", rootPath:"./" . $rootName . "/", overwriteImages:$overwriteImages);
+        CheckImage($cardID, trim((string)$row->image_url), "", "", rootPath:$artRootPath, overwriteImages:$overwriteImages);
       }
     }
 

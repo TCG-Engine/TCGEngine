@@ -2,6 +2,7 @@
   // Start the session before any output so $_SESSION is populated for InitialLayout.php's
   // visibility dropdown (the Team/Patreon options need the logged-in user).
   if (session_status() === PHP_SESSION_NONE) session_start();
+  require_once __DIR__ . '/../AppCore/SWU/CardImagePath.php'; // the single SWU art-path seam
   include_once './GamestateParser.php';
   include_once './ZoneAccessors.php';
   include_once './ZoneClasses.php';
@@ -238,21 +239,26 @@
       $twinLeaders = count($activeLeaders) > 1;
       if(count($activeLeaders) > 0) {
         $leaderID = (string)$activeLeaders[0]->CardID;
-        $leaderPathID = rawurlencode($leaderID);
+        // The seam resolves the id scheme AND the mock prefix; the corpus names a leader's unit
+        // side "<SET_NNN>_back". Kept as a URL + onerror fallback so a leader with no unit side
+        // (flip cards) still shows its own crop.
+        $leaderCrop     = SWUCardImagePath($leaderID . '_back', 'crop');
+        $leaderCropBack = SWUCardImagePath($leaderID, 'crop');
         $leaderTitle = htmlspecialchars((string)CardTitle($leaderID), ENT_QUOTES, 'UTF-8');
-        $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-leader'><img src='./crops/" . $leaderPathID . "_back_cropped.png' onerror=\\\"this.onerror=null;this.src='./crops/" . $leaderPathID . "_cropped.png';\\\" alt='" . $leaderTitle . "'></div>";
+        $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-leader'><img src='" . $leaderCrop . "' onerror=\\\"this.onerror=null;this.src='" . $leaderCropBack . "';\\\" alt='" . $leaderTitle . "'></div>";
       }
       if($twinLeaders) {
         $leaderID2 = (string)$activeLeaders[1]->CardID;
-        $leaderPathID2 = rawurlencode($leaderID2);
+        $leaderCrop2     = SWUCardImagePath($leaderID2 . '_back', 'crop');
+        $leaderCropBack2 = SWUCardImagePath($leaderID2, 'crop');
         $leaderTitle2 = htmlspecialchars((string)CardTitle($leaderID2), ENT_QUOTES, 'UTF-8');
-        $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-leader-2'><img src='./crops/" . $leaderPathID2 . "_back_cropped.png' onerror=\\\"this.onerror=null;this.src='./crops/" . $leaderPathID2 . "_cropped.png';\\\" alt='" . $leaderTitle2 . "'></div>";
+        $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-leader-2'><img src='" . $leaderCrop2 . "' onerror=\\\"this.onerror=null;this.src='" . $leaderCropBack2 . "';\\\" alt='" . $leaderTitle2 . "'></div>";
       }
       if(count($bases) > 0) {
         $baseID = (string)$bases[0]->CardID;
-        $basePathID = rawurlencode($baseID);
+        $baseCrop = SWUCardImagePath($baseID, 'crop');
         $baseTitle = htmlspecialchars((string)CardTitle($baseID), ENT_QUOTES, 'UTF-8');
-        $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-base'><img src='./crops/" . $basePathID . "_cropped.png' alt='" . $baseTitle . "'></div>";
+        $identityParts[] = "<div class='swu-stats-identity-part swu-stats-identity-base'><img src='" . $baseCrop . "' alt='" . $baseTitle . "'></div>";
       }
       if(count($identityParts) > 0) {
         // has-single: 1 element (leader only). has-both: leader + base. has-twin-leaders: 2 leaders

@@ -1,4 +1,9 @@
 <?php
+// Maintenance gate — must precede any write.
+// Same parser, same meleetournamentdeck writes.
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
+SWUMaintenanceRequire('SWUDeck', 'stats');
+
 // MeleeTournamentParserAPI.php
 // API-safe version of the parser for FindOrImportMeleeTournament.php
 

@@ -27,10 +27,10 @@ function postJson($url, $data) {
 function payload($apiKey, $deckID, $format) {
     return [
         'apiKey'=>$apiKey, 'winner'=>1, 'firstPlayer'=>1, 'round'=>3, 'winnerHealth'=>10,
-        'gameName'=>strval($deckID), 'winHero'=>'ZZH_W', 'loseHero'=>'ZZH_L', 'format'=>$format,
+        'gameName'=>strval($deckID), 'winHero'=>'SOR_T01', 'loseHero'=>'SOR_T02', 'format'=>$format,
         'p1DeckLink'=>"http://localhost/TCGEngine/?gameName=$deckID",
-        'player1'=>json_encode(['leader'=>'ZZLEAD','base'=>'Green','cardResults'=>[['cardId'=>'ZZCARD','played'=>1,'resourced'=>1,'drawn'=>1,'discarded'=>0]],'turnResults'=>[]]),
-        'player2'=>json_encode(['leader'=>'ZZLEAD2','base'=>'Red','cardResults'=>[],'turnResults'=>[]]),
+        'player1'=>json_encode(['leader'=>'JTL_T01','base'=>'Green','cardResults'=>[['cardId'=>'LAW_T01','played'=>1,'resourced'=>1,'drawn'=>1,'discarded'=>0]],'turnResults'=>[]]),
+        'player2'=>json_encode(['leader'=>'JTL_T04','base'=>'Red','cardResults'=>[],'turnResults'=>[]]),
     ];
 }
 function fmtRows($conn, $deckID, $format) {
@@ -59,7 +59,7 @@ $resp = postJson($endpoint, payload($apiKey, $deckID, 'eternal'));
 $checks['eternal request succeeds'] = strpos((string)$resp, '"success":true') !== false;
 $checks['eternal deckstats row'] = fmtRows($conn, $deckID, 'eternal') === 1;
 $checks['eternal carddeckstats row'] = intval($conn->query("SELECT COUNT(*) c FROM carddeckstats WHERE deckID = $deckID AND format = 'eternal'")->fetch_assoc()['c']) === 1;
-// ZZCARD is a non-numeric card id on purpose: cardID is varchar(16), and SWUSim falls back to the raw
+// LAW_T01 is a non-numeric card id on purpose: cardID is varchar(16), and SWUSim falls back to the raw
 // SET_NNN CardID for any card without an FFG UID (SWUCardToStatsId), so non-numeric ids are real
 // traffic. These counters catch a cardID bound with the wrong type — the UPDATE then matches nothing.
 $counters = cardCounters($conn, $deckID, 'eternal');
@@ -77,10 +77,17 @@ $checks['open no deckstats row'] = intval($conn->query("SELECT COUNT(*) c FROM d
 // deckID-scoped wipe. Leaving them behind pollutes shared tables and makes other tests' assertions
 // collide with this test's fixture.
 wipe($conn, $deckID);
-$conn->query("DELETE FROM deckmetastats WHERE leaderID = 'ZZLEAD'");
-$conn->query("DELETE FROM deckmetamatchupstats WHERE leaderID = 'ZZLEAD'");
-$conn->query("DELETE FROM cardmetastats WHERE cardID = 'ZZCARD'");
+$conn->query("DELETE FROM deckmetastats WHERE leaderID = 'JTL_T01'");
+$conn->query("DELETE FROM deckmetamatchupstats WHERE leaderID = 'JTL_T01'");
+$conn->query("DELETE FROM cardmetastats WHERE cardID = 'LAW_T01'");
 $conn->query("DELETE FROM ownership WHERE assetType = 1 AND assetIdentifier = $deckID");
+
+// completedgame too. Every prior version of this test cleaned the aggregate tables and forgot the
+// raw game log, so each run left a synthetic row behind keyed by an identifier that resolves to no
+// card — 21 of them had accumulated by 2026-08-05. Those rows are class 3 to the SET_NNN migration's
+// census, and a non-empty class 3 BLOCKS the cutover, so test residue could stall a maintenance
+// window. Sentinel-scoped, so it can only ever match rows this test created.
+$conn->query("DELETE FROM completedgame WHERE WinningHero IN ('SOR_T01','SOR_T02','JTL_T01') OR LosingHero IN ('SOR_T01','SOR_T02','JTL_T01')");
 $conn->close();
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";

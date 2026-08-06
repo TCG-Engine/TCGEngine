@@ -1,7 +1,8 @@
 <?php
 // sync-preview-images.php [--dry] [--all] [--set=HMW] [--quiet]
 //
-// Mirrors the mock_ preview card art of PLAYABLE preview cards from SWUSim/WebpImages/ into
+// Mirrors the mock_ preview card art of PLAYABLE preview cards from the shared SWU art corpus
+// (AppCore/SWU/Images/WebpImages/) into
 // SWUSim/PreviewsImplemented/, so a public "Previews" page can show what is actually available to play
 // without having to reason about implementation status at render time.
 //
@@ -30,7 +31,7 @@ $repoRoot = getenv('REPO_ROOT') ?: (function () {
     return $d;
 })();
 
-const PREVIEW_SRC_DIR  = 'SWUSim/WebpImages';
+const PREVIEW_SRC_DIR  = 'AppCore/SWU/Images/WebpImages';
 const PREVIEW_DEST_DIR = 'SWUSim/PreviewsImplemented';
 
 // "mock_HMW_004_back.webp" -> "HMW_004"; null when the name isn't mock preview art.

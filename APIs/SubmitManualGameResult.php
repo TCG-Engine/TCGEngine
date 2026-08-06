@@ -4,6 +4,11 @@
   require_once "../Database/ConnectionManager.php";
   require_once "../Core/StatsBaseRegistry.php";
   require_once "../AppCore/SWU/Formats.php"; // SWUFormatIsPreview()
+  require_once "../AppCore/SWU/Maintenance.php"; // SWUMaintenanceRequire()
+
+  // Same freeze point as SubmitGameResult — this writes the same tables. No API key check here to
+  // sit behind, so it gates first thing.
+  SWUMaintenanceRequire('SWUDeck', 'stats');
 
   $input = file_get_contents('php://input');
   $data = json_decode($input, true);

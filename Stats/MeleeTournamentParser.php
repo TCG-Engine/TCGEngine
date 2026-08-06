@@ -164,8 +164,8 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
             $baseName = trim($parts[1]);   // Base Name
             
             // Convert the names to UUIDs using the helper functions
-            $leader = GetLeaderUUID($leaderName);
-            $base = GetBaseUUID($baseName);
+            $leader = GetLeaderCardID($leaderName);
+            $base = GetBaseCardID($baseName);
             
             // Debug output to identify problematic leader names
             if ($progressCallback) {
@@ -191,7 +191,7 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
                             'baseCharacterName' => $baseCharacterName
                         ]);
                     }
-                    $leader = GetLeaderUUID($baseCharacterName);
+                    $leader = GetLeaderCardID($baseCharacterName);
                     if ($leader && $progressCallback) {
                         $progressCallback([
                             'type' => 'leader_found',
@@ -211,7 +211,7 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
                         'pipeFormat' => $pipeFormat
                     ]);
                 }
-                $leader = GetLeaderUUID($pipeFormat);
+                $leader = GetLeaderCardID($pipeFormat);
                 if ($leader && $progressCallback) {
                     $progressCallback([
                         'type' => 'leader_found',
@@ -465,7 +465,7 @@ function parseMeleeTournament($roundId, $conn, $progressCallback = null) {
                     ]);
                 }
                 // Convert the opponent leader name to UUID using our improved function
-                $opponentLeaderUUID = GetLeaderUUID($opponentLeaderName);
+                $opponentLeaderUUID = GetLeaderCardID($opponentLeaderName);
                 if ($progressCallback) {
                     $progressCallback([
                         'type' => 'opponent_leader_uuid',

@@ -1,4 +1,10 @@
 <?php
+// Maintenance gate — must precede any write.
+// Deletes from carddeckstats / opponentdeckstats / opponentnamedbasestats and zeroes deckstats —
+  // four migration targets, from a live logged-in user action.
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
+SWUMaintenanceRequire('SWUDeck', 'stats');
+
   include_once './GamestateParser.php';
   include_once './ZoneAccessors.php';
   include_once './ZoneClasses.php';

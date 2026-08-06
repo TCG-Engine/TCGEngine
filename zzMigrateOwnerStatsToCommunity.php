@@ -1,4 +1,10 @@
 <?php
+require_once __DIR__ . '/AppCore/SWU/Maintenance.php';
+// Mod tools stay REACHABLE during maintenance — the migration itself is driven from zz
+// pages. What they must not do is write a table that is about to be RENAMEd away, so the
+// gate sits on the write action, not on the page.
+SWUMaintenanceRequire('SWUDeck', 'stats');
+
 /**
  * zzMigrateOwnerStatsToCommunity.php
  *

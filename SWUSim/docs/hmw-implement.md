@@ -1,7 +1,7 @@
 # HMW — Card Implementation Plan
 
 **⚠ PREVIEW SET.** 21 cards exist (19 numbered + 2 tokens) of ~262 printed, as mock entries in
-`SWUSim/Custom/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
+`AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
 previews land — the phases below cover only what is currently previewed.
 
 21 cards total: 2 Leaders, 1 Base, 10 Units, 5 Upgrades, 2 Tokens (1 Token Unit, 1 Token Upgrade).

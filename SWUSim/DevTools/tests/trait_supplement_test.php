@@ -46,18 +46,18 @@ check(strpos($gen, 'SWUSimApplyTraitSupplement') !== false, 'generator applies t
 // --- the real file exists and every key is a valid CardID ---
 // Uses the shared set-aware validator: TS26 numbers are TWO digits ("TS26_09"), so a flat 3-digit
 // rule would reject four legitimate bases.
-require_once __DIR__ . '/../MockCardMerge.php';
-check(SWUSimIsMockCardID('TS26_09'), 'validator accepts a double-digit set id');
-check(SWUSimIsMockCardID('JTL_030'), 'validator accepts a 3-digit id');
-check(SWUSimIsMockCardID('HMW_T01'), 'validator accepts a token id');
-check(!SWUSimIsMockCardID('JTL_30'), 'validator rejects an under-padded 3-digit-set id');
-check(!SWUSimIsMockCardID('TS26_009'), 'validator rejects an over-padded double-digit-set id');
+require_once __DIR__ . '/../../../AppCore/SWU/MockCardMerge.php';
+check(SWUIsMockCardID('TS26_09'), 'validator accepts a double-digit set id');
+check(SWUIsMockCardID('JTL_030'), 'validator accepts a 3-digit id');
+check(SWUIsMockCardID('HMW_T01'), 'validator accepts a token id');
+check(!SWUIsMockCardID('JTL_30'), 'validator rejects an under-padded 3-digit-set id');
+check(!SWUIsMockCardID('TS26_009'), 'validator rejects an over-padded double-digit-set id');
 
 $real = SWUSimLoadTraitSupplement();
 check(is_array($real), 'real supplement loads');
 check(count($real) >= 91, 'supplement covers every base, got ' . count($real));
 foreach (array_keys($real) as $cid) {
-    check(SWUSimIsMockCardID($cid), "supplement key $cid is a valid CardID");
+    check(SWUIsMockCardID($cid), "supplement key $cid is a valid CardID");
 }
 
 echo "OK\n";

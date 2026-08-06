@@ -1,4 +1,9 @@
 <?php
+// Maintenance gate — must precede any write.
+// Writes a new deck gamestate file.
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
+SWUMaintenanceRequire('SWUDeck', 'deck');
+
   include_once './GamestateParser.php';
   include_once './ZoneAccessors.php';
   include_once './ZoneClasses.php';
@@ -245,17 +250,17 @@
         UpdateAssetName(1, $gameName, $deckObj->metadata->name); // Update deck name if available
       }
       if(isset($deckObj->leader)) {
-        $leader = UUIDLookup(NormalizeCardID($deckObj->leader->id));
+        $leader = SWUDeckImportCardID($deckObj->leader->id);
         SetAssetKeyIdentifier(1, $gameName, 1, $leader);
         array_push($p1Leader, new Leader($leader));
       }
       if(isset($deckObj->secondleader)) {
-        $secondLeader = UUIDLookup(NormalizeCardID($deckObj->secondleader->id));
+        $secondLeader = SWUDeckImportCardID($deckObj->secondleader->id);
         SetAssetKeyIdentifier(1, $gameName, 3, $secondLeader);
         array_push($p1Leader, new Leader($secondLeader));
       }
       if(isset($deckObj->base)) {
-        $base = UUIDLookup(NormalizeCardID($deckObj->base->id));
+        $base = SWUDeckImportCardID($deckObj->base->id);
         SetAssetKeyIdentifier(1, $gameName, 2, $base);
         array_push($p1Base, new Base($base));
       }
@@ -263,7 +268,7 @@
       if($deck != null) {
         for($i=0; $i<count($deck); ++$i) {
           $cardID = CardIDOverride(NormalizeCardID($deck[$i]->id ?? null));
-          $cardID = UUIDLookup($cardID);
+          $cardID = SWUDeckImportCardID($cardID);
           // A lookup miss (unknown/retired/not-yet-added set code) must not become a phantom
           // zone entry with a blank CardID — that renders as a broken card image client-side.
           if ($cardID === null) {
@@ -279,7 +284,7 @@
       if($sideboard != null) {
         for($i=0; $i<count($sideboard); ++$i) {
           $cardID = CardIDOverride(NormalizeCardID($sideboard[$i]->id ?? null));
-          $cardID = UUIDLookup($cardID);
+          $cardID = SWUDeckImportCardID($cardID);
           if ($cardID === null) {
             error_log("CreateDeck: sideboard card not found for id '" . ($sideboard[$i]->id ?? '') . "' — skipping.");
             continue;

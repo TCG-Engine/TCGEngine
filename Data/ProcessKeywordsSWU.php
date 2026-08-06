@@ -31,8 +31,8 @@ $cardArray = $cacheData['cardArray'];
 
 // Mock (preview) cards live in tracked source, not the cache — merge them so previewed cards
 // get keyword arrays too. Array mode: this file works on assoc arrays, not objects.
-require_once __DIR__ . '/../SWUSim/DevTools/MockCardMerge.php';
-$mockResult = SWUSimMergeMockCards($cardArray, false);
+require_once __DIR__ . '/../AppCore/SWU/MockCardMerge.php';
+$mockResult = SWUMergeMockCards($cardArray, false);
 if (count($mockResult['added']) > 0) {
     echo "Merged " . count($mockResult['added']) . " mock card(s) for keyword parsing\n";
 }

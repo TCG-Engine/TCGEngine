@@ -2,7 +2,7 @@
 // Mock loading, API-shape adaptation, and merge precedence (official data always wins).
 function check($cond, $msg) { if (!$cond) { fwrite(STDERR, "FAIL: $msg\n"); exit(1); } }
 
-require __DIR__ . '/../MockCardMerge.php';
+require __DIR__ . '/../../../AppCore/SWU/MockCardMerge.php';
 
 $fixture = sys_get_temp_dir() . '/cardmocks_' . getmypid() . '.php';
 file_put_contents($fixture, <<<'PHP'
@@ -26,12 +26,12 @@ return [
 PHP);
 
 // --- load ---
-$mocks = SWUSimLoadMockCards($fixture);
+$mocks = SWULoadMockCards($fixture);
 check(count($mocks) === 1, 'loaded one mock');
 check(isset($mocks['HMW_004']), 'keyed by SET_NNN');
 
 // --- adapt to API shape ---
-$row = SWUSimMockToImportRow('HMW_004', $mocks['HMW_004']);
+$row = SWUMockToImportRow('HMW_004', $mocks['HMW_004']);
 check($row['id'] === 'HMW_004', 'row id is the CardID');
 check($row['type']['name'] === 'Leader', 'type is a relation object with name');
 check($row['arenas'][0]['name'] === 'Space', 'arenas is a relation list');
@@ -45,14 +45,14 @@ check($row['documentId'] === '', 'mocks carry no documentId');
 
 // --- merge: mock-only card is appended ---
 $cards = [];
-$res = SWUSimMergeMockCards($cards, false, $fixture);
+$res = SWUMergeMockCards($cards, false, $fixture);
 check($res['added'] === ['HMW_004'], 'mock-only card added');
 check($res['superseded'] === [], 'nothing superseded');
 check(count($cards) === 1, 'card array grew by one');
 
 // --- merge: official data wins ---
 $cards = [['id' => 'HMW_004', 'title' => 'Official Tarkin']];
-$res = SWUSimMergeMockCards($cards, false, $fixture);
+$res = SWUMergeMockCards($cards, false, $fixture);
 check($res['added'] === [], 'no mock added when official exists');
 check($res['superseded'] === ['HMW_004'], 'reported as superseded');
 check(count($cards) === 1, 'card array unchanged');
@@ -60,17 +60,17 @@ check($cards[0]['title'] === 'Official Tarkin', 'official row untouched');
 
 // --- merge: object mode for the generator ---
 $cards = [];
-SWUSimMergeMockCards($cards, true, $fixture);
+SWUMergeMockCards($cards, true, $fixture);
 check(is_object($cards[0]), 'object mode yields objects');
 check($cards[0]->type->name === 'Leader', 'nested relations are objects too');
 check($cards[0]->id === 'HMW_004', 'object row keeps its id');
 
 // --- the generator merges AFTER the cache is written, so the cache stays pure API data ---
 $gen = file_get_contents(__DIR__ . '/../../../zzCardCodeGenerator.php');
-check(strpos($gen, 'SWUSimMergeMockCards') !== false, 'generator calls SWUSimMergeMockCards');
-check(strpos($gen, "require_once __DIR__ . '/SWUSim/DevTools/MockCardMerge.php'") !== false,
+check(strpos($gen, 'SWUMergeMockCards') !== false, 'generator calls SWUMergeMockCards');
+check(strpos($gen, "require_once __DIR__ . '/AppCore/SWU/MockCardMerge.php'") !== false,
       'generator requires MockCardMerge');
-$mergePos = strpos($gen, 'SWUSimMergeMockCards');
+$mergePos = strpos($gen, 'SWUMergeMockCards');
 $cachePos = strpos($gen, 'file_put_contents($cacheFile');
 check($cachePos === false || $mergePos > $cachePos,
       'mock merge runs after the cache write so mocks never enter the cache');
@@ -79,7 +79,7 @@ check(strpos($gen, '"IC27"') !== false || strpos($gen, "'IC27'") !== false, 'IC2
 
 // --- keyword processor merges mocks and knows Fortify ---
 $kw = file_get_contents(__DIR__ . '/../../../Data/ProcessKeywordsSWU.php');
-check(strpos($kw, 'SWUSimMergeMockCards') !== false, 'keyword processor merges mocks');
+check(strpos($kw, 'SWUMergeMockCards') !== false, 'keyword processor merges mocks');
 check(preg_match("/\\\$booleanKeywords\s*=\s*\[[^\]]*'Fortify'/s", $kw) === 1,
       'Fortify registered as a boolean keyword');
 

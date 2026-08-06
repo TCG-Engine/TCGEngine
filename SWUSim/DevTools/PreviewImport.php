@@ -35,9 +35,9 @@ function SWUPreviewRarities(): array {
 
 // Sets whose card numbers are TWO digits ("TS26_09"), not three — padding to 3 silently returns an
 // EMPTY record for these sets. Delegates to the mock pipeline's canonical list.
-require_once __DIR__ . '/MockCardMerge.php';
+require_once __DIR__ . '/../../AppCore/SWU/MockCardMerge.php';
 function SWUPreviewDoubleDigitSets(): array {
-    return SWUSimDoubleDigitSets();
+    return SWUDoubleDigitSets();
 }
 
 // Zero-pad a card number to the width its set uses.
@@ -209,7 +209,7 @@ function SWUPreviewClassify(array $rec): array {
     return ['kind' => 'new', 'canonical' => null];
 }
 
-// Source record -> a flat mock entry (SWUSim/Custom/CardMocks.php shape).
+// Source record -> a flat mock entry (AppCore/SWU/CardMocks.php shape).
 function SWUPreviewToMock(array $rec): array {
     $types    = SWUPreviewCardTypes();
     $arenas   = SWUPreviewArenas();

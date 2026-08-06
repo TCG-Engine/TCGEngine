@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
 
 function MatchReplayModuleConfig() {
   if (!function_exists('GetModuleConfig')) return null;
@@ -309,6 +310,12 @@ function MatchReplayPlaybackState() {
 }
 
 function MatchReplayEnterInterrupt($rootName, $gameName) {
+  // Maintenance gate: this path rewrites a game's Gamestate.txt from its replay, which races
+  // the deck-file rewrite. App-aware via $rootName — see EngineExecuteLoadedAction.
+  if (function_exists('SWUMaintenanceRequire') && is_string($rootName) && $rootName !== '') {
+    SWUMaintenanceRequire($rootName, 'deck');
+  }
+
   global $updateNumber;
   $state = MatchReplayGetCommandState();
   if (empty($state['playback'])) return ['success' => false, 'message' => 'This game is not a replay playback session.'];

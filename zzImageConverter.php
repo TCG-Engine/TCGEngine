@@ -46,6 +46,40 @@ function _resizeCover($image, $targetW, $targetH)
     $image->setImagePage(0, 0, 0, 0);
 }
 
+// The deterministic canvas for a card class. Leader and Base render landscape in their slots;
+// everything else — including a leader's deployed LeaderUnit side, tokens, and any type we do not
+// recognise — is portrait. Callers MUST NOT branch on type themselves; this is the one rule.
+function _cardCanvas($definedType)
+{
+    if ($definedType === "Base" || $definedType === "Leader") return [628, 450];
+    return [450, 628];
+}
+
+// Rotate a source into its class's orientation, then force it onto the exact canvas.
+//
+// This ALWAYS ends in _resizeCover. The previous code used _resizeCover for Leader/Base but
+// resizeImage(..., bestfit:true) everywhere else; bestfit is CSS "contain", so the output size
+// tracked each source's aspect ratio and the pool ended up holding 450x628, 449x628 and 450x627
+// simultaneously. concat/ and crops/ cut fixed pixel windows, so they inherited the drift.
+function _normalizeCardCanvas($image, $definedType)
+{
+    list($targetW, $targetH) = _cardCanvas($definedType);
+
+    if ($targetW > $targetH) {
+        // Landscape class (Leader/Base): a portrait source is a rotated scan.
+        if ($image->getImageHeight() > $image->getImageWidth()) {
+            $image->rotateimage(new ImagickPixel('none'), -90);
+        }
+    } else {
+        // Portrait class. A leader's unit side arrives landscape; rotate it upright.
+        if ($image->getImageWidth() > $image->getImageHeight()) {
+            $image->rotateimage(new ImagickPixel('none'), 90);
+        }
+    }
+
+    _resizeCover($image, $targetW, $targetH);
+}
+
 // Card dimensions after resize: 450×628 (portrait) or 628×450 (landscape for Leader/Base).
 //
 // Concat crop specs (all produce 450×450 output from a 450×628 portrait card):
@@ -113,30 +147,7 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
         // new Imagick() throws if the download is corrupt / not an image, which aborts the run.
         $image = new Imagick($tempName);
         if (!$squareCards) {
-            if ($definedType == "Base" || $definedType == "Leader") {
-                if ($image->getImageHeight() > $image->getImageWidth()) {
-                    $image->rotateimage(new ImagickPixel('none'), -90);
-                }
-                // bestfit=true resizeImage is CSS "contain" (fit inside the box, preserving
-                // aspect) — it does NOT guarantee the output is exactly 628x450, only that it
-                // fits within that box. Real card scans have per-card micro-variance in source
-                // aspect ratio, so bestfit alone produces a slightly different canvas size per
-                // card (e.g. 628x449 vs 627x450) with no fixed anchor point. Any fixed-pixel crop
-                // downstream (the identity-banner Base/Leader crops below) then lands at a
-                // slightly different spot on the card for every card, occasionally clipping into
-                // the card's own border. _resizeCover forces an identical, deterministic
-                // 628x450 canvas for every card (CSS "cover": scale to fill, crop the overflow),
-                // so downstream fixed-pixel crops are reliable across the whole card pool.
-                _resizeCover($image, 628, 450);
-            } elseif ($definedType == "LeaderUnit") {
-                // Leader unit-side arrives landscape; rotate to portrait before resizing.
-                if ($image->getImageWidth() > $image->getImageHeight()) {
-                    $image->rotateimage(new ImagickPixel('none'), 90);
-                }
-                $image->resizeImage(450, 628, Imagick::FILTER_LANCZOS, 1, true);
-            } else {
-                $image->resizeImage(450, 628, Imagick::FILTER_LANCZOS, 1, true);
-            }
+            _normalizeCardCanvas($image, $definedType);
         }
         $image->setImageFormat('webp');
         if (!$image->writeImage($filename)) throw new Exception("Imagick failed to write webp for $cardID.");

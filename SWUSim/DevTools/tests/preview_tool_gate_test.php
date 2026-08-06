@@ -13,13 +13,13 @@ check(strpos($src, 'http_response_code(404)') !== false, 'returns a real 404');
 
 // Both gates must precede any write helper being called.
 $gatePos  = strpos($src, 'http_response_code(404)');
-$writePos = strpos($src, 'SWUSimWriteMockCard');
+$writePos = strpos($src, 'SWUWriteMockCard');
 check($writePos === false || $gatePos < $writePos, 'gate precedes any write');
 
 // --- reprint path is wired ---
 check(strpos($src, "'override'") !== false || strpos($src, '"override"') !== false,
       'page exposes an override action');
-check(strpos($src, 'SWUSimWriteReprintOverride') !== false, 'override action calls the writer');
+check(strpos($src, 'SWUWriteReprintOverride') !== false, 'override action calls the writer');
 check(strpos($src, 'function createOverride') !== false, 'client handler exists');
 check(strpos($src, 'IsSWUCardID($canonical)') !== false,
       'refuses to map onto a CardID the dictionaries do not know');
@@ -29,7 +29,7 @@ foreach (['list', 'edit', 'delete', 'setlist', 'regen'] as $act) {
     check(strpos($src, "'" . $act . "'") !== false || strpos($src, '"' . $act . '"') !== false,
           'page exposes the ' . $act . ' action');
 }
-check(strpos($src, 'SWUSimDeleteMockCard') !== false, 'delete action calls the writer');
+check(strpos($src, 'SWUDeleteMockCard') !== false, 'delete action calls the writer');
 check(strpos($src, 'superseded') !== false, 'listing flags superseded mocks');
 check(strpos($src, 'zzCardCodeGenerator.php') !== false, 'regen runs the dictionary generator');
 check(strpos($src, 'ProcessKeywordsSWU.php') !== false, 'regen runs the keyword processor');

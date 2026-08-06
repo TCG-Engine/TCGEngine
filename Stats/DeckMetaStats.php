@@ -6,6 +6,8 @@ include_once '../Core/HTTPLibraries.php';
 include_once "../Core/UILibraries.php";
 include_once '../Database/ConnectionManager.php';
 include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
+include_once '../AppCore/SWU/CardImagePath.php';       // SWUCardImagePath / SWUCardArtScript
+echo SWUCardArtScript();                                    // window.swuCardArtUrl for the tables below
 include_once '../Core/StatsHelpers.php';
 
 $isMobile = IsMobile();
@@ -132,7 +134,7 @@ $forIndividual = false;
         for (var i=0; i<json.length; ++i) {
           var r = json[i];
           html += '<tr>'
-            + '<td>' + (r.opponentLeaderID ? '<img src="../SWUDeck/concat/' + r.opponentLeaderID + '.webp" style="height:40px;vertical-align:middle;" title="' + (r.opponentLeaderID) + '" />' : '') + '</td>'
+            + '<td>' + (r.opponentLeaderID ? '<img src="' + swuCardArtUrl(r.opponentLeaderID, 'tile') + '" style="height:40px;vertical-align:middle;" title="' + (r.opponentLeaderID) + '" />' : '') + '</td>'
             + '<td>' + (function() {
                 if (!r.opponentBaseID) return '';
                 var colorMap = {
@@ -148,7 +150,7 @@ $forIndividual = false;
                 if (colorMap[r.opponentBaseID]) {
                   return '<img src="../Assets/Images/icons/SWU/' + colorMap[r.opponentBaseID] + '.webp" style="height:40px;vertical-align:middle;" title="' + r.opponentBaseID + '" />';
                 } else {
-                  return '<img src="../SWUDeck/concat/' + r.opponentBaseID + '.webp" style="height:40px;vertical-align:middle;" title="' + r.opponentBaseID + '" />';
+                  return '<img src="' + swuCardArtUrl(r.opponentBaseID, 'tile') + '" style="height:40px;vertical-align:middle;" title="' + r.opponentBaseID + '" />';
                 }
               })() + '</td>'
             + '<td>' + r.numPlays + '</td>'
@@ -338,8 +340,8 @@ $forIndividual = false;
           + '</svg></a>'
           + '<button class="drilldown-btn" data-leader="' + r.leaderID + '" data-base="' + r.baseID + '" title="Show Matchup Breakout" style="background:var(--check-fill);color:var(--accent);border:none;border-radius:4px;padding:4px 10px;cursor:pointer;height:100%;align-self:stretch;">Matchups</button>'
           + '</td>';
-        rows += '<td><img src="../SWUDeck/concat/' + r.leaderID + '.webp" style="height: 80px;" title="' + r.leaderTitle + '" /></td>';
-        rows += '<td><img src="../SWUDeck/concat/' + r.baseID + '.webp" style="height: 80px;" title="' + r.baseTitle + '" /></td>';
+        rows += '<td><img src="' + swuCardArtUrl(r.leaderID, 'tile') + '" style="height: 80px;" title="' + r.leaderTitle + '" /></td>';
+        rows += '<td><img src="' + swuCardArtUrl(r.baseID, 'tile') + '" style="height: 80px;" title="' + r.baseTitle + '" /></td>';
         rows += '<td>' + r.numPlays + '</td>';
         rows += '<td>' + (r.numPlays > 0 ? (parseFloat(r.winRate)).toFixed(2) + '%' : 'N/A') + '</td>';
         rows += '<td>' + (r.avgTurnsInWins !== null ? r.avgTurnsInWins : 'N/A') + '</td>';

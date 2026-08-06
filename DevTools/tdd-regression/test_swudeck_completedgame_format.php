@@ -29,8 +29,8 @@ function basePayload($apiKey, $winHero, $loseHero, $format = null) {
         'apiKey' => $apiKey, 'winner' => 1, 'firstPlayer' => 1, 'round' => 3, 'winnerHealth' => 10,
         'gameName' => 'zztest_cg', 'winHero' => $winHero, 'loseHero' => $loseHero,
         'winnerDeck' => 'x', 'loserDeck' => 'y',
-        'player1' => json_encode(['leader'=>'ZZLEAD','base'=>'Green','cardResults'=>[],'turnResults'=>[]]),
-        'player2' => json_encode(['leader'=>'ZZLEAD2','base'=>'Red','cardResults'=>[],'turnResults'=>[]]),
+        'player1' => json_encode(['leader'=>'JTL_T01','base'=>'Green','cardResults'=>[],'turnResults'=>[]]),
+        'player2' => json_encode(['leader'=>'JTL_T04','base'=>'Red','cardResults'=>[],'turnResults'=>[]]),
     ];
     if ($format !== null) $p['format'] = $format;
     return $p;
@@ -52,49 +52,49 @@ $apiKey = isset($petranakiAPIKey) ? $petranakiAPIKey : (isset($karabastAPIKey) ?
 
 // premier (explicit) => logged, Format=premier
 $before = maxGid($conn);
-postJson($endpoint, basePayload($apiKey, 'ZZ_PREM_W', 'ZZ_PREM_L', 'premier'));
-$row = newRow($conn, $before, 'ZZ_PREM_W');
+postJson($endpoint, basePayload($apiKey, 'SOR_T01', 'SOR_T02', 'premier'));
+$row = newRow($conn, $before, 'SOR_T01');
 $checks['premier logged']       = $row !== null;
 $checks['premier format value'] = $row && $row['Format'] === 'premier';
 if ($row) delGid($conn, $row['GameID']);
 
 // no format => defaults premier
 $before = maxGid($conn);
-postJson($endpoint, basePayload($apiKey, 'ZZ_DEF_W', 'ZZ_DEF_L', null));
-$row = newRow($conn, $before, 'ZZ_DEF_W');
+postJson($endpoint, basePayload($apiKey, 'JTL_T01', 'JTL_T02', null));
+$row = newRow($conn, $before, 'JTL_T01');
 $checks['default logged']       = $row !== null;
 $checks['default format value'] = $row && $row['Format'] === 'premier';
 if ($row) delGid($conn, $row['GameID']);
 
 // eternal => logged, Format=eternal (new behavior; fails before the code change)
 $before = maxGid($conn);
-postJson($endpoint, basePayload($apiKey, 'ZZ_ETRN_W', 'ZZ_ETRN_L', 'eternal'));
-$row = newRow($conn, $before, 'ZZ_ETRN_W');
+postJson($endpoint, basePayload($apiKey, 'JTL_T03', 'LAW_T01', 'eternal'));
+$row = newRow($conn, $before, 'JTL_T03');
 $checks['eternal logged']       = $row !== null;
 $checks['eternal format value'] = $row && $row['Format'] === 'eternal';
 if ($row) delGid($conn, $row['GameID']);
 
 // open => NOT logged
 $before = maxGid($conn);
-postJson($endpoint, basePayload($apiKey, 'ZZ_OPEN_W', 'ZZ_OPEN_L', 'open'));
-$checks['open not logged'] = newRow($conn, $before, 'ZZ_OPEN_W') === null;
+postJson($endpoint, basePayload($apiKey, 'LAW_T02', 'LAW_T03', 'open'));
+$checks['open not logged'] = newRow($conn, $before, 'LAW_T02') === null;
 
 // opt-out => NOT logged
 $before = maxGid($conn);
-$p = basePayload($apiKey, 'ZZ_OPT_W', 'ZZ_OPT_L', 'premier');
+$p = basePayload($apiKey, 'LOF_T01', 'LOF_T02', 'premier');
 $p['disableMetaStats'] = true;
 postJson($endpoint, $p);
-$checks['optout not logged'] = newRow($conn, $before, 'ZZ_OPT_W') === null;
+$checks['optout not logged'] = newRow($conn, $before, 'LOF_T01') === null;
 
 // private deck => NOT logged (fixture: ownership row with private visibility + a resolving deck link)
 $privDeckID = 999900050;
 $conn->query("DELETE FROM ownership WHERE assetType = 1 AND assetIdentifier = $privDeckID");
 $conn->query("INSERT INTO ownership (assetType, assetIdentifier, assetOwner, assetStatus, assetVisibility) VALUES (1, $privDeckID, 999999999, 1, 5000)");
 $before = maxGid($conn);
-$p = basePayload($apiKey, 'ZZ_PRIV_W', 'ZZ_PRIV_L', 'premier');
+$p = basePayload($apiKey, 'SHD_T01', 'SHD_T02', 'premier');
 $p['p1DeckLink'] = "http://localhost/TCGEngine/?gameName=$privDeckID";
 postJson($endpoint, $p);
-$checks['private not logged'] = newRow($conn, $before, 'ZZ_PRIV_W') === null;
+$checks['private not logged'] = newRow($conn, $before, 'SHD_T01') === null;
 // teardown fixture + any deck-level rows SaveDeckStats wrote for it (all deckID-indexed)
 $conn->query("DELETE FROM ownership WHERE assetType = 1 AND assetIdentifier = $privDeckID");
 $conn->query("DELETE FROM deckstats WHERE deckID = $privDeckID");

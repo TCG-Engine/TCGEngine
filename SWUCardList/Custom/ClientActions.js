@@ -97,7 +97,7 @@ function HandDrawPopupContent() {
   }
   var contentHtml = "";
   for(var i = 0; i < handSize; i++) {
-    contentHtml += "<img src='./SWUDeck/concat/" + zoneData[i] + ".webp' style='width: 120px; height: 120px; padding:2px;'>";
+    contentHtml += "<img src='/TCGEngine/AppCore/SWU/Images/concat/" + (typeof resolveCardImageID === 'function' ? resolveCardImageID(zoneData[i]) : zoneData[i]) + ".webp' style='width: 120px; height: 120px; padding:2px;'>";
   }
   var zoneDataString = zoneData.join('!');
   contentHtml += "<div style='display:flex;justify-content:center;gap:10px;'>";
@@ -111,7 +111,7 @@ function HandDrawPopupContentSubsequent(cards, amount) {
   var zoneData = cards.split('!');
   var contentHtml = "";
   for (var i = 0; i < amount; i++) {
-    contentHtml += "<img src='./SWUDeck/concat/" + zoneData[i] + ".webp' style='width: 120px; height: 120px; padding:2px;'>";
+    contentHtml += "<img src='/TCGEngine/AppCore/SWU/Images/concat/" + (typeof resolveCardImageID === 'function' ? resolveCardImageID(zoneData[i]) : zoneData[i]) + ".webp' style='width: 120px; height: 120px; padding:2px;'>";
   }
   contentHtml += "<div style='display:flex;justify-content:center;gap:10px;margin-top:10px;'>";
   contentHtml += "<button style='padding:10px 20px;font-size:16px;cursor:pointer;' onclick='document.getElementById(\"handDrawContent\").innerHTML = HandDrawPopupContentSubsequent(\"" + cards + "\", " + (amount + 2) + ");'>Draw 2 more</button>";

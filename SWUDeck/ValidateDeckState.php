@@ -62,46 +62,43 @@ try {
 
 global $aspectData;
 
-// Make the shared reprint resolution work with SWUDeck's UUID-keyed dictionary (so a deck card
-// stored as an older/illegal printing is still recognized as legal when it has a legal reprint).
+// Publish the SET_NNN card universe the shared reprint resolution reads (so a deck card stored as
+// an older/illegal printing is still recognised as legal when it has a legal reprint).
 SWUDeckSetReprintUniverse();
 
-// SWUCheckFormat speaks the SET_NNN card-id scheme (legal-set prefixes, reprint/ban maps); SWUDeck
-// stores UUIDs. Convert each; fall back to the raw id if a lookup misses (an unknown card should
-// then surface as "not legal" rather than silently pass).
-$toSet = function ($uuid) {
-  $s = CardIDLookup($uuid);
-  return ($s !== null && $s !== '') ? $s : $uuid;
-};
+// Since 2026-08-04 SWUDeck's dictionaries are SET_NNN-keyed — the same scheme SWUCheckFormat and
+// the reprint/ban maps speak — so no translation layer is needed. Deck FILES still hold UUIDs
+// until the identity migration re-keys them, so each stored id is normalised once on the way in;
+// an id that resolves to nothing passes through unchanged and surfaces as "not legal", which is
+// the behaviour the old $toSet fallback had.
+$norm = fn($id) => function_exists('SWUNormalizeDictionaryKey')
+    ? SWUNormalizeDictionaryKey((string)$id) : (string)$id;
 
 $leaderArr = &GetLeader(1);
 $leaders = [];
 $leaderAspects = [];
 foreach ($leaderArr as $l) {
   if ($l->Removed()) continue;
-  $uuid = (string)$l->CardID;
-  $set = $toSet($uuid);
-  $leaders[] = $set;
-  // Alignment rule (Twin Suns) needs each leader's aspect keyed by its SET id; $aspectData is
-  // UUID-keyed in SWUDeck.
-  $leaderAspects[$set] = $aspectData[$uuid] ?? '';
+  $id = $norm($l->CardID);
+  $leaders[] = $id;
+  $leaderAspects[$id] = $aspectData[$id] ?? '';
 }
 
 $base = '';
 $baseArr = &GetBase(1);
 foreach ($baseArr as $b) {
   if ($b->Removed()) continue;
-  $base = $toSet((string)$b->CardID);
+  $base = $norm($b->CardID);
   break;
 }
 
 $mainDeck = [];
 $mainArr = &GetMainDeck(1);
-foreach ($mainArr as $c) { if (!$c->Removed()) $mainDeck[] = $toSet((string)$c->CardID); }
+foreach ($mainArr as $c) { if (!$c->Removed()) $mainDeck[] = $norm($c->CardID); }
 
 $sideboard = [];
 $sideArr = &GetSideboard(1);
-foreach ($sideArr as $c) { if (!$c->Removed()) $sideboard[] = $toSet((string)$c->CardID); }
+foreach ($sideArr as $c) { if (!$c->Removed()) $sideboard[] = $norm($c->CardID); }
 
 $issues = SWUCheckFormat($format, $leaders, $base, $mainDeck, $sideboard, $leaderAspects);
 

@@ -42,47 +42,48 @@ function SWUDeckFormatDisplayName($formatId) {
 // numeric UUID (across all reprints of every banned card) that should be treated as banned.
 // Callers must have card dictionaries already loaded (UUIDLookup / $titleData) — true for
 // SWUDeck/InitialLayout.php's context (runs after Initialize.php).
-// The shared SWUReprintGroup() inverts CardIDOverride (SET_NNN → earliest SET_NNN) over a card-ID
-// universe it reads from $titleData's keys. That works on SET_NNN-keyed sites (SWUSim) but NOT
-// SWUDeck, whose $titleData is UUID-keyed — so reprint relationships (and thus "is this card legal
-// via a reprint?" / "is this a reprint of a banned card?") come back empty. Publish SWUDeck's
-// SET_NNN universe (every card's printing id, via CardIDLookup over the UUID keys) where
-// SWUReprintGroup looks for it. Idempotent + cheap-once; call before any legality check.
+// Publish SWUDeck's SET_NNN card universe where the shared SWUReprintGroup() and the rarity
+// predicate look for it.
+//
+// Until 2026-08-04 this had to translate: $titleData was UUID-keyed, so SWUReprintGroup — which
+// inverts CardIDOverride over $titleData's keys — came back empty on SWUDeck and reprint
+// relationships ("is this card legal via a reprint?", "is this a reprint of a banned card?")
+// silently did not work. The dictionaries are SET_NNN-keyed now, so this is a direct publish.
+// Idempotent + cheap-once; call before any legality check.
 function SWUDeckSetReprintUniverse() {
     if (isset($GLOBALS['SWUReprintUniverse']) && is_array($GLOBALS['SWUReprintUniverse'])) return;
     global $titleData, $rarityData;
-    $sets     = [];
-    $rarities = [];
-    if (is_array($titleData)) {
-        foreach (array_keys($titleData) as $uuid) {
-            $s = CardIDLookup($uuid);
-            if ($s === null || $s === '') continue;
-            $sets[$s] = true;
-            // Rarity-restricted formats (Padawan) need rarity keyed by SET_NNN, but SWUDeck's
-            // $rarityData is keyed by UUID with single-letter values. Rekey it in this same sweep —
-            // one extra array write, no second pass. AppCore's SWUCardRarity() reads this global.
-            // Without it every SET_NNN rarity lookup returns null and, since the rarity predicate
-            // fails CLOSED, the builder rejects every card and no Padawan deck can be saved legal.
-            if (isset($rarityData[$uuid])) $rarities[$s] = $rarityData[$uuid];
-        }
-    }
-    $GLOBALS['SWUReprintUniverse'] = array_keys($sets);
-    $GLOBALS['SWURarityUniverse']  = $rarities;
+
+    // Tokens (SET_T##) live in the dictionary — they need titles and art for stats and rendering —
+    // but they are NOT deckbuildable, so they must not enter deck validation or format legality.
+    // Without this, LAW_T01 (the Credit token) showed up in Padawan's rarity-legal allowlist.
+    $isToken = fn($id) => (bool)preg_match('/_T\d{2}$/', (string)$id);
+
+    $GLOBALS['SWUReprintUniverse'] = is_array($titleData)
+        ? array_values(array_filter(array_keys($titleData), fn($id) => !$isToken($id)))
+        : [];
+    // AppCore's SWUCardRarity() reads this global. The rarity predicate fails CLOSED, so an empty
+    // map would make the builder reject every card and no Padawan deck could be saved legal.
+    $GLOBALS['SWURarityUniverse']  = is_array($rarityData)
+        ? array_filter($rarityData, fn($id) => !$isToken($id), ARRAY_FILTER_USE_KEY)
+        : [];
 }
 
 function SWUDeckClientFormatData($formatId) {
     SWUDeckSetReprintUniverse(); // so the banned-card reprint expansion below sees all printings
     $fmt = SWUGetFormat($formatId);
     if ($fmt === null) {
-        return ['legalSets' => [], 'bannedUUIDs' => [], 'rarityLegalUUIDs' => null];
+        return ['legalSets' => [], 'bannedIDs' => [], 'rarityLegalIDs' => null];
     }
     $legalSets = array_values(SWUFormatLegalSets($formatId));
 
-    $bannedUUIDs = [];
+    // Keys renamed from bannedUUIDs/rarityLegalUUIDs on 2026-08-04: these are SET_NNN ids now, and
+    // a consumer left on the old name should fail loudly rather than silently compare key spaces
+    // (in Filters3.js that would mean banned cards quietly rendering as legal).
+    $bannedIDs = [];
     foreach ($fmt['banned'] as $bannedID) {
         foreach (SWUReprintGroup($bannedID) as $printing) {
-            $uuid = UUIDLookup(NormalizeCardID($printing));
-            if ($uuid) $bannedUUIDs[] = $uuid;
+            $bannedIDs[] = NormalizeCardID($printing);
         }
     }
 
@@ -91,57 +92,65 @@ function SWUDeckClientFormatData($formatId) {
     // rarity, so a client-side check would wrongly hide the SOR printing of Prepare for Takeoff.
     // Derive the allowlist here from the same predicate the validator uses — one source of truth,
     // and it cannot go stale. null for every unrestricted format, so their payload is unchanged.
-    $rarityLegalUUIDs = null;
+    $rarityLegalIDs = null;
     if (!empty($fmt['legalRarities'])) {
         global $typeData;
-        $rarityLegalUUIDs = [];
+        $rarityLegalIDs = [];
         foreach (array_keys($GLOBALS['SWURarityUniverse'] ?? []) as $setID) {
-            $uuid = UUIDLookup(NormalizeCardID($setID));
-            if (!$uuid) continue;
             // Leaders are exempt from the rarity rule ("Any Leader") — set check only. This mirrors
             // SWUCheckFormat, where the exemption is structural (leaders arrive in their own param).
-            $ok = (($typeData[$uuid] ?? '') === 'Leader')
+            $ok = (($typeData[$setID] ?? '') === 'Leader')
                 ? SWUCardHasLegalPrint($setID, $legalSets)
                 : SWUCardHasLegalRarityPrint($setID, $legalSets, $fmt['legalRarities']);
-            if ($ok) $rarityLegalUUIDs[] = $uuid;
+            if ($ok) $rarityLegalIDs[] = $setID;
         }
-        $rarityLegalUUIDs = array_values(array_unique($rarityLegalUUIDs));
+        $rarityLegalIDs = array_values(array_unique($rarityLegalIDs));
     }
 
     return [
-        'legalSets'        => $legalSets,
-        'bannedUUIDs'      => array_values(array_unique($bannedUUIDs)),
-        'rarityLegalUUIDs' => $rarityLegalUUIDs,
+        'legalSets'      => $legalSets,
+        'bannedIDs'      => array_values(array_unique($bannedIDs)),
+        'rarityLegalIDs' => $rarityLegalIDs,
     ];
 }
 
 // SWUDeck-side wrapper for the Twin Suns leader-pairing rule (CR §12.2.1.a): the two leaders'
-// starting sides can't combine Heroism + Villainy. $uuid is SWUDeck's native card ID scheme
-// (matches Leader->CardID / keyIndicator1 etc.) — this is NOT the SET_NNN scheme
+// starting sides can't combine Heroism + Villainy.
+//
+// Before 2026-08-04 this needed a translation layer: SWUDeck's $aspectData was UUID-keyed while
 // _SWULeaderStartAlignment's start-side override table (e.g. Palpatine) and CardIDOverride's
-// reprint map are keyed by, and it's also NOT the scheme SWUDeck's own $aspectData is keyed by
-// (that one's UUID-keyed, confirmed via GeneratedCardDictionaries.php). So: resolve the UUID to
-// its SET_NNN form via CardIDLookup() for the override/reprint lookups, and build a one-entry
-// aspect map (keyed by that same SET_NNN id) from $aspectData's UUID-keyed value, rather than
-// re-keying the whole (huge) $aspectData array.
-function SWUDeckLeaderAlignment($uuid) {
+// reprint map were SET_NNN-keyed, so the two had to be bridged per call. The dictionaries are
+// SET_NNN-keyed now, so all three share one scheme and the bridge is gone.
+function SWUDeckLeaderAlignment($cardID) {
     global $aspectData;
-    $setCardID = CardIDLookup($uuid) ?? $uuid;
-    $aspectValue = $aspectData[$uuid] ?? '';
-    return _SWULeaderStartAlignment($setCardID, [$setCardID => $aspectValue]);
+    // Since 2026-08-04 $aspectData and the override/reprint maps share one scheme, so no
+    // translation is needed. A deck file still holds UUIDs, so normalise the stored id on the way
+    // in — the generated façade does the same for every accessor.
+    $id = function_exists('SWUNormalizeDictionaryKey') ? SWUNormalizeDictionaryKey($cardID) : $cardID;
+    return _SWULeaderStartAlignment($id, [$id => $aspectData[$id] ?? '']);
 }
 
 // A leader's deployed Leader Unit side (action-pose art) is what should show wherever a leader
 // is referenced visually (deck list, identity banner) — LeaderUnitByUUID() resolves to its own
 // distinct crop id; cards with no unit side (non-leaders, double-leader-face flip cards) fall
 // back to the leader's own uuid, i.e. its own regular crop.
-function SWUDeckLeaderCropUrl($uuid) {
-    $resolvedId = function_exists('LeaderUnitByUUID') ? (LeaderUnitByUUID($uuid) ?? $uuid) : $uuid;
-    return '/TCGEngine/SWUDeck/crops/' . $resolvedId . '_cropped.png';
+// The interim SWUDeckArtKey() shim is GONE (2026-08-05). It mapped SET_NNN -> uuid because the art
+// was still UUID-named; the shared corpus is SET_NNN-named, so that direction is now backwards.
+// SWUCardImagePath()/SWUCardImageFsPath() in AppCore/SWU/CardImagePath.php are the single seam.
+require_once __DIR__ . '/../../AppCore/SWU/CardImagePath.php';
+
+function SWUDeckLeaderCropUrl($cardID) {
+    // A leader's identity art is its deployed unit side, which the shared corpus names
+    // "<SET_NNN>_back". Anything without one — non-leaders, and the double-leader-face flip cards —
+    // falls back to its own crop, preserving the behaviour the LeaderUnitByUUID lookup used to give.
+    if (file_exists(SWUCardImageFsPath($cardID . '_back', 'crop'))) {
+        return SWUCardImagePath($cardID . '_back', 'crop');
+    }
+    return SWUCardImagePath($cardID, 'crop');
 }
 
 // Full front-side card art (same source the builder's Leaders/Leader1/Leader2/Bases browse
 // panes use — see window.SWU_PANE_IMAGE_FOLDERS in InitialLayout.php) for a leader or base UUID.
-function SWUDeckWebpUrl($uuid) {
-    return '/TCGEngine/SWUDeck/WebpImages/' . $uuid . '.webp';
+function SWUDeckWebpUrl($cardID) {
+    return SWUCardImagePath($cardID, 'card');
 }

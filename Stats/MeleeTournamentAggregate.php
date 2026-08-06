@@ -2,6 +2,8 @@
 include_once "../SharedUI/MenuBar.php";
 require_once "../SharedUI/Render/Head.php"; echo RenderSiteStyles("SWUDeck");
 include_once "../SharedUI/Header.php";
+include_once "../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
+include_once "../AppCore/SWU/CardImagePath.php";   // SWUCardArtScript -> window.swuCardArtUrl
 ?>
 
 <!DOCTYPE html>
@@ -128,6 +130,9 @@ include_once "../SharedUI/Header.php";
     </div>
 
     <!-- Shared chart/explorer renderers, also used by MeleeTournamentResults.php. -->
+    <!-- UUID->SET_NNN art resolver. Card art is SET_NNN-keyed under AppCore/SWU/Images/, but
+         the tournament APIs return FFG UIDs, so the client needs the map. -->
+<?php echo SWUCardArtScript(); ?>
     <script src="MeleeCharts.js?v=20260729"></script>
     <script>
         const tabs = document.querySelectorAll('.tab');

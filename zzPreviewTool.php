@@ -13,7 +13,7 @@ ini_set('display_errors', 1);
 
 require_once __DIR__ . '/SWUSim/Mod/DevGate.php';
 require_once __DIR__ . '/SWUSim/DevTools/PreviewImport.php';
-require_once __DIR__ . '/SWUSim/DevTools/MockCardWriter.php';
+require_once __DIR__ . '/AppCore/SWU/MockCardWriter.php';
 require_once __DIR__ . '/SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 require_once __DIR__ . '/AppCore/SWU/Overrides.php';
 
@@ -101,9 +101,9 @@ if ($action !== '') {
             'canonicalKnown' => $class['canonical'] !== null && IsSWUCardID($class['canonical']),
             'name' => (string)($rec['cardName'] ?? ''),
             'mock' => SWUPreviewToMock($rec),
-            'alreadyMocked' => isset(SWUSimLoadMockCards()[$cardID]),
+            'alreadyMocked' => isset(SWULoadMockCards()[$cardID]),
             'alreadyOverridden' => CardIDOverride($cardID) !== $cardID,
-            'alreadyOfficial' => IsSWUCardID($cardID) && !isset(SWUSimLoadMockCards()[$cardID]),
+            'alreadyOfficial' => IsSWUCardID($cardID) && !isset(SWULoadMockCards()[$cardID]),
         ]);
         exit;
     }
@@ -112,7 +112,7 @@ if ($action !== '') {
         $cardID = (string)($_POST['cardID'] ?? '');
         $mock = json_decode((string)($_POST['mock'] ?? ''), true);
         if (!is_array($mock)) { echo json_encode(['ok' => false, 'error' => 'Malformed card data.']); exit; }
-        $ok = SWUSimWriteMockCard($cardID, preview_tool_clean_mock($mock));
+        $ok = SWUWriteMockCard($cardID, preview_tool_clean_mock($mock));
         echo json_encode($ok
             ? ['ok' => true, 'message' => $cardID . ' written to CardMocks.php. Regenerate to make it playable.']
             : ['ok' => false, 'error' => 'Write failed — check that ' . $cardID
@@ -135,7 +135,7 @@ if ($action !== '') {
                 . ' is not a known CardID — regenerate the dictionaries first.']);
             exit;
         }
-        $ok = SWUSimWriteReprintOverride($cardID, $canonical, $name);
+        $ok = SWUWriteReprintOverride($cardID, $canonical, $name);
         echo json_encode($ok
             ? ['ok' => true, 'message' => $cardID . ' -> ' . $canonical . ' added to Overrides.php.']
             : ['ok' => false, 'error' => 'Not written — the mapping already exists, or Overrides.php '
@@ -145,7 +145,7 @@ if ($action !== '') {
 
     if ($action === 'list') {
         $rows = [];
-        foreach (SWUSimLoadMockCards() as $cardID => $m) {
+        foreach (SWULoadMockCards() as $cardID => $m) {
             $rows[] = [
                 'cardID' => $cardID,
                 'title'  => (string)($m['title'] ?? ''),
@@ -153,7 +153,7 @@ if ($action !== '') {
                 'set'    => (string)($m['set'] ?? ''),
                 // Official data present for this ID means the mock is inert and removable. The
                 // generator reports the same thing in its log on every run.
-                'superseded' => SWUSimMockIsSuperseded($cardID),
+                'superseded' => SWUMockIsSuperseded($cardID),
             ];
         }
         echo json_encode(['ok' => true, 'rows' => $rows]);
@@ -162,7 +162,7 @@ if ($action !== '') {
 
     if ($action === 'edit') {
         $cardID = (string)($_POST['cardID'] ?? $_GET['cardID'] ?? '');
-        $entries = SWUSimLoadMockCards();
+        $entries = SWULoadMockCards();
         if (!isset($entries[$cardID])) {
             echo json_encode(['ok' => false, 'error' => 'No mock for ' . $cardID]);
             exit;
@@ -179,7 +179,7 @@ if ($action !== '') {
 
     if ($action === 'delete') {
         $cardID = (string)($_POST['cardID'] ?? '');
-        $ok = SWUSimDeleteMockCard($cardID);
+        $ok = SWUDeleteMockCard($cardID);
         $art = $ok ? preview_tool_delete_art($cardID) : [];
         echo json_encode($ok
             ? ['ok' => true, 'message' => $cardID . ' removed'
@@ -192,7 +192,7 @@ if ($action !== '') {
     if ($action === 'setlist') {
         $set = strtoupper((string)($_POST['set'] ?? $_GET['set'] ?? ''));
         if ($set === '') { echo json_encode(['ok' => false, 'error' => 'No set given.']); exit; }
-        $mocked = SWUSimLoadMockCards();
+        $mocked = SWULoadMockCards();
         $rows = [];
         foreach (SWUPreviewFetchSetList($set) as $p) {
             $cardID = $set . '_' . SWUPreviewPadNumber($set, (string)$p['cardNumber']);
@@ -243,7 +243,7 @@ if ($action !== '') {
     exit;
 }
 
-$existing = SWUSimLoadMockCards();
+$existing = SWULoadMockCards();
 ?>
 <!doctype html>
 <html><head><meta charset="utf-8"><title>SWUSim Preview Card Tool</title>

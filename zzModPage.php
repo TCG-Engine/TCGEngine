@@ -97,6 +97,12 @@ if (isset($_POST['modResetUserPassword']) && $_POST['modResetUserPassword'] === 
 // DISABLED — no longer used. Uncomment (along with its UI + JS below) to restore.
 /*
 if (isset($_POST['truncateMetaStats']) && $_POST['truncateMetaStats'] === '1') {
+    require_once __DIR__ . '/AppCore/SWU/Maintenance.php';
+    // Mod tools stay REACHABLE during maintenance — the migration itself is driven from zz
+    // pages. What they must not do is write a table that is about to be RENAMEd away, so the
+    // gate sits on the write action, not on the page.
+    SWUMaintenanceRequire('SWUDeck', 'stats');
+
     $conn = GetLocalMySQLConnection();
     $success = true;
     $errorMsg = '';
@@ -252,6 +258,10 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
         echo json_encode(['success' => false, 'error' => 'deckJson is not valid JSON.']);
         exit();
     }
+    // This writes a deck gamestate FILE, so it races the §5 deck-file rewrite exactly like any
+    // other deck save. Gated separately from the truncate action above — that one is 'stats'.
+    require_once __DIR__ . '/AppCore/SWU/Maintenance.php';
+    SWUMaintenanceRequire('SWUDeck', 'deck');
     include_once './SWUDeck/GamestateParser.php';
     include_once './SWUDeck/ZoneAccessors.php';
     include_once './SWUDeck/ZoneClasses.php';

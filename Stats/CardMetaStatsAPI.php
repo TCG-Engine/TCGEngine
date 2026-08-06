@@ -3,6 +3,7 @@
 include_once '../Core/HTTPLibraries.php';
 include_once '../Database/ConnectionManager.php';
 include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
+include_once '../AppCore/SWU/CardIdentity.php';   // SWUCardIdentityToWire()
 
 $conn = GetLocalMySQLConnection();
 
@@ -91,7 +92,11 @@ if ($result && $result->num_rows > 0) {
     }
 
     $response[] = [
-      'cardUid' => $card['cardID'],
+      // Stats/APIs.php documents cardUid as FFG UID format, and the stored key is SET_NNN after
+      // the re-key — so map OUT here or this silently becomes a breaking change for every consumer.
+      // A card with no UID (a preview card) falls back to its SET_NNN rather than null; preview
+      // formats write no stats, so that is unreachable here, but null would be worse than useless.
+      'cardUid' => SWUCardIdentityToWire($card['cardID']),
       'cardName' => $cardName,
       'timesIncluded' => $card['timesIncluded'],
       'timesIncludedInWins' => $card['timesIncludedInWins'],

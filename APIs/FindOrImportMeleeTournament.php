@@ -1,4 +1,9 @@
 <?php
+// Maintenance gate — must precede any write.
+// Imports a tournament, which INSERTs meleetournamentdeck (a migration target).
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
+SWUMaintenanceRequire('SWUDeck', 'stats');
+
 // APIs/FindOrImportMeleeTournament.php
 header('Content-Type: application/json');
 

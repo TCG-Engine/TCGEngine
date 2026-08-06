@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
 
 include_once __DIR__ . '/RegressionTestFramework.php';
 include_once __DIR__ . '/MatchReplay.php';
@@ -289,6 +290,17 @@ function EngineAddCardToTopOfDeck($player, $cardID, $sourceObject = null) {
 
 function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = []) {
   global $updateNumber, $playerID, $frameAnimations;
+
+  // Maintenance gate. This is THE engine write chokepoint — ProcessInput.php routes every sim's
+  // actions through here, and the single WriteGamestate() below is what mutates a deck/game file.
+  // Gating here rather than in GetNextTurn.php matters: that file is generated and gitignored, so
+  // a gate added there would be silently wiped on the next regen.
+  //
+  // Keyed on $folderPath, not a hardcoded app: each app root has its own maintenance flag, so
+  // freezing SWUDeck on swustats cannot freeze SWUSim on petranaki.
+  if (function_exists('SWUMaintenanceRequire') && is_string($folderPath) && $folderPath !== '') {
+    SWUMaintenanceRequire($folderPath, 'deck');
+  }
 
   $action = EngineNormalizeActionPayload($action);
   $playerID = $action['playerID'];
