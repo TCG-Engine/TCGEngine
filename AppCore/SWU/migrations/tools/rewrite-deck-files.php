@@ -99,6 +99,24 @@ function deck_split(string $line): array
     return preg_split($pattern, $line, -1, PREG_SPLIT_DELIM_CAPTURE);
 }
 
+// A saved version carries its leader id inside a COMPOUND token that is not itself a map key:
+//
+//     0:4352150438<v0>SOR_027<v0>TWI_141<v1>...   the snapshot blob, "<index>:<id>"
+//     3503494534 This_is_regional_governor        the snapshot label, "<id> <name>"
+//
+// Splitting on DECK_DELIMS flattens the blob's card list correctly, but these two shapes survive
+// as single tokens, so the whole-token lookup below never matches them. That is what left exactly
+// one stray UUID per saved version in ~1,900 decks after the 2026-08-06 pass — every card id
+// around them converted, and the sweep found the leftovers only in the Versions zone.
+//
+// Returns the identifier field of a compound token, or null if the token is not compound.
+function deck_compound_field(string $v): ?string
+{
+    if (preg_match('/^\d+:(\S+)$/', $v, $m)) return $m[1];      // "<index>:<id>"
+    if (preg_match('/^(\S+)[ \t]/', $v, $m)) return $m[1];      // "<id> <name>"
+    return null;
+}
+
 function deck_rewrite_line(array $map, string $line, array &$stat): string
 {
     if ($line === '') return $line;
@@ -109,22 +127,44 @@ function deck_rewrite_line(array $map, string $line, array &$stat): string
         $v = trim($part);
         if ($v === '') continue;
 
-        $e = SWUMigrationMapLookup($map, $v);
+        // Whole token first; only then the identifier field of a compound token. A free-text
+        // field whose first word is not an identifier simply misses the map and is left alone.
+        $target = $v;
+        $e = SWUMigrationMapLookup($map, $target);
+        if ($e === null) {
+            $inner = deck_compound_field($v);
+            if ($inner !== null) {
+                $hit = SWUMigrationMapLookup($map, $inner);
+                if ($hit !== null) { $target = $inner; $e = $hit; }
+            }
+        }
+
         if ($e === null) {
             // Only an identifier-SHAPED value counts as unmapped. Everything else is a count, a
             // flag, a deck name or a sort mode, and is simply not our business.
-            if (deck_looks_like_id($v)) {
+            $shape = deck_compound_field($v) ?? $v;
+            if (deck_looks_like_id($shape)) {
                 $stat['unmapped']++;
-                $stat['unmappedValues'][$v] = ($stat['unmappedValues'][$v] ?? 0) + 1;
+                $stat['unmappedValues'][$shape] = ($stat['unmappedValues'][$shape] ?? 0) + 1;
             }
             continue;
         }
         if ($e['disposition'] === 'keep') { $stat['same']++; continue; }     // class 2, verbatim
-        if ($e['to'] === $v)              { $stat['same']++; continue; }     // already canonical
+        if ($e['to'] === $target)         { $stat['same']++; continue; }     // already canonical
 
         $stat['mapped']++;
-        $stat['mappedPairs'][$v . ' -> ' . $e['to']] = true;
-        $parts[$idx] = str_replace($v, $e['to'], $part);   // keeps surrounding whitespace
+        $stat['mappedPairs'][$target . ' -> ' . $e['to']] = true;
+        if ($target === $v) {
+            $parts[$idx] = str_replace($v, $e['to'], $part);   // keeps surrounding whitespace
+        } else {
+            // Replace ONLY the identifier field. The index prefix and the name suffix may both
+            // contain digits, and a blind str_replace of a 10-digit run could corrupt either.
+            $newV = preg_replace_callback(
+                '/^(\d+:)?' . preg_quote($target, '/') . '/',
+                fn($m) => ($m[1] ?? '') . $e['to'],
+                $v, 1);
+            $parts[$idx] = str_replace($v, $newV, $part);
+        }
         $changed = true;
     }
     return $changed ? implode('', $parts) : $line;
@@ -204,8 +244,22 @@ function deck_walk(array $map, array $files, bool $write, bool $verbose): array
             }
             // Write-then-rename: a reader must never see a half-written deck file. Same-directory
             // temp so the rename stays atomic (a cross-filesystem rename is a copy).
+            //
+            // The rename REPLACES THE INODE, so the deck file ends up owned by whoever ran this
+            // tool rather than by the web server. Run as root — which is how the migration runs —
+            // that leaves every rewritten deck root-owned and mode 644, so Apache can still read
+            // it but no longer write it. The symptom is nasty precisely because it is not a data
+            // problem: decks render perfectly and every save fails with "Permission denied" from
+            // GamestateParser's file_put_contents. That took down deck saving on 2026-08-06.
+            // Carry the original owner and mode across the rename so the tool is ownership-neutral.
+            $owner = @stat($path);
             $tmp = $path . '.migtmp';
             if (@file_put_contents($tmp, $new) === false) { $r['writeFailed'][] = $path; @unlink($tmp); continue; }
+            if ($owner !== false) {
+                @chmod($tmp, $owner['mode'] & 0777);
+                @chown($tmp, $owner['uid']);
+                @chgrp($tmp, $owner['gid']);
+            }
             if (!@rename($tmp, $path))                    { $r['writeFailed'][] = $path; @unlink($tmp); continue; }
             $r['written']++;
         }
