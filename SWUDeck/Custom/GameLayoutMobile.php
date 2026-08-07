@@ -762,6 +762,21 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     overflow: hidden;
     padding-bottom: 0;
   }
+  /* "Needs Tokens" readout. Lives at the END of the deck scroll rather than in the deck top bar:
+     that bar already carries the title, count, legality chip, sort and overlay menu, and a list of
+     four-plus token names would wrap or truncate on a phone. This file does NOT inherit
+     GameLayout.php's styles, so this rule is standalone by necessity, not duplication. */
+  #swuMobileTokenLine {
+    display: none;
+    margin: 10px 6px 4px;
+    padding: 7px 10px;
+    border-radius: 9px;
+    border: 1px solid rgba(103,151,180,0.42);
+    background: rgba(7,22,35,0.9);
+    color: rgba(190,216,232,0.9);
+    font: 600 11px/1.4 Arial, Helvetica, sans-serif;
+  }
+  #swuMobileTokenLine b { color: rgba(205,228,240,0.96); font-weight: 700; }
   #swuMobileDeckScroll {
     flex: 1 1 auto;
     min-height: 0;
@@ -1176,6 +1191,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
           <div id="myMainDeckSlot" onclick="ZoneClickHandler('myMainDeck');"></div>
           <div class="swu-dm-title"><span id="swuMobileSideboardTitle">Sideboard (0)</span></div>
           <div id="mySideboardSlot" onclick="ZoneClickHandler('mySideboard');"></div>
+          <div id="swuMobileTokenLine" aria-label="Tokens this deck may need"></div>
         </div>
         <div id="swuMobileDeckActions" aria-label="Selected card actions" aria-hidden="true">
           <button id="swuMobileDeckCopy" class="swu-mobile-deck-action" type="button">
@@ -2002,6 +2018,16 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     return box;
   }
   function swuMobileEscape(s){ return String(s).replace(/[<>&]/g, function(c){ return { '<':'&lt;', '>':'&gt;', '&':'&amp;' }[c]; }); }
+  // Independent of data.applicable — that governs only the legality chip, and Open-format decks
+  // report applicable:false while still needing tokens.
+  function renderMobileTokens(data){
+    var el = document.getElementById('swuMobileTokenLine');
+    if(!el) return;
+    var list = (data && data.tokens) ? data.tokens : [];
+    if(!list.length){ el.style.display = 'none'; el.innerHTML = ''; return; }
+    el.style.display = 'block';
+    el.innerHTML = '<b>Needs Tokens:</b> ' + list.map(swuMobileEscape).join(', ');
+  }
   function renderMobileValidation(data){
     var badge = document.getElementById('swuMobileValidation');
     if(!badge) return;
@@ -2027,7 +2053,9 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
   function runMobileValidation(){
     var g = swuMobileGameName(); if(!g) return;
     fetch('./SWUDeck/ValidateDeckState.php?gameName=' + encodeURIComponent(g), { credentials:'same-origin' })
-      .then(function(r){ return r.json(); }).then(renderMobileValidation).catch(function(){});
+      .then(function(r){ return r.json(); })
+      .then(function(d){ renderMobileValidation(d); renderMobileTokens(d); })
+      .catch(function(){});
   }
   function scheduleMobileValidation(){ if(_swuMValTimer) clearTimeout(_swuMValTimer); _swuMValTimer = setTimeout(runMobileValidation, 450); }
   function setupMobileValidation(){

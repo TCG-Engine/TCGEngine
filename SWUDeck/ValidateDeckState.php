@@ -18,6 +18,7 @@ include_once '../Assets/patreon-php-master/src/PatreonLibraries.php';  // IsPatr
 include_once '../AppCore/SWU/Formats.php';               // SWUGetFormat
 include_once '../AppCore/SWU/DeckValidation.php';        // SWUCheckFormat
 include_once './Custom/DeckFormats.php';                 // SWUDeckFormatDisplayName
+include_once '../AppCore/SWU/TokenRequirements.php';     // SWUDeckRequiredTokens
 
 $gameName = TryGet('gameName', '');
 if ($gameName === '') {
@@ -47,11 +48,9 @@ if ($loggedInUser != $assetData['assetOwner']) {
 }
 
 $format = $assetData['format'] ?? 'premier';
-// Open decks are unconstrained — nothing to validate, badge hidden.
-if ($format === 'open') {
-  echo json_encode(['applicable' => false, 'format' => 'open']);
-  exit;
-}
+// NOTE: the Open-format early return used to live HERE, before ParseGamestate(). It now happens
+// after the deck is collected, because token requirements are format-independent and Open decks
+// need the "Needs Tokens" line too. `applicable` still governs only the legality badge.
 
 try {
   ParseGamestate();
@@ -100,6 +99,17 @@ $sideboard = [];
 $sideArr = &GetSideboard(1);
 foreach ($sideArr as $c) { if (!$c->Removed()) $sideboard[] = $norm($c->CardID); }
 
+// Token requirements are format-independent, so they are computed for EVERY deck — including Open,
+// whose early return sits below. Sideboard cards count: you need the tokens physically present for
+// games 2-3. $base may be '' when no base is set; SWUDeckRequiredTokens tolerates blanks.
+$tokens = SWUDeckRequiredTokens(array_merge($leaders, [$base], $mainDeck, $sideboard));
+
+// Open decks are unconstrained — nothing to validate, badge hidden — but they still get tokens.
+if ($format === 'open') {
+  echo json_encode(['applicable' => false, 'format' => 'open', 'tokens' => $tokens]);
+  exit;
+}
+
 $issues = SWUCheckFormat($format, $leaders, $base, $mainDeck, $sideboard, $leaderAspects);
 
 echo json_encode([
@@ -109,4 +119,5 @@ echo json_encode([
   'legal'       => empty($issues),
   'issueCount'  => count($issues),
   'issues'      => array_values($issues),
+  'tokens'      => $tokens,
 ]);

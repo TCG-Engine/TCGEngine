@@ -432,6 +432,34 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     border: 1px solid transparent;
     white-space: nowrap;
   }
+  /* "Needs Tokens" readout — pinned bottom-right of the board, mirroring the validation chip's
+     chamfered cyan-HUD language. It necessarily FLOATS ABOVE #swuDeckWorkspace, which occupies
+     left:26%/right:10px/top:50px/bottom:10px and scrolls; the extra scroll padding below lets the
+     last row of cards clear it, without which this permanently covers a card's quantity bubble
+     (those sit at right:5px/bottom:5px of every tile). */
+  #swuDeckBoard #swuTokenLine {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    z-index: 60;
+    display: none;
+    max-width: 46%;
+    padding: 5px 11px;
+    border-radius: 10px;
+    border: 1px solid var(--swu-control-rim);
+    background: var(--swu-control-fill);
+    color: var(--swu-control-text);
+    font: 600 11px/1.35 Arial, Helvetica, sans-serif;
+    letter-spacing: 0.02em;
+    text-align: right;
+    pointer-events: none;         /* purely informational; never eat a click meant for a card */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.45);
+  }
+  #swuDeckBoard #swuTokenLine b {
+    color: rgba(205,228,240,0.96);
+    font-weight: 700;
+  }
+  #swuDeckBoard #swuDeckWorkspace { padding-bottom: 44px; }
   /* These state rules carry the #swuDeckBoard prefix so they out-specify the base
      `#swuDeckBoard #swuValidationBadge/#swuValidationIssues` rules (two IDs). Without it, the base
      `display:none` on the issues panel beats a bare `.is-open` (one ID + one class) and the panel
@@ -964,6 +992,27 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   function _swuEscape(s){
     return String(s).replace(/[<>&]/g, function(c){ return { '<':'&lt;', '>':'&gt;', '&':'&amp;' }[c]; });
   }
+  // "Needs Tokens" line. Deliberately INDEPENDENT of data.applicable: that flag governs only the
+  // legality badge, and Open-format decks report applicable:false while still needing tokens.
+  function ensureTokenLine(){
+    var board = document.getElementById('swuDeckBoard');
+    if(!board) return null;
+    var el = document.getElementById('swuTokenLine');
+    if(!el){
+      el = document.createElement('div');
+      el.id = 'swuTokenLine';
+      board.appendChild(el);      // after the workspace in DOM order, so it stacks above it
+    }
+    return el;
+  }
+  function renderTokens(data){
+    var el = ensureTokenLine();
+    if(!el) return;
+    var list = (data && data.tokens) ? data.tokens : [];
+    if(!list.length){ el.style.display = 'none'; el.innerHTML = ''; return; }
+    el.style.display = 'block';
+    el.innerHTML = '<b>Needs Tokens:</b> ' + list.map(_swuEscape).join(', ');
+  }
   function renderValidation(data){
     var badge = ensureValidationEls();
     if(!badge) return;
@@ -994,7 +1043,7 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     if(!g) return;
     fetch('./SWUDeck/ValidateDeckState.php?gameName=' + encodeURIComponent(g), { credentials: 'same-origin' })
       .then(function(r){ return r.json(); })
-      .then(renderValidation)
+      .then(function(d){ renderValidation(d); renderTokens(d); })
       .catch(function(){ /* transient failure — keep the last shown state */ });
   }
   function scheduleValidation(){
