@@ -1546,7 +1546,7 @@ function LoadDecks() {
         ✕
       </button>
     </div>
-    <iframe id="cardSearchFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+    <?php include_once __DIR__ . '/CardBrowser.php'; SWUDeckRenderCardBrowser(); ?>
   </div>
 </div>
 
@@ -1558,10 +1558,6 @@ function LoadDecks() {
 
     // Show the popup container first
     popup.style.display = "block";
-
-    // Set iframe source (same-origin, so the parent page's theme/CSS can reach it and it
-    // follows whatever host it's served from instead of always hitting production).
-    document.getElementById("cardSearchFrame").src = "/TCGEngine/NextTurn.php?gameName=1&playerID=1&folderPath=SWUCardList";
 
     // Force a reflow to ensure transitions work
     void popup.offsetWidth;
@@ -1596,7 +1592,6 @@ function LoadDecks() {
     // Wait for animations to complete before hiding
     setTimeout(() => {
       popup.style.display = "none";
-      document.getElementById("cardSearchFrame").src = "";
       document.body.style.overflow = "auto"; // Restore scrolling
     }, 50); // Match the transition duration (50ms)
 

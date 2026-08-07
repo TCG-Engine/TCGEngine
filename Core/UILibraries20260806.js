@@ -1770,9 +1770,20 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           var cardDataSub = sharedCardData;
           if (cardDataSub.Subcards && Array.isArray(cardDataSub.Subcards) && cardDataSub.Subcards.length > 0) {
             var subcards = cardDataSub.Subcards;
-            var subFolder = folder;
-            if (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) {
-              subFolder = AssetReflectionPath();
+            // SWU card art is ONE shared corpus at AppCore/SWU/Images/{concat,WebpImages}. The sliver
+            // code below re-appends the /concat/ or /WebpImages/ subfolder, so subFolder must be the corpus
+            // BASE. Do NOT resolve it through AssetReflectionPath() for shared SWU art — that returns the app
+            // root ("SWUSim") and points at the old per-app SWUSim/concat tree the shared-corpus migration
+            // deleted (404 locally; prod only "works" because it still has the old tree). Mirrors the
+            // isSharedSWUArt guard in Card(). Non-SWU (GrandArchive etc.) keeps the reflection rewrite.
+            var subFolder;
+            if (folder.indexOf('AppCore/SWU/Images') !== -1) {
+              subFolder = folder.substring(folder.indexOf('AppCore/SWU/Images')).replace(/\/(concat|WebpImages)\/?$/, '');
+            } else {
+              subFolder = folder;
+              if (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) {
+                subFolder = AssetReflectionPath();
+              }
             }
             // Which way subcards flow is declared by the zone schema (Subcards: Flow=... →
             // GetZoneData().SubcardFlow). "Below" = SWU upgrades/captives/pilots peek from
