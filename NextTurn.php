@@ -369,7 +369,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         // .btn/.switch-scoped only — NOT components.css (its bare-`button` rule would restyle
         // every raw board button). 'neutral'/unknown links no overlay (tokens.css defaults win).
         require_once __DIR__ . '/SharedUI/Render/Head.php';   // pulls in SiteDef.php + _VersionAsset()
-        // LoadSiteDef throws when a root has no SiteDef (e.g. SWUCardList) — fall back to neutral.
+        // LoadSiteDef throws when a root has no SiteDef — fall back to neutral.
         $__siteDef = [];
         try { $__siteDef = LoadSiteDef($folderPath); } catch (\Throwable $e) { $__siteDef = []; }
         $__theme   = is_string($__siteDef['theme'] ?? null) ? $__siteDef['theme'] : 'neutral';

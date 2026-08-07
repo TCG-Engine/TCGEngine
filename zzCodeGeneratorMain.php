@@ -25,7 +25,6 @@ function GeneratorAdminAppLabel($rootName)
         'RBDeck' => 'Riftbound Deck',
         'RBSim' => 'Riftbound Simulator',
         'SoulMastersSim' => 'Soul Masters Simulator',
-        'SWUCardList' => 'SWU Card List',
     ];
     if (isset($fallbackLabels[$rootName])) return $fallbackLabels[$rootName];
     return preg_replace('/(?<=[a-z0-9])(?=[A-Z])/', ' ', $rootName);

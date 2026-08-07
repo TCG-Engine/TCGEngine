@@ -156,14 +156,71 @@ $checks['MainMenu has no SWUCardList iframe src'] = strpos($menuCode, 'folderPat
 $checks['MainMenu still defines openCardSearch']  = strpos($menuCode, 'function openCardSearch') !== false;
 $checks['MainMenu still defines closeCardSearch'] = strpos($menuCode, 'function closeCardSearch') !== false;
 
+// ── SWUCardList is gone ─────────────────────────────────────────────────────
+// The app root existed only to draw this grid. Its generated NextTurnRender.php was gitignored, so
+// nothing in the repo recorded that it had gone stale against the 2026-08-05 art migration. Deleting
+// it removes the artifact that could go stale; this check keeps it deleted.
+$checks['SWUCardList root deleted']   = !is_dir($root . '/SWUCardList');
+$checks['SWUCardList schema deleted'] = !is_dir($root . '/Schemas/SWUCardList');
+
+// No LIVE reference remains. Scanned with comments stripped, because .gitignore entries and prose in
+// the migration README legitimately mention the name.
+//
+// The same pass also enforces the standing art-tree rule: no live code may name a PER-APP art folder.
+// Those trees were deleted in the 2026-08-05 shared-corpus migration. This would NOT have caught the
+// bug that motivated this work — that string lived in a gitignored generated file — but it is nearly
+// free here and keeps the rule honest for the SWU apps that remain.
+//
+// The Discord legacy-URL shim at SWUDeck/WebpImages/ must keep working. Verified 2026-08-06: its
+// index.php resolves paths via __DIR__ and SWUCardImageFsPath(), and names no literal art tree in
+// code, so it passes without an exemption.
+$live = $artTree = [];
+$scan = ['/SharedUI', '/SWUDeck', '/AppCore/SWU', '/Stats', '/APIs'];
+$perApp = '~\b(SWUDeck|SWUSim|SWUCardList)/(concat|crops|WebpImages)\b~i';
+// Repo-root PHP is scanned too — NOT decoration. A directories-only scan passed clean while
+// zzCodeGeneratorMain.php still registered 'SWUCardList' => 'SWU Card List' in the generator's root
+// picker, which would have offered a root whose schema no longer exists.
+$files = array_filter(glob($root . '/*.php') ?: [], 'is_file');
+foreach ($scan as $dir) {
+    $d = $root . $dir;
+    if (!is_dir($d)) continue;
+    $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($d, FilesystemIterator::SKIP_DOTS));
+    foreach ($it as $f) if ($f->isFile()) $files[] = $f->getPathname();
+}
+foreach ($files as $path) {
+    $ext = pathinfo($path, PATHINFO_EXTENSION);
+    if (!in_array($ext, ['php', 'js'], true)) continue;
+    $src = @file_get_contents($path);
+    if ($src === false) continue;
+    $code = $src;
+    if ($ext === 'php') {
+        $code = '';
+        foreach (token_get_all($src) as $tk) {
+            if (is_array($tk)) {
+                if ($tk[0] === T_COMMENT || $tk[0] === T_DOC_COMMENT) continue;
+                $code .= $tk[1];
+            } else { $code .= $tk; }
+        }
+    }
+    // The inline <script> blocks are T_INLINE_HTML, so JS line comments survive token stripping.
+    $code = preg_replace('~^\s*//.*$~m', '', $code);
+    $rel  = str_replace($root, '', $path);
+    if (stripos($code, 'SWUCardList') !== false) $live[] = $rel;
+    if (preg_match($perApp, $code))              $artTree[] = $rel;
+}
+$checks['no live SWUCardList reference'] = $live === [];
+$checks['no live per-app art tree reference'] = $artTree === [];
+
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 if ($fails) {
     echo "FAIL (" . count($fails) . "/" . count($checks) . "):\n";
     foreach ($fails as $f) echo "  - $f\n";
     echo "  tiles=$tileCount ids=" . count($ids) . " badges="
        . substr_count($html, 'data-mock="1"') . " expectedMocks=$expectedMocks\n";
-    if (!empty($bad)) echo "  bad src: " . implode(', ', array_slice($bad, 0, 5)) . "\n";
+    if (!empty($bad))          echo "  bad src: " . implode(', ', array_slice($bad, 0, 5)) . "\n";
     if (!empty($swapMismatch)) echo "  swap mismatch: " . implode('; ', $swapMismatch) . "\n";
+    if (!empty($live))         echo "  live SWUCardList refs: " . implode(', ', $live) . "\n";
+    if (!empty($artTree))      echo "  per-app art tree refs: " . implode(', ', $artTree) . "\n";
 } else {
     echo "PASS (" . count($checks) . " checks)\n";
 }

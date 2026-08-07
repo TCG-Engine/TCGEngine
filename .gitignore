@@ -53,16 +53,6 @@ APIKeys/APIKeys.php
 SWUDeck/jpg
 SoulMastersSim/Games/GameIDCounter.txt
 SoulMastersSim/Games/GameIDCounter.txt
-SWUCardList/concat
-SWUCardList/GeneratedCode
-SWUCardList/GamestateParser.php
-SWUCardList/GeneratedUI*.js
-SWUCardList/GetNextTurn.php
-SWUCardList/InitialLayout.php
-SWUCardList/NextTurnRender.php
-SWUCardList/ZoneAccessors.php
-SWUCardList/ZoneClasses.php
-SWUCardList/Games
 GudnakSim/GeneratedCode
 GudnakSim/GamestateParser.php
 GudnakSim/GeneratedUI*.js
