@@ -11,7 +11,7 @@ $whenPlayedAbilities["JTL_083:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $self = GetZoneObject($mzID);
     if (SWUObjGone($self)) return;
-    if (SWUResourceCount(intval($player), true) < 3) return; // can't pay → no offer
+    if (SWUTotalPaymentCapacity(intval($player)) < 3) return; // can't pay → no offer
     $uid = intval($self->UniqueID ?? 0);
     // Fighter/Transport units (any owner) without a Pilot already on them.
     $targets = [];
@@ -33,7 +33,7 @@ $customDQHandlers["JTL_083#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID;
     $playerID = intval($player);
-    if (SWUResourceCount(intval($player), true) < 3) return;
+    if (SWUTotalPaymentCapacity(intval($player)) < 3) return;
     $uid = intval($parts[0] ?? 0);
     $selfMz = SWUFindMzByUID($uid);
     if ($selfMz === null) return;

@@ -13,7 +13,6 @@ $leaderActionResourceCosts["LAW_010"] = 2;
 
 $leaderAbilities["LAW_010"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 2))) { SWUAfterAction($player); return; }
     $units = [];
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $units[] = $mz; }

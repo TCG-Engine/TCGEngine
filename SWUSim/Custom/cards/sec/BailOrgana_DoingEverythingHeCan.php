@@ -9,7 +9,6 @@
 // its owner's hand. If you do, put the top card of your deck into play as a resource.
 $leaderAbilities["SEC_008"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     if (GlobalEffectCount($player, 'SWU_FRIENDLY_DEFEATED') <= 0) { SWUAfterAction($player); return; } // condition false
     $res = &GetResources($player);
     $targets = [];

@@ -20,7 +20,7 @@ $leaderAbilities["ASH_001"] = function(int $player): void {
         }
     }
     if (empty($hosts)) { SWUAfterAction($player); return; }
-    $ready     = SWUResourceCount($player, readyOnly: true);
+    $ready     = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
     $resources = &GetResources($player);
     $targets   = [];
     $pos = 0;
@@ -99,7 +99,7 @@ $onAttackEndAbilities["ASH_001:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $hosts = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter));
     if (empty($hosts)) return;
-    $ready     = SWUResourceCount(intval($player), readyOnly: true);
+    $ready     = SWUTotalPaymentCapacity(intval($player));
     $resources = &GetResources(intval($player));
     $targets   = []; $pos = 0;
     for ($i = 0; $i < count($resources); $i++) {

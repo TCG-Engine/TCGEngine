@@ -5751,7 +5751,7 @@ function _SWUQueueEyeOfAldhaniResolution(int $target, int $count): void {
     $playerID = $target;
     $units = array_values(array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)));
     if (empty($units)) return;
-    $cap = min(count($units), SWUResourceCount($target, true));
+    $cap = min(count($units), SWUTotalPaymentCapacity($target)); // a Credit/Droid can pay this 1 (CR 3.13)
     if ($cap <= 0) {                                   // can't pay → all exhausted, then resolve the rest
         foreach ($units as $mz) OnExhaustCard($target, $mz);
         _SWUQueueEyeOfAldhaniResolution($target, $count - 1);
@@ -6202,13 +6202,81 @@ function SWUApplyCostHalving(int $player, int $resCost): int {
     return $resCost;
 }
 
-function SWUPayCost($player, $cost, $prepaid = 0, bool $applyCostHalving = true): bool {
+// Spend the MINIMUM number of alternate payments (Credit tokens first, then SEC_122 Droids) to cover a
+// $need-resource shortfall, and return how many were covered. Credits are re-resolved on every iteration:
+// SWUDefeatCreditToken runs CleanupRemovedCards, which reindexes the zone, so a precomputed mzID list
+// goes stale after the first defeat. Callers must confirm the shortfall is coverable BEFORE calling —
+// this spends unconditionally and does not roll back.
+function _SWUSpendAltPaymentShortfall(int $player, int $need): int {
+    $paid = 0;
+    while ($paid < $need) {
+        $credits = SWUUsableCreditTokenMzIDs($player); // re-resolved: indices shift on each defeat
+        if (empty($credits) || !SWUDefeatCreditToken($credits[0])) break;
+        $paid++;
+    }
+    if ($paid < $need && SWUPlayerControlsSEC122($player)) {
+        foreach (SWUReadyFriendlyDroids($player) as $mz) { // exhausting does not reindex
+            if ($paid >= $need) break;
+            $d = GetZoneObject($mz);
+            if ($d === null || !empty($d->removed) || intval($d->Status ?? 0) !== 1) continue;
+            $d->Status = 0;
+            $paid++;
+        }
+    }
+    return $paid;
+}
+
+// Pay an ability's inline resource COST (a card's own "pay N" / "[N resources]" component) with the
+// same last-resort alt-payment as SWUPayCost, but WITHOUT touching $gLastPlayResourcesPaid or the
+// 'resourcesUsed' telemetry — those describe a card PLAY (TWI_210 reads the former), and an activated
+// ability's cost is not a play. Returns false and spends nothing if the cost cannot be met.
+//
+// Use this instead of a bare SWUExhaustResources wherever the ACTING player pays a cost. Keep
+// SWUExhaustResources for EFFECTS that exhaust resources (e.g. "exhaust 2 enemy resources"), which are
+// not costs and must never consume Credit tokens.
+function SWUPayInlineAbilityCost(int $player, int $cost): bool {
+    $cost = max(0, $cost);
+    if ($cost === 0) return true;
+    if (SWUTotalPaymentCapacity($player) < $cost) return false;
+    $ready    = SWUResourceCount($player, readyOnly: true);
+    $autoPaid = ($ready < $cost) ? _SWUSpendAltPaymentShortfall($player, $cost - $ready) : 0;
+    $fromRes  = max(0, $cost - $autoPaid);
+    return ($fromRes === 0) ? true : SWUExhaustResources($player, $fromRes);
+}
+
+// Pay a resource cost. $prepaid = resources already covered upstream by the INTERACTIVE alt-payment
+// funnel (SWUOfferAltPayment), which is used wherever the payment point can reach a continuation.
+//
+// LAST-RESORT alt-payment: where a cost is paid inline and cannot reach a continuation (the bespoke
+// "play a card at −N" effects and per-card "pay N" abilities — ~50 sites, each with its own post-payment
+// logic), the player would otherwise be unable to spend Credit tokens / SEC_122 Droids at all, even
+// though CR 3.13 and SEC_122 both say they pay COSTS. So if ready resources alone fall short AND total
+// capacity covers it, spend the MINIMUM tokens needed and exhaust the rest.
+//
+// Deliberately last-resort, not first: when resources alone suffice, nothing is auto-spent and this is
+// byte-identical to the old behaviour — a player never loses a token they could have kept. The residual
+// gap is that with several tokens the player cannot choose to spend MORE of them to preserve a ready
+// resource; that choice survives only on the interactive paths above.
+function SWUPayCost($player, $cost, $prepaid = 0, bool $applyCostHalving = true, bool $altPayAlreadyOffered = false): bool {
     $cost    = max(0, intval($cost));
     $resCost = max(0, $cost - intval($prepaid));
     if ($applyCostHalving) $resCost = SWUApplyCostHalving(intval($player), $resCost); // JTL_105 The Starhawk
-    $ok      = ($resCost === 0) ? true : SWUExhaustResources($player, $resCost);
-    $GLOBALS['gLastPlayResourcesPaid'] = $ok ? $resCost : 0;
-    if ($ok && $resCost > 0 && function_exists('SWUTelemetryBumpTurn')) SWUTelemetryBumpTurn($player, 'resourcesUsed', $resCost);
+    $autoPaid = 0;
+    // $altPayAlreadyOffered: the caller came through SWUOfferAltPayment, so the player was SHOWN the
+    // token choice and $prepaid is their answer. Auto-spending here would override an explicit refusal —
+    // e.g. the Falcon's "you may pay 1 to keep it ready": declining must let it bounce, not silently
+    // exhaust a Droid. Only inline paths that could never ask get the last-resort spend.
+    if ($resCost > 0 && !$altPayAlreadyOffered) {
+        $ready = SWUResourceCount($player, readyOnly: true);
+        if ($ready < $resCost && SWUTotalPaymentCapacity($player) >= $resCost) {
+            $autoPaid = _SWUSpendAltPaymentShortfall(intval($player), $resCost - $ready);
+        }
+    }
+    $fromResources = max(0, $resCost - $autoPaid);
+    $ok = ($fromResources === 0) ? true : SWUExhaustResources($player, $fromResources);
+    // Report RESOURCES exhausted, not total cost — a token-paid point is not a resource paid (TWI_210).
+    $GLOBALS['gLastPlayResourcesPaid'] = $ok ? $fromResources : 0;
+    if ($ok && $fromResources > 0 && function_exists('SWUTelemetryBumpTurn')) SWUTelemetryBumpTurn($player, 'resourcesUsed', $fromResources);
     return $ok;
 }
 
@@ -6753,7 +6821,7 @@ function SWUTakeInitiative($player) {
     // abilities are active (the deployed side is Support / On-Attack draw / Epic Action), so gate on !Deployed.
     $hasMando = false;
     foreach (GetLeader(intval($player)) as $l) { if (($l->CardID ?? '') === 'ASH_014' && empty($l->removed) && empty($l->Deployed)) { $hasMando = true; break; } }
-    if ($hasMando && SWUResourceCount(intval($player), true) >= 1) {
+    if ($hasMando && SWUTotalPaymentCapacity(intval($player)) >= 1) {
         DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Pay_1_resource_to_draw_a_card?");
         DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_014#0", 1);
     }
@@ -9415,7 +9483,7 @@ function _SWUEnfysReuseMode(int $owner): ?string {
     if (_SWULeaderDeployed($owner, 'LAW_014')) {
         return SWUHasUseAvailable(SWUGetLeader($owner)) ? 'deployed' : null;
     }
-    if (_SWULeaderReadyUndeployed($owner, 'LAW_014') && SWUResourceCount($owner, true) >= 2) return 'undeployed';
+    if (_SWULeaderReadyUndeployed($owner, 'LAW_014') && SWUTotalPaymentCapacity($owner) >= 2) return 'undeployed';
     return null;
 }
 
@@ -9549,7 +9617,7 @@ $customDQHandlers["ENFYS_REUSE"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== "YES") return;
     $mode = _SWUEnfysReuseMode($owner);
     if ($mode === null) return;
-    if ($mode === 'undeployed') { SWUExhaustResources($owner, 2); _SWUExhaustUndeployedLeader($owner, 'LAW_014'); }
+    if ($mode === 'undeployed') { SWUPayInlineAbilityCost($owner, 2); _SWUExhaustUndeployedLeader($owner, 'LAW_014'); }
     else SWUConsumeUse(SWUGetLeader($owner)); // deployed: spend the once/round NumUses budget
     SWUUseOnAttackAbility($owner, $cardID, $mzID, $fromUpgrade);
 };
@@ -11134,7 +11202,8 @@ $customDQHandlers["SOR_199#0"] = function($player, $parts, $lastDecision) {
             }
         }
     } else {
-        SWUExhaustResources($player, intval($parts[0] ?? 0));
+        // The alternate-cost card's normal resource cost — a payable cost, so Credits/Droids apply.
+        SWUPayInlineAbilityCost($player, intval($parts[0] ?? 0));
     }
 };
 
@@ -11811,7 +11880,10 @@ function SWUUnitToBottomOfDeck(int $player, string $mzID, bool $toTop = false): 
 // Play a card from the player's hand (mzID like "myHand-2").
 // Pays cost in resources, moves the card to its arena (unit) or discard (event).
 // This is the SWUSim equivalent of GA's ActivateCard.
-function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, $owner = null) {
+// $altPayOffered: true only when reached from the PLAY_CARD funnel continuation, i.e. the player was
+// already shown the Credit/Droid choice and $prepaid is their answer — so SWUPayCost must not
+// auto-spend on top of it. Direct callers (the "play a card at -N" effects) leave it false.
+function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, $owner = null, bool $altPayOffered = false) {
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
@@ -11922,7 +11994,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
     // The early resource exhaust is skipped for both; upgrades pay after target
     // confirmation, alt-cost events pay via the SOR_199 handler.
     if (!$ignoreCost && !$hasAltCost && strpos($cardTypeLower, 'upgrade') === false) {
-        $ok = SWUPayCost($player, $cost, $prepaid);
+        $ok = SWUPayCost($player, $cost, $prepaid, true, $altPayOffered);
         if (!$ok) {
             SetFlashMessage("Not enough ready resources (need $cost).");
             $playerID = $savedPID;
@@ -12620,7 +12692,7 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $argParts = explode('|', $args, 2);
             $mzID     = $argParts[0] ?? '';
             $discount = intval($argParts[1] ?? 0);
-            ActivateCard($player, $mzID, false, $discount, $prepaid);
+            ActivateCard($player, $mzID, false, $discount, $prepaid, null, true);
             break;
         }
         case 'ATTACH_UPGRADE': {
@@ -12630,20 +12702,92 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $hostMz    = $argParts[2] ?? '';
             $isPilot   = !empty($argParts[3]); // 4th field set to '1' on the pilot path
             $discount  = intval($argParts[4] ?? 0); // 5th field = LOF_018 Anakin aspect-penalty waiver
-            _SWUFinalizeUpgradeAttach($player, $cardID, $upgradeMz, $hostMz, $prepaid, false, $isPilot, false, $discount);
+            _SWUFinalizeUpgradeAttach($player, $cardID, $upgradeMz, $hostMz, $prepaid, false, $isPilot, false, $discount, true);
             break;
         }
         case 'FALCON_KEEP': {
             $falconMz = $args;
-            $paidOk   = SWUPayCost($player, 1, $prepaid, false); // effect cost ("pay 1 to keep it ready"), not halved by JTL_105
+            $paidOk   = SWUPayCost($player, 1, $prepaid, false, true); // effect cost ("pay 1 to keep it ready"), not halved by JTL_105
             _SWUFalconKeepOrBounce($player, $falconMz, $paidOk);
+            break;
+        }
+        case 'PLOT_PAY': {
+            // Play the chosen Plot card from resources, crediting any Credit/Droid alt-payment. args =
+            // the resource mzID. ActivateCard pays the remainder and its terminal After Action stays
+            // intercepted, so the Plot window remains open (SWU_PLOT_IN_PROGRESS).
+            ActivateCard($player, $args, false, 0, $prepaid);
+            _SWUSec008HealOnResourcePlay($player); // SEC_008 Bail — "play a card from your resources"
+            break;
+        }
+        case 'SMUGGLE_PAY': {
+            // Re-enter SWUSmuggleResource with the alt-payment settled. args =
+            // "{resourceIdx}|{discount}|{deferHandler}" — all scalars, so this survives the request
+            // boundary on the decision's own Param (nothing is parked in an in-memory global).
+            $argParts = explode('|', $args, 3);
+            $idx      = intval($argParts[0] ?? 0);
+            $disc     = intval($argParts[1] ?? 0);
+            $defer    = ($argParts[2] ?? '') === '' ? null : $argParts[2];
+            SWUSmuggleResource($player, $idx, $disc, $defer, $prepaid);
+            break;
+        }
+        case 'UNIT_ACTION_PAY': {
+            // A unit's "Action [N resources, …]" cost, after the Credit/Droid offer. args =
+            // "{providerCardID}|{cost}|{unitMzID}"; $cost arrives ALREADY halved by SWUUnitAction.
+            // The unit's own base cost (exhaust / defeat) was paid before the offer, so only the
+            // resource remainder is settled here — then the ability runs exactly as before.
+            global $unitAbilities, $playerID;
+            $argParts = explode('|', $args, 3);
+            $provider = $argParts[0] ?? '';
+            $cost     = intval($argParts[1] ?? 0);
+            $mzID     = $argParts[2] ?? '';
+            $playerID = $player; // $mzID is a relative mzID in this player's frame
+            if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
+            if (isset($unitAbilities[$provider]) && is_callable($unitAbilities[$provider])) {
+                ($unitAbilities[$provider])($player, $mzID); // handler owns its SWUAfterAction
+            } else {
+                SWUAfterAction($player);
+            }
+            break;
+        }
+        case 'BASE_EPIC_PAY': {
+            // A base Epic Action's "[N resource]" cost, after the Credit/Droid offer. args =
+            // "{baseCardID}|{cost}". EpicActionUsed was already set by SWUBaseAction (the gate ahead of
+            // it guarantees the cost is payable, so the Epic cannot be consumed for nothing here).
+            global $baseAbilities, $playerID;
+            $argParts = explode('|', $args, 2);
+            $cardID   = $argParts[0] ?? '';
+            $cost     = intval($argParts[1] ?? 0);
+            $playerID = $player;
+            if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
+            if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
+                ($baseAbilities[$cardID])($player);
+            } else {
+                SWUAfterAction($player);
+            }
+            break;
+        }
+        case 'LEADER_ACTION_PAY': {
+            // A leader's "Action [N resources, …]" cost, after the Credit/Droid offer. args =
+            // "{leaderCardID}|{cost}"; $cost arrives ALREADY halved by SWULeaderAction (so pass
+            // applyCostHalving=false — halving it twice would undercharge under JTL_105).
+            global $leaderAbilities, $playerID;
+            $argParts = explode('|', $args, 2);
+            $cardID   = $argParts[0] ?? '';
+            $cost     = intval($argParts[1] ?? 0);
+            $playerID = $player; // handlers below resolve relative mzIDs
+            if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
+            if (isset($leaderAbilities[$cardID]) && is_callable($leaderAbilities[$cardID])) {
+                ($leaderAbilities[$cardID])($player); // handler owns its SWUAfterAction
+            } else {
+                SWUAfterAction($player);
+            }
             break;
         }
         case 'IC27_158_PAY': {
             // Millennium Falcon "you may pay 1 → return a friendly unit costing 3 or less to its
             // owner's hand", after the Credit/Droid alt-pay offer. $prepaid = alt-payments already
             // made; pay the remainder, then offer the (mandatory) return.
-            $paidOk = SWUPayCost($player, 1, $prepaid, false); // effect cost, not halved by JTL_105
+            $paidOk = SWUPayCost($player, 1, $prepaid, false, true); // effect cost, not halved by JTL_105
             if (!$paidOk) break;
             $targets = Ic27158EligibleReturns(intval($player));
             if (empty($targets)) break;
@@ -12654,21 +12798,13 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
         case 'JTL_096_MOVE_PAY': {
             // Blue Leader "you may pay 2 resources → move to the ground arena + 2 Experience", after the
             // Credit/Droid alt-pay offer. $args = the moving unit's UniqueID; $prepaid = alt-payments made.
-            $paidOk = SWUPayCost($player, 2, $prepaid, false); // effect cost, not halved by JTL_105
+            $paidOk = SWUPayCost($player, 2, $prepaid, false, true); // effect cost, not halved by JTL_105
             if (!$paidOk) break;
             $mz = SWUFindMzByUID(intval($args));
             if ($mz === null) break;
             $newMz = SWUMoveUnitBetweenArenas($mz, 'GroundArena');
             if ($newMz === '') break;
             for ($i = 0; $i < 2; $i++) DoGiveExperienceToken($player, $newMz);
-            break;
-        }
-        case 'LAW_015_FRONT_PAY': {
-            // Jabba (front) [1 resource] cost, after the Credit alt-pay offer. $args = the (halved) cost;
-            // $prepaid = Credit tokens already defeated. Pay the remainder, then the return-a-unit + create.
-            $cost   = intval($args);
-            $paidOk = SWUPayCost($player, $cost, $prepaid, false); // already halved before the offer
-            _SWULaw015AfterPay($player, $paidOk);
             break;
         }
     }
@@ -12770,11 +12906,11 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
     if ($cardID === 'JTL_014') {
         if (empty($leader->Ready)
             || SWUResourceCount($player) < 6
-            || SWUResourceCount($player, readyOnly: true) < 3) {
+            || SWUTotalPaymentCapacity($player) < 3) {
             $playerID = $savedPID;
             return;
         }
-        SWUExhaustResources($player, 3);
+        SWUPayInlineAbilityCost($player, 3); // [3 resources] — Credits/Droids may pay it (CR 3.13)
     } elseif ($cardID === 'SEC_008') {
         // Bail Organa Action [Exhaust, discard 2 cards from your hand]: deploy if you control 4+ resources.
         // Non-epic, repeatable. The discard-2 is an interactive cost paid BEFORE the deploy commits: on the
@@ -12943,13 +13079,11 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
 
     $cost = $leaderActionResourceCosts[$cardID] ?? 0;
     $cost = SWUApplyCostHalving($player, $cost); // JTL_105 The Starhawk — halves activation costs too
-    if ($cost > 0) {
-        $ready = SWUResourceCount($player, readyOnly: true);
-        // LAW_015 Jabba (front) — a Credit token may be defeated while paying resources to pay 1 less
-        // (CR 3.13), so usable Credits count toward this [1 resource] cost (paid via SWUOfferAltPayment).
-        if ($cardID === 'LAW_015') $ready += count(SWUUsableCreditTokenMzIDs($player));
-        if ($ready < $cost) return false;
-    }
+    // Gate on TOTAL payment capacity, never bare ready resources: a Credit token may be defeated while
+    // paying resources to pay 1 less (CR 3.13) and a SEC_122 Droid may be exhausted "to pay costs as if
+    // it were a resource" — both say COSTS, not "cards", so they cover an activated ability's cost.
+    // SWULeaderAction pays through SWUOfferAltPayment, so the offer and the payment agree.
+    if ($cost > 0 && SWUTotalPaymentCapacity($player) < $cost) return false;
 
     // SHD_017 Lando (front) — "Play a card using Smuggle" (effect target) is NOT gated (CR 6.4.587.c): the
     // [Exhaust, defeat a resource] cost changes game state, so usable even with no smugglable card.
@@ -13117,6 +13251,12 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     if ($cardID === 'LAW_012' && _SWUTopDeckFrontIdx($player) === -1) return false;
     // LAW_014 Enfys Nest — front is a reaction (no Action).
     if ($cardID === 'LAW_014') return false;
+    // LAW_013 Chewbacca (front) — Action [1 resource, Exhaust, defeat a friendly resource]. TWO separate
+    // resource costs: a Credit token may pay the "[1 resource]" (CR 3.13) but CANNOT satisfy "defeat a
+    // friendly resource", because a Credit is created in the resource zone and is explicitly NOT a
+    // resource (CR 3.13). SWUResourceCount already excludes Credits, so this is the real-resource gate.
+    // (Previously implicit: the ready-resource cost check happened to also prove a resource existed.)
+    if ($cardID === 'LAW_013' && SWUResourceCount($player) < 1) return false;
     // LAW_015 Jabba (front) — needs a friendly Underworld unit to return (the additional cost); the
     // 1-resource cost is already gated above via $leaderActionResourceCosts.
     if ($cardID === 'LAW_015') {
@@ -13168,6 +13308,18 @@ function SWULeaderAction(int $player, string $cardID, int $leaderIndex = 0): voi
     }
 
     $leader->Ready = false; // exhaust
+
+    // Pay the resource component CENTRALLY, through the alt-payment funnel, so Credit tokens (CR 3.13)
+    // and SEC_122 Droids can pay a leader Action exactly as they pay a card. Handlers no longer call
+    // SWUExhaustResources themselves — they are dispatched by LEADER_ACTION_PAY once the cost is paid.
+    // When the player has no usable Credit/Droid the funnel dispatches SYNCHRONOUSLY with prepaid 0,
+    // so this is behaviour-identical to the old inline payment for every player without tokens.
+    global $leaderActionResourceCosts;
+    $cost = SWUApplyCostHalving($player, $leaderActionResourceCosts[$cardID] ?? 0);
+    if ($cost > 0) {
+        SWUOfferAltPayment($player, $cost, 'LEADER_ACTION_PAY', "{$cardID}|{$cost}", 1);
+        return; // $playerID intentionally left = $player when the funnel queued a decision
+    }
 
     if (isset($leaderAbilities[$cardID]) && is_callable($leaderAbilities[$cardID])) {
         ($leaderAbilities[$cardID])($player);
@@ -13344,11 +13496,26 @@ function _SWUBaseOwnAction(int $player): void {
     // once-per-game Epic slot (so a forced/illegal activation doesn't waste it).
     global $baseEpicResourceCosts;
     $epicCost = $baseEpicResourceCosts[$cardID] ?? 0;
-    if ($epicCost > 0 && SWUResourceCount($player, readyOnly: true) < $epicCost) {
+    // Capacity, not ready resources: a Credit token / SEC_122 Droid pays an Epic Action's cost too.
+    if ($epicCost > 0 && SWUTotalPaymentCapacity($player) < $epicCost) {
+        $playerID = $savedPID;
+        return;
+    }
+    // LAW_029 Citadel Research Center — "[1 resource]: Return a friendly RESOURCE …". The two
+    // resource-shaped costs are independent: a Credit may pay the bracket cost but is never itself a
+    // resource to return (CR 3.13), so the Epic also needs a real resource to exist or it is a no-op
+    // that must PRESERVE the once-per-game Epic. Same shape as the LAW_013 Chewbacca gate.
+    if ($cardID === 'LAW_029' && SWUResourceCount($player) < 1) {
         $playerID = $savedPID;
         return;
     }
     $base->EpicActionUsed = true;
+
+    // Pay the Epic's resource cost centrally, through the alt-pay funnel, then dispatch the ability.
+    if ($epicCost > 0) {
+        SWUOfferAltPayment($player, $epicCost, 'BASE_EPIC_PAY', "{$cardID}|{$epicCost}", 1);
+        return; // $playerID intentionally left = $player when the funnel queued a decision
+    }
 
     if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
         ($baseAbilities[$cardID])($player);
@@ -13395,7 +13562,10 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
     global $playerID, $unitActionResourceCosts;
     $cost = $unitActionResourceCosts[$providerCardID] ?? 0;
     $cost = SWUApplyCostHalving($player, $cost); // JTL_105 The Starhawk — halves activation costs too
-    if ($cost > 0 && SWUResourceCount($player, readyOnly: true) < $cost) return false;
+    // Total payment capacity, not bare ready resources — Credit tokens (CR 3.13) and SEC_122 Droids pay
+    // an activated ability's cost exactly as they pay a card's. SWUUnitAction pays through the same
+    // funnel, so the offer and the payment agree.
+    if ($cost > 0 && SWUTotalPaymentCapacity($player) < $cost) return false;
 
     $savedPID = $playerID;
     $playerID = $player;
@@ -13459,7 +13629,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         case 'SHD_087': // Crosshair — available if EITHER sub-action is affordable: 2 ready resources
                         // (the +1/+0 action) OR the unit is ready (the Exhaust deal-power action).
             if (!(($actor !== null && intval($actor->Status ?? 0) === 1)
-                    || SWUResourceCount($player, readyOnly: true) >= 2)) $ok = false;
+                    || SWUTotalPaymentCapacity($player) >= 2)) $ok = false;
             break;
         case 'ASH_230': // Improvised Identity (granted): once each round.
             if (GlobalEffectCount($player, 'SWU_ASH230_USED') > 0) $ok = false;
@@ -13495,7 +13665,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         // cost is [1 resource, Exhaust] — both paid by SWUUnitAction before the handler runs (a game-state
         // change), so per CR 6.4.587.c the Action is usable even with no playable hand card. NOT gated here.
         case 'ASH_002': { // Fennec Shand (deployed): needs 1 ready resource, a hand unit, and a ready friendly unit (the cost).
-            if (SWUResourceCount($player, readyOnly: true) < 1) { $ok = false; break; }
+            if (SWUTotalPaymentCapacity($player) < 1) { $ok = false; break; }
             if (empty(ZoneSearch('myHand', ['Unit', 'Token Unit']))) { $ok = false; break; }
             $hasReady = false;
             foreach (['myGroundArena', 'mySpaceArena'] as $z) {
@@ -13638,7 +13808,7 @@ function _SWUNonUniqueUnitTargets(int $player): array {
 // hand at −N" actions (SOR_093/TWI_120 units, SOR_177 events): used both by the
 // affordability gate and by the ability closures. Caller sets $playerID.
 function SWUHandPlayablesAtDiscount(int $player, array $types, int $discount): array {
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
     $out = [];
     foreach (ZoneSearch("myHand", $types) as $mz) {
         $o = GetZoneObject($mz);
@@ -13654,7 +13824,7 @@ function SWUHandPlayablesAtDiscount(int $player, array $types, int $discount): a
 // affordability gate and its ability closures (leader side + deployed-unit side).
 // Caller must set $playerID before calling.
 function _SWUSeparatistHandPlayables(int $player): array {
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
     $out = [];
     foreach (ZoneSearch("myHand") as $mz) {
         $o = GetZoneObject($mz);
@@ -13742,10 +13912,15 @@ function SWUUnitAction(int $player, string $mzID): void {
         $obj->Status = 0; // exhaust (the default action cost)
     }
     // 'none': no base cost — a pure "Action [N resources]:" ability (no exhaust, no ready needed,
-    // repeatable while resources last, e.g. SOR_184 Fett's Firespray). The resource cost is paid below.
+    // repeatable while resources last, e.g. SOR_184 Fett's Firespray). The resource cost is paid below,
+    // through the alt-payment funnel so Credit tokens / SEC_122 Droids can pay it (CR 3.13). With no
+    // usable token the funnel dispatches synchronously with prepaid 0 — identical to the old inline pay.
     $rc = $unitActionResourceCosts[$provider] ?? 0;
     $rc = SWUApplyCostHalving($player, $rc); // JTL_105 The Starhawk — halves activation costs too
-    if ($rc > 0) SWUExhaustResources($player, $rc);
+    if ($rc > 0) {
+        SWUOfferAltPayment($player, $rc, 'UNIT_ACTION_PAY', "{$provider}|{$rc}|{$mzID}", 1);
+        return; // $playerID intentionally left = $player when the funnel queued a decision
+    }
 
     if (isset($unitAbilities[$provider]) && is_callable($unitAbilities[$provider])) {
         ($unitAbilities[$provider])($player, $mzID);
@@ -13764,12 +13939,13 @@ function SWUUnitAction(int $player, string $mzID): void {
 // the deploy arms it, each play re-offers until the player declines or no affordable Plot remains.
 
 // True if the player has at least one Plot card in their resources they can afford right now.
-// Affordability uses ready resources (the Plot card itself may pay for it — it counts toward ready
-// when ready), including aspect penalties (folded into SWUComputePlayCost).
+// Affordability uses TOTAL payment capacity — ready resources (the Plot card itself may pay for it, it
+// counts toward ready when ready) plus Credit tokens / SEC_122 Droids, since Plot pays a card's cost and
+// CR 3.13 applies — including aspect penalties (folded into SWUComputePlayCost).
 function PlayerHasPlotsToPlay(int $player): bool {
     global $playerID, $Plot_Cards;
     $saved = $playerID; $playerID = $player;
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player);
     $resources = &GetResources($player);
     $found = false;
     for ($i = 0; $i < count($resources); $i++) {
@@ -13791,7 +13967,7 @@ function _SWUEligiblePlotResources(int $player): array {
     global $playerID, $Plot_Cards;
     $saved = $playerID; $playerID = $player;
     $window = intval(GetSWUVar('SWU_PLOT_K', '0')) - intval(GetSWUVar('SWU_PLOT_P', '0'));
-    $ready  = SWUResourceCount($player, readyOnly: true);
+    $ready  = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a Plot's cost (CR 3.13)
     $resources = &GetResources($player);
     $out = [];
     $pos = 0;
@@ -13913,8 +14089,23 @@ $customDQHandlers["PLOT_PLAY"] = function($player, $parts, $lastDecision) {
     // Play from resources at full cost (the Plot card exhausts itself toward its cost — see above).
     // ActivateCard removes it and routes unit/upgrade/event; its terminal After Action is intercepted
     // (the window stays open).
-    ActivateCard(intval($player), $ans, false);
-    _SWUSec008HealOnResourcePlay(intval($player));   // SEC_008 Bail Organa — "play a card from your resources"
+    // Route the cost through the alt-payment funnel, so a Credit token / SEC_122 Droid can pay part of it
+    // (CR 3.13) exactly as on the normal play path. $ans is a scalar mzID, so it rides the CUSTOM
+    // decision's own Param across the request boundary. No usable token → dispatches synchronously.
+    //
+    // UPGRADES ARE EXCLUDED, mirroring SWUContinuePlayAfterExploit: an upgrade pays its cost HOST-SIDE in
+    // ATTACH_UPGRADE, which runs its own Credit/Droid offer. Offering here too would spend tokens the
+    // upgrade branch never credits and then ask a second time. (Every Plot card printed so far IS an
+    // upgrade, so today this is the only live branch — the funnel path is for a future non-upgrade Plot.)
+    $plotObj  = GetZoneObject($ans);
+    $plotType = ($plotObj !== null && empty($plotObj->removed)) ? (CardType($plotObj->CardID ?? '') ?? '') : '';
+    if (strpos(strtolower($plotType), 'upgrade') !== false) {
+        SWUDispatchDroidContinuation(intval($player), 'PLOT_PAY', $ans, 0);
+    } else {
+        $plotCost = ($plotObj !== null && empty($plotObj->removed))
+                  ? max(0, SWUComputePlayCost(intval($player), $plotObj)) : 0;
+        SWUOfferAltPayment(intval($player), $plotCost, 'PLOT_PAY', $ans, 1);
+    }
     // Do NOT restore $playerID — the upgrade/event paths return without restoring and rely on $playerID
     // staying = $player for MZCountChoices on any decision they queued.
 };
@@ -14028,7 +14219,11 @@ $customDQHandlers["DISCLOSE_RESOLVE"] = function($player, $parts, $lastDecision)
 
 // Play a card from the player's resource zone using Smuggle (CR 8.22).
 // $resourceIdx is the 0-based index into the player's non-removed Resources entries.
-function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?string $deferHandler = null): void {
+// $prepaid: resources already covered by an alternate payment (Credit tokens / SEC_122 Droids). The
+// SENTINEL -1 means "the alt-payment offer has not been made yet" — on that first entry, once the cost
+// is known, this queues the offer and re-enters through SMUGGLE_PAY with the real prepaid amount.
+// Everything before the first mutation is pure cost computation, so re-entering recomputes identically.
+function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?string $deferHandler = null, int $prepaid = -1): void {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
@@ -14110,7 +14305,23 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
     // nothing, so the full cost then correctly comes from elsewhere.
     $smuggleSelfPaid = 0;
     if (intval($resourceObj->Status ?? 0) === 1) { $resourceObj->Status = 0; $smuggleSelfPaid = 1; }
-    $exhaustOk = SWUExhaustResources($player, max(0, $totalCost - $smuggleSelfPaid));
+
+    // Smuggle is a cost paid to PLAY a card, so a Credit token may be defeated to pay 1 less (CR 3.13)
+    // and a SEC_122 Droid may be exhausted for it. The offer is made BEFORE this commit point (the code
+    // below depends on $actualIdx / $resourceObj, which cannot survive a decision boundary), then this
+    // function re-enters with the chosen $prepaid. Only the scalar (index, discount) crosses the
+    // boundary — it rides the CUSTOM decision's own Param, so it survives the request boundary.
+    $remaining = max(0, $totalCost - $smuggleSelfPaid);
+    if ($prepaid < 0) {
+        $prepaid = 0;
+        if ($remaining > 0 && (!empty(SWUUsableCreditTokenMzIDs($player)) || SWUPlayerControlsSEC122($player))) {
+            $resourceObj->Status = 1; // undo the self-payment; the re-entry redoes it
+            SWUOfferAltPayment($player, $remaining, 'SMUGGLE_PAY',
+                "{$resourceIdx}|{$discount}|" . ($deferHandler ?? ''), 1);
+            return; // $playerID intentionally left = $player when the funnel queued a decision
+        }
+    }
+    $exhaustOk = SWUExhaustResources($player, max(0, $remaining - $prepaid));
     if (!$exhaustOk) {
         // Roll the self-payment back: nothing is spent on a failed play (the card stays playable).
         if ($smuggleSelfPaid) $resourceObj->Status = 1;
@@ -14300,7 +14511,7 @@ function SWUPlayFromDiscard(int $player, int $discardIdx): void {
 
     if ($modifier === 'TPP') {
         $cost = intval(CardCost($cardID)) + SWUAspectPenalty($player, $cardID);
-        if (!SWUExhaustResources($player, $cost)) {
+        if (!SWUPayInlineAbilityCost($player, $cost)) {
             SetFlashMessage("Not enough ready resources.");
             $playerID = $savedPID;
             return;
@@ -14388,7 +14599,7 @@ function SWUPlayFromOpponentDiscard(int $player, int $discardIdx): void {
     if ($modifier === 'OTPP' || $modifier === 'OTPN') {
         // OTPP = at cost (with aspect penalty); OTPN = at cost, IGNORING aspect penalties (SEC_205).
         $cost = intval(CardCost($cardID)) + ($modifier === 'OTPN' ? 0 : SWUAspectPenalty($player, $cardID));
-        if (!SWUExhaustResources($player, $cost)) {
+        if (!SWUPayInlineAbilityCost($player, $cost)) {
             SetFlashMessage("Not enough ready resources.");
             $playerID = $savedPID;
             return;
@@ -14484,7 +14695,7 @@ function SWUComputeActionsData(int $player): array {
             // Trench: non-epic repeatable deploy — ready, control 6+ resources, 3 ready resources.
             $deployByIdx[$liveIdx] = $ready && !$deployed
                 && SWUResourceCount($player) >= 6
-                && SWUResourceCount($player, readyOnly: true) >= 3;
+                && SWUTotalPaymentCapacity($player) >= 3;
         } elseif ($cid === 'SEC_008') {
             // Bail Organa: non-epic repeatable Action [Exhaust, discard 2 cards from hand]: deploy if you
             // control 4+ resources. Needs the leader ready + 2 cards in hand to discard as the cost.

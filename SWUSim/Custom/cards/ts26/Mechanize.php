@@ -16,7 +16,7 @@ $customDQHandlers["TS26_57#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["TS26_57:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $ready = SWUResourceCount(intval($player), true);
+    $ready = SWUTotalPaymentCapacity(intval($player));
     $discard = GetDiscard(intval($player));
     $tg = [];
     $liveIdx = 0;

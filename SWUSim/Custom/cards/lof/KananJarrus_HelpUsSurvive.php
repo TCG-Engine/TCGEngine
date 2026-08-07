@@ -8,7 +8,6 @@
 // LOF_004 Kanan Jarrus — Action [1 resource, Exhaust]: Give a Shield token to a Creature or Spectre unit.
 $leaderAbilities["LOF_004"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $targets = [];
     foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
                          ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)) as $mz) {

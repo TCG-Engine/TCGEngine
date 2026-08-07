@@ -30,7 +30,6 @@ $onAttackAbilities["JTL_007:0"] = function($player, $mzID) {
 $leaderAbilities["JTL_007"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $targets = [];
     foreach (SWUAllUnits() as $mz) {
         if (_SWUIsResistanceTarget(GetZoneObject($mz))) $targets[] = $mz;

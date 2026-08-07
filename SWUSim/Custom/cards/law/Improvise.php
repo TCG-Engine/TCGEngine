@@ -23,7 +23,7 @@ $whenPlayedAbilities["LAW_242:0"] = function($player, $mzID = '') {
             // Only offer "Play" if the player can afford the top card at its −1 discount — otherwise picking
             // Play just fizzles at resolve. Discard / Leave are always available.
             $canPlay = max(0, SWUComputePlayCost(intval($player), $topObj) - 1)
-                       <= SWUResourceCount(intval($player), readyOnly: true);
+                       <= SWUTotalPaymentCapacity(intval($player));
             $opts = "@{$topID}" . ($canPlay ? "&Play" : "") . "&Discard&Leave";
             DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", $opts, 1, "Play_the_top_card_(costs_1_less),_discard_it,_or_leave_it");
             DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_242#0", 1);

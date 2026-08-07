@@ -38,7 +38,7 @@ $whenPlayedAbilities["SOR_246:0"] = function($player, $mzID = '') {
                      && (intval(CardHp($bases[0]->CardID)) - intval($bases[0]->Damage)) <= 5;
             $canPlay = $free
                        || max(0, SWUComputePlayCost(intval($player), $topObj) - 5)
-                          <= SWUResourceCount(intval($player), readyOnly: true);
+                          <= SWUTotalPaymentCapacity(intval($player));
             if (!$canPlay) return;
             DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "@{$topID}&Play&Leave", 1, "Play_the_top_card_(costs_5_less,_or_free_if_your_base_has_5_or_less_HP)");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_246#0", 1);

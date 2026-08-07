@@ -24,7 +24,7 @@ $whenPlayedAbilities["LAW_264:0"] = function($player, $mzID = '') {
                           // the hand index (the LOF_150 trap), then offer affordable hand cards.
             global $playerID; $playerID = intval($player);
             DecisionQueueController::CleanupRemovedCards();
-            $ready   = SWUResourceCount(intval($player), readyOnly: true);
+            $ready   = SWUTotalPaymentCapacity(intval($player));
             $targets = [];
             foreach (ZoneSearch("myHand") as $mz) {
                 $o = GetZoneObject($mz);

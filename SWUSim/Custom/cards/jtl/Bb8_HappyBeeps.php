@@ -13,7 +13,7 @@ $whenPlayedAsUpgradeAbilities["JTL_145:0"] = function($player, $mzID) {
         $o = GetZoneObject($mz);
         if ($o !== null && HasTrait($o->CardID ?? '', 'Resistance')) $resUnits[] = $mz;
     }
-    if (empty($resUnits) || SWUResourceCount(intval($player), true) < 2) return;
+    if (empty($resUnits) || SWUTotalPaymentCapacity(intval($player)) < 2) return;
     DecisionQueueController::AddDecision($player, 'YESNO', '-', 1, tooltip: "Pay_2_resources_to_ready_a_Resistance_unit?");
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'JTL_145#0', 1);
 };
@@ -22,7 +22,7 @@ $customDQHandlers["JTL_145#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID;
     $playerID = intval($player);
-    if (SWUResourceCount(intval($player), true) < 2) return;
+    if (SWUTotalPaymentCapacity(intval($player)) < 2) return;
     SWUPayCost(intval($player), 2, 0, false);   // effect cost, not halved by JTL_105
     $resUnits = [];
     foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {

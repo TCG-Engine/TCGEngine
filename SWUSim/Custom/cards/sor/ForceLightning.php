@@ -15,7 +15,7 @@ $customDQHandlers["SOR_138#0"] = function($player, $parts, $lastDecision) {
     if (!in_array('SOR_138', $o->TurnEffects, true)) $o->TurnEffects[] = 'SOR_138';
     _SWUCheckDefeatAfterAbilityLoss($lastDecision); // SEC_012 Cassian at 0 HP loses initiative-survival → defeated
     if (_SWUControlsForceUnit(intval($player))) {
-        $maxX = SWUResourceCount(intval($player), readyOnly: true);
+        $maxX = SWUResourceCount(intval($player), readyOnly: true); // resources only — see SOR_138#1
         if ($maxX > 0) {
             DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "0|" . $maxX, 1, tooltip:"Pay_any_number_of_resources_(deal_2_damage_each)");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_138#1|" . $lastDecision, 1);
@@ -27,6 +27,11 @@ $customDQHandlers["SOR_138#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $x = intval($lastDecision);
     if ($x <= 0) return;
+    // ⚠ SCALED-EFFECT COST — resources ONLY, never Credit tokens / SEC_122 Droids.
+    // The magnitude keys off "resources paid this way", and a Credit is NOT a resource (CR 3.13):
+    // defeating one pays 1 less, it does not become a resource paid. So a Credit can pay this CARD's
+    // own play cost (the normal play path), but must never scale this effect. Deliberate exception to
+    // the engine-wide SWUPayInlineAbilityCost conversion — do not "fix" it back.
     if (!SWUExhaustResources(intval($player), $x)) return;   // pay X (NUMBERCHOOSE was capped at ready)
     $targetMz = $parts[0] ?? '';
     if ($targetMz !== '') SWUDealDamageToUnit($targetMz, 2 * $x, intval($player));

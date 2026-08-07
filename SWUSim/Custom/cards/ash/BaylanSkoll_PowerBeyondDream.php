@@ -23,7 +23,7 @@ $onAttackAbilities["ASH_003:0"] = function($player, $mzID) {
 // the only unit you control in its arena. Only offer units that are alone in their arena.
 $leaderAbilities["ASH_003"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUPayInlineAbilityCost($player, 1)) { SWUAfterAction($player); return; }
     $ground = ZoneSearch('myGroundArena', AnyUnitFilter);
     $space  = ZoneSearch('mySpaceArena',  AnyUnitFilter);
     $targets = [];

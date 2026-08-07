@@ -37,10 +37,34 @@ foreach ([
 $checks['CardTitle by uuid still resolves'] = CardTitle('2579145458') === 'Luke Skywalker';
 $checks['an unknown id returns null, not a fatal'] = CardTitle('NOPE_999') === null;
 
-// ── LeaderUnitByUUID follows the same rule ───────────────────────────────────
-$checks['LeaderUnitByUUID accepts both keys'] =
-    LeaderUnitByUUID('SOR_005') === LeaderUnitByUUID('2579145458');
-$checks['LeaderUnitByUUID still resolves an asset'] = LeaderUnitByUUID('SOR_005') === '0dcb77795c';
+// ── LeaderUnitLegacyIDByCardID follows the same rule ────────────────────────────
+// Renamed from LeaderUnitByUUID on 2026-08-07: it is keyed by CardID (it normalises its argument),
+// and it returns a LEGACY identifier for the deployed side — not a card id, and not a filename.
+// The old name was wrong on both halves and had already caused a silent empty map.
+$checks['LeaderUnitLegacyIDByCardID exists'] = function_exists('LeaderUnitLegacyIDByCardID');
+if (function_exists('LeaderUnitLegacyIDByCardID')) {
+    $checks['LeaderUnitLegacyIDByCardID accepts both keys'] =
+        LeaderUnitLegacyIDByCardID('SOR_005') === LeaderUnitLegacyIDByCardID('2579145458');
+    $checks['LeaderUnitLegacyIDByCardID resolves a legacy id'] = LeaderUnitLegacyIDByCardID('SOR_005') === '0dcb77795c';
+    $checks['a non-leader resolves to null'] = LeaderUnitLegacyIDByCardID('SOR_033') === null;
+}
+
+// The value must NOT be treated as art. The corpus is entirely SET_NNN-named, so a legacy id names
+// no file; building a path from one would resurrect the third key space the migration removed.
+$legacy = function_exists('LeaderUnitLegacyIDByCardID') ? LeaderUnitLegacyIDByCardID('SOR_005') : '';
+$corpus = __DIR__ . '/../../AppCore/SWU/Images';
+$checks['the legacy id names no file'] =
+    $legacy !== '' && glob("$corpus/*/{$legacy}*") === [];
+$checks['the SET_NNN back art DOES exist'] = file_exists("$corpus/crops/SOR_005_back_cropped.png");
+
+// The consumer that matters: this map is what keeps ~2,984 prod stat rows keyed by a leader's
+// FLIPPED-side asset id (ad86d54e97 -> TWI_017) attached to that leader. It fails SILENTLY to an
+// empty array when the underlying accessor is missing — which is exactly what a rename could cause
+// if the dictionary were not regenerated. Assert it is populated, not merely that it returns.
+require_once __DIR__ . '/../../AppCore/SWU/CardIdentity.php';
+$leaderUnitMap = SWUCardIdentityLeaderUnitMap();
+$checks['leader-unit legacy-id map is NOT empty'] = count($leaderUnitMap) > 100;
+$checks['the Palpatine flip asset still maps'] = ($leaderUnitMap['ad86d54e97'] ?? null) === 'TWI_017';
 
 // ── The catalog is unchanged in SIZE, only in shape ──────────────────────────
 $all = GetAllCardIds();

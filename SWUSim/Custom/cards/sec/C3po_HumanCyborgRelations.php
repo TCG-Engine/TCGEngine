@@ -26,7 +26,6 @@ $onAttackAbilities["SEC_015:0"] = function($player, $mzID) {
 // Action [1 resource, Exhaust]: If you control an exhausted unit, exhaust a unit.
 $leaderAbilities["SEC_015"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $hasExh = false;
     foreach (GetUnitsInPlay($player) as $u) {
         if (empty($u->removed) && intval($u->Status ?? 0) !== 1) { $hasExh = true; break; }

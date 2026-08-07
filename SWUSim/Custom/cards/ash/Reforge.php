@@ -17,7 +17,7 @@ $customDQHandlers["ASH_090#0"] = function($player, $parts, $lastDecision) {
     // affordability gate), so affordability is checked separately here against the host-specific cost
     // minus 4 — mirroring the prepaid=4 attach at resolve. Without this the UI offered unaffordable
     // upgrades that then got stuck in hand when the (reduced) cost couldn't be paid.
-    $ready = SWUResourceCount(intval($player), readyOnly: true);
+    $ready = SWUTotalPaymentCapacity(intval($player));
     _topDeckSearchBegin(intval($player), 8,
         function($cid) use ($player, $hostUID, $ready) {
             if (strpos(CardType($cid) ?? '', 'Upgrade') === false) return false;

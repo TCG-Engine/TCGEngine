@@ -27,7 +27,7 @@ $customDQHandlers["SEC_007#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) { SWUAfterAction(intval($player)); return; }
     DoDiscardCard(intval($player), $mz);                       // pay the additional cost
     DecisionQueueController::CleanupRemovedCards();
-    $ready = SWUResourceCount(intval($player), readyOnly: true);
+    $ready = SWUTotalPaymentCapacity(intval($player));
     $units = [];
     foreach (ZoneSearch('myHand') as $hmz) {
         $u = GetZoneObject($hmz);
@@ -75,7 +75,7 @@ $customDQHandlers["SEC_007#2"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) { SWUAfterAction(intval($player)); return; }
     DoDiscardCard(intval($player), $mz);                              // pay the discard cost
     DecisionQueueController::CleanupRemovedCards();
-    $ready = SWUResourceCount(intval($player), readyOnly: true);
+    $ready = SWUTotalPaymentCapacity(intval($player));
     $units = [];
     foreach (ZoneSearch('myHand') as $hmz) {
         $u = GetZoneObject($hmz);

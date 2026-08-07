@@ -24,7 +24,6 @@ $onAttackAbilities["SOR_007:0"] = function($player, $mzID) {
 $leaderAbilities["SOR_007"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $targets = array_values(array_filter(SWUAllUnits('my'), fn($mz) => HasTrait(GetZoneObject($mz)->CardID ?? '', 'Imperial')));
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget(intval($player), $targets, 'Give_an_Experience_token_to_an_Imperial_unit', 'GIVE_EXPERIENCE|1');

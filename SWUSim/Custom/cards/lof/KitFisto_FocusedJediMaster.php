@@ -9,7 +9,6 @@
 // damage to a unit.
 $leaderAbilities["LOF_011"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     if (GlobalEffectCount($player, 'SWU_ATTACKED_JEDI') <= 0) { SWUAfterAction($player); return; }
     $targets = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
                            ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter));

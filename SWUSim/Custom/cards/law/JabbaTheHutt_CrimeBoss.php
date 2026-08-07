@@ -29,10 +29,10 @@ $customDQHandlers["LAW_015#0"] = function($player, $parts, $lastDecision) {
 
 $leaderAbilities["LAW_015"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    // The [1 resource] cost may be paid by defeating a Credit token (CR 3.13) — route through the alt-pay
-    // funnel (Credit offer → then the LAW_015_FRONT_PAY continuation pays any remainder + runs the effect).
-    $cost = SWUApplyCostHalving($player, 1);
-    SWUOfferAltPayment($player, $cost, 'LAW_015_FRONT_PAY', strval($cost), 1);
+    // The [1 resource] cost is settled before this runs: SWULeaderAction pays every leader Action's
+    // resource cost through the alt-pay funnel, so a Credit token may pay it (CR 3.13). This used to be
+    // Jabba's own bespoke funnel call — now it is the engine-wide default for all leader Actions.
+    _SWULaw015AfterPay($player, true);
 };
 
 $leaderActionResourceCosts["LAW_015"] = 1;

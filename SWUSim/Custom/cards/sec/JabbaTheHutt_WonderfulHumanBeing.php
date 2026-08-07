@@ -11,7 +11,6 @@
 $leaderAbilities["SEC_002"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $sources = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {

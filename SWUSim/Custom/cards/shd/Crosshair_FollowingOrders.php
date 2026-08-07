@@ -14,7 +14,7 @@ $unitAbilities["SHD_087"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $obj = GetZoneObject($mzID);
     if (SWUObjGone($obj)) { SWUAfterAction($player); return; }
-    $canBuff = SWUResourceCount(intval($player), readyOnly: true) >= 2;
+    $canBuff = SWUTotalPaymentCapacity(intval($player)) >= 2;
     $canDeal = intval($obj->Status ?? 0) === 1;         // exhaust cost → must be ready
     if (!$canBuff && !$canDeal) { SWUAfterAction($player); return; }
     if ($canBuff && !$canDeal) { CrosshairFollowingOrdersBuff($player, $mzID); return; }
@@ -34,7 +34,7 @@ function CrosshairFollowingOrdersBuff($player, string $mzID): void
 {
   global $playerID;
   $playerID = intval($player);
-  SWUExhaustResources(intval($player), 2);            // cost: 2 resources
+  SWUPayInlineAbilityCost(intval($player), 2);            // cost: 2 resources
   SWUApplyPhaseBuff($mzID, 1, 0, 'SHD_087');          // +1/+0 for this phase
   SWUAfterAction(intval($player));
 }

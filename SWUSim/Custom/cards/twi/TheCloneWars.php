@@ -10,6 +10,11 @@ $customDQHandlers["TWI_125#0"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $x = intval($lastDecision);
     if ($x <= 0) return;
+    // ⚠ SCALED-EFFECT COST — resources ONLY, never Credit tokens / SEC_122 Droids.
+    // The magnitude keys off "resources paid this way", and a Credit is NOT a resource (CR 3.13):
+    // defeating one pays 1 less, it does not become a resource paid. So a Credit can pay this CARD's
+    // own play cost (the normal play path), but must never scale this effect. Deliberate exception to
+    // the engine-wide SWUPayInlineAbilityCost conversion — do not "fix" it back.
     if (!SWUExhaustResources(intval($player), $x)) return; // NUMBERCHOOSE was capped at ready
     SWUCreateUnitTokens(intval($player), 'TWI_T02', $x);                  // caster's Clone Troopers
     // Twin Suns (Phase 3): each opponent creates X Battle Droids (2-player: the one opponent).
@@ -22,7 +27,7 @@ $customDQHandlers["TWI_125#0"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["TWI_125:0"] = function($player, $mzID = '') {
 // The Clone Wars — "Pay any number of resources. Create that many Clone Trooper
                           // tokens. Each opponent creates that many Battle Droid tokens."
-            $maxX = SWUResourceCount(intval($player), readyOnly: true);
+            $maxX = SWUResourceCount(intval($player), readyOnly: true); // resources only — see TWI_125#0
             if ($maxX <= 0) return; // no resources to pay → 0 tokens
             DecisionQueueController::AddDecision(intval($player), 'NUMBERCHOOSE', "0|{$maxX}", 1,
                 tooltip: 'Pay_any_number_of_resources_(that_many_Clone_Troopers;_opponent_gets_Battle_Droids)');

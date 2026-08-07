@@ -22,7 +22,6 @@ $customDQHandlers["JTL_015#0"] = function($player, $parts, $lastDecision) {
 $leaderAbilities["JTL_015"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $attackers = array_values(array_filter(
         ZoneSearch('mySpaceArena', AnyUnitFilter),
         function($mz) { $o = GetZoneObject($mz); return $o !== null && intval($o->Status) === 1; }

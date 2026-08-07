@@ -98,10 +98,6 @@ $leaderAbilities["SOR_016"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
 
-    if (!SWUExhaustResources($player, 1)) {
-        SWUAfterAction($player);
-        return;
-    }
 
     DecisionQueueController::AddDecision($player, 'YESNO', '', 1, 'Own_deck_or_opponent?');
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'SOR_016#0|action', 1);

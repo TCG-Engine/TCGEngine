@@ -10,7 +10,7 @@ $baseAbilities["TS26_10"] = function($player) {
     global $playerID; $savedPID = $playerID; $playerID = intval($player);
     $n = 0;
     foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed) && IsLeaderUnit($u)) $n++; }
-    $ready = SWUResourceCount(intval($player), true);
+    $ready = SWUTotalPaymentCapacity(intval($player));
     $eligible = [];
     foreach (ZoneSearch("myHand", ["Unit"]) as $mz) {
         $o = GetZoneObject($mz);

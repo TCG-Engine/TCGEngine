@@ -14,7 +14,6 @@ $onAttackAbilities["SEC_004:0"] = function($player, $mzID) {
 
 $leaderAbilities["SEC_004"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; } // gate should prevent
     LeiaOrganaOfASecretBloodlineOffer($player, false, 1);   // mandatory disclose; leader owns the close
 };
 

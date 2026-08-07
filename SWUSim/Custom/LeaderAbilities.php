@@ -10,8 +10,13 @@ $leaderAbilities = [];
 // Resource component of each leader action's cost (omitted = 0). Checked by
 // SWULeaderActionAffordable BEFORE the leader exhausts — if the cost can't be
 // paid, the action never starts and the leader stays ready (CR: all costs of
-// an ability must be payable to use it). Handlers still perform the actual
-// payment via SWUExhaustResources.
+// an ability must be payable to use it).
+//
+// PAYMENT IS CENTRAL — do NOT pay inside a $leaderAbilities closure. SWULeaderAction
+// pays this cost through SWUOfferAltPayment (Credit tokens per CR 3.13, then SEC_122
+// Droids, then resources) and only then dispatches the closure, so every leader Action
+// accepts the same payment mixes a card play does. A closure that also called
+// SWUExhaustResources would charge the player twice.
 global $leaderActionResourceCosts;
 $leaderActionResourceCosts = [
     "SOR_005" => 1, // Luke Skywalker
@@ -260,7 +265,7 @@ $leaderAbilities["LOF_013"] = function(int $player): void {
 $leaderAbilities["LOF_018"] = function(int $player): void {
     global $playerID; $playerID = $player;
     UseTheForce($player);
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a Piloting cost (CR 3.13)
     $targets = [];
     $hand = GetHand($player);
     for ($i = 0; $i < count($hand); $i++) {
@@ -306,7 +311,7 @@ function _SWUSec003Hosts(int $player, string $upgradeCardID): array {
 // Hand upgrades that have ≥1 valid non-Vehicle host and are affordable at the −1 discount.
 function _SWUSec003PlayableHandUpgrades(int $player): array {
     global $playerID; $playerID = $player;
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
     $out   = [];
     foreach (ZoneSearch('myHand') as $mz) {
         $o = GetZoneObject($mz);
@@ -795,7 +800,7 @@ function _SWUShd006AllUnits(int $player): array {
 // sequence): the resource is defeated AFTER the Smuggled card's slot is replaced but BEFORE its When Played
 // — enforced by SWUSmuggleResource's deferHandler path. Scope: offers smugglable UNIT resources.
 function _SWUShd017HasTarget(int $player): bool {
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a Smuggle cost (CR 3.13)
     foreach (GetResources($player) as $r) {
         if (!empty($r->removed) || SWUIsCreditToken($r->CardID ?? '')) continue;
         $cid = $r->CardID ?? '';

@@ -23,15 +23,17 @@ $customDQHandlers["LAW_029#0"] = function($player, $parts, $lastDecision) {
 
 // LAW_029 Citadel Research Center — Epic Action [1 resource]: Return a friendly resource to its owner's
 // hand. If you do, resource the top card of your deck.
+// The "[1 resource]" cost is paid centrally by SWUBaseAction through the Credit/Droid alt-pay funnel
+// (CR 3.13), which also gates on a real resource existing to RETURN — a Credit token sits in the
+// resource zone but is not a resource, so it is never a legal choice below.
 $baseAbilities["LAW_029"] = function($player) {
     global $playerID; $playerID = intval($player);
-    if (SWUResourceCount(intval($player), readyOnly: true) < 1) { SWUAfterAction($player); return; }
-    if (!SWUExhaustResources(intval($player), 1)) { SWUAfterAction($player); return; }   // pay [1 resource]
     $res = &GetResources(intval($player));
     $targets = [];
     for ($i = 0, $idx = 0; $i < count($res); $i++) {
         if (isset($res[$i]->removed) && $res[$i]->removed) continue;
-        $targets[] = "myResources-{$idx}"; $idx++;
+        if (!SWUIsCreditToken($res[$i]->CardID ?? '')) $targets[] = "myResources-{$idx}";
+        $idx++;
     }
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget(intval($player), $targets, "Return_a_friendly_resource_to_its_owner's_hand", "LAW_029#0");

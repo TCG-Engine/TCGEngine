@@ -418,12 +418,12 @@ if(!$withPreview && file_exists($cacheFile)) {
       // named/found like any other card's. Recorded into $leaderUnitByUUIDMap (keyed by $cardID,
       // which IS the leader's UUID for SWUDeck — see $cardID = $card->cardUid above) HERE, in
       // Phase 1, because artBack gets stripped from $card before it's cached — by Phase 2 (where
-      // LeaderUnitByUUID() used to be populated) it's already gone.
+      // LeaderUnitLegacyIDByCardID() used to be populated) it's already gone.
       // Both SWU apps name a back side "<SET_NNN>_back" in the shared corpus. SWUDeck used to name
       // it by the Strapi media-asset hash instead, which made the art a THIRD key space.
       $backCardID = $artCardID . "_back";
       if ($rootName === "SWUDeck") {
-        // The asset hash is still RECORDED — LeaderUnitByUUID() feeds the identity-migration census
+        // The asset hash is still RECORDED — LeaderUnitLegacyIDByCardID() feeds the identity-migration census
         // sweep that resolves stray identifiers like ad86d54e97 -> TWI_017 — but it is no longer a
         // FILENAME. Do not repurpose or empty this map.
         $artBackHash = $card->artBack->data->attributes->hash ?? null;
@@ -808,15 +808,38 @@ if($rootName == "SWUDeck") {
   fwrite($handler, "  \$data = " . var_export($associativeArrays["cardIdLookup"], true) . ";\r\n");
   fwrite($handler, "  return isset(\$data[\$cardID]) ? \$data[\$cardID] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
-  // Leader UUID -> its deployed Leader Unit side's own distinct media-asset id (parsed from the
-  // artBack Strapi asset hash, e.g. "..._Leader_Unit_8301e8d7ef" -> "8301e8d7ef"); null for cards
-  // with no back side (non-leaders, or the rare double-leader-face flip cards handled as
-  // backType=Leader in the image-fetch loop). Combine the result with "_cropped.png" (the
-  // regular crop convention — NOT "_back_cropped.png") to get the Leader Unit's own crop file.
-  fwrite($handler, "function LeaderUnitByUUID(\$uuid) {\r\n");
+  // CardID -> the LEGACY identifier for its deployed Leader Unit side; null for cards with no back
+  // side (non-leaders, or the rare double-leader-face flip cards handled as backType=Leader in the
+  // image-fetch loop).
+  //
+  // ⚠ THE RETURN VALUE NAMES NOTHING ON DISK. It originated as a Strapi media-asset hash (parsed
+  // from the artBack filename, "..._Leader_Unit_8301e8d7ef" -> "8301e8d7ef"), but the shared corpus
+  // is entirely SET_NNN-named: verified 2026-08-07, ZERO hash-named files exist across
+  // WebpImages/, concat/ and crops/ (2498 files each). Building an image path from this value would
+  // resurrect the third key space the SET_NNN migration removed. Art resolves "<SET_NNN>_back"
+  // through SWUCardImagePath() — see SWUDeckLeaderCropUrl().
+  //
+  // Its ONE remaining job is translating legacy identifiers for two-sided leaders:
+  // AppCore/SWU/CardIdentity.php maps legacyID => CardID so a leader's flipped-side rows
+  // (ad86d54e97 => TWI_017 Chancellor Palpatine, ~2,984 rows on prod) stay attached to that leader.
+  //
+  // ⚠ That is LIVE INGRESS, not just migration tooling. SWUCardIdentityClassify() consults the map
+  // as its LAST rule, on every identifier arriving via APIs/SubmitGameResult.php and
+  // SubmitManualGameResult.php; a miss is class 3 and the row is DROPPED. Do not delete this on the
+  // assumption that re-keying stored rows retires it — a client can still SEND a legacy id.
+  //
+  // It also cannot be "fixed" to return SET_NNN: there is no card entity for a deployed leader side
+  // anywhere in the data, and returning SET_NNN would collapse that map to CardID => CardID and
+  // re-orphan the rows it exists to rescue.
+  //
+  // Renamed 2026-08-07: LeaderUnitByUUID -> LeaderUnitAssetByCardID -> LeaderUnitLegacyIDByCardID.
+  // The original was wrong on both halves (keyed by CardID since the SET_NNN re-key — the accessor
+  // normalises its argument, so either key form works — and the value was never a UUID), and
+  // "Asset" was still wrong because it implies a file that no longer exists.
+  fwrite($handler, "function LeaderUnitLegacyIDByCardID(\$cardID) {\r\n");
   fwrite($handler, "  \$data = " . var_export($leaderUnitByUUIDMap, true) . ";\r\n");
-  fwrite($handler, "  \$uuid = SWUNormalizeDictionaryKey(\$uuid);\r\n");
-  fwrite($handler, "  return isset(\$data[\$uuid]) ? \$data[\$uuid] : null;\r\n");
+  fwrite($handler, "  \$cardID = SWUNormalizeDictionaryKey(\$cardID);\r\n");
+  fwrite($handler, "  return isset(\$data[\$cardID]) ? \$data[\$cardID] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
 if($rootName == "SWUSim") {

@@ -17,7 +17,6 @@ $leaderActionResourceCosts["TWI_007"] = 2;
 
 $leaderAbilities["TWI_007"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 2))) { SWUAfterAction($player); return; }
     SWUCreateUnitToken($player, 'TWI_T02');
     SWUAfterAction($player);
 };

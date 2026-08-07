@@ -24,7 +24,6 @@ $onAttackAbilities["SEC_014:0"] = function($player, $mzID) {
 // Action [1 resource, Exhaust]: If there are 4 or more exhausted units in play, create a Spy token.
 $leaderAbilities["SEC_014"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $exh = 0;
     foreach ([1, 2] as $p) {
         foreach (GetUnitsInPlay($p) as $u) {

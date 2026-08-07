@@ -11,7 +11,7 @@
 // equal to half its remaining HP, rounded down.
 $leaderAbilities["SHD_002"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUPayInlineAbilityCost($player, 1)) { SWUAfterAction($player); return; }
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {

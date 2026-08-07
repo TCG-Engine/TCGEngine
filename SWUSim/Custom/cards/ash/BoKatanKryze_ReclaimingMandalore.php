@@ -18,7 +18,7 @@ $onAttackAbilities["ASH_010:0"] = function($player, $mzID) {
 // Mandalorian token (ASH_T01).
 $leaderAbilities["ASH_010"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 2)) { SWUAfterAction($player); return; }
+    if (!SWUPayInlineAbilityCost($player, 2)) { SWUAfterAction($player); return; }
     if (count(ZoneSearch('myGroundArena', AnyUnitFilter)) > 0 && count(ZoneSearch('mySpaceArena', AnyUnitFilter)) > 0) {
         SWUCreateUnitToken($player, 'ASH_T01');
     }

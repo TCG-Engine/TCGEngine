@@ -38,7 +38,7 @@ $customDQHandlers["SHD_142#move"] = function ($player, $parts, $lastDecision) {
     return;
   $sub = $from->Subcards[intval($subIdx)];
   $scid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
-  SWUExhaustResources(intval($player), intval($cost));   // pay the upgrade's cost
+  SWUPayInlineAbilityCost(intval($player), intval($cost));   // pay the upgrade's cost
   // "if able" — is Pre Vizsla a valid host for this upgrade? Else defeat it.
   $valid = SWUGetUpgradeValidTargets(intval($player), $scid);
   $canAttach = false;
@@ -67,7 +67,7 @@ function PreVizslaPowerHungryOffer(int $player, string $selfMz): void
   if (SWUObjGone($self))
     return;
   $selfUID = intval($self->UniqueID ?? 0);
-  $ready = SWUResourceCount($player, readyOnly: true);
+  $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay an upgrade's cost (CR 3.13)
   $entries = [];  // [hostUID, subIdx, cardID, cost]
   foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
     foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {

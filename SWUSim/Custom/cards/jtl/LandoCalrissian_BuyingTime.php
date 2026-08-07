@@ -61,7 +61,6 @@ $whenPlayedAsUpgradeAbilities["JTL_003:0"] = function($player, $mzID) {
 $leaderAbilities["JTL_003"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; } // gate should prevent
     $targets = [];
     foreach (SWUHandPlayablesAtDiscount($player, ['Unit'], 0) as $mz) {
         $o = GetZoneObject($mz);

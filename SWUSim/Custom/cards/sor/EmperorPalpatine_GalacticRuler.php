@@ -135,10 +135,6 @@ $leaderAbilities["SOR_006"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
 
-    if (!SWUExhaustResources($player, 1)) {
-        SWUAfterAction($player);
-        return;
-    }
 
     $targets = array_values(SWUAllUnits('my'));
     if (empty($targets)) {

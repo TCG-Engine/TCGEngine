@@ -11,9 +11,11 @@
 // hold only one, and this code must work with whichever the caller chose.
 //
 // KNOWN LIMITATION — a leader's DEPLOYED side is invisible here. CardText() on a leader returns only
-// its front face; CardOtherOrientation() resolves 0 of 158 leaders; LeaderUnitByUUID('SOR_001')
-// returns a pre-SET_NNN id that no longer resolves. A leader whose deployed side creates a token its
-// front never mentions is missed. This under-reports, never misreports.
+// its front face; CardOtherOrientation() resolves 0 of 158 leaders; and there is NO card entity for
+// a deployed side anywhere in the data (LeaderUnitLegacyIDByCardID() returns a legacy stats-row
+// identifier, not a card). A leader whose deployed side creates a token its front never mentions is missed — measured
+// blast radius is 2 of 148: SEC_011 Governor Pryce (Spy) and TWI_017 Chancellor Palpatine (Clone
+// Trooper). This under-reports, never misreports.
 //
 // Design: docs/superpowers/specs/2026-08-06-swudeck-token-requirements-design.md §2
 require_once __DIR__ . '/Tokens.php';

@@ -29,7 +29,6 @@ $onAttackAbilities["LOF_006:0"] = function($player, $mzID) {
 // the most power among friendly Villainy units. (Choose one if tied.)
 $leaderAbilities["LOF_006"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $villainy = [];
     foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
         $o = GetZoneObject($mz); if (SWUObjGone($o)) continue;

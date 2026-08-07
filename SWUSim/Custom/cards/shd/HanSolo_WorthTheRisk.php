@@ -42,7 +42,7 @@ $unitAbilities["SHD_013"] = function($player, $mzID) {
 // damage to it. (Play-then-act-on-the-played-unit via the SEC_018 findable-marker pattern.)
 function HanSoloWorththeRiskOffer(int $player): bool {
     global $playerID; $playerID = $player;
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
     $units = [];
     foreach (ZoneSearch('myHand') as $mz) {
         $o = GetZoneObject($mz);

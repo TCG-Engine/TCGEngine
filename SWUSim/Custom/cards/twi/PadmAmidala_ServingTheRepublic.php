@@ -20,7 +20,6 @@ $leaderActionResourceCosts["TWI_008"] = 1;
 
 $leaderAbilities["TWI_008"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     if (count(GetDeck($player)) > 0) DoTopDeckSearch($player, 3, fn($c) => HasTrait($c, 'Republic'), 1);
     SWUQueueAfterAction($player);
 };

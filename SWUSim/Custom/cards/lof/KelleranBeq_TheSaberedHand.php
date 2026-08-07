@@ -10,7 +10,7 @@
 // own cost was paid on the way into play).
 $whenPlayedAbilities["LOF_100:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $ready = SWUResourceCount(intval($player), readyOnly: true);
+    $ready = SWUTotalPaymentCapacity(intval($player));
     _topDeckSearchBegin(intval($player), 7,
         fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false
                   && max(0, intval(CardCost($c)) + SWUAspectPenalty(intval($player), $c) - 3) <= $ready,
@@ -25,7 +25,7 @@ $customDQHandlers["LOF_100#0"] = function($player, $parts, $lastDecision) {
     foreach ($resolved['drawn'] as $cardID) {
         if (SWUCardPlayBlocked(intval($player), $cardID)) { $back[] = $cardID; continue; }
         $cost = max(0, intval(CardCost($cardID)) + SWUAspectPenalty(intval($player), $cardID) - 3);
-        if ($cost > 0 && !SWUExhaustResources(intval($player), $cost)) { $back[] = $cardID; continue; } // unaffordable → not played
+        if ($cost > 0 && !SWUPayInlineAbilityCost(intval($player), $cost)) { $back[] = $cardID; continue; } // unaffordable → not played
         $uid = NextUniqueID();
         if (CardArena($cardID) === 'Space') {
             AddSpaceArena($player, CardID: $cardID, Status: 0, Owner: $player, Controller: $player, UniqueID: $uid);

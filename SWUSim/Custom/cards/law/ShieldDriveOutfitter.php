@@ -7,7 +7,7 @@
 // to a unit.
 $whenPlayedAbilities["LAW_113:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (SWUResourceCount(intval($player), readyOnly: true) < 1) return;
+    if (SWUTotalPaymentCapacity(intval($player)) < 1) return;
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Pay_1_resource_to_give_a_Shield_token_to_a_unit?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_113#0", 1);
 };
@@ -15,6 +15,6 @@ $whenPlayedAbilities["LAW_113:0"] = function($player, $mzID) {
 $customDQHandlers["LAW_113#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
-    if (!SWUExhaustResources(intval($player), 1)) return;
+    if (!SWUPayInlineAbilityCost(intval($player), 1)) return;
     GiveTokenUpgrade($player, '', ['token'=>'SHIELD','friendlyOnly'=>false,'prompt'=>"Give_a_Shield_token_to_a_unit"]);
 };

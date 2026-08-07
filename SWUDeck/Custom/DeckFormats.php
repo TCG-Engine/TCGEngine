@@ -131,7 +131,7 @@ function SWUDeckLeaderAlignment($cardID) {
 }
 
 // A leader's deployed Leader Unit side (action-pose art) is what should show wherever a leader
-// is referenced visually (deck list, identity banner) — LeaderUnitByUUID() resolves to its own
+// is referenced visually (deck list, identity banner) — LeaderUnitLegacyIDByCardID() resolves to its own
 // distinct crop id; cards with no unit side (non-leaders, double-leader-face flip cards) fall
 // back to the leader's own uuid, i.e. its own regular crop.
 // The interim SWUDeckArtKey() shim is GONE (2026-08-05). It mapped SET_NNN -> uuid because the art
@@ -142,7 +142,7 @@ require_once __DIR__ . '/../../AppCore/SWU/CardImagePath.php';
 function SWUDeckLeaderCropUrl($cardID) {
     // A leader's identity art is its deployed unit side, which the shared corpus names
     // "<SET_NNN>_back". Anything without one — non-leaders, and the double-leader-face flip cards —
-    // falls back to its own crop, preserving the behaviour the LeaderUnitByUUID lookup used to give.
+    // falls back to its own crop, preserving the behaviour the LeaderUnitLegacyIDByCardID lookup used to give.
     if (file_exists(SWUCardImageFsPath($cardID . '_back', 'crop'))) {
         return SWUCardImagePath($cardID . '_back', 'crop');
     }

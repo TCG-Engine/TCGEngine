@@ -34,7 +34,7 @@ $whenPlayedAbilities["LAW_245:0"] = function($player, $mzID = '') {
 // Salvaged Materials — "Play an Item upgrade from your discard pile. It costs 3
                           // resources less. At the start of the next regroup phase, defeat it."
             global $playerID; $playerID = intval($player);
-            $ready    = SWUResourceCount(intval($player), readyOnly: true);
+            $ready    = SWUTotalPaymentCapacity(intval($player));
             $upgrades = [];
             foreach (ZoneSearch('myDiscard') as $mz) {
                 $o = GetZoneObject($mz);

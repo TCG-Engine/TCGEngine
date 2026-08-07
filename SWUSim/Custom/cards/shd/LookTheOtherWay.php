@@ -14,7 +14,7 @@ $customDQHandlers["SHD_227#0"] = function($player, $parts, $lastDecision) {
     $caster     = intval($parts[0] ?? $player);
     $controller = intval($o->Controller ?? $caster);
     $uid        = intval($o->UniqueID ?? 0);
-    if (SWUResourceCount($controller, true) >= 2) {
+    if (SWUTotalPaymentCapacity($controller) >= 2) { // Credits/Droids can pay this 2 (CR 3.13)
         $playerID = $controller;
         DecisionQueueController::AddDecision($controller, 'YESNO', '-', 1, tooltip:"Pay_2_resources_to_prevent_the_exhaust?");
         DecisionQueueController::AddDecision($controller, 'CUSTOM', "SHD_227#1|{$caster}|{$uid}", 1);
@@ -27,7 +27,7 @@ $customDQHandlers["SHD_227#1"] = function($controller, $parts, $lastDecision) {
     global $playerID; $playerID = intval($controller);
     $uid = intval($parts[1] ?? 0);
     if ($lastDecision === 'YES') {
-        SWUExhaustResources(intval($controller), 2);            // pay 2 → prevents exhaust
+        SWUPayInlineAbilityCost(intval($controller), 2);            // pay 2 → prevents exhaust
     } else {
         $mz = SWUFindMzByUID($uid);
         if ($mz !== null) OnExhaustCard(intval($controller), $mz);

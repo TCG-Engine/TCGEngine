@@ -7,7 +7,6 @@
 
 $leaderAbilities["LAW_005"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     JynErsoTimetoFightSearch($player);
 };
 

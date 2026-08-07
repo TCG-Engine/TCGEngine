@@ -7,7 +7,7 @@
 // Experience token and a Shield token to this unit.
 $whenPlayedAbilities["TS26_77:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (SWUResourceCount(intval($player), true) < 2) return;   // can't pay → no offer
+    if (SWUTotalPaymentCapacity(intval($player)) < 2) return;   // can't pay → no offer
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
         tooltip: "Pay_2_resources_to_give_this_unit_an_Experience_and_a_Shield?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_77#0|" . $mzID, 1);
@@ -16,7 +16,7 @@ $whenPlayedAbilities["TS26_77:0"] = function($player, $mzID) {
 $customDQHandlers["TS26_77#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
-    SWUExhaustResources(intval($player), 2);
+    SWUPayInlineAbilityCost(intval($player), 2);
     $mzID = $parts[0] ?? '';
     if ($mzID && str_contains($mzID, '-')) {
         DoGiveExperienceToken(intval($player), $mzID);

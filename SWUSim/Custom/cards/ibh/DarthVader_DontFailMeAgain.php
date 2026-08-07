@@ -13,7 +13,6 @@ $onAttackAbilities["IBH_053:0"] = function($player, $mzID) {
 // IBH_053 Darth Vader — Leader Action [1 resource, Exhaust]: deal 1 damage to a base.
 $leaderAbilities["IBH_053"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     SWUOfferBaseTarget($player, ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>1,'prompt'=>"Deal_1_damage_to_a_base"]);
     SWUQueueAfterAction($player);
 };

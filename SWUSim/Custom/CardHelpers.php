@@ -101,7 +101,7 @@ if (!function_exists('SWUOfferDiscountPlay')) {
 // optional $filter(cardID). Generalizes SWUHandPlayablesAtDiscount to any zone.
 if (!function_exists('SWUPlayablesAtDiscount')) {
     function SWUPlayablesAtDiscount(int $player, string $zone, ?array $types, int $discount, ?callable $filter = null): array {
-        $ready = SWUResourceCount($player, readyOnly: true);
+        $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
         $out = [];
         foreach (ZoneSearch($zone, $types) as $mz) {
             $o = GetZoneObject($mz);

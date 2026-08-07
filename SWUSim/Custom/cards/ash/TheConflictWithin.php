@@ -9,7 +9,7 @@ $customDQHandlers["ASH_088#0"] = function($player, $parts, $lastDecision) {
     $mz  = $parts[0] ?? '';
     $obj = GetZoneObject($mz);
     if (SWUObjGone($obj)) return;
-    if ($lastDecision === 'YES' && SWUResourceCount(intval($player), true) >= 3) {
+    if ($lastDecision === 'YES' && SWUTotalPaymentCapacity(intval($player)) >= 3) {
         SWUPayCost(intval($player), 3, 0, false);   // pay 3 ready resources to keep it ready (effect cost, not halved by JTL_105)
     } else {
         $obj->Status = 0;                    // exhaust it

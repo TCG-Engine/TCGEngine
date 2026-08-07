@@ -20,6 +20,11 @@ $customDQHandlers["LOF_255#0"] = function ($player, $parts, $lastDecision) {
   $playerID = intval($player);
   $uid = intval($parts[0] ?? -1);
   $remaining = intval($parts[1] ?? 0);
+  // ⚠ SCALED-EFFECT COST — resources ONLY, never Credit tokens / SEC_122 Droids.
+  // The magnitude keys off "resources paid this way", and a Credit is NOT a resource (CR 3.13):
+  // defeating one pays 1 less, it does not become a resource paid. So a Credit can pay this CARD's
+  // own play cost (the normal play path), but must never scale this effect. Deliberate exception to
+  // the engine-wide SWUPayInlineAbilityCost conversion — do not "fix" it back.
   if (!SWUExhaustResources(intval($player), 1))
     return; // pay 1 resource
   $mz = SWUFindMzByUID($uid);
@@ -34,7 +39,7 @@ function CuriousFlockOffer(int $player, int $uid, int $remaining): void
   $playerID = $player;
   if ($remaining <= 0)
     return;
-  if (SWUResourceCount($player, readyOnly: true) < 1)
+  if (SWUResourceCount($player, readyOnly: true) < 1) // resources only — see the note on LOF_255#0
     return; // nothing left to pay
   $mz = SWUFindMzByUID($uid);
   if ($mz === null || $mz === '')

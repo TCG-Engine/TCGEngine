@@ -51,7 +51,7 @@ $unitAbilities["SHD_017"] = function($player, $mzID) {
 
 function LandoCalrissianWithImpeccableTasteOffer(int $player): bool {
     global $playerID; $playerID = $player;
-    $ready   = SWUResourceCount($player, readyOnly: true);
+    $ready   = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a Smuggle cost (CR 3.13)
     $specs   = [];
     $logical = 0;
     foreach (GetResources($player) as $r) {

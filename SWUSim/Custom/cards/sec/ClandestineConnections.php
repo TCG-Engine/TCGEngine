@@ -7,7 +7,7 @@
 // base." Rides the generic upgrade On Attack seam (fires with the host mzID when the bearer attacks).
 $onAttackAbilities["SEC_264:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (SWUResourceCount(intval($player), true) < 2) return;   // need 2 ready resources
+    if (SWUTotalPaymentCapacity(intval($player)) < 2) return;   // need 2 ready resources
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Pay_2_resources_to_deal_2_to_a_base?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_264#0", 1);
 };
@@ -15,6 +15,6 @@ $onAttackAbilities["SEC_264:0"] = function($player, $mzID) {
 $customDQHandlers["SEC_264#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
-    if (!SWUExhaustResources(intval($player), 2)) return;
+    if (!SWUPayInlineAbilityCost(intval($player), 2)) return;
     SWUOfferBaseTarget(intval($player), ['continuation'=>'DEAL_BASE_DAMAGE','amount'=>2,'prompt'=>"Deal_2_to_a_base"]);
 };

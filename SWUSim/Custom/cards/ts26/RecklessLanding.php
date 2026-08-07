@@ -31,7 +31,7 @@ $customDQHandlers["TS26_32#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["TS26_32:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $ready = SWUResourceCount(intval($player), readyOnly: true);
+    $ready = SWUTotalPaymentCapacity(intval($player));
     $units = [];
     foreach (ZoneSearch('myHand') as $mz) {
         $o = GetZoneObject($mz);

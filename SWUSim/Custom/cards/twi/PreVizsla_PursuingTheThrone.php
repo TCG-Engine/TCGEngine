@@ -11,7 +11,6 @@ $leaderActionResourceCosts["TWI_010"] = 1;
 
 $leaderAbilities["TWI_010"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     $n = GlobalEffectCount($player, 'SWU_DREW_PHASE');
     $targets = SWUAllUnits();
     if ($n <= 0 || empty($targets)) { SWUAfterAction($player); return; }

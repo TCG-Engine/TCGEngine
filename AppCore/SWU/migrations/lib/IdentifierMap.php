@@ -98,10 +98,10 @@ function SWUMigrationBuildMap(): array
         }
     }
 
-    // Leader-unit asset hashes — the Palpatine class.
+    // Leader-unit legacy ids — the Palpatine class.
     foreach (SWUMigrationLeaderUnitMap() as $asset => $cardID) {
         $map[(string)$asset] = [
-            'to' => CardIDOverride($cardID), 'disposition' => 'map', 'via' => 'leader-unit-asset',
+            'to' => CardIDOverride($cardID), 'disposition' => 'map', 'via' => 'leader-unit-legacy',
         ];
     }
 

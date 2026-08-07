@@ -21,7 +21,6 @@ $customDQHandlers["SHD_016#play"] = function($player, $parts, $lastDecision) {
 
 $leaderAbilities["SHD_016"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     if (!FennecShandHonoringtheDealOffer($player)) SWUAfterAction($player);
 };
 
@@ -38,7 +37,7 @@ $unitAbilities["SHD_016"] = function($player, $mzID) {
 // (paying its cost). Give it Ambush for this phase. Deployed also: Saboteur (keyword, auto).
 function FennecShandHonoringtheDealOffer(int $player): bool {
     global $playerID; $playerID = $player;
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player);
     $units = [];
     foreach (ZoneSearch('myHand') as $mz) {
         $o = GetZoneObject($mz);

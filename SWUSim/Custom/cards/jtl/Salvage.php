@@ -30,7 +30,7 @@ $whenPlayedAbilities["JTL_121:0"] = function($player, $mzID = '') {
                 if ($cid === '' || strpos(CardType($cid) ?? '', 'Unit') === false) continue; // a unit
                 if (!HasTrait($cid, 'Vehicle')) continue;                                      // ... a Vehicle
                 $cost = max(0, intval(CardCost($cid)) + SWUAspectPenalty(intval($player), $cid));
-                if (SWUResourceCount(intval($player), true) < $cost) continue;                 // affordable only
+                if (SWUTotalPaymentCapacity(intval($player)) < $cost) continue;                 // affordable only
                 $targets[] = "myDiscard-$i";
             }
             if (empty($targets)) return; // no affordable Vehicle in the discard → fizzle

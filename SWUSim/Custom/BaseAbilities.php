@@ -44,7 +44,7 @@ $baseActionRepeatable = [];
 // set EpicActionUsed; the handler calls SWUAfterAction.
 $lawCommonBaseEpic = function($player) {
     global $playerID; $playerID = intval($player);
-    $ready   = SWUResourceCount($player, readyOnly: true);
+    $ready   = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
     $hand    = GetHand($player);
     $targets = [];
     for ($i = 0; $i < count($hand); $i++) {

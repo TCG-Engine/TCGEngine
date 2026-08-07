@@ -7,7 +7,7 @@
 
 $leaderAbilities["SHD_009"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUPayInlineAbilityCost($player, 1)) { SWUAfterAction($player); return; }
     $targets = HunterOutcastSergeantResourceTargets($player);
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Reveal_a_resource_you_control", "SHD_009#front");

@@ -9,7 +9,7 @@ $customDQHandlers["SEC_040#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $maxX = SWUResourceCount(intval($player), true);
+    $maxX = SWUResourceCount(intval($player), readyOnly: true); // resources only — see the note on SEC_040#1
     if ($maxX <= 0) return;
     DecisionQueueController::AddDecision(intval($player), "NUMBERCHOOSE", "0|" . $maxX, 1, tooltip: "Pay_any_number_of_resources_(1_Experience_each)");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_040#1|" . intval($o->UniqueID ?? 0), 1);
@@ -19,6 +19,11 @@ $customDQHandlers["SEC_040#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $x = intval($lastDecision);
     if ($x <= 0) return;
+    // ⚠ SCALED-EFFECT COST — resources ONLY, never Credit tokens / SEC_122 Droids.
+    // The magnitude keys off "resources paid this way", and a Credit is NOT a resource (CR 3.13):
+    // defeating one pays 1 less, it does not become a resource paid. So a Credit can pay this CARD's
+    // own play cost (the normal play path), but must never scale this effect. Deliberate exception to
+    // the engine-wide SWUPayInlineAbilityCost conversion — do not "fix" it back.
     if (!SWUExhaustResources(intval($player), $x)) return;
     $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
     if ($mz === null) return;

@@ -9,7 +9,7 @@ $whenPlayedAbilities["SEC_053:0"] = function($player, $mzID = '') {
                           // the number of ready resources you control. (Plot event; can't be played
                           // from hand — see _SWUCantPlayFromHand.) Mandatory defeat; fizzles if no
                           // legal target. "a unit" = any unit, both players, all arenas (incl. leaders).
-            $n = SWUResourceCount(intval($player), readyOnly: true);
+            $n = SWUTotalPaymentCapacity(intval($player));
             SWUOfferUnitTarget($player, $mzID, [
                 'continuation' => 'DEFEAT_UNIT',
                 'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) === $n

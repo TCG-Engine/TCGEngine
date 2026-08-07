@@ -36,7 +36,6 @@ $leaderActionResourceCosts["TWI_013"] = 1;
 
 $leaderAbilities["TWI_013"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     $targets = [];
     foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {

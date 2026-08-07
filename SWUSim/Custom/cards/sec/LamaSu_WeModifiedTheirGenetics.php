@@ -10,7 +10,7 @@
 // the After Action (onAttackEnd), so no continuation here calls SWUAfterAction.
 $onAttackEndAbilities["SEC_003:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $ready    = SWUResourceCount(intval($player), readyOnly: true);
+    $ready    = SWUTotalPaymentCapacity(intval($player));
     $upgrades = [];
     foreach (ZoneSearch('myDiscard') as $mz) {
         $o = GetZoneObject($mz);

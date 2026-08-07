@@ -38,7 +38,11 @@ if (!file_exists($dict)) {
 require_once $dict;
 require_once __DIR__ . '/../lib/IdentifierMap.php';
 
-foreach (['UUIDLookup', 'CardIDLookup', 'LeaderUnitByUUID'] as $fn) {
+// LeaderUnitLegacyIDByCardID was renamed from LeaderUnitByUUID on 2026-08-07; accept either so this
+// tool still runs against a dictionary that has not been regenerated yet. Unlike
+// SWUCardIdentityLeaderUnitMap(), a miss here is FATAL and loud, which is the behaviour we want.
+$leaderUnitFn = function_exists('LeaderUnitLegacyIDByCardID') ? 'LeaderUnitLegacyIDByCardID' : 'LeaderUnitByUUID';
+foreach (['UUIDLookup', 'CardIDLookup', $leaderUnitFn] as $fn) {
     if (!function_exists($fn)) {
         fwrite(STDERR, "FATAL: $dict does not define $fn().\n"
                      . "That is SWUDeck's UUID translation table — without it there is no map to build.\n");
@@ -55,7 +59,7 @@ $errors = [];
 
 $leaderUnits = SWUMigrationLeaderUnitMap();
 if (count($leaderUnits) === 0) {
-    $errors[] = "leader-unit asset map is EMPTY. Every two-sided leader's flipped-side rows "
+    $errors[] = "leader-unit legacy-id map is EMPTY. Every two-sided leader's flipped-side rows "
               . "(ad86d54e97 -> TWI_017, 2,984 rows on prod) would fall to class 3 and be dropped. "
               . "This is what the 2026-08-04 SET_NNN re-key silently broke.";
 }
@@ -103,7 +107,7 @@ if ($summary) {
     fwrite(STDERR, "by rule\n");
     foreach ($byVia as $v => $n) fwrite(STDERR, sprintf("  %-20s %d\n", $v, $n));
     fwrite(STDERR, sprintf("tokens       %d\n", count($tokens)));
-    fwrite(STDERR, sprintf("asset hashes %d\n", count($leaderUnits)));
+    fwrite(STDERR, sprintf("legacy ids %d\n", count($leaderUnits)));
     fwrite(STDERR, sprintf("\n%d target id(s) have MORE THAN ONE source — these rows MERGE, so every\n"
                          . "counter column must be SUMmed. A rename-style UPDATE would lose them.\n",
                            count($merging)));
@@ -130,7 +134,7 @@ $out[] = "--";
 $out[] = "--   app          $app";
 $out[] = "--   map rows     " . count($map);
 $out[] = "--   tokens       " . count($tokens);
-$out[] = "--   asset hashes " . count($leaderUnits);
+$out[] = "--   legacy ids " . count($leaderUnits);
 $out[] = "--";
 $out[] = "-- disposition 'map'  -> write newID";
 $out[] = "-- disposition 'keep' -> write the ORIGINAL stored value (class 2: base colours, sentinels)";

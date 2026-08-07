@@ -847,7 +847,7 @@ into roughly **1.5 hours**, and neither one needs the site down.
 - **Tokens are in scope.** Including `SET_T##` in SWUDeck's universe is what takes class 3 from
   57,422 rows to ~3,100 — it is what makes the gate passable, not a nice-to-have. Tokens must be
   excluded from deck search, validation and legality.
-- **`ad86d54e97 → TWI_017`** merges Chancellor Palpatine's split stats. Sweep `LeaderUnitByUUID`
+- **`ad86d54e97 → TWI_017`** merges Chancellor Palpatine's split stats. Sweep `LeaderUnitLegacyIDByCardID`
   for *every* unresolved hex-shaped identifier, not just this one.
 - **Discarded junk rows are real games.** The `zzzzzzz###` / `abcdefgMTL` / sentinel rows hold valid
   turns, health, format and timestamps — only the hero identifier is junk. Dropping them was a

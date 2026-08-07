@@ -25,7 +25,7 @@ $whenPlayedAbilities["SHD_129:0"] = function($player, $mzID = '') {
                           // it gains Ambush for this phase (SEC_007 Dryden mirror, event form).
             global $playerID; $playerID = intval($player);
             DecisionQueueController::CleanupRemovedCards();   // the event is a removed hand entry
-            $ready = SWUResourceCount(intval($player), readyOnly: true);
+            $ready = SWUTotalPaymentCapacity(intval($player));
             $units = [];
             foreach (ZoneSearch('myHand') as $hmz) {
                 $u = GetZoneObject($hmz);

@@ -18,7 +18,6 @@ $unitAbilities["LAW_003"] = function($player, $mzID) {
 
 $leaderAbilities["LAW_003"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     AgentKallusReconsiderYourAllegianceOfferPlay($player);
 };
 
@@ -43,7 +42,7 @@ $customDQHandlers["LAW_003#0"] = function($player, $parts, $lastDecision) {
 // $unitAbilities reset).
 function AgentKallusReconsiderYourAllegianceOfferPlay(int $player): void {
     global $playerID; $playerID = $player;
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
     $hand  = GetHand($player);
     $targets = [];
     for ($i = 0; $i < count($hand); $i++) {

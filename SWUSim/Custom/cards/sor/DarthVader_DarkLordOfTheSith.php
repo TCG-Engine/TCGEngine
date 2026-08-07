@@ -43,10 +43,6 @@ $leaderAbilities["SOR_010"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
 
-    if (!SWUExhaustResources($player, 1)) {
-        SWUAfterAction($player);
-        return;
-    }
 
     if (GlobalEffectCount($player, 'SWU_PLAYED_VILLAINY') <= 0) {
         SWUAfterAction($player);

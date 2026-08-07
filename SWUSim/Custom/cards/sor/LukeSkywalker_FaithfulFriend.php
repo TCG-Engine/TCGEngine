@@ -37,10 +37,6 @@ $leaderAbilities["SOR_005"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
 
-    if (!SWUExhaustResources($player, 1)) {
-        SWUAfterAction($player);
-        return;
-    }
 
     // Collect units played this phase that have the Heroism aspect.
     $zone = &GetGlobalEffects($player);

@@ -12,7 +12,7 @@ $onAttackEndAbilities["LAW_074:0"] = function($player, $mzID) {
     // Only offer Underworld units the player can actually pay for at the −4 price — otherwise the UI
     // lets you pick an unaffordable unit and the play fizzles at resolve. Mirror the resolve's formula
     // (max(0, SWUComputePlayCost − 4) ≤ ready resources).
-    $ready = SWUResourceCount(intval($player), readyOnly: true);
+    $ready = SWUTotalPaymentCapacity(intval($player));
     _topDeckSearchBegin(intval($player), 5,
         fn($cid) => CardType($cid) === 'Unit' && HasTrait($cid, 'Underworld')
                     && max(0, SWUComputePlayCost(intval($player), (object)['CardID' => $cid]) - 4) <= $ready,
@@ -36,7 +36,7 @@ $customDQHandlers["LAW_074#0"] = function($player, $parts, $lastDecision) {
     foreach ($deck as $i => $c) { $c->mzIndex = $i; }
     // Affordability after the -4 discount; if the player can't pay, it isn't played → send it to the bottom.
     $eff = max(0, SWUComputePlayCost(intval($player), $topObj) - 4);
-    if (SWUResourceCount(intval($player), true) < $eff) {
+    if (SWUTotalPaymentCapacity(intval($player)) < $eff) {
         $deck[0]->removed = true;
         DecisionQueueController::CleanupRemovedCards();
         _topDeckPutRemainingToBottom(intval($player), [$cardID]);

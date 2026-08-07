@@ -30,7 +30,6 @@ $leaderActionResourceCosts["HMW_009"] = 2;
 
 $leaderAbilities["HMW_009"] = function (int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 2))) { SWUAfterAction($player); return; }
     $units = _SWUHmw009Attackers($player);
     if (empty($units)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $units,

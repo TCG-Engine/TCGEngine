@@ -754,7 +754,7 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
     img.dataset.swuIdentityCrop = '1';
     if(useBack) {
       // Leaders: window.SWU_LEADER_CROP_URLS (injected by InitialLayout.php) already resolves
-      // each leader to its deployed Leader Unit side's own crop via LeaderUnitByUUID() —
+      // each leader to its deployed Leader Unit side's own crop via LeaderUnitLegacyIDByCardID() —
       // server-side, no more client-side "_back_cropped.png" guessing/fallback needed. The Leader
       // Unit side is a portrait action-pose image, so a tight portrait crop still reads correctly.
       var resolvedUrl = window.SWU_LEADER_CROP_URLS && window.SWU_LEADER_CROP_URLS[cardID];

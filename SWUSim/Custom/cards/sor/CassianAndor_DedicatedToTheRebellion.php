@@ -22,7 +22,6 @@ $customDQHandlers["SOR_013#0"] = function($player, $parts, $lastDecision) {
 $leaderAbilities["SOR_013"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $opp = OtherPlayer($player);
     if (GlobalEffectCount($player, 'SWU_BASEDMG_AMT_' . $opp) >= 3) {
         DoDrawCard($player, 1);

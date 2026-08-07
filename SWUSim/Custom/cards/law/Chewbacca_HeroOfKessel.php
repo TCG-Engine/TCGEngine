@@ -6,12 +6,12 @@
 
 $leaderActionResourceCosts["LAW_013"] = 1;
 
+// The "[1 resource]" component is paid centrally by SWULeaderAction (a Credit token may pay it, CR 3.13).
+// This closure takes only the OTHER cost — "defeat a friendly resource" — for which a Credit token is NOT
+// a legal choice: Credits sit in the resource zone but are explicitly not resources (CR 3.13).
 $leaderAbilities["LAW_013"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
-    $res = &GetResources($player);
-    $resTargets = [];
-    for ($i = 0, $idx = 0; $i < count($res); $i++) { if (isset($res[$i]->removed) && $res[$i]->removed) continue; $resTargets[] = "myResources-{$idx}"; $idx++; }
+    $resTargets = ChewbaccaHeroofKesselResourceTargets($player);
     if (empty($resTargets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $resTargets, "Defeat_a_friendly_resource_(cost)", "LAW_013#0");
     SWUQueueAfterAction($player);
@@ -25,11 +25,23 @@ $customDQHandlers["LAW_013#0"] = function($player, $parts, $lastDecision) {
     ChewbaccaHeroofKesselPayoff(intval($player));
 };
 
+// mzIDs of the player's real resources — the legal choices for "defeat a friendly resource". Credit
+// tokens live in the same zone but are NOT resources (CR 3.13), so they are never offered. The index is
+// the LIVE zone position (Credits included) because that is what GetZoneObject resolves.
+function ChewbaccaHeroofKesselResourceTargets(int $player): array {
+    $res = &GetResources($player);
+    $out = [];
+    for ($i = 0, $idx = 0; $i < count($res); $i++) {
+        if (isset($res[$i]->removed) && $res[$i]->removed) continue;
+        if (!SWUIsCreditToken($res[$i]->CardID ?? '')) $out[] = "myResources-{$idx}";
+        $idx++;
+    }
+    return $out;
+}
+
 $onAttackAbilities["LAW_013:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $res = &GetResources(intval($player));
-    $resTargets = [];
-    for ($i = 0, $idx = 0; $i < count($res); $i++) { if (isset($res[$i]->removed) && $res[$i]->removed) continue; $resTargets[] = "myResources-{$idx}"; $idx++; }
+    $resTargets = ChewbaccaHeroofKesselResourceTargets(intval($player));
     if (empty($resTargets)) return;
     SWUQueueMayChooseTarget(intval($player), $resTargets, "Defeat_a_friendly_resource_to_deal_2_and_create_a_Credit?", "Choose_a_resource", "LAW_013#1");
 };

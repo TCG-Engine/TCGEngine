@@ -22,7 +22,7 @@ $whenPlayedAbilities["LOF_188:0"] = function($player, $mzID = '') {
             if ($idx === -1) return;
             $topObj = GetDeck(intval($player))[$idx];
             if (max(0, SWUComputePlayCost(intval($player), $topObj) - 4)
-                > SWUResourceCount(intval($player), readyOnly: true)) return;
+                > SWUTotalPaymentCapacity(intval($player))) return;
             DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                 tooltip: "Use_the_Force_to_play_the_top_card_(4_less)?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_188#0", 1);

@@ -101,10 +101,6 @@ $leaderAbilities["JTL_013"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
 
-    if (!SWUExhaustResources($player, 1)) {
-        SWUAfterAction($player);
-        return;
-    }
 
     // Flip the leader to its deployed side (but NOT the epic-action threshold deploy).
     // Twin Suns: mutate the JTL_013 leader specifically (a seat may hold two leaders); leader CardIDs

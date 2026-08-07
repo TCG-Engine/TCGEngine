@@ -12,7 +12,7 @@ $onAttackAbilities["SEC_218:0"] = function($player, $mzID) {
     $cid = $deck[0]->CardID;
     AddGameLogEntry('REVEAL', "P" . intval($player) . " revealed " . GameLogCardRef($cid));
     $opp = OtherPlayer(intval($player));
-    if (SWUResourceCount($opp, true) < 1) {
+    if (SWUTotalPaymentCapacity($opp) < 1) { // Credits/Droids can pay this 1 (CR 3.13)
         // Opponent cannot pay the 1 resource → no choice to offer; the attacker simply draws.
         DoDrawCard(intval($player), 1);
         return;
@@ -25,7 +25,7 @@ $customDQHandlers["SEC_218#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $attacker = intval($parts[0] ?? 0);
     $opp = intval($player);   // the decision owner is the opponent
-    if ($lastDecision === 'YES' && SWUResourceCount($opp, true) >= 1 && SWUExhaustResources($opp, 1)) {
+    if ($lastDecision === 'YES' && SWUTotalPaymentCapacity($opp) >= 1 && SWUPayInlineAbilityCost($opp, 1)) {
         return;               // opponent paid → no draw (card stays on top)
     }
     $playerID = $attacker;

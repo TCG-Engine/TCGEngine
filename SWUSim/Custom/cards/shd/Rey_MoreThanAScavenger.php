@@ -7,7 +7,7 @@
 
 $leaderAbilities["SHD_004"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
+    if (!SWUPayInlineAbilityCost($player, 1)) { SWUAfterAction($player); return; }
     $targets = ReyMoreThanaScavengerLowPowerTargets($player);
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Give_an_Experience_token_to_a_unit_with_2_or_less_power", "GIVE_EXPERIENCE|1");

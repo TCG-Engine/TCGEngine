@@ -7,7 +7,7 @@
 // +1/+1 for this phase.
 $whenPlayedAbilities["LAW_148:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (SWUResourceCount(intval($player), readyOnly: true) < 1) return;
+    if (SWUTotalPaymentCapacity(intval($player)) < 1) return;
     $self = GetZoneObject($mzID);
     $uid  = SWUObjUID($self, 0);
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Pay_1_resource_to_give_this_unit_+1/+1_this_phase?");
@@ -17,7 +17,7 @@ $whenPlayedAbilities["LAW_148:0"] = function($player, $mzID) {
 $customDQHandlers["LAW_148#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
-    if (!SWUExhaustResources(intval($player), 1)) return;
+    if (!SWUPayInlineAbilityCost(intval($player), 1)) return;
     $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
     if ($mz !== null) SWUApplyPhaseBuff($mz, 1, 1, 'LAW_148');
 };

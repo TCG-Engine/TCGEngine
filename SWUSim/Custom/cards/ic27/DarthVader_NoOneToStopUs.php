@@ -27,11 +27,11 @@ function Ic27001DrawAndHeal(int $player): void {
 }
 
 // ── FRONT: Action [1 resource, Exhaust, defeat a friendly unit] ──────────────
-// SWULeaderAction exhausts the leader before this runs, so the closure pays only the resource and the
-// sacrifice. Affordability already guaranteed a friendly unit exists.
+// SWULeaderAction exhausts the leader AND pays the [1 resource] (through the Credit/Droid alt-pay
+// funnel) before this runs, so the closure only takes the sacrifice. Affordability already guaranteed
+// a friendly unit exists.
 $leaderAbilities["IC27_001"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $targets = array_values(SWUAllUnits('my'));
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Choose_a_friendly_unit_to_defeat_as_the_cost", "IC27_001#0");

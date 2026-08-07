@@ -7,7 +7,7 @@
 // this unit.
 $whenPlayedAbilities["LAW_227:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (SWUResourceCount(intval($player), readyOnly: true) < 1) return;
+    if (SWUTotalPaymentCapacity(intval($player)) < 1) return;
     $self = GetZoneObject($mzID);
     $uid  = SWUObjUID($self, 0);
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Pay_1_resource_to_give_this_unit_a_Shield?");
@@ -17,7 +17,7 @@ $whenPlayedAbilities["LAW_227:0"] = function($player, $mzID) {
 $customDQHandlers["LAW_227#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
-    if (!SWUExhaustResources(intval($player), 1)) return;
+    if (!SWUPayInlineAbilityCost(intval($player), 1)) return;
     $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
     if ($mz !== null) DoGiveShieldToken(intval($player), $mz);
 };

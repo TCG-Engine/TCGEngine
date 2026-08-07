@@ -225,3 +225,28 @@ _(Resolved — affected players re-entered sideboards; future reports handled by
   which would have burned a Playwright run on a timeout.
 - **A denied command is an instruction.** `rm -rf` was declined twice; the owner does deletions personally.
   Adjust and hand over the command — don't reroute to achieve the same effect another way.
+
+## 2026-08-07 — LeaderUnitByUUID rename (same session, after the retro)
+- **A rename is only half done if the new name still encodes the old misconception.** I fixed
+  `LeaderUnitByUUID` -> `LeaderUnitAssetByCardID`, correcting the "UUID" half while keeping "Asset" —
+  which was equally wrong. The owner's one-line challenge ("is it really an asset though?") overturned
+  it: `ls` proved **zero** hash-named files exist across `WebpImages/`, `concat/`, `crops/` (2498 each).
+  Final name `LeaderUnitLegacyIDByCardID`. Before naming a value, go look at what it actually refers to.
+- **When the user questions a premise, check the data — don't defend the reasoning.** Both times this
+  session that a premise was challenged, one filesystem/dictionary probe settled it in seconds and
+  overturned my conclusion. Reasoning from the code alone had produced a confident wrong answer twice.
+- **Trace the call graph before labelling something "scaffolding".** I wrote in TWO places that the
+  leader-unit map was migration scaffolding, deletable after re-keying. It is live stats ingress —
+  `SWUCardIdentityClassify()`'s LAST rule, on every `SubmitGameResult` submission, where a miss DROPS
+  the row. One of those comments sat in a file whose own header says, in caps, that it is permanent
+  runtime code. Read the header of the file you are commenting in.
+- **A blanket find-and-replace mangles the one place the old word was correct.** Substituting
+  "asset hashes" -> "legacy ids" turned "originated as Strapi media-asset hashes" (correct history)
+  into "media-legacy ids". Re-grep for the *new* string afterwards, not just the old one.
+- **Rename a GENERATED symbol via the generator, and make the stale-artifact case loud.** The accessor
+  is emitted by `zzCardCodeGenerator.php`; its consumer failed SILENTLY to an empty map when the
+  symbol was missing — the precise failure a rename causes when code ships ahead of a regeneration.
+  Fix: caller tries new-then-old, and the test asserts the map is POPULATED, not merely that it returns.
+- **`--summary`-style tooling with loud gates is worth running as a smoke test.** `materialize-id-map.php`
+  independently re-derived 4,805 map rows / 156 leader-unit-legacy and would have hard-failed on an
+  empty map — stronger end-to-end evidence than any unit assertion I wrote.

@@ -24,6 +24,6 @@ $customDQHandlers["ASH_014#1"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["ASH_014#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (($lastDecision ?? '') !== 'YES') return;
-    if (!SWUExhaustResources(intval($player), 1)) return;   // pay 1 resource
+    if (!SWUPayInlineAbilityCost(intval($player), 1)) return;   // pay 1 resource
     DoDrawCard(intval($player), 1);
 };

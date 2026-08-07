@@ -32,23 +32,41 @@ function SWUCardIdentityIsSetNnn(string $v): bool
     return (bool)preg_match('/^[A-Z0-9]{2,5}_(T\d{2}|\d{2,3})$/', $v);
 }
 
-// Leader-unit media-asset hash => owning CardID, swept over the whole card pool.
+// Leader-unit LEGACY identifier => owning CardID, swept over the whole card pool.
 //
-// Exists because prod holds rows keyed by a two-sided leader's FLIPPED-side asset id
+// Exists because prod holds rows keyed by a two-sided leader's FLIPPED-side legacy id
 // (ad86d54e97 => TWI_017 Chancellor Palpatine, 2,984 rows), splitting that leader's stats across two
 // identities. Swept exhaustively rather than spot-checked: any two-sided leader can carry it.
 //
-// ⚠ LeaderUnitByUUID is keyed by CardID since the 2026-08-04 SET_NNN re-key, despite its name.
-// Resolving the loop variable through CardIDLookup() (which returns null for a SET_NNN) silently
-// produced an EMPTY map and reclassified ad86d54e97 as unresolvable. Normalise, do not look up.
+// ⚠ Those legacy ids ORIGINATED as Strapi media-asset hashes but no longer name any file — the
+// corpus is entirely SET_NNN-named (verified 2026-08-07: zero hash-named files across WebpImages/,
+// concat/ and crops/). Never build an image path from one.
+//
+// ⚠ This map is LIVE INGRESS, not migration scaffolding — consistent with this file's header. It is
+// the LAST rule SWUCardIdentityClassify() tries (after set-nnn and uuid), so a submission naming a
+// two-sided leader by its flipped-side legacy id resolves here or falls to class 3 and is DROPPED.
+// Re-keying the stored rows does NOT retire it: an external client can still send a legacy id, and
+// nothing else rescues that.
+//
+// ⚠ The accessor is keyed by CardID. Resolving the loop variable through CardIDLookup() (which
+// returns null for a SET_NNN) silently produced an EMPTY map and reclassified ad86d54e97 as
+// unresolvable. Normalise, do not look up.
+//
+// The generated accessor was renamed LeaderUnitByUUID -> LeaderUnitLegacyIDByCardID on 2026-08-07.
+// The fallback below exists for ONE failure mode: code deployed ahead of a dictionary regeneration,
+// where only the old name is defined. Without it this function returns an empty array — silently,
+// which is the exact way this code broke before. Drop the fallback once every environment has
+// regenerated.
 function SWUCardIdentityLeaderUnitMap(): array
 {
     static $map = null;
     if ($map !== null) return $map;
     $map = [];
-    if (!function_exists('LeaderUnitByUUID')) return $map;
+    $fn = function_exists('LeaderUnitLegacyIDByCardID') ? 'LeaderUnitLegacyIDByCardID'
+        : (function_exists('LeaderUnitByUUID') ? 'LeaderUnitByUUID' : null);
+    if ($fn === null) return $map;
     foreach (array_keys($GLOBALS['titleData'] ?? []) as $key) {
-        $asset = LeaderUnitByUUID((string)$key);
+        $asset = $fn((string)$key);
         if (!is_string($asset) || $asset === '') continue;
         $cardID = function_exists('SWUNormalizeDictionaryKey')
             ? SWUNormalizeDictionaryKey((string)$key) : (string)$key;
@@ -94,7 +112,7 @@ function SWUCardIdentityClassify(string $value, bool $poly = false): array
 
     $leaderUnits = SWUCardIdentityLeaderUnitMap();
     if (isset($leaderUnits[$value])) {
-        return ['class' => 1, 'to' => CardIDOverride($leaderUnits[$value]), 'via' => 'leader-unit-asset'];
+        return ['class' => 1, 'to' => CardIDOverride($leaderUnits[$value]), 'via' => 'leader-unit-legacy'];
     }
 
     return ['class' => 3, 'to' => null, 'via' => 'unresolvable'];

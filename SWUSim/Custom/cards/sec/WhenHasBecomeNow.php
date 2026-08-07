@@ -30,7 +30,7 @@ $whenPlayedAbilities["SEC_245:0"] = function($player, $mzID = '') {
                           // the leader-deploy ability); SEC_245's own ramp clause is the refill. "You may
                           // play" (Plot is optional) → MZMAYCHOOSE; the ramp happens regardless.
             global $playerID, $Plot_Cards; $playerID = intval($player);
-            $ready = SWUResourceCount(intval($player), readyOnly: true);
+            $ready = SWUTotalPaymentCapacity(intval($player));
             $resources = &GetResources(intval($player));
             $targets = [];
             $pos = 0;

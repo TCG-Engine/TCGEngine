@@ -39,7 +39,6 @@ $onAttackAbilities["JTL_016:0"] = function($player, $mzID) {
 $leaderAbilities["JTL_016"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $targets = array_merge(
         ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
         ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),

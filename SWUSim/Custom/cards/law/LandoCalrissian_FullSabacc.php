@@ -9,7 +9,6 @@ $leaderActionResourceCosts["LAW_018"] = 1;
 
 $leaderAbilities["LAW_018"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, SWUApplyCostHalving($player, 1))) { SWUAfterAction($player); return; }
     DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "Vigilance&Command&Aggression&Cunning&Heroism&Villainy", 1, "Choose_an_aspect");
     DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_018#0", 1);
 };

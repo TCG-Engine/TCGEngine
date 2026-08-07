@@ -62,7 +62,7 @@ function KyloRenWereNotDoneYetOffer(int $player, int $hostUID): void {
     if ($hostMz === null) return;
     $hostObj = GetZoneObject($hostMz);
     if (SWUObjGone($hostObj)) return;
-    $ready = SWUResourceCount($player, readyOnly: true);
+    $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay an upgrade's cost (CR 3.13)
     $offer = [];
     foreach (ZoneSearch('myDiscard') as $mz) {
         $o = GetZoneObject($mz);

@@ -73,11 +73,10 @@ $customDQHandlers["IC27_008#1"] = function($player, $parts, $lastDecision) {
     if ($close === 1) SWUAfterAction(intval($player));
 };
 
-// Front (undeployed) Action — SWULeaderAction exhausts the leader before this runs, so the closure
-// only pays the resource. The action owns its After Action.
+// Front (undeployed) Action — SWULeaderAction exhausts the leader and pays the [1 resource] (through
+// the Credit/Droid alt-pay funnel) before this runs. The action owns its After Action.
 $leaderAbilities["IC27_008"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     Ic27008DrawThenReplace($player, 1);
 };
 

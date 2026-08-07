@@ -524,7 +524,8 @@ function _SWUFinalizeUpgradeAttach(
   bool $ignoreCost,
   bool $isPilot = false,
   bool $suppressAfterAction = false,  // SEC_003 Lama Su: caller owns the After Action (deal 1 / combat)
-  int $discount = 0                   // LOF_018 Anakin: "ignoring aspect penalties" — waive the surcharge
+  int $discount = 0,                  // LOF_018 Anakin: "ignoring aspect penalties" — waive the surcharge
+  bool $altPayOffered = false         // true from ATTACH_UPGRADE: the Credit/Droid choice was already shown
 ): int {
   // Re-resolve the host — it must still exist (could have been removed between
   // queuing the Droid-choice and resolution, e.g. opponent removal response).
@@ -553,7 +554,7 @@ function _SWUFinalizeUpgradeAttach(
     // mirroring the event path's ActivateCard($discount)). Pilots use SWU_PILOT_DISCOUNT instead → 0 here.
     if ($discount > 0)
       $hostCost = max(0, $hostCost - $discount);
-    $paid = SWUPayCost($player, $hostCost, $prepaid);
+    $paid = SWUPayCost($player, $hostCost, $prepaid, true, $altPayOffered);
     if (!$paid) {
       SetFlashMessage("Not enough ready resources (need " . max(0, $hostCost - $prepaid) . ").");
       return 0;
@@ -663,7 +664,7 @@ function _SWUTwi040HostsFor(int $player, string $cid, &$isPilotOut = null): ?arr
   } else {
     $hosts = SWUGetUpgradeValidTargets($player, $cid);        // friendly units matching the upgrade's restriction
     $cost = SWUComputePlayCost($player, (object) ['CardID' => $cid]); // base cost (host discounts ignored for the gate)
-    if (SWUResourceCount($player, true) < $cost)
+    if (SWUTotalPaymentCapacity($player) < $cost)
       $hosts = [];
   }
   $GLOBALS['gTwi040IgnoreAspect'] = false;
@@ -1323,7 +1324,7 @@ function _SWULaw015PlayableUnderworldUnits(int $player): array
 {
   global $playerID;
   $playerID = $player;
-  $budget = SWUResourceCount($player, readyOnly: true) + count(SWUUsableCreditTokenMzIDs($player)); // each Credit = 1 less
+  $budget = SWUTotalPaymentCapacity($player); // ready resources + Credits + SEC_122 Droids (CR 3.13)
   $hand = GetHand($player);
   $out = [];
   for ($i = 0; $i < count($hand); $i++) {

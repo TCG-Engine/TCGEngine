@@ -7,7 +7,7 @@
 $onAttackAbilities["SOR_206:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    if (SWUResourceCount(intval($player), true) < 2) return; // can't pay → not offered
+    if (SWUTotalPaymentCapacity(intval($player)) < 2) return; // can't pay → not offered
     DecisionQueueController::AddDecision($player, 'YESNO', '-', 1, 'Pay_2_resources_to_draw_a_card?');
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'SOR_206#0', 1);
 };
@@ -16,6 +16,6 @@ $customDQHandlers["SOR_206#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES' && $lastDecision !== '1') return;
     global $playerID;
     $playerID = intval($player);
-    if (!SWUExhaustResources($player, 2)) return; // pay the cost; fizzle if somehow unaffordable
+    if (!SWUPayInlineAbilityCost($player, 2)) return; // pay the cost; fizzle if somehow unaffordable
     DoDrawCard(intval($player), 1);
 };

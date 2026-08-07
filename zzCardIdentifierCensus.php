@@ -106,7 +106,7 @@ foreach ($TARGETS as [$table, $column, $poly]) {
         if ($r['via'] === 'set-nnn') $c1++; else $mapped++;
         $canonicalSources[$r['to']][] = $v;
 
-        if ($r['via'] === 'leader-unit-asset') {
+        if ($r['via'] === 'leader-unit-legacy') {
             $leaderUnitHits[$v] = ['card' => $r['to'], 'rows' => ($leaderUnitHits[$v]['rows'] ?? 0) + $n];
         }
     }

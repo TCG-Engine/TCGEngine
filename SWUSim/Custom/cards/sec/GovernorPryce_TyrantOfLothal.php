@@ -15,7 +15,6 @@ $onAttackAbilities["SEC_011:0"] = function($player, $mzID) {
 // Action [1 resource, Exhaust]: Ready a token unit. (Offers friendly exhausted token units.)
 $leaderAbilities["SEC_011"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $tokens = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {

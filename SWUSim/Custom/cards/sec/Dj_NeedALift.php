@@ -33,7 +33,7 @@ $customDQHandlers["SEC_018#0"] = function($player, $parts, $lastDecision) {
     $captor   = ($captorMz !== '' && str_contains($captorMz, '-')) ? GetZoneObject($captorMz) : null;
     if (SWUObjGone($captor)) { SWUAfterAction(intval($player)); return; }
     $captorUID = intval($captor->UniqueID ?? 0);
-    $ready = SWUResourceCount(intval($player), readyOnly: true);
+    $ready = SWUTotalPaymentCapacity(intval($player));
     $handUnits = [];
     foreach (ZoneSearch('myHand') as $mz) {
         $o = GetZoneObject($mz);

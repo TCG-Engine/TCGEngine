@@ -16,7 +16,7 @@ $customDQHandlers["SEC_073#0"] = function($player, $parts, $lastDecision) {
     }
     $units = array_values(array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)));
     foreach ($units as $mz) {
-        if (isset($selected[$mz])) SWUExhaustResources($target, 1);   // paid → unit stays as it was
+        if (isset($selected[$mz])) SWUPayInlineAbilityCost($target, 1);   // paid → unit stays as it was
         else                       OnExhaustCard($target, $mz);       // not paid → exhausted
     }
     // Chain the next copy's resolution (its cap is recomputed live, after this copy's spend).

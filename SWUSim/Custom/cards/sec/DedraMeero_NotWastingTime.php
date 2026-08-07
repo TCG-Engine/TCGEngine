@@ -10,7 +10,6 @@
 // don't, draw a card. (Cross-player YESNO for the opponent; the caster draws on a decline.)
 $leaderAbilities["SEC_010"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (!SWUExhaustResources($player, 1)) { SWUAfterAction($player); return; }
     $enemies = [];
     foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
