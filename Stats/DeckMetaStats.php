@@ -5,6 +5,7 @@ include_once '../SharedUI/Header.php';
 include_once '../Core/HTTPLibraries.php';
 include_once "../Core/UILibraries.php";
 include_once '../Database/ConnectionManager.php';
+require_once '../AppCore/SWU/Formats.php';   // SWUStatsFormats() / SWUGetFormat()
 include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 include_once '../AppCore/SWU/CardImagePath.php';       // SWUCardImagePath / SWUCardArtScript
 echo SWUCardArtScript();                                    // window.swuCardArtUrl for the tables below
@@ -37,9 +38,17 @@ $forIndividual = false;
   <div class="week-control">
     <label for="metaFormat">Format</label>
     <div class="select-wrap"><select id="metaFormat" class="week-select">
-      <option value="premier" selected>Premier</option>
-      <option value="eternal">Eternal</option>
-      <option value="twinsuns">Twin Suns</option>
+<?php
+      // Rendered from the format registry so the UI cannot drift from the API whitelist — padawan
+      // was accepted by the API but missing from this list, and so unselectable.
+      foreach (SWUStatsFormats(false) as $fid) {
+          $fdef = SWUGetFormat($fid);
+          printf("      <option value=\"%s\"%s>%s</option>\n",
+              htmlspecialchars($fid, ENT_QUOTES),
+              $fid === 'premier' ? ' selected' : '',
+              htmlspecialchars($fdef['displayName'] ?? $fid, ENT_QUOTES));
+      }
+?>
     </select></div>
   </div>
   <button id="refreshWeeks" class="week-refresh">Refresh</button>

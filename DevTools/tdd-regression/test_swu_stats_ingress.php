@@ -229,13 +229,6 @@ $checks['engine: gate precedes write'] = $posGate2 !== false
 // stats by design. Petranaki (which ships preview sets) stopped publishing entirely while Karabast
 // (premier, real cards) was fine. Assert the exemption exists AND that the gate sits after the
 // format is known, since the ordering is what made the exemption impossible to express before.
-$posFormat  = $eng === false ? false : strpos($eng, '$isPreviewFormat = SWUFormatIsPreview(');
-$posExempt  = $eng === false ? false : strpos($eng, '$swuRecordsNothing');
-$checks['engine: exempts record-nothing formats'] = $posExempt !== false;
-$checks['engine: gate follows format resolution']  = $posFormat !== false && $posGate2 !== false
-    && $posFormat < $posGate2;
-$checks['engine: exemption covers preview'] = $eng !== false && strpos($eng, '$isPreviewFormat ||') !== false;
-$checks['engine: exemption covers open']    = $eng !== false && strpos($eng, "\$format === 'open'") !== false;
 
 // The contract change is documented — a consumer must be able to discover it without reading PHP.
 $apiDoc = file_get_contents(__DIR__ . '/../../Stats/APIs.php');
@@ -243,6 +236,31 @@ $checks['docs: 400 documented'] = $apiDoc !== false
     && strpos($apiDoc, 'Unrecognized Card Identifiers (HTTP 400)') !== false;
 $checks['docs: both shapes documented'] = $apiDoc !== false
     && strpos($apiDoc, 'either format') !== false;
+
+
+// ── Three-tier format policy (design doc §4) ────────────────────────────────
+// records / accepted-and-ignored / 400, all decided by the registry. The literal format list that
+// used to live here drifted from the dropdowns, so assert no literal survives. Registry-level
+// behaviour is covered by test_swu_format_stats_policy.php; these are SOURCE guards on the endpoint.
+$checks['engine: meta allowlist is derived']   = strpos($eng, 'SWUStatsFormats()') !== false;
+$checks['engine: rejects unregistered format'] = strpos($eng, 'SWUFormatIsRegistered($format)') !== false;
+$checks['engine: no literal format list']      = strpos($eng, "'premier','eternal','twinsuns','padawan'") === false;
+// Preview is no longer special-cased anywhere in the write path — it is just another format key.
+$checks['engine: no preview exclusion remains'] = strpos($eng, '!$isPreviewFormat') === false;
+
+// ── The manual endpoint must apply the SAME three tiers ─────────────────────
+// It has its OWN SaveDeckStats, and the two implementations diverged once already: the 2026-08-06
+// mode fix landed on the engine endpoint only, so hand-logged Goldfish/Hotseat games kept recording.
+$manRaw = file_get_contents(__DIR__ . '/../../APIs/SubmitManualGameResult.php');
+$man = '';
+foreach (token_get_all($manRaw === false ? '<?php ' : $manRaw) as $t) {
+    if (is_array($t)) { if ($t[0] === T_COMMENT || $t[0] === T_DOC_COMMENT) continue; $man .= $t[1]; }
+    else $man .= $t;
+}
+$checks['manual: deck stats gate is derived']  = strpos($man, 'SWUStatsFormats()') !== false;
+$checks['manual: rejects unregistered format'] = strpos($man, 'SWUFormatIsRegistered($format)') !== false;
+$checks['manual: no bare open comparison']     = strpos($man, "\$format === 'open'") === false;
+$checks['manual: no preview special-case']     = strpos($man, 'SWUFormatIsPreview($format)') === false;
 
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";

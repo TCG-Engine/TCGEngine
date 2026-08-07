@@ -167,7 +167,7 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>format</td>
                     <td>string</td>
-                    <td>(Optional, default "premier") One of premier, eternal, twinsuns, padawan. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
+                    <td>(Optional, default "premier") One of premier, eternal, twinsuns, padawan, preview, twinsuns-preview, padawan-preview, eternal-preview. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
                 </tr>
                 <tr>
                     <td>consolidate</td>
@@ -305,7 +305,7 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>format</td>
                     <td>string</td>
-                    <td>(Optional, default "premier") One of premier, eternal, twinsuns, padawan. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
+                    <td>(Optional, default "premier") One of premier, eternal, twinsuns, padawan, preview, twinsuns-preview, padawan-preview, eternal-preview. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
                 </tr>
             </table>
             <h4>Example Response:</h4>
@@ -373,7 +373,7 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>format</td>
                     <td>string</td>
-                    <td>(Optional, default "premier") One of premier, eternal, twinsuns, padawan. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
+                    <td>(Optional, default "premier") One of premier, eternal, twinsuns, padawan, preview, twinsuns-preview, padawan-preview, eternal-preview. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
                 </tr>
             </table>
             <h4>Example Response:</h4>
@@ -431,7 +431,7 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>format</td>
                     <td>string</td>
-                    <td>(Optional, default "premier") One of premier, eternal, twinsuns, padawan. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
+                    <td>(Optional, default "premier") One of premier, eternal, twinsuns, padawan, preview, twinsuns-preview, padawan-preview, eternal-preview. Filters the meta to that format; invalid values fall back to premier. Omitting it leaves existing responses unchanged.</td>
                 </tr>
                 <tr>
                     <td>consolidate</td>

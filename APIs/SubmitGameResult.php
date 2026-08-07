@@ -59,13 +59,16 @@
 	// Premier meta aggregates stay gated to premier + not-opted-out + not-private (UNCHANGED behavior).
 	// $privateDeck may be set true in the deck-link blocks below; the completedgame gate is recomputed
 	// after those blocks.
-	$disableMetaStats = !in_array($format, ['premier','eternal','twinsuns','padawan'], true) || $explicitOptOut;
-	// A PREVIEW format is played with hand-curated MOCK cards that can be wrong, mid-errata, or deleted
-	// outright on release day, so a preview game writes NO stats at all — no deckstats and no
-	// completedgame row (both gated below). Meta aggregates were already excluded: no preview format is
-	// in the allowlist above. Additive by construction — this is only ever true for format values no
-	// existing consumer sends, so every current request behaves byte-identically.
-	$isPreviewFormat = SWUFormatIsPreview($format);
+	// Derived from the format registry — see SWUStatsFormats() in AppCore/SWU/Formats.php. The
+	// literal list this replaces was retyped in eight places and had already drifted from the UI
+	// (padawan was accepted here but absent from both meta dropdowns, so it was unselectable).
+	$disableMetaStats = !in_array($format, SWUStatsFormats(), true) || $explicitOptOut;
+	// Preview formats used to write NO stats at all, on the reasoning that mock cards can be wrong,
+	// mid-errata, or deleted on release day. They now record under their OWN format key — `format` is
+	// part of the PRIMARY KEY on the meta tables, so preview rows can never merge with released-format
+	// rows, and orphaned rows are cleaned up at sunset. Nothing here special-cases preview any more;
+	// SWUStatsFormats() includes them like any other format.
+	// See docs/superpowers/specs/2026-08-06-swu-preview-format-stats-design.md
 
   // Unresolvable identifiers are REJECTED, not partially recorded — but ONLY for a game that would
   // actually be recorded.
@@ -89,7 +92,25 @@
   // A 400 is not retried, so a rejected game is lost rather than deferred. That is why this still
   // sits ahead of every write: a rejected submission must leave nothing behind. Contrast the 503
   // maintenance mode returns, which exists precisely so submissions ARE retried.
-  $swuRecordsNothing = $isPreviewFormat || $format === 'open';
+  // Three tiers, all decided by the registry (design doc §4):
+  //   in SWUStatsFormats()     → record everything
+  //   registered but not in it → 200, record nothing (open, goldfish, hotseat)
+  //   not registered at all    → 400 below
+  // Preview formats are IN the list: they are first-class formats separated by their own format key,
+  // so no preview branch survives here. An absent format already defaulted to 'premier' above, so
+  // absence never reaches the rejection.
+  $swuRecordsNothing = !in_array($format, SWUStatsFormats(), true);
+  if (!SWUFormatIsRegistered($format)) {
+    http_response_code(400);
+    header('Content-Type: application/json');
+    error_log("SWU stats: rejected unregistered format '" . $format . "'");
+    echo json_encode([
+      "success" => false,
+      "error"   => "Unrecognized format '" . $format . "'. Register it in AppCore/SWU/Formats.php "
+                 . "or send a supported format. Nothing was recorded for this game.",
+    ]);
+    exit;
+  }
   if (!$swuRecordsNothing
       && ($swuIngress['skipCompletedGame'] || $swuIngress['skipPlayer'][1]
           || $swuIngress['skipPlayer'][2] || $swuIngress['droppedCards'] > 0)) {
@@ -235,7 +256,7 @@
 		$opponentData = isset($data["player2"]) ? $data["player2"] : null;
 		// leaderID/baseID are PRIMARY KEY components — an unresolvable one cannot be keyed at all,
 		// so that player's stat writes are skipped wholesale (the other player is unaffected).
-		if(!$isPreviewFormat && !$swuIngress['skipPlayer'][1]) SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
+		if(!$swuRecordsNothing && !$swuIngress['skipPlayer'][1]) SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
 	  }
 	}
   }
@@ -266,7 +287,7 @@
 		// If tie, $won is null so SaveDeckStats can handle it as a tie
 		$won = ($winner == 2 ? true : ($winner == 1 ? false : null));
 		$opponentData = isset($data["player1"]) ? $data["player1"] : null;
-		if(!$isPreviewFormat && !$swuIngress['skipPlayer'][2]) SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
+		if(!$swuRecordsNothing && !$swuIngress['skipPlayer'][2]) SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData, $format);
 	  }
 	}
   }
@@ -276,7 +297,7 @@
   // format, while premier meta aggregates (in SaveDeckStats) stay premier-gated as before. Preview is
   // excluded because this log feeds meta and matchup browsing, and rows referencing mock CardIDs
   // would linger after the mocks are deleted on release day.
-  $recordCompletedGame = ($format !== 'open') && !$isPreviewFormat && !$explicitOptOut && !$privateDeck;
+  $recordCompletedGame = !$swuRecordsNothing && !$explicitOptOut && !$privateDeck;
   if($recordCompletedGame) {
 
 	// Check for null winHero or loseHero
@@ -358,7 +379,8 @@
 function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, $winnerHealth, $gameName, $disableMetaStats, $isDeckOwner, $opponentData = null, $format = 'premier') {
 	global $input;
 	// "open" games produce no deck stats (consistent with the completedgame exclusion).
-	if ($format === 'open') { return; }
+	// Only formats the registry lists as stats-producing write deck stats.
+	if (!in_array($format, SWUStatsFormats(), true)) { return; }
 	if (is_string($playerData)) {
 		$playerJSON = json_decode($playerData, true);
 	} else {

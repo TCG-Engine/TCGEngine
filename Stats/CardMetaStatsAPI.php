@@ -4,6 +4,7 @@ include_once '../Core/HTTPLibraries.php';
 include_once '../Database/ConnectionManager.php';
 include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 include_once '../AppCore/SWU/CardIdentity.php';   // SWUCardIdentityToWire()
+include_once '../AppCore/SWU/Formats.php';   // SWUStatsFormats()
 
 $conn = GetLocalMySQLConnection();
 
@@ -32,7 +33,10 @@ $sortOrder = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'desc' : 'asc';
 // Opt-in format filter (default premier keeps existing responses byte-identical). Whitelisted, so
 // safe to inline like the intval'd week clause.
 $format = isset($_GET['format']) ? strtolower($_GET['format']) : 'premier';
-if (!in_array($format, ['premier','eternal','twinsuns','padawan'], true)) { $format = 'premier'; }
+// Derived from the format registry (AppCore/SWU/Formats.php). FALSE = include disabled formats: a
+// preview format is disabled once its window closes and its historical rows must stay readable.
+// Default and fallback remain 'premier', so every existing response is byte-identical.
+if (!in_array($format, SWUStatsFormats(false), true)) { $format = 'premier'; }
 
 if ($startWeek === null && $endWeek === null) {
   $where = '1';

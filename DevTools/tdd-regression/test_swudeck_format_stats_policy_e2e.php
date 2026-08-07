@@ -1,17 +1,22 @@
 <?php
-// RUN VIA CLI (this test makes loopback HTTP POSTs to SubmitGameResult.php; serving it over HTTP too
-// can deadlock/stall the apache worker pool on docker-for-mac). Invoke:
-//   docker exec otmtcge-swustats-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_preview_stats_exclusion.php
+// RUN VIA CLI:
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swudeck_format_stats_policy_e2e.php
 //
-// A PREVIEW format is played with hand-curated MOCK cards (AppCore/SWU/CardMocks.php) that can be
-// wrong, mid-errata, or deleted outright on release day. Nothing about such a game should describe
-// the real meta or a player's record, so a preview submission must write NO stats at all: no
-// deckstats row, and no completedgame row (the raw log feeds meta + matchup browsing, and rows
-// referencing mock CardIDs would linger after the mocks are gone).
+// END-TO-END proof of the three-tier format policy, exercised through BOTH submission endpoints:
 //
-// Design: docs/superpowers/specs/2026-07-29-swu-preview-format-design.md §3.
-// Meta AGGREGATES were already excluded — 'preview' was never in SubmitGameResult.php's meta
-// allowlist — so this covers the two write paths that were still live.
+//   registered + stats-producing  → records deck stats, completedgame and meta aggregates
+//                                   (premier, eternal, twinsuns, padawan, and the four PREVIEW formats)
+//   registered, not producing     → 200, records nothing (open, goldfish, hotseat)
+//   not registered in AppCore     → 400, records nothing
+//
+// Renamed from test_swudeck_preview_stats_exclusion.php on 2026-08-06: preview formats used to write
+// nothing and now record under their own format key, so the old name described the opposite policy.
+//
+// ⚠ THIS TEST POSTS to a prod-clone database. Every row it creates is keyed by the throwaway deckID,
+// the sentinel hero, or the synthetic token leaders SEC_T01/SEC_T02 — and is deleted in teardown.
+// Meta aggregate rows are NOT deck-keyed, so they need their own cleanup; see the bottom of the file.
+//
+// Design: docs/superpowers/specs/2026-08-06-swu-preview-format-stats-design.md
 header('Content-Type: text/plain');
 include_once __DIR__ . '/../../AppCore/SWU/Formats.php';
 include_once __DIR__ . '/../../Database/ConnectionManager.php';
@@ -110,49 +115,71 @@ $conn->query("DELETE FROM ownership WHERE assetType = 1 AND assetIdentifier = $d
 $conn->query("INSERT INTO ownership (assetType, assetIdentifier, assetOwner, assetStatus, assetVisibility) VALUES (1, $deckID, 999999999, 1, 2000000)");
 
 $createdGids = [];
-foreach (['preview', 'twinsuns-preview', 'padawan-preview'] as $fmt) {
+
+// ── Preview formats RECORD, under their own format key ──────────────────────
+// Reversed 2026-08-06: preview games used to write nothing. They are now first-class formats and the
+// KEY is what separates them — `format` is part of the PRIMARY KEY on the meta tables, so a preview
+// row can never merge with premier, nor eternal-preview with eternal.
+//
+// These are POSITIVE assertions, so they double as the proof that the probes below can detect a
+// write at all. The old synthetic-format control existed only to provide that proof and is gone:
+// unregistered formats are now rejected outright, and 'padawan' + disableMetaStats could not serve
+// either — disableMetaStats sets $explicitOptOut, which suppresses the completedgame row too.
+foreach (['preview', 'twinsuns-preview', 'padawan-preview', 'eternal-preview'] as $fmt) {
     wipeDeck($conn, $deckID);
     $since = maxGid($conn);
     $resp  = postJson($endpoint, payload($apiKey, $deckID, $fmt, $sentinel));
     $row   = newRow($conn, $since, $sentinel);
     if ($row) $createdGids[] = $row['GameID'];
-    $checks["$fmt: request still succeeds"]      = strpos((string)$resp, '"success":true') !== false;
-    $checks["$fmt: writes no deckstats row"]     = deckRows($conn, $deckID) === 0;
-    $checks["$fmt: writes no completedgame row"] = $row === null;
+    $checks["$fmt: request succeeds"]           = strpos((string)$resp, '"success":true') !== false;
+    $checks["$fmt: writes a deckstats row"]     = deckRows($conn, $deckID) > 0;
+    $checks["$fmt: writes a completedgame row"] = $row !== null;
+    $checks["$fmt: row carries its own key"]    = ($row['Format'] ?? null) === $fmt;
 }
 
-// The third write path: meta aggregates. No preview format is in SubmitGameResult's meta allowlist,
-// so these were already excluded — pin it, so adding a preview format to that list can never silently
-// start aggregating mock cards. Asserted across the WHOLE table rather than this test's own fixture:
-// scoped to a synthetic leader the check could never fail, whereas a table-wide scan is a genuine
-// leak detector. A failure here means real preview rows reached a meta aggregate — investigate and
-// purge them; it is not a fixture problem.
-$fmtList = "'preview','twinsuns-preview','padawan-preview'";
-foreach (['deckmetastats', 'cardmetastats', 'deckmetamatchupstats'] as $t) {
-    $n = intval($conn->query("SELECT COUNT(*) c FROM `$t` WHERE format IN ($fmtList)")->fetch_assoc()['c']);
-    $checks["no preview-format row in $t"] = $n === 0;
+// Meta aggregates: preview formats are in the write allowlist now, so a preview game DOES aggregate —
+// under its own format key. Asserted on the fixture's synthetic leader (SEC_T01), which no real deck
+// can have, so this can neither collide with nor be satisfied by production data.
+$previewMeta = intval($conn->query(
+    "SELECT COUNT(*) c FROM deckmetastats WHERE leaderID = 'SEC_T01' AND format = 'preview'"
+)->fetch_assoc()['c']);
+$checks['preview game aggregates under its own key'] = $previewMeta > 0;
+// ...and never leaks into a released format's rows.
+$premierLeak = intval($conn->query(
+    "SELECT COUNT(*) c FROM deckmetastats WHERE leaderID = 'SEC_T01' AND format = 'premier'"
+)->fetch_assoc()['c']);
+$checks['preview game does not touch premier rows'] = $premierLeak === 0;
+
+// ── Formats that record NOTHING ─────────────────────────────────────────────
+// Open is an anything-goes pool; Goldfish is solo and Hotseat is one person on both seats — practice,
+// not results. All three were recording until 2026-08-06 because only 'open' was excluded.
+foreach (['open', 'goldfish', 'hotseat'] as $skipFmt) {
+    wipeDeck($conn, $deckID);
+    $sinceSkip = maxGid($conn);
+    $skipResp  = postJson($endpoint, payload($apiKey, $deckID, $skipFmt, $sentinel));
+    $skipRow   = newRow($conn, $sinceSkip, $sentinel);
+    if ($skipRow) $createdGids[] = $skipRow['GameID'];
+    $checks["'$skipFmt' is accepted"]                = strpos((string)$skipResp, '"success":true') !== false;
+    $checks["'$skipFmt' writes no deckstats row"]     = deckRows($conn, $deckID) === 0;
+    $checks["'$skipFmt' writes no completedgame row"] = $skipRow === null;
 }
 
-// Control — a NON-preview format must still write both, proving the assertions above can detect a
-// write at all rather than passing vacuously. 'hotseat' is deliberate: it exercises the same two
-// write paths but sits outside the meta allowlist (SubmitGameResult.php), so no shared aggregate
-// table is touched. Every row it creates is keyed by the throwaway deckID or the sentinel hero and
-// is deleted below. (premier/eternal contract regression is already covered by
-// test_swudeck_deckstats_auto_format.php + test_swudeck_completedgame_format.php.)
+// ── An UNREGISTERED format is rejected outright ─────────────────────────────
+// Third tier: not registered in AppCore → 400, nothing recorded, nothing silently mislabelled.
 wipeDeck($conn, $deckID);
-$since = maxGid($conn);
-postJson($endpoint, payload($apiKey, $deckID, 'hotseat', $sentinel));
-$controlRow = newRow($conn, $since, $sentinel);
-if ($controlRow) $createdGids[] = $controlRow['GameID'];
-$checks['control (hotseat) writes a deckstats row']     = deckRows($conn, $deckID) > 0;
-$checks['control (hotseat) writes a completedgame row'] = $controlRow !== null;
-$checks['control row carries its format']               = ($controlRow['Format'] ?? null) === 'hotseat';
+$sinceBad = maxGid($conn);
+$badResp  = postJson($endpoint, payload($apiKey, $deckID, 'notaformat', $sentinel));
+$badRow   = newRow($conn, $sinceBad, $sentinel);
+if ($badRow) $createdGids[] = $badRow['GameID'];
+$checks['unregistered format is rejected']             = strpos((string)$badResp, '"success":false') !== false;
+$checks['unregistered format writes no deckstats']     = deckRows($conn, $deckID) === 0;
+$checks['unregistered format writes no completedgame'] = $badRow === null;
 
 // ── Part C: the manual-entry endpoint ────────────────────────────────────────
-// SubmitManualGameResult.php is the second SaveDeckStats writer (hand-logged games). It already
-// short-circuits on 'open' for the same reason preview needs one, and it writes the same deck-keyed
-// tables — so a preview game logged here would leave rows referencing mock cards behind. SWUDeck's
-// format catalog doesn't offer preview formats, but the endpoint accepts whatever it is sent.
+// SubmitManualGameResult.php is the second SaveDeckStats writer (hand-logged games), with its OWN
+// copy of the gates. The two diverged once already: the 2026-08-06 change that stopped Goldfish and
+// Hotseat recording landed on the engine endpoint only, so hand-logged practice games kept writing.
+// Both endpoints must now answer the registry the same way.
 $manualEndpoint = 'http://localhost/TCGEngine/APIs/SubmitManualGameResult.php';
 function manualPayload($deckID, $format) {
     return [
@@ -161,20 +188,32 @@ function manualPayload($deckID, $format) {
         'player' => json_encode(['leader' => 'SEC_T01', 'base' => 'Green', 'cardResults' => [], 'turnResults' => []]),
     ];
 }
-foreach (['preview', 'twinsuns-preview', 'padawan-preview'] as $fmt) {
+// Preview records here too — positive assertions, which also prove the probe fires.
+foreach (['preview', 'padawan-preview'] as $fmt) {
     wipeDeck($conn, $deckID);
     postJson($manualEndpoint, manualPayload($deckID, $fmt));
-    $checks["$fmt (manual entry): writes no deckstats row"] = deckRows($conn, $deckID) === 0;
+    $checks["$fmt (manual entry): writes a deckstats row"] = deckRows($conn, $deckID) > 0;
 }
-// Same control rationale as above — proves the manual path writes at all.
-wipeDeck($conn, $deckID);
-postJson($manualEndpoint, manualPayload($deckID, 'hotseat'));
-$checks['control (hotseat, manual entry) writes a deckstats row'] = deckRows($conn, $deckID) > 0;
+// ...and the local/solo modes do not. This is the assertion that was missing: hand-logged Goldfish
+// and Hotseat games were still recording after the engine endpoint was fixed.
+foreach (['open', 'goldfish', 'hotseat'] as $skipFmt) {
+    wipeDeck($conn, $deckID);
+    postJson($manualEndpoint, manualPayload($deckID, $skipFmt));
+    $checks["'$skipFmt' (manual entry): writes no deckstats row"] = deckRows($conn, $deckID) === 0;
+}
 
 // Cleanup — leave the shared DB exactly as found.
 foreach ($createdGids as $gid) delGid($conn, $gid);
 wipeDeck($conn, $deckID);
 $conn->query("DELETE FROM ownership WHERE assetType = 1 AND assetIdentifier = $deckID");
+// Preview games now aggregate, and meta rows are keyed by leader/base/week/format — NOT by deckID,
+// so wipeDeck() cannot reach them. Scoped to the fixture's synthetic token leaders, which no real
+// deck can have, so this can never delete production rows however the format list changes.
+$syn = "'SEC_T01','SEC_T02'";
+foreach (['deckmetastats', 'deckmetamatchupstats'] as $t) {
+    $conn->query("DELETE FROM `$t` WHERE leaderID IN ($syn)");
+}
+$conn->query("DELETE FROM opponentnamedbasestats WHERE leaderID IN ($syn)");
 
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";

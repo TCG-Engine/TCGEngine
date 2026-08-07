@@ -3,7 +3,7 @@
   require_once "../Core/HTTPLibraries.php";
   require_once "../Database/ConnectionManager.php";
   require_once "../Core/StatsBaseRegistry.php";
-  require_once "../AppCore/SWU/Formats.php"; // SWUFormatIsPreview()
+  require_once "../AppCore/SWU/Formats.php"; // SWUStatsFormats() / SWUFormatIsRegistered()
   require_once "../AppCore/SWU/Maintenance.php"; // SWUMaintenanceRequire()
   require_once "../AppCore/SWU/StatsIngress.php"; // SWUStatsIngressNormalizeManual()
 
@@ -50,16 +50,31 @@
   }
   $data["player"] = $swuManual['player'];
 
+  // Unregistered format → reject before anything is written, matching APIs/SubmitGameResult.php.
+  // Registered-but-not-stats-producing (open, goldfish, hotseat) is NOT an error: it returns 200 and
+  // SaveDeckStats declines to write.
+  if (!SWUFormatIsRegistered($format)) {
+    http_response_code(400);
+    header('Content-Type: application/json');
+    error_log("SWU manual submit: rejected unregistered format '" . $format . "'");
+    echo json_encode([
+      "success" => false,
+      "error"   => "Unrecognized format '" . $format . "'. Nothing was recorded for this game.",
+    ]);
+    exit;
+  }
+
   SaveDeckStats($deckID, $data["player"], $won, $wasFirstPlayer, $numRounds, $winnerHealth, $gameName, $format);
   
   //Parameters:
   // won: true if this player won the game, false if they lost
   // wasFirstPlayer: true if this player was the first player in the game, false if they were the second player
 function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, $winnerHealth, $gameName, $format = 'premier') {
-	if ($format === 'open') { return; }
-	// A preview format is played with hand-curated MOCK cards that are deleted on release day, so it
-	// writes no deck stats — same reasoning as 'open' above, and matching APIs/SubmitGameResult.php.
-	if (SWUFormatIsPreview($format)) { return; }
+	// Only formats the registry lists as stats-producing write deck stats — same rule as
+	// APIs/SubmitGameResult.php. Preview formats ARE in that list: they record under their own format
+	// key. Open and the local/solo modes are not. Keep this identical to the engine endpoint; the two
+	// diverged once already and hand-logged Goldfish/Hotseat games recorded as a result.
+	if (!in_array($format, SWUStatsFormats(), true)) { return; }
 	$playerJSON = json_decode($playerData, true);
 
 	$conn = GetLocalMySQLConnection();

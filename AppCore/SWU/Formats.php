@@ -125,6 +125,15 @@ function SWUFormatDefinitions() {
             'leaderCount' => 2,
             'enabled'     => true,
         ],
+        // Eternal pool + the upcoming set's previews — the Eternal counterpart of 'preview'. Same
+        // shape as 'eternal' (no rarity restriction, standard deck rules); only the pool differs.
+        // SWUFormatIsPreview derives preview-ness from the pool, so this needs no separate wiring.
+        'eternal-preview' => [
+            'displayName' => 'Eternal Preview',
+            'legalSets'   => array_merge($eternalSets, $previewSet),
+            'banned'      => [],
+            'enabled'     => true,
+        ],
     ];
 }
 
@@ -160,7 +169,49 @@ function SWUGetFormat($formatId) {
         'maxCopies'         => $f['maxCopies']         ?? 3,    // default copy limit per card
         'leaderCount'       => $f['leaderCount']       ?? 1,    // leaders required in the deck
         'enabled'           => $f['enabled']           ?? true,
+        // Local/solo MODE (Goldfish, Hotseat) rather than a matchmade format. Surfaced so callers
+        // outside the menu — notably the stats gate — can tell practice play from real play.
+        // Additive: every existing consumer reads named keys, so no verdict changes.
+        'mode'              => !empty($f['mode']),
     ];
+}
+
+// Is this format known to AppCore at all? Registration is separate from stats eligibility:
+// open/goldfish/hotseat ARE registered (the endpoints accept them and record nothing), while an
+// unregistered value is rejected outright — see the three-tier table in the design doc §4.
+function SWUFormatIsRegistered($formatId) {
+    $formatId = strtolower(trim(strval($formatId)));
+    if ($formatId === '') return false;
+    return SWUGetFormat($formatId) !== null;
+}
+
+// THE authority on which formats produce statistics. Every stats gate — the write allowlist, both
+// meta API whitelists and both page dropdowns — derives from this. It used to be the literal
+// ['premier','eternal','twinsuns','padawan'] retyped in eight places, which drifted: padawan was
+// accepted by the APIs but absent from the dropdowns, so it could not be selected.
+//
+// Excluded: 'open' (an unrestricted anything-goes pool, so its results describe nothing) and the
+// local/solo MODES — Goldfish is one player, Hotseat is one person playing both seats. Both are
+// practice, not results. Derived from the 'mode' flag so a future local mode is covered the day it
+// is added rather than silently recording.
+//
+// Preview formats ARE included: they are first-class formats separated by their own format key,
+// which is part of the PRIMARY KEY on the meta tables, so preview rows can never merge with
+// released-format rows.
+//
+// $enabledOnly=true  → WRITE eligibility.
+// $enabledOnly=false → READ eligibility. A preview format is DISABLED (not deleted) once its window
+//                      closes, and its historical rows must stay selectable.
+function SWUStatsFormats(bool $enabledOnly = true): array {
+    $out = [];
+    foreach (array_keys(SWUFormatDefinitions()) as $id) {
+        if ($id === 'open') continue;
+        $f = SWUGetFormat($id);
+        if ($f === null || !empty($f['mode'])) continue;
+        if ($enabledOnly && empty($f['enabled'])) continue;
+        $out[] = $id;
+    }
+    return $out;
 }
 
 function SWUListFormats() {
