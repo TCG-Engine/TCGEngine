@@ -187,3 +187,41 @@ _(Resolved — affected players re-entered sideboards; future reports handled by
   iPhone before the risky change landed. Worth doing whenever automation can't cover the critical piece.
 - **Temporal bugs need temporal assertions.** A flicker is invisible to a single snapshot; sampling
   visibility 12x over ~1.2s and asserting all samples match is what actually covers it.
+
+## 2026-08-06 — SWUCardList sunset + "Needs Tokens" deckbuilder readout
+- **Verify the root-cause claim BEFORE writing a spec around it.** The approved SWUCardList spec said
+  the fix meant editing `Schemas/SWUCardList/GameSchema.txt`. False: `AssetReflection: SWUDeck` already
+  routes `GenImageRoot()` to the shared corpus — the generated file was simply STALE (dated Jul 17, the
+  migration was Aug 5). Checking the anchors before planning caught it; the argument for deletion had to
+  be rewritten from "repair is expensive" to "repair preserves the failure mode".
+- **Don't claim a guard would have caught a bug without checking where the bug lived.** I wrote that an
+  art-tree guard "would have caught this the day the corpus moved". It could not — the bad string was in
+  a **gitignored generated file**, invisible to any tracked-source scan. State honestly what a guard does
+  and does not cover.
+- **Scope a "no references remain" guard to where references CAN live, not where you expect them.** The
+  SWUCardList guard scanned five subdirectories, passed clean, and missed `zzCodeGeneratorMain.php` at
+  the repo ROOT still registering the deleted root in the generator's picker. Enumerate the search space.
+- **Green server-side tests say nothing about layout.** 73 PHP checks passed while the card grid rendered
+  completely blank. Only the browser pass found it. Assertions about emitted markup ≠ assertions about paint.
+- **For a CSS bug, build a minimal repro and A/B one property at a time — don't reason about it.** I spent
+  several rounds theorising why tiles computed to height 0 (float? absolute? overflow?). A five-variant
+  A/B settled it in one run: implicit `auto` grid rows were being compressed to fit a definite-height
+  container; `grid-auto-rows:max-content` fixes it and `align-content` was irrelevant.
+- **`visible:true` is not "the user can see it".** My mobile check measured height and VERTICAL bounds and
+  reported success while the pane was translated horizontally off-screen. Assert full on-screen bounds
+  (left/right too) AND read the screenshot — twice this session a measurement passed on an unseen element.
+- **Use the app's own documented test hooks instead of inventing one.** SWUDeck routes mobile by
+  User-Agent with a `?swuLayout=mobile` override, and exposes `window.SWUDeckMobileSetPane`. A mobile
+  viewport alone silently gets the DESKTOP layout — which read as "the feature is missing", not "wrong
+  layout". Grep the layout for its own switches before scripting around them.
+- **Re-read the memory note before repeating last session's dead end.** I concluded twice that WebKit was
+  unusable here. `verifying-swudeck-ui-cross-browser` already recorded the fix (install `playwright@1.52.0`
+  side-by-side → `webkit-2158`); applying it took 3 minutes and WebKit 18.4 worked first try. Pointing the
+  NEW driver at an old binary — what I tried instead — cannot work, because the incompatibility is in the driver.
+- **A test that hedges tests nothing.** My catalog-order check accepted either of two expected arrays via
+  `||`. Computing the single real expected value is the whole point of the assertion.
+- **Resolve fixture ids against the dictionary the CODE will use, not the one you explored in.** Doing so
+  revealed `LAW_019` needs three tokens (not two), and that the login form has NO ids (`name="userID"`),
+  which would have burned a Playwright run on a timeout.
+- **A denied command is an instruction.** `rm -rf` was declined twice; the owner does deletions personally.
+  Adjust and hand over the command — don't reroute to achieve the same effect another way.
