@@ -37,7 +37,12 @@ async function longPress(page, index = 0) {
   await page.dispatchEvent('[data-lp]', 'touchstart', { touches: pt, targetTouches: pt, changedTouches: pt });
   await page.waitForTimeout(700);   // outlive CARD_DETAIL_LONG_PRESS_MS (430)
   await page.dispatchEvent('[data-lp]', 'touchend', { touches: [], targetTouches: [], changedTouches: pt });
-  await page.waitForTimeout(600);   // let the async face probe resolve
+  // Condition-based: wait for the preview to actually appear, not a fixed sleep. A pane re-render
+  // (a tab switch is a server round-trip) can delay it past any constant we would pick.
+  await page.waitForFunction(
+    () => getComputedStyle(document.getElementById('cardDetail')).display !== 'none',
+    null, { timeout: 10000 }).catch(() => {});
+  await page.waitForTimeout(600);   // let the async opposite-face probe resolve
   return pos;
 }
 
@@ -103,13 +108,24 @@ await harness(async (check) => {
       await page.waitForTimeout(400);
       check(`${name}: X closes the preview`, !(await previewOpen(page)));
 
-      // ── An ordinary card must NOT offer a flip ──────────────────────────────────────────────
+      // ── An ordinary card: preview must OPEN, and must NOT offer a flip ──────────────────────
+      // The "preview open" check here is load-bearing beyond the flip. Cards-tab tiles are /concat/
+      // art while the preview loads a different /WebpImages/ file, so on a cold cache the image
+      // lands AFTER touchend — which used to let EndCardDetailLongPress kill the preview outright
+      // (long-press appeared to do nothing). The Leaders pane cannot catch that: it already renders
+      // WebpImages, so the preview art is always cached.
       await page.evaluate(() => {
         const t = [...document.querySelectorAll('.panelTab')].find(x => x.textContent.trim() === 'Cards');
         if (t) t.click();
       });
       await page.waitForFunction(() => !!document.querySelector('#my_CardPane_content #myCards'), null, { timeout: 15000 });
-      await page.waitForTimeout(800);
+      // The library settles asynchronously after a rebuild (lazy tiles grow the pane for ~1s); a
+      // long-press started mid-rebuild can target a tile that is about to be replaced.
+      await page.waitForFunction(() => {
+        const c = document.querySelector('#my_CardPane_content');
+        return c && c.scrollHeight - c.clientHeight > 100;
+      }, null, { timeout: 15000 }).catch(() => {});
+      await page.waitForTimeout(1200);
       await longPress(page, 0);
       check(`${name}: preview open on an ordinary card`, await previewOpen(page));
       check(`${name}: close button still present`, await page.locator(CLOSE).count() === 1);

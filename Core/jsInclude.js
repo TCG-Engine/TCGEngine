@@ -329,6 +329,13 @@ function ShowDetail(e, imgSource, avoidEl, requestToken) {
   var el = document.getElementById("cardDetail");
   var cx = e.clientX, cy = e.clientY; // capture: pointer may move before the image loads
   var touch = IsTouchPreviewEvent(e);
+  // Claim persistence NOW, not in img.onload. EndCardDetailLongPress runs when the finger lifts and
+  // hides any preview that is not yet persistent — so an image still in flight at that moment was
+  // killed the instant it arrived. That is the normal case in the CARDS library, whose tiles are
+  // /concat/ art while the preview loads a different /WebpImages/ file: uncached, the load lands
+  // after touchend and the long-press appears to do nothing. (The Leaders pane hid this bug — it
+  // already renders WebpImages, so the preview art was always cached and onload was synchronous.)
+  if (touch) cardDetailPersistent = true;
   el.style.display = "none";
   el.style.zIndex = 100000;
   var img = new Image();
@@ -425,6 +432,14 @@ function HideCardDetail(force) {
   var el = document.getElementById("cardDetail");
   el.style.display = "none";
   el.style.pointerEvents = "";   // release the touch-preview override; desktop keeps its own rules
+  // Drop the touch controls rather than leaving them parked in a hidden #cardDetail. ShowDetail
+  // rebuilds innerHTML and would clear them anyway, but any path that reveals the preview WITHOUT
+  // rebuilding (a subcard preview, a re-show of the same card) would otherwise surface the previous
+  // card's buttons — including a leader flip on a card that has no second face.
+  var stale = el.querySelectorAll ? el.querySelectorAll("[data-card-detail-control]") : [];
+  for (var i = 0; i < stale.length; i++) {
+    if (stale[i].parentNode) stale[i].parentNode.removeChild(stale[i]);
+  }
   cardDetailPersistent = false;
   HideCardDetailScrim();
 }

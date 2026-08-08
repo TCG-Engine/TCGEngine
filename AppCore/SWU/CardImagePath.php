@@ -90,13 +90,19 @@ function SWUCardImageFsPath($cardID, $kind = 'card')
 // strip "_back" -> normalise toward SET_NNN -> apply the mock_ prefix.
 //
 // Requires the generated dictionaries to be included server-side (for UUIDLookup/GetAllCardIds).
-function SWUCardArtScript()
+//
+// $withIdMap=false omits the UUID->SET_NNN map (51KB raw / 20KB gzipped) for pages that already
+// carry the client card dictionary — a game BOARD loads SWUNormalizeDictionaryKey(), which does the
+// same normalisation, so shipping the map there is pure weight. The emitted resolver falls back to
+// that function when the map misses, so both callers resolve identically.
+function SWUCardArtScript($withIdMap = true)
 {
-    static $script = null;
-    if ($script !== null) return $script;
+    static $cache = [];
+    $key = $withIdMap ? 'full' : 'lite';
+    if (isset($cache[$key])) return $cache[$key];
 
     $map = [];
-    if (function_exists('GetAllCardIds') && function_exists('UUIDLookup')) {
+    if ($withIdMap && function_exists('GetAllCardIds') && function_exists('UUIDLookup')) {
         foreach (GetAllCardIds() as $id) {
             $uuid = UUIDLookup($id);
             if ($uuid !== null && $uuid !== '' && $uuid !== $id) $map[(string)$uuid] = $id;
@@ -107,15 +113,23 @@ function SWUCardArtScript()
     $flags = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
     $script = "<script>\n"
         . "window.SWUArtRoot = " . json_encode(SWU_IMAGE_WEB_ROOT, $flags) . ";\n"
-        . "window.SWUArtIDMap = " . json_encode($map, $flags) . ";\n"
-        . "window.SWUArtMockIDs = " . json_encode($mockIDs, $flags) . ";\n"
+        // JSON_FORCE_OBJECT: an empty PHP array encodes as [], so the lite build would hand JS an
+        // Array where every consumer expects an object map. Lookups would still miss harmlessly,
+        // but the emitted type must not change shape with the build.
+        . "window.SWUArtIDMap = " . json_encode($map, $flags | JSON_FORCE_OBJECT) . ";\n"
+        . "window.SWUArtMockIDs = " . json_encode($mockIDs, $flags | JSON_FORCE_OBJECT) . ";\n"
         . <<<'JS'
 window.swuCardArtID = function (cardID) {
   if (!cardID) return '';
   var id = String(cardID), suffix = '';
   var m = /^(.*)(_back)$/.exec(id);
   if (m) { id = m[1]; suffix = m[2]; }
-  if (!/^[A-Z0-9]{2,5}_(T\d{2}|\d{2,3})$/.test(id) && window.SWUArtIDMap[id]) id = window.SWUArtIDMap[id];
+  if (!/^[A-Z0-9]{2,5}_(T\d{2}|\d{2,3})$/.test(id)) {
+    // Map first; when it is absent (the lite build, for pages that carry the client dictionary)
+    // fall back to the dictionary's own normaliser so both builds resolve a stored UUID the same.
+    if (window.SWUArtIDMap[id]) id = window.SWUArtIDMap[id];
+    else if (typeof SWUNormalizeDictionaryKey === 'function') id = SWUNormalizeDictionaryKey(id);
+  }
   if (window.SWUArtMockIDs[id]) id = 'mock_' + id;
   return id + suffix;
 };
@@ -128,5 +142,6 @@ window.swuCardArtUrl = function (cardID, kind) {
 };
 JS
         . "\n</script>\n";
+    $cache[$key] = $script;
     return $script;
 }

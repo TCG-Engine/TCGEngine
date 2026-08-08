@@ -5,6 +5,15 @@
 // full-height deck workspace. Both pages keep the generated zone slot ids, so
 // NextTurnRender.php continues to populate them without a mobile-only renderer.
 $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewportDebug'] === '1';
+
+// The identity banner and the "recently added" strip build art URLs CLIENT-side. They used to do it
+// from window.rootPath ("./SWUDeck"), i.e. the per-app art trees deleted in the 2026-08-05
+// shared-corpus migration — so every one of those images 404'd (leader/base banner blank, recent
+// thumbnails blank). window.swuCardArtUrl() is the JS twin of SWUCardImagePath(); emitting it here
+// is the same seam the Stats pages use. The lite build skips the 51KB UUID map because a board
+// already carries SWUNormalizeDictionaryKey().
+require_once __DIR__ . '/../../AppCore/SWU/CardImagePath.php';
+echo SWUCardArtScript(false);
 ?>
 <style>
   :root { --swu-mobile-viewport-height: 100vh; }
@@ -1299,8 +1308,10 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
       .replace(/_back(?=\.(?:webp|png)$)/, '')
       .replace(/\.(?:webp|png)$/, '');
   }
-  function assetRoot(){
-    return typeof window.rootPath === 'string' && window.rootPath ? window.rootPath : '/TCGEngine/SWUDeck';
+  /* Art URLs come from the shared seam (window.swuCardArtUrl, emitted above), never from
+     window.rootPath — that points at this app's own folder, whose art tree no longer exists. */
+  function cardArtUrl(cardID, kind){
+    return (typeof window.swuCardArtUrl === 'function') ? window.swuCardArtUrl(cardID, kind) : '';
   }
   function useIdentityCrop(slotID, artID, useBack){
     var sourceImg = document.querySelector('#' + slotID + ' img');
@@ -1310,18 +1321,20 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     if(!cardID) return;
     if(artImg.dataset.cardID === cardID) return;
     artImg.dataset.cardID = cardID;
-    var cropRoot = assetRoot() + '/crops/' + encodeURIComponent(cardID);
+    // A leader's identity art is its deployed unit side ("<CardID>_back"); cards without one fall
+    // back to their own crop. The seam applies the mock_ prefix and normalises stored UUIDs.
+    var front = cardArtUrl(cardID, 'crop');
     if(useBack) {
       artImg.onerror = function(){
         if(artImg.dataset.cardID === cardID) {
           artImg.onerror = null;
-          artImg.src = cropRoot + '_cropped.png';
+          artImg.src = front;
         }
       };
-      artImg.src = cropRoot + '_back_cropped.png';
+      artImg.src = cardArtUrl(cardID + '_back', 'crop');
     } else {
       artImg.onerror = null;
-      artImg.src = cropRoot + '_cropped.png';
+      artImg.src = front;
     }
   }
   function enhanceIdentity(){
@@ -1832,7 +1845,7 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
       button.dataset.recentID = entry.id;
       button.setAttribute('aria-label', 'Remove one ' + title + ' from ' + (entry.destination === 'mySideboard' ? 'sideboard' : 'main deck'));
       var img = document.createElement('img');
-      img.src = assetRoot() + '/concat/' + encodeURIComponent(entry.cardID) + '.webp';
+      img.src = cardArtUrl(entry.cardID, 'tile');
       img.alt = '';
       var copy = document.createElement('span');
       copy.className = 'swu-mobile-recent-card-copy';
