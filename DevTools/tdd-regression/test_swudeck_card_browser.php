@@ -109,22 +109,29 @@ $checks['mock filter rendered'] = strpos($html, 'id="cbMockFilter"') !== false;
 // concat tiles have a BLANK rules box, so enlarging must swap to the WebpImages art or the browser
 // cannot answer "what does this card do?".
 $checks['lightbox rendered'] = strpos($html, 'id="cbLightbox"') !== false;
-// The JS derives full art from the tile's own src by swapping the folder, so the literal
-// WebpImages URL never appears in the markup. Assert the MECHANISM is correct rather than
-// string-matching a URL: applying the same swap must reproduce SWUCardImagePath($id, 'card')
-// exactly. This catches a divergence in stem naming (the mock_ prefix, _back suffixes) that a
-// string match would sail past.
-$checks['lightbox swaps concat for full art'] =
-    strpos($html, "replace('/concat/', '/WebpImages/')") !== false;
-$swapMismatch = [];
+// Full art is resolved SERVER-SIDE through SWUCardImagePath() and carried on data-full. The JS
+// must not reconstruct a folder or filename rule of its own — the previous
+// `replace('/concat/', '/WebpImages/')` was a hardcoded copy of the corpus layout, which is the
+// class of assumption that made the old SWUCardList grid 404 after the art tree moved.
+$checks['lightbox reads data-full'] = strpos($html, "tile.getAttribute('data-full')") !== false;
+$checks['no hardcoded folder swap in js'] =
+    strpos($html, "replace('/concat/', '/WebpImages/')") === false;
+
+// Assert the MECHANISM per card rather than string-matching one URL: every emitted data-full must
+// equal SWUCardImagePath($id, 'card') AND name a file that exists. Covers stem-naming divergence
+// (the mock_ prefix, _back suffixes) that a string match would sail past.
+$fullMismatch = [];
+$fullMissing  = [];
 foreach (['SOR_033', 'SOR_001', 'HMW_004', 'JTL_001'] as $probe) {
-    if (!in_array($probe, $ids, true)) { $swapMismatch[] = "$probe not in dictionary"; continue; }
-    $swapped = str_replace('/concat/', '/WebpImages/', SWUCardImagePath($probe, 'tile'));
-    if ($swapped !== SWUCardImagePath($probe, 'card')) {
-        $swapMismatch[] = "$probe: $swapped !== " . SWUCardImagePath($probe, 'card');
+    if (!in_array($probe, $ids, true)) { $fullMismatch[] = "$probe not in dictionary"; continue; }
+    $expected = SWUCardImagePath($probe, 'card');
+    if (strpos($html, 'data-full="' . htmlspecialchars($expected, ENT_QUOTES, 'UTF-8') . '"') === false) {
+        $fullMismatch[] = "$probe: expected data-full=$expected";
     }
+    if (!file_exists(SWUCardImageFsPath($probe, 'card'))) $fullMissing[] = $probe;
 }
-$checks['the swap reproduces the card-art path'] = $swapMismatch === [];
+$checks['data-full matches the card-art seam'] = $fullMismatch === [];
+$checks['data-full names a file that exists']  = $fullMissing === [];
 
 // The JS builds the full-art URL from the tile's data-id; it must go through the shared corpus root.
 $checks['no per-app art tree in js'] = stripos($html, 'SWUDeck/concat') === false

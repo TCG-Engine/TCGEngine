@@ -115,3 +115,50 @@ WithP2GroundArenaUpgrade: 0:SEC_052
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1GROUNDARENAUNIT:0:DAMAGE:5
 P2NODECISION
+
+---
+
+# AttachedToENEMYUnit_ItsControllerResolvesTheDisclose
+#// SEC_052 Diplomatic Immunity — CR 2.e: a player may play an upgrade onto an ENEMY unit and still
+#// controls it, but "if that upgrade gives abilities to the attached unit, THE UNIT'S CONTROLLER resolves
+#// those abilities". So P1 attaching Diplomatic Immunity to P2's unit hands P2 the granted On Defense
+#// disclose — and it works against P1's own attacker. P1 attaches it to P2's SOR_046 (now 5/9), then
+#// attacks with its own SOR_046; P2 discloses and P1's attacker drops to power 1 for the attack.
+## GIVEN
+CommonSetup: ggw/ggw/{theirHandCardIds:SOR_046,SOR_046}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 12
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: SEC_052
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P2>AnswerDecision:myHand-0&myHand-1
+## EXPECT
+P2GROUNDARENAUNIT:0:POWER:5
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1GROUNDARENAUNIT:0:DAMAGE:5
+P1GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# AttachedToADeployedLEADERUnit_DiscloseWorks
+#// SEC_052 Diplomatic Immunity — a deployed leader IS a unit, so it can host the upgrade and use the
+#// granted On Defense disclose. P2's deployed leader (TWI_003 Obi-Wan, 5/7) wears Diplomatic Immunity
+#// (7/9); P1's SOR_046 attacks it and P2 discloses, dropping the attacker to power 1 for the attack.
+## GIVEN
+CommonSetup: ggw/ggw/{theirLeader:TWI_003;theirLeaderDeployed:true;theirHandCardIds:SOR_046,SOR_046}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SEC_052
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P2>AnswerDecision:myHand-0&myHand-1
+## EXPECT
+P2GROUNDARENAUNIT:0:ISLEADERUNIT
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1GROUNDARENAUNIT:0:POWER:3

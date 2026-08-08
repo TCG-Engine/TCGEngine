@@ -91,3 +91,32 @@ P2GROUNDARENACOUNT:0
 P1GROUNDARENACOUNT:3
 P1GROUNDARENAUNIT:0:DAMAGE:3
 P1GROUNDARENAUNIT:1:DAMAGE:3
+
+---
+
+# AttackerDiesMidLoop_LoopKeepsGoingWithTheSurvivors
+#// SEC_103 Mon Mothma — the "one at a time" loop must survive an attacker dying inside it. SOR_128
+#// (3/1) attacks SOR_095 (3/3): both die. The arena reindexes underneath the loop, and the loop then
+#// correctly re-offers only the remaining other unit (SOR_046 at the shifted index 0 — Mon Mothma
+#// herself is excluded by "other"), which attacks the last enemy. Guards against the loop reading a
+#// stale index and either skipping a survivor or offering the dead attacker again.
+
+## GIVEN
+CommonSetup: ggw/grk/{myResources:7;handCardIds:SEC_103}
+P1OnlyActions: true
+WithP1GroundArena: SOR_128:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArena: LAW_180:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENACOUNT:0
+P1NODECISION

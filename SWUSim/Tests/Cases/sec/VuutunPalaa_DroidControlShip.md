@@ -255,3 +255,30 @@ P1HANDCOUNT:0
 P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:SOR_214
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1RESAVAILABLE:0
+
+---
+
+# DroidsPayForSmuggle
+#// SEC_122 Vuutun Palaa — "Each friendly Droid unit may be exhausted to pay costs as if it were a
+#// resource." SMUGGLE is a cost paid to PLAY a card, so Droids must be able to pay it too, exactly as they
+#// already do for a normal play, an event, and an upgrade (the three sections above). P1 smuggles
+#// SHD_065 Vigilant Pursuit Craft (Smuggle [7 resources, Vigilance]) holding only 4 real ready resources
+#// plus 3 Battle Droid tokens — the card itself self-pays 1 (CR 8.22.e), leaving 6 to find from 3 real
+#// resources + 3 Droids. It enters the space arena and all three Droids end EXHAUSTED.
+## GIVEN
+CommonSetup: bbk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01
+WithP1GroundArena: TWI_T01
+WithP1GroundArena: TWI_T01
+WithP1Resources: 1:SHD_065:1,3:SOR_095:1
+## WHEN
+- P1>SmuggleResource:0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1&myGroundArena-2
+## EXPECT
+P1SPACEARENACOUNT:2
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:2:EXHAUSTED

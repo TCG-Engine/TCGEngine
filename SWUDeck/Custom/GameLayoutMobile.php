@@ -1371,18 +1371,54 @@ $swuViewportDebugEnabled = isset($_GET['swuViewportDebug']) && $_GET['swuViewpor
     if(count) count.textContent = String(checked);
     if(trigger) trigger.setAttribute('aria-label','Card filters, ' + checked + ' of ' + boxes.length + ' active');
   }
+  /* Tapping a library card is a server round-trip, and the response rebuilds the whole pane
+     (myCardPaneSlot.innerHTML in NextTurnRender.php). The rebuilt tiles are lazy <img>s that
+     contribute no height until they load, so for the first few hundred ms scrollHeight is barely
+     more than clientHeight — and a single restore clamps the saved offset to 0, i.e. dumps the
+     player back at the top of the list. (Measured: scrollHeight 1602 -> 526 at the rebuild, back
+     to 1602 only ~800ms later.) So don't restore once: keep re-applying the saved offset while the
+     pane grows back, and stand down the moment it fits, the player takes over, or we time out. */
+  var LIBRARY_SETTLE_MS = 2500;
   function bindMobileLibraryScroll(){
     var content = document.getElementById('my_CardPane_content');
     if(!content || content.dataset.swuMobileScrollBound === '1') return;
     content.dataset.swuMobileScrollBound = '1';
-    var restore = function(){
-      content.scrollTop = Math.min(libraryScrollTop, Math.max(0, content.scrollHeight - content.clientHeight));
+    var target = libraryScrollTop;
+    var written = -1;          // last offset WE wrote, so our own scroll events aren't read as the player's
+    var settling = target > 0;
+    var deadline = Date.now() + LIBRARY_SETTLE_MS;
+    var lastHeight = -1;
+    var stableFrames = 0;
+    /* Scroll ANCHORING is the second half of this problem: as the lazy tiles above the viewport
+       load and gain height, Chromium/Firefox shift scrollTop to keep the visible content put,
+       which overshoots the offset we restored (measured 600 -> 1016 in Chromium, 2008 in Firefox).
+       overflow-anchor:none stops that where it is supported (not WebKit), and re-applying the
+       offset every frame until the pane STOPS GROWING covers every engine. */
+    content.style.overflowAnchor = 'none';
+    var apply = function(){
+      var max = Math.max(0, content.scrollHeight - content.clientHeight);
+      written = Math.min(target, max);
+      content.scrollTop = written;
+      return max >= target;    // pane is finally tall enough to hold the saved offset
     };
-    restore();
-    requestAnimationFrame(restore);
+    var settle = function(){
+      if(!settling) return;
+      var height = content.scrollHeight;
+      stableFrames = (height === lastHeight) ? stableFrames + 1 : 0;
+      lastHeight = height;
+      var reached = apply();
+      if((reached && stableFrames >= 5) || Date.now() > deadline) { settling = false; return; }
+      requestAnimationFrame(settle);
+    };
+    settle();
     content.addEventListener('scroll',function(){
+      /* Ignore the echo of our own restore writes. Anything else is the player scrolling, which
+         both records the new offset and ends the restore so we never fight their finger. */
+      if(settling && Math.abs(content.scrollTop - written) <= 1) return;
+      settling = false;
       libraryScrollTop = content.scrollTop;
     },{passive:true});
+    content.addEventListener('touchstart',function(){ settling = false; },{passive:true});
   }
   function compactMobilePaneFilters(){
     var pane = document.getElementById('myCardPane');

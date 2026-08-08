@@ -69,3 +69,28 @@ WithP1Deck: [SOR_095 SOR_095]
 ## EXPECT
 P2BASEDMG:8
 P1HANDCOUNT:1
+
+---
+
+# BonusSnapshotNotIncreasedByDrawDuringOnAttack
+#// SEC_179 Aggressive Negotiations — the mirror of the discard section: the +1/+0-per-card bonus is
+#// locked in when the attack is declared and is not recomputed when the hand GROWS mid-attack either.
+#// LAW_107 Swoop Bike Marauder (4 power, "On Attack: Draw a card") attacks. When AN resolves, 2 cards
+#// remain in hand → +2. Its On Attack then draws (hand → 3), but the snapshot stays +2: base takes
+#// 4 + 2 = 6, not the 7 a live recompute would give.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: LAW_107:1:0
+WithP1Hand: SEC_179
+WithP1Hand: SOR_164
+WithP1Hand: SOR_232
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2BASEDMG:6
+P1HANDCOUNT:3

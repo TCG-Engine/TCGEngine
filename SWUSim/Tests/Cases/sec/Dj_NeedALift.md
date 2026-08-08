@@ -217,3 +217,51 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# NoUnitsInHand_UsableNoEffect
+#// SEC_018 DJ — CR 6.4.587.c mirror of NoAffordableHandUnit_UsableNoEffect: the Action is usable with an
+#// EMPTY hand too (the [Exhaust] cost changes game state), it just does nothing. DJ exhausts, the friendly
+#// unit is untouched and captures nothing.
+## GIVEN
+CommonSetup: yyk/brk/{myLeader:SEC_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P1LEADER:EXHAUSTED
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# Deployed_FriendlyRescuedFromFRIENDLYCaptor_EntersReady
+#// SEC_018 DJ (deployed) — "Friendly units that are rescued enter play ready" is about the RESCUED unit's
+#// controller, not about who held it. Completes the captor matrix alongside
+#// Deployed_FriendlyRescuedFromEnemyCaptor_EntersReady: here the captor is FRIENDLY. P1's Escape Pod
+#// (SEC_056, "When Played: you may have this unit capture a friendly non-Vehicle, non-leader unit")
+#// captures P1's own Battlefield Marine; P2 then Waylays (SOR_222) the Escape Pod, releasing the Marine
+#// back to P1 — who has DJ deployed, so it enters READY.
+## GIVEN
+CommonSetup: yyw/ggk/{myLeader:SEC_018:1:1:1;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 6
+WithP2Resources: 8
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: SEC_056
+WithP2Hand: SOR_222
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-1
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:READY
+P1LEADER:DEPLOYED

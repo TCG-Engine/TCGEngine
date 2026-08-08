@@ -547,7 +547,7 @@ function _SWUFinalizeUpgradeAttach(
     // Pilots pay the Piloting cost (CardPilotingCost + aspect penalty).
     // Normal upgrades pay the host-specific play cost (with host discounts).
     $hostCost = $isPilot
-      ? SWUComputePilotCost($player, $upgradeForCost)
+      ? SWUComputePilotCost($player, $upgradeForCost, $hostObj)
       : SWUComputePlayCost($player, $upgradeForCost, $hostObj);
     // Waive an explicit discount (LOF_018 Anakin plays a Villainy upgrade "ignoring aspect penalties";
     // the penalty is passed as $discount so the surcharge is cancelled on this deferred payment path,
@@ -728,7 +728,7 @@ $customDQHandlers["ATTACH_UPGRADE"] = function ($player, $parts, $lastDecision) 
     // Pilots pay the Piloting cost (CardPilotingCost + aspect penalty); normal upgrades
     // pay the host-specific play cost (CardCost + aspect penalty + host discounts).
     $hostCost = $isPilot
-      ? SWUComputePilotCost(intval($player), $upgradeForCost)
+      ? SWUComputePilotCost(intval($player), $upgradeForCost, $hostObj)
       : SWUComputePlayCost(intval($player), $upgradeForCost, $hostObj);
     // LOF_018 Anakin — waive the aspect-penalty surcharge on the offered cost so the Droid/Credit cap
     // is against the discounted amount (the actual payment is discounted in _SWUFinalizeUpgradeAttach).
@@ -783,7 +783,7 @@ function SWUQueuePilotVehiclePick(int $player, string $mzID, string $cardID, arr
     // Compute the pilot cost for the Droid-offer threshold.
     $upgradeObj = GetZoneObject($mzID);
     $upgradeForCost = $upgradeObj ?? (object) ['CardID' => $cardID];
-    $pilotCost = SWUComputePilotCost($player, $upgradeForCost);
+    $pilotCost = SWUComputePilotCost($player, $upgradeForCost, GetZoneObject($hostMz));
     SWUOfferAltPayment($player, $pilotCost, 'ATTACH_UPGRADE', $droidArgs, 1);
     // $playerID left = $player by SWUOfferDroidPayment (it sets it before any MZMULTICHOOSE).
     return;

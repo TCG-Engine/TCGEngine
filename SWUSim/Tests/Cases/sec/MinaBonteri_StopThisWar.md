@@ -79,3 +79,30 @@ P1DISCARDCOUNT:1
 P1HANDCOUNT:2
 P1DECKCOUNT:2
 P2NODECISION
+
+---
+
+# WhenDefeated_DiscloseExtraAspectsAlongsideTheRequiredOnes
+#// SEC_094 Mina Bonteri — a disclose only has to REPRESENT the required aspects; revealing extra icons
+#// alongside them is legal. P1 reveals SEC_096 (Command/Heroism), SEC_080 (Command/Villainy) and a
+#// third card carrying only unrelated aspects: CommandCommandHeroism is still covered, so the draw
+#// happens. Hand: 3 revealed cards stay in hand, +1 drawn = 4.
+
+## GIVEN
+CommonSetup: ggw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_094:1:0
+WithP2GroundArena: LAW_124:1:0
+WithP1Hand: SEC_096
+WithP1Hand: SEC_080
+WithP1Hand: SOR_164
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:myHand-0&myHand-1&myHand-2
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:4
+P1DECKCOUNT:1

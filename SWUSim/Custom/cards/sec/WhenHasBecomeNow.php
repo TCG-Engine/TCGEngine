@@ -17,6 +17,9 @@ $customDQHandlers["SEC_245#0"] = function($player, $parts, $lastDecision) {
             $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
             ActivateCard(intval($player), $resMz, false);
             $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+            // This IS "playing a card from your resources", so observers of that event fire here just as
+            // they do on the Plot-window and Smuggle routes (SEC_008 Bail Organa's deployed heal).
+            _SWUSec008HealOnResourcePlay(intval($player));
         }
     }
     _SWUSec245Ramp(intval($player));

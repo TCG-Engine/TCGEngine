@@ -40,3 +40,24 @@ WithP1Hand: SEC_227
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENACOUNT:1
 P1NODECISION
+
+---
+
+# AttachRestriction_NonVehicleUnitsAreNotOfferedAsHosts
+#// SEC_227 Special Modifications — "Attach to a Vehicle unit" is an attach RESTRICTION, so a non-Vehicle
+#// friendly (SOR_095 Battlefield Marine) must never be offered as a host. Two Vehicles are in play so a
+#// real choice is presented: the offer is exactly those two, with the Marine absent.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1SpaceArena: SEC_083:1:0
+WithP1GroundArena: LAW_158:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: SEC_227
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0

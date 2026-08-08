@@ -336,7 +336,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         }        //var altText = " alt='" + CardTitle(cardNumber) + "' ";//TODO:Fix screenreader mode
         var altText = " alt='Card' ";
         var nativeImageDrag = IsDragDropEnabled() ? "" : "draggable='false' ";
-        rv += "<img " + (id != "" ? "id='" + id + "-img' " : "") + altText + orientation + nativeImageDrag + "loading='lazy' style='" + border + " height:" + height + "; width:" + width + "px; position:relative;' src='" + folderPath + "/" + cardNumber + fileExt + "' />";
+        rv += "<img " + (id != "" ? "id='" + id + "-img' " : "") + altText + orientation + nativeImageDrag + "loading='lazy' style='" + border + " height:" + height + "px; width:" + width + "px; position:relative;' src='" + folderPath + "/" + cardNumber + fileExt + "' />";
 
         if(heatmapFunction != "") {
             var resolvedHeatmapFunction = ResolveGlobalFunction(heatmapFunction);

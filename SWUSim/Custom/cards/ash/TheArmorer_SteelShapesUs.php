@@ -88,7 +88,12 @@ $customDQHandlers["ASH_001#1"] = function($player, $parts, $lastDecision) {
             if ($ucid === $cardID) { $attached = true; break; }
         }
     }
-    if ($attached) _SWUSec245Ramp(intval($player));   // "If you do, resource the top card of your deck."
+    if ($attached) {
+        // The upgrade was played FROM RESOURCES (it is routed via hand only so it can't pay for itself),
+        // so "when you play a card from your resources" observers fire — SEC_008 Bail Organa's heal.
+        _SWUSec008HealOnResourcePlay(intval($player));
+        _SWUSec245Ramp(intval($player));   // "If you do, resource the top card of your deck."
+    }
     SWUAfterAction($player);
 };
 
@@ -160,5 +165,8 @@ $customDQHandlers["ASH_001#3"] = function($player, $parts, $lastDecision) {
             if ($uid === $cardID) { $attached = true; break; }
         }
     }
-    if ($attached) _SWUSec245Ramp(intval($player));
+    if ($attached) {
+        _SWUSec008HealOnResourcePlay(intval($player));   // played from resources (see the front-side note)
+        _SWUSec245Ramp(intval($player));
+    }
 };

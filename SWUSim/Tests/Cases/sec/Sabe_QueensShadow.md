@@ -239,3 +239,37 @@ P2BASEDMG:4
 P2DECKCOUNT:1
 P2HANDCOUNT:0
 P1LEADER:DEPLOYED
+
+---
+
+# Deployed_OverwhelmBaseDamage_LookHandDiscardOpponentDraws
+#// SEC_017 Sabé (deployed) — "when SHE deals combat damage to a base" includes Overwhelm excess, not just
+#// a declared base attack. TWI_114 Cody's Coordinate grants deployed Sabé +1/+1 and Overwhelm (3 friendly
+#// units in play), so she attacks at 3 +1 (Cody) +1 (Raid) = 5 into SOR_128 (1 HP): it dies and 4 spills
+#// onto P2's base, firing her hand-look. P1 discards SOR_126 and P2 draws a replacement — hand back to 3,
+#// deck emptied, discard holding the milled card plus the defeated SOR_128.
+#// Mirrors FrontOverwhelmBaseDamage_LookDiscardDeck on the deployed side, where the trigger is scoped to
+#// Sabé herself rather than to any friendly attacker.
+
+## GIVEN
+CommonSetup: gbk/brk/{myLeader:SEC_017:1:1:1;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: TWI_114:1:0
+WithP1GroundArena: SOR_164:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP2Hand: SOR_126
+WithP2Hand: SOR_095
+WithP2Hand: SOR_141
+WithP2Deck: [SOR_045]
+
+## WHEN
+- P1>AttackGroundArena:2:0
+- P1>AnswerDecision:theirHand-0
+
+## EXPECT
+P2BASEDMG:4
+P2DISCARDCOUNT:2
+P2HANDCOUNT:3
+P2DECKCOUNT:0
+P1LEADER:DEPLOYED

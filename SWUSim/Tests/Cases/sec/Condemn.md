@@ -171,3 +171,49 @@ WithP2GroundArena: TWI_T02:1:0
 P2GROUNDARENACOUNT:0
 P2BASEDMG:0
 P1GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# BlanksWhenDefeated_IfAttackerDiesDuringTheAttack
+#// SEC_038 Condemn — "loses all other abilities" for the duration of the attack, which includes a WHEN
+#// DEFEATED ability if the attacker dies during that attack. P1's SEC_205 Obi-Wan (4/5) wears Condemn and
+#// attacks P2's LAW_124 Industrious Team (4/7): Obi-Wan is blanked, so his "deals combat damage to a base"
+#// mill does not apply, and more importantly a Creditor's Claim (SEC_039) also on him grants a When
+#// Defeated that must NOT fire when he trades. He dies to the 4 counter with 4 damage dealt; P2 keeps its
+#// unit and gets no When-Defeated prompt even after draining its queue. (Obi-Wan is 7 HP with both
+#// upgrades attached, so he is pre-damaged to 3 and the 4-power counter is exactly lethal.)
+## GIVEN
+CommonSetup: ggw/grk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:3
+WithP1GroundArenaUpgrade: 0:SEC_038
+WithP1GroundArenaUpgrade: 0:SEC_039
+WithP2GroundArena: LAW_124:1:0
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P1>Drain
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:2
+P1NODECISION
+
+---
+
+# StacksWithExiledFromTheForce_FullBlanking
+#// SEC_038 Condemn — combining Condemn's attack-duration blanking with SEC_054 Exiled from the Force
+#// ("attached unit loses all abilities except for Grit") must not fight each other: the unit is blanked
+#// either way. P1's SEC_118 (6/5) wears BOTH; it attacks P2's base and P2 discloses for Condemn's -6/-0,
+#// so 0 damage lands. Guards the interaction rather than either card alone.
+## GIVEN
+CommonSetup: ggw/grk/{theirHandCardIds:SEC_038}
+P1OnlyActions: true
+WithP1GroundArena: SEC_118:1:0
+WithP1GroundArenaUpgrade: 0:SEC_038
+WithP1GroundArenaUpgrade: 0:SEC_054
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>AnswerDecision:myHand-0
+## EXPECT
+P2BASEDMG:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2

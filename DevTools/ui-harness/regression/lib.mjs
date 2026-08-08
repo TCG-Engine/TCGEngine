@@ -11,7 +11,23 @@
 // Suites keep their own engine loop + assertions; they just build on these helpers.
 import { chromium, firefox, webkit } from 'playwright';
 
-export const ENGINES = { chromium, firefox, webkit };
+// WEBKIT ON macOS 14 (this box): Playwright >= 1.62 ships a FROZEN WebKit whose driver still sends
+// `Page.overrideSetting: PushAPIEnabled`; the build rejects it, so `newPage()` hangs forever —
+// which reads as "WebKit is broken here" and is not. Pointing the new driver at an older WebKit
+// binary does NOT help; the incompatibility is in the DRIVER, so the driver must be older.
+// Fix: side-install playwright@1.52.0 (ships webkit-2158 / WebKit 18.4) and point this at it:
+//   mkdir pw152 && cd pw152 && npm init -y && npm install playwright@1.52.0
+//   PLAYWRIGHT_WEBKIT_MODULE=$PWD/node_modules/playwright node regression/SWUDeck/<suite>.mjs
+// The side-install lives outside the repo, so expect it to be GONE next session — re-creating it
+// is ~3 minutes. Unset, WebKit behaves exactly as before.
+let webkitEngine = webkit;
+if (process.env.PLAYWRIGHT_WEBKIT_MODULE) {
+  // playwright is CommonJS, and ESM `import()` cannot take a directory — use require().
+  const { createRequire } = await import('node:module');
+  webkitEngine = createRequire(import.meta.url)(process.env.PLAYWRIGHT_WEBKIT_MODULE).webkit;
+}
+
+export const ENGINES = { chromium, firefox, webkit: webkitEngine };
 export const BASE = (process.env.BASE || 'http://localhost:3100/TCGEngine').replace(/\/$/, '');
 
 // Thrown for environment problems (stack down, deck folder missing, login failed, board never

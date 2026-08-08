@@ -216,3 +216,59 @@ WithP2GroundArena: SOR_046:1:0
 P2GROUNDARENAUNIT:0:DAMAGE:2
 P1NODECISION
 P1LEADER:DEPLOYED
+
+---
+
+# Deployed_ShieldedFriendlyTakesNoDamage_NoReaction
+#// SEC_002 Jabba the Hutt (deployed) — the reaction needs a friendly unit to actually BE DEALT damage. A
+#// Shield absorbs the whole instance, so a shielded friendly that "survives" an attack was never dealt
+#// damage and Jabba does not fire. P1's SEC_080 (3/3) carries a Shield and attacks SOR_063 (2/4 Sentinel):
+#// the 2 counter-damage is absorbed by the Shield, so SEC_080 ends at 0 damage with no Shield, SOR_063
+#// survives at 3 damage, and no reaction prompt appears.
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArena: SOR_063:1:0
+## WHEN
+- P1>AttackGroundArena:0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1NODECISION
+
+---
+
+# Deployed_OnceEachRound_SecondDamageEventDoesNotReact
+#// SEC_002 Jabba the Hutt (deployed) — "Once each round." After the reaction fires on the first friendly
+#// unit to be damaged and survive, a SECOND such event in the same round must not offer it again. P1's
+#// SEC_080 attacks SOR_063 and the reaction fires (killing SOR_063); P1's second unit (SOR_046) then
+#// attacks P2's LAW_124 and survives its counter — no second prompt, so LAW_124 keeps just the combat
+#// damage.
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_063:1:0
+WithP2GroundArena: LAW_124:1:0
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:1:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:LAW_124
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1NODECISION

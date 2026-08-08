@@ -291,3 +291,67 @@ P2BASEDMG:3
 P1BASEDMG:3
 P1GROUNDARENAUNIT:0:CARDID:JTL_218
 P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# FriendlyDamagedBase_ViaOverwhelm_CantBeAttacked
+#// SEC_012 Cassian Andor — "damaged an opponent's base" must count OVERWHELM spillover, not only a direct
+#// base attack. P1's Wampa (SOR_164, 4 power, Overwhelm) attacks P2's 2/2 (SHD_110): the 2 excess spills
+#// onto P2's base, so the Wampa is protected. P2's remaining unit therefore has no legal unit target and
+#// auto-resolves onto P1's base. (The Wampa's 2 damage is the counter-hit from the trade, not from P2.) Same damage-path enumeration family as SEC_077 Retaliation (which read
+#// the ATTACK flag instead of the DAMAGE flag) and the JTL_177 indirect bug.
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:SEC_012;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_164:1:0
+WithP2GroundArena: SHD_110:1:0
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P2>AttackGroundArena:0
+## EXPECT
+P2BASEDMG:2
+P1BASEDMG:3
+P1GROUNDARENAUNIT:0:CARDID:SOR_164
+P1GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# DamagedBaseThenLeftAndReturned_NoLongerProtected
+#// SEC_012 Cassian Andor — the protection is keyed to the UNIT INSTANCE that damaged the base. A unit that
+#// damaged the base, LEFT play, and came back is a new object with a new UniqueID, so the flag no longer
+#// applies and it is attackable again. P1's SOR_095 attacks P2's base (flagged), P1 then Waylays it
+#// (SOR_222) back to hand and replays it — and P2 can now attack it normally, trading 3/3 into the 3/1.
+#// P1's base takes 0: P2 chose the UNIT, which is only possible because the protection no longer applies
+#// (in the protected case P2's attack auto-redirects to P1's base, as in FriendlyDamagedBase_CantBeAttacked).
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:SEC_012;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 12
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: SOR_222
+WithP1Hand: SOR_095
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P2>Pass
+- P1>PlayHand:0
+- P2>AttackGroundArena:0
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:0
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0

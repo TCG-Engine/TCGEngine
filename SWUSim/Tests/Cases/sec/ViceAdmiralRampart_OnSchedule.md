@@ -50,3 +50,31 @@ P1GROUNDARENAUNIT:1:POWER:4
 P1GROUNDARENAUNIT:1:HP:4
 P1GROUNDARENAUNIT:2:POWER:4
 P1NODECISION
+
+---
+
+# Disclose_ChooseFewerThanTwo_OnlyThatOneGetsExperience
+#// SEC_085 Vice Admiral Rampart — "up to 2" means the player may hand out just ONE Experience token
+#// after disclosing, not that they must take both. P1 discloses and selects a single other friendly
+#// (idx1): it becomes 4/4 while idx2 stays 3/3. Separates "up to 2" from "exactly 2".
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SEC_085:1:0
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArena: SEC_080:1:0
+WithP1Hand: SEC_080
+WithP1Hand: SEC_080
+
+## WHEN
+- P1>AttackGroundArena:0
+- P1>AnswerDecision:myHand-0&myHand-1
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENAUNIT:1:POWER:4
+P1GROUNDARENAUNIT:1:HP:4
+P1GROUNDARENAUNIT:2:POWER:3
+P1NODECISION

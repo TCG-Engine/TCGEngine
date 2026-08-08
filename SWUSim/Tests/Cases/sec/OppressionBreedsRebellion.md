@@ -89,3 +89,46 @@ WithP1Deck: SOR_095
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P1HANDCOUNT:0
+
+---
+
+# FriendlyDefeatedByAnEvent_NoDraw
+#// SEC_158 Oppression Breeds Rebellion — the condition is "defeated WHILE ATTACKING", not merely
+#// "defeated". A friendly unit killed by an EVENT outside combat does not arm it. P1 plays It's Worse
+#// (LOF_264) on its own SEC_042, then plays SEC_158 → no cards are drawn.
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:12}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_042:1:0
+WithP1Hand: LOF_264
+WithP1Hand: SEC_158
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:0
+P1DECKCOUNT:3
+
+---
+
+# FriendlyLEADERUnitDefeatedWhileAttacking_Draw3
+#// SEC_158 Oppression Breeds Rebellion — a deployed LEADER is a friendly unit, so a leader that dies while
+#// attacking arms the draw just like any other unit. P1's deployed Nute Gunray (TWI_002, 3/3) attacks
+#// P2's AT-AT Suppressor (SOR_039, 8/8) and is defeated; P1 then plays SEC_158 and draws 3.
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:10;myLeader:TWI_002;myLeaderDeployed:true}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SOR_039:1:0
+WithP1Hand: SEC_158
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P1>PlayHand:0
+## EXPECT
+P1HANDCOUNT:3
+P1LEADER:NOTDEPLOYED

@@ -33,6 +33,14 @@ $customDQHandlers["SEC_200#0"] = function($player, $parts, $lastDecision) {
         if ($isRem || $ucid === '' || intval(CardCost($ucid)) > 3) continue;
         if (stripos((string)CardType($ucid), 'token') !== false) {   // token upgrade (Experience/Shield)
             // CR: a token that would leave play (move to hand) is defeated and ceases to exist instead.
+            // ⚠ This bespoke removal must still run the protections the canonical return path
+            // (SWUReturnUpgradeToHand) applies — SEC_061 Willrow Hood blocks an ENEMY ability from
+            // defeating OR returning his lone friendly upgrade, and a token upgrade is no exception.
+            // Splicing directly skipped that check, so a Shield on Willrow was removable by an enemy.
+            $tOwner = is_array($sub) ? intval($sub['Owner'] ?? 0) : intval($sub->Owner ?? 0);
+            if ($tOwner <= 0) $tOwner = intval($o->Controller ?? $o->Owner ?? 0);
+            $tCtrl  = is_array($sub) ? intval($sub['Controller'] ?? $tOwner) : intval($sub->Controller ?? $tOwner);
+            if (_SWUWillrowProtectsUpgrade($o, $tCtrl, intval($player))) break;   // SEC_061 protection
             array_splice($o->Subcards, $i, 1);
         } else {
             SWUReturnUpgradeToHand($lastDecision, $ucid, intval($player));

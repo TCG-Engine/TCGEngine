@@ -204,3 +204,30 @@ WithP2GroundArena: SOR_164:1:0
 P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1NODECISION
+
+---
+
+# OpponentNGOR_CountsAsAnEnemyDefeat_GivesExperience
+#// SEC_051 Bo-Katan Kryze — the mirror of ControllerNGOR_NoTrigger. Here the OPPONENT (P2) plays
+#// JTL_043 No Glory, Only Results on P1's LOF_254: control moves to P2 first, so at the moment of the
+#// defeat the unit is an ENEMY unit from Bo-Katan's side. Her reaction fires and P1 gives an Experience
+#// token to a friendly unit — Bo-Katan herself, the only friendly left.
+
+## GIVEN
+CommonSetup: bbw/bbk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SEC_051:1:0
+WithP1GroundArena: LOF_254:1:0
+WithP2Hand: JTL_043
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-1
+- P1>Drain
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_051
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENACOUNT:0

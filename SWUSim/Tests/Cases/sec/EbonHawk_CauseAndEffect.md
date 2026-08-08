@@ -59,3 +59,48 @@ WithP1Hand: SEC_133
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1NODECISION
+
+---
+
+# DiscloseBoth_BuffAndDebuffTogether
+#// SEC_219 Ebon Hawk — the two clauses are independent, so disclosing Heroism AND Villainy applies both
+#// at once. P1 discloses SEC_148 (Heroism) and SEC_080 (Villainy): Ebon Hawk attacks at 3 + 2 = 5 while
+#// the defending SOR_046 (3/7) drops to 3 − 4 = 0 power, so it deals no counter-damage. The defender
+#// takes 5 and Ebon Hawk comes back undamaged.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_219:1:0
+WithP1Hand: SEC_148
+WithP1Hand: SEC_080
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:myHand-0&myHand-1
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:5
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# DisclosingAnIrrelevantAspect_GrantsNeitherHalf
+#// SEC_219 Ebon Hawk — the buff/debuff are gated on the disclosed cards actually SHOWING Heroism or
+#// Villainy. P1's only card is SOR_164 Wampa (Aggression), and revealing it satisfies neither clause:
+#// Ebon Hawk attacks at its printed 3, with no +2 and no defender debuff.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_219:1:0
+WithP1Hand: SOR_164
+
+## WHEN
+- P1>AttackGroundArena:0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P2BASEDMG:3
+P1HANDCOUNT:1

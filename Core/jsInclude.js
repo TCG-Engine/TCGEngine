@@ -222,6 +222,100 @@ function resolveCardImageID(cardID) {
   return id + suffix;
 }
 
+// ── Persistent touch-preview controls: close button + double-sided card flip ─────────────────
+//
+// Two gaps this closes on touch. (1) The preview is dismissed by "tap anywhere"
+// (BeginCardDetailLongPress) — effective but undiscoverable, so give it an explicit X.
+// (2) SWU leaders are DOUBLE-SIDED: the deployed Leader Unit side ships in the shared art corpus
+// as "<CardID>_back" (160 of them), and on a phone there is otherwise no way to look at it.
+//
+// Face detection is by ASSET PROBE, not by a leader list: we ask for the opposite face and only
+// offer the flip if it actually loads. That keeps this working for both apps without shipping a
+// client-side leader table, and it flips in BOTH directions — SWUSim renders a deployed leader's
+// tile as "_back" already, so there the button offers the leader side instead.
+var cardDetailFaceProbeCache = {};
+
+function CardDetailOppositeFace(src) {
+  if (!src) return null;
+  return /_back(\.[a-z0-9]+)(\?|$)/i.test(src)
+    ? src.replace(/_back(\.[a-z0-9]+)/i, '$1')
+    : src.replace(/(\.[a-z0-9]+)(\?|$)/i, '_back$1$2');
+}
+
+function ProbeCardDetailFace(src, cb) {
+  if (Object.prototype.hasOwnProperty.call(cardDetailFaceProbeCache, src)) return cb(cardDetailFaceProbeCache[src]);
+  var probe = new Image();
+  probe.onload = function() { cardDetailFaceProbeCache[src] = true; cb(true); };
+  probe.onerror = function() { cardDetailFaceProbeCache[src] = false; cb(false); };
+  probe.src = src;
+}
+
+function CardDetailControlStyle(extra) {
+  // pointer-events:auto is load-bearing: ShowDetail sets #cardDetail to pointer-events:none for
+  // touch previews, so a control inherits "untappable" unless it opts back in.
+  return "pointer-events:auto; -webkit-tap-highlight-color:transparent; cursor:pointer; " +
+    "font-family:inherit; border:1px solid rgba(255,255,255,0.55); color:#fff; " +
+    "background:rgba(0,0,0,0.72); box-shadow:0 2px 8px rgba(0,0,0,0.5); " + (extra || "");
+}
+
+// `place` re-centres the preview after a flip, since the two faces can differ in aspect ratio.
+// `token` is the caller's cardDetailRequestToken: the asset probe is async, so without it a slow
+// probe could append a flip button onto a preview the user has since replaced with another card.
+function AddCardDetailControls(el, imgSource, place, token) {
+  var current = function() { return token === cardDetailRequestToken && cardDetailPersistent; };
+  var close = document.createElement("button");
+  close.type = "button";
+  close.setAttribute("data-card-detail-control", "close");
+  close.setAttribute("aria-label", "Close card preview");
+  close.textContent = "✕";
+  close.style.cssText = CardDetailControlStyle(
+    "position:absolute; top:-14px; right:-14px; width:34px; height:34px; border-radius:50%; " +
+    "font-size:16px; line-height:1; display:flex; align-items:center; justify-content:center; z-index:2;");
+  close.addEventListener("click", function(ev) { ev.stopPropagation(); HideCardDetail(true); });
+  el.appendChild(close);
+
+  var opposite = CardDetailOppositeFace(imgSource);
+  if (!opposite || opposite === imgSource) return;
+
+  ProbeCardDetailFace(opposite, function(exists) {
+    // The preview may already have been dismissed while the probe was in flight.
+    if (!exists || !current()) return;
+    var showingBack = /_back\.[a-z0-9]+(\?|$)/i.test(imgSource);
+    var faces = showingBack ? [imgSource, opposite] : [opposite, imgSource];  // [back, front]
+    var onBack = showingBack;
+
+    var flip = document.createElement("button");
+    flip.type = "button";
+    flip.setAttribute("data-card-detail-control", "flip");
+    flip.style.cssText = CardDetailControlStyle(
+      "position:absolute; left:50%; transform:translateX(-50%); bottom:-46px; white-space:nowrap; " +
+      "padding:9px 16px; border-radius:999px; font-size:14px; font-weight:600; z-index:2;");
+    var label = function() { flip.textContent = onBack ? "See Leader side" : "See Leader Unit side"; };
+    label();
+
+    flip.addEventListener("click", function(ev) {
+      ev.stopPropagation();
+      onBack = !onBack;
+      label();
+      var next = onBack ? faces[0] : faces[1];
+      var img = el.querySelector("img");
+      if (!img) return;
+      // Size from the NEW face's natural dimensions — the two sides are not always the same shape.
+      var loader = new Image();
+      loader.onload = function() {
+        if (!current()) return;
+        var size = ComputeCardDetailSize(loader.width, loader.height, true);
+        img.style.height = size.height + "px";
+        img.style.width = size.width + "px";
+        img.src = next;
+        if (typeof place === "function") place(size.width, size.height);
+      };
+      loader.src = next;
+    });
+    el.appendChild(flip);
+  });
+}
+
 function ShowDetail(e, imgSource, avoidEl, requestToken) {
   if (IsCardDetailSuppressed()) return;
   if (typeof requestToken !== "number") requestToken = ++cardDetailRequestToken;
@@ -257,6 +351,9 @@ function ShowDetail(e, imgSource, avoidEl, requestToken) {
       // show), forever. Set it here rather than in CSS so only the touch preview is affected.
       el.style.pointerEvents = "none";
       ShowCardDetailScrim();
+      AddCardDetailControls(el, imgSource, function(w, h) {
+        PlaceCardDetail(el, cx, cy, w, h, avoidEl, true);
+      }, requestToken);
     }
     el.style.display = "inline";
     el.style.opacity = 0;
@@ -382,7 +479,18 @@ function ClearCardDetailLongPress() {
 }
 
 function BeginCardDetailLongPress(e) {
+  // Arm the synthetic-mouse suppression FIRST, before any early return. Touch platforms emit
+  // mousemove/mouseover after a tap, and #cardDetail is pointer-events:none, so those land on the
+  // card *underneath* the preview and re-fire its inline onmouseover='ShowCardDetail'. That
+  // rebuilds #cardDetail's innerHTML — silently destroying the controls we just added. (Measured:
+  // tapping flip bumped cardDetailRequestToken 9 -> 10 and left #cardDetail with only its <img>.)
   suppressMouseCardDetailUntil = Date.now() + 900;
+
+  // The preview's own controls (X, leader flip) must be allowed to handle their tap. This handler
+  // is registered at document level in CAPTURE phase, so without this exemption it would dismiss
+  // the preview before the flip button's own click listener ever ran — the button would look dead.
+  if (e && e.target && typeof e.target.closest === "function" &&
+      e.target.closest("[data-card-detail-control]")) return;
 
   // A persistent touch preview is open: this tap dismisses it and does nothing else. Returning
   // early (rather than arming another long press) means the dismissing tap cannot immediately
@@ -456,6 +564,11 @@ document.addEventListener("touchmove", MoveCardDetailLongPress, { passive: true,
 document.addEventListener("touchend", EndCardDetailLongPress, { passive: false, capture: true });
 document.addEventListener("touchcancel", EndCardDetailLongPress, { passive: false, capture: true });
 document.addEventListener("click", function(e) {
+  // The preview's own controls are exempt. This suppressor runs for up to 700ms after a long-press
+  // (EndCardDetailLongPress), which is exactly when the player reaches for the X or the leader
+  // flip — without this the button would be rendered, tappable, and silently dead on a real phone.
+  if (e && e.target && typeof e.target.closest === "function" &&
+      e.target.closest("[data-card-detail-control]")) return;
   if (Date.now() >= suppressNextCardDetailClickUntil) return;
   suppressNextCardDetailClickUntil = 0;
   if (e && typeof e.preventDefault === "function") e.preventDefault();

@@ -117,3 +117,101 @@ P1RESAVAILABLE:7
 #// resource and exhausts toward its OWN cost (CR 8.22.e). This case placed it LAST, where the old
 #// index-order sweep never picked it, so it recorded one resource too many being spent.
 P1NODECISION
+
+---
+
+# OpponentPlotPlay_NotDiscounted_Baseline
+#// SEC_001 Chancellor Palpatine — the baseline for the section below. P1's Palpatine is NOT deployed, so
+#// no −3 exists anywhere. P2 deploys Cal Kestis LOF_015, which opens P2's own Plot window, and plays
+#// SEC_123 Unveiled Might from resources at full price: 11 ready → 5.
+
+## GIVEN
+CommonSetup: bbk/ggw/{
+  myLeader:SEC_001;
+  theirLeader:LOF_015;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1Resources: 7
+WithP2Resources: 1:SEC_123:1,10:SOR_095:1
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P2>DeployLeader
+- P2>AnswerDecision:myResources-0
+
+## EXPECT
+P2LEADER:DEPLOYED
+P2RESAVAILABLE:5
+P2RESCOUNT:11
+
+---
+
+# OpponentPlotPlay_NotDiscountedByAFloatingPalpatineCharge
+#// SEC_001 Chancellor Palpatine — "the next card YOU play using Plot" is scoped to Palpatine's
+#// controller. P1 deploys Palpatine and arms the −3 but has no Plot card of their own, so the charge is
+#// left floating. P2 then deploys Cal Kestis and plays SEC_123 Unveiled Might through P2's own Plot
+#// window — and pays the identical 6 (11 ready → 5) as in the baseline section above, not 3 less.
+#// Deploy_NextPlotCosts3Less is the positive control that the −3 does work for P1.
+
+## GIVEN
+CommonSetup: bbk/ggw/{
+  myLeader:SEC_001;
+  theirLeader:LOF_015;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithP1Resources: 7
+WithP2Resources: 1:SEC_123:1,10:SOR_095:1
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>DeployLeader
+- P2>DeployLeader
+- P2>AnswerDecision:myResources-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P2LEADER:DEPLOYED
+P2RESAVAILABLE:5
+P2RESCOUNT:11
+
+---
+
+# TwoPlotPlaysInOneWindow_OnlyOneGetsTheThreeOff
+#// SEC_001 Chancellor Palpatine — the −3 is for "the NEXT card you play using Plot this phase", so a
+#// deploy window that plays TWO Plot cards discounts exactly one of them. P1 holds SEC_034 Cad Bane
+#// (cost 5) and SEC_033 Sly Moore (cost 4) as resources. Deploying Palpatine arms the −3 and opens the
+#// Plot window; both are played, for a combined 5 + 4 − 3 = 6 (10 ready → 4), not 3 (a per-card
+#// discount) and not 9 (no discount at all).
+#// Plot replaces each played card from the deck, so the resource row stays at 10 while the deck drops
+#// from 3 to 1, and the arena holds the deployed leader plus both units.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1:SEC_034:1,1:SEC_033:1,8:SOR_095:1
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myResources-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1RESAVAILABLE:4
+P1RESCOUNT:10
+P1DECKCOUNT:1
+P1GROUNDARENACOUNT:3
+P1NODECISION

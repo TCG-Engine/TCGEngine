@@ -224,3 +224,30 @@ P1BASEDMG:2
 P2BASEDMG:4
 P1CREDITCOUNT:1
 P2DECKCOUNT:2
+
+---
+
+# MilledCard_NotPlayableNextPhase
+#// SEC_205 Obi-Wan Kenobi — the permission is "FOR THIS PHASE, you may play that card from their discard
+#// pile". An unspent permission must not survive into the next phase. Obi-Wan hits P2's base and mills
+#// SOR_095, but P1 does NOT play it; both players then pass through regroup into the next action phase and
+#// P1 tries again — the card stays in P2's discard and P1's resources are untouched.
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 2
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+- P1>PlayFromOpponentDiscard:0
+## EXPECT
+P2DISCARDCOUNT:1
+P1GROUNDARENACOUNT:1
+P1RESAVAILABLE:2
+

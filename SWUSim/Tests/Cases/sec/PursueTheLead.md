@@ -130,3 +130,28 @@ P1DISCARDCOUNT:1
 P1GROUNDARENACOUNT:0
 P1NODECISION
 
+
+---
+
+# BothHandsEmpty_NoDiscardEitherWay_NoSpy
+#// SEC_178 Pursue the Lead — the both-empty boundary: P1's hand holds nothing but the event itself and
+#// P2's hand is empty, so whichever player is chosen there is no card to discard and no Spy is created.
+#// P1 chooses the opponent; both hands end empty, P2's discard stays empty, and only the spent event
+#// sits in P1's discard.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: SEC_178
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Self
+
+## EXPECT
+P1HANDCOUNT:0
+P2HANDCOUNT:0
+P2DISCARDCOUNT:0
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P1NODECISION

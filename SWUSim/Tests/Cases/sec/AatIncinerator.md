@@ -112,3 +112,34 @@ WithP1Hand: SEC_169
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P1BASEDMG:2
 P1NODECISION
+
+---
+
+# StolenFriendlyIsNowEnemy_SelfBaseStillTakesTwo
+#// SEC_169 AAT Incinerator — "if you didn't damage a friendly unit" reads CONTROL at resolution, not
+#// ownership. P2 plays SOR_122 Traitorous on P1's SOR_128, taking control of it. When P1 then plays AAT
+#// Incinerator, that unit is offered as an ENEMY (the only other ground unit), so damaging it does NOT
+#// count as damaging a friendly and P1's own base still takes the 2. SOR_128 (1 HP) dies to the 1 damage
+#// and goes to its OWNER P1's discard.
+
+## GIVEN
+CommonSetup: rrk/ggw
+WithActivePlayer: 2
+WithP1Resources: 5
+WithP2Resources: 5
+WithP1GroundArena: SOR_128:1:0
+WithP1Hand: SEC_169
+WithP2Hand: SOR_122
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1BASEDMG:2
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_169
+P2GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1

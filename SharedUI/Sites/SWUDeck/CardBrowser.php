@@ -50,11 +50,21 @@ function _SWUCardBrowserTile(string $cardID, array $mocks): string
 
     // SWUCardImagePath() is the ONLY way an art URL is built here. It applies the mock_ filename
     // prefix and normalises legacy identifiers; a hand-built path is the bug this replaces.
-    $src = SWUCardImagePath($cardID, 'tile');
+    //
+    // BOTH sizes are resolved through the seam server-side. The lightbox used to derive the full
+    // card by string-replacing '/concat/' -> '/WebpImages/' on the tile's src — a hardcoded copy of
+    // the corpus layout, i.e. the exact class of assumption the shared-corpus migration exists to
+    // delete (and the reason the old SWUCardList grid 404'd). Emitting it as data-full also costs
+    // nothing: the JS twin window.swuCardArtUrl is never emitted on this page, so the "use the seam
+    // when available" branch never actually ran, and wiring it up would ship a ~50KB id map that a
+    // page already holding the dictionary does not need.
+    $src  = SWUCardImagePath($cardID, 'tile');
+    $full = SWUCardImagePath($cardID, 'card');
 
     $html  = '<div class="cb-tile" data-id="' . $e($cardID) . '" data-title="' . $e($search) . '"'
            . ' data-set="' . $e((string)CardSet($cardID)) . '"'
            . ' data-type="' . $e(strtolower((string)CardType($cardID))) . '"'
+           . ' data-full="' . $e($full) . '"'
            . ' data-aspects="' . $e($aspects) . '" data-mock="' . $isMock . '">';
     // width/height are REQUIRED, not decorative. A lazy image has no intrinsic size until it loads,
     // so without them every grid row sized to 0 — which in turn kept the images outside the
@@ -210,18 +220,16 @@ function SWUDeckRenderCardBrowser(): void
         });
       }
 
-      // Enlarge. concat tiles have a blank rules box, so this swaps to the WebpImages art —
-      // built with window.swuCardArtUrl when available so filename rules stay in ONE place.
+      // Enlarge. concat tiles have a blank rules box, so this shows the full WebpImages art, whose
+      // URL was resolved server-side through SWUCardImagePath() and carried on data-full. No
+      // filename or folder rule is reproduced in this file.
       var box = document.getElementById('cbLightbox');
       var boxImg = document.getElementById('cbLightboxImg');
       grid.addEventListener('click', function (ev) {
         var tile = ev.target;
         while (tile && tile !== grid && tile.className.indexOf('cb-tile') === -1) tile = tile.parentNode;
         if (!tile || tile === grid) return;
-        var id = tile.getAttribute('data-id');
-        boxImg.src = (typeof window.swuCardArtUrl === 'function')
-          ? window.swuCardArtUrl(id, 'card')
-          : tile.getElementsByTagName('img')[0].src.replace('/concat/', '/WebpImages/');
+        boxImg.src = tile.getAttribute('data-full');
         boxImg.alt = tile.getElementsByTagName('img')[0].alt;
         box.style.display = 'flex';
       });

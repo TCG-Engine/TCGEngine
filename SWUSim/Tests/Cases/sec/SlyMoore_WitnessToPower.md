@@ -62,3 +62,53 @@ WithP2Hand: SOR_078
 ## EXPECT
 P1BASEDMG:1
 P1GROUNDARENACOUNT:0
+
+---
+
+# AppliesToEnemyUnitsPlayedAFTERSlyMoore
+#// SEC_033 Sly Moore — "each enemy unit gets -2/-0 while attacking a base for this phase" is a
+#// continuous phase effect, not a one-time stamp on the units present when she resolves. P2 has NO units
+#// when Sly Moore lands and then plays SOR_193 Millennium Falcon (3 power, and it ENTERS PLAY READY so
+#// it can attack in the same phase). That fresh unit still attacks P1's base for only 3 - 2 = 1.
+
+## GIVEN
+CommonSetup: bbk/yyw/{myResources:4}
+WithActivePlayer: 1
+WithP2Resources: 6
+WithP1Hand: SEC_033
+WithP2Hand: SOR_193
+
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P1>Pass
+- P2>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1BASEDMG:1
+
+---
+
+# AppliesToAUnitThatBECOMESEnemyAfterSlyMooreResolves
+#// SEC_033 Sly Moore — the debuff follows CONTROL, not the board state at resolution. P1's own SOR_095
+#// is unaffected while P1 controls it; P2 then plays SOR_122 Traitorous (which steals a non-leader unit
+#// costing 3 or less) to take control of it, and the now-enemy unit attacks P1's base for 3 - 2 = 1.
+
+## GIVEN
+CommonSetup: bbk/ggw
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP2Resources: 6
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: SEC_033
+WithP2Hand: SOR_122
+
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>Pass
+- P2>AttackGroundArena:0:BASE
+
+## EXPECT
+P1BASEDMG:1

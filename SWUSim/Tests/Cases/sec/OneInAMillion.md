@@ -120,3 +120,58 @@ P2GROUNDARENACOUNT:2
 P2DISCARDCOUNT:1
 P1DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# PlayedFromDeckTopViaYoureMyOnlyHope
+#// SEC_053 One in a Million — "can't be played from your HAND" restricts one zone only, so an effect
+#// that plays it from another zone is legal. SOR_246 You're My Only Hope plays the top card of the deck
+#// (5 less → free here). P1 pays 3 for You're My Only Hope, leaving 3 ready, and One in a Million then
+#// defeats P2's SOR_095 Battlefield Marine — power 3 and remaining HP 3, both equal to those 3 ready
+#// resources. Both events end in P1's discard.
+#// Pairs with CantPlayFromHand: that section proves the restriction bites, this one proves it is scoped
+#// to the hand rather than being a blanket "can never be played".
+
+## GIVEN
+CommonSetup: bbw/grw
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Hand: SOR_246
+WithP1Deck: [SEC_053 SOR_095]
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Play
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1RESAVAILABLE:3
+P1DISCARDCOUNT:2
+
+---
+
+# CantPlayFromHand_EvenWithAnEnemyRelentlessBlankingEvents
+#// SEC_053 One in a Million — "can't be played from your hand" is a PLAY RESTRICTION, not an ability
+#// that an opponent's blanking effect can strip. P2 controls SOR_089 Relentless ("the first event
+#// played by each opponent each round loses all abilities"): the blanking would only apply once the
+#// event were played, and the restriction stops it ever getting there. The card stays in P1's hand,
+#// nothing is paid, and no unit is defeated even though P1's 3 ready resources match SOR_095's 3/3.
+
+## GIVEN
+CommonSetup: bbw/grw
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1Hand: SEC_053
+WithP2SpaceArena: SOR_089:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:1
+P1DISCARDCOUNT:0
+P1RESAVAILABLE:3
+P2GROUNDARENACOUNT:1
+P1NODECISION

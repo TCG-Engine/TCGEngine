@@ -174,3 +174,70 @@ WithP2GroundArena: SOR_046:1:0
 P1HANDCOUNT:0
 P1DISCARDCOUNT:1
 TURNPLAYER:2
+
+---
+
+# PlayedAsVeryFirstActionOfPhase
+#// SEC_145 Confidence in Victory — the plain positive: played as the FIRST action of the phase with
+#// nobody having acted at all. (CanPlayAfterOpponentActed proves the gate is per-player when the OPPONENT
+#// moved first; this proves the simplest legal case, which nothing else covered.) The card resolves, the
+#// arena is chosen, and it goes to the discard.
+## GIVEN
+CommonSetup: rrk/grw
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: SEC_145
+WithP1GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Ground
+## EXPECT
+P1HANDCOUNT:0
+P1DISCARDCOUNT:1
+
+---
+
+# FirstActionWasALeaderAbilityThatPlayedACard_Blocked
+#// SEC_145 Confidence in Victory — "your FIRST ACTION" counts ANY action, not just a card played from
+#// hand. P1's first action is DJ's leader Action (SEC_018, "Choose a friendly unit… play a unit from your
+#// hand… the chosen unit captures it"), which plays a card via an ACTION ABILITY. That still consumes
+#// P1's first action, so Confidence in Victory is then blocked and stays in hand.
+#// Distinct from NotFirstAction_Blocked, where the first action was an attack.
+## GIVEN
+CommonSetup: rrk/grw/{myLeader:SEC_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 14
+WithP1Hand: SEC_145
+WithP1Hand: SOR_095
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myHand-1
+- P1>PlayHand:0
+## EXPECT
+P1HANDCOUNT:1
+P1HANDCARD:0:SEC_145
+
+---
+
+# KazudaExtraAction_ConfidenceStillBlocked
+#// SEC_145 Confidence in Victory — "Play only as your FIRST action in the action phase." An extra action
+#// granted by Kazuda Xiono (JTL_018, "Take an extra action after this one") does NOT reset that: Kazuda's
+#// Action was P1's first action, so Confidence played with the extra action is still blocked and stays in
+#// hand. Guards against implementing the gate as "actions remaining" rather than "actions taken".
+## GIVEN
+CommonSetup: rrk/grw/{myLeader:JTL_018}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 14
+WithP1Hand: SEC_145
+WithP1GroundArena: SOR_095:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>PlayHand:0
+## EXPECT
+P1HANDCOUNT:1
+P1HANDCARD:0:SEC_145

@@ -745,3 +745,510 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1CREDITCOUNT:1
 P1RESAVAILABLE:0
 P1NODECISION
+
+---
+
+# NamedEnemyLeader_Undeployed_NotBlanked
+#// SEC_046 Galen Erso — the blanking is scoped to "each NON-LEADER card an opponent owns", so naming an
+#// enemy LEADER does nothing at all. P1 names "Obi-Wan Kenobi" (P2's leader TWI_003, front "Action
+#// [Exhaust]: Heal 1 damage from a unit"). P2's front Action still works: their damaged 3/7 heals from 3
+#// to 2. This is the load-bearing scope gate — without it Galen would blank leaders too.
+## GIVEN
+CommonSetup: bbw/brk/{theirLeader:TWI_003}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2GroundArena: SOR_046:1:3
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Obi-Wan Kenobi
+- P2>UseLeaderAbility
+- P2>AnswerDecision:myGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P2LEADER:EXHAUSTED
+
+---
+
+# NamedEnemyLeader_Deployed_NotBlanked
+#// SEC_046 Galen Erso — a DEPLOYED enemy leader is still a leader card, so naming it changes nothing.
+#// P1 names "Nute Gunray" (P2's deployed leader TWI_002, "On Attack: Create a Battle Droid token").
+#// P2's deployed leader attacks P1's base and the Battle Droid is still created.
+## GIVEN
+CommonSetup: bbw/brk/{theirLeader:TWI_002;theirLeaderDeployed:true}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: SEC_046
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Nute Gunray
+- P2>AttackGroundArena:0:BASE
+## EXPECT
+P2GROUNDARENACOUNT:2
+P1BASEDMG:2
+
+---
+
+# NamedEnemyLeader_AsPilot_NotBlanked
+#// SEC_046 Galen Erso — a leader deployed AS A PILOT upgrade is still a leader card and is not blanked.
+#// P1 names "Asajj Ventress" (P2's leader JTL_001, deployed as a Pilot: the attached unit "is a leader
+#// unit. It gains Grit and: On Attack: You may deal 1 damage to a friendly unit. If you do, deal 1 damage
+#// to an enemy unit in the same arena."). P2's piloted Vehicle attacks and the granted On Attack still
+#// fires — 1 damage onto P2's own host and 1 onto P1's ground unit.
+## GIVEN
+CommonSetup: bbw/brk/{theirLeader:JTL_001;theirLeaderDeployedPilot:true}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2GroundArena: SOR_183:1:0
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Asajj Ventress
+- P2>AttackGroundArena:0:BASE
+- P2>AnswerDecision:myGroundArena-0
+- P2>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_183
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# NamedUnit_OwnedByOpponent_StillBlankedWhenP1TakesControl
+#// SEC_046 Galen Erso — the gate is OWNERSHIP, not control: "each non-leader card an opponent OWNS".
+#// A P2-OWNED SHD_027 Hylobon Enforcer (Grit) sits under P1's CONTROL. It is still a card Galen's
+#// opponent owns, so naming it blanks it and it loses Grit — control moving to Galen's own side does
+#// not rescue it.
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP1GroundArenaControlled: SHD_027:2
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Hylobon Enforcer
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SHD_027
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Grit
+
+---
+
+# NamedUnit_OwnedByGalensOwner_NotBlankedEvenWhenOpponentControlsIt
+#// SEC_046 Galen Erso — the mirror: a card GALEN'S OWNER owns is never blanked, even while the OPPONENT
+#// controls it. P1 names "Hylobon Enforcer" and P2 controls a P1-OWNED Hylobon Enforcer. Because P1 owns
+#// it, it is not "a card an opponent owns" and keeps Grit.
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2GroundArenaControlled: SHD_027:1
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Hylobon Enforcer
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SHD_027
+P2GROUNDARENAUNIT:0:HASKEYWORD:Grit
+
+---
+
+# FriendlyCredit_StillReducesPayment_NotOverBlanked
+#// SEC_046 Galen Erso naming "Credit" — the blanking hits only cards an OPPONENT owns, so GALEN'S OWN
+#// side's Credit tokens keep working. The over-blanking direction, and the companion to
+#// NamedCredit_EnemyCreditCantReducePayment. P2 plays Galen (declining to spend their Credit on him),
+#// names "Credit", then plays SOR_095 — and their own Credit is STILL offered and spent.
+#// ⚠ Holding Credits inserts the alt-payment offer BEFORE the card's own decision, so every play by a
+#// credit-holding player needs that answer first or it eats the naming answer.
+## GIVEN
+CommonSetup: ggw/bbw/{theirResources:12}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2Hand: SEC_046
+WithP2Hand: SOR_095
+WithP2Credits: 1
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:-
+- P2>AnswerDecision:Credit
+- P1>Pass
+- P2>PlayHand:0
+- P2>AnswerDecision:myResources-12
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:1:CARDID:SOR_095
+P2CREDITCOUNT:0
+P2RESAVAILABLE:5
+
+---
+
+# NamedEnemyUpgrade_KeepsStatBonus
+#// SEC_046 Galen Erso — blanking removes ABILITIES, not printed STAT modifiers. A named enemy upgrade
+#// stops granting its ability (covered by NamedUpgrade_GrantedOnAttackDenied) but its +3/+3 stays.
+#// P1 names "Jedi Lightsaber" (SOR_054) on P2's Plo Koon: he must remain 9/11, not fall back to 6/8.
+#// This is the over-blanking direction — a "loses all abilities" implementation that strips stat bonuses
+#// too would pass every ability-denial section already in this file.
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2GroundArena: LOF_050:1:0
+WithP2GroundArenaUpgrade: 0:SOR_054
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Jedi Lightsaber
+## EXPECT
+P2GROUNDARENAUNIT:0:POWER:9
+P2GROUNDARENAUNIT:0:HP:11
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# NamedEnemyPilotUpgrade_KeepsStatIncrease_LosesGrantedKeyword
+#// SEC_046 Galen Erso — the same split on a PILOT upgrade, which is the sharper case because a pilot
+#// carries BOTH a stat increase and a granted keyword. P2's Vehicle hosts Hera Syndulla (JTL_045) as a
+#// Pilot: 5/5 with a granted Restore. P1 names "Hera Syndulla" — the host KEEPS 5/5 (stat increase is not
+#// an ability) but LOSES the granted Restore.
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2SpaceArena: SOR_231:1:0
+WithP2SpaceArenaUpgrade: 0:JTL_045
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Hera Syndulla
+## EXPECT
+P2SPACEARENAUNIT:0:POWER:5
+P2SPACEARENAUNIT:0:HP:5
+P2SPACEARENAUNIT:0:NOTKEYWORD:Restore
+
+---
+
+# NamedEnemyPilotUpgrade_LosesGrantedRaid
+#// SEC_046 Galen Erso — the Raid half of the same blanked-upgrade rule (the fix touched both value
+#// keywords, so both need a guard). P2's Vehicle hosts Independent Smuggler (JTL_211) as a Pilot,
+#// "Attached unit gains Raid 1". P1 names "Independent Smuggler" and the host loses Raid while keeping
+#// the pilot's stat increase.
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2SpaceArena: SOR_231:1:0
+WithP2SpaceArenaUpgrade: 0:JTL_211
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Independent Smuggler
+## EXPECT
+P2SPACEARENAUNIT:0:NOTKEYWORD:Raid
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# NamedEnemyPilotUpgrade_LosesGrantedOverwhelm_BooleanGrant
+#// SEC_046 Galen Erso — the BOOLEAN keyword grants from a pilot go through a different code path than the
+#// value keywords (a `_SWUUnitHasUpgrade` presence check rather than an upgrade loop), so they need their
+#// own guard. P2's TIE Advanced (SOR_231, a Fighter) hosts Biggs Darklighter (JTL_150) as a Pilot, "If
+#// attached unit is a Fighter, it gains Overwhelm". P1 names "Biggs Darklighter" → the blanked pilot
+#// grants nothing and the host loses Overwhelm.
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2SpaceArena: SOR_231:1:0
+WithP2SpaceArenaUpgrade: 0:JTL_150
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Biggs Darklighter
+## EXPECT
+P2SPACEARENAUNIT:0:NOTKEYWORD:Overwhelm
+
+---
+
+# NamedEnemyUnit_CannotGAINKeywordFromAnUnnamedUpgrade
+#// SEC_046 Galen Erso — the second half of the clause: a named card "loses all abilities AND CAN'T GAIN
+#// abilities". Here the UPGRADE is untouched and the HOST is named. P2's TIE Advanced (SOR_231) hosts
+#// Independent Smuggler (JTL_211) as a Pilot, "Attached unit gains Raid 1". P1 names "TIE Advanced" — the
+#// host is blanked, so it cannot gain Raid even though the granting pilot is perfectly fine.
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2SpaceArena: SOR_231:1:0
+WithP2SpaceArenaUpgrade: 0:JTL_211
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:TIE Advanced
+## EXPECT
+P2SPACEARENAUNIT:0:NOTKEYWORD:Raid
+
+---
+
+# NamedShield_StolenByOpponent_BecomesBlanked
+#// SEC_046 Galen Erso + CR 6 token ownership — a TOKEN has no printed owner; whoever controls it owns it.
+#// So when the OPPONENT takes control of a shielded unit, the Shield token becomes a card GALEN'S OPPONENT
+#// owns, and naming "Shield" now blanks it. P1 names "Shield" while their own SOR_063 (2/4) carries one
+#// (harmless — see FriendlyShield_PreventsAsNormal). P2 then plays Change of Heart (SOR_224) to take
+#// control of it. P1 attacks the now-enemy unit with SOR_095 (3 power): the stolen shield must NOT prevent,
+#// so the unit takes the full 3 and the token is still attached (it did nothing rather than being spent).
+## GIVEN
+CommonSetup: bbw/yyk/{theirResources:8}
+WithActivePlayer: 1
+WithP1Resources: 12
+WithP1Hand: SEC_046
+WithP1GroundArena: SOR_063:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T02
+WithP1GroundArena: SOR_095:1:0
+WithP2Hand: SOR_224
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Shield
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:0:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_063
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# NamedEnemyUnit_CannotGainKeyword_UpgradeAttachedAFTERNaming
+#// SEC_046 Galen Erso — "loses all abilities (AND CAN'T GAIN ABILITIES)". The existing
+#// NamedEnemyUnit_CannotGAINKeywordFromAnUnnamedUpgrade seats the granting pilot BEFORE Galen, so it
+#// really proves "loses gained". This is the other half, temporally: P1 names "TIE Advanced" FIRST, and
+#// only then does P2 pilot Independent Smuggler (JTL_211, "Attached unit gains Raid 1") onto it. The
+#// blanked host still cannot gain Raid.
+## GIVEN
+CommonSetup: bbw/rrk/{theirResources:6}
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2Hand: JTL_211
+WithP2SpaceArena: SOR_231:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:TIE Advanced
+- P2>PlayHand:0
+- P2>AnswerDecision:Pilot
+## EXPECT
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+P2SPACEARENAUNIT:0:NOTKEYWORD:Raid
+
+---
+
+# FriendlyNamedUnit_StillGainsKeyword
+#// SEC_046 Galen Erso — over-blanking negative for the "can't gain abilities" clause. Naming a card
+#// GALEN'S OWN SIDE owns does nothing, so P1's own TIE Advanced still gains Raid from its pilot even
+#// though P1 named "TIE Advanced".
+## GIVEN
+CommonSetup: bbw/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP1SpaceArena: SOR_231:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_211
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:TIE Advanced
+## EXPECT
+P1SPACEARENAUNIT:0:HASKEYWORD:Raid
+
+---
+
+# FriendlyUpgrade_KeepsStatBonus
+#// SEC_046 Galen Erso — the friendly mirror of NamedEnemyUpgrade_KeepsStatBonus. Naming a card P1 owns
+#// changes nothing at all, so P1's own Plo Koon wearing Jedi Lightsaber (SOR_054, +3/+3) stays 9/11.
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP1GroundArena: LOF_050:1:0
+WithP1GroundArenaUpgrade: 0:SOR_054
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Jedi Lightsaber
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:9
+P1GROUNDARENAUNIT:0:HP:11
+
+
+
+---
+
+# NamedEnemyEvent_CannotSmuggle
+#// SEC_046 Galen Erso — the EVENT side of Smuggle denial (the existing NamedSmuggle_CannotSmuggle uses a
+#// UNIT). A blanked card loses Smuggle, so a named enemy EVENT can't be played from resources.
+#// P1 names "Covert Strength" (SHD_075, an event with Smuggle [3 resources Vigilance]) held as a P2
+#// resource. P2's Smuggle is blocked: their damaged Plo Koon is NOT healed and nothing hits their discard.
+#// Load-bearing thanks to FriendlyEvent_CanStillSmuggle below, which proves the smuggle WORKS unnamed.
+## GIVEN
+CommonSetup: bbw/bbw
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2GroundArena: LOF_050:1:4
+WithP2Resources: 1:SHD_075:1,10:SOR_095:1
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Covert Strength
+- P2>SmuggleResource:0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:4
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2DISCARDCOUNT:0
+
+---
+
+# FriendlyEvent_CanStillSmuggle
+#// SEC_046 Galen Erso — POSITIVE CONTROL for the section above AND the over-blanking negative: naming a
+#// card GALEN'S OWN SIDE owns leaves its Smuggle intact. P1 names "Covert Strength" while holding it as
+#// their OWN resource, then Smuggles it — Plo Koon heals 4 → 2 and gains an Experience token.
+#// (Galen is a second friendly unit by then, so the heal target prompts rather than auto-resolving.)
+## GIVEN
+CommonSetup: bbw/bbw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SEC_046
+WithP1GroundArena: LOF_050:1:4
+WithP1Resources: 1:SHD_075:1,10:SOR_095:1
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Covert Strength
+- P1>SmuggleResource:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LOF_050
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1DISCARDCOUNT:1
+
+---
+
+# CreditorsClaim_GainedWhenDefeated_PositiveControl
+#// SEC_046 Galen Erso — POSITIVE CONTROL for the section below. P2's Battlefield Marine wears Creditor's
+#// Claim (SEC_039, "Attached unit gains: When Defeated: You may defeat a unit with 3 or less remaining
+#// HP"). With NO Galen naming it, P1 Vanquishes the Marine and the GAINED When Defeated fires for P2, who
+#// uses it to defeat P1's 1/2 (SOR_108).
+#// ⚠ The trigger is queued on P2's queue (the defeated unit's CONTROLLER) and does NOT drain inside P1's
+#// action — `P2>Drain` is required to surface it. Without that it looks exactly like "the ability never
+#// fires", which is how this scenario was mis-diagnosed on the first attempt.
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 14
+WithP1Hand: SOR_078
+WithP1GroundArena: SOR_108:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SEC_039
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>Drain
+- P2>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+
+---
+
+# NamedHost_GainedWhenDefeated_DoesNotFire
+#// SEC_046 Galen Erso — a named card "loses all abilities (and can't gain abilities)", which includes an
+#// ability GAINED from an upgrade. Same board as the positive control above, but P1 first names
+#// "Battlefield Marine". The blanked Marine's GAINED When Defeated does NOT fire even after draining P2's
+#// queue, so P1's 1/2 survives. (Creditor's Claim itself is untouched — the HOST is what is blanked.)
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 14
+WithP1Hand: SEC_046
+WithP1Hand: SOR_078
+WithP1GroundArena: SOR_108:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SEC_039
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Battlefield Marine
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>Drain
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_108
+P2GROUNDARENACOUNT:0
+
+---
+
+# NamedCredit_EnemyCreditCreatedAFTERNaming_StillCantReducePayment
+#// SEC_046 Galen Erso — the blanking covers cards "INCLUDING THOSE NOT IN PLAY", so it is not a snapshot
+#// of the tokens that existed when Galen named. P1 names "Credit"; P2 THEN creates a brand-new Credit with
+#// Unmarked Credits (LAW_244) and plays a unit — the fresh token is dead on arrival too, so no pay-1-less
+#// offer appears and the Credit is still sitting there afterwards.
+## GIVEN
+CommonSetup: bbw/yyk/{theirResources:14}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2Hand: LAW_244
+WithP2Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Credit
+- P2>PlayHand:0
+- P1>Pass
+- P2>PlayHand:0
+## EXPECT
+P2CREDITCOUNT:1
+P2GROUNDARENACOUNT:1
+P2NODECISION
+
+---
+
+# FriendlyCreditCreatedAFTERNaming_StillReducesPayment
+#// SEC_046 Galen Erso — the over-blanking negative for the same axis: a Credit GALEN'S OWN SIDE creates
+#// after the naming is unaffected. P1 names "Credit", creates one with Unmarked Credits (LAW_244), then
+#// plays SOR_095 — the pay-1-less offer DOES appear and the Credit is spent.
+## GIVEN
+CommonSetup: bbw/yyk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 14
+WithP1Hand: SEC_046
+WithP1Hand: LAW_244
+WithP1Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Credit
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>AnswerDecision:myResources-14
+## EXPECT
+P1CREDITCOUNT:0
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_095

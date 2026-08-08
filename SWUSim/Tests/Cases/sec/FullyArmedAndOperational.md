@@ -128,3 +128,74 @@ P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
 P1DISCARDCOUNT:2
 P2DISCARDCOUNT:1
+
+---
+
+# OppPassed_NoEffect
+#// SEC_194 Fully Armed and Operational — condition guard: a PASS is not a base attack. P2's previous
+#// action is a pass, so the condition fails and SOR_095 stays in hand. (Distinct from
+#// OppClaimedInitiative_NoEffect: claiming also passes, but a bare pass is its own action type.)
+## GIVEN
+CommonSetup: yyk/rrk
+WithActivePlayer: 2
+WithP1Resources: 10
+WithP1Hand: SEC_194
+WithP1Hand: SOR_095
+## WHEN
+- P2>Pass
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1DISCARDCOUNT:1
+
+---
+
+# OppHasNotActedThisPhase_NoEffect
+#// SEC_194 Fully Armed and Operational — condition guard: with NO previous opponent action at all this
+#// phase there is nothing to qualify, so the condition fails. P1 acts first in the phase and plays SEC_194
+#// before P2 has done anything.
+## GIVEN
+CommonSetup: yyk/rrk
+WithActivePlayer: 1
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: SEC_194
+WithP1Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1DISCARDCOUNT:1
+
+
+---
+
+# PlayerTakesAnActionInBetween_ConditionStillMet
+#// SEC_194 Fully Armed and Operational — the condition reads THE OPPONENT'S previous action, not the
+#// globally previous action. P2 attacks P1's base; P1 then takes an action of their own (Kazuda Xiono's
+#// leader Action, JTL_018, which grants "Take an extra action after this one") and plays SEC_194 with that
+#// extra action. P2's previous action is still the base attack, so the condition holds and the unit is
+#// played with Ambush.
+#// (Kazuda's extra action is what makes this reachable at all: SWUSim alternates strictly, so without it
+#// P2 would have to act in between and would overwrite their own "previous action".)
+## GIVEN
+CommonSetup: yyk/rrk/{myLeader:JTL_018}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1Resources: 12
+WithP1Hand: SEC_194
+WithP1Hand: SOR_095
+WithP1GroundArena: SOR_046:1:0
+WithP2SpaceArena: SOR_237:1:0
+## WHEN
+- P2>AttackSpaceArena:0:BASE
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0
+## EXPECT
+P1BASEDMG:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:HASKEYWORD:Ambush

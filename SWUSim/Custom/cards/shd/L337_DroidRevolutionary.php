@@ -25,6 +25,9 @@ $whenPlayedAbilities["SHD_197:0"] = function($player, $mzID) {
             }
         }
     }
+    // "a captured card" is unqualified — a card captured by a BASE (SEC_195 Arrest) is just as rescuable
+    // as one guarded by a unit, but it lives in a GlobalEffects flag instead of a Subcards slot.
+    foreach (SWUCollectBaseCaptives() as $row) { $entries[] = $row['entry']; $cids[] = $row['cardID']; }
     if (empty($entries)) {   // nothing rescuable → the "if you don't" branch is automatic
         DoGiveShieldToken(intval($player), $mzID);
         return;
@@ -53,7 +56,13 @@ $customDQHandlers["SHD_197#0"] = function($player, $parts, $lastDecision) {
         if ($selfMz !== null) DoGiveShieldToken(intval($player), $selfMz);
         return;
     }
-    [$captorUID, $subIdx] = array_map('intval', explode(':', $entries[$pickedIdx]));
+    $entry = (string)$entries[$pickedIdx];
+    if (strpos($entry, 'B:') === 0) {              // base captive — no captor object to splice out of
+        $sub = SWUTakeBaseCaptiveByEntry($entry);
+        if ($sub !== null) DoRescueUnit($sub, null);
+        return;
+    }
+    [$captorUID, $subIdx] = array_map('intval', explode(':', $entry));
     $captorMz = SWUFindMzByUID($captorUID);
     if ($captorMz === null) return;
     $captor = GetZoneObject($captorMz);

@@ -1657,7 +1657,7 @@ function _SWUHmw009Attackers(int $player): array {
             if (SWUObjGone($u)) continue;
             if (_SWUUnitHardCantAttack($u)) continue;
             // LOF_063 Oggdo Bogdo — "can't attack unless it's damaged."
-            if (($u->CardID ?? '') === 'LOF_063' && intval($u->Damage ?? 0) <= 0) continue;
+            if (($u->CardID ?? '') === 'LOF_063' && intval($u->Damage ?? 0) <= 0 && !LostAbilities($u)) continue;
             if (empty(SWUGetAllValidAttackTargets($player, $u, $arena, true))) continue; // noBases
             $units[] = "{$zone}-{$i}";
         }
@@ -1967,7 +1967,7 @@ function SWUImmuneToHpDefeat($obj): bool {
 // reduced amount. Called at every damage instance (combat + effect) so whichever lands first consumes it.
 // $peek=true computes the post-prevention amount WITHOUT consuming any one-shot marker (LOF_220's
 // PREVENT_DMG_2) or spending SEC_067's once-per-phase — used to decide shield-vs-reduction ordering.
-function _SWUApplyDamagePrevention($obj, int $amount, bool $peek = false): int {
+function _SWUApplyDamagePrevention($obj, int $amount, bool $peek = false, ?string $sourceMzID = null): int {
     if ($obj === null || $amount <= 0) return $amount;
     // LOF_220 one-shot "prevent 2 of the next damage" marker (combat or effect).
     if (is_array($obj->TurnEffects ?? null)) {
@@ -1993,11 +1993,10 @@ function _SWUApplyDamagePrevention($obj, int $amount, bool $peek = false): int {
         if (!$peek) AddGlobalEffects($ctrl, 'SWU_SEC067_USED_' . $uid);
         return 0;
     }
-    // SEC_050 Vigil — "If damage would be dealt to THIS unit by another card, deal that much +1 instead."
-    if (($obj->CardID ?? '') === 'SEC_050') {
-        $amount += 1;
-    } else if ($ctrl > 0) {
-        // SEC_050 — "If damage would be dealt to ANOTHER friendly unit, prevent 1 of that damage."
+    // SEC_050 Vigil — "If damage would be dealt to ANOTHER friendly unit, prevent 1 of that damage."
+    // (Vigil's own INCREASE half is a replacement effect and is applied further down, after every
+    // prevention, so that damage already reduced to zero is never increased back up.)
+    if (($obj->CardID ?? '') !== 'SEC_050' && $ctrl > 0) {
         foreach (GetUnitsInPlay($ctrl) as $u) {
             if (empty($u->removed) && ($u->CardID ?? '') === 'SEC_050' && intval($u->UniqueID ?? 0) !== $uid) {
                 $amount = max(0, $amount - 1); break;
@@ -2013,6 +2012,17 @@ function _SWUApplyDamagePrevention($obj, int $amount, bool $peek = false): int {
     // Continuous phase-duration marker on the chosen unit; reduces EVERY incoming damage instance by 1.
     if ($amount > 0 && is_array($obj->TurnEffects ?? null) && in_array('TWI_053', $obj->TurnEffects, true)) {
         $amount = max(0, $amount - 1);
+    }
+    // SEC_050 Vigil — "If damage would be dealt to THIS unit BY ANOTHER CARD, deal that much plus 1
+    // instead." Two gates, both load-bearing:
+    //   • $amount > 0 — it is a replacement for damage that WOULD BE DEALT, so once preventions have
+    //     reduced the instance to zero there is nothing left to replace and no +1 applies.
+    //   • the source must be ANOTHER card — an ability of Vigil's own, including one granted to it by an
+    //     attached upgrade (JTL_046 Paige Tico's "deal 1 damage to it"), is not another card.
+    if ($amount > 0 && ($obj->CardID ?? '') === 'SEC_050') {
+        $src     = ($sourceMzID !== null && $sourceMzID !== '') ? GetZoneObject($sourceMzID) : null;
+        $srcSelf = ($src !== null && $uid > 0 && intval($src->UniqueID ?? 0) === $uid);
+        if (!$srcSelf) $amount += 1;
     }
     // ASH_150 Deadly Vulnerability — "If attached unit would take damage, it takes twice as much instead."
     // Applied last (after prevention) so it doubles the net damage. Covers combat AND ability paths (both
@@ -2770,6 +2780,43 @@ function _SWUMarkUnitPlayUsedFlags($player, $cardID): void {
 // NOTE: the printed base cost, printed aspect penalty, aspect-penalty waivers (SHD_126/TWI_236/TWI_034/
 // LAW_009), and the JTL_232 free override are NOT here — they are path-specific and live in
 // SWUComputePlayCost. The delta is a commutative sum, so block order does not affect the result.
+// The "first upgrade you play each round/phase costs 1 less" discounts, as a negative delta:
+//   SOR_061 / LOF_058 Guardian of the Whills — first upgrade ON THIS UNIT each round
+//   SEC_064 Congress of Malastare          — first upgrade each phase (any host)
+//   ASH_075 Pit Droid Team                 — first upgrade on ANOTHER FRIENDLY unit each phase
+// $host === null → affordability peek, apply the best case; $host !== null → the real chosen host, so the
+// host-conditional ones are exact. All three are spent by _SWUConsumeUpgradeUsedFlags at attach time.
+//
+// $pilotPlay = true when a unit is being played as a Pilot upgrade. That IS "playing an upgrade", and the
+// consume already fires on that path — so omitting these here burned the charge without granting the
+// discount. The Guardian one is excluded for pilots: it requires the HOST to be Guardian of the Whills,
+// which is not a Vehicle and so can never host a pilot — applying it to the peek would make the pilot look
+// 1 cheaper than the charge.
+function _SWUFirstUpgradePlayDiscount(int $player, $host = null, bool $pilotPlay = false): int {
+    $delta = 0;
+    if (!$pilotPlay) {
+        if ($host === null) {
+            if (_SWUFirstUpgradeGuardianAvailable($player)) $delta += -1;
+        } else {
+            $hostUid = intval($host->UniqueID ?? 0);
+            if (in_array($host->CardID ?? '', ['SOR_061', 'LOF_058'], true)
+                && GlobalEffectCount($player, 'SWU_GUARDIAN_UPG_USED_' . $hostUid) <= 0) {
+                $delta += -1;
+            }
+        }
+    }
+    if (GlobalEffectCount($player, 'SWU_SEC064_USED') <= 0
+            && _SWUCountUnitsWithCardID($player, 'SEC_064') > 0) {
+        $delta += -1;
+    }
+    if (GlobalEffectCount($player, 'SWU_ASH075_USED') <= 0
+            && _SWUCountUnitsWithCardID($player, 'ASH_075') > 0
+            && ($host === null || (intval($host->Controller ?? 0) === $player && ($host->CardID ?? '') !== 'ASH_075'))) {
+        $delta += -1;
+    }
+    return $delta;
+}
+
 function _SWUPlayCostModifierDelta($player, $obj, $host = null, bool $includeUsedFlagBucket = true): int {
     if ($obj === null || !isset($obj->CardID)) return 0;
     global $playCostModifiers, $playCostFieldModifiers, $Plot_Cards;
@@ -2868,36 +2915,10 @@ function _SWUPlayCostModifierDelta($player, $obj, $host = null, bool $includeUse
                 && _SWUCountUnitsWithCardID(intval($player), 'LAW_229') > 0) {
             $delta += -1;
         }
-        // SOR_061 Guardian of the Whills: "first upgrade on this unit each round costs 1 less" (consumed at
-        // ATTACH_UPGRADE). $host === null → best-case; $host !== null → exact (this host is a Guardian).
+        // The "first upgrade you play each …" discounts. Shared with the Piloting cost path — see
+        // _SWUFirstUpgradePlayDiscount.
         if (stripos(CardType($cardID) ?? '', 'Upgrade') !== false) {
-            if ($host === null) {
-                if (_SWUFirstUpgradeGuardianAvailable(intval($player))) {
-                    $delta += -1;
-                }
-            } else {
-                $hostUid = intval($host->UniqueID ?? 0);
-                if (in_array($host->CardID ?? '', ['SOR_061', 'LOF_058'], true)
-                    && GlobalEffectCount(intval($player), 'SWU_GUARDIAN_UPG_USED_' . $hostUid) <= 0) {
-                    $delta += -1;
-                }
-            }
-        }
-        // SEC_064 Congress of Malastare: "first upgrade each phase costs 1 less" (consumed at ATTACH_UPGRADE).
-        if (stripos(CardType($cardID) ?? '', 'Upgrade') !== false
-                && GlobalEffectCount(intval($player), 'SWU_SEC064_USED') <= 0
-                && _SWUCountUnitsWithCardID(intval($player), 'SEC_064') > 0) {
-            $delta += -1;
-        }
-        // ASH_075 Pit Droid Team: "first upgrade on ANOTHER FRIENDLY unit each phase costs 1 less". The discount
-        // requires the host to be a friendly unit OTHER than the Pit Droid itself — an upgrade on Pit Droid
-        // itself or on an enemy unit is NOT discounted. During the affordability peek ($host === null) apply
-        // the best-case discount; at the actual charge (host known) enforce the "another friendly" restriction.
-        if (stripos(CardType($cardID) ?? '', 'Upgrade') !== false
-                && GlobalEffectCount(intval($player), 'SWU_ASH075_USED') <= 0
-                && _SWUCountUnitsWithCardID(intval($player), 'ASH_075') > 0
-                && ($host === null || (intval($host->Controller ?? 0) === intval($player) && ($host->CardID ?? '') !== 'ASH_075'))) {
-            $delta += -1;
+            $delta += _SWUFirstUpgradePlayDiscount(intval($player), $host, false);
         }
     }
 
@@ -2961,11 +2982,14 @@ function SWUComputePlayCost($player, $obj, $host = null): int {
 // Piloting cost: the bracket cost Y from the card's Piloting keyword, plus the
 // off-aspect penalty for the player. Used when a pilot is played/deployed as an
 // upgrade. Returns 0 for non-pilots / cards with no Piloting cost.
-function SWUComputePilotCost($player, $obj): int {
+function SWUComputePilotCost($player, $obj, $host = null): int {
     if ($obj === null || !isset($obj->CardID)) return 0;
     $cardID = $obj->CardID;
     $base = CardPilotingCost($cardID);
     if ($base === null) return 0;
+    // Playing a Pilot as an upgrade is playing an upgrade, so the "first upgrade you play each …"
+    // discounts apply here too (their charge is spent on this path either way).
+    $base += _SWUFirstUpgradePlayDiscount(intval($player), $host, true);
     // SWU_PILOT_DISCOUNT: a one-shot "next Piloting play costs N less" (JTL_008 Wedge Antilles).
     // Honored here — the single pilot-cost chokepoint used by BOTH affordability
     // (SWUGetPilotValidTargets) AND the charge (_SWUFinalizeUpgradeAttach) — so the two stay
@@ -3972,6 +3996,43 @@ function _SWUBaseCaptureUnit(int $player, string $capturedMZ): bool {
     CollectCaptureTriggers(intval($player), $controller, $cardID, $captive);
     $playerID = $savedPID;
     return true;
+}
+
+// A base captive (SEC_195 Arrest) is stored in a GlobalEffects flag, NOT as a subcard of a unit in play,
+// so any effect that enumerates "captured cards" has to ask for them separately or it silently misses
+// them (an unqualified "rescue a captured card" would otherwise be unable to free a base captive at all).
+// Returns one row per stored base captive: ['entry' => 'B:<captorSeat>:<cardID>:<owner>', 'cardID' => …].
+// The entry string is colon-delimited on purpose so it can ride alongside a unit captor's "UID:subIdx"
+// entry in the same comma-joined DQ payload.
+function SWUCollectBaseCaptives(): array {
+    $rows = [];
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
+        foreach (GetGlobalEffects($p) as $ge) {
+            $flag = (string)($ge->CardID ?? '');
+            if (strpos($flag, 'SWU_BASECAPTIVE|') !== 0) continue;
+            $parts  = explode('|', $flag);
+            $cardID = $parts[1] ?? ''; $owner = intval($parts[2] ?? 0);
+            if ($cardID === '' || $owner <= 0) continue;
+            $rows[] = ['entry' => 'B:' . $p . ':' . $cardID . ':' . $owner, 'cardID' => $cardID];
+        }
+    }
+    return $rows;
+}
+
+// Consume one entry produced by SWUCollectBaseCaptives: drop its GlobalEffects flag (so the regroup
+// sweep won't rescue it a second time) and hand back a captive-shaped object for DoRescueUnit.
+// Returns null if the flag is already gone.
+function SWUTakeBaseCaptiveByEntry(string $entry) {
+    $f = explode(':', $entry);
+    if (count($f) < 4 || $f[0] !== 'B') return null;
+    $captor = intval($f[1]); $cardID = $f[2]; $owner = intval($f[3]);
+    $ge = &GetGlobalEffects($captor);
+    for ($i = count($ge) - 1; $i >= 0; $i--) {
+        if ((string)($ge[$i]->CardID ?? '') !== 'SWU_BASECAPTIVE|' . $cardID . '|' . $owner) continue;
+        array_splice($ge, $i, 1);
+        return (object)['CardID' => $cardID, 'Owner' => $owner];
+    }
+    return null;
 }
 
 // Rescue every base captive (SEC_195) to its owner's control, exhausted. Called at RegroupPhaseStart.
@@ -5710,6 +5771,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH248_READY');             // ASH_248 Neel "next ≤1-power unit this phase enters ready"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LEADER_DEFEATED_PHASE');    // ASH_093 Captain Pellaeon "leader defeated this phase → Raid 3"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC067_USED_');      // SEC_067 "first damage each phase prevented" per-unit
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC033');            // SEC_033 Sly Moore: enemy units -2/-0 vs bases this phase
         SWUClearGlobalEffectsByPrefix($p, 'SWU_NOHEAL_BASE');       // SOR_160 Wolffe: "bases can't be healed this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_BASE_HEALED_PHASE'); // TS26_38: "if a base was healed this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TS26035_DISCOUNT_NEXT'); // TS26_35: "next event -2 this phase"
@@ -6031,8 +6093,18 @@ function SWUTakeControlOfUnit(int $newController, string $mzID): string {
                 $isCap   = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
                 $isPilot = is_array($sub) ? !empty($sub['IsPilot'])   : !empty($sub->IsPilot);
                 if ($isCap || $isPilot) continue;
+                $subCID = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
                 if (is_array($sub)) $newCard->Subcards[$k]['Controller'] = $newController;
                 else                $sub->Controller = $newController;
+                // CR 6 token ownership: a TOKEN has no printed owner — whoever controls it owns it. So a
+                // token upgrade riding a stolen unit changes OWNER too, not just controller. Real (printed)
+                // upgrades keep their owner, which is why only tokens are re-owned here. Observable via
+                // SEC_046 Galen Erso naming "Shield": a shield stolen from Galen's own side becomes a card
+                // Galen's opponent owns and is blanked from that moment on.
+                if (strpos(CardType($subCID) ?? '', 'Token') !== false) {
+                    if (is_array($sub)) $newCard->Subcards[$k]['Owner'] = $newController;
+                    else                $sub->Owner = $newController;
+                }
             }
         }
         $newCard->TurnEffects = $turnEffects;
@@ -7091,6 +7163,17 @@ function _SWUCheckForcedAttack(int $player): void {
 // counter (this was an action, not a pass).
 function SWUAfterActionExtra($player) {
     SetSWUVar('PASS', '0');
+    // An extra action is still AN ACTION this player took. SEC_145 Confidence in Victory ("play only as
+    // your FIRST action in the action phase") reads this flag, and without it Kazuda's Action did not
+    // count — so Confidence stayed playable with the extra action, which is exactly what it must not do.
+    if (GlobalEffectCount(intval($player), 'SWU_ACTED_PHASE') === 0) {
+        AddGlobalEffects(intval($player), 'SWU_ACTED_PHASE');
+    }
+    // ⚠ Deliberately NOT updating SWU_LAST_ACTION here. That var is a single global "the most recent
+    // action and who took it", read by SEC_194 Fully Armed and Operational as "did the OPPONENT attack my
+    // base in THEIR previous action". Recording this player's extra action would clobber the opponent's
+    // entry and wrongly turn SEC_194 off. Intended: the condition stays ON when you take an action in
+    // between (guarded by FullyArmedAndOperational::PlayerTakesAnActionInBetween_ConditionStillMet).
     DecisionQueueController::CleanupRemovedCards();
 }
 
@@ -9153,9 +9236,16 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             $GLOBALS['gCombatDefeatByMz'][$d['mzID']] = ($defObj !== null
                 && GlobalEffectCount(intval($d['player'] ?? 0), 'SWU_COMBATDEF_' . intval($defObj->UniqueID ?? 0)) > 0);
             if ($defObj !== null) RemoveGlobalEffect(intval($d['player'] ?? 0), 'SWU_COMBATDEF_' . intval($defObj->UniqueID ?? 0));
+            // A BLANKED unit has no When Defeated to fire — including ones it GAINED from an upgrade or a
+            // phase effect. SEC_038 Condemn ("loses all other abilities" while attacking) is the sharp case:
+            // an attacker wearing Condemn that dies during its own attack must not fire an upgrade-granted
+            // When Defeated (SEC_039 Creditor's Claim). Same for SEC_046 Galen / LOF_202 Mind Trick /
+            // SEC_054 Exiled from the Force. The unit's OWN When Defeated is already gated elsewhere; these
+            // two GRANTED blocks were not.
+            $defBlanked = ($defObj !== null && LostAbilities($defObj));
             // Phase-granted When Defeated abilities (event-stamped TurnEffects markers) — see
             // _SWUGrantedWDTurnEffectRegistry(). Detected on the (removed, still-intact) defeated object.
-            if ($defObj !== null && is_array($defObj->TurnEffects ?? null)) {
+            if (!$defBlanked && $defObj !== null && is_array($defObj->TurnEffects ?? null)) {
                 foreach (_SWUGrantedWDTurnEffectRegistry() as $teType) {
                     if (in_array($teType, $defObj->TurnEffects, true)) {
                         AddTrigger($d['player'], $teType, $teType, '');
@@ -9163,7 +9253,7 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                     }
                 }
             }
-            if ($defObj !== null && is_array($defObj->Subcards ?? null)) {
+            if (!$defBlanked && $defObj !== null && is_array($defObj->Subcards ?? null)) {
                 // Upgrade-granted When Defeated abilities — see _SWUGrantedWDUpgradeRegistry().
                 // Each dispatches under its own per-card trigger type. Grants whose effect depends on
                 // the HOST carry a param built here (the host is gone by dispatch time, and the
@@ -10318,17 +10408,25 @@ function SWUDealDamageToUnit(string $unitMzID, int $amount, int $player, ?string
         // combat (handled in SWUCombatDamage) OR a card ability/effect (this funnel). Consume one token
         // and prevent the whole instance. ASH_196 unpreventable already bypassed this above; indirect
         // damage never reaches this funnel (it writes Damage directly), so it correctly ignores Shields.
+        // ⚠ ORDER: reductions run BEFORE the Shield. A Shield absorbs an instance of damage — if prevention
+        // has already reduced the instance to ZERO there is nothing left to absorb, so the Shield must NOT
+        // be spent. Consuming it first meant a fully-prevented hit still broke the shield (SEC_042 Cassian
+        // Andor prevent-2 vs a 2-damage ability).
+        // SEC_042 Cassian Andor — "If an enemy card ability would deal damage to this unit, prevent 2."
+        if (($unit->CardID ?? '') === 'SEC_042' && intval($player) !== intval($unit->Controller ?? $player)) {
+            $amount = max(0, $amount - 2);
+        }
+        $amount = _SWUApplyDamagePrevention($unit, $amount, false, $sourceMzID); // LOF_220 prevent-2 / SEC_050 / ASH_150 doubling
+        // Shield (CR 8.31): absorbs the ENTIRE remaining instance from any source — combat (handled in
+        // SWUCombatDamage) OR a card ability/effect (this funnel). ASH_196 unpreventable already bypassed
+        // this above; indirect damage never reaches this funnel (it writes Damage directly), so it
+        // correctly ignores Shields.
         if ($amount > 0 && SWUConsumeShieldToken($unit)) {
             SWUQueuePreventedAnim($unitMzID, intval($player));
             SWUQueueShieldBreakAnim($unitMzID, intval($player));
             $playerID = $saved;
             return;
         }
-        // SEC_042 Cassian Andor — "If an enemy card ability would deal damage to this unit, prevent 2."
-        if (($unit->CardID ?? '') === 'SEC_042' && intval($player) !== intval($unit->Controller ?? $player)) {
-            $amount = max(0, $amount - 2);
-        }
-        $amount = _SWUApplyDamagePrevention($unit, $amount); // LOF_220 prevent-2 / SEC_050 / ASH_150 doubling
         $unit->Damage = intval($unit->Damage) + $amount;
         SWUQueueDamageAnim($unitMzID, intval($amount), intval($player));
         $hp = ObjectCurrentHP($unit);
@@ -11442,6 +11540,10 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'SHD_072':
         case 'SEC_038':
         case 'SEC_175': // Ambition's Reward — printed "attach to a unit" (no restriction): friendly OR enemy
+        case 'SEC_052': // Diplomatic Immunity — no printed attach restriction (only a granted On Defense
+                        // disclose): friendly OR enemy per CR 2.e. Attaching it to an ENEMY unit hands
+                        // THAT unit's controller the granted ability (CR 2.e), which is the point of
+                        // the play — you keep the upgrade, they resolve what it grants.
         case 'LAW_129': // Mastery — no printed attach restriction (only a cost reducer): friendly OR enemy, any arena
         case 'ASH_054': // Pointless to Resist — debuff Condition, attach to any unit (typically an enemy)
         case 'ASH_085': // Grav Charge — Condition, attach to any unit (typically an enemy)
@@ -14418,6 +14520,27 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
             "Choose_a_unit_to_attach_" . str_replace(' ', '_', CardTitle($cardID) ?? 'the_upgrade') . "_to",
             "SMUGGLE_ATTACH|{$cardID}|{$actualIdx}");
         return;
+    }
+
+    // EVENT smuggle branch. An event has no arena to enter: it must go to the discard and run the full
+    // event ceremony (Saw Gerrera / Adi Gallia taxes, alt-cost, the When-Played dispatch, the played-event
+    // observers). That ceremony lives in ActivateCard, so DELEGATE rather than re-implement it — exactly
+    // as the $isUpgrade branch above delegates, and as Plot does via PLOT_PAY.
+    // Without this the event fell through to the unit path below and was ADDED TO AN ARENA as a bogus
+    // unit: its effect never resolved and it never reached the discard.
+    // Cost is already fully paid here, hence ignoreCost=true. ActivateCard removes the resource object
+    // itself, so the slot replacement (CR 8.22.g) runs after it returns.
+    if (stripos(CardType($cardID) ?? '', 'Event') !== false) {
+        ActivateCard($player, "myResources-{$actualIdx}", true);
+        $deckE = &GetDeck($player);
+        for ($i = 0; $i < count($deckE); $i++) {
+            if (isset($deckE[$i]->removed) && $deckE[$i]->removed) continue;
+            $topE = $deckE[$i]->CardID;
+            $deckE[$i]->Remove();
+            AddResources($player, $topE, 0, $player, $player); // Status 0 = exhausted
+            break;
+        }
+        return; // $playerID intentionally left = $player for any decision ActivateCard queued
     }
 
     // Remove card from resources zone (it has now been exhausted above).

@@ -92,3 +92,50 @@ WithP2Deck: [SOR_095, SOR_046, SOR_095]
 ## EXPECT
 P1GROUNDARENACOUNT:2
 P1NODECISION
+
+---
+
+# OnDraw_RegroupPhaseDraw_NoTrigger
+#// SEC_159 Chairman Papanoida — the reaction is scoped to "when a player draws 1+ cards DURING THE ACTION
+#// PHASE". The regroup-phase draws (each player draws 2) must NOT fire it. Both players pass into regroup;
+#// afterwards no Spy token exists and P1 still holds its disclose cards with no prompt pending.
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SEC_159:1:0
+WithP1Hand: SEC_133
+WithP1Hand: SEC_133
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_159
+P1NODECISION
+P2NODECISION
+
+---
+
+# OnDraw_OpponentDraws_StillTriggersForPapanoidasController
+#// SEC_159 Chairman Papanoida — "when A PLAYER draws", not "when you draw", so an OPPONENT's action-phase
+#// draw also offers the disclose to Papanoida's controller. P2 plays SOR_111 (When Played: draw a card);
+#// P1 discloses two Aggression cards and gets the Spy token.
+## GIVEN
+CommonSetup: rrw/rrk/{theirResources:5}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: SEC_159:1:0
+WithP1Hand: SEC_133
+WithP1Hand: SEC_133
+WithP2Hand: SOR_111
+WithP2Deck: [SOR_095 SOR_095]
+## WHEN
+- P2>PlayHand:0
+- P1>AnswerDecision:myHand-0&myHand-1
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1NODECISION

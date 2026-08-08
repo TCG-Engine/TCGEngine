@@ -25,7 +25,11 @@ function SWUConsumeShieldToken($unit): bool {
     if ($unit === null || !is_array($unit->Subcards ?? null)) return false;
     // SEC_046 Galen Erso — if the enemy Galen named "Shield", the owner's Shield tokens have lost their
     // damage-prevention ability: don't consume/prevent (the token stays attached but does nothing).
-    if (_SWUGalenSuppressesCard(intval($unit->Owner ?? $unit->Controller ?? 0), 'SOR_T02')) return false;
+    // ⚠ Keyed on the host's CONTROLLER, not its Owner: per CR 6 a TOKEN has no printed owner — whoever
+    // controls it owns it. On a stolen host the two diverge (owner stays with the original player while
+    // control moves), and it is the CONTROLLER that owns the shield. Reading Owner here let a shield
+    // stolen from Galen's own side keep preventing.
+    if (_SWUGalenSuppressesCard(intval($unit->Controller ?? $unit->Owner ?? 0), 'SOR_T02')) return false;
     foreach ($unit->Subcards as $key => $sub) {
         $cardID  = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $removed = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
@@ -2003,8 +2007,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     }
     // SEC_033 Sly Moore: "each enemy unit gets -2/-0 while attacking a base this phase." The marker sits
     // on the (enemy) attacker; reduce its power only when the target is a base.
-    if (is_array($attacker->TurnEffects ?? null) && in_array('SWU_SEC033', $attacker->TurnEffects, true)
-        && strpos((string)$targetMzID, 'Base') !== false) {
+    if (_SWUSlyMooreDebuffs($attacker) && strpos((string)$targetMzID, 'Base') !== false) {
         $attackPower = max(0, $attackPower - 2);
     }
     // ASH_054 Pointless to Resist (upgrade) — "Attached unit gets -3/-0 while attacking a base."
@@ -2765,7 +2768,10 @@ function SWUGetAllValidAttackTargets(int $attackerCtrl, $attackerObj, string $ar
 function _SWUUnitHardCantAttack($unit): bool {
     if ($unit === null) return false;
     $cid = $unit->CardID ?? '';
-    if ($cid === 'JTL_059' || $cid === 'LOF_044') return true;
+    // The printed "This unit can't attack" is the unit's OWN constant ability, so a blank (SEC_054
+    // Exiled from the Force) removes it. The CANT_ATTACK turn-effect below is an external restriction,
+    // not an ability of the unit, and survives blanking.
+    if (($cid === 'JTL_059' || $cid === 'LOF_044') && !LostAbilities($unit)) return true;
     if (is_array($unit->TurnEffects ?? null) && in_array('CANT_ATTACK', $unit->TurnEffects, true)) return true;
     return false;
 }
@@ -2778,8 +2784,9 @@ function _SWUUnitCanAttackNow(int $player, $unit, string $arenaName): bool {
     if (SWUObjGone($unit)) return false;
     if (intval($unit->Status ?? 0) !== 1) return false;                        // exhausted
     $cid = $unit->CardID ?? '';
-    if ($cid === 'JTL_059' || $cid === 'LOF_044') return false;                // "This unit can't attack."
-    if ($cid === 'LOF_063' && intval($unit->Damage ?? 0) <= 0) return false;   // Oggdo Bogdo — only while damaged
+    $blanked = LostAbilities($unit);   // a blanked unit keeps none of these printed restrictions
+    if (!$blanked && ($cid === 'JTL_059' || $cid === 'LOF_044')) return false; // "This unit can't attack."
+    if (!$blanked && $cid === 'LOF_063' && intval($unit->Damage ?? 0) <= 0) return false;   // Oggdo Bogdo — only while damaged
     return !empty(SWUGetAllValidAttackTargets($player, $unit, $arenaName));
 }
 
@@ -2832,18 +2839,19 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
         $playerID = $savedPID;
         return;
     }
-    // JTL_059 Corporate Defense Shuttle: "This unit can't attack." Hard no-op.
-    if (($attacker->CardID ?? '') === 'JTL_059') {
+    // JTL_059 Corporate Defense Shuttle: "This unit can't attack." Hard no-op. Skipped while the unit is
+    // blanked — these are its own printed constant abilities (SEC_054 Exiled from the Force).
+    if (($attacker->CardID ?? '') === 'JTL_059' && !LostAbilities($attacker)) {
         $playerID = $savedPID;
         return;
     }
     // LOF_063 Oggdo Bogdo: "This unit can't attack unless it's damaged." No-op while undamaged.
-    if (($attacker->CardID ?? '') === 'LOF_063' && intval($attacker->Damage ?? 0) <= 0) {
+    if (($attacker->CardID ?? '') === 'LOF_063' && intval($attacker->Damage ?? 0) <= 0 && !LostAbilities($attacker)) {
         $playerID = $savedPID;
         return;
     }
     // LOF_044 Loth-Wolf: "This unit can't attack." Hard no-op.
-    if (($attacker->CardID ?? '') === 'LOF_044') {
+    if (($attacker->CardID ?? '') === 'LOF_044' && !LostAbilities($attacker)) {
         $playerID = $savedPID;
         return;
     }

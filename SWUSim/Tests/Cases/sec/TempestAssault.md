@@ -46,3 +46,55 @@ P2BASEDMG:0
 P2SPACEARENAUNIT:0:DAMAGE:0
 P2SPACEARENAUNIT:1:DAMAGE:0
 P1NODECISION
+
+---
+
+# DamageToYOUROwnBase_DoesNotArmTheAoE
+#// SEC_144 Tempest Assault — the gate is "damage to an ENEMY base". Damage P1 deals to P1's OWN base
+#// (SEC_164 Warrior of Clan Ordo's self-damage when the disclose is declined) must not satisfy it, so
+#// Tempest Assault does nothing to the enemy space units.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: SEC_164:1:0
+WithP2SpaceArena: JTL_069:1:0
+WithP2SpaceArena: JTL_069:1:0
+WithP1Hand: SEC_144
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:-
+- P1>PlayHand:0
+
+## EXPECT
+P1BASEDMG:2
+P2BASEDMG:0
+P2SPACEARENAUNIT:0:DAMAGE:0
+P2SPACEARENAUNIT:1:DAMAGE:0
+
+---
+
+# EnemyBaseDamagedByAnABILITY_AlsoArmsTheAoE
+#// SEC_144 Tempest Assault — "you've DEALT damage to an enemy base this phase" is not combat-only. Here
+#// the base damage comes from a card ability rather than an attack — P1 plays SHD_178 Daring Raid at
+#// P2's base for 2 — and Tempest Assault still fires for 2 into each enemy space unit.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:6}
+P1OnlyActions: true
+WithP2SpaceArena: JTL_069:1:0
+WithP2SpaceArena: JTL_069:1:0
+WithP1Hand: SHD_178
+WithP1Hand: SEC_144
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+- P1>PlayHand:0
+
+## EXPECT
+P2BASEDMG:2
+P2SPACEARENAUNIT:0:DAMAGE:2
+P2SPACEARENAUNIT:1:DAMAGE:2

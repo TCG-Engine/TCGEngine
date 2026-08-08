@@ -112,3 +112,130 @@ WithP1Hand: SEC_195
 P2GROUNDARENACOUNT:0
 P1DISCARDCOUNT:1
 P1HANDCOUNT:0
+
+---
+
+# BaseCaptive_RescuableBeforeRegroupByL337
+#// SEC_195 Arrest — a base captive is a captured card like any other, so a generic "rescue a captured
+#// card" effect must be able to free it BEFORE the regroup phase. P1's base captures P2's SOR_095; P2
+#// then plays SHD_197 L3-37 ("You may rescue a captured card. If you don't, give a Shield token to this
+#// unit") and rescues it. SOR_095 returns to P2's arena EXHAUSTED (CR 8.34.3) and L3-37 gets NO Shield,
+#// because the rescue branch was taken.
+#// Regression guard: base captives live in a GlobalEffects flag rather than a Subcards slot, so a
+#// captive scan that only walks units in play cannot see them at all.
+
+## GIVEN
+CommonSetup: yyk/yyw
+WithP1Resources: 6
+WithP2Resources: 6
+WithP1Hand: SEC_195
+WithP2Hand: SHD_197
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:myTempZone-0
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:CARDID:SHD_197
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:1:CARDID:SOR_095
+P2GROUNDARENAUNIT:1:EXHAUSTED
+
+---
+
+# BaseCaptive_DeclineRescue_L337ShieldedInstead
+#// SEC_195 Arrest — the positive control for the section above: the same board, but P2 DECLINES the
+#// rescue. The "if you don't" branch fires, so L3-37 takes a Shield token and SOR_095 stays captured on
+#// P1's base (P2's arena holds only L3-37). This proves the rescue above was a real choice, not an
+#// unconditional side effect of playing L3-37.
+
+## GIVEN
+CommonSetup: yyk/yyw
+WithP1Resources: 6
+WithP2Resources: 6
+WithP1Hand: SEC_195
+WithP2Hand: SHD_197
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:-
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SHD_197
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# CapturedStolenUnit_RescuedByItsOWNERNotItsController
+#// SEC_195 Arrest — "its OWNER rescues it", which matters when the captured unit was stolen. P1 owns
+#// SHD_029; P2 plays SOR_224 Change of Heart to take control of it, then P1's Arrest captures it off P2.
+#// At regroup the owner (P1) rescues it, so it comes back to P1's arena exhausted — the theft does not
+#// survive the capture, and P2 ends with nothing.
+
+## GIVEN
+CommonSetup: yyk/yyk
+WithActivePlayer: 2
+WithP1Resources: 6
+WithP2Resources: 7
+WithP1Hand: SEC_195
+WithP2Hand: SOR_224
+WithP1GroundArena: SHD_029:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>Pass
+- P2>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SHD_029
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENACOUNT:0
+
+---
+
+# TwoBasesHoldCaptives_RescueOffersBothAndFreesOnlyThePicked
+#// SEC_195 Arrest — with a captive on EACH base, a generic rescue must offer both and free exactly the
+#// one chosen. P1's base captures SOR_095, P2's base captures SHD_029, then P1 plays SHD_197 L3-37 and
+#// is offered both captives (myTempZone-0 = the captive on P1's base, myTempZone-1 = the one on P2's).
+#// P1 rescues its own SHD_029 back out of P2's base; SOR_095 stays captured until the regroup phase,
+#// where it is rescued by its owner P2. Guards against a rescue that frees every captive at once, or
+#// that consumes the wrong base's store.
+
+## GIVEN
+CommonSetup: yyk/yyk
+WithP1Resources: 10
+WithP2Resources: 6
+WithP1Hand: [SEC_195 SHD_197]
+WithP2Hand: SEC_195
+WithP1GroundArena: SHD_029:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:myTempZone-1
+- P1>Pass
+- P2>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SHD_197
+P1GROUNDARENAUNIT:1:CARDID:SHD_029
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095

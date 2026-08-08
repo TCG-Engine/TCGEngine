@@ -10,5 +10,7 @@ $onAttackAbilities["JTL_046:0"] = function($player, $mzID) {
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
     DoGiveExperienceToken(intval($player), $mzID);
-    SWUDealDamageToUnit($mzID, 1, intval($player));
+    // Source = the HOST: this is an ability GRANTED to the attached unit, so the unit is dealing the
+    // damage to itself. Matters for SEC_050 Vigil, which only increases damage dealt "by another card".
+    SWUDealDamageToUnit($mzID, 1, intval($player), $mzID);
 };

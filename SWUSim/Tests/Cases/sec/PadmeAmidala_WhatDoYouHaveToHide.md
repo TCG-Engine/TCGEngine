@@ -315,3 +315,47 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:2
 P1LEADER:EXHAUSTED
+
+---
+
+# Negative_RevealAndDrawFromDeck_NoTrigger
+#// SEC_016 Padmé (front) — "reveal or discard 1 or more cards from your HAND". SOR_123 Recruit reveals a
+#// card and DRAWS it, but from the DECK, not the hand — so Padmé must not fire even though a reveal
+#// visibly happened. Companion to Negative_DiscardFromOwnDeck_NoTrigger on the reveal axis.
+## GIVEN
+CommonSetup: yyk/brk/{myLeader:SEC_016}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SOR_123
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:SOR_095
+## EXPECT
+P1LEADER:READY
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1NODECISION
+
+---
+
+# Negative_LookAtTopOfDeck_NoTrigger
+#// SEC_016 Padmé (front) — a "LOOK AT" effect is neither a reveal nor a discard, and it touches the DECK
+#// rather than the hand, so it must not fire her. R2-D2 (SOR_236, "When Played: Look at the top card of
+#// your deck. You may put it on the bottom") is played; Padmé stays ready and deals no damage.
+## GIVEN
+CommonSetup: yyk/brk/{myLeader:SEC_016}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SOR_236
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+## EXPECT
+P1LEADER:READY
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1NODECISION

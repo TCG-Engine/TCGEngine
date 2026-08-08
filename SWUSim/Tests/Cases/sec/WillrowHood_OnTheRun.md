@@ -203,3 +203,119 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# TwoUpgrades_EnemyCanReturn
+#// SEC_061 Willrow Hood — the RETURN-side mirror of the "exactly 1" boundary (only the defeat side was
+#//   covered). With 2 friendly upgrades the protection is off, so P1's SEC_200 Junior Senator ("may return
+#//   an upgrade that costs 3 or less to its owner's hand") DOES return one — Willrow drops to 1 upgrade
+#//   and the returned card lands in P2's hand.
+## GIVEN
+CommonSetup: yyw/grw/{myResources:2;handCardIds:SEC_200}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArenaUpgrade: 0:SOR_069
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2HANDCOUNT:1
+
+---
+
+# TokenShieldUpgrade_EnemyCantReturn
+#// SEC_061 Willrow Hood — the RETURN-side mirror for a TOKEN upgrade (only the token DEFEAT side was
+#//   covered). P2's Willrow bears exactly 1 friendly Shield token. P1 plays SEC_200 Junior Senator and
+#//   picks Willrow as the host, but the enemy return is blocked, so the Shield stays attached.
+#//   (A returned token would CEASE rather than go to hand, so "blocked" and "returned" are easy to tell
+#//   apart: the token is still on Willrow.)
+## GIVEN
+CommonSetup: yyw/grw/{myResources:2;handCardIds:SEC_200}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# OwnerDefeatsOwnUpgradeNotBlocked
+#// SEC_061 Willrow Hood — the owner-side DEFEAT mirror (only owner-RETURN was covered). The protection is
+#//   against ENEMY card abilities only, so P2 defeating its own lone upgrade with its own Confiscate
+#//   works — this is the same actor==controller rule as FriendlyDefeatNotBlocked, stated on the owner axis.
+## GIVEN
+CommonSetup: grw/grw/{theirResources:1;theirHandCardIds:SOR_251}
+WithActivePlayer: 2
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+## WHEN
+- P2>PlayHand:0
+## EXPECT
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# FriendlyReturnNotBlocked
+#// SEC_061 Willrow Hood — the RETURN-side mirror of FriendlyDefeatNotBlocked. Only ENEMY card abilities
+#//   are blocked, so Willrow's own controller returning his lone upgrade with their OWN SEC_200 Junior
+#//   Senator works: the upgrade leaves Willrow and goes back to P2's hand.
+## GIVEN
+CommonSetup: grw/yyw/{theirResources:2;theirHandCardIds:SEC_200}
+WithActivePlayer: 2
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2HANDCOUNT:1
+
+---
+
+# EnemyOwnedUpgradeOnWillrow_DoesNotBreakTheExactlyOneGate
+#// SEC_061 Willrow Hood — "exactly 1 FRIENDLY upgrade" counts by CONTROLLER, and per CR 2.e/3.5 a player
+#//   who plays an upgrade onto an ENEMY unit REMAINS its controller. So an upgrade P1 plays onto P2's
+#//   Willrow is P1's, not P2's — Willrow still has exactly ONE friendly upgrade and the protection holds.
+#//   P1 attaches Ambition's Reward (SEC_175, enemy-attachable per CR 2.e) onto P2's Willrow, which already
+#//   bears the P2-owned SOR_120, then Confiscates the FRIENDLY one → blocked, both upgrades remain.
+#//   ⚠ Confiscate's target OFFER lists both upgrades; the protection applies at RESOLUTION. Read the
+#//   outcome, not the offer — the offer alone looks exactly like "protection is off".
+## GIVEN
+CommonSetup: rrw/grw/{myResources:6;handCardIds:SEC_175,SOR_251}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:myTempZone-0
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+
+---
+
+# EnemyOwnedUpgradeOnWillrow_IsItselfUnprotected
+#// SEC_061 Willrow Hood — the complementary half: only FRIENDLY upgrades are protected, so the upgrade
+#//   P1 controls on P2's Willrow is fair game for P1's own Confiscate. Same board as the section above,
+#//   but P1 targets its OWN SEC_175 → it IS defeated, leaving only P2's SOR_120 attached. Together the two
+#//   sections prove the controller split is real in both directions.
+## GIVEN
+CommonSetup: rrw/grw/{myResources:6;handCardIds:SEC_175,SOR_251}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:myTempZone-1
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120

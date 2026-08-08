@@ -24,6 +24,20 @@ node regression/SWUDeck/touch-preview.mjs # one suite
 Requires the local stack up (`http://localhost:3100/TCGEngine`, override with `BASE=`) and the
 `Drixx` test login (CLAUDE.md `## Creds`). Suites log in themselves.
 
+**WebKit on macOS 14** (this box): Playwright ≥1.62 ships a frozen WebKit whose driver handshake
+fails, so `newPage()` hangs — it looks like "WebKit is broken here", and it is not. Side-install
+`playwright@1.52.0` and point the harness at it (the install lives outside the repo, so expect it
+to be gone next session; re-creating it takes ~3 minutes):
+
+```bash
+mkdir -p /tmp/pw152 && cd /tmp/pw152 && npm init -y && npm install playwright@1.52.0
+PLAYWRIGHT_WEBKIT_MODULE=/tmp/pw152/node_modules/playwright \
+  node regression/run-all.mjs SWUDeck
+```
+
+Suites that read `ENGINES=` (the three newest) take a comma-separated subset, e.g.
+`ENGINES=firefox,webkit`.
+
 ## Suites (`SWUDeck/`)
 
 | File | Covers |
@@ -34,6 +48,9 @@ Requires the local stack up (`http://localhost:3100/TCGEngine`, override with `B
 | `preview-stability.mjs` | After a long (>2s) hold the preview stays stably visible — samples visibility 12x, so flicker can't hide between snapshots — and does not intercept pointer events. |
 | `touch-drag-suppression.mjs` | `dragstart` is prevented on coarse-pointer devices (no yellow `.droppable` borders) but **still allowed on desktop**. |
 | `leader-tab-visibility.mjs` | Premier decks never show `Leader1`/`Leader2`; Twin Suns decks never show `Leaders` — including after pane switches, which re-render the tabs. |
+| `library-scroll-persistence.mjs` | The mobile library keeps its scroll position when you tap a card to add it. **Mutates a deck** (a tap adds a card), so it runs against scratch deck `900001` and restores its `Gamestate.txt` afterwards — never point `GAME` at a real deck. Its slow-image route is load-bearing: with a warm cache the bug does not reproduce at all. |
+| `card-tile-height.mjs` | The shared `Card()` renderer emits a tile height with a **unit** (it once emitted `height:87`, invalid and silently dropped, so lazy tiles had no height until their image loaded). Asserted on **desktop**, on the Cards pane — mobile and the Leaders/Bases panes deliberately override the height with `height:auto !important`. |
+| `preview-controls.mjs` | The touch preview's **X close** and the **leader flip** to the deployed Leader Unit side (`<CardID>_back`). Pins that an ordinary card gets NO flip, that controls are exempt from BOTH tap-to-dismiss and the post-long-press click suppressor (either one silently makes a rendered button dead), and that desktop hover is unchanged. |
 | `mobile-clipboard.mjs` | The deck menu's **Copy Text / Copy JSON / Copy Image** actually reach the clipboard on WebKit (every iOS browser), not just Chromium/Firefox. Pastes back to check the real symptom, **and** asserts each clipboard call is issued inside the click turn — the user-activation rule WebKit enforces but Playwright's WebKit does not, so an "await the payload first" refactor can't silently re-break iOS. Also asserts the menu no longer flashes an unconditional "copied!". |
 
 ## Shared harness (`lib.mjs`) — the de-brittling rules

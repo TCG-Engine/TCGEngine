@@ -67,3 +67,52 @@ WithP1GroundArena: SEC_237:1:0
 P1LEADER:NOTDEPLOYED
 P1GROUNDARENAUNIT:0:CARDID:SEC_237
 P1GROUNDARENAUNIT:0:HP:2
+
+---
+
+# VillainyOfficialStillPaysTheAspectPenalty
+#// SEC_009 Mon Mothma — the waiver is scoped to NON-Villainy Officials, so a Villainy Official is not
+#// covered. SEC_237 Supreme Council Aide (Villainy, Official, cost 1) is off-aspect for this board
+#// (base JTL_019 Vigilance + leader SEC_009 Command/Heroism), so it pays the full +2 penalty: 3
+#// resources, not the 1 the waiver would leave. The negative that proves the waiver's Villainy clause
+#// is load-bearing.
+
+## GIVEN
+CommonSetup: bgw/bbk/{
+  myLeader:SEC_009;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1Hand: SEC_237
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_237
+P1RESAVAILABLE:0
+
+---
+
+# Deployed_EnemyOfficialGetsNothing
+#// SEC_009 Mon Mothma (deployed) — "each other FRIENDLY Official unit" excludes the opponent's Officials.
+#// P2's SEC_237 Supreme Council Aide stays 2/2 while P1's copy is buffed to 2/3 by the same aura. The
+#// scope negative the friendly-side section cannot prove on its own.
+
+## GIVEN
+CommonSetup: gbk/brk/{myLeader:SEC_009:1:1:1;myBase:SOR_021;theirBase:SOR_021}
+WithP1GroundArena: SEC_237:1:0
+WithP2GroundArena: SEC_237:1:0
+
+## WHEN
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENAUNIT:0:CARDID:SEC_237
+P1GROUNDARENAUNIT:0:HP:3
+P2GROUNDARENAUNIT:0:CARDID:SEC_237
+P2GROUNDARENAUNIT:0:HP:2

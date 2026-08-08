@@ -53,3 +53,50 @@ WithP1Hand: SEC_235
 ## EXPECT
 P2RESAVAILABLE:0
 P2RESCOUNT:1
+
+---
+
+# OpponentHasExactlyOneResource_ExhaustsThatOne
+#// SEC_235 The Wrong Ride — "exhaust 2" is an upper bound. With only ONE resource in play (ready), that
+#// single resource is exhausted and the event resolves cleanly rather than fizzling for want of a
+#// second target.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP2Resources: 1:SOR_046:1
+WithP1Hand: SEC_235
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2RESAVAILABLE:0
+P2RESCOUNT:1
+P1DISCARDCOUNT:1
+P1NODECISION
+
+---
+
+# PlayedViaPlot_StillExhaustsTwo
+#// SEC_235 The Wrong Ride — it carries Plot, so it can be played out of the resource row when a leader
+#// deploys, and the exhaust-2 resolves exactly as from hand. P2 has 4 ready resources → 2. P1's own row
+#// stays at 8 (the played card is replaced from the top of the deck) with the 3 cost exhausted.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1Resources: 1:SEC_235:1,7:SOR_046:1
+WithP2Resources: 4:SOR_046:1
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P2RESAVAILABLE:2
+P1RESCOUNT:8
+P1RESAVAILABLE:5
+P1DECKCOUNT:1

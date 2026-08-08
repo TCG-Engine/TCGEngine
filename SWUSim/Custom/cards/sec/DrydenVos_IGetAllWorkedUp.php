@@ -21,7 +21,17 @@ $customDQHandlers["SEC_137#0"] = function($player, $parts, $lastDecision) {
     // (a "+X while attacking" value keyword not in ObjectCurrentPower). Add ObjectCurrentPower + effective
     // Raid so the bonus equals his current attack power (e.g. base 2 + Cody +1 + Raid 1 = 4 → +4 → 8).
     $raidVal = LostAbilities($obj) ? 0 : intval(GetKeyword_Raid_Value($obj) ?? 0);
-    SWUAddAttackPowerBonus($mz, intval(ObjectCurrentPower($obj)) + max(0, $raidVal));
-    $uid = intval($obj->UniqueID ?? 0);
-    if ($uid > 0) AddGlobalEffects(intval($player), 'SWU_CANT_READY_' . $uid);   // skip next regroup ready
+    // …and any "+N/+0 for this attack" already granted to him (Surprise Strike SOR_220 and friends),
+    // which lives in the same one-shot SWU_ATK_POWER_ channel rather than in ObjectCurrentPower.
+    // Omitting it under-doubles him whenever he is buffed by an attack-with rider.
+    $atkBonus = 0;
+    foreach (($obj->TurnEffects ?? []) as $te) {
+        if (preg_match('/^SWU_ATK_POWER_(\d+)$/', (string)$te, $m)) $atkBonus += intval($m[1]);
+    }
+    SWUAddAttackPowerBonus($mz, intval(ObjectCurrentPower($obj)) + max(0, $raidVal) + $atkBonus);
+    // "doesn't ready during the NEXT regroup phase" skips exactly one regroup ready step — it does NOT
+    // make him unreadyable, so a mid-phase "ready a unit" effect still works on him. That's the
+    // SWU_SKIP_REGROUP_READY_ flag; SOR_186's SWU_CANT_READY_ is the stronger "can't ready this round"
+    // wording and blocks those effects too.
+    SWUSkipNextRegroupReady($mz);
 };

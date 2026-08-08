@@ -96,3 +96,78 @@ WithP1GroundArenaUpgrade: 0:SEC_054
 ## EXPECT
 P1GROUNDARENAUNIT:0:HASKEYWORD:Grit
 P1GROUNDARENAUNIT:0:POWER:3
+
+
+---
+
+# NoGrit_WhenASecondEffectAlsoBlanksTheUnit
+#// SEC_054 Exiled from the Force — "loses all abilities EXCEPT for Grit" spares Grit from ITS OWN
+#// blanking. But a SECOND full-blanking effect has no such exception, so Grit must go too. P1's SOR_049 Obi-Wan Kenobi (innate Sentinel) wears Exiled and has Grit; P2's Galen Erso (SEC_046) then names
+#// "Obi-Wan Kenobi" — SOR_049's actual title — blanking every ability of a card P2's opponent owns. The host ends with NEITHER
+#// Sentinel NOR Grit.
+#// REGRESSION GUARD: the Grit exception used to be unconditional ("never suppress GRIT while Exiled is
+#// attached"), so it could not tell "blanked BY Exiled" from "blanked by Exiled AND something else".
+## GIVEN
+CommonSetup: bbk/bbw
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2Resources: 4
+WithP2Hand: SEC_046
+WithP1GroundArena: SOR_049:1:0
+WithP1GroundArenaUpgrade: 0:SEC_054
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Obi-Wan Kenobi
+## EXPECT
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Grit
+
+---
+
+# RemovesConstantAbilities_OwnAndGranted
+#// SEC_054 Exiled from the Force — "loses ... all abilities except for Grit" strips CONSTANT abilities,
+#// both the unit's own and any granted to it by another upgrade. LOF_063 Oggdo Bogdo normally "can't
+#// attack unless it's damaged" and here carries TWI_220 Shadowed Intentions ("can't be captured,
+#// defeated, or returned to hand by enemy card abilities"). With Exiled attached, both are gone: the
+#// undamaged Oggdo Bogdo attacks freely for 5, and P2's SOR_078 Vanquish defeats it outright.
+
+## GIVEN
+CommonSetup: bbk/bbk
+WithActivePlayer: 1
+WithP2Resources: 5
+WithP1GroundArena: LOF_063:1:0
+WithP1GroundArenaUpgrade: 0:SEC_054
+WithP1GroundArenaUpgrade: 0:TWI_220
+WithP2Hand: SOR_078
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2BASEDMG:5
+P1GROUNDARENACOUNT:0
+
+---
+
+# GrantedGritCanItselfBeRemovedByAKeywordStrip
+#// SEC_054 Exiled from the Force — the Grit it hands back is an ordinary keyword, so an effect that
+#// removes keywords takes it away too. LOF_049 Jedi Guardian carries 4 damage and Exiled, so its Grit
+#// makes it 4 + 4 = 8 power. P2's SEC_185 Screeching TIE Fighter attacks and strips its keywords for
+#// the phase: Grit goes, and the Guardian attacks for just its printed 4.
+
+## GIVEN
+CommonSetup: bbw/yyk
+WithActivePlayer: 2
+WithP1GroundArena: LOF_049:1:4
+WithP1GroundArenaUpgrade: 0:SEC_054
+WithP2SpaceArena: SEC_185:1:0
+
+## WHEN
+- P2>AttackSpaceArena:0:BASE
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Grit
+P1GROUNDARENAUNIT:0:POWER:4

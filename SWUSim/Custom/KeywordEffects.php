@@ -1,4 +1,21 @@
 <?php
+// A "granting" upgrade must be ACTIVE to grant. `_SWUUnitHasUpgrade` only asks whether the upgrade is
+// physically attached, which is right for "is this unit upgraded?" questions but WRONG for every
+// "attached unit gains <keyword>" grant: a BLANKED upgrade (SEC_046 Galen Erso naming it, LOF_202 Mind
+// Trick, SEC_054 Exiled from the Force) grants nothing. Same rule the friendly-unit grant loops already
+// apply to a blanked granting UNIT. Kept separate from `_SWUUnitHasUpgrade` because that helper has ~74
+// call sites, many of which legitimately want "attached at all" regardless of blanking.
+function _SWUUnitHasActiveUpgrade(object $unit, string $upgradeCardID): bool {
+    // Iterate via GetUpgradesOnUnit (not the raw Subcards array) so every entry is a normalized OBJECT —
+    // raw Subcards can hold plain arrays, and an array entry would silently bypass the LostAbilities check.
+    foreach (GetUpgradesOnUnit($unit) as $sub) {
+        if (($sub->CardID ?? '') !== $upgradeCardID || !empty($sub->removed)) continue;
+        if (LostAbilities($sub)) continue;   // blanked → grants nothing
+        return true;
+    }
+    return false;
+}
+
 // KeywordEffects.php
 // Conditional and passively-granted keyword logic for SWUSim.
 //
@@ -23,9 +40,25 @@ $keywordSuppressors = [
 ];
 
 function SWUKeywordSuppressed($obj, string $keyword): bool {
+    global $keywordSuppressors;
+    // ── Explicit "loses <keyword>" effects are checked FIRST. They strip a keyword no matter where it
+    // came from, so they also take away the Grit that SEC_054 Exiled from the Force hands back — the
+    // Exiled exception below is only meant to survive Exiled's OWN blanking, not an external strip
+    // (SEC_185 Screeching TIE Fighter: "it loses its keywords (and can't gain keywords) for this phase").
+    if (!empty($obj->TurnEffects)) {
+        foreach ($obj->TurnEffects as $te) {
+            if (!isset($keywordSuppressors[$te])) continue;
+            if (in_array('*', $keywordSuppressors[$te], true)
+                || in_array($keyword, $keywordSuppressors[$te], true)) return true;   // '*' = all keywords
+        }
+    }
     // SEC_054 Exiled from the Force — "loses all abilities EXCEPT for Grit." Grit survives the ability
     // loss (and is re-granted via HasConditionalKeyword_Grit), so never suppress GRIT for a SEC_054 host.
-    if ($keyword === 'GRIT' && is_object($obj) && _SWUUnitHasUpgrade($obj, 'SEC_054')) return false;
+    // …but only while Exiled is the ONLY thing blanking it. If a SECOND effect (SEC_046 Galen, LOF_202
+    // Mind Trick, SEC_038 Condemn, SHD_072 Imprisoned, a phase marker…) also blanks the unit, that effect
+    // removes ALL abilities with no Grit exception, so Grit goes too.
+    if ($keyword === 'GRIT' && is_object($obj) && _SWUUnitHasUpgrade($obj, 'SEC_054')
+            && !LostAbilities($obj, 'SEC_054')) return false;
     // A unit that has lost all abilities has NO keyword — innate, granted, or gained.
     if (LostAbilities($obj)) return true;
     // ASH_040 Poe Dameron — "All units lose Sentinel." Field-presence: while any Poe is in play (either
@@ -40,14 +73,7 @@ function SWUKeywordSuppressed($obj, string $keyword): bool {
         $loth_opp = GetOpponent(intval($obj->Controller ?? 0));
         if ($loth_opp > 0 && _SWUCountActiveUnitsWithCardID($loth_opp, 'ASH_068') > 0) return true;
     }
-    global $keywordSuppressors;
-    if (empty($obj->TurnEffects)) return false;
-    foreach ($obj->TurnEffects as $te) {
-        if (!isset($keywordSuppressors[$te])) continue;
-        if (in_array('*', $keywordSuppressors[$te], true)
-            || in_array($keyword, $keywordSuppressors[$te], true)) return true;   // '*' = all keywords
-    }
-    return false;
+    return false;   // the explicit $keywordSuppressors pass already ran at the top of this function
 }
 
 // CR: a unit that "loses all abilities" has none and CAN'T gain abilities — this gates innate,
@@ -68,7 +94,11 @@ function _SWUBrainInvadersInPlay(): bool {
     return false;
 }
 
-function LostAbilities($obj): bool {
+// $ignoreUpgradeCardID: skip ONE attached upgrade when deciding whether the unit is blanked. Used to ask
+// "is this unit blanked by something OTHER than <this upgrade>?" — SEC_054 Exiled from the Force needs it,
+// because its own blanking spares Grit while a SECOND blanking source must take Grit away too. Without the
+// parameter that question is circular (Exiled would always see itself and answer "yes, blanked").
+function LostAbilities($obj, string $ignoreUpgradeCardID = ''): bool {
     if ($obj === null) return false;
     // TWI_255 Brain Invaders — "Each leader loses all abilities except for epic actions and can't gain
     // abilities." A deployed leader UNIT loses all its abilities/keywords while a Brain Invaders is in
@@ -81,10 +111,12 @@ function LostAbilities($obj): bool {
     if (!empty($obj->TurnEffects) && in_array('SEC_157_DEF', $obj->TurnEffects, true)) return true; // One Way Out — defender loses all abilities for this attack
     if (!empty($obj->TurnEffects) && in_array('LAW_132', $obj->TurnEffects, true)) return true; // The Tree Remembers — loses all abilities this phase
     foreach (GetUpgradesOnUnit($obj) as $u) {
-        if (($u->CardID ?? '') === 'SHD_072') return true;
+        $uCid = $u->CardID ?? '';
+        if ($ignoreUpgradeCardID !== '' && $uCid === $ignoreUpgradeCardID) continue;
+        if ($uCid === 'SHD_072') return true;
         // SEC_054 Exiled from the Force — "loses all abilities except for Grit." Full ability loss here;
         // the Grit exception is handled in SWUKeywordSuppressed (GRIT survives + is re-granted).
-        if (($u->CardID ?? '') === 'SEC_054') return true;
+        if ($uCid === 'SEC_054') return true;
     }
     // SEC_046 Galen Erso — a non-leader card owned by Galen's opponent, whose name Galen named, loses
     // all abilities while Galen is in play. (An in-play arena object always has Owner set.)
@@ -205,7 +237,7 @@ function IsLeaderUnit($obj): bool {
     // ASH_135 The Darksaber — "Attached unit is a leader unit." Same derived-leader status as a leader
     // Pilot subcard above; the host stays a normal Unit for defeat/bounce/return (only its status reads
     // as a leader unit), mirroring the JTL_001 pattern.
-    if (_SWUUnitHasUpgrade($obj, 'ASH_135')) return true;
+    if (_SWUUnitHasActiveUpgrade($obj, 'ASH_135')) return true;
     return false;
 }
 
@@ -522,13 +554,17 @@ function _SWUYularenGrants($obj, string $kw): bool {
 function HasConditionalKeyword_Grit($obj) {
     if (_SWUAsh008GrantsKeyword($obj, 'Grit_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     if (_SWUGhostSharesKeyword($obj, 'GRIT')) return true;   // JTL_053 The Ghost keyword share
-    if (is_object($obj) && _SWUUnitHasUpgrade($obj, 'SEC_054')) return true;   // SEC_054 grants Grit
+    // SEC_054 grants Grit — but not when a SECOND blanking effect is also on the unit (see the matching
+    // gate in SWUKeywordSuppressed). Otherwise the re-grant would hand Grit back after the other effect
+    // stripped it.
+    if (is_object($obj) && _SWUUnitHasUpgrade($obj, 'SEC_054')
+            && !LostAbilities($obj, 'SEC_054')) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'GRIT')) return true;
     if (_SWUYularenGrants($obj, 'GRIT')) return true;
     // JTL_150 Biggs Darklighter (pilot): if the attached unit is a Speeder, it gains Grit.
-    if (_SWUUnitHasUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Speeder')) return true;
+    if (_SWUUnitHasActiveUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Speeder')) return true;
     // LOF_238 Darth Revan's Lightsabers: "If attached unit is a Sith, it gains Grit."
-    if (_SWUUnitHasUpgrade($obj, 'LOF_238') && HasTrait($obj->CardID ?? '', 'Sith')) return true;
+    if (_SWUUnitHasActiveUpgrade($obj, 'LOF_238') && HasTrait($obj->CardID ?? '', 'Sith')) return true;
     switch ($obj->CardID) {
         case 'TWI_050': // Luminara Unduli — while Coordinate is active
             return IsCoordinateActive($obj->Controller);
@@ -570,7 +606,7 @@ function _SWUSEC104AuraActive($obj): bool {
     if ($ctrl <= 0) return false;
     foreach (GetUnitsInPlay($ctrl) as $u) {
         if (!empty($u->removed) || intval($u->UniqueID ?? 0) === intval($obj->UniqueID ?? 0)) continue;
-        if (intval($u->Status ?? 0) === 1 && _SWUUnitHasUpgrade($u, 'SEC_104')) return true;
+        if (intval($u->Status ?? 0) === 1 && _SWUUnitHasActiveUpgrade($u, 'SEC_104')) return true;
     }
     return false;
 }
@@ -600,8 +636,8 @@ function HasConditionalKeyword_Overwhelm($obj) {
     if (($obj->CardID ?? '') !== 'TS26_05' && intval($obj->Controller ?? 0) > 0 && _SWULeaderDeployed(intval($obj->Controller), 'TS26_05')) return true;
     // TS26_05 Savage Opress (front, undeployed) — friendly unit with the most power gains Overwhelm.
     if (_SWUSavageFrontGrants($obj)) return true;
-    if (_SWUUnitHasUpgrade($obj, 'TWI_119')) return true;   // TWI_119 Nameless Valor — "Attached unit gains Overwhelm."
-    if (_SWUUnitHasUpgrade($obj, 'ASH_181')) return true;   // ASH_181 Mark My Words — "Attached unit gains Overwhelm."
+    if (_SWUUnitHasActiveUpgrade($obj, 'TWI_119')) return true;   // TWI_119 Nameless Valor — "Attached unit gains Overwhelm."
+    if (_SWUUnitHasActiveUpgrade($obj, 'ASH_181')) return true;   // ASH_181 Mark My Words — "Attached unit gains Overwhelm."
     if (_SWUSEC104AuraActive($obj)) return true;   // SEC_104 aura
     // SEC_099 Naboo Royal Starship — each friendly LEADER unit gains Overwhelm.
     if (IsLeaderUnit($obj)) {
@@ -623,7 +659,7 @@ function HasConditionalKeyword_Overwhelm($obj) {
             return intval($obj->Controller ?? 0) > 0 && PlayerHasTheForce(intval($obj->Controller));
     }
     // JTL_150 Biggs Darklighter (pilot): if the attached unit is a Fighter, it gains Overwhelm.
-    if (_SWUUnitHasUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Fighter')) return true;
+    if (_SWUUnitHasActiveUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Fighter')) return true;
     foreach (GetUnitsInPlay($obj->Controller) as $u) {
         if ($u->UniqueID === $obj->UniqueID) continue;
         switch ($u->CardID) {
@@ -711,21 +747,21 @@ function HasConditionalKeyword_Sentinel($obj) {
     if (_SWUAsh008GrantsKeyword($obj, 'Sentinel_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
     // TS26_50 General Grievous / TS26_20 501st Veteran — "While this unit is undamaged, it gains Sentinel."
     if (in_array($obj->CardID ?? '', ['TS26_50', 'TS26_20'], true) && intval($obj->Damage ?? 0) === 0) return true;
-    if (_SWUUnitHasUpgrade($obj, 'TWI_071')) return true;   // TWI_071 Unshakeable Will — "Attached unit gains Sentinel."
-    if (_SWUUnitHasUpgrade($obj, 'TS26_22')) return true;  // TS26_22 The Darksaber — "Attached unit gains Sentinel."
-    if (_SWUUnitHasUpgrade($obj, 'JTL_058')) return true;   // JTL_058 Academy Graduate (pilot) — "Attached unit gains Sentinel."
+    if (_SWUUnitHasActiveUpgrade($obj, 'TWI_071')) return true;   // TWI_071 Unshakeable Will — "Attached unit gains Sentinel."
+    if (_SWUUnitHasActiveUpgrade($obj, 'TS26_22')) return true;  // TS26_22 The Darksaber — "Attached unit gains Sentinel."
+    if (_SWUUnitHasActiveUpgrade($obj, 'JTL_058')) return true;   // JTL_058 Academy Graduate (pilot) — "Attached unit gains Sentinel."
     // SEC_071 (upgrade) — "While attached unit is exhausted, it gains Sentinel."
-    if (_SWUUnitHasUpgrade($obj, 'SEC_071') && intval($obj->Status ?? 1) === 0) return true;
+    if (_SWUUnitHasActiveUpgrade($obj, 'SEC_071') && intval($obj->Status ?? 1) === 0) return true;
     // ASH_243 Darth Vader — Shielded + "While this unit is ready, he gains Sentinel."
     if (($obj->CardID ?? '') === 'ASH_243' && intval($obj->Status ?? 1) === 1) return true;
     // ASH_066 Luke's Jedi Lightsaber (upgrade) — "If attached unit is Luke Skywalker, he gains Sentinel."
-    if (_SWUUnitHasUpgrade($obj, 'ASH_066') && SWUObjectTitle($obj) === 'Luke Skywalker') return true;
+    if (_SWUUnitHasActiveUpgrade($obj, 'ASH_066') && SWUObjectTitle($obj) === 'Luke Skywalker') return true;
     // ASH_198 Nowhere to Hide (upgrade) — "Attached unit gains Sentinel."
-    if (_SWUUnitHasUpgrade($obj, 'ASH_198')) return true;
+    if (_SWUUnitHasActiveUpgrade($obj, 'ASH_198')) return true;
     // LOF_261 Constructed Lightsaber (upgrade) — "If attached unit is a non-Heroism, non-Villainy unit, it
     // gains Sentinel." (Its Villainy→Raid 2 and Heroism→Restore 2 branches live in the Raid/Restore keyword
     // functions; this third branch was missing.)
-    if (_SWUUnitHasUpgrade($obj, 'LOF_261') && _SWUIsNeutralCard($obj->CardID ?? '')) return true;
+    if (_SWUUnitHasActiveUpgrade($obj, 'LOF_261') && _SWUIsNeutralCard($obj->CardID ?? '')) return true;
     // ASH_007 Grand Admiral Sloane (deployed) — each OTHER friendly unit gains Sentinel.
     if (intval($obj->Controller ?? 0) > 0) {
         $self007 = intval($obj->UniqueID ?? 0);
@@ -997,7 +1033,7 @@ function GetConditionalKeyword_Raid_Value($obj) {
     $amount = 0;
     $amount += _SWUGhostSharesKeywordValue($obj, 'RAID');   // JTL_053 The Ghost keyword share (additive)
     // TWI_169 Clone Cohort (upgrade) — "Attached unit gains Raid 2."
-    if (_SWUUnitHasUpgrade($obj, 'TWI_169')) $amount += 2;
+    if (_SWUUnitHasActiveUpgrade($obj, 'TWI_169')) $amount += 2;
     // TWI_164 Hevy — "Coordinate - Raid 2."
     if (($obj->CardID ?? '') === 'TWI_164' && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 2;
     // TWI_196 Plo Koon — "Coordinate - Raid 3."
@@ -1130,6 +1166,9 @@ function GetConditionalKeyword_Raid_Value($obj) {
         }
     }
     foreach (GetUpgradesOnUnit($obj) as $u) {
+        // A BLANKED upgrade grants nothing (SEC_046 Galen Erso naming it, LOF_202 Mind Trick, …) —
+        // same rule the friendly-unit grant loop already applies to a blanked granting UNIT.
+        if (LostAbilities($u)) continue;
         switch ($u->CardID) {
             case 'JTL_211': // Independent Smuggler (pilot) — "Attached unit gains Raid 1."
                 $amount += 1;
@@ -1165,7 +1204,7 @@ function GetConditionalKeyword_Restore_Value($obj) {
     $amount = 0;
     $amount += _SWUGhostSharesKeywordValue($obj, 'RESTORE');   // JTL_053 The Ghost keyword share (additive)
     // ASH_114 Sabine's Lightsaber (upgrade) — "If attached unit is Sabine Wren or a Force unit, it gains Restore 2."
-    if (_SWUUnitHasUpgrade($obj, 'ASH_114')
+    if (_SWUUnitHasActiveUpgrade($obj, 'ASH_114')
         && (SWUObjectTitle($obj) === 'Sabine Wren' || TraitContains($obj, 'Force'))) $amount += 2;
     // ASH_122 Consortium StarViper — "While you have the initiative, this unit gains Restore 2."
     if (($obj->CardID ?? '') === 'ASH_122' && HasInitiative(intval($obj->Controller ?? 0))) $amount += 2;
@@ -1176,10 +1215,10 @@ function GetConditionalKeyword_Restore_Value($obj) {
         }
     }
     // TWI_051 For The Republic — "Attached unit gains: 'Coordinate - Restore 2.'"
-    if (_SWUUnitHasUpgrade($obj, 'TWI_051') && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 2;
+    if (_SWUUnitHasActiveUpgrade($obj, 'TWI_051') && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 2;
     // TWI_062 Daughter of Dathomir — "While this unit is undamaged, it gains Restore 2."
     if (($obj->CardID ?? '') === 'TWI_062' && intval($obj->Damage ?? 0) === 0) $amount += 2;
-    if (_SWUUnitHasUpgrade($obj, 'TS26_37')) $amount += 1;  // TS26_37 Abandoned the Order — attached unit gains Restore 1
+    if (_SWUUnitHasActiveUpgrade($obj, 'TS26_37')) $amount += 1;  // TS26_37 Abandoned the Order — attached unit gains Restore 1
     if (_SWUYularenGrants($obj, 'RESTORE')) $amount += 1;   // JTL_047 Yularen (Restore 1 to Vehicles)
     if (_SWUSEC104AuraActive($obj)) $amount += 1;           // SEC_104 aura — Restore 1
     // LOF_105 Oppo Rancisis — "gains Restore 2 while another friendly unit has Restore."
@@ -1210,6 +1249,9 @@ function GetConditionalKeyword_Restore_Value($obj) {
         }
     }
     foreach (GetUpgradesOnUnit($obj) as $u) {
+        // A BLANKED upgrade grants nothing (SEC_046 Galen Erso naming it, LOF_202 Mind Trick, …) —
+        // same rule the friendly-unit grant loop already applies to a blanked granting UNIT.
+        if (LostAbilities($u)) continue;
         switch ($u->CardID) {
             case 'LOF_053': // Heirloom Lightsaber — "If attached unit is a Force unit, it gains Restore 1."
                 if (TraitContains($obj, 'Force')) $amount += 1;

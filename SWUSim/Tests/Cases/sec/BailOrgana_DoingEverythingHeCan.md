@@ -267,3 +267,105 @@ WithP1Hand: [SOR_095 SOR_046 SOR_095]
 P1LEADER:NOTDEPLOYED
 P1HANDCOUNT:3
 P1DISCARDCOUNT:0
+
+---
+
+# Deploy_OnlyOneCardInHand_NotAvailable
+#// SEC_008 Bail Organa — the non-epic deploy's cost is "[Exhaust, DISCARD 2 CARDS from your hand]". With
+#// only ONE card in hand the cost cannot be paid, so the deploy is unavailable: Bail stays undeployed and
+#// ready, and the single card is not discarded. (Deploy_DiscardTwo_NonEpicRepeatable is the payable case.)
+## GIVEN
+CommonSetup: ggw/rrk/{myLeader:SEC_008}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SOR_095
+## WHEN
+- P1>DeployLeader
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1LEADER:READY
+P1HANDCOUNT:1
+P1DISCARDCOUNT:0
+
+---
+
+# Deploy_EmptyHand_NotAvailable
+#// SEC_008 Bail Organa — the same gate with an EMPTY hand: nothing to discard, so the non-epic deploy is
+#// not available and Bail stays undeployed and ready.
+## GIVEN
+CommonSetup: ggw/rrk/{myLeader:SEC_008}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+## WHEN
+- P1>DeployLeader
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1LEADER:READY
+P1DISCARDCOUNT:0
+
+---
+
+# Deployed_HealOnResourcePlayDrivenByACardAbility
+#// SEC_008 Bail Organa (deployed) — "When you play a card from your resources: Heal 1 damage from your
+#// base" is about the ZONE the card came from, not about which keyword got it there. Here neither the
+#// Plot deploy window nor Smuggle is involved: P1 plays SEC_245 When Has Become Now from HAND, and its
+#// ability plays SEC_034 Cad Bane out of the resource row. That resource-play still heals 1 (5 → 4).
+#// Regression: the heal was hooked onto the Plot and Smuggle routes individually, so an ability that
+#// plays from resources through its own nested play silently skipped it.
+#// Resources: 14 − 3 (SEC_245, Villainy off-aspect here) − 7 (Cad Bane, Villainy off-aspect) = 4 ready.
+
+## GIVEN
+CommonSetup: bgw/bbk/{
+  myLeader:SEC_008:1:1:1;
+  myBase:JTL_019;
+  myBaseDamage:5;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1:SEC_034:1,13:SOR_095:1
+WithP1Hand: SEC_245
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myResources-0
+
+## EXPECT
+P1BASEDMG:4
+P1GROUNDARENACOUNT:3
+P1RESAVAILABLE:4
+
+---
+
+# LeaderActionUnavailableWhileExhausted
+#// SEC_008 Bail Organa — both of his front-side Actions cost "Exhaust", so neither is available while
+#// the leader is already exhausted. A friendly unit WAS defeated this phase and P1 holds 4 resources and
+#// 2 cards, so every other condition for the return-a-resource Action is met — only the exhaust cost
+#// blocks it. Nothing is returned, nothing is ramped, and the hand and deck are untouched.
+
+## GIVEN
+CommonSetup: bgw/bbk/{
+  myLeader:SEC_008:0;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: [SOR_095 SOR_046]
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:EXHAUSTED
+P1LEADER:NOTDEPLOYED
+P1RESCOUNT:4
+P1HANDCOUNT:2
+P1DECKCOUNT:2
+P1NODECISION

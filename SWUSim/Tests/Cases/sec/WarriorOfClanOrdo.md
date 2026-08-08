@@ -103,3 +103,25 @@ WithP2Deck: SOR_095
 P2BASEDMG:4
 P1BASEDMG:2
 P1LEADER:EXHAUSTED
+
+---
+
+# EmptyHand_NoDisclosePrompt_AutoSelfDamage
+#// SEC_164 Warrior of Clan Ordo — the empty-hand boundary of the "cannot disclose" case. With NO cards
+#// in hand at all there is nothing to reveal, so no prompt appears and the "if you don't" clause deals
+#// 2 to your own base automatically. Distinct from the section above, where a card was held but carried
+#// the wrong aspect.
+
+## GIVEN
+CommonSetup: rrw/grw/{myResources:1}
+P1OnlyActions: true
+WithP1GroundArena: SEC_164:1:0
+
+## WHEN
+- P1>AttackGroundArena:0
+
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:2
+P1HANDCOUNT:0
+P1NODECISION

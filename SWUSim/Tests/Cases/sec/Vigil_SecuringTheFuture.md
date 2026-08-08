@@ -210,3 +210,47 @@ WithP1SpaceArena: SEC_050:1:4
 
 ## EXPECT
 P1SPACEARENACOUNT:0
+
+---
+
+# PreventedToZero_TheIncreaseDoesNotBringItBack
+#// SEC_050 Vigil — the +1 is a REPLACEMENT for damage that "would be dealt", so once preventions have
+#// reduced an instance to zero there is nothing left to replace. TWI_053 Finn "On the Run" completes an
+#// attack and marks Vigil with "prevent 1 of any damage this phase". P2's SHD_042 Concord Dawn
+#// Interceptors (1 power) then attacks Vigil: the 1 damage is prevented to 0 and Vigil stays UNDAMAGED.
+#// Regression: applying the +1 before the prevention gave 1 + 1 − 1 = 1 damage instead of 0.
+
+## GIVEN
+CommonSetup: bbw/bbw
+WithActivePlayer: 1
+WithP1GroundArena: TWI_053:1:0
+WithP1SpaceArena: SEC_050:1:0
+WithP2SpaceArena: SHD_042:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:mySpaceArena-0
+- P2>AttackSpaceArena:0:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:DAMAGE:0
+
+---
+
+# SelfDealtDamageFromAGrantedAbility_NotIncreased
+#// SEC_050 Vigil — the increase is scoped to damage dealt "by ANOTHER card". An ability GRANTED to Vigil
+#// by an attached upgrade is Vigil's own ability, so damage it deals to Vigil is self-dealt and takes no
+#// +1. JTL_046 Paige Tico gives the host "On Attack: give an Experience token to this unit, then deal 1
+#// damage to it": Vigil attacks and ends with exactly 1 damage, not 2.
+
+## GIVEN
+CommonSetup: bbw/bbw
+WithActivePlayer: 1
+WithP1SpaceArena: SEC_050:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_046
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1SPACEARENAUNIT:0:DAMAGE:1

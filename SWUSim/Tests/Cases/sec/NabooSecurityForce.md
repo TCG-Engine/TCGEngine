@@ -94,3 +94,31 @@ WithP2Deck: SOR_095
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# NGOR_DefeatedUnderEnemyControl_TheNewControllerDisclosesAndGrants
+#// SEC_120 Naboo Security Force — "When Defeated: … give a FRIENDLY unit Sentinel" resolves for whoever
+#// controls the unit at the moment it is defeated. P2 plays JTL_043 No Glory, Only Results on P1's
+#// SEC_120: control changes first, so P2 owns the When Defeated — P2 discloses a Command card from P2's
+#// hand and grants Sentinel to one of P2's OWN units, not to anything of P1's.
+
+## GIVEN
+CommonSetup: ggw/bbk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SEC_120:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP2Hand: [JTL_043 SEC_080]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:myHand-0
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_164
+P2GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P2NODECISION

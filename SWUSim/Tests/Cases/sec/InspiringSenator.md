@@ -67,3 +67,30 @@ WithP1Hand: SEC_081
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SEC_081
 P1RESAVAILABLE:0
+
+---
+
+# NGOR_DefeatedUnderEnemyControl_DiscountGoesToTheNewController
+#// SEC_261 Inspiring Senator — "When Defeated: the next Official unit YOU play this phase costs 1 less."
+#// "You" is the unit's controller when it is defeated. P2 plays JTL_043 No Glory, Only Results on P1's
+#// Inspiring Senator, so control changes before the defeat and the discount lands on P2: P2's next
+#// Official (SEC_237 Supreme Council Aide, cost 1) costs 0.
+
+## GIVEN
+CommonSetup: ggw/bbk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SEC_261:1:0
+WithP2Hand: [JTL_043 SEC_237]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>Pass
+- P2>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_237
+P2RESAVAILABLE:1

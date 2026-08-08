@@ -301,8 +301,20 @@ function _ProfilePaneStyle(): string {
          // instead of relying on each panel's own inconsistent side margins.
          // stretch = every column matches the tallest column; height:auto so 'tallest' is the tallest
          // column's content (not the full viewport).
-         . ".core-wrapper { gap: 20px; padding: 20px; box-sizing: border-box; align-items: stretch; height: auto; }\n"
-         . ".core-wrapper > .container, .core-wrapper > .profile-pane { margin: 0 !important; }\n"
+         // flex-wrap + a flex-basis are what make this page responsive AT ALL. mobile-responsive.css
+         // has `@media (max-width:768px){ .core-wrapper{flex-direction:column} }`, but that
+         // stylesheet is NOT loaded on the profile page — so without this the row stayed `nowrap` at
+         // every width and three panes crushed into a 390px phone (pane 1 at 42px against 204px of
+         // content, panes past the right edge, sideways document scroll — in all three engines).
+         //
+         // Wrapping rather than a breakpoint: the panes reflow whenever they stop fitting, instead
+         // of only below one magic number. 320px basis keeps 3-across on desktop, 2 then 1 as the
+         // viewport narrows, and a single column on a phone.
+         . ".core-wrapper { gap: 20px; padding: 20px; box-sizing: border-box; align-items: stretch;"
+         . " height: auto; flex-wrap: wrap; }\n"
+         . ".core-wrapper > .container, .core-wrapper > .profile-pane { margin: 0 !important;"
+         // Basis, not width: each pane wants 320px and grows to share the row evenly.
+         . " flex: 1 1 320px; }\n"
          . ".profile-pane { overflow: hidden; }\n"
          . ".profile-pane > .container { background: transparent !important; backdrop-filter: none !important;"
          . " -webkit-backdrop-filter: none !important; border: 0 !important; border-radius: 0 !important;"
@@ -329,7 +341,14 @@ function RenderProfile(array $def, array $ctx, array $userData): string {
         $out .= "<div class='profile-pane container bg-black'>" . $parts[0]
               . "<div class='profile-pane-sep'></div>" . $parts[1] . "</div>";
     }
-    // NOTE: core-wrapper is intentionally left open here to match the original Profile.php structure.
+    // CLOSE core-wrapper. It used to be left open "to match the original Profile.php structure",
+    // but .core-wrapper is `display:flex; flex-direction:row` with no wrap (menuStyles.css), and
+    // PageEntry.php emits RenderTemplate('Disclaimer') straight after this — so the page FOOTER
+    // became a fourth flex item in the row. At 1440px it took 759px, leaving the first pane 42px
+    // against 204px of content, which its own overflow:hidden then clipped: "Change Your Password"
+    // rendered as an unreadable 3-character column. Balanced markup is what keeps later siblings
+    // out of the row. Guarded by DevTools/tdd-regression/test_swudeck_profile_layout.php.
+    $out .= "</div>\n";
     return $out;
 }
 

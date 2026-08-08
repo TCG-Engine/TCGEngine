@@ -202,3 +202,100 @@ P2RESCOUNT:3
 P2DECKCOUNT:0
 P2DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# TakeNothing_NothingMoves
+#// SEC_242 Elia Kane — the defeat is a "may": after looking, P1 can take nothing. P2 has 2 ready + 2
+#// exhausted resources; P1 declines. No resource is defeated, none is replaced, P2's deck is untouched
+#// and the ready/exhausted split is exactly as it started.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:4}
+P1OnlyActions: true
+WithP2Resources: 2:SOR_095:1,2:SOR_095:0
+WithP2Deck: SEC_080
+WithP1Hand: SEC_242
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P2RESCOUNT:4
+P2RESAVAILABLE:2
+P2DISCARDCOUNT:0
+P2DECKCOUNT:1
+P1NODECISION
+
+---
+
+# FewerThanThreeResources_LooksAtOnlyThose
+#// SEC_242 Elia Kane — "look at 3" is an upper bound, not a requirement. With only 2 resources (1 ready
+#// + 1 exhausted) both are looked at and both are offerable. Defeating the ready one replaces it from
+#// deck as a READY resource, so P2 ends 1 ready + 1 exhausted, deck −1, the defeated card in discard.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:4}
+P1OnlyActions: true
+WithP2Resources: 1:SOR_095:1,1:SOR_095:0
+WithP2Deck: SEC_080
+WithP1Hand: SEC_242
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirResources-0
+
+## EXPECT
+P2RESCOUNT:2
+P2RESAVAILABLE:1
+P2DISCARDCOUNT:1
+P2DECKCOUNT:0
+
+---
+
+# ZeroResources_NoOpAndNoDanglingDecision
+#// SEC_242 Elia Kane — with the opponent at ZERO resources there is nothing to look at. The ability
+#// must no-op cleanly: Elia Kane still enters the ground arena, no decision is left pending, and no
+#// card moves anywhere.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:4;theirResources:0}
+P1OnlyActions: true
+WithP2Deck: SEC_080
+WithP1Hand: SEC_242
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_242
+P2RESCOUNT:0
+P2DISCARDCOUNT:0
+P2DECKCOUNT:1
+P1NODECISION
+
+---
+
+# EmptyDeck_DefeatHappensButNoReplacement
+#// SEC_242 Elia Kane — the replacement clause is "puts the TOP CARD OF THEIR DECK into play". With an
+#// empty deck there is no top card, so the defeat still resolves but nothing replaces it: P2 drops from
+#// 3 resources (2 ready + 1 exhausted) to 2 (1 ready + 1 exhausted), with the defeated card in discard.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:4}
+P1OnlyActions: true
+WithP2Resources: 2:SOR_095:1,1:SOR_095:0
+WithP2Deck: []
+WithP1Hand: SEC_242
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirResources-0
+
+## EXPECT
+P2RESCOUNT:2
+P2RESAVAILABLE:1
+P2DISCARDCOUNT:1
+P2DECKCOUNT:0

@@ -126,3 +126,25 @@ WithP2GroundArena: SEC_042:1:0
 
 ## EXPECT
 P2GROUNDARENACOUNT:0
+
+---
+
+# PreventionSavesAShieldFromBeingDefeated
+#// SEC_042 — "if an enemy card ability would deal damage to this unit, prevent 2." Prevention applies
+#// BEFORE a Shield would be spent, so a 2-damage ability against a shielded SEC_042 is reduced to 0 and
+#// the Shield is NOT consumed. P2's SEC_042 carries a Shield token; P1 plays SEC_152 (When Played: deal 2
+#// to a ready unit) at it — 0 damage lands and the Shield is still attached.
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:4}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SEC_042:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP1Hand: SEC_152
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1NODECISION

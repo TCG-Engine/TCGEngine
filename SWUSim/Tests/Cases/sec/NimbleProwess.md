@@ -62,3 +62,36 @@ WithP1Hand: SEC_069
 ## EXPECT
 P2SPACEARENAUNIT:0:EXHAUSTED
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# PlayedFromOpponentDiscardViaAFineAddition_WhenPlayedStillFires
+#// SEC_069 Nimble Prowess — the When Played must fire no matter which zone the upgrade was played from.
+#// P1 kills SOR_128 to switch on TWI_040 A Fine Addition, then uses it to play SEC_069 out of P2's
+#// DISCARD onto P1's ready SOR_095. Nimble Prowess still resolves: P1 exhausts P2's SOR_164 in the
+#// attached unit's arena.
+#// Guards the play-from-discard dispatch path, which reaches the same event through different code than
+#// a play from hand and can silently skip the ability.
+
+## GIVEN
+CommonSetup: brk/bbw/{myResources:6;handCardIds:TWI_040;theirDiscardCardIds:SEC_069}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirDiscard-0
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:1:UPGRADE:0:CARDID:SEC_069
+P2GROUNDARENAUNIT:0:CARDID:SOR_164
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1NODECISION

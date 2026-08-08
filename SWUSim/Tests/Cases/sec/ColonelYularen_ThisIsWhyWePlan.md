@@ -128,3 +128,29 @@ P1LEADER:NOTDEPLOYED
 P2GROUNDARENAUNIT:0:DAMAGE:4
 P1GROUNDARENAUNIT:0:READY
 P1NODECISION
+
+---
+
+# LeaderAction_NoUnitsAtAll_StillUsable_JustExhausts
+#// SEC_006 Colonel Yularen (leader) — the Action is usable even with nothing to attack with. Paying the
+#// cost (exhausting the leader) changes the game state, so the ability may be activated and simply has
+#// no effect (CR 6.4.587.c). P1 controls no units: the leader still exhausts, no attack happens, and no
+#// decision is left dangling.
+
+## GIVEN
+CommonSetup: bgk/bbk/{
+  myLeader:SEC_006;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:EXHAUSTED
+P2BASEDMG:0
+P1GROUNDARENACOUNT:0
+P1NODECISION

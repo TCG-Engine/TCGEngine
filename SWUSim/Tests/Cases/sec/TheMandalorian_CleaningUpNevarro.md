@@ -94,3 +94,58 @@ P2GROUNDARENAUNIT:0:CARDID:SHD_258
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1NODECISION
 P2NODECISION
+
+---
+
+# FriendlyUnitDefeatsTheEnemy_MandoDoesNotTrigger
+#// SEC_209 The Mandalorian — the trigger is "when THIS unit attacks and defeats a unit". Another
+#// friendly unit doing the attacking and killing is not Mando attacking, so no capture is offered even
+#// though Mando is sitting right there and a legal capture target (SOR_046) remains.
+
+## GIVEN
+CommonSetup: yyw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_209:1:0
+WithP1GroundArena: SOR_164:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackGroundArena:1:1
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
+# DefenderKilledByAnOnAttackAbility_StillCounts
+#// SEC_209 The Mandalorian — "attacks and defeats a unit" is satisfied by a defeat at ANY point during
+#// the attack, not only by combat damage. SHD_177 Vambrace Flamethrower gives Mando "On Attack: deal 3
+#// damage divided among enemy ground units"; he attacks SOR_205 Jawa Scavenger (2/1) and all 3 go to it,
+#// so the DEFENDER is already dead before combat damage. The capture is still offered and Mando takes
+#// the surviving SOR_095. Mando ends on ZERO damage — proof the Jawa died to the ability rather than
+#// to combat, since a surviving 2-power defender would have dealt 2 back.
+#// Companion to AttackDefeats_Captures, which routes the defeat through plain combat damage.
+
+## GIVEN
+CommonSetup: yyw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_209:1:0
+WithP1GroundArenaUpgrade: 0:SHD_177
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_205:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:1
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-1:3
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1NODECISION
