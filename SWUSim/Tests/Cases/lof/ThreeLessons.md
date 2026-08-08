@@ -41,7 +41,7 @@ P1SPACEARENAUNIT:0:HASKEYWORD:Hidden
 
 # PlayAlreadyHidden_ExpShield
 #// LOF_225 — a unit that already has Hidden (Vulptex 3/2) still receives an Experience token (→4/3) and a
-#// Shield token; it keeps Hidden. Ref: "play a unit that already has Hidden".
+#// Shield token; it keeps Hidden. Intended: "play a unit that already has Hidden".
 ## GIVEN
 CommonSetup: yyw/ggk/{myResources:10;handCardIds:LOF_225,LOF_245}
 P1OnlyActions: true
@@ -59,7 +59,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Hidden
 
 # ChooseNothing_NoOp
 #// LOF_225 — the play is a "you may": declining to play a unit leaves the hand unit unplayed and no unit
-#// enters. Only the event's own cost (2) is paid. Ref: "should do nothing when choosing nothing from hand".
+#// enters. Only the event's own cost (2) is paid. Intended: "should do nothing when choosing nothing from hand".
 ## GIVEN
 CommonSetup: yyw/ggk/{myResources:10;handCardIds:LOF_225,SOR_237,SOR_164}
 P1OnlyActions: true
@@ -77,7 +77,7 @@ P1RESAVAILABLE:8
 # Unaffordable_NotSelectable
 #// LOF_225 — targets that can't be afforded are not selectable. With 3 resources, after paying the event's
 #// cost (2) only 1 remains, so Wampa (cost 4) cannot be chosen; the only selectable option is to decline.
-#// Ref: "should not allow selecting targets that can't be afforded". With Wampa the only (unaffordable)
+#// Intended: "should not allow selecting targets that can't be afforded". With Wampa the only (unaffordable)
 #// unit, no legal play-target exists, so the event resolves with nothing played: Wampa stays in hand and
 #// only the event's cost (2) is spent.
 ## GIVEN
@@ -96,7 +96,7 @@ P1RESAVAILABLE:1
 # PilotPlayedAsUnit
 #// LOF_225 — a Pilot (Luke Skywalker, JTL_094) is played as a UNIT, never attached as an upgrade, even with
 #// a friendly Vehicle (Wing Leader) available to pilot. Luke enters the ground arena as 3/2, gains an
-#// Experience token (→4/3), a Shield token, and Hidden; the Wing Leader stays unpiloted. Ref: "should only
+#// Experience token (→4/3), a Shield token, and Hidden; the Wing Leader stays unpiloted. Intended: "should only
 #// play pilots as units".
 ## GIVEN
 CommonSetup: yyw/ggk/{myResources:10;handCardIds:LOF_225,JTL_094}

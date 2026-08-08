@@ -52,7 +52,7 @@ P1NOFORCE
 # LeaderAbility_GivesExpToEnemyUnit
 #// LOF_008 Obi-Wan Kenobi (front) — the Action targets ANY unit without an Experience token, friendly or
 #// enemy. With a friendly Marine (SOR_095) and an enemy Consular Security Force (SOR_046, 3/7) both eligible,
-#// P1 gives the token to the ENEMY unit → SOR_046 becomes 4/8, and P1 loses the Force. Ref: "allows the
+#// P1 gives the token to the ENEMY unit → SOR_046 becomes 4/8, and P1 loses the Force. Intended: "allows the
 #// player to give an Experience token to an enemy unit".
 
 ## GIVEN
@@ -82,7 +82,7 @@ P1LEADER:EXHAUSTED
 # DeployedOnAttack_PassDeclinesToken
 #// LOF_008 Obi-Wan Kenobi (deployed) — the On Attack "may give an Experience token" is optional even with a
 #// legal target. Deployed Obi-Wan attacks the base with an enemy Consular Security Force (SOR_046) available
-#// as a target; P1 declines (Pass) → SOR_046 stays 3/7 with no token. Ref: "allows the player to pass the
+#// as a target; P1 declines (Pass) → SOR_046 stays 3/7 with no token. Intended: "allows the player to pass the
 #// ability".
 
 ## GIVEN
@@ -106,7 +106,7 @@ P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 #// LOF_008 Obi-Wan Kenobi (deployed) — On Attack targets "ANOTHER unit" (excludes himself) without an
 #// Experience token. With Obi-Wan the ONLY unit in play (no other friendly units, no enemy units), there is
 #// no valid target: the ability silently does nothing (no prompt) and the attack simply deals 3 to the base.
-#// Ref: "does nothing if there are no valid targets".
+#// Intended: "does nothing if there are no valid targets".
 
 ## GIVEN
 CommonSetup: bgw/bbk/{myLeader:LOF_008:1:1:1;myBase:SOR_021;theirBase:SOR_021}

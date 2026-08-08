@@ -26,7 +26,7 @@ P1GROUNDARENAUNIT:1:HP:7
 
 # NoForce_CannotMoveToGround
 #// LOF_098 — the space-arena move action costs the Force. With no Force token available, the ability is
-#// not usable: attempting it is a no-op and Leia stays in the space arena. Ref: "can't move to
+#// not usable: attempting it is a no-op and Leia stays in the space arena. Intended: "can't move to
 #// the ground arena if player does not have the Force."
 
 ## GIVEN

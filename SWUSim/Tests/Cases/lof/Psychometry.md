@@ -20,7 +20,7 @@ P1HANDCOUNT:1
 # OnlyCardInDiscard_DoNothing
 #// LOF_219 Psychometry — needs "another card in your discard pile". With an empty discard, after playing,
 #// Psychometry is the only card there, so there is nothing to choose and no search happens: it just goes to
-#// discard, the deck is untouched. Ref: "do nothing if it is the only card in discard".
+#// discard, the deck is untouched. Intended: "do nothing if it is the only card in discard".
 
 ## GIVEN
 CommonSetup: yyw/ggk/{myResources:1;handCardIds:LOF_219}
@@ -40,7 +40,7 @@ P1DECKCOUNT:1
 
 # EmptyDeck_DoNothing
 #// LOF_219 Psychometry — with a card to choose (SOR_046) but an empty deck, the top-5 search finds nothing to
-#// reveal/draw: no card is drawn. Ref: "do nothing when there is an empty deck".
+#// reveal/draw: no card is drawn. Intended: "do nothing when there is an empty deck".
 
 ## GIVEN
 CommonSetup: yyw/ggk/{myResources:1;handCardIds:LOF_219;discardCardIds:SOR_046}

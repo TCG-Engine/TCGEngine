@@ -44,7 +44,7 @@ P1NOFORCE
 # OpponentBigUnit_NoForce
 #// LOF_019 Vergence Temple — the condition is "if YOU control a unit with 4+ HP". A 4+ HP unit controlled by
 #// the OPPONENT does not count. Here P1 controls nothing and P2 controls a 3/7 (7 HP); at regroup start the
-#// condition fails for P1 → no Force. Ref: "should do nothing if your opponent controls a unit with 4 or
+#// condition fails for P1 → no Force. Intended: "should do nothing if your opponent controls a unit with 4 or
 #// more HP".
 
 ## GIVEN

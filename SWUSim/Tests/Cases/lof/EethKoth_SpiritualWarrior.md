@@ -75,3 +75,27 @@ WithP2GroundArena: LAW_124:1:0
 P1NOFORCE
 P1RESCOUNT:2
 P1DISCARDCOUNT:1
+
+---
+
+# SelfResource_EntersEXHAUSTED
+#// LOF_097 Eeth Koth — "put this card into play as a resource" with no "and ready it" wording, so the new
+#// resource enters EXHAUSTED. P1 starts with 2 READY resources and none are spent (the attack is free), so
+#// after Eeth resources itself the count is 3 but only the original 2 are available to pay with.
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Force: true
+WithP1Resources: 2
+WithP1GroundArena: LOF_097:1:0
+WithP2GroundArena: LAW_124:1:0
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P1>AnswerDecision:YES
+## EXPECT
+P1RESCOUNT:3
+P1RESAVAILABLE:2

@@ -93,7 +93,7 @@ P1RESAVAILABLE:9
 # LeaveOnTop_DeclineForce
 #// LOF_188 As I Have Foreseen — the offer to use the Force is a "may". Even when the top card is affordable,
 #// the player can DECLINE: the Force token is retained and the card stays on top of the deck (not played).
-#// Top card SEC_080 (cost 3 → 0 after −4) is affordable, but P1 declines. Ref: "shows the top card of the
+#// Top card SEC_080 (cost 3 → 0 after −4) is affordable, but P1 declines. Intended: "shows the top card of the
 #// deck and allows the player to leave it on top".
 
 ## GIVEN
@@ -115,7 +115,7 @@ P1DECKCOUNT:1
 
 # NoForce_ViewOnly
 #// LOF_188 As I Have Foreseen — without a Force token the "you may use the Force to play it" clause cannot
-#// resolve: P1 simply looks at the top card and it stays on top (no play, no Force to lose). Ref: "when the
+#// resolve: P1 simply looks at the top card and it stays on top (no play, no Force to lose). Intended: "when the
 #// player does not have the Force ... it shows the top card of the deck".
 
 ## GIVEN
@@ -136,7 +136,7 @@ P1DISCARDCOUNT:1
 
 # EmptyDeck_NoOp
 #// LOF_188 As I Have Foreseen — with an EMPTY deck there is no top card to look at, so the event resolves
-#// with no effect: the Force token is retained and the event goes to the discard. Ref: "when the deck is
+#// with no effect: the Force token is retained and the event goes to the discard. Intended: "when the deck is
 #// empty ... it does nothing".
 
 ## GIVEN

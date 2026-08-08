@@ -24,7 +24,7 @@ P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
 #// excluded (not damaged) and the damaged vehicle Rogue Squadron Speeder (IBH_004) is excluded (Vehicle).
 #// The enemy LAW_124 that Tauntaun just attacked is now damaged and non-Vehicle, so it is ALSO a valid
 #// target — the card says "a damaged non-Vehicle unit" with no friendly restriction. Selectable is exactly
-#// {SOR_046, LAW_124}. Ref: "no undamaged units or vehicles" (their setup had only friendlies).
+#// {SOR_046, LAW_124}. Intended: "no undamaged units or vehicles" (their setup had only friendlies).
 
 ## GIVEN
 CommonSetup: bbw/rrk
@@ -47,7 +47,7 @@ P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
 # WhenDefeated_NoGloryControlChange
 #// LOF_064 Tauntaun — When Defeated resolves for whoever CONTROLS the unit at defeat time. P2 plays No
 #// Glory, Only Results (JTL_043) to take control of P1's Tauntaun and defeat it; the When Defeated choice
-#// now belongs to P2, who shields their own damaged SOR_095. Ref: "should work with No Glory,
+#// now belongs to P2, who shields their own damaged SOR_095. Intended: "should work with No Glory,
 #// Only Results."
 
 ## GIVEN

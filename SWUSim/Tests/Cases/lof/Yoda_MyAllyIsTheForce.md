@@ -32,7 +32,7 @@ P1NOFORCE
 #// "when you use the Force: deal damage equal to twice the units you control." With Yoda + SOR_095 (2 units)
 #// → 4 damage to the enemy; P1's base (5 damage) is fully healed.
 ## GIVEN
-CommonSetup: gbw/bbk/{myLeader:LOF_050;myBase:SOR_021:5;theirBase:SOR_021}
+CommonSetup: gbw/bbk/{myLeader:LOF_050;myBase:SOR_021;myBaseDamage:5;theirBase:SOR_021}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Force: true
@@ -54,7 +54,7 @@ P2GROUNDARENAUNIT:0:DAMAGE:4
 # WhenPlayed_SkipForce
 #// LOF_101 Yoda — the When-Played "You may use the Force" is optional. P1 plays Yoda but DECLINES the Force
 #// use, so no base healing happens and the "when you use the Force" reaction never fires. P1's base keeps its
-#// 5 damage and P1 still holds the Force token. Ref: "should allow skipping using the Force".
+#// 5 damage and P1 still holds the Force token. Intended: "should allow skipping using the Force".
 
 ## GIVEN
 CommonSetup: bbk/bbk/{myBase:SOR_021;theirBase:SOR_021;myBaseDamage:5}
@@ -80,7 +80,7 @@ P1HASFORCE
 #// LOF_101 Yoda — his reactive "When you use the Force: deal damage equal to twice the units you control"
 #// fires from ANY Force use, not just his own When-Played. Yoda is already in play alongside SOR_095 and
 #// SOR_146 (3 units). P1 plays Yoda's Lightsaber (LOF_102) onto Yoda; the upgrade's "use the Force" triggers
-#// Yoda's reaction → 2 x 3 units = 6 damage to the enemy SOR_046. Ref: the "When You Use the Force" suite.
+#// Yoda's reaction → 2 x 3 units = 6 damage to the enemy SOR_046. Intended: the "When You Use the Force" suite.
 
 ## GIVEN
 CommonSetup: gbw/bbk/{myBase:SOR_021;theirBase:SOR_021}
@@ -111,10 +111,10 @@ P1NOFORCE
 # ForceReaction_Skipped
 #// LOF_101 Yoda — the reactive "when you use the Force: you MAY deal damage" is optional. P1 plays Yoda and
 #// uses the Force (healing his base), but DECLINES the deal-damage reaction. The enemy SOR_046 takes no
-#// damage while the base is still healed. Ref: "should allow skipping the ability".
+#// damage while the base is still healed. Intended: "should allow skipping the ability".
 
 ## GIVEN
-CommonSetup: bbk/bbk/{myBase:SOR_021:5;theirBase:SOR_021}
+CommonSetup: bbk/bbk/{myBase:SOR_021;myBaseDamage:5;theirBase:SOR_021}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Force: true

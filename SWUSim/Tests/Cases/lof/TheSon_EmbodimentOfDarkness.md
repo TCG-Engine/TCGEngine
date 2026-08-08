@@ -41,7 +41,7 @@ P1GROUNDARENAUNIT:1:POWER:5
 # WithForce_EnemyNotBuffed
 #// LOF_237 The Son (6/8) — "each FRIENDLY unit gets +2/+0" — the buff is friendly-only. With the Force, The
 #// Son (6 → 8) and a friendly SOR_095 (3 → 5) gain +2 power, but an ENEMY SOR_095 (P2) stays at power 3.
-#// Ref: "should give only friendly units +2/+0 when you have the force" (enemy rebel-pathfinder unbuffed).
+#// Intended: "should give only friendly units +2/+0 when you have the force" (enemy rebel-pathfinder unbuffed).
 
 ## GIVEN
 CommonSetup: bbk/bbk/{

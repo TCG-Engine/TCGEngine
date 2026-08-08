@@ -18,7 +18,7 @@ P2BASEDMG:0
 #// LOF_044 Loth-Wolf — "This unit can't attack" applies even to an event-granted attack. P1 plays Outflank
 #// (TWI_123, "Attack with 2 units one at a time") with a Battlefield Marine (SOR_095, 3 power) and Loth-Wolf
 #// in play. Loth-Wolf is not a legal attacker, so only the Marine attacks the base (3 damage, not 6) and
-#// Loth-Wolf stays ready. Ref: "should not be able to declare an attack with an event."
+#// Loth-Wolf stays ready. Intended: "should not be able to declare an attack with an event."
 
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:1;handCardIds:TWI_123}

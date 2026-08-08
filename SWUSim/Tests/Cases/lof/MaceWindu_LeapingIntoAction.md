@@ -21,8 +21,8 @@ P2GROUNDARENAUNIT:0:DAMAGE:4
 
 # UseForce_Decline_KeepsForce
 #// LOF_149 Mace Windu — the When Played ability is a "may": with the Force token available, P1 declines to
-#// spend it, so no damage is dealt and the Force token is kept. Ref: "should deal 4 damage ... but decides not
-#// to use it" (clickPrompt 'Pass' → hasTheForce stays true).
+#// spend it, so no damage is dealt and the Force token is kept. Intended: "should deal 4 damage ... but decides not
+#// to use it" (choosing Pass → hasTheForce stays true).
 
 ## GIVEN
 CommonSetup: rrw/rrk/{myResources:6;handCardIds:LOF_149}
@@ -42,7 +42,7 @@ P2GROUNDARENAUNIT:0:DAMAGE:0
 
 # NoForceToken_NoDamage
 #// LOF_149 Mace Windu — the ability requires spending the Force token; with no Force token in the pool it
-#// cannot be used, so playing Mace deals no damage. Ref: "should not deal damage when played and not use the
+#// cannot be used, so playing Mace deals no damage. Intended: "should not deal damage when played and not use the
 #// Force" (hasForceToken: false).
 
 ## GIVEN

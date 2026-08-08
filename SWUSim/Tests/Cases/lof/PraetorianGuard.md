@@ -27,8 +27,7 @@ P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 
 # UpgradeGives4Power_Sentinel
 #// LOF_085 Praetorian Guard — the 4-power unit can reach 4 via an upgrade. A 3/3 Battlefield Marine
-#// (SOR_095) with an Experience token (SOR_T01, +1/+1) becomes 4/4, so Praetorian gains Sentinel. Ref:
-#// "gains Sentinel while you control a unit with 4 or more power (with upgrades)".
+#// (SOR_095) with an Experience token (SOR_T01, +1/+1) becomes 4/4, so Praetorian gains Sentinel. Intended: #// "gains Sentinel while you control a unit with 4 or more power (with upgrades)".
 
 ## GIVEN
 CommonSetup: rrk/ggw
@@ -44,7 +43,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
 
 # SpaceUnit4Power_Sentinel
 #// LOF_085 Praetorian Guard — the 4-power unit can be in a DIFFERENT arena; the check is arena-agnostic. A
-#// 7/7 Home One (SOR_102) in space grants the ground Praetorian Sentinel. Ref: "gains Sentinel while you
+#// 7/7 Home One (SOR_102) in space grants the ground Praetorian Sentinel. Intended: "gains Sentinel while you
 #// control a unit with 4 or more power" (Home One in space arena).
 
 ## GIVEN
@@ -59,7 +58,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
 
 # SelfReaches4Power_Sentinel
 #// LOF_085 Praetorian Guard — Praetorian itself can satisfy the condition. Entrenched (SOR_072, +3/+3)
-#// raises the 2/5 Praetorian to 5/8 (5 power ≥ 4), so it gains Sentinel from its own power. Ref: "gains
+#// raises the 2/5 Praetorian to 5/8 (5 power ≥ 4), so it gains Sentinel from its own power. Intended: "gains
 #// Sentinel while he has 4 power or more".
 
 ## GIVEN

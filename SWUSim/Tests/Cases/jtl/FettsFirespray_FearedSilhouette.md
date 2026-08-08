@@ -188,3 +188,30 @@ WithP1Resources: 12
 P1LEADER:DEPLOYED
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2BASEDMG:6
+
+---
+
+# WhenPlayed_2Indirect_DifferentBobaLeaderPrinting
+#// JTL_240 Fett's Firespray — "if you control Boba Fett" is a NAME check, so it must be satisfied by ANY
+#// printing of Boba Fett, not just the one the other sections happen to use. This repeats the
+#// leader-side case with a completely different card: SOR_015 Boba Fett (Cunning/Villainy) instead of
+#// JTL_009 (Aggression/Villainy). The indirect must still be upgraded 1 -> 2.
+#// Guards the title-match: an implementation keyed on a specific CardID would pass every other section
+#// here and silently fail for seven of the eight printings.
+
+## GIVEN
+CommonSetup: rrk/bbk/{
+  myLeader:SOR_015;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_240
+WithP1Resources: 12
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P2BASEDMG:2

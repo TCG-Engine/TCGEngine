@@ -295,3 +295,33 @@ P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:HASKEYWORD:Sentinel
 P2SPACEARENAUNIT:0:CARDID:SOR_237
 P2SPACEARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# KeywordPrompt_OffersExactlyTheFourKeywords
+#// JTL_047 Admiral Yularen — the When Played prompt must offer exactly the four printed keywords and
+#// nothing else. The other sections each answer one option and assert its effect, which proves the
+#// branches work but never proves the OFFER: a fifth stray option, or a missing one, would pass all of
+#// them. Left pending deliberately so the option list can be read.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_047
+WithP1Resources: 7
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1OPTIONHAS:Grit
+P1OPTIONHAS:Restore_1
+P1OPTIONHAS:Sentinel
+P1OPTIONHAS:Shielded
+P1OPTIONNOT:Overwhelm
+P1OPTIONNOT:Raid_1

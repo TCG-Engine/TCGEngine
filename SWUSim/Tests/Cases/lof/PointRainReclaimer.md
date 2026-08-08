@@ -18,7 +18,7 @@ P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
 
 # Jedi_DeclineExp
 #// LOF_092 Point Rain Reclaimer — the Experience token is a "may". P1 controls Plo Koon (LOF_050, Jedi) so the
-#// ability triggers, but P1 declines: no Experience token is placed. Ref: "should be able to be
+#// ability triggers, but P1 declines: no Experience token is placed. Intended: "should be able to be
 #// passed".
 
 ## GIVEN

@@ -119,3 +119,27 @@ WithP1Force: true
 P1NOFORCE
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LOF_185
+
+---
+
+# ForceBouncePilotUnit_ReplayedAsAUnitForFree
+#// LOF_185 Baylan — a PILOT unit is returned and replayed AS A UNIT, not as a Pilot upgrade. Pilots have a
+#// second dispatch path (play-as-upgrade), so the free replay must not silently route down it. P1's Hera
+#// Syndulla (JTL_045, Pilot, cost 2) is bounced by Baylan's Force ability and replayed for free; with no
+#// friendly Vehicle to attach to, she must come back as a unit on the board — not vanish into an attach.
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:14;handCardIds:LOF_185}
+P1OnlyActions: true
+WithP1Force: true
+WithP1GroundArena: JTL_045:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:LOF_185
+P1GROUNDARENAUNIT:1:CARDID:JTL_045
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
+P1HANDCOUNT:0
+P1NOFORCE

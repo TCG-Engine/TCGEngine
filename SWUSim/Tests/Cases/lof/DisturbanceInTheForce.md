@@ -81,7 +81,7 @@ P1NOFORCE
 #// LOF_216 Disturbance — the Shield half is a "may". P1 ALREADY holds the Force and a friendly unit left play
 #// this phase (its Death Star Stormtrooper, SOR_128 3/1, dies to counter-damage). Playing Disturbance keeps
 #// the (idempotent) Force but P1 declines the Shield (choose nothing) → the surviving Marine gets no Shield.
-#// Ref: "should allow to not giving a Shield token when a friendly unit left play this phase (player has
+#// Intended: "should allow to not giving a Shield token when a friendly unit left play this phase (player has
 #// already the Force)".
 
 ## GIVEN
@@ -107,7 +107,7 @@ P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
 # TokenUnitLeft_ForceAndShield
 #// LOF_216 Disturbance — a friendly TOKEN unit leaving play also satisfies the condition. P1's Battle Droid
 #// token (TWI_T01, 1/1) attacks Consular Security Force (SOR_046, 3/7) and dies to the 3 counter-damage — the
-#// token leaves play — so Disturbance creates P1's Force and shields the surviving Marine. Ref: "should create
+#// token leaves play — so Disturbance creates P1's Force and shields the surviving Marine. Intended: "should create
 #// a Force token and allow giving a Shield token when a friendly token unit left play this phase".
 
 ## GIVEN

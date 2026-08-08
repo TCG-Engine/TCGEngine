@@ -20,7 +20,7 @@ P2GROUNDARENAUNIT:0:DAMAGE:3
 
 # OptionalPass_NoDamage
 #// LOF_171 Heavy Blaster Cannon — the When Played "may deal 1 damage..." is optional. Played onto SOR_095,
-#// P1 declines, so no damage is dealt to anyone; the cannon stays attached. Ref: "is optional and can be
+#// P1 declines, so no damage is dealt to anyone; the cannon stays attached. Intended: "is optional and can be
 #// passed."
 
 ## GIVEN
@@ -42,8 +42,7 @@ P2GROUNDARENAUNIT:0:DAMAGE:0
 
 # ThreeHits_PopsTwoShields
 #// LOF_171 Heavy Blaster Cannon — the three separate 1-damage hits interact with Shields: a defender with two
-#// Shield tokens loses one Shield to each of the first two hits, then takes 1 damage from the third. Ref:
-#// "deals 1 damage to the same ground unit three times" (Reinforcement Walker with 2 shields → 1 damage).
+#// Shield tokens loses one Shield to each of the first two hits, then takes 1 damage from the third. Intended: #// "deals 1 damage to the same ground unit three times" (Reinforcement Walker with 2 shields → 1 damage).
 
 ## GIVEN
 CommonSetup: rrk/ggw/{myResources:4;handCardIds:LOF_171}
@@ -67,7 +66,7 @@ P2GROUNDARENAUNIT:0:DAMAGE:1
 # DefeatedAfterFirstHit
 #// LOF_171 Heavy Blaster Cannon — if the target is defeated by the first hit, the remaining two hits fizzle
 #// harmlessly (same unit is gone). Target is SOR_046 pre-damaged to 1 remaining HP; the first hit defeats it.
-#// Ref: "works if the unit is defeated after the first damage."
+#// Intended: "works if the unit is defeated after the first damage."
 
 ## GIVEN
 CommonSetup: rrk/ggw/{myResources:4;handCardIds:LOF_171}

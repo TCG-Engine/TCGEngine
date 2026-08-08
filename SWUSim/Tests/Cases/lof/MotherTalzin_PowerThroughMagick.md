@@ -52,8 +52,7 @@ P2GROUNDARENAUNIT:0:POWER:2
 
 # Undeployed_NoForce_NotUsable
 #// LOF_002 Mother Talzin (undeployed) — the Action ability costs the Force, so with NO Force token it can't be
-#// used: invoking it is a no-op — the leader stays READY and no -1/-1 is applied (SOR_046 stays 3/7). (FT:
-#// "should not be selectable without the Force".)
+#// used: invoking it is a no-op — the leader stays READY and no -1/-1 is applied (SOR_046 stays 3/7). (Intended: #// "should not be selectable without the Force".)
 
 ## GIVEN
 CommonSetup: bbk/bbk/{

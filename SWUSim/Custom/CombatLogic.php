@@ -525,6 +525,20 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
             return true;
         }
     }
+    // RULING (2026-08-07): "a unit ATTACKS AND DEFEATS a unit if it defeats the defender at any point
+    // during the attack." A defeat that happens mid-attack — e.g. the attacker's own On-Attack ability
+    // finishing the defender before combat damage — must therefore satisfy the attacks-and-defeats
+    // observers (LOF_017 Darth Revan et al). Combat-damage defeats never route through this function, so
+    // marking here catches exactly the non-combat case; SWUCombatDamage consumes it on the fizzle path.
+    if (intval($obj->UniqueID ?? 0) > 0
+            && intval($obj->UniqueID ?? 0) === intval(GetSWUVar('SWU_CURRENT_DEFENDER_UID', '0'))) {
+        // Stash the defender's identity: by the time SWUCombatDamage notices it is gone, the object is
+        // unreachable (and its old slot may hold a DIFFERENT live unit after a reindex), but the
+        // attacks-and-defeats consumers need cardID/owner/leader-ness.
+        SetSWUVar('SWU_DEFENDER_DEFEATED_IN_ATTACK', ($obj->CardID ?? '') . '|'
+            . intval($obj->Owner ?? $obj->Controller ?? 0) . '|'
+            . (strpos(CardType($obj->CardID ?? '') ?? '', 'Leader') !== false ? '1' : '0'));
+    }
     // Fire the defeated unit's WhenDefeated ability AND the leave-play reactions (Gideon/Krell/Boba)
     // for ANY effect-defeat routed through here — direct "defeat target unit" (Takedown/Vanquish),
     // sacrifice, shrink sweep, Rukh, etc. Combat-defeats mark units removed directly (not via this
@@ -1405,15 +1419,26 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // LOF_017 Darth Revan — "When a friendly unit attacks and defeats a unit: give an Experience token to
     // that friendly unit." Front (leader form, ready): "you may exhaust this leader" is the cost (LOF_017).
     // Deployed (leader unit): "you may" give the token with NO exhaust cost (LOF_017D). Controller-based;
-    // the recipient is the attacker ($attackerMzID). Gated on the DEFENDER being defeated (defenderDefeated),
-    // so an ability defeating a non-defender during the attack does not qualify.
-    if (!empty($combatCtx['defenderDefeated'])) {
+    // the recipient is the attacker ($attackerMzID).
+    //
+    // Gated on a DEFENDER being defeated, so an ability defeating a NON-defender during the attack does not
+    // qualify — but a defender defeated at ANY point during the attack does, including by an ability rather
+    // than combat damage (ruling 2026-08-07).
+    //
+    // COUNT (ruling 2026-08-07): a multi-defender attack (TWI_135 Darth Maul) that defeats BOTH defenders
+    // attacked-and-defeated TWO units, so the DEPLOYED side — which has no cost — fires once per defeated
+    // defender (2 Experience). The FRONT side stays at ONE regardless: its cost is "exhaust this leader",
+    // and an already-exhausted leader cannot pay it a second time.
+    $defDefeated = intval($combatCtx['defendersDefeated'] ?? (!empty($combatCtx['defenderDefeated']) ? 1 : 0));
+    if ($defDefeated > 0) {
         foreach (GetLeader(intval($activePlayer)) as $l) {
             if (empty($l->removed) && ($l->CardID ?? '') === 'LOF_017') {
                 if (empty($l->Deployed) && !empty($l->Ready)) {
-                    AddTrigger($activePlayer, 'LOF_017', 'LOF_017', $attackerMzID);
+                    AddTrigger($activePlayer, 'LOF_017', 'LOF_017', $attackerMzID);   // exhaust cost → once
                 } elseif (!empty($l->Deployed)) {
-                    AddTrigger($activePlayer, 'LOF_017D', 'LOF_017D', $attackerMzID);
+                    for ($i = 0; $i < $defDefeated; $i++) {
+                        AddTrigger($activePlayer, 'LOF_017D', 'LOF_017D', $attackerMzID);
+                    }
                 }
                 break;
             }
@@ -1656,6 +1681,7 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // into the stale mzID slot.
     $_defObj = (strpos($targetMzID, 'Arena') !== false) ? GetZoneObject($targetMzID) : null;
     SetSWUVar('SWU_CURRENT_DEFENDER_UID', strval($_defObj !== null ? intval($_defObj->UniqueID ?? 0) : 0));
+    SetSWUVar('SWU_DEFENDER_DEFEATED_IN_ATTACK', ''); // per-attack; set if the defender dies mid-attack
     // SEC_194 per-action base-attack tracking: a transient recording that THIS action attacks a base
     // (and whose). SWUAfterAction reads it to finalize SWU_LAST_ACTION. The base attacked is the
     // opponent's (a unit can only attack an enemy base).
@@ -1903,6 +1929,24 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             }
         }
         if ($found === null) {  // defender left play before damage → attack fizzles
+            // …but if it left play because it was DEFEATED during this attack, the attacker still
+            // "attacked and defeated" it (ruling 2026-08-07), so the attack-end observers must run.
+            // Deliberately CollectAfterAttackTriggers, not the full CollectCombatStep3Triggers: there are
+            // no defeated cards to collect (SWUDefeatUnit already fired the defender's When Defeated) and
+            // no combat damage was dealt, and Step 3's trailing _SWUDefeatAllAdvantageTokens($targetMzID)
+            // would shed the tokens of whatever unit reindexed INTO the dead defender's slot.
+            $_ddia = GetSWUVar('SWU_DEFENDER_DEFEATED_IN_ATTACK', '');
+            if ($_ddia !== '') {
+                SetSWUVar('SWU_DEFENDER_DEFEATED_IN_ATTACK', '');
+                $_dparts = explode('|', $_ddia);
+                CollectAfterAttackTriggers($player, $attackerMzID, $targetMzID, [
+                    'dealtToBase' => false, 'dealtToUnit' => false, 'defenderDefeated' => true, 'defendersDefeated' => 1,
+                    'defenderCardID' => $_dparts[0] ?? '',
+                    'defenderOwner' => intval($_dparts[1] ?? 0),
+                    'defenderIsLeader' => !empty($_dparts[2]),
+                    'excess' => 0, 'baseCombatDmg' => 0,
+                ]);
+            }
             $playerID = $savedPID;
             _SWUCombatFinishAction($player);
             return;
@@ -2066,6 +2110,8 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // (Grogu himself attacking does not count — it must be another friendly unit.)
     if (($attacker->CardID ?? '') !== 'ASH_018' && _SWULeaderDeployed(intval($attacker->Controller ?? $player), 'ASH_018')) $defenderPowerDebuff += 1;
     $defeatedCards = [];
+    $pendingCaptiveRescues = [];   // defender's captives: detached at defeat, materialized after the observers
+    $pendingCaptiveHost    = null;
     // Combat-hit context (Phase 7.2): captured here, consumed by CollectCombatStep3Triggers to fire
     // WhenDealsCombatDamage / WhenDefeats abilities (Rukh, Mace, Seventh Sister, SOR_088).
     $combatCtx = ['dealtToBase' => false, 'dealtToUnit' => false, 'defenderDefeated' => false,
@@ -2293,6 +2339,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $attackerHP = intval(ObjectCurrentHP($attacker)) - intval($attacker->Damage);
         $defenderHP = intval(ObjectCurrentHP($target))   - intval($target->Damage);
         $combatCtx['defenderDefeated'] = ($defenderHP <= 0 && !SWUImmuneToHpDefeat($target));
+        $combatCtx['defendersDefeated'] = $combatCtx['defenderDefeated'] ? 1 : 0;
         if (!empty($combatCtx['defenderDefeated'])) SetSWUVar('SWU_LAST_DEFENDER_DEFEATED', '1'); // ASH_033/036/223 OnAttackEnd condition (own + Support-lent)
         $combatCtx['excess'] = $combatCtx['defenderDefeated'] ? max(0, -$defenderHP) : 0;
         $combatCtx['defenderCardID'] = $target->CardID ?? ''; // for "equal to the defeated unit's cost" (LOF_086)
@@ -2384,7 +2431,13 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 $defObj = GetZoneObject($targetMzID);
                 if ($defObj) {
                     // CR 8.34.4: rescue any captives guarded by the defender before it leaves play.
-                    SWURescueCaptivesOf($defObj);
+                    // DETACH now (must precede SWUDiscardHostSubcards or the captives would be discarded
+                    // as upgrades), but MATERIALIZE only after the defeat observers are collected below:
+                    // a captive is not in play at the moment of the defeat that frees it, so it must not
+                    // satisfy "when an enemy unit is defeated" (LOF_130 HK-47). The effect-defeat path
+                    // (SWUDefeatUnit) already collects its triggers before rescuing, so it was correct.
+                    $pendingCaptiveRescues = SWUDetachCaptivesOf($defObj);
+                    $pendingCaptiveHost    = $defObj;
                     // If the host carries a leader-pilot upgrade, return that leader to zone before discarding.
                     SWUReturnLeaderPilotSubcards($defObj, $defOwner);
                     _SWUDeferPilotDefeatReplacements($defObj); // JTL_094 pilot-upgrade defeat-replacement
@@ -2473,6 +2526,12 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // GetZoneObject can still find defeated units (marked removed=true but still in the array).
     // Cleanup after this point to avoid PHP auto-vivifying null slots in emptied arena arrays.
     CollectCombatStep3Triggers($player, $attackerMzID, $targetMzID, $defeatedCards, $combatCtx);
+    // Defender's captives now return to play — after the observers above, per the detach/materialize
+    // split at the defender-defeat branch.
+    if (!empty($pendingCaptiveRescues)) {
+        foreach ($pendingCaptiveRescues as $_cap) DoRescueUnit($_cap, $pendingCaptiveHost);
+        $pendingCaptiveRescues = [];
+    }
     DecisionQueueController::CleanupRemovedCards();
 
     // Log the attack
@@ -3192,6 +3251,7 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     // Resolve all defeats simultaneously (damage already applied; a defeat doesn't change another's HP).
     $defeatedCards = [];
     $anyDefDefeated = false;
+    $defDefeatedCount = 0;   // how many DEFENDERS this attack defeated (deployed LOF_017 fires per defeat)
     // Overwhelm excess, accumulated PER defending-player (ruling 2024-10-31: COMBINED excess to the
     // defending player's base). Twin Suns: Maul's two units may belong to DIFFERENT opponents, so each
     // owner's excess spills to that owner's own base. 2-player → both share the one opponent → one entry
@@ -3212,6 +3272,7 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
         _SWUMaulCombatDefeat($o, $mz, $player, $isAtk, $defeatedCards);
         if (!$isAtk) {
             $anyDefDefeated = true;
+            $defDefeatedCount++;
             if ($hp < 0) {
                 $owner = intval($o->Controller ?? SWUMzOwner($mz, $player));
                 $excessByOwner[$owner] = ($excessByOwner[$owner] ?? 0) + (-$hp);
@@ -3246,7 +3307,8 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
 
     // "For this attack" markers end; then the batched When Defeated + after-attack pass, then cleanup.
     SWUExpireTurnEffects(SWU_DUR_ATTACK);
-    $combatCtx = ['dealtToUnit' => true, 'dealtToBase' => false, 'defenderDefeated' => $anyDefDefeated,
+    $combatCtx = ['dealtToUnit' => true, 'dealtToBase' => false, 'defenderDefeated' => $anyDefDefeated || $defDefeatedCount > 0,
+                  'defendersDefeated' => $defDefeatedCount,
                   'defenderIsLeader' => (IsLeaderUnit($def1) || IsLeaderUnit($def2)), 'excess' => 0];
     CollectCombatStep3Triggers($player, $attackerMzID, $def1Mz, $defeatedCards, $combatCtx);
     DecisionQueueController::CleanupRemovedCards();

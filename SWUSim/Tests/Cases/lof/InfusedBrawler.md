@@ -42,7 +42,7 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
 # OnAttackEnd_NoExp_KeepsUpgrade
 #// LOF_156 Infused Brawler — "when this unit completes an attack: defeat an Experience token on it" does
 #// NOTHING when it has no Experience token. Brawler with only a Protector (SOR_057) upgrade attacks the base;
-#// after the attack the Protector remains. (FT: "should not defeat an Experience if no one or any upgrade".)
+#// after the attack the Protector remains. (Intended: "should not defeat an Experience if no one or any upgrade".)
 
 ## GIVEN
 CommonSetup: bbk/bbk/{

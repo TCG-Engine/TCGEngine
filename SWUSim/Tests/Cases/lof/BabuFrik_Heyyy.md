@@ -26,7 +26,7 @@ P1GROUNDARENAUNIT:1:EXHAUSTED
 # Action_HPAsDamage_IncorporatesHPModifiers
 #// LOF_206 — the "deals damage equal to its remaining HP" reads the LIVE remaining HP including modifiers.
 #// The Droid Chopper (SOR_188, 1/3) carries Resilient (SOR_069, +0/+3) → 6 HP. Babu's action makes it attack
-#// the enemy base dealing 6 (its boosted remaining HP) instead of its 1 power. Ref: "incorporates HP
+#// the enemy base dealing 6 (its boosted remaining HP) instead of its 1 power. Intended: "incorporates HP
 #// modifiers into the damage calculation".
 
 ## GIVEN
@@ -51,7 +51,7 @@ P1GROUNDARENAUNIT:1:EXHAUSTED
 #// LOF_206 — because the damage equals REMAINING HP at the moment it is dealt, an on-attack self-damage
 #// lowers it. IG-11 (SHD_170, 6/5) already has 1 damage (4 remaining). Babu makes it attack the enemy base;
 #// its On Attack "deal 3 to a damaged ground unit" hits itself (now 4 damage, 1 remaining), so the base takes
-#// only 1. Ref: "deals the right amount of damage if the Droid unit takes damage in the on-attack step".
+#// only 1. Intended: "deals the right amount of damage if the Droid unit takes damage in the on-attack step".
 
 ## GIVEN
 CommonSetup: bbk/bbk/{myLeader:JTL_001;theirBase:SOR_021}
@@ -73,7 +73,7 @@ P1GROUNDARENAUNIT:1:DAMAGE:4
 # Action_NoFriendlyDroid_NoEffect
 #// LOF_206 — the ability is "you may attack with a friendly Droid unit"; Babu Frik himself is Underworld, not
 #// a Droid. With no other friendly Droid unit there is no legal attacker, so the action resolves with no
-#// effect but still exhausts Babu (paying the Exhaust cost) and deals no base damage. Ref: "has no effect if
+#// effect but still exhausts Babu (paying the Exhaust cost) and deals no base damage. Intended: "has no effect if
 #// there are no friendly Droid units".
 
 ## GIVEN

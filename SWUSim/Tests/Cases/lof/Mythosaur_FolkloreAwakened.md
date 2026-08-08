@@ -103,7 +103,7 @@ P1GROUNDARENAUNIT:1:SHIELDCOUNT:0
 #// LOF_073 Mythosaur — "Friendly upgraded units can't be exhausted by enemy card abilities." P2 plays
 #// SOR_221 Outmaneuver (exhaust each unit in an arena) choosing Ground. P1's UPGRADED SOR_046 (bearing
 #// SOR_214) is NOT exhausted; the NON-upgraded SOR_095 and the un-upgraded Mythosaur ARE exhausted — proving
-#// the protection is AOE-wide but upgraded-only. Ref: "prevents ... by enemy event abilities."
+#// the protection is AOE-wide but upgraded-only. Intended: "prevents ... by enemy event abilities."
 
 ## GIVEN
 CommonSetup: bbk/yyw/{myBase:SOR_021;theirBase:SOR_021}
@@ -133,7 +133,7 @@ P1GROUNDARENAUNIT:2:EXHAUSTED
 # NoPrevention_FriendlyExhaust_InPursuit
 #// LOF_073 Mythosaur — the protection is against ENEMY abilities only. P1 plays its own TWI_221 In Pursuit
 #// (exhaust a friendly unit; if you do, exhaust an enemy unit) and exhausts its own UPGRADED SOR_046. A
-#// friendly source is not prevented, so SOR_046 is exhausted. Ref: "does not prevent ... by friendly card
+#// friendly source is not prevented, so SOR_046 is exhausted. Intended: "does not prevent ... by friendly card
 #// abilities."
 
 ## GIVEN
@@ -160,7 +160,7 @@ P1GROUNDARENAUNIT:1:EXHAUSTED
 # NoPrevention_ExhaustAsStepOfAttack
 #// LOF_073 Mythosaur — the protection blocks ENEMY-ability exhaust, not the normal exhaust from attacking.
 #// An UPGRADED Mythosaur (bearing a Shield token SOR_T02) attacks P2's base; it exhausts as part of the
-#// attack and the base takes its full 10 power. Ref: "does not prevent ... as part of the steps of an attack."
+#// attack and the base takes its full 10 power. Intended: "does not prevent ... as part of the steps of an attack."
 
 ## GIVEN
 CommonSetup: bbk/yyw/{myBase:SOR_021;theirBase:SOR_021}
@@ -182,7 +182,7 @@ P2BASEDMG:10
 # ReturnPrevention_EnemyUnitTriggered_CantinaBouncer
 #// LOF_073 Mythosaur — protection covers an enemy UNIT'S triggered return. P2 plays SOR_202 Cantina Bouncer
 #// ("When Played: you may return a non-leader unit to hand") targeting P1's UPGRADED SOR_046. The return is
-#// prevented, so SOR_046 stays. Ref: "prevents return ... by enemy card triggered abilities."
+#// prevented, so SOR_046 stays. Intended: "prevents return ... by enemy card triggered abilities."
 
 ## GIVEN
 CommonSetup: bbk/yyw/{myBase:SOR_021;theirBase:SOR_021}
@@ -210,7 +210,7 @@ P1GROUNDARENAUNIT:1:CARDID:SOR_046
 #// LOF_073 Mythosaur — return protection is against ENEMY abilities only. P1 plays its own SOR_222 Waylay to
 #// return its UPGRADED SOR_046 to hand; a friendly source is not prevented, so SOR_046 leaves and only
 #// Mythosaur remains. (Waylay is Cunning, off-aspect for this Vigilance/Villainy deck → costs 3+2=5.)
-#// Ref: "does not prevent return ... by friendly card abilities."
+#// Intended: "does not prevent return ... by friendly card abilities."
 
 ## GIVEN
 CommonSetup: bbk/yyw/{myBase:SOR_021;theirBase:SOR_021}
@@ -254,3 +254,104 @@ WithP2Resources: 6
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# ExhaustPrevention_EnemyUnitActionAbility
+#// LOF_073 Mythosaur — "Friendly upgraded units can't be exhausted … by enemy card abilities." The
+#// existing prevention section drives an enemy EVENT; this drives an enemy UNIT'S ACTIVATED ABILITY, a
+#// different dispatch path (SWUUnitAction rather than the event flow). P2's TWI_206 Independent Senator
+#// ("Action [2 resources, Exhaust]: exhaust a unit with 4 or less power") targets P1's upgraded SOR_046
+#// (3/7 + SOR_214 = 4/8, so power 4 is in range). The exhaust must be prevented — P1's unit stays READY
+#// while the Senator itself still pays its own Exhaust cost.
+
+## GIVEN
+CommonSetup: bbk/yyw/{myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: LOF_073:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 1:SOR_214
+WithP2GroundArena: TWI_206:1:0
+WithP2Resources: 2
+
+## WHEN
+- P2>UseUnitAbility:myGroundArena-0
+- P2>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_046
+P1GROUNDARENAUNIT:1:READY
+P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# NoPrevention_ExhaustPaidAsOwnAbilityCost
+#// LOF_073 Mythosaur — the protection is scoped to ENEMY card abilities, so it must NOT stop a friendly
+#// upgraded unit from exhausting ITSELF to pay its own ability cost. P1's TWI_206 is upgraded (0/4 +
+#// SOR_214 = 1/5) and therefore protected, but activating its own "Action [2 resources, Exhaust]" has to
+#// spend that Exhaust — otherwise the unit would use the ability for free, repeatedly.
+#// This is the cost-vs-effect line: OnExhaustCard allows the exhaust when the actor IS the controller.
+
+## GIVEN
+CommonSetup: bbk/yyw/{myBase:SOR_021;theirBase:SOR_021;myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LOF_073:1:0
+WithP1GroundArena: TWI_206:1:0
+WithP1GroundArenaUpgrade: 1:SOR_214
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-1
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:TWI_206
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# EnemyDeployedLeader_DoesNotGainMandalorian
+#// LOF_073 Mythosaur — "FRIENDLY leaders gain the Mandalorian trait." The grant is scoped to the
+#// Mythosaur controller's own leaders, so an ENEMY deployed leader must not pick it up. P1 controls
+#// Mythosaur; P2's leader is deployed as a unit and must NOT be a Mandalorian.
+
+## GIVEN
+CommonSetup: bbw/rrk/{theirLeader:TWI_004;theirLeaderDeployed:true;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LOF_073:1:0
+
+## WHEN
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:TWI_004
+P2GROUNDARENAUNIT:0:NOTTRAIT:Mandalorian
+P1GROUNDARENAUNIT:0:CARDID:LOF_073
+
+---
+
+# PilotLeaderHost_GainsMandalorian
+#// LOF_073 Mythosaur — a unit carrying a LEADER PILOT upgrade is itself a leader unit, so it counts as
+#// a "friendly leader" and gains the Mandalorian trait. P1's Academy Defense Walker (SOR_037, a ground
+#// Vehicle with no printed Mandalorian trait) hosts the deployed leader-pilot Asajj Ventress; with
+#// Mythosaur in play the Walker must read as a Mandalorian. Distinct from the existing grant section,
+#// which uses a leader deployed as its own UNIT.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myLeader:JTL_001;myLeaderDeployedPilot:true;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_037:1:0
+WithP1GroundArena: LOF_073:1:0
+
+## WHEN
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_037
+P1GROUNDARENAUNIT:0:HASTRAIT:Mandalorian
+P1GROUNDARENAUNIT:1:CARDID:LOF_073

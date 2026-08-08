@@ -42,7 +42,7 @@ P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
 # WhenPlayed_NoEnemy_OnlyFriendlyShield
 #// LOF_037 Darth Vader — When Played gives a Shield to a friendly unit AND to an enemy unit. With no enemy
 #// units on the board, only the friendly half resolves; the sole friendly is Vader himself, so he shields
-#// himself. Ref: "when played should only give a shield to a friendly unit as there is no enemy units".
+#// himself. Intended: "when played should only give a shield to a friendly unit as there is no enemy units".
 
 ## GIVEN
 CommonSetup: bbk/ggw/{myResources:6;handCardIds:LOF_037}
@@ -60,7 +60,7 @@ P1GROUNDARENACOUNT:1
 # OnAttack_NoShieldedEnemy_NoTrigger
 #// LOF_037 Darth Vader — On Attack: defeat an enemy unit WITH a Shield token. With no shielded enemy units the
 #// reaction has no legal target and does nothing (no decision). Vader (5) attacks an unshielded 3/7 Consular
-#// Security Force (SOR_046): it takes 5 combat damage and survives; nothing else happens. Ref: "should not be
+#// Security Force (SOR_046): it takes 5 combat damage and survives; nothing else happens. Intended: "should not be
 #// able to defeat any unit as there are no enemy shielded units".
 
 ## GIVEN

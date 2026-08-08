@@ -56,3 +56,22 @@ WithP2GroundArena: LAW_124:1:0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# NonUniqueUnit_NotSelectable
+#// LOF_095 Lor San Tekka — the Experience target must be a <uq> (UNIQUE) unit. Lor trades into LAW_124
+#// and his When Defeated offers the unique Plo Koon but NOT the non-unique Battlefield Marine (SOR_095),
+#// which sits at myGroundArena-1 once Lor has left the arena.
+## GIVEN
+CommonSetup: ggw/rrk
+P1OnlyActions: true
+WithP1GroundArena: LOF_095:1:0
+WithP1GroundArena: LOF_050:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: LAW_124:1:0
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+## EXPECT
+P1SELECTABLENOT:myGroundArena-1
+P1SELECTABLEHAS:myGroundArena-0

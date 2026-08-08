@@ -59,7 +59,7 @@ P1HANDCOUNT:1
 
 # ExhaustFriendly_NoEnemy_JustDraws
 #// LOF_218 — pay by exhausting a friendly unit with NO enemy unit in play: the enemy-exhaust step is
-#// skipped but P1 still draws a card. Ref: "can exhaust a friendly unit to draw a card".
+#// skipped but P1 still draws a card. Intended: "can exhaust a friendly unit to draw a card".
 ## GIVEN
 CommonSetup: yyk/ggw/{myResources:3;handCardIds:LOF_218}
 P1OnlyActions: true
@@ -77,7 +77,7 @@ P1HANDCOUNT:1
 
 # EmptyBoard_NoForce_NoOp
 #// LOF_218 — on an empty board with no Force token, neither payment option is available, so the event
-#// plays to no effect (no draw). Ref: "can be used to do nothing".
+#// plays to no effect (no draw). Intended: "can be used to do nothing".
 ## GIVEN
 CommonSetup: yyk/ggw/{myResources:3;handCardIds:LOF_218}
 P1OnlyActions: true
@@ -92,7 +92,7 @@ P1NOFORCE
 
 # NoForce_ChooseForce_NoEffect
 #// LOF_218 — with NO Force token, choosing the "use the Force" option cannot pay the cost, so nothing
-#// happens: no enemy exhaust, no draw. Ref: "can choose to use the Force to do nothing".
+#// happens: no enemy exhaust, no draw. Intended: "can choose to use the Force to do nothing".
 ## GIVEN
 CommonSetup: yyk/ggw/{myResources:3;handCardIds:LOF_218}
 P1OnlyActions: true
@@ -112,7 +112,7 @@ P1HANDCOUNT:0
 
 # HasForce_NoFriendly_ChooseExhaust_NoEffect
 #// LOF_218 — with a Force token but NO friendly unit, choosing "exhaust a friendly unit" cannot pay the
-#// cost, so nothing happens: the Force is kept, no enemy exhaust, no draw. Ref: "can choose to exhaust a
+#// cost, so nothing happens: the Force is kept, no enemy exhaust, no draw. Intended: "can choose to exhaust a
 #// friendly unit to do nothing".
 ## GIVEN
 CommonSetup: yyk/ggw/{myResources:3;handCardIds:LOF_218}

@@ -65,7 +65,7 @@ P1RESAVAILABLE:0
 
 # Deployed_Passive_SpectreBuff
 #// LOF_004 Kanan Jarrus (deployed, 3/6) — passive +2/+2 branch via a SPECTRE unit (the Creature branch is
-#// covered above). With Ezra Bridger (LOF_046, a Spectre) in play, Kanan is 5/8. (FT: "should get +2/+2 while
+#// covered above). With Ezra Bridger (LOF_046, a Spectre) in play, Kanan is 5/8. (Intended: "should get +2/+2 while
 #// controlling another Creature or Spectre unit" — Spectre case.)
 
 ## GIVEN

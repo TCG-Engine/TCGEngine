@@ -38,7 +38,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Grit
 
 # OnlyUnit_NoKeywordsMirrored
 #// LOF_105 Oppo Rancisis — "ANOTHER friendly unit" excludes Oppo himself. With Oppo as the ONLY friendly
-#// unit and no keyword donor in play, he mirrors NOTHING for all nine keywords. (FT: "should do nothing
+#// unit and no keyword donor in play, he mirrors NOTHING for all nine keywords. (Intended: "should do nothing
 #// when he is the only unit".) GUARD for the fixed innate-keyword bug: LOF_105 was wrongly in the innate
 #// $Overwhelm_/$Saboteur_/$Sentinel_/$Hidden_Cards tables (generator scraped the keyword names out of his
 #// prose ability text); fixed in Data/ProcessKeywordsSWU.php (comma-segment gate) + regenerated. All four
@@ -64,7 +64,7 @@ P1GROUNDARENAUNIT:0:NOTKEYWORD:Hidden
 # Hidden_Mirrored
 #// LOF_105 Oppo Rancisis gains Hidden while another friendly unit has Hidden. Donor: LOF_154 Witch of the
 #// Mist (Hidden). Oppo gains Hidden; the Witch (self-donor is fine, it's "another" unit relative to Oppo)
-#// keeps hers. (FT: "should gain Hidden while a friendly unit has Hidden".)
+#// keeps hers. (Intended: "should gain Hidden while a friendly unit has Hidden".)
 
 ## GIVEN
 CommonSetup: ggw/rrk
@@ -78,7 +78,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Hidden
 
 # Saboteur_Mirrored
 #// LOF_105 Oppo Rancisis gains Saboteur while another friendly unit has Saboteur. Donor: SOR_239 Rebel
-#// Pathfinder (Saboteur). (FT: "should gain Saboteur when a friendly unit has Saboteur".)
+#// Pathfinder (Saboteur). (Intended: "should gain Saboteur when a friendly unit has Saboteur".)
 
 ## GIVEN
 CommonSetup: ggw/rrk
@@ -93,7 +93,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
 # Shielded_GainedOnPlay
 #// LOF_105 Oppo Rancisis gains Shielded while another friendly unit has Shielded, and — because he has
 #// Shielded as he ENTERS play — gets a Shield token. Donor SOR_207 Crafty Smuggler (Shielded) is already
-#// in play; Oppo is played from hand and enters with a shield. (FT: "should gain Shielded when a friendly
+#// in play; Oppo is played from hand and enters with a shield. (Intended: "should gain Shielded when a friendly
 #// unit has Shielded" — toHaveExactUpgradeNames(['shield']).)
 
 ## GIVEN
@@ -113,7 +113,7 @@ P1GROUNDARENAUNIT:1:SHIELDCOUNT:1
 
 # NotFromEnemyUnits
 #// LOF_105 Oppo Rancisis mirrors keywords only from FRIENDLY units. Enemy SOR_207 (Shielded) is in P2's
-#// arena; Oppo (P1, lone friendly unit) does NOT gain Shielded. (FT: "should not gain keywords from enemy
+#// arena; Oppo (P1, lone friendly unit) does NOT gain Shielded. (Intended: "should not gain keywords from enemy
 #// units".) Saboteur/Sentinel are also asserted OFF here — enemy SOR_239 (Saboteur) + SOR_044 (Sentinel)
 #// in P2's arena do NOT grant to Oppo (guards the fixed innate-table bug on the enemy-donor path too).
 
@@ -134,7 +134,7 @@ P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 # Raid2_Value
 #// LOF_105 Oppo Rancisis gains Raid 2 (fixed value) while another friendly unit has Raid — regardless of
 #// the donor's Raid amount. Donor SOR_157 Cantina Braggart (Raid 2). Oppo (3 power) attacks P2 base:
-#// 3 + Raid 2 = 5 damage. (FT: "should gain Raid 2 when a friendly unit has Raid" → base damage 5.)
+#// 3 + Raid 2 = 5 damage. (Intended: "should gain Raid 2 when a friendly unit has Raid" → base damage 5.)
 
 ## GIVEN
 CommonSetup: ggw/rrk
@@ -152,7 +152,7 @@ P2BASEDMG:5
 # Restore2_Value
 #// LOF_105 Oppo Rancisis gains Restore 2 (fixed value) while another friendly unit has Restore. Donor
 #// SOR_243 Regional Sympathizers (Restore 2). P1 base starts at 5 damage; Oppo attacks P2 base → Oppo's
-#// Restore 2 heals P1 base to 3, and P2 base takes Oppo's 3 power. (FT: "should gain Restore 2 when a
+#// Restore 2 heals P1 base to 3, and P2 base takes Oppo's 3 power. (Intended: "should gain Restore 2 when a
 #// friendly unit has Restore".)
 
 ## GIVEN
@@ -172,7 +172,7 @@ P2BASEDMG:3
 # RestoreDoesNotStackToFour
 #// LOF_105 Oppo Rancisis mirrors Restore as a fixed Restore 2 even with TWO friendly Restore donors — it
 #// does NOT become Restore 4. Donors: SOR_243 (Restore 2, ground) + SOR_044 (Restore 1, space). P1 base
-#// starts at 5 damage; Oppo attacks → heals only 2 (to 3), not 4. (FT: "should not gain Restore 4 when 2
+#// starts at 5 damage; Oppo attacks → heals only 2 (to 3), not 4. (Intended: "should not gain Restore 4 when 2
 #// friendly units have Restore".)
 
 ## GIVEN
@@ -194,7 +194,7 @@ P2BASEDMG:3
 #// LOF_105 Oppo Rancisis loses a mirrored keyword the moment the donor leaves play (continuous recompute).
 #// P1 controls Oppo + SOR_243 (Restore donor); P1 base is at 5 damage. P2 plays SOR_077 Takedown to defeat
 #// SOR_243. Now Oppo has no Restore donor, so when he attacks P2's base his Restore does NOT fire: P1 base
-#// stays at 5, P2 base takes Oppo's 3 power. (FT: "should lose keywords when the friendly unit leaves
+#// stays at 5, P2 base takes Oppo's 3 power. (Intended: "should lose keywords when the friendly unit leaves
 #// play".)
 
 ## GIVEN

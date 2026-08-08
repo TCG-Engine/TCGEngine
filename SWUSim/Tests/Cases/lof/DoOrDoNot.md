@@ -40,7 +40,7 @@ P1HANDCOUNT:2
 
 # HasForce_Decline_Draw1
 #// LOF_175 Do or Do Not — "You may use the Force. If you do, draw 2. If you do not, draw 1." P1 HAS the
-#// Force but declines the offer → draws only 1 and the Force token is retained. Ref: "should draw 1 card if
+#// Force but declines the offer → draws only 1 and the Force token is retained. Intended: "should draw 1 card if
 #// the Force is not used".
 
 ## GIVEN
@@ -63,7 +63,7 @@ P1HANDCOUNT:1
 
 # EmptyDeck_NoForce_BaseDamage3
 #// LOF_175 Do or Do Not — with no Force the effect auto-draws 1 card; against an EMPTY deck CR 6.1 turns that
-#// draw into 3 damage to P1's own base. Ref: "should damage the base if used with an empty deck without the
+#// draw into 3 damage to P1's own base. Intended: "should damage the base if used with an empty deck without the
 #// Force". P1's deck is left unseeded (empty).
 
 ## GIVEN
@@ -81,7 +81,7 @@ P1BASEDMG:3
 
 # EmptyDeck_Force_BaseDamage6
 #// LOF_175 Do or Do Not — using the Force draws 2; against an EMPTY deck both draws become 3 damage each →
-#// 6 to P1's own base, and the Force token is spent. Ref: "should damage the base if used with an empty deck
+#// 6 to P1's own base, and the Force token is spent. Intended: "should damage the base if used with an empty deck
 #// with the Force".
 
 ## GIVEN

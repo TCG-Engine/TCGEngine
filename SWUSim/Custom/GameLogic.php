@@ -1954,7 +1954,7 @@ function SWUImmuneToHpDefeat($obj): bool {
     if ($cid === 'SOR_004' && IsLeaderUnit($obj)) return GetCurrentPhase() !== 'RGS';
     // SEC_012 Cassian Andor (deployed): "While you have the initiative, this unit isn't defeated by
     // having no remaining HP." Innate leader-unit ability, so it's lost if the unit loses all abilities
-    // (ref: "immediately defeated if an effect causes him to lose all abilities").
+    // (Intended: he is immediately defeated if an effect causes him to lose all abilities.)
     if ($cid === 'SEC_012' && IsLeaderUnit($obj) && !LostAbilities($obj)
             && _SWUHasInitiative(intval($obj->Controller ?? 0))) return true;
     // LOF_043 The Tragedy of Plagueis — a chosen unit "can't be defeated by having no remaining HP" for
@@ -3206,13 +3206,31 @@ function DoDrawCard($player, $amount) {
 
 // True if $player controls a leader OR base with the Aggression aspect (LOF_148's draw condition).
 function _SWUControlsAggressionLeaderOrBase(int $player): bool {
+    // The leader CARD never leaves the leader zone, so this covers it in every state — undeployed,
+    // deployed as a unit, and attached to a host as a Pilot upgrade (a pilot keeps its own controller,
+    // so your leader stays YOUR leader even after an opponent takes control of the host it is flying).
     foreach ([GetLeader($player) ?? [], GetBase($player) ?? []] as $zone) {
         foreach ($zone as $c) {
             if (!empty($c->removed)) continue;
             if (strpos(CardAspect($c->CardID ?? '') ?? '', 'Aggression') !== false) return true;
         }
     }
-    return false;
+    // A unit you control that IS a leader unit is also "a leader you control", and it contributes its
+    // OWN aspects — a Vehicle carrying a leader-Pilot upgrade becomes a leader unit, so an Aggression
+    // Vehicle counts even when the leader flying it has no Aggression (user ruling 2026-08-07).
+    // ⚠ Own the $playerID frame here — the caller sets it AFTER this gate runs, so a relative 'my'
+    // lookup would otherwise resolve against the wrong seat.
+    global $playerID; $savedPID = $playerID; $playerID = intval($player);
+    $found = false;
+    foreach (SWUAllUnits('my') as $mz) {
+        $u = GetZoneObject($mz);
+        if ($u === null || !empty($u->removed)) continue;
+        if (intval($u->Controller ?? 0) !== intval($player)) continue;
+        if (!IsLeaderUnit($u)) continue;
+        if (strpos(CardAspect($u->CardID ?? '') ?? '', 'Aggression') !== false) { $found = true; break; }
+    }
+    $playerID = $savedPID;
+    return $found;
 }
 
 // LOF_148 — "When you draw this card during the action phase: if you control an Aggression leader or
@@ -4098,8 +4116,22 @@ function DoRescueUnit($captiveSubcard, $hostObj): void {
 // SWURescueCaptivesOf — CR 8.34.4: if $hostObj guards any captured units, rescue all of them
 // via DoRescueUnit and clear them from the host. No-op when the host has no captives.
 // MUST be called BEFORE the host is marked removed / spliced out of the arena array.
+//
+// SPLIT into detach + materialize (see SWUDetachCaptivesOf below): the DETACH half must run before
+// SWUDiscardHostSubcards (or the captives would be discarded as if they were upgrades), but the
+// MATERIALIZE half must run AFTER the host's defeat observers are collected — a captive is not in
+// play at the moment of the defeat that frees it, so it must not satisfy "when an enemy unit is
+// defeated" (LOF_130 HK-47 et al). Callers that don't collect observers in between just use this
+// wrapper; the combat defender path drives the two halves itself.
 function SWURescueCaptivesOf($hostObj): void {
-    if ($hostObj === null || empty($hostObj->Subcards) || !is_array($hostObj->Subcards)) return;
+    $captives = SWUDetachCaptivesOf($hostObj);
+    foreach ($captives as $captive) DoRescueUnit($captive, $hostObj);
+}
+
+// Detach-only half: strips every live captive subcard off $hostObj and RETURNS them without putting
+// anything into play. Callers MUST materialize the result with DoRescueUnit or the captives are lost.
+function SWUDetachCaptivesOf($hostObj): array {
+    if ($hostObj === null || empty($hostObj->Subcards) || !is_array($hostObj->Subcards)) return [];
 
     // Snapshot captives first to avoid reading stale indices after mutation.
     $captives = [];
@@ -4111,7 +4143,7 @@ function SWURescueCaptivesOf($hostObj): void {
         }
     }
 
-    if (empty($captives)) return;
+    if (empty($captives)) return [];
 
     // Remove captive subcards from the host before rescuing so they don't double-fire later.
     $remaining = [];
@@ -4130,7 +4162,7 @@ function SWURescueCaptivesOf($hostObj): void {
         if (is_array($nested)) foreach ($nested as $cap) $captives[] = $cap;
     }
 
-    if (empty($captives)) return;
+    if (empty($captives)) return [];
 
     // Remove captive subcards from the host before rescuing so they don't double-fire later.
     $remaining = [];
@@ -4145,10 +4177,7 @@ function SWURescueCaptivesOf($hostObj): void {
     }
     $hostObj->Subcards = $remaining;
 
-    // Rescue each captive back to its owner's arena, exhausted.
-    foreach ($captives as $captive) {
-        DoRescueUnit($captive, $hostObj);
-    }
+    return $captives;
 }
 
 // ─── JTL move/attach subsystem (Eject/Corvus/Luke unit/L3-37) ──────────────────
@@ -10602,6 +10631,21 @@ function SWUApplyIndirectAssignment(int $controller, int $damagedPlayer, string 
         // answers the assignment, so the central read in SWUDealDamageToBase can't see it here. Enemy base only.
         if ($sourceUID > 0 && intval($damagedPlayer) !== intval($controller)) {
             AddGlobalEffects(intval($controller), 'SWU_UNITDMGBASE_' . intval($sourceUID));
+            // JTL_177 Stay on Target — the granted trigger reads "When this unit deals DAMAGE to a base",
+            // not "combat damage", so indirect damage the attacker deals to a base fires it too. The
+            // combat-end check in CombatLogic only sees $combatCtx['dealtToBase'] (direct hit + Overwhelm
+            // spill), so without this an attacker that damages the base by BOTH paths in one attack — e.g.
+            // JTL_149 Red Squadron Y-Wing's On Attack indirect, then its combat damage — drew only once.
+            // We are in the controller's frame here, so SWUFindMzByUID resolves correctly.
+            $jtl177Src = SWUFindMzByUID(intval($sourceUID));
+            if ($jtl177Src !== null) {
+                $jtl177Obj = GetZoneObject($jtl177Src);
+                if ($jtl177Obj !== null && empty($jtl177Obj->removed)
+                        && is_array($jtl177Obj->TurnEffects ?? null)
+                        && in_array('JTL_177', $jtl177Obj->TurnEffects, true)) {
+                    DoDrawCard(intval($controller), 1);
+                }
+            }
         }
     }
 
@@ -11125,12 +11169,26 @@ function _topDeckPutRemainingToBottom(int $player, array $remainingIDs): void {
 
 // TOPDECKSEARCH_FINALIZE: draw chosen cards to hand; shuffle rest to bottom of deck.
 $customDQHandlers["TOPDECKSEARCH_FINALIZE"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $savedPID = $playerID; $playerID = intval($player);
     $allIDs  = array_values(array_filter(explode(',', $parts[0] ?? '')));
     $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
+    // These cards are DRAWN ("search … reveal it, and DRAW it"), so the when-you-draw observers must
+    // fire exactly as they do for DoDrawCard — this path used to AddHand() silently, so LOF_148 Rey's
+    // "when you draw this card during the action phase" never triggered off a search-and-draw
+    // (SOR_123 Recruit, SOR_084, …). Capture the new hand slots to hand the observers real mzIDs.
+    $handBefore = count(GetHand(intval($player)));
     foreach ($resolved['drawn'] as $cardID) {
         AddHand(intval($player), CardID: $cardID);
     }
+    $drawnMz = [];
+    for ($i = $handBefore; $i < count(GetHand(intval($player))); $i++) $drawnMz[] = "myHand-{$i}";
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
+    if (!empty($drawnMz)) {
+        if (function_exists('_SWUOnPlayerDrew')) _SWUOnPlayerDrew(intval($player), count($drawnMz));
+        _SWUOnDrawLof148(intval($player), $drawnMz);
+    }
+    $playerID = $savedPID;
 };
 
 // TWI_201 Aid from the Innocent — like TOPDECKSEARCH_FINALIZE, but the chosen cards are DISCARDED (not

@@ -107,3 +107,24 @@ WithP2GroundArena: SOR_059:1:0
 P1GROUNDARENAUNIT:0:POWER:11
 P2BASEDMG:0
 P2GROUNDARENACOUNT:1
+
+---
+
+# BonusAttack_CannotTargetBases
+#// LOF_140 Maul's Lightsaber — the bonus attack grants Overwhelm but also "CAN'T ATTACK BASES", so with an
+#// enemy unit present the enemy base must not be an offered target for that attack. Attached to Darth Maul
+#// (TWI_135, 5/6 → 9/8); the selectable targets are exactly the two enemy units, never theirBase-0.
+#// (Two enemy units on purpose: with one the attack target auto-resolves and there is no offer to check.)
+## GIVEN
+CommonSetup: rrk/ggw/{myResources:3;handCardIds:LOF_140}
+P1OnlyActions: true
+WithP1GroundArena: TWI_135:1:0
+WithP2GroundArena: SOR_059:1:0
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:YES
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
+P1SELECTABLENOT:theirBase-0

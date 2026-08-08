@@ -19,7 +19,7 @@ P1HANDCOUNT:0
 # EnemyAttach_EnemyDiscards
 #// LOF_139 Battle Fury — the granted "On Attack: discard a card from your hand" discards from the CONTROLLER
 #// of the attached unit, even when attached to an enemy unit. P2's unit carries Battle Fury; when P2 attacks,
-#// P2 (not the caster P1) discards its only hand card. (FT: "discards from the unit's controller if it is
+#// P2 (not the caster P1) discards its only hand card. (Intended: "discards from the unit's controller if it is
 #// played on an enemy unit".)
 
 ## GIVEN
@@ -43,7 +43,7 @@ P2HANDCOUNT:0
 # ControlChange_NewControllerDiscards
 #// LOF_139 Battle Fury — the granted discard follows the CURRENT controller after a control change. P1's unit
 #// carries Battle Fury; P2 plays Change of Heart (SOR_224) to seize it, then attacks with it → P2 discards its
-#// remaining hand card. (FT: "discards from the correct player when the unit changes controllers".)
+#// remaining hand card. (Intended: "discards from the correct player when the unit changes controllers".)
 
 ## GIVEN
 CommonSetup: bbk/yyk/{theirResources:6}

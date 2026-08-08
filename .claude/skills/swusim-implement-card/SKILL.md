@@ -57,7 +57,7 @@ Decompose the printed text into **clauses** first (see the clause-decomposition 
 Re-read the printed text **as if you had never seen the implementation**, list every scenario an independent auditor would write from that text alone, and diff that list against your sections. Anything unmatched becomes a section or a stated N/A. Two failure modes this catches, both seen repeatedly:
 - **A test NAME that doesn't match what it asserts** — audit by reading assertions, never titles.
 - **"The code obviously does this"** — that reasoning is exactly what leaves a correct behavior untested until a refactor breaks it silently.
-- **The REAL execution path, not just a fixture stand-in.** A deployed-leader ability dropped into the arena via `WithP*GroundArena` tests the handler but NOT the deploy→attack dispatch; add one test that actually `DeployLeader`s and acts. (And note `CommonSetup`'s leader codes map to a *fixed* leader per aspect-combo — `bw` is Luke SOR_005, not every Vigilance+Heroism leader; either override it with the `myLeader:CARDID` opt or use explicit `P1LeaderBase: <CARDID>/<BASE>:<dmg>` when you need a specific leader. For a *pre-deployed* leader, `myLeaderDeployed:true` (as a unit) / `myLeaderDeployedPilot:true` (as a Pilot on the first friendly unit) set it up without a DeployLeader step. `_parseBaseSpec` accepts `BASEID:damage` to pre-damage a base for heal assertions.)
+- **The REAL execution path, not just a fixture stand-in.** A deployed-leader ability dropped into the arena via `WithP*GroundArena` tests the handler but NOT the deploy→attack dispatch; add one test that actually `DeployLeader`s and acts. (And note `CommonSetup`'s leader codes map to a *fixed* leader per aspect-combo — `bw` is Luke SOR_005, not every Vigilance+Heroism leader; either override it with the `myLeader:CARDID` opt or use explicit `P1LeaderBase: <CARDID>/<BASE>:<dmg>` when you need a specific leader. For a *pre-deployed* leader, `myLeaderDeployed:true` (as a unit) / `myLeaderDeployedPilot:true` (as a Pilot on the first friendly unit) set it up without a DeployLeader step. to pre-damage a base for heal assertions use the SEPARATE `myBaseDamage:` / `theirBaseDamage:` CommonSetup options — **`myBase:BASEID:damage` silently DROPS the damage** (`myBase` takes only a cardID), so a heal/lethal-damage assertion written that way passes trivially against an undamaged base.)
 
 **When in doubt, ASK — don't guess and don't silently ship at 70%.** If a card's ruling is ambiguous, an interaction is unclear, or you can't get a scenario to a confident green, **stop and ask the user** a specific question (ruling? intended scenario? acceptable to defer this edge?), OR propose the extra tests you'd write to close the gap and let them confirm. Surfacing "I'm at ~80% on card X because edge Y is untested — want me to add tests A/B or is that out of scope?" is always correct; quietly marking it Done is not. A confidence self-review at the end of a batch (per-card %, with anything <98% flagged for the user) is a good habit — the user may opt to manually playtest the flagged ones.
 
@@ -326,6 +326,18 @@ first two are the highest-yield in the whole list: they are invisible to a green
 - **In "Defeat X and do Y to Z", the first clause is NOT conditional on the second being possible.** Lightspeed Assault gated the friendly's defeat on an enemy target existing, so the whole event fizzled; an ability resolves as much of itself as it can, so the friendly dies and nothing else happens (user ruling 2026-08-02). Reserve the gate for an explicit "**If you do,**" rider. Add a `<NoSecondTarget>_FirstClauseStillResolves` section.
 - **A "while this unit is DEFENDING/ATTACKING …" aura needs both self- and bystander-negatives.** Gold Leader JTL_054's "-1/-0 to the attacker while defending" must NOT debuff Gold Leader when IT attacks, and must NOT apply when a DIFFERENT friendly unit is the defender. Both were already correct — but neither was tested, and a misleading test NAME hid the omission (only the assertions themselves revealed the cases). Always add `Attacking_NoDebuffOnItself` + `OtherUnitDefending_NoDebuff`.
 
+### More recurring bug shapes (JTL re-validation #2, 2026-08-07) — damage-path attribution, live-arena, offer-vs-branch
+One engine bug + eight correct-but-untested axes. These are **coverage-matrix cells**, not card quirks — add them for any card that matches:
+- **★ "When this unit deals damage to X" must fire on EVERY damage path it can reach, and once PER path.** JTL_177 Stay on Target's granted "deals damage to a base: draw" was checked only at combat end on `$combatCtx['dealtToBase']` — which covers a direct hit and Overwhelm spill but NOT **indirect**. An attacker damaging the base by both paths in one attack drew once instead of twice. When the text says **damage** (not "combat damage"), enumerate: direct combat · Overwhelm excess · **indirect the unit deals** · ability damage. Indirect never passes through `SWUCombatDamage`, so it needs its own hook — `SWUApplyIndirectAssignment` already threads `$sourceUID` for exactly this (the SEC_012 marker is the precedent). Generalizes the older Overwhelm-attribution note.
+- **Live-arena membership, not printed arena.** Any card reading "space unit" / "ground unit" must be tested with a unit that MOVED arenas (JTL_096 Blue Leader is the fixture: printed Space, moves to ground). Applies to target pools (Barrel Roll), count-based cost discounts (AT-DP Occupier), and auras. Seat `WithP{n}GroundArena: JTL_096:1:N` to model the post-move state directly.
+- **The actor-negative is a DIFFERENT test from the absence-guard.** "When YOU deploy/play X" needs the case where the **OPPONENT** does it while you control the source — distinct from "you don't control the source at all". Invincible had the latter only.
+- **A zone operation must act on the OWNER's zone, not the resolver's.** A deck search/shuffle triggered by you against an opponent's deck must leave YOUR deck untouched — assert your own `DECKCOUNT` + `DECKTOPCARD`. Invisible unless the test seeds a deck for the searcher too (no other Annihilator section did).
+- **A name check must be tested with a DIFFERENT printing than the rest of the file uses.** "If you control Boba Fett" spans 8 printings; a CardID-keyed impl passes every section that happens to use the same one.
+- **Answering an option proves the BRANCH, never the OFFER.** For any OPTIONCHOOSE/target pool, add one section that leaves the decision pending and asserts the offer itself — `P1OPTIONHAS:`/`P1OPTIONNOT:` for labels, `P1SELECTABLEEXACT:` for targets, `P1DECISIONTOOLTIP:` for a computed amount embedded in the prompt. A stray or missing option passes all the branch tests.
+- **A moved/relocated upgrade must still satisfy its OWN attach restriction at the destination.** U-Wing Lander moving JTL_227 ("attach to a Capital Ship or Transport") must not offer a Fighter. ⚠ When the restriction narrows the pool to one, the pick AUTO-RESOLVES — that is itself the proof: assert the end state + `P1NODECISION` rather than a pending choice.
+- **A conditional grant with N positive branches needs MORE THAN ONE negative.** Biggs grants per Fighter/Transport/Speeder; one non-matching host (Capital Ship) doesn't prove the check isn't "is it that one other trait" — add a second (Walker).
+- **⚠ DSL: there is no pre-condition `## EXPECT` block.** A second `## EXPECT` placed before `## WHEN` is not evaluated at that point (it merges into the post-state), so a "starting resources" sanity line fails confusingly. Assert only the end state.
+
 ### More recurring bug shapes (IC27 build, 2026-08-04) — load-order, generator detection, pre-cleanup collection
 Found building a NEW set card-by-card (not a validate-port), so these bite during ORIGINAL implementation:
 - **⚠⚠ A per-card file CANNOT register into a registry that is initialized AFTER `cards/_loader.php`.** The loader runs at `GameLogic.php:15`; **`$playCostModifiers = []` is initialized around line 2331**, so a `$playCostModifiers["X"] = …` written in `cards/<set>/X.php` is silently WIPED and the card no-ops. It passes its own RED check and then still fails — there is no error. Put cost-modifier closures in GameLogic beside SHD_182 / LAW_179 / TS26_71 (which all live there for exactly this reason) and leave a pointer comment in the card file. **Before registering into any array from a per-card file, check where that array is initialized relative to line 15.**
@@ -336,6 +348,84 @@ Found building a NEW set card-by-card (not a validate-port), so these bite durin
 - **⚠ FIXTURE TRAP: a card that DRAWS needs a seeded deck, or the draw DAMAGES the base instead.** An empty deck turned "draw a card and heal 2" into base damage going UP, which reads exactly like "the heal is broken" — three sections failed on a fixture omission, not the implementation. Distinct from the documented empty-deck *regroup* penalty: this fires on any draw. Seed `WithP{n}Deck` in every section whose card can draw.
 - **⚠ FIXTURE TRAP: CommonSetup's `myResources:N` and an explicit `WithP{n}Resources:` line COMBINE, they do not replace.** An "unaffordable cost" section that sets both silently ends up holding a ready resource, so the action succeeds and the test fails for the wrong reason. Use one or the other.
 - **★ On the RED check, every GREEN section needs a STATED REASON.** Absence-guards legitimately pass pre-implementation — but so do two failure modes that look identical: a section whose expected value the unimplemented engine already produces (an assertion of `1` where the correct answer is `2`), and a section whose two halves cancel out (return 3 resources + resource 3 back leaves the COUNT unchanged, so it passes either way). Both shipped into this run's first drafts and were caught only by asking "why is this one green?" per section. If you cannot name the reason, the section is not discriminating — fix it before implementing.
+
+### More recurring bug shapes (LOF validate-port A–D, 2026-08-07) — duration ENDINGS, decline-vs-cannot-pay, two paths for one event
+Three engine bugs + the gap shapes that dominated a 35-card tail. The three bugs share ONE root cause worth
+internalizing: **the same game event reached through a second code path that skips the ceremony the first
+one performs.** Enumerate the paths before writing the card, not after.
+- **★★ An alternate way into a zone skips the canonical observer hooks.** `TOPDECKSEARCH_FINALIZE` put its
+  picks into hand with a bare `AddHand()`, so a SEARCH-AND-DRAW ("search the top 5 … reveal it, and DRAW
+  it") fired NO when-you-draw observers at all — LOF_148 Rey never triggered off SOR_123 Recruit, while a
+  plain draw worked. For any "when you draw / when this enters / when this is discarded" card, test the
+  card's window through **every** route into that zone (normal draw · search-and-draw · put-into-hand ·
+  bounce), not just the common one. The fix pattern: capture the new slots and call the same observer the
+  canonical mover calls (`_SWUOnPlayerDrew` + the per-card hook), rather than duplicating logic.
+- **★★ Two implementations of one event can ORDER their steps differently — and only one is right.** A
+  captured unit must not observe the defeat that FREES it. `SWUDefeatUnit` (effect path) collected the
+  defeat triggers first and was correct; the COMBAT defender branch called `SWURescueCaptivesOf` before
+  `CollectCombatStep3Triggers`, so a released HK-47 LOF_130 was already back on the board and dealt damage
+  for the very defeat that freed him. **Whenever a card's behaviour depends on WHO IS IN PLAY at an
+  instant, test both the combat-defeat and the effect-defeat path** — they are separate code. Fix shape:
+  when a step must run early for one reason (detach before `SWUDiscardHostSubcards`, or the captives get
+  discarded as upgrades) and late for another (materialize after the observers), SPLIT it in two rather
+  than moving it (`SWUDetachCaptivesOf` + a deferred `DoRescueUnit`).
+- **★ A per-instance trigger stored as a BOOLEAN silently caps at one.** "Attacks and defeats a unit" on a
+  two-defender attack must fire per defeated defender, but the multi-defender path carried
+  `$anyDefDefeated` as a bool. If a condition can be satisfied N times by one event, carry a COUNT
+  (`$combatCtx['defendersDefeated']`) and let the ABILITY'S COST decide whether it repeats — a cost that
+  can only be paid once (LOF_017's front "exhaust this leader") still fires once, a costless one (its
+  deployed side) fires N times. Test both sides; the asymmetry IS the rule.
+
+**Gap shapes that dominated the tail — add these cells for any card that matches:**
+- **A "while this unit is in play" aura needs an END test.** Nothing proved BD-1 LOF_191's +1/+0 + Saboteur
+  went away when BD-1 died; a permanent one-shot buff passes the only obvious section.
+- **"for this attack" / "for this phase" needs an EXPIRY test.** Zuckuss's +4/+0, Chirrut's -2/-0 and
+  Corrupted Saber's defender debuff all had the positive but not the ending. For "this attack", assert the
+  stat is back to printed AFTER the attack (cheapest form) or that a second attacker takes full damage.
+- **DECLINE and CANNOT-PAY are two different branches.** "You may discard a card. If you do, …" needs both
+  a refusal WITH a card in hand and an EMPTY HAND; "you may use the Force" needs both a NO with a token
+  held (token RETAINED) and no token at all (no prompt). Cards routinely had one and not the other.
+- **"another"/"other" self-exclusion**, and the mirror: an unqualified **"a unit" reaches ENEMY units**
+  (Last Words' Experience, Medical Frigate's heal target pool excluding only itself).
+- **OWNERSHIP vs CONTROL in the same sentence.** "Its OWNER puts it on top of THEIR deck" and "play it from
+  YOUR discard pile" both break on a stolen unit: it is a legal *friendly* target but lands in the OWNER's
+  zone, so the controller gets nothing. Test with `WithP{n}GroundArenaControlled: CARD:<ownerSeat>`.
+- **Control-change decides WHO RESOLVES.** Under JTL_043 No Glory, Only Results the new controller resolves
+  the When Defeated — searching THEIR deck, choosing the target, taking the damage. One section per card
+  with a control-change-then-defeat is cheap and catches "your"-scoped wording every time.
+
+### ⚠ DSL traps that cost real time on the LOF port (2026-08-07)
+- **★ An offer with a SINGLE legal option AUTO-RESOLVES**, so `P1SELECTABLEEXACT:`/`P1DECISIONTOOLTIP:`
+  finds *no pending decision* and the section fails confusingly. Whenever the POINT of the test is the
+  offer's contents, seed **two** legal options. Corollary and worse: a stray answer aimed at an
+  auto-resolved choice silently lands on the NEXT decision and blanks it — that looked exactly like "the
+  When Defeated never fired" on Sifo-Dyas until the handler was instrumented and shown to run correctly.
+- **★ `myBase:BASEID:damage` SILENTLY DROPS THE DAMAGE.** `myBase` takes only a cardID; pre-damaging needs
+  the separate `myBaseDamage:` / `theirBaseDamage:` options. Any heal-or-lethal assertion written the wrong
+  way passes trivially against an undamaged base (one tracked file was doing exactly this).
+- **A unit played this turn cannot attack.** To get a just-played unit off the board mid-phase, defeat it
+  with an event (LOF_264 It's Worse) rather than attacking into something lethal.
+- **A deployed leader's exhaust state lives on the ARENA UNIT, not the leader zone** — assert
+  `P1GROUNDARENAUNIT:<i>:EXHAUSTED`, not `P1LEADER:EXHAUSTED`. (And check the DEPLOYED text before
+  asserting an exhaust at all: a deployed side often drops the front's `[Exhaust]`.)
+- **Two identical simultaneous triggers raise a `Choose_trigger_to_resolve` MZCHOOSE** over
+  `EffectStack-0&EffectStack-1` before either resolves. CR-legal; the test must answer it.
+- **Off-aspect inflation applies to the OPPONENT's cards too** — a P2 event needs P2's base+leader aspects
+  checked, not P1's (NGOR at cost 5 became 7 and the section silently did nothing).
+
+### ★ Process lessons (LOF port) — how to tell a real bug from a test artifact
+- **Instrument, don't speculate.** Two "obvious" diagnoses were wrong until an `error_log` in the handler
+  showed what actually ran: the Sifo-Dyas trigger WAS firing (the test ate its own answer), and the
+  Maul+Fallen-Lightsaber case never reached the fizzle path at all (`d1Gone=0 d2Gone=0`).
+- **Isolate by swapping ONE mechanism.** Running the same board with a plain draw instead of a
+  search-and-draw is what separated "the condition is wrong" from "this path is wrong".
+- **Audit assertions, never titles — a CONFIRMED test can fail to test its own name.**
+  `D_ExpOnlyFromAttackedDefeatedUnit_NotBystander` attacked BOTH units, so it contained no bystander and
+  the official ruling it claimed to encode was untested for months. It surfaced only because an unrelated
+  change made it fail.
+- **A green section can be spuriously green.** The "lethal self-damage" section passed before its setup was
+  fixed. Its BOUNDARY PARTNER (exactly-30 survives) is what exposed it — which is the argument for always
+  writing boundary pairs rather than a single threshold case.
 
 ### Test file naming & layout — the `Title_Subtitle` standard (set 2026-07-15)
 

@@ -58,3 +58,20 @@ WithP1GroundArena: LOF_204:1:0
 ## EXPECT
 P2BASEDMG:4
 P2DECKCOUNT:0
+
+---
+
+# MatchBonus_ExpiresAfterTheAttack
+#// LOF_204 Zuckuss — the +4/+0 is "FOR THIS ATTACK". After a successful name match his power must drop
+#// straight back to the printed 4, not stay at 8 for the rest of the phase.
+## GIVEN
+CommonSetup: yyk/ggw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LOF_204:1:0
+WithP2Deck: SOR_146
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:Zeb Orrelios
+## EXPECT
+P2BASEDMG:8
+P1GROUNDARENAUNIT:0:POWER:4

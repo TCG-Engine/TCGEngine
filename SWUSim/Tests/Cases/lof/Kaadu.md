@@ -20,7 +20,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Overwhelm
 #// LOF_114 Kaadu — the "another friendly unit" it grants Overwhelm to may be a SPACE unit, and the granted
 #// Overwhelm actually spills excess combat damage to the base. P1's space Cartel Spacer (SOR_178, 2/3)
 #// receives Overwhelm from Kaadu, then attacks the enemy 1/1 Patrolling V-Wing (TWI_107): it defeats the
-#// V-Wing and the 1 excess (2 power − 1 HP) carries over to P2's base. Ref: "should give friendly
+#// V-Wing and the 1 excess (2 power − 1 HP) carries over to P2's base. Intended: "should give friendly
 #// space unit Overwhelm."
 
 ## GIVEN

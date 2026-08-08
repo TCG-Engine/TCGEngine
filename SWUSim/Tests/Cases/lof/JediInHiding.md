@@ -28,7 +28,7 @@ P2HANDCOUNT:0
 # NoForce_NoDiscard
 #// LOF_159 Jedi In Hiding — the When Defeated discard requires paying the Force. With no Force token, the
 #// "may use the Force" ability can't be paid, so nothing happens and the opponent keeps their card. Jedi
-#// attacks a 4/7 (LAW_124) and dies to the counter, but P2's hand is untouched. Ref: "does not allow to
+#// attacks a 4/7 (LAW_124) and dies to the counter, but P2's hand is untouched. Intended: "does not allow to
 #// discard a card from opponent's hand if player does not have the force".
 
 ## GIVEN
@@ -55,7 +55,7 @@ P2HANDCOUNT:1
 #// LOF_159 Jedi In Hiding — the When Defeated ability follows whoever CONTROLS the unit at defeat. P2 plays
 #// No Glory, Only Results (JTL_043) to take control of Jedi In Hiding and defeat it; the WD now belongs to
 #// P2, who pays THEIR Force and forces the "opponent" (from P2's view = P1) to discard a card. P2 loses the
-#// Force; P1 discards. Ref: "may allow the opponent to use the force because of No Glory Only Results ...
+#// Force; P1 discards. Intended: "may allow the opponent to use the force because of No Glory Only Results ...
 #// player discards a card from their hand". (JTL_043 auto-targets the only non-leader unit.)
 
 ## GIVEN

@@ -30,7 +30,7 @@ P2GROUNDARENAUNIT:0:EXHAUSTED
 # OpponentClaims_NoExhaust
 #// LOF_203 Premonition of Doom — the delayed effect fires only the next time the CONTROLLER (P1) takes the
 #// initiative. If the OPPONENT (P2) claims the initiative instead, the effect does not trigger and all units
-#// remain ready. Ref: "does not trigger if the opponent claims".
+#// remain ready. Intended: "does not trigger if the opponent claims".
 
 ## GIVEN
 CommonSetup: ggw/bbk/{

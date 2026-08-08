@@ -67,7 +67,7 @@ P1DECKCOUNT:0
 
 # LastCardDiscardsOnlyOne
 #// LOF_184 Second Sister — with only 1 card in the deck, the ability discards just that card (a Force card) and
-#// readies 1 resource. Ref: "discard the last card from the deck and ready 1 resource".
+#// readies 1 resource. Intended: "discard the last card from the deck and ready 1 resource".
 
 ## GIVEN
 CommonSetup: yyk/rrw
@@ -88,7 +88,7 @@ P1DECKCOUNT:0
 
 # EmptyDeckReadiesNone
 #// LOF_184 Second Sister — with an empty deck, triggering the ability discards nothing and readies no resource.
-#// The three exhausted resources stay exhausted. Ref: "should not ready any resource if deck is
+#// The three exhausted resources stay exhausted. Intended: "should not ready any resource if deck is
 #// empty".
 
 ## GIVEN

@@ -86,3 +86,35 @@ P2GROUNDARENAUNIT:0:DAMAGE:0
 P1BASEDMG:0
 P2BASEDMG:0
 P1NODECISION
+
+---
+
+# DamagePrompt_ShowsTheComputedAmount
+#// JTL_208 — the damage amount is computed from the mill (odd-cost cards discarded) and is not visible
+#// anywhere in the board state until it has already been applied, so the PROMPT has to carry it. Seeded
+#// for exactly three odd-cost discards: P1 mills SOR_128(1) + SOR_225(1) + SOR_095(2) = 2 odd, P2 mills
+#// SOR_225(1) + SOR_237(2) + SOR_044(2) = 1 odd. Two enemy units keep the target choice pending so the
+#// tooltip can be read rather than auto-resolving.
+#// (Previously written off as un-portable "prompt-title matcher"; P1DECISIONTOOLTIP covers it exactly.)
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_208
+WithP1Resources: 7
+WithP2GroundArena: [SOR_046:1:0 SOR_095:1:0]
+WithP1Deck: [SOR_128 SOR_225 SOR_095]
+WithP2Deck: [SOR_225 SOR_237 SOR_044]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DECISIONTOOLTIP:Deal_3_damage_to_a_unit
+P1DECKCOUNT:0
+P2DECKCOUNT:0

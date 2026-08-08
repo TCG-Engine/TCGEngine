@@ -17,7 +17,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Hidden
 #// LOF_132 Grand Inquisitor — the granted Hidden is an aura: a friendly Inquisitor that has no INNATE Hidden
 #// (Eighth Brother, LOF_087) loses Hidden the moment Grand Inquisitor leaves play. P2 defeats Grand Inquisitor
 #// with Takedown (SOR_077, defeat a unit with 5 or less remaining HP — GI is 3/4 → only legal target), and
-#// Eighth Brother no longer has Hidden. Ref: units that don't have Hidden on their own lose it when GI is
+#// Eighth Brother no longer has Hidden. Intended: units that don't have Hidden on their own lose it when GI is
 #// removed from play.
 
 ## GIVEN

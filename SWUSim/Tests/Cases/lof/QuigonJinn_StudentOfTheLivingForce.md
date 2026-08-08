@@ -95,7 +95,7 @@ P1HANDCOUNT:2
 # Front_NoFriendlyUnits_UseAnyway
 #// LOF_016 Qui-Gon (front) — the Action can only return a FRIENDLY unit. With no friendly units (only enemy
 #// units in play), it resolves to no effect, but the cost is still paid: the Force token is spent and the
-#// leader exhausts. Ref: "should not be able to return enemy units and should be able to pay costs to exhaust
+#// leader exhausts. Intended: "should not be able to return enemy units and should be able to pay costs to exhaust
 #// Quigon".
 
 ## GIVEN
@@ -119,7 +119,7 @@ P2GROUNDARENACOUNT:1
 #// LOF_016 Qui-Gon (deployed) — the trigger is "completes an attack (and survives)". Qui-Gon (4/7) starts on
 #// 6 damage and attacks Battlefield Marine (SOR_095, 3 power): he deals lethal but takes 3 back and is
 #// defeated, so the return-and-play trigger does NOT fire (SOR_046 stays in play, SOR_237 stays in hand).
-#// Ref: "should not be able to return and play a unit if he dies in the attack".
+#// Intended: "should not be able to return and play a unit if he dies in the attack".
 
 ## GIVEN
 CommonSetup: gyw/bbk/{myLeader:LOF_016:1:1:0:6;myBase:SOR_021;theirBase:SOR_021}
@@ -142,7 +142,7 @@ P1HANDCOUNT:1
 # Deployed_NoFriendlyUnits_NoTrigger
 #// LOF_016 Qui-Gon (deployed) — completing an attack with no OTHER friendly unit to return leaves nothing to
 #// do; the optional trigger finds no target and does nothing, so the cheaper hand unit (SOR_237) is never
-#// played for free (stays in hand). Ref: "should not be able to return and play a unit if there are no
+#// played for free (stays in hand). Intended: "should not be able to return and play a unit if there are no
 #// friendly units".
 
 ## GIVEN
@@ -164,7 +164,7 @@ P1HANDCOUNT:1
 # Deployed_ReturnEvenIfNoValidPlay
 #// LOF_016 Qui-Gon (deployed) — the return happens even when no cheaper unit can be played afterward. Return
 #// SOR_059 (cost 1) to hand; the only hand unit SOR_046 (cost 4) is not cheaper than 1, so nothing is played.
-#// SOR_059 ends in hand. Ref: "should be able to return a unit to hand even if there is no valid card to play
+#// SOR_059 ends in hand. Intended: "should be able to return a unit to hand even if there is no valid card to play
 #// afterward".
 
 ## GIVEN
@@ -186,7 +186,7 @@ P1HANDCOUNT:2
 
 # Deployed_PassAbility
 #// LOF_016 Qui-Gon (deployed) — the trigger is a "may", so it can be declined: SOR_046 is a legal return
-#// target but P1 passes, leaving the board untouched. Ref: "should be able to pass the ability".
+#// target but P1 passes, leaving the board untouched. Intended: "should be able to pass the ability".
 
 ## GIVEN
 CommonSetup: gyw/bbk/{myLeader:LOF_016:1:1:1;myBase:SOR_021;theirBase:SOR_021}
@@ -208,7 +208,7 @@ P1HANDCOUNT:1
 # Deployed_CannotPlayVillainyCheaper
 #// LOF_016 Qui-Gon (deployed) — the free play must be NON-Villainy. Return SOR_046 (cost 4); the only cheaper
 #// hand unit is SEC_080 (Command/Villainy, cost 2), which is excluded. The return still happens; nothing is
-#// played. Ref (deployed side): "should not be able to play a Villainy unit that costs less than the returned
+#// played. Intended (deployed side): "should not be able to play a Villainy unit that costs less than the returned
 #// unit".
 
 ## GIVEN

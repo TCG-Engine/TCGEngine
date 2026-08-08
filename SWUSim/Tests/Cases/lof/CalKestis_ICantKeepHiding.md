@@ -56,7 +56,7 @@ P1NOFORCE
 # LeaderAbility_NoReadyUnits_StillUsable
 #// LOF_015 Cal Kestis (front) — the Action can still be used when the opponent has NO ready units: the cost
 #// (exhaust + Force) is paid but there is simply no legal exhaust target, so no selection appears. P2's lone
-#// unit is seeded exhausted. Ref: "can be used if opponent has no ready units".
+#// unit is seeded exhausted. Intended: "can be used if opponent has no ready units".
 
 ## GIVEN
 CommonSetup: byw/bbk/{
@@ -83,7 +83,7 @@ P1NODECISION
 # LeaderAbility_NoForce_Unavailable
 #// LOF_015 Cal Kestis (front) — the Action requires the Force. Without a Force token it is unavailable and
 #// UseLeaderAbility is a no-op: Cal stays READY and no Force appears. (Low resources so the Epic deploy path
-#// can't interfere.) Ref: "cannot be used if the player does not have the force".
+#// can't interfere.) Intended: "cannot be used if the player does not have the force".
 
 ## GIVEN
 CommonSetup: byw/bbk/{
@@ -109,7 +109,7 @@ P1NODECISION
 # Deployed_NoReadyUnits_NoTrigger
 #// LOF_015 Cal Kestis (deployed) — On Attack: an opponent chooses a ready unit to exhaust. If the opponent
 #// has NO ready units the reaction does nothing (no selection). P2's lone unit is seeded exhausted; Cal
-#// attacks the base for 3. Ref: "does not trigger if opponent has no ready units".
+#// attacks the base for 3. Intended: "does not trigger if opponent has no ready units".
 
 ## GIVEN
 CommonSetup: byw/bbk/{

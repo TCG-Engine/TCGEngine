@@ -275,7 +275,7 @@ $leaderAbilities["LOF_018"] = function(int $player): void {
         if (CardType($cid) === 'Unit') {
             // A Villainy Unit is not a valid "non-unit card" — EXCEPT a Pilot, which may be played AS A
             // PILOT (upgrade) when it can attach to a friendly Vehicle and its Piloting cost (ignoring
-            // aspect penalties) is affordable. (Ref: Anakin plays a Villainy pilot "only as a pilot".)
+            // aspect penalties) is affordable. (Intended: Anakin plays a Villainy pilot only AS a pilot.)
             if (HasKeyword_Piloting($c) && !empty(SWUGetPilotValidTargets($player, $cid))
                     && $ready >= intval(CardPilotingCost($cid))) {
                 $targets[] = "myHand-{$i}";

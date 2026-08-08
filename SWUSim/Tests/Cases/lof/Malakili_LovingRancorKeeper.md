@@ -44,7 +44,7 @@ P2GROUNDARENAUNIT:0:DAMAGE:3
 # SecondCreatureNoDiscount
 #// LOF_108 Malakili — the discount is only for the FIRST Creature played each phase. With Malakili in play,
 #// P1 plays Wampa (SOR_164, Creature, cost 4 → 3) then Tuk'ata (LOF_161, Creature, cost 3 → full 3). Total 6
-#// with 6 resources leaves 0; if the second were wrongly discounted, 1 would remain. Ref: "the second unit
+#// with 6 resources leaves 0; if the second were wrongly discounted, 1 would remain. Intended: "the second unit
 #// we play must not have a discount".
 
 ## GIVEN
@@ -65,7 +65,7 @@ P1RESAVAILABLE:0
 # NonCreatureDiscountDoesNotApply
 #// LOF_108 Malakili — the discount applies only to Creature units. P1 plays Cantina Braggart (SOR_157, an
 #// Underworld non-Creature, cost 1). With exactly 1 resource it is played at full cost, leaving 0; a wrong
-#// discount would make it free and leave 1. Ref: "discount work only for Creature".
+#// discount would make it free and leave 1. Intended: "discount work only for Creature".
 
 ## GIVEN
 CommonSetup: rrk/ggk/{myResources:1}
@@ -85,7 +85,7 @@ P1RESAVAILABLE:0
 #// LOF_108 Malakili — the "prevent that damage" clause only covers a friendly Creature damaging a friendly
 #// unit; it does not touch combat/attack damage against enemies. A friendly Wampa (SOR_164, Creature)
 #// attacks the enemy 3/7 Consular Security Force: Wampa deals 4 to the enemy and takes 3 counter, both
-#// applied normally. Ref: "should not prevent attack damage".
+#// applied normally. Intended: "should not prevent attack damage".
 
 ## GIVEN
 CommonSetup: rrk/ggw

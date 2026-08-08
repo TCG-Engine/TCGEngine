@@ -67,3 +67,21 @@ P1NOFORCE
 P1GROUNDARENAUNIT:0:READY
 P1HANDCOUNT:1
 P1RESAVAILABLE:2
+
+---
+
+# UnaffordableAfterDiscount_NotSelectable
+#// LOF_094 Jedi Consular — the −2 is applied at the affordability gate, so a unit that is still too
+#// expensive after the discount must not be offered. With ZERO resources only Battlefield Marine
+#// (SOR_095, cost 2 → 0) is selectable; Plo Koon (LOF_050, cost 6, +2 off-aspect under a Command base
+#// and Command/Heroism leader → 8, −2 → 6) is not. Two copies of the affordable unit on purpose: with a
+#// single legal pick the choice auto-resolves and there is no offer left to inspect.
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:0;handCardIds:SOR_095,SOR_095,LOF_050}
+P1OnlyActions: true
+WithP1Force: true
+WithP1GroundArena: LOF_094:1:0
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+## EXPECT
+P1SELECTABLEEXACT:myHand-0&myHand-1

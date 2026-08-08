@@ -111,3 +111,31 @@ P1HANDCOUNT:1
 P1DECKCOUNT:0
 P1SPACEARENAUNIT:0:CARDID:SHD_242
 P1SPACEARENAUNIT:0:DAMAGE:2
+
+---
+
+# IndirectDamageToBase_AlsoDraws
+#// JTL_177 Stay on Target grants "When this unit deals damage to a base: Draw a card" — DAMAGE, not
+#// combat damage, so every path by which the attacker damages a base counts. JTL_149 Red Squadron Y-Wing
+#// has "On Attack: deal 3 indirect damage to the defending player"; with P2 controlling no units that
+#// indirect auto-assigns to their base, so the Y-Wing damages the base TWICE in one attack — once by the
+#// indirect and once by combat — and the granted ability draws for each. Base takes 3 indirect + 3 combat
+#// (1 power +2/+0) = 6.
+
+## GIVEN
+CommonSetup: rrw/bbk/{
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_177
+WithP1Resources: 5
+WithP1SpaceArena: JTL_149:1:0
+WithP1Deck: [SOR_128 SOR_128 SOR_128]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2BASEDMG:6
+P1HANDCOUNT:2

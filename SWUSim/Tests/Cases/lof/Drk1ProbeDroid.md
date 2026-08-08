@@ -20,7 +20,7 @@ P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 
 # DefeatNonUniqueUpgrade_Friendly
 #// LOF_155 DRK-1 Probe Droid — the defeatable upgrade may be on a FRIENDLY unit too. P1's own SOR_046
-#// carries the non-unique Resilient upgrade (SOR_069); DRK-1's When Played defeats it. Ref: "can
+#// carries the non-unique Resilient upgrade (SOR_069); DRK-1's When Played defeats it. Intended: "can
 #// defeat a non-unique upgrade on a friendly unit."
 
 ## GIVEN
@@ -42,7 +42,7 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 # UniqueUpgradeNotSelectable
 #// LOF_155 DRK-1 Probe Droid — only NON-unique upgrades can be defeated. Host SOR_046 idx0 bears only a
 #// unique upgrade (LOF_040 Kylo Ren's Lightsaber), so it is NOT a valid target; host SHD_029 idx1 bears the
-#// non-unique SOR_069, so only it is selectable. Ref: selects exactly [frozenInCarbonite,
+#// non-unique SOR_069, so only it is selectable. Intended: selects exactly [frozenInCarbonite,
 #// generalsBlade] and excludes the unique lukes-lightsaber.
 
 ## GIVEN

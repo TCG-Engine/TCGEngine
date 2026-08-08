@@ -22,7 +22,7 @@ P1GROUNDARENAUNIT:0:POWER:7
 
 # Buff_EnemyUnit
 #// LOF_087 Eighth Brother — the +2/+2 may target ANY unit, including an enemy. P1 plays SEC_080, uses the
-#// Force, and buffs the enemy Death Star Stormtrooper (SOR_128, 3/1 → 5/3). (FT: "should give an enemy unit
+#// Force, and buffs the enemy Death Star Stormtrooper (SOR_128, 3/1 → 5/3). (Intended: "should give an enemy unit
 #// +2/+2".)
 
 ## GIVEN
@@ -46,7 +46,7 @@ P2GROUNDARENAUNIT:0:HP:3
 
 # Buff_FriendlyOtherUnit
 #// LOF_087 Eighth Brother — the +2/+2 may target another friendly unit. With Battlefield Marine (SOR_095,
-#// 3/3) already in play, P1 plays SEC_080, uses the Force, and buffs the Marine (→ 5/5). (FT: "should give a
+#// 3/3) already in play, P1 plays SEC_080, uses the Force, and buffs the Marine (→ 5/5). (Intended: "should give a
 #// friendly unit +2/+2".)
 
 ## GIVEN
@@ -70,7 +70,7 @@ P1GROUNDARENAUNIT:1:HP:5
 
 # Decline_KeepForce_NoBuff
 #// LOF_087 Eighth Brother — the reaction is a MAY. Declining keeps the Force token and gives no +2/+2. P1
-#// plays SEC_080 and declines; the Force is retained and no unit is buffed. (FT: "should not be triggered as
+#// plays SEC_080 and declines; the Force is retained and no unit is buffed. (Intended: "should not be triggered as
 #// player decides not to use the Force".)
 
 ## GIVEN
@@ -92,7 +92,7 @@ P1GROUNDARENAUNIT:1:POWER:3
 
 # NoForce_NoTrigger
 #// LOF_087 Eighth Brother — with no Force token the reaction cannot fire at all: no prompt, no buff. P1 plays
-#// SEC_080 without the Force; the turn simply proceeds with no decision. (FT: "should not be triggered as
+#// SEC_080 without the Force; the turn simply proceeds with no decision. (Intended: "should not be triggered as
 #// player doesn't have the Force".)
 
 ## GIVEN

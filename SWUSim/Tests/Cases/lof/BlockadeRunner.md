@@ -75,7 +75,7 @@ P1SPACEARENAUNIT:0:UPGRADECOUNT:0
 #// LOF_166 — the Experience trigger also fires when combat damage reaches the base via Overwhelm. Blockade
 #// Runner (4/4) wears Heroic Resolve (+1/+1 →5/5); its granted action pays 2, defeats the upgrade (→4/4),
 #// and attacks with +4/+0 and Overwhelm (8 power) into Concord Dawn (4 HP). 4 defeats Concord and 4
-#// overwhelms to P2's base, so Blockade Runner gains an Experience token. Ref: "should get an Experience
+#// overwhelms to P2's base, so Blockade Runner gains an Experience token. Intended: "should get an Experience
 #// token when damaging the base with Overwhelm".
 ## GIVEN
 CommonSetup: rrw/rrk

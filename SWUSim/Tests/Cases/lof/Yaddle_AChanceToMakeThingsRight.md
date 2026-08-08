@@ -36,3 +36,25 @@ WithP1GroundArena: LOF_050:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:1:NOTKEYWORD:Restore
 P1GROUNDARENAUNIT:0:HASKEYWORD:Restore
+
+---
+
+# GrantScope_OtherFriendlyJediOnly
+#// LOF_045 Yaddle — the three scope limits of "each OTHER FRIENDLY JEDI unit", all in one board.
+#// SOR_095 Battlefield Marine (friendly, Rebel/Trooper — NOT a Jedi) gets nothing; the ENEMY Jedi
+#// Plo Koon (LOF_050) gets nothing; and Yaddle herself is excluded by "other" — she keeps only her own
+#// printed Restore 1, so a wrong self-grant to Restore 2 would show up here.
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1GroundArena: LOF_045:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: LOF_050:1:0
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:NOTKEYWORD:Restore
+P2GROUNDARENAUNIT:0:CARDID:LOF_050
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Restore
+P1GROUNDARENAUNIT:0:HASKEYWORD:Restore

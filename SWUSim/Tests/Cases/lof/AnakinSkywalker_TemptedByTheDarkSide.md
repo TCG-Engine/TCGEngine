@@ -135,7 +135,7 @@ P1GROUNDARENAUNIT:0:READY
 
 # Leader_NoForce_AbilityUnavailable
 #// LOF_018 Anakin (leader) — FRONT action costs "use the Force". With NO Force token, the leader ability is
-#// unavailable: activating it does nothing (no decision, leader stays ready, hand unchanged). Ref: "should
+#// unavailable: activating it does nothing (no decision, leader stays ready, hand unchanged). Intended: "should
 #// do nothing without the Force."
 
 ## GIVEN
@@ -157,7 +157,7 @@ P1HANDCOUNT:2
 #// LOF_018 Anakin (leader) — FRONT with the Force but nothing playable: SOR_041 Power of the Dark Side
 #// (Villainy, cost 3) is unaffordable at 2 resources and SOR_251 Confiscate is colorless (not Villainy), so
 #// there is no Villainy non-unit to play. The cost is still paid: Anakin exhausts and spends the Force; both
-#// cards stay in hand. Ref: "should exhaust and spend the Force if no card can be played."
+#// cards stay in hand. Intended: "should exhaust and spend the Force if no card can be played."
 
 ## GIVEN
 CommonSetup: bgw/brk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021;handCardIds:SOR_041,SOR_251;myResources:2}
@@ -179,7 +179,7 @@ P1HANDCOUNT:2
 #// LOF_018 Anakin (leader) — the play choice offers ONLY Villainy non-unit cards. Hand holds two Villainy
 #// events (SOR_041 Power of the Dark Side, SOR_043 Superlaser Blast), a Villainy UNIT (SEC_080 Imperial Dark
 #// Trooper) and a Heroism unit (LOF_050 Plo Koon). Only the two events are selectable; the units are
-#// excluded. Ref: "should not be allowed to choose heroism cards or villainy units."
+#// excluded. Intended: "should not be allowed to choose heroism cards or villainy units."
 
 ## GIVEN
 CommonSetup: bgw/brk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021;handCardIds:SOR_041,SOR_043,SEC_080,LOF_050;myResources:10}
@@ -199,7 +199,7 @@ P1SELECTABLEEXACT:myHand-0&myHand-1
 # Leader_ChooseNothing
 #// LOF_018 Anakin (leader) — the play is a "you may": with two playable Villainy events in hand P1 is
 #// prompted, then chooses nothing. No card is played and no resources are spent, but Anakin still exhausts
-#// and spends the Force. Ref: "should be allowed to choose nothing."
+#// and spends the Force. Intended: "should be allowed to choose nothing."
 
 ## GIVEN
 CommonSetup: bgw/brk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021;handCardIds:SOR_041,SOR_043;myResources:10}
@@ -222,7 +222,7 @@ P1RESAVAILABLE:10
 # Deployed_NoForce_AbilityUnavailable
 #// LOF_018 Anakin (DEPLOYED) — the deployed action costs "use the Force". With NO Force token the play
 #// ability is unavailable; activating the unit produces no play decision and it stays ready with hand
-#// unchanged. Ref (deployed): "should not be able to play a Villainy card from hand without the force."
+#// unchanged. Intended (deployed): "should not be able to play a Villainy card from hand without the force."
 
 ## GIVEN
 CommonSetup: bgw/brk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021;handCardIds:SOR_041,SOR_251;myResources:4}
@@ -243,7 +243,7 @@ P1GROUNDARENAUNIT:0:READY
 # Deployed_ChooseNothing_NotExhausted
 #// LOF_018 Anakin (DEPLOYED) — the play is a "you may": with two playable Villainy events in hand, P1 is
 #// prompted then chooses nothing. No card is played and no resources spent; the Force is spent but the
-#// deployed Anakin stays ready. Ref (deployed): "should be allowed to choose nothing."
+#// deployed Anakin stays ready. Intended (deployed): "should be allowed to choose nothing."
 
 ## GIVEN
 CommonSetup: bgw/brk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021;handCardIds:SOR_041,SOR_043;myResources:10}
@@ -307,4 +307,50 @@ WithP1Resources: 0
 
 ## EXPECT
 P1NOFORCE
+P1GROUNDARENAUNIT:0:READY
+
+---
+
+# Deployed_SelectableExactly_OnlyVillainyNonUnits
+#// LOF_018 Anakin (DEPLOYED) mirror of Leader_SelectableExactly_OnlyVillainyNonUnits — the two sides are
+#// dispatched by different code (unitAbilities vs leaderAbilities), so the "Villainy NON-UNIT only" filter
+#// has to be proven on each. Hand holds two Villainy events (SOR_041, SOR_043), a Villainy UNIT (SEC_080)
+#// and a Heroism unit (LOF_050); only the two events are selectable on the deployed side too.
+## GIVEN
+CommonSetup: bgw/brk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021;handCardIds:SOR_041,SOR_043,SEC_080,LOF_050;myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Force: true
+WithP1GroundArena: LOF_018:1:0
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myHand-0&myHand-1
+
+---
+
+# Deployed_PlayVillainyUpgrade_IgnorePenalty
+#// LOF_018 Anakin (DEPLOYED) mirror of Leader_PlayVillainyUpgrade_IgnorePenalty — an UPGRADE is a Villainy
+#// non-unit card, so the deployed Action plays it too, and the aspect-penalty waiver applies on this side
+#// as well. SHD_038 (Villainy, cost 2) under a bgw deck that does NOT cover Villainy would normally cost 4;
+#// waived → 2, attaching to Plo Koon with 0 resources left. Anakin stays READY (no exhaust on this side).
+## GIVEN
+CommonSetup: bgw/bbk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Force: true
+WithP1GroundArena: LOF_018:1:0
+WithP1GroundArena: LOF_050:1:0
+WithP1Hand: SHD_038
+WithP1Resources: 2
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:1:CARDID:LOF_050
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:1:UPGRADE:0:CARDID:SHD_038
+P1RESAVAILABLE:0
 P1GROUNDARENAUNIT:0:READY

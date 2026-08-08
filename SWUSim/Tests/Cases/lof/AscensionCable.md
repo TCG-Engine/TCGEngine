@@ -15,7 +15,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
 #// LOF_215 Ascension Cable — the granted Saboteur lets the attached unit ignore enemy Sentinel. P1's
 #// SOR_046 (3/7, +1/+3 from the cable → 4/10) bears the cable; P2 controls a Pyke Sentinel (SHD_029).
 #// Normally the Sentinel would force the attack onto itself, but Saboteur ignores it, so SOR_046 attacks
-#// P2's base directly for 4 (its buffed power) and the Sentinel survives. Ref: "should give its
+#// P2's base directly for 4 (its buffed power) and the Sentinel survives. Intended: "should give its
 #// own non-vehicle unit saboteur" (attack routes past the Sentinel to the base).
 
 ## GIVEN
@@ -39,7 +39,7 @@ P2GROUNDARENACOUNT:1
 #// non-Vehicle unit is a legal host (CR 2.e — a player may play an upgrade onto an enemy unit; if it grants
 #// abilities, the attached unit's controller resolves them). With both a friendly host (LOF_050) and an enemy
 #// host (SOR_046) present, P1 chooses the ENEMY: it gains Saboteur and carries the cable; the friendly host
-#// does not. Ref: allows attaching to an enemy unit.
+#// does not. Intended: allows attaching to an enemy unit.
 
 ## GIVEN
 CommonSetup: rrk/ggw/{myResources:6;handCardIds:LOF_215}

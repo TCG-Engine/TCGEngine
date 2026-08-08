@@ -19,7 +19,7 @@ P1GROUNDARENAUNIT:0:DAMAGE:2
 # NoUnitsOnBoard_PlaysWithNoEffect
 #// LOF_239 Consumed by the Dark Side — playable even with NO units on the board: there is nothing to give
 #// Experience to or damage, so the event resolves with no effect. It still costs 2 (P1 goes to 0 available)
-#// and lands in P1's discard. Ref: "should be playable even if there's no units on the board — Play
+#// and lands in P1's discard. Intended: "should be playable even if there's no units on the board — Play
 #// anyway".
 
 ## GIVEN

@@ -20,7 +20,7 @@ P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
 # PlayForcePilotUnitShield
 #// LOF_076 Soresu Stance — the "Force unit" it plays may be a Force PILOT card played as a normal unit.
 #// JTL_197 Anakin Skywalker (Force,Fringe,Pilot; a Piloting unit) is played from hand as a ground unit and
-#// enters with a Shield token. Ref: "allows the player to play a Force pilot unit from their hand
+#// enters with a Shield token. Intended: "allows the player to play a Force pilot unit from their hand
 #// and gives it a Shield token."
 
 ## GIVEN

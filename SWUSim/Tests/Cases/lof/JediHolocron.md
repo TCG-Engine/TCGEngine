@@ -23,7 +23,7 @@ P1GROUNDARENAUNIT:1:DAMAGE:2
 #// LOF_051 Jedi Holocron — "Attach to a Force unit." Played from hand with TWO Force units (LOF_050 Plo Koon
 #// at idx 0, SOR_038 Count Dooku at idx 2) and a non-Force unit (SOR_095 Battlefield Marine at idx 1), only
 #// the two Force units are legal attach targets (a lone Force target would auto-resolve, so two are used to
-#// force the prompt). Ref: "should only be attached to Force unit".
+#// force the prompt). Intended: "should only be attached to Force unit".
 
 ## GIVEN
 CommonSetup: bbw/rrk/{myResources:2;handCardIds:LOF_051}

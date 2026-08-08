@@ -137,3 +137,43 @@ P1SPACEARENAUNIT:0:CARDID:JTL_070
 P1SPACEARENAUNIT:0:POWER:5
 P1SPACEARENAUNIT:0:HP:5
 P1SPACEARENAUNIT:0:UPGRADECOUNT:3
+
+---
+
+# CompleteAttack_MoveRestrictedUpgrade_OnlyEligibleDestOffered
+#// JTL_070 U-Wing Lander moves an upgrade "to another eligible friendly Vehicle unit" — ELIGIBLE means
+#// the moved upgrade's OWN attach restriction still has to be satisfied at the destination. The upgrade
+#// here is JTL_227 Superheavy Ion Cannon ("Attach to a Capital Ship or Transport unit"), so of the two
+#// other friendly Vehicles only the Capital Ship (SOR_052) may receive it — the Fighter (SOR_237) must
+#// not be offered. The existing move section uses an unrestricted upgrade and a single destination, so
+#// it cannot detect a destination list that ignores the restriction.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_070:1:0
+WithP1SpaceArena: SOR_052:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_227
+
+#// Because the Capital Ship is then the ONLY eligible destination, that pick auto-resolves — which is
+#// itself the proof: had the restriction been ignored there would have been two candidates and the
+#// upgrade could have landed on the Fighter.
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_070
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1SPACEARENAUNIT:1:CARDID:SOR_052
+P1SPACEARENAUNIT:1:UPGRADECOUNT:1
+P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_227
+P1SPACEARENAUNIT:2:CARDID:SOR_237
+P1SPACEARENAUNIT:2:UPGRADECOUNT:0
+P1NODECISION

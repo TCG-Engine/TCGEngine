@@ -56,7 +56,7 @@ P1GROUNDARENAUNIT:0:DAMAGE:0
 
 # Leader_NoForce_Unavailable
 #// LOF_014 Grand Inquisitor (front) — the Action requires the Force. Without a Force token it is unavailable
-#// and UseLeaderAbility is a no-op: the leader stays READY and no attack happens. Ref: "cannot be used
+#// and UseLeaderAbility is a no-op: the leader stays READY and no attack happens. Intended: "cannot be used
 #// without the Force".
 
 ## GIVEN
@@ -84,7 +84,7 @@ P1NODECISION
 # Leader_Exhausted_Unavailable
 #// LOF_014 Grand Inquisitor (front) — the Action costs "Exhaust this leader". Already exhausted
 #// (myLeader:LOF_014:0), the cost can't be paid, so even holding the Force the Action is unavailable: no-op,
-#// the Force is retained. Ref: "cannot be used if exhausted".
+#// the Force is retained. Intended: "cannot be used if exhausted".
 
 ## GIVEN
 CommonSetup: byk/bbk/{
@@ -113,7 +113,7 @@ P1NODECISION
 #// LOF_014 Grand Inquisitor (deployed) — On Attack: the defender gets -2/-0, verified directly (no innate
 #// Shield masking it). Seeded pre-deployed (myLeader:LOF_014:1:1:1 — the Shielded "when you deploy" does not
 #// re-fire), he attacks Wampa (SOR_164, 4/5): the -2/-0 drops Wampa's power 4→2, so Wampa deals only 2 back
-#// to the un-shielded Grand Inquisitor while taking his 3. Ref: deployed "should give -2/-0 to the defender".
+#// to the un-shielded Grand Inquisitor while taking his 3. Intended: deployed "should give -2/-0 to the defender".
 
 ## GIVEN
 CommonSetup: byk/bbk/{

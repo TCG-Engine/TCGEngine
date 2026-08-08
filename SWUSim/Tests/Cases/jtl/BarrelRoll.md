@@ -77,3 +77,33 @@ P1SPACEARENACOUNT:0
 P2SPACEARENAUNIT:0:CARDID:JTL_069
 P2SPACEARENAUNIT:0:DAMAGE:2
 P2SPACEARENAUNIT:0:EXHAUSTED
+
+---
+
+# MovedToGroundUnit_NotOfferedAsExhaustTarget
+#// JTL_228 Barrel Roll — "Attack with a space unit. After completing this attack, you may exhaust a
+#// space unit." Both halves must key off where a unit ACTUALLY is, not its printed arena. JTL_096 Blue
+#// Leader is a printed SPACE unit whose When Played moves it to the GROUND arena; once there it is no
+#// longer a space unit and must drop out of both pools.
+#// P1 plays Blue Leader (cost 3) and pays 2 to move it to ground, then plays Barrel Roll. The attacker
+#// pick auto-resolves to the lone ready space unit (SOR_237) and, with P2's board empty, that attack
+#// auto-targets the base. The follow-up "you may exhaust a space unit" must then offer EXACTLY the one
+#// real space unit — an implementation reading the printed arena would also offer the grounded Blue
+#// Leader.
+
+## GIVEN
+CommonSetup: gyw/rrk/{myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [JTL_096 JTL_228]
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_096
+P1SPACEARENACOUNT:1
+P1SELECTABLEEXACT:mySpaceArena-0

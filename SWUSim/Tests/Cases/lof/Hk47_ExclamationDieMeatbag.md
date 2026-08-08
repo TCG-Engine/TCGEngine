@@ -162,3 +162,60 @@ WithP2Resources: 12
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P2BASEDMG:0
+
+---
+
+# CapturedHk_CaptorDefeatedByEffect_NoTrigger
+#// LOF_130 HK-47 — a CAPTURED HK-47 is not in play, so it observes nothing. P2 plays Take Captive
+#// (SHD_131) so their 3/3 captures HK-47; P1 then Vanquishes (SOR_078) the captor. The captor is an enemy
+#// unit being defeated, which WOULD fire HK-47 if he were in play → P2's base must stay at 0. (He returns
+#// to play when his guard leaves, but only AFTER the defeat he could have observed.)
+
+## GIVEN
+CommonSetup: rrk/ggw
+WithP1GroundArena: LOF_130:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2Hand: SHD_131
+WithP1Hand: SOR_078
+WithP1Resources: 12
+WithP2Resources: 12
+
+## WHEN
+- P1>Pass
+- P2>PlayHand:0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2BASEDMG:0
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LOF_130
+
+---
+
+# CapturedHk_CaptorDefeatedByDamage_NoTrigger
+#// Same as above but the captor dies to COMBAT DAMAGE rather than a defeat effect — the two defeat paths
+#// are separate code, so both need the negative. P2's 3/3 captures HK-47 via Take Captive (SHD_131); P1's
+#// AT-AT Suppressor (SOR_039, 8/8) then attacks and kills the captor. HK-47 was captured at the moment of
+#// that defeat → P2's base stays at 0, and HK-47 returns to play once his guard is gone.
+
+## GIVEN
+CommonSetup: rrk/ggw
+WithP1GroundArena: LOF_130:1:0
+WithP1GroundArena: SOR_039:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2Hand: SHD_131
+WithP1Resources: 12
+WithP2Resources: 12
+
+## WHEN
+- P1>Pass
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2BASEDMG:0
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:2

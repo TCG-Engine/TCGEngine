@@ -57,7 +57,7 @@ P2GROUNDARENACOUNT:0
 # NoForceUnitInHand_JustExhausts
 #// LOF_220 Shien Flurry — "Play a Force unit from your hand." With NO Force unit in hand (only an AT-ST,
 #// SOR_232, which is not a Force unit), the event resolves with nothing to play: no unit enters, the AT-ST
-#// stays in hand. Ref: "should allow playing a Force unit from hand ... (move to next phase)" async setup
+#// stays in hand. Intended: "should allow playing a Force unit from hand ... (move to next phase)" async setup
 #// where only a non-Force unit is available.
 
 ## GIVEN
@@ -76,8 +76,7 @@ P1GROUNDARENACOUNT:0
 #// LOF_220 Shien Flurry — the "prevent 2 the next time it would be dealt damage this phase" persists until a
 #// real damage instance occurs. P1 plays Shien Flurry (auto-plays lone Force unit Plo Koon, LOF_050 6/8) and
 #// Ambush-attacks a 0-power Moisture Farmer (SHD_055) — Plo takes 0 counter, so the prevention is NOT spent.
-#// Later, P2's Wampa (SOR_164, 4 power) attacks Plo Koon: 4 damage minus the prevented 2 = 2 damage. Ref:
-#// "prevent 2 damage the next time it would be dealt damage (no damage from ambush)". (The P1>Pass reconciles
+#// Later, P2's Wampa (SOR_164, 4 power) attacks Plo Koon: 4 damage minus the prevented 2 = 2 damage. Intended: #// "prevent 2 damage the next time it would be dealt damage (no damage from ambush)". (The P1>Pass reconciles
 #// the harness's turn accounting after the nested Ambush attack so P2 can take the follow-up attack.)
 
 ## GIVEN

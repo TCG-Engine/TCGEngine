@@ -50,7 +50,7 @@ P2GROUNDARENAUNIT:1:DAMAGE:2
 #// LOF_011 Kit Fisto (front) — the Action's "deal 2 damage" is gated on having attacked with a Jedi this
 #// phase. P1 attacks only with a NON-Jedi (SOR_046 Battlefield Marine) and then activates Kit Fisto: the
 #// condition is unmet so no damage is dealt, but the ability still resolves — Kit Fisto exhausts and the
-#// 1-resource cost is paid. Ref: "should not be able to deal 2 damage ... hasn't attacked with a Jedi".
+#// 1-resource cost is paid. Intended: "should not be able to deal 2 damage ... hasn't attacked with a Jedi".
 
 ## GIVEN
 CommonSetup: brw/bbk/{myLeader:LOF_011;myBase:SOR_021;theirBase:SOR_021}

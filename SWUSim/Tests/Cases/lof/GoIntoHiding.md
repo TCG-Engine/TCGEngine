@@ -21,7 +21,7 @@ P1GROUNDARENAUNIT:0:DAMAGE:0
 #// LOF_262 Go Into Hiding — the chosen unit may be an ENEMY unit; that unit then can't be attacked this
 #// phase. P1 protects the enemy 3/7 (SOR_046): P1's Plo Koon can't attack it (the attack is rejected, enemy
 #// stays undamaged) but can still attack the base — proving Plo was never exhausted by the rejected attack.
-#// Ref: "should prevent enemy unit from being attacked".
+#// Intended: "should prevent enemy unit from being attacked".
 
 ## GIVEN
 CommonSetup: ggk/rrw/{myResources:2;handCardIds:LOF_262}

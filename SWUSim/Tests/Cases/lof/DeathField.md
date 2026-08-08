@@ -48,7 +48,7 @@ P1DECKCOUNT:1
 # DrawWithNoDamageableEnemies
 #// LOF_141 Death Field — with a Force unit controlled (Plo Koon, LOF_050) the draw happens even when there is
 #// nothing to damage: the enemy only has an AT-ST (SOR_232, Vehicle) which is immune, so 0 damage is dealt but
-#// a card is still drawn. Ref: "can be used to draw a card if the opponent has no non-Vehicle units".
+#// a card is still drawn. Intended: "can be used to draw a card if the opponent has no non-Vehicle units".
 
 ## GIVEN
 CommonSetup: rrk/ggw/{myResources:4;handCardIds:LOF_141}

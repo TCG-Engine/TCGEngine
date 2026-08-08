@@ -56,7 +56,7 @@ P1DISCARDCOUNT:0
 # DeclineDefeat_DoesNothing
 #// LOF_036 Old Daka — the When-Played defeat is a "may". P1 plays Daka with a friendly Night unit (LOF_059
 #// Nightsister Warrior) present but DECLINES the defeat → the Night unit survives, nothing is discarded, and
-#// only Daka joins it on the board. Ref: "should allow passing at the defeat stage".
+#// only Daka joins it on the board. Intended: "should allow passing at the defeat stage".
 
 ## GIVEN
 CommonSetup: bbk/ggw/{myResources:5;handCardIds:LOF_036}
@@ -77,7 +77,7 @@ P1DISCARDCOUNT:0
 # DefeatNightLeader_ReturnsToBase_NoReplay
 #// LOF_036 Old Daka — defeating a friendly Night LEADER (deployed Asajj Ventress JTL_001, Force/Night)
 #// returns her to the base as a leader (leaders are not "defeated" into the discard), so there is nothing to
-#// replay from the discard pile. Only Daka remains in the arena and the leader is undeployed. Ref: "should
+#// replay from the discard pile. Only Daka remains in the arena and the leader is undeployed. Intended: "should
 #// allow defeating a friendly Night leader and then do nothing".
 
 ## GIVEN
@@ -92,3 +92,26 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LOF_036
 P1DISCARDCOUNT:0
+
+---
+
+# DefeatStolenNightUnit_GoesToOwnersDiscard_NoReplay
+#// LOF_036 Old Daka — "friendly" is about CONTROL, so a Night unit P1 has taken control of IS a legal
+#// defeat target. But the replay clause says "from YOUR discard pile", and a defeated unit goes to its
+#// OWNER's discard — so the stolen Nightsister Warrior (LOF_059, owned by P2) lands in P2's discard and
+#// P1 gets nothing back. Daka alone remains on P1's board. (The engine still shows the "play it for
+#// free?" prompt here; answering YES is a harmless no-op, asserted below — the card is simply not in
+#// P1's discard to take.)
+## GIVEN
+CommonSetup: bbk/ggw/{myResources:5;handCardIds:LOF_036}
+P1OnlyActions: true
+WithP1GroundArenaControlled: LOF_059:2
+WithP1Deck: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1DISCARDCOUNT:0
+P2DISCARDCOUNT:1

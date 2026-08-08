@@ -22,7 +22,7 @@ P2GROUNDARENAUNIT:0:EXHAUSTED
 # NoForce_CannotExhaust
 #// LOF_178 Adept of Anger — the Action costs "use the Force (lose your Force token)". With NO Force token, the
 #// exhaust ability is unavailable: activating the Adept does not exhaust the enemy unit and both stay ready.
-#// Ref: "cannot exhaust a unit if controller does not have the force" — only the Attack option is
+#// Intended: "cannot exhaust a unit if controller does not have the force" — only the Attack option is
 #// offered.
 
 ## GIVEN

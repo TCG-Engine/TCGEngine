@@ -24,7 +24,7 @@ P1DISCARDCOUNT:1
 # TwoUnits_BuffTwo
 #// LOF_104 Luminous Beings — moving 2 Force units from discard (SOR_051 Luke, SOR_045 Yoda) lets P1 give
 #// +4/+4 to exactly 2 units. SOR_046 (3/7 → 7/11) and SOR_095 (3/3 → 7/7) both buffed. The 2 Force units go
-#// to the bottom of the deck, leaving only the LOF_104 event in discard. Ref: "put up to 3 Force units ...
+#// to the bottom of the deck, leaving only the LOF_104 event in discard. Intended: "put up to 3 Force units ...
 #// give that many units +4/+4".
 
 ## GIVEN
@@ -50,7 +50,7 @@ P1DISCARDCOUNT:1
 # ChooseNothing_NoBuff
 #// LOF_104 Luminous Beings — the move is "up to 3", so P1 may choose nothing. With no Force units moved, no
 #// unit gets +4/+4 and both Force units stay in the discard pile (alongside the played event). SOR_046
-#// remains a printed 3/7. Ref: "give that many units +4/+4 for the phase (choose 0)".
+#// remains a printed 3/7. Intended: "give that many units +4/+4 for the phase (choose 0)".
 
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:6;handCardIds:LOF_104;discardCardIds:SOR_051,SOR_045}

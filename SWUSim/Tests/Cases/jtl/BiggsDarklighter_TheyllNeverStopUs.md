@@ -84,3 +84,31 @@ P1SPACEARENAUNIT:0:POWER:8
 P1SPACEARENAUNIT:0:HP:10
 P1SPACEARENAUNIT:0:NOTKEYWORD:Overwhelm
 P1SPACEARENAUNIT:0:NOTKEYWORD:Grit
+
+---
+
+# WalkerHost_NoConditionalGrant
+#// JTL_150 Biggs — the second non-matching-trait case. The existing negative uses a Capital Ship; this
+#// one uses a WALKER (SOR_037, Imperial/Vehicle/Walker, 5/5 ground), confirming the grants key off the
+#// specific traits Fighter / Transport / Speeder rather than merely "is it one particular other trait".
+#// Biggs still contributes his flat +2/+1 -> 7/6, but grants neither Overwhelm nor Grit.
+#// SOR_037's printed Sentinel is untouched, which also shows the host keeps its own keywords.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_037:1:0
+WithP1GroundArenaUpgrade: 0:JTL_150
+
+## WHEN
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:7
+P1GROUNDARENAUNIT:0:HP:6
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Overwhelm
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Grit
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel

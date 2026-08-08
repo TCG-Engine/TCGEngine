@@ -39,7 +39,7 @@ P2GROUNDARENACOUNT:0
 # ForceMode_NoForce_NoEffect
 #// LOF_079 Shatterpoint — picking the "Use the Force. If you do, defeat a non-leader unit" mode WITHOUT a
 #// Force token does nothing (the button reads "(No effect)"). P1 chooses ForceDefeat with no Force; the enemy
-#// 4/7 (LAW_124) survives and P1 gains no Force. (FT: "choose the 'use the force' option but without the
+#// 4/7 (LAW_124) survives and P1 gains no Force. (Intended: "choose the 'use the force' option but without the
 #// force nothing happen".)
 
 ## GIVEN

@@ -7,7 +7,7 @@
 
 // LOF_009 Darth Maul — On Attack: Deal 1 damage to a unit and 1 damage to a DIFFERENT unit. MANDATORY:
 // you must damage min(2, units in play) units — including a friendly unit or Maul himself if there is no
-// other target (ref: "must damage himself if there are no other units in play"). Both picks are mandatory
+// other target (Intended: he must damage himself if there are no other units in play). Both picks are mandatory
 // choose-targets (a single valid target auto-resolves via PASSPARAMETER).
 $onAttackAbilities["LOF_009:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);

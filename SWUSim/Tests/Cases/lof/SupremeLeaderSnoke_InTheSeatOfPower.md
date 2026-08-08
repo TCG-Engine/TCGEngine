@@ -51,8 +51,7 @@ P1RESAVAILABLE:0
 #// LOF_006 Supreme Leader Snoke (front) — Action [1 resource, Exhaust]: give an Experience token to the unit
 #// with the MOST power among friendly Villainy units; on a tie the player chooses. Count Dooku (SOR_038,
 #// Villainy 5) and Darth Maul (TWI_135, Villainy 5) tie for the most; Plo Koon (LOF_050, Heroism 6) is
-#// higher-power but NOT Villainy, so it is not eligible. Only the two Villainy 5s are selectable. Ref:
-#// "should make the player choose between Villainy cards with most power".
+#// higher-power but NOT Villainy, so it is not eligible. Only the two Villainy 5s are selectable. Intended: #// "should make the player choose between Villainy cards with most power".
 
 ## GIVEN
 CommonSetup: bgk/bbk/{
@@ -81,7 +80,7 @@ P1RESAVAILABLE:0
 # Leader_NoVillainy_UseAnyway
 #// LOF_006 Supreme Leader Snoke (front) — with no friendly Villainy unit the ability has no legal target, but
 #// it may still be used ("use it anyway"): the cost (1 resource + exhaust) is paid and no Experience is
-#// given. P1's only unit is a non-Villainy Wampa (SOR_164). Ref: "should not give any experience if there
+#// given. P1's only unit is a non-Villainy Wampa (SOR_164). Intended: "should not give any experience if there
 #// isn't any Villainy unit".
 
 ## GIVEN

@@ -96,3 +96,35 @@ WithP2SpaceArena: JTL_037:1:2
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:JTL_163
 P1RESAVAILABLE:0
+
+---
+
+# DamagedUnitCountedByLiveArena_NotPrintedArena
+#// JTL_163 AT-DP Occupier — "costs 1 resource less for each damaged GROUND unit". The count must key off
+#// where a unit ACTUALLY is, not its printed arena. JTL_096 Blue Leader is printed a SPACE unit but its
+#// When Played can move it to the ground arena, and once there it IS a damaged ground unit and must be
+#// counted. Seated directly in the ground arena with 2 damage to model that post-move state.
+#// The control is SOR_237 (a real space unit) damaged in the SPACE arena: it must NOT be counted.
+#// So exactly ONE unit qualifies → the cost-4 Occupier plays for 3, leaving 1 of 4 resources ready.
+#// An implementation gating on the printed arena (CardTargetArena) would count zero and charge 4.
+
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_163
+WithP1Resources: 4
+WithP1GroundArena: JTL_096:1:2
+WithP1SpaceArena: SOR_237:1:1
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1SPACEARENACOUNT:1
+P1RESAVAILABLE:1

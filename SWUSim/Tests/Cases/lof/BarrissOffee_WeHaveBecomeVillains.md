@@ -83,7 +83,7 @@ P1RESAVAILABLE:0
 # Front_NoForce_CannotPlayEvent
 #// LOF_013 Barriss Offee (front) — the Action is "[Exhaust, use the Force]: Play an event...". Without the
 #// Force token the ability is unavailable: using it is a no-op — the event stays in hand, Barriss is not
-#// exhausted, and no Force appears. Ref: "should not allow ... if he does not have the force" (undeployed).
+#// exhausted, and no Force appears. Intended: "should not allow ... if he does not have the force" (undeployed).
 
 ## GIVEN
 CommonSetup: yyk/bbk/{myLeader:LOF_013;myBase:SOR_021;theirBase:SOR_021}
@@ -105,7 +105,7 @@ P1NOFORCE
 # Deployed_NoForce_CannotPlayEvent
 #// LOF_013 Barriss Offee (deployed) — the deployed Action is "[use the Force]: Play an event...". Without the
 #// Force token the unit ability is unavailable and is a no-op: the event stays in hand and Barriss stays
-#// ready. Ref: "should not allow ... if he does not have the force" (deployed).
+#// ready. Intended: "should not allow ... if he does not have the force" (deployed).
 
 ## GIVEN
 CommonSetup: yyk/bbk/{myLeader:LOF_013;myBase:SOR_021;theirBase:SOR_021}
@@ -128,8 +128,7 @@ P1NOFORCE
 # Deployed_PlayEvent_WhileExhausted
 #// LOF_013 Barriss Offee (deployed) — the deployed Action's only cost is the Force (no self-exhaust), so she
 #// can play an event even while EXHAUSTED. Seated exhausted with the Force, she plays Confiscate (SOR_251,
-#// cost 1 -> 0 at the discount) which fizzles to discard; the Force is spent, she remains exhausted. Ref:
-#// "should allow the controller to play an event ... even if Barriss Offee is exhausted".
+#// cost 1 -> 0 at the discount) which fizzles to discard; the Force is spent, she remains exhausted. Intended: #// "should allow the controller to play an event ... even if Barriss Offee is exhausted".
 
 ## GIVEN
 CommonSetup: yyk/bbk/{myLeader:LOF_013;myBase:SOR_021;theirBase:SOR_021}
@@ -173,3 +172,35 @@ WithP1Resources: 5
 P1NOFORCE
 P1HANDCOUNT:1
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# Deployed_UsedTwiceInSamePhase
+#// LOF_013 Barriss Offee (deployed) — the deployed Action costs ONLY "use the Force" (no exhaust), so it is
+#// not once-per-phase: with a second Force token it fires again in the SAME phase. The base is Mystic
+#// Monastery (LOF_022, "Action: create your Force token", up to 3× per game), which refills the Force
+#// between uses. Two Confiscates (SOR_251, cost 1 → 0) are played, hand empties, both land in the discard,
+#// and Barriss is still READY at the end — she never exhausts on this side.
+## GIVEN
+CommonSetup: byk/brk/{
+  myLeader:LOF_013;
+  myBase:LOF_022
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Force: true
+WithP1GroundArena: LOF_013:1:0
+WithP1Hand: SOR_251
+WithP1Hand: SOR_251
+WithP1Resources: 2
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+- P1>UseBaseAbility
+- P1>UseUnitAbility:myGroundArena-0
+## EXPECT
+P1NOFORCE
+P1HANDCOUNT:0
+P1DISCARDCOUNT:2
+P1GROUNDARENAUNIT:0:READY
+P1RESAVAILABLE:2

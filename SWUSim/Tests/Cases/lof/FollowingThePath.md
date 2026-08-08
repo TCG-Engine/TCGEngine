@@ -21,7 +21,7 @@ P1DECKTOPCARD:LOF_050
 # ChooseNothing_AllToBottom
 #// LOF_103 Following the Path — choosing up to 2 Force units is optional. With Force units available on top
 #// (LOF_050 Plo Koon, SOR_049 Obi-Wan) P1 declines and all 8 searched cards go to the bottom of the deck; the
-#// deck size is unchanged. Ref: "should be allowed to choose nothing and place all cards on the
+#// deck size is unchanged. Intended: "should be allowed to choose nothing and place all cards on the
 #// bottom of the deck".
 
 ## GIVEN

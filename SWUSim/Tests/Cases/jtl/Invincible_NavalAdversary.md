@@ -234,3 +234,39 @@ WithP1GroundArena: SOR_095:1:0
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:JTL_191
 P1RESAVAILABLE:0
+
+---
+
+# OpponentDeploysLeader_DoesNotTrigger
+#// JTL_191 Invincible — "When YOU deploy a leader: you may return a non-leader unit that costs 3 or less
+#// to its owner's hand." The trigger belongs to Invincible's controller only, so an OPPONENT deploying
+#// their leader must not fire it. P1 controls Invincible and a cost-3 unit sits on P1's own board (the
+#// unit Invincible would be able to bounce if it DID fire); P2 deploys. Nothing may be returned and no
+#// decision may be raised for either player.
+#// This is the actor-negative for the deploy hook — distinct from the existing absence guard, which
+#// tests "no Invincible in play at all".
+
+## GIVEN
+CommonSetup: byk/bbw/{
+  myLeader:SOR_015;
+  theirLeader:SOR_015;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP2Resources: 8
+WithP1SpaceArena: JTL_191:1:0
+WithP1GroundArena: SOR_063:1:0
+
+## WHEN
+- P2>DeployLeader
+
+## EXPECT
+P2LEADER:DEPLOYED
+P1SPACEARENACOUNT:1
+P1GROUNDARENACOUNT:1
+P1NODECISION
+P2NODECISION

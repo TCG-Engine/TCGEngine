@@ -17,7 +17,7 @@ P1GROUNDARENAUNIT:0:HP:11
 #// LOF_040 Kylo Ren's Lightsaber — "If attached unit is a Force unit, it gains: This unit can't be
 #// exhausted by enemy card abilities." Plo Koon (LOF_050, Force,Jedi,Republic) bears the saber. P2 plays No
 #// Good to Me Dead (SOR_186, "Exhaust a unit") targeting Plo Koon — the enemy exhaust is prevented and Plo
-#// stays ready. Ref: "if attached unit is a Force unit, it cannot be exhausted by enemy card
+#// stays ready. Intended: "if attached unit is a Force unit, it cannot be exhausted by enemy card
 #// abilities."
 
 ## GIVEN
@@ -44,7 +44,7 @@ P1GROUNDARENAUNIT:0:READY
 # NonForceUnit_CanBeExhaustedByEnemyAbility
 #// LOF_040 Kylo Ren's Lightsaber — the exhaust immunity is conditional on the attached unit being a Force
 #// unit. Attached to the non-Force Hylobon Enforcer (SHD_027, Underworld), the grant does NOT apply, so No
-#// Good to Me Dead (SOR_186) exhausts it normally. Ref: "if attached unit is not a Force unit, it
+#// Good to Me Dead (SOR_186) exhausts it normally. Intended: "if attached unit is not a Force unit, it
 #// can be exhausted by enemy card abilities."
 
 ## GIVEN

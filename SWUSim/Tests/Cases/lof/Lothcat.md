@@ -18,7 +18,7 @@ P2GROUNDARENAUNIT:0:EXHAUSTED
 # WhenDefeated_ExhaustGround
 #// LOF_207 Loth-Cat — the SAME ability also fires When Defeated: "you may exhaust a ground unit." Loth-Cat
 #// (2/1) attacks the enemy 3/7 (SOR_046) and dies to the 3 counter-damage; on defeat P1 exhausts that enemy
-#// unit. Ref: Loth-Cat may exhaust a ground unit when defeated.
+#// unit. Intended: Loth-Cat may exhaust a ground unit when defeated.
 
 ## GIVEN
 CommonSetup: yyk/ggw

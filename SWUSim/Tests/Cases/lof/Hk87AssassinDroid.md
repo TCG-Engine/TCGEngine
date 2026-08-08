@@ -23,7 +23,7 @@ P2GROUNDARENAUNIT:0:DAMAGE:6
 #// (here a removal event, not combat), hits EACH ground unit on BOTH sides, and never touches space units.
 #// P2 defeats HK-87 with Takedown (SOR_077); the friendly Marine (SOR_095) and enemy Consular Security Force
 #// (SOR_046) each take 2, while the friendly A-Wing (JTL_095) and enemy A-Wing (SOR_141) in space take 0.
-#// Ref: HK-87's when-defeated deals 2 to each ground unit (space unaffected) — via Takedown/No Glory.
+#// Intended: HK-87's when-defeated deals 2 to each ground unit (space unaffected) — via Takedown/No Glory.
 
 ## GIVEN
 CommonSetup: rrk/bbk/{theirBase:SOR_021}

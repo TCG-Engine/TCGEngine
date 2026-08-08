@@ -431,3 +431,40 @@ P2HANDCOUNT:1
 P2DECKCOUNT:1
 P2DISCARDCOUNT:5
 P1NODECISION
+
+---
+
+# DeckHunt_ShufflesOwnersDeckOnly_SearchersDeckUntouched
+#// JTL_041 Annihilator — the name-hunt searches and then reshuffles the DECK OWNER's deck. The searching
+#// player's OWN deck must not be touched at all: it is never searched, so it must keep both its size and
+#// its order. Both players' decks are seeded here; P1 defeats the enemy SOR_179 Boba Fett and discards
+#// the matching copy from P2's deck (P2 3 -> 2), while P1's own 3-card deck keeps its exact top card and
+#// count. A finalize that resolved the deck under the SEARCHER's frame would shuffle P1's deck instead —
+#// invisible to every other section here, because none of them seed a deck for P1.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_041
+WithP1Resources: 11
+WithP1Deck: [SOR_128 SOR_046 SOR_095]
+WithP2SpaceArena: SOR_179:1:0
+WithP2Deck: [SOR_179 SOR_178 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:SOR_179
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P2DECKCOUNT:2
+P2DISCARDCOUNT:2
+P1DECKCOUNT:3
+P1DECKTOPCARD:SOR_128
+P1NODECISION

@@ -20,7 +20,7 @@ P2GROUNDARENAUNIT:0:DAMAGE:6
 # VsNonForce_NoBuff
 #// LOF_090 Inquisitor's Lightsaber — negative: the +2/+0 only applies "while attacking a Force unit." SOR_095
 #// (3 base + 1 from the upgrade = 4) attacks the NON-Force Consular Security Force (SOR_046, Rebel/Trooper),
-#// so it gets NO +2 and deals only 4. Ref: Yoda attacks Consular Security Force for 3 (no Force bonus).
+#// so it gets NO +2 and deals only 4. Intended: Yoda attacks Consular Security Force for 3 (no Force bonus).
 
 ## GIVEN
 CommonSetup: rrk/ggw

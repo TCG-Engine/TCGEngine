@@ -26,7 +26,7 @@ P1GROUNDARENACOUNT:1
 # DeclineForce_NoDefeats
 #// LOF_039 Darth Sidious — the When Played mass-defeat is a "may use the Force". P1 holds the Force but
 #// DECLINES: no unit is defeated and the Force token is kept. The enemy 3/1 (SOR_128, ≤3 HP) survives.
-#// Ref: "allows the player to pass the optional ability".
+#// Intended: "allows the player to pass the optional ability".
 
 ## GIVEN
 CommonSetup: bbk/rrk/{myResources:12;handCardIds:LOF_039}
@@ -48,7 +48,7 @@ P2GROUNDARENACOUNT:1
 #// LOF_039 Darth Sidious — the mass-defeat hits EACH non-Sith unit with ≤3 HP across BOTH players and BOTH
 #// arenas, and spares Sith units. Friendly Sith Trooper (JTL_238, 3/3, Sith → exempt) survives; friendly
 #// non-Sith Marine (SOR_095, 3/3) is defeated; enemy Consular Security Force (SOR_046, 3/7 > 3 HP) survives;
-#// enemy space A-Wing (SOR_141, 1/3) is defeated. Sidious himself (Sith, 8 HP) survives. Ref: Sith units and
+#// enemy space A-Wing (SOR_141, 1/3) is defeated. Sidious himself (Sith, 8 HP) survives. Intended: Sith units and
 #// >3-HP units remain; non-Sith ≤3-HP units in every zone are defeated.
 
 ## GIVEN
