@@ -119,3 +119,34 @@ P2SPACEARENAUNIT:0:CARDID:JTL_237
 P2SPACEARENAUNIT:0:UPGRADECOUNT:0
 P1DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# PlayedViaDJ_RescuesHimselfByHavingTheENEMYCaptureHisOwnCaptor
+#// SEC_068 Lando Calrissian — the self-rescue chain, the mirror of SEC_212 Libertine's. Played through
+#// SEC_018 DJ's Action, Lando is captured by the friendly A-Wing before his own When Played resolves. His
+#// "choose an enemy unit and ANOTHER friendly non-leader unit" then has only one friendly unit left IN
+#// PLAY — the A-Wing holding him — so P2's TIE Bomber captures the A-Wing, and capturing a captor rescues
+#// its captives: Lando lands free in P1's GROUND arena (capture is not arena-restricted; his captor was a
+#// space unit). The heal is not conditional on who ends up captured, so P1's base still goes 10 → 4.
+
+## GIVEN
+CommonSetup: byk/rrk/{myLeader:SEC_018;myBaseDamage:10;myResources:8}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SEC_068
+WithP1SpaceArena: SOR_141:1:0
+WithP2SpaceArena: JTL_237:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_068
+P1SPACEARENACOUNT:0
+P2SPACEARENAUNIT:0:CARDID:JTL_237
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1BASEDMG:4
+P1NODECISION

@@ -81,3 +81,27 @@ P2BASEDMG:3
 P1HANDCOUNT:1
 P1NODECISION
 P2NODECISION
+
+---
+
+# OnAttack_OpponentPaysWithACreditToken
+#// SEC_218 Cikatro Vizago — "an opponent may pay 1 resource" is an ordinary cost, so a Credit token pays
+#// it just like a ready resource. P2 holds NO ready resources but one Credit; P2 spends the Credit and
+#// P1 does not draw the revealed card.
+
+## GIVEN
+CommonSetup: yyk/rrk
+WithActivePlayer: 1
+WithP1GroundArena: SEC_218:1:0
+WithP1Deck: SOR_095
+WithP2Resources: 3:SOR_046:0
+WithP2Credits: 1
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>AnswerDecision:YES
+
+## EXPECT
+P2BASEDMG:3
+P1HANDCOUNT:0
+P2CREDITCOUNT:0

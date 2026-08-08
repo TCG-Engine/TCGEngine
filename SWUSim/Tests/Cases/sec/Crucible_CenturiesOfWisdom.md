@@ -45,3 +45,28 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
 P1NODECISION
 P2NODECISION
+
+---
+
+# WhenDefeated_UnderEnemyControl_TheNewControllersUnitsGetTheExperience
+#// SEC_119 Crucible — "each OTHER FRIENDLY unit" is read from whoever controls Crucible when it is
+#// defeated. P2 plays JTL_043 No Glory, Only Results on it, so at the moment of defeat P2's units are
+#// the friendly ones: P2's SOR_095 gains the Experience token and P1's does not.
+
+## GIVEN
+CommonSetup: ggk/bbk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1SpaceArena: SEC_119:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2Hand: JTL_043
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0

@@ -56,3 +56,28 @@ WithP1Hand: SEC_186
 P2HANDCOUNT:0
 P1GROUNDARENACOUNT:1
 P1NODECISION
+
+---
+
+# PlayedViaPlot_StillNamesAndDiscards
+#// SEC_186 Garindan — he carries Plot, so he can be played from the resource row when a leader deploys,
+#// and his When Played resolves exactly as from hand: P1 names Battlefield Marine and P2's copy is
+#// discarded. The played card is replaced from the top of P1's deck, so the resource row holds at 6.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1Resources: 1:SEC_186:1,5:SOR_046:1
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Hand: SOR_095
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:Battlefield Marine
+
+## EXPECT
+P1LEADER:DEPLOYED
+P2HANDCOUNT:0
+P2DISCARDCOUNT:1
+P1RESCOUNT:6

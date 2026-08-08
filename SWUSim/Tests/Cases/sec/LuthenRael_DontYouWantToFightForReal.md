@@ -210,3 +210,33 @@ WithP2GroundArena: SOR_063:1:0
 ## EXPECT
 P2BASEDMG:2
 P1LEADER:NOTDEPLOYED
+
+---
+
+# Front_AttackerKilledByItsOwnOnAttackAbility_LuthenReacts
+#// SEC_013 Luthen Rael (front) — "when a friendly unit is defeated WHILE ATTACKING" covers a unit that
+#// kills ITSELF mid-attack through its own printed ability, not just one that dies to counter-damage or
+#// to a granted self-defeat. SEC_150 Valiant Commando hits P2's base for 3, then sacrifices itself for
+#// 3 more; Luthen reacts, exhausts, and adds 1 → 7 on the base.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:SEC_013;
+  myBase:JTL_019;
+  theirBase:SOR_021;
+  myResources:8
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_150:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:7
+P1GROUNDARENACOUNT:0
+P1LEADER:EXHAUSTED

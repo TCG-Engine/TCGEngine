@@ -525,7 +525,8 @@ function _SWUFinalizeUpgradeAttach(
   bool $isPilot = false,
   bool $suppressAfterAction = false,  // SEC_003 Lama Su: caller owns the After Action (deal 1 / combat)
   int $discount = 0,                  // LOF_018 Anakin: "ignoring aspect penalties" — waive the surcharge
-  bool $altPayOffered = false         // true from ATTACH_UPGRADE: the Credit/Droid choice was already shown
+  bool $altPayOffered = false,        // true from ATTACH_UPGRADE: the Credit/Droid choice was already shown
+  ?int $owner = null                  // foreign play (SEC_205 milled Pilot): OWNER stays the opponent
 ): int {
   // Re-resolve the host — it must still exist (could have been removed between
   // queuing the Droid-choice and resolution, e.g. opponent removal response).
@@ -585,9 +586,12 @@ function _SWUFinalizeUpgradeAttach(
   // Attach the upgrade as a Subcard on the chosen host.
   if (!is_array($hostObj->Subcards))
     $hostObj->Subcards = [];
+  // Owner defaults to the caster. A card played out of an OPPONENT's discard (SEC_205 Obi-Wan's milled
+  // Pilot) is still THEIR card: owner = opponent, controller = caster — the same split ActivateCard's
+  // $owner param applies on the unit route, so the upgrade goes back to its real owner when defeated.
   $pilotSub = (object) [
     'CardID' => $cardID,
-    'Owner' => $player,
+    'Owner' => $owner ?? $player,
     'Controller' => $player,
     'TurnEffects' => [],
     'IsPilot' => $isPilot,
@@ -708,6 +712,9 @@ $customDQHandlers["ATTACH_UPGRADE"] = function ($player, $parts, $lastDecision) 
   $ignoreCost = !empty($parts[2]);  // 1 = free play (e.g. SOR_246 top-deck free branch)
   $isPilot = !empty($parts[3]);  // 1 = pilot path (SWUComputePilotCost instead of play cost)
   $discount = intval($parts[4] ?? 0);  // LOF_018 Anakin: aspect-penalty waiver on the upgrade play
+  // 6th field: OWNER for a foreign play (SEC_205 milled Pilot). Empty/absent → owner = caster.
+  $ownerFld = $parts[5] ?? '';
+  $owner = ($ownerFld === '') ? null : intval($ownerFld);
   $hostMz = $lastDecision ?? '';  // chosen host mzID from preceding MZCHOOSE
   if ($cardID === '' || $hostMz === '') {
     $playerID = $savedPID;
@@ -735,14 +742,15 @@ $customDQHandlers["ATTACH_UPGRADE"] = function ($player, $parts, $lastDecision) 
     if ($discount > 0)
       $hostCost = max(0, $hostCost - $discount);
     // Encode $isPilot (4th field) + $discount (5th field) so the DROID_PAY continuation can rebuild them.
-    $droidArgs = "{$cardID}|{$upgradeMz}|{$hostMz}|" . ($isPilot ? '1' : '0') . "|{$discount}";
+    $droidArgs = "{$cardID}|{$upgradeMz}|{$hostMz}|" . ($isPilot ? '1' : '0') . "|{$discount}|"
+                 . ($owner === null ? '' : $owner);
     SWUOfferAltPayment(intval($player), $hostCost, 'ATTACH_UPGRADE', $droidArgs, 0);
     $playerID = $savedPID;
     return;
   }
 
   // ignoreCost path — finalize directly without SEC_122 check.
-  _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upgradeMz, $hostMz, 0, $ignoreCost, $isPilot, false, $discount);
+  _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upgradeMz, $hostMz, 0, $ignoreCost, $isPilot, false, $discount, false, $owner);
   $playerID = $savedPID;
 };
 
@@ -761,8 +769,10 @@ $customDQHandlers["ATTACH_UPGRADE"] = function ($player, $parts, $lastDecision) 
 // If count($vehicles) >= 2: queues the MZCHOOSE picker as before.
 // CRITICAL: $playerID must be left = $player on return so MZCountChoices can
 // resolve the relative mzIDs in the MZCHOOSE param immediately after this returns.
-function SWUQueuePilotVehiclePick(int $player, string $mzID, string $cardID, array $vehicles): void
+function SWUQueuePilotVehiclePick(int $player, string $mzID, string $cardID, array $vehicles,
+  ?int $owner = null): void
 {
+  $ownerFld = ($owner === null) ? '' : (string) $owner;
   global $playerID;
   $playerID = $player;
 
@@ -779,7 +789,7 @@ function SWUQueuePilotVehiclePick(int $player, string $mzID, string $cardID, arr
     // Route through SWUOfferDroidPayment so SEC_122 Droid alt-pay is offered if applicable.
     // Args format: "{cardID}|{upgradeMz}|{hostMz}|{isPilot}" (isPilot=1).
     $hostMz = $vehicles[0];
-    $droidArgs = "{$cardID}|{$mzID}|{$hostMz}|1";
+    $droidArgs = "{$cardID}|{$mzID}|{$hostMz}|1|0|{$ownerFld}";
     // Compute the pilot cost for the Droid-offer threshold.
     $upgradeObj = GetZoneObject($mzID);
     $upgradeForCost = $upgradeObj ?? (object) ['CardID' => $cardID];
@@ -801,7 +811,7 @@ function SWUQueuePilotVehiclePick(int $player, string $mzID, string $cardID, arr
   DecisionQueueController::AddDecision(
     $player,
     "CUSTOM",
-    "ATTACH_UPGRADE|{$cardID}|{$mzID}|0|1",
+    "ATTACH_UPGRADE|{$cardID}|{$mzID}|0|1|0|{$ownerFld}",
     1
   );
 }
@@ -830,6 +840,33 @@ $customDQHandlers["PILOT_PLAY_CHOICE"] = function ($player, $parts, $lastDecisio
   for ($k = 0; $k < $discount; $k++)
     RemoveGlobalEffect(intval($player), 'SWU_PILOT_DISCOUNT');
   _SWUBeginPlayCardUnitPath(intval($player), $mzID, $discount);
+};
+
+// FOREIGN_PILOT_PLAY_CHOICE — the Unit-vs-Pilot answer for a card played out of an OPPONENT's discard
+// (SEC_205 Obi-Wan: "you may play THAT CARD… ignoring its aspect penalties" — a card, not a unit, so the
+// Piloting route is available too). $parts = discardIdx | cardID | modifier | opponent.
+// The pilot cost's aspect-penalty waiver is already pre-loaded as SWU_PILOT_DISCOUNT by the caller;
+// _SWUFinalizeUpgradeAttach clears it after a successful pilot payment, and the Unit branch drops it here.
+$customDQHandlers["FOREIGN_PILOT_PLAY_CHOICE"] = function ($player, $parts, $lastDecision) {
+  global $playerID;
+  $playerID = intval($player);
+  $discardIdx = intval($parts[0] ?? 0);
+  $cardID     = $parts[1] ?? '';
+  $modifier   = $parts[2] ?? '';
+  $opponent   = intval($parts[3] ?? 0);
+
+  if ($lastDecision === 'Pilot') {
+    $vehicles = SWUGetPilotValidTargets(intval($player), $cardID);
+    if (!empty($vehicles)) {
+      AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
+      SWUQueuePilotVehiclePick(intval($player), "theirDiscard-{$discardIdx}", $cardID, $vehicles, $opponent);
+      return;
+    }
+    // Every Vehicle disappeared while the prompt was open — fall through to the unit play.
+  }
+  SWUClearGlobalEffectsByPrefix(intval($player), 'SWU_PILOT_DISCOUNT');
+  AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
+  _SWUForeignDiscardPlayAsUnit(intval($player), $discardIdx, $cardID, $modifier, $opponent);
 };
 
 // ── Leader deploy-as-Pilot choice handlers ───────────────────────────────────
@@ -1865,7 +1902,6 @@ function SEC013AttackerDefeatedTrigger($player, string $mode = ''): void
 {
   global $playerID;
   $playerID = intval($player);
-  error_log("SEC013trig: player=$player mode=[$mode] undep=" . (_SWULeaderReadyUndeployed(intval($player), 'SEC_013') ? 1 : 0) . " dep=" . (_SWULeaderDeployed(intval($player), 'SEC_013') ? 1 : 0));
   // DEPLOYED_SELF: Luthen himself was the defeated attacker — he has already returned to the leader zone
   // (undeployed/exhausted), so the live leader-state checks would fizzle. Per ruling the deployed reaction
   // ("may deal 2") still fires, so force that branch.
@@ -2482,6 +2518,7 @@ $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision
   $maxDefeats = intval($params[2] ?? 0);   // effective Exploit X (cap on units defeated)
 
   $count = 0;
+  $droidsExploited = 0;   // Droids defeated here — see the SEC_122 compensation note below
   if ($lastDecision !== null && $lastDecision !== '-' && $lastDecision !== '') {
     // Validate the answer against the SAME friendly-fodder set that was offered, and cap at
     // the effective Exploit X. A non-conforming client must not defeat non-friendly units or
@@ -2512,19 +2549,35 @@ $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision
       $pwr = ($fo !== null) ? intval(ObjectCurrentPower($fo)) : 0;
       // Only count units actually defeated — a unit already removed before this
       // handler runs must not inflate the Exploit discount (CR: 2 less per unit defeated).
+      $wasDroid = ($fo !== null) && HasTrait($fo->CardID ?? '', 'Droid');
       if (SWUDefeatUnit(intval($player), $currentMz)) {
         $count++;
         $gLastExploitedPowers[] = $pwr;
+        if ($wasDroid) $droidsExploited++;
       }
     }
     $gExploitDeferTriggers = false;
   }
 
-  // Discount is 2 per unit defeated. SWUContinuePlayAfterExploit → ActivateCard.
+  // ── Determine Cost is ONE step: every reduction is settled against the SAME board state, and the
+  // player may order the reductions within it. Exploit's defeats happen in that step, BEFORE Pay Costs —
+  // so a Droid defeated by Exploit must still count for SEC_122 Vuutun Palaa's "costs 1 less for each
+  // friendly Droid unit" (take the per-Droid reduction first, then Exploit). ActivateCard recomputes the
+  // cost AFTER the defeats, when those Droids are gone, so add back 1 per exploited Droid.
+  // Judge ruling (2026-08-08): 3 Droids + Exploit 1 on Vuutun = 9 − 3 − 2 = 4, not 5.
+  // Only Vuutun's OWN play has a per-friendly-Droid cost modifier, so this compensation is scoped to it;
+  // the Droids it loses here are also genuinely gone for the later Pay Costs step (they can no longer be
+  // exhausted as payment), which is the other half of the same ruling.
+  $exploitDiscount = 2 * $count;
+  $playedObj = ($mzID !== '') ? GetZoneObject($mzID) : null;
+  if ($droidsExploited > 0 && ($playedObj->CardID ?? '') === 'SEC_122') {
+    $exploitDiscount += $droidsExploited;
+  }
+  // SWUContinuePlayAfterExploit → ActivateCard.
   // The event branch of ActivateCard does NOT restore $playerID, so we must not
   // restore it here either — SWUContinuePlayAfterExploit returns with $playerID
   // still set to $player (same as $savedPID), so the restore below is a safe no-op.
-  SWUContinuePlayAfterExploit(intval($player), $mzID, 2 * $count);
+  SWUContinuePlayAfterExploit(intval($player), $mzID, $exploitDiscount);
   $playerID = $savedPID;
 };
 
@@ -2552,14 +2605,19 @@ $customDQHandlers["DROID_PAY"] = function ($player, $parts, $lastDecision) {
   $savedPID = $playerID;
   $playerID = intval($player);
 
-  $continuation = $parts[0] ?? '';
-  $args = implode('|', array_slice($parts, 1)); // rejoin remaining parts as args
+  // $parts[0] = the cap computed by SWUOfferDroidPayment as min(ready Droids, cost). The queue
+  // controller does NOT enforce the MZMULTICHOOSE bound on submission, so re-apply it here: CR 1.7.2
+  // says a player exhausts resources EQUAL TO the cost, and CR 8.1.4 forbids exhausting one when not
+  // paying a cost — so an over-long answer must not burn the extra Droids.
+  $cap = intval($parts[0] ?? 0);
+  $continuation = $parts[1] ?? '';
+  $args = implode('|', array_slice($parts, 2)); // rejoin remaining parts as args
 
   // Validate the player's Droid picks against the live ready set.
   $prepaid = 0;
   if ($lastDecision !== null && $lastDecision !== '-' && $lastDecision !== '') {
     $fodderSet = array_flip(SWUReadyFriendlyDroids(intval($player)));
-    $maxExhaust = count($fodderSet); // cap: cannot exhaust more than exist and are ready
+    $maxExhaust = min(count($fodderSet), max(0, $cap)); // cannot exceed the ready set OR the cost
     foreach (explode('&', $lastDecision) as $chosen) {
       if ($chosen === '')
         continue;
@@ -2598,13 +2656,18 @@ $customDQHandlers["CREDIT_PAY"] = function ($player, $parts, $lastDecision) {
   $savedPID = $playerID;
   $playerID = intval($player);
 
-  $continuation = $parts[0] ?? '';
-  $args = implode('|', array_slice($parts, 1));
+  // $parts[0] = the cap (min(usable Credits, cost)) — see the DROID_PAY note: the MZMULTICHOOSE bound
+  // is client-side only, so the CR 1.7.2 "equal to the cost" limit is re-applied here.
+  $cap = intval($parts[0] ?? 0);
+  $continuation = $parts[1] ?? '';
+  $args = implode('|', array_slice($parts, 2));
 
   $prepaid = 0;
   if ($lastDecision !== null && $lastDecision !== '-' && $lastDecision !== '') {
     $usable = array_flip(SWUUsableCreditTokenMzIDs(intval($player))); // live, validated set
     foreach (explode('&', $lastDecision) as $chosen) {
+      if ($prepaid >= max(0, $cap))
+        break;
       if ($chosen === '' || !isset($usable[$chosen]))
         continue;
       $o = GetZoneObject($chosen);

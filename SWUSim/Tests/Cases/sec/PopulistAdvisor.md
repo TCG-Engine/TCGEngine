@@ -59,3 +59,29 @@ WithP2GroundArena: SOR_128:1:0
 ## EXPECT
 P2BASEDMG:3
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# SentinelIsPhaseDurationOnly_GoneNextPhase
+#// SEC_041 Populist Advisor — "gains Sentinel FOR THIS PHASE". P2 hits P1's base to switch it on, then
+#// both players pass through the regroup phase: on the next action phase the Sentinel is gone.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:4}
+WithActivePlayer: 1
+WithP1GroundArena: SEC_041:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>Pass
+- P2>AttackGroundArena:0:BASE
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+P1BASEDMG:3
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel

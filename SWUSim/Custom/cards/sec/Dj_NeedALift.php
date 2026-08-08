@@ -66,7 +66,40 @@ $customDQHandlers["SEC_018#1"] = function($player, $parts, $lastDecision) {
                     && in_array('SEC_018', $o->TurnEffects, true)) { $newMz = $mz; break 2; }
         }
     }
+    // CR 1050.3 — playing a second copy of a unique card forces its controller to defeat one of them, and
+    // that defeat "occurs immediately"; it is a game rule, not a triggered ability. ActivateCard can only
+    // QUEUE that choice (it is interactive), so capturing inline here would jump the queue: the capture
+    // would re-index the arena underneath a pending positional offer, so picking the just-played copy
+    // would silently no-op and the mandatory defeat would be SKIPPED entirely.
+    // When a uniqueness choice is pending, defer the capture behind it on the same queue (same player, so
+    // plain append ordering applies) and re-resolve both units by UniqueID once it has resolved. If the
+    // player defeats the new copy, there is simply nothing left to capture.
+    $newUID = ($newMz !== null) ? intval((GetZoneObject($newMz)->UniqueID) ?? 0) : 0;
+    if ($newUID > 0 && _SWUDjUniquenessPending(intval($player))) {
+        DecisionQueueController::AddDecision(intval($player), 'CUSTOM',
+            "SEC_018#2|{$captorUID}|{$newUID}", 1, dontSkipOnPass: 1);
+        return;   // SEC_018#2 owns the After Action
+    }
     $captorMz = SWUFindMzByUID($captorUID);
+    if ($newMz !== null && $captorMz !== null) DoCaptureUnit(intval($player), $captorMz, $newMz);
+    SWUAfterAction(intval($player));
+};
+
+// True when ActivateCard queued the CR 1050.3 uniqueness choose-and-defeat for this player.
+function _SWUDjUniquenessPending(int $player): bool {
+    foreach (GetDecisionQueue($player) as $entry) {
+        if (strpos(strval($entry->Param ?? ''), 'UNIQUENESS_DEFEAT') === 0) return true;
+    }
+    return false;
+}
+
+// Step 2: the uniqueness defeat has resolved; capture whatever survived.
+$customDQHandlers["SEC_018#2"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $playerID  = intval($player);
+    $captorMz = SWUFindMzByUID(intval($parts[0] ?? 0));
+    $newMz    = SWUFindMzByUID(intval($parts[1] ?? 0));
+    // $newMz === null ⇒ the player chose to defeat the newly played copy, so there is nothing to capture.
     if ($newMz !== null && $captorMz !== null) DoCaptureUnit(intval($player), $captorMz, $newMz);
     SWUAfterAction(intval($player));
 };

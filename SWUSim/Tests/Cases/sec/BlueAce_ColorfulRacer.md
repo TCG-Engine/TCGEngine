@@ -14,3 +14,23 @@ WithP2GroundArena: SOR_046:0:0
 ## EXPECT
 P2BASEDMG:4
 P2GROUNDARENAUNIT:0:READY
+
+---
+
+# OnAttack_NoExhaustedEnemy_NoOp
+#// SEC_204 Blue Ace — the ready has nothing to work on when every enemy unit is already ready, so the
+#// attack resolves with no prompt and the enemy board is untouched.
+
+## GIVEN
+CommonSetup: yyw/rrk
+WithActivePlayer: 1
+WithP1SpaceArena: SEC_204:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P2BASEDMG:4
+P2GROUNDARENAUNIT:0:READY
+P1NODECISION

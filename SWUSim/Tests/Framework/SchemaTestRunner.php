@@ -764,11 +764,13 @@ class SchemaTestRunner {
                 $atk = "myGroundArena-" . intval($unitIdx);
                 // Twin Suns: 'P<seat>G<idx>' / 'P<seat>S<idx>' / 'P<seat>B' names a SPECIFIC opponent's
                 // unit/base in an N-player game (union targets).
-                // Else 'BASE' → the one opponent's base; 'S<idx>' → cross-arena space (JTL_259); else ground.
+                // Else 'BASE' → the one opponent's base; a full mzID ('theirSpaceArena-2') is taken as-is;
+                // 'S<idx>' → cross-arena space (JTL_259); a bare number → this arena; empty → index 0.
                 if (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
                 elseif ($target === 'BASE')              $def = 'theirBase-0';
+                elseif (_schemaIsFullMzID($target))      $def = $target;
                 elseif (str_starts_with($target, 'S'))   $def = 'theirSpaceArena-' . intval(substr($target, 1));
-                else                                     $def = 'theirGroundArena-' . intval($target);
+                else                                     $def = 'theirGroundArena-' . _schemaAttackIdx($target);
                 $g->declareAttack($player, $atk, $def);
                 break;
             }
@@ -777,11 +779,13 @@ class SchemaTestRunner {
                 [$unitIdx, $target] = array_pad(explode(':', $args, 2), 2, '');
                 $atk = "mySpaceArena-" . intval($unitIdx);
                 // Twin Suns 'P<seat>...' seat-specific target (see AttackGroundArena).
-                // Else 'BASE' → the one opponent's base; 'G<idx>' → cross-arena ground (Strafing Gunship); else space.
+                // Else 'BASE' → the one opponent's base; a full mzID is taken as-is; 'G<idx>' →
+                // cross-arena ground (Strafing Gunship); a bare number → this arena; empty → index 0.
                 if (($pt = _twSchemaSeatTarget($target)) !== null) $def = $pt;
                 elseif ($target === 'BASE')             $def = 'theirBase-0';
+                elseif (_schemaIsFullMzID($target))     $def = $target;
                 elseif (str_starts_with($target, 'G'))   $def = 'theirGroundArena-' . intval(substr($target, 1));
-                else                                     $def = 'theirSpaceArena-' . intval($target);
+                else                                     $def = 'theirSpaceArena-' . _schemaAttackIdx($target);
                 $g->declareAttack($player, $atk, $def);
                 break;
             }
@@ -1647,6 +1651,27 @@ class SchemaTestRunner {
 // combat tests. 'P<seat>G<idx>' → "p{seat}GroundArena-{idx}", 'P<seat>S<idx>' → "p{seat}SpaceArena-{idx}",
 // 'P<seat>B' → "p{seat}Base-0". Returns null for any other form (the 2-player 'BASE'/'S<n>'/'G<n>'/index
 // syntaxes are handled by the caller and stay byte-identical).
+// True if an attack target is already a full zone mzID ("theirGroundArena-2", "p3SpaceArena-0",
+// "theirBase-0"). Those are passed through verbatim.
+//
+// ⚠ WHY THIS EXISTS: the attack steps used to do `intval($target)` on whatever was after the second
+// colon. `intval("theirGroundArena-1")` is **0**, so writing the full mzID — the natural thing to do,
+// since every AnswerDecision uses that form — silently attacked index 0 instead. Tests written that
+// way passed against the WRONG defender, and it manufactured at least one phantom "engine bug".
+function _schemaIsFullMzID(string $target): bool {
+    return (bool)preg_match('/^(their|my|p\d+)[A-Za-z]+-\d+$/', $target);
+}
+
+// Parse the bare-number form of an attack target index. Anything that is neither empty nor a plain
+// integer is a typo or an unsupported spelling — fail LOUDLY instead of silently resolving to 0.
+function _schemaAttackIdx(string $target): int {
+    if ($target === '') return 0;                       // "AttackGroundArena:0" → first enemy unit
+    if (preg_match('/^\d+$/', $target)) return intval($target);
+    throw new RuntimeException("unrecognised attack target '{$target}' "
+        . "(use a bare index like '1', a full mzID like 'theirGroundArena-1', 'BASE', "
+        . "'S<idx>'/'G<idx>' for cross-arena, or a Twin Suns 'P<seat>G<idx>')");
+}
+
 function _twSchemaSeatTarget(string $target): ?string {
     if (!preg_match('/^P(\d+)([GSB])(\d*)$/', $target, $m)) return null;
     $seat = intval($m[1]);

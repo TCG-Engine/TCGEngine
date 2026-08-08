@@ -44,4 +44,15 @@ $customDQHandlers["SOR_185#0"] = function($player, $parts, $lastDecision) {
             break;
         }
     }
+
+    // SEC_016 Padmé Amidala — "When you reveal or discard 1 or more cards from YOUR hand." Both halves of
+    // this ability happen to the OPPONENT's hand, so the react fires for THEM ($opp), not the attacker.
+    // It fires once for the whole event even when a card is also discarded (one reveal-or-discard event,
+    // not two). This path did neither: the reveal was only a log line, and the discard is a raw Remove()
+    // that bypasses DoDiscardCard's observers. No-op when the opponent has no Padmé in play.
+    if (!empty($refs) && function_exists('_SWUSec016React')) {
+        $savedPID = $playerID;
+        _SWUSec016React($opp);
+        $playerID = $savedPID;
+    }
 };

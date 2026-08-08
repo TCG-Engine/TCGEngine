@@ -44,9 +44,11 @@ $whenPlayedAbilities["SEC_194:0"] = function($player, $mzID = '') {
                           // previous action this phase, play a unit from your hand. Give it Ambush this phase.
             global $playerID; $playerID = intval($player);
             $opp  = OtherPlayer(intval($player));
-            $last = explode(',', GetSWUVar('SWU_LAST_ACTION', ''));        // comma-delimited (see SWUAfterAction)
-            $cond = (count($last) >= 3 && intval($last[0]) === $opp
-                     && $last[1] === 'BASEATK' && intval($last[2]) === intval($player));
+            // Read the OPPONENT'S OWN last action, not the global most-recent one: "during THEIR previous
+            // action" is unaffected by anything we do in between (including the leader deploy that opens
+            // the Plot window this card can be played from). Comma-delimited (see SWUAfterAction).
+            $last = explode(',', GetSWUVar('SWU_LAST_ACTION_' . $opp, ''));
+            $cond = (count($last) >= 2 && $last[0] === 'BASEATK' && intval($last[1]) === intval($player));
             if (!$cond) return;                                            // opponent's previous action wasn't a base attack
             $targets = SWUHandPlayablesAtDiscount(intval($player), ['Unit'], 0);
             if (empty($targets)) return;                                   // nothing affordable to play

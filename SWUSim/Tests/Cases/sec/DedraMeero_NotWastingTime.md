@@ -75,3 +75,53 @@ P1HANDCOUNT:1
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P1RESAVAILABLE:1
 P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_NoRaid_WhenHandsAreEqual
+#// SEC_010 Dedra Meero (deployed) — the Raid 2 is gated on having MORE cards in hand than the opponent.
+#// With both hands at 2 the condition is false (equal is not more), so she attacks at her printed 2.
+#// The negative that proves the gate in Deployed_Raid2_MoreCardsInHand is load-bearing.
+
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:SEC_010:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021;
+  theirHandCardIds:SOR_095,SOR_095
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_095
+WithP1Hand: SOR_095
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:2
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Raid
+
+---
+
+# Deployed_NoRaid_WhenHoldingFewerCards
+#// SEC_010 Dedra Meero (deployed) — and strictly fewer cards is likewise not "more": P1 holds 1 card to
+#// P2's 3, so no Raid and the base takes her printed 2.
+
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:SEC_010:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021;
+  theirHandCardIds:SOR_095,SOR_095,SOR_095
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_095
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:2
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Raid

@@ -314,3 +314,114 @@ WithP2GroundArenaUpgrade: 0:SHD_069
 P2GROUNDARENAUNIT:0:CARDID:SEC_101
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENACOUNT:1
+
+---
+
+# PreventsLeaderAbilityDamage_DealtAsSheEntersPlay
+#// SEC_101 Queen Amidala — the prevention also covers damage dealt by a LEADER ability at the moment she
+#// enters play. SHD_013 Han Solo's front Action ("Play a unit from your hand. It costs 1 less. Deal 2
+#// damage to it.") plays Amidala for 4 and immediately deals her 2. Her prevention fires and the ONLY
+#// trait-sharing friendly is TWI_046 Captain Typho (Naboo) — her two Spy tokens are not yet on the board
+#// when the offer is built, which is why the offer is exactly one unit.
+#// P1 defeats Typho: Amidala takes 0 and lives at full HP. End board = Amidala (5 power) + her 2 Spy
+#// tokens = 3 ground units; Typho is the only card in the discard.
+#// Base/leader is Command + Aggression/Heroism so Amidala (Command/Heroism) is on-aspect at cost 5-1=4.
+
+## GIVEN
+CommonSetup: grw/rrk/{myLeader:SHD_013}
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1GroundArena: TWI_046:1:0
+WithP1Hand: SEC_101
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1DISCARDCOUNT:1
+P1NODECISION
+P2NODECISION
+
+---
+
+# PreventsOneTargetOfAMultiTargetAbility_SacrificeIsAlsoATarget
+#// SEC_101 Queen Amidala — a multi-target ability damages several units at once; her prevention removes
+#// ONLY her share, and the unit she defeats to pay for it may itself be one of the ability's targets.
+#// P2 (with the initiative) plays LOF_167 Saesee Tiin, "deal 1 damage to each of up to 3 units", picking
+#// Amidala and SEC_111 Jar Jar Binks. Jar Jar (Naboo/Official) is Amidala's only trait-sharing friendly,
+#// so the prevention offer is exactly him. P1 defeats Jar Jar to prevent Amidala's 1.
+#// End state: Amidala alone in P1's ground arena at 0 damage; Jar Jar in P1's discard.
+
+## GIVEN
+CommonSetup: ggw/rrk
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 8
+WithP1GroundArena: SEC_101:1:0
+WithP1GroundArena: SEC_111:1:0
+WithP2Hand: LOF_167
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1DISCARDCOUNT:1
+P1NODECISION
+P2NODECISION
+
+---
+
+# PreventsOnlyHerShareOfAMultiDefenderAttack
+#// SEC_101 Queen Amidala — TWI_135 Darth Maul attacks TWO units at once ("This unit can attack 2 units
+#// instead of 1"). Amidala is one of the two defenders; her prevention removes ONLY the 5 aimed at her,
+#// and the other defender still takes its full 5.
+#// This is the guard for a core-path bug: the two-defender attack committed damage WITHOUT ever running
+#// combat step 1, so every step-1 trigger — both defenders' On Defense, upgrade-granted On Defense, this
+#// prevention offer, ASH_062's, SEC_231's Spy — was silently skipped on that path.
+#// P1 defeats TWI_059 Royal Guard Attache (Naboo) to prevent. Counter-damage is combined and simultaneous:
+#// Amidala's 5 + Consular Security Force's 3 = 8 into Maul (6 HP), so Maul dies even though Amidala took
+#// nothing. End state: P1 keeps Amidala (0 damage) + Consular at 5 damage; Royal Guard and Maul are the
+#// single card in each player's discard.
+
+## GIVEN
+CommonSetup: ggw/rrk
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: TWI_059:1:0
+WithP1GroundArena: SEC_101:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP2GroundArena: TWI_135:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P2>AttackGroundArena:1:1
+- P2>AnswerDecision:Units
+- P2>AnswerDecision:theirGroundArena-1&theirGroundArena-2
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:1:DAMAGE:5
+P1DISCARDCOUNT:1
+P2GROUNDARENACOUNT:1
+P2DISCARDCOUNT:1
+P1NODECISION
+P2NODECISION

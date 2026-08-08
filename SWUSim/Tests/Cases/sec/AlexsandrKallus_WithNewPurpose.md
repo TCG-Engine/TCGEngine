@@ -167,3 +167,29 @@ WithP1Hand: SEC_155
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P1NODECISION
+
+---
+
+# Constant_NoRaidToAnEnemyNonUniqueEvenWhenPilotedAndWeHoldInitiative
+#// SEC_155 Alexsandr Kallus — the grant is "each OTHER FRIENDLY unique unit", so both halves have to
+#// fail for an enemy non-unique: it is neither friendly nor unique. Attaching a Pilot upgrade to it does
+#// not change either. With P1 holding initiative, P2's SOR_095 wearing JTL_046 Paige Tico still has no
+#// Raid, while P1's own unique SEC_065 does.
+
+## GIVEN
+CommonSetup: rrw/rrk
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: SEC_155:1:0
+WithP1GroundArena: SEC_065:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:JTL_046
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENAUNIT:1:HASKEYWORD:Raid
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Raid
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1

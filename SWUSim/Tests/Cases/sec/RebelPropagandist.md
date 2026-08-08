@@ -86,3 +86,30 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
+
+---
+
+# WhenDefeated_UnderEnemyControl_BuffsTheNewControllersUnit
+#// SEC_202 Rebel Propagandist — "give ANOTHER FRIENDLY unit +1/+0 and Saboteur" resolves for whoever
+#// controls it when it dies. P2 plays JTL_043 No Glory, Only Results on it, so P2 owns the When
+#// Defeated: P2's own SOR_095 gets the +1/+0 and Saboteur, and P1's does not.
+
+## GIVEN
+CommonSetup: yyw/bbk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SEC_202:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2Hand: JTL_043
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:POWER:4
+P2GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Saboteur

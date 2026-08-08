@@ -94,3 +94,28 @@ P1GROUNDARENAUNIT:1:CARDID:SEC_187
 P1GROUNDARENAUNIT:1:DAMAGE:0
 P2GROUNDARENACOUNT:0
 P1NODECISION
+
+---
+
+# UnderEnemyControl_StillReturnsToHISOWNERSHand
+#// SEC_187 General Grievous — "return him to HIS OWNER'S hand", not the current controller's. P2 takes
+#// control of him with SOR_122 Traitorous; when P1 then attacks him, he bounces back to P1's hand (his
+#// owner's), leaving P2 with nothing and P1 holding him again.
+
+## GIVEN
+CommonSetup: ggw/ggk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SEC_187:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2Hand: SOR_122
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1HANDCARD:0:SEC_187

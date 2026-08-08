@@ -31,3 +31,28 @@ WithP2GroundArena: SOR_046:1:2
 
 ## EXPECT
 P2BASEDMG:5
+
+---
+
+# RaidTurnsOnFromDamageDealtDuringTheSameAttack
+#// SEC_134 Hunting Assassin Droid — "WHILE an enemy unit is damaged" is evaluated live, so damage dealt
+#// earlier in the same action switches the Raid on. P1 first plays SHD_178 Daring Raid to put 2 on the
+#// enemy SOR_046, then attacks the base: the droid now has Raid 2 and hits for 3 + 2 = 5.
+#// Companion to NoRaidWhenNoEnemyDamaged, where the identical board with an UNdamaged enemy gives 3.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:2}
+WithActivePlayer: 1
+WithP1GroundArena: SEC_134:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: SHD_178
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>Pass
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:5
+P2GROUNDARENAUNIT:0:DAMAGE:2

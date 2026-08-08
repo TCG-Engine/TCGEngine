@@ -79,3 +79,39 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_232
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1GROUNDARENAUNIT:0:NOTTRAIT:Rebel
 P1NODECISION
+
+---
+
+# GrantedWhenDefeated_ResolvesForTheNewControllerAfterTakeControl
+#// SEC_156 Nemik's Manifesto — the granted "When Defeated: deal 1 damage to each enemy base for each
+#// other friendly Rebel unit" belongs to whoever CONTROLS the host when it dies, and "enemy base" and
+#// "friendly Rebel" both re-evaluate for that new controller.
+#// P2 plays JTL_043 No Glory, Only Results on P1's SEC_080 host (non-Rebel, made Rebel by the manifesto),
+#// taking control and defeating it. The trigger now resolves for P2: P2's other Rebel units are just the
+#// one SOR_095, so it deals 1 — and it hits P1's base, which is the enemy base FROM P2'S SIDE.
+#// P1's base takes 1 and P2's base takes 0; that asymmetry is the whole point of the section.
+#// P1 keeps its remaining SOR_046; the host and the spent event make 2 cards in P1's discard (the host
+#// returns to its OWNER's discard even though P2 controlled it at the end).
+
+## GIVEN
+CommonSetup: rrk/bbk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:SEC_156
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2Hand: JTL_043
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1BASEDMG:1
+P2BASEDMG:0
+P1GROUNDARENACOUNT:1
+P2GROUNDARENACOUNT:1
+P1DISCARDCOUNT:2

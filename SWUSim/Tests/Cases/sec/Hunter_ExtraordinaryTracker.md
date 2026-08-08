@@ -34,3 +34,23 @@ WithP2GroundArena: SOR_046:1:0
 P1GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENACOUNT:0
 P1NODECISION
+
+---
+
+# AttackingTheBase_NoDebuffToApply
+#// SEC_208 Hunter — the -4/-0 is aimed at "the defender", and a BASE is not a unit, so attacking the
+#// base is a plain attack: the base takes Hunter's full 7 and nothing is debuffed.
+
+## GIVEN
+CommonSetup: yyw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_208:1:0
+WithP2GroundArena: SOR_046:0:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:7
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1NODECISION

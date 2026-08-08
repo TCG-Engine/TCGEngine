@@ -199,3 +199,51 @@ WithP2GroundArena: SEC_080:1:0
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LOF_093
 P1GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# WhenPlayed_TargetsAUniqueLEADERUnit
+#// SEC_143 The Elite Squad — "another UNIQUE unit" includes a deployed leader, which is always unique.
+#// With P2's leader deployed as the only other unique unit on the board, the When Played damage lands
+#// on it for 2.
+
+## GIVEN
+CommonSetup: rrk/grk/{theirLeaderDeployed:true;myResources:8}
+P1OnlyActions: true
+WithP1Hand: SEC_143
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2LEADER:DEPLOYED
+P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# WhenDamagedByIndirectDamage_AlsoTriggers
+#// SEC_143 The Elite Squad — "when damage is dealt to this unit" does not care about the damage's kind,
+#// so INDIRECT damage arms the reaction too. P2 plays JTL_234 Torpedo Barrage at P1, and P1 (the damaged
+#// player, who assigns indirect damage themselves) puts 3 on the Elite Squad and 2 on their own base.
+#// The reaction then deals 2 to the other unique unit, P2's LOF_093.
+
+## GIVEN
+CommonSetup: rrk/yyk
+WithActivePlayer: 2
+WithP2Resources: 3
+WithP1GroundArena: SEC_143:1:0
+WithP2GroundArena: LOF_093:1:0
+WithP2Hand: JTL_234
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Opponent
+- P1>AnswerDecision:myGroundArena-0:3,myBase-0:2
+- P1>Drain
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P1BASEDMG:2
+P2GROUNDARENAUNIT:0:DAMAGE:2

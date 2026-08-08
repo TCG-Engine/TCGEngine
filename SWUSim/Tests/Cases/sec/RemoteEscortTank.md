@@ -56,3 +56,35 @@ WithP1Hand: SEC_255
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# PlayedViaPlot_StillGivesSentinel
+#// SEC_255 Remote Escort Tank carries Plot, so it can be played out of the RESOURCE row when a leader
+#// deploys, and its When Played resolves exactly as from hand.
+#// P1 deploys its leader and plays the tank from resources for its cost of 6. The Sentinel offer covers
+#// every unit on the board — the freshly deployed leader (idx 0), the tank itself (idx 1) and the enemy
+#// unit — and P1 grants it to the tank.
+#// The resource row stays at 8: the played card is replaced from the top of the deck (deck 2 -> 1), and
+#// 6 of the 8 resources are exhausted, leaving 2 ready.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1Resources: 1:SEC_255:1,7:SOR_046:1
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:HASKEYWORD:Sentinel
+P1RESCOUNT:8
+P1RESAVAILABLE:2
+P1DECKCOUNT:1
+P1NODECISION

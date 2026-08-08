@@ -89,3 +89,32 @@ WithP2GroundArena: SOR_095:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# CannotPreventUnpreventableDamage_AndTheChargeSurvivesForTheNextHit
+#// SEC_067 Umbaran Mobile Cannon — "prevent the first damage it would take each phase" cannot stop
+#// UNPREVENTABLE damage. P2 sends 5 indirect (JTL_234 Torpedo Barrage) at P1, who assigns 1 to Umbaran
+#// (3 HP) and 4 to their own base; that 1 lands despite the prevention. Because nothing was prevented the
+#// once-per-phase charge is still unused, so the NEXT hit — P2's SHD_178 Daring Raid for 2 — is the one
+#// it eats, leaving Umbaran on 1 damage rather than 3.
+
+## GIVEN
+CommonSetup: bbk/yyk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SEC_067:1:0
+WithP2Hand: JTL_234
+WithP2Hand: SHD_178
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Opponent
+- P1>AnswerDecision:myGroundArena-0:1,myBase-0:4
+- P1>Pass
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P1BASEDMG:4

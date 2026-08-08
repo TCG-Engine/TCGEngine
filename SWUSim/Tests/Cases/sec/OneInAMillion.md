@@ -175,3 +175,59 @@ P1DISCARDCOUNT:0
 P1RESAVAILABLE:3
 P2GROUNDARENACOUNT:1
 P1NODECISION
+
+---
+
+# PlayedFromDISCARDViaAidFromTheInnocent
+#// SEC_053 One in a Million — "This card CAN'T BE PLAYED FROM YOUR HAND" bans exactly one zone, so any
+#// effect that grants a play from elsewhere works. TWI_201 Aid from the Innocent searches P1's top 10 for
+#// 2 Heroism non-unit cards, discards them, and makes them playable this phase for 2 less; One in a
+#// Million is a Heroism event, so it lands in P1's discard and is then played FROM THERE.
+#// The numbers chain: 8 resources − 5 (Aid) = 3, then the event costs 1 (printed 1, +2 for the uncovered
+#// Vigilance, −2 from Aid) leaving exactly 2 ready — and its effect defeats a unit whose power AND
+#// remaining HP both equal that ready count, so P2's 2/2 SpecForce Soldier dies.
+#// (Pairs with CantPlayFromHand: the ban is zone-specific, not a blanket "can't be played".)
+
+## GIVEN
+CommonSetup: yyw/rrk/{myResources:8;handCardIds:TWI_201}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Deck: [SEC_053 SOR_199 SEC_080 SEC_080 SEC_080]
+WithP2GroundArena: SOR_140:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:SEC_053,SOR_199
+- P1>PlayFromDiscard:1
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1RESAVAILABLE:2
+
+---
+
+# PlayedFromRESOURCESViaSmuggle
+#// SEC_053 One in a Million — "This card can't be played from your hand" is a ZONE ban, so Smuggling it
+#// out of the resource zone is legal. SHD_248 Tech gives friendly resources Smuggle at "that card's cost
+#// plus 2 and its aspect icons", i.e. 3 here (1 + 2, on-aspect under a Vigilance/Heroism leader). P1
+#// smuggles it with 6 resources, ending on 3 ready — and its effect defeats a unit whose power AND
+#// remaining HP both equal that ready count, so P2's 3/3 SEC_080 dies.
+#// Third distinct route onto the board for this card, alongside Plot and the play-from-discard section.
+
+## GIVEN
+CommonSetup: bbw/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SHD_248:1:0
+WithP1Resources: 1:SEC_053:1,5:SOR_095:1
+WithP1Deck: [SOR_095 SOR_095]
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>SmuggleResource:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1RESAVAILABLE:3
+P1RESCOUNT:6
+P1NODECISION

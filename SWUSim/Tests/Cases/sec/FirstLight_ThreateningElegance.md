@@ -16,6 +16,7 @@ WithP1Deck: SOR_095
 ## EXPECT
 P2SPACEARENACOUNT:0
 P1HANDCOUNT:1
+P1DECKCOUNT:0
 
 ---
 
@@ -59,3 +60,30 @@ WithP1Deck: SOR_095
 ## EXPECT
 P2SPACEARENACOUNT:0
 P1HANDCOUNT:0
+
+---
+
+# PlayedViaPlot_AmbushAttackStillFeedsTheDrawTrigger
+#// SEC_088 First Light — Plot + Ambush together: deploying a leader lets P1 play First Light from the
+#// resource row, Ambush immediately attacks P2's SOR_237 (2/3) and kills it, and the "attacks and
+#// defeats a unit" draw still fires off that Ambush attack. Proves the Plot entry path reaches the
+#// Ambush attack AND the attack-defeat trigger, not just the unit landing in the arena.
+
+## GIVEN
+CommonSetup: ggk/rrk
+P1OnlyActions: true
+WithP1Resources: 1:SEC_088:1,9:SEC_080:1
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1LEADER:DEPLOYED
+P2SPACEARENACOUNT:0
+P1HANDCOUNT:1
+P1DECKCOUNT:1

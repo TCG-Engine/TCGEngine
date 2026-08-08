@@ -132,3 +132,56 @@ WithP1Deck: [SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P1HANDCOUNT:3
 P1LEADER:NOTDEPLOYED
+
+---
+
+# StolenUnitDefeatedWhileAttackingForITSNewController_CountsForThatController
+#// SEC_158 Oppression Breeds Rebellion — "a FRIENDLY unit was defeated while attacking" is read from the
+#// perspective of whoever plays the event, using control at the time of the defeat. P2 takes P1's
+#// SOR_095 with SOR_122 Traitorous, attacks into a bigger unit and loses it — so the unit died attacking
+#// as one of P2's. When P2 then plays Oppression Breeds Rebellion, P2 draws 3.
+
+## GIVEN
+CommonSetup: rrw/ggk
+WithActivePlayer: 2
+WithP2Resources: 12
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2Hand: SOR_122
+WithP2Hand: SEC_158
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>Pass
+- P2>AttackGroundArena:0:theirGroundArena-0
+- P1>Pass
+- P2>PlayHand:0
+
+## EXPECT
+P2HANDCOUNT:3
+P2DECKCOUNT:1
+
+---
+
+# AttackerKilledByItsOwnOnAttackAbility_StillCountsAsDefeatedWhileAttacking
+#// SEC_158 Oppression Breeds Rebellion — the trigger is "defeated WHILE ATTACKING", not "defeated by
+#// combat damage". SEC_180 Valiant Commando's On Attack defeats itself to deal 3 to the damaged base,
+#// so it dies mid-attack without ever taking combat damage; Oppression Breeds Rebellion still draws 3.
+
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: SEC_150:1:0
+WithP1Hand: SEC_158
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:3

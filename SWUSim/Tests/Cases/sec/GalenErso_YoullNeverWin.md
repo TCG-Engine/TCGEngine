@@ -1252,3 +1252,399 @@ WithP1Hand: SOR_095
 P1CREDITCOUNT:0
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
+
+---
+
+# GalenHimselfPlayedViaPlot_StillNamesACard
+#// SEC_046 Galen Erso — he carries Plot, so he can come out of the resource row when a leader deploys,
+#// and his When Played must still fire from that entry path. P1 deploys their leader, plays Galen from
+#// resources, and names "Battlefield Marine": P2's SOR_095 is blanked, losing its Grit — proof the
+#// naming actually took effect rather than the play merely landing him in the arena.
+#// Plot replaces him from the top of the deck, so the resource row holds at 10.
+
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1:SEC_046:1,9:SOR_046:1
+WithP1Deck: [SOR_046 SOR_046]
+WithP2GroundArena: SHD_027:1:3
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:Hylobon Enforcer
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1RESCOUNT:10
+P1DECKCOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SHD_027
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Grit
+P2GROUNDARENAUNIT:0:POWER:1
+
+---
+
+# FriendlyShieldBecomesBlankedOnceTheHOSTISSTOLEN_CR6TokenOwnership
+#// SEC_046 Galen Erso — "each non-leader card AN OPPONENT OWNS with that name" is re-evaluated live, and
+#// a token upgrade's ownership follows its host's controller (CR 6). P1 names "Shield" while the only
+#// Shield on the board is on P1's OWN unit, so it is unaffected. P2 then takes control of that unit with
+#// SOR_122 Traitorous: the Shield token is re-owned to P2, which brings it inside Galen's naming — so
+#// when P1 attacks, the Shield no longer prevents anything. SOR_095 (3/3) takes the full 8 from SOR_039
+#// and dies with the (inert) Shield still attached.
+#// Companion to NamedShield_DamagePreventionDenied, where the Shield was enemy-owned from the start.
+
+## GIVEN
+CommonSetup: bbw/ggk
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP2Resources: 6
+WithP1Hand: SEC_046
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T02
+WithP1GroundArena: SOR_039:1:0
+WithP2Hand: SOR_122
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Shield
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:CARDID:SOR_039
+
+---
+
+# NamedEnemyUnit_LOSESAKeywordItAlreadyGainedFromAnUnnamedUpgrade
+#// SEC_046 Galen Erso — naming the HOST blanks it, which strips abilities it had already GAINED from an
+#// upgrade, even though that upgrade is not the named card and keeps working for anyone else. P2's
+#// SOR_095 wears SOR_057 Protector ("attached unit gains Sentinel") BEFORE Galen resolves; naming
+#// "Battlefield Marine" takes the Sentinel away.
+#// Distinct from NamedEnemyUnit_CannotGAINKeywordFromAnUnnamedUpgrade, where the grant is attempted
+#// AFTER the naming — this one proves an already-held grant is removed rather than merely blocked.
+
+## GIVEN
+CommonSetup: bbw/bbk
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SOR_057
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Battlefield Marine
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# NamedFRIENDLYUnit_KEEPSAKeywordGainedFromAnUpgrade
+#// SEC_046 Galen Erso — the blanking only reaches cards AN OPPONENT OWNS, so naming a card P1 also owns
+#// leaves P1's own copy untouched. P1's SOR_095 wears SOR_057 Protector and P1 names "Battlefield
+#// Marine": the Sentinel survives. The friendly-side control for the section above.
+
+## GIVEN
+CommonSetup: bbw/bbk
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_057
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Battlefield Marine
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# NamedEnemyEvent_CannotBePlayedViaPLOT
+#// SEC_046 Galen Erso — Plot is an ability, so a named enemy card loses it and can no longer be played
+#// out of the resource row. P2 holds SEC_235 The Wrong Ride (event, Plot, "exhaust 2 enemy resources")
+#// as a resource; P1 names it, then P2 deploys their leader. The Plot window has nothing to offer: P2's
+#// row and deck are untouched and — the discriminating part — P1 still has 2 READY resources. P1 holds
+#// 6 and pays 4 for Galen, so if The Wrong Ride had resolved it would have exhausted exactly those 2.
+#// Companion to NamedEnemyEvent_CannotSmuggle, the other alternate-play keyword.
+#// The friendly-side section below doubles as the positive control that this fixture CAN Plot-play.
+
+## GIVEN
+CommonSetup: bbw/yyk
+WithActivePlayer: 1
+WithP1Resources: 6
+WithP1Hand: SEC_046
+WithP2Resources: 1:SEC_235:1,9:SOR_046:1
+WithP2Deck: [SOR_046 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:The Wrong Ride
+- P2>DeployLeader
+
+## EXPECT
+P2LEADER:DEPLOYED
+P2RESCOUNT:10
+P2DECKCOUNT:2
+P1RESAVAILABLE:2
+P2NODECISION
+
+---
+
+# NamedFRIENDLYEvent_CanStillBePlayedViaPLOT
+#// SEC_046 Galen Erso — naming only reaches cards an OPPONENT owns, so P1's own Plot card keeps its
+#// Plot. P1 names "The Wrong Ride" while holding a copy in P1's OWN resource row, then deploys: the
+#// Plot window still offers it and P1 plays it, exhausting 2 of P2's resources. Plot replaces the spent
+#// card from the deck, so P1's row holds at 10 and its deck drops 2 → 1.
+#// This is also the positive control for the enemy-side section above.
+
+## GIVEN
+CommonSetup: yyk/yyk
+WithActivePlayer: 1
+WithP1Resources: 1:SEC_235:1,11:SOR_046:1
+WithP1Hand: SEC_046
+WithP1Deck: [SOR_046 SOR_046]
+WithP2Resources: 4:SOR_046:1
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:The Wrong Ride
+- P2>Pass
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1RESCOUNT:12
+P1DECKCOUNT:1
+P2RESAVAILABLE:2
+
+---
+
+# NamedEnemyUPGRADE_CannotBeSmuggled
+#// SEC_046 Galen Erso — the UPGRADE side of Smuggle denial (the existing sections cover a unit and an
+#// event). A blanked card loses Smuggle, so a named enemy UPGRADE cannot be played from the resource
+#// row. P1 names "Jetpack" (SHD_225, an upgrade with Smuggle whose When Played gives the attached unit
+#// a Shield token) held as one of P2's resources. P2's Smuggle attempt does nothing: their unit gains
+#// no upgrade and no Shield, and the resource row is unchanged.
+#// The friendly control below proves this fixture CAN smuggle the same card when it is not named.
+
+## GIVEN
+CommonSetup: bbw/yyk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2GroundArena: SOR_095:1:0
+WithP2Resources: 1:SHD_225:1,10:SOR_046:1
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Jetpack
+- P2>SmuggleResource:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2RESCOUNT:11
+
+---
+
+# NamedFRIENDLYUPGRADE_CanStillBeSmuggled
+#// SEC_046 Galen Erso — the positive control: naming only reaches cards an OPPONENT owns, so P1's own
+#// copy of "Jetpack" keeps Smuggle. P1 names it while holding it as one of P1's OWN resources, then
+#// smuggles it onto P1's SOR_095 — the upgrade attaches and its When Played gives the unit a Shield.
+#// Without this, the section above could pass simply because the fixture never smuggles anything.
+
+## GIVEN
+CommonSetup: yyk/yyk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: SEC_046
+WithP1Resources: 1:SHD_225:1,12:SOR_046:1
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Jetpack
+- P2>Pass
+- P1>SmuggleResource:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# NamedEnemyUPGRADE_CannotBePlayedViaPLOT
+#// SEC_046 Galen Erso — the UPGRADE side of Plot denial. P2 holds SEC_123 Unveiled Might (upgrade,
+#// +2/+3, Plot) as a resource; P1 names it, then P2 deploys their leader. The Plot window offers
+#// nothing: P2's unit gains no upgrade and stays at its printed 3/3, and P2's resource row and deck are
+#// untouched. Companion to NamedEnemyUPGRADE_CannotBeSmuggled.
+
+## GIVEN
+CommonSetup: bbw/ggk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP2GroundArena: SOR_095:1:0
+WithP2Resources: 1:SEC_123:1,9:SOR_046:1
+WithP2Deck: [SOR_046 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Unveiled Might
+- P2>DeployLeader
+
+## EXPECT
+P2LEADER:DEPLOYED
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:POWER:3
+P2RESCOUNT:10
+P2DECKCOUNT:2
+
+---
+
+# NamedFRIENDLYUPGRADE_CanStillBePlayedViaPLOT
+#// SEC_046 Galen Erso — the positive control: P1's own copy of "Unveiled Might" keeps Plot. P1 names it
+#// while holding it in P1's OWN resource row, then deploys: the Plot window offers it, P1 attaches it to
+#// SOR_095 (3/3 → 5/6) and Plot replaces it from the deck, so the row holds at 12 and the deck drops
+#// 2 → 1. Without this the section above could pass simply because nothing was ever Plot-playable.
+
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: SEC_046
+WithP1Resources: 1:SEC_123:1,11:SOR_046:1
+WithP1Deck: [SOR_046 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Unveiled Might
+- P2>Pass
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:POWER:5
+P1RESCOUNT:12
+P1DECKCOUNT:1
+
+---
+
+# NamedFRIENDLYPilotUpgrade_KeepsBothTheStatIncreaseAndTheGrantedKeyword
+#// SEC_046 Galen Erso — the friendly control for
+#// NamedEnemyPilotUpgrade_KeepsStatIncrease_LosesGrantedKeyword. Naming only reaches cards an OPPONENT
+#// owns, so P1 naming a Pilot P1 also owns changes nothing: P1's Vehicle hosting JTL_045 Hera Syndulla
+#// keeps BOTH halves — the 5/5 stat increase AND the granted Restore.
+#// Without this, the enemy-side section only shows that SOMETHING was removed, not that the removal is
+#// owner-scoped.
+
+## GIVEN
+CommonSetup: bbw/brk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP1SpaceArena: SOR_231:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_045
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Hera Syndulla
+
+## EXPECT
+P1SPACEARENAUNIT:0:POWER:5
+P1SPACEARENAUNIT:0:HP:5
+P1SPACEARENAUNIT:0:HASKEYWORD:Restore
+
+---
+
+# NamedEnemyEvent_LosesItsALTERNATECOSTAndDoesNothing
+#// SEC_046 Galen Erso — an event's alternate cost is part of its abilities, so a named enemy event
+#// loses both that and its effect. P1 names "Bamboozle" (SOR_199: "you may discard a Cunning card
+#// instead of paying this event's cost. Exhaust a unit and return each upgrade on it to its owner's
+#// hand"). P2 plays it at P1's upgraded SOR_095: nothing happens — the unit stays READY and keeps its
+#// upgrade — and P2 is never offered the discard-instead-of-paying route (SOR_210 stays in P2's hand).
+#// The friendly control below proves this fixture CAN resolve Bamboozle by its alternate cost.
+#// ⚠ Note: SWUSim currently lets the blanked event be played for ZERO resources (P2's 5 stay ready).
+#// A card with no abilities should have no alternate cost either and so ought to cost its printed 2;
+#// that is asserted loosely here and recorded in the worklist rather than pinned as correct.
+
+## GIVEN
+CommonSetup: bbw/yyw
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 4
+WithP1Hand: SEC_046
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP2Resources: 5
+WithP2Hand: SOR_199
+WithP2Hand: SOR_210
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Bamboozle
+- P2>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:READY
+P2HANDCOUNT:1
+P2DISCARDCOUNT:1
+
+---
+
+# NamedFRIENDLYEvent_KeepsItsALTERNATECOST
+#// SEC_046 Galen Erso — the positive control: naming reaches only cards an OPPONENT owns, so P1's own
+#// Bamboozle keeps its alternate cost. P1 names "Bamboozle", then plays its own copy by DISCARDING a
+#// Cunning card instead of paying: P2's upgraded SOR_095 is exhausted and its upgrade returns to P2's
+#// hand, and P1's resources are untouched (proving the alternate cost was the one used).
+
+## GIVEN
+CommonSetup: yyw/bbw
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 8
+WithP1Hand: SEC_046
+WithP1Hand: SOR_199
+WithP1Hand: SOR_210
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Bamboozle
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2HANDCOUNT:1
+P1RESAVAILABLE:2

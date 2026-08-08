@@ -36,3 +36,48 @@ WithP1GroundArena: SEC_042:1:0
 P1GROUNDARENAUNIT:1:HASKEYWORD:Overwhelm
 P1GROUNDARENAUNIT:1:HASKEYWORD:Raid
 P1GROUNDARENAUNIT:1:HASKEYWORD:Restore
+
+---
+
+# AuraExcludesTheHostItself
+#// SEC_104 The Will of the People — "each OTHER friendly unit gains …", so the attached unit is not one
+#// of its own beneficiaries. SEC_041 wears the upgrade and is ready, and the ally picks up all three
+#// keywords, but the host itself has none of them.
+
+## GIVEN
+CommonSetup: ggw/rrk
+WithActivePlayer: 1
+WithP1GroundArena: SEC_041:1:0
+WithP1GroundArenaUpgrade: 0:SEC_104
+WithP1GroundArena: SEC_042:1:0
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Overwhelm
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Raid
+P1GROUNDARENAUNIT:1:HASKEYWORD:Overwhelm
+
+---
+
+# AuraDoesNotReachEnemyUnits
+#// SEC_104 The Will of the People — "each other FRIENDLY unit", so the opponent's board gains nothing
+#// even while the host is ready. P2's SEC_042 stays keyword-free while P1's copy is granted all three.
+
+## GIVEN
+CommonSetup: ggw/rrk
+WithActivePlayer: 1
+WithP1GroundArena: SEC_041:1:0
+WithP1GroundArenaUpgrade: 0:SEC_104
+WithP1GroundArena: SEC_042:1:0
+WithP2GroundArena: SEC_042:1:0
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENAUNIT:1:HASKEYWORD:Overwhelm
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Overwhelm
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Raid
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Restore

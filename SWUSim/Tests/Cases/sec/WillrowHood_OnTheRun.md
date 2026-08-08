@@ -319,3 +319,285 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+
+---
+
+# EnemyControlledUpgradeAlone_EnemyCanReturnIt
+#// SEC_061 Willrow Hood — the gate is "exactly 1 FRIENDLY upgrade", so a Willrow wearing ONLY an
+#// enemy-controlled upgrade has ZERO friendly upgrades and no protection at all. P1 attaches its own
+#// SEC_175 Ambition's Reward to P2's Willrow, then plays SOR_199 Bamboozle ("Exhaust a unit and return
+#// each upgrade on it to its owner's hand") on Willrow: the upgrade goes back to P1's hand and Willrow
+#// is exhausted.
+
+## GIVEN
+CommonSetup: ryw/grw/{myResources:4;handCardIds:SEC_175,SOR_199}
+WithP2GroundArena: SEC_061:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_061
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1HANDCOUNT:1
+
+---
+
+# EnemyControlledUpgradeAlone_WillrowsControllerCanDefeatIt
+#// SEC_061 Willrow Hood — the mirror actor. Willrow wears only P1's SEC_175, so there is no friendly
+#// upgrade to protect; Willrow's OWN controller (P2) defeats it with its own Confiscate. The upgrade is
+#// defeated to its OWNER's discard (P1's), while Confiscate goes to P2's.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2;handCardIds:SEC_175;theirResources:1;theirHandCardIds:SOR_251}
+WithP2GroundArena: SEC_061:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_061
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1DISCARDCOUNT:1
+P2DISCARDCOUNT:1
+
+---
+
+# EnemyControlledUpgradeAlone_WillrowsControllerCanReturnIt
+#// SEC_061 Willrow Hood — the return-side mirror of the section above. Willrow wears only P1's SEC_175,
+#// so nothing is protected; P2 plays its OWN Bamboozle on its OWN Willrow and the enemy-controlled
+#// upgrade goes back to P1's hand.
+
+## GIVEN
+CommonSetup: rrk/yyw/{myResources:2;handCardIds:SEC_175;theirResources:2;theirHandCardIds:SOR_199}
+WithP2GroundArena: SEC_061:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_061
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1HANDCOUNT:1
+
+---
+
+# MixedBoard_FriendlyUpgradeSurvivesEnemyReturnAll
+#// SEC_061 Willrow Hood — the return-side companion to the existing mixed-board defeat pair. Willrow
+#// wears one FRIENDLY upgrade (SOR_120) and one ENEMY-controlled one (P1's SEC_175), so the "exactly 1
+#// friendly upgrade" gate is satisfied and the protection is ON. P1 plays Bamboozle on Willrow ("return
+#// EACH upgrade on it to its owner's hand"): the enemy's own SEC_175 goes back to P1's hand, but the
+#// protected SOR_120 stays attached. The unit is still exhausted — the exhaust half is not a return.
+
+## GIVEN
+CommonSetup: ryw/grw/{myResources:4;handCardIds:SEC_175,SOR_199}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1HANDCOUNT:1
+P2HANDCOUNT:0
+
+---
+
+# MixedBoard_ControllerReturnsALLUpgradesIncludingTheProtectedOne
+#// SEC_061 Willrow Hood — the same mixed board, but the Bamboozle is Willrow's OWN controller's. The
+#// protection only stops ENEMY card abilities, so nothing is held back: BOTH upgrades leave, each to its
+#// own owner's hand (SOR_120 to P2, SEC_175 to P1). Contrast with the section above, where the identical
+#// effect from the enemy left SOR_120 attached.
+
+## GIVEN
+CommonSetup: rrk/yyw/{myResources:2;handCardIds:SEC_175;theirResources:2;theirHandCardIds:SOR_199}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2HANDCOUNT:1
+P1HANDCOUNT:1
+
+---
+
+# MixedBoard_ControllerCanDefeatItsOwnProtectedUpgrade
+#// SEC_061 Willrow Hood — on the mixed board the protection IS active (exactly 1 friendly upgrade), yet
+#// Willrow's own controller can still defeat that very upgrade: the restriction names ENEMY card
+#// abilities only. P2 Confiscates its own SOR_120 → it hits P2's discard and only P1's SEC_175 remains.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2;handCardIds:SEC_175;theirResources:1;theirHandCardIds:SOR_251}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:myTempZone-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SEC_175
+P2DISCARDCOUNT:2
+
+---
+
+# MixedBoard_ControllerCanDefeatTheEnemyControlledUpgrade
+#// SEC_061 Willrow Hood — the other target on the same board and the same actor. Willrow's controller
+#// Confiscates the ENEMY-controlled SEC_175 off its own unit: unprotected (not friendly), it is defeated
+#// to its OWNER's discard (P1's) while the friendly SOR_120 stays attached.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2;handCardIds:SEC_175;theirResources:1;theirHandCardIds:SOR_251}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:myTempZone-1
+
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+P1DISCARDCOUNT:1
+P2DISCARDCOUNT:1
+
+---
+
+# StolenTokenAlone_CountsAsFriendly_EnemyCantDefeatIt
+#// SEC_061 Willrow Hood — a token upgrade TAKEN from an enemy unit becomes friendly. Per CR 2.f a player
+#// owns and controls any token upgrades attached to units they control, so the Shield P1 steals with
+#// JTL_242 Shuttle ST-149 ("You may take control of a token upgrade on a unit and attach it to a
+#// different eligible unit") is P1's the moment it lands on P1's Willrow. Willrow therefore has exactly
+#// 1 FRIENDLY upgrade and the protection turns ON: P2's Confiscate can't defeat the stolen Shield.
+
+## GIVEN
+CommonSetup: bbk/yyw/{myResources:4;handCardIds:JTL_242;theirResources:1;theirHandCardIds:SOR_251}
+WithP1GroundArena: SEC_061:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_061
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2DISCARDCOUNT:1
+
+---
+
+# StolenTokenAlone_CountsAsFriendly_EnemyCantReturnIt
+#// SEC_061 Willrow Hood — the return-side mirror of the section above. The stolen Shield is Willrow's
+#// lone friendly upgrade, so P2's Bamboozle ("return each upgrade on it to its owner's hand") can't move
+#// it: the Shield is still on Willrow afterwards. (Willrow is still exhausted — Bamboozle's exhaust half
+#// is not a return and is never blocked.)
+
+## GIVEN
+CommonSetup: bbk/yyw/{myResources:4;handCardIds:JTL_242;theirResources:2;theirHandCardIds:SOR_199}
+WithP1GroundArena: SEC_061:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_061
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# StolenTokenPlusOwnUpgrade_MakesTwoFriendly_ProtectionOff_Defeat
+#// SEC_061 Willrow Hood — because a stolen token counts as FRIENDLY, stealing one onto an already-upgraded
+#// Willrow pushes him to TWO friendly upgrades and switches the protection OFF. Willrow starts wearing
+#// SOR_120; P1 steals P2's Shield onto him; P2's Confiscate then defeats SOR_120 normally.
+
+## GIVEN
+CommonSetup: bbk/yyw/{myResources:4;handCardIds:JTL_242;theirResources:1;theirHandCardIds:SOR_251}
+WithP1GroundArena: SEC_061:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:myTempZone-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_061
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1DISCARDCOUNT:1
+
+---
+
+# StolenTokenPlusOwnUpgrade_MakesTwoFriendly_ProtectionOff_Return
+#// SEC_061 Willrow Hood — the return-side mirror. Same two-friendly-upgrade board, but P2 plays Bamboozle
+#// on Willrow: with the protection off, EVERY upgrade leaves — SOR_120 goes back to P1's hand and the
+#// stolen Shield token ceases to exist rather than going anywhere.
+
+## GIVEN
+CommonSetup: bbk/yyw/{myResources:4;handCardIds:JTL_242;theirResources:2;theirHandCardIds:SOR_199}
+WithP1GroundArena: SEC_061:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_061
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P1HANDCOUNT:1

@@ -272,3 +272,60 @@ WithP2GroundArena: LAW_124:1:0
 P2GROUNDARENAUNIT:0:CARDID:LAW_124
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1NODECISION
+
+---
+
+# Deployed_ReactionWorksAcrossArenas
+#// SEC_002 Jabba the Hutt (deployed) — "have that unit deal that much damage to an ENEMY unit" is not
+#// arena-restricted: the damaged friendly is on the ground and the only enemy is in space, and the
+#// reaction still reaches it. P1's ground SEC_080 (3/3) trades with P2's ground SOR_063 and survives on
+#// 2 damage, then deals that 2 to P2's SPACE unit JTL_069.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_063:1:0
+WithP2SpaceArena: JTL_069:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# Deployed_DamageFromAFRIENDLYAbilitySourceAlsoArmsTheReaction
+#// SEC_002 Jabba the Hutt (deployed) — the reaction is on "a friendly unit is dealt damage and
+#// survives", with no restriction on who dealt it. P1 hits its OWN SEC_080 with SHD_178 Daring Raid for
+#// 2; SEC_080 survives, and Jabba lets it fire that 2 back into the enemy JTL_069.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1Hand: SHD_178
+WithP1GroundArena: SEC_080:1:0
+WithP2SpaceArena: JTL_069:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P2SPACEARENAUNIT:0:DAMAGE:2

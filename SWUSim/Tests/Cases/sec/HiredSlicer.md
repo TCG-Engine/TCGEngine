@@ -106,3 +106,52 @@ P2BASEDMG:3
 P1GROUNDARENAUNIT:1:READY
 P1DECKCOUNT:2
 P1NODECISION
+
+---
+
+# OnAttack_SingleCardInDeck_StillRevealsAndOffersTheExhaust
+#// SEC_220 Hired Slicer — with only ONE card left in the deck SWUSim reveals what it can and still
+#// offers the exhaust against that card's traits: the revealed SOR_095 (Rebel/Trooper) matches the
+#// friendly SOR_095, which P1 exhausts. The lone card returns to the bottom of the deck.
+#// Whether "reveal the top 2" should fail outright on a short deck is unsettled, so this section pins
+#// the behavior SWUSim actually has rather than asserting an unverified reading.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_220:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1DECKCOUNT:1
+
+---
+
+# OnAttack_EmptyDeck_NoExhaustOffer
+#// SEC_220 Hired Slicer — the empty-deck boundary of the section above: nothing to reveal at all, so
+#// the "if you do" half never arms and the friendly trait-sharer stays ready.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_220:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: []
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:You
+
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENAUNIT:1:READY
+P1DECKCOUNT:0
+P1NODECISION

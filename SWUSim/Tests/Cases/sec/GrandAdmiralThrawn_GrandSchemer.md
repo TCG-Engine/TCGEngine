@@ -166,3 +166,59 @@ P1GROUNDARENAUNIT:0:CARDID:SEC_193
 P1GROUNDARENAUNIT:0:READY
 P1NODECISION
 P2NODECISION
+
+---
+
+# WhenPlayed_CapturesAUnitThatChangedControl
+#// SEC_193 Grand Admiral Thrawn — "an opponent may choose a non-leader unit THEY CONTROL" is read at
+#// resolution, so a unit the opponent only just took control of is a legal choice. P2 steals P1's
+#// SOR_095 with SOR_122 Traitorous first; P1 then plays Thrawn and P2 offers up that stolen unit, which
+#// Thrawn captures.
+
+## GIVEN
+CommonSetup: yyk/ggw
+WithActivePlayer: 2
+WithP1Resources: 7
+WithP2Resources: 6
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: SEC_193
+WithP2Hand: SOR_122
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:CARDID:SEC_193
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# WhenDefeated_UnderEnemyControl_TheNewControllerCaptures
+#// SEC_193 Grand Admiral Thrawn — the When Defeated ("a FRIENDLY unit captures an ENEMY non-leader unit
+#// in the same arena") is resolved by whoever controls Thrawn when he dies. P2 plays JTL_043 No Glory,
+#// Only Results on him: control moves to P2 first, so P2's own unit does the capturing and P1's unit is
+#// the one captured.
+
+## GIVEN
+CommonSetup: yyk/bbk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SEC_193:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2Hand: JTL_043
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:myGroundArena-0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1

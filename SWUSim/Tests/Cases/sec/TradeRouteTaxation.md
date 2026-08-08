@@ -99,3 +99,32 @@ WithP2Resources: 8
 ## EXPECT
 P2DISCARDCOUNT:1
 P2GROUNDARENAUNIT:0:DAMAGE:4
+
+---
+
+# BlocksEventPlayedViaPLOT
+#// SEC_126 Trade Route Taxation — the lock is on PLAYING events, whatever route they take, so a Plot
+#// event sitting in the opponent's resource row is refused too. P2's SEC_053 One in a Million is a Plot
+#// card; P2 deploys their leader to open the Plot window and it cannot be played: the resource row is
+#// unchanged, P2's deck is untouched and P1's units survive.
+#// Completes the route matrix with BlocksEventPlayedViaSMUGGLE and BlocksEventPlayedFromDISCARD.
+
+## GIVEN
+CommonSetup: ggk/bbw/{myResources:2}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_041:1:0
+WithP1GroundArena: SEC_042:1:0
+WithP1Hand: SEC_126
+WithP2Resources: 1:SEC_053:1,7:SOR_046:1
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P2>DeployLeader
+
+## EXPECT
+P2LEADER:DEPLOYED
+P2RESCOUNT:8
+P2DECKCOUNT:2
+P1GROUNDARENACOUNT:2

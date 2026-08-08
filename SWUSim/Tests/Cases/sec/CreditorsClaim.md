@@ -48,3 +48,28 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENACOUNT:1
 P1NODECISION
 P2NODECISION
+
+---
+
+# GrantedWhenDefeated_UnderEnemyControl_ResolvesForTheNewController
+#// SEC_039 Creditor's Claim — the granted When Defeated belongs to whoever controls the HOST when it
+#// dies. P2 plays JTL_043 No Glory, Only Results on P1's upgraded SOR_095: control moves to P2 first, so
+#// P2 owns the "defeat a unit with 3 or less remaining HP" and points it at one of P1's units.
+
+## GIVEN
+CommonSetup: bbk/bbk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SEC_039
+WithP1GroundArena: SOR_128:1:0
+WithP2Hand: JTL_043
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0

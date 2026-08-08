@@ -241,3 +241,60 @@ WithP1GroundArena: SOR_095:1:0
 ## EXPECT
 P1HANDCOUNT:1
 P1HANDCARD:0:SEC_145
+
+---
+
+# FirstActionWasATRIGGEREDAbilityThatPlayedACard_Blocked
+#// SEC_145 Confidence in Victory — "your FIRST ACTION" is consumed by any action, including one whose
+#// card-play came from a TRIGGERED ability rather than an activated one. P1's first action is playing
+#// SEC_034 Cad Bane out of the resource row through the Plot window opened by deploying a leader — a
+#// triggered play, not an Action ability. Confidence in Victory is then blocked and stays in hand.
+#// Companion to FirstActionWasALeaderAbilityThatPlayedACard_Blocked, which covers the Action-ability route.
+
+## GIVEN
+CommonSetup: rrk/grw
+P1OnlyActions: true
+WithP1Resources: 1:SEC_034:1,14:SOR_046:1
+WithP1Hand: SEC_145
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myResources-0
+- P1>PlayHand:0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1HANDCOUNT:1
+P1HANDCARD:0:SEC_145
+P1DISCARDCOUNT:0
+
+---
+
+# PlayedFromRESOURCESViaSmuggle_IsStillAFirstAction
+#// SEC_145 Confidence in Victory — "Play only as your first action in the action phase" restricts WHEN,
+#// not from WHERE. Smuggling it out of the resource zone is still that first action, so it is allowed.
+#// SHD_248 Tech gives every friendly resource Smuggle at "that card's cost plus 2 and its aspect icons",
+#// so Confidence costs 12 (10 + 2, on-aspect under an Aggression/Villainy leader). P1 smuggles it with 15
+#// resources and ends on 3 ready; the resource it occupied is replaced from the deck, so the resource
+#// count stays 15, and the event lands in P1's discard after the arena is chosen.
+#// (The sibling NotFirstAction_Blocked is the discriminator for the timing half of the restriction.)
+
+## GIVEN
+CommonSetup: rrk/grw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SHD_248:1:0
+WithP1Resources: 1:SEC_145:1,14:SOR_095:1
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>SmuggleResource:0
+- P1>AnswerDecision:Space
+
+## EXPECT
+P1DISCARDCOUNT:1
+P1RESCOUNT:15
+P1RESAVAILABLE:3
+P1NODECISION

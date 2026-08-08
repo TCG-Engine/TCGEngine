@@ -251,3 +251,247 @@ P2DISCARDCOUNT:1
 P1GROUNDARENACOUNT:1
 P1RESAVAILABLE:2
 
+
+---
+
+# PermissionIsConsumedByTheFirstPlay_CannotReplayAfterItReturnsToTheDiscard
+#// SEC_205 Obi-Wan Kenobi — "you may play THAT CARD from their discard pile" is a single permission, not
+#// a standing licence on the card. P1 mills SOR_095 and plays it out of P2's discard; P2 then defeats it
+#// with SOR_078 Vanquish, putting the very same card back in P2's discard. P1 cannot play it a second
+#// time — the attempt is a no-op, the card stays in P2's discard and P1's resources are untouched.
+
+## GIVEN
+CommonSetup: yyk/bbk
+WithActivePlayer: 1
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 12
+WithP2Resources: 6
+WithP2Hand: SOR_078
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>Pass
+- P1>PlayFromOpponentDiscard:0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-1
+- P1>PlayFromOpponentDiscard:0
+
+## EXPECT
+P2BASEDMG:4
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_205
+P2DISCARDCOUNT:2
+P1RESAVAILABLE:10
+
+---
+
+# MilledUnitEntersUnderTheCaster_AndItsOwnAbilitiesWork
+#// SEC_205 Obi-Wan Kenobi — a milled UNIT played out of the opponent's discard enters under the CASTER and
+#// brings its whole ability set with it. Obi-Wan hits P2's base and mills SHD_122 Arquitens Assault Cruiser
+#// (8 cost, Command — fully off-aspect for Cunning P1, so the +2 penalty would make it unaffordable at 8
+#// ready; OTPN ignores it and P1 pays exactly 8). The Arquitens enters P1's SPACE arena, its Ambush fires
+#// for P1 (an immediate attack), and its own "When this unit attacks and defeats a non-leader unit: Put the
+#// defeated unit into play as a resource under your control" resources P2's A-Wing FOR P1 — resource count
+#// 8 → 9. ⚠ The Ambush offer only surfaces after a drain on this path.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 8
+WithP2SpaceArena: SOR_141:1:0
+WithP2Deck: [SHD_122 SHD_122]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayFromOpponentDiscard:0
+- P1>Drain
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2BASEDMG:4
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SHD_122
+P2SPACEARENACOUNT:0
+P1RESCOUNT:9
+P1RESAVAILABLE:0
+P2DECKCOUNT:1
+
+---
+
+# MilledUnit_AmbushDeclined_StillEntersUnderTheCaster
+#// SEC_205 Obi-Wan Kenobi — the decline half of the section above. Declining the milled Arquitens' Ambush
+#// leaves P2's A-Wing alive and unresourced, but the unit itself is still P1's and still cost exactly 8
+#// (the aspect penalty stayed ignored). This separates "the play worked" from "the Ambush chain worked".
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 8
+WithP2SpaceArena: SOR_141:1:0
+WithP2Deck: [SHD_122 SHD_122]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayFromOpponentDiscard:0
+- P1>Drain
+- P1>AnswerDecision:-
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SHD_122
+P2SPACEARENACOUNT:1
+P1RESCOUNT:8
+P1RESAVAILABLE:0
+
+---
+
+# MilledEventSearchesTheCASTERSDeck_AndItsPermissionLandsInTheCASTERSDiscard
+#// SEC_205 Obi-Wan Kenobi — an opponent's EVENT played from their discard resolves entirely under the
+#// CASTER, including the zones its own text calls "your". TWI_201 Aid from the Innocent ("Search the top
+#// 10 cards of YOUR deck for 2 Heroism non-unit cards and discard them... For this phase, you may play the
+#// discarded cards, and they each cost 2 resources less") is milled from P2's deck and played by P1: the
+#// search reads P1's deck (only SOR_199 matches — SOR_141 is a Heroism UNIT and SEC_080 is off-aspect),
+#// the pick lands in P1's discard, and P2's deck is untouched at 1. The event card itself goes to its
+#// OWNER's discard (P2's). P1 spends all 5 resources on it, then plays the discarded Bamboozle with ZERO
+#// ready resources — only possible because the "cost 2 less" permission (2 - 2 = 0) followed the caster
+#// too. Bamboozle then resolves for real: Obi-Wan's SOR_120 goes back to P1's hand and Bamboozle returns
+#// to P1's discard. Obi-Wan hit for 6, not 4, because SOR_120 was still attached during the attack.
+
+## GIVEN
+CommonSetup: yyw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP1Resources: 5
+WithP1Deck: [SOR_199 SOR_141 SEC_080 SEC_080 SEC_080]
+WithP2Deck: [TWI_201 TWI_201]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayFromOpponentDiscard:0
+- P1>AnswerDecision:SOR_199
+- P1>PlayFromDiscard:0
+
+## EXPECT
+P2BASEDMG:6
+P1DECKCOUNT:4
+P2DECKCOUNT:1
+P2DISCARDCOUNT:1
+P1DISCARDCOUNT:1
+P1RESAVAILABLE:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1HANDCOUNT:1
+
+---
+
+# MilledPilotingCard_OffersUnitOrPilot_PilotPaysThePilotingCost
+#// SEC_205 Obi-Wan Kenobi — the permission is "you may play that CARD from their discard pile", not "that
+#// unit", so a milled card with Piloting may also be played as an UPGRADE on a friendly Vehicle. Obi-Wan
+#// mills JTL_142 Darth Vader (Scourge of Squadrons — unit cost 6, Piloting [3, Aggression/Villainy]) and
+#// P1 is offered the Unit-or-Pilot choice. Taking Pilot attaches him to P1's Vehicle for exactly 3: the
+#// Piloting cost with the aspect penalty ignored (P1 is Cunning/Villainy, so Aggression is uncovered and
+#// the unwaived pilot cost would be 5). P1 keeps its ground arena at 1 — Vader never became a unit.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1SpaceArena: SOR_141:1:0
+WithP1Resources: 8
+WithP2Deck: [JTL_142 JTL_142]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayFromOpponentDiscard:0
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P2BASEDMG:4
+P1GROUNDARENACOUNT:1
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_141
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_142
+P1RESAVAILABLE:5
+P2DISCARDCOUNT:0
+
+---
+
+# MilledPilotingCard_UnitBranchPaysTheUnitCost
+#// SEC_205 Obi-Wan Kenobi — the other half of the same fork, and the control that proves BOTH options are
+#// genuinely offered. Same board, but P1 answers Unit: Vader enters P1's GROUND arena as a unit for 6
+#// (again with the aspect penalty ignored — it would be 8 otherwise) and the Vehicle stays bare.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1SpaceArena: SOR_141:1:0
+WithP1Resources: 8
+WithP2Deck: [JTL_142 JTL_142]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayFromOpponentDiscard:0
+- P1>AnswerDecision:Unit
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:JTL_142
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:2
+
+---
+
+# MilledPilotAttachedAsUpgrade_IsStillOWNEDByTheOpponent
+#// SEC_205 Obi-Wan Kenobi — a card played from an opponent's discard is CONTROLLED by the caster but still
+#// OWNED by that opponent, and the Pilot-upgrade route must keep that split (the unit route already does).
+#// P1 attaches the milled Vader to its A-Wing, then P2 Vanquishes the host: the A-Wing (P1's card) goes to
+#// P1's discard while Vader goes back to P2's — P2's discard ends at 2 (Vanquish + Vader), P1's at 1.
+
+## GIVEN
+CommonSetup: yyk/bbk/{myResources:8;theirResources:5;theirHandCardIds:SOR_078}
+WithP1GroundArena: SEC_205:1:0
+WithP1SpaceArena: SOR_141:1:0
+WithP2Deck: [JTL_142 JTL_142]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>Pass
+- P1>PlayFromOpponentDiscard:0
+- P1>AnswerDecision:Pilot
+- P2>PlayHand:0
+- P2>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1DISCARDCOUNT:1
+P2DISCARDCOUNT:2
+
+---
+
+# MilledPilotingCard_NoFriendlyVehicle_PlaysAsAUnitWithNoFork
+#// SEC_205 Obi-Wan Kenobi — the Unit-or-Pilot fork must only appear when the Pilot route is actually legal.
+#// Same milled Vader, but P1 controls no Vehicle (Obi-Wan is Force/Jedi/Republic), so there is no eligible
+#// host: no choice is raised and the card simply plays as a unit for 6. This also guards that the
+#// aspect-penalty waiver pre-loaded for the pilot cost does not leak into the unit price.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 8
+WithP2Deck: [JTL_142 JTL_142]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayFromOpponentDiscard:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:JTL_142
+P1RESAVAILABLE:2
+P1NODECISION

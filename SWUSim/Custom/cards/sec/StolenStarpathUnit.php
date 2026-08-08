@@ -25,4 +25,13 @@ $customDQHandlers["SEC_210#0"] = function($player, $parts, $lastDecision) {
         if (SWUObjectTitle($c) === $named) $count++;
     }
     SWUCreateUnitTokens(intval($player), 'SEC_T01', $count);
+
+    // SEC_016 Padmé Amidala — "When you reveal … 1 or more cards from your hand." The hand revealed here
+    // is the OPPONENT's, so the react fires for THEM ($opp), not the naming player. Same miss as SOR_185
+    // Chimaera: the reveal was implicit in the count-the-copies loop and never announced to observers.
+    if (function_exists('_SWUSec016React') && count(GetHand($opp)) > 0) {
+        $savedPID = $playerID;
+        _SWUSec016React($opp);
+        $playerID = $savedPID;
+    }
 };

@@ -154,3 +154,106 @@ P1LEADER:EXHAUSTED
 P2BASEDMG:0
 P1GROUNDARENACOUNT:0
 P1NODECISION
+
+---
+
+# LeaderAction_OnAttackTriggerFiresOnTheFIRSTAttackOfTheChain
+#// SEC_006 Colonel Yularen (leader) — the chained attacks are real attacks, so a unit's On Attack triggers
+#// normally in either slot. Here the trigger is on the FIRST attacker: SOR_142 Sabine Wren (cost 2)
+#// attacks P2's SpecForce Soldier and her "On Attack: you may deal 1 damage to the defender or to a base"
+#// is offered — P1 sends it at P2's base. Combat then kills the 2/2 Soldier and leaves Sabine on 2 damage.
+#// P1 chains SOR_128 (cost 1, less than 2) into the base for 3, so P2's base ends on 1 + 3 = 4.
+
+## GIVEN
+CommonSetup: bgk/bbk/{myLeader:SEC_006;myBase:JTL_019;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_142:1:0
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: SOR_140:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:4
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:CARDID:SOR_142
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1LEADER:EXHAUSTED
+
+---
+
+# LeaderAction_OnAttackTriggerFiresOnTheCHAINEDSecondAttack
+#// SEC_006 Colonel Yularen (leader) — the mirror: the trigger is on the SECOND, chained attacker. SOR_046
+#// (cost 4) attacks P2's base for 3, then P1 chains SOR_142 Sabine Wren (cost 2, less than 4) into the
+#// SpecForce Soldier; her On Attack is offered on that chained attack too and adds 1 to P2's base
+#// (3 + 1 = 4). Together with the section above this shows the trigger fires in either slot, not just on
+#// the attack that starts the chain.
+
+## GIVEN
+CommonSetup: bgk/bbk/{myLeader:SEC_006;myBase:JTL_019;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_142:1:0
+WithP2GroundArena: SOR_140:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:4
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:1:CARDID:SOR_142
+P1GROUNDARENAUNIT:1:DAMAGE:2
+P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_StacksWithAhsokaTano_ThreeAttacksInOneAction
+#// SEC_006 Colonel Yularen (deployed) + SEC_096 Ahsoka Tano — two separate "attack with another unit"
+#// grants CHAIN off each other, giving three attacks in a single action.
+#// Ahsoka (2 power) attacks the enemy base. On completing it she discloses CommandHeroism (SOR_095
+#// Battlefield Marine, Command/Heroism) and grants "attack with another unit" — spent on the DEPLOYED
+#// YULAREN (4 power), who is a legal choice alongside the Death Trooper. Yularen completing THAT attack
+#// fires his own deployed chain, "attack with another unit that costs less than it" (less than 5), and
+#// the only ready unit left is SOR_033 Death Trooper (cost 3, 3 power).
+#// Base damage 2 + 4 + 3 = 9, and all three attackers end exhausted.
+#// The deployed leader is appended AFTER the seated units, so the arena is 0=Ahsoka, 1=Death Trooper,
+#// 2=Yularen.
+
+## GIVEN
+CommonSetup: bgk/bbk/{
+  myLeader:SEC_006:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_096:1:0
+WithP1GroundArena: SOR_033:1:0
+WithP1Hand: SOR_095
+
+## WHEN
+- P1>AttackGroundArena:0
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-2
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P2BASEDMG:9
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:2:EXHAUSTED
+P1NODECISION

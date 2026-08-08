@@ -23,4 +23,13 @@ $customDQHandlers["SEC_260#0"] = function($player, $parts, $lastDecision) {
     foreach (GetHand($opp) as $c) { if (!empty($c->removed)) continue; if (SWUObjectTitle($c) === $named) $count++; }
     $smz = SWUFindMzByUID(intval($parts[0] ?? 0));
     if ($smz !== null) for ($i = 0; $i < $count; $i++) DoGiveExperienceToken(intval($player), $smz);
+
+    // SEC_016 Padmé Amidala — "When you reveal … 1 or more cards from your hand." The hand revealed here
+    // is the OPPONENT's, so the react fires for THEM ($opp), not the naming player. Same miss as SOR_185
+    // Chimaera: the reveal was implicit in the count-the-copies loop and never announced to observers.
+    if (function_exists('_SWUSec016React') && count(GetHand($opp)) > 0) {
+        $savedPID = $playerID;
+        _SWUSec016React($opp);
+        $playerID = $savedPID;
+    }
 };

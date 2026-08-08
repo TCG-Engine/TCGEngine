@@ -355,3 +355,146 @@ P2BASEDMG:3
 P1BASEDMG:0
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
+
+---
+
+# EnemyDamagedTheirOWNBase_NotProtected
+#// SEC_012 Cassian Andor (front) — the protection is for FRIENDLY units. An ENEMY unit that damaged a base
+#// gets nothing from our Cassian, whichever base it hit. P2's SOR_142 Sabine Wren attacks P1's Battle Droid
+#// token and uses her On Attack to ping P2's OWN base; she is still a legal target for P1's Warrior Drone,
+#// which attacks her for 1 (she ends on 2 damage — 1 from the token's counter, 1 from the Drone).
+
+## GIVEN
+CommonSetup: yyw/bbk/{myLeader:SEC_012;myBase:JTL_019;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_057:1:0
+WithP2GroundArena: SOR_142:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:0
+- P2>AnswerDecision:myBase-0
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2BASEDMG:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_142
+P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# ProtectedUnitStolenByEnemy_LosesProtection
+#// SEC_012 Cassian Andor (front) — "FRIENDLY units …" is read continuously against the unit's CURRENT
+#// controller. P1's SOR_095 attacks P2's base and becomes protected; P2 then takes control of it with
+#// SOR_224 Change of Heart. It is no longer friendly to P1, so P1's Warrior Drone can attack it — the
+#// Marine takes the Drone's 1 damage, proving the protection did not travel with the card.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myLeader:SEC_012;myBase:JTL_019;theirBase:SOR_021;theirResources:12;theirHandCardIds:SOR_224}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: TWI_057:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2BASEDMG:3
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# EnemyDamagedOURBaseThenWeStealIt_StillNotProtected
+#// SEC_012 Cassian Andor (front) — the OTHER half of the relative reading: "damaged AN OPPONENT'S base".
+#// P2's SOR_095 attacks P1's base, then P1 steals it with Change of Heart. It is now friendly, but the base
+#// it damaged was OUR OWN — not an opponent's — so it is NOT protected and P2's Warrior Drone can attack it.
+
+## GIVEN
+CommonSetup: yyw/bbk/{myLeader:SEC_012;myBase:JTL_019;theirBase:SOR_021;myResources:12;handCardIds:SOR_224}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArena: TWI_057:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>AttackGroundArena:0:0
+
+## EXPECT
+P1BASEDMG:3
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# EnemyDamagedTheirOWNBaseThenWeStealIt_BecomesProtected
+#// SEC_012 Cassian Andor (front) — the sharp corner, and the mirror of the section above. P2's Sabine Wren
+#// pings P2's OWN base while attacking, then P1 takes control of her. She is now friendly to P1 AND the base
+#// she damaged now belongs to an opponent, so BOTH halves of the condition are satisfied and she can't be
+#// attacked. P2's remaining unit has no legal unit target, so its attack auto-resolves onto P1's base for 3
+#// and Sabine is untouched.
+#// This needs the damage marker to record WHICH base was hit and to be readable across a control change —
+#// a plain "damaged an enemy base" boolean stamped on the damaging player's seat can answer neither.
+
+## GIVEN
+CommonSetup: yyw/bbk/{myLeader:SEC_012;myBase:JTL_019;theirBase:SOR_021;myResources:12;handCardIds:SOR_224}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1GroundArena: TWI_T01:1:0
+WithP2GroundArena: SOR_142:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:0
+- P2>AnswerDecision:myBase-0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>AttackGroundArena:0
+
+## EXPECT
+P2BASEDMG:1
+P1BASEDMG:3
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_142
+P1GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# Deployed_SurvivesZeroHPTHROUGHTheRegroupPhase_WithInitiative
+#// SEC_012 Cassian Andor (deployed) — surviving at 0 remaining HP has to hold across the phase boundary,
+#// not just within the action phase: the regroup phase runs its own state-based sweep. P1 holds the
+#// initiative, P2's SEC_080 knocks deployed Cassian (6/2) to 3 damage, and both players pass through
+#// regroup. Cassian is still deployed in the next action phase and can attack, hitting P2's base for 6.
+
+## GIVEN
+CommonSetup: gbk/brk/{myLeader:SEC_012:1:1:1;myBase:SOR_021;theirBase:SOR_021}
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP2GroundArena: SEC_080:1:0
+P1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P2>AttackGroundArena:0:0
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENAUNIT:0:CARDID:SEC_012
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P2BASEDMG:6

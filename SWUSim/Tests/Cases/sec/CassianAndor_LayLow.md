@@ -148,3 +148,60 @@ WithP1Hand: SEC_152
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
 P1NODECISION
+
+---
+
+# PreventsDamageFromACollectedBOUNTY
+#// SEC_042 Cassian Andor (Lay Low) — "If an ENEMY card ability would deal damage to this unit, prevent 2
+#// of that damage." A Bounty is resolved by the player who COLLECTS it, so a bounty collected by Cassian's
+#// enemy is an enemy card ability. P1 kills P2's SHD_058 Val (Bounty - Deal 3 damage to a unit) with Open
+#// Fire, collects the bounty and aims it at Cassian: 3 − 2 = 1 damage, and the 2/2 Cassian survives.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:3;handCardIds:SOR_172}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SEC_042:1:0
+WithP2GroundArena: SHD_058:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-1
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_042
+P2GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# BountyCollectedByCassiansOWNController_IsNotEnemyDamage_NoPrevention
+#// SEC_042 Cassian Andor (Lay Low) — the mirror, and it turns on WHO collects the bounty rather than on
+#// the card that carries it. P1 takes control of P2's Val with Change of Heart; P2 then plays Power of the
+#// Dark Side ("an opponent chooses a unit they control. Defeat that unit"), P1's only unit is the stolen
+#// Val, and Val dies under P1's control — so the bounty is collected by VAL'S opponent, which is now P2,
+#// Cassian's own controller. A friendly card ability gets no prevention, so the full 3 lands and the 2/2
+#// Cassian is defeated. Identical Val, identical bounty, opposite outcome.
+#// (Val is owned by P2, so despite the control change it returns to P2's discard alongside Cassian and
+#// the event — P2 ends with 3 cards there.)
+
+## GIVEN
+CommonSetup: yyk/bbk/{myResources:6;handCardIds:SOR_224;theirResources:3;theirHandCardIds:SOR_041}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP2GroundArena: SEC_042:1:0
+WithP2GroundArena: SHD_058:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-1
+- P2>PlayHand:0
+- P2>AnswerDecision:YES
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:0
+P2DISCARDCOUNT:3

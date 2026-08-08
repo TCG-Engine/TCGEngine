@@ -205,3 +205,55 @@ P2BASEDMG:5
 P1GROUNDARENAUNIT:0:CARDID:SEC_004
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1NODECISION
+
+---
+
+# LeaderAction_NoCardsInHand_NoEffect
+#// SEC_004 Leia Organa (leader FRONT) — the Action's disclose needs a card to reveal. With an EMPTY
+#// hand there is nothing to disclose, so no Experience is handed out even though an eligible unit is on
+#// the board. The mirror of the deployed-side Deployed_OnAttack_NoCardsInHand_Skipped.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:SEC_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1HANDCOUNT:0
+
+---
+
+# LeaderAction_HandHasNoDiscloseableAspect_NoEffect
+#// SEC_004 Leia Organa (leader FRONT) — the disclose lists Vigilance, Command, Aggression, Cunning and
+#// Heroism, so a hand holding only a Villainy-and-nothing-else card cannot satisfy it. SEC_243 (Villainy
+#// only) is P1's sole card: no Experience is given. The mirror of the deployed side's
+#// Deployed_OnAttack_NoDiscloseableAspect_Skipped, and the negative that proves the aspect list matters.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:SEC_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1Hand: SEC_243
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1HANDCOUNT:1

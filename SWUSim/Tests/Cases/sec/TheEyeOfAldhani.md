@@ -143,3 +143,36 @@ WithP2Resources: 1
 P2GROUNDARENAUNIT:0:CARDID:SOR_095
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P2RESAVAILABLE:0
+
+---
+
+# UnitsPlayedAFTERTheEventAreAlsoTaxed
+#// SEC_073 The Eye of Aldhani — the delayed effect enumerates "each enemy unit" when it RESOLVES at the
+#// start of the next action phase, not when the event is played. P2 controls nothing when P1 plays it,
+#// plays SOR_095 afterwards, and that unit is still taxed next phase: P2 pays 1 of its 4 (re-readied)
+#// resources to keep it ready, ending on 3. Untaxed, P2 would have kept all 4.
+
+## GIVEN
+CommonSetup: bbw/bbw
+WithActivePlayer: 1
+WithP1Resources: 2
+WithP1Hand: SEC_073
+WithP2Resources: 4
+WithP2Hand: SOR_095
+WithP1Deck: [SOR_046 SOR_046 SOR_046]
+WithP2Deck: [SOR_046 SOR_046 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:READY
+P2RESAVAILABLE:3

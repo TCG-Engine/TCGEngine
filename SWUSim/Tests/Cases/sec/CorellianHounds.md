@@ -64,3 +64,31 @@ WithP2SpaceArena: SOR_237:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SEC_170
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# RescuedFromCapture_ChecksTheConditionOnReentry
+#// SEC_170 Corellian Hounds — "enters play ready" is evaluated every time it ENTERS play, not only on a
+#// play from hand. Here it comes back by being RESCUED from capture: P1's base captures it with SEC_195
+#// Arrest, both players pass to the regroup phase, and the rescue puts it back with the opponent still
+#// controlling no ground units — so it returns READY rather than with the usual exhausted-on-rescue.
+#// (CR 8.34.3 rescues exhausted; the Hounds' own replacement overrides that when its condition holds.)
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SEC_195
+WithP2GroundArena: SEC_170:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>Pass
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_170
+P2GROUNDARENAUNIT:0:READY

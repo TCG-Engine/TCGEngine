@@ -81,3 +81,32 @@ WithP1Hand: SEC_212
 P1SPACEARENACOUNT:0
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1NODECISION
+
+---
+
+# PlayedViaDJ_FreesItselfByHavingTheENEMYCaptureItsOwnCaptor
+#// SEC_212 Libertine — the self-rescue chain. Played through SEC_018 DJ's Action, Libertine is captured by
+#// the chosen friendly captor (P1's A-Wing) BEFORE its own When Played resolves. That When Played then
+#// makes an enemy unit capture a friendly one — and the only friendly unit still IN PLAY is the A-Wing
+#// itself (a captive is not in play, so Libertine can't pick itself). P2's TIE Bomber captures the A-Wing,
+#// and capturing a captor rescues everything it was guarding: Libertine walks free into P1's space arena.
+#// End state: P1 controls only Libertine; the A-Wing is the TIE Bomber's captive.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myLeader:SEC_018;myResources:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SEC_212
+WithP1SpaceArena: SOR_141:1:0
+WithP2SpaceArena: JTL_237:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SEC_212
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:JTL_237
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1NODECISION

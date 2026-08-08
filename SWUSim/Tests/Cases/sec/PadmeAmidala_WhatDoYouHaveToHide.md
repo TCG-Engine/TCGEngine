@@ -359,3 +359,168 @@ WithP2GroundArena: SOR_046:1:0
 P1LEADER:READY
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P1NODECISION
+
+---
+
+# Negative_RevealFromRESOURCEZone_NoTrigger
+#// SEC_016 Padmé — the trigger is "reveal or discard 1 or more cards from YOUR HAND". A reveal from the
+#// RESOURCE zone is a different zone and must not fire it. P2 plays SHD_114 Scanning Officer ("When
+#// Played: Reveal 3 enemy resources…"), exposing three of P1's resources; Padmé stays READY and no
+#// damage prompt appears. (P1's resources are plain SOR_095 with no Smuggle, so none are defeated and
+#// the Officer's follow-up clause is inert.)
+
+## GIVEN
+CommonSetup: yyw/ggk/{myLeader:SEC_016;theirResources:2;theirHandCardIds:SHD_114}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1Resources: 3:SOR_095
+
+## WHEN
+- P2>PlayHand:0
+
+## EXPECT
+P1LEADER:READY
+P1NODECISION
+P2GROUNDARENACOUNT:1
+P1RESCOUNT:3
+
+---
+
+# Negative_OpponentRevealsTheirOWNHand_NoTrigger
+#// SEC_016 Padmé — "your hand" means the hand of Padmé's controller. When the OPPONENT reveals from
+#// THEIR OWN hand by their own effect, Padmé is not involved. P2 plays SOR_176 ISB Agent ("When Played:
+#// You may reveal an event from your hand. If you do, deal 1 damage to a unit"), revealing SOR_041 out of
+#// P2's hand and dealing its own 1 damage to P1's SOR_046. The unit ends on exactly 1 damage — not 2 —
+#// and Padmé is still READY, so she neither fired nor was exhausted.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myLeader:SEC_016;theirResources:2;theirHandCardIds:SOR_176,SOR_041}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1GroundArena: SOR_046:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P1LEADER:READY
+P1NODECISION
+
+---
+
+# Negative_OurOwnEffectRevealsTheENEMYHand_NoTrigger
+#// SEC_016 Padmé (deployed) — the reveal has to come from OUR hand. Here P1's own SOR_185 Chimaera
+#// attacks ("On Attack: Name a card. An opponent reveals their hand and discards a card with that name
+#// from it"), so it is P2's hand that is revealed and discarded from. Padmé must not fire: P1 is offered
+#// no damage prompt. P2 loses the named Battlefield Marine, which proves the reveal/discard really
+#// happened and the silence is not just an inert ability. The only thing waiting on P1 is Chimaera's own
+#// "here is the opponent's hand" acknowledgement popup — asserted by name so it can't be confused with a
+#// Padmé trigger.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myLeader:SEC_016:1:1:1;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_185:1:0
+WithP2Hand: SOR_095
+WithP2Hand: SOR_063
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Battlefield Marine
+
+## EXPECT
+P2HANDCOUNT:1
+P2DISCARDCOUNT:1
+P1DECISIONTOOLTIP:Opponent's_hand
+
+---
+
+# Deployed_EnemyChimaeraRevealsOURHand_DealsOne
+#// SEC_016 Padmé (deployed) — "When you reveal … 1 or more cards from your hand: You may deal 1 damage to
+#// a unit." An ENEMY effect that reveals OUR hand still counts as us revealing it. P2's SOR_185 Chimaera
+#// attacks and names a card P1 does NOT hold (Wampa), so P1's hand is revealed in full and nothing is
+#// discarded — isolating the REVEAL half. Deployed Padmé fires, choosing between her own unit and the
+#// Chimaera, and puts 1 damage on the Chimaera. The deployed side has no exhaust cost, so she stays READY
+#// and P1's hand is untouched.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myLeader:SEC_016:1:1:1;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1Hand: SOR_095
+WithP1Hand: SOR_063
+WithP2SpaceArena: SOR_185:1:0
+
+## WHEN
+- P2>AttackSpaceArena:0:BASE
+- P2>AnswerDecision:Wampa
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENAUNIT:0:DAMAGE:1
+P1HANDCOUNT:2
+P1DISCARDCOUNT:0
+P1GROUNDARENAUNIT:0:READY
+
+---
+
+# Deployed_EnemyInspectorsShuttleRevealsOURHand_DealsOne
+#// SEC_016 Padmé (deployed) — every card that reveals OUR hand must fire her, not just Chimaera. SEC_260
+#// Inspector's Shuttle ("When Played: Name a card, then an opponent reveals their hand…") is played by P2
+#// naming a card P1 does not hold, so P1's hand is revealed and nothing else happens to it. Padmé fires
+#// and puts 1 damage on the Shuttle. Sibling guard to the Chimaera section — the reveal was previously
+#// implicit in the count-the-copies loop and never announced to observers.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myLeader:SEC_016:1:1:1;theirResources:2;theirHandCardIds:SEC_260}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1Hand: SOR_095
+WithP1Hand: SOR_063
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Wampa
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENAUNIT:0:CARDID:SEC_260
+P2SPACEARENAUNIT:0:DAMAGE:1
+P1HANDCOUNT:2
+P1GROUNDARENAUNIT:0:READY
+
+---
+
+# Deployed_EnemyStolenStarpathRevealsOURHand_DealsOne
+#// SEC_016 Padmé (deployed) — the third hand-reveal path. SEC_210 Stolen Starpath Unit grants its host
+#// "On Attack: Name a card. The defending player reveals their hand…", so when P2's upgraded unit attacks
+#// P1, P1's hand is revealed and Padmé fires. P2 names a card P1 does not hold, so no Spy tokens are
+#// created and the reveal is isolated; Padmé's 1 damage lands on the attacking host.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myLeader:SEC_016:1:1:1;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1Hand: SOR_095
+WithP1Hand: SOR_063
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SEC_210
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P2>AnswerDecision:Wampa
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1HANDCOUNT:2
+P2GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:READY

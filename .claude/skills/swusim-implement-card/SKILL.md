@@ -427,6 +427,77 @@ one performs.** Enumerate the paths before writing the card, not after.
   fixed. Its BOUNDARY PARTNER (exactly-30 survives) is what exposed it — which is the argument for always
   writing boundary pairs rather than a single threshold case.
 
+### ★ Process lessons (SEC re-validation, 2026-08-09) — a logged bug is a CLAIM, and empty output is not evidence
+- **★★ Re-reproduce a recorded bug before writing any code against it — some were never true.** A
+  worklist entry read "confirmed: SEC_094 Mina Bonteri's When Defeated is lost on a control change, and on
+  an ability-defeat too; only combat works", and it survived across sessions as pending engine work. Both
+  halves were false. It was the auto-resolve trap: the take-control effect was played onto Mina while she
+  was the only non-leader unit, so its target auto-resolved and the answer written for it consumed her
+  disclose prompt. One `error_log` in the handler printed `MINA_WD_FIRED player=2` — right player, right
+  moment — and killed the theory in a single run; the fixture just needed a second unit so the
+  take-control choice really prompts. The ability-defeat half was green on the first try. **Count your
+  prompts against your answers: one spare answer is the signature of this whole bug class.**
+- **★★ Empty command output is NOT evidence of a hang — verify your tooling ran.** macOS/zsh has **no
+  `timeout` binary**, so every `timeout 45 docker exec …` probe exited instantly with "command not found"
+  and printed nothing, which reads exactly like a timed-out hang. On that basis a real regression was
+  reported to the user as "pre-existing, reproduces on baseline". It was neither. Use
+  `docker exec … timeout NN php …` — the binary exists INSIDE the container — and sanity-check that a
+  diagnostic tool produces output on a known-good input before trusting its silence.
+- **To prove "mine vs pre-existing", actually revert.** Copy the modified files to a scratch dir,
+  `git checkout --` them, re-run the identical probe, then restore. Anything less is a guess — and this
+  is cheap enough that there is no excuse for guessing.
+- **A COUNT-level parity check hides gaps when OUR side has extra sections.** Queen Amidala showed 14
+  local vs 15 external = "gap 1"; the TITLE diff showed **three** uncovered scenarios, because one local
+  section had no external counterpart and inflated the count. One of those three is what found the whole
+  Maul step-1 bug. Always diff scenario TITLES, never counts.
+
+### More recurring bug shapes (SEC re-validation, 2026-08-09) — ORDERING against a queued decision, and second-ORDER paths
+Three engine bugs on a set that had already been fully ported and declared closed. All three are about
+**WHEN something resolves relative to an interactive decision**, which is the axis a green suite is worst
+at seeing. Add these cells for any card that matches:
+- **★★ An inline step placed after something that may have QUEUED an interactive decision jumps the
+  queue.** SEC_018 DJ ("play a unit … the chosen unit captures it") captured synchronously right after
+  `ActivateCard`. But playing a second copy of a unique unit queues the CR 1050.3 choose-and-defeat, which
+  cannot resolve inline — so the capture ran FIRST and re-indexed the arena underneath a positional offer
+  built while three units were present. Choosing the just-played copy hit an out-of-range slot, did
+  nothing, and the **mandatory** defeat was skipped: the player kept two copies of a unique unit.
+  **The queue is the ordering authority — REORDERING beats re-resolving.** Re-resolving the offer by
+  UniqueID would not have helped here (the chosen copy had become a CAPTIVE, a subcard, so it is not
+  findable in any arena). Fix pattern: detect the queued decision (scan `GetDecisionQueue($player)` for
+  the handler token) and defer your own step behind it as its own CUSTOM, re-resolving participants by
+  UniqueID when it runs. **Ask of every "play/create/move a card, then do X" card: can the play itself
+  raise a decision? Uniqueness, Shielded, Ambush, and When-Played all can.**
+- **★★ Giving a bespoke path the real ceremony can be the FIRST thing to exercise a shared path's
+  untested shape — budget for that.** `CollectCombatStep1Triggers()` had exactly ONE caller
+  (`ExecuteSWUAttack`), so TWI_135 Darth Maul's "attack 2 units instead of 1" branch ran NO combat step-1
+  trigger at all: neither defender's On Defense, no upgrade-granted On Defense, no SEC_101/ASH_062
+  prevention offer, no SEC_231 Spy. Wiring it up then immediately hit a LATENT flaw one layer down — with
+  2+ triggers all belonging to the NON-active player, the trigger-resume was parked on the active
+  player's queue while the ordering prompt went on the other player's, so the prompt never gated the
+  resume: it re-fired, re-queued itself, and **span forever**; suppressing that exposed a duplicate
+  ordering prompt that stalled the chain instead. Both were unreachable before, because a normal attack
+  has ONE defender. **Rule: an orchestration entry must ride the SAME queue as the decision that is
+  supposed to gate it** (`Block` orders only WITHIN one player's queue — there is no cross-queue
+  sequencing).
+- **★ The tell for a bespoke path is HAND-COPIED bookkeeping.** `_SWUMaulDoubleCombat` had re-implemented
+  the attacked-this-phase flags, `SWU_CURRENT_ATTACKER`, Condemn suppression and SEC_139's damaged-defender
+  read — all things the shared ceremony already does. **If a path re-derives what a shared function
+  provides, audit what else that function does which the copy omitted.** That single question would have
+  found this years earlier.
+- **Once a previously-synchronous path gains a PAUSE, three things break at once** — check all three
+  whenever you insert a decision into an existing flow: (a) positional mzIDs captured before the pause go
+  stale (carry **UniqueIDs** and re-resolve); (b) a "degrade to the simpler path" shortcut becomes a
+  double-fire (`_SWUMaulDoubleCombat` fell back to `ExecuteSWUAttack` when a defender vanished, which
+  after the pause re-runs all of step 1 — make the commit tolerate an absent participant instead); and
+  (c) tallies computed at commit time now MISS anything that happened during the pause (a defender killed
+  by a step-1 trigger stopped counting, silently cutting LOF_017 Revan's "attacks and defeats" Experience
+  from 2 to 0).
+- **⚠ A test can be GREEN FOR THE WRONG REASON in a way only an ordering fix reveals.** Revan's two
+  `MaulSaber_TwoOneHpDefenders_BothPinged` sections passed for months because combat damage killed the
+  1-HP defenders that the never-fired On-Attack ping was supposed to kill. The end state was right; every
+  step producing it was wrong. When a section's NAME describes a mechanism, assert something only that
+  mechanism can produce (here: the Battle Droid tokens the On Defense creates, not just the death count).
+
 ### Test file naming & layout — the `Title_Subtitle` standard (set 2026-07-15)
 
 **One file per card, named by the card's title, holding ALL that card's tests as sections.** Path: `SWUSim/Tests/Cases/{set}/{Name}.md`.

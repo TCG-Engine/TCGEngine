@@ -162,3 +162,47 @@ WithP2GroundArenaUpgrade: 0:SEC_052
 P2GROUNDARENAUNIT:0:ISLEADERUNIT
 P2GROUNDARENAUNIT:0:DAMAGE:1
 P1GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# AttachedToAnEnemySPACEUnit_ItsControllerResolvesTheDisclose
+#// SEC_052 Diplomatic Immunity — the granted On Defense reaction belongs to the HOST's controller in
+#// every arena, not just on the ground. P1 plays the upgrade onto P2's SPACE unit (CR 2.e/3.5: P1 keeps
+#// owning the upgrade, but the unit's controller resolves the ability it grants). P1's JTL_069 attacks
+#// at 4 - 2 = 2, so the defending SOR_237 (2/3 wearing the +2/+2 upgrade = 4/5) takes only 2 and lives.
+
+## GIVEN
+CommonSetup: ggw/ggw/{theirHandCardIds:SOR_046,SOR_046}
+P1OnlyActions: true
+WithP1SpaceArena: JTL_069:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP2SpaceArenaUpgrade: 0:SEC_052
+
+## WHEN
+- P1>AttackSpaceArena:0:theirSpaceArena-0
+- P2>AnswerDecision:myHand-0&myHand-1
+
+## EXPECT
+P2SPACEARENAUNIT:0:DAMAGE:2
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# AttachedToAnEnemyDEPLOYEDLEADERUnit_DiscloseWorks
+#// SEC_052 Diplomatic Immunity — a deployed leader is a unit, so it can host the upgrade and resolve the
+#// granted On Defense just like any other unit. P1 attaches it to P2's DEPLOYED LEADER and attacks:
+#// P2 discloses and P1's attacker is debuffed for the attack.
+
+## GIVEN
+CommonSetup: ggw/ggw/{theirLeaderDeployed:true;theirHandCardIds:SOR_046,SOR_046}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SEC_052
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+- P2>AnswerDecision:myHand-0&myHand-1
+
+## EXPECT
+P2LEADER:DEPLOYED
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1

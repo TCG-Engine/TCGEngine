@@ -282,3 +282,231 @@ P1SPACEARENACOUNT:2
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:1:EXHAUSTED
 P1GROUNDARENAUNIT:2:EXHAUSTED
+
+---
+
+# DroidExhaustCapIsTheCardsCost_ExtraDroidsAreNotBurned
+#// SEC_122 Vuutun Palaa — Droids pay "as if they were a resource", and CR 1.7.2 says a player exhausts
+#// ready resources EQUAL TO the cost (CR 8.1.4 forbids exhausting one when not paying a cost). So a
+#// 1-cost card can only ever consume ONE Droid, no matter how many are offered up. P1 has 2 ready Battle
+#// Droids and 0 resources and submits BOTH for SOR_108 Vanguard Infantry (cost 1): the card is played and
+#// exactly one Droid is exhausted — the second stays ready rather than being burned for nothing.
+#// ⚠ The MZMULTICHOOSE upper bound is enforced by the CLIENT only (the queue controller checks that at
+#// least one choice exists, never how many were submitted), so this cap has to live in the DROID_PAY
+#// handler; that is also the only reason it is testable at all, since the harness bypasses the offer.
+
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1Resources: 0
+WithP1Hand: SOR_108
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:2:CARDID:SOR_108
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:READY
+P1RESAVAILABLE:0
+P1HANDCOUNT:0
+
+---
+
+# DeclineDroidPayment_NothingIsSpentAndTheCardStaysInHand
+#// SEC_122 Vuutun Palaa — declining the Droid offer must leave the board exactly as it was, not half-pay.
+#// P1 has 0 real resources, so SOR_108 is affordable ONLY via Droids; declining the offer aborts the play
+#// cleanly: the card is still in hand and BOTH Droids are still ready. (The paired section above shows the
+#// same fixture succeeding when the offer is accepted, so this is a real abort, not an unplayable board.)
+
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1Resources: 0
+WithP1Hand: SOR_108
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1HANDCOUNT:1
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:1:READY
+P1RESAVAILABLE:0
+
+---
+
+# OnlyREADYDroidsAreOfferedAsPayment_ExhaustedAndNonDroidExcluded
+#// SEC_122 Vuutun Palaa — the payment offer is built from READY friendly DROID units only. P1 controls a
+#// ready Battle Droid, an already-exhausted Battle Droid, and a Wampa (SOR_164 — Creature, not a Droid).
+#// Only the ready Droid is selectable: the exhausted one can't pay (CR 1.7.2) and the Wampa was never
+#// eligible. This asserts the OFFER itself, which the outcome alone can't distinguish.
+
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:0:0
+WithP1GroundArena: SOR_164:1:0
+WithP1Resources: 4
+WithP1Hand: SOR_108
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0
+
+---
+
+# DroidPaymentAppliesToEVERYCardPlayed_AcrossTheTurnAndIntoTheNextPhase
+#// SEC_122 Vuutun Palaa — the Droid alt-payment is a standing constant ability, not a once-per-turn or
+#// once-per-card effect. With 0 real resources throughout, P1 plays SOR_108 (cost 1, one Droid), then
+#// SEC_080 (cost 2, the other two Droids) in the SAME turn; all three Droids end exhausted. After the
+#// regroup phase readies them, a third card is played the same way in the NEXT action phase. P1 never
+#// spends a real resource — resource count and ready resources stay 0 the whole way.
+
+## GIVEN
+CommonSetup: ggk/ggk
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1Resources: 0
+WithP1Hand: SOR_108
+WithP1Hand: SEC_080
+WithP1Hand: SOR_108
+P1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1&myGroundArena-2
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:6
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:READY
+P1GROUNDARENAUNIT:2:READY
+P1RESAVAILABLE:0
+P1RESCOUNT:0
+
+---
+
+# ExploitedDroidStillCountsForThePerDroidDiscount
+#// SEC_122 Vuutun Palaa — Determine Cost is a SINGLE step and every reduction is settled against the same
+#// board state, with the player free to order the reductions within it. So a Droid that Exploit defeats
+#// still counts for "costs 1 resource less for each friendly Droid unit": take the per-Droid reduction
+#// first, then Exploit. P1 controls 3 Battle Droids and uses TWI_005 Count Dooku's leader Action ("Play a
+#// Separatist card from your hand. It gains Exploit 1") on SEC_122, exploiting one Droid.
+#//   9 (printed) − 3 (all three Droids) − 2 (Exploit 1) = 4 → 10 resources drop to 6.
+#// Sampling the count AFTER the defeat would give 9 − 2 − 2 = 5, which is also order-dependent (applying
+#// the two reductions the other way round changes the answer) — a single cost determination must not be.
+#// Judge ruling, 2026-08-08.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myLeader:TWI_005}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1Resources: 10
+WithP1Hand: SEC_122
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SEC_122
+P1GROUNDARENACOUNT:2
+P1RESAVAILABLE:6
+P1HANDCOUNT:0
+
+---
+
+# ExploitDeclined_PerDroidDiscountOnly
+#// SEC_122 Vuutun Palaa — the control for the section above: decline Exploit and only the per-Droid
+#// reduction applies. 9 − 3 = 6, so 10 resources drop to 4 and all three Droids survive. The pair pins
+#// both reductions independently — the Exploit case must be exactly 2 cheaper than this one, which is
+#// only true if the third Droid was still counted while being defeated.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myLeader:TWI_005}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1Resources: 10
+WithP1Hand: SEC_122
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:-
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1GROUNDARENACOUNT:3
+P1RESAVAILABLE:4
+
+---
+
+# ExploitedDroidIsGoneBeforeThePayStep_CannotAlsoBeExhaustedToPay
+#// SEC_122 Vuutun Palaa — the other half of the same ruling. Exploit's defeats happen during Determine
+#// Cost; exhausting Droids as payment happens in the LATER Pay Costs step. A Droid spent to Exploit is
+#// therefore already gone and cannot also be exhausted to pay — it counts once, not twice.
+#// Vuutun is already in play (so its payment ability is active) and P1 plays TWI_083 General's Guardian
+#// (cost 4) through Dooku with Exploit 1, exploiting one of the three Droids. Exploit takes the cost to 2,
+#// and the pay-time offer lists exactly the TWO survivors; both are exhausted and P1's single real
+#// resource is never touched.
+#// (Vuutun's per-Droid discount does NOT apply here — it reduces only Vuutun's own cost.)
+
+## GIVEN
+CommonSetup: ggk/ggk/{myLeader:TWI_005}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1Resources: 1
+WithP1Hand: TWI_083
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:2:CARDID:TWI_083
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1RESAVAILABLE:1
+P1HANDCOUNT:0

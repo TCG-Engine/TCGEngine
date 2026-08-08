@@ -105,3 +105,36 @@ P2BASEDMG:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_128
 P2GROUNDARENAUNIT:0:READY
 P1NODECISION
+
+---
+
+# Deployed_AttackGrantedByAnotherCardStillFiresTheOnAttack
+#// SEC_015 C-3PO (deployed) — his On Attack fires on ANY attack he makes, including one handed to him by
+#// another card rather than declared as the action. P1 plays SOR_220 Surprise Strike; C-3PO is the only
+#// ready unit so he is auto-chosen as the attacker, hits P2's base for 1 + 3 = 4, and his On Attack still
+#// resolves (P1 controls the exhausted SOR_095) to exhaust P2's ready SOR_128.
+#// Guards the event-granted attack dispatch path, which reaches combat through different code than a
+#// normal attack declaration.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:SEC_015:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SOR_220
+WithP1GroundArena: SOR_095:0:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2BASEDMG:4
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:DAMAGE:0

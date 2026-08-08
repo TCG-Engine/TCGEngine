@@ -87,3 +87,30 @@ WithP2GroundArena: SOR_095:1:0
 P1BASEDMG:0
 P2BASEDMG:0
 P1RESAVAILABLE:2
+
+---
+
+# GrantedOnAttack_FollowsTheHOSTSNewController
+#// SEC_264 Clandestine Connections — the granted On Attack belongs to whoever controls the host. P2
+#// plays SOR_122 Traitorous to take control of P1's upgraded SOR_095, then attacks with it: P2 is the
+#// one offered the "pay 2 → deal 2 to a base", pays from P2's OWN resources, and aims it at P1's base.
+#// P1's base takes 4 combat (SOR_095 is 3 power plus the upgrade's +1/+1) + 2 = 6.
+
+## GIVEN
+CommonSetup: rrk/ggk
+WithActivePlayer: 2
+WithP2Resources: 8
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SEC_264
+WithP2Hand: SOR_122
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>Pass
+- P2>AttackGroundArena:0:BASE
+- P2>AnswerDecision:YES
+- P2>AnswerDecision:theirBase-0
+
+## EXPECT
+P1BASEDMG:6

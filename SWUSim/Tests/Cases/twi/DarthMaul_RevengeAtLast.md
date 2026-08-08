@@ -194,3 +194,46 @@ P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:CARDID:TWI_135
 P1GROUNDARENAUNIT:0:DAMAGE:3
 P1NODECISION
+
+---
+
+# TwoDefenders_BothOnDefenseTriggersFire_ThenCombatDamage
+#// TWI_135 Darth Maul — "This unit can attack 2 units instead of 1." Combat STEP 1 must run for BOTH
+#// defenders before any damage. Each TWI_083 General's Guardian has "When this unit is attacked: Create a
+#// Battle Droid token", so two On Defense triggers go on the stack, the DEFENDING player orders them, and
+#// only then does combat damage resolve.
+#// Bug this pins: the two-defender branch went straight to the damage step and never called combat step 1
+#// at all — so both defenders' On Defense, upgrade-granted On Defense, the SEC_101/ASH_062 prevention
+#// offers and SEC_231's Spy were all silently skipped on this attack mode. No Battle Droids were created.
+#// Second bug this pins: with 2+ triggers ALL belonging to the non-active player, the trigger-resume rode
+#// the ATTACKER's queue while the ordering prompt sat on the DEFENDER's, so the resume fired unblocked and
+#// span (or queued a duplicate prompt and stalled). The resume now rides the prompt's queue.
+#// Numbers: each Guardian creates a Battle Droid, then Maul (5 power) deals 5 to each 4/4 Guardian — both
+#// die — and their combined 4+4=8 counter kills Maul (6 HP). End: P1 empty, Maul in P1's discard; P2 keeps
+#// the two Battle Droid tokens with both Guardians in discard.
+#// The trailing P1>Drain runs the attacker's queue once the defender's trigger chain has finished.
+
+## GIVEN
+CommonSetup: ggw/rrk
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: TWI_083:1:0
+WithP1GroundArena: TWI_083:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP2GroundArena: TWI_135:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P2>AttackGroundArena:1:1
+- P2>AnswerDecision:Units
+- P2>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+- P1>AnswerDecision:EffectStack-0
+- P2>Drain
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1DISCARDCOUNT:2
+P2GROUNDARENACOUNT:1
+P2DISCARDCOUNT:1

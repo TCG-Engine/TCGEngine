@@ -55,3 +55,26 @@ WithP2Hand: SOR_140
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 P2NODECISION
+
+---
+
+# HostReadiedAgain_SentinelGoesAway
+#// SEC_071 Disciple's Devotion — the Sentinel grant tracks the host's status continuously, so readying
+#// an exhausted host takes it back off. The host starts exhausted (with Sentinel), P1 readies it with
+#// SOR_169 Keep Fighting, and the Sentinel is gone.
+
+## GIVEN
+CommonSetup: rrk/rrk
+WithActivePlayer: 1
+WithP1Resources: 2
+WithP1GroundArena: SEC_041:0:0
+WithP1GroundArenaUpgrade: 0:SEC_071
+WithP1Hand: SOR_169
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel

@@ -217,3 +217,122 @@ WithP1GroundArenaUpgrade: 0:SEC_054
 ## EXPECT
 P2BASEDMG:0
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+
+---
+
+# SuppressesSaboteursShieldDefeat
+#// SEC_038 Condemn — "loses all other abilities while attacking" takes Saboteur with it, so the
+#// attacker no longer defeats the defender's Shields on the way in. P1's SEC_250 Rebel Pathfinder
+#// (Saboteur) wears Condemn and attacks SOR_095, which carries two Shield tokens: instead of both being
+#// defeated, one absorbs the entire hit. SOR_095 ends with 1 Shield and 0 damage.
+
+## GIVEN
+CommonSetup: ggw/grk
+P1OnlyActions: true
+WithP1GroundArena: SEC_250:1:0
+WithP1GroundArenaUpgrade: 0:SEC_038
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# SaboteurStillDeclaresPastSentinel_ButLosesTheShieldDefeat
+#// SEC_038 Condemn — the two halves of Saboteur split across the attack steps, and Condemn only reaches
+#// the second one. Target declaration is CR 3.2.b (Check restrictions: a Sentinel must be chosen
+#// "unless the attacker has Saboteur"); the shield-defeat is a triggered ability at CR 3.3 (Begin
+#// attack), which is also where "while attacking" abilities — Condemn's blanking — become active.
+#// So a Condemned Saboteur can still declare past a Sentinel but no longer defeats the Shields.
+#//
+#// P1's SEC_250 Rebel Pathfinder wears Condemn. P2's SHD_029 Pyke Sentinel is at index 0 and the real
+#// target SOR_095 (carrying two Shields) at index 1, so the declaration must genuinely SKIP the Sentinel
+#// rather than merely happening to pick the first legal unit. It is legal, and one Shield then absorbs
+#// the hit instead of both being defeated: SOR_095 keeps 1 Shield on 0 damage, the Sentinel is untouched.
+#//
+#// Regression (A/B verified): applying Condemn's blanking at DECLARATION instead of at Begin attack
+#// stripped Saboteur before the legal-target list was built — SOR_095 became unattackable and the attack
+#// was forced onto the Sentinel, which took 2, with both Shields surviving.
+
+## GIVEN
+CommonSetup: ggw/grk
+P1OnlyActions: true
+WithP1GroundArena: SEC_250:1:0
+WithP1GroundArenaUpgrade: 0:SEC_038
+WithP2GroundArena: SHD_029:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 1:SOR_T02
+WithP2GroundArenaUpgrade: 1:SOR_T02
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SHD_029
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:1:CARDID:SOR_095
+P2GROUNDARENAUNIT:1:SHIELDCOUNT:1
+P2GROUNDARENAUNIT:1:DAMAGE:0
+
+---
+
+# CannotGainAbilitiesWhileAttacking_GrantedSaboteurIsBlanked
+#// SEC_038 Condemn — official ruling (2025-10-31): "the attached unit CAN'T GAIN abilities while
+#// attacking." So an ability handed to it for this very attack is lost along with its printed ones.
+#// P1's SOR_095 wears Condemn and is sent in by SOR_168 Precision Fire, which grants Saboteur for the
+#// attack. The defender SOR_046 carries two Shields: Saboteur would defeat BOTH, but the grant does not
+#// survive Condemn, so one Shield simply absorbs the hit — SOR_046 keeps 1 Shield and takes 0 damage.
+#// See CannotGainAbilitiesWhileAttacking_ControlWithoutCondemn for the same board without the upgrade.
+
+## GIVEN
+CommonSetup: rrw/grk
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SEC_038
+WithP1Hand: SOR_168
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# CannotGainAbilitiesWhileAttacking_ControlWithoutCondemn
+#// The positive control for the section above: identical board and identical play, with Condemn NOT
+#// attached. SOR_168 Precision Fire's granted Saboteur is live, so BOTH Shields are defeated and the
+#// attack lands for 5 (3 printed + Precision Fire's +2/+0 Trooper bonus). This is what the Condemned
+#// version would look like if the grant survived — so the paired assertions pin the ruling rather than
+#// just observing that a Shield happened to absorb something.
+
+## GIVEN
+CommonSetup: rrw/grk
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: SOR_168
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:5

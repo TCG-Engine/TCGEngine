@@ -104,3 +104,64 @@ P1SPACEARENACOUNT:0
 P1HANDCOUNT:1
 P2SPACEARENACOUNT:1
 P2SPACEARENAUNIT:0:CARDID:SOR_237
+
+---
+
+# CannotTargetAVehicleThatIsALeaderUnit
+#// SEC_192 Grand Moff Tarkin — "take control of an enemy NON-LEADER Vehicle unit". P2's JTL_001 Asajj
+#// Ventress is deployed as a PILOT onto their Vehicle, which makes that Vehicle a LEADER UNIT. It is the
+#// only enemy Vehicle on the board, so Tarkin's When Played finds no legal target: nothing is stolen,
+#// P1's space arena stays empty and the Vehicle remains P2's.
+
+## GIVEN
+CommonSetup: yyk/bbk/{theirLeader:JTL_001;theirLeaderDeployedPilot:true}
+WithActivePlayer: 1
+WithP1Resources: 6
+WithP1Hand: SEC_192
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_237
+P1GROUNDARENAUNIT:0:CARDID:SEC_192
+P1NODECISION
+
+---
+
+# StolenUnitTakenBackByTheOwnerFirst_TarkinsRevertIsANoOp
+#// SEC_192 Grand Moff Tarkin — the "when this unit leaves play, that unit's owner takes control of it"
+#// link must not misfire when something ELSE has already returned the unit to its owner.
+#// P1's Tarkin steals P2's SOR_232 AT-ST. P2 then plays SOR_224 Change of Heart to take the AT-ST back,
+#// so P2 (its owner) controls it again while the Tarkin link is still armed. P2 then bounces Tarkin with
+#// SOR_222 Waylay: the link fires, finds the AT-ST already under its owner, and correctly does nothing.
+#// End state: P1's arena is empty, Tarkin sits in P1's HAND (bounced, not defeated), and the AT-ST is
+#// still P2's — no double-transfer, no dangling steal flag.
+
+## GIVEN
+CommonSetup: yyk/yyk
+WithActivePlayer: 1
+WithP1Resources: 8
+WithP2Resources: 14
+WithP1Hand: SEC_192
+WithP2Hand: SOR_224
+WithP2Hand: SOR_222
+WithP2GroundArena: SOR_232:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-1
+- P1>Pass
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:1
+P1HANDCOUNT:1

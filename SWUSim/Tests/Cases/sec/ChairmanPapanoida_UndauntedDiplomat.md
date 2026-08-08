@@ -139,3 +139,70 @@ WithP2Deck: [SOR_095 SOR_095]
 ## EXPECT
 P1GROUNDARENACOUNT:2
 P1NODECISION
+
+---
+
+# OnDraw_UnderEnemyControl_TheNewControllerDisclosesAndGetsTheSpy
+#// SEC_159 Chairman Papanoida — the reaction belongs to whoever controls him. P2 takes control with
+#// SOR_122 Traitorous, then P1 draws (SOR_111's When Played): the disclose is offered to P2, who reveals
+#// two Aggression cards from P2's OWN hand and gets the Spy token on P2's board.
+
+## GIVEN
+CommonSetup: rrw/ggk
+WithActivePlayer: 2
+WithP2Resources: 8
+WithP1Resources: 5
+WithP1GroundArena: SEC_159:1:0
+WithP1Hand: SOR_111
+WithP2Hand: SOR_122
+WithP2Hand: SEC_133
+WithP2Hand: SEC_133
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>PlayHand:0
+- P2>AnswerDecision:myHand-0&myHand-1
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:CARDID:SEC_159
+P2GROUNDARENAUNIT:1:CARDID:SEC_T01
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+
+---
+
+# BothPlayersDrawSimultaneously_TriggersOncePerDRAW_TwoSpies
+#// SEC_159 Chairman Papanoida — "When A PLAYER draws 1 or more cards during the action phase" is per
+#// DRAW EVENT, and one card that makes BOTH players draw produces TWO of them. P1 attacks with LAW_048
+#// Chio Fain ("On Attack: you may choose 2 players. If you do, they each draw a card"): both decks go
+#// 3 → 2, and Papanoida offers the AggressionAggression disclose TWICE, creating TWO Spy tokens.
+#// Contrast OnDraw_OpponentDrawsMultiple_OneSpy, where several cards drawn in ONE event give a single Spy
+#// — the trigger counts events, not cards, and this section is the other side of that.
+#// (Disclose REVEALS rather than discards, so the same two Aggression cards pay for both discloses; P1's
+#// hand ends at 3 = the two disclosed cards plus the one drawn.)
+
+## GIVEN
+CommonSetup: rrw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_159:1:0
+WithP1GroundArena: LAW_048:1:0
+WithP1Hand: SEC_133
+WithP1Hand: SEC_133
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:myHand-0&myHand-1
+- P1>AnswerDecision:myHand-0&myHand-1
+
+## EXPECT
+P1GROUNDARENACOUNT:4
+P1HANDCOUNT:3
+P1DECKCOUNT:2
+P2DECKCOUNT:2
+P1NODECISION
