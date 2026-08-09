@@ -55,3 +55,33 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:TS26_15
+
+---
+
+# TheDamageScalesWithHisCURRENTPower
+#// TS26_15 C-3PO — "deal damage equal to THIS UNIT'S POWER", read live rather than from the printed 2.
+#// C-3PO sits in P2's arena but is still OWNED by P1 (as after his When Played hands him over), so P2 is
+#// the opponent who may use the action. Three Experience tokens put him at 5 power, and SOR_046 takes 5.
+#// Seated with WithP2GroundArenaControlled so the owner/controller split is explicit — placing him with a
+#// plain WithP2GroundArena would make P2 the OWNER, and then nobody could use the ability at all.
+
+## GIVEN
+CommonSetup: gbw/rrk/{myResources:6}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2GroundArenaControlled: TS26_15:1:1
+WithP2GroundArenaUpgrade: 0:SOR_T01
+WithP2GroundArenaUpgrade: 0:SOR_T01
+WithP2GroundArenaUpgrade: 0:SOR_T01
+WithP1GroundArena: SOR_046:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P2>UseUnitAbility:myGroundArena-0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:DAMAGE:5
+P2GROUNDARENAUNIT:0:EXHAUSTED

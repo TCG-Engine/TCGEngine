@@ -37,3 +37,30 @@ WithP1GroundArena: SEC_080:1:0
 P2BASEDMG:5
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1NODECISION
+
+---
+
+# ExcludesITSELFFromTheOffer_EvenWhenItEntersPlayREADY
+#// IBH_064 Hoth Lieutenant — "attack with ANOTHER unit" must exclude the Lieutenant itself. Normally he
+#// enters exhausted, so the exclusion is incidental and unproven; here SOR_219 Sneak Attack plays him
+#// for 3 less AND READY, so he is a perfectly legal attacker in every respect except the word "another".
+#// The offer is exactly the two seated SOR_046 — he is absent from his own pool while standing ready at
+#// index 2. Two other units are seated so the choice prompts instead of auto-resolving.
+#// Sneak Attack's "play a unit from your hand" auto-resolves here (the Lieutenant is the only other card
+#// in hand), so a single PlayHand drives the whole chain.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:8}
+P1OnlyActions: true
+WithP1Hand: SOR_219
+WithP1Hand: IBH_064
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+P1GROUNDARENAUNIT:2:CARDID:IBH_064
+P1GROUNDARENAUNIT:2:READY

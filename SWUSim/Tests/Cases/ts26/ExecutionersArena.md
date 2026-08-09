@@ -12,3 +12,23 @@ WithP2GroundArena: LAW_124:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:2
 P1BASE:EPICUSED
+
+---
+
+# NoFriendlyLeaderUnitsMeansNoDamage
+#// TS26_11 Executioner's Arena — "FOR EACH friendly LEADER UNIT, you may deal 2 damage to a unit". With
+#// the leader undeployed there is nothing to iterate, so the Epic Action raises no offer and LAW_124 is
+#// untouched.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myBase:TS26_11}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>UseBaseAbility
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1NODECISION

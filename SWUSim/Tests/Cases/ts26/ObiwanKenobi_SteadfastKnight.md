@@ -12,3 +12,23 @@ P1OnlyActions: true
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Restore
 P1GROUNDARENAUNIT:1:HASKEYWORD:Restore
 P1GROUNDARENAUNIT:2:NOTKEYWORD:Restore
+
+---
+
+# EnemyRepublicUnitsAreNotGrantedRestore
+#// TS26_40 Obi-Wan Kenobi — "OTHER FRIENDLY Republic units". P2's Clone Trooper token is Republic but not
+#// friendly to Obi-Wan, so it gains nothing; Obi-Wan still excludes himself.
+
+## GIVEN
+CommonSetup: byw/byw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: TS26_40:1:0
+WithP2GroundArena: TWI_T02:1:0
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Restore
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Restore

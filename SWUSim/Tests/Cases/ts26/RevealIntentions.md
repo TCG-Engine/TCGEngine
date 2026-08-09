@@ -48,3 +48,29 @@ P1DECKCOUNT:1
 P2DECKCOUNT:1
 P1HANDCOUNT:2
 P2HANDCOUNT:2
+
+---
+
+# TheFinalDrawStillHappensWithEMPTYDecks
+#// TS26_80 Reveal Intentions — "Then, each player draws a card" is unconditional. With both decks empty
+#// the discards still resolve and both players still attempt the draw, each eating the empty-deck penalty
+#// of 3 base damage. Both hands end empty and both bases sit on 3.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:3}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: TS26_80
+WithP1Hand: SOR_095
+WithP2Hand: SOR_046
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirHand-0
+- P2>AnswerDecision:theirHand-0
+
+## EXPECT
+P1HANDCOUNT:0
+P2HANDCOUNT:0
+P1BASEDMG:3
+P2BASEDMG:3

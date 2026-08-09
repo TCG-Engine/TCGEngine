@@ -40,3 +40,28 @@ WithP2GroundArena: SEC_080:1:0
 P2GROUNDARENAUNIT:0:READY
 P2BASEDMG:1
 P1NODECISION
+
+---
+
+# Reprint049
+#// IBH_049 R2-D2 (reprint of IBH_011) — On Attack: if you control a Command unit, exhaust an enemy
+#// ground unit that costs 4 or less. Confirms this duplicate CardID is wired: the cost-2 enemy is
+#// exhausted and the cost-8 enemy is not an eligible target.
+
+## GIVEN
+CommonSetup: yyw/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: IBH_049:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:1:READY
+P2BASEDMG:1
+P1NODECISION

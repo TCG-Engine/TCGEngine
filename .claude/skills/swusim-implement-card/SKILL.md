@@ -498,6 +498,128 @@ at seeing. Add these cells for any card that matches:
   step producing it was wrong. When a section's NAME describes a mechanism, assert something only that
   mechanism can produce (here: the Battle Droid tokens the On Defense creates, not just the death count).
 
+### More recurring bug shapes (IBH port, 2026-08-09) — "each OTHER" when the first half can be PREVENTED
+One engine bug in a small reprint-heavy set, plus the gap shapes that dominated its tail.
+- **★★ "Do X to a unit, then do Y to each OTHER unit" — enforce "other" by IDENTITY, never by absence.**
+  IBH_052 Watch This returns a unit to hand then exhausts each other enemy in that arena. Its handler
+  exhausted *everything still standing*, on the stated assumption that the chosen unit had already left:
+  its own comment read *"the returned unit is already gone, so 'each other' = all remaining enemies."*
+  That holds only while the first half SUCCEEDS. Against JTL_103 Chewbacca ("can't be defeated or
+  returned to hand by enemy card abilities") the return is refused, the protected unit is still there,
+  and the absence-based exclusion swept it up — so the card partially beat a protection it must not
+  touch. Fix: snapshot the chosen unit's **UniqueID before** the first half and skip that UID in the
+  loop. **Checklist item: for any two-part "X the chosen one, then Y everyone else", ask what happens
+  when X is prevented** (can't-be-defeated / can't-be-returned / can't-be-captured / shield / immunity)
+  — the two halves are independent, so Y must still fire on the OTHERS and must still spare the chosen.
+- **A duration test must read the STAT, not the outcome.** IBH_021 Improvised Detonation's "+2/+0 for
+  this attack" was covered only by the damage dealt (3+2=5) — which passes identically if the buff is
+  permanent. Asserting `POWER` is back to the printed value AFTER the attack is the only thing that
+  proves the duration ends. Same for any "for this phase" grant.
+- **An "incidental" exclusion is not a tested exclusion.** IBH_064 Hoth Lieutenant's "attack with ANOTHER
+  unit" appeared covered, but the existing section's own comment admitted he "enters exhausted anyway" —
+  so the exclusion was never exercised. Play him READY (SOR_219 Sneak Attack: "costs 3 less and enters
+  play ready") and assert the offer still excludes him. **When a section's comment explains why the
+  excluded case cannot arise, the exclusion is untested — construct a board where it CAN arise.**
+- **A heal/reduce must be tested for the CLAMP and for the undamaged target.** "Heal N" needs (a) a unit
+  with fewer than N damage ending at exactly 0 (never negative), and (b) an UNDAMAGED unit being a legal
+  target that simply does nothing — the target is "a unit", not "a damaged unit". Both were missing on
+  IBH_013 Recovery and IBH_066 Too Strong for Blasters.
+- **"Reveal/draw the top N" needs deck-size clamps**: fewer than N cards, and an EMPTY deck resolving as
+  a clean no-op with no dangling decision (IBH_009 I've Found Them).
+- **A base with a NON-STANDARD HP total needs a boundary PAIR, because the harness cannot assert base
+  HP.** IBH's bases are 20, not 30, and there is no `BASEHP` assertion — only `P1BASEDMG`/`P2BASEDMG`/
+  `P1WIN`. Prove it as survives-at-19 + `P1WIN`-at-20; on a 30-HP base neither value is lethal, so the
+  pair is what pins the number. A single damage assertion proves nothing about the threshold.
+
+### More recurring bug shapes (TS26 validate-port, 2026-08-09) — OUTCOME-gated clauses, riders through replacements, and never trusting card TEXT as a rules oracle
+The largest single-set haul so far: **22 engine bugs across 78 cards.** Three shapes repeated; the rest
+are one-offs worth the checklist line.
+
+- **★★★ A clause gated on an earlier one must measure the OUTCOME, not assume the attempt worked.**
+  THREE bugs in one set. "Deal 1 damage to each enemy base. Heal 1 **for each damage dealt this way**"
+  (TS26_19 Coleman Trebor) healed even when JTL_074 Close the Shield Gate prevented the damage.
+  "Deal 2 damage to a base. **If you do**, that base's controller draws" (TS26_62 R2-D2) drew off the
+  same prevented damage. Fix in both: sample the target BEFORE and AFTER and act on the delta.
+  **Checklist item: for every "if you do" / "for each … this way" / "if it is defeated", ask what
+  PREVENTS the first half** — base-damage prevention (JTL_074), no-heal locks (SOR_160 Wolffe,
+  TWI_132 Confederate Tri-Fighter), can't-be-defeated/returned/captured, Shields, can't-ready
+  (SHD_193 Frozen in Carbonite). Those cards are what make attempt-vs-outcome observable, and they are
+  the fixture you need. Same family, mirrored: TS26_31 Chaotic Diversion ("Ready an enemy unit. **If you
+  do**, it can't attack…") stamped the restriction on whoever was CHOSEN, so an already-ready target or
+  one under Frozen in Carbonite was silenced by a ready that never happened — gate on
+  exhausted-before AND ready-after.
+- **★★ The inverse: a clause joined by "Then" is UNCONDITIONAL, and a no-op helper must not swallow it.**
+  TS26_39 Captain Vaughn — "Search the top 3 … and draw it. **Then**, put a card from your hand on top."
+  `_topDeckSearchBegin` no-ops on an empty deck and never reaches its continuation, taking the
+  unconditional second clause with it. **When a first clause is delegated to a shared helper, check what
+  that helper does with EMPTY input** — if it returns early, the second clause needs its own path.
+- **★★ A "create N tokens AND give them X" rider must be passed to the BATCH create API, never stamped
+  on the returned UID(s).** ASH_094 Moff Jerjerrod's "create twice that number instead" makes its extra
+  tokens LATER, inside its own decision handler, so anything stamped at the original call site misses
+  them. Bit TS26_14 Yoda (a phase-scoped Sentinel, which rode the existing `$turnEffect` channel) and
+  TS26_55 Jedi General (a PERSISTENT Experience upgrade, which had no channel at all until this port
+  added `$upgradeToken` + `_SWUApplyTokenRider`). Ask of any token-creating card: *what does Jerjerrod
+  do to this?*
+- **A "when X is defeated" observer must be BATCH-AWARE.** TS26_13 Darth Sidious counted himself out of
+  his own trigger: `SWUCollectLeavePlayReactions` runs AFTER every card in the batch is marked removed,
+  so a live board read saw zero Sidious. A lone Sidious dying made nothing; a board wipe made 1 droid
+  instead of 4. Two-part fix — a per-seat snapshot that adds back a Sidious present in `$leftCards`
+  **only when the live scan missed him** (different callers reach the collector on opposite sides of
+  the removed-mark; adding back unconditionally DOUBLED every droid), plus `SWUSimulDefeatBegin/End`
+  around mass-defeat loops (SOR_043 "defeat all units" walks units one at a time, so the board shrinks
+  mid-effect for any observer).
+- **A restriction that names a PLAYER needs a directional marker, not a blanket one.** TS26_31's
+  "it can't attack YOUR base or units YOU control" used the generic `CANT_ATTACK` turn effect, which also
+  stopped the unit attacking its ORIGINAL controller after SOR_224 Change of Heart moved it. New
+  `CANT_ATTACK_VS-<seat>` + `_SWUDirectionalCantAttackBlocksAll` (blocks everything only while the named
+  seat is the unit's SOLE opponent, so it stays Twin-Suns-safe).
+- **Any effect that readies by writing `Status` directly MUST call `_SWUUnitCantReadyNow`.** TS26_63
+  Rex's DC-17s wrote `$host->Status = 1` to avoid recursing into OnReadyCard's observers — and thereby
+  skipped its can't-ready checks, readying a host under Frozen in Carbonite. **And a once-per-round use
+  must not be spent on a no-op**: the same card burned its use when the host was ALREADY ready, so a
+  later enemy ready in the round did nothing. Put both the can't-ready check and the already-ready check
+  BEFORE consuming the flag.
+- **A one-shot discount that can be armed TWICE must stack.** TS26_35 Ahsoka's Lightsabers used
+  `amount => 2, consume => 'remove'`, so two copies triggering before any event is played gave −2, not
+  −4. The correct shape is `amount => N * GlobalEffectCount(...)` + `consume => 'clearPrefix'`
+  (cf. TS26_06 Rex, ASH_027, SHD_006).
+- **A cost modifier reading "for each OTHER card you played this phase" must not count ITSELF.**
+  `ActivateCard` bumped `SWU_CARDS_PLAYED` BEFORE computing the cost, so TS26_36 Tribunal charged 8
+  instead of 10 with nothing else played. Fixed by moving the bump AFTER the cost computation — which
+  also makes the cost pipeline agree with the pre-play UI affordability check. ⚠ Patching the modifier
+  with a `-1` would have been WRONG: that path runs before the bump and would read the card as 2 MORE
+  expensive, potentially filtering it out of the playable set.
+- **`BeginSWUAttack` does NOT enforce readiness for an effect-driven attack.** A card that says "attack
+  with a unit" WITHOUT "even if it's exhausted" must gate on readiness itself (TS26_25 Fiery Alliance
+  swung with an exhausted unit). Its target pool must also NOT filter to ready units — an exhausted unit
+  is a legal choice, you just do as much as you can.
+- **"For each X you control (AS A LEADER OR UNIT)" — the parenthetical is load-bearing.** TS26_55 Jedi
+  General scanned only the Leader ZONE and missed a unit made a leader unit by grant (ASH_135 The
+  Darksaber). When widening such a scan, skip printed-Leader cards on the arena pass or a DEPLOYED
+  leader (which stays in the Leader zone in this engine) is counted twice.
+- **A condition must not be implemented as an AFFORDABILITY gate.** See the TS26_02 Anakin entry in the
+  session log: an exhaust-only leader Action is ALWAYS usable as a soft pass, and moving its "2+ units
+  entered" condition into `SWULeaderActionAffordable` made the whole action vanish instead of resolving
+  to nothing. Conditions belong in the handler; affordability is about paying the cost.
+
+### ★★★ NEVER derive a rules set from CARD TEXT — use the authoritative per-card list (TS26, 2026-08-09)
+CR 16.c: a **"When Attack Ends" ability fires by DEFAULT when its own unit is defeated by combat damage**;
+requiring survival is a per-card OPT-IN. SWUSim had this inverted for every attack-end card.
+
+The trap is in the fix, not the bug. Classifying by phrasing — "Attack Ends" fires on death, bare
+"completes an attack" fires on death, "(and survives)" does not — **misclassified 11 cards** that read as
+bare "completes an attack" but genuinely require survival (SOR_015 Boba · SOR_192 Ezra · SOR_146 Zeb ·
+TWI_053 Finn · LAW_074 Maz · LAW_215 Vermillion · SEC_107 Valorum · SHD_059 Embo · SOR_009 Leia ·
+LOF_156 Infused Brawler · LAW_001 Saw Gerrera). Shipping that heuristic would have **broken 11 working
+cards to fix 5**, and it also produced a scope estimate that was off by ~6× ("~34 cards"; really 6).
+
+**The rule: when a behaviour splits a set of cards into two groups, the split must come from an
+authoritative per-card list, not from a substring of the printed text.** Card text is written for humans
+and omits riders the rules take as read. Build the list explicitly (`_SWUAttackEndRequiresSurvival` holds
+21 CardIDs plus a text fallback), and when adding a new card decide its membership deliberately.
+Corollary for scoping: **count the affected cards from the list, not from a grep** — a text-derived count
+is not evidence of blast radius.
+
 ### Test file naming & layout — the `Title_Subtitle` standard (set 2026-07-15)
 
 **One file per card, named by the card's title, holding ALL that card's tests as sections.** Path: `SWUSim/Tests/Cases/{set}/{Name}.md`.

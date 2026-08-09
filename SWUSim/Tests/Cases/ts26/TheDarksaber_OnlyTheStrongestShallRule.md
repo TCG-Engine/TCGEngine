@@ -28,3 +28,28 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# KeywordsOnENEMYUnitsDoNotCountTowardTheFour
+#// TS26_22 The Darksaber — "if there are 4 or more different keywords among FRIENDLY units". P2 plays the
+#// Darksaber onto their own exhausted SEC_080 while the keyword-rich units all belong to P1: from P2's
+#// side the friendly count is short, so the attached unit gains Sentinel but is NOT readied.
+
+## GIVEN
+CommonSetup: grk/grk/{theirResources:6}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: [TS26_20:1:0 SOR_207:1:0]
+WithP2Hand: TS26_22
+WithP2GroundArena: SEC_080:0:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:HASKEYWORD:Sentinel

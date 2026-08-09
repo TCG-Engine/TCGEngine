@@ -15,3 +15,24 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SEC_080
 P1GROUNDARENAUNIT:0:DAMAGE:1
 P2GROUNDARENAUNIT:0:DAMAGE:5
+
+---
+
+# WithNoEnemyUnitsOnlyTheFriendlySideTakesDamage
+#// TS26_29 Ziton Moj — "FOR EACH PLAYER, deal 1 damage to a unit that player controls" resolves per
+#// player. P2 controls no units, so only P1's SEC_080 takes its 1; Ziton's attack on P2's base still
+#// lands for 4.
+
+## GIVEN
+CommonSetup: ryk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [TS26_29:1:0 SEC_080:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:1:DAMAGE:1
+P2BASEDMG:4

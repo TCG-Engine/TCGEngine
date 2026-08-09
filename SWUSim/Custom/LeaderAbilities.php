@@ -821,8 +821,13 @@ function _SWUShd017HasTarget(int $player): bool {
    
 
 // ── TS26 leaders ────────────────────────────────────────────────────────────────
-// Collect the mzIDs of friendly units that entered play this phase (SWU_ENTERED_PHASE_{uid}); optionally
-// exclude one UID. Used by TS26_02 Anakin and TS26_04 Padmé (both sides).
+// TARGET pool: mzIDs of units that are FRIENDLY RIGHT NOW and entered play this phase; optionally exclude
+// one UID. Used by TS26_02 Anakin and TS26_04 Padmé (both sides).
+// ⚠ Checks EVERY seat's flag, not just $player's. The flag is stamped under whoever controlled the unit
+// AT ENTRY, so a unit that entered under the OPPONENT's control and has since come across (Change of
+// Heart, No Glory) still "entered play this phase" and is a legal target now that it is friendly.
+// The mirror case needs no handling: a unit that entered under my control but is now the enemy's simply
+// is not in my arenas, so it drops out on its own.
 function _SWUEnteredThisPhaseUnits(int $player, int $excludeUID = -1): array {
     global $playerID; $playerID = intval($player);
     $out = [];
@@ -832,10 +837,34 @@ function _SWUEnteredThisPhaseUnits(int $player, int $excludeUID = -1): array {
             if (SWUObjGone($o)) continue;
             $uid = intval($o->UniqueID ?? -1);
             if ($uid === $excludeUID) continue;
-            if (GlobalEffectCount(intval($player), 'SWU_ENTERED_PHASE_' . $uid) > 0) $out[] = $mz;
+            if (_SWUUnitEnteredThisPhase($uid)) $out[] = $mz;
         }
     }
     return $out;
+}
+
+// Did this UniqueID enter play this phase under ANY controller?
+function _SWUUnitEnteredThisPhase(int $uid): bool {
+    if ($uid < 0) return false;
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
+        if (GlobalEffectCount($p, 'SWU_ENTERED_PHASE_' . $uid) > 0) return true;
+    }
+    return false;
+}
+
+// GATE count: how many units entered play this phase UNDER $player's control — a historical tally, and
+// deliberately NOT a scan of the current board.
+// ⚠ "2 or more friendly units entered play this phase" is a fact about the past that a later defeat or
+// control change cannot undo. Counting live arena units instead broke it two ways: a 2-unit turn where
+// one entrant DIED failed the gate (so the survivor never got its Shield), and an entrant that was later
+// STOLEN stopped counting too. The flag is stamped per entry-controller and cleared at the phase
+// boundary, so tallying the flags themselves is the honest reading.
+function _SWUEnteredThisPhaseCount(int $player): int {
+    $n = 0;
+    foreach (GetGlobalEffects(intval($player)) as $e) {
+        if (strpos((string)($e->CardID ?? ''), 'SWU_ENTERED_PHASE_') === 0) $n++;
+    }
+    return $n;
 }
 
 

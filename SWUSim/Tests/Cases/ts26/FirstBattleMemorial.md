@@ -12,3 +12,22 @@ WithP1GroundArena: SEC_080:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:4
 P1BASE:EPICUSED
+
+---
+
+# NoFriendlyLeaderUnitsMeansNoExperience
+#// TS26_09 First Battle Memorial — "FOR EACH friendly LEADER UNIT". With the leader undeployed the count
+#// is zero, so the Epic Action raises no offer and SEC_080 stays at its printed 3 power.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myBase:TS26_09}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>UseBaseAbility
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:3
+P1NODECISION

@@ -54,3 +54,29 @@ P1OnlyActions: true
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:3
+
+---
+
+# AttackEndFiresEvenWhenRUKHDiesInTheAttack
+#// ASH_036 Rukh — CR 16.c: "When Attack Ends" fires even when the attacker is defeated by combat damage.
+#// Rukh (1/5, pre-damaged to 4) attacks the 3/1 SOR_128: his 1 power defeats it, and its 3 power finishes
+#// him. His attack-end condition ("if the defender was defeated") is met, so the 3 Advantage tokens are
+#// still handed out — here to the surviving SOR_046, which ends holding all three.
+#// Discriminating: under the old blanket survival gate a Rukh who traded with his target gave nothing.
+#// Rukh's handler ignores its mzID entirely, so it needs no live self-reference to resolve.
+
+## GIVEN
+CommonSetup: ggk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [ASH_036:1:4 SOR_046:1:0]
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:3

@@ -17,6 +17,7 @@ $customDQHandlers["ASH_094#0"] = function ($player, $parts, $lastDecision) {
   $jUID = intval($parts[3] ?? 0);
   $turnEffect = $parts[4] ?? '';
   $kind = $parts[5] ?? 'unit';
+  $upgradeToken = $parts[6] ?? '';   // persistent rider (Experience/Shield) — see SWUCreateUnitTokens
   $jMz = SWUFindMzByUID($jUID);
   if ($jMz === null || $tokenID === '' || $count < 1)
     return;   // Jerjerrod gone → can't pay
@@ -27,10 +28,10 @@ $customDQHandlers["ASH_094#0"] = function ($player, $parts, $lastDecision) {
   }
   for ($i = 0; $i < $count; $i++) {
     $uid = _SWUCreateOneToken(intval($player), $tokenID, $ready);
-    if ($turnEffect !== '') {
-      $mz = SWUFindMzByUID($uid);
-      if ($mz !== null)
-        AddTurnEffect($mz, $turnEffect);
-    }
+    $mz = ($turnEffect !== '' || $upgradeToken !== '') ? SWUFindMzByUID($uid) : null;
+    if ($turnEffect !== '' && $mz !== null)
+      AddTurnEffect($mz, $turnEffect);
+    if ($upgradeToken !== '' && $mz !== null)
+      _SWUApplyTokenRider(intval($player), $mz, $upgradeToken);
   }
 };

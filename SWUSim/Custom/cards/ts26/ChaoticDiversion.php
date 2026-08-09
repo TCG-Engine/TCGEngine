@@ -8,8 +8,21 @@
 $customDQHandlers["TS26_31#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if ($lastDecision && str_contains($lastDecision, '-')) {
+        // "Ready an enemy unit. IF YOU DO, it can't attack …" — the restriction is gated on the ready
+        // actually happening. Any enemy unit is a legal target, so the chosen one may already be READY
+        // (nothing to do) or barred from readying (SHD_193 Frozen in Carbonite); in both cases no ready
+        // occurred and the unit keeps its attacks. Compare exhausted-before against ready-after rather
+        // than assuming OnReadyCard succeeded.
+        $before = GetZoneObject($lastDecision);
+        $wasExhausted = ($before !== null && intval($before->Status ?? 1) === 0);
         OnReadyCard(intval($player), $lastDecision);
-        AddTurnEffect($lastDecision, 'CANT_ATTACK');
+        $after = GetZoneObject($lastDecision);
+        $nowReady = ($after !== null && intval($after->Status ?? 0) === 1);
+        // Directional: the unit can't attack the CHAOTIC DIVERSION PLAYER's base or units — not "can't
+        // attack" outright. If it later comes under that player's control the restriction stops biting.
+        if ($wasExhausted && $nowReady) {
+            AddTurnEffect($lastDecision, SWUMakeTurnEffect('CANT_ATTACK_VS', [intval($player)]));
+        }
     }
     GiveTokenUpgrade($player, '', ['token'=>'SHIELD','prompt'=>"Give_a_Shield_to_a_friendly_unit"]);
 };

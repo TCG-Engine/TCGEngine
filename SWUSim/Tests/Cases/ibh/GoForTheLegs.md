@@ -54,3 +54,28 @@ WithP2GroundArena: SEC_080:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P1NODECISION
+
+---
+
+# OfferIsENEMYGROUNDOnly_ExcludesFriendlyGroundAndEnemySpace
+#// IBH_018 Go for the Legs — "exhaust an ENEMY GROUND unit" has two independent restrictions, and this
+#// asserts the OFFER so both are proven at once rather than inferred from an outcome. The board carries
+#// a friendly ground unit, TWO enemy ground units and an enemy space unit; the pool is exactly the two
+#// enemy ground units — the friendly is excluded by side and the space unit by arena.
+#// Two enemy ground units are seated deliberately: with only one the choice would auto-resolve and there
+#// would be no pending decision left to assert.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:1}
+P1OnlyActions: true
+WithP1Hand: IBH_018
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1

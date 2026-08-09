@@ -1020,6 +1020,7 @@ $turnEffectRegistry = [
     'TS26_28' => ['kind' => 'STAT_BUFF',  'label' => '+{0}/+{1}'],  // Prime Minister Almec — a friendly unit +2/+2 this phase
     'TWI_072' => ['kind' => 'MARKER', 'label' => 'Enemies attacking it get -4/-0'], // I Have the High Ground (phase marker on the protected unit)
     'CANT_ATTACK' => ['kind' => 'MARKER', 'label' => "Can't attack this phase"], // phase-duration can't-attack marker
+    'CANT_ATTACK_VS' => ['kind' => 'MARKER', 'label' => "Can't attack player {0}'s base or units this phase"], // TS26_31 Chaotic Diversion — directional; params = [protected seat]
     'SWU_HEALED_PHASE' => ['kind' => 'MARKER', 'label' => 'Healed this phase'],   // TWI_042 Barriss — per-unit healed-this-phase marker
     'TWI_178' => ['kind' => 'GRANT_KEYWORD', 'value' => 'OVERWHELM', 'label' => 'Overwhelm'], // Planetary Invasion — grants Overwhelm this phase (the +1/+0 uses the generic SWUBUFF source)
     'SOR_217' => ['kind' => 'STAT_BUFF', 'duration' => SWU_DUR_ATTACK, 'label' => '+{0}/+{1}'],   // Shoot First — "+1/+0 for this attack" (deal-first half is the SHOOT_FIRST marker)
@@ -1868,8 +1869,15 @@ function _SWUTwi110BuffCount($obj): int {
     if ($player <= 0) return 0;
     $tgtUID = intval($obj->UniqueID ?? -1);
     $count = 0;
+    // ⚠ Do NOT filter the source scan to CardID === 'TWI_110'. The grant is keyed by the SOURCE UID, and
+    // the source is not always a Huyang: TS26_34 Fives enters play "with the When Played abilities of
+    // another unit", so a copied Huyang writes SWU_TWI110_{FIVES_uid}_{tgt}. A CardID-filtered reader
+    // never scanned Fives' UID, so the copied buff was recorded but permanently invisible — the target
+    // never got +2/+2. The flag is self-authenticating (only TWI_110#0, or a copy of it, ever writes this
+    // key), so scanning every friendly in-play unit by UID is both correct and sufficient — and it gives
+    // "while THIS unit is in play" the right semantics for the copy: the buff ends when FIVES leaves.
     foreach (array_merge(GetGroundArena($player) ?? [], GetSpaceArena($player) ?? []) as $u) {
-        if (!empty($u->removed) || ($u->CardID ?? '') !== 'TWI_110') continue;
+        if (!empty($u->removed)) continue;
         $count += GlobalEffectCount($player, 'SWU_TWI110_' . intval($u->UniqueID ?? -1) . '_' . $tgtUID);
     }
     return $count;
@@ -2409,7 +2417,8 @@ $playCostModifiers["TS26_61"] = function($player, $subjectObj) {
 };
 
 // TS26_36 Tribunal: "This unit costs 2 resources less to play for each other card you played this
-// phase." (SWU_CARDS_PLAYED counts cards already played this phase; Tribunal isn't counted yet.)
+// phase." SWU_CARDS_PLAYED counts cards played BEFORE this one — ActivateCard bumps it after the cost is
+// computed precisely so this reads "each OTHER card" and matches the pre-play UI affordability check.
 $playCostModifiers["TS26_36"] = function($player, $subjectObj) {
     return -2 * GlobalEffectCount(intval($player), 'SWU_CARDS_PLAYED');
 };
@@ -2728,7 +2737,7 @@ $oneShotPlayCharges = [
     ['flag'=>'SWU_LOF005_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && _SWULof005SharesKeywordWithFriendly(intval($p), $o->CardID ?? ''), 'consumeApplies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o), 'amount'=>fn($p,$o)=>1, 'consume'=>'remove'], // LOF_005 Morgan (charge spent on the next unit even if it doesn't share a keyword)
     ['flag'=>'SWU_SEC110_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // SEC_110 GNK
     ['flag'=>'SWU_TWI121_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>2, 'consume'=>'remove'],       // TWI_121 General's Blade
-    ['flag'=>'SWU_TS26035_DISCOUNT_NEXT',   'applies'=>fn($p,$o,$h)=>_SWUObjIsEvent($o),                                                   'amount'=>fn($p,$o)=>2, 'consume'=>'remove'],       // TS26_35 Ahsoka's Lightsabers
+    ['flag'=>'SWU_TS26035_DISCOUNT_NEXT',   'applies'=>fn($p,$o,$h)=>_SWUObjIsEvent($o),                                                   'amount'=>fn($p,$o)=>2 * GlobalEffectCount(intval($p), 'SWU_TS26035_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // TS26_35 Ahsoka's Lightsabers — two copies triggering before you play anything stack to -4 on that one event, and both are spent (cf. Rex/ASH_027)
     ['flag'=>'SWU_REX_DISCOUNT_NEXT',       'applies'=>fn($p,$o,$h)=>_SWUObjIsEvent($o),                                                   'amount'=>fn($p,$o)=>GlobalEffectCount(intval($p), 'SWU_REX_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // TS26_06 Rex
     ['flag'=>'SWU_TWI246_DISCOUNT',         'applies'=>fn($p,$o,$h)=>HasTrait($o->CardID ?? '', 'Republic'),                               'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // TWI_246 Tranquility
     ['flag'=>'SWU_SEC261_OFFICIAL_DISCOUNT','applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && HasTrait($o->CardID ?? '', 'Official'),          'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // SEC_261 Inspiring Senator
@@ -3078,26 +3087,36 @@ function SWUCreateUnitToken(int $player, string $tokenID, bool $ready = false): 
 // created token (e.g. 'CANT_ATTACK_BASES' for JTL_092, 'JTL_130' Sentinel) — it is also carried through
 // the Jerjerrod doubling so the doubled tokens get it too. ASH_094 Moff Jerjerrod's doubling is offered
 // ONCE for the whole batch (creating $count MORE on accept).
-function SWUCreateUnitTokens(int $player, string $tokenID, int $count, bool $ready = false, string $turnEffect = ''): array {
+function SWUCreateUnitTokens(int $player, string $tokenID, int $count, bool $ready = false, string $turnEffect = '', string $upgradeToken = ''): array {
     $uids = [];
     if ($count <= 0) return $uids;
     for ($i = 0; $i < $count; $i++) {
         $uid = _SWUCreateOneToken($player, $tokenID, $ready);
         $uids[] = $uid;
-        if ($turnEffect !== '') {
-            $mz = SWUFindMzByUID($uid);
-            if ($mz !== null) AddTurnEffect($mz, $turnEffect);
-        }
+        $mz = ($turnEffect !== '' || $upgradeToken !== '') ? SWUFindMzByUID($uid) : null;
+        if ($turnEffect !== '' && $mz !== null) AddTurnEffect($mz, $turnEffect);
+        // $upgradeToken is the PERSISTENT rider (an Experience/Shield token upgrade) as opposed to the
+        // phase-scoped $turnEffect. Both ride through the Jerjerrod doubling below; a card that creates
+        // tokens "and gives X to it" must pass its rider here rather than stamping the returned UIDs,
+        // or the doubled tokens arrive bare (TS26_14 Yoda's Sentinel, TS26_55 Jedi General's Experience).
+        if ($upgradeToken !== '' && $mz !== null) _SWUApplyTokenRider($player, $mz, $upgradeToken);
     }
-    _SWUMaybeOfferJerjerrodDouble($player, $tokenID, $count, $ready, $turnEffect);
+    _SWUMaybeOfferJerjerrodDouble($player, $tokenID, $count, $ready, $turnEffect, 'unit', $upgradeToken);
     return $uids;
+}
+
+// Apply a persistent token-upgrade rider to a freshly created token. Kept in one place so the immediate
+// creation and the Jerjerrod-doubled creation cannot drift apart.
+function _SWUApplyTokenRider(int $player, string $mz, string $upgradeToken): void {
+    if ($upgradeToken === 'EXPERIENCE') { DoGiveExperienceToken($player, $mz); return; }
+    if ($upgradeToken === 'SHIELD')     { DoGiveShieldToken($player, $mz); return; }
 }
 
 // ASH_094 Moff Jerjerrod — "If you would create a number of tokens, you may defeat this unit. If you do,
 // create twice that number of tokens instead." The $count tokens were just created; if $player controls a
 // Jerjerrod, offer to defeat it and create $count MORE of the same token (net 2×count). Gated on a
 // Jerjerrod being in play, so the no-Jerjerrod path is byte-for-byte the old behavior.
-function _SWUMaybeOfferJerjerrodDouble(int $player, string $tokenID, int $count, bool $ready, string $turnEffect = '', string $kind = 'unit'): void {
+function _SWUMaybeOfferJerjerrodDouble(int $player, string $tokenID, int $count, bool $ready, string $turnEffect = '', string $kind = 'unit', string $upgradeToken = ''): void {
     if ($count < 1) return;
     $jUID = 0;
     foreach (GetUnitsInPlay($player) as $u) {
@@ -3107,7 +3126,7 @@ function _SWUMaybeOfferJerjerrodDouble(int $player, string $tokenID, int $count,
     $r = $ready ? 1 : 0;
     DecisionQueueController::AddDecision($player, 'YESNO', '-', 1,
         tooltip: 'Defeat_Moff_Jerjerrod_to_create_twice_as_many_tokens?');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', "ASH_094#0|{$tokenID}|{$count}|{$r}|{$jUID}|{$turnEffect}|{$kind}", 1);
+    DecisionQueueController::AddDecision($player, 'CUSTOM', "ASH_094#0|{$tokenID}|{$count}|{$r}|{$jUID}|{$turnEffect}|{$kind}|{$upgradeToken}", 1);
 }
 
 // True if $obj is a valid "Resistance unit OR a unit with a Resistance upgrade on it" target
@@ -4326,6 +4345,14 @@ function SWUMoveUnitToUpgrade(string $unitMz, string $hostMz, bool $isPilot = tr
     }
 
     if (!is_array($host->Subcards)) $host->Subcards = [];
+    // ⚠ A card can only be a PILOT upgrade if it actually has the Pilot trait, so derive rather than
+    // trusting the caller's flag. Every "attach this unit as an upgrade" ability passes true because the
+    // card that owns the ability is itself a Pilot (Sidon Ithano, Pantoran Starship Thief, Corvus's
+    // chosen pilot) — but TS26_34 Fives can COPY those abilities, and Fives is a Trooper, not a Pilot.
+    // Flagging him IsPilot made the host count as "has a Pilot on it", which wrongly blocked its
+    // controller from later attaching a real Pilot to that Vehicle. Readers already OR this flag with the
+    // Pilot trait, so narrowing it is a no-op for every genuine Pilot and only corrects the copied case.
+    $isPilot = $isPilot && $cardID !== '' && HasTrait($cardID, 'Pilot');
     $pilotSub = (object)[
         'CardID'      => $cardID,
         'Owner'       => $owner,
@@ -4885,12 +4912,8 @@ function OnReadyCard($player, $mzID) {
             AddGameLogEntry('EFFECT', GameLogCardRef((string)($obj->CardID ?? '')) . " can't ready this round (" . GameLogCardRef('SOR_186') . ")");
             $playerID = $savedPID; return $mzID;
         }
-        // SEC_037: locked "can't ready while [the source] is in play."
-        if ($uid > 0 && _SWUReadyLockedWhileSourceInPlay($ctrl, $uid)) { $playerID = $savedPID; return $mzID; }
-        // LAW_077 Shadow of Stygeon Prime: attached unit can't ready (continuous while attached).
-        if (_SWUUnitHasUpgrade($obj, 'LAW_077')) { $playerID = $savedPID; return $mzID; }
-        // SHD_193 Frozen in Carbonite: attached unit can't ready (continuous while attached).
-        if (_SWUUnitHasUpgrade($obj, 'SHD_193')) { $playerID = $savedPID; return $mzID; }
+        // SEC_037 locked-while-source-in-play / LAW_077 / SHD_193 — see _SWUUnitCantReadyNow.
+        if (_SWUUnitCantReadyNow($obj)) { $playerID = $savedPID; return $mzID; }
         $obj->Status = 1;
         _SWUTs26063OnEnemyReady($obj);   // Rex's DC-17s — ready its host when an enemy unit readies (action phase)
         // JTL_192 In Debt to Crimson Dawn — "When attached unit readies: exhaust it unless its controller
@@ -4916,6 +4939,23 @@ function OnReadyCard($player, $mzID) {
     return $mzID;
 }
 
+// Mid-phase "this unit can't ready" restrictions, shared by OnReadyCard and by any effect that readies a
+// unit WITHOUT going through it (TS26_63 Rex's DC-17s writes Status directly to avoid recursing into the
+// ready observers). The regroup step has its own, wider list — that one also covers wordings which only
+// skip the regroup ready, which these effects must NOT honour.
+function _SWUUnitCantReadyNow($obj): bool {
+    if ($obj === null) return false;
+    $uid  = intval($obj->UniqueID ?? 0);
+    $ctrl = intval($obj->Controller ?? 0);
+    // SEC_037: locked "can't ready while [the source] is in play."
+    if ($uid > 0 && $ctrl > 0 && _SWUReadyLockedWhileSourceInPlay($ctrl, $uid)) return true;
+    // LAW_077 Shadow of Stygeon Prime: attached unit can't ready (continuous while attached).
+    if (_SWUUnitHasUpgrade($obj, 'LAW_077')) return true;
+    // SHD_193 Frozen in Carbonite: attached unit can't ready (continuous while attached).
+    if (_SWUUnitHasUpgrade($obj, 'SHD_193')) return true;
+    return false;
+}
+
 // TS26_63 Rex's DC-17s (upgrade) — "Attached unit gains: When an enemy unit readies during the action
 // phase, ready this unit. Once each round." Fires from OnReadyCard after $readied is readied.
 function _SWUTs26063OnEnemyReady($readied): void {
@@ -4927,6 +4967,13 @@ function _SWUTs26063OnEnemyReady($readied): void {
         if (empty($host->removed) && _SWUUnitHasUpgrade($host, 'TS26_63')) {
             $huid = intval($host->UniqueID ?? 0);
             if (GlobalEffectCount($p, 'SWU_TS26063_USED_' . $huid) > 0) continue;   // once each round
+            // Writing Status directly avoids recursing into OnReadyCard's observers, but it also skipped
+            // its can't-ready checks — a host under Frozen in Carbonite readied anyway. Check them here.
+            // Deliberately BEFORE consuming the once-per-round use: a ready that cannot happen is not a use.
+            if (_SWUUnitCantReadyNow($host)) continue;
+            // Same reasoning for a host that is ALREADY ready — there is nothing to ready, so the once-per-
+            // round use is still available for a later enemy ready in the same round.
+            if (intval($host->Status ?? 0) === 1) continue;
             AddGlobalEffects($p, 'SWU_TS26063_USED_' . $huid);
             $host->Status = 1;                                // ready the host directly (no recursion into OnReadyCard)
         }
@@ -8739,7 +8786,64 @@ function SWUReadyResources(int $player, int $count): int {
 // When-Defeated abilities on the leaving unit. Also sets the SWU_ENEMY_LEFT_PLAY phase flag on the
 // opponent (for "if an enemy unit left play this phase" checks — Boba's deployed OnAttackEnd).
 // Caller flushes the trigger bag. $defeated distinguishes a defeat from a bounce/other leave.
+
+// Simultaneous-defeat window. A card whose text defeats several units AT ONCE ("Defeat all units")
+// still walks them one at a time through SWUDefeatUnit, so any observer that reads the board would
+// see it shrink mid-effect. Wrapping the loop in Begin/End tells the leave-play collector to judge
+// every defeat in the batch against the board as it stood when the effect started. Always pair them
+// (End in a finally-style position) — a window left open would freeze the next effect's counts too.
+function SWUSimulDefeatBegin(): void {
+    $GLOBALS['gSimulDefeatWindow'] = true;
+    unset($GLOBALS['gSimulDefeatSidious']);
+}
+function SWUSimulDefeatEnd(): void {
+    $GLOBALS['gSimulDefeatWindow'] = false;
+    unset($GLOBALS['gSimulDefeatSidious']);
+}
 function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
+    // TS26_13 Darth Sidious — snapshot how many Sidious units were in play WHEN these cards left, per
+    // seat, before walking the batch. This collection runs after every card in $leftCards is already
+    // marked removed, so a live count would miss a Sidious who died in the same batch — yet he was in
+    // play when those units were defeated and still sees each of them (his own defeat included). Add
+    // any Sidious in $leftCards back to the snapshot; a bounce/other leave does not count, hence the
+    // $defeated gate.
+    $sidiousPerSeat = [];
+    $sidiousLiveMz  = [];
+    global $playerID; $savedSidPID = $playerID;
+    foreach ([1, 2] as $sp) {
+        $playerID = $sp;
+        $n = 0;
+        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o === null || !empty($o->removed) || ($o->CardID ?? '') !== 'TS26_13') continue;
+                $n++;
+                $sidiousLiveMz[$mz] = true;
+            }
+        }
+        $sidiousPerSeat[$sp] = $n;
+    }
+    $playerID = $savedSidPID;
+    if ($defeated) {
+        foreach ($leftCards as $d0) {
+            if (($d0['cardID'] ?? '') !== 'TS26_13') continue;
+            // Only add back a Sidious the live scan MISSED. Different callers reach this collector at
+            // different points — combat marks its dead removed first (scan finds nothing, add back), while
+            // the effect-defeat path collects before the mark lands (scan already found him). Adding back
+            // unconditionally double-counted him and doubled every droid.
+            if (!empty($d0['mzID']) && isset($sidiousLiveMz[$d0['mzID']])) continue;
+            $sp0 = intval($d0['player'] ?? 0);
+            if (isset($sidiousPerSeat[$sp0])) $sidiousPerSeat[$sp0]++;
+        }
+        // A card that defeats several units AT ONCE ("Defeat all units") still reaches this collector one
+        // unit at a time, so a Sidious killed by the wipe would stop counting partway through the very
+        // batch he was alive for. SWUSimulDefeatBegin/End open a window that freezes the seat counts for
+        // the whole effect; outside such a window nothing is cached and each defeat is judged on its own.
+        if (!empty($GLOBALS['gSimulDefeatWindow'])) {
+            if (!isset($GLOBALS['gSimulDefeatSidious'])) $GLOBALS['gSimulDefeatSidious'] = $sidiousPerSeat;
+            $sidiousPerSeat = $GLOBALS['gSimulDefeatSidious'];
+        }
+    }
     foreach ($leftCards as $d) {
         $controller = intval($d['player'] ?? 0);
         if ($controller <= 0) continue;
@@ -8770,7 +8874,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             $dTypeSid = CardType($d['cardID'] ?? '') ?? '';
             if (strpos($dTypeSid, 'Unit') !== false && strpos(strtolower($dTypeSid), 'token') === false) {
                 foreach ([1, 2] as $sp) {
-                    $nSid = _SWUCountActiveUnitsWithCardID($sp, 'TS26_13');
+                    $nSid = intval($sidiousPerSeat[$sp] ?? 0);   // batch-aware: see the snapshot above
                     for ($i = 0; $i < $nSid; $i++) SWUCreateUnitToken($sp, 'TS26_T01');
                 }
             }
@@ -12230,13 +12334,18 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         return;
     }
     AddGameLogEntry('PLAY', 'P' . intval($player) . ' played ' . GameLogCardRef($cardID));
-    AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');  // cards-played-this-phase counter (any type)
     if (function_exists('SWUTelemetryBumpCard')) { SWUTelemetryBumpCard($player, $cardID, 'played'); SWUTelemetryBumpTurn($player, 'cardsUsed'); }
     $rawType       = CardType($cardID);
     // Cost (base + aspect penalty + all play-cost modifiers) — single source of
     // truth shared with the UI affordability check. See $playCostModifiers.
     // $discount (e.g. SOR_093 "It costs 1 resource less") is subtracted, floored at 0.
     $cost          = max(0, SWUComputePlayCost($player, $obj) - intval($discount));
+    // cards-played-this-phase counter (any type). Bumped AFTER the cost is computed, so a modifier that
+    // reads "for each OTHER card you played this phase" (TS26_36 Tribunal) sees the cards that came
+    // before this one — the same view the UI affordability check gets, since that runs before the play.
+    // Bumping first made Tribunal count ITSELF and cost 2 less than it should. Everything downstream
+    // (e.g. the Coordinate "exactly the 2nd card" check) still sees a count that includes this card.
+    AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
     // Consume every one-shot "next X costs N less" charge this play triggered — table-driven, so the set
     // spent always matches the set _SWUPlayCostModifierDelta applied at cost time (SOR_056 Bendu / JTL_098
     // Snap / JTL_008 Wedge-as-unit / LOF_005 Morgan / SEC_110 / TWI_121 / TS26_35 / TS26_06 Rex / TWI_246 /
@@ -13395,14 +13504,14 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
         }
         if (!$hasUpg) return false;
     }
-    // TS26_02 Anakin / TS26_04 Padmé (front): only if 2+ friendly units entered play this phase.
-    if ($cardID === 'TS26_02' || $cardID === 'TS26_04') {
-        $ent = 0;
-        foreach (GetUnitsInPlay($player) as $u) {
-            if (empty($u->removed) && GlobalEffectCount($player, 'SWU_ENTERED_PHASE_' . intval($u->UniqueID ?? -1)) > 0) $ent++;
-        }
-        if ($ent < 2) return false;
-    }
+    // TS26_02 Anakin / TS26_04 Padmé (front) are deliberately NOT gated here.
+    // RULING (2026-08-09): their Action costs nothing but [Exhaust], so it may always be taken as a "soft
+    // pass" — exhausting a leader is itself a change to the gamestate, which satisfies CR 8.1.4. The
+    // "if 2 or more friendly units entered play this phase" clause is part of the ABILITY's resolution,
+    // not part of its cost, so it belongs in the closure (which already no-ops) — never in affordability.
+    // ⚠ The old gate here also counted units CURRENTLY IN PLAY carrying the entry flag, which made the
+    // whole action silently unavailable the moment one of the two entrants died or was stolen — the
+    // leader stayed ready, the closure never ran, and nothing reported why.
     // TS26_06 Rex (front): the ready-an-exhausted-enemy cost needs an exhausted enemy unit in play.
     if ($cardID === 'TS26_06') {
         $hasExh = false;
@@ -14731,6 +14840,13 @@ function _SWUSmuggleFireEntry(int $player, string $cardID, string $newCardMzID, 
     if (_SWULeaderReadyUndeployed($player, 'SHD_005')) {
         AddTrigger($player, 'SHD_005', 'SHD_005', '');
     }
+    // Stamp "this unit entered play via Smuggle" on the entering object, keyed by UniqueID. The generic
+    // entry bag below only BAGS its triggers — they resolve later, possibly across a request boundary —
+    // so a transient variable would be gone by the time a When Played closure runs. TS26_34 Fives needs
+    // this: he can copy a "When played using Smuggle" ability, which may only fire if HE too was smuggled.
+    $_smUnit = GetZoneObject($newCardMzID);
+    $_smUID  = ($_smUnit !== null) ? intval($_smUnit->UniqueID ?? 0) : 0;
+    if ($_smUID > 0) AddGlobalEffects($player, 'SWU_SMUGGLED_' . $_smUID);
     $triggered = CollectEntryTriggers($player, $cardID, $newCardMzID, $targetArena);
     // LOF_197 Qui-Gon Jinn's Aethersprite — a SMUGGLED card's When-Played ability also counts as "a When
     // Played ability you use this phase"; this path fires $whenPlayedUsingSmuggleAbilities directly (never

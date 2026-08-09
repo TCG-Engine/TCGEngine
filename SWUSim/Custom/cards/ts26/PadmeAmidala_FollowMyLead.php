@@ -21,8 +21,16 @@ $onAttackEndAbilities["TS26_04:0"] = function($player, $mzID) {
 // another entered unit.)
 $leaderAbilities["TS26_04"] = function(int $player): void {
     global $playerID; $playerID = intval($player);
+    // Same split as TS26_02 Anakin: the GATE asks how many friendly units ENTERED play this phase (a fact
+    // about the past that a later defeat or control change cannot undo, so it counts entry flags), while
+    // the TARGET POOL is who can actually attack now (live, currently friendly). Using the live list for
+    // both meant a 2-unit turn where one entrant died or was stolen silently failed the gate.
+    // RULING (2026-08-09): this Action costs nothing but [Exhaust], so it is always usable as a soft pass —
+    // falling through here still exhausts Padmé and simply does nothing.
     $entered = _SWUEnteredThisPhaseUnits(intval($player));
-    if (count($entered) < 2) { SWUAfterAction(intval($player)); return; }
+    if (_SWUEnteredThisPhaseCount(intval($player)) < 2 || empty($entered)) {
+        SWUAfterAction(intval($player)); return;
+    }
     SWUQueueChooseTarget(intval($player), $entered, "Attack_with_a_unit_that_entered_this_phase_(no_bases)", "TS26_04#0");
 };
 

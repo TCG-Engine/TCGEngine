@@ -68,3 +68,48 @@ P1HANDCOUNT:1
 P1DECKCOUNT:0
 P1DISCARDCOUNT:3
 P1NODECISION
+
+---
+
+# FewerThanThreeCardsInDeck_RevealsOnlyWhatIsThere
+#// IBH_009 I've Found Them — "reveal the top 3" clamps to the deck size. With only 2 cards left (a Unit
+#// and an event) both are revealed, the Unit is drawn and the event is discarded; the deck empties
+#// without error. Discard = the played event + the 1 unchosen reveal = 2.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: IBH_009
+WithP1Deck: SOR_095
+WithP1Deck: SOR_171
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:SOR_095
+
+## EXPECT
+P1HANDCOUNT:1
+P1DECKCOUNT:0
+P1DISCARDCOUNT:2
+P1NODECISION
+
+---
+
+# EmptyDeck_NothingRevealedAndNothingDrawn
+#// IBH_009 I've Found Them — played on an EMPTY deck it resolves cleanly as a no-op: nothing is
+#// revealed, nothing is drawn, and the only card in the discard is the event itself. No dangling
+#// decision is left behind.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: IBH_009
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:0
+P1DECKCOUNT:0
+P1DISCARDCOUNT:1
+P1NODECISION

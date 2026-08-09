@@ -1555,6 +1555,44 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     }
 }
 
+// Does this card's attack-end ability require the attacker to SURVIVE the attack?
+//
+// CR 16.c makes firing-on-death the DEFAULT for "When Attack Ends"; survival is an opt-in carried by the
+// "(and survives)" rider on the older "completes an attack" templating. Two sources, because the printed
+// text is not always explicit:
+//   1. the text rider, read from the dictionary (covers any future card without touching this list), and
+//   2. this explicit roster, for cards whose printed text omits the rider but which still require it.
+// ⚠ Do NOT infer membership from the phrase "When Attack Ends" or a bare "completes an attack" — those
+// say nothing about survival, and a text-only heuristic wrongly marks ~11 of these as fire-on-death.
+function _SWUAttackEndRequiresSurvival(string $cardID): bool {
+    static $mustSurvive = [
+        'SEC_096' => 1,  // Ahsoka Tano — I Learned It From You
+        'SOR_015' => 1,  // Boba Fett — Collecting the Bounty
+        'SEC_107' => 1,  // Chancellor Valorum — Civil Servant
+        'SEC_006' => 1,  // Colonel Yularen — This Is Why We Plan
+        'SHD_059' => 1,  // Embo — Stoic and Resolute
+        'SOR_192' => 1,  // Ezra Bridger — Resourceful Troublemaker
+        'TWI_053' => 1,  // Finn — On the Run
+        'LAW_033' => 1,  // Hound's Tooth — Hunters' Approach
+        'LOF_156' => 1,  // Infused Brawler
+        'SEC_003' => 1,  // Lama Su — We Modified Their Genetics
+        'SOR_009' => 1,  // Leia Organa — Alliance General
+        'LAW_054' => 1,  // Maul — Master of the Shadow Collective
+        'LAW_074' => 1,  // Maz Kanata — Where's My Boyfriend?
+        'LOF_038' => 1,  // Pong Krell — It's Treason Then
+        'LOF_016' => 1,  // Qui-Gon Jinn — Student of the Living Force
+        'LAW_001' => 1,  // Saw Gerrera — Bring Down the Empire
+        'SEC_174' => 1,  // Saw Gerrera's U-Wing — Breaking the Rules
+        'JTL_070' => 1,  // U-Wing Lander
+        'LAW_215' => 1,  // Vermillion — Qi'ra's Auction House
+        'SOR_146' => 1,  // Zeb Orrelios — Headstrong Warrior
+        'JTL_089' => 1,  // The Invisible Hand — Crawling With Vultures ("(and survives)" in its text)
+    ];
+    if (isset($mustSurvive[$cardID])) return true;
+    $txt = (string)(CardText($cardID) ?? '') . ' ' . (string)(CardDeployText($cardID) ?? '');
+    return stripos($txt, 'completes an attack (and survives)') !== false;
+}
+
 // After-attack: fires unconditionally so handlers can inspect the outcome.
 function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID, array $combatCtx = []): void {
     $attacker = GetZoneObject($attackerMzID);
@@ -1594,6 +1632,23 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
         if ($attacker->CardID !== 'SOR_146' || !empty($combatCtx['defenderDefeated'])) {
             AddTrigger($activePlayer, 'OnAttackEnd', $attacker->CardID, $attackerMzID);
         }
+    }
+    // CR 16.c — a "When Attack Ends" ability STILL triggers when the unit it is on is defeated by combat
+    // damage. That is the DEFAULT; requiring survival is the exception, opted into per-card by the
+    // "(and survives)" rider (see _SWUAttackEndRequiresSurvival). The surviving-attacker gate above stays
+    // as-is for the opt-in cards; everything else needs this second path.
+    // The trigger resolves after the dead attacker has been purged, so it carries NO mzID and the CardID
+    // comes from combatCtx — the object may already be unreachable. Every handler on this path either
+    // ignores its mzID, or is self-targeting (ready/shield THIS unit) and already no-ops via SWUObjGone,
+    // or uses the mzID purely to exclude ITSELF from an "another friendly unit" pool, which a dead
+    // attacker satisfies for free.
+    $deadEndCardID = strval($combatCtx['attackerCardID'] ?? '');
+    if (($attacker === null || isset($attacker->removed))
+        && $deadEndCardID !== ''
+        && !_SWUAttackEndRequiresSurvival($deadEndCardID)
+        && isset($onAttackEndAbilities[$deadEndCardID . ':0'])
+        && ($attacker === null || !LostAbilities($attacker))) {
+        AddTrigger($activePlayer, 'OnAttackEnd', $deadEndCardID, '');
     }
     // Upgrade-granted "When attached unit completes an attack (and survives): ..." — the surviving-
     // attacker null check above is the "and survives" gate (a defeated attacker is removed by now).
@@ -2188,7 +2243,10 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // WhenDealsCombatDamage / WhenDefeats abilities (Rukh, Mace, Seventh Sister, SOR_088).
     $combatCtx = ['dealtToBase' => false, 'dealtToUnit' => false, 'defenderDefeated' => false,
                   'defenderIsLeader' => false, 'excess' => 0, 'attackerSelfDefeat' => false,
-                  'law205SelfDefeat' => false, 'baseCombatDmg' => 0, 'ash184GiveAdv' => false];
+                  'law205SelfDefeat' => false, 'baseCombatDmg' => 0, 'ash184GiveAdv' => false,
+                  // Attacker identity captured BEFORE damage, so a "When Attack Ends" ability that must
+                  // still fire when its own unit dies (CR 16.c) can be recognised after the object is gone.
+                  'attackerCardID' => ($attacker !== null) ? ($attacker->CardID ?? '') : ''];
     // Capture attack-duration markers NOW (before SWUExpireTurnEffects('attack') strips them later):
     // SOR_150 Heroic Sacrifice's granted "when it deals combat damage: defeat it"; JTL_177 Stay on
     // Target's "deal damage to a base → draw"; JTL_193 I Have You Now's damage prevention on the attacker.
@@ -2820,9 +2878,11 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
     // JTL_092 Scramble Fighters: tokens marked "can't attack bases for this phase".
     if ($attackerObj !== null && is_array($attackerObj->TurnEffects ?? null)
         && in_array('CANT_ATTACK_BASES', $attackerObj->TurnEffects)) $noBases = true;
-    // "Can't attack this phase" marker → no valid attacks at all (glow off).
+    // "Can't attack this phase" marker → no valid attacks at all (glow off). The directional
+    // CANT_ATTACK_VS variant does the same only while it names this unit's sole opponent.
     if ($attackerObj !== null && is_array($attackerObj->TurnEffects ?? null)
         && in_array('CANT_ATTACK', $attackerObj->TurnEffects, true)) return [];
+    if (_SWUDirectionalCantAttackBlocksAll($attackerObj)) return [];
     if (!$noBases) {
         $oppBase = GetZone("{$tp}Base");
         for ($i = 0; $i < count($oppBase); $i++) {
@@ -2856,6 +2916,35 @@ function SWUGetAllValidAttackTargets(int $attackerCtrl, $attackerObj, string $ar
 // "This unit can't attack" units (JTL_059 Corporate Defense Shuttle, LOF_044) or a CANT_ATTACK turn-effect.
 // Used to exclude ineligible attackers from event-granted "attack with a unit" pickers (Outflank etc.),
 // matching normal attack-declaration legality — not just at resolution time.
+// TS26_31 Chaotic Diversion — "it can't attack YOUR base or units YOU control for this phase". The
+// restriction names a PLAYER, not the unit's ability to attack at all, so a plain CANT_ATTACK marker is
+// wrong here: once the unit changes controller (SOR_224 Change of Heart) the protected player is no
+// longer one of its opponents and it can attack normally again. Returns the seats it may not attack.
+function _SWUCantAttackSeats($unit): array {
+    if ($unit === null || !is_array($unit->TurnEffects ?? null)) return [];
+    $seats = [];
+    foreach ($unit->TurnEffects as $te) {
+        $p = SWUParseTurnEffect((string)$te);
+        if ($p['base'] !== 'CANT_ATTACK_VS') continue;
+        $n = intval($p['params'][0] ?? 0);
+        if ($n > 0) $seats[$n] = true;
+    }
+    return array_keys($seats);
+}
+
+// True when the directional marker above bars every side this unit could attack — i.e. it names the
+// unit's ONLY opponent. With more than one opponent (Twin Suns) some target is still legal, so the unit
+// is not hard-blocked and the ordinary target filtering applies.
+function _SWUDirectionalCantAttackBlocksAll($unit): bool {
+    $seats = _SWUCantAttackSeats($unit);
+    if (empty($seats)) return false;
+    $ctrl = intval($unit->Controller ?? 0);
+    if ($ctrl <= 0) return false;
+    $opps = OpponentsOf($ctrl);
+    if (count($opps) !== 1) return false;
+    return in_array(intval($opps[0]), array_map('intval', $seats), true);
+}
+
 function _SWUUnitHardCantAttack($unit): bool {
     if ($unit === null) return false;
     $cid = $unit->CardID ?? '';
@@ -2864,6 +2953,7 @@ function _SWUUnitHardCantAttack($unit): bool {
     // not an ability of the unit, and survives blanking.
     if (($cid === 'JTL_059' || $cid === 'LOF_044') && !LostAbilities($unit)) return true;
     if (is_array($unit->TurnEffects ?? null) && in_array('CANT_ATTACK', $unit->TurnEffects, true)) return true;
+    if (_SWUDirectionalCantAttackBlocksAll($unit)) return true;
     return false;
 }
 
@@ -2948,6 +3038,12 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     }
     // "This unit can't attack for this phase" marker (TWI_039 Malevolence). Hard no-op.
     if (is_array($attacker->TurnEffects ?? null) && in_array('CANT_ATTACK', $attacker->TurnEffects, true)) {
+        $playerID = $savedPID;
+        return;
+    }
+    // Directional "can't attack <player>'s base or units" (TS26_31 Chaotic Diversion) — a no-op only
+    // while that player is the attacker's sole opponent; a control change lifts it.
+    if (_SWUDirectionalCantAttackBlocksAll($attacker)) {
         $playerID = $savedPID;
         return;
     }

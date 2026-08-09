@@ -16,3 +16,28 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:5
 P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# TheBonusCountsExperienceAcrossALLFriendlyUnits
+#// TS26_58 Backed by the Pykes — "damage equal to the number of Experience tokens on FRIENDLY UNITS",
+#// summed over the whole board rather than just the unit that was given one. SEC_080 starts with 1 and
+#// SOR_095 with 2; the event adds a third to SEC_080, so the total is 4 and LAW_124 takes 4.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:3;handCardIds:TS26_58}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [SEC_080:1:0 SOR_095:1:0]
+WithP1GroundArenaUpgrade: 0:SOR_T01
+WithP1GroundArenaUpgrade: 1:SOR_T01
+WithP1GroundArenaUpgrade: 1:SOR_T01
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:4

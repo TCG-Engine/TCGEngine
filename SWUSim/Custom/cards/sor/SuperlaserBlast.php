@@ -18,10 +18,15 @@ $whenPlayedAbilities["SOR_043:0"] = function($player, $mzID = '') {
                     if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID);
                 }
             }
+            // The wipe is ONE simultaneous defeat, so board-reading observers (TS26_13 Darth Sidious's
+            // "when a non-token unit is defeated") must see the board as it stood before any of it —
+            // otherwise a Sidious caught in the blast stops counting halfway through his own batch.
+            SWUSimulDefeatBegin();
             foreach ($uids as $uid) {
                 $playerID = intval($player);
                 $mz = SWUFindMzByUID($uid);
                 if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
             }
+            SWUSimulDefeatEnd();
             return;
 };

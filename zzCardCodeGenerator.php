@@ -1275,8 +1275,14 @@ if($rootName == "SWUSim") {
     // written either tight ("When Played/On Attack:") or spaced ("When Played / On Attack / When
     // Defeated:", IC27_024 Grand Admiral Thrawn). A strpos on the tight form alone silently detected
     // only the LAST window of a spaced header, leaving the other trigger halves as in-game no-ops.
+    // ⚠ "When Deployed" needs BOTH forms for the same reason "When Played" does. TS26_03 Maul reads
+    // "When Deployed/On Attack:" — a compound header where "When Deployed" is followed by a SLASH, not a
+    // colon. The colon-only check silently missed it, so Maul's registered $whenPlayedAbilities handler
+    // was never dispatched and his When Deployed was an in-game no-op (his On Attack half worked, which
+    // is exactly what made it look fine). Mirror the When Played slash pattern.
     if(strpos($combined, "When Played:") !== false || preg_match('/When Played\s*\//i', $combined) === 1
       || strpos($combined, "When Deployed:") !== false
+      || preg_match('/When Deployed\s*\//i', $combined) === 1
       // Dual-mode Pilot cards trigger their unit-play ability through the WhenPlayed window when
       // played as a unit. The colon form is unit-only (JTL_100/210/213); the slash form is a compound
       // window, e.g. "When played as a unit/On Attack:" (JTL_098).

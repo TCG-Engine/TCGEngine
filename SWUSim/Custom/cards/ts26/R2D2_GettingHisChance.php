@@ -14,6 +14,14 @@ $customDQHandlers["TS26_62#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision) || !str_contains($lastDecision, '-')) return;
     $bp = ($lastDecision === 'myBase-0') ? intval($player) : OtherPlayer(intval($player));
+    // "…deal 2 damage to a base. IF YOU DO, that base's controller draws a card." The draw is gated on
+    // damage ACTUALLY landing — JTL_074 Close the Shield Gate (or any other prevention on that base)
+    // stops it, and then nobody draws. Sample the base before and after rather than assuming it stuck.
+    $dmgOf = function(int $seat): int {
+        foreach (GetBase($seat) as $b) { if (empty($b->removed)) return intval($b->Damage ?? 0); }
+        return 0;
+    };
+    $before = $dmgOf($bp);
     SWUDealDamageToBase(2, $bp);
-    DoDrawCard($bp, 1);   // that base's controller draws
+    if ($dmgOf($bp) > $before) DoDrawCard($bp, 1);   // that base's controller draws
 };

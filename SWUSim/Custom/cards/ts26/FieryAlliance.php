@@ -13,7 +13,10 @@ $whenPlayedAbilities["TS26_25:0"] = function($player, $mzID) {
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval($o->Status) === 1
+            // "another friendly unit" — the only exclusion is the host. Readiness is NOT a condition:
+            // an exhausted unit is a legal choice, you just do as much as you can (it takes the 1 damage
+            // and the attack half simply doesn't happen). Filtering to ready units hid those targets.
+            if ($o !== null && empty($o->removed)
                 && intval($o->UniqueID ?? -2) !== $hostUID) $tg[] = $mz;
         }
     }
@@ -29,5 +32,11 @@ $customDQHandlers["TS26_25#0"] = function($player, $parts, $lastDecision) {
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
     $mz = ($uid >= 0) ? SWUFindMzByUID($uid) : null;
     if ($mz === null) return;   // the unit died to the 1 damage → can't attack
+    // "…and attack with it" — this card does NOT say "even if it's exhausted" (compare TS26_02 Anakin /
+    // TS26_04 Padmé / TS26_07 Asajj, which do). BeginSWUAttack does not enforce readiness for an
+    // effect-driven attack, so an exhausted choice would have swung anyway; the damage half already
+    // happened, and that is as much as you can do.
+    $atk = GetZoneObject($mz);
+    if ($atk === null || intval($atk->Status ?? 0) !== 1) return;
     BeginSWUAttack(intval($player), $mz);   // combat owns the after-action
 };
