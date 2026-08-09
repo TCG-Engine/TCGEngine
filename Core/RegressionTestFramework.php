@@ -133,7 +133,11 @@ function RegressionCurrentGamestateFromMemory($gameName) {
 
   $cached = apcu_fetch(GetGamestateStorageKey($gameName));
   if ($cached === false) return null;
-  return is_string($cached) ? $cached : strval($cached);
+  if (function_exists('SimGameNormalizeCacheRecord')) {
+    $record = SimGameNormalizeCacheRecord($cached);
+    return $record['gamestate'] !== '' ? $record['gamestate'] : null;
+  }
+  return is_string($cached) ? $cached : null;
 }
 
 function RegressionClearGamestateMemory($gameName) {

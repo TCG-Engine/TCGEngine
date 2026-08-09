@@ -51,7 +51,10 @@ function BridgeEnsureDraftGame($root, $gameName) {
   if (function_exists('GamestateUsesMemoryStorage') && GamestateUsesMemoryStorage()) {
     if (function_exists('GetGamestateStorageKey') && function_exists('apcu_fetch')) {
       $cached = apcu_fetch(GetGamestateStorageKey($gameName));
-      $hasMemoryGamestate = ($cached !== false);
+      if ($cached !== false && function_exists('SimGameNormalizeCacheRecord')) {
+        $cached = SimGameNormalizeCacheRecord($cached)['gamestate'];
+      }
+      $hasMemoryGamestate = (is_string($cached) && $cached !== '');
     }
   }
 
@@ -72,14 +75,14 @@ function BridgeEnsureDraftGame($root, $gameName) {
 
 function BridgeHydrateDiskGamestateIntoMemory($root, $gameName, $gameDir) {
   if (!function_exists('GamestateUsesMemoryStorage') || !GamestateUsesMemoryStorage()) return;
-  if (!function_exists('GetGamestateStorageKey') || !function_exists('apcu_store')) return;
+  if (!function_exists('SimGameWriteGamestateCache')) return;
 
   $gameStatePath = $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt';
   if (!is_file($gameStatePath)) return;
 
   $gamestateText = file_get_contents($gameStatePath);
   if ($gamestateText === false || $gamestateText === '') return;
-  apcu_store(GetGamestateStorageKey($gameName), $gamestateText, 600);
+  SimGameWriteGamestateCache($root, $gameName, $gamestateText);
 }
 
 function BridgeExportMemoryGamestateToDiskIfBacked($root, $gameName) {

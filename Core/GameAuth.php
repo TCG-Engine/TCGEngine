@@ -1,6 +1,8 @@
 <?php
 
-const SIM_GAME_AUTH_CACHE_TTL = 3600;
+const SIM_GAME_AUTH_LOOKUP_TTL = 3600;
+const SIM_GAME_RECORD_CACHE_TTL = 3600;
+const SIM_GAME_RECORD_VERSION = 1;
 
 function SimGameSanitizeRootName($rootName)
 {
@@ -45,6 +47,102 @@ function SimGameGamestateCacheKey($rootName, $gameName)
   return 'tcgengine:gamestate:' . $rootName . ':' . $gameName;
 }
 
+function SimGameNormalizeCacheRecord($cached)
+{
+  if (is_array($cached)
+      && intval($cached['version'] ?? 0) === SIM_GAME_RECORD_VERSION
+      && array_key_exists('gamestate', $cached)) {
+    return [
+      'version' => SIM_GAME_RECORD_VERSION,
+      'gamestate' => is_string($cached['gamestate']) ? $cached['gamestate'] : '',
+      'auth' => is_array($cached['auth'] ?? null) ? SimGameNormalizeAuthKeys($cached['auth']) : null,
+    ];
+  }
+
+  // Asset editors and test tools may still use a raw gamestate string without managed auth.
+  if (is_string($cached)) {
+    return [
+      'version' => SIM_GAME_RECORD_VERSION,
+      'gamestate' => $cached,
+      'auth' => null,
+    ];
+  }
+
+  return [
+    'version' => SIM_GAME_RECORD_VERSION,
+    'gamestate' => '',
+    'auth' => null,
+  ];
+}
+
+function SimGameFetchCacheRecord($rootName, $gameName, &$cacheHit = null)
+{
+  $cacheHit = false;
+  $cacheKey = SimGameGamestateCacheKey($rootName, $gameName);
+  if ($cacheKey === '' || !function_exists('apcu_fetch')) return SimGameNormalizeCacheRecord(null);
+
+  $cached = apcu_fetch($cacheKey, $cacheHit);
+  return SimGameNormalizeCacheRecord($cacheHit ? $cached : null);
+}
+
+function SimGameReadGamestateCache($rootName, $gameName)
+{
+  $cacheHit = false;
+  $record = SimGameFetchCacheRecord($rootName, $gameName, $cacheHit);
+  if (!$cacheHit || $record['gamestate'] === '') return false;
+  return $record['gamestate'];
+}
+
+function SimGameWriteAuthLookup($rootName, $gameName, $authKeys)
+{
+  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
+  if ($cacheKey === '' || !is_array($authKeys) || !function_exists('apcu_store')) return false;
+  return apcu_store($cacheKey, [
+    'recordBacked' => true,
+    'auth' => SimGameNormalizeAuthKeys($authKeys),
+  ], SIM_GAME_AUTH_LOOKUP_TTL);
+}
+
+function SimGameReadAuthLookup($rootName, $gameName, &$cacheHit = null)
+{
+  $cacheHit = false;
+  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
+  if ($cacheKey === '' || !function_exists('apcu_fetch')) return SimGameDefaultAuthKeys();
+
+  $cached = apcu_fetch($cacheKey, $cacheHit);
+  if (!$cacheHit
+      || !is_array($cached)
+      || empty($cached['recordBacked'])
+      || !is_array($cached['auth'] ?? null)) {
+    $cacheHit = false;
+    return SimGameDefaultAuthKeys();
+  }
+  return SimGameNormalizeAuthKeys($cached['auth']);
+}
+
+function SimGameWriteGamestateCache($rootName, $gameName, $gamestateText, $ttl = SIM_GAME_RECORD_CACHE_TTL)
+{
+  $cacheKey = SimGameGamestateCacheKey($rootName, $gameName);
+  if ($cacheKey === '' || !is_string($gamestateText) || !function_exists('apcu_store')) return false;
+
+  $cacheHit = false;
+  $record = SimGameFetchCacheRecord($rootName, $gameName, $cacheHit);
+  if ($record['auth'] === null) {
+    $lookupHit = false;
+    $lookupAuth = SimGameReadAuthLookup($rootName, $gameName, $lookupHit);
+    if ($lookupHit) $record['auth'] = $lookupAuth;
+  }
+  $record['gamestate'] = $gamestateText;
+
+  $stored = apcu_store($cacheKey, $record, max(1, intval($ttl)));
+  if ($stored && $record['auth'] !== null) {
+    // This small entry is only a read-through performance cache. The authoritative copy lives in
+    // the game record, so losing this key never invalidates a seat.
+    SimGameWriteAuthLookup($rootName, $gameName, $record['auth']);
+  }
+  return $stored;
+}
+
 function SimGameExists($rootName, $gameName)
 {
   $rootName = SimGameSanitizeRootName($rootName);
@@ -56,8 +154,7 @@ function SimGameExists($rootName, $gameName)
     if (is_dir($gameDirectory)) return true;
   }
 
-  $cacheKey = SimGameGamestateCacheKey($rootName, $gameName);
-  return $cacheKey !== '' && function_exists('apcu_exists') && apcu_exists($cacheKey);
+  return SimGameReadGamestateCache($rootName, $gameName) !== false;
 }
 
 function SimGameRequiresManagedAuth($rootName)
@@ -66,9 +163,9 @@ function SimGameRequiresManagedAuth($rootName)
   return in_array($rootName, ['AzukiSim', 'GrandArchiveSim', 'GudnakSim', 'SWUSim'], true);
 }
 
-// Auth entries intentionally live only in APCu, while local development games may live on disk
-// indefinitely. Allow those persistent games to survive an APCu restart without weakening hosted
-// environments. DEVENV is the explicit container/CLI opt-in; otherwise both ends of the HTTP
+// Managed game records intentionally live only in APCu, while local development games may live on
+// disk indefinitely. Allow those persistent games to survive an APCu restart without weakening
+// hosted environments. DEVENV is the explicit container/CLI opt-in; otherwise both ends of the HTTP
 // request must be loopback so a forged Host header alone cannot enable the bypass.
 function SimGameIsDevelopmentEnvironment()
 {
@@ -89,10 +186,17 @@ function SimGameIsDevelopmentEnvironment()
 
 function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
 {
-  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
+  $cacheKey = SimGameGamestateCacheKey($rootName, $gameName);
   if ($cacheKey === '' || !is_array($authKeys) || !function_exists('apcu_store')) return false;
 
-  return apcu_store($cacheKey, SimGameNormalizeAuthKeys($authKeys), SIM_GAME_AUTH_CACHE_TTL);
+  $cacheHit = false;
+  $record = SimGameFetchCacheRecord($rootName, $gameName, $cacheHit);
+  $record['auth'] = SimGameNormalizeAuthKeys($authKeys);
+  $stored = apcu_store($cacheKey, $record, SIM_GAME_RECORD_CACHE_TTL);
+  if ($stored) {
+    SimGameWriteAuthLookup($rootName, $gameName, $record['auth']);
+  }
+  return $stored;
 }
 
 function SimGameBuildAuthKeysFromLobby($lobby)
@@ -136,31 +240,60 @@ function SimGameWriteAuthKeysFromLobby($rootName, $gameName, $lobby)
 
 function SimGameReadAuthKeys($rootName, $gameName)
 {
-  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
-  if ($cacheKey === '' || !function_exists('apcu_fetch')) return SimGameDefaultAuthKeys();
+  // Fast path through the small derived lookup entry.
+  $lookupHit = false;
+  $lookupAuth = SimGameReadAuthLookup($rootName, $gameName, $lookupHit);
+  if ($lookupHit) {
+    SimGameWriteAuthLookup($rootName, $gameName, $lookupAuth);
+    return $lookupAuth;
+  }
 
-  $cacheHit = false;
-  $cached = apcu_fetch($cacheKey, $cacheHit);
-  if (!$cacheHit || !is_array($cached)) return SimGameDefaultAuthKeys();
-
-  $normalized = SimGameNormalizeAuthKeys($cached);
-  // Keep active games alive while allowing abandoned auth entries to expire.
-  apcu_store($cacheKey, $normalized, SIM_GAME_AUTH_CACHE_TTL);
-  return $normalized;
+  // Recover a missing lookup entry from the authoritative game envelope.
+  $recordHit = false;
+  $record = SimGameFetchCacheRecord($rootName, $gameName, $recordHit);
+  if ($recordHit && $record['auth'] !== null) {
+    SimGameWriteAuthLookup($rootName, $gameName, $record['auth']);
+    return $record['auth'];
+  }
+  return SimGameDefaultAuthKeys();
 }
 
 function SimGameHasAuthKeys($rootName, $gameName)
 {
-  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
-  if ($cacheKey === '' || !function_exists('apcu_exists')) return false;
-  return apcu_exists($cacheKey);
+  $lookupHit = false;
+  SimGameReadAuthLookup($rootName, $gameName, $lookupHit);
+  if ($lookupHit) {
+    $recordKey = SimGameGamestateCacheKey($rootName, $gameName);
+    if ($recordKey !== '' && function_exists('apcu_exists') && apcu_exists($recordKey)) return true;
+
+    $rootName = SimGameSanitizeRootName($rootName);
+    $gameName = strval($gameName);
+    $gameDirectory = dirname(__DIR__) . DIRECTORY_SEPARATOR . $rootName . DIRECTORY_SEPARATOR . 'Games' . DIRECTORY_SEPARATOR . $gameName;
+    return preg_match('/^[A-Za-z0-9_-]+$/', $gameName) && is_dir($gameDirectory);
+  }
+
+  $recordHit = false;
+  $record = SimGameFetchCacheRecord($rootName, $gameName, $recordHit);
+  if (!$recordHit || $record['auth'] === null) return false;
+
+  // Rebuild the optional fast lookup after eviction. Validation remains backed by the envelope.
+  SimGameWriteAuthLookup($rootName, $gameName, $record['auth']);
+  return true;
 }
 
 function SimGameDeleteAuthKeys($rootName, $gameName)
 {
-  $cacheKey = SimGameAuthCacheKey($rootName, $gameName);
-  if ($cacheKey === '' || !function_exists('apcu_delete')) return false;
-  return apcu_delete($cacheKey);
+  if (!function_exists('apcu_delete')) return false;
+
+  $lookupDeleted = apcu_delete(SimGameAuthCacheKey($rootName, $gameName));
+  $recordHit = false;
+  $record = SimGameFetchCacheRecord($rootName, $gameName, $recordHit);
+  if (!$recordHit || $record['auth'] === null) return $lookupDeleted;
+
+  $recordKey = SimGameGamestateCacheKey($rootName, $gameName);
+  if ($record['gamestate'] === '') return apcu_delete($recordKey) || $lookupDeleted;
+  $record['auth'] = null;
+  return apcu_store($recordKey, $record, SIM_GAME_RECORD_CACHE_TTL);
 }
 
 function SimGameIsCasterMode($rootName, $gameName)

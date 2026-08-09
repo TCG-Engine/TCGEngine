@@ -1653,6 +1653,7 @@ fclose($handler);
 $filename = $rootPath . "/GamestateParser.php";
 $handler = fopen($filename, "w");
 fwrite($handler, "<?php\r\n");
+fwrite($handler, "include_once __DIR__ . '/../Core/GameAuth.php';\r\n");
 for($i=0; $i<count($serverIncludes); ++$i) {
   fwrite($handler, "include __DIR__ . '" . $serverIncludes[$i] . "';\r\n");
 }
@@ -2108,8 +2109,8 @@ function AddReadGamestate() {
   $readGamestate .= "  global \$gameName;\r\n";
   $readGamestate .= "  \$filename = \$filepath . \"Games/\$gameName/Gamestate.txt\";\r\n";
   $readGamestate .= "  \$gamestateText = \"\";\r\n";
-  $readGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"apcu_fetch\")) {\r\n";
-  $readGamestate .= "    \$cachedGamestate = apcu_fetch(GetGamestateStorageKey(\$gameName));\r\n";
+  $readGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"SimGameReadGamestateCache\")) {\r\n";
+  $readGamestate .= "    \$cachedGamestate = SimGameReadGamestateCache('" . $rootName . "', \$gameName);\r\n";
   $readGamestate .= "    if(\$cachedGamestate !== false) \$gamestateText = \$cachedGamestate;\r\n";
   $readGamestate .= "  }\r\n";
   $readGamestate .= "  if(\$gamestateText === \"\" && is_file(\$filename)) {\r\n";
@@ -2263,8 +2264,8 @@ function AddWriteGamestate() {
     // Plan D: append per-game telemetry as the final field (backward-compat: absent -> '-').
     $writeGamestate .= "  global \$gTelemetry; \$gamestateText .= ((\$gTelemetry === null || \$gTelemetry === '') ? '-' : \$gTelemetry) . \"\\r\\n\";\r\n";
   }
-  $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"apcu_store\")) {\r\n";
-  $writeGamestate .= "    apcu_store(GetGamestateStorageKey(\$gameName), \$gamestateText, 600);\r\n";
+  $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"SimGameWriteGamestateCache\")) {\r\n";
+  $writeGamestate .= "    SimGameWriteGamestateCache('" . $rootName . "', \$gameName, \$gamestateText);\r\n";
   if($rootName === 'SWUSim') {
     // Phase 0: durable write-through (SWUSim is apcu-mode; always persist a file copy so games + matches
     // survive APCu eviction / FPM restart — ParseGamestate falls back to this file).

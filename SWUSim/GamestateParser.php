@@ -1,4 +1,5 @@
 <?php
+include_once __DIR__ . '/../Core/GameAuth.php';
 include __DIR__ . '/Custom/CustomInput.php';
 include __DIR__ . '/Custom/GameLogic.php';
 include __DIR__ . '/TurnController.php';
@@ -275,8 +276,8 @@ function WriteGamestate($filepath="./") {
   $gamestateText .= $gMatchReplayCommands . "\r\n";
   $gamestateText .= $gRandomCounter . "\r\n";
   global $gTelemetry; $gamestateText .= (($gTelemetry === null || $gTelemetry === '') ? '-' : $gTelemetry) . "\r\n";
-  if(GamestateUsesMemoryStorage() && function_exists("apcu_store")) {
-    apcu_store(GetGamestateStorageKey($gameName), $gamestateText, 600);
+  if(GamestateUsesMemoryStorage() && function_exists("SimGameWriteGamestateCache")) {
+    SimGameWriteGamestateCache('SWUSim', $gameName, $gamestateText);
   }
   file_put_contents($filename, $gamestateText);
 
@@ -322,8 +323,8 @@ function ParseGamestate($filepath="./") {
   global $gameName;
   $filename = $filepath . "Games/$gameName/Gamestate.txt";
   $gamestateText = "";
-  if(GamestateUsesMemoryStorage() && function_exists("apcu_fetch")) {
-    $cachedGamestate = apcu_fetch(GetGamestateStorageKey($gameName));
+  if(GamestateUsesMemoryStorage() && function_exists("SimGameReadGamestateCache")) {
+    $cachedGamestate = SimGameReadGamestateCache('SWUSim', $gameName);
     if($cachedGamestate !== false) $gamestateText = $cachedGamestate;
   }
   if($gamestateText === "" && is_file($filename)) {
