@@ -2164,11 +2164,13 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
 }
 
 function SafeMZMove($player, $mzIndex, $toZone) {
+    $lookupMZ = NormalizeMZForPlayerPerspective($player, $mzIndex);
+    $lookupToZone = NormalizeMZForPlayerPerspective($player, $toZone);
     $shouldCheckSelis = false;
     $movingToOwner = 0;
     $movingCardIsEntity = false;
     if(is_string($mzIndex) && is_string($toZone) && ($toZone === 'myHand' || $toZone === 'theirHand')) {
-        $obj = GetZoneObject($mzIndex);
+        $obj = GetZoneObject($lookupMZ);
         if($obj !== null && !(isset($obj->removed) && $obj->removed)) {
             $location = strval($obj->Location ?? '');
             if($location === 'Garden' || $location === 'Alley') {
@@ -2181,10 +2183,10 @@ function SafeMZMove($player, $mzIndex, $toZone) {
         }
     }
 
-    $fieldObj = GetZoneObject($mzIndex);
+    $fieldObj = GetZoneObject($lookupMZ);
     if(is_string($mzIndex) && is_string($toZone) && $fieldObj !== null && !(isset($fieldObj->removed) && $fieldObj->removed)) {
-        $sourceZone = strval($fieldObj->Location ?? '');
-        if(IsFieldZoneName($sourceZone) && !IsFieldZoneName($toZone) && IsGodmodeEntity($fieldObj)) {
+        $sourceZone = explode('-', strval($lookupMZ), 2)[0] ?? '';
+        if(IsFieldZoneName($sourceZone) && !IsFieldZoneName(strval($lookupToZone)) && IsGodmodeEntity($fieldObj)) {
             return false;
         }
     }
