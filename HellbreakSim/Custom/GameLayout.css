@@ -482,7 +482,7 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
         z-index: 36;
         left: 50%;
         bottom: 4px;
-        width: min(920px, 58vw);
+        width: min(1040px, 68vw);
         height: 116px;
         min-height: 0;
         padding: 0;
@@ -490,8 +490,25 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
         background: linear-gradient(180deg, transparent, rgba(7,6,9,.62));
         box-shadow: none;
         transform: translateX(-50%);
+        overflow: visible !important;
     }
-    #myHand { padding-inline: 14px; }
+    #myHandWrapper {
+        height: 100% !important;
+        overflow: visible !important;
+    }
+    #myHand {
+        height: 100%;
+        box-sizing: border-box;
+        padding: 6px 14px 4px;
+        overflow: visible !important;
+    }
+    #myHand > span { position: relative; }
+    #myHand > span + span { margin-left: 0 !important; }
+    #myHand > span:hover {
+        z-index: 90;
+        margin-right: 8px !important;
+        transform: translateY(-10px) scale(1.1);
+    }
     #myHand img:not(.counter-image-icon) { max-height: 108px !important; }
 
     .hb-opponent-hand {
@@ -514,4 +531,15 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
 @media (min-width: 761px) and (max-width: 1000px) {
     .hb-horror-action-dock { right: 4px; width: 136px; }
     .hb-horror-action-help { display: none; }
+}
+
+@media (min-width: 761px) {
+    #chatWidget {
+        right: 18px !important;
+        bottom: 16px !important;
+        left: auto !important;
+        z-index: 20300 !important;
+        align-items: flex-end !important;
+    }
+    #chatWidgetControls { justify-content: flex-end; }
 }

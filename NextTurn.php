@@ -2041,7 +2041,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         <?php /* SWUSim moved this to its gear Settings panel + the profile Cosmetics section, beside
                  the Show-playmats toggle. AzukiSim has its own toggle in AzukiDeck's layout. The other
                  sims have no settings panel, so the chat-bar button stays their only control. */ ?>
-        <?php if ($folderPath !== 'AzukiSim' && $folderPath !== 'SWUSim'): ?>
+        <?php if (!in_array($folderPath, ['AzukiSim', 'SWUSim', 'HellbreakSim'], true)): ?>
         <button id='cardMotionToggleBtn'
                 type='button'
                 onclick='window.TCGCardMotion && window.TCGCardMotion.toggle(<?php echo json_encode($folderPath); ?>, this)'
@@ -2069,7 +2069,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             if (inp) inp.focus();
         }
     }
-    if (window.TCGCardMotion && <?php echo ($folderPath !== 'AzukiSim' && $folderPath !== 'SWUSim') ? 'true' : 'false'; ?>) {
+    if (window.TCGCardMotion && <?php echo !in_array($folderPath, ['AzukiSim', 'SWUSim', 'HellbreakSim'], true) ? 'true' : 'false'; ?>) {
         window.TCGCardMotion.updateToggleButton('cardMotionToggleBtn', <?php echo json_encode($folderPath); ?>);
     }
     StartChatPoll();

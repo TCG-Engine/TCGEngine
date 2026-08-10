@@ -39,7 +39,7 @@
     if(typeof window.resolveCardImageID !== 'function' || window.__hellbreakCardBackInstalled) return;
     var baseResolver = window.resolveCardImageID;
     window.resolveCardImageID = function(cardID) {
-      if(cardID === 'CardBack') return 'DOT_001_back';
+      if(cardID === 'CardBack') return 'CardBack';
       return baseResolver(cardID);
     };
     window.__hellbreakCardBackInstalled = true;
