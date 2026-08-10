@@ -75,8 +75,10 @@ if ($folderPath === '' || !SubmitBugReportIsFolderPathValid($folderPath)) {
   SubmitBugReportRespond(400, ['error' => 'Invalid folder path.']);
 }
 
-$gameDir = __DIR__ . '/../' . $folderPath . '/Games/' . $gameName;
-if (!is_dir($gameDir)) {
+// Lobby-managed sim games live in APCu and may not have a Games/<name> directory.
+// Use the shared storage-aware lookup so both memory-backed and legacy disk games
+// can attach their authoritative gamestate snapshot.
+if (!SimGameExists($folderPath, $gameName)) {
   SubmitBugReportRespond(404, ['error' => 'Game not found.']);
 }
 
