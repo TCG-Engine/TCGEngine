@@ -318,6 +318,12 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             $damagerPlayer = is_object($damager)
                 ? intval($damager->Controller ?? $damager->Owner ?? 0)
                 : intval($damager ?? 0);
+            // Keep the SOURCE UNIT's identity before $damager is collapsed to a player below: a caller
+            // that threads the actual unit object states its source explicitly, which beats the ambient
+            // SWU_DMG_SRC var (that one lingers for the whole action, so a later ability damaging a base
+            // in the same action would otherwise be misattributed to whoever dispatched first).
+            $srcUnitUID  = is_object($damager) ? intval($damager->UniqueID ?? 0) : 0;
+            $srcUnitCtrl = is_object($damager) ? $damagerPlayer : 0;
             $damager = ($damager !== null && $damagerPlayer > 0)
                 ? $damagerPlayer
                 : (($savedPID > 0 && $savedPID !== intval($targetPlayer)) ? intval($savedPID) : OtherPlayer(intval($targetPlayer)));
@@ -339,18 +345,23 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             // Combat direct-attack + Overwhelm excess arm this flag at their own sites (SWU_DMG_SRC is not
             // set for vanilla combat). Read only by _SWUSec012Protected; a SEPARATE marker from the
             // combat-attack-only SWU_DEALT_BASEDMG (SHD_088/SHD_106 mean "attacked", not "damaged").
-            $src = GetSWUVar('SWU_DMG_SRC', '');
-            if ($src !== '' && strpos($src, ',') !== false) {
-                [$srcUid, $srcCtrl] = array_map('intval', explode(',', $src));
-                if ($srcUid > 0 && $srcCtrl > 0 && $srcCtrl !== intval($targetPlayer)) {
+            $srcUid = 0; $srcCtrl = 0;
+            if ($srcUnitUID > 0 && $srcUnitCtrl > 0) {
+                $srcUid = $srcUnitUID; $srcCtrl = $srcUnitCtrl;   // explicit source unit threaded by the caller
+            } else {
+                $src = GetSWUVar('SWU_DMG_SRC', '');
+                if ($src !== '' && strpos($src, ',') !== false) {
+                    [$srcUid, $srcCtrl] = array_map('intval', explode(',', $src));
+                }
+            }
+            if ($srcUid > 0 && $srcCtrl > 0) {
+                if ($srcCtrl !== intval($targetPlayer)) {
                     AddGlobalEffects($srcCtrl, 'SWU_UNITDMGBASE_' . $srcUid);
                 }
                 // SEC_012: owner-qualified twin — stamped for ANY base (including the source's own), so
                 // that after a control change we can still ask "did this unit damage a base belonging to
                 // someone who is NOW its controller's opponent?". See _SWUSec012Protected.
-                if ($srcUid > 0 && $srcCtrl > 0) {
-                    AddGlobalEffects($srcCtrl, 'SWU_DMGDBASE_' . $srcUid . '_' . intval($targetPlayer));
-                }
+                AddGlobalEffects($srcCtrl, 'SWU_DMGDBASE_' . $srcUid . '_' . intval($targetPlayer));
             }
         }
         $baseHP = intval(CardHp($base[$i]->CardID));
@@ -1237,6 +1248,19 @@ function _SWUCollectOnUnitDamagedReactions(int $activePlayer, string $attackerMz
 // WhenDealsCombatDamage / WhenDefeats windows (Phase 7.2): from the just-resolved attack's $combatCtx,
 // queue the attacker's combat-hit abilities. Added to the same trigger bag as OnAttackEnd so they
 // ride the EffectStack flush (decisions defer SWUAfterAction). $activePlayer = the attacker's controller.
+// How many times unit $uid has been stamped as having damaged a base — ANY base, either player's, by any
+// route (combat, Overwhelm spill, ability ping, indirect). Sums the owner-qualified SWU_DMGDBASE_{uid}_{seat}
+// markers armed in SWUDealDamageToBase. The stamps are PHASE-scoped, so a caller that needs an ATTACK-scoped
+// answer compares this against a snapshot taken when the attack was declared (LAW_205 Flash the Vents).
+function _SWUUnitBaseDamageStamps(int $ctrl, int $uid): int {
+    if ($uid <= 0 || $ctrl <= 0) return 0;
+    $n = 0;
+    for ($seat = 1; $seat <= SeatCountForGame(); $seat++) {
+        $n += GlobalEffectCount($ctrl, 'SWU_DMGDBASE_' . $uid . '_' . $seat);
+    }
+    return $n;
+}
+
 function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID, array $combatCtx): void {
     $attacker = GetZoneObject($attackerMzID);
     // LAW_007 Boba Fett is a FIELD observer owned by BOBA (not by the attacker): "When a friendly Bounty
@@ -1403,11 +1427,20 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // was defeated, deal 2 damage to a base." Fires once per Cassian the active player controls. Text says
     // "a base" (a free choice) → Twin Suns: choose which opponent's base per Cassian (2-player → the one).
     if (!empty($combatCtx['defenderDefeated'])) {
-        $cassians = _SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_056');
+        // Thread each Cassian object as the damage SOURCE — the 2 damage is dealt BY that unit, so it must
+        // stamp his per-unit base-damage markers (SEC_012 "has damaged an opponent's base", and LAW_205's
+        // "if that unit damaged a base" when Cassian is himself the attacker). Without a source the damage
+        // was attributed to nobody.
+        $cassianObjs = [];
+        global $playerID; $savedPID056 = $playerID; $playerID = intval($activePlayer);
+        foreach (GetUnitsInPlay(intval($activePlayer)) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'LAW_056') $cassianObjs[] = $u;
+        }
+        $playerID = $savedPID056;
         if (SeatCountForGame() <= 2) {
-            for ($i = 0; $i < $cassians; $i++) SWUDealDamageToBase(2, OtherPlayer($activePlayer));
+            foreach ($cassianObjs as $cas) SWUDealDamageToBase(2, OtherPlayer($activePlayer), $cas);
         } else {
-            for ($i = 0; $i < $cassians; $i++)
+            foreach ($cassianObjs as $cas)
                 SWUQueueChooseOpponent($activePlayer, "LAW_056#0", "Cassian:_deal_2_to_which_opponent's_base?");
         }
     }
@@ -1442,8 +1475,21 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
 
     // LAW_205 Flash the Vents — granted "after completing this attack, if that unit damaged a base,
     // defeat that unit." Reuses the HeroicSacrificeDefeatTrigger dispatcher (defeats the attacker).
-    if (!empty($combatCtx['law205SelfDefeat']) && !empty($combatCtx['dealtToBase'])) {
-        AddTrigger($activePlayer, 'LAW_205', 'LAW_205', $attackerMzID);
+    // "Damaged a base" is ANY damage to ANY base — either player's, by ANY route — not just this attack's
+    // combat damage. Combat + Overwhelm spill are already in $combatCtx['dealtToBase']; the ability routes
+    // (the attacker's own On Attack ping, or an attack-end ability it is the source of) show up only as the
+    // per-unit base-damage stamps, and those are PHASE-scoped — hence the snapshot taken when Flash the
+    // Vents declared the attack (LAW_205#0) and the delta here.
+    if (!empty($combatCtx['law205SelfDefeat'])) {
+        $law205Dmg = !empty($combatCtx['dealtToBase']);
+        if (!$law205Dmg) {
+            $u205 = intval(GetSWUVar('SWU_LAW205_UID', '0'));
+            if ($u205 > 0) {
+                $law205Dmg = _SWUUnitBaseDamageStamps($activePlayer, $u205)
+                             > intval(GetSWUVar('SWU_LAW205_MARK', '0'));
+            }
+        }
+        if ($law205Dmg) AddTrigger($activePlayer, 'LAW_205', 'LAW_205', $attackerMzID);
     }
     // LAW_062 Defiant Hammerhead — "defeat this unit after completing this attack" (unconditional, when
     // the +4/+0 was taken).

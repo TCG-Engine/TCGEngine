@@ -72,3 +72,29 @@ WithP1Hand: LAW_179
 P1DISCARDCOUNT:1
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P2SPACEARENAUNIT:0:DAMAGE:0
+
+---
+
+# PlayingAnEventDoesNotDiscountThisOne
+#// LAW_179 — "costs 1 resource less for each card DISCARDED FROM YOUR HAND this phase". A card you PLAY
+#// is not a card you discard, even though it ends up in the same pile. P1 plays Urgent Mission (4 here)
+#// and then this event at its full 7: 12 - 4 - 7 = 1 resource left, and all enemy ground units die.
+#// Shares its root cause with LAW_076 Vult Skerris's Defender — the discard funnel's per-hand counters
+#// counted an event's own play. A discount of 1 would leave 2 resources instead.
+
+## GIVEN
+CommonSetup: rrk/yyw/{myResources:12}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [TS26_64 LAW_179]
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1RESAVAILABLE:1
+P2GROUNDARENACOUNT:0

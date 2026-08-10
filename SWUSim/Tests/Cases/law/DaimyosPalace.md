@@ -259,3 +259,50 @@ WithP1Hand: SHD_046
 P1GROUNDARENAUNIT:0:CARDID:SHD_046
 P1RESAVAILABLE:0
 P1BASE:EPICUSED
+
+---
+
+# SoftPassWithAnEmptyHand
+#// LAW_020 — the Epic Action costs nothing but itself, so it is always usable even with no card to play.
+#// With an empty hand it resolves to nothing: the Epic is spent, no resources move, and no decision is
+#// left pending. (Same soft-pass shape as an exhaust-only leader Action — a no-target ability must still
+#// be usable rather than being blocked by an affordability/target gate.)
+
+## GIVEN
+CommonSetup: bbw/brk/{myBase:LAW_020}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+
+## WHEN
+- P1>UseBaseAbility
+
+## EXPECT
+P1BASE:EPICUSED
+P1RESAVAILABLE:5
+P1NODECISION
+
+---
+
+# SoftPassWhenTheHandIsUNAFFORDABLEEvenAfterTheWaiver
+#// LAW_020 — the sharper version of the soft pass: the hand is not empty, it is just out of reach. With 1
+#// resource and SHD_107 Enterprising Lackeys (cost 4, +4 for two uncovered Command pips), waiving one pip
+#// still leaves 6 — so nothing is playable. The Epic is spent, the card stays in hand, and the board is
+#// unchanged.
+#// This is the case a naive "offer only affordable cards, else do nothing" gate gets wrong by silently
+#// refusing to spend the Epic at all.
+
+## GIVEN
+CommonSetup: bbw/brk/{myBase:LAW_020}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1
+WithP1Hand: SHD_107
+
+## WHEN
+- P1>UseBaseAbility
+
+## EXPECT
+P1BASE:EPICUSED
+P1HANDCOUNT:1
+P1GROUNDARENACOUNT:0

@@ -13,6 +13,13 @@ $customDQHandlers["LAW_205#0"] = function($player, $parts, $lastDecision) {
     SWUAddAttackPowerBonus($attackerMzID, 2);
     AddTurnEffect($attackerMzID, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK, 'LAW_205'));
     AddTurnEffect($attackerMzID, SWUMakeTurnEffect('LAW_205', [], SWU_DUR_ATTACK));
+    // "if that unit damaged a base" covers ability damage to EITHER base, not just this attack's combat
+    // damage — and the engine's per-unit base-damage stamps are phase-scoped, so snapshot them here (the
+    // attack has not started yet) and let the attack-end check compare. See _SWUUnitBaseDamageStamps.
+    $atkUID205 = intval($attacker->UniqueID ?? 0);
+    SetSWUVar('SWU_LAW205_UID',  strval($atkUID205));
+    SetSWUVar('SWU_LAW205_MARK', strval(_SWUUnitBaseDamageStamps(
+        intval($attacker->Controller ?? $player), $atkUID205)));
     BeginSWUAttack($player, $attackerMzID);
     $playerID = $savedPID;
 };

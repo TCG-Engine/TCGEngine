@@ -83,9 +83,21 @@ function SWUAddToDiscard(int $player, string $cardID, string $from, string $modi
         // Per-card hand-discard counters (LAW_179 "1 less per card discarded from your hand this phase";
         // LAW_076 boolean gate). Every forced-discard path lands here, so counting centrally covers them
         // all. DoDiscardCard's MZMove does NOT route through here, so it sets these itself (no double).
-        AddGlobalEffects($player, 'SWU_DISCARDED_HAND');
-        AddGlobalEffects($player, 'SWU_DISCARDED_PHASE');
-        if (function_exists('_SWUShd163React')) _SWUShd163React();
+        //
+        // ⚠ EXCLUDE THE EVENT'S OWN PLAY. An event resolving to its CONTROLLER's discard reaches this
+        // funnel with from='HAND' (the play path tags it that way; a FOREIGN-owned event uses 'PLAY' and
+        // never gets here) — but PLAYING a card is not DISCARDING it. Without this guard, merely playing
+        // ANY event set LAW_076's "discarded from your hand or deck this phase" gate, bumped LAW_179's
+        // per-card cost reduction, and fired SHD_163 Migs Mayfeld's reaction.
+        // Same marker and same CardID comparison LAW_206 That's a Rock already uses to keep its own
+        // "when discarded from hand or deck" trigger off a normal play.
+        // Accepted narrow edge (shared with LAW_206): if an effect discards a card with the SAME CardID as
+        // the event currently resolving, that discard is skipped here.
+        if (($GLOBALS['gPlayingEventCardID'] ?? '') !== $cardID) {
+            AddGlobalEffects($player, 'SWU_DISCARDED_HAND');
+            AddGlobalEffects($player, 'SWU_DISCARDED_PHASE');
+            if (function_exists('_SWUShd163React')) _SWUShd163React();
+        }
     }
     return $entry;
 }
@@ -5914,7 +5926,18 @@ function RegroupPhaseStart(): void {
     // abilities). They survived the action-phase phase-expiry AND stayed active through every regroup-start
     // self-defeat / trigger above (e.g. JTL_216 Contracted Hunter's regroup self-defeat, which must still
     // see a round-blanked unit as ability-less) — the round is over now, so clear them for the next round.
-    SWUExpireTurnEffects(SWU_DUR_ROUND);
+    //
+    // ⚠ ONLY on the round's FINAL regroup. A round is "action phase → regroup phase", but LAW_072 Max Rebo
+    // makes it "action phase → regroup → regroup" (and one more per additional Max Rebo), all still ONE
+    // round. This runs inside RegroupPhaseStart, so without the guard it fired at the start of regroup 1
+    // and a "for this round" blank was already gone by regroup 2 — Contracted Hunter then self-defeated in
+    // the additional regroup despite Kazuda having blanked it for the round.
+    // Safe ordering: the regroup-start self-defeat/trigger block above runs BEFORE this line, so even on
+    // the final regroup those triggers still see the blank; it is cleared only afterwards.
+    // Same guard, same reason as the deferred round increment in ReadyPhase — keep the two in step.
+    if (!_SWUNeedsExtraRegroup()) {
+        SWUExpireTurnEffects(SWU_DUR_ROUND);
+    }
     // Return all TEMPORARY_STEAL units to their owners. Drain loop because each
     // SWUTakeControlOfUnit call shifts arena indices.
     global $playerID;
@@ -6273,7 +6296,12 @@ function SWUCreditAbilitiesDisabled(int $player): bool {
     $opp = GetOpponent($player);
     foreach (array_merge(GetGroundArena($opp) ?? [], GetSpaceArena($opp) ?? []) as $u) {
         if (SWUObjGone($u)) continue;
-        if (($u->CardID ?? '') === 'LAW_117' && !HasNoAbilities($u)) return true;
+        // "active (ability-bearing)" must consult LostAbilities(), not just HasNoAbilities(): the latter
+        // is the GrandArchive-era helper that only sees a literal "NO_ABILITIES" turn effect, while every
+        // SWU blanking effect (JTL_018 Kazuda, SOR_138, JTL_244, SHD_072, SEC_054, LAW_132, SEC_046 Galen,
+        // TWI_255 Brain Invaders) writes its own marker that only LostAbilities() reads. Checking the
+        // wrong one left a BLANKED Conveyex still disabling enemy Credit tokens.
+        if (($u->CardID ?? '') === 'LAW_117' && !HasNoAbilities($u) && !LostAbilities($u)) return true;
     }
     // SEC_046 Galen Erso naming "Credit": the player's Credit tokens are non-leader cards an opponent
     // (Galen's controller) owns-from-Galen's-side, so they lose all abilities and can't be defeated to
@@ -13330,6 +13358,18 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
             return;
         }
         RemoveGlobalEffect($player, 'SWU_SEC008_DEPLOY_PAID');
+    } elseif ($cardID === 'LAW_013') {
+        // Chewbacca, Hero of Kessel — "Epic Action [4 resources]: Deploy this leader." The bracket makes
+        // this a real COST, not the usual "if you control N or more resources" THRESHOLD that every other
+        // leader carries (he is the only leader in the game printed this way). It is still the
+        // once-per-game Epic. Capacity, not ready resources: a Credit token / SEC_122 Droid pays it
+        // (CR 3.13). Pay before committing so an unpayable Epic can't spend the slot.
+        if (($leader->EpicActionUsed ?? false)
+            || SWUTotalPaymentCapacity($player) < intval(CardCost($cardID))) {
+            $playerID = $savedPID;
+            return;
+        }
+        SWUPayInlineAbilityCost($player, intval(CardCost($cardID)));
     } elseif ($cardID === 'LOF_007') {
         // Avar Kriss Epic Action: deploy if (resources you control) + (times you used the Force this
         // phase) ≥ 9 (her printed deploy threshold).
@@ -13779,6 +13819,10 @@ function _SWUBaseActionProviders(int $player): array {
             $available = _SWUBaseActionUsesLeft($base, $cardID) > 0; // per-GAME budget
         } else {
             $available = empty($base->EpicActionUsed);
+            // LAW_023 Great Pit of Carkoon — its Epic cost is "[discard a unit from your hand]"; with no
+            // unit in hand the cost can't be paid, so the Action isn't offered at all (and can't burn the
+            // Epic slot). Mirrors the resource-cost affordability gate in _SWUBaseOwnAction.
+            if ($available && $cardID === 'LAW_023') $available = _SWULaw023CanPayCost($player);
         }
         if ($available) $out[] = ['kind' => 'own', 'cardID' => $cardID, 'index' => -1, 'label' => 'EpicAction'];
     }
@@ -13908,6 +13952,14 @@ function _SWUBaseOwnAction(int $player): void {
     // resource to return (CR 3.13), so the Epic also needs a real resource to exist or it is a no-op
     // that must PRESERVE the once-per-game Epic. Same shape as the LAW_013 Chewbacca gate.
     if ($cardID === 'LAW_029' && SWUResourceCount($player) < 1) {
+        $playerID = $savedPID;
+        return;
+    }
+    // LAW_023 Great Pit of Carkoon — same rule for a CARD cost: its Epic is "[discard a unit from your
+    // hand]", so with no unit in hand the cost is unpayable, the Action is a no-op, and the once-per-game
+    // Epic slot must survive. (The ability closure already bailed out here, but only after the flag below
+    // had been set — the Epic was silently spent for nothing.)
+    if ($cardID === 'LAW_023' && !_SWULaw023CanPayCost($player)) {
         $playerID = $savedPID;
         return;
     }

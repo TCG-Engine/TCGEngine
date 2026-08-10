@@ -3,6 +3,15 @@
 // Great Pit of Carkoon - [Command] - HP 27
 // Text: Epic Action [discard a unit from your hand]: Search your deck for a card named The Sarlacc of Carkoon, reveal it, and draw it.
 
+// Can the Epic's [discard a unit from your hand] cost be paid at all? Read by BOTH the availability
+// computation and the dispatch gate in GameLogic.php, so an unpayable Epic is neither offered nor spent.
+function _SWULaw023CanPayCost(int $player): bool {
+    global $playerID; $saved = $playerID; $playerID = $player;
+    $units = ZoneSearch("myHand", ["Unit"]);
+    $playerID = $saved;
+    return !empty($units);
+}
+
 // LAW_023 Great Pit of Carkoon — discard the chosen hand unit (cost), then search the whole deck for
 // LAW_163 (The Sarlacc of Carkoon) and draw it.
 $customDQHandlers["LAW_023#0"] = function($player, $parts, $lastDecision) {

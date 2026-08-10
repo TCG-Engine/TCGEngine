@@ -230,3 +230,174 @@ WithP1GroundArena: LAW_124:1:0
 P1CREDITCOUNT:1
 P1RESAVAILABLE:0
 P1GROUNDARENACOUNT:0
+
+---
+
+# Front_ReturnCost_StolenUnitGoesToOwnersHand
+#// LAW_015 Jabba (undeployed) — the additional cost is "return a FRIENDLY Underworld unit to ITS OWNER'S
+#// hand". Friendly means CONTROLLED, not owned: a stolen enemy unit is a legal way to pay, and it goes
+#// back to the OPPONENT's hand, not the paying player's. P1 controls JTL_221 Stolen AT-Hauler (Underworld)
+#// but P2 owns it; after the action P1's hand is still empty and P2 holds the card.
+
+## GIVEN
+CommonSetup: yyk/grw/{
+  myLeader:LAW_015;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1SpaceArenaControlled: JTL_221:2
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1HANDCOUNT:0
+P2HANDCOUNT:1
+P1CREDITCOUNT:1
+P1RESAVAILABLE:2
+P1LEADER:EXHAUSTED
+
+---
+
+# Front_ReturnCost_OnlyFriendlyUnderworldUnitsAreOffered
+#// LAW_015 Jabba (undeployed) — the return-a-unit cost offers EXACTLY the friendly Underworld units in
+#// play, across both arenas, and nothing else. SOR_247 (ground, Underworld) and JTL_221 (space,
+#// Underworld) are offered; SOR_095 Battlefield Marine (friendly but Rebel/Trooper) is excluded by the
+#// trait, and P2's LAW_124 Industrious Team (Underworld but ENEMY) is excluded by "friendly". The choice
+#// is left pending so the offer itself is what's asserted.
+
+## GIVEN
+CommonSetup: yyk/grw/{
+  myLeader:LAW_015;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1GroundArena: [SOR_247:1:0 SOR_095:1:0]
+WithP1SpaceArena: JTL_221:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1DECISIONTOOLTIP:Return_a_friendly_Underworld_unit_to_its_owner's_hand
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+
+---
+
+# Deployed_PlayTargets_OnlyUnderworldUnitsInHandAreOffered
+#// LAW_015 Jabba (deployed) — "Play an Underworld unit from your hand" offers EXACTLY the Underworld
+#// UNITS in hand. SOR_176 ISB Agent is a unit but Imperial (wrong trait); SHD_229 Ma Klounkee carries the
+#// Underworld trait but is an EVENT (wrong type) — both are excluded, leaving SOR_247 (ground) and
+#// JTL_221 (space). Two candidates keep the choice pending; with one it would auto-resolve.
+
+## GIVEN
+CommonSetup: yyk/grw/{
+  myLeader:LAW_015:1:1:1;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Hand: [SOR_176 SOR_247 JTL_221 SHD_229]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P1DECISIONTOOLTIP:Play_an_Underworld_unit_from_your_hand
+P1SELECTABLEEXACT:myHand-1&myHand-2
+
+---
+
+# Deployed_UsableTwiceInAPhase_EvenWhileExhausted
+#// LAW_015 Jabba (deployed) — the unit-side Action costs no exhaust, so it is NOT once-per-phase and does
+#// not care that Jabba is already exhausted. Jabba starts EXHAUSTED and still plays two Underworld units
+#// in the same action phase, each paid partly with a Credit, so each enters with Ambush and attacks
+#// immediately: SOR_247 (2/3) trades 2 damage with P2's SOR_247 in the ground arena, then JTL_221 (4/5)
+#// trades 4 with P2's JTL_221 in the space arena. Jabba is still exhausted at the end (nothing readied him).
+#// Resources: 8 total cost (2+3) less 2 Credits = 3 of 6 spent.
+
+## GIVEN
+CommonSetup: yyk/grw/{
+  myLeader:LAW_015:0:1:1;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Credits: 2
+WithP1Hand: [SOR_247 JTL_221]
+WithP2GroundArena: SOR_247:1:0
+WithP2SpaceArena: JTL_221:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myResources-6
+- P1>AnswerDecision:YES
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myResources-6
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1SPACEARENACOUNT:1
+P1HANDCOUNT:0
+P1CREDITCOUNT:0
+P1RESAVAILABLE:3
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:CARDID:SOR_247
+P1GROUNDARENAUNIT:1:DAMAGE:2
+P1SPACEARENAUNIT:0:CARDID:JTL_221
+P1SPACEARENAUNIT:0:DAMAGE:4
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P2SPACEARENAUNIT:0:DAMAGE:4
+
+---
+
+# Deployed_AmbushIsNotKeptWhenBouncedAndReplayed
+#// LAW_015 Jabba (deployed) — the Ambush grant belongs to THAT play, not to the card. SOR_247 is played
+#// by Jabba's action with a Credit defeated, so it enters with Ambush and immediately attacks P2's
+#// SOR_247 (2 damage each way). LAW_246 The Axe Forgets then returns it to hand, and P1 plays it again
+#// from hand — still paying with a Credit, but NOT through Jabba's action. It enters without Ambush and
+#// makes no entry attack, so P2's unit stays on 2 damage and the replayed copy is undamaged.
+#// (Paying with a Credit is not what grants Ambush; being played by Jabba's action is.)
+
+## GIVEN
+CommonSetup: yyk/grw/{
+  myLeader:LAW_015:1:1:1;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Credits: 2
+WithP1Hand: [SOR_247 LAW_246]
+WithP2GroundArena: SOR_247:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myResources-8
+- P1>AnswerDecision:YES
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+- P1>AnswerDecision:myGroundArena-1
+- P1>PlayHand:0
+- P1>AnswerDecision:myResources-8
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_247
+P1GROUNDARENAUNIT:1:NOTKEYWORD:Ambush
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P1CREDITCOUNT:0
+P1HANDCOUNT:0
+P1RESAVAILABLE:4

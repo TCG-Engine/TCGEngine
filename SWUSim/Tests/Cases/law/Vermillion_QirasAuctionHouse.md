@@ -477,3 +477,104 @@ P1SPACEARENACOUNT:1
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:JTL_103
 P2CREDITCOUNT:5
+
+---
+
+# OppDeckEmpty_YourOwnDeckIsAutoRevealed
+#// The mirror of YourDeckEmpty_OppDeckAutoRevealed: only decks that HAVE a top card are offered, so with
+#// the OPPONENT's deck empty the reveal comes from P1's own deck with no deck-choice prompt. P1 chooses
+#// itself, plays SOR_095 for FREE (all 5 resources still ready — this is what makes it a free play rather
+#// than a cheap one) and P2 creates Credits equal to the revealed card's cost (2).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:5
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1DECKCOUNT:0
+P2CREDITCOUNT:2
+P1RESAVAILABLE:5
+
+---
+
+# RevealedEventThatItselfPlaysACard_ResolvesFully
+#// The revealed card may be an EVENT whose own effect plays another card — the nested play has to resolve
+#// inside Vermillion's free play. P1 reveals SOR_219 Sneak Attack from P2's deck and plays it for free;
+#// Sneak Attack then plays SOR_046 (cost 4, on-aspect) from P1's hand at 3 less, so exactly 1 of P1's 5
+#// resources is spent. Sneak Attack itself was free. The Credits are for the REVEALED card's cost
+#// (Sneak Attack = 2), not the nested unit's, and the spent event goes to its OWNER's discard (P2's).
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:5
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP1Hand: SOR_046
+WithP2Deck: SOR_219
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1RESAVAILABLE:4
+P1HANDCOUNT:0
+P2CREDITCOUNT:2
+P2DISCARDCOUNT:1
+
+---
+
+# ChosenPlayerCannotPlayARestrictedCard_NoPlayAndNoCredits
+#// "They MAY play the revealed card for free" is still a PLAY, so a play-restriction blocks it. P2 plays
+#// SOR_062 Regional Governor naming Battlefield Marine; P1 then reveals its own Battlefield Marine with
+#// Vermillion and chooses itself. The play step is skipped entirely — no offer is raised, the card stays
+#// on top of P1's deck, and because nothing was played NO Credits are created either (the Credit clause
+#// is gated on "if they do").
+
+## GIVEN
+CommonSetup: bbk/bbw/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:5
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1SpaceArena: LAW_215:1:0
+WithP1Deck: SOR_095
+WithP2Hand: SOR_062
+WithP2Resources: 5
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Battlefield Marine
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:You
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1DECKCOUNT:1
+P2CREDITCOUNT:0
