@@ -266,6 +266,24 @@ function HellbreakContinueAfterDefenderDeclared(array $context): bool {
     return is_array($defenderDescriptor) ? HellbreakResolveAttack($attackingPlayer, $defenderDescriptor) : false;
 }
 
+function HellbreakQueueResolvedDamageAnimation(array $ref, int $amount): void {
+    if($amount <= 0 || !function_exists('QueueDamageAnimation')) return;
+    $kind = strtoupper(strval($ref['kind'] ?? ''));
+    $zonePlayer = intval($ref['zonePlayer'] ?? 0);
+    if(!in_array($kind, ['MINION', 'MONSTER'], true) || !in_array($zonePlayer, [1, 2], true)) return;
+    $index = max(0, intval($ref['index'] ?? 0));
+    $zone = $kind === 'MONSTER' ? 'Monster' : 'Characters';
+    $object = $ref['object'] ?? null;
+    $uniqueID = is_object($object) ? intval($object->UniqueID ?? 0) : 0;
+    QueueDamageAnimation(
+        'p' . $zonePlayer . $zone . '-' . $index,
+        $amount,
+        500,
+        true,
+        $uniqueID > 0 ? $uniqueID : null
+    );
+}
+
 function HellbreakDealMinionDamage(
     array $descriptor,
     int $amount,
@@ -285,6 +303,7 @@ function HellbreakDealMinionDamage(
     );
     if($amount <= 0) return true;
     $ref['object']->Damage = intval($ref['object']->Damage) + $amount;
+    HellbreakQueueResolvedDamageAnimation($ref, $amount);
     if(function_exists('HellbreakDamageDealtHook')) {
         HellbreakDamageDealtHook($descriptor, $amount, $sourceDescriptor, $damageType, $eventPlayer);
     }
@@ -678,6 +697,7 @@ function HellbreakProcessMonsterDamage(): bool {
     if(!in_array($player, [1, 2], true)) return false;
     $stack = &GetHealthStack($player);
     HellbreakReindexZone($stack);
+    $damageThisPass = 0;
     while(intval($pending['remaining'] ?? 0) > 0) {
         if(count($stack) === 0) {
             DecisionQueueController::StoreVariable('HellbreakPendingMonsterDamage', []);
@@ -696,6 +716,7 @@ function HellbreakProcessMonsterDamage(): bool {
         $health = max(0, intval($health) - 1);
         $pending['remaining'] = intval($pending['remaining']) - 1;
         $pending['dealt'] = intval($pending['dealt'] ?? 0) + 1;
+        ++$damageThisPass;
         if(function_exists('HellbreakDamageDealtHook')) HellbreakDamageDealtHook(['kind' => 'MONSTER', 'zonePlayer' => $player], 1);
         if(intval($top->RemainingHealth) <= 0) {
             array_shift($stack);
@@ -710,6 +731,8 @@ function HellbreakProcessMonsterDamage(): bool {
             $pending['revealedCardID'] = $cardID;
             $pending['jumpscareMaliceCost'] = $cost;
             DecisionQueueController::StoreVariable('HellbreakPendingMonsterDamage', $pending);
+            $monster = HellbreakBattlefieldRef($player, 'myMonster-0');
+            if($monster !== null) HellbreakQueueResolvedDamageAnimation($monster, $damageThisPass);
             $context = ['player' => $player, 'cardID' => $cardID, 'jumpscareMaliceCost' => $cost];
             HellbreakQueueHealthEventBarrier($context, 'REVEALED', false);
             if(function_exists('HellbreakMonsterHealthCardRevealedHook')) HellbreakMonsterHealthCardRevealedHook($player, $top);
@@ -721,6 +744,8 @@ function HellbreakProcessMonsterDamage(): bool {
         }
         DecisionQueueController::StoreVariable('HellbreakPendingMonsterDamage', $pending);
     }
+    $monster = HellbreakBattlefieldRef($player, 'myMonster-0');
+    if($monster !== null) HellbreakQueueResolvedDamageAnimation($monster, $damageThisPass);
     if(count($stack) === 0) {
         DecisionQueueController::StoreVariable('HellbreakPendingMonsterDamage', []);
         return HellbreakEndGame(HellbreakOtherPlayer($player));
@@ -1233,6 +1258,21 @@ function HellbreakTakeLocation(int $player, int $slot, array $continuation = [])
     $field = $player === 1 ? 'MaliceP1' : 'MaliceP2';
     if(intval($location->$field) < intval($location->Threshold)) return false;
     $previousController = intval($location->Controller ?? 0);
+
+    // Location cards are repainted on every accepted game update, so their persistent facing
+    // must not use a DOM-enter transition. Queue the actual control flip here, at the authoritative
+    // rules event where the malice threshold is known to have been reached.
+    if(function_exists('QueueFrameAnimation')) {
+        QueueFrameAnimation([
+            'type' => 'css',
+            'target' => 'Locations-' . intval($location->mzIndex ?? max(0, $slot - 1)),
+            'uniqueID' => intval($location->UniqueID ?? 0),
+            'className' => 'hb-location-control-taken',
+            'durationMs' => 520,
+            'blocking' => true,
+        ]);
+    }
+
     $location->MaliceP1 = 0;
     $location->MaliceP2 = 0;
     $location->Controller = $player;

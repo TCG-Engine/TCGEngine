@@ -54,8 +54,17 @@ body { color: var(--hb-cream); font-family: var(--hb-font); }
 .hb-side-their > * { transform: rotate(180deg); }
 
 #LocationsSlot [data-mzid] { display: inline-block; height: 100px; vertical-align: middle; }
-#LocationsSlot [data-mzid] img:not(.counter-image-icon) { transition: transform 220ms ease; }
 #LocationsSlot [data-mzid].hb-location-faces-away img:not(.counter-image-icon) { transform: rotate(180deg); }
+/* The shared selectable-card rule transitions image transforms. Locations become selectable while
+   choosing a Scheme target, so exclude transform here or their persistent facing replays as a flip. */
+#LocationsSlot [data-mzid].selectable-card img:not(.counter-image-icon) {
+    transition: box-shadow 140ms ease, border-color 140ms ease, border-width 140ms ease;
+}
+#LocationsSlot [data-mzid].hb-location-control-taken img:not(.counter-image-icon) { animation: hb-location-control-taken 520ms ease both; }
+@keyframes hb-location-control-taken {
+    from { rotate: 0deg; }
+    to { rotate: 180deg; }
+}
 #LocationsSlot [data-counter-field="MaliceP1"],
 #LocationsSlot [data-counter-field="MaliceP2"] { display: none !important; }
 .hb-location-malice-track { position: absolute; z-index: 1200; inset: 0; pointer-events: none; }
