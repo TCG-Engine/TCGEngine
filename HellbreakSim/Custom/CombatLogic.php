@@ -113,6 +113,18 @@ function HellbreakAttackTargetsForRef(int $player, array $attacker, ?int $locati
             $targets[] = 'theirCharacters-' . $index;
         }
     }
+    $attackerCardID = strval($attacker['object']->CardID ?? '');
+    if(function_exists('HellbreakObjectHasKeyword') && HellbreakObjectHasKeyword($attacker['object'], 'Stealth')) return $targets;
+    $guardians = [];
+    foreach($targets as $targetMZ) {
+        $target = HellbreakBattlefieldRef($player, $targetMZ);
+        if($target === null || $target['kind'] !== 'MINION') continue;
+        if(function_exists('HellbreakObjectHasKeyword')
+            && HellbreakObjectHasKeyword($target['object'], 'Guardian')) {
+            $guardians[] = $targetMZ;
+        }
+    }
+    if(count($guardians) > 0) return $guardians;
     return $targets;
 }
 
@@ -193,15 +205,20 @@ function HellbreakChooseAttackLocation(int $player, string $selection): bool {
     return true;
 }
 
-function HellbreakDefenderCandidates(int $defendingPlayer, int $locationSlot): array {
+function HellbreakDefenderCandidates(int $defendingPlayer, int $locationSlot, int $excludedUniqueID = 0): array {
     $candidates = [];
     foreach(HellbreakLiveZoneObjects(GetMonster($defendingPlayer)) as $index => $monster) {
         $ref = HellbreakBattlefieldRef($defendingPlayer, 'myMonster-' . $index);
-        if($ref !== null && HellbreakIsReadyControlledCharacter($ref, $defendingPlayer)) $candidates[] = 'myMonster-' . $index;
+        if($ref !== null && HellbreakIsReadyControlledCharacter($ref, $defendingPlayer)
+            && ($excludedUniqueID <= 0 || intval($ref['object']->UniqueID ?? 0) !== $excludedUniqueID)) {
+            $candidates[] = 'myMonster-' . $index;
+        }
     }
     foreach(HellbreakLiveZoneObjects(GetCharacters($defendingPlayer)) as $index => $character) {
         $ref = HellbreakBattlefieldRef($defendingPlayer, 'myCharacters-' . $index);
-        if($ref !== null && HellbreakIsReadyControlledCharacter($ref, $defendingPlayer) && HellbreakCharacterLocation($ref) === $locationSlot) {
+        if($ref !== null && HellbreakIsReadyControlledCharacter($ref, $defendingPlayer)
+            && HellbreakCharacterLocation($ref) === $locationSlot
+            && ($excludedUniqueID <= 0 || intval($ref['object']->UniqueID ?? 0) !== $excludedUniqueID)) {
             $candidates[] = 'myCharacters-' . $index;
         }
     }
@@ -229,7 +246,12 @@ function HellbreakContinueAfterTargetDeclared(array $context): bool {
     $pending = DecisionQueueController::GetVariable('HellbreakPendingAttack');
     if(!is_array($pending) || intval($pending['player'] ?? 0) !== $player) return false;
     $defenderPlayer = HellbreakOtherPlayer($player);
-    $defenders = HellbreakDefenderCandidates($defenderPlayer, intval($pending['locationSlot']));
+    $attacker = HellbreakResolveBattlefieldDescriptor($pending['attacker'] ?? null);
+    $target = HellbreakResolveBattlefieldDescriptor($pending['target'] ?? null);
+    $stealth = $attacker !== null && function_exists('HellbreakObjectHasKeyword')
+        && HellbreakObjectHasKeyword($attacker['object'], 'Stealth');
+    $excludedUniqueID = $stealth && $target !== null ? intval($target['object']->UniqueID ?? 0) : 0;
+    $defenders = HellbreakDefenderCandidates($defenderPlayer, intval($pending['locationSlot']), $excludedUniqueID);
     DecisionQueueController::StoreVariable('HellbreakPendingDefenders', $defenders);
     if(HellbreakIsAutoSetupPlayer($defenderPlayer) || count($defenders) === 0) return HellbreakResolveAttack($player, null);
     DecisionQueueController::AddDecision($defenderPlayer, 'MZMAYCHOOSE', implode('&', $defenders), 0, 'Choose_a_defender_or_pass');
@@ -380,8 +402,8 @@ function HellbreakMinionTargetsAtLocationMatching(int $viewer, int $locationSlot
         $ref = HellbreakBattlefieldRef($viewer, $mzID);
         if($ref === null) continue;
         if(in_array($controller, [1, 2], true) && intval($ref['object']->Controller ?? 0) !== $controller) continue;
-        if($trait !== '' && (!function_exists('HellbreakCardHasTrait')
-            || !HellbreakCardHasTrait(strval($ref['object']->CardID ?? ''), $trait))) continue;
+        if($trait !== '' && (!function_exists('HellbreakObjectHasTrait')
+            || !HellbreakObjectHasTrait($ref['object'], $trait, $viewer))) continue;
         $targets[] = $mzID;
     }
     return $targets;
@@ -389,6 +411,100 @@ function HellbreakMinionTargetsAtLocationMatching(int $viewer, int $locationSlot
 
 function HellbreakEnemyMinionsAtLocation(int $player, int $locationSlot, string $trait = ''): array {
     return HellbreakMinionTargetsAtLocationMatching($player, $locationSlot, HellbreakOtherPlayer($player), $trait);
+}
+
+function HellbreakAllMinionTargets(int $viewer, int $controller = 0, string $trait = ''): array {
+    $targets = [];
+    foreach([1, 2] as $zonePlayer) {
+        $prefix = $zonePlayer === $viewer ? 'myCharacters' : 'theirCharacters';
+        foreach(HellbreakLiveZoneObjects(GetCharacters($zonePlayer)) as $index => $character) {
+            if(in_array($controller, [1, 2], true) && intval($character->Controller ?? 0) !== $controller) continue;
+            if($trait !== '' && (!function_exists('HellbreakObjectHasTrait')
+                || !HellbreakObjectHasTrait($character, $trait, $viewer))) continue;
+            $targets[] = $prefix . '-' . $index;
+        }
+    }
+    return $targets;
+}
+
+function HellbreakDamagedMinionTargets(
+    int $viewer,
+    int $controller = 0,
+    int $locationSlot = 0,
+    string $trait = '',
+    int $excludeUniqueID = 0
+): array {
+    $targets = [];
+    foreach([1, 2] as $zonePlayer) {
+        $prefix = $zonePlayer === $viewer ? 'myCharacters' : 'theirCharacters';
+        foreach(HellbreakLiveZoneObjects(GetCharacters($zonePlayer)) as $index => $character) {
+            if(intval($character->Damage ?? 0) <= 0) continue;
+            if(in_array($controller, [1, 2], true) && intval($character->Controller ?? 0) !== $controller) continue;
+            if($locationSlot > 0 && intval($character->LocationSlot ?? 0) !== $locationSlot) continue;
+            if($excludeUniqueID > 0 && intval($character->UniqueID ?? 0) === $excludeUniqueID) continue;
+            if($trait !== '' && (!function_exists('HellbreakObjectHasTrait')
+                || !HellbreakObjectHasTrait($character, $trait, $viewer))) continue;
+            $targets[] = $prefix . '-' . $index;
+        }
+    }
+    return $targets;
+}
+
+function HellbreakEnemyHasDamagedMinion(int $player, int $locationSlot = 0): bool {
+    return count(HellbreakDamagedMinionTargets(
+        $player,
+        HellbreakOtherPlayer($player),
+        $locationSlot
+    )) > 0;
+}
+
+function HellbreakHealMinionByMZ(int $viewer, string $targetMZ, int $amount): bool {
+    if($amount <= 0) return false;
+    $target = HellbreakBattlefieldRef($viewer, $targetMZ);
+    if($target === null || $target['kind'] !== 'MINION') return false;
+    $target['object']->Damage = max(0, intval($target['object']->Damage ?? 0) - $amount);
+    return true;
+}
+
+function HellbreakExhaustMinionByMZ(int $viewer, string $targetMZ): bool {
+    $target = HellbreakBattlefieldRef($viewer, $targetMZ);
+    if($target === null || $target['kind'] !== 'MINION') return false;
+    $target['object']->Status = 1;
+    return true;
+}
+
+function HellbreakOtherLocationSlot(int $locationSlot): int {
+    foreach(HellbreakLiveZoneObjects(GetLocations()) as $location) {
+        $slot = intval($location->Slot ?? 0);
+        if($slot > 0 && $slot !== $locationSlot) return $slot;
+    }
+    return 0;
+}
+
+function HellbreakMoveMinionByMZ(int $viewer, string $targetMZ, int $toLocationSlot): bool {
+    $target = HellbreakBattlefieldRef($viewer, $targetMZ);
+    if($target === null || $target['kind'] !== 'MINION' || $toLocationSlot <= 0) return false;
+    $fromLocationSlot = intval($target['object']->LocationSlot ?? 0);
+    if($fromLocationSlot <= 0 || $fromLocationSlot === $toLocationSlot) return false;
+    $target['object']->LocationSlot = $toLocationSlot;
+    if(function_exists('Moved')) {
+        Moved($viewer, $targetMZ, $fromLocationSlot, $toLocationSlot);
+    } else if(function_exists('HellbreakOnMoved')) {
+        HellbreakOnMoved($viewer, $targetMZ, $fromLocationSlot, $toLocationSlot);
+    }
+    return true;
+}
+
+function HellbreakTerrifyMinionByMZ(int $viewer, string $targetMZ): bool {
+    $target = HellbreakBattlefieldRef($viewer, $targetMZ);
+    if($target === null || $target['kind'] !== 'MINION') return false;
+    $zone = &GetCharacters(intval($target['zonePlayer']));
+    $object = $target['object'];
+    array_splice($zone, intval($target['index']), 1);
+    HellbreakReindexZone($zone);
+    $owner = intval($object->Owner ?? 0) ?: intval($target['zonePlayer']);
+    AddHand($owner, strval($object->CardID ?? ''), $object);
+    return true;
 }
 
 function HellbreakExhaustedMinionsAtLocation(int $viewer, int $locationSlot): array {
@@ -582,6 +698,17 @@ function HellbreakJumpscarePlayRevealedAsset(int $player, string $cardID): bool 
     $playedObject = AddAssets($player, $cardID, 2, $player, $player, [], [], $object);
     if(function_exists('HellbreakCardPlayedHook')) {
         HellbreakCardPlayedHook($player, $cardID, 'ASSET', $playedObject, null, 'HealthStack');
+    }
+    return true;
+}
+
+function HellbreakJumpscarePlayRevealedEvent(int $player, string $cardID): bool {
+    if(HellbreakCardType($cardID) !== 'EVENT') return false;
+    $object = HellbreakTakeRevealedJumpscareCard($player, $cardID);
+    if(!is_object($object)) return false;
+    $playedObject = AddCrypt($player, $cardID, 'HealthStack', intval(GetTurnNumber()), true, $object);
+    if(function_exists('HellbreakCardPlayedHook')) {
+        HellbreakCardPlayedHook($player, $cardID, 'EVENT', $playedObject, null, 'HealthStack');
     }
     return true;
 }
@@ -898,20 +1025,22 @@ function HellbreakAfterAttackDamageEvents(array $context, int $token): bool {
     $defenderDescriptor = $context['defender'] ?? null;
     HellbreakQueueAttackEventBarrier($context, 'COMPLETION', $token, false);
     if(is_array($recipientDescriptor)) {
-        HellbreakCheckLethal(
+        $recipientKilled = HellbreakCheckLethal(
             $recipientDescriptor,
             $attackerDescriptor,
             $attackingPlayer,
             strval($context['attackerMZ'] ?? '')
         );
+        if($recipientKilled) HellbreakAwardBloodlust($attackerDescriptor, $attackingPlayer);
     }
     if(is_array($defenderDescriptor) && is_array($attackerDescriptor)) {
-        HellbreakCheckLethal(
+        $attackerKilled = HellbreakCheckLethal(
             $attackerDescriptor,
             $defenderDescriptor,
             HellbreakOtherPlayer($attackingPlayer),
             strval($context['defenderSourceMZ'] ?? '')
         );
+        if($attackerKilled) HellbreakAwardBloodlust($defenderDescriptor, HellbreakOtherPlayer($attackingPlayer));
     }
     if(function_exists('HellbreakCombatCompletedHook')) {
         HellbreakCombatCompletedHook(
@@ -938,6 +1067,30 @@ function HellbreakFinishAttackResolution(array $context): bool {
     return HellbreakQueueAttackEventBarrier($context, 'DAMAGE');
 }
 
+function HellbreakAttackingCombatValue(array $attacker, int $attackingPlayer): int {
+    if(!is_object($attacker['object'] ?? null)) return 0;
+    $value = HellbreakCardCombatValue(
+        strval($attacker['object']->CardID ?? ''),
+        $attacker['object'],
+        $attackingPlayer
+    );
+    if(function_exists('HellbreakObjectKeywordValue')) {
+        $value += HellbreakObjectKeywordValue($attacker['object'], 'Fierce', 0);
+    }
+    return max(0, $value);
+}
+
+function HellbreakAwardBloodlust(?array $sourceDescriptor, int $player): int {
+    if(!is_array($sourceDescriptor)) return 0;
+    $source = HellbreakResolveBattlefieldDescriptor($sourceDescriptor);
+    if($source === null) return 0;
+    $amount = function_exists('HellbreakObjectKeywordValue')
+        ? HellbreakObjectKeywordValue($source['object'], 'Bloodlust', 0)
+        : 0;
+    if($amount > 0) HellbreakGainBlood($player, $amount);
+    return $amount;
+}
+
 function HellbreakResolveAttack(int $attackingPlayer, ?array $defenderDescriptor): bool {
     $pending = DecisionQueueController::GetVariable('HellbreakPendingAttack');
     if(!is_array($pending) || intval($pending['player'] ?? 0) !== $attackingPlayer) return false;
@@ -946,15 +1099,40 @@ function HellbreakResolveAttack(int $attackingPlayer, ?array $defenderDescriptor
     $defender = $defenderDescriptor === null ? null : HellbreakResolveBattlefieldDescriptor($defenderDescriptor);
     if($attacker === null || $target === null) return false;
 
-    $attackerDamage = HellbreakCardCombatValue((string)$attacker['object']->CardID, $attacker['object'], $attackingPlayer);
+    $attackerCardID = strval($attacker['object']->CardID ?? '');
+    $attackerDamage = HellbreakAttackingCombatValue($attacker, $attackingPlayer);
     $damageRecipient = $defender ?? $target;
     $returnDamage = $defender === null ? 0 : HellbreakCardCombatValue((string)$defender['object']->CardID, $defender['object'], intval($defender['object']->Controller ?? HellbreakOtherPlayer($attackingPlayer)));
     $attackerDescriptor = HellbreakBattlefieldDescriptor($attacker);
     $recipientDescriptor = HellbreakBattlefieldDescriptor($damageRecipient);
+    $recipientRemainingHealth = $damageRecipient['kind'] === 'MINION'
+        ? max(0, HellbreakCardHealthValue(
+            strval($damageRecipient['object']->CardID ?? ''),
+            $damageRecipient['object'],
+            intval($damageRecipient['object']->Controller ?? $damageRecipient['zonePlayer'])
+        ) - intval($damageRecipient['object']->Damage ?? 0))
+        : 0;
+    $overkillDamage = $damageRecipient['kind'] === 'MINION'
+        && function_exists('HellbreakObjectHasKeyword')
+        && HellbreakObjectHasKeyword($attacker['object'], 'Overkill')
+        ? max(0, $attackerDamage - $recipientRemainingHealth)
+        : 0;
+    $firstStrikeKilled = false;
     if($damageRecipient['kind'] === 'MINION') {
         HellbreakApplyCharacterDamage($recipientDescriptor, $attackerDamage, $attackerDescriptor, 'COMBAT_ATTACK', $attackingPlayer);
+        if($defender !== null && function_exists('HellbreakObjectHasKeyword')
+            && HellbreakObjectHasKeyword($attacker['object'], 'First Strike')) {
+            $firstStrikeKilled = HellbreakCheckLethal(
+                $recipientDescriptor,
+                $attackerDescriptor,
+                $attackingPlayer,
+                HellbreakMZForBattlefieldDescriptor($attackingPlayer, $attackerDescriptor)
+            );
+            if($firstStrikeKilled) HellbreakAwardBloodlust($attackerDescriptor, $attackingPlayer);
+            if($firstStrikeKilled) $returnDamage = 0;
+        }
     }
-    if($defender !== null && $attacker['kind'] !== 'MONSTER') {
+    if($defender !== null && !$firstStrikeKilled && $attacker['kind'] !== 'MONSTER') {
         HellbreakApplyCharacterDamage(
             $attackerDescriptor,
             $returnDamage,
@@ -972,6 +1150,7 @@ function HellbreakResolveAttack(int $attackingPlayer, ?array $defenderDescriptor
         'defenderMZ' => $defenderDescriptor === null ? '' : HellbreakMZForBattlefieldDescriptor($attackingPlayer, $defenderDescriptor),
         'defenderSourceMZ' => $defenderDescriptor === null ? '' : HellbreakMZForBattlefieldDescriptor(HellbreakOtherPlayer($attackingPlayer), $defenderDescriptor),
     ];
+    if($firstStrikeKilled) $context['recipient'] = null;
     if($damageRecipient['kind'] === 'MONSTER' && $attackerDamage > 0) {
         $attackerDamage = HellbreakModifiedDamageAmount(
             $damageRecipient,
@@ -997,6 +1176,16 @@ function HellbreakResolveAttack(int $attackingPlayer, ?array $defenderDescriptor
             $context,
             $attackerDescriptor,
             'COMBAT_ATTACK',
+            true
+        );
+    }
+    if($overkillDamage > 0) {
+        return HellbreakStartMonsterDamage(
+            intval($damageRecipient['zonePlayer']),
+            $overkillDamage,
+            $context,
+            $attackerDescriptor,
+            'COMBAT_OVERKILL',
             true
         );
     }

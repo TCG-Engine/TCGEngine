@@ -267,9 +267,14 @@ Do not infer authoritative rules solely from card images in production. Use imag
 - [x] Implement Deputy Hendricks' live-board combat modifier and Barracuda's optional flip-triggered character damage.
 - [x] Implement the conservative quick-start Jumpscare window: only the newly revealed Health card is eligible, its listed malice is paid, it resolves before normal discard/excess damage, and explicit destination text overrides discard.
 - [x] Implement generated destination Jumpscares for all reviewed "add this card to your hand" printings and the confirmed asset "play this card for 0 blood" cases (Vampire's Coffin and Scarecrow).
+- [x] Add the supplied GAMA Dracula and Jaws demo lists as selectable, exact-count starter decks, while retaining the authored tutorial fixtures separately.
+- [x] Implement the first GAMA automation pass through generated macros: Ancient Wisdom, Swarm of Rats, Aleera, Verona, Count Alucard's confirmed text, North Beach, Castle Dracula, Dracula, and Jaws.
+- [x] Implement the second GAMA automation pass: Drain Life and Narrow Escape (including play-from-Health Jumpscares), Coven Feast, Mina Harker, Carpathian Wildcat's confirmed Jumpscare, Ferocious Wolfpack's confirmed trigger, Carriage Driver, Shark Spotter, Veteran Harpooner, Larry Vaughn, Ravenous Predator, Rogue Shark and Threat From Below combat bonuses, A Panic on Our Hands, Giant Octopus, and Killer Whale's confirmed text.
+- [x] Implement the supplied keyword definitions for Bloodlust, Fearsome, Fierce, First Strike, Guardian, Malicious, Overkill, Stealth, and Terrify as shared rules mechanics, including side-aware monster keywords and mixed blood/malice payment choice.
+- [ ] Resolve the missing Marishka source image/rules and finish GAMA abilities that need additional multi-player sequencing, notably Shark in the Pond's opponent "prank" response and Orca's nested attack action.
 - [ ] Extend Jumpscares with response/cancellation ordering only when comprehensive rules or an official ruling defines that timing.
 - [ ] Connect other remaining lifecycle macros to card-specific resolution points as their cards are implemented.
-- [ ] Implement confirmed keyword definitions against the macro surface.
+- [x] Implement confirmed keyword definitions against the macro surface and universal play/combat hooks.
 - [ ] Implement the remaining card abilities and add card-by-card regression fixtures.
 
 ## Required automated tests

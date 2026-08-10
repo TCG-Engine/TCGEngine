@@ -482,6 +482,20 @@ $customDQHandlers['HellbreakCommitBid'] = function($player, $params, $lastDecisi
 $customDQHandlers['HellbreakAssignInitiative'] = function($player, $params, $lastDecision) {
     HellbreakAssignInitiative(intval($player), (string)$lastDecision);
 };
+$customDQHandlers['HellbreakResolveMaliciousPayment'] = function($player, $params, $lastDecision) {
+    $player = intval($player);
+    $pending = DecisionQueueController::GetVariable('HellbreakPendingMaliciousPaymentP' . $player);
+    if(!is_array($pending)) return;
+    DecisionQueueController::StoreVariable('HellbreakPendingMaliciousPaymentP' . $player, []);
+    $payment = intval($lastDecision);
+    if($payment < intval($pending['minimum'] ?? 0) || $payment > intval($pending['maximum'] ?? -1)) return;
+    HellbreakPlayCard(
+        $player,
+        strval($pending['mzID'] ?? ''),
+        intval($pending['locationSlot'] ?? 0) ?: null,
+        $payment
+    );
+};
 
 $customDQHandlers['HellbreakChooseHorrorAction'] = function($player, $params, $lastDecision) {
     HellbreakChooseHorrorAction(intval($player), (string)$lastDecision);
@@ -760,7 +774,12 @@ function HellbreakParseBidCommitment(int $player): array {
     if(!isset($hand[$index]) || !is_object($hand[$index]) || (string)$hand[$index]->CardID !== $cardID) {
         return ['cardID' => null, 'cost' => 0, 'object' => null, 'index' => -1];
     }
-    return ['cardID' => $cardID, 'cost' => HellbreakPrintedBloodCost($cardID), 'object' => $hand[$index], 'index' => $index];
+    $object = $hand[$index];
+    $cost = HellbreakPrintedBloodCost($cardID);
+    if(function_exists('HellbreakApplyValueModifiers')) {
+        $cost = HellbreakApplyValueModifiers('InitiativeBidModifier', $player, $object, $cost);
+    }
+    return ['cardID' => $cardID, 'cost' => max(0, $cost), 'object' => $object, 'index' => $index];
 }
 
 function HellbreakBidWinner(int $p1Cost, int $p2Cost, int $previousInitiative): int {
@@ -867,7 +886,13 @@ function HellbreakCardType(string $cardID): string {
 function HellbreakCardPlaySide(string $cardID): string {
     $fixture = function_exists('HellbreakFixtureCard') ? HellbreakFixtureCard($cardID) : null;
     if(is_array($fixture) && isset($fixture['playSide'])) return strtoupper(trim((string)$fixture['playSide']));
-    if(function_exists('CardPlaySide')) return strtoupper(trim((string)CardPlaySide($cardID)));
+    if(function_exists('CardPlaySide')) {
+        $side = strtoupper(trim((string)CardPlaySide($cardID)));
+        if($side !== '') return $side;
+    }
+    $text = function_exists('HellbreakCardRulesText') ? HellbreakCardRulesText($cardID) : '';
+    if(preg_match('/\bLurking\s+Action\b/i', $text)) return 'LURKING';
+    if(preg_match('/\bUnleashed\s+Action\b/i', $text)) return 'UNLEASHED';
     return '';
 }
 
@@ -892,7 +917,10 @@ function HellbreakCanPlayCard(int $player, string $mzID): bool {
     if($handCard === null) return false;
     $cardID = $handCard['cardID'];
     if(!in_array(HellbreakCardType($cardID), ['MINION', 'ASSET', 'EVENT'], true)) return false;
-    if(intval(BloodValue($player)) < HellbreakCardPlayCost($player, $cardID, $handCard['object'])) return false;
+    $cost = HellbreakCardPlayCost($player, $cardID, $handCard['object']);
+    $malicious = function_exists('HellbreakKeywordValue') ? HellbreakKeywordValue($cardID, 'Malicious', 0) : 0;
+    $available = intval(BloodValue($player)) + min(intval(MaliceValue($player)), $malicious);
+    if($available < $cost) return false;
     if(!HellbreakCanPayLoyalty($player, $cardID)) return false;
     $requiredSide = HellbreakCardPlaySide($cardID);
     if($requiredSide !== '' && HellbreakMonsterSide($player) !== $requiredSide) return false;
@@ -961,6 +989,113 @@ function HellbreakGainMalice(int $player, int $amount): int {
 
 function HellbreakLoseMalice(int $player, int $amount): int {
     return -HellbreakChangeMalice($player, -max(0, $amount));
+}
+
+function HellbreakCanPayMalice(int $player, int $amount): bool {
+    return in_array($player, [1, 2], true) && intval(MaliceValue($player)) >= max(0, $amount);
+}
+
+function HellbreakPayMalice(int $player, int $amount): bool {
+    $amount = max(0, $amount);
+    if(!HellbreakCanPayMalice($player, $amount)) return false;
+    HellbreakLoseMalice($player, $amount);
+    return true;
+}
+
+function HellbreakControlledMinionCount(int $player, string $trait = '', string $cardID = '', int $excludeUniqueID = 0): int {
+    $count = 0;
+    foreach(HellbreakLiveZoneObjects(GetCharacters($player)) as $character) {
+        if(intval($character->Controller ?? 0) !== $player) continue;
+        if($excludeUniqueID > 0 && intval($character->UniqueID ?? 0) === $excludeUniqueID) continue;
+        if($cardID !== '' && strval($character->CardID ?? '') !== $cardID) continue;
+        if($trait !== '' && (!function_exists('HellbreakObjectHasTrait')
+            || !HellbreakObjectHasTrait($character, $trait, $player))) continue;
+        ++$count;
+    }
+    return $count;
+}
+
+function HellbreakControlledCardCount(int $player, string $trait = ''): int {
+    $count = 0;
+    foreach([GetMonster($player), GetCharacters($player), GetAssets($player), GetLocations()] as $zone) {
+        foreach(HellbreakLiveZoneObjects($zone) as $object) {
+            if(intval($object->Controller ?? 0) !== $player) continue;
+            if($trait !== '' && (!function_exists('HellbreakObjectHasTrait')
+                || !HellbreakObjectHasTrait($object, $trait, $player))) continue;
+            ++$count;
+        }
+    }
+    return $count;
+}
+
+function HellbreakObjectAbilityUsedThisRound($object, int $player, int $abilityIndex): bool {
+    if(!is_object($object) || !is_array($object->Counters ?? null)) return false;
+    $key = 'ability_' . $abilityIndex . '_p' . $player . '_round';
+    return intval($object->Counters[$key] ?? 0) === intval(GetTurnNumber());
+}
+
+function HellbreakMarkObjectAbilityUsedThisRound($object, int $player, int $abilityIndex): void {
+    if(!is_object($object)) return;
+    if(!is_array($object->Counters ?? null)) $object->Counters = [];
+    $key = 'ability_' . $abilityIndex . '_p' . $player . '_round';
+    $object->Counters[$key] = intval(GetTurnNumber());
+}
+
+function HellbreakRecordPlayedCardThisPhase(int $player, string $cardID): void {
+    if(!in_array($player, [1, 2], true) || $cardID === '') return;
+    $key = 'HellbreakPlayedCardsP' . $player . 'R' . intval(GetTurnNumber()) . 'P' . strtoupper(GetCurrentPhase());
+    $cards = DecisionQueueController::GetVariable($key);
+    if(!is_array($cards)) $cards = [];
+    $cards[] = $cardID;
+    DecisionQueueController::StoreVariable($key, $cards);
+}
+
+function HellbreakPlayedTraitThisPhase(int $player, string $trait): bool {
+    $key = 'HellbreakPlayedCardsP' . $player . 'R' . intval(GetTurnNumber()) . 'P' . strtoupper(GetCurrentPhase());
+    $cards = DecisionQueueController::GetVariable($key);
+    if(!is_array($cards)) return false;
+    foreach($cards as $cardID) {
+        if(function_exists('HellbreakCardHasTrait') && HellbreakCardHasTrait(strval($cardID), $trait)) return true;
+    }
+    return false;
+}
+
+function HellbreakTopDeckTraitSearchChoices(int $player, string $trait, int $topCount): array {
+    $choices = [];
+    $deck = HellbreakLiveZoneObjects(GetDeck($player));
+    $limit = min(count($deck), max(0, $topCount));
+    for($index = 0; $index < $limit; ++$index) {
+        if(HellbreakCardHasTrait(strval($deck[$index]->CardID ?? ''), $trait)) {
+            $choices[] = 'myDeck-' . $index;
+        }
+    }
+    return $choices;
+}
+
+function HellbreakResolveTopDeckTraitSearch(int $player, string $trait, int $topCount, string $selection): bool {
+    $deck = &GetDeck($player);
+    HellbreakReindexZone($deck);
+    $limit = min(count($deck), max(0, $topCount));
+    if($limit <= 0) return true;
+
+    $selectedIndex = -1;
+    if(preg_match('/^myDeck-(\d+)$/', trim($selection), $matches)) {
+        $candidate = intval($matches[1]);
+        if($candidate >= 0 && $candidate < $limit
+            && HellbreakCardHasTrait(strval($deck[$candidate]->CardID ?? ''), $trait)) {
+            $selectedIndex = $candidate;
+        }
+    }
+
+    $searched = array_splice($deck, 0, $limit);
+    $selected = $selectedIndex >= 0 ? $searched[$selectedIndex] : null;
+    if($selectedIndex >= 0) array_splice($searched, $selectedIndex, 1);
+    if(function_exists('EngineShuffle')) EngineShuffle($searched);
+    else shuffle($searched);
+    foreach($searched as $object) $deck[] = $object;
+    HellbreakReindexZone($deck);
+    if(is_object($selected)) AddHand($player, strval($selected->CardID ?? ''), $selected);
+    return true;
 }
 
 function HellbreakCanonicalCardTitle(string $cardID): string {
@@ -1129,7 +1264,7 @@ function HellbreakChooseMinionLocation(int $player, string $selection): bool {
     return HellbreakPlayCard($player, $mzID, $locationSlot);
 }
 
-function HellbreakPlayCard(int $player, string $mzID, ?int $locationSlot = null): bool {
+function HellbreakPlayCard(int $player, string $mzID, ?int $locationSlot = null, ?int $malicePayment = null): bool {
     if(!HellbreakCanPlayCard($player, $mzID)) return false;
     $handCard = HellbreakParseHandMZ($player, $mzID);
     if($handCard === null) return false;
@@ -1144,9 +1279,30 @@ function HellbreakPlayCard(int $player, string $mzID, ?int $locationSlot = null)
     }
 
     $cost = HellbreakCardPlayCost($player, $cardID, $handCard['object']);
+    $malicious = function_exists('HellbreakKeywordValue') ? HellbreakKeywordValue($cardID, 'Malicious', 0) : 0;
+    $minimumMalice = max(0, $cost - intval(BloodValue($player)));
+    $maximumMalice = min($cost, $malicious, intval(MaliceValue($player)));
+    if($minimumMalice > $maximumMalice) return false;
+    if($malicePayment === null && $maximumMalice > $minimumMalice) {
+        DecisionQueueController::StoreVariable('HellbreakPendingMaliciousPaymentP' . $player, [
+            'mzID' => $mzID,
+            'cardID' => $cardID,
+            'locationSlot' => intval($locationSlot),
+            'minimum' => $minimumMalice,
+            'maximum' => $maximumMalice,
+        ]);
+        DecisionQueueController::AddDecision($player, 'NUMBERCHOOSE', $minimumMalice . '|' . $maximumMalice, 0, 'Choose_malice_to_spend_as_blood');
+        DecisionQueueController::AddDecision($player, 'CUSTOM', 'HellbreakResolveMaliciousPayment', 1);
+        return true;
+    }
+    if($malicePayment === null) $malicePayment = $minimumMalice;
+    if($malicePayment < $minimumMalice || $malicePayment > $maximumMalice) return false;
     $blood = &BloodValue($player);
-    if($blood < $cost) return false;
-    $blood -= $cost;
+    $malice = &MaliceValue($player);
+    if($blood < $cost - $malicePayment || $malice < $malicePayment) return false;
+    $blood -= $cost - $malicePayment;
+    $malice -= $malicePayment;
+    HellbreakRecordPlayedCardThisPhase($player, $cardID);
     $hand = &GetHand($player);
     $source = $handCard['object'];
     array_splice($hand, $handCard['index'], 1);
@@ -1155,6 +1311,9 @@ function HellbreakPlayCard(int $player, string $mzID, ?int $locationSlot = null)
     $playedObject = null;
     if($type === 'MINION') {
         $playedObject = AddCharacters($player, $cardID, 1, 0, $player, $player, intval($locationSlot), [], [], $source);
+        if(function_exists('HellbreakCardHasKeyword') && HellbreakCardHasKeyword($cardID, 'Fearsome')) {
+            $playedObject->Status = 2;
+        }
     } else if($type === 'ASSET') {
         $playedObject = AddAssets($player, $cardID, 2, $player, $player, [], [], $source);
     } else {

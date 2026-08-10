@@ -43,8 +43,11 @@ Macro: Name=RefreshReady(round); ChoiceFunction=HellbreakOnRefreshReady; Action=
 Macro: Name=RoundEnded(round); ChoiceFunction=HellbreakOnRoundEnded; Action={}
 Macro: Name=CombatModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=HealthModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=TraitModifier(subjectObj,trait,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=KeywordModifier(subjectObj,keyword,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=SchemeModifier(subjectObj,schemeType,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=PlayCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=InitiativeBidModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=LocationThresholdModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=DamageModifier(subjectObj,damageType,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 

@@ -94,6 +94,68 @@ function HellbreakCardHasTrait(string $cardID, string $trait): bool {
     return in_array(strtoupper(trim($trait)), HellbreakCardTraits($cardID), true);
 }
 
+function HellbreakCardRulesText(string $cardID, string $side = ''): string {
+    if(function_exists('CardFaces')) {
+        $faces = CardFaces($cardID);
+        if(is_string($faces)) $faces = json_decode($faces, true);
+        if(is_array($faces)) {
+            $side = strtolower(trim($side));
+            if($side !== '' && is_array($faces[$side] ?? null)) return strval($faces[$side]['text'] ?? '');
+            $faceTexts = [];
+            foreach($faces as $face) {
+                if(is_array($face) && trim(strval($face['text'] ?? '')) !== '') $faceTexts[] = strval($face['text']);
+            }
+            if(count($faceTexts) > 0) return implode(' ', $faceTexts);
+        }
+    }
+    if(function_exists('HellbreakFixtureCard')) {
+        $fixture = HellbreakFixtureCard($cardID);
+        if(is_array($fixture) && isset($fixture['text'])) return strval($fixture['text']);
+    }
+    return function_exists('CardText') ? strval(CardText($cardID)) : '';
+}
+
+function HellbreakKeywordValue(string $cardID, string $keyword, int $defaultValue = 1): int {
+    $keyword = trim($keyword);
+    if($keyword === '') return 0;
+    $pattern = '/(?:^|[.\\s])' . preg_quote($keyword, '/') . '(?:\\s+(\\d+))?(?=[.\\s,;]|$)/i';
+    if(!preg_match($pattern, HellbreakCardRulesText($cardID), $matches)) return 0;
+    return isset($matches[1]) && $matches[1] !== '' ? max(0, intval($matches[1])) : max(0, $defaultValue);
+}
+
+function HellbreakCardHasKeyword(string $cardID, string $keyword): bool {
+    return HellbreakKeywordValue($cardID, $keyword, 1) > 0;
+}
+
+function HellbreakObjectKeywordValue($object, string $keyword, int $defaultValue = 1): int {
+    if(!is_object($object)) return 0;
+    $cardID = strval($object->CardID ?? '');
+    $text = HellbreakCardRulesText($cardID, strval($object->Side ?? ''));
+    $pattern = '/(?:^|[.\\s])' . preg_quote(trim($keyword), '/') . '(?:\\s+(\\d+))?(?=[.\\s,;]|$)/i';
+    $value = preg_match($pattern, $text, $matches)
+        ? (isset($matches[1]) && $matches[1] !== '' ? max(0, intval($matches[1])) : max(0, $defaultValue))
+        : 0;
+    if(function_exists('HellbreakApplyValueModifiers')) {
+        $player = intval($object->Controller ?? $object->Owner ?? 0);
+        $value = HellbreakApplyValueModifiers('KeywordModifier', $player, $object, $value, [$keyword]);
+    }
+    return max(0, $value);
+}
+
+function HellbreakObjectHasKeyword($object, string $keyword): bool {
+    return HellbreakObjectKeywordValue($object, $keyword, 1) > 0;
+}
+
+function HellbreakObjectHasTrait($object, string $trait, int $player = 0): bool {
+    if(!is_object($object)) return false;
+    if(HellbreakCardHasTrait(strval($object->CardID ?? ''), $trait)) return true;
+    if(!function_exists('HellbreakApplyValueModifiers')) return false;
+    if(!in_array($player, [1, 2], true)) {
+        $player = intval($object->Controller ?? $object->Owner ?? 0);
+    }
+    return HellbreakApplyValueModifiers('TraitModifier', $player, $object, 0, [$trait]) > 0;
+}
+
 function HellbreakMZForObject(int $viewer, $needle): string {
     if(!is_object($needle)) return '';
     foreach([1, 2] as $owner) {
@@ -147,7 +209,10 @@ function HellbreakCanUseActivatedAbility($player, $mzID, $abilityIndex): bool {
     if(GetCurrentPhase() !== 'HORROR' || intval(GetTurnPlayer()) !== $player || intval(GetWinner()) > 0) return false;
     if(intval(GetSlumberPlayer()) === $player) return false;
     $source = GetZoneObject($mzID);
-    if(!is_object($source) || intval($source->Controller ?? 0) !== $player) return false;
+    if(!is_object($source)) return false;
+    // Locations are contested permanents. Their own generated prerequisites decide
+    // whether either player, only the controller, or neither player may use them.
+    if(!preg_match('/^Locations-\d+$/', $mzID) && intval($source->Controller ?? 0) !== $player) return false;
     $cardID = HellbreakMacroCardIDFromMZ(strval($mzID));
     if($cardID === '') return false;
     $countFunction = 'CardActivateAbilityCount';
@@ -168,7 +233,7 @@ function HellbreakActivatableAbilities(int $player): array {
         }
     }
     foreach(HellbreakLiveZoneObjects(GetLocations()) as $index => $object) {
-        if(intval($object->Controller ?? 0) === $player) $candidates[] = ['Locations-' . $index, $object];
+        $candidates[] = ['Locations-' . $index, $object];
     }
 
     $abilities = [];
