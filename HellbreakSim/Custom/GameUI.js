@@ -454,6 +454,13 @@
     if(myHealthStack) myHealthStack.classList.toggle('hb-top-health-vertical', numberValue(window.myTopHealthRemainingData, 0) === 1);
     if(theirHealthStack) theirHealthStack.classList.toggle('hb-top-health-vertical', numberValue(window.theirTopHealthRemainingData, 0) === 1);
 
+    var opponentHand = document.getElementById('theirHandSlot');
+    if(opponentHand) {
+      var opponentHandCount = document.querySelectorAll('#theirHand > span').length;
+      opponentHand.setAttribute('data-count', String(opponentHandCount));
+      opponentHand.setAttribute('aria-label', 'Opponent hand, ' + opponentHandCount + ' cards');
+    }
+
     table.setAttribute('data-phase', phase);
     renderLocationControlFacing(viewer);
     renderCharacterLocations();
