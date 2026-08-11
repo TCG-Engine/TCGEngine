@@ -36,7 +36,7 @@ set -euo pipefail
 # Positional args + flags
 # ---------------------------------------------------------------------------
 APP=""; DB_NAME=""; SERVER_NAME=""; SERVER_ALIAS=""
-PORTS=""; SSL_CERT=""; SSL_KEY=""; SKIP_RESTART=0; DEFAULT_SITE=0
+PORTS=""; SSL_CERT=""; SSL_KEY=""; SKIP_RESTART=0; DEFAULT_SITE=0; KEEP_SERVER_ENV=0
 want_val=""
 for arg in "$@"; do
   if [ -n "$want_val" ]; then
@@ -53,6 +53,7 @@ for arg in "$@"; do
     --server-name|--server-alias|--ports|--ssl-cert|--ssl-key)
                      want_val="${arg#--}" ;;
     --default-site)  DEFAULT_SITE=1 ;;
+    --keep-server-env) KEEP_SERVER_ENV=1 ;;
     --skip-restart)  SKIP_RESTART=1 ;;
     -h|--help)       grep '^#' "$0" | sed 's/^# \{0,1\}//' | sed '/^!/d'; exit 0 ;;
     --*)             echo "Unknown option: $arg" >&2; exit 2 ;;
@@ -200,6 +201,35 @@ for f in "$EXTRA_DIR"/httpd-vhost-1*.conf; do
   fi
 done
 
+# ---- Guard 3: an EXISTING vhost on a port this run does not cover. ----------
+# Server-level SetEnv is INHERITED by every vhost, so a vhost on another port works today
+# ONLY because of the server-level conf this script retires. XAMPP ships a LIVE
+# `<VirtualHost *:443>` in extra/httpd-ssl.conf (Included from httpd.conf by default), so
+# writing a :80-only vhost and retiring that conf leaves the :443 vhost with no
+# MYSQL_DATABASE_NAME -> every HTTPS request 500s while HTTP looks perfectly fine. Behind
+# Cloudflare Full/Full-Strict (CF -> origin over 443) that is the ENTIRE site, and a
+# port-80 curl will not show it. Guards 1 and 2 are blind here: they only scan
+# httpd-*-env.conf and httpd-vhost-1*.conf respectively.
+if [ "$KEEP_SERVER_ENV" -eq 0 ]; then
+  uncovered=""
+  for f in "$EXTRA_DIR"/*.conf; do
+    [ -e "$f" ] || continue
+    case "$f" in "$VHOST_CONF"|"$DEFAULT_CONF") continue ;; esac
+    conf_is_included "$f" || continue
+    for p in $(grep -oE '<VirtualHost[^>]*>' "$f" | grep -oE ':[0-9]+' | tr -d ':' | sort -u); do
+      covered=0
+      for want in $PORTS; do [ "$p" = "$want" ] && covered=1; done
+      [ "$covered" -eq 0 ] && uncovered+="  ${f}  (<VirtualHost ...:${p}>)"$'\n'
+    done
+  done
+  if [ -n "$uncovered" ]; then
+    warn "these ALREADY-LIVE vhosts sit on ports this run does not cover, and they work today"
+    warn "only by inheriting the server-level SetEnv that this run would retire:"
+    printf '%s' "$uncovered" >&2
+    die "either cover those ports (--ports \"$PORTS <port>\" [--ssl-cert ... --ssl-key ...]) or --keep-server-env."
+  fi
+fi
+
 # ---------------------------------------------------------------------------
 # 1. Catch-all vhost (must be FIRST on every port)
 # ---------------------------------------------------------------------------
@@ -297,7 +327,16 @@ fi
 # ---------------------------------------------------------------------------
 # Leaving it in place would keep a server-level SetEnv that overrides nothing for matched
 # hosts but silently supplies a DB for unmatched ones — see Guard 1.
-if [ -f "$OLD_ENV_CONF" ]; then
+if [ "$KEEP_SERVER_ENV" -eq 1 ]; then
+  # --keep-server-env: leave the server-level SetEnv in place. Two reasons this is the right phase-1
+  # posture on a box that already has OTHER vhosts (XAMPP's httpd-ssl.conf ships a live
+  # `<VirtualHost *:443>`): (1) server-level SetEnv is INHERITED by every vhost, so it is the only
+  # thing making that 443 vhost work today — retiring it while adding a :80-only vhost 500s all HTTPS
+  # while HTTP looks fine; (2) on a single-site box the vhost env and the server-level env are
+  # byte-identical, so keeping both is harmless. Retire it in the phase that adds the SECOND site,
+  # where "which env wins" finally matters.
+  warn "keeping the server-level env conf ($OLD_ENV_CONF) — retire it when a 2nd site is added"
+elif [ -f "$OLD_ENV_CONF" ]; then
   log "Retiring server-level env conf -> $OLD_ENV_CONF"
   backup "$OLD_ENV_CONF"
   if [ -f "$HTTPD_CONF" ] && grep -Fq "httpd-$APP-env.conf" "$HTTPD_CONF"; then
