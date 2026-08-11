@@ -839,6 +839,12 @@ function SubmitEngineInput(mode, params, options) {
 }
 
 function SubmitInput(mode, params, fullRefresh = false) {
+  // A submitted answer ends the current prompt immediately. Reset the delayed
+  // undo affordance here so a following identical prompt gets its own delay.
+  if (String(mode).toUpperCase() === 'DECISION'
+      && typeof ResetDelayedDecisionUndoAffordance === 'function') {
+    ResetDelayedDecisionUndoAffordance();
+  }
   SubmitEngineInput(mode, params, { fullRefresh: fullRefresh }).then(function() {
     if (!fullRefresh && typeof window.QueueGameUpdate === "function") window.QueueGameUpdate();
     if(_openPopup != null) RefreshPopupContent(_openPopup);

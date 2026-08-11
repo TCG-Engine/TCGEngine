@@ -4503,6 +4503,137 @@ function ParseDecisionQueue(raw) {
   return result;
 }
 
+const DELAYED_DECISION_UNDO_MS = 2500;
+const DELAYED_DECISION_UNDO_TYPES = new Set([
+  'TOPDECKSEARCH', 'SCRY', 'REVEALARRANGE', 'YESNO', 'CHOOSEZONE',
+  'MZCHOOSE', 'MZMAYCHOOSE', 'MZREARRANGE', 'MZMODAL', 'MZMULTICHOOSE',
+  'MZSPLITASSIGN', 'NUMBERCHOOSE', 'OPTIONCHOOSE', 'TWOSIDEDSLIDER',
+  'NAMECARD', 'ICONCHOICE'
+]);
+
+window.DelayedDecisionUndoState = window.DelayedDecisionUndoState || {
+  signature: '',
+  timer: null
+};
+
+function SupportsDelayedDecisionUndo() {
+  return window.rootPath === './GrandArchiveSim' || window.rootPath === './AzukiSim';
+}
+
+function RemoveDelayedDecisionUndoButton() {
+  const button = document.getElementById('delayed-decision-undo');
+  if (button) button.remove();
+}
+
+function ResetDelayedDecisionUndoAffordance() {
+  const state = window.DelayedDecisionUndoState;
+  if (state.timer !== null) {
+    window.clearTimeout(state.timer);
+    state.timer = null;
+  }
+  state.signature = '';
+  RemoveDelayedDecisionUndoButton();
+}
+
+function MountDelayedDecisionUndoButton(signature) {
+  const state = window.DelayedDecisionUndoState;
+  if (state.signature !== signature || document.getElementById('delayed-decision-undo')) return;
+
+  const isMobile = typeof IsMobileGameLayoutActive === 'function' && IsMobileGameLayoutActive();
+  const button = document.createElement('button');
+  button.id = 'delayed-decision-undo';
+  button.type = 'button';
+  button.setAttribute('aria-label', 'Undo your most recent action');
+  button.title = isMobile ? 'Undo your most recent action' : 'Undo your most recent action (U)';
+  button.style.cssText = [
+    'position:fixed',
+    isMobile ? 'right:12px' : 'right:20px',
+    isMobile ? 'bottom:calc(env(safe-area-inset-bottom, 0px) + 76px)' : 'bottom:20px',
+    'z-index:10020',
+    'display:inline-flex',
+    'align-items:center',
+    'gap:8px',
+    'padding:8px 12px',
+    'border:1px solid rgba(255,255,255,0.22)',
+    'border-radius:999px',
+    'background:rgba(13,27,42,0.9)',
+    'color:#eef4ff',
+    'box-shadow:0 5px 18px rgba(0,0,0,0.32)',
+    'backdrop-filter:blur(8px)',
+    '-webkit-backdrop-filter:blur(8px)',
+    "font-family:'Orbitron',sans-serif",
+    'font-size:12px',
+    'font-weight:700',
+    'letter-spacing:0.03em',
+    'cursor:pointer',
+    'opacity:0',
+    'transform:translateY(5px)',
+    'transition:opacity 180ms ease, transform 180ms ease, background 150ms ease'
+  ].join(';');
+
+  const icon = document.createElement('span');
+  icon.setAttribute('aria-hidden', 'true');
+  icon.textContent = '↶';
+  icon.style.fontSize = '16px';
+  button.appendChild(icon);
+
+  const label = document.createElement('span');
+  label.textContent = 'Undo';
+  button.appendChild(label);
+
+  if (!isMobile) {
+    const shortcut = document.createElement('kbd');
+    shortcut.textContent = 'U';
+    shortcut.style.cssText = 'padding:2px 6px;border:1px solid rgba(255,255,255,0.28);border-radius:4px;background:rgba(255,255,255,0.08);font:inherit;font-size:10px;line-height:1.2';
+    button.appendChild(shortcut);
+  }
+
+  button.onmouseenter = function() {
+    if (!button.disabled) button.style.background = 'rgba(28,48,70,0.96)';
+  };
+  button.onmouseleave = function() {
+    if (!button.disabled) button.style.background = 'rgba(13,27,42,0.9)';
+  };
+  button.onclick = function() {
+    button.disabled = true;
+    button.style.cursor = 'default';
+    button.style.opacity = '0.55';
+    label.textContent = 'Undoing…';
+    SubmitInput(10004, '');
+  };
+
+  document.body.appendChild(button);
+  window.requestAnimationFrame(function() {
+    if (!button.isConnected) return;
+    button.style.opacity = '1';
+    button.style.transform = 'translateY(0)';
+  });
+}
+
+function UpdateDelayedDecisionUndoAffordance(entry, decisionIndex) {
+  if (!SupportsDelayedDecisionUndo() || !entry || entry.removed
+      || !DELAYED_DECISION_UNDO_TYPES.has(String(entry.Type || ''))) {
+    ResetDelayedDecisionUndoAffordance();
+    return;
+  }
+
+  const signature = [
+    decisionIndex,
+    entry.Type || '',
+    entry.Param || '',
+    entry.Tooltip || ''
+  ].join('|');
+  const state = window.DelayedDecisionUndoState;
+  if (state.signature === signature) return;
+
+  ResetDelayedDecisionUndoAffordance();
+  state.signature = signature;
+  state.timer = window.setTimeout(function() {
+    state.timer = null;
+    MountDelayedDecisionUndoButton(signature);
+  }, DELAYED_DECISION_UNDO_MS);
+}
+
 function ParseChooseZoneSpecs(rawParam) {
   return (rawParam || '')
     .split('&')
@@ -4914,14 +5045,34 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
 // - finalize: mount prompts and DOM-dependent controls after the new board DOM exists
 // Calls without a phase preserve the legacy all-in-one behavior.
 function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
-  if (typeof IsSpectatorClient === 'function' && IsSpectatorClient()) return;
+  if (typeof IsSpectatorClient === 'function' && IsSpectatorClient()) {
+    ResetDelayedDecisionUndoAffordance();
+    return;
+  }
   const prepareOnly = phase === 'prepare';
   const finalizeOnly = phase === 'finalize';
   // Accept raw string or array
   if (typeof decisionQueue === 'string') {
     decisionQueue = ParseDecisionQueue(decisionQueue);
   }
-  if (!decisionQueue || !Array.isArray(decisionQueue)) return;
+  if (!decisionQueue || !Array.isArray(decisionQueue)) {
+    if (!prepareOnly) ResetDelayedDecisionUndoAffordance();
+    return;
+  }
+
+  if (!prepareOnly) {
+    let pendingDecision = null;
+    let pendingDecisionIndex = -1;
+    for (let pendingIndex = 0; pendingIndex < decisionQueue.length; ++pendingIndex) {
+      const candidate = decisionQueue[pendingIndex];
+      if (candidate && !candidate.removed) {
+        pendingDecision = candidate;
+        pendingDecisionIndex = pendingIndex;
+        break;
+      }
+    }
+    UpdateDelayedDecisionUndoAffordance(pendingDecision, pendingDecisionIndex);
+  }
   for (let i = 0; i < decisionQueue.length; ++i) {
     let entry = decisionQueue[i];
     if (prepareOnly && entry && !entry.removed
