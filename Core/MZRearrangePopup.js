@@ -20,14 +20,14 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
+      background: var(--mz-rearrange-overlay-bg, rgba(0, 0, 0, 0.85));
+      backdrop-filter: var(--mz-rearrange-overlay-filter, blur(8px));
       z-index: 6000;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: 'Orbitron', 'Segoe UI', sans-serif;
+      font-family: var(--mz-rearrange-font, 'Orbitron', 'Segoe UI', sans-serif);
       animation: mzrearrange-fade-in 0.3s ease-out;
     }
 
@@ -39,14 +39,14 @@
     .mzrearrange-modal {
       position: relative;
       width: min(1080px, calc(100vw - 24px));
-      background: linear-gradient(145deg, #1a2a3a, #0d1b2a);
-      border: 2px solid #3a5a7a;
+      background: var(--mz-rearrange-modal-bg, linear-gradient(145deg, #1a2a3a, #0d1b2a));
+      border: 2px solid var(--mz-rearrange-modal-border, #3a5a7a);
       border-radius: 16px;
       max-width: 95vw;
       max-height: 92vh;
       overflow-x: hidden;
       overflow-y: auto;
-      box-shadow: 0 0 60px rgba(0, 100, 200, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+      box-shadow: var(--mz-rearrange-modal-shadow, 0 0 60px rgba(0, 100, 200, 0.3), inset 0 1px 0 rgba(255,255,255,0.1));
       animation: mzrearrange-slide-up 0.4s ease-out;
       pointer-events: auto;
     }
@@ -63,14 +63,14 @@
       cursor: grab;
       user-select: none;
       touch-action: none;
-      background: linear-gradient(145deg, rgba(26, 42, 58, 0.98), rgba(13, 27, 42, 0.98));
+      background: var(--mz-rearrange-header-bg, linear-gradient(145deg, rgba(26, 42, 58, 0.98), rgba(13, 27, 42, 0.98)));
       border-radius: 14px 14px 0 0;
     }
 
     .mzrearrange-header-label {
       flex: 1;
       min-width: 0;
-      color: rgba(255, 255, 255, 0.92);
+      color: var(--mz-rearrange-header-text, rgba(255, 255, 255, 0.92));
       text-transform: uppercase;
       letter-spacing: 0.22em;
       font-size: 11px;
@@ -91,19 +91,19 @@
       height: 28px;
       padding: 0;
       border-radius: 999px;
-      border: 1px solid rgba(244, 236, 219, 0.18);
-      background: rgba(244, 236, 219, 0.08);
-      color: #f4ecdb;
+      border: 1px solid var(--mz-rearrange-control-border, rgba(244, 236, 219, 0.18));
+      background: var(--mz-rearrange-control-bg, rgba(244, 236, 219, 0.08));
+      color: var(--mz-rearrange-control-text, #f4ecdb);
       font-size: 18px;
       line-height: 1;
       cursor: pointer;
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--mz-rearrange-font, 'Orbitron', 'Segoe UI', sans-serif);
     }
 
     .mzrearrange-header-divider {
       height: 1px;
       margin: 0 16px;
-      background: linear-gradient(90deg, rgba(100, 200, 255, 0.32), rgba(255, 255, 255, 0.06));
+      background: var(--mz-rearrange-divider, linear-gradient(90deg, rgba(100, 200, 255, 0.32), rgba(255, 255, 255, 0.06)));
     }
 
     .mzrearrange-body {
@@ -123,10 +123,10 @@
 
     .mzrearrange-title {
       font-size: clamp(18px, 5vw, 22px);
-      color: #fff;
+      color: var(--mz-rearrange-title-text, #fff);
       text-align: center;
       margin-bottom: 8px;
-      text-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
+      text-shadow: var(--mz-rearrange-title-shadow, 0 0 20px rgba(100, 200, 255, 0.5));
       letter-spacing: 1px;
     }
 
@@ -139,8 +139,8 @@
 
     .mzrearrange-pile {
       box-sizing: border-box;
-      background: rgba(0, 20, 40, 0.6);
-      border: 2px solid #2a4a6a;
+      background: var(--mz-rearrange-pile-bg, rgba(0, 20, 40, 0.6));
+      border: 2px solid var(--mz-rearrange-pile-border, #2a4a6a);
       border-radius: 12px;
       padding: clamp(8px, 2vw, 12px);
       min-width: 0;
@@ -150,18 +150,18 @@
     }
 
     .mzrearrange-pile.drag-over {
-      border-color: #00ccff;
-      background: rgba(0, 100, 150, 0.3);
-      box-shadow: 0 0 30px rgba(0, 200, 255, 0.4);
+      border-color: var(--mz-rearrange-accent, #00ccff);
+      background: var(--mz-rearrange-drag-bg, rgba(0, 100, 150, 0.3));
+      box-shadow: var(--mz-rearrange-drag-shadow, 0 0 30px rgba(0, 200, 255, 0.4));
     }
 
     .mzrearrange-pile-header {
       font-size: 16px;
-      color: #8cf;
+      color: var(--mz-rearrange-pile-title, #8cf);
       text-align: center;
       margin-bottom: 12px;
       padding-bottom: 8px;
-      border-bottom: 1px solid #3a5a7a;
+      border-bottom: 1px solid var(--mz-rearrange-pile-divider, #3a5a7a);
       text-transform: uppercase;
       letter-spacing: 2px;
     }
@@ -178,24 +178,41 @@
 
     .mzrearrange-card {
       position: relative;
+      box-sizing: border-box;
+      border: 2px solid transparent;
       cursor: grab;
       border-radius: 8px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.14s ease;
       user-select: none;
       touch-action: none;
-      background: rgba(30, 50, 70, 0.5);
+      background: var(--mz-rearrange-card-bg, rgba(30, 50, 70, 0.5));
       padding: 4px;
       will-change: transform;
     }
 
     .mzrearrange-card.selectable {
-      border: 1px solid rgba(0, 204, 255, 0.7);
+      border-color: var(--mz-rearrange-selectable-border, rgba(0, 204, 255, 0.7));
+    }
+
+    .mzrearrange-card.selectable::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      z-index: 4;
+      pointer-events: none;
+      border: 2px solid var(--mz-rearrange-selected-border, #5ee88a);
+      border-radius: 8px;
+      clip-path: inset(0 100% 0 0 round 8px);
+      transition: clip-path 0.14s cubic-bezier(0.22, 0.8, 0.3, 1);
     }
 
     .mzrearrange-card.selected {
-      border: 2px solid #5ee88a;
-      box-shadow: 0 0 18px rgba(94, 232, 138, 0.55);
-      background: rgba(35, 105, 65, 0.48);
+      box-shadow: var(--mz-rearrange-selected-shadow, 0 0 18px rgba(94, 232, 138, 0.55));
+      background: var(--mz-rearrange-selected-bg, rgba(35, 105, 65, 0.48));
+    }
+
+    .mzrearrange-card.selectable.selected::after {
+      clip-path: inset(0 0 0 0 round 8px);
     }
 
     .mzrearrange-select-btn {
@@ -203,17 +220,17 @@
       width: 100%;
       margin-top: 4px;
       padding: 5px 3px;
-      border: 1px solid #3a91b7;
+      border: 1px solid var(--mz-rearrange-select-button-border, #3a91b7);
       border-radius: 5px;
-      background: #173c54;
-      color: #eaf8ff;
+      background: var(--mz-rearrange-select-button-bg, #173c54);
+      color: var(--mz-rearrange-select-button-text, #eaf8ff);
       cursor: pointer;
-      font: 600 10px/1.1 'Orbitron', 'Segoe UI', sans-serif;
+      font: 600 10px/1.1 var(--mz-rearrange-font, 'Orbitron', 'Segoe UI', sans-serif);
     }
 
     .mzrearrange-card.selected .mzrearrange-select-btn {
-      border-color: #5ee88a;
-      background: #286844;
+      border-color: var(--mz-rearrange-selected-border, #5ee88a);
+      background: var(--mz-rearrange-selected-button-bg, #286844);
     }
 
     .mzrearrange-card img {
@@ -224,7 +241,7 @@
 
     .mzrearrange-card:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 8px 20px rgba(0, 150, 255, 0.3);
+      box-shadow: var(--mz-rearrange-card-hover-shadow, 0 8px 20px rgba(0, 150, 255, 0.3));
       z-index: 10;
     }
 
@@ -247,9 +264,9 @@
     }
 
     .mzrearrange-card-placeholder {
-      border: 2px dashed #00ccff;
+      border: 2px dashed var(--mz-rearrange-accent, #00ccff);
       border-radius: 8px;
-      background: rgba(0, 200, 255, 0.1);
+      background: var(--mz-rearrange-placeholder-bg, rgba(0, 200, 255, 0.1));
       animation: mzrearrange-pulse 1s ease-in-out infinite;
       transition: all 0.2s ease;
       margin: 2px 0;
@@ -257,7 +274,7 @@
 
     .mzrearrange-card-placeholder.active {
       transform: scaleY(1.15);
-      background: rgba(0, 200, 255, 0.2);
+      background: var(--mz-rearrange-placeholder-active-bg, rgba(0, 200, 255, 0.2));
       border-width: 3px;
     }
 
@@ -285,15 +302,15 @@
       left: -8px;
       width: 24px;
       height: 24px;
-      background: linear-gradient(145deg, #00ccff, #0088cc);
+      background: var(--mz-rearrange-order-bg, linear-gradient(145deg, #00ccff, #0088cc));
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 12px;
       font-weight: bold;
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(0, 150, 255, 0.5);
+      color: var(--mz-rearrange-order-text, #fff);
+      box-shadow: var(--mz-rearrange-order-shadow, 0 2px 8px rgba(0, 150, 255, 0.5));
       z-index: 5;
     }
 
@@ -309,14 +326,14 @@
 
     .mzrearrange-instructions {
       text-align: center;
-      color: #8aa;
+      color: var(--mz-rearrange-instructions-text, #8aa);
       font-size: 13px;
       margin-bottom: 10px;
       opacity: 0.8;
     }
 
     .mzrearrange-empty-message {
-      color: #557;
+      color: var(--mz-rearrange-empty-text, #557);
       font-style: italic;
       text-align: center;
       padding: 20px;
@@ -719,8 +736,8 @@
     function setMinimized(nextValue) {
       isMinimized = !!nextValue;
       body.style.display = isMinimized ? 'none' : 'block';
-      overlay.style.background = isMinimized ? 'transparent' : 'rgba(0, 0, 0, 0.85)';
-      overlay.style.backdropFilter = isMinimized ? 'none' : 'blur(8px)';
+      overlay.style.background = isMinimized ? 'transparent' : '';
+      overlay.style.backdropFilter = isMinimized ? 'none' : '';
       overlay.style.pointerEvents = isMinimized ? 'none' : 'auto';
       modal.style.pointerEvents = 'auto';
       modal.style.maxHeight = isMinimized ? 'none' : '92vh';

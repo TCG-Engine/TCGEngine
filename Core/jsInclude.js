@@ -23,6 +23,7 @@ var cardDetailRequestToken = 0;
 var CARD_DETAIL_LONG_PRESS_MS = 430;
 var CARD_DETAIL_TOUCH_MOVE_TOLERANCE = 12;
 var SWUDECK_CARD_DETAIL_HOVER_MS = 240;
+var AZUKISIM_CARD_DETAIL_HOVER_MS = 400;
 // Touch preview: fraction of the viewport the full card may occupy. Desktop hover keeps its own
 // fixed 400px ceiling (see ShowDetail) — these apply only to the touch branch.
 var CARD_DETAIL_TOUCH_VIEWPORT_W = 0.92;
@@ -76,7 +77,8 @@ function ShowCardDetail(e, that, options) {
   var folderPath = document.getElementById("folderPath").value;
   var timeOut = options.skipDelay ? 0 : (folderPath == "SWUDeck" || folderPath == "AzukiDeck" ? SWUDECK_CARD_DETAIL_HOVER_MS :
     (folderPath == "SWUSim" ? 850 :
-    (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" || folderPath == "AzukiSim" ? 100 : 1)));
+    (folderPath == "AzukiSim" ? AZUKISIM_CARD_DETAIL_HOVER_MS :
+    (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" ? 100 : 1))));
   showDetailTimeout = setTimeout(function() {
     if (requestToken !== cardDetailRequestToken) return;
     if (IsCardDetailSuppressed()) return;

@@ -2,6 +2,71 @@
 // GameLayout.php — Container divs for all BindTo zones in AzukiSim.
 // Included from InitialLayout.php after the main split-screen structure.
 require_once __DIR__ . '/GameLayoutDevice.php';
+?>
+<style>
+    :root {
+        /* Shared Decision Queue popups can be skinned per app through these tokens. */
+        --mz-rearrange-overlay-bg: rgba(3, 3, 4, 0.88);
+        --mz-rearrange-overlay-filter: blur(7px);
+        --mz-rearrange-font: var(--azuki-font-ui, "Segoe UI Variable Display", "Aptos", sans-serif);
+        --mz-rearrange-modal-bg: linear-gradient(145deg, rgba(29, 28, 29, 0.995), rgba(12, 12, 14, 0.995));
+        --mz-rearrange-modal-border: rgba(181, 55, 65, 0.56);
+        --mz-rearrange-modal-shadow: 0 20px 60px rgba(0, 0, 0, 0.72), 0 0 34px rgba(126, 25, 35, 0.18), inset 0 1px 0 rgba(255, 248, 235, 0.04);
+        --mz-rearrange-header-bg: linear-gradient(145deg, rgba(29, 28, 29, 0.99), rgba(16, 15, 17, 0.99));
+        --mz-rearrange-header-text: rgba(244, 237, 224, 0.94);
+        --mz-rearrange-control-border: rgba(226, 216, 198, 0.2);
+        --mz-rearrange-control-bg: rgba(226, 216, 198, 0.07);
+        --mz-rearrange-control-text: #f4ede0;
+        --mz-rearrange-divider: linear-gradient(90deg, rgba(181, 55, 65, 0.52), rgba(226, 216, 198, 0.07));
+        --mz-rearrange-title-text: rgba(247, 240, 228, 0.98);
+        --mz-rearrange-title-shadow: 0 0 22px rgba(126, 25, 35, 0.3);
+        --mz-rearrange-pile-bg: rgba(255, 248, 235, 0.018);
+        --mz-rearrange-pile-border: rgba(226, 216, 198, 0.14);
+        --mz-rearrange-pile-title: rgba(217, 93, 104, 0.96);
+        --mz-rearrange-pile-divider: rgba(226, 216, 198, 0.1);
+        --mz-rearrange-card-bg: rgba(255, 248, 235, 0.045);
+        --mz-rearrange-accent: #b53741;
+        --mz-rearrange-drag-bg: rgba(126, 25, 35, 0.2);
+        --mz-rearrange-drag-shadow: 0 0 28px rgba(181, 55, 65, 0.28);
+        --mz-rearrange-selectable-border: rgba(181, 55, 65, 0.72);
+        --mz-rearrange-selected-border: #e5c36a;
+        --mz-rearrange-selected-bg: rgba(105, 79, 24, 0.3);
+        --mz-rearrange-selected-shadow: 0 0 18px rgba(229, 195, 106, 0.38);
+        --mz-rearrange-select-button-border: rgba(181, 55, 65, 0.78);
+        --mz-rearrange-select-button-bg: linear-gradient(180deg, #832530, #57171e);
+        --mz-rearrange-select-button-text: #f7f0e4;
+        --mz-rearrange-selected-button-bg: linear-gradient(180deg, #856b2d, #5f491c);
+        --mz-rearrange-card-hover-shadow: 0 8px 20px rgba(126, 25, 35, 0.32);
+        --mz-rearrange-placeholder-bg: rgba(181, 55, 65, 0.1);
+        --mz-rearrange-placeholder-active-bg: rgba(181, 55, 65, 0.2);
+        --mz-rearrange-order-bg: linear-gradient(145deg, #c74450, #7e1923);
+        --mz-rearrange-order-text: #fff8eb;
+        --mz-rearrange-order-shadow: 0 2px 8px rgba(126, 25, 35, 0.5);
+        --mz-rearrange-instructions-text: rgba(226, 216, 198, 0.62);
+        --mz-rearrange-empty-text: rgba(226, 216, 198, 0.38);
+    }
+
+    .mzrearrange-btn-reset {
+        --btn-surface: linear-gradient(180deg, #292729, #171719);
+        --btn-fill: linear-gradient(180deg, #292729, #171719);
+        --btn-border: rgba(226, 216, 198, 0.3);
+        --btn-text: #f4ede0;
+        --btn-hover-surface: linear-gradient(180deg, #353235, #201e20);
+        --btn-hover-border: rgba(226, 216, 198, 0.5);
+        --btn-glow-color: rgba(226, 216, 198, 0.14);
+    }
+
+    .mzrearrange-btn-submit {
+        --btn-surface: linear-gradient(180deg, #9d2d38, #661a23);
+        --btn-fill: linear-gradient(180deg, #9d2d38, #661a23);
+        --btn-border: rgba(217, 93, 104, 0.86);
+        --btn-text: #f7f0e4;
+        --btn-hover-surface: linear-gradient(180deg, #b53742, #7e1f29);
+        --btn-hover-border: rgba(239, 135, 144, 0.94);
+        --btn-glow-color: rgba(181, 55, 65, 0.3);
+    }
+</style>
+<?php
 if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
