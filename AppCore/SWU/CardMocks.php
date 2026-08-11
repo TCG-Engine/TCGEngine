@@ -406,6 +406,35 @@ When Played: This unit doesn\'t ready during the next regroup phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/121.png',
     'imageUrlBack' => '',
   ),
+  'HMW_124' => 
+  array (
+    'title' => 'Luminara Unduli',
+    'subtitle' => 'Besieged General',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 7,
+    'power' => 7,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Republic',
+    ),
+    'text' => 'When you play a unit (including this one): You may attack with a unit. It gets +2/+0 for this attack.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/124.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_127' => 
   array (
     'title' => 'Chewbacca\'s Bowcaster',

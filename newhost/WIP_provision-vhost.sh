@@ -36,7 +36,7 @@ set -euo pipefail
 # Positional args + flags
 # ---------------------------------------------------------------------------
 APP=""; DB_NAME=""; SERVER_NAME=""; SERVER_ALIAS=""
-PORTS=""; SSL_CERT=""; SSL_KEY=""; SKIP_RESTART=0
+PORTS=""; SSL_CERT=""; SSL_KEY=""; SKIP_RESTART=0; DEFAULT_SITE=0
 want_val=""
 for arg in "$@"; do
   if [ -n "$want_val" ]; then
@@ -52,6 +52,7 @@ for arg in "$@"; do
   case "$arg" in
     --server-name|--server-alias|--ports|--ssl-cert|--ssl-key)
                      want_val="${arg#--}" ;;
+    --default-site)  DEFAULT_SITE=1 ;;
     --skip-restart)  SKIP_RESTART=1 ;;
     -h|--help)       grep '^#' "$0" | sed 's/^# \{0,1\}//' | sed '/^!/d'; exit 0 ;;
     --*)             echo "Unknown option: $arg" >&2; exit 2 ;;
@@ -76,7 +77,16 @@ DOCROOT="${DOCROOT:-$LAMPP_ROOT/htdocs}"
 # uses the FIRST vhost on a port as the fallback for any unmatched Host header).
 EXTRA_DIR="$LAMPP_ROOT/etc/extra"
 DEFAULT_CONF="$EXTRA_DIR/httpd-vhost-000-default.conf"
-VHOST_CONF="$EXTRA_DIR/httpd-vhost-100-$APP.conf"
+# --default-site: this app's vhost is ALSO the fallback for any unmatched Host, so it must sort FIRST
+# (Apache serves the first vhost on a port to unmatched requests). That keeps a single-site box behaving
+# EXACTLY as it does with no vhosts at all — the bare IP, www., monitoring and any other hostname pointed
+# here all keep resolving. The deny-everything catch-all is what you want once a SECOND site exists, not
+# before: introducing it during the env migration changes two things at once.
+if [ "$DEFAULT_SITE" -eq 1 ]; then
+  VHOST_CONF="$EXTRA_DIR/httpd-vhost-000-$APP.conf"
+else
+  VHOST_CONF="$EXTRA_DIR/httpd-vhost-100-$APP.conf"
+fi
 OLD_ENV_CONF="$EXTRA_DIR/httpd-$APP-env.conf"   # what provision-app.sh writes
 
 MYSQL_HOST="${MYSQL_HOST:-localhost}"
@@ -197,6 +207,9 @@ done
 # Without this, adding a second site would silently make the alphabetically-first app the
 # default for unknown hostnames — connecting some random Host header to a real database.
 # This one denies before PHP ever runs, so an unmatched host can never reach a DB.
+if [ "$DEFAULT_SITE" -eq 1 ]; then
+  ok "--default-site: skipping the deny catch-all; '$SERVER_NAME' is the fallback for unmatched hosts"
+else
 log "Writing catch-all vhost -> $DEFAULT_CONF"
 backup "$DEFAULT_CONF"
 {
@@ -214,6 +227,7 @@ backup "$DEFAULT_CONF"
   done
 } > "$DEFAULT_CONF"
 ok "wrote $DEFAULT_CONF ($(echo "$PORTS" | wc -w | tr -d ' ') port block(s))"
+fi
 
 # ---------------------------------------------------------------------------
 # 2. This app's vhost
@@ -246,7 +260,10 @@ backup "$VHOST_CONF"
     printf '</VirtualHost>\n'
   done
 } > "$VHOST_CONF"
-chmod 600 "$VHOST_CONF" "$DEFAULT_CONF"   # SetEnv carries the DB password
+# Only chmod what exists: --default-site writes no catch-all, and `set -e` would abort the run
+# half-configured (vhost written but not yet Included, old env conf not yet retired).
+chmod 600 "$VHOST_CONF"                                  # SetEnv carries the DB password
+[ -f "$DEFAULT_CONF" ] && chmod 600 "$DEFAULT_CONF"
 ok "wrote $VHOST_CONF (ServerName $SERVER_NAME, db $DB_NAME)"
 
 # ---------------------------------------------------------------------------
@@ -256,12 +273,16 @@ ok "wrote $VHOST_CONF (ServerName $SERVER_NAME, db $DB_NAME)"
 # an explicit ordering does not depend on how a given Apache build sorts wildcard matches.
 inc_default="Include etc/extra/httpd-vhost-000-default.conf"
 inc_sites="Include etc/extra/httpd-vhost-1*.conf"
+if [ "$DEFAULT_SITE" -eq 1 ]; then
+  # Glob covers httpd-vhost-000-<app>.conf; no separate catch-all line yet.
+  inc_default="Include etc/extra/httpd-vhost-0*.conf"
+fi
 if [ -f "$HTTPD_CONF" ]; then
   if grep -Fq "$inc_sites" "$HTTPD_CONF"; then
     ok "httpd.conf already includes the vhost confs"
   else
     backup "$HTTPD_CONF"
-    printf '\n# multi-site vhosts (newhost/provision-vhost.sh) — catch-all MUST stay first\n%s\n%s\n' \
+    printf '\n# vhosts (newhost/provision-vhost.sh) — the 0* line MUST stay first: whatever it matches is\n# the fallback for an unmatched Host (the deny catch-all, or the --default-site app).\n%s\n%s\n' \
       "$inc_default" "$inc_sites" >> "$HTTPD_CONF"
     ok "added vhost Includes to httpd.conf"
   fi
