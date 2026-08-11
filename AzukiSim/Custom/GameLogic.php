@@ -4376,25 +4376,17 @@ $customDQHandlers['TidalInsightApply'] = function($player, $parts, $lastDecision
 };
 
 $customDQHandlers['MIZUKI_SEARCH_REVEAL'] = function($player, $parts, $lastDecision) {
-    $chosenMZ = is_string($lastDecision) ? $lastDecision : '';
-    if($chosenMZ !== '' && $chosenMZ !== '-') {
-        $obj = GetZoneObject($chosenMZ);
-        if($obj !== null && !(isset($obj->removed) && $obj->removed)) {
-            $chosenCardID = $obj->CardID ?? '';
-            Reveal($player, $chosenMZ);
-            MZMove($player, $chosenMZ, 'myHand');
-            DecisionQueueController::CleanupRemovedCards();
-
-            $hand = &GetHand($player);
-            if(!empty($hand)) {
-                $varPrefix = GetMizukiSearchVarPrefix($player);
-                DecisionQueueController::StoreVariable($varPrefix . 'ChosenHandMZ', 'myHand-' . (count($hand) - 1));
-                DecisionQueueController::StoreVariable($varPrefix . 'ChosenCardID', $chosenCardID);
-            }
+    $varPrefix = GetMizukiSearchVarPrefix($player);
+    $chosenCardID = ResolveSelectableBottomDeckSearch($player, $varPrefix, $lastDecision);
+    if($chosenCardID !== '') {
+        $hand = &GetHand($player);
+        if(!empty($hand)) {
+            DecisionQueueController::StoreVariable($varPrefix . 'ChosenHandMZ', 'myHand-' . (count($hand) - 1));
+            DecisionQueueController::StoreVariable($varPrefix . 'ChosenCardID', $chosenCardID);
         }
     }
 
-    QueueMizukiSearchRearrange($player);
+    QueueMizukiSearchPlayPrompt($player);
 };
 
 $customDQHandlers['MIZUKI_SEARCH_REARRANGE'] = function($player, $parts, $lastDecision) {
@@ -4524,6 +4516,83 @@ function GetBottomDeckSearcherVarPrefix($player) {
     return 'P' . intval($player) . '_BottomDeckSearcher_';
 }
 
+function BuildSelectableRearrangeParam($cardIDs, $eligibleIndices, $minSelections = 0, $maxSelections = 1) {
+    $selectionParts = array_merge([
+        '@select=' . max(0, intval($minSelections)),
+        strval(max(0, intval($maxSelections)))
+    ], array_map('strval', array_values($eligibleIndices)));
+    return implode(',', $selectionParts) . ';Bottom=' . implode(',', $cardIDs);
+}
+
+function ParseSelectableRearrangeResult($lastDecision) {
+    $selectedIndex = null;
+    $bottomCards = [];
+    foreach(explode(';', strval($lastDecision)) as $part) {
+        $eqPos = strpos($part, '=');
+        if($eqPos === false) continue;
+        $name = trim(substr($part, 0, $eqPos));
+        $value = trim(substr($part, $eqPos + 1));
+        if($name === 'Selected' && $value !== '') {
+            $selectedIndex = intval(explode(',', $value)[0]);
+        } else if($name === 'Bottom') {
+            $bottomCards = $value === '' ? [] : array_values(array_filter(explode(',', $value), function($cardID) {
+                return is_string($cardID) && $cardID !== '';
+            }));
+        }
+    }
+    return [$selectedIndex, $bottomCards];
+}
+
+function ResolveSelectableBottomDeckSearch($player, $varPrefix, $lastDecision) {
+    [$selectedIndex, $submittedBottom] = ParseSelectableRearrangeResult($lastDecision);
+    $tempStart = intval(DecisionQueueController::GetVariable($varPrefix . 'TempStart'));
+    $eligibleIndices = array_values(array_filter(explode(',', strval(DecisionQueueController::GetVariable($varPrefix . 'EligibleIndices'))), function($value) {
+        return $value !== '';
+    }));
+    $eligibleLookup = array_fill_keys(array_map('intval', $eligibleIndices), true);
+
+    $tempZone = &GetTempZone($player);
+    $lookedObjects = [];
+    for($i = $tempStart; $i < count($tempZone); ++$i) {
+        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
+        $lookedObjects[$i - $tempStart] = $tempZone[$i];
+    }
+
+    $chosenCardID = '';
+    if($selectedIndex !== null && isset($eligibleLookup[$selectedIndex]) && isset($lookedObjects[$selectedIndex])) {
+        $chosenMZ = 'myTempZone-' . ($tempStart + $selectedIndex);
+        $chosenCardID = strval($lookedObjects[$selectedIndex]->CardID ?? '');
+        if($chosenCardID !== '') {
+            Reveal($player, $chosenMZ);
+            MZMove($player, $chosenMZ, 'myHand');
+            unset($lookedObjects[$selectedIndex]);
+        }
+    }
+
+    $remainingIDs = array_map(function($obj) {
+        return strval($obj->CardID ?? '');
+    }, array_values($lookedObjects));
+    $expectedCounts = array_count_values($remainingIDs);
+    $submittedCounts = array_count_values($submittedBottom);
+    $bottomCards = $expectedCounts === $submittedCounts ? $submittedBottom : $remainingIDs;
+
+    foreach($lookedObjects as $obj) $obj->Remove();
+    DecisionQueueController::CleanupRemovedCards();
+
+    $deck = &GetDeck($player);
+    foreach($bottomCards as $cardID) {
+        if($cardID === '') continue;
+        $deck[] = new Deck($cardID, 'Deck', $player);
+    }
+    for($i = 0; $i < count($deck); ++$i) {
+        $deck[$i]->mzIndex = $i;
+        $deck[$i]->BuildIndex();
+    }
+
+    DecisionQueueController::ClearVariable($varPrefix . 'EligibleIndices');
+    return $chosenCardID;
+}
+
 function BeginBottomDeckSearcher($player, $lookCount, $matchKind, $matchValue, $chooseTooltip = 'Choose_a_card_to_add_to_your_hand', $excludeCardID = '') {
     $deck = &GetDeck($player);
     if(empty($deck)) return;
@@ -4540,20 +4609,27 @@ function BeginBottomDeckSearcher($player, $lookCount, $matchKind, $matchValue, $
     $varPrefix = GetBottomDeckSearcherVarPrefix($player);
     DecisionQueueController::StoreVariable($varPrefix . 'TempStart', strval($tempStart));
 
-    $candidates = [];
+    $eligibleIndices = [];
     foreach(ZoneSearch($player, 'myTempZone', $matchKind, $matchValue, $excludeCardID, 'myDeck') as $mzID) {
         $parts = explode('-', $mzID);
         $index = intval($parts[1] ?? -1);
         if($index < $tempStart) continue;
-        $candidates[] = $mzID;
+        $eligibleIndices[] = $index - $tempStart;
     }
 
-    if(empty($candidates)) {
+    if(empty($eligibleIndices)) {
         QueueBottomDeckSearcherBottom($player);
         return;
     }
 
-    DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $candidates), 1, $chooseTooltip);
+    $lookedCardIDs = [];
+    for($i = $tempStart; $i < count($tempZone); ++$i) {
+        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
+        $lookedCardIDs[] = strval($tempZone[$i]->CardID ?? '');
+    }
+    DecisionQueueController::StoreVariable($varPrefix . 'EligibleIndices', implode(',', $eligibleIndices));
+    $param = BuildSelectableRearrangeParam($lookedCardIDs, $eligibleIndices, 0, 1);
+    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, $chooseTooltip . '_and_order_the_rest_for_the_bottom_of_your_deck');
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'BOTTOM_DECK_SEARCHER_REVEAL', 1);
 }
 
@@ -4603,22 +4679,26 @@ function BeginMizukiSearch($player) {
     DecisionQueueController::StoreVariable($varPrefix . 'ChosenHandMZ', '');
     DecisionQueueController::StoreVariable($varPrefix . 'ChosenCardID', '');
 
-    $candidates = [];
+    $eligibleIndices = [];
+    $lookedCardIDs = [];
     for($i = $tempStart; $i < count($tempZone); ++$i) {
         if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
         $cardID = $tempZone[$i]->CardID ?? '';
+        $lookedCardIDs[] = strval($cardID);
         if(CardElement($cardID) !== 'Water') continue;
         if(intval(CardCost($cardID)) > 2) continue;
-        $candidates[] = 'myTempZone-' . $i;
+        $eligibleIndices[] = $i - $tempStart;
     }
 
-    if(empty($candidates)) {
+    if(empty($eligibleIndices)) {
         SetFlashMessage('No Water card with cost 2 or less was found.');
         QueueMizukiSearchRearrange($player);
         return;
     }
 
-    DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $candidates), 1, 'Choose_a_Water_card_with_cost_2_or_less_to_reveal_and_add_to_your_hand');
+    DecisionQueueController::StoreVariable($varPrefix . 'EligibleIndices', implode(',', $eligibleIndices));
+    $param = BuildSelectableRearrangeParam($lookedCardIDs, $eligibleIndices, 1, 1);
+    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Choose_a_Water_card_with_cost_2_or_less_to_reveal_and_add_to_your_hand,_then_order_the_rest_for_the_bottom_of_your_deck');
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'MIZUKI_SEARCH_REVEAL', 1);
 }
 
@@ -4716,13 +4796,7 @@ function CanActivateAbilityWithCopiedText($player, $mzID, $abilityIndex = 0) {
 }
 
 $customDQHandlers['BOTTOM_DECK_SEARCHER_REVEAL'] = function($player, $parts, $lastDecision) {
-    if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
-        Reveal($player, $lastDecision);
-        MZMove($player, $lastDecision, 'myHand');
-        DecisionQueueController::CleanupRemovedCards();
-    }
-
-    QueueBottomDeckSearcherBottom($player);
+    ResolveSelectableBottomDeckSearch($player, GetBottomDeckSearcherVarPrefix($player), $lastDecision);
 };
 
 $customDQHandlers['BOTTOM_DECK_SEARCHER_BOTTOM'] = function($player, $parts, $lastDecision) {

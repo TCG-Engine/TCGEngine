@@ -19,15 +19,7 @@
         "playerID": 2,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "myTempZone-2",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 2,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "Bottom=S1-STT02-010_Selis-of-the-Shore_E_R_die,S1-STT02-009_Aya_E_C_die",
+        "cardID": "Selected=2;Bottom=S1-STT02-010_Selis-of-the-Shore_E_R_die,S1-STT02-009_Aya_E_C_die",
         "chkInput": [],
         "inputText": ""
     },

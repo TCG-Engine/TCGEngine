@@ -18,7 +18,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
     <script src="./Core/UILibraries20260808.js?v=<?php echo filemtime('./Core/UILibraries20260808.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
-    <script src="./Core/MZRearrangePopup.js"></script>
+    <script src="./Core/MZRearrangePopup.js?v=<?php echo filemtime('./Core/MZRearrangePopup.js'); ?>"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
     <script src="./Core/MZMultiChooseUI.js?v=<?php echo filemtime('./Core/MZMultiChooseUI.js'); ?>"></script>
     <script src="./Core/MZModalUI.js"></script>
