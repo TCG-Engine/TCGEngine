@@ -8364,6 +8364,8 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             OnHealBase(intval($player), intval($player), 1);
             break;
         }
+        // Luminara Unduli — "You may attack with a unit. It gets +2/+0 for this attack."
+        case 'HMW_124': LuminaraUnduliAttackOffer(intval($player)); break;
         case 'HMW_014': { // Wicket (leader FRONT) — "you may exhaust this leader. If you do, draw a card."
             global $playerID; $playerID = intval($player);
             DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
@@ -8706,7 +8708,9 @@ function CollectWhenPlayedAsUpgradeTriggers(int $player, string $cardID, string 
     // Task 5.1 — TWI_210 Cunning observer: fires on upgrade plays too.
     SWUCollectOpponentPlayReactions($player, $cardID, intval($GLOBALS['gLastPlayResourcesPaid']));
     // Batch E.1 — own-play reactions (an Aggression upgrade triggers FFF; an upgrade is never a unit, so no self-UID).
-    SWUCollectOwnPlayReactions($player, $cardID, 0);
+    // $playedAsUpgrade = true: a Piloting card reaching here was played as a PILOT, and its CardType is
+    // still "Unit" — the flag stops it reading as a unit play (CR 17.c).
+    SWUCollectOwnPlayReactions($player, $cardID, 0, true);
     // LOF_229 Kylo Ren — "When you play an upgrade on this unit: may use the Force → draw a card." The
     // host is known here; the reaction is owned by the active (playing) player, so no cross-player race.
     $lof229Host = GetZoneObject($targetMzID);
@@ -9144,7 +9148,13 @@ function SWUCollectOpponentPlayReactions(int $playingPlayer, string $playedCardI
 // three play sites (unit entry, upgrade attach, event play). $playedUID = the just-played unit's
 // UniqueID (0 for events/upgrades) so an observer can exclude the card it was triggered by
 // ("another …" — a played Aggression unit must not trigger its own copy).
-function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, int $playedUID = 0): void {
+// $playedAsUpgrade = the card was played AS AN UPGRADE (the Piloting path). A Piloting card's CardType
+// is "Unit", so without this flag playing one as a pilot reads as "you played a unit" to every observer
+// below — CR 17.c says the opposite ("A card with Piloting is considered an upgrade for the purpose of
+// abilities that instruct a player to 'play an upgrade'"). ⚠ Only $isUnitPlay (HMW_124) honours it so
+// far; the other "when you play a unit"/"an upgrade" observers still read the raw $isUnit/$isUpgrade and
+// are wrong on the pilot-as-upgrade path — a family-wide sweep is owed, see the HMW_124 note.
+function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, int $playedUID = 0, bool $playedAsUpgrade = false): void {
     $isEvent       = strpos(CardType($playedCardID) ?? '', 'Event') !== false;
     $isUpgrade     = strpos(CardType($playedCardID) ?? '', 'Upgrade') !== false;
     $isAggression  = strpos(CardAspect($playedCardID) ?? '', 'Aggression') !== false;
@@ -9152,6 +9162,7 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
                   && (strpos(CardAspect($playedCardID) ?? '', 'Command') !== false);
     // Token Units have CardType "Token Unit", which contains "Unit" — so token plays count as units here.
     $isUnit        = strpos(CardType($playedCardID) ?? '', 'Unit') !== false;
+    $isUnitPlay    = $isUnit && !$playedAsUpgrade;   // a Piloting card played as a pilot is NOT a unit play
     foreach (GetUnitsInPlay($playingPlayer) as $u) {
         if (!empty($u->removed) || LostAbilities($u)) continue;   // SEC_046 Galen — a named observer doesn't react
         $cid = $u->CardID ?? '';
@@ -9162,6 +9173,12 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         // does not heal, while a SECOND copy of her would trigger the first.
         if ($cid === 'HMW_115' && $isUnit && $uid !== $playedUID && intval(CardCost($playedCardID)) <= 3) {
             AddTrigger($playingPlayer, 'HMW_115', 'HMW_115', '');
+        }
+        // HMW_124 Luminara Unduli, Besieged General: "When you play a unit (including this one): You may
+        // attack with a unit. It gets +2/+0 for this attack." "(including this one)" = NO self-exclusion,
+        // so her own arrival triggers her (contrast HMW_115 just above, which is "another unit").
+        if ($cid === 'HMW_124' && $isUnitPlay) {
+            AddTrigger($playingPlayer, 'HMW_124', 'HMW_124', '');
         }
         // SOR_182 Bossk: "When you play an event: you may deal 2 damage to a unit."
         if ($cid === 'SOR_182' && $isEvent) {
