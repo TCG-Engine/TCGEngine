@@ -969,6 +969,18 @@ function HasConditionalKeyword_Hidden($obj) {
     if (_SWUGhostSharesKeyword($obj, 'HIDDEN')) return true;   // JTL_053 The Ghost keyword share
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'HIDDEN')) return true;
     if ($obj === null) return false;
+    // HMW_162 Teebo — "Other friendly Ewok units gain Hidden." Granted to any EWOK unit whose controller
+    // controls a Teebo other than itself. Teebo has Hidden innately, so he needs no self-grant; excluding
+    // by UniqueID (not CardID) keeps a SECOND Teebo granting to the first, which is what "other" means.
+    // TraitContains, not bare-CardID HasTrait, so a granted Ewok trait counts and a per-instance trait
+    // loss is honoured. A Teebo that has lost all abilities stops granting (the grant is HIS ability).
+    if (TraitContains($obj, 'Ewok')) {
+        $ewokUid = intval($obj->UniqueID ?? -1);
+        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'HMW_162'
+                && intval($u->UniqueID ?? -2) !== $ewokUid && !LostAbilities($u)) return true;
+        }
+    }
     // ASH_177 Onyx Cinder — "Other friendly units gain Hidden." Granted to any unit whose controller
     // controls another Onyx Cinder. (Onyx Cinder itself has Hidden innately.)
     if (($obj->CardID ?? '') !== 'ASH_177') {

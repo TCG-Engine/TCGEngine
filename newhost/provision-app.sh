@@ -108,6 +108,22 @@ if [ "$RESET_DB" -eq 0 ] && ! db_exists "$DB_NAME"; then
 fi
 ok "MySQL reachable as '$DB_USER'@'$MYSQL_HOST' (the creds that go into the app's env)"
 
+# This script is the ONE-BOX-ONE-SITE tool: it sets MYSQL_DATABASE_NAME at SERVER level.
+# On a box converted to multi-site (newhost/provision-vhost.sh), that server-level SetEnv
+# becomes the silent default for every request whose Host matches no vhost — i.e. it hands
+# a real database to an unknown hostname. Refuse rather than half-configure the box.
+vhosts=""
+for f in "$LAMPP_ROOT"/etc/extra/httpd-vhost-1*.conf; do
+  [ -e "$f" ] || continue
+  sn="$(grep -E '^[[:space:]]*ServerName[[:space:]]+' "$f" 2>/dev/null | awk '{print $2}' | head -1)"
+  vhosts+="  ${f}  (ServerName ${sn:-?})"$'\n'
+done
+if [ -n "$vhosts" ]; then
+  warn "this box is MULTI-SITE — vhost conf(s) already select the DB per hostname:"
+  printf '%s' "$vhosts" >&2
+  die "use newhost/provision-vhost.sh here instead:  sudo DB_PASS=... ./provision-vhost.sh $APP $DB_NAME --server-name <fqdn>"
+fi
+
 # One box serves one site (single MYSQL_DATABASE_NAME). Refuse if any OTHER env conf
 # already sets a DIFFERENT db name — that's the silent "wrong site" footgun.
 conflicts=""

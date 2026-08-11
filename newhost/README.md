@@ -111,6 +111,56 @@ Flags: `--skip-env`, `--reset-db` (destructive DB wipe+load), `--yes`.
 Requirements/creds: **`DB_PASS` is required** (no passwordless DB). `DB_USER`, `MYSQL_HOST`, `REDIS_HOST`, `REDIS_PORT` env vars default to `root` / `localhost` / `127.0.0.1` / `6379`. `DB_NAME` defaults to the app name.
 Preflight guards (fail before any change): DB connectivity, DB exists (unless `--reset-db`), and no *other* `httpd-*-env.conf` setting a different `MYSQL_DATABASE_NAME`.
 
+### 2b. More than one site on a box — `provision-vhost.sh`
+
+`provision-app.sh` sets `MYSQL_DATABASE_NAME` at **server level**, which is structurally why one box =
+one DB. For a box that must serve several sims, use `provision-vhost.sh` instead — it writes the same
+`SetEnv` lines inside a **name-based `<VirtualHost>`**, so the DB is chosen per request from the `Host`
+header.
+
+```bash
+sudo DB_PASS='<real>' ./provision-vhost.sh swusim       --server-name swusim.example.com
+sudo DB_PASS='<real>' ./provision-vhost.sh hellbreaksim --server-name hellbreak.example.com
+# TLS:
+sudo DB_PASS='<real>' ./provision-vhost.sh grandarchivesim --server-name ga.example.com \
+     --ports "80 443" --ssl-cert /etc/letsencrypt/live/ga/fullchain.pem \
+                      --ssl-key  /etc/letsencrypt/live/ga/privkey.pem
+```
+
+**No PHP changes are needed.** `Database/ConnectionManager.php` still calls `getenv()`, and
+`SharedUI/ActiveSite.php` still resolves the rendered site *from* the DB name — so the "the site and the
+connected DB can never disagree" guarantee survives. Every vhost may share ONE `DocumentRoot`: one
+checkout, one deploy.
+
+**Why hostnames and not URL paths.** The app contains ~450 hardcoded `/TCGEngine/...` absolute paths
+(script/CSS refs, fetch targets). Under a path prefix like `/hellbreak/`, those would escape the prefix
+and pick up the wrong site's env — intermittently, not loudly. Hostname separation also gives per-site
+**session cookies** for free (browsers scope cookies by host), which is what stops a login on one sim
+from resolving `$_SESSION['userid']` against a *different sim's* `users` table. That matters the moment
+two sims on a box both have logins.
+
+Behaviour: idempotent; **never touches the database** (the DB must already exist); writes
+`etc/extra/httpd-vhost-100-<app>.conf` + a `000-default` catch-all; adds two ordered `Include` lines;
+runs `httpd -t` and refuses to restart on a bad config; `chmod 600` on the confs (they carry `DB_PASS`).
+Flags: `--server-name` (required), `--server-alias`, `--ports`, `--ssl-cert`, `--ssl-key`, `--skip-restart`.
+
+**Migration.** Running it for an app currently provisioned the old way converts that app: its
+`httpd-<app>-env.conf` is backed up, renamed `.retired`, and its `Include` removed. Convert *every* app
+on the box — the script refuses to proceed while another app still sets `MYSQL_DATABASE_NAME` at server
+level, because that value would silently serve a real database to any unmatched `Host`.
+
+**The two scripts are mutually exclusive per box**, enforced both ways: `provision-app.sh` now refuses to
+run when `httpd-vhost-1*.conf` files exist, and `provision-vhost.sh` refuses while a server-level env
+conf is still live. Exactly one mechanism decides the DB.
+
+**Catch-all ordering is load-bearing.** Apache serves the *first* vhost on a port to any request whose
+`Host` matches none, so `httpd-vhost-000-default.conf` (which denies before PHP runs) is Included by its
+own explicit line *before* the `httpd-vhost-1*.conf` glob. Don't reorder those two lines.
+
+Known gap: `docker-compose.yml` stays one container per sim with its own `MYSQL_DATABASE_NAME`, so
+**local dev does not exercise vhost routing, cookie scoping, or the catch-all** — first real test is on a
+box. Verify with the `curl -H 'Host: ...'` checks the script prints.
+
 ### Bringing up a site — runbook + the traps
 
 `ActiveSite.php` resolves the rendered site from `MYSQL_DATABASE_NAME`, and

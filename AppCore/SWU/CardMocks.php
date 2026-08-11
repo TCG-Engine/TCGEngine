@@ -94,6 +94,40 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_014' => 
+  array (
+    'title' => 'Wicket',
+    'subtitle' => 'Few Greater Battles to Fight',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 2,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Ewok',
+    ),
+    'text' => 'When a friendly unit attacks a unit that costs more than it: You may exhaust this leader. If you do, draw a card.',
+    'epicAction' => 'Epic Action: If you control 4 or more resources, deploy this leader.',
+    'deployText' => 'On Attack: If you control a unit that costs 3 or less, draw a card.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/014.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/014-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_019' => 
   array (
     'title' => 'Dune Sea',
@@ -415,6 +449,61 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/158.png',
     'imageUrlBack' => '',
   ),
+  'HMW_162' => 
+  array (
+    'title' => 'Teebo',
+    'subtitle' => 'Striped Hunter',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 3,
+    'hp' => 1,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Ewok',
+    ),
+    'text' => 'Hidden (This unit can\'t be attacked if it was played this phase.)
+Other friendly Ewok units gain Hidden.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/162.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_164' => 
+  array (
+    'title' => 'Chief Chirpa',
+    'subtitle' => 'Defiant Elder',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 1,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Ewok',
+    ),
+    'text' => 'This unit gets +1/+0 for each other friendly Ewok unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/164.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_171' => 
   array (
     'title' => 'Trap Field',
@@ -465,6 +554,31 @@ When a non-leader ground unit enters play (including token units): You may defea
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/177.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_193' => 
+  array (
+    'title' => 'Nightfall',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Disaster',
+    ),
+    'text' => 'Deal 1 damage to an enemy unit.
+If you control an Endor base , you may attack with a unit. It gets +2/+0 for this attack.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/193.png',
     'imageUrlBack' => '',
   ),
   'HMW_206' => 

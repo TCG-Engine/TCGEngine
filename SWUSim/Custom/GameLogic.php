@@ -556,6 +556,9 @@ function ObjectCurrentPower($obj) {
         case 'JTL_093': // Nien Nunb (as a unit): +1/+0 for each OTHER friendly Pilot unit and upgrade.
             if ($controller > 0) $base += _SWUCountFriendlyPilots($controller, intval($obj->UniqueID ?? 0), false);
             break;
+        case 'HMW_164': // Chief Chirpa: +1/+0 for each OTHER friendly Ewok unit (power only — no HP half).
+            if ($controller > 0) $base += _SWUCountFriendlyTraitUnits($controller, 'Ewok', intval($obj->UniqueID ?? 0));
+            break;
         case 'JTL_141': // IG-88 (as a unit): while an enemy unit is damaged, +3/+0.
             if (_SWUEnemyUnitDamaged($obj)) $base += 3;
             break;
@@ -1593,6 +1596,22 @@ function _SWUCountFriendlyPilots(int $controller, int $excludeUid, bool $exclude
         }
     }
     if ($excludeOneUpgrade) $count = max(0, $count - 1);
+    return $count;
+}
+
+// Count $controller's in-play units carrying $trait, excluding one UniqueID — i.e. "each OTHER friendly
+// <trait> unit" (HMW_164 Chief Chirpa). Two deliberate choices:
+//   • TraitContains (object-aware), NOT bare-CardID HasTrait, so a GRANTED trait counts and a
+//     per-instance trait loss is honoured — the deployed-leader/trait-override family.
+//   • GetUnitsInPlay includes DEPLOYED LEADER units, which are units for "each other friendly X unit"
+//     (HMW_014 Wicket is an Ewok leader, so he counts for Chirpa).
+function _SWUCountFriendlyTraitUnits(int $controller, string $trait, int $excludeUid): int {
+    $count = 0;
+    foreach (GetUnitsInPlay($controller) as $u) {
+        if (SWUObjGone($u)) continue;
+        if (intval($u->UniqueID ?? 0) === $excludeUid) continue;
+        if (TraitContains($u, $trait)) $count++;
+    }
     return $count;
 }
 
@@ -8340,6 +8359,13 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             break;
         }
         case 'TS26_35':  _SWUTs26035Offer($player); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break; // Ahsoka's Lightsabers (granted When Defeated) — may Shield an enemy → next event -2
+        case 'HMW_014': { // Wicket (leader FRONT) — "you may exhaust this leader. If you do, draw a card."
+            global $playerID; $playerID = intval($player);
+            DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
+                tooltip: "Exhaust_Wicket_to_draw_a_card?");
+            DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_014#0", 1);
+            break;
+        }
         case 'TS26_78': { // Barriss Offee — "When an enemy unit attacks: you may give an Experience token to that unit."
             global $playerID; $playerID = intval($player);
             $atkMz = SWUFindMzByUID(intval($mzID));   // mzID slot carries the attacker's UniqueID

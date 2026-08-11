@@ -1041,6 +1041,20 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID,
             }
         }
     }
+    // HMW_014 Wicket (leader FRONT) — "When a friendly unit attacks a unit that costs more than it: you
+    // may exhaust this leader. If you do, draw a card." The reactor is the ATTACKING player, so this rides
+    // the normal trigger bag (no combat pause — a draw cannot affect the damage about to be dealt).
+    // Active ONLY while he is the READY, UNDEPLOYED leader: the exhaust is the cost, and once deployed his
+    // On Attack side replaces this ability entirely.
+    // COST is always the PRINTED cost on both sides (user ruling) — and a deployed enemy leader has a
+    // printed cost too, so it participates in the comparison like any other unit. A BASE is not a unit
+    // and has no cost, hence the Base guard.
+    if (!$defenderOnly && $attacker !== null && !isset($attacker->removed)
+        && $defender !== null && empty($defender->removed) && strpos($defenderMzID, 'Base') === false
+        && _SWULeaderReadyUndeployed($activePlayer, 'HMW_014')
+        && intval(CardCost($defender->CardID ?? '')) > intval(CardCost($attacker->CardID ?? ''))) {
+        AddTrigger($activePlayer, 'HMW_014', 'HMW_014', '');
+    }
     // TS26_73 Moralo Eval — "When your base is dealt combat damage: you may deal 1 damage to a unit." The
     // base owner reacts to their base being attacked (this rides the combat pause so it drains cross-player;
     // fires at the base-attack window rather than strictly post-damage — a benign timing simplification).

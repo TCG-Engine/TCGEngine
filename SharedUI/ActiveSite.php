@@ -14,6 +14,7 @@ $dbToSite = [
     'grandarchivesim' => 'GrandArchiveSim',
     'azukisim'        => 'AzukiSim',
     'swusim'          => 'SWUSim',
+    'hellbreaksim'    => 'HellbreakSim',
 ];
 $db = getenv('MYSQL_DATABASE_NAME');
 if ($db === false || $db === '') {

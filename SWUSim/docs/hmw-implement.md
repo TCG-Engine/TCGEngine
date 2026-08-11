@@ -1,6 +1,6 @@
 # HMW — Card Implementation Plan
 
-**⚠ PREVIEW SET.** 21 cards exist (19 numbered + 2 tokens) of ~262 printed, as mock entries in
+**⚠ PREVIEW SET.** 25 cards exist (23 numbered + 2 tokens) of ~262 printed, as mock entries in
 `AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
 previews land — the phases below cover only what is currently previewed.
 
@@ -8,7 +8,7 @@ previews land — the phases below cover only what is currently previewed.
 **18 needs-work, 3 auto-wired.**
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014
 
 <!-- HMW_019 Dune Sea = blank-text base (52 of 92 released bases are likewise vanilla).
      HMW_T02 Weakness / HMW_T03 Beast = token CARDS; the engine handles tokens generically, so they
