@@ -663,6 +663,12 @@ function SubmitChat() {
 var _lastChatID = 0;
 var _lastChatVersion = 0;
 var _chatSeenIds = {};
+var _chatToastBaselineID = 0;
+
+function InitializeChatNotifications(baselineID) {
+  var parsedBaseline = parseInt(baselineID || 0, 10);
+  _chatToastBaselineID = Number.isNaN(parsedBaseline) ? 0 : parsedBaseline;
+}
 
 function StartChatPoll() {
   return;
@@ -677,7 +683,9 @@ function ApplyChatPayload(payload) {
     var m = msgs[i];
     if (!_chatSeenIds[m.id]) {
       _chatSeenIds[m.id] = true;
-      _AppendChatMessage(m);
+      var messageID = parseInt(m.id || 0, 10);
+      var isNewSincePageLoad = !Number.isNaN(messageID) && messageID > _chatToastBaselineID;
+      _AppendChatMessage(m, isNewSincePageLoad);
     }
     if (m.id > _lastChatID) _lastChatID = m.id;
   }
@@ -685,18 +693,85 @@ function ApplyChatPayload(payload) {
   // Neutral "chat disabled" state (e.g. a player was blocked). Never reveals why.
   var ci = document.getElementById("chatText");
   if (ci) {
+    var sendButton = document.getElementById("chatSendBtn");
     if (payload.chatDisabled) {
       if (!ci.disabled) { ci.dataset.ph = ci.placeholder || ""; ci.placeholder = "Chat disabled"; }
       ci.disabled = true;
+      if (sendButton) sendButton.disabled = true;
     } else if (ci.disabled) {
       ci.disabled = false;
+      if (sendButton) sendButton.disabled = false;
       if (ci.dataset.ph !== undefined) ci.placeholder = ci.dataset.ph;
     }
   }
   return msgs.length > 0 || version > 0;
 }
 
-function _AppendChatMessage(msg) {
+function _ChatPlayerLabel(msg) {
+  var seatName = (window.SWU_SEAT_USERNAMES && (msg.playerID === 1 || msg.playerID === 2 || msg.playerID === "1" || msg.playerID === "2"))
+    ? window.SWU_SEAT_USERNAMES[String(msg.playerID)] : null;
+  return seatName ? seatName : (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID));
+}
+
+function _ChatHistoryIsOpen() {
+  var expanded = document.getElementById("chatExpanded");
+  return !!expanded && expanded.style.display === "flex";
+}
+
+function _ClearChatToasts() {
+  var host = document.getElementById("chatToastHost");
+  if (host) host.replaceChildren();
+}
+
+function _PositionChatToastHost(host) {
+  var controls = document.getElementById("chatWidgetControls");
+  if (!controls || controls.getClientRects().length === 0) return false;
+  var rect = controls.getBoundingClientRect();
+  var gap = 8;
+  var edge = 8;
+  var width = Math.min(300, Math.max(220, rect.width), window.innerWidth - edge * 2);
+  host.style.width = width + "px";
+  host.style.left = Math.max(edge, Math.min(rect.left, window.innerWidth - width - edge)) + "px";
+  if (rect.top < window.innerHeight / 2) {
+    host.style.top = (rect.bottom + gap) + "px";
+    host.style.bottom = "auto";
+  } else {
+    host.style.top = "auto";
+    host.style.bottom = (window.innerHeight - rect.top + gap) + "px";
+  }
+  return true;
+}
+
+function _ShowChatToast(msg) {
+  if (_ChatHistoryIsOpen()) return;
+  var host = document.getElementById("chatToastHost");
+  if (!host || !_PositionChatToastHost(host)) return;
+
+  var toast = document.createElement("div");
+  toast.className = "chatToast";
+  toast.setAttribute("role", "status");
+  toast.title = "Open chat history";
+  var label = document.createElement("span");
+  label.className = "chatToastLabel";
+  label.textContent = _ChatPlayerLabel(msg) + ":";
+  var body = document.createElement("span");
+  body.textContent = msg.text;
+  toast.appendChild(label);
+  toast.appendChild(body);
+  toast.addEventListener("click", function() {
+    if (!_ChatHistoryIsOpen() && typeof _ToggleChat === "function") _ToggleChat();
+  });
+  host.appendChild(toast);
+
+  while (host.children.length > 3) host.removeChild(host.firstElementChild);
+  window.setTimeout(function() {
+    if (!toast.isConnected) return;
+    toast.classList.add("is-leaving");
+    window.setTimeout(function() { if (toast.isConnected) toast.remove(); }, 200);
+  }, 5000);
+}
+
+function _AppendChatMessage(msg, notify) {
   var log = document.getElementById("chatLog");
   if (!log) return;
   var div = document.createElement("div");
@@ -705,21 +780,15 @@ function _AppendChatMessage(msg) {
   var label = document.createElement("span");
   label.style.cssText = "font-weight:700; margin-right:4px;";
   // Prefer the seat's username (SWUSim) so chat reads from real names; fall back to P#/label.
-  var seatName = (window.SWU_SEAT_USERNAMES && (msg.playerID === 1 || msg.playerID === 2 || msg.playerID === "1" || msg.playerID === "2"))
-    ? window.SWU_SEAT_USERNAMES[String(msg.playerID)] : null;
-  label.textContent = (seatName ? seatName : (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID))) + ":";
+  label.textContent = _ChatPlayerLabel(msg) + ":";
   var body = document.createElement("span");
   body.textContent = msg.text;
   div.appendChild(label);
   div.appendChild(body);
   log.appendChild(div);
   log.scrollTop = log.scrollHeight;
-  // Show unread dot on toggle button when panel is collapsed
-  var expanded = document.getElementById("chatExpanded");
-  var btn = document.getElementById("chatToggleBtn");
-  if (btn && expanded && expanded.style.display !== 'flex') {
-    btn.textContent = '';
-    btn.innerHTML = '&#128172; Chat <span style="background:#e33;color:white;border-radius:50%;width:8px;height:8px;display:inline-block;vertical-align:middle;margin-left:4px;"></span>';
+  if (notify && !_ChatHistoryIsOpen()) {
+    _ShowChatToast(msg);
   }
 }
 

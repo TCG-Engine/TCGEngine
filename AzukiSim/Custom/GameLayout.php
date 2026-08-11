@@ -1424,6 +1424,7 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
             right: 8px !important;
             left: auto !important;
             bottom: 8px !important;
+            width: 248px !important;
             align-items: flex-end !important;
         }
     }

@@ -930,9 +930,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         display: flex; flex-direction: column;
         overflow: hidden;
     }
-    /* Keep the input+send row from being squeezed by the log, and keep it inside the
-       sidebar width so the Send button isn't clipped by #swuChatMount's overflow:hidden. */
-    #chatExpanded > div:last-child {
+    /* Keep the always-visible input+send row from being squeezed by the log, and keep it
+       inside the sidebar width so the Send button isn't clipped by #swuChatMount's overflow:hidden. */
+    #chatComposer {
         flex: 0 0 auto !important;
         box-sizing: border-box !important;
         width: 100% !important; max-width: 100% !important; min-width: 0 !important;

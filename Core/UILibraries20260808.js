@@ -253,6 +253,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
 
 //Rotate is deprecated
       function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "", overlayDescriptorsJSON = "", hasForce = 0) {
+        var logicalCardNumber = cardNumber;
         // Mock (preview) cards store art as mock_<CardID>.* while the CardID itself stays plain, so
         // resolve ID -> filename HERE: Card() is the single choke point every zone renders through
         // (leader, base, arenas, hand, discard, resources), and the server-side layout only passes
@@ -336,7 +337,11 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         }        //var altText = " alt='" + CardTitle(cardNumber) + "' ";//TODO:Fix screenreader mode
         var altText = " alt='Card' ";
         var nativeImageDrag = IsDragDropEnabled() ? "" : "draggable='false' ";
-        rv += "<img " + (id != "" ? "id='" + id + "-img' " : "") + altText + orientation + nativeImageDrag + "loading='lazy' style='" + border + " height:" + height + "px; width:" + width + "px; position:relative;' src='" + folderPath + "/" + cardNumber + fileExt + "' />";
+        var cardImageSrc = folderPath + "/" + cardNumber + fileExt;
+        if (typeof ResolveCardImageUrl === 'function') {
+          cardImageSrc = ResolveCardImageUrl(logicalCardNumber, cardImageSrc, folder);
+        }
+        rv += "<img " + (id != "" ? "id='" + id + "-img' " : "") + altText + orientation + nativeImageDrag + "loading='lazy' style='" + border + " height:" + height + "px; width:" + width + "px; position:relative;' src='" + cardImageSrc + "' />";
 
         if(heatmapFunction != "") {
             var resolvedHeatmapFunction = ResolveGlobalFunction(heatmapFunction);

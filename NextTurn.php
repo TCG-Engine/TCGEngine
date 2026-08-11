@@ -55,6 +55,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
         include './Core/HTTPLibraries.php';
         include_once './Core/GameAuth.php';
+        include_once './Core/NetworkingLibraries.php';
         include './Core/ViewerIdentity.php';
         //We should always have a player ID as a URL parameter
         $folderPath = TryGet("folderPath", "");
@@ -908,14 +909,22 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
       function ParseChatPayload(responseArr) {
         if (!Array.isArray(responseArr) || responseArr.length < 2) return null;
-        var raw = responseArr[0] === "CHATONLY" ? responseArr[1] : responseArr[responseArr.length - 2];
-        if (!raw) return null;
-        var trimmed = String(raw).trim();
-        if (trimmed === "" || trimmed.charAt(0) !== "{") return null;
-        try {
-          var parsed = JSON.parse(trimmed);
-          if (parsed && typeof parsed === "object") return parsed;
-        } catch (e) {}
+        var startIndex = responseArr[0] === "CHATONLY" ? 1 : responseArr.length - 1;
+        var endIndex = responseArr[0] === "CHATONLY" ? 1 : 1;
+        for (var index = startIndex; index >= endIndex; --index) {
+          var raw = responseArr[index];
+          if (!raw) continue;
+          var trimmed = String(raw).trim();
+          if (trimmed === "" || trimmed.charAt(0) !== "{") continue;
+          try {
+            var parsed = JSON.parse(trimmed);
+            if (parsed && typeof parsed === "object"
+                && Object.prototype.hasOwnProperty.call(parsed, "version")
+                && Array.isArray(parsed.messages)) {
+              return parsed;
+            }
+          } catch (e) {}
+        }
         return null;
       }
 
@@ -2009,34 +2018,103 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <div id='mainDiv' style='position:fixed; z-index:0; left:0; top:0; width:100%; height:100%;'>
 
     <?php if (!in_array($folderPath, ["SWUDeck", "AzukiDeck"], true)): ?>
-    <div id='chatWidget' style='z-index:40; position:fixed; bottom:20px; left:140px; display:flex; flex-direction:column; align-items:flex-start; width:280px;'>
+    <?php
+      $chatToastBaselineID = 0;
+      foreach (GetChatMessagesSince($gameName, 0) as $existingChatMessage) {
+        $chatToastBaselineID = max($chatToastBaselineID, intval($existingChatMessage['id'] ?? 0));
+      }
+    ?>
+    <style>
+      #chatWidgetControls {
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+      }
+      #chatComposer {
+        display: flex;
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      #chatComposer #chatText {
+        min-width: 0;
+      }
+      #chatToastHost {
+        position: fixed;
+        z-index: 10001;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: min(300px, calc(100vw - 16px));
+        pointer-events: none;
+      }
+      .chatToast {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 8px 10px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.24);
+        border-radius: 7px;
+        background: rgba(20,20,22,0.94);
+        box-shadow: 0 5px 18px rgba(0,0,0,0.38);
+        color: white;
+        font: 13px/1.35 barlow, sans-serif;
+        word-break: break-word;
+        cursor: pointer;
+        pointer-events: auto;
+        animation: chatToastIn 160ms ease-out;
+      }
+      .chatToast.is-leaving {
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity 180ms ease, transform 180ms ease;
+      }
+      .chatToastLabel {
+        margin-right: 4px;
+        font-weight: 700;
+      }
+      @keyframes chatToastIn {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .chatToast { animation: none; }
+        .chatToast.is-leaving { transition: none; }
+      }
+    </style>
+    <div id='chatWidget' style='z-index:40; position:fixed; bottom:20px; left:140px; display:flex; flex-direction:column; align-items:flex-start; width:320px; max-width:calc(100vw - 156px);'>
+        <div id='chatToastHost' aria-live='polite' aria-atomic='false'></div>
         <div id='chatExpanded' style='display:none; flex-direction:column; width:100%;'>
             <div id='chatLog'
                  style='background:rgba(0,0,0,0.82); border:1px solid #555; border-bottom:none; border-radius:5px 5px 0 0; color:white;
                         font-family:barlow,sans-serif; height:160px; overflow-y:auto; padding:4px 6px;'></div>
-            <?php if (!IsChatMuted()): ?>
-            <div style='display:flex;'>
+        </div>
+        <div id='chatWidgetControls' style='display:flex; gap:4px; align-items:center;'>
+        <?php if (!IsChatMuted()): ?>
+            <div id='chatComposer'>
                 <input id='chatText'
                       style='flex:1; background:#111; color:white; font-size:14px; font-family:barlow,sans-serif;
-                             height:30px; border:1px solid #555; border-radius:0; padding:0 6px; outline:none;'
+                             height:30px; border:1px solid #555; border-radius:5px 0 0 5px; padding:0 7px; outline:none;'
                       type='text'
                       name='chatText'
                       value=''
+                      placeholder='Message...'
+                      aria-label='Chat message'
                       autocomplete='off'
-                      onkeypress='ChatKey(event)'>
-                <button style='border:1px solid #555; border-left:none; border-radius:0 0 5px 0; width:50px; height:30px;
+                      onkeydown='ChatKey(event)'>
+                <button id='chatSendBtn' type='button' style='flex:0 0 auto; border:1px solid #555; border-left:none; border-radius:0 5px 5px 0; width:50px; height:30px;
                                background:#333; color:white; margin:0; padding:0; font-size:13px; font-weight:600; box-shadow:none; cursor:pointer;'
                         onclick='SubmitChat()'>Send
                 </button>
             </div>
-            <?php endif; ?>
-        </div>
-        <div id='chatWidgetControls' style='display:flex; gap:4px; align-items:center;'>
+        <?php endif; ?>
         <button id='chatToggleBtn'
+                type='button'
+                aria-expanded='false'
+                aria-controls='chatExpanded'
                 onclick='_ToggleChat()'
-                style='border:1px solid #555; border-radius:5px; background:#222; color:white; height:28px; padding:0 12px;
-                       font-size:13px; font-weight:600; box-shadow:none; cursor:pointer; margin-top:2px;'>
-            &#128172; Chat
+                style='flex:0 0 auto; border:1px solid #555; border-radius:5px; background:#222; color:white; height:30px; padding:0 10px;
+                       font-size:13px; font-weight:600; box-shadow:none; cursor:pointer; margin:0; white-space:nowrap;'>
+            <span id='chatToggleLabel'>&#128172; Chat</span>
         </button>
         <?php /* SWUSim moved this to its gear Settings panel + the profile Cosmetics section, beside
                  the Show-playmats toggle. AzukiSim has its own toggle in AzukiDeck's layout. The other
@@ -2057,21 +2135,23 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     function _ToggleChat() {
         var exp = document.getElementById('chatExpanded');
         var btn = document.getElementById('chatToggleBtn');
+        if (!exp || !btn) return;
         var open = exp.style.display === 'flex';
         exp.style.display = open ? 'none' : 'flex';
         exp.style.flexDirection = 'column';
-        btn.style.borderRadius = open ? '5px' : '0 0 5px 5px';
+        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        var label = document.getElementById('chatToggleLabel');
+        if (label) label.innerHTML = open ? '&#128172; Chat' : '&#10005; Close';
         if (!open) {
-            btn.innerHTML = '&#128172; Chat';
+            if (typeof _ClearChatToasts === 'function') _ClearChatToasts();
             var log = document.getElementById('chatLog');
             if (log) log.scrollTop = log.scrollHeight;
-            var inp = document.getElementById('chatText');
-            if (inp) inp.focus();
         }
     }
     if (window.TCGCardMotion && <?php echo !in_array($folderPath, ['AzukiSim', 'SWUSim', 'HellbreakSim'], true) ? 'true' : 'false'; ?>) {
         window.TCGCardMotion.updateToggleButton('cardMotionToggleBtn', <?php echo json_encode($folderPath); ?>);
     }
+    InitializeChatNotifications(<?php echo intval($chatToastBaselineID); ?>);
     StartChatPoll();
     </script>
     <?php endif; ?>
