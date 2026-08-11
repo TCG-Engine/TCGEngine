@@ -3,14 +3,16 @@
 //
 // The API publishes no traits for bases (every one comes back empty) though each prints one —
 // JTL_030 Mos Eisley is "Tatooine", SOR_024 Echo Base is "Hoth". Applied at generation time by
-// SWUSim/DevTools/TraitSupplement.php, FILL-GAPS ONLY: official data always wins, so this file
+// AppCore/SWU/TraitSupplement.php, FILL-GAPS ONLY: official data always wins, so this file
 // goes inert on its own if the API ever starts publishing them.
 //
 // Generated/extended by: php SWUSim/DevTools/backfill-base-traits.php [--dry]
 // Hand-editing is fine — the backfill preserves entries it can't improve.
+// Shared by BOTH SWUSim and SWUDeck (see AppCore/SWU/TraitSupplement.php for why it lives here).
+//
 // SCAFFOLD-IGNORE: pure DATA, not a card implementation. Tools that infer "is this card
-// implemented?" by grepping quoted CardIDs under SWUSim/Custom/ must skip this file, or every
-// card listed here looks implemented and gets no stub / is dropped from gap reports.
+// implemented?" by grepping quoted CardIDs must skip this file, or every card listed here looks
+// implemented and gets no stub / is dropped from gap reports.
 return array (
   'ASH_019' => 'Peridea',
   'ASH_020' => 'Nevarro',

@@ -649,13 +649,19 @@ for ($i = 0; $i < count($cardArray); ++$i) {
   }
 }
 
-// Trait supplement (SWUSim): the upstream API publishes NO traits for bases (all 91 come back
-// empty) even though every base prints one. Fill those gaps from tracked source BEFORE the
-// dictionaries + client JS are written, so CardTrait()/TraitContains() and the browse UI all see
-// the same data. Fill-gaps only: anything the API did provide is left untouched.
-if($rootName == "SWUSim") {
-  require_once __DIR__ . '/SWUSim/DevTools/TraitSupplement.php';
-  $traitFilled = SWUSimApplyTraitSupplement($associativeArrays["trait"]);
+// Trait supplement: the upstream API publishes NO traits for bases (all 91 come back empty) even
+// though every base prints one. Fill those gaps from tracked source BEFORE the dictionaries +
+// client JS are written, so CardTrait()/TraitContains() and the browse UI all see the same data.
+// Fill-gaps only: anything the API did provide is left untouched.
+//
+// Applies to EVERY SWU app that builds a dictionary, not just SWUSim. This used to be gated on
+// `$rootName == "SWUSim"` with the helper living under SWUSim/DevTools/, which left all 91 bases
+// in SWUDeck's dictionary (server AND client JS) carrying an empty trait list while SWUSim's were
+// correct — the same "both apps need the same card data" argument that put MockCardMerge.php in
+// AppCore/SWU/. Non-SWU roots simply have no supplement file entry to match, so this is inert.
+if($rootName == "SWUSim" || $rootName == "SWUDeck") {
+  require_once __DIR__ . '/AppCore/SWU/TraitSupplement.php';
+  $traitFilled = SWUApplyTraitSupplement($associativeArrays["trait"]);
   if($traitFilled > 0) logLine("Trait supplement: filled " . $traitFilled . " card(s) the API left empty.");
 }
 

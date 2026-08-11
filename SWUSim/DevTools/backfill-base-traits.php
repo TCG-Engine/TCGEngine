@@ -1,9 +1,9 @@
 <?php
 // backfill-base-traits.php [--dry] [--type=Base] [--set=JTL]
 //
-// Fills SWUSim/Custom/CardTraitSupplement.php with the traits the upstream card API omits.
+// Fills AppCore/SWU/CardTraitSupplement.php with the traits the upstream card API omits.
 // The API returns NO traits for bases (all 91), though every base prints one — see
-// SWUSim/DevTools/TraitSupplement.php for why this file exists.
+// AppCore/SWU/TraitSupplement.php for why this file exists.
 //
 // Walks every card of the target type whose trait list is EMPTY in the generated dictionaries,
 // looks each up through the PreviewImport client, and writes the results as tracked source. The
@@ -19,7 +19,7 @@ ini_set('display_errors', 1);
 
 require_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
 require_once __DIR__ . '/PreviewImport.php';
-require_once __DIR__ . '/TraitSupplement.php';
+require_once __DIR__ . '/../../AppCore/SWU/TraitSupplement.php';
 
 $argvOpts = [];
 foreach (array_slice($argv, 1) as $arg) {
@@ -33,7 +33,7 @@ $targetSet  = strtoupper((string)($argvOpts['set'] ?? ''));
 global $typeData, $traitData;
 
 // Candidates: right type, EMPTY traits, and not already supplemented with the same value.
-$existing = SWUSimLoadTraitSupplement();
+$existing = SWULoadTraitSupplement();
 $candidates = [];
 foreach ($typeData as $cardID => $type) {
     if (strpos((string)$type, $targetType) === false) continue;
@@ -74,7 +74,7 @@ foreach ($candidates as $cardID) {
         continue;
     }
 
-    $traits = SWUSimNormalizeTraitString($rec['traits'] ?? []);
+    $traits = SWUNormalizeTraitString($rec['traits'] ?? []);
     if ($traits === '') {
         printf("  %-10s %-30s no traits at source\n", $cardID, $localTitle);
         $missed++;
@@ -103,14 +103,14 @@ $header = <<<'PHP'
 //
 // The API publishes no traits for bases (every one comes back empty) though each prints one —
 // JTL_030 Mos Eisley is "Tatooine", SOR_024 Echo Base is "Hoth". Applied at generation time by
-// SWUSim/DevTools/TraitSupplement.php, FILL-GAPS ONLY: official data always wins, so this file
+// AppCore/SWU/TraitSupplement.php, FILL-GAPS ONLY: official data always wins, so this file
 // goes inert on its own if the API ever starts publishing them.
 //
 // Generated/extended by: php SWUSim/DevTools/backfill-base-traits.php [--dry]
 // Hand-editing is fine — the backfill preserves entries it can't improve.
 PHP;
 $body = "\nreturn " . var_export($resolved, true) . ";\n";
-$path = SWUSimTraitSupplementPath();
+$path = SWUTraitSupplementPath();
 if (file_put_contents($path, $header . $body) === false) {
     fwrite(STDERR, "ERROR: could not write $path\n");
     exit(1);

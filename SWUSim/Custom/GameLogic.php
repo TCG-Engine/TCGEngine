@@ -6629,8 +6629,9 @@ function SWUUnitEntersReady(string $cardID): bool {
     return stripos($text, 'this unit enters play ready') !== false;
 }
 
-// True if $player's base carries $trait. Base traits are published by CardTraitSupplement.php (the API
-// omits them), merged into $traitData at generation, so HasTrait resolves them like any card trait.
+// True if $player's base carries $trait. Base traits are published by AppCore/SWU/CardTraitSupplement.php
+// (the API omits them), merged into $traitData at generation, so HasTrait resolves them like any card
+// trait. Shared with SWUDeck — see AppCore/SWU/TraitSupplement.php.
 // Used by the HMW base-condition cards (HMW_142 Kashyyyk, HMW_234 Tatooine, HMW_177 Endor).
 function _SWUControlsBaseWithTrait(int $player, string $trait): bool {
     $zone = GetBase($player);
