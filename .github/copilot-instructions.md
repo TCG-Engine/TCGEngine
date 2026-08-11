@@ -175,8 +175,8 @@ So in the ability code, you have access to:
 - `DecisionQueueController::GetVariable("mzID")` — the mzID of the card (auto-retrieved by generator)
 - Any helper functions from Step 3
 - **Await syntax** for player choices (see Multi-Step Ability Patterns below):
-  - `$var = await $player.MZChoose("zone-0&zone-1")` — mandatory card choice
-  - `$var = await $player.MZMayChoose("zone-0&zone-1")` — optional card choice
+  - `$var = await $player.MZChoose("zone-0&zone-1", "prompt")` — mandatory card choice; tooltip is optional
+  - `$var = await $player.MZMayChoose("zone-0&zone-1", "prompt")` — optional card choice; tooltip is optional
   - `$var = await $player.MZMultiChoose($targets, $min, $max, "tooltip")` — select between `$min` and `$max` cards in one popup; returns an `&`-delimited mzID string or `"-"`
   - `$var = await $player.YesNo("prompt")` — yes/no choice
   - `$var = await $player.NumberChoose(min, max, "prompt")` — choose a number in a range
@@ -191,13 +191,13 @@ The code generator supports inline `await` for player choices, including awaits 
   - **Control blocks are supported.** `await` may appear inside conditionals and loops when that directly expresses the card text.
   - **Keep await state serializable.** Scalar values and arrays can be carried through the generated await frame. Recompute live zone objects after an await instead of relying on pre-await object references.
   - **NO function calls as await parameters.** Pre-compute into a variable: `$str = implode("&", $arr);` then `await $player.MZChoose($str)`.
-  - **NO tooltip parameter as second arg to MZChoose/MZMayChoose.** The await syntax does not support `await $player.MZChoose($targetStr, "tooltip")` — the generator produces broken PHP. Omit it: just `await $player.MZChoose($targetStr)`.
+  - **Chooser tooltips are supported.** `await $player.MZChoose($targetStr, "tooltip")` and `await $player.MZMayChoose($targetStr, "tooltip")` place the optional second argument in the Decision Queue tooltip field.
 
 **Correct pattern:** Pre-computed chooser strings + inline await
 ```php
 if(!empty($targets)) {
     $targetStr = implode("&", $targets);      // Pre-compute before await
-    $chosen = await $player.MZChoose($targetStr);
+    $chosen = await $player.MZChoose($targetStr, "Choose_a_target");
     $chosenObj = GetZoneObject($chosen);      // Recompute live objects after await
 }
 ```
@@ -242,8 +242,8 @@ For new card-local prompts, prefer these modern interactions:
 | Player choice needed | Preferred interaction | Await syntax? | Return shape |
 | --- | --- | --- | --- |
 | Binary yes/no | `YESNO` | `await $player.YesNo("prompt")` | `"YES"` or `"NO"` |
-| Exactly one visible card/object | `MZCHOOSE` | `await $player.MZChoose($targetStr)` | selected mzID |
-| Optional one visible card/object | `MZMAYCHOOSE` | `await $player.MZMayChoose($targetStr)` | selected mzID or pass sentinel |
+| Exactly one visible card/object | `MZCHOOSE` | `await $player.MZChoose($targetStr, "prompt")` | selected mzID |
+| Optional one visible card/object | `MZMAYCHOOSE` | `await $player.MZMayChoose($targetStr, "prompt")` | selected mzID or pass sentinel |
 | Any/up to/exactly N cards from one known set | `MZMULTICHOOSE` | `await $player.MZMultiChoose($targetStr, $min, $max, "prompt")` | `&`-delimited mzIDs or `"-"` |
 | One or more labeled modes, not cards | `MZMODAL` | `await $player.Modal($min, $max, "label1&label2", "prompt")` | comma-separated 0-based indexes or `"-"` |
 | Integer amount in a range | `NUMBERCHOOSE` | `await $player.NumberChoose($min, $max, "prompt")` | selected number as a string |
@@ -268,7 +268,7 @@ Use `MZChoose` when the player must choose one card/object from a visible candid
 $targets = ZoneSearch("myField", ["ALLY"]);
 if(empty($targets)) return;
 $targetStr = implode("&", $targets);
-$chosen = await $player.MZMayChoose($targetStr);
+$chosen = await $player.MZMayChoose($targetStr, "Choose_a_target");
 if($chosen === "-" || $chosen === "" || $chosen === "PASS") return;
 AddCounters($player, $chosen, "buff", 1);
 ```

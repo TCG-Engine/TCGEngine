@@ -3406,6 +3406,7 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
 /**
  * Build a single DecisionQueueController::AddDecision() statement for a player-choice await.
  * For YESNO decisions the prompt text belongs in the tooltip slot (5th arg), not param.
+ * MZChoose/MZMayChoose accept an optional second tooltip argument.
  */
 /**
  * Parse comma-separated arguments respecting nested parentheses and quoted strings.
@@ -3454,6 +3455,9 @@ function BuildAddDecisionCall($await, $cardId, $indent = '') {
   if ($ct === 'YESNO') {
     // param is a placeholder; prompt text goes into tooltip so the UI can display it
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"YESNO\", \"-\", 1, \"" . $await['params'] . "\");\n";
+  } else if (isset($await['isMZChoose']) && $await['isMZChoose']) {
+    $tooltip = isset($await['chooseTooltip']) ? $await['chooseTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['chooseTargets'] . ", 1, \"" . $tooltip . "\");\n";
   } else if (isset($await['isRearrange']) && $await['isRearrange']) {
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['params'] . ", 1);\n";
   } else if (isset($await['isSplitAssign']) && $await['isSplitAssign']) {
@@ -3497,6 +3501,10 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
       // For other methods, trim quotes
       if (strtolower($methodName) === 'rearrange') {
         $params = $rawParams;
+      } else if (in_array(strtolower($methodName), ['mzchoose', 'mzmaychoose'], true)) {
+        // MZChoose($targets, "tooltip") / MZMayChoose($targets, "tooltip")
+        $chooseArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams;
       } else if (strtolower($methodName) === 'mzsplitassign') {
         // MZSplitAssign($targets, $amount) or MZSplitAssign($targets, $amount, "tooltip")
         $splitArgs = ParseAwaitArgs($rawParams);
@@ -3521,6 +3529,7 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
         $params = trim($rawParams, '"\'');
       }
 
+      $isMZChoose = in_array(strtolower($methodName), ['mzchoose', 'mzmaychoose'], true);
       $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
       $isMultiChoose = strtolower($methodName) === 'mzmultichoose';
       $isModal = strtolower($methodName) === 'modal';
@@ -3534,6 +3543,7 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
         'choiceType' => $choiceType,
         'params' => $params,
         'isRearrange' => strtolower($methodName) === 'rearrange',
+        'isMZChoose' => $isMZChoose,
         'isSplitAssign' => $isSplitAssign,
         'isMultiChoose' => $isMultiChoose,
         'isModal' => $isModal,
@@ -3541,6 +3551,11 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
         'isNameCard' => $isNameCard,
         'isVoidFunction' => false
       ];
+      if ($isMZChoose && isset($chooseArgs)) {
+        $awaitEntry['chooseTargets'] = trim($chooseArgs[0] ?? '""');
+        if ($awaitEntry['chooseTargets'] === '') $awaitEntry['chooseTargets'] = '""';
+        $awaitEntry['chooseTooltip'] = isset($chooseArgs[1]) ? trim(trim($chooseArgs[1]), '"\'') : '';
+      }
       if ($isSplitAssign && isset($splitArgs)) {
         $awaitEntry['splitTargets'] = trim($splitArgs[0]);
         $awaitEntry['splitAmount'] = trim($splitArgs[1]);
@@ -3693,6 +3708,9 @@ function AwaitParseAwaitLine($line, $lineIndex = 0) {
 
     if (strtolower($methodName) === 'rearrange') {
       $params = $rawParams;
+    } else if (in_array(strtolower($methodName), ['mzchoose', 'mzmaychoose'], true)) {
+      $chooseArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
     } else if (strtolower($methodName) === 'mzsplitassign') {
       $splitArgs = ParseAwaitArgs($rawParams);
       $params = $rawParams;
@@ -3712,6 +3730,7 @@ function AwaitParseAwaitLine($line, $lineIndex = 0) {
       $params = trim($rawParams, '"\'');
     }
 
+    $isMZChoose = in_array(strtolower($methodName), ['mzchoose', 'mzmaychoose'], true);
     $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
     $isMultiChoose = strtolower($methodName) === 'mzmultichoose';
     $isModal = strtolower($methodName) === 'modal';
@@ -3725,6 +3744,7 @@ function AwaitParseAwaitLine($line, $lineIndex = 0) {
       'choiceType' => $choiceType,
       'params' => $params,
       'isRearrange' => strtolower($methodName) === 'rearrange',
+      'isMZChoose' => $isMZChoose,
       'isSplitAssign' => $isSplitAssign,
       'isMultiChoose' => $isMultiChoose,
       'isModal' => $isModal,
@@ -3732,6 +3752,11 @@ function AwaitParseAwaitLine($line, $lineIndex = 0) {
       'isNameCard' => $isNameCard,
       'isVoidFunction' => false
     ];
+    if ($isMZChoose && isset($chooseArgs)) {
+      $awaitEntry['chooseTargets'] = trim($chooseArgs[0] ?? '""');
+      if ($awaitEntry['chooseTargets'] === '') $awaitEntry['chooseTargets'] = '""';
+      $awaitEntry['chooseTooltip'] = isset($chooseArgs[1]) ? trim(trim($chooseArgs[1]), '"\'') : '';
+    }
     if ($isSplitAssign && isset($splitArgs)) {
       $awaitEntry['splitTargets'] = trim($splitArgs[0] ?? '');
       $awaitEntry['splitAmount'] = trim($splitArgs[1] ?? '0');
