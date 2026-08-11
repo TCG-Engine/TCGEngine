@@ -11,6 +11,13 @@ if ($error !== '') {
     exit;
 }
 
+// Whole-suite run: lift the SAPI execution cap. The CLI runner has max_execution_time=0, but Apache's
+// is 30s and the suite is well past that (~45s and growing with every ported section) — so over HTTP it
+// died with "Maximum execution time of 30 seconds exceeded" partway through, which reads as a product
+// fatal rather than a harness limit. Set AFTER the mod gate on purpose: an unauthenticated request must
+// never be able to hold an Apache worker open indefinitely.
+@set_time_limit(0);
+
 $filter = isset($_GET['filter']) ? strval($_GET['filter']) : null;
 // ?withDetails=1 → list every test with its run time (debugging). Default: minimal
 // output (failures + summary only) so plain regression curls stay small.

@@ -111,3 +111,54 @@ WithP1Hand: SOR_046
 P1BASE:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# EffectDefeat_Decline_UpgradeIsDefeatedRampartSurvives_DeclinedWithNO
+#// Same decline as the section above, but answering **NO** — the token the real client
+#// submits for a YESNO's No button. The '-' variant is the MZMAYCHOOSE pass token and can
+#// never reach this handler in a real game, so it could not catch SWUDecisionDeclined()
+#// omitting 'NO' (which made a real decline resolve the effect anyway).
+#// Declining the replacement: the base upgrade (Alliance Shield Generator) is defeated for real and Rampart
+#// stays. The prevention + draw already happened regardless.
+
+## GIVEN
+CommonSetup: bbk/rrk
+WithActivePlayer: 2
+WithP1BaseUpgrade: HMW_081
+WithP1GroundArena: HMW_060:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2GroundArena: HMW_121:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1BASE:UPGRADECOUNT:0
+P1BASEDMG:0
+P1GROUNDARENAUNIT:0:CARDID:HMW_060
+P1HANDCOUNT:1
+
+---
+
+# CostDefeat_Decline_ChamberDefeatedRampartSurvives_DeclinedWithNO
+#// Same decline as the section above, but answering **NO** — the token the real client
+#// submits for a YESNO's No button. The '-' variant is the MZMAYCHOOSE pass token and can
+#// never reach this handler in a real game, so it could not catch SWUDecisionDeclined()
+#// omitting 'NO' (which made a real decline resolve the effect anyway).
+#// Declining the replacement: the Chamber defeats itself for real and Rampart stays.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_095
+WithP1GroundArena: HMW_060:1:0
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1BASE:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:CARDID:HMW_060

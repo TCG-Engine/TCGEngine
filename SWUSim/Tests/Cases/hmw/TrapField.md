@@ -127,3 +127,52 @@ WithP1Hand: TWI_237
 P1BASE:UPGRADECOUNT:0
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:TWI_T01
+
+---
+
+# OwnUnitEnters_DeclineWithNO_SavesYourOwnLowHpUnit
+#// The realistic play pattern, and the one the other decline section does NOT cover: your OWN Trap Field
+#// reacts to your OWN unit entering, and you decline so it doesn't blow up your own body.
+#// LAW_180 Inspired Recruit is 3/1 — the 3 damage would be lethal, so declining is the whole point.
+#// Declining must leave BOTH the upgrade attached (it is only defeated "if you do") and the unit alive.
+#//
+#// ⚠ This answers the YESNO with **NO**, which is what the real client submits for the No button
+#// (ShowYesNoDecisionPopup → onSubmit('NO')). The pre-existing decline section answers `-`, the
+#// MZMAYCHOOSE pass token, which the client never sends for a YESNO — so it could not catch this.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_171
+WithP1Hand: LAW_180
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1BASE:UPGRADECOUNT:1
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_180
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# OwnUnitEnters_AcceptKillsYourOwnLowHpUnit
+#// The partner that makes the decline meaningful: same board, same 3/1 unit, but accepting defeats your
+#// own unit and consumes the Trap Field. Without this pair, "unit alive" could just mean the damage
+#// never had a chance to apply.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_171
+WithP1Hand: LAW_180
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1BASE:UPGRADECOUNT:0
+P1GROUNDARENACOUNT:0

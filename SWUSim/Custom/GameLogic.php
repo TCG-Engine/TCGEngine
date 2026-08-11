@@ -8360,6 +8360,10 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             break;
         }
         case 'TS26_35':  _SWUTs26035Offer($player); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break; // Ahsoka's Lightsabers (granted When Defeated) — may Shield an enemy → next event -2
+        case 'HMW_115': { // Leia Organa — "Heal 1 damage from your base." Not optional, no target choice.
+            OnHealBase(intval($player), intval($player), 1);
+            break;
+        }
         case 'HMW_014': { // Wicket (leader FRONT) — "you may exhaust this leader. If you do, draw a card."
             global $playerID; $playerID = intval($player);
             DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
@@ -9146,10 +9150,19 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
     $isAggression  = strpos(CardAspect($playedCardID) ?? '', 'Aggression') !== false;
     $isCommandUnit = (strpos(CardType($playedCardID) ?? '', 'Unit') !== false)
                   && (strpos(CardAspect($playedCardID) ?? '', 'Command') !== false);
+    // Token Units have CardType "Token Unit", which contains "Unit" — so token plays count as units here.
+    $isUnit        = strpos(CardType($playedCardID) ?? '', 'Unit') !== false;
     foreach (GetUnitsInPlay($playingPlayer) as $u) {
         if (!empty($u->removed) || LostAbilities($u)) continue;   // SEC_046 Galen — a named observer doesn't react
         $cid = $u->CardID ?? '';
         $uid = intval($u->UniqueID ?? 0);
+        // HMW_115 Leia Organa, These Are My Friends: "When you play ANOTHER unit that costs 3 or less:
+        // Heal 1 damage from your base." COST is always the PRINTED cost (never a discounted or
+        // aspect-inflated one). Self-exclusion is by UniqueID, so her own arrival — she is cost 1 —
+        // does not heal, while a SECOND copy of her would trigger the first.
+        if ($cid === 'HMW_115' && $isUnit && $uid !== $playedUID && intval(CardCost($playedCardID)) <= 3) {
+            AddTrigger($playingPlayer, 'HMW_115', 'HMW_115', '');
+        }
         // SOR_182 Bossk: "When you play an event: you may deal 2 damage to a unit."
         if ($cid === 'SOR_182' && $isEvent) {
             AddTrigger($playingPlayer, 'SOR_182', 'SOR_182', '');

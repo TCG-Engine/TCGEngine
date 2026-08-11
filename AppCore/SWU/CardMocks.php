@@ -321,6 +321,61 @@ Action [defeat this upgrade]: Choose a non-Vehicle unit. It doesn\'t ready durin
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_115' => 
+  array (
+    'title' => 'Leia Organa',
+    'subtitle' => 'These Are My Friends',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 2,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Official',
+    ),
+    'text' => 'When you play another unit that costs 3 or less: Heal 1 damage from your base.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/115.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_116' => 
+  array (
+    'title' => 'Ewok Brigade',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Ewok',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/116.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_121' => 
   array (
     'title' => 'Hijacked AT-ST',
@@ -386,6 +441,32 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
+  ),
+  'HMW_136' => 
+  array (
+    'title' => 'Lifetree Caravan',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 2,
+    'hp' => 1,
+    'aspect' => 
+    array (
+      0 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Ewok',
+    ),
+    'text' => 'When Played: If you control 3 or more units (including this one), you may resource the top card of your deck.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/136.png',
+    'imageUrlBack' => '',
   ),
   'HMW_142' => 
   array (

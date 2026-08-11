@@ -4,11 +4,23 @@
 // per-card files (cards/<set>/*.php) can call them.
 
 // True when a decision-queue answer represents "no choice / declined / passed".
-// Mirrors the historical inline check exactly:
-//   !$d || $d === '-' || $d === '' || $d === 'PASS'
+//
+// The pass token differs by decision TYPE: MZMAYCHOOSE passes as '-', some flows as '' / 'PASS', and a
+// YESNO's No button submits the literal string **'NO'** (Core/UILibraries*.js ShowYesNoDecisionPopup →
+// onSubmit('NO')). 'NO' was missing here, so a handler that queued a YESNO but declined via this helper
+// treated a real "No" click as an ACCEPT — it fell straight through and resolved the effect.
+//
+// That shipped in three HMW cards (HMW_171 Trap Field, HMW_158 Ezra Bridger, HMW_060 Rampart's
+// RAMPART_SAVE): declining Trap Field still defeated the upgrade AND dealt its 3 damage, so a player
+// saying "no" watched it kill their own just-played unit. Their decline tests all answered '-' — the
+// MZMAYCHOOSE token, which the client never sends for a YESNO — so every one of them passed.
+//
+// Safe to treat 'NO' as a decline everywhere: it is not a valid mzID, and no OPTIONCHOOSE in the repo
+// offers a literal 'NO' label, so it can only ever arrive from a YESNO's No button.
+// (The other convention — `if ($lastDecision !== 'YES') return;` — remains correct for YESNO handlers.)
 if (!function_exists('SWUDecisionDeclined')) {
     function SWUDecisionDeclined($d): bool {
-        return !$d || $d === '-' || $d === '' || $d === 'PASS';
+        return !$d || $d === '-' || $d === '' || $d === 'PASS' || $d === 'NO';
     }
 }
 

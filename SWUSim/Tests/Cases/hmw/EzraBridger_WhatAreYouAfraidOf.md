@@ -60,3 +60,25 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P1BASEDMG:0
 P1GROUNDARENACOUNT:1
+
+---
+
+# TakeInitiative_Decline_NoDamageNoBeast_DeclinedWithNO
+#// Same decline as the section above, but answering **NO** — the token the real client
+#// submits for a YESNO's No button. The '-' variant is the MZMAYCHOOSE pass token and can
+#// never reach this handler in a real game, so it could not catch SWUDecisionDeclined()
+#// omitting 'NO' (which made a real decline resolve the effect anyway).
+#// The "may" decline: no self-damage, no Beast.
+
+## GIVEN
+CommonSetup: rrw/bbk
+WithActivePlayer: 1
+WithP1GroundArena: HMW_158:1:0
+
+## WHEN
+- P1>Claim
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1BASEDMG:0
+P1GROUNDARENACOUNT:1
