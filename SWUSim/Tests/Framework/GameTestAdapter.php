@@ -596,9 +596,20 @@ class GameTestAdapter {
         global $gameName, $gShootFirstPending, $gDeferredReplacements,
                $gSec035DefeatSnapshot, $gAsh195DefeatSnapshot, $gCombatDefeatByMz, $gPlayGrantedExploit;
         // Round-trip through a scratch dir under the system temp — never the repo working tree.
-        $base = rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary/';
+        // ⚠ The dir is scoped BY UID. The CLI runner runs as root (uid 0) while the zzRegressionSWUSim.php
+        // endpoint runs as Apache's user (uid 33): whichever ran first owned a shared dir, and the other
+        // then could not write to it. WriteGamestate's failure is invisible here (the ob_start/ob_end_clean
+        // below swallows the warning), so ParseGamestate simply re-read stale state and EVERY
+        // SimulateRequestBoundary test failed with "nothing happened" — 16 phantom product bugs that
+        // reproduced only over HTTP. Per-uid paths mean the two runners can never collide.
+        $base = rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary_' . getmyuid() . '/';
         $dir  = $base . "Games/{$gameName}";
         if (!is_dir($dir)) @mkdir($dir, 0777, true);
+        if (!is_dir($dir) || !is_writable($dir)) {
+            // Fail LOUDLY rather than silently degrading into a fake state-loss bug.
+            throw new RuntimeException("SimulateRequestBoundary: scratch dir '$dir' is not writable "
+                . "(uid " . getmyuid() . ", sapi " . php_sapi_name() . ") — the boundary cannot be simulated.");
+        }
         ob_start();
         WriteGamestate($base);                // 1) serialize (production writes on every pending-decision response)
         // 2) fresh process: EVERY non-serialized in-memory continuation global starts empty. This list must
