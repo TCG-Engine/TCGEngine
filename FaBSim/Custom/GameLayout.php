@@ -103,24 +103,31 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
 .fab-overlay-button{border:1px solid var(--fab-gold-soft);border-radius:7px;background:rgba(11,14,16,.9);color:#eee5d4;padding:7px 12px;font:700 12px/1 Inter,Segoe UI,sans-serif;letter-spacing:.04em;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.3)}
 .fab-overlay-button:hover,.fab-overlay-button[aria-expanded="true"]{color:#17130c;background:var(--fab-gold);border-color:#f0cb7b}
 .fab-overlay-button .fab-count{display:inline-grid;place-items:center;min-width:17px;height:17px;margin-left:5px;border-radius:9px;background:rgba(255,255,255,.14);font-size:10px}
-.fab-floating-window{position:fixed;z-index:75;left:50%;top:104px;transform:translateX(-50%);width:min(820px,78vw);min-height:234px;border:1px solid rgba(214,170,77,.48);border-radius:13px;background:linear-gradient(145deg,rgba(25,27,27,.98),rgba(9,12,14,.98));box-shadow:0 22px 70px rgba(0,0,0,.72);overflow:hidden}
+.fab-floating-window{position:fixed;z-index:75;left:50%;top:31.5vh;transform:translateX(-50%);width:min(1480px,78vw);height:clamp(230px,34vh,310px);min-height:0;border:1px solid rgba(214,170,77,.48);border-radius:13px;background:linear-gradient(145deg,rgba(25,27,27,.98),rgba(9,12,14,.98));box-shadow:0 22px 70px rgba(0,0,0,.72);overflow:hidden;opacity:1;transition:opacity 120ms ease-out,visibility 0s linear 0s}
 .fab-floating-window[hidden]{display:none}
+body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hidden;pointer-events:none;transition:opacity 90ms ease-in,visibility 0s linear 90ms}
 .fab-window-header{height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 13px;border-bottom:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035)}
 .fab-window-title{font-size:19px;font-weight:800;letter-spacing:.01em}
 .fab-window-subtitle{margin-left:8px;color:#a9a49a;font-size:11px;font-weight:500}
 .fab-window-close{width:27px;height:27px;border:1px solid rgba(255,255,255,.13);border-radius:50%;background:#292b2b;color:#eee;cursor:pointer}
-.fab-combat-progress{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;padding:11px 14px 9px;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.14)}
-.fab-combat-step{position:relative;min-width:0;padding:8px 5px 7px;border:1px solid rgba(255,255,255,.09);border-radius:7px;color:#7f817e;text-align:center;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;transition:background .18s,border-color .18s,color .18s,transform .18s}
-.fab-combat-step:not(:last-child):after{content:"";position:absolute;z-index:2;top:50%;right:-6px;width:7px;height:1px;background:rgba(255,255,255,.16)}
-.fab-combat-step.is-complete{color:#bcb5a8;border-color:rgba(214,170,77,.2);background:rgba(214,170,77,.07)}
-.fab-combat-step.is-complete:before{content:"✓";margin-right:4px;color:#72c98b}
-.fab-combat-step.is-active{color:#17130c;border-color:#f0cb7b;background:var(--fab-gold);transform:translateY(-1px);box-shadow:0 4px 13px rgba(214,170,77,.2)}
-.fab-combat-status{min-height:17px;padding:0 16px 8px;color:#c9c3b7;font-size:11px;text-align:center}
+.fab-chain-close{position:absolute;z-index:4;top:7px;right:8px;width:24px;height:24px;font-size:14px}
+.fab-combat-progress{display:grid;grid-template-columns:repeat(7,minmax(58px,82px));justify-content:center;gap:5px;padding:7px 40px 6px;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.18)}
+.fab-combat-step{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;height:28px;padding:0 6px;border:1px solid rgba(255,255,255,.08);border-radius:15px;color:#767a78;text-align:center;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:background .16s,border-color .16s,color .16s,transform .16s,box-shadow .16s}
+.fab-step-glyph{display:grid;place-items:center;width:16px;height:16px;border:1px solid rgba(255,255,255,.12);border-radius:50%;color:#9b9d99;font-size:10px;line-height:1}
+.fab-combat-step:not(:last-child):after{content:"";position:absolute;z-index:2;top:50%;right:-6px;width:7px;height:1px;background:rgba(255,255,255,.14)}
+.fab-combat-step.is-complete{color:#aaa89f;border-color:rgba(214,170,77,.18);background:rgba(214,170,77,.055)}
+.fab-combat-step.is-complete .fab-step-glyph{color:#69c887;border-color:rgba(105,200,135,.4)}
+.fab-combat-step.is-active{color:#fff3d5;border-color:#f0cb7b;background:rgba(214,170,77,.2);transform:translateY(-1px);box-shadow:0 0 7px rgba(240,203,123,.8),0 0 19px rgba(214,170,77,.4),inset 0 0 9px rgba(240,203,123,.12)}
+.fab-combat-step.is-active .fab-step-glyph{color:#17130c;border-color:#f4d995;background:#edc45f;box-shadow:0 0 8px rgba(240,203,123,.85)}
+.fab-combat-status{min-height:15px;padding:4px 38px 2px;color:#c9c3b7;font-size:10px;text-align:center}
 .fab-combat-status strong{color:#f1d17c}
-.fab-chain-flow{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;min-height:124px;padding:8px 18px 14px}
+.fab-chain-flow{position:relative;display:flex;align-items:center;justify-content:center;gap:0;height:calc(100% - 64px);min-height:148px;padding:6px 38px 12px;box-sizing:border-box}
 .fab-chain-side{display:flex;align-items:center;min-width:0;color:transparent;font-size:0}
 .fab-chain-side:empty{display:none}
-.fab-chain-side [data-mzid]{color:#f3eee5;font-size:initial}
+.fab-chain-side [data-mzid]{position:relative!important;margin:0 17px!important;color:#f3eee5;font-size:initial}
+.fab-chain-side [data-mzid]:before,.fab-chain-side [data-mzid].fab-chain-last:after{content:"";position:absolute;z-index:-1;top:50%;width:29px;height:15px;transform:translateY(-50%);background:radial-gradient(ellipse at 31% 50%,transparent 0 4px,rgba(205,166,91,.78) 4.5px 6px,transparent 6.5px),radial-gradient(ellipse at 69% 50%,transparent 0 4px,rgba(205,166,91,.78) 4.5px 6px,transparent 6.5px);filter:drop-shadow(0 1px 2px rgba(0,0,0,.9));pointer-events:none}
+.fab-chain-side [data-mzid]:before{left:-32px}
+.fab-chain-side [data-mzid].fab-chain-last:after{right:-32px}
 #myCombatChainSlot,#theirCombatChainSlot{position:relative;inset:auto;width:auto;height:auto;min-height:112px;min-width:0;padding:0;border:0;background:transparent;box-shadow:none;overflow:visible}
 #myCombatChainSlot:before,#theirCombatChainSlot:before{display:none}
 #myCombatChainWrapper,#theirCombatChainWrapper,#myCombatChain,#theirCombatChain{width:auto!important;height:auto!important;overflow:visible!important}
@@ -135,7 +142,13 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
   #myEquipmentSlot{left:4px;transform:scale(.78);transform-origin:left bottom}
   #theirEquipmentSlot{left:4px;transform:scale(.78);transform-origin:left top}
   #myWeaponsSlot,#theirWeaponsSlot{left:calc(50% - 145px);width:290px}
-  .fab-floating-window{width:88vw}
+  .fab-floating-window{top:29vh;width:88vw;height:38vh}
+  .fab-combat-progress{grid-template-columns:repeat(7,34px);gap:3px;padding-left:34px;padding-right:34px}
+  .fab-combat-step{padding:0}.fab-step-label{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .fab-floating-window{transition:none}
 }
 </style>
 
@@ -167,18 +180,15 @@ foreach ($zones as $zone => $label) {
 </div>
 
 <section id="fabCombatWindow" class="fab-floating-window" aria-label="Combat chain" hidden>
-  <header class="fab-window-header">
-    <div><span class="fab-window-title">Combat Chain</span><span class="fab-window-subtitle">one shared chain</span></div>
-    <button class="fab-window-close" type="button" aria-label="Close combat chain" onclick="FaBToggleWindow('fabCombatWindow', false)">×</button>
-  </header>
+  <button class="fab-window-close fab-chain-close" type="button" aria-label="Close combat chain" onclick="FaBToggleWindow('fabCombatWindow', false)">×</button>
   <div id="fabCombatProgress" class="fab-combat-progress" aria-label="Combat progress">
-    <div class="fab-combat-step" data-fab-step="LAYER">Layer</div>
-    <div class="fab-combat-step" data-fab-step="ATTACK">Attack</div>
-    <div class="fab-combat-step" data-fab-step="DEFEND">Defend</div>
-    <div class="fab-combat-step" data-fab-step="REACTION">Reaction</div>
-    <div class="fab-combat-step" data-fab-step="DAMAGE">Damage</div>
-    <div class="fab-combat-step" data-fab-step="RESOLUTION">Resolution</div>
-    <div class="fab-combat-step" data-fab-step="CLOSE">Close</div>
+    <div class="fab-combat-step" data-fab-step="LAYER"><span class="fab-step-glyph">✦</span><span class="fab-step-label">Layer</span></div>
+    <div class="fab-combat-step" data-fab-step="ATTACK"><span class="fab-step-glyph">▶</span><span class="fab-step-label">Attack</span></div>
+    <div class="fab-combat-step" data-fab-step="DEFEND"><span class="fab-step-glyph">◆</span><span class="fab-step-label">Defend</span></div>
+    <div class="fab-combat-step" data-fab-step="REACTION"><span class="fab-step-glyph">↯</span><span class="fab-step-label">React</span></div>
+    <div class="fab-combat-step" data-fab-step="DAMAGE"><span class="fab-step-glyph">✹</span><span class="fab-step-label">Damage</span></div>
+    <div class="fab-combat-step" data-fab-step="RESOLUTION"><span class="fab-step-glyph">✓</span><span class="fab-step-label">Resolve</span></div>
+    <div class="fab-combat-step" data-fab-step="CLOSE"><span class="fab-step-glyph">×</span><span class="fab-step-label">Close</span></div>
   </div>
   <div id="fabCombatStatus" class="fab-combat-status">Waiting for an attack.</div>
   <div class="fab-chain-flow">
@@ -260,10 +270,21 @@ function FaBRefreshLifeTotals() {
   });
 }
 
+function FaBRefreshLungeVisibility() {
+  document.body.classList.toggle('fab-lunge-active', !!document.querySelector('.tcg-card-lunge-clone'));
+}
+
 function FaBToggleWindow(id, forceOpen) {
   var panel = document.getElementById(id);
   if (!panel) return;
   var shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : panel.hidden;
+  if (shouldOpen) {
+    var otherID = id === 'fabCombatWindow' ? 'fabLayersWindow' : 'fabCombatWindow';
+    var otherPanel = document.getElementById(otherID);
+    if (otherPanel) otherPanel.hidden = true;
+    var otherToggle = document.getElementById(otherID === 'fabCombatWindow' ? 'fabCombatToggle' : 'fabLayersToggle');
+    if (otherToggle) otherToggle.setAttribute('aria-expanded', 'false');
+  }
   panel.hidden = !shouldOpen;
   var toggle = document.getElementById(id === 'fabCombatWindow' ? 'fabCombatToggle' : 'fabLayersToggle');
   if (toggle) toggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
@@ -272,7 +293,10 @@ function FaBToggleWindow(id, forceOpen) {
 function FaBRefreshSharedWindows() {
   var combatWindow = document.getElementById('fabCombatWindow');
   if (!combatWindow) return;
-  var count = combatWindow.querySelectorAll('[data-mzid]').length;
+  var chainCards = Array.prototype.slice.call(combatWindow.querySelectorAll('[data-mzid]'));
+  chainCards.forEach(function(card) { card.classList.remove('fab-chain-last'); });
+  if (chainCards.length) chainCards[chainCards.length - 1].classList.add('fab-chain-last');
+  var count = chainCards.length;
   var badge = document.getElementById('fabCombatCount');
   if (badge) badge.textContent = String(count);
   var oldCount = Number(combatWindow.dataset.cardCount || 0);
@@ -346,9 +370,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var healthSlot = document.getElementById(slotID);
     if (healthSlot) new MutationObserver(FaBRefreshLifeTotals).observe(healthSlot, {childList:true, subtree:true});
   });
+  new MutationObserver(FaBRefreshLungeVisibility).observe(document.body, {childList:true});
   FaBArrangeEquipment('myEquipment');
   FaBArrangeEquipment('theirEquipment');
   FaBRefreshSharedWindows();
   FaBRefreshLifeTotals();
+  FaBRefreshLungeVisibility();
 });
 </script>

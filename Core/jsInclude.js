@@ -77,7 +77,7 @@ function ShowCardDetail(e, that, options) {
   var folderPath = document.getElementById("folderPath").value;
   var timeOut = options.skipDelay ? 0 : (folderPath == "SWUDeck" || folderPath == "AzukiDeck" ? SWUDECK_CARD_DETAIL_HOVER_MS :
     (folderPath == "SWUSim" ? 850 :
-    (folderPath == "AzukiSim" ? AZUKISIM_CARD_DETAIL_HOVER_MS :
+    (folderPath == "AzukiSim" || folderPath == "FaBSim" ? AZUKISIM_CARD_DETAIL_HOVER_MS :
     (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" ? 100 : 1))));
   showDetailTimeout = setTimeout(function() {
     if (requestToken !== cardDetailRequestToken) return;
