@@ -39,7 +39,7 @@ PushUndoSnapshot(1, 'pregame-step');                                        // o
 MZAddZone(1, 'myHand', 'SOR_046');                                          // hand = 2  (S1)
 PushUndoSnapshot(1, 'pregame-step');                                        // ord1 = S1 (== current live state)
 
-$check(UndoStackCount() === 2 && UndoTop() === 1, 'stack = [ord0 S0, ord1 S1], top=1');
+$check(UndoStackCount() === 2 && UndoCursor() === 1, 'stack = [ord0 S0, ord1 S1], cursor=1');
 $g->simulateRequestBoundary();   // prod: the interactive decision that follows ends the request
 
 // The top (ord1) equals the current state → it's a no-op; a 'step' undo must skip it and target ord0.

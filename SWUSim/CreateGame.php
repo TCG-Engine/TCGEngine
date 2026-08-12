@@ -123,6 +123,17 @@ function SWUSetupGame($lobby, $opts = []) {
         SaveUndoVersion($firstPlayer, "Start of Game");
     }
 
+    // Stamp the client-visible lobby facts NOW, not only on the first SWUAfterAction: the Undo menu
+    // reads them to decide whether to offer "Bookmark Gamestate", so without a value here a brand-new
+    // game renders the wrong menu until someone takes an action.
+    // Privacy is read from the LOBBY, not SimGameIsPrivateGame — the auth record that backs that lookup
+    // is only written below, AFTER this WriteGamestate, so the lookup would answer "public" for every
+    // game. $lobby->isPrivate is the same field SimGameBuildAuthKeysFromLobby persists. A one-player
+    // mode counts as private, mirroring SWUGameIsPrivate.
+    SetSWUVar('GAME_IS_PRIVATE',
+        ((is_object($lobby) && !empty($lobby->isPrivate)) || $mode !== '') ? 'true' : 'false');
+    SetSWUVar('GAME_SEAT_COUNT', strval(SeatCountForGame()));
+
     WriteGamestate(__DIR__ . "/");
     $lobby->gameName = $gameName;
     if (!SimGameWriteAuthKeysFromLobby('SWUSim', $gameName, $lobby)) {

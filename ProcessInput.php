@@ -163,6 +163,9 @@ $actionResult = EngineExecuteLoadedAction([
   'versionName' => $_GET["versionName"] ?? $inputText,
   'createdBy' => function_exists('LoggedInUser') && IsUserLoggedIn() ? strval(LoggedInUser()) : 'anonymous',
   'suppressUndoFlash' => strval($_GET["suppressUndoFlash"] ?? '') === '1',
+  // SWUSim undo kind ('step' | 'phase'). Params reach us on the QUERY STRING (SubmitEngineInput
+  // appends to the URL), so this must come from $_GET — $_POST is never populated on these requests.
+  'undoKind' => $_GET["undoKind"] ?? '',
 ]);
 
 if (ProcessInputWantsJsonResponse()) {

@@ -38,15 +38,18 @@ MZAddZone(1, 'myHand', 'SOR_046'); SetDeterministicRandomCounter(300); $h2 = $ha
 MZAddZone(1, 'myHand', 'SOR_046'); SetDeterministicRandomCounter(999);
 
 $check($h0 === 1 && $h1 === 2 && $h2 === 3, "setup hands 1/2/3 (got $h0/$h1/$h2)");
-$check(UndoStackCount() === 3 && UndoTop() === 2, 'stack has 3 entries, top=2');
+$check(UndoStackCount() === 3 && UndoCursor() === 2, 'stack has 3 entries, cursor=2');
 
-// Restore S1 (ordinal 1): state == hand 2, counter 200; then POP -> top=0, stack keeps only entry 0.
+// Restore S1 (ordinal 1): state == hand 2, counter 200; the cursor parks below it at 0. The log is
+// APPEND-ONLY, so entries 1 and 2 are RETAINED — they are the abandoned branch, and walking back into
+// them is how Undo rewinds a bookmark load.
 $ok = LoadUndoSnapshot(1);
 $check($ok === true, 'LoadUndoSnapshot(1) returns true');
 $check($handCount() === 2, 'restored hand == 2 (S1 state) — got ' . $handCount());
 $check(intval($gRandomCounter) === 200, 'restored RNG counter == 200 (S1) — got ' . intval($gRandomCounter));
-$check(UndoTop() === 0, 'popped: UNDO_TOP == 0 (ordinal-1)');
-$check(UndoStackCount() === 1, 'stack truncated to 1 entry');
+$check(UndoCursor() === 0, 'cursor parked below the restored entry: cursor == 0');
+$check(UndoStackCount() === 3, 'stack RETAINED at 3 entries (append-only) — got ' . UndoStackCount());
+$check(UndoRecordParse(UndoStackRead(2))['payload'] !== '', 'abandoned-branch entry 2 still readable');
 
 // out-of-range
 $check(LoadUndoSnapshot(99) === false, 'LoadUndoSnapshot(out-of-range) returns false');

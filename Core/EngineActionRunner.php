@@ -519,7 +519,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     case 10004:
       if (function_exists('SWUDoUndo')) {
         // SWUSim multi-step undo. 'undoKind' selects step (default) vs phase (Undo Phase button).
-        $undoKind = ($options['undoKind'] ?? ($_POST['undoKind'] ?? '')) === 'phase' ? 'phase' : 'step';
+        // Sourced from $_GET via ProcessInput's options array — these requests are GETs, so a
+        // $_POST fallback here is dead code that silently forced every undo to 'step'.
+        $undoKind = ($options['undoKind'] ?? '') === 'phase' ? 'phase' : 'step';
         // Pass root/game so SWUUndoNeedsConsent can gate on private-vs-public (private = always free).
         SWUDoUndo($playerID, $undoKind, $folderPath, $gameName);
       } else {
@@ -547,6 +549,15 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       }
       SetSWUVar('PENDING_BLOCK_PROMPT_FOR', '');
       SetFlashMessage('Future undo requests from this player are blocked.');
+      break;
+    case 10018:
+      // SWUSim — save a gamestate bookmark. Optional label arrives in inputText.
+      // Private-lobby gating is enforced inside SWUTakeBookmark, not here.
+      if (function_exists('SWUTakeBookmark')) SWUTakeBookmark($playerID, strval($inputText), $folderPath, $gameName);
+      break;
+    case 10019:
+      // SWUSim — load a gamestate bookmark. Bookmark id arrives in buttonInput.
+      if (function_exists('SWULoadBookmark')) SWULoadBookmark($playerID, intval($buttonInput), $folderPath, $gameName);
       break;
     case 10011:
       // Keep allowing undo requests (dismiss block prompt)

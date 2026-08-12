@@ -33,7 +33,7 @@ PushUndoSnapshot(1);
 PushUndoSnapshot(1);
 
 $check(UndoStackCount() === 2, 'two snapshots appended to the file (got ' . UndoStackCount() . ')');
-$check(UndoTop() === 1, 'UNDO_TOP == 1 (top ordinal, got ' . UndoTop() . ')');
+$check(UndoCursor() === 1, 'cursor == 1 (top ordinal, got ' . UndoCursor() . ')');
 
 $rec = UndoStackRead(0);
 $f = explode("\t", $rec, 6);
@@ -41,7 +41,9 @@ $check(count($f) === 6, 'record has 6 tab fields');
 $check(intval($f[0]) === 1, 'field[0] seat == 1');
 $check($f[2] === 'action', 'field[2] boundary == action (got ' . $f[2] . ')');
 $check($f[3] === '0', 'field[3] revealedInfo == 0');
-$payload = base64_decode($f[5]);
+// Decode through the accessor, not a bare base64_decode: payloads are deflate-compressed and carry a
+// '~' format marker (see UndoPayloadEncode). The assertion below is unchanged — only the decode path is.
+$payload = UndoPayloadDecode($f[5]);
 $check(str_contains($payload, '<v0>42'), 'payload carries the RNG counter (<v0>42)');
 
 // cleanup

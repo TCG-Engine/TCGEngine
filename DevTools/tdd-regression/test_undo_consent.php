@@ -34,16 +34,16 @@ $push = function (int $seat, string $boundary, bool $revealed) {
     if ($revealed) SetSWUVar('UNDO_REQUIRES_CONSENT', 'true');
     PushUndoSnapshot($seat, $boundary);
 };
-UndoStackClear(); SetSWUVar('UNDO_TOP', '-1'); SetSWUVar('UNDO_REQUIRES_CONSENT', 'false');
+UndoStackClear(); UndoCursorSet(-1); SetSWUVar('UNDO_REQUIRES_CONSENT', 'false');
 $push(1, 'action',   false); // ord0  P1
 $push(1, 'action',   false); // ord1  P1
 $push(1, 'resource', false); // ord2  RES boundary
 $push(1, 'action',   false); // ord3  P1
 $push(2, 'action',   false); // ord4  P2 acted (opponent) — its reveal flag folds at next push
-$push(1, 'action',   false); // ord5  P1 (folds ord4's non-reveal); now top=5, all live flags clear
+$push(1, 'action',   false); // ord5  P1 (folds ord4's non-reveal); now cursor=5, all live flags clear
 
-$top = UndoTop();
-$check($top === 5, "stack top == 5 (got $top)");
+$top = UndoCursor();
+$check($top === 5, "stack cursor == 5 (got $top)");
 
 // ── PRIVATE: always free, whatever it crosses ──
 $GLOBALS['SWU_TEST_FORCE_PRIVATE'] = true;

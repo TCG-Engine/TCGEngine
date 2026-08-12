@@ -2616,6 +2616,29 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     var bw = SWUBuildBlockPlayerWidget({ liveBo3: (info.bestOf === 3 && info.matchState !== 'complete') });
                     // Inside the stats box, right below the stats table (not pushed to the panel bottom).
                     if (bw) goStats.appendChild(bw);
+                    // Gamestate bookmarks, below the Block Player widget. Same dedupe discipline as the
+                    // widgets around it: this block runs even when ShowGameOver early-returned on an
+                    // existing overlay, so two concurrent rebuilds (the convert poll removing the
+                    // overlay + NextTurn.php's GAMEOVER_WINNER detector firing in that gap) would
+                    // otherwise stack a second panel in the same stats box.
+                    var existingBm = goStats.querySelector('#swuEndGameBookmarks');
+                    if (existingBm) existingBm.remove();
+                    // Heading + capped scroller, mirroring the settings pane. The heading is a SIBLING
+                    // of the mount, not a child: the renderer replaces the mount's contents wholesale.
+                    var bmBox = document.createElement('div');
+                    bmBox.id = 'swuEndGameBookmarks';
+                    bmBox.style.marginTop = '10px';
+                    var bmHead = document.createElement('div');
+                    bmHead.className = 'swu-settings-section-title';
+                    bmHead.textContent = 'Gamestate Bookmarks';
+                    var bmWrap = document.createElement('div');
+                    bmWrap.id = 'swuEndGameBookmarksMount';
+                    bmWrap.className = 'swu-bm-scroll';
+                    bmBox.appendChild(bmHead); bmBox.appendChild(bmWrap);
+                    goStats.appendChild(bmBox);
+                    // Async: BookmarksInfo.php hides the panel itself in a public game (isPrivate:false),
+                    // and this mount is not #swuBookmarksMount, so it never touches the settings section.
+                    swuRenderBookmarksPanel(bmWrap);
                     // SWUStats submission banner — shown once the match completes (SWUSubmitMatchResults ran).
                     var existingSt = goStats.querySelector('.swu-stats-status');
                     if (existingSt) existingSt.remove();
@@ -2850,15 +2873,36 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 
 <script>
 // ── SWU Undo UI helpers ───────────────────────────────────────────────────────
+// Mirrors the SERVER decoder _parseSWUVars() (GameLogic.php) — the DQ-variable map has TWO encodings
+// and a reader that understands only one silently returns nothing.
+//
+// SetSWUVar json_encode()s the whole map, and GetNextTurn echoes $gDecisionQueueVariables verbatim, so
+// in any live game this payload is JSON. This function previously parsed ONLY the legacy pipe form
+// ("k=v|k=v"), so every lookup returned '' — which silently disabled the entire undo consent UI: the
+// "Request Undo" label, the opponent's undo-request popup, and the block prompt were all unreachable.
+// Try JSON first, then fall back to the legacy pipe form for old gamestates.
 window.GetSWUDQVar = window.GetSWUDQVar || function(key, def) {
+    var fallback = (def !== undefined ? def : '');
     var d = typeof window.DecisionQueueVariablesData === 'string'
-        ? window.DecisionQueueVariablesData : '';
+        ? window.DecisionQueueVariablesData.trim() : '';
+    if (d === '') return fallback;
+    if (d.charAt(0) === '{') {
+        try {
+            var o = JSON.parse(d);
+            if (o && Object.prototype.hasOwnProperty.call(o, key)) {
+                var v = o[key];
+                // StoreVariable() shares this map and can park arrays/objects in it — never hand one back.
+                return (v === null || typeof v === 'object') ? fallback : String(v);
+            }
+            return fallback;
+        } catch (e) { /* malformed JSON — fall through to the legacy parse */ }
+    }
     var pairs = d.split('|');
     for (var i = 0; i < pairs.length; i++) {
         var eq = pairs[i].indexOf('=');
         if (eq !== -1 && pairs[i].slice(0, eq) === key) return pairs[i].slice(eq + 1); // first occurrence wins
     }
-    return (def !== undefined ? def : '');
+    return fallback;
 };
 
 function swuShowUndoRequestPopup(fromPlayerID) {
@@ -2921,15 +2965,182 @@ function swuShowBlockPromptPopup(targetPlayerID) {
     document.body.appendChild(overlay);
 }
 
+// ── Undo split-button menu ────────────────────────────────────────────────────
+// Menu contents by lobby type:
+//   private (any seat count) : Undo Phase + Bookmark Gamestate
+//   public, 2 seats          : Undo Phase only (fires the existing request/approve flow)
+//   public, >2 seats         : no caret at all
+// That last row is deliberate. The undo CONSENT layer is hardcoded to 2 seats in three remaining
+// places (swuUpdateUndoUI's otherPlayer, SWUApproveUndo, and EngineActionRunner case 10010), so a
+// seat-3 request in a public Twin Suns game can never be approved by anyone. Undo Phase ALWAYS
+// requests in public, so offering it there would turn that latent gap into a visible dead end.
+// Gating the caret keeps it unreachable.
+function swuToggleUndoMenu(ev) {
+    if (ev) ev.stopPropagation();
+    var menu = document.getElementById('swuUndoMenu');
+    var btn = document.getElementById('swuUndoMenuBtn');
+    if (!menu) return;
+    // Mount to <body> before showing. #swuSidebar sets overflow:hidden, which CLIPS an
+    // absolutely-positioned descendant — the menu rendered with its left edge cut off. Same escape
+    // hatch swuOpenSettings uses for the settings overlay. Idempotent across re-opens.
+    if (menu.parentNode !== document.body) document.body.appendChild(menu);
+    var open = menu.classList.toggle('is-open');
+    if (open && btn) {
+        // Right-align to the caret, clamped into the viewport so it can never render off-screen.
+        var r = btn.getBoundingClientRect();
+        menu.style.top = Math.round(r.bottom + 4) + 'px';
+        var w = menu.offsetWidth || 200;
+        menu.style.left = Math.round(Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8))) + 'px';
+    }
+    if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function swuCloseUndoMenu() {
+    var menu = document.getElementById('swuUndoMenu');
+    var btn = document.getElementById('swuUndoMenuBtn');
+    if (menu) menu.classList.remove('is-open');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+document.addEventListener('click', function (e) {
+    var split = document.getElementById('swuUndoSplit');
+    var menu = document.getElementById('swuUndoMenu');
+    // The menu lives on <body> once opened, so it is NOT inside #swuUndoSplit any more — it needs its
+    // own containment test or a click on the menu's own padding would dismiss it.
+    if (split && !split.contains(e.target) && !(menu && menu.contains(e.target))) swuCloseUndoMenu();
+});
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') swuCloseUndoMenu(); });
+
+function swuUndoPhase() {
+    swuCloseUndoMenu();
+    // undoKind rides the QUERY STRING (SubmitEngineInput appends params to the URL) and ProcessInput
+    // reads $_GET — an earlier $_POST read here is why Undo Phase was unreachable.
+    SubmitInput(10004, 'undoKind=phase');
+}
+
+function swuPromptBookmark() {
+    swuCloseUndoMenu();
+    // StyledPrompt is PROMISE-based (see Core/UILibraries*.js and SharedUI/Render/DeckLibrary.php):
+    // StyledPrompt(message, {title, initial, confirmLabel}).then(value). It resolves to null on cancel.
+    // Native window.prompt is forbidden by this repo's native-dialog lint.
+    StyledPrompt('Name this bookmark (optional):',
+                 { title: 'Bookmark Gamestate', initial: '', confirmLabel: 'Save' })
+        .then(function (label) {
+            if (label === null || label === undefined) return;   // cancelled
+            SubmitInput(10018, 'inputText=' + encodeURIComponent(label));
+        });
+}
+
+// ── Gamestate bookmarks panel ─────────────────────────────────────────────────
+// ONE renderer, two mounts: the gear settings overlay and the end-game menu. Bookmarks must stay
+// reachable after the game ends — that is when players most want to try a different line.
+function swuRenderBookmarksPanel(mount) {
+    if (!mount) return;
+    var gn = FormInputValue('gameName');
+    var pid = FormInputValue('playerID');
+    var ak = FormInputValue('authKey');
+    fetch('./SWUSim/BookmarksInfo.php?gameName=' + encodeURIComponent(gn)
+        + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
+        .then(function (r) { return r.json(); })
+        .then(function (info) {
+            // The heading-bearing box for whichever mount we were handed. Both must be hidden wholesale
+            // in a public game — otherwise a "Gamestate Bookmarks" heading sits there with nothing
+            // under it.
+            var hostBox = (mount.id === 'swuBookmarksMount')
+                ? document.getElementById('swuBookmarksSection')
+                : document.getElementById('swuEndGameBookmarks');
+            // Show by CLEARING the inline display, not by setting 'block': the settings pane is
+            // `display:flex` in the stylesheet (fixed title, scrolling body), and an inline
+            // display:block outranks that — which un-flexed the pane and let the list grow past the
+            // column instead of scrolling inside it.
+            if (!info || !info.isPrivate) { if (hostBox) hostBox.style.display = 'none'; return; }
+            if (hostBox) hostBox.style.display = '';
+
+            var list = Array.isArray(info.bookmarks) ? info.bookmarks : [];
+            // No collapsible: each mount already carries its own "Gamestate Bookmarks" heading, and a
+            // nested summary repeating it read as duplication. The list is rendered flat and its
+            // container scrolls.
+            var d = document.createDocumentFragment();
+
+            // The count lives on the heading now that the summary is gone. Absent on the end-game
+            // mount, which builds its own heading — guarded rather than assumed.
+            var countEl = document.getElementById('swuBookmarksCount');
+            if (countEl) countEl.textContent = list.length ? '(' + list.length + ')' : '';
+
+            if (list.length === 0) {
+                var e = document.createElement('div');
+                e.className = 'swu-bm-empty';
+                e.textContent = 'No bookmarks yet. Use Undo ▾ → Bookmark Gamestate.';
+                d.appendChild(e);
+            }
+            list.forEach(function (bm) {
+                var row = document.createElement('div'); row.className = 'swu-bm-row';
+                var meta = document.createElement('div'); meta.className = 'swu-bm-meta';
+                // textContent, never innerHTML — the label is player-supplied free text.
+                meta.textContent = 'Round ' + bm.round + ' · ' + bm.phase + ' · Player ' + bm.seat;
+                if (bm.label) {
+                    var lab = document.createElement('span'); lab.className = 'swu-bm-label';
+                    lab.textContent = bm.label; lab.title = bm.label;
+                    meta.appendChild(lab);
+                }
+                var btn = document.createElement('button');
+                btn.className = 'swu-bm-load'; btn.type = 'button'; btn.textContent = 'Load Gamestate';
+                btn.onclick = function () { SubmitInput(10019, 'buttonInput=' + encodeURIComponent(bm.id)); };
+                row.appendChild(meta); row.appendChild(btn);
+                d.appendChild(row);
+            });
+
+            mount.innerHTML = '';
+            mount.appendChild(d);
+        })
+        .catch(function (err) { if (window.console && console.error) console.error(err); });
+}
+
+// Called from swuUpdateUndoUI on every render, so the menu tracks the live lobby facts.
+function swuUpdateUndoMenuVisibility() {
+    var split = document.getElementById('swuUndoSplit');
+    if (!split) return;
+    // Stamped from SWUGameIsPrivate, which counts one-player modes (goldfish/hotseat) as private —
+    // they are private lobbies by construction and have no opponent to coordinate with.
+    var isPrivate = GetSWUDQVar('GAME_IS_PRIVATE') === 'true';
+    var seats = parseInt(GetSWUDQVar('GAME_SEAT_COUNT') || '2', 10);
+    if (isNaN(seats)) seats = 2;
+
+    var showPhase = isPrivate || seats <= 2;
+    var showBookmark = isPrivate;
+    var showCaret = showPhase || showBookmark;
+
+    // Toggle a CLASS, not an inline style. The menu-item rule carries `display: block !important` (to
+    // beat components.css's `button:not(.btn):not(.switch)`), and !important also beats a
+    // non-important inline style — so `el.style.display='none'` here silently did nothing and the
+    // Bookmark item stayed visible in public lobbies.
+    var pi = document.getElementById('swuUndoPhaseItem');
+    var bi = document.getElementById('swuBookmarkItem');
+    if (pi) pi.classList.toggle('is-hidden', !showPhase);
+    if (bi) bi.classList.toggle('is-hidden', !showBookmark);
+
+    split.classList.toggle('is-split', showCaret);
+    if (!showCaret) swuCloseUndoMenu();
+}
+
 function swuUpdateUndoUI(myPlayerID) {
     var btn = document.getElementById('swuUndoBtn');
     if (!btn) return;
 
     var hasVersion = typeof window.myVersionsData === 'string' && window.myVersionsData.trim() !== '';
-    var requiresConsent = GetSWUDQVar('UNDO_REQUIRES_CONSENT') === 'true';
+    // Mirror the SERVER rule: the reveal flag alone does not mean consent is needed. In a private game
+    // the server grants every undo outright, so labelling the button "Request Undo" there told players
+    // to expect an approval step that never happens. GAME_IS_PRIVATE is stamped from SWUGameIsPrivate,
+    // so it already counts one-player modes as private.
+    var undoIsFree = GetSWUDQVar('GAME_IS_PRIVATE') === 'true';
+    var requiresConsent = !undoIsFree && GetSWUDQVar('UNDO_REQUIRES_CONSENT') === 'true';
     var isBlocked = GetSWUDQVar('UNDO_BLOCKED_' + myPlayerID) === 'true';
 
     btn.style.display = hasVersion ? 'inline-block' : 'none';
+    // The split wrapper follows the Undo button's own gate, or an empty control floats in the header.
+    // '' (not 'inline-flex') so the .is-split rule stays in charge of whether the caret shows at all.
+    var undoSplit = document.getElementById('swuUndoSplit');
+    if (undoSplit) undoSplit.style.display = hasVersion ? '' : 'none';
+    swuUpdateUndoMenuVisibility();
     btn.textContent = requiresConsent ? 'Request Undo' : 'Undo';
     btn.disabled = isBlocked;
     btn.title = isBlocked ? 'Your opponent has blocked undo requests.' : '';
@@ -3154,7 +3365,21 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     .swu-settings-body { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
     /* Side by side, the divider between them is vertical, not horizontal. */
     .swu-settings-col--keys { border-top: 0; border-left: 1px solid var(--border); }
+    /* Right column splits into two independently-scrolling halves: Hotkeys on top, Gamestate
+       Bookmarks below, so a long bookmark list never pushes the hotkey reference off the panel.
+       max-height is an EXPLICIT vh, not a percentage: a % height does not resolve against a
+       flex/grid-STRETCHED parent in Firefox and WebKit, so a 50%/50% split silently collapses
+       there. 88vh is the panel cap; the head is ~46px, hence ~76vh of body to divide.
+       min-height:0 on the panes is what actually lets a flex child scroll instead of growing. */
+    .swu-settings-col--keys { display: flex; flex-direction: column; max-height: 76vh; }
+    /* The pane is the flex track; its BODY is the scroller, so the title stays put. min-height:0 on
+       both is what lets a flex child shrink and scroll rather than growing to fit its content. */
+    .swu-settings-pane { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+    .swu-settings-pane > .swu-settings-pane-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
   }
+  /* Stacked (narrow / mobile) keeps both panes in normal flow — the whole body already scrolls, and
+     nesting scrollers inside it on a phone makes the list hard to reach. */
+  .swu-settings-pane + .swu-settings-pane { border-top: 1px solid var(--border); }
   .swu-settings-head { display: flex; align-items: center; justify-content: space-between;
     padding: 14px 16px; border-bottom: 1px solid var(--border);
     font: 700 16px/1 var(--swu-font-label, sans-serif); color: var(--accent-strong); letter-spacing: 0.02em; }
@@ -3178,6 +3403,22 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 4px;
     padding: 2px 7px; color: var(--text, #e8d5a8);
     font: 600 12px/1.35 var(--swu-font-label, inherit); letter-spacing: 0.06em; }
+  /* Gamestate bookmarks. No collapsible — every mount carries its own heading, so a nested summary
+     just repeated it. Every <button> here carries !important: components.css's
+     `button:not(.btn):not(.switch)` is (0,2,1) and outranks a plain class. */
+  /* End-game mount only. The settings pane gets its height from the split column instead. */
+  .swu-bm-scroll { max-height: 220px; overflow-y: auto; }
+  .swu-bm-row { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 6px 0; border-top: 1px solid var(--border); }
+  .swu-bm-meta { min-width: 0; font-size: 12px; color: rgba(255,255,255,0.82); }
+  .swu-bm-label { display: block; font-size: 11px; color: var(--text-muted);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .swu-bm-load { flex: 0 0 auto; background: rgba(200,151,30,0.15) !important;
+    color: rgba(200,151,30,0.95) !important; border: 1px solid rgba(200,151,30,0.35) !important;
+    border-radius: 4px !important; font-size: 11px !important; padding: 5px 9px !important;
+    cursor: pointer !important; }
+  .swu-bm-load:hover { background: rgba(200,151,30,0.28) !important; }
+  .swu-bm-empty { font-size: 12px; color: var(--text-muted); padding: 6px 0; }
   .swu-settings-link { display: inline-block; margin-top: 8px; color: var(--accent); font-size: 13px; text-decoration: none; }
   .swu-settings-link:hover { text-decoration: underline; }
   .swu-settings-action { display: block; width: 100%; margin: 6px 0 0;}
@@ -3264,12 +3505,22 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     </div>
     </div><!-- /col--main -->
     <div class="swu-settings-col swu-settings-col--keys">
-    <div class="swu-settings-section">
+    <!-- Each pane keeps its title FIXED and scrolls only its body: the panes are short (they split the
+         column), so a title inside the scroller would slide out of view and leave an unlabelled list. -->
+    <div class="swu-settings-section swu-settings-pane">
       <div class="swu-settings-section-title">Hotkeys</div>
+      <div class="swu-settings-pane-body">
       <?php foreach ($swuHotkeys as [$swuKey, $swuWhat]): ?>
         <div class="swu-settings-row swu-hotkey-row"><span><?= htmlspecialchars($swuWhat, ENT_QUOTES) ?></span>
           <kbd class="swu-hotkey-key"><?= htmlspecialchars($swuKey, ENT_QUOTES) ?></kbd></div>
       <?php endforeach; ?>
+      </div>
+    </div>
+    <!-- Bottom half of the right column. Hidden entirely in a public lobby, in which case Hotkeys
+         takes the whole column back (a display:none flex item claims no space). -->
+    <div class="swu-settings-section swu-settings-pane" id="swuBookmarksSection" style="display:none;">
+      <div class="swu-settings-section-title">Gamestate Bookmarks <span id="swuBookmarksCount"></span></div>
+      <div class="swu-settings-pane-body" id="swuBookmarksMount"></div>
     </div>
     </div><!-- /col--keys -->
     </div><!-- /swu-settings-body -->
@@ -3306,6 +3557,9 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         }
       }
     }
+    // Gamestate bookmarks. Rendered on every open so the list is current; the renderer hides its own
+    // section in a public game (BookmarksInfo.php answers isPrivate:false there).
+    swuRenderBookmarksPanel(document.getElementById('swuBookmarksMount'));
     ov.style.display = 'flex';
   }
   function swuCloseSettings() { var ov = document.getElementById('swuSettingsOverlay'); if (ov) ov.style.display = 'none'; }

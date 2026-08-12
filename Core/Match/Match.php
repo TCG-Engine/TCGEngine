@@ -200,6 +200,12 @@ function MatchRecordGameResult($rootName, $matchId, $gameName, $winnerSeat, $rou
             // 'winners' is written alongside (not instead of) the scalar so readers that only know
             // about 'winner' — stats, history, the Bo3 sideboard flow — are untouched.
             $match['games'][$idx]['winners'] = $seats;
+            // SEAL this game's result. Set here — on the null->seat transition, before the stats gate —
+            // and NOT conditional on a stats write actually happening: a round-1 concede and a >2-seat
+            // game both skip the write, but their results are just as final. The semantic is "this
+            // game's result is final", not "a row was written". Lives in the Match JSON, never the
+            // gamestate, so an undo can't rewind it.
+            $match['games'][$idx]['statsRecorded'] = true;
             foreach ($seats as $s) {
                 if (!isset($match['players'][strval($s)])) continue;
                 $match['wins'][strval($s)] = intval($match['wins'][strval($s)] ?? 0) + 1;
@@ -219,6 +225,16 @@ function MatchRecordGameResult($rootName, $matchId, $gameName, $winnerSeat, $rou
             $match['winners']  = MatchWinners($match);
         }
     });
+}
+
+// Has this game's result already been committed? Once true, nothing about the match may be rewritten
+// for it: a player who rewinds past the end and plays on is in a sandbox. Absent flag = false, so
+// matches recorded before this shipped keep progressing normally.
+function MatchGameIsSealed($match, $gameName) {
+    foreach (($match['games'] ?? []) as $g) {
+        if (strval($g['gameName'] ?? '') === strval($gameName)) return !empty($g['statsRecorded']);
+    }
+    return false;
 }
 
 // ── Sideboarding (Bo3 between-games) ──────────────────────────────────────────
