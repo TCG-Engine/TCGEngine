@@ -353,6 +353,7 @@ function MatchConcede($rootName, $matchId, $concedingSeat) {
         foreach ($m['games'] as $i => $g) {
             if (($g['winner'] ?? null) === null) {
                 $m['games'][$i]['winner'] = $opp;
+                $m['games'][$i]['statsRecorded'] = true;   // seal: same contract as MatchRecordGameResult
                 $rds = $GLOBALS['MATCH_HOOKS'][$rootName]['recordDeckStats'] ?? null;
                 if (is_callable($rds)) { $rds($m, $opp); }
                 break;
@@ -370,6 +371,14 @@ function MatchAfterActionHook($rootName, $gameName) {
     $ref = MatchReadRef($rootName, $gameName);
     if ($ref === null) return;                 // not a match game (goldfish/legacy)
     if (MatchGetGameWinner() === 0) return;     // game not over
+
+    // Sealed: this game's result is already committed, so a post-rewind replay must change nothing —
+    // no deck W/L, no stats submit, no re-recorded winner, no Bo3 sideboard spawn. Checked BEFORE
+    // captureGameDetail so a sealed game costs nothing to re-end. The end-game overlay is unaffected:
+    // it is driven client-side off GAMEOVER_WINNER plus EndGameInfo.php, not off this hook, so players
+    // can still leave or rematch.
+    $sealCheck = MatchRead($rootName, $ref['matchId']);
+    if (is_array($sealCheck) && MatchGameIsSealed($sealCheck, $gameName)) return;
 
     $winner  = MatchGetGameWinner();
     $winners = MatchGetGameWinners();   // shared victory (Twin Suns tie) records every winning seat

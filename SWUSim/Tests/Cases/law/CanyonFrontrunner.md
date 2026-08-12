@@ -89,3 +89,59 @@ WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:POWER:1
+
+---
+
+# NonAttackActionsDoNotBlockTheDebuff
+#// LAW_228 Canyon Frontrunner — the gate is specifically "no other units have ATTACKED this phase", not
+#// "no other ACTIONS have been taken". P1 spends an action PLAYING a unit (SOR_095) and then attacks with
+#// Canyon, which is still the phase's first attacker — so the debuff applies (SOR_046 3 -> 1).
+#// Load-bearing next to NoDebuffIfFriendlyAlreadyAttacked: that proves a prior friendly ATTACK blocks,
+#// this proves a prior friendly non-attack action does not. Without the pair the gate could be reading
+#// "any prior action" and every other section would still pass.
+#// (SOR_095 is Command against a Cunning board, so it costs 2+2=4 — hence 5 resources.)
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_228:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:POWER:1
+
+---
+
+# AnotherFriendlyAttackedOnTheSAMEAction_NoDebuff
+#// The sharpest form of the gate: the blocking attack happens within the SAME action, not an earlier one.
+#// SEC_006 Colonel Yularen's leader Action ("Attack with a unit. Then, you may attack with another unit
+#// that costs less than it") attacks with Wampa (SOR_164, cost 4) and then chains Canyon (cost 2 < 4).
+#// Wampa has attacked by the time Canyon's On Attack checks, so the debuff does NOT trigger and no target
+#// is offered — proving the check reads live attack state rather than a per-action snapshot taken up front.
+#// Base damage 4 (Wampa) + 3 (Canyon, undebuffed and debuffing nothing) = 7.
+
+## GIVEN
+CommonSetup: yyk/bgw/{
+  myLeader:SEC_006
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [LAW_228:1:0 SOR_164:1:0]
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1NODECISION
+P2BASEDMG:7
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:EXHAUSTED

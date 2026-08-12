@@ -38,7 +38,7 @@ $check(isset($customDQHandlers['PushPregameSnapshot']) && is_callable($customDQH
 // NOTE: the mulligan step does NOT queue a PushPregameSnapshot (a static ahead of the mulligan YESNO would
 // be popped by the player's mode-100 answer, re-prompting the mulligan). Only the two starting-resource
 // picks per player queue one, and the begin-game snapshot is taken INLINE by QueuePregameSetup.
-SetSWUVar('RNG_SEED', 'seed'); UndoStackClear(); SetSWUVar('UNDO_TOP', '-1');
+SetSWUVar('RNG_SEED', 'seed'); UndoStackClear(); UndoCursorSet(-1);
 ob_start(); QueuePregameSetup(1); ob_end_clean();
 $countSnapshots = 0;
 foreach ([1, 2] as $p) {
@@ -46,8 +46,11 @@ foreach ([1, 2] as $p) {
         if (empty($d->removed) && strpos(serialize($d), 'PushPregameSnapshot') !== false) $countSnapshots++;
     }
 }
-// Expected per non-goldfish player: 2 (resource picks); two players = 4. NONE ahead of the mulligan YESNO.
-$check($countSnapshots === 4, "queued 4 pregame-step boundaries (2 resource picks × 2 players), got $countSnapshots");
+// Expected ONE per non-goldfish player; two players = 2. NONE ahead of the mulligan YESNO.
+// (Was 4, from when each player made two SEQUENTIAL single resource picks. CreateGame.php step f now
+// queues a single 2-of MZMULTICHOOSE per player — they're a pair the player wants to weigh together —
+// so there is one pre-pick snapshot per seat, not two. The expectation was never updated at the time.)
+$check($countSnapshots === 2, "queued 2 pregame-step boundaries (1 resource prompt × 2 players), got $countSnapshots");
 // The mulligan YESNO must be the FRONT decision of each seat's queue (nothing static ahead of it).
 $mullFront = true;
 foreach ([1, 2] as $p) { $q = array_values(array_filter(GetDecisionQueue($p), fn($d) => empty($d->removed))); $f = $q[0] ?? null; if (!($f && $f->Type === 'YESNO' && strpos((string)$f->Param, 'mulligan') !== false)) $mullFront = false; }
@@ -62,7 +65,7 @@ $before = UndoStackCount();
 $customDQHandlers['PushPregameSnapshot'](1, [1], '-');
 $after = UndoStackCount();
 $check($after === $before + 1, "handler appended one stack entry ($before -> $after)");
-$line = UndoStackRead(UndoTop());
+$line = UndoStackRead(UndoCursor());
 $rec  = $line === null ? [] : UndoRecordParse($line);
 $check(($rec['boundary'] ?? '') === 'pregame-step', "appended entry has boundary 'pregame-step' (got '" . ($rec['boundary'] ?? '') . "')");
 

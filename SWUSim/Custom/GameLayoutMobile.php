@@ -372,6 +372,45 @@
         background: var(--panel-scrim); color: #fff; font: 700 11px/1 var(--swu-font-label);
         text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer;
     }
+    /* Split control: [Undo][v]. Written out IN FULL here — GameLayoutMobile does NOT inherit
+       GameLayout's CSS. `!important` throughout because components.css's
+       `button:not(.btn):not(.switch)` is (0,2,1) and outranks a plain class, which has previously
+       hijacked both `display` and `position` on newly added buttons. */
+    #swuUndoSplit { position: relative !important; display: none; align-items: stretch; }
+    #swuUndoSplit.is-split { display: inline-flex !important; }
+    #swuUndoSplit #swuUndoBtn { border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; }
+    #swuUndoMenuBtn {
+        display: none;
+        padding: 6px 9px !important; border: 1px solid var(--swu-border-hi) !important; border-left: 0 !important;
+        border-radius: 0 7px 7px 0 !important;
+        background: var(--panel-scrim) !important; color: #fff !important;
+        font: 700 11px/1 var(--swu-font-label); cursor: pointer !important;
+    }
+    #swuUndoSplit.is-split #swuUndoMenuBtn { display: inline-block !important; }
+    /* position:FIXED and mounted to <body> at open time (swuToggleUndoMenu). #swuSidebar sets
+       overflow:hidden, which clips an absolutely-positioned child — the menu rendered with its left
+       ~46px cut off. Same escape hatch swuOpenSettings uses for the settings overlay. */
+    #swuUndoMenu {
+        display: none; position: fixed !important; z-index: 10002;
+        min-width: 190px; padding: 4px;
+        /* OPAQUE, deliberately not var(--surface-raised): that token is rgba(...,0.62), which is right
+           for a panel sitting on the settings dim-overlay but lets the game log read straight through a
+           dropdown floating over it. Same hue at full alpha. */
+        background: #222830; border: 1px solid var(--swu-border); border-radius: 7px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.55);
+    }
+    #swuUndoMenu.is-open { display: block !important; }
+    #swuUndoMenu button {
+        display: block !important; width: 100% !important; text-align: left !important;
+        background: transparent !important; border: 0 !important; color: rgba(255,255,255,0.88) !important;
+        font: 500 12px/1.5 var(--swu-font-label); padding: 9px 10px !important;
+        border-radius: 5px !important; cursor: pointer !important;
+    }
+    #swuUndoMenu button:hover { background: rgba(200,151,30,0.18) !important; }
+    /* Hiding an item is a CLASS, not an inline style: the rule above needs `display: block !important`
+       to beat components.css's `button:not(.btn):not(.switch)`, and !important also beats a
+       non-important inline style — so `el.style.display='none'` silently did nothing. */
+    #swuUndoMenu button.is-hidden { display: none !important; }
     #swuLastPlayedSection { display: none; }
     #swuTabBar { display: flex; gap: 6px; margin: 8px 0 6px; }
     .swu-tab-btn {
@@ -530,7 +569,15 @@
                 <div id="swuRoundNumber">—</div>
             </div>
             <div class="swu-header-right">
-                <button id="swuUndoBtn" onclick="SubmitInput(10004, '')">Undo</button>
+                <span id="swuUndoSplit">
+                    <button id="swuUndoBtn" onclick="SubmitInput(10004, '')">Undo</button>
+                    <button id="swuUndoMenuBtn" title="More undo options" aria-label="More undo options"
+                            aria-haspopup="true" aria-expanded="false" onclick="swuToggleUndoMenu(event)">&#9662;</button>
+                    <div id="swuUndoMenu" role="menu">
+                        <button role="menuitem" id="swuUndoPhaseItem" onclick="swuUndoPhase()">Undo Phase</button>
+                        <button role="menuitem" id="swuBookmarkItem" onclick="swuPromptBookmark()">Bookmark Gamestate</button>
+                    </div>
+                </span>
                 <button id="swuGearBtn" class="swu-gear-btn" title="Settings" aria-label="Settings" onclick="swuOpenSettings()">&#9881;</button>
             </div>
         </div>

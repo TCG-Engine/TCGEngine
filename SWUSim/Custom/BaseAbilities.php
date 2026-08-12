@@ -72,14 +72,10 @@ foreach (['LAW_020','LAW_021','LAW_022','LAW_024','LAW_025','LAW_027','LAW_028',
 // to a unit, or create a Credit token.
 $baseAbilities["LAW_019"] = function($player) {
     global $playerID; $playerID = intval($player);
-    $tokens = [];
-    foreach (["myGroundArena", "mySpaceArena"] as $z) {
-        foreach (ZoneSearch($z, ["Token Unit"]) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed)) $tokens[] = $mz;
-        }
-    }
-    if (empty($tokens)) { SWUAfterAction($player); return; }   // can't pay the cost
+    $tokens = _SWULaw019FriendlyTokens(intval($player));
+    // Unreachable in normal play: _SWUBaseOwnAction now gates on the same predicate, so an unpayable
+    // Epic is never offered and never reaches here. Kept as a belt-and-braces bail-out.
+    if (empty($tokens)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget(intval($player), $tokens, "Defeat_a_friendly_token_(cost)", "LAW_019#0");
 };
 

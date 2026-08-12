@@ -1,4 +1,29 @@
 <?php
+
+// LAW_019 Alliance Outpost — the Epic's cost is "[defeat a friendly token]". THE single source of truth
+// for which tokens can pay it: the offer, the availability gate, and the burn-the-slot guard all call
+// this, so they cannot disagree about what "payable" means.
+// ⚠ KNOWN NARROW: only TOKEN UNITS in the arenas are collected today. Per the printed rules a friendly
+// Shield, Experience, Credit or Force token is equally a friendly token and should be a legal cost.
+// Those are not addressable by a plain arena mzID (Shield/Experience are attached upgrades needing a
+// host+index pair; Credit and Force live outside the arenas entirely), so widening this needs a target
+// -addressing scheme rather than a bigger ZoneSearch. Deferred deliberately — see law.md. When it is
+// widened, THIS function is the only place that changes.
+function _SWULaw019FriendlyTokens(int $player): array {
+    global $playerID; $saved = $playerID; $playerID = $player;
+    $tokens = [];
+    foreach (["myGroundArena", "mySpaceArena"] as $z) {
+        foreach (ZoneSearch($z, ["Token Unit"]) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed)) $tokens[] = $mz;
+        }
+    }
+    $playerID = $saved;
+    return $tokens;
+}
+
+function _SWULaw019CanPayCost(int $player): bool { return !empty(_SWULaw019FriendlyTokens($player)); }
+
 // LAW_019
 // Alliance Outpost - [Vigilance] - HP 26
 // Text: Epic Action [defeat a friendly token]: Give an Experience or Shield token to a unit, or create a Credit token.

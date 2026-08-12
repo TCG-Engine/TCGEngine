@@ -301,17 +301,34 @@ ok "wrote $VHOST_CONF (ServerName $SERVER_NAME, db $DB_NAME)"
 # ---------------------------------------------------------------------------
 # Two explicit lines rather than one glob: the catch-all's position is load-bearing, and
 # an explicit ordering does not depend on how a given Apache build sorts wildcard matches.
+# IncludeOptional -- NOT Include -- for the site glob. Apache fails the ENTIRE config when an
+# `Include` wildcard matches nothing ("No matches for the wildcard ... failing"), and
+# httpd-vhost-1*.conf legitimately matches zero files until a SECOND site is added. With plain
+# `Include` a clean first run produced a config that would not start, leaving the box one restart
+# away from an outage. The 0* line stays a STRICT Include on purpose: it always matches (the vhost
+# was just written), and if it ever did not, failing loudly is correct -- a silently-absent
+# catch-all promotes some app vhost to the unmatched-Host fallback.
 inc_default="Include etc/extra/httpd-vhost-000-default.conf"
-inc_sites="Include etc/extra/httpd-vhost-1*.conf"
+inc_sites="IncludeOptional etc/extra/httpd-vhost-1*.conf"
 if [ "$DEFAULT_SITE" -eq 1 ]; then
   # Glob covers httpd-vhost-000-<app>.conf; no separate catch-all line yet.
   inc_default="Include etc/extra/httpd-vhost-0*.conf"
 fi
+HTTPD_CONF_MODIFIED=0
 if [ -f "$HTTPD_CONF" ]; then
-  if grep -Fq "$inc_sites" "$HTTPD_CONF"; then
+  # Self-heal a conf written by an earlier version of this script, which used a strict `Include`
+  # for the site glob. Re-running the script therefore REPAIRS a box left in that state.
+  if grep -Eq '^[[:space:]]*Include[[:space:]]+etc/extra/httpd-vhost-1\*\.conf' "$HTTPD_CONF"; then
+    backup "$HTTPD_CONF"; HTTPD_CONF_MODIFIED=1
+    sed -i 's|^\([[:space:]]*\)Include\([[:space:]]\{1,\}etc/extra/httpd-vhost-1\*\.conf\)|\1IncludeOptional\2|' "$HTTPD_CONF"
+    ok "repaired: site-glob Include -> IncludeOptional (an empty wildcard is fatal to Include)"
+  fi
+  # Match on the PATH, not the whole directive, so a line written by an older version is still
+  # recognised and never duplicated.
+  if grep -Fq 'etc/extra/httpd-vhost-1*.conf' "$HTTPD_CONF"; then
     ok "httpd.conf already includes the vhost confs"
   else
-    backup "$HTTPD_CONF"
+    backup "$HTTPD_CONF"; HTTPD_CONF_MODIFIED=1
     printf '\n# vhosts (newhost/provision-vhost.sh) — the 0* line MUST stay first: whatever it matches is\n# the fallback for an unmatched Host (the deny catch-all, or the --default-site app).\n%s\n%s\n' \
       "$inc_default" "$inc_sites" >> "$HTTPD_CONF"
     ok "added vhost Includes to httpd.conf"
@@ -358,8 +375,25 @@ if [ -x "$LAMPP_ROOT/bin/httpd" ]; then
   if "$LAMPP_ROOT/bin/httpd" -t >/dev/null 2>&1; then
     ok "apache config test passed"
   else
-    warn "apache config test FAILED — output follows; NOT restarting:"
+    warn "apache config test FAILED — output follows:"
     "$LAMPP_ROOT/bin/httpd" -t || true
+    # REVERT our own httpd.conf edit. Apache keeps serving from its in-memory config, so a broken
+    # httpd.conf is invisible until the NEXT restart -- which may be a reboot, a cron job, or an
+    # unrelated deploy hours later, and then the box goes down with no obvious cause. Leaving the
+    # edit in place would hand the operator a landmine; putting httpd.conf back makes the failed
+    # run a no-op for service availability.
+    if [ "${HTTPD_CONF_MODIFIED:-0}" -eq 1 ]; then
+      restored="$BACKUP_DIR/$(echo "$HTTPD_CONF" | sed 's#^/##; s#/#_#g')"
+      if [ -f "$restored" ] && cp -p "$restored" "$HTTPD_CONF"; then
+        ok "reverted $HTTPD_CONF to its pre-run state — Apache will still start"
+        "$LAMPP_ROOT/bin/httpd" -t >/dev/null 2>&1 \
+          && ok "config test passes again after revert" \
+          || warn "config STILL fails after revert — the problem predates this run; do NOT restart"
+      else
+        warn "could not revert $HTTPD_CONF — restore it by hand from $BACKUP_DIR BEFORE any restart"
+      fi
+    fi
+    warn "the vhost conf itself was left in place for inspection (it is not Included after the revert)"
     die "fix the config above (originals are in $BACKUP_DIR), then re-run."
   fi
 fi

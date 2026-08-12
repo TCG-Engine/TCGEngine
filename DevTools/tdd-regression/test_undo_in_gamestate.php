@@ -31,16 +31,21 @@ $handCount = function () { $n = 0; foreach (GetHand(1) as $c) { if (empty($c->re
 
 // ── storage primitives on the Versions-zone backing ──
 UndoStackClear();
-$check(UndoStackCount() === 0 && UndoTop() === -1, 'empty after clear (count 0, top -1)');
+$check(UndoStackCount() === 0 && UndoCursor() === -1, 'empty after clear (count 0, cursor -1)');
 $rec1 = "1\tMAIN\taction\t0\t" . base64_encode('name') . "\t" . base64_encode("payload-ONE\nwith\ttabs+\x00");
 $rec2 = "2\tRES\tresource\t1\t" . base64_encode('') . "\t" . base64_encode(str_repeat('X', 400));
 UndoStackAppend($rec1); UndoStackAppend($rec2);
-$check(UndoStackCount() === 2 && UndoTop() === 1, 'two appends -> count 2, top 1');
+// Count only: the cursor is a higher-layer concept (PushUndoSnapshot moves it), and the raw append API
+// deliberately does not touch it. This section tests the storage primitives, not undo semantics.
+$check(UndoStackCount() === 2, 'two appends -> count 2');
 $check(UndoStackRead(1) === $rec2, 'read(1) exact (tabs + base64 round-trip)');
 $check(UndoStackRead(0) === $rec1, 'read(0) exact');
 $check(UndoStackRead(5) === null, 'read out-of-range -> null');
-UndoStackTruncateTo(0);
-$check(UndoStackCount() === 1 && UndoStackRead(0) === $rec1, 'truncateTo(0) keeps only entry 0');
+// UndoStackTruncateTo is GONE — the log is append-only. What matters now is that appends never disturb
+// an existing entry, so ordinals stay stable for the life of the game.
+UndoStackAppend($rec1);
+$check(UndoStackCount() === 3, 'a third append -> count 3 (nothing is ever dropped)');
+$check(UndoStackRead(0) === $rec1 && UndoStackRead(1) === $rec2, 'earlier ordinals are untouched by an append');
 
 // ── the point: real snapshots survive a gamestate round-trip ──
 UndoStackClear(); SetSWUVar('UNDO_TOP', '-1');

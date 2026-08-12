@@ -15,16 +15,12 @@ $whenDefeatedAbilities["SOR_083:0"] = function($player, $mzID) {
 
 // ─── SHD_085 Superlaser Technician ────────────────────────────────────────────
 // When Defeated: You may put this unit into play as a resource and ready it. (Self is in discard now.)
+// SHD_085 is a straight REPRINT of SOR_083 — identical text — so it must behave identically. It used to
+// raise a YESNO here while SOR_083 auto-resolved, which is the same card answering two different ways.
+// Auto-resolving is a deliberate product call (see SOR_083 above): a free ready resource is taken every
+// time in practice, so the prompt was friction rather than a decision.
 $whenDefeatedAbilities["SHD_085:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (_SWUFindDiscardMzID(intval($player), 'SHD_085') === null) return;
-    DecisionQueueController::AddDecision(intval($player), 'YESNO', '-', 1, tooltip:"Put_this_into_play_as_a_ready_resource?");
-    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', "SHD_085#0", 1);
-};
-
-$customDQHandlers["SHD_085#0"] = function($player, $parts, $lastDecision) {
-    if ($lastDecision !== 'YES') return;
-    global $playerID; $playerID = intval($player);
-    $dmz = _SWUFindDiscardMzID(intval($player), 'SHD_085');
-    if ($dmz !== null) SWURampResourceReady(intval($player), $dmz);
+    $mz = _SWUFindDiscardMzID(intval($player), 'SHD_085');
+    if ($mz !== null) SWURampResourceReady(intval($player), $mz);
 };

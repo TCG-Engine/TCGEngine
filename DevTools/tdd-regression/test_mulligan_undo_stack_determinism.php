@@ -51,7 +51,12 @@ $check(count($hand1) === 6, 'mulligan #1 drew 6');
 ob_start(); SWUDoUndo(1, 'step'); ob_end_clean();
 $g->simulateRequestBoundary();
 $check($handIDs() === $pre, 'undo restored the pre-mulligan hand');
-$check(UndoStackCount() === 0, 'undo stack is now EMPTY — the ONLY state difference vs mulligan #1 (got ' . UndoStackCount() . ')');
+// The log is APPEND-ONLY, so the undone entry is RETAINED and the CURSOR is what moved. That is still a
+// real undo-subsystem state difference vs mulligan #1 (cursor 0 -> -1), which is the point: the
+// reshuffle below must reproduce the same hand even though the subsystem is in a different state.
+$check(UndoStackCount() === 1 && UndoCursor() === -1,
+    'undo retained the entry and moved the cursor to -1 — the state difference vs mulligan #1 (got count '
+    . UndoStackCount() . ', cursor ' . UndoCursor() . ')');
 
 // ── Re-mulligan with the DIFFERENT (empty) undo stack: the reshuffle MUST reproduce the same hand. ──
 $mulligan(1, [1], 'YES');

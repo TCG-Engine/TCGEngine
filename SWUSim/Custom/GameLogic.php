@@ -5,7 +5,8 @@ $customDQHandlers = [];
 $_computingPowerLifeSwap = false;
 
 include_once __DIR__ . '/Constants.php';
-include_once __DIR__ . '/UndoStack.php';   // per-game append-only undo-stack file helpers
+include_once __DIR__ . '/UndoStack.php';      // per-game multi-step undo log (player 1's Versions zone)
+include_once __DIR__ . '/BookmarkStore.php';  // gamestate bookmarks + the undo cursor (player 2's Versions zone)
 include_once __DIR__ . '/CardHelpers.php';
 include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
@@ -7227,6 +7228,11 @@ function _SWURecordDamageSource(int $player, ?string $mzID): void {
 }
 
 function SWUAfterAction($player) {
+    // Client-visible lobby facts, refreshed every action so a game already in flight when this shipped
+    // self-heals rather than rendering the wrong Undo menu forever. Cosmetic only — SWUTakeBookmark /
+    // SWULoadBookmark re-check privacy server-side, and a crafted request is refused regardless.
+    SetSWUVar('GAME_IS_PRIVATE', SWUGameIsPrivate('SWUSim', strval($GLOBALS['gameName'] ?? '')) ? 'true' : 'false');
+    SetSWUVar('GAME_SEAT_COUNT', strval(SeatCountForGame()));
     SetSWUVar('SWU_DMG_SRC', ''); // clear the ability-damage source context at the action boundary (TWI_016)
     // Close the per-attack identity window. SWU_CURRENT_ATTACKER_UID is what lets a mid-attack ABILITY
     // defeat of the attacker count as "defeated while attacking"; leaving it set would make a later,
@@ -13880,6 +13886,9 @@ function _SWUBaseActionProviders(int $player): array {
             // unit in hand the cost can't be paid, so the Action isn't offered at all (and can't burn the
             // Epic slot). Mirrors the resource-cost affordability gate in _SWUBaseOwnAction.
             if ($available && $cardID === 'LAW_023') $available = _SWULaw023CanPayCost($player);
+            // LAW_019 Alliance Outpost — same rule for its "[defeat a friendly token]" cost: with no
+            // friendly token the cost is unpayable, so don't offer the Action at all.
+            if ($available && $cardID === 'LAW_019') $available = _SWULaw019CanPayCost($player);
         }
         if ($available) $out[] = ['kind' => 'own', 'cardID' => $cardID, 'index' => -1, 'label' => 'EpicAction'];
     }
@@ -14017,6 +14026,12 @@ function _SWUBaseOwnAction(int $player): void {
     // Epic slot must survive. (The ability closure already bailed out here, but only after the flag below
     // had been set — the Epic was silently spent for nothing.)
     if ($cardID === 'LAW_023' && !_SWULaw023CanPayCost($player)) {
+        $playerID = $savedPID;
+        return;
+    }
+    // LAW_019 Alliance Outpost — same shape. Its closure already bailed out on an unpayable cost, but
+    // only AFTER the flag below was set, so the once-per-game Epic was silently spent for nothing.
+    if ($cardID === 'LAW_019' && !_SWULaw019CanPayCost($player)) {
         $playerID = $savedPID;
         return;
     }
@@ -15526,8 +15541,8 @@ function PushUndoSnapshot($actingSeat, $boundary = 'action', $name = '') {
     // Fold the just-finished action's live reveal flag into ITS snapshot (the current top) before we
     // move on — one file rewrite per revealing action instead of one per draw. (At undo time, the last
     // action's reveal is read live from UNDO_REQUIRES_CONSENT since it isn't stamped yet — see the scan.)
-    if (GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true' && UndoTop() >= 0) {
-        UndoStackSetRevealed(UndoTop());
+    if (GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true' && UndoCursor() >= 0) {
+        UndoStackSetRevealed(UndoCursor());
     }
 
     // Reset per-action undo state so every snapshot is born with clean flags.
@@ -15541,7 +15556,8 @@ function PushUndoSnapshot($actingSeat, $boundary = 'action', $name = '') {
 
     $payload = Versions::GetSerializedZones() . '<v0>' . $gRandomCounter;
     $record  = UndoRecordBuild($seat, (string)($gCurrentPhase ?? ''), (string)$boundary, 0, (string)$name, $payload);
-    UndoStackAppend($record);          // ordinal is implicit (the array index); UndoTop() derives from the count
+    UndoStackAppend($record);          // ordinal is implicit (the array index)
+    UndoCursorSet(UndoStackCount() - 1);   // the new entry is what the next Undo restores
 
     $playerID = $savedPlayerID;
 }
@@ -15551,30 +15567,42 @@ function SaveUndoVersion($targetPlayerID, $name = "") {
     PushUndoSnapshot($targetPlayerID, 'action', $name);
 }
 
-// Current top ordinal of the undo stack (-1 if empty). Derived from the stack itself (the Versions zone),
-// so it is always consistent and needs no separate serialized counter — the stack rides in the gamestate.
-function UndoTop() {
-    return UndoStackCount() - 1;
+// The ordinal Undo will restore next. NOT the same as the physical top: the log is append-only, so
+// after an undo the entries above the cursor are still present (they are the abandoned branch, and
+// stepping back through them is exactly how Undo rewinds a bookmark load).
+// Stored in the bookmark sidecar (player 2's Versions zone), NOT in a SWUVar — LoadVersion restores the
+// snapshot's $gDecisionQueueVariables, which would clobber a SWUVar cursor. That is the same hazard
+// _SWUReapplyUndoBlocks exists to work around; keeping the cursor out of the payload makes it immune
+// by construction rather than by re-stamping.
+function UndoCursor() {
+    return UndoCursorGet();
 }
 
-// Restore the game to the exact state stored in undo-stack entry $restoreOrdinal, then POP it: the next
-// undo targets the entry below (new top = $restoreOrdinal - 1). The stack lives in player 1's Versions
-// zone; to restore, append the stored payload as a TEMPORARY slot at the end, LoadVersion from it (reusing
-// the untouched generated 700-line restore body), then array_splice away the temp slot AND everything at/
-// above $restoreOrdinal in one step. LoadVersion never touches the Versions zone (the payload excludes it),
-// so the rest of the stack survives the restore. Returns false if $restoreOrdinal is out of range.
+// Restore the exact state stored in a raw payload blob, WITHOUT touching the undo cursor. The stack
+// lives in player 1's Versions zone; to restore, append the payload as a TEMPORARY slot at the end,
+// LoadVersion from it (reusing the untouched generated 700-line restore body), then drop just that temp
+// slot. LoadVersion never touches the Versions zones (the payload excludes them), so both the undo log
+// and the bookmark sidecar survive the restore untouched.
+function _SWURestoreSerializedPayload(string $payload): void {
+    $z = &GetVersions(1);
+    $tmpIdx = count($z);
+    $z[] = new Versions('0:' . $payload, 'Versions', 1, $tmpIdx);   // payload = raw GetSerializedZones blob
+    LoadVersion(1, $tmpIdx);
+    $z = &GetVersions(1);                    // re-grab post-restore (defensive; LoadVersion leaves Versions alone)
+    array_splice($z, $tmpIdx, 1);            // drop ONLY the temp slot — the log is append-only
+}
+
+// Restore the game to undo-stack entry $restoreOrdinal and park the cursor BELOW it, so the next Undo
+// targets the entry below. Entries at/above $restoreOrdinal are DELIBERATELY retained: they are the
+// branch being abandoned, and Undo must be able to walk back into them.
+// Returns false if $restoreOrdinal is out of range.
 function LoadUndoSnapshot($restoreOrdinal) {
     $restoreOrdinal = intval($restoreOrdinal);
     $line = UndoStackRead($restoreOrdinal);
     if ($line === null) return false;
     $rec = UndoRecordParse($line);
-
-    $z = &GetVersions(1);
-    $tmpIdx = count($z);
-    $z[] = new Versions('0:' . $rec['payload'], 'Versions', 1, $tmpIdx);   // payload = raw GetSerializedZones blob
-    LoadVersion(1, $tmpIdx);
-    $z = &GetVersions(1);                    // re-grab post-restore (defensive; LoadVersion leaves Versions alone)
-    array_splice($z, $restoreOrdinal);       // drop the temp slot AND pop entries restoreOrdinal..top
+    _SWURestoreSerializedPayload($rec['payload']);
+    UndoCursorSet($restoreOrdinal - 1);
     return true;
 }
 
@@ -15583,11 +15611,19 @@ function LoadUndoSnapshot($restoreOrdinal) {
 // flesh these out (multi-step target, Undo Phase, the private/public consent scan). Interim behavior
 // below = single-step free undo gated on the legacy UNDO_REQUIRES_CONSENT flag.
 
-// Apply the permanent per-player block flags after a restore (LoadUndoSnapshot restores a pre-block
-// snapshot's $gDecisionQueueVariables, so the current blocks must be re-stamped to survive).
-function _SWUReapplyUndoBlocks(bool $bl1, bool $bl2): void {
-    if ($bl1) SetSWUVar('UNDO_BLOCKED_1', 'true');
-    if ($bl2) SetSWUVar('UNDO_BLOCKED_2', 'true');
+// Capture / re-apply the permanent per-player undo-block flags across a restore. LoadVersion restores a
+// pre-block snapshot's $gDecisionQueueVariables, so the CURRENT blocks must be re-stamped afterwards.
+// Seat-count driven, not a 1..2 pair — Twin Suns runs four seats.
+function _SWUCaptureUndoBlocks(): array {
+    $out = [];
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
+        if (GetSWUVar('UNDO_BLOCKED_' . $p, 'false') === 'true') $out[] = $p;
+    }
+    return $out;
+}
+
+function _SWUReapplyUndoBlocks(array $blockedSeats): void {
+    foreach ($blockedSeats as $p) SetSWUVar('UNDO_BLOCKED_' . intval($p), 'true');
 }
 
 // The snapshot ordinal an undo of the given kind should restore.
@@ -15598,7 +15634,7 @@ function _SWUReapplyUndoBlocks(bool $bl1, bool $bl2): void {
 //             following 'step' Undo crosses into it (the regroup RES step).
 function SWUComputeUndoTarget(string $kind): int {
     global $gRandomCounter;
-    $top = UndoTop();
+    $top = UndoCursor();
     // Skip "no-op" snapshots at the top of the stack: a snapshot whose stored payload equals the CURRENT
     // serialized state (nothing has changed since it was taken — e.g. the pregame pre-resource
     // PushPregameSnapshot captured right before the resource pick, which matches the live pre-pick state).
@@ -15613,6 +15649,9 @@ function SWUComputeUndoTarget(string $kind): int {
         $top--;
     }
     if ($kind !== 'phase') return $top;
+    // Walk down through contiguous 'action' entries, stopping at any other boundary. 'load' is one of
+    // them: it marks the pre-state of a bookmark load, so Undo Phase lands at the start of the CURRENT
+    // line instead of wandering into the branch that was abandoned by that load.
     $target = $top;
     for ($i = $top; $i >= 0; $i--) {
         $line = UndoStackRead($i);
@@ -15626,18 +15665,48 @@ function SWUComputeUndoTarget(string $kind): int {
 // Does an undo TO $targetOrdinal by $requesterSeat need opponent consent (a public-queue request)?
 //   • PRIVATE games: never — undo is always free (requirement #7).
 //   • Undo Phase ('phase'): always a request in public (requirement #4), regardless of what it crosses.
-//   • Otherwise scan every entry being reverted — ordinals [targetOrdinal .. UndoTop()] — plus the LIVE
+//   • Otherwise scan every entry being reverted — ordinals [targetOrdinal .. UndoCursor()] — plus the LIVE
 //     (unsnapshotted, top+1) action whose reveal is still in UNDO_REQUIRES_CONSENT. Consent is needed if
 //     any reverted action (a) revealed new info, (b) belongs to the opponent, or (c) is a phase boundary
 //     ('resource'/'pregame-step' — the undo crosses out of the current phase; requirement #3).
 // Record ord_i stores the PRE-state of action i+1 and that action's metadata (seat/revealed/boundary), so
 // reverting to $targetOrdinal undoes actions whose records are exactly [targetOrdinal .. top].
+// Is this a ONE-PLAYER mode? Goldfish's seat 2 is a passive bot; Hotseat is one person playing both
+// seats. Either way there is no second decision-maker to coordinate with.
+// Matched explicitly rather than "mode is non-empty" so a future non-solo mode cannot silently inherit
+// solo privileges.
+function SWUIsSoloMode(): bool {
+    $m = SWUGameMode();
+    return $m === 'goldfish' || $m === 'hotseat';
+}
+
+// SWUSim's privacy check — use this, NOT SimGameIsPrivateGame, anywhere in SWUSim that asks "is this
+// game private?".
+//
+// A one-player mode IS a private game: goldfish and hotseat lobbies are created with isPrivate=true
+// (APIs/Lobbies/JoinQueue.php) and there is no opponent to expose anything to. They are re-derived here
+// rather than trusted to the flag because that flag lives ONLY in APCu with a one-hour TTL
+// (SIM_GAME_RECORD_CACHE_TTL) and has no disk fallback: once it expires — or PHP restarts —
+// SimGameReadAuthKeys falls back to SimGameDefaultAuthKeys() (isPrivate = false) and the game silently
+// reads as PUBLIC. The game MODE is a GlobalEffect inside the gamestate, so it is durable and is
+// restored along with it.
+//
+// ⚠ That APCu expiry also affects ordinary 2-player private lobbies, which have no durable signal to
+// fall back on — a private match running longer than an hour starts demanding undo consent. Fixing
+// that needs the auth record persisted outside APCu; it is NOT addressed here.
+function SWUGameIsPrivate(string $rootName = '', string $gameName = ''): bool {
+    return SWUIsSoloMode() || SimGameIsPrivateGame($rootName, $gameName);
+}
+
 function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kind = 'step', string $rootName = '', string $gameName = ''): bool {
-    if (SimGameIsPrivateGame($rootName, $gameName)) return false;
+    // Checked FIRST — above the reveal-flag check as well as the phase check. Undo Phase ALWAYS
+    // requests when not private, and MarkUndoRequiresConsent fires on every draw; in a solo mode a
+    // request can never be answered, so either path would hang the undo forever.
+    if (SWUGameIsPrivate($rootName, $gameName)) return false;
     if ($kind === 'phase') return true;
     // The live action's reveal flag hasn't been folded into a record yet — read it directly.
     if (GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true') return true;
-    $top = UndoTop();
+    $top = UndoCursor();
     for ($i = $targetOrdinal; $i <= $top; $i++) {
         $line = UndoStackRead($i);
         if ($line === null) continue;
@@ -15652,10 +15721,9 @@ function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kin
 function SWUDoUndo(int $playerID, string $kind = 'step', string $rootName = '', string $gameName = ''): void {
     $target = SWUComputeUndoTarget($kind);
     if (!SWUUndoNeedsConsent($playerID, $target, $kind, $rootName, $gameName)) {
-        $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
-        $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
+        $blocked = _SWUCaptureUndoBlocks();
         LoadUndoSnapshot($target);
-        _SWUReapplyUndoBlocks($bl1, $bl2);
+        _SWUReapplyUndoBlocks($blocked);
         SetFlashMessage('Undo applied.');
     } else {
         $blocked = GetSWUVar('UNDO_BLOCKED_' . $playerID, 'false') === 'true';
@@ -15674,12 +15742,11 @@ function SWUDoUndo(int $playerID, string $kind = 'step', string $rootName = '', 
 function SWUApproveUndo(): void {
     $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
     if ($requestingPlayer < 1 || $requestingPlayer > 2) return;
-    $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
-    $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
+    $blocked = _SWUCaptureUndoBlocks();
     // Revert to the SAME target the requester chose (multi-step / Undo Phase), not just the top action.
-    $target = intval(GetSWUVar('PENDING_UNDO_TARGET', (string)UndoTop()));
+    $target = intval(GetSWUVar('PENDING_UNDO_TARGET', (string)UndoCursor()));
     LoadUndoSnapshot($target);
-    _SWUReapplyUndoBlocks($bl1, $bl2);
+    _SWUReapplyUndoBlocks($blocked);
     SetSWUVar('PENDING_UNDO_FROM', '');
     SetSWUVar('PENDING_UNDO_TARGET', '');
     SetFlashMessage('Undo approved.');
@@ -15697,6 +15764,65 @@ function SWUDenyUndo(): void {
         if ($newCount >= 2) SetSWUVar('PENDING_BLOCK_PROMPT_FOR', (string)$requestingPlayer);
     }
     SetFlashMessage('Undo denied.');
+}
+
+// ── Gamestate bookmarks (private lobbies only) ───────────────────────────────
+// A bookmark is a durable, named snapshot that owns its own payload — deliberately NOT a pointer into
+// the undo log. That decouples bookmark durability from log retention: the log's retention policy can
+// change without invalidating a bookmark, and a bookmark outlives any branch it was taken on.
+//
+// Private-only is enforced HERE, on the server. The client hides the menu items, but that is cosmetic.
+
+function SWUTakeBookmark(int $seat, string $label = '', string $rootName = '', string $gameName = ''): bool {
+    // Solo modes count: goldfish/hotseat ARE private lobbies by construction, but isPrivate is
+    // APCu-backed with a 1h TTL, so a longer session would silently lose bookmarks. See
+    // SWUGameIsPrivate.
+    if (!SWUGameIsPrivate($rootName, $gameName)) {
+        SetFlashMessage('Gamestate bookmarks are only available in private lobbies.');
+        return false;
+    }
+    if (BookmarkCount() >= SWU_BOOKMARK_MAX) {
+        SetFlashMessage('Bookmark limit reached (' . SWU_BOOKMARK_MAX . '). Load or ignore an existing one.');
+        return false;
+    }
+    global $gRandomCounter, $gCurrentPhase, $gTurnNumber;
+    // Same payload format as an undo snapshot, so $gRandomCounter rides along and a load inherits
+    // undo's determinism guarantee (the property that makes mulligan undo reproducible).
+    $payload = Versions::GetSerializedZones() . '<v0>' . $gRandomCounter;
+    $round   = intval($gTurnNumber);
+    $id = BookmarkAppend($seat, $round, (string)($gCurrentPhase ?? ''), UndoCursor(), $label, $payload);
+    if ($id < 1) { SetFlashMessage('Could not save the bookmark.'); return false; }
+    SetFlashMessage('Bookmark saved — Round ' . $round . '.');
+    return true;
+}
+
+function SWULoadBookmark(int $seat, int $bookmarkId, string $rootName = '', string $gameName = ''): bool {
+    if (!SWUGameIsPrivate($rootName, $gameName)) {
+        SetFlashMessage('Gamestate bookmarks are only available in private lobbies.');
+        return false;
+    }
+    $bm = BookmarkRead($bookmarkId);
+    if ($bm === null) { SetFlashMessage('That bookmark no longer exists.'); return false; }
+
+    $blocked = _SWUCaptureUndoBlocks();
+    // Snapshot the CURRENT (pre-load) state first, so a following Undo rewinds the load itself and
+    // walks back up the line being abandoned. The 'load' boundary stops Undo Phase from walking past
+    // this point into that abandoned branch.
+    PushUndoSnapshot($seat, 'load');
+    $loadOrdinal = UndoCursor();
+
+    _SWURestoreSerializedPayload($bm['payload']);
+    _SWUReapplyUndoBlocks($blocked);
+    UndoCursorSet($loadOrdinal);   // explicit: the restore must not move the cursor
+
+    // A game that had already ended is playable again. GAMEOVER_WINNER / GAMEOVER_WINNERS live in the
+    // gamestate, so the restore cleared them; the only external step is undoing the RemoveActiveGame
+    // that the match-end path ran. The match RESULT stays recorded and sealed (see MatchGameIsSealed).
+    if ($rootName !== '' && $gameName !== '' && function_exists('RegisterActiveGame')) {
+        RegisterActiveGame($rootName, $gameName, true);
+    }
+    SetFlashMessage('Loaded bookmark — Round ' . intval($bm['round']) . '.');
+    return true;
 }
 
 function GetStartingChampionChoices($player) {
