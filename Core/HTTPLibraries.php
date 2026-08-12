@@ -30,13 +30,21 @@ function IsDeckLinkValid($deckLink)
 function GetGameCounter($dir = "./Games", $gameDirRoot = null, $createGameDirectory = true)
 {
   if ($gameDirRoot === null || $gameDirRoot === "") $gameDirRoot = $dir;
+  if (!is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
+    throw new RuntimeException("Unable to create game directory: " . $dir);
+  }
   $filename = $dir . "/GameIDCounter.txt";
   if (!is_file($filename)) { // if the game ID counter does not exist, make it.
     $contents = '101';
-    file_put_contents($filename, $contents);
+    if (file_put_contents($filename, $contents) === false) {
+      throw new RuntimeException("Unable to create game counter: " . $filename);
+    }
   }
 
   $gcFile = fopen($filename, "r+");
+  if ($gcFile === false) {
+    throw new RuntimeException("Unable to open game counter: " . $filename);
+  }
 
   $attemptCount = 0;
   while (!flock($gcFile, LOCK_EX) && $attemptCount < 30) {  // acquire an exclusive lock

@@ -93,6 +93,40 @@ $propertyTypes = [];
 fclose($handler);
 $nestedCardPaths = isset($importOptions["nestedCardPaths"]) && !is_array($importOptions["nestedCardPaths"]) && $importOptions["nestedCardPaths"] != "" ? array_map("trim", explode(",", $importOptions["nestedCardPaths"])) : [];
 $supplementalCardSources = ImportOptionList($importOptions, "cardEditorSupplement");
+$downloadImagesOverride = TryGET("downloadImages", "");
+$downloadImportedImages = $downloadImagesOverride !== ""
+  ? filter_var($downloadImagesOverride, FILTER_VALIDATE_BOOLEAN)
+  : (!isset($importOptions["downloadImages"]) || filter_var($importOptions["downloadImages"], FILTER_VALIDATE_BOOLEAN));
+
+// Match Talishar's functional identity convention: normalized name plus pitch.
+// Printing ids remain metadata, so a reprint does not become a second card.
+function FaBCardIdentifier($name, $pitch) {
+  if((string)$name === 'Goldfin Harpoon') return 'goldfin_harpoon_yellow';
+  $cardID = strtolower(trim((string)$name));
+  $cardID = str_replace("//", "_", $cardID);
+  $cardID = str_replace(["ā", "ä", "ö", "ü", "ß", "ṣ"], ["a", "a", "o", "u", "s", "s"], $cardID);
+  $ascii = iconv('UTF-8', 'US-ASCII//TRANSLIT//IGNORE', $cardID);
+  if($ascii !== false) $cardID = $ascii;
+  $cardID = str_replace([" ", "-"], "_", $cardID);
+  $cardID = preg_replace('/[^a-z0-9_]/', '', $cardID);
+  $cardID = preg_replace('/_+/', '_', $cardID);
+  $cardID = trim((string)$cardID, '_');
+  $suffix = match(intval($pitch)) {
+    1 => '_red',
+    2 => '_yellow',
+    3 => '_blue',
+    default => ''
+  };
+  return $cardID . $suffix;
+}
+
+function FaBCanonicalPrinting($card) {
+  $printings = is_array($card->printings ?? null) ? $card->printings : [];
+  foreach($printings as $printing) {
+    if(trim((string)($printing->image_url ?? '')) !== '') return $printing;
+  }
+  return $printings[0] ?? null;
+}
 
 // SWU card art is ONE shared corpus for both SWU apps (SET_NNN-keyed, AppCore/SWU/Images/); every
 // other root keeps its own per-app art. Used for every CheckImage() call below — for a non-SWU root
@@ -292,6 +326,17 @@ if(!$withPreview && file_exists($cacheFile)) {
       $cardID = $card->uuid;
     } else if($rootName == "AzukiSim") {
       $cardID = $card->id;
+    } else if($rootName == "FaBSim") {
+      $cardID = FaBCardIdentifier($card->name ?? '', $card->pitch ?? 0);
+      if($cardID === '') {
+        $pageSkipped++; $totalSkipped++;
+        continue;
+      }
+      $printing = FaBCanonicalPrinting($card);
+      $card->set_id = $printing->set_id ?? '';
+      $card->printing_id = $printing->id ?? '';
+      $card->rarity = $printing->rarity ?? '';
+      $card->image_url = $printing->image_url ?? '';
     } else if($rootName == "SWUSim") {
       // Official SWU API (admin.starwarsunlimited.com) — Strapi format.
       // Unwrap .attributes if present (Strapi v4 compat), otherwise use card directly (v5).
@@ -367,6 +412,9 @@ if(!$withPreview && file_exists($cacheFile)) {
       }
     } else if($rootName == "AzukiSim") {
       $thisImageUrl = $card->image;
+    } else if($rootName == "FaBSim") {
+      $thisImageUrl = trim((string)($card->image_url ?? ''));
+      if($thisImageUrl === '') $thisImageUrl = null;
     } else if($rootName == "SoulMastersDB" || $rootName == "SoulMastersSim") {
       $thisImageUrl = $imageUrl . $cardID . "-CYMK.jpg";
     } else if($rootName == "GudnakSim") {
@@ -397,9 +445,9 @@ if(!$withPreview && file_exists($cacheFile)) {
       $derived = SWUDeckSetNnnFor($card, $tokenCountersArt, $tokenTypesPhase1);
       if($derived !== null) $artCardID = $derived;
     }
-    if($thisImageUrl !== null) {
+    if($thisImageUrl !== null && $downloadImportedImages) {
       CheckImage($artCardID, $thisImageUrl, $cardType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:$overwriteImages);
-    } else {
+    } else if($thisImageUrl === null) {
       logLine("WARNING: No image URL for $cardID — skipping download.");
     }
     if($thisBackImageUrl !== null) {
@@ -475,6 +523,7 @@ if(!$withPreview && file_exists($cacheFile)) {
 }
 
   $cacheJson = json_encode(['cardArray' => $cardArray, 'reprintMap' => $reprintMap, 'leaderUnitByUUIDMap' => $leaderUnitByUUIDMap]);
+  if(!is_dir(dirname($cacheFile))) mkdir(dirname($cacheFile), 0777, true);
   file_put_contents($cacheFile, $cacheJson);
   logLine("=== Phase 1 complete: " . $count . " cards accepted, " . $totalSkipped . " skipped across " . ($currentPage - 1) . " pages — cache saved (" . round(strlen($cacheJson)/1024, 1) . "KB) ===");
 }

@@ -1,0 +1,58 @@
+FaBDeck
+Auto
+None
+AssetOwner
+Header: title=Home, link=/TCGEngine/SharedUI/Sites/FaBSim/MainMenu.php
+Header: title=Edit, link=/TCGEngine/NextTurn.php?gameName>$gameName&playerID>1&folderPath>FaBDeck
+Header: title=Visibility, module=AssetVisibility, AssetType=1
+Header: title=Versions, module=Versions, Zones=myHero;myWeapons;myEquipment;myMainDeck;myInventory
+PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
+AssetReflection: FaBSim
+Initialization: Initialize.php
+ServerInclude: /Custom/DeckValidation.php
+ServerInclude: /Custom/CustomInput.php
+Layout: /Custom/GameLayout.php
+ClientInclude: /TCGEngine/FaBSim/Custom/CardImages.js
+Hero - CardID:string
+Display: Visibility=Self, Mode=All, BindTo=HeroSlot, Split=None
+AddValidation: ValidateHeroAddition
+Weapons - CardID:string
+Display: Visibility=Self, Mode=Tile, BindTo=WeaponsSlot, Split=None
+Click: Remove(myWeapons)
+AddValidation: ValidateWeaponAddition
+Equipment - CardID:string
+Display: Visibility=Self, Mode=Tile, BindTo=EquipmentSlot, Split=None
+Click: Remove(myEquipment)
+AddValidation: ValidateEquipmentAddition
+MainDeck - CardID:string
+Display: Visibility=Self, Mode=Tile, BindTo=MainDeckSlot, Split=None
+Click: Remove(myMainDeck)
+AddValidation: ValidateMainDeckAddition
+Widgets: CustomInput=<&<<<&V&+
+Sort: Property=mySort
+CardPane - Value:string
+Display: Visibility=Self, Mode=Panel, BindTo=CardPaneSlot, Split=None
+Heroes - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Split=None
+Click: Swap(myHero)
+WeaponsCatalog - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Split=None
+Click: Add(myWeapons)
+EquipmentCatalog - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Split=None
+Click: Add(myEquipment)
+Cards - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Split=None
+Click: Add(myMainDeck)
+DragMode: Clone
+Inventory - CardID:string
+Display: Visibility=Self, Mode=Tile, BindTo=InventorySlot, Split=None
+Click: Remove(myInventory)
+Widgets: CustomInput=<&<<<&^&+
+Deck - CardID:string
+Display: Visibility=Self, Mode=Count(MainDeck), BindTo=DeckSlot, Split=None
+Sort - Value:string
+Display: Visibility=Self, Mode=Dropdown(Value), BindTo=SortSlot
+Widgets: Value=Name&Pitch&Cost&Power&Defense&Type
+Versions - Version:string
+Display: Visibility=Self, Mode=None

@@ -1,0 +1,7 @@
+DecisionQueue: Enabled
+StartOfTurn; SOT; StartOfTurnPhase
+AUTO -> MAIN
+Main; MAIN; MainPhase
+PASS -> EOT
+EndOfTurn; EOT; EndOfTurnPhase
+AUTO -> SOT

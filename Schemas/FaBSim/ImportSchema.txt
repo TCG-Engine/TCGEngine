@@ -1,0 +1,9 @@
+https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/develop/json/english/card.json
+
+png
+
+
+
+id,name,color,pitch:number,cost:number,power:number,defense:number,health:number,intelligence:number,arcane:number,types,traits,card_keywords,functional_text,functional_text_plain,type_text,played_horizontally:boolean,blitz_legal:boolean,cc_legal:boolean,commoner_legal:boolean,ll_legal:boolean,silver_age_legal:boolean,blitz_banned:boolean,cc_banned:boolean,commoner_banned:boolean,ll_restricted:boolean,set_id,printing_id,rarity,image_url
+
+downloadImages=true

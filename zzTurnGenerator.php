@@ -153,14 +153,10 @@ foreach($states as $abbr => $st) {
     $tgt = addslashes($tr->Target);
     fwrite($h, "      if(strtoupper(trim(\$input)) == '" . addslashes($in) . "') return '" . $tgt . "';\n");
   }
-  // AUTO fallback for this state (first AUTO transition)
-  $autoTarget = null;
-  foreach($st->Transitions as $tr) { if(strtoupper(trim($tr->Input)) == 'AUTO') { $autoTarget = $tr->Target; break; } }
-  if($autoTarget !== null) fwrite($h, "      // AUTO fallback\n      return '" . addslashes($autoTarget) . "';\n");
-  // PASS fallback for this state
-  $passTarget = null;
-  foreach($st->Transitions as $tr) { if(strtoupper(trim($tr->Input)) == 'PASS') { $passTarget = $tr->Target; break; } }
-  if($passTarget !== null) fwrite($h, "      // PASS fallback\n      return '" . addslashes($passTarget) . "';\n");
+  // Do not emit an unconditional AUTO/PASS fallback here. Exact transition
+  // checks above already cover those inputs; a fallback lets AUTO traverse a
+  // PASS-only state (and PASS traverse an AUTO-only state), which can make
+  // AutoAdvance cycle forever through a turn graph.
   fwrite($h, "      break;\n");
 }
 fwrite($h, "    default: break;\n");

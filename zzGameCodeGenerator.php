@@ -38,9 +38,9 @@ $rootName = trim(fgets($handler));
 $reloadStyle = trim(fgets($handler));
 $readAuth = trim(fgets($handler));
 $editAuth = trim(fgets($handler));
-// Twin Suns: SWUSim supports up to 4 player seats; every other sim stays at 2 so their
+// Twin Suns and FaB multiplayer support up to 4 player seats; every other sim stays at 2 so their
 // generated output is byte-identical. Every per-seat emission loops 1..$maxSeats.
-$maxSeats = ($rootName === 'SWUSim') ? 4 : 2;
+$maxSeats = in_array($rootName, ['SWUSim', 'FaBSim'], true) ? 4 : 2;
 // Emits the by-reference "return the seat's global" body shared by Get<Zone>($player) and
 // <Zone>Value($player). For $maxSeats<=2 it emits the original if/else (byte-identical output);
 // for >2 a switch over the seats. (Function declarations are hoisted, so definition order is fine.)
@@ -712,9 +712,8 @@ for($i=0; $i<count($zones); ++$i) {
       fwrite($handler, "  \$g" . $zoneName . " = \$Value;\r\n");
       fwrite($handler, "  return null;\r\n");
     } else {
-      fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
-      fwrite($handler, "  if (\$player == 1) \$p1" . $zoneName . " = \$Value;\r\n");
-      fwrite($handler, "  else \$p2" . $zoneName . " = \$Value;\r\n");
+      fwrite($handler, "  \$zoneValue = &Get" . $zoneName . "(\$player);\r\n");
+      fwrite($handler, "  \$zoneValue = \$Value;\r\n");
       fwrite($handler, "  return null;\r\n");
     }
   } else {
@@ -775,8 +774,11 @@ for($i=0; $i<count($zones); ++$i) {
     $uniqueIDConfig = GetUniqueIDModuleConfigForZone($zoneName);
     if($uniqueIDConfig != null && ZoneHasProperty($zone, $uniqueIDConfig->Field)) {
       fwrite($handler, "  global \$g" . $uniqueIDConfig->Counter . ";\r\n");
-      fwrite($handler, "  \$g" . $uniqueIDConfig->Counter . "++;\r\n");
-      fwrite($handler, "  \$zoneObj->" . $uniqueIDConfig->Field . " = \$g" . $uniqueIDConfig->Counter . ";\r\n");
+      fwrite($handler, "  // A zone move keeps the physical card's identity; only newly created objects get a new ID.\r\n");
+      fwrite($handler, "  if(\$sourceObject === null || intval(\$zoneObj->" . $uniqueIDConfig->Field . " ?? 0) <= 0) {\r\n");
+      fwrite($handler, "    \$g" . $uniqueIDConfig->Counter . "++;\r\n");
+      fwrite($handler, "    \$zoneObj->" . $uniqueIDConfig->Field . " = \$g" . $uniqueIDConfig->Counter . ";\r\n");
+      fwrite($handler, "  }\r\n");
     }
     // Build index for zones with indexed properties
     $hasIndexedProperties = count($zone->IndexedProperties) > 0;
@@ -1613,6 +1615,7 @@ for($i=0; $i<count($zones); ++$i) {
         $checkZoneName = $baseZoneName;
         if(str_starts_with($checkZoneName, "my")) $checkZoneName = substr($checkZoneName, 2);
         elseif(str_starts_with($checkZoneName, "their")) $checkZoneName = substr($checkZoneName, 5);
+        elseif(preg_match('/^p\d/', $checkZoneName)) $checkZoneName = preg_replace('/^p\d/', '', $checkZoneName);
 
         $isValueZone = isset($valueZones[$checkZoneName]);
         $isGlobalZone = isset($globalZones[$checkZoneName]);

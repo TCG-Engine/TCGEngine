@@ -1,0 +1,5 @@
+<style>
+html,body{margin:0;background:#100d0b;color:#ead9bf;font-family:Inter,Segoe UI,sans-serif}.fabdeck{position:fixed;inset:48px 0 0;z-index:11;background:linear-gradient(135deg,#1e1510,#3d2b1d)}.fd-zone{position:fixed;z-index:20;border:1px solid #765a37;border-radius:9px;background:#17110ddd;padding:6px;overflow:auto;box-sizing:border-box}.fd-title{color:#d4a95f;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+#myHeroSlot{left:26%;top:58px;width:130px;height:180px}#myWeaponsSlot{left:36%;top:58px;width:260px;height:180px}#myEquipmentSlot{left:56%;top:58px;right:10px;height:180px}#myMainDeckSlot{left:26%;top:250px;right:10px;bottom:145px}#myInventorySlot{left:26%;right:10px;bottom:10px;height:125px}#myCardPaneSlot{left:10px;top:58px;width:24%;bottom:10px}#myDeckSlot{left:26%;top:10px;width:100px;height:42px}#mySortSlot{left:38%;top:10px;width:180px;height:42px}
+</style><div class="fabdeck"></div>
+<?php foreach(['Hero','Weapons','Equipment','MainDeck','Inventory','CardPane','Deck','Sort'] as $z) echo '<div id="my'.$z.'Slot" class="fd-zone"><span class="fd-title">'.$z.'</span></div>'; ?>

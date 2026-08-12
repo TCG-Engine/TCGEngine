@@ -310,7 +310,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         if (borderColor != -1) margin = borderColor > 0 ? "margin:0px;" : "margin:1px;";
         if (folder == "crops") margin = "0px;";
 
-        var rv = "<a style='" + margin + " position:relative; display:inline-block;" + (action > 0 ? "cursor:pointer;" : "") + "'" + (showHover > 0 ? " onmouseover='ShowCardDetail(event, this)' onmouseout='HideCardDetail()'" : "") + (action > 0 ? " onclick='SubmitInput(\"" + action + "\", \"&cardID=" + actionData + "\");'" : "") + ">";
+        var rv = "<a style='" + margin + " position:relative; display:inline-block;" + (action > 0 ? "cursor:pointer;" : "") + "'" + (showHover > 0 ? " onmouseover='ShowCardDetail(event, this)' onmouseout='HideCardDetail()'" : "") + (action > 0 ? " onclick='event.stopPropagation(); SubmitInput(\"" + action + "\", \"&cardID=" + actionData + "\");'" : "") + ">";
 
         if (borderColor > 0) {
           border = "border-radius:8px; border:2px solid " + BorderColorMap(borderColor) + ";";
@@ -682,7 +682,8 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         // not valid competitive play (e.g. "opponent dragged my damaged leader and it reset his health").
         // Disable it for SWUSim, as already done for GrandArchive/Azuki. Card play in SWUSim is click-based.
         return window.rootPath != './GrandArchiveSim' && window.rootPath != './AzukiSim'
-            && window.rootPath != './AzukiDeck' && window.rootPath != './SWUSim';
+            && window.rootPath != './AzukiDeck' && window.rootPath != './SWUSim'
+            && window.rootPath != './FaBSim';
       }
 
       // Function to handle drag start event
@@ -834,6 +835,14 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
       // Returns true if the viewer is the active player — either the turn player during normal
       // main phase, or the designated responder during an attack response window.
       function IsViewerActivePlayer() {
+        // Priority-driven games (including FaB) expose the authoritative actor
+        // directly. Prefer it over turn ownership so defenders and reaction
+        // players receive the same legal-action highlights as the attacker.
+        const priorityVal = typeof window.PriorityPlayerData !== 'undefined' ? parseInt(window.PriorityPlayerData) : NaN;
+        const viewerPriorityVal = (document.getElementById('playerID') && document.getElementById('playerID').value)
+          ? parseInt(document.getElementById('playerID').value)
+          : NaN;
+        if (!isNaN(priorityVal) && !isNaN(viewerPriorityVal)) return viewerPriorityVal === priorityVal;
         if (IsViewerTurnPlayer()) return true;
         try {
           const raw = window.DecisionQueueVariablesData;
@@ -6808,6 +6817,17 @@ function _buildOpponentWaitingMessage() {
 }
 
 function _shouldShowOpponentWaitingMessage(viewerIsTurn) {
+  // Games with explicit priority expose the actual deciding seat. Prefer that
+  // authoritative value over redacted/placeholder opponent decision data.
+  const priorityVal = typeof window.PriorityPlayerData !== 'undefined'
+    ? parseInt(window.PriorityPlayerData)
+    : NaN;
+  const viewerNode = document.getElementById('playerID');
+  const viewerVal = viewerNode && viewerNode.value ? parseInt(viewerNode.value) : NaN;
+  if (!isNaN(priorityVal) && !isNaN(viewerVal) && priorityVal > 0) {
+    return priorityVal !== viewerVal;
+  }
+
   // The server sends opponent DQ entries as "CardBack 0 -" (no JSON), so
   // _firstPendingDecisionFromRaw can't parse them. Check for any entries instead.
   const raw = window.theirDecisionQueueData;

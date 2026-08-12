@@ -51,6 +51,10 @@
   } else if($rootName === 'HellbreakSim') {
     include_once __DIR__ . '/../../HellbreakSim/GeneratedCode/GeneratedCardDictionaries.php';
     include_once __DIR__ . '/../../HellbreakSim/Custom/DeckImport.php';
+  } else if($rootName === 'FaBSim') {
+    include_once __DIR__ . '/../../FaBSim/GeneratedCode/GeneratedCardDictionaries.php';
+    include_once __DIR__ . '/../../FaBSim/Custom/DeckImport.php';
+    include_once __DIR__ . '/../../FaBDeck/DeckService.php';
   }
 
   $deckLink = isset($_POST['deckLink']) ? $_POST['deckLink'] : '';
@@ -533,6 +537,16 @@
           'success' => false,
           'message' => 'Could not validate the Hellbreak deck. Please try again.'
         ];
+      }
+    }
+
+    if($rootName === 'FaBSim') {
+      if(!function_exists('FaBValidateDeckForQueue')) return ['success'=>false,'message'=>'FaB deck validation is temporarily unavailable.'];
+      try {
+        return FaBValidateDeckForQueue($deckLink, $preconstructedDeck, $joiningUserId);
+      } catch (Throwable $e) {
+        error_log('FaBSim queue deck validation failed: ' . $e->getMessage());
+        return ['success'=>false,'message'=>'Could not validate the FaB deck. Please try again.'];
       }
     }
 

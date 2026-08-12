@@ -525,7 +525,7 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       } else {
         // Legacy behaviour for other sims
         LoadVersion($playerID);
-        if (!($options['suppressUndoFlash'] ?? false)) {
+        if (!($options['suppressUndoFlash'] ?? false) && function_exists('SetFlashMessage')) {
           SetFlashMessage('Player ' . $playerID . ' undid their last action.');
         }
       }

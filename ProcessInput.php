@@ -55,6 +55,15 @@ if ($gameName == "" || !IsGameNameValid($gameName)) {
   ProcessInputReply(false, "Invalid game name.");
 }
 $folderPath = $_GET["folderPath"] ?? "";
+// FaBSim snapshots a four-seat, unique-ID board before reversible actions. On
+// Windows/PHP 8 that serialization can legitimately exceed the legacy
+// one-second request budget even in a two-seat goldfish game. Give this root
+// the same bounded budget used by bot turns so undo can finish before the
+// action is applied.
+if ($folderPath === 'FaBSim') {
+  @set_time_limit(15);
+  @ini_set('max_execution_time', '15');
+}
 $viewerInfo = NormalizeViewerIdentity($_GET["playerID"] ?? "", SimGameMaxSeats($folderPath));
 if ($viewerInfo['viewerID'] === '') {
   ProcessInputReply(false, "Invalid player ID.");
