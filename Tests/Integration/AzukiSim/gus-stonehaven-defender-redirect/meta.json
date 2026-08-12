@@ -1,0 +1,10 @@
+{
+    "name": "Gus returns after Stonehaven defender redirect",
+    "rootName": "AzukiSim",
+    "createdAt": "2026-08-12T00:00:00-05:00",
+    "createdBy": "codex",
+    "testedCards": [
+        "S1-AZK01-006_Gus_E_R_die",
+        "S1-STT03-002_Stonehaven-Gate_G_G_die"
+    ]
+}

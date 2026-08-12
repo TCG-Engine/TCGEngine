@@ -1103,11 +1103,63 @@ function ResolveAttackAfterResponses($responderPlayer) {
     $expectedResponder = GetPendingAttackResponderPlayer();
     if($attackerPlayer === 0 || intval($responderPlayer) !== $expectedResponder) return false;
 
+    if(!IsPendingAttackStateValid()) {
+        ClearAttackResponseWindow();
+        return true;
+    }
+
     $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
     $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
     if(!is_string($attackerMZ) || $attackerMZ === '' || !is_string($targetMZ) || $targetMZ === '') return false;
 
+    // Defender redirection belongs to the response window. Trigger When Attacked
+    // only after that window closes so the final defender receives the trigger.
+    $defenderTargetMZ = FlipZonePerspective($targetMZ);
+    $defenderAttackerMZ = FlipZonePerspective($attackerMZ);
+    if(!is_string($defenderTargetMZ) || $defenderTargetMZ === ''
+        || !is_string($defenderAttackerMZ) || $defenderAttackerMZ === '') {
+        ClearAttackResponseWindow();
+        return true;
+    }
+
+    DecisionQueueController::SuspendAutoAdvance();
+    try {
+        WhenAttacked($expectedResponder, $defenderTargetMZ, $defenderAttackerMZ);
+        DecisionQueueController::AddDecision(
+            $expectedResponder,
+            'CUSTOM',
+            'RESOLVE_PENDING_ATTACK_AFTER_WHEN_ATTACKED',
+            99,
+            '',
+            1
+        );
+    } finally {
+        DecisionQueueController::ResumeAutoAdvance();
+    }
+
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($expectedResponder, '-');
+    return true;
+}
+
+function ResolvePendingAttackAfterWhenAttacked($responderPlayer) {
+    if(!HasPendingAttackResponse()) return true;
+
+    $attackerPlayer = GetPendingAttackAttackerPlayer();
+    if($attackerPlayer !== 1 && $attackerPlayer !== 2) {
+        ClearAttackResponseWindow();
+        return true;
+    }
+    if(intval($responderPlayer) !== GetPendingAttackResponderPlayer()) return false;
+
     if(!IsPendingAttackStateValid()) {
+        ClearAttackResponseWindow();
+        return true;
+    }
+
+    $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
+    $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
+    if(!is_string($attackerMZ) || $attackerMZ === '' || !is_string($targetMZ) || $targetMZ === '') {
         ClearAttackResponseWindow();
         return true;
     }
@@ -6733,13 +6785,10 @@ $customDQHandlers["BEGIN_ATTACK_RESPONSE"] = function($player, $params, $lastDec
 
     $responderPlayer = GetPendingAttackResponderPlayer();
     if($responderPlayer !== 1 && $responderPlayer !== 2) return;
+};
 
-    $defenderTargetMZ = FlipZonePerspective($targetMZ);
-    $defenderAttackerMZ = FlipZonePerspective($attackerMZ);
-    if(!is_string($defenderTargetMZ) || $defenderTargetMZ === '') return;
-    if(!is_string($defenderAttackerMZ) || $defenderAttackerMZ === '') return;
-
-    WhenAttacked($responderPlayer, $defenderTargetMZ, $defenderAttackerMZ);
+$customDQHandlers["RESOLVE_PENDING_ATTACK_AFTER_WHEN_ATTACKED"] = function($player, $params, $lastDecision) {
+    ResolvePendingAttackAfterWhenAttacked($player);
 };
 
 $customDQHandlers["RESOLVE_ATTACK_COMBAT"] = function($player, $params, $lastDecision) {

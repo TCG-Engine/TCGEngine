@@ -1,0 +1,177 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myLeaderHealth-0!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myGarden-1!CustomInput!Attack",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-AZK01-004_Alley-Thug_E_C_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirGarden-0",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-AZK01-123_Goro-Graveloth_L_L_die"
+    },
+    {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myGarden-1!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myLeaderHealth-0!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "YES",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-6!FSM!",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-AZK01-056_Glass-Blower-Hokuto_E_C_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myAlley",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "@select=0,1,2,3;Bottom=S1-AZK01-060_Scarlett_E_R_die,S1-AZK01-060_Scarlett_E_R_die,S1-STT04-016_Collateral-Burst_S_UC_die,S1-STT04-015_Detonation-Pact_S_C_die,S1-STT04-005_Ruby_E_C_die",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myGate-0!CustomInput!Activate",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-AZK01-122_Rushfire-Gate_G_G_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-3",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-STT04-004_Fanatic-Kindler_E_C_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "NO",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myGarden-0!CustomInput!Activate",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-STT04-001_Zero_L_L_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGarden-3",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-STT04-004_Fanatic-Kindler_E_C_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myGarden-3!CustomInput!Attack",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-STT04-004_Fanatic-Kindler_E_C_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirGarden-0",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-AZK01-123_Goro-Graveloth_L_L_die"
+    },
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myLeaderHealthSlot!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-0!FSM!",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": "S1-STT04-003_Cinderwake-Seer_E_UC_die"
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGarden",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myLeaderHealthSlot!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": "",
+        "resolvedCardID": ""
+    }
+]
