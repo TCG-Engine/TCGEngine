@@ -620,9 +620,15 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         }
 
         //if (event.keyCode === 32) { if(document.getElementById("passConfirm").innerText == "false" || confirm("Do you want to skip arsenal?")) SubmitInput(99, ""); } //Space = pass
-        if(window.rootPath == './RBSim' || window.rootPath == './GudnakSim' || window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim' || window.rootPath == './SWUSim') {
-          if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
-          if (event.keyCode === 85) SubmitInput(10004, ""); //U = Undo
+        var hotkeyRootPath = window.rootPath;
+        if (!hotkeyRootPath) {
+          var hotkeyFolderInput = document.getElementById('folderPath');
+          if (hotkeyFolderInput && hotkeyFolderInput.value) hotkeyRootPath = './' + hotkeyFolderInput.value;
+        }
+        var hotkeyKey = String(event.key || '').toLowerCase();
+        if(hotkeyRootPath == './RBSim' || hotkeyRootPath == './GudnakSim' || hotkeyRootPath == './GrandArchiveSim' || hotkeyRootPath == './AzukiSim' || hotkeyRootPath == './SWUSim' || hotkeyRootPath == './FaBSim') {
+          if (event.keyCode === 83 || hotkeyKey === 's') SubmitInput(10005, ""); //S = Save snapshot
+          if (event.keyCode === 85 || hotkeyKey === 'u') SubmitInput(10004, ""); //U = Undo
         }
         // SWUSim "I" = Take Initiative is handled by GameLayoutShared.php's keydown listener,
         // which gates correctly on the button's `hidden` attribute + is-taken (claimed) class.

@@ -57,4 +57,16 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install);
   else install();
+
+  document.addEventListener('keydown', function (event) {
+    const target = event.target;
+    const tagName = target?.tagName || '';
+    if (tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT' || target?.isContentEditable) return;
+    if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (String(event.key || '').toLowerCase() !== 'u' && event.keyCode !== 85) return;
+    if (typeof SubmitInput !== 'function') return;
+    event.preventDefault();
+    event.stopPropagation();
+    SubmitInput(10004, '');
+  }, true);
 })();

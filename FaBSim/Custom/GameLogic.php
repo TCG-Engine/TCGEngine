@@ -938,7 +938,7 @@ function FaBAutoPassShortcuts(): void {
         if ($window === '' || !ShouldAutoPassShortcutWindow($player, $window)) break;
         if ($window === 'INSTANT_PRIORITY' && FaBPlayerHasPriorityAction($player)) break;
         $wasInCombat = !empty($state['combatOpen']);
-        if (!FaBPassPriority($player)) break;
+        if (!FaBPassPriority($player, true)) break;
         if ($wasInCombat && empty(FaBGetState()['combatOpen'])) break;
     }
     $running = false;
