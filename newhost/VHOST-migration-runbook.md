@@ -49,10 +49,20 @@ Nothing here changes anything. Every answer feeds a flag in step 5.
   If a docroot differs from `/opt/lampp/htdocs`, **stop** — adding our vhost would change what
   that hostname serves, and this runbook's zero-change guarantee no longer holds.
 
-- [ ] **Confirm exactly one server-level env conf, and its value:**
+- [ ] **Confirm the server-level env conf and its value:**
   ```bash
   grep -rn "MYSQL_DATABASE_NAME" /opt/lampp/etc/
   ```
+  Three outcomes, and they change the run:
+  - **One conf, value in the `$dbToSite` map** — the normal migration. Use `--keep-server-env`.
+  - **Several confs** — Guard 1 blocks; convert each app first.
+  - **NOTHING (no match at all)** — the var was never set. Legitimate for an app that needs no
+    database: gamestate lives in files under `Games/`, and `ActiveSite.php` never connects to
+    MySQL, so a site can run happily off direct `/SharedUI/Sites/<Site>/…` URLs while the root
+    pointer throws `MYSQL_DATABASE_NAME is not set`. Here the run is **purely additive**: drop
+    `--keep-server-env` (it is a no-op that prints a misleading "keeping" warning for a file that
+    does not exist), nothing is retired, and rollback is just removing the Includes. The vhost
+    gives the box a DB env for the first time, so expect the root pointer to START working.
 
 - [ ] **Which hostnames actually resolve here?** Every real one needs a `--server-alias`, or it
       stops resolving once a vhost exists. Don't forget `www.`, the bare IP, and monitoring.
@@ -80,11 +90,23 @@ The script also writes its own backups to `newhost/newhost-backups-<timestamp>/`
 these anyway — they cover files the script never touches.
 
 ### 2. Capture the baseline — **this is what you compare against afterwards**
+
+⚠ **Baseline the URL people actually use, which may not be the root pointer.** The root
+`/SharedUI/MainMenu.php` is an `ActiveSite` dispatch, so on a box whose env var is unset or names
+a db that is not in the `$dbToSite` map it **throws** — `ActiveSite` has no fallback on purpose.
+Such a box can have a perfectly healthy site that users reach via the full
+`/SharedUI/Sites/<Site>/MainMenu.php` path, which does **not** read `ActiveSite`. Baselining only
+the pointer would record a 500 and tell you nothing about real users. Capture **both**:
 ```bash
+# the path users actually hit — this one MUST NOT regress
+curl -sI https://<domain>/TCGEngine/SharedUI/Sites/<Site>/MainMenu.php | head -1
+# the root pointer — may be 500 today; expected to START WORKING after the migration
 curl -sI https://<domain>/TCGEngine/SharedUI/MainMenu.php | head -1
 curl -s  -o /dev/null -w 'http  unmatched: %{http_code}\n' -H 'Host: nope.invalid' http://127.0.0.1/
 curl -sk -o /dev/null -w 'https unmatched: %{http_code}\n' -H 'Host: nope.invalid' https://127.0.0.1/
 ```
+Giving the vhost a **mapped** `MYSQL_DATABASE_NAME` is what repairs the pointer — an intended
+improvement, but state it up front so a changed response reads as success, not regression.
 Write those three numbers down. "Unmatched Host still behaves the same" is the whole point of
 `--default-site`, and you cannot verify it without a before-value.
 
