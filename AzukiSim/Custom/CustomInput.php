@@ -153,7 +153,7 @@ function HandleAttackSetup($playerID, $attackerMZ) {
 
 function HandleGateUsage($playerID) {
     if(!CanUseGateRuntime($playerID)) {
-        SetFlashMessage("Gate cannot be used. (Already used this turn or tapped)");
+        SetFlashMessage("Gate cannot be used right now.");
         return;
     }
 

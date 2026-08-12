@@ -3440,6 +3440,12 @@ function GetPortalCandidates($player) {
 }
 
 function CanUseGateRuntime($player, $gateMZ = null, $entityMZ = null) {
+    $player = intval($player);
+    if($player !== 1 && $player !== 2) return false;
+    if(GetCurrentPhase() !== 'MAIN') return false;
+    if($player !== intval(GetTurnPlayer())) return false;
+    if(HasPendingAttackResponse()) return false;
+
     $gateZone = &GetGate($player);
     if(empty($gateZone)) return false;
     $gate = &$gateZone[0];
