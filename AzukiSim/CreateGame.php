@@ -16,10 +16,10 @@ include_once __DIR__ . '/../Database/ConnectionManager.php';
 include_once __DIR__ . '/../AccountFiles/AccountDatabaseAPI.php';
 include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 
-if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
+function AzukiSetupGame($lobby, $opts = []) {
+    global $gameName, $updateNumber;
     $ttl = 600;
 
-    // ASSUMES: $lobby
     $gameName = GetGameCounter(__DIR__ . '/Games', createGameDirectory: !GamestateUsesMemoryStorage());
     InitializeGamestate();
     WriteGamestate(__DIR__ . "/");
@@ -47,8 +47,13 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     $playerCounter = 1;
     foreach ($lobby->players as $player) {
         $player->setGamePlayerID($playerCounter);
-        LoadPlayer($playerCounter, $player->getPreconstructedDeck(), $player->getDeckLink(), $player->getUserId());
+        $injected = $opts['resolvedDecks'][$playerCounter] ?? null;
+        $userID = method_exists($player, 'getUserId') ? $player->getUserId() : null;
+        LoadPlayer($playerCounter, $player->getPreconstructedDeck(), $player->getDeckLink(), $userID, $injected);
         ++$playerCounter;
+    }
+    if ($azukiCreateMode === 'rlbot') {
+        AzukiStoreBotRematchConfig($gameName, $lobby);
     }
     if ($azukiCreateMode !== 'tutorial') {
         GameLogEvent('shuffle', ['by' => 'p1', 'zone' => 'deck']);
@@ -57,7 +62,10 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
 
     // The random-roll winner chooses whether to take the first or second turn.
     // Use the rolled player provisionally until that pregame decision resolves.
-    $rollWinner = $azukiCreateMode === 'tutorial' ? 1 : EngineRandomInt(1, 2);
+    $forcedFirstPlayer = intval($opts['forcedFirstPlayer'] ?? 0);
+    $rollWinner = $azukiCreateMode === 'tutorial'
+        ? 1
+        : (in_array($forcedFirstPlayer, [1, 2], true) ? $forcedFirstPlayer : EngineRandomInt(1, 2));
     $firstPlayer = &GetFirstPlayer();
     $firstPlayer = $rollWinner;
     $turnPlayer = &GetTurnPlayer();
@@ -90,12 +98,23 @@ if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY')) {
     if ($azukiCreateMode !== 'tutorial') {
         GameLogCommitFrame($gameName, $updateNumber);
     }
+    if (!empty($opts['matchId'])) {
+        DecisionQueueController::StoreVariable('MatchId', strval($opts['matchId']));
+        DecisionQueueController::StoreVariable('GameNumber', strval(intval($opts['gameNumber'] ?? 1)));
+    }
     WriteGamestate(__DIR__ . "/");
 
     $lobby->gameName = $gameName;
     if (!SimGameWriteAuthKeysFromLobby('AzukiSim', $gameName, $lobby)) {
         throw new RuntimeException('Unable to store game authentication metadata in APCu.');
     }
+    return $gameName;
+}
+
+// Backward-compatible lobby entrypoint. MatchHooks includes this file as a library and calls
+// AzukiSetupGame directly when it needs to create a rematch child game.
+if (!defined('AZUKISIM_CREATEGAME_LIBRARY_ONLY') && isset($lobby) && is_object($lobby)) {
+    AzukiSetupGame($lobby);
 }
 
 function GetPreconstructedDeckConfig($deckName) {
@@ -249,14 +268,21 @@ function GetPreconstructedDeckConfig($deckName) {
     ];
 }
 
-function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '', $userID = null) {
+function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '', $userID = null, $injectedDeck = null) {
     $deck = &GetDeck($playerID);
     $garden = &GetGarden($playerID);
     $gate = &GetGate($playerID);
 
-    $resolvedDeck = null;
+    $resolvedDeck = is_array($injectedDeck) && !empty($injectedDeck['leader'])
+        && !empty($injectedDeck['gate']) && isset($injectedDeck['mainDeck'])
+        ? $injectedDeck
+        : null;
+    if ($resolvedDeck !== null) {
+        $deckLink = trim(strval($resolvedDeck['_deckLink'] ?? $deckLink));
+        $userID = $resolvedDeck['_userId'] ?? $userID;
+    }
     $deckLink = trim((string)$deckLink);
-    if ($deckLink !== '' && function_exists('AzukiResolveDeckInput')) {
+    if ($resolvedDeck === null && $deckLink !== '' && function_exists('AzukiResolveDeckInput')) {
         try {
             $candidateDeck = AzukiResolveDeckInput($deckLink, $userID);
             if (!empty($candidateDeck['success'])) {
@@ -280,8 +306,9 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '', $
 
         $deckList = $resolvedDeck['mainDeck'];
         AzukiStatsCaptureDeck($playerID, $deckLink, $deckList);
-        $historyDeckName = trim((string)CardName($resolvedDeck['leader'])) . ' deck';
-        if(preg_match('/^azukideck:(\d+)$/i', $deckLink, $historyDeckMatch)) {
+        $historyDeckName = trim(strval($resolvedDeck['_historyDeckName'] ?? ''));
+        if($historyDeckName === '') $historyDeckName = trim((string)CardName($resolvedDeck['leader'])) . ' deck';
+        if(!isset($resolvedDeck['_historyDeckName']) && preg_match('/^azukideck:(\d+)$/i', $deckLink, $historyDeckMatch)) {
             $historyDeck = AzukiDeckLoadOwnedDeck($historyDeckMatch[1], $userID);
             $savedDeckName = trim((string)($historyDeck['assetName'] ?? ''));
             if($savedDeckName !== '') $historyDeckName = $savedDeckName;
@@ -326,6 +353,62 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '', $
     // Keep LeaderHealth zone as a pass-button display value.
     $leaderHealth = &GetLeaderHealth($playerID);
     $leaderHealth = 'PASS';
+}
+
+function AzukiLoadedDeckSnapshot($playerID, $player = null) {
+    $deck = &GetDeck($playerID);
+    $garden = &GetGarden($playerID);
+    $gate = &GetGate($playerID);
+    $deckLink = is_object($player) && method_exists($player, 'getDeckLink') ? trim(strval($player->getDeckLink())) : '';
+    $userID = is_object($player) && method_exists($player, 'getUserId') ? $player->getUserId() : null;
+    $starter = is_object($player) && method_exists($player, 'getPreconstructedDeck') ? strval($player->getPreconstructedDeck()) : '';
+    $mainDeck = [];
+    foreach ($deck as $card) {
+        $cardID = is_object($card) ? strval($card->CardID ?? '') : strval($card);
+        if ($cardID !== '') $mainDeck[] = $cardID;
+    }
+
+    $historyName = '';
+    if ($deckLink === '') {
+        $config = GetPreconstructedDeckConfig($starter);
+        $historyName = strval($config['name'] ?? ($starter !== '' ? $starter : 'Starter deck')) . ' starter';
+    } else if (preg_match('/^azukideck:(\d+)$/i', $deckLink, $deckMatch)) {
+        $ownedDeck = AzukiDeckLoadOwnedDeck($deckMatch[1], $userID);
+        $historyName = trim(strval($ownedDeck['assetName'] ?? ''));
+    }
+
+    return [
+        'success' => true,
+        'leader' => strval($garden[0]->CardID ?? ''),
+        'gate' => strval($gate[0]->CardID ?? ''),
+        'mainDeck' => $mainDeck,
+        '_deckLink' => $deckLink,
+        '_preconstructedDeck' => $starter,
+        '_userId' => $userID,
+        '_historyDeckName' => $historyName,
+    ];
+}
+
+function AzukiBotRematchCacheKey($gameName) {
+    $gameName = preg_replace('/[^A-Za-z0-9_]/', '', strval($gameName));
+    return $gameName === '' ? '' : 'tcgengine:azuki-bot-rematch:' . $gameName;
+}
+
+function AzukiStoreBotRematchConfig($gameName, $lobby) {
+    if (!function_exists('apcu_store') || !is_object($lobby)) return false;
+    $key = AzukiBotRematchCacheKey($gameName);
+    if ($key === '') return false;
+    $players = is_array($lobby->players ?? null) ? $lobby->players : [];
+    if (count($players) < 2) return false;
+
+    return apcu_store($key, [
+        'profile' => NormalizeAzukiRlBotProfile($lobby->azukiRlBotProfile ?? 'raizan'),
+        'casterMode' => !empty($lobby->casterMode),
+        'decks' => [
+            1 => AzukiLoadedDeckSnapshot(1, $players[0]),
+            2 => AzukiLoadedDeckSnapshot(2, $players[1]),
+        ],
+    ], SIM_GAME_RECORD_CACHE_TTL);
 }
 
 function AzukiDeterministicStartingDeckShuffle(&$deck, $playerID) {

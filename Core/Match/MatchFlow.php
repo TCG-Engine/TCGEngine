@@ -52,7 +52,7 @@ function MatchSideboardPointerPath($rootName, $gameName) {
 }
 
 // Reads the game-over winner from the currently-loaded gamestate (0 if not over).
-// Both SWUSim and GA store this in the GAMEOVER_WINNER decision-queue variable.
+// Match-enabled sims store this in the GAMEOVER_WINNER decision-queue variable.
 function MatchGetGameWinner() {
     if (!class_exists('DecisionQueueController')) return 0;
     $w = intval(DecisionQueueController::GetVariable('GAMEOVER_WINNER'));
@@ -164,7 +164,7 @@ function MatchSpawnNextGameWithDecks($rootName, $matchId, $firstPlayer, $priorGa
         new MatchSyntheticPlayer(2, $m['players']['2']['authKey'] ?? ''),
     ];
     $lobby = new stdClass();
-    $lobby->isPrivate = false;
+    $lobby->isPrivate = !empty($m['isPrivate']);
     $lobby->players = $players;
 
     $nextNumber = count($m['games']) + 1;

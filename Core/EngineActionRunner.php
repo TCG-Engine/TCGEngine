@@ -239,6 +239,10 @@ function EngineLoadRootRuntime($folderPath) {
     require_once $repoRoot . '/Core/Match/MatchFlow.php';
     require_once $repoRoot . '/GrandArchiveSim/MatchHooks.php';
   }
+  if ($folderPath === 'AzukiSim') {
+    require_once $repoRoot . '/Core/Match/MatchFlow.php';
+    require_once $repoRoot . '/AzukiSim/MatchHooks.php';
+  }
 
   // Root runtime files define important registries at top level. When they are
   // included from inside this function, those variables land in local scope
@@ -669,12 +673,17 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
           SWURequestRematch($ref['matchId'], $playerID, $bestOf, $sideboard);
           SWUAcceptRematch($ref['matchId']); // creates the new match when both have requested
         } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
-      } else if (($playerID === 1 || $playerID === 2) && $folderPath === 'GrandArchiveSim'
+      } else if (($playerID === 1 || $playerID === 2) && in_array($folderPath, ['GrandArchiveSim', 'AzukiSim'], true)
           && function_exists('MatchReadRef') && function_exists('MatchRequestRematch')) {
+        if ($folderPath === 'AzukiSim' && $mode !== 10013) {
+          $result['success'] = false;
+          $result['message'] = 'Only quick rematches are available.';
+          break;
+        }
         $ref = MatchReadRef($folderPath, $gameName);
         if (is_array($ref)) {
-          $bestOf = (intval($inputText) === 3) ? 3 : 1;
-          $sideboard = ($mode === 10016);
+          $bestOf = ($folderPath === 'AzukiSim') ? 1 : ((intval($inputText) === 3) ? 3 : 1);
+          $sideboard = ($folderPath !== 'AzukiSim' && $mode === 10016);
           MatchRequestRematch($folderPath, $ref['matchId'], $playerID, $bestOf, $sideboard);
           MatchAcceptRematch($folderPath, $ref['matchId']); // creates the new match when both have requested
         } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
@@ -932,6 +941,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     }
     // GrandArchiveSim Bo3 match advance via the shared Core/Match framework.
     if ($folderPath === 'GrandArchiveSim' && function_exists('MatchAfterActionHook')) {
+      MatchAfterActionHook($folderPath, $gameName);
+    }
+    if ($folderPath === 'AzukiSim' && function_exists('MatchAfterActionHook')) {
       MatchAfterActionHook($folderPath, $gameName);
     }
     if (is_numeric($gameName)

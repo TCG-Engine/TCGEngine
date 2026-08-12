@@ -39,6 +39,9 @@
     if(is_file($azukiRlBotProfilesPath)) {
       include_once $azukiRlBotProfilesPath;
     }
+    require_once __DIR__ . '/../../AzukiSim/CreateGame.php';
+    require_once __DIR__ . '/../../Core/Match/MatchFlow.php';
+    require_once __DIR__ . '/../../AzukiSim/MatchHooks.php';
   } else if($rootName === 'SWUSim') {
     $swuDeckImportPath = __DIR__ . '/../../SWUSim/Custom/DeckImport.php';
     if(is_file($swuDeckImportPath)) {
@@ -137,6 +140,10 @@
     if (!function_exists('GAGetFormat') || GAGetFormat($format) === null) $format = 'standard';
     if (!function_exists('GAGetQueueType') || GAGetQueueType($queueType) === null) $queueType = 'bo1';
   }
+  if ($rootName === 'AzukiSim') {
+    // Azuki currently supports mutual Bo1 quick rematches, not Bo3/sideboarding.
+    $queueType = 'bo1';
+  }
 
   // Authored tutorial games supply their own deterministic decks below.
   $isAzukiTutorialRequest = ($rootName === 'AzukiSim' && $format === 'tutorial');
@@ -224,6 +231,8 @@
       SWUSetupGame($lobby);
     } else if ($rootName === 'GrandArchiveSim' && function_exists('GASetupGame')) {
       GASetupGame($lobby);
+    } else if ($rootName === 'AzukiSim' && function_exists('AzukiSetupGame')) {
+      AzukiSetupGame($lobby);
     } else {
       include '../../' . $rootName . '/CreateGame.php';
     }
@@ -282,6 +291,10 @@
             SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
           } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
             MatchCreateFromLobby('GrandArchiveSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
+          } else if ($rootName === 'AzukiSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
+            MatchCreateFromLobby('AzukiSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
+          } else if ($rootName === 'AzukiSim' && function_exists('AzukiSetupGame')) {
+            AzukiSetupGame($lobby);
           } else {
             include_once '../../' . $rootName . '/CreateGame.php';
           }
@@ -394,6 +407,10 @@
                   SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
                 } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
                   MatchCreateFromLobby('GrandArchiveSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
+                } else if ($rootName === 'AzukiSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
+                  MatchCreateFromLobby('AzukiSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
+                } else if ($rootName === 'AzukiSim' && function_exists('AzukiSetupGame')) {
+                  AzukiSetupGame($lobby);
                 } else {
                   include_once '../../' . $rootName . '/CreateGame.php';
                 }

@@ -2066,3 +2066,4 @@ if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retu
     window.UpdateAzukiResponseOpportunity();
 })();
 </script>
+<?php include __DIR__ . '/RematchClient.php'; ?>
