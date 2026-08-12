@@ -39,22 +39,22 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
 #myHandSlot img,#theirHandSlot img{width:clamp(68px,5.2vw,98px)!important;height:clamp(68px,5.2vw,98px)!important}
 #theirHandSlot img{filter:brightness(.72)}
 
-/* Equipment is a true four-slot diamond. P2 is vertically mirrored across the table. */
-#myEquipmentSlot,#theirEquipmentSlot{width:232px;height:276px;padding:0;border:0;background:transparent;box-shadow:none}
-#myEquipmentSlot{left:10px;bottom:7%}#theirEquipmentSlot{right:10px;top:7%}
+/* Equipment uses one three-card column plus arms beside chest. P2 mirrors vertically. */
+#myEquipmentSlot,#theirEquipmentSlot{width:calc(var(--fab-card-size)*2 + 20px);height:calc(var(--fab-card-size)*3 + 26px);padding:0;border:0;background:transparent;box-shadow:none}
+#myEquipmentSlot{left:12px;bottom:4%}#theirEquipmentSlot{left:12px;top:4%}
 #myEquipmentSlot:before,#theirEquipmentSlot:before{display:none}
 #myEquipment,#theirEquipment{position:relative!important;display:block!important;width:100%;height:100%;overflow:visible}
 #myEquipment,#theirEquipment{color:transparent;font-size:0}
 #myEquipment>[data-mzid],#theirEquipment>[data-mzid]{position:absolute!important;margin:0!important}
 #myEquipment>[data-mzid],#theirEquipment>[data-mzid]{color:#f3eee5;font-size:initial}
-#myEquipment>[data-equipment-slot="head"]{top:0;left:70px}
-#myEquipment>[data-equipment-slot="chest"]{top:92px;left:16px}
-#myEquipment>[data-equipment-slot="arms"]{top:92px;left:124px}
-#myEquipment>[data-equipment-slot="legs"]{top:184px;left:70px}
-#theirEquipment>[data-equipment-slot="legs"]{top:0;left:70px}
-#theirEquipment>[data-equipment-slot="chest"]{top:92px;left:16px}
-#theirEquipment>[data-equipment-slot="arms"]{top:92px;left:124px}
-#theirEquipment>[data-equipment-slot="head"]{top:184px;left:70px}
+#myEquipment>[data-equipment-slot="head"]{top:0;left:0}
+#myEquipment>[data-equipment-slot="chest"]{top:calc(var(--fab-card-size) + 8px);left:0}
+#myEquipment>[data-equipment-slot="arms"]{top:calc(var(--fab-card-size) + 8px);left:calc(var(--fab-card-size) + 12px)}
+#myEquipment>[data-equipment-slot="legs"]{top:calc(var(--fab-card-size)*2 + 16px);left:0}
+#theirEquipment>[data-equipment-slot="legs"]{top:0;left:0}
+#theirEquipment>[data-equipment-slot="chest"]{top:calc(var(--fab-card-size) + 8px);left:0}
+#theirEquipment>[data-equipment-slot="arms"]{top:calc(var(--fab-card-size) + 8px);left:calc(var(--fab-card-size) + 12px)}
+#theirEquipment>[data-equipment-slot="head"]{top:calc(var(--fab-card-size)*2 + 16px);left:0}
 
 /* Hero in the middle, weapons flanking it, arsenal immediately beneath/above. */
 #myHeroSlot,#theirHeroSlot{left:calc(50% - (var(--fab-card-size) + 10px)/2);z-index:23}
@@ -73,20 +73,30 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
 #myArenaSlot:not(:has([data-mzid])),#theirArenaSlot:not(:has([data-mzid])){width:calc(var(--fab-card-size) + 10px)}
 #theirArenaSlot{right:52%;top:34%}#myArenaSlot{left:52%;bottom:34%}
 
-/* Right-side utility diamond: graveyard, pitch/deck, banish. P2 mirrors vertically on the left. */
-#theirBanishSlot{left:64px;top:7%}
-#theirPitchSlot{left:10px;top:20%}#theirDeckSlot{left:118px;top:20%}
-#theirGraveyardSlot{left:64px;top:33%}
-#myGraveyardSlot{right:64px;bottom:33%}
-#myPitchSlot{right:118px;bottom:20%}#myDeckSlot{right:10px;bottom:20%}
-#myBanishSlot{right:64px;bottom:7%}
+/* Utility mirrors equipment: banish/pitch/graveyard in one column, deck beside pitch. */
+#theirBanishSlot{right:calc(var(--fab-card-size) + 24px);top:4%}
+#theirPitchSlot{right:calc(var(--fab-card-size) + 24px);top:calc(4% + var(--fab-card-size) + 8px)}
+#theirDeckSlot{right:12px;top:calc(4% + var(--fab-card-size) + 8px)}
+#theirGraveyardSlot{right:calc(var(--fab-card-size) + 24px);top:calc(4% + var(--fab-card-size)*2 + 16px)}
+#myGraveyardSlot{right:calc(var(--fab-card-size) + 24px);bottom:calc(4% + var(--fab-card-size)*2 + 16px)}
+#myPitchSlot{right:calc(var(--fab-card-size) + 24px);bottom:calc(4% + var(--fab-card-size) + 8px)}
+#myDeckSlot{right:12px;bottom:calc(4% + var(--fab-card-size) + 8px)}
+#myBanishSlot{right:calc(var(--fab-card-size) + 24px);bottom:4%}
 
-.fab-stat{width:64px;height:58px;padding-top:20px;text-align:center;background:rgba(8,10,12,.86);border-color:var(--fab-gold-soft);font-size:19px;font-weight:800}
-.fab-stat[data-life]:after{content:attr(data-life);display:block;color:#f4eee1;font-size:19px;font-weight:800;line-height:22px}
-#myHealthSlot{left:26%;top:calc(50% + 8px)}#myResourcesSlot{left:31.5%;top:calc(50% + 8px)}#myActionPointsSlot{left:37%;top:calc(50% + 8px);width:82px}
-#theirHealthSlot{right:26%;top:calc(50% - 66px)}#theirResourcesSlot{right:31.5%;top:calc(50% - 66px)}#theirActionPointsSlot{right:37%;top:calc(50% - 66px);width:82px}
+/* Counters belong to the objects they describe instead of occupying board zones. */
+.fab-stat{display:grid;place-items:center;width:36px;height:36px;padding:0;border:2px solid rgba(214,170,77,.75);border-radius:50%;background:rgba(7,9,10,.94);box-shadow:0 3px 12px rgba(0,0,0,.7);font-size:18px;font-weight:900;line-height:1}
+.fab-stat:before{display:none}
+.fab-stat>div{display:grid;place-items:center;width:100%;height:100%}
+.fab-stat[data-life]:after{content:attr(data-life);display:grid;place-items:center;position:absolute;inset:0;color:#f4eee1;font-size:18px;font-weight:900;line-height:1}
+#myHealthSlot{left:calc(50% + var(--fab-card-size)/2 - 8px);bottom:calc(20% - 8px);z-index:27}
+#theirHealthSlot{left:calc(50% + var(--fab-card-size)/2 - 8px);top:calc(20% + var(--fab-card-size) - 28px);z-index:27}
+#myResourcesSlot{right:calc(var(--fab-card-size) + 14px);bottom:calc(4% + var(--fab-card-size) + 2px);z-index:27}
+#theirResourcesSlot{right:calc(var(--fab-card-size) + 14px);top:calc(4% + var(--fab-card-size)*2 - 28px);z-index:27}
+#myActionPointsSlot,#theirActionPointsSlot{width:44px;height:44px;border-radius:10px;font-size:18px;z-index:27}
+#myActionPointsSlot{right:calc(var(--fab-card-size)*2 + 39px);bottom:calc(4% + var(--fab-card-size)/2 - 14px)}
+#theirActionPointsSlot{right:calc(var(--fab-card-size)*2 + 39px);top:calc(4% + var(--fab-card-size)/2 - 14px)}
 #theirActionPointsSlot .widget-button-pass{display:none!important}
-.fab-stat .widget-button-pass{font-size:12px;padding:6px 9px;background:#8c1d23;border:1px solid #cf7376}
+.fab-stat .widget-button-pass{position:fixed;right:18px;top:calc(50% + 10px);width:104px;padding:9px 12px;border:1px solid #cf7376;border-radius:8px;background:#8c1d23;font-size:13px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.45)}
 
 /* One shared combat-chain window, fed by both controller-specific serialized arrays. */
 .fab-overlay-toolbar{position:fixed;z-index:72;top:55px;left:50%;transform:translateX(-50%);display:flex;gap:7px}
@@ -123,10 +133,8 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
   :root{--fab-card-size:64px}
   #myHandSlot,#theirHandSlot{left:27%;right:27%}
   #myEquipmentSlot{left:4px;transform:scale(.78);transform-origin:left bottom}
-  #theirEquipmentSlot{right:4px;transform:scale(.78);transform-origin:right top}
+  #theirEquipmentSlot{left:4px;transform:scale(.78);transform-origin:left top}
   #myWeaponsSlot,#theirWeaponsSlot{left:calc(50% - 145px);width:290px}
-  #theirBanishSlot,#theirGraveyardSlot{left:42px}#myBanishSlot,#myGraveyardSlot{right:42px}
-  #theirPitchSlot{left:4px}#theirDeckSlot{left:80px}#myPitchSlot{right:80px}#myDeckSlot{right:4px}
   .fab-floating-window{width:88vw}
 }
 </style>
@@ -190,14 +198,19 @@ foreach ($zones as $zone => $label) {
 <?php
 $fabEquipmentSlotByPrinting = [];
 $fabEquipmentSlotByCardID = [];
-if (isset($printing_idData) && is_array($printing_idData) && function_exists('CardTypes')) {
-  foreach ($printing_idData as $cardID => $printingID) {
+if (function_exists('GetAllCardIds') && function_exists('CardTypes')) {
+  foreach (GetAllCardIds() as $cardID) {
     $types = CardTypes($cardID);
     if (!is_array($types)) continue;
     foreach (['Head', 'Chest', 'Arms', 'Legs'] as $slotName) {
       if (in_array($slotName, $types, true)) {
-        $fabEquipmentSlotByPrinting[strtoupper((string)$printingID)] = strtolower($slotName);
         $fabEquipmentSlotByCardID[strtolower((string)$cardID)] = strtolower($slotName);
+        if (function_exists('CardPrinting_id')) {
+          $printingID = CardPrinting_id($cardID);
+          if ($printingID !== null && $printingID !== '') {
+            $fabEquipmentSlotByPrinting[strtoupper((string)$printingID)] = strtolower($slotName);
+          }
+        }
         break;
       }
     }
@@ -207,6 +220,12 @@ if (isset($printing_idData) && is_array($printing_idData) && function_exists('Ca
 <script>
 var FaBEquipmentSlotByPrinting = <?php echo json_encode($fabEquipmentSlotByPrinting, JSON_UNESCAPED_SLASHES); ?>;
 var FaBEquipmentSlotByCardID = <?php echo json_encode($fabEquipmentSlotByCardID, JSON_UNESCAPED_SLASHES); ?>;
+Object.assign(FaBEquipmentSlotByCardID, {
+  mask_of_momentum:'head', helm_of_isens_peak:'head', arcanite_skullcap:'head', ironrot_helm:'head', hope_merchants_hood:'head',
+  barkbone_strapping:'chest', tectonic_plating:'chest', courage_of_bladehold:'chest', fyendals_spring_tunic:'chest', ironrot_plate:'chest',
+  breaking_scales:'arms', crater_fist:'arms', braveforge_bracers:'arms', goliath_gauntlet:'arms', ironrot_gauntlet:'arms',
+  scabskin_leathers:'legs', refraction_bolters:'legs', snapdragon_scalers:'legs', ironrot_legs:'legs', mage_master_boots:'legs'
+});
 
 function FaBEquipmentSlotFromImage(src) {
   var fileName = decodeURIComponent(String(src || '').split('/').pop().split('?')[0]);
