@@ -4027,11 +4027,12 @@ function IsAttackTargetLegal($player, $targetMZ) {
     if($zone !== 'theirGarden') return false;
     if($index < 0 || $index >= count($garden)) return false;
     if(isset($garden[$index]->removed) && $garden[$index]->removed) return false;
-    if($attackerCardID === 'S1-AZK01-077_Stalking-Assassin_E_C_die') {
-        return CardType($garden[$index]->CardID ?? '') === 'LEADER';
+    $cardID = $garden[$index]->CardID ?? '';
+    if($attackerCardID === 'S1-AZK01-077_Stalking-Assassin_E_C_die'
+        && CardType($cardID) !== 'LEADER') {
+        return false;
     }
 
-    $cardID = $garden[$index]->CardID ?? '';
     if(CardType($cardID) === 'LEADER') {
         if(!empty($guardTargets)) return false;
         return LeaderCurrentHealth($opponent) > 0;

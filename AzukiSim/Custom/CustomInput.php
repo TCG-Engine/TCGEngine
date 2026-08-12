@@ -141,17 +141,7 @@ function HandleAttackSetup($playerID, $attackerMZ) {
     }
 
     if(empty($targets)) {
-        // No valid targets — auto-attack leader
-        $leaderIdx2 = FindLeaderIndexInGarden($opponent);
-        $fallbackTarget = ($leaderIdx2 >= 0) ? "theirGarden-" . $leaderIdx2 : "";
-        if($fallbackTarget !== "") {
-            if(!CanAttackRuntime($playerID, $attackerMZ, $fallbackTarget)) return;
-            MaybeSaveUndoVersion($playerID);
-            ExhaustEntity($playerID, $attackerMZ);
-            TriggerEquippedWeaponOnAttack($playerID, $attackerMZ);
-            OnAttackWithCard($playerID, $attackerMZ, $fallbackTarget);
-            DecisionQueueController::AddDecision($playerID, "CUSTOM", "BEGIN_ATTACK_RESPONSE|" . $attackerMZ . "|" . $fallbackTarget, 1);
-        }
+        SetFlashMessage("No legal attack targets.");
         return;
     }
 
