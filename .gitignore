@@ -51,6 +51,9 @@ CardEditor/Assets
 # Scratch fixture dir written by Core/Match framework tests (test_match_core / test_match_flow)
 MatchTestSim/
 MatchFlowTestSim4/
+# Same idea, for test_sideboard_private_no_timer. It was missed when the two above were added, so its
+# Matches/ debris got committed and every run of that test dirtied the repo.
+SBTimerTest/
 # SWUSim's own card art trees were removed on 2026-08-05 — both SWU apps now read the shared
 # AppCore/SWU/Images/ corpus (rules at the bottom of this file). Kept as a guard so a stray
 # regeneration into the old location can never be committed.

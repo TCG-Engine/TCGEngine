@@ -50,10 +50,17 @@ MatchSideboardTimeoutCheck($ROOT, $pub);
 $m = MatchRead($ROOT, $pub);
 $check(($m['state'] ?? '') === 'in_progress', 'PUBLIC: timeout advanced the match (seat 2 auto-filled + spawned)');
 
-// cleanup
+// cleanup — Games AND Matches. Matches/ used to be left behind, so the final rmdir silently failed on
+// a non-empty dir and every run accreted another M<n> dir plus a bumped MatchIDCounter.txt. Some of
+// that debris had been committed, so simply RUNNING this test showed up as repo changes.
 foreach ([$priv, $pub] as $id) { $p = MatchPath($ROOT, $id); if (is_file($p)) @unlink($p); }
-@array_map('unlink', glob(__DIR__ . '/../../SBTimerTest/Games/*/*') ?: []);
-@array_map('rmdir', glob(__DIR__ . '/../../SBTimerTest/Games/*') ?: []);
-@rmdir(__DIR__ . '/../../SBTimerTest/Games'); @rmdir(__DIR__ . '/../../SBTimerTest');
+$sbRoot = __DIR__ . '/../../SBTimerTest';
+foreach (['Games', 'Matches'] as $sub) {
+    @array_map('unlink', glob("$sbRoot/$sub/*/*") ?: []);   // files inside each per-id dir
+    @array_map('rmdir',  glob("$sbRoot/$sub/*") ?: []);      // the per-id dirs (no-op on plain files)
+    @array_map('unlink', glob("$sbRoot/$sub/*") ?: []);      // loose files, e.g. MatchIDCounter.txt
+    @rmdir("$sbRoot/$sub");
+}
+@rmdir($sbRoot);
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);
