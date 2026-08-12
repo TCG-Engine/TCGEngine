@@ -14,6 +14,7 @@ WithP2GroundArena: SOR_095:1:0    # Battlefield Marine (3/3) — kills it back
 - P1>AttackGroundArena:0:0
 
 ## EXPECT
+P1NODECISION
 P1GROUNDARENACOUNT:0
 P1RESCOUNT:1
 P1RESAVAILABLE:1

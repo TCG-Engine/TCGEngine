@@ -1,4 +1,42 @@
 <?php
+
+// Overwhelm excess -> the defending player's base. THE single implementation, shared by the two paths
+// that can produce it: the normal "defender defeated by combat damage" spill, and the CR step 4.c case
+// where the defender left play BEFORE damage (all of it becomes excess). Keeping one copy matters
+// because the flag semantics below are subtle and were previously stated in only one place.
+function _SWUOverwhelmSpillToBase(int $player, string $targetMzID, $attacker, int $overflowAmt, array &$combatCtx): int {
+    if ($overflowAmt <= 0) return 0;
+    $GLOBALS['gInCombatDamage'] = true;
+    SWUDealDamageToBase($overflowAmt, SWUMzOwner($targetMzID, $player)); // Twin Suns: the overwhelmed defender's own base
+    $GLOBALS['gInCombatDamage'] = false;
+    $combatCtx['baseCombatDmg'] += max(0, $overflowAmt); // overwhelm counts for LOF_025
+    // Overwhelm excess IS combat damage the attacker deals to the base (CR 7.d), so it must trigger
+    // "when this unit deals (combat) damage to a base" abilities — JTL_177 Stay on Target's granted draw,
+    // ASH_162, SEC_150/147/205, LAW_046 Chirrut, etc. — exactly as a direct base hit would.
+    $combatCtx['dealtToBase'] = true;
+    // ⚠ CR 7.d/7.f: it is combat damage to the base but the unit is NOT considered to have ATTACKED that
+    // base. So set the "damaged" flags and deliberately NOT SWU_DEALT_BASEDMG (the "attacked" flag used by
+    // SHD_088/SHD_106). SEC_012 Cassian reads the damaged flag; only when the base owner is an opponent.
+    $ovAuid  = intval($attacker->UniqueID ?? 0);
+    $ovActrl = intval($attacker->Controller ?? $player);
+    $ovOwner = SWUMzOwner($targetMzID, $player);
+    if ($ovAuid > 0 && intval($ovOwner) !== $ovActrl) AddGlobalEffects($ovActrl, 'SWU_UNITDMGBASE_' . $ovAuid);
+    if ($ovAuid > 0) AddGlobalEffects($ovActrl, 'SWU_DMGDBASE_' . $ovAuid . '_' . intval($ovOwner));
+    return $overflowAmt;
+}
+
+
+// "Deals combat damage before the defender" — the colloquial "Shoot First" ordering. Sources: the
+// SHOOT_FIRST turn-effect marker (SOR_217 Shoot First's grant, SOR_219's conditional grant), SOR_198
+// Han Solo's and SHD_234 Incinerator Trooper's innate deal-first, and ASH_202 Carson Teva's Support
+// grant (own + lent). Shared by the LAW_086 offer gate and the damage resolver so the two cannot drift.
+function _SWUAttackerDealsDamageFirst($attacker): bool {
+    return (is_array($attacker->TurnEffects ?? null) && in_array('SHOOT_FIRST', $attacker->TurnEffects))
+        || (($attacker->CardID ?? '') === 'SOR_198')
+        || (($attacker->CardID ?? '') === 'SHD_234')
+        || _SWUAttackerGrants($attacker, 'ASH_202');
+}
+
 /**
  * SWU combat logic: attacks, damage calculation, and combat-related effects.
  *
@@ -1310,6 +1348,33 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     if (!empty($combatCtx['defenderDefeated']) && $law007AtkCardID === 'IC27_146') {
         AddTrigger($activePlayer, 'IC27_146', 'IC27_146', '');
     }
+    // LAW_046 Chirrut Îmwe — "When Attack Ends: If this unit dealt combat damage to a base, you may heal
+    // 4 damage from another unit." No "(and survives)" rider, so CR 16.c's fire-on-death DEFAULT applies:
+    // with Overwhelm he can spill combat damage onto the base and die to the defender's counter in the
+    // SAME combat, and the heal must still resolve.
+    // Why he needs his own hoist: his ability is implemented on THIS (combat-hit) path rather than in
+    // $onAttackEndAbilities, and the generic CR 16.c dead-attacker path in CollectAfterAttackTriggers is
+    // gated on `isset($onAttackEndAbilities[$cardID.':0'])` — so it never covered him, and the blanket
+    // `if (SWUObjGone($attacker)) return;` below silently dropped the trigger.
+    // Gated on the attacker being GONE so this never double-fires with the live case in the switch below.
+    // Law046Trigger reads its mzID ONLY to exclude ITSELF from the "another unit" pool, which a dead
+    // attacker satisfies for free (GetZoneObject → null → excludeUID 0 → nothing excluded).
+    // ⚠ Deliberately scoped to LAW_046. Other combat-hit-path attack-end cards may have the same gap, but
+    // membership of the fire-on-death set MUST NOT be inferred from card text — that misread ~11 cards
+    // before. _SWUAttackEndRequiresSurvival is the roster; audit per card, do not blanket-change.
+    // "Is the ORIGINAL attacker still the object at this mzID?" — by UID, because a dead attacker's slot
+    // gets reused by the unit that reindexes into it (see 'attackerUID' where the ctx is built).
+    $law046UID  = intval($combatCtx['attackerUID'] ?? 0);
+    $law046Live = ($attacker !== null && !SWUObjGone($attacker)
+                   && $law046UID !== 0 && intval($attacker->UniqueID ?? 0) === $law046UID);
+    if (!empty($combatCtx['dealtToBase'])
+        && strval($combatCtx['attackerCardID'] ?? '') === 'LAW_046'
+        && !$law046Live
+        && !_SWUAttackEndRequiresSurvival('LAW_046')) {
+        // Pass NO mzID: the slot may now hold an unrelated unit, and Law046Trigger uses it only to
+        // exclude itself from "another unit" — which a dead attacker satisfies for free.
+        AddTrigger($activePlayer, 'LAW_046', 'LAW_046', '');
+    }
     // ASH_013 Ezra / ASH_016 Shin — leader field observers: "When a friendly unit's attack ends [dealing 3+
     // combat / any combat damage to a base]: …". Keyed on the LEADER, not the attacker, so they must fire even
     // when the attacking unit was DEFEATED in the same combat (e.g. dealt Overwhelm base damage then died to
@@ -2000,7 +2065,14 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // this unit." Offer the attacker the choice when attacking a UNIT (not a base), before combat damage.
     // YES sets the DEFENDER_FIRST marker (read in SWUCombatDamage); these block-1 decisions resolve ahead
     // of the SWUCombatDamage commit below.
-    if (($attacker->CardID ?? '') === 'LAW_086' && strpos($targetMzID, 'Arena') !== false) {
+    // NOT offered when the attacker ALREADY deals its combat damage first (SOR_217 Shoot First's
+    // SHOOT_FIRST marker, SOR_198 / SHD_234 innate, ASH_202 Carson Teva's grant): DEFENDER_FIRST is the
+    // exact REVERSE of that ordering and the two are mutually exclusive where they are read, so the
+    // offer could only ever be a no-op. Same "skip the pointless offer" rule as SEC_186/SEC_210.
+    // The predicate is shared with the resolver below rather than duplicated — an offer gated on one
+    // rule and resolved by another is how this diverges again.
+    if (($attacker->CardID ?? '') === 'LAW_086' && strpos($targetMzID, 'Arena') !== false
+        && !_SWUAttackerDealsDamageFirst($attacker)) {
         DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
             tooltip: "Have_the_defending_unit_deal_combat_damage_first?");
         DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_086#0|{$attackerMzID}", 1);
@@ -2123,17 +2195,56 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             // no defeated cards to collect (SWUDefeatUnit already fired the defender's When Defeated) and
             // no combat damage was dealt, and Step 3's trailing _SWUDefeatAllAdvantageTokens($targetMzID)
             // would shed the tokens of whatever unit reindexed INTO the dead defender's slot.
+            // CR step 4.c — "If the defending unit is no longer in-play, no combat damage is dealt
+            // UNLESS the attacker has Overwhelm." CR §9.11 / 7.f then say ALL of the attacker's combat
+            // damage is treated as excess and dealt to the enemy base (and, per 7.f, the attacker is NOT
+            // considered to have attacked that base — _SWUOverwhelmSpillToBase encodes that distinction).
+            // Power is recomputed here rather than reusing the main block below, because that block is
+            // past this early return. Only the modifiers that DO NOT depend on a live defender are
+            // applied — which is not a shortcut but the correct set:
+            //   • included: current power, Raid, LOF_206's HP-as-damage, ASH_207's Ambush +2 (all
+            //     target-independent);
+            //   • excluded by the rules: ASH_054 / SEC_033 Sly Moore "-X while attacking a BASE" — this
+            //     is NOT a base attack (7.f), so they must not apply;
+            //   • excluded of necessity: SOR_130 / SHD_138 / ASH_241, whose conditions inspect the
+            //     defender (damaged / has a Bounty) and cannot be evaluated once it is gone. They also
+            //     GRANT Overwhelm conditionally, so a unit relying solely on them is not covered here.
+            $owAmt = 0;
+            if (HasKeyword_Overwhelm($attacker) && !LostAbilities($attacker)) {
+                $owAmt = intval(ObjectCurrentPower($attacker));
+                $owRaid = GetKeyword_Raid_Value($attacker);
+                if ($owRaid !== null && $owRaid > 0) $owAmt += $owRaid;
+                if (is_array($attacker->TurnEffects ?? null) && in_array('SWU_HP_AS_DAMAGE', $attacker->TurnEffects)) {
+                    $owAmt = max(0, intval(ObjectCurrentHP($attacker)) - intval($attacker->Damage ?? 0));
+                }
+                if (($attacker->CardID ?? '') === 'ASH_207' && is_array($attacker->TurnEffects ?? null)
+                    && in_array('SWU_AMBUSH_ATTACK', $attacker->TurnEffects, true)) {
+                    $owAmt += 2;
+                }
+            }
             $_ddia = GetSWUVar('SWU_DEFENDER_DEFEATED_IN_ATTACK', '');
-            if ($_ddia !== '') {
+            if ($_ddia !== '' || $owAmt > 0) {
                 SetSWUVar('SWU_DEFENDER_DEFEATED_IN_ATTACK', '');
                 $_dparts = explode('|', $_ddia);
-                CollectAfterAttackTriggers($player, $attackerMzID, $targetMzID, [
-                    'dealtToBase' => false, 'dealtToUnit' => false, 'defenderDefeated' => true, 'defendersDefeated' => 1,
+                $fizzCtx = [
+                    'dealtToBase' => false, 'dealtToUnit' => false,
+                    'defenderDefeated' => ($_ddia !== ''), 'defendersDefeated' => ($_ddia !== '' ? 1 : 0),
                     'defenderCardID' => $_dparts[0] ?? '',
                     'defenderOwner' => intval($_dparts[1] ?? 0),
                     'defenderIsLeader' => !empty($_dparts[2]),
                     'excess' => 0, 'baseCombatDmg' => 0,
-                ]);
+                    'attackerCardID' => ($attacker !== null) ? ($attacker->CardID ?? '') : '',
+                    'attackerUID' => ($attacker !== null) ? intval($attacker->UniqueID ?? 0) : 0,
+                ];
+                if ($owAmt > 0) {
+                    $spilled = _SWUOverwhelmSpillToBase($player, $targetMzID, $attacker, $owAmt, $fizzCtx);
+                    $fizzCtx['excess'] = $spilled;
+                    if ($spilled > 0) {
+                        AddGameLogEntry('OVERWHELM', 'Overwhelm: ' . $spilled . ' damage to P'
+                            . (3 - intval($player)) . '\'s base');
+                    }
+                }
+                CollectAfterAttackTriggers($player, $attackerMzID, $targetMzID, $fizzCtx);
             }
             $playerID = $savedPID;
             _SWUCombatFinishAction($player);
@@ -2243,10 +2354,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // SOR_217's +1/+0 is a separate registry STAT_BUFF (token SOR_217) already folded into the
     // ObjectCurrentPower above — it is NOT added here, so deal-first and the buff are decoupled
     // (SOR_198 gets the ordering with NO +1/+0).
-    $hasShootFirst = (is_array($attacker->TurnEffects ?? null) && in_array('SHOOT_FIRST', $attacker->TurnEffects))
-        || (($attacker->CardID ?? '') === 'SOR_198')
-        || (($attacker->CardID ?? '') === 'SHD_234')   // Incinerator Trooper — innate deal-first
-        || _SWUAttackerGrants($attacker, 'ASH_202');   // Carson Teva (Support) — innate deal-first, own + lent
+    $hasShootFirst = _SWUAttackerDealsDamageFirst($attacker);
     // LAW_086 The Stranger: "you may have the defending unit deal combat damage before this unit" — the
     // REVERSE of Shoot First (the attacker chose it via the DEFENDER_FIRST marker). Mutually exclusive
     // with shoot-first; only meaningful in unit combat (handled in the unit branch below).
@@ -2306,7 +2414,13 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                   'law205SelfDefeat' => false, 'baseCombatDmg' => 0, 'ash184GiveAdv' => false,
                   // Attacker identity captured BEFORE damage, so a "When Attack Ends" ability that must
                   // still fire when its own unit dies (CR 16.c) can be recognised after the object is gone.
-                  'attackerCardID' => ($attacker !== null) ? ($attacker->CardID ?? '') : ''];
+                  'attackerCardID' => ($attacker !== null) ? ($attacker->CardID ?? '') : '',
+                  // …and its UID. When the attacker dies its arena SLOT is REUSED by whichever unit
+                  // reindexes into it, so GetZoneObject($attackerMzID) later returns a DIFFERENT LIVE
+                  // unit — not null, and not SWUObjGone. Identity checks after damage must compare UIDs;
+                  // an mzID or a bare CardID silently matches the wrong object (and with two copies of
+                  // the same card in the arena, a CardID check matches the survivor).
+                  'attackerUID' => ($attacker !== null) ? intval($attacker->UniqueID ?? 0) : 0];
     // Capture attack-duration markers NOW (before SWUExpireTurnEffects('attack') strips them later):
     // SOR_150 Heroic Sacrifice's granted "when it deals combat damage: defeat it"; JTL_177 Stay on
     // Target's "deal damage to a base → draw"; JTL_193 I Have You Now's damage prevention on the attacker.
@@ -2652,27 +2766,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             // ASH_150 Deadly Vulnerability — "While attached unit is defending, the attacker loses Overwhelm."
             if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $shd138VsBounty || $sec139Overwhelm || $shd007Deployed)
                 && !_SWUUnitHasUpgrade($target, 'ASH_150')) {
-                $overflowAmt = -$defenderHP;
-                $GLOBALS['gInCombatDamage'] = true;
-                SWUDealDamageToBase($overflowAmt, SWUMzOwner($targetMzID, $player)); // Twin Suns: the overwhelmed defender's own base
-                $GLOBALS['gInCombatDamage'] = false;
-                $combatCtx['baseCombatDmg'] += max(0, intval($overflowAmt)); // overwhelm counts for LOF_025
-                // Overwhelm excess IS combat damage the attacker deals to the base (CR 7.6.4), so it must
-                // trigger "when this unit deals (combat) damage to a base" abilities — JTL_177 Stay on Target's
-                // granted draw, ASH_162, SEC_150/147/205, etc. — exactly as a direct base hit would.
-                if ($overflowAmt > 0) $combatCtx['dealtToBase'] = true;
-                // SEC_012 Cassian — overwhelm excess is base damage dealt by the attacker to an enemy base;
-                // mark it "damaged an enemy base this phase" (NOT the SWU_DEALT_BASEDMG "attacked" flag — it
-                // attacked a unit). Only when the base owner is an opponent of the attacker.
-                if ($overflowAmt > 0) {
-                    $ovAuid  = intval($attacker->UniqueID ?? 0);
-                    $ovActrl = intval($attacker->Controller ?? $player);
-                    $ovOwner = SWUMzOwner($targetMzID, $player);                    if ($ovAuid > 0 && intval($ovOwner) !== $ovActrl)
-                        AddGlobalEffects($ovActrl, 'SWU_UNITDMGBASE_' . $ovAuid);
-                    if ($ovAuid > 0)
-                        AddGlobalEffects($ovActrl, 'SWU_DMGDBASE_' . $ovAuid . '_' . intval($ovOwner));
-                }
-                $_logOverwhelm = $overflowAmt; // deferred — logged after the attack line so it reads in event order
+                $_logOverwhelm = _SWUOverwhelmSpillToBase($player, $targetMzID, $attacker, -$defenderHP, $combatCtx);
             }
         }
     }

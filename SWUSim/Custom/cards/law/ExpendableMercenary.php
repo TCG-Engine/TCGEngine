@@ -22,23 +22,18 @@ function _SWULaw159DiscardMz(int $player): ?string {
 }
 
 // LAW_159 Expendable Mercenary — When Defeated: you MAY resource this unit from its owner's discard pile
-// (it enters exhausted, into the resource row of whoever controlled it when it was defeated).
-// The choice is real: declining keeps the card in the discard, which matters for anything that counts
-// discarded cards or recurs from the discard, and for effects that compare resource counts
-// (SEC_151 Kazuda gets +2/+0 "while you control FEWER resources than an opponent").
+// (it enters EXHAUSTED — no "and ready it" rider — into the resource row of whoever controlled it when
+// it was defeated).
+// AUTO-RESOLVES rather than prompting, matching SOR_083/SHD_085 Superlaser Technician: free ramp off a
+// unit that is already dead is taken every time in practice, so the offer was friction rather than a
+// decision. This is a deliberate product call, not a rules reading — RAW the "may" is a real choice, and
+// there are boards where declining is right (keeping the card in the discard for recursion or
+// discard-counting, or staying BELOW an opponent's resource count for SEC_151 Kazuda's "+2/+0 while you
+// control fewer resources"). Revisit if one of those ever matters in practice.
 $whenDefeatedAbilities["LAW_159:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (_SWULaw159DiscardMz(intval($player)) === null) return;   // already moved on (e.g. SHD_122 Arquitens)
-    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
-        tooltip: "Resource_this_unit_from_its_owner's_discard_pile?");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_159#0", 1);
-};
-
-$customDQHandlers["LAW_159#0"] = function($player, $parts, $lastDecision) {
-    if ($lastDecision !== 'YES') return;
-    global $playerID; $playerID = intval($player);
     $dmz = _SWULaw159DiscardMz(intval($player));
-    if ($dmz === null) return;
+    if ($dmz === null) return;   // already moved on (e.g. SHD_122 Arquitens got there first)
     $r = MZMove(intval($player), $dmz, "myResources");
     if ($r !== null) { $r->Status = 0; $r->Owner = intval($player); $r->Controller = intval($player); SWUKeepCreditTokensLast(intval($player)); }
 };

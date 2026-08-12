@@ -13880,6 +13880,9 @@ function _SWUBaseActionProviders(int $player): array {
             // unit in hand the cost can't be paid, so the Action isn't offered at all (and can't burn the
             // Epic slot). Mirrors the resource-cost affordability gate in _SWUBaseOwnAction.
             if ($available && $cardID === 'LAW_023') $available = _SWULaw023CanPayCost($player);
+            // LAW_019 Alliance Outpost — same rule for its "[defeat a friendly token]" cost: with no
+            // friendly token the cost is unpayable, so don't offer the Action at all.
+            if ($available && $cardID === 'LAW_019') $available = _SWULaw019CanPayCost($player);
         }
         if ($available) $out[] = ['kind' => 'own', 'cardID' => $cardID, 'index' => -1, 'label' => 'EpicAction'];
     }
@@ -14017,6 +14020,12 @@ function _SWUBaseOwnAction(int $player): void {
     // Epic slot must survive. (The ability closure already bailed out here, but only after the flag below
     // had been set — the Epic was silently spent for nothing.)
     if ($cardID === 'LAW_023' && !_SWULaw023CanPayCost($player)) {
+        $playerID = $savedPID;
+        return;
+    }
+    // LAW_019 Alliance Outpost — same shape. Its closure already bailed out on an unpayable cost, but
+    // only AFTER the flag below was set, so the once-per-game Epic was silently spent for nothing.
+    if ($cardID === 'LAW_019' && !_SWULaw019CanPayCost($player)) {
         $playerID = $savedPID;
         return;
     }
