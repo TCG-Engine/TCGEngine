@@ -175,6 +175,32 @@ function AzukiTutorialIsContinueAction($mode, $cardID): bool {
         && strcasecmp(strval($parts[2] ?? ''), 'Continue') === 0;
 }
 
+function AzukiTutorialIsDaggerSearcherDecision($mode, $cardID): bool {
+    if(intval($mode) !== 100) return false;
+
+    $dqController = new DecisionQueueController();
+    $nextDecision = $dqController->NextDecision(1);
+    if(!is_object($nextDecision) || strval($nextDecision->Type ?? '') !== 'MZREARRANGE') return false;
+
+    $selectedIndex = null;
+    foreach(explode(';', strval($cardID)) as $part) {
+        $eqPos = strpos($part, '=');
+        if($eqPos === false || trim(substr($part, 0, $eqPos)) !== 'Selected') continue;
+        $selectedValue = trim(substr($part, $eqPos + 1));
+        if($selectedValue === '' || !ctype_digit($selectedValue)) return false;
+        $selectedIndex = intval($selectedValue);
+        break;
+    }
+    if($selectedIndex === null) return false;
+
+    $tempStart = intval(DecisionQueueController::GetVariable('P1_BottomDeckSearcher_TempStart') ?? 0);
+    $tempZone = &GetTempZone(1);
+    $selectedObject = $tempZone[$tempStart + $selectedIndex] ?? null;
+    return is_object($selectedObject)
+        && empty($selectedObject->removed)
+        && strval($selectedObject->CardID ?? '') === AZUKI_TUTORIAL_DAGGER_CARD;
+}
+
 function AzukiTutorialContinue($player): void {
     if(!AzukiTutorialIsActive() || intval($player) !== 1) return;
     $step = AzukiTutorialStep();
@@ -251,7 +277,11 @@ function GameValidateEngineAction($action): array {
     } else if($step === 1) {
         if($mode === 100 && AzukiTutorialActionCardID($cardID) === AZUKI_TUTORIAL_SHURIKEN_CARD) return ['allowed' => true];
     } else if($step === 2) {
+        // The current searcher UI selects the card and orders the remainder in one local popup,
+        // then submits one serialized MZREARRANGE decision on Confirm. Keep accepting the old
+        // direct-card action as a compatibility path for an already-open legacy popup.
         if($mode === 100 && AzukiTutorialActionCardID($cardID) === AZUKI_TUTORIAL_DAGGER_CARD) return ['allowed' => true];
+        if(AzukiTutorialIsDaggerSearcherDecision($mode, $cardID)) return ['allowed' => true];
     } else if($step === 3) {
         if($mode === 100) return ['allowed' => true];
     } else if($step === 4) {
@@ -301,6 +331,12 @@ function AzukiTutorialUpdateProgress(): void {
     $nextDecision = $dqController->NextDecision(1);
     if($step === 2 && is_object($nextDecision) && strval($nextDecision->Type ?? '') === 'MZREARRANGE') {
         AzukiTutorialSetStep(3);
+        return;
+    }
+    if($step === 2 && $nextDecision === null
+        && AzukiTutorialFindCard(1, 'Hand', AZUKI_TUTORIAL_DAGGER_CARD) !== null) {
+        // A tutorial saved on step 2 can reach here after the combined searcher submission.
+        AzukiTutorialSetStep(4);
         return;
     }
     if($step === 3 && $nextDecision === null) {

@@ -73,7 +73,12 @@
 
   function targetPopupChoice() {
     var popup = document.getElementById('mzchoose-popup');
-    if(!popup) return null;
+    if(!popup) {
+      popup = document.getElementById('mzrearrange-popup');
+      if(!popup) return null;
+      return popup.querySelector('.mzrearrange-card.selectable:not(.selected)') ||
+        popup.querySelector('.mzrearrange-card.selectable');
+    }
     var image = popup.querySelector('img');
     var node = image;
     while(node && node !== popup) {
@@ -163,6 +168,12 @@
     if(!introDone) { renderIntro(); return; }
     ensureUI();
     var number = tutorialStep();
+    // The modern searcher combines card selection and bottom-deck ordering into one popup and
+    // sends only one decision when Confirm is clicked. Preserve the lesson's intermediate
+    // instruction locally once the required dagger has been selected.
+    if(number === 2 && document.querySelector('#mzrearrange-popup .mzrearrange-card.selectable.selected')) {
+      number = 3;
+    }
     var step = steps[number] || steps[16];
     currentTarget = step.target ? step.target() : null;
     if(lastStepContent !== number) {
