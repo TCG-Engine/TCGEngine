@@ -20,6 +20,41 @@
 //   imageUrl, imageUrlBack,
 //   leaderUnitTitle, leaderUnitSubtitle, leaderUnitTrait[], leaderUnitArena, leaderUnitType
 return array (
+  'HMW_003' => 
+  array (
+    'title' => 'Doctor Hemlock',
+    'subtitle' => 'Emotion Has No Place Here',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 3,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Official',
+    ),
+    'text' => 'Action [1 resource, Exhaust]: Give a Weakness token to a unit without a Weakness token on it.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'On Attack: You may give a Weakness token to a unit.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/003.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/003-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_004' => 
   array (
     'title' => 'Grand Moff Tarkin',
@@ -235,6 +270,89 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/061.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_062' => 
+  array (
+    'title' => 'Nuvo Vindi',
+    'subtitle' => 'Blue Shadow Perfected',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 1,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+    ),
+    'text' => 'When Played: You may give a Weakness token to a unit.
+When an enemy unit with a Weakness token on it is defeated: You may give a Weakness token to a unit. Use this ability only once each round.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/062.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_064' => 
+  array (
+    'title' => 'Scorch',
+    'subtitle' => 'Imperial Commando',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Clone',
+      2 => 'Trooper',
+    ),
+    'text' => 'On Attack: You may deal 1 damage to an upgraded unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/064.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_070' => 
+  array (
+    'title' => 'Dark Sanctum',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 3,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify (Attack this to your base, not a unit.)
+Attached base gains: "When the regroup phase starts: Draw a card and deal 2 damage to this base."',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/070.png',
     'imageUrlBack' => '',
   ),
   'HMW_081' => 

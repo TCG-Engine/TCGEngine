@@ -633,7 +633,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     // function) and collect separately; the damage paths used to pre-collect before calling this, so
     // those pre-collects were removed (this is now the single collection point for effect-defeats).
     CollectWhenDefeatedTriggers(intval($player), [
-        ['player' => intval($obj->Controller ?? $obj->Owner ?? $player), 'cardID' => $obj->CardID, 'mzID' => $unitMzID, 'upgraded' => _SWUIsUpgraded($obj)]
+        ['player' => intval($obj->Controller ?? $obj->Owner ?? $player), 'cardID' => $obj->CardID, 'mzID' => $unitMzID, 'upgraded' => _SWUIsUpgraded($obj), 'weakened' => (SWUFindUpgradeIndex($obj, 'HMW_T02') >= 0)]
     ]);
     $obj = GetZoneObject($unitMzID);
     if ($obj === null || (isset($obj->removed) && $obj->removed)) { $playerID = $savedPID; return true; }
@@ -2659,7 +2659,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             $gDeferredReplacements[] = ['uid' => intval($attacker->UniqueID ?? 0),
                 'controller' => intval($attacker->Controller ?? $player), 'cardID' => $attacker->CardID, 'kind' => $atkRep['kind']];
         } elseif ($attackerHP <= 0 && !SWUImmuneToHpDefeat($attacker)) {
-            $defeatedCards[] = ['player' => intval($attacker->Controller), 'cardID' => $attacker->CardID, 'mzID' => $attackerMzID, 'upgraded' => _SWUIsUpgraded($attacker)];
+            $defeatedCards[] = ['player' => intval($attacker->Controller), 'cardID' => $attacker->CardID, 'mzID' => $attackerMzID, 'upgraded' => _SWUIsUpgraded($attacker), 'weakened' => (SWUFindUpgradeIndex($attacker, 'HMW_T02') >= 0)];
             AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_COMBATDEF_' . intval($attacker->UniqueID ?? 0)); // "defeated by combat damage" marker (ASH_028/191)
             $atkOwner = intval($attacker->Owner ?? $player);
             if (strpos(CardType($attacker->CardID) ?? '', 'Leader') !== false) {
@@ -2720,7 +2720,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             $gDeferredReplacements[] = ['uid' => intval($target->UniqueID ?? 0),
                 'controller' => intval($target->Controller ?? ($player === 1 ? 2 : 1)), 'cardID' => $target->CardID, 'kind' => $defRep['kind']];
         } elseif ($defenderHP <= 0 && $target !== null && empty($target->removed) && !SWUImmuneToHpDefeat($target)) {
-            $defeatedCards[] = ['player' => intval($target->Controller), 'cardID' => $target->CardID, 'mzID' => $targetMzID, 'upgraded' => _SWUIsUpgraded($target)];
+            $defeatedCards[] = ['player' => intval($target->Controller), 'cardID' => $target->CardID, 'mzID' => $targetMzID, 'upgraded' => _SWUIsUpgraded($target), 'weakened' => (SWUFindUpgradeIndex($target, 'HMW_T02') >= 0)];
             AddGlobalEffects(intval($target->Controller ?? ($player === 1 ? 2 : 1)), 'SWU_COMBATDEF_' . intval($target->UniqueID ?? 0)); // "defeated by combat damage" marker (ASH_028/191)
             $defOwner = intval($target->Owner ?? ($player === 1 ? 2 : 1));
             if (strpos(CardType($target->CardID) ?? '', 'Leader') !== false) {
@@ -2781,7 +2781,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             && (intval(ObjectCurrentHP($rObj)) - intval($rObj->Damage)) <= 0 && !SWUImmuneToHpDefeat($rObj)) {
             $rOwner = intval($rObj->Owner ?? $player);
             $defeatedCards[] = ['player' => intval($rObj->Controller ?? $player), 'cardID' => $rObj->CardID,
-                                'mzID' => $redirectMz, 'upgraded' => _SWUIsUpgraded($rObj)];
+                                'mzID' => $redirectMz, 'upgraded' => _SWUIsUpgraded($rObj), 'weakened' => (SWUFindUpgradeIndex($rObj, 'HMW_T02') >= 0)];
             AddGlobalEffects(intval($rObj->Controller ?? $player), 'SWU_COMBATDEF_' . intval($rObj->UniqueID ?? 0));
             if (strpos(CardType($rObj->CardID) ?? '', 'Leader') !== false) {
                 SWUReturnLeaderToZone($rOwner, $redirectMz);
@@ -3533,7 +3533,7 @@ function _SWUMaulDealCombat($source, $target, string $mzID, int $amount, int $an
 function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker, array &$defeatedCards): void {
     $ctrl  = intval($obj->Controller ?? ($isAttacker ? $player : OtherPlayer($player)));
     $owner = intval($obj->Owner ?? $ctrl);
-    $defeatedCards[] = ['player' => $ctrl, 'cardID' => $obj->CardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj)];
+    $defeatedCards[] = ['player' => $ctrl, 'cardID' => $obj->CardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj), 'weakened' => (SWUFindUpgradeIndex($obj, 'HMW_T02') >= 0)];
     AddGlobalEffects($ctrl, 'SWU_COMBATDEF_' . intval($obj->UniqueID ?? 0));
     if (strpos(CardType($obj->CardID) ?? '', 'Leader') !== false) {
         SWUReturnLeaderToZone($owner, $mzID);

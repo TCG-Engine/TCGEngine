@@ -5528,6 +5528,7 @@ function RegroupPhaseStart(): void {
     _SWUCheckFinalShowdownLose();          // SHD_208 Final Showdown — caster loses the game (before the draw step)
     _SWULawRegroupStartTriggers();         // LAW_071 (credit), LAW_073 (Exp + can't-ready) at regroup start
     _SWUHmw004RegroupBaseDefeat();         // HMW_004 (deployed) — may defeat a base at 10 or less remaining HP
+    _SWUHmw070RegroupBaseTriggers();       // HMW_070 Dark Sanctum — attached base draws 1 and takes 2 (per copy)
     // TWI_067 The Zillo Beast — "When the regroup phase starts: Heal 5 damage from this unit."
     for ($zp = 1; $zp <= SeatCountForGame(); $zp++) {
         foreach (GetUnitsInPlay($zp) as $zu) {
@@ -5838,6 +5839,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH047_USED');        // ASH_047 Gar Saxon "once each round" create-Mandalorian
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH128_USED');        // ASH_128 Bothan-5 "once each round" capture-from-discard
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD137_USED');        // SHD_137 Punishing One "ready this unit once each round"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW062_USED');        // HMW_062 Nuvo Vindi "give a Weakness once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD163_USED');        // SHD_163 Migs Mayfeld "deal 2 on any hand-discard once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD217_USED');        // SHD_217 Tobias Beckett "exhaust a ≤cost unit once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD239_USED');        // SHD_239 Toro Calican "deal 1 + ready once each round"
@@ -8285,6 +8287,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             OnWhenDefeated($player, $cardID, $mzID);
             SWUCollectThrawnReuse($player, $cardID, $mzID); // JTL_002 Thrawn "when you use a When Defeated ability"
             break;
+        case 'HMW_062':   Hmw062WeakenedDefeatTrigger($player);          break;
         case 'JTL_169':   ShadowCasterReuseTrigger($player, $cardID, $mzID); break;
         // JTL_169 Shadow Caster reuse of a GRANTED When-Defeated: $cardID = the granting card's ID (the
         // granted trigger type), $mzID = the param the original granted dispatch carried. Offer to reuse it.
@@ -9043,6 +9046,21 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
                     if (intval($pu->Status ?? 0) === 1) continue;   // already ready → no benefit, don't consume
                     $pu->Status = 1;                                // ready it
                     AddGlobalEffects($opp, 'SWU_SHD137_USED');       // once each round
+                    break;
+                }
+            }
+            // HMW_062 Nuvo Vindi (controlled by $opp): "When an enemy unit with a Weakness token on it is
+            // defeated: You may give a Weakness token to a unit. Use this ability only once each round."
+            // $d['weakened'] is captured at the defeat sites while the subcards are still intact — by the
+            // time this collection runs the dying unit's upgrades are already stripped, so the token
+            // cannot be read off the unit here.
+            // The once/round flag is consumed HERE, at collect time, so a DECLINED offer still spends the
+            // round (the ability triggered) — same convention as SHD_137 above.
+            if (!empty($d['weakened']) && GlobalEffectCount($opp, 'SWU_HMW062_USED') <= 0) {
+                foreach (GetUnitsInPlay($opp) as $pu) {
+                    if (!empty($pu->removed) || ($pu->CardID ?? '') !== 'HMW_062' || LostAbilities($pu)) continue;
+                    AddGlobalEffects($opp, 'SWU_HMW062_USED');
+                    AddTrigger($opp, 'HMW_062', 'HMW_062', '');
                     break;
                 }
             }
@@ -12310,7 +12328,7 @@ function SWUBounceUnit(int $player, string $mzID): bool {
         // + leave-play-AS-DEFEAT reactions (so "a friendly unit was defeated this phase" — incl.
         // SWU_FRIENDLY_HEROISM_DEFEATED for TWI_017 Palpatine — and Gideon/Krell/Boba fire).
         CollectWhenDefeatedTriggers(intval($player), [
-            ['player' => $controller, 'cardID' => $cardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj)]
+            ['player' => $controller, 'cardID' => $cardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj), 'weakened' => (SWUFindUpgradeIndex($obj, 'HMW_T02') >= 0)]
         ]);
         $obj = &GetZoneObject($mzID);
         if ($obj !== null && empty($obj->removed)) $obj->removed = true;

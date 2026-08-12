@@ -1,14 +1,16 @@
 # HMW — Card Implementation Plan
 
-**⚠ PREVIEW SET.** 28 cards exist (26 numbered + 2 tokens) of ~262 printed, as mock entries in
+**⚠ PREVIEW SET.** 33 cards exist (31 numbered + 2 tokens) of ~262 printed, as mock entries in
 `AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
-previews land — the phases below cover only what is currently previewed.
+previews land — the phases below cover only what was previewed when each was written.
 
-21 cards total: 2 Leaders, 1 Base, 10 Units, 5 Upgrades, 2 Tokens (1 Token Unit, 1 Token Upgrade).
-**18 needs-work, 3 auto-wired.**
+⚠ The phase batches below cover the ORIGINAL 21 cards. Cards previewed later were implemented
+individually and appear only on the `### Already Done` line — that line, diffed against the HMW
+entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting batches instead
+would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070
 
 <!-- HMW_019 Dune Sea = blank-text base (52 of 92 released bases are likewise vanilla).
      HMW_T02 Weakness / HMW_T03 Beast = token CARDS; the engine handles tokens generically, so they
@@ -192,6 +194,34 @@ round-trip `Subcards` decode as associative ARRAYS; direct property reads return
 
 ## Status
 
-**ALL 21 currently-previewed HMW cards are implemented.** The "no base-hosted granted abilities" (HMW_206)
-and "no base-defeat primitive" (HMW_004) blockers both turned out to be non-blockers; HMW_060 landed once
-the user settled the replacement-timing ruling.
+**ALL 33 currently-mocked HMW cards are implemented** (verified by diffing the `### Already Done` line
+against the HMW entries in `AppCore/SWU/CardMocks.php`, not by counting batches). The "no base-hosted
+granted abilities" (HMW_206) and "no base-defeat primitive" (HMW_004) blockers both turned out to be
+non-blockers; HMW_060 landed once the user settled the replacement-timing ruling.
+
+**HMW_003 Doctor Hemlock (2026-08-12)** — 15 sections, suite 7004→7019/0. Leader, both sides:
+front `Action [1 resource, Exhaust]` gives a Weakness token to a unit *without* one (the exclusion is a
+TARGET FILTER, asserted on the offer via `P1SELECTABLEEXACT`); deployed `On Attack` may give one with
+**no** exclusion, so it can stack a second -1/-1 — that asymmetry is printed and is why the two sides
+cannot share a filter. The Epic Action needed **zero code**: the generic deploy threshold already equals
+the leader's printed cost (6), pinned by a 6-vs-5 boundary pair. Reused `GIVE_WEAKNESS` +
+`DoGiveTokenUpgrade` from Phase 4 — no new infrastructure.
+
+**HMW_062 / HMW_064 / HMW_070 (2026-08-12)** — 23 sections, suite 7019→7042/0. A regen was required
+first: none of the three had generated code yet, so `HMW_062`/`HMW_064` had no trigger stub (handlers
+would have silently never fired) and `HMW_070` was absent from `$Fortify_Cards` (it could not attach to
+a base at all). The regen was drift-checked against a pre-copy — only the 3 new cards plus index
+renumbering, zero change to existing card data — and the suite was re-verified green BEFORE any card
+code was written.
+- **HMW_064 Scorch** — On Attack, may deal 1 to an upgraded unit. `_SWUIsUpgraded` counts token
+  upgrades, so a Shield-only unit qualifies (and its shield then absorbs the 1 — covered).
+- **HMW_070 Dark Sanctum** — Fortify (free from the keyword registry) + a base-granted regroup trigger
+  hooked in `RegroupPhaseStart` beside HMW_004's. Fires once PER ATTACHED COPY (non-unique), and its
+  self-damage can defeat your own base — covered by a 28/27 boundary pair.
+- **HMW_062 Nuvo Vindi** — When Played, plus "when an enemy unit WITH A WEAKNESS TOKEN is defeated".
+  That condition cannot be read at reaction time (subcards are stripped by then), so a `'weakened'`
+  key was added beside the existing `'upgraded'` capture at all **6** defeat-entry sites — the same
+  shape SHD_137 relies on. Observer + once-each-round gate live in `SWUCollectLeavePlayReactions`;
+  the flag is consumed at collect time so declining still spends the round, and it is cleared in
+  `RegroupPhaseStart`. Both the combat AND effect (`SWUDefeatUnit`) defeat paths are covered.
+

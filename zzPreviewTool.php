@@ -285,6 +285,10 @@ $existing = SWULoadMockCards();
   <button class="secondary" onclick="loadList()">Existing mocks</button>
   <input type="text" id="setcode" placeholder="HMW" style="width:74px">
   <button class="secondary" onclick="loadSetList()">List previewed cards</button>
+  <!-- Filters the LAST pull client-side (the rows are already in hand), so toggling never refetches. -->
+  <label style="font-size:12px; display:inline-flex; align-items:center; gap:4px; cursor:pointer"
+         title="Show only cards with no mock entry and no CardIDOverride — i.e. nothing represents them yet">
+    <input type="checkbox" id="needsEntryOnly" onchange="onNeedsEntryToggle()"> Needs Entry only</label>
   <button onclick="doRegen()">Regenerate</button>
 </header>
 <main>
@@ -471,21 +475,59 @@ function deleteMock(cardID) {
   });
 }
 
+// Last set-list pull, kept so the "Needs Entry only" checkbox can re-filter without refetching.
+var setList = null;   // { set: 'HMW', rows: [...] }
+
+// "Needs Entry" = nothing represents this card yet: no mock entry AND no CardIDOverride alias.
+// 'official' deliberately still shows — a previewed card whose real data has since landed is rare on a
+// live preview set, and silently hiding a whole state is worse than one extra visible row.
+function setListNeedsEntry(r) {
+  return r.state !== 'mocked' && r.state !== 'overridden';
+}
+
 function loadSetList() {
   var set = document.getElementById('setcode').value;
   show('Fetching ' + set + ' previewed cards…', true);
   post('setlist', { set: set }).then(function (d) {
-    if (!d.ok) { show(d.error, false); return; }
-    var html = '<h3>' + esc(set) + ' &mdash; ' + d.count + ' previewed card(s)</h3>' +
-      '<table><tr><th>CardID</th><th>Name</th><th>State</th><th></th></tr>';
-    d.rows.forEach(function (r) {
+    if (!d.ok) { setList = null; show(d.error, false); return; }
+    setList = { set: set, rows: d.rows || [] };
+    renderSetList();
+  });
+}
+
+// Toggling the checkbox must only re-render when the set list is what's ON SCREEN. #editor is shared —
+// the mock edit form and the existing-mocks table render there too — so an unguarded re-render would
+// replace an in-progress edit with a stale list.
+function onNeedsEntryToggle() {
+  if (document.getElementById('setListPanel')) renderSetList();
+}
+
+function renderSetList() {
+  if (!setList) return;                       // nothing pulled yet — the checkbox is a no-op
+  var onlyNeeds = document.getElementById('needsEntryOnly').checked;
+  var total = setList.rows.length;
+  var rows = onlyNeeds ? setList.rows.filter(setListNeedsEntry) : setList.rows;
+
+  var heading = onlyNeeds
+    ? esc(setList.set) + ' &mdash; showing ' + rows.length + ' of ' + total + ' previewed card(s)'
+    : esc(setList.set) + ' &mdash; ' + total + ' previewed card(s)';
+  var html = '<div id="setListPanel"><h3>' + heading + '</h3>';
+
+  if (rows.length === 0) {
+    html += '<p>' + (onlyNeeds && total > 0
+      ? 'Every previewed card in this set is already mocked or overridden.'
+      : 'No previewed cards found.') + '</p>';
+    document.getElementById('editor').innerHTML = html + '</div>';
+  } else {
+    html += '<table><tr><th>CardID</th><th>Name</th><th>State</th><th></th></tr>';
+    rows.forEach(function (r) {
       html += '<tr><td>' + esc(r.cardID) + '</td><td>' + esc(r.name) + '</td>' +
         '<td><span class="badge ' + esc(r.state) + '">' + esc(r.state) + '</span></td>' +
         '<td><button class="secondary" onclick="importCard(\'' + esc(r.cardID) + '\')">Import</button></td></tr>';
     });
-    document.getElementById('editor').innerHTML = html + '</table>';
-    show('Listed ' + d.count + ' previewed card(s) in ' + set, true);
-  });
+    document.getElementById('editor').innerHTML = html + '</table></div>';
+  }
+  show('Listed ' + rows.length + (onlyNeeds ? ' of ' + total : '') + ' previewed card(s) in ' + setList.set, true);
 }
 
 function importCard(cardID) {
