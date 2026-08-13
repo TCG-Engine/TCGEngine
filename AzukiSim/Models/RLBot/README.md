@@ -59,6 +59,15 @@ heuristics abstain; covered decisions never consult the model. Legacy full
 checkpoints retain their previous tie-breaking behavior. Other bot profiles
 continue to use their checkpoint policy unchanged.
 
+## Raizan heuristic policy
+
+The `raizan` opponent profile uses the Deck 373 list and passes every decision
+through `Custom/RlBotRaizanHeuristics.php` first. Its initial deterministic
+coverage was distilled from three completed Raizan-vs-Zero games and handles a
+small set of repeatable opener, curve, placement, Charge-target, combat-target,
+and one-point-removal decisions. All other decisions fall back to the existing
+`raizan-aggro-control-20260712-194552-ep7040.json` full-policy checkpoint.
+
 ## Bobu heuristic policy
 
 The `bobu` opponent profile uses `Custom/RlBotBobuHeuristics.php` and its own

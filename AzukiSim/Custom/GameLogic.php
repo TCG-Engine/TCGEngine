@@ -4,6 +4,7 @@ require_once __DIR__ . '/Stats.php';
 require_once __DIR__ . '/RlBotProfiles.php';
 require_once __DIR__ . '/RlBotHeuristics.php';
 require_once __DIR__ . '/RlBotBobuHeuristics.php';
+require_once __DIR__ . '/RlBotRaizanHeuristics.php';
 require_once __DIR__ . '/GameLog.php';
 
 $debugMode = true;
@@ -310,6 +311,7 @@ function AzukiRlBotCheckpointHeuristicPolicy($path) {
     if(!is_string($raw) || $raw === '') return 'none';
     if(strpos($raw, '"heuristic_policy": "zero"') !== false || strpos($raw, '"heuristic_policy":"zero"') !== false) return 'zero';
     if(strpos($raw, '"heuristic_policy": "bobu"') !== false || strpos($raw, '"heuristic_policy":"bobu"') !== false) return 'bobu';
+    if(strpos($raw, '"heuristic_policy": "raizan"') !== false || strpos($raw, '"heuristic_policy":"raizan"') !== false) return 'raizan';
     return 'none';
 }
 
@@ -679,18 +681,23 @@ function ProcessAzukiRlBotStep() {
     $policyRole = AzukiRlBotCheckpointPolicyRole($checkpointPath);
     $checkpointHeuristic = AzukiRlBotCheckpointHeuristicPolicy($checkpointPath);
     $profileName = NormalizeAzukiRlBotProfile(DecisionQueueController::GetVariable('AzukiRlBotProfile'));
-    $heuristicProfile = in_array($profileName, ['zero', 'bobu'], true) ? $profileName : '';
+    $heuristicProfile = in_array($profileName, ['raizan', 'zero', 'bobu'], true) ? $profileName : '';
     $useProfileHeuristics = $heuristicProfile !== '';
     $useProfileResidual = $useProfileHeuristics
         && $policyRole === 'residual'
         && $checkpointHeuristic === $heuristicProfile;
+    // Raizan's current checkpoint predates residual-policy metadata. Its
+    // heuristic layer still gets first refusal, then the unchanged full model
+    // remains the fallback until a Raizan residual checkpoint is published.
+    $useProfileModelFallback = $heuristicProfile === 'raizan' || $useProfileResidual;
     $GLOBALS['bridgeIncludeAzukiRlState'] = $stateKeyVersion === 'AzukiSim:azuki-v1';
     // Profile heuristics consume compact live-board features directly.
     // Do not make those inputs depend on an optional ignored model artifact being
     // present in a particular deployment.
     $GLOBALS['bridgeIncludeAzukiCompactState'] = $useProfileHeuristics
         || in_array($stateKeyVersion, ['AzukiSim:compact-v2', 'AzukiSim:compact-v3', 'AzukiSim:compact-v4'], true);
-    $GLOBALS['bridgeIncludeAzukiStrategyState'] = !$useProfileHeuristics && $strategyMode === 'aggro-control';
+    $GLOBALS['bridgeIncludeAzukiStrategyState'] = (!$useProfileHeuristics || $heuristicProfile === 'raizan')
+        && $strategyMode === 'aggro-control';
     $snapshot = BridgeSnapshotLoaded('AzukiSim', strval($gameName), 'summary');
     $terminal = is_array($snapshot['terminal'] ?? null) ? $snapshot['terminal'] : [];
     if(!empty($terminal['isTerminal'])) {
@@ -714,26 +721,31 @@ function ProcessAzukiRlBotStep() {
 
     $stateKey = AzukiRlBotStateKeyFromSnapshot($snapshot, $stateKeyVersion, $actingPlayer, $legal);
 
-    if(!$useProfileHeuristics && $strategyMode === 'aggro-control') {
+    $modelActions = $actions;
+    if((!$useProfileHeuristics || $heuristicProfile === 'raizan') && $strategyMode === 'aggro-control') {
         $strategyKey = AzukiRlBotStrategyStateKeyFromSnapshot($snapshot, $actingPlayer);
         $posture = AzukiRlBotChoosePosture(AzukiRlBotLoadStateLogits($strategyKey));
-        $actions = AzukiRlBotFilterActionsForPosture($actions, $posture);
+        $modelActions = AzukiRlBotFilterActionsForPosture($modelActions, $posture);
     }
     $stateLogits = AzukiRlBotLoadStateLogits($stateKey);
-    if($useProfileResidual) {
-        $heuristicChoice = $heuristicProfile === 'bobu'
-            ? AzukiBobuHeuristicCoveredChoice($actions, $legal, $snapshot, $actingPlayer)
-            : AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $actingPlayer);
+    if($useProfileModelFallback) {
+        if($heuristicProfile === 'raizan') {
+            $heuristicChoice = AzukiRaizanHeuristicCoveredChoice($actions, $legal, $snapshot, $actingPlayer);
+        } else if($heuristicProfile === 'bobu') {
+            $heuristicChoice = AzukiBobuHeuristicCoveredChoice($actions, $legal, $snapshot, $actingPlayer);
+        } else {
+            $heuristicChoice = AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $actingPlayer);
+        }
         $action = !empty($heuristicChoice['covered'])
             ? ($heuristicChoice['action'] ?? null)
-            : AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion, $legal);
+            : AzukiRlBotChooseAction($stateLogits, $modelActions, $actionKeyVersion, $legal);
     } else {
         if($heuristicProfile === 'bobu') {
             $action = AzukiBobuHeuristicChooseAction($stateLogits, $actions, $legal, $snapshot, $actingPlayer);
         } else if($heuristicProfile === 'zero') {
             $action = AzukiZeroHeuristicChooseAction($stateLogits, $actions, $legal, $snapshot, $actingPlayer);
         } else {
-            $action = AzukiRlBotChooseAction($stateLogits, $actions, $actionKeyVersion, $legal);
+            $action = AzukiRlBotChooseAction($stateLogits, $modelActions, $actionKeyVersion, $legal);
         }
     }
     if(!is_array($action)) return ['success' => true, 'message' => 'No bot action was selected.', 'applied' => false];
@@ -2510,22 +2522,60 @@ function DiscardAfterAdd($player, $CardID) {
 
     $idx = count($discard) - 1;
     if($idx < 0 || !isset($discard[$idx])) return;
+    if(!empty($discard[$idx]->_discardCardMacroTracked)) return;
     $sourceZone = strval($discard[$idx]->_sourceZone ?? '');
     if($sourceZone !== 'myHand' && $sourceZone !== 'theirHand') return;
 
+    // Older card implementations move discarded cards directly. Mirror those
+    // successful hand-to-discard moves into the generated DiscardCard macro
+    // indexes so rules checks have one canonical event source. New card code
+    // should call DiscardCard($player, $mzID), whose generated wrapper records
+    // the same indexes before DoDiscardCard performs the move.
     $turnIndex = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
-    if(!isset($turnIndex['AzukiHandDiscardTurn']) || !is_array($turnIndex['AzukiHandDiscardTurn'])) {
-        $turnIndex['AzukiHandDiscardTurn'] = [];
-    }
     $player = intval($player);
-    $turnIndex['AzukiHandDiscardTurn'][$player] = intval(GetTurnNumber());
+    if(!isset($turnIndex['DiscardCardCalls']) || !is_array($turnIndex['DiscardCardCalls'])) {
+        $turnIndex['DiscardCardCalls'] = [];
+    }
+    $turnIndex['DiscardCardCalls'][$player] = intval($turnIndex['DiscardCardCalls'][$player] ?? 0) + 1;
+    if(!isset($turnIndex['DiscardCard']) || !is_array($turnIndex['DiscardCard'])) {
+        $turnIndex['DiscardCard'] = [];
+    }
+    if(!isset($turnIndex['DiscardCard'][$player]) || !is_array($turnIndex['DiscardCard'][$player])) {
+        $turnIndex['DiscardCard'][$player] = [];
+    }
+    $turnIndex['DiscardCard'][$player][$CardID] = intval($turnIndex['DiscardCard'][$player][$CardID] ?? 0) + 1;
     SetMacroTurnIndex(json_encode($turnIndex));
+
+    $gameIndex = GetMacroGameIndexArray();
+    if(!isset($gameIndex['DiscardCardCalls']) || !is_array($gameIndex['DiscardCardCalls'])) {
+        $gameIndex['DiscardCardCalls'] = [];
+    }
+    $gameIndex['DiscardCardCalls'][$player] = intval($gameIndex['DiscardCardCalls'][$player] ?? 0) + 1;
+    if(!isset($gameIndex['DiscardCard']) || !is_array($gameIndex['DiscardCard'])) {
+        $gameIndex['DiscardCard'] = [];
+    }
+    if(!isset($gameIndex['DiscardCard'][$player]) || !is_array($gameIndex['DiscardCard'][$player])) {
+        $gameIndex['DiscardCard'][$player] = [];
+    }
+    $gameIndex['DiscardCard'][$player][$CardID] = intval($gameIndex['DiscardCard'][$player][$CardID] ?? 0) + 1;
+    SetMacroGameIndex(json_encode($gameIndex));
 }
 
 function PlayerDiscardedCardThisTurn($player) {
-    $turnIndex = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
-    $discardTurn = intval($turnIndex['AzukiHandDiscardTurn'][intval($player)] ?? -1);
-    return $discardTurn === intval(GetTurnNumber());
+    $player = intval($player);
+    return !empty(DiscardCardTurnCards($player));
+}
+
+function DoDiscardCard($player, $mzID) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return null;
+    if(($obj->Location ?? '') !== 'Hand') return null;
+
+    // The macro wrapper already recorded this event. Suppress the compatibility
+    // bridge in DiscardAfterAdd so macro-based discards are counted exactly once.
+    $obj->_discardCardMacroTracked = true;
+    $moved = MZMove($player, $mzID, 'myDiscard');
+    return $moved === null ? null : $mzID;
 }
 
 // CardAttack(), CardHealth(), CardElement(), CardSubtypes() are provided by GeneratedCardDictionaries.php

@@ -245,6 +245,33 @@ function GetPreconstructedDeckConfig($deckName) {
         ];
     }
 
+    // The custom Raizan list from AzukiDeck 373. Keep the published bot deck
+    // local so live games do not depend on the editor API or deck ownership.
+    if($normalized === 'raizanrl') {
+        return [
+            'name' => 'Raizan (Deck 373)',
+            'leader' => 'S1-STT01-001_Raizan_L_L_die',
+            'gate' => 'S1-STT01-002_Surge-Gate_G_G_die',
+            'deckList' => [
+                'S1-STT01-013_Black-Jade-Dagger_W_C_die','S1-STT01-013_Black-Jade-Dagger_W_C_die','S1-STT01-013_Black-Jade-Dagger_W_C_die','S1-STT01-013_Black-Jade-Dagger_W_C_die',
+                'S1-STT01-004_Black-Jade-Recruit_E_C_die','S1-STT01-004_Black-Jade-Recruit_E_C_die','S1-STT01-004_Black-Jade-Recruit_E_C_die','S1-STT01-004_Black-Jade-Recruit_E_C_die',
+                'S1-STT01-003_Crate-Rat-Kurobo_E_C_die','S1-STT01-003_Crate-Rat-Kurobo_E_C_die','S1-STT01-003_Crate-Rat-Kurobo_E_C_die','S1-STT01-003_Crate-Rat-Kurobo_E_C_die',
+                'S1-AZK01-094_Hidden-Dagger_W_C_die','S1-AZK01-094_Hidden-Dagger_W_C_die','S1-AZK01-094_Hidden-Dagger_W_C_die','S1-AZK01-094_Hidden-Dagger_W_C_die',
+                'S1-STT01-017_Lightning-Orb_S_UC_die','S1-STT01-017_Lightning-Orb_S_UC_die','S1-STT01-017_Lightning-Orb_S_UC_die','S1-STT01-017_Lightning-Orb_S_UC_die',
+                'S1-STT01-006_Silver-Current-Haruhi_E_R_die','S1-STT01-006_Silver-Current-Haruhi_E_R_die','S1-STT01-006_Silver-Current-Haruhi_E_R_die','S1-STT01-006_Silver-Current-Haruhi_E_R_die',
+                'S1-STT01-014_Tenshin_W_C_die','S1-STT01-014_Tenshin_W_C_die','S1-STT01-014_Tenshin_W_C_die','S1-STT01-014_Tenshin_W_C_die',
+                'S1-STT01-008_Black-Jade-Crewleader_E_UC_die','S1-STT01-008_Black-Jade-Crewleader_E_UC_die','S1-STT01-008_Black-Jade-Crewleader_E_UC_die','S1-STT01-008_Black-Jade-Crewleader_E_UC_die',
+                'S1-STT01-005_Alpine-Prowler_E_C_die','S1-STT01-005_Alpine-Prowler_E_C_die',
+                'S1-AZK01-011_Rooftop-Hunter_E_C_die','S1-AZK01-011_Rooftop-Hunter_E_C_die',
+                'S1-AZK01-077_Stalking-Assassin_E_C_die','S1-AZK01-077_Stalking-Assassin_E_C_die','S1-AZK01-077_Stalking-Assassin_E_C_die',
+                'S1-AZK01-015_Mo_E_SR_die','S1-AZK01-015_Mo_E_SR_die','S1-AZK01-015_Mo_E_SR_die','S1-AZK01-015_Mo_E_SR_die',
+                'S1-AZK01-042_Thunderclap_S_SR_die','S1-AZK01-042_Thunderclap_S_SR_die',
+                'S1-STT01-012_Lightning-Shuriken_W_C_die','S1-STT01-012_Lightning-Shuriken_W_C_die','S1-STT01-012_Lightning-Shuriken_W_C_die',
+                'S1-AZK01-127_Sundering-Strike_S_UC_die','S1-AZK01-127_Sundering-Strike_S_UC_die',
+            ],
+        ];
+    }
+
     return [
         'name' => 'Raizan',
         'leader' => 'S1-STT01-001_Raizan_L_L_die',

@@ -3,8 +3,8 @@
 function AzukiRlBotProfiles(): array {
     return [
         'raizan' => [
-            'label' => 'Raizan Starter Deck',
-            'deck' => 'Raizan',
+            'label' => 'Raizan (Deck 373)',
+            'deck' => 'RaizanRL',
             'model' => 'raizan-aggro-control-20260712-194552-ep7040.json',
         ],
         'zero' => [

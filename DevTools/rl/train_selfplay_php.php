@@ -432,10 +432,10 @@ function RlValidateHeuristicTrainingArgs($args) {
     return;
   }
   if (strval($args['root'] ?? '') !== 'AzukiSim') RlFail('--train-fallback-only currently supports only --root AzukiSim.');
-  if (!in_array($heuristic, ['zero', 'bobu'], true)) RlFail('--train-fallback-only currently requires --heuristic-policy zero or bobu.');
+  if (!in_array($heuristic, ['raizan', 'zero', 'bobu'], true)) RlFail('--train-fallback-only currently requires --heuristic-policy raizan, zero, or bobu.');
   if (RlStrategyEnabled(strval($args['strategy-mode'] ?? 'none'))) RlFail('--train-fallback-only cannot currently be combined with --strategy-mode.');
-  if ($hasOpponent && !in_array($opponentHeuristic, ['zero', 'bobu'], true)) {
-    RlFail('--opponent-deck requires --opponent-heuristic-policy zero or bobu.');
+  if ($hasOpponent && !in_array($opponentHeuristic, ['raizan', 'zero', 'bobu'], true)) {
+    RlFail('--opponent-deck requires --opponent-heuristic-policy raizan, zero, or bobu.');
   }
   if (!$hasOpponent && $opponentHeuristic !== '' && $opponentHeuristic !== 'none') {
     RlFail('--opponent-heuristic-policy requires --opponent-deck.');
@@ -448,9 +448,12 @@ function RlEnsureHeuristicPolicyLoaded($args, $heuristic = '') {
   $customDir = RegressionRepoRoot() . DIRECTORY_SEPARATOR . 'AzukiSim' . DIRECTORY_SEPARATOR . 'Custom' . DIRECTORY_SEPARATOR;
   if (!function_exists('AzukiZeroHeuristicCoveredChoice')) require_once $customDir . 'RlBotHeuristics.php';
   if ($heuristic === 'bobu' && !function_exists('AzukiBobuHeuristicCoveredChoice')) require_once $customDir . 'RlBotBobuHeuristics.php';
-  $loaded = $heuristic === 'bobu'
-    ? function_exists('AzukiBobuHeuristicCoveredChoice')
-    : function_exists('AzukiZeroHeuristicCoveredChoice');
+  if ($heuristic === 'raizan' && !function_exists('AzukiRaizanHeuristicCoveredChoice')) require_once $customDir . 'RlBotRaizanHeuristics.php';
+  $loaded = match($heuristic) {
+    'bobu' => function_exists('AzukiBobuHeuristicCoveredChoice'),
+    'raizan' => function_exists('AzukiRaizanHeuristicCoveredChoice'),
+    default => function_exists('AzukiZeroHeuristicCoveredChoice'),
+  };
   if (!$loaded) RlFail('Unable to load the ' . ucfirst($heuristic) . ' heuristic coverage policy.');
 }
 
@@ -458,9 +461,11 @@ function RlHeuristicCoveredChoice($args, $actions, $legal, $snapshot, $player, $
   if (!RlFallbackTrainingEnabled($args)) return ['covered' => false, 'rule' => '', 'action' => null];
   $heuristic = strtolower(trim(strval($heuristic !== '' ? $heuristic : ($args['heuristic-policy'] ?? ''))));
   RlEnsureHeuristicPolicyLoaded($args, $heuristic);
-  return $heuristic === 'bobu'
-    ? AzukiBobuHeuristicCoveredChoice($actions, $legal, $snapshot, $player)
-    : AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $player);
+  return match($heuristic) {
+    'bobu' => AzukiBobuHeuristicCoveredChoice($actions, $legal, $snapshot, $player),
+    'raizan' => AzukiRaizanHeuristicCoveredChoice($actions, $legal, $snapshot, $player),
+    default => AzukiZeroHeuristicCoveredChoice($actions, $legal, $snapshot, $player),
+  };
 }
 
 function RlHeuristicForPlayer($args, $player) {

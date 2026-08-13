@@ -305,7 +305,7 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
         <img src="/TCGEngine/AzukiSim/WebpImages/S1-STT01-001_Raizan_L_L_die.webp" alt="" aria-hidden="true">
         <span>
           <strong>Raizan</strong>
-          <small>Starter Deck</small>
+          <small>Deck 373</small>
         </span>
       </button>
       <button type="button" class="rl-bot-opponent-choice" onclick="startRlBotGame('zero')">
