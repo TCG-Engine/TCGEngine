@@ -832,11 +832,25 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
     // SOR_122 Traitorous / JTL_083 Pantoran Starship Thief: when this upgrade detaches (defeated), the
     // host returns to its owner's control ("When this upgrade detaches from a unit: that unit's owner
     // takes control of it.").
+    // ⚠ QUEUED, not inline. This is a TRIGGERED ability, so the effect that defeated the upgrade must
+    // finish resolving first. The inline flip broke ASH_090 Reforge: it defeats Traitorous as its cost,
+    // then plays a searched upgrade "on that unit" — with the control flipped immediately, the host had
+    // already left the friendly pool by search time and the found upgrade was filtered unplayable.
+    // Block 2 sorts AFTER the block-0/1 decisions the defeating effect queues (AddDecision inserts in
+    // block order), so the revert fires once the current effect's whole chain has drained. Resolved by
+    // UID at fire time — the host's mzID can shift before then. UID 0 (untracked object) falls back to
+    // the old inline flip rather than losing the revert entirely.
     if ($foundCardID === 'SOR_122' || $foundCardID === 'JTL_083') {
         $hostOwner = intval($host->Owner ?? $player);
         $hostCtrl  = intval($host->Controller ?? $hostOwner);
         if ($hostCtrl !== $hostOwner) {
-            SWUTakeControlOfUnit($hostOwner, $hostMzID);
+            $revUID = intval($host->UniqueID ?? 0);
+            if ($revUID > 0) {
+                DecisionQueueController::AddDecision(intval($player), "CUSTOM",
+                    "TRAITOROUS_REVERT|{$hostOwner}|{$revUID}", 2);
+            } else {
+                SWUTakeControlOfUnit($hostOwner, $hostMzID);
+            }
         }
     }
 
@@ -1755,7 +1769,34 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
         // a trigger condition; gate collection on the combat outcome so nothing fires (no decision)
         // when the defender survived. Other OnAttackEnd cards (SOR_009/015/192) are unconditional.
         if ($attacker->CardID !== 'SOR_146' || !empty($combatCtx['defenderDefeated'])) {
-            AddTrigger($activePlayer, 'OnAttackEnd', $attacker->CardID, $attackerMzID);
+            // ⚠ CROSS-PLAYER ORDERING (CR: defeats resolve DURING the attack; "when the attack ends" is
+            // after). A defeated DEFENDER's When Defeated parks as a RESOLVE_TRIGGER on ITS controller's
+            // queue, which drains independently of ours — so at this collection point the attacker can
+            // read as "survived" while a ping that will kill it is still parked (Maz LAW_074 searched,
+            // then died to HK-87's "deal 2 to each ground unit"). For SURVIVAL-GATED cards only (the
+            // _SWUAttackEndRequiresSurvival roster — everything else fires either way per CR 16.c), the
+            // trigger is RELAYED: parked on the defender-controller's queue AFTER their When-Defeateds
+            // (same block appends behind them), and delivered/dropped there once survival is real.
+            $aeRelayed = false;
+            if (_SWUAttackEndRequiresSurvival($attacker->CardID)) {
+                $aeUID = intval($combatCtx['attackerUID'] ?? 0) ?: intval($attacker->UniqueID ?? 0);
+                for ($aeSeat = 1; $aeSeat <= SeatCountForGame() && !$aeRelayed; $aeSeat++) {
+                    if ($aeSeat === intval($activePlayer)) continue;
+                    foreach (GetDecisionQueue($aeSeat) as $aeEntry) {
+                        if (!empty($aeEntry->removed)) continue;
+                        if (($aeEntry->Type ?? '') !== 'CUSTOM') continue;
+                        if (strpos((string)($aeEntry->Param ?? ''), 'RESOLVE_TRIGGER|WhenDefeated|') !== 0) continue;
+                        DecisionQueueController::AddDecision($aeSeat, "CUSTOM",
+                            "XPLAYER_ATTACK_END_RELAY|{$activePlayer}|{$attacker->CardID}|{$aeUID}",
+                            intval($aeEntry->Block ?? 1));
+                        $aeRelayed = true;
+                        break;
+                    }
+                }
+            }
+            if (!$aeRelayed) {
+                AddTrigger($activePlayer, 'OnAttackEnd', $attacker->CardID, $attackerMzID);
+            }
         }
     }
     // CR 16.c — a "When Attack Ends" ability STILL triggers when the unit it is on is defeated by combat
@@ -1871,6 +1912,51 @@ function _SWUApplyCondemnSuppression($attacker, string $attackerMzID): void {
     }
 }
 
+// Records the "a unit attacked this phase" flag family for one attack. Cleared at RegroupPhaseStart.
+//
+// ⚠ Called from BOTH attack entry points on purpose. `BeginSWUAttack` is only the PLAYER-INITIATED
+// attack action (pick an attacker, pick a target); an **Ambush** attack goes straight to
+// `ExecuteSWUAttack` and never passes through it. While these flags lived only in BeginSWUAttack, every
+// card reading them was blind to an Ambush attack — LAW_228 Canyon Frontrunner offered its "no other
+// units have attacked this phase" debuff right after an Ambush unit had attacked. The same hole applied
+// to LAW_112, LAW_219, SOR_245, and every trait variant below (JTL_006 / JTL_012 / LOF_011 / TWI_134 /
+// TS26_07 / SHD Bo-Katan). Any new attack entry point must call this too.
+//
+// IDEMPOTENT PER ATTACKER, and that is load-bearing: the flag set answers "WHICH units have attacked",
+// not "how many attacks happened". Readers count `SWU_ATTACKED_\d+` entries and compare against 1 to mean
+// "only me". Without the guard, one unit attacking twice in a phase (readied by SHD_182 Bravado, Maul's
+// double attack, a second ExecuteSWUAttack for one declaration) tallies 2 and reads as "another unit
+// attacked" — wrong for a card whose text says "no OTHER units".
+function _SWURecordAttackFlags(int $player, $attacker): void {
+    $uid = intval($attacker->UniqueID ?? 0);
+    if ($uid > 0 && GlobalEffectCount($player, 'SWU_ATTACKED_' . $uid) > 0) return; // already recorded
+    AddGlobalEffects($player, 'SWU_ATTACKED_' . $uid);  // any unit attacked this phase (SOR_245)
+    if (TraitContains($attacker, 'Mandalorian')) {
+        AddGlobalEffects($player, 'SWU_ATTACKED_MANDALORIAN_' . $uid);
+    }
+    // JTL_006 Darth Vader: "attacked with a non-token Vehicle this phase." A deployed Leader Unit
+    // counts if it has the Vehicle trait; Token Units (TIE tokens etc.) are excluded.
+    if (HasTrait($attacker->CardID, 'Vehicle') && EffectiveCardType($attacker) !== 'Token Unit') {
+        AddGlobalEffects($player, 'SWU_ATTACKED_VEHICLE');
+    }
+    // JTL_012 Luke Skywalker: "attacked with a Fighter unit this phase."
+    if (HasTrait($attacker->CardID, 'Fighter')) {
+        AddGlobalEffects($player, 'SWU_ATTACKED_FIGHTER');
+    }
+    // LOF_011 Kit Fisto: "attacked with a Jedi unit this phase."
+    if (TraitContains($attacker, 'Jedi')) {
+        AddGlobalEffects($player, 'SWU_ATTACKED_JEDI');
+    }
+    // TWI_134 Asajj Ventress: "attacked with a Separatist unit this phase" (count-based, incl. this attack).
+    if (HasTrait($attacker->CardID, 'Separatist')) {
+        AddGlobalEffects($player, 'SWU_ATTACKED_SEPARATIST');
+    }
+    // TS26_07 Asajj Ventress (deployed): "While you've attacked with a token unit this phase, +2/+0."
+    if (EffectiveCardType($attacker) === 'Token Unit') {
+        AddGlobalEffects($player, 'SWU_ATTACKED_TOKEN');
+    }
+}
+
 function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     global $playerID;
     $savedPID = $playerID;
@@ -1906,6 +1992,10 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     if ($atkUID > 0) AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_UNIT_ATTACKED_' . $atkUID);
     // Per-player "a friendly unit attacked this phase" flag (TWI_007 Captain Rex). Cleared at RegroupPhaseStart.
     AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_FRIENDLY_ATTACKED');
+    // The "which units attacked this phase" family. Set here as well as at declaration because an
+    // Ambush attack reaches combat through this function ONLY — see _SWURecordAttackFlags. Idempotent,
+    // so the normal path (already recorded in BeginSWUAttack) is a no-op here.
+    _SWURecordAttackFlags(intval($attacker->Controller ?? $player), $attacker);
 
     // SOR_072 Entrenched / JTL_092 Scramble Fighters: "can't attack bases." Backstop (the valid-targets
     // list already omits the base) so a base target never resolves into combat.
@@ -3235,11 +3325,7 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     // that path uses SWU_COMBAT_OWNS_AFTERACTION (combat owns, FINISH_PLAY_CARD skips) instead.
     SetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', _SWUSupportGrant($attacker) !== null ? '1' : '');
 
-    $attackedUid = intval($attacker->UniqueID ?? 0);
-    AddGlobalEffects($player, 'SWU_ATTACKED_' . $attackedUid);  // any unit attacked this phase (SOR_245)
-    if (TraitContains($attacker, 'Mandalorian')) {
-        AddGlobalEffects($player, 'SWU_ATTACKED_MANDALORIAN_' . $attackedUid);
-    }
+    _SWURecordAttackFlags($player, $attacker);
     // LAW_112 Boonta Eve Flagbearer — "When a friendly unit attacks: if no other units have attacked
     // this phase (including enemy units), heal 2 from your base." This attack's flag was just set, so
     // exactly one attack flag = first attack. Heal once per Flagbearer the active player controls.
@@ -3254,27 +3340,6 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
             $flags = _SWUCountActiveUnitsWithCardID($player, 'LAW_112');
             for ($i = 0; $i < $flags; $i++) OnHealBase($player, $player, 2);
         }
-    }
-    // JTL_006 Darth Vader: "attacked with a non-token Vehicle this phase." A deployed Leader Unit
-    // counts if it has the Vehicle trait; Token Units (TIE tokens etc.) are excluded.
-    if (HasTrait($attacker->CardID, 'Vehicle') && EffectiveCardType($attacker) !== 'Token Unit') {
-        AddGlobalEffects($player, 'SWU_ATTACKED_VEHICLE');
-    }
-    // JTL_012 Luke Skywalker: "attacked with a Fighter unit this phase."
-    if (HasTrait($attacker->CardID, 'Fighter')) {
-        AddGlobalEffects($player, 'SWU_ATTACKED_FIGHTER');
-    }
-    // LOF_011 Kit Fisto: "attacked with a Jedi unit this phase."
-    if (TraitContains($attacker, 'Jedi')) {
-        AddGlobalEffects($player, 'SWU_ATTACKED_JEDI');
-    }
-    // TWI_134 Asajj Ventress: "attacked with a Separatist unit this phase" (count-based, incl. this attack).
-    if (HasTrait($attacker->CardID, 'Separatist')) {
-        AddGlobalEffects($player, 'SWU_ATTACKED_SEPARATIST');
-    }
-    // TS26_07 Asajj Ventress (deployed): "While you've attacked with a token unit this phase, +2/+0."
-    if (EffectiveCardType($attacker) === 'Token Unit') {
-        AddGlobalEffects($player, 'SWU_ATTACKED_TOKEN');
     }
     // LAW_219 Anakin's Podracer — "While attacking, if no other units have attacked this phase, this
     // unit deals combat damage before the defending unit." Conditional SHOOT_FIRST, set at declaration

@@ -10,7 +10,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048
 
 <!-- HMW_019 Dune Sea = blank-text base (52 of 92 released bases are likewise vanilla).
      HMW_T02 Weakness / HMW_T03 Beast = token CARDS; the engine handles tokens generically, so they
@@ -270,3 +270,145 @@ code was written.
   the flag is consumed at collect time so declining still spends the round, and it is cleared in
   `RegroupPhaseStart`. Both the combat AND effect (`SWUDefeatUnit`) defeat paths are covered.
 
+
+## Phase 8 — third preview wave (autonomous)
+
+- [x] **Batch 8.1 — HMW_043 Darth Vader, Any Methods Necessary** — 12 sections, suite 7066 → 7078, 0 failed.
+  Saboteur was free (already in `$Saboteur_Cards`, generic keyword coverage exists); the When Played half
+  is new. **2 gate bugs found and fixed during the build**, both in this card's own filter — see below.
+
+### ⚠ Set status after Batch 8.1
+`### Already Done` now covers **47 of 47** HMW CardIDs in `CardMocks.php`. Re-derive with the diff, never
+the checkboxes: `grep -oE "'HMW_[0-9T]+'" AppCore/SWU/CardMocks.php` vs the Already Done line, then a
+plain-substring `grep -rn "<CardID>" SWUSim/Custom/` for anything it surfaces (registration keys use
+DOUBLE quotes — `$leaderAbilities["HMW_003"]` — so a `'HMW_003'`-quoted grep reports false gaps).
+
+### ✅ Fixed during the build — the search filter was FRONTEND-ONLY
+`_topDeckSearchBegin($player, $n, $filter, …)` uses `$filter` only to build the `matchIDs` hint sent to
+the client. The finalize resolves the answer via `_topDeckResolveFromIDs($allIDs, …)` — against **every
+peeked card**, not the matching ones. So any pick that reaches the handler is honoured. Before the fix,
+answering HMW_043's search with a cost-5 unit played it, and answering with a cost-3 **event** placed the
+event into the ground arena as a unit. `_SWUHmw043IsLegalPick()` is now THE gate, used to build the offer
+AND re-checked per pick in the handler; illegal picks join the cards going to the bottom.
+✅ **CLOSED (same session) — and it was set-wide, not 4 cards.** ALL **20** `_topDeckSearchBegin` call
+sites were filter-advisory, not just the `SOR_087#0` family. Fixed centrally instead of per card:
+`_topDeckSearchBegin` now stores the match list (`TopDeckLegalIDs`, `~`-sentinelled) and the constraint
+(`TopDeckConstraint`), and `_topDeckResolveFromIDs` — which all 20 finalize handlers share — re-applies
+both. One store + one check fixes every caller with no signature churn. Illegal/overflow picks fall
+through to `remaining`, the disposition callers already give an unpicked card (bottom of deck).
+⚠ **The `~` sentinel is load-bearing**: an EMPTY match list means "a filter is in force and nothing
+matched", not "unrestricted". My first cut treated empty as unrestricted, which is the exact inversion —
+and it is the common case (a search whose top N holds no legal card). It was caught only because
+`IllegalPick_NonUnitEvent_IsRefused` seeds a deck of pure events.
+⚠ **A second, independent hole in the same place:** the CONSTRAINT (`count:N` / `cost:N` / `cost:N:M`) was
+client-only too. SOR_087's "combined cost 3 or less" played two cost-2 units for a combined 4. Now
+enforced in pick order, dropping the overflow. Guarded by
+`sor/DarthVader_CommandingTheFirstLegion.md::SearchFilter_CombinedCostBudgetIsENFORCED` (mutation-verified)
+and its partner `SearchFilter_NonVillainyPickIsREFUSED` for the filter — two mechanisms, two sections,
+because fixing either alone leaves the other open.
+
+### ⚠ DEFERRED (NOT a bug fix) — "play them for free" is a PUT INTO PLAY across this whole family
+`SOR_087#0` places fetched units with a bare `AddGroundArena`/`AddSpaceArena`, so the fetched unit's own
+**When Played does not fire** and no entry ceremony runs (no `FlushEntryTriggerBag`, no Shielded, no
+Ambush, no uniqueness sweep). Every card in the family is printed "play them for free", and by the rules
+playing a unit from the deck IS playing it — so those abilities should fire. HMW_043 deliberately matches
+its five siblings rather than being the single card that behaves differently.
+Correcting it is a six-card change (SOR_087, LAW_063, ASH Ackbar, SOR_104, HMW_043 + the shared handler)
+and it re-introduces an ORDERING hazard this card currently dodges: once a play can queue decisions
+(When Played / Shielded / Ambush / uniqueness), HMW_043's inline "deal 2 damage to each" would run BEFORE
+them and re-index the arena underneath a pending offer — the SEC_018 family. The handler's comment says
+so, so whoever does that pass is warned at the call site.
+
+### Load-bearing checks (mutation-verified)
+Each gate was removed in turn and the expected section failed, nothing else:
+| mutation | section that caught it |
+|---|---|
+| drop the server-side filter re-check | both `IllegalPick_*` |
+| cost cap 4 → 5 | `IllegalPick_UnitCostingFIVE_IsRefused` |
+| search depth 8 → 9 | `Top8Depth_NinthCardIsNotReachable` |
+| damage arena slots instead of the recorded UIDs | 6 sections incl. `TwoDamage_HitsONLYTheUnitsPlayedThisWay` |
+
+### ✅ LOF_100 Kelleran Beq converted to a REAL play (2026-08-13, user-directed)
+Audit of the nine search-and-play cards found Kelleran Beq was the odd one out inside its own wording
+family. SHD_194 Triple Dark Raid and LAW_074 Maz Kanata are printed identically — "search … and play it.
+It costs N less" — and both route through the real play path (`ActivateCard` / `SWUPlayTopDeckCard`).
+LOF_100 used a bare `AddGroundArena`, so the fetched unit's **When Played never fired**, and no entry
+ceremony ran. It now uses the LAW_074 idiom (chosen card to the top of the deck, then
+`SWUPlayTopDeckCard(..., false, 3)`), which also gives it affordability through the real cost pipeline.
+Two guards added, both mutation-verified:
+- `FetchedUnitFiresItsOwnWhenPlayed` — SHD_080 Salacious Crumb's mandatory "heal 1 from your base" fires
+  (base 5 → 4). Under the old placement it stayed at 5.
+- `FetchedPILOTingUnitIsOfferedTheUnitVsPilotChoice` — the **card-vs-unit** distinction. Kelleran searches
+  for "a UNIT" and a Piloting card IS a unit card, so it is a legal find; but once you are PLAYING it, it
+  may be played as a unit or as a Pilot upgrade. `SWUPlayTopDeckCard` detects Piloting and routes to
+  `SWUBeginPlayCard`; the old path could only slam it into the arena as a unit.
+  ⚠ Resources are load-bearing in that fixture: at 7 (all spent on Kelleran) the 1-resource PILOT cost is
+  unaffordable, so the engine correctly drops the pilot option and the play auto-resolves with NO prompt.
+  10 is what makes the choice reachable — an under-resourced fixture passes for the wrong reason.
+  Mutation: flipping `SWUPlayTopDeckCard`'s `$ignoreCost` to true skips the Piloting routing and fails
+  exactly this section.
+
+### ✅ ASH_090 Reforge — Pilot-exclusion guard added (the mirror case)
+Reforge searches for "an UPGRADE", so the very same Piloting card must NOT be found: that filter is a
+card-TYPE test, and a Piloting card's type is `Unit`. Already correct in code; it now has
+`SearchExcludesPILOTUnitCards` (JTL_215 BoShek over a SEC_214 Vehicle host — a host BoShek can genuinely
+attach to, so only the type gate excludes him).
+⚠ Note the existing `SearchExcludesUnitCards` (plain unit SOR_051) also fails if the type gate is deleted
+outright — `SWUGetUpgradeValidTargets` falls back to "all friendly units" for an unknown CardID. The Pilot
+section earns its place against a filter that is WRONG rather than absent: swap the type gate for a
+can-this-attach test and SOR_051 is still excluded while BoShek sails through.
+
+### Audit result for the whole search-and-play family (9 cards)
+All nine route through `_topDeckSearchBegin`, so all inherit the server-side filter + constraint
+enforcement. Placement splits three ways: **free → put-into-play** (SOR_087, SOR_104, SHD_123, LAW_063,
+ASH_110 — consistent, and the When-Played deferral below still applies to them); **discounted → real
+play** (SHD_194, LAW_074, and now LOF_100); **upgrade attach** (ASH_090, via
+`_SWUFinalizeUpgradeAttach`). Numbers were re-checked against the dictionary text and all match.
+
+## Phase 9 — fourth preview wave (autonomous; HMW_048 PARKED by user direction)
+
+- [x] **Batch 9.1 — HMW_147 Beast Lair + HMW_200 Rish Loo** — 11 sections, suite 7120 → 7131, 0 failed.
+  Card data was regenerated first (`zzCardCodeGenerator.php rootName=SWUSim` → `cardArrayCache.json`,
+  then `Data/ProcessKeywordsSWU.php` for the keyword registries — ⚠ `zzGameCodeGenerator.php` alone does
+  NOT refresh `$Fortify_Cards`/`$Hidden_Cards`).
+  - **HMW_147 Beast Lair** (6): Fortify half free; the granted half is a base-hosted ACTION-phase-start
+    trigger (`_SWUHmw147ActionPhaseTriggers` hooked in ActionPhaseStart — the phase-mirror of HMW_070's
+    regroup hook). Per-copy, mandatory discard with player card-choice, "if you do" Beast (HMW_T03).
+    ⚠ Harness: crossing a full round needs `P1>Pass / [P2>Pass] / P1>ResourcePass / P2>ResourcePass /
+    P{n}>Drain` — the resource prompt appears even with an EMPTY hand (zone-form offer). Mutation:
+    unhooking the trigger fails 4 sections.
+  - **HMW_200 Rish Loo** (5): Hidden free; mandatory steal of a weakened enemy non-leader
+    (`SWUQueueChooseTarget`, single auto-resolves), give-back at regroup start via the JTL_235-shaped
+    PERM per-UID global (`SWU_HMW200_RETURN_<uid>`) — returning CONTROL, not the card (block lives
+    beside Commandeer's in RegroupPhaseStart). Offer section excludes non-weakened / weakened-friendly /
+    weakened-deployed-leader in one SELECTABLEEXACT. Note: the explicit `IsLeaderUnit` check is masked
+    by `NonLeaderUnitFilter` (defense-in-depth, not load-bearing — the offer test pins the behaviour).
+
+### ✅ HMW_048 Vernestra Rwoh — DONE (2026-08-13). Set status: **50 of 50** — HMW is card-complete.
+11 sections, suite 7131 → 7143/0 (with the LOF_197 Ambush hardening). No new framework was needed:
+- **Additional cost** = Exploit's play-path shape (offer in `_SWUBeginPlayCardUnitPath`, resolve in
+  `HMW_048#0`, continue via `SWUContinuePlayAfterExploit`). Both queue entries are `dontSkipOnPass` —
+  cost + orchestration must survive a sticky PASS. The consume-once play-grant globals
+  (`gForceEnterReady`/`gPlayGrantTurnEffect`/`gPlayGrantShield`) are SNAPSHOTTED INTO THE PARAM and
+  restored in the handler — the caller nulls them long before the queued cost resolves.
+- **Gains** ride an SWUVar (`SWU_HMW048_GAINS`) from the cost step to `CollectEntryTriggers`, which
+  stamps `SWU_HMW048_GAIN_<CID>` on her (phase sweep = the "for this phase" expiry) and bags one
+  `HMW048Gain` trigger per donor with a registered `$whenPlayedAbilities` closure. Dispatch reuses
+  `OnWhenPlayed` with HER mzID — so "this unit" = her, multiple gains order via the normal prompt, and
+  a gained ability counts as "using a When Played ability" for LOF_197's repeat.
+- **Rulings applied**: Shielded/Ambush are NOT When Played abilities (donor keyword-only = gains
+  nothing; hardened generically on LOF_197 with `NoRepeat_AmbushKeyword` beside the existing Shielded
+  section); bottom order RANDOM (`_topDeckPutRemainingToBottom` shuffles); gains resolve via the bag.
+- Mutations: cost cap 5→6 fails exactly the offer section; collection hook off fails 4.
+
+### ⚠ OPEN ENGINE-FAMILY FOLLOW-UP — additional costs are SKIPPED on direct-ActivateCard nested plays
+A play dispatched straight through `ActivateCard` (SOR_219 Sneak Attack, play-from-deck effects) never
+passes `_SWUBeginPlayCardUnitPath`, so it skips **Exploit** — and now Vernestra's additional cost, which
+deliberately matches that scope rather than hacking one card past it. ⚠ Severity note (user,
+2026-08-13): because the cost is "UP TO 2", zero is a legal payment — so the nested-path skip is an
+implicitly FORCED zero, not an illegal play. The gap loses the player an OPTION (and Vernestra her
+gains); it does not break the play's legality. Same logic applies to Exploit ("up to X"). Lower
+severity than first framed, still worth the one-seam fix. An in-drain fix needs care: a queued cost prompt gets eaten by the outer answer's
+sticky drain (probed: block-2 + dontSkipOnPass was not sufficient; the mid-drain MZMULTICHOOSE consumed
+the stale `myHand-0`). Fix the family at ONE seam; the section that must FLIP when fixed is
+`VernestraRwoh::NestedDirectPlay_SkipsTheAdditionalCost_LikeExploit` (its comment says so).

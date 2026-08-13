@@ -23,8 +23,8 @@ $whenPlayedAbilities["JTL_100:0"] = function($player, $mzID) {
 
     // Step 2 — collect free-attach targets: friendly Vehicles with 0 pilots (strict rule).
     $vehicles = array_merge(
-        ZoneSearch("myGroundArena", ["Unit", "Leader Unit", "Token Unit"]),
-        ZoneSearch("mySpaceArena",  ["Unit", "Leader Unit", "Token Unit"])
+        ZoneSearch("myGroundArena", AnyUnitFilter),
+        ZoneSearch("mySpaceArena",  AnyUnitFilter)
     );
     $targets = array_values(array_filter($vehicles, function($vMz) use ($mzID) {
         $obj = GetZoneObject($vMz);

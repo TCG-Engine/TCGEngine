@@ -475,6 +475,66 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/034.png',
     'imageUrlBack' => '',
   ),
+  'HMW_043' => 
+  array (
+    'title' => 'Darth Vader',
+    'subtitle' => 'Any Methods Necessary',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 9,
+    'power' => 9,
+    'hp' => 8,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Command',
+      2 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Imperial',
+      2 => 'Sith',
+    ),
+    'text' => 'Saboteur
+When Played: Search the top 8 cards of your deck for up to 2 units that each cost 4 or less, play them for free, and deal 2 damage to each of them.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/043.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_048' => 
+  array (
+    'title' => 'Vernestra Rwoh',
+    'subtitle' => 'We Should Handle This Ourselves',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+    ),
+    'text' => 'Sentinel
+As an additional cost to play this unit, put up to 2 units that each cost 5 or less from your discard pile on the bottom of your deck. This unit gains those units\' "When Played" abilities for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/048.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_059' => 
   array (
     'title' => 'Clone X Assassin',
@@ -936,6 +996,31 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_147' => 
+  array (
+    'title' => 'Beast Lair',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify (Attach this to your base, not a unit.)
+Attached base gains: "When the action phase starts: You discard a card from your hand. If you do, create a Beast token."',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/147.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_158' => 
   array (
     'title' => 'Ezra Bridger',
@@ -1124,6 +1209,36 @@ If you control an Endor base , you may attack with a unit. It gets +2/+0 for thi
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/193.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_200' => 
+  array (
+    'title' => 'Rish Loo',
+    'subtitle' => 'Traitorous Minister',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 3,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Gungan',
+      2 => 'Official',
+    ),
+    'text' => 'Hidden
+When Played: Take control of an enemy non-leader unit with a Weakness token on it. At the start of the next regroup phase, its owner takes control of it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/200.png',
     'imageUrlBack' => '',
   ),
   'HMW_206' => 

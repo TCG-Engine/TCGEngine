@@ -487,3 +487,33 @@ WithP1Deck: [SOR_095 SOR_128 SOR_128]
 P1HANDCOUNT:1
 P1DECKCOUNT:2
 P1NODECISION
+
+---
+
+# NoRepeat_AmbushKeyword
+#// The Ambush sibling of NoRepeat_ShieldedKeyword (ruling hardened 2026-08-13): Ambush is a KEYWORD, not
+#// a "When Played" ability, so playing an Ambush-only unit neither consumes the armed repeat nor gets a
+#// repeat offer itself. SHD_210 Cloud-Rider is played, its ambush attack declined (NO answers the AMBUSH
+#// prompt — the repeat prompt must not be the one pending), and the arm SURVIVES: the next real
+#// When-Played (LOF_133, deal 2 to a Force unit) still repeats → Plo Koon takes 4.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:20}
+P1OnlyActions: true
+WithP1SpaceArena: LOF_197:1:0
+WithP1GroundArena: LOF_050:1:0
+WithP1Hand: [SHD_210 LOF_133]
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:4
+P1GROUNDARENAUNIT:1:CARDID:SHD_210

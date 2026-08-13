@@ -1,4 +1,7 @@
 <?php
+// ⚠ Target pools use NonLeaderUnitFilter (Unit + TOKEN Unit): the printed text says "non-leader
+// unit", and a bare ["Unit"] filter wrongly excluded TOKEN units too — "take control of a damaged NON-LEADER unit" — a damaged TOKEN is a legal steal
+// (the Open Fire filter-family sweep, 2026-08-13).
 // SOR_006
 // Cost 8 - Emperor Palpatine - Galactic Ruler - [Command,Villainy] - Power 4 - HP 10
 // Text: Action [1 resource, exhaust, defeat a friendly unit]: Deal 1 damage to a unit and draw a card.
@@ -47,10 +50,10 @@ $whenPlayedAbilities["SOR_006:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $targets = [];
     foreach (array_merge(
-        ZoneSearch("myGroundArena",    ["Unit"]),
-        ZoneSearch("mySpaceArena",     ["Unit"]),
-        ZoneSearch("theirGroundArena", ["Unit"]),
-        ZoneSearch("theirSpaceArena",  ["Unit"])
+        ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
+        ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
+        ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
+        ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
     ) as $mz) {
         $obj = GetZoneObject($mz);
         if ($obj === null || ($obj->removed ?? false)) continue;

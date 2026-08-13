@@ -5628,10 +5628,21 @@ function RegroupPhaseStart(): void {
                 foreach (ZoneSearch($vz, AnyUnitFilter) as $vmz) {
                     $vo = GetZoneObject($vmz);
                     if (SWUObjGone($vo)) continue;
-                    if (!in_array('SWU_SHD194_RETURN', $vo->TurnEffects ?? [])) continue;
-                    SWUBounceUnit($vp, $vmz); // returns to the unit's owner's hand
-                    $shd194Found = true;
-                    break 3;
+                    if (in_array('SWU_SHD194_RETURN', $vo->TurnEffects ?? [])) {
+                        SWUBounceUnit($vp, $vmz); // returns to the unit's owner's hand
+                        $shd194Found = true;
+                        break 3;
+                    }
+                    // "a VEHICLE" is a TRAIT, so the card played may be a Vehicle UPGRADE (TWI_236
+                    // Grievous's Wheel Bike) — and "return IT to its owner's hand" covers an upgrade just
+                    // as much as a unit. An upgrade is a SUBCARD, never visited by the arena scan, so it
+                    // stayed attached forever while the unit case worked.
+                    foreach (GetUpgradesOnUnit($vo) as $vu) {
+                        if (!in_array('SWU_SHD194_RETURN', $vu->TurnEffects ?? [])) continue;
+                        SWUReturnUpgradeToHand($vmz, $vu->CardID ?? '', $vp);
+                        $shd194Found = true;
+                        break 4;
+                    }
                 }
             }
         }
@@ -5750,6 +5761,42 @@ function RegroupPhaseStart(): void {
                         $j235Found = true;
                         break 3;
                     }
+                }
+            }
+        }
+    }
+    $playerID = $savedSneakPID;
+
+    // HMW_200 Rish Loo — "At the start of the next regroup phase, its owner takes control of it."
+    // CONTROL returns to the owner (contrast JTL_235 directly above, which bounces to hand). Same PERM
+    // per-UID global shape; consumed here so a re-steal in a later round gets a fresh marker. A unit
+    // already gone (defeated while stolen) simply never matches — the marker dies unconsumed.
+    $h200Found = true;
+    while ($h200Found) {
+        $h200Found = false;
+        for ($hp = 1; $hp <= SeatCountForGame(); $hp++) {
+            $playerID = $hp;
+            foreach (['myGroundArena', 'mySpaceArena'] as $hz) {
+                foreach (ZoneSearch($hz, AnyUnitFilter) as $hmz) {
+                    $ho = GetZoneObject($hmz);
+                    if (SWUObjGone($ho)) continue;
+                    $huid = intval($ho->UniqueID ?? 0);
+                    $marked = false;
+                    for ($hs = 1; $hs <= SeatCountForGame(); $hs++) {
+                        if (GlobalEffectCount($hs, 'SWU_HMW200_RETURN_' . $huid) > 0) { $marked = true; break; }
+                    }
+                    if (!$marked) continue;
+                    for ($hs = 1; $hs <= SeatCountForGame(); $hs++) {
+                        SWUClearGlobalEffectsByPrefix($hs, 'SWU_HMW200_RETURN_' . $huid);
+                    }
+                    $howner = intval($ho->Owner ?? $hp);
+                    if ($howner !== intval($ho->Controller ?? $hp)) {
+                        $playerID = $howner;
+                        $hbackMz = SWUFindMzByUID($huid);
+                        if ($hbackMz !== null) SWUTakeControlOfUnit($howner, $hbackMz);
+                    }
+                    $h200Found = true;
+                    break 3;
                 }
             }
         }
@@ -6034,6 +6081,16 @@ function ActionPhaseStart() {
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_GUARDIAN_UPG_USED_');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ACTED_PHASE');   // SEC_145 "first action" gate resets each phase
+        // ── "…this phase" ATTACK flags. RegroupPhaseStart clears these too, and for a long time that was
+        // the ONLY clear — which is a hole, because an attack can happen DURING the regroup phase (a
+        // Bounty replays a unit with Ambush; SHD_226 Unrefusable Offer + JTL_216 Contracted Hunter is the
+        // two-card version). Such an attack is recorded AFTER the regroup clear has run, so its flag then
+        // survived into the next action phase and every reader mistook it for an attack made THIS phase.
+        // A "this phase" flag has to reset when ANY phase starts, not just the regroup one — same shape as
+        // the SWU_DUR_ROUND expiry bug (a duration hook living in only one of the phases it spans).
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_UNIT_ATTACKED_');   // SEC_177 "didn't attack this phase"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_FRIENDLY_ATTACKED'); // TWI_007 Captain Rex
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_ATTACKED_');        // {uid} + _MANDALORIAN_{uid} + _VEHICLE/_FIGHTER/_JEDI/_SEPARATIST/_TOKEN
     }
 
     // Clear per-round TurnEffects for Leaders and Bases.
@@ -6047,6 +6104,10 @@ function ActionPhaseStart() {
             if (!isset($base[$i]->removed) || !$base[$i]->removed) $base[$i]->TurnEffects = [];
         }
     }
+    // HMW_147 Beast Lair — base-hosted "When the action phase starts" trigger (per attached copy,
+    // per seat). Queued AFTER the per-round resets above so the granted ability sees the fresh phase.
+    _SWUHmw147ActionPhaseTriggers();
+
     AddGameLogEntry('PHASE', '— Action Phase —');
 
     // SOR_016 Grand Admiral Thrawn — APS passive (leader unit side):
@@ -8281,6 +8342,9 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
     _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — a reactive trigger's source unit ($mzID, when set) deals its damage
     switch ($triggerType) {
         case 'WhenPlayed':          OnWhenPlayed($player, $cardID, $mzID);          break;
+        // HMW_048 — a GAINED When Played: the donor's closure runs with HER mzID ("this unit" = her),
+        // through OnWhenPlayed so the LOF_197 repeat-arm sees it as a real When Played use.
+        case 'HMW048Gain':          OnWhenPlayed($player, $cardID, $mzID);          break;
         case 'WhenPlayedAsUpgrade': OnWhenPlayedAsUpgrade($player, $cardID, $mzID); break;
         case 'OnAttached':          OnOnAttached($player, $cardID, $mzID);          break;
         case 'WhenDefeated':
@@ -8602,6 +8666,27 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
     // Played does not fire (the $cardID/hand-source path can't rely on the object's Owner being set).
     if (HasWhenPlayedAbility($cardID) && !_SWUGalenSuppressesCard($activePlayer, $cardID)) {
         AddTrigger($activePlayer, 'WhenPlayed', $cardID, $mzID);
+    }
+
+    // HMW_048 Vernestra Rwoh — the additional cost recorded donor CardIDs (SWUVar: the pick can be
+    // separated from this collection by a payment decision, so a global would not survive the request
+    // boundary). One trigger PER DONOR rides the bag — multiple gains order through the normal prompt —
+    // and each dispatches through OnWhenPlayed, so a gained ability counts as "using a When Played
+    // ability" (LOF_197). Donors without a registered closure (vanilla / keyword-only per the
+    // Shielded-and-Ambush-are-not-When-Played ruling) grant nothing. The stamp records the gain on her
+    // object; its standard phase-duration sweep IS the "for this phase" expiry.
+    if ($cardID === 'HMW_048') {
+        $g048 = GetSWUVar('SWU_HMW048_GAINS', '');
+        if ($g048 !== '') {
+            SetSWUVar('SWU_HMW048_GAINS', '');
+            global $whenPlayedAbilities;
+            foreach (array_values(array_filter(explode(',', $g048))) as $gcid) {
+                AddTurnEffect($mzID, 'SWU_HMW048_GAIN_' . $gcid);
+                if (isset($whenPlayedAbilities[$gcid . ':0'])) {
+                    AddTrigger($activePlayer, 'HMW048Gain', $gcid, $mzID);
+                }
+            }
+        }
     }
 
     $obj = GetZoneObject($mzID);
@@ -9993,6 +10078,48 @@ function ProcessGoldfishAutomation(): bool {
 
 // DQ handler: resolve a single trigger from the bag.
 global $customDQHandlers;
+// TRAITOROUS_REVERT|<hostOwner>|<hostUID> — the queued "becomes unattached → owner takes control back"
+// half of SOR_122 / JTL_083 (see the SWUDefeatUpgrade chokepoint for why it is queued at block 2).
+// No-ops if the host has left play or control already reverted by the time it fires.
+// XPLAYER_ATTACK_END_RELAY|<attackerPlayer>|<cardID>|<attackerUID> — a survival-gated "When Attack
+// Ends" trigger deferred behind the DEFENDER-controller's parked When-Defeateds (see the collection
+// gate in CollectAfterAttackTriggers). Fires on the defender-controller's queue AFTER their triggers
+// resolve: re-evaluates survival by UID and only then hands the trigger back to the attacker's queue.
+// A dead attacker here = the roster card's "if this unit survived" is FALSE → the trigger is dropped.
+$customDQHandlers["XPLAYER_ATTACK_END_RELAY"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $savedPID   = $playerID;
+    $atkPlayer  = intval($parts[0] ?? 0);
+    $cardID     = (string)($parts[1] ?? '');
+    $atkUID     = intval($parts[2] ?? 0);
+    if ($atkPlayer <= 0 || $cardID === '' || $atkUID <= 0) return;
+    $playerID = $atkPlayer;                     // resolve the attacker in ITS controller's frame
+    $mz = SWUFindMzByUID($atkUID);
+    $o  = ($mz !== null) ? GetZoneObject($mz) : null;
+    if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) === $atkUID) {
+        DecisionQueueController::AddDecision($atkPlayer, "CUSTOM",
+            "RESOLVE_TRIGGER|OnAttackEnd|{$cardID}|{$mz}", 1);
+    }
+    $playerID = $savedPID;
+};
+
+$customDQHandlers["TRAITOROUS_REVERT"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $savedPID  = $playerID;
+    $hostOwner = intval($parts[0] ?? 0);
+    $hostUID   = intval($parts[1] ?? 0);
+    if ($hostOwner <= 0 || $hostUID <= 0) return;
+    $playerID = $hostOwner;                       // resolve + take control in the OWNER's frame
+    $mz = SWUFindMzByUID($hostUID);
+    if ($mz !== null) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed) && intval($o->Controller ?? $hostOwner) !== $hostOwner) {
+            SWUTakeControlOfUnit($hostOwner, $mz);
+        }
+    }
+    $playerID = $savedPID;
+};
+
 $customDQHandlers["RESOLVE_TRIGGER"] = function($player, $parts, $lastDecision) {
     global $gTriggerDepth, $playerID;
     $savedPID    = $playerID;
@@ -11466,7 +11593,11 @@ function SWUDrawTopCardFront(int $player): ?string {
 // turn: the parent action (combat / the event's FINISH_PLAY_CARD) owns SWUAfterAction, so the inner
 // ActivateCard's own turn advance is neutralised by capturing/restoring the turn state around it.
 // Returns true if a card was played (false on empty deck). Unaffordable → ActivateCard no-ops.
-function SWUPlayTopDeckCard(int $player, bool $ignoreCost = false, int $discount = 0): bool {
+// $asUnitOnly: play a Piloting card AS A UNIT, skipping the Unit-vs-Pilot choice. Required by every
+// "search your deck for a UNIT and play it" ability (SOR_104, LAW_063, LOF_100, LAW_074): the ability
+// named what it was looking for and plays THAT, so the pilot-upgrade mode is not on offer even when a
+// legal Vehicle host is on the board.
+function SWUPlayTopDeckCard(int $player, bool $ignoreCost = false, int $discount = 0, bool $asUnitOnly = false): bool {
     $idx = _SWUTopDeckFrontIdx($player);
     if ($idx === -1) return false;
     global $gTurnPlayer;
@@ -11476,7 +11607,7 @@ function SWUPlayTopDeckCard(int $player, bool $ignoreCost = false, int $discount
     // upgrade), which lives in SWUBeginPlayCard's Piloting branch — ActivateCard alone would only play it
     // as a unit. Route pilots there, threading the discount (applies to the unit cost AND, via
     // SWU_PILOT_DISCOUNT, the pilot cost). Non-pilots keep the direct ActivateCard path.
-    $topObj = $ignoreCost ? null : GetZoneObject("myDeck-$idx");
+    $topObj = ($ignoreCost || $asUnitOnly) ? null : GetZoneObject("myDeck-$idx");
     if ($topObj !== null && HasKeyword_Piloting($topObj)
             && !_SWUGalenSuppressesCard($player, $topObj->CardID ?? '')
             && !empty(SWUGetPilotValidTargets($player, $topObj->CardID ?? ''))) {
@@ -11574,6 +11705,23 @@ function _topDeckSearchBegin(int $player, int $n, callable $filter, string $cons
     // cost map for all peeked cards: "CardID:cost,..." so frontend can enforce budget.
     $costMap  = implode(',', array_map(fn($c) => $c->CardID . ':' . intval(CardCost($c->CardID)), $peeked));
 
+    // ⚠ THE FILTER MUST OUTLIVE THE DECISION. $matchIDs above is only a HINT for the client; the answer
+    // comes back as a list of CardIDs and _topDeckResolveFromIDs matches it against $allIDs — i.e. every
+    // peeked card, filtered or not. Anything that answers with an unfiltered CardID therefore gets it.
+    // On HMW_043 ("up to 2 units that each cost 4 or less") that meant a cost-5 unit could be played and
+    // a cost-3 EVENT was placed into the ground arena as a unit. The filter is the load-bearing half of
+    // most of these cards, so it has to be enforced server-side on the way back too.
+    // Stored rather than threaded through the finalize param because all 20 finalize handlers share
+    // _topDeckResolveFromIDs — one store fixes every one of them without touching 20 signatures. Set
+    // fresh on every search, and searches are strictly sequential (one pending decision at a time).
+    // The '~' sentinel distinguishes "a filter is in force and NOTHING matched" from "no filter stored".
+    // Without it an empty match list reads as "unrestricted", which is the exact inversion of what it
+    // means — and it is the common case (a search whose top N contains no legal card at all).
+    DecisionQueueController::StoreVariable("TopDeckLegalIDs", '~' . $matchIDs);
+    // The CONSTRAINT ("count:N" / "cost:N" / "cost:N:M") was client-enforced only, exactly like the
+    // filter. SOR_087 Darth Vader's "any number of Villainy units with combined cost 3 or LESS" happily
+    // played two cost-2 units for a combined 4.
+    DecisionQueueController::StoreVariable("TopDeckConstraint", $constraint);
     $param = $allIDs . '|' . $matchIDs . '|' . $constraint . '|' . $costMap;
     DecisionQueueController::AddDecision($player, "TOPDECKSEARCH", $param, 1, tooltip: "Search_top_cards");
     // Embed allIDs in the finalize param — survives the HTTP request boundary. dontSkipOnPass: when the search
@@ -11600,6 +11748,38 @@ function DoTopDeckPlay(int $player, int $n, callable $filter, int $costBudget, i
 function _topDeckResolveFromIDs(array $allIDs, string $lastDecision): array {
     $chosenIDs   = ($lastDecision !== '' && $lastDecision !== 'PASS')
         ? array_values(array_filter(explode(',', $lastDecision))) : [];
+    // Server-side re-check of the search filter (stored by _topDeckSearchBegin — see the note there).
+    // An illegal pick is not "drawn"; it falls through to `remaining`, which is the disposition the
+    // callers already give an unpicked card (bottom of the deck), so no handler needs to change.
+    // Membership is by CardID because every filter is a pure function of the CardID.
+    // Absent/empty variable = no restriction, which keeps any future caller that stores nothing working.
+    $legalRaw = (string) DecisionQueueController::GetVariable("TopDeckLegalIDs");
+    if (strncmp($legalRaw, '~', 1) === 0) {                    // '~' = a filter is in force
+        $legalIDs  = array_values(array_filter(explode(',', substr($legalRaw, 1))));
+        $chosenIDs = array_values(array_filter($chosenIDs, fn($cid) => in_array($cid, $legalIDs, true)));
+        // Consumed — a later resolve with no search of its own must not inherit this restriction.
+        DecisionQueueController::StoreVariable("TopDeckLegalIDs", '');
+        // Then the COUNT / COMBINED-COST constraint, applied to the picks in the order they were chosen:
+        // accept while the budget holds and drop the overflow (it joins `remaining` → bottom of deck).
+        $con = (string) DecisionQueueController::GetVariable("TopDeckConstraint");
+        DecisionQueueController::StoreVariable("TopDeckConstraint", '');
+        $maxPicks = PHP_INT_MAX; $maxCost = PHP_INT_MAX;
+        if (preg_match('/^count:(\d+)$/', $con, $m))            { $maxPicks = intval($m[1]); }
+        elseif (preg_match('/^cost:(\d+)(?::(\d+))?$/', $con, $m)) {
+            $maxCost  = intval($m[1]);
+            if (($m[2] ?? '') !== '') $maxPicks = intval($m[2]);
+        }
+        if ($maxPicks !== PHP_INT_MAX || $maxCost !== PHP_INT_MAX) {
+            $kept = []; $spent = 0;
+            foreach ($chosenIDs as $cid) {
+                if (count($kept) >= $maxPicks) break;
+                $c = intval(CardCost($cid));
+                if ($spent + $c > $maxCost) continue;   // skip this one, a cheaper later pick may still fit
+                $kept[] = $cid; $spent += $c;
+            }
+            $chosenIDs = $kept;
+        }
+    }
     $usedIndices = [];
     $drawnIDs    = [];
     foreach ($chosenIDs as $cid) {
@@ -11690,29 +11870,57 @@ $customDQHandlers["LOF_103#0"] = function($player, $parts, $lastDecision) {
     foreach ($deck as $i => $card) { $card->mzIndex = $i; }
 };
 
-// SOR_087: play chosen Villainy units for free (no WhenPlayed triggers);
-// shuffle rest to bottom of deck.
+// SOR_087#0 — the shared finalize for every "search the deck and play them for FREE" card
+// (SOR_087 Vader, SOR_104 U-Wing Reinforcement, LAW_063 L3-37, ASH_110 Admiral Ackbar, SHD_123
+// Bounty Hunter's Quarry via DoTopDeckPlay).
+//
+// ⚠ "PLAY them" is a REAL PLAY, not a put-into-play. This used to place the picks with a bare
+// AddGroundArena/AddSpaceArena, so the fetched unit's own When Played never fired, no entry ceremony
+// ran, and nothing was nested — directly observable (a fetched Salacious Crumb healed nothing).
+// Now each pick is played SEQUENTIALLY through the real pipeline via TOPDECK_PLAY_NEXT below: play one,
+// let its triggers drain, then the next — the queue is the ordering authority, so a When Played that
+// raises decisions cannot be jumped by the next play (the SEC_018 ordering family).
 $customDQHandlers["SOR_087#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
     $allIDs   = array_values(array_filter(explode(',', $parts[0] ?? '')));
     $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
-    // SOR_062 Regional Governor: a card named by an opponent can't be played — even by a play-from-
-    // deck effect. Blocked picks are not placed; they join the remaining cards put on the bottom.
-    $blockedBack = [];
-    foreach ($resolved['drawn'] as $cardID) {
-        if (SWUCardPlayBlocked(intval($player), $cardID)) { $blockedBack[] = $cardID; continue; }
-        $uid = NextUniqueID();
-        if (CardArena($cardID) === 'Space') {
-            AddSpaceArena($player, CardID: $cardID, Status: 0, Owner: $player, Controller: $player, UniqueID: $uid);
-        } else {
-            AddGroundArena($player, CardID: $cardID, Status: 0, Owner: $player, Controller: $player, UniqueID: $uid);
-        }
-        AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');  // each unit played-from-deck counts
+    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
+    if (!empty($resolved['drawn'])) {
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM",
+            "TOPDECK_PLAY_NEXT|" . implode(',', $resolved['drawn']), 1);
     }
-    _topDeckPutRemainingToBottom(intval($player), array_merge($resolved['remaining'], $blockedBack));
     $playerID = $savedPID;
+};
+
+// TOPDECK_PLAY_NEXT — pop one CardID off the list, real-play it for FREE from the top of the deck, then
+// re-queue itself with the rest. Queued AFTER the play call so the played card's own trigger decisions
+// (already appended by ActivateCard) resolve BEFORE the next play.
+// Free play ⇒ ActivateCard(ignoreCost) ⇒ no cost, aspect penalty included, and the Piloting Unit-vs-
+// Pilot branch is skipped — matching the rule that a play-from-search plays the UNIT it searched for.
+// SWU_CARDS_PLAYED is NOT bumped here: ActivateCard does it on the real path (it was manual before).
+$customDQHandlers["TOPDECK_PLAY_NEXT"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $playerID = intval($player);
+    $queue  = array_values(array_filter(explode(',', $parts[0] ?? '')));
+    if (empty($queue)) return;
+    $cardID = array_shift($queue);
+    // SOR_062 Regional Governor: a named card can't be played, even from the deck. Not placed;
+    // it goes to the bottom with the rest.
+    if (SWUCardPlayBlocked(intval($player), $cardID)) {
+        _topDeckPutRemainingToBottom(intval($player), [$cardID]);
+    } else {
+        $deck = &GetDeck(intval($player));
+        $obj  = new Deck($cardID, 'Deck', intval($player));
+        array_unshift($deck, $obj);
+        foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+        SWUPlayTopDeckCard(intval($player), true);
+    }
+    if (!empty($queue)) {
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM",
+            "TOPDECK_PLAY_NEXT|" . implode(',', $queue), 1);
+    }
 };
 
 // SOR_199 Bamboozle: handles the alternate-cost YESNO answer.
@@ -11777,7 +11985,12 @@ $customDQHandlers["SOR_199#1"] = function($player, $parts, $lastDecision) {
 // only hosts the player can actually afford at the host-specific cost — i.e.,
 // SWUComputePlayCost($player, $upgradeObj, $candidateObj) ≤ ready resources.
 // This closes the "attach to non-Guardian even though you can only afford Guardian" edge.
-function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = null): array {
+// $discount: subtracted from that host-specific cost before the comparison. ⚠ REQUIRED whenever the
+// caller is playing the upgrade at a reduction, or the gate prices the card at FULL cost and returns an
+// empty host list — the play then dies as "No valid targets for upgrade" and the card is stranded in
+// hand. SHD_194 Triple Dark Raid ("play it… it costs 5 resources less") hit exactly that: a Vehicle
+// UPGRADE was correctly offered by its search and could never actually be played.
+function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = null, int $discount = 0): array {
     global $playerID;
     $savedPID = $playerID;
     // FORTIFY (HMW) — "Attach this to your base, not a unit." The ONLY legal host is the player's own
@@ -11981,10 +12194,10 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         // via Droids/Credits was filtered out entirely, so the play silently fizzled ("No valid targets").
         $ready += count(SWUUsableCreditTokenMzIDs($player));
         if (SWUPlayerControlsSEC122($player)) $ready += count(SWUReadyFriendlyDroids($player));
-        $all = array_values(array_filter($all, function($mz) use ($player, $upgradeObj, $ready) {
+        $all = array_values(array_filter($all, function($mz) use ($player, $upgradeObj, $ready, $discount) {
             $candidateObj = GetZoneObject($mz);
             if (SWUObjGone($candidateObj)) return false;
-            $hostCost = SWUComputePlayCost($player, $upgradeObj, $candidateObj);
+            $hostCost = max(0, SWUComputePlayCost($player, $upgradeObj, $candidateObj) - max(0, $discount));
             $hostCost = SWUApplyCostHalving($player, $hostCost); // JTL_105 The Starhawk — halved targets must glow too
             return $ready >= $hostCost;
         }));
@@ -12437,6 +12650,11 @@ function SWUUnitToBottomOfDeck(int $player, string $mzID, bool $toTop = false): 
 // already shown the Credit/Droid choice and $prepaid is their answer — so SWUPayCost must not
 // auto-spend on top of it. Direct callers (the "play a card at -N" effects) leave it false.
 function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, $owner = null, bool $altPayOffered = false) {
+    // Snapshot the play-source's TurnEffect grant ONCE, at entry. The unit-placement branch below
+    // consumes and nulls the global; the upgrade branch runs later in the same call and needs the same
+    // value to thread onto ATTACH_UPGRADE (upgrade placement is async, so it cannot read the global at
+    // attach time). Reading the global again down there is not safe — hence the snapshot.
+    $gEntryPlayGrantTE = (string) ($GLOBALS['gPlayGrantTurnEffect'] ?? '');
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
@@ -12444,6 +12662,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
     // SEC_205 Obi-Wan, LAW_066) passes the opponent so the unit enters Owner=opponent/Controller=caster
     // and an event lands in the OWNER's discard. Every normal caller omits it → byte-identical.
     $owner = ($owner === null) ? intval($player) : intval($owner);
+
 
     // Result channel (idiom shared with $gLastPlayResourcesPaid): the mzID of the newly
     // placed unit for a successful unit play, or '' if nothing was placed (failed/blocked
@@ -12798,7 +13017,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // (async, host-specific) payment is discounted via the ATTACH_UPGRADE param → _SWUFinalizeUpgradeAttach.
         $twi040Saved = $GLOBALS['gTwi040IgnoreAspect'] ?? false;
         if ($discount > 0) $GLOBALS['gTwi040IgnoreAspect'] = true;
-        $validTargets = SWUGetUpgradeValidTargets($player, $cardID, $ignoreCost ? null : $obj);
+        $validTargets = SWUGetUpgradeValidTargets($player, $cardID, $ignoreCost ? null : $obj, $discount);
         $GLOBALS['gTwi040IgnoreAspect'] = $twi040Saved;
         if (empty($validTargets)) {
             SetFlashMessage("No valid targets for upgrade.");
@@ -12820,7 +13039,13 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         $igc = $ignoreCost ? 1 : 0;
         // Thread $discount (5th field; 4th=isPilot, 0 for a normal upgrade) so the deferred upgrade payment
         // honors an aspect-penalty waiver (LOF_018 Anakin plays a Villainy upgrade "ignoring aspect penalties").
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ATTACH_UPGRADE|{$cardID}|{$upgradeMz}|{$igc}|0|" . intval($discount), 0);
+        // 7th field: $gPlayGrantTurnEffect — the marker the PLAYING effect wants stamped on what it played.
+        // ⚠ It MUST ride the param. Upgrade placement is ASYNC (this queues ATTACH_UPGRADE and returns),
+        // and callers null the global on the line right after ActivateCard, so by the time the attach runs
+        // the global is already NULL. The unit branch below gets away with reading the global only because
+        // its placement is synchronous. SHD_194 Triple Dark Raid lost its return-to-hand marker exactly here.
+        DecisionQueueController::AddDecision($player, "CUSTOM",
+            "ATTACH_UPGRADE|{$cardID}|{$upgradeMz}|{$igc}|0|" . intval($discount) . "||" . $gEntryPlayGrantTE, 0);
     } else {
         // Events: move to discard, resolve immediate effect, then cleanup.
         // Mark that this discard is the event's OWN play (From='HAND' but NOT a "discarded from hand"
@@ -13136,6 +13361,30 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
         return;
     }
 
+    // HMW_048 Vernestra Rwoh — "As an additional cost to play this unit, put up to 2 units that each
+    // cost 5 or less from your discard pile on the bottom of your deck." Exploit's shape and EXPLOIT'S
+    // SCOPE: this lives on the SWUBeginPlayCard path, so a direct-ActivateCard nested play (SOR_219
+    // Sneak Attack, play-from-deck effects) skips it — exactly as those paths already skip Exploit.
+    // That is a documented engine-family gap (see hmw-implement.md), not a per-card choice; when the
+    // family is fixed, fix it at ONE seam for both. The play-grant globals are snapshotted into the
+    // param: the caller nulls them before the queued cost resolves (e.g. LOF_076's shield grant).
+    if (($obj->CardID ?? '') === 'HMW_048') {
+        $picks048 = _SWUHmw048LegalPicks($player);
+        if (!empty($picks048)) {
+            $max048  = min(2, count($picks048));
+            $snap048 = (!empty($GLOBALS['gForceEnterReady']) ? '1' : '0')
+                     . '~' . (string)($GLOBALS['gPlayGrantTurnEffect'] ?? '')
+                     . '~' . intval($GLOBALS['gPlayGrantShield'] ?? 0);
+            DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
+                "0|{$max048}|" . implode("&", $picks048), 1,
+                tooltip:"Bottom_up_to_{$max048}_units_(additional_cost)", dontSkipOnPass: 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM",
+                "HMW_048#0|{$mzID}|" . intval($discount) . "|{$snap048}", 1, dontSkipOnPass: 1);
+            return;
+        }
+    }
+
+
     // No Exploit — delegate directly. The event branch of ActivateCard deliberately does
     // NOT restore $playerID before returning (so ExecuteStaticMethods / MZCountChoices
     // can resolve relative zone names). Caller restores $playerID after this returns.
@@ -13233,7 +13482,7 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             break;
         }
         case 'ATTACH_UPGRADE': {
-            $argParts  = explode('|', $args, 6);
+            $argParts  = explode('|', $args, 7);
             $cardID    = $argParts[0] ?? '';
             $upgradeMz = $argParts[1] ?? '';
             $hostMz    = $argParts[2] ?? '';
@@ -13242,7 +13491,11 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             // 6th field = OWNER for a foreign play (SEC_205's milled Pilot); empty/absent → the caster.
             $ownerFld  = $argParts[5] ?? '';
             $ownerArg  = ($ownerFld === '') ? null : intval($ownerFld);
-            _SWUFinalizeUpgradeAttach($player, $cardID, $upgradeMz, $hostMz, $prepaid, false, $isPilot, false, $discount, true, $ownerArg);
+            // 7th field = the play-source TurnEffect grant (SHD_194 return-to-hand). ⚠ The explode limit
+            // above must cover it: at limit 6 this field was glommed into $ownerFld/truncated and the
+            // marker never reached the subcard even though every upstream hop carried it.
+            $grantTE   = (string) ($argParts[6] ?? '');
+            _SWUFinalizeUpgradeAttach($player, $cardID, $upgradeMz, $hostMz, $prepaid, false, $isPilot, false, $discount, true, $ownerArg, $grantTE);
             break;
         }
         case 'FALCON_KEEP': {

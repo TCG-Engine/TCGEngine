@@ -9,7 +9,7 @@
 $whenPlayedAbilities["ASH_052:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $friendly = SWUAllUnits('my');
-    $enemy = array_merge(ZoneSearch("theirGroundArena", ["Unit", "Token Unit"]), ZoneSearch("theirSpaceArena", ["Unit", "Token Unit"]));
+    $enemy = array_merge(ZoneSearch("theirGroundArena", NonLeaderUnitFilter), ZoneSearch("theirSpaceArena", NonLeaderUnitFilter));
     if (empty($friendly) || empty($enemy)) return;   // needs both → otherwise can't "choose ... and ..."
     SWUQueueMayChooseTarget(intval($player), $friendly, "Defeat_a_friendly_and_an_enemy_unit?", "Choose_a_friendly_unit", "ASH_052#0");
 };
@@ -20,7 +20,7 @@ $customDQHandlers["ASH_052#0"] = function($player, $parts, $lastDecision) {
     $fObj = GetZoneObject($lastDecision);
     if (SWUObjGone($fObj)) return;
     $fuid = intval($fObj->UniqueID ?? 0);
-    $enemy = array_merge(ZoneSearch("theirGroundArena", ["Unit", "Token Unit"]), ZoneSearch("theirSpaceArena", ["Unit", "Token Unit"]));
+    $enemy = array_merge(ZoneSearch("theirGroundArena", NonLeaderUnitFilter), ZoneSearch("theirSpaceArena", NonLeaderUnitFilter));
     if (empty($enemy)) return;
     SWUQueueChooseTarget(intval($player), $enemy, "Choose_an_enemy_non-leader_unit", "ASH_052#1|{$fuid}");
 };

@@ -76,3 +76,25 @@ WithP1SpaceArenaUpgrade: 0:JTL_172
 P1SPACEARENAUNIT:0:CARDID:SOR_141
 P1SPACEARENAUNIT:0:DAMAGE:1
 P2BASEDMG:5
+---
+
+# TokenUnitsAreLegalTargets
+#// The token half of the Open Fire family fix: "deal 1 damage to each of up to 2 UNITS in this arena"
+#// is unqualified, so TIE Fighter tokens are in the pool. Both picks land on tokens (1/1 → both die,
+#// set aside — no discard entries); the combat damage then kills the real defender too, so only IT
+#// reaches the discard.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:8}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_172
+WithP2SpaceArena: [JTL_T01:1:0 JTL_T01:1:0 SOR_237:1:0]
+
+## WHEN
+- P1>AttackSpaceArena:0:2
+- P1>AnswerDecision:theirSpaceArena-0&theirSpaceArena-1
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P2DISCARDCOUNT:1

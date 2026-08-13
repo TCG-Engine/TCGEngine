@@ -526,7 +526,8 @@ function _SWUFinalizeUpgradeAttach(
   bool $suppressAfterAction = false,  // SEC_003 Lama Su: caller owns the After Action (deal 1 / combat)
   int $discount = 0,                  // LOF_018 Anakin: "ignoring aspect penalties" — waive the surcharge
   bool $altPayOffered = false,        // true from ATTACH_UPGRADE: the Credit/Droid choice was already shown
-  ?int $owner = null                  // foreign play (SEC_205 milled Pilot): OWNER stays the opponent
+  ?int $owner = null,                 // foreign play (SEC_205 milled Pilot): OWNER stays the opponent
+  string $grantTE = ''                // marker the playing effect stamps on the attached upgrade (SHD_194)
 ): int {
   // Re-resolve the host — it must still exist (could have been removed between
   // queuing the Droid-choice and resolution, e.g. opponent removal response).
@@ -593,14 +594,19 @@ function _SWUFinalizeUpgradeAttach(
     'CardID' => $cardID,
     'Owner' => $owner ?? $player,
     'Controller' => $player,
-    'TurnEffects' => [],
+    // The marker the playing effect asked for, delivered via the ATTACH_UPGRADE param rather than the
+    // $gPlayGrantTurnEffect global — the global is already NULL by the time this async handler runs.
+    'TurnEffects' => ($grantTE !== '') ? [$grantTE] : [],
     'IsPilot' => $isPilot,
   ];
-  // A Pilot played as an upgrade gets a stable UniqueID + the "played this phase" marker, so that if it
-  // is later moved to a unit (Eject) it still counts as "a unit you played this phase" (Luke SOR_005),
-  // and the UID survives the upgrade↔unit transitions (JTL move/attach subsystem).
+  // EVERY attached upgrade gets a UniqueID. It used to be Pilots only (so an ejected Pilot keeps its
+  // identity across the upgrade↔unit transition), which left every other upgrade identifiable by CardID
+  // alone — ambiguous the moment a host carries two copies, and no way for a delayed effect to name the
+  // exact subcard it created. SHD_194's "return IT to its owner's hand" needs precisely that.
+  $pilotSub->UniqueID = NextUniqueID();
+  // The "played this phase" marker stays PILOT-ONLY: it means "a UNIT you played this phase" (Luke
+  // SOR_005), which a plain upgrade is not.
   if ($isPilot) {
-    $pilotSub->UniqueID = NextUniqueID();
     AddGlobalEffects($player, 'SWU_PLAYED_UNIT_' . $pilotSub->UniqueID);
   }
   // LOF_056 Size Matters Not — stamp an attach-order UID so its "printed value is considered to be 5"
@@ -715,6 +721,7 @@ $customDQHandlers["ATTACH_UPGRADE"] = function ($player, $parts, $lastDecision) 
   // 6th field: OWNER for a foreign play (SEC_205 milled Pilot). Empty/absent → owner = caster.
   $ownerFld = $parts[5] ?? '';
   $owner = ($ownerFld === '') ? null : intval($ownerFld);
+  $grantTE = (string) ($parts[6] ?? '');   // 7th field: marker to stamp on the attached upgrade
   $hostMz = $lastDecision ?? '';  // chosen host mzID from preceding MZCHOOSE
   if ($cardID === '' || $hostMz === '') {
     $playerID = $savedPID;
@@ -742,15 +749,19 @@ $customDQHandlers["ATTACH_UPGRADE"] = function ($player, $parts, $lastDecision) 
     if ($discount > 0)
       $hostCost = max(0, $hostCost - $discount);
     // Encode $isPilot (4th field) + $discount (5th field) so the DROID_PAY continuation can rebuild them.
+    // 7th field: $grantTE. ⚠ This branch does NOT re-queue this handler — it routes through
+    // SWUDispatchDroidContinuation's own 'ATTACH_UPGRADE' case (which calls _SWUFinalizeUpgradeAttach
+    // directly), and it runs even at cost 0. Any field not in $droidArgs is silently dropped there;
+    // that is exactly how SHD_194's return-to-hand marker vanished between this handler and the attach.
     $droidArgs = "{$cardID}|{$upgradeMz}|{$hostMz}|" . ($isPilot ? '1' : '0') . "|{$discount}|"
-                 . ($owner === null ? '' : $owner);
+                 . ($owner === null ? '' : $owner) . "|" . $grantTE;
     SWUOfferAltPayment(intval($player), $hostCost, 'ATTACH_UPGRADE', $droidArgs, 0);
     $playerID = $savedPID;
     return;
   }
 
   // ignoreCost path — finalize directly without SEC_122 check.
-  _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upgradeMz, $hostMz, 0, $ignoreCost, $isPilot, false, $discount, false, $owner);
+  _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upgradeMz, $hostMz, 0, $ignoreCost, $isPilot, false, $discount, false, $owner, $grantTE);
   $playerID = $savedPID;
 };
 

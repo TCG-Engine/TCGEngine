@@ -53,6 +53,76 @@ Decompose the printed text into **clauses** first (see the clause-decomposition 
 11. **Interaction with the standard modifiers.** Shields absorbing damage (does the rider still fire?), "can't be defeated/damaged/captured by enemy card abilities", indirect/unpreventable damage, prevention caps — and for ANY cost, that **Credit tokens / SEC_122 Droids can pay it** (gate offers on `SWUTotalPaymentCapacity`, never a bare ready-resource count).
 12. **Scope exclusions — what the effect must NOT touch.** An effect naming zones or sets must leave the adjacent ones alone: "search their deck and hand" must not hit units in play or a same-named **deployed leader**; "another" excludes self; "friendly" excludes enemy (and an unqualified "a unit" includes enemies); "a base" with no qualifier means EITHER base.
 
+### How many sections is "enough" — the measured floor (set 2026-08-13)
+
+A prose matrix does not produce coverage; a number you can fail does. Baseline measured over **every JTL + LOF test file** (437 files, 1707 sections, mean 3.9, median 3):
+
+| card text | JTL/LOF actual (mean / median) | **floor for new work** |
+|---|---|---|
+| 1 clause  | 2.7 / 2 | **4** |
+| 2 clauses | 4.4 / 4 | **7** |
+| 3 clauses | 6.7 / 5 | **10** |
+| 4+ clauses | 7.4 / 7 | **12** |
+| leader (two sides) | — | **floor per SIDE, summed** |
+
+**42% of JTL/LOF files have ≤2 sections**, and 49 of them have ≤2 sections for a card with ≥2 clauses. Both sets have since needed a validate-port that found ~8 engine bugs apiece — the thin coverage is *why*, not a coincidence. Cards written to the current bar land at 6–15 (HMW_064 Scorch, 1 clause → 6; HMW_003 Doctor Hemlock, leader → 15).
+
+The floor is a **trip-wire, not a target**. Under it you have almost certainly skipped a matrix cell — go find which one. Over it with cells still unwalked is equally not Done. Do not pad to reach a number; add the missing *cell*.
+
+### The five cells that actually go missing (measured, not guessed)
+
+Every cell below is already in the matrix above, and every one is still skipped most of the time. Miss rate = share of JTL/LOF cards whose printed text makes the cell applicable, where no test covers it:
+
+| cell | miss rate | why it keeps happening / how to actually do it |
+|---|---|---|
+| **Offer asserted** — `P1SELECTABLEEXACT` | **90%** (85/94) | Answering a target proves the BRANCH, never the POOL. Worst live gap: still **75% missing in HMW**, written to this bar. Needs **N+1 fixtures** — one excluded target plus at least TWO legal ones, or the last legal target auto-resolves and there is no offer left to inspect. `P1SELECTABLENOT:` / `P1SELECTABLEHAS:` are the cheaper partial forms. |
+| **Request boundary** — `SimulateRequestBoundary` | **100%** (0 of 96) | Invisible to a green suite *by construction*, which is exactly why nobody writes it. Applies to any value written before an `AddDecision` and read by the handler behind it. |
+| **Control change** — `WithP1GroundArenaControlled: CARD:2` | **87%** (47/54) | Two distinct readings, both load-bearing: (a) *owner ≠ controller* — "your hand / deck / discard / base" resolves for the CONTROLLER but the zone belongs to the OWNER, so a stolen unit's "return it to your hand" lands in the wrong zone; (b) *who resolves it* — under a take-control effect the NEW controller resolves a When Defeated, searching THEIR deck and taking the damage. The directive syntax is `CARDID:<ownerSeat>`. |
+| **Boundary pair** | **73%** (51/70) | The positive alone passes for *any* threshold value. Only N vs N±1 pins the number, and it must be a PAIR — a lone "blocked at 5" proves nothing without "works at 6". |
+| **Decline branch** — `AnswerDecision:-` | **48%** (67/139) | And **decline ≠ cannot-pay**: "you may discard a card" needs a refusal WITH a card in hand AND an empty hand. `-` declines an MZMAYCHOOSE; `NO` is for YESNO. |
+
+**The diagnostic pattern:** "If you do" failure branches are **97% covered** (only 2 of 64 missing) — because the card text contains a sentence pointing at them. Every cell above is missed precisely because *nothing in the printed text names it*. So invert the instinct: **the cells you'll skip are the ones the card text doesn't mention.** Walk them from the matrix, never from re-reading the card.
+
+### ⚠ A filter you hand to a shared OFFER helper may be ADVISORY — re-check it when the answer returns (HMW_043, 2026-08-13)
+
+`_topDeckSearchBegin($player, $n, $filter, …)` uses `$filter` **only** to build the `matchIDs` hint sent to
+the client. Its finalize resolves the answer through `_topDeckResolveFromIDs($allIDs, …)` — against *every
+peeked card*. So the filter is a UI suggestion, and whatever comes back is honoured. Building HMW_043 on
+it, answering the search with a cost-5 unit played it, and answering with a cost-3 **event** placed the
+event into the ground arena as a unit. Both are the load-bearing gate of the card.
+
+**This is invisible to a normal test pass**, because a test that answers *legally* exercises the filter
+that was never enforced. The cell that catches it is the one that answers ILLEGALLY and asserts the
+refusal — strictly stronger than asserting the client offer list, and the form to prefer whenever the
+offer is a CardID list rather than a target pool.
+
+Generalise it: **whenever you pass a predicate into a shared helper that builds an offer, find out whether
+the helper re-applies it on resolution. If it does not, re-check it in your own handler**, and name one
+function as THE gate so the offer and the resolution cannot disagree (the `_SWULaw019FriendlyTokens` /
+`_SWUHmw043IsLegalPick` shape). Same family as the alternate-path-skips-the-ceremony bugs: one rule, two
+code paths, only one of them enforcing it.
+⚠ The hole is still open in the shared `SOR_087#0` finalize (SOR_087, LAW_063, ASH Ackbar, SOR_104) — it
+re-checks `SWUCardPlayBlocked` but never the card filter.
+
+### The coverage ledger — one line per test file, mandatory
+
+Intent is not a forcing function; a line someone can grep for is. **Every new test file's first section carries a `COVERAGE:` comment** naming, for each of the five cells above, either the section that covers it or a *specific* reason it is N/A:
+
+```
+#// COVERAGE: offer=Front_UnitWithWeaknessIsNotSelectable · decline=Deployed_OnAttack_Decline_NoToken
+#//           boundary=Epic_BlockedAtFiveResources · control=N/A (no owner-scoped zone, no take-control interaction)
+#//           reqboundary=N/A (no state written across a decision)
+```
+
+`N/A` is a legitimate answer — a silent omission is not. Audit a set with:
+
+```bash
+grep -L "COVERAGE:" SWUSim/Tests/Cases/<set>/*.md      # files with no ledger at all
+grep -h "COVERAGE:" -A2 SWUSim/Tests/Cases/<set>/*.md | grep -oE "(offer|decline|boundary|control|reqboundary)=N/A" | sort | uniq -c
+```
+
+If a set's ledger shows `offer=N/A` on most cards, that is the tell that the cell was waved off rather than judged — go back and check the ones whose text has a qualifier ("another", "an enemy", "upgraded", "exhausted", "non-unique", "that costs N or less").
+
 ### Before marking Done — the adversarial audit (mandatory)
 Re-read the printed text **as if you had never seen the implementation**, list every scenario an independent auditor would write from that text alone, and diff that list against your sections. Anything unmatched becomes a section or a stated N/A. Two failure modes this catches, both seen repeatedly:
 - **A test NAME that doesn't match what it asserts** — audit by reading assertions, never titles.
@@ -393,6 +463,14 @@ one performs.** Enumerate the paths before writing the card, not after.
 - **Control-change decides WHO RESOLVES.** Under JTL_043 No Glory, Only Results the new controller resolves
   the When Defeated — searching THEIR deck, choosing the target, taking the damage. One section per card
   with a control-change-then-defeat is cheap and catches "your"-scoped wording every time.
+
+### ★ Asserting SCRY/peek CONTENTS with no contents directive (SOR_087×SOR_031, 2026-08-13)
+The harness cannot inspect a SCRY offer — but `SCRY_FINALIZE` silently DROPS answered IDs that were not
+actually peeked, and the peeked cards are already spliced OFF the deck. So answer with the cards you
+EXPECT to be peeked and let **`P1DECKCOUNT` be the teeth**: right peek → they go back, count intact;
+wrong peek → the answer places nothing, the mis-peeked pair is lost, count −N. Mutation-verify the
+section once (e.g. flip the bottoming to the top) — a contents assertion built this way can pass
+vacuously if the answer format is wrong instead of the peek.
 
 ### ⚠ DSL traps that cost real time on the LOF port (2026-08-07)
 - **★ An offer with a SINGLE legal option AUTO-RESOLVES**, so `P1SELECTABLEEXACT:`/`P1DECISIONTOOLTIP:`

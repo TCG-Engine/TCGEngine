@@ -145,3 +145,66 @@ P1NODECISION
 P2BASEDMG:7
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:1:EXHAUSTED
+
+---
+
+# AmbushAttackCountsAsAnAttack
+#// "If no other units have attacked this phase" — an AMBUSH attack is an attack, and it reaches combat
+#// through a DIFFERENT entry point than a player-initiated one. P1 plays JTL_216 Contracted Hunter, takes
+#// its Ambush attack, then attacks with Canyon Frontrunner in the SAME phase: no debuff may be offered.
+#// The Hunter's 3 damage (SOR_046's counter... no — SOR_095 3/3 trades into it) plus P2's arena dropping
+#// to 1 prove the Ambush attack really executed, so P1NODECISION cannot pass vacuously.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: LAW_228:1:0
+WithP1Hand: JTL_216
+WithP2GroundArena: [SOR_046:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-1
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:1:DAMAGE:3
+P2BASEDMG:3
+P1NODECISION
+
+---
+
+# DebuffAppliesEvenIfAttackedOnThePreviousREGROUPPhase
+#// The counter is PHASE-scoped, and an attack can happen during the REGROUP phase: P2's JTL_216
+#// Contracted Hunter defeats itself when regroup starts, which collects P1's SHD_226 Unrefusable Offer
+#// bounty — P1 replays the Hunter READY under its own control and takes its Ambush attack, inside the
+#// regroup phase. On the next action phase Canyon Frontrunner must still see "no other units attacked".
+#// P2's arena falling to 1 during regroup is what proves the regroup attack executed.
+#// The paired partner is DebuffAppliesEvenIfAttackedPreviousPhase (the action-phase boundary); this is the
+#// regroup-phase boundary, which is a genuinely different code path because the flags were once cleared
+#// ONLY at regroup start — an attack made after that clear leaked into the next phase.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: LAW_228:1:0
+WithP2GroundArena: [JTL_216:1:0 SOR_046:1:0 SOR_095:1:0]
+WithP2GroundArenaUpgrade: 0:SHD_226
+WithP1Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+
+## WHEN
+- P1>Pass
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-1
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0

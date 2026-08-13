@@ -1,4 +1,7 @@
 <?php
+// ⚠ Target pools use NonLeaderUnitFilter (Unit + TOKEN Unit): the printed text says "non-leader
+// unit", and a bare ["Unit"] filter wrongly excluded TOKEN units too — "give a Shield token to a NON-LEADER unit" — a token unit can carry a Shield
+// (the Open Fire filter-family sweep, 2026-08-13).
 // SOR_019
 // Security Complex - [Vigilance] - HP 25
 // Text: 
@@ -15,10 +18,10 @@ $customDQHandlers["SOR_019#0"] = function($player, $parts, $lastDecision) {
 
 $baseAbilities["SOR_019"] = function($player) {
     $targets = array_merge(
-        ZoneSearch("myGroundArena", ["Unit"]),
-        ZoneSearch("theirGroundArena", ["Unit"]),
-        ZoneSearch("mySpaceArena", ["Unit"]),
-        ZoneSearch("theirSpaceArena", ["Unit"])
+        ZoneSearch("myGroundArena", NonLeaderUnitFilter),
+        ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
+        ZoneSearch("mySpaceArena", NonLeaderUnitFilter),
+        ZoneSearch("theirSpaceArena", NonLeaderUnitFilter)
     );
     if (empty($targets)) { SWUAfterAction($player); return; }
     $targetStr = implode("&", $targets);

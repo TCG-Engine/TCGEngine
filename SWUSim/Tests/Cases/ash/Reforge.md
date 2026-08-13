@@ -198,3 +198,101 @@ WithP1Deck: [SOR_095 SOR_095 SOR_095]
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2DISCARDCOUNT:1
+
+---
+
+# SearchExcludesPILOTUnitCards
+#// ASH_090 Reforge — "search … for an UPGRADE" is a CARD-TYPE test, and a Piloting unit is the case that
+#// separates a type check from a can-it-attach check. JTL_215 BoShek is `type=Unit` but carries
+#// "Piloting [2 resources Cunning] (You may play this as an upgrade on a friendly Vehicle without a
+#// Pilot)" — so it genuinely CAN attach to this host and SWUGetUpgradeValidTargets returns it. Only the
+#// CardType gate keeps it out of the pool.
+#// Why this is not covered by SearchExcludesUnitCards (which uses the plain unit SOR_051): both sections
+#// do fail if the CardType gate is deleted outright — verified — because SWUGetUpgradeValidTargets falls
+#// back to "all friendly units" for a CardID it has no upgrade rule for, so even a plain unit finds a
+#// host. The difference is what happens under a filter that is WRONG rather than absent: swap the type
+#// gate for a can-this-attach test and SOR_051 is still excluded (no real attach path), while BoShek
+#// sails through — he has one by the rules. This section is the only one that separates
+#// "is an Upgrade card" from "can be attached", which is the distinction the card text actually makes.
+#// Host is SEC_214 Skyhopper Canyon Runner — a Ground VEHICLE with no Pilot, i.e. exactly BoShek's legal
+#// host. Its lone Experience token is the upgrade Reforge defeats (sole host + sole upgrade → auto).
+#// SOR_120 Academy Training is the real upgrade in the pool, so the assertion is a genuine HAS/NOT pair
+#// rather than an empty offer.
+
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:8;handCardIds:ASH_090}
+WithP1GroundArena: SEC_214:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T01
+WithP1Deck: [SOR_120 JTL_215 SOR_095 SOR_095]
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SEARCHPLAYABLEHAS:SOR_120
+P1SEARCHPLAYABLENOT:JTL_215
+
+---
+
+# DefeatAPILOTUpgrade
+#// A PILOT attached to a Vehicle is an upgrade on a friendly unit, so Reforge may defeat it as its cost.
+#// JTL_046 Paige Tico rides SEC_214 Skyhopper Canyon Runner (1/4 → 3/6 with her +2/+2). She is the only
+#// upgrade in play, so the defeat auto-resolves; a defeated PILOT card goes to the discard like any
+#// non-token upgrade. The search then plays SOR_120 Academy Training on the same Vehicle for free
+#// (2 − 4 → 0): the host ends at 3/6 again — the assertion that separates "Paige left, Academy arrived"
+#// from "nothing happened at all" is the discard count (Reforge + Paige = 2).
+#// The existing sections only ever defeat REAL upgrades and tokens; the pilot path is a separate
+#// upgrade class (IsPilot subcard) and nothing else exercises defeating one via Reforge.
+
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:8;handCardIds:ASH_090}
+P1OnlyActions: true
+WithP1GroundArena: SEC_214:1:0
+WithP1GroundArenaPilot: 0:JTL_046
+WithP1Deck: [SOR_120 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:SOR_120
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+P1GROUNDARENAUNIT:0:POWER:3
+P1DISCARDCOUNT:2
+
+---
+
+# PlaysTheFoundUpgradeOnTheSTOLENUnitBeforeControlReverts
+#// Ordering against a control-change: P1 steals P2's Marine with SOR_122 Traitorous ("becomes
+#// unattached → its owner takes control back"). Reforge defeats Traitorous — the only upgrade on a
+#// friendly unit — and must still play the found upgrade on THAT unit BEFORE control reverts: the
+#// revert is a TRIGGERED ability, so the effect that defeated the upgrade finishes resolving first
+#// (it is queued at block 2, behind Reforge's whole search chain).
+#// End state: the Marine is back under P2's control AND carries the Academy Training P1 fetched for it
+#// (3/3 → 5/5). Before the fix the revert flipped control INLINE at the defeat, the host left the
+#// friendly pool by search time, and the found upgrade was filtered unplayable.
+#// bgw covers Vigilance (Reforge) + Command (Traitorous, Academy Training); 8 resources = 5 + 2, and the
+#// found upgrade is free at −4.
+
+## GIVEN
+CommonSetup: bgw/bbk/{myResources:8}
+P1OnlyActions: true
+WithP1Hand: [SOR_122 ASH_090]
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_120 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>AnswerDecision:SOR_120
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+P2GROUNDARENAUNIT:0:POWER:5
+P1DISCARDCOUNT:2
