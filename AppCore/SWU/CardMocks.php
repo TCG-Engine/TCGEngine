@@ -20,6 +20,41 @@
 //   imageUrl, imageUrlBack,
 //   leaderUnitTitle, leaderUnitSubtitle, leaderUnitTrait[], leaderUnitArena, leaderUnitType
 return array (
+  'HMW_003' => 
+  array (
+    'title' => 'Doctor Hemlock',
+    'subtitle' => 'Emotion Has No Place Here',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 3,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Official',
+    ),
+    'text' => 'Action [1 resource, Exhaust]: Give a Weakness token to a unit without a Weakness token on it.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'On Attack: You may give a Weakness token to a unit.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/003.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/003-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_004' => 
   array (
     'title' => 'Grand Moff Tarkin',
@@ -152,6 +187,294 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/019.png',
     'imageUrlBack' => '',
   ),
+  'HMW_020' => 
+  array (
+    'title' => 'Great Grass Plains',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Naboo',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/020.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_021' => 
+  array (
+    'title' => 'Kashirho',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Kashyyyk',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/021.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_023' => 
+  array (
+    'title' => 'Bright Tree Village',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Endor',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/023.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_024' => 
+  array (
+    'title' => 'Origin Tree',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Kashyyyk',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/024.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_026' => 
+  array (
+    'title' => 'Tusken Camp',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tatooine',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/026.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_027' => 
+  array (
+    'title' => 'Bioweapons Lab',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Naboo',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/027.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_028' => 
+  array (
+    'title' => 'Jundland Wastes',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tatooine',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/028.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_029' => 
+  array (
+    'title' => 'Dendroid Wilds',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Endor',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/029.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_030' => 
+  array (
+    'title' => 'Shadowlands',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Kashyyyk',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/030.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_031' => 
+  array (
+    'title' => 'Kyyyalstaad Swamp',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Kashyyyk',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/031.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_033' => 
+  array (
+    'title' => 'Otoh Gunga',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Naboo',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/033.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_034' => 
+  array (
+    'title' => 'Research Station 9',
+    'subtitle' => '',
+    'type' => 'Base',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'hp' => 30,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Endor',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/034.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_059' => 
   array (
     'title' => 'Clone X Assassin',
@@ -235,6 +558,89 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/061.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_062' => 
+  array (
+    'title' => 'Nuvo Vindi',
+    'subtitle' => 'Blue Shadow Perfected',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 1,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+    ),
+    'text' => 'When Played: You may give a Weakness token to a unit.
+When an enemy unit with a Weakness token on it is defeated: You may give a Weakness token to a unit. Use this ability only once each round.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/062.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_064' => 
+  array (
+    'title' => 'Scorch',
+    'subtitle' => 'Imperial Commando',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Clone',
+      2 => 'Trooper',
+    ),
+    'text' => 'On Attack: You may deal 1 damage to an upgraded unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/064.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_070' => 
+  array (
+    'title' => 'Dark Sanctum',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 3,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify (Attack this to your base, not a unit.)
+Attached base gains: "When the regroup phase starts: Draw a card and deal 2 damage to this base."',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/070.png',
     'imageUrlBack' => '',
   ),
   'HMW_081' => 
@@ -664,6 +1070,35 @@ When a non-leader ground unit enters play (including token units): You may defea
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/177.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_188' => 
+  array (
+    'title' => 'Giant Gorax',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 7,
+    'power' => 7,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'Overwhelm
+On Attack/When Defeated: If you control an Endor base, each opponent chooses one:
+<bullet>You deal 3 damage to a unit or base they control.
+They discard a card from their hand and defeat a resource they control.</bullet>',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/188.png',
     'imageUrlBack' => '',
   ),
   'HMW_193' => 

@@ -92,6 +92,32 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 
 ---
 
+# AFortifyUpgradeIsNotOfferedTheENEMYBase
+#// The other half of "attach this to YOUR base": the enemy base must be out of the host pool too.
+#// Every section above only rules out UNITS. This is keyword-level, not card-level — the Fortify branch
+#// in SWUGetUpgradeValidTargets returns a fixed ['myBase-0'] regardless of CardID — so one guard here
+#// covers all five Fortify cards.
+#// An enemy unit is on the board as well, so between this and the section above every host but
+#// myBase-0 is excluded. With two legal bases the play would stop for a host prompt instead of
+#// auto-resolving, which is what P1NODECISION pins.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:3;myhandCardIds:HMW_095}
+P1OnlyActions: true
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1BASE:UPGRADECOUNT:1
+P1BASE:UPGRADE:0:CARDID:HMW_095
+P2BASE:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
 # ANormalUpgradeStillAttachesToAUnitNotTheBase
 #// The converse guard: a non-Fortify upgrade must never land on the base.
 #// SOR_054 Jedi Lightsaber attaches to a non-Vehicle unit.

@@ -15,7 +15,13 @@ lifecycles, so it's two scripts.
   golden box ── harden-host.sh ──►  snapshot  ──►  clone per app
                                                      │
                                                      └─ provision-app.sh <app> <db>  (each clone)
+
+  already-running box ── harden-fail2ban.sh ──► re-tune fail2ban in place (retrofit)
 ```
+
+> **Retrofit note:** every box provisioned before 2026-08-12 is running the old fail2ban
+> config that took the site down on 2026-08-11. Run `sudo ./harden-fail2ban.sh` on each
+> one — it is idempotent, live-safe, and does not touch OPcache, phpMyAdmin, or the DB.
 
 ### 1. Harden the golden box (once)
 
@@ -27,12 +33,62 @@ Host-wide, app-agnostic — persists in the snapshot so every future app inherit
 
 - **OPcache** enabled in `php.ini`
 - **phpMyAdmin removed** entirely (Alias commented + `/opt/lampp/phpmyadmin` deleted) so it can't be reached
-- **fail2ban** installed with an `xampp-dos` ip-rate-limit jail + standard Apache jails, pointed at `/opt/lampp/logs/`
+- **fail2ban** installed + configured, by delegating to `harden-fail2ban.sh` (below)
 
 Then snapshot the box.
 
 Flags: `--skip-opcache`, `--skip-phpmyadmin`, `--skip-fail2ban`, `--yes`.
-Ban tuning: `BANTIME`, `FINDTIME`, `MAXRETRY` env vars (default: >300 req/60s → 1h ban).
+
+#### 1a. fail2ban + real client IP — `harden-fail2ban.sh` ⚠ retrofit every existing box
+
+**Every box provisioned before 2026-08-12 needs this run.** It is the fix for the
+Petranaki outage of 2026-08-11 03:08–03:10 UTC, where the site went dark behind a
+Cloudflare 521 for ~20 minutes.
+
+What went wrong, exactly: the old inline jail counted **every** HTTP request and banned at
+**300 requests / 60s → 1 hour**. Apache had no `mod_remoteip`, so every log line carried a
+**Cloudflare edge** address rather than a player's — meaning "one IP" was *all players routed
+through that edge*. At peak, six edges crossed 5 req/s inside 107 seconds and iptables
+dropped them, taking the origin off the internet for everyone behind those edges. Stock
+`[recidive]` (5 bans/day → **1 week**) was one repeat away from turning that into a week.
+
+```bash
+sudo ./harden-fail2ban.sh
+```
+
+Idempotent, safe on a live box, backs up everything first. It:
+
+1. **Restores the real client IP** — enables `mod_remoteip` with `RemoteIPHeader CF-Connecting-IP`
+   and `RemoteIPTrustedProxy` limited to Cloudflare's ranges, then rewrites the `LogFormat`
+   nicknames from `%h` to `%a` **in place in `httpd.conf`** (a nickname is resolved where the
+   `CustomLog` is parsed, so an appended `Include` would come too late for httpd.conf's own
+   `CustomLog`). Per-vhost `CustomLog … combined` lines inherit the fix for free.
+   A request arriving *directly* at the origin can't spoof the header — its own address isn't a
+   trusted proxy, so the header is ignored.
+2. **Whitelists the CDN** — `ignoreip` = loopback + RFC1918 + Cloudflare, fetched live from
+   `cloudflare.com/ips-v4`+`v6` with a pinned fallback and an `/etc/fail2ban/cloudflare-ips.local`
+   cache. This is the safety net for any window where step 1 isn't in effect.
+3. **Retunes the jail** — `1200 req/60s → 10 min ban` (was 300/60s → 1h). That's 20 req/s
+   sustained from one *real* address, which a polling game client — even several players on one
+   household/CGNAT address — is an order of magnitude under. The filter regex is unchanged on
+   purpose: a game's traffic is nearly all dynamic PHP, so filtering to "suspicious" paths would
+   exempt exactly what an attacker would flood. **Volume is the only honest signal; the threshold
+   was the bug.**
+4. **De-escalates `[recidive]`** — 10 bans/day → 1 day (was 5/day → 1 week).
+5. **Watches per-vhost logs** — a box converted by `provision-vhost.sh` writes each site to
+   `logs/<app>-access_log`, so the shared `access_log` alone can be nearly empty there.
+6. **Releases held bans the new whitelist covers**, and leaves every other ban in place — a box
+   that already ate this outage may still be holding CF edges for up to a week.
+
+Flags: `--skip-apache` (jails only), `--skip-restart`, `--no-unban`, `--offline` (skip the live
+fetch), `--yes`. Tuning via env: `BANTIME`, `FINDTIME`, `MAXRETRY`, `RECIDIVE_*`, `REAL_IP_HEADER`
+(set to `X-Forwarded-For` for a non-Cloudflare CDN — everything else is CDN-agnostic).
+
+**Caveat:** if `mod_remoteip.so` isn't in `/opt/lampp/modules/`, the script warns and skips step 1.
+The whitelist still prevents an outage, but the jails then protect nothing — an attacker proxied
+through Cloudflare is indistinguishable from a player. The load-bearing check after a run is
+`tail -3 /opt/lampp/logs/access_log`: it must show **your** public address, not a `104.x` / `172.6x`
+/ `172.7x` edge.
 
 #### 1b. WebP support — `harden-webp.sh` (if the box converts images)
 
@@ -206,8 +262,11 @@ Per host, in order:
 /opt/lampp/bin/php -r 'var_dump(opcache_get_status()!==false);'
 # phpMyAdmin gone (expect 404)
 curl -s -o /dev/null -w '%{http_code}\n' http://localhost/phpmyadmin
-# fail2ban up
+# fail2ban up, and NOT holding a CDN edge
 fail2ban-client status && fail2ban-client status xampp-dos
+iptables -S | grep -E '104\.1[6-9]|104\.2[0-7]|172\.6[4-9]|172\.7[01]|162\.158' || echo "clean"
+# real client IP is reaching the log (must be YOUR address, not a Cloudflare edge)
+tail -3 /opt/lampp/logs/access_log
 # WebP via Imagick
 /opt/lampp/bin/php -r 'var_dump(class_exists("Imagick"));'
 /opt/lampp/bin/php -r '$i=new Imagick(); var_dump(in_array("WEBP",$i->queryFormats()));'
@@ -226,4 +285,8 @@ fail2ban-client status && fail2ban-client status xampp-dos
   then drop-if-exists + create `<db>` and loads `SCHEMA_SQL`. `soulmastersdb` is removed,
   never repurposed. Idempotent — re-running rebuilds `<db>` from the schema.
 - fail2ban uses the system package's Apache filters (`apache-auth`, `apache-badbots`,
-  `apache-overflows`) plus the custom `xampp-dos` filter shipped in this kit.
+  `apache-overflows`) plus the custom `xampp-dos` filter. **`harden-fail2ban.sh` owns
+  `/etc/fail2ban/jail.local` and `filter.d/xampp-dos.conf` outright** and rewrites both from
+  the script on every run (same contract as `harden-htaccess.sh` and the docroot `.htaccess`) —
+  hand-edits there are lost. `harden-host.sh` only delegates; it holds no jail config of its own,
+  deliberately, so a stale default in one file can't override the other.

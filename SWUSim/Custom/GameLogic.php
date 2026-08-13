@@ -5528,6 +5528,7 @@ function RegroupPhaseStart(): void {
     _SWUCheckFinalShowdownLose();          // SHD_208 Final Showdown — caster loses the game (before the draw step)
     _SWULawRegroupStartTriggers();         // LAW_071 (credit), LAW_073 (Exp + can't-ready) at regroup start
     _SWUHmw004RegroupBaseDefeat();         // HMW_004 (deployed) — may defeat a base at 10 or less remaining HP
+    _SWUHmw070RegroupBaseTriggers();       // HMW_070 Dark Sanctum — attached base draws 1 and takes 2 (per copy)
     // TWI_067 The Zillo Beast — "When the regroup phase starts: Heal 5 damage from this unit."
     for ($zp = 1; $zp <= SeatCountForGame(); $zp++) {
         foreach (GetUnitsInPlay($zp) as $zu) {
@@ -5838,6 +5839,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH047_USED');        // ASH_047 Gar Saxon "once each round" create-Mandalorian
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH128_USED');        // ASH_128 Bothan-5 "once each round" capture-from-discard
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD137_USED');        // SHD_137 Punishing One "ready this unit once each round"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW062_USED');        // HMW_062 Nuvo Vindi "give a Weakness once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD163_USED');        // SHD_163 Migs Mayfeld "deal 2 on any hand-discard once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD217_USED');        // SHD_217 Tobias Beckett "exhaust a ≤cost unit once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD239_USED');        // SHD_239 Toro Calican "deal 1 + ready once each round"
@@ -8285,6 +8287,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             OnWhenDefeated($player, $cardID, $mzID);
             SWUCollectThrawnReuse($player, $cardID, $mzID); // JTL_002 Thrawn "when you use a When Defeated ability"
             break;
+        case 'HMW_062':   Hmw062WeakenedDefeatTrigger($player);          break;
         case 'JTL_169':   ShadowCasterReuseTrigger($player, $cardID, $mzID); break;
         // JTL_169 Shadow Caster reuse of a GRANTED When-Defeated: $cardID = the granting card's ID (the
         // granted trigger type), $mzID = the param the original granted dispatch carried. Offer to reuse it.
@@ -9043,6 +9046,21 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
                     if (intval($pu->Status ?? 0) === 1) continue;   // already ready → no benefit, don't consume
                     $pu->Status = 1;                                // ready it
                     AddGlobalEffects($opp, 'SWU_SHD137_USED');       // once each round
+                    break;
+                }
+            }
+            // HMW_062 Nuvo Vindi (controlled by $opp): "When an enemy unit with a Weakness token on it is
+            // defeated: You may give a Weakness token to a unit. Use this ability only once each round."
+            // $d['weakened'] is captured at the defeat sites while the subcards are still intact — by the
+            // time this collection runs the dying unit's upgrades are already stripped, so the token
+            // cannot be read off the unit here.
+            // The once/round flag is consumed HERE, at collect time, so a DECLINED offer still spends the
+            // round (the ability triggered) — same convention as SHD_137 above.
+            if (!empty($d['weakened']) && GlobalEffectCount($opp, 'SWU_HMW062_USED') <= 0) {
+                foreach (GetUnitsInPlay($opp) as $pu) {
+                    if (!empty($pu->removed) || ($pu->CardID ?? '') !== 'HMW_062' || LostAbilities($pu)) continue;
+                    AddGlobalEffects($opp, 'SWU_HMW062_USED');
+                    AddTrigger($opp, 'HMW_062', 'HMW_062', '');
                     break;
                 }
             }
@@ -10119,6 +10137,23 @@ function _SWUPlayerHasBlockingDecision(int $player): bool {
     return false;
 }
 
+// True if $player has ANY pending decision still owed — including the static/auto-resolving kinds
+// (PASSPARAMETER, CUSTOM) that _SWUPlayerHasBlockingDecision deliberately ignores — other than an
+// orchestration resume, which must never count itself. Used ONLY by the combat resume's hop-back:
+// once the resume has moved to the other player's queue it can no longer drain the active player's,
+// so anything still sitting there is pre-damage work that combat must wait for. (HMW_188 Giant Gorax:
+// when the opponent's chosen mode leaves the caster a single legal target, the caster's pick is a
+// PASSPARAMETER — not "blocking", but it still has to resolve before combat damage.)
+function _SWUPlayerHasPendingWork(int $player): bool {
+    $q = GetDecisionQueue($player);
+    if (empty($q)) return false;
+    foreach ($q as $d) {
+        if (strpos((string)($d->Param ?? ''), 'SWU_TRIGGER_RESUME') === 0) continue;
+        return true;
+    }
+    return false;
+}
+
 // Uniqueness rule (CR 29.3): defeat the copy the player chose, then continue the paused action.
 // SWUDefeatUnit collects the defeated copy's WhenDefeated triggers (CR 29.3: those still resolve);
 // FlushEntryTriggerBag dispatches them — if they need interactive resolution it queues
@@ -10164,6 +10199,18 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             $other = OtherPlayer($activePlayer);
             if (_SWUPlayerHasBlockingDecision($other)) {
                 _SWUQueueOrchestration($other, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
+                $playerID = $savedPID;
+                return;
+            }
+            // …and a cross-player chain can bounce the pre-damage decision BACK to the active player:
+            // HMW_188 Giant Gorax's On Attack has the OPPONENT choose a mode, and one of those modes then
+            // has the CASTER choose a damage target. Once the resume has hopped onto the other player's
+            // queue, the check above can no longer see that pending caster decision, so combat committed
+            // ahead of it (the target then resolved against a board combat had already changed). Hop back.
+            // Guarded on having already hopped away ($player !== $activePlayer) — a resume sitting behind
+            // the active player's OWN block is ordered by its block number and must not re-queue itself.
+            if ($player !== $activePlayer && _SWUPlayerHasPendingWork($activePlayer)) {
+                _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
                 $playerID = $savedPID;
                 return;
             }
@@ -12310,7 +12357,7 @@ function SWUBounceUnit(int $player, string $mzID): bool {
         // + leave-play-AS-DEFEAT reactions (so "a friendly unit was defeated this phase" — incl.
         // SWU_FRIENDLY_HEROISM_DEFEATED for TWI_017 Palpatine — and Gideon/Krell/Boba fire).
         CollectWhenDefeatedTriggers(intval($player), [
-            ['player' => $controller, 'cardID' => $cardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj)]
+            ['player' => $controller, 'cardID' => $cardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj), 'weakened' => (SWUFindUpgradeIndex($obj, 'HMW_T02') >= 0)]
         ]);
         $obj = &GetZoneObject($mzID);
         if ($obj !== null && empty($obj->removed)) $obj->removed = true;

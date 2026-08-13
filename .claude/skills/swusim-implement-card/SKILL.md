@@ -344,7 +344,7 @@ Found building a NEW set card-by-card (not a validate-port), so these bite durin
 - **⚠⚠ The stub generator missed a SPACED multi-trigger header.** `"When Played / On Attack / When Defeated:"` (IC27_024 Thrawn) matched only the LAST window: the detector handled the tight `"When Played/"` but not the spaced form, so two of three triggers dispatched to nothing — a silent in-game no-op with a handler registered. Fixed in `zzCardCodeGenerator.php` (`/When Played\s*\//i`, `/On Attack\s*\//i`). **For any card whose text joins trigger windows with slashes, verify EVERY window has a stub before trusting the dispatch** — and remember `GeneratedAbilityStubs.php` is gitignored, so a hand-patch is local-only and the GENERATOR edit is what ships.
 - **A When-Defeated target collection runs BEFORE `CleanupRemovedCards`, so the dying source is still in its own arena** and gets offered as a target for its own "give a friendly unit X" ability. Exclude the source by UniqueID explicitly — do NOT rely on a `removed` flag, which is not yet set at that point. (This is the other side of the existing "survivors reindex after cleanup" note: the OFFER sees the pre-cleanup array, the RESOLUTION sees the post-cleanup one, so a test's answer index and the target filter are governed by different snapshots.)
 - **`P1OnlyActions` hands P2 the CLAIMED initiative**, so after a regroup P2 is the turn player and P1 cannot act until a `P2>Pass` — but P2 needs no pass before the FIRST action of a phase (its auto-pass only fires in response to a P1 action). A round-crossing test that omits it silently drops every action after the regroup.
-- **★ A leader's two sides can land on OPPOSITE sides of the COST-vs-EFFECT line — and the same sentence reads differently on each.** IC27_001 Darth Vader is `Action [1 resource, Exhaust, defeat a friendly unit]` on the FRONT (the defeat is inside the brackets ⇒ a cost REQUIREMENT: gate it in `SWULeaderActionAffordable`, the leader must not exhaust without a sacrifice, and there is no decline) but `On Attack: You may defeat another friendly unit. If you do, …` DEPLOYED (an EFFECT: never gated, freely declinable, and the payoff hangs off "If you do"). **SOR_006 Emperor Palpatine is the canonical both-sides template — copy it wholesale for this shape.** Decide the classification per SIDE from the printed punctuation (brackets = cost, "you may … If you do" = effect), not per card.
+- **★ A leader's two sides can land on OPPOSITE sides of the COST-vs-EFFECT line — and the same sentence reads differently on each.** IC27_001 Darth Vader is `Action [1 resource, Exhaust, defeat a friendly unit]` on the FRONT (the defeat is inside the brackets ⇒ a cost REQUIREMENT: gate it in `SWULeaderActionAffordable`, the leader must not exhaust without a sacrifice, and there is no decline) but `On Attack: You may defeat another friendly unit. If you do, …` DEPLOYED (an EFFECT: never gated, freely declinable, and the payoff hangs off "If you do"). **SOR_006 Emperor Palpatine is the canonical both-sides template — copy it wholesale for this shape.** Decide the classification per SIDE from the printed punctuation (brackets = cost, "you may … If you do" = effect), not per card. **The two sides can also differ in their TARGET FILTER, which is the easiest asymmetry to flatten by accident** — HMW_003 Doctor Hemlock's front gives a Weakness token to "a unit **without a Weakness token on it**" while its deployed On Attack says only "a unit", so the deployed side may stack a second one. Sharing one filter between the sides (or one helper call) silently makes the deployed side weaker than printed. Write the two sides' target pools independently and add the section that proves they DIFFER (`Deployed_..._StacksOnAlreadyWeakenedUnit`).
 - **⚠ FIXTURE TRAP: a card that DRAWS needs a seeded deck, or the draw DAMAGES the base instead.** An empty deck turned "draw a card and heal 2" into base damage going UP, which reads exactly like "the heal is broken" — three sections failed on a fixture omission, not the implementation. Distinct from the documented empty-deck *regroup* penalty: this fires on any draw. Seed `WithP{n}Deck` in every section whose card can draw.
 - **⚠ FIXTURE TRAP: CommonSetup's `myResources:N` and an explicit `WithP{n}Resources:` line COMBINE, they do not replace.** An "unaffordable cost" section that sets both silently ends up holding a ready resource, so the action succeeds and the test fails for the wrong reason. Use one or the other.
 - **★ On the RED check, every GREEN section needs a STATED REASON.** Absence-guards legitimately pass pre-implementation — but so do two failure modes that look identical: a section whose expected value the unimplemented engine already produces (an assertion of `1` where the correct answer is `2`), and a section whose two halves cancel out (return 3 resources + resource 3 back leaves the COUNT unchanged, so it passes either way). Both shipped into this run's first drafts and were caught only by asking "why is this one green?" per section. If you cannot name the reason, the section is not discriminating — fix it before implementing.
@@ -400,6 +400,10 @@ one performs.** Enumerate the paths before writing the card, not after.
   offer's contents, seed **two** legal options. Corollary and worse: a stray answer aimed at an
   auto-resolved choice silently lands on the NEXT decision and blanks it — that looked exactly like "the
   When Defeated never fired" on Sifo-Dyas until the handler was instrumented and shown to run correctly.
+  ⚠ **Testing an EXCLUSION filter needs N+1 fixtures, and the instinct is off by one.** To prove
+  "a unit *without* a Weakness token" excludes the weakened one, "one excluded + one legal" is NOT
+  enough — the single survivor auto-resolves and there is no offer left to inspect. Seed one excluded
+  plus **two** legal, and assert the pair (HMW_003 Doctor Hemlock front side).
 - **★ `myBase:BASEID:damage` SILENTLY DROPS THE DAMAGE.** `myBase` takes only a cardID; pre-damaging needs
   the separate `myBaseDamage:` / `theirBaseDamage:` options. Any heal-or-lethal assertion written the wrong
   way passes trivially against an undamaged base (one tracked file was doing exactly this).
@@ -601,6 +605,44 @@ are one-offs worth the checklist line.
   session log: an exhaust-only leader Action is ALWAYS usable as a soft pass, and moving its "2+ units
   entered" condition into `SWULeaderActionAffordable` made the whole action vanish instead of resolving
   to nothing. Conditions belong in the handler; affordability is about paying the cost.
+
+### More recurring bug shapes (HMW second preview wave, 2026-08-12) — cross-player chains that bounce BACK, and branches unblocked by DATA
+One engine bug plus the cells that found it. Add these whenever a card matches:
+- **★★ An On Attack that hands a decision to the OPPONENT and then hands one back to the CASTER commits
+  combat ahead of it.** The `SWU_TRIGGER_RESUME` COMBAT branch hops onto the non-active player's queue
+  when THEY owe a decision (the On Defense pause) — but it only ever looks one way. HMW_188 Giant Gorax
+  ("each opponent chooses one: **you** deal 3 damage to a unit or base they control / …") bounces the
+  pick back to the caster, and once hopped the resume could no longer see it: combat damage committed
+  first, and the 3 then resolved against a board combat had already changed (it landed on a unit combat
+  had just defeated, and Overwhelm spilled the wrong number). Fixed with a symmetric hop-back guarded on
+  `$player !== $activePlayer`. **The reusable test rule: every assertion in a pre-damage-effect section
+  is order-tolerant EXCEPT one where the effect can REMOVE the defender.** Damage-to-their-base, or
+  damage a big body survives, passes identically in either order — so add the section where the On Attack
+  effect KILLS the defender and assert the Overwhelm/no-counter consequence. That is the only cell that
+  can see this whole bug class.
+- **★ "Blocking" is not the same as "pending" — and the single-legal-target case is a different code
+  path.** `_SWUPlayerHasBlockingDecision` deliberately ignores `PASSPARAMETER`/`CUSTOM`, so when the
+  caster's pick narrows to ONE legal target it auto-resolves, isn't "blocking", and was skipped by the
+  pause entirely (new `_SWUPlayerHasPendingWork` covers it). Any target pool that can shrink to one —
+  "a unit **or base** they control" against an empty board is the common shape — needs its own section
+  asserting the effect landed AND `P{n}NODECISION`, not just the multi-target one.
+- **⚠ DSL: an opponent's `AnswerDecision` drains only THEIR queue — a section that ENDS on a cross-player
+  answer needs a trailing `P{n}>Drain`.** `Drain` is the harness stand-in for production's post-action
+  `ProcessGoldfishAutomation`; without it the caster's auto-resolving follow-up (and anything queued
+  behind it) never runs, and the section fails looking exactly like a missing implementation. Sections
+  that happen to end on a further `P1>AnswerDecision` drain by accident, which is why this hides.
+- **★ "This branch is currently unexercisable" is a WORKLIST ITEM keyed to DATA, not a permanent state.**
+  HMW_142 Wookie Rangers' "or a Kashyyyk base" clause was correct for weeks but untested because no
+  Kashyyyk base existed in any set; the next preview wave shipped four. **Whenever a set's card pool
+  grows, grep your own comments for "unexercisable"/"not previewed"/"no fixture exists" and re-check
+  each** — this is the data-side twin of "a logged bug is a CLAIM, re-reproduce it". Pair the new
+  positive with the controller-scoping negative (the OPPONENT holding it grants nothing) and a
+  trait-scoping negative (a sibling card with the same shell but a different trait), against an
+  otherwise identical board, so the one new fixture is provably the only differentiator.
+- **A vanilla card is a Step-0 no-op for its OWN text, but its TRAITS can be the payload.** Twelve
+  blank-text bases needed no code and no tests of their own — and unblocked a conditional-keyword branch,
+  and supplied the gate fixture for a Legendary in the same wave. When triaging a vanilla batch, ask what
+  OTHER cards' conditions its traits now satisfy before marking the batch closed.
 
 ### ★★★ NEVER derive a rules set from CARD TEXT — use the authoritative per-card list (TS26, 2026-08-09)
 CR 16.c: a **"When Attack Ends" ability fires by DEFAULT when its own unit is defeated by combat damage**;

@@ -33,7 +33,11 @@ APP_DOMAINS=(
   "swustats.net|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                     # SWUDeck
   "zendo.gg|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                         # AzukiSim
   "petranaki.net|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                    # SWUSim
+  "northbeach.gg|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                    # HellbreakSim
   # Add a line per live app as new domains come online (e.g. SWUSim once it has one).
+  # NB: rule 3 below already sends /TCGEngine and /TCGEngine/SharedUI/ to the main menu for
+  # ANY host, so a missing entry here only breaks the APEX ("https://<domain>/") — which is
+  # exactly the URL people type. Add the line when a domain goes live, not later.
 )
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

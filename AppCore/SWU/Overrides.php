@@ -126,6 +126,9 @@ function CardIDOverride($cardID) {
     case "IC27_154": return "SHD_196"; //Grogu
     case "IC27_188": return "SOR_238"; //C-3PO
     case "IC27_194": return "SOR_246"; //You're My Only Hope
+    case "HMW_022": return "JTL_020"; //Shield Generator Complex
+    case "HMW_025": return "JTL_023"; //Theed Palace
+    case "HMW_032": return "JTL_030"; //Mos Eisley
     default: return $cardID;
   }
 }

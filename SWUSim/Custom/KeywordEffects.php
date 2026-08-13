@@ -796,8 +796,8 @@ function HasConditionalKeyword_Sentinel($obj) {
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SENTINEL')) return true;
     if (_SWUYularenGrants($obj, 'SENTINEL')) return true;
     // HMW_142 Wookie Rangers — "While you control another Wookiee unit or a Kashyyyk base, this unit gains
-    // Sentinel." (No Kashyyyk base is previewed yet, so the base branch is currently unexercisable — but it
-    // reuses the same _SWUControlsBaseWithTrait helper covered by HMW_234 Tatooine / HMW_177 Endor.)
+    // Sentinel." Both branches are covered (hmw/WookieRangers.md); the Kashyyyk base branch uses the shared
+    // _SWUControlsBaseWithTrait helper, exercised via HMW_021 Kashirho (also HMW_024/030/031).
     if (($obj->CardID ?? '') === 'HMW_142') {
         $ctrl142 = intval($obj->Controller ?? 0);
         $self142 = intval($obj->UniqueID ?? 0);
