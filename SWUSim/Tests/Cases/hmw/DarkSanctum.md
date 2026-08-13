@@ -20,6 +20,31 @@ P1NODECISION
 
 ---
 
+# Fortify_NeverAttachesToTheEnemyBase
+#// "Attach this to YOUR base, not a unit." The section above rules out UNITS; nothing ruled out the
+#// ENEMY BASE except incidentally — it asserts that no prompt appeared, never that theirBase-0 was
+#// outside the host pool. Both enemy bodies are on the board here (an enemy unit AND the enemy base),
+#// so myBase-0 is the only legal host and the attach still auto-resolves onto it. Were theirBase-0 ever
+#// offered, a second legal host would stop the play for a prompt and P1NODECISION would fail.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5;myhandCardIds:HMW_070}
+P1OnlyActions: true
+WithP2GroundArena: SEC_080:1:0
+WithP1Deck: [SOR_095 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1BASE:UPGRADECOUNT:1
+P1BASE:UPGRADE:0:CARDID:HMW_070
+P2BASE:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
 # Regroup_DrawsOneAndDealsTwoToOwnBase
 #// The granted ability fires at the START of the regroup phase — an EXTRA draw, distinct from the
 #// regroup draw step. Two passes end the action phase and reach regroup.
