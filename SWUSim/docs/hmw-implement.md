@@ -1,6 +1,6 @@
 # HMW — Card Implementation Plan
 
-**⚠ PREVIEW SET.** 33 cards exist (31 numbered + 2 tokens) of ~262 printed, as mock entries in
+**⚠ PREVIEW SET.** 46 cards exist (44 numbered + 2 tokens) of ~262 printed, as mock entries in
 `AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
 previews land — the phases below cover only what was previewed when each was written.
 
@@ -10,7 +10,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188
 
 <!-- HMW_019 Dune Sea = blank-text base (52 of 92 released bases are likewise vanilla).
      HMW_T02 Weakness / HMW_T03 Beast = token CARDS; the engine handles tokens generically, so they
@@ -192,12 +192,57 @@ round-trip `Subcards` decode as associative ARRAYS; direct property reads return
   The subcard is stamped a UID at defer time so the flush re-finds it (`_SWUBaseUpgradeIndexByUID`). The
   cross-player deferred YESNO (defender reacts to the attacker's action) drains without an extra step.
 
+## Phase 7 — the second preview wave (autonomous)
+
+⚠ Read this before trusting any earlier "all done" claim: **every batch above was `[x]` and the Status
+below read "ALL 33 … are implemented" while 13 further cards sat unimplemented.** The batches only ever
+covered the cards previewed when they were written, and a preview set GROWS. The oracle is the diff
+(`### Already Done` vs `grep -oE "'HMW_[0-9T]+'" AppCore/SWU/CardMocks.php`), never the checkboxes.
+
+- [x] **Batch 7.1 — HMW_020/021/023/024/026/027/028/029/030/031/033/034** — 12 blank-text 30-HP bases
+  (Naboo / Kashyyyk / Endor / Tatooine), verify-only no-ops per the Step-0 vanilla triage. Their TRAITS
+  are the payload, and they unblocked a branch that had been unexercisable since Phase 3:
+  - **HMW_142 Wookie Rangers' "or a Kashyyyk base" Sentinel branch** — 3 new cases (suite 7042→7045):
+    the positive via HMW_021 Kashirho, the controller-scoping negative (the OPPONENT holding Kashirho
+    grants nothing), and a trait-scoping negative (HMW_020 Great Grass Plains, the same vanilla shell
+    with the NABOO trait, grants nothing). Paired against the pre-existing ordinary-base negative on an
+    identical board, so the base is provably the only differentiator. No code change — the branch was
+    already correct, just unreachable; the stale "unexercisable" comments in `KeywordEffects.php` and
+    the test file were corrected.
+  - HMW_177 (Endor) and HMW_234 (Tatooine) already had base-trait coverage via JTL_020 / JTL_030.
+- [x] **Batch 7.2 — HMW_188 Giant Gorax** — 17 cases, suite 7045→7062/0. **Plus one ENGINE bug.**
+  - Overwhelm is free from the keyword registry. `$onAttackAbilities` and `$whenDefeatedAbilities` share
+    ONE closure gated on `_SWUControlsBaseWithTrait($player,'Endor')`, evaluated against the RESOLVER.
+  - The closure only queues an intermediate `CUSTOM` (`HMW_188#0`) — DispatchTrigger/OnAttackTrigger
+    restore `$playerID`, so the cross-player OPTIONCHOOSE and every relative-mzID pick must be queued
+    from a continuation (the LAW_080 shape). That is also what makes the Deal3 pick safe as a MANDATORY
+    MZCHOOSE inside an On Attack. The caster rides the CUSTOM's own Param, so the chain survives the
+    request boundary the opponent's decision creates (guarded by a `SimulateRequestBoundary` section).
+  - Option B reuses `SWUDiscardCards` + SOR_017 Han Solo's bare-`myResources` MZCHOOSE →
+    `HAN_DEFEAT_RESOURCE`. The two halves are joined by AND, not "if you do": empty hand still defeats a
+    resource, and no resources still discards — both covered.
+  - **★ ENGINE BUG — combat damage committed ahead of a still-pending pre-damage decision.** The
+    `SWU_TRIGGER_RESUME` COMBAT branch hops onto the non-active player's queue when THEY owe a blocking
+    decision (the On Defense pause). But a cross-player chain can bounce the decision BACK: the opponent
+    picks the mode, then the CASTER picks the damage target. Once hopped, the resume could no longer see
+    the active player's pending pick, so it committed combat — and the target then resolved against a
+    board combat had already changed (Gorax's 3 damage landed on a unit combat had just defeated, and
+    Overwhelm spilled the wrong number). Fixed with a symmetric hop-back, guarded on
+    `$player !== $activePlayer` so a resume sitting behind the active player's own block can't re-queue
+    itself forever. It uses a new **`_SWUPlayerHasPendingWork()`** rather than
+    `_SWUPlayerHasBlockingDecision()` — an auto-resolving `PASSPARAMETER` (what the caster's pick becomes
+    when the opponent controls only a base) is not "blocking" but is still pre-damage work.
+  - ⚠ Harness note: the opponent's answer drains only THEIR queue, so a section that ends on a
+    cross-player answer needs a trailing `P1>Drain` (the stand-in for production's post-action drain) or
+    the caster's auto-resolving pick never runs.
+
 ## Status
 
-**ALL 33 currently-mocked HMW cards are implemented** (verified by diffing the `### Already Done` line
-against the HMW entries in `AppCore/SWU/CardMocks.php`, not by counting batches). The "no base-hosted
-granted abilities" (HMW_206) and "no base-defeat primitive" (HMW_004) blockers both turned out to be
-non-blockers; HMW_060 landed once the user settled the replacement-timing ruling.
+**ALL 46 currently-mocked HMW cards are implemented** (verified 2026-08-12 by diffing the
+`### Already Done` line against the HMW entries in `AppCore/SWU/CardMocks.php`, not by counting batches).
+The "no base-hosted granted abilities" (HMW_206) and "no base-defeat primitive" (HMW_004) blockers both
+turned out to be non-blockers; HMW_060 landed once the user settled the replacement-timing ruling.
+**This number is only true until the next preview wave lands — re-run the diff, don't re-read this line.**
 
 **HMW_003 Doctor Hemlock (2026-08-12)** — 15 sections, suite 7004→7019/0. Leader, both sides:
 front `Action [1 resource, Exhaust]` gives a Weakness token to a unit *without* one (the exclusion is a

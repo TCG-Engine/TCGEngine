@@ -606,6 +606,44 @@ are one-offs worth the checklist line.
   entered" condition into `SWULeaderActionAffordable` made the whole action vanish instead of resolving
   to nothing. Conditions belong in the handler; affordability is about paying the cost.
 
+### More recurring bug shapes (HMW second preview wave, 2026-08-12) — cross-player chains that bounce BACK, and branches unblocked by DATA
+One engine bug plus the cells that found it. Add these whenever a card matches:
+- **★★ An On Attack that hands a decision to the OPPONENT and then hands one back to the CASTER commits
+  combat ahead of it.** The `SWU_TRIGGER_RESUME` COMBAT branch hops onto the non-active player's queue
+  when THEY owe a decision (the On Defense pause) — but it only ever looks one way. HMW_188 Giant Gorax
+  ("each opponent chooses one: **you** deal 3 damage to a unit or base they control / …") bounces the
+  pick back to the caster, and once hopped the resume could no longer see it: combat damage committed
+  first, and the 3 then resolved against a board combat had already changed (it landed on a unit combat
+  had just defeated, and Overwhelm spilled the wrong number). Fixed with a symmetric hop-back guarded on
+  `$player !== $activePlayer`. **The reusable test rule: every assertion in a pre-damage-effect section
+  is order-tolerant EXCEPT one where the effect can REMOVE the defender.** Damage-to-their-base, or
+  damage a big body survives, passes identically in either order — so add the section where the On Attack
+  effect KILLS the defender and assert the Overwhelm/no-counter consequence. That is the only cell that
+  can see this whole bug class.
+- **★ "Blocking" is not the same as "pending" — and the single-legal-target case is a different code
+  path.** `_SWUPlayerHasBlockingDecision` deliberately ignores `PASSPARAMETER`/`CUSTOM`, so when the
+  caster's pick narrows to ONE legal target it auto-resolves, isn't "blocking", and was skipped by the
+  pause entirely (new `_SWUPlayerHasPendingWork` covers it). Any target pool that can shrink to one —
+  "a unit **or base** they control" against an empty board is the common shape — needs its own section
+  asserting the effect landed AND `P{n}NODECISION`, not just the multi-target one.
+- **⚠ DSL: an opponent's `AnswerDecision` drains only THEIR queue — a section that ENDS on a cross-player
+  answer needs a trailing `P{n}>Drain`.** `Drain` is the harness stand-in for production's post-action
+  `ProcessGoldfishAutomation`; without it the caster's auto-resolving follow-up (and anything queued
+  behind it) never runs, and the section fails looking exactly like a missing implementation. Sections
+  that happen to end on a further `P1>AnswerDecision` drain by accident, which is why this hides.
+- **★ "This branch is currently unexercisable" is a WORKLIST ITEM keyed to DATA, not a permanent state.**
+  HMW_142 Wookie Rangers' "or a Kashyyyk base" clause was correct for weeks but untested because no
+  Kashyyyk base existed in any set; the next preview wave shipped four. **Whenever a set's card pool
+  grows, grep your own comments for "unexercisable"/"not previewed"/"no fixture exists" and re-check
+  each** — this is the data-side twin of "a logged bug is a CLAIM, re-reproduce it". Pair the new
+  positive with the controller-scoping negative (the OPPONENT holding it grants nothing) and a
+  trait-scoping negative (a sibling card with the same shell but a different trait), against an
+  otherwise identical board, so the one new fixture is provably the only differentiator.
+- **A vanilla card is a Step-0 no-op for its OWN text, but its TRAITS can be the payload.** Twelve
+  blank-text bases needed no code and no tests of their own — and unblocked a conditional-keyword branch,
+  and supplied the gate fixture for a Legendary in the same wave. When triaging a vanilla batch, ask what
+  OTHER cards' conditions its traits now satisfy before marking the batch closed.
+
 ### ★★★ NEVER derive a rules set from CARD TEXT — use the authoritative per-card list (TS26, 2026-08-09)
 CR 16.c: a **"When Attack Ends" ability fires by DEFAULT when its own unit is defeated by combat damage**;
 requiring survival is a per-card OPT-IN. SWUSim had this inverted for every attack-end card.

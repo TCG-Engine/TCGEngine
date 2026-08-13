@@ -10,7 +10,9 @@
 # Does three things:
 #   1. Enable OPcache in php.ini
 #   2. Remove phpMyAdmin entirely (so it can't be reached from the internet)
-#   3. Install + configure fail2ban (ip rate-limit / ip jail)
+#   3. Install + configure fail2ban — by DELEGATING to newhost/harden-fail2ban.sh,
+#      which owns the filter, jail.local, the CDN whitelist and mod_remoteip.
+#      Run that script on its own to re-tune an already-provisioned box.
 #
 # Assumes: XAMPP at /opt/lampp, Debian/Ubuntu (apt), Apache via mod_php, run as root.
 #
@@ -23,15 +25,13 @@ LAMPP_ROOT="${LAMPP_ROOT:-/opt/lampp}"
 PHP_INI="${PHP_INI:-$LAMPP_ROOT/etc/php.ini}"
 XAMPP_CONF="${XAMPP_CONF:-$LAMPP_ROOT/etc/extra/httpd-xampp.conf}"
 PMA_DIR="${PMA_DIR:-$LAMPP_ROOT/phpmyadmin}"
-ACCESS_LOG="${ACCESS_LOG:-$LAMPP_ROOT/logs/access_log}"
-ERROR_LOG="${ERROR_LOG:-$LAMPP_ROOT/logs/error_log}"
+# ACCESS_LOG / ERROR_LOG moved to harden-fail2ban.sh along with the jails. They are
+# still honoured if exported — the child inherits them from the environment.
 
-# fail2ban DoS jail tunables: ban an IP that makes > MAXRETRY requests within
-# FINDTIME seconds, for BANTIME seconds. Defaults are deliberately generous so a
-# normal browsing session (many asset requests) is never caught.
-BANTIME="${BANTIME:-3600}"     # 1 hour
-FINDTIME="${FINDTIME:-60}"     # per 60s window
-MAXRETRY="${MAXRETRY:-300}"    # 300 requests / minute from one IP
+# fail2ban jail tunables (BANTIME / FINDTIME / MAXRETRY and the recidive ones) are
+# owned by harden-fail2ban.sh and read straight from the environment there, so they
+# are deliberately NOT re-declared here — a default in this file would silently
+# override that script's, which is exactly how the old 300-req/60s ceiling survived.
 
 # ---------------------------------------------------------------------------
 # Flags
@@ -179,71 +179,24 @@ fi
 # ---------------------------------------------------------------------------
 # 3. fail2ban
 # ---------------------------------------------------------------------------
+# fail2ban is owned ENTIRELY by the sibling harden-fail2ban.sh — filter, jail.local,
+# the Cloudflare whitelist and the mod_remoteip/LogFormat work that makes the jails
+# aim at real clients instead of CDN edges. It used to live inline here, but an
+# already-provisioned box needs to be able to re-tune fail2ban WITHOUT re-running
+# OPcache/phpMyAdmin changes, and two copies of jail.local would have drifted.
+# One source of truth; this script just delegates.
 if [ "$SKIP_F2B" -eq 0 ]; then
-  log "Installing + configuring fail2ban"
-  command -v apt-get >/dev/null 2>&1 || die "apt-get not found; install fail2ban manually or use --skip-fail2ban."
-  if ! command -v fail2ban-client >/dev/null 2>&1; then
-    DEBIAN_FRONTEND=noninteractive apt-get update -y
-    DEBIAN_FRONTEND=noninteractive apt-get install -y fail2ban
+  F2B_SCRIPT="$(cd "$(dirname "$0")" && pwd)/harden-fail2ban.sh"
+  if [ -x "$F2B_SCRIPT" ]; then
+    log "Delegating fail2ban setup to harden-fail2ban.sh"
+    # --skip-restart: this script restarts LAMPP itself at the end, below.
+    # No env pass-through: the operator's BANTIME/FINDTIME/MAXRETRY (if any) are
+    # already inherited, and anything unset must fall through to that script's defaults.
+    "$F2B_SCRIPT" --yes --skip-restart
+    ok "fail2ban configured"
   else
-    ok "fail2ban already installed"
-  fi
-
-  # Custom DoS filter: every request line from a host counts as one hit.
-  backup /etc/fail2ban/filter.d/xampp-dos.conf
-  cat > /etc/fail2ban/filter.d/xampp-dos.conf <<'FILTER'
-# xampp-dos - counts every HTTP request per client IP (combined access log).
-[Definition]
-failregex = ^<HOST> -.*"(GET|POST|HEAD|PUT|DELETE|OPTIONS|PATCH).*"
-ignoreregex =
-FILTER
-
-  # jail.local: the DoS rate-limit jail + standard Apache jails, all pointed at
-  # XAMPP's real log paths (NOT /var/log/apache2).
-  backup /etc/fail2ban/jail.local
-  cat > /etc/fail2ban/jail.local <<JAIL
-# Managed by newhost/harden-host.sh
-[DEFAULT]
-bantime  = $BANTIME
-findtime = $FINDTIME
-maxretry = $MAXRETRY
-backend  = auto
-banaction = iptables-multiport
-
-[xampp-dos]
-enabled  = true
-port     = http,https
-filter   = xampp-dos
-logpath  = $ACCESS_LOG
-maxretry = $MAXRETRY
-findtime = $FINDTIME
-bantime  = $BANTIME
-
-[apache-auth]
-enabled  = true
-port     = http,https
-logpath  = $ERROR_LOG
-
-[apache-badbots]
-enabled  = true
-port     = http,https
-logpath  = $ACCESS_LOG
-
-[apache-overflows]
-enabled  = true
-port     = http,https
-logpath  = $ERROR_LOG
-
-[recidive]
-enabled  = true
-JAIL
-  ok "wrote xampp-dos filter + jail.local"
-
-  systemctl enable fail2ban >/dev/null 2>&1 || true
-  if systemctl restart fail2ban 2>/dev/null; then
-    ok "fail2ban restarted"
-  else
-    service fail2ban restart 2>/dev/null || warn "could not restart fail2ban via systemctl/service; start it manually"
+    warn "harden-fail2ban.sh not found next to this script — fail2ban NOT configured."
+    warn "  run it separately: sudo ./harden-fail2ban.sh"
   fi
 else
   warn "skipping fail2ban (--skip-fail2ban)"
@@ -264,6 +217,7 @@ Verify:
   GD/WebP     : $LAMPP_ROOT/bin/php -r 'var_dump(function_exists("imagewebp"));'   # expect true
   phpMyAdmin  : curl -s -o /dev/null -w '%{http_code}\n' http://localhost/phpmyadmin   # expect 404
   fail2ban    : fail2ban-client status && fail2ban-client status xampp-dos
+  real client : tail -3 $LAMPP_ROOT/logs/access_log   # must show a real visitor IP, not a CDN edge
 
 Next: snapshot this box, then run  ./provision-app.sh <app> <db>  on each new clone.
 SUMMARY

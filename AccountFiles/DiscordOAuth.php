@@ -38,7 +38,7 @@ function DiscordOAuthStartUrl(string $action, string $site, string $redirect = '
 // prefix of any of these is accepted too. swustats.net is deliberately absent: its callback is
 // pinned to the www form below because that exact URI is what the SWUDeck Discord app registers.
 function DiscordOAuthCallbackHosts(): array {
-    return ['zendo.gg', 'petranaki.net', 'clarent.net', 'soulmastersdb.net'];
+    return ['zendo.gg', 'petranaki.net', 'clarent.net', 'soulmastersdb.net', 'northbeach.gg'];
 }
 
 // The callback must land on the SAME host the flow started from — the OAuth state lives in that

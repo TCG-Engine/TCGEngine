@@ -10137,6 +10137,23 @@ function _SWUPlayerHasBlockingDecision(int $player): bool {
     return false;
 }
 
+// True if $player has ANY pending decision still owed — including the static/auto-resolving kinds
+// (PASSPARAMETER, CUSTOM) that _SWUPlayerHasBlockingDecision deliberately ignores — other than an
+// orchestration resume, which must never count itself. Used ONLY by the combat resume's hop-back:
+// once the resume has moved to the other player's queue it can no longer drain the active player's,
+// so anything still sitting there is pre-damage work that combat must wait for. (HMW_188 Giant Gorax:
+// when the opponent's chosen mode leaves the caster a single legal target, the caster's pick is a
+// PASSPARAMETER — not "blocking", but it still has to resolve before combat damage.)
+function _SWUPlayerHasPendingWork(int $player): bool {
+    $q = GetDecisionQueue($player);
+    if (empty($q)) return false;
+    foreach ($q as $d) {
+        if (strpos((string)($d->Param ?? ''), 'SWU_TRIGGER_RESUME') === 0) continue;
+        return true;
+    }
+    return false;
+}
+
 // Uniqueness rule (CR 29.3): defeat the copy the player chose, then continue the paused action.
 // SWUDefeatUnit collects the defeated copy's WhenDefeated triggers (CR 29.3: those still resolve);
 // FlushEntryTriggerBag dispatches them — if they need interactive resolution it queues
@@ -10182,6 +10199,18 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             $other = OtherPlayer($activePlayer);
             if (_SWUPlayerHasBlockingDecision($other)) {
                 _SWUQueueOrchestration($other, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
+                $playerID = $savedPID;
+                return;
+            }
+            // …and a cross-player chain can bounce the pre-damage decision BACK to the active player:
+            // HMW_188 Giant Gorax's On Attack has the OPPONENT choose a mode, and one of those modes then
+            // has the CASTER choose a damage target. Once the resume has hopped onto the other player's
+            // queue, the check above can no longer see that pending caster decision, so combat committed
+            // ahead of it (the target then resolved against a board combat had already changed). Hop back.
+            // Guarded on having already hopped away ($player !== $activePlayer) — a resume sitting behind
+            // the active player's OWN block is ordered by its block number and must not re-queue itself.
+            if ($player !== $activePlayer && _SWUPlayerHasPendingWork($activePlayer)) {
+                _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
                 $playerID = $savedPID;
                 return;
             }
