@@ -16,7 +16,9 @@ function AzukiRaizanHeuristicCardIDs(): array {
         'prowler' => 'S1-STT01-005_Alpine-Prowler_E_C_die',
         'haruhi' => 'S1-STT01-006_Silver-Current-Haruhi_E_R_die',
         'crewleader' => 'S1-STT01-008_Black-Jade-Crewleader_E_UC_die',
+        'lightning_shuriken' => 'S1-STT01-012_Lightning-Shuriken_W_C_die',
         'black_jade_dagger' => 'S1-STT01-013_Black-Jade-Dagger_W_C_die',
+        'hidden_dagger' => 'S1-AZK01-094_Hidden-Dagger_W_C_die',
         'tenshin' => 'S1-STT01-014_Tenshin_W_C_die',
         'lightning_orb' => 'S1-STT01-017_Lightning-Orb_S_UC_die',
         'sundering_strike' => 'S1-AZK01-127_Sundering-Strike_S_UC_die',
@@ -73,6 +75,44 @@ function AzukiRaizanHeuristicRecruitExchangeScore($action): float {
     return 1200 - ($cost * 200) - min(99, $index);
 }
 
+function AzukiRaizanHeuristicSurgeWeaponScore($action): float {
+    $choice = strval($action['cardID'] ?? '');
+    if($choice === '-' || strtoupper($choice) === 'PASS') return -1000;
+
+    $ids = AzukiRaizanHeuristicCardIDs();
+    $cardID = AzukiZeroHeuristicActionCardID($action);
+    if(AzukiZeroHeuristicCardType($cardID) !== 'WEAPON') return -10000;
+    $preference = [
+        $ids['lightning_shuriken'] => 90,
+        $ids['hidden_dagger'] => 60,
+        $ids['black_jade_dagger'] => 30,
+    ];
+    $index = 999;
+    $targetMZ = AzukiZeroHeuristicMZFromAction($action);
+    if(preg_match('/^myDiscard-(\d+)$/', $targetMZ, $matches) === 1) $index = intval($matches[1]);
+    return 1200 + floatval($preference[$cardID] ?? 0) - min(99, $index);
+}
+
+function AzukiRaizanHeuristicSurgeEquipScore($action, $state): float {
+    $choice = strval($action['cardID'] ?? '');
+    if($choice === '-' || strtoupper($choice) === 'PASS') return -1000;
+
+    $ids = AzukiRaizanHeuristicCardIDs();
+    $targetMZ = AzukiZeroHeuristicMZFromAction($action);
+    $target = AzukiZeroHeuristicObject($targetMZ, intval($state['player'] ?? 0));
+    $cardID = AzukiZeroHeuristicActionCardID($action);
+    if(!is_object($target) || !str_starts_with($targetMZ, 'myGarden-')) return -10000;
+    $ready = intval($target->Status ?? 2) === 2;
+    $attack = AzukiZeroHeuristicCardAttack(intval($state['player'] ?? 0), $target, $cardID);
+    $index = 999;
+    if(preg_match('/^myGarden-(\d+)$/', $targetMZ, $matches) === 1) $index = intval($matches[1]);
+    return 1000
+        + ($cardID === $ids['raizan'] ? 500 : 0)
+        + ($ready ? 100 : 0)
+        + ($attack * 20)
+        - min(99, $index);
+}
+
 function AzukiRaizanHeuristicTargetScore($action, $legal, $state, $source = '', $damage = 1): float {
     $choice = strval($action['cardID'] ?? '');
     if($choice === '-' || strtoupper($choice) === 'PASS') return -600;
@@ -120,6 +160,7 @@ function AzukiRaizanHeuristicDecisionScore($action, $legal, $state): float {
     $choiceUpper = strtoupper($choice);
     $cardID = AzukiZeroHeuristicActionCardID($action);
     $source = AzukiZeroHeuristicDecisionSourceCardID($state);
+    $handler = AzukiZeroHeuristicPendingHandler(intval($state['player'] ?? 0));
 
     if($type === 'YESNO') {
         if(str_contains($tooltip, 'mulligan') || str_contains($param, 'review:myhand')) {
@@ -143,6 +184,13 @@ function AzukiRaizanHeuristicDecisionScore($action, $legal, $state): float {
     }
 
     if($source === $ids['recruit']) return AzukiRaizanHeuristicRecruitExchangeScore($action);
+
+    if(str_starts_with($handler, $ids['surge_gate'] . ':0:UseGate-1')) {
+        return AzukiRaizanHeuristicSurgeWeaponScore($action);
+    }
+    if(str_starts_with($handler, $ids['surge_gate'] . ':0:UseGate-2')) {
+        return AzukiRaizanHeuristicSurgeEquipScore($action, $state);
+    }
 
     if(str_contains($tooltip, 'select entity to portal')) {
         $targetMZ = AzukiZeroHeuristicMZFromAction($action);
@@ -182,7 +230,11 @@ function AzukiRaizanHeuristicActionScore($action, $actions, $legal, $snapshot, $
 
     if(str_starts_with($key, 'attack:')) {
         $obj = AzukiZeroHeuristicObject(AzukiZeroHeuristicMZFromAction($action), intval($player));
-        return 600 + (AzukiZeroHeuristicCardAttack(intval($player), $obj, $cardID) * 25);
+        $index = 999;
+        if(preg_match('/^myGarden-(\d+)$/', AzukiZeroHeuristicMZFromAction($action), $matches) === 1) {
+            $index = intval($matches[1]);
+        }
+        return 600 + (AzukiZeroHeuristicCardAttack(intval($player), $obj, $cardID) * 25) - min(99, $index);
     }
 
     if(str_starts_with($key, 'activate:') && $cardID === $ids['surge_gate']) {
@@ -202,6 +254,7 @@ function AzukiRaizanHeuristicCoverageRule($actions, $legal, $snapshot, $player):
     $tooltip = strtolower(str_replace('_', ' ', strval($legal['decisionTooltipRaw'] ?? $legal['decisionTooltip'] ?? '')));
     $param = strtolower(strval($legal['decisionParam'] ?? ''));
     $source = AzukiZeroHeuristicDecisionSourceCardID($state);
+    $handler = AzukiZeroHeuristicPendingHandler(intval($state['player'] ?? 0));
 
     if($type !== '') {
         if($type === 'YESNO') {
@@ -214,6 +267,8 @@ function AzukiRaizanHeuristicCoverageRule($actions, $legal, $snapshot, $player):
             $ids['recruit'], $ids['prowler'], $ids['haruhi'], $ids['crewleader'],
         ], true)) return 'core-entity-placement';
         if($source === $ids['recruit']) return 'recruit-cheapest-weapon-exchange';
+        if(str_starts_with($handler, $ids['surge_gate'] . ':0:UseGate-1')) return 'surge-recover-weapon';
+        if(str_starts_with($handler, $ids['surge_gate'] . ':0:UseGate-2')) return 'surge-equip-raizan';
         if(str_contains($tooltip, 'select entity to portal')) return 'clear-alley-target';
         if(str_contains($tooltip, 'attack target')) return 'efficient-attack-target';
         if($source === $ids['raizan']) return 'friendly-charge-target';
@@ -227,6 +282,24 @@ function AzukiRaizanHeuristicCoverageRule($actions, $legal, $snapshot, $player):
         && AzukiRaizanHeuristicHasAction($actions, $legal, 'activate:', $ids['surge_gate'])) {
         return 'clear-alley';
     }
+    $onlyPassAndAttacks = true;
+    $hasAttack = false;
+    foreach($actions as $action) {
+        if(!is_array($action)) {
+            $onlyPassAndAttacks = false;
+            break;
+        }
+        $key = AzukiZeroHeuristicActionKey($action, $legal);
+        if(str_starts_with($key, 'attack:')) {
+            $hasAttack = true;
+            continue;
+        }
+        if(!str_starts_with($key, 'pass:')) {
+            $onlyPassAndAttacks = false;
+            break;
+        }
+    }
+    if($hasAttack && $onlyPassAndAttacks) return 'attack-before-pass';
     $availableIKZ = intval($state['availableIKZ'] ?? 0);
     if($availableIKZ <= 1 && AzukiRaizanHeuristicHasAction($actions, $legal, 'play:', $ids['recruit'])) {
         return 'recruit-one-drop';
