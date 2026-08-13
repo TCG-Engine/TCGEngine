@@ -1429,7 +1429,11 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
             break;
         case 'LAW_033': // Hound's Tooth — "When Attack Ends: if this unit survived, you may defeat a unit
                         // with less power than this unit." (Survival gated at line 665; fires on any attack.)
-            AddTrigger($activePlayer, 'LAW_033', 'LAW_033', $attackerMzID);
+                        // A defender's parked When-Defeated (e.g. Raddus's "deal damage equal to power")
+                        // can still kill it — relay behind those so "survived" is real before offering.
+            if (!_SWUAttackEndCrossPlayerOrderSeam(intval($activePlayer), 'LAW_033', intval($attacker->UniqueID ?? 0), 'LAW_033')) {
+                AddTrigger($activePlayer, 'LAW_033', 'LAW_033', $attackerMzID);
+            }
             break;
         case 'LAW_034': // Chewbacca — "When Attack Ends: if the defending unit was defeated, give it an
                         // Experience token and heal 3 from him." (Attacker survived — gated at line 665.)
@@ -1780,19 +1784,7 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
             $aeRelayed = false;
             if (_SWUAttackEndRequiresSurvival($attacker->CardID)) {
                 $aeUID = intval($combatCtx['attackerUID'] ?? 0) ?: intval($attacker->UniqueID ?? 0);
-                for ($aeSeat = 1; $aeSeat <= SeatCountForGame() && !$aeRelayed; $aeSeat++) {
-                    if ($aeSeat === intval($activePlayer)) continue;
-                    foreach (GetDecisionQueue($aeSeat) as $aeEntry) {
-                        if (!empty($aeEntry->removed)) continue;
-                        if (($aeEntry->Type ?? '') !== 'CUSTOM') continue;
-                        if (strpos((string)($aeEntry->Param ?? ''), 'RESOLVE_TRIGGER|WhenDefeated|') !== 0) continue;
-                        DecisionQueueController::AddDecision($aeSeat, "CUSTOM",
-                            "XPLAYER_ATTACK_END_RELAY|{$activePlayer}|{$attacker->CardID}|{$aeUID}",
-                            intval($aeEntry->Block ?? 1));
-                        $aeRelayed = true;
-                        break;
-                    }
-                }
+                $aeRelayed = _SWUAttackEndCrossPlayerOrderSeam(intval($activePlayer), $attacker->CardID, $aeUID, 'OnAttackEnd');
             }
             if (!$aeRelayed) {
                 AddTrigger($activePlayer, 'OnAttackEnd', $attacker->CardID, $attackerMzID);
@@ -1957,6 +1949,43 @@ function _SWURecordAttackFlags(int $player, $attacker): void {
     }
 }
 
+// Survival-gated attack-end vs cross-player When-Defeated: the ORDER-CHOICE seam (user ruling
+// 2026-08-13, superseding the fixed WD-first relay of the same date). Shared by BOTH collection
+// paths — $onAttackEndAbilities in CollectAfterAttackTriggers AND the combat-hit-path cases in
+// SWUCollectCombatHitTriggers. When another seat holds a parked When-Defeated at collection time,
+// the two abilities are a simultaneous cross-player window: the ACTIVE player chooses which
+// player's triggers resolve first ("You" → the attack-end ability resolves while the attacker
+// still lives; "Opponent" → the When-Defeateds resolve first and the survival gate re-checks —
+// via XPLAYER_ATTACK_END_RELAY — before the attack-end ability is delivered or dropped).
+// Returns true when the choice was queued — the caller must then NOT queue the trigger directly.
+// $triggerType is what ultimately resolves (RESOLVE_TRIGGER|<type>|...): 'OnAttackEnd' for the
+// generic path, a CardID type (e.g. 'LAW_033') for combat-hit-path cards whose handler is
+// registered under their own trigger type.
+// Production race note: the opponent's client can drain its When-Defeateds while this choice is
+// still pending. "Opponent" then finds nothing parked and re-checks survival inline; "You" finds
+// the attacker already gone and the survival-gated ability fizzles — both outcomes stay coherent
+// with the board, the choice just arrives too late to matter.
+function _SWUAttackEndCrossPlayerOrderSeam(int $activePlayer, string $cardID, int $aeUID, string $triggerType): bool {
+    if ($aeUID <= 0) return false;
+    $found = false;
+    for ($aeSeat = 1; $aeSeat <= SeatCountForGame() && !$found; $aeSeat++) {
+        if ($aeSeat === $activePlayer) continue;
+        foreach (GetDecisionQueue($aeSeat) as $aeEntry) {
+            if (!empty($aeEntry->removed)) continue;
+            if (($aeEntry->Type ?? '') !== 'CUSTOM') continue;
+            if (strpos((string)($aeEntry->Param ?? ''), 'RESOLVE_TRIGGER|WhenDefeated|') !== 0) continue;
+            $found = true;
+            break;
+        }
+    }
+    if (!$found) return false;
+    DecisionQueueController::AddDecision($activePlayer, "OPTIONCHOOSE", "You&Opponent", 1,
+        "Choose_a_player_to_resolve_triggered_abilities_first");
+    DecisionQueueController::AddDecision($activePlayer, "CUSTOM",
+        "ATTACK_END_ORDER_PICK|{$activePlayer}|{$cardID}|{$aeUID}|{$triggerType}", 1);
+    return true;
+}
+
 function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     global $playerID;
     $savedPID = $playerID;
@@ -1996,6 +2025,27 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // Ambush attack reaches combat through this function ONLY — see _SWURecordAttackFlags. Idempotent,
     // so the normal path (already recorded in BeginSWUAttack) is a no-op here.
     _SWURecordAttackFlags(intval($attacker->Controller ?? $player), $attacker);
+    // First-attack-this-phase CONSUMERS live here, not in BeginSWUAttack: this function is the one
+    // chokepoint every attack passes through (declared, Ambush, event-driven), while BeginSWUAttack is
+    // declaration-only — an Ambush attack would otherwise never strike first / heal. The flag family is
+    // per-unit-UID and this attack's flag is set by now, so exactly one flag (either player) = no OTHER
+    // unit has attacked this phase; a same-unit repeat attack keeps the condition true per card text.
+    $faCtrl = intval($attacker->Controller ?? $player);
+    $faCount = 0;
+    foreach ([1, 2] as $ap) {
+        foreach (GetGlobalEffects($ap) as $ge) {
+            if (preg_match('/^SWU_ATTACKED_\d+$/', (string)($ge->CardID ?? ''))) $faCount++;
+        }
+    }
+    if ($faCount <= 1) {
+        // LAW_112 Boonta Eve Flagbearer — "When a friendly unit attacks: if no other units have attacked
+        // this phase (including enemy units), heal 2 from your base." Once per Flagbearer controlled.
+        $flags = _SWUCountActiveUnitsWithCardID($faCtrl, 'LAW_112');
+        for ($i = 0; $i < $flags; $i++) OnHealBase($faCtrl, $faCtrl, 2);
+        // LAW_219 Anakin's Podracer — "While attacking, if no other units have attacked this phase, this
+        // unit deals combat damage before the defending unit." Set before SWUCombatDamage reads it.
+        if (($attacker->CardID ?? '') === 'LAW_219') AddTurnEffect($attackerMzID, 'SHOOT_FIRST');
+    }
 
     // SOR_072 Entrenched / JTL_092 Scramble Fighters: "can't attack bases." Backstop (the valid-targets
     // list already omits the base) so a base target never resolves into combat.
@@ -3326,34 +3376,6 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     SetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', _SWUSupportGrant($attacker) !== null ? '1' : '');
 
     _SWURecordAttackFlags($player, $attacker);
-    // LAW_112 Boonta Eve Flagbearer — "When a friendly unit attacks: if no other units have attacked
-    // this phase (including enemy units), heal 2 from your base." This attack's flag was just set, so
-    // exactly one attack flag = first attack. Heal once per Flagbearer the active player controls.
-    if (_SWUCountActiveUnitsWithCardID($player, 'LAW_112') > 0) {
-        $atkCount = 0;
-        foreach ([1, 2] as $ap) {
-            foreach (GetGlobalEffects($ap) as $ge) {
-                if (preg_match('/^SWU_ATTACKED_\d+$/', (string)($ge->CardID ?? ''))) $atkCount++;
-            }
-        }
-        if ($atkCount <= 1) {
-            $flags = _SWUCountActiveUnitsWithCardID($player, 'LAW_112');
-            for ($i = 0; $i < $flags; $i++) OnHealBase($player, $player, 2);
-        }
-    }
-    // LAW_219 Anakin's Podracer — "While attacking, if no other units have attacked this phase, this
-    // unit deals combat damage before the defending unit." Conditional SHOOT_FIRST, set at declaration
-    // (before SWUCombatDamage reads it). This attack's flag was just added above, so exactly one attack
-    // flag this phase (either player) = this is the first attacker.
-    if (($attacker->CardID ?? '') === 'LAW_219') {
-        $atk219 = 0;
-        foreach ([1, 2] as $ap) {
-            foreach (GetGlobalEffects($ap) as $ge) {
-                if (preg_match('/^SWU_ATTACKED_\d+$/', (string)($ge->CardID ?? ''))) $atk219++;
-            }
-        }
-        if ($atk219 <= 1) AddTurnEffect($attackerMzID, 'SHOOT_FIRST');
-    }
 
     // Exhaust the attacker (CR 6.3.1). This function never gates on the attacker being ready
     // (the FSM does, upstream), so a granted "attack even if exhausted" attack (SOR_110)

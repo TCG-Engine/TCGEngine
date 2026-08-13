@@ -51,7 +51,6 @@ WithP1Deck: SOR_111
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myDiscard-1
 - P1>AnswerDecision:PASS
 
 ## EXPECT

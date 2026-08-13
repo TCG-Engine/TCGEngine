@@ -10,7 +10,7 @@ $whenPlayedAbilities["LAW_261:0"] = function($player, $mzID) {
     $targets = [];
     foreach (ZoneSearch("myDiscard") as $mz) {
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Underworld')) $targets[] = $mz;
+        if ($o !== null && empty($o->removed) && _SWUCardHasTrait(intval($player), $o->CardID ?? '', 'Underworld')) $targets[] = $mz;
     }
     if (empty($targets)) return;
     SWUQueueMayChooseTarget(intval($player), $targets, "Return_an_Underworld_card_from_your_discard?", "Choose_a_card", "LAW_261#0");
@@ -29,7 +29,7 @@ $whenPlayedAbilities["SHD_260:0"] = function($player, $mzID) {
     $targets = [];
     foreach (ZoneSearch('myDiscard') as $mz) {
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Underworld')) $targets[] = $mz;
+        if ($o !== null && empty($o->removed) && _SWUCardHasTrait(intval($player), $o->CardID ?? '', 'Underworld')) $targets[] = $mz;
     }
     SWUQueueMayChooseTarget(intval($player), $targets,
         "Return_an_Underworld_card_from_your_discard?", "Choose_an_Underworld_card", "SHD_260#0");

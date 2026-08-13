@@ -1635,15 +1635,26 @@ $customDQHandlers["ASH062_PREVENT_ABILITY"] = function ($player, $parts, $lastDe
   $src = intval($parts[2] ?? 0);
   $pmz = SWUFindMzByUID($uid);
   $unit = $pmz !== null ? GetZoneObject($pmz) : null;
+  // Declined / couldn't pay → apply the deferred damage. SWUDealDamageToUnit resolves its target mzID
+  // under the SOURCE's frame ($src), but $pmz above was resolved under the protected unit's controller
+  // ($player) — for a cross-player source the frames differ, so re-resolve under $src or the damage
+  // lands on the wrong (or an empty) slot: the target's own Shield never popped and the ping silently
+  // vanished (live-game Cad Bane report). Same fix as AMIDALA_PREVENT_ABILITY. skipPrevent=true skips
+  // only the deferral blocks, NOT the target's own Shield — that still absorbs the instance.
+  $applyDeferred = function () use ($uid, $amount, $src, $player) {
+    global $playerID;
+    $playerID = $src > 0 ? intval($src) : intval($player);
+    $srcPmz = SWUFindMzByUID($uid);
+    if ($srcPmz !== null)
+      SWUDealDamageToUnit($srcPmz, $amount, $src, null, true);
+  };
   if ($lastDecision !== 'YES') {
-    if ($pmz !== null)
-      SWUDealDamageToUnit($pmz, $amount, $src, null, true); // declined → apply now
+    $applyDeferred();                                         // declined → apply now
     return;
   }
   $provider = $unit !== null ? _SWUAsh062Provider($unit) : null;
   if ($provider === null || !SWUConsumeShieldToken($provider)) {
-    if ($pmz !== null)
-      SWUDealDamageToUnit($pmz, $amount, $src, null, true); // couldn't pay → apply now
+    $applyDeferred();                                         // couldn't pay → apply now
     return;
   }
   if ($pmz !== null)
@@ -1675,7 +1686,15 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
   // NO "and survives" clause, so it fires even when this damage DEFEATS Elite Squad (the target is ANOTHER
   // unit, so Elite Squad being gone is fine). Handled before the $survived gate below.
   if (($obj->CardID ?? '') === 'SEC_143' && $amount > 0) {
-    _SWUSec143Offer(intval($obj->Controller ?? 0), intval($obj->UniqueID ?? 0));
+    // QUEUED, not built inline: this fires mid-combat, BEFORE CleanupRemovedCards compacts the arena
+    // arrays — a pool built now carries positional mzIDs that go stale by the time the player answers
+    // (a defeated earlier slot shifts every later index). The CUSTOM drains post-cleanup and builds
+    // the offer against the compacted board. Same shape as the Traitorous queued revert.
+    $sec143Ctrl = intval($obj->Controller ?? 0);
+    if ($sec143Ctrl > 0) {
+      DecisionQueueController::AddDecision($sec143Ctrl, "CUSTOM",
+          "SEC143_OFFER|" . intval($obj->UniqueID ?? 0), 1);
+    }
   }
   // Every observer below has an explicit "and survives" / "isn't defeated" clause (or writes a marker on the
   // still-in-play unit), so they must NOT fire when the damage defeated the unit.
@@ -1863,6 +1882,11 @@ function _SWUSec002CheckObserve($obj, int $amount): void
     "DEAL_UNIT_DAMAGE|{$amount}"
   );
 }
+// Drained post-cleanup (see the queue site in _SWUOnUnitDamaged) so the pool's mzIDs are live.
+$customDQHandlers["SEC143_OFFER"] = function($player, $parts, $lastDecision) {
+  _SWUSec143Offer(intval($player), intval($parts[0] ?? 0));
+};
+
 function _SWUSec143Offer(int $player, int $selfUID): void
 {
   if ($player <= 0)

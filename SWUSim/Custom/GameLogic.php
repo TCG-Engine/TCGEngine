@@ -1487,6 +1487,46 @@ function SWUQueueChooseTarget(int $player, array $targets, string $tooltip, stri
     DecisionQueueController::AddDecision($player, 'CUSTOM', $handler, $block);
 }
 
+// Server-side answer validation for targeted choices (closes the arbitrary-target hole: a client
+// could answer a pending MZCHOOSE/MZMAYCHOOSE with ANY mzID — e.g. a unit outside the offered pool —
+// and the CUSTOM continuation would act on it; the UI constrains clicks but the server must not
+// trust input). Only the MZ choose types are validated: other decision types (YESNO, OPTIONCHOOSE,
+// search-by-CardID, MZMULTICHOOSE lists) keep their existing handling. PASS/'-' decline tokens are
+// always allowed — decline semantics per type are enforced downstream, not here. Called by
+// production's answer entry point (EngineActionRunner mode=100, gated by function_exists so other
+// sims are untouched) and by the test harness's answerDecision (which throws on an invalid answer
+// so a mis-encoded test fails loudly instead of silently acting out of pool).
+function SWUValidateDecisionAnswer(int $player, string $answer): bool {
+    if ($answer === 'PASS' || $answer === '-' || $answer === '') return true;
+    $head = null;
+    foreach (GetDecisionQueue($player) as $d) {
+        if (empty($d->removed)) { $head = $d; break; }
+    }
+    if ($head === null) return true;
+    $type = (string)($head->Type ?? '');
+    if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE') return true;
+    global $playerID;
+    $saved = $playerID;
+    $playerID = intval($player);   // Param mzIDs are in the deciding player's frame
+    $ok = false;
+    foreach (explode('&', (string)($head->Param ?? '')) as $rawSpec) {
+        $spec = explode(':', $rawSpec)[0];
+        if ($spec === '') continue;
+        if (preg_match('/^(.+)-(\d+)$/', $spec)) {
+            // Explicitly-listed candidate: the string match alone accepts. No liveness re-check —
+            // some windows (e.g. prevent-during-damage offers) legitimately list an object whose
+            // zone state is mid-transition when the answer arrives; the pool author vouched for it.
+            if ($answer === $spec) { $ok = true; break; }
+        } else {
+            if (!preg_match('/^' . preg_quote($spec, '/') . '-\d+$/', $answer)) continue;
+            $o = GetZoneObject($answer);
+            if ($o !== null && empty($o->removed)) { $ok = true; break; }
+        }
+    }
+    $playerID = $saved;
+    return $ok;
+}
+
 // "You may: choose a target, then run $handler." Emits a single MZMAYCHOOSE — one popup
 // where the player picks a target OR declines (the Pass button). On decline the chosen
 // value is '-', so $handler must no-op on a '-'/''/PASS lastDecision (all the universal
@@ -10093,12 +10133,67 @@ $customDQHandlers["XPLAYER_ATTACK_END_RELAY"] = function($player, $parts, $lastD
     $cardID     = (string)($parts[1] ?? '');
     $atkUID     = intval($parts[2] ?? 0);
     if ($atkPlayer <= 0 || $cardID === '' || $atkUID <= 0) return;
+    $trigType   = ($parts[3] ?? '') !== '' ? (string)$parts[3] : 'OnAttackEnd';
     $playerID = $atkPlayer;                     // resolve the attacker in ITS controller's frame
     $mz = SWUFindMzByUID($atkUID);
     $o  = ($mz !== null) ? GetZoneObject($mz) : null;
     if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) === $atkUID) {
         DecisionQueueController::AddDecision($atkPlayer, "CUSTOM",
-            "RESOLVE_TRIGGER|OnAttackEnd|{$cardID}|{$mz}", 1);
+            "RESOLVE_TRIGGER|{$trigType}|{$cardID}|{$mz}", 1);
+    }
+    $playerID = $savedPID;
+};
+
+// ATTACK_END_ORDER_PICK|<attackerPlayer>|<cardID>|<attackerUID>|<triggerType> — resolves the
+// cross-player order choice raised by _SWUAttackEndCrossPlayerOrderSeam. "You" delivers the
+// attack-end trigger to the active player now (their triggers resolve first; the opponent's
+// parked When-Defeateds drain after). Anything else ("Opponent") parks an
+// XPLAYER_ATTACK_END_RELAY behind the opponent's When-Defeateds so survival is re-checked
+// after they resolve; if their queue already drained, the survival re-check runs inline.
+$customDQHandlers["ATTACK_END_ORDER_PICK"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $savedPID  = $playerID;
+    $atkPlayer = intval($parts[0] ?? 0);
+    $cardID    = (string)($parts[1] ?? '');
+    $aeUID     = intval($parts[2] ?? 0);
+    $trigType  = ($parts[3] ?? '') !== '' ? (string)$parts[3] : 'OnAttackEnd';
+    if ($atkPlayer <= 0 || $cardID === '' || $aeUID <= 0) return;
+    if ($lastDecision === 'You') {
+        $playerID = $atkPlayer;
+        $mz = SWUFindMzByUID($aeUID);
+        $o  = ($mz !== null) ? GetZoneObject($mz) : null;
+        if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) === $aeUID) {
+            DecisionQueueController::AddDecision($atkPlayer, "CUSTOM",
+                "RESOLVE_TRIGGER|{$trigType}|{$cardID}|{$mz}", 1);
+        }
+        $playerID = $savedPID;
+        return;
+    }
+    $relayed = false;
+    for ($seat = 1; $seat <= SeatCountForGame() && !$relayed; $seat++) {
+        if ($seat === $atkPlayer) continue;
+        foreach (GetDecisionQueue($seat) as $entry) {
+            if (!empty($entry->removed)) continue;
+            if (($entry->Type ?? '') !== 'CUSTOM') continue;
+            if (strpos((string)($entry->Param ?? ''), 'RESOLVE_TRIGGER|WhenDefeated|') !== 0) continue;
+            // One block AFTER the When-Defeated entry: its targeted-damage continuations queue at
+            // ITS block and must fully resolve before survival is re-checked (Raddus-shaped WDs).
+            DecisionQueueController::AddDecision($seat, "CUSTOM",
+                "XPLAYER_ATTACK_END_RELAY|{$atkPlayer}|{$cardID}|{$aeUID}|{$trigType}",
+                intval($entry->Block ?? 1) + 1);
+            $relayed = true;
+            break;
+        }
+    }
+    if (!$relayed) {
+        $playerID = $atkPlayer;
+        $mz = SWUFindMzByUID($aeUID);
+        $o  = ($mz !== null) ? GetZoneObject($mz) : null;
+        if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) === $aeUID) {
+            DecisionQueueController::AddDecision($atkPlayer, "CUSTOM",
+                "RESOLVE_TRIGGER|{$trigType}|{$cardID}|{$mz}", 1);
+        }
+        $playerID = $savedPID;
     }
     $playerID = $savedPID;
 };
@@ -12145,6 +12240,12 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'SOR_122':
         case 'SHD_072':
         case 'SEC_038':
+        case 'SOR_072': // Entrenched — no printed attach restriction (only "can't attack bases", a debuff
+                        // typically played on an ENEMY unit): friendly OR enemy per CR 2.e. Was friendly-only,
+                        // masked by tests answering out-of-pool before answer validation existed.
+        case 'TS26_25': // Fiery Alliance — no printed attach restriction (its When Played reads "another
+                        // FRIENDLY unit", but the attach itself is unrestricted): friendly OR enemy per
+                        // CR 2.e. Same masked-by-out-of-pool-answer history as SOR_072.
         case 'SEC_175': // Ambition's Reward — printed "attach to a unit" (no restriction): friendly OR enemy
         case 'SEC_052': // Diplomatic Immunity — no printed attach restriction (only a granted On Defense
                         // disclose): friendly OR enemy per CR 2.e. Attaching it to an ENEMY unit hands

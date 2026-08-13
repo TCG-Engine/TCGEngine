@@ -551,6 +551,22 @@ class GameTestAdapter {
      * $value: mzID string for MZCHOOSE, 'YES'/'NO' for YESNO, number for NUMBERCHOOSE
      */
     public function answerDecision(int $player, string $value): void {
+        // Mirror production's answer validation (EngineActionRunner mode=100): an answer outside the
+        // pending choice's candidate pool is rejected there, so a test using one must fail LOUDLY here
+        // rather than silently acting on an out-of-pool target (the hole that let a section "defeat"
+        // a unit the offer never contained).
+        if (function_exists('SWUValidateDecisionAnswer') && !SWUValidateDecisionAnswer($player, $value)) {
+            $headDesc = '(empty queue)';
+            foreach (GetDecisionQueue($player) as $d) {
+                if (empty($d->removed)) {
+                    $headDesc = ($d->Type ?? '?') . ' [' . substr((string)($d->Param ?? ''), 0, 160) . ']'
+                              . ' tooltip=' . (string)($d->Tooltip ?? '');
+                    break;
+                }
+            }
+            throw new RuntimeException(
+                "AnswerDecision '{$value}' is not a candidate of P{$player}'s pending decision: {$headDesc}");
+        }
         ob_start();
         $dq = new DecisionQueueController();
         $dq->PopDecision($player);

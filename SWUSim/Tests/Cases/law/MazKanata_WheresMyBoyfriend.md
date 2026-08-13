@@ -193,10 +193,11 @@ P1NODECISION
 #// Maz wears SOR_120 Academy Training (6/6); she kills LOF_235 HK-87 Assassin Droid (4/4) and survives
 #// its 4 counter at 4 damage — then HK-87's "When Defeated: deal 2 damage to EACH ground unit"
 #// (mandatory, no targeting) finishes her (4+2=6). No search prompt, deck untouched.
-#// The P2>Drain drives the defender-controller's parked When Defeated, exactly as their client's poll
-#// would in a live game; Maz's survival-gated trigger is relayed BEHIND it and dropped when she is
-#// found dead. An implementation checking survival only at the collection point offers the search
-#// before the ping ever lands — the shape this section was written to kill.
+#// Both players have triggered abilities in this window, so the active player first chooses who
+#// resolves first; picking Opponent parks Maz's survival-gated trigger BEHIND the defender's When
+#// Defeated (P2>Drain drives it, as their client's poll would live) and drops it when she is found
+#// dead. An implementation checking survival only at the collection point offers the search before
+#// the ping ever lands — the shape this section was written to kill.
 
 ## GIVEN
 CommonSetup: bbk/bbk/{
@@ -214,6 +215,7 @@ WithP1Deck: [SOR_247 SOR_095 SOR_095 SOR_095 SOR_095]
 
 ## WHEN
 - P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Opponent
 - P2>Drain
 
 ## EXPECT
@@ -249,6 +251,7 @@ WithP1Deck: [SOR_247 SOR_095 SOR_095 SOR_095 SOR_095]
 
 ## WHEN
 - P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Opponent
 - P2>Drain
 - P1>Drain
 - P1>AnswerDecision:SOR_247

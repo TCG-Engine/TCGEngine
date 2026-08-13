@@ -58,7 +58,7 @@ WithP2GroundArena: SOR_239:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirBase
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2BASEDMG:4
