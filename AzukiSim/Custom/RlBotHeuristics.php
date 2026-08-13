@@ -53,6 +53,12 @@ function AzukiZeroHeuristicDecisionSourceCardID($state): string {
         $cardID = strval($obj->CardID ?? '');
         if($cardID !== '') return $cardID;
     }
+    if(str_starts_with($handler, 'PLAY_WEAPON_TARGET|')) {
+        $sourceMZ = explode('|', $handler, 2)[1] ?? '';
+        $obj = AzukiZeroHeuristicObject($sourceMZ, intval($state['player'] ?? 0));
+        $cardID = strval($obj->CardID ?? '');
+        if($cardID !== '') return $cardID;
+    }
     if(preg_match('/^(S1-[^:|]+):/', $handler, $matches) === 1) return strval($matches[1]);
     return strval(AzukiZeroHeuristicVariable('mzIDCardID'));
 }
@@ -444,6 +450,9 @@ function AzukiZeroHeuristicState($snapshot, $player): array {
         'myLife' => intval($mine['remainingLife'] ?? 20),
         'theirLife' => intval($theirs['remainingLife'] ?? 20),
         'availableIKZ' => intval($mine['availableIKZ'] ?? 0),
+        'ikzToken' => array_key_exists('ikzToken', $mine)
+            ? intval($mine['ikzToken'])
+            : (function_exists('GetAccessibleIKZTokenCount') ? intval(GetAccessibleIKZTokenCount($player)) : 0),
         'myReadyAttack' => AzukiZeroHeuristicLiveReadyAttack($player, intval($mine['readyAttack'] ?? 0)),
         'theirReadyAttack' => AzukiZeroHeuristicLiveReadyAttack($opponent, intval($theirs['readyAttack'] ?? 0)),
         'myBoardAttack' => intval($mine['boardAttack'] ?? $mine['readyAttack'] ?? 0),

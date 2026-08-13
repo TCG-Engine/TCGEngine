@@ -113,6 +113,92 @@ function AzukiRaizanHeuristicSurgeEquipScore($action, $state): float {
         - min(99, $index);
 }
 
+function AzukiRaizanHeuristicWeaponReach($cardID, $state): int {
+    $ids = AzukiRaizanHeuristicCardIDs();
+    if(AzukiZeroHeuristicCardType($cardID) !== 'WEAPON') return 0;
+    $reach = function_exists('CardAttack') ? max(0, intval(CardAttack($cardID))) : 0;
+    // Tenshin can point its On Play damage at the opposing leader. Black Jade
+    // Dagger can add another attack at the cost of one life when closing.
+    if($cardID === $ids['tenshin']) ++$reach;
+    if($cardID === $ids['black_jade_dagger'] && intval($state['myLife'] ?? 20) > 1) ++$reach;
+    return $reach;
+}
+
+function AzukiRaizanHeuristicWeaponCreatesLethal($cardID, $state): bool {
+    $reach = AzukiRaizanHeuristicWeaponReach($cardID, $state);
+    return $reach > 0
+        && intval($state['myReadyAttack'] ?? 0) + $reach >= intval($state['theirLife'] ?? 20);
+}
+
+function AzukiRaizanHeuristicPendingCombat($state): array {
+    $attackerPlayer = function_exists('GetPendingAttackAttackerPlayer')
+        ? intval(GetPendingAttackAttackerPlayer())
+        : intval($state['opponent'] ?? 0);
+    $attackerMZ = function_exists('ResolvePendingAttackParticipantByUniqueID')
+        ? strval(ResolvePendingAttackParticipantByUniqueID('Attacker') ?? '')
+        : strval(AzukiZeroHeuristicVariable('PendingAttackAttackerMZ'));
+    $targetMZ = function_exists('ResolvePendingAttackParticipantByUniqueID')
+        ? strval(ResolvePendingAttackParticipantByUniqueID('Target') ?? '')
+        : strval(AzukiZeroHeuristicVariable('PendingAttackTargetMZ'));
+    $attacker = AzukiZeroHeuristicObject($attackerMZ, $attackerPlayer);
+    $defender = AzukiZeroHeuristicObject($targetMZ, $attackerPlayer);
+    return [
+        'attackerPlayer' => $attackerPlayer,
+        'attackerMZ' => $attackerMZ,
+        'targetMZ' => $targetMZ,
+        'attacker' => $attacker,
+        'defender' => $defender,
+    ];
+}
+
+function AzukiRaizanHeuristicResponseScore($cardID, $state): float {
+    $ids = AzukiRaizanHeuristicCardIDs();
+    $combat = AzukiRaizanHeuristicPendingCombat($state);
+    $attacker = $combat['attacker'] ?? null;
+    if(!is_object($attacker)) return -10000;
+    $attackerPlayer = intval($combat['attackerPlayer'] ?? 0);
+    $attackerID = strval($attacker->CardID ?? '');
+    if(AzukiZeroHeuristicCardType($attackerID) !== 'ENTITY') return -10000;
+    $attackerHP = AzukiZeroHeuristicRemainingHP($attackerPlayer, $attacker, $attackerID);
+    $attackerPower = AzukiZeroHeuristicCardAttack($attackerPlayer, $attacker, $attackerID);
+
+    if($cardID === $ids['lightning_orb']) {
+        return $attackerHP > 0 && $attackerHP <= 1 ? 1900 + ($attackerPower * 80) : -10000;
+    }
+    if($cardID === $ids['hidden_dagger']) {
+        $defender = $combat['defender'] ?? null;
+        if(!is_object($defender)) return -10000;
+        $defenderPower = AzukiZeroHeuristicCardAttack(
+            intval($state['player'] ?? 0),
+            $defender,
+            strval($defender->CardID ?? '')
+        );
+        $daggerPower = function_exists('CardAttack') ? max(0, intval(CardAttack($ids['hidden_dagger']))) : 0;
+        $createsKill = $defenderPower < $attackerHP && $defenderPower + $daggerPower >= $attackerHP;
+        return $createsKill ? 1700 + ($attackerPower * 80) : -10000;
+    }
+    return -10000;
+}
+
+function AzukiRaizanHeuristicWeaponEquipScore($action, $state, $source): float {
+    $ids = AzukiRaizanHeuristicCardIDs();
+    $targetMZ = AzukiZeroHeuristicMZFromAction($action);
+    $target = AzukiZeroHeuristicObject($targetMZ, intval($state['player'] ?? 0));
+    if(!is_object($target)) return -10000;
+
+    if($source === $ids['hidden_dagger']) {
+        $combat = AzukiRaizanHeuristicPendingCombat($state);
+        $pendingTarget = strval($combat['targetMZ'] ?? '');
+        $responderTarget = function_exists('FlipZonePerspective')
+            ? strval(FlipZonePerspective($pendingTarget))
+            : (str_starts_with($pendingTarget, 'their') ? 'my' . substr($pendingTarget, 5) : $pendingTarget);
+        if($targetMZ === $responderTarget) return 2000;
+    }
+
+    $cardID = AzukiZeroHeuristicActionCardID($action);
+    return 1000 + ($cardID === $ids['raizan'] ? 500 : 0);
+}
+
 function AzukiRaizanHeuristicTargetScore($action, $legal, $state, $source = '', $damage = 1): float {
     $choice = strval($action['cardID'] ?? '');
     if($choice === '-' || strtoupper($choice) === 'PASS') return -600;
@@ -183,6 +269,10 @@ function AzukiRaizanHeuristicDecisionScore($action, $legal, $state): float {
         return $choiceUpper === $preferred ? 900 : 0;
     }
 
+    if(str_starts_with($handler, 'PLAY_WEAPON_TARGET|')) {
+        return AzukiRaizanHeuristicWeaponEquipScore($action, $state, $source);
+    }
+
     if($source === $ids['recruit']) return AzukiRaizanHeuristicRecruitExchangeScore($action);
 
     if(str_starts_with($handler, $ids['surge_gate'] . ':0:UseGate-1')) {
@@ -219,9 +309,17 @@ function AzukiRaizanHeuristicActionScore($action, $actions, $legal, $snapshot, $
 
     $key = AzukiZeroHeuristicActionKey($action, $legal);
     $cardID = AzukiZeroHeuristicActionCardID($action);
+    $kind = strval($legal['kind'] ?? '');
     if(str_starts_with($key, 'pass:')) return -1000;
 
+    if($kind === 'azuki-attack-response-fsm') {
+        return AzukiRaizanHeuristicResponseScore($cardID, $state);
+    }
+
     if(str_starts_with($key, 'play:')) {
+        if(AzukiZeroHeuristicCardType($cardID) === 'WEAPON' && intval($state['ikzToken'] ?? 0) > 0) {
+            return AzukiRaizanHeuristicWeaponCreatesLethal($cardID, $state) ? 5000 : -2000;
+        }
         if($cardID === $ids['recruit']) return 1000;
         if($cardID === $ids['haruhi']) return 900;
         if($cardID === $ids['crewleader']) return 850;
@@ -266,6 +364,7 @@ function AzukiRaizanHeuristicCoverageRule($actions, $legal, $snapshot, $player):
         if($type === 'CHOOSEZONE' && in_array($source, [
             $ids['recruit'], $ids['prowler'], $ids['haruhi'], $ids['crewleader'],
         ], true)) return 'core-entity-placement';
+        if(str_starts_with($handler, 'PLAY_WEAPON_TARGET|')) return 'weapon-equip-target';
         if($source === $ids['recruit']) return 'recruit-cheapest-weapon-exchange';
         if(str_starts_with($handler, $ids['surge_gate'] . ':0:UseGate-1')) return 'surge-recover-weapon';
         if(str_starts_with($handler, $ids['surge_gate'] . ':0:UseGate-2')) return 'surge-equip-raizan';
@@ -274,6 +373,15 @@ function AzukiRaizanHeuristicCoverageRule($actions, $legal, $snapshot, $player):
         if($source === $ids['raizan']) return 'friendly-charge-target';
         if(in_array($source, [$ids['haruhi'], $ids['tenshin'], $ids['lightning_orb'], $ids['sundering_strike']], true)) {
             return 'one-point-removal-target';
+        }
+        return '';
+    }
+
+    if(strval($legal['kind'] ?? '') === 'azuki-attack-response-fsm') {
+        foreach($actions as $action) {
+            if(!is_array($action)) continue;
+            $cardID = AzukiZeroHeuristicActionCardID($action);
+            if(AzukiRaizanHeuristicResponseScore($cardID, $state) > 0) return 'surprise-removal-response';
         }
         return '';
     }
@@ -300,6 +408,17 @@ function AzukiRaizanHeuristicCoverageRule($actions, $legal, $snapshot, $player):
         }
     }
     if($hasAttack && $onlyPassAndAttacks) return 'attack-before-pass';
+    if(strval($legal['kind'] ?? '') !== 'azuki-attack-response-fsm'
+        && intval($state['ikzToken'] ?? 0) > 0) {
+        foreach($actions as $action) {
+            if(!is_array($action)) continue;
+            $key = AzukiZeroHeuristicActionKey($action, $legal);
+            $cardID = AzukiZeroHeuristicActionCardID($action);
+            if(str_starts_with($key, 'play:') && AzukiZeroHeuristicCardType($cardID) === 'WEAPON') {
+                return 'preserve-token-from-weapon';
+            }
+        }
+    }
     $availableIKZ = intval($state['availableIKZ'] ?? 0);
     if($availableIKZ <= 1 && AzukiRaizanHeuristicHasAction($actions, $legal, 'play:', $ids['recruit'])) {
         return 'recruit-one-drop';
