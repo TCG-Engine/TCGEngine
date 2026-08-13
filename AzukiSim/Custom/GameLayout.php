@@ -44,6 +44,31 @@ require_once __DIR__ . '/GameLayoutDevice.php';
         --mz-rearrange-order-shadow: 0 2px 8px rgba(126, 25, 35, 0.5);
         --mz-rearrange-instructions-text: rgba(226, 216, 198, 0.62);
         --mz-rearrange-empty-text: rgba(226, 216, 198, 0.38);
+
+        --mz-choose-overlay-bg: rgba(3, 3, 4, 0.82);
+        --mz-choose-font: var(--azuki-font-ui, "Segoe UI Variable Display", "Aptos", sans-serif);
+        --mz-choose-panel-bg: linear-gradient(145deg, rgba(29, 28, 29, 0.985), rgba(12, 12, 14, 0.985));
+        --mz-choose-panel-border: rgba(181, 55, 65, 0.48);
+        --mz-choose-panel-radius: 18px;
+        --mz-choose-panel-shadow: 0 24px 64px rgba(0, 0, 0, 0.66), 0 0 38px rgba(126, 25, 35, 0.15), inset 0 1px 0 rgba(255, 248, 235, 0.04);
+        --mz-choose-panel-filter: blur(12px) saturate(110%);
+        --mz-choose-header-text: rgba(244, 237, 224, 0.94);
+        --mz-choose-control-border: rgba(226, 216, 198, 0.22);
+        --mz-choose-control-bg: rgba(226, 216, 198, 0.07);
+        --mz-choose-control-text: #f4ede0;
+        --mz-choose-divider: linear-gradient(90deg, rgba(181, 55, 65, 0.56), rgba(226, 216, 198, 0.07));
+        --mz-choose-title-text: rgba(247, 240, 228, 0.98);
+        --mz-choose-card-hover-shadow: 0 0 0 2px rgba(181, 55, 65, 0.78), 0 10px 28px rgba(126, 25, 35, 0.42);
+        --mz-choose-zone-label-bg: rgba(12, 12, 14, 0.9);
+        --mz-choose-zone-label-text: #f7f0e4;
+        --mz-choose-pass-bg: linear-gradient(180deg, #9d2d38, #661a23);
+        --mz-choose-pass-text: #f7f0e4;
+        --mz-choose-pass-border: rgba(217, 93, 104, 0.86);
+        --mz-choose-pass-shadow: inset 0 1px 0 rgba(255, 224, 226, 0.16), 0 12px 28px rgba(92, 17, 25, 0.42);
+        --mz-choose-pass-hover-border: rgba(239, 135, 144, 0.94);
+        --mz-choose-pass-hover-shadow: inset 0 1px 0 rgba(255, 235, 237, 0.22), 0 16px 34px rgba(92, 17, 25, 0.54);
+        --mz-choose-pass-active-shadow: inset 0 2px 5px rgba(44, 6, 11, 0.5), 0 7px 18px rgba(92, 17, 25, 0.4);
+        --mz-choose-pass-focus: rgba(239, 135, 144, 0.94);
     }
 
     .mzrearrange-btn-reset {
