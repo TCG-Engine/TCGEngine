@@ -42,6 +42,14 @@ function GeneratorAdminAction($id, $label, $description, $endpoint, $source, $ki
     ];
 }
 
+function GeneratorAdminHasValidCardCache($rootName)
+{
+    $cachePath = __DIR__ . '/' . $rootName . '/GeneratedCode/cardArrayCache.json';
+    if (!is_file($cachePath)) return false;
+    $cache = json_decode((string)file_get_contents($cachePath), true);
+    return is_array($cache) && is_array($cache['cardArray'] ?? null) && count($cache['cardArray']) > 0;
+}
+
 $schemaRoot = __DIR__ . '/Schemas';
 $appRoots = [];
 foreach (glob($schemaRoot . '/*', GLOB_ONLYDIR) ?: [] as $schemaDirectory) {
@@ -80,11 +88,23 @@ foreach ($appRoots as $rootName) {
     $schemaDirectory = $schemaRoot . '/' . $rootName;
     $actions = [];
 
-    if (is_file($schemaDirectory . '/ImportSchema.txt')) {
+    if ($rootName === 'HellbreakSim') {
+        $actions[] = GeneratorAdminAction(
+            'hellbreak-workbook',
+            'Import Hellbreak workbook',
+            'Download and normalize the shared community workbook. A local .xlsx can optionally override the public source.',
+            'DevTools/Hellbreak/AdminWorkbookImport.php',
+            'DevTools/Hellbreak/import-workbook.php',
+            'workbook'
+        );
+    }
+    if (is_file($schemaDirectory . '/ImportSchema.txt') && $rootName !== 'HellbreakDeck') {
         $actions[] = GeneratorAdminAction(
             'cards',
             'Card data & images',
-            'Rebuild card dictionaries from cache or fetch current source data.',
+            $rootName === 'HellbreakSim'
+                ? 'Rebuild card dictionaries from the normalized Hellbreak workbook cache.'
+                : 'Rebuild card dictionaries from cache or fetch current source data.',
             'zzCardCodeGenerator.php?rootName={app}',
             'zzCardCodeGenerator.php'
         );
@@ -107,6 +127,15 @@ foreach ($appRoots as $rootName) {
             'zzTurnGenerator.php'
         );
     }
+    if ($rootName === 'HellbreakSim' && is_file($schemaRoot . '/HellbreakDeck/GameSchema.txt')) {
+        $actions[] = GeneratorAdminAction(
+            'hellbreak-deck',
+            'Hellbreak deck runtime',
+            'Regenerate the deck editor after the shared Hellbreak card data and simulator runtime.',
+            'zzGameCodeGenerator.php?rootName=HellbreakDeck',
+            'Schemas/HellbreakDeck/GameSchema.txt'
+        );
+    }
     if (isset($keywordActions[$rootName]) && is_file(__DIR__ . '/' . $keywordActions[$rootName]['source'])) {
         $actions[] = $keywordActions[$rootName];
     }
@@ -125,6 +154,8 @@ foreach ($appRoots as $rootName) {
         'label' => GeneratorAdminAppLabel($rootName),
         'actions' => $actions,
         'hasCropTester' => is_dir(__DIR__ . '/' . $rootName . '/WebpImages'),
+        'usesWorkbookImport' => $rootName === 'HellbreakSim',
+        'hasValidCardCache' => $rootName === 'HellbreakSim' && GeneratorAdminHasValidCardCache('HellbreakSim'),
     ];
 }
 
@@ -274,6 +305,8 @@ foreach ($apps as $app) {
         .options-title small { margin-top: 3px; color: var(--muted); font-size: 11px; }
         .switch { display: inline-flex; align-items: center; gap: 9px; color: #c7d0dc; font-size: 12px; cursor: pointer; }
         .switch input { width: 16px; height: 16px; accent-color: var(--blue-deep); }
+        .file-choice { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .file-choice-name { max-width: 360px; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .transfer-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .transfer-status { width: 100%; margin: -5px 0 20px; color: var(--muted); font-size: 12px; }
         .transfer-status[data-kind="success"] { color: var(--green); }
@@ -411,8 +444,20 @@ foreach ($apps as $app) {
                     <strong>Card generator options</strong>
                     <small>Applied whenever the card-data step runs.</small>
                 </div>
-                <label class="switch"><input type="checkbox" id="with-preview"> Fetch current source data</label>
+                <label class="switch" id="with-preview-option"><input type="checkbox" id="with-preview"> Fetch current source data</label>
                 <label class="switch"><input type="checkbox" id="overwrite-images"> Replace existing images</label>
+            </section>
+
+            <section class="options" id="hellbreak-workbook-options" hidden>
+                <div class="options-title">
+                    <strong>Hellbreak source workbook</strong>
+                    <small>The public OneDrive workbook is used automatically. Choose a local .xlsx only to override it.</small>
+                </div>
+                <div class="file-choice">
+                    <button type="button" class="button button-small" id="choose-hellbreak-workbook">Choose workbook</button>
+                    <span class="file-choice-name" id="hellbreak-workbook-name">No workbook selected</span>
+                    <input type="file" id="hellbreak-workbook-file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
+                </div>
             </section>
 
             <section class="options" id="ability-transfer-options">
@@ -458,7 +503,12 @@ const cancelButton = document.getElementById('cancel-button');
 const bannerCancelButton = document.getElementById('banner-cancel-button');
 const runBanner = document.getElementById('run-banner');
 const withPreview = document.getElementById('with-preview');
+const withPreviewOption = document.getElementById('with-preview-option');
 const overwriteImages = document.getElementById('overwrite-images');
+const hellbreakWorkbookOptions = document.getElementById('hellbreak-workbook-options');
+const chooseHellbreakWorkbookButton = document.getElementById('choose-hellbreak-workbook');
+const hellbreakWorkbookFile = document.getElementById('hellbreak-workbook-file');
+const hellbreakWorkbookName = document.getElementById('hellbreak-workbook-name');
 const exportAbilitiesButton = document.getElementById('export-abilities-button');
 const importAbilitiesButton = document.getElementById('import-abilities-button');
 const importAbilitiesFile = document.getElementById('import-abilities-file');
@@ -521,6 +571,7 @@ function selectApp(rootName) {
     const next = apps.find(app => app.rootName === rootName);
     if (!next) return;
     selectedApp = next;
+    withPreview.checked = false;
     const url = new URL(window.location.href);
     url.searchParams.set('app', rootName);
     window.history.replaceState(null, '', url);
@@ -639,7 +690,14 @@ function render() {
     cropTesterLink.href = `zzCropTester.php?app=${encodeURIComponent(selectedApp.rootName)}`;
     document.getElementById('step-count').textContent = selectedApp.actions.length;
     document.getElementById('schema-count').textContent = selectedApp.actions.filter(action => ['cards', 'game', 'turn'].includes(action.id)).length;
-    document.getElementById('card-options').hidden = !selectedApp.actions.some(action => action.id === 'cards');
+    document.getElementById('card-options').hidden = selectedApp.usesWorkbookImport || !selectedApp.actions.some(action => action.id === 'cards');
+    withPreviewOption.hidden = selectedApp.usesWorkbookImport;
+    if (selectedApp.usesWorkbookImport) withPreview.checked = false;
+    hellbreakWorkbookOptions.hidden = !selectedApp.usesWorkbookImport;
+    hellbreakWorkbookName.textContent = hellbreakWorkbookFile.files && hellbreakWorkbookFile.files[0]
+        ? hellbreakWorkbookFile.files[0].name
+        : (selectedApp.hasValidCardCache ? 'Public source ready — valid cache will be reused' : 'Public OneDrive source will be downloaded');
+    chooseHellbreakWorkbookButton.disabled = pipelineRunning;
     const lastRun = selectedApp.actions
         .map(action => runStates.get(stateKey(selectedApp, action)))
         .filter(Boolean)
@@ -790,17 +848,37 @@ async function executeAction(action) {
     const appAtStart = selectedApp;
     const key = stateKey(appAtStart, action);
     const startedAt = performance.now();
+
+    if (action.kind === 'workbook' && !(hellbreakWorkbookFile.files && hellbreakWorkbookFile.files[0])) {
+        if (appAtStart.hasValidCardCache) {
+            outputs.set(key, 'Skipped workbook import: HellbreakSim/GeneratedCode/cardArrayCache.json already contains card data. Choose a local workbook above to replace it.');
+            runStates.set(key, { status: 'success', duration: 0, completedAt: Date.now() });
+            render();
+            return true;
+        }
+    }
+
     runStates.set(key, { status: 'running' });
     render();
 
     activeController = new AbortController();
     try {
-        const response = await fetch(actionUrl(action), {
+        const requestOptions = {
             credentials: 'same-origin',
             cache: 'no-store',
             signal: activeController.signal,
             headers: { 'X-Generator-Admin': '1' },
-        });
+        };
+        if (action.kind === 'workbook') {
+            const form = new FormData();
+            form.set('csrf', generatorAdminCsrf);
+            if (hellbreakWorkbookFile.files && hellbreakWorkbookFile.files[0]) {
+                form.set('workbook', hellbreakWorkbookFile.files[0]);
+            }
+            requestOptions.method = 'POST';
+            requestOptions.body = form;
+        }
+        const response = await fetch(actionUrl(action), requestOptions);
         const raw = await response.text();
         const text = outputToText(raw) || '(No output returned.)';
         outputs.set(key, text);
@@ -811,6 +889,10 @@ async function executeAction(action) {
             duration: Math.round(performance.now() - startedAt),
             completedAt: Date.now(),
         });
+        if (action.kind === 'workbook') {
+            appAtStart.hasValidCardCache = true;
+            hellbreakWorkbookFile.value = '';
+        }
         return true;
     } catch (error) {
         const cancelled = error && error.name === 'AbortError';
@@ -871,6 +953,10 @@ bannerCancelButton.addEventListener('click', cancelRun);
 exportAbilitiesButton.addEventListener('click', exportAbilities);
 importAbilitiesButton.addEventListener('click', chooseAbilityImport);
 importAbilitiesFile.addEventListener('change', importAbilities);
+chooseHellbreakWorkbookButton.addEventListener('click', () => {
+    if (!pipelineRunning) hellbreakWorkbookFile.click();
+});
+hellbreakWorkbookFile.addEventListener('change', render);
 
 if (!hasRequestedApp) {
     try {

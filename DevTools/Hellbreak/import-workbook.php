@@ -2,70 +2,101 @@
 
 declare(strict_types=1);
 
-const HELLBREAK_SOURCE_URL = 'https://onedrive.live.com/:x:/g/personal/8ef2128400f307a7/IQD9qTaoxlAYQZq9RRsDNjXsAaGNuTGXKyi3vU49-R5V7nE';
+const HELLBREAK_SOURCE_URL = 'https://onedrive.live.com/:x:/g/personal/8ef2128400f307a7/IQD9qTaoxlAYQZq9RRsDNjXsAaGNuTGXKyi3vU49-R5V7nE?rtime=eIZ9Ihj63kg&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy84ZWYyMTI4NDAwZjMwN2E3L0lRRDlxVGFveGxBWVFacTlSUnNETmpYc0FhR051VEdYS3lpM3ZVNDktUjVWN25FP2U9RjNOS05D';
 
-$options = getopt('', ['source:', 'sheet:', 'root:', 'no-images', 'help']);
-if (isset($options['help'])) {
-    echo "Usage: php DevTools/Hellbreak/import-workbook.php --source=cards.xlsx [--sheet=\"01 - Dawn of Terror\"] [--root=HellbreakSim] [--no-images]\n";
-    exit(0);
+function importHellbreakWorkbook(
+    string $source,
+    string $sheetName = '01 - Dawn of Terror',
+    string $targetRoot = 'HellbreakSim',
+    bool $extractImages = true,
+    string $sourceLabel = ''
+): array {
+    $repoRoot = dirname(__DIR__, 2);
+    $targetRoot = preg_replace('/[^A-Za-z0-9_-]/', '', $targetRoot);
+    if ($targetRoot === '') throw new InvalidArgumentException('Invalid target root.');
+    $source = trim($source);
+    $sheetName = trim($sheetName);
+    $temporaryFile = null;
+
+    try {
+        $xlsxPath = resolveWorkbook($source, $temporaryFile);
+        $import = readWorkbook($xlsxPath, $sheetName);
+        [$cards, $warnings, $rowToCard, $dataAudit] = normalizeRows($import['rows']);
+
+        if (!$cards) {
+            throw new RuntimeException('No card rows were found. Check the selected sheet and its headers.');
+        }
+
+        $dataAudit['reviewedCardFaces'] = applyReviewedCardFaces($cards, $repoRoot, $warnings);
+        $dataAudit['cardFaceReviewQueue'] = applyCardFaceReviewQueue($cards, $repoRoot, $warnings);
+
+        $target = $repoRoot . DIRECTORY_SEPARATOR . $targetRoot;
+        $generated = $target . DIRECTORY_SEPARATOR . 'GeneratedCode';
+        ensureDirectory($generated);
+
+        $imageReport = ['enabled' => $extractImages, 'embedded' => 0, 'external' => 0, 'failed' => 0];
+        if ($extractImages) {
+            $imageReport = ['enabled' => true] + importImages($xlsxPath, $import, $rowToCard, $cards, $target, $warnings);
+        }
+        $imageReport += imageInventory($cards, $target);
+
+        $payload = [
+            'cardArray' => array_values($cards),
+            'reprintMap' => new stdClass(),
+            'leaderUnitByUUIDMap' => new stdClass(),
+        ];
+        writeJson($generated . DIRECTORY_SEPARATOR . 'cardArrayCache.json', $payload);
+
+        $report = [
+            'source' => $sourceLabel !== '' ? $sourceLabel : $source,
+            'sheet' => $import['sheetName'],
+            'importedAt' => gmdate('c'),
+            'cards' => count($cards),
+            'data' => $dataAudit,
+            'images' => $imageReport,
+            'warnings' => $warnings,
+        ];
+        writeJson($generated . DIRECTORY_SEPARATOR . 'HellbreakImportReport.json', $report);
+
+        return $report;
+    } finally {
+        if ($temporaryFile && is_file($temporaryFile)) @unlink($temporaryFile);
+    }
 }
 
-$repoRoot = dirname(__DIR__, 2);
-$targetRoot = preg_replace('/[^A-Za-z0-9_-]/', '', (string)($options['root'] ?? 'HellbreakSim'));
-$source = trim((string)($options['source'] ?? HELLBREAK_SOURCE_URL));
-$sheetName = trim((string)($options['sheet'] ?? '01 - Dawn of Terror'));
-$extractImages = !isset($options['no-images']);
-$temporaryFile = null;
-
-try {
-    $xlsxPath = resolveWorkbook($source, $temporaryFile);
-    $import = readWorkbook($xlsxPath, $sheetName);
-    [$cards, $warnings, $rowToCard, $dataAudit] = normalizeRows($import['rows']);
-
-    if (!$cards) {
-        throw new RuntimeException('No card rows were found. Check the selected sheet and its headers.');
-    }
-
-    $dataAudit['reviewedCardFaces'] = applyReviewedCardFaces($cards, $repoRoot, $warnings);
-    $dataAudit['cardFaceReviewQueue'] = applyCardFaceReviewQueue($cards, $repoRoot, $warnings);
-
-    $target = $repoRoot . DIRECTORY_SEPARATOR . $targetRoot;
-    $generated = $target . DIRECTORY_SEPARATOR . 'GeneratedCode';
-    ensureDirectory($generated);
-
-    $imageReport = ['enabled' => $extractImages, 'embedded' => 0, 'external' => 0, 'failed' => 0];
-    if ($extractImages) {
-        $imageReport = ['enabled' => true] + importImages($xlsxPath, $import, $rowToCard, $cards, $target, $warnings);
-    }
-    $imageReport += imageInventory($cards, $target);
-
-    $payload = [
-        'cardArray' => array_values($cards),
-        'reprintMap' => new stdClass(),
-        'leaderUnitByUUIDMap' => new stdClass(),
-    ];
-    writeJson($generated . DIRECTORY_SEPARATOR . 'cardArrayCache.json', $payload);
-
-    $report = [
-        'source' => $source,
-        'sheet' => $import['sheetName'],
-        'importedAt' => gmdate('c'),
-        'cards' => count($cards),
-        'data' => $dataAudit,
-        'images' => $imageReport,
-        'warnings' => $warnings,
-    ];
-    writeJson($generated . DIRECTORY_SEPARATOR . 'HellbreakImportReport.json', $report);
-
-    echo "Imported " . count($cards) . " Hellbreak cards from {$import['sheetName']}.\n";
-    echo "Images: {$imageReport['front']['valid']} playable fronts from {$imageReport['front']['sources']} source links; "
-        . "{$imageReport['front']['invalid']} linked fronts are unusable.\n";
+function printHellbreakImportSummary(array $report): void
+{
+    $cardCount = intval($report['cards'] ?? 0);
+    $sheetName = (string)($report['sheet'] ?? 'unknown sheet');
+    $front = is_array($report['images']['front'] ?? null) ? $report['images']['front'] : [];
+    $valid = intval($front['valid'] ?? 0);
+    $sources = intval($front['sources'] ?? 0);
+    $invalid = intval($front['invalid'] ?? 0);
+    $warnings = is_array($report['warnings'] ?? null) ? $report['warnings'] : [];
+    echo "Imported {$cardCount} Hellbreak cards from {$sheetName}.\n";
+    echo "Images: {$valid} playable fronts from {$sources} source links; {$invalid} linked fronts are unusable.\n";
     if ($warnings) echo count($warnings) . " warning(s); see HellbreakImportReport.json.\n";
-} catch (Throwable $e) {
-    fwrite(STDERR, "Hellbreak import failed: {$e->getMessage()}\n");
-    exit(1);
-} finally {
-    if ($temporaryFile && is_file($temporaryFile)) @unlink($temporaryFile);
+}
+
+if (realpath((string)($_SERVER['SCRIPT_FILENAME'] ?? '')) === __FILE__) {
+    $options = getopt('', ['source:', 'sheet:', 'root:', 'no-images', 'help']);
+    if (isset($options['help'])) {
+        echo "Usage: php DevTools/Hellbreak/import-workbook.php --source=cards.xlsx [--sheet=\"01 - Dawn of Terror\"] [--root=HellbreakSim] [--no-images]\n";
+        exit(0);
+    }
+
+    try {
+        $report = importHellbreakWorkbook(
+            trim((string)($options['source'] ?? HELLBREAK_SOURCE_URL)),
+            trim((string)($options['sheet'] ?? '01 - Dawn of Terror')),
+            (string)($options['root'] ?? 'HellbreakSim'),
+            !isset($options['no-images'])
+        );
+        printHellbreakImportSummary($report);
+    } catch (Throwable $e) {
+        fwrite(STDERR, "Hellbreak import failed: {$e->getMessage()}\n");
+        exit(1);
+    }
 }
 
 function resolveWorkbook(string $source, ?string &$temporaryFile): string
@@ -87,8 +118,14 @@ function resolveWorkbook(string $source, ?string &$temporaryFile): string
         CURLOPT_FILE => $handle,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_MAXREDIRS => 8,
+        CURLOPT_COOKIEFILE => '',
+        CURLOPT_CONNECTTIMEOUT => 15,
         CURLOPT_TIMEOUT => 90,
-        CURLOPT_USERAGENT => 'TCGEngine Hellbreak importer/1.0',
+        CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0.0.0 Safari/537.36',
+        CURLOPT_HTTPHEADER => [
+            'Accept: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/octet-stream;q=0.9,*/*;q=0.8',
+            'Accept-Language: en-US,en;q=0.9',
+        ],
         CURLOPT_FAILONERROR => false,
     ]);
     $ok = curl_exec($curl);

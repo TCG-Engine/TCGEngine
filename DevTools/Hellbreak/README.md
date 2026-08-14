@@ -1,10 +1,15 @@
 # Hellbreak card import
 
-The public community workbook is the source snapshot for the Hellbreak apps. Download the
-workbook as `.xlsx`, then run:
+The public community workbook is the source snapshot for the Hellbreak apps. Select
+`HellbreakSim` in `zzCodeGeneratorMain.php` and run the build pipeline. The pipeline downloads
+the shared OneDrive workbook, imports it, rebuilds the shared card dictionaries, and regenerates
+both the simulator and deck-editor runtimes. A locally downloaded `.xlsx` can be selected as an
+override when OneDrive is unavailable.
+
+The equivalent CLI workflow is:
 
 ```powershell
-php DevTools/Hellbreak/import-workbook.php --source="C:\path\to\Hellbreak.xlsx"
+php DevTools/Hellbreak/import-workbook.php
 $env:DEVENV='true'
 php zzCardCodeGenerator.php rootName=HellbreakSim
 php zzGameCodeGenerator.php rootName=HellbreakSim

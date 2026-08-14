@@ -157,6 +157,35 @@ for($i=0; $i<count($properties); ++$i) {
 
 $cacheFile = "./$rootName/GeneratedCode/cardArrayCache.json";
 
+// Hellbreak's source is an XLSX workbook, not a JSON API. Its dedicated importer normalizes
+// the workbook into this cache and extracts embedded images before the generic generator runs.
+// Never fall back to fetching the OneDrive share URL as JSON: doing so used to replace the
+// dictionaries with an empty data set after a decode failure.
+if($rootName === "HellbreakDeck") {
+  http_response_code(400);
+  logLine("ERROR: HellbreakDeck reflects HellbreakSim card data and has no separate card-data step. Run the HellbreakSim pipeline instead.");
+  exit(1);
+}
+if($rootName === "HellbreakSim") {
+  if($withPreview) {
+    http_response_code(400);
+    logLine("ERROR: Hellbreak source data is an XLSX workbook, not a live JSON preview source. Import the workbook from zzCodeGeneratorMain.php, then run without withPreview=1.");
+    exit(1);
+  }
+  if(!is_file($cacheFile)) {
+    http_response_code(400);
+    logLine("ERROR: Hellbreak workbook cache is missing. Import a locally downloaded .xlsx from zzCodeGeneratorMain.php before generating card dictionaries.");
+    exit(1);
+  }
+  $hellbreakCache = json_decode((string)file_get_contents($cacheFile));
+  if(!is_object($hellbreakCache) || !is_array($hellbreakCache->cardArray ?? null) || count($hellbreakCache->cardArray) < 1) {
+    http_response_code(400);
+    logLine("ERROR: Hellbreak workbook cache is invalid or empty. Re-import the .xlsx from zzCodeGeneratorMain.php; the existing generated dictionaries were left untouched.");
+    exit(1);
+  }
+  unset($hellbreakCache);
+}
+
 // SWUDeck's SET_NNN for a card, derived from set code + card number (or the SET_T## token scheme).
 //
 // SWUDeck carries the UUID as $card->id all the way through Phase 1 — the uuidLookup/cardIdLookup
