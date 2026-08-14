@@ -388,6 +388,11 @@ function ObjectCurrentPower($obj) {
     // TWI_163 Relentless Rocket Droid — "While you control another Trooper unit, this unit gets +2/+0."
     if (!$lost && ($obj->CardID ?? '') === 'TWI_163' && $controller > 0
         && PlayerHasUnitWithTraitInPlay($controller, 'Trooper', $obj->UniqueID ?? null)) $base += 2;
+    // HMW_107 Stormtrooper Patrol — "While you control another unit that costs 3 or more, this unit
+    // gets +2/+0." (Power only.) Cost is the PRINTED cost, "another" excludes self by UniqueID, and
+    // "you control" scopes to the controller's arenas — see cards/hmw/StormtrooperPatrol.php.
+    if (!$lost && ($obj->CardID ?? '') === 'HMW_107' && $controller > 0
+        && _SWUHmw107HasCostlyAlly($controller, $obj->UniqueID ?? null)) $base += 2;
     // TWI_142 Anakin's Interceptor — "While your base has 15 or more damage on it, this unit gets +2/+0."
     if (!$lost && ($obj->CardID ?? '') === 'TWI_142' && $controller > 0) {
         $b142 = GetBase($controller);

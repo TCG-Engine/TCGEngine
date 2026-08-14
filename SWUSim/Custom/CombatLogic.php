@@ -59,7 +59,13 @@ function _SWUAttackerDealsDamageFirst($attacker): bool {
 
 // Consume one shield token (SOR_T02) from $unit. Returns true if a token was found and removed.
 // Subcards may be arrays (builder/deserialized path) or stdClass objects (just-added path).
-function SWUConsumeShieldToken($unit): bool {
+//
+// $forPrevention distinguishes the two reasons a shield leaves play, which the SEC_046 Galen Erso
+// interaction separates. Naming "Shield" blanks the token's damage-prevention ABILITY — it does not
+// make the token indestructible. So a card that DEFEATS a Shield token outright (HMW_077 Boss Nass,
+// "defeat a Shield token on a friendly Gungan unit") passes false and is unaffected by Galen, while
+// the combat/damage callers keep the default true and correctly decline to prevent.
+function SWUConsumeShieldToken($unit, bool $forPrevention = true): bool {
     if ($unit === null || !is_array($unit->Subcards ?? null)) return false;
     // SEC_046 Galen Erso — if the enemy Galen named "Shield", the owner's Shield tokens have lost their
     // damage-prevention ability: don't consume/prevent (the token stays attached but does nothing).
@@ -67,7 +73,8 @@ function SWUConsumeShieldToken($unit): bool {
     // controls it owns it. On a stolen host the two diverge (owner stays with the original player while
     // control moves), and it is the CONTROLLER that owns the shield. Reading Owner here let a shield
     // stolen from Galen's own side keep preventing.
-    if (_SWUGalenSuppressesCard(intval($unit->Controller ?? $unit->Owner ?? 0), 'SOR_T02')) return false;
+    if ($forPrevention
+        && _SWUGalenSuppressesCard(intval($unit->Controller ?? $unit->Owner ?? 0), 'SOR_T02')) return false;
     foreach ($unit->Subcards as $key => $sub) {
         $cardID  = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $removed = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);

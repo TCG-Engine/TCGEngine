@@ -741,6 +741,34 @@ Attached base gains: "When the regroup phase starts: Draw a card and deal 2 dama
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/070.png',
     'imageUrlBack' => '',
   ),
+  'HMW_077' => 
+  array (
+    'title' => 'Boss Nass',
+    'subtitle' => 'Otoh Gunga Boss',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 4,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Gungan',
+      1 => 'Official',
+    ),
+    'text' => 'When Played/On Attack: You may defeat a Shield token on a friendly Gungan unit. If you do, create a Beast token and give a Shield token to it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/077.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_081' => 
   array (
     'title' => 'Alliance Shield Generator',
@@ -824,6 +852,90 @@ Action [defeat this upgrade]: Choose a non-Vehicle unit. It doesn\'t ready durin
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
+  ),
+  'HMW_107' => 
+  array (
+    'title' => 'Stormtrooper Patrol',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 2,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Trooper',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)
+While you control another unit that costs 3 or more, this unit gets +2/+0.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/107.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_110' => 
+  array (
+    'title' => 'Emperor Palpatine',
+    'subtitle' => 'Consolidating Power',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 3,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Imperial',
+      2 => 'Sith',
+      3 => 'Official',
+    ),
+    'text' => 'When Played: You may take control of an enemy non-leader unit that costs 3 or less. If you do, give 2 Weakness tokens to it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/110.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_114' => 
+  array (
+    'title' => 'Breach',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tactic',
+    ),
+    'text' => 'A friendly unit deals damage equal to its power to an enemy unit in its arena. If the friendly unit has Overwhelm, deal deal excess damage to an enemy base.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/114.png',
+    'imageUrlBack' => '',
   ),
   'HMW_115' => 
   array (
@@ -1277,6 +1389,34 @@ When Played: Take control of an enemy non-leader unit with a Weakness token on i
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/200.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_202' => 
+  array (
+    'title' => 'Inferno Squad',
+    'subtitle' => 'We Can Grieve Later',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 3,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Trooper',
+    ),
+    'text' => 'When Played/When Defeated: You may deal 1 damage to a unit and give a Weakness token to it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/202.png',
     'imageUrlBack' => '',
   ),
   'HMW_206' => 

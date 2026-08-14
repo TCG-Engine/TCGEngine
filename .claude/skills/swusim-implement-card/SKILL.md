@@ -774,6 +774,42 @@ One engine bug plus the cells that found it. Add these whenever a card matches:
   and supplied the gate fixture for a Legendary in the same wave. When triaging a vanilla batch, ask what
   OTHER cards' conditions its traits now satisfy before marking the batch closed.
 
+### More recurring shapes (HMW fourth preview wave, 2026-08-14) — reused primitives that carry a hidden gate, and drain ORDER
+- **★ A primitive named "consume/spend X" may carry gating that belongs to ONE of its callers.**
+  `SWUConsumeShieldToken($unit)` refuses when SEC_046 Galen Erso has named "Shield" — correct for the
+  combat callers (naming Shield blanks the token's damage-PREVENTION ability) but wrong for a card that
+  DEFEATS a Shield token outright (HMW_077 Boss Nass), since naming it does not make the token
+  indestructible. Fixed with a `$forPrevention = true` param so the default keeps every existing caller
+  byte-identical. **Before reusing a primitive for a new REASON, read its early-return guards and ask
+  which caller each one was written for** — a guard that is correct for prevention, payment, or combat
+  is not automatically correct for an effect that merely moves the same object.
+- **★ A cross-player When Defeated needs `P{n}>Drain` BEFORE the answer, not after — and the wrong
+  order is silent.** The acting player's action leaves the opponent holding an **undispatched**
+  `CUSTOM RESOLVE_TRIGGER|WhenDefeated|<CardID>`; their MZMAYCHOOSE does not exist yet. Answering at
+  that point lands on the RESOLVE_TRIGGER entry and CANCELS the trigger, which presents exactly like
+  "the When Defeated never fired". `TestSchemaStep` shows the difference in one call — the `pending`
+  array names the entry type, so you can see a `CUSTOM RESOLVE_TRIGGER` where you expected a choose.
+  Sequence: `P1>PlayHand` → `P1>AnswerDecision:…` → **`P2>Drain`** → `P2>AnswerDecision:…`.
+- **⚠ ugrep, part 2: a zero-result grep used as an "is this implemented?" ORACLE must be self-tested.**
+  The documented anchor-alternation trap has two more forms on this host: `grep -rl X dirA/ dirB/`
+  (multiple directory args with trailing slashes) and `grep -r X dir --include=*.php` both returned
+  **zero matches for a string that was demonstrably present**. Any grep whose EMPTY result you are
+  about to treat as evidence must first be run against a file you know contains the term; if it comes
+  back empty there, the grep is broken, not the codebase.
+- **A "damage AND give a token" clause is NOT gated by the damage landing.** Joined by "and" rather
+  than "If you do", so a Shield token absorbing the whole hit still leaves the rider to resolve
+  (HMW_202 Inferno Squad). Write the shielded-target section explicitly — the natural implementation
+  instinct is to gate the rider on the damage, and nothing else catches it.
+- **Deriving "excess" arithmetically instead of from the OUTCOME breaks against a shield.** For any
+  card spilling Overwhelm-style excess from ABILITY damage (HMW_114 Breach), compute it as
+  `power − remainingHP` **only when the target actually left play**; surviving for any reason (fully
+  prevented, or simply not lethal) means zero excess by definition. A `power − printedHP` formula hands
+  the base a full spill off an attack that dealt nothing.
+- **Reach for `SWUCreateUnitTokens(..., $upgradeToken)` for any "create a token AND give it X".** The
+  batch API threads the rider through ASH_094 Moff Jerjerrod's doubling; a `DoGiveShieldToken` stamped
+  on the returned UID misses his extra token. Cheap to get right at build time, invisible until someone
+  plays Jerjerrod.
+
 ### ★★★ NEVER derive a rules set from CARD TEXT — use the authoritative per-card list (TS26, 2026-08-09)
 CR 16.c: a **"When Attack Ends" ability fires by DEFAULT when its own unit is defeated by combat damage**;
 requiring survival is a per-card OPT-IN. SWUSim had this inverted for every attack-end card.

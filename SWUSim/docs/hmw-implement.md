@@ -1,6 +1,7 @@
 # HMW — Card Implementation Plan
 
-**⚠ PREVIEW SET.** 46 cards exist (44 numbered + 2 tokens) of ~262 printed, as mock entries in
+**⚠ PREVIEW SET.** 56 cards exist (54 numbered + 2 tokens) of ~262 printed — as of the fourth wave,
+2026-08-14 — as mock entries in
 `AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
 previews land — the phases below cover only what was previewed when each was written.
 
@@ -10,7 +11,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114
 
 <!-- HMW_019 Dune Sea = blank-text base (52 of 92 released bases are likewise vanilla).
      HMW_T02 Weakness / HMW_T03 Beast = token CARDS; the engine handles tokens generically, so they
@@ -238,7 +239,12 @@ covered the cards previewed when they were written, and a preview set GROWS. The
 
 ## Status
 
-**ALL 46 currently-mocked HMW cards are implemented** (verified 2026-08-12 by diffing the
+**Card-complete for the FOURTH wave (2026-08-14).** `CardMocks.php` now holds **56** HMW
+CardIDs. Batches 9.1-9.4 closed ALL FIVE (HMW_107, HMW_202, HMW_077, HMW_110, HMW_114); the diff is empty as of 2026-08-14. Everything below
+this line describes the state as of the THIRD wave and is retained as history — re-derive the real
+number with the diff, never by reading a Status line or counting batches.
+
+**(historical, 2026-08-12)** All 46 then-mocked HMW cards were implemented (verified by diffing the
 `### Already Done` line against the HMW entries in `AppCore/SWU/CardMocks.php`, not by counting batches).
 The "no base-hosted granted abilities" (HMW_206) and "no base-defeat primitive" (HMW_004) blockers both
 turned out to be non-blockers; HMW_060 landed once the user settled the replacement-timing ruling.
@@ -412,3 +418,47 @@ severity than first framed, still worth the one-seam fix. An in-drain fix needs 
 sticky drain (probed: block-2 + dontSkipOnPass was not sufficient; the mid-drain MZMULTICHOOSE consumed
 the stale `myHand-0`). Fix the family at ONE seam; the section that must FLIP when fixed is
 `VernestraRwoh::NestedDirectPlay_SkipsTheAdditionalCost_LikeExploit` (its comment says so).
+
+## Phase 9 — fourth preview wave (autonomous)
+
+Wave landed 2026-08-14: HMW_077, HMW_107, HMW_110, HMW_114, HMW_202 (mock art + `CardMocks.php`
+entries; the `zzCardCodeGenerator` + `ProcessKeywordsSWU` regen had already been run, so all five were
+in the dictionary and keyword registries before implementation started). Suite baseline 7785/0.
+
+- [x] **Batch 9.1 — HMW_107 Stormtrooper Patrol + HMW_202 Inferno Squad, We Can Grieve Later** —
+  21 sections, suite 7785 → 7806, 0 failed. No new infrastructure; no engine bugs found.
+  - **HMW_107** — Sentinel was FREE (already auto-registered in `$Sentinel_Cards` by the keyword
+    generator). The real work is the rider, "While you control another unit that costs 3 or more, this
+    unit gets +2/+0" — a continuous self-passive in `ObjectCurrentPower` beside the TWI_163/TWI_130
+    family, power only, gated on `!$lost`. Three printed details each got their own guard: cost is the
+    PRINTED cost (a 0-cost token ally never qualifies), "another" excludes self by **UniqueID** so two
+    copies each buff the other, and "you control" means an enemy 3+ cost unit grants nothing. A
+    DEPLOYED LEADER does qualify — `GetUnitsInPlay` reads the arenas directly, so it is included; a
+    printed-CardType `'Unit'` filter would have wrongly excluded it (leader units are CardType
+    `'Leader'`). Covered the aura ENDING (ally trades in combat → back to 2 power), which is the cell a
+    permanent-buff bug would sail past.
+  - **HMW_202** — When Played **and** When Defeated on one shared closure so the two windows cannot
+    drift. "a unit" is unqualified → friendly, enemy and ITSELF are all legal (no "another"), so
+    `side: 'any'` with no `excludeSelf`; asserted via `P1SELECTABLEEXACT` over all three units. The two
+    halves are joined by "and", not "if you do", so neither gates the other — but they compound: 1
+    damage leaving a target at 1 remaining HP is then finished by the Weakness's -1 HP via
+    `SWUCheckShrinkDefeats`. ⚠ The damage can DEFEAT the target, and that runs `CleanupRemovedCards`
+    and re-indexes the arena — so the host is re-resolved by **UniqueID** after the damage, or the
+    token strands on whichever bystander shifted into the vacated slot (that is its own section).
+    When Defeated is covered on BOTH the combat and the effect-defeat path, plus a control-change
+    section (owner P1 / controller P2) proving the CONTROLLER resolves it while the card still goes to
+    the OWNER's discard.
+  - ⚠ Harness note reconfirmed: that control-change section needs a **`P2>Drain` before P2's answer**.
+    P1's action leaves P2 holding an undispatched `CUSTOM RESOLVE_TRIGGER|WhenDefeated|HMW_202`; without
+    the drain the answer lands on that entry and CANCELS the trigger, presenting exactly like "the When
+    Defeated never fired". Diagnosed with `TestSchemaStep`, not guessed.
+
+- [x] **Batch 9.2 — HMW_077 Boss Nass, Otoh Gunga Boss** — 11 sections, suite 7806 -> 7817, 0 failed. — When Played/On Attack, "you may defeat a
+  Shield token on a friendly Gungan unit. If you do, create a Beast token and give a Shield token to
+  it." Optional COST (defeat a shield) + an "if you do" payoff; Beast = HMW_T03, created by HMW_158's
+  existing path.
+- [x] **Batch 9.3 — HMW_110 Emperor Palpatine, Consolidating Power** — 9 sections, suite 7817 -> 7826, 0 failed. — When Played take-control of an
+  enemy non-leader unit costing 3 or less, then 2 Weakness tokens. ⚠ leader-unit exclusion must read
+  the LIVE object (`IsLeaderUnit`), not printed CardType.
+- [x] **Batch 9.4 — HMW_114 Breach** — 12 sections, suite 7826 -> 7838, 0 failed. — a friendly unit deals damage equal to its power to an enemy unit
+  in ITS arena; if that unit has Overwhelm, excess goes to an enemy base.
