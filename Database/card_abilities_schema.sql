@@ -14,7 +14,7 @@ CREATE TABLE `card_abilities` (
   `ability_name` varchar(128) NULL COMMENT 'Optional human-readable name for the ability',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `is_implemented` boolean NOT NULL,
+  `is_implemented` boolean NOT NULL DEFAULT 0,
   KEY `idx_root_card` (`root_name`, `card_id`),
   KEY `idx_root_macro` (`root_name`, `macro_name`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = 'Custom card ability implementations linked to game macros';

@@ -2,6 +2,7 @@
 
 include_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../Database/ConnectionManager.php';
+include_once __DIR__ . '/../Database/CardAbilityDB.php';
 include_once __DIR__ . '/../Database/CardAbilitySqlTransfer.php';
 
 $authError = CheckLoggedInUserMod();
@@ -26,6 +27,7 @@ try {
         if ($_SERVER['REQUEST_METHOD'] !== 'GET') throw new InvalidArgumentException('Export requires GET');
         $conn = GetLocalMySQLConnection();
         if (!$conn) throw new RuntimeException('Database connection failed');
+        new CardAbilityDB($conn);
 
         $stmt = mysqli_prepare($conn, "
             SELECT root_name, card_id, macro_name, ability_type, ability_code, prereq_code,
@@ -72,6 +74,7 @@ try {
 
         $conn = GetLocalMySQLConnection();
         if (!$conn) throw new RuntimeException('Database connection failed');
+        new CardAbilityDB($conn);
         mysqli_begin_transaction($conn);
         try {
             $delete = mysqli_prepare($conn, 'DELETE FROM card_abilities WHERE root_name = ?');
@@ -131,4 +134,3 @@ try {
     header('Content-Type: application/json');
     echo json_encode(['error' => 'Card ability transfer failed']);
 }
-

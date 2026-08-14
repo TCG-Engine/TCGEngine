@@ -7,6 +7,7 @@ class CardAbilityDB {
     
     public function __construct($conn) {
         $this->conn = $conn;
+        $this->ensureSchemaColumns();
     }
 
     private function ensureSchemaColumns() {
@@ -36,6 +37,12 @@ class CardAbilityDB {
         $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'listener_zones'");
         if ($result && mysqli_num_rows($result) === 0) {
             mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN listener_zones TEXT NULL AFTER prereq_code");
+        }
+        if ($result) mysqli_free_result($result);
+
+        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'is_implemented'");
+        if ($result && mysqli_num_rows($result) === 0) {
+            mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN is_implemented TINYINT(1) NOT NULL DEFAULT 0 AFTER updated_at");
         }
         if ($result) mysqli_free_result($result);
 
