@@ -15,20 +15,26 @@ $customDQHandlers["SOR_245#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SOR_245:0"] = function($player, $mzID = '') {
 // Medal Ceremony — "Give an Experience token to each of up to 3 Rebel units
-                          // that attacked this phase." Read the caster's SWU_ATTACKED_{uid} flags and
-                          // keep only in-play Rebel units (the flag is per attacking player).
+                          // that attacked this phase." NO "friendly" in the text: enemy Rebel attackers
+                          // are legal targets too (candidate #6 fix, 2026-08-14). The SWU_ATTACKED_{uid}
+                          // flag is stamped on the ATTACKER'S CONTROLLER's seat, so read BOTH seats —
+                          // UIDs are globally unique, and a caster-seat-only read misses every enemy
+                          // attacker (and a control-change since the attack).
             global $playerID;
             $playerID = intval($player);
             $targets = [];
             foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
+                ZoneSearch("myGroundArena",    AnyUnitFilter),
+                ZoneSearch("mySpaceArena",     AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter),
+                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
             ) as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (!TraitContains($o, 'Rebel')) continue;
                 $uid = intval($o->UniqueID ?? 0);
-                if (GlobalEffectCount(intval($player), 'SWU_ATTACKED_' . $uid) <= 0) continue;
+                if (GlobalEffectCount(1, 'SWU_ATTACKED_' . $uid) <= 0
+                    && GlobalEffectCount(2, 'SWU_ATTACKED_' . $uid) <= 0) continue;
                 $targets[] = $mz;
             }
             if (empty($targets)) return;  // no eligible Rebel attacker → fizzle

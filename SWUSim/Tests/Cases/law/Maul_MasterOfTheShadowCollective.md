@@ -2,6 +2,15 @@
 #// LAW_054 Maul (6/8, Overwhelm) — When Attack Ends: if this unit dealt combat damage to a player's
 #// base, you may take control of a non-leader unit that player controls. Maul attacks the base; take
 #// control of the enemy SEC_080.
+#// COVERAGE: offer=steal target answered from the live pool in AttackEndTakeControl / MultipleSteals
+#//           (an out-of-pool answer throws); offer-absence proven by the three NoTrigger* sections ·
+#//           decline=not encoded — the steal is a may-choose and no scenario declines it (Intended:
+#//           no decline branch exists to port; the NoTrigger* family covers the no-offer side) ·
+#//           control=core effect; revert-on-leave = StolenUnitRevertsWhenMaulDefeated /
+#//           ...ReturnedToHand / MultipleStealsAllRevertWhenMaulLeaves · boundary=NoTriggerNoBaseDamage
+#//           + NoTriggerIfBaseDamagedOnPreviousAttack (timing) + NoTriggerIfDefeatedDuringAttack
+#//           (dead attacker) vs TriggerViaOverwhelm (excess-to-base counts) · reqboundary=attack ->
+#//           steal-answer crosses a request boundary in every positive section
 
 ## GIVEN
 CommonSetup: grk/bgw/{}

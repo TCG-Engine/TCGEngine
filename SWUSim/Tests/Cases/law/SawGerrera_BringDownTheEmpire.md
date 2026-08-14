@@ -151,3 +151,130 @@ WithP2GroundArena: SHD_172:1:0
 P2GROUNDARENAUNIT:0:DAMAGE:4
 P1GROUNDARENACOUNT:1
 P1NODECISION
+
+---
+
+# FrontOffer_ReadyUnitsOnly
+#// COVERAGE: offer=FrontOffer_ReadyUnitsOnly (pending P1SELECTABLEEXACT: only ready units are offered;
+#//           the exhausted unit is excluded) · decline=DeployedTriggerPassed (deployed side; the front's
+#//           attack pick is mandatory, no decline exists — FrontUseWithNoLegalAttacker covers the
+#//           no-target "use anyway" path) · boundary=FrontAttackerDiesInCombat_DefeatAfterAttack +
+#//           FrontAttackEnemyOverwhelmDefeat (dies-in-combat vs survives-then-defeated pair) ·
+#//           control=N/A (the ability targets friendly units by controller at resolve time; no
+#//           control-change interaction in the text) · reqboundary=each section crosses the
+#//           leader-action/attack-target decision boundary with serialized state (multi-request WHEN)
+#// LAW_001 Saw Gerrera (leader front) — "Attack with a unit" offers exactly the friendly units able to
+#// attack: SOR_095 and SHD_110 are ready (offered), SEC_080 is exhausted (excluded). The decision is left
+#// pending so the offer itself is the assertion.
+
+## GIVEN
+CommonSetup: rgw/grw/{
+  myLeader:LAW_001;
+  myBase:SOR_025
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [SOR_095:1:0 SEC_080:0:0 SHD_110:1:0]
+WithP2GroundArena: SHD_110:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-2
+
+---
+
+# FrontAttackerDiesInCombat_DefeatAfterAttack
+#// LAW_001 Saw Gerrera (leader front) — the "defeat it" rider must not break when the unit already died
+#// during the attack. SOR_095 Battlefield Marine (3/3, +2 = 5 power) attacks SOR_128 Death Star
+#// Stormtrooper (3/1): the trooper is defeated and Overwhelm carries 4 excess to the base, while the
+#// trooper's 3 damage kills the marine in combat. Saw's after-attack defeat then finds the marine already
+#// in the discard and resolves cleanly — the leader still ends exhausted and no decision is stranded.
+
+## GIVEN
+CommonSetup: rgw/grw/{
+  myLeader:LAW_001;
+  myBase:SOR_025
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2BASEDMG:4
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P1LEADER:EXHAUSTED
+P1NODECISION
+
+---
+
+# FrontMercenaryDiesInCombat_WhenDefeatedResources
+#// LAW_001 Saw Gerrera (leader front) + LAW_159 Expendable Mercenary (3/3) — the attacked unit's own
+#// When Defeated still works when it dies during Saw's granted attack. The mercenary (+2 = 5 power)
+#// attacks SOR_128 (3/1): trooper dies, Overwhelm sends 4 to the base, and the trooper's 3 damage kills
+#// the mercenary. Its When Defeated (auto-resolving ramp family) resources it from the discard, so P1
+#// ends with 3 resources and an empty discard; Saw's after-attack defeat is a clean no-op.
+
+## GIVEN
+CommonSetup: rgw/grw/{
+  myLeader:LAW_001;
+  myBase:SOR_025;
+  myResources:2
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LAW_159:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2BASEDMG:4
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:0
+P1RESCOUNT:3
+P1DISCARDCOUNT:0
+P1LEADER:EXHAUSTED
+
+---
+
+# DeployedMercenaryDiesInCombat_WhenDefeatedResources
+#// LAW_001 Saw Gerrera (deployed) + LAW_159 Expendable Mercenary — same interaction through the deployed
+#// trigger. Saw (4/7) attacks the base for 4, then the follow-up attack sends the mercenary (+2 = 5)
+#// into SOR_128 (3/1): trooper dies, Overwhelm adds 4 more to the base (total 8), and the trooper's 3
+#// damage kills the mercenary, whose When Defeated resources it (2 -> 3 resources). Only Saw remains on
+#// the ground.
+
+## GIVEN
+CommonSetup: rgw/grw/{
+  myLeader:LAW_001:1:1:1;
+  myBase:SOR_025;
+  myResources:2
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LAW_159:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2BASEDMG:8
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1RESCOUNT:3
+P1DISCARDCOUNT:0

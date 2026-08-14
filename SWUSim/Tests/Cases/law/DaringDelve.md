@@ -11,7 +11,7 @@ WithP1Hand: LAW_203
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myDiscard-0
+- P1>AnswerDecision:myDiscard-1
 
 ## EXPECT
 P1HANDCOUNT:1
@@ -33,7 +33,7 @@ WithP1Hand: LAW_203
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myDiscard-0
+- P1>AnswerDecision:myDiscard-1
 
 ## EXPECT
 P1HANDCOUNT:1

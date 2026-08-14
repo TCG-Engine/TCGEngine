@@ -33,7 +33,6 @@ WithP1SpaceArena: LAW_189:1:0
 
 ## WHEN
 - P2>PlayHand:0
-- P2>AnswerDecision:theirSpaceArena-0
 - P2>AnswerDecision:theirBase-0
 
 ## EXPECT

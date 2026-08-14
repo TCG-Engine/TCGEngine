@@ -142,7 +142,8 @@ P1GROUNDARENACOUNT:0
 #// TS26_26 Mother Talzin — her When Defeated resolves for whoever controls her when she dies. P2 plays
 #// No Glory, Only Results (JTL_043) to take Talzin and defeat her, so P2 is the one who looks at "an
 #// opponent's hand" — P1's — and discards from it. P1's only card goes to their discard and P1 draws a
-#// replacement, ending back at one card in hand with an empty arena.
+#// replacement, ending back at one card in hand with an empty arena. P1's discard holds TWO cards:
+#// the discarded SOR_095 AND Talzin herself (defeated to her owner's pile).
 #// Same rule as Sith Traditions: the When Defeated reads from the CURRENT controller.
 
 ## GIVEN
@@ -156,10 +157,9 @@ WithP2Deck: [SOR_095 SOR_095]
 
 ## WHEN
 - P2>PlayHand:0
-- P2>AnswerDecision:theirGroundArena-0
 - P2>AnswerDecision:theirHand-0
 
 ## EXPECT
 P1HANDCOUNT:1
-P1DISCARDCOUNT:1
+P1DISCARDCOUNT:2
 P1GROUNDARENACOUNT:0

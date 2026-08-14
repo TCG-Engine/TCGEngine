@@ -526,7 +526,8 @@ function _SWUFinalizeUpgradeAttach(
   bool $suppressAfterAction = false,  // SEC_003 Lama Su: caller owns the After Action (deal 1 / combat)
   int $discount = 0,                  // LOF_018 Anakin: "ignoring aspect penalties" — waive the surcharge
   bool $altPayOffered = false,        // true from ATTACH_UPGRADE: the Credit/Droid choice was already shown
-  ?int $owner = null                  // foreign play (SEC_205 milled Pilot): OWNER stays the opponent
+  ?int $owner = null,                 // foreign play (SEC_205 milled Pilot): OWNER stays the opponent
+  string $grantTE = ''                // marker the playing effect stamps on the attached upgrade (SHD_194)
 ): int {
   // Re-resolve the host — it must still exist (could have been removed between
   // queuing the Droid-choice and resolution, e.g. opponent removal response).
@@ -593,14 +594,19 @@ function _SWUFinalizeUpgradeAttach(
     'CardID' => $cardID,
     'Owner' => $owner ?? $player,
     'Controller' => $player,
-    'TurnEffects' => [],
+    // The marker the playing effect asked for, delivered via the ATTACH_UPGRADE param rather than the
+    // $gPlayGrantTurnEffect global — the global is already NULL by the time this async handler runs.
+    'TurnEffects' => ($grantTE !== '') ? [$grantTE] : [],
     'IsPilot' => $isPilot,
   ];
-  // A Pilot played as an upgrade gets a stable UniqueID + the "played this phase" marker, so that if it
-  // is later moved to a unit (Eject) it still counts as "a unit you played this phase" (Luke SOR_005),
-  // and the UID survives the upgrade↔unit transitions (JTL move/attach subsystem).
+  // EVERY attached upgrade gets a UniqueID. It used to be Pilots only (so an ejected Pilot keeps its
+  // identity across the upgrade↔unit transition), which left every other upgrade identifiable by CardID
+  // alone — ambiguous the moment a host carries two copies, and no way for a delayed effect to name the
+  // exact subcard it created. SHD_194's "return IT to its owner's hand" needs precisely that.
+  $pilotSub->UniqueID = NextUniqueID();
+  // The "played this phase" marker stays PILOT-ONLY: it means "a UNIT you played this phase" (Luke
+  // SOR_005), which a plain upgrade is not.
   if ($isPilot) {
-    $pilotSub->UniqueID = NextUniqueID();
     AddGlobalEffects($player, 'SWU_PLAYED_UNIT_' . $pilotSub->UniqueID);
   }
   // LOF_056 Size Matters Not — stamp an attach-order UID so its "printed value is considered to be 5"
@@ -715,6 +721,7 @@ $customDQHandlers["ATTACH_UPGRADE"] = function ($player, $parts, $lastDecision) 
   // 6th field: OWNER for a foreign play (SEC_205 milled Pilot). Empty/absent → owner = caster.
   $ownerFld = $parts[5] ?? '';
   $owner = ($ownerFld === '') ? null : intval($ownerFld);
+  $grantTE = (string) ($parts[6] ?? '');   // 7th field: marker to stamp on the attached upgrade
   $hostMz = $lastDecision ?? '';  // chosen host mzID from preceding MZCHOOSE
   if ($cardID === '' || $hostMz === '') {
     $playerID = $savedPID;
@@ -742,15 +749,19 @@ $customDQHandlers["ATTACH_UPGRADE"] = function ($player, $parts, $lastDecision) 
     if ($discount > 0)
       $hostCost = max(0, $hostCost - $discount);
     // Encode $isPilot (4th field) + $discount (5th field) so the DROID_PAY continuation can rebuild them.
+    // 7th field: $grantTE. ⚠ This branch does NOT re-queue this handler — it routes through
+    // SWUDispatchDroidContinuation's own 'ATTACH_UPGRADE' case (which calls _SWUFinalizeUpgradeAttach
+    // directly), and it runs even at cost 0. Any field not in $droidArgs is silently dropped there;
+    // that is exactly how SHD_194's return-to-hand marker vanished between this handler and the attach.
     $droidArgs = "{$cardID}|{$upgradeMz}|{$hostMz}|" . ($isPilot ? '1' : '0') . "|{$discount}|"
-                 . ($owner === null ? '' : $owner);
+                 . ($owner === null ? '' : $owner) . "|" . $grantTE;
     SWUOfferAltPayment(intval($player), $hostCost, 'ATTACH_UPGRADE', $droidArgs, 0);
     $playerID = $savedPID;
     return;
   }
 
   // ignoreCost path — finalize directly without SEC_122 check.
-  _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upgradeMz, $hostMz, 0, $ignoreCost, $isPilot, false, $discount, false, $owner);
+  _SWUFinalizeUpgradeAttach(intval($player), $cardID, $upgradeMz, $hostMz, 0, $ignoreCost, $isPilot, false, $discount, false, $owner, $grantTE);
   $playerID = $savedPID;
 };
 
@@ -943,6 +954,13 @@ $customDQHandlers["SWU_PLAN_BOTTOM"] = function ($player, $parts, $lastDecision)
 // SOR_215 — Snapshot Reflexes: "When Played: You may attack with the attached unit."
 // $mzID is the host unit's arena mzID (e.g. "myGroundArena-0").
 $whenPlayedAbilities["SOR_215:0"] = function ($player, $mzID) {
+  // Attached to an ENEMY unit (legal per CR 2.e), "you may attack with attached unit" can only
+  // fizzle — you cannot attack with an opponent's unit. Fizzle-only optional → no prompt
+  // (user ruling 2026-08-13, the Blue Leader pay-2 family).
+  global $playerID; $saved = $playerID; $playerID = intval($player);
+  $host = GetZoneObject($mzID);
+  $playerID = $saved;
+  if (SWUObjGone($host) || intval($host->Controller ?? 0) !== intval($player)) return;
   DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Attack_with_attached_unit?");
   DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_215#0|{$player}|{$mzID}", 1);
 };
@@ -1428,29 +1446,47 @@ function _SWUVermillionReveal(int $V, int $D): void
 
 // ── LOF Action [Exhaust] unit abilities (Phase 11) ───────────────────────────────────────────────────// Plays the chosen Imperial ($lastDecision) at full cost, forcing it to enter READY, then lets each
 // opponent may-ready a unit. ActivateCard owns the play's end-of-action (do not add SWU_AFTER_ACTION).
+// "Each opponent may ready a unit" is an UNCONDITIONAL sentence (candidate #2 fix, 2026-08-14):
+// it resolves whether the play half happened or not, so BOTH branches queue the offer.
 $customDQHandlers["OZZEL_PLAY"] = function ($player, $parts, $lastDecision) {
   global $playerID, $gForceEnterReady;
+  $playerID = intval($player);
+  $opp = OtherPlayer(intval($player));
+  // Queue the ready-clause BUILDER first (ahead of any after-action turn swap). It computes its
+  // pool at DRAIN time — after the played Imperial has seated and Ozzel's action-exhaust is
+  // visible — never here (the pre-play board is stale).
+  DecisionQueueController::AddDecision($opp, "CUSTOM", "OZZEL_READY_OFFER", 1);
   if (SWUDecisionDeclined($lastDecision)) {
     SWUAfterAction($player);
     return;
   }
-  $playerID = intval($player);
-  // Each opponent may ready a unit — queue FIRST so it resolves before the play's after-action
-  // swaps the turn. Targets are the opponent's units from THEIR perspective (myArena-N).
-  $opp = OtherPlayer(intval($player));
-  $playerID = $opp;
-  $oppUnits = array_merge(
-    ZoneSearch('myGroundArena', AnyUnitFilter),
-    ZoneSearch('mySpaceArena', AnyUnitFilter)
-  );
-  if (!empty($oppUnits)) {
-    SWUQueueMayChooseTarget($opp, $oppUnits, "You_may_ready_a_unit", "Ready_a_unit", "READY_UNIT");
-  }
   // Play the chosen Imperial — it enters READY (Ozzel overrides the default exhausted entry).
-  $playerID = intval($player);
   $gForceEnterReady = true;
   ActivateCard(intval($player), $lastDecision, false, 0);
   $gForceEnterReady = false;
+};
+
+// SOR_129 "Each opponent may ready a unit" — drain-time offer builder, run on the OPPONENT's queue.
+// The text is an unqualified "a unit": ANY unit in ANY arena, either side (the caster's units
+// included). Pointless-prompt doctrine: only EXHAUSTED units are material picks (readying a ready
+// unit is a no-op), and with none anywhere the prompt is skipped entirely.
+$customDQHandlers["OZZEL_READY_OFFER"] = function ($player, $parts, $lastDecision) {
+  global $playerID;
+  $savedPID = $playerID;
+  $playerID = intval($player);
+  $units = array_values(array_filter(array_merge(
+    ZoneSearch('myGroundArena',    AnyUnitFilter),
+    ZoneSearch('mySpaceArena',     AnyUnitFilter),
+    ZoneSearch('theirGroundArena', AnyUnitFilter),
+    ZoneSearch('theirSpaceArena',  AnyUnitFilter)
+  ), function($mz) {
+    $o = GetZoneObject($mz);
+    return $o !== null && empty($o->removed) && intval($o->Status ?? 1) === 0;
+  }));
+  if (!empty($units)) {
+    SWUQueueMayChooseTarget(intval($player), $units, "You_may_ready_a_unit", "Ready_a_unit", "READY_UNIT");
+  }
+  $playerID = $savedPID;
 };
 
 // Cross-card: play the chosen hand card ($lastDecision) at $parts[0] discount. ActivateCard
@@ -1624,15 +1660,26 @@ $customDQHandlers["ASH062_PREVENT_ABILITY"] = function ($player, $parts, $lastDe
   $src = intval($parts[2] ?? 0);
   $pmz = SWUFindMzByUID($uid);
   $unit = $pmz !== null ? GetZoneObject($pmz) : null;
+  // Declined / couldn't pay → apply the deferred damage. SWUDealDamageToUnit resolves its target mzID
+  // under the SOURCE's frame ($src), but $pmz above was resolved under the protected unit's controller
+  // ($player) — for a cross-player source the frames differ, so re-resolve under $src or the damage
+  // lands on the wrong (or an empty) slot: the target's own Shield never popped and the ping silently
+  // vanished (live-game Cad Bane report). Same fix as AMIDALA_PREVENT_ABILITY. skipPrevent=true skips
+  // only the deferral blocks, NOT the target's own Shield — that still absorbs the instance.
+  $applyDeferred = function () use ($uid, $amount, $src, $player) {
+    global $playerID;
+    $playerID = $src > 0 ? intval($src) : intval($player);
+    $srcPmz = SWUFindMzByUID($uid);
+    if ($srcPmz !== null)
+      SWUDealDamageToUnit($srcPmz, $amount, $src, null, true);
+  };
   if ($lastDecision !== 'YES') {
-    if ($pmz !== null)
-      SWUDealDamageToUnit($pmz, $amount, $src, null, true); // declined → apply now
+    $applyDeferred();                                         // declined → apply now
     return;
   }
   $provider = $unit !== null ? _SWUAsh062Provider($unit) : null;
   if ($provider === null || !SWUConsumeShieldToken($provider)) {
-    if ($pmz !== null)
-      SWUDealDamageToUnit($pmz, $amount, $src, null, true); // couldn't pay → apply now
+    $applyDeferred();                                         // couldn't pay → apply now
     return;
   }
   if ($pmz !== null)
@@ -1664,7 +1711,15 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
   // NO "and survives" clause, so it fires even when this damage DEFEATS Elite Squad (the target is ANOTHER
   // unit, so Elite Squad being gone is fine). Handled before the $survived gate below.
   if (($obj->CardID ?? '') === 'SEC_143' && $amount > 0) {
-    _SWUSec143Offer(intval($obj->Controller ?? 0), intval($obj->UniqueID ?? 0));
+    // QUEUED, not built inline: this fires mid-combat, BEFORE CleanupRemovedCards compacts the arena
+    // arrays — a pool built now carries positional mzIDs that go stale by the time the player answers
+    // (a defeated earlier slot shifts every later index). The CUSTOM drains post-cleanup and builds
+    // the offer against the compacted board. Same shape as the Traitorous queued revert.
+    $sec143Ctrl = intval($obj->Controller ?? 0);
+    if ($sec143Ctrl > 0) {
+      DecisionQueueController::AddDecision($sec143Ctrl, "CUSTOM",
+          "SEC143_OFFER|" . intval($obj->UniqueID ?? 0), 1);
+    }
   }
   // Every observer below has an explicit "and survives" / "isn't defeated" clause (or writes a marker on the
   // still-in-play unit), so they must NOT fire when the damage defeated the unit.
@@ -1852,6 +1907,11 @@ function _SWUSec002CheckObserve($obj, int $amount): void
     "DEAL_UNIT_DAMAGE|{$amount}"
   );
 }
+// Drained post-cleanup (see the queue site in _SWUOnUnitDamaged) so the pool's mzIDs are live.
+$customDQHandlers["SEC143_OFFER"] = function($player, $parts, $lastDecision) {
+  _SWUSec143Offer(intval($player), intval($parts[0] ?? 0));
+};
+
 function _SWUSec143Offer(int $player, int $selfUID): void
 {
   if ($player <= 0)
@@ -2578,6 +2638,11 @@ $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision
   // restore it here either — SWUContinuePlayAfterExploit returns with $playerID
   // still set to $player (same as $savedPID), so the restore below is a safe no-op.
   SWUContinuePlayAfterExploit(intval($player), $mzID, $exploitDiscount);
+  // CONSUME the restored grant now that the play has fully continued (the call above is
+  // synchronous). Without this, the next play in the same request — a nested play, or the
+  // next harness section — inherits a phantom Exploit X and raises a bogus defeat offer
+  // (surfaced by the SOR_214 attach-pool guard running after a Dooku-grant section).
+  $gPlayGrantedExploit = 0;
   $playerID = $savedPID;
 };
 

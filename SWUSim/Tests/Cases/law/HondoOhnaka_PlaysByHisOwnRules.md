@@ -1,6 +1,15 @@
 # ActionPlayTopDeck
 #// LAW_094 Hondo Ohnaka (3/7) — Action: play the top card of your deck (paying its cost). Once each
 #// round. Top is SOR_063 (Vigilance, cost 2); pay 2 -> it enters play.
+#// COVERAGE: offer=N/A (no target picker — the action is availability-gated; the gate is asserted by the
+#//           no-op sections ActionCannotUseWithEmptyDeck / ActionCannotAffordTopCard /
+#//           ActionCannotPlayRestrictedTopCard) · decline=N/A (no "you may" prompt; using the action is
+#//           itself voluntary) · control=StolenHondo_PlaysNewControllersDeck + StolenHondo_OncePerRound
+#//           (plays the NEW controller's deck; once-each-round tracked per player) · boundary pair=
+#//           ActionCannotAffordTopCard (5 res vs cost 6) vs ActionPlayTopDeck (affordable), and
+#//           ActionOnceEachRound (same round: no) vs ActionUsableAgainNextRound (next round: yes) ·
+#//           reqboundary=N/A (each use is a single self-contained action; no state read across a later
+#//           request)
 
 ## GIVEN
 CommonSetup: byk/bgw/{myResources:4}
@@ -150,3 +159,31 @@ WithP2Deck: SOR_128
 P2GROUNDARENACOUNT:2
 P2GROUNDARENAUNIT:1:CARDID:SOR_095
 P2DECKCOUNT:1
+
+---
+
+# ActionUsableAgainNextRound
+#// LAW_094 Hondo Ohnaka — "once each round" resets at the round boundary. Round 1: the action plays the
+#// deck-top SOR_063 (cost 3). Cross regroup (both players decline the optional resource; each draws 2 —
+#// P1 draws the two SOR_095 fillers). Round 2: the action is available again and plays the new deck-top
+#// SOR_063. End: Hondo + two Wing Guards in P1's arena, deck empty, the 2 regroup draws in hand.
+
+## GIVEN
+CommonSetup: byk/bgw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: LAW_094:1:0
+WithP1Deck: [SOR_063 SOR_095 SOR_095 SOR_063]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+- P1>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1DECKCOUNT:0
+P1HANDCOUNT:2

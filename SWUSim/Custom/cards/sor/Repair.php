@@ -14,6 +14,16 @@ $whenPlayedAbilities["SOR_074:0"] = function($player, $mzID = '') {
                 ZoneSearch("theirSpaceArena",  AnyUnitFilter),
                 ["myBase-0", "theirBase-0"]
             );
+            // USER RULING 2026-08-13: prompt ONLY when something (either side) has damage. The pool is
+            // NEVER filtered to damaged targets — with any damage present, undamaged targets stay
+            // pickable so a player can deliberately "soft pass" by healing 0 from their own unit/base.
+            // With zero damage anywhere the prompt is pointless and is skipped entirely.
+            $anyDamage = false;
+            foreach ($targets as $tmz) {
+                $o = GetZoneObject($tmz);
+                if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) { $anyDamage = true; break; }
+            }
+            if (!$anyDamage) return;
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "Heal_3_from_a_unit_or_base");
             DecisionQueueController::AddDecision($player, "CUSTOM", "HEAL_TARGET|3", 1);
             return;

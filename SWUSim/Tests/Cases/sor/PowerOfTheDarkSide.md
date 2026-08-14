@@ -71,3 +71,55 @@ WithP2GroundArena: SEC_080:1:0
 ## EXPECT
 P1DISCARDCOUNT:1
 P2GROUNDARENACOUNT:0
+
+---
+
+# OnlyLeaderUnit_ForcedToDefeatIt
+#// SOR_041 Power of the Dark Side — "a unit they control" has NO non-leader restriction, so a deployed
+#// LEADER unit is a legal (and here the only) choice: with Sabine SOR_014 deployed as P2's sole unit,
+#// the forced defeat undeploys her. A defeated leader returns to its leader zone rather than a discard
+#// pile, so P2's discard stays empty.
+
+## GIVEN
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  theirLeader:SOR_014:1:1:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_041
+WithP1Resources: 3
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DISCARDCOUNT:1
+P2LEADER:NOTDEPLOYED
+P2GROUNDARENACOUNT:0
+P2DISCARDCOUNT:0
+
+---
+
+# LeaderUnitOfferedAlongsideRegularUnit
+#// SOR_041 Power of the Dark Side — the offer contains the deployed leader unit AS WELL AS a regular
+#// unit (no non-leader restriction), and the choosing player is the OPPONENT. Offer left pending.
+
+## GIVEN
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  theirLeader:SOR_014:1:1:1
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SOR_041
+WithP1Resources: 3
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2SELECTABLEEXACT:myGroundArena-0&myGroundArena-1

@@ -11,10 +11,13 @@ $customDQHandlers["LOF_219#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $want = array_values(array_filter(array_map('trim', explode(',', CardTrait($o->CardID ?? '') ?? ''))));
+    // The chosen discard card can carry a GRANTED trait too (LAW_212 Malakili: owned out-of-play
+    // Creatures gain Underworld) — the share works in both directions.
+    if (!in_array('Underworld', $want, true) && _SWUCardHasTrait(intval($player), $o->CardID ?? '', 'Underworld')) $want[] = 'Underworld';
     if (empty($want)) return; // a traitless card can share no trait → nothing to find
-    _topDeckSearchBegin(intval($player), 5, function($cid) use ($want) {
-        $ct = array_map('trim', explode(',', CardTrait($cid) ?? ''));
-        foreach ($want as $w) { if (in_array($w, $ct, true)) return true; }
+    $searcher = intval($player);
+    _topDeckSearchBegin($searcher, 5, function($cid) use ($want, $searcher) {
+        foreach ($want as $w) { if (_SWUCardHasTrait($searcher, $cid, $w)) return true; }
         return false;
     }, "count:1", "TOPDECKSEARCH_FINALIZE");
 };

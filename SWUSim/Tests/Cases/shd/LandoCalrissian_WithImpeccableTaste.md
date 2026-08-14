@@ -65,7 +65,7 @@ WithP1Deck: [SOR_095 SOR_046 SEC_080]
 
 ## WHEN
 - P1>UseLeaderAbility
-- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myResources-1
 
 ## EXPECT
 P1SPACEARENACOUNT:1

@@ -86,6 +86,7 @@ P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:EffectStack-1
 - P1>AnswerDecision:theirGroundArena-0
 ## EXPECT
 P2GROUNDARENACOUNT:0

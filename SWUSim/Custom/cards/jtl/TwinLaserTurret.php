@@ -1,4 +1,7 @@
 <?php
+// ⚠ Target pools use AnyUnitFilter (Unit + TOKEN Unit + Leader Unit): this card's text is
+// unqualified, and a hand-built ["Unit","Leader Unit"] filter silently excluded token units
+// (the Open Fire bug report, 2026-08-13 — a whole family of six files had the same miss).
 // JTL_172
 // Cost 2 - Twin Laser Turret - [Aggression] - Upgrade Power 2 - Upgrade HP 2
 // Text: Attach to a Vehicle unit. / Attached unit gains: "On Attack: Deal 1 damage to each of up to 2 units in this arena."
@@ -14,8 +17,8 @@ $onAttackAbilities["JTL_172:0"] = function($player, $mzID) {
     $location = $unitObj->Location ?? 'GroundArena';
     $prefix   = (strpos($location, 'Space') !== false) ? 'Space' : 'Ground';
     $targets  = array_merge(
-        ZoneSearch("my{$prefix}Arena",    ["Unit", "Leader Unit"]),
-        ZoneSearch("their{$prefix}Arena", ["Unit", "Leader Unit"])
+        ZoneSearch("my{$prefix}Arena",    AnyUnitFilter),
+        ZoneSearch("their{$prefix}Arena", AnyUnitFilter)
     );
     if (empty($targets)) return;
     $effectiveMax = min(2, count($targets));

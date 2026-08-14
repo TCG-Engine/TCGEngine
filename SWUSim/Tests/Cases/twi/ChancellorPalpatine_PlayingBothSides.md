@@ -1,8 +1,10 @@
-# Heroism_BounceCloneToken_Triggers
-#// TWI_017 "Flipatine" (HEROISM face) — bouncing a TOKEN defeats it (a token can't return to hand, so it
-#// is defeated instead). P1 plays TWI_191 to "return" its own Clone Trooper token (TWI_T02, Heroism) — the
-#// token is defeated, which DOES satisfy "a friendly Heroism unit was defeated this phase." The leader
-#// Action then resolves: draw 1 (deck 2→1), heal 2 (base 5→3), flip to the Villainy face.
+# Heroism_BounceCloneToken_NotADefeat_NoTrigger
+#// JUDGE RULING (2026-08-13, supersedes the earlier defeat-instead encoding): a bounced token is NOT
+#// defeated — it is removed from the game (it still counts as returned-to-hand/left-play, but fires no
+#// defeat observers or flags). P1 plays TWI_191 to "return" its own Clone Trooper token (TWI_T02,
+#// Heroism): the token ceases WITHOUT being defeated, so "a friendly Heroism unit was defeated this
+#// phase" is NOT satisfied — the leader Action resolves to no effect (no draw, no heal, no flip; the
+#// leader just exhausts).
 ## GIVEN
 CommonSetup: brk/bbw/{myLeader:TWI_017:1;myResources:3;myBaseDamage:5;handCardIds:TWI_191}
 P1OnlyActions: true
@@ -15,10 +17,10 @@ WithP1Deck: [SOR_095 SOR_095]
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:TWI_191
 P1GROUNDARENACOUNT:0
-P1BASEDMG:3
-P1DECKCOUNT:1
+P1BASEDMG:5
+P1DECKCOUNT:2
 P1LEADER:EXHAUSTED
-P1LEADER:DEPLOYED
+P1LEADER:NOTDEPLOYED
 
 ---
 

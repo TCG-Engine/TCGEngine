@@ -201,3 +201,26 @@ P1GROUNDARENACOUNT:2
 P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:DAMAGE:2
+
+---
+
+# Deployed_DamagedTOKENIsALegalStealTarget
+#// "When Deployed: Take control of a damaged NON-LEADER unit" — non-leader excludes leaders, not
+#// TOKENS. A bare ["Unit"] pool dropped both (the Open Fire family sweep): the damaged Clone Trooper
+#// token and the damaged real unit must BOTH be offered, and stealing the token crosses it to P1's
+#// arena. The undamaged enemy unit pins the damage gate in the same offer.
+
+## GIVEN
+CommonSetup: ggk/ggk/{
+  myLeader:SOR_006
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP2GroundArena: [TWI_T02:1:1 SOR_095:1:1 SOR_046:1:0]
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1

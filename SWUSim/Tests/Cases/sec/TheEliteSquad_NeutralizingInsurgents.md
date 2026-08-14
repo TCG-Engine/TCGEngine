@@ -2,7 +2,8 @@
 #// SEC_143 The Elite Squad — "When damage is dealt to this unit: you may deal 2 damage to another unique
 #//   unit." P1's SEC_143 (6/8) attacks P2's SEC_080 (3/3, non-unique), defeats it, and takes 3 counter
 #//   (survives). That counter damage triggers the reaction → P1 deals 2 to another unique unit (LOF_093,
-#//   now at index 0 after SEC_080 is defeated). Proves the post-damage combat reaction.
+#//   at index 0 after cleanup — the offer builds POST-cleanup via the queued builder, so its pool is
+#//   live). Proves the post-damage combat reaction.
 
 ## GIVEN
 CommonSetup: rrk/grk
@@ -142,6 +143,7 @@ WithP2Hand: SHD_178
 ## WHEN
 - P2>PlayHand:0
 - P2>AnswerDecision:theirGroundArena-0
+- P1>Drain
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT
@@ -166,6 +168,7 @@ WithP2GroundArena: SOR_164:1:0
 
 ## WHEN
 - P2>AttackGroundArena:0:0
+- P1>Drain
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT
@@ -179,7 +182,7 @@ P1GROUNDARENAUNIT:1:DAMAGE:2
 #// SEC_143 The Elite Squad — "When damage is dealt to this unit" has no "and survives" clause, so it fires
 #// even when the incoming damage DEFEATS Elite Squad. P1's SEC_143 (6/8, pre-damaged to 2 remaining HP) is
 #// attacked by P2's SEC_080 (3 power) and defeated; the reaction still fires → P1 deals 2 to another unique
-#// (LOF_093, now at index 0 after Elite Squad leaves).
+#// (LOF_093, at index 0 after cleanup — the queued builder makes the offer post-cleanup).
 
 ## GIVEN
 CommonSetup: rrk/grk
@@ -193,6 +196,7 @@ WithP2GroundArena: SEC_080:1:0
 
 ## WHEN
 - P2>AttackGroundArena:0:0
+- P1>Drain
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT

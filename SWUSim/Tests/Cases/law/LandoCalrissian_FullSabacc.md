@@ -2,6 +2,13 @@
 #// LAW_018 Lando Calrissian (deployed) — "When Deployed: You may defeat a friendly Credit token. If you
 #// do, create 3 Credit tokens." Deploy Lando with 1 existing Credit; defeat it and create 3 → net 3
 #// Credits.
+#// COVERAGE: offer=FrontOpponentDeckDiscardCredit (both decks stocked → the Your/Opponent's-deck choice
+#//           is live and answered; the deck choice is an option prompt, not an MZ pool, so no
+#//           SELECTABLEEXACT applies) · reqboundary=FrontOpponentDeckDiscardCredit (aspect and deck
+#//           answered on successive requests) · control=N/A (no unit changes control; Credits are
+#//           seat-bound) · boundary=FrontAspectMillCredit vs FrontNoCreditWhenAspectMismatch (aspect
+#//           hit/miss); DeployedCreditEngine vs DeployedNoCreditsAutoSkips (credit present/absent);
+#//           FrontEmptyDecksNoEffect (both decks empty) · decline=DeployedDeclineKeepsCredit.
 
 ## GIVEN
 CommonSetup: yyw/grw/{

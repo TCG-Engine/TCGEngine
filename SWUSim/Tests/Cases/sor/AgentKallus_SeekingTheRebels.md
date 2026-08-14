@@ -90,3 +90,33 @@ P2GROUNDARENACOUNT:0
 P1DECKCOUNT:0
 P1HANDCOUNT:1
 P1GROUNDARENAUNIT:0:DAMAGE:1
+
+---
+
+# UniquePilotUpgradeDefeated_NoDraw
+#// SOR_115 Agent Kallus — "When another unique UNIT is defeated." A unique PILOT riding a unit is an
+#// UPGRADE, not a unit (CR 17.c), so defeating its host does not make the pilot a defeated unit:
+#// P1 defeats the non-unique TIE/ln Fighter carrying the unique JTL_036 Iden Versio pilot with
+#// SHD_079 Rival's Fall — the host is non-unique and the pilot is an upgrade, not a unit, so NO draw
+#// offer appears at all.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_115:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP2SpaceArenaPilot: 0:JTL_036
+WithP1Hand: SHD_079
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P1NODECISION
+P1HANDCOUNT:0
+P1DECKCOUNT:1
+P1DISCARDCOUNT:1

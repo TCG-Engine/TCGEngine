@@ -39,3 +39,26 @@ P2GROUNDARENACOUNT:0
 P2HANDCOUNT:1
 P1CREDITCOUNT:0
 P2CREDITCOUNT:0
+
+---
+
+# NGORDefeat_CreditsGoToTheDefeatedControllersOpponent
+#// Control changes decide the payout direction: P1 plays No Glory, Only Results on P2's TIE/ln
+#// carrying Targeted for Removal, takes control, and defeats it. At defeat the host's controller is
+#// P1, so "the attached unit's controller's opponent" — P2 — creates Credits equal to the host's
+#// printed cost (1). P1 gets nothing.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:6}
+P1OnlyActions: true
+WithP2SpaceArena: SOR_225:1:0
+WithP2SpaceArenaUpgrade: 0:LAW_141
+WithP1Hand: JTL_043
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P1CREDITCOUNT:0
+P2CREDITCOUNT:1

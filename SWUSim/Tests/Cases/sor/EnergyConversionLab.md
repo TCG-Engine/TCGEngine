@@ -1,4 +1,11 @@
 # AmbushTrade
+#// COVERAGE: offer=Offer_OnlyUnitsCostingSixOrLess (pending SELECTABLEEXACT: units ≤6 printed only;
+#//           events and cost-8 walker excluded) · decline=ChooseNothing_NothingPlayed (nothing
+#//           played, Epic Action spent) + NoEligibleUnits_SoftPass_EpicSpent (empty-pool soft pass)
+#//           · boundary=AmbushTrade (cost paid exactly: 2 ready resources → 0) + ObiWanAmbush
+#//           (aspect penalty still charged on the play: 8 = 6+2) · control=N/A (a base never
+#//           changes control; the played unit's ambush grant is same-seat by construction)
+#//           · reqboundary=Offer_OnlyUnitsCostingSixOrLess (the choose pends across the boundary)
 #// SOR_022 Energy Conversion Lab: Epic Action plays BF Marine at printed cost, grants AMBUSH.
 #// P1 has exactly 2 resources (printed cost of SOR_095, no aspect penalty with SOR_014+SOR_022).
 #// Ambush attack into opponent's ready Marine: both 3/3 units trade. Both arenas empty.
@@ -129,3 +136,100 @@ P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2GROUNDARENACOUNT:0
 P2DISCARDCOUNT:1
 P1BASE:EPICUSED
+
+---
+
+# Offer_OnlyUnitsCostingSixOrLess
+#// SOR_022 ECL — the Epic Action's pool is exactly the hand's UNITS with printed cost ≤6:
+#// Reinforcement Walker (SOR_119, cost 8) and Vanquish (SOR_078, an event) are excluded;
+#// Rebel Pathfinder / Alliance X-Wing / AT-ST are in. Decision left pending to pin the offer.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/grw/{
+  myBase:SOR_022;
+  theirBase:SOR_023
+}
+WithP1Resources: 10:SOR_095
+WithP1Hand: [SOR_119 SOR_239 SOR_237 SOR_232 SOR_078]
+
+## WHEN
+- P1>UseBaseAbility
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myHand-1&myHand-2&myHand-3
+
+---
+
+# ChooseNothing_NothingPlayed
+#// SOR_022 ECL — declining the unit choice plays nothing: both units stay in hand, no arena
+#// entry, and the Epic Action is spent (the use was the cost, not the play).
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/grw/{
+  myBase:SOR_022;
+  theirBase:SOR_023
+}
+WithP1Resources: 10:SOR_095
+WithP1Hand: [SOR_239 SOR_232]
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:-
+
+## EXPECT
+P1HANDCOUNT:2
+P1GROUNDARENACOUNT:0
+P1RESAVAILABLE:10
+P1BASE:EPICUSED
+P1NODECISION
+
+---
+
+# NoEligibleUnits_SoftPass_EpicSpent
+#// SOR_022 ECL — with no unit costing ≤6 in hand (only an event), using the base ability is a
+#// legal soft pass: no prompt, nothing played, Epic Action spent.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/grw/{
+  myBase:SOR_022;
+  theirBase:SOR_023
+}
+WithP1Resources: 10:SOR_095
+WithP1Hand: SOR_078
+
+## WHEN
+- P1>UseBaseAbility
+
+## EXPECT
+P1HANDCOUNT:1
+P1GROUNDARENACOUNT:0
+P1BASE:EPICUSED
+P1NODECISION
+
+---
+
+# UnaffordableUnit_ExcludedFromPool
+#// Candidate #5 fix guard: the pool must ALSO be affordability-gated (full payment capacity,
+#// effective cost) — with 3 resources the AT-ST (cost 6) cannot be paid for, and picking it would
+#// burn the once-per-game Epic Action on a silent no-op (the epic-preservation family). The two
+#// cost-2 Heroism units stay in; the AT-ST is out. Offer left pending.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/grw/{
+  myBase:SOR_022;
+  theirBase:SOR_023
+}
+WithP1Resources: 3:SOR_095
+WithP1Hand: [SOR_239 SOR_237 SOR_232]
+
+## WHEN
+- P1>UseBaseAbility
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myHand-0&myHand-1

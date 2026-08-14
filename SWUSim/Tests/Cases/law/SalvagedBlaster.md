@@ -5,6 +5,14 @@
 #// (3/7) and dies to the counter; the Blaster lands in P1's discard (From PLAY). P1's attempt to replay it
 #// onto SOR_095 is a no-op: the Blaster stays in the discard and SOR_095 gets no upgrade. (P1's discard
 #// holds the defeated SEC_080 AND the Blaster = 2 cards; if the Blaster had been replayable it would be 1.)
+#// COVERAGE: offer=OnlyAttachesToNonVehicle (Vehicle excluded from the host pool; single legal host
+#//           auto-attaches, the Vehicle staying bare is the proof) · reqboundary=PlayFromDiscardAfterHandDiscard
+#//           + PlayFromDiscardAfterDeckMill (the stamp survives across requests/turn swaps before the replay)
+#//           · control=N/A (the replay permission belongs to the discard's owner; no control-change variant
+#//           intended) · boundary pair=PlayFromDiscardAfterHandDiscard (this phase → replayable) vs
+#//           NotReplayableNextPhase_StampExpires (next phase → not), plus FromPlay_NotReplayable (wrong
+#//           source zone) · decline=N/A (the replay is an optional action; not attempting it is the
+#//           default and needs no prompt)
 
 ## GIVEN
 CommonSetup: bbk/bbk/{
@@ -105,3 +113,37 @@ WithP1Deck: SOR_095
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1DISCARDCOUNT:0
+
+---
+
+# NotReplayableNextPhase_StampExpires
+#// LAW_200 Salvaged Blaster — "If this upgrade was discarded from your hand or deck THIS PHASE" is a
+#// per-phase stamp: a Blaster discarded from hand this phase is NOT replayable in the NEXT action phase.
+#// Same forced-discard setup as PlayFromDiscardAfterHandDiscard (P1's Pillage makes P2 discard LAW_200 +
+#// a filler), but both players pass through the regroup phase first; P2's replay attempt next phase is a
+#// no-op — the Blaster stays in the discard and SEC_080 gets no upgrade.
+
+## GIVEN
+CommonSetup: rrk/rrk/{handCardIds:SHD_181;myResources:4;theirHandCardIds:LAW_200,SOR_095;theirResources:2}
+WithP2GroundArena: SEC_080:1:0
+WithP1Deck: [SOR_128 SOR_128]
+WithP2Deck: [SOR_128 SOR_128]
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:myHand-0
+- P2>AnswerDecision:myHand-0
+- P2>Pass
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>Pass
+- P2>PlayFromDiscard:0
+
+## EXPECT
+PHASE:MAIN
+P2DISCARDCOUNT:2
+P2DISCARDUNIT:0:CARDID:LAW_200
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2RESAVAILABLE:2

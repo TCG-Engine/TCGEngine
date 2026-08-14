@@ -1,6 +1,13 @@
 # TwoThenTwo
 #// LAW_208 Collateral Damage (Aggression event, cost 3) — "Deal 2 damage to a unit. Then, deal 2 damage
 #// to a base or another unit in the same arena." Deal 2 to SOR_046, then 2 to the other ground unit SOR_095.
+#// COVERAGE: offer=proven by targeted picks in TwoThenTwo + SpaceArenaTwoUnits (an out-of-pool answer
+#//           throws; the second pick is what exercises the same-arena restriction) · decline=N/A (both
+#//           clauses are mandatory, no "you may") · control=N/A (pure damage event, no control-change
+#//           interaction) · boundary=FirstTargetDefeated + LastUnitDefeatedThenBase + EmptyBoard_DealsToBase
+#//           + FirstTargetCannotBeDamaged_SecondClauseStillResolves (defeat / zero-unit / damage-immune
+#//           edges) · reqboundary=every two-clause section crosses a request boundary between the first
+#//           and second target answer
 
 ## GIVEN
 CommonSetup: rrk/bgw/{myResources:3}
@@ -118,3 +125,29 @@ WithP1Hand: LAW_208
 ## EXPECT
 P2BASEDMG:2
 P1BASEDMG:0
+
+---
+
+# FirstTargetCannotBeDamaged_SecondClauseStillResolves
+#// LAW_208 Collateral Damage — the first target may be a unit that CAN'T be damaged: SHD_187 Lurking
+#// TIE Phantom ("can't be captured, damaged, or defeated by enemy card abilities") is still a legal
+#// pick, the 2 damage is simply prevented (stays at 0), and the second clause still resolves in the
+#// same (space) arena — 2 damage to the other space unit.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:3}
+WithP2SpaceArena: SHD_187:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP1Hand: LAW_208
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:theirSpaceArena-1
+
+## EXPECT
+P2SPACEARENAUNIT:0:CARDID:SHD_187
+P2SPACEARENAUNIT:0:DAMAGE:0
+P2SPACEARENAUNIT:1:CARDID:SOR_237
+P2SPACEARENAUNIT:1:DAMAGE:2
+P1NODECISION

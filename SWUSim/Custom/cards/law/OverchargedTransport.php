@@ -43,7 +43,11 @@ function OverchargedTransportSpaceHosts(int $player): array
         continue;
       foreach (GetUpgradesOnUnit($o) as $u) {
         $cid = $u->CardID ?? '';
-        if ($cid !== '' && !SWUIsCreditToken($cid) && stripos(CardType($cid) ?? '', 'Upgrade') !== false) {
+        // An attached PILOT is an upgrade too — its printed CardType is "Unit", so the printed-type
+        // gate alone misses pilot-only hosts (the pilot-as-upgrade dispatch-path family).
+        $isUpgrade = stripos(CardType($cid) ?? '', 'Upgrade') !== false
+                  || !empty($u->IsPilot) || ($cid !== '' && HasTrait($cid, 'Pilot'));
+        if ($cid !== '' && !SWUIsCreditToken($cid) && $isUpgrade) {
           $hosts[] = ['mz' => $mz, 'uid' => intval($o->UniqueID ?? 0)];
           break;
         }

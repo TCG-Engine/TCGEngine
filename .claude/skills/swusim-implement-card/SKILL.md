@@ -53,6 +53,76 @@ Decompose the printed text into **clauses** first (see the clause-decomposition 
 11. **Interaction with the standard modifiers.** Shields absorbing damage (does the rider still fire?), "can't be defeated/damaged/captured by enemy card abilities", indirect/unpreventable damage, prevention caps — and for ANY cost, that **Credit tokens / SEC_122 Droids can pay it** (gate offers on `SWUTotalPaymentCapacity`, never a bare ready-resource count).
 12. **Scope exclusions — what the effect must NOT touch.** An effect naming zones or sets must leave the adjacent ones alone: "search their deck and hand" must not hit units in play or a same-named **deployed leader**; "another" excludes self; "friendly" excludes enemy (and an unqualified "a unit" includes enemies); "a base" with no qualifier means EITHER base.
 
+### How many sections is "enough" — the measured floor (set 2026-08-13)
+
+A prose matrix does not produce coverage; a number you can fail does. Baseline measured over **every JTL + LOF test file** (437 files, 1707 sections, mean 3.9, median 3):
+
+| card text | JTL/LOF actual (mean / median) | **floor for new work** |
+|---|---|---|
+| 1 clause  | 2.7 / 2 | **4** |
+| 2 clauses | 4.4 / 4 | **7** |
+| 3 clauses | 6.7 / 5 | **10** |
+| 4+ clauses | 7.4 / 7 | **12** |
+| leader (two sides) | — | **floor per SIDE, summed** |
+
+**42% of JTL/LOF files have ≤2 sections**, and 49 of them have ≤2 sections for a card with ≥2 clauses. Both sets have since needed a validate-port that found ~8 engine bugs apiece — the thin coverage is *why*, not a coincidence. Cards written to the current bar land at 6–15 (HMW_064 Scorch, 1 clause → 6; HMW_003 Doctor Hemlock, leader → 15).
+
+The floor is a **trip-wire, not a target**. Under it you have almost certainly skipped a matrix cell — go find which one. Over it with cells still unwalked is equally not Done. Do not pad to reach a number; add the missing *cell*.
+
+### The five cells that actually go missing (measured, not guessed)
+
+Every cell below is already in the matrix above, and every one is still skipped most of the time. Miss rate = share of JTL/LOF cards whose printed text makes the cell applicable, where no test covers it:
+
+| cell | miss rate | why it keeps happening / how to actually do it |
+|---|---|---|
+| **Offer asserted** — `P1SELECTABLEEXACT` | **90%** (85/94) | Answering a target proves the BRANCH, never the POOL. Worst live gap: still **75% missing in HMW**, written to this bar. Needs **N+1 fixtures** — one excluded target plus at least TWO legal ones, or the last legal target auto-resolves and there is no offer left to inspect. `P1SELECTABLENOT:` / `P1SELECTABLEHAS:` are the cheaper partial forms. |
+| **Request boundary** — `SimulateRequestBoundary` | **100%** (0 of 96) | Invisible to a green suite *by construction*, which is exactly why nobody writes it. Applies to any value written before an `AddDecision` and read by the handler behind it. |
+| **Control change** — `WithP1GroundArenaControlled: CARD:2` | **87%** (47/54) | Two distinct readings, both load-bearing: (a) *owner ≠ controller* — "your hand / deck / discard / base" resolves for the CONTROLLER but the zone belongs to the OWNER, so a stolen unit's "return it to your hand" lands in the wrong zone; (b) *who resolves it* — under a take-control effect the NEW controller resolves a When Defeated, searching THEIR deck and taking the damage. The directive syntax is `CARDID:<ownerSeat>`. |
+| **Boundary pair** | **73%** (51/70) | The positive alone passes for *any* threshold value. Only N vs N±1 pins the number, and it must be a PAIR — a lone "blocked at 5" proves nothing without "works at 6". |
+| **Decline branch** — `AnswerDecision:-` | **48%** (67/139) | And **decline ≠ cannot-pay**: "you may discard a card" needs a refusal WITH a card in hand AND an empty hand. `-` declines an MZMAYCHOOSE; `NO` is for YESNO. |
+
+**The diagnostic pattern:** "If you do" failure branches are **97% covered** (only 2 of 64 missing) — because the card text contains a sentence pointing at them. Every cell above is missed precisely because *nothing in the printed text names it*. So invert the instinct: **the cells you'll skip are the ones the card text doesn't mention.** Walk them from the matrix, never from re-reading the card.
+
+### ⚠ A filter you hand to a shared OFFER helper may be ADVISORY — re-check it when the answer returns (HMW_043, 2026-08-13)
+
+`_topDeckSearchBegin($player, $n, $filter, …)` uses `$filter` **only** to build the `matchIDs` hint sent to
+the client. Its finalize resolves the answer through `_topDeckResolveFromIDs($allIDs, …)` — against *every
+peeked card*. So the filter is a UI suggestion, and whatever comes back is honoured. Building HMW_043 on
+it, answering the search with a cost-5 unit played it, and answering with a cost-3 **event** placed the
+event into the ground arena as a unit. Both are the load-bearing gate of the card.
+
+**This is invisible to a normal test pass**, because a test that answers *legally* exercises the filter
+that was never enforced. The cell that catches it is the one that answers ILLEGALLY and asserts the
+refusal — strictly stronger than asserting the client offer list, and the form to prefer whenever the
+offer is a CardID list rather than a target pool.
+
+Generalise it: **whenever you pass a predicate into a shared helper that builds an offer, find out whether
+the helper re-applies it on resolution. If it does not, re-check it in your own handler**, and name one
+function as THE gate so the offer and the resolution cannot disagree (the `_SWULaw019FriendlyTokens` /
+`_SWUHmw043IsLegalPick` shape). Same family as the alternate-path-skips-the-ceremony bugs: one rule, two
+code paths, only one of them enforcing it.
+⚠ The hole is still open in the shared `SOR_087#0` finalize (SOR_087, LAW_063, ASH Ackbar, SOR_104) — it
+re-checks `SWUCardPlayBlocked` but never the card filter.
+
+### The coverage ledger — one line per test file, mandatory
+
+Intent is not a forcing function; a line someone can grep for is. **Every new test file's first section carries a `COVERAGE:` comment** naming, for each of the five cells above, either the section that covers it or a *specific* reason it is N/A:
+
+```
+#// COVERAGE: offer=Front_UnitWithWeaknessIsNotSelectable · decline=Deployed_OnAttack_Decline_NoToken
+#//           boundary=Epic_BlockedAtFiveResources · control=N/A (no owner-scoped zone, no take-control interaction)
+#//           reqboundary=N/A (no state written across a decision)
+```
+
+`N/A` is a legitimate answer — a silent omission is not. Audit a set with:
+
+```bash
+grep -L "COVERAGE:" SWUSim/Tests/Cases/<set>/*.md      # files with no ledger at all
+grep -h "COVERAGE:" -A2 SWUSim/Tests/Cases/<set>/*.md | grep -oE "(offer|decline|boundary|control|reqboundary)=N/A" | sort | uniq -c
+```
+
+If a set's ledger shows `offer=N/A` on most cards, that is the tell that the cell was waved off rather than judged — go back and check the ones whose text has a qualifier ("another", "an enemy", "upgraded", "exhausted", "non-unique", "that costs N or less").
+
 ### Before marking Done — the adversarial audit (mandatory)
 Re-read the printed text **as if you had never seen the implementation**, list every scenario an independent auditor would write from that text alone, and diff that list against your sections. Anything unmatched becomes a section or a stated N/A. Two failure modes this catches, both seen repeatedly:
 - **A test NAME that doesn't match what it asserts** — audit by reading assertions, never titles.
@@ -393,6 +463,66 @@ one performs.** Enumerate the paths before writing the card, not after.
 - **Control-change decides WHO RESOLVES.** Under JTL_043 No Glory, Only Results the new controller resolves
   the When Defeated — searching THEIR deck, choosing the target, taking the damage. One section per card
   with a control-change-then-defeat is cheap and catches "your"-scoped wording every time.
+
+### More recurring bug shapes (LAW re-validation C/D/E, 2026-08-13) — cross-seat frames, both-seats rules, every-path parity
+Thirteen engine bug families in one pass over an already-twice-validated set. The first three are the
+highest-yield: each was invisible to a green suite because only the SAME-seat variant was ever tested.
+- **★ A frame-relative mzID is only valid in the frame that minted it — re-resolve by UID at the consumer's frame.** Two members in one day: ASH_062's decline path resolved the protected unit under the DEFENDER's frame and handed it to `SWUDealDamageToUnit` (which re-frames to the SOURCE) — cross-player, the deferred ping hit an empty slot and silently vanished, the target's own Shield never popped; LAW_103 Display Piece scanned the OWNER's discard by seat but returned `myDiscard-N`, then MZMoved under the CONTROLLER's frame — a stolen unit was stranded. `AMIDALA_PREVENT_ABILITY` carries the house-pattern fix (re-find by UID under the applier's frame; or my→their translation à la `ENEMY_SOURCED_DEFEAT`). **Test rule: every prevent/defer/return flow gets a CROSS-player variant — the same-seat one proves nothing about frames.**
+- **★ Server-side answer validation exists now (`SWUValidateDecisionAnswer`): an out-of-pool answer to an MZCHOOSE/MZMAYCHOOSE is REJECTED** (production: request refused; harness: throws with the pending pool printed). 28 tracked tests had been green only through the old hole — some acting on targets the offer never contained. Never "aim" a continuation at an unoffered mz; and use a deliberate bad answer (`zzz`) as the flow-discovery dump.
+- **★ Rules that bind "a player" bind BOTH seats — enforcement at an acting-player-only chokepoint misses opponent-directed effects.** The uniqueness rule (CR 8.19.1.b) ran only for the actor, so LAW_170 Double-Cross handing the OPPONENT a duplicate unique unit was never enforced. When a continuation can run on the non-acting seat, thread the ACTING player through its Param so the post-resolution re-entry resumes the right action-end.
+- **First-attack/attacked-this-phase CONSUMERS live at `ExecuteSWUAttack` (the one chokepoint every attack passes through), never `BeginSWUAttack`** — an Ambush or event-driven attack skips declaration entirely (LAW_219's strike-first, LAW_112's heal). The WRITER (`_SWURecordAttackFlags`) was fixed earlier; the READERS were still blind.
+- **Every discard path fires `OnCardDiscarded` and stamps `From`.** The self-chosen `DoDiscardCard` path (MZMove) never fired the when-discarded handlers — the mirror-image of the forced-discard-bypasses-Padmé bug — and its entry lacked the `From` field the handlers gate on. And "Discard N… return each X" (JTL_215 BoShek) means the card IS discarded first (triggers + stamps) and then returns; routing straight to hand skips the event. When adding any card-movement primitive, ask "which observers does the normal path fire?" and fire them all.
+- **A "for each X done this way" reward gates on the sub-effect SUCCEEDING.** LAW_002 Tobias paid Credit+draw per pick even when defeat-immunity blocked the defeat; `SWUDefeatUnit` returns false — use it. Same as the Tier-B "if they do" control-transfer gate.
+- **An "in play" presence check for a card's own observer must count the SOURCE when it is in the current defeat batch** (CR simultaneous-removal): deployed Boba LAW_007 trading died before his own attack-end observer looked for "a friendly LAW_007". The Dengar `$leftCards` pattern; for the attacker case, the attacker object itself (still reachable pre-cleanup) is the witness.
+- **"Shares a Trait with X" / "a friendly leader" reads LIVE objects on BOTH sides**: `TraitContains` over the printed-trait union + the grantable specials (Rebel/Underworld/Mandalorian/Jedi/Force/Clone), and "a friendly leader" = the undeployed zone leader PLUS every arena `IsLeaderUnit` (deployed, leader-pilot host, Darksaber host). LAW_152 C-3PO had printed-only traits and zone-leader-only lookup — three distinct wrong answers.
+- **Any "upgrade attached to…" collector must accept PILOT subcards** (printed CardType "Unit") — LAW_195's printed-type gate missed pilot-only hosts. The pilot-as-upgrade dispatch family keeps recurring; grep `IsPilot`/Pilot-trait wherever `CardType(...'Upgrade')` filters subcards.
+- **An offer built MID-COMBAT goes stale at `CleanupRemovedCards`** — positional mzIDs shift. Queue a CUSTOM builder that constructs the pool at drain time, post-cleanup (SEC_143's `SEC143_OFFER`; same shape as the queued Traitorous revert).
+- **Attack-end vs cross-player When-Defeated is an ORDER CHOICE** (ruling 2026-08-13, supersedes the fixed WD-first relay): when both players hold triggered abilities in that window the ACTIVE player picks who resolves first (`You`/`Opponent`); the `Opponent` branch parks the relay ONE BLOCK past the When-Defeated entry so its targeted-damage continuations resolve before survival is re-checked.
+- **Fizzle-only optional COSTS are never offered** (ruling 2026-08-13, the "pay 2 after dying on Ambush" family): if the pay's effect can only fizzle, auto-decline with NO prompt; guard with `P{n}NODECISION` + untouched resources. A missing prompt is a bug only when the choice is MATERIAL.
+- **Printed text with no "may" is MANDATORY** — an `'may' => true` softening is a real divergence (LAW_057 Benthic, fixed by ruling; the LOF_009 Maul family). When you see one, flag for a ruling rather than encoding the decline in tests.
+- **Axis-scan verdict for the build matrix**: even after this exhaustive port, LAW's offer-assertion axis is still 85% missing and request-boundary 100% — ported scenarios only add those cells where the source material asserts them. The build-time matrix remains the only forcing function for offer/reqboundary sections; do not assume a port will backfill them.
+
+### More recurring bug shapes (SOR re-validation, 2026-08-13) — wrong constants, shared-pool membership, alternate-path pricing
+Twelve engine bug families in the oldest, most-played set. The unifying lesson: a handler can be
+structurally perfect and still wrong in one LITERAL, and every test seeded from the handler (instead of
+the printed text) confirms the wrong literal.
+- **★ Diff every aspect/trait/count LITERAL in the handler against the printed text, word by word.** SOR_114 Escort Skiff's Ambush gate checked "you control a CUNNING unit" where the card reads "another COMMAND unit" — wrong since the set was built, green the whole time because the fixtures were written FROM the handler. The negative that catches it: seed the WRONG-aspect unit and assert the gate does NOT open.
+- **★ An upgrade's attach pool is classified from CARD TEXT into the explicit group lists in `SWUGetUpgradeValidTargets` — never by copying a neighboring entry.** "Attach to a unit" (CR 2.e) = ANY unit including enemy (Snapshot Reflexes SOR_215/SHD_223 + Infiltrator's Skill SOR_166 sat friendly-only for months); other groups: non-leader, non-Vehicle, Vehicle-only. The lists are internally inconsistent, so membership by analogy propagates old holes ("masked-by-old-hole" family). Every new upgrade gets an enemy-attach (or enemy-excluded) section.
+- **A SINGULAR zone article is a rules constraint the offer can't express** — "choose up to 4 cards in **a** discard pile" (SOR_252 Restock) legitimately shows both piles in the flat multi-choose, so the CUSTOM handler is the enforcement point: first pick fixes the pile, cross-pile picks are dropped. Generalize: when the UI pool can't encode a dynamic narrowing, enforce it server-side in the handler and TEST the cross-pile answer.
+- **An alternate play mode's affordability gate must price the same EFFECTIVE cost as its pay path** — the top-deck Piloting mode gate priced the undiscounted cost, so a discount that made the mode affordable never unlocked it. Thread discounts into the gate (`SWUGetPilotValidTargets(..., $discount)`), and test "affordable only WITH the discount".
+- **Take-control effects must refuse LEADER units, checked LIVE** — SOR_122 Traitorous took control of (and on expiry DEFEATED) a piloted leader unit. `SWUControlsLeaderUnit` now live-scans arenas with `IsLeaderUnit` (the Deployed flag alone misses pilot-leader and Darksaber hosts). Any "take control of a unit" pool needs a leader-unit-excluded section with the leader made a unit via a PILOT, not just deploy.
+- **A damage observer hooked into combat is not hooked into ABILITY damage** — deployed Cassian SOR_013 never fired on non-combat base damage. Enumerate the paths (combat, Overwhelm, ability, indirect) for every "when X takes damage" trigger — the JTL_177 lesson, still recurring.
+- **`AddTrigger` outside the entry/attack ceremony needs an explicit `FlushTriggerBag`** — the ceremony flushes for you; a trigger bagged from inside another handler's resolution (Cassian's non-combat path, Ambush granted to a CREATED token) sits in the bag forever with no error. If you bag it yourself, flush it yourself.
+- **A "count units that left" supplement must include the WHOLE defeat batch** — SOR_036 Gideon Hask (and SEC_051 Bo-Katan) missed experience for same-batch defeats; the `$leftCards` batch supplement is the pattern.
+- **Token rulings now settled (2026-08-13), build to them:** bounce/capture of a token is CEASE, not defeat (`_SWUCeaseTokenUnit`: no When-Defeated, leave-play reactions fire as non-defeat, CR 9.3 upgrade defeats still fire, and it still "counts as returned to hand" for cards that care); a Vehicle token CREATED under an Ambush-granting aura (Wedge SOR_100) DOES get the Ambush offer.
+- **A dead attacker's queued combat damage must re-validate the attacker by UID** — the handler re-resolved positionally and a BYSTANDER dealt the damage. Fixed in the core path; the section shape (attacker dies to the defender's first strike/trade, assert no bystander damage) is cheap insurance on any new combat-adjacent card.
+- **"When you play an event" observers are a SNAPSHOT taken before the event's effects** (SOR_182 Bossk, fixed 2026-08-14): a unit the event itself seats must not observe its own arrival. The event branch captures `$evtObserverUIDs` pre-dispatch and the block-5 collector filters against it — thread the allowlist if you add a new event-play reaction path.
+- **The CR 17.c pilot-as-upgrade sweep is DONE (2026-08-14)**: in `SWUCollectOwnPlayReactions`, "play a unit" observers read `$isUnitPlay`, "play an upgrade" observers `$isUpgradePlay`, and "non-unit card" counts a pilot-as-upgrade as non-unit. New observers must pick from those three, never the raw CardType.
+- **Axis confirmation:** SOR's port moved offer-assertion missing 100%→55% and control 100%→82%, but request-boundary stayed 98% — second set confirming a port only backfills axes the source material asserts. Request-boundary sections exist only if built at implementation time.
+
+### ⚠ Fixture faults that MIMIC an engine bug — the three that stacked on one section (SOR pass 2, 2026-08-14)
+A single ported section produced what looked like three separate engine bugs (a lost When-Defeated, a
+destroyed deck, a vanished prompt). All three were the FIXTURE. Check these before writing any engine code:
+- **`SkipPreGame: true` is REQUIRED whenever you seed a deck.** Without it the pre-game DRAWS the seeded
+  cards into hand, so `WithP{n}Deck` reads as "silently ignored" and every deck assertion is 0.
+- **`handCardIds:` inside CommonSetup can reset the deck** — seed the hand with top-level `WithP{n}Hand:`
+  lines instead when the same section also seeds a deck.
+- **The auto-resolve artifact is the #1 phantom-bug generator, and its signature is a SPARE ANSWER.**
+  A single-legal-target choose auto-resolves, so the answer written for it lands on the NEXT decision:
+  here `AnswerDecision:theirSpaceArena-0` popped a correctly-paused SCRY prompt and fed it a mzID, which
+  the finalizer could not parse — presenting as "the engine destroyed my deck". Count prompts against
+  answers, and seed TWO legal targets whenever the choose is meant to be interactive.
+- **A section can pass for the WRONG reason under the same fault**: with one enemy unit, an OPTIONCHOOSE
+  fed an unrecognised value silently took its FIRST option, so the assertion held while nothing was
+  actually chosen. When you fix an auto-resolve artifact in one section of a family, re-check its siblings.
+
+### ★ Asserting SCRY/peek CONTENTS with no contents directive (SOR_087×SOR_031, 2026-08-13)
+The harness cannot inspect a SCRY offer — but `SCRY_FINALIZE` silently DROPS answered IDs that were not
+actually peeked, and the peeked cards are already spliced OFF the deck. So answer with the cards you
+EXPECT to be peeked and let **`P1DECKCOUNT` be the teeth**: right peek → they go back, count intact;
+wrong peek → the answer places nothing, the mis-peeked pair is lost, count −N. Mutation-verify the
+section once (e.g. flip the bottoming to the top) — a contents assertion built this way can pass
+vacuously if the answer format is wrong instead of the peek.
 
 ### ⚠ DSL traps that cost real time on the LOF port (2026-08-07)
 - **★ An offer with a SINGLE legal option AUTO-RESOLVES**, so `P1SELECTABLEEXACT:`/`P1DECISIONTOOLTIP:`

@@ -392,6 +392,12 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
   switch ($mode) {
     case 100:
       $dqController = new DecisionQueueController();
+      // Per-app answer validation (defined by apps that opt in, e.g. SWUSim): reject an answer that
+      // is not a candidate of the pending choice instead of letting continuations act on it.
+      if (function_exists('SWUValidateDecisionAnswer') && !SWUValidateDecisionAnswer($playerID, strval($cardID))) {
+        if (function_exists('SetFlashMessage')) SetFlashMessage("Invalid selection.");
+        break;
+      }
       $dqController->PopDecision($playerID);
       $dqController->ExecuteStaticMethods($playerID, $cardID);
       break;

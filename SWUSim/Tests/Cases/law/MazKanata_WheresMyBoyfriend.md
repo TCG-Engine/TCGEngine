@@ -131,3 +131,213 @@ WithP1Deck: LAW_262
 P1HASDECISION
 P1SEARCHPLAYABLEHAS:LAW_257
 P1SEARCHPLAYABLENOT:LAW_262
+
+---
+
+# NoTrigger_DefeatedWhileAttacking
+#// "If this unit survived" — the load-bearing gate on the When Attack Ends. Maz (4/4) attacks SEC_167
+#// Republic Trooper (5/4): she kills it but the 5 counter kills her too. Dead attacker → no search
+#// prompt, nothing played, and the deck is untouched. Without this the trigger could be firing on every
+#// attack end (the CR 16.c DEFAULT for cards without a survival rider) and all other sections still pass.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1GroundArena: LAW_074:1:0
+WithP2GroundArena: SEC_167:1:0
+WithP1Deck: [SOR_247 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1DECKCOUNT:5
+P1NODECISION
+---
+
+# EmptyDeck_NoPromptNoCrash
+#// Maz survives (base attack, no counter) but the deck is EMPTY: the search must be a clean no-op — no
+#// dangling decision, no crash, nothing played.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1GroundArena: LAW_074:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P2BASEDMG:4
+P1NODECISION
+
+---
+
+# NoTrigger_KilledByTheDefendersWhenDefeated
+#// A DIFFERENT death path from the trade: Maz SURVIVES combat, then dies to the defeated defender's own
+#// When Defeated — so "survived" must be evaluated AFTER that resolution, not at the combat-damage step.
+#// Maz wears SOR_120 Academy Training (6/6); she kills LOF_235 HK-87 Assassin Droid (4/4) and survives
+#// its 4 counter at 4 damage — then HK-87's "When Defeated: deal 2 damage to EACH ground unit"
+#// (mandatory, no targeting) finishes her (4+2=6). No search prompt, deck untouched.
+#// Both players have triggered abilities in this window, so the active player first chooses who
+#// resolves first; picking Opponent parks Maz's survival-gated trigger BEHIND the defender's When
+#// Defeated (P2>Drain drives it, as their client's poll would live) and drops it when she is found
+#// dead. An implementation checking survival only at the collection point offers the search before
+#// the ping ever lands — the shape this section was written to kill.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1GroundArena: LAW_074:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArena: LOF_235:1:0
+WithP1Deck: [SOR_247 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Opponent
+- P2>Drain
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1DECKCOUNT:5
+P1NODECISION
+
+---
+
+# SurvivesTheDefendersWhenDefeated_SearchStillHappens
+#// The positive partner that keeps the relay honest: same board, but Maz ALSO wears a second Academy
+#// Training (8/8) — she takes 4 combat + 2 ping = 6 and LIVES. The relayed trigger must be DELIVERED,
+#// not dropped: after the defender's ping resolves, the search is offered and plays SOR_247 as usual.
+#// Without this section the relay could drop every relayed trigger and the negative above would still
+#// pass. The P1>Drain mirrors the attacker's own client poll: the delivered trigger lands on P1's queue
+#// as a CUSTOM and executes on their next drain, which then raises the search prompt.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1GroundArena: LAW_074:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArena: LOF_235:1:0
+WithP1Deck: [SOR_247 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Opponent
+- P2>Drain
+- P1>Drain
+- P1>AnswerDecision:SOR_247
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_247
+P1GROUNDARENAUNIT:0:DAMAGE:6
+
+---
+
+# SearchPool_ExcludesUnderworldEVENTS
+#// "search the top 5 … for an Underworld UNIT" — a card-TYPE gate on top of the trait gate. SHD_229
+#// Ma Klounkee is an Underworld-trait EVENT sitting beside an Underworld unit in the top 5: only the
+#// unit may be picked. The pool sections so far only varied COST, so a filter reading the trait alone
+#// would have passed all of them.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: LAW_074:1:0
+WithP1Deck: [SHD_229 LAW_257 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1SEARCHPLAYABLEHAS:LAW_257
+P1SEARCHPLAYABLENOT:SHD_229
+
+---
+
+# FetchedUnitDiesBeforeRegroup_NotReturnedToDeck
+#// "At the start of the regroup phase, put THAT UNIT on the bottom of your deck (if it is still in
+#// play)" — the object, not the name, and only if it is STILL IN PLAY. The fetched SOR_247 (2/3, enters
+#// READY) attacks P2's SEC_167 (5/4) and dies to the counter. At regroup nothing goes back: the deck
+#// stays where the search left it and the Thug sits in the discard.
+#// A return keyed on the CardID (or skipping the still-in-play check) would drag it out of the discard
+#// or crash. Deck: 5 seeded − 5 peeked + 4 returned = 4, then the two regroup draws leave 2; a wrong
+#// return would land it at 3.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: LAW_074:1:0
+WithP2GroundArena: SEC_167:1:0
+WithP1Deck: [SOR_247 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:SOR_247
+- P1>AttackGroundArena:1:0
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1DISCARDCOUNT:1
+P1DECKCOUNT:2
+
+---
+
+# FetchedUnitDies_ASecondCopyPlayedFromHandIsNotReturned
+#// The marker is on the OBJECT the ability played, never the name: after the fetched SOR_247 dies, a
+#// second copy played normally from HAND must survive the regroup untouched — it stays in the arena and
+#// the deck does not grow. A CardID-keyed return would bottom the fresh copy.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: LAW_074:1:0
+WithP1Hand: SOR_247
+WithP2GroundArena: SEC_167:1:0
+WithP1Deck: [SOR_247 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:SOR_247
+- P1>AttackGroundArena:1:0
+- P1>PlayHand:0
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_247
+P1DECKCOUNT:2
+P1DISCARDCOUNT:1

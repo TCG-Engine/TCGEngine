@@ -79,3 +79,34 @@ CommonSetup: grw/grw/{myResources:6;handCardIds:SOR_148;theirBaseDamage:15}
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# PlayedViaEnergyConversionLab_AmbushThenReadies
+#// SOR_148 Guerilla Attack Pod × SOR_022 Energy Conversion Lab — the Pod is played by ECL's Epic
+#// Action, which grants it AMBUSH for the phase. Both of the Pod's entry effects then apply: the
+#// granted Ambush attack (it hits SOR_067 Rugged Survivors 3/5 for 4 and takes 3 back) AND the Pod's
+#// own When Played "if a base has 15 or more damage on it, ready this unit" — P2's base is at 15, so
+#// the Pod ends the action READY despite having attacked. Both entry triggers land together, so the
+#// player first picks which resolves (EffectStack-0 = the Ambush) — the ready must resolve AFTER the
+#// attack, or the attack's exhaust would be the final state.
+
+## GIVEN
+CommonSetup: grw/grw/{theirBaseDamage:15;myBase:SOR_022}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: SOR_148
+WithP2GroundArena: SOR_067:1:0
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_148
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:READY
+P2GROUNDARENAUNIT:0:DAMAGE:4

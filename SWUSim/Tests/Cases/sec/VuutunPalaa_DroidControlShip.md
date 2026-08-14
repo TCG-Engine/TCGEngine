@@ -198,10 +198,11 @@ WithP2GroundArena: SOR_046:1:0
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-0&myGroundArena-1
-- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:myGroundArena-0
 ## EXPECT
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:1:EXHAUSTED
 P1RESAVAILABLE:0
 
@@ -247,7 +248,8 @@ WithP1Hand: SOR_214
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:mySpaceArena-0
+# (host choose auto-resolves since the 2026-08-13 Vehicle-group fix: Vuutun is the only legal
+#  Vehicle host on this board, so the SOR_214 pool is a single option)
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT

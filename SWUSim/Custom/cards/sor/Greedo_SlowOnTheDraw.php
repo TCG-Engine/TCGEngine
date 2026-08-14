@@ -6,6 +6,13 @@
 // SOR_204 Greedo — "When Defeated: You may discard a card from your deck. If it's not a unit, deal
 // 2 damage to a ground unit." Optional → YESNO; the discard is the top of the controller's deck.
 $whenDefeatedAbilities["SOR_204:0"] = function($player, $mzID) {
+    // Pointless-prompt doctrine (Repair/fizzle rulings 2026-08-13): with an EMPTY deck the YES can
+    // only do nothing — skip the prompt entirely.
+    global $playerID; $sv = $playerID; $playerID = intval($player);
+    $deckEmpty = true;
+    foreach (GetDeck(intval($player)) as $c) { if (empty($c->removed)) { $deckEmpty = false; break; } }
+    $playerID = $sv;
+    if ($deckEmpty) return;
     DecisionQueueController::AddDecision(intval($player), 'YESNO', '-', 1, 'Discard_the_top_of_your_deck?');
     DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'SOR_204#0', 1);
 };

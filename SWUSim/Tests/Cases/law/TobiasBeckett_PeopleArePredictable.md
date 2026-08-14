@@ -2,6 +2,15 @@
 #// LAW_002 Tobias Beckett (leader front) — "Action [Exhaust]: Choose a friendly unit. An opponent takes
 #// control of it. If they do, create a Credit token." P1 gives its only unit (SEC_080) to P2 and creates
 #// 1 Credit → SEC_080 moves to P2's arena.
+#// COVERAGE: offer=DeployedUndefeatableUnitOffered (P1SELECTABLEEXACT on the deployed pick; the front
+#//           single-unit pick auto-resolves per the single-legal-option rule) ·
+#//           reqboundary=DeployedDefeatOwnNotControl (the pick is answered on a later request after the
+#//           deploy) · control=the whole card: FrontGiveControlCredit (transfer succeeds) vs
+#//           FrontControlBlockedByRey_NoCredit (transfer blocked → no Credit) ·
+#//           boundary=DeployedDefeatOwnNotControl vs DeployedNoOwnNotControlNoCredit /
+#//           DeployedNoFriendlyUnitNoCredit; deck stocked vs DeployedDefeatEmptyDeckBaseDamage ·
+#//           decline=N/A here ("any number" choose-none and multi-select need more than one
+#//           own-but-not-controlled unit, which the harness cannot seat).
 
 ## GIVEN
 CommonSetup: yyw/grw/{
@@ -173,3 +182,59 @@ WithP1GroundArena: LAW_149:1:0
 P1GROUNDARENACOUNT:1
 P2GROUNDARENACOUNT:0
 P1CREDITCOUNT:0
+
+---
+
+# DeployedUndefeatableUnitOffered
+#// LAW_002 Tobias Beckett (deployed) — a unit you own but don't control is offered by the When Deployed
+#// "defeat any number" pick even when it cannot actually be defeated by the ability: SHD_187 Lurking TIE
+#// Phantom (owned by P1, controlled by P2) "can't be captured, damaged, or defeated by enemy card
+#// abilities", but it is still a legal choice. The pick is left pending here to assert the offer.
+
+## GIVEN
+CommonSetup: yyw/grw/{
+  myLeader:LAW_002;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP2SpaceArenaControlled: SHD_187:1
+WithP1Deck: [SOR_237 SOR_095]
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirSpaceArena-0
+
+---
+
+# DeployedUndefeatableUnit_NoRewardWhenDefeatBlocked
+#// "For each unit defeated THIS WAY" — the Credit + draw are gated on the defeat actually happening.
+#// P1 owns SHD_187 Lurking TIE Phantom (can't be captured or defeated by enemy card abilities) under
+#// P2's control; on deploy P1 picks it. From the Phantom's controller's view Tobias's ability is an
+#// enemy ability, so the defeat is blocked: it stays in play and NO Credit or draw is paid.
+
+## GIVEN
+CommonSetup: yyw/grw/{
+  myLeader:LAW_002;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP2SpaceArenaControlled: SHD_187:1
+WithP1Deck: [SOR_237 SOR_095]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P1CREDITCOUNT:0
+P1DECKCOUNT:2
+P1HANDCOUNT:0
+P1LEADER:DEPLOYED

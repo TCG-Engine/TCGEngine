@@ -2,6 +2,13 @@
 #// LAW_088 Anakin Skywalker (2/4) — When a friendly unit's attack ends: if no other units have attacked
 #// this phase, you may return it to its owner's hand. If you do, heal 2 from your base. Anakin (the only
 #// attacker) attacks the base, then returns himself and heals 2.
+#// COVERAGE: offer=N/A (no target pick — the returned unit is fixed as the attacker; the only decision is
+#//           the may-return YES/NO, asserted in AttackEndReturnHeal + MayReturnPassLeavesUnitAndNoHeal)
+#//           · reqboundary=every accepting section (the YESNO pends across the attack request and is
+#//           answered in a separate request) · control=StolenUnitReturnsToOwnersHandAndHeals (P1-controlled,
+#//           P2-owned attacker returns to the OWNER's hand) · boundary pair=AttackEndReturnHeal (survives →
+#//           trigger) vs AttackerDefeatedNoTrigger, and AttackEndReturnHeal (first attack) vs
+#//           AnotherUnitAttackedFirstNoTrigger · decline=MayReturnPassLeavesUnitAndNoHeal
 
 ## GIVEN
 CommonSetup: byk/bgw/{myBaseDamage:2}
@@ -103,3 +110,30 @@ P1GROUNDARENACOUNT:3
 P1HANDCOUNT:0
 P1BASEDMG:2
 P1NODECISION
+
+---
+
+# StolenUnitReturnsToOwnersHandAndHeals
+#// LAW_088 Anakin Skywalker — "return it to its owner's hand": a unit P1 CONTROLS but P2 OWNS (the end
+#// state after a control-take, seated via WithP1GroundArenaControlled) attacks the base as the only
+#// attack this phase and survives. Accepting the return sends it to P2's (the owner's) hand, not P1's,
+#// and P1's base still heals 2.
+
+## GIVEN
+CommonSetup: byk/bgw/{myBaseDamage:2}
+P1OnlyActions: true
+WithP1GroundArena: LAW_088:1:0
+WithP1GroundArenaControlled: SOR_095:2
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_088
+P1HANDCOUNT:0
+P2HANDCOUNT:1
+P2HANDCARD:0:SOR_095
+P1BASEDMG:0
+P2BASEDMG:3

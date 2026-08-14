@@ -35,6 +35,9 @@ $customDQHandlers["SOR_234#1"] = function($player, $parts, $lastDecision) {
         if (HasTrait($o->CardID, 'Imperial')) $imp2[] = $mz;
     }
     if (empty($imp2)) return;                                          // no second Imperial → done
+    // Target already defeated by the first hit → the second clause has no legal effect: skip the
+    // chooser entirely (pointless-prompt doctrine; the damage step would fizzle anyway).
+    if (SWUFindMzByUID($targetUID) === null) return;
     SWUQueueChooseTarget(intval($player), $imp2, "Choose_another_Imperial_unit", "SOR_234#2|" . $targetUID, 0);
 };
 

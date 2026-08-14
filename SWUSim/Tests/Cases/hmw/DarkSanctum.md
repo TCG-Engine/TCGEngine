@@ -2,6 +2,13 @@
 #// HMW_070 Dark Sanctum — Upgrade, cost 3, [Vigilance][Villainy], trait Fortification, non-unique.
 #// "Fortify (Attach this to your base, not a unit.)
 #//  Attached base gains: 'When the regroup phase starts: Draw a card and deal 2 damage to this base.'"
+#// COVERAGE: offer=Fortify_NeverAttachesToTheEnemyBase + Fortify_AttachesToTheBaseNotAUnit (asserted via
+#//           P1NODECISION, not P1SELECTABLE — one legal host means the pick auto-resolves and no offer exists)
+#//           decline=N/A (no "you may" on either clause) · boundary=Regroup_SelfDamageCanDefeatYourOwnBase
+#//           + Regroup_OneShortOfLethal_BaseSurvives · control=N/A (host is a base; a base never changes
+#//           control, and "this base" is resolved from the host, not a seat) · reqboundary=covered
+#//           generically by keywords/Fortify.md BaseUpgradesSurviveTheRequestBoundary (base subcards
+#//           decode as arrays after a round-trip — the failure mode is shared by all Fortify cards)
 #// Fortify makes myBase-0 the only legal host, so the attach auto-resolves even with a friendly unit
 #// on the board — that unit being untouched is the proof it was never offered.
 

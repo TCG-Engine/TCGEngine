@@ -36,7 +36,7 @@ WithP2GroundArena: LOF_252:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirBase
+- P1>AnswerDecision:theirBase-0
 - P2>AnswerDecision:YES
 
 ## EXPECT
@@ -87,7 +87,7 @@ WithP2GroundArena: LOF_252:1:0
 
 ## WHEN
 - P2>PlayHand:0
-- P2>AnswerDecision:theirBase
+- P2>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2HASFORCE

@@ -31,7 +31,10 @@ $leaderAbilities["SOR_003"] = function(int $player): void {
     $targets = [];
     foreach (SWUHandPlayablesAtDiscount($player, ['Unit'], 0) as $mz) {
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && SWUComputePlayCost($player, $o) <= 3) $targets[] = $mz;
+        // "costs 3 or less" gates on PRINTED cost (COST is always printed — the cost-semantics rule);
+        // affordability of the EFFECTIVE cost (aspect penalty included, "paying its cost") is already
+        // enforced by SWUHandPlayablesAtDiscount. An off-aspect printed-3 unit is offered and pays 5.
+        if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID ?? '')) <= 3) $targets[] = $mz;
     }
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets,

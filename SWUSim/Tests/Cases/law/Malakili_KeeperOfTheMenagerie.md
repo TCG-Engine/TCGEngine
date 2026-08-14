@@ -5,6 +5,14 @@
 #// it. Choosing SOR_164 (the granted unit) makes it 5/6. Without the grant SOR_164 wouldn't be a legal
 #// target and the choice would auto-resolve to Malakili instead — so SOR_164 ending at 5/6 proves the
 #// grant works.
+#// COVERAGE: offer=EnemyCreatureNotUnderworld_FriendlyOnlyGrant + ControlledEnemyCreature_GainsUnderworld
+#//           (SELECTABLEEXACT over the granted set) · decline=N/A (the grant is a static ability with no
+#//           "you may"; declines belong to the reader cards, guarded in their own files) ·
+#//           control=ControlledEnemyCreature_GainsUnderworld (P1 controls a P2-owned Creature; the friendly
+#//           in-play grant keys on the CONTROLLER) · boundary pair=OutOfPlay_PlayOwnedCreatureTriggersLadyProxima
+#//           + OutOfPlay_NoMalakili_LadyProximaNoTrigger and OutOfPlay_DoctorAphraReturnsOwnedCreature +
+#//           OutOfPlay_NoMalakili_NoReturn (with/without the grant) · request boundary=N/A (static aura,
+#//           no decision-then-state-read spans a request; every reader flow is answered in one section)
 
 ## GIVEN
 CommonSetup: yyk/rrk/{myResources:5}
@@ -126,3 +134,165 @@ WithP1Hand: SOR_164
 
 ## EXPECT
 P2BASEDMG:0
+
+---
+
+# InDeck_PlayedFromTopTriggersLadyProxima
+#// LAW_212 Malakili — a Creature you own on top of your DECK is Underworld when played from there.
+#// SOR_192 Ezra Bridger completes an attack and offers to play the top card; playing the Wampa
+#// (SOR_164, cost 4, on-aspect) from the deck triggers SHD_255 Lady Proxima ("When you play another
+#// Underworld card: you may deal 1 damage to a base") for 1 to P2's base (3 attack + 1 = 4).
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_212:1:0 SHD_255:1:0 SOR_192:1:0]
+WithP1Deck: SOR_164
+
+## WHEN
+- P1>AttackGroundArena:2:BASE
+- P1>AnswerDecision:Play
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:4
+P1GROUNDARENACOUNT:4
+P1RESAVAILABLE:0
+
+---
+
+# ControlledEnemyCreature_GainsUnderworld
+#// LAW_212 Malakili — the in-play grant is to FRIENDLY (controlled) Creatures, so an enemy-owned
+#// Creature that P1 has taken control of DOES gain Underworld. P1 controls Malakili plus a P2-owned
+#// LOF_044 Loth-Wolf; LAW_249 Black Sun Cabalist ("give Experience to another friendly Underworld
+#// unit") can select exactly both of them — the offer stays pending with two legal targets, proving
+#// the controlled enemy Creature is inside the granted set.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_212:1:0
+WithP1GroundArenaControlled: LOF_044:2
+WithP1Hand: LAW_249
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# EnemyPlayedCreature_NotGranted_NoProximaTrigger
+#// LAW_212 Malakili — the grant never reaches cards the OPPONENT owns/plays. P1 has Malakili in play;
+#// P2 controls Lady Proxima (SHD_255) and plays a Wampa (SOR_164, plain Creature). The Wampa is NOT
+#// Underworld for P2, so Proxima's "when you play another Underworld card" does not trigger: no
+#// decision, no base damage.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:0;theirResources:4}
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: LAW_212:1:0
+WithP2GroundArena: SHD_255:1:0
+WithP2Hand: SOR_164
+
+## WHEN
+- P2>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2NODECISION
+P1BASEDMG:0
+P2BASEDMG:0
+
+---
+
+# GrantedUnderworld_DiscardReturnOfferIncludesCreature
+#// The out-of-play grant must be visible to OTHER cards' trait filters, not just the play-observers.
+#// LAW_261 Street Gang Recruiter's "return an Underworld card from your discard" offers an owned
+#// Creature (SOR_164 Wampa, no printed Underworld) while Malakili is in play; the non-Creature
+#// SOR_095 is not offered. Two candidates seeded so the may-offer's contents are assertable.
+#// The offer is asserted while pending (no answer consumes it here).
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_212:1:0
+WithP1Hand: LAW_261
+WithP1Discard: [SOR_164 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_a_card
+P1SELECTABLEEXACT:myDiscard-0
+
+---
+
+# GrantedUnderworld_DiscardReturnResolves
+#// Continuation of the offer above: taking the granted-Underworld Wampa returns it to hand.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_212:1:0
+WithP1Hand: LAW_261
+WithP1Discard: [SOR_164 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myDiscard-0
+
+## EXPECT
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_164
+P1DISCARDCOUNT:1
+
+---
+
+# GrantedUnderworld_TraitShareEventPlaysHandCreature
+#// TWI_225 "play a non-Vehicle unit from your hand that shares a Trait with the unit you control":
+#// with Malakili as the only controlled unit (printed Underworld), an owned SOR_164 Wampa in HAND
+#// shares Underworld via the out-of-play grant and gets played at -5 (4-5 -> free). The single
+#// matching hand unit resolves without a prompt; the played Wampa lands in the ground arena.
+
+## GIVEN
+CommonSetup: yrk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: LAW_212:1:0
+WithP1Hand: [TWI_225 SOR_164]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_164
+P1HANDCOUNT:0
+
+---
+
+# GrantedUnderworld_DeckSearchMatchesCreature
+#// LOF_219 Psychometry: the chosen discard card (LAW_261, printed Underworld) must match an owned
+#// Creature in the TOP-5 search via the out-of-play grant — SOR_164 Wampa in the deck counts as
+#// Underworld while Malakili is in play.
+
+## GIVEN
+CommonSetup: yrk/rrk/{myResources:1}
+P1OnlyActions: true
+WithP1GroundArena: LAW_212:1:0
+WithP1Hand: LOF_219
+WithP1Discard: [LAW_261]
+WithP1Deck: [SOR_164 SOR_046 SOR_046 SOR_046 SOR_046 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:SOR_164
+
+## EXPECT
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_164
+P1DECKCOUNT:5

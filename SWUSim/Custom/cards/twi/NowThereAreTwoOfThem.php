@@ -33,7 +33,9 @@ $whenPlayedAbilities["TWI_225:0"] = function($player, $mzID = '') {
                 $cid = $o->CardID ?? '';
                 if (strpos(CardType($cid) ?? '', 'Unit') === false || HasTrait($cid, 'Vehicle')) continue; // non-Vehicle unit
                 $shares = false;
-                foreach ($refTraits as $t) { if ($t !== '' && HasTrait($cid, $t)) { $shares = true; break; } }
+                // _SWUCardHasTrait: a hand card can carry a GRANTED trait (LAW_212 Malakili's Underworld
+                // on owned out-of-play Creatures), not just printed ones.
+                foreach ($refTraits as $t) { if ($t !== '' && _SWUCardHasTrait(intval($player), $cid, $t)) { $shares = true; break; } }
                 if ($shares) $handUnits[] = $mz;
             }
             if (empty($handUnits)) return;

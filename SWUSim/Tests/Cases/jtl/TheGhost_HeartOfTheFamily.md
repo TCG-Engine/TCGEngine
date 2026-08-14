@@ -369,7 +369,6 @@ WithP1SpaceArenaUpgrade: 0:SOR_T01
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:mySpaceArena-0
-- P1>AnswerDecision:theirBase-0
 - P1>AnswerDecision:-
 
 ## EXPECT

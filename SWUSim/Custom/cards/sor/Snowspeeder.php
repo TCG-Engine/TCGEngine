@@ -1,4 +1,7 @@
 <?php
+// ⚠ Target pools use AnyUnitFilter (Unit + TOKEN Unit + Leader Unit): this card's text is
+// unqualified, and a hand-built ["Unit","Leader Unit"] filter silently excluded token units
+// (the Open Fire bug report, 2026-08-13 — a whole family of six files had the same miss).
 // SOR_244
 // Cost 5 - Snowspeeder - [Heroism] - Power 3 - HP 6
 // Text: Ambush (After you play this unit, it may ready and attack an enemy unit.) / On Attack: Exhaust an enemy Vehicle ground unit.
@@ -9,7 +12,7 @@
 // $playerID is already $player (set by OnAttackTrigger / EffectStack dispatch).
 $onAttackAbilities["SOR_244:0"] = function($player) {
     $targets = array_values(array_filter(
-        ZoneSearch("theirGroundArena", ["Unit", "Leader Unit"]),
+        ZoneSearch("theirGroundArena", AnyUnitFilter),
         function($mz) {
             $u = GetZoneObject($mz);
             return $u !== null && !($u->removed ?? false) && HasTrait($u->CardID, 'Vehicle');

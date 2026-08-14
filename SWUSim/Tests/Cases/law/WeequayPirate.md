@@ -120,3 +120,42 @@ P1GROUNDARENAUNIT:0:CARDID:LAW_231
 P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:0:HP:4
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# FreeReplayFromDiscard_GetsExperience
+#// COVERAGE: offer=N/A (no target choice — the Experience attach is automatic and self-directed) ·
+#//           decline=N/A (no "you may" clause; the token grant is mandatory when 0 resources were paid) ·
+#//           boundary=CreditPartialPay_NoExperience + CreditFullPay_GetsExperience (1-paid vs 0-paid
+#//           boundary pair) · control=N/A (the token always goes to this unit; no control-change text) ·
+#//           reqboundary=CreditFullPay_GetsExperience + FreeReplayFromDiscard_GetsExperience (the
+#//           paid-amount check resolves across the payment/replay decision boundaries)
+#// LAW_231 Weequay Pirate — played for FREE from the discard pile still counts as 0 resources paid.
+#// Weequay (2/3) wears SHD_053 Second Chance; P2's SOR_095 Battlefield Marine (3/3) defeats it in
+#// combat, sending both cards to P1's discard (Weequay carries the free-replay marker). P1 replays
+#// Weequay from discard for free → 0 resources paid → +1 Experience: it re-enters as a 3/4 with one
+#// upgrade, and P1 still has 0 resources.
+#// The discard-replay path queues the When Played on the EffectStack; the trailing Drain gives the
+#// queued trigger its resolution request (it needs no answers — omitting the Drain leaves it pending).
+
+## GIVEN
+CommonSetup: yyk/grw
+WithP1GroundArena: LAW_231:1:0
+WithP1GroundArenaUpgrade: 0:SHD_053
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>Pass
+- P2>AttackGroundArena:0:0
+- P1>PlayFromDiscard:1
+- P1>Drain
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_231
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:4
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SHD_053
+P1RESAVAILABLE:0

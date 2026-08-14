@@ -85,3 +85,31 @@ WithP1Deck: SOR_128
 
 ## EXPECT
 P1DECKTOPCARD:SOR_128
+
+---
+
+# NoGloryOnlyResults_NewControllerResolvesIt
+#// SOR_031 Inferno Four — a take-control-then-defeat (JTL_043) defeats the unit under the TAKER's
+#// control, so the TAKER resolves the When Defeated and "your deck" is the TAKER's deck: P1 looks at
+#// the top 2 of P1's deck, keeps SOR_128 on top and puts SOR_095 on the bottom. Inferno Four goes to its OWNER P2's discard.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_043
+WithP2SpaceArena: SOR_031:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: SOR_095
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:SOR_128|SOR_095
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P1DECKCOUNT:2
+P1DECKTOPCARD:SOR_128
+P2DISCARDCOUNT:1

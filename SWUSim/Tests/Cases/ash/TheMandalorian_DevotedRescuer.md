@@ -308,3 +308,58 @@ WithP2GroundArena: SOR_164:1:0
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:DAMAGE:0
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# CrossPlayerAbilityPrevent_Decline_TargetsOwnShieldStillPops
+#// The CROSS-player decline: P1's Cad Bane leader Action pings P2's shielded SOR_063 while P2 also
+#// controls a shielded ASH_062. P2 declines the Mandalorian offer — the deferred 1 damage must then hit
+#// the TARGET in the target-controller's frame: SOR_063's OWN Shield absorbs the instance (shield pops,
+#// 0 damage) and the Mandalorian's Shield is untouched. The same-player decline already passes; the
+#// cross-player decline used to resolve the deferred mzID in the SOURCE player's frame and hit an empty
+#// slot — no damage, no shield pop, exactly the live-game report.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myLeader:ASH_011}
+P1OnlyActions: true
+WithP2GroundArena: ASH_062:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArena: SOR_063:1:0
+WithP2GroundArenaUpgrade: 1:SOR_T02
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-1
+- P2>AnswerDecision:-
+
+## EXPECT
+P2GROUNDARENAUNIT:1:CARDID:SOR_063
+P2GROUNDARENAUNIT:1:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:1:DAMAGE:0
+P2GROUNDARENAUNIT:0:CARDID:ASH_062
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1LEADER:EXHAUSTED
+
+---
+
+# CrossPlayerAbilityPrevent_Decline_UnshieldedTargetTakesTheDamage
+#// Same cross-player decline with an UNSHIELDED target: the deferred damage must actually LAND. P1's
+#// Cad Bane pings P2's SOR_063 (no shield of its own); P2 declines the Mandalorian offer; SOR_063
+#// takes 1. Guards the other half of the wrong-frame bug (damage silently vanishing).
+
+## GIVEN
+CommonSetup: rrk/rrk/{myLeader:ASH_011}
+P1OnlyActions: true
+WithP2GroundArena: ASH_062:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArena: SOR_063:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-1
+- P2>AnswerDecision:-
+
+## EXPECT
+P2GROUNDARENAUNIT:1:CARDID:SOR_063
+P2GROUNDARENAUNIT:1:DAMAGE:1
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1

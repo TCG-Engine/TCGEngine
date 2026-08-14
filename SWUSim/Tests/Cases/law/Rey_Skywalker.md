@@ -106,6 +106,7 @@ WithP1GroundArena: LAW_149:1:7
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT

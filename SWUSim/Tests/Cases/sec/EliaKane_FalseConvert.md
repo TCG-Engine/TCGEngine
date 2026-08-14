@@ -1,9 +1,10 @@
 # ExhaustedPlotBehindReady_Protected
 #// SEC_242 Elia Kane — the Ready-first reveal protects a Plot card kept EXHAUSTED. P2 has 3 ready
 #// resources + 1 exhausted Plot card (SEC_053). Elia Kane reveals the 3 ready ones; the exhausted Plot is
-#// NOT revealed. Since you can only defeat a REVEALED resource, P1's attempt to defeat the Plot
-#// (theirResources-3) is rejected — the Plot survives, nothing is defeated and nothing is replaced. This is
-#// the incentive to keep your Smuggle/Plot cards exhausted.
+#// NOT revealed. Only a REVEALED resource can be defeated, so the pending offer is EXACTLY the three
+#// ready resources — the exhausted Plot (theirResources-3) is not a legal pick (the server rejects it as
+#// out-of-pool). The offer is left pending; nothing is defeated and nothing is replaced. This is the
+#// incentive to keep your Smuggle/Plot cards exhausted.
 
 ## GIVEN
 CommonSetup: rrk/grw/{myResources:4}
@@ -14,9 +15,9 @@ WithP1Hand: SEC_242
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirResources-3
 
 ## EXPECT
+P1SELECTABLEEXACT:theirResources-2&theirResources-1&theirResources-0
 P2RESCOUNT:4
 P2RESAVAILABLE:3
 P2DISCARDCOUNT:0

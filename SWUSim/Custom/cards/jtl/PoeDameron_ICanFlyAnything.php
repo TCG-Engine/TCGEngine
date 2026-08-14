@@ -1,4 +1,7 @@
 <?php
+// ⚠ Target pools use AnyUnitFilter (Unit + TOKEN Unit + Leader Unit): this card's text is
+// unqualified, and a hand-built ["Unit","Leader Unit"] filter silently excluded token units
+// (the Open Fire bug report, 2026-08-13 — a whole family of six files had the same miss).
 // JTL_013
 // Cost 5 - Poe Dameron - I Can Fly Anything - [Aggression,Heroism] - Power 4 - HP 6 - Upgrade Power 2 - Upgrade HP 1
 // Text: Action [1 resource, Exhaust]: Flip this leader and attach him as an upgrade to a friendly Vehicle unit without a Pilot on it.
@@ -34,8 +37,8 @@ $unitAbilities["JTL_013"] = function($player, $mzID) {
 
     // Collect eligible hop targets: friendly Vehicles with 0 pilots, excluding the current host.
     $all = array_merge(
-        ZoneSearch("myGroundArena", ["Unit", "Leader Unit"]),
-        ZoneSearch("mySpaceArena",  ["Unit", "Leader Unit"])
+        ZoneSearch("myGroundArena", AnyUnitFilter),
+        ZoneSearch("mySpaceArena",  AnyUnitFilter)
     );
     $targets = array_values(array_filter($all, function($mz) use ($mzID) {
         if ($mz === $mzID) return false; // exclude the current host

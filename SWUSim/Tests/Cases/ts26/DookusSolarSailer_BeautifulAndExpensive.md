@@ -47,7 +47,7 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myBase
+- P1>AnswerDecision:myBase-0
 - P1>Pass
 - P2>Pass
 - P1>ResourcePass
@@ -78,7 +78,7 @@ WithP2Deck: [SOR_095 SOR_095]
 
 ## WHEN
 - P2>PlayHand:0
-- P2>AnswerDecision:myBase
+- P2>AnswerDecision:myBase-0
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-0
 
@@ -105,7 +105,7 @@ WithP1Deck: [SOR_095 SOR_095]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myBase
+- P1>AnswerDecision:myBase-0
 - P1>PlayHand:0
 
 ## EXPECT
@@ -132,7 +132,7 @@ WithP1Deck: [SOR_095 SOR_095]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myBase
+- P1>AnswerDecision:myBase-0
 - P1>AttackSpaceArena:0:BASE
 - P1>AnswerDecision:myGroundArena-0
 
@@ -160,7 +160,7 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myBase
+- P1>AnswerDecision:myBase-0
 - P1>Pass
 - P2>Pass
 - P1>ResourcePass
@@ -191,7 +191,7 @@ WithP2Deck: [SOR_095 SOR_095]
 
 ## WHEN
 - P2>PlayHand:0
-- P2>AnswerDecision:myBase
+- P2>AnswerDecision:myBase-0
 - P1>AttackSpaceArena:0:BASE
 - P1>AnswerDecision:myGroundArena-0
 

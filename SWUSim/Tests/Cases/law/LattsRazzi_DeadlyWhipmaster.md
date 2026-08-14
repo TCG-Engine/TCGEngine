@@ -62,3 +62,26 @@ P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P2SPACEARENAUNIT:0:DAMAGE:0
+
+---
+
+# WhenPlayedShield_DamagesEnemyGroundLeaderUnit
+#// "An enemy ground unit" includes a deployed enemy LEADER UNIT. Latts takes the Shield (power stays
+#// 2), the damage pool offers both the marine and the deployed Cad Bane, and picking the leader unit
+#// deals 2 to him.
+
+## GIVEN
+CommonSetup: bgw/rrk/{myResources:3; theirLeader:ASH_011:1:1:1}
+P1OnlyActions: true
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: LAW_039
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Shield
+- P1>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENAUNIT:1:CARDID:ASH_011
+P2GROUNDARENAUNIT:1:DAMAGE:2
+P2GROUNDARENAUNIT:0:DAMAGE:0

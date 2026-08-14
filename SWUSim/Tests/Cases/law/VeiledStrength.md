@@ -14,3 +14,23 @@ WithP1GroundArenaUpgrade: 0:LAW_128
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SEC_080
 P1GROUNDARENAUNIT:0:POWER:5
+
+---
+
+# AttachOffer_NonLeaderBothSidesLeaderExcluded
+#// "Attach to a non-leader unit" — the pool spans BOTH sides and BOTH arenas but excludes leader
+#// units: the friendly marine and the enemy space A-Wing are offered; the deployed friendly leader is
+#// not. Offer asserted while pending.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:3; myLeader:SOR_010:1:1:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP1Hand: LAW_128
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirSpaceArena-0

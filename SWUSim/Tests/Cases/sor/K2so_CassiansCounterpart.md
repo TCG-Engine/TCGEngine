@@ -46,3 +46,28 @@ P1GROUNDARENACOUNT:0
 P2HANDCOUNT:0
 P2DISCARDCOUNT:1
 P2BASEDMG:0
+
+---
+
+# NoGloryOnlyResults_NewControllerResolvesIt
+#// SOR_145 K-2SO — a take-control-then-defeat (JTL_043) defeats the unit under the TAKER's control,
+#// so the TAKER resolves the When Defeated and "for each opponent" is read from the TAKER's seat:
+#// P1 takes and defeats P2's K-2SO, chooses Base, and the 3 damage lands on P2's base. K-2SO still
+#// goes to its OWNER P2's discard.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:5;handCardIds:JTL_043}
+P1OnlyActions: true
+WithP2GroundArena: SOR_145:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:Base
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2BASEDMG:3
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:SOR_145

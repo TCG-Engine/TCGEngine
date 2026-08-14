@@ -1,6 +1,14 @@
 # CreditIfFriendlyDefeated
 #// LAW_161 Partisan U-Wing (Command, cost 5, space) — When Played: if a friendly unit was defeated this
 #// phase, create a Credit token. SOR_128 (3/1) attacks into SOR_046 and dies, then the U-Wing creates a Credit.
+#// COVERAGE: offer=N/A (no target picker; the friendly-defeated check is automatic) · decline=N/A (no
+#//           "you may" — conditional automatic effect) · boundary pair=CreditIfFriendlyDefeated (flag
+#//           set -> Credit) + NoCreditWhenOnlyEnemyDefeated (only an ENEMY died -> none). Intended: a
+#//           friendly Pilot defeated as an UPGRADE also does not count as a unit defeat — verified
+#//           correct in the engine (only unit defeats set the flag) and deliberately left un-encoded
+#//           (hard-to-encode negative, low value) · control=N/A (seat-level phase flag, no per-unit
+#//           marker) · reqboundary=CreditIfFriendlyDefeated (the defeat and the U-Wing play are separate
+#//           requests; the phase flag survives the boundary)
 
 ## GIVEN
 CommonSetup: ggw/bgw/{myResources:5}

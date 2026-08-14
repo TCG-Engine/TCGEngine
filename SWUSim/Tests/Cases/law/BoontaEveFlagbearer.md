@@ -76,3 +76,24 @@ WithP2Resources: 6
 
 ## EXPECT
 P1BASEDMG:3
+
+---
+
+# AmbushAttackIsStillTheFirstAttack_Heals
+#// An AMBUSH attack is an attack: when a friendly unit Ambushes as the phase's first attack, the
+#// Flagbearer's "no other units have attacked this phase" condition holds and the base heals 2.
+#// Intended: base at 5 damage heals to 3 when the played LAW_219 Ambush-attacks the enemy marine.
+
+## GIVEN
+CommonSetup: yyw/rrk/{myResources:3; myBaseDamage:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_112:1:0
+WithP1Hand: LAW_219
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1BASEDMG:3
