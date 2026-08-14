@@ -102,3 +102,31 @@ WithP1GroundArena: LAW_237:1:0
 P1DECKCOUNT:0
 P1DISCARDCOUNT:0
 P1NODECISION
+
+---
+
+# LookNotDoubledByDeckSearchDoubler
+#// LAW_237 Qui-Gon Jinn — "look at the top 3" is a LOOK-AT, not a deck SEARCH, so ASH_084 Arcana Star Map
+#// ("if you would search a number of cards from your deck, search twice that many instead") attached to
+#// Qui-Gon must NOT double it. With a 6-card deck the discard offer is exactly the top 3 cards, never 6.
+#// Decision left PENDING to assert the offer.
+#// COVERAGE: offer=LookNotDoubledByDeckSearchDoubler (pending SELECTABLEEXACT over the top-3 pool) ·
+#//           reqboundary=N/A (single-request resolution; the look prompt and put-back run inside one
+#//           request, with no post-decision state read across a boundary) · control=N/A (the look targets
+#//           the controller's own deck; no unit changes hands mid-effect) · boundary=FewerThanThreeCards +
+#//           EmptyDeckNoEffect (short-deck and zero-card edges) · decline=OnAttackDiscardNothing ("you may
+#//           discard 1" declined; all 3 stay on top)
+
+## GIVEN
+CommonSetup: yyk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_237:1:0
+WithP1GroundArenaUpgrade: 0:ASH_084
+WithP1Deck: [SOR_237 SOR_046 SOR_095 SOR_128 SOR_164 SOR_225]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myDeck-0&myDeck-1&myDeck-2

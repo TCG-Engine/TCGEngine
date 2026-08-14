@@ -69,3 +69,73 @@ WithP2Resources: 3
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# StolenReadyHost_BlastHitsOriginalOwner
+#// LAW_201 Thermal Detonator — the granted When Defeated resolves for the unit's CONTROLLER at
+#// defeat, so after a control-change defeat "each enemy ground unit" points back at the original
+#// owner's side. P2 plays JTL_043 No Glory, Only Results on P1's READY host (SEC_080 + detonator):
+#// P2 takes control, then defeats it. The host was ready, so the blast deals 2 to each of P2's
+#// enemies' ground units — i.e. P1's SOR_095 (3/3 -> 2 damage) — while P2's own SOR_046 takes 0.
+#//
+#// COVERAGE: offer=N/A (the grant is a mandatory, target-less blast — no picker exists; the NGOR
+#//           take-control pick is asserted here with a 3-unit pool) · decline=N/A (no "you may") ·
+#//           control=this section + StolenExhaustedHost_NoBlast · boundary pair=ready-vs-exhausted
+#//           (ReadyDefeatBlastsEnemies vs ExhaustedDefeat_NoBlast, and the same pair under NGOR
+#//           below) · reqboundary=the ready-state check crosses the play's control-change +
+#//           defeat chain inside one resolution (state pinned before the defeat resolves).
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 8
+WithP2Hand: JTL_043
+WithP1GroundArena: [SEC_080:1:0 SOR_095:1:0]
+WithP1GroundArenaUpgrade: 0:LAW_201
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1DISCARDCOUNT:2
+
+---
+
+# StolenExhaustedHost_NoBlast
+#// LAW_201 Thermal Detonator — the "if this unit was ready" guard also holds through a
+#// control-change defeat. Same JTL_043 No Glory, Only Results flow as above, but the host
+#// (SEC_080 + detonator) is EXHAUSTED when stolen and defeated: no blast, so P1's SOR_095 and
+#// P2's SOR_046 both end with 0 damage.
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 8
+WithP2Hand: JTL_043
+WithP1GroundArena: [SEC_080:0:0 SOR_095:1:0]
+WithP1GroundArenaUpgrade: 0:LAW_201
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1DISCARDCOUNT:2

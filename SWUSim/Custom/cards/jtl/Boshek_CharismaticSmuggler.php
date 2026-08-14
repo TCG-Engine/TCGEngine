@@ -4,7 +4,10 @@
 // Text: / Piloting [2 resources Cunning] (You may play this as an upgrade on a friendly Vehicle without a Pilot.) / When played as an upgrade: Discard 2 cards from your deck. Return each of those cards with an odd cost to your hand.
 
 // JTL_215 BoShek (pilot) — When played as an upgrade: Discard 2 cards from your deck. Return each of
-// those cards with an odd cost to your hand. (Odd-cost milled cards route straight to hand.)
+// those cards with an odd cost to your hand. BOTH cards are DISCARDED first (the text says "discard…
+// return" — when-discarded triggers and discard stamps fire for the odd card too), then each odd-cost
+// entry returns from the discard to hand. Routing odd cards straight to hand skipped the discard
+// event entirely (the alternate-storage-path family).
 $whenPlayedAsUpgradeAbilities["JTL_215:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
@@ -14,8 +17,11 @@ $whenPlayedAsUpgradeAbilities["JTL_215:0"] = function($player, $mzID) {
         if ($idx === -1) break;
         $cid = $deck[$idx]->CardID;
         $deck[$idx]->removed = true;
-        if ((intval(CardCost($cid)) % 2) === 1) AddHand(intval($player), CardID: $cid);   // odd → hand
-        else SWUAddToDiscard(intval($player), $cid, 'DECK');                                // even → discard
+        $entry = SWUAddToDiscard(intval($player), $cid, 'DECK');
+        if ((intval(CardCost($cid)) % 2) === 1) {                 // odd → return from discard to hand
+            if ($entry !== null) $entry->removed = true;
+            AddHand(intval($player), CardID: $cid);
+        }
     }
     DecisionQueueController::CleanupRemovedCards();
 };

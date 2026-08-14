@@ -120,3 +120,32 @@ WithP1Hand: [LAW_158 SOR_164]
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:SOR_164
 P1RESAVAILABLE:0
+
+---
+
+# OnAttack_NoDiscountNonUnderworld
+#// LAW_158 Khetanna — the ON ATTACK arm of the charge is also Underworld-only. Khetanna attacks the base
+#// (arming "next Underworld unit -1"); then SOR_164 Wampa (Aggression, NOT Underworld, cost 4) plays at
+#// full price: from 4 ready resources all 4 are spent, leaving 0 (a wrongly-applied -1 would leave 1).
+#// COVERAGE: offer=N/A (the discount is a passive cost modifier; it raises no target pool or prompt on
+#//           either arm) · reqboundary=OnAttackUnderworldDiscount + WhenPlayed_UnderworldDiscount (the
+#//           armed charge survives into a later action before being spent) · control=N/A (the charge is
+#//           seat-bound to Khetanna's controller and modifies that player's own next play; no unit changes
+#//           hands) · boundary=OnAttackUnderworldDiscount (exact-resources play only possible WITH the -1)
+#//           + SmuggleConsumesDiscount_NotLeftArmedForLaterPlay (charge consumed, later play full price) ·
+#//           decline=N/A (no "you may" — the discount arms and applies automatically)
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: LAW_158:1:0
+WithP1Hand: SOR_164
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_164
+P1RESAVAILABLE:0

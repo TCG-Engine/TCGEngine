@@ -105,3 +105,81 @@ WithP1Hand: LAW_224
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2HANDCOUNT:0
+
+---
+
+# WhenPlayedOffer_AllEnemyUnitsOnly
+#// COVERAGE: offer=WhenPlayedOffer_AllEnemyUnitsOnly (pending pool = every enemy unit in both arenas,
+#//           friendly units excluded) · decline=N/A (the exhaust is mandatory, no "you may") ·
+#//           boundary=WhenPlayedFiltersUpgradeOverFour (cost 4 vs 5 return boundary, with
+#//           WhenPlayedAlreadyExhausted covering the exhausted-state edge) ·
+#//           control=WhenPlayedEnemyAttachedOwnUpgrade_ReturnsToOwnerHand (upgrade returns to its
+#//           OWNER's hand, not its controller's side) · reqboundary=every section resolves the
+#//           exhaust-target answer in a request after the play/attack request
+#// LAW_224 Liberty — "Exhaust an enemy unit" offers exactly the enemy units, in either arena and any
+#// ready state: P2's SEC_080 (ground) and SOR_225 (space, exhausted) are both offered; P1's own SOR_095
+#// is not. The decision is left pending so the offer itself is the assertion.
+
+## GIVEN
+CommonSetup: yyw/bgw/{myResources:8}
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2SpaceArena: SOR_225:0:0
+WithP1Hand: LAW_224
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirGroundArena-0&theirSpaceArena-0
+
+---
+
+# WhenPlayedWillrowProtectsLoneUpgrade
+#// LAW_224 vs SEC_061 Willrow Hood — "While this unit has exactly 1 friendly upgrade on it, that upgrade
+#// can't be defeated or returned to hand by enemy card abilities." Liberty exhausts Willrow, but his lone
+#// SEC_176 Sudden Ferocity (cost 3, normally returnable) is protected: it stays attached and P2's hand
+#// does not grow.
+
+## GIVEN
+CommonSetup: yyw/bgw/{myResources:8}
+WithP2GroundArena: SEC_061:1:0
+WithP2GroundArenaUpgrade: 0:SEC_176
+WithP1Hand: LAW_224
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_061
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2HANDCOUNT:0
+
+---
+
+# WhenPlayedEnemyAttachedOwnUpgrade_ReturnsToOwnerHand
+#// LAW_224 returns upgrades to their OWNER's hand — including one the Liberty player attached to an
+#// enemy unit. P1 plays SHD_071 Top Target (cost 1) onto P2's SEC_080 (sole unit, attach auto-resolves),
+#// then plays Liberty and exhausts SEC_080: Top Target comes back to P1's hand, not P2's.
+
+## GIVEN
+CommonSetup: yyw/bgw/{myResources:12}
+P1OnlyActions: true
+WithP2GroundArena: SEC_080:1:0
+WithP1Hand: [SHD_071 LAW_224]
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1HANDCOUNT:1
+P1HANDCARD:0:SHD_071
+P2HANDCOUNT:0

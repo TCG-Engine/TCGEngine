@@ -1,6 +1,13 @@
 # DrawSelfShield
 #// LAW_052 The Mandalorian (6/5) — When Played: Draw a card. + "When you draw 1+ cards during the action
 #// phase: Give a Shield token to this unit." His own When-Played draw (in the action phase) self-shields him.
+#// COVERAGE: offer=N/A (no target pick — both abilities resolve on fixed objects; SearchRevealDraw asserts
+#//           the shield lands on HIM, not another friendly unit) · reqboundary=SearchRevealDraw (the search
+#//           pick pends across a request before the draw resolves) · control=N/A (the shield trigger reads
+#//           "you draw" from his controller's seat; no control-change variant intended) · boundary
+#//           pair=DrawSelfShield (action-phase draw → shield) vs RegroupDraw_NoShield, and
+#//           DrawSelfShield (own draw) vs OpponentDraws_NoShield · decline=N/A (neither ability is
+#//           optional)
 
 ## GIVEN
 CommonSetup: brw/bgw/{myResources:6}
@@ -85,3 +92,32 @@ WithP2Deck: [SOR_237 SOR_095 SOR_128]
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:LAW_052
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# SearchRevealDraw_CountsAsDraw_OneShield
+#// LAW_052 The Mandalorian — a draw that arrives via a deck SEARCH ("reveal them, and draw them",
+#// SHD_253 This Is The Way) still counts as drawing during the action phase. Drawing 2 cards this way is
+#// one draw event: the Mandalorian gains exactly ONE Shield, and it goes on him, not on another
+#// friendly unit.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_052:1:0 SOR_095:1:0]
+WithP1Hand: SHD_253
+WithP1Deck: SOR_142
+WithP1Deck: SOR_069
+WithP1Deck: SOR_171
+WithP1Deck: SOR_171
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:SOR_142,SOR_069
+
+## EXPECT
+P1HANDCOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:LAW_052
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:0

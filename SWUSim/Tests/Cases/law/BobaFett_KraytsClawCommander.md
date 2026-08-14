@@ -2,6 +2,15 @@
 #// LAW_007 Boba Fett (leader front) — "When a friendly Bounty Hunter unit's attack ends: If the defending
 #// unit was defeated, you may exhaust this leader. If you do, create a Credit token." LAW_124 (4/7 Bounty
 #// Hunter) attacks and defeats SOR_128 (3/1); P1 exhausts Boba to create a Credit.
+#// COVERAGE: offer=FrontNoTriggerWhenAttackerNotBountyHunter (P1NODECISION when the condition fails; the
+#//           trigger itself is a YES/NO with no target pick, so no SELECTABLEEXACT applies) ·
+#//           reqboundary=FrontBountyHunterAttackCredit (the exhaust YES is answered on a later request
+#//           after the attack resolves) · control=FrontStolenBountyHunterNowFriendlyCreatesCredit +
+#//           DeployedStolenBountyHunterNowFriendlyCreatesCredit + FrontStolenBountyHunterNowEnemyNoCredit
+#//           + DeployedStolenBountyHunterNowEnemyNoCredit (control, not ownership, gates the trigger) ·
+#//           boundary=FrontBountyHunterAttackCredit vs FrontNoTriggerWhenDefenderSurvives (and the
+#//           Deployed pair), plus attacker-also-defeated Front/Deployed trade sections ·
+#//           decline=FrontDeclineExhaust_NoCredit (deployed side has no decline — no "you may").
 
 ## GIVEN
 CommonSetup: ygk/grw/{
@@ -437,3 +446,76 @@ P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
 P1CREDITCOUNT:1
 P1LEADER:EXHAUSTED
+
+---
+
+# DeployedBHTradesAndDefeated_StillCreatesCredit
+#// LAW_007 Boba Fett (DEPLOYED) — the deployed side also fires when the attacking Bounty Hunter is
+#// DEFEATED in the same combat: the ability is Boba's field observer, not the attacker's own trigger.
+#// A friendly 3/3 Bounty Hunter (JTL_065) trades with an enemy 3/3 (SOR_095); both are defeated, and
+#// the Credit is still created (no exhaust decision on the deployed side — it just happens).
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:LAW_007:1:1:1}
+WithActivePlayer: 1
+WithP1GroundArena: JTL_065:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: SOR_095
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P2GROUNDARENACOUNT:0
+P1CREDITCOUNT:1
+P1LEADER:DEPLOYED
+
+---
+
+# FrontDeclineExhaust_NoCredit
+#// LAW_007 Boba Fett (leader front) — the exhaust is optional ("you may exhaust this leader"). LAW_124
+#// defeats SOR_128 on attack, but P1 declines the offer: no Credit is created and Boba stays ready.
+
+## GIVEN
+CommonSetup: ygk/grw/{
+  myLeader:LAW_007;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LAW_124:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1CREDITCOUNT:0
+P1LEADER:READY
+
+---
+
+# DeployedBobaHimselfTrades_StillCreatesCredit
+#// The field observer must count Boba himself when HE is the attacking Bounty Hunter and dies in the
+#// trade: per CR simultaneous-removal the condition is evaluated as of the state that caused it, so a
+#// deployed Boba (3/6, seeded 3 damage) trading with SOR_095 (3/3) still creates the Credit even
+#// though he is gone (leader returns exhausted) by the time the observer looks.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:LAW_007:1:1:1:3}
+P1OnlyActions: true
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1CREDITCOUNT:1
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1LEADER:EXHAUSTED
+P1NODECISION

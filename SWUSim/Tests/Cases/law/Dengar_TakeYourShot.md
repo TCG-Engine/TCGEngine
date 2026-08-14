@@ -2,6 +2,14 @@
 #// LAW_053 Dengar (4/3) — When a unit with the highest cost among enemy units is defeated: create a
 #// Credit token (once each round). P1's SOR_046 attacks and kills SEC_080 (cost 2, the highest enemy
 #// cost — SOR_128 is cost 1), so Dengar's controller gets a Credit.
+#// COVERAGE: offer=N/A (the reaction has no target pick — the Credit is created without a chooser) ·
+#//           reqboundary=UsableAgainNextRound (crosses a full regroup) + EachPlayerCanUseItSameRound
+#//           (multi-turn cross-player flow) · control=OpponentControlsDengarAndDefeatsHim +
+#//           OpponentControlsUnitAndDefeatsHighest + EachPlayerCanUseItSameRound (per-player round limit
+#//           after a control change) · boundary=HighestCostEnemyDefeatedCredit vs NoneHighestDefeated;
+#//           OncePerRound vs UsableAgainNextRound; UpgradeHighestCostDestroyed (unit vs upgrade) and
+#//           ResourceRowUnitDefeated_NoCredit (in play vs resource row) · decline=N/A (mandatory
+#//           trigger, no "you may").
 
 ## GIVEN
 CommonSetup: grk/bgw/{}
@@ -262,3 +270,69 @@ WithP2Deck: SOR_095
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
 P1CREDITCOUNT:1
+
+---
+
+# EachPlayerCanUseItSameRound
+#// LAW_053 Dengar — the once-each-round limit is tracked per PLAYER: after P1 has already collected the
+#// Credit this round, an opponent who takes control of Dengar can still collect one of their own in the
+#// SAME round. P1's Death Star Stormtrooper trades with P2's (P2's only unit, so the highest) → P1 Credit.
+#// P2 then plays Change of Heart (SOR_224) to take control of Dengar and attacks P1's remaining Death Star
+#// Stormtrooper (now P1's only unit, so the highest enemy from stolen Dengar's perspective): it is defeated
+#// (Dengar 4/3 also dies to the 3 return damage, which per the simultaneous-defeat rule does not stop the
+#// reaction) → P2 also gets a Credit.
+
+## GIVEN
+CommonSetup: grk/yyk/{}
+WithActivePlayer: 1
+WithP2Resources: 6
+WithP2Hand: SOR_224
+WithP1GroundArena: LAW_053:1:0
+WithP1GroundArena: SOR_128:1:0
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP1Deck: SOR_095
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackGroundArena:1:0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>Pass
+- P2>AttackGroundArena:0:0
+
+## EXPECT
+P1CREDITCOUNT:1
+P2CREDITCOUNT:1
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+
+---
+
+# ResourceRowUnitDefeated_NoCredit
+#// LAW_053 Dengar — a unit CARD defeated in the resource row is not a unit in play, so it never counts as
+#// "a unit with the highest cost among enemy units". P2 plays Wrecker (SHD_154) and defeats their own
+#// Devastator (JTL_143, cost 10 — the highest-cost enemy CARD from Dengar's perspective) from the resource
+#// row, then deals 5 to P1's Army of the Dead (7/6, survives). No unit in play was defeated → no Credit
+#// for anyone.
+
+## GIVEN
+CommonSetup: grk/rrw/{}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 1:JTL_143:1,6:SOR_095:1
+WithP2Hand: SHD_154
+WithP1GroundArena: LAW_053:1:0
+WithP1GroundArena: LOF_236:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myResources-0
+- P2>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0
+P2RESCOUNT:6
+P1GROUNDARENAUNIT:1:DAMAGE:5

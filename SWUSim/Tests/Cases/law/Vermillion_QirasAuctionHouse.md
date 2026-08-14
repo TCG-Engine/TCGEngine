@@ -3,6 +3,15 @@
 #// player to play it for free; a DIFFERENT player creates Credits = that card's cost. Here P1 reveals its
 #// own deck (P2's is empty → auto), chooses ITSELF to play the revealed Battlefield Marine (cost 2) for
 #// free, and the other player (P2) creates 2 Credits.
+#// COVERAGE: offer=deck-choice pool deliberately omits EMPTY decks, so the pick auto-resolves to the
+#//           stocked one (YourDeckEmpty_OppDeckAutoRevealed + OppDeckEmpty_YourOwnDeckIsAutoRevealed;
+#//           Intended: same design as the LAW_018 mill choice) · decline=Declined_NoPlayNoCredits +
+#//           YourDeck_ChooseOpp_Decline + OppDeck_ChooseSelf_Decline + OppDeck_ChooseOpp_Decline (all
+#//           four chooser/decliner quadrants) · control=RevealOpponentDeck_StealUnit (the chosen player
+#//           plays a card they do not own) · boundary=RevealedCost0_NoCredits (zero-cost) +
+#//           BothDecksEmpty_NoTrigger + RevealedUpgrade_NoValidHost_Fizzles +
+#//           NothingIfVermillionDefeated (dead-source) · reqboundary=reveal -> choose-player ->
+#//           play/decline crosses a request boundary at every answer in every section
 
 ## GIVEN
 CommonSetup: bbk/bbk/{

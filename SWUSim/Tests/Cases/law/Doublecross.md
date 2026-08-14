@@ -3,6 +3,14 @@
 #// non-leader unit. Exchange control of those units. The player who takes control of the lower-cost unit
 #// creates Credit tokens equal to the difference between costs." Friendly SOR_046 (cost 4) swaps with
 #// enemy SEC_080 (cost 2); caster takes the cheaper SEC_080 -> caster creates 2 Credits.
+#// COVERAGE: offer=never left pending — every fixture has a single legal friendly/enemy so the picks
+#//           auto-resolve; the non-leader requirement is covered only via the NoEnemy/NoFriendly no-op
+#//           pair · decline=N/A (no optional clause; the no-target no-ops are the closest analogue) ·
+#//           control=the card IS a control exchange (all exchange sections); blocked-transfer edge =
+#//           the two Rey sections · boundary=EqualCost_NoCredits (zero difference) vs
+#//           FriendlyCostsLess_OpponentGetsCredits / CrossArena_EnemyCostsLess_PlayerGetsCredits (each
+#//           credit direction) · reqboundary=N/A (auto-resolved picks — no mid-effect answer splits in
+#//           these fixtures)
 
 ## GIVEN
 CommonSetup: ggw/bgw/{myResources:6}
@@ -181,3 +189,31 @@ P1GROUNDARENACOUNT:2
 P2GROUNDARENACOUNT:0
 P1CREDITCOUNT:0
 P2CREDITCOUNT:0
+
+---
+
+# ExchangeGivesOpponentADuplicateUnique_TheyMustDefeatOne
+#// CR 8.19.1.b applies to EVERY player, not just the acting one: the exchange hands P2 a second Jyn
+#// Erso (unique) while P2 already controls their own copy. P2 must choose and defeat copies down to
+#// one before the action ends. P2 defeats the received copy (it goes to owner P1's discard, joining
+#// the event); the credit math is unaffected (P2 took the cheaper unit: 5-2 = 3 Credits).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:6}
+WithP1GroundArena: LAW_067:1:0
+WithP2GroundArena: SOR_067:1:0
+WithP2GroundArena: LAW_067:1:0
+WithP1Hand: LAW_170
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:LAW_067
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_067
+P2CREDITCOUNT:3
+P1DISCARDCOUNT:2

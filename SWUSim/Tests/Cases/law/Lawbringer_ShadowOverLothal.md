@@ -120,3 +120,40 @@ P2GROUNDARENAUNIT:0:POWER:6
 P2GROUNDARENAUNIT:0:HP:7
 P2GROUNDARENAUNIT:1:POWER:3
 P2GROUNDARENAUNIT:1:HP:3
+
+---
+
+# DebuffExpiresAtEndOfPhase
+#// LAW_101 Lawbringer — the -2/-2 lasts "for this phase" only. Play Lawbringer, choose Villainy: enemy
+#// AT-ST (SOR_232, 6/7) drops to 4/5; after the action phase ends and the game crosses regroup into the
+#// next action phase, the AT-ST is back to its printed 6/7. Decks seeded so the regroup draw decks no one.
+#// COVERAGE: offer=WhenPlayedAspectDebuff + OnAttackAspectDebuff (the aspect menu is a fixed six-option
+#//           button choice, answered directly; no card-pool offer exists to leave pending) ·
+#//           reqboundary=DebuffExpiresAtEndOfPhase (the phase effect survives the pass/regroup round-trip
+#//           before expiring on schedule) · control=N/A (the debuff keys off "enemy unit" at resolution
+#//           and stamps the units; no controller-sensitive follow-up) · boundary=DefeatsUnitsReducedToZeroHp
+#//           + ChooseAspectToNoEffect (exactly-lethal vs zero-effect pair) · decline=N/A (choosing an
+#//           aspect is mandatory; ChooseAspectToNoEffect proves the no-op-choice branch)
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: LAW_101
+WithP2GroundArena: SOR_232:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Villainy
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+
+## EXPECT
+PHASE:MAIN
+P2GROUNDARENAUNIT:0:CARDID:SOR_232
+P2GROUNDARENAUNIT:0:POWER:6
+P2GROUNDARENAUNIT:0:HP:7

@@ -1326,7 +1326,8 @@ function SWUAddAttackPowerBonus(string $mzID, int $power): void {
 // exists, so the caller can defer the action-end. Returns false when every unique card the player
 // controls is a singleton. Scope: arena units (ground + space); unique upgrades / pilot upgrades
 // (CR 29.3.a) are not yet covered (see SWUSim/Tests/Cases/core/UniquenessRule_* / TODO).
-function SWUEnforceUniqueness(int $player): bool {
+function SWUEnforceUniqueness(int $player, ?int $actingPlayer = null): bool {
+    $actingPlayer = $actingPlayer ?? intval($player);
     global $playerID, $titleData, $subtitleData, $uniqueData;
     $saved = $playerID;
     $playerID = intval($player); // ZoneSearch("my…") is relative to $playerID; the chosen mzID is
@@ -1390,8 +1391,11 @@ function SWUEnforceUniqueness(int $player): bool {
     $playerID = $saved;
     foreach ($groups as $mzIDs) {
         if (count($mzIDs) > 1) {
+            // The continuation carries the ACTING player: the chooser may be the NON-acting seat
+            // (an exchange/control-give handed THEM the duplicate), and the post-defeat re-entry
+            // must resume the acting player's action-end, not the chooser's.
             SWUQueueChooseTarget(intval($player), $mzIDs,
-                "Uniqueness_rule_choose_a_copy_to_defeat", "UNIQUENESS_DEFEAT");
+                "Uniqueness_rule_choose_a_copy_to_defeat", "UNIQUENESS_DEFEAT|" . intval($actingPlayer));
             return true;
         }
     }
@@ -3383,6 +3387,17 @@ function DoDiscardCard($player, $mzID) {
     $fromHand = (strpos($mzID, 'Hand') !== false);
     $newObj   = MZMove($player, $mzID, "myDiscard");
     if ($fromHand && $newObj !== null && function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newObj->CardID ?? '', 'discarded');
+    // "When this card is discarded" handlers (LAW_206 That's a Rock). The forced-discard funnel
+    // (SWUAddToDiscard) fires OnCardDiscarded; this self-chosen path went through MZMove and never
+    // did — the inverse of the forced-discard-bypasses-Padmé bug. MZMove also leaves the discard
+    // entry's From unset (AddDiscard stamps it on the other path) and the handlers gate on it, so
+    // stamp the source zone first. Fire while still in the discarding player's frame.
+    if ($newObj !== null) {
+        if (($newObj->From ?? '') === '') {
+            $newObj->From = $fromHand ? 'HAND' : (strpos($mzID, 'Deck') !== false ? 'DECK' : 'PLAY');
+        }
+        OnCardDiscarded(intval($player), $newObj->CardID ?? '', $newObj);
+    }
     $playerID = $savedPID;
     // Per-phase counter of cards discarded from a player's hand (LAW_179 cost reduction). Cleared at
     // RegroupPhaseStart with the other per-phase flags.
@@ -7362,6 +7377,10 @@ function SWUAfterAction($player) {
     // the defeat (looping for 3+ copy piles), so control only falls through to the turn-swap below once
     // every unique the player controls is a singleton.
     if (SWUEnforceUniqueness(intval($player))) return;
+    // CR 8.19.1.b binds EVERY player: an exchange/control-give can hand the NON-acting seat a
+    // duplicate unique (Double-Cross). Enforce for the opponent too; their choose parks on THEIR
+    // queue and, once resolved, re-enters this action-end as the ACTING player (param above).
+    if (SWUEnforceUniqueness(OtherPlayer(intval($player)), intval($player))) return;
     // SEC_194 per-action tracking: finalize the just-completed action. SWU_LAST_ACTION records who acted
     // and whether it attacked a base (and whose), so SEC_194 can ask "did the opponent attack my base in
     // their previous action". The transient SWU_ACTION_BASEATK was set in ExecuteSWUAttack for base hits.
@@ -10384,10 +10403,11 @@ function _SWUPlayerHasPendingWork(int $player): bool {
 $customDQHandlers["UNIQUENESS_DEFEAT"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return; // mandatory — no decline
     global $playerID; $playerID = intval($player);
+    $actingPlayer = intval($parts[0] ?? $player) ?: intval($player);  // cross-seat enforcement resumes the ACTOR
     SWUDefeatUnit(intval($player), $lastDecision);
     $flushed = FlushEntryTriggerBag(intval($player));
     DecisionQueueController::CleanupRemovedCards();
-    if ($flushed === 0) SWUAfterAction(intval($player));
+    if ($flushed === 0) SWUAfterAction($actingPlayer);
     // $flushed > 0: SWU_TRIGGER_RESUME (already queued) re-enters SWUAfterAction after the triggers resolve.
 };
 
@@ -12277,6 +12297,22 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
                 ZoneSearch("theirGroundArena", AnyUnitFilter),
                 ZoneSearch("theirSpaceArena",  AnyUnitFilter)
             ));
+            $playerID = $savedPID;
+            break;
+        // "Attach to a NON-LEADER unit" (no "friendly") — both sides, both arenas, leader units
+        // excluded (a deployed leader / Darksaber host is not a legal host; the exclusion is the
+        // printed restriction, unlike the SHD bounty group's tolerated over-permissiveness).
+        case 'LAW_128': // Veiled Strength — was friendly-only AND offered the deployed leader
+            $playerID = $player;
+            $all = array_values(array_filter(array_merge(
+                ZoneSearch("myGroundArena",    AnyUnitFilter),
+                ZoneSearch("mySpaceArena",     AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter),
+                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
+            ), function($mz) {
+                $o = GetZoneObject($mz);
+                return !SWUObjGone($o) && !IsLeaderUnit($o);
+            }));
             $playerID = $savedPID;
             break;
     }

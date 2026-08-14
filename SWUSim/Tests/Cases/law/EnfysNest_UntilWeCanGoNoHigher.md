@@ -4,6 +4,15 @@
 #// (1 + 1 + combat 2 = 4); the SECOND attack's On Attack gets NO reuse offer this round
 #// (1 + combat 2 = 3). Total P2 base damage = 7, and the second attack auto-completes
 #// with no dangling decision.
+#// COVERAGE: offer=absence asserted via P1NODECISION in Undeployed_Unaffordable_NoOffer +
+#//           Undeployed_NoReuseForEnemyOnAttack + Undeployed_NoOfferForWhenDefeatedPartOfCombinedAbility;
+#//           the positive offer is a YES/NO, consumed where answered · decline=Undeployed_DeclineReuse +
+#//           Undeployed_DeclineDoesNotConsumeOncePerRound · control=N/A (no control-change interaction
+#//           on this leader) · boundary=Undeployed_Unaffordable_NoOffer (1 resource, can't pay) vs
+#//           Undeployed_ReuseOnAttack (exactly 2); Deployed_OncePerRound +
+#//           Undeployed_ExhaustedLeaderNoSecondReuse (first vs second use in a round) ·
+#//           reqboundary=every attack -> reuse-answer -> later-attack flow crosses a request boundary
+#//           per WHEN step
 
 ## GIVEN
 CommonSetup: brw/bbk/{
@@ -222,4 +231,113 @@ WithP2SpaceArena: IBH_006:1:0
 ## EXPECT
 P1BASEDMG:3
 P1LEADER:READY
+P1NODECISION
+
+---
+
+# Undeployed_DeclineDoesNotConsumeOncePerRound
+#// LAW_014 Enfys Nest (undeployed) — DECLINING the reuse offer does not consume the once-per-round
+#// use: a LATER friendly On Attack the same round still gets the offer, and accepting it works.
+#// Two IBH_006 Y-Wings attack P2's base. First attack: offer declined → 1 + combat 2 = 3.
+#// Second attack: offer made again, accepted → 1 + 1 + combat 2 = 4. P2 base = 7; leader ends
+#// exhausted with both resources spent.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:LAW_014;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1SpaceArena: IBH_006:1:0
+WithP1SpaceArena: IBH_006:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:NO
+- P1>AttackSpaceArena:1:BASE
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2BASEDMG:7
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:0
+P1NODECISION
+
+---
+
+# Undeployed_NoOfferForWhenDefeatedPartOfCombinedAbility
+#// LAW_014 Enfys Nest (undeployed, ready, 2 resources banked) — the reuse hooks "On Attack"
+#// abilities ONLY. JTL_090 Executor's combined "When Played/On Attack/When Defeated: create 3 TIE
+#// Fighter tokens" resolving as a WHEN DEFEATED must NOT raise a reuse offer, even though the same
+#// printed ability is also an On Attack. P2 defeats the seated Executor with SHD_078 Fell the
+#// Dragon (defeat a non-leader unit with 5 or more power): P1 gets exactly 3 TIE Fighter tokens,
+#// the leader stays ready, and P1 has no pending decision.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:LAW_014;
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  theirResources:4
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 2
+WithP1SpaceArena: JTL_090:1:0
+WithP2Hand: SHD_078
+
+## WHEN
+- P2>PlayHand:0
+- P1>Drain
+
+## EXPECT
+P1SPACEARENACOUNT:3
+P1SPACEARENAUNIT:0:CARDID:JTL_T01
+P1DISCARDCOUNT:1
+P1LEADER:READY
+P1RESAVAILABLE:2
+P1NODECISION
+
+---
+
+# Undeployed_ReusedAethersprite_TripleWhenPlayed
+#// LAW_014 Enfys Nest (undeployed) + LOF_197 Qui-Gon Jinn's Aethersprite ("On Attack: The next time
+#// you use a 'When Played' ability this phase, you may use that ability again"). Enfys reuses the
+#// Aethersprite's On Attack, so the repeat effect is applied TWICE and must STACK. Playing TWI_198
+#// Enfys Nest, Champion of Justice ("When Played: you may return an enemy non-leader unit with less
+#// power than this unit to its owner's hand") then resolves the return three times in total —
+#// all three enemy ground units (power 3 < 5) go back to P2's hand.
+
+## GIVEN
+CommonSetup: yrw/bbk/{myLeader:LAW_014}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 9
+WithP1SpaceArena: LOF_197:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP1Hand: TWI_198
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:YES
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2HANDCOUNT:3
+P2BASEDMG:3
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:0
 P1NODECISION

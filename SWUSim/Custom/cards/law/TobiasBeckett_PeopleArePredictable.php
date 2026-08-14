@@ -63,7 +63,10 @@ $customDQHandlers["LAW_002#1"] = function($player, $parts, $lastDecision) {
         if ($uid <= 0) continue;
         $mz = SWUFindMzByUID($uid);
         if ($mz === null) continue;
-        SWUDefeatUnit(intval($player), $mz);
+        // "For each unit defeated THIS WAY" — the reward is gated on the defeat actually happening.
+        // A defeat-immune unit (SHD_187/JTL_103/LAW_149/TWI_220 — from the unit's controller's view
+        // this is an enemy ability) blocks the defeat: no Credit, no draw for that pick.
+        if (!SWUDefeatUnit(intval($player), $mz)) continue;
         SWUCreateCreditToken(intval($player), 1);
         DoDrawCard(intval($player), 1);
     }

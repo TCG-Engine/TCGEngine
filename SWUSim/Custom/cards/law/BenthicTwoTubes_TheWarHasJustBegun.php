@@ -7,7 +7,7 @@
 $onAttackAbilities["LAW_057:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     SWUOfferUnitTarget(intval($player), $mzID, [
-        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'side' => 'their', 'arena' => 'Ground', 'may' => true,
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 1, 'side' => 'their', 'arena' => 'Ground',   // MANDATORY — no printed "may" (user ruling 2026-08-13, LOF_009 Maul family)
         'question' => "Deal_1_to_an_enemy_ground_unit?", 'prompt' => "Deal_1_damage_to_an_enemy_ground_unit",
     ]);
 };

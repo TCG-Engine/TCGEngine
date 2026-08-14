@@ -1336,7 +1336,13 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // that gate the attacker's OWN triggers. Keyed on the attacker's (printed) Bounty Hunter trait.
     $law007AtkCardID = ($attacker !== null) ? ($attacker->CardID ?? '') : '';
     if (!empty($combatCtx['defenderDefeated']) && $law007AtkCardID !== '' && HasTrait($law007AtkCardID, 'Bounty Hunter')) {
-        if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_007') > 0) {
+        // Deployed Boba present — OR Boba himself is the attacking Bounty Hunter and died in the trade
+        // (CR simultaneous-removal: the condition reads the pre-removal state; the leader-defeat return
+        // has already emptied the arena entry, so the live count alone misses him — Dengar family).
+        $law007Present = _SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_007') > 0
+            || ($law007AtkCardID === 'LAW_007' && $attacker !== null && !LostAbilities($attacker)
+                && intval($attacker->Controller ?? 0) === intval($activePlayer));
+        if ($law007Present) {
             SWUCreateCreditToken($activePlayer, 1);   // deployed Boba: mandatory
         } else {
             foreach (GetLeader($activePlayer) as $l) {
