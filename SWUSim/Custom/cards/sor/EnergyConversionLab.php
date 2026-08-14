@@ -36,8 +36,11 @@ $baseAbilities["SOR_022"] = function($player) {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
-    $handUnits = ZoneSearch("myHand", ["Unit"]);
-    $eligible  = array_values(array_filter($handUnits, function($mzID) {
+    // Eligibility: printed cost ≤6 (official ruling) AND affordable at the EFFECTIVE cost with full
+    // payment capacity (SWUHandPlayablesAtDiscount → ready resources + Credits + Vuutun Droids).
+    // Without the affordability half, picking an unpayable unit burned the once-per-game Epic Action
+    // on a silent no-op (the epic-preservation family; candidate #5 fix 2026-08-14).
+    $eligible  = array_values(array_filter(SWUHandPlayablesAtDiscount($player, ["Unit"], 0), function($mzID) {
         $obj = GetZoneObject($mzID);
         return $obj !== null && intval(CardCost($obj->CardID)) <= 6;
     }));

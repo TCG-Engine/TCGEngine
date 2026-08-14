@@ -133,3 +133,48 @@ P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P2GROUNDARENACOUNT:0
 P1NODECISION
+
+---
+
+# CommandPilot_PlayedAsUpgrade_NoHeal
+#// Candidate #7 fix guard (the CR 17.c pilot-as-upgrade family sweep): a Piloting card played AS AN
+#// UPGRADE is an upgrade play, not a unit play — Yularen's "When you play a [Command] unit" must NOT
+#// heal. Nien Nunb (JTL_093, Command) goes onto the TIE Fighter as a pilot; base damage stays 2.
+
+## GIVEN
+CommonSetup: ggw/ggk/{myResources:2;myBaseDamage:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_109:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP1Hand: JTL_093
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1BASEDMG:2
+
+---
+
+# CommandPilotCard_PlayedAsUnit_Heals
+#// Control: the SAME Piloting card played as a UNIT is a Command unit play — Yularen heals 1
+#// (base 2 → 1).
+
+## GIVEN
+CommonSetup: ggw/ggk/{myResources:2;myBaseDamage:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_109:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP1Hand: JTL_093
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Unit
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1BASEDMG:1

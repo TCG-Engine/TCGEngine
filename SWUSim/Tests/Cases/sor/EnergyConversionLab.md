@@ -209,3 +209,27 @@ P1HANDCOUNT:1
 P1GROUNDARENACOUNT:0
 P1BASE:EPICUSED
 P1NODECISION
+
+---
+
+# UnaffordableUnit_ExcludedFromPool
+#// Candidate #5 fix guard: the pool must ALSO be affordability-gated (full payment capacity,
+#// effective cost) — with 3 resources the AT-ST (cost 6) cannot be paid for, and picking it would
+#// burn the once-per-game Epic Action on a silent no-op (the epic-preservation family). The two
+#// cost-2 Heroism units stay in; the AT-ST is out. Offer left pending.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/grw/{
+  myBase:SOR_022;
+  theirBase:SOR_023
+}
+WithP1Resources: 3:SOR_095
+WithP1Hand: [SOR_239 SOR_237 SOR_232]
+
+## WHEN
+- P1>UseBaseAbility
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myHand-0&myHand-1

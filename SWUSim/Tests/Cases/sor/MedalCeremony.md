@@ -1,10 +1,11 @@
 # NoRebelAttacked_Fizzles
-#// COVERAGE: offer=RebelAttackers_GetExperience + NonAttackingRebel_Excluded (trait + attacked-this-
-#//           phase filters; the enemy-Rebel-attacker half of the pool is withheld — the current pool
-#//           is friendly-only, flagged as a candidate engine gap since the text has no "friendly")
+#// COVERAGE: offer=RebelAttackers_GetExperience + NonAttackingRebel_Excluded +
+#//           EnemyRebelAttacker_InPool_OfferAsserted (trait + attacked-this-phase filters; enemy
+#//           Rebel attackers included since the 2026-08-14 fix — the text has no "friendly")
 #//           · decline=ChooseNothing_NoTokens ("up to 3" includes zero) + PickFewerThanAvailable
 #//           · boundary=RebelAttackers_GetExperience (3 attacks, non-Rebel excluded, damage
-#//           pre-token) · control=N/A pending the friendly-only gap above · reqboundary=
+#//           pre-token) · control=EnemyRebelAttacker_* (cross-seat flag read: the SWU_ATTACKED flag
+#//           lives on the attacker's controller's seat) · reqboundary=
 #//           PickFewerThanAvailable (the multi-pick pends across the boundary before resolution)
 #// SOR_245 Medal Ceremony — guard: no eligible target. Only a non-Rebel Imperial Trooper (SOR_128)
 #// attacked, so the Rebel-attacked target list is empty → the event fizzles with no decision and no
@@ -159,3 +160,47 @@ WithP1Hand: SOR_245
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:1:ISLEADERUNIT
+
+---
+
+# EnemyRebelAttacker_InPool_OfferAsserted
+#// Candidate #6 fix guard (offer): the text has NO "friendly" — an ENEMY Rebel that attacked this
+#// phase is a legal target too. Both Rebels attacked; the pool is exactly both, asserted pending.
+#// Also exercises the flag-seat defect: the enemy attacker's SWU_ATTACKED flag lives on P2's seat,
+#// so a caster-seat-only read misses it even with a widened pool.
+
+## GIVEN
+CommonSetup: byw/byw/{myResources:0}
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: SOR_245
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# EnemyRebelAttacker_GetsExperience
+#// Candidate #6 fix guard (resolution): choosing both the friendly and the ENEMY Rebel attacker
+#// gives each an Experience token.
+
+## GIVEN
+CommonSetup: byw/byw/{myResources:0}
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: SOR_245
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0&theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1

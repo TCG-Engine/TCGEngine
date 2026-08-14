@@ -1446,29 +1446,47 @@ function _SWUVermillionReveal(int $V, int $D): void
 
 // ── LOF Action [Exhaust] unit abilities (Phase 11) ───────────────────────────────────────────────────// Plays the chosen Imperial ($lastDecision) at full cost, forcing it to enter READY, then lets each
 // opponent may-ready a unit. ActivateCard owns the play's end-of-action (do not add SWU_AFTER_ACTION).
+// "Each opponent may ready a unit" is an UNCONDITIONAL sentence (candidate #2 fix, 2026-08-14):
+// it resolves whether the play half happened or not, so BOTH branches queue the offer.
 $customDQHandlers["OZZEL_PLAY"] = function ($player, $parts, $lastDecision) {
   global $playerID, $gForceEnterReady;
+  $playerID = intval($player);
+  $opp = OtherPlayer(intval($player));
+  // Queue the ready-clause BUILDER first (ahead of any after-action turn swap). It computes its
+  // pool at DRAIN time — after the played Imperial has seated and Ozzel's action-exhaust is
+  // visible — never here (the pre-play board is stale).
+  DecisionQueueController::AddDecision($opp, "CUSTOM", "OZZEL_READY_OFFER", 1);
   if (SWUDecisionDeclined($lastDecision)) {
     SWUAfterAction($player);
     return;
   }
-  $playerID = intval($player);
-  // Each opponent may ready a unit — queue FIRST so it resolves before the play's after-action
-  // swaps the turn. Targets are the opponent's units from THEIR perspective (myArena-N).
-  $opp = OtherPlayer(intval($player));
-  $playerID = $opp;
-  $oppUnits = array_merge(
-    ZoneSearch('myGroundArena', AnyUnitFilter),
-    ZoneSearch('mySpaceArena', AnyUnitFilter)
-  );
-  if (!empty($oppUnits)) {
-    SWUQueueMayChooseTarget($opp, $oppUnits, "You_may_ready_a_unit", "Ready_a_unit", "READY_UNIT");
-  }
   // Play the chosen Imperial — it enters READY (Ozzel overrides the default exhausted entry).
-  $playerID = intval($player);
   $gForceEnterReady = true;
   ActivateCard(intval($player), $lastDecision, false, 0);
   $gForceEnterReady = false;
+};
+
+// SOR_129 "Each opponent may ready a unit" — drain-time offer builder, run on the OPPONENT's queue.
+// The text is an unqualified "a unit": ANY unit in ANY arena, either side (the caster's units
+// included). Pointless-prompt doctrine: only EXHAUSTED units are material picks (readying a ready
+// unit is a no-op), and with none anywhere the prompt is skipped entirely.
+$customDQHandlers["OZZEL_READY_OFFER"] = function ($player, $parts, $lastDecision) {
+  global $playerID;
+  $savedPID = $playerID;
+  $playerID = intval($player);
+  $units = array_values(array_filter(array_merge(
+    ZoneSearch('myGroundArena',    AnyUnitFilter),
+    ZoneSearch('mySpaceArena',     AnyUnitFilter),
+    ZoneSearch('theirGroundArena', AnyUnitFilter),
+    ZoneSearch('theirSpaceArena',  AnyUnitFilter)
+  ), function($mz) {
+    $o = GetZoneObject($mz);
+    return $o !== null && empty($o->removed) && intval($o->Status ?? 1) === 0;
+  }));
+  if (!empty($units)) {
+    SWUQueueMayChooseTarget(intval($player), $units, "You_may_ready_a_unit", "Ready_a_unit", "READY_UNIT");
+  }
+  $playerID = $savedPID;
 };
 
 // Cross-card: play the chosen hand card ($lastDecision) at $parts[0] discount. ActivateCard
@@ -2620,6 +2638,11 @@ $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision
   // restore it here either — SWUContinuePlayAfterExploit returns with $playerID
   // still set to $player (same as $savedPID), so the restore below is a safe no-op.
   SWUContinuePlayAfterExploit(intval($player), $mzID, $exploitDiscount);
+  // CONSUME the restored grant now that the play has fully continued (the call above is
+  // synchronous). Without this, the next play in the same request — a nested play, or the
+  // next harness section — inherits a phantom Exploit X and raises a bogus defeat offer
+  // (surfaced by the SOR_214 attach-pool guard running after a Dooku-grant section).
+  $gPlayGrantedExploit = 0;
   $playerID = $savedPID;
 };
 

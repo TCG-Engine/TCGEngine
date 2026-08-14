@@ -5,9 +5,9 @@
 #//           (the defeats come from the OPPONENT's event; the return still keys on the owner's
 #//           pile) · boundary pair=ReturnDefeatedThisPhase vs SeededDiscardNotReturned +
 #//           DefeatedLastPhase_NotReturned (the this-phase window) · decline=N/A (no "you may").
-#// Intended: the return keys on how a card's MOST RECENT copy left play — a copy discarded from
-#// hand after an earlier same-phase defeat must NOT return; deferred pending an engine fix (see
-#// the session log).
+#// The return keys on each ENTRY's defeat provenance (From='PLAY') plus the this-phase count —
+#// a copy that arrived by hand-discard never returns (fixed 2026-08-14; see
+#// HandDiscardedCopy_AfterDefeatReturned_NotReturnedAgain).
 #// SOR_091 The Emperor's Legion — "Return each unit in your discard pile that was defeated this
 #// phase to your hand." P1's SOR_128 (3/1) attacks P2's SEC_080 (3/3): both die (SOR_128 deals 3 =
 #// lethal, takes 3 back). SOR_128 went to P1's discard as DEFEATED-this-phase. P1 then plays SOR_091
@@ -116,3 +116,31 @@ P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SOR_091
 P1GROUNDARENACOUNT:0
 P1NODECISION
+
+---
+
+# HandDiscardedCopy_AfterDefeatReturned_NotReturnedAgain
+#// Candidate #9 fix guard (defeat provenance): the multiset counts CardIDs, not physical copies —
+#// after the DEFEATED copy leaves the pile, a copy that arrived by HAND-DISCARD must not ride the
+#// stale count. Flow: SOR_128 trades and dies (count 1) → Legion #1 returns it → Force Throw (self)
+#// discards it FROM HAND → Legion #2 must return NOTHING (the only SOR_128 in the pile was
+#// hand-discarded, not defeated). Pre-fix it came back every time.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:10;handCardIds:SOR_091,SOR_091,SOR_167}
+P1OnlyActions: true
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+- P1>PlayHand:1
+- P1>AnswerDecision:You
+- P1>AnswerDecision:myHand-1
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:0
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:4

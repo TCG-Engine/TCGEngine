@@ -190,3 +190,55 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:ISLEADERUNIT
 P1GROUNDARENAUNIT:0:HASKEYWORD:Grit
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# OffAspect_Printed3_IsOffered
+#// Candidate #8 fix guard: "costs 3 or less" is PRINTED cost (cost-semantics rule). SOR_210 Swoop
+#// Racer is printed 3 but Cunning — off-aspect for the bbw pair, effective 5. Both copies must be
+#// OFFERED (printed 3 ≤ 3, affordable at 5 resources); the old effective-cost gate excluded them
+#// entirely, making them unplayable via the ability. Offer left pending.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:SOR_003
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SOR_210
+WithP1Hand: SOR_210
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SELECTABLEEXACT:myHand-0&myHand-1
+
+---
+
+# OffAspect_Printed3_PaysEffectiveCost
+#// Candidate #8, resolution half: the gate is printed cost, but "paying its cost" is the EFFECTIVE
+#// cost — the off-aspect Swoop Racer costs 5 to play through the action (5 ready → 0). It enters
+#// with the granted Sentinel.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:SOR_003
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SOR_210
+WithP1Hand: SOR_210
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_210
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P1RESAVAILABLE:0
+P1LEADER:EXHAUSTED

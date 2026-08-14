@@ -496,8 +496,25 @@ the printed text) confirms the wrong literal.
 - **A "count units that left" supplement must include the WHOLE defeat batch** — SOR_036 Gideon Hask (and SEC_051 Bo-Katan) missed experience for same-batch defeats; the `$leftCards` batch supplement is the pattern.
 - **Token rulings now settled (2026-08-13), build to them:** bounce/capture of a token is CEASE, not defeat (`_SWUCeaseTokenUnit`: no When-Defeated, leave-play reactions fire as non-defeat, CR 9.3 upgrade defeats still fire, and it still "counts as returned to hand" for cards that care); a Vehicle token CREATED under an Ambush-granting aura (Wedge SOR_100) DOES get the Ambush offer.
 - **A dead attacker's queued combat damage must re-validate the attacker by UID** — the handler re-resolved positionally and a BYSTANDER dealt the damage. Fixed in the core path; the section shape (attacker dies to the defender's first strike/trade, assert no bystander damage) is cheap insurance on any new combat-adjacent card.
-- **PENDING (found, NOT fixed — verify before building on it): "when you play an event" observers are scanned AFTER the event's effects run** (SOR_182 Bossk) — an observer the event itself creates/removes wrongly joins/escapes the reaction. The correct shape is snapshot-before-effects; until fixed, don't encode the wrong order into new tests.
+- **"When you play an event" observers are a SNAPSHOT taken before the event's effects** (SOR_182 Bossk, fixed 2026-08-14): a unit the event itself seats must not observe its own arrival. The event branch captures `$evtObserverUIDs` pre-dispatch and the block-5 collector filters against it — thread the allowlist if you add a new event-play reaction path.
+- **The CR 17.c pilot-as-upgrade sweep is DONE (2026-08-14)**: in `SWUCollectOwnPlayReactions`, "play a unit" observers read `$isUnitPlay`, "play an upgrade" observers `$isUpgradePlay`, and "non-unit card" counts a pilot-as-upgrade as non-unit. New observers must pick from those three, never the raw CardType.
 - **Axis confirmation:** SOR's port moved offer-assertion missing 100%→55% and control 100%→82%, but request-boundary stayed 98% — second set confirming a port only backfills axes the source material asserts. Request-boundary sections exist only if built at implementation time.
+
+### ⚠ Fixture faults that MIMIC an engine bug — the three that stacked on one section (SOR pass 2, 2026-08-14)
+A single ported section produced what looked like three separate engine bugs (a lost When-Defeated, a
+destroyed deck, a vanished prompt). All three were the FIXTURE. Check these before writing any engine code:
+- **`SkipPreGame: true` is REQUIRED whenever you seed a deck.** Without it the pre-game DRAWS the seeded
+  cards into hand, so `WithP{n}Deck` reads as "silently ignored" and every deck assertion is 0.
+- **`handCardIds:` inside CommonSetup can reset the deck** — seed the hand with top-level `WithP{n}Hand:`
+  lines instead when the same section also seeds a deck.
+- **The auto-resolve artifact is the #1 phantom-bug generator, and its signature is a SPARE ANSWER.**
+  A single-legal-target choose auto-resolves, so the answer written for it lands on the NEXT decision:
+  here `AnswerDecision:theirSpaceArena-0` popped a correctly-paused SCRY prompt and fed it a mzID, which
+  the finalizer could not parse — presenting as "the engine destroyed my deck". Count prompts against
+  answers, and seed TWO legal targets whenever the choose is meant to be interactive.
+- **A section can pass for the WRONG reason under the same fault**: with one enemy unit, an OPTIONCHOOSE
+  fed an unrecognised value silently took its FIRST option, so the assertion held while nothing was
+  actually chosen. When you fix an auto-resolve artifact in one section of a family, re-check its siblings.
 
 ### ★ Asserting SCRY/peek CONTENTS with no contents directive (SOR_087×SOR_031, 2026-08-13)
 The harness cannot inspect a SCRY offer — but `SCRY_FINALIZE` silently DROPS answered IDs that were not

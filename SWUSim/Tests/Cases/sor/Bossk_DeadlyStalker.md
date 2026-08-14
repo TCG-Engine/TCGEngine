@@ -142,3 +142,32 @@ WithP2GroundArena: SOR_182:1:0
 P2GROUNDARENACOUNT:0
 P2DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# PlayedByOwnEvent_NoSelfTrigger
+#// Candidate #1 fix guard (the Bossk verdict — observer SNAPSHOT): "When you play an event" cannot
+#// be satisfied by the very event that put Bossk into play. Sneak Attack (SOR_219, Cunning c2)
+#// plays Bossk from hand (5−3=2, enters ready); the event-play reaction set was snapshotted BEFORE
+#// the event's effects, so the freshly-seated Bossk is NOT an observer of his own arrival — no
+#// "deal 2" offer, no damage. (P2's board is empty so his native Ambush has no target and fizzles
+#// silently; the only possible prompt is the spurious Bossk reaction.)
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1Hand: SOR_219
+WithP1Hand: SOR_182
+WithP1Hand: SOR_210
+
+## WHEN
+- P1>PlayHand:0
+# the in-flight event still occupies myHand-0 during the choose; Bossk is myHand-1
+- P1>AnswerDecision:myHand-1
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_182
+P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1NODECISION

@@ -103,3 +103,30 @@ WithP1Hand: SOR_102
 P1SPACEARENACOUNT:1
 P1GROUNDARENACOUNT:1
 P1DISCARDCOUNT:1
+
+---
+
+# PlaysPilotingUnit_AsUnitNotPilot
+#// SOR_102 Home One — "Play a [Heroism] unit from your discard pile." A card with Piloting is still a
+#// UNIT card, and this clause plays it as a UNIT: JTL_093 Nien Nunb (cost 1, Command/Heroism,
+#// Piloting) is fetched from the discard and lands in the GROUND arena, never offered as an upgrade —
+#// even though a friendly Vehicle (SOR_237 Alliance X-Wing) is in play as a legal pilot host. Only
+#// Home One's own 8 is paid (Nien Nunb's 1-3 floors at 0), so exactly 2 resources are left of the 10.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:10;discardCardIds:JTL_093}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_102
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DISCARDCOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_093
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:2
+P1NODECISION

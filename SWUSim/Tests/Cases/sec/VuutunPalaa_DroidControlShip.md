@@ -248,7 +248,8 @@ WithP1Hand: SOR_214
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:mySpaceArena-0
+# (host choose auto-resolves since the 2026-08-13 Vehicle-group fix: Vuutun is the only legal
+#  Vehicle host on this board, so the SOR_214 pool is a single option)
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT

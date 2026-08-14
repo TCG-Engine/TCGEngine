@@ -21,6 +21,9 @@ WithP2GroundArena: SOR_046:0:0
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
 - P1>AnswerDecision:myHand-0
+# P2>Pass drains the queued OZZEL_READY_OFFER builder (drain-time pool build, 2026-08-14); the
+# resulting may-choose stays pending for the next line
+- P2>Pass
 - P2>AnswerDecision:-
 
 ## EXPECT
@@ -47,6 +50,7 @@ WithP2GroundArena: SOR_046:0:0
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
 - P1>AnswerDecision:myHand-0
+- P2>Pass
 - P2>AnswerDecision:myGroundArena-0
 
 ## EXPECT
@@ -79,3 +83,77 @@ WithP2GroundArena: SOR_046:0:0
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:myHand-0&myHand-1
+
+---
+
+# Declined_OppReadyStillOffered
+#// Candidate #2 fix guard (decline leg): "Each opponent may ready a unit" is an UNCONDITIONAL
+#// sentence — declining the play half must not skip it. P1 declines; P2 still gets the may-ready
+#// and readies its exhausted SOR_046. Nothing is played; Ozzel is exhausted (the action cost).
+
+## GIVEN
+CommonSetup: ryk/rrk/{myResources:4}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_129:1:0
+WithP1Hand: SEC_080
+WithP1Hand: SOR_128
+WithP2GroundArena: SOR_046:0:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:-
+- P2>Pass
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1HANDCOUNT:2
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:READY
+
+---
+
+# NoImperialInHand_OppReadyStillOffered
+#// Candidate #2 fix guard (empty-pool leg): with NO playable Imperial in hand the play half
+#// resolves as nothing, but the opponent's may-ready still happens.
+
+## GIVEN
+CommonSetup: ryk/rrk/{myResources:4}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_129:1:0
+WithP1Hand: SOR_046
+WithP2GroundArena: SOR_046:0:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P2>Pass
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1HANDCOUNT:1
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:READY
+
+---
+
+# ReadyPool_IncludesCastersUnits_OfferAsserted
+#// Candidate #2 fix guard (pool scope + drain-time build): the text is an unqualified "a unit" —
+#// the opponent may ready ANY exhausted unit, including the caster's. After the play, P2's pool is
+#// its own exhausted SOR_046 AND P1's now-exhausted Ozzel (the action cost — visible only if the
+#// pool is built at drain time, after the action resolved). The ready-entering SEC_080 is not in
+#// the pool (readying a ready unit is a no-op; pointless-prompt doctrine filters it). Left pending.
+
+## GIVEN
+CommonSetup: ryk/rrk/{myResources:4}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_129:1:0
+WithP1Hand: SEC_080
+WithP2GroundArena: SOR_046:0:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+- P2>Pass
+
+## EXPECT
+P2SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

@@ -99,3 +99,25 @@ P1GROUNDARENAUNIT:0:DAMAGE:0
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:2
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:3
 P1NODECISION
+
+---
+
+# AttachPool_NonVehicle_BothSides
+#// Candidate #10 fix guard: printed "Attach to a non-Vehicle unit" (no "friendly") — the pool is
+#// non-Vehicles from all four arenas (CR 2.e enemy hosts legal) and EXCLUDES Vehicles. The TIE
+#// Fighter must not be offered; the enemy Trooper must be. Offer left pending.
+
+## GIVEN
+CommonSetup: bbw/yyk
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1Hand: SOR_053
+WithP1GroundArena: SOR_128:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

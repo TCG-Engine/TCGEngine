@@ -770,14 +770,22 @@ function ObjectCurrentHP($obj) {
     // JTL_247 Resistance X-Wing: while it has a Pilot on it, +1/+1 (the +1 HP half).
     if (!$lost && ($obj->CardID ?? '') === 'JTL_247' && _SWUHasPilotOnIt($obj)) $base += 1;
 
-    // SOR_082 Emperor's Royal Guard: +0/+1 while you control Emperor Palpatine
-    // (SOR_006) — as a leader or as a deployed leader unit (the leader-zone entry
-    // is present in both states).
+    // SOR_082 Emperor's Royal Guard: +0/+1 while you control Emperor Palpatine — "(as a leader or
+    // unit)". Matched by TITLE (the Qi'ra precedent), never by one printing's CardID: the leader can
+    // be SOR_006 or ASH_015 (the leader-zone entry is present whether deployed or not), and the UNIT
+    // printing SOR_135 counts too.
     if (!$lost && $obj->CardID === 'SOR_082' && $controller > 0) {
+        $palp = false;
         foreach (GetLeader($controller) as $l) {
             if (!empty($l->removed)) continue;
-            if (($l->CardID ?? '') === 'SOR_006') { $base += 1; break; }
+            if (CardTitle($l->CardID ?? '') === 'Emperor Palpatine') { $palp = true; break; }
         }
+        if (!$palp) {
+            foreach (GetUnitsInPlay($controller) as $u) {
+                if (empty($u->removed) && CardTitle($u->CardID ?? '') === 'Emperor Palpatine') { $palp = true; break; }
+            }
+        }
+        if ($palp) $base += 1;
     }
 
     // SOR_118 97th Legion / TS26_50 General Grievous: +1/+1 for each resource you control.
@@ -9349,27 +9357,31 @@ function SWUCollectOpponentPlayReactions(int $playingPlayer, string $playedCardI
 // $playedAsUpgrade = the card was played AS AN UPGRADE (the Piloting path). A Piloting card's CardType
 // is "Unit", so without this flag playing one as a pilot reads as "you played a unit" to every observer
 // below — CR 17.c says the opposite ("A card with Piloting is considered an upgrade for the purpose of
-// abilities that instruct a player to 'play an upgrade'"). ⚠ Only $isUnitPlay (HMW_124) honours it so
-// far; the other "when you play a unit"/"an upgrade" observers still read the raw $isUnit/$isUpgrade and
-// are wrong on the pilot-as-upgrade path — a family-wide sweep is owed, see the HMW_124 note.
-function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, int $playedUID = 0, bool $playedAsUpgrade = false): void {
+// abilities that instruct a player to 'play an upgrade'"). Family-swept 2026-08-14 (candidate #7):
+// every "when you play a unit" observer reads $isUnitPlay, every "an upgrade" observer $isUpgradePlay,
+// and "a non-unit card" (SHD_217) counts a pilot-as-upgrade as non-unit.
+function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, int $playedUID = 0, bool $playedAsUpgrade = false, ?array $allowedUIDs = null): void {
     $isEvent       = strpos(CardType($playedCardID) ?? '', 'Event') !== false;
     $isUpgrade     = strpos(CardType($playedCardID) ?? '', 'Upgrade') !== false;
     $isAggression  = strpos(CardAspect($playedCardID) ?? '', 'Aggression') !== false;
-    $isCommandUnit = (strpos(CardType($playedCardID) ?? '', 'Unit') !== false)
-                  && (strpos(CardAspect($playedCardID) ?? '', 'Command') !== false);
     // Token Units have CardType "Token Unit", which contains "Unit" — so token plays count as units here.
     $isUnit        = strpos(CardType($playedCardID) ?? '', 'Unit') !== false;
     $isUnitPlay    = $isUnit && !$playedAsUpgrade;   // a Piloting card played as a pilot is NOT a unit play
+    $isUpgradePlay = $isUpgrade || $playedAsUpgrade; // ...and IS an upgrade play (CR 17.c)
+    $isCommandUnit = $isUnitPlay
+                  && (strpos(CardAspect($playedCardID) ?? '', 'Command') !== false);
     foreach (GetUnitsInPlay($playingPlayer) as $u) {
         if (!empty($u->removed) || LostAbilities($u)) continue;   // SEC_046 Galen — a named observer doesn't react
         $cid = $u->CardID ?? '';
         $uid = intval($u->UniqueID ?? 0);
+        // Event-play observer snapshot (the Bossk verdict): with an allowlist supplied, a unit that
+        // was NOT in play when the event was played is no observer of it.
+        if ($allowedUIDs !== null && !in_array($uid, $allowedUIDs, true)) continue;
         // HMW_115 Leia Organa, These Are My Friends: "When you play ANOTHER unit that costs 3 or less:
         // Heal 1 damage from your base." COST is always the PRINTED cost (never a discounted or
         // aspect-inflated one). Self-exclusion is by UniqueID, so her own arrival — she is cost 1 —
         // does not heal, while a SECOND copy of her would trigger the first.
-        if ($cid === 'HMW_115' && $isUnit && $uid !== $playedUID && intval(CardCost($playedCardID)) <= 3) {
+        if ($cid === 'HMW_115' && $isUnitPlay && $uid !== $playedUID && intval(CardCost($playedCardID)) <= 3) {
             AddTrigger($playingPlayer, 'HMW_115', 'HMW_115', '');
         }
         // HMW_124 Luminara Unduli, Besieged General: "When you play a unit (including this one): You may
@@ -9384,7 +9396,7 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         }
         // TWI_184 Tactical Droid Commander: "When you play another Separatist unit: you may exhaust a
         // unit that costs the same as or less than the played unit." Carries the played unit's cost.
-        if ($cid === 'TWI_184' && (strpos(CardType($playedCardID) ?? '', 'Unit') !== false)
+        if ($cid === 'TWI_184' && $isUnitPlay
             && HasTrait($playedCardID, 'Separatist') && $uid !== $playedUID) {
             AddTrigger($playingPlayer, 'TWI_184', 'TWI_184', strval(intval(CardCost($playedCardID))));
         }
@@ -9403,15 +9415,15 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
             OnHealBase($playingPlayer, $playingPlayer, 2);
         }
         // LOF_087 Eighth Brother: "When you play another unit: you may use the Force → give a unit +2/+2."
-        if ($cid === 'LOF_087' && (strpos(CardType($playedCardID) ?? '', 'Unit') !== false) && $uid !== $playedUID) {
+        if ($cid === 'LOF_087' && $isUnitPlay && $uid !== $playedUID) {
             AddTrigger($playingPlayer, 'LOF_087', 'LOF_087', '');
         }
         // TWI_080 Poggle the Lesser: "When you play another unit: you may exhaust this unit → create a Battle Droid."
-        if ($cid === 'TWI_080' && (strpos(CardType($playedCardID) ?? '', 'Unit') !== false) && $uid !== $playedUID) {
+        if ($cid === 'TWI_080' && $isUnitPlay && $uid !== $playedUID) {
             AddTrigger($playingPlayer, 'TWI_080', 'TWI_080', '', strval($uid));
         }
         // TWI_101 Mas Amedda: "When you play another unit: you may exhaust this unit → search top 4 for a unit, draw."
-        if ($cid === 'TWI_101' && (strpos(CardType($playedCardID) ?? '', 'Unit') !== false) && $uid !== $playedUID) {
+        if ($cid === 'TWI_101' && $isUnitPlay && $uid !== $playedUID) {
             AddTrigger($playingPlayer, 'TWI_101', 'TWI_101', '', strval($uid));
         }
         // TWI_216 Fives: "When you play an event: you may put a Clone unit from discard on the bottom → draw."
@@ -9420,34 +9432,34 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         }
         // TWI_018 Quinlan Vos (deployed) — "When you play a unit: you may deal 1 damage to an enemy unit
         // that costs the same as or less than the played unit." (Carry the played unit's cost.)
-        if ($cid === 'TWI_018' && (strpos(CardType($playedCardID) ?? '', 'Unit') !== false) && $uid !== $playedUID) {
+        if ($cid === 'TWI_018' && $isUnitPlay && $uid !== $playedUID) {
             AddTrigger($playingPlayer, 'TWI_018D', 'TWI_018', '', strval(intval(CardCost($playedCardID))));
         }
         // LOF_249 Luke Skywalker: "When you play another <uq> unit: may use the Force → give an Experience
         // and a Shield token to this unit." Carries Luke's UID so the reaction can target him.
-        if ($cid === 'LOF_249' && (strpos(CardType($playedCardID) ?? '', 'Unit') !== false)
+        if ($cid === 'LOF_249' && $isUnitPlay
             && CardUnique($playedCardID) && $uid !== $playedUID) {
             AddTrigger($playingPlayer, 'LOF_249', 'LOF_249', '', strval($uid));
         }
         // ASH_060 Cobb Vanth: "When you play another unit: you may deal 2 damage to THIS unit. If you do,
         // give a Shield token to THAT (the played) unit." Carries Cobb's UID + the played unit's UID.
-        if ($cid === 'ASH_060' && (strpos(CardType($playedCardID) ?? '', 'Unit') !== false) && $uid !== $playedUID && $playedUID > 0) {
+        if ($cid === 'ASH_060' && $isUnitPlay && $uid !== $playedUID && $playedUID > 0) {
             AddTrigger($playingPlayer, 'ASH_060', 'ASH_060', '', $uid . ',' . $playedUID);
         }
         // ASH_102 Ravager: "When you play a unit: you may have it deal damage equal to its power to a unit
         // in the same arena." Carries the played unit's UID (the dealer). Not "another" — Ravager's own
         // play counts; but the played unit must still be in play (a unit-type entry).
-        if ($cid === 'ASH_102' && (strpos(CardType($playedCardID) ?? '', 'Unit') !== false) && $playedUID > 0) {
+        if ($cid === 'ASH_102' && $isUnitPlay && $playedUID > 0) {
             AddTrigger($playingPlayer, 'ASH_102', 'ASH_102', '', strval($playedUID));
         }
         // SHD_096 Maz Kanata: "When you play ANOTHER unit: give an Experience token to this unit."
         // Mandatory, targets self → resolve immediately.
-        if ($cid === 'SHD_096' && strpos(CardType($playedCardID) ?? '', 'Unit') !== false && $uid !== $playedUID) {
+        if ($cid === 'SHD_096' && $isUnitPlay && $uid !== $playedUID) {
             DoGiveExperienceToken($playingPlayer, $u->GetMzID());
         }
         // SHD_239 Toro Calican: "When you play ANOTHER Bounty Hunter unit: you may deal 1 damage to it. If
         // you do, ready this unit. Once each round." Carries the played unit's UID + Toro's UID.
-        if ($cid === 'SHD_239' && strpos(CardType($playedCardID) ?? '', 'Unit') !== false
+        if ($cid === 'SHD_239' && $isUnitPlay
             && HasTrait($playedCardID, 'Bounty Hunter') && $uid !== $playedUID && $playedUID > 0
             && GlobalEffectCount($playingPlayer, 'SWU_SHD239_USED') <= 0) {
             AddTrigger($playingPlayer, 'SHD_239', 'SHD_239', $playedUID . ',' . $uid);
@@ -9458,20 +9470,20 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         }
         // SHD_018 The Mandalorian (deployed) — "When you play an upgrade: you may exhaust an enemy unit
         // with 6 or less remaining HP." (No leader-exhaust cost on the deployed side.)
-        if ($cid === 'SHD_018' && $isUpgrade) {
+        if ($cid === 'SHD_018' && $isUpgradePlay) {
             AddTrigger($playingPlayer, 'SHD_018D', 'SHD_018', '', '6');
         }
         // SHD_217 Tobias Beckett: "When you play a NON-UNIT card: you may exhaust a unit that costs the
         // same as or less than the card you played. Use this ability only once each round." The once/round
         // marker is consumed when the exhaust actually resolves (SHD_217#0), not on trigger.
-        if ($cid === 'SHD_217' && strpos(CardType($playedCardID) ?? '', 'Unit') === false
+        if ($cid === 'SHD_217' && !$isUnitPlay
             && GlobalEffectCount($playingPlayer, 'SWU_SHD217_USED') <= 0) {
             AddTrigger($playingPlayer, 'SHD_217', 'SHD_217', strval(intval(CardCost($playedCardID))));
         }
         // LOF_096 Obi-Wan Kenobi: "When you play a Force unit (including this one): this unit gains
         // Sentinel for this phase." No self-exclusion; grant immediately (no decision).
         if ($cid === 'LOF_096'
-            && strpos(CardType($playedCardID) ?? '', 'Unit') !== false && HasTrait($playedCardID, 'Force')) {
+            && $isUnitPlay && HasTrait($playedCardID, 'Force')) {
             $obiMz = SWUFindMzByUID($uid);
             // CardID-based token (not bare 'SENTINEL') so the Active Effects popup shows Obi-Wan's
             // art as the source — registry row 'LOF_096' => GRANT_KEYWORD SENTINEL.
@@ -9479,7 +9491,7 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         }
     }
     // ── Leader observers (undeployed leaders are NOT in GetUnitsInPlay) ──
-    $isUnit = strpos(CardType($playedCardID) ?? '', 'Unit') !== false;
+    $isUnit = $isUnitPlay;   // leader observers below are all "when you play a unit" — pilot-as-upgrade excluded (CR 17.c)
     // ASH_017 Greef Karga — "When you play OR create a unit: you may exhaust this leader; if you do, give an
     // Advantage token to that unit." (The create half is hooked in SWUCreateUnitToken.)
     if ($isUnit && $playedUID > 0 && _SWULeaderReadyUndeployed($playingPlayer, 'ASH_017')) {
@@ -9514,7 +9526,7 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
     }
     // SHD_018 The Mandalorian (front) — "When you play an upgrade: you may exhaust this leader; if you
     // do, exhaust an enemy unit with 4 or less remaining HP."
-    if ($isUpgrade && _SWULeaderReadyUndeployed($playingPlayer, 'SHD_018')) {
+    if ($isUpgradePlay && _SWULeaderReadyUndeployed($playingPlayer, 'SHD_018')) {
         AddTrigger($playingPlayer, 'SHD_018', 'SHD_018', '', '4');
     }
 }
@@ -10351,9 +10363,16 @@ $customDQHandlers["TWI_210#0"] = function($player, $parts, $lastDecision) {
     $playedCardID  = $parts[1] ?? '';
     $resourcesPaid = intval($parts[2] ?? 0);
     if ($playedCardID === '') return;
+    // Observer snapshot taken at event-play time (the Bossk verdict): units the event itself seated
+    // are excluded from own-play reactions. '' = nothing was in play; an ABSENT 4th part (legacy
+    // callers) = no filtering. (The opponent-side collectors are count-based, not per-unit, and an
+    // event seating a unit under the OPPONENT's control is not a real scenario today — unfiltered.)
+    $allowedUIDs = array_key_exists(3, $parts)
+        ? array_map('intval', array_values(array_filter(explode(',', $parts[3]), 'strlen')))
+        : null;
     SWUCollectOpponentPlayReactions($playingPlayer, $playedCardID, $resourcesPaid);
     // Batch E.1 — own-play reactions on event plays (Bossk's "when you play an event"; FFF on an Aggression event).
-    SWUCollectOwnPlayReactions($playingPlayer, $playedCardID, 0);
+    SWUCollectOwnPlayReactions($playingPlayer, $playedCardID, 0, false, $allowedUIDs);
     FlushTriggerBag($playingPlayer);
 };
 
@@ -12163,6 +12182,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
             $playerID = $savedPID;
             break;
         // "Attach to a non-Vehicle unit."
+        case 'SOR_053': // Luke's Lightsaber
         case 'SOR_054': // Jedi Lightsaber
         case 'SHD_126': // The Darksaber
         case 'LOF_215': // Ascension Cable
@@ -12228,11 +12248,6 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'ASH_181':
             $all = array_values(array_filter($all, fn($mz) => intval(GetZoneObject($mz)->Damage ?? 0) > 0));
             break;
-        // "Attach to a Vehicle unit."
-        case 'SEC_227': // Special Modifications
-            $all = array_values(array_filter($all, fn($mz) =>
-                HasTrait(GetZoneObject($mz)->CardID ?? '', 'Vehicle')));
-            break;
         // "Attach to a friendly unique unit."
         case 'SEC_256': // Moral Authority
             $all = array_values(array_filter($all, fn($mz) =>
@@ -12267,6 +12282,11 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'JTL_120': // Dorsal Turret
         case 'JTL_172': // Twin Laser Turret
         case 'SOR_121': // Hardpoint Heavy Blaster
+        case 'SOR_214': // Smuggling Compartment — was absent from this group (default friendly-any pool
+                        // offered Troopers); the granted "On Attack: Ready a resource" resolves for the
+                        // HOST's controller on an enemy host, CR 2.e.
+        case 'SEC_227': // Special Modifications — was a friendly-only filter (group reconciliation
+                        // 2026-08-13); same unqualified "Attach to a Vehicle unit" as the rest.
             $playerID = $player;
             $all = array_values(array_filter(array_merge(
                 ZoneSearch("myGroundArena",    AnyUnitFilter),
@@ -13290,6 +13310,17 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
             DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Ahsoka_to_look_at_the_top_card?");
             DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_08#0", 1);
         }
+        // SNAPSHOT the event-play observer set BEFORE the event's own effects run (the Bossk verdict,
+        // candidate #1 fix 2026-08-14): "when you play an event" reactions belong to units in play at
+        // the moment the event is PLAYED — a unit the event itself seats (Sneak Attack × Bossk) must
+        // not observe its own arrival. The block-5 collector below re-scans the post-effect board, so
+        // it filters against this UID snapshot.
+        $evtObserverUIDs = [];
+        foreach ([1, 2] as $sp) {
+            foreach (GetUnitsInPlay($sp) as $u0) {
+                if (empty($u0->removed) && intval($u0->UniqueID ?? 0) > 0) $evtObserverUIDs[] = intval($u0->UniqueID);
+            }
+        }
         // The event's OWN When-Played effect — suppressed when the event has lost all abilities (Relentless
         // blanking / SEC_046 Galen). Dispatched via $whenPlayedAbilities (per-card files under cards/<set>/),
         // the same array unit When-Played handlers use; an event has no board object so $mzID is ''.
@@ -13303,7 +13334,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // limitation (the alt-cost branch resolves asynchronously via SOR_199 handler).
         if (!$hasAltCost) {
             DecisionQueueController::AddDecision($player, "CUSTOM",
-                "TWI_210#0|{$player}|{$cardID}|{$resourcesPaid}", 5);
+                "TWI_210#0|{$player}|{$cardID}|{$resourcesPaid}|" . implode(',', $evtObserverUIDs), 5);
         }
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISH_PLAY_CARD", 10, dontSkipOnPass: 1);
         // Do NOT restore $playerID here — ExecuteStaticMethods calls MZCountChoices

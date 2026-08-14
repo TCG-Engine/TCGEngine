@@ -61,3 +61,24 @@ WithP1Hand: SEC_227
 
 ## EXPECT
 P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+
+---
+
+# AttachPool_VehiclesOnly_BothSides
+#// Vehicle-group reconciliation guard (with SOR_214/JTL_120): printed "Attach to a Vehicle unit"
+#// (no "friendly") — enemy Vehicles are legal hosts too, non-Vehicles never are. Offer left pending.
+
+## GIVEN
+CommonSetup: yyk/yyk
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1Hand: SEC_227
+WithP1SpaceArena: SOR_225:1:0
+WithP1GroundArena: SOR_128:1:0
+WithP2SpaceArena: SHD_060:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:mySpaceArena-0&theirSpaceArena-0

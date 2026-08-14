@@ -111,3 +111,58 @@ P1GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENACOUNT:0
 P2DISCARDCOUNT:1
 P2DISCARDUNIT:0:CARDID:SOR_095
+
+---
+
+# PalpatineUnit_GetsHP
+#// Candidate #4 fix guard: "you control Emperor Palpatine (as a leader or UNIT)" — the UNIT
+#// printing SOR_135 satisfies the aura by TITLE (the old check matched leader CardID SOR_006
+#// only). Leader here is NOT Palpatine; the Guard still reads 3/5.
+
+## GIVEN
+CommonSetup: grw/grw
+SkipPreGame: true
+WithP1GroundArena: SOR_082:1:0
+WithP1GroundArena: SOR_135:1:0
+
+## WHEN
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:5
+
+---
+
+# PalpatineOtherLeaderPrinting_GetsHP
+#// Candidate #4 fix guard, printing #2: ASH_015 Emperor Palpatine is a different LEADER printing —
+#// the aura matches by title, not by the SOR_006 CardID.
+
+## GIVEN
+CommonSetup: ggk/grw/{
+  myLeader:ASH_015
+}
+SkipPreGame: true
+WithP1GroundArena: SOR_082:1:0
+
+## WHEN
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:5
+
+---
+
+# EnemyPalpatineUnit_NoHP
+#// Negative: "while YOU control" — an ENEMY Emperor Palpatine unit does not buff P1's Guard.
+
+## GIVEN
+CommonSetup: grw/grw
+SkipPreGame: true
+WithP1GroundArena: SOR_082:1:0
+WithP2GroundArena: SOR_135:1:0
+
+## WHEN
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:4
