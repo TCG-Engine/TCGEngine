@@ -2,7 +2,10 @@
 -- Stores custom ability code for individual cards, linked to game macros
 -- Used by CardEditor to manage card abilities and by zzGameCodeGenerator to generate macro implementations
 
-CREATE TABLE `card_abilities` (
+-- IF NOT EXISTS matters: this file runs as a docker initdb hook on a fresh volume AND is executed
+-- by CardAbilityDB::EnsureSchema() on every connection, so it must be safe to re-run on a database
+-- that already has the table and rows.
+CREATE TABLE IF NOT EXISTS `card_abilities` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `root_name` varchar(64) NOT NULL COMMENT 'Game root name (e.g., RBSim, SoulMasters)',
   `card_id` varchar(128) NOT NULL COMMENT 'Card identifier (including canonical asset IDs)',

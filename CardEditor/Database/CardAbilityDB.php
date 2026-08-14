@@ -7,46 +7,82 @@ class CardAbilityDB {
     
     public function __construct($conn) {
         $this->conn = $conn;
-        $this->ensureSchemaColumns();
+        self::EnsureSchema($conn);
     }
 
-    private function ensureSchemaColumns() {
-        static $checked = false;
-        if ($checked) return;
+    /**
+     * Create card_abilities if it is missing, then bring an older table up to date.
+     *
+     * Mirrors CardAuthoringDB::ensureSchema(). Without the CREATE step the table only ever existed
+     * where Database/*.sql ran as a docker initdb hook, so a hand-built environment (LAMPP prod)
+     * fataled with "Table '<db>.card_abilities' doesn't exist" on every card-ability query.
+     *
+     * Safe to call repeatedly: the schema uses CREATE TABLE IF NOT EXISTS and every migration below
+     * is guarded by a SHOW COLUMNS check, so existing rows are never touched.
+     */
+    public static function EnsureSchema($conn, $force = false) {
+        if (!$conn) return;
 
-        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'card_id'");
+        // Cached per connection AND database, not globally: one process can legitimately bootstrap
+        // more than one database, and a plain static bool would silently skip the second.
+        static $checked = [];
+        $databaseResult = mysqli_query($conn, 'SELECT DATABASE()');
+        $databaseRow = $databaseResult ? mysqli_fetch_row($databaseResult) : null;
+        if ($databaseResult) mysqli_free_result($databaseResult);
+        $cacheKey = spl_object_id($conn) . '|' . (string)($databaseRow[0] ?? '');
+        // $force is for the explicit "set up database" action: the operator pressed it precisely
+        // because the schema may have changed underneath a cached "already checked".
+        if (!$force && isset($checked[$cacheKey])) return;
+
+        $schemaPath = __DIR__ . '/../../Database/card_abilities_schema.sql';
+        if (is_file($schemaPath)) {
+            foreach (explode(';', (string)file_get_contents($schemaPath)) as $statement) {
+                // Strip comment-only lines so an all-comment fragment is not sent as a statement.
+                $statement = trim(preg_replace('/^\s*--.*$/m', '', $statement));
+                if ($statement === '') continue;
+                if (!mysqli_query($conn, $statement)) {
+                    error_log('CardAbilityDB::EnsureSchema failed: ' . mysqli_error($conn));
+                }
+            }
+        }
+
+        self::MigrateSchemaColumns($conn);
+        $checked[$cacheKey] = true;
+    }
+
+    private static function MigrateSchemaColumns($conn) {
+        $result = mysqli_query($conn, "SHOW COLUMNS FROM card_abilities LIKE 'card_id'");
         if ($result && ($column = mysqli_fetch_assoc($result))) {
             if (preg_match('/^varchar\\((\\d+)\\)$/i', $column['Type'], $matches) && (int)$matches[1] < 128) {
-                mysqli_query($this->conn, "ALTER TABLE card_abilities MODIFY COLUMN card_id VARCHAR(128) NOT NULL COMMENT 'Card identifier (including canonical asset IDs)'");
+                mysqli_query($conn, "ALTER TABLE card_abilities MODIFY COLUMN card_id VARCHAR(128) NOT NULL COMMENT 'Card identifier (including canonical asset IDs)'");
             }
         }
         if ($result) mysqli_free_result($result);
 
-        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'prereq_code'");
+        $result = mysqli_query($conn, "SHOW COLUMNS FROM card_abilities LIKE 'prereq_code'");
         if ($result && mysqli_num_rows($result) === 0) {
-            mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN prereq_code LONGTEXT NULL AFTER ability_code");
+            mysqli_query($conn, "ALTER TABLE card_abilities ADD COLUMN prereq_code LONGTEXT NULL AFTER ability_code");
         }
         if ($result) mysqli_free_result($result);
 
-        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'ability_type'");
+        $result = mysqli_query($conn, "SHOW COLUMNS FROM card_abilities LIKE 'ability_type'");
         if ($result && mysqli_num_rows($result) === 0) {
-            mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN ability_type VARCHAR(32) NOT NULL DEFAULT 'macro' AFTER macro_name");
+            mysqli_query($conn, "ALTER TABLE card_abilities ADD COLUMN ability_type VARCHAR(32) NOT NULL DEFAULT 'macro' AFTER macro_name");
         }
         if ($result) mysqli_free_result($result);
 
-        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'listener_zones'");
+        $result = mysqli_query($conn, "SHOW COLUMNS FROM card_abilities LIKE 'listener_zones'");
         if ($result && mysqli_num_rows($result) === 0) {
-            mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN listener_zones TEXT NULL AFTER prereq_code");
+            mysqli_query($conn, "ALTER TABLE card_abilities ADD COLUMN listener_zones TEXT NULL AFTER prereq_code");
         }
         if ($result) mysqli_free_result($result);
 
-        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'is_implemented'");
+        $result = mysqli_query($conn, "SHOW COLUMNS FROM card_abilities LIKE 'is_implemented'");
         if ($result && mysqli_num_rows($result) === 0) {
-            mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN is_implemented TINYINT(1) NOT NULL DEFAULT 0 AFTER updated_at");
+            mysqli_query($conn, "ALTER TABLE card_abilities ADD COLUMN is_implemented TINYINT(1) NOT NULL DEFAULT 0 AFTER updated_at");
         }
         if ($result) mysqli_free_result($result);
 
-        $checked = true;
     }
     
     /**
@@ -54,7 +90,7 @@ class CardAbilityDB {
      */
     public function loadCardAbilities($rootName, $cardId) {
         try {
-            $this->ensureSchemaColumns();
+            self::EnsureSchema($this->conn);
             $stmt = mysqli_prepare($this->conn, "
                 SELECT id, macro_name, ability_type, ability_code, prereq_code, listener_zones, ability_name, is_implemented, created_at, updated_at
                 FROM card_abilities
@@ -82,7 +118,7 @@ class CardAbilityDB {
      */
     public function saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $prereqCode = null, $abilityName = null, $isImplemented = 0, $abilityType = 'macro', $listenerZones = null) {
         try {
-            $this->ensureSchemaColumns();
+            self::EnsureSchema($this->conn);
             $abilityType = ($abilityType === 'listener') ? 'listener' : 'macro';
             if ($abilityType !== 'listener') $listenerZones = null;
             if ($id === null) {
@@ -142,7 +178,7 @@ class CardAbilityDB {
      */
     public function getAbilitiesByMacro($rootName, $macroName) {
         try {
-            $this->ensureSchemaColumns();
+            self::EnsureSchema($this->conn);
             $stmt = mysqli_prepare($this->conn, "
                 SELECT card_id, ability_code, prereq_code, ability_name
                 FROM card_abilities
@@ -170,7 +206,7 @@ class CardAbilityDB {
      */
     public function getListenerAbilities($rootName) {
         try {
-            $this->ensureSchemaColumns();
+            self::EnsureSchema($this->conn);
             $stmt = mysqli_prepare($this->conn, "
                 SELECT card_id, macro_name, ability_code, prereq_code, listener_zones, ability_name
                 FROM card_abilities
