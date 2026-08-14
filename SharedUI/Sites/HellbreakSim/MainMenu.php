@@ -121,6 +121,11 @@ if (IsUserLoggedIn()) {
         <span class="hellbreak-eyebrow">&#128161; Did you know?</span>
         <p>The GAMA Demo puts Dracula against Jaws and is ready to play immediately.</p>
       </div>
+      <button class="hellbreak-north-beach-launch" type="button" data-nb-open>
+        <span class="hellbreak-north-beach-sun" aria-hidden="true">&#9728;</span>
+        <span><strong>Visit North Beach</strong><small>Take the new-player tour</small></span>
+        <span aria-hidden="true">&#8594;</span>
+      </button>
       <div class="hellbreak-quick-reference">
         <h3>Quick Reference</h3>
         <div><kbd>?</kbd><span>Open the guided tutorial</span></div>
@@ -196,6 +201,8 @@ if (IsUserLoggedIn()) {
     <button class="hellbreak-button secondary" type="button" onclick="cancelWaitingLobby()">Cancel</button>
   </section>
 </div>
+
+<?php include __DIR__ . '/NorthBeachVignette.php'; ?>
 
 <script src="/TCGEngine/SharedUI/js/private-invite.js"></script>
 <script>

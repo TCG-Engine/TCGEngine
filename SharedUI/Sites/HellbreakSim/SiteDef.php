@@ -19,8 +19,14 @@
     'disclaimerName' => 'Hellbreak Sim',
   ],
   'head' => [
-    'styles' => ['/TCGEngine/SharedUI/Sites/HellbreakSim/css/main-menu.css'],
-    'scripts' => ['/TCGEngine/SharedUI/js/burger-menu.js'],
+    'styles' => [
+      '/TCGEngine/SharedUI/Sites/HellbreakSim/css/main-menu.css',
+      '/TCGEngine/SharedUI/Sites/HellbreakSim/css/north-beach-vignette.css',
+    ],
+    'scripts' => [
+      '/TCGEngine/SharedUI/js/burger-menu.js',
+      '/TCGEngine/SharedUI/Sites/HellbreakSim/js/north-beach-vignette.js',
+    ],
     'fonts' => ['Barlow'],
   ],
   'nav' => [
