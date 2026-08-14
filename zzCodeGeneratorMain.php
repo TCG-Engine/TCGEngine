@@ -159,6 +159,11 @@ foreach ($appRoots as $rootName) {
     ];
 }
 
+// Environment-level, not per-app: every site reaches only its own MySQL server, and shared-database
+// apps (HellbreakDeck runs on hellbreaksim) have no database of their own.
+$configuredDatabase = getenv('MYSQL_DATABASE_NAME') ?: 'swuonline';
+$configuredDatabaseHost = getenv('MYSQL_SERVER_NAME') ?: 'localhost';
+
 $requestedApp = isset($_GET['app']) ? (string)$_GET['app'] : '';
 $hasRequestedApp = false;
 $initialApp = $apps ? $apps[0]['rootName'] : '';
@@ -460,6 +465,17 @@ foreach ($apps as $app) {
                 </div>
             </section>
 
+            <section class="options" id="database-options">
+                <div class="options-title">
+                    <strong>Database</strong>
+                    <small>Create <?= htmlspecialchars($configuredDatabase, ENT_QUOTES, 'UTF-8') ?> and its card tables if missing.</small>
+                </div>
+                <div class="transfer-controls">
+                    <button type="button" class="button button-small" id="ensure-database-button">Set up database</button>
+                </div>
+            </section>
+            <p class="transfer-status" id="database-status" role="status" aria-live="polite"></p>
+
             <section class="options" id="ability-transfer-options">
                 <div class="options-title">
                     <strong>Card ability SQL</strong>
@@ -533,6 +549,8 @@ const importCardDataButton = document.getElementById('import-card-data-button');
 const importCardDataFile = document.getElementById('import-card-data-file');
 const includeArt = document.getElementById('include-art');
 const cardDataTransferStatus = document.getElementById('card-data-transfer-status');
+const ensureDatabaseButton = document.getElementById('ensure-database-button');
+const databaseStatus = document.getElementById('database-status');
 const cropTesterLink = document.getElementById('crop-tester-link');
 const outputs = new Map();
 const runStates = new Map();
@@ -736,6 +754,7 @@ function render() {
     exportCardDataButton.disabled = pipelineRunning || transferRunning;
     importCardDataButton.disabled = pipelineRunning || transferRunning;
     includeArt.disabled = pipelineRunning || transferRunning;
+    ensureDatabaseButton.disabled = pipelineRunning || transferRunning;
     cancelButton.hidden = !pipelineRunning;
     renderActions();
 }
@@ -838,6 +857,38 @@ async function importAbilities() {
         transferRunning = false;
         importApp = null;
         importAbilitiesFile.value = '';
+        render();
+    }
+}
+
+async function ensureDatabase() {
+    if (pipelineRunning || transferRunning) return;
+    transferRunning = true;
+    render();
+    databaseStatus.textContent = 'Checking database…';
+    databaseStatus.dataset.kind = '';
+    try {
+        const form = new FormData();
+        form.set('csrf', generatorAdminCsrf);
+        const response = await fetch('DevTools/AdminEnsureDatabase.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: form,
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.success) throw new Error(payload.error || `Database setup failed with HTTP ${response.status}`);
+
+        const made = [];
+        if (payload.databaseCreated) made.push(`created database ${payload.database}`);
+        if (payload.tableCreated) made.push('created card_abilities');
+        const summary = made.length ? made.join(', ') : 'already up to date';
+        databaseStatus.textContent = `${payload.database} on ${payload.host}: ${summary} (${payload.abilityRows} ability rows).`;
+        databaseStatus.dataset.kind = 'success';
+    } catch (error) {
+        databaseStatus.textContent = error.message || 'Database setup failed.';
+        databaseStatus.dataset.kind = 'error';
+    } finally {
+        transferRunning = false;
         render();
     }
 }
@@ -1054,6 +1105,7 @@ bannerCancelButton.addEventListener('click', cancelRun);
 exportAbilitiesButton.addEventListener('click', exportAbilities);
 importAbilitiesButton.addEventListener('click', chooseAbilityImport);
 importAbilitiesFile.addEventListener('change', importAbilities);
+ensureDatabaseButton.addEventListener('click', ensureDatabase);
 exportCardDataButton.addEventListener('click', exportCardData);
 importCardDataButton.addEventListener('click', chooseCardDataImport);
 importCardDataFile.addEventListener('change', importCardData);
