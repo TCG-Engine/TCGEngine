@@ -9,7 +9,7 @@ if (IsUserLoggedIn()) {
   $conn = GetLocalMySQLConnection();
   if ($conn) {
     $userID = (string)LoggedInUser();
-    $stmt = $conn->prepare('SELECT assetIdentifier, assetName, keyIndicator1, keyIndicator2, lastUpdated FROM ownership WHERE assetType = 1 AND assetOwner = ? AND assetStatus = 1 ORDER BY assetIdentifier DESC');
+    $stmt = $conn->prepare('SELECT assetIdentifier, assetName, keyIndicator1, keyIndicator2, assetFolder, lastUpdated FROM ownership WHERE assetType = 1 AND assetOwner = ? AND assetStatus = 1 ORDER BY (assetFolder = 1) DESC, assetIdentifier DESC');
     if ($stmt) {
       $stmt->bind_param('s', $userID);
       $stmt->execute();
@@ -51,36 +51,40 @@ if (IsUserLoggedIn()) {
       </div>
 
       <div class="hellbreak-library-tabs" role="tablist" aria-label="Deck sources">
-        <span class="is-active">My Decks</span>
-        <span>Starter Decks</span>
+        <button type="button" class="is-active" role="tab" onclick="openHellbreakDeckPicker('saved')">My Decks</button>
+        <button type="button" role="tab" onclick="openHellbreakDeckPicker('starter')">Starter Decks</button>
       </div>
 
       <section class="hellbreak-selected-section" aria-labelledby="hellbreak-selected-title">
         <div class="hellbreak-selected-heading">
           <span id="hellbreak-selected-title"><span aria-hidden="true">&#10022;</span> Selected Deck</span>
-          <label for="hellbreak-match-deck">Change Deck</label>
+          <button type="button" class="hellbreak-change-deck" onclick="openHellbreakDeckPicker()">Change Deck</button>
         </div>
         <div class="hellbreak-selected-deck">
           <div class="hellbreak-deck-art" aria-hidden="true">
-            <img src="/TCGEngine/HellbreakSim/crops/DOT_001_cropped.png" alt="">
-            <img src="/TCGEngine/HellbreakSim/crops/DOT_006_cropped.png" alt="">
+            <img id="hellbreak-selected-art-primary" src="/TCGEngine/HellbreakSim/crops/DOT_001_cropped.png" alt="">
+            <img id="hellbreak-selected-art-secondary" src="/TCGEngine/HellbreakSim/crops/DOT_006_cropped.png" alt="">
           </div>
           <div class="hellbreak-selected-copy">
             <strong id="hellbreak-selected-name">GAMA Demo</strong>
             <span id="hellbreak-selected-details">Dracula vs. Jaws</span>
             <small><b id="hellbreak-selected-count">40 cards</b><b>Standard</b></small>
           </div>
-          <select id="hellbreak-match-deck" aria-label="Deck for this match">
-            <option value="preset:HellbreakGamaDemo" data-name="GAMA Demo" data-details="Dracula vs. Jaws" data-count="40 cards">GAMA Demo - Dracula vs. Jaws (40 cards)</option>
-            <option value="preset:HellbreakFixture" data-name="Engine Fixture" data-details="Development decks" data-count="24 cards">Engine fixture (24 cards)</option>
+          <select id="hellbreak-match-deck" class="hellbreak-native-deck-select" aria-label="Deck for this match">
+            <option value="preset:HellbreakGamaDemo" data-kind="starter" data-name="GAMA Demo" data-details="Dracula vs. Jaws" data-count="40 cards" data-primary-art="DOT_001" data-secondary-art="DOT_006">GAMA Demo - Dracula vs. Jaws (40 cards)</option>
+            <option value="preset:HellbreakFixture" data-kind="starter" data-name="Engine Fixture" data-details="Development decks" data-count="24 cards" data-primary-art="DOT_001" data-secondary-art="DOT_006">Engine fixture (24 cards)</option>
             <?php foreach ($decks as $deck):
               $choiceID = (string)$deck['assetIdentifier'];
               $choiceName = trim((string)($deck['assetName'] ?? '')) ?: 'Hellbreak Deck #' . $choiceID;
+              $monsterID = trim((string)($deck['keyIndicator1'] ?? ''));
+              $locationID = trim((string)($deck['keyIndicator2'] ?? ''));
+              $isFavorite = intval($deck['assetFolder'] ?? 0) === 1;
             ?>
-              <option value="hellbreakdeck:<?php echo htmlspecialchars($choiceID, ENT_QUOTES); ?>" data-name="<?php echo htmlspecialchars($choiceName, ENT_QUOTES); ?>" data-details="Saved Hellbreak deck" data-count="Custom list"><?php echo htmlspecialchars($choiceName, ENT_QUOTES); ?></option>
+              <option value="hellbreakdeck:<?php echo htmlspecialchars($choiceID, ENT_QUOTES); ?>" data-kind="saved" data-deck-id="<?php echo htmlspecialchars($choiceID, ENT_QUOTES); ?>" data-name="<?php echo htmlspecialchars($choiceName, ENT_QUOTES); ?>" data-details="Saved Hellbreak deck" data-count="Custom list" data-favorite="<?php echo $isFavorite ? '1' : '0'; ?>" data-primary-art="<?php echo htmlspecialchars($monsterID, ENT_QUOTES); ?>" data-secondary-art="<?php echo htmlspecialchars($locationID, ENT_QUOTES); ?>"><?php echo htmlspecialchars($choiceName, ENT_QUOTES); ?></option>
             <?php endforeach; ?>
           </select>
           <span class="hellbreak-selected-check" aria-label="Selected">&#10003;</span>
+          <div id="hellbreak-selected-actions" class="hellbreak-selected-actions" aria-label="Selected deck actions" hidden></div>
         </div>
       </section>
 
@@ -126,6 +130,58 @@ if (IsUserLoggedIn()) {
   </div>
 </main>
 
+<div id="hellbreak-deck-picker" class="hellbreak-deck-picker" aria-hidden="true">
+  <button type="button" class="hellbreak-deck-picker-backdrop" onclick="closeHellbreakDeckPicker()" aria-label="Close deck picker"></button>
+  <section class="hellbreak-deck-picker-dialog" role="dialog" aria-modal="true" aria-labelledby="hellbreak-deck-picker-title">
+    <button type="button" class="hellbreak-deck-picker-close" onclick="closeHellbreakDeckPicker()" aria-label="Close deck picker">&times;</button>
+    <span class="hellbreak-eyebrow">Deck Library</span>
+    <h2 id="hellbreak-deck-picker-title">Choose a Deck</h2>
+    <p>Select the deck you want to use for your next game.</p>
+
+    <div class="hellbreak-picker-tabs" role="tablist" aria-label="Deck sources">
+      <button type="button" role="tab" data-picker-tab="saved" onclick="switchHellbreakDeckPickerGroup('saved')">My Decks</button>
+      <button type="button" role="tab" data-picker-tab="starter" onclick="switchHellbreakDeckPickerGroup('starter')">Starter Decks</button>
+    </div>
+
+    <section class="hellbreak-picker-group" data-picker-group="saved">
+      <h3>My Decks</h3>
+      <div class="hellbreak-picker-grid">
+        <?php if ($decks): foreach ($decks as $deck):
+          $pickerID = (string)$deck['assetIdentifier'];
+          $pickerName = trim((string)($deck['assetName'] ?? '')) ?: 'Hellbreak Deck #' . $pickerID;
+          $pickerMonster = trim((string)($deck['keyIndicator1'] ?? '')) ?: 'DOT_001';
+          $pickerLocation = trim((string)($deck['keyIndicator2'] ?? '')) ?: 'DOT_006';
+        ?>
+          <button type="button" class="hellbreak-picker-option" data-deck-value="hellbreakdeck:<?php echo htmlspecialchars($pickerID, ENT_QUOTES); ?>" onclick="chooseHellbreakDeck(this.dataset.deckValue)">
+            <span class="hellbreak-picker-art" aria-hidden="true">
+              <img src="/TCGEngine/HellbreakSim/crops/<?php echo rawurlencode($pickerMonster); ?>_cropped.png" alt="">
+              <img src="/TCGEngine/HellbreakSim/crops/<?php echo rawurlencode($pickerLocation); ?>_cropped.png" alt="">
+            </span>
+            <span><strong><?php echo htmlspecialchars($pickerName, ENT_QUOTES); ?></strong><small>Saved Hellbreak deck</small></span>
+            <span class="hellbreak-picker-check" aria-hidden="true">&#10003;</span>
+          </button>
+        <?php endforeach; else: ?>
+          <div class="hellbreak-picker-empty">No saved decks yet. Create one to add it here.</div>
+        <?php endif; ?>
+      </div>
+    </section>
+
+    <section class="hellbreak-picker-group" data-picker-group="starter">
+      <h3>Starter Decks</h3>
+      <div class="hellbreak-picker-grid">
+        <button type="button" class="hellbreak-picker-option" data-deck-value="preset:HellbreakGamaDemo" onclick="chooseHellbreakDeck(this.dataset.deckValue)">
+          <span class="hellbreak-picker-art" aria-hidden="true"><img src="/TCGEngine/HellbreakSim/crops/DOT_001_cropped.png" alt=""><img src="/TCGEngine/HellbreakSim/crops/DOT_006_cropped.png" alt=""></span>
+          <span><strong>GAMA Demo</strong><small>Dracula vs. Jaws &middot; 40 cards</small></span><span class="hellbreak-picker-check" aria-hidden="true">&#10003;</span>
+        </button>
+        <button type="button" class="hellbreak-picker-option" data-deck-value="preset:HellbreakFixture" onclick="chooseHellbreakDeck(this.dataset.deckValue)">
+          <span class="hellbreak-picker-art" aria-hidden="true"><img src="/TCGEngine/HellbreakSim/crops/DOT_001_cropped.png" alt=""><img src="/TCGEngine/HellbreakSim/crops/DOT_006_cropped.png" alt=""></span>
+          <span><strong>Engine Fixture</strong><small>Development decks &middot; 24 cards</small></span><span class="hellbreak-picker-check" aria-hidden="true">&#10003;</span>
+        </button>
+      </div>
+    </section>
+  </section>
+</div>
+
 <div id="hellbreak-lobby-modal" class="hellbreak-modal" hidden>
   <div class="hellbreak-modal-backdrop" onclick="cancelWaitingLobby()"></div>
   <section class="hellbreak-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="hellbreak-modal-title">
@@ -152,6 +208,8 @@ if (IsUserLoggedIn()) {
   var privateInviteCode = '';
   var pollTimer = null;
   var lastGameKey = 'tcgengine:lastSimGame:' + rootName;
+  var selectedDeckKey = 'tcgengine:selectedDeck:' + rootName;
+  var deckPickerPreviousFocus = null;
 
   function appBase() {
     var path = location.pathname;
@@ -224,7 +282,139 @@ if (IsUserLoggedIn()) {
     document.getElementById('hellbreak-selected-name').textContent = option.dataset.name || option.textContent;
     document.getElementById('hellbreak-selected-details').textContent = option.dataset.details || 'Ready for setup';
     document.getElementById('hellbreak-selected-count').textContent = option.dataset.count || 'Custom list';
+
+    var primaryArt = document.getElementById('hellbreak-selected-art-primary');
+    var secondaryArt = document.getElementById('hellbreak-selected-art-secondary');
+    var fallbackPrimary = 'DOT_001';
+    var fallbackSecondary = 'DOT_006';
+    primaryArt.src = '/TCGEngine/HellbreakSim/crops/' + encodeURIComponent(option.dataset.primaryArt || fallbackPrimary) + '_cropped.png';
+    secondaryArt.src = '/TCGEngine/HellbreakSim/crops/' + encodeURIComponent(option.dataset.secondaryArt || fallbackSecondary) + '_cropped.png';
+    primaryArt.onerror = function() { this.onerror = null; this.src = '/TCGEngine/HellbreakSim/crops/' + fallbackPrimary + '_cropped.png'; };
+    secondaryArt.onerror = function() { this.onerror = null; this.src = '/TCGEngine/HellbreakSim/crops/' + fallbackSecondary + '_cropped.png'; };
+
+    var actionBar = document.getElementById('hellbreak-selected-actions');
+    actionBar.replaceChildren();
+    actionBar.hidden = option.dataset.kind !== 'saved';
+    if (!actionBar.hidden) renderSelectedDeckActions(actionBar, option);
+
+    document.querySelectorAll('.hellbreak-picker-option').forEach(function(button) {
+      button.classList.toggle('is-selected', button.dataset.deckValue === option.value);
+    });
+    document.querySelectorAll('.hellbreak-library-tabs button').forEach(function(button, index) {
+      button.classList.toggle('is-active', option.dataset.kind === (index === 0 ? 'saved' : 'starter'));
+    });
+    try { localStorage.setItem(selectedDeckKey, option.value); } catch (error) {}
   }
+
+  function actionIcon(control, icon, label) {
+    control.title = label;
+    control.setAttribute('aria-label', label);
+    control.innerHTML = '<img src="/TCGEngine/Assets/Images/Zendo/UIIconsRaster/' + icon + '.webp?v=4" alt="" aria-hidden="true">';
+    return control;
+  }
+
+  function runDeckAction(url, successMessage) {
+    fetch(url, { credentials: 'same-origin' })
+      .then(function(response) { if (!response.ok) throw new Error('Request failed'); return response.json(); })
+      .then(function(payload) {
+        if (payload && payload.error) throw new Error(payload.error);
+        if (successMessage && window.Toast) Toast(successMessage, { type: 'success' });
+        window.location.reload();
+      })
+      .catch(function(error) { if (window.Toast) Toast(error.message || 'That deck action failed.', { type: 'danger' }); });
+  }
+
+  function copyDeckLink(deckID) {
+    var link = location.origin + '/TCGEngine/NextTurn.php?gameName=' + encodeURIComponent(deckID) + '&playerID=1&folderPath=HellbreakDeck';
+    var copy = navigator.clipboard && navigator.clipboard.writeText
+      ? navigator.clipboard.writeText(link)
+      : new Promise(function(resolve) {
+          var input = document.createElement('input');
+          input.value = link;
+          document.body.appendChild(input);
+          input.select();
+          document.execCommand('copy');
+          input.remove();
+          resolve();
+        });
+    copy.then(function() { if (window.Toast) Toast('Deck link copied!', { type: 'success' }); })
+      .catch(function() { if (window.Toast) Toast('Could not copy the deck link.', { type: 'danger' }); });
+  }
+
+  function renderSelectedDeckActions(actionBar, option) {
+    var deckID = option.dataset.deckId;
+    var favorite = option.dataset.favorite === '1';
+    var edit = actionIcon(document.createElement('a'), 'edit', 'Edit deck');
+    edit.href = '/TCGEngine/NextTurn.php?gameName=' + encodeURIComponent(deckID) + '&playerID=1&folderPath=HellbreakDeck';
+    actionBar.appendChild(edit);
+
+    var favoriteButton = actionIcon(document.createElement('button'), 'star', favorite ? 'Remove from favorites' : 'Add to favorites');
+    favoriteButton.type = 'button';
+    favoriteButton.onclick = function() {
+      runDeckAction('/TCGEngine/AccountFiles/MoveAsset.php?assetID=' + encodeURIComponent(deckID) + '&assetType=1&folderID=' + (favorite ? '0' : '1'), favorite ? 'Removed from favorites.' : 'Added to favorites.');
+    };
+    actionBar.appendChild(favoriteButton);
+
+    var linkButton = actionIcon(document.createElement('button'), 'link', 'Copy deck link');
+    linkButton.type = 'button';
+    linkButton.onclick = function() { copyDeckLink(deckID); };
+    actionBar.appendChild(linkButton);
+
+    var deleteButton = actionIcon(document.createElement('button'), 'trash', 'Delete deck');
+    deleteButton.type = 'button';
+    deleteButton.className = 'danger';
+    deleteButton.onclick = function() {
+      StyledConfirm('Are you sure you want to delete this deck?', { title: 'Delete deck', danger: true, confirmLabel: 'Delete' }).then(function(ok) {
+        if (!ok) return;
+        runDeckAction('/TCGEngine/AccountFiles/DeleteAsset.php?assetID=' + encodeURIComponent(deckID) + '&assetType=1');
+      });
+    };
+    actionBar.appendChild(deleteButton);
+  }
+
+  window.switchHellbreakDeckPickerGroup = function(group) {
+    var modal = document.getElementById('hellbreak-deck-picker');
+    if (!modal) return;
+    modal.querySelectorAll('.hellbreak-picker-group').forEach(function(section) {
+      section.hidden = section.dataset.pickerGroup !== group;
+    });
+    modal.querySelectorAll('[data-picker-tab]').forEach(function(tab) {
+      var active = tab.dataset.pickerTab === group;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      tab.tabIndex = active ? 0 : -1;
+    });
+  };
+
+  window.openHellbreakDeckPicker = function(group) {
+    var modal = document.getElementById('hellbreak-deck-picker');
+    var select = document.getElementById('hellbreak-match-deck');
+    if (!modal) return;
+    deckPickerPreviousFocus = document.activeElement;
+    if (!group && select && select.selectedIndex >= 0) group = select.options[select.selectedIndex].dataset.kind;
+    switchHellbreakDeckPickerGroup(group === 'starter' ? 'starter' : 'saved');
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('hellbreak-picker-open');
+    modal.querySelector('.hellbreak-deck-picker-close').focus();
+  };
+
+  window.closeHellbreakDeckPicker = function() {
+    var modal = document.getElementById('hellbreak-deck-picker');
+    if (!modal || !modal.classList.contains('is-open')) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('hellbreak-picker-open');
+    if (deckPickerPreviousFocus && typeof deckPickerPreviousFocus.focus === 'function') deckPickerPreviousFocus.focus();
+  };
+
+  window.chooseHellbreakDeck = function(value) {
+    var select = document.getElementById('hellbreak-match-deck');
+    if (!select || !Array.from(select.options).some(function(option) { return option.value === value; })) return;
+    select.value = value;
+    updateSelectedDeck();
+    closeHellbreakDeckPicker();
+  };
 
   function showWaiting(message, inviteLink) {
     document.getElementById('hellbreak-modal-message').textContent = message || 'Waiting for an opponent...';
@@ -374,8 +564,16 @@ if (IsUserLoggedIn()) {
 
   document.addEventListener('DOMContentLoaded', function() {
     updateRejoin();
+    var deckSelect = document.getElementById('hellbreak-match-deck');
+    var rememberedDeck = '';
+    try { rememberedDeck = localStorage.getItem(selectedDeckKey) || ''; } catch (error) {}
+    var rememberedOption = Array.from(deckSelect.options).find(function(option) { return option.value === rememberedDeck; });
+    var firstSavedOption = Array.from(deckSelect.options).find(function(option) { return option.dataset.kind === 'saved'; });
+    if (rememberedOption) deckSelect.value = rememberedOption.value;
+    else if (firstSavedOption) deckSelect.value = firstSavedOption.value;
     updateSelectedDeck();
-    document.getElementById('hellbreak-match-deck').addEventListener('change', updateSelectedDeck);
+    deckSelect.addEventListener('change', updateSelectedDeck);
+    document.addEventListener('keydown', function(event) { if (event.key === 'Escape') closeHellbreakDeckPicker(); });
     refreshActiveGames();
     privateInviteCode = window.PrivateInviteUI ? window.PrivateInviteUI.init({
       rootName: rootName,
