@@ -18,9 +18,29 @@
     return $_SESSION["useruid"];
   }
 
+  // Developer-only tools may bypass account auth when explicitly opted in through DEVENV, or
+  // when the HTTP request is loopback at both ends. Requiring both REMOTE_ADDR and Host to be
+  // local prevents a forged Host header from enabling the bypass on a hosted environment.
+  function IsLocalDevelopmentRequest()
+  {
+    if (strtolower(trim(strval(getenv('DEVENV')))) === 'true') return true;
+
+    $remoteAddr = strtolower(trim(strval($_SERVER['REMOTE_ADDR'] ?? '')));
+    $host = strtolower(trim(strval($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '')));
+    if (substr($host, 0, 1) === '[') {
+      $closeBracket = strpos($host, ']');
+      if ($closeBracket !== false) $host = substr($host, 0, $closeBracket + 1);
+    } else {
+      $host = preg_replace('/:\d+$/', '', $host);
+    }
+
+    return in_array($remoteAddr, ['127.0.0.1', '::1'], true)
+      && in_array($host, ['localhost', '127.0.0.1', '::1', '[::1]'], true);
+  }
+
   function CheckLoggedInUserMod()
   {
-    if (getenv('DEVENV') === 'true') return '';
+    if (IsLocalDevelopmentRequest()) return '';
 
     if(!IsUserLoggedIn()) {
       return "You must be logged in to use this";
