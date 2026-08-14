@@ -157,6 +157,57 @@ P1DECKTOPCARD:SOR_046
 
 ---
 
+# LeaderAction_ExhaustedUpgradeResource_StillPlayable
+#// Bug #955 (game 3324): an EXHAUSTED upgrade in the resource zone was wrongly filtered by the
+#// affordability gate. The gate required cost < ready capacity ("need OTHER resources to pay"), but an
+#// exhausted resource never contributed to that capacity, so removing it from the zone costs nothing —
+#// cost <= ready is enough. Here P1 plays LAW_070 (cost 2), which exhausts ASH_084 Arcana Star Map and
+#// one SOR_046 (payment exhausts in zone order), leaving 1 ready resource. The Armorer must still be
+#// able to play the cost-1 map from resources onto the just-played unit and ramp the deck top.
+## GIVEN
+CommonSetup: ybw/brk/{myLeader:ASH_001}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1:ASH_084:1,2:SOR_046:1
+WithP1Hand: LAW_070
+WithP1Deck: [SOR_063]
+## WHEN
+- P1>PlayHand:0
+- P1>UseLeaderAbility
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_070
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:ASH_084
+P1LEADER:EXHAUSTED
+P1DECKCOUNT:0
+
+---
+
+# Deployed_AttackEnd_ExhaustedUpgradeResource_StillPlayable
+#// Same gate on the deployed side (When Attack Ends): the upgrade sitting in resources is EXHAUSTED
+#// (status 0), one other resource is ready — cost 1 equals the ready capacity, so the play is legal and
+#// must be offered. The Armorer attacks the base, plays the exhausted Arcana Star Map onto SEC_080,
+#// and resources the deck top.
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:ASH_001:1:1:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1Resources: 1:ASH_084:0,1:SOR_046:1
+WithP1Deck: SOR_237
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:ASH_084
+P1DECKCOUNT:0
+
+---
+
 # LeaderAction_SoftPass_UpgradesInHandDiscardNotValidSources
 #// ASH_001 The Armorer (leader Action) — the ONLY valid upgrade source is the resource zone. With a unit that
 #// entered play this phase, upgrades sitting in HAND and DISCARD, but only a unit in resources, the ability has

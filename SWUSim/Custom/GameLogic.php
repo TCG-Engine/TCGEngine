@@ -3122,9 +3122,21 @@ function _SWUCreateOneToken(int $player, string $tokenID, bool $ready = false): 
     }
     // Shielded (e.g. ASH_T01 Mandalorian token, or a Vehicle token while JTL_047 Yularen grants Shielded)
     // applies when the unit enters play, including by being created — give it a Shield token now. Creation
-    // is NOT "playing", so other entry triggers (WhenPlayed/Ambush) deliberately don't fire here.
+    // is NOT "playing", so WhenPlayed entry triggers deliberately don't fire here.
     if ($newCard !== null && empty($newCard->removed) && HasKeyword_Shielded($newCard)) {
         DoGiveShieldToken($player, $newCard->GetMzID());
+    }
+    // AMBUSH fires on creation too (USER RULING 2026-08-13, the Wedge SOR_100 case: a created Vehicle
+    // token under Wedge's aura gets its Ambush attack). Mirror the play-path collection: live keyword
+    // check (grants included), units-only targets, UID carried so dispatch re-resolves fresh.
+    if ($newCard !== null && empty($newCard->removed) && HasKeyword_Ambush($newCard)) {
+        $ambushTargets = SWUGetAllValidAmbushTargets($player, $newCard, CardTargetArena($tokenID) === 'SpaceArena' ? 'SpaceArena' : 'GroundArena');
+        if (!empty($ambushTargets)) {
+            AddTrigger($player, 'Ambush', $tokenID, $newCard->GetMzID(), (string)$uid);
+            // Creation can run on paths whose ceremony never flushes the reaction bag (the
+            // bagged-but-never-flushed family) — flush explicitly so the Ambush offer surfaces.
+            FlushTriggerBag($player);
+        }
     }
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
     AddGlobalEffects(intval($player), 'SWU_ENTERED_PHASE_' . intval($uid)); // TS26_02/004 "entered play this phase (incl. tokens)"

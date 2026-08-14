@@ -137,3 +137,54 @@ P1SPACEARENAUNIT:0:HP:3
 P1GROUNDARENAUNIT:1:CARDID:JTL_099
 P1GROUNDARENAUNIT:1:POWER:2
 P1GROUNDARENAUNIT:1:HP:1
+
+---
+
+# TokenVehicle_CreatedUnderWedge_AmbushFires
+#// USER RULING (2026-08-13): Wedge's granted Ambush DOES fire for a CREATED Vehicle token. Veteran
+#// Fleet Officer's When Played creates the X-Wing token (2/2 -> 3/3 under Wedge); the Ambush offer
+#// appears, YES readies it and it attacks the enemy space unit: SHD_060 (2/5) takes 3 and survives
+#// at 3 damage; the 3/3 token takes 2 back, survives exhausted.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/rrk
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1GroundArena: SOR_100:1:0
+WithP1Hand: JTL_099
+WithP2SpaceArena: SHD_060:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:DAMAGE:3
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_T02
+P1SPACEARENAUNIT:0:DAMAGE:2
+P1SPACEARENAUNIT:0:EXHAUSTED
+
+---
+
+# TokenVehicle_CreatedWithoutWedge_NoAmbushPrompt
+#// The control: without Wedge (no Ambush grant) the created token raises NO prompt at all.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/rrk
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1Hand: JTL_099
+WithP2SpaceArena: SHD_060:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1SPACEARENAUNIT:0:CARDID:JTL_T02
+P1SPACEARENAUNIT:0:EXHAUSTED
+P2SPACEARENAUNIT:0:DAMAGE:0

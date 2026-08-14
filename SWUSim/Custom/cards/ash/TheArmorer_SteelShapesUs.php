@@ -29,7 +29,11 @@ $leaderAbilities["ASH_001"] = function(int $player): void {
         $here = $pos; $pos++;
         $cid = $resources[$i]->CardID ?? '';
         if (strpos(CardType($cid) ?? '', 'Upgrade') === false) continue;
-        if (SWUComputePlayCost($player, $resources[$i]) >= $ready) continue;   // need OTHER resources to pay
+        // The upgrade leaves the zone, so it can't pay for itself — but only a READY resource ever
+        // contributed to $ready. Bug #955: an EXHAUSTED upgrade (it helped pay for the unit it now
+        // wants to attach to) was wrongly priced as if removing it cost a ready resource.
+        $selfReady = intval($resources[$i]->Status ?? 0) === 1 ? 1 : 0;
+        if (SWUComputePlayCost($player, $resources[$i]) > $ready - $selfReady) continue;
         $validHosts = SWUGetUpgradeValidTargets($player, $cid);
         $ok = false;
         foreach ($hosts as $h) { if (in_array($h, $validHosts, true)) { $ok = true; break; } }
@@ -112,7 +116,10 @@ $onAttackEndAbilities["ASH_001:0"] = function($player, $mzID) {
         $here = $pos; $pos++;
         $cid = $resources[$i]->CardID ?? '';
         if (strpos(CardType($cid) ?? '', 'Upgrade') === false) continue;
-        if (SWUComputePlayCost(intval($player), $resources[$i]) >= $ready) continue;   // need OTHER resources to pay
+        // Same gate as the front side: only a READY upgrade resource reduces the payable pool by
+        // leaving the zone; an exhausted one plays for cost <= ready (bug #955).
+        $selfReady = intval($resources[$i]->Status ?? 0) === 1 ? 1 : 0;
+        if (SWUComputePlayCost(intval($player), $resources[$i]) > $ready - $selfReady) continue;
         $validHosts = SWUGetUpgradeValidTargets(intval($player), $cid);
         $ok = false;
         foreach ($hosts as $h) { if (in_array($h, $validHosts, true)) { $ok = true; break; } }
