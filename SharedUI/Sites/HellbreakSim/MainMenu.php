@@ -2,17 +2,7 @@
 include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
-include_once __DIR__ . '/../../../HellbreakSim/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/Header.php';
-
-$cardCount = count(GetAllCardIds());
-$browseImages = glob(__DIR__ . '/../../../HellbreakSim/concat/*.webp') ?: [];
-$browseImageCount = count(array_filter($browseImages, function($path) {
-  $name = pathinfo($path, PATHINFO_FILENAME);
-  return !preg_match('/_(back|token)$/', $name)
-    && (!function_exists('CardReviewStatus') || CardReviewStatus($name) !== 'rejected')
-    && filesize($path) >= 8000;
-}));
 
 $decks = [];
 if (IsUserLoggedIn()) {
@@ -35,78 +25,79 @@ if (IsUserLoggedIn()) {
 }
 ?>
 <main class="hellbreak-shell">
-  <header class="hellbreak-menu-heading">
-    <div>
-      <span class="hellbreak-kicker">Deck Builder &amp; Simulator</span>
-      <h2>Enter the Horror</h2>
-      <p>Build a deck, start a fixture match, or meet another player in the queue.</p>
-    </div>
-    <div class="hellbreak-status">
-      <span class="hellbreak-badge"><?php echo $cardCount; ?> cards</span>
-      <span class="hellbreak-badge"><?php echo $browseImageCount; ?> playable images</span>
-    </div>
-  </header>
-
   <div class="hellbreak-menu-grid">
     <section class="hellbreak-panel hellbreak-active-panel">
       <div class="hellbreak-panel-heading">
-        <div><span class="hellbreak-eyebrow">Live table</span><h3>Active Games <strong id="active-game-count">0</strong></h3></div>
+        <h3><span class="hellbreak-heading-icon" aria-hidden="true">&#9813;</span> Active Games <strong id="active-game-count">0</strong></h3>
         <button class="hellbreak-icon-button" type="button" onclick="refreshActiveGames(this)" aria-label="Refresh active games">&#8635;</button>
       </div>
       <button id="rejoin-last-game" class="hellbreak-rejoin" type="button" onclick="rejoinLastGame()" hidden>
         <span aria-hidden="true">&#8617;</span><span><strong>Rejoin recent game</strong><small id="rejoin-last-game-note"></small></span>
       </button>
       <div id="active-games-list" class="hellbreak-active-list">
-        <div class="hellbreak-empty">No active public games right now.</div>
+        <div class="hellbreak-empty hellbreak-active-empty"><span aria-hidden="true">&#9876;</span><strong>No active games right now.</strong><small>Start one or refresh again in a moment.</small></div>
       </div>
     </section>
 
     <section class="hellbreak-panel hellbreak-play-panel">
-      <div class="hellbreak-panel-heading">
-        <div><span class="hellbreak-eyebrow">Prepare a match</span><h3>Ready to Play?</h3></div>
-        <span class="hellbreak-foundation-badge">Milestone 7</span>
+      <div class="hellbreak-workspace-heading">
+        <h2>Prepare a Deck</h2>
+        <span>Build or choose a deck to begin your match</span>
       </div>
 
-      <div class="hellbreak-fixture-preview">
-        <div class="hellbreak-fixture-card">
-          <img src="/TCGEngine/HellbreakSim/crops/DOT_001_cropped.png" alt="Dracula">
-          <span><small>Player 1</small><strong>Dracula</strong><em>Carfax Abbey</em></span>
-        </div>
-        <span class="hellbreak-versus">VS</span>
-        <div class="hellbreak-fixture-card">
-          <img src="/TCGEngine/HellbreakSim/crops/DOT_006_cropped.png" alt="Jaws">
-          <span><small>Player 2</small><strong>Jaws</strong><em>North Beach</em></span>
-        </div>
+      <div class="hellbreak-library-heading">
+        <h3><span class="hellbreak-heading-icon" aria-hidden="true">&#9638;</span> Deck Library</h3>
+        <?php if (IsUserLoggedIn()): ?><a class="hellbreak-create-deck" href="/TCGEngine/HellbreakDeck/CreateDeck.php"><span aria-hidden="true">+</span> Create Deck</a><?php endif; ?>
       </div>
 
-      <p class="hellbreak-fixture-note">Play the supplied 40-card GAMA demo decks on the production table. Dracula faces Jaws with their original demo locations and card quantities.</p>
+      <div class="hellbreak-library-tabs" role="tablist" aria-label="Deck sources">
+        <span class="is-active">My Decks</span>
+        <span>Starter Decks</span>
+      </div>
 
-      <label class="hellbreak-deck-choice" for="hellbreak-match-deck">
-        <span>Deck for this match</span>
-        <select id="hellbreak-match-deck">
-          <option value="preset:HellbreakGamaDemo">GAMA Demo - Dracula vs. Jaws (40 cards)</option>
-          <option value="preset:HellbreakFixture">Engine fixture (24 cards)</option>
-          <?php foreach ($decks as $deck):
-            $choiceID = (string)$deck['assetIdentifier'];
-            $choiceName = trim((string)($deck['assetName'] ?? '')) ?: 'Hellbreak Deck #' . $choiceID;
-          ?>
-            <option value="hellbreakdeck:<?php echo htmlspecialchars($choiceID, ENT_QUOTES); ?>"><?php echo htmlspecialchars($choiceName, ENT_QUOTES); ?></option>
-          <?php endforeach; ?>
-        </select>
-      </label>
+      <section class="hellbreak-selected-section" aria-labelledby="hellbreak-selected-title">
+        <div class="hellbreak-selected-heading">
+          <span id="hellbreak-selected-title"><span aria-hidden="true">&#10022;</span> Selected Deck</span>
+          <label for="hellbreak-match-deck">Change Deck</label>
+        </div>
+        <div class="hellbreak-selected-deck">
+          <div class="hellbreak-deck-art" aria-hidden="true">
+            <img src="/TCGEngine/HellbreakSim/crops/DOT_001_cropped.png" alt="">
+            <img src="/TCGEngine/HellbreakSim/crops/DOT_006_cropped.png" alt="">
+          </div>
+          <div class="hellbreak-selected-copy">
+            <strong id="hellbreak-selected-name">GAMA Demo</strong>
+            <span id="hellbreak-selected-details">Dracula vs. Jaws</span>
+            <small><b id="hellbreak-selected-count">40 cards</b><b>Standard</b></small>
+          </div>
+          <select id="hellbreak-match-deck" aria-label="Deck for this match">
+            <option value="preset:HellbreakGamaDemo" data-name="GAMA Demo" data-details="Dracula vs. Jaws" data-count="40 cards">GAMA Demo - Dracula vs. Jaws (40 cards)</option>
+            <option value="preset:HellbreakFixture" data-name="Engine Fixture" data-details="Development decks" data-count="24 cards">Engine fixture (24 cards)</option>
+            <?php foreach ($decks as $deck):
+              $choiceID = (string)$deck['assetIdentifier'];
+              $choiceName = trim((string)($deck['assetName'] ?? '')) ?: 'Hellbreak Deck #' . $choiceID;
+            ?>
+              <option value="hellbreakdeck:<?php echo htmlspecialchars($choiceID, ENT_QUOTES); ?>" data-name="<?php echo htmlspecialchars($choiceName, ENT_QUOTES); ?>" data-details="Saved Hellbreak deck" data-count="Custom list"><?php echo htmlspecialchars($choiceName, ENT_QUOTES); ?></option>
+            <?php endforeach; ?>
+          </select>
+          <span class="hellbreak-selected-check" aria-label="Selected">&#10003;</span>
+        </div>
+      </section>
+
+      <div class="hellbreak-ready-label"><span aria-hidden="true">&#10022;</span> Ready to Play?</div>
 
       <div class="hellbreak-game-actions">
-        <button id="start-tutorial-btn" class="hellbreak-game-action primary" type="button" onclick="startTutorial()">
-          <span class="hellbreak-action-icon" aria-hidden="true">?</span><span><strong>Learn to Play</strong><small>Guided quick-start lesson</small></span>
+        <button id="join-queue-btn" class="hellbreak-game-action primary" type="button" onclick="joinQueue()">
+          <span class="hellbreak-action-icon" aria-hidden="true">&#9813;</span><span><strong>Join Queue</strong><small>Find an opponent</small></span>
         </button>
-        <button id="start-fixture-match-btn" class="hellbreak-game-action primary" type="button" onclick="startFixtureMatch()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#9654;</span><span><strong>Solo Quickstart</strong><small>Play Dracula; Jaws automatically passes</small></span>
+        <button id="start-tutorial-btn" class="hellbreak-game-action" type="button" onclick="startTutorial()">
+          <span class="hellbreak-action-icon" aria-hidden="true">?</span><span><strong>Learn to Play</strong><small>Guided quick-start</small></span>
         </button>
-        <button id="join-queue-btn" class="hellbreak-game-action" type="button" onclick="joinQueue()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#9873;</span><span><strong>Join Queue</strong><small>Find another player</small></span>
+        <button id="start-fixture-match-btn" class="hellbreak-game-action" type="button" onclick="startFixtureMatch()">
+          <span class="hellbreak-action-icon" aria-hidden="true">&#9654;</span><span><strong>Play vs. Bot</strong><small>Practice mode</small></span>
         </button>
         <button id="create-private-game-btn" class="hellbreak-game-action" type="button" onclick="createPrivateGame()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#128274;</span><span><strong>Private Game</strong><small>Create a shareable invite</small></span>
+          <span class="hellbreak-action-icon" aria-hidden="true">&#128274;</span><span><strong>Private Game</strong><small>Invite your friends</small></span>
         </button>
         <button id="join-private-invite-btn" class="hellbreak-game-action invite" type="button" onclick="joinPrivateInvite()">
           <span class="hellbreak-action-icon" aria-hidden="true">&#10148;</span><span><strong>Join Private Invite</strong><small>Enter your friend's lobby</small></span>
@@ -116,38 +107,21 @@ if (IsUserLoggedIn()) {
       <div id="queue-inline-error" class="hellbreak-inline-error" role="alert" hidden></div>
     </section>
 
-    <section class="hellbreak-panel hellbreak-deck-panel">
-      <div class="hellbreak-panel-heading">
-        <div><span class="hellbreak-eyebrow">Prepare a deck</span><h3>Deck Library</h3></div>
-        <?php if (IsUserLoggedIn()): ?><a class="hellbreak-button" href="/TCGEngine/HellbreakDeck/CreateDeck.php">Create Deck</a><?php endif; ?>
-      </div>
-      <p class="hellbreak-muted">Saved decks with one monster, two locations, and at least twelve playable main-deck cards can now enter setup.</p>
-      <div class="hellbreak-decks">
-        <?php if ($decks): foreach ($decks as $deck):
-          $deckID = (string)$deck['assetIdentifier'];
-          $deckName = trim((string)($deck['assetName'] ?? '')) ?: 'Hellbreak Deck #' . $deckID;
-          $monster = trim((string)($deck['keyIndicator1'] ?? ''));
-          $location = trim((string)($deck['keyIndicator2'] ?? ''));
-          $details = array_filter([$monster ? (CardName($monster) ?: $monster) : '', $location ? (CardName($location) ?: $location) : '']);
-        ?>
-          <article class="hellbreak-deck">
-            <span><strong><?php echo htmlspecialchars($deckName, ENT_QUOTES); ?></strong><small><?php echo htmlspecialchars($details ? implode(' / ', $details) : 'Choose a Monster and Location', ENT_QUOTES); ?></small></span>
-            <a class="hellbreak-button secondary" href="/TCGEngine/NextTurn.php?gameName=<?php echo rawurlencode($deckID); ?>&amp;playerID=1&amp;folderPath=HellbreakDeck">Edit Deck</a>
-          </article>
-        <?php endforeach; elseif (IsUserLoggedIn()): ?>
-          <div class="hellbreak-empty">No saved decks yet. Create your first Hellbreak list.</div>
-        <?php else: ?>
-          <div class="hellbreak-empty">Log in to create and manage decks.<br><a href="/TCGEngine/SharedUI/Sites/HellbreakSim/LoginPage.php?redirect=%2FTCGEngine%2FSharedUI%2FSites%2FHellbreakSim%2FMainMenu.php">Log in</a></div>
-        <?php endif; ?>
-      </div>
-    </section>
-
     <section class="hellbreak-panel hellbreak-info-panel">
-      <span class="hellbreak-eyebrow">Development status</span>
-      <h3>Production Table Ready</h3>
-      <p>The two-sided battlefield, contested locations, private hands and Health stacks, phase and priority status, public event history, responsive layout, and victory presentation are installed.</p>
-      <div class="hellbreak-info-stats"><span><strong>Milestone 7</strong> table complete</span><span><strong><?php echo $browseImageCount; ?></strong> deck-ready cards</span></div>
-      <a class="hellbreak-text-link" href="/TCGEngine/HellbreakSim/?shell=1">View simulator status</a>
+      <div class="hellbreak-info-tabs"><span class="is-active">Welcome</span></div>
+      <div class="hellbreak-welcome">
+        <h2>Welcome to Hellbreak</h2>
+        <p>A fan-made online simulator for the Hellbreak TCG.</p>
+      </div>
+      <div class="hellbreak-tip">
+        <span class="hellbreak-eyebrow">&#128161; Did you know?</span>
+        <p>The GAMA Demo puts Dracula against Jaws and is ready to play immediately.</p>
+      </div>
+      <div class="hellbreak-quick-reference">
+        <h3>Quick Reference</h3>
+        <div><kbd>?</kbd><span>Open the guided tutorial</span></div>
+        <div><kbd>Esc</kbd><span>Cancel matchmaking</span></div>
+      </div>
     </section>
   </div>
 </main>
@@ -241,6 +215,15 @@ if (IsUserLoggedIn()) {
     }
     note.textContent = 'Game ' + game.gameName + ' / Player ' + game.playerID;
     button.hidden = false;
+  }
+
+  function updateSelectedDeck() {
+    var select = document.getElementById('hellbreak-match-deck');
+    if (!select || !select.options.length) return;
+    var option = select.options[select.selectedIndex];
+    document.getElementById('hellbreak-selected-name').textContent = option.dataset.name || option.textContent;
+    document.getElementById('hellbreak-selected-details').textContent = option.dataset.details || 'Ready for setup';
+    document.getElementById('hellbreak-selected-count').textContent = option.dataset.count || 'Custom list';
   }
 
   function showWaiting(message, inviteLink) {
@@ -371,7 +354,7 @@ if (IsUserLoggedIn()) {
         document.getElementById('active-game-count').textContent = String(games.length);
         var list = document.getElementById('active-games-list');
         if (!games.length) {
-          list.innerHTML = '<div class="hellbreak-empty">No active public games right now.<small>Start one or refresh again in a moment.</small></div>';
+          list.innerHTML = '<div class="hellbreak-empty hellbreak-active-empty"><span aria-hidden="true">&#9876;</span><strong>No active games right now.</strong><small>Start one or refresh again in a moment.</small></div>';
           return;
         }
         list.innerHTML = games.map(function(game) {
@@ -391,6 +374,8 @@ if (IsUserLoggedIn()) {
 
   document.addEventListener('DOMContentLoaded', function() {
     updateRejoin();
+    updateSelectedDeck();
+    document.getElementById('hellbreak-match-deck').addEventListener('change', updateSelectedDeck);
     refreshActiveGames();
     privateInviteCode = window.PrivateInviteUI ? window.PrivateInviteUI.init({
       rootName: rootName,

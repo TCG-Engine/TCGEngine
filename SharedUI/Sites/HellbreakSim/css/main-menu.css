@@ -1,23 +1,461 @@
-/* HellbreakSim menu overrides. Palette comes from the shared `hellish` theme
-   (SharedUI/Themes/hellish.tokens.css), which RenderHead() links ahead of this file from the
-   SiteDef `theme` key. The --hb-* names below are thin local aliases so the layout rules read
-   unchanged; no color is defined here that the theme doesn't own. Buttons, selects, text
-   inputs and checkboxes are left to components.css — do not re-skin them here. */
-:root{--hb-gold:var(--accent);--hb-gold-soft:var(--accent-strong);--hb-red:var(--danger);--hb-panel:var(--surface-raised);--hb-panel-2:rgba(30,23,33,.74);--hb-border:var(--card-border);--hb-muted:var(--text-muted)}
-body{background:radial-gradient(circle at 16% 0,rgba(var(--danger-rgb,185,58,52),.32),transparent 40%),radial-gradient(circle at 95% 40%,rgba(var(--accent-rgb,216,179,106),.14),transparent 38%),linear-gradient(145deg,#0d0910,#170d19 58%,var(--surface,#09070a));min-height:100vh;color:var(--text);font-family:var(--font-body)}
-.nav-bar-links img{width:24px!important;height:24px!important}.nav-bar ul{margin:0}.nav-bar li{list-style:none}.home-header{padding-bottom:16px}.home-header .title h1{letter-spacing:.08em;text-transform:uppercase}.home-header .title p{color:var(--hb-muted)}
-.hellbreak-shell{width:min(1240px,calc(100% - 32px));margin:0 auto 48px}.hellbreak-menu-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:10px 0 20px}.hellbreak-menu-heading h2{font-size:clamp(34px,5vw,58px);line-height:.95;margin:5px 0 10px;text-transform:uppercase;letter-spacing:.02em}.hellbreak-menu-heading p{margin:0;color:var(--hb-muted);font-size:16px}.hellbreak-kicker,.hellbreak-eyebrow{display:block;color:var(--hb-gold);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.hellbreak-status{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.hellbreak-badge,.hellbreak-foundation-badge{border:1px solid var(--hb-border);background:rgba(var(--accent-rgb,216,179,106),.09);border-radius:999px;padding:7px 11px;font-size:13px;white-space:nowrap}
-.hellbreak-menu-grid{display:grid;grid-template-columns:minmax(300px,.85fr) minmax(470px,1.5fr);gap:18px}.hellbreak-panel{min-width:0;background:linear-gradient(155deg,var(--hb-panel-2),var(--hb-panel));border:1px solid var(--hb-border);border-radius:18px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.3);position:relative;overflow:hidden}.hellbreak-panel:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb,216,179,106),.55),transparent)}.hellbreak-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.hellbreak-panel h3{margin:3px 0 0;font-size:24px}.hellbreak-panel h3 strong{display:inline-grid;place-items:center;min-width:25px;height:25px;margin-left:5px;border-radius:99px;background:rgba(255,255,255,.08);font-size:13px;color:var(--hb-gold-soft)}.hellbreak-muted{color:var(--hb-muted);margin:-7px 0 16px}.hellbreak-icon-button{width:37px;height:37px;border-radius:50%;border:1px solid var(--hb-border);background:rgba(255,255,255,.04);color:var(--text);font-size:22px;cursor:pointer}.hellbreak-icon-button.loading{animation:hb-spin .7s linear infinite}@keyframes hb-spin{to{transform:rotate(360deg)}}
-.hellbreak-active-panel{grid-column:1;grid-row:1}.hellbreak-play-panel{grid-column:2;grid-row:1/3}.hellbreak-deck-panel{grid-column:1;grid-row:2/4}.hellbreak-info-panel{grid-column:2;grid-row:3}.hellbreak-active-list,.hellbreak-decks{display:grid;gap:10px}.hellbreak-empty{padding:25px 16px;text-align:center;border:1px dashed rgba(255,255,255,.16);border-radius:12px;color:var(--hb-muted)}.hellbreak-empty small{display:block;margin-top:5px}.hellbreak-empty a{color:var(--hb-gold-soft)}.hellbreak-active-game,.hellbreak-deck{display:flex;align-items:center;justify-content:space-between;gap:13px;padding:13px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.035)}.hellbreak-active-game strong,.hellbreak-active-game small,.hellbreak-deck strong,.hellbreak-deck small{display:block}.hellbreak-active-game small,.hellbreak-deck small{color:var(--hb-muted)}.hellbreak-spectate-actions{display:flex;gap:6px}.hellbreak-spectate-actions button{border:1px solid var(--hb-border);border-radius:7px;background:var(--surface-raised);color:var(--text);padding:6px 8px;cursor:pointer;font-size:12px}.hellbreak-rejoin{width:100%;display:flex;align-items:center;gap:11px;text-align:left;margin:0 0 11px;padding:11px 13px;border:1px solid rgba(var(--accent-rgb,216,179,106),.42);border-radius:11px;background:rgba(var(--accent-rgb,216,179,106),.1);color:var(--text);cursor:pointer}.hellbreak-rejoin[hidden]{display:none}.hellbreak-rejoin>span:first-child{font-size:25px;color:var(--hb-gold)}.hellbreak-rejoin strong,.hellbreak-rejoin small{display:block}.hellbreak-rejoin small{color:var(--hb-muted)}
-.hellbreak-fixture-preview{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;padding:14px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(0,0,0,.18)}.hellbreak-fixture-card{display:flex;align-items:center;gap:12px;min-width:0}.hellbreak-fixture-card:last-child{flex-direction:row-reverse;text-align:right}.hellbreak-fixture-card img{width:78px;height:78px;object-fit:cover;border-radius:11px;border:1px solid rgba(255,255,255,.2)}.hellbreak-fixture-card span,.hellbreak-fixture-card small,.hellbreak-fixture-card strong,.hellbreak-fixture-card em{display:block;min-width:0}.hellbreak-fixture-card small{color:var(--hb-gold);font-size:11px;text-transform:uppercase;letter-spacing:.09em}.hellbreak-fixture-card strong{font-size:20px}.hellbreak-fixture-card em{color:var(--hb-muted);font-size:13px;font-style:normal}.hellbreak-versus{font-weight:900;color:var(--hb-red);font-size:20px}.hellbreak-fixture-note{margin:14px 0;color:var(--hb-muted);line-height:1.45}
-/* The <select> skin (background / border / radius / text) comes from components.css. */
-.hellbreak-deck-choice{display:grid;gap:6px;margin:0 0 14px}.hellbreak-deck-choice span{color:var(--hb-gold-soft);font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.hellbreak-deck-choice select{width:100%;padding:10px 12px}
-.hellbreak-game-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hellbreak-game-action{display:flex!important;align-items:center;gap:12px;min-height:68px;padding:12px 14px;border:1px solid var(--hb-border);border-radius:11px;background:var(--surface-raised);color:var(--text);text-align:left;cursor:pointer}.hellbreak-game-action.primary{grid-column:1/-1;background:linear-gradient(180deg,#7b2943,#4a192a);border-color:var(--accent-strong)}.hellbreak-game-action.invite{grid-column:1/-1;background:linear-gradient(180deg,#77522d,#49321d)}.hellbreak-game-action[hidden]{display:none!important}.hellbreak-game-action:hover{filter:brightness(1.12);transform:translateY(-1px)}.hellbreak-game-action strong,.hellbreak-game-action small{display:block}.hellbreak-game-action strong{font-size:16px}.hellbreak-game-action small{margin-top:2px;color:var(--hb-muted)}.hellbreak-action-icon{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:rgba(255,255,255,.08);color:var(--hb-gold-soft)}.hellbreak-inline-notice,.hellbreak-inline-error{margin-top:11px;padding:10px 12px;border-radius:9px;font-size:13px}.hellbreak-inline-notice{background:rgba(89,168,113,.12);color:var(--on-success)}.hellbreak-inline-error{background:rgba(218,70,87,.13);color:var(--on-danger)}.hellbreak-inline-notice[hidden],.hellbreak-inline-error[hidden]{display:none}
-/* .hellbreak-button is an <a>, so the bare-element alias in components.css can't reach it;
-   it mirrors the .btn token contract by hand instead of redefining the look. */
-.hellbreak-button{display:inline-flex;align-items:center;justify-content:center;padding:var(--btn-pad);border:var(--btn-bw) solid var(--btn-border);border-radius:var(--btn-radius);background:var(--btn-surface);color:var(--btn-text)!important;text-decoration:none;font-weight:700;white-space:nowrap;transition:background .2s,border-color .2s,transform .12s}.hellbreak-button:hover{background:var(--btn-hover-surface);border-color:var(--btn-hover-border);transform:var(--btn-hover-transform)}.hellbreak-button.secondary{background:var(--surface-raised);border-color:var(--border)}.hellbreak-button.secondary:hover{background:var(--surface-raised);border-color:var(--accent)}.hellbreak-info-panel>p{color:var(--hb-muted);line-height:1.5}.hellbreak-info-stats{display:flex;gap:12px;margin:18px 0}.hellbreak-info-stats span{flex:1;padding:12px;border-radius:10px;background:rgba(255,255,255,.04);color:var(--hb-muted)}.hellbreak-info-stats strong{display:block;color:var(--text);font-size:23px}.hellbreak-text-link{color:var(--hb-gold-soft);font-weight:700}
-/* Modal field skins (input background/border/radius) also come from components.css. */
-.hellbreak-modal[hidden]{display:none}.hellbreak-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px}.hellbreak-modal-backdrop{position:absolute;inset:0;background:var(--overlay-scrim);backdrop-filter:blur(5px)}.hellbreak-modal-dialog{position:relative;width:min(500px,100%);padding:30px;border:1px solid var(--hb-border);border-radius:18px;background:var(--surface-raised);text-align:center;box-shadow:0 30px 90px #000}.hellbreak-modal-close{position:absolute;right:12px;top:9px;border:0;background:none;color:var(--text-muted);font-size:28px;cursor:pointer}.hellbreak-modal-mark{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 12px;border-radius:50%;background:#6f263d;color:var(--text);font-size:25px;font-weight:900}.hellbreak-modal-dialog h2{margin:0 0 8px}.hellbreak-modal-dialog p{color:var(--hb-muted)}.hellbreak-invite-wrap{display:flex;gap:8px;margin:17px 0}.hellbreak-invite-wrap[hidden]{display:none}.hellbreak-invite-wrap input{min-width:0;flex:1;padding:10px}.hellbreak-invite-wrap button{padding:0 14px}
-@media(max-width:900px){.hellbreak-menu-grid{grid-template-columns:1fr}.hellbreak-active-panel,.hellbreak-play-panel,.hellbreak-deck-panel,.hellbreak-info-panel{grid-column:auto;grid-row:auto}.hellbreak-play-panel{grid-row:1}.hellbreak-active-panel{grid-row:2}}
-.hellbreak-game-action.invite{display:none!important}.hellbreak-game-action.invite.is-visible{display:flex!important}
-@media(max-width:620px){.hellbreak-shell{width:min(100% - 18px,1240px)}.hellbreak-menu-heading{align-items:flex-start;flex-direction:column}.hellbreak-status{justify-content:flex-start}.hellbreak-game-actions{grid-template-columns:1fr}.hellbreak-game-action.primary,.hellbreak-game-action.invite{grid-column:auto}.hellbreak-fixture-preview{grid-template-columns:1fr}.hellbreak-versus{text-align:center}.hellbreak-fixture-card:last-child{flex-direction:row;text-align:left}.hellbreak-panel{padding:17px}.hellbreak-deck,.hellbreak-active-game{align-items:flex-start;flex-direction:column}.hellbreak-spectate-actions{width:100%}.hellbreak-spectate-actions button{flex:1}}
+/* HellbreakSim's menu layout. Color roles come from the shared `hellish` theme
+   loaded through SiteDef.php; the local --hb-* aliases keep these rules readable. */
+:root {
+  --hb-gold: var(--accent);
+  --hb-gold-soft: var(--accent-strong);
+  --hb-red: var(--danger);
+  --hb-panel: var(--surface-raised);
+  --hb-panel-raised: var(--surface-sunken);
+  --hb-border: var(--card-border);
+  --hb-muted: var(--text-muted);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+  font-family: var(--font-body);
+  background:
+    radial-gradient(circle at 16% 0, rgba(var(--danger-rgb, 185, 58, 52), .25), transparent 40%),
+    radial-gradient(circle at 95% 40%, rgba(var(--accent-rgb, 216, 179, 106), .12), transparent 38%),
+    linear-gradient(145deg, #0d0910, #170d19 58%, var(--surface));
+}
+
+.nav-bar-links img { width: 24px !important; height: 24px !important; }
+.nav-bar ul { margin: 0; }
+.nav-bar li { list-style: none; }
+.home-header { height: 64px; margin-top: -10px; padding-bottom: 18px; }
+.home-header .title h1 { letter-spacing: .07em; text-transform: uppercase; }
+.home-header .title p { color: var(--hb-gold); }
+
+@media (min-width: 901px) {
+  body > .burger-menu { display: none !important; }
+  .nav-bar {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+  .nav-bar-user {
+    height: 52px;
+    padding: 0 4px;
+    box-sizing: border-box;
+  }
+  .nav-bar-user .rightnav {
+    display: flex !important;
+    height: 100%;
+    align-items: center;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .nav-bar-user .rightnav > li {
+    position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .nav-bar-user .rightnav > li + li::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+  .nav-bar-user .NavBarItem {
+    display: flex !important;
+    height: 50px;
+    align-items: center;
+    gap: 9px;
+    padding: 0 16px !important;
+    box-sizing: border-box;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .nav-bar-user .nav-item-icon {
+    display: block;
+    width: 19px;
+    height: 19px;
+    flex: 0 0 19px;
+    margin: 0;
+    object-fit: contain;
+  }
+}
+
+.hellbreak-shell {
+  width: min(1878px, calc(100% - 40px));
+  margin: 8px auto 14px;
+}
+
+.hellbreak-menu-grid {
+  display: grid;
+  grid-template-columns: minmax(250px, .75fr) minmax(560px, 1.65fr) minmax(310px, .88fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.hellbreak-panel {
+  min-width: 0;
+  padding: 20px;
+  overflow: hidden;
+  border: 1px solid var(--hb-border);
+  border-radius: 9px;
+  background: linear-gradient(145deg, rgba(25, 24, 26, .97), var(--hb-panel));
+  box-shadow: 0 20px 55px rgba(0, 0, 0, .28);
+}
+
+.hellbreak-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 42px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hb-border);
+}
+
+.hellbreak-panel-heading h3,
+.hellbreak-library-heading h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.hellbreak-panel-heading h3 strong {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 99px;
+  color: var(--on-accent);
+  background: var(--hb-gold);
+  font-size: 12px;
+}
+
+.hellbreak-heading-icon { color: var(--hb-gold); }
+.hellbreak-icon-button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  color: var(--hb-gold);
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+.hellbreak-icon-button.loading { animation: hb-spin .7s linear infinite; }
+@keyframes hb-spin { to { transform: rotate(360deg); } }
+
+.hellbreak-active-panel { display: flex; flex-direction: column; }
+.hellbreak-active-list { display: grid; gap: 10px; flex: 1; }
+.hellbreak-empty {
+  padding: 24px 16px;
+  color: var(--hb-muted);
+  text-align: center;
+}
+.hellbreak-empty small,
+.hellbreak-empty strong { display: block; }
+.hellbreak-empty small { margin-top: 9px; line-height: 1.55; }
+.hellbreak-empty a { color: var(--hb-gold-soft); }
+.hellbreak-active-empty {
+  display: grid;
+  place-content: center;
+  min-height: 280px;
+}
+.hellbreak-active-empty > span { margin-bottom: 24px; color: rgba(var(--accent-rgb, 216, 179, 106), .72); font-size: 60px; }
+.hellbreak-active-empty strong { color: var(--text); }
+.hellbreak-active-game {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 13px;
+  padding: 13px;
+  border: 1px solid var(--hb-border);
+  border-radius: 9px;
+  background: rgba(var(--border-rgb, 255, 238, 216), .025);
+}
+.hellbreak-active-game strong,
+.hellbreak-active-game small { display: block; }
+.hellbreak-active-game small { color: var(--hb-muted); }
+.hellbreak-spectate-actions { display: flex; gap: 6px; }
+.hellbreak-spectate-actions button {
+  padding: 6px 8px;
+  border: 1px solid rgba(var(--accent-rgb, 216, 179, 106), .35);
+  border-radius: 6px;
+  color: var(--text);
+  background: var(--surface-raised);
+  cursor: pointer;
+  font-size: 12px;
+}
+.hellbreak-rejoin {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  margin: 12px 0 0;
+  padding: 11px 13px;
+  border: 1px solid rgba(var(--accent-rgb, 216, 179, 106), .45);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(var(--accent-rgb, 216, 179, 106), .1);
+  text-align: left;
+  cursor: pointer;
+}
+.hellbreak-rejoin[hidden] { display: none; }
+.hellbreak-rejoin > span:first-child { color: var(--hb-gold); font-size: 25px; }
+.hellbreak-rejoin strong,
+.hellbreak-rejoin small { display: block; }
+.hellbreak-rejoin small { color: var(--hb-muted); }
+
+.hellbreak-play-panel { display: flex; flex-direction: column; }
+.hellbreak-workspace-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 0 0 13px;
+  border-bottom: 1px solid var(--hb-border);
+}
+.hellbreak-workspace-heading h2,
+.hellbreak-welcome h2 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 19px;
+  color: var(--text);
+}
+.hellbreak-workspace-heading span { color: var(--hb-muted); }
+.hellbreak-library-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 10px 11px;
+  border-bottom: 1px solid var(--hb-border);
+}
+.hellbreak-create-deck {
+  padding: 8px 16px;
+  border: 1px solid rgba(var(--accent-rgb, 216, 179, 106), .55);
+  border-radius: 6px;
+  color: var(--hb-gold-soft) !important;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: 13px;
+}
+.hellbreak-library-tabs {
+  display: flex;
+  gap: 36px;
+  height: 36px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--hb-border);
+}
+.hellbreak-library-tabs span {
+  display: grid;
+  place-items: center;
+  position: relative;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+}
+.hellbreak-library-tabs span:not(.is-active) { color: var(--hb-muted); }
+.hellbreak-library-tabs .is-active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--hb-gold);
+}
+.hellbreak-selected-section { margin-top: 14px; }
+.hellbreak-selected-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  color: var(--hb-gold);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.hellbreak-selected-heading label { color: var(--text); cursor: pointer; text-transform: none; }
+.hellbreak-selected-deck {
+  display: grid;
+  grid-template-columns: 150px minmax(155px, 1fr) minmax(210px, .9fr) 58px;
+  align-items: center;
+  min-height: 122px;
+  padding: 9px 14px;
+  border: 1px solid var(--hb-border);
+  border-left: 2px solid var(--hb-gold);
+  border-radius: 9px;
+  background: linear-gradient(90deg, rgba(var(--accent-rgb, 216, 179, 106), .04), rgba(var(--border-rgb, 255, 238, 216), .015));
+}
+.hellbreak-deck-art { position: relative; height: 102px; }
+.hellbreak-deck-art img {
+  position: absolute;
+  top: 4px;
+  left: 22px;
+  width: 68px;
+  height: 96px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .45);
+}
+.hellbreak-deck-art img:first-child { z-index: 2; left: 2px; transform: rotate(-3deg); }
+.hellbreak-deck-art img:last-child { transform: rotate(4deg); }
+.hellbreak-selected-copy strong,
+.hellbreak-selected-copy span,
+.hellbreak-selected-copy small { display: block; }
+.hellbreak-selected-copy strong { font-family: Georgia, serif; font-size: 18px; }
+.hellbreak-selected-copy span { margin: 6px 0 12px; color: var(--hb-muted); }
+.hellbreak-selected-copy small { color: var(--text); }
+.hellbreak-selected-copy small b { margin-right: 12px; color: var(--hb-gold-soft); }
+#hellbreak-match-deck {
+  width: 100%;
+  padding: 10px 12px;
+}
+.hellbreak-selected-check {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  justify-self: end;
+  border: 1px solid var(--hb-gold);
+  border-radius: 50%;
+  color: var(--hb-gold-soft);
+  font-size: 20px;
+}
+.hellbreak-ready-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 10px;
+  padding: 0 14px 10px;
+  border-bottom: 1px solid var(--hb-border);
+  color: var(--hb-gold);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.hellbreak-game-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.hellbreak-game-action {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 9px;
+  border: 1px solid var(--hb-border);
+  border-radius: 7px;
+  color: var(--text);
+  background: var(--surface-raised);
+  text-align: left;
+  cursor: pointer;
+}
+.hellbreak-game-action.primary { border-color: var(--btn-border); background: var(--btn-surface); }
+.hellbreak-game-action:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.hellbreak-game-action strong,
+.hellbreak-game-action small { display: block; }
+.hellbreak-game-action strong { font-size: 13px; text-transform: uppercase; }
+.hellbreak-game-action small { margin-top: 2px; color: var(--text-muted); font-size: 11px; }
+.hellbreak-game-action.primary small { color: var(--text-muted); }
+.hellbreak-action-icon { color: var(--hb-gold-soft); font-size: 19px; }
+.hellbreak-game-action.invite { display: none !important; grid-column: 1 / -1; }
+.hellbreak-game-action.invite.is-visible { display: flex !important; }
+.hellbreak-inline-notice,
+.hellbreak-inline-error { margin-top: 11px; padding: 10px 12px; border-radius: 7px; font-size: 13px; }
+.hellbreak-inline-notice { color: var(--on-success); background: var(--success-surface); }
+.hellbreak-inline-error { color: var(--on-danger); background: var(--danger-surface); }
+.hellbreak-inline-notice[hidden],
+.hellbreak-inline-error[hidden] { display: none; }
+
+.hellbreak-info-panel { display: flex; flex-direction: column; }
+.hellbreak-info-tabs {
+  display: grid;
+  grid-template-columns: minmax(100px, 140px);
+  gap: 6px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--hb-border);
+}
+.hellbreak-info-tabs span { padding: 9px 6px; color: var(--hb-muted); text-align: center; font-size: 13px; font-weight: 700; }
+.hellbreak-info-tabs .is-active { border: 1px solid var(--hb-gold); border-radius: 7px; color: var(--text); }
+.hellbreak-welcome { padding: 15px 0 17px; border-bottom: 1px solid var(--border); }
+.hellbreak-welcome h2 { font-size: 29px; }
+.hellbreak-welcome p { margin: 16px 0 0; color: var(--hb-muted); line-height: 1.5; }
+.hellbreak-tip {
+  position: relative;
+  margin: 16px 0;
+  padding: 18px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(var(--border-rgb, 255, 238, 216), .02);
+}
+.hellbreak-eyebrow { display: block; color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.hellbreak-tip p { margin: 18px 0 0; color: var(--text-muted); line-height: 1.6; }
+.hellbreak-quick-reference h3 { margin: 0 0 12px; color: var(--text); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+.hellbreak-quick-reference > div { display: grid; grid-template-columns: 55px 1fr; align-items: center; gap: 12px; margin-top: 8px; color: var(--text-muted); }
+.hellbreak-quick-reference kbd { padding: 4px 8px; border: 1px solid var(--border); border-radius: 5px; color: var(--text); background: var(--surface-sunken); text-align: center; }
+.disclaimer {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto 4px;
+  padding: 3px 0;
+}
+.disclaimer p { font-size: 10.5px; line-height: 1.45; }
+
+.hellbreak-button { display: inline-flex; align-items: center; justify-content: center; padding: var(--btn-pad); border: var(--btn-bw) solid var(--btn-border); border-radius: var(--btn-radius); color: var(--btn-text) !important; background: var(--btn-surface); text-decoration: none; font-weight: 700; }
+.hellbreak-button.secondary { background: var(--surface-raised); border-color: var(--border); }
+.hellbreak-modal[hidden] { display: none; }
+.hellbreak-modal { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 20px; }
+.hellbreak-modal-backdrop { position: absolute; inset: 0; background: rgba(4, 2, 5, .82); backdrop-filter: blur(5px); }
+.hellbreak-modal-dialog { position: relative; width: min(500px, 100%); padding: 30px; border: 1px solid var(--hb-border); border-radius: 14px; background: var(--surface-raised); text-align: center; box-shadow: 0 30px 90px #000; }
+.hellbreak-modal-close { position: absolute; top: 9px; right: 12px; border: 0; color: var(--text-muted); background: none; font-size: 28px; cursor: pointer; }
+.hellbreak-modal-mark { display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 50%; color: var(--btn-text); background: var(--btn-surface); font-size: 25px; font-weight: 900; }
+.hellbreak-modal-dialog h2 { margin: 0 0 8px; }
+.hellbreak-modal-dialog p { color: var(--hb-muted); }
+.hellbreak-invite-wrap { display: flex; gap: 8px; margin: 17px 0; }
+.hellbreak-invite-wrap[hidden] { display: none; }
+.hellbreak-invite-wrap input { min-width: 0; flex: 1; padding: 10px; }
+.hellbreak-invite-wrap button { padding: 0 14px; }
+
+@media (max-width: 1400px) {
+  .hellbreak-menu-grid { grid-template-columns: minmax(250px, .7fr) minmax(570px, 1.65fr); }
+  .hellbreak-info-panel { grid-column: 1 / -1; }
+}
+
+@media (max-width: 900px) {
+  .home-header { height: auto; margin-top: 0; }
+  .hellbreak-shell { width: min(100% - 24px, 720px); }
+  .hellbreak-menu-grid { grid-template-columns: 1fr; min-height: 0; }
+  .hellbreak-play-panel { grid-row: 1; }
+  .hellbreak-active-panel { grid-row: 2; min-height: 420px; }
+  .hellbreak-info-panel { grid-column: auto; }
+  .hellbreak-selected-deck { grid-template-columns: 130px 1fr 52px; }
+  #hellbreak-match-deck { grid-column: 2 / -1; margin-top: 10px; }
+}
+
+@media (max-width: 620px) {
+  .hellbreak-panel { padding: 16px; }
+  .hellbreak-workspace-heading { display: block; }
+  .hellbreak-workspace-heading span { display: block; margin-top: 7px; }
+  .hellbreak-library-heading { align-items: flex-start; flex-direction: column; }
+  .hellbreak-selected-deck { grid-template-columns: 92px 1fr 42px; padding: 12px; }
+  .hellbreak-deck-art { height: 96px; }
+  .hellbreak-deck-art img { width: 57px; height: 84px; left: 14px; }
+  .hellbreak-deck-art img:first-child { left: 0; }
+  #hellbreak-match-deck { grid-column: 1 / -1; }
+  .hellbreak-selected-check { width: 38px; height: 38px; font-size: 19px; }
+  .hellbreak-game-actions { grid-template-columns: 1fr 1fr; }
+  .hellbreak-game-action.invite { grid-column: 1 / -1; }
+  .hellbreak-info-tabs span { font-size: 12px; }
+  .hellbreak-active-game { align-items: flex-start; flex-direction: column; }
+  .hellbreak-spectate-actions { width: 100%; }
+  .hellbreak-spectate-actions button { flex: 1; }
+}
