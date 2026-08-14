@@ -1,10 +1,16 @@
+/* Hellbreak in-game tutorial overlay. Colors come from the shared `hellish` theme
+   (SharedUI/Themes/hellish.tokens.css), linked in-game by NextTurn.php. Literals are kept
+   only as var() fallbacks. Board pages load button.css, not components.css, so the bare
+   <button> alias never reaches .hb-tutorial-button — its skin is spelled out here. */
+
 .hb-tutorial-focus {
   position: fixed;
   z-index: 10020;
   pointer-events: none;
-  border: 3px solid #f0c96a;
+  border: 3px solid var(--accent-strong, #f0c96a);
   border-radius: 14px;
-  box-shadow: 0 0 0 9999px rgba(5, 3, 7, .58), 0 0 30px rgba(240, 201, 106, .55);
+  box-shadow: 0 0 0 9999px var(--overlay-scrim, rgba(5, 3, 7, .58)),
+              0 0 30px rgba(var(--accent-rgb, 216, 179, 106), .55);
   transition: left .18s ease, top .18s ease, width .18s ease, height .18s ease;
 }
 
@@ -13,12 +19,12 @@
   z-index: 10021;
   width: min(390px, calc(100vw - 28px));
   padding: 20px;
-  color: #f9f2e7;
-  background: linear-gradient(145deg, #171115, #09070a);
-  border: 1px solid rgba(240, 201, 106, .62);
+  color: var(--text, #f9f2e7);
+  background: linear-gradient(145deg, #171115, var(--surface, #09070a));
+  border: 1px solid rgba(var(--accent-rgb, 216, 179, 106), .62);
   border-radius: 16px;
   box-shadow: 0 22px 60px rgba(0, 0, 0, .55);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--font-body, Inter, system-ui, sans-serif);
 }
 
 .hb-tutorial-panel.is-centered {
@@ -28,7 +34,7 @@
 }
 
 .hb-tutorial-kicker {
-  color: #f0c96a;
+  color: var(--accent-strong, #f0c96a);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .16em;
@@ -42,7 +48,7 @@
 
 .hb-tutorial-panel p {
   margin: 0;
-  color: #d8cdd0;
+  color: var(--text-muted, #d8cdd0);
   font-size: 15px;
   line-height: 1.5;
 }
@@ -57,18 +63,18 @@
 .hb-tutorial-button {
   appearance: none;
   padding: 10px 15px;
-  color: #160e0a;
-  background: #f0c96a;
+  color: var(--on-accent, #160e0a);
+  background: var(--accent-strong, #f0c96a);
   border: 0;
-  border-radius: 9px;
+  border-radius: var(--radius, 9px);
   font-weight: 800;
   cursor: pointer;
 }
 
 .hb-tutorial-button.secondary {
-  color: #f5e8d0;
-  background: #30262a;
-  border: 1px solid #655258;
+  color: var(--text, #f5e8d0);
+  background: var(--surface-raised, #30262a);
+  border: 1px solid var(--border, #655258);
 }
 
 .hb-tutorial-progress {
@@ -80,11 +86,11 @@
 .hb-tutorial-progress span {
   height: 4px;
   flex: 1;
-  background: #3c3034;
+  background: rgba(var(--text-rgb, 244, 232, 215), .14);
   border-radius: 10px;
 }
 
-.hb-tutorial-progress span.is-done { background: #f0c96a; }
+.hb-tutorial-progress span.is-done { background: var(--accent-strong, #f0c96a); }
 
 @media (max-width: 720px) {
   .hb-tutorial-panel { padding: 16px; }

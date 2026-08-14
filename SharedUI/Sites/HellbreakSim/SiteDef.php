@@ -7,7 +7,7 @@
     'tcgName' => 'Hellbreak',
     'disclaimerLead' => 'Hellbreak Sim is a fan-made project and is not affiliated with the creators of Hellbreak.',
   ],
-  'theme' => 'neutral',
+  'theme' => 'hellish',   // ink/ember-gold/crimson; drives the menu, the board and the tutorial
   'branding' => [
     'title' => 'Hellbreak',
     'headTitle' => 'Hellbreak — Deck Builder & Simulator',

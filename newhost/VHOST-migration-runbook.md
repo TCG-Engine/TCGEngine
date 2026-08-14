@@ -481,7 +481,11 @@ selects them — leave them. Full fallback: `~/extra-<date>.bak` + `~/httpd.conf
   `provision-app.sh` run (which must never be run on this box again).
 - **Full (strict) TLS** — needs one cert covering both hostnames (Cloudflare Origin CA is the
   cheapest route). Until then Cloudflare must stay on **Full** for *both* zones.
-- **No local Hellbreak container** — `docker-compose.yml` has no `hellbreaksim-web-server`, so
-  HellbreakSim cannot be exercised locally the way SWUDeck (:3100) and SWUSim (:3400) are. The box
-  is currently the first place it renders under a real hostname. Adding a container (see the
-  `new-docker-app` skill) is the fix if this becomes routine.
+- ~~**No local Hellbreak container**~~ — **CLOSED 2026-08-14.** `docker-compose.yml` now has a
+  `hellbreaksim-web-server` on **:3500** (phpmyadmin :5105, redis :6486, db `hellbreaksim`), so
+  HellbreakSim is exercised locally the way SWUDeck (:3100) and SWUSim (:3400) are, and the box is
+  no longer the first place it renders. Note the container only serves a *working* site once the
+  generated engine files exist — `HellbreakSim/GeneratedCode`, `InitialLayout.php`,
+  `GamestateParser.php` etc. are gitignored, so run
+  `php zzGameCodeGenerator.php rootName=HellbreakSim` (and `rootName=HellbreakDeck`) inside the
+  container after a fresh clone.

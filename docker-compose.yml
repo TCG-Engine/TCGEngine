@@ -221,8 +221,65 @@ services:
     ports:
       - "6485:6379"
 
+  hellbreaksim-web-server:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: always
+    volumes:
+      - "./:/var/www/html/TCGEngine:Z"
+    command: bash "/var/www/html/TCGEngine/docker-entrypoint.sh"
+    ports:
+      - "3500:80"
+    depends_on:
+      - hellbreaksim-redis
+      - hellbreaksim-mysql-server
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_SERVER_NAME: "hellbreaksim-mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "hellbreaksim"
+      # Decides which site renders — SharedUI/ActiveSite.php maps hellbreaksim -> HellbreakSim.
+      MYSQL_DATABASE_NAME: "hellbreaksim"
+      REDIS_HOST: "hellbreaksim-app_redis"
+      REDIS_ENABLED: true
+      DOMAIN: "${DOMAIN:-localhost}"
+      STAGE: "${STAGE:-prod}"
+    user: "${DOCKER_USER}"
+
+  hellbreaksim-mysql-server:
+    image: mysql:latest
+    restart: always
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_SERVER_NAME: "hellbreaksim-mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "hellbreaksim"
+    volumes:
+      - ./Database:/docker-entrypoint-initdb.d
+      - hellbreaksim-mysql-data:/var/lib/mysql
+
+  hellbreaksim-phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: hellbreaksim-mysql-server
+      PMA_USER: root
+      PMA_PASSWORD: "secret"
+    ports:
+      - "5105:80"
+
+  hellbreaksim-redis:
+    image: redis:7.0
+    container_name: hellbreaksim_app_redis
+    ports:
+      - "6486:6379"
+
 volumes:
   swustats-mysql-data:
   grandarchivesim-mysql-data:
   azukisim-mysql-data:
   swusim-mysql-data:
+  hellbreaksim-mysql-data:

@@ -39,7 +39,10 @@ function _VersionAsset(string $webPath): string {
 // Themes whose menu base is the shared menuStyles.css (loaded FIRST, before components).
 // Gradient/bespoke menu themes (clarent/gudnak/petranaki) supply their own menu structure
 // via theme tokens + <app>-overrides and must NOT load menuStyles.css.
-const _THEME_MENU_BASE = ['hud' => true, 'petranaki-hud' => true, 'neutral' => true];
+// 'hellish' is here because HellbreakSim's main-menu.css only *tweaks* the shared menu chrome
+// (.nav-bar, .home-header) rather than replacing it — it was authored while the site was on
+// 'neutral', which loads menuStyles.css. Dropping the base would leave the nav unstyled.
+const _THEME_MENU_BASE = ['hud' => true, 'petranaki-hud' => true, 'neutral' => true, 'hellish' => true];
 
 // Emit the SHARED design-system menu stack for a site straight from its single `theme` key:
 // [menuStyles if the theme uses it] → tokens → components → Themes/<theme> (only if it

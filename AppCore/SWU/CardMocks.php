@@ -94,6 +94,44 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'leaderUnitArena' => 'Space',
     'leaderUnitType' => 'Unit',
   ),
+  'HMW_007' => 
+  array (
+    'title' => 'Darth Vader',
+    'subtitle' => 'Might of the Empire',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Imperial',
+      2 => 'Sith',
+    ),
+    'text' => 'Friendly units that cost 3 or more gain Raid 1.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'Raid 1
+
+Other friendly units that cost 3 or more gain Raid 1.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/007.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/007-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_009' => 
   array (
     'title' => 'Chewbacca',

@@ -20,55 +20,35 @@ function EvaluateTransition($input) {
     case 'SETUP_LOCATION':
       if(strtoupper(trim($input)) == 'AUTO') return 'SETUP_LOCATION';
       if(strtoupper(trim($input)) == 'READY') return 'SETUP_MULLIGAN';
-      // AUTO fallback
-      return 'SETUP_LOCATION';
       break;
     case 'SETUP_MULLIGAN':
       if(strtoupper(trim($input)) == 'AUTO') return 'SETUP_MULLIGAN';
       if(strtoupper(trim($input)) == 'READY') return 'FEED_COLLECT';
-      // AUTO fallback
-      return 'SETUP_MULLIGAN';
       break;
     case 'FEED_COLLECT':
       if(strtoupper(trim($input)) == 'AUTO') return 'FEED_BID';
-      // AUTO fallback
-      return 'FEED_BID';
       break;
     case 'FEED_BID':
       if(strtoupper(trim($input)) == 'AUTO') return 'FEED_BID';
       if(strtoupper(trim($input)) == 'READY') return 'FEED_RESOLVE';
-      // AUTO fallback
-      return 'FEED_BID';
       break;
     case 'FEED_RESOLVE':
       if(strtoupper(trim($input)) == 'AUTO') return 'HORROR';
-      // AUTO fallback
-      return 'HORROR';
       break;
     case 'HORROR':
       if(strtoupper(trim($input)) == 'AUTO') return 'HORROR';
       if(strtoupper(trim($input)) == 'PASS') return 'REFRESH_READY';
-      // AUTO fallback
-      return 'HORROR';
-      // PASS fallback
-      return 'REFRESH_READY';
       break;
     case 'REFRESH_READY':
       if(strtoupper(trim($input)) == 'AUTO') return 'REFRESH_FLIP';
-      // AUTO fallback
-      return 'REFRESH_FLIP';
       break;
     case 'REFRESH_FLIP':
       if(strtoupper(trim($input)) == 'AUTO') return 'REFRESH_FLIP';
       if(strtoupper(trim($input)) == 'READY') return 'REFRESH_HAND';
-      // AUTO fallback
-      return 'REFRESH_FLIP';
       break;
     case 'REFRESH_HAND':
       if(strtoupper(trim($input)) == 'AUTO') return 'REFRESH_HAND';
       if(strtoupper(trim($input)) == 'READY') return 'FEED_COLLECT';
-      // AUTO fallback
-      return 'REFRESH_HAND';
       break;
     default: break;
   }

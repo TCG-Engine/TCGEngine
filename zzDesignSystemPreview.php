@@ -12,6 +12,7 @@ $themeFiles = [
   'circuit-sigil-cyan' => '/TCGEngine/SharedUI/Themes/circuit-sigil-cyan.tokens.css',
   'circuit-sigil-gold' => '/TCGEngine/SharedUI/Themes/circuit-sigil-gold.tokens.css',
   'infernal-edge'      => '/TCGEngine/SharedUI/Themes/infernal-edge.tokens.css',
+  'hellish'            => '/TCGEngine/SharedUI/Themes/hellish.tokens.css',
   'azuki-gallery'       => '/TCGEngine/SharedUI/Themes/azuki-gallery.tokens.css',
   'azuki-gallery-dark'  => '/TCGEngine/SharedUI/Themes/azuki-gallery-dark.tokens.css',
   'azuki-gallery-neon'  => '/TCGEngine/SharedUI/Themes/azuki-gallery-neon.tokens.css',

@@ -1196,6 +1196,24 @@ function GetConditionalKeyword_Raid_Value($obj) {
         && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'LOF_169') > 0) {
         $amount += 2;
     }
+    // HMW_007 Darth Vader, Might of the Empire — FRONT: "Friendly units that cost 3 or more gain
+    // Raid 1." DEPLOYED: "OTHER friendly units that cost 3 or more gain Raid 1."
+    // ONE check serves both sides: the leader-zone entry is present whether or not he is deployed, and
+    // excluding his own CardID IS the deployed side's "Other" — the deployed side already has Raid 1
+    // printed (generated $Raid_Cards['HMW_007']), so granting the aura to himself would stack him to
+    // Raid 2. Undeployed he is not an arena unit, so the exclusion is a harmless no-op there.
+    // "Cost 3 or more" is the PRINTED cost (COST is always printed), so a discount never moves a unit
+    // across the line. "Friendly" is CONTROLLER-scoped, so a stolen unit is buffed by its new
+    // controller's Vader and loses the buff when it changes hands.
+    // Placed ABOVE the LOF_186 doubler so a doubled Raid includes this grant.
+    if (($obj->CardID ?? '') !== 'HMW_007' && intval(CardCost($obj->CardID ?? '')) >= 3) {
+        $vaderCtrl = intval($obj->Controller ?? 0);
+        if ($vaderCtrl > 0) {
+            foreach (GetLeader($vaderCtrl) as $vaderLeader) {
+                if (empty($vaderLeader->removed) && ($vaderLeader->CardID ?? '') === 'HMW_007') { $amount += 1; break; }
+            }
+        }
+    }
     // LOF_186 Marchion Ro — "Each friendly unit's Raid is doubled." Doubles the GRAND total. The generated
     // GetKeyword_Raid_Value computes base_max (printed/TE/granted) then adds this conditional amount, so to
     // make the final value 2×(base_max + amount) the conditional must contribute (base_max + amount) extra.

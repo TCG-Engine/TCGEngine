@@ -1,0 +1,100 @@
+/* hellish.tokens.css — Hellbreak "hellish" theme: ink-black ground, ember-gold accent,
+   crimson action plates.
+
+   Palette source of truth is HellbreakSim/Custom/GameLayout.css (the in-game board); the
+   menu (Sites/HellbreakSim/css/main-menu.css) and the tutorial were reconciled to it, and
+   all three now read their colors back out of these tokens.
+
+   Token-only, per the design-system rule — component/layout CSS stays in the app files. */
+:root {
+  /* ---- Ground / panels ---------------------------------------------------- */
+  --surface:        #07070a;                 /* page ground (was --hb-ink) */
+  --surface-raised: rgba(18,15,22,0.92);     /* panels + dropdowns (was --hb-panel) */
+  /* Inputs/selects/checkboxes. Deliberately LIGHTER than --surface: the menu's original
+     field colors (#140e16, #100b12) were near-identical to this theme's near-black ground,
+     so a text input read as an invisible hairline rectangle. Reads as an inset well now. */
+  --surface-sunken: rgba(31,22,34,0.94);
+  --border:         rgba(255,238,216,0.16);  /* warm hairline (was --hb-line) */
+  --card-border:    rgba(216,179,106,0.28);  /* .card/.container — gold at low alpha */
+
+  /* ---- Text --------------------------------------------------------------- */
+  --text:           #f4e8d7;                 /* (was --hb-cream) */
+  --text-muted:     #a99891;                 /* (was --hb-muted) */
+
+  /* ---- Accent: ember gold ------------------------------------------------- */
+  --accent:         #d8b36a;                 /* (was --hb-gold) */
+  --accent-strong:  #f0c96a;                 /* brighter gold, lifted from tutorial.css */
+  --on-accent:      #1b130d;                 /* text on a gold fill (the INITIATIVE badge) */
+  --glow:           rgba(216,179,106,0.22);
+  --check-fill:     #d8b36a;
+  --check-mark:     #1b130d;
+
+  /* ---- Semantics ---------------------------------------------------------- */
+  --danger:          #ee6a57;                /* (was --hb-red-bright) */
+  --danger-surface:  #3a1613;
+  --on-danger:       #ffc5b8;                /* verbatim from .hb-round-state strong */
+  --success:         #59a871;                /* from the menu's .hellbreak-inline-notice */
+  --success-surface: #16301f;
+  --on-success:      #bce7c8;
+
+  /* ---- Geometry / type ---------------------------------------------------- */
+  --radius:        8px;                      /* the menu's button/field radius */
+  --font-display:  Barlow, "Segoe UI Variable", system-ui, sans-serif;
+  --font-body:     Barlow, "Segoe UI Variable", system-ui, sans-serif;
+  --tracking-caps: 0.1em;
+
+  /* ---- Buttons: flat crimson plate, gold hairline (from .hellbreak-button) --- */
+  --btn-surface: linear-gradient(180deg, #6f263d, #451827);
+  --btn-fill:    linear-gradient(180deg, #6f263d, #451827);
+  --btn-border:  rgba(216,179,106,0.5);
+  --btn-bw:      1px;
+  --btn-radius:  8px;
+  --btn-shadow:  none;
+  --btn-text:    #f4e8d7;
+  --btn-transform: none;
+  --btn-tracking:  normal;
+  --btn-pad:       9px 14px;
+  --btn-hover-surface:   linear-gradient(180deg, #8a3050, #57203a);
+  --btn-hover-border:    rgba(216,179,106,0.78);
+  --btn-hover-transform: translateY(-1px);   /* Hellbreak's lift, not the default scale(1.1) */
+  --btn-glow:       16px;
+  --btn-glow-color: rgba(216,179,106,0.25);
+  /* --accent-surface intentionally unset: .btn-primary stays a solid --accent gold plate with
+     --on-accent text (the board's INITIATIVE badge), which reads as the loudest action against
+     the crimson default. Flat theme — no chamfer/clip/texture tokens. */
+
+  /* ---- In-game board roles ------------------------------------------------ */
+  --accent-secondary:    #8f5bb7;            /* Malice purple (was --hb-purple) */
+  --on-accent-secondary: #f8edff;
+  --accent-gold:         #d8b36a;
+  --on-accent-gold:      #1b130d;
+  --switch-track:        rgba(255,238,216,0.14);
+  --switch-knob:         #d8cdc4;
+  --switch-on:           rgba(216,179,106,0.55);
+  --switch-on-knob:      #f4e8d7;
+  --panel-scrim:         rgba(13,10,14,0.97); /* from .hb-history */
+  --overlay-scrim:       rgba(5,3,7,0.72);
+  --card-frame:          rgba(216,179,106,0.35);
+  --badge-surface:       rgba(8,7,10,0.86);   /* from .hb-top-health */
+  --badge-glow:          rgba(216,179,106,0.35);
+  --glow-strong:         rgba(238,106,87,0.6);
+
+  /* Collapsed-zone quantity badge — neutral's grey/Orbitron default clashes with the board. */
+  --zone-count-surface:      radial-gradient(circle, #1b1419 40%, #3d2b1c 100%);
+  --zone-count-border-color: rgba(216,179,106,0.55);
+  --zone-count-text:         #f4e8d7;
+  --zone-count-font-family:  Barlow, sans-serif;
+  --zone-count-text-shadow:  0 0 5px #07070a, 0 0 10px #07070a;
+
+  /* Turn/initiative ownership — gold = mine, ember red = theirs. */
+  --turn-mine-rgb:   216,179,106;
+  --turn-theirs-rgb: 238,106,87;
+
+  /* RGB triples, so the app CSS can build alpha variants that track the palette:
+     rgba(var(--accent-rgb), .2). Every consumer passes a literal fallback, so the app
+     files still render correctly under another theme (or none). */
+  --accent-rgb: 216,179,106;   /* = --accent gold */
+  --danger-rgb: 185,58,52;     /* the deeper board red (#b93a34), not --danger */
+  --text-rgb:   244,232,215;   /* = --text cream */
+  --border-rgb: 255,238,216;   /* = --border warm white */
+}
