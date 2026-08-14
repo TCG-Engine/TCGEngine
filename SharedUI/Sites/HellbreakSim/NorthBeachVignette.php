@@ -90,6 +90,8 @@
         <div class="nb-impact-message"><span>All aboard!</span><b>Keep scrolling to finish your perfect beach day.</b></div>
       </div>
       <div class="nb-shark" aria-hidden="true"><div class="nb-shark-body"><span class="nb-fin"></span><span class="nb-tail"></span><span class="nb-mouth"></span><span class="nb-eye"></span></div></div>
+      <div class="nb-shark-throat" aria-hidden="true"></div>
+      <img class="nb-shark-attack-art" src="assets/north-beach-shark-attack.png" alt="" aria-hidden="true">
       <div class="nb-debris" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="nb-boat-wake" aria-hidden="true"></div>
       <p class="nb-impact-prompt" aria-live="polite"><b data-nb-impact-command>Keep scrolling</b><small data-nb-impact-status>You&rsquo;re almost there</small><span>&darr;</span></p>
@@ -112,5 +114,6 @@
       <div class="nb-real-water" aria-hidden="true"></div>
     </section>
   </main>
+  <div class="nb-swallow-blackout" aria-hidden="true"></div>
   <div class="nb-screen-flash" aria-hidden="true"></div>
 </div>
