@@ -1,0 +1,33 @@
+# Line-ending normalization.
+#
+# Without this file, a clone on Windows (Git's default core.autocrlf=true) checks
+# shell scripts out with CRLF. bash then chokes on the trailing \r:
+#     docker-entrypoint.sh: line 2: set: -\r: invalid option
+#     docker-entrypoint.sh: line 13: exec: apache2-foreground\r: not found
+# docker-entrypoint.sh is the `command:` for EVERY *-web-server service, so the
+# container exits immediately and `restart: always` crash-loops it forever — the
+# db/phpmyadmin containers come up fine, which makes it look like a hang rather
+# than a failure. Keep .sh at LF regardless of platform.
+
+* text=auto
+
+*.sh            text eol=lf
+Dockerfile      text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+.htaccess       text eol=lf
+
+# Binary assets — never transform.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.mov   binary
+*.mp4   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.zip   binary
