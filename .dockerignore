@@ -1,0 +1,15 @@
+# The Dockerfile installs PHP extensions and nothing else — it has NO COPY or ADD,
+# because all application code arrives at runtime via the bind mount declared in
+# docker-compose.yml ("./:/var/www/html/TCGEngine"). So the build needs zero context.
+#
+# BuildKit (Docker 23+ default) already figures this out and skips transferring the
+# context entirely. This file matters only for the legacy builder (DOCKER_BUILDKIT=0,
+# still pinned in some CI and corporate Docker installs), which otherwise tars and
+# ships the whole ~2 GB / 33k-file working tree once per web-server service — five
+# times for a full `docker compose up`.
+#
+# ⚠ If you ever add a COPY/ADD to the Dockerfile, this WILL silently break it.
+#   Un-ignore exactly what you need, e.g.:
+#       !composer.json
+#       !composer.lock
+**
