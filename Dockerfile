@@ -43,9 +43,11 @@ RUN sed -i 's/memory_limit = .*/memory_limit = -1/' /usr/local/etc/php/php.ini
 
 # Raise upload limits above the app's 10MB cosmetic-image cap (PHP defaults are
 # upload_max_filesize=2M / post_max_size=8M, which rejected valid uploads early).
+# 64M covers the Generator Workspace card-art bundle (Hellbreak's WebpImages/ is ~15MB) and matches
+# GeneratedCardDataArchive::MAX_ARCHIVE_BYTES; post_max_size stays a little above it for form fields.
 RUN { \
-        echo "upload_max_filesize=12M"; \
-        echo "post_max_size=13M"; \
+        echo "upload_max_filesize=64M"; \
+        echo "post_max_size=66M"; \
     } > /usr/local/etc/php/conf.d/zz-uploads.ini
 
 # Enable opcache; validate_timestamps + revalidate_freq=0 re-checks file mtimes

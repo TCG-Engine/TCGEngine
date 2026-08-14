@@ -473,6 +473,20 @@ foreach ($apps as $app) {
             </section>
             <p class="transfer-status" id="ability-transfer-status" role="status" aria-live="polite"></p>
 
+            <section class="options" id="card-data-transfer-options">
+                <div class="options-title">
+                    <strong>Generated card data</strong>
+                    <small>Move this app's card cache between machines; dictionaries and art crops are rebuilt here.</small>
+                </div>
+                <label class="switch" id="include-art-option"><input type="checkbox" id="include-art"> Include card art</label>
+                <div class="transfer-controls">
+                    <button type="button" class="button button-small" id="export-card-data-button">Export archive</button>
+                    <button type="button" class="button button-small" id="import-card-data-button">Import archive</button>
+                    <input type="file" id="import-card-data-file" accept=".zip,.tar,.gz,.tgz,.json" hidden>
+                </div>
+            </section>
+            <p class="transfer-status" id="card-data-transfer-status" role="status" aria-live="polite"></p>
+
             <div class="section-heading">
                 <h3>Build steps</h3>
                 <p>Run individually or execute the pipeline in order.</p>
@@ -513,6 +527,12 @@ const exportAbilitiesButton = document.getElementById('export-abilities-button')
 const importAbilitiesButton = document.getElementById('import-abilities-button');
 const importAbilitiesFile = document.getElementById('import-abilities-file');
 const abilityTransferStatus = document.getElementById('ability-transfer-status');
+const cardDataTransferOptions = document.getElementById('card-data-transfer-options');
+const exportCardDataButton = document.getElementById('export-card-data-button');
+const importCardDataButton = document.getElementById('import-card-data-button');
+const importCardDataFile = document.getElementById('import-card-data-file');
+const includeArt = document.getElementById('include-art');
+const cardDataTransferStatus = document.getElementById('card-data-transfer-status');
 const cropTesterLink = document.getElementById('crop-tester-link');
 const outputs = new Map();
 const runStates = new Map();
@@ -521,6 +541,7 @@ let activeController = null;
 let pipelineRunning = false;
 let transferRunning = false;
 let importApp = null;
+let cardDataImportApp = null;
 
 function appInitials(name) {
     const words = name.replace(/([a-z])([A-Z])/g, '$1 $2').split(/\s+/).filter(Boolean);
@@ -708,6 +729,13 @@ function render() {
     runAllButton.disabled = pipelineRunning || selectedApp.actions.length === 0;
     exportAbilitiesButton.disabled = pipelineRunning || transferRunning;
     importAbilitiesButton.disabled = pipelineRunning || transferRunning;
+    // Only apps with a card-data step have a cardArrayCache.json to move.
+    const hasCardDataStep = selectedApp.actions.some(action => action.id === 'cards');
+    cardDataTransferOptions.hidden = !hasCardDataStep;
+    cardDataTransferStatus.hidden = !hasCardDataStep;
+    exportCardDataButton.disabled = pipelineRunning || transferRunning;
+    importCardDataButton.disabled = pipelineRunning || transferRunning;
+    includeArt.disabled = pipelineRunning || transferRunning;
     cancelButton.hidden = !pipelineRunning;
     renderActions();
 }
@@ -810,6 +838,79 @@ async function importAbilities() {
         transferRunning = false;
         importApp = null;
         importAbilitiesFile.value = '';
+        render();
+    }
+}
+
+function setCardDataStatus(message, kind = '') {
+    cardDataTransferStatus.textContent = message;
+    cardDataTransferStatus.dataset.kind = kind;
+}
+
+function exportCardData() {
+    if (!selectedApp || pipelineRunning || transferRunning) return;
+    const url = new URL('DevTools/AdminGeneratedCardDataTransfer.php', window.location.href);
+    url.searchParams.set('action', 'export');
+    url.searchParams.set('app', selectedApp.rootName);
+    if (includeArt.checked) url.searchParams.set('includeArt', '1');
+    window.location.assign(url);
+    setCardDataStatus(`Preparing ${selectedApp.rootName} card data${includeArt.checked ? ' and art' : ''} for download…`);
+}
+
+function chooseCardDataImport() {
+    if (!selectedApp || pipelineRunning || transferRunning) return;
+    cardDataImportApp = selectedApp;
+    importCardDataFile.value = '';
+    importCardDataFile.click();
+}
+
+async function importCardData() {
+    const file = importCardDataFile.files && importCardDataFile.files[0];
+    const app = cardDataImportApp;
+    if (!file || !app) return;
+    const confirmed = await styledConfirm(`Replace ${app.rootName}'s card cache with the contents of ${file.name}, then rebuild its card dictionaries? The previous cache is kept as cardArrayCache.json.bak.`, { confirmLabel: 'Replace', danger: true });
+    if (!confirmed) return;
+
+    transferRunning = true;
+    render();
+    setCardDataStatus(`Importing ${app.rootName} card data…`);
+    try {
+        const form = new FormData();
+        form.set('action', 'import');
+        form.set('app', app.rootName);
+        form.set('csrf', generatorAdminCsrf);
+        form.set('archiveFile', file);
+        const response = await fetch('DevTools/AdminGeneratedCardDataTransfer.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: form,
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.success) throw new Error(payload.error || `Import failed with HTTP ${response.status}`);
+
+        const artNote = payload.artWritten ? ` and ${payload.artWritten} art files` : '';
+        setCardDataStatus(`Imported ${payload.cardCount} cards${artNote} for ${app.rootName}. Rebuilding card dictionaries…`);
+        // The archive carries only the cache, so the dictionaries must be regenerated by THIS
+        // checkout's generator before the imported cards are usable.
+        const cardsAction = app.actions.find(action => action.id === 'cards');
+        if (cardsAction) {
+            pipelineRunning = true;
+            showRunBanner(cardsAction.label, 'Rebuilding after card data import');
+            const generated = await executeAction(cardsAction);
+            pipelineRunning = false;
+            hideRunBanner();
+            if (!generated) throw new Error('Card data was imported, but the rebuild failed; inspect the Card data & images output.');
+        }
+        const derivativeNote = payload.derivativesFailed
+            ? ` ${payload.derivativesFailed} art files could not have their crops rebuilt.`
+            : '';
+        setCardDataStatus(`Imported ${payload.cardCount} cards${artNote} for ${app.rootName} and rebuilt its dictionaries.${derivativeNote} Run the build pipeline to refresh the rest of the runtime.`, 'success');
+    } catch (error) {
+        setCardDataStatus(error.message || 'Card data import failed.', 'error');
+    } finally {
+        transferRunning = false;
+        cardDataImportApp = null;
+        importCardDataFile.value = '';
         render();
     }
 }
@@ -953,6 +1054,9 @@ bannerCancelButton.addEventListener('click', cancelRun);
 exportAbilitiesButton.addEventListener('click', exportAbilities);
 importAbilitiesButton.addEventListener('click', chooseAbilityImport);
 importAbilitiesFile.addEventListener('change', importAbilities);
+exportCardDataButton.addEventListener('click', exportCardData);
+importCardDataButton.addEventListener('click', chooseCardDataImport);
+importCardDataFile.addEventListener('change', importCardData);
 chooseHellbreakWorkbookButton.addEventListener('click', () => {
     if (!pipelineRunning) hellbreakWorkbookFile.click();
 });
