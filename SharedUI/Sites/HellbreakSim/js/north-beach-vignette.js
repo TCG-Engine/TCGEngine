@@ -1,6 +1,13 @@
 (function(){
   'use strict';
   var root,scroller,scenes,observer,current=0,impact=0,attacking=false,audio=null,noiseTimer=null,previousFocus=null,wheelEnergy=0,lastBumpAt=0,bumpTimer=null;
+  var impactMessages=[
+    ['Keep scrolling','You\u2019re almost there'],
+    ['Keep scrolling','Next: deep water'],
+    ['Keep scrolling','The tide is changing'],
+    ['Keep scrolling','That came from below'],
+    ['Keep scrolling','Don\u2019t look down']
+  ];
 
   function audioContext(){
     if(audio) return audio;
@@ -21,19 +28,26 @@
     noiseTimer=window.setInterval(function(){ if(current<4) tone(170+Math.random()*80,1.8,.007,'sine'); },3200);
   }
   function stopAmbience(){ if(noiseTimer){window.clearInterval(noiseTimer);noiseTimer=null;} }
+  function updateImpactMessage(stage){
+    var message=impactMessages[Math.min(stage,impactMessages.length-1)];
+    var command=root.querySelector('[data-nb-impact-command]'),status=root.querySelector('[data-nb-impact-status]');
+    if(command)command.textContent=message[0];
+    if(status)status.textContent=message[1];
+  }
   function updateScene(index){
     current=index;
     root.classList.toggle('is-darkening',index>=4);
+    root.classList.toggle('is-impact-scene',index===6);
     root.querySelectorAll('.nb-progress span').forEach(function(dot,i){dot.classList.toggle('is-active',i<=Math.min(index,5));});
     if(index>=4) stopAmbience();
   }
   function open(){
     previousFocus=document.activeElement; document.body.classList.add('nb-open');root.classList.add('is-open');root.setAttribute('aria-hidden','false');
-    root.classList.remove('is-attacking','is-darkening','is-bumping');root.removeAttribute('data-impact');impact=0;wheelEnergy=0;attacking=false;scroller.style.overflowY='auto';
+    root.classList.remove('is-attacking','is-darkening','is-bumping','is-impact-scene');root.removeAttribute('data-impact');impact=0;wheelEnergy=0;attacking=false;scroller.style.overflowY='auto';updateImpactMessage(0);
     scroller.scrollTop=0;scroller.focus({preventScroll:true});updateScene(0);
   }
   function close(){
-    stopAmbience();root.classList.remove('is-open','is-attacking','is-darkening');root.setAttribute('aria-hidden','true');document.body.classList.remove('nb-open');
+    stopAmbience();root.classList.remove('is-open','is-attacking','is-darkening','is-bumping','is-impact-scene');root.setAttribute('aria-hidden','true');document.body.classList.remove('nb-open');
     if(previousFocus&&previousFocus.focus) previousFocus.focus();
   }
   function go(index){ if(scenes[index])scenes[index].scrollIntoView({behavior:'smooth'}); }
@@ -45,6 +59,7 @@
     if(attacking)return;impact++;
     if(impact<5){
       root.setAttribute('data-impact',String(impact));
+      updateImpactMessage(impact);
       root.classList.remove('is-bumping');void root.offsetWidth;root.classList.add('is-bumping');
       if(bumpTimer)window.clearTimeout(bumpTimer);bumpTimer=window.setTimeout(function(){root.classList.remove('is-bumping');},impact>=4?820:(impact===3?580:430));
       tone(Math.max(30,52-impact*4),.32+impact*.08,.035+impact*.012,'sine');

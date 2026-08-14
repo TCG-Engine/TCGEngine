@@ -92,7 +92,7 @@
       <div class="nb-shark" aria-hidden="true"><div class="nb-shark-body"><span class="nb-fin"></span><span class="nb-tail"></span><span class="nb-mouth"></span><span class="nb-eye"></span></div></div>
       <div class="nb-debris" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="nb-boat-wake" aria-hidden="true"></div>
-      <p class="nb-impact-prompt"><b>Keep scrolling</b><small>Something is below us</small><span>&darr;</span></p>
+      <p class="nb-impact-prompt" aria-live="polite"><b data-nb-impact-command>Keep scrolling</b><small data-nb-impact-status>You&rsquo;re almost there</small><span>&darr;</span></p>
     </section>
 
     <section class="nb-scene nb-scene-real" data-nb-scene="7">
