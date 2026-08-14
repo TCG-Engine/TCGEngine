@@ -954,6 +954,13 @@ $customDQHandlers["SWU_PLAN_BOTTOM"] = function ($player, $parts, $lastDecision)
 // SOR_215 — Snapshot Reflexes: "When Played: You may attack with the attached unit."
 // $mzID is the host unit's arena mzID (e.g. "myGroundArena-0").
 $whenPlayedAbilities["SOR_215:0"] = function ($player, $mzID) {
+  // Attached to an ENEMY unit (legal per CR 2.e), "you may attack with attached unit" can only
+  // fizzle — you cannot attack with an opponent's unit. Fizzle-only optional → no prompt
+  // (user ruling 2026-08-13, the Blue Leader pay-2 family).
+  global $playerID; $saved = $playerID; $playerID = intval($player);
+  $host = GetZoneObject($mzID);
+  $playerID = $saved;
+  if (SWUObjGone($host) || intval($host->Controller ?? 0) !== intval($player)) return;
   DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Attack_with_attached_unit?");
   DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_215#0|{$player}|{$mzID}", 1);
 };

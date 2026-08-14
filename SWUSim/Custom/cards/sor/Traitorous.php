@@ -12,7 +12,11 @@ $onAttachedAbilities["SOR_122:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if ($host === null || ($host->removed ?? false)) return;
-    if (intval(CardCost($host->CardID) ?? 99) <= 3) {
+    // "Take control of attached unit if it's a NON-LEADER unit that costs 3 or less." The attach
+    // itself is unrestricted, but the control-take must NEVER run on a leader unit (a piloted
+    // leader's printed HOST cost can be <=3; taking control would trip the CR 3.4.6 leader-unit
+    // control-change replacement and DEFEAT it — the take should simply not be attempted).
+    if (!IsLeaderUnit($host) && intval(CardCost($host->CardID) ?? 99) <= 3) {
         SWUTakeControlOfUnit(intval($player), $mzID);
     }
 };

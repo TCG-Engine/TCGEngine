@@ -3,6 +3,13 @@
 #// "On Attack: Ready a resource." A Vehicle (Distant Patroller, SOR_060) carries the upgrade
 #// and attacks the enemy base; the upgrade's On Attack readies P1's one exhausted resource
 #// (ready resources 0 → 1). Exercises the upgrade-granted On Attack path (OnAttackFromUpgrade).
+#// COVERAGE: offer=DEFERRED — open candidate: the attach pool ignores the printed "Attach to a
+#//           VEHICLE unit" restriction (non-Vehicle friendlies are offered as hosts); assert the
+#//           Vehicles-only pool once the pool is restricted · decline=N/A (attach target is part
+#//           of playing the upgrade; the On Attack ready is mandatory) · control=N/A (the granted
+#//           On Attack rides the host; no control-change interaction printed) ·
+#//           boundary=OnAttack_ReadiesResource covers the all-resources-exhausted floor (0→1) ·
+#//           reqboundary=N/A (attach + ready both resolve inside their own ceremonies)
 
 ## GIVEN
 CommonSetup: yyk/yyk

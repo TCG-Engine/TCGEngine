@@ -1971,15 +1971,25 @@ function _SWUControlsForceUnitOrUpgrade(int $player): bool {
     return false;
 }
 
-// True if $player controls a deployed leader (i.e. a leader unit is in play).
+// True if $player controls a LEADER UNIT — derived from the LIVE arenas via IsLeaderUnit, never from
+// the leader zone's Deployed flag. The flag lies in both directions: Poe Dameron JTL_013's flip-and-
+// attach sets Deployed=true while his host is explicitly NOT a leader unit (his attach text lacks
+// "attached unit is a leader unit"), and a Darksaber ASH_135 host IS a leader unit with no zone flag
+// at all. The arena scan also covers deployed leaders and leader-pilot hosts (Kazuda), and gets the
+// TWI_017 "Flipatine" exclusion for free (its flip creates no arena unit).
 function SWUControlsLeaderUnit(int $player): bool {
-    foreach (GetLeader($player) as $l) {
-        if (!empty($l->removed)) continue;
-        // TWI_017 "Flipatine" is never a leader UNIT — its "Deployed" flag is just the flipped Villainy
-        // face, with no arena unit. Exclude it from "do you control a leader unit" checks.
-        if (!empty($l->Deployed) && ($l->CardID ?? '') !== 'TWI_017') return true;
+    global $playerID;
+    $saved = $playerID;
+    $playerID = intval($player);
+    $found = false;
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if (!SWUObjGone($o) && IsLeaderUnit($o)) { $found = true; break 2; }
+        }
     }
-    return false;
+    $playerID = $saved;
+    return $found;
 }
 
 // True if $player has the specific leader $cardID deployed (its leader-unit side in play).
@@ -3990,12 +4000,11 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
         return "-";
     }
 
-    // Tokens can't be captured — a token that would be captured is defeated (removed from play) instead
-    // (tokens cease to exist when they leave play, so they can never become a captive subcard). Defeat it
-    // and stop: no captive is attached and the capture's own leave-play/bounty triggers do NOT fire (the
-    // token's own When Defeated / defeat reactions fire via SWUDefeatUnit instead).
+    // Tokens can't be captured — a token that would be captured CEASES (set aside; it can never become
+    // a captive subcard). JUDGE RULING 2026-08-13: this is NOT a defeat — no When-Defeated observers,
+    // no defeat flags; it still counts as having left play (leave-play reactions fire as non-defeat).
     if (strpos(strtolower(CardType($captive->CardID) ?? ''), 'token') !== false) {
-        SWUDefeatUnit(intval($player), $capturedMZ);
+        _SWUCeaseTokenUnit(intval($player), $capturedMZ);
         return "-";
     }
 
@@ -4070,10 +4079,11 @@ function _SWUBaseCaptureUnit(int $player, string $capturedMZ): bool {
     if (SWUObjGone($captive)) { $playerID = $savedPID; return false; }
     // "Can't be captured by enemy card abilities" (SHD_187 / TWI_220).
     if (intval($player) !== intval($captive->Controller ?? $player) && SWUAvoidsCapture($captive)) { $playerID = $savedPID; return false; }
-    // Tokens can't be captured — defeat instead (same rule as DoCaptureUnit). No base-captive is stored,
-    // so _SWURescueBaseCaptives won't return a defeated token to its owner at regroup.
+    // Tokens can't be captured — the token CEASES (same judge ruling as DoCaptureUnit: not a defeat,
+    // no When-Defeated observers; leave-play reactions fire as non-defeat). No base-captive is stored,
+    // so _SWURescueBaseCaptives won't return a ceased token at regroup.
     if (strpos(strtolower(CardType($captive->CardID) ?? ''), 'token') !== false) {
-        SWUDefeatUnit(intval($player), $capturedMZ);
+        _SWUCeaseTokenUnit(intval($player), $capturedMZ);
         $playerID = $savedPID;
         return false;
     }
@@ -9151,14 +9161,22 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // defeated unit's controller (2-player → the one opponent; loop runs once, byte-identical).
             foreach ($opps as $opp) {
             // SOR_036 Gideon Hask (controlled by $opp): "When an enemy unit is defeated: give an
-            // Experience token to a friendly unit." Fires once per Gideon in play.
+            // Experience token to a friendly unit." Fires once per Gideon in play — INCLUDING a Gideon
+            // defeated in this same simultaneous batch (CR: the condition reads the pre-defeat state;
+            // he traded with the enemy he killed). Same supplement as HK-47 below.
             $gideons = _SWUCountActiveUnitsWithCardID($opp, 'SOR_036');
+            foreach ($leftCards as $lc) {
+                if (($lc['cardID'] ?? '') === 'SOR_036' && intval($lc['player'] ?? 0) === $opp) $gideons++;
+            }
             for ($i = 0; $i < $gideons; $i++) {
                 AddTrigger($opp, 'SOR_036', 'SOR_036', '');
             }
             // SEC_051 Bo-Katan Kryze (controlled by $opp): "When an enemy unit is defeated: give an
-            // Experience token to a friendly unit." Same shape as Gideon.
+            // Experience token to a friendly unit." Same shape as Gideon, same batch supplement.
             $bokatans = _SWUCountActiveUnitsWithCardID($opp, 'SEC_051');
+            foreach ($leftCards as $lc) {
+                if (($lc['cardID'] ?? '') === 'SEC_051' && intval($lc['player'] ?? 0) === $opp) $bokatans++;
+            }
             for ($i = 0; $i < $bokatans; $i++) {
                 AddTrigger($opp, 'SEC_051', 'SEC_051', '');
             }
@@ -9166,8 +9184,8 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // controller's base." $controller is the defeated unit's controller (the enemy from HK-47's view).
             // Also count HK-47s that were defeated in THIS SAME simultaneous batch (already removed, so
             // absent from the active count): they were in play when the enemy was defeated, so their
-            // reaction still fires (CR: simultaneous defeats use the pre-defeat state — ref "deal 1 damage
-            // even if HK-47 is defeated").
+            // reaction still fires (CR: simultaneous defeats use the pre-defeat state; the damage lands
+            // even when HK-47 itself was defeated in the batch).
             $hk47s = _SWUCountActiveUnitsWithCardID($opp, 'LOF_130');
             foreach ($leftCards as $lc) {
                 if (($lc['cardID'] ?? '') === 'LOF_130' && intval($lc['player'] ?? 0) === $opp) $hk47s++;
@@ -11725,7 +11743,7 @@ function SWUPlayTopDeckCard(int $player, bool $ignoreCost = false, int $discount
     $topObj = ($ignoreCost || $asUnitOnly) ? null : GetZoneObject("myDeck-$idx");
     if ($topObj !== null && HasKeyword_Piloting($topObj)
             && !_SWUGalenSuppressesCard($player, $topObj->CardID ?? '')
-            && !empty(SWUGetPilotValidTargets($player, $topObj->CardID ?? ''))) {
+            && !empty(SWUGetPilotValidTargets($player, $topObj->CardID ?? '', false, intval($discount)))) {
         SWUBeginPlayCard($player, "myDeck-$idx", $discount);
         $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
         return true;
@@ -12266,6 +12284,12 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'TS26_25': // Fiery Alliance — no printed attach restriction (its When Played reads "another
                         // FRIENDLY unit", but the attach itself is unrestricted): friendly OR enemy per
                         // CR 2.e. Same masked-by-out-of-pool-answer history as SOR_072.
+        case 'SOR_215': // Snapshot Reflexes — no printed attach restriction: friendly OR enemy per CR 2.e.
+                        // On an ENEMY host the "you may attack with attached unit" can only fizzle, so
+                        // its prompt is auto-declined (fizzle-only-optional ruling) — see the whenPlayed.
+        case 'SHD_223': // Snapshot Reflexes (reprint of SOR_215)
+        case 'SOR_166': // Infiltrator's Skill — no printed attach restriction: friendly OR enemy per
+                        // CR 2.e (an enemy host's controller gets the granted Saboteur, SEC_052-style).
         case 'SEC_175': // Ambition's Reward — printed "attach to a unit" (no restriction): friendly OR enemy
         case 'SEC_052': // Diplomatic Immunity — no printed attach restriction (only a granted On Defense
                         // disclose): friendly OR enemy per CR 2.e. Attaching it to an ENEMY unit hands
@@ -12418,7 +12442,7 @@ function SWUPilotCanAttach(string $pilotCardID, $host, string $context = 'piloti
 // Friendly Vehicles a pilot may attach to right now, affordability-filtered
 // against the piloting cost. Mirrors the affordability filter in
 // SWUGetUpgradeValidTargets.
-function SWUGetPilotValidTargets(int $player, string $pilotCardID, bool $ignoreCost = false): array {
+function SWUGetPilotValidTargets(int $player, string $pilotCardID, bool $ignoreCost = false, int $discount = 0): array {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
@@ -12434,6 +12458,7 @@ function SWUGetPilotValidTargets(int $player, string $pilotCardID, bool $ignoreC
         $pilotObj = (object)['CardID' => $pilotCardID];
         $cost = SWUComputePilotCost($player, $pilotObj);
         $cost = SWUApplyCostHalving($player, $cost); // JTL_105 The Starhawk — halved targets must glow too
+        $cost = max(0, $cost - max(0, $discount));   // discounted plays (You're My Only Hope -5) gate on the REAL price
         $ready = 0;
         foreach (GetResources($player) as $r) {
             if (SWUIsCreditToken($r->CardID ?? '')) continue; // Credit tokens aren't resources
@@ -12629,6 +12654,41 @@ function SWUQueueDefeatUpgrade(int $player, string $tooltip, bool $may = false,
 //   tokens are set aside (no discard entry); non-tokens go to owner's discard.
 // The unit itself is removed from the arena; a fresh copy (no damage/counters)
 // is added to the owner's hand.
+// Remove a TOKEN unit from play by a NON-defeat route (bounce target, capture target). JUDGE RULING
+// 2026-08-13 (CR 5.8/§369): the token is set aside — NOT defeated (no When-Defeated observers, no
+// defeat flags) — but it HAS left play, so leave-play reactions fire as non-defeat and its non-token
+// upgrades are defeated per CR 9.3 (host left play), with the friendly-upgrade-defeated observers.
+function _SWUCeaseTokenUnit(int $player, string $mzID): bool {
+    global $playerID;
+    $saved = $playerID;
+    $playerID = intval($player);
+    $obj = &GetZoneObject($mzID);
+    if ($obj === null || ($obj->removed ?? false)) { $playerID = $saved; return false; }
+    $cardID     = $obj->CardID;
+    $owner      = intval($obj->Owner ?? $player);
+    $controller = intval($obj->Controller ?? $owner);
+    SWURescueCaptivesOf($obj);
+    if (!empty($obj->Subcards) && is_array($obj->Subcards)) {
+        foreach ($obj->Subcards as $sub) {
+            $isCaptive = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
+            $isRemoved = is_array($sub) ? !empty($sub['removed'])   : !empty($sub->removed);
+            if ($isCaptive || $isRemoved) continue;
+            $subCardID = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+            $subOwner  = is_array($sub) ? intval($sub['Owner'] ?? $owner) : intval($sub->Owner ?? $owner);
+            if ($subCardID === '' || strpos(strtolower(CardType($subCardID) ?? ''), 'token') !== false) continue;
+            SWUAddToDiscard($subOwner, $subCardID, 'PLAY');
+            $subCtrl = is_array($sub) ? intval($sub['Controller'] ?? $subOwner) : intval($sub->Controller ?? $subOwner);
+            _SWUOnUpgradeDefeated($subCtrl > 0 ? $subCtrl : $controller, $subCardID, $obj, $subOwner);
+        }
+    }
+    $obj->removed = true;
+    SWUCollectLeavePlayReactions([['player' => $controller, 'cardID' => $cardID]], false); // NOT a defeat
+    FlushTriggerBag($controller);
+    DecisionQueueController::CleanupRemovedCards();
+    $playerID = $saved;
+    return true;
+}
+
 function SWUBounceUnit(int $player, string $mzID): bool {
     global $playerID;
     $savedPID = $playerID;
@@ -12702,21 +12762,13 @@ function SWUBounceUnit(int $player, string $mzID): bool {
     SWURescueCaptivesOf($obj);
 
     if ($isToken) {
-        // A token can't exist in hand — being "returned to hand" DEFEATS it (it's set aside, never
-        // discarded — tokens cease). Fire its When Defeated (while still in play), then the defeat flags
-        // + leave-play-AS-DEFEAT reactions (so "a friendly unit was defeated this phase" — incl.
-        // SWU_FRIENDLY_HEROISM_DEFEATED for TWI_017 Palpatine — and Gideon/Krell/Boba fire).
-        CollectWhenDefeatedTriggers(intval($player), [
-            ['player' => $controller, 'cardID' => $cardID, 'mzID' => $mzID, 'upgraded' => _SWUIsUpgraded($obj), 'weakened' => (SWUFindUpgradeIndex($obj, 'HMW_T02') >= 0)]
-        ]);
+        // JUDGE RULING (2026-08-13, confirmed against CR 5.8/§369): a bounced token is NOT defeated —
+        // it is removed from the game (set aside), fires NO When-Defeated observers and NO defeat
+        // flags, but still counts as having been returned to hand / left play for the abilities that
+        // care about THAT (leave-play reactions fire as non-defeat, same as a real unit's bounce).
         $obj = &GetZoneObject($mzID);
         if ($obj !== null && empty($obj->removed)) $obj->removed = true;
-        if ($controller > 0) {
-            AddGlobalEffects($controller, 'SWU_FRIENDLY_DEFEATED');
-            _SWUMarkHeroismDefeated($controller, $cardID);
-        }
-        if ($owner !== intval($player)) AddGlobalEffects(intval($player), 'SWU_ENEMY_DEFEATED');
-        SWUCollectLeavePlayReactions([['player' => $controller, 'cardID' => $cardID]], true); // defeat
+        SWUCollectLeavePlayReactions([['player' => $controller, 'cardID' => $cardID]], false); // NOT a defeat
     } else {
         $obj->removed = true;
         AddHand($owner, CardID:$cardID);

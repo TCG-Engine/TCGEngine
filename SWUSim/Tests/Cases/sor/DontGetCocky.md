@@ -1,4 +1,10 @@
 # Bust_NoDamage
+#// COVERAGE: offer=ChoosePool_AnyUnit (exact unit pool asserted pending: friendly AND enemy, both
+#//           arenas) + FriendlyUnit_TakesDamage (friendly pick resolves) · decline=StopEarly_DealsCombinedCost
+#//           + Bust_NoDamage (NO = "stop revealing") · boundary=SevenCardCap_AutoStops (exactly 7 cost /
+#//           7 cards → deals) + Bust_NoDamage (8 > 7 → nothing) + EmptyDeck_DoesNothing (0 cards) ·
+#//           reqboundary=SevenCardCap_AutoStops (the reveal loop's running total crosses six answered
+#//           requests) · control=N/A (one-shot event, no persistent object to change hands)
 #// SOR_223 Don't Get Cocky — if the combined cost exceeds 7 you "bust" and deal NOTHING. P1 reveals
 #// SOR_043 (cost 8) and stops: 8 > 7, so the chosen unit takes 0. The revealed card returns to the deck.
 
@@ -127,4 +133,93 @@ WithP2GroundArena: LAW_124:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:4
 P1DECKCOUNT:3
+P1DISCARDCOUNT:1
+
+---
+
+# EmptyDeck_DoesNothing
+#// SOR_223 Don't Get Cocky — with NO cards in the deck there is nothing to reveal: the chosen unit
+#// (LAW_124, auto-selected as the only unit in play) takes 0 damage and the event just finishes
+#// (cost still paid, event discarded, no pending decision).
+
+## GIVEN
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_223
+WithP1Resources: 6
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1DECKCOUNT:0
+P1DISCARDCOUNT:1
+P1NODECISION
+
+---
+
+# ChoosePool_AnyUnit
+#// SOR_223 Don't Get Cocky — "Choose a unit" is ANY unit: friendly and enemy, ground and space. With
+#// P1's Battlefield Marine plus P2's LAW_124 (ground) and Alliance X-Wing (space) in play, playing the
+#// event leaves the unit choice PENDING and the pool is exactly those three units. (No answer is given
+#// — the offer itself is the assertion; nothing has been revealed yet, so the deck is untouched.)
+
+## GIVEN
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_223
+WithP1Resources: 6
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: LAW_124:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP1Deck: [SOR_095 SOR_063]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0&theirSpaceArena-0
+P1DECKCOUNT:2
+
+---
+
+# FriendlyUnit_TakesDamage
+#// SOR_223 Don't Get Cocky — the chosen unit may be YOUR OWN. P1 picks its Battlefield Marine (3/3),
+#// the first card reveals automatically (SOR_095, cost 2), P1 stops: combined 2 ≤ 7, so the Marine
+#// takes 2 and survives at 1 HP; the enemy unit is untouched and the revealed card goes to the bottom
+#// of the deck (count stays 2).
+
+## GIVEN
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_223
+WithP1Resources: 6
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: LAW_124:1:0
+WithP1Deck: [SOR_095 SOR_063]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1DECKCOUNT:2
 P1DISCARDCOUNT:1

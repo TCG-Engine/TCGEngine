@@ -1,4 +1,10 @@
 # Decline
+#// COVERAGE: offer=Unaffordable_NoPlayOption (Play withheld when cost−5 is unpayable — the prompt
+#//           itself is the offer, no target pool) + TopPiloting_* (Unit-vs-Pilot mode offer) ·
+#//           decline=Decline (Leave) · boundary=PlayFree_LowBase (exactly 5 remaining HP → free) +
+#//           PlayDiscount (healthy base → −5) + EmptyDeck_NoOp (0 cards) · reqboundary=every section
+#//           answers the Play/Leave prompt in a request after the play (state crosses the boundary) ·
+#//           control=N/A (event; the look/play is seat-bound to its caster, nothing persists to steal)
 #// SOR_246 You're My Only Hope — decline: "you MAY play it". P1 looks at the top card (SOR_049
 #// Obi-Wan) and chooses Leave → nothing played, the card stays on top. P1 still paid 3 for the event
 #// (→ 0), and the event is in the discard.
@@ -135,3 +141,140 @@ WithP1Deck: SOR_189
 
 ## EXPECT
 P1NODECISION
+
+---
+
+# EmptyDeck_NoOp
+#// SOR_246 You're My Only Hope — with an EMPTY deck there is no top card to look at: the event still
+#// resolves (cost paid, event to discard) but nothing is shown and nothing is played — no pending
+#// decision, arenas untouched.
+
+## GIVEN
+CommonSetup: byw/byw/{myResources:3}
+P1OnlyActions: true
+WithP1Hand: SOR_246
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1DECKCOUNT:0
+P1DISCARDCOUNT:1
+P1GROUNDARENACOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# TopPiloting_PlayAsUnit
+#// SOR_246 You're My Only Hope — a Piloting card on top of the deck can be played EITHER way; here P1
+#// takes the Unit mode. Top card JTL_196 Dagger Squadron Pilot (cost 1, Cunning/Heroism, Piloting)
+#// with a friendly pilotless Vehicle (SHD_195 Cartel Turncoat) on the board: after "Play" the
+#// Unit-vs-Pilot mode choice appears; choosing Unit seats JTL_196 in the ground arena (1 − 5 → free)
+#// and the Turncoat stays upgrade-free. (P1 keeps 1 ready resource: the mode offer's host-affordability
+#// gate reads the UNdiscounted Piloting cost, so a broke player is never shown the choice.)
+
+## GIVEN
+CommonSetup: byw/byw/{myResources:4}
+P1OnlyActions: true
+WithP1SpaceArena: SHD_195:1:0
+WithP1Hand: SOR_246
+WithP1Deck: [JTL_196 SOR_189 SOR_189]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Play
+- P1>AnswerDecision:Unit
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:JTL_196
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1DECKCOUNT:2
+P1DISCARDCOUNT:1
+P1RESAVAILABLE:1
+
+---
+
+# TopPiloting_PlayAsPilot
+#// SOR_246 You're My Only Hope — the SAME top card taken in the Pilot mode: choosing Pilot attaches
+#// JTL_196 to the friendly pilotless Vehicle SHD_195 as a Piloting upgrade (the −5 also covers the
+#// Piloting cost, 1 − 5 → free; the 4th resource stays ready). No ground unit is created.
+
+## GIVEN
+CommonSetup: byw/byw/{myResources:4}
+P1OnlyActions: true
+WithP1SpaceArena: SHD_195:1:0
+WithP1Hand: SOR_246
+WithP1Deck: [JTL_196 SOR_189 SOR_189]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Play
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_196
+P1GROUNDARENACOUNT:0
+P1DECKCOUNT:2
+P1DISCARDCOUNT:1
+P1RESAVAILABLE:1
+
+---
+
+# NamedCard_PlayFizzles
+#// SOR_246 You're My Only Hope — the "you may play it" respects play-restrictions. P2's Regional
+#// Governor (SOR_062) names "Battlefield Marine", which is the top of P1's deck (SOR_095, cost 2 —
+#// otherwise free after the −5). The look still prompts, but choosing Play fizzles against the
+#// restriction: the top card stays on the deck and nothing is played.
+
+## GIVEN
+CommonSetup: byw/bbw/{myResources:3;theirResources:2}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Hand: SOR_062
+WithP1Hand: SOR_246
+WithP1Deck: [SOR_095 SOR_189 SOR_189]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Battlefield Marine
+- P1>PlayHand:0
+- P1>AnswerDecision:Play
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_062
+P1NODECISION
+P1DECKCOUNT:3
+P1DECKTOPCARD:SOR_095
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P1RESAVAILABLE:0
+
+---
+
+# TopPiloting_ZeroReadyAfterEvent_PilotModeStillOffered
+#// The -5 makes the top Piloting card's pilot mode FREE, so the Unit-vs-Pilot choice must be offered
+#// even with 0 ready resources after paying the event (the gate prices the REAL discounted cost).
+#// Exactly 3 resources: the event consumes all of them; the pilot play then costs max(0, 2-5) = 0.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+WithP1Hand: SOR_246
+WithP1Deck: [JTL_108 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Play
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1RESAVAILABLE:0
+P1DECKCOUNT:1

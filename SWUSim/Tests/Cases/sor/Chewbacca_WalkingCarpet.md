@@ -1,4 +1,12 @@
 # GrantedSentinel_ExpiresNextPhase
+#// COVERAGE: offer=Offer_PrintedCostCeiling (pending SELECTABLEEXACT; ceiling + affordability) ·
+#//           reqboundary=GrantedSentinel_ExpiresNextPhase (grant in one request, expiry across the
+#//           phase cross) · control=N/A (the action reads only the controller's own hand; the granted
+#//           token rides the unit and no section changes control) · boundary pair=
+#//           Offer_PrintedCostCeiling (cost 3 in, 4 out) + UnaffordableExcluded_SingleCandidateAutoPlays
+#//           (affordable in, unaffordable out) · decline=Decline_NothingPlayedNoSentinel.
+#//           Sentinel ENFORCEMENT during an enemy attack is covered generically by
+#//           keywords/Sentinel_ForceTarget.md. Deployed side: Deployed_HasGritKeyword.
 #// SOR_003 Chewbacca — the granted Sentinel is "for this phase" only. P1 plays SOR_237 via the leader
 #// action (it gains Sentinel), then passes to end the action phase; RegroupPhaseStart expires the
 #// SOR_003 phase-duration token, so the X-Wing no longer has Sentinel. It survives (undamaged), so the
@@ -80,3 +88,105 @@ P1SPACEARENACOUNT:0
 P1HANDCOUNT:1
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# Offer_PrintedCostCeiling
+#// SOR_003 Chewbacca leader action — the hand-unit offer is the units costing 3 or less that
+#// the player can pay for: SOR_237 (2) and SHD_200 (3). The 4-cost SOR_046 is over the cost
+#// ceiling and excluded even though 5 resources could pay for it. The decision is left PENDING
+#// so the offer itself is asserted.
+#// Intended: the ceiling reads the PRINTED cost, so an off-aspect printed-3 unit (effective 5
+#// after the +2 penalty) still belongs in this pool when affordable — deferred pending an
+#// engine fix (see the session log).
+
+## GIVEN
+CommonSetup: ybw/bbk/{
+  myLeader:SOR_003;
+  myResources:5;
+  myhandCardIds:SOR_237,SHD_200,SOR_046
+}
+P1OnlyActions: true
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myHand-0&myHand-1
+
+---
+
+# UnaffordableExcluded_SingleCandidateAutoPlays
+#// SOR_003 Chewbacca leader action — a ≤3-cost unit the player cannot PAY for is not offered.
+#// With only 2 ready resources the 3-cost SHD_200 drops out and the 2-cost SOR_237 is the only
+#// candidate, so the pick auto-resolves: the X-Wing is played with Sentinel and everything else
+#// stays in hand. (Auto-resolution IS the assertion here: were SHD_200 offered, a second legal
+#// option would leave a pending prompt and P1NODECISION would fail.)
+
+## GIVEN
+CommonSetup: ybw/bbk/{
+  myLeader:SOR_003;
+  myResources:2;
+  myhandCardIds:SOR_237,SHD_200,SOR_046
+}
+P1OnlyActions: true
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:HASKEYWORD:Sentinel
+P1HANDCOUNT:2
+P1RESAVAILABLE:0
+P1LEADER:EXHAUSTED
+P1NODECISION
+
+---
+
+# Decline_NothingPlayedNoSentinel
+#// SOR_003 Chewbacca leader action — choosing nothing: the action is still used (leader
+#// exhausts) but no unit is played and nothing gains Sentinel; the whole hand stays put.
+
+## GIVEN
+CommonSetup: ybw/bbk/{
+  myLeader:SOR_003;
+  myResources:5;
+  myhandCardIds:SOR_237,SHD_200,SOR_046
+}
+P1OnlyActions: true
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:-
+
+## EXPECT
+P1HANDCOUNT:3
+P1GROUNDARENACOUNT:0
+P1SPACEARENACOUNT:0
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:5
+P1NODECISION
+
+---
+
+# Deployed_HasGritKeyword
+#// SOR_003 Chewbacca deployed side — the leader unit carries Sentinel and Grit (keywords only;
+#// the play-a-unit action lives on the FRONT side and is gone once deployed).
+
+## GIVEN
+CommonSetup: ybw/bbk/{
+  myLeader:SOR_003:1:1
+}
+P1OnlyActions: true
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1GROUNDARENAUNIT:0:HASKEYWORD:Grit
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel

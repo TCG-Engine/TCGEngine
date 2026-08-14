@@ -492,8 +492,9 @@ function HasConditionalKeyword_Ambush($obj) {
         }
     }
     switch ($obj->CardID) {
-        case 'SOR_114': // Escort Skiff — while you have a Cunning unit
-            return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Cunning', $obj->UniqueID);
+        case 'SOR_114': // Escort Skiff — "While you control another COMMAND unit, this unit gains Ambush."
+                        // (Shipped keyed on Cunning — wrong aspect — since the set was built.)
+            return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Command', $obj->UniqueID);
         case 'SOR_249': // Frontier AT-RT — while you have a Vehicle unit
             return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Vehicle', $obj->UniqueID);
         case 'TWI_106': // Coruscant Guard — while Coordinate is active

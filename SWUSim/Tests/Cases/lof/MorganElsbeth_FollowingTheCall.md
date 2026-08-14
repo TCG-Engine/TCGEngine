@@ -88,7 +88,7 @@ P1GROUNDARENAUNIT:1:CARDID:SHD_113
 
 # Front_NoUnitAttacked_NoEffect
 #// LOF_005 Morgan (front) — the Action needs a unit that attacked THIS phase. Nothing has attacked, so using
-#// the ability resolves to no effect (leader still exhausts, hand/board unchanged). Mirrors ref "does nothing
+#// the ability resolves to no effect (leader still exhausts, hand/board unchanged). Intended: "does nothing
 #// if no unit attacked this phase".
 
 ## GIVEN

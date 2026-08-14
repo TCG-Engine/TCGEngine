@@ -1,4 +1,17 @@
 # APS_LeaderUnit_LooksAtBothDecks
+#// COVERAGE: offer=LeaderAction_OwnDeck_OfferPool + LeaderAction_OpponentDeck_OfferPool +
+#//           Deployed_OnAttack_OfferPool (pending P1SELECTABLEEXACT; the deployed pool also proves
+#//           Thrawn himself, c6, is excluded) · reqboundary=LeaderAction_SurvivesRequestBoundary
+#//           (deck choice and exhaust target are separate decisions; the revealed cost is read after
+#//           the first answer) · control=N/A (the exhaust pool is purely cost-based over ALL units in
+#//           play — both controllers' units already appear in every pool section, and no per-unit
+#//           state outlives the resolution) · boundary=LeaderAction_OwnDeck_OfferPool (equal-cost c4
+#//           Wampa IN, c5 Freighter OUT of a c4 reveal) + the empty-deck family
+#//           (LeaderAction_OpponentDeckEmpty_NoOp / _BothDecksEmpty_CostStillPaid /
+#//           APS_OneDeckEmpty_PeeksOnlyNonEmpty / APS_BothDecksEmpty_NoPeek) ·
+#//           decline=OnAttack_No (deployed "you may" declined; the leader-side Action has no decline —
+#//           once the [1 resource, exhaust] cost is paid the reveal is mandatory, see
+#//           LeaderAction_NoValidTargets / LeaderAction_Unaffordable)
 #// SOR_016 Grand Admiral Thrawn — APS passive fires when Thrawn is deployed as a leader unit.
 #// Thrawn deployed (leader zone Deployed=true, linked ground-arena leader unit). Same as the leader-side
 #// test: PASS both players into a regroup and loop back to a NEW action phase (READY -> APS) to fire
@@ -239,3 +252,302 @@ P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:1:EXHAUSTED
 P1LEADER:DEPLOYED
 P1LEADER:EPICUSED
+
+---
+
+# APS_OneDeckEmpty_PeeksOnlyNonEmpty
+#// SOR_016 Grand Admiral Thrawn (leader side) — APS passive with ONE empty deck: only the non-empty
+#// deck is peeked. P1's deck holds 3 cards (1 survives the regroup draw); P2's deck is EMPTY, so P2
+#// takes 3 damage per undrawn card (+6 base) and Thrawn skips P2's deck entirely. The peek entries are
+#// written P1-then-P2, so a LAST log entry that is P1's peek proves the P2 peek line was never written.
+
+## GIVEN
+CommonSetup: gyk/grw
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+LOGCONTAINS: top of P1
+LASTLOGCONTAINS: top of P1
+P2BASEDMG:6
+PHASE:MAIN
+
+---
+
+# APS_BothDecksEmpty_NoPeek
+#// SOR_016 Grand Admiral Thrawn (leader side) — APS passive with BOTH decks empty: no peek at all.
+#// Each player fails both regroup draws (+6 to each base). The action-phase banner is the LAST log
+#// entry, proving neither "sees top of" line was written.
+
+## GIVEN
+CommonSetup: gyk/grw
+SkipPreGame: true
+WithActivePlayer: 1
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+LASTLOGCONTAINS: Action Phase
+P1BASEDMG:6
+P2BASEDMG:6
+PHASE:MAIN
+
+---
+
+# APS_LeaderUnit_OneDeckEmpty_PeeksOnlyNonEmpty
+#// SOR_016 Grand Admiral Thrawn DEPLOYED — same one-empty-deck APS behavior on the leader-unit side:
+#// only P1's non-empty deck is peeked (last log entry = P1's peek), P2 takes +6 for the failed draws.
+
+## GIVEN
+CommonSetup: gyk/grw/{
+  myLeader:SOR_016:1:1:1
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+LOGCONTAINS: top of P1
+LASTLOGCONTAINS: top of P1
+P2BASEDMG:6
+PHASE:MAIN
+
+---
+
+# LeaderAction_OwnDeck_OfferPool
+#// SOR_016 Grand Admiral Thrawn — Leader Action, OWN deck revealed (SOR_077 Takedown, cost 4): the
+#// exhaust pool is EXACTLY the units costing 4 or less, across BOTH players — P1's Battlefield Marine
+#// (c2) and P2's Wampa (c4) — and NOT P1's Desperado Freighter (c5). The choice is left PENDING so the
+#// pool itself is the assertion; resolution is covered by LeaderAction_OwnDeck.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:1}
+P1OnlyActions: true
+WithP1Deck: SOR_077
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SHD_152:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# LeaderAction_OpponentDeck_OfferPool
+#// SOR_016 Grand Admiral Thrawn — Leader Action, OPPONENT's deck revealed (SOR_116 Steadfast
+#// Battalion, cost 5): now the c5 Desperado Freighter also qualifies, so the pool is exactly all
+#// three units. Left pending; resolution covered by LeaderAction_OpponentDeck.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:1}
+P1OnlyActions: true
+WithP2Deck: SOR_116
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SHD_152:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0
+
+---
+
+# LeaderAction_OpponentDeckEmpty_NoOp
+#// SOR_016 Grand Admiral Thrawn — Leader Action choosing the opponent's EMPTY deck: nothing is
+#// revealed and nothing is exhausted, but the action's cost was already paid — the leader stays
+#// exhausted and the resource stays spent.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:1}
+P1OnlyActions: true
+WithP1Deck: SOR_095
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:NO
+
+## EXPECT
+P2GROUNDARENAUNIT:0:READY
+P1LEADER:EXHAUSTED
+P1RESCOUNT:1
+P1RESAVAILABLE:0
+P1NODECISION
+
+---
+
+# LeaderAction_BothDecksEmpty_CostStillPaid
+#// SOR_016 Grand Admiral Thrawn — Leader Action with BOTH decks empty: the ability does nothing,
+#// but the [1 resource, exhaust] cost is still paid (it was paid to initiate the action).
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:1}
+P1OnlyActions: true
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2GROUNDARENAUNIT:0:READY
+P1LEADER:EXHAUSTED
+P1RESCOUNT:1
+P1RESAVAILABLE:0
+P1NODECISION
+
+---
+
+# Deployed_OnAttack_OpponentDeck
+#// SOR_016 Grand Admiral Thrawn DEPLOYED — On Attack choosing the OPPONENT's deck (top SOR_116,
+#// cost 5): pool = P1's Dark Trooper (c2) and P2's Wampa (c4); Thrawn himself (c6) is excluded.
+#// P1 picks the Wampa, which exhausts; base still takes Thrawn's 3.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:6}
+P1OnlyActions: true
+WithP2Deck: SOR_116
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:NO
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2BASEDMG:3
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:READY
+P1LEADER:DEPLOYED
+
+---
+
+# Deployed_OnAttack_OfferPool
+#// SOR_016 Grand Admiral Thrawn DEPLOYED — On Attack, own deck revealed (SOR_077 Takedown, c4):
+#// the pool is exactly the c4-or-less units — P1's Battlefield Marine (c2) and P2's Wampa (c4).
+#// Thrawn himself (c6 leader unit) and the c5 Desperado Freighter are excluded. Left pending;
+#// resolution covered by OnAttack_Yes and Deployed_OnAttack_OpponentDeck.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:6}
+P1OnlyActions: true
+WithP1Deck: SOR_077
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SHD_152:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# Deployed_OnAttack_OpponentDeckEmpty_NoExhaust
+#// SOR_016 Grand Admiral Thrawn DEPLOYED — On Attack choosing the opponent's EMPTY deck: nothing is
+#// revealed or exhausted; the attack itself still lands for 3.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:6}
+P1OnlyActions: true
+WithP1Deck: SOR_095
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:NO
+
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENAUNIT:0:READY
+P1NODECISION
+
+---
+
+# LeaderAction_SurvivesRequestBoundary
+#// SOR_016 Grand Admiral Thrawn — the Leader Action spans two decisions (deck choice, then the
+#// exhaust target); the revealed top card's cost is read AFTER the deck-choice answer, so the whole
+#// flow must survive a serialize/decode round-trip at each decision boundary. Same fixture as
+#// LeaderAction_OwnDeck_OfferPool, resolved onto the Wampa.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:1}
+P1OnlyActions: true
+WithP1Deck: SOR_077
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:READY
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:0
+
+---
+
+# Deployed_OnAttack_BothDecksEmpty_NoEffect
+#// SOR_016 Grand Admiral Thrawn DEPLOYED — On Attack with BOTH decks empty: accepting the ability
+#// and picking a deck does nothing (no reveal, no exhaust); the attack still lands for 3.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENAUNIT:0:READY
+P1NODECISION

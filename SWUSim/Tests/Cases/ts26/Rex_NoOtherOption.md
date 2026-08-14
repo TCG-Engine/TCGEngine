@@ -127,6 +127,7 @@ WithP1Deck: [SEC_080 SOR_095]
 ## WHEN
 - P1>UseLeaderAbility
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 - P1>PlayHand:0
 
 ## EXPECT

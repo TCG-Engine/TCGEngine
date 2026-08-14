@@ -1,4 +1,11 @@
 # NonVehicleNoBoost
+#// COVERAGE: offer=N/A (a static aura has no target choice; the Ambush attack pick is exercised in
+#//           VehicleGetsAmbush) · decline=N/A (no "you may" on the aura; the Ambush YESNO decline is
+#//           generic keyword behavior) · boundary=NonVehicleNoBoost + EnemyVehicle_NoBuffNoAmbush
+#//           (trait and friendliness gates) · control=VehicleGetsAmbush (a Vehicle entering P2's
+#//           control from P1's discard gets P2-Wedge's grant — the aura keys on the CONTROLLER)
+#//           · reqboundary=VehicleGetsAmbush (grant applied at entry survives into the ambush attack
+#//           across the decision boundary)
 #// Wedge Antilles (SOR_100): only friendly VEHICLE units get +1/+1.
 #// ASH_259 (LEP Ratcatcher, base 1/1) is a non-Vehicle Ground unit.
 #// ASH_259 should NOT get a boost — it stays 1/1.
@@ -72,3 +79,61 @@ WithP1SpaceArena: JTL_221:2:0
 ## EXPECT
 P1SPACEARENAUNIT:0:POWER:5
 P1SPACEARENAUNIT:0:HP:6
+
+---
+
+# EnemyVehicle_NoBuffNoAmbush
+#// SOR_100 Wedge — "each FRIENDLY Vehicle unit": an ENEMY Vehicle gets neither the +1/+1 nor
+#// Ambush. P1 controls Wedge; P2 plays AT-ST (SOR_232, 6/7 Vehicle). It enters at printed stats,
+#// no Ambush prompt fires for anyone, and the action simply passes back.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: rrk/bbk
+WithActivePlayer: 2
+WithP2Resources: 6
+WithP1GroundArena: SOR_100:1:0
+WithP2Hand: SOR_232
+
+## WHEN
+- P2>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_232
+P2GROUNDARENAUNIT:0:POWER:6
+P2GROUNDARENAUNIT:0:HP:7
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Ambush
+P1NODECISION
+P2NODECISION
+
+---
+
+# TokenVehicle_GetsBuff
+#// SOR_100 Wedge — the +1/+1 covers friendly TOKEN Vehicles too. P1 plays Veteran Fleet Officer
+#// (JTL_099), whose When Played creates an X-Wing token (JTL_T02, 2/2 Space Vehicle). With Wedge in
+#// play the token reads 3/3. The non-Vehicle Fleet Officer itself stays unbuffed (2/1).
+#// Intended per CR: whether the granted AMBUSH fires for a CREATED token (created is not "played",
+#// and Ambush triggers on playing the unit) is withheld pending a ruling — the engine deliberately
+#// skips WhenPlayed/Ambush on token creation, so only the stat half is pinned here.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/rrk
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1GroundArena: SOR_100:1:0
+WithP1Hand: JTL_099
+WithP2SpaceArena: SHD_060:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_T02
+P1SPACEARENAUNIT:0:POWER:3
+P1SPACEARENAUNIT:0:HP:3
+P1GROUNDARENAUNIT:1:CARDID:JTL_099
+P1GROUNDARENAUNIT:1:POWER:2
+P1GROUNDARENAUNIT:1:HP:1

@@ -8,12 +8,20 @@ $customDQHandlers["SOR_252#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision === null || $lastDecision === '' || $lastDecision === '-' || $lastDecision === 'PASS') return;
     global $playerID;
     $playerID = intval($player);
+    // "Choose up to 4 cards in A discard pile" — ONE pile. The flat MZMULTICHOOSE can't narrow
+    // dynamically, so enforce here: the FIRST pick fixes the pile and picks from the other pile are
+    // ignored (server-side rules enforcement; the UI pool legitimately shows both piles because the
+    // first pick is what chooses the pile).
     $byOwner = [1 => [], 2 => []];
+    $pilePrefix = null;
     foreach (explode("&", $lastDecision) as $mz) {
         if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
+        $prefix = (strpos($mz, 'my') === 0) ? 'my' : 'their';
+        if ($pilePrefix === null) $pilePrefix = $prefix;
+        elseif ($prefix !== $pilePrefix) continue;   // cross-pile pick → not a legal choice, skip
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
-        $owner = (strpos($mz, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+        $owner = ($prefix === 'my') ? intval($player) : GetOpponent(intval($player));
         $byOwner[$owner][] = $o->CardID;
         $o->removed = true;
     }

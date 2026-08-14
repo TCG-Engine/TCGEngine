@@ -373,6 +373,20 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
                 for ($d = 0; $d < intval($damage); $d++) {
                     AddGlobalEffects($damager, 'SWU_BASEDMG_AMT_' . intval($targetPlayer));
                 }
+                // SOR_013 Cassian Andor (DEPLOYED) — "When you deal damage to an enemy base: you may
+                // draw. Once each round." Fires on NON-COMBAT base damage too (events/abilities/
+                // indirect — this funnel); the combat half rides the attack-end collection, which is
+                // skipped here via the gInCombatDamage gate so a combat hit never double-fires.
+                if (empty($GLOBALS['gInCombatDamage']) && intval($damage) > 0
+                        && _SWUCountUnitsWithCardID($damager, 'SOR_013') > 0
+                        && SWUHasUseAvailable(SWUGetLeader($damager))) {
+                    AddTrigger($damager, 'SOR_013', 'SOR_013', '');
+                    SWUConsumeUse(SWUGetLeader($damager)); // once/round via leader NumUses
+                    // Flush immediately: this funnel can run inside the OPPONENT's drain (indirect
+                    // damage is assigned by the defender), after the damager's own play ceremony
+                    // already flushed — a bagged trigger here would otherwise never surface.
+                    FlushTriggerBag($damager);
+                }
             }
             // JTL_009 Boba Fett — "when you deal non-combat damage" (combat base damage sets the flag).
             if (empty($GLOBALS['gInCombatDamage'])) _SWUCollectBobaNonCombatReaction(intval($damager));
@@ -2283,9 +2297,15 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     $attackerUID  = intval($parts[2] ?? 0);
 
     $attacker = GetZoneObject($attackerMzID);
-    // If the mzID is stale (attacker shifted indices after a mid-attack sacrifice),
-    // fall back to scanning the arena by UniqueID.
-    if (($attacker === null || (isset($attacker->removed) && $attacker->removed)) && $attackerUID > 0) {
+    // Attacker re-validation by UID (mirror of the defender re-validation below). The mzID is stale
+    // whenever a mid-attack removal reindexed the arena — including the case where the SLOT NOW HOLDS
+    // A DIFFERENT LIVE UNIT (the attacker self-pinged to death, cleanup compacted, and a bystander
+    // shifted into its index: the old empty/removed-only check then let the BYSTANDER deal the combat
+    // damage in the dead attacker's place). UID mismatch → re-scan; not found → attacker is gone and
+    // the null/removed guard below fizzles the damage.
+    if ($attackerUID > 0 && ($attacker === null || !empty($attacker->removed)
+            || intval($attacker->UniqueID ?? 0) !== $attackerUID)) {
+        $attacker = null;
         $zoneName = explode('-', $attackerMzID)[0];
         $zone = GetZone($zoneName);
         foreach ($zone as $idx => $u) {
