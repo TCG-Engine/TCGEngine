@@ -26,7 +26,7 @@ body.nb-open{overflow:hidden}.nb-vignette{--sea:#66d5d0;--deep:#075879;--sand:#f
 .nb-vignette .nb-topbar button { padding: 0 !important; border: 0 !important; color: var(--ink) !important; transform: none !important; }
 .nb-vignette .nb-controls button { padding: 9px 11px !important; border-radius: 99px !important; }
 .nb-vignette .nb-controls button:hover { background: rgba(255,255,255,.5) !important; }
-.nb-vignette .nb-scroll-cue { padding: 10px 20px !important; border: 0 !important; color: #255963 !important; transform: translateX(-50%) !important; }
+.nb-vignette .nb-scroll-cue { position: absolute !important; right: auto !important; left: 50% !important; width: auto !important; padding: 10px 20px !important; border: 0 !important; color: #255963 !important; transform: translateX(-50%) !important; }
 .nb-vignette .nb-card-body h2,
 .nb-vignette .nb-card-body h3,
 .nb-vignette .nb-card-body p { color: #214d54 !important; }
@@ -72,7 +72,7 @@ body.nb-open{overflow:hidden}.nb-vignette{--sea:#66d5d0;--deep:#075879;--sand:#f
 .nb-vignette .nb-scene-impact { --bump-x: 2px; --bump-y: 4px; --bump-r: .08deg; --prompt-speed: 1.15s; background: radial-gradient(ellipse at 50% 110%,#0a7790 0,#06445d 46%,#022b40 100%); }
 .nb-vignette.is-impact-scene .nb-topbar { border-bottom-color: rgba(2,65,78,.28); background: rgba(199,235,221,.72); box-shadow: inset 0 -3px rgba(13,103,112,.08); }
 .nb-vignette.is-impact-scene .nb-topbar::after { opacity: .18; }
-.nb-vignette .nb-impact-board { inset: 8% 7% 11%; overflow: hidden; border: 4px solid #d6c08c; border-radius: 46% 46% 12px 12px / 9% 9% 12px 12px; background: repeating-linear-gradient(90deg,#bd9157 0 3px,#d7b778 3px 93px,#9c7446 93px 97px); box-shadow: inset 0 18px 45px rgba(255,245,194,.22),0 34px 0 #553d2d,0 43px 0 #d8c38f,0 60px 80px rgba(0,15,28,.65); transform-origin: 50% 100%; }
+.nb-vignette .nb-impact-board { inset: 8% 7% 17%; overflow: hidden; border: 4px solid #d6c08c; border-radius: 46% 46% 12px 12px / 9% 9% 12px 12px; background: repeating-linear-gradient(90deg,#bd9157 0 3px,#d7b778 3px 93px,#9c7446 93px 97px); box-shadow: inset 0 18px 45px rgba(255,245,194,.22),0 34px 0 #553d2d,0 43px 0 #d8c38f,0 60px 80px rgba(0,15,28,.65); transform-origin: 50% 100%; }
 .nb-vignette .nb-impact-board::after { content: ""; position: absolute; inset: 11% 7% 8%; border: 1px solid rgba(83,57,37,.25); border-radius: 42% 42% 8px 8px / 8% 8% 8px 8px; pointer-events: none; }
 .nb-vignette .nb-boat-rail { position: absolute; z-index: 3; top: 5%; right: 4%; left: 4%; height: 23px; border-top: 7px solid #f0e0b5; border-bottom: 3px solid #70563e; }
 .nb-vignette .nb-boat-rail i { position: absolute; top: -13px; width: 8px; height: 38px; border-radius: 4px; background: #e7d4a8; box-shadow: 2px 0 #775b41; }
@@ -110,7 +110,6 @@ body.nb-open{overflow:hidden}.nb-vignette{--sea:#66d5d0;--deep:#075879;--sand:#f
 .nb-vignette[data-impact="3"] { --bump-x: 11px; --bump-y: 17px; --bump-r: .58deg; --prompt-speed: .48s; }
 .nb-vignette[data-impact="4"] { --bump-x: 17px; --bump-y: 25px; --bump-r: .9deg; --prompt-speed: .3s; }
 .nb-vignette .nb-shark { bottom: -78%; }
-.nb-vignette .nb-fin { top: -96px; left: 46%; width: 108px; height: 142px; border-radius: 96% 12% 78% 22% / 92% 18% 82% 8%; clip-path: none; transform: skewX(-12deg) rotate(-7deg); transform-origin: 50% 100%; }
 .nb-vignette .nb-shark-throat { position: absolute; z-index: 12; top: 69%; left: 50%; width: 34vw; height: 30vh; border-radius: 50%; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at 50% 58%,#050607 0 24%,#2c2023 47%,#60464a 72%,#8b6b67 100%); box-shadow: inset 0 0 60px 22px rgba(0,0,0,.7); transform: translate(-50%,-50%) scale(.28); transform-origin: 50%; will-change: opacity,transform; }
 .nb-vignette .nb-shark-throat::after { content: ""; position: absolute; inset: -2px; border-radius: inherit; background: #000; opacity: 0; }
 .nb-vignette .nb-shark-attack-art { position: absolute; z-index: 13; bottom: -108%; left: 50%; width: max(98vw,820px); max-width: none; height: auto; pointer-events: none; opacity: 0; filter: brightness(.88) saturate(.9) contrast(1.06) drop-shadow(0 -24px 42px rgba(0,18,28,.72)); transform: translateX(-50%) scale(.84); transform-origin: 50% 100%; will-change: bottom,opacity,transform; }
@@ -179,3 +178,32 @@ body.nb-open{overflow:hidden}.nb-vignette{--sea:#66d5d0;--deep:#075879;--sand:#f
 .nb-vignette .nb-real-content nav button { padding: 7px 0 !important; border: 0 !important; border-bottom: 1px solid transparent !important; color: #cfc5b2 !important; transform: none !important; }
 .nb-vignette .nb-real-content nav button:hover { border-bottom-color: #9e302e !important; color: #fff !important; }
 .nb-vignette .nb-enter { padding: 13px 22px !important; border: 1px solid #72554a !important; border-radius: 2px !important; color: #e3d7c4 !important; background: rgba(255,255,255,.03) !important; transform: none !important; }
+
+/* Keep the scroll affordance present throughout the guided portion. */
+.nb-vignette .nb-last-instruction { z-index: 8; bottom: 7px; padding: 0; border: 0; border-radius: 0; color: #164f57; background: none; box-shadow: none; font-size: 10px; font-weight: 800; line-height: 1.1; text-align: center; text-shadow: 0 1px rgba(239,255,247,.92),0 2px 10px rgba(238,255,248,.8); white-space: nowrap; }
+.nb-vignette .nb-last-instruction span { display: block; width: 18px; height: 13px; margin: 3px auto 0; color: #164f57 !important; font-size: 14px; line-height: 11px; text-align: center; text-shadow: 0 1px rgba(239,255,247,.92),0 2px 8px rgba(238,255,248,.8) !important; animation: nb-cue-arrow 1.5s ease-in-out infinite; }
+.nb-vignette .nb-scene-water .nb-last-instruction { color: rgba(239,255,249,.95); text-shadow: 0 2px 9px rgba(0,25,39,.78); }
+.nb-vignette .nb-scene-water .nb-last-instruction span { color: rgba(239,255,249,.95) !important; text-shadow: 0 2px 8px rgba(0,25,39,.8) !important; }
+.nb-vignette .nb-scene-deep .nb-last-instruction,
+.nb-vignette .nb-scene-malfunction .nb-last-instruction { color: rgba(235,255,249,.94); background: none; box-shadow: none; text-shadow: 0 2px 8px rgba(0,20,33,.82); }
+.nb-vignette .nb-scene-deep .nb-last-instruction span,
+.nb-vignette .nb-scene-malfunction .nb-last-instruction span { color: rgba(235,255,249,.94) !important; text-shadow: 0 2px 8px rgba(0,20,33,.72) !important; }
+.nb-vignette .nb-scene-bag .nb-meters { bottom: 7vh; }
+.nb-vignette .nb-scene-deep .nb-tourism { bottom: 42px; }
+@keyframes nb-cue-arrow { 0%,100% { transform: translateY(0); opacity: .72; } 50% { transform: translateY(3px); opacity: 1; } }
+
+/* A weathered channel marker, based on a real steel navigation buoy. */
+.nb-vignette .nb-deep-buoy { bottom: 24px; width: 46px; height: 92px; border: 0; border-radius: 0; background: linear-gradient(90deg,#692725 0,#a43b32 18%,#bd4b3d 48%,#7d2b28 82%,#4d2020 100%) bottom/100% 28px no-repeat,linear-gradient(74deg,transparent 0 41%,#6f2927 43% 49%,#b14237 51% 56%,transparent 58%) 2px 18px/42px 52px no-repeat,linear-gradient(106deg,transparent 0 42%,#8a302c 44% 50%,#582424 52% 57%,transparent 59%) 2px 18px/42px 52px no-repeat; box-shadow: 0 10px 16px rgba(0,24,38,.42); filter: saturate(.82) contrast(1.06); }
+.nb-vignette .nb-deep-buoy::before { top: 13px; left: -5px; width: 56px; height: 11px; border: 1px solid #542522; border-radius: 50%; background: radial-gradient(ellipse at 48% 30%,#bd5443 0 22%,#8f342e 54%,#51201f 100%); box-shadow: inset 0 2px rgba(231,135,102,.35),0 3px 4px rgba(40,13,16,.35); transform: none; }
+.nb-vignette .nb-deep-buoy::after { top: -8px; left: 19px; width: 8px; height: 25px; border: 1px solid #4c2422; border-radius: 3px 3px 1px 1px; background: linear-gradient(#d86a58 0 7px,#fff0d0 8px 10px,#71302a 11px); box-shadow: inset 2px 0 rgba(255,196,151,.18),0 -4px 7px rgba(238,91,72,.24); transform: none; }
+.nb-vignette .nb-deep-buoy span { top: 39px; left: 50%; width: 35px; height: 22px; border: 1px solid #542321; border-radius: 1px; color: rgba(255,232,199,.78); background: linear-gradient(105deg,#7d2926,#a83b32 48%,#6d2524); box-shadow: inset 0 0 0 1px rgba(210,103,76,.22),2px 3px 4px rgba(47,17,20,.28); font: 700 10px/20px Georgia,serif; text-align: center; transform: translateX(-50%) rotate(-2deg); }
+.nb-vignette .nb-deep-buoy span::before { content: "25"; }
+.nb-vignette .nb-deep-buoy span::after { content: ""; position: absolute; top: 4px; right: 4px; width: 7px; height: 2px; background: rgba(245,220,184,.45); transform: rotate(-18deg); }
+.nb-vignette .nb-deep-buoy i { right: -20px; bottom: -9px; left: -20px; height: 17px; border-top: 2px solid rgba(216,250,244,.48); border-radius: 50%; }
+
+/* Generated buoy art replaces the CSS construction while retaining its water motion. */
+.nb-vignette .nb-deep-buoy { bottom: 20px; width: 48px; height: 142px; border: 0; border-radius: 0; background: none; box-shadow: none; filter: none; }
+.nb-vignette .nb-deep-buoy::before,
+.nb-vignette .nb-deep-buoy::after { content: none; }
+.nb-vignette .nb-deep-buoy img { display: block; width: 100%; height: 100%; object-fit: fill; filter: saturate(.88) contrast(1.04) drop-shadow(0 8px 7px rgba(0,22,35,.42)); }
+.nb-vignette .nb-deep-buoy i { right: -18px; bottom: -7px; left: -18px; height: 15px; border-top: 2px solid rgba(216,250,244,.48); border-radius: 50%; }

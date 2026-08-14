@@ -36,6 +36,7 @@
         <div class="nb-deck-box"><span>YOUR<br>BEACH BAG</span><b>40</b><small>CARDS</small></div>
       </div>
       <dl class="nb-meters nb-reveal"><div><dt>Relaxation</dt><dd><b style="--value:40%"></b><span>4</span></dd></div><div><dt>Sunshine</dt><dd><b style="--value:70%"></b><span>7</span></dd></div><div><dt>Good Vibes</dt><dd><b style="--value:30%"></b><span>3</span></dd></div></dl>
+      <p class="nb-last-instruction">Scroll to continue <span>&darr;</span></p>
     </section>
 
     <section class="nb-scene nb-scene-friends" data-nb-scene="2">
@@ -45,6 +46,7 @@
         <article class="nb-card nb-person-card nb-surfer-card"><div class="nb-portrait nb-surfer"><span></span></div><div class="nb-card-body"><small>BEACHGOER &middot; LOCAL</small><h3>Local Surfer</h3><p>+1 Relaxation</p><blockquote>&ldquo;Haven&rsquo;t seen anyone swimming past the buoy today.&rdquo;</blockquote></div><span class="nb-card-cost">1</span></article>
       </div>
       <p class="nb-friendly-note nb-reveal"><span>&#10022;</span> Friends make every beach day better!</p>
+      <p class="nb-last-instruction">Scroll to continue <span>&darr;</span></p>
     </section>
 
     <section class="nb-scene nb-scene-water" data-nb-scene="3">
@@ -56,15 +58,17 @@
         <div class="nb-zone nb-zone-deep"><span>DEEP WATER</span><small>Keep scrolling to unlock</small></div>
       </div>
       <div class="nb-toast nb-reveal"><b>Great move!</b> Your Beachgoer earned 2 Relaxation. <span>&#9728;</span></div>
+      <p class="nb-last-instruction">Scroll to continue <span>&darr;</span></p>
     </section>
 
     <section class="nb-scene nb-scene-deep" data-nb-scene="4">
       <div class="nb-glitch-title nb-reveal" data-safe="ENJOY THE DEEP WATER!" data-warning="DO NOT ENTER THE WATER">ENJOY THE DEEP WATER!</div>
       <div class="nb-scene-copy nb-reveal"><span class="nb-step">04 &mdash; GO FURTHER</span><h2>Brave swimmers<br>earn more.</h2><p>Venture farther from shore for even greater rewards.</p></div>
       <div class="nb-deep-demo nb-reveal"><div class="nb-ripple"></div><div class="nb-tutorial-card nb-deep-swimmer"><i></i><b>Michael</b></div><div class="nb-under-shape"></div></div>
-      <div class="nb-deep-buoy" aria-hidden="true"><i></i><span></span></div>
+      <div class="nb-deep-buoy" aria-hidden="true"><img src="assets/north-beach-red-buoy.png" alt=""><i></i></div>
       <div class="nb-cheer-modal nb-reveal"><span>&#10003;</span><div><b>Great job!</b><small>+3 Relaxation</small></div></div>
       <p class="nb-tourism"><b>North Beach Tourism Board</b> For your safety, remain shoreward of the red buoy.</p>
+      <p class="nb-last-instruction">Scroll to continue <span>&darr;</span></p>
     </section>
 
     <section class="nb-scene nb-scene-malfunction" data-nb-scene="5">
@@ -76,7 +80,7 @@
         <div class="nb-buoy"><i></i></div>
       </div>
       <div class="nb-win-modal nb-reveal"><span class="nb-brand-sun">&#9728;</span><h3>You&rsquo;re doing great!</h3><p>Just keep swimming and earning Relaxation.</p></div>
-      <p class="nb-last-instruction">Scroll to continue</p>
+      <p class="nb-last-instruction">Scroll to continue <span>&darr;</span></p>
     </section>
 
     <section class="nb-scene nb-scene-impact" data-nb-scene="6">
@@ -89,7 +93,7 @@
         <article class="nb-impact-card nb-impact-card-three"><div class="nb-impact-card-art nb-lookout-art"><i></i></div><div class="nb-impact-card-copy"><small>BEACHGOER &middot; STAFF</small><b>Captain&rsquo;s Lookout</b><span>Beachgoers aboard your Boat are safe.</span></div></article>
         <div class="nb-impact-message"><span>All aboard!</span><b>Keep scrolling to finish your perfect beach day.</b></div>
       </div>
-      <div class="nb-shark" aria-hidden="true"><div class="nb-shark-body"><span class="nb-fin"></span><span class="nb-tail"></span><span class="nb-mouth"></span><span class="nb-eye"></span></div></div>
+      <div class="nb-shark" aria-hidden="true"><div class="nb-shark-body"><span class="nb-tail"></span><span class="nb-mouth"></span><span class="nb-eye"></span></div></div>
       <div class="nb-shark-throat" aria-hidden="true"></div>
       <img class="nb-shark-attack-art" src="assets/north-beach-shark-attack.png" alt="" aria-hidden="true">
       <div class="nb-debris" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
