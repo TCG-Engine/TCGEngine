@@ -3,6 +3,16 @@
 // Helper class for managing player decision queues in the game engine.
 // ASSUMES: You have a per-player zone named "DecisionQueue"
 
+// MZResolveObject() (subcard-aware mzID resolution) lives here and is called by MZCountChoices /
+// MZFirstChoiceMzID below. Declare the dependency rather than relying on the caller's include order:
+// this controller is reached from BOTH entry paths, and only one of them loads CoreZoneModifiers.
+// ProcessInput.php includes it explicitly, but NextTurn.php does NOT — it reaches this class
+// transitively (GamestateParser.php -> TurnController.php -> here), so in the render path
+// GetZoneObject() is defined and MZResolveObject() would not be. include_once is idempotent, and
+// CoreZoneModifiers' only top-level statement is its own include of DeterministicRNG.php (pure
+// function definitions), so pulling it in early has no side effects for any of the 8 apps.
+include_once __DIR__ . '/CoreZoneModifiers.php';
+
 class DecisionQueueController {
     private $numPlayers = 2;
     private static $debugMode = false;
