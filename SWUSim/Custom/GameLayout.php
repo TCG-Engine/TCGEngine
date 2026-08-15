@@ -175,6 +175,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     }
 
     /* ── Column separators ───────────────────────────────────────────────────── */
+    /* HIDDEN (user feedback 2026-08-14). The board is space | leader-base | ground, so BOTH
+       separators sit between the centre column and an arena — hiding the pair is what "remove
+       the vertical line between leader/base and the arena" means. The arena background panels
+       already imply the columns. Revert = delete this one display line. */
+    .swu-col-sep { display: none; }
     .swu-col-sep {
         position: fixed; top: 0; bottom: 0; width: 1px; z-index: 14; pointer-events: none;
         background: linear-gradient(180deg,
@@ -186,6 +191,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     }
 
     /* ── Midline ─────────────────────────────────────────────────────────────── */
+    /* HIDDEN (user feedback). Purely decorative — it is position:fixed + pointer-events:none, and
+       the --swu-midline VARIABLE (which positions the arena columns, home strips and pass button)
+       is untouched, so nothing moves. The two halves are still read from the arena frames and the
+       card orientation. Revert = delete this one display line. */
+    .swu-midline-bar { display: none; }
     .swu-midline-bar {
         position: fixed; left: 0; right: var(--swu-sidebar-w);
         top: calc(var(--swu-midline) - 1px); height: 2px;
@@ -403,13 +413,20 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         top: calc(var(--swu-hand-h) + var(--swu-arena-margin));
         bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin));
         background: transparent;
-        /* Faint theme-accent full frame + soft glow — the sci-fi targeting-HUD look. */
+        /* Faint theme-accent frame + soft glow — the sci-fi targeting-HUD look.
+           ⚠ The INNER edge (the one facing the centre leader/base column) is omitted: that edge,
+           not .swu-col-sep, is what actually drew the vertical line beside the leader/base.
+           Hiding .swu-col-sep alone left these behind. The corner brackets (::before) still
+           paint all four corners, so the HUD read survives. */
         border: 1px solid rgba(var(--accent-rgb),0.22);
         border-radius: 4px;
         box-shadow: 0 0 6px rgba(var(--accent-rgb),0.10),
                     inset 0 0 14px rgba(var(--accent-rgb),0.08);
         animation: swuArenaPulse 3.2s ease-in-out infinite;
     }
+    /* ⚠ The pulse animates border-COLOR only (never border-width/style), so the `border-right:0`
+       / `border-left:0` above survive it — an animation that set the shorthand would put the
+       inner edge back on every frame. */
     @keyframes swuArenaPulse {
         0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
                    box-shadow: 0 0 5px rgba(var(--accent-rgb),0.08), inset 0 0 12px rgba(var(--accent-rgb),0.05); }
@@ -435,8 +452,31 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
             linear-gradient(var(--c),var(--c)) right bottom / var(--len) var(--th) no-repeat,
             linear-gradient(var(--c),var(--c)) right bottom / var(--th)  var(--len) no-repeat;
     }
-    .swu-arena-bg-space  { left: calc(var(--swu-space-left)  + var(--swu-arena-margin)); }
-    .swu-arena-bg-ground { left: calc(var(--swu-ground-left) + var(--swu-arena-margin)); }
+    /* ⚠ Dropping the inner BORDER is not enough — the frame's `inset 0 0 14px` glow hugs every
+       inner edge and re-draws the same vertical line by itself (isolated by rendering the board
+       chrome with the shadow toggled off: the line vanishes with the shadow, not the border).
+       Offsetting the inset glow along x pushes it off the inner edge while keeping the interior
+       glow on the other three, so the HUD look survives without the line beside leader/base. */
+    .swu-arena-bg-space  { left: calc(var(--swu-space-left)  + var(--swu-arena-margin)); border-right: 0;
+        box-shadow: -6px 0 6px -2px rgba(var(--accent-rgb),0.10), inset 10px 0 14px -6px rgba(var(--accent-rgb),0.08); }
+    .swu-arena-bg-ground { left: calc(var(--swu-ground-left) + var(--swu-arena-margin)); border-left: 0;
+        box-shadow: 6px 0 6px -2px rgba(var(--accent-rgb),0.10), inset -10px 0 14px -6px rgba(var(--accent-rgb),0.08); }
+    /* Same for the animated frames — the pulse re-asserts box-shadow every frame, so the
+       per-side override has to be repeated inside the keyframes or the line comes back. */
+    .swu-arena-bg-space  { animation-name: swuArenaPulseSpace; }
+    .swu-arena-bg-ground { animation-name: swuArenaPulseGround; }
+    @keyframes swuArenaPulseSpace {
+        0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
+                   box-shadow: -6px 0 5px -2px rgba(var(--accent-rgb),0.08), inset 10px 0 12px -6px rgba(var(--accent-rgb),0.05); }
+        50%      { border-color: rgba(var(--accent-rgb),0.42);
+                   box-shadow: -6px 0 13px -2px rgba(var(--accent-rgb),0.28), inset 10px 0 18px -6px rgba(var(--accent-rgb),0.13); }
+    }
+    @keyframes swuArenaPulseGround {
+        0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
+                   box-shadow: 6px 0 5px -2px rgba(var(--accent-rgb),0.08), inset -10px 0 12px -6px rgba(var(--accent-rgb),0.05); }
+        50%      { border-color: rgba(var(--accent-rgb),0.42);
+                   box-shadow: 6px 0 13px -2px rgba(var(--accent-rgb),0.28), inset -10px 0 18px -6px rgba(var(--accent-rgb),0.13); }
+    }
     @keyframes swuArenaBracketPulse {
         0%, 100% { filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.45)); }
         50%      { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.95)); }
@@ -492,7 +532,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        so hide the engine's black placeholder text. :not(:has(img)) spares real card piles. */
     #myDeck    > span:only-child:not([id]):not(:has(img)), #theirDeck    > span:only-child:not([id]):not(:has(img)),
     #myDiscard > span:only-child:not([id]):not(:has(img)), #theirDiscard > span:only-child:not([id]):not(:has(img)),
-    #myHand    > span:only-child:not([id]):not(:has(img)), #theirHand    > span:only-child:not([id]):not(:has(img)) { display: none; }
+    #myHand    > span:only-child:not([id]):not(:has(img)), #theirHand    > span:only-child:not([id]):not(:has(img)),
+    #myLeader  > span:only-child:not([id]):not(:has(img)), #theirLeader  > span:only-child:not([id]):not(:has(img)) { display: none; }
     #myGroundArena,   #theirGroundArena { justify-content: flex-start !important; }
     #theirSpaceArena > span, #theirGroundArena > span,
     #mySpaceArena    > span, #myGroundArena    > span { flex: 0 0 auto; }
@@ -583,15 +624,30 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-pile {
         /* Piles live inside the hand band, which now shrinks with the card size — same
            fixed-96px problem as the slot wrappers above. */
-        width: var(--swu-pile-w); min-height: min(96px, calc(var(--swu-cardsize, 80px) * 1.2));
+        /* ⚠ The placeholder is now the ONLY thing drawn when a pile is empty, so its box has to
+           match the CARD's footprint — cards are 5:7, i.e. height = width * 1.4, and the old
+           1.2 multiplier left the empty frame ~16px shorter than the card next to it. With the
+           borders on both piles that mismatch read as "two boxes"; with the occupied border gone
+           it reads as two misaligned zones. 1.4 still fits the hand band (--swu-hand-h maxes at
+           cardsize * 1.475). */
+        width: var(--swu-pile-w); min-height: min(112px, calc(var(--swu-cardsize, 80px) * 1.4));
+        display: flex; align-items: center; justify-content: center;
         border: 1px solid var(--swu-border); border-radius: 10px;
         background: var(--swu-surface); overflow: visible; position: relative;
     }
+    /* ZERO-STATE ONLY: the frame is an empty-slot placeholder, so it disappears once the pile
+       actually holds a card — the card art is its own edge and the box around it just added
+       noise. `:has(img)` is the same occupied-vs-empty test the placeholder-label rule above
+       already uses, so no new browser requirement.
+       ⚠ border-COLOR, not `border: none` — keeping the 1px width means the card does not shift
+       by a pixel when the last card leaves the pile. Same for the surface fill, which would
+       otherwise show as a bare rounded rect behind the art. */
+    .swu-pile:has(img) { border-color: transparent; background: transparent; }
     /* Was an inline style="min-height:96px" on each of the four slots, which beat every
        stylesheet rule and kept the deck/discard boxes 98px tall inside a hand band that had
        shrunk to 72px. Same min() rule as the pile itself. */
     #myDeckSlot, #myDiscardSlot, #theirDeckSlot, #theirDiscardSlot {
-        min-height: min(96px, calc(var(--swu-cardsize, 80px) * 1.2));
+        min-height: min(112px, calc(var(--swu-cardsize, 80px) * 1.4));
     }
 
     .swu-pile-label {
@@ -669,6 +725,17 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         font: 700 9px/1 var(--swu-font-label); letter-spacing: 0.22em;
         color: rgba(200,151,30,0.55); pointer-events: none; z-index: 2;
     }
+    /* The badge is a ::after on the CARD span, and UILibraries writes the exhaust tilt as an
+       INLINE `transform: rotate(Ndeg)` on that same span — so the text inherited the tilt and
+       read diagonally. Counter-rotate by the same angle, but ONLY while the card is actually
+       tilted (detected by the exhausted overlay UILibraries injects inside it); an unexhausted
+       deployed leader is upright and must not be skewed the other way.
+       ⚠ -9deg must stay in step with the leader zone's RotationRules degrees in the schema —
+       the same 9° that --swu-rot-bleed above is derived from. */
+    #myLeaderSlot    [data-mzid].is-deployed:has(.exhausted-status-overlay-layer)::after,
+    #theirLeaderSlot [data-mzid].is-deployed:has(.exhausted-status-overlay-layer)::after {
+        transform: rotate(-9deg);
+    }
 
     /* Leader and Base slot wrappers inside center column */
     .swu-leader-slot-wrap, .swu-base-slot-wrap {
@@ -685,6 +752,32 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         min-height: min(96px, calc(var(--swu-center-w) * 0.68));
         border: 1px solid var(--swu-border); border-radius: 10px;
         background: var(--swu-surface); overflow: visible; position: relative;
+    }
+    /* EMPTY leader zone (goldfish / no leader): draw nothing at all — no frame, no surface.
+       The reserved height stays so the base does not jump when a leader appears. The engine's
+       black "Leader" placeholder label is hidden just below, same treatment the arenas and
+       piles already get. */
+    .swu-leader-slot-wrap:not(:has(img)) { border-color: transparent; background: none; }
+    /* DEPLOYED: the leader card is ghosted in place, so mark the frame as a placeholder rather
+       than a real zone — a dotted ring.
+       ⚠ Drawn as an OUTLINE, and that choice is deliberate after trying the alternatives on a real
+       board (2026-08-15):
+        · `border-style: dotted` at 1px pins the gap at ~1px — a dense crawling line, and it also
+          changes layout if you widen it.
+        · An inline-SVG `stroke-dasharray` ring decouples dot size from spacing (2px dots every
+          12px) and looks correct in isolation, but on the board it read as too faint and sparse.
+          It also has a sharp edge: the rect must sit at x/y 0.5 AND the viewport must be inset
+          (background-size calc(100% - 2px), position 1px) or the right/bottom strokes are clipped
+          in half — crisp dots on two edges, broken marks on the other two.
+        · `outline` uses the browser's own dotted rasteriser: uniform, crisp, follows border-radius,
+          and — unlike border-width — does NOT affect layout, so the box geometry is identical to
+          the solid state. outline-offset pulls it inside the box.
+       Native dotted ties dot size to gap, so the WIDTH is the single knob: 3px is the chosen
+       balance. Raise for larger/sparser dots, lower for a tighter ring. */
+    .swu-leader-slot-wrap:has(.is-deployed) {
+        border-color: transparent;
+        outline: 3px dotted rgba(255,255,255,0.30);
+        outline-offset: -3px;
     }
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
@@ -773,15 +866,16 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         right: calc(var(--swu-sidebar-w) + var(--swu-play-margin-r) + var(--swu-pile-zone-w));
         width: var(--swu-hand-w);
         height: var(--swu-hand-h);
-        background:
-            linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
-            linear-gradient(160deg, rgba(11,15,20,0.82), rgba(11,15,20,0.60));
-        border: 1px solid var(--swu-border);
+        /* Border AND background both removed (user feedback) — the hand cards sit directly on
+           the playmat with no panel behind them. */
+        background: none;
         overflow: visible;
         transition: transform 250ms cubic-bezier(0.4,0,0.2,1);
     }
-    #theirHandSlot { top: 0; border-radius: 0 0 8px 8px; border-top: none; }
-    #myHandSlot    { bottom: 0; border-radius: 8px 8px 0 0; border-bottom: none; }
+    /* border-top/bottom:none dropped with the border itself; the radii still round the
+       gradient's inner corners. */
+    #theirHandSlot { top: 0; border-radius: 0 0 8px 8px; }
+    #myHandSlot    { bottom: 0; border-radius: 8px 8px 0 0; }
 
     /* Card wrapper (rendered by NextTurnRender) = the horizontal scroll viewport.
        overflow-y hidden so the hand never grows into the deck/pile band; previews
