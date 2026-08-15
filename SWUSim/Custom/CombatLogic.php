@@ -2093,22 +2093,13 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         return;
     }
 
-    // Attacker leans toward its target. Queued here, once the attacker is known valid but before any
-    // of the combat mutations below, so both endpoints still resolve on the pre-render board. Fires
-    // for BOTH unit and base targets: a base has a real mzID, and base attacks are the commonest
-    // attack in the game. Queue-only — the exhaust/damage animations queued later play alongside it.
-    // $lungeTgt uses a plain null check, NOT SWUObjGone: a base object is never "removed" and must
-    // not be filtered out.
-    $lungeTgt = GetZoneObject($targetMzID);
-    if ($lungeTgt !== null) {
-        SWUQueueLungeAnim(
-            $attackerMzID,
-            $targetMzID,
-            intval($player),
-            intval($attacker->UniqueID ?? 0) ?: null,
-            intval($lungeTgt->UniqueID ?? 0) ?: null
-        );
-    }
+    // ⚠ The attacker's lunge is NOT queued here. It depicts the strike, so it belongs to the COMBAT
+    // DAMAGE step and is queued in the SWUCombatDamage handler — see the block there. Queuing it at
+    // declaration (which is what this did until 2026-08-15) put the animation in the SAME response
+    // that raises the On Attack / On Defense prompts collected at the bottom of this function, so the
+    // clash played out before the player had even been asked about the abilities that resolve BEFORE
+    // damage. Per the CR the order is: declare → begin-attack window (Restore/Saboteur, below) → On
+    // Attack abilities → combat damage → attack ends.
 
     // Mark this unit as having attacked this phase (per-unit, cleared at RegroupPhaseStart). Used by
     // "ready a unit that didn't attack this phase" effects (SEC_177).
@@ -2422,6 +2413,33 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // PRE-action slot ($targetAnimMzID) while all game logic uses the re-resolved $targetMzID. In the common
     // (no-reindex) case the two are identical.
     $targetAnimMzID = $targetMzID;
+
+    // Attacker leans toward its target. MOVED HERE from ExecuteSWUAttack (2026-08-15): the lunge is
+    // the visual for the strike, and the strike is the COMBAT DAMAGE step. Queued at declaration it
+    // rode in the same response as the On Attack / On Defense prompts, so the clash played before the
+    // player was asked about abilities that the CR resolves BEFORE damage — declare → begin-attack
+    // window (Restore/Saboteur) → On Attack → combat damage → attack ends.
+    // Placed immediately after $targetAnimMzID is captured and before the defender re-validation, so
+    // it uses the same PRE-action slot convention as the damage flash below: if a step-1 trigger
+    // reindexed the arena, the lunge still points at where the defender VISIBLY is on the board the
+    // client is about to animate, not at the post-mutation index.
+    // Both endpoints are already UID-re-resolved by this point (attacker above, defender's UID in
+    // SWU_CURRENT_DEFENDER_UID), so this is strictly better-informed than the declaration-time call.
+    // $lungeTgt uses a plain null check, NOT SWUObjGone: a base object is never "removed" and must not
+    // be filtered out. Fires for unit AND base targets — base attacks are the commonest attack.
+    // If the attacker died to its own On Attack the early return above is hit first and NO lunge
+    // plays, which is correct: there is no strike. That case used to animate anyway.
+    $lungeTgt = GetZoneObject($targetAnimMzID);
+    if ($lungeTgt !== null) {
+        SWUQueueLungeAnim(
+            $attackerMzID,
+            $targetAnimMzID,
+            intval($player),
+            intval($attacker->UniqueID ?? 0) ?: null,
+            intval($lungeTgt->UniqueID ?? 0) ?: null
+        );
+    }
+
     // Defender re-validation (unit targets only). If the target mzID is stale because the defender
     // reindexed (another unit left during step-1 triggers), re-resolve it by UniqueID. If the defender
     // genuinely LEFT PLAY before damage (bounced/defeated by an On-Defense reaction — SEC_187 Grievous),

@@ -91,7 +91,7 @@ Macro: Name=PlayCostModifier(subjectObj,currentValue,sourceObj); MacroType=Value
 # Draw pile. Cards are face-down and private to the owner. Shuffled at setup.
 Deck - CardID:string
 BeforeAdd: TokenCeaseBeforeAdd
-Display: Visibility=Private, Mode=Single, BindTo=DeckSlot
+Display: Visibility=Private, Mode=Single(Stacked), BindTo=DeckSlot
 Macros: Shuffle
 
 # Hand ─────────────────────────────────────────────────────────────────────────
