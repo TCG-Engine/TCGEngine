@@ -65,7 +65,7 @@
       <div class="nb-glitch-title nb-reveal" data-safe="ENJOY THE DEEP WATER!" data-warning="DO NOT ENTER THE WATER">ENJOY THE DEEP WATER!</div>
       <div class="nb-scene-copy nb-reveal"><span class="nb-step">04 &mdash; GO FURTHER</span><h2>Brave swimmers<br>earn more.</h2><p>Venture farther from shore for even greater rewards.</p></div>
       <div class="nb-deep-demo nb-reveal"><div class="nb-ripple"></div><div class="nb-tutorial-card nb-deep-swimmer"><i></i><b>Michael</b></div><div class="nb-under-shape"></div></div>
-      <div class="nb-deep-buoy" aria-hidden="true"><img src="assets/north-beach-red-buoy.png" alt=""><i></i></div>
+      <div class="nb-deep-buoy" aria-hidden="true"><img src="/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-red-buoy.png" alt=""><i></i></div>
       <div class="nb-cheer-modal nb-reveal"><span>&#10003;</span><div><b>Great job!</b><small>+3 Relaxation</small></div></div>
       <p class="nb-tourism"><b>North Beach Tourism Board</b> For your safety, remain shoreward of the red buoy.</p>
       <p class="nb-last-instruction">Scroll to continue <span>&darr;</span></p>
@@ -95,7 +95,7 @@
       </div>
       <div class="nb-shark" aria-hidden="true"><div class="nb-shark-body"><span class="nb-tail"></span><span class="nb-mouth"></span><span class="nb-eye"></span></div></div>
       <div class="nb-shark-throat" aria-hidden="true"></div>
-      <img class="nb-shark-attack-art" src="assets/north-beach-shark-attack.png" alt="" aria-hidden="true">
+      <img class="nb-shark-attack-art" src="/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-shark-attack.png" alt="" aria-hidden="true">
       <div class="nb-debris" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="nb-boat-wake" aria-hidden="true"></div>
       <p class="nb-impact-prompt" aria-live="polite"><b data-nb-impact-command>Keep scrolling</b><small data-nb-impact-status>You&rsquo;re almost there</small><span>&darr;</span></p>
