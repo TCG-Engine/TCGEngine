@@ -91,12 +91,33 @@
     <section class="nb-scene nb-scene-malfunction" data-nb-scene="5">
       <div class="nb-scene-copy nb-reveal"><span class="nb-step">05 &mdash; WINNING THE GAME</span><h2>Collect the most<br><span class="nb-relaxation-word" data-alt="PANIC">Relaxation</span>.</h2><p>Remember! The player with the most Relaxation wins! <span>&#9728;</span></p></div>
       <div class="nb-broken-board nb-reveal">
-        <div class="nb-counter"><span>BEACHGOERS</span><b><s>4</s> 3</b></div>
-        <div class="nb-broken-slots"><span class="is-card"></span><span class="is-card"></span><span class="is-missing" data-message="Where did Michael go?"></span><span class="is-card is-damaged"></span></div>
         <div class="nb-giant-shadow"></div>
-        <div class="nb-buoy"><i></i></div>
+        <div class="nb-score-header">
+          <div class="nb-round-label"><small>END OF BEACH DAY</small><b>FINAL TALLY</b></div>
+          <div class="nb-counter" aria-label="Beachgoer count changes from four to three">
+            <span>BEACHGOERS IN PLAY</span>
+            <b><i class="nb-count-old">4</i><i class="nb-count-new">3</i></b>
+            <small class="nb-count-alert">ROSTER UPDATED &middot; MICHAEL MISSING</small>
+          </div>
+          <div class="nb-score-total"><small>RELAXATION</small><b>12 <i>&#9728;</i></b></div>
+        </div>
+        <div class="nb-broken-slots" aria-label="Your Beachgoers and activities at the end of the game">
+          <div class="nb-score-slot">
+            <article class="nb-score-card nb-score-card-lifeguard"><div class="nb-score-card-art"><i></i></div><div class="nb-score-card-copy"><small>BEACHGOER &middot; STAFF</small><b>Friendly Lifeguard</b><span>Beachgoers in the Shallows earn +1 Relaxation.</span></div><em>1</em></article>
+          </div>
+          <div class="nb-score-slot nb-michael-slot">
+            <article class="nb-score-card nb-score-card-michael"><div class="nb-score-card-art"><i></i></div><div class="nb-score-card-copy"><small>BEACHGOER &middot; LOCAL</small><b>Michael</b><span>Whenever Michael swims, gain 2 Relaxation.</span></div><em>1</em></article>
+            <span class="nb-missing-note">Where did Michael go?</span>
+          </div>
+          <div class="nb-score-slot">
+            <article class="nb-score-card nb-score-card-towel"><div class="nb-score-card-art"><i></i></div><div class="nb-score-card-copy"><small>ITEM &middot; BEACH GEAR</small><b>Striped Towel</b><span>Your Beachgoer may rest here after swimming.</span></div><em>0</em></article>
+          </div>
+          <div class="nb-score-slot">
+            <article class="nb-score-card nb-score-card-book"><div class="nb-score-card-art"><i></i></div><div class="nb-score-card-copy"><small>ACTIVITY &middot; BEACH</small><b>Good Book</b><span>If alone, gain 2 Relaxation instead.</span></div><em>2</em></article>
+          </div>
+        </div>
+        <div class="nb-win-modal nb-reveal"><span class="nb-brand-sun">&#9728;</span><h3>You&rsquo;re doing great!</h3><p>Just keep swimming and earning Relaxation.</p></div>
       </div>
-      <div class="nb-win-modal nb-reveal"><span class="nb-brand-sun">&#9728;</span><h3>You&rsquo;re doing great!</h3><p>Just keep swimming and earning Relaxation.</p></div>
       <p class="nb-last-instruction">Scroll to continue <span>&darr;</span></p>
     </section>
 
