@@ -55,3 +55,26 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# SimulateRequestBoundary_EnteredThisRoundFlagSurvives
+#// SOR_179 Boba Fett — the "entered play this round" flag is stamped in P2's play request and read in P1's
+#// attack request, two separate processes in production. Mirrors OnAttack_EnteredThisRound_NoDeal3 with a
+#// boundary after P2 plays SOR_046: the flag must survive the round-trip, so Boba's On Attack still does
+#// NOT deal 3 and only combat damage (3) lands. (A lost flag would read as 6 damage here.)
+
+## GIVEN
+CommonSetup: yyk/bbw/{theirResources:4;theirHandCardIds:SOR_046}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_179:1:0
+
+## WHEN
+- P1>Pass
+- P2>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:DAMAGE:3

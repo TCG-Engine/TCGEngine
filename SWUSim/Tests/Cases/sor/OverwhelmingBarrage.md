@@ -106,3 +106,30 @@ WithP1GroundArena: SEC_080:1:0    # 3/3 → 5/5; no other units anywhere
 P1GROUNDARENAUNIT:0:POWER:5
 P1GROUNDARENAUNIT:0:HP:5
 P1NODECISION
+
+---
+
+# SimulateRequestBoundary_DealerCarriesToSplit
+#// SOR_092 Overwhelming Barrage — the damage-split assignment ends the request in production, so its
+#// answer arrives in a fresh process. The chosen dealer's identity, its +2/+2 buff and the split budget
+#// (5) all have to be serialized, not parked in memory from the dealer pick. Mirrors ChooseDealer with the
+#// boundary inserted between the dealer pick and the split answer.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:5;handCardIds:SOR_092}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0    # 3/3 — chosen dealer → 5/5
+WithP1GroundArena: SOR_046:1:0    # 3/7 — unchosen friendly; takes 2, NOT buffed
+WithP2GroundArena: SOR_046:1:0    # 3/7 — enemy; takes 3
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1:2,theirGroundArena-0:3
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:1:POWER:3
+P1GROUNDARENAUNIT:1:DAMAGE:2
+P2GROUNDARENAUNIT:0:DAMAGE:3

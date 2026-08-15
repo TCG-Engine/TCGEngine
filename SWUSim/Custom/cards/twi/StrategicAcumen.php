@@ -5,4 +5,4 @@
 
 // Shared discount-play family — see SWUOfferDiscountPlay in CardHelpers.php.
 $unitAbilities["TWI_120"] = fn($player, $mzID) => SWUOfferDiscountPlay($player,
-    ['discount' => 1, 'types' => ['Unit'], 'prompt' => "Play_a_unit_from_your_hand_(it_costs_1_less)"]);
+    ['discount' => 1, 'types' => ['Unit'], 'may' => true, 'prompt' => "Play_a_unit_from_your_hand_(it_costs_1_less)"]);

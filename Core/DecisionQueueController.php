@@ -9,10 +9,22 @@ class DecisionQueueController {
     private static $executeDepth = 0;
     private static $executePlayerStack = [];
     private static $suspendAutoAdvanceDepth = 0;
+    // Optional per-game predicate. While it returns true, AddDecision is a no-op — used by a game to
+    // stop work that is still unwinding from the effect which ENDED the game from queuing anything
+    // further. Default null, so a game that never registers one is completely unaffected.
+    //
+    // ⚠ A PREDICATE, not a sticky flag, and deliberately so: it must be re-evaluated per game state.
+    // A static bool would leak across the many games a single process handles (the test harness runs
+    // an entire suite in one process — one game ending would silence every game after it).
+    // SWUSim registers `fn() => SWUGetGameWinner() !== 0`, which reads the SERIALIZED winner, so it is
+    // automatically correct for each parsed gamestate with nothing to reset.
+    private static $suppressNewDecisionsCheck = null;
 
     public function __construct() {
 
     }
+
+    public static function SetSuppressNewDecisionsCheck(?callable $fn) { self::$suppressNewDecisionsCheck = $fn; }
 
     // Returns true if both players' queues are empty
     public function AllQueuesEmpty() {
@@ -136,6 +148,8 @@ class DecisionQueueController {
 
     // Add a decision to a player's queue
     public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '', $dontSkipOnPass = 0) {
+        if(self::$suppressNewDecisionsCheck !== null
+            && (self::$suppressNewDecisionsCheck)()) return;   // result is final — queue nothing further
         $tooltip = str_replace(' ', '_', $tooltip);
         $playerQueue = &GetDecisionQueue($player);
         $insertIndex = 0;

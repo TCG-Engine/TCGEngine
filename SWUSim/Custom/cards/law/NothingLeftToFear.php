@@ -16,7 +16,7 @@ $customDQHandlers["LAW_041#0"] = function($player, $parts, $lastDecision) {
     SWUOfferUnitTarget($player, '', [
         'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true,
         'extraFilter' => fn($o) => ObjectCurrentPower($o) <= $chosenPower,
-        'question' => "Defeat_a_non-leader_unit?", 'prompt' => "Choose_a_non-leader_unit_to_defeat",
+        'may' => true, 'question' => "Defeat_a_non-leader_unit?", 'prompt' => "Choose_a_non-leader_unit_to_defeat",
     ]);
 };
 

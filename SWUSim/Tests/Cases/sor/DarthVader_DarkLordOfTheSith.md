@@ -78,3 +78,28 @@ P2BASEDMG:1
 P1LEADER:EXHAUSTED
 P1RESCOUNT:2
 P1RESAVAILABLE:0
+
+---
+
+# SimulateRequestBoundary_MidAttackTriggerTarget
+#// SOR_010 Darth Vader — the deployed OnAttack "deal 2 damage to a unit" choose ends the request in
+#// production: the attack is mid-resolution (base damage still owed) when the prompt goes out, so the
+#// answer arrives in a fresh process that must rebuild the attack context from the serialized
+#// gamestate. Mirrors Deploy_OnAttack_DealDamage with the boundary inserted before the answer.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:7}
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2GroundArena: SOR_095:2:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2BASEDMG:5
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P1LEADER:EPICUSED

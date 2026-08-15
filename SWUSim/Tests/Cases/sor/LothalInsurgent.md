@@ -132,3 +132,31 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_190
 P2DECKCOUNT:0
 P2HANDCOUNT:0
 P2DISCARDCOUNT:2
+
+---
+
+# SimulateRequestBoundary_PlayedAnotherCardThisPhaseSurvives
+#// SOR_190 Lothal Insurgent — the two plays are separate requests in production, so the "you played
+#// another card this phase" memory must live in the serialized gamestate, not a transient global.
+#// Mirrors AnotherCard_OppDrawsDiscards with a request boundary between the throwaway and Lothal:
+#// the condition still reads as met, so P2 still draws SOR_171 and discards it.
+
+## GIVEN
+CommonSetup: yyw/yyw/{myResources:5}
+P1OnlyActions: true
+WithP1Hand: SOR_210
+WithP1Hand: SOR_190
+WithP2Deck: SOR_171
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P2HANDCOUNT:0
+P2DECKCOUNT:0
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:SOR_171
+P2DISCARDUNIT:0:FROM:HAND

@@ -78,3 +78,71 @@ WithP1Hand: [LAW_208]
 P1HASDECISION
 P1DECISIONTOOLTIP:Deal_2_to_a_base_or_another_unit_in_the_same_arena
 P2NODECISION
+
+---
+
+# CollateralDamage_ParkedWhenDefeatedMustNotResolveAfterTheGameIsWON
+#// The post-win resolution-halt case, and the parked-trigger deferral is what sets it up.
+#// P2's base sits at 28/30 and P2's K-2SO (SOR_145, 4 HP) already has 2 damage. P1's Collateral Damage
+#// defeats K-2SO with the first hit — his When Defeated is PARKED until the whole event resolves — and
+#// the "Then" hit puts P2's base at exactly 30. The game is decided at that instant: P1 WINS.
+#// K-2SO's parked When Defeated must therefore never resolve. It is not cosmetic — it reads "For each
+#// opponent, choose one: either deal 3 damage to that player's base, or that player discards a card",
+#// and P1's base is at 27/30, so resolving it after the win would put P1 at 30 as well and flip a clean
+#// win into a mutual loss. No prompt for either player; P1 is the winner.
+#// (K-2SO is the only unit in play, so the first clause's "deal 2 damage to a unit" auto-resolves onto
+#// him and takes no answer — the single answer below is the "Then" clause's base pick.)
+
+## GIVEN
+CommonSetup: ngw/ngw/{
+  myLeader:ASH_011:true:false:false:0;
+  myBase:ASH_020;
+  myBaseDamage:27;
+  theirLeader:ASH_011:true:false:false:0;
+  theirBase:ASH_020;
+  theirBaseDamage:28
+}
+P1OnlyActions: true
+WithP1Resources: 3
+WithP2GroundArena: SOR_145:1:2
+WithP1Hand: [LAW_208]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1WIN
+P1NODECISION
+P2NODECISION
+P1BASEDMG:27
+
+---
+
+# CollateralDamage_ParkedWhenDefeatedStillResolvesWhenTheGameIsNOTWon
+#// Boundary partner for the section above: identical board except P2's base starts at 27, so the "Then"
+#// hit leaves it at 29 — one short of lethal. The game is NOT decided, so K-2SO's parked When Defeated
+#// is released as normal and P2 gets its choose. This is what proves the halt above is caused by the WIN
+#// and not by the trigger being lost somewhere. (Same auto-resolved first clause as above.)
+
+## GIVEN
+CommonSetup: ngw/ngw/{
+  myLeader:ASH_011:true:false:false:0;
+  myBase:ASH_020;
+  myBaseDamage:27;
+  theirLeader:ASH_011:true:false:false:0;
+  theirBase:ASH_020;
+  theirBaseDamage:27
+}
+P1OnlyActions: true
+WithP1Resources: 3
+WithP2GroundArena: SOR_145:1:2
+WithP1Hand: [LAW_208]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2HASDECISION
+P2GROUNDARENACOUNT:0

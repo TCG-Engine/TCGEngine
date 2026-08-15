@@ -10,8 +10,10 @@ WithP1Hand: SOR_095
 WithP1Hand: LAW_264
 
 ## WHEN
-#// Only SOR_095 remains in hand after playing the event, so the play-choice auto-resolves.
+#// (Extra answer since 2026-08-14: this "you may" offer no longer auto-resolves a lone target —
+#// only SOR_095 remains in hand after playing the event, so it is named explicitly.)
 - P1>PlayHand:1
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
@@ -34,9 +36,11 @@ WithP1Hand: SOR_222
 WithP1Hand: LAW_264
 
 ## WHEN
-#// Only SOR_222 remains in hand after the event, so the play-choice auto-resolves; the lone enemy is the
-#// only Waylay target, so that auto-resolves too.
+#// (Extra answer since 2026-08-14: this "you may" offer no longer auto-resolves a lone target — only
+#// SOR_222 remains in hand after the event, so it is named explicitly. The lone enemy is the only
+#// Waylay target and that mandatory choose still auto-resolves.)
 - P1>PlayHand:1
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P2GROUNDARENACOUNT:0
@@ -59,9 +63,11 @@ WithP1Hand: LAW_129
 WithP1Hand: LAW_264
 
 ## WHEN
-#// Only LAW_129 remains in hand after the event (auto-resolves as the card to play); SOR_095 is the only
-#// unit, so the attach target auto-resolves.
+#// (Extra answer since 2026-08-14: this "you may" offer no longer auto-resolves a lone target — only
+#// LAW_129 remains in hand after the event, so it is named explicitly. SOR_095 is the only unit, so
+#// the mandatory attach-target choose still auto-resolves.)
 - P1>PlayHand:1
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
@@ -91,3 +97,29 @@ WithP1Hand: SOR_237
 P1HANDCOUNT:2
 P1DISCARDCOUNT:1
 P1RESAVAILABLE:4
+
+---
+
+# Decline_SingleTarget_NoCardPlayed
+#// LAW_264 From a Certain Point of View — declining is now possible even when exactly ONE card is
+#// left in hand to play (since 2026-08-14 a lone target no longer auto-resolves). Mirrors
+#// IgnoreAspectPenalty but P1 answers "-": SOR_095 is never played (it stays in hand, ground arena
+#// empty) while the event's own cost was still paid — LAW_264 left hand for the discard pile and 1
+#// of the 3 resources is spent, leaving 2.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1Hand: SOR_095
+WithP1Hand: LAW_264
+
+## WHEN
+- P1>PlayHand:1
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1DISCARDCOUNT:1
+P1RESAVAILABLE:2
+P1NODECISION

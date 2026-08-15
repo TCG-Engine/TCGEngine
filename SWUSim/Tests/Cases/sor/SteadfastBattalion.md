@@ -129,3 +129,31 @@ WithP2GroundArena: SOR_164:1:0
 P1NODECISION
 P2BASEDMG:5
 P1SPACEARENAUNIT:0:NOTLEADERUNIT
+
+---
+
+# SimulateRequestBoundary_PhaseBuffSurvives
+#// SOR_116 Steadfast Battalion — the On Attack "give a friendly unit +2/+2" choose ends the request in
+#// production, so the target answer arrives in a fresh process. Mirrors OnAttack_WithLeaderUnit_Buffs
+#// with the boundary inserted before the answer: the pending give-buff context must survive the
+#// round-trip, and the resulting for-this-phase +2/+2 must still be on Leia for her own later attack
+#// (4 + 2 = 6, so the base takes 5 + 6 = 11).
+
+## GIVEN
+CommonSetup: ggw/grw/{
+  myLeader:SOR_009:1:1:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_116:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1
+- P1>AttackGroundArena:1:BASE
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:ISLEADERUNIT
+P2BASEDMG:11

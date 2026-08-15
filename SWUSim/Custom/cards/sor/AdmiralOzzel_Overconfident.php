@@ -18,5 +18,5 @@ $unitAbilities["SOR_129"] = function($player, $mzID) {
         return;
     }
     SWUQueueChooseTarget(intval($player), $targets,
-        "Play_an_Imperial_unit_from_your_hand_(it_enters_ready)", 'OZZEL_PLAY');
+        "Play_an_Imperial_unit_from_your_hand_(it_enters_ready)", 'OZZEL_PLAY', may: true);
 };

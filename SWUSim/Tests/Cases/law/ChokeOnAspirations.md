@@ -101,3 +101,54 @@ P1GROUNDARENAUNIT:0:CARDID:LAW_124
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1BASEDMG:5
+
+---
+
+# TargetChoiceIsMandatory_SoftPassIsAmountZero
+#// USER RULING (2026-08-14): the AMOUNT can technically be 0, but the UNIT choice is MANDATORY — a
+#// player who wants no effect soft-passes by choosing a unit and dealing it 0, not by declining the
+#// target. So the target stage is a mandatory MZCHOOSE whose pool is exactly the friendly non-Vehicle
+#// units, with no decline among them. Two eligible units are seated so the pick stays interactive (a
+#// lone target auto-resolves, which is correct for a mandatory choose but leaves no offer to assert),
+#// and the decision is left PENDING here.
+#// Contrast DealZeroNoHeal above, which exercises the soft pass itself: target chosen, amount 0,
+#// nothing damaged and no heal.
+
+## GIVEN
+CommonSetup: brk/rrk/{myResources:1;myBaseDamage:5}
+WithP1GroundArena: LAW_124:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: LAW_102
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Choose_a_friendly_non-Vehicle_unit
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# SoftPass_ChosenUnitTakesNothing_OtherUnitUntouched
+#// The soft pass with a real choice on the board: P1 must pick a unit (the ruling), picks LAW_124 and
+#// deals it 0. Neither unit takes damage, the base does not heal, and the event is still spent — the
+#// player has legally used the card for nothing.
+
+## GIVEN
+CommonSetup: brk/rrk/{myResources:1;myBaseDamage:5}
+WithP1GroundArena: LAW_124:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: LAW_102
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P1BASEDMG:5
+P1DISCARDCOUNT:1
+P1NODECISION

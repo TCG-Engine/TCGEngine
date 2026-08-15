@@ -164,3 +164,40 @@ P1GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2GROUNDARENAUNIT:1:DAMAGE:3
+
+---
+
+# SimulateRequestBoundary_GrantedAttackModifiersSurviveFreshProcess
+#// SOR_150 Heroic Sacrifice — in production the attacker's target pick, the flamethrower YES/NO and the
+#// split-damage assignment each end the request, so every answer arrives in a FRESH process with all
+#// transient globals empty. The +2/+0 "for this attack" buff, the granted "when this unit deals combat
+#// damage: defeat it" and the combat-vs-ability damage bookkeeping must all live in the serialized
+#// gamestate. Mirrors AbilityDamageIsNotCombatDamage_NoSelfDefeat with a boundary before every answer.
+
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:SHD_177
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP2GroundArena: SOR_164:1:0
+WithP1Deck: SOR_237
+WithP1Hand: SOR_150
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-1:3
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:1:DAMAGE:3

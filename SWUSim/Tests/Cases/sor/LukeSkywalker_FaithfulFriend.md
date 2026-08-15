@@ -73,3 +73,27 @@ CommonSetup: gbw/grw/{myResources:3;handCardIds:SOR_095}
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
 P1LEADER:EXHAUSTED
 P1RESAVAILABLE:0
+
+---
+
+# SimulateRequestBoundary_PlayedThisPhaseTargetPoolSurvives
+#// SOR_005 Luke Skywalker — the leader action targets "a Heroism unit you played this phase", so the
+#// played-this-phase memory is written by one request (the play) and read by a later one (the leader
+#// action), whose own target pick ends yet another request. Mirrors LeaderAction_ShieldPlayedUnit with
+#// a boundary after the play AND before the answer: the Marine is still a legal target and gets its
+#// Shield.
+
+## GIVEN
+CommonSetup: gbw/grw/{myResources:3;handCardIds:SOR_095}
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:0

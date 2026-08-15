@@ -1497,10 +1497,19 @@ function SWUEnforceUpgradeUniqueness(int $player, string $cardID, object $keepSu
 // 1 target → PASSPARAMETER (auto); 2+ → MZCHOOSE; then CUSTOM $handler (which reads the
 // chosen mzID from $lastDecision). No-op on an empty list. $handler may carry args, e.g.
 // "GIVE_EXPERIENCE|1". Pass $block to match the surrounding decisions' priority (default 1).
-function SWUQueueChooseTarget(int $player, array $targets, string $tooltip, string $handler, int $block = 1): void {
+// $may: emit MZMAYCHOOSE (declinable) instead of MZCHOOSE (mandatory). Set it for any offer whose
+// printed text is optional — "you may", "up to N", "any number of". This became load-bearing on
+// 2026-08-14: MZCHOOSE is now genuinely non-declinable (SWUValidateDecisionAnswer), so an optional
+// effect typed MZCHOOSE would trap the player into resolving it.
+//
+// ⚠ The single-target shortcut is skipped when $may is set. Auto-resolving a lone target is right for
+// a mandatory effect (there is no decision to make) and WRONG for an optional one: it silently
+// resolves the very thing the player was entitled to decline, and it made a card's optionality depend
+// on how many legal targets happened to be on the board — declinable with two, forced with one.
+function SWUQueueChooseTarget(int $player, array $targets, string $tooltip, string $handler, int $block = 1, bool $may = false): void {
     if (empty($targets)) return;
-    if (count($targets) === 1) DecisionQueueController::AddDecision($player, 'PASSPARAMETER', $targets[0], $block);
-    else DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $targets), $block, $tooltip);
+    if (count($targets) === 1 && !$may) DecisionQueueController::AddDecision($player, 'PASSPARAMETER', $targets[0], $block);
+    else DecisionQueueController::AddDecision($player, $may ? 'MZMAYCHOOSE' : 'MZCHOOSE', implode('&', $targets), $block, $tooltip);
     DecisionQueueController::AddDecision($player, 'CUSTOM', $handler, $block);
 }
 
@@ -1514,13 +1523,22 @@ function SWUQueueChooseTarget(int $player, array $targets, string $tooltip, stri
 // sims are untouched) and by the test harness's answerDecision (which throws on an invalid answer
 // so a mis-encoded test fails loudly instead of silently acting out of pool).
 function SWUValidateDecisionAnswer(int $player, string $answer): bool {
-    if ($answer === 'PASS' || $answer === '-' || $answer === '') return true;
     $head = null;
     foreach (GetDecisionQueue($player) as $d) {
         if (empty($d->removed)) { $head = $d; break; }
     }
     if ($head === null) return true;
     $type = (string)($head->Type ?? '');
+    // A DECLINE is only legal where the decision is declinable. MZCHOOSE means MANDATORY — that is the
+    // whole difference between it and MZMAYCHOOSE — but this validator used to accept 'PASS'/'-'/''
+    // for every type before it looked at one, so a mandatory choose could be walked away from.
+    // USER RULING (2026-08-14, Fleet Lieutenant SOR_240): you may pass on an "attack with a unit"
+    // offer, but ONCE YOU HAVE CHOSEN THE ATTACKER YOU MUST CHOOSE THE TARGET. Declining at the target
+    // stage abandoned the whole attack with the attacker still READY.
+    // ⚠ Consequence: an offer whose card text really is optional ("you may", "up to N", "any number")
+    // must be queued as MZMAYCHOOSE. Typing it MZCHOOSE and relying on this function's old blanket
+    // acceptance is no longer a working way to be declinable.
+    if ($answer === 'PASS' || $answer === '-' || $answer === '') return $type !== 'MZCHOOSE';
     if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE') return true;
     global $playerID;
     $saved = $playerID;
@@ -4807,12 +4825,21 @@ function SWUMoveUpgradeCrossUnit(string $fromHostMz, int $subIdx, string $toHost
     if (SWUObjGone($from) || SWUObjGone($to)) return;
     if (!is_array($from->Subcards ?? null) || !isset($from->Subcards[$subIdx])) return;
     $sub = $from->Subcards[$subIdx];
+    $movedCardID = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
     array_splice($from->Subcards, $subIdx, 1);
     if ($newController > 0) {
         if (is_array($sub)) $sub['Controller'] = $newController; else $sub->Controller = $newController;
     }
     if (!is_array($to->Subcards)) $to->Subcards = [];
     $to->Subcards[] = $sub;
+    // The OLD host's "becomes unattached" observers. A move unattaches the upgrade exactly as a defeat
+    // does, so the control-revert half of SOR_122 Traitorous / JTL_083 has to run here too — it used to
+    // live only at the SWUDefeatUpgrade chokepoint, which left a stolen host stolen forever once the
+    // upgrade was relocated instead of defeated.
+    _SWUUpgradeUnattachControlRevert(
+        $newController > 0 ? $newController : intval($from->Controller ?? $from->Owner ?? 0),
+        (string) $movedCardID, $from, $fromHostMz
+    );
     _SWUFireUpgradeAttachTriggersOnMove($sub, $to, $toHostMz);
 }
 
@@ -8038,6 +8065,13 @@ function CassianDrawTrigger($player): void {
 // LOF_205 Force Speed — granted "On Attack: Return any number of non-unique upgrades attached to the
 // defender to their owners' hands." Returning all non-unique upgrades is always optimal (they buff the
 // defender), so this resolves them all. $mzID = the defender.
+// "Return ANY NUMBER of non-unique upgrades attached to the defender" — 0..N, the player's choice, NOT
+// all of them (fixed 2026-08-14; it used to return every one with no offer, so neither "none" nor a
+// subset was reachable). Staged through TempZone exactly like ASH_199 There Is No Conflict, whose text
+// is the same "any number of upgrades" shape.
+// ⚠ The defender is carried across the decision by UniqueID, not by the mzID: the player answers in a
+// LATER request and an arena can reindex in between, so a stored positional mzID can point at a
+// different unit by the time the pick resolves.
 function LOF205BounceTrigger($player, $mzID): void {
     global $playerID; $playerID = intval($player);
     $defender = GetZoneObject($mzID);
@@ -8049,8 +8083,38 @@ function LOF205BounceTrigger($player, $mzID): void {
         if (CardUnique($cid)) continue;                                              // non-unique only
         $cardIDs[] = $cid;
     }
-    foreach ($cardIDs as $cid) SWUReturnUpgradeToHand($mzID, $cid, intval($player)); // LOF_205 — attacker returns defender's upgrades (enemy)
+    if (empty($cardIDs)) return;
+    $temp = &GetTempZone(intval($player));
+    while (count($temp) > 0) array_pop($temp);
+    foreach ($cardIDs as $cid) AddTempZone(intval($player), $cid);
+    $tempMZs = [];
+    for ($k = 0; $k < count($cardIDs); $k++) $tempMZs[] = "myTempZone-{$k}";
+    DecisionQueueController::StoreVariable("LOF205DefUID", strval(intval($defender->UniqueID ?? 0)));
+    DecisionQueueController::StoreVariable("LOF205Cands", implode(",", $cardIDs));
+    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE",
+        "0|" . count($cardIDs) . "|" . implode("&", $tempMZs), 1,
+        tooltip: "Return_any_number_of_the_defender's_non-unique_upgrades");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LOF_205#1", 1);
 }
+
+$customDQHandlers["LOF_205#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $uid      = intval(DecisionQueueController::GetVariable("LOF205DefUID"));
+    $candsRaw = (string)DecisionQueueController::GetVariable("LOF205Cands");
+    $cands    = $candsRaw === '' ? [] : explode(",", $candsRaw);
+    $temp = &GetTempZone(intval($player));
+    while (count($temp) > 0) array_pop($temp);
+    unset($temp);
+    if (SWUDecisionDeclined($lastDecision)) { DecisionQueueController::CleanupRemovedCards(); return; }
+    $defMz = $uid > 0 ? SWUFindMzByUID($uid) : null;     // re-resolve under THIS frame
+    if ($defMz === null) { DecisionQueueController::CleanupRemovedCards(); return; }
+    $picked = [];
+    foreach (explode('&', (string)$lastDecision) as $mz) {
+        if (preg_match('/-(\d+)$/', trim($mz), $m)) { $n = intval($m[1]); if (isset($cands[$n])) $picked[] = $cands[$n]; }
+    }
+    foreach ($picked as $cid) SWUReturnUpgradeToHand($defMz, $cid, intval($player));  // one matching copy each
+    DecisionQueueController::CleanupRemovedCards();
+};
 
 // SOR_149 Mace Windu — "attacks and defeats a unit: ready him." $mzID = the attacker.
 // SEC_150 Valiant Commando — combat-hit "deals combat damage to a base": may defeat itself → 3 to that base.
@@ -11656,43 +11720,46 @@ $customDQHandlers["READY_UNIT"] = function($player, $parts, $lastDecision) {
 // DoScry($player, $n): peek top $n cards, let player place each to top or bottom.
 // Queues a single SCRY decision (frontend panel) followed by SCRY_FINALIZE.
 // Result format: "topID1,topID2|bottomID1,bottomID2" (topmost-first | order-added).
-$gScryState = null; // ['peeked'=>[DeckObj,...], 'top'=>[...], 'bottom'=>[...], 'player'=>int]
-
+// ⚠ NOTHING is held across the SCRY decision. The peeked cards stay exactly where they are — the FRONT
+// $n of the deck — and only the finalize handler (running once the player has answered) mutates the
+// deck. This mirrors REVEALARRANGE_FINALIZE below and is not a style choice: SCRY raises an INTERACTIVE
+// decision, so production answers it in a LATER request in a FRESH process. The old shape spliced the
+// cards out of the deck into a `$gScryState` global and rebuilt from it at finalize; across the real
+// request boundary that global was empty, so the finalize dereferenced null and every peeked card was
+// destroyed — the deck simply lost 2 cards on each Inferno Four (SOR_031) and 1 on each R2-D2
+// (SOR_236). Guard: InfernoFour_Unforgetting::WhenPlayed_ScryAnsweredAcrossRequestBoundary.
+// (The JTL_094 family: any value written before an AddDecision and read behind it must be serialized.)
 function DoScry($player, $n) {
-    global $gScryState;
     $deck = &GetDeck($player);
     $n = min($n, count($deck));
     if ($n === 0) return;
-    $peeked = array_splice($deck, 0, $n);
-    foreach ($deck as $i => $card) { $card->mzIndex = $i; }
-    $gScryState = ['peeked' => $peeked, 'top' => [], 'bottom' => [], 'player' => intval($player)];
-    $cardIDs = implode(',', array_map(fn($c) => $c->CardID, $peeked));
+    $cardIDs = implode(',', array_map(fn($c) => $c->CardID, array_slice($deck, 0, $n)));
     DecisionQueueController::AddDecision($player, "SCRY", $cardIDs, 1, tooltip:"Look_at_top_cards");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SCRY_FINALIZE", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SCRY_FINALIZE|{$n}", 1);
     MarkUndoRequiresConsent();
 }
 
-function _ScryPutBack($player) {
-    global $gScryState;
-    $deck = &GetDeck($player);
-    foreach (array_reverse($gScryState['top']) as $cardObj) { array_unshift($deck, $cardObj); }
-    foreach ($gScryState['bottom'] as $cardObj)              { array_push($deck, $cardObj); }
-    foreach ($deck as $i => $cardObj) { $cardObj->mzIndex = $i; }
-    $gScryState = null;
-}
-
+// $parts[0] = N (how many were peeked). $lastDecision = "topID1,topID2|bottomID1,bottomID2" —
+// top listed topmost-first, bottom in the order added. Any peeked card the answer fails to account for
+// goes back on top rather than vanishing.
 $customDQHandlers["SCRY_FINALIZE"] = function($player, $parts, $lastDecision) {
-    global $gScryState;
-    $sections = explode('|', $lastDecision);
-    $topStr    = $sections[0] ?? '';
-    $bottomStr = $sections[1] ?? '';
-    $topIDs    = $topStr    !== '' ? explode(',', $topStr)    : [];
-    $bottomIDs = $bottomStr !== '' ? explode(',', $bottomStr) : [];
+    $n = max(0, intval($parts[0] ?? 0));
+    if ($n === 0) return;
+    $deck = &GetDeck($player);
+    $peeked = array_splice($deck, 0, $n);
     $byID = [];
-    foreach ($gScryState['peeked'] as $card) { $byID[$card->CardID] = $card; }
-    $gScryState['top']    = array_values(array_filter(array_map(fn($id) => $byID[$id] ?? null, $topIDs)));
-    $gScryState['bottom'] = array_values(array_filter(array_map(fn($id) => $byID[$id] ?? null, $bottomIDs)));
-    _ScryPutBack($player);
+    foreach ($peeked as $c) { $byID[$c->CardID][] = $c; }   // lists, so duplicate CardIDs survive
+    $sections  = explode('|', (string) $lastDecision);
+    $topIDs    = ($sections[0] ?? '') !== '' ? explode(',', $sections[0]) : [];
+    $bottomIDs = ($sections[1] ?? '') !== '' ? explode(',', $sections[1]) : [];
+    foreach ($bottomIDs as $id) {
+        if (!empty($byID[$id])) { array_push($deck, array_shift($byID[$id])); }
+    }
+    foreach (array_reverse($topIDs) as $id) {               // reversed so the first listed ends up on top
+        if (!empty($byID[$id])) { array_unshift($deck, array_shift($byID[$id])); }
+    }
+    foreach ($byID as $list) { foreach ($list as $c) { array_unshift($deck, $c); } }
+    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
 };
 
 // ── Reveal-top-N → discard-any + reorder-rest ─────────────────────────────────
@@ -12414,11 +12481,23 @@ function _SWUUpgradeCanAttachTo($destObj, string $upgradeCardID): bool {
     $dctrl = intval($destObj->Controller ?? $destObj->Owner ?? 0);
     if ($dctrl <= 0) return false;
     $duid = intval($destObj->UniqueID ?? -1);
+    // ⚠ FRAME: SWUGetUpgradeValidTargets returns mzIDs built in $dctrl's perspective (it sets
+    // $playerID = $dctrl internally and restores it before returning). Resolving them under whatever
+    // frame the CALLER happens to be in reads the wrong seat's arenas, every UID comparison misses, and
+    // the function answers "no legal host" for every enemy-controlled destination — which silently
+    // emptied MOVE_UPGRADE's destination list whenever the host was an opponent's unit (SHD_064
+    // Survivors' Gauntlet moving an upgrade between two ENEMY units). Resolve in the same frame that
+    // minted the mzIDs. (Cross-seat frame family — see the deferred-damage frame-mismatch note.)
+    global $playerID;
+    $savedPID = $playerID;
+    $playerID = $dctrl;
+    $found = false;
     foreach (SWUGetUpgradeValidTargets($dctrl, $upgradeCardID) as $mz) {
         $o = GetZoneObject($mz);
-        if ($o !== null && intval($o->UniqueID ?? -2) === $duid) return true;
+        if ($o !== null && intval($o->UniqueID ?? -2) === $duid) { $found = true; break; }
     }
-    return false;
+    $playerID = $savedPID;
+    return $found;
 }
 
 // Number of Pilot upgrades currently on a host (Subcards flagged IsPilot).
@@ -20910,10 +20989,44 @@ function SWUDeclareGameWinner($winner, $flashMessage = null) {
     $w = intval($winner);
     if ($w < 1 || $w > SeatCountForGame()) return;
     $gWinner = $w;
+    // Registered HERE rather than at file scope: this file is included before
+    // DecisionQueueController's class definition, so a top-level call fatals on a missing class.
+    // The predicate only starts mattering at the instant a winner exists, which is exactly now.
+    DecisionQueueController::SetSuppressNewDecisionsCheck(
+        static fn(): bool => SWUGetGameWinner() !== 0
+    );
     DecisionQueueController::StoreVariable("GAMEOVER_WINNER", strval($w));
     DecisionQueueController::StoreVariable("GAMEOVER_WINNERS", strval($w));
     if ($flashMessage !== null) SetFlashMessage($flashMessage);
 }
+
+// The game ends the INSTANT a win condition is met, so nothing queued behind it may still resolve.
+// Recording the winner is not enough on its own: an in-flight effect can already have queued (or
+// parked) work that would otherwise keep running against a decided game — and that is not cosmetic,
+// because such work can change the RESULT. The case that forced this: LAW_208 Collateral Damage
+// defeats a K-2SO SOR_145 with its first hit (his When Defeated is parked until the whole event
+// resolves, per the "then"-clause deferral) and its second hit puts the defender's base at lethal.
+// P1 has won — but the parked When Defeated then offered "deal 3 damage to that player's base", and
+// with P1's own base at 27/30 that turned a clean win into a mutual loss.
+//
+// The halt sits on the QUEUEING side, not on the queue, and that distinction was measured rather than
+// guessed. Clearing both decision queues at the moment of the win is the obvious-looking fix and does
+// NOTHING: the offending work is queued AFTER the win, while the effect that caused the win is still
+// unwinding. Guarding the trigger paths (AddTrigger / the parked When-Defeated flush) also turned out
+// to be redundant once the predicate was in place — every trigger reaches the board through a queued
+// RESOLVE_TRIGGER, so suppressing AddDecision already stops it. Both were removed rather than kept "for
+// safety": unverified code in the game-over path is exactly what nobody dares touch later.
+//
+// Two repros, deliberately different shapes:
+//  • trigger — LAW_208 Collateral Damage defeats K-2SO SOR_145 with its first hit (his When Defeated
+//    is parked until the whole event resolves) and its second hit puts the defender's base at lethal.
+//  • plain decision — SOR_152 For a Cause I Believe In deals lethal base damage and THEN queues its
+//    reveal/arrange prompt, leaving a panel up on a game that was already over.
+//
+// Scope: the 2-player instant-win path. Twin Suns (3-4 seats) does not come through here for an
+// elimination — SWUEliminateSeat defers most-HP scoring to a phase boundary, and its winners are
+// declared through SWUDeclareTwinSunsWinners once the board is already quiet.
+
 
 // State-based game-over: a base sitting at lethal damage ends the game, regardless of HOW it got
 // there (combat, ability, indirect, OR an undo that restored a lethal-but-undeclared state). Runs

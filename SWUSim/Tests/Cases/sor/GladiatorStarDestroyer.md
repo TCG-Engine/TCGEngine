@@ -38,3 +38,25 @@ WithP1GroundArena: SEC_080:1:0    # Battlefield Marine — idx 0, the Sentinel r
 ## EXPECT
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
 P1SPACEARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# SimulateRequestBoundary_SentinelGrantAcrossBoundary
+#// SOR_086 Gladiator Star Destroyer — the When Played "give a unit Sentinel" choose ends the request in
+#// production, so the phase-scoped TurnEffect grant is written by a fresh process from the answer alone.
+#// Mirrors WhenPlayed_GrantsSentinel with the boundary inserted before the answer.
+
+## GIVEN
+CommonSetup: grk/grk/{myResources:8}
+P1OnlyActions: true
+WithP1Hand: SOR_086
+WithP1GroundArena: SEC_080:1:0    # Battlefield Marine — idx 0, the Sentinel recipient
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P1SPACEARENAUNIT:0:NOTKEYWORD:Sentinel

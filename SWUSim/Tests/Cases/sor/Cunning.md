@@ -176,3 +176,40 @@ WithP2SpaceArena: SOR_141:1:0
 P2SPACEARENAUNIT:0:ISLEADERUNIT
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# SimulateRequestBoundary_ModeChainAndMultiTarget
+#// SOR_203 Cunning — every step of the modal chain (first mode pick, its target answer, second mode pick)
+#// is a separate request in production, so which modes were already chosen and how many exhaust picks
+#// remain must be serialized, not parked in a transient global. Mirrors Exhaust_TwoEnemyUnits_ThenDiscard
+#// with a boundary before each answer: both enemy units still end exhausted and the discard mode still
+#// takes P2's only hand card.
+
+## GIVEN
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_203
+WithP1Resources: 8
+WithP2Hand: SOR_095
+WithP2GroundArena: SOR_232:1:0
+WithP2SpaceArena: SOR_141:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:Exhaust
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0&theirSpaceArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:Discard
+
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2SPACEARENAUNIT:0:EXHAUSTED
+P2HANDCOUNT:0
+P2DISCARDCOUNT:1
+P1NODECISION

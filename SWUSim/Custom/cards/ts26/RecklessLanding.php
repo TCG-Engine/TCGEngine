@@ -41,5 +41,5 @@ $whenPlayedAbilities["TS26_32:0"] = function($player, $mzID = '') {
         $units[] = $mz;
     }
     if (empty($units)) return;
-    SWUQueueChooseTarget(intval($player), $units, "Play_a_unit_(costs_4_less;_deal_4_to_it)", "TS26_32#0");
+    SWUQueueChooseTarget(intval($player), $units, "Play_a_unit_(costs_4_less;_deal_4_to_it)", "TS26_32#0", may: true);
 };

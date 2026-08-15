@@ -15,6 +15,7 @@ WithP1GroundArena: SOR_188:1:0
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT
 P2BASEDMG:3
@@ -39,6 +40,7 @@ WithP1GroundArenaUpgrade: 1:SOR_069
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT
 P2BASEDMG:6
@@ -52,6 +54,9 @@ P1GROUNDARENAUNIT:1:EXHAUSTED
 #// lowers it. IG-11 (SHD_170, 6/5) already has 1 damage (4 remaining). Babu makes it attack the enemy base;
 #// its On Attack "deal 3 to a damaged ground unit" hits itself (now 4 damage, 1 remaining), so the base takes
 #// only 1. Intended: "deals the right amount of damage if the Droid unit takes damage in the on-attack step".
+#// (Two answers since 2026-08-14: the first picks the attacking Droid — LOF_206 reads "you MAY attack",
+#// so the offer now always prompts instead of auto-resolving a lone Droid — and the second is IG-11's
+#// On Attack self-target.)
 
 ## GIVEN
 CommonSetup: bbk/bbk/{myLeader:JTL_001;theirBase:SOR_021}
@@ -62,6 +67,7 @@ WithP1GroundArena: SHD_170:1:1
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-1
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT

@@ -204,3 +204,36 @@ WithP1Hand: SOR_245
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# SimulateRequestBoundary_MultiPickAcrossBoundary
+#// SOR_245 Medal Ceremony — the "up to 3" multi-pick ends the request in production, so the answer
+#// arrives in a fresh process: the pending multi-select (and the attacked-this-phase filtering that built
+#// its pool) must be fully serialized. Mirrors RebelAttackers_GetExperience with the boundary inserted
+#// before the answer.
+
+## GIVEN
+CommonSetup: byw/byw/{myResources:0}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_128:1:0
+WithP1Hand: SOR_245
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AttackGroundArena:1:BASE
+- P1>AttackGroundArena:2:BASE
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+
+## EXPECT
+P2BASEDMG:9
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HP:8
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:2:UPGRADECOUNT:0

@@ -55,3 +55,26 @@ WithP1Hand: SOR_160
 ## EXPECT
 P1BASEDMG:3
 P2BASEDMG:2
+
+---
+
+# SimulateRequestBoundary_PhaseHealLockSurvives
+#// SOR_160 Wolffe — the "bases can't be healed for this phase" lock is written when Wolffe is played
+#// and read much later, when the Restore unit attacks. In production those are two separate requests,
+#// so the lock must live in the serialized gamestate, not in an in-memory global. Mirrors
+#// WhenPlayed_LocksBaseHeal with the boundary inserted between the play and the Restore attack.
+
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:2;myBaseDamage:3}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_044:1:0
+WithP1Hand: SOR_160
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1BASEDMG:3
+P2BASEDMG:2

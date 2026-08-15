@@ -113,3 +113,30 @@ P2SPACEARENACOUNT:0
 P1DECKCOUNT:2
 P1DECKTOPCARD:SOR_128
 P2DISCARDCOUNT:1
+
+---
+
+# WhenPlayed_ScryAnsweredAcrossRequestBoundary
+#// SOR_031 Inferno Four — the SCRY panel is an INTERACTIVE decision, so in production the player
+#// answers it in a LATER request, in a fresh process. DoScry splices the peeked cards out of the deck
+#// and parks them in memory, so the finalize must still find them after the boundary. Same board as
+#// WhenPlayed_KeepBothSwap; the only difference is the boundary between the play and the answer.
+
+## GIVEN
+CommonSetup: gbk/grw/{
+  myLeader:SOR_001
+}
+SkipPreGame: true
+WithP1Hand: SOR_031
+WithP1Resources: 2
+WithP1Deck: SOR_095
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:SOR_128,SOR_095|
+
+## EXPECT
+P1DECKCOUNT:2
+P1DECKTOPCARD:SOR_128

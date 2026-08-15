@@ -62,3 +62,29 @@ WithP1Hand: JTL_069
 P2BASEDMG:4
 P1SPACEARENACOUNT:1
 P1RESAVAILABLE:4
+
+---
+
+# SimulateRequestBoundary_DiscountChargeSurvives
+#// SOR_056 Bendu — the "next non-Heroism/non-Villainy card costs 2 less this phase" charge is armed by the
+#// attack and consumed by a LATER player action; in production each of those actions is its own request, so
+#// the charge must be serialized. Mirrors DiscountAppliesOnlyOnce with a boundary after the attack and
+#// after the first (discounted) play: first JTL_069 still costs 3, second still costs the full 5 → 0 left.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:8}
+P1OnlyActions: true
+WithP1GroundArena: SOR_056:1:0
+WithP1Hand: JTL_069
+WithP1Hand: JTL_069
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:2
+P1RESAVAILABLE:0

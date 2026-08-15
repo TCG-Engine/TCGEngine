@@ -57,3 +57,27 @@ P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_088
 P2GROUNDARENAUNIT:0:POWER:5
 P2GROUNDARENAUNIT:0:HP:9
+
+---
+
+# SimulateRequestBoundary_ChosenTargetSurvives
+#// SOR_216 Disarm — with two legal enemy units the "choose a unit" prompt ends the request in
+#// production, so the −4/−0 phase effect is applied by a fresh process from the answer alone.
+#// Mirrors ChoosesAmongEnemies with the boundary inserted before the answer.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:1;handCardIds:SOR_216}
+WithP2GroundArena: SOR_088:1:0
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:CARDID:SOR_088
+P2GROUNDARENAUNIT:0:POWER:9
+P2GROUNDARENAUNIT:1:CARDID:SEC_080
+P2GROUNDARENAUNIT:1:POWER:0

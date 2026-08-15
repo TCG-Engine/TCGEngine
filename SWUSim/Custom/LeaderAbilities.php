@@ -285,7 +285,7 @@ $leaderAbilities["LOF_018"] = function(int $player): void {
         if ($ready >= intval(CardCost($cid))) $targets[] = "myHand-{$i}";          // non-unit at printed cost
     }
     if (empty($targets)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget($player, $targets, "Play_a_Villainy_non-unit_card_(ignoring_aspect_penalties)", "LOF_018#0");
+    SWUQueueChooseTarget($player, $targets, "Play_a_Villainy_non-unit_card_(ignoring_aspect_penalties)", "LOF_018#0", may: true);
 };
 
 

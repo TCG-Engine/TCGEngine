@@ -84,3 +84,29 @@ WithP1Hand: SOR_168
 ## EXPECT
 P2BASEDMG:5
 TURNPLAYER:2
+
+---
+
+# SimulateRequestBoundary_GrantsSurviveTargetPick
+#// SOR_168 Precision Fire — the attack-target pick ends the request in production, so combat resolves in
+#// a fresh process. Both attack-duration grants written at play time (the Saboteur grant and the Trooper
+#// +2/+0) must be serialized to still break the Shield and deal 5. Mirrors GrantedSaboteurBreaksShield
+#// with the boundary inserted before the answer.
+
+## GIVEN
+CommonSetup: rrw/rrk/{myResources:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: LAW_124:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+WithP1Hand: SOR_168
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:5
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P1GROUNDARENACOUNT:0

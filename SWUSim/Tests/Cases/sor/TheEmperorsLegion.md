@@ -144,3 +144,30 @@ WithP2GroundArena: SEC_080:1:0
 P1HANDCOUNT:0
 P1GROUNDARENACOUNT:0
 P1DISCARDCOUNT:4
+
+---
+
+# SimulateRequestBoundary_DefeatedThisPhaseSurvives
+#// SOR_091 The Emperor's Legion — the return itself offers no choice, but the state it reads (the
+#// "defeated this phase" provenance/count) is written during an EARLIER action and read during the
+#// play. In production those are two separate requests, so that bookkeeping must live in the
+#// serialized gamestate rather than an in-memory global. Mirrors ReturnDefeatedThisPhase with the
+#// boundary inserted between the trade and the Legion play — SOR_128 must still come back to hand.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:3;handCardIds:SOR_091}
+P1OnlyActions: true
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SOR_091

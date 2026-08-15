@@ -170,3 +170,30 @@ P2GROUNDARENAUNIT:0:CARDID:SOR_038
 P2GROUNDARENAUNIT:0:EXHAUSTED
 TURNPLAYER:2
 LOGCONTAINS:can't ready this round
+
+---
+
+# SimulateRequestBoundary_ExhaustTargetAndCantReadyFlag
+#// SOR_186 No Good to Me Dead — the exhaust-target pick ends the request in production, so the answer
+#// arrives in a fresh process; the resulting "can't ready this round" flag must then survive all the way
+#// to the regroup ready step (a second, real boundary). Mirrors ExhaustReadyUnit_CantReadyRegroup with the
+#// boundary inserted before the answer.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:2;handCardIds:SOR_186}
+WithActivePlayer: 1
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_080:0:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+- P2>Pass
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:1:READY

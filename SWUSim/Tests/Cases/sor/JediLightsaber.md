@@ -78,3 +78,35 @@ P2GROUNDARENAUNIT:0:POWER:6
 P2GROUNDARENAUNIT:0:HP:9
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# SimulateRequestBoundary_AttachTargetSurvivesFreshProcess
+#// SOR_054 Jedi Lightsaber — with TWO non-VEHICLE hosts in play the attach target stays a real prompt
+#// (AttachToNonVehicleBuffs' lone target auto-resolves), and in production that prompt ends the request,
+#// so the in-flight upgrade play must be serialized. Mirrors AttachToNonVehicleBuffs with a boundary
+#// before the answer: the AT-AT (Vehicle) is still filtered out, the chosen Marine still becomes 6/6
+#// wearing the saber, the other non-Vehicle host is untouched, and the cost is still fully paid.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:3;handCardIds:SOR_054}
+WithP1GroundArena: SOR_148:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1RESAVAILABLE:0
+P1GROUNDARENAUNIT:0:CARDID:SOR_148
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:1:UPGRADE:0:CARDID:SOR_054
+P1GROUNDARENAUNIT:1:POWER:6
+P1GROUNDARENAUNIT:1:HP:6
+P1GROUNDARENAUNIT:2:CARDID:SOR_046
+P1GROUNDARENAUNIT:2:UPGRADECOUNT:0

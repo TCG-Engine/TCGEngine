@@ -466,3 +466,42 @@ WithP1Deck: [SOR_095 SOR_095]
 P2BASEDMG:3
 P1HANDCOUNT:1
 P1DECKCOUNT:1
+
+---
+
+# SimulateRequestBoundary_OncePerRoundFlagAndDrawOffer
+#// SOR_013 Cassian Andor (deployed) — the "you may draw" prompt ends the request in production, and the
+#// once-per-round flag has to survive both that boundary AND the regroup. Mirrors
+#// Deployed_OncePerRound_ResetsNextRound with a boundary inserted before each YES: the pending draw must
+#// still resolve after the round-trip, and the reset must still happen exactly once. Hand 1+2+1 = 4,
+#// deck 5 → 1, base 2+2 = 4.
+
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:SOR_013:1:1;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1SpaceArena: SOR_237:1:0
+WithP1Deck: [SOR_128 SOR_128 SOR_128 SOR_128 SOR_128]
+WithP2Deck: [SOR_128 SOR_128 SOR_128]
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+- P2>Pass
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>AttackSpaceArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2BASEDMG:4
+P1HANDCOUNT:4
+P1DECKCOUNT:1
+P1NODECISION

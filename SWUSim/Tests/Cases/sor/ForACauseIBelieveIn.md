@@ -205,3 +205,29 @@ WithP1Deck: SOR_237
 ## EXPECT
 P1WIN
 P2BASEDMG:30
+
+---
+
+# LethalToOpponentBase_NoArrangePromptAfterTheWin
+#// Post-win resolution halt, the non-trigger shape. Same board as LethalToOpponentBase_EndsGame: all
+#// four reveals are [Heroism], so P2's base goes 26 → 30 and P1 wins DURING the event. The reveal's
+#// "you may discard any of the revealed cards and put the rest back on top" prompt is queued AFTER
+#// that damage, so it must never appear — the game is already over. (Contrast the sections above,
+#// where the same prompt is the whole point: it is suppressed only because the game ended.)
+
+## GIVEN
+CommonSetup: rrw/rrw/{myResources:3;theirBaseDamage:26}
+P1OnlyActions: true
+WithP1Hand: SOR_152
+WithP1Deck: SOR_095
+WithP1Deck: SOR_189
+WithP1Deck: SOR_236
+WithP1Deck: SOR_237
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1WIN
+P1NODECISION
+P2NODECISION

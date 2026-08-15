@@ -67,6 +67,7 @@ P1DISCARDUNIT:2:CARDID:SOR_225
 #// JTL_014 Admiral Trench (leader) — Action [Exhaust]: Discard a card that costs 3 or more from your
 #// hand. If you do, draw a card. P1's only hand card JTL_069 (cost 5) is discarded and P1 draws SOR_128
 #// from the deck.
+#// (Extra answer since 2026-08-14: this "you may discard" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: gyk/bbk/{
@@ -81,6 +82,7 @@ WithP1Deck: SOR_128
 
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1DISCARDCOUNT:1
@@ -352,3 +354,33 @@ WithP2Hand: SHD_079
 P1LEADER:NOTDEPLOYED
 P1LEADER:EXHAUSTED
 P1LEADER:EPICAVAILABLE
+
+---
+
+# Decline_SingleTarget_NoDiscardNoDraw
+#// JTL_014 Admiral Trench (leader) — new since 2026-08-14: a "you may discard" offer with exactly ONE
+#// legal target now prompts instead of auto-resolving, so the lone eligible card can be declined. Hand
+#// holds a single cost-5 JTL_069; P1 declines. Nothing is discarded and nothing is drawn, but the cost
+#// was still paid: the leader is exhausted and the Action is spent.
+
+## GIVEN
+CommonSetup: gyk/bbk/{
+  myLeader:JTL_014;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_069
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:-
+
+## EXPECT
+P1HANDCOUNT:1
+P1DISCARDCOUNT:0
+P1DECKCOUNT:1
+P1LEADER:EXHAUSTED
+P1NODECISION

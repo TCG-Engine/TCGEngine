@@ -2,6 +2,8 @@
 #// LOF_125 The Burden of Masters — Put a Force unit from discard on the bottom of your deck. If you do, play
 #// a unit from your hand and give it 2 Experience tokens. P1 banks LOF_050 from discard, then plays SOR_059
 #// (1/3) which enters with 2 Experience → 3/5.
+#// (Answer list updated 2026-08-14: the discard "put a Force unit on the bottom" step is MANDATORY, so a
+#// lone Force unit still auto-resolves; only the optional "play a unit" offer now prompts.)
 
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:8;handCardIds:LOF_125,SOR_059;discardCardIds:LOF_050}
@@ -9,8 +11,7 @@ P1OnlyActions: true
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myDiscard-0
-- P1>AnswerDecision:myHand-1
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
@@ -66,6 +67,8 @@ P1DECKTOPCARD:SOR_111
 #// Koon (LOF_050, Force) to the bottom, then plays the Piloting card Astromech Pilot (JTL_057) from hand; it
 #// enters the ground arena as a unit with 2 Experience tokens (1/3 -> 3/5). (Intended: "should only play pilots as
 #// units".)
+#// (Answer list updated 2026-08-14: the discard "put a Force unit on the bottom" step is MANDATORY, so a
+#// lone Force unit still auto-resolves; only the optional "play a unit" offer now prompts.)
 
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:8;handCardIds:LOF_125,JTL_057;discardCardIds:LOF_050}
@@ -73,7 +76,6 @@ P1OnlyActions: true
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myDiscard-0
 - P1>AnswerDecision:myHand-0
 
 ## EXPECT
@@ -90,6 +92,9 @@ P1GROUNDARENAUNIT:0:HP:5
 #// Koon (LOF_050, Force) to the bottom, but the only unit in hand is Industrious Team (LAW_124, cost 8) which
 #// is unaffordable on the remaining resources, so it is not offered and nothing is played. (Intended: "should not
 #// allow selecting targets that can't be afforded".)
+#// (The lone Force unit in the discard auto-resolves — that step is mandatory — and the unaffordable
+#// hand unit is never offered, so this section answers nothing. A stale answer here used to sit
+#// unconsumed and silently ignored; removed 2026-08-14.)
 
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:5;handCardIds:LOF_125,LAW_124;discardCardIds:LOF_050}
@@ -98,10 +103,35 @@ WithP1Deck: SOR_111
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myDiscard-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P1HANDCOUNT:1
 P1DECKCOUNT:2
 P1DECKTOPCARD:SOR_111
+
+---
+
+# Decline_SingleTarget_NoUnitPlayed
+#// LOF_125 The Burden of Masters — new since 2026-08-14: the optional "play a unit from your hand" offer
+#// with exactly ONE legal target now prompts instead of auto-resolving, so the lone affordable hand unit
+#// can be declined. P1 banks LOF_050 (the only Force unit in discard, a MANDATORY step that still
+#// auto-resolves) to the bottom of the deck, then declines to play SOR_059. Nothing enters play, SOR_059
+#// stays in hand, and the banking still happened (deck 2, top still SOR_111, LOF_050 on the bottom).
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:LOF_125,SOR_059;discardCardIds:LOF_050}
+P1OnlyActions: true
+WithP1Deck: SOR_111
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1DECKCOUNT:2
+P1DECKTOPCARD:SOR_111
+P1DISCARDCOUNT:1
+P1RESAVAILABLE:7

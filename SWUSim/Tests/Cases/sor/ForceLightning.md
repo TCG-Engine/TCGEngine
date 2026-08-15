@@ -243,3 +243,31 @@ WithP1Hand: SOR_138
 P1DISCARDCOUNT:1
 P1RESAVAILABLE:0
 P1NODECISION
+
+---
+
+# SimulateRequestBoundary_ChosenTargetSurvivesPayStep
+#// SOR_138 Force Lightning — the two halves of the card are split by a prompt: the unit chosen in the
+#// first decision must still be the damage recipient when the "pay any number of resources" answer
+#// arrives, which in production is a FRESH process. Mirrors AuraBlank_SilencesConstantAbility with the
+#// boundary inserted between the target choose and the pay amount: the blank on JTL_085 (its wingman
+#// drops to 0/4) and the X=1 → 2 damage both have to come off the serialized gamestate.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:10}
+P1OnlyActions: true
+WithP1GroundArena: SOR_051:1:0
+WithP2SpaceArena: [JTL_085:1:0 JTL_237:1:0]
+WithP1Hand: SOR_138
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:1
+
+## EXPECT
+P2SPACEARENAUNIT:0:DAMAGE:2
+P2SPACEARENAUNIT:1:POWER:0
+P2SPACEARENAUNIT:1:HP:4
+P1RESAVAILABLE:8

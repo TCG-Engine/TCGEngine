@@ -38,3 +38,26 @@ WithP1GroundArena: SOR_095:1:0    # Rebel (NOT Imperial) attacker, 3/3
 ## EXPECT
 P2BASEDMG:3
 P1GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# SimulateRequestBoundary_ImperialBuffSurvives
+#// SOR_227 Snowtrooper Lieutenant — the "you may attack with a unit" choose ends the request in
+#// production, so the chosen-attacker answer arrives in a FRESH process where every non-serialized
+#// global is empty. Mirrors WhenPlayed_ImperialGetsBuff with the boundary inserted before the answer:
+#// the pending attack-with-a-unit context AND the Imperial +2/+0 rider must both be serialized.
+
+## GIVEN
+CommonSetup: grk/grk/{myResources:5}
+P1OnlyActions: true
+WithP1Hand: SOR_227
+WithP1GroundArena: SOR_229:1:0    # Imperial attacker (3/3, ready) — idx 0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2BASEDMG:5
+P1GROUNDARENAUNIT:0:POWER:3

@@ -160,3 +160,34 @@ P1SPACEARENAUNIT:0:CARDID:SOR_191
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1SPACEARENAUNIT:0:POWER:2
 P1SPACEARENAUNIT:0:HP:2
+
+---
+
+# SimulateRequestBoundary_PlayedThisPhaseCountSurvives
+#// SOR_191 Vanguard Ace — the Experience grant is mandatory and targetless, so no choose ever ends the
+#// request; what crosses the boundary is the "other cards you played this phase" COUNT, accumulated
+#// over three separate actions. In production each play is its own request, so that counter must be
+#// serialized. Mirrors OtherCards_GetsExperience with a boundary after each throwaway play — Vanguard
+#// must still see 2 other cards and arrive 3/3 with 2 Experience tokens.
+
+## GIVEN
+CommonSetup: yyw/yyw/{myResources:8}
+P1OnlyActions: true
+WithP1Hand: SOR_210
+WithP1Hand: SOR_210
+WithP1Hand: SOR_191
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_191
+P1SPACEARENAUNIT:0:UPGRADECOUNT:2
+P1SPACEARENAUNIT:0:POWER:3
+P1SPACEARENAUNIT:0:HP:3

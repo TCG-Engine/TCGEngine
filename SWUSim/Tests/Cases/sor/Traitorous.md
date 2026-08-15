@@ -85,8 +85,9 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 #//           · boundary pair=StealUnit3Cost vs NoStealUnit4PlusCost (cost 3/4) and
 #//           DeployedLeader_AttachOnly vs StealUnit3Cost (leader/non-leader) · decline=N/A (the
 #//           attach is mandatory once the upgrade is played; both halves of the text are "when"
-#//           triggers with no "you may"). Unattach-by-MOVE (rather than defeat) is currently
-#//           unencodable — cross-controller upgrade moves fizzle engine-side (reported).
+#//           triggers with no "you may"). Unattach-by-MOVE (rather than defeat) is covered by
+#//           MovedOffHost_ControlReverts_UnattachIsNotOnlyDefeat (2026-08-14 — the cross-controller
+#//           move fizzle that had made it unencodable is fixed).
 
 ## GIVEN
 CommonSetup: grw/bbw/{theirLeaderDeployed:true}
@@ -198,4 +199,62 @@ P1DISCARDCOUNT:1
 P1LEADER:NOTDEPLOYED
 P1LEADER:EXHAUSTED
 P2NODECISION
+P1NODECISION
+
+---
+
+# MovedOffHost_ControlReverts_UnattachIsNotOnlyDefeat
+#// SOR_122 Traitorous — "When this upgrade becomes UNATTACHED from a unit: That unit's owner takes
+#// control of it." Becoming unattached covers being MOVED to another host, not only being defeated.
+#// SOR_095 is P2's card under P1's control via Traitorous; SHD_064 Survivors' Gauntlet moves Traitorous
+#// onto P1's own SOR_046, so SOR_095 must return to P2's arena. (SOR_046 costs 4, so Traitorous'
+#// attach half — "a non-leader unit that costs 3 or less" — does not fire on the new host.)
+
+## GIVEN
+CommonSetup: bbw/bbw
+P1OnlyActions: true
+WithP1GroundArena: SHD_064:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaControlled: SOR_095:2
+WithP1GroundArenaUpgrade: 2:SOR_122
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P2GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# PlayedAtPilotMadeLeaderUnit_AttachesButNoControlTake
+#// SOR_122 Traitorous played FROM HAND at a unit that is ALREADY a leader unit by derivation — P2's
+#// 2-cost Battlefield Marine carrying their leader deployed as a Pilot upgrade. The host is in the
+#// attach offer (Traitorous attaches to any unit in any arena) and the attach finalizes, but the
+#// take-control half must NOT fire: its condition is a NON-leader host, and taking control of a leader
+#// unit would trip the CR 3.4.6 replacement and defeat it. Sibling of the deployed-leader section
+#// above (a printed leader host) and of HostBecomesLeaderUnit (host becomes a leader unit AFTER the
+#// attach) — this is the third order of events, host is derived-leader FIRST.
+
+## GIVEN
+CommonSetup: grw/brk/{theirLeader:JTL_001;theirLeaderDeployedPilot:true}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SOR_122
+WithP2GroundArena: SOR_095:1:0
+WithP1Resources: 5
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:ISLEADERUNIT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENACOUNT:0
 P1NODECISION

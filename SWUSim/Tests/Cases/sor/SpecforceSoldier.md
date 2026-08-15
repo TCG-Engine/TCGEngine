@@ -17,3 +17,29 @@ WithP2GroundArena: SOR_098:1:0    # Echo Base Defender (Sentinel, 4/3)
 ## EXPECT
 P2BASEDMG:3
 P2GROUNDARENACOUNT:1
+
+---
+
+# SimulateRequestBoundary_SentinelLossSurvives
+#// SOR_140 SpecForce Soldier — RemovesSentinel has a single Sentinel in play, so the target
+#// auto-resolves and no request ever ends. Here a SECOND Sentinel (a friendly Echo Base Defender)
+#// keeps the choose interactive, and the boundary is inserted before the answer: in production the
+#// choose ends the request and the answer arrives in a fresh process. The chosen enemy Sentinel must
+#// still lose Sentinel for this phase, so the Battlefield Marine can hit P2's base for 3.
+
+## GIVEN
+CommonSetup: rrw/rrw/{myResources:1;handCardIds:SOR_140}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0    # attacker (3/3), index 0
+WithP1GroundArena: SOR_098:1:0    # friendly Sentinel — 2nd legal target, keeps the choose interactive
+WithP2GroundArena: SOR_098:1:0    # Echo Base Defender (Sentinel, 4/3)
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:3
+P2GROUNDARENACOUNT:1

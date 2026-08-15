@@ -215,3 +215,31 @@ WithP2GroundArena: SOR_095:1:0
 
 ## EXPECT
 P1BASEDMG:3
+
+---
+
+# SimulateRequestBoundary_OutnumberBuffSurvivesFreshProcess
+#// SOR_012 IG-88 (front) — the leader action raises two decisions (attacker, then defender) and each
+#// ends the request in production, so the outnumber judgment and the "+1/+0 for this attack" grant must
+#// survive a fresh process on BOTH legs. Mirrors Front_Outnumber_PlusOneForThisAttackOnly with a
+#// boundary before each answer: 2 friendly vs 1 enemy → the 3/3 still hits the base for 4 and is back
+#// to its printed 3 at the end state.
+
+## GIVEN
+CommonSetup: rrk/brw/{myLeader:SOR_012}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [SOR_128:1:0 SOR_095:1:0]
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:4
+P1LEADER:EXHAUSTED
+P1GROUNDARENAUNIT:1:POWER:3

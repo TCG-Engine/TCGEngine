@@ -57,3 +57,26 @@ WithP1GroundArena: SOR_156:1:0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Raid
+
+---
+
+# SimulateRequestBoundary_Raid2GrantSurvives
+#// SOR_156 Benthic "Two Tubes" — the granted Raid 2 is written during Benthic's attack request and read
+#// during a LATER attack request, so in production the grant must live in the serialized gamestate.
+#// Mirrors GrantsRaid2_DealsBonus with a boundary between the two attacks: SOR_164 still deals 4+2 = 6,
+#// base total 8, and it still carries the Raid keyword after the round-trip.
+
+## GIVEN
+CommonSetup: rrw/rrk/{}
+WithP1GroundArena: SOR_164:1:0
+WithP1GroundArena: SOR_156:1:0
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P2>Pass
+- P1>SimulateRequestBoundary
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:8
+P1GROUNDARENAUNIT:0:HASKEYWORD:Raid
