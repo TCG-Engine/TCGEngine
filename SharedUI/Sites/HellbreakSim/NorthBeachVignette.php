@@ -30,8 +30,25 @@
     <section class="nb-scene nb-scene-bag" data-nb-scene="1">
       <div class="nb-scene-copy nb-reveal"><span class="nb-step">01 &mdash; BUILD YOUR DECK</span><h2>Pack your<br>beach bag.</h2><p>Your deck contains 40 cards representing everything you need for a wonderful day at North Beach.</p></div>
       <div class="nb-deck-demo nb-reveal">
-        <div class="nb-mini-cards" aria-label="Cards entering a deck">
-          <span style="--i:0"><i>&#9728;</i>Sunscreen</span><span style="--i:1"><i>&#9675;</i>Beach Ball</span><span style="--i:2"><i>&#9788;</i>Lemonade</span><span style="--i:3"><i>&#8767;</i>Flip-Flops</span><span style="--i:4"><i>&#10022;</i>Good Book</span><span style="--i:5"><i>&#9686;</i>Seashells</span>
+        <div class="nb-mini-cards" aria-label="A sample hand of North Beach cards">
+          <article class="nb-mini-card" tabindex="0" style="--i:0;--x:-118px;--y:43px;--r:-16deg;--hover-x:52px" aria-label="Preview Sunscreen">
+            <div class="nb-mini-card-face"><div class="nb-mini-card-art nb-mini-art-sunscreen"><i></i></div><div class="nb-mini-card-copy"><small>ITEM &middot; SUPPLY</small><b>Sunscreen</b><p>Prevent the next 1 Sunburn this beach day.</p></div><em>1</em></div>
+          </article>
+          <article class="nb-mini-card" tabindex="0" style="--i:1;--x:-72px;--y:17px;--r:-10deg;--hover-x:28px" aria-label="Preview Beach Ball">
+            <div class="nb-mini-card-face"><div class="nb-mini-card-art nb-mini-art-ball"><i></i></div><div class="nb-mini-card-copy"><small>ACTIVITY &middot; SHALLOWS</small><b>Beach Ball</b><p>Rest a Beachgoer. Gain 1 Good Vibe.</p></div><em>1</em></div>
+          </article>
+          <article class="nb-mini-card" tabindex="0" style="--i:2;--x:-25px;--y:2px;--r:-4deg;--hover-x:8px" aria-label="Preview Lemonade">
+            <div class="nb-mini-card-face"><div class="nb-mini-card-art nb-mini-art-lemonade"><i></i></div><div class="nb-mini-card-copy"><small>ITEM &middot; DRINK</small><b>Lemonade</b><p>Gain 1 Relaxation. Then draw a card.</p></div><em>2</em></div>
+          </article>
+          <article class="nb-mini-card" tabindex="0" style="--i:3;--x:25px;--y:2px;--r:4deg;--hover-x:-8px" aria-label="Preview Flip-Flops">
+            <div class="nb-mini-card-face"><div class="nb-mini-card-art nb-mini-art-flipflops"><i></i></div><div class="nb-mini-card-copy"><small>ITEM &middot; BEACH GEAR</small><b>Flip-Flops</b><p>Your Beachgoer may move for free.</p></div><em>1</em></div>
+          </article>
+          <article class="nb-mini-card" tabindex="0" style="--i:4;--x:72px;--y:17px;--r:10deg;--hover-x:-28px" aria-label="Preview Good Book">
+            <div class="nb-mini-card-face"><div class="nb-mini-card-art nb-mini-art-book"><i></i></div><div class="nb-mini-card-copy"><small>ACTIVITY &middot; BEACH</small><b>Good Book</b><p>If alone, gain 2 Relaxation instead.</p></div><em>2</em></div>
+          </article>
+          <article class="nb-mini-card" tabindex="0" style="--i:5;--x:118px;--y:43px;--r:16deg;--hover-x:-52px" aria-label="Preview Seashells">
+            <div class="nb-mini-card-face"><div class="nb-mini-card-art nb-mini-art-shells"><i></i></div><div class="nb-mini-card-copy"><small>ITEM &middot; KEEPSAKE</small><b>Seashells</b><p>When found, gain 1 Sunshine.</p></div><em>0</em></div>
+          </article>
         </div>
         <div class="nb-deck-box"><span>YOUR<br>BEACH BAG</span><b>40</b><small>CARDS</small></div>
       </div>

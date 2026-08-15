@@ -6,7 +6,7 @@
   var ambienceNodes=[],soundTimers=[],ambienceTimer=null,ambienceCount=0,soundScene=-1,soundPreference=false;
   var sampleBase='/TCGEngine/SharedUI/Sites/HellbreakSim/assets/audio/';
   var sampleUrls={
-    shoreline:'north-beach-sunny-shoreline.mp3',welcomeChime:'north-beach-welcome-chime.mp3',cardShuffle:'north-beach-card-shuffle.mp3',cardDeal:'north-beach-card-deal.mp3',rewardChime:'north-beach-reward-chime.mp3',
+    shoreline:'north-beach-sunny-shoreline.mp3',welcomeChime:'north-beach-welcome-chime.mp3',cardFan:'north-beach-card-fan.mp3',cardDeal:'north-beach-card-deal.mp3',rewardChime:'north-beach-reward-chime.mp3',
     shallows:'north-beach-shallows-water.mp3',openWater:'north-beach-open-water.mp3',buoyBell:'north-beach-buoy-bell.mp3',submergedPass:'north-beach-submerged-pass.mp3',woodRattle:'north-beach-wooden-hull-rattle.mp3',
     hullCreak:'north-beach-hull-creak.mp3',boatAmbience:'north-beach-boat-ambience.mp3',hullThud:'north-beach-dry-hull-thud.mp3',cardRattle:'north-beach-card-rattle.mp3',
     sharkAttack:'north-beach-shark-attack.mp3',swallowed:'north-beach-swallowed-transition.mp3',underwaterMenu:'north-beach-underwater-menu.mp3',underwaterSharkPass:'north-beach-underwater-shark-pass.mp3',finalSting:'north-beach-final-sting.mp3'
@@ -120,7 +120,7 @@
   function stopAmbience(){clearSoundTimers();stopBeds(.32);}
 
   function musicalSting(notes,volume,delay){notes.forEach(function(note,index){toneSweep(note,note*1.006,1.4,volume,'sine',(delay||0)+index*.055,(index-1)*.18,musicGain);});}
-  function cardShuffle(){playSample('cardShuffle',effectsGain,.58,[-.18,.18],false,1,0,null,null,function(requested,active){return requested===1&&active===1;});}
+  function cardFan(){playSample('cardFan',effectsGain,.62,[-.3,.3],false,1,.3,null,null,function(requested,active){return requested===1&&active===1;});}
   function cardDeal(){playSample('cardDeal',effectsGain,.64,[-.28,.28],false,1,0,null,null,function(requested,active){return requested===2&&active===2;});}
   function gullCall(delay){toneSweep(720,1180,.34,.009,'sine',delay||0,-.72,ambienceGain);toneSweep(1180,690,.48,.007,'sine',(delay||0)+.3,-.65,ambienceGain);}
   function buoyBell(delay){playSample('buoyBell',effectsGain,.42,-.76,false,1,delay||0,null,null,function(requested,active){return requested===4&&active===4;});}
@@ -146,7 +146,7 @@
   }
   function sceneCue(index){
     if(index===0)playSample('welcomeChime',musicGain,.54,0,false,1,.08,null,null,function(requested,active){return requested===0&&active===0;});
-    else if(index===1)cardShuffle();
+    else if(index===1)cardFan();
     else if(index===2){cardDeal();playSample('rewardChime',musicGain,.46,.16,false,1,.72,null,null,function(requested,active){return requested===2&&active===2;});}
     else if(index===3)playSample('rewardChime',musicGain,.4,.22,false,1,.55,null,null,function(requested,active){return requested===3&&active===3;});
     else if(index===4){submergedPass(.35,-.72,.72);buoyBell(.4);}

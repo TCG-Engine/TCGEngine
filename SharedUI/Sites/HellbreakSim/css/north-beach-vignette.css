@@ -38,7 +38,6 @@ body.nb-open{overflow:hidden}.nb-vignette{--sea:#66d5d0;--deep:#075879;--sand:#f
 .nb-vignette .nb-win-modal p { color: #28575e !important; }
 .nb-vignette .nb-impact-message span,
 .nb-vignette .nb-impact-message b { color: #24545b !important; }
-.nb-vignette .nb-scene.is-visible .nb-mini-cards span { animation-iteration-count: infinite; }
 .nb-vignette .nb-topbar { overflow: hidden; transition: opacity .55s ease,background .45s ease,border-color .45s ease,filter .45s ease,box-shadow .45s ease; }
 .nb-vignette .nb-topbar > * { position: relative; z-index: 1; }
 .nb-vignette .nb-topbar::after { content: ""; position: absolute; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 18% 105%,rgba(4,74,91,.34),transparent 34%),linear-gradient(105deg,transparent 0 58%,rgba(177,132,77,.12) 59% 61%,transparent 63%),repeating-linear-gradient(96deg,transparent 0 82px,rgba(3,73,88,.08) 84px 87px,transparent 90px); opacity: 0; transition: opacity .45s ease; }
@@ -233,3 +232,38 @@ body.nb-open{overflow:hidden}.nb-vignette{--sea:#66d5d0;--deep:#075879;--sand:#f
 .nb-vignette .nb-deep-buoy::after { content: none; }
 .nb-vignette .nb-deep-buoy img { display: block; width: 100%; height: 100%; object-fit: fill; filter: saturate(.88) contrast(1.04) drop-shadow(0 8px 7px rgba(0,22,35,.42)); }
 .nb-vignette .nb-deep-buoy i { right: -18px; bottom: -7px; left: -18px; height: 15px; border-top: 2px solid rgba(216,250,244,.48); border-radius: 50%; }
+
+/* Slide 01 keeps a polished, inspectable teaser hand after its opening fan. */
+.nb-vignette .nb-deck-demo { grid-template-columns: minmax(390px,1fr) 165px; }
+.nb-vignette .nb-mini-cards { height: 370px; isolation: isolate; }
+.nb-vignette .nb-mini-card { position: absolute; z-index: calc(var(--i) + 1); top: 46%; left: 47%; width: 154px; height: 224px; margin: 0; padding: 0; border: 0; outline: 0; opacity: 0; transform: translate(-50%,-50%) translate(190px,54px) rotate(1deg) scale(.72); transform-origin: 50% 92%; }
+.nb-vignette .nb-scene-bag.is-visible .nb-mini-card { animation: nb-teaser-fan .85s calc(.3s + var(--i)*.16s) cubic-bezier(.16,.84,.22,1) forwards; }
+.nb-vignette .nb-mini-card:hover,.nb-vignette .nb-mini-card:focus-visible { z-index: 30; }
+.nb-vignette .nb-mini-card-face { position: relative; width: 100%; height: 100%; overflow: hidden; border: 6px solid #fff6dc; border-radius: 12px; color: #214d54; background: #f7efd9; box-shadow: 0 14px 30px rgba(17,74,78,.27),0 0 0 1px rgba(48,119,117,.5); transition: transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s ease,filter .28s ease; }
+.nb-vignette .nb-mini-card:hover .nb-mini-card-face,.nb-vignette .nb-mini-card:focus-visible .nb-mini-card-face { transform: translate(var(--hover-x),-26px) scale(1.42); box-shadow: 0 28px 58px rgba(6,54,61,.38),0 0 0 2px rgba(255,248,219,.9); filter: saturate(1.04) contrast(1.02); }
+.nb-vignette .nb-mini-card:focus-visible .nb-mini-card-face { outline: 3px solid #ffd66b; outline-offset: 4px; }
+.nb-vignette .nb-mini-card-art { position: relative; height: 116px; overflow: hidden; background: linear-gradient(#78cfca 0 55%,#12809a 55% 75%,#e8c679 75%); }
+.nb-vignette .nb-mini-card-art::after { content: ""; position: absolute; right: -18px; bottom: 25px; left: -18px; height: 17px; border-top: 3px solid rgba(231,255,246,.58); border-radius: 50%; }
+.nb-vignette .nb-mini-card-art i { position: absolute; z-index: 2; display: block; }
+.nb-vignette .nb-mini-card-copy { padding: 8px 9px 9px; }
+.nb-vignette .nb-mini-card-copy small,.nb-vignette .nb-mini-card-copy b,.nb-vignette .nb-mini-card-copy p { display: block; color: #214d54 !important; }
+.nb-vignette .nb-mini-card-copy small { color: #4a8582 !important; font-size: 5px; font-weight: 800; letter-spacing: .11em; }
+.nb-vignette .nb-mini-card-copy b { margin: 4px 0 5px; font: 700 14px/1 Georgia,serif; }
+.nb-vignette .nb-mini-card-copy p { margin: 0; font-size: 6.5px; line-height: 1.35; }
+.nb-vignette .nb-mini-card-face > em { position: absolute; z-index: 4; top: 6px; left: 6px; display: grid; width: 25px; height: 25px; place-items: center; border: 3px solid #fff6dc; border-radius: 50%; color: #fff; background: #df8a4d; box-shadow: 0 2px 5px rgba(0,0,0,.2); font: normal 800 12px Georgia,serif; }
+.nb-vignette .nb-mini-art-sunscreen i { top: 34px; left: 60px; width: 35px; height: 57px; border: 3px solid #fff1c8; border-radius: 8px 8px 12px 12px; background: linear-gradient(#f9e0a0 0 22%,#ef785f 23% 66%,#f7ead0 67%); box-shadow: 0 5px 9px rgba(0,62,72,.24); transform: rotate(5deg); }
+.nb-vignette .nb-mini-art-sunscreen i::before { content: ""; position: absolute; top: -10px; left: 8px; width: 14px; height: 10px; border-radius: 3px 3px 0 0; background: #ef785f; }
+.nb-vignette .nb-mini-art-ball i { top: 35px; left: 50px; width: 58px; height: 58px; border: 4px solid #fff1cd; border-radius: 50%; background: conic-gradient(#ed7963 0 20%,#f7e5a9 20% 40%,#58b9b4 40% 60%,#f7e5a9 60% 80%,#ed7963 80%); box-shadow: 0 6px 10px rgba(0,58,70,.25); }
+.nb-vignette .nb-mini-art-lemonade i { top: 31px; left: 57px; width: 43px; height: 65px; border: 4px solid rgba(255,248,214,.9); border-radius: 5px 5px 12px 12px; background: linear-gradient(rgba(255,255,255,.32) 0 20%,#f3cb59 21% 88%,#df9e3e 89%); box-shadow: inset 7px 0 rgba(255,255,255,.18),0 6px 10px rgba(0,58,70,.2); transform: rotate(-3deg); }
+.nb-vignette .nb-mini-art-lemonade i::before { content: ""; position: absolute; top: -22px; left: 27px; width: 4px; height: 31px; border-radius: 4px; background: #e76f60; transform: rotate(14deg); }
+.nb-vignette .nb-mini-art-lemonade i::after { content: ""; position: absolute; top: 6px; right: -10px; width: 21px; height: 21px; border: 3px solid #f6df72; border-radius: 50%; background: #f4c94e; }
+.nb-vignette .nb-mini-art-flipflops i { top: 30px; left: 45px; width: 27px; height: 67px; border-radius: 52% 48% 44% 56%; background: #f3c667; box-shadow: 42px 7px 0 #e87562,0 7px 10px rgba(0,58,70,.22); transform: rotate(12deg); }
+.nb-vignette .nb-mini-art-flipflops i::before,.nb-vignette .nb-mini-art-flipflops i::after { content: ""; position: absolute; top: 15px; width: 3px; height: 25px; border-radius: 3px; background: #fff0c6; transform-origin: top; }
+.nb-vignette .nb-mini-art-flipflops i::before { left: 12px; transform: rotate(29deg); }
+.nb-vignette .nb-mini-art-flipflops i::after { left: 12px; transform: rotate(-29deg); }
+.nb-vignette .nb-mini-art-book i { top: 31px; left: 40px; width: 76px; height: 62px; border: 5px solid #fff0cb; border-radius: 5px 12px 12px 5px; background: linear-gradient(90deg,#e87562 0 48%,#bc5c50 49% 51%,#f0c967 52%); box-shadow: 0 7px 11px rgba(0,55,67,.25); transform: rotate(-4deg); }
+.nb-vignette .nb-mini-art-book i::after { content: ""; position: absolute; top: 12px; right: 9px; width: 20px; height: 3px; background: rgba(255,247,213,.7); box-shadow: 0 8px rgba(255,247,213,.55),0 16px rgba(255,247,213,.4); }
+.nb-vignette .nb-mini-art-shells i { top: 42px; left: 49px; width: 57px; height: 45px; border: 4px solid #fff0cf; border-radius: 75% 75% 42% 42% / 92% 92% 34% 34%; background: repeating-conic-gradient(from -35deg at 50% 100%,#ef9a7c 0 12deg,#f7d99c 13deg 25deg); box-shadow: 0 6px 9px rgba(0,55,67,.24); }
+.nb-vignette .nb-mini-art-shells i::after { content: ""; position: absolute; right: 8px; bottom: -7px; left: 8px; height: 10px; border-radius: 50%; background: #fff0cf; }
+@keyframes nb-teaser-fan { 0% { opacity: 0; transform: translate(-50%,-50%) translate(190px,54px) rotate(1deg) scale(.72); } 42% { opacity: 1; } 100% { opacity: 1; transform: translate(-50%,-50%) translate(var(--x),var(--y)) rotate(var(--r)) scale(1); } }
+@media(max-width:800px){.nb-vignette .nb-deck-demo{grid-template-columns:minmax(210px,1fr) 112px}.nb-vignette .nb-mini-cards{height:250px;transform:none}.nb-vignette .nb-mini-card{top:44%;left:42%;width:108px;height:157px}.nb-vignette .nb-mini-card-art{height:78px}.nb-vignette .nb-mini-card-copy{padding:5px 6px}.nb-vignette .nb-mini-card-copy b{font-size:10px}.nb-vignette .nb-mini-card-copy p{font-size:4.5px}.nb-vignette .nb-mini-card:hover .nb-mini-card-face,.nb-vignette .nb-mini-card:focus-visible .nb-mini-card-face{transform:translate(calc(var(--hover-x)*.55),-18px) scale(1.35)}}
