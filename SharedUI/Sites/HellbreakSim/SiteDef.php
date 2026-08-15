@@ -1,22 +1,22 @@
 <?php return [
   'identity' => [
     'rootName' => 'HellbreakSim',
-    'appName' => 'Hellbreak Sim',
+    'appName' => 'northbeach.gg',
     'ipOwner' => 'the creators of Hellbreak',
     'assetOwner' => 'their respective owners',
     'tcgName' => 'Hellbreak',
-    'disclaimerLead' => 'Hellbreak Sim is a fan-made project and is not affiliated with the creators of Hellbreak.',
+    'disclaimerLead' => 'northbeach.gg is a fan-made Hellbreak project and is not affiliated with the creators of Hellbreak.',
   ],
   'theme' => 'hellish',   // ink/ember-gold/crimson; drives the menu, the board and the tutorial
   'branding' => [
-    'title' => 'Hellbreak',
-    'headTitle' => 'Hellbreak — Deck Builder & Simulator',
-    'tagline' => 'Fan-made deck builder and simulator',
+    'title' => 'northbeach.gg',
+    'headTitle' => 'northbeach.gg — Hellbreak Deck Builder & Simulator',
+    'tagline' => 'There’s something in the water.',
     'homeHref' => '/TCGEngine/SharedUI/Sites/HellbreakSim/MainMenu.php',
     'favicon' => '/TCGEngine/Assets/Images/icons/gudnakIcon.png',
     'showBanner' => false,
     'menuOverlay' => true,
-    'disclaimerName' => 'Hellbreak Sim',
+    'disclaimerName' => 'northbeach.gg',
   ],
   'head' => [
     'styles' => [
@@ -38,5 +38,5 @@
   'navLinks' => [
     ['kind'=>'icon','icon'=>'github.svg','href'=>'https://github.com/TCG-Engine/TCGEngine','title'=>'View TCGEngine on GitHub'],
   ],
-  'profile' => ['sections' => ['welcome'], 'oauthAppLabel' => 'Hellbreak Sim', 'discordOAuth' => true],
+  'profile' => ['sections' => ['welcome'], 'oauthAppLabel' => 'northbeach.gg', 'discordOAuth' => true],
 ];

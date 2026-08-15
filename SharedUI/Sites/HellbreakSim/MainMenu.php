@@ -24,30 +24,33 @@ if (IsUserLoggedIn()) {
   }
 }
 ?>
+<button id="hellbreak-replay-intro" class="hellbreak-replay-intro" type="button" data-nb-open>
+  <span aria-hidden="true">&#8634;</span><strong>Replay intro</strong>
+</button>
 <main class="hellbreak-shell">
   <div class="hellbreak-menu-grid">
     <section class="hellbreak-panel hellbreak-active-panel">
       <div class="hellbreak-panel-heading">
-        <h3><span class="hellbreak-heading-icon" aria-hidden="true">&#9813;</span> Active Games <strong id="active-game-count">0</strong></h3>
+        <h3><span class="hellbreak-heading-icon" aria-hidden="true">&#9673;</span> Live Signals <strong id="active-game-count">0</strong></h3>
         <button class="hellbreak-icon-button" type="button" onclick="refreshActiveGames(this)" aria-label="Refresh active games">&#8635;</button>
       </div>
       <button id="rejoin-last-game" class="hellbreak-rejoin" type="button" onclick="rejoinLastGame()" hidden>
-        <span aria-hidden="true">&#8617;</span><span><strong>Rejoin recent game</strong><small id="rejoin-last-game-note"></small></span>
+        <span aria-hidden="true">&#8617;</span><span><strong>Return to last signal</strong><small id="rejoin-last-game-note"></small></span>
       </button>
       <div id="active-games-list" class="hellbreak-active-list">
-        <div class="hellbreak-empty hellbreak-active-empty"><span aria-hidden="true">&#9876;</span><strong>No active games right now.</strong><small>Start one or refresh again in a moment.</small></div>
+        <div class="hellbreak-empty hellbreak-active-empty"><span class="hellbreak-radar-mark" aria-hidden="true"></span><strong>The shoreline is quiet.</strong><small>No active signals. Check again after the tide turns.</small></div>
       </div>
     </section>
 
     <section class="hellbreak-panel hellbreak-play-panel">
       <div class="hellbreak-workspace-heading">
-        <h2>Prepare a Deck</h2>
-        <span>Build or choose a deck to begin your match</span>
+        <h2>Choose Your Loadout</h2>
+        <span>Pack a deck before you head down to the water</span>
       </div>
 
       <div class="hellbreak-library-heading">
-        <h3><span class="hellbreak-heading-icon" aria-hidden="true">&#9638;</span> Deck Library</h3>
-        <?php if (IsUserLoggedIn()): ?><a class="hellbreak-create-deck" href="/TCGEngine/HellbreakDeck/CreateDeck.php"><span aria-hidden="true">+</span> Create Deck</a><?php endif; ?>
+        <h3><span class="hellbreak-heading-icon" aria-hidden="true">&#9638;</span> Deck Registry</h3>
+        <?php if (IsUserLoggedIn()): ?><a class="hellbreak-create-deck" href="/TCGEngine/HellbreakDeck/CreateDeck.php"><span aria-hidden="true">+</span> Build Deck</a><?php endif; ?>
       </div>
 
       <div class="hellbreak-library-tabs" role="tablist" aria-label="Deck sources">
@@ -57,8 +60,8 @@ if (IsUserLoggedIn()) {
 
       <section class="hellbreak-selected-section" aria-labelledby="hellbreak-selected-title">
         <div class="hellbreak-selected-heading">
-          <span id="hellbreak-selected-title"><span aria-hidden="true">&#10022;</span> Selected Deck</span>
-          <button type="button" class="hellbreak-change-deck" onclick="openHellbreakDeckPicker()">Change Deck</button>
+          <span id="hellbreak-selected-title"><span aria-hidden="true">&#9670;</span> Current Loadout</span>
+          <button type="button" class="hellbreak-change-deck" onclick="openHellbreakDeckPicker()">Change loadout</button>
         </div>
         <div class="hellbreak-selected-deck">
           <div class="hellbreak-deck-art" aria-hidden="true">
@@ -88,20 +91,20 @@ if (IsUserLoggedIn()) {
         </div>
       </section>
 
-      <div class="hellbreak-ready-label"><span aria-hidden="true">&#10022;</span> Ready to Play?</div>
+      <div class="hellbreak-ready-label"><span aria-hidden="true">&#9651;</span> Enter North Beach</div>
 
       <div class="hellbreak-game-actions">
         <button id="join-queue-btn" class="hellbreak-game-action primary" type="button" onclick="joinQueue()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#9813;</span><span><strong>Join Queue</strong><small>Find an opponent</small></span>
+          <span class="hellbreak-action-icon" aria-hidden="true">&#9673;</span><span><strong>Find a Match</strong><small>Scan for another player</small></span>
         </button>
         <button id="start-tutorial-btn" class="hellbreak-game-action" type="button" onclick="startTutorial()">
-          <span class="hellbreak-action-icon" aria-hidden="true">?</span><span><strong>Learn to Play</strong><small>Guided quick-start</small></span>
+          <span class="hellbreak-action-icon" aria-hidden="true">?</span><span><strong>First Visit</strong><small>Shoreline orientation</small></span>
         </button>
         <button id="start-fixture-match-btn" class="hellbreak-game-action" type="button" onclick="startFixtureMatch()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#9654;</span><span><strong>Play vs. Bot</strong><small>Practice mode</small></span>
+          <span class="hellbreak-action-icon" aria-hidden="true">&#9654;</span><span><strong>Solo Patrol</strong><small>Practice against the bot</small></span>
         </button>
         <button id="create-private-game-btn" class="hellbreak-game-action" type="button" onclick="createPrivateGame()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#128274;</span><span><strong>Private Game</strong><small>Invite your friends</small></span>
+          <span class="hellbreak-action-icon" aria-hidden="true">&#128274;</span><span><strong>Closed Session</strong><small>Invite someone you trust</small></span>
         </button>
         <button id="join-private-invite-btn" class="hellbreak-game-action invite" type="button" onclick="joinPrivateInvite()">
           <span class="hellbreak-action-icon" aria-hidden="true">&#10148;</span><span><strong>Join Private Invite</strong><small>Enter your friend's lobby</small></span>
@@ -112,24 +115,20 @@ if (IsUserLoggedIn()) {
     </section>
 
     <section class="hellbreak-panel hellbreak-info-panel">
-      <div class="hellbreak-info-tabs"><span class="is-active">Welcome</span></div>
+      <div class="hellbreak-info-tabs"><span class="is-active">Visitor Advisory</span></div>
       <div class="hellbreak-welcome">
-        <h2>Welcome to Hellbreak</h2>
-        <p>A fan-made online simulator for the Hellbreak TCG.</p>
+        <span class="hellbreak-station-id">NB&ndash;09 / NORTH SHORE</span>
+        <h2>Welcome to<br>North Beach.</h2>
+        <p>A fan-made online simulator and deck builder for the Hellbreak TCG.</p>
       </div>
       <div class="hellbreak-tip">
-        <span class="hellbreak-eyebrow">&#128161; Did you know?</span>
-        <p>The GAMA Demo puts Dracula against Jaws and is ready to play immediately.</p>
+        <span class="hellbreak-eyebrow"><i aria-hidden="true"></i> Current conditions</span>
+        <p><strong>Visibility: poor.</strong> The GAMA Demo pits Dracula against Jaws and is ready to play immediately.</p>
       </div>
-      <button class="hellbreak-north-beach-launch" type="button" data-nb-open>
-        <span class="hellbreak-north-beach-sun" aria-hidden="true">&#9728;</span>
-        <span><strong>Visit North Beach</strong><small>Take the new-player tour</small></span>
-        <span aria-hidden="true">&#8594;</span>
-      </button>
       <div class="hellbreak-quick-reference">
-        <h3>Quick Reference</h3>
-        <div><kbd>?</kbd><span>Open the guided tutorial</span></div>
-        <div><kbd>Esc</kbd><span>Cancel matchmaking</span></div>
+        <h3>Boardwalk Notices</h3>
+        <div><kbd>?</kbd><span>Open shoreline orientation</span></div>
+        <div><kbd>Esc</kbd><span>Stop scanning for a match</span></div>
       </div>
     </section>
   </div>
@@ -139,9 +138,9 @@ if (IsUserLoggedIn()) {
   <button type="button" class="hellbreak-deck-picker-backdrop" onclick="closeHellbreakDeckPicker()" aria-label="Close deck picker"></button>
   <section class="hellbreak-deck-picker-dialog" role="dialog" aria-modal="true" aria-labelledby="hellbreak-deck-picker-title">
     <button type="button" class="hellbreak-deck-picker-close" onclick="closeHellbreakDeckPicker()" aria-label="Close deck picker">&times;</button>
-    <span class="hellbreak-eyebrow">Deck Library</span>
-    <h2 id="hellbreak-deck-picker-title">Choose a Deck</h2>
-    <p>Select the deck you want to use for your next game.</p>
+    <span class="hellbreak-eyebrow">Deck Registry</span>
+    <h2 id="hellbreak-deck-picker-title">Choose a Loadout</h2>
+    <p>Select what you are taking down to the shoreline.</p>
 
     <div class="hellbreak-picker-tabs" role="tablist" aria-label="Deck sources">
       <button type="button" role="tab" data-picker-tab="saved" onclick="switchHellbreakDeckPickerGroup('saved')">My Decks</button>
@@ -191,9 +190,9 @@ if (IsUserLoggedIn()) {
   <div class="hellbreak-modal-backdrop" onclick="cancelWaitingLobby()"></div>
   <section class="hellbreak-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="hellbreak-modal-title">
     <button class="hellbreak-modal-close" type="button" onclick="cancelWaitingLobby()" aria-label="Cancel">&times;</button>
-    <span class="hellbreak-modal-mark" aria-hidden="true">H</span>
-    <h2 id="hellbreak-modal-title">Waiting for an opponent</h2>
-    <p id="hellbreak-modal-message">Your lobby is ready.</p>
+    <span class="hellbreak-modal-mark" aria-hidden="true">NB</span>
+    <h2 id="hellbreak-modal-title">Scanning the shoreline</h2>
+    <p id="hellbreak-modal-message">Your signal is live.</p>
     <div id="hellbreak-invite-wrap" class="hellbreak-invite-wrap" hidden>
       <input id="hellbreak-invite-link" readonly aria-label="Private invite link">
       <button type="button" onclick="copyInviteLink()">Copy</button>
@@ -424,7 +423,7 @@ if (IsUserLoggedIn()) {
   };
 
   function showWaiting(message, inviteLink) {
-    document.getElementById('hellbreak-modal-message').textContent = message || 'Waiting for an opponent...';
+    document.getElementById('hellbreak-modal-message').textContent = message || 'Scanning for another signal...';
     var wrap = document.getElementById('hellbreak-invite-wrap');
     var input = document.getElementById('hellbreak-invite-link');
     if (inviteLink) {
@@ -464,7 +463,7 @@ if (IsUserLoggedIn()) {
       lobbyPlayerID = String(response.playerID || '');
       lobbyAuthKey = response.authKey || '';
       var inviteLink = response.inviteCode ? privateInviteLink(response.inviteCode) : '';
-      showWaiting(options.private ? 'Share this invite link with your opponent.' : 'Waiting for another player in the queue...', inviteLink);
+      showWaiting(options.private ? 'Send this private frequency to your opponent.' : 'Scanning the shoreline for another player...', inviteLink);
       pollLobby();
     };
     request.onerror = function() { showError('The lobby service could not be reached.'); };
@@ -551,12 +550,12 @@ if (IsUserLoggedIn()) {
         document.getElementById('active-game-count').textContent = String(games.length);
         var list = document.getElementById('active-games-list');
         if (!games.length) {
-          list.innerHTML = '<div class="hellbreak-empty hellbreak-active-empty"><span aria-hidden="true">&#9876;</span><strong>No active games right now.</strong><small>Start one or refresh again in a moment.</small></div>';
+          list.innerHTML = '<div class="hellbreak-empty hellbreak-active-empty"><span class="hellbreak-radar-mark" aria-hidden="true"></span><strong>The shoreline is quiet.</strong><small>No active signals. Check again after the tide turns.</small></div>';
           return;
         }
         list.innerHTML = games.map(function(game) {
           var name = String(game.gameName || '');
-          return '<article class="hellbreak-active-game"><span><strong>Game ' + escapeHtml(name) + '</strong><small>Public fixture match</small></span>' +
+          return '<article class="hellbreak-active-game"><span><strong>Signal ' + escapeHtml(name) + '</strong><small>Public Hellbreak match</small></span>' +
             '<span class="hellbreak-spectate-actions"><button onclick="spectateGame(' + JSON.stringify(name).replace(/"/g, '&quot;') + ',1)">P1 view</button>' +
             '<button onclick="spectateGame(' + JSON.stringify(name).replace(/"/g, '&quot;') + ',2)">P2 view</button></span></article>';
         }).join('');
@@ -570,6 +569,14 @@ if (IsUserLoggedIn()) {
   };
 
   document.addEventListener('DOMContentLoaded', function() {
+    var replayIntro = document.getElementById('hellbreak-replay-intro');
+    var accountNav = document.querySelector('.nav-bar-user .rightnav');
+    if (replayIntro && accountNav) {
+      var replayItem = document.createElement('li');
+      replayItem.className = 'hellbreak-replay-intro-item';
+      replayItem.appendChild(replayIntro);
+      accountNav.insertBefore(replayItem, accountNav.firstChild);
+    }
     updateRejoin();
     var deckSelect = document.getElementById('hellbreak-match-deck');
     var rememberedDeck = '';

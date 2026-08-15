@@ -106,7 +106,7 @@
       <div class="nb-real-content">
         <h2>NORTHBEACH.GG</h2>
         <p>THERE&rsquo;S SOMETHING IN THE WATER</p>
-        <div class="nb-real-description">A fan made Hellbreak simulator and deckbuilder</div>
+        <div class="nb-real-description">A Fan-made Hellbreak Simulator and Deckbuilder</div>
         <button class="nb-enter" type="button" data-nb-close>ENTER NORTH BEACH <span>&rarr;</span></button>
       </div>
       <div class="nb-real-water" aria-hidden="true"></div>

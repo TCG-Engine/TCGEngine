@@ -607,3 +607,211 @@ button.hellbreak-picker-option.is-selected { border-color: var(--accent) !import
   .hellbreak-spectate-actions { width: 100%; }
   .hellbreak-spectate-actions button { flex: 1; }
 }
+
+/* northbeach.gg menu identity -------------------------------------------------
+   The Hellbreak engine remains underneath; the public-facing place is North Beach. */
+:root {
+  --surface: #061014;
+  --surface-raised: rgba(7, 18, 22, .89);
+  --surface-sunken: rgba(3, 11, 14, .94);
+  --border: rgba(157, 188, 181, .2);
+  --card-border: rgba(157, 188, 181, .28);
+  --text: #e9e8df;
+  --text-muted: #99a9a7;
+  --accent: #d6a253;
+  --accent-strong: #efc574;
+  --on-accent: #102024;
+  --danger: #b75843;
+  --danger-surface: #301a18;
+  --on-danger: #ffd2c8;
+  --success: #6fa99d;
+  --success-surface: #102b2a;
+  --on-success: #c5e8df;
+  --btn-surface: linear-gradient(180deg, rgba(37, 65, 68, .96), rgba(13, 34, 38, .96));
+  --btn-fill: var(--btn-surface);
+  --btn-border: rgba(214, 162, 83, .42);
+  --btn-hover-surface: linear-gradient(180deg, rgba(51, 82, 83, .98), rgba(18, 45, 49, .98));
+  --btn-hover-border: rgba(239, 197, 116, .7);
+  --accent-rgb: 214, 162, 83;
+  --danger-rgb: 183, 88, 67;
+  --text-rgb: 233, 232, 223;
+  --border-rgb: 157, 188, 181;
+  --overlay-scrim: rgba(2, 9, 12, .82);
+}
+
+html { background: #061014; }
+body {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(2, 9, 13, .14) 0, rgba(2, 10, 13, .27) 44%, rgba(2, 8, 10, .58) 100%),
+    linear-gradient(90deg, rgba(3, 11, 14, .24), transparent 38%, rgba(3, 10, 13, .18)),
+    url("../assets/north-beach-menu-dusk-v2.png") center bottom / cover fixed no-repeat;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .21;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.home-header {
+  height: 82px;
+  margin: -10px 0 0;
+  padding: 12px 0 18px 50px;
+}
+.home-header .title { position: relative; margin-top: 0; }
+.home-header .title::before {
+  content: "NORTH BEACH  /  COASTAL DISTRICT 09";
+  display: block;
+  margin-bottom: 3px;
+  color: rgba(214, 162, 83, .82);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .28em;
+}
+.home-header .title h1 {
+  margin: 0;
+  color: #f0eee5;
+  font-size: clamp(31px, 3.3vw, 50px);
+  font-weight: 600;
+  letter-spacing: -.045em;
+  line-height: .96;
+  text-transform: lowercase;
+  text-shadow: 0 4px 24px rgba(0, 10, 15, .7);
+}
+.home-header .title h1::after { content: ""; display: inline-block; width: 7px; height: 7px; margin-left: 9px; border-radius: 50%; background: #b75843; box-shadow: 0 0 14px rgba(183, 88, 67, .65); vertical-align: .25em; }
+.home-header .title p { margin-top: 7px; color: rgba(204, 214, 207, .7); font-size: 11px; letter-spacing: .17em; text-transform: uppercase; }
+
+.nav-bar-user,
+.nav-bar-links { border-color: rgba(157, 188, 181, .16) !important; background: rgba(3, 11, 14, .72) !important; backdrop-filter: blur(16px); }
+.nav-bar-user .nav-item-icon,
+.nav-bar-links img { filter: sepia(.15) saturate(.6); }
+.hellbreak-replay-intro { display: none; }
+.nav-bar-user .rightnav .hellbreak-replay-intro {
+  display: flex !important;
+  height: 50px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 16px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--text) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  transform: none !important;
+}
+.nav-bar-user .rightnav .hellbreak-replay-intro:hover { color: var(--accent-strong) !important; }
+.nav-bar-user .rightnav .hellbreak-replay-intro > span { color: var(--accent); font-size: 20px; line-height: 1; }
+.nav-bar-user .rightnav .hellbreak-replay-intro strong { font-size: 16px; }
+
+.hellbreak-shell { margin-top: 4px; }
+.hellbreak-menu-grid { gap: 14px; }
+.hellbreak-panel {
+  position: relative;
+  border-color: rgba(157, 188, 181, .27);
+  border-radius: 2px;
+  background: linear-gradient(155deg, rgba(9, 24, 28, .92), rgba(3, 13, 17, .91));
+  box-shadow: 0 24px 65px rgba(0, 7, 10, .48), inset 0 1px rgba(225, 235, 228, .035);
+  backdrop-filter: blur(15px) saturate(.8);
+}
+.hellbreak-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 58px;
+  height: 1px;
+  background: #b75843;
+  box-shadow: 0 0 12px rgba(183, 88, 67, .4);
+}
+.hellbreak-panel-heading,
+.hellbreak-workspace-heading,
+.hellbreak-library-heading,
+.hellbreak-library-tabs,
+.hellbreak-selected-heading,
+.hellbreak-ready-label,
+.hellbreak-info-tabs,
+.hellbreak-welcome { border-color: rgba(157, 188, 181, .16); }
+.hellbreak-panel-heading h3,
+.hellbreak-library-heading h3,
+.hellbreak-ready-label,
+.hellbreak-selected-heading,
+.hellbreak-quick-reference h3 { letter-spacing: .13em; }
+.hellbreak-heading-icon,
+.hellbreak-action-icon { color: #d6a253; }
+.hellbreak-panel-heading h3 strong { border: 1px solid rgba(214, 162, 83, .45); color: #e9d1a2; background: rgba(214, 162, 83, .1); }
+.hellbreak-icon-button { border: 1px solid rgba(157, 188, 181, .18); border-radius: 50%; color: #a9c0bb; }
+
+.hellbreak-radar-mark {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 22px !important;
+  border: 1px solid rgba(157, 188, 181, .29);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(214, 162, 83, .8) 0 2px, transparent 3px 16px, rgba(157, 188, 181, .16) 17px 18px, transparent 19px 29px, rgba(157, 188, 181, .12) 30px 31px, transparent 32px);
+}
+.hellbreak-radar-mark::before { content: ""; position: absolute; top: 37px; left: 37px; width: 31px; height: 1px; background: linear-gradient(90deg, rgba(214, 162, 83, .8), transparent); transform-origin: left center; transform: rotate(-38deg); }
+.hellbreak-radar-mark::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; border-right: 1px solid rgba(214, 162, 83, .25); transform: rotate(-38deg); }
+.hellbreak-active-empty strong { font-family: Georgia, serif; font-size: 18px; font-weight: 400; }
+.hellbreak-active-empty small { max-width: 220px; margin-right: auto; margin-left: auto; }
+
+.hellbreak-workspace-heading h2,
+.hellbreak-welcome h2,
+.hellbreak-selected-copy strong,
+.hellbreak-deck-picker-dialog h2 { font-weight: 400; letter-spacing: -.02em; }
+.hellbreak-workspace-heading h2 { color: #ede9dd; font-size: 22px; }
+.hellbreak-workspace-heading span { font-size: 13px; letter-spacing: .03em; }
+.hellbreak-create-deck { border-radius: 2px; }
+.hellbreak-selected-deck { border-color: rgba(157, 188, 181, .23); border-left-color: #b75843; border-radius: 2px; background: linear-gradient(90deg, rgba(183, 88, 67, .065), rgba(157, 188, 181, .025)); }
+.hellbreak-selected-check { border-color: rgba(214, 162, 83, .6); color: #efc574; }
+.hellbreak-game-action { border-radius: 2px; background: rgba(11, 29, 33, .82); }
+.hellbreak-game-action.primary { border-color: rgba(183, 88, 67, .72); background: linear-gradient(180deg, rgba(114, 50, 41, .94), rgba(70, 31, 29, .94)); }
+.hellbreak-game-action small { color: #8ea09d; }
+
+.hellbreak-info-tabs { grid-template-columns: minmax(130px, 160px); }
+.hellbreak-info-tabs .is-active { border-color: rgba(214, 162, 83, .48); border-radius: 1px; color: #e8dfcc; }
+.hellbreak-station-id { display: block; margin-bottom: 10px; color: #b75843; font-size: 9px; font-weight: 800; letter-spacing: .22em; }
+.hellbreak-welcome h2 { color: #efede3; font-size: 32px; line-height: 1.04; }
+.hellbreak-welcome p { max-width: 340px; }
+.hellbreak-tip { border-color: rgba(157, 188, 181, .18); border-radius: 2px; background: rgba(2, 11, 14, .45); }
+.hellbreak-tip::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 2px; background: rgba(183, 88, 67, .75); }
+.hellbreak-eyebrow { color: #d8b46e; }
+.hellbreak-eyebrow i { display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: #b75843; box-shadow: 0 0 9px rgba(183, 88, 67, .7); }
+.hellbreak-tip p strong { color: #d5d8d0; font-weight: 500; }
+.hellbreak-quick-reference kbd { border-radius: 1px; background: rgba(3, 12, 15, .72); }
+.disclaimer { color: rgba(202, 213, 207, .62); text-shadow: 0 2px 8px #02090b; }
+
+.hellbreak-deck-picker-dialog,
+.hellbreak-modal-dialog { border-radius: 2px; background: linear-gradient(155deg, rgba(9, 24, 28, .98), rgba(3, 13, 17, .98)); }
+.hellbreak-modal-mark { border: 1px solid rgba(214, 162, 83, .5); color: #efc574; background: transparent; font-size: 14px; letter-spacing: .08em; }
+
+@media (max-width: 900px) {
+  body { background-position: 58% bottom; }
+  .home-header { height: auto; padding: 68px 0 18px 22px; }
+  .home-header .title::before { font-size: 8px; }
+  .nav-bar-user .NavBarItem { padding-right: 8px !important; padding-left: 8px !important; font-size: 14px; white-space: nowrap; }
+  .nav-bar-user .rightnav .hellbreak-replay-intro { width: auto; height: 44px; justify-content: flex-start; gap: 5px; padding: 0 7px !important; }
+  .nav-bar-user .rightnav .hellbreak-replay-intro > span { font-size: 16px; }
+  .nav-bar-user .rightnav .hellbreak-replay-intro strong { font-size: 12px; }
+}
+
+@media (max-width: 620px) {
+  .hellbreak-game-action { min-width: 0; gap: 6px; padding-right: 5px; padding-left: 5px; }
+  .hellbreak-game-action > span:last-child { min-width: 0; }
+  .hellbreak-game-action strong { font-size: 11px; white-space: nowrap; }
+  .hellbreak-game-action small { font-size: 9px; white-space: nowrap; }
+  .hellbreak-action-icon { flex: 0 0 auto; font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hellbreak-radar-mark::before { animation: nb-menu-radar 8s linear infinite; }
+  @keyframes nb-menu-radar { to { transform: rotate(322deg); } }
+}
