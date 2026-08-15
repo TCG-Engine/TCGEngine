@@ -139,3 +139,38 @@ WithP1Deck: [SOR_128 SOR_128 SOR_128]
 ## EXPECT
 P2BASEDMG:6
 P1HANDCOUNT:2
+
+---
+
+# SimulateRequestBoundary_GrantedBaseDrawSurvives
+#// JTL_177 Stay on Target — the defender choice ends the request in production, so the +2/+0 and the
+#// granted "when this unit deals damage to a base: draw a card" are written before the boundary and must
+#// be read back in a fresh process. Mirrors OverwhelmExcessToBase_Draws with the boundary inserted before
+#// the defender answer: SHD_242 at 9 power still kills the 1-HP TIE, still spills 8 to P2's base via
+#// Overwhelm, and the granted ability still draws for that spillover.
+
+## GIVEN
+CommonSetup: rrk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_177
+WithP1Resources: 5
+WithP1SpaceArena: SHD_242:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P2BASEDMG:8
+P1HANDCOUNT:1
+P1DECKCOUNT:0
+P1SPACEARENAUNIT:0:CARDID:SHD_242
+P1SPACEARENAUNIT:0:DAMAGE:2

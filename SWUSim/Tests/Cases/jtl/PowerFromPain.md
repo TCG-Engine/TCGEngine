@@ -55,3 +55,39 @@ WithP1SpaceArena: SOR_237:1:0
 P1GROUNDARENAUNIT:0:CARDID:SOR_232
 P1GROUNDARENAUNIT:0:POWER:9
 P1GROUNDARENAUNIT:0:DAMAGE:5
+
+---
+
+# SimulateRequestBoundary_BuffTargetAndSnapshot
+#// JTL_042 Power from Pain — the "choose a unit" decision ends the request in production, so the answer
+#// arrives in a fresh process with every transient global empty. Mirrors
+#// SnapshotAtPlay_LaterDamageDoesNotIncrease with the boundary inserted before the target answer: the
+#// pending event must still know it is Power from Pain, still count the 3 damage on the AT-ST for the
+#// +3/+0, and the phase-scoped buff must still be snapshot-locked when P2 adds 2 more damage afterwards.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: JTL_042
+WithP1Resources: 3
+WithP2Hand: TWI_170
+WithP2Resources: 3
+WithP1GroundArena: SOR_232:1:3
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_232
+P1GROUNDARENAUNIT:0:POWER:9
+P1GROUNDARENAUNIT:0:DAMAGE:5

@@ -108,3 +108,36 @@ P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:JTL_138
 P1RESAVAILABLE:0
 P1BASEDMG:8
+
+---
+
+# SimulateRequestBoundary_DealtIndirectThisPhaseDiscount
+#// JTL_138 Decimator of Dissidents — the discount reads "if you dealt indirect damage this phase", and the
+#// indirect source (JTL_181) is played as a separate production action from Decimator, with its own target
+#// decision in between. So the dealt-indirect-this-phase flag crosses TWO fresh-process boundaries before
+#// Determine Cost reads it; if it were a transient global Decimator would silently cost the full 4 in real
+#// games. Mirrors Discount_OwnIndirectThisPhase with a boundary before the answer and before the play.
+
+## GIVEN
+CommonSetup: grk/bbk/{
+  myLeader:JTL_011;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [JTL_181 JTL_138]
+WithP1Resources: 9
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:Opponent
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_138
+P1RESAVAILABLE:0
+P2BASEDMG:8

@@ -1517,7 +1517,7 @@ function SWUQueueChooseTarget(int $player, array $targets, string $tooltip, stri
 // could answer a pending MZCHOOSE/MZMAYCHOOSE with ANY mzID — e.g. a unit outside the offered pool —
 // and the CUSTOM continuation would act on it; the UI constrains clicks but the server must not
 // trust input). Only the MZ choose types are validated: other decision types (YESNO, OPTIONCHOOSE,
-// search-by-CardID, MZMULTICHOOSE lists) keep their existing handling. PASS/'-' decline tokens are
+// search-by-CardID) keep their existing handling; MZMULTICHOOSE is validated as a subset (below). PASS/'-' decline tokens are
 // always allowed — decline semantics per type are enforced downstream, not here. Called by
 // production's answer entry point (EngineActionRunner mode=100, gated by function_exists so other
 // sims are untouched) and by the test harness's answerDecision (which throws on an invalid answer
@@ -1539,10 +1539,41 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     // must be queued as MZMAYCHOOSE. Typing it MZCHOOSE and relying on this function's old blanket
     // acceptance is no longer a working way to be declinable.
     if ($answer === 'PASS' || $answer === '-' || $answer === '') return $type !== 'MZCHOOSE';
-    if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE') return true;
+    if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE' && $type !== 'MZMULTICHOOSE') return true;
     global $playerID;
     $saved = $playerID;
     $playerID = intval($player);   // Param mzIDs are in the deciding player's frame
+    // MZMULTICHOOSE carries "min|max|spec&spec&…" and its answer is an '&'-joined SUBSET, so both the
+    // pool and the answer need splitting. Until 2026-08-14 this type was unvalidated entirely, which
+    // made every multi-select section able to "choose" cards the offer never contained — the exact
+    // shape that let SOR_245 Medal Ceremony's resolution-only section pass VACUOUSLY against a
+    // friendly-only pool. Each picked mzID must be in the pool; an out-of-pool pick fails the whole answer.
+    if ($type === 'MZMULTICHOOSE') {
+        // 'DONE' is the multi-select TERMINATOR ("I have finished picking"), the multichoose analogue of
+        // PASS/'-' — it is never an mzID and must not be pool-checked. Handlers read a non-mzID answer as
+        // "nothing selected". 9 existing sections use it legitimately.
+        if ($answer === 'DONE') { $playerID = $saved; return true; }
+        $parts = explode('|', (string)($head->Param ?? ''), 3);
+        $poolStr = count($parts) >= 3 ? $parts[2] : '';
+        $allOk = true;
+        foreach (explode('&', $answer) as $pick) {
+            $pick = trim($pick);
+            if ($pick === '' || $pick === '-' || $pick === 'PASS') continue;
+            $hit = false;
+            foreach (explode('&', $poolStr) as $rawSpec) {
+                $spec = explode(':', $rawSpec)[0];
+                if ($spec === '') continue;
+                if (preg_match('/^(.+)-(\d+)$/', $spec)) { if ($pick === $spec) { $hit = true; break; } }
+                elseif (preg_match('/^' . preg_quote($spec, '/') . '-\d+$/', $pick)) {
+                    $o = GetZoneObject($pick);
+                    if ($o !== null && empty($o->removed)) { $hit = true; break; }
+                }
+            }
+            if (!$hit) { $allOk = false; break; }
+        }
+        $playerID = $saved;
+        return $allOk;
+    }
     $ok = false;
     foreach (explode('&', (string)($head->Param ?? '')) as $rawSpec) {
         $spec = explode(':', $rawSpec)[0];

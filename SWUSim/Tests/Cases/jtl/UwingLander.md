@@ -177,3 +177,37 @@ P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_227
 P1SPACEARENAUNIT:2:CARDID:SOR_237
 P1SPACEARENAUNIT:2:UPGRADECOUNT:0
 P1NODECISION
+
+
+---
+
+# Offer_MoveDestinationExcludesSelfAndIneligibleVehicle
+#// JTL_070 U-Wing Lander — "attach an upgrade on this unit to ANOTHER ELIGIBLE friendly VEHICLE unit."
+#// The destination pool has to enforce three things at once: the U-Wing itself is excluded ("another")
+#// even though it is a Transport and therefore a legal host for the upgrade; the Fighter (SOR_237) is
+#// excluded because JTL_227 Superheavy Ion Cannon may only "Attach to a Capital Ship or Transport unit";
+#// and BOTH remaining vehicles — Redemption (Capital Ship) and The Ghost (Transport) — must be offered.
+#// The existing restricted-move section narrows to a single destination that auto-resolves, so it cannot
+#// see an over-inclusive list; here the upgrade pick is answered and the DESTINATION decision is left
+#// PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_070:1:0
+WithP1SpaceArena: SOR_052:1:0
+WithP1SpaceArena: JTL_053:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_227
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:mySpaceArena-1&mySpaceArena-2

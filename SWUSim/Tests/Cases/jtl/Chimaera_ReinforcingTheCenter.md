@@ -536,3 +536,32 @@ P1SPACEARENAUNIT:2:CARDID:JTL_T01
 P1SPACEARENAUNIT:3:CARDID:JTL_T01
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:JTL_039
+
+---
+
+# Offer_WhenDefeatedPoolIsFriendlyOthersWithTheAbility
+#// JTL_039 Chimaera — "When Played: You may use a 'When Defeated' ability on ANOTHER FRIENDLY unit."
+#// Four candidates are seeded to make the pool discriminating: JTL_087 (friendly space, has a When
+#// Defeated) and TWI_032 (friendly ground, has a When Defeated) belong in the pool; SOR_237 (friendly
+#// space, vanilla — no When Defeated ability) must be excluded, the enemy JTL_087 must be excluded
+#// (friendly only), and Chimaera itself (mySpaceArena-2) must be excluded ("another"). The decision is
+#// left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: ggk/bbk/{myLeader:JTL_005;myBase:JTL_022;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: JTL_039
+WithP1SpaceArena: JTL_087:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP1GroundArena: TWI_032:1:0
+WithP2SpaceArena: JTL_087:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+P1SPACEARENAUNIT:2:CARDID:JTL_039

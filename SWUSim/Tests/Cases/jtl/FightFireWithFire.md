@@ -76,3 +76,37 @@ WithP2SpaceArena: JTL_221:1:0
 ## EXPECT
 P1SPACEARENAUNIT:0:DAMAGE:3
 P2SPACEARENAUNIT:0:DAMAGE:3
+
+---
+
+# Offer_EnemyPoolIsSameArenaOnly
+#// JTL_173 Fight Fire With Fire — "Choose a friendly unit AND an enemy unit IN THE SAME ARENA." P1 picks
+#// the friendly GROUND SOR_046, so the enemy pool must be exactly the two enemy ground units and must
+#// EXCLUDE the enemy space SOR_225 — even though P1 also controls a space unit, which would have made
+#// SOR_225 a legal partner for a different first pick. The second decision is left PENDING so the offer
+#// itself is asserted.
+
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_173
+WithP1Resources: 1
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1

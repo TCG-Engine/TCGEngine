@@ -27,7 +27,22 @@ $whenPlayedAbilities["JTL_205:0"] = function($player, $mzID = '') {
             $playerID = intval($player);
             $targets = [];
             $myD = GetDiscard(intval($player));
-            for ($i = 0; $i < count($myD); $i++) { if ($myD[$i] !== null && empty($myD[$i]->removed)) $targets[] = "myDiscard-{$i}"; }
+            // "ANOTHER card in a discard pile" — exclude THIS Commence Patrol. ActivateCard appends the
+            // event to its owner's discard (SWUAddToDiscard) BEFORE dispatching this When Played, so the
+            // in-flight copy is already sitting there as a live entry and was being offered: answering it
+            // put Commence Patrol on the bottom of its own owner's deck and still made the X-Wing, i.e.
+            // the card recycled itself into a free 2/2, which "another" forbids. (Same in-flight-event
+            // family as SEC_178 Pursue the Lead / SEC_232 Kreia's Whispers, but in the DISCARD rather
+            // than the hand, and NOT flagged `removed` — so the usual removed-filter does not catch it.)
+            // ⚠ Only the LAST live entry is skipped, never every JTL_205: a SECOND copy already in the
+            // discard is a different card and is a legal target.
+            $selfIdx = -1;
+            for ($i = count($myD) - 1; $i >= 0; $i--) {
+                if ($myD[$i] === null || !empty($myD[$i]->removed)) continue;
+                if (($myD[$i]->CardID ?? '') === 'JTL_205') $selfIdx = $i;
+                break;                                   // only the most recently added live entry
+            }
+            for ($i = 0; $i < count($myD); $i++) { if ($i !== $selfIdx && $myD[$i] !== null && empty($myD[$i]->removed)) $targets[] = "myDiscard-{$i}"; }
             $thD = GetDiscard(GetOpponent(intval($player)));
             for ($i = 0; $i < count($thD); $i++) { if ($thD[$i] !== null && empty($thD[$i]->removed)) $targets[] = "theirDiscard-{$i}"; }
             if (empty($targets)) return;

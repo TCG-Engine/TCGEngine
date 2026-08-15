@@ -115,3 +115,37 @@ P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:0:HP:3
 P1SPACEARENAUNIT:0:POWER:4
 P1SPACEARENAUNIT:0:HP:5
+
+---
+
+# SimulateRequestBoundary_BetweenGroundAndSpaceHalves
+#// JTL_253 Coordinated Front — a two-step chain: the ground pick ends the request, and the space pick ends
+#// another, so in production the second half of the event resolves in a process that never saw the first.
+#// The continuation (that a space half is still owed) AND the phase-duration ground buff already applied
+#// must both survive serialization. Mirrors BuffGroundAndSpace with a boundary before EACH answer.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_253
+WithP1Resources: 2
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:HP:5
+P1SPACEARENAUNIT:0:POWER:4
+P1SPACEARENAUNIT:0:HP:5

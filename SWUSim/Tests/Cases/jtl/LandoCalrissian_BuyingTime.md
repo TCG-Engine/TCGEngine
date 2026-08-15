@@ -144,3 +144,49 @@ P1HANDCOUNT:1
 P1RESAVAILABLE:2
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# ControlChange_StolenSpaceUnitSatisfiesArenaGate
+#// JTL_003 Lando Calrissian (leader) — Action [1 resource, Exhaust]: "Play a unit from your hand
+#// (paying its cost). If you do and YOU CONTROL a ground unit and a space unit, give a Shield token to
+#// a unit." Control-change axis: the arena gate is CONTROL-based, not ownership-based. P1 owns no space
+#// unit at any point — it takes control of P2's SOR_237 Alliance X-Wing with SOR_224 Change of Heart,
+#// then plays SOR_063 (cost 3, Vigilance — covered by Lando) as its ground unit. The gate must count the
+#// STOLEN X-Wing as "a space unit you control", so the Shield is granted. Mirror of the existing
+#// LeaderAction_NoGroundUnit_NoShield negative: there the gate fails, here only the control change
+#// makes it pass. Both sides asserted — P1 controls the X-Wing, P2's space arena is empty, and P2's
+#// remaining unit gets no Shield.
+#// Resources: 11 − 6 (Change of Heart, Cunning covered by the Cunning base) − 1 (Lando action)
+#// − 3 (SOR_063) = 1.
+
+## GIVEN
+CommonSetup: ybw/ggk/{
+  myLeader:JTL_003
+}
+SkipPreGame: true
+WithP2SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_108:1:0
+WithP1Hand: SOR_224
+WithP1Hand: SOR_063
+WithP1Resources: 11
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P2>Pass
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P2SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_063
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P1RESAVAILABLE:1
+P1HANDCOUNT:0
+P1LEADER:EXHAUSTED

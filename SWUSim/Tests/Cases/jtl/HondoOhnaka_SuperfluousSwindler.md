@@ -177,3 +177,31 @@ P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:LOF_261
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1NODECISION
+
+---
+
+# Offer_UpgradePoolIsEveryNonPilotUpgradeEitherSide
+#// JTL_056 Hondo Ohnaka — "take control of a NON-PILOT upgrade ON A UNIT". Two axes are enforced at once:
+#// the upgrade must not be a Pilot, and the unit carrying it may belong to EITHER player (the card says
+#// "a unit", not "an enemy unit"). Board: the friendly SOR_095 carries SOR_120 Academy Training, and the
+#// enemy SOR_046 carries both SOR_072 Entrenched (non-Pilot) and the Pilot JTL_046 Paige Tico. The offer
+#// must be exactly the two non-Pilot upgrades — the friendly one included, the Pilot excluded.
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: bbw/rrk
+P1OnlyActions: true
+WithP1GroundArena: JTL_056:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 1:SOR_120
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaPilot: 0:JTL_046
+WithP2GroundArenaUpgrade: 0:SOR_072
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Take_control_of_a_non-Pilot_upgrade_to_move_it
+P1SELECTABLEEXACT:myTempZone-0&myTempZone-1

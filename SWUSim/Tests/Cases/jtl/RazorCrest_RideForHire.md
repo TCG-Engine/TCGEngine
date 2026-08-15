@@ -88,3 +88,42 @@ P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_049
 P1GROUNDARENACOUNT:0
 P1HANDCOUNT:1
+
+---
+
+# Offer_CostAndExhaustGates
+#// JTL_223 Razor Crest — the bounce pool has TWO printed clauses: "a non-leader unit that costs 2 OR LESS" or
+#// "an EXHAUSTED non-leader unit that costs 4 or less". Controller is irrelevant. The board seeds one unit for
+#// each clause and three that must be filtered out:
+#//   IN  myGroundArena-0   SOR_095   cost 2, ready      → clause 1 (cheap, and FRIENDLY — the pool is not enemy-only)
+#//   IN  theirGroundArena-0 SOR_046  cost 4, EXHAUSTED  → clause 2 (exhausted, cost <= 4)
+#//   OUT theirGroundArena-1 JTL_099  cost 3, READY      → too expensive for clause 1, not exhausted for clause 2
+#//   OUT theirSpaceArena-0  SOR_090  cost 10, exhausted → exhausted but cost > 4
+#//   OUT mySpaceArena-0     JTL_223  cost 4, ready      → the host itself: cost > 2 and not exhausted
+#// Playing JTL_034 as a Pilot onto Razor Crest (the only friendly Vehicle) fires the reaction.
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 9
+WithP1Hand: JTL_034
+WithP1SpaceArena: JTL_223:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:0:0
+WithP2GroundArena: JTL_099:1:0
+WithP2SpaceArena: SOR_090:0:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1HASDECISION
+P1SPACEARENAUNIT:0:CARDID:JTL_223
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

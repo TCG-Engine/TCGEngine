@@ -83,3 +83,34 @@ WithP1SpaceArena: SOR_225:0:0
 P1SPACEARENACOUNT:3
 P1SPACEARENAUNIT:0:EXHAUSTED
 P1SPACEARENAUNIT:2:CARDID:JTL_T02
+
+---
+
+# Offer_ReadyFriendlySpaceOnly
+#// JTL_122 All Wings Report In — "Exhaust up to 2 friendly SPACE units." Only READY FRIENDLY SPACE units
+#// belong in the pool: an already-EXHAUSTED friendly space unit (nothing left to exhaust), a friendly
+#// GROUND unit (wrong arena) and a READY ENEMY space unit (not friendly) must all be excluded.
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: ggw/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_122
+WithP1Resources: 1
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArena: SOR_237:0:0
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:mySpaceArena-0&mySpaceArena-1

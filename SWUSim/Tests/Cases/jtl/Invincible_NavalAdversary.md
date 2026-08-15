@@ -270,3 +270,37 @@ P1SPACEARENACOUNT:1
 P1GROUNDARENACOUNT:1
 P1NODECISION
 P2NODECISION
+
+---
+
+# Offer_BouncePoolIsEitherSidesNonLeaderUnitsCostingThreeOrLess
+#// JTL_191 Invincible — "You may return a NON-LEADER UNIT that COSTS 3 OR LESS to its OWNER'S hand."
+#// "its owner's hand" means the pool is controller-agnostic: P1's own units are as eligible as P2's.
+#// Board at the moment the trigger resolves: friendly SOR_095 (cost 2, eligible) and enemy SOR_063
+#// (cost 3, eligible); enemy SOR_046 (cost 4) is over the cutoff, friendly JTL_191 itself (cost 6) is
+#// over the cutoff, and P1's just-deployed leader is a unit but a LEADER, so all three are excluded.
+#// (The deployed leader sorts to the END of P1's ground arena, after SOR_095.)
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: byk/bbw/{
+  myLeader:SOR_015;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1SpaceArena: JTL_191:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_063:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1HASDECISION
+P1DECISIONTOOLTIP:Choose_a_unit_to_return
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

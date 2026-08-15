@@ -18,3 +18,32 @@ WithP2GroundArena: SOR_095:1:1
 
 ## EXPECT
 P2BASEDMG:5
+
+---
+
+# SimulateRequestBoundary_SecondTrooperStillCounts
+#// JTL_238 Sith Trooper — the On Attack buff has no decision of its own, but each attack is its own
+#// request in production. Two Sith Troopers attack the enemy base in the same phase with the boundary
+#// between them: P2 controls two damaged units throughout, so BOTH attacks must be 3+2=5 (10 total).
+#// If any of the attack/On-Attack bookkeeping lived only in memory the second attack would come out
+#// unbuffed (8) or not at all.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: JTL_238:1:0
+WithP1GroundArena: JTL_238:1:0
+WithP2GroundArena: SOR_046:1:3
+WithP2GroundArena: SOR_095:1:1
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AttackGroundArena:1:BASE
+
+## EXPECT
+P2BASEDMG:10

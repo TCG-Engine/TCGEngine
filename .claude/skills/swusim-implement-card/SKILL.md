@@ -513,6 +513,40 @@ seriously* is what surfaces the defect.
 - **A boundary is only real if a decision is actually pending** — a lone legal target auto-resolves and there is nothing to interrupt. Seat a second legal target, then prove the prompt exists with a throwaway out-of-pool answer (`zzz`), which throws and prints the pending decision's type, pool and tooltip.
 - **Run BOTH runners at the end of a boundary-heavy pass.** The CLI runner and the `zzRegressionSWUSim.php` endpoint had silently diverged (67 endpoint-only failures) because the scratch dir was scoped by `getmyuid()` — the *script owner's* uid, a property of the file, not of the process. Fixed to `posix_geteuid()`. The divergence grows with every boundary section added, and only the endpoint shows it.
 
+### The control-change cell — which cards it actually applies to (JTL Phase C, 2026-08-14)
+
+The axis regex flags any card whose text says "your hand / your deck / your discard / your base / your
+resources", but only some of those are REACHABLE. Triage before writing, and record the N/A reason:
+
+- **Shape A — the ability's controller changes.** A UNIT with an ability that fires while in play (On
+  Attack, completes-an-attack, an Action, a constant). Steal it and fire the ability: every "your X" must
+  mean the NEW controller's X. ⚠ Use a steal that leaves the unit ALIVE — **SOR_224 Change of Heart** or
+  **JTL_235 Commandeer**. `JTL_043` No Glory, Only Results is "take control of a non-leader unit, **then
+  defeat it**" (IMMEDIATE), so it can only exercise When-Defeated abilities under a new controller.
+- **Shape B — owner vs controller on a ZONE.** A stolen unit that leaves play goes to its **OWNER's**
+  zone. So a thief's "play a Vehicle unit from **your** discard pile" must NOT see the enemy-owned unit
+  it just stole and killed. JTL_043 is the right vehicle here — the immediate defeat is the point.
+- **Genuinely N/A, and say why:** a LEADER (untargetable — every take-control effect reads "non-leader
+  unit", and `IsLeaderUnit()` strips `Unit`/`Token Unit` so leader-PILOT hosts are excluded too), a BASE
+  (one owner), an EVENT (fixed caster, ownership-scoped zones), or a unit whose only seat-relative text
+  is a **When Played** ability — that does not re-fire when control changes later.
+- **★ A leader that cannot be stolen can still have a control-change scenario** — via a stolen unit its
+  ability INTERACTS with. Han Solo's "attack with a unit … reveal from your deck" proves the attacker
+  offer is control-based and "your deck" is the leader controller's; Lando's "if you control a ground
+  unit and a space unit" is satisfied by a stolen space unit the controller does not own. Do not write
+  a leader off just because the leader itself is untakeable.
+- **★ Assert BOTH seats.** "The thief's deck lost a card" is half a test; add "the owner's deck did not".
+  The pair is what separates a correct implementation from a fixture that happened to pick the right
+  seat. Best shape seen: seed the two decks so the readings differ in the OUTPUT (a decoy that would
+  raise a prompt on a wrong read, or a cost that changes the damage by 1).
+
+### More recurring bug shapes (JTL axis pass, 2026-08-14) — the in-flight event, silent fixture drops, and unvalidated pools
+
+- **★ An event is ALREADY IN ITS OWNER'S DISCARD while its own When Played resolves — and it is NOT flagged `removed` there.** `ActivateCard` appends the event via `SWUAddToDiscard` *before* dispatching the ability. So any card reading "another card in a discard pile" must exclude itself explicitly: JTL_205 Commence Patrol offered itself, and answering it put Commence Patrol on the bottom of its own owner's deck AND still created the X-Wing — a free 2/2 out of thin air. ⚠ This is the same in-flight-event family as SEC_178 Pursue the Lead and SEC_232 Kreia's Whispers, **but the usual defence does not work**: those sit in HAND flagged `removed`, so an `empty($o->removed)` filter catches them; the discard copy is a LIVE entry and sails straight through. Exclude the **last live entry** if it is this card, never every copy by name — a second copy already in the pile is a different card and is a legal target (guard both directions).
+- **★ An unknown `CommonSetup` key is SILENTLY DROPPED — a typo'd seed is invisible.** `myDiscardCardIds` is not a key (the only discard keys are `discardCardIds` for self and `theirDiscardCardIds`); the parser's exact-match switch ignores anything else. A section using it seeded nothing, so its only discard entry was the in-flight event — and it sat green for months **asserting the bug above**. When a section's premise depends on a seeded zone, assert the seed itself (a count or a CARDID) in the same section, so a dropped key fails loudly instead of quietly changing what you are testing.
+- **Multi-select answers are now pool-validated** (`MZMULTICHOOSE`, 2026-08-14) — an out-of-pool pick throws, as it already did for `MZCHOOSE`/`MZMAYCHOOSE`. Before that, a multi-select could "choose" cards the offer never contained, which is how SOR_245 Medal Ceremony's resolution-only section passed vacuously. ⚠ `DONE` is the multi-select TERMINATOR ("finished picking"), not an mzID — it is exempt, like `PASS`/`-`.
+- **An offer assertion is only worth writing if the board makes the pool DISCRIMINATE.** Seed at least one target that belongs and one that must be excluded by the card's printed restriction (wrong arena, wrong controller, wrong trait, too expensive, already upgraded, leader vs non-leader). A pool of "everything on the board" proves nothing. The sharpest guards from this pass each excluded something a lazier board would have admitted — a power-2 DEPLOYED LEADER that passes a "power 2 or less" gate and is caught only by the non-leader clause; an undamaged 4/7 excluded on REMAINING HP while a damaged 6/9 is included.
+
 ### More recurring bug shapes (SOR pass 3, 2026-08-14) — timing windows, frames, and "unattached" ≠ "defeated"
 - **A keyword with two halves can have them in two different WINDOWS — check each against the CR separately.** Saboteur's ignore-Sentinel half is a CR 3.2 restriction check; its defeat-the-defender's-Shields half is a CR 3.3 Begin-attack trigger, alongside Restore. The shield half sat in the damage step, so an attacker that died during its own Begin-attack resolution left the Shields standing. Build any "when this unit attacks" effect in the Begin-attack window, and test it with an attacker that DIES before damage.
 - **A new attack/combat entry point must re-do the whole Begin-attack ceremony.** The Maul two-defender path never routes through `ExecuteSWUAttack`, so it had no shield-defeat at all — a granted Saboteur there did nothing. Same family as the Ambush-skips-BeginSWUAttack flag bug.

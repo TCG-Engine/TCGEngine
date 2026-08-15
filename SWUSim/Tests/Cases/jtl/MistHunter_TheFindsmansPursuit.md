@@ -23,3 +23,34 @@ WithP1Deck: SOR_128
 P2BASEDMG:3
 P1HANDCOUNT:1
 P1DECKCOUNT:0
+
+---
+
+# SimulateRequestBoundary_PlayedBountyHunterThisPhaseFlag
+#// JTL_186 Mist Hunter — "If you played a Bounty Hunter or Pilot card this phase" is a flag written by the
+#// PLAY action and read by a LATER attack action's On Attack. In production those are separate requests, so
+#// the flag must live in the serialized gamestate or Mist Hunter would silently never offer the draw.
+#// Mirrors OnAttack_DrawAfterPilot with a request boundary between the play and the attack.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_186:1:0
+WithP1Hand: SHD_147
+WithP1Resources: 7
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2BASEDMG:3
+P1HANDCOUNT:1
+P1DECKCOUNT:0

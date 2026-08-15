@@ -48,3 +48,36 @@ WithP2GroundArena: SOR_046:1:0
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:DAMAGE:6
 P2GROUNDARENACOUNT:1
+
+---
+
+# Offer_AnyNonLeaderUnit_BothControllers_LeaderExcluded
+#// JTL_144 No Disintegrations — "Deal damage to a NON-LEADER UNIT ..." is unrestricted by controller and by
+#// arena, but excludes leaders. Board seeds a friendly ground unit (SOR_046), an enemy ground unit (SOR_095),
+#// an enemy SPACE unit (SOR_225) — all three must be offered — plus P2's DEPLOYED leader JTL_002
+#// (theirGroundArena-1, proven present by P2GROUNDARENACOUNT:2), which must NOT be offered.
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: grk/bbk/{
+  myLeader:JTL_011;
+  myBase:JTL_022;
+  theirBase:SOR_021;
+  theirLeader:JTL_002:1:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_144
+WithP1Resources: 3
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:1:CARDID:JTL_002
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0&theirSpaceArena-0

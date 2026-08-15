@@ -161,3 +161,36 @@ WithP1GroundArena: SOR_095:1:0
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:0:HP:3
+
+---
+
+# SimulateRequestBoundary_SnapshotBuffSurvives
+#// JTL_106 Unity of Purpose — the event raises no decision, but production ends the request at every PLAY
+#// action, so the phase-scoped +N/+N snapshot is written by one action and read by the next in a fresh
+#// process. Mirrors SnapshotLaterUnitNoBuff with the boundary inserted between the two plays: SOR_237 must
+#// still carry its +1/+1 (3/4) after the round-trip, and the later SOR_095 must still receive nothing.
+
+## GIVEN
+CommonSetup: ggw/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [JTL_106 SOR_095]
+WithP1Resources: 10
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:POWER:3
+P1SPACEARENAUNIT:0:HP:4
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:3

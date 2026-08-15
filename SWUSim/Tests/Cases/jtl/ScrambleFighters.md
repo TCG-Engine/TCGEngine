@@ -83,3 +83,33 @@ WithP2Deck: [SOR_046 SOR_046 SOR_046]
 ## EXPECT
 P1SPACEARENACOUNT:8
 P2BASEDMG:1
+
+---
+
+# SimulateRequestBoundary_MoffDoublePendingCount
+#// JTL_092 Scramble Fighters — Moff Jerjerrod (ASH_094) turns the create into a YES/NO decision, and in
+#// production that decision ends the request: the pending "create 8 tokens" amount, the token type and
+#// the doubling context must all be in the gamestate, not in memory. Mirrors
+#// DoubledByMoffJerjerrod_16TIEs with the boundary inserted before the YES answer — 16 TIEs must still
+#// be created and Moff still defeated.
+
+## GIVEN
+CommonSetup: ggk/bbk/{
+  myLeader:JTL_005;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_092
+WithP1Resources: 7
+WithP1GroundArena: ASH_094:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SPACEARENACOUNT:16
+P1GROUNDARENACOUNT:0

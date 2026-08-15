@@ -135,3 +135,36 @@ P1SPACEARENAUNIT:0:CARDID:JTL_258
 P1SPACEARENAUNIT:0:POWER:8
 P1SPACEARENAUNIT:0:HP:9
 P1SPACEARENAUNIT:0:HASKEYWORD:Saboteur
+
+---
+
+# SimulateRequestBoundary_SaboteurGrantSurvives
+#// JTL_015 Rio Durant (leader) — the defender choice ends the request in production, so the answer lands
+#// in a fresh process AFTER the "+1/+0 and Saboteur for this attack" grant was written. Mirrors
+#// LeaderAction_Saboteur_DefeatsShield with the boundary inserted before the defender answer: the grant
+#// must survive serialization, so the X-Wing still attacks at power 3 with Saboteur, pops the TIE's
+#// Shield and defeats it, taking 2 back from the counter.
+
+## GIVEN
+CommonSetup: byk/bbk/{
+  myLeader:JTL_015;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP2SpaceArenaUpgrade: 0:SOR_T02
+WithP1Resources: 1
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:DAMAGE:2
+P1LEADER:EXHAUSTED

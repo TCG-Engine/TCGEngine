@@ -81,3 +81,39 @@ WithP2Deck: SOR_237
 P2BASEDMG:0
 P1SPACEARENACOUNT:0
 P2DECKCOUNT:0
+
+---
+
+# SimulateRequestBoundary_ChooseFighterToAttackWith
+#// JTL_156 Trench Run — the "choose a unit to attack with" decision ends the request in production, so the
+#// answer arrives in a fresh process with every transient global empty. Mirrors
+#// FighterAttack_DiscardSelfDamage but seats a SECOND Fighter (so the pick stays interactive instead of
+#// auto-resolving a lone target), with the boundary inserted before the answer: the pending JTL_156#0
+#// continuation must survive serialization to still apply +4/+0, grant the On-Attack marker, and begin the
+#// attack. The chosen SOR_237 (2+4 = 6) mills SOR_225(1)/SOR_237(2) → 1 unpreventable self-damage, then
+#// hits P2's base for 6; the unchosen Fighter is untouched.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_156
+WithP1Resources: 5
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2Deck: SOR_225
+WithP2Deck: SOR_237
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P2BASEDMG:6
+P1SPACEARENAUNIT:0:DAMAGE:1
+P1SPACEARENAUNIT:1:DAMAGE:0
+P2DECKCOUNT:0

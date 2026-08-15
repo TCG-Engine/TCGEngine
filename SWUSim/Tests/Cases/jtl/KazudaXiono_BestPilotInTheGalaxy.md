@@ -252,3 +252,37 @@ P1LEADER:DEPLOYED
 P1GROUNDARENAUNIT:0:CARDID:SOR_063
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
 P2BASEDMG:5
+
+---
+
+# SimulateRequestBoundary_PilotGrantOnAttackTarget
+#// JTL_018 Kazuda Xiono deployed as a PILOT — the host's granted "On Attack: choose any number of friendly
+#// units; they lose all abilities for this round" opens a decision mid-attack. In production that decision
+#// ends the request, so the pending grant context (which upgrade granted it, the attack in flight, the
+#// round-duration blanking) must be reconstructed from the serialized gamestate.
+#// Mirrors DeployAsPilot_HostGrantsLoseAbilities with a request boundary before the on-attack answer.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1SpaceArena: SOR_237:1:0
+WithP1GroundArena: SOR_063:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+- P1>AttackSpaceArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P2BASEDMG:5
+P1GROUNDARENAUNIT:0:CARDID:SOR_063
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel

@@ -103,3 +103,32 @@ WithP1Resources: 2
 ## EXPECT
 P1HANDCOUNT:0
 P1NODECISION
+
+---
+
+# SimulateRequestBoundary_BounceTargetSurvivesRoundTrip
+#// JTL_194 Heartless Tactics — the "-2/-0 this phase, then you MAY return it to hand" chain crosses a
+#// decision: in production the answer to the may-return offer arrives in a fresh process, so the unit that
+#// was exhausted/debuffed (and the fact that it now has 0 power) must be serialized. Mirrors
+#// ExhaustDebuffBounce with the boundary inserted before the answer.
+
+## GIVEN
+CommonSetup: byk/bbk/{
+  myLeader:JTL_015;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_194
+WithP1Resources: 2
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:0
+P2HANDCOUNT:1

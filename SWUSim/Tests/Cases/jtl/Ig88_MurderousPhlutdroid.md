@@ -138,3 +138,36 @@ P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:CARDID:JTL_141
 P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# Offer_PilotHostPoolIsFriendlyVehiclesWithoutAPilot
+#// JTL_141 IG-88 — Piloting [2, Aggression/Villainy]. The host offer is gated on three printed
+#// restrictions at once: the unit must be a VEHICLE, must be FRIENDLY, and must not already carry a
+#// Pilot. Arena is NOT a restriction — a ground Pilot may crew a space Vehicle. Board: friendly
+#// SOR_249 Frontier AT-RT (ground Vehicle, eligible) and friendly SOR_237 Alliance X-Wing (space
+#// Vehicle, eligible); friendly SOR_225 TIE/ln already carries the Pilot JTL_046 (excluded), friendly
+#// SOR_095 Battlefield Marine is a Trooper, not a Vehicle (excluded), and the enemy SOR_044 Restored
+#// ARC-170 is a Vehicle but not friendly (excluded).
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: rrk/bbw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1Hand: JTL_141
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArenaPilot: 1:JTL_046
+WithP1GroundArena: SOR_249:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_044:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Choose_a_Vehicle_to_pilot
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0

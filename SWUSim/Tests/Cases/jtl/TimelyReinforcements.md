@@ -158,3 +158,37 @@ P1SPACEARENAUNIT:0:NOTKEYWORD:Sentinel
 P1SPACEARENAUNIT:1:HASKEYWORD:Sentinel
 P1SPACEARENAUNIT:2:HASKEYWORD:Sentinel
 P1SPACEARENAUNIT:3:HASKEYWORD:Sentinel
+
+---
+
+# SimulateRequestBoundary_SentinelGrantSurvives
+#// JTL_130 Timely Reinforcements — the card raises no target decision in a 2-player game, but production
+#// still ends the request at the PLAY action, so the phase-scoped Sentinel grant on the newly-created batch
+#// is written in one process and read in a fresh one. Mirrors SentinelOnlyToNewBatch with a boundary
+#// inserted immediately after the play: the pre-existing token must still lack Sentinel and each of the 3
+#// new X-Wings must still carry it after the gamestate round-trip.
+
+## GIVEN
+CommonSetup: ggw/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_T02:1:0
+WithP1Hand: JTL_130
+WithP1Resources: 5
+WithP2Resources: 6
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+
+## EXPECT
+P1SPACEARENACOUNT:4
+P1SPACEARENAUNIT:0:CARDID:JTL_T02
+P1SPACEARENAUNIT:0:NOTKEYWORD:Sentinel
+P1SPACEARENAUNIT:1:HASKEYWORD:Sentinel
+P1SPACEARENAUNIT:2:HASKEYWORD:Sentinel
+P1SPACEARENAUNIT:3:HASKEYWORD:Sentinel

@@ -303,3 +303,36 @@ P2BASEDMG:4
 P1GROUNDARENAUNIT:0:CARDID:JTL_001
 P1LEADER:DEPLOYED
 P1NODECISION
+
+---
+
+# Offer_SameArenaEnemyOnly
+#// JTL_001 Asajj Ventress (leader Action) — "Deal 1 damage to a friendly unit. If you do, deal 1 damage
+#// to an enemy unit IN THE SAME ARENA." P1 damages the friendly GROUND unit, so the enemy half must be
+#// restricted to P2's GROUND arena: both enemy ground units are in the pool and the enemy SPACE unit
+#// (wrong arena) is excluded. The first (friendly) pick is answered; the same-arena enemy pick is left
+#// PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1HASDECISION
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P2SPACEARENACOUNT:1
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
