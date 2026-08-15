@@ -168,3 +168,60 @@ P2BASEDMG:4
 P1SPACEARENAUNIT:0:ISLEADERUNIT
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# SaboteurShields_DefeatedAtBeginAttack_EvenIfAttackerDiesFirst
+#// SOR_158 Jedha Agitator has Saboteur. Per CR 3.3 the Saboteur shield-defeat resolves during the
+#// BEGIN ATTACK step, not with combat damage. Jedha aims his own On Attack at himself (2 damage on a
+#// 2/1) and is defeated, so the attack never resolves and no combat damage is dealt — but the
+#// defender's Shield is already gone.
+
+## GIVEN
+CommonSetup: rrw/rrk/{
+  myLeader:SOR_014:1:1:1;
+  theirBase:SOR_027
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_158:1:0
+WithP2GroundArena: LAW_124:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+
+---
+
+# SaboteurShields_AttackerSurvives_ShieldGoneAndDamageLands
+#// Control for the section above: same board, but Jedha aims his On Attack at the enemy BASE, so he
+#// survives to deal combat damage. The Shield is defeated at Begin attack, so it does NOT absorb the
+#// 2 combat damage — the defender takes it. Jedha then dies to the 4-power counter-damage.
+
+## GIVEN
+CommonSetup: rrw/rrk/{
+  myLeader:SOR_014:1:1:1;
+  theirBase:SOR_027
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_158:1:0
+WithP2GroundArena: LAW_124:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P2BASEDMG:2
+P1GROUNDARENACOUNT:1

@@ -4,7 +4,8 @@
 #// Battlefield Marine (SOR_095, Command/Heroism, cost 2). With exactly 1 ready resource
 #// the play succeeds ONLY because of the −1 discount (2 → 1): the Marine enters the
 #// ground arena, the single resource is spent, and the Dispatcher is exhausted.
-#// Single hand unit → auto-resolves (no AnswerDecision needed).
+#// (Extra answer since 2026-08-14: this "you may" offer no longer auto-resolves a lone target —
+#// the single hand unit myHand-0 is now named explicitly.)
 #// COVERAGE: offer=Offer_UnitsOnly_EventExcluded (pending SELECTABLEEXACT over hand mzIDs) ·
 #//           decline=Decline_DispatcherExhausted_NextPlayFullPrice (also pins that the −1 does NOT
 #//           linger onto a later normal play) · reqboundary=Decline_* (the hand pick and the
@@ -20,6 +21,7 @@ WithP1GroundArena: SOR_093:1:0    # Alliance Dispatcher (ready) — index 0
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:2
@@ -104,7 +106,8 @@ P1NODECISION
 #// ground 5 / Piloting 2) picked through the Dispatcher never gets the pilot-attach option even
 #// with a friendly Vehicle in play: he lands in the ground arena at the discounted ground cost
 #// (5−1=4, exactly the 4 resources available), and the Turncoat carries no new upgrade. Sole hand
-#// unit → auto-picked; no enemy units, so Ambush has nothing to prompt about.
+#// unit → picked explicitly; no enemy units, so Ambush has nothing to prompt about.
+#// (Extra answer since 2026-08-14: this "you may" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: yyw/yyw/{myResources:4;handCardIds:JTL_203}
@@ -114,6 +117,7 @@ WithP1SpaceArena: SHD_195:1:0    # Cartel Turncoat — a friendly Vehicle he mus
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:2
@@ -122,4 +126,29 @@ P1SPACEARENAUNIT:0:UPGRADECOUNT:0
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1RESAVAILABLE:0
 P1HANDCOUNT:0
+P1NODECISION
+
+---
+
+# Decline_SingleTarget_NoUnitPlayed
+#// SOR_093 Alliance Dispatcher — declining is now possible even when the hand holds exactly ONE
+#// playable unit (since 2026-08-14 a lone target no longer auto-resolves). Mirrors
+#// Action_PlaysUnitDiscounted but P1 answers "-": the Marine stays in hand, the arena keeps only the
+#// Dispatcher and the 1 resource stays ready — yet the action's cost was still paid, so the
+#// Dispatcher is EXHAUSTED.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:1;handCardIds:SOR_095}
+P1OnlyActions: true
+WithP1GroundArena: SOR_093:1:0    # Alliance Dispatcher (ready) — index 0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1HANDCOUNT:1
+P1RESAVAILABLE:1
 P1NODECISION

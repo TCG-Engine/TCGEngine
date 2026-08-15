@@ -233,3 +233,36 @@ WithP1Hand: [SOR_239 SOR_237 SOR_232]
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:myHand-0&myHand-1
+
+---
+
+# SimulateRequestBoundary_AmbushGrantSurvives
+#// SOR_022 ECL — the granted-Ambush "do you want to attack?" prompt ends the request in production:
+#// the AMBUSH grant on the just-played unit and the epic-action context must come back from the
+#// serialized gamestate, not from in-memory state left over from the play. Mirrors AmbushTrade with
+#// the boundary inserted before the Ambush YES.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/grw/{
+  myBase:SOR_022;
+  theirBase:SOR_023
+}
+WithP1Resources: 2:SOR_095
+WithP1Hand: SOR_095
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:myHand-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1RESAVAILABLE:0
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P2GROUNDARENACOUNT:0
+P2DISCARDCOUNT:1
+P1BASE:EPICUSED

@@ -15,6 +15,9 @@ $leaderAbilities["SEC_005"] = function(int $player): void {
         }
     }
     if (empty($units)) { SWUAfterAction($player); return; }   // gate should prevent
+    // USER RULING (2026-08-14, from LAW_102 Choke on Aspirations, applied to every "up to N" effect):
+    // the TARGET choice is MANDATORY; the soft pass is choosing an amount of ZERO. So this is a plain
+    // MZCHOOSE and Heal0 is always among the amounts below — not a declinable target.
     SWUQueueChooseTarget($player, $units, "Heal_up_to_2_damage_from_a_unit", "SEC_005#0");
 };
 
@@ -25,19 +28,19 @@ $customDQHandlers["SEC_005#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) { SWUAfterAction(intval($player)); return; }
     $uid     = intval($o->UniqueID ?? 0);
     $maxHeal = min(2, intval($o->Damage));
-    if ($maxHeal <= 1) {                                  // only 1 healable → no amount choice
-        SatineKryzeStandingonPrinciplesApply(intval($player), $uid, $maxHeal);
-        SWUAfterAction(intval($player));
-        return;
-    }
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Heal1&Heal2", 1,
+    // Heal0 is ALWAYS offered — "up to 2" includes zero, and with the "deal that much to your base"
+    // downside a player will often want it. It is also the only soft pass, since the target choice
+    // above is mandatory. (Before 2026-08-14 a lone healable point skipped this step entirely and the
+    // heal — and its base damage — were forced on the player.)
+    $opts = $maxHeal >= 2 ? "Heal0&Heal1&Heal2" : "Heal0&Heal1";
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", $opts, 1,
         tooltip: "Heal_up_to_2_(you_then_deal_that_much_to_your_base)");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_005#1|{$uid}", 1);
 };
 
 $customDQHandlers["SEC_005#1"] = function($player, $parts, $lastDecision) {
     $uid = intval($parts[0] ?? 0);
-    $amt = ($lastDecision === 'Heal2') ? 2 : 1;
+    $amt = ($lastDecision === 'Heal2') ? 2 : (($lastDecision === 'Heal0') ? 0 : 1);
     SatineKryzeStandingonPrinciplesApply(intval($player), $uid, $amt);
     SWUAfterAction(intval($player));
 };

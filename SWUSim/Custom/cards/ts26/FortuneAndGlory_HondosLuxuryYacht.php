@@ -17,7 +17,7 @@ $whenPlayedAbilities["TS26_27:0"] = function($player, $mzID) {
         }
     }
     if (empty($tg)) return;
-    SWUQueueChooseTarget(intval($player), $tg, "Capture_a_non-leader_unit", "TS26_27#0|" . $captorUID);
+    SWUQueueChooseTarget(intval($player), $tg, "Capture_a_non-leader_unit", "TS26_27#0|" . $captorUID, may: true);
 };
 
 // Shared capture continuation: capture $lastDecision with the captor whose UID is in parts[0].
@@ -47,5 +47,5 @@ $customDQHandlers["TS26_27#1"] = function ($player, $parts, $lastDecision) {
   }
   if (empty($tg))
     return;
-  SWUQueueChooseTarget(intval($player), $tg, "Capture_a_non-leader_unit", "TS26_27#0|" . $captorUID);
+  SWUQueueChooseTarget(intval($player), $tg, "Capture_a_non-leader_unit", "TS26_27#0|" . $captorUID, may: true);
 };

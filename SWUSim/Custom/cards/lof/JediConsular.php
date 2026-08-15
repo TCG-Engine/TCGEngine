@@ -9,5 +9,5 @@ $unitAbilities["LOF_094"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     UseTheForce(intval($player));   // Force pre-pay, then the standard discount-play offer
     SWUOfferDiscountPlay($player,
-        ['discount' => 2, 'types' => ['Unit'], 'prompt' => "Play_a_unit_from_your_hand_(it_costs_2_less)"]);
+        ['discount' => 2, 'types' => ['Unit'], 'may' => true, 'prompt' => "Play_a_unit_from_your_hand_(it_costs_2_less)"]);
 };

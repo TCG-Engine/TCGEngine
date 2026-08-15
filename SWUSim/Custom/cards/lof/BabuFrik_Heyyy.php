@@ -19,7 +19,11 @@ $unitAbilities["LOF_206"] = function($player, $mzID) {
         }
     }
     if (empty($droids)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget(intval($player), $droids, "Choose_a_Droid_to_attack_with_(damage_=_remaining_HP)", "LOF_206#0");
+    // "You MAY attack with a friendly Droid unit" — optional, so the decline must always be offered,
+    // including when there is exactly one legal Droid (SWUQueueChooseTarget would auto-resolve it and
+    // trap a player who has already paid the exhaust). Audit finding, 2026-08-14.
+    SWUQueueMayChooseTarget(intval($player), $droids, "Attack_with_a_friendly_Droid_unit?",
+        "Choose_a_Droid_to_attack_with_(damage_=_remaining_HP)", "LOF_206#0");
 };
 
 $customDQHandlers["LOF_206#0"] = function($player, $parts, $lastDecision) {

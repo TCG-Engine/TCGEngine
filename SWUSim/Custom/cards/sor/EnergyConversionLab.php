@@ -47,6 +47,6 @@ $baseAbilities["SOR_022"] = function($player) {
     $playerID = $savedPID;
     if (empty($eligible)) { SWUAfterAction($player); return; }
     $targetStr = implode("&", $eligible);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Choose_a_unit_costing_6_or_less");
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, "Choose_a_unit_costing_6_or_less");
     DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_022#0", 1);
 };

@@ -610,7 +610,12 @@ class GameTestAdapter {
      */
     public function simulateRequestBoundary(): void {
         global $gameName, $gShootFirstPending, $gDeferredReplacements,
-               $gSec035DefeatSnapshot, $gAsh195DefeatSnapshot, $gCombatDefeatByMz, $gPlayGrantedExploit;
+               $gSec035DefeatSnapshot, $gAsh195DefeatSnapshot, $gCombatDefeatByMz, $gPlayGrantedExploit,
+               $gScryState, $gPendingEntryEffects, $gExploitDeferTriggers, $gExploitDeferredBag,
+               $gLastPlayResourcesPaid, $gWDPowerSnapshot, $gLastIndirectUnitUIDs, $gLastIndirectBaseDmg,
+               $gSec035AttackPower, $gLastExploitedPowers, $gCloneCopyCardID, $gGrantedBountySnapshot,
+               $gPlayGrantTurnEffect, $gPlayGrantExp, $gPlayGrantShield, $gPlayGrantPrevent2,
+               $gEntryPlayGrantTE, $gForceEnterReady, $gInCombatDamage;
         // Round-trip through a scratch dir under the system temp — never the repo working tree.
         // ⚠ The dir is scoped BY UID. The CLI runner runs as root (uid 0) while the zzRegressionSWUSim.php
         // endpoint runs as Apache's user (uid 33): whichever ran first owned a shared dir, and the other
@@ -618,9 +623,16 @@ class GameTestAdapter {
         // below swallows the warning), so ParseGamestate simply re-read stale state and EVERY
         // SimulateRequestBoundary test failed with "nothing happened" — 16 phantom product bugs that
         // reproduced only over HTTP. Per-uid paths mean the two runners can never collide.
-        $base = rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary_' . getmyuid() . '/';
+        // ⚠ Scope by the PROCESS uid, not getmyuid() — getmyuid() is the uid of the currently executing
+        // SCRIPT's OWNER, which is a property of the file on disk, not of who is running it. The two
+        // runners therefore did NOT reliably get distinct paths: a root CLI run whose entry script was
+        // owned by 33 created /tmp/swusim_request_boundary_33 as root:0755, and the Apache endpoint
+        // (really uid 33) could then never write into its own directory — every boundary section failed
+        // there while the CLI runner stayed green. posix_geteuid() is who we actually are.
+        $uid  = function_exists('posix_geteuid') ? posix_geteuid() : getmyuid();
+        $base = rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary_' . $uid . '/';
         $dir  = $base . "Games/{$gameName}";
-        if (!is_dir($dir)) @mkdir($dir, 0777, true);
+        if (!is_dir($dir)) { @mkdir($dir, 0777, true); @chmod($dir, 0777); }
         if (!is_dir($dir) || !is_writable($dir)) {
             // Fail LOUDLY rather than silently degrading into a fake state-loss bug.
             throw new RuntimeException("SimulateRequestBoundary: scratch dir '$dir' is not writable "
@@ -639,6 +651,30 @@ class GameTestAdapter {
         $gAsh195DefeatSnapshot = [];
         $gCombatDefeatByMz     = [];
         $gPlayGrantedExploit   = 0;
+        // Hardened 2026-08-14: the list above covered 6 of the ~20 transient continuation globals, so a
+        // guard could sit on a card whose state crosses the boundary in one of the OTHERS and still pass —
+        // vacuously. Everything below is in-memory only (absent from GamestateParser.php, which serializes
+        // just $gPendingTriggers/$gTriggerDepth and resets both on parse), so production starts each one
+        // empty at every boundary. Keep this in sync with the transient-global block in GameLogic.php.
+        $gScryState             = null;   // peeked cards live HERE, spliced OUT of the deck — see DoScry
+        $gPendingEntryEffects   = [];
+        $gExploitDeferTriggers  = false;
+        $gExploitDeferredBag    = [];
+        $gLastPlayResourcesPaid = 0;
+        $gWDPowerSnapshot       = [];
+        $gLastIndirectUnitUIDs  = [];
+        $gLastIndirectBaseDmg   = 0;
+        $gSec035AttackPower     = [];
+        $gLastExploitedPowers   = [];
+        $gCloneCopyCardID       = null;
+        $gGrantedBountySnapshot = [];
+        $gPlayGrantTurnEffect   = null;
+        $gPlayGrantExp          = null;
+        $gPlayGrantShield       = null;
+        $gPlayGrantPrevent2     = null;
+        $gEntryPlayGrantTE      = '';
+        $gForceEnterReady       = false;
+        $gInCombatDamage        = false;
         ParseGamestate($base);                // 3) re-parse — repopulates ONLY the serialized state
         ob_end_clean();
     }

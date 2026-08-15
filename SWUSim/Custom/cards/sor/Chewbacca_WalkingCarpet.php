@@ -38,5 +38,5 @@ $leaderAbilities["SOR_003"] = function(int $player): void {
     }
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets,
-        'Play_a_unit_costing_3_or_less_(it_gains_Sentinel)', 'SOR_003#0');
+        'Play_a_unit_costing_3_or_less_(it_gains_Sentinel)', 'SOR_003#0', may: true);
 };

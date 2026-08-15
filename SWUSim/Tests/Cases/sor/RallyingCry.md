@@ -35,3 +35,25 @@ WithP1GroundArena: SEC_080:1:0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Raid
+
+---
+
+# SimulateRequestBoundary_Raid2SurvivesTurnPass
+#// SOR_154 Rallying Cry raises NO interactive decision, but playing it passes the turn — a real
+#// production request boundary — so the phase-duration "gains Raid 2" grant is written in one process and
+#// read by the attack in a fresh one. Mirrors GrantsRaid2 with the boundary inserted between the play and
+#// the attack: the Marine must still hit for 3 + 2 = 5.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3;handCardIds:SOR_154}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:5
+P1GROUNDARENAUNIT:0:HASKEYWORD:Raid

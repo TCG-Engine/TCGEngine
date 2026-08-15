@@ -104,6 +104,9 @@ if (!function_exists('SWUOfferDiscountPlay')) {
 
         $targets = SWUPlayablesAtDiscount($player, $zone, $types, $discount, $filter);
         if (empty($targets)) { if ($afterAction) SWUAfterAction($player); return; }
+        // 'may' = the printed effect is optional ("you may", "up to N", "any number"), so the offer is
+        // MZMAYCHOOSE and is presented even when only one target is legal — otherwise a lone target
+        // auto-resolves and the player can never decline. Anything else stays a mandatory MZCHOOSE.
         if ($may) SWUQueueMayChooseTarget(intval($player), $targets, $question, $prompt, $cont);
         else      SWUQueueChooseTarget(intval($player), $targets, $prompt, $cont);
     }

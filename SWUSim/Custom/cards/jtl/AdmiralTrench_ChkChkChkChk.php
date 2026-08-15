@@ -138,6 +138,6 @@ $leaderAbilities["JTL_014"] = function(int $player): void {
         if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID)) >= 3) $targets[] = $mz;
     }
     if (empty($targets)) { SWUAfterAction($player); return; } // no 3+ cost card → action spent
-    SWUQueueChooseTarget($player, $targets, "Discard_a_card_costing_3_or_more", "JTL_014#0");
+    SWUQueueChooseTarget($player, $targets, "Discard_a_card_costing_3_or_more", "JTL_014#0", may: true);
     SWUQueueAfterAction($player);
 };

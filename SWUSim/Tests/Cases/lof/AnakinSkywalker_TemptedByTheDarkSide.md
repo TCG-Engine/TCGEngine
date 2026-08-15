@@ -2,6 +2,7 @@
 #// LOF_018 Anakin Skywalker (deployed) — Action [use the Force]: play a Villainy non-unit card from
 #// your hand, ignoring its aspect penalties. Anakin spends the Force and plays the Villainy event
 #// SHD_243 (cost 1); it goes to discard.
+#// (Extra answer since 2026-08-14: this "you may play" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: bgw/brk/{
@@ -17,6 +18,7 @@ WithP1Resources: 3
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1NOFORCE
@@ -30,6 +32,7 @@ P1DISCARDCOUNT:1
 #// ignoring its aspect penalties. Anakin's deck is Heroism/Vigilance, so LOF_239 (Villainy, cost 2) would
 #// normally cost 4 (off-aspect +2). With the penalty ignored, P1 plays it for 2 onto Plo Koon: +2 Experience
 #// then 2 damage → 8/10 with 2 damage.
+#// (Extra answer since 2026-08-14: this "you may play" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: bgw/bbk/{
@@ -46,6 +49,7 @@ WithP1GroundArena: LOF_050:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1HANDCOUNT:0
@@ -60,6 +64,7 @@ P1NOFORCE
 #// on a friendly Vehicle. Iden Versio (JTL_036, Villainy pilot, Piloting cost 3 Vigilance/Villainy) attaches
 #// to the friendly TIE Advanced, ignoring aspect penalties: cost is 3 (not 3+2), so 5→2 resources remain.
 #// Iden's "when attaches: give a Shield" also fires (SOR_T02 shield token). Force spent, Anakin exhausted.
+#// (Extra answer since 2026-08-14: this "you may play" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: bgw/brk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021}
@@ -72,6 +77,7 @@ WithP1Resources: 5
 
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1LEADER:EXHAUSTED
@@ -110,6 +116,7 @@ P1HANDCOUNT:1
 #// LOF_018 Anakin (DEPLOYED) — same pilot play, but the deployed action costs only the Force (no exhaust).
 #// Iden attaches to the TIE Advanced at cost 3 (aspect ignored); Force spent; the deployed Anakin unit is
 #// NOT exhausted by the action.
+#// (Extra answer since 2026-08-14: this "you may play" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: bgw/brk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021}
@@ -123,6 +130,7 @@ WithP1Resources: 5
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1NOFORCE
@@ -267,6 +275,7 @@ P1GROUNDARENAUNIT:0:READY
 # Leader_PlayVillainyUpgrade_IgnorePenalty
 #// LOF_018 front: play a Villainy UPGRADE (SHD_038, cost 2) ignoring aspect penalty. bgw deck covers
 #// Vigilance but NOT Villainy → normal cost 4; waived → 2. Attaches to LOF_050 for 2 (0 left).
+#// (Extra answer since 2026-08-14: this "you may play" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: bgw/bbk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021}
@@ -279,6 +288,7 @@ WithP1GroundArena: LOF_050:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
 
 ## EXPECT
 P1HANDCOUNT:0
@@ -335,6 +345,7 @@ P1SELECTABLEEXACT:myHand-0&myHand-1
 #// non-unit card, so the deployed Action plays it too, and the aspect-penalty waiver applies on this side
 #// as well. SHD_038 (Villainy, cost 2) under a bgw deck that does NOT cover Villainy would normally cost 4;
 #// waived → 2, attaching to Plo Koon with 0 resources left. Anakin stays READY (no exhaust on this side).
+#// (Extra answer since 2026-08-14: this "you may play" offer no longer auto-resolves a lone target.)
 ## GIVEN
 CommonSetup: bgw/bbk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021}
 SkipPreGame: true
@@ -346,6 +357,7 @@ WithP1Hand: SHD_038
 WithP1Resources: 2
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
 - P1>AnswerDecision:myGroundArena-1
 ## EXPECT
 P1HANDCOUNT:0
@@ -354,3 +366,32 @@ P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:1:UPGRADE:0:CARDID:SHD_038
 P1RESAVAILABLE:0
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# Decline_SingleTarget_NoVillainyCardPlayed
+#// LOF_018 Anakin Skywalker (leader) — new since 2026-08-14: the "you may play" offer with exactly ONE
+#// legal target now prompts instead of auto-resolving, so the lone playable Villainy non-unit can be
+#// declined. Hand holds only SHD_243 (Villainy event, cost 1) and P1 has 3 resources, so it IS playable;
+#// P1 declines. Nothing is played (hand unchanged, discard empty, resources untouched) but the Action's
+#// cost was still paid: Anakin exhausts and the Force is spent.
+
+## GIVEN
+CommonSetup: bgw/brk/{myLeader:LOF_018;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Force: true
+WithP1Hand: SHD_243
+WithP1Resources: 3
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:-
+
+## EXPECT
+P1LEADER:EXHAUSTED
+P1NOFORCE
+P1HANDCOUNT:1
+P1DISCARDCOUNT:0
+P1RESAVAILABLE:3
+P1NODECISION

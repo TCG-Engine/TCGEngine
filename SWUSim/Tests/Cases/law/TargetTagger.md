@@ -59,10 +59,14 @@ P1GROUNDARENAUNIT:0:READY
 
 ---
 
-# PassAtTheTargetSelectStage
-#// The SECOND pass stage: the player picks an attacker, then declines at TARGET select. An enemy unit is
-#// present so the target choice is genuinely offered (base + unit) rather than auto-resolving onto the
-#// base. No damage anywhere, and both units survive untouched.
+# TargetSelectCannotBePassed_OnceAnAttackerIsChosen
+#// USER RULING (2026-08-14): you may pass on the ATTACK itself — LAW_157 reads "you MAY attack with a
+#// unit", and declining the attacker choose is covered by the pass section above — but ONCE YOU HAVE
+#// CHOSEN THE ATTACKER YOU MUST CHOOSE THE TARGET. So the target stage is a mandatory MZCHOOSE: its
+#// pool is exactly the legal attack targets with no decline among them, and the decision is left
+#// PENDING here rather than answered.
+#// This replaces a section named PassAtTheTargetSelectStage which asserted the opposite (that the
+#// player could decline at target select, abandoning the attack with the attacker still READY).
 
 ## GIVEN
 CommonSetup: ggw/bgw/{myResources:3}
@@ -74,9 +78,8 @@ WithP1Hand: LAW_157
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:-
 
 ## EXPECT
-P2BASEDMG:0
-P2GROUNDARENACOUNT:1
-P2GROUNDARENAUNIT:0:DAMAGE:0
+P1HASDECISION
+P1DECISIONTOOLTIP:Choose_an_attack_target
+P1SELECTABLEEXACT:theirGroundArena-0&theirBase-0

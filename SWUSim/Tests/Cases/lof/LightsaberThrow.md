@@ -87,6 +87,7 @@ P2GROUNDARENAUNIT:0:DAMAGE:0
 #// LOF_176 Lightsaber Throw — even with no ground units to damage, discarding a Lightsaber still lets you draw.
 #// P1 discards SOR_053 and draws SOR_059 (hand = 1); both LOF_176 and the Lightsaber are in the discard
 #// (count 2). Intended: "discard and draw even if there are no damage targets".
+#// (Extra answer since 2026-08-14: this "you may discard" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: rrk/ggw/{myResources:2;handCardIds:LOF_176,SOR_053}
@@ -95,8 +96,34 @@ WithP1Deck: SOR_059
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myHand-1
 
 ## EXPECT
 P1NODECISION
 P1HANDCOUNT:1
 P1DISCARDCOUNT:2
+
+---
+
+# Decline_SingleTarget_NoDiscardNoDamageNoDraw
+#// LOF_176 Lightsaber Throw — new since 2026-08-14: a "you may discard" offer with exactly ONE legal
+#// target now prompts instead of auto-resolving, so the lone Lightsaber can be declined. With only
+#// SOR_053 in hand P1 declines: nothing is discarded, the "if you do" chain never fires (no 4 damage,
+#// no draw), and the Lightsaber stays in hand. The event itself was still played (discard = 1).
+
+## GIVEN
+CommonSetup: rrk/ggw/{myResources:2;handCardIds:LOF_176,SOR_053}
+P1OnlyActions: true
+WithP1Deck: SOR_059
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1NODECISION
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1HANDCOUNT:1
+P1DECKCOUNT:1
+P1DISCARDCOUNT:1

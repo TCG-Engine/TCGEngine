@@ -255,3 +255,28 @@ P1GROUNDARENACOUNT:1
 P2GROUNDARENACOUNT:0
 P2DISCARDCOUNT:1
 P1BASEDMG:3
+
+---
+
+# SimulateRequestBoundary_EnemyDefeatedThisPhaseFlagSurvives
+#// SOR_002 Iden Versio — the "an enemy unit was defeated this phase" memory is written by the attack
+#// action and read by a LATER, separately-serialized leader action: in production the two actions are
+#// different requests, so the flag must live in the gamestate and not a transient global. Mirrors
+#// LeaderAction_HealBase with a request boundary between the attack and the leader action.
+
+## GIVEN
+CommonSetup: bbk/grk/{myBaseDamage:3}
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_128:2:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>SimulateRequestBoundary
+- P1>UseLeaderAbility
+
+## EXPECT
+P1BASEDMG:2
+P1LEADER:EXHAUSTED

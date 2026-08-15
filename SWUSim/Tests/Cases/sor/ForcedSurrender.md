@@ -41,3 +41,36 @@ P1HANDCOUNT:2
 P1DECKCOUNT:0
 P2HANDCOUNT:2
 P2DISCARDCOUNT:0
+
+---
+
+# SimulateRequestBoundary_OpponentDiscardChoice
+#// SOR_175 Forced Surrender — with more than 2 cards in hand the opponent CHOOSES which to discard, so
+#// the effect crosses a request boundary in production: P1 plays the event in one request and P2's two
+#// Choose_card_to_discard answers arrive in later, FRESH processes. The "P1 damaged P2's base this
+#// phase" gate and the remaining-discard count must therefore live in the serialized gamestate, not in
+#// memory. Mirrors DamagedBaseOpponentDiscards (P2 base damaged for 3, P1 draws 2, P2 discards 2) with
+#// P2's hand widened to 4 so the pick stays interactive and the boundary inserted before P2's answer.
+#// NOTE: hand mzIDs are positionally STABLE across the two picks — after myHand-0 is discarded the
+#// second offer is myHand-1..3, not a re-indexed 0..2 (same with or without the boundary).
+
+## GIVEN
+CommonSetup: rrk/ggw/{myResources:7;handCardIds:SOR_175;theirHandCardIds:SOR_128,SOR_225,SOR_095,SOR_063}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1Deck: SOR_128
+WithP1Deck: SOR_225
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+- P2>SimulateRequestBoundary
+- P2>AnswerDecision:myHand-0
+- P2>AnswerDecision:myHand-1
+
+## EXPECT
+P2BASEDMG:3
+P1HANDCOUNT:2
+P1DECKCOUNT:0
+P2HANDCOUNT:2
+P2DISCARDCOUNT:2

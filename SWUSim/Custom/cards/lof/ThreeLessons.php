@@ -33,6 +33,6 @@ $whenPlayedAbilities["LOF_225:0"] = function($player, $mzID = '') {
                 if ($o !== null && empty($o->removed)) $targets[] = $mz;
             }
             if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Play_a_unit_(Hidden_+_Experience_+_Shield)", "LOF_225#0");
+            SWUQueueChooseTarget(intval($player), $targets, "Play_a_unit_(Hidden_+_Experience_+_Shield)", "LOF_225#0", may: true);
             return;
 };

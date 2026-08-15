@@ -850,30 +850,7 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
         }
     }
 
-    // SOR_122 Traitorous / JTL_083 Pantoran Starship Thief: when this upgrade detaches (defeated), the
-    // host returns to its owner's control ("When this upgrade detaches from a unit: that unit's owner
-    // takes control of it.").
-    // ⚠ QUEUED, not inline. This is a TRIGGERED ability, so the effect that defeated the upgrade must
-    // finish resolving first. The inline flip broke ASH_090 Reforge: it defeats Traitorous as its cost,
-    // then plays a searched upgrade "on that unit" — with the control flipped immediately, the host had
-    // already left the friendly pool by search time and the found upgrade was filtered unplayable.
-    // Block 2 sorts AFTER the block-0/1 decisions the defeating effect queues (AddDecision inserts in
-    // block order), so the revert fires once the current effect's whole chain has drained. Resolved by
-    // UID at fire time — the host's mzID can shift before then. UID 0 (untracked object) falls back to
-    // the old inline flip rather than losing the revert entirely.
-    if ($foundCardID === 'SOR_122' || $foundCardID === 'JTL_083') {
-        $hostOwner = intval($host->Owner ?? $player);
-        $hostCtrl  = intval($host->Controller ?? $hostOwner);
-        if ($hostCtrl !== $hostOwner) {
-            $revUID = intval($host->UniqueID ?? 0);
-            if ($revUID > 0) {
-                DecisionQueueController::AddDecision(intval($player), "CUSTOM",
-                    "TRAITOROUS_REVERT|{$hostOwner}|{$revUID}", 2);
-            } else {
-                SWUTakeControlOfUnit($hostOwner, $hostMzID);
-            }
-        }
-    }
+    _SWUUpgradeUnattachControlRevert(intval($player), (string) $foundCardID, $host, $hostMzID);
 
     $playerID = $savedPID;
 
@@ -1921,6 +1898,64 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
 // no attack route silently skips the suppression. Auto-expires via SWUExpireTurnEffects('attack').
 // Any number of Condemns ⇒ one marker; the granted On Attack's mutual-suppression is handled in the
 // upgrade scan in SWUCollectCombatStep1Triggers.
+// SOR_122 Traitorous / JTL_083 Pantoran Starship Thief: "When this upgrade becomes UNATTACHED from a
+// unit: that unit's owner takes control of it."
+//
+// ⚠ UNATTACHED ≠ DEFEATED. Every route that separates the upgrade from its host must call this, not
+// just the defeat chokepoint — a cross-unit MOVE (SWUMoveUpgradeCrossUnit, e.g. SHD_064 Survivors'
+// Gauntlet relocating Traitorous) unattaches it just as surely, and while this logic lived inline in
+// SWUDefeatUpgrade the move path left the old host permanently stolen. (The bespoke-path-skips-the-
+// ceremony family.)
+//
+// ⚠ QUEUED, not inline. This is a TRIGGERED ability, so the effect that unattached the upgrade must
+// finish resolving first. The inline flip broke ASH_090 Reforge: it defeats Traitorous as its cost,
+// then plays a searched upgrade "on that unit" — with the control flipped immediately, the host had
+// already left the friendly pool by search time and the found upgrade was filtered unplayable.
+// Block 2 sorts AFTER the block-0/1 decisions the unattaching effect queues (AddDecision inserts in
+// block order), so the revert fires once the current effect's whole chain has drained. Resolved by
+// UID at fire time — the host's mzID can shift before then. UID 0 (untracked object) falls back to
+// the old inline flip rather than losing the revert entirely.
+function _SWUUpgradeUnattachControlRevert(int $player, string $upgradeCardID, $host, string $hostMzID): void {
+    if ($upgradeCardID !== 'SOR_122' && $upgradeCardID !== 'JTL_083') return;
+    if ($host === null) return;
+    $hostOwner = intval($host->Owner ?? $player);
+    $hostCtrl  = intval($host->Controller ?? $hostOwner);
+    if ($hostCtrl === $hostOwner) return;
+    $revUID = intval($host->UniqueID ?? 0);
+    if ($revUID > 0) {
+        DecisionQueueController::AddDecision($player, "CUSTOM",
+            "TRAITOROUS_REVERT|{$hostOwner}|{$revUID}", 2);
+    } else {
+        SWUTakeControlOfUnit($hostOwner, $hostMzID);
+    }
+}
+
+// Saboteur, shield half (CR 7.6.9): "defeat the defender's Shields." Resolves in the BEGIN ATTACK
+// window (CR 3.3, alongside Restore), so it happens even when the attack never reaches combat damage —
+// the attacker dying to its own On Attack, the defender leaving play, a cancelled attack. Base targets
+// have no Shields and are skipped. The keyword lookup already honours ability-loss suppression
+// (HasKeyword_Saboteur → SWUKeywordSuppressed → LostAbilities), so a Condemned attacker breaks nothing.
+function _SWUSaboteurDefeatDefenderShields($attacker, string $targetMzID, int $player): void {
+    if ($attacker === null || strpos($targetMzID, 'Arena') === false) return;
+    if (!HasKeyword_Saboteur($attacker)) return;
+    $target = GetZoneObject($targetMzID);
+    if ($target === null || !empty($target->removed) || !is_array($target->Subcards ?? null)) return;
+    // $shieldSlot tracks each shield's render index (top-right orbs, order = Subcards order) so its
+    // break plays at its own original position. All fire simultaneously (stagger is exempted
+    // client-side). Nothing has reindexed yet at Begin attack, so $targetMzID IS the animation slot.
+    $shieldSlot = 0;
+    foreach ($target->Subcards as &$sub) {
+        $isShield = is_array($sub)
+            ? (empty($sub['removed']) && ($sub['CardID'] ?? '') === 'SOR_T02')
+            : (empty($sub->removed) && isset($sub->CardID) && $sub->CardID === 'SOR_T02');
+        if (!$isShield) continue;
+        if (is_array($sub)) $sub['removed'] = true; else $sub->removed = true;
+        SWUQueueShieldBreakAnim($targetMzID, $player, $shieldSlot);
+        $shieldSlot++;
+    }
+    unset($sub);
+}
+
 function _SWUApplyCondemnSuppression($attacker, string $attackerMzID): void {
     if ($attacker === null || $attackerMzID === '') return;
     foreach (GetUpgradesOnUnit($attacker) as $cu) {
@@ -2227,6 +2262,15 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // own base by the Restore value once per attack, here at attack time.
     $restoreVal = LostAbilities($attacker) ? null : GetKeyword_Restore_Value($attacker);
     if ($restoreVal !== null && $restoreVal > 0) OnHealBase($player, $player, $restoreVal);
+
+    // Saboteur's shield half (CR 3.3 / 7.6.9): "defeat the defender's Shields" is a BEGIN ATTACK
+    // trigger — the same window as Restore, above — NOT part of the damage step. It lived in
+    // SWUCombatDamage until 2026-08-14, which meant an attacker that died during its own Begin-attack
+    // resolution (Jedha Agitator SOR_158 aiming his On Attack at himself) never reached combat damage
+    // and left the Shields standing. Suppression is automatic: HasKeyword_Saboteur → SWUKeywordSuppressed
+    // → LostAbilities, so a Condemn-blanked (SEC_038) attacker defeats nothing — which is the behaviour
+    // the timing note above _SWUApplyCondemnSuppression describes.
+    _SWUSaboteurDefeatDefenderShields($attacker, $targetMzID, intval($player));
 
     // LAW_086 The Stranger — "While attacking, you may have the defending unit deal combat damage before
     // this unit." Offer the attacker the choice when attacking a UNIT (not a base), before combat damage.
@@ -2666,23 +2710,8 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         }
         $combatCtx['defenderIsLeader'] = IsLeaderUnit($target);
 
-        // Saboteur (CR 7.6.9): defeat ALL shield tokens on defender before combat damage.
-        if (HasKeyword_Saboteur($attacker) && is_array($target->Subcards ?? null)) {
-            // $shieldSlot tracks each shield's render index (top-right orbs, order = Subcards order)
-            // so its break plays at its own original position. All fire simultaneously (stagger
-            // is exempted client-side).
-            $shieldSlot = 0;
-            foreach ($target->Subcards as &$sub) {
-                $isShield = is_array($sub)
-                    ? (empty($sub['removed']) && ($sub['CardID'] ?? '') === 'SOR_T02')
-                    : (empty($sub->removed) && isset($sub->CardID) && $sub->CardID === 'SOR_T02');
-                if (!$isShield) continue;
-                if (is_array($sub)) $sub['removed'] = true; else $sub->removed = true;
-                SWUQueueShieldBreakAnim($targetAnimMzID, intval($player), $shieldSlot);
-                $shieldSlot++;
-            }
-            unset($sub);
-        }
+        // (Saboteur's shield-defeat now resolves at BEGIN ATTACK in ExecuteSWUAttack — CR 3.3 — so by
+        // the time combat damage runs the defender's Shields are already gone. See the note there.)
 
         // SHD_090 Maul — resolve the counter-damage redirect target (if any) for this attack.
         $redirectMz = _SWUCombatRedirectTarget($attacker);
@@ -3586,6 +3615,11 @@ function _SWUMaulBeginDoubleAttack(int $player, string $attackerMzID, string $de
     SetSWUVar('SWU_CURRENT_ATTACKER', $attackerMzID);
     SetSWUVar('SWU_CURRENT_ATTACKER_UID', strval($atkUID));
     _SWUApplyCondemnSuppression($attacker, $attackerMzID);
+    // Saboteur's Begin-attack shield-defeat (CR 3.3), for BOTH defenders — this path never routes
+    // through ExecuteSWUAttack. Maul has no printed Saboteur, but it can be granted (SOR_166
+    // Infiltrator's Skill), and a two-defender attack breaks the Shields of everything it attacks.
+    _SWUSaboteurDefeatDefenderShields($attacker, $def1Mz, intval($player));
+    _SWUSaboteurDefeatDefenderShields($attacker, $def2Mz, intval($player));
 
     // The attacker-side blocks run on the FULL call only. Their "would counter-damage actually happen?"
     // gate (SEC_101 / ASH_062) reads the defender passed in, so lead with a defender that actually has

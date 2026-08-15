@@ -134,3 +134,37 @@ P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SOR_110
 P2BASEDMG:0
 P1NODECISION
+
+---
+
+# SimulateRequestBoundary_GrantedAttackTargetPick
+#// SOR_110 Frontline Shuttle — the granted attack's TARGET prompt ends the request in production: the
+#// defeat cost is already paid and the attacker already locked in when the prompt goes out, so the
+#// answer lands in a FRESH process that must rebuild "who is attacking, and that this attack can't hit
+#// bases" from the serialized gamestate. Same GIVEN as TargetOffer_EnemyUnitsOnly_BaseExcluded (two
+#// enemy units keep the pick interactive, lone Marine auto-resolves as attacker), boundary inserted
+#// before the answer. Marine (3/3) hits Sundari Peacekeeper (1/5) for 3 and takes 1 back; the Shuttle
+#// is in P1's discard as the paid cost, and the enemy base is untouched.
+
+## GIVEN
+CommonSetup: ggw/ggw
+P1OnlyActions: true
+WithP1SpaceArena: SOR_110:1:0     # Frontline Shuttle (ready)
+WithP1GroundArena: SOR_095:1:0    # Battlefield Marine — sole candidate, auto-picked as attacker
+WithP2GroundArena: SHD_028:1:0    # Doctor Pershing (0/5)
+WithP2GroundArena: SHD_098:1:0    # Sundari Peacekeeper (1/5)
+
+## WHEN
+- P1>UseUnitAbility:mySpaceArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:1:DAMAGE:3
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1SPACEARENACOUNT:0
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SOR_110
+P2BASEDMG:0

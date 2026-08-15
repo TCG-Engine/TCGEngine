@@ -1,12 +1,14 @@
 # WhenPlayedCapturesNonLeader
 #// TS26_27 Fortune and Glory (Unit 3/5 space, cost 4) — When Played: this unit captures a non-leader unit.
 #// The only non-leader unit besides itself is the enemy SEC_080, which is captured (removed from the board).
+#// (Extra answer since 2026-08-14: this "you may" offer no longer auto-resolves a lone target.)
 ## GIVEN
 CommonSetup: gyk/rrk/{myResources:4;handCardIds:TS26_27}
 WithP2GroundArena: SEC_080:1:0
 P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P1SPACEARENAUNIT:0:CARDID:TS26_27
@@ -16,6 +18,7 @@ P1SPACEARENAUNIT:0:CARDID:TS26_27
 # WhenPlayedCanCaptureAFRIENDLYNonLeader
 #// TS26_27 Fortune and Glory — "captures a non-leader unit" names no side. With P1's own SEC_080 as the
 #// only non-leader other than the Yacht itself, it is the capture target and P1's ground arena empties.
+#// (Extra answer since 2026-08-14: this "you may" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: gyk/rrk/{myResources:4;handCardIds:TS26_27}
@@ -26,6 +29,7 @@ WithP1Deck: [SOR_095 SOR_095]
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
@@ -37,6 +41,7 @@ P1SPACEARENAUNIT:0:CARDID:TS26_27
 #// TS26_27 Fortune and Glory — "Bounty: a friendly unit captures a non-leader unit", where "friendly" is
 #// relative to the COLLECTOR. P2 defeats the Yacht with Rival's Fall and takes the bounty: their SOR_095
 #// becomes the captor and P1's SEC_080 is the captive, so P1's ground empties while P2 keeps its unit.
+#// (Extra answer since 2026-08-14: the captive "you may" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: gyk/bbk/{myResources:4;theirResources:8}
@@ -53,6 +58,7 @@ WithP2Deck: [SOR_095 SOR_095]
 - P2>PlayHand:0
 - P2>AnswerDecision:theirSpaceArena-0
 - P2>AnswerDecision:YES
+- P2>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
@@ -129,6 +135,7 @@ P1SPACEARENACOUNT:0
 #// ⚠ This looks like the OPPOSITE of the Sith Traditions / Mother Talzin control-change sections, and it
 #// is not: all three read from the current controller. Bounty just points one step further, at that
 #// controller's opponent — so stealing a Bounty unit to kill it hands the reward straight back.
+#// (Extra answer since 2026-08-14: the captive "you may" offer no longer auto-resolves a lone target.)
 
 ## GIVEN
 CommonSetup: gyk/bbk/{theirResources:8}
@@ -145,8 +152,33 @@ WithP2Deck: [SOR_095 SOR_095]
 - P2>PlayHand:0
 - P2>AnswerDecision:theirSpaceArena-0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
 P2GROUNDARENACOUNT:0
 P1SPACEARENACOUNT:0
+
+---
+
+# Decline_SingleTarget_NoCapture
+#// TS26_27 Fortune and Glory — the When Played capture is a "you may", so even with exactly one legal
+#// captive the player can decline. P1 answers "-": the enemy SEC_080 stays on the board, nothing is
+#// captured, and the Yacht itself still entered play (the cost was paid regardless).
+#// This branch only became testable on 2026-08-14, when a lone-target optional offer stopped
+#// auto-resolving.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myResources:4;handCardIds:TS26_27}
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:TS26_27
+P1HANDCOUNT:0
+P1NODECISION

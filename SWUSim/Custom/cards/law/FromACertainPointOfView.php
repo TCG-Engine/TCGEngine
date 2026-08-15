@@ -36,7 +36,7 @@ $whenPlayedAbilities["LAW_264:0"] = function($player, $mzID = '') {
                 if ($ready >= $eff) $targets[] = $mz;
             }
             if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Play_a_card_(ignoring_aspect_penalties)", "LAW_264#0");
+            SWUQueueChooseTarget(intval($player), $targets, "Play_a_card_(ignoring_aspect_penalties)", "LAW_264#0", may: true);
             return;
         }
 

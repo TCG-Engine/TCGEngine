@@ -23,7 +23,7 @@ $customDQHandlers["LOF_125#0"] = function($player, $parts, $lastDecision) {
     $targets = [];
     foreach ($hand as $mz) { $h = GetZoneObject($mz); if ($h !== null && empty($h->removed)) $targets[] = $mz; }
     if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Play_a_unit_from_your_hand_(gets_2_Experience)", "LOF_125#1");
+    SWUQueueChooseTarget(intval($player), $targets, "Play_a_unit_from_your_hand_(gets_2_Experience)", "LOF_125#1", may: true);
 };
 
 $customDQHandlers["LOF_125#1"] = function($player, $parts, $lastDecision) {

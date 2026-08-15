@@ -137,3 +137,43 @@ WithP1GroundArena: SOR_095:1:0
 P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:0:HP:5
 P1LEADER:EXHAUSTED
+
+---
+
+# SimulateRequestBoundary_DebuffCrossesToRegroupSweep
+#// SOR_004 Chirrut Îmwe — Open Fire's target prompt ends P2's request in production, and the -2/-2 from
+#// Make an Opening then has to survive several more requests before the regroup ordering resolves. Mirrors
+#// Deploy_DebuffExpiresBeforeRegroupSweep with a boundary before the Open Fire target answer and another
+#// before the debuff event: the 4 damage still lands, the debuff still expires BEFORE the defeat sweep, and
+#// Chirrut still lives at 5 HP with 4 damage.
+
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:SOR_004;
+  theirLeader:SOR_011;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 5
+WithP2Resources: 6
+WithP2Hand: SOR_172
+WithP2Hand: SOR_076
+
+## WHEN
+- P1>DeployLeader
+- P2>PlayHand:0
+- P2>SimulateRequestBoundary
+- P2>AnswerDecision:theirGroundArena-0
+- P1>Pass
+- P2>SimulateRequestBoundary
+- P2>PlayHand:0
+- P1>Pass
+- P2>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_004
+P1GROUNDARENAUNIT:0:DAMAGE:4
+P1GROUNDARENAUNIT:0:HP:5
+P1LEADER:DEPLOYED

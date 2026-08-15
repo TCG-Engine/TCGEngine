@@ -156,3 +156,34 @@ P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:HP:5
 P1BASEDMG:0
 P2BASEDMG:0
+
+---
+
+# SimulateRequestBoundary_ThreePickChain
+#// SOR_106 Attack Pattern Delta — each of the three buff picks is its own request in production, so the
+#// answer to pick #2 arrives in a FRESH process. The "which units already took a buff" exclusion and the
+#// remaining-clause amount (+2/+2 then +1/+1) must therefore live in the serialized gamestate, not a
+#// transient global. Mirrors BuffsThreeUnits with a boundary before each answer.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:3;handCardIds:SOR_106}
+WithP1GroundArena: SOR_088:1:0
+WithP1GroundArena: SOR_088:1:0
+WithP1GroundArena: SOR_088:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1DISCARDCOUNT:1
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:0:POWER:12
+P1GROUNDARENAUNIT:0:HP:12
+P1GROUNDARENAUNIT:1:POWER:11
+P1GROUNDARENAUNIT:1:HP:11
+P1GROUNDARENAUNIT:2:POWER:10
+P1GROUNDARENAUNIT:2:HP:10

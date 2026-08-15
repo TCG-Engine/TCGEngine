@@ -34,6 +34,6 @@ $whenPlayedAbilities["LOF_176:0"] = function($player, $mzID = '') {
                 if (HasTrait($c->CardID ?? '', 'Lightsaber')) $sabers[] = "myHand-{$i}";
             }
             if (empty($sabers)) return;
-            SWUQueueChooseTarget(intval($player), $sabers, "Discard_a_Lightsaber_(deal_4_to_a_ground_unit_+_draw)", "LOF_176#0");
+            SWUQueueChooseTarget(intval($player), $sabers, "Discard_a_Lightsaber_(deal_4_to_a_ground_unit_+_draw)", "LOF_176#0", may: true);
             return;
 };

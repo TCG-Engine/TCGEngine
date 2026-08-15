@@ -7,8 +7,30 @@
 $customDQHandlers["TS26_47#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
-    OnHealUnit(intval($player), $lastDecision, 3);
+    $o = GetZoneObject($lastDecision);
+    if (SWUObjGone($o)) return;
+    // USER RULING (2026-08-14): for an "up to N" effect the TARGET is mandatory and the AMOUNT is the
+    // player's, zero included. The Shield is unconditional ("and give a Shield token to it"), so it is
+    // given here regardless of how much is healed — only the heal is "up to 3". With nothing healable
+    // there is no amount to pick and the card is just a Shield.
+    $uid     = intval($o->UniqueID ?? 0);
+    $maxHeal = min(3, intval($o->Damage ?? 0));
     DoGiveShieldToken(intval($player), $lastDecision);
+    if ($maxHeal <= 0) return;
+    $opts = [];
+    for ($i = 0; $i <= $maxHeal; $i++) $opts[] = "Heal{$i}";
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", implode('&', $opts), 1,
+        tooltip: "Heal_up_to_{$maxHeal}_damage");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_47#1|{$uid}", 1);
+};
+
+$customDQHandlers["TS26_47#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $uid = intval($parts[0] ?? 0);
+    $amt = intval(str_replace('Heal', '', (string)$lastDecision));
+    if ($amt <= 0) return;                                  // the soft pass
+    $mz = SWUFindMzByUID($uid);
+    if ($mz !== null) OnHealUnit(intval($player), $mz, $amt);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

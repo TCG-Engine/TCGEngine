@@ -158,3 +158,31 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_051
 P2GROUNDARENAUNIT:0:POWER:6
 P2GROUNDARENAUNIT:0:HP:7
 PHASE:MAIN
+
+---
+
+# SimulateRequestBoundary_FriendlyDefeatedFlagAndTarget
+#// SOR_051 Luke Skywalker — the enemy-unit target pick ends the request in production, so the answer
+#// arrives in a fresh process: BOTH the pending debuff amount (-6 vs -3, decided by the
+#// friendly-unit-defeated-this-phase flag set two actions earlier) and the pending target decision must
+#// survive serialization. Mirrors FriendlyDefeated_Minus6 with the boundary inserted before the answer.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:7}
+WithP1GroundArena: SOR_210:1:0
+WithP1Hand: SOR_051
+WithP2GroundArena: SOR_232:1:0
+WithP2GroundArena: SOR_232:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P2>Pass
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:1:POWER:0
+P2GROUNDARENAUNIT:1:HP:1

@@ -151,3 +151,29 @@ P1GROUNDARENAUNIT:0:DAMAGE:1
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P2BASEDMG:0
 P1BASE:EPICUSED
+
+---
+
+# SimulateRequestBoundary_RebelBuffSurvivesToTargetPick
+#// SOR_240 Fleet Lieutenant — the granted attack's TARGET prompt ends the request in production, so
+#// the +2/+0 "for this attack" Rebel buff granted at attacker-selection has to be re-read from the
+#// serialized gamestate when the target answer lands in a fresh process. Mirrors RebelBuff_UnitTarget
+#// with the boundary inserted before the target answer: Sundari's defeat is the proof the +2 survived.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:3}
+P1OnlyActions: true
+WithP1Hand: SOR_240
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SHD_098:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P2BASEDMG:0

@@ -49,3 +49,31 @@ WithP2GroundArena: SOR_046:1:0
 P1GROUNDARENAUNIT:0:DAMAGE:2
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1LEADER:EXHAUSTED
+
+---
+
+# SimulateRequestBoundary_AttackDefenderDebuffSurvives
+#// SOR_018 Jyn Erso — the leader action's defender pick ends the request in production, so the
+#// "-1/-0 for this attack" grant that the action set up must be serialized rather than parked in a
+#// transient global. Mirrors LeaderAction_AttackDefenderDebuff with a boundary before the answer: the
+#// 3/7 defender still attacks back at 2, not 3.
+
+## GIVEN
+CommonSetup: gyw/brw/{
+  myLeader:SOR_018;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1LEADER:EXHAUSTED

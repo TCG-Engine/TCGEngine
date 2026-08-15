@@ -60,3 +60,30 @@ P1DISCARDCOUNT:1
 P1BASEDMG:1
 P2GROUNDARENACOUNT:0
 P2DISCARDCOUNT:1
+
+---
+
+# SimulateRequestBoundary_ShrinkTargetPick
+#// SOR_076 Make an Opening — with more than one unit in play the -2/-2 target pick is a real
+#// interactive decision, which ends the request in production so the answer arrives in a fresh process.
+#// Mirrors DebuffsAndHeals (same end state for the AT-AT and the base heal) with a second enemy seated
+#// to keep the pick interactive and the boundary inserted before the answer.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myBaseDamage:3;myResources:3;handCardIds:SOR_076}
+WithP2GroundArena: SOR_088:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1DISCARDCOUNT:1
+P1BASEDMG:1
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:POWER:7
+P2GROUNDARENAUNIT:0:HP:7
+P2GROUNDARENAUNIT:1:POWER:3
+P2GROUNDARENAUNIT:1:HP:3
