@@ -260,8 +260,15 @@ function showCardIdsBadgePopup(badgeEl, event) {
         if (durLabel) durHtml = '<div class="cardids-popup-chip dur-' + durKey + '">' + durLabel + '</div>';
       }
       // Try concat folder first, fallback to WebpImages, then hide to avoid infinite 404 spam
-      var imgPath = rootPath + '/concat/' + resolveCardImageID(displayCardId) + '.webp';
-      var imgFallback = rootPath + '/WebpImages/' + resolveCardImageID(displayCardId) + '.webp';
+      // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php). BOTH paths need it:
+      // the rootPath form resolves to ./SWUSim/{concat,WebpImages}, deleted by the shared-corpus
+      // migration, so the 'fallback' 404s exactly like the primary and the card silently hides.
+      var artConcat = window.assetImageFolder || (rootPath + '/concat');
+      var artWebp = window.assetImageFolder
+        ? String(window.assetImageFolder).replace(/\/concat\/?$/, '/WebpImages')
+        : (rootPath + '/WebpImages');
+      var imgPath = artConcat + '/' + resolveCardImageID(displayCardId) + '.webp';
+      var imgFallback = artWebp + '/' + resolveCardImageID(displayCardId) + '.webp';
       html += '<div class="cardids-popup-card">';
       html += '<img src="' + imgPath + '" alt="' + displayCardId + '" loading="lazy"'
            + ' onerror="if(this.dataset.tried){this.onerror=null;this.style.display=\'none\';}else{this.dataset.tried=\'1\';this.src=\'' + imgFallback + '\';}" />';

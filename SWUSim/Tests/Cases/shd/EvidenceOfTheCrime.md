@@ -13,7 +13,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT

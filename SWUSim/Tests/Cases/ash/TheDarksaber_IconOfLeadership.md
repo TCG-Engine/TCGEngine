@@ -284,7 +284,7 @@ WithP1GroundArena: SOR_046:1:0
 WithP1GroundArenaUpgrade: 0:ASH_135
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>PlayHand:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
@@ -370,7 +370,7 @@ WithP1Hand: SOR_251
 WithP2Hand: SOR_224
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P2>PlayHand:0
 ## EXPECT
 P1GROUNDARENACOUNT:0
@@ -460,7 +460,7 @@ WithP1SpaceArena: SHD_064:1:0
 - P1>PlayHand:0
 - P2>Pass
 - P1>AttackSpaceArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-1
 - P2>Pass
 - P1>PlayHand:0

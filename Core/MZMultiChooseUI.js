@@ -504,7 +504,11 @@
 
     const imageWrap = document.createElement('div');
     imageWrap.className = 'mzmulti-card-image';
-    const folder = (window.rootPath || '.') + '/concat';
+    // SWU card art is ONE SHARED corpus (AppCore/SWU/Images/...), NOT under the app root — SWUSim/NextTurnRender.php
+    // publishes it as window.assetImageFolder. Building "<rootPath>/concat" instead yields ./SWUSim/concat,
+    // which the shared-corpus migration DELETED: a hard 404, so every card here renders as broken art.
+    // The rootPath form stays as the fallback for apps that still keep art under their own root.
+    const folder = window.assetImageFolder || ((window.rootPath || '.') + '/concat');
     const renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
     imageWrap.innerHTML = renderCardFn(candidate.cardNumber, folder, 112, 0, 0, 0, 0, candidate.counters);
     cardEl.appendChild(imageWrap);

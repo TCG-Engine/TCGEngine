@@ -145,7 +145,7 @@ WithP2SpaceArenaPilot: 0:JTL_108
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:theirSpaceArena-0.u0
 
 ## EXPECT
 P2SPACEARENACOUNT:1
@@ -191,7 +191,7 @@ WithP2SpaceArena: JTL_T01:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:theirSpaceArena-0.u0
 
 ## EXPECT
 P2SPACEARENACOUNT:1

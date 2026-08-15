@@ -29,7 +29,7 @@ WithP2GroundArenaUpgrade: 0:SOR_T01
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P1SPACEARENACOUNT:1
@@ -54,7 +54,7 @@ WithP2GroundArenaUpgrade: 1:SOR_T01
 
 ## WHEN
 - P1>PlayHand:0
-- P1>ChooseTheirGroundUnit:0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P1SPACEARENACOUNT:1
@@ -77,8 +77,7 @@ WithP2GroundArenaUpgrade: 0:SOR_T02
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
-- P1>AnswerDecision:myTempZone-1
+- P1>AnswerDecision:theirGroundArena-0.u1
 
 ## EXPECT
 P1SPACEARENACOUNT:1
@@ -116,7 +115,7 @@ WithP1GroundArenaUpgrade: 0:SOR_T01
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-0.u0
 
 ## EXPECT
 P1SPACEARENACOUNT:1

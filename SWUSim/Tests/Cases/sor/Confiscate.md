@@ -52,7 +52,7 @@ WithP2GroundArenaUpgrade: 0:LOF_215
 
 ## WHEN
 - P1>PlayHand:0
-- P1>ChooseTheirGroundUnit:0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
@@ -73,7 +73,7 @@ WithP2GroundArenaUpgrade: 0:SOR_215
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-1
+- P1>AnswerDecision:theirGroundArena-0.u1
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1

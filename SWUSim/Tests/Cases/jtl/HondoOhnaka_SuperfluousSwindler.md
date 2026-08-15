@@ -13,7 +13,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT
@@ -110,7 +110,7 @@ WithP2GroundArenaUpgrade: 1:SOR_072
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-1.u0
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
@@ -140,7 +140,7 @@ WithP2GroundArenaUpgrade: 0:SOR_T01
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:JTL_056
@@ -169,7 +169,7 @@ WithP2GroundArenaUpgrade: 0:LOF_261
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:LOF_061
@@ -204,4 +204,4 @@ WithP2GroundArenaUpgrade: 0:SOR_072
 ## EXPECT
 P1HASDECISION
 P1DECISIONTOOLTIP:Take_control_of_a_non-Pilot_upgrade_to_move_it
-P1SELECTABLEEXACT:myTempZone-0&myTempZone-1
+P1SELECTABLEEXACT:myGroundArena-1.u0&theirGroundArena-0.u0

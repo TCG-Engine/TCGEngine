@@ -16,8 +16,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:theirGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_046

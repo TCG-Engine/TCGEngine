@@ -7,5 +7,5 @@
 // Routes through the generic SWUQueueDefeatUpgrade helper (host pick-or-pass).
 $whenPlayedAbilities["SOR_162:0"] =
 $whenPlayedAbilities["SHD_166:0"] = function($player, $mzID) {
-    SWUQueueDefeatUpgrade(intval($player), "Choose_a_unit_to_defeat_its_upgrade", may: true, max: 1);
+    SWUQueueDefeatUpgrade(intval($player), "Defeat_an_upgrade", may: true, max: 1);
 };

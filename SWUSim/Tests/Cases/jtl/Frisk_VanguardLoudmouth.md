@@ -51,8 +51,7 @@ WithP2GroundArenaUpgrade: 1:SOR_054
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:Pilot
-- P1>AnswerDecision:theirGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
@@ -113,8 +112,7 @@ WithP2GroundArenaUpgrade: 0:SOR_T01
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:Pilot
-- P1>AnswerDecision:theirGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_046

@@ -2234,8 +2234,16 @@ $customDQHandlers["DISCARD_FROM_OPP_HAND"] = function ($player, $parts, $lastDec
 $customDQHandlers["ACK"] = function ($player, $parts, $lastDecision) { /* acknowledge — no effect */};// ── Generic defeat-upgrade resolution (shared by SOR_162/SHD_166/SOR_251/SHD_262/SOR_170)
 // DEFEAT_UPGRADE receives the chosen HOST unit mzID (or '-' on a may-decline / fizzle).
 // ── Generic "take control of an upgrade and attach it to a different eligible unit" (JTL_056 non-Pilot,
-// JTL_242 token). Stages every matching upgrade across ALL units into TempZone for a single MAY pick
-// (tempZone-N → "hostMz:subIdx" via the MoveUpgMap var), then a destination-unit pick, then moves it. ──
+// JTL_242 token). Offers every matching upgrade as a SUBCARD mzID ("<hostMz>.u<subIdx>" — see
+// MZParseSubcardID), so the player picks it ON THE BOARD, still attached to its host, then picks a
+// destination unit, then it moves. ──
+//
+// ⚠ This used to stage the matching upgrades into TempZone as bare CardIDs and offer myTempZone-N,
+// keeping the host association only in a side-channel `MoveUpgMap` variable. That rendered as a flat
+// card-art popup with NO indication of which unit each upgrade was on — unusable for JTL_242, whose
+// pool spans every unit on the board and whose legal targets are frequently several identical Shield
+// tokens. The subcard mzID carries the host in the answer itself, so no side map is needed.
+//
 // $sourceHostMz: if non-empty, only scan that one host's upgrades ("an upgrade ON THIS unit" — JTL_070).
 // $destScope:    '' = any unit (default); 'friendlyVehicle' = restrict the destination to another
 //                friendly Vehicle unit (JTL_070). Read back in MOVE_UPGRADE.
@@ -2243,7 +2251,7 @@ function SWUQueueMoveUpgrade(int $player, string $filter, string $tooltip, strin
 {
   global $playerID;
   $playerID = intval($player);
-  $entries = []; // [hostMz, subIdx, cardID]
+  $targets = []; // subcard mzIDs
   $scanZones = ($sourceHostMz !== '')
     ? [$sourceHostMz]
     : ($friendlyOnly ? ['myGroundArena', 'mySpaceArena']
@@ -2255,57 +2263,33 @@ function SWUQueueMoveUpgrade(int $player, string $filter, string $tooltip, strin
       $o = GetZoneObject($mz);
       if (SWUObjGone($o) || !is_array($o->Subcards ?? null))
         continue;
+      // The RAW Subcards key is the sub index — the same index space SWUMoveUpgradeCrossUnit expects,
+      // and the only one the renderer can derive independently.
       foreach ($o->Subcards as $i => $sub) {
-        if (_SWUUpgradeMatchesMoveFilter($sub, $filter)) {
-          $scid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
-          $entries[] = [$mz, $i, $scid];
-        }
+        if (_SWUUpgradeMatchesMoveFilter($sub, $filter))
+          $targets[] = $mz . '.u' . $i;
       }
     }
   }
-  if (empty($entries))
+  if (empty($targets))
     return; // no movable upgrade → fizzle
   DecisionQueueController::StoreVariable("MoveUpgDestScope", $destScope);
-  $temp = &GetTempZone($player);
-  while (count($temp) > 0)
-    array_pop($temp);
-  $map = [];
-  foreach ($entries as $e) {
-    AddTempZone($player, $e[2]);
-    $map[] = $e[0] . ':' . $e[1];
-  }
-  DecisionQueueController::StoreVariable("MoveUpgMap", implode(",", $map));
-  $tempMZs = [];
-  for ($k = 0; $k < count($entries); $k++)
-    $tempMZs[] = "myTempZone-$k";
-  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $tempMZs), 1, tooltip: $tooltip);
+  DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip: $tooltip);
   DecisionQueueController::AddDecision($player, "CUSTOM", "MOVE_UPGRADE", 1);
-  // Leave $playerID set: MZCountChoices validates the myTempZone-* specs next, under it.
+  // Leave $playerID set: MZCountChoices validates the relative-frame specs next, under it.
 }
 // Upgrade chosen → pick the destination unit (any unit except the source host).
 $customDQHandlers["MOVE_UPGRADE"] = function ($player, $parts, $lastDecision) {
   global $playerID;
   $playerID = intval($player);
-  $drain = function () use ($player) {
-    $t = &GetTempZone($player);
-    while (count($t) > 0)
-      array_pop($t); };
-  if (SWUDecisionDeclined($lastDecision)) {
-    $drain();
+  if (SWUDecisionDeclined($lastDecision))
     return;
-  }
-  $map = explode(",", (string) DecisionQueueController::GetVariable("MoveUpgMap"));
-  if (!preg_match('/-(\d+)$/', $lastDecision, $m)) {
-    $drain();
+  // The answer IS the address: "<zone>-<hostIdx>.u<subIdx>". No side map to fall out of sync with.
+  $sub = MZParseSubcardID((string) $lastDecision);
+  if ($sub === null)
     return;
-  }
-  $n = intval($m[1]);
-  $drain();
-  if (!isset($map[$n]))
-    return;
-  [$hostMz, $subIdx] = array_pad(explode(':', $map[$n], 2), 2, '');
-  if ($hostMz === '' || $subIdx === '')
-    return;
+  $hostMz = $sub['host'];
+  $subIdx = $sub['subIndex'];
   DecisionQueueController::StoreVariable("MoveUpgSrc", $hostMz . '|' . $subIdx);
   $destScope = (string) DecisionQueueController::GetVariable("MoveUpgDestScope");
   // Resolve the moved upgrade's CardID so a destination must satisfy the upgrade's OWN attach restriction
@@ -2366,6 +2350,29 @@ $customDQHandlers["DEFEAT_UPGRADE"] = function ($player, $parts, $lastDecision) 
   }
   global $playerID;
   $playerID = intval($player);
+  // Two answer shapes reach here.
+  //  • A SUBCARD mzID ("<hostMz>.u<subIdx>") — the single-pick flow (SWUQueueDefeatUpgradeDirect):
+  //    the player picked the upgrade itself on the board, so defeat it and we're done. No host step,
+  //    no TempZone.
+  //  • A plain HOST mzID — the legacy two-step flow, still used by the multi-pick path and by the
+  //    handful of cards that queue their own host choose and then chain "DEFEAT_UPGRADE" (Vane,
+  //    Reforge, Finn, Exploit Advantage, Pegasus Tri-Wing). Those keep the host resolver.
+  $sub = MZParseSubcardID((string) $lastDecision);
+  if ($sub !== null) {
+    $defeated = SWUDefeatUpgradeByMzID(intval($player), (string) $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    // Same continuation contract as the staged path: pass the HOST mzID plus whether a defeat actually
+    // happened ('1'/'0'), so an "if you do" rider (JTL_175 System Shock) skips when the defeat was
+    // prevented (Willrow SEC_061 / a pilot-immune upgrade) while an unconditional one still fires.
+    $then = (string) DecisionQueueController::GetVariable("DefeatUpgThen");
+    if ($then !== '') {
+      DecisionQueueController::StoreVariable("DefeatUpgThen", "");
+      global $customDQHandlers;
+      if (isset($customDQHandlers[$then]))
+        $customDQHandlers[$then]($player, [$sub['host'], $defeated ? '1' : '0'], '');
+    }
+    return;
+  }
   _SWUResolveDefeatUpgradeHost(intval($player), $lastDecision);
   // leave $playerID set: _SWUResolveDefeatUpgradeHost may queue a relative-mzID pick,
   // and MZCountChoices runs immediately after and resolves myTempZone-* under $playerID.

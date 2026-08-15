@@ -719,6 +719,39 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
 // Token upgrades (type contains "Token") are removed from the game (set aside).
 // Non-token upgrades go to their owner's discard with From='PLAY'.
 // Returns true if an upgrade was found and removed, false otherwise.
+// Raw `Subcards` key → the live-upgrade ORDINAL that SWUDefeatUpgrade()'s $upgradeIndex uses.
+// The two index spaces are NOT the same: the ordinal skips captives and removed entries, so they
+// diverge the moment a unit holds a captive or has lost an upgrade earlier in the same resolution.
+// Subcard mzIDs ("<hostMz>.u<subIdx>") carry the raw key — it is the only index the renderer can
+// derive — so every defeat driven from one must convert here first. Returns -1 if the key is not a
+// live upgrade (already gone, or a captive), which callers treat as "nothing to defeat".
+function SWUUpgradeOrdinalFromSubIndex($host, int $subIdx): int {
+    if ($host === null || !is_array($host->Subcards ?? null)) return -1;
+    $ord = 0;
+    foreach ($host->Subcards as $key => $sub) {
+        $isCaptive = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
+        $isRemoved = is_array($sub) ? !empty($sub['removed'])   : !empty($sub->removed);
+        if ($isCaptive || $isRemoved) continue;
+        if ($key === $subIdx) return $ord;
+        $ord++;
+    }
+    return -1;
+}
+
+// Defeat the upgrade named by a SUBCARD mzID ("<hostMz>.u<subIdx>"). Thin wrapper that resolves the
+// host and converts the raw Subcards key to SWUDefeatUpgrade's ordinal. Returns false (no defeat) for
+// a stale or non-subcard mzID, matching SWUDefeatUpgrade's own "nothing happened" contract — which an
+// "if you do" continuation reads to decide whether to fire.
+function SWUDefeatUpgradeByMzID(int $player, string $subMzID, bool $bounce = false): bool {
+    $sub = MZParseSubcardID($subMzID);
+    if ($sub === null) return false;
+    $host = GetZoneObject($sub['host']);
+    if ($host === null || ($host->removed ?? false)) return false;
+    $ord = SWUUpgradeOrdinalFromSubIndex($host, $sub['subIndex']);
+    if ($ord < 0) return false;
+    return SWUDefeatUpgrade($player, $sub['host'], $ord, $bounce);
+}
+
 function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, bool $bounce = false, bool $skipReplacement = false): bool {
     global $playerID, $gDeferredReplacements;
     $savedPID = $playerID;

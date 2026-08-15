@@ -53,8 +53,7 @@ WithP2GroundArenaUpgrade: 0:ASH_134
 WithP1Hand: SEC_163
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENACOUNT:1

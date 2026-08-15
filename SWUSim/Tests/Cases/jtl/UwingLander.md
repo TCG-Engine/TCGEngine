@@ -46,7 +46,7 @@ WithP1SpaceArenaUpgrade: 0:SOR_120
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:mySpaceArena-0.u0
 
 ## EXPECT
 P2BASEDMG:4
@@ -166,7 +166,7 @@ WithP1SpaceArenaUpgrade: 0:JTL_227
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:mySpaceArena-0.u0
 
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:JTL_070
@@ -206,7 +206,7 @@ WithP1SpaceArenaUpgrade: 0:JTL_227
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:mySpaceArena-0.u0
 
 ## EXPECT
 P1HASDECISION

@@ -21,8 +21,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 - P1>AttackGroundArena:0:BASE
 - P1>AnswerDecision:Opponent
 - P2>AnswerDecision:myGroundArena-0:2
-- P1>AnswerDecision:theirGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:2
@@ -108,9 +107,8 @@ WithP2GroundArenaUpgrade: 0:SOR_069
 - P1>AttackGroundArena:0:BASE
 - P1>AnswerDecision:Opponent
 - P2>AnswerDecision:myGroundArena-0:2
-- P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
 P1HASDECISION
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:3
-P1SELECTABLEEXACT:myTempZone-0&myTempZone-1
+P1SELECTABLEEXACT:theirGroundArena-0.u0&theirGroundArena-0.u2

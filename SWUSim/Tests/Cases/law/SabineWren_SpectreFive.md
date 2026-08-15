@@ -12,8 +12,7 @@ WithP1Hand: LAW_078
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_128
@@ -56,8 +55,7 @@ WithP1Hand: LAW_078
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SHD_029
@@ -99,8 +97,7 @@ WithP1Hand: LAW_078
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095

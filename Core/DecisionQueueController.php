@@ -169,8 +169,9 @@ class DecisionQueueController {
         for($i=0; $i<count($zones); ++$i) {
             $zone = explode(":", $zones[$i]);
             $zoneOrCard = $zone[0];
-            // Check if this is a specific card reference (zoneName-index)
-            if (preg_match('/^(.+)-(\d+)$/', $zoneOrCard, $matches)) {
+            // Check if this is a specific card reference (zoneName-index, or the subcard form
+            // zoneName-index.uSub — see MZParseSubcardID). Both live in the HOST's zone.
+            if (preg_match('/^(.+)-(\d+)(?:\.u(\d+))?$/', $zoneOrCard, $matches)) {
                 // It's a specific card reference - extract zone name
                 $output[] = $matches[1];
             } else {
@@ -189,12 +190,17 @@ class DecisionQueueController {
         for($i=0; $i<count($zones); ++$i) {
             $zone = explode(":", $zones[$i]);
             $zoneOrCard = $zone[0];
-            // Check if this is a specific card reference (zoneName-index)
-            if (preg_match('/^(.+)-(\d+)$/', $zoneOrCard, $matches)) {
+            // Check if this is a specific card reference (zoneName-index), optionally addressing a
+            // SUBCARD of it (zoneName-index.uSub — an upgrade/token/captive; see MZParseSubcardID).
+            // A subcard spec keeps its host's zone + index so every zone-level consumer (which zone
+            // to light up, which host card the choice sits on) keeps working unchanged; `subIndex`
+            // is the extra addressing the renderer and the answer validator use.
+            if (preg_match('/^(.+)-(\d+)(?:\.u(\d+))?$/', $zoneOrCard, $matches)) {
                 // It's a specific card reference
                 $output[] = [
                     'zone' => $matches[1],
                     'specificIndex' => intval($matches[2]),
+                    'subIndex' => (isset($matches[3]) && $matches[3] !== '') ? intval($matches[3]) : null,
                     'original' => $zoneOrCard
                 ];
             } else {
@@ -202,6 +208,7 @@ class DecisionQueueController {
                 $output[] = [
                     'zone' => $zoneOrCard,
                     'specificIndex' => null,
+                    'subIndex' => null,
                     'original' => $zoneOrCard
                 ];
             }
@@ -218,7 +225,9 @@ class DecisionQueueController {
                 // Specific card - validate the actual slot. Live-zone counts cannot
                 // validate sparse arrays because a removed earlier slot shifts the
                 // relationship between an index and the number of live objects.
-                $obj = GetZoneObject($spec['original']);
+                // MZResolveObject (not GetZoneObject) so a subcard spec validates the
+                // SUBCARD's liveness, not merely its host's.
+                $obj = MZResolveObject($spec['original']);
                 if ($obj !== null && !(isset($obj->removed) && $obj->removed)) {
                     $numChoices += 1;
                 }
@@ -234,7 +243,7 @@ class DecisionQueueController {
     private function MZFirstChoiceMzID($zoneStr) {
         foreach ($this->MZParseSpecs($zoneStr) as $spec) {
             if ($spec['specificIndex'] !== null) {
-                $obj = GetZoneObject($spec['original']);
+                $obj = MZResolveObject($spec['original']);
                 if ($obj !== null && !(isset($obj->removed) && $obj->removed)) return $spec['original'];
             } else {
                 if (MZZoneCount($spec['zone']) > 0) return $spec['zone'] . '-0';

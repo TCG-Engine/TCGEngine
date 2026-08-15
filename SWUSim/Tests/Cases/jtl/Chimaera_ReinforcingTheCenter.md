@@ -398,7 +398,7 @@ WithP1SpaceArenaUpgrade: 0:SOR_T02
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:mySpaceArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:mySpaceArena-0.u0
 
 ## EXPECT
 P1SPACEARENACOUNT:2

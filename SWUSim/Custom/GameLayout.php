@@ -782,7 +782,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
        core Card() renderer, driven by the base's HasForce virtual — same path as the
-       Epic-Action-Used token. See Core/UILibraries20260808.js. */
+       Epic-Action-Used token. See Core/UILibraries20260815.js. */
 
     /* ── Counter badges below the frame animations ───────────────────────────────
        The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,
@@ -886,6 +886,22 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         scrollbar-width: thin;
         scrollbar-color: var(--glow) transparent;
     }
+    /* Hover feedback in the HAND: no GEOMETRY change at all — the engine's border/glow does it.
+       The engine gives every selectable card `transform: translateY(-4px) scale(1.04)` on hover
+       (UILibraries, .selectable-card:hover). The hand wrapper clips vertically and HAS to: its
+       `overflow-x: auto` forces the other axis to compute to `auto` rather than `visible`, so
+       overflow-y cannot be opened without turning the hand into a vertical scroller. The 4px lift
+       was being sliced off the top of the card.
+       ⚠ Scaling instead of lifting is NOT enough, and the margin is thinner than it looks: the band
+       is cardsize * 1.475 while a hand card is cardsize * 1.4 PLUS the engine's 2px image border on
+       each edge — about 1px of slack per side at cardsize 80, and only ~0.25px at cardsize 60. Any
+       growth clips at small card sizes. Measured, not assumed.
+       So the hand suppresses the transform entirely; hover still reads clearly because
+       `.selectable-card:hover img` thickens the border and strengthens the glow, which costs no
+       space. Board cards keep the lift — the arenas do not clip. */
+    #myHandWrapper    .selectable-card:hover,
+    #theirHandWrapper .selectable-card:hover { transform: none !important; }
+
     #myHandWrapper::-webkit-scrollbar, #theirHandWrapper::-webkit-scrollbar { height: 7px; }
     #myHandWrapper::-webkit-scrollbar-thumb, #theirHandWrapper::-webkit-scrollbar-thumb {
         background: var(--glow); border-radius: 99px; }

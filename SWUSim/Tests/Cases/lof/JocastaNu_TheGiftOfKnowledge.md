@@ -11,7 +11,7 @@ WithP1GroundArena: SOR_095:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT
@@ -23,7 +23,9 @@ P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
 # OnlyFriendlyUpgradeSelectable
 #// LOF_248 Jocasta Nu — the upgrade to move must be a friendly upgrade on a friendly unit; an upgrade on an
 #// ENEMY unit is not eligible. Here both P1's SOR_046 and P2's SOR_046 carry a SOR_069, but only P1's copy
-#// (myTempZone-0) is selectable. Intended: "assert we can only select the friendly upgrade on a friendly unit."
+#// (myGroundArena-0.u0) is selectable. Intended: "assert we can only select the friendly upgrade on a
+#// friendly unit." The pool is addressed as SUBCARD mzIDs — the upgrade on its host — so the assertion
+#// now also proves WHICH unit the offered upgrade sits on, which the old myTempZone-N form could not.
 
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:3;handCardIds:LOF_248}
@@ -38,7 +40,7 @@ WithP2GroundArenaUpgrade: 0:SOR_069
 - P1>PlayHand:0
 
 ## EXPECT
-P1SELECTABLEEXACT:myTempZone-0
+P1SELECTABLEEXACT:myGroundArena-0.u0
 
 ---
 
@@ -56,7 +58,7 @@ WithP1GroundArena: SOR_095:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 
 ## EXPECT
 P1SELECTABLEEXACT:myGroundArena-1&myGroundArena-2

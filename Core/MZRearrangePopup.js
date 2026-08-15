@@ -437,7 +437,9 @@
     // Try to get card size and folder from window
     const cardSize = window.cardSize || 80;
     const rootPath = window.rootPath || '.';
-    const folder = rootPath + '/concat';
+    // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php); the rootPath form
+    // resolves to the deleted ./SWUSim/concat tree and 404s.
+    const folder = window.assetImageFolder || (rootPath + '/concat');
     
     // Create card image using similar approach to UILibraries
     const imgSrc = folder + '/' + cardId + '.webp';

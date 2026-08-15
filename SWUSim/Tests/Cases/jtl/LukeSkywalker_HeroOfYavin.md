@@ -260,8 +260,7 @@ WithP2Hand: SOR_155
 ## WHEN
 - P2>PlayHand:0
 - P2>AnswerDecision:DefeatUpgrades
-- P2>AnswerDecision:theirSpaceArena-0
-- P2>AnswerDecision:myTempZone-0
+- P2>AnswerDecision:theirSpaceArena-0.u0
 - P2>AnswerDecision:PASS
 - P2>AnswerDecision:Deal4
 - P2>AnswerDecision:myGroundArena-0

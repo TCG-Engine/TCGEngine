@@ -134,7 +134,7 @@ WithP2Resources: 2
 
 ## WHEN
 - P2>PlayHand:0
-- P2>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:theirGroundArena-0.u0
 - P1>PlayHand:0
 - P2>PlayHand:0
 
