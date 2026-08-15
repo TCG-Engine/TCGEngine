@@ -468,3 +468,36 @@ P2DISCARDCOUNT:2
 P1DECKCOUNT:3
 P1DECKTOPCARD:SOR_128
 P1NODECISION
+
+---
+
+# Offer_EnemyUnitsOnlyBothArenas
+#// JTL_041 Annihilator — "You may defeat an ENEMY unit." The pool must cover BOTH enemy arenas and must
+#// exclude every FRIENDLY unit. P1 has a friendly ground unit (SOR_095) and a friendly space unit
+#// (SOR_237) alongside the freshly-played Annihilator; P2 has one unit in each arena. Pool must be
+#// exactly the two enemy units.
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_041
+WithP1Resources: 11
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SPACEARENACOUNT:2
+P1GROUNDARENACOUNT:1
+P1SELECTABLEEXACT:theirGroundArena-0&theirSpaceArena-0

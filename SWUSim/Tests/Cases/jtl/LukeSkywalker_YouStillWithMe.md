@@ -321,7 +321,7 @@ WithP2Hand: SOR_122
 - P1>AnswerDecision:Pilot
 - P2>PlayHand:0
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirSpaceArena-0.u0
 - P1>AnswerDecision:YES
 
 ## EXPECT

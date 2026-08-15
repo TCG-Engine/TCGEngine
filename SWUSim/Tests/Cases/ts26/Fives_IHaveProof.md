@@ -397,7 +397,7 @@ WithP2Deck: [SOR_095 SOR_095]
 - P2>AnswerDecision:Pilot
 - P2>AnswerDecision:mySpaceArena-0
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirSpaceArena-0.u0
 
 ## EXPECT
 P2SPACEARENAUNIT:0:UPGRADECOUNT:1

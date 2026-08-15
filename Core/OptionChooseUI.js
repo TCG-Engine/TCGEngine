@@ -100,7 +100,9 @@
     if (cardIDs && cardIDs.length) {
       const cardsWrap = document.createElement('div');
       cardsWrap.className = 'optchoose-cards';
-      const imgBase = (window.rootPath || '.') + '/concat/';
+      // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php); the rootPath form
+      // resolves to the deleted ./SWUSim/concat tree and 404s.
+      const imgBase = (window.assetImageFolder || ((window.rootPath || '.') + '/concat')) + '/';
       cardIDs.forEach(function(cid) {
         const img = document.createElement('img');
         img.className = 'optchoose-card';

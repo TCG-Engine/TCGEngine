@@ -187,7 +187,7 @@ WithP2Resources: 1
 - P1>DeployLeader
 - P1>AnswerDecision:Pilot
 - P2>PlayHand:0
-- P2>AnswerDecision:myTempZone-0
+- P2>AnswerDecision:theirSpaceArena-0.u0
 
 ## EXPECT
 P1SPACEARENACOUNT:2
@@ -220,7 +220,7 @@ WithP1GroundArenaUpgrade: 2:SOR_122
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-2.u0
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT

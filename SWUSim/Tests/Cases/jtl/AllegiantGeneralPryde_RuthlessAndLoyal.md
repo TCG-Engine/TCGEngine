@@ -21,8 +21,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 - P1>AttackGroundArena:0:BASE
 - P1>AnswerDecision:Opponent
 - P2>AnswerDecision:myGroundArena-0:2
-- P1>AnswerDecision:theirGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:2
@@ -80,3 +79,36 @@ WithP2GroundArena: SOR_046:1:0
 P1NODECISION
 P2BASEDMG:2
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# Offer_NonUniqueUpgradesOnly
+#// JTL_133 Allegiant General Pryde — "When indirect damage is dealt to a unit: you may defeat a
+#// NON-UNIQUE upgrade ON IT." The staged pool must contain only the damaged unit's NON-UNIQUE upgrades:
+#// SOR_120 Academy Training and SOR_069 Resilient qualify, while SOR_136 Vader's Lightsaber (UNIQUE) is
+#// excluded. Pryde attacks, P2 assigns both points of indirect to SOR_046, and P1 picks that host — the
+#// upgrade pick is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1GroundArena: JTL_133:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_120
+WithP2GroundArenaUpgrade: 0:SOR_136
+WithP2GroundArenaUpgrade: 0:SOR_069
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:myGroundArena-0:2
+
+## EXPECT
+P1HASDECISION
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:3
+P1SELECTABLEEXACT:theirGroundArena-0.u0&theirGroundArena-0.u2

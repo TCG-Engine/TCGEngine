@@ -238,3 +238,35 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SHD_147
 P2GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
+
+---
+
+# SimulateRequestBoundary_MultiTargetBlank
+#// JTL_244 There Is No Escape — the "choose up to 3 units" decision ends the request in production, so the
+#// multi-select answer arrives in a fresh process with every transient global empty. Mirrors
+#// MultipleUnitsMixed_LoseAbilities with the boundary inserted before the answer: the pending
+#// multi-select target pool (spanning BOTH sides) and its round-duration blank continuation must survive
+#// serialization for both chosen units to lose their keywords.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_244
+WithP1Resources: 6
+WithP1GroundArena: SOR_035:1:0
+WithP2GroundArena: SHD_147:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0&theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_035
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+P2GROUNDARENAUNIT:0:CARDID:SHD_147
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Saboteur

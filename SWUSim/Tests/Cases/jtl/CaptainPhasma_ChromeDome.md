@@ -82,3 +82,36 @@ P2BASEDMG:1
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:JTL_081
 P1LEADER:EXHAUSTED
+
+---
+
+# SimulateRequestBoundary_PlayedFOThisPhaseFlag
+#// JTL_010 Captain Phasma (leader) — TWO production request boundaries in one line: playing the First
+#// Order card is its own action (request ends, gamestate serialized), and the leader action's "deal 1 to a
+#// base" target choice ends another. So the "you played a First Order card this phase" flag must be
+#// SERIALIZED state, not an in-memory global, and the pending damage decision must survive too. Mirrors
+#// LeaderAction_PlayedFO_DealsBase with a boundary after the play AND before the answer.
+
+## GIVEN
+CommonSetup: grk/bbk/{
+  myLeader:JTL_010;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_081
+WithP1Resources: 1
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:1
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_081
+P1LEADER:EXHAUSTED

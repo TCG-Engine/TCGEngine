@@ -109,3 +109,33 @@ P1SPACEARENAUNIT:0:CARDID:JTL_T01
 P2BASEDMG:1
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# SimulateRequestBoundary_AttackedVehicleThisPhaseFlag
+#// JTL_006 Darth Vader (leader) — no interactive decision here, but the attack and the leader action are
+#// two SEPARATE production actions, so the "you attacked with a non-token Vehicle this phase" flag is
+#// written in one process and read in a fresh one. If that flag lived in a transient global the action
+#// would silently create no token in real games. Mirrors AttackedVehicle_CreatesTIE with the boundary
+#// between the attack and the leader ability.
+
+## GIVEN
+CommonSetup: ggk/bbk/{
+  myLeader:JTL_006;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:1:CARDID:JTL_T01
+P2BASEDMG:2
+P1LEADER:EXHAUSTED

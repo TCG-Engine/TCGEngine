@@ -82,7 +82,7 @@ WithP2SpaceArena: JTL_069:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT

@@ -12,7 +12,7 @@ WithP1GroundArena: SOR_095:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-1.u0
 - P1>AnswerDecision:myGroundArena-2
 
 ## EXPECT
@@ -36,7 +36,7 @@ WithP1GroundArena: SOR_095:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT
@@ -61,7 +61,7 @@ WithP2GroundArena: SOR_095:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 - P1>AnswerDecision:theirGroundArena-1
 
 ## EXPECT
@@ -89,7 +89,7 @@ WithP2GroundArena: SOR_063:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P1SELECTABLEEXACT:theirGroundArena-1&theirGroundArena-2

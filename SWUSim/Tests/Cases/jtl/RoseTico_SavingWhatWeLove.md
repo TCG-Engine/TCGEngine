@@ -107,3 +107,33 @@ P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:DAMAGE:2
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# SimulateRequestBoundary_AttackedThisPhaseFlagSurvives
+#// JTL_004 Rose Tico (leader) — Rose's action heals only a Vehicle "that attacked this phase". The attack
+#// and the leader action are two separate player actions, so in production the flag is written in one
+#// process and read in a fresh one. Mirrors LeaderAction_HealsVehicleThatAttacked with the boundary
+#// between the two actions: the X-Wing must still be remembered as having attacked, so the heal still
+#// clears its 2 damage.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:2
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:DAMAGE:0
+P2BASEDMG:2
+P1LEADER:EXHAUSTED

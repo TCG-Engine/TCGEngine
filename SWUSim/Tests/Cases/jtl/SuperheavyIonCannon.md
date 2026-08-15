@@ -80,3 +80,37 @@ WithP1Resources: 20
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_227
 P1HANDCOUNT:0
+
+
+---
+
+# Offer_DefendingPlayersNonLeaderUnitsAnyArena
+#// JTL_227 Superheavy Ion Cannon — the granted "You may exhaust a NON-LEADER unit the DEFENDING PLAYER
+#// controls" offer is scoped by controller and leader-ness but NOT by arena. Attacking from space, P1
+#// must be offered the defender's ground trooper AND their space fighter, but neither P1's own units
+#// (the attacking frigate, the friendly marine) nor the defender's DEPLOYED LEADER unit. The decision is
+#// a "may" and is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021;
+  theirLeaderDeployed:true
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_069:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_227
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:NOTLEADERUNIT
+P2GROUNDARENAUNIT:1:ISLEADERUNIT
+P1HASDECISION
+P1SELECTABLEEXACT:theirGroundArena-0&theirSpaceArena-0

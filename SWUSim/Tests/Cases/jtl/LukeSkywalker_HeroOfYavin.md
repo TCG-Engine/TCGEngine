@@ -260,8 +260,7 @@ WithP2Hand: SOR_155
 ## WHEN
 - P2>PlayHand:0
 - P2>AnswerDecision:DefeatUpgrades
-- P2>AnswerDecision:theirSpaceArena-0
-- P2>AnswerDecision:myTempZone-0
+- P2>AnswerDecision:theirSpaceArena-0.u0
 - P2>AnswerDecision:PASS
 - P2>AnswerDecision:Deal4
 - P2>AnswerDecision:myGroundArena-0
@@ -271,3 +270,35 @@ P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_012
 P1LEADER:DEPLOYED
 P2GROUNDARENAUNIT:0:DAMAGE:4
+
+---
+
+# SimulateRequestBoundary_AttackedFighterThisPhaseFlag
+#// JTL_012 Luke Skywalker (leader) — "If you attacked with a Fighter unit this phase" is a flag written by
+#// the ATTACK action and read by a LATER leader-ability action. In production those are two separate
+#// requests, so the flag must live in the serialized gamestate; if it were an in-memory global, Luke's
+#// action would silently no-op in real games. Mirrors AttackedFighter_DealsUnit with a request boundary
+#// between the Fighter's attack and the leader action.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>UseLeaderAbility
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P2BASEDMG:2
+P1LEADER:EXHAUSTED

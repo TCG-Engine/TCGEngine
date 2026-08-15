@@ -72,3 +72,31 @@ WithP2Resources: 8
 ## EXPECT
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P2BASEDMG:0
+
+---
+
+# SimulateRequestBoundary_UpgradeAttackOffer
+#// JTL_202 Black Squadron Scout Wing — the "you may attack with it" YES/NO offer ends the request in
+#// production, so the answer arrives in a fresh process. The offer has to remember WHICH unit the upgrade
+#// landed on (and that it is still able to attack) across serialization. Mirrors UpgradePlayed_Attack with
+#// the boundary inserted before the YES: the attack must still happen for 4+1=5.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_069
+WithP1Resources: 5
+WithP1SpaceArena: JTL_202:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2BASEDMG:5
+P1SPACEARENAUNIT:0:EXHAUSTED

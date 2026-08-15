@@ -9,8 +9,15 @@
 //     test fatals → ~1000 phantom failures.
 //
 // Run it INSIDE the swusim web container (its PHP, not the host's):
-//   docker exec -w /var/www/html/TCGEngine swustats-swusim-web-server-1 \
-//     php -d xdebug.mode=off .claude/skills/swusim-debug-game/scripts/run-schema-tests.php [args]
+//   docker exec -w /var/www/html/TCGEngine -e XDEBUG_MODE=off swustats-swusim-web-server-1 \
+//     php .claude/skills/swusim-debug-game/scripts/run-schema-tests.php [args]
+//
+// ⚠ USE THE ENV VAR, NOT `php -d xdebug.mode=off` — measured 2026-08-14: the `-d` form is ~2.8x
+// SLOWER (full suite 32.6s vs 11.7s, reproducible). `xdebug.mode` is read by the extension at
+// startup, so a `-d` override lands too late to stop the step-debugger's per-process connection
+// attempt to host.docker.internal:9003 — which is both the cost AND the stray
+// "Xdebug: [Step Debug] Could not connect to debugging client" line every caller has to filter.
+// XDEBUG_MODE is read by Xdebug itself during init and genuinely disables it.
 //
 // Modes:
 //   (no args)                    → run the FULL suite (authoritative regression count).

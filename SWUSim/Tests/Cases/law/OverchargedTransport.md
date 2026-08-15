@@ -11,8 +11,7 @@ WithP1Hand: LAW_195
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirSpaceArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirSpaceArena-0.u0
 
 ## EXPECT
 P2SPACEARENAUNIT:0:CARDID:SOR_237
@@ -69,8 +68,7 @@ WithP2SpaceArenaUpgrade: 0:SOR_120
 - P2>PlayHand:0
 - P2>AnswerDecision:theirSpaceArena-0
 - P1>Drain
-- P1>AnswerDecision:theirSpaceArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirSpaceArena-0.u0
 
 ## EXPECT
 P1SPACEARENACOUNT:0
@@ -101,8 +99,7 @@ WithP1SpaceArenaUpgrade: 1:SOR_120
 ## WHEN
 - P2>PlayHand:0
 - P2>AnswerDecision:theirSpaceArena-0
-- P2>AnswerDecision:theirSpaceArena-0
-- P2>AnswerDecision:myTempZone-0
+- P2>AnswerDecision:theirSpaceArena-0.u0
 
 ## EXPECT
 P1SPACEARENACOUNT:1

@@ -87,8 +87,11 @@ function ShowIconChoiceUI(param, tooltip, decisionIndex, submitCallback) {
       cardImg.style.cssText = 'width:170px;height:240px;border-radius:8px;overflow:hidden;box-shadow:0 0 16px rgba(100,200,255,0.3);border:2px solid #334;position:relative;';
 
       if (cardID) {
+        // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php). The reflection
+        // form builds ./SWUSim/concat/, a tree the shared-corpus migration DELETED → 404.
         var rootPath = (typeof AssetReflectionPath === 'function') ? AssetReflectionPath() : '';
-        var imgUrl = './' + rootPath + '/concat/' + cardID + '.webp';
+        var artBase = window.assetImageFolder || ('./' + rootPath + '/concat');
+        var imgUrl = artBase + '/' + cardID + '.webp';
         cardImg.style.backgroundImage = 'url(' + imgUrl + ')';
         cardImg.style.backgroundSize = 'cover';
         cardImg.style.backgroundPosition = 'center';

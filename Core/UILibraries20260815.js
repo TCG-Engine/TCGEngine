@@ -1484,10 +1484,17 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             }
             let submittedCardId = cardId;
             const specs = window.SelectionMode.inlineSpecs || window.SelectionMode.allowedZones || [];
-            const match = /^(.+)-(\d+)$/.exec(cardId || '');
+            // The optional ".uN" tail addresses a SUBCARD of the card at index N (an upgrade or token
+            // on a unit). It must be matched against the spec's subIndex too — otherwise a click on an
+            // offered upgrade would remap to whichever spec merely shares its HOST, submitting the
+            // wrong target (or the host itself).
+            const match = /^(.+)-(\d+)(?:\.u(\d+))?$/.exec(cardId || '');
             if (match) {
               const cardIndex = parseInt(match[2], 10);
-              const matchingSpec = specs.find(spec => spec && spec.isSpecificCard && spec.zone === zoneName && spec.specificIndex === cardIndex);
+              const subIndex = (match[3] !== undefined) ? parseInt(match[3], 10) : null;
+              const matchingSpec = specs.find(spec => spec && spec.isSpecificCard && spec.zone === zoneName
+                && spec.specificIndex === cardIndex
+                && ((spec.subIndex === null || spec.subIndex === undefined) ? subIndex === null : spec.subIndex === subIndex));
               if (matchingSpec && matchingSpec.originalSpec) {
                 submittedCardId = matchingSpec.originalSpec;
               }
@@ -1816,7 +1823,10 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             // overlaps and hides the base card. Emptying the list skips every inline render below
             // (slivers, lineage stack, shield orbs) without throwing into the enclosing catch.
             if (subcardFlow === 'Badge') subcards = [];
-            var shieldCount = 0, sliverIdx = 0, lineageCards = [];
+            // shieldSubIdx holds the RAW Subcards key of each Shield token rather than a bare count:
+            // a Shield is a legal target for upgrade-targeting effects (JTL_242 et al), and two
+            // Shields on one unit are distinguishable ONLY by that key. A count cannot address them.
+            var shieldSubIdx = [], sliverIdx = 0, lineageCards = [];
             var sliver = 18; // px each SWU subcard sliver shows below the unit card
             // Vertical anchor (object-position-y) for a pilot sliver — unit pilots (full portrait) and
             // leader pilots (_back side) share the same layout: the +X/+Y "while attached" band sits ~88%
@@ -1831,7 +1841,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
               if (sc && (sc.removed === true || sc.removed === 'true')) continue;
               var scID = (typeof sc === 'string') ? sc : (sc && sc.CardID ? sc.CardID : null);
               if (!scID || scID === '-') continue;
-              if (scID === 'SOR_T02') { shieldCount++; continue; }
+              if (scID === 'SOR_T02') { shieldSubIdx.push(si); continue; }
               // SOR_T01 (Experience) renders as a normal peek-from-below upgrade sliver; its concat image's
               // bottom band carries the +1/+1 stat boxes (see zzImageConverter Token-Upgrade crop), so the
               // sliver shows +1/+1 just like a real upgrade. SWU arenas are Flow=Below, so it falls through
@@ -1871,11 +1881,20 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
               var objPos = scIsCaptive ? 'top center' : (scIsPilot ? ('center ' + pilotAnchorPct + '%') : 'bottom center');
               var bRadius = scIsCaptive ? '4px 4px 0 0' : '0 0 4px 4px';
               var bottomOffset = (li + 1) * sliver;
-              newHTML += "<img data-subcard-id='" + scID + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
-                + "loading='lazy' class='lineage-subcard subcard-below' "
+              // A sliver is individually selectable when the pending decision offers THIS subcard
+              // ("<zone>-<hostIdx>.u<subIdx>"). The id doubles as the mzID submitted on click, so the
+              // answer names the upgrade AND its host with no side lookup.
+              var subMzID = zone + "-" + i + ".u" + si;
+              var subSelectable = selectionModeActive && typeof IsSelectableSubcard === 'function'
+                && IsSelectableSubcard(zone, i, si);
+              newHTML += "<img data-subcard-id='" + scID + "' data-mzid='" + subMzID + "'"
+                + (subSelectable ? " id='" + subMzID + "' onclick='event.stopPropagation(); OnSelectableCardClick(\"" + zone + "\", \"" + subMzID + "\");'" : "")
+                + " onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
+                + "loading='lazy' class='lineage-subcard subcard-below" + (subSelectable ? " selectable-subcard" : "") + "' "
                 + "style='position:absolute; bottom:-" + bottomOffset + "px; left:0; width:" + size + "px; height:" + sliver + "px; "
                 + "object-fit:cover; object-position:" + objPos + "; border-radius:" + bRadius + "; "
-                + "border:1px solid rgba(255,255,255,0.18); z-index:-" + (li + 1) + "; pointer-events:auto;' "
+                + "border:1px solid rgba(255,255,255,0.18); z-index:" + (subSelectable ? "6" : "-" + (li + 1)) + "; "
+                + "pointer-events:auto;' "
                 + "src='" + lineageSrc + "' alt='Upgrade' />";
             }
             // Non-SWU "ga" lineage cards — up to 3 visible as offset images above, plus a "+N" overflow popup.
@@ -1905,11 +1924,23 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
                 + " onmousedown='event.stopPropagation()' onclick='event.preventDefault(); event.stopPropagation(); return false;'"
                 + " tabindex='0' role='button' aria-label='Show hidden lineage cards'>+" + hiddenLineageCount + "</span>";
             }
-            // Shield token orbs — stacked in top-right corner
-            for (var shi = 0; shi < shieldCount; shi++) {
+            // Shield token orbs — stacked in top-right corner. Each orb is one Subcards entry, so it
+            // carries that entry's raw key and becomes individually clickable when an upgrade-targeting
+            // effect offers it (a Shield IS a token upgrade). Non-selectable orbs stay pointer-events:none
+            // decorations exactly as before.
+            for (var shi = 0; shi < shieldSubIdx.length; shi++) {
+              var shSub = shieldSubIdx[shi];
+              var shMzID = zone + "-" + i + ".u" + shSub;
+              var shSelectable = selectionModeActive && typeof IsSelectableSubcard === 'function'
+                && IsSelectableSubcard(zone, i, shSub);
               // counter-image-icon: marks this as a status-overlay icon so the selectable-card green
-              // border/glow rule (.selectable-card img:not(.counter-image-icon)) skips the shield orb.
-              newHTML += "<img class='counter-image-icon' title='Shield' loading='lazy' style='position:absolute; top:4px; right:" + (4 + shi * 20) + "px; width:20px; height:20px; z-index:5; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.6)); pointer-events:none;' src='./Assets/Icons/space-shield.svg' />";
+              // border/glow rule (.selectable-card img:not(.counter-image-icon)) skips the shield orb —
+              // the HOST being selectable must never make its shields look selectable. When the shield
+              // itself is the offered target, selectable-subcard supplies its own highlight.
+              newHTML += "<img class='counter-image-icon" + (shSelectable ? " selectable-subcard" : "") + "'"
+                + " data-mzid='" + shMzID + "'"
+                + (shSelectable ? " id='" + shMzID + "' onclick='event.stopPropagation(); OnSelectableCardClick(\"" + zone + "\", \"" + shMzID + "\");'" : "")
+                + " title='Shield' loading='lazy' style='position:absolute; top:4px; right:" + (4 + shi * 20) + "px; width:20px; height:20px; z-index:" + (shSelectable ? "7" : "5") + "; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.6)); pointer-events:" + (shSelectable ? "auto" : "none") + ";' src='./Assets/Icons/space-shield.svg' />";
             }
           }
         } catch (e) {
@@ -2828,11 +2859,42 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             overflow: visible !important;
           }
 
-          /* Lineage subcard images must not inherit the selectable highlight */
-          .selectable-card .lineage-subcard {
+          /* Lineage subcard images must not inherit the selectable highlight — a selectable HOST must
+             not make its attached upgrades look selectable. :not(.selectable-subcard) carves out the
+             case where the SUBCARD is itself the offered target, which owns the rule below. */
+          .selectable-card .lineage-subcard:not(.selectable-subcard) {
             border: 1px solid transparent !important;
             box-shadow: none !important;
             transform: none !important;
+          }
+
+          /* An individually-offered subcard: an upgrade sliver or shield orb the pending decision
+             targets ("<zone>-<hostIdx>.u<subIdx>"). It highlights IN PLACE on its host so the player
+             can see which unit it is attached to — the whole point of addressing subcards directly
+             instead of listing bare card art in a popup. Amber rather than the host's lime so the two
+             kinds of target never read as the same thing on a board showing both. */
+          .selectable-subcard {
+            cursor: pointer;
+            border: 1px solid rgba(252, 211, 77, 0.95) !important;
+            box-shadow: 0 0 0 2px rgba(252, 211, 77, 0.55), 0 0 12px 2px rgba(252, 211, 77, 0.45) !important;
+            border-radius: 4px;
+            animation: swuSubcardTargetPulse 1.6s ease-in-out infinite;
+            transition: box-shadow 200ms ease, filter 160ms ease;
+          }
+          .selectable-subcard:hover {
+            filter: brightness(1.25);
+            box-shadow: 0 0 0 3px rgba(252, 211, 77, 0.85), 0 0 18px 4px rgba(252, 211, 77, 0.6) !important;
+          }
+          @keyframes swuSubcardTargetPulse {
+            0%, 100% { box-shadow: 0 0 0 2px rgba(252, 211, 77, 0.45), 0 0 10px 2px rgba(252, 211, 77, 0.35); }
+            50%      { box-shadow: 0 0 0 3px rgba(252, 211, 77, 0.80), 0 0 16px 4px rgba(252, 211, 77, 0.60); }
+          }
+          /* A shield orb is round; keep its highlight round too. */
+          img.counter-image-icon.selectable-subcard {
+            border-radius: 50%;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .selectable-subcard { animation: none; }
           }
 
           .selectable-card {
@@ -4789,7 +4851,9 @@ function ShowScryPanel(entry, decisionIndex, onSubmit) {
   const topCards = [];
   const bottomCards = [];
   let remaining = cardIDs.slice();
-  const imgBase = (window.rootPath || '.') + '/concat/';
+  // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php); the rootPath form
+  // resolves to the deleted ./SWUSim/concat tree and 404s.
+  const imgBase = (window.assetImageFolder || ((window.rootPath || '.') + '/concat')) + '/';
 
   function render() {
     const existing = document.getElementById('scry-panel');
@@ -4860,7 +4924,9 @@ function ShowRevealArrangePanel(entry, decisionIndex, onSubmit) {
   const topCards = [];
   const discardCards = [];
   let remaining = cardIDs.slice();
-  const imgBase = (window.rootPath || '.') + '/concat/';
+  // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php); the rootPath form
+  // resolves to the deleted ./SWUSim/concat tree and 404s.
+  const imgBase = (window.assetImageFolder || ((window.rootPath || '.') + '/concat')) + '/';
   const titleText = (entry.Tooltip && entry.Tooltip !== '-')
     ? entry.Tooltip.replace(/_/g, ' ').toUpperCase()
     : 'DISCARD ANY, PUT THE REST BACK ON TOP';
@@ -4953,7 +5019,9 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
     if (kv.length === 2) costLookup[kv[0].trim()] = parseInt(kv[1], 10) || 0;
   });
 
-  const imgBase = (window.rootPath || '.') + '/concat/';
+  // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php); the rootPath form
+  // resolves to the deleted ./SWUSim/concat tree and 404s.
+  const imgBase = (window.assetImageFolder || ((window.rootPath || '.') + '/concat')) + '/';
   const selectedIndices = new Set(); // indices into allIDs — each physical copy has a unique slot
 
   function getCardCost(cardID) {
@@ -5163,13 +5231,20 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
           });
         }
 
-        // Check if this is a specific card reference (zoneName-index)
-        const cardMatch = zoneOrCard.match(/^(.+)-(\d+)$/);
+        // Check if this is a specific card reference (zoneName-index), optionally addressing a
+        // SUBCARD of it (zoneName-index.uSub — an upgrade/token attached to that card; see
+        // MZParseSubcardID in Core/CoreZoneModifiers.php for the server-side form).
+        // A subcard spec keeps its HOST's zone + index so every zone-level consumer keeps working;
+        // `subIndex` is the extra addressing the renderer and the click handler use. It is null for
+        // an ordinary card spec, which is what distinguishes "select this unit" from "select the
+        // upgrade attached to this unit".
+        const cardMatch = zoneOrCard.match(/^(.+)-(\d+)(?:\.u(\d+))?$/);
         if (cardMatch) {
           // Specific card reference
           return {
             zone: cardMatch[1],
             specificIndex: parseInt(cardMatch[2], 10),
+            subIndex: (cardMatch[3] !== undefined) ? parseInt(cardMatch[3], 10) : null,
             filters: filters,
             isSpecificCard: true,
             originalSpec: spec,
@@ -5180,6 +5255,7 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
           // Zone reference (any card in zone)
           return {
             zone: zoneOrCard,
+            subIndex: null,
             filters: filters,
             isSpecificCard: false,
             originalSpec: spec,
@@ -5486,6 +5562,14 @@ function ClearSelectionMode() {
     InvalidateRenderedZoneHTMLCache(el);
     el.classList.remove('selectable-card');
     el.classList.remove('pulse');
+    el.onclick = null;
+  });
+  // Same for individually-offered SUBCARDS (upgrade slivers / shield orbs). They are not
+  // .selectable-card elements — they live INSIDE one — so the sweep above never reaches them, and a
+  // leftover amber glow would advertise a target for a decision that is already answered.
+  document.querySelectorAll('.selectable-subcard').forEach(el => {
+    InvalidateRenderedZoneHTMLCache(el);
+    el.classList.remove('selectable-subcard');
     el.onclick = null;
   });
   HideSelectionMessage();
@@ -6176,6 +6260,12 @@ function IsSelectableCard(zone, cardArr, index) {
       if (spec.actionPayload) continue;
       if (spec.zone !== zone) continue;
 
+      // A SUBCARD spec ("myGroundArena-0.u2") names an upgrade/token attached to the card at
+      // specificIndex — NOT the card itself. Without this guard the host unit would light up and be
+      // clickable, and clicking it would submit the host's plain mzID, which the offer never
+      // contained. Subcard selectability is answered by IsSelectableSubcard() instead.
+      if (spec.subIndex !== null && spec.subIndex !== undefined) continue;
+
       // If this is a specific card reference, check the index matches exactly
       if (spec.isSpecificCard) {
         if (spec.specificIndex !== index) continue;
@@ -6236,6 +6326,34 @@ function IsSelectableCard(zone, cardArr, index) {
     return false;
   } catch (e) {
     if (console && console.error) console.error('IsSelectableCard error', e);
+    return false;
+  }
+}
+
+// Is the SUBCARD at Subcards[subIndex] of the card at <zone>-<hostIndex> an offered choice?
+// The subcard counterpart of IsSelectableCard: it answers for the upgrade/token attached to a unit
+// rather than for the unit, so an effect that targets an upgrade can highlight it in place — on the
+// board, on its host — instead of pulling a context-free card-art popup with no host association.
+// Filters are deliberately NOT evaluated here: subcard specs are emitted as fully-resolved explicit
+// candidates by the server (SWUQueueMoveUpgrade et al), and the client holds no subcard JSON to
+// filter on. Matching is by address alone.
+function IsSelectableSubcard(zone, hostIndex, subIndex) {
+  try {
+    if (!window.SelectionMode || !window.SelectionMode.active) return false;
+    const specs = window.SelectionMode.inlineSpecs || window.SelectionMode.allowedZones || [];
+    for (let si = 0; si < specs.length; ++si) {
+      const spec = specs[si];
+      if (!spec || !spec.zone) continue;
+      if (spec.actionPayload) continue;
+      if (spec.subIndex === null || spec.subIndex === undefined) continue;
+      if (spec.zone !== zone) continue;
+      if (spec.specificIndex !== hostIndex) continue;
+      if (spec.subIndex !== subIndex) continue;
+      return true;
+    }
+    return false;
+  } catch (e) {
+    if (console && console.error) console.error('IsSelectableSubcard error', e);
     return false;
   }
 }
@@ -6557,7 +6675,9 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
 
     // Use the Card() function to generate the card HTML
     // Card(cardNumber, folder, maxHeight, action, showHover, overlay, borderColor, counters, ...)
-    const folder = rootPath + '/concat';
+    // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php). rootPath + '/concat'
+    // is ./SWUSim/concat, deleted by the shared-corpus migration → 404 → broken card art.
+    const folder = window.assetImageFolder || (rootPath + '/concat');
     const renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
     const cardHTML = renderCardFn(cardNumber, folder, cardSize, 0, 0, 0, 0, counters);
     cardImgContainer.innerHTML = cardHTML;

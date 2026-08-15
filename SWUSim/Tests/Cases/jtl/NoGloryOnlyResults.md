@@ -132,3 +132,38 @@ WithP1Hand: JTL_043
 P1HANDCOUNT:0
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:JTL_043
+
+---
+
+# Offer_AnyNonLeaderUnit_BothLeadersExcluded
+#// JTL_043 No Glory, Only Results — "Take control of a NON-LEADER UNIT, then defeat it." The pool spans both
+#// controllers and both arenas (the friendly case is exercised by TargetFriendlyUnit_...), but leaders are
+#// excluded on BOTH sides. Board seeds a friendly ground unit (SOR_046), an enemy ground unit (SOR_095) and an
+#// enemy SPACE unit (SOR_225) — all offered — plus BOTH leaders DEPLOYED (P1's JTL_001 at myGroundArena-1 and
+#// P2's JTL_002 at theirGroundArena-1, each proven present by the arena counts), neither of which may appear.
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001:1:1;
+  theirBase:SOR_021;
+  theirLeader:JTL_002:1:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_043
+WithP1Resources: 13
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:JTL_001
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:1:CARDID:JTL_002
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0&theirSpaceArena-0

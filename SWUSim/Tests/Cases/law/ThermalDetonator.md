@@ -63,7 +63,7 @@ WithP2Resources: 3
 ## WHEN
 - P1>Pass
 - P2>PlayHand:0
-- P2>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1

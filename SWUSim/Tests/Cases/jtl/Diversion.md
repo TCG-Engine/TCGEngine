@@ -20,3 +20,31 @@ WithP1GroundArena: SOR_095:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# SimulateRequestBoundary_SentinelTargetSurvivesRoundTrip
+#// JTL_229 Diversion — choosing which unit gets Sentinel ends the request in production, so the answer
+#// arrives in a fresh process where every non-serialized global is empty. Mirrors GiveSentinel with the
+#// boundary inserted before the target answer.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_229
+WithP1Resources: 1
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel

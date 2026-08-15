@@ -125,3 +125,30 @@ WithP1GroundArena: SOR_095:1:0
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 P1GROUNDARENAUNIT:1:CARDID:SOR_140
+
+---
+
+# SimulateRequestBoundary_SaboteurSuppressionSurvivesRoundTrip
+#// JTL_077 In the Heat of Battle — the "loses Saboteur for this phase" continuous effect is written by one
+#// action and must still suppress a Saboteur GRANTED by a later action. In production those are two
+#// separate requests, so the phase-duration effect must live in the gamestate. Mirrors
+#// RegainSaboteurSuppressed with the boundary between the event and the upgrade.
+
+## GIVEN
+CommonSetup: brw/bbk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [JTL_077 SOR_166]
+WithP1Resources: 6
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_166
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Saboteur

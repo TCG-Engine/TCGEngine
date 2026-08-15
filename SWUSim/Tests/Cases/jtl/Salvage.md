@@ -57,3 +57,32 @@ P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:JTL_221
 P1SPACEARENAUNIT:0:DAMAGE:1
 P1DISCARDCOUNT:2
+
+---
+
+# ControlChange_StolenVehicleLandsInOwnersDiscard
+#// JTL_121 Salvage — "Play a Vehicle unit from YOUR discard pile (paying its cost)." A unit stolen with
+#// JTL_043 No Glory, Only Results is defeated while the THIEF controls it, but it goes to its OWNER's
+#// discard pile, so it must never show up in the thief's Salvage offer. P1 steals and defeats P2's
+#// SOR_237 Alliance X-Wing (a Vehicle), then plays Salvage: the only legal target is P1's OWN JTL_221
+#// Stolen AT-Hauler, so the mandatory choose auto-resolves — P1NODECISION is what proves the
+#// enemy-owned X-Wing was not offered as a second option — and the X-Wing stays in P2's discard.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:20;handCardIds:JTL_043,JTL_121;discardCardIds:JTL_221}
+P1OnlyActions: true
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0            # JTL_043 No Glory, Only Results — lone target auto-resolves
+- P1>PlayHand:0            # JTL_121 Salvage
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_221
+P1SPACEARENAUNIT:0:DAMAGE:1
+P1NODECISION
+P1DISCARDCOUNT:2
+P2SPACEARENACOUNT:0
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:SOR_237

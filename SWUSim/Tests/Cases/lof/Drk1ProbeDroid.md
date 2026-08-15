@@ -10,8 +10,7 @@ WithP2GroundArenaUpgrade: 0:SOR_069
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
@@ -31,8 +30,7 @@ WithP1GroundArenaUpgrade: 0:SOR_069
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
@@ -58,4 +56,4 @@ WithP1GroundArenaUpgrade: 1:SOR_069
 
 ## EXPECT
 P1HASDECISION
-P1SELECTABLEEXACT:myGroundArena-1
+P1SELECTABLEEXACT:myGroundArena-1.u0

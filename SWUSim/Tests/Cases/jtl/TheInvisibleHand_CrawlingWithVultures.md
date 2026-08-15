@@ -114,3 +114,42 @@ P1SPACEARENACOUNT:1
 P1GROUNDARENACOUNT:1
 P1DECKCOUNT:2
 P1NODECISION
+
+---
+
+# ControlChange_SearchesTheNewControllersDeck
+#// JTL_089 The Invisible Hand — "When this unit completes an attack (and survives): You may search the top
+#// 8 cards of YOUR deck for a Droid unit, reveal it, and draw it." Under SOR_224 Change of Heart the NEW
+#// controller resolves the trigger, so "your deck" is the THIEF's deck, not the original owner's. P1 steals
+#// P2's Invisible Hand (P2's SOR_046 keeps the take-control choose interactive) and attacks P2's base. The
+#// only Droid P1 may reach is its own LOF_158 Hyena Bomber (cost 3 → draw-only, no free-play branch);
+#// P2's deck also holds a Droid (SEC_080, cost 2) which must NOT be reachable — P2's deck count and hand
+#// stay exactly as seeded, and P1's deck is the one that loses the card.
+
+## GIVEN
+CommonSetup: yrw/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Hand: SOR_224
+WithP1Deck: [LOF_158 SOR_095 SOR_237]
+WithP2Deck: [SEC_080 SOR_095 SOR_237]
+WithP2SpaceArena: JTL_089:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:LOF_158
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_089
+P2BASEDMG:6
+P1HANDCOUNT:1
+P1DECKCOUNT:2
+P1DISCARDCOUNT:1
+P2DECKCOUNT:3
+P2HANDCOUNT:0
+P1NODECISION

@@ -123,3 +123,31 @@ WithP2GroundArena: SOR_128:1:0
 P1SPACEARENAUNIT:0:CARDID:JTL_147
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENACOUNT:0
+
+---
+
+# Offer_AnyUnitEitherArenaIncludingSelf
+#// JTL_147 Black One — "you may deal 1 damage to A UNIT". The printed text puts NO restriction on side
+#// or arena, so the pool must be EVERY unit in play — friendly and enemy, ground and space — including
+#// the attacking Black One itself. Board: Black One + an enemy space unit (space), a friendly and an
+#// enemy ground unit (ground). Poe (JTL_013) is P1's leader, so the "if you control Poe Dameron" gate
+#// is met. The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:JTL_013;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_147:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:mySpaceArena-0&myGroundArena-0&theirGroundArena-0&theirSpaceArena-0

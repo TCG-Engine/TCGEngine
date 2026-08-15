@@ -61,8 +61,7 @@ P1OnlyActions: true
 ## WHEN
 - P1>AttackGroundArena:0:BASE
 - P1>PlayHand:1
-- P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-2
 - P1>AnswerDecision:theirGroundArena-0
@@ -85,8 +84,7 @@ WithP2GroundArena: SOR_232:1:0
 P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:1
-- P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>PlayHand:0
 - P1>AnswerDecision:theirGroundArena-0
 ## EXPECT
@@ -108,8 +106,7 @@ P1OnlyActions: true
 ## WHEN
 - P1>AttackGroundArena:0:BASE
 - P1>PlayHand:1
-- P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:-
@@ -132,8 +129,7 @@ WithP2GroundArena: SEC_066:1:0
 P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>AttackGroundArena:1:0
 - P1>AnswerDecision:myGroundArena-0
 ## EXPECT

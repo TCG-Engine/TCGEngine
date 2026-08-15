@@ -228,3 +228,29 @@ WithP2SpaceArena: SOR_237:1:0
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:JTL_221
 P1DISCARDUNIT:0:MODIFIER:
+
+---
+
+# SimulateRequestBoundary_FreePlayPermission
+#// JTL_221 Stolen AT-Hauler — the When Defeated grant raises no decision (one opponent), but production
+#// ends the request at every ACTION, so the "for this phase they may play this from its owner's discard for
+#// free" permission is written by P2's attack and read by P2's next action in a fresh process. Mirrors
+#// OpponentPlaysForFree with the boundary inserted between the defeating attack and the free play: the
+#// OTPF modifier on P1's discard entry must survive serialization so P2 (0 resources) can still play it.
+
+## GIVEN
+CommonSetup: grw/grw
+WithP1SpaceArena: JTL_221:1:3
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>Pass
+- P2>AttackSpaceArena:0:0
+- P2>SimulateRequestBoundary
+- P2>PlayFromOpponentDiscard:0
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:JTL_221
+P1DISCARDCOUNT:0
+P2RESAVAILABLE:0

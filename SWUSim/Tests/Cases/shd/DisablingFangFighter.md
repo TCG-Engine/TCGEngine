@@ -9,7 +9,7 @@ WithP2GroundArenaUpgrade: 0:SOR_T01
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P1SPACEARENACOUNT:1

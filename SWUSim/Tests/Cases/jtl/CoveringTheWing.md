@@ -56,3 +56,33 @@ P1SPACEARENAUNIT:1:CARDID:JTL_T02
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+
+---
+
+# Offer_ShieldPoolIsAnyUnitExceptTheNewXWing
+#// JTL_076 Covering the Wing — "Create an X-Wing token. You may give a Shield token to ANOTHER unit."
+#// "Another" is relative to the freshly created X-Wing, and the shield is NOT restricted to friendly
+#// units. The pool must therefore be the friendly SOR_095 AND the enemy SOR_046, while excluding the
+#// just-created X-Wing at mySpaceArena-0. The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_076
+WithP1Resources: 2
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_T02

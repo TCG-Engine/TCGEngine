@@ -131,3 +131,29 @@ P2SPACEARENAUNIT:0:DAMAGE:0
 P2BASEDMG:0
 P1DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# Offer_DefeatPoolIsFriendlySpaceUnitsOnly
+#// JTL_127 Lightspeed Assault — "Defeat a FRIENDLY SPACE unit…". The first choice enforces both halves:
+#// arena and controller. Board: friendly JTL_069 and friendly SOR_237 are both in the space arena and
+#// belong in the pool; the friendly SOR_095 sits in the GROUND arena (wrong arena) and the enemy
+#// SOR_225 sits in the space arena (wrong controller) — neither may be offered, even though the enemy
+#// space unit IS the legal target of the ability's second half.
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:8;handCardIds:JTL_127}
+P1OnlyActions: true
+WithP1SpaceArena: JTL_069:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Defeat_a_friendly_space_unit
+P1SELECTABLEEXACT:mySpaceArena-0&mySpaceArena-1

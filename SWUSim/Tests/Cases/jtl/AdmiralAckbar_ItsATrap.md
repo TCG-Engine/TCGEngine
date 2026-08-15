@@ -193,3 +193,33 @@ P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P2BASEDMG:3
 P1LEADER:DEPLOYED
+
+---
+
+# Offer_LeaderActionExcludesDeployedLeader
+#// JTL_016 Admiral Ackbar — Action [1 resource, Exhaust]: "Exhaust a NON-LEADER unit." The pool spans
+#// BOTH arenas and BOTH controllers, but a deployed LEADER unit must be excluded. P2's leader (SOR_010)
+#// is deployed and sorts LAST in their ground arena, next to a plain enemy unit; P1 has a friendly space
+#// unit. Pool must be exactly the two non-leader units.
+#// The decision is left PENDING so the offer itself is asserted.
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_019;
+  theirLeader:SOR_010;
+  theirLeaderDeployed:true;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:mySpaceArena-0&theirGroundArena-0

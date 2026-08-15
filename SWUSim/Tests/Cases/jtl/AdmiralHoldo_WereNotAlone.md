@@ -164,3 +164,36 @@ P1SPACEARENAUNIT:0:CARDID:JTL_069
 P1SPACEARENAUNIT:0:POWER:8
 P1SPACEARENAUNIT:0:HP:11
 P1LEADER:EXHAUSTED
+
+---
+
+# SimulateRequestBoundary_OnAttackBuffTarget
+#// JTL_007 Admiral Holdo — the optional On Attack "+2/+2 this phase" target choice ends the request in
+#// production, so the player's pick arrives in a FRESH process where every transient continuation global
+#// is empty. Mirrors Deploy_OnAttack_BuffsAnother with the boundary inserted before the answer: the
+#// pending buff-offer (and the "another" exclusion + the phase-duration effect it writes) must survive
+#// serialization, so JTL_099 still ends at 4/3.
+
+## GIVEN
+CommonSetup: bgw/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1GroundArena: JTL_099:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:1:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_099
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HP:3
+P2BASEDMG:3
+P1LEADER:DEPLOYED

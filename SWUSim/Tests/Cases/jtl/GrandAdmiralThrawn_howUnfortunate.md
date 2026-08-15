@@ -441,9 +441,9 @@ WithP2Hand: TWI_077
 - P2>PlayHand:0
 - P2>AnswerDecision:theirSpaceArena-0
 - P1>Drain
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:mySpaceArena-0.u0
 - P1>AnswerDecision:YES
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:mySpaceArena-0.u0
 
 ## EXPECT
 P1SPACEARENACOUNT:2

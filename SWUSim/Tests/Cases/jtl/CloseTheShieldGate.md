@@ -132,3 +132,30 @@ P1OnlyActions: true
 
 ## EXPECT
 P2BASEDMG:10
+
+---
+
+# SimulateRequestBoundary_ShieldSurvivesAcrossActions
+#// JTL_074 Close the Shield Gate — the base choice ends one request and each attack is its own action, so
+#// in production the "next time damage would be dealt to this base this phase, prevent it" marker is
+#// written in one process and read in a later one. It therefore has to be SERIALIZED per-base state, not a
+#// transient global. Mirrors PreventThenConsume with a boundary before the base pick AND between the two
+#// attacks: the first attack's 2 must still be prevented and the second must still land → P2 base = 2.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:8;handCardIds:JTL_074}
+P1OnlyActions: true
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+- P1>SimulateRequestBoundary
+- P1>AttackSpaceArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AttackSpaceArena:1:BASE
+
+## EXPECT
+P2BASEDMG:2

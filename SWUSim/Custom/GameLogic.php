@@ -1517,7 +1517,7 @@ function SWUQueueChooseTarget(int $player, array $targets, string $tooltip, stri
 // could answer a pending MZCHOOSE/MZMAYCHOOSE with ANY mzID — e.g. a unit outside the offered pool —
 // and the CUSTOM continuation would act on it; the UI constrains clicks but the server must not
 // trust input). Only the MZ choose types are validated: other decision types (YESNO, OPTIONCHOOSE,
-// search-by-CardID, MZMULTICHOOSE lists) keep their existing handling. PASS/'-' decline tokens are
+// search-by-CardID) keep their existing handling; MZMULTICHOOSE is validated as a subset (below). PASS/'-' decline tokens are
 // always allowed — decline semantics per type are enforced downstream, not here. Called by
 // production's answer entry point (EngineActionRunner mode=100, gated by function_exists so other
 // sims are untouched) and by the test harness's answerDecision (which throws on an invalid answer
@@ -1539,15 +1539,51 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     // must be queued as MZMAYCHOOSE. Typing it MZCHOOSE and relying on this function's old blanket
     // acceptance is no longer a working way to be declinable.
     if ($answer === 'PASS' || $answer === '-' || $answer === '') return $type !== 'MZCHOOSE';
-    if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE') return true;
+    if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE' && $type !== 'MZMULTICHOOSE') return true;
     global $playerID;
     $saved = $playerID;
     $playerID = intval($player);   // Param mzIDs are in the deciding player's frame
+    // MZMULTICHOOSE carries "min|max|spec&spec&…" and its answer is an '&'-joined SUBSET, so both the
+    // pool and the answer need splitting. Until 2026-08-14 this type was unvalidated entirely, which
+    // made every multi-select section able to "choose" cards the offer never contained — the exact
+    // shape that let SOR_245 Medal Ceremony's resolution-only section pass VACUOUSLY against a
+    // friendly-only pool. Each picked mzID must be in the pool; an out-of-pool pick fails the whole answer.
+    if ($type === 'MZMULTICHOOSE') {
+        // 'DONE' is the multi-select TERMINATOR ("I have finished picking"), the multichoose analogue of
+        // PASS/'-' — it is never an mzID and must not be pool-checked. Handlers read a non-mzID answer as
+        // "nothing selected". 9 existing sections use it legitimately.
+        if ($answer === 'DONE') { $playerID = $saved; return true; }
+        $parts = explode('|', (string)($head->Param ?? ''), 3);
+        $poolStr = count($parts) >= 3 ? $parts[2] : '';
+        $allOk = true;
+        foreach (explode('&', $answer) as $pick) {
+            $pick = trim($pick);
+            if ($pick === '' || $pick === '-' || $pick === 'PASS') continue;
+            $hit = false;
+            foreach (explode('&', $poolStr) as $rawSpec) {
+                $spec = explode(':', $rawSpec)[0];
+                if ($spec === '') continue;
+                if (preg_match('/^(.+)-(\d+)(?:\.u(\d+))?$/', $spec)) { if ($pick === $spec) { $hit = true; break; } }
+                elseif (preg_match('/^' . preg_quote($spec, '/') . '-\d+$/', $pick)) {
+                    $o = GetZoneObject($pick);
+                    if ($o !== null && empty($o->removed)) { $hit = true; break; }
+                }
+            }
+            if (!$hit) { $allOk = false; break; }
+        }
+        $playerID = $saved;
+        return $allOk;
+    }
     $ok = false;
     foreach (explode('&', (string)($head->Param ?? '')) as $rawSpec) {
         $spec = explode(':', $rawSpec)[0];
         if ($spec === '') continue;
-        if (preg_match('/^(.+)-(\d+)$/', $spec)) {
+        // The optional `.uN` tail is the SUBCARD form (an upgrade/token addressed on its host — see
+        // MZParseSubcardID). It is matched HERE, in the explicitly-listed-candidate branch, rather
+        // than in the zone-prefix branch below: a subcard is always offered as a named candidate, and
+        // routing it through the prefix branch would build the nonsense pattern
+        // "^myGroundArena\-0\.u2-\d+$" and reject every legal answer.
+        if (preg_match('/^(.+)-(\d+)(?:\.u(\d+))?$/', $spec)) {
             // Explicitly-listed candidate: the string match alone accepts. No liveness re-check —
             // some windows (e.g. prevent-during-damage offers) legitimately list an object whose
             // zone state is mid-transition when the answer arrives; the pool author vouched for it.
@@ -12686,6 +12722,40 @@ function SWUGetUnitsWithUpgrades(string $filter = ''): array {
     return $result;
 }
 
+// Every matching upgrade in play, addressed as a SUBCARD mzID ("<hostMz>.u<subIdx>" — see
+// MZParseSubcardID). The upgrade-level counterpart of SWUGetUnitsWithUpgrades: same zones, same
+// filter, same base handling (Fortify upgrades live in Base.Subcards), but it names the UPGRADES
+// rather than the units carrying them — so "defeat an upgrade" can be a single decision that
+// highlights the upgrades on the board, instead of a host pick followed by a context-free popup.
+//
+// The sub index is the RAW Subcards key. Eligibility mirrors GetUpgradesOnUnit exactly (skip captives
+// and removed entries); SWUDefeatUpgrade indexes by a *different* space — the live-upgrade ordinal —
+// so convert with SWUUpgradeOrdinalFromSubIndex, never pass a raw key straight through.
+function SWUGetUpgradeSubcardMzIDs(string $filter = '', int $onlyHostUID = 0): array {
+    $result = [];
+    $scan = function(string $hostMz) use (&$result, $filter, $onlyHostUID) {
+        $obj = GetZoneObject($hostMz);
+        if ($obj === null || ($obj->removed ?? false)) return;
+        if ($onlyHostUID > 0 && intval($obj->UniqueID ?? 0) !== $onlyHostUID) return;
+        if (!is_array($obj->Subcards ?? null)) return;
+        foreach ($obj->Subcards as $key => $sub) {
+            $isCaptive = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
+            $isRemoved = is_array($sub) ? !empty($sub['removed'])   : !empty($sub->removed);
+            if ($isCaptive || $isRemoved) continue;
+            $cardID = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+            if ($cardID === '' || $cardID === '-') continue;
+            if (!SWUUpgradeMatchesFilter($cardID, $filter)) continue;
+            $result[] = $hostMz . '.u' . $key;
+        }
+    };
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
+        foreach (ZoneSearch($zone, ['Unit', 'Leader Unit', 'Token Unit']) as $mzID) $scan($mzID);
+    }
+    // Bases carry Fortify upgrades; without this they are invisible to every "defeat an upgrade" card.
+    foreach (['myBase-0', 'theirBase-0'] as $baseMz) $scan($baseMz);
+    return $result;
+}
+
 // Predicate over a candidate upgrade's CardID. $filter is a comma-separated list of
 // AND-ed clauses "field op value"; fields unique/leader/cost, ops = != < <= > >=.
 // Empty filter => always true. Used by SWUGetUnitsWithUpgrades + the defeat-upgrade
@@ -12735,6 +12805,16 @@ function SWUQueueDefeatUpgrade(int $player, string $tooltip, bool $may = false,
                               int $onlyHostUID = 0): void {
     global $playerID;
     $playerID = intval($player);
+    // SINGLE-pick ($max <= 1) offers the UPGRADES themselves as subcard mzIDs — one decision, the
+    // candidates highlighted in place on their hosts. The old flow asked for a HOST unit first and only
+    // then showed that host's upgrades in a TempZone popup, so the player had to commit to a unit before
+    // they could see what was on it (and two upgrades on one unit were indistinguishable in the popup).
+    // MULTI-pick ($max > 1) still uses the host-first flow: its MZMULTICHOOSE picks several upgrades on
+    // ONE host, which the host step scopes. Converting that is separate work.
+    if ($max <= 1) {
+        SWUQueueDefeatUpgradeDirect($player, $tooltip, $may, $filter, $min, $thenHandler, $onlyHostUID);
+        return;
+    }
     $targets = SWUGetUnitsWithUpgrades($filter);
     // Scope to a single host (e.g. "defeat an upgrade on IT" — JTL_133 Pryde on the indirect-damaged unit).
     if ($onlyHostUID > 0) {
@@ -12763,6 +12843,43 @@ function SWUQueueDefeatUpgrade(int $player, string $tooltip, bool $may = false,
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip: $tooltip);
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "DEFEAT_UPGRADE", 1);
+}
+
+// "Defeat ONE upgrade" as a single board-addressed decision: every matching upgrade is offered as a
+// subcard mzID and highlighted on its host. DEFEAT_UPGRADE recognises a subcard answer and defeats it
+// directly, so there is no host step and no TempZone staging.
+// $min == 0 (or $may) makes it declinable; a mandatory offer with exactly one legal upgrade
+// auto-resolves as usual, which is itself the proof the filter narrowed correctly.
+function SWUQueueDefeatUpgradeDirect(int $player, string $tooltip, bool $may, string $filter,
+                                     int $min, string $thenHandler, int $onlyHostUID): void {
+    global $playerID;
+    $playerID = intval($player);
+    $targets = SWUGetUpgradeSubcardMzIDs($filter, $onlyHostUID);
+    if (empty($targets)) {
+        // No legal upgrade → fizzle. Still honour the continuation so a chain doesn't dead-end early
+        // (e.g. every upgrade already defeated by an earlier link).
+        if ($thenHandler !== '') {
+            global $customDQHandlers;
+            DecisionQueueController::StoreVariable("DefeatUpgThen", "");
+            if (isset($customDQHandlers[$thenHandler])) $customDQHandlers[$thenHandler]($player, [], '');
+        }
+        return;
+    }
+    DecisionQueueController::StoreVariable("DefeatUpgParams", $min . '|1|' . $filter);
+    DecisionQueueController::StoreVariable("DefeatUpgThen", $thenHandler);
+    $declinable = $may || $min === 0;
+    if (!$declinable && count($targets) === 1) {
+        // MANDATORY with a single legal upgrade → resolve it with no prompt, exactly as the host-first
+        // flow did (PASSPARAMETER for a lone host, then its own single-match auto-defeat). Emitting a
+        // one-candidate MZCHOOSE instead would leave a decision pending that nothing ever answers, and
+        // the upgrade would silently survive.
+        DecisionQueueController::AddDecision($player, "PASSPARAMETER", $targets[0], 1);
+    } else {
+        DecisionQueueController::AddDecision($player, $declinable ? "MZMAYCHOOSE" : "MZCHOOSE",
+            implode("&", $targets), 1, tooltip: $tooltip);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DEFEAT_UPGRADE", 1);
+    // Leave $playerID set: MZCountChoices validates the relative-frame specs next, under it.
 }
 
 // Returns a non-leader unit to its owner's hand (bounce mechanic).

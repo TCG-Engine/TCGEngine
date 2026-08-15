@@ -73,7 +73,7 @@ WithP2GroundArenaUpgrade: 0:SOR_069
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
@@ -112,7 +112,7 @@ WithP2GroundArena: SOR_046:1:0
 WithP2GroundArenaUpgrade: 1:SOR_120
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirGroundArena-1
+- P1>AnswerDecision:theirGroundArena-1.u0
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SEC_061
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
@@ -294,7 +294,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 - P1>AnswerDecision:theirGroundArena-0
 - P2>Pass
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
 P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
@@ -315,7 +315,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 - P1>AnswerDecision:theirGroundArena-0
 - P2>Pass
 - P1>PlayHand:0
-- P1>AnswerDecision:myTempZone-1
+- P1>AnswerDecision:theirGroundArena-0.u1
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
@@ -458,7 +458,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 - P1>PlayHand:0
 - P1>AnswerDecision:theirGroundArena-0
 - P2>PlayHand:0
-- P2>AnswerDecision:myTempZone-0
+- P2>AnswerDecision:myGroundArena-0.u0
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
@@ -481,7 +481,7 @@ WithP2GroundArenaUpgrade: 0:SOR_120
 - P1>PlayHand:0
 - P1>AnswerDecision:theirGroundArena-0
 - P2>PlayHand:0
-- P2>AnswerDecision:myTempZone-1
+- P2>AnswerDecision:myGroundArena-0.u1
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
@@ -507,10 +507,10 @@ WithP2GroundArenaUpgrade: 0:SOR_T02
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:EffectStack-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-0
 - P2>PlayHand:0
-- P2>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SEC_061
@@ -535,7 +535,7 @@ WithP2GroundArenaUpgrade: 0:SOR_T02
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:EffectStack-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-0
 - P2>PlayHand:0
 - P2>AnswerDecision:theirGroundArena-0
@@ -562,11 +562,10 @@ WithP2GroundArenaUpgrade: 0:SOR_T02
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:EffectStack-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-0
 - P2>PlayHand:0
-- P2>AnswerDecision:theirGroundArena-0
-- P2>AnswerDecision:myTempZone-0
+- P2>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SEC_061
@@ -591,7 +590,7 @@ WithP2GroundArenaUpgrade: 0:SOR_T02
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:EffectStack-0
-- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:theirGroundArena-0.u0
 - P1>AnswerDecision:myGroundArena-0
 - P2>PlayHand:0
 - P2>AnswerDecision:theirGroundArena-0

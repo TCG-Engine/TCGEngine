@@ -38,3 +38,30 @@ WithP1Resources: 15
 
 ## EXPECT
 P2BASEDMG:5
+
+---
+
+# Offer_IndirectDamage_EitherPlayer
+#// JTL_226 Radiant VII — "When Played: Deal 5 indirect damage to A PLAYER." The offer here is not a unit pool
+#// but a player choice, and the printed text lets it be EITHER player — so the option list must contain the
+#// SELF option ("You") as well as "Opponent", not just the opponent. The prompt is left PENDING and both
+#// options plus the exact tooltip are asserted (WhenPlayed_5Indirect already covers answering it).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_226
+WithP1Resources: 15
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Choose_a_player_to_deal_indirect_damage
+P1OPTIONHAS:You
+P1OPTIONHAS:Opponent

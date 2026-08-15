@@ -67,9 +67,19 @@ P2GROUNDARENAUNIT:0:READY
 
 ---
 
-# AlreadyExhaustedFriendly_NoIfYouDo
-#// LAW_226 Secret Battle of Pretend — "Exhaust a friendly unit. If you do…". Choosing an ALREADY-exhausted
-#// friendly unit means no exhaust occurs, so the "if you do" never fires: no enemy unit is exhausted.
+# AlreadyExhaustedFriendly_NotOfferedAsATarget
+#// LAW_226 Secret Battle of Pretend — "Exhaust a friendly unit. If you do, for each different aspect it
+#// has, exhaust an enemy unit in the same arena."
+#// SWUSim filters the friendly pool to READY units (a unit that cannot be exhausted is a zero-effect
+#// target), so the already-exhausted SOR_164 is never offered: the lone ready SHD_029 auto-resolves and
+#// the "if you do" DOES fire, leaving the enemy exhaust pending.
+#// USER RULING (2026-08-14): the friendly pool stays READY-ONLY. A unit that cannot be exhausted is a
+#// zero-effect target and is not selectable — SWUSim's standing convention — so "If you do" here covers
+#// only the no-legal-target case. This is a DELIBERATE divergence from upstream, which offers the
+#// already-exhausted unit and lets the rider fail.
+#// ⚠ This section previously claimed the upstream behaviour and was SPURIOUSLY GREEN: its answer
+#// `myGroundArena-0` was silently swallowed by the enemy multi-select, which was unvalidated until
+#// MZMULTICHOOSE answers began being pool-checked (2026-08-14). It asserted nothing for months.
 
 ## GIVEN
 CommonSetup: yyw/bgw/{myResources:2}
@@ -79,9 +89,11 @@ WithP1Hand: LAW_226
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Exhaust_1_enemy_unit(s)_in_the_same_arena
+P1GROUNDARENAUNIT:1:EXHAUSTED
 P2GROUNDARENAUNIT:0:READY
 
 ---

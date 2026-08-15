@@ -338,3 +338,30 @@ WithP1Deck: SOR_237
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1RESAVAILABLE:4
+
+---
+
+# SimulateRequestBoundary_FreeReplayChargeSurvives
+#// JTL_232 Jump to Lightspeed — the "next time you play a copy of that unit THIS PHASE, play it for free"
+#// charge is written by the Jump action and read by a LATER play action. In production those are two
+#// separate requests, so the charge must live in the serialized gamestate, not an in-memory global.
+#// Mirrors PlayCopyForFreeThisPhase with a request boundary between the two actions.
+
+## GIVEN
+CommonSetup: gyw/bbk/{myLeader:JTL_016;myBase:JTL_022;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_232
+WithP1Resources: 2
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1RESAVAILABLE:0
+P1HANDCOUNT:0

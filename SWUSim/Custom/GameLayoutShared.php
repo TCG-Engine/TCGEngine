@@ -1855,9 +1855,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     window.swuTwRemapCardId = function (cardId) {
         var sm = window.SelectionMode;
         if (!(sm && sm.allowedZones)) return cardId;
-        var m = /^(.+)-(\d+)$/.exec(cardId || ''); if (!m) return cardId;
+        // The optional '.uN' tail addresses a SUBCARD (an upgrade/token on the unit at index N).
+        // It must take part in the match, or a subcard click would remap onto whichever spec merely
+        // shares its host and submit the wrong target.
+        var m = /^(.+)-(\d+)(?:\.u(\d+))?$/.exec(cardId || ''); if (!m) return cardId;
         var zone = m[1], idx = parseInt(m[2], 10);
-        var sp = sm.allowedZones.find(function (s) { return s && s.isSpecificCard && s.zone === zone && s.specificIndex === idx; });
+        var sub = (m[3] !== undefined) ? parseInt(m[3], 10) : null;
+        var sp = sm.allowedZones.find(function (s) {
+            return s && s.isSpecificCard && s.zone === zone && s.specificIndex === idx
+                && (((s.subIndex === null || s.subIndex === undefined) ? null : s.subIndex) === sub);
+        });
         return (sp && sp.originalSpec) ? sp.originalSpec : cardId;
     };
 

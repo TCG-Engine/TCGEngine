@@ -39,7 +39,7 @@ WithP2Hand: SOR_162
 
 ## WHEN
 - P2>PlayHand:0
-- P2>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:theirGroundArena-0.u0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
