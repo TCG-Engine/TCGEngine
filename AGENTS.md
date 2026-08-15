@@ -33,6 +33,7 @@ Use this file as the compact default guidance:
   - materialize helpers -> `MaterializeLogic.php`
   - general runtime/game helpers -> `GameLogic.php`
 - If you change schema or generator behavior, regenerate outputs and account for the timestamped `GeneratedUI_*.js` file behavior noted in `.github/copilot-instructions.md`.
+- For generated sound-design assets, use the ElevenLabs API with the `ELEVENLABS_API_KEY` environment variable; never commit or print the key itself.
 
 Priority note:
 

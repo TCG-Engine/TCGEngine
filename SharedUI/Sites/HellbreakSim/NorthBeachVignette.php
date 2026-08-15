@@ -85,9 +85,10 @@
 
     <section class="nb-scene nb-scene-impact" data-nb-scene="6">
       <div class="nb-impact-board" aria-hidden="true">
-        <div class="nb-boat-rail"><i></i><i></i><i></i><i></i><i></i></div>
+        <img class="nb-ship-art nb-ship-art-clean" src="/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-boat-deck-clean.webp" alt="">
+        <img class="nb-ship-art nb-ship-art-stressed" src="/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-boat-deck-stressed.webp" alt="">
+        <img class="nb-ship-art nb-ship-art-critical" src="/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-boat-deck-critical.webp" alt="">
         <div class="nb-impact-logo"><span>&#9728;</span> S.S. NORTH BEACH</div>
-        <div class="nb-boat-cleat nb-boat-cleat-left"></div><div class="nb-boat-cleat nb-boat-cleat-right"></div>
         <article class="nb-impact-card nb-impact-card-one"><div class="nb-impact-card-art nb-glass-boat-art"><i></i></div><div class="nb-impact-card-copy"><small>ACTIVITY &middot; BOAT</small><b>Glass-Bottom Tour</b><span>Look beneath the boat. Gain 2 Relaxation.</span></div></article>
         <article class="nb-impact-card nb-impact-card-two"><div class="nb-impact-card-art nb-fish-food-art"><i></i><i></i><i></i></div><div class="nb-impact-card-copy"><small>ACTIVITY &middot; DEEP WATER</small><b>Feed the Fish</b><span>Put a Snack into Deep Water. Gain 1 Good Vibe.</span></div></article>
         <article class="nb-impact-card nb-impact-card-three"><div class="nb-impact-card-art nb-lookout-art"><i></i></div><div class="nb-impact-card-copy"><small>BEACHGOER &middot; STAFF</small><b>Captain&rsquo;s Lookout</b><span>Beachgoers aboard your Boat are safe.</span></div></article>
