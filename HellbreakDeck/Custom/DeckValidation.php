@@ -17,6 +17,13 @@ function ValidateMonsterAddition($cardID) {
 function ValidateLocationAddition($cardID) {
     if (!HellbreakDeckHasValidImage($cardID)) return false;
     if (strtolower(trim((string)CardType($cardID))) !== 'location') return false;
+    $locations = &GetLocation(1);
+    $activeLocations = 0;
+    foreach ($locations as $location) {
+        if ($location === null || !empty($location->removed)) continue;
+        ++$activeLocations;
+    }
+    if ($activeLocations >= 2) return false;
     global $gameName;
     SetAssetKeyIdentifier(1, $gameName, 2, $cardID);
     return true;

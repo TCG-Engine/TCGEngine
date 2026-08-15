@@ -153,6 +153,7 @@ body.nb-open{overflow:hidden}.nb-vignette{--sea:#66d5d0;--deep:#075879;--sand:#f
 .nb-vignette.is-attacking .nb-topbar::after { background: radial-gradient(circle at 61% 48%,rgba(194,59,52,.78) 0 3px,transparent 4px),radial-gradient(ellipse at 63% 29%,rgba(194,59,52,.62) 0 2px,transparent 3px),radial-gradient(ellipse at 87% 67%,rgba(194,59,52,.5) 0 2px,transparent 3px),radial-gradient(ellipse at 91% 35%,rgba(194,59,52,.44) 0 1px,transparent 3px),repeating-linear-gradient(96deg,transparent 0 82px,rgba(3,73,88,.13) 84px 87px,transparent 90px); opacity: .82; }
 .nb-vignette.is-attacking .nb-impact-board { animation: nb-bite .9s .42s forwards; }
 .nb-vignette.is-attacking .nb-real-content { opacity: 0; }
+.nb-vignette.is-swallowed .nb-shark-attack-art,.nb-vignette.is-swallowed .nb-shark-throat,.nb-vignette.is-revealing .nb-shark-attack-art,.nb-vignette.is-revealing .nb-shark-throat { animation: none !important; opacity: 0 !important; }
 .nb-vignette.is-revealing .nb-real-content { animation: nb-menu-emerge .9s .35s ease-out forwards; }
 @keyframes nb-screen-bump{0%,100%{transform:none}22%{transform:translate(var(--bump-x),calc(0px - var(--bump-y))) rotate(var(--bump-r))}48%{transform:translate(calc(0px - var(--bump-x)),var(--bump-y))}72%{transform:translate(var(--bump-x),calc(0px - var(--bump-y)))}}
 @keyframes nb-shark-attack-rise{0%{bottom:-108%;opacity:0;transform:translateX(-50%) scale(.84)}14%{opacity:1}68%{bottom:-19%;opacity:1;transform:translateX(-50%) scale(1.01)}100%{bottom:-13%;opacity:1;transform:translateX(-50%) scale(1.05)}}

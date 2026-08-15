@@ -8,15 +8,15 @@
 return [
   'identity' => [
     'rootName'    => 'HellbreakDeck',
-    'appName'     => 'Hellbreak Deck Builder',
+    'appName'     => 'northbeach.gg Deck Builder',
     'ipOwner'     => 'the creators of Hellbreak',
     'assetOwner'  => 'their respective owners',
     'tcgName'     => 'Hellbreak',
   ],
   'theme' => 'hellish',
   'branding' => [
-    'title'     => 'Hellbreak',
-    'headTitle' => 'Hellbreak — Deck Builder',
+    'title'     => 'northbeach.gg',
+    'headTitle' => 'northbeach.gg — Deck Builder',
     'homeHref'  => '/TCGEngine/SharedUI/Sites/HellbreakSim/MainMenu.php',
     'favicon'   => '/TCGEngine/Assets/Images/icons/gudnakIcon.png',
   ],

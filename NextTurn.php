@@ -364,7 +364,6 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     </script>
 
     <head>
-      <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/<?php if($folderPath == "SWUDeck") echo('blueDiamond'); else if($folderPath == "AzukiDeck") echo('icons/gudnakIcon'); else if($folderPath == "SoulMastersDB") echo('icons/soulMastersIcon'); ?>.png">
       <?php
         // In-game board design-system stack, derived from the app's SiteDef `theme` key.
         // .btn/.switch-scoped only — NOT components.css (its bare-`button` rule would restyle
@@ -387,9 +386,25 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         foreach ($__board as $__f) {
           echo '      <link rel="stylesheet" href="' . _VersionAsset($__f) . "\">\n";
         }
+        $__boardTitle = $folderPath === 'HellbreakDeck' && is_string($__siteDef['branding']['headTitle'] ?? null)
+          ? $__siteDef['branding']['headTitle']
+          : $folderPath;
+        $__legacyFavicon = $folderPath === 'SWUDeck'
+          ? '/TCGEngine/Assets/Images/blueDiamond.png'
+          : ($folderPath === 'AzukiDeck'
+            ? '/TCGEngine/Assets/Images/icons/gudnakIcon.png'
+            : ($folderPath === 'SoulMastersDB'
+              ? '/TCGEngine/Assets/Images/icons/soulMastersIcon.png'
+              : null));
+        $__boardFavicon = $folderPath === 'HellbreakDeck' && is_string($__siteDef['branding']['favicon'] ?? null)
+          ? $__siteDef['branding']['favicon']
+          : $__legacyFavicon;
       ?>
+      <?php if ($__boardFavicon): ?>
+      <link rel="icon" href="<?php echo htmlspecialchars($__boardFavicon, ENT_QUOTES); ?>">
+      <?php endif; ?>
       <meta charset="utf-8">
-      <title><?php echo($folderPath); ?></title>
+      <title><?php echo htmlspecialchars($__boardTitle, ENT_QUOTES); ?></title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -2019,7 +2034,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <div id="cardDetail" style="z-index:100000; display:none; position:fixed;"></div>
     <div id='mainDiv' style='position:fixed; z-index:0; left:0; top:0; width:100%; height:100%;'>
 
-    <?php if (!in_array($folderPath, ["SWUDeck", "AzukiDeck"], true)): ?>
+    <?php if (!in_array($folderPath, ["SWUDeck", "AzukiDeck", "HellbreakDeck"], true)): ?>
     <?php
       $chatToastBaselineID = 0;
       foreach (GetChatMessagesSince($gameName, 0) as $existingChatMessage) {

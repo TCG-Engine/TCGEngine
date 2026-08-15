@@ -11,40 +11,42 @@ AssetReflection: HellbreakSim
 Initialization: Initialize.php
 ServerInclude: /Custom/DeckValidation.php
 ServerInclude: /Custom/CustomInput.php
+Layout: /Custom/GameLayout.php
 Monster - CardID:string
-Display: Visibility=Self, Mode=All, Left=27%, Top=10px, Width=15%, Height=20%, Split=None
+Display: Visibility=Self, Mode=All, BindTo=MonsterSlot, Split=None
 AddValidation: ValidateMonsterAddition
 Location - CardID:string
-Display: Visibility=Self, Mode=All, Left=44%, Top=10px, Width=15%, Height=20%, Split=None
+Display: Visibility=Self, Mode=All, BindTo=LocationSlot, Split=None
+Click: Remove(myLocation)
 AddValidation: ValidateLocationAddition
 MainDeck - CardID:string
-Display: Visibility=Self, Mode=Tile, Left=27%, Top=22%, Right=10px, Bottom=120px, Split=None
+Display: Visibility=Self, Mode=Tile, BindTo=MainDeckSlot, Split=None
 Click: Remove(myMainDeck)
 AddValidation: ValidateMainDeckAddition
 Widgets: CustomInput=<&<<<&V&+
 Sort: Property=mySort
 CardPane - Value:string
-Display: Visibility=Self, Mode=Panel, Left=10px, Top=10px, Width=25%, Bottom=10px, Split=None
+Display: Visibility=Self, Mode=Panel, BindTo=CardPaneSlot, Split=None
 Monsters - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Swap(myMonster)
 Locations - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
-Click: Swap(myLocation)
+Click: Add(myLocation)
 Cards - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Add(myMainDeck)
 DragMode: Clone
 Widgets: CustomInput=V&>&>>>
 Sideboard - CardID:string
-Display: Visibility=Self, Mode=Tile, Left=27%, Bottom=10px, Right=10px, Height=95px, Split=None
+Display: Visibility=Self, Mode=Tile, BindTo=SideboardSlot, Split=None
 Click: Remove(mySideboard)
 AddValidation: ValidateMainDeckAddition
 Widgets: CustomInput=<&<<<&^&+
 Deck - CardID:string
-Display: Visibility=Self, Mode=Count(MainDeck), Left=61%, Top=10px, Split=None
+Display: Visibility=Self, Mode=None
 Sort - Value:string
-Display: Visibility=Self, Mode=Dropdown(Value), Left=72%, Top=10px
+Display: Visibility=Self, Mode=Dropdown(Value), BindTo=SortSlot
 Widgets: Value=Name&Cost&Aspect&Type&CollectorNumber
 Versions - Version:string
 Display: Visibility=Self, Mode=None

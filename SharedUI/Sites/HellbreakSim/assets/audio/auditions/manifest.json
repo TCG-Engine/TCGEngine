@@ -1,0 +1,28 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "purpose": "North Beach vignette sound-quality audition",
+  "assets": [
+    {
+      "file": "north-beach-shoreline-audition.mp3",
+      "durationSeconds": 12,
+      "loop": true,
+      "promptInfluence": 0.42,
+      "prompt": "Natural North Atlantic shoreline field recording. Broad gentle waves roll onto a sandy beach in irregular sets, with detailed foam and retreating water, light salt breeze, and one or two extremely distant gulls. Relaxed but slightly lonely. No voices, no music, no synthetic tones, no dramatic cinematic effects. Clean stereo environmental recording suitable for a seamless game ambience loop."
+    },
+    {
+      "file": "north-beach-hull-impact-audition.mp3",
+      "durationSeconds": 4,
+      "loop": false,
+      "promptInfluence": 0.55,
+      "prompt": "A heavy blunt impact strikes the underside of a small weathered wooden excursion boat. The hull booms and flexes, timber groans, loose playing cards and small deck objects rattle and slide, followed by a short wash of seawater against the boards. Realistic close production Foley, physical and alarming but not yet catastrophic. No music, no trailer boom, no synthetic riser, no voices."
+    },
+    {
+      "file": "north-beach-shark-attack-audition.mp3",
+      "durationSeconds": 6,
+      "loop": false,
+      "promptInfluence": 0.48,
+      "prompt": "A massive ocean predator surges from deep water and violently collides with a small wooden boat at close range. Huge displaced-water splash, heavy organic impact, hull timbers splitting, deck boards cracking, debris scattering, then water and wreckage collapsing inward. Photorealistic production sound made from natural water, wood, and animal movement. Frightening and enormous. No music, trailer effects, roar, or voices."
+    }
+  ]
+}
