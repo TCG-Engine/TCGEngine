@@ -71,3 +71,32 @@ WithP1Deck: [SOR_095 SOR_046 SEC_080]
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SHD_111
 P1LEADER:EXHAUSTED
+
+---
+
+# SmuggledCardsWhenPlayed_SurvivesTheRequestBoundary
+#// SHD_017 — Lando's Action defers the smuggled card's When Played until AFTER its "defeat a resource you
+#// own and control" cost resolves, and that cost is an INTERACTIVE choose. So the deferred payload has to
+#// cross a request boundary. It used to be parked in an in-memory global: fine in a one-process harness,
+#// but production starts a fresh process on every answer, so the payload was gone and the smuggled card's
+#// When Played NEVER FIRED in a real game. SHD_160 Reckless Gunslinger ("When Played: deal 1 damage to
+#// each base") makes that loudly observable — BOTH bases must end on 1.
+#// Five resources keep the defeat-choose genuinely interactive (a lone option would auto-resolve and the
+#// boundary would never be crossed, which is exactly how this stayed invisible).
+
+## GIVEN
+CommonSetup: ryw/ryw/{myLeader:SHD_017}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1:SHD_160:1,4:SOR_095:1
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myResources-1
+
+## EXPECT
+P1BASEDMG:1
+P2BASEDMG:1
+P1GROUNDARENAUNIT:0:CARDID:SHD_160

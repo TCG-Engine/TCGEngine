@@ -175,3 +175,35 @@ P1GROUNDARENAUNIT:1:POWER:4
 P2GROUNDARENAUNIT:0:POWER:2
 P2GROUNDARENAUNIT:1:POWER:5
 P2BASEDMG:2
+
+---
+
+# DebuffItselfAndBuffAnEnemyDeployedLeader_SurvivesTheRequestBoundary
+#// LAW_068 — request-boundary guard for DebuffItselfAndBuffAnEnemyDeployedLeader: same fixture, same flow,
+#// one extra SimulateRequestBoundary inserted BETWEEN the two halves (before the ground answer). This is
+#// the valuable insertion point for this card: by then the -2/-0 "for this phase" is already applied to
+#// the Falcon and the second half of the On Attack is still queued, so both the phase-scoped stat effect
+#// and the pending continuation must survive serialization — production starts a FRESH process on every
+#// answered decision. After the boundary the Falcon must still be at 0 power (so its attack deals 0 to
+#// P2's base) and the +2/+0 must still land on the enemy deployed Vader.
+#// The insertion point is a genuine 4-option MZMAYCHOOSE (both ground arenas incl. both deployed
+#// leaders), so the boundary is not vacuous.
+
+## GIVEN
+CommonSetup: brk/bgw/{myLeader:SOR_006:1:1:1; theirLeader:SOR_010:1:1:1}
+P1OnlyActions: true
+WithP1SpaceArena: [LAW_068:1:0 SOR_178:1:0]
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SHD_187:1:0
+WithP2GroundArena: SHD_029:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:mySpaceArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P1SPACEARENAUNIT:0:POWER:0
+P2GROUNDARENAUNIT:1:POWER:7
+P2BASEDMG:0

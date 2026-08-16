@@ -1,6 +1,17 @@
 # HealAndExp
 #// SHD_075 Covert Strength (1-cost event) — "Heal 2 damage from a unit and give an Experience token
 #// to it." Single friendly target (2-damaged marine) → auto-resolve: damage 0, +1 Experience → 4/4.
+#// COVERAGE: offer=HealAndExp proves the pool auto-resolves when exactly one unit is in play, and
+#//           UndamagedEnemyUnit_StillGetsExperience proves it spans BOTH sides (an enemy unit is a legal
+#//           pick) and is not filtered to damaged units · decline=N/A ("Heal … and give …" is mandatory;
+#//           there is no "you may" clause to refuse) · boundary=the heal amount across all three damage
+#//           regimes: 4 damage → only 2 healed, 2 remain (SmuggledEvent_ResolvesAndGoesToDiscard) ·
+#//           exactly 2 → 0 (HealAndExp) · 0 damage → 0, and the Experience is still granted
+#//           (UndamagedEnemyUnit_StillGetsExperience) ·
+#//           control=UndamagedEnemyUnit_StillGetsExperience (the Experience token is placed on, and stays
+#//           on, an OPPONENT-controlled unit — the effect never re-homes it to the caster) ·
+#//           reqboundary=N/A (a one-shot event leaving only a plain Experience upgrade, whose
+#//           serialization is covered generically by the shared upgrade/token round-trip cases)
 
 ## GIVEN
 CommonSetup: bbw/bbw/{myResources:1}
@@ -40,3 +51,33 @@ P1GROUNDARENAUNIT:0:DAMAGE:2
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1DISCARDCOUNT:1
 P1RESCOUNT:11
+
+---
+
+# UndamagedEnemyUnit_StillGetsExperience
+#// SHD_075 Covert Strength — "a unit" is UNQUALIFIED: an ENEMY unit is a legal target, and a target with
+#// NO damage is still legal (the heal simply does nothing, but the Experience token is not conditional on
+#// it). P1 has a 2-damaged SOR_095 and P2 an undamaged SOR_046 (3/7), so the pick is a real choice; P1
+#// picks the enemy: SOR_046 stays at 0 damage and becomes 4/8 with one Experience upgrade, while P1's own
+#// damaged unit is left untouched at 2 — the proof the heal went to the chosen unit and only there.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:1}
+P1OnlyActions: true
+WithP1Hand: SHD_075
+WithP1GroundArena: SOR_095:1:2
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:POWER:4
+P2GROUNDARENAUNIT:0:HP:8
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1DISCARDCOUNT:1

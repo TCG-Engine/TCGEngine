@@ -18,3 +18,41 @@ WithP1Deck: SOR_251
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1DECKCOUNT:1
+
+---
+
+# OfferPool_AnotherUnitEitherSide
+#// LAW_115 Rickety Quadjumper — offer assertion for "give an Experience token to ANOTHER unit". The only
+#// printed restriction is "another": no controller word and no arena word, so every unit in play except
+#// the Quadjumper itself is legal. Discriminating board — the Quadjumper (mySpaceArena-0) must be OUT,
+#// while a second friendly SPACE unit, a friendly GROUND unit, an enemy GROUND unit and an enemy SPACE
+#// unit must all be IN. That is the shape that catches a pool silently narrowed to "another FRIENDLY
+#// unit" (a very common mis-read of this wording) or to the source's own arena. The top of P1's deck is
+#// Confiscate (an Event, so the "if it's not a unit" gate passes and the card stays on top); the
+#// Experience pick is left UNANSWERED so the pending pool can be read.
+#// COVERAGE: offer=OfferPool_AnotherUnitEitherSide (pending SELECTABLEEXACT; self is the "out", both
+#//           sides x both arenas are the "in") · reqboundary=NOT COVERED (the source UID is passed in
+#//           the CUSTOM handler's params, so it does survive the YESNO boundary, but no section forces a
+#//           SimulateRequestBoundary across it) · control=N/A (Experience is a one-shot token grant) ·
+#//           boundary pair=RevealNonUnitExp (non-unit on top → Experience granted) vs NOT COVERED for
+#//           the unit-on-top negative · decline=NOT COVERED (the reveal is a YESNO "you may"; no NO
+#//           branch section exists yet)
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_115:1:0
+WithP1SpaceArena: SOR_178:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_213:1:0
+WithP1Deck: SOR_251
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-1&theirGroundArena-0&theirSpaceArena-0
+P1SPACEARENAUNIT:0:CARDID:LAW_115
+P1DECKCOUNT:1

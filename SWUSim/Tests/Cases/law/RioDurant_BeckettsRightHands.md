@@ -190,3 +190,31 @@ P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:SEC_080
 P1GROUNDARENAUNIT:1:SHIELDCOUNT:1
 P1RESAVAILABLE:0
+
+---
+
+# ReturnEnemy_OwnerReplaysFree_SurvivesTheRequestBoundary
+#// LAW_093 Rio Durant — the highest-value boundary on this card: the deferred "its owner may play it for
+#// free; it gains Shielded for this phase" payload is queued by P1's request and answered on P2's OWN later
+#// request, so in production a fresh process must reconstruct both the free-play permission and the Shielded
+#// grant from serialized state. Same flow as ReturnEnemy_OwnerReplaysFreeShielded with a serialize round-trip
+#// inserted before P2's YES. P2 still replays SEC_213 for free (0 resources spent) and it still enters with a
+#// Shield — neither the free cost nor the grant was parked in a transient global.
+
+## GIVEN
+CommonSetup: byk/bgw/{myResources:4;theirResources:0}
+P1OnlyActions: true
+WithP2SpaceArena: SEC_213:1:0
+WithP1Hand: LAW_093
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>SimulateRequestBoundary
+- P2>AnswerDecision:YES
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SEC_213
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+P2RESAVAILABLE:0

@@ -1,4 +1,13 @@
 # DamageDefeatsTarget_NoAttack
+#// COVERAGE: offer=MultipleTargets_ControllerChoosesUnit (the COMPELLED unit's attack pool is picked by
+#//           its controller when more than one enemy unit is legal) · decline=N/A (a mandatory event, and
+#//           the compulsion is "must ... if able") · control=N/A (the compulsion is stamped on the unit and
+#//           read by its own controller; no take-control interaction) ·
+#//           boundary=ForcesAttackAgainstUnit / NoUnitTarget_AttacksBase / Exhausted_CompulsionLapses /
+#//           DamageDefeatsTarget_NoAttack (the four "if able" outcomes) plus
+#//           CompulsionLastsOnlyOneAction (the DURATION boundary — the action AFTER the forced one is free
+#//           again, and may even attack the base) · reqboundary=CompulsionLastsOnlyOneAction (the stamp
+#//           has to survive the play→forced-attack→next-action request chain and then clear)
 #// SHD_144 — if the 1 damage defeats the chosen unit, there is nothing left to force an attack with. P1
 #// plays Give In to Your Anger on P2's SOR_128 (3/1); the 1 damage defeats it outright, so no forced
 #// attack occurs — P1's unit and base are untouched.
@@ -113,4 +122,38 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P2GROUNDARENAUNIT:0:DAMAGE:1
+P1BASEDMG:3
+
+---
+
+# CompulsionLastsOnlyOneAction
+#// Intended: "its controller's NEXT ACTION this phase must be an attack action with that unit" — the
+#// compulsion is spent by exactly one action, and the "must attack a unit" rider goes with it. P1 plays
+#// Give In to Your Anger on P2's SOR_046 (3/7); that unit takes 1 and is forced to attack P1's lone
+#// SOR_046 (auto-targeted), ending exhausted on 1+3=4 damage while P1's unit takes 3. P1 then passes and
+#// P2 takes a SECOND, entirely free action: attacking P1's BASE with the untouched SOR_128 (3/1). That
+#// base hit is the proof the compulsion is over — if it still applied, the second action would have been
+#// forced through SOR_046 and forbidden from hitting a base.
+
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1Resources: 1
+WithP1Hand: SHD_144
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>Pass
+- P2>AttackGroundArena:1:BASE
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:4
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:1:CARDID:SOR_128
+P2GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:0:DAMAGE:3
 P1BASEDMG:3

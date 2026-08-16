@@ -199,3 +199,37 @@ WithP1Hand: SEC_157
 P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:1:CARDID:SOR_232
 P1GROUNDARENAUNIT:1:DAMAGE:1
+
+---
+
+# OfferPool_AnotherDamagedUnitAnySideAnyArena
+#// LAW_046 Chirrut Îmwe — offer assertion for "heal 4 damage from ANOTHER unit". Chirrut himself carries 2
+#// damage and is still excluded, which is the only way to see the "another" filter working rather than a
+#// damage filter doing the job for it. The second violator is an UNDAMAGED friendly (SOR_095) — a heal
+#// needs something to heal — while the pool reaches a damaged friendly ground unit, a damaged ENEMY ground
+#// unit AND a damaged ENEMY SPACE unit, proving no controller and no arena restriction is applied.
+#// HealFromEnemyUnit already answered with an enemy pick, but a pool that also wrongly offered the source
+#// or undamaged bodies would have passed it unchanged. Left pending after the base attack.
+#// COVERAGE: offer=OfferPool_AnotherDamagedUnitAnySideAnyArena (pending SELECTABLEEXACT: source excluded by
+#//           "another" despite being damaged, undamaged units excluded, enemy ground and enemy space
+#//           included) · decline=not encoded — the heal is a "you may" MZMAYCHOOSE and no section passes on
+#//           it (KNOWN-OPEN) · boundary pair=AttackEndHealIfBase (base damage -> heal offered) vs
+#//           NoHealWhenAttackingUnitNoBaseDamage + NoHealWhenAnotherUnitDamagesBase +
+#//           NoTriggerIfBaseDamageWasOnAPREVIOUSAttack (P1NODECISION — no offer at all) ·
+#//           control=N/A (a one-shot heal; nothing persistent is stamped on any unit) · reqboundary=the
+#//           attack and the heal answer are separate requests in every positive section, but no explicit
+#//           SimulateRequestBoundary section exists yet
+
+## GIVEN
+CommonSetup: brw/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_046:1:2 SOR_232:1:5 SOR_095:1:0]
+WithP2GroundArena: SOR_046:1:4
+WithP2SpaceArena: SOR_237:1:2
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:8
+P1SELECTABLEEXACT:myGroundArena-1&theirGroundArena-0&theirSpaceArena-0

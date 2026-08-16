@@ -33,3 +33,37 @@ WithP1Hand: LAW_257
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# OfferPool_AnotherUnitSpansBothSidesAndBothArenas
+#// LAW_257 Hidden Hand Supplier — offer assertion for "give an Experience token to ANOTHER unit". The only
+#// printed restriction is "another", so the pool must be every unit in play except the Supplier itself: a
+#// friendly ground unit, a friendly space unit, an ENEMY ground unit and an ENEMY space unit are all in;
+#// the Supplier (myGroundArena-1, played this action) is out. The existing PayExpAnother section had a
+#// single other unit and so auto-targeted — it could not have seen a friendly-only or ground-only pool.
+#// The pay-1 gate is answered YES first so the target choose is the pending decision at end state.
+#// COVERAGE: offer=OfferPool_AnotherUnitSpansBothSidesAndBothArenas (pending SELECTABLEEXACT: self excluded
+#//           by "another", enemy units and both arenas included) · decline=DeclineNoExperience (the "you
+#//           may pay 1 resource" NO branch) · boundary pair=PayExpAnother (paid -> 1 upgrade) vs
+#//           DeclineNoExperience (declined -> 0 upgrades) · control=N/A (the Experience token attaches to
+#//           the chosen unit and travels with it; no seat-bound marker is written) · reqboundary=not
+#//           encoded (the pay answer and the target answer are separate requests in production; no
+#//           serialize round-trip section exists yet)
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_257
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:LAW_257
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0

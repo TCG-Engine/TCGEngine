@@ -98,3 +98,43 @@ WithP2Deck: [SEC_080 SEC_080]
 ## EXPECT
 P1RESAVAILABLE:1
 P2GROUNDARENACOUNT:0
+
+---
+
+# ForcedHandDiscount_SurvivesTheRequestBoundary
+#// LAW_179 — request-boundary guard for ForcedHandDiscount_CountsOpponentInducedDiscards: same fixture,
+#// one extra SimulateRequestBoundary between the TWO Pillage discards. Production starts a FRESH process
+#// on every answered decision, so the running "cards discarded from your hand this phase" tally — already
+#// at 1 when the boundary hits — has to be reconstructed from serialized gamestate rather than an
+#// in-memory counter. Both discards must still count: LAW_179 costs 7-2 = 5, P1 has exactly 5, so it is
+#// playable only if the pre-boundary discard survived, and it lands its 4 on the enemy ground unit.
+#// The insertion point is a genuine pending MZCHOOSE (Choose_card_to_discard over P1's remaining hand).
+#// The second discard is answered as myHand-1 rather than the pre-boundary section's myHand-2 because
+#// the re-parsed decision re-expands the myHand pool against the LIVE 2-card hand; both indices resolve
+#// to the same card (SOR_063), so the outcome is identical.
+
+## GIVEN
+CommonSetup: rrk/brk/{theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 5
+WithP2Resources: 8
+WithP1Hand: LAW_179
+WithP1Hand: SOR_095
+WithP1Hand: SOR_063
+WithP2Hand: SHD_181
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P1>AnswerDecision:myHand-1
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myHand-1
+- P1>PlayHand:0
+
+## EXPECT
+P1RESAVAILABLE:0
+P2GROUNDARENAUNIT:0:DAMAGE:4

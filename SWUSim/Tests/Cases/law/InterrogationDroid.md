@@ -81,3 +81,40 @@ WithP1Hand: LAW_075
 ## EXPECT
 P2HANDCOUNT:2
 P1GROUNDARENAUNIT:0:CARDID:LAW_075
+
+---
+
+# ExhaustPool_EnemyOnlyIncludingDeployedLeaderAndAlreadyExhausted
+#// COVERAGE: offer=ExhaustPool_EnemyOnlyIncludingDeployedLeaderAndAlreadyExhausted (the "an enemy unit"
+#//           pool asserted exactly: friendly excluded, space included, deployed leader included, an
+#//           already-exhausted enemy included); offer-absence = NoEnemyUnitsNothingHappens · decline=N/A
+#//           (mandatory choose, no "you may") · control=N/A (no control-change text) ·
+#//           boundary=ExhaustCheapEnemyDiscard (cost 2 -> discard) vs NoDiscardIfCostAboveThree (cost 4 ->
+#//           no discard), and NoDiscardIfAlreadyExhausted (the "if you do" gate fails) ·
+#//           reqboundary=ExhaustCheapEnemyDiscard (P1's play queues P2's discard pick in a later request).
+#// LAW_075 Interrogation Droid — "When Played: Exhaust AN ENEMY UNIT." The ONLY restriction word is
+#// "enemy": there is no arena word, no non-leader word, and no "ready" word. The board makes each of those
+#// three absences observable — P1's own SOR_046 must be OUT (controller scope); P2's SPACE SOR_225 must be
+#// IN (no arena scope); P2's DEPLOYED LEADER at theirGroundArena-2 must be IN (contrast Double-Cross and
+#// Maul, which say "non-leader"); and the already-EXHAUSTED SEC_080 at theirGroundArena-1 must ALSO be IN,
+#// because this card's "If you do" rider is what handles a failed exhaust (see NoDiscardIfAlreadyExhausted)
+#// rather than the pool pre-filtering the target away. ⚠ That last point is a deliberate divergence from
+#// the ready-only friendly pool ruled for LAW_226 Secret Battle of Pretend: there the failed exhaust has no
+#// rider to observe it, here it does, so an exhausted target is a meaningful (losing) choice.
+
+## GIVEN
+CommonSetup: ryk/bgw/{myResources:2;theirLeaderDeployed:true}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: [SOR_095:1:0 SEC_080:0:0]
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_075
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P2GROUNDARENAUNIT:1:EXHAUSTED
+P2GROUNDARENAUNIT:2:ISLEADERUNIT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1&theirGroundArena-2&theirSpaceArena-0

@@ -208,3 +208,28 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 ## EXPECT
 P2GROUNDARENACOUNT:1
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0
+
+---
+
+# OnAttackDebuffIfFirst_SurvivesTheRequestBoundary
+#// LAW_228 Canyon Frontrunner — request-boundary guard. Identical to OnAttackDebuffIfFirst except the
+#// game round-trips through serialization (SimulateRequestBoundary) while the "may give a unit -2/-0"
+#// pick is still pending (a genuine two-option offer: myGroundArena-0 & theirGroundArena-0). In a real
+#// game that answer arrives in a fresh process, so the deferred -2/-0 payload queued by the On Attack
+#// trigger — and the phase-scoped "no other units have attacked" state it was gated on — must be
+#// serialized rather than parked in a transient global. SOR_046 must still drop 3 -> 1 power.
+
+## GIVEN
+CommonSetup: yyk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_228:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:POWER:1

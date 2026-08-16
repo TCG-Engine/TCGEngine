@@ -35,7 +35,11 @@ $whenPlayedAbilities["SHD_129:0"] = function($player, $mzID = '') {
                 $units[] = $hmz;
             }
             if (empty($units)) return;
-            SWUQueueChooseTarget(intval($player), $units,
+            // DECLINABLE (user ruling 2026-08-15): "play a unit from your HAND" can always be declined,
+            // because the hand is a HIDDEN zone — a player is never forced to reveal that they held a
+            // playable unit. Same reasoning for SHD_016 Fennec Shand and SOR_022 Energy Conversion Lab.
+            SWUQueueMayChooseTarget(intval($player), $units,
+                "Play_a_unit_from_your_hand_(it_gains_Ambush)?",
                 "Play_a_unit_from_your_hand_(it_gains_Ambush)", "SHD_129#0");
             return;
 };

@@ -7,8 +7,8 @@
 #//           boundary pair=NoOfficial_NoSentinel_EnemyMayAttackBase (absence) +
 #//           OfficialInPlay_GuardGainsSentinel_BaseAttackForcedOntoGuard (presence) · reqboundary=
 #//           OfficialInPlay_* (state crosses the pass→enemy-attack request boundary) · control=N/A
-#//           (both clauses read the GUARD's controller live; no lingering per-unit marker — no
-#//           upstream control scenario exists)
+#//           (both clauses read the GUARD's controller live; no lingering per-unit marker, so a
+#//           control change has nothing to carry)
 
 ## GIVEN
 CommonSetup: grw/grw

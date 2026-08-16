@@ -163,3 +163,41 @@ WithP1GroundArena: SOR_128:1:0
 ## EXPECT
 P1LEADER:DEPLOYED
 P1GROUNDARENACOUNT:1
+
+---
+
+# FrontOffer_OneOrLessHpNonLeaderBothSides
+#// LAW_004 Aurra Sing (leader front) — OFFER assertion for "Defeat a non-leader unit with 1 or less
+#// remaining HP." Every restriction word has a violator on the board: the friendly SOR_128 (3/1) is at 1
+#// remaining HP (IN — the defeat is not enemy-only); the enemy SOR_046 (3/7) carrying 6 damage is at 1
+#// remaining HP (IN); the enemy SOR_095 (3/3, undamaged) is at 3 remaining HP (OUT on the HP threshold);
+#// and P2's DEPLOYED leader (SOR_010, 8 HP with 7 damage = 1 remaining, ground idx 2) is OUT purely on
+#// "non-leader" — it clears the HP threshold, so its absence can only be the leader exclusion.
+#// COVERAGE: offer=this section (HP threshold + non-leader + both-controller scope) · decline=
+#//           DeployedMayDecline (the deployed side's "you may") · control=N/A (the defeat reads only
+#//           remaining HP and leader-ness, never a seat) · boundary pair=FrontDefeatLowHp (a 1-HP unit
+#//           exists) vs FrontNoTarget_UsableAnyway (none does — Action still usable, CR 6.4.587.c), and
+#//           DeployedDefeatLowHp (5-HP threshold) vs DeployedNoTarget_NoOp · reqboundary=N/A (each
+#//           Action/Deploy is one self-contained request; nothing is recorded before the target answer)
+
+## GIVEN
+CommonSetup: ybk/grw/{
+  myLeader:LAW_004;
+  myBase:SOR_028;
+  theirLeader:SOR_010:1:1:0:7
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: [SOR_046:1:6 SOR_095:1:0]
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+P2GROUNDARENACOUNT:3
+P2GROUNDARENAUNIT:1:CARDID:SOR_095
+P2GROUNDARENAUNIT:2:ISLEADERUNIT
+P2GROUNDARENAUNIT:2:DAMAGE:7
+P2GROUNDARENAUNIT:2:HP:8

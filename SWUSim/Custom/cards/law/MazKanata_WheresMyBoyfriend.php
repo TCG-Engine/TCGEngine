@@ -45,7 +45,7 @@ $customDQHandlers["LAW_074#0"] = function($player, $parts, $lastDecision) {
     // Play it: -4 cost, enters ready, fires WhenPlayed, and marked to return to the deck bottom at regroup.
     // asUnitOnly: the ability searched for an Underworld UNIT, so a Piloting card found this way is played
     // as a unit — no Unit-vs-Pilot choice. Applied for parity with the rest of the search-and-play family
-    // (SOR_104, LAW_063, LOF_100), where upstream asserts it directly.
+    // (SOR_104, LAW_063, LOF_100), where it is asserted directly.
     $gForceEnterReady     = true;
     $gPlayGrantTurnEffect = 'SWU_LAW074_BOTTOM';
     SWUPlayTopDeckCard(intval($player), false, 4, true);

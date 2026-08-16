@@ -99,3 +99,40 @@ WithP2GroundArena: SOR_204:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_204
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# OfferPool_AnyGroundUnitEitherSideIncludingSelf
+#// LAW_064 Zuckuss — offer assertion for "you may deal damage equal to this unit's power to A GROUND
+#// UNIT". Note the wording: the CONDITION is controller-scoped ("if you control another Bounty Hunter")
+#// but the TARGET is not — "a ground unit" names no controller and carries no "another", so the pool is
+#// every ground unit in play including Zuckuss himself and his own Bounty Hunter enabler. The only real
+#// filter is the arena. Discriminating board — friendly Zuckuss (IN), friendly LAW_124 Industrious Team
+#// (IN), enemy SOR_046 (IN), friendly SPACE SOR_178 (OUT) and enemy SPACE SEC_213 (OUT). A pool narrowed
+#// to "enemy" (the intuitive mis-read, and the shape LAW_057/LAW_184 actually use) fails here. The pick
+#// is left UNANSWERED so the pending pool can be read.
+#// COVERAGE: offer=OfferPool_AnyGroundUnitEitherSideIncludingSelf (pending SELECTABLEEXACT; space units
+#//           on both sides are the "out", both sides' ground plus the source itself are the "in") ·
+#//           reqboundary=NOT COVERED (the power is baked into the continuation amount before the pick;
+#//           no section forces a SimulateRequestBoundary across it) · control=OpponentBountyHunterNot
+#//           Counted (the "another Bounty Hunter" gate is proven controller-scoped — an enemy Bounty
+#//           Hunter does not enable it) · boundary pair=OnAttackDealPowerIfBountyHunter (gate met) vs
+#//           NoOtherBountyHunter (gate unmet, no trigger), plus UpgradesIncreaseDamage for the
+#//           current-power read · decline=MayPassAbility
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_064:1:0
+WithP1GroundArena: LAW_124:1:0
+WithP1SpaceArena: SOR_178:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_213:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0
+P1SPACEARENAUNIT:0:CARDID:SOR_178
+P2SPACEARENAUNIT:0:CARDID:SEC_213

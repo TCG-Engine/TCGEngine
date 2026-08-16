@@ -97,3 +97,26 @@ WithP2GroundArena: SOR_095:1:0
 
 ## EXPECT
 P1BASEDMG:3
+
+---
+
+# AmbushFirstAttack_SurvivesTheRequestBoundary
+#// LAW_112 Boonta Eve Flagbearer — request-boundary guard on the "no other units have attacked this phase"
+#// tracker. Same flow as AmbushAttackIsStillTheFirstAttack_Heals, but a serialize round-trip is inserted
+#// before the Ambush YES/NO answer: in production that answer arrives in a fresh process, so a phase tracker
+#// held in a transient global would be lost and the heal would not fire. Base at 5 damage still heals to 3.
+
+## GIVEN
+CommonSetup: yyw/rrk/{myResources:3; myBaseDamage:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_112:1:0
+WithP1Hand: LAW_219
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1BASEDMG:3

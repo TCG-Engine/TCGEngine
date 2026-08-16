@@ -938,11 +938,21 @@ function SWUBountyGrantUpgrades(): array {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Smuggle($obj) {
-    // SHD_248 Tech — all cards in your resources gain Smuggle while Tech is in a ground arena.
-    foreach (GetUnitsInArena($obj->Controller, 'Ground') as $u) {
-        if ($u->CardID === 'SHD_248') return true;
-    }
-    return false;
+    // SHD_248 Tech — "Each FRIENDLY resource gains Smuggle" while Tech is in a ground arena.
+    //
+    // ⚠ Resolve the RESOURCE'S OWN SEAT, not $obj->Controller. A resource does not reliably carry a
+    // Controller: the generic move path (MZMove -> AddResources) and the test builder both omit it, so it
+    // is frequently the literal '-'. GetGroundArena('-') then falls through its `default:` branch to
+    // PLAYER 1's arena, so EVERY resource in the game answered "is there a Tech in play?" using P1's
+    // board. That was wrong in BOTH directions and seat-asymmetric: P2's resources never gained the grant
+    // even with P2's own Tech out, while P1's Tech handed Smuggle to the OPPONENT's resources (letting
+    // SHD_114 Scanning Officer wipe a board it should not have touched).
+    // PlayerID is the zone's owning seat and is always set. PlayerHasTechInPlay() is the same check,
+    // already int-typed and controller-correct.
+    $seat = intval($obj->PlayerID ?? 0);
+    if ($seat <= 0) $seat = intval($obj->Controller ?? 0);
+    if ($seat <= 0) return false;
+    return PlayerHasTechInPlay($seat);
 }
 
 // ═════════════════════════════════════════════════════════════════════════════

@@ -149,3 +149,32 @@ WithP1Hand: SOR_164
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:SOR_164
 P1RESAVAILABLE:0
+
+---
+
+# ArmedDiscount_SurvivesTheRequestBoundary
+#// LAW_158 Khetanna — request-boundary guard on the armed "next Underworld unit costs 1 less" charge. The
+#// charge is armed by one action and spent by a LATER one, so in production it must live in the serialized
+#// gamestate, not in a transient in-memory global. Khetanna attacks the base (arms -1); P1 then plays
+#// LAW_167 Common Cause (cost 2 of 4) which leaves a REAL pending choose (MZCHOOSE over myGroundArena-0 &
+#// myGroundArena-1); a serialize round-trip is inserted before that answer. P1 then plays LAW_134 Bib Fortuna
+#// (Underworld, cost 2): with the charge intact it costs 1, leaving exactly 1 ready resource. Had the charge
+#// been lost at the boundary Bib would cost 2 and P1RESAVAILABLE would be 0, so the 1 is load-bearing.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_158:1:0 SOR_095:1:0]
+WithP1Hand: [LAW_167 LAW_134]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:2:CARDID:LAW_134
+P1RESAVAILABLE:1

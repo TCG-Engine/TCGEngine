@@ -477,3 +477,39 @@ P1DECKCOUNT:3
 P1RESAVAILABLE:1
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# FrontSearchAfterRebelDefeat_SurvivesTheRequestBoundary
+#// LAW_005 — request-boundary guard for FrontSearchAfterRebelDefeat: same fixture, same flow, one extra
+#// SimulateRequestBoundary inserted before the search answer. Production starts a FRESH process on every
+#// answered decision, so the top-3 snapshot the action peeled off the deck (cards spliced OUT of the deck
+#// and parked while the picker is open) plus the "a friendly Rebel was defeated this phase" flag have to
+#// come back out of the serialized gamestate rather than an in-memory continuation global. SOR_046 must
+#// still be drawable after the boundary, and the deck must not have leaked its peeked cards.
+#// The insertion point is a genuine 3-option search picker (SOR_046 / SOR_095 / SOR_128), so the boundary
+#// is not vacuous.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_039:1:0
+WithP1Deck: SOR_046
+WithP1Deck: SOR_095
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:SOR_046
+
+## EXPECT
+P1HANDCOUNT:1
+P1RESAVAILABLE:1

@@ -880,6 +880,34 @@ $customDQHandlers["FOREIGN_PILOT_PLAY_CHOICE"] = function ($player, $parts, $las
   _SWUForeignDiscardPlayAsUnit(intval($player), $discardIdx, $cardID, $modifier, $opponent);
 };
 
+// OWN_DISCARD_PILOT_CHOICE — the Unit-vs-Pilot answer for a Piloting card played out of YOUR OWN
+// discard under a TPF/TPP permission (SHD_115 Cobb Vanth: "you may play THAT CARD from your discard
+// pile" — a card, not a unit, so the Piloting route is available; official ruling 2025-03-06).
+// $parts = actualDiscardIdx | cardID | modifier | playDiscount.
+// For a TPF (free) play the caller has already pre-loaded the whole pilot cost as SWU_PILOT_DISCOUNT
+// stacks, so the Pilot route is free too; _SWUFinalizeUpgradeAttach clears them after a successful
+// pilot payment, and the Unit branch drops them here.
+$customDQHandlers["OWN_DISCARD_PILOT_CHOICE"] = function ($player, $parts, $lastDecision) {
+  global $playerID;
+  $playerID = intval($player);
+  $discardIdx = intval($parts[0] ?? 0);
+  $cardID     = $parts[1] ?? '';
+  $modifier   = $parts[2] ?? '';
+  $discount   = intval($parts[3] ?? 0);
+
+  if ($lastDecision === 'Pilot') {
+    $vehicles = SWUGetPilotValidTargets(intval($player), $cardID);
+    if (!empty($vehicles)) {
+      AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
+      SWUQueuePilotVehiclePick(intval($player), "myDiscard-{$discardIdx}", $cardID, $vehicles);
+      return;
+    }
+    // Every Vehicle disappeared while the prompt was open — fall through to the unit play.
+  }
+  SWUClearGlobalEffectsByPrefix(intval($player), 'SWU_PILOT_DISCOUNT');
+  _SWUOwnDiscardPlayAsUnit(intval($player), $discardIdx, $cardID, $modifier, $discount);
+};
+
 // ── Leader deploy-as-Pilot choice handlers ───────────────────────────────────
 
 // LEADER_DEPLOY_CHOICE — receives the OPTIONCHOOSE "Unit" or "Pilot" answer.
@@ -2245,8 +2273,13 @@ $customDQHandlers["ACK"] = function ($player, $parts, $lastDecision) { /* acknow
 // tokens. The subcard mzID carries the host in the answer itself, so no side map is needed.
 //
 // $sourceHostMz: if non-empty, only scan that one host's upgrades ("an upgrade ON THIS unit" — JTL_070).
-// $destScope:    '' = any unit (default); 'friendlyVehicle' = restrict the destination to another
-//                friendly Vehicle unit (JTL_070). Read back in MOVE_UPGRADE.
+// $destScope:    '' = any unit OTHER than the source host (default); 'friendlyVehicle' = restrict the
+//                destination to another friendly Vehicle unit (JTL_070); 'anyIncludingSource' = the
+//                source host is ALSO a legal destination. Read back in MOVE_UPGRADE.
+//                The default excludes the source because most consumers say "attach it to ANOTHER
+//                eligible unit" (JTL_056/070/242). A card that says only "an eligible unit of your
+//                choice" (SHD_077) must be able to leave the upgrade where it is - taking CONTROL of
+//                it is itself the effect (USER RULING 2026-08-15).
 function SWUQueueMoveUpgrade(int $player, string $filter, string $tooltip, string $sourceHostMz = '', string $destScope = '', bool $friendlyOnly = false): void
 {
   global $playerID;
@@ -2304,7 +2337,7 @@ $customDQHandlers["MOVE_UPGRADE"] = function ($player, $parts, $lastDecision) {
   $dests = [];
   foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
     foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-      if ($mz === $hostMz)
+      if ($mz === $hostMz && $destScope !== 'anyIncludingSource')
         continue;
       $o = GetZoneObject($mz);
       if (SWUObjGone($o))

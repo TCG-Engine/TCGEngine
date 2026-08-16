@@ -137,3 +137,29 @@ P2HANDCOUNT:1
 P2HANDCARD:0:SOR_095
 P1BASEDMG:0
 P2BASEDMG:3
+
+---
+
+# ReturnAnotherFriendlyUnitHeal_SurvivesTheRequestBoundary
+#// LAW_088 Anakin Skywalker — request-boundary guard. Identical to ReturnAnotherFriendlyUnitHeal except
+#// that the game round-trips through serialization (SimulateRequestBoundary) while the may-return YES/NO
+#// is still pending. In a real game that answer arrives in a fresh process, so everything the trigger
+#// parked at attack-end — WHICH unit attacked (SOR_095, not Anakin), that it survived, and the
+#// "no other units attacked this phase" state — must live in the serialized gamestate rather than in a
+#// transient in-memory global. Accepting after the boundary must still return SOR_095 and heal 2.
+
+## GIVEN
+CommonSetup: byk/bgw/{myBaseDamage:2}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_088:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_088
+P1HANDCOUNT:1
+P1BASEDMG:0

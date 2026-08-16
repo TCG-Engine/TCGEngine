@@ -26,7 +26,11 @@ $leaderAbilities["SHD_016"] = function(int $player): void {
 
 $leaderActionResourceCosts["SHD_016"] = 1;
 
-$unitActionCostKind["SHD_016"] = 'exhaust';
+// The DEPLOYED Action is a bare "Action:" — no [Exhaust] and no resource cost (the front side's
+// [1 resource, Exhaust] belongs to the undeployed side only, and is charged via
+// $leaderActionResourceCosts above). Marking this 'exhaust' made the deployed side self-exhaust and so
+// usable only once per turn, where it is meant to be repeatable.
+$unitActionCostKind["SHD_016"] = 'none';
 
 $unitAbilities["SHD_016"] = function($player, $mzID) {
     if (!FennecShandHonoringtheDealOffer(intval($player))) SWUAfterAction(intval($player));
@@ -48,6 +52,11 @@ function FennecShandHonoringtheDealOffer(int $player): bool {
         $units[] = $mz;
     }
     if (empty($units)) return false;
-    SWUQueueChooseTarget($player, $units, "Play_a_unit_costing_4_or_less_(it_gains_Ambush)", "SHD_016#play");
+    // DECLINABLE (user ruling 2026-08-15): "play a unit from your HAND" can always be declined, because
+    // the hand is a HIDDEN zone — a player is never forced to reveal that they held a playable unit.
+    // Same reasoning for SHD_129 Timely Intervention and SOR_022 Energy Conversion Lab. The activation
+    // cost ([1 resource, Exhaust] on the front side) is still paid either way.
+    SWUQueueMayChooseTarget($player, $units, "Play_a_unit_costing_4_or_less_(it_gains_Ambush)?",
+        "Play_a_unit_costing_4_or_less_(it_gains_Ambush)", "SHD_016#play");
     return true;
 }

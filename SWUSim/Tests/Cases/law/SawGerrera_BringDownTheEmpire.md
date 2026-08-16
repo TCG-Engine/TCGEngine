@@ -278,3 +278,36 @@ P2GROUNDARENACOUNT:0
 P1GROUNDARENACOUNT:1
 P1RESCOUNT:3
 P1DISCARDCOUNT:0
+
+---
+
+# DeployedTriggerSecondAttack_SurvivesTheRequestBoundary
+#// LAW_001 Saw Gerrera — request-boundary guard. Identical to DeployedTriggerSecondAttack except the game
+#// round-trips through serialization (SimulateRequestBoundary) AFTER the follow-up attacker has been
+#// chosen (SEC_080) and while its attack-target pick is still pending. This is the valuable insertion
+#// point: by then the trigger has already recorded three things — which unit is making the granted
+#// attack, the +2/+0-and-Overwhelm-for-this-attack grant on it, and the "defeat it afterwards" rider —
+#// all of which are read only after this answer, which in a real game arrives in a fresh process. The
+#// result must be unchanged: 5 power defeats SHD_110, Overwhelm carries 3 to the base (4 + 3 = 7),
+#// SEC_080 is then defeated and only Saw remains.
+
+## GIVEN
+CommonSetup: rgw/grw/{
+  myLeader:LAW_001:1:1:1;
+  myBase:SOR_025
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SHD_110:1:0
+
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2BASEDMG:7
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1

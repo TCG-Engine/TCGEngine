@@ -10,6 +10,18 @@ $customDQHandlers["SHD_013#play"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $handMz = $lastDecision ?? '';
     if ($handMz === '' || !str_contains($handMz, '-')) { SWUAfterAction(intval($player)); return; }
+    // Snapshot who is already in play BEFORE the nested play. The findable marker lasts the whole PHASE,
+    // so a marker-only search finds the FIRST unit played this phase, not the one just played. That was
+    // invisible while the deployed Action self-exhausted (one use per turn); once it became repeatable
+    // — which it always should have been — the second use dealt its 2 damage to the FIRST unit again,
+    // killing a 3 HP unit with 4 damage while the unit actually played took none.
+    $before = [];
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed)) $before[intval($o->UniqueID ?? 0)] = true;
+        }
+    }
     $gPlayGrantTurnEffect = 'SHD_013';
     $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
     ActivateCard(intval($player), $handMz, false, 1);   // −1 discount; inner after-action neutralised
@@ -19,7 +31,9 @@ $customDQHandlers["SHD_013#play"] = function($player, $parts, $lastDecision) {
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && is_array($o->TurnEffects ?? null)
+            if ($o === null || !empty($o->removed)) continue;
+            if (isset($before[intval($o->UniqueID ?? 0)])) continue;   // already in play — not this play
+            if (is_array($o->TurnEffects ?? null)
                     && in_array('SHD_013', $o->TurnEffects, true)) { $newMz = $mz; break 2; }
         }
     }
@@ -31,7 +45,10 @@ $leaderAbilities["SHD_013"] = function(int $player): void {
     if (!HanSoloWorththeRiskOffer($player)) SWUAfterAction($player);
 };
 
-$unitActionCostKind["SHD_013"] = 'exhaust';
+// The DEPLOYED Action is a bare "Action:" — no [Exhaust]. The front side's [Exhaust] belongs to the
+// undeployed side only, so charging it here made the deployed Action self-exhaust and be usable once per
+// turn instead of repeatable. (Identical defect to Fennec Shand SHD_016.)
+$unitActionCostKind["SHD_013"] = 'none';
 
 $unitAbilities["SHD_013"] = function($player, $mzID) {
     if (!HanSoloWorththeRiskOffer(intval($player))) SWUAfterAction(intval($player));

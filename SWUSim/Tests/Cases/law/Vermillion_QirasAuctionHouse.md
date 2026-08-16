@@ -3,9 +3,10 @@
 #// player to play it for free; a DIFFERENT player creates Credits = that card's cost. Here P1 reveals its
 #// own deck (P2's is empty → auto), chooses ITSELF to play the revealed Battlefield Marine (cost 2) for
 #// free, and the other player (P2) creates 2 Credits.
-#// COVERAGE: offer=deck-choice pool deliberately omits EMPTY decks, so the pick auto-resolves to the
-#//           stocked one (YourDeckEmpty_OppDeckAutoRevealed + OppDeckEmpty_YourOwnDeckIsAutoRevealed;
-#//           Intended: same design as the LAW_018 mill choice) · decline=Declined_NoPlayNoCredits +
+#// COVERAGE: offer=EmptyDeckIsNeverOfferedInTheDeckPool (added 2026-08-16 — asserts the deck step is
+#//           SKIPPED, not auto-answered, when one deck is empty) + the auto-reveal outcome sections
+#//           YourDeckEmpty_OppDeckAutoRevealed and OppDeckEmpty_YourOwnDeckIsAutoRevealed;
+#//           Intended: same design as the LAW_018 mill choice · decline=Declined_NoPlayNoCredits +
 #//           YourDeck_ChooseOpp_Decline + OppDeck_ChooseSelf_Decline + OppDeck_ChooseOpp_Decline (all
 #//           four chooser/decliner quadrants) · control=RevealOpponentDeck_StealUnit (the chosen player
 #//           plays a card they do not own) · boundary=RevealedCost0_NoCredits (zero-cost) +
@@ -587,3 +588,41 @@ WithP2Resources: 5
 P1GROUNDARENACOUNT:0
 P1DECKCOUNT:1
 P2CREDITCOUNT:0
+
+---
+
+# EmptyDeckIsNeverOfferedInTheDeckPool
+#// LAW_215 Vermillion — RE-VERIFICATION of the one residual scenario ("choose an EMPTY deck, the ability
+#// fizzles"), which was closed earlier as unreachable. Re-read against the current code: STILL VALID and
+#// unchanged — the trigger builds its deck list from decks whose top-card index is not -1, and it only
+#// raises the deck-choice prompt when TWO decks survive that filter, so an empty deck can never be
+#// picked and the fizzle state has no path.
+#// What WAS missing is an explicit assertion of that premise, which the ledger had been claiming without
+#// a section behind it. This is it. P1's deck is EMPTY and P2's is stocked: if empty decks were in the
+#// pool the trigger would raise the two-option "Reveal the top card of which deck?" prompt. Instead the
+#// pending decision after the attack is already the NEXT step, the choose-a-player OPTIONCHOOSE — the
+#// tooltip names the card revealed from P2's deck, so the deck step was skipped entirely rather than
+#// auto-answered to "Yours". The two option labels are asserted so the section fails loudly if the
+#// pending decision is ever a different prompt that merely happens to carry this tooltip.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP2Deck: SOR_095
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_a_player_to_play_Battlefield_Marine_for_free
+P1OPTIONHAS:You
+P1OPTIONHAS:Opponent
+P1DECKCOUNT:0
+P2DECKCOUNT:2

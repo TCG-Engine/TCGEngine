@@ -629,8 +629,18 @@ class GameTestAdapter {
         // owned by 33 created /tmp/swusim_request_boundary_33 as root:0755, and the Apache endpoint
         // (really uid 33) could then never write into its own directory — every boundary section failed
         // there while the CLI runner stayed green. posix_geteuid() is who we actually are.
+        // ⚠ ALSO SCOPE BY PROCESS. uid alone is not enough: the CLI runner hardcodes
+        // $gameName = 'test_runner', so EVERY concurrent runner under the same uid shared
+        // .../swusim_request_boundary_<uid>/Games/test_runner and raced over one Gamestate.txt.
+        // With parallel agents that means one agent's WriteGamestate is read back by another's
+        // ParseGamestate — observed twice in one wave: a boundary section failed with a card
+        // (SEC_081) that was never in its fixture, and another saw a buff silently not apply.
+        // Both passed in isolation. A phantom product bug produced purely by test infrastructure,
+        // which is the most expensive kind. The write and the read both happen inside THIS call,
+        // so per-process scoping is safe and makes concurrent runs independent.
         $uid  = function_exists('posix_geteuid') ? posix_geteuid() : getmyuid();
-        $base = rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary_' . $uid . '/';
+        $pid  = function_exists('getmypid') ? intval(getmypid()) : 0;
+        $base = rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary_' . $uid . '_' . $pid . '/';
         $dir  = $base . "Games/{$gameName}";
         if (!is_dir($dir)) { @mkdir($dir, 0777, true); @chmod($dir, 0777); }
         if (!is_dir($dir) || !is_writable($dir)) {
@@ -645,6 +655,21 @@ class GameTestAdapter {
         //    Anything omitted here silently survives the boundary and hides a whole bug class — that is
         //    exactly how the JTL_094 pilot-replacement disappearance went unnoticed: only $gShootFirstPending
         //    was reset, so the pilot-replacement snapshot leaked across the boundary and every guard passed.
+        // ── Added 2026-08-15 after an ORACLE AUDIT of the reset list (transient $gXxx globals that are
+        //    neither reset here nor serialized in GamestateParser.php). Production loses ALL of these on
+        //    every request; anything omitted here silently survives the boundary and hides a bug class.
+        //    The three marked CROSSES are the JTL_094 shape — written, then read AFTER an interactive
+        //    decision — so a boundary section written before this was hardened would pass VACUOUSLY.
+        $GLOBALS['gSmuggleDeferred']        = null;   // CROSSES: written in SWUSmuggleResource, read by the deferHandler
+        $GLOBALS['gShd001Pending']          = [];     // CROSSES: written in the defeat collector, read in a DQ handler
+        $GLOBALS['gSWUWillrowPinnedCount']  = [];     // CROSSES: pinned count read across per-upgrade decisions
+        $GLOBALS['gShd161DefeatOwner']      = [];     // defeat-time snapshot consumed at bounty-offer time
+        $GLOBALS['gLastPlayedMzID']         = '';     // synchronous result channel; reset for faithfulness
+        $GLOBALS['gPlayingEventCardID']     = '';
+        $GLOBALS['gShd010Recollecting']     = false;
+        $GLOBALS['gSimulDefeatWindow']      = false;
+        $GLOBALS['gTwi040IgnoreAspect']     = false;
+        unset($GLOBALS['gSimulDefeatSidious']);
         $gShootFirstPending    = null;
         $gDeferredReplacements = [];
         $gSec035DefeatSnapshot = [];

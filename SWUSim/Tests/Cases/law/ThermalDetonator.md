@@ -139,3 +139,35 @@ P1GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P1DISCARDCOUNT:2
+
+---
+
+# AttachPool_NonVehicleUnitEitherSide
+#// COVERAGE (corrects the ledger in StolenReadyHost_BlastHitsOriginalOwner, which recorded offer=N/A on
+#//           the strength of the GRANTED ability being target-less; the upgrade's OWN attach step is a
+#//           real offer and is now asserted here): offer=AttachPool_NonVehicleUnitEitherSide (attach pool
+#//           exactly: non-Vehicle only, both sides) + the NGOR take-control pick in StolenReadyHost_*.
+#//           The other axes are unchanged: decline=N/A · control=StolenReadyHost_BlastHitsOriginalOwner +
+#//           StolenExhaustedHost_NoBlast · boundary=ReadyDefeatBlastsEnemies vs ExhaustedDefeat_NoBlast
+#//           (and the same pair under NGOR) · reqboundary=the ready-state check crosses the play's
+#//           control-change + defeat chain inside one resolution.
+#// LAW_201 Thermal Detonator — "Attach to a non-Vehicle unit." The restriction names no controller, so per
+#// CR 2.e it spans BOTH sides; a detonator may legally be strapped to an ENEMY unit. The board seats a
+#// violator for each half — friendly Vehicle SOR_232 AT-ST and enemy Vehicle SOR_039 AT-AT Suppressor must
+#// both be OUT — and a witness for each half that must be IN: the friendly non-Vehicle SEC_080 and the
+#// ENEMY non-Vehicle SOR_095. Every pre-existing section seats the detonator with WithP1GroundArenaUpgrade
+#// and therefore never exercises the attach filter at all.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: [SEC_080:1:0 SOR_232:1:0]
+WithP2GroundArena: [SOR_095:1:0 SOR_039:1:0]
+WithP1Hand: LAW_201
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

@@ -167,3 +167,40 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LAW_219
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENACOUNT:0
+
+---
+
+# ShootFirstFlagSurvivesTheRequestBoundary
+#// LAW_219 — request-boundary guard for NoStrikeFirstAfterBounceAndReplay: same fixture, same flow, one
+#// extra SimulateRequestBoundary inserted before the Ambush TARGET answer. Production starts a FRESH
+#// process on every answered decision, so the "which units have attacked this phase" history must come
+#// back out of the serialized gamestate rather than an in-memory global. The replayed Podracer's whole
+#// Ambush attack — and therefore the strike-first check — resolves AFTER the boundary, and it must still
+#// see that a unit already attacked this phase: damage stays simultaneous and both units die.
+#// The insertion point is a genuine 2-option choose (theirGroundArena-0 / theirGroundArena-1), so the
+#// boundary is not vacuous.
+
+## GIVEN
+CommonSetup: yyw/yyk/{
+  myResources:3;
+  theirResources:3
+}
+WithP1GroundArena: LAW_219:1:0
+WithP2Hand: SOR_222
+WithP2GroundArena: [SOR_095:1:0 SOR_128:1:0 SOR_128:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_128
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:LAW_219

@@ -51,8 +51,8 @@ P1RESAVAILABLE:2
 # CannotUseWithoutTheForce
 #// LOF_094 Jedi Consular — the ability's cost includes "use the Force (lose your Force token)"; without a
 #// Force token the ability can't be activated. With no Force, P1 attempts to use it: it's a no-op — the
-#// Consular stays ready, the unit in hand is not played, and no resources are spent. Ported from the
-#// reference "cannot be used without having the force".
+#// Consular stays ready, the unit in hand is not played, and no resources are spent. Intended: the
+#// ability cannot be used without having the Force.
 
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:2;handCardIds:SOR_095}

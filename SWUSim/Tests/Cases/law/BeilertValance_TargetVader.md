@@ -118,3 +118,32 @@ WithP1Deck: SOR_237
 ## EXPECT
 P1HANDCOUNT:1
 P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# OnAttackCountsDrawsFromEarlierInstances_SurvivesTheRequestBoundary
+#// LAW_051 Beilert Valance — request-boundary guard on the "cards you've drawn this phase" counter. Same
+#// flow as OnAttackCountsDrawsFromEarlierInstances (TWI_175 draws 3, then Valance's attack draws 1 = 4), but
+#// a serialize round-trip is inserted before the optional-damage answer. In production that answer arrives in
+#// a fresh process, so a counter parked in a transient global would be lost and the damage would drop below 4.
+#// The pending decision is real (MZMAYCHOOSE over myGroundArena-0 & theirGroundArena-0), and the enemy
+#// SOR_046 still takes exactly 4.
+
+## GIVEN
+CommonSetup: brk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_051:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: TWI_175
+WithP1Deck: [SOR_237 SOR_237 SOR_237 SOR_237]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AttackGroundArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:4
+P1HANDCOUNT:4

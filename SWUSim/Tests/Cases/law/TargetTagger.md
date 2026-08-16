@@ -83,3 +83,32 @@ WithP1Hand: LAW_157
 P1HASDECISION
 P1DECISIONTOOLTIP:Choose_an_attack_target
 P1SELECTABLEEXACT:theirGroundArena-0&theirBase-0
+
+---
+
+# AttackBountyHunterBuff_SurvivesTheRequestBoundary
+#// LAW_157 — request-boundary guard for AttackBountyHunterBuff. The +2/+0 is decided and recorded when the
+#// ATTACKER is chosen ("if it's a Bounty Hunter, it gets +2/+0 FOR THIS ATTACK") but is only consumed when
+#// the attack resolves, one decision later — exactly the shape that survives in a single-process harness
+#// and is lost in production, which starts a FRESH process on every answered decision. The boundary is
+#// therefore inserted before the TARGET answer, so the whole attack resolves after it.
+#// AttackBountyHunterBuff's own fixture has a base-only target list, which auto-resolves and would make
+#// the boundary vacuous, so an enemy SOR_095 is seeded purely to make the target choose real (MZCHOOSE
+#// [theirGroundArena-0&theirBase-0], per TargetSelectCannotBePassed_OnceAnAttackerIsChosen above). The
+#// Bounty Hunter LAW_124 still attacks the base for 4+2 = 6.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: LAW_124:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: LAW_157
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:6

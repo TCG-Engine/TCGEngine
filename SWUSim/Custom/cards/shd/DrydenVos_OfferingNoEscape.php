@@ -28,10 +28,16 @@ $customDQHandlers["SHD_192#0"] = function($player, $parts, $lastDecision) {
     $owner = is_array($sub) ? intval($sub['Owner'] ?? 0) : intval($sub->Owner ?? 0);
     if ($cid === '') return;
     if ($owner === 0) $owner = OtherPlayer(intval($player));
-    $uid = NextUniqueID();
-    if (CardTargetArena($cid) === 'SpaceArena') {
-        AddSpaceArena(intval($player), CardID:$cid, Status:0, Owner:$owner, Damage:0, Controller:intval($player), UniqueID:$uid);
-    } else {
-        AddGroundArena(intval($player), CardID:$cid, Status:0, Owner:$owner, Damage:0, Controller:intval($player), UniqueID:$uid);
+    $uid   = NextUniqueID();
+    $arena = CardTargetArena($cid);
+    $newCard = ($arena === 'SpaceArena')
+        ? AddSpaceArena(intval($player), CardID:$cid, Status:0, Owner:$owner, Damage:0, Controller:intval($player), UniqueID:$uid)
+        : AddGroundArena(intval($player), CardID:$cid, Status:0, Owner:$owner, Damage:0, Controller:intval($player), UniqueID:$uid);
+    // The card is PLAYED, not just placed — so its entry triggers fire, exactly as they do on every other
+    // "play a card from a non-hand zone" path (_SWUSmuggleFireEntry, _SWUOwnDiscardPlayAsUnit). Without
+    // this the freed unit's When Played was silently lost; CONSTANT abilities still worked, because those
+    // are recomputed from board state, which is what made the gap look like it wasn't there.
+    if ($newCard !== null) {
+        CollectEntryTriggers(intval($player), $cid, $newCard->GetMzID(), $arena);
     }
 };

@@ -146,3 +146,65 @@ WithP1Hand: [LAW_208]
 ## EXPECT
 P2HASDECISION
 P2GROUNDARENACOUNT:0
+
+---
+
+# CollateralDamage_FirstClausePool_AnyUnitEitherSideEitherArena
+#// LAW_208 Collateral Damage — "Deal 2 damage to a unit." The first clause carries NO restriction word at
+#// all: no controller scope, no arena, no non-leader. The board therefore seats one unit of every kind so
+#// the pool has to be the complete set — a friendly ground unit, a friendly SPACE unit, an enemy ground
+#// unit, an enemy SPACE unit, and P2's DEPLOYED LEADER (a leader unit is still "a unit", so it must be IN;
+#// contrast the second clause, which is arena-scoped, and Double-Cross, which says "non-leader"). Anything
+#// missing from this pool is an invented restriction.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:3;theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_208
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P2GROUNDARENAUNIT:1:ISLEADERUNIT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirGroundArena-1&theirSpaceArena-0
+
+---
+
+# CollateralDamage_SecondClausePool_SameArenaAnotherUnitOrEitherBase
+#// COVERAGE: offer=CollateralDamage_FirstClausePool_AnyUnitEitherSideEitherArena (unrestricted first pool,
+#//           leader unit included) + CollateralDamage_SecondClausePool_SameArenaAnotherUnitOrEitherBase
+#//           ("another" + same-arena + either base) · decline=N/A (both clauses are mandatory chooses, no
+#//           "you may") · control=N/A (no control-change text) · boundary=the parked-When-Defeated pair
+#//           (...MustNotResolveAfterTheGameIsWON vs ...StillResolvesWhenTheGameIsNOTWon) plus
+#//           FirstClauseWhenDefeatedWaitsForThenClause vs WhenDefeatedReleasesAfterThenClause ·
+#//           reqboundary=CollateralDamage_DeferredTriggerSurvivesRequestBoundary.
+#// LAW_208 — "Then, deal 2 damage to A BASE or ANOTHER unit in the SAME ARENA." Three restrictions, each
+#// with a violator on the board. The first hit lands on P2's SOR_046 (3/7, survives), so: SOR_046 itself is
+#// OUT on "another" even though it is still in play; both SPACE units (P1's SOR_237, P2's SOR_225) are OUT
+#// on "same arena"; the remaining GROUND units are IN — P1's own SOR_095 (the clause is not controller-
+#// scoped) and P2's DEPLOYED LEADER at theirGroundArena-1; and "a base" means EITHER base, so myBase-0 and
+#// theirBase-0 are both IN. The existing ...WaitsForThenClause section only reads this decision's tooltip.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:3;theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_208
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1HASDECISION
+P2GROUNDARENAUNIT:1:ISLEADERUNIT
+P1SELECTABLEEXACT:myBase-0&theirBase-0&myGroundArena-0&theirGroundArena-1

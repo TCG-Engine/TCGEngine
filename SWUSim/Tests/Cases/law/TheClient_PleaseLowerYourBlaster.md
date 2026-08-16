@@ -195,3 +195,71 @@ WithP2GroundArena: SEC_080:1:0
 P1LEADER:DEPLOYED
 P1HASFORCE
 P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# CreatedTokenThisPhase_SurvivesTheRequestBoundary
+#// LAW_016 The Client — request-boundary guard on the "you created a token this phase" state, which must
+#// outlive the action that created the token. LAW_235 Lady Proxima's Action creates a Credit; SOR_142 Sabine
+#// then attacks SEC_080, leaving a REAL pending choose for her On Attack damage (MZMAYCHOOSE over
+#// theirGroundArena-0 & theirBase-0 & myBase-0); a serialize round-trip is inserted before that answer. Only
+#// then does The Client use its Action: the phase state survived, so the enemy SEC_080 is still exhausted.
+#// (FrontNoTokenDoesNothing is the negative: with no token created, the same Action exhausts nothing.)
+
+## GIVEN
+CommonSetup: yyk/grw/{
+  myLeader:LAW_016;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [LAW_235:1:0 SOR_142:1:0]
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AttackGroundArena:1:theirGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+- P1>UseLeaderAbility
+
+## EXPECT
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1CREDITCOUNT:1
+
+---
+
+# FrontOffer_EnemyUnitsAnyArenaIncludingDeployedLeader
+#// LAW_016 The Client (leader front) — OFFER assertion for "exhaust an ENEMY unit." Lady Proxima creates
+#// the Credit that satisfies the "if you created a token this phase" gate, then the Action's pool is read
+#// while pending. Discriminating board: both of P1's own units (LAW_235, SOR_095) are OUT on controller
+#// scope; P2's ready SEC_080, P2's ALREADY-EXHAUSTED SOR_046 (still a legal pick — the text says "an
+#// enemy unit", not "a ready enemy unit"), P2's DEPLOYED leader at ground idx 2 (a deployed leader IS a
+#// unit, so it is correctly IN) and P2's space TIE Fighter (no arena restriction) are all IN.
+#// COVERAGE: offer=this section (controller scope + both arenas + exhausted-still-eligible + deployed
+#//           leader included) · reqboundary=CreatedTokenThisPhase_SurvivesTheRequestBoundary ·
+#//           control=N/A (the "you created a token" state is per-seat and already covered by
+#//           DeployedOnlyEnemyTokenDoesNothing; no control-change path) · boundary
+#//           pair=FrontExhaustAfterToken (token created) vs FrontNoTokenDoesNothing (none — Action still
+#//           usable, CR 6.4.587.c) · decline=N/A (no "you may"; the exhaust is mandatory once gated)
+
+## GIVEN
+CommonSetup: yyk/grw/{
+  myLeader:LAW_016;
+  myBase:SOR_028;
+  theirLeaderDeployed:true
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [LAW_235:1:0 SOR_095:1:0]
+WithP2GroundArena: [SEC_080:1:0 SOR_046:0:0]
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>UseLeaderAbility
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1&theirGroundArena-2&theirSpaceArena-0
+P2GROUNDARENAUNIT:1:EXHAUSTED
+P2GROUNDARENAUNIT:2:ISLEADERUNIT

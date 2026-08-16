@@ -220,3 +220,35 @@ WithP2SpaceArenaUpgrade: 0:LOF_040
 P2SPACEARENAUNIT:0:DAMAGE:1
 P2SPACEARENAUNIT:0:READY
 P2BASEDMG:3
+
+---
+
+# ADeckMillAlsoSatisfiesTheGate_SurvivesTheRequestBoundary
+#// LAW_076 — request-boundary guard for ADeckMillAlsoSatisfiesTheGate. The "you discarded a card from your
+#// hand or deck THIS phase" flag is written by Daring Delve's mill and read one interactive decision later
+#// when the unit is played; production starts a FRESH process on every answered decision, so that flag has
+#// to come back out of the serialized gamestate rather than an in-memory per-phase counter. Lose it and
+#// the unit arrives with no Shield.
+#// ⚠ ADeckMillAlsoSatisfiesTheGate's own deck is all SOR_095, so Daring Delve's "return an Aggression card
+#// you discarded this way" finds nothing and its `AnswerDecision:-` there is a SPARE answer against no
+#// pending decision — a boundary in that flow would be vacuous. The deck is therefore all-Aggression here
+#// (SOR_128 / SOR_164) purely so the return offer is a real MZMAYCHOOSE [myDiscard-1&myDiscard-2]; the
+#// return is still declined, and the mill still shields the unit.
+
+## GIVEN
+CommonSetup: ryk/yyw/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [LAW_203 LAW_076]
+WithP1Deck: [SOR_128 SOR_128 SOR_164 SOR_164]
+WithP2Deck: [SEC_080 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:-
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:LAW_076
+P1SPACEARENAUNIT:0:SHIELDCOUNT:1

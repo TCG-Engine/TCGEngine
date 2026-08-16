@@ -11,6 +11,7 @@ WithP2SpaceArena: SOR_225:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:theirSpaceArena-0
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2BASEDMG:1
@@ -31,7 +32,46 @@ WithP1SpaceArena: IBH_024:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:theirBase-0
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2BASEDMG:3
 P1NODECISION
+
+---
+
+# OfferPool_BaseClauseOffersEitherBase
+#// IBH_006 — "Deal 1 damage to a base" names no controller, so the pick is a genuine two-candidate
+#// choose. Guards the regression where this was hardcoded to the enemy base behind a stale comment
+#// claiming a base choose could not survive an On Attack.
+
+## GIVEN
+CommonSetup: yyw/rrk/{}
+P1OnlyActions: true
+WithP1SpaceArena: IBH_006:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:theirBase-0
+
+## EXPECT
+P1SELECTABLEEXACT:myBase-0&theirBase-0
+
+---
+
+# OnAttack_CanChooseYourOwnBase
+#// IBH_006 — picking your OWN base sends the 1 there while combat (power 2) still lands on the enemy
+#// base, so the two totals separate: own base 1, enemy base 2. Also proves the choose survives an
+#// attack made DIRECTLY on the base, which is the exact case the stale workaround claimed was broken.
+
+## GIVEN
+CommonSetup: yyw/rrk/{}
+P1OnlyActions: true
+WithP1SpaceArena: IBH_006:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:theirBase-0
+- P1>AnswerDecision:myBase-0
+
+## EXPECT
+P1BASEDMG:1
+P2BASEDMG:2

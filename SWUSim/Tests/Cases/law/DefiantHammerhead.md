@@ -66,3 +66,28 @@ P2BASEDMG:6
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:LAW_062
 P1NODECISION
+
+---
+
+# OnAttackBuffSelfDefeat_SurvivesTheRequestBoundary
+#// LAW_062 Defiant Hammerhead — the YES/NO is answered in a fresh process, so the in-flight attack, the
+#// "+4/+0 for this attack" duration and the deferred "defeat this unit after the attack" rider must all be
+#// carried by the serialized gamestate rather than an in-memory continuation. Mirrors
+#// OnAttackBuffSelfDefeat with a request boundary between the attack declaration and the answer.
+#// A YESNO decision is confirmed pending at that point (asserting P1NODECISION there reports type YESNO),
+#// so the boundary is not a no-op.
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_062:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:0

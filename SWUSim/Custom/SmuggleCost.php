@@ -1,9 +1,11 @@
 <?php
 
 // Static Smuggle cost and aspect-bracket lookup for all SHD Smuggle cards.
-// Ported from smuggle.ts in the Karabast reference.
+// Values are transcribed from the printed Smuggle keyword on each card.
 $smuggleCostData = [
-    'SHD_032' => 5, 'SHD_036' => 4, 'SHD_050' => 9, 'SHD_052' => 6,
+    // ⚠ SHD_036 First Light is Smuggle [7 resources, Vigilance Villainy, deal 4 damage to a friendly
+    // unit]. It was recorded as 4 — the DAMAGE number transcribed into the RESOURCE column.
+    'SHD_032' => 5, 'SHD_036' => 7, 'SHD_050' => 9, 'SHD_052' => 6,
     'SHD_065' => 7, 'SHD_075' => 3, 'SHD_086' => 4, 'SHD_089' => 7,
     'SHD_097' => 4, 'SHD_107' => 6, 'SHD_111' => 3, 'SHD_113' => 6,
     'SHD_119' => 5, 'SHD_127' => 3, 'SHD_129' => 2, 'SHD_148' => 5,
@@ -11,6 +13,14 @@ $smuggleCostData = [
     'SHD_184' => 4, 'SHD_197' => 4, 'SHD_201' => 6, 'SHD_203' => 6,
     'SHD_204' => 6, 'SHD_213' => 7, 'SHD_215' => 4, 'SHD_217' => 5,
     'SHD_225' => 4, 'SHD_248' => 4, 'SHD_252' => 3,
+];
+
+// Smuggle ADDITIONAL costs that are not resources: "deal N damage to a friendly unit" (CR — a cost, not
+// an effect, so it must be PAYABLE for the play to be legal, and it counts as paid even if the damage is
+// prevented). Keyed CardID => N. Consumed by SWUSmuggleResource: a legality gate before anything is
+// spent, then a target choice once the play commits.
+$smuggleAdditionalDamageCost = [
+    'SHD_036' => 4,   // First Light, Headquarters of the Crimson Dawn
 ];
 
 // Aspect brackets for each Smuggle card's Smuggle keyword (CR 8.22).
