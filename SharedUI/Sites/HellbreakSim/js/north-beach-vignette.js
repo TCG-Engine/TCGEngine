@@ -160,7 +160,7 @@
     else if(index===3)playSample('rewardChime',musicGain,.4,.22,false,1,.55,null,null,function(requested,active){return requested===3&&active===3;});
     else if(index===4){submergedPass(.35,-.72,.72);buoyBell(.4);}
     else if(index===6)playSample('boatArrival',effectsGain,.58,[-.16,.1],false,1,.08,2.75,3.15,function(requested,active){return requested===6&&active===6;});
-    else if(index===7){ramp(masterGain.gain,.72,1.05);playSample('finalSting',musicGain,.16,0,false,1,.3,3.1,3.9,function(requested,active){return requested===7&&active===7;});finalSharkPasses();}
+    else if(index===7){ramp(masterGain.gain,.72,1.05);playSample('finalSting',musicGain,.42,0,false,1,.3,3.1,3.9,function(requested,active){return requested===7&&active===7;});finalSharkPasses();}
   }
   function ambienceTick(){
     if(!soundOn())return;ambienceCount++;
@@ -174,7 +174,7 @@
     else if(index===4)playSample('openWater',ambienceGain,.43,0,true,1,0,null,null,function(requested,active){return requested===4&&active===4;}).then(function(source){if(!source&&soundOn()&&current===4)startNoiseBed(.038,310,.055);});
     else if(index===5){playSample('openWater',ambienceGain,.9,0,true,1,0,null,null,function(requested,active){return requested===5&&active===5;}).then(function(source){if(!source&&soundOn()&&current===5)startNoiseBed(.04,310,.055);});playSample('woodRattle',ambienceGain,2.2,0,true,1,0,null,null,function(requested,active){return requested===5&&active===5;});}
     else if(index===6){playSample('boatAmbience',ambienceGain,.38,0,true,1,0,null,null,function(requested,active){return requested===6&&active===6;}).then(function(source){if(!source&&soundOn()&&current===6)startNoiseBed(.029,520,.12);});playSample('woodRattle',ambienceGain,.46,-.08,true,1,0,null,null,function(requested,active){return requested===6&&active===6;});startToneBed(31,.006,'sine');}
-    else if(index===7){playSample('underwaterMenu',ambienceGain,.18,0,true,1,0,null,null,function(requested,active){return requested===7&&active===7;}).then(function(source){if(!source&&soundOn()&&current===7)startNoiseBed(.041,235,.045);});playSample('finalMusic',musicGain,.3,0,true,1,0,null,null,function(requested,active){return requested===7&&active===7;});startToneBed(29,.005,'sine');}
+    else if(index===7){playSample('underwaterMenu',ambienceGain,.42,0,true,1,0,null,null,function(requested,active){return requested===7&&active===7;}).then(function(source){if(!source&&soundOn()&&current===7)startNoiseBed(.041,235,.045);});playSample('finalMusic',musicGain,.3,0,true,1,0,null,null,function(requested,active){return requested===7&&active===7;});startToneBed(29,.005,'sine');}
     sceneCue(index);ambienceTimer=window.setInterval(ambienceTick,index===4?2000:(index===6?3500:4000));
   }
   function setSoundScene(index,force){
