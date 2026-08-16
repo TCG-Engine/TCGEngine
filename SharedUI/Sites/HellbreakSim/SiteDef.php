@@ -13,7 +13,7 @@
     'headTitle' => 'northbeach.gg — Hellbreak Deck Builder & Simulator',
     'tagline' => 'There’s something in the water.',
     'homeHref' => '/TCGEngine/SharedUI/Sites/HellbreakSim/MainMenu.php',
-    'favicon' => '/TCGEngine/Assets/Images/icons/gudnakIcon.png',
+    'favicon' => '/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-buoy-favicon.png',
     'showBanner' => false,
     'menuOverlay' => true,
     'disclaimerName' => 'northbeach.gg',
