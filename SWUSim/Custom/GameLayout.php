@@ -45,10 +45,34 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            80), so this is exactly "never larger than today, shrink when the cards shrink".
            CalculateCardSize() in NextTurn.php makes --swu-cardsize height-aware. */
         --swu-hand-h:       min(118px, calc(var(--swu-cardsize, 80px) * 1.475));
+        /* Hover "pop" for a card in MY hand, and the headroom reserved above the band for it.
+           The card RISES IN PLACE — a pure translate, deliberately NO scale. The engine default
+           (.selectable-card:hover = translateY(-4px) scale(1.04)) zooms the card as it lifts, which
+           in the hand reads as the card growing rather than coming forward, and it visibly overlaps
+           the neighbours on both sides. The hand is a single row against empty playmat, so a plain
+           vertical move is both cleaner and stronger as a "this one is under the cursor" signal.
+           Dropping the scale also makes the geometry card-size INDEPENDENT: the top edge rises by
+           exactly --swu-hand-hover-rise at every card size, instead of rise + cardHeight*(scale-1)/2.
+           ⚠ These two are still a PAIR: raise the rise and you MUST raise the headroom, or the top
+           clips again — the exact bug this replaced. --swu-arena-margin (24px) is the ceiling, past
+           which the panel would reach into the arena, so 22px is nearly the whole budget.
+           ⚠ SIZE THE HEADROOM AGAINST FIREFOX, NOT CHROMIUM. Measured across cardsize 36-80, both
+           engines rest identically (card top exactly --swu-hand-lift below the clip edge), but with
+           a SCALED hover Firefox landed the card ~4px higher than Chromium — enough that an earlier
+           18px/scale(1.06) pairing measured clean in Chromium at every size while Firefox already
+           clipped at cardsize 36 and 50. A Chromium-only check would have shipped the original bug
+           straight back to small boards. The scale is gone now, but keep the margin. */
+        --swu-hand-hover-rise: 12px;
+        --swu-hand-lift:       22px;
         /* Same min() rule as the hand band: never wider than the historical 88px, but
            proportional once the cards shrink below the 80px reference. The deck/discard
            containers are otherwise fixed-size and dominate a small board. */
         --swu-pile-w:       min(88px, calc(var(--swu-cardsize, 80px) * 1.1));
+        /* SQUARE, deliberately equal to --swu-pile-w. The deck/discard piles render from the
+           `concat` folder, and Card() sizes a concat image `width = height = maxHeight` (see the
+           folder branch in Core/UILibraries) — the crops are literally 450x450. So a pile card is
+           a SQUARE cardSize box, not the 5:7 portrait a card is elsewhere on the board. */
+        --swu-pile-h:       var(--swu-pile-w);
         /* Ratio of the current card size to the 80px reference the engine's counter sizes
            (Schemas/SWUSim/GameSchema.txt "Size=") were chosen against. Never above 1, so
            normal boards are untouched. --swu-cardsize-n is set by GameLayoutShared JS. */
@@ -127,6 +151,21 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         /* Mat edge — a hairline so the rounded corners read even where the art is
            dark (e.g. the top space-arena half against the dark background). */
         --swu-playmat-edge: 1px solid rgba(255,255,255,0.16);
+        /* ── Board depth ──────────────────────────────────────────────────────────
+           Two knobs that together make the cosmetic art read as a lit stage rather than a flat
+           wallpaper. Both are pure overlay — no game element moves, and both layers are
+           pointer-events:none, so nothing becomes harder to click.
+           --swu-arena-scrim: how far the arena boxes are knocked back. It sits ABOVE the playmats
+             and BELOW the cards (see .swu-arena-bg, z-index 29 vs .swu-arena-col 30), so it darkens
+             the surface the cards sit on WITHOUT dimming the cards themselves — which is what makes
+             the art pop instead of competing with the board.
+           --swu-vignette-strength: depth of the whole-board EDGE vignette (see .swu-vignette).
+           --swu-vignette-bottom: depth of the extra darkening along the bottom of the board, which
+             exists to give the HAND a dark ground to read against. Independent of -strength on
+             purpose: the edges and the hand floor want different amounts. */
+        --swu-arena-scrim:       0.33;
+        --swu-vignette-strength: 0.50;
+        --swu-vignette-bottom:   1.55;
     }
 
     /* ── Global ─────────────────────────────────────────────────────────────── */
@@ -164,6 +203,44 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-playmat-top, .swu-playmat-bot {
         border-radius: var(--swu-playmat-radius);
         border: var(--swu-playmat-edge);
+    }
+
+    /* ── Board vignette ──────────────────────────────────────────────────────────
+       Darkens the board toward its edges so the eye is pulled to the middle and the cosmetic
+       art/playmats gain depth instead of reading flat to the frame.
+       ⚠ Sits at z-index 11 — ABOVE .swu-board-bg (9) and the playmats/starfield (10), BELOW the
+       arenas (29/30) and every HUD layer. That placement is the whole point: the vignette shades
+       the BACKGROUNDS, never the cards, counters or buttons, so it adds depth without costing any
+       legibility. Raising it above 29 would dim the game itself.
+       Spans the board only (stops at the sidebar), matching .swu-board-bg's own right edge.
+       TWO layers, and the order matters — in a `background` list the FIRST layer paints on TOP:
+         1. a bottom band that deepens toward the floor of the screen, so the HAND reads against a
+            dark ground instead of against playmat art. The hand panel is z-index 36, far above this,
+            so the band darkens only what is BEHIND the cards.
+         2. the edge vignette itself.
+       ⚠ The band is measured in --swu-hand-h, not in % of viewport. The point is to frame the HAND,
+       and the hand band is a fixed px height — at 1080p it is ~11% of the screen (so this matches
+       "the bottom 10%"), but on a short board 10% would stop well above the cards and on a very tall
+       one it would wash up into the arena. Tying it to the thing it is framing keeps it correct at
+       every board size. It fades out by ~1.9x the hand height, which lands just under the arena.
+       Strength is now folded into the stops via calc() rather than a single element `opacity`,
+       because the two layers need independent knobs. calc() inside an rgba() alpha is safe here —
+       measured identical in Chromium and Firefox to within 0.001, same as .swu-arena-bg's scrim. */
+    .swu-vignette {
+        position: fixed; top: 0; bottom: 0; left: 0; right: var(--swu-sidebar-w);
+        z-index: 11; pointer-events: none;
+        background:
+            linear-gradient(to top,
+                rgba(0,0,0,calc(var(--swu-vignette-bottom, 0.72) * 1.00)) 0,
+                rgba(0,0,0,calc(var(--swu-vignette-bottom, 0.72) * 0.72)) calc(var(--swu-hand-h) * 0.45),
+                rgba(0,0,0,calc(var(--swu-vignette-bottom, 0.72) * 0.38)) var(--swu-hand-h),
+                rgba(0,0,0,calc(var(--swu-vignette-bottom, 0.72) * 0.14)) calc(var(--swu-hand-h) * 1.4),
+                rgba(0,0,0,0) calc(var(--swu-hand-h) * 1.9)),
+            radial-gradient(ellipse 80% 76% at 50% 50%,
+                rgba(0,0,0,0) 40%,
+                rgba(0,0,0,calc(var(--swu-vignette-strength, 0.55) * 0.28)) 68%,
+                rgba(0,0,0,calc(var(--swu-vignette-strength, 0.55) * 0.62)) 86%,
+                rgba(0,0,0,calc(var(--swu-vignette-strength, 0.55) * 0.92)) 100%);
     }
 
     /* ── Starfield ───────────────────────────────────────────────────────────── */
@@ -347,7 +424,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         /* Both buttons (Take/Keep + Pass) share this class, so one width makes them equal.
            Width + font scale with the center column (--swu-center-w grows with the board),
            so they stay proportional to the cards at any resolution — a fixed px looked tiny
-           on wide/4K screens. --swu-init-btn-scale is the 80%-of-column knob. */
+           on wide/4K screens. --swu-init-btn-scale is the 80%-of-column knob.
            Sized off the RAW lane width, not the height-capped one: on a short board the lane
            narrows to clear this very cluster, and following it down would squeeze "KEEP
            INITIATIVE" until it wrapped to two lines — making the cluster TALLER, which shrinks
@@ -412,7 +489,18 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         width: calc(var(--swu-col-w) - 2 * var(--swu-arena-margin));
         top: calc(var(--swu-hand-h) + var(--swu-arena-margin));
         bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin));
-        background: transparent;
+        /* Dark scrim on the arena surface. Was transparent, which let the playmat art run at full
+           brightness right up under the cards and flattened both — the cards had nothing to sit
+           against and the art had nothing to contrast with. The gradient is slightly deeper at the
+           top and bottom edges than through the middle, which reads as a lit surface rather than a
+           flat grey wash. Strength is --swu-arena-scrim.
+           ⚠ This element is z-index 29 and the cards are 30, so the scrim goes UNDER the cards and
+           over the playmat — darkening the surface without touching card legibility. It is also
+           already pointer-events:none, so filling it in changes nothing about hit-testing. */
+        background: linear-gradient(180deg,
+            rgba(3,7,13,calc(var(--swu-arena-scrim, 0.34) * 1.15)) 0%,
+            rgba(3,7,13,calc(var(--swu-arena-scrim, 0.34) * 0.78)) 45%,
+            rgba(3,7,13,calc(var(--swu-arena-scrim, 0.34) * 1.15)) 100%);
         /* Faint theme-accent frame + soft glow — the sci-fi targeting-HUD look.
            ⚠ The INNER edge (the one facing the centre leader/base column) is omitted: that edge,
            not .swu-col-sep, is what actually drew the vertical line beside the leader/base.
@@ -490,13 +578,23 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        pinned to the column's center-facing edge). The column is INFLATED by the bleed on all
        four sides and the same amount is given back as padding, so the content box — and
        therefore every card position and the wrap points — is unchanged; only the clip
-       boundary moves outward. Keep the two in sync if either changes. */
+       boundary moves outward. Keep the two in sync if either changes.
+       --swu-arena-pad is a SECOND, independent inset added on top of the bleed: it pulls the units
+       away from the arena frame so they sit inside the box rather than flush against its edge (the
+       first unit in a row used to touch the frame, and its power/HP badges — which hang past the
+       card's own bounds — crossed it). It is added to the padding ONLY, never to the width/left/top,
+       so the element's border box (and therefore the clip boundary the bleed buys) is untouched;
+       only the content box shrinks. Scaled off the card size with a cap so a small board is not
+       eaten by a fixed inset. Fewer cards fit per row before wrapping, which is the intent.
+       ⚠ This file is DESKTOP-ONLY — GameLayout.php returns early into GameLayoutMobile.php for a
+       mobile request (see the top of the file), so this inset cannot reach the mobile board. */
     .swu-arena-col {
         --swu-rot-bleed: 8px;
+        --swu-arena-pad: min(14px, calc(var(--swu-cardsize, 80px) * 0.16));
         position: fixed; z-index: 30; pointer-events: auto;
         box-sizing: border-box;
         width: calc(var(--swu-col-w) - 2 * var(--swu-arena-margin) + 2 * var(--swu-rot-bleed));
-        padding: var(--swu-rot-bleed);
+        padding: calc(var(--swu-rot-bleed) + var(--swu-arena-pad));
         overflow: hidden; border-radius: 0;
     }
     .swu-arena-col-space  { background: transparent; left: calc(var(--swu-space-left)  + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
@@ -624,16 +722,44 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-pile {
         /* Piles live inside the hand band, which now shrinks with the card size — same
            fixed-96px problem as the slot wrappers above. */
-        /* ⚠ The placeholder is now the ONLY thing drawn when a pile is empty, so its box has to
-           match the CARD's footprint — cards are 5:7, i.e. height = width * 1.4, and the old
-           1.2 multiplier left the empty frame ~16px shorter than the card next to it. With the
-           borders on both piles that mismatch read as "two boxes"; with the occupied border gone
-           it reads as two misaligned zones. 1.4 still fits the hand band (--swu-hand-h maxes at
-           cardsize * 1.475). */
-        width: var(--swu-pile-w); min-height: min(112px, calc(var(--swu-cardsize, 80px) * 1.4));
+        /* ⚠ The placeholder is the ONLY thing drawn when a pile is empty, so its box has to match
+           the pile CARD's footprint — and that footprint is SQUARE, not 5:7. These zones render
+           from `concat`, where Card() sets width = height = maxHeight (the crops are 450x450).
+           An earlier version used `* 1.4` here on the assumption that every card is 5:7; that is
+           true on the BOARD (WebpImages) but not for the piles, and it reserved ~32px of dead
+           height under the art at cardsize 80. The Stacked deck made it obvious, because the deck
+           art plus its stack layers sat in a box far taller than itself.
+           Square also keeps the deck and discard boxes identical, which is what makes them read as
+           one row rather than two mismatched zones. */
+        /* FIXED height, not min-height: the Stacked deck's wrapper is deliberately larger than its
+           card (it pads right/bottom to make room for the offset layers), and a min-height would let
+           that padding inflate the deck's box while the discard's stayed square — the two zones
+           would sit at different heights again. overflow is visible, so the layers still peek out
+           past the box; they just no longer resize it. */
+        width: var(--swu-pile-w); height: var(--swu-pile-h);
         display: flex; align-items: center; justify-content: center;
         border: 1px solid var(--swu-border); border-radius: 10px;
         background: var(--swu-surface); overflow: visible; position: relative;
+    }
+    /* The Stacked wrapper (Core: CreateVisualSingleZoneStackHTML) is an inline-block containing an
+       inline-block, so it inherits the baseline gap — it measured 98px tall around an 82px card,
+       4px of which is pure descender space under the art. font-size:0 removes it (the wrapper holds
+       no text; the layers are empty spans), leaving the wrapper exactly card + stack padding.
+       ⚠ Pin the wrapper rather than letting the flex centring place it. Its padding is right/bottom
+       ONLY (room for the offset layers) and scales with the pile's card COUNT
+       (layerCount = min(8, ceil(log2(count))) * 2px), so centring a lopsided box seats the CARD half
+       that padding left and up of centre — ~6px for a 50-card deck but ~2px for a 3-card discard, so
+       the two piles' art would sit ~4px apart even though their boxes match. Insetting the wrapper by
+       the (box - card) / 2 that centring would have produced puts the card in the same spot in every
+       pile whatever it holds, and the layers still spill past the box (overflow is visible).
+       ⚠ `position` needs !important: the Core renderer emits the wrapper with an INLINE
+       `style="position:relative; …"`, and an inline declaration outranks any selector. top/left
+       resolve against .swu-pile, which is already position:relative. */
+    .swu-pile .tcg-single-zone-stack {
+        font-size: 0;
+        position: absolute !important;
+        top:  calc((var(--swu-pile-w) - var(--swu-cardsize, 80px) - 2px) / 2);
+        left: calc((var(--swu-pile-w) - var(--swu-cardsize, 80px) - 2px) / 2);
     }
     /* ZERO-STATE ONLY: the frame is an empty-slot placeholder, so it disappears once the pile
        actually holds a card — the card art is its own edge and the box around it just added
@@ -875,7 +1001,14 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* border-top/bottom:none dropped with the border itself; the radii still round the
        gradient's inner corners. */
     #theirHandSlot { top: 0; border-radius: 0 0 8px 8px; }
-    #myHandSlot    { bottom: 0; border-radius: 8px 8px 0 0; }
+    /* Taller than the hand band by the hover headroom. The panel is BOTTOM-anchored, so the extra
+       strip grows UPWARD, away from the cards — and since the panel has no background or border, it
+       is invisible. It occupies part of the 24px --swu-arena-margin gap, never the arena itself, and
+       stops level with the Pass cluster (--swu-pass-gap), which is z-index 38 over the hand's 36 and
+       so stays clickable regardless. The cards do not move: the wrapper's padding-top puts them back
+       in the bottom --swu-hand-h of the panel. */
+    #myHandSlot    { bottom: 0; border-radius: 8px 8px 0 0;
+                     height: calc(var(--swu-hand-h) + var(--swu-hand-lift)); }
 
     /* Card wrapper (rendered by NextTurnRender) = the horizontal scroll viewport.
        overflow-y hidden so the hand never grows into the deck/pile band; previews
@@ -886,20 +1019,36 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         scrollbar-width: thin;
         scrollbar-color: var(--glow) transparent;
     }
-    /* Hover feedback in the HAND: no GEOMETRY change at all — the engine's border/glow does it.
+    /* Hover lift in MY hand — the card rises, same as a board card.
        The engine gives every selectable card `transform: translateY(-4px) scale(1.04)` on hover
-       (UILibraries, .selectable-card:hover). The hand wrapper clips vertically and HAS to: its
-       `overflow-x: auto` forces the other axis to compute to `auto` rather than `visible`, so
-       overflow-y cannot be opened without turning the hand into a vertical scroller. The 4px lift
-       was being sliced off the top of the card.
-       ⚠ Scaling instead of lifting is NOT enough, and the margin is thinner than it looks: the band
-       is cardsize * 1.475 while a hand card is cardsize * 1.4 PLUS the engine's 2px image border on
-       each edge — about 1px of slack per side at cardsize 80, and only ~0.25px at cardsize 60. Any
-       growth clips at small card sizes. Measured, not assumed.
-       So the hand suppresses the transform entirely; hover still reads clearly because
-       `.selectable-card:hover img` thickens the border and strengthens the glow, which costs no
-       space. Board cards keep the lift — the arenas do not clip. */
-    #myHandWrapper    .selectable-card:hover,
+       (UILibraries, .selectable-card:hover). That lift used to be sliced off the top here, because a
+       hand card has almost no room above it: the band is cardsize * 1.475 while a card is
+       cardsize * 1.4 PLUS the engine's 2px image border per edge — ~1px of slack per side at
+       cardsize 80 and only ~0.25px at 60. So no scale/lift value is small enough to fit. Measured,
+       not assumed.
+       ⚠ The wrapper also cannot simply un-clip: `overflow-x: auto` forces the OTHER axis to compute
+       to `auto` rather than `visible`, so opening overflow-y would turn the hand into a vertical
+       scroller.
+       The fix is to MAKE room rather than cancel the motion. Overflow clips to the PADDING box, not
+       the content box, so padding-top here is headroom the lift expands into while overflow-y stays
+       hidden. #myHandSlot grows by the same amount (upward, invisibly) so the cards stay exactly
+       where they were — border-box keeps the content box at --swu-hand-h, which is what #myHand's
+       `height: 100%` resolves against. */
+    #myHandWrapper {
+        box-sizing: border-box;
+        padding-top: var(--swu-hand-lift);
+    }
+    /* Rise IN PLACE — translate only, no scale (see --swu-hand-hover-rise). This deliberately
+       overrides the engine's `translateY(-4px) scale(1.04)`, whose zoom made the hand card grow into
+       its neighbours instead of simply coming forward. Scoped to the hand, so board cards keep the
+       engine's scaled lift. The engine's own 160ms transform transition carries the motion. */
+    #myHandWrapper .selectable-card:hover {
+        transform: translateY(calc(-1 * var(--swu-hand-hover-rise)));
+    }
+    /* The OPPONENT's hand keeps the lift suppressed. It is TOP-anchored at top:0, so there is no
+       headroom to grow into — the lift would clip against the viewport edge instead of the panel,
+       and the same padding trick would push their cards DOWN out of position. Their cards are card
+       backs and not player-interactive, so there is nothing to gain. */
     #theirHandWrapper .selectable-card:hover { transform: none !important; }
 
     #myHandWrapper::-webkit-scrollbar, #theirHandWrapper::-webkit-scrollbar { height: 7px; }
@@ -936,8 +1085,15 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-hand-collapse-btn:hover {
         color: rgba(255,255,255,0.95); background: var(--panel-scrim);
         border-color: var(--swu-gold); }
-    #myHandSlot.is-collapsed    { transform: translateY(calc(100% - 16px)); }
-    #myHandSlot.is-collapsed:hover { transform: translateY(calc(100% - 16px)) !important; }
+    /* #myHandSlot is taller than the hand band by --swu-hand-lift (hover headroom), so both of the
+       measurements below have to discount it or the collapse UI drifts upward by that much:
+       • the button is pinned to the panel's top edge, which is now the empty headroom strip — pin it
+         to the top of the CARD area instead so it sits exactly where it always did;
+       • `100%` in the collapsed transform is now band + lift, which would leave the 16px peek showing
+         headroom rather than the top of the cards. Subtracting the lift makes it band - 16px again. */
+    #myHandSlot .swu-hand-collapse-btn { top: var(--swu-hand-lift); }
+    #myHandSlot.is-collapsed    { transform: translateY(calc(100% - 16px - var(--swu-hand-lift))); }
+    #myHandSlot.is-collapsed:hover { transform: translateY(calc(100% - 16px - var(--swu-hand-lift))) !important; }
     #theirHandSlot.is-collapsed { transform: translateY(calc(-100% + 16px)); }
     #theirHandSlot.is-collapsed:hover { transform: translateY(calc(-100% + 16px)) !important; }
 
@@ -1310,6 +1466,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 <div class="swu-playmat swu-playmat-top" style="display:none;"></div>
 <div class="swu-playmat swu-playmat-bot" style="display:none;"></div>
 <div class="swu-starfield"></div>
+<!-- Whole-board vignette. AFTER the playmats/starfield so it shades them; its z-index (11) keeps it
+     under every game layer, so cards and HUD stay at full contrast. -->
+<div class="swu-vignette"></div>
 
 <!-- Column separators -->
 <div id="swuSepLeft"  class="swu-col-sep" style="left:var(--swu-center-left);"></div>
