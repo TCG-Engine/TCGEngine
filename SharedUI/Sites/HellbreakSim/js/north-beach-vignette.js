@@ -18,7 +18,7 @@
     shoreline:'north-beach-sunny-shoreline.mp3',welcomeChime:'north-beach-welcome-chime.mp3',cardFan:'north-beach-card-fan.mp3',cardDeal:'north-beach-card-deal.mp3',rewardChime:'north-beach-reward-chime.mp3',
     shallows:'north-beach-shallows-water.mp3',openWater:'north-beach-open-water.mp3',buoyBell:'north-beach-buoy-bell.mp3',submergedPass:'north-beach-submerged-pass.mp3',woodRattle:'north-beach-wooden-hull-rattle.mp3',
     boatArrival:'north-beach-boat-arrival.mp3',hullCreak:'north-beach-hull-creak.mp3',boatAmbience:'north-beach-boat-ambience.mp3',hullThud:'north-beach-dry-hull-thud.mp3',cardRattle:'north-beach-card-rattle.mp3',
-    sharkAttack:'north-beach-shark-attack.mp3',swallowed:'north-beach-swallowed-transition.mp3',underwaterMenu:'north-beach-underwater-menu.mp3',underwaterSharkPass:'north-beach-underwater-shark-pass.mp3',finalSting:'north-beach-final-sting.mp3'
+    sharkAttack:'north-beach-shark-attack.mp3',swallowed:'north-beach-swallowed-transition.mp3',underwaterMenu:'north-beach-underwater-menu.mp3',finalMusic:'north-beach-final-music.mp3',underwaterSharkPass:'north-beach-underwater-shark-pass.mp3',finalSting:'north-beach-final-sting.mp3'
   };
   var sampleBuffers={},samplePromises={},sampleSources=[];
   var impactMessages=[
@@ -174,7 +174,7 @@
     else if(index===4)playSample('openWater',ambienceGain,.43,0,true,1,0,null,null,function(requested,active){return requested===4&&active===4;}).then(function(source){if(!source&&soundOn()&&current===4)startNoiseBed(.038,310,.055);});
     else if(index===5){playSample('openWater',ambienceGain,.9,0,true,1,0,null,null,function(requested,active){return requested===5&&active===5;}).then(function(source){if(!source&&soundOn()&&current===5)startNoiseBed(.04,310,.055);});playSample('woodRattle',ambienceGain,2.2,0,true,1,0,null,null,function(requested,active){return requested===5&&active===5;});}
     else if(index===6){playSample('boatAmbience',ambienceGain,.38,0,true,1,0,null,null,function(requested,active){return requested===6&&active===6;}).then(function(source){if(!source&&soundOn()&&current===6)startNoiseBed(.029,520,.12);});playSample('woodRattle',ambienceGain,.46,-.08,true,1,0,null,null,function(requested,active){return requested===6&&active===6;});startToneBed(31,.006,'sine');}
-    else if(index===7){playSample('underwaterMenu',ambienceGain,.42,0,true,1,0,null,null,function(requested,active){return requested===7&&active===7;}).then(function(source){if(!source&&soundOn()&&current===7)startNoiseBed(.041,235,.045);});startToneBed(29,.005,'sine');}
+    else if(index===7){playSample('underwaterMenu',ambienceGain,.36,0,true,1,0,null,null,function(requested,active){return requested===7&&active===7;}).then(function(source){if(!source&&soundOn()&&current===7)startNoiseBed(.041,235,.045);});playSample('finalMusic',musicGain,.22,0,true,1,0,null,null,function(requested,active){return requested===7&&active===7;});startToneBed(29,.005,'sine');}
     sceneCue(index);ambienceTimer=window.setInterval(ambienceTick,index===4?2000:(index===6?3500:4000));
   }
   function setSoundScene(index,force){
