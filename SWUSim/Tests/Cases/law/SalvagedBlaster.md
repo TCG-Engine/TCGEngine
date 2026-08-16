@@ -147,3 +147,65 @@ P2DISCARDUNIT:0:CARDID:LAW_200
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2RESAVAILABLE:2
+
+---
+
+# PlayFromDiscardAfterDeckMill_SurvivesTheRequestBoundary
+#// LAW_200 Salvaged Blaster — the replay-from-discard is a two-request sequence in production: the action
+#// starts the play (paying the cost, pulling the Blaster out of the discard) and the host pick is answered
+#// in a FRESH process, so the in-flight upgrade play must ride the serialized gamestate, not an in-memory
+#// continuation — the shape that makes a card silently vanish in a real game.
+#// Mirrors PlayFromDiscardAfterDeckMill with a request boundary inserted between PlayFromDiscard and the
+#// host answer. The host pick is a genuine two-candidate MZCHOOSE (myGroundArena-0 & theirGroundArena-0),
+#// so the boundary is not a no-op.
+#// NOTE the sibling PlayFromDiscardAfterHandDiscard is NOT usable for this: with a 2-card hand and a
+#// discard-2, Pillage has no choice to offer and its two answer lines are auto-resolve artifacts — a
+#// boundary inserted there would pass vacuously.
+
+## GIVEN
+CommonSetup: rrw/grw/{theirResources:5}
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP2GroundArena: SOR_047:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP1Resources: 2
+WithP1Deck: LAW_200
+WithP1Deck: SOR_095
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P2>AnswerDecision:YES
+- P1>PlayFromDiscard:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1DISCARDCOUNT:0
+
+---
+
+# AttachOffer_NonVehicleEitherSide
+#// LAW_200 Salvaged Blaster — OFFER assertion for "Attach to a non-Vehicle unit." The restriction names no
+#// controller, so per CR 2.e it spans BOTH sides; the only exclusion is the Vehicle trait. Discriminating
+#// board: P1's Wampa (Creature, non-Vehicle) is IN and P1's AT-ST (Vehicle) is OUT; P2's Battlefield
+#// Marine (non-Vehicle) is IN — an ENEMY host is legal — and P2's AT-ST plus P2's space X-Wing (both
+#// Vehicles) are OUT. Pool must be exactly the two non-Vehicles, one per side.
+#// COVERAGE-UPDATE (offer axis): strengthens the FromPlay_NotReplayable ledger's
+#// "offer=OnlyAttachesToNonVehicle (single legal host auto-attaches)" — that fixture is friendly-only and
+#// auto-resolving, so it could not see a missing enemy host; this section pins the full pool.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: LAW_200
+WithP1GroundArena: [SOR_164:1:0 SOR_232:1:0]
+WithP2GroundArena: [SOR_095:1:0 SOR_232:1:0]
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

@@ -157,3 +157,29 @@ PHASE:MAIN
 P2GROUNDARENAUNIT:0:CARDID:SOR_232
 P2GROUNDARENAUNIT:0:POWER:6
 P2GROUNDARENAUNIT:0:HP:7
+
+---
+
+# OnAttackAspectDebuff_SurvivesTheRequestBoundary
+#// LAW_101 Lawbringer — the aspect menu is raised On Attack and answered in a SEPARATE request, so the
+#// in-flight attack and the pending aspect choose have to be rebuilt from the serialized gamestate before
+#// the -2/-2 "for this phase" stamp can be applied to the right units. Mirrors OnAttackAspectDebuff with a
+#// request boundary inserted between the attack declaration and the aspect answer.
+#// An OPTIONCHOOSE decision is confirmed pending at that point (asserting P1NODECISION there reports type
+#// OPTIONCHOOSE), so the boundary is not a no-op.
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_101:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:Heroism
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:POWER:1
+P2GROUNDARENAUNIT:0:HP:5

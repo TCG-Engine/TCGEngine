@@ -164,3 +164,29 @@ WithP2Credits: 1
 ## EXPECT
 P1CREDITCOUNT:0
 P2CREDITCOUNT:1
+
+---
+
+# Offer_NA_OnlyEnemyCreditsAreEligible
+#// LAW_221 Lieutenant Gorn — the offer axis, discriminated. "Take control of an ENEMY Credit token" has a
+#// real controller restriction, so the board seeds a violator: P1 already controls 2 Credits of its own
+#// while P2 controls 3. Verified: even with 5 Credits in play across both seats, NO decision is ever
+#// raised — Credit tokens are fungible, so the steal resolves against the enemy pool automatically
+#// (P1NODECISION). Auto-resolution IS the assertion here, and the end state carries the discrimination:
+#// exactly one Credit crosses (P1 2->3, P2 3->2), so P1's own Credits were never candidates and only one
+#// of P2's three was taken. Confirms the existing "offer=N/A" ledger claim under a multi-Credit board.
+
+## GIVEN
+CommonSetup: yyw/bgw/{theirResources:0}
+P1OnlyActions: true
+WithP1Credits: 2
+WithP2Credits: 3
+WithP1GroundArena: LAW_221:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1CREDITCOUNT:3
+P2CREDITCOUNT:2
+P1NODECISION

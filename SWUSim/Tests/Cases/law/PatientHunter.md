@@ -117,3 +117,29 @@ P2GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P2GROUNDARENAUNIT:1:CARDID:SEC_080
 P2GROUNDARENAUNIT:1:READY
+
+---
+
+# RegroupOffer_NonLeaderUnitsBothSides
+#// LAW_073 Patient Hunter — OFFER assertion for "You may give an Experience token to a NON-LEADER unit."
+#// The only printed restriction is "non-leader" (no controller scope), so the discriminating board puts a
+#// violator on the board: P2's DEPLOYED leader sits at theirGroundArena-1 and must be OUT, while all three
+#// non-leader units — Patient Hunter itself (no "another"), the friendly exhausted SEC_080, and the enemy
+#// exhausted SOR_046 — must be IN. Closes the ledger's "no pending SELECTABLE section" gap: the previous
+#// evidence was in-pool answers, which cannot see a leader wrongly offered.
+#// COVERAGE-UPDATE (offer axis): RegroupExpCantReady's ledger entry "offer=… no pending SELECTABLE
+#// section" is now closed by this section.
+
+## GIVEN
+CommonSetup: gyk/bgw/{theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_073:1:0 SEC_080:0:0]
+WithP2GroundArena: SOR_046:0:0
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:1:ISLEADERUNIT

@@ -148,3 +148,65 @@ P2SPACEARENACOUNT:1
 P2SPACEARENAUNIT:0:CARDID:JTL_115
 P2SPACEARENAUNIT:0:POWER:3
 P2SPACEARENAUNIT:0:HP:3
+
+---
+
+# BlankedUnitLosesSelfBuff_SurvivesTheRequestBoundary
+#// LAW_132 The Tree Remembers — the event is played in one request and its target is chosen in a FRESH
+#// process, so the in-flight event resolution and the "loses all abilities for this phase" stamp it then
+#// writes must both come out of the serialized gamestate. Mirrors
+#// BlankedUnitLosesSelfBuffButKeepsExternalAura with a request boundary inserted between the play and the
+#// answer. The pool is a genuine two-candidate MZCHOOSE (theirSpaceArena-0 & theirSpaceArena-1), so the
+#// decision is really pending across the boundary.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:4}
+WithP2SpaceArena: JTL_115:1:0
+WithP2SpaceArena: JTL_085:1:0
+WithP1Hand: LAW_132
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENACOUNT:2
+P2SPACEARENAUNIT:0:CARDID:JTL_115
+P2SPACEARENAUNIT:0:POWER:4
+P2SPACEARENAUNIT:0:HP:4
+
+---
+
+# OfferPool_EnemyOnlyBothArenasLeaderUnitIncluded
+#// LAW_132 The Tree Remembers — offer assertion for "AN ENEMY UNIT loses all abilities". "Enemy" is the
+#// only restriction, so friendly units in BOTH arenas are the violators and must be out, while every enemy
+#// body is in: the enemy ground unit, the enemy space unit, and the deployed Cad Bane leader unit at
+#// theirGroundArena-1 (a leader unit has abilities to lose). Note the pool is NOT filtered by the "costs 3
+#// or less" clause — that is a rider on the effect, not on targeting, which is exactly what
+#// LosesAbilitiesNotDefeated and WipesLeaderNotDefeated depend on. Every existing section either
+#// auto-resolved against a lone enemy or answered a two-enemy pick, so none of them could see a friendly
+#// unit leaking into the pool.
+#// COVERAGE: offer=OfferPool_EnemyOnlyBothArenasLeaderUnitIncluded (pending SELECTABLEEXACT: friendly units
+#//           in both arenas excluded, deployed enemy leader unit included) · decline=N/A (no "you may" —
+#//           the blank-and-maybe-defeat is mandatory once the event resolves) · boundary
+#//           pair=DefeatsCheapUnit (cost 2 -> defeated) vs LosesAbilitiesNotDefeated / WipesLeaderNotDefeated
+#//           (cost 4 and a leader -> blanked but alive) · reqboundary=
+#//           BlankedUnitLosesSelfBuff_SurvivesTheRequestBoundary · control=N/A (the blank is a phase-scoped
+#//           stamp on the chosen card, not a seat-bound marker; Control_UnblankedSelfBuffAndAuraStack is
+#//           the unblanked baseline that keeps the blanking cases from passing vacuously)
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:4; theirLeader:ASH_011:1:1:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_132
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1&theirSpaceArena-0

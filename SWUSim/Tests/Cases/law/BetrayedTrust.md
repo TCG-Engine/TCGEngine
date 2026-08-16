@@ -383,3 +383,36 @@ WithP1Hand: LAW_130
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
+
+---
+
+# MultiDefender_MarkedDealsNoCounter_SurvivesTheRequestBoundary
+#// LAW_130 Betrayed Trust — request-boundary guard. Identical to MultiDefender_MarkedDealsNoCounter
+#// except the game round-trips through serialization (SimulateRequestBoundary) while the multi-defender
+#// pick is still pending. The "can't deal combat damage this phase" marker was written on
+#// theirGroundArena-0 several actions earlier and is only READ once combat resolves, i.e. after this
+#// answer — which in a real game arrives in a fresh process. The marker (and the in-flight attack) must
+#// therefore be serialized state: only the UNMARKED marine may deal its 3 counter to Maul.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:2}
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1GroundArena: TWI_135:1:0
+WithP2GroundArena: [SOR_095:1:0 SOR_095:1:0]
+WithP1Hand: LAW_130
+WithP1Deck: SOR_046
+WithP2Deck: SOR_046
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Units
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:TWI_135
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P2GROUNDARENACOUNT:0

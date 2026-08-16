@@ -246,3 +246,32 @@ P1GROUNDARENAUNIT:0:CARDID:SEC_080
 P1BASEDMG:3
 P2BASEDMG:0
 P1DISCARDCOUNT:1
+
+---
+
+# AbilityDamageToYourOWNBase_SurvivesTheRequestBoundary
+#// LAW_205 Flash the Vents — request-boundary guard on the whole for-this-attack payload: the +2/+0 and
+#// Overwhelm grant, and the pending "after completing this attack, if that unit damaged a base, defeat it"
+#// hook. Same flow as AbilityDamageToYourOWNBaseDefeatsAttacker, but a serialize round-trip is inserted
+#// before SOR_142 Sabine aims her On Attack damage at HER OWN base — in production that answer arrives in a
+#// fresh process. The decision is real (MZMAYCHOOSE over theirGroundArena-0 & theirBase-0 & myBase-0). Sabine
+#// still deals 4 combat damage and is still defeated for having damaged a base.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: SOR_142:1:0
+WithP2GroundArena: SEC_081:1:0
+WithP1Hand: LAW_205
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myBase-0
+
+## EXPECT
+P1BASEDMG:1
+P2BASEDMG:0
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:4

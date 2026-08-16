@@ -111,3 +111,29 @@ WithP1Hand: JTL_196
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# NamedCantBePlayed_SurvivesTheRequestBoundary
+#// LAW_243 Transmission Jamming — request-boundary guard. Identical to NamedCantBePlayed except the game
+#// round-trips through serialization (SimulateRequestBoundary) while the "name a card" prompt is still
+#// pending. This is the crux for this card: the event's resolution continuation (the thing that turns the
+#// answer into a phase-scoped play-lock) sits across an interactive decision that, in a real game, is
+#// answered by a fresh process — and the lock it writes is then read by a LATER request still. Naming
+#// Battlefield Marine after the boundary must still stop P2 playing SOR_095 this phase.
+
+## GIVEN
+CommonSetup: yyw/ggw/{myResources:1;theirResources:3}
+WithActivePlayer: 1
+WithP1Hand: LAW_243
+WithP2Hand: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:Battlefield Marine
+- P2>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2HANDCOUNT:1

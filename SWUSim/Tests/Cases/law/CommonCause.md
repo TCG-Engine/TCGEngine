@@ -106,3 +106,28 @@ WithP1Hand: LAW_167
 P1GROUNDARENAUNIT:0:CARDID:SOR_164
 P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:HP:5
+
+---
+
+# BuffPerAspect_SurvivesTheRequestBoundary
+#// LAW_167 Common Cause — request-boundary guard. The per-aspect amount is computed while the event resolves
+#// and must survive to the target answer, which in production arrives in a fresh process. Same flow as
+#// BuffPerAspect (3 distinct aspects across SOR_095 + SOR_225) with a serialize round-trip inserted before the
+#// choose; the pending decision is real (MZCHOOSE over myGroundArena-0 & mySpaceArena-0). SOR_095 still ends
+#// at 6/6, so the +3/+3 amount was not lost across serialization.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:2}
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_167
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:POWER:6
+P1GROUNDARENAUNIT:0:HP:6

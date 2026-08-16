@@ -83,3 +83,60 @@ P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:POWER:3
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# ExpTargetOffer_FriendlyUnitsBothArenas
+#// LAW_168 Haymaker — OFFER assertion for the FIRST clause, "Give an Experience token to a FRIENDLY unit."
+#// Every existing section has exactly one friendly unit, so both of Haymaker's picks auto-resolve and the
+#// pools were never observable. Discriminating board: TWO friendly units in DIFFERENT arenas (SOR_095 on
+#// the ground, SOR_237 in space) keep the choose genuinely pending and prove there is no arena restriction,
+#// while three ENEMY units (two ground, one space) must all be OUT on controller scope.
+#// COVERAGE: offer=this section (clause 1: friendly scope, both arenas) +
+#//           DamageTargetOffer_EnemyUnitsSameArenaOnly (clause 2: enemy scope, same-arena restriction) ·
+#//           decline=N/A (both clauses are mandatory; no "you may") · control=N/A (the damage is dealt BY
+#//           the chosen friendly unit to an enemy unit; no control-change path) · boundary
+#//           pair=ExpThenDealPower (both clauses find targets) vs NoFriendlyUnit_NoEffect (clause 1 has
+#//           none) and ExpGiven_NoDamageTarget (clause 2 has none in that arena) · reqboundary=OPEN (no
+#//           section yet; the two-answer flow in DamageTargetOffer_EnemyUnitsSameArenaOnly is the natural
+#//           insertion point for a SimulateRequestBoundary between the Exp pick and the damage pick)
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: [SOR_046:1:0 SOR_128:1:0]
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_168
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+
+---
+
+# DamageTargetOffer_EnemyUnitsSameArenaOnly
+#// LAW_168 Haymaker — OFFER assertion for the SECOND clause, "That unit deals damage equal to its power to
+#// an ENEMY unit in the SAME arena." Same four-arena board; the Experience token is given to the GROUND
+#// SOR_095, so the damage pool must narrow to the two enemy GROUND units: the enemy SPACE TIE Fighter is
+#// OUT (same-arena, resolved against the CHOSEN unit's arena rather than a fixed one), both friendly units
+#// are OUT (enemy scope), and no base is offered.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: [SOR_046:1:0 SOR_128:1:0]
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_168
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1

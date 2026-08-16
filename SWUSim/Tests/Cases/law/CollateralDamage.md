@@ -151,3 +151,54 @@ P2SPACEARENAUNIT:0:DAMAGE:0
 P2SPACEARENAUNIT:1:CARDID:SOR_237
 P2SPACEARENAUNIT:1:DAMAGE:2
 P1NODECISION
+
+---
+
+# FirstTargetOffer_AnyUnitEitherArenaNoBase
+#// LAW_208 Collateral Damage — OFFER assertion for the FIRST clause, "Deal 2 damage to a unit." The word
+#// is bare "a unit": no controller scope, no arena scope, and NOT a base. Discriminating board: a friendly
+#// ground unit, a friendly space unit, two enemy ground units and an enemy space unit are all IN, while
+#// neither base is offered. (Prior offer evidence was only in-pool picks; this pins the whole pool.)
+#// COVERAGE-UPDATE (offer axis): the TwoThenTwo ledger's "offer=proven by targeted picks" is now upgraded
+#// to real pending-pool assertions — this section for clause 1 and
+#// SecondTargetOffer_SameArenaAnotherUnitOrEitherBase for clause 2.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: [SOR_046:1:0 SOR_128:1:0]
+WithP1SpaceArena: SOR_225:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP1Hand: LAW_208
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirGroundArena-1&theirSpaceArena-0
+
+---
+
+# SecondTargetOffer_SameArenaAnotherUnitOrEitherBase
+#// LAW_208 Collateral Damage — OFFER assertion for the SECOND clause, "deal 2 damage to a base or ANOTHER
+#// unit in the SAME arena." Same five-unit two-arena board; the first 2 damage is aimed at the enemy
+#// SOR_046 (theirGroundArena-0). The resulting pool discriminates three restrictions at once: the first
+#// target itself is OUT ("another"), BOTH space units are OUT (same-arena), and both bases are IN ("a
+#// base" names no controller) alongside the remaining ground unit on each side.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: [SOR_046:1:0 SOR_128:1:0]
+WithP1SpaceArena: SOR_225:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP1Hand: LAW_208
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1SELECTABLEEXACT:myBase-0&myGroundArena-0&theirBase-0&theirGroundArena-1

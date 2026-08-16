@@ -133,3 +133,33 @@ PHASE:MAIN
 P1SPACEARENAUNIT:0:CARDID:SEC_213
 P1SPACEARENAUNIT:0:POWER:1
 P1SPACEARENAUNIT:0:HP:2
+
+---
+
+# DeployedGiveExperiencePerAspect_SurvivesTheRequestBoundary
+#// LAW_010 Leia Organa — request-boundary guard. Identical to DeployedGiveExperiencePerAspect except the
+#// game round-trips through serialization (SimulateRequestBoundary) while the "choose a unit" pick is
+#// still pending (a real three-option offer: the two seeded units plus deployed Leia herself). In a real
+#// game the answer arrives in a fresh process, so the When Deployed continuation — and the aspect count
+#// it resolves against ({Command, Villainy, Aggression, Heroism} = 4) — must come from serialized state.
+#// SEC_080 must still receive 4 Experience tokens (3/3 -> 7/7).
+
+## GIVEN
+CommonSetup: ygw/grw/{
+  myLeader:LAW_010;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1GroundArena: [SEC_080:1:0 SOR_128:1:0]
+
+## WHEN
+- P1>DeployLeader
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:4
+P1GROUNDARENAUNIT:0:POWER:7
+P1GROUNDARENAUNIT:0:HP:7

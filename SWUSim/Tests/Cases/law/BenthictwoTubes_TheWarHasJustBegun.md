@@ -1,9 +1,10 @@
 # OnAttackDealGround
 #// LAW_057 Benthic "Two Tubes" (3/2) — On Attack: deal 1 damage to an enemy ground unit. Attacks the
 #// base; deal 1 to the enemy SOR_046.
-#// COVERAGE: offer=both branches of the When-Defeated base pool are exercised (WhenDefeatedDealBase enemy
-#//           pick, WhenDefeatedDealFriendlyBase own pick, NGOR section new-controller pick); no pending
-#//           SELECTABLE section · reqboundary=N/A (each choice is raised and resolved inside its own
+#// COVERAGE: offer=OfferPool_OnAttackEnemyGroundUnitsOnly + OfferPool_WhenDefeatedOffersEitherBase (both
+#//           pending SELECTABLEEXACT, added 2026-08-16); the resolution branches stay in
+#//           WhenDefeatedDealBase (enemy pick), WhenDefeatedDealFriendlyBase (own pick) and the NGOR
+#//           section (new-controller pick) · reqboundary=N/A (each choice is raised and resolved inside its own
 #//           trigger; no state written before a decision is re-read after it) ·
 #//           control=NGORDefeat_NewControllerMakesTheBaseChoice · boundary=OnAttackNoTargetsNoOp (empty
 #//           pool no-op) vs OnAttackDealGround · decline=N/A (the On-Attack ping is MANDATORY per
@@ -111,3 +112,56 @@ WithP1GroundArena: LAW_057:1:0
 P1GROUNDARENACOUNT:0
 P2BASEDMG:1
 P1BASEDMG:0
+
+---
+
+# OfferPool_OnAttackEnemyGroundUnitsOnly
+#// LAW_057 Benthic "Two Tubes" — offer assertion for "On Attack: Deal 1 damage to an enemy ground unit".
+#// Discriminating board: a friendly GROUND unit (SOR_095), a friendly SPACE unit (SOR_178) and an enemy
+#// SPACE unit (SEC_213) are all in play alongside two enemy ground units, so the pool has to reject the
+#// wrong controller AND the wrong arena, in both combinations. Two enemy ground units keep the mandatory
+#// MZCHOOSE from auto-resolving; the pick is left UNANSWERED so the pending pool can be read.
+#// Pool must be exactly the two enemy ground units — Benthic itself is out as well (it is friendly).
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_057:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_178:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP2SpaceArena: SEC_213:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1SPACEARENAUNIT:0:CARDID:SOR_178
+P2SPACEARENAUNIT:0:CARDID:SEC_213
+
+---
+
+# OfferPool_WhenDefeatedOffersEitherBase
+#// LAW_057 Benthic "Two Tubes" — offer assertion for "When Defeated: Deal 1 damage to a base". "A base"
+#// names no controller, so BOTH bases are legal and the choice is real (this is what makes the existing
+#// WhenDefeatedDealFriendlyBase section legal, and it is the pool that section never asserts). Benthic
+#// attacks SOR_046 and dies to the counter (the mandatory On-Attack ping auto-resolves onto the lone
+#// enemy ground unit); the base pick is then left UNANSWERED so the pool can be read. Pool must be
+#// exactly the two bases — the enemy UNIT on the board must NOT leak into a base-only pool.
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_057:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1SELECTABLEEXACT:myBase-0&theirBase-0
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_046

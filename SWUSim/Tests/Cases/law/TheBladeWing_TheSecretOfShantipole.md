@@ -79,3 +79,35 @@ P1GROUNDARENACOUNT:0
 P1SPACEARENACOUNT:1
 P2HANDCOUNT:1
 P2HANDCARD:0:SOR_164
+
+---
+
+# OfferPool_NonLeaderSpansEverythingButLeaderUnits
+#// LAW_241 The Blade Wing — offer assertion for "return a NON-LEADER unit to its owner's hand". "Non-leader"
+#// is the single printed restriction, so the pool must be every other body in play: the friendly ground
+#// unit, the friendly space unit (The Blade Wing ITSELF at mySpaceArena-0 — the text does not say
+#// "another"), the enemy ground unit and the enemy space unit are all in. The deployed enemy Luke leader
+#// unit at theirGroundArena-1 is the lone exclusion, and it is the only reason a board needs a deployed
+#// leader at all: without one, "non-leader" filters nothing and the assertion would be vacuous.
+#// COVERAGE: offer=OfferPool_NonLeaderSpansEverythingButLeaderUnits (pending SELECTABLEEXACT: both sides,
+#//           both arenas and the source itself in, deployed enemy leader unit out) · decline=DeclineReturn
+#//           (PASS on the "you may") · control=ReturnOpponentControlledUnitToOwner (a P1-controlled,
+#//           P2-owned unit returns to its OWNER's hand) · boundary pair=BounceUnit / ReturnFriendlyUnit
+#//           (a unit is returned) vs DeclineReturn (nothing is returned, P1HANDCOUNT:0) ·
+#//           reqboundary=not encoded (the play and the return answer are separate requests in production;
+#//           no serialize round-trip section exists yet)
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:6; theirLeader:SOR_005:1:1:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_035:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_241
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:LAW_241
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0

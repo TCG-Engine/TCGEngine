@@ -56,3 +56,33 @@ WithP1Hand: LAW_169
 ## EXPECT
 P1DISCARDCOUNT:1
 P1CREDITCOUNT:0
+
+---
+
+# GrantSurvivesTheRequestBoundary
+#// LAW_169 Payroll Heist — request-boundary guard. Payroll Heist's whole effect is phase-scoped state
+#// ("For this phase, each friendly unit gains: On Attack: Create a Credit token"), so it must live in the
+#// serialized gamestate: in a real game every answer starts a fresh process. LAW_228 Canyon Frontrunner
+#// is used as the attacker purely because its own On Attack leaves a genuine pending pick
+#// (myGroundArena-0 & theirGroundArena-0) to hang the boundary on. Canyon attacks (Credit #1), the game
+#// round-trips through serialization with Canyon's pick still open, the pick is answered, and THEN a
+#// second friendly unit attacks — its Credit (#2) can only be created if the grant survived the
+#// round-trip. 2 Credits, and Canyon's -2/-0 still lands on SOR_046 (3 -> 1 power).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_228:1:0 SOR_095:1:0]
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: LAW_169
+
+## WHEN
+- P1>PlayHand:0
+- P1>AttackGroundArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AttackGroundArena:1:BASE
+
+## EXPECT
+P1CREDITCOUNT:2
+P2GROUNDARENAUNIT:0:POWER:1

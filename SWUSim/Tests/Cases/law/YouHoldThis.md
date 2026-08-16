@@ -155,3 +155,66 @@ WithP1Hand: LAW_085
 P1GROUNDARENACOUNT:0
 P2SPACEARENACOUNT:1
 P1DISCARDCOUNT:1
+
+---
+
+# GivePool_FriendlyNonLeaderEitherArena
+#// LAW_085 You Hold This — "Choose A FRIENDLY NON-LEADER unit." Two restriction words, no arena word, and
+#// the board carries a witness for each: P1's leader is DEPLOYED as a ground unit (myGroundArena-2) and
+#// must be OUT on "non-leader" — the card would otherwise hand an opponent a leader; P2's SOR_095 must be
+#// OUT on "friendly"; and P1's SPACE SOR_237 must be IN because the text names no arena, matching
+#// TransferSpaceDefeat. Every pre-existing section seats a single legal friendly (or answers the pick
+#// blind), so the filter itself has never been read.
+
+## GIVEN
+CommonSetup: ryk/bgw/{myResources:1;myLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: [SEC_080:1:0 SOR_046:1:0]
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: LAW_085
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1GROUNDARENAUNIT:2:ISLEADERUNIT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&mySpaceArena-0
+
+---
+
+# DamagePool_AnotherUnitInTheTransferredUnitsArena
+#// COVERAGE: offer=GivePool_FriendlyNonLeaderEitherArena (the give-away pool: friendly, non-leader, either
+#//           arena) + DamagePool_AnotherUnitInTheTransferredUnitsArena (the rider pool: "another", same
+#//           arena, either controller — read AFTER the control change has already moved the transferred
+#//           unit to P2's side) · decline=N/A (no "you may"; the no-target paths are SkipDamageNoOtherUnits
+#//           and NoFriendlyUnit_NoEffect) · control=the card IS a control transfer (all sections); the
+#//           blocked-transfer edge is CannotTakeControl_NoEffect · boundary=GiveControlDeal4 (target
+#//           survives) vs DefeatEnemyGround (target dies), and TransferSpaceDefeat vs the ground sections
+#//           (arena follows the transferred unit) · reqboundary=DamagePool_AnotherUnitInTheTransferred
+#//           UnitsArena answers the give-away pick and then reads the rider pool in a later request.
+#// LAW_085 — "If they do, deal 4 damage to ANOTHER unit in the SAME ARENA." P1 gives away its ground
+#// SEC_080, so by the time the rider chooses, SEC_080 sits at theirGroundArena-1 under P2's control. Three
+#// filters, three witnesses: SEC_080 itself must be OUT on "another" even though it is now an ENEMY unit
+#// (the exclusion is by identity, not by controller); both SPACE units (P1's SOR_237, P2's SOR_225) must be
+#// OUT on "same arena", the arena being fixed by the transferred unit; and the pool must span BOTH sides —
+#// P1's own SOR_046 and P2's SOR_095 — since the rider says only "another unit", matching DamageFriendlyUnit.
+
+## GIVEN
+CommonSetup: ryk/bgw/{myResources:1}
+P1OnlyActions: true
+WithP1GroundArena: [SEC_080:1:0 SOR_046:1:0]
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_085
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1HASDECISION
+P2GROUNDARENAUNIT:1:CARDID:SEC_080
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

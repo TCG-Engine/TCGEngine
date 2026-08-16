@@ -106,3 +106,38 @@ WithP1GroundArena: LAW_236:1:0
 
 ## EXPECT
 P1CREDITCOUNT:0
+
+---
+
+# DiscardPool_OwnHandOnly
+#// COVERAGE: offer=DiscardPool_OwnHandOnly (the "a card from your hand" pool asserted exactly — both of
+#//           P1's own hand cards IN, both of P2's hand cards OUT); offer-absence = WhenPlayedEmptyHand /
+#//           OnAttackEmptyHand · decline=WhenPlayedPass + OnAttackPass ("you may", declined on both
+#//           trigger halves) · control=N/A (no control-change text; the Credit is seat-bound) ·
+#//           boundary=WhenPlayedDiscardCredit vs WhenPlayedPass and OnAttackDiscardCredit vs OnAttackPass
+#//           (discard taken vs declined on each half), plus the empty-hand pair · reqboundary=every
+#//           positive section answers the discard pick in a request after the play/attack that queued it.
+#// LAW_236 Bix Caleen — "When Played/On Attack: You may discard A CARD FROM YOUR HAND." The only
+#// restriction is the zone-plus-controller scope "your hand", and the fixtures so far all hold exactly one
+#// card, so the pick has never been readable. Here P1 holds TWO cards (both must be IN) while P2 holds two
+#// of its own (both must be OUT) — a pool that leaked the opponent's hidden zone, or that offered cards in
+#// play, would be invisible to every existing section. Because the clause is a "you may", the offer stays
+#// pending even though both legal answers belong to the same player.
+
+## GIVEN
+CommonSetup: yyk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_236:1:0
+WithP1Hand: SOR_237
+WithP1Hand: SOR_095
+WithP2Hand: SOR_046
+WithP2Hand: SEC_080
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1HANDCOUNT:2
+P2HANDCOUNT:2
+P1SELECTABLEEXACT:myHand-0&myHand-1

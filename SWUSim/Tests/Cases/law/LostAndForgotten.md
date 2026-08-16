@@ -56,3 +56,36 @@ WithP1Hand: LAW_133
 P2SPACEARENACOUNT:1
 P1BASEDMG:4
 P1DISCARDCOUNT:1
+
+---
+
+# OfferPool_NonLeaderBothSidesBothArenas
+#// LAW_133 Lost and Forgotten — offer assertion for "Defeat a NON-LEADER unit". The single printed
+#// restriction is "non-leader", so the pool must reach across both controllers and both arenas: the
+#// friendly ground unit is in alongside the enemy ground unit and the enemy space unit, while the deployed
+#// Cad Bane leader unit at theirGroundArena-1 is the one exclusion — and it is the only body on the board
+#// that the restriction can actually remove, which is what makes the assertion non-vacuous. All three
+#// existing sections deliberately seed a LONE legal target so the choice auto-resolves, so none of them
+#// could have shown a friendly-excluding, ground-only or leader-including pool.
+#// COVERAGE: offer=OfferPool_NonLeaderBothSidesBothArenas (pending SELECTABLEEXACT: friendly and enemy,
+#//           ground and space, deployed enemy leader unit excluded) · decline=N/A (no "you may" — the
+#//           defeat is mandatory and the heal is an "if you do" rider) · boundary
+#//           pair=DefeatHealBase / DefeatFriendlyHealBase (defeat lands -> base healed 3) vs
+#//           NoDefeatNoHeal_PhantomImmune (defeat prevented -> base untouched) · control=N/A (a one-shot
+#//           defeat plus a heal on the caster's own base; no per-unit marker and no controller-scoped
+#//           wording to break under a control change) · reqboundary=not encoded (the play and the defeat
+#//           answer are separate requests in production; no serialize round-trip section exists yet)
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:6; theirLeader:ASH_011:1:1:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_133
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0&theirSpaceArena-0

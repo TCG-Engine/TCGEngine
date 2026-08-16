@@ -39,3 +39,29 @@ WithP2Deck: [SOR_237 SOR_237]
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:NOTKEYWORD:Sentinel
+
+---
+
+# OnAttackGrantSentinel_SurvivesTheRequestBoundary
+#// LAW_104 — request-boundary guard for OnAttackGrantSentinel: same fixture, same flow, one extra
+#// SimulateRequestBoundary inserted before the grant answer. Production starts a FRESH process on every
+#// answered decision, so Bodhi's pending On Attack payload (which unit is granting, and the "for this
+#// phase" duration it will stamp) has to be reconstructed from serialized gamestate, not from an
+#// in-memory continuation global. The Sentinel must still land on SOR_095 after the boundary.
+#// The insertion point is a genuine 2-option MZMAYCHOOSE (myGroundArena-0 Bodhi himself is also a Rebel
+#// unit, myGroundArena-1 SOR_095), so the boundary is not vacuous.
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_104:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:HASKEYWORD:Sentinel

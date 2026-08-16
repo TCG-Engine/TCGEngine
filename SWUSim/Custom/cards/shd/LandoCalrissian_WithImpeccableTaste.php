@@ -17,6 +17,10 @@ $customDQHandlers["SHD_017#smuggle"] = function($player, $parts, $lastDecision) 
 // Smuggled card's When Played (via LandoCalrissianWithImpeccableTasteFireDeferred → _SWUSmuggleFireEntry).
 $customDQHandlers["SHD_017#defeat"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
+    // The deferred-entry payload arrives on the PARAM (see SWUSmuggleResource): player|cardID|uid|arena.
+    // It must be threaded on to SHD_017#resolve, because an INTERACTIVE choose sits between here and
+    // there and production loses any in-memory state across it.
+    $carry = implode('|', array_slice($parts, 0, 4));
     $specs = [];
     foreach (GetResources(intval($player)) as $i => $r) {
         if (!empty($r->removed) || SWUIsCreditToken($r->CardID ?? '')) continue;
@@ -26,14 +30,15 @@ $customDQHandlers["SHD_017#defeat"] = function($player, $parts, $lastDecision) {
         if ($owner > 0 && $owner !== intval($player)) continue;
         $specs[] = "myResources-{$i}";
     }
-    if (empty($specs)) { LandoCalrissianWithImpeccableTasteFireDeferred(intval($player)); return; }
-    SWUQueueChooseTarget(intval($player), $specs, "Defeat_a_resource_you_own_and_control", "SHD_017#resolve");
+    if (empty($specs)) { LandoCalrissianWithImpeccableTasteFireDeferred(intval($player), $parts); return; }
+    SWUQueueChooseTarget(intval($player), $specs, "Defeat_a_resource_you_own_and_control",
+        "SHD_017#resolve|" . $carry);
 };
 
 $customDQHandlers["SHD_017#resolve"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') SWUDefeatResource(intval($player), $lastDecision);
-    LandoCalrissianWithImpeccableTasteFireDeferred(intval($player));
+    LandoCalrissianWithImpeccableTasteFireDeferred(intval($player), $parts);
 };
 
 $leaderAbilities["SHD_017"] = function(int $player): void {   // front: [Exhaust] (leader exhausted by SWULeaderAction)
@@ -70,9 +75,19 @@ function LandoCalrissianWithImpeccableTasteOffer(int $player): bool {
     return true;
 }
 
-function LandoCalrissianWithImpeccableTasteFireDeferred(int $player): void {
-    $d = $GLOBALS['gSmuggleDeferred'] ?? null;
-    if ($d === null) { SWUAfterAction($player); return; }
-    unset($GLOBALS['gSmuggleDeferred']);
-    _SWUSmuggleFireEntry(intval($d['player']), $d['cardID'], $d['mz'], $d['arena']);
+// $parts carries the deferred-entry payload threaded from SWUSmuggleResource through the interactive
+// resource-defeat decision: [player, cardID, uid, arena]. The UNIT IS RE-RESOLVED BY UniqueID — an arena
+// mzID minted before the decision can point at a different unit by the time the answer arrives.
+function LandoCalrissianWithImpeccableTasteFireDeferred(int $player, array $parts = []): void {
+    global $playerID;
+    $dPlayer = intval($parts[0] ?? 0);
+    $cardID  = (string)($parts[1] ?? '');
+    $uid     = intval($parts[2] ?? 0);
+    $arena   = (string)($parts[3] ?? '');
+    if ($dPlayer <= 0 || $cardID === '' || $uid <= 0) { SWUAfterAction($player); return; }
+    $saved = $playerID; $playerID = $dPlayer;
+    $mz = SWUFindMzByUID($uid);
+    $playerID = $saved;
+    if ($mz === null) { SWUAfterAction($player); return; }   // the smuggled unit already left play
+    _SWUSmuggleFireEntry($dPlayer, $cardID, $mz, $arena);
 }

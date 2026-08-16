@@ -18,6 +18,7 @@ WithP2GroundArena: SOR_039:1:0
 
 ## WHEN
 - P1>AttackGroundArena:1:0
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P1LEADERCOUNT:2

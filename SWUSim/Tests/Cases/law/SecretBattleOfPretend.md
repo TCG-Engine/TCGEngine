@@ -138,3 +138,65 @@ WithP1Hand: LAW_226
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P2GROUNDARENAUNIT:0:EXHAUSTED
 P2SPACEARENAUNIT:0:READY
+
+---
+
+# FriendlyPool_ReadyOnlyEitherArenaIncludingDeployedLeader
+#// LAW_226 Secret Battle of Pretend — "Exhaust A FRIENDLY unit." One printed restriction plus one SWUSim
+#// convention, and the board seats a witness for each: P2's SOR_095 must be OUT on "friendly"; the
+#// EXHAUSTED friendly SEC_080 at myGroundArena-1 must be OUT under the ready-only pool ruling recorded in
+#// AlreadyExhaustedFriendly_NotOfferedAsATarget; the friendly SPACE SOR_237 must be IN (the text names no
+#// arena — the arena only constrains the RIDER's enemy pool); and P1's DEPLOYED LEADER at myGroundArena-2
+#// must be IN, because a leader unit is a friendly unit and nothing here says "non-leader".
+
+## GIVEN
+CommonSetup: yyw/bgw/{myResources:2;myLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: [SOR_164:1:0 SEC_080:0:0]
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: LAW_226
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:2:ISLEADERUNIT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-2&mySpaceArena-0
+
+---
+
+# EnemyPool_SameArenaReadyOnly
+#// COVERAGE: offer=FriendlyPool_ReadyOnlyEitherArenaIncludingDeployedLeader (friendly half: controller
+#//           scope, ready-only, both arenas, leader unit included) + EnemyPool_SameArenaReadyOnly (rider
+#//           half: enemy scope, SAME arena, ready-only) · decline=N/A (both picks are mandatory chooses;
+#//           the no-legal-target paths are NoEnemyInSameArena_NoEffect and FewerEnemiesThanAspects_
+#//           ExhaustWhatExists) · control=N/A (no control-change text) · boundary=ExhaustPerAspect (2
+#//           aspects -> 2 enemies) vs OneAspect_ExhaustOneEnemy (1 aspect -> 1 enemy), and
+#//           SameArenaOnly_Space (the arena gate from the space side) · reqboundary=ExhaustPerAspect /
+#//           OneAspect_ExhaustOneEnemy (the friendly exhaust is applied, then the enemy pick is answered
+#//           in a later request while the aspect count is carried in serialized state).
+#// LAW_226 — the rider reads "for each different aspect it has, exhaust AN ENEMY UNIT IN THE SAME ARENA",
+#// and the exhausted friendly SOR_164 Wampa (Aggression only, so exactly ONE pick) is a GROUND unit. Three
+#// filters, three witnesses: P2's SPACE SOR_225 must be OUT on "same arena"; P2's already-EXHAUSTED SOR_046
+#// at theirGroundArena-2 must be OUT under the same ready-only convention that governs the friendly pool;
+#// and the two READY enemy GROUND units must be the whole pool. The multi-select is min|max 1|1 here.
+
+## GIVEN
+CommonSetup: yyw/bgw/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SOR_164:1:0
+WithP2GroundArena: [SOR_095:1:0 SEC_080:1:0 SOR_046:0:0]
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_226
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:2:EXHAUSTED
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1

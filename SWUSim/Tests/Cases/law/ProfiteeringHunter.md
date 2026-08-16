@@ -119,3 +119,40 @@ P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:POWER:3
 P1SPACEARENAUNIT:0:HP:4
 P1NODECISION
+
+---
+
+# BuffSpaceUnit_ExpiresAtEndOfPhase_SurvivesTheRequestBoundary
+#// LAW_151 — request-boundary guard for BuffSpaceUnit_ExpiresAtEndOfPhase: same fixture, same flow, one
+#// extra SimulateRequestBoundary inserted before the target answer. Production starts a FRESH process on
+#// every answered decision, so the Hunter's pending When Played payload (who is granting, the +1/+1, and
+#// the "for this phase" duration it will stamp) has to be reconstructed from serialized gamestate rather
+#// than an in-memory continuation global. The buff must still be applicable after the boundary and must
+#// still expire on the phase change — a phase-scoped effect that came back with the WRONG duration token
+#// would show up here as SOR_237 still sitting at 3/4 in the next action phase.
+#// The insertion point is a genuine 2-option MZCHOOSE (myGroundArena-0 / mySpaceArena-0), so the boundary
+#// is not vacuous.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:1}
+P1OnlyActions: true
+WithP1Hand: LAW_151
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:mySpaceArena-0
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+
+## EXPECT
+PHASE:MAIN
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:POWER:2
+P1SPACEARENAUNIT:0:HP:3

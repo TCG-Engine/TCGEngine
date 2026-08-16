@@ -154,3 +154,32 @@ WithP2SpaceArenaControlled: SEC_213:1
 P2SPACEARENACOUNT:0
 P2RESCOUNT:1
 P1DISCARDCOUNT:1
+
+---
+
+# Offer_EnemyNonLeaderUnitsOnly
+#// LAW_103 Display Piece — OFFER assertion for "Defeat an ENEMY NON-LEADER unit." Discriminating board:
+#// P1's own SOR_095 is OUT (controller scope), P2's two ground units and P2's space A-Wing are IN (no
+#// arena restriction), and P2's DEPLOYED leader (ground idx 2, a perfectly ordinary enemy unit otherwise)
+#// is OUT purely on "non-leader". Previous offer evidence was only an in-pool pick; this pins the pool.
+#// COVERAGE-UPDATE (offer axis): supersedes the PilotedUnit_… ledger's "offer=ChooseAcrossArenas
+#// (both-arena pool answered)" with a real pending-pool assertion.
+#// LEDGER CORRECTION: that same ledger records "control=OPEN — candidate engine bug … assert once fixed",
+#// but the file's own later section StolenUnit_ControllerResourcesItFromOwnersDiscard already asserts the
+#// owner!=controller case and passes — the control axis is COVERED, not open.
+
+## GIVEN
+CommonSetup: brk/rrk/{myResources:4;theirResources:0;theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: [SOR_046:1:0 SEC_080:1:0]
+WithP2SpaceArena: SEC_213:1:0
+WithP1Hand: LAW_103
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1&theirSpaceArena-0
+P2GROUNDARENACOUNT:3
+P2GROUNDARENAUNIT:2:ISLEADERUNIT

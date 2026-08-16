@@ -217,3 +217,67 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_067
 P2CREDITCOUNT:3
 P1DISCARDCOUNT:2
+
+---
+
+# FriendlyPool_NonLeaderEitherArena
+#// LAW_170 Double-Cross — "Choose a FRIENDLY NON-LEADER unit …". Two restriction words, no arena word, and
+#// the board seats a violator for each plus a witness for the missing third: P1's leader is DEPLOYED as a
+#// ground unit (myGroundArena-2) and must be OUT on "non-leader"; P2's SEC_080 and SOR_225 must be OUT on
+#// "friendly" (P2's leader is deployed too, so the enemy side also carries a leader that must stay out);
+#// and P1's SPACE unit SOR_237 must be IN because the text names no arena. Leaving the pick pending is the
+#// only way to see this — every pre-existing section seats exactly one legal friendly so the pick
+#// auto-resolves and asserts nothing about the filter.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:6;myLeaderDeployed:true;theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: [SOR_095:1:0 SOR_046:1:0]
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_170
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1GROUNDARENAUNIT:2:ISLEADERUNIT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&mySpaceArena-0
+
+---
+
+# EnemyPool_NonLeaderEitherArena
+#// COVERAGE (supersedes the ledger in ExchangeControlCredits, which recorded offer=never-left-pending):
+#//           offer=FriendlyPool_NonLeaderEitherArena + EnemyPool_NonLeaderEitherArena (both halves of the
+#//           pick asserted exactly — deployed leaders excluded on BOTH sides, space units included,
+#//           controller scope enforced in both directions) · decline=N/A (no optional clause; the
+#//           NoEnemy/NoFriendly no-ops are the closest analogue) · control=the card IS a control exchange
+#//           (all exchange sections); blocked-transfer edge = the two Rey sections · boundary=EqualCost_
+#//           NoCredits vs FriendlyCostsLess_OpponentGetsCredits / CrossArena_EnemyCostsLess_PlayerGets
+#//           Credits · reqboundary=EnemyPool_NonLeaderEitherArena answers the friendly half and reads the
+#//           enemy half in the same resolution (the two picks are separate decisions).
+#// LAW_170 Double-Cross — "… and an ENEMY NON-LEADER unit." Same board, with the friendly half already
+#// answered (P1's SOR_095), so the pending decision is now the enemy pick. P2's DEPLOYED LEADER at
+#// theirGroundArena-1 must be OUT on "non-leader", every friendly unit must be OUT on "enemy" (including
+#// the not-yet-exchanged SOR_046 and the space SOR_237 — the second pick must not re-offer P1's side), and
+#// P2's SPACE unit must be IN. Intended: pool = theirGroundArena-0 & theirSpaceArena-0.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:6;myLeaderDeployed:true;theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: [SOR_095:1:0 SOR_046:1:0]
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_170
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1HASDECISION
+P2GROUNDARENAUNIT:1:ISLEADERUNIT
+P1SELECTABLEEXACT:theirGroundArena-0&theirSpaceArena-0

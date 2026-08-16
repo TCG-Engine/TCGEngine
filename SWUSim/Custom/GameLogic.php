@@ -12532,10 +12532,6 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'TS26_79': // Underestimated
             $all = array_values(array_filter($all, fn($mz) => intval(CardCost(GetZoneObject($mz)->CardID ?? '')) <= 4));
             break;
-        // "Attach to a non-leader unit."
-        case 'TWI_122': // Squad Support
-            $all = array_values(array_filter($all, fn($mz) => !IsLeaderUnit(GetZoneObject($mz))));
-            break;
         // "Attach to a token unit."
         case 'TWI_119': // Nameless Valor
             $all = array_values(array_filter($all, fn($mz) => strpos(CardType(GetZoneObject($mz)->CardID ?? '') ?? '', 'Token') !== false));
@@ -12655,9 +12651,24 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         // "Attach to a NON-LEADER unit" (no "friendly") — both sides, both arenas, leader units
         // excluded (a deployed leader / Darksaber host is not a legal host; the exclusion is the
         // printed restriction, unlike the SHD bounty group's tolerated over-permissiveness).
+        // ── "Attach to a NON-LEADER unit." — the WHOLE printed-text family ────────────────────────
+        // No controller word, so per CR 2.e the pool spans BOTH sides; "non-leader" then removes only
+        // deployed leaders. Three of these are pure downside (Imprisoned, Frozen in Carbonite, Shadow
+        // of Stygeon Prime) and are unplayable as designed if they cannot reach an enemy unit.
+        // Consolidated 2026-08-16 after LAW_077 was found missing: the switch is keyed by CardID, so a
+        // card absent from it silently falls through to the friendly-only default `$all` — which is
+        // BOTH defects at once (no enemy hosts, deployed leaders offered). TWI_122 was worse than
+        // absent: it had its own case that filtered leaders out of the friendly-only default, so it
+        // looked handled while still missing every enemy host.
+        // Auto-resolution is what hid all of it — with one friendly unit on the board the attach never
+        // prompts, so no assertion ever saw the pool.
         case 'LAW_128': // Veiled Strength — was friendly-only AND offered the deployed leader
         case 'SHD_072': // Imprisoned — printed "Attach to a non-leader unit"; it was in the
                         // no-filter group above, so it offered DEPLOYED LEADERS as hosts.
+        case 'TWI_122': // Squad Support — had a friendly-only case of its own
+        case 'SHD_053': // Second Chance — absent from the switch
+        case 'SHD_193': // Frozen in Carbonite — absent from the switch
+        case 'LAW_077': // Shadow of Stygeon Prime — absent from the switch
             $playerID = $player;
             $all = array_values(array_filter(array_merge(
                 ZoneSearch("myGroundArena",    AnyUnitFilter),
@@ -15893,8 +15904,15 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
     // AFTER the Smuggled card's slot is replaced (above) but BEFORE its When Played abilities (CR ordering:
     // a leader ability's effects resolve in sequence). The deferHandler owns firing the entry triggers.
     if ($deferHandler !== null) {
-        $GLOBALS['gSmuggleDeferred'] = ['player' => $player, 'cardID' => $cardID, 'mz' => $newCardMzID, 'arena' => $targetArena];
-        DecisionQueueController::AddDecision($player, 'CUSTOM', $deferHandler, 1);
+        // ⚠ The payload rides the decision PARAM, not a transient global. It used to be parked in
+        // $GLOBALS['gSmuggleDeferred'] and read back after the deferHandler's own INTERACTIVE decision
+        // (Lando's "defeat a resource you own and control"). The harness runs one process so it survived
+        // there, but PRODUCTION starts a fresh process on every answer — so the global was gone and the
+        // smuggled card's WHEN PLAYED NEVER FIRED in a real game. Identical shape to the JTL_094
+        // pilot-replacement disappearance. Only scalars cross, and the unit is carried by UniqueID
+        // because an arena mzID can reindex before the continuation runs.
+        DecisionQueueController::AddDecision($player, 'CUSTOM',
+            $deferHandler . '|' . intval($player) . '|' . $cardID . '|' . intval($uid) . '|' . $targetArena, 1);
         $playerID = $savedPID;
         return;
     }

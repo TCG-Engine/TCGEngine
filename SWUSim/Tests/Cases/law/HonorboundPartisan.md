@@ -114,3 +114,36 @@ P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P1RESAVAILABLE:0
 P2RESAVAILABLE:2
+
+---
+
+# WhenDefeatedDiscount_SurvivesTheRequestBoundary
+#// LAW_058 Honor-Bound Partisan — "the next unit you play this phase costs 1 less" is registered when the
+#// Partisan dies and consumed by a LATER action, with unrelated requests in between; in production each of
+#// those is a fresh process, so the charge must live in the serialized gamestate.
+#// Extends WhenDefeatedDiscount with an intervening interactive decision so the boundary lands on a REAL
+#// pending choose: the Partisan attacks SOR_046 (3/7) and dies (discount registered), P1 then plays Daring
+#// Raid (SHD_178, cost 1) whose "deal 2 to a unit or base" pick is a genuine 3-candidate MZCHOOSE
+#// (theirGroundArena-0 & myBase-0 & theirBase-0). A request boundary is inserted before that answer.
+#// Intended: the event is NOT discounted (per WhenDefeatedNoDiscountForNonUnit) and does NOT consume the
+#// charge, so SEC_080 (cost 2) still plays for 1 afterwards: 3 - 1 (Raid) - 1 (discounted SEC_080) = 1.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: LAW_058:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: [SHD_178 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_080
+P1RESAVAILABLE:1
+P2BASEDMG:2

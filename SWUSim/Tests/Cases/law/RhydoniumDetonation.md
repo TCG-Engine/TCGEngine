@@ -194,3 +194,64 @@ WithP1Hand: LAW_096
 P1GROUNDARENACOUNT:0
 P1HANDCOUNT:0
 P1DISCARDCOUNT:2
+
+---
+
+# SavePool_P1MayReturnAnyNonLeaderEitherSide
+#// LAW_096 Rhydonium Detonation — "EACH PLAYER may return A NON-LEADER unit to its owner's hand." The only
+#// restriction is "non-leader": the clause is NOT controller-scoped (P1SavesAnOpponentUnit already shows
+#// the caster may rescue an enemy) and names no arena. The board seats a witness for each of those three
+#// facts — BOTH leaders are deployed as ground units and must be OUT; P1's SPACE SOR_237 must be IN; and
+#// P2's ground SEC_080 must be IN even though P1 is the one choosing. It is a "may", so the offer stays
+#// pending rather than auto-resolving.
+
+## GIVEN
+CommonSetup: byk/brk/{myResources:7;myLeaderDeployed:true;theirLeaderDeployed:true}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP1Hand: LAW_096
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1GROUNDARENAUNIT:1:ISLEADERUNIT
+P2GROUNDARENAUNIT:1:ISLEADERUNIT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0
+
+---
+
+# SavePool_P2SeesTheBoardAfterP1sReturn
+#// COVERAGE: offer=SavePool_P1MayReturnAnyNonLeaderEitherSide + SavePool_P2SeesTheBoardAfterP1sReturn
+#//           (both players' pools asserted exactly: non-leader filter, cross-side reach, both arenas, and
+#//           the second pool re-read AFTER the first return removed a candidate) · decline=OnlyP1Saves
+#//           WhenP2Passes / OnlyP2SavesWhenP1Passes / DefeatAllWhenBothPass (the "may" declined on either
+#//           or both sides) · control=N/A (no control-change text; returns go to the OWNER's hand) ·
+#//           boundary=BothMaySaveTheOnlyUnit vs DefeatTheOnlyUnitWhenBothPass (saved vs swept), and
+#//           NoEffectWhenNoNonLeaders (empty board) · reqboundary=every fixture answers P1's and P2's
+#//           picks in successive requests before the mass defeat resolves.
+#// LAW_096 — the SECOND player's pool must be recomputed against the board as it stands after the first
+#// return, not against a list snapshotted when the event began. P1 rescues its own SOR_095, so by the time
+#// P2 chooses, P1's ground arena holds nothing but P1's deployed leader. In P2's frame the pool must be
+#// exactly its own SEC_080 (myGroundArena-0) and P1's space SOR_237 (theirSpaceArena-0): both deployed
+#// leaders still excluded, and the already-returned SOR_095 gone rather than offered as a stale target.
+
+## GIVEN
+CommonSetup: byk/brk/{myResources:7;myLeaderDeployed:true;theirLeaderDeployed:true}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP1Hand: LAW_096
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2HASDECISION
+P1HANDCOUNT:1
+P2SELECTABLEEXACT:myGroundArena-0&theirSpaceArena-0

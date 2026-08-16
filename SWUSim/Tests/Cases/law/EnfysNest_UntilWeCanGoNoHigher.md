@@ -27,8 +27,11 @@ WithP1SpaceArena: IBH_006:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:theirBase-0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
 - P1>AttackSpaceArena:1:BASE
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2BASEDMG:7
@@ -84,7 +87,9 @@ WithP1SpaceArena: IBH_006:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:theirBase-0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2BASEDMG:4
@@ -110,6 +115,7 @@ WithP1SpaceArena: IBH_006:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:theirBase-0
 - P1>AnswerDecision:NO
 
 ## EXPECT
@@ -139,7 +145,9 @@ WithP1SpaceArena: IBH_006:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:theirBase-0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2BASEDMG:4
@@ -167,6 +175,7 @@ WithP1SpaceArena: IBH_006:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2BASEDMG:3
@@ -196,8 +205,11 @@ WithP1SpaceArena: IBH_006:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:theirBase-0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
 - P1>AttackSpaceArena:1:BASE
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2BASEDMG:7
@@ -227,6 +239,7 @@ WithP2SpaceArena: IBH_006:1:0
 
 ## WHEN
 - P2>AttackSpaceArena:0:BASE
+- P2>AnswerDecision:theirBase-0
 
 ## EXPECT
 P1BASEDMG:3
@@ -256,9 +269,12 @@ WithP1SpaceArena: IBH_006:1:0
 
 ## WHEN
 - P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:theirBase-0
 - P1>AnswerDecision:NO
 - P1>AttackSpaceArena:1:BASE
+- P1>AnswerDecision:theirBase-0
 - P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
 
 ## EXPECT
 P2BASEDMG:7
