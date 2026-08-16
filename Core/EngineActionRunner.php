@@ -583,7 +583,11 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       }
       break;
     case 10004:
-      if (function_exists('SWUDoUndo')) {
+      if (function_exists('SimHistoryCapabilityEnabled') && SimHistoryCapabilityEnabled()) {
+        $result['success'] = SimHistoryUndo(intval($playerID));
+        $result['message'] = $result['success'] ? '' : 'Nothing to undo.';
+        $result['recordAction'] = false;
+      } else if (function_exists('SWUDoUndo')) {
         // SWUSim multi-step undo. 'undoKind' selects step (default) vs phase (Undo Phase button).
         // Sourced from $_GET via ProcessInput's options array — these requests are GETs, so a
         // $_POST fallback here is dead code that silently forced every undo to 'step'.
@@ -596,6 +600,19 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         if (!($options['suppressUndoFlash'] ?? false) && function_exists('SetFlashMessage')) {
           SetFlashMessage('Player ' . $playerID . ' undid their last action.');
         }
+      }
+      break;
+    case 10020:
+      if (function_exists('SimHistoryCapabilityEnabled') && SimHistoryCapabilityEnabled()) {
+        $result['success'] = SimHistoryRedo(intval($playerID));
+        $result['message'] = $result['success'] ? '' : 'Nothing to redo.';
+        $result['recordAction'] = false;
+      } else {
+        $result['success'] = false;
+        $result['message'] = 'Redo is not available for this game.';
+        $result['writeGamestate'] = false;
+        $result['updateCache'] = false;
+        $result['recordAction'] = false;
       }
       break;
     case 10008:

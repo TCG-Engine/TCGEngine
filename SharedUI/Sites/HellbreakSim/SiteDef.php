@@ -30,6 +30,11 @@
     'fonts' => ['Barlow'],
   ],
   'nav' => [
+    [
+      'kind'=>'raw',
+      'visibility'=>'mainMenu',
+      'html'=>'<li class="hellbreak-replay-intro-item"><button id="hellbreak-replay-intro" class="hellbreak-replay-intro" type="button" data-nb-open><span aria-hidden="true">&#8634;</span><strong>Replay intro</strong></button></li>',
+    ],
     ['label'=>'Profile','icon'=>'zendo-profile.svg','href'=>'/TCGEngine/SharedUI/Sites/HellbreakSim/Profile.php','visibility'=>'loggedIn'],
     ['label'=>'Log Out','icon'=>'zendo-logout.svg','href'=>'/TCGEngine/AccountFiles/LogoutUser.php','visibility'=>'loggedIn'],
     ['label'=>'Create Account','href'=>'/TCGEngine/SharedUI/Sites/HellbreakSim/Signup.php?redirect=%2FTCGEngine%2FSharedUI%2FSites%2FHellbreakSim%2FMainMenu.php','visibility'=>'loggedOut'],

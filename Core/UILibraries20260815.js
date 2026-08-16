@@ -627,7 +627,12 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         }
         var hotkeyKey = String(event.key || '').toLowerCase();
         if(hotkeyRootPath == './RBSim' || hotkeyRootPath == './GudnakSim' || hotkeyRootPath == './GrandArchiveSim' || hotkeyRootPath == './AzukiSim' || hotkeyRootPath == './SWUSim' || hotkeyRootPath == './FaBSim') {
-          if (event.keyCode === 83 || hotkeyKey === 's') SubmitInput(10005, ""); //S = Save snapshot
+          // SimHistory roots checkpoint semantic actions automatically; a manual player-owned
+          // SaveVersion would create a second, unrelated history and make Undo semantics ambiguous.
+          if ((event.keyCode === 83 || hotkeyKey === 's')
+              && !(hotkeyRootPath === './AzukiSim' && typeof window.UpdateSimHistoryUI === 'function')) {
+            SubmitInput(10005, ""); //S = Save snapshot
+          }
           if (event.keyCode === 85 || hotkeyKey === 'u') SubmitInput(10004, ""); //U = Undo
         }
         // SWUSim "I" = Take Initiative is handled by GameLayoutShared.php's keydown listener,
@@ -4600,6 +4605,7 @@ window.DelayedDecisionUndoState = window.DelayedDecisionUndoState || {
 };
 
 function SupportsDelayedDecisionUndo() {
+  if (window.rootPath === './AzukiSim' && typeof window.UpdateSimHistoryUI === 'function') return false;
   return window.rootPath === './GrandArchiveSim' || window.rootPath === './AzukiSim';
 }
 

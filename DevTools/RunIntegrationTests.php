@@ -39,7 +39,11 @@ function RunnerPrepareTempGame($rootName, $slug, $fixtureDir) {
   $gameName = RunnerTempGameName($slug);
   $gameDir = RegressionRepoRoot() . DIRECTORY_SEPARATOR . $rootName . DIRECTORY_SEPARATOR . 'Games' . DIRECTORY_SEPARATOR . $gameName;
   RegressionEnsureDir($gameDir);
-  copy($fixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt', $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt');
+  $initialGamestate = file_get_contents($fixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt');
+  file_put_contents(
+    $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt',
+    RegressionNormalizeGamestateTextForRoot($rootName, $initialGamestate)
+  );
   return [$gameName, $gameDir];
 }
 

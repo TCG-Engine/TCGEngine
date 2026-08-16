@@ -5,6 +5,7 @@ require_once __DIR__ . '/GameLayoutDevice.php';
 ?>
 <script>window.AzukiSoundAssetVersion = <?php echo json_encode(strval(filemtime(dirname(__DIR__) . '/Assets/Sounds/generation-manifest.json'))); ?>;</script>
 <script src="./AzukiSim/Custom/SoundDesign.js?v=<?php echo filemtime(__DIR__ . '/SoundDesign.js'); ?>"></script>
+<script src="./Core/SimHistoryClient.js?v=<?php echo filemtime(__DIR__ . '/../../Core/SimHistoryClient.js'); ?>"></script>
 <style>
     :root {
         /* Shared Decision Queue popups can be skinned per app through these tokens. */

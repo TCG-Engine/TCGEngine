@@ -64,6 +64,16 @@ checkContains('Azuki auth links return to main menu', $azukiNavOut, 'redirect=%2
 check('Azuki loggedin nav hides account creation', strpos($azukiNavIn, 'AzukiSim/Signup.php') === false);
 check('Azuki loggedin nav hides login', strpos($azukiNavIn, 'AzukiSim/LoginPage.php') === false);
 
+$hellbreakDef = LoadSiteDef('HellbreakSim');
+$previousScriptName = $_SERVER['SCRIPT_NAME'] ?? null;
+$_SERVER['SCRIPT_NAME'] = '/TCGEngine/SharedUI/Sites/HellbreakSim/MainMenu.php';
+$hellbreakMainNav = RenderMenuBar($hellbreakDef, BuildAuthContext());
+if ($previousScriptName === null) unset($_SERVER['SCRIPT_NAME']);
+else $_SERVER['SCRIPT_NAME'] = $previousScriptName;
+$hellbreakProfileNav = RenderMenuBar($hellbreakDef, ['isLoggedIn'=>true,'isPatron'=>false,'username'=>'tester','userId'=>5,'currentPage'=>'Profile']);
+checkContains('Hellbreak main-menu nav includes replay intro on first paint', $hellbreakMainNav, 'id="hellbreak-replay-intro"');
+check('Hellbreak non-main nav omits replay intro', strpos($hellbreakProfileNav, 'id="hellbreak-replay-intro"') === false);
+
 // --- Task 4 tests: RenderHeader ---
 require_once __DIR__ . '/../Header.php';
 $hdr = RenderHeader($def);

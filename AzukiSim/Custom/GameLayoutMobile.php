@@ -1829,7 +1829,8 @@
             <span></span><span></span><span></span>
         </button>
         <div id="azukiAdminMenuPanel" class="azuki-admin-menu-panel">
-            <button type="button" data-azuki-mobile-action="undo" data-azuki-mobile-player-action="true">Undo</button>
+            <button type="button" data-azuki-mobile-action="undo" data-sim-history-action="undo" data-azuki-mobile-player-action="true"><span data-sim-history-label>Undo</span></button>
+            <button type="button" data-azuki-mobile-action="redo" data-sim-history-action="redo" data-azuki-mobile-player-action="true"><span data-sim-history-label>Redo</span></button>
             <button type="button" data-azuki-admin-target="bug-report-button">Report Bug</button>
             <button type="button" data-azuki-admin-target="copy-spectate-link-button">Copy Spectate Link</button>
             <button type="button" data-azuki-admin-target="concede-button">Concede</button>
@@ -2322,8 +2323,9 @@
             if(!mobileAction) return;
             event.preventDefault();
             event.stopPropagation();
-            if(mobileAction.getAttribute('data-azuki-mobile-action') === 'undo' && typeof SubmitInput === 'function') {
-                SubmitInput(10004, '');
+            var historyAction = mobileAction.getAttribute('data-azuki-mobile-action');
+            if((historyAction === 'undo' || historyAction === 'redo') && typeof SubmitInput === 'function') {
+                SubmitInput(historyAction === 'redo' ? 10020 : 10004, '');
             }
             setOpen(false);
         });

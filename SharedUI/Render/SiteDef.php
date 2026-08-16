@@ -69,5 +69,6 @@ function BuildAuthContext(): array {
         'isPatron'   => isset($_SESSION['isPatron']),
         'username'   => $_SESSION['useruid'] ?? null,
         'userId'     => isset($_SESSION['userid']) ? (int)$_SESSION['userid'] : null,
+        'currentPage'=> pathinfo((string)($_SERVER['SCRIPT_NAME'] ?? ''), PATHINFO_FILENAME),
     ];
 }

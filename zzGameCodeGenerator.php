@@ -2485,6 +2485,9 @@ function AddNextTurn() {
   if (in_array($rootName, ['SWUSim'], true)) {
     $footer .= "echo(\"if (typeof swuUpdateUndoUI === 'function') swuUpdateUndoUI(currentPlayerIndex);\");\r\n";
   }
+  if (GetModule('SimHistory') !== null) {
+    $footer .= "echo(\"if (typeof UpdateSimHistoryUI === 'function') UpdateSimHistoryUI();\");\r\n";
+  }
   for ($i = 0; $i < count($zones); ++$i) {
     $zone = $zones[$i];
     if ($zone->DisplayMode == "Panel") {

@@ -16,6 +16,109 @@ function RegressionNormalizeNewlines($text) {
   return implode("\n", $lines);
 }
 
+function RegressionGamestateSchemaLayout($rootName) {
+  static $cache = [];
+  if (array_key_exists($rootName, $cache)) return $cache[$rootName];
+  $path = RegressionRepoRoot() . DIRECTORY_SEPARATOR . 'Schemas' . DIRECTORY_SEPARATOR . $rootName . DIRECTORY_SEPARATOR . 'GameSchema.txt';
+  if (!is_file($path)) return $cache[$rootName] = [];
+
+  $layout = [];
+  $current = null;
+  foreach (file($path, FILE_IGNORE_NEW_LINES) as $line) {
+    if (preg_match('/^([A-Za-z][A-Za-z0-9_]*)\s+-\s+(.+)$/', $line, $matches)) {
+      if ($current !== null) $layout[] = $current;
+      $fields = trim($matches[2]);
+      $current = [
+        'name' => $matches[1],
+        'object' => !preg_match('/^Value\s*:/', $fields),
+        'global' => false,
+      ];
+    } elseif ($current !== null && strpos($line, 'Scope=Global') !== false) {
+      $current['global'] = true;
+    }
+  }
+  if ($current !== null) $layout[] = $current;
+  return $cache[$rootName] = $layout;
+}
+
+function RegressionConsumeGamestateLayout($layout, $lines, &$blocks = null) {
+  // Every generated gamestate begins with currentPlayer and updateNumber before
+  // the schema-declared zones.
+  $cursor = 2;
+  $blocks = [];
+  foreach ($layout as $zone) {
+    $copies = $zone['global'] ? 1 : 2;
+    for ($copy = 0; $copy < $copies; ++$copy) {
+      $start = $cursor;
+      if ($zone['object']) {
+        $count = max(0, intval($lines[$cursor] ?? 0));
+        $cursor += 1 + $count;
+      } else {
+        ++$cursor;
+      }
+      $blocks[] = ['name' => $zone['name'], 'start' => $start, 'length' => $cursor - $start];
+    }
+  }
+  return $cursor;
+}
+
+function RegressionEnsureCurrentGamestateShape($rootName, $text) {
+  if ($rootName !== 'AzukiSim' || !is_string($text) || $text === '') return $text;
+  $normalized = RegressionNormalizeNewlines($text);
+  $hadTrailingNewline = str_ends_with($normalized, "\n");
+  $lines = explode("\n", $normalized);
+  if ($hadTrailingNewline) array_pop($lines);
+  $layout = RegressionGamestateSchemaLayout($rootName);
+  if (empty($layout)) return $text;
+
+  $consumed = RegressionConsumeGamestateLayout($layout, $lines);
+  // AzukiSim appends RandomCounter after its schema-declared zones. A legacy fixture
+  // without SimHistory therefore consumes every line instead of leaving that final
+  // counter untouched.
+  if ($consumed !== count($lines)) return $normalized;
+
+  $prefix = [];
+  foreach ($layout as $zone) {
+    if ($zone['name'] === 'SimHistory') break;
+    $prefix[] = $zone;
+  }
+  $insertAt = RegressionConsumeGamestateLayout($prefix, $lines);
+  if ($insertAt < 0 || $insertAt > count($lines)) return $normalized;
+  array_splice($lines, $insertAt, 0, ['0']);
+  return implode("\n", $lines) . ($hadTrailingNewline ? "\n" : '');
+}
+
+function RegressionNormalizeTransientHistoryZones($rootName, $text) {
+  if ($rootName !== 'AzukiSim' || !is_string($text) || $text === '') return $text;
+  $normalized = RegressionEnsureCurrentGamestateShape($rootName, $text);
+  $hadTrailingNewline = str_ends_with($normalized, "\n");
+  $lines = explode("\n", $normalized);
+  if ($hadTrailingNewline) array_pop($lines);
+  $layout = RegressionGamestateSchemaLayout($rootName);
+  $blocks = [];
+  // RandomCounter is the one non-schema line at the end of AzukiSim gamestates.
+  if (RegressionConsumeGamestateLayout($layout, $lines, $blocks) !== count($lines) - 1) return $normalized;
+
+  foreach ($blocks as $block) {
+    if ($block['name'] !== 'DecisionQueueVariables' || $block['length'] !== 1) continue;
+    $variables = json_decode(strval($lines[$block['start']] ?? ''), true);
+    if (!is_array($variables)) continue;
+    foreach (array_keys($variables) as $key) {
+      if (str_starts_with(strval($key), 'SIM_HISTORY_')) unset($variables[$key]);
+    }
+    $lines[$block['start']] = empty($variables)
+      ? '-'
+      : json_encode($variables, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  }
+
+  for ($index = count($blocks) - 1; $index >= 0; --$index) {
+    $block = $blocks[$index];
+    if ($block['name'] !== 'Versions' && $block['name'] !== 'SimHistory') continue;
+    array_splice($lines, $block['start'], $block['length'], ['0']);
+  }
+  return implode("\n", $lines) . ($hadTrailingNewline ? "\n" : '');
+}
+
 function RegressionDiffNormalizedTexts($expectedText, $actualText, $contextLines = 2) {
   $expectedLines = explode("\n", RegressionNormalizeNewlines($expectedText));
   $actualLines = explode("\n", RegressionNormalizeNewlines($actualText));
@@ -171,7 +274,7 @@ function RegressionCurrentGamestateHash($rootName, $gameName) {
 
 function RegressionNormalizeGamestateTextForRoot($rootName, $text) {
   if (!is_string($text) || $text === '') return $text;
-  return $text;
+  return RegressionEnsureCurrentGamestateShape($rootName, $text);
 }
 
 function RegressionNormalizeMatchReplayFields($text) {
@@ -203,6 +306,7 @@ function RegressionNormalizeMatchReplayFields($text) {
 
 function RegressionNormalizeGamestateTextForComparison($rootName, $text) {
   $text = RegressionNormalizeGamestateTextForRoot($rootName, $text);
+  $text = RegressionNormalizeTransientHistoryZones($rootName, $text);
   return RegressionNormalizeMatchReplayFields($text);
 }
 

@@ -88,6 +88,15 @@ Important notes and gotchas
 - Generated `GetNextTurn.php` exposes `Self`-visibility zones named `Hand` to authenticated spectators only when `SimGameIsCasterMode($rootName, $gameName)` is true. Other private zones, including decks, temp zones, and decision queues, remain private.
 - App menus opt in separately. AzukiSim is the initial caster-mode UI; other sims should add their own explicit consent control before sending `casterMode=1` to the shared lobby endpoint.
 
+## Simulator history (Undo / Redo)
+- Simulator history is a separate capability from deck/asset `Versions`. A root opts in with `Module: SimHistory=...` plus a hidden global `SimHistory - Version:string` object zone; do not reuse player `Versions` zones for new sim history implementations.
+- Shared runtime logic lives in `Core/SimHistory.php`. Snapshot payloads reuse `Versions::GetSerializedZones()` / generated `LoadVersion()`, while the timeline itself remains outside those payloads to avoid recursive history.
+- AzukiSim is the Phase 1 pilot and always uses the `casual` policy: either authenticated seat may undo or redo the latest chronological action without consent. Other policy values are reserved and currently fall back to casual.
+- Call `SimHistoryBeginAction($actor, $label)` only after an action is legal and immediately before its first mutation. Leave the action pending across Decision Queue requests; `GameAfterEngineAction` commits it only at a stable boundary. Undoing a pending action cancels to its pre-action state and does not create a redoable partial state.
+- SimHistory payload storage must never be rendered to clients. Use a `Visibility=None` object zone (the generated response emits separators only), and publish only `SIM_HISTORY_*` availability/label metadata through Decision Queue variables.
+- `Core/SimHistoryClient.js` owns the shared Undo/Redo controls and standard Ctrl/Cmd+Z shortcuts. Generator output calls `UpdateSimHistoryUI()` after each render for opted-in roots.
+- Deckbuilder `Module: Versions`, asset auto-versioning adapters, and engine modes 10003/10005 remain independent and must not change when adding a sim-history root.
+
 ## Semantic card motion
 - Shared server helpers live in `Core/EngineActionRunner.php`: use `QueueCardLungeAnimation(...)` for an out-and-back attack motion and `QueueZoneMoveAnimation(...)` for a card moving between rendered zones.
 - `CARD_LUNGE` runs against the old board before the authoritative repaint. `ZONE_MOVE` captures its source before repaint, then `Core/CardMotion.js` flies a DOM clone to the destination on the new board.

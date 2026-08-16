@@ -6,11 +6,13 @@ function _NavVisible(array $item, array $ctx): bool {
     if ($v === 'loggedIn')  return $ctx['isLoggedIn'];
     if ($v === 'loggedOut') return !$ctx['isLoggedIn'];
     if ($v === 'patron')    return $ctx['isPatron'];
+    if ($v === 'mainMenu')  return ($ctx['currentPage'] ?? '') === 'MainMenu';
     return true;
 }
 
 function _RenderNavItem(array $item): string {
     $kind = $item['kind'] ?? 'link';
+    if ($kind === 'raw') return $item['html'] ?? '';
     if ($kind === 'icon') {
         // Faithful: current icons use relative ../Assets path.
         return "<li><a target=\"_blank\" href=\"{$item['href']}\"><img src=\"/TCGEngine/Assets/Images/icons/{$item['icon']}\"></img></a></li>";

@@ -1,7 +1,7 @@
 <?php
 
 function MaybeSaveUndoVersion($playerID) {
-    SaveVersion($playerID);
+    SaveActionSnapshot($playerID);
 }
 
 function CustomWidgetInput($playerID, $actionCard, $action) {
@@ -66,6 +66,9 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
 function HandlePassButton($playerID) {
     if(HasPendingAttackResponse()) {
         $expectedResponder = intval(GetPendingAttackResponderPlayer());
+        if(intval($playerID) === $expectedResponder) {
+            SaveActionSnapshot($playerID, 'Resolve attack response');
+        }
         if(intval($playerID) !== $expectedResponder || !ResolveAttackAfterResponses($playerID)) {
             SetFlashMessage('Only the defending player can pass to resolve this attack response window.');
         }
@@ -94,6 +97,7 @@ function HandlePassButton($playerID) {
     }
 
     // Advance to next phase from the current authoritative phase state.
+    SaveActionSnapshot($playerID, 'Pass turn');
     AdvanceAndExecute("PASS");
     AutoAdvanceAndExecute();
 }
@@ -145,6 +149,10 @@ function HandleAttackSetup($playerID, $attackerMZ) {
         return;
     }
 
+    $attacker = GetZoneObject($attackerMZ);
+    $attackerName = is_object($attacker) ? CardName(strval($attacker->CardID ?? '')) : '';
+    SaveActionSnapshot($playerID, $attackerName === '' ? 'Declare attack' : 'Attack with ' . $attackerName);
+
     // Queue target selection
     $targetStr = implode("&", $targets);
     DecisionQueueController::AddDecision($playerID, "MZCHOOSE", $targetStr, 1, "Select_attack_target");
@@ -166,6 +174,7 @@ function HandleGateUsage($playerID) {
     }
 
     $gateMZ = "myGate-0";
+    SaveActionSnapshot($playerID, 'Use Gate');
 
     if(count($portalCandidates) === 1) {
         // Auto-select if only one option

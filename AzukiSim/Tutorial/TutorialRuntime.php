@@ -396,9 +396,17 @@ function AzukiTutorialUpdateProgress(): void {
     }
 }
 
+/** Optional root hook called before an engine action mutates state. */
+function GameBeforeEngineAction($action): void {
+    if(function_exists('AzukiSimHistoryBeforeEngineAction')) AzukiSimHistoryBeforeEngineAction($action);
+}
+
 /** Optional root hook called after a successful engine action and before persistence. */
 function GameAfterEngineAction($action, $result): void {
-    if(!empty($result['success'])) AzukiTutorialUpdateProgress();
+    if(empty($result['success'])) return;
+    $mode = intval(is_array($action) ? ($action['mode'] ?? 0) : 0);
+    if($mode !== 10004 && $mode !== 10020) AzukiTutorialUpdateProgress();
+    if(function_exists('SimHistoryCommitPending')) SimHistoryCommitPending();
 }
 
 function AzukiTutorialPendingPlayerForClient(): int {

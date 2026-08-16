@@ -24,9 +24,6 @@ if (IsUserLoggedIn()) {
   }
 }
 ?>
-<button id="hellbreak-replay-intro" class="hellbreak-replay-intro" type="button" data-nb-open>
-  <span aria-hidden="true">&#8634;</span><strong>Replay intro</strong>
-</button>
 <main class="hellbreak-shell">
   <div class="hellbreak-menu-grid">
     <section class="hellbreak-panel hellbreak-active-panel">
@@ -569,14 +566,6 @@ if (IsUserLoggedIn()) {
   };
 
   document.addEventListener('DOMContentLoaded', function() {
-    var replayIntro = document.getElementById('hellbreak-replay-intro');
-    var accountNav = document.querySelector('.nav-bar-user .rightnav');
-    if (replayIntro && accountNav) {
-      var replayItem = document.createElement('li');
-      replayItem.className = 'hellbreak-replay-intro-item';
-      replayItem.appendChild(replayIntro);
-      accountNav.insertBefore(replayItem, accountNav.firstChild);
-    }
     updateRejoin();
     var deckSelect = document.getElementById('hellbreak-match-deck');
     var rememberedDeck = '';

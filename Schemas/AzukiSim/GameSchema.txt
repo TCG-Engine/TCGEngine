@@ -11,6 +11,7 @@ ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: AzukiSim
 Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZArea,myIKZPile,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZArea,theirIKZPile,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex,UniqueIDCounter,MacroGameIndex
+Module: SimHistory=Policy=casual,MaxEntries=101,MaxBytes=2097152
 Module: UniqueID=Garden,UniqueID,UniqueIDCounter;Alley,UniqueID,UniqueIDCounter
 Module: MatchReplay=MatchReplayInitialState,MatchReplayCommands
 Module: GameLog
@@ -159,6 +160,8 @@ UniqueIDCounter - Value:number=0
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 MacroGameIndex - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+SimHistory - Version:string
+Display: Visibility=None, Mode=All, Scope=Global, Display=None
 MatchReplayInitialState - Value:string=-
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 MatchReplayCommands - Value:string=-

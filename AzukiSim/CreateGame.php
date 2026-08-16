@@ -102,6 +102,7 @@ function AzukiSetupGame($lobby, $opts = []) {
         DecisionQueueController::StoreVariable('MatchId', strval($opts['matchId']));
         DecisionQueueController::StoreVariable('GameNumber', strval(intval($opts['gameNumber'] ?? 1)));
     }
+    if (function_exists('SimHistoryInitialize')) SimHistoryInitialize('Game start');
     WriteGamestate(__DIR__ . "/");
 
     $lobby->gameName = $gameName;

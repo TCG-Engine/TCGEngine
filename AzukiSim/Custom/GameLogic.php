@@ -6,6 +6,7 @@ require_once __DIR__ . '/RlBotHeuristics.php';
 require_once __DIR__ . '/RlBotBobuHeuristics.php';
 require_once __DIR__ . '/RlBotRaizanHeuristics.php';
 require_once __DIR__ . '/GameLog.php';
+require_once __DIR__ . '/../../Core/SimHistory.php';
 
 $debugMode = true;
 $customDQHandlers = [];
@@ -883,10 +884,48 @@ function NormalizeMZForPlayerPerspective($player, $mzID) {
     return $mzID;
 }
 
-function SaveActionSnapshot($player) {
+function SaveActionSnapshot($player, $label = 'Action') {
     $player = intval($player);
     if($player !== 1 && $player !== 2) return;
+    if(SimHistoryCapabilityEnabled()) {
+        SimHistoryBeginAction($player, strval($label));
+        return;
+    }
     SaveVersion($player);
+}
+
+function GameSimHistoryIsStable(): bool {
+    // Do not call HasPendingAttackResponse() here: it clears invalid response state,
+    // while a history-boundary predicate must not mutate gameplay merely by observing it.
+    $pendingAttackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
+    $pendingTargetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
+    $hasRawPendingAttack = is_string($pendingAttackerMZ) && $pendingAttackerMZ !== ''
+        && is_string($pendingTargetMZ) && $pendingTargetMZ !== '';
+    if($hasRawPendingAttack && function_exists('IsPendingAttackStateValid') && IsPendingAttackStateValid()) return false;
+    $controller = new DecisionQueueController();
+    if(!$controller->AllQueuesEmpty()) return false;
+    foreach(GetEffectStack() as $entry) {
+        if(is_object($entry) && empty($entry->removed)) return false;
+    }
+    return true;
+}
+
+function AzukiSimHistoryDecisionLabel($player): string {
+    $queue = &GetDecisionQueue(intval($player));
+    foreach($queue as $decision) {
+        if(!is_object($decision) || !empty($decision->removed)) continue;
+        $tooltip = trim(str_replace('_', ' ', strval($decision->Tooltip ?? '')));
+        return $tooltip === '' ? 'Make a choice' : $tooltip;
+    }
+    return 'Make a choice';
+}
+
+function AzukiSimHistoryBeforeEngineAction($action): void {
+    if(!SimHistoryCapabilityEnabled() || !is_array($action)) return;
+    if(intval($action['mode'] ?? 0) !== 100 || SimHistoryHasPendingAction()) return;
+    $actor = intval($action['playerID'] ?? 0);
+    if($actor !== 1 && $actor !== 2) return;
+    SimHistoryBeginAction($actor, AzukiSimHistoryDecisionLabel($actor));
 }
 
 function MZMoveToDeckTop($player, $mzIndex, $toZone = 'myDeck') {
@@ -4287,7 +4326,8 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    SaveActionSnapshot($player);
+    $playName = CardName($cardID);
+    SaveActionSnapshot($player, $playName === '' ? 'Play card' : 'Play ' . $playName);
 
     if($ignoreTimingRestriction) {
         DecisionQueueController::StoreVariable('IgnorePlayTimingRestriction', '0');
@@ -6212,7 +6252,9 @@ function DoAttack($player, $mzCard, $targetMZ) {
     if(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed) return '';
 
     if(!$isPendingResolution) {
-        SaveActionSnapshot($player);
+        $attackerObj = GetZoneObject($mzCard);
+        $attackerName = is_object($attackerObj) ? CardName(strval($attackerObj->CardID ?? '')) : '';
+        SaveActionSnapshot($player, $attackerName === '' ? 'Declare attack' : 'Attack with ' . $attackerName);
         GameLogEvent('attack_declare', [
             'by' => 'p' . intval($player),
             'atk' => AzukiGameLogObjectLabel(GetZoneObject($mzCard)),
@@ -6240,7 +6282,8 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     for($i = 0; $i < count($cardIDCandidates); ++$i) {
         $abilityKey = $cardIDCandidates[$i] . ':' . $abilityIndex;
         if(isset($activateAbilityAbilities[$abilityKey]) && is_callable($activateAbilityAbilities[$abilityKey])) {
-            SaveActionSnapshot($player);
+            $abilityName = CardName($cardID);
+            SaveActionSnapshot($player, $abilityName === '' ? 'Activate ability' : 'Activate ' . $abilityName);
             GameLogEvent('activate', [
                 'by' => 'p' . intval($player),
                 'card' => AzukiGameLogCardLabel($cardID),
@@ -6924,7 +6967,9 @@ $customDQHandlers["RESOLVE_ATTACK"] = function($player, $params, $lastDecision) 
     $chosenTarget = is_string($lastDecision) ? $lastDecision : '';
     if($attackerMZ === '' || $chosenTarget === '' || strtoupper($chosenTarget) === 'PASS') return;
     if(!CanAttackRuntime($player, $attackerMZ, $chosenTarget)) return;
-    SaveActionSnapshot($player);
+    $attackerObj = GetZoneObject($attackerMZ);
+    $attackerName = is_object($attackerObj) ? CardName(strval($attackerObj->CardID ?? '')) : '';
+    SaveActionSnapshot($player, $attackerName === '' ? 'Declare attack' : 'Attack with ' . $attackerName);
     ExhaustEntity($player, $attackerMZ);
     TriggerEquippedWeaponOnAttack($player, $attackerMZ);
     OnAttackWithCard($player, $attackerMZ, $chosenTarget);
