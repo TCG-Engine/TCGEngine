@@ -19,6 +19,48 @@ $untilBeginOpponentTurnEffects['ROOTED'] = true;
 
 require_once dirname(__DIR__) . '/Tutorial/TutorialRuntime.php';
 
+function AzukiQueueSound($cue, $options = []) {
+    if(!function_exists('QueueSoundEvent')) return;
+    QueueSoundEvent('azuki.' . strval($cue), is_array($options) ? $options : []);
+}
+
+function AzukiQueuedSoundCount() {
+    global $frameAnimations;
+    if(!isset($frameAnimations) || !is_array($frameAnimations)) return 0;
+
+    $count = 0;
+    foreach($frameAnimations as $event) {
+        if(!is_array($event)) continue;
+        if(strtoupper(strval($event['type'] ?? '')) !== 'SOUND') continue;
+        ++$count;
+    }
+    return $count;
+}
+
+function AzukiHasQueuedSoundCue($cues) {
+    global $frameAnimations;
+    if(!isset($frameAnimations) || !is_array($frameAnimations)) return false;
+    if(!is_array($cues)) $cues = [$cues];
+    $cueLookup = array_fill_keys(array_map('strval', $cues), true);
+
+    foreach($frameAnimations as $event) {
+        if(!is_array($event)) continue;
+        if(strtoupper(strval($event['type'] ?? '')) !== 'SOUND') continue;
+        if(isset($cueLookup[strval($event['cue'] ?? '')])) return true;
+    }
+    return false;
+}
+
+function AzukiQueueDamageSound($amount, $delayMs = 0, $leader = false) {
+    $amount = max(0, intval($amount));
+    if($amount <= 0) return;
+    $cue = $leader ? 'leader_hit' : ($amount >= 3 ? 'damage_heavy' : 'damage_light');
+    AzukiQueueSound($cue, [
+        'delayMs' => max(0, intval($delayMs)),
+        'intensity' => min(1.0, $amount / 5.0),
+    ]);
+}
+
 function NormalizeAzukiRlBotPlayers($players) {
     $normalized = [];
     if(!is_array($players)) return $normalized;
@@ -2177,6 +2219,7 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
     DiscardEquippedWeaponsFromObject(intval($owner), $obj);
 
     if($toZone === 'myHand' || $toZone === 'theirHand') {
+        AzukiQueueSound('bounce', ['delayMs' => 100]);
         GameLogEvent('bounce', [
             'by' => 'p' . intval($player),
             'card' => AzukiGameLogCardLabel($cardID),
@@ -2201,6 +2244,19 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
             $resolvedCardID = $cardID;
         }
         $gameLogLeaveEvent = $leaveReason === 'SACRIFICE' ? 'sacrifice' : ($leaveReason === 'REPLACE' ? 'replace' : 'destroy');
+        if($gameLogLeaveEvent === 'sacrifice') {
+            AzukiQueueSound('sacrifice', ['delayMs' => 160]);
+        }
+        else if($gameLogLeaveEvent === 'destroy') {
+            $damageAlreadyAudible = AzukiHasQueuedSoundCue([
+                'azuki.damage_light',
+                'azuki.damage_heavy',
+                'azuki.leader_hit',
+            ]);
+            if(!$damageAlreadyAudible) {
+                AzukiQueueSound('destroy');
+            }
+        }
         GameLogEvent($gameLogLeaveEvent, [
             'by' => 'p' . intval($player),
             'card' => AzukiGameLogCardLabel($resolvedCardID),
@@ -2392,6 +2448,7 @@ function ResolveWeaponPlayFromHand($player, $mzCard, $targetMZ) {
     if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
     AttachWeaponCardIDToTarget($targetObj, $weaponCardID);
     TriggerWhenEquippedAbilities($targetObj);
+    AzukiQueueSound('weapon_equip', ['delayMs' => 120]);
 
     if($weaponCardID === 'S1-STT01-013_Black-Jade-Dagger_W_C_die') {
         $targetKey = 'P' . intval($player) . '_BlackJadeDaggerTargetMZ';
@@ -2433,6 +2490,7 @@ function ResolveWeaponPlayFromDiscard($player, $weaponMZ, $targetMZ) {
     if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
     AttachWeaponCardIDToTarget($targetObj, $weaponCardID);
     TriggerWhenEquippedAbilities($targetObj);
+    AzukiQueueSound('weapon_equip', ['delayMs' => 120]);
 
     if($weaponCardID === 'S1-STT01-013_Black-Jade-Dagger_W_C_die') {
         $targetKey = 'P' . intval($player) . '_BlackJadeDaggerTargetMZ';
@@ -2730,6 +2788,15 @@ function TriggerGameOver($loserPlayer) {
 
     $winner = ($loserPlayer === 1) ? 2 : 1;
     DecisionQueueController::StoreVariable('GAMEOVER_WINNER', strval($winner));
+    AzukiQueueSound('game_end', [
+        'delayMs' => 260,
+        'actorSeat' => $winner,
+        'perspectiveCues' => [
+            'self' => 'azuki.victory',
+            'other' => 'azuki.defeat',
+            'spectator' => 'azuki.game_end',
+        ],
+    ]);
     $gameLogEndReason = strval(DecisionQueueController::GetVariable('AzukiGameLogEndReason') ?? 'leader_ko');
     GameLogEvent('game_end', [
         'winner' => 'p' . $winner,
@@ -2853,6 +2920,11 @@ function GrantStartingIKZTokenIfPending($player) {
         $ikzToken = 1;
     }
     DecisionQueueController::StoreVariable($pendingVar, '0');
+    AzukiQueueSound('ikz_gain', [
+        'actorSeat' => $player,
+        'variantSeed' => 'starting-token',
+        'delayMs' => 180,
+    ]);
 }
 
 function PayIKZCost($player, $cost) {
@@ -2903,7 +2975,14 @@ function PayIKZCost($player, $cost) {
         $remaining -= $fromToken;
     }
 
-    return $remaining <= 0;
+    $paid = $remaining <= 0;
+    if($paid) {
+        AzukiQueueSound('ikz_spend', [
+            'intensity' => min(1.0, $cost / 5.0),
+            'variantSeed' => 'cost-' . $cost,
+        ]);
+    }
+    return $paid;
 }
 
 function CountAvailableIKZ($player) {
@@ -2999,6 +3078,7 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
         null,
         intval($newObj->UniqueID ?? 0)
     );
+    AzukiQueueSound('entity_play', ['delayMs' => 300, 'actorSeat' => intval($player)]);
 
     if($destination === 'myGarden') {
         if(!isset($newObj->TurnEffects) || !is_array($newObj->TurnEffects)) {
@@ -3062,6 +3142,7 @@ function DealDamageToLeader($player, $amount, $sourceKey = null, $statsSourceKey
     $resolvedStatsSourceKey = is_string($statsSourceKey) && $statsSourceKey !== '' ? NormalizeDamageSourceKey($statsSourceKey) : $resolvedSourceKey;
     TrackMacroGameOpponentLeaderDamage($player, $amount, $resolvedStatsSourceKey);
     QueueLeaderDamageAnimation($player, $amount, $animationDelayMs);
+    AzukiQueueDamageSound($amount, $animationDelayMs, true);
     GameLogEvent('damage', [
         'tgt' => 'p' . intval($player) . '.leader',
         'amt' => $amount,
@@ -3093,6 +3174,7 @@ function HealLeader($player, $amount) {
     $actualHealed = max(0, $currentDamage - $leaderObj->Damage);
     QueueLeaderRestoreAnimation($player, $actualHealed);
     if($actualHealed > 0) {
+        AzukiQueueSound('heal', ['intensity' => min(1.0, $actualHealed / 5.0)]);
         GameLogEvent('heal', [
             'tgt' => 'p' . intval($player) . '.leader',
             'amt' => $amount,
@@ -3394,6 +3476,7 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
         ]);
         $targetUniqueID = EnsureAzukiFieldUniqueID($garden[$index]);
         QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true, $targetUniqueID);
+        AzukiQueueDamageSound($amount);
         TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
         RecordDamageSourceOnObject($garden[$index], $resolvedSourceKey);
         if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
@@ -3444,6 +3527,7 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
     ]);
     $targetUniqueID = EnsureAzukiFieldUniqueID($alley[$index]);
     QueueDamageAnimation('p' . $targetPlayer . 'Alley-' . $index, $amount, 500, true, $targetUniqueID);
+    AzukiQueueDamageSound($amount);
     TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
     RecordDamageSourceOnObject($alley[$index], $resolvedSourceKey);
     if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
@@ -4259,8 +4343,12 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         $stackIndex = count($stack) - 1;
         if($stackIndex >= $beforeCount) {
             $stackMZ = 'EffectStack-' . $stackIndex;
+            $soundCountBeforeResolution = AzukiQueuedSoundCount();
             OnPlay($player, $stackMZ);
             SafeMZMove($player, $stackMZ, 'myDiscard');
+            if(AzukiQueuedSoundCount() === $soundCountBeforeResolution) {
+                AzukiQueueSound('entity_play', ['actorSeat' => intval($player)]);
+            }
         }
     } else {
         // Weapon and unsupported card types: pay cost, then send to discard for now.
@@ -4294,6 +4382,12 @@ function DoDrawCard($player, $amount, $animate = true) {
         }
     }
     if(!empty($drawn)) {
+        if($animate) {
+            AzukiQueueSound('card_draw', [
+                'intensity' => min(1.0, count($drawn) / 3.0),
+                'actorSeat' => intval($player),
+            ]);
+        }
         GameLogEvent('draw', [
             'by' => 'p' . intval($player),
             'n' => count($drawn),
@@ -5928,6 +6022,7 @@ function QueueAzukiCombatLunge($player, $attackerMZ, $targetMZ, $attackerObj = n
         intval($targetObj->UniqueID ?? 0),
         0.7
     );
+    AzukiQueueSound('attack_whoosh', ['actorSeat' => intval($player)]);
 }
 
 function ResolveAttackCombat($player, $mzCard, $targetMZ) {
@@ -6005,6 +6100,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                         $animTarget = ($targetZone === 'theirGarden' ? 'Garden' : 'Alley');
                         QueueAzukiCombatLunge($player, $mzCard, $targetZone . '-' . $targetIndex, $attackerObj, $targetField[$targetIndex]);
                         QueueDamageAnimation('p' . $opponent . $animTarget . '-' . $targetIndex, $damageDealt, 500, true, null, 140);
+                        AzukiQueueDamageSound($damageDealt, 140);
                         TriggerZeroStarterDamageReactions($player, $targetZone . '-' . $targetIndex, $damageDealt, false);
                         $targetOwnerMZ = FlipZonePerspective($targetZone . '-' . $targetIndex);
                         RecordDamageSourceOnObject($targetField[$targetIndex], 'P' . intval($player) . ':COMBAT:' . NormalizeDamageSourceKey($mzCard));
@@ -6040,6 +6136,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                     if($damageDealt > 0) {
                         $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $damageDealt;
                         QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $damageDealt, 500, true, null, 140);
+                        AzukiQueueDamageSound($damageDealt, 140);
                         TriggerZeroStarterDamageReactions($opponent, 'myGarden-' . $attackerIndex, $damageDealt, false);
                         $combatSourceKey = 'P' . intval($opponent) . ':COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex);
                         RecordDamageSourceOnObject($myGarden[$attackerIndex], $combatSourceKey);
@@ -6226,6 +6323,7 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
                         $animationSourceUniqueID,
                         intval($addedObj->UniqueID ?? 0)
                     );
+                    AzukiQueueSound('portal', ['delayMs' => 80, 'actorSeat' => intval($player)]);
                     if(!isset($addedObj->TurnEffects) || !is_array($addedObj->TurnEffects)) {
                         $addedObj->TurnEffects = [];
                     }
@@ -6310,6 +6408,7 @@ function ActionMap($actionCard) {
 
 function OnStartOfTurn($player) {
     AzukiGameLogRecordTurnStart($player);
+    AzukiQueueSound('turn_start', ['actorSeat' => intval($player)]);
     DecisionQueueController::StoreVariable('P' . intval($player) . '_EntitiesPlayedThisTurn', '0');
     DecisionQueueController::StoreVariable('P' . intval($player) . '_BobuWardActive', '0');
     global $gCurrentPhase;

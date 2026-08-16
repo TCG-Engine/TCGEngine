@@ -1,0 +1,19 @@
+{
+  "format": "Stereo MP3, 44.1 kHz, 192 kbps",
+  "approach": "Concrete physical foley sources, sub-second cuts, natural fades, and restrained corrective EQ. No synthesized UI layers or loudness normalization.",
+  "liveEdits": {
+    "card-draw-1.mp3": "card-handling.mp3; 520 ms warm cut",
+    "card-draw-2.mp3": "card-handling.mp3; 550 ms slightly lower variation",
+    "entity-play-1.mp3": "deck-placement.mp3; 550 ms padded placement",
+    "entity-play-2.mp3": "deck-placement.mp3; 580 ms lower variation",
+    "spell-cast.mp3": "air-pressure-release.mp3; 480 ms pressure pulse",
+    "attack-whoosh-2.mp3": "cloth-swish.mp3; 560 ms fabric movement",
+    "damage-light-1.mp3": "light-body-hit.mp3; 290 ms focus-mitt impact",
+    "damage-light-2.mp3": "light-body-hit.mp3; 320 ms lower variation",
+    "heal.mp3": "water-basin.mp3; 780 ms water wash",
+    "destroy.mp3": "wood-break.mp3; 480 ms damped break",
+    "portal.mp3": "threshold-step.mp3; 720 ms wood-to-soil movement",
+    "bounce.mp3": "cloth-swish.mp3; 520 ms reversed movement",
+    "game-end.mp3": "../Auditions/damage-heavy-a.mp3; 820 ms lowered and softly decaying neutral thud"
+  }
+}

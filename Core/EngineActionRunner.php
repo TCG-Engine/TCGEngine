@@ -29,17 +29,73 @@ function ConvertMzIDToAbsolute($mzID, $playerPerspective) {
   return $zone . "-" . $index;
 }
 
-function QueueFrameAnimation($animation) {
+function QueueFrameEvent($event) {
   global $frameAnimations;
   if (!isset($frameAnimations) || !is_array($frameAnimations)) {
     $frameAnimations = [];
   }
+  if (!is_array($event)) return;
+  if (!isset($event['type']) || trim(strval($event['type'])) === '') return;
+
+  $frameAnimations[] = $event;
+}
+
+function QueueFrameAnimation($animation) {
   if (!is_array($animation)) return;
   if (!isset($animation['target']) || $animation['target'] === '') return;
 
   if (!isset($animation['durationMs'])) $animation['durationMs'] = 0;
   if (!isset($animation['blocking'])) $animation['blocking'] = true;
-  $frameAnimations[] = $animation;
+  QueueFrameEvent($animation);
+}
+
+/**
+ * Queue a short, non-blocking semantic sound for the current authoritative update.
+ *
+ * The cue is an app-owned identifier resolved by the browser's registered sound manifest. Never
+ * put asset paths or private card data in this payload. Supported options are deliberately small:
+ * delayMs, volume, intensity, onlySeat, actorSeat, variantSeed, and perspectiveCues.
+ */
+function QueueSoundEvent($cue, $options = []) {
+  $cue = trim(strval($cue));
+  if ($cue === '' || !preg_match('/^[A-Za-z0-9._-]+$/', $cue)) return;
+  if (!is_array($options)) $options = [];
+
+  $event = [
+    'type' => 'SOUND',
+    'cue' => $cue,
+    'delayMs' => max(0, intval($options['delayMs'] ?? 0)),
+    // Sound never participates in the ordered render queue's blocking window.
+    'blocking' => false,
+  ];
+
+  if (array_key_exists('volume', $options)) {
+    $event['volume'] = max(0.0, min(2.0, floatval($options['volume'])));
+  }
+  if (array_key_exists('intensity', $options)) {
+    $event['intensity'] = max(0.0, min(1.0, floatval($options['intensity'])));
+  }
+  if (intval($options['onlySeat'] ?? 0) > 0) {
+    $event['onlySeat'] = intval($options['onlySeat']);
+  }
+  if (intval($options['actorSeat'] ?? 0) > 0) {
+    $event['actorSeat'] = intval($options['actorSeat']);
+  }
+  if (isset($options['variantSeed']) && strval($options['variantSeed']) !== '') {
+    $event['variantSeed'] = substr(strval($options['variantSeed']), 0, 80);
+  }
+  if (isset($options['perspectiveCues']) && is_array($options['perspectiveCues'])) {
+    $perspectiveCues = [];
+    foreach (['self', 'other', 'spectator'] as $perspectiveKey) {
+      $perspectiveCue = trim(strval($options['perspectiveCues'][$perspectiveKey] ?? ''));
+      if ($perspectiveCue !== '' && preg_match('/^[A-Za-z0-9._-]+$/', $perspectiveCue)) {
+        $perspectiveCues[$perspectiveKey] = $perspectiveCue;
+      }
+    }
+    if (!empty($perspectiveCues)) $event['perspectiveCues'] = $perspectiveCues;
+  }
+
+  QueueFrameEvent($event);
 }
 
 function QueueCardAnimation($targetMzID, $name, $durationMs = 400, $blocking = true, $params = []) {

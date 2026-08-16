@@ -1,0 +1,56 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "outputFormat": "mp3_44100_192",
+  "promptInfluence": 0.85,
+  "normalize": false,
+  "postProcessing": "None. Long-form physical source recordings; live cues are cut and mastered separately.",
+  "style": "A clean close-miked studio foley recording with full-range natural acoustics and no music.",
+  "sounds": [
+    {
+      "file": "card-handling.mp3",
+      "duration": 1.2,
+      "prompt": "A hand briskly pulls one heavyweight uncoated cardboard index card from a tightly held stack and places it on thick wool felt. Audible paper fibers, fingertip contact, and a soft landing."
+    },
+    {
+      "file": "deck-placement.mp3",
+      "duration": 1.2,
+      "prompt": "A compact stack of thick cardboard cards is placed firmly once onto a felt-covered hardwood table. A dense padded knock, slight cardstock movement, then silence."
+    },
+    {
+      "file": "cloth-swish.mp3",
+      "duration": 1.0,
+      "prompt": "A martial artist makes one quick arm movement in a heavy cotton jacket beside the microphone. A short rounded fabric rush with natural air displacement."
+    },
+    {
+      "file": "light-body-hit.mp3",
+      "duration": 1.1,
+      "prompt": "One controlled padded glove strike lands on a small leather focus mitt. Compact soft body impact, leather compression, and a tiny breath of displaced air."
+    },
+    {
+      "file": "water-basin.mp3",
+      "duration": 1.5,
+      "prompt": "A small cup of clean water is poured once into a shallow stone basin and settles. Real water movement, a rounded splash, gentle swirl, and a few natural droplets."
+    },
+    {
+      "file": "wood-break.mp3",
+      "duration": 1.2,
+      "prompt": "A dry wooden dowel wrapped in heavy cloth is snapped once by hand over a padded table. A solid low wooden break followed by soft fabric and small wood pieces settling."
+    },
+    {
+      "file": "threshold-step.mp3",
+      "duration": 1.3,
+      "prompt": "One quick cloth-shod step crosses a wooden threshold and lands on soft garden soil with a few dry leaves. Natural footwear, wood, earth, and fabric movement."
+    },
+    {
+      "file": "air-pressure-release.mp3",
+      "duration": 1.1,
+      "prompt": "A large leather bellows releases one short forceful puff of air through a wide wooden tube. A rounded pressure pulse with leather movement and no whistle."
+    },
+    {
+      "file": "muted-drum.mp3",
+      "duration": 1.4,
+      "prompt": "A large rope-tensioned floor drum is struck once with a soft felt mallet while a hand damps the head. Deep natural body, restrained attack, and a short studio-room decay."
+    }
+  ]
+}

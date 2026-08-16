@@ -11,6 +11,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
     <script src="./Core/AppSettings.js"></script>
     <script src="./Core/CardMotion.js?v=<?php echo filemtime('./Core/CardMotion.js'); ?>"></script>
+    <script src="./Core/SoundEvents.js?v=<?php echo filemtime('./Core/SoundEvents.js'); ?>"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
@@ -1208,7 +1209,22 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
         var queuedUpdate = _renderQueue.shift();
         _renderInProgress = true;
-        var frameAnimations = ParseFrameAnimations(queuedUpdate.responseArr);
+        var frameEvents = ParseFrameAnimations(queuedUpdate.responseArr);
+        var soundEventCount = frameEvents.filter(function(event) {
+          return String(event && event.type || '').toUpperCase() === 'SOUND';
+        }).length;
+        if (window.TCGSound) {
+          window.TCGSound.playFrameEvents(frameEvents, {
+            rootName: <?php echo json_encode($folderPath); ?>,
+            gameName: <?php echo json_encode(strval($gameName)); ?>,
+            update: queuedUpdate.update,
+            viewerSeat: <?php echo json_encode(strval($playerID)); ?>,
+            perspectiveSeat: <?php echo intval($viewerPerspective); ?>
+          });
+        }
+        var frameAnimations = frameEvents.filter(function(event) {
+          return String(event && event.type || '').toUpperCase() !== 'SOUND';
+        });
         if (!window.TCGCardMotion || !window.TCGCardMotion.isEnabled(<?php echo json_encode($folderPath); ?>)) {
           frameAnimations = [];
         }
@@ -1216,7 +1232,8 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           window.TCGRenderTrace.mark('queue:dequeue', {
             update: queuedUpdate.update,
             remaining: _renderQueue.length,
-            frameAnimations: frameAnimations.length
+            frameAnimations: frameAnimations.length,
+            soundEvents: soundEventCount
           });
         }
         var timeoutAmount = PlayFrameAnimations(frameAnimations, <?php echo($viewerPerspective); ?>);

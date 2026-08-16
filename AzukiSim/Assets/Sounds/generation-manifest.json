@@ -1,0 +1,49 @@
+{
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "outputFormat": "mp3_44100_128",
+  "promptInfluence": 0.7,
+  "postProcessing": "FFmpeg loudness normalization: loudnorm I=-20 LRA=7 TP=-3, encoded as 44.1 kHz 128 kbps MP3.",
+  "productionEditManifest": "ProductionSources/production-edit-manifest.json",
+  "normalization": { "integratedLoudness": -20, "loudnessRange": 7, "truePeak": -3 },
+  "productionOverrides": {
+    "damage-heavy.mp3": {
+      "source": "Auditions/damage-heavy-a.mp3",
+      "edit": "First 680 ms with a 120 ms natural fade; selected as the approved live cue."
+    },
+    "weapon-equip.mp3": {
+      "source": "Auditions/weapon-equip-a.mp3",
+      "edit": "First 720 ms; softened 5.2–7.5 kHz presence, reinforced 280 Hz body, and applied a 100 ms fade."
+    },
+    "ikz-spend.mp3": {
+      "source": "ikz-spend.mp3 from the original ElevenLabs generation",
+      "edit": "Stream-copy trim requested at 500 ms; frame-aligned output is 536 ms and the MP3 audio frames were not filtered or re-encoded."
+    }
+  },
+  "style": "Modern Japanese fantasy card-game one-shot. Warm, dry organic foley; no speech or music. Use metal or chimes only when explicitly requested.",
+  "sounds": [
+    { "file": "card-draw-1.mp3", "duration": 0.55, "prompt": "One-shot game sound: thick matte cardstock sliding quickly off the top of a deck, close dry paper friction and a soft fingertip flick. Absolutely no metal, cymbal, bell, chime, glass, sparkle, or tonal ring." },
+    { "file": "card-draw-2.mp3", "duration": 0.55, "prompt": "One-shot variation: one heavy paper trading card pulled cleanly from a deck, short soft cardstock swish with a muted paper stop. Dry foley only; no metal, cymbal, bell, chime, glass, sparkle, or pitched tone." },
+    { "file": "entity-play-1.mp3", "duration": 0.7, "prompt": "One-shot entity entering play: a thick card placed firmly onto a felt-covered wooden table, ending in a warm low padded thump and tiny cloth movement. Physical and grounded; no magic sparkle, no metal, no chime." },
+    { "file": "entity-play-2.mp3", "duration": 0.7, "prompt": "One-shot entity entering play variation: quick cardstock movement followed by a confident soft landing on tatami and wood, a compact earthy low knock. No metal, no coins, no bell, no shimmer, no strange vocal texture." },
+    { "file": "spell-cast.mp3", "duration": 0.8, "prompt": "One-shot fantasy spell release: a smooth gathered breath of air compresses into one clean soft energy pulse, then vanishes. Rounded and controlled, not hissy; absolutely no snake rattle, shaker, clicking, buzzing, metal, bell, or chime." },
+    { "file": "weapon-equip.mp3", "duration": 0.75, "prompt": "One-shot saber equip foley: a full-bodied cavalry saber and steel scabbard give one short low rattle against a leather belt, followed by a solid guarded settling clack. Weighty steel, not tinny, not a high-pitched ping, no music." },
+    { "file": "portal.mp3", "duration": 0.9, "prompt": "One-shot entity relocating from a narrow alley into an open garden: fast cloth and footsteps rush across a short wooden walkway, then land softly on soil and grass with a gentle open-air exhale. No paper, no page turn, no book, no bell, no magic sparkle." },
+    { "file": "attack-whoosh-1.mp3", "duration": 0.6, "prompt": "One-shot martial attack movement: a very fast clean weaponless air swipe, sharp whoosh with a subtle bamboo snap, energetic but not cinematic, short and dry, no impact, no music." },
+    { "file": "attack-whoosh-2.mp3", "duration": 0.6, "prompt": "One-shot martial attack movement variation matching a clean fast air swipe: lower soft cloth rush and a brief dry bamboo swish, natural and unpitched. No impact, no voice, no metallic tone, no whistle, no strange modulation." },
+    { "file": "damage-light-1.mp3", "duration": 0.55, "prompt": "One-shot light combat hit: a compact muted fist impact into padded cloth and leather, short dry body thump with a tiny air puff. No metal, cymbal, coin, bell, chime, glass, crack, or pitched ringing." },
+    { "file": "damage-light-2.mp3", "duration": 0.55, "prompt": "One-shot light combat hit variation: restrained palm strike into a padded training bag, soft dense thump and cloth compression. Foley only; no metal, cymbal, coin, bell, chime, glass, snap, or tonal sound." },
+    { "file": "damage-heavy.mp3", "duration": 0.7, "prompt": "One-shot heavy combat damage: one deep dense padded thud, like a heavy sandbag dropping onto tatami, with a short low body and no tail. No wood crack, no ceramic, no metal, no coins, no explosion, no ringing." },
+    { "file": "leader-hit.mp3", "duration": 0.85, "prompt": "One-shot consequential leader damage sound: strong refined impact with deep taiko-like body, lacquered wood crack and very short dark resonance, dramatic but compact, no music." },
+    { "file": "heal.mp3", "duration": 0.95, "prompt": "One-shot cleansing water heal: a clear wave of fresh water washes gently across the listener, followed by one soft round droplet and a clean evaporating water mist. Restorative and pure; no bells, chimes, glass, crystals, metal, or music." },
+    { "file": "destroy.mp3", "duration": 0.8, "prompt": "One-shot entity destruction: a low dry wooden break collapses immediately into soft earth and dust, compact and weighty with a muted finish. Absolutely no metal, coins, chain, glass, ceramic, clinking, bell, or sparkle." },
+    { "file": "sacrifice.mp3", "duration": 0.9, "prompt": "One-shot mystical sacrifice: soft low pulse, paper talisman folding inward, then a dark airy dissolve with one subdued bell overtone, solemn and restrained, no voice, no music." },
+    { "file": "bounce.mp3", "duration": 0.7, "prompt": "One-shot return-to-hand sound: a soft card lifts away from felt with a rounded reverse air pull and quiet cardstock flutter, gentle and low in brightness. No harsh high frequencies, no acid or caustic texture, no metal, whistle, chime, or snap." },
+    { "file": "ikz-gain.mp3", "duration": 0.6, "prompt": "One-shot resource gain: a small polished ceramic token placed down with a bright crystalline ping, clean modern Japanese fantasy interface sound, rewarding but subtle, no music." },
+    { "file": "ikz-spend.mp3", "duration": 0.65, "prompt": "One-shot resource spend: two quick muted ceramic token clicks descending slightly in pitch, tactile and restrained, clean game feedback, no cash-register sound, no music." },
+    { "file": "turn-start.mp3", "duration": 0.8, "prompt": "One-shot your-turn notification: one concise bamboo knock followed by a warm ceramic chime and tiny upward wind accent, calm focus, not an alarm, no music." },
+    { "file": "victory.mp3", "duration": 1.5, "prompt": "Short one-shot victory flourish for a modern Japanese fantasy card game: confident taiko accent, bright ceramic bells, and an elegant rising tonal resolution, celebratory but restrained, no voice." },
+    { "file": "defeat.mp3", "duration": 1.35, "prompt": "Short one-shot defeat cue for a modern Japanese fantasy card game: subdued low drum, falling wooden and ceramic tones, gentle dark wind tail, dignified rather than tragic, no voice." },
+    { "file": "game-end.mp3", "duration": 1.15, "prompt": "Short neutral match-end cue for spectators: one warm low taiko-style drum stroke followed by a quiet natural room decay and soft wind settling to silence. Clear finality but neither victory nor defeat; no melody, no metal, no bell, no chime, no voice." }
+  ]
+}

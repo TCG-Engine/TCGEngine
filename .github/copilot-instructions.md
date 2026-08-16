@@ -95,6 +95,15 @@ Important notes and gotchas
 - Use absolute `pNZone-index` animation references in server events. Include source/destination `UniqueID` values when the involved schema zones provide them, but do not add private card IDs to the shared animation payload.
 - Card motion is a browser-local per-root preference (`EnableCardMotion`) exposed through `window.TCGSettings`. New semantic motion must respect that shared client gate.
 
+## Semantic sound effects
+- Shared server helpers live in `Core/EngineActionRunner.php`: use `QueueSoundEvent($cue, $options)` for short semantic sounds attached to an authoritative update.
+- Sound events share the existing ordered frame-event payload but are always non-blocking. They must never delay polling, animation, or the authoritative board render.
+- Cue names are resolved by app-owned manifests registered with `window.TCGSound`; server payloads must not contain asset paths, private card IDs, or hidden card information.
+- Use `onlySeat` for private cues, `actorSeat` for perspective-aware cues, and `perspectiveCues` for results such as victory/defeat. Spectators must receive only information already public in the board update.
+- Sound effects use browser-local per-root settings `EnableSoundEffects` and `SoundEffectsVolume`. Sound and card-motion preferences are independent.
+- Browsers may block audio before a user gesture. The shared client unlocks and preloads best-effort; gameplay must remain correct when a cue is muted, missing, late, or undecodable.
+- For generated sound-design assets, use the ElevenLabs API with `ELEVENLABS_API_KEY`. Commit prompts/metadata and web-ready assets when appropriate, but never print, expose to client code, or commit the key.
+
 ---
 
 ## Card Ability Implementation Workflow (for AI agents)
