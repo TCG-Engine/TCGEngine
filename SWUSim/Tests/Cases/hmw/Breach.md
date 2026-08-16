@@ -2,7 +2,7 @@
 #// HMW_114 Breach — cost 2, [Command][Villainy], Event, Trait: Tactic.
 #// Text: "A friendly unit deals damage equal to its power to an enemy unit in its arena. If the
 #//        friendly unit has Overwhelm, deal excess damage to an enemy base."
-#// (The mock text reads "deal deal excess damage" — an upstream typo, read as a single "deal".)
+#// (The mock text reads "deal deal excess damage" — a typo in the card text, read as a single "deal".)
 #//
 #// A two-step targeting effect where the SECOND pool depends on the FIRST pick: the enemy must be in
 #// the DEALER's arena. Damage is ability damage equal to the dealer's CURRENT power, and the excess

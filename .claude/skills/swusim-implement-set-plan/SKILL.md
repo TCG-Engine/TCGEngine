@@ -87,6 +87,7 @@ When the scope is complete, report **start → end regression counts**, the phas
 | Running a retro after every phase | Only two retros: at the autonomous→pair-programmed handoff and at the very end. Don't retro per-phase. |
 | Updating the plan but not the set tracker (or vice-versa) | Both: plan checkbox **and** `SWUSim/docs/{set}-implement.md`. |
 | Spawning subagents to "go faster" | Run batches inline — the loop is sequential by design (each batch's green regression gates the next). |
+| Typing a "play a unit from your HAND" offer as a mandatory `MZCHOOSE` | **Always `SWUQueueMayChooseTarget`, even with no printed "you may"** (user ruling 2026-08-15): the hand is a HIDDEN zone, so a player can never be forced to reveal they held a playable card. Applies to events, leader/unit Actions, Epic Actions and When Playeds alike. Does NOT extend to discard/resource plays (public zones — type those from the printed text). Declining still costs the activation price, and the conversion adds a prompt, so re-count answers in every existing section of that card. |
 | Committing at the end | Never. The user commits manually. |
 | Marking a batch done while regression is red | Green-gate every batch; `0 failed` or it's not done. |
 | Halting the whole run on a Hard / ambiguous card | **Defer it to the backlog and keep going** (Step 5). Only halt for a blocker the rest of the scope depends on, or being stuck. Surface the backlog at the checkpoints. |

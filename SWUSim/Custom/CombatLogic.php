@@ -75,18 +75,31 @@ function SWUConsumeShieldToken($unit, bool $forPrevention = true): bool {
     // stolen from Galen's own side keep preventing.
     if ($forPrevention
         && _SWUGalenSuppressesCard(intval($unit->Controller ?? $unit->Owner ?? 0), 'SOR_T02')) return false;
+    // A GRANTED token that says "defeat that token later" (SHD_225 Jetpack) is spent BEFORE the host's
+    // other Shields — otherwise the plain shield dies first and the granted one is still there to be
+    // defeated at regroup, which loses the player a shield they should have kept. Two passes: tagged
+    // tokens first, then any Shield.
+    $shieldKey = null;
     foreach ($unit->Subcards as $key => $sub) {
+        $cardID  = is_array($sub) ? ($sub['CardID'] ?? '')   : ($sub->CardID ?? '');
+        $removed = is_array($sub) ? !empty($sub['removed'])  : !empty($sub->removed);
+        $tag     = is_array($sub) ? ($sub['GrantTag'] ?? '') : ($sub->GrantTag ?? '');
+        if (!$removed && $cardID === 'SOR_T02' && $tag !== '') { $shieldKey = $key; break; }
+    }
+    foreach ($unit->Subcards as $key => $sub) {
+        if ($shieldKey !== null) break;
         $cardID  = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $removed = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
-        if (!$removed && $cardID === 'SOR_T02') {
-            array_splice($unit->Subcards, $key, 1);
-            // CR: a Shield token consumed to prevent damage is DEFEATED — fire the "a friendly upgrade was
-            // defeated this phase" observers (ASH_039 Baylan flag / ASH_161 Zeb deal-1). Token upgrades count.
-            $shCtrl  = intval($unit->Controller ?? $unit->Owner ?? 0);
-            $shOwner = intval($unit->Owner ?? $shCtrl);
-            if ($shCtrl > 0) _SWUOnUpgradeDefeated($shCtrl, 'SOR_T02', $unit, $shOwner);
-            return true;
-        }
+        if (!$removed && $cardID === 'SOR_T02') { $shieldKey = $key; break; }
+    }
+    if ($shieldKey !== null) {
+        array_splice($unit->Subcards, $shieldKey, 1);
+        // CR: a Shield token consumed to prevent damage is DEFEATED — fire the "a friendly upgrade was
+        // defeated this phase" observers (ASH_039 Baylan flag / ASH_161 Zeb deal-1). Token upgrades count.
+        $shCtrl  = intval($unit->Controller ?? $unit->Owner ?? 0);
+        $shOwner = intval($unit->Owner ?? $shCtrl);
+        if ($shCtrl > 0) _SWUOnUpgradeDefeated($shCtrl, 'SOR_T02', $unit, $shOwner);
+        return true;
     }
     return false;
 }
@@ -670,6 +683,12 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
         if ($owner !== intval($player)) AddGlobalEffects(intval($player), 'SWU_ENEMY_DEFEATED');
         AddGlobalEffects($ldrController, 'SWU_FRIENDLY_DEFEATED');
         _SWUMarkHeroismDefeated($ldrController, $ldrCardID);
+        // CR 9.3 — the leader unit is leaving play, so its attached upgrades are DEFEATED and go to their
+        // owners' discard piles, exactly as for any other unit. This early return used to skip the
+        // SWUDiscardHostSubcards() call further down, so an upgrade on a defeated deployed leader simply
+        // CEASED TO EXIST: it was in no discard pile and in no arena. Runs BEFORE the return-to-zone,
+        // which removes $obj (and which rescues CAPTIVES — those are skipped here by design).
+        SWUDiscardHostSubcards($obj);
         SWUReturnLeaderToZone($owner, $unitMzID);
         DecisionQueueController::CleanupRemovedCards();
         $playerID = $savedPID;
@@ -1949,6 +1968,9 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
 // UID at fire time — the host's mzID can shift before then. UID 0 (untracked object) falls back to
 // the old inline flip rather than losing the revert entirely.
 function _SWUUpgradeUnattachControlRevert(int $player, string $upgradeCardID, $host, string $hostMzID): void {
+    // SHD_072 Imprisoned — "Attached unit loses its current abilities and CAN'T GAIN ABILITIES."
+    // Riding the same becomes-unattached seam (both call sites already route every unattach route here).
+    if ($upgradeCardID === 'SHD_072') { _SWUShd072PurgeGrantsGainedWhileJailed($player, $host); return; }
     if ($upgradeCardID !== 'SOR_122' && $upgradeCardID !== 'JTL_083') return;
     if ($host === null) return;
     $hostOwner = intval($host->Owner ?? $player);
@@ -1961,6 +1983,40 @@ function _SWUUpgradeUnattachControlRevert(int $player, string $upgradeCardID, $h
     } else {
         SWUTakeControlOfUnit($hostOwner, $hostMzID);
     }
+}
+
+
+// SHD_072 Imprisoned — "can't gain abilities" has to be enforced at the marker WRITE surface, not only at
+// the read surface. Grant effects (e.g. JTL_077 In the Heat of Battle giving EVERY unit Sentinel for the
+// phase) stamp their token on every unit unconditionally; while Imprisoned is attached LostAbilities()
+// suppresses the READ, so the unit correctly shows no Sentinel — but the token is still sitting there, and
+// defeating the Imprisoned handed the unit an ability it was never allowed to gain.
+//
+// Fix on the becomes-unattached seam (the shape SOR_122 Traitorous uses): drop the keyword-granting turn
+// effects the host picked up WHILE it was jailed. The snapshot taken at attach time is what makes this
+// precise — a keyword the unit already had BEFORE Imprisoned arrived is only SUPPRESSED by "loses its
+// current abilities" and must come back when the upgrade leaves, so only tokens absent from the snapshot
+// are purged. Keyed by the host's UniqueID, so a shifting mzID cannot mis-target it.
+function _SWUShd072PurgeGrantsGainedWhileJailed(int $player, $host): void {
+    if ($host === null || !is_array($host->TurnEffects ?? null)) return;
+    $uid = intval($host->UniqueID ?? 0);
+    if ($uid <= 0) return;
+    $preFlag = 'SWU_SHD072_PRE_' . $uid . '_';
+    $pre = [];
+    foreach ([1, 2] as $p) {
+        foreach (GetGlobalEffects($p) as $ge) {
+            $f = (string)($ge->CardID ?? '');
+            if (strpos($f, $preFlag) === 0) $pre[substr($f, strlen($preFlag))] = true;
+        }
+    }
+    $keep = [];
+    foreach (SWUParsedTurnEffects($host) as $e) {
+        $isGrant = in_array(($e['kind'] ?? ''), ['GRANT_KEYWORD', 'GRANT_KEYWORD_VALUE'], true);
+        if ($isGrant && !isset($pre[(string)($e['base'] ?? '')])) continue;   // gained while jailed → gone
+        $keep[] = $e['raw'];
+    }
+    $host->TurnEffects = $keep;
+    for ($p = 1; $p <= 2; $p++) SWUClearGlobalEffectsByPrefix($p, $preFlag);
 }
 
 // Saboteur, shield half (CR 7.6.9): "defeat the defender's Shields." Resolves in the BEGIN ATTACK
@@ -2512,6 +2568,13 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                             . (3 - intval($player)) . '\'s base');
                     }
                 }
+                // The defender can die to an ON ATTACK ABILITY before combat damage ever resolves, and
+                // that still counts as "the defending unit was defeated". SWUCombatDamage sets this var on
+                // the normal path; this mid-attack branch built $fizzCtx correctly but never set the var,
+                // so every attack-end handler that reads it (ASH_033 / ASH_036 / ASH_223, SHD_059 Embo)
+                // silently missed the ability-defeat path. Handlers reading $combatCtx instead — e.g.
+                // SEC_209 — were unaffected, which is why this stayed hidden.
+                if (!empty($fizzCtx['defenderDefeated'])) SetSWUVar('SWU_LAST_DEFENDER_DEFEATED', '1');
                 CollectAfterAttackTriggers($player, $attackerMzID, $targetMzID, $fizzCtx);
             }
             $playerID = $savedPID;

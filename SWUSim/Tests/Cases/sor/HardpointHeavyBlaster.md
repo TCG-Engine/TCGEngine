@@ -8,7 +8,7 @@
 #// COVERAGE: offer=Offer_DefendersArena_BothPlayersUnits (pending SELECTABLEEXACT: every unit
 #//           in the defender's arena — attacking host, friendly bystander and both enemy units)
 #//           · decline=Decline_NoExtraDamage ("you may" answered '-') ·
-#//           control=N/A (no upstream scenario moves the upgrade cross-controller; the granted
+#//           control=N/A (nothing moves the upgrade cross-controller; the granted
 #//           ability follows the HOST's attack and the host never changes control here) ·
 #//           boundary=base target (AttackBase_NoTrigger, no prompt) vs unit target
 #//           (OnAttackDeals2), plus ground vs space defender arena (OnAttackDeals2 vs

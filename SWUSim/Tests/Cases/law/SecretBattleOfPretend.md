@@ -75,9 +75,9 @@ P2GROUNDARENAUNIT:0:READY
 #// the "if you do" DOES fire, leaving the enemy exhaust pending.
 #// USER RULING (2026-08-14): the friendly pool stays READY-ONLY. A unit that cannot be exhausted is a
 #// zero-effect target and is not selectable — SWUSim's standing convention — so "If you do" here covers
-#// only the no-legal-target case. This is a DELIBERATE divergence from upstream, which offers the
-#// already-exhausted unit and lets the rider fail.
-#// ⚠ This section previously claimed the upstream behaviour and was SPURIOUSLY GREEN: its answer
+#// only the no-legal-target case. This is a DELIBERATE choice: the alternative reading would offer the
+#// already-exhausted unit and let the rider fail.
+#// ⚠ This section previously claimed that other behaviour and was SPURIOUSLY GREEN: its answer
 #// `myGroundArena-0` was silently swallowed by the enemy multi-select, which was unvalidated until
 #// MZMULTICHOOSE answers began being pool-checked (2026-08-14). It asserted nothing for months.
 

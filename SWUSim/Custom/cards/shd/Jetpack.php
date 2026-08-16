@@ -11,6 +11,8 @@ $whenPlayedAbilities["SHD_225:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    DoGiveShieldToken(intval($player), $mzID);
+    // Tag the token so "defeat THAT token" at regroup can find this exact one — even if it has been
+    // moved to another host by then — and so damage spends it BEFORE the host's other Shields.
+    DoGiveShieldToken(intval($player), $mzID, 'SHD225');
     AddGlobalEffects(intval($player), 'SWU_SHD225_TOKEN_' . intval($host->UniqueID ?? 0));
 };

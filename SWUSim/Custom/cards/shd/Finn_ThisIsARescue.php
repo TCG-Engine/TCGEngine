@@ -39,12 +39,21 @@ $customDQHandlers["SHD_003#then"] = function($player, $parts, $lastDecision) {
 // ── SHD_003 Finn ───────────────────────────────────────────────────────────────
 // Front Action [Exhaust]: Defeat a friendly upgrade on a unit. If you do, give a Shield token to it.
 // Deployed On Attack: same, but "You may".
+// USER RULING (2026-08-15): an upgrade is OWNED AND CONTROLLED BY THE PLAYER WHO PLAYED IT, and it may
+// sit on ANY eligible unit — yours OR an opponent's. So "a FRIENDLY upgrade" means "an upgrade YOU
+// control", wherever it is attached, NOT "any upgrade on a unit you control".
+// Scanning only your own arenas got this wrong in both directions: your own upgrade sitting on an ENEMY
+// unit was unreachable (the ability fizzled entirely), while an ENEMY's upgrade on your unit was offered.
 function FinnThisisaRescueUpgradedFriendlies(int $player): array {
     $hosts = [];
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && count(GetUpgradesOnUnit($o)) > 0) $hosts[] = $mz;
+            if ($o === null || !empty($o->removed)) continue;
+            foreach (GetUpgradesOnUnit($o) as $sub) {
+                $ctrl = is_array($sub) ? intval($sub['Controller'] ?? 0) : intval($sub->Controller ?? 0);
+                if ($ctrl === intval($player)) { $hosts[] = $mz; break; }   // this host carries one of MINE
+            }
         }
     }
     return $hosts;

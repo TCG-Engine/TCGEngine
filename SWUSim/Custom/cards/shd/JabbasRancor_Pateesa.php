@@ -3,15 +3,25 @@
 // Cost 8 - Jabba's Rancor - Pateesa - [Command,Villainy] - Power 9 - HP 9
 // Text: If you control Jabba the Hutt (as a leader or unit), this unit costs 1 resource less to play. / When Played/On Attack: Deal 3 damage to another friendly ground unit and 3 damage to an enemy ground unit.
 
+// The enemy half of "deal 3 to another friendly ground unit AND 3 to an enemy ground unit". The two
+// halves are INDEPENDENT: each resolves on its own when the other has no legal target. Split out so it
+// can be reached WITHOUT the friendly pick — SWUQueueMayChooseTarget early-returns on an empty target
+// list, and that return also skipped queueing the SHD_091#0 continuation, which was the only thing that
+// offered the enemy target. Net effect: with no other friendly ground unit, the enemy half silently
+// never happened. ("Multi-object effects must pin their gate.")
+function _SWUShd091OfferEnemyHalf(int $player): void {
+    SWUOfferUnitTarget($player, '', [
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'side' => 'their', 'arena' => 'Ground',
+        'prompt' => "Deal_3_to_an_enemy_ground_unit",
+    ]);
+}
+
 $customDQHandlers["SHD_091#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') {
         SWUDealDamageToUnit($lastDecision, 3, intval($player));
     }
-    SWUOfferUnitTarget(intval($player), '', [
-        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 3, 'side' => 'their', 'arena' => 'Ground',
-        'prompt' => "Deal_3_to_an_enemy_ground_unit",
-    ]);
+    _SWUShd091OfferEnemyHalf(intval($player));
 };
 
 // ─── SHD_091 Jabba's Rancor ───────────────────────────────────────────────────
@@ -29,6 +39,11 @@ $shd091JabbasRancor = function ($player, $mzID) {
     $o = GetZoneObject($mz);
     if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID)
       $friendly[] = $mz;
+  }
+  if (empty($friendly)) {
+    // No legal friendly target — the friendly half simply does nothing, and the enemy half still resolves.
+    _SWUShd091OfferEnemyHalf(intval($player));
+    return;
   }
   SWUQueueMayChooseTarget(
     intval($player),

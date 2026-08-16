@@ -3,7 +3,7 @@
 // Cost 2 - Breach - [Command][Villainy] - Event - Traits: Tactic
 // Text: A friendly unit deals damage equal to its power to an enemy unit in its arena.
 //       If the friendly unit has Overwhelm, deal excess damage to an enemy base.
-// (The mock text reads "deal deal excess damage" — an upstream duplication typo.)
+// (The mock text reads "deal deal excess damage" — a duplication typo in the card text.)
 //
 // Three steps, because the SECOND target pool depends on the FIRST pick (the enemy must share the
 // dealer's arena). Mirrors LAW_168 Haymaker, the existing "that unit deals damage equal to its power

@@ -1,5 +1,13 @@
 # Front_Decline
 #// SHD_005 Hondo Ohnaka (front) — declining the "may" leaves Hondo ready and grants no Experience token.
+#// COVERAGE: offer=N/A (the Experience target pick is answered directly; the pool is every unit in play
+#//           and is not narrowed by the ability) · decline=Front_Decline · control=N/A (the trigger is
+#//           gated on "when YOU play a card using Smuggle" — it is seat-scoped by construction and no
+#//           object changes controller) · boundary=Front_SmugglePlayGivesExp (accept: leader exhausted,
+#//           token given) vs Front_Decline (decline: leader ready, no token) · reqboundary=
+#//           Front_SmugglePlayGivesExp (the leader's exhaust state is read after the YES is answered)
+#//           NOTE: the DEPLOYED side ("When you play a card using Smuggle: You may give an Experience
+#//           token to a unit", no exhaust cost) has no coverage here — it does not currently fire.
 
 ## GIVEN
 CommonSetup: ggk/ggk/{myLeader:SHD_005}
