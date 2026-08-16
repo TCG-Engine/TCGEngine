@@ -1,4 +1,12 @@
 (function(){
+  try{
+    if(window.localStorage.getItem('northBeachIntroSeen:v1')!=='1'){
+      document.documentElement.classList.add('nb-first-visit-pending');
+      window.setTimeout(function(){document.documentElement.classList.remove('nb-first-visit-pending');},4000);
+    }
+  }catch(error){}
+})();
+(function(){
   'use strict';
   var root,scroller,scenes,observer,soundButton,previousFocus;
   var current=0,impact=0,attacking=false,wheelEnergy=0,lastBumpAt=0,bumpTimer=null,openingReset=false;
@@ -212,7 +220,7 @@
   }
   function open(){
     openingReset=true;previousFocus=document.activeElement;pauseSoundscape();resetTour();rememberIntroVisit();
-    document.body.classList.add('nb-open');root.classList.add('is-open');root.setAttribute('aria-hidden','false');scroller.scrollTop=0;observeScenes();
+    document.body.classList.add('nb-open');root.classList.add('is-open');root.setAttribute('aria-hidden','false');scroller.scrollTop=0;scenes[0].classList.add('is-visible');observeScenes();document.documentElement.classList.remove('nb-first-visit-pending');
     if(soundPreference){root.setAttribute('data-sound','off');updateSoundButton();}scroller.focus({preventScroll:true});if(soundPreference)setSoundEnabled(true,false);
     window.requestAnimationFrame(function(){scroller.scrollTop=0;window.requestAnimationFrame(function(){scroller.scrollTop=0;if(observer)observer.takeRecords();openingReset=false;});});
   }
@@ -248,7 +256,7 @@
     root.addEventListener('touchmove',function(event){if(current===6){var y=Number(scroller.dataset.touchY||event.touches[0].clientY);if(y-event.touches[0].clientY>28&&Date.now()-lastBumpAt>=420){event.preventDefault();scroller.dataset.touchY=String(event.touches[0].clientY);lastBumpAt=Date.now();bump();}}},{passive:false});
     root.addEventListener('keydown',function(event){if(event.key==='Escape'){close();return;}if(current===6&&(event.key==='ArrowDown'||event.key==='PageDown'||event.key===' ')){event.preventDefault();bump();}});
     document.addEventListener('visibilitychange',function(){if(document.hidden)pauseSoundscape();else if(root.classList.contains('is-open')&&soundPreference)setSoundEnabled(true,false);});
-    if(isFirstVisit())window.requestAnimationFrame(open);
+    if(isFirstVisit())open();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
