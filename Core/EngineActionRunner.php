@@ -754,11 +754,15 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     case 10014:
       // Drag-to-move (a sandbox tool) REMOVES the dragged card and re-adds a FRESH copy from just its
       // CardID at the destination — wiping Damage/Subcards/Status — and can target ANY card, including an
-      // opponent's. It's disabled in the SWUSim client (IsDragDropEnabled), and has no valid use in
+      // opponent's. It's disabled in competitive clients (IsDragDropEnabled), and has no valid use in
       // competitive play, so reject it server-side too (defense in depth: a modified/replayed client
       // can't reset an opponent's damaged leader). Apps that keep the sandbox affordance (RBSim/Gudnak/…)
       // are unaffected.
-      if ($folderPath === 'SWUSim') { $result['success'] = false; $result['message'] = 'Drag-to-move is disabled.'; break; }
+      if (in_array($folderPath, ['SWUSim', 'HellbreakSim', 'HellbreakDeck'], true)) {
+        $result['success'] = false;
+        $result['message'] = 'Drag-to-move is disabled.';
+        break;
+      }
       $inpArr = explode('!', $cardID);
       $moveCard = $inpArr[0] ?? '';
       $destination = $inpArr[1] ?? '';

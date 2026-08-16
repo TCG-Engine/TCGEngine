@@ -686,10 +686,11 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         // card and re-adds a FRESH copy from just its CardID at the destination — wiping Damage/Subcards/
         // Status and letting a player move ANY card, including the opponent's. That's a sandbox-only tool,
         // not valid competitive play (e.g. "opponent dragged my damaged leader and it reset his health").
-        // Disable it for SWUSim, as already done for GrandArchive/Azuki. Card play in SWUSim is click-based.
+        // These apps use click/widget-based card interactions instead.
         return window.rootPath != './GrandArchiveSim' && window.rootPath != './AzukiSim'
             && window.rootPath != './AzukiDeck' && window.rootPath != './SWUSim'
-            && window.rootPath != './FaBSim';
+            && window.rootPath != './FaBSim' && window.rootPath != './HellbreakSim'
+            && window.rootPath != './HellbreakDeck';
       }
 
       // Function to handle drag start event
