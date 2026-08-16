@@ -1,9 +1,10 @@
 (function(){
   'use strict';
   var root,scroller,scenes,observer,soundButton,previousFocus;
-  var current=0,impact=0,attacking=false,wheelEnergy=0,lastBumpAt=0,bumpTimer=null;
+  var current=0,impact=0,attacking=false,wheelEnergy=0,lastBumpAt=0,bumpTimer=null,openingReset=false;
   var audio=null,masterGain=null,ambienceGain=null,effectsGain=null,musicGain=null,compressor=null,noiseBuffer=null;
   var ambienceNodes=[],soundTimers=[],ambienceTimer=null,ambienceCount=0,soundScene=-1,soundPreference=false;
+  var introSeenKey='northBeachIntroSeen:v1';
   var sampleBase='/TCGEngine/SharedUI/Sites/HellbreakSim/assets/audio/';
   var sampleUrls={
     shoreline:'north-beach-sunny-shoreline.mp3',welcomeChime:'north-beach-welcome-chime.mp3',cardFan:'north-beach-card-fan.mp3',cardDeal:'north-beach-card-deal.mp3',rewardChime:'north-beach-reward-chime.mp3',
@@ -181,8 +182,12 @@
     if(!on&&soundOn()&&audio)toneSweep(520,300,.18,.016,'sine',0,0,musicGain);
     soundPreference=!!on;root.setAttribute('data-sound',on?'on':'off');updateSoundButton();
     if(persist!==false){try{window.localStorage.setItem('northBeachSound',on?'on':'off');}catch(error){}}
-    if(on){var ctx=audioContext();if(!ctx)return;preloadSamples();ctx.resume().then(function(){root.setAttribute('data-audio-state',ctx.state);ramp(masterGain.gain,.72,.38);setSoundScene(current,true);toneSweep(440,660,.24,.022,'sine',0,0,musicGain);});}
+    if(on){var ctx=audioContext();if(!ctx)return;preloadSamples();ctx.resume().then(function(){root.setAttribute('data-audio-state',ctx.state);ramp(masterGain.gain,.72,.38);setSoundScene(current,true);toneSweep(440,660,.24,.022,'sine',0,0,musicGain);}).catch(function(){root.setAttribute('data-audio-state',ctx.state);});}
     else{if(audio)ramp(masterGain.gain,.0001,.22);stopAmbience();stopSampleSources(.12);}
+  }
+  function resumeSoundFromGesture(){
+    if(!soundPreference||!soundOn())return;var ctx=audioContext();if(!ctx||ctx.state==='running')return;
+    ctx.resume().then(function(){if(!soundOn())return;root.setAttribute('data-audio-state',ctx.state);ramp(masterGain.gain,.72,.24);setSoundScene(current,true);}).catch(function(){root.setAttribute('data-audio-state',ctx.state);});
   }
   function pauseSoundscape(){stopAmbience();stopSampleSources(.12);if(audio)ramp(masterGain.gain,.0001,.18);}
 
@@ -195,10 +200,21 @@
     root.querySelectorAll('.nb-progress span').forEach(function(dot,i){dot.classList.toggle('is-active',i<=Math.min(index,5));});
     if(changed)setSoundScene(index,false);
   }
+  function rememberIntroVisit(){try{window.localStorage.setItem(introSeenKey,'1');}catch(error){}}
+  function isFirstVisit(){try{return window.localStorage.getItem(introSeenKey)!=='1';}catch(error){return false;}}
+  function observeScenes(){if(!observer)return;scenes.forEach(function(scene){observer.observe(scene);});}
+  function resetTour(){
+    if(observer){observer.disconnect();observer.takeRecords();}
+    if(bumpTimer){window.clearTimeout(bumpTimer);bumpTimer=null;}
+    root.classList.remove('is-open','is-attacking','is-darkening','is-bumping','is-impact-scene','is-swallowed','is-revealing');root.removeAttribute('data-impact');
+    scenes.forEach(function(scene){scene.classList.remove('is-visible');});
+    impact=0;wheelEnergy=0;lastBumpAt=0;attacking=false;current=0;soundScene=-1;scroller.style.overflowY='auto';scroller.scrollTop=0;updateImpactMessage(0);updateScene(0);void scroller.offsetHeight;
+  }
   function open(){
-    previousFocus=document.activeElement;document.body.classList.add('nb-open');root.classList.add('is-open');root.setAttribute('aria-hidden','false');
-    root.classList.remove('is-attacking','is-darkening','is-bumping','is-impact-scene','is-swallowed','is-revealing');root.removeAttribute('data-impact');impact=0;wheelEnergy=0;attacking=false;scroller.style.overflowY='auto';updateImpactMessage(0);
-    if(soundPreference){root.setAttribute('data-sound','off');updateSoundButton();}scroller.scrollTop=0;scroller.focus({preventScroll:true});soundScene=-1;updateScene(0);if(soundPreference)setSoundEnabled(true,false);
+    openingReset=true;previousFocus=document.activeElement;pauseSoundscape();resetTour();rememberIntroVisit();
+    document.body.classList.add('nb-open');root.classList.add('is-open');root.setAttribute('aria-hidden','false');scroller.scrollTop=0;observeScenes();
+    if(soundPreference){root.setAttribute('data-sound','off');updateSoundButton();}scroller.focus({preventScroll:true});if(soundPreference)setSoundEnabled(true,false);
+    window.requestAnimationFrame(function(){scroller.scrollTop=0;window.requestAnimationFrame(function(){scroller.scrollTop=0;if(observer)observer.takeRecords();openingReset=false;});});
   }
   function close(){
     pauseSoundscape();root.classList.remove('is-open','is-attacking','is-darkening','is-bumping','is-impact-scene','is-swallowed','is-revealing');root.setAttribute('aria-hidden','true');document.body.classList.remove('nb-open');
@@ -223,14 +239,16 @@
   function init(){
     root=document.getElementById('north-beach-vignette');if(!root)return;scroller=root.querySelector('.nb-scroll');scenes=Array.from(root.querySelectorAll('[data-nb-scene]'));soundButton=root.querySelector('[data-nb-sound]');
     try{soundPreference=window.localStorage.getItem('northBeachSound')==='on';}catch(error){soundPreference=false;}root.setAttribute('data-sound',soundPreference?'on':'off');updateSoundButton();
-    observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting&&entry.intersectionRatio>.55){var i=Number(entry.target.dataset.nbScene);entry.target.classList.add('is-visible');updateScene(i);if(i===6&&!attacking){scroller.scrollTop=entry.target.offsetTop;wheelEnergy=0;}}});},{root:scroller,threshold:[.55]});
-    scenes.forEach(function(scene){observer.observe(scene);});document.querySelectorAll('[data-nb-open]').forEach(function(button){button.addEventListener('click',open);});root.querySelectorAll('[data-nb-close]').forEach(function(button){button.addEventListener('click',close);});
+    observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting&&entry.intersectionRatio>.55){var i=Number(entry.target.dataset.nbScene);if(openingReset&&i!==0)return;entry.target.classList.add('is-visible');updateScene(i);if(i===6&&!attacking){scroller.scrollTop=entry.target.offsetTop;wheelEnergy=0;}}});},{root:scroller,threshold:[.55]});
+    observeScenes();document.querySelectorAll('[data-nb-open]').forEach(function(button){button.addEventListener('click',open);});root.querySelectorAll('[data-nb-close]').forEach(function(button){button.addEventListener('click',close);});
     root.querySelector('[data-nb-home]').addEventListener('click',function(){scroller.style.overflowY='auto';go(0);});root.querySelector('[data-nb-next]').addEventListener('click',function(){go(1);});
     soundButton.addEventListener('click',function(){setSoundEnabled(root.getAttribute('data-sound')!=='on',true);});root.querySelectorAll('[data-nb-action]').forEach(function(button){button.addEventListener('click',function(){action(this.dataset.nbAction);});});
     root.addEventListener('wheel',handleFinalWheel,{passive:false,capture:true});root.addEventListener('touchstart',function(event){scroller.dataset.touchY=String(event.touches[0].clientY);},{passive:true});
+    root.addEventListener('pointerdown',resumeSoundFromGesture,{capture:true});root.addEventListener('wheel',resumeSoundFromGesture,{passive:true,capture:true});root.addEventListener('touchstart',resumeSoundFromGesture,{passive:true,capture:true});root.addEventListener('keydown',resumeSoundFromGesture,{capture:true});
     root.addEventListener('touchmove',function(event){if(current===6){var y=Number(scroller.dataset.touchY||event.touches[0].clientY);if(y-event.touches[0].clientY>28&&Date.now()-lastBumpAt>=420){event.preventDefault();scroller.dataset.touchY=String(event.touches[0].clientY);lastBumpAt=Date.now();bump();}}},{passive:false});
     root.addEventListener('keydown',function(event){if(event.key==='Escape'){close();return;}if(current===6&&(event.key==='ArrowDown'||event.key==='PageDown'||event.key===' ')){event.preventDefault();bump();}});
     document.addEventListener('visibilitychange',function(){if(document.hidden)pauseSoundscape();else if(root.classList.contains('is-open')&&soundPreference)setSoundEnabled(true,false);});
+    if(isFirstVisit())window.requestAnimationFrame(open);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
