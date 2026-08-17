@@ -152,3 +152,65 @@ P1GROUNDARENAUNIT:1:DAMAGE:0
 P1BASEDMG:5
 P1DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# FriendlyPoolIsScopedByCONTROLNotOwner
+#// COVERAGE: offer=TargetChoiceIsMandatory_SoftPassIsAmountZero (the pool on a same-owner board) +
+#//           FriendlyPoolIsScopedByCONTROLNotOwner (the pool when owner and controller diverge) ·
+#//           reqboundary=HealsTheBaseOfTheEVENTSController (a serialize round-trip between playing the
+#//           event and answering the amount) · control=FriendlyPoolIsScopedByCONTROLNotOwner +
+#//           HealsTheBaseOfTheEVENTSController · boundary=DealSurviveHeal vs DiesNoHeal (survives / does
+#//           not) and DealZeroNoHeal vs DealThreeHealThree vs DealSurviveHeal (0 / 3 / 5 damage) ·
+#//           decline=N/A per the 2026-08-14 USER RULING recorded in
+#//           TargetChoiceIsMandatory_SoftPassIsAmountZero — the target choice is MANDATORY and the soft
+#//           pass is dealing 0 (SoftPass_ChosenUnitTakesNothing_OtherUnitUntouched).
+#// LAW_102 — "a FRIENDLY non-Vehicle unit" means one the EVENT'S CONTROLLER controls, whatever the card's
+#// owner. All three cases sit on the board at once so the pool has to discriminate rather than merely
+#// count: SOR_095 that P1 both owns and controls, LAW_124 that P1 CONTROLS but P2 OWNS, and SEC_080 that
+#// P1 OWNS but P2 CONTROLS. The legal set must be exactly the two units in P1's arena and must NOT reach
+#// the P1-owned SEC_080 sitting under P2's control. Two candidates keep the choice interactive (a lone
+#// target auto-resolves and would leave no pool to read), and the decision is left pending so the pool
+#// itself is the assertion — TargetChoiceIsMandatory_SoftPassIsAmountZero cannot see this because both of
+#// its candidates are owned and controlled by the same player.
+
+## GIVEN
+CommonSetup: brk/rrk/{myResources:1;myBaseDamage:5;theirBaseDamage:7}
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaControlled: LAW_124:2
+WithP2GroundArenaControlled: SEC_080:1
+WithP1Hand: LAW_102
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# HealsTheBaseOfTheEVENTSController
+#// LAW_102 — "heal damage from YOUR base" resolves from the event's controller, not from the owner of the
+#// unit that was damaged. The only legal target is LAW_124 Industrious Team (4/7), which P1 CONTROLS but
+#// P2 OWNS, and the two bases carry DIFFERENT damage totals so the healing is readable on one side only:
+#// 5 damage is dealt, the unit survives, P1's base heals 5 -> 0 and P2's base stays untouched at 7. A heal
+#// that followed the damaged unit's OWNER would have pulled those 5 points off P2's base instead. A
+#// serialize round-trip is inserted before the amount is answered, so the "damage dealt this way" total
+#// and the base it belongs to must both survive the request boundary.
+
+## GIVEN
+CommonSetup: brk/rrk/{myResources:1;myBaseDamage:5;theirBaseDamage:7}
+WithP1GroundArenaControlled: LAW_124:2
+WithP1Hand: LAW_102
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:5
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_124
+P1GROUNDARENAUNIT:0:DAMAGE:5
+P1BASEDMG:0
+P2BASEDMG:7

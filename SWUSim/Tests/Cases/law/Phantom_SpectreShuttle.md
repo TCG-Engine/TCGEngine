@@ -126,3 +126,90 @@ P1NODECISION
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:UPGRADECOUNT:0
 P1HANDCOUNT:0
+
+---
+
+# OppHandHeroismUnitsAreNotReachable
+#// COVERAGE: control=OppHandHeroismUnitsAreNotReachable + OfferIsYourHandOnlyWithOppHandStocked +
+#//           PlayedByP2_UsesP2Hand — "a Heroism unit from YOUR hand" must resolve against the ability
+#//           CONTROLLER's hand; every fixture stocks the OTHER seat's hand with legal-looking Heroism
+#//           units so a hand read from the wrong seat produces a visibly different pool (or a pool where
+#//           there should be none). Owner ≠ controller is not constructible for this ability — Phantom is
+#//           only ever played from its controller's own hand — so the axis is covered by seat-swap ·
+#//           offer=OfferIsOnlyHeroismUnitsFromHand · decline=DecliningPlaysNothingAndGrantsNoExperience ·
+#//           reqboundary=N/A (the play resolves inside the one decision; no state re-read after it).
+#//
+#// LAW_144 Phantom — P1's hand holds no Heroism unit (SOR_164 Aggression, SOR_232 Villainy) but P2's hand
+#// is full of them (SOR_095, SOR_241, SOR_237). The ability must find nothing at all: no decision is left
+#// pending, no unit enters play, and P2's hand is still three cards — reaching across the table would
+#// have offered three perfectly legal targets.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:8}
+P1OnlyActions: true
+WithP1Hand: [LAW_144 SOR_164 SOR_232]
+WithP2Hand: [SOR_095 SOR_241 SOR_237]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1HANDCOUNT:2
+P1GROUNDARENACOUNT:0
+P2HANDCOUNT:3
+P2GROUNDARENACOUNT:0
+P2SPACEARENACOUNT:0
+
+---
+
+# OfferIsYourHandOnlyWithOppHandStocked
+#// LAW_144 Phantom — both hands hold Heroism units, so only the mzID frame distinguishes them. After
+#// Phantom leaves P1's hand, P1 holds SOR_095 and SOR_241; P2 holds SOR_095, SOR_241 and SOR_046 (also a
+#// Heroism unit). Exactly P1's two are selectable — a pool built from the opponent's hand, or from both,
+#// would be three or five entries. Two candidates on P1's side also keep it from auto-resolving.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:8}
+P1OnlyActions: true
+WithP1Hand: [LAW_144 SOR_095 SOR_241]
+WithP2Hand: [SOR_095 SOR_241 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_a_Heroism_unit
+P1SELECTABLEEXACT:myHand-0&myHand-1
+
+---
+
+# PlayedByP2_UsesP2Hand
+#// LAW_144 Phantom played by P2 — "your hand" follows the seat that played it, so the unit comes out of
+#// P2's hand into P2's ground arena with P2's Experience token on it. P1's hand is stocked with the same
+#// Heroism units (SOR_095, SOR_241, SOR_046) and must be untouched at 3 cards, with nothing of P1's
+#// entering play. Every other section of this file runs from P1, so this is the seat-swap witness.
+
+## GIVEN
+CommonSetup: bgw/ggw/{theirResources:8}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1Hand: [SOR_095 SOR_241 SOR_046]
+WithP2Hand: [LAW_144 SOR_095 SOR_241]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myHand-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:POWER:4
+P2SPACEARENACOUNT:1
+P2HANDCOUNT:1
+P1HANDCOUNT:3
+P1GROUNDARENACOUNT:0
+P1SPACEARENACOUNT:0

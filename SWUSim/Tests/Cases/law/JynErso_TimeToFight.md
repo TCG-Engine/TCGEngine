@@ -513,3 +513,82 @@ WithP1Deck: SOR_128
 ## EXPECT
 P1HANDCOUNT:1
 P1RESAVAILABLE:1
+
+---
+
+# Front_StolenRebelDefeated_Triggers
+#// COVERAGE(control, supersedes the "control=N/A" claim in FrontSearchAfterRebelDefeat's ledger — that
+#//           claim is now wrong): control=Front_StolenRebelDefeated_Triggers (a P2-OWNED Rebel that P1
+#//           CONTROLS dying arms Jyn for P1, and the search reads P1's deck while P2's stays intact) +
+#//           Front_OwnRebelUnderEnemyControl_NoEffect (a P1-OWNED Rebel that P2 CONTROLS dying does NOT
+#//           arm her, even though the card lands in P1's own discard). "A FRIENDLY Rebel unit" is scoped
+#//           by CONTROL at the moment of defeat, not by ownership.
+#//
+#// LAW_005 Jyn Erso (front) — owner ≠ controller. P1 controls a SOR_095 (Rebel) that P2 OWNS; P1 attacks
+#// the 8/8 SOR_039 with it and it dies. Because P1 CONTROLLED it, a friendly Rebel was defeated this
+#// phase for P1 and Jyn's action searches the top 3 of P1's deck and draws SOR_046. The defeated card
+#// goes to its OWNER's discard (P2's, count 1 — P1's stays empty), and P2's own three-card deck is never
+#// looked at, so the seat that was searched is unambiguous.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1GroundArenaControlled: SOR_095:2
+WithP2GroundArena: SOR_039:1:0
+WithP1Deck: [SOR_046 SOR_231 SOR_128]
+WithP2Deck: [SOR_225 SOR_225 SOR_225]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>UseLeaderAbility
+- P1>AnswerDecision:SOR_046
+
+## EXPECT
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_046
+P1DECKCOUNT:2
+P1DISCARDCOUNT:0
+P2DISCARDCOUNT:1
+P2DECKCOUNT:3
+P1RESAVAILABLE:1
+
+---
+
+# Front_OwnRebelUnderEnemyControl_NoEffect
+#// LAW_005 Jyn Erso (front) — the mirror, and the sharp one. P1 OWNS the SOR_095 (Rebel) but P2 CONTROLS
+#// it, so P1's 8/8 SOR_039 kills a Rebel that was friendly to P2, not to P1. Jyn must NOT be armed. The
+#// tell is that the defeated card still lands in P1's OWN discard (owner's pile, count 1) — an
+#// implementation that stamped the flag on the owner instead of the controller would fire here. The
+#// [1 resource, Exhaust] cost is still paid (CR 6.4.587.c "Use it anyway"), nothing is drawn, and P1's
+#// three-card deck is untouched with no search prompt pending.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1GroundArena: SOR_039:1:0
+WithP2GroundArenaControlled: SOR_095:1
+WithP1Deck: [SOR_046 SOR_231 SOR_128]
+WithP2Deck: [SOR_225 SOR_225 SOR_225]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>UseLeaderAbility
+
+## EXPECT
+P1HANDCOUNT:0
+P1DECKCOUNT:3
+P1DISCARDCOUNT:1
+P2DISCARDCOUNT:0
+P1RESAVAILABLE:1
+P1LEADER:EXHAUSTED
+P1NODECISION

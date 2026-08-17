@@ -183,3 +183,65 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_063
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
 P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# ForeignOwnedVigilanceUnit_EnablesTheTwoTargetMode
+#// LAW_069 — control axis. "If you CONTROL a Vigilance or Aggression unit" is counted by control, not
+#// by ownership. The only such unit is SOR_063 Cloud City Wing Guard (Vigilance), sitting in P1's
+#// ground arena but OWNED BY P2 (the end state after a control-take). P1 owns no Vigilance or
+#// Aggression unit at all, and The Ghost itself is Command/Cunning/Heroism — so the "each of up to 2
+#// units instead" clause can only switch on if the foreign-owned unit counts for its CONTROLLER.
+#// The decision is left UNANSWERED so the pending prompt itself is the assertion: the tooltip reports
+#// the up-to-2 count (the single-target mode's tooltip, pinned by SingleTargetModeOffersOneOnly, says
+#// "up to 1"), and the pool is both units on the board. Compare with
+#// OwnedButOpponentControlledVigilance_StaysInSingleTargetMode, which flips only the control seat and
+#// gets the up-to-1 tooltip back.
+
+## GIVEN
+CommonSetup: gyw/bgw/{myResources:6}
+WithP1GroundArenaControlled: SOR_063:2
+WithP1Hand: LAW_069
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DECISIONTOOLTIP:Give_Experience_+_Shield_to_up_to_2_unit(s)
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+
+---
+
+# OwnedButOpponentControlledVigilance_StaysInSingleTargetMode
+#// LAW_069 — the mirror that makes the control read discriminating. The same SOR_063 (Vigilance) is
+#// now OWNED BY P1 but CONTROLLED BY P2, so P1 controls no Vigilance or Aggression unit and the
+#// upgraded clause stays OFF: the prompt is the up-to-1 mode. Keyed on ownership, P1 would "have" a
+#// Vigilance unit and this would report up to 2.
+#// The pool line doubles as proof the fixture really is split-seat: the Wing Guard is offered as
+#// theirGroundArena-0 (an enemy unit is still a legal recipient — "a unit" names no controller) while
+#// The Ghost sits at mySpaceArena-0. Only the COUNT changed between the two sections, never the pool.
+#//
+#// COVERAGE: offer=SingleTargetModeOffersOneOnly (pool + count pinned pending) +
+#//           OwnedButOpponentControlledVigilance_StaysInSingleTargetMode (an enemy-controlled unit is
+#//           in the pool) + WhenPlayedSingleTargetEnemyUnit / SingleTargetModeToItself (both sides
+#//           and the source itself are reachable) · decline=WhenPlayedDeclineWithConditionMet +
+#//           DecliningInSingleTargetMode (PASS in both modes) · control=
+#//           ForeignOwnedVigilanceUnit_EnablesTheTwoTargetMode +
+#//           OwnedButOpponentControlledVigilance_StaysInSingleTargetMode (the "you control" gate
+#//           counted by controller in both directions) · boundary=Vigilance vs Aggression vs neither
+#//           (WhenPlayedExpShieldTwoUnits / WhenPlayedAggressionChooseOne / SingleTargetMode*), and
+#//           "up to 2" honoured as a maximum (VigilanceEnablesTwoButYouMayStillChooseOne) ·
+#//           reqboundary=the give-tokens pick is answered on a request after the play in every
+#//           section.
+
+## GIVEN
+CommonSetup: gyw/bgw/{myResources:6}
+WithP2GroundArenaControlled: SOR_063:1
+WithP1Hand: LAW_069
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DECISIONTOOLTIP:Give_Experience_+_Shield_to_up_to_1_unit(s)
+P1SELECTABLEEXACT:theirGroundArena-0&mySpaceArena-0

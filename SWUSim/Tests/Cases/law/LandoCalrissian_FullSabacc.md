@@ -283,3 +283,72 @@ P1CREDITCOUNT:1
 P2DECKCOUNT:0
 P1DECKCOUNT:0
 P1LEADER:EXHAUSTED
+
+---
+
+# P2Seat_YourDeckIsTheDeckOfWhoeverUSEDTheAction
+#// COVERAGE (corrects the ledger recorded in DeployedCreditEngine and in
+#//           FrontDeckChoiceAutoResolvesToTheOnlyStockedDeck, both of which recorded
+#//           "control=N/A (no unit changes control; Credits are seat-bound)" — true of UNIT control, but
+#//           it left the seat-resolution half of the axis untested. Every other section in this file
+#//           drives the ability from seat 1, so a "Your_deck"/"Opponent's_deck" mapping or a Credit
+#//           payout wired to a hardcoded P1 would pass the entire file. control=
+#//           P2Seat_YourDeckIsTheDeckOfWhoeverUSEDTheAction + P2Seat_OpponentsDeckIsSeatOnesDeck.)
+#// LAW_018 (leader front) — "discard a card from a deck ... create a Credit token." Both the deck labels
+#// and the Credit resolve from whoever USES the action. Here the LAW_018 leader belongs to seat 2, both
+#// decks are stocked with DIFFERENT cards (P1: SOR_046 Vigilance/Heroism, P2: SOR_237 Heroism), and P2
+#// chooses Heroism then "Your_deck": P2's own deck is the one that empties, P1's is untouched, and the
+#// Credit lands on P2's side with P1 on zero.
+
+## GIVEN
+CommonSetup: bbw/yyw/{theirLeader:LAW_018; myBase:SOR_028; theirBase:SOR_028}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP2Resources: 1
+WithP1Deck: SOR_046
+WithP2Deck: SOR_237
+
+## WHEN
+- P2>UseLeaderAbility
+- P2>AnswerDecision:Heroism
+- P2>AnswerDecision:Your_deck
+
+## EXPECT
+P2CREDITCOUNT:1
+P1CREDITCOUNT:0
+P2DECKCOUNT:0
+P1DECKCOUNT:1
+P2LEADER:EXHAUSTED
+
+---
+
+# P2Seat_OpponentsDeckIsSeatOnesDeck
+#// LAW_018 (leader front) — the mirror of the seat check: from seat 2, "Opponent's_deck" must mean P1's
+#// deck. P2 chooses Vigilance and then the opponent's deck; P1's SOR_046 (Vigilance, Heroism) is milled,
+#// it carries the chosen aspect, and the Credit is still created for P2 — the player who used the action,
+#// not the player whose deck was milled — while P2's own deck keeps its card. Together with
+#// P2Seat_YourDeckIsTheDeckOfWhoeverUSEDTheAction this pins both labels to the acting seat rather than to
+#// seat 1.
+
+## GIVEN
+CommonSetup: bbw/yyw/{theirLeader:LAW_018; myBase:SOR_028; theirBase:SOR_028}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP2Resources: 1
+WithP1Deck: SOR_046
+WithP2Deck: SOR_237
+
+## WHEN
+- P2>UseLeaderAbility
+- P2>AnswerDecision:Vigilance
+- P2>AnswerDecision:Opponent's_deck
+
+## EXPECT
+P2CREDITCOUNT:1
+P1CREDITCOUNT:0
+P1DECKCOUNT:0
+P2DECKCOUNT:1

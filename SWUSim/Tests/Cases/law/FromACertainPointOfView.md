@@ -123,3 +123,50 @@ P1HANDCOUNT:1
 P1DISCARDCOUNT:1
 P1RESAVAILABLE:2
 P1NODECISION
+
+---
+
+# PlayedFromTheOpponentsDiscard_YourHandIsTheCastersHand
+#// LAW_264 From a Certain Point of View — "Play a card from YOUR hand": the hand belongs to whoever PLAYS
+#// the event, not to whoever owns it. An event is normally cast from its owner's hand, so the two seats
+#// coincide and the axis never shows; SEC_205 Obi-Wan separates them. Obi-Wan's combat damage to P2's base
+#// mills the top of P2's deck — LAW_264 itself — into P2's discard and makes it playable from there, so P1
+#// casts a P2-OWNED copy.
+#//
+#// Both hands are stocked and made distinguishable: P1 holds SOR_095 (Command/Heroism), P2 holds SOR_237.
+#// The card that gets played must be P1's SOR_095, landing in P1's ground arena, with P1's hand emptied
+#// and P2's hand still at 1 — an owner-scoped reading would have offered P2's hand instead (and SOR_237 is
+#// a legal, affordable play, so that branch would have succeeded rather than fizzled).
+#//
+#// The aspect waiver is asserted at the same time. P1 is Cunning/Villainy, so SOR_095 is fully off-aspect
+#// (+4, i.e. 6 instead of 2). P1 has exactly 3 ready resources: SEC_205's permission covers LAW_264's own
+#// cost of 1 without penalty, leaving 2 — enough for SOR_095 only because the event waives the penalty.
+#// P1RESAVAILABLE:0 therefore proves the waiver survives the cross-owner cast.
+#//
+#// COVERAGE: control=this section (a P2-OWNED From a Certain Point of View cast by P1 via SEC_205's
+#//           play-from-their-discard permission: "your hand" resolves to the CASTER's hand; both hands
+#//           asserted) · offer=this section reaches the play-choice with a card in each hand but does not
+#//           pin the pool with SELECTABLEEXACT; ChooseNothing_NoPlay covers the multi-candidate offer ·
+#//           decline=ChooseNothing_NoPlay + Decline_SingleTarget_NoCardPlayed (answer "-") · boundary
+#//           pair=IgnoreAspectPenalty (card played, 0 resources left) vs Decline_SingleTarget_NoCardPlayed
+#//           (declined, only the event's own 1 spent) · reqboundary=not encoded
+
+## GIVEN
+CommonSetup: yyk/rrk/{theirhandCardIds:SOR_237}
+P1OnlyActions: true
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 3
+WithP1Hand: SOR_095
+WithP2Deck: [LAW_264 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayFromOpponentDiscard:0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1HANDCOUNT:0
+P2HANDCOUNT:1
+P1RESAVAILABLE:0

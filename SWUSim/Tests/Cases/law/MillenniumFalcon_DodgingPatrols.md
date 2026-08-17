@@ -207,3 +207,77 @@ WithP2GroundArena: SHD_029:1:0
 P1SPACEARENAUNIT:0:POWER:0
 P2GROUNDARENAUNIT:1:POWER:7
 P2BASEDMG:0
+
+---
+
+# GroundOfferIsUnchangedAfterDecliningTheSpaceHalf
+#// COVERAGE: (the file's first section is pre-existing and off-limits, so the ledger lives here.)
+#//           The card is a 2x2 matrix of {take, decline} x {space half, ground half}:
+#//           take/take=OnAttackSpaceDebuffGroundBuff + DebuffItselfAndBuffAnEnemyDeployedLeader ·
+#//           decline/decline=PassingBothHalvesChangesNothing ·
+#//           decline/take=PassingOnlyTheSpaceHalfStillAllowsTheGroundBuff +
+#//             PassingOnlyTheSpaceHalf_FullBoardStaysOtherwisePrinted (the collateral half) ·
+#//           take/decline=PassingOnlyTheGroundHalfStillAppliesTheSpaceDebuff ·
+#//           offers=SpaceOfferIsEveryUnitInTheSpaceArenaIncludingItself +
+#//             GroundOfferIsEveryUnitInTheGroundArenaIncludingBothDeployedLeaders (after TAKING the space
+#//             half) + GroundOfferIsUnchangedAfterDecliningTheSpaceHalf (after DECLINING it) ·
+#//           reqboundary=DebuffItselfAndBuffAnEnemyDeployedLeader_SurvivesTheRequestBoundary.
+#//
+#// LAW_068 Millennium Falcon — the two halves are independent "you may" clauses, so declining the first
+#// must not narrow, reorder or skip the second. GroundOfferIsEveryUnitInTheGroundArenaIncludingBothDeployed
+#// Leaders asserts the ground offer on the path where the space debuff WAS taken; this asserts it on the
+#// path where the space half was declined. The offer must be identical — the same four ground units, both
+#// deployed leaders included — because nothing about the ground clause reads the space clause's outcome.
+#// The ground pick is left pending so the offer is what gets asserted.
+
+## GIVEN
+CommonSetup: brk/bgw/{myLeader:SOR_006:1:1:1; theirLeader:SOR_010:1:1:1}
+P1OnlyActions: true
+WithP1SpaceArena: [LAW_068:1:0 SOR_178:1:0]
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SHD_187:1:0
+WithP2GroundArena: SHD_029:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:-
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_a_ground_unit
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0&theirGroundArena-1
+
+---
+
+# PassingOnlyTheSpaceHalf_FullBoardStaysOtherwisePrinted
+#// LAW_068 Millennium Falcon — completes the decline-space/take-ground cell of the matrix.
+#// PassingOnlyTheSpaceHalfStillAllowsTheGroundBuff proves the buff lands; this proves nothing ELSE moved.
+#// Every unit on the board is checked, not just the ones the two clauses could plausibly have touched:
+#// declining the -2/-0 leaves all three space units printed (Falcon 2, SOR_178 Cartel Spacer 2, SHD_187
+#// Lurking TIE Phantom 2), and the +2/+0 lands on exactly one ground unit — SOR_095 Battlefield Marine
+#// goes to 5 while SHD_029 Pyke Sentinel, deployed SOR_006 Palpatine and deployed SOR_010 Vader stay at
+#// 2 / 4 / 5. The buffed unit's HP is asserted too: "+2/+0" raises power ONLY, so Battlefield Marine is
+#// 5/3, not 5/5. The Falcon is undebuffed, so its attack still puts its printed 2 on P2's base.
+
+## GIVEN
+CommonSetup: brk/bgw/{myLeader:SOR_006:1:1:1; theirLeader:SOR_010:1:1:1}
+P1OnlyActions: true
+WithP1SpaceArena: [LAW_068:1:0 SOR_178:1:0]
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SHD_187:1:0
+WithP2GroundArena: SHD_029:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:-
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:POWER:2
+P1SPACEARENAUNIT:1:POWER:2
+P2SPACEARENAUNIT:0:POWER:2
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:HP:3
+P1GROUNDARENAUNIT:1:POWER:4
+P2GROUNDARENAUNIT:0:POWER:2
+P2GROUNDARENAUNIT:1:POWER:5
+P2BASEDMG:2

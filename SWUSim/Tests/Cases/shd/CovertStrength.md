@@ -81,3 +81,31 @@ P2GROUNDARENAUNIT:0:HP:8
 P1GROUNDARENAUNIT:0:DAMAGE:2
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1DISCARDCOUNT:1
+
+---
+
+# SmuggledForeignOwnedEvent_GoesToItsOWNERSDiscard
+#// SHD_075 Covert Strength played via SMUGGLE out of a resource that P1 CONTROLS but P2 OWNS
+#// (`WithP1ResourceControlled: SHD_075:2` — controller = the arena/zone seat, owner = the `:N` arg).
+#// A spent event goes to its OWNER's discard, not the caster's. The normal from-hand play and the
+#// smuggled UNIT path both already get this right; only the smuggled EVENT path was wrong.
+#// ⚠ RED: the Smuggle event branch delegates to ActivateCard WITHOUT passing an owner, and ActivateCard
+#// defaults $owner to the acting player — so the card is filed under the caster. ActivateCard's own
+#// discard line is already owner-correct (`SWUAddToDiscard($owner, …)`); it was simply never told.
+#// DISCRIMINATES: both discard counts are asserted, so filing it in the wrong pile fails twice.
+
+## GIVEN
+CommonSetup: bbw/bbw/{}
+P1OnlyActions: true
+WithP1ResourceControlled: SHD_075:2
+WithP1Resources: 6
+WithP1GroundArena: SOR_046:1:2
+
+## WHEN
+- P1>SmuggleResource:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1DISCARDCOUNT:0
+P2DISCARDCOUNT:1
+P1GROUNDARENAUNIT:0:DAMAGE:0

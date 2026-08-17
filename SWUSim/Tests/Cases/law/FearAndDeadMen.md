@@ -138,3 +138,44 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P1RESAVAILABLE:0
 P2GROUNDARENAUNIT:0:DAMAGE:4
+
+---
+
+# EnemyIsScopedByControlNotOwnership
+#// LAW_179 — control axis. "Deal 4 damage to each ENEMY ground unit" names no owner: a unit is enemy
+#// or friendly by who CONTROLS it right now, not by who owns the card. The board splits both seats so
+#// owner and controller disagree in opposite directions:
+#//   · P1's ground arena holds SOR_046 (3/7) OWNED BY P2 but CONTROLLED BY P1 -> friendly to the
+#//     event's controller -> must take NO damage.
+#//   · P2's ground arena holds SOR_095 (3/3) OWNED BY P1 but CONTROLLED BY P2 -> enemy -> takes 4
+#//     and dies.
+#// The end state also proves the OWNER still governs where a defeated card goes: the dead SOR_095
+#// returns to P1's discard, so P1's discard holds 2 (the spent event + the P1-owned unit) and P2's
+#// discard is EMPTY. Resolve "enemy" from ownership instead and every assertion flips — the
+#// P1-controlled SOR_046 would take 4 and P2's discard would hold the body.
+#//
+#// COVERAGE: offer=N/A (no target picker — "each enemy ground unit" is an untargeted sweep; the only
+#//           decisions in this file are the opponent's forced-discard picks) · decline=N/A (no "you
+#//           may"; the damage is mandatory) · control=this section (enemy scope resolved by
+#//           controller; defeated card still routed to its OWNER's discard) · reqboundary=
+#//           ForcedHandDiscount_SurvivesTheRequestBoundary · boundary pair=DealsFourToEachEnemyGround
+#//           (3/7 survives at 4 / 3/3 dies) + PlayingAnEventDoesNotDiscountThisOne vs
+#//           ForcedHandDiscount_CountsOpponentInducedDiscards (played card does NOT discount, forced
+#//           discard DOES).
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:7}
+WithP1GroundArenaControlled: SOR_046:2
+WithP2GroundArenaControlled: SOR_095:1
+WithP1Hand: LAW_179
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENACOUNT:0
+P1DISCARDCOUNT:2
+P2DISCARDCOUNT:0

@@ -21,6 +21,21 @@ function Shd005FrontReaction($player): void
 {
   global $playerID;
   $playerID = intval($player);
+  // DEPLOYED side: "When you play a card using Smuggle: You may give an Experience token to a unit."
+  // No exhaust cost (that is the FRONT side's price), so there is no YES/NO-to-pay step and readiness
+  // is irrelevant — the offer is simply a declinable pick over every unit in play. This arm did not
+  // exist, so a deployed Hondo never reacted to Smuggle ("deployed side unimplemented" family).
+  if (_SWULeaderDeployed(intval($player), 'SHD_005')) {
+    if (empty(SWUAllUnits()))
+      return;                        // no unit to receive the token → no offer
+    GiveTokenUpgrade(intval($player), '', [
+      'friendlyOnly' => false,
+      'may'          => true,
+      'prompt'       => "Give_a_unit_an_Experience_token",
+      'question'     => "Give_a_unit_an_Experience_token?",
+    ]);
+    return;
+  }
   if (!_SWULeaderReadyUndeployed(intval($player), 'SHD_005'))
     return;
   if (empty(SWUAllUnits()))

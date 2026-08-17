@@ -341,3 +341,47 @@ P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:SOR_247
 P1DECKCOUNT:2
 P1DISCARDCOUNT:1
+
+---
+
+# StolenMazSearchesHerCONTROLLERSDeck
+#// LAW_074 Maz Kanata — "search the top 5 cards of YOUR deck": the deck is the ability CONTROLLER's, not
+#// the owner's. Maz sits in P1's ground arena but is OWNED by P2 (the end state after a control-take), so
+#// an owner-derived seat would dig through P2's library instead of P1's. Both decks are seeded and made
+#// distinguishable by SIZE as well as contents:
+#//   - P1's deck: SOR_247 on top of four SOR_095 (5 cards). Peeking 5 and playing the Thug leaves 4.
+#//   - P2's deck: three SOR_247 (3 cards) — the SAME Underworld unit, so a wrong-deck search would still
+#//     find something and still play a Thug; only the two DECK COUNTS separate the cases. Reading P2's
+#//     library would leave P1 at 5 and P2 at 2 instead of 4 and 3.
+#// The fetched Thug lands in P1's arena (the controller's board) at the -4 discount, so P1's 4 resources
+#// are untouched, and it enters READY.
+#//
+#// COVERAGE: control=this section (Maz P1-controlled / P2-owned: "your deck" is the CONTROLLER's library
+#//           and the fetched unit enters the CONTROLLER's arena; both deck counts asserted) ·
+#//           offer=SearchPool_ExcludesUnaffordable + SearchPool_ExcludesUnderworldEVENTS (pending
+#//           SEARCHPLAYABLE membership: cost and card-type filters) · decline=NoUnderworldInTop5_
+#//           NothingPlayed (answer "-", peeked cards returned) · boundary pair=OnAttackEnd_
+#//           PlaysUnderworldReady vs NoTrigger_DefeatedWhileAttacking (survival gate), and
+#//           SurvivesTheDefendersWhenDefeated_SearchStillHappens vs NoTrigger_KilledByTheDefendersWhen
+#//           Defeated (survival re-evaluated after the defender's When Defeated) · reqboundary=the relay
+#//           sections drive the trigger across separate P2>Drain / P1>Drain requests, but no explicit
+#//           SimulateRequestBoundary section exists
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArenaControlled: LAW_074:2
+WithP1Deck: [SOR_247 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_247 SOR_247 SOR_247]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:SOR_247
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_247
+P1GROUNDARENAUNIT:1:READY
+P1DECKCOUNT:4
+P2DECKCOUNT:3
+P1RESAVAILABLE:4

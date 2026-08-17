@@ -85,3 +85,91 @@ P1OnlyActions: true
 ## EXPECT
 P2CREDITCOUNT:1
 P1LEADER:EXHAUSTED
+
+---
+
+# EpicDeployCountsAControlledEnemyOwnedResource
+#// LAW_006 Vel Sartha — "Epic Action: If you control 6 or more resources, deploy this leader." The gate
+#// counts resources you CONTROL, not resources you own. P1 has only 5 of their own cards resourced; the
+#// sixth slot in P1's resource zone is a P2-OWNED card (the end state after an effect resources an enemy
+#// card, e.g. SHD_122 Arquitens). Controlling 6 clears the gate and the leader deploys. Paired with
+#// EpicDeployBlockedAtFiveOwnResources below, which holds the same board minus that one controlled slot
+#// and does NOT deploy — so it is provably the P2-owned resource that crosses the threshold, not a loose
+#// or absent check.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_006;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1ResourceControlled: SOR_095:2
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1LEADER:DEPLOYED
+
+---
+
+# EpicDeployBlockedAtFiveOwnResources
+#// LAW_006 Vel Sartha — the negative partner that makes the section above load-bearing: the identical
+#// board with only the five P1-owned resources (no P2-owned slot) is one short of the "6 or more
+#// resources" gate, so the Epic Action does nothing and the leader stays undeployed.
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_006;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1LEADER:NOTDEPLOYED
+
+---
+
+# FrontExpOnAControlledEnemyOwnedUnitAndOpponentCredit
+#// LAW_006 Vel Sartha (leader front) — "Give an Experience token to a unit. An opponent creates a Credit
+#// token." Neither clause names an owner: "a unit" is unqualified and so spans both sides, and "an
+#// opponent" is the opponent of the ability's CONTROLLER. P1's only friendly is a P2-OWNED SEC_080 that P1
+#// controls, and P2 fields SOR_046, so the pool holds one unit per seat and cannot auto-resolve. P1 names
+#// the P2-owned unit it controls: the Experience token attaches there (3/3 -> 4/4) even though P1 does not
+#// own the host, and the Credit is created by P2 — P1 ends with none.
+#//
+#// COVERAGE: control=this section + EpicDeployCountsAControlledEnemyOwnedResource /
+#//           EpicDeployBlockedAtFiveOwnResources (the Epic gate counts CONTROLLED resources, including a
+#//           P2-owned one; the Experience lands on a P1-controlled / P2-owned host and "an opponent" is
+#//           the CONTROLLER's opponent) · offer=this section reaches a P2-owned unit but the exact pool is
+#//           not pinned with SELECTABLEEXACT · decline=DeployedOnAttackPassNoCredit (PASS on the deployed
+#//           side's "you may") · boundary pair=DeployedOnAttackExpSelfCredit (token given -> Credit) vs
+#//           DeployedOnAttackPassNoCredit (declined -> no Credit), and the two Epic sections above ·
+#//           reqboundary=not encoded
+
+## GIVEN
+CommonSetup: ybw/grw/{
+  myLeader:LAW_006;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArenaControlled: SEC_080:2
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HP:4
+P2CREDITCOUNT:1
+P1CREDITCOUNT:0

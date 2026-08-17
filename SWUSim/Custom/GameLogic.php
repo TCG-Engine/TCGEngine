@@ -684,6 +684,38 @@ function ObjectCurrentPower($obj) {
     return max(0, $base);
 }
 
+// Power AS SEEN DURING AN ATTACK — ObjectCurrentPower plus the attack-only bonuses, but only for the
+// unit that is currently attacking.
+//
+// Why this exists: Raid (CR 7.6.7) and one-shot "+N power for this attack" markers become active at
+// BEGIN ATTACK (CR 3.3), which is BEFORE On Attack abilities resolve — but for performance and
+// simplicity the engine folds them in later, at combat-damage time (CombatLogic's $attackPower). So an
+// ability that READS power during its own On Attack window sees a stale, pre-Raid number.
+// SHD_004 Rey is the case that exposed it: deployed she is 2/6 and her On Attack targets "a unit with
+// 2 or less power", so with Raid 1 she is a 3-power unit and must not be in her own pool — yet she was
+// offered, and taking herself lands an Experience token before combat damage, turning a 3-damage attack
+// into 4.
+//
+// Deliberately a SEPARATE helper rather than a change to ObjectCurrentPower: that function is read
+// everywhere (auras, HP math, display, dozens of self-conditional buffs) and folding an attack-duration
+// bonus into it would change combat damage itself, since CombatLogic adds Raid on top of it.
+// Use this ONLY where a card reads power during an attack.
+function ObjectCurrentPowerInAttack($obj): int {
+    $p = intval(ObjectCurrentPower($obj));
+    if ($obj === null) return $p;
+    $uid = intval($obj->UniqueID ?? 0);
+    if ($uid <= 0 || $uid !== intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'))) return $p;
+    // Value keywords honour suppression here — the generated GetKeyword_*_Value readers do not gate on
+    // LostAbilities themselves (same reasoning as CombatLogic's Raid application).
+    $raid = LostAbilities($obj) ? null : GetKeyword_Raid_Value($obj);
+    if ($raid !== null && $raid > 0) $p += intval($raid);
+    foreach (($obj->TurnEffects ?? []) as $te) {
+        if (preg_match('/^SWU_ATK_POWER_(\d+)$/', (string)$te, $m)) $p += intval($m[1]);
+    }
+    return max(0, $p);
+}
+
+
 // SWU HP: base HP + upgrades (including Experience tokens via stat loop); caller subtracts Damage separately.
 function ObjectCurrentHP($obj) {
     $base = intval(CardHp($obj->CardID));
@@ -1538,6 +1570,17 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     // ⚠ Consequence: an offer whose card text really is optional ("you may", "up to N", "any number")
     // must be queued as MZMAYCHOOSE. Typing it MZCHOOSE and relying on this function's old blanket
     // acceptance is no longer a working way to be declinable.
+    // PASSPARAMETER is a FORCED auto-resolve, not a question: SWUQueueChooseTarget emits it instead of
+    // MZCHOOSE when exactly one target is legal, and its Param IS the answer. It was unvalidated,
+    // because everything outside the MZ family fell through the early return below — so the only legal
+    // value was never enforced and the CUSTOM continuation ran on whatever was submitted.
+    // Harmless for the ACTING player (it drains inside the same request, so no answer is ever solicited)
+    // but live CROSS-PLAYER: one queued for the OTHER seat stays pending until that seat's next request,
+    // and in that window any value was accepted. Measured on LAW_099 Governor's Shuttle: the opponent
+    // could defeat a unit they did not control, and a garbage answer silently walked away from a
+    // MANDATORY "each player chooses". Note this is also why the decline check must come AFTER: a forced
+    // resolve is not declinable, so PASS/'-' must be refused here too.
+    if ($type === 'PASSPARAMETER') return $answer === (string)($head->Param ?? '');
     if ($answer === 'PASS' || $answer === '-' || $answer === '') return $type !== 'MZCHOOSE';
     if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE' && $type !== 'MZMULTICHOOSE'
             && $type !== 'MZSPLITASSIGN') return true;
@@ -9303,10 +9346,49 @@ function SWUReadyResources(int $player, int $count): int {
 function SWUSimulDefeatBegin(): void {
     $GLOBALS['gSimulDefeatWindow'] = true;
     unset($GLOBALS['gSimulDefeatSidious']);
+    // Snapshot, PER SEAT, how many copies of each CardID are in play right now — i.e. before any of the
+    // batch has been removed. "When an enemy unit is defeated" observers must fire for every copy that
+    // was in play when the defeat happened, and inside a wipe the only trustworthy answer is this
+    // pre-effect picture. See _SWUSimulObserverCount below for why the live count + $leftCards
+    // supplement is not enough.
+    $snap = [];
+    foreach ([1, 2] as $seat) {
+        foreach (GetUnitsInPlay($seat) as $u) {
+            if (!empty($u->removed) || LostAbilities($u)) continue;
+            $cid = (string)($u->CardID ?? '');
+            if ($cid === '') continue;
+            $snap[$seat][$cid] = ($snap[$seat][$cid] ?? 0) + 1;
+        }
+    }
+    $GLOBALS['gSimulDefeatUnits'] = $snap;
+}
+
+// How many copies of $cardID controlled by $seat should observe a defeat in THIS batch.
+//
+// Normally: the copies still active, PLUS any copy that left play in this same $leftCards batch (it was
+// in play when the co-defeated unit died, so its reaction still fires — CR simultaneous-removal).
+//
+// ⚠ That is only correct when the whole simultaneous defeat arrives as ONE batch, which is how COMBAT
+// and "deal N damage to each unit" effects behave. A mass-defeat card like SOR_043 Superlaser Blast
+// ("Defeat all units") instead walks the board one unit at a time, so every defeat is its own
+// single-element batch: an observer defeated EARLY in the loop is neither still active nor present in
+// the LATER batches, and its reaction was silently dropped. Inside a SWUSimulDefeatBegin/End window we
+// therefore answer from the pre-effect snapshot instead, which is the board the whole batch is judged
+// against.
+function _SWUSimulObserverCount(int $seat, string $cardID, array $leftCards): int {
+    if (!empty($GLOBALS['gSimulDefeatWindow']) && isset($GLOBALS['gSimulDefeatUnits'])) {
+        return intval($GLOBALS['gSimulDefeatUnits'][$seat][$cardID] ?? 0);
+    }
+    $n = _SWUCountActiveUnitsWithCardID($seat, $cardID);
+    foreach ($leftCards as $lc) {
+        if (($lc['cardID'] ?? '') === $cardID && intval($lc['player'] ?? 0) === $seat) $n++;
+    }
+    return $n;
 }
 function SWUSimulDefeatEnd(): void {
     $GLOBALS['gSimulDefeatWindow'] = false;
     unset($GLOBALS['gSimulDefeatSidious']);
+    unset($GLOBALS['gSimulDefeatUnits']);
 }
 function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
     // TS26_13 Darth Sidious — snapshot how many Sidious units were in play WHEN these cards left, per
@@ -9446,19 +9528,13 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // Experience token to a friendly unit." Fires once per Gideon in play — INCLUDING a Gideon
             // defeated in this same simultaneous batch (CR: the condition reads the pre-defeat state;
             // he traded with the enemy he killed). Same supplement as HK-47 below.
-            $gideons = _SWUCountActiveUnitsWithCardID($opp, 'SOR_036');
-            foreach ($leftCards as $lc) {
-                if (($lc['cardID'] ?? '') === 'SOR_036' && intval($lc['player'] ?? 0) === $opp) $gideons++;
-            }
+            $gideons = _SWUSimulObserverCount($opp, 'SOR_036', $leftCards);
             for ($i = 0; $i < $gideons; $i++) {
                 AddTrigger($opp, 'SOR_036', 'SOR_036', '');
             }
             // SEC_051 Bo-Katan Kryze (controlled by $opp): "When an enemy unit is defeated: give an
             // Experience token to a friendly unit." Same shape as Gideon, same batch supplement.
-            $bokatans = _SWUCountActiveUnitsWithCardID($opp, 'SEC_051');
-            foreach ($leftCards as $lc) {
-                if (($lc['cardID'] ?? '') === 'SEC_051' && intval($lc['player'] ?? 0) === $opp) $bokatans++;
-            }
+            $bokatans = _SWUSimulObserverCount($opp, 'SEC_051', $leftCards);
             for ($i = 0; $i < $bokatans; $i++) {
                 AddTrigger($opp, 'SEC_051', 'SEC_051', '');
             }
@@ -9468,10 +9544,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // absent from the active count): they were in play when the enemy was defeated, so their
             // reaction still fires (CR: simultaneous defeats use the pre-defeat state; the damage lands
             // even when HK-47 itself was defeated in the batch).
-            $hk47s = _SWUCountActiveUnitsWithCardID($opp, 'LOF_130');
-            foreach ($leftCards as $lc) {
-                if (($lc['cardID'] ?? '') === 'LOF_130' && intval($lc['player'] ?? 0) === $opp) $hk47s++;
-            }
+            $hk47s = _SWUSimulObserverCount($opp, 'LOF_130', $leftCards);
             for ($i = 0; $i < $hk47s; $i++) {
                 SWUDealDamageToBase(1, $controller);
             }
@@ -9540,7 +9613,17 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             } // end foreach opponent (enemy-defeated observers)
             // LAW_119 Rogue One (controlled by $controller): "When a friendly unit is defeated: look at
             // the top 2 cards, put any number on the bottom, rest on top." Fires once per Rogue One.
-            $rogueones = _SWUCountActiveUnitsWithCardID($controller, 'LAW_119');
+            // Count via the shared observer helper. Outside a wipe this is the old "active copies +
+            // copies that left play in THIS batch" (CR simultaneous-removal: a Rogue One that dies in the
+            // same batch was in play when the friendly died, so its reaction still fires — the card says
+            // "a friendly unit", no "another", so its OWN defeat qualifies).
+            // ⚠ Inside a SWUSimulDefeatBegin/End window the helper answers from the pre-effect snapshot
+            // INSTEAD of active+batch, which is load-bearing here in BOTH directions: a per-unit wipe
+            // loop otherwise (a) misses friendlies defeated after this Rogue One, and (b) DOUBLE-FIRES
+            // for Rogue One's own defeat, because that defeat reaches the collection by two routes and
+            // active+batch counts it twice. Measured: a solo Rogue One caught in Superlaser Blast raised
+            // TWO scries for ONE friendly defeat.
+            $rogueones = _SWUSimulObserverCount($controller, 'LAW_119', $leftCards);
             for ($i = 0; $i < $rogueones; $i++) AddTrigger($controller, 'LAW_119', 'LAW_119', '');
             // SOR_105 General Krell (controlled by $controller): grants "When Defeated: you may draw
             // a card" to each OTHER friendly unit. The leaving unit qualifies if it isn't Krell.
@@ -15868,7 +15951,14 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
             AddResources($player, $topE, 0, $player, $player); // Status 0 = exhausted
             break;
         }
-        ActivateCard($player, "myResources-{$actualIdx}", true);
+        // Thread the resource's OWNER. A spent event goes to its OWNER's discard, and ActivateCard's
+        // discard line is already owner-correct — but its $owner parameter DEFAULTS to the acting
+        // player, so a foreign-owned smuggled event (a resource you control but an opponent owns) was
+        // filed under the caster. The from-hand play and the smuggled UNIT path both got this right,
+        // which is why only this branch was wrong.
+        $evOwner = intval($resourceObj->Owner ?? $player);
+        if ($evOwner <= 0) $evOwner = intval($player);
+        ActivateCard($player, "myResources-{$actualIdx}", true, 0, 0, $evOwner);
         return; // $playerID intentionally left = $player for any decision ActivateCard queued
     }
 
@@ -15940,7 +16030,11 @@ function _SWUSmuggleFireEntry(int $player, string $cardID, string $newCardMzID, 
     if (isset($whenPlayedUsingSmuggleAbilities["{$cardID}:0"])) {
         $whenPlayedUsingSmuggleAbilities["{$cardID}:0"]($player, $newCardMzID);
     }
-    if (_SWULeaderReadyUndeployed($player, 'SHD_005')) {
+    // SHD_005 Hondo fires on BOTH sides. Front: "you may EXHAUST this leader; if you do, give an
+    // Experience token" (needs him ready+undeployed to pay). Deployed: "you may give an Experience
+    // token" — NO cost, so readiness is irrelevant and the undeployed gate must not apply.
+    // The deployed arm was missing entirely, so a deployed Hondo never reacted to Smuggle at all.
+    if (_SWULeaderReadyUndeployed($player, 'SHD_005') || _SWULeaderDeployed($player, 'SHD_005')) {
         AddTrigger($player, 'SHD_005', 'SHD_005', '');
     }
     // Stamp "this unit entered play via Smuggle" on the entering object, keyed by UniqueID. The generic

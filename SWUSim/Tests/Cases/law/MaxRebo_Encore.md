@@ -503,3 +503,284 @@ PHASE:MAIN
 P1HANDCOUNT:4
 P1DISCARDCOUNT:1
 P2BASEDMG:4
+
+---
+
+# ResourceStepRunsInEVERYRegroupPhase
+#// COVERAGE (whole file — this ledger lives here because the file's first section pre-dates it):
+#// LAW_072's additional regroup phase is covered for — the extra phase existing at all and its draw step
+#// (AdditionalRegroupPhase / NoMaxRebo_SingleRegroup_Control), stacking one extra phase per Max Rebo
+#// (BothPlayers_Stacks), the count being taken at the END of the first regroup in BOTH directions
+#// (LeavesPlay… / ENTERSPlay… / StackingCountsOnlyTheMaxRebosSTILLInPlay…), start-of-regroup ABILITIES
+#// re-triggering per phase (StartOfRegroupTriggersFireInAdditionalRegroup, ThisRegroupPhaseEffect_*),
+#// "next regroup phase" riders binding to the FIRST phase only (NextRegroupLastingEffect_*), delayed
+#// one-shots firing once (DelayedRegroupEffectFiresOnlyInTheFIRSTRegroup) and round-duration effects
+#// spanning every regroup in the round (RoundDurationEffectSurvivesTheADDITIONALRegroup +
+#// WithoutTheRoundBlank_TheHunterStillSelfDefeats). The sections below add the RESOURCE step (every
+#// regroup phase carries its own, so a round can yield 2 or 3 resources), the ordering of a
+#// start-of-regroup delayed effect against the draw step, recurrence in a LATER round, and a Max Rebo
+#// that is CAPTURED across the first regroup counting for nothing.
+#//
+#// LAW_072 Max Rebo — a regroup phase is not just a draw step: per CR 5.4 it is draw (5.4.b) THEN an
+#// optional "resource 1 card from hand" (5.4.c) THEN ready (5.4.d). Max Rebo adds a whole regroup PHASE,
+#// so the additional phase brings its own resource step too — a player can put TWO cards into resources
+#// in a single round while he is out. Both players start on 5 resources and resource a card in each of
+#// the two regroups: 5 -> 7 each. Hands land on 2 (4 drawn across the two regroups, 2 spent resourcing).
+#// Paired with NoMaxRebo_OnlyONEResourceStepPerRound_Control below, which is the same board without him
+#// and ends on 6 resources / 1 card.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:5;
+  theirResources:5
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LAW_072:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>ResourceHand:0
+- P2>ResourceHand:0
+- P1>ResourceHand:0
+- P2>ResourceHand:0
+
+## EXPECT
+PHASE:MAIN
+P1RESCOUNT:7
+P2RESCOUNT:7
+P1HANDCOUNT:2
+P2HANDCOUNT:2
+
+---
+
+# NoMaxRebo_OnlyONEResourceStepPerRound_Control
+#// LAW_072 control for ResourceStepRunsInEVERYRegroupPhase — identical board with a vanilla unit
+#// (SEC_080) instead of Max Rebo. One regroup phase means one draw step and ONE resource step, so each
+#// player ends the round on 6 resources and a single card in hand. This is what makes the section above
+#// discriminating: without it, "7 resources" could just as well be a starting-resource artifact.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:5;
+  theirResources:5
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_080:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>ResourceHand:0
+- P2>ResourceHand:0
+
+## EXPECT
+PHASE:MAIN
+P1RESCOUNT:6
+P2RESCOUNT:6
+P1HANDCOUNT:1
+P2HANDCOUNT:1
+
+---
+
+# ThreeRegroupPhasesGiveThreeDrawANDThreeResourceSteps
+#// LAW_072 Max Rebo — the stacking case measured on the resource step rather than the draw step. Both
+#// players control a Max Rebo, so the round runs THREE regroup phases, and each of them is a full CR 5.4
+#// regroup: three draw steps and three resource steps. Each player resources a card in every one and ends
+#// on 5 + 3 = 8 resources, holding 3 of the 6 cards drawn.
+#// Discriminating against ResourceStepRunsInEVERYRegroupPhase (one Max Rebo, ends on 7) and
+#// NoMaxRebo_OnlyONEResourceStepPerRound_Control (none, ends on 6): the resource total tracks the Max
+#// Rebo count exactly, one extra resource step per copy.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021;
+  myResources:5;
+  theirResources:5
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LAW_072:1:0
+WithP2GroundArena: LAW_072:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>ResourceHand:0
+- P2>ResourceHand:0
+- P1>ResourceHand:0
+- P2>ResourceHand:0
+- P1>ResourceHand:0
+- P2>ResourceHand:0
+
+## EXPECT
+PHASE:MAIN
+P1RESCOUNT:8
+P2RESCOUNT:8
+P1HANDCOUNT:3
+P2HANDCOUNT:3
+
+---
+
+# DelayedRegroupDiscardResolvesBEFORETheRegroupDrawStep
+#// LAW_072 Max Rebo + SHD_203 Zorii Bliss — the ORDERING half of the delayed-effect story that
+#// DelayedRegroupEffectFiresOnlyInTheFIRSTRegroup leaves open. "At the START of the regroup phase" means
+#// exactly that: the delayed discard resolves before the phase's draw step (CR 5.4.b), so the cards you
+#// are made to choose between are the ones you were holding when the action phase ended — the two cards
+#// this regroup is about to give you are NOT yet in hand and cannot be fed to it.
+#// This section stops ON the pending discard rather than answering it (EXPECT reads the end state, so a
+#// decision left unanswered is how a mid-resolution board gets inspected). Zorii's attack drew 1, so the
+#// hand is exactly 1 and the deck is still 5 of its 6 — if the draw step had already run they would read
+#// 3 and 3. The tooltip pins that the pending decision really is Zorii's discard and not the resource
+#// prompt that follows it.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:JTL_002;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SHD_203:1:0
+WithP2GroundArena: LAW_072:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>Pass
+- P2>Pass
+
+## EXPECT
+PHASE:RGS
+P1HASDECISION
+P1HANDCOUNT:1
+P1DECKCOUNT:5
+P1DECISIONTOOLTIP:Discard_a_card_from_your_hand_(Zorii_Bliss)
+P2BASEDMG:4
+
+---
+
+# AdditionalRegroupRecursInTheFOLLOWINGRoundToo
+#// LAW_072 Max Rebo — "each round", not "once". The constant ability is not a one-shot that is spent on
+#// the first round it sees: as long as Max Rebo is still in play at the end of round 2's first regroup,
+#// round 2 gets its additional regroup as well.
+#// Two full rounds are driven here: pass/pass into round 1's two regroups (4 resource declines), then
+#// pass/pass into round 2's two regroups (4 more). Four draw steps at 2 cards each = 8 in hand for each
+#// player. A Max Rebo that only worked on the round he was checked would land on 6 (2+2 then 2), and a
+#// single-regroup game on 4.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LAW_072:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080 SEC_080 SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+PHASE:MAIN
+P1HANDCOUNT:8
+P2HANDCOUNT:8
+
+---
+
+# CAPTUREDMaxReboIsNotInPlay_NoAdditionalRegroup
+#// LAW_072 Max Rebo — a captured card is under its captor, not in the arena, so it is not a unit in play
+#// and grants nothing. ENTERSPlayDuringTheFirstRegroup_StillGrantsTheAdditionalRegroup already shows the
+#// release direction (Arrest captures him, its rider rescues him as regroup 1 opens, and the additional
+#// regroup follows) but on its own that section cannot tell "counted at the END of regroup 1" apart from
+#// "the capture never mattered". This is the missing half: SHD_131 Take Captive is a capture with NO
+#// release rider, so P2's Imperial Dark Trooper holds Max Rebo right through the regroup and there is
+#// exactly ONE regroup phase — each player draws 2, not 4.
+#// P1's ground arena is empty because Max Rebo is now facedown under the Trooper, which is why the extra
+#// regroup never comes.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:JTL_002;myBase:SOR_021;theirBase:SOR_021;theirResources:10}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: LAW_072:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2Hand: SHD_131
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P2>PlayHand:0
+- P2>Pass
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+PHASE:MAIN
+P1HANDCOUNT:2
+P2HANDCOUNT:2
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:1
+
+---
+
+# CaptureNeverPlayed_MaxReboStillGrantsTheAdditionalRegroup_Control
+#// LAW_072 control for CAPTUREDMaxReboIsNotInPlay_NoAdditionalRegroup — the identical board, with Take
+#// Captive left sitting in P2's hand instead of being played. Max Rebo stays in P1's ground arena, the
+#// additional regroup happens, and each player draws 4 (P2 holds 5 because the unplayed SHD_131 is still
+#// in hand). This is what makes the pair discriminating: it proves the single regroup above comes from
+#// the capture removing Max Rebo from play, and not from anything else on that board.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:JTL_002;myBase:SOR_021;theirBase:SOR_021;theirResources:10}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: LAW_072:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP2Hand: SHD_131
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P2>Pass
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+PHASE:MAIN
+P1HANDCOUNT:4
+P2HANDCOUNT:5
+P1GROUNDARENACOUNT:1
+P2GROUNDARENACOUNT:1

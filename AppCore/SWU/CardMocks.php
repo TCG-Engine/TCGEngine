@@ -794,6 +794,33 @@ If attached base would be dealt 5 or more damage, prevent that damage. If you do
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/081.png',
     'imageUrlBack' => '',
   ),
+  'HMW_084' => 
+  array (
+    'title' => 'Gunga City Guard',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 1,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Gungan',
+    ),
+    'text' => 'Restore 1
+While you control another Gungan unit or Naboo base, this unit gains Shielded.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/084.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_085' => 
   array (
     'title' => 'Remote Scout',
@@ -910,6 +937,32 @@ While you control another unit that costs 3 or more, this unit gets +2/+0.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/110.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_113' => 
+  array (
+    'title' => 'Sinister War Memorial',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Special',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify (Attach this to your base, not a unit.)
+Attached base gains "When a friendly unit is defeated: Heal 1 damage from this base."',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/113.png',
     'imageUrlBack' => '',
   ),
   'HMW_114' => 
@@ -1279,6 +1332,32 @@ When a non-leader ground unit enters play (including token units): You may defea
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/171.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_176' => 
+  array (
+    'title' => 'Village Troublemaker',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 2,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Ewok',
+    ),
+    'text' => 'While you control and Endor base, this unit gains Hidden and Saboteur.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/176.png',
     'imageUrlBack' => '',
   ),
   'HMW_177' => 
