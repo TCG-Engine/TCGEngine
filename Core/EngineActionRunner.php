@@ -267,19 +267,6 @@ function EngineLoadRootRuntime($folderPath) {
 
   $gamestateParserPath = $repoRoot . '/' . $folderPath . '/GamestateParser.php';
   $dictionaryPath = $repoRoot . '/' . $folderPath . '/GeneratedCode/GeneratedCardDictionaries.php';
-  // Resolve the schema-declared asset corpus before trusting a root-local generated dictionary.
-  // Deployment directories can retain ignored generated files across releases; a stale
-  // HellbreakDeck dictionary therefore masked `AssetReflection: HellbreakSim` and made CardType()
-  // return null during actions even though the browser loaded the correct HellbreakSim catalog.
-  $schemaPath = $repoRoot . '/Schemas/' . $folderPath . '/GameSchema.txt';
-  if (is_file($schemaPath)) {
-    $schemaText = file_get_contents($schemaPath);
-    if (is_string($schemaText)
-        && preg_match('/^AssetReflection:\s*([A-Za-z0-9_]+)\s*$/mi', $schemaText, $reflectionMatch)) {
-      $schemaReflectionPath = $repoRoot . '/' . $reflectionMatch[1] . '/GeneratedCode/GeneratedCardDictionaries.php';
-      if (is_file($schemaReflectionPath)) $dictionaryPath = $schemaReflectionPath;
-    }
-  }
   $parserLoadedForReflection = false;
   if (!is_file($dictionaryPath)) {
     include_once $gamestateParserPath;
