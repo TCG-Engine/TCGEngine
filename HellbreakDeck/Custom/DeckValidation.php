@@ -1,23 +1,14 @@
 <?php
 
 function ValidateMainDeckAddition($cardID) {
-    $imageStatus = HellbreakDeckImageStatus($cardID);
-    if (!$imageStatus['valid']) {
-        HellbreakDeckLogSelection('MainDeck', $cardID, 'rejected-image', $imageStatus);
-        return false;
-    }
+    if (!HellbreakDeckHasValidImage($cardID)) return false;
     $type = strtolower(trim((string)CardType($cardID)));
     // Fail CLOSED on an unknown type. This was a purely NEGATIVE test ("not a monster and not a
     // location"), so when the card dictionary came back empty and every CardType() returned '',
     // every card became a legal main-deck card while the Monster/Location slots -- which use
     // positive tests -- silently refused everything. The builder half-worked for three days.
     // Rejecting here means blank card data breaks the FIRST click on ANY card, loudly.
-    if ($type === '') {
-        HellbreakDeckLogSelection('MainDeck', $cardID, 'rejected-unknown-type', [
-            'hint' => 'CardType() returned nothing - the card dictionary is empty or was not loaded.',
-        ]);
-        return false;
-    }
+    if ($type === '') return false;
     return $type !== 'monster' && $type !== 'location';
 }
 

@@ -29,7 +29,11 @@ if (IsUserLoggedIn()) {
     <section class="hellbreak-panel hellbreak-active-panel">
       <div class="hellbreak-panel-heading">
         <h3><span class="hellbreak-heading-icon" aria-hidden="true">&#9673;</span> Live Signals <strong id="active-game-count">0</strong></h3>
-        <button class="hellbreak-icon-button" type="button" onclick="refreshActiveGames(this)" aria-label="Refresh active games">&#8635;</button>
+        <button class="hellbreak-icon-button" type="button" onclick="refreshActiveGames(this)" aria-label="Refresh active games">
+          <svg class="hellbreak-refresh-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path fill="currentColor" d="M8 3a5 5 0 1 0 4.55 7.07.75.75 0 1 1 1.37.61A6.5 6.5 0 1 1 12.6 3.4V1.75a.75.75 0 0 1 1.5 0V5a.75.75 0 0 1-.75.75H10.1a.75.75 0 0 1 0-1.5h1.45A4.98 4.98 0 0 0 8 3Z"/>
+          </svg>
+        </button>
       </div>
       <button id="rejoin-last-game" class="hellbreak-rejoin" type="button" onclick="rejoinLastGame()" hidden>
         <span aria-hidden="true">&#8617;</span><span><strong>Return to last signal</strong><small id="rejoin-last-game-note"></small></span>
@@ -91,17 +95,17 @@ if (IsUserLoggedIn()) {
       <div class="hellbreak-ready-label"><span aria-hidden="true">&#9651;</span> Enter North Beach</div>
 
       <div class="hellbreak-game-actions">
-        <button id="join-queue-btn" class="hellbreak-game-action primary" type="button" onclick="joinQueue()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#9673;</span><span><strong>Find a Match</strong><small>Scan for another player</small></span>
+        <button id="join-queue-btn" class="hellbreak-game-action primary coming-soon" type="button" disabled>
+          <span class="hellbreak-action-icon" aria-hidden="true"><img src="/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-red-buoy.png" alt=""></span><span><strong>Find a Match</strong><small>Coming Soon</small></span>
         </button>
         <button id="start-tutorial-btn" class="hellbreak-game-action" type="button" onclick="startTutorial()">
           <span class="hellbreak-action-icon" aria-hidden="true">?</span><span><strong>First Visit</strong><small>Shoreline orientation</small></span>
         </button>
-        <button id="start-fixture-match-btn" class="hellbreak-game-action" type="button" onclick="startFixtureMatch()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#9654;</span><span><strong>Solo Patrol</strong><small>Practice against the bot</small></span>
+        <button id="start-fixture-match-btn" class="hellbreak-game-action coming-soon" type="button" disabled>
+          <span class="hellbreak-action-icon" aria-hidden="true"><img src="/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-red-buoy.png" alt=""></span><span><strong>Solo Patrol</strong><small>Coming Soon</small></span>
         </button>
-        <button id="create-private-game-btn" class="hellbreak-game-action" type="button" onclick="createPrivateGame()">
-          <span class="hellbreak-action-icon" aria-hidden="true">&#128274;</span><span><strong>Closed Session</strong><small>Invite someone you trust</small></span>
+        <button id="create-private-game-btn" class="hellbreak-game-action coming-soon" type="button" disabled>
+          <span class="hellbreak-action-icon" aria-hidden="true"><img src="/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-red-buoy.png" alt=""></span><span><strong>Closed Session</strong><small>Coming Soon</small></span>
         </button>
         <button id="join-private-invite-btn" class="hellbreak-game-action invite" type="button" onclick="joinPrivateInvite()">
           <span class="hellbreak-action-icon" aria-hidden="true">&#10148;</span><span><strong>Join Private Invite</strong><small>Enter your friend's lobby</small></span>
@@ -201,6 +205,7 @@ if (IsUserLoggedIn()) {
 <?php include __DIR__ . '/NorthBeachVignette.php'; ?>
 
 <script src="/TCGEngine/SharedUI/js/private-invite.js"></script>
+<script src="/TCGEngine/HellbreakDeck/HomeActions.js?v=20260817"></script>
 <script>
 (function() {
   'use strict';
@@ -362,6 +367,11 @@ if (IsUserLoggedIn()) {
     linkButton.type = 'button';
     linkButton.onclick = function() { copyDeckLink(deckID); };
     actionBar.appendChild(linkButton);
+
+    var imageButton = actionIcon(document.createElement('button'), 'image', 'Generate deck image');
+    imageButton.type = 'button';
+    imageButton.onclick = function() { HellbreakDeckHome.generateImage(deckID); };
+    actionBar.appendChild(imageButton);
 
     var deleteButton = actionIcon(document.createElement('button'), 'trash', 'Delete deck');
     deleteButton.type = 'button';

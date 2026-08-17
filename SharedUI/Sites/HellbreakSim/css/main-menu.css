@@ -141,15 +141,25 @@ body {
 
 .hellbreak-heading-icon { color: var(--hb-gold); }
 .hellbreak-icon-button {
+  display: grid;
+  flex: 0 0 36px;
+  place-items: center;
   width: 36px;
   height: 36px;
+  min-width: 36px;
+  padding: 0 !important;
   border: 0;
+  border-radius: 50% !important;
   color: var(--hb-gold);
   background: transparent;
-  font-size: 22px;
+  box-shadow: none;
+  clip-path: none !important;
   cursor: pointer;
 }
-.hellbreak-icon-button.loading { animation: hb-spin .7s linear infinite; }
+.hellbreak-icon-button::before,
+.hellbreak-icon-button::after { content: none !important; }
+.hellbreak-refresh-icon { display: block; width: 18px; height: 18px; }
+.hellbreak-icon-button.loading .hellbreak-refresh-icon { animation: hb-spin .7s linear infinite; }
 @keyframes hb-spin { to { transform: rotate(360deg); } }
 
 .hellbreak-active-panel { display: flex; flex-direction: column; }
@@ -400,12 +410,33 @@ body {
 }
 .hellbreak-game-action.primary { border-color: var(--btn-border); background: var(--btn-surface); }
 .hellbreak-game-action:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.hellbreak-game-action.coming-soon {
+  cursor: not-allowed;
+  border-color: rgba(183, 88, 67, .42);
+  background: linear-gradient(145deg, rgba(38, 53, 53, .78), rgba(19, 38, 41, .86));
+}
+.hellbreak-game-actions button.hellbreak-game-action.coming-soon:disabled { opacity: .78; filter: saturate(.78); }
+.hellbreak-game-action.coming-soon:hover { filter: none; transform: none; }
 .hellbreak-game-action strong,
 .hellbreak-game-action small { display: block; }
 .hellbreak-game-action strong { font-size: 13px; text-transform: uppercase; }
 .hellbreak-game-action small { margin-top: 2px; color: var(--text-muted); font-size: 11px; }
 .hellbreak-game-action.primary small { color: var(--text-muted); }
 .hellbreak-action-icon { color: var(--hb-gold-soft); font-size: 19px; }
+.hellbreak-game-action.coming-soon .hellbreak-action-icon img {
+  display: block;
+  width: 18px;
+  height: 38px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .48));
+}
+.hellbreak-game-action.coming-soon small {
+  color: #cf765f;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
 .hellbreak-game-action.invite { display: none !important; grid-column: 1 / -1; }
 .hellbreak-game-action.invite.is-visible { display: flex !important; }
 .hellbreak-inline-notice,
