@@ -1,11 +1,68 @@
 ---
 name: swusim-implement-set-plan
-description: Use when the user wants to drive a whole multi-batch SWUSim implementation plan doc (e.g. docs/<set>-complex-plan.md) to completion in one session — "run/execute the <set> plan", "work through the remaining phases". For many card batches across phases at once; for a single batch use swusim-implement-card.
+description: Use when the user wants to drive a whole multi-batch SWUSim implementation plan doc (e.g. docs/<set>-complex-plan.md) to completion in one session — "run/execute the <set> plan", "work through the remaining phases". For many card batches across phases at once; for a single batch use swusim-implement-card. Pass --iterative to implement ONE CARD PER PASS and stop for review after each (use for preview sets and any run the user wants to review card by card).
 ---
 
 # SWUSim Implement Set-Plan
 
 Thin orchestrator: drive a multi-batch implementation **plan doc** to completion by looping `swusim-implement-card` per batch, keeping the plan + set tracker current, and folding a retro into the card skill at two checkpoints — the autonomous→pair-programmed handoff and the end of the run. The plan doc (e.g. `docs/<set>-complex-plan.md`) is the source of truth for *what* to build and in *what order*; this skill is the loop that runs it. It writes no card logic itself — `swusim-implement-card` does that. Keep in mind the 98% confidence rule established in the `swusim-implement-card` skill itself. This is per card. Not per batch. **For leaders it is also per *side*:** the leader (front) side AND the leader unit (deployed `deployTextData`) side are separate ability sets that must *each* independently clear 98% — a leader with a finished front Action but an unimplemented deployed On Attack / When Deployed / passive / deployed Action is **not** Done (the ASH/LOF deployed-side gaps in `SWUSim/docs/leader-gaps.md` are exactly this miss). Don't mark a leader done on its front side alone.
+
+## Modes — default (batch, autonomous) vs `--iterative` (one card per pass)
+
+**Default:** the loop unit is a **batch**, the user gives ONE "go", and the run proceeds unattended
+(Steps 2–4 as written).
+
+**`--iterative`:** the loop unit is a **single CARD**, and the run **stops after every card** for the
+user to review before the next one starts. Use it when the user says "one at a time", "let me review
+each card", or on a **preview set** where cards arrive a few at a time and each deserves a dedicated
+look. It is a mode switch, not an extra step — where the two disagree, the rules below win:
+
+| | default | `--iterative` |
+|---|---|---|
+| loop unit | batch | **one card** (a leader = one card, BOTH sides, in one pass) |
+| approval | one "go" for the whole range | **stop and hand off after every card** |
+| Hard-tier / ambiguous card | defer to backlog, keep running | **raise it at that card's own review** — its turn already stops, so there is nothing to defer to |
+| retro | two checkpoints | **at the end of the run**, or whenever the user calls it |
+| regression | green-gate per batch | green-gate **per card** |
+
+### The `--iterative` loop
+
+1. **Pick the next card** and say which it is, plus how many remain, BEFORE starting work.
+2. **Implement exactly that one card** via `swusim-implement-card` — full 98% bar, full coverage matrix,
+   section floor, `COVERAGE:` ledger. Same quality bar as default; only the batching changes.
+3. **Green-gate it**, then update the plan doc + set tracker for that card alone.
+4. **STOP and hand off for review** (format below). Do not start the next card, and do not
+   "just get a head start" on it — the review may change how the next one is built.
+5. On the user's go-ahead, repeat. A bare "next"/"go"/"continue" means *proceed to the next card*.
+
+### The per-card review hand-off — what to actually put in front of the user
+
+Keep it short enough to read in one pass. Every card review states:
+
+- **The card**: ID, title, and its printed text (both sides for a leader) — so the user can judge the
+  implementation against the text without looking it up.
+- **What you built**: the handler(s) and any shared helper touched, in a sentence or two.
+- **The judgement calls**: every place the text was ambiguous and you picked a reading — this is the
+  part the user is actually reviewing. Say what you chose and why. If there were none, say so.
+- **Coverage**: sections added and which matrix cells they cover; call out the NEGATIVE and the
+  request-boundary cell explicitly, since those are the two most-skipped.
+- **Suite**: before → after counts, `0 failed`.
+- **Anything you could not settle**: a ruling question, a design fork, a deferred sub-clause.
+
+### Resumability — the iterative run WILL span sessions
+
+A one-card-per-pass run over a preview set takes many turns and may cross a session boundary, so the
+"where am I" must live on DISK, not in context. After each card, the plan doc + the set tracker's
+`### Already Done` line ARE the resume point — keep both current *before* handing off, never after the
+user replies. On a cold start, recompute the remaining list rather than trusting a batch checkbox.
+
+⚠ **On a PREVIEW set the batch checkboxes are NOT the card list** — a preview set grows after the plan
+doc is written, so batches only ever covered what existed then (HMW's plan read "ALL 21 cards are
+implemented" with 30 cards mocked and HMW_003 unimplemented). **Derive the remaining cards from the
+diff:** the tracker's `### Already Done` line vs the set's CardIDs in `AppCore/SWU/CardMocks.php`
+(`grep -oE "'HMW_[0-9T]+'"`), then confirm anything that surfaces with the quoted-CardID-under-`Custom/`
+check. Order the diff yourself (simplest first unless the user says otherwise) and state the order at
+the start of the run.
 
 ## Step 1 — Orient
 
@@ -14,6 +71,12 @@ Thin orchestrator: drive a multi-batch implementation **plan doc** to completion
 3. Capture a **baseline regression**: `curl http://localhost:3400/TCGEngine/zzRegressionSWUSim.php`. Record passing/failing — every later "+N" is measured against this, and a pre-existing red test is not yours.
 
 ## Step 2 — State the autonomy contract, then wait for one "go"
+
+> **`--iterative` runs skip most of this step.** There is no unattended range to contract for — every
+> card stops for review by construction. State instead: the ORDERED card list you derived, that you'll
+> do them one at a time holding each to the same 98% bar and coverage matrix, that you'll stop after
+> each for review, and that you never commit. Then start the first card. The per-card quality bullets
+> below still apply verbatim; only the "without pausing" and two-checkpoint-retro parts do not.
 
 Lay the contract out so the user can confirm or amend it ONCE, then run the whole range unattended. **Do not start implementing until the user says "go".**
 
@@ -34,6 +97,8 @@ If the user amends a rule, honor the amendment for the whole run.
 
 ## Step 3 — Per-batch loop
 
+> **`--iterative`:** substitute *card* for *batch* throughout this step and run the `--iterative` loop above instead — implement one card, green-gate it, update BOTH docs, then STOP.
+
 For each in-scope batch, in plan order:
 
 1. **Invoke `swusim-implement-card`** with the batch's card IDs. It owns the real work: triage (vanilla / keyword-only = verify-only no-ops), look up text, write all DSL tests first (RED), implement, drive the regression to green. Honor its tier gate — no hard stop for Simple/Medium; for a **Hard-tier** card, **defer it to the backlog (Step 5) and keep going** rather than halting the run.
@@ -44,6 +109,8 @@ For each in-scope batch, in plan order:
 4. **Maintain a todo list** (one item per batch + the two retro checkpoints); mark items done as you go.
 
 ## Step 4 — Retro (two checkpoints only)
+
+> **`--iterative`:** the two-checkpoint rule does not apply — there is no autonomous->pair handoff to sit on. Retro at the END of the run (or whenever the user calls for one), and fold the lessons in the same way. Do NOT retro after every card; a per-card retro is noise, and the review hand-off already surfaces what the user needs per card.
 
 Run the retro at **exactly two** points — **not** after every phase:
 
@@ -76,6 +143,8 @@ Everything else is yours to handle: a wrong EXPECT, a fixture's aspect cost, a m
 
 ## Step 6 — Finish
 
+> **`--iterative`:** the run finishes when the derived card list is empty — not when the plan doc's batches are all ticked (on a preview set those are not the same thing). Re-run the `Already Done` vs `CardMocks.php` diff before claiming the set is done, and report it.
+
 When the scope is complete, report **start → end regression counts**, the phases/batches done, the retros folded, and **the remaining deferral backlog** (the parked Hard/ambiguous cards + why) so the user knows exactly what's left and why. The set is **not** card-complete while the backlog is non-empty — say so plainly. Remind the user the tree is **uncommitted** (they commit manually). If they're wrapping up the session, invoke **`swusim-session-close`** to update project memory.
 
 ## Common mistakes
@@ -88,6 +157,9 @@ When the scope is complete, report **start → end regression counts**, the phas
 | Updating the plan but not the set tracker (or vice-versa) | Both: plan checkbox **and** `SWUSim/docs/{set}-implement.md`. |
 | Spawning subagents to "go faster" | Run batches inline — the loop is sequential by design (each batch's green regression gates the next). |
 | Typing a "play a unit from your HAND" offer as a mandatory `MZCHOOSE` | **Always `SWUQueueMayChooseTarget`, even with no printed "you may"** (user ruling 2026-08-15): the hand is a HIDDEN zone, so a player can never be forced to reveal they held a playable card. Applies to events, leader/unit Actions, Epic Actions and When Playeds alike. Does NOT extend to discard/resource plays (public zones — type those from the printed text). Declining still costs the activation price, and the conversion adds a prompt, so re-count answers in every existing section of that card. |
+| Running ahead in `--iterative` mode — implementing the next card before the user has reviewed the last | The whole point of the mode is that a review can change how the NEXT card is built. Stop means stop: update both docs, hand off, wait. Batching "just two, they're both simple" defeats it. |
+| Dropping the quality bar because `--iterative` feels lighter | One card per pass is about REVIEW GRANULARITY, not scope reduction. Same 98% bar, same coverage matrix, same section floor, same `COVERAGE:` ledger, same green gate — per card. |
+| Losing your place in an `--iterative` run across a session boundary | The resume point is the plan doc + the tracker's `### Already Done` line, updated BEFORE each hand-off. On a cold start recompute the remaining list from the `CardMocks.php` diff — never trust a batch checkbox on a preview set. |
 | Committing at the end | Never. The user commits manually. |
 | Marking a batch done while regression is red | Green-gate every batch; `0 failed` or it's not done. |
 | Halting the whole run on a Hard / ambiguous card | **Defer it to the backlog and keep going** (Step 5). Only halt for a blocker the rest of the scope depends on, or being stuck. Surface the backlog at the checkpoints. |

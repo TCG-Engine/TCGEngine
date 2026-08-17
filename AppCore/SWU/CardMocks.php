@@ -20,7 +20,7 @@
 //   imageUrl, imageUrlBack,
 //   leaderUnitTitle, leaderUnitSubtitle, leaderUnitTrait[], leaderUnitArena, leaderUnitType
 return array (
-  'HMW_003' => 
+  'HMW_003' =>
   array (
     'title' => 'Doctor Hemlock',
     'subtitle' => 'Emotion Has No Place Here',
@@ -31,12 +31,12 @@ return array (
     'cost' => 6,
     'power' => 3,
     'hp' => 6,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Official',
@@ -49,13 +49,13 @@ return array (
     'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/003-back.png',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'HMW_004' => 
+  'HMW_004' =>
   array (
     'title' => 'Grand Moff Tarkin',
     'subtitle' => 'Tyrant of the Outer Rim',
@@ -66,12 +66,12 @@ return array (
     'cost' => 9,
     'power' => 2,
     'hp' => 12,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Official',
@@ -85,7 +85,7 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/004-back.png',
     'leaderUnitTitle' => 'The Death Star',
     'leaderUnitSubtitle' => 'Icon of Tyranny',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
       0 => 'Imperial',
       1 => 'Vehicle',
@@ -94,7 +94,7 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'leaderUnitArena' => 'Space',
     'leaderUnitType' => 'Unit',
   ),
-  'HMW_007' => 
+  'HMW_007' =>
   array (
     'title' => 'Darth Vader',
     'subtitle' => 'Might of the Empire',
@@ -105,12 +105,12 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'cost' => 6,
     'power' => 5,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Imperial',
@@ -126,13 +126,13 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/007-back.png',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'HMW_009' => 
+  'HMW_009' =>
   array (
     'title' => 'Chewbacca',
     'subtitle' => 'Relentless Rebel',
@@ -143,12 +143,12 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'cost' => 5,
     'power' => 3,
     'hp' => 6,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Rebel',
       1 => 'Wookiee',
@@ -161,13 +161,49 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/009-back.png',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'HMW_014' => 
+  'HMW_010' =>
+  array (
+    'title' => 'Tarfful',
+    'subtitle' => 'Fighting from the Shadowlands',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 3,
+    'hp' => 7,
+    'aspect' =>
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' =>
+    array (
+      0 => 'Rebel',
+      1 => 'Wookiee',
+    ),
+    'text' => 'Action [2 resources, Exhaust, discard a card from your hand]: Create a Beast token.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)
+On Attack: You may pay [1 resource]. If you do, create a Beast token.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/010.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/010-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' =>
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
+  'HMW_014' =>
   array (
     'title' => 'Wicket',
     'subtitle' => 'Few Greater Battles to Fight',
@@ -178,12 +214,12 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'cost' => 4,
     'power' => 2,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Ewok',
     ),
@@ -195,13 +231,13 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/014-back.png',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'HMW_019' => 
+  'HMW_019' =>
   array (
     'title' => 'Dune Sea',
     'subtitle' => '',
@@ -210,11 +246,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Tatooine',
     ),
@@ -225,7 +261,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/019.png',
     'imageUrlBack' => '',
   ),
-  'HMW_020' => 
+  'HMW_020' =>
   array (
     'title' => 'Great Grass Plains',
     'subtitle' => '',
@@ -234,11 +270,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Naboo',
     ),
@@ -249,7 +285,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/020.png',
     'imageUrlBack' => '',
   ),
-  'HMW_021' => 
+  'HMW_021' =>
   array (
     'title' => 'Kashirho',
     'subtitle' => '',
@@ -258,11 +294,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Kashyyyk',
     ),
@@ -273,7 +309,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/021.png',
     'imageUrlBack' => '',
   ),
-  'HMW_023' => 
+  'HMW_023' =>
   array (
     'title' => 'Bright Tree Village',
     'subtitle' => '',
@@ -282,11 +318,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Endor',
     ),
@@ -297,7 +333,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/023.png',
     'imageUrlBack' => '',
   ),
-  'HMW_024' => 
+  'HMW_024' =>
   array (
     'title' => 'Origin Tree',
     'subtitle' => '',
@@ -306,11 +342,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Kashyyyk',
     ),
@@ -321,7 +357,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/024.png',
     'imageUrlBack' => '',
   ),
-  'HMW_026' => 
+  'HMW_026' =>
   array (
     'title' => 'Tusken Camp',
     'subtitle' => '',
@@ -330,11 +366,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Tatooine',
     ),
@@ -345,7 +381,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/026.png',
     'imageUrlBack' => '',
   ),
-  'HMW_027' => 
+  'HMW_027' =>
   array (
     'title' => 'Bioweapons Lab',
     'subtitle' => '',
@@ -354,11 +390,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Naboo',
     ),
@@ -369,7 +405,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/027.png',
     'imageUrlBack' => '',
   ),
-  'HMW_028' => 
+  'HMW_028' =>
   array (
     'title' => 'Jundland Wastes',
     'subtitle' => '',
@@ -378,11 +414,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Tatooine',
     ),
@@ -393,7 +429,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/028.png',
     'imageUrlBack' => '',
   ),
-  'HMW_029' => 
+  'HMW_029' =>
   array (
     'title' => 'Dendroid Wilds',
     'subtitle' => '',
@@ -402,11 +438,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Endor',
     ),
@@ -417,7 +453,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/029.png',
     'imageUrlBack' => '',
   ),
-  'HMW_030' => 
+  'HMW_030' =>
   array (
     'title' => 'Shadowlands',
     'subtitle' => '',
@@ -426,11 +462,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Kashyyyk',
     ),
@@ -441,7 +477,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/030.png',
     'imageUrlBack' => '',
   ),
-  'HMW_031' => 
+  'HMW_031' =>
   array (
     'title' => 'Kyyyalstaad Swamp',
     'subtitle' => '',
@@ -450,11 +486,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Kashyyyk',
     ),
@@ -465,7 +501,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/031.png',
     'imageUrlBack' => '',
   ),
-  'HMW_033' => 
+  'HMW_033' =>
   array (
     'title' => 'Otoh Gunga',
     'subtitle' => '',
@@ -474,11 +510,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Naboo',
     ),
@@ -489,7 +525,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/033.png',
     'imageUrlBack' => '',
   ),
-  'HMW_034' => 
+  'HMW_034' =>
   array (
     'title' => 'Research Station 9',
     'subtitle' => '',
@@ -498,11 +534,11 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'rarity' => 'Common',
     'set' => 'HMW',
     'hp' => 30,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Endor',
     ),
@@ -513,7 +549,7 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/034.png',
     'imageUrlBack' => '',
   ),
-  'HMW_043' => 
+  'HMW_043' =>
   array (
     'title' => 'Darth Vader',
     'subtitle' => 'Any Methods Necessary',
@@ -524,13 +560,13 @@ Other friendly units that cost 3 or more gain Raid 1.',
     'cost' => 9,
     'power' => 9,
     'hp' => 8,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
       1 => 'Command',
       2 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Imperial',
@@ -544,7 +580,7 @@ When Played: Search the top 8 cards of your deck for up to 2 units that each cos
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/043.png',
     'imageUrlBack' => '',
   ),
-  'HMW_045' => 
+  'HMW_045' =>
   array (
     'title' => 'Logray',
     'subtitle' => 'Bright Tree Shaman',
@@ -555,12 +591,12 @@ When Played: Search the top 8 cards of your deck for up to 2 units that each cos
     'cost' => 2,
     'power' => 1,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Aggression',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Ewok',
     ),
@@ -571,7 +607,7 @@ When Played: Search the top 8 cards of your deck for up to 2 units that each cos
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/045.png',
     'imageUrlBack' => '',
   ),
-  'HMW_048' => 
+  'HMW_048' =>
   array (
     'title' => 'Vernestra Rwoh',
     'subtitle' => 'We Should Handle This Ourselves',
@@ -582,12 +618,12 @@ When Played: Search the top 8 cards of your deck for up to 2 units that each cos
     'cost' => 6,
     'power' => 5,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Cunning',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Jedi',
@@ -600,7 +636,7 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/048.png',
     'imageUrlBack' => '',
   ),
-  'HMW_059' => 
+  'HMW_059' =>
   array (
     'title' => 'Clone X Assassin',
     'subtitle' => '',
@@ -611,12 +647,12 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'cost' => 2,
     'power' => 1,
     'hp' => 3,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Clone',
@@ -629,7 +665,7 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/059.png',
     'imageUrlBack' => '',
   ),
-  'HMW_060' => 
+  'HMW_060' =>
   array (
     'title' => 'Vice Admiral Rampart',
     'subtitle' => 'A New Era of Safety',
@@ -640,12 +676,12 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'cost' => 2,
     'power' => 1,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Official',
@@ -657,7 +693,7 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/060.png',
     'imageUrlBack' => '',
   ),
-  'HMW_061' => 
+  'HMW_061' =>
   array (
     'title' => 'Director Krennic',
     'subtitle' => 'The Work Has Stalled',
@@ -668,12 +704,12 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'cost' => 3,
     'power' => 3,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Official',
@@ -685,7 +721,7 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/061.png',
     'imageUrlBack' => '',
   ),
-  'HMW_062' => 
+  'HMW_062' =>
   array (
     'title' => 'Nuvo Vindi',
     'subtitle' => 'Blue Shadow Perfected',
@@ -696,12 +732,12 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'cost' => 3,
     'power' => 1,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Separatist',
     ),
@@ -713,7 +749,7 @@ When an enemy unit with a Weakness token on it is defeated: You may give a Weakn
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/062.png',
     'imageUrlBack' => '',
   ),
-  'HMW_064' => 
+  'HMW_064' =>
   array (
     'title' => 'Scorch',
     'subtitle' => 'Imperial Commando',
@@ -724,12 +760,12 @@ When an enemy unit with a Weakness token on it is defeated: You may give a Weakn
     'cost' => 3,
     'power' => 3,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Clone',
@@ -742,7 +778,7 @@ When an enemy unit with a Weakness token on it is defeated: You may give a Weakn
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/064.png',
     'imageUrlBack' => '',
   ),
-  'HMW_070' => 
+  'HMW_070' =>
   array (
     'title' => 'Dark Sanctum',
     'subtitle' => '',
@@ -751,12 +787,12 @@ When an enemy unit with a Weakness token on it is defeated: You may give a Weakn
     'rarity' => 'Uncommon',
     'set' => 'HMW',
     'cost' => 3,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Fortification',
     ),
@@ -768,7 +804,7 @@ Attached base gains: "When the regroup phase starts: Draw a card and deal 2 dama
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/070.png',
     'imageUrlBack' => '',
   ),
-  'HMW_077' => 
+  'HMW_077' =>
   array (
     'title' => 'Boss Nass',
     'subtitle' => 'Otoh Gunga Boss',
@@ -779,12 +815,12 @@ Attached base gains: "When the regroup phase starts: Draw a card and deal 2 dama
     'cost' => 4,
     'power' => 4,
     'hp' => 6,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Gungan',
       1 => 'Official',
@@ -796,7 +832,7 @@ Attached base gains: "When the regroup phase starts: Draw a card and deal 2 dama
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/077.png',
     'imageUrlBack' => '',
   ),
-  'HMW_081' => 
+  'HMW_081' =>
   array (
     'title' => 'Alliance Shield Generator',
     'subtitle' => '',
@@ -805,11 +841,11 @@ Attached base gains: "When the regroup phase starts: Draw a card and deal 2 dama
     'rarity' => 'Uncommon',
     'set' => 'HMW',
     'cost' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Fortification',
     ),
@@ -821,7 +857,7 @@ If attached base would be dealt 5 or more damage, prevent that damage. If you do
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/081.png',
     'imageUrlBack' => '',
   ),
-  'HMW_084' => 
+  'HMW_084' =>
   array (
     'title' => 'Gunga City Guard',
     'subtitle' => '',
@@ -832,11 +868,11 @@ If attached base would be dealt 5 or more damage, prevent that damage. If you do
     'cost' => 2,
     'power' => 2,
     'hp' => 1,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Gungan',
     ),
@@ -848,7 +884,7 @@ While you control another Gungan unit or Naboo base, this unit gains Shielded.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/084.png',
     'imageUrlBack' => '',
   ),
-  'HMW_085' => 
+  'HMW_085' =>
   array (
     'title' => 'Remote Scout',
     'subtitle' => '',
@@ -859,11 +895,11 @@ While you control another Gungan unit or Naboo base, this unit gains Shielded.',
     'cost' => 2,
     'power' => 1,
     'hp' => 3,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Trooper',
@@ -875,18 +911,18 @@ While you control another Gungan unit or Naboo base, this unit gains Shielded.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/085.png',
     'imageUrlBack' => '',
   ),
-  'HMW_095' => 
+  'HMW_095' =>
   array (
     'title' => 'Carbonite Chamber',
     'subtitle' => '',
     'type' => 'Upgrade',
     'arena' => '',
     'cost' => 1,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Fortification',
     ),
@@ -901,13 +937,13 @@ Action [defeat this upgrade]: Choose a non-Vehicle unit. It doesn\'t ready durin
     'imageUrlBack' => '',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'HMW_107' => 
+  'HMW_107' =>
   array (
     'title' => 'Stormtrooper Patrol',
     'subtitle' => '',
@@ -918,12 +954,12 @@ Action [defeat this upgrade]: Choose a non-Vehicle unit. It doesn\'t ready durin
     'cost' => 3,
     'power' => 2,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Trooper',
@@ -936,7 +972,7 @@ While you control another unit that costs 3 or more, this unit gets +2/+0.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/107.png',
     'imageUrlBack' => '',
   ),
-  'HMW_110' => 
+  'HMW_110' =>
   array (
     'title' => 'Emperor Palpatine',
     'subtitle' => 'Consolidating Power',
@@ -947,12 +983,12 @@ While you control another unit that costs 3 or more, this unit gets +2/+0.',
     'cost' => 5,
     'power' => 3,
     'hp' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Imperial',
@@ -966,7 +1002,7 @@ While you control another unit that costs 3 or more, this unit gets +2/+0.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/110.png',
     'imageUrlBack' => '',
   ),
-  'HMW_113' => 
+  'HMW_113' =>
   array (
     'title' => 'Sinister War Memorial',
     'subtitle' => '',
@@ -975,12 +1011,12 @@ While you control another unit that costs 3 or more, this unit gets +2/+0.',
     'rarity' => 'Special',
     'set' => 'HMW',
     'cost' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Fortification',
     ),
@@ -992,7 +1028,7 @@ Attached base gains "When a friendly unit is defeated: Heal 1 damage from this b
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/113.png',
     'imageUrlBack' => '',
   ),
-  'HMW_114' => 
+  'HMW_114' =>
   array (
     'title' => 'Breach',
     'subtitle' => '',
@@ -1001,12 +1037,12 @@ Attached base gains "When a friendly unit is defeated: Heal 1 damage from this b
     'rarity' => 'Rare',
     'set' => 'HMW',
     'cost' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Tactic',
     ),
@@ -1017,7 +1053,7 @@ Attached base gains "When a friendly unit is defeated: Heal 1 damage from this b
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/114.png',
     'imageUrlBack' => '',
   ),
-  'HMW_115' => 
+  'HMW_115' =>
   array (
     'title' => 'Leia Organa',
     'subtitle' => 'These Are My Friends',
@@ -1028,12 +1064,12 @@ Attached base gains "When a friendly unit is defeated: Heal 1 damage from this b
     'cost' => 1,
     'power' => 2,
     'hp' => 3,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Rebel',
       1 => 'Official',
@@ -1045,7 +1081,7 @@ Attached base gains "When a friendly unit is defeated: Heal 1 damage from this b
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/115.png',
     'imageUrlBack' => '',
   ),
-  'HMW_116' => 
+  'HMW_116' =>
   array (
     'title' => 'Ewok Brigade',
     'subtitle' => '',
@@ -1056,12 +1092,12 @@ Attached base gains "When a friendly unit is defeated: Heal 1 damage from this b
     'cost' => 2,
     'power' => 2,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Ewok',
     ),
@@ -1072,7 +1108,34 @@ Attached base gains "When a friendly unit is defeated: Heal 1 damage from this b
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/116.png',
     'imageUrlBack' => '',
   ),
-  'HMW_121' => 
+  'HMW_118' =>
+  array (
+    'title' => 'Ryyk Blademaster',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 5,
+    'hp' => 4,
+    'aspect' =>
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' =>
+    array (
+      0 => 'Wookiee',
+    ),
+    'text' => 'While you control 6 or more resources, this unit gains Ambush and Overwhelm.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/118.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_121' =>
   array (
     'title' => 'Hijacked AT-ST',
     'subtitle' => '',
@@ -1083,12 +1146,12 @@ Attached base gains "When a friendly unit is defeated: Heal 1 damage from this b
     'cost' => 5,
     'power' => 7,
     'hp' => 7,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Rebel',
       1 => 'Vehicle',
@@ -1102,7 +1165,35 @@ When Played: This unit doesn\'t ready during the next regroup phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/121.png',
     'imageUrlBack' => '',
   ),
-  'HMW_124' => 
+  'HMW_123' =>
+  array (
+    'title' => 'King Grakchawwaa',
+    'subtitle' => 'King of Kashyyyk',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 6,
+    'hp' => 6,
+    'aspect' =>
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' =>
+    array (
+      0 => 'Wookiee',
+      1 => 'Official',
+    ),
+    'text' => 'When Played: For each other friendly Wookiee unit, resource the top card of your deck. Ready each card resourced this way.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/123.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_124' =>
   array (
     'title' => 'Luminara Unduli',
     'subtitle' => 'Besieged General',
@@ -1113,12 +1204,12 @@ When Played: This unit doesn\'t ready during the next regroup phase.',
     'cost' => 7,
     'power' => 7,
     'hp' => 7,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Jedi',
@@ -1131,7 +1222,7 @@ When Played: This unit doesn\'t ready during the next regroup phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/124.png',
     'imageUrlBack' => '',
   ),
-  'HMW_127' => 
+  'HMW_127' =>
   array (
     'title' => 'Chewbacca\'s Bowcaster',
     'subtitle' => 'Handcrafted Tradition',
@@ -1140,12 +1231,12 @@ When Played: This unit doesn\'t ready during the next regroup phase.',
     'cost' => 3,
     'upgradePower' => 3,
     'upgradeHp' => 1,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Item',
       1 => 'Weapon',
@@ -1161,13 +1252,13 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'imageUrlBack' => '',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'HMW_136' => 
+  'HMW_136' =>
   array (
     'title' => 'Lifetree Caravan',
     'subtitle' => '',
@@ -1178,11 +1269,11 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'cost' => 3,
     'power' => 2,
     'hp' => 1,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Ewok',
     ),
@@ -1193,7 +1284,7 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/136.png',
     'imageUrlBack' => '',
   ),
-  'HMW_142' => 
+  'HMW_142' =>
   array (
     'title' => 'Wookie Rangers',
     'subtitle' => '',
@@ -1202,11 +1293,11 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'cost' => 5,
     'power' => 5,
     'hp' => 6,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Wookiee',
     ),
@@ -1220,13 +1311,13 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'imageUrlBack' => '',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'HMW_147' => 
+  'HMW_147' =>
   array (
     'title' => 'Beast Lair',
     'subtitle' => '',
@@ -1235,11 +1326,11 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'rarity' => 'Rare',
     'set' => 'HMW',
     'cost' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Fortification',
     ),
@@ -1251,7 +1342,32 @@ Attached base gains: "When the action phase starts: You discard a card from your
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/147.png',
     'imageUrlBack' => '',
   ),
-  'HMW_158' => 
+  'HMW_151' =>
+  array (
+    'title' => 'Overgrowth',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 5,
+    'aspect' =>
+    array (
+      0 => 'Command',
+    ),
+    'trait' =>
+    array (
+      0 => 'Disaster',
+    ),
+    'text' => 'If you control a Kashyyyk base, a friendly unit deals damage equal to its power to an enemy unit.
+Resource this card.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/151.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_158' =>
   array (
     'title' => 'Ezra Bridger',
     'subtitle' => 'What Are You Afraid Of?',
@@ -1262,12 +1378,12 @@ Attached base gains: "When the action phase starts: You discard a card from your
     'cost' => 4,
     'power' => 5,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Rebel',
@@ -1280,7 +1396,7 @@ Attached base gains: "When the action phase starts: You discard a card from your
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/158.png',
     'imageUrlBack' => '',
   ),
-  'HMW_162' => 
+  'HMW_162' =>
   array (
     'title' => 'Teebo',
     'subtitle' => 'Striped Hunter',
@@ -1291,12 +1407,12 @@ Attached base gains: "When the action phase starts: You discard a card from your
     'cost' => 1,
     'power' => 3,
     'hp' => 1,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Ewok',
     ),
@@ -1308,7 +1424,7 @@ Other friendly Ewok units gain Hidden.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/162.png',
     'imageUrlBack' => '',
   ),
-  'HMW_164' => 
+  'HMW_164' =>
   array (
     'title' => 'Chief Chirpa',
     'subtitle' => 'Defiant Elder',
@@ -1319,12 +1435,12 @@ Other friendly Ewok units gain Hidden.',
     'cost' => 2,
     'power' => 1,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Ewok',
     ),
@@ -1335,7 +1451,7 @@ Other friendly Ewok units gain Hidden.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/164.png',
     'imageUrlBack' => '',
   ),
-  'HMW_171' => 
+  'HMW_171' =>
   array (
     'title' => 'Trap Field',
     'subtitle' => '',
@@ -1344,12 +1460,12 @@ Other friendly Ewok units gain Hidden.',
     'rarity' => 'Special',
     'set' => 'HMW',
     'cost' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Fortification',
     ),
@@ -1361,7 +1477,7 @@ When a non-leader ground unit enters play (including token units): You may defea
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/171.png',
     'imageUrlBack' => '',
   ),
-  'HMW_176' => 
+  'HMW_176' =>
   array (
     'title' => 'Village Troublemaker',
     'subtitle' => '',
@@ -1372,22 +1488,22 @@ When a non-leader ground unit enters play (including token units): You may defea
     'cost' => 1,
     'power' => 2,
     'hp' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Ewok',
     ),
-    'text' => 'While you control and Endor base, this unit gains Hidden and Saboteur.',
+    'text' => 'While you control an Endor base, this unit gains Hidden and Saboteur.',
     'epicAction' => '',
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/176.png',
     'imageUrlBack' => '',
   ),
-  'HMW_177' => 
+  'HMW_177' =>
   array (
     'title' => 'Adamant Ewoks',
     'subtitle' => '',
@@ -1398,11 +1514,11 @@ When a non-leader ground unit enters play (including token units): You may defea
     'cost' => 2,
     'power' => 3,
     'hp' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Ewok',
     ),
@@ -1413,7 +1529,7 @@ When a non-leader ground unit enters play (including token units): You may defea
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/177.png',
     'imageUrlBack' => '',
   ),
-  'HMW_188' => 
+  'HMW_188' =>
   array (
     'title' => 'Giant Gorax',
     'subtitle' => '',
@@ -1424,11 +1540,11 @@ When a non-leader ground unit enters play (including token units): You may defea
     'cost' => 7,
     'power' => 7,
     'hp' => 7,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Creature',
     ),
@@ -1442,7 +1558,7 @@ They discard a card from their hand and defeat a resource they control.</bullet>
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/188.png',
     'imageUrlBack' => '',
   ),
-  'HMW_193' => 
+  'HMW_193' =>
   array (
     'title' => 'Nightfall',
     'subtitle' => '',
@@ -1451,11 +1567,11 @@ They discard a card from their hand and defeat a resource they control.</bullet>
     'rarity' => 'Common',
     'set' => 'HMW',
     'cost' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Disaster',
     ),
@@ -1467,7 +1583,7 @@ If you control an Endor base , you may attack with a unit. It gets +2/+0 for thi
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/193.png',
     'imageUrlBack' => '',
   ),
-  'HMW_200' => 
+  'HMW_200' =>
   array (
     'title' => 'Rish Loo',
     'subtitle' => 'Traitorous Minister',
@@ -1478,12 +1594,12 @@ If you control an Endor base , you may attack with a unit. It gets +2/+0 for thi
     'cost' => 4,
     'power' => 3,
     'hp' => 2,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Separatist',
       1 => 'Gungan',
@@ -1497,7 +1613,7 @@ When Played: Take control of an enemy non-leader unit with a Weakness token on i
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/200.png',
     'imageUrlBack' => '',
   ),
-  'HMW_202' => 
+  'HMW_202' =>
   array (
     'title' => 'Inferno Squad',
     'subtitle' => 'We Can Grieve Later',
@@ -1508,12 +1624,12 @@ When Played: Take control of an enemy non-leader unit with a Weakness token on i
     'cost' => 5,
     'power' => 3,
     'hp' => 6,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Trooper',
@@ -1525,19 +1641,19 @@ When Played: Take control of an enemy non-leader unit with a Weakness token on i
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/202.png',
     'imageUrlBack' => '',
   ),
-  'HMW_206' => 
+  'HMW_206' =>
   array (
     'title' => 'The Tarkin Doctrine',
     'subtitle' => 'Protect and Punish',
     'type' => 'Upgrade',
     'arena' => '',
     'cost' => 1,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Law',
     ),
@@ -1553,13 +1669,13 @@ When Played: If you control Grand Moff Tarkin, give an enemy unit -3/-0 for this
     'imageUrlBack' => '',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'HMW_234' => 
+  'HMW_234' =>
   array (
     'title' => 'Ritual Dragon',
     'subtitle' => '',
@@ -1570,11 +1686,11 @@ When Played: If you control Grand Moff Tarkin, give an enemy unit -3/-0 for this
     'cost' => 8,
     'power' => 6,
     'hp' => 9,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Creature',
     ),
@@ -1586,7 +1702,7 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/234.png',
     'imageUrlBack' => '',
   ),
-  'HMW_255' => 
+  'HMW_255' =>
   array (
     'title' => 'C-3PO',
     'subtitle' => 'Captivaling Storyteller',
@@ -1597,11 +1713,11 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'cost' => 2,
     'power' => 2,
     'hp' => 3,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Rebel',
       1 => 'Droid',
@@ -1613,7 +1729,7 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/255.png',
     'imageUrlBack' => '',
   ),
-  'HMW_257' => 
+  'HMW_257' =>
   array (
     'title' => 'Ewok Archers',
     'subtitle' => '',
@@ -1624,11 +1740,11 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'cost' => 3,
     'power' => 2,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Ewok',
     ),
@@ -1639,7 +1755,7 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/257.png',
     'imageUrlBack' => '',
   ),
-  'HMW_T02' => 
+  'HMW_T02' =>
   array (
     'title' => 'Weakness',
     'subtitle' => '',
@@ -1648,10 +1764,10 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'cost' => 0,
     'upgradePower' => -1,
     'upgradeHp' => -1,
-    'aspect' => 
+    'aspect' =>
     array (
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Condition',
     ),
@@ -1664,7 +1780,7 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrl' => '',
     'imageUrlBack' => '',
   ),
-  'HMW_T03' => 
+  'HMW_T03' =>
   array (
     'title' => 'Beast',
     'subtitle' => '',
@@ -1673,10 +1789,10 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'cost' => 0,
     'power' => 3,
     'hp' => 3,
-    'aspect' => 
+    'aspect' =>
     array (
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Creature',
     ),
@@ -1689,7 +1805,7 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrl' => '',
     'imageUrlBack' => '',
   ),
-  'IC27_001' => 
+  'IC27_001' =>
   array (
     'title' => 'Darth Vader',
     'subtitle' => 'No One to Stop Us',
@@ -1700,12 +1816,12 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'cost' => 7,
     'power' => 5,
     'hp' => 7,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Imperial',
@@ -1719,13 +1835,13 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/001-back.png',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'IC27_008' => 
+  'IC27_008' =>
   array (
     'title' => 'Princess Leia',
     'subtitle' => 'On a Diplomatic Mission',
@@ -1736,12 +1852,12 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'cost' => 6,
     'power' => 4,
     'hp' => 7,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Rebel',
       1 => 'Official',
@@ -1754,13 +1870,13 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/008-back.png',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
-    'leaderUnitTrait' => 
+    'leaderUnitTrait' =>
     array (
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
-  'IC27_022' => 
+  'IC27_022' =>
   array (
     'title' => 'Moff Gideon',
     'subtitle' => 'Cold Calling',
@@ -1771,12 +1887,12 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'cost' => 5,
     'power' => 3,
     'hp' => 6,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Official',
@@ -1788,7 +1904,7 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/022.png',
     'imageUrlBack' => '',
   ),
-  'IC27_024' => 
+  'IC27_024' =>
   array (
     'title' => 'Grand Admiral Thrawn',
     'subtitle' => 'Listen to Me Carefully',
@@ -1799,12 +1915,12 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'cost' => 6,
     'power' => 4,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Official',
@@ -1816,7 +1932,7 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/024.png',
     'imageUrlBack' => '',
   ),
-  'IC27_026' => 
+  'IC27_026' =>
   array (
     'title' => 'Darth Sidious',
     'subtitle' => 'Move Against the Jedi',
@@ -1827,12 +1943,12 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'cost' => 7,
     'power' => 5,
     'hp' => 8,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Vigilance',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Separatist',
@@ -1846,7 +1962,7 @@ When you heal damage from your base: Deal that much damage to an enemy unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/026.png',
     'imageUrlBack' => '',
   ),
-  'IC27_067' => 
+  'IC27_067' =>
   array (
     'title' => 'Darth Vader',
     'subtitle' => 'Useless to Resist',
@@ -1857,12 +1973,12 @@ When you heal damage from your base: Deal that much damage to an enemy unit.',
     'cost' => 8,
     'power' => 8,
     'hp' => 8,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Imperial',
@@ -1876,7 +1992,7 @@ Each other friendly unit gains Ambush.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/067.png',
     'imageUrlBack' => '',
   ),
-  'IC27_071' => 
+  'IC27_071' =>
   array (
     'title' => 'Avar Kriss',
     'subtitle' => 'For Light and Life',
@@ -1887,12 +2003,12 @@ Each other friendly unit gains Ambush.',
     'cost' => 2,
     'power' => 0,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Jedi',
@@ -1906,7 +2022,7 @@ This unit gains Raid 1 for each other friendly unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/071.png',
     'imageUrlBack' => '',
   ),
-  'IC27_078' => 
+  'IC27_078' =>
   array (
     'title' => 'Anakin Skywalker',
     'subtitle' => 'Destined For Darkness',
@@ -1917,12 +2033,12 @@ This unit gains Raid 1 for each other friendly unit.',
     'cost' => 5,
     'power' => 7,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Force',
       1 => 'Jedi',
@@ -1936,7 +2052,7 @@ While this unit is in your discard pile, ignore the aspect penalties on cards yo
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/078.png',
     'imageUrlBack' => '',
   ),
-  'IC27_079' => 
+  'IC27_079' =>
   array (
     'title' => 'Qui-Gon Jinn',
     'subtitle' => 'Unwavering Belief',
@@ -1947,12 +2063,12 @@ While this unit is in your discard pile, ignore the aspect penalties on cards yo
     'cost' => 5,
     'power' => 5,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Command',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Republic',
       1 => 'Force',
@@ -1966,7 +2082,7 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/079.png',
     'imageUrlBack' => '',
   ),
-  'IC27_104' => 
+  'IC27_104' =>
   array (
     'title' => 'The Inquisitor\'s TIE',
     'subtitle' => 'Would Rather Win',
@@ -1977,12 +2093,12 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'cost' => 4,
     'power' => 4,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Aggression',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Imperial',
       1 => 'Vehicle',
@@ -1996,7 +2112,7 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/104.png',
     'imageUrlBack' => '',
   ),
-  'IC27_146' => 
+  'IC27_146' =>
   array (
     'title' => 'Boba Fett',
     'subtitle' => 'Compensated If He Dies',
@@ -2007,12 +2123,12 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'cost' => 5,
     'power' => 4,
     'hp' => 7,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
       1 => 'Villainy',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Underworld',
       1 => 'Bounty Hunter',
@@ -2024,7 +2140,7 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/146.png',
     'imageUrlBack' => '',
   ),
-  'IC27_158' => 
+  'IC27_158' =>
   array (
     'title' => 'Millennium Falcon',
     'subtitle' => 'YA-HOO!',
@@ -2035,12 +2151,12 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'cost' => 4,
     'power' => 4,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
       1 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Rebel',
       1 => 'Vehicle',
@@ -2053,7 +2169,7 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/158.png',
     'imageUrlBack' => '',
   ),
-  'IC27_167' => 
+  'IC27_167' =>
   array (
     'title' => 'Lando Calrissian',
     'subtitle' => 'Check This Out',
@@ -2064,12 +2180,12 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'cost' => 3,
     'power' => 4,
     'hp' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
       1 => 'Cunning',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Official',
     ),
@@ -2080,7 +2196,7 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/167.png',
     'imageUrlBack' => '',
   ),
-  'IC27_168' => 
+  'IC27_168' =>
   array (
     'title' => 'Cunning Ploy',
     'subtitle' => '',
@@ -2089,12 +2205,12 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'rarity' => 'Uncommon',
     'set' => 'IC27',
     'cost' => 4,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Cunning',
       1 => 'Cunning',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Trick',
     ),
@@ -2107,7 +2223,7 @@ You may attack with a unit. It gets +3/+0 for this attack.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/168.png',
     'imageUrlBack' => '',
   ),
-  'IC27_187' => 
+  'IC27_187' =>
   array (
     'title' => 'Jar Jar Binks',
     'subtitle' => 'Bumbling Representative',
@@ -2118,11 +2234,11 @@ You may attack with a unit. It gets +3/+0 for this attack.',
     'cost' => 2,
     'power' => 1,
     'hp' => 5,
-    'aspect' => 
+    'aspect' =>
     array (
       0 => 'Heroism',
     ),
-    'trait' => 
+    'trait' =>
     array (
       0 => 'Republic',
       1 => 'Gungan',

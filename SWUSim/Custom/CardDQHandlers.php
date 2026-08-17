@@ -1728,6 +1728,58 @@ $customDQHandlers["ASH062_PREVENT_COMBAT"] = function ($player, $parts, $lastDec
     return;        // couldn't pay → no prevent
   AddGlobalEffects(intval($player), 'SWU_ASH062_PREVENT_' . $uid);
 };
+
+// HMW_045 Logray — field observer for "another friendly unit that costs 3 or less is dealt damage".
+// COST is the PRINTED cost (standing rule), read off the damaged unit's CardID. "Another" excludes the
+// damaged unit itself, so a damaged Logray does not trigger his own ability — but a SECOND Logray does,
+// which is why this counts copies rather than returning on the first.
+// The offer is QUEUED, not built inline: this fires mid-combat, before CleanupRemovedCards compacts the
+// arenas, so a pool built now would carry positional mzIDs that go stale before the player answers
+// (the SEC_143 lesson).
+function _SWUHmw045CheckObserve($obj, int $amount): void
+{
+  if ($obj === null || $amount <= 0)
+    return;
+  $ctrl = intval($obj->Controller ?? 0);
+  if ($ctrl <= 0)
+    return;
+  if (intval(CardCost($obj->CardID ?? '')) > 3)
+    return;
+  $selfUid = intval($obj->UniqueID ?? 0);
+  $lograys = 0;
+  foreach (GetUnitsInPlay($ctrl) as $u) {
+    if (SWUObjGone($u) || ($u->CardID ?? '') !== 'HMW_045')
+      continue;
+    if (intval($u->UniqueID ?? 0) === $selfUid)
+      continue;                       // "another" — a damaged Logray is not his own trigger
+    if (LostAbilities($u))
+      continue;                       // the grant is HIS ability
+    $lograys++;
+  }
+  for ($i = 0; $i < $lograys; $i++) {
+    DecisionQueueController::AddDecision($ctrl, "CUSTOM", "HMW045_OFFER", 1);
+  }
+}
+
+// Builds Logray's offer post-cleanup, against the compacted board.
+$customDQHandlers["HMW045_OFFER"] = function ($player, $parts, $lastDecision) {
+  global $playerID;
+  $playerID = intval($player);
+  $targets = [];
+  foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {   // "an enemy unit" — no arena word
+    foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+      $o = GetZoneObject($mz);
+      if ($o !== null && empty($o->removed))
+        $targets[] = $mz;
+    }
+  }
+  if (empty($targets))
+    return;                           // no enemy unit → nothing to offer
+  SWUQueueMayChooseTarget(intval($player), $targets,
+      "Deal_1_damage_to_an_enemy_unit?", "Deal_1_damage_to_an_enemy_unit", "DEAL_UNIT_DAMAGE|1");
+};
+
+
 // SEC_143 The Elite Squad — Grit (auto) + When Played / "When damage is dealt to this unit": you may
 // deal 2 damage to another unique unit. The on-damaged reaction is POST-damage (no combat-pause): it is
 // fired from _SWUCollectOnUnitDamagedReactions (combat) and SWUDealDamageToUnit (ability/effect damage).
@@ -1749,6 +1801,11 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
           "SEC143_OFFER|" . intval($obj->UniqueID ?? 0), 1);
     }
   }
+  // HMW_045 Logray, Bright Tree Shaman — "When ANOTHER friendly unit that costs 3 or less is dealt
+  // damage: You may deal 1 damage to an enemy unit."
+  // ⚠ There is NO "and survives" clause, so this fires even when the damage DEFEATS the unit — which is
+  // why it sits ABOVE the $survived gate, beside SEC_143 rather than with the observers below it.
+  _SWUHmw045CheckObserve($obj, $amount);
   // Every observer below has an explicit "and survives" / "isn't defeated" clause (or writes a marker on the
   // still-in-play unit), so they must NOT fire when the damage defeated the unit.
   if (!$survived)

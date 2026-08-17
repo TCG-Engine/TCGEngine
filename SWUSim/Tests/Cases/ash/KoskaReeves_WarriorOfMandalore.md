@@ -104,3 +104,40 @@ WithP1GroundArenaUpgrade: 0:SOR_T01
 P1GROUNDARENAUNIT:0:CARDID:ASH_079
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# SelfConditionUnmet_StillGetsSentinelFromAnUPGRADE
+#// ASH_079 Koska Reeves — "While you control a TOKEN unit, this unit gains Sentinel." Here she controls
+#// NO token, so her own condition fails — but she wears SOR_057 Protector ("Attached unit gains
+#// Sentinel"), which is a completely independent grant. Both sources must be consulted.
+#// ⚠ REGRESSION GUARD for an ORDERING bug found while restructuring HasConditionalKeyword_Sentinel:
+#// the self-conditional switch used to run BEFORE the upgrade grants, and Koska's case `return false`
+#// (no token) short-circuited the whole function — so the Protector on her back was never reached and
+#// she had no Sentinel at all. The self switch is now LAST, so a failing self-condition means "no SELF
+#// grant", not "no Sentinel from any source".
+#// Verified against both orderings: PASSES with the switch last, FAILS with it first.
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+WithP1GroundArena: ASH_079:1:0
+WithP1GroundArenaUpgrade: 0:SOR_057
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:ASH_079
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# SelfConditionUnmet_AndNoUpgrade_NoSentinel
+#// ASH_079 Koska Reeves — the control that makes the section above discriminating: same board, upgrade
+#// REMOVED. With neither a token unit nor a Protector she has no Sentinel from any source.
+#// Without this pair, a "Sentinel is always on" bug would satisfy the section above.
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+WithP1GroundArena: ASH_079:1:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:ASH_079
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
