@@ -544,6 +544,33 @@ When Played: Search the top 8 cards of your deck for up to 2 units that each cos
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/043.png',
     'imageUrlBack' => '',
   ),
+  'HMW_045' => 
+  array (
+    'title' => 'Logray',
+    'subtitle' => 'Bright Tree Shaman',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 1,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Ewok',
+    ),
+    'text' => 'When another friendly unit that costs 3 or less is dealt damage: You may deal 1 damage to an enemy unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/045.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_048' => 
   array (
     'title' => 'Vernestra Rwoh',

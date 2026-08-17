@@ -7,20 +7,25 @@
 // and it works everywhere: browser, curl, CLI, and the regression runner alike.
 //
 // Locally this mirrors the per-port containers (:3100 SWUDeck, :3200 GA, :3300 Azuki,
-// :3400 SWUSim). There is no fallback on purpose: an unset or unmapped DB is a
+// :3400 SWUSim, :3500 Hellbreak). There is no fallback on purpose: an unset or unmapped DB is a
 // misconfiguration, and serving the wrong site silently is worse than failing loudly.
-$dbToSite = [
-    'swudeck'         => 'SWUDeck',
-    'grandarchivesim' => 'GrandArchiveSim',
-    'azukisim'        => 'AzukiSim',
-    'swusim'          => 'SWUSim',
-    'hellbreaksim'    => 'HellbreakSim',
-];
+//
+// The db -> site map lives in Database/SiteRegistry.php, shared with ResolveDatabaseName() so the
+// two directions cannot drift. Deck-builder roots (HellbreakDeck, AzukiDeck) share their sim's
+// database but are not sites, which is what the registry's `site` flag records.
+//
+// This file MUST keep returning a plain site-name string from a top-level `return`: every
+// generated root pointer consumes it inline as
+//   include __DIR__ . '/Sites/' . (require __DIR__ . '/ActiveSite.php') . '/<page>.php';
+// (see SharedUI/Render/GenerateSites.php). Turning it into a function would break all of them.
+require_once __DIR__ . '/../Database/DatabaseResolution.php';
+
 $db = getenv('MYSQL_DATABASE_NAME');
 if ($db === false || $db === '') {
     throw new RuntimeException('ActiveSite: MYSQL_DATABASE_NAME is not set; cannot resolve the active site.');
 }
-if (!isset($dbToSite[$db])) {
-    throw new RuntimeException("ActiveSite: no site mapped for MYSQL_DATABASE_NAME '$db'; add it to the map in SharedUI/ActiveSite.php.");
+$site = SiteForDatabase($db);
+if ($site === null) {
+    throw new RuntimeException("ActiveSite: no site mapped for MYSQL_DATABASE_NAME '$db'; add it to Database/SiteRegistry.php.");
 }
-return $dbToSite[$db];
+return $site;
