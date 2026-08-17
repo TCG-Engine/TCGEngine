@@ -357,3 +357,84 @@ P2BASEDMG:3
 P1LEADER:EXHAUSTED
 P1RESAVAILABLE:0
 P1NODECISION
+
+---
+
+# Undeployed_TwoOnAttackAbilities_OfferedForEachAndOnlyOneIsRepeated
+#// COVERAGE addendum (the file's ledger sits in a frozen section): offer=these two sections add the
+#//           MULTI-trigger arm — one attack, two On Attack abilities, a player-ordered resolution and a
+#//           SEPARATE accept/decline per ability · decline=declining the first ability's offer leaves
+#//           the leader available for the second one's · boundary=the mirror pair (which of the two
+#//           abilities is repeated) changes the board differently, so the choice is proven real.
+#//
+#// LAW_014 Enfys Nest (undeployed) — one attack can trigger MORE THAN ONE "On Attack" ability, and the
+#// reuse is offered per ABILITY, not per attack: the player resolves them in an order of their choosing
+#// and gets a separate accept/decline for each. IBH_006 Rebellion Y-Wing (On Attack: deal 1 damage to a
+#// base) carries SOR_214 Smuggling Compartment (+1/+1, and grants "On Attack: Ready a resource"), so the
+#// attack on P2's base raises two On Attack triggers. P1 resolves the Compartment's ready first and
+#// DECLINES the reuse there, then resolves the Y-Wing's damage and ACCEPTS it.
+#// Damage: On Attack 1 + repeat 1 + combat 3 (power 2 +1 from the Compartment) = 5.
+#// Resources: 2 ready + 1 exhausted; the Compartment readies the exhausted one (3 ready) and the accepted
+#// reuse pays 2, leaving 1 available and the leader exhausted. Declining the FIRST offer must not consume
+#// the leader — if it did, the second ability would get no offer and the base would take only 4.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:LAW_014;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2:SOR_095:1,1:SOR_095:0
+WithP1SpaceArena: IBH_006:1:0
+WithP1SpaceArenaUpgrade: 0:SOR_214
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:NO
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:5
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:1
+P1NODECISION
+
+---
+
+# Undeployed_TwoOnAttackAbilities_RepeatingTheOtherOneInstead
+#// LAW_014 Enfys Nest (undeployed) — the mirror of the section above, and what proves the choice is real
+#// rather than a fixed "last ability wins". Same board (Y-Wing + Smuggling Compartment) but 2 ready and
+#// TWO exhausted resources, and this time P1 ACCEPTS the reuse on the Compartment's ready-a-resource
+#// ability. Both exhausted resources come back (2 ready → 4), the reuse pays 2, so 2 are available.
+#// The Y-Wing's own On Attack then resolves once and gets no offer at all — the leader is already
+#// exhausted — so the base takes only On Attack 1 + combat 3 = 4, one less than when the damage ability
+#// was the one repeated. The same attack, the same two abilities, a different repeat, a different board.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:LAW_014;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2:SOR_095:1,2:SOR_095:0
+WithP1SpaceArena: IBH_006:1:0
+WithP1SpaceArenaUpgrade: 0:SOR_214
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:4
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:2
+P1NODECISION

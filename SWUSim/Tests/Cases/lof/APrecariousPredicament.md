@@ -102,3 +102,31 @@ WithP2GroundArena: SOR_164:1:0
 P2GROUNDARENACOUNT:1
 P1HANDCOUNT:1
 P1DISCARDCOUNT:1
+
+---
+
+# OpponentSaysItCouldBeWorse_PlayItsWorseFromRESOURCES
+#// LOF_222 — the printed text is "play a card named It's Worse from your hand OR RESOURCES for free."
+#// Here P1 holds NO copy in hand; its only It's Worse (LOF_264) sits in the RESOURCE zone. P2 keeps the
+#// Wampa, so P1 must still be offered the free play, and taking it defeats the Wampa.
+#// ⚠ RED: LOF_222#1 scans the caster's HAND only and returns early when it finds nothing there
+#// (`// none in hand (the "or resources" path is deferred)`), so the offer is never raised.
+#// DISCRIMINATES: the resource count drops 3 -> 2 as the card leaves the zone, and P1's hand is empty
+#// throughout, so a hand-only implementation cannot reach this end state by any route.
+
+## GIVEN
+CommonSetup: yyk/ggw/{handCardIds:LOF_222}
+WithActivePlayer: 1
+WithP1Resources: 2:SOR_095:1,1:LOF_264:1
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P2>AnswerDecision:YES
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1HANDCOUNT:0
+P1RESCOUNT:2

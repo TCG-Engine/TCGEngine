@@ -31,9 +31,17 @@ $customDQHandlers["LAW_216#1"] = function($player, $parts, $lastDecision) {
     // $player = opp (chooser). $lastDecision = chosen ground unit (opp-frame).
     global $playerID;
     $caster = intval($parts[0] ?? OtherPlayer(intval($player)));
+    // ⚠ RESOLVE THE CHOICE IN THE CHOOSER'S FRAME. $lastDecision is "myGroundArena-N" written from the
+    // OPPONENT's seat, and GetZoneObject resolves "my…" against the global $playerID. This used to read
+    // it before setting $playerID, so "my…" landed in whatever frame was ambient — the CASTER's — and
+    // the 7 damage hit the CASTER's unit at the same index (or vanished if that index was empty).
+    // Only reachable when the opponent controls 2+ ground units; the single-target branch in LAW_216#0
+    // already resolves the UID under the opponent and was therefore correct, which is what hid this.
+    // The UID is frame-independent, so it is resolved here and re-found under the caster below.
+    $playerID = intval($player);
     $o = ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') ? GetZoneObject($lastDecision) : null;
     $uid = ($o !== null) ? intval($o->UniqueID ?? 0) : 0;
-    if ($uid === 0) return;
+    if ($uid === 0) { $playerID = $caster; return; }
     $playerID = $caster;
     DecisionQueueController::AddDecision($caster, "YESNO", "-", 1, tooltip: "Deal_7_damage_to_that_unit?");
     DecisionQueueController::AddDecision($caster, "CUSTOM", "LAW_216#2|{$uid}", 1);

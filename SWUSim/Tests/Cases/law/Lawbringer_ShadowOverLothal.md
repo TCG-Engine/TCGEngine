@@ -183,3 +183,88 @@ WithP2GroundArena: SOR_046:1:0
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:POWER:1
 P2GROUNDARENAUNIT:0:HP:5
+
+---
+
+# FriendlyGroundUnitSharingTheChosenAspectIsUnaffected
+#// COVERAGE (supersedes the ledger in DebuffExpiresAtEndOfPhase, which is a pre-existing section and
+#//           therefore not editable here):
+#//           offer=WhenPlayedAspectDebuff + OnAttackAspectDebuff (the two trigger windows) +
+#//           AspectMenuOffersAllSixAspects (the menu itself is the full six-aspect set, including the two
+#//           aspects no unit on the board carries) · scope=DoesNotAffectFriendlyUnits (friendly SPACE unit
+#//           spared) + FriendlyGroundUnitSharingTheChosenAspectIsUnaffected (friendly unit spared while
+#//           sharing BOTH the arena and the chosen aspect with the enemy that is hit) ·
+#//           reqboundary=OnAttackAspectDebuff_SurvivesTheRequestBoundary + DebuffExpiresAtEndOfPhase (the
+#//           phase effect survives the pass/regroup round-trip before expiring on schedule) ·
+#//           control=N/A (the debuff keys off "enemy unit" at resolution and stamps the units; no
+#//           controller-sensitive follow-up) · boundary=DefeatsUnitsReducedToZeroHp + ChooseAspectToNoEffect
+#//           (exactly-lethal vs zero-effect pair) · decline=N/A (choosing an aspect is mandatory;
+#//           ChooseAspectToNoEffect proves the no-op-choice branch)
+#//
+#// LAW_101 Lawbringer — "Each ENEMY unit with that aspect gets -2/-2 for this phase." DoesNotAffectFriendly-
+#// Units places its only friendly unit in SPACE while every enemy sits on the GROUND, so an implementation
+#// that debuffed by ARENA rather than by controller would still pass it. Here the friendliness test and the
+#// aspect test are both made sharp at once: the friendly SOR_095 Battlefield Marine sits in the SAME ground
+#// arena as the enemies and carries the very aspect chosen (Command), and it is the SAME card ID as the
+#// enemy SOR_095 that does get hit — so the ONLY thing separating 3/3 from 1/1 is which seat controls it.
+#// The friendly SOR_232 AT-ST (Villainy, wrong aspect) and the friendly JTL_095 Phoenix Squadron A-Wing
+#// (Command, right aspect, but in space) round out the friendly side, and the enemy SOR_046 Consular
+#// Security Force (Vigilance/Heroism, not Command) holds the enemy-but-wrong-aspect corner.
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: LAW_101
+WithP1GroundArena: [SOR_095:1:0 SOR_232:1:0]
+WithP1SpaceArena: JTL_095:1:0
+WithP2GroundArena: [SOR_095:1:0 SOR_046:1:0]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Command
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:3
+P1GROUNDARENAUNIT:1:POWER:6
+P1GROUNDARENAUNIT:1:HP:7
+P1SPACEARENAUNIT:0:POWER:3
+P1SPACEARENAUNIT:0:HP:2
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:POWER:1
+P2GROUNDARENAUNIT:0:HP:1
+P2GROUNDARENAUNIT:1:POWER:3
+P2GROUNDARENAUNIT:1:HP:7
+
+---
+
+# AspectMenuOffersAllSixAspects
+#// LAW_101 Lawbringer — "Choose an aspect." The choice is over the six aspects of the game, not over the
+#// aspects present on the board: all of Vigilance, Command, Aggression, Cunning, Villainy and Heroism must
+#// be offered even when the only enemy unit is a mono-Villainy SOR_232 AT-ST. Every other section answers
+#// the menu with a label it already knows is there, so none of them can catch a menu that has been
+#// narrowed to the aspects actually in play — which would silently remove the legal-but-pointless choice
+#// that ChooseAspectToNoEffect depends on, and would leak board information to the chooser. The decision
+#// is left unanswered so the menu itself is the assertion.
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: LAW_101
+WithP2GroundArena: SOR_232:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1OPTIONHAS:Vigilance
+P1OPTIONHAS:Command
+P1OPTIONHAS:Aggression
+P1OPTIONHAS:Cunning
+P1OPTIONHAS:Villainy
+P1OPTIONHAS:Heroism
+P1OPTIONNOT:Force

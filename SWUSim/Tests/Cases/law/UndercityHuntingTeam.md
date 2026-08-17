@@ -54,3 +54,55 @@ WithP1Hand: LAW_138
 ## EXPECT
 P1HANDCOUNT:0
 P1DECKCOUNT:1
+
+---
+
+# ForeignOwnedTeam_SearchesItsControllersDeck
+#// LAW_138 — control axis. "Search the top 5 cards of YOUR deck" resolves from the ability's
+#// CONTROLLER, not the card's owner. LAW_138 is owned by P2 (top card of P2's deck) but P1 plays it
+#// for free via LAW_215 Vermillion, so it enters play under P1 and its When Played must search P1's
+#// deck.
+#// Both decks hold a DIFFERENT Bounty Hunter, so the searched deck is readable from the end state:
+#//   · P1's deck: LAW_124 Industrious Team (Bounty Hunter) + SOR_237 Alliance X-Wing (not one)
+#//   · P2's deck: LAW_138 itself (revealed and played away) + SOR_179 Boba Fett (Bounty Hunter)
+#// Answering LAW_124 would THROW if the owner's deck had been searched (LAW_124 is not in it), and
+#// the counts confirm from the other side: P1 draws LAW_124 and keeps 1 card in deck, while P2's deck
+#// still holds an untouched Boba Fett and P2's hand is empty. Owner-scoped resolution would instead
+#// have drawn SOR_179 and left P2's deck empty.
+#//
+#// COVERAGE: offer=the search pool is asserted behaviorally — SearchBountyHunter takes the only
+#//           Bounty Hunter and NoBountyHunterInDeck_TakeNothing shows a non-matching card is not
+#//           takeable; this section proves the pool comes from the CONTROLLER's deck ·
+#//           decline=NoBountyHunterInDeck_TakeNothing (the "-" take-nothing answer) · control=this
+#//           section (foreign-owned unit searches its controller's deck) · reqboundary=the search
+#//           answer is served on a later request in every section · boundary=EmptyDeck_NoSearch (no
+#//           window) vs SearchBountyHunter (a match inside the window).
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_215:1:0
+WithP1Deck: LAW_124
+WithP1Deck: SOR_237
+WithP2Deck: LAW_138
+WithP2Deck: SOR_179
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:Theirs
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:LAW_124
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_138
+P1HANDCOUNT:1
+P1HANDCARD:0:LAW_124
+P1DECKCOUNT:1
+P2DECKCOUNT:1
+P2HANDCOUNT:0

@@ -401,3 +401,80 @@ P2GROUNDARENAUNIT:0:DAMAGE:2
 P1CREDITCOUNT:0
 P1HANDCOUNT:0
 P1RESAVAILABLE:4
+
+---
+
+# Deployed_CreditHeldButNotSpent_NoAmbush
+#// COVERAGE addendum (the file's ledger lines sit in frozen sections): decline=this section (the Credit
+#//           payment offer is declinable, and the Ambush condition reads "a Credit was DEFEATED", not
+#//           "a Credit was available") + Deployed_AmbushOfferIsDeclinable (the granted Ambush attack is
+#//           a may, and refusing it costs nothing extra).
+#//
+#// LAW_015 Jabba (deployed) — the Ambush grant is conditional on a Credit actually being DEFEATED while
+#// paying, not on owning one. P1 has a Credit and 2 ready resources and plays SOR_247 (cost 2) through
+#// Jabba's action, but declines the Credit at the payment offer and pays the full 2 from resources.
+#// The unit enters WITHOUT Ambush and makes no entry attack, and the Credit is still there afterwards.
+#// Deployed_PlayNoCredit_NoAmbush is the same outcome with no Credit in existence; this section is the
+#// sharper one, because the Credit exists and is offered and the condition still has to read "spent".
+
+## GIVEN
+CommonSetup: byk/bbk/{
+  myLeader:LAW_015:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1Credits: 1
+WithP1Hand: SOR_247
+WithP2GroundArena: SOR_247:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_247
+P1GROUNDARENAUNIT:1:NOTKEYWORD:Ambush
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1CREDITCOUNT:1
+P1RESAVAILABLE:0
+
+---
+
+# Deployed_AmbushOfferIsDeclinable
+#// LAW_015 Jabba (deployed) — the granted Ambush is an offer ("this unit MAY attack"), not a forced
+#// entry attack, so the player can take the keyword and refuse the attack. Same line as
+#// Deployed_CreditDefeated_GrantsAmbush — SOR_247 is played through Jabba's action with a Credit
+#// defeated, so it enters carrying Ambush — but the attack offer is declined: neither the newcomer nor
+#// P2's SOR_247 takes a point of damage, and the action still closes cleanly (no dangling decision).
+#// The Credit is spent either way; declining the attack does not refund it.
+
+## GIVEN
+CommonSetup: byk/bbk/{
+  myLeader:LAW_015:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1Credits: 1
+WithP1Hand: SOR_247
+WithP2GroundArena: SOR_247:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myResources-2
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SOR_247
+P1GROUNDARENAUNIT:1:HASKEYWORD:Ambush
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1CREDITCOUNT:0
+P1RESAVAILABLE:1
+P1NODECISION

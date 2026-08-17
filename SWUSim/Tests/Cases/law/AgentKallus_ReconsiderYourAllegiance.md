@@ -250,3 +250,47 @@ WithP1Hand: [SOR_095 SOR_095]
 
 ## EXPECT
 P1BASEDMG:6
+
+---
+
+# P2Seat_YourHandAndYourBaseAreTheACTINGSeats
+#// COVERAGE: offer=not asserted as a pool (every section but TwoHeroismHealTwice leaves exactly one
+#//           playable card, so the hand choice auto-resolves) · reqboundary=not asserted (no section
+#//           inserts a serialize round-trip before the hand answer) ·
+#//           control=P2Seat_YourHandAndYourBaseAreTheACTINGSeats — a LEADER can never be owned by one
+#//           player and controlled by another on this board, so the only observable form of the
+#//           owner-vs-controller question for LAW_003 is to drive the ability from the OTHER seat ·
+#//           boundary=HealHeroismUnit vs NoHealNonHeroism / NoHealVillainy (Heroism or not), and
+#//           FrontExhaustsSelf vs DeployedActionStaysReady (front cost includes Exhaust, deployed cost
+#//           does not) · decline=Deployed_NoPlayableCard_UsableCostPaid (the soft pass with nothing
+#//           playable).
+#// LAW_003 — both owner-scoped words of the deployed Kallus are driven from seat 2 here: "Play a card
+#// from YOUR hand" and "When you play a Heroism card, heal 2 damage from YOUR base." Every other section
+#// in this file runs the ability from seat 1, so a hand lookup or a heal resolved against a hardcoded P1
+#// would pass the whole file unchanged. P2 holds the Heroism SOR_095 and P1 holds SOR_128, so a hand
+#// lookup that reached the wrong seat is visible in three places at once: the Marine must leave P2's hand
+#// (P2HANDCOUNT 0) into P2's arena, P1's hand must keep its card and P1's board must stay empty, and it is
+#// P2's base that heals 10 -> 8 while P1's stays at 4. NoHealOpponentHeroism is the complement — it puts
+#// Kallus on seat 1 and the Heroism card on seat 2 — but it never exercises the ability from seat 2.
+
+## GIVEN
+CommonSetup: bbw/ybk/{theirLeader:LAW_003:1:1:1; theirBaseDamage:10; myBaseDamage:4}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP2Resources: 3
+WithP2Hand: SOR_095
+WithP1Hand: SOR_128
+
+## WHEN
+- P2>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P2BASEDMG:8
+P1BASEDMG:4
+P2GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P2HANDCOUNT:0
+P2RESAVAILABLE:0

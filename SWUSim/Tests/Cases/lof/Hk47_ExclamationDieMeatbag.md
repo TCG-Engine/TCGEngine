@@ -219,3 +219,56 @@ WithP2Resources: 12
 P2BASEDMG:0
 P2GROUNDARENACOUNT:0
 P1GROUNDARENACOUNT:2
+
+---
+
+# HkDefeatedByAMASSDefeatEffect_StillFiresPerEnemy
+#// LOF_130 HK-47 — "When an enemy unit is defeated: deal 1 damage to its controller's base." HK-47 was
+#// in play when those enemies were defeated, so it must still fire once per enemy even though it died in
+#// the same event. SOR_043 Superlaser Blast ("Defeat all units") kills HK-47 and BOTH enemies at once.
+#// ⚠ RED. Root cause: SOR_043 loops SWUDefeatUnit PER UNIT, so each defeat is its own
+#// SWUCollectLeavePlayReactions call with a single-element $leftCards batch. HK-47 is defeated first, so
+#// by the time each enemy's batch is collected HK is neither ACTIVE nor present in that batch — and the
+#// "$leftCards re-count" that fixes the combat case only looks inside the CURRENT batch.
+#// ⚠ NOTE — this is WIDER than the recorded description ("HK-dead + MULTIPLE enemies"): the companion
+#// section below shows it also fires 0x with a SINGLE enemy, so enemy count is irrelevant. What matters
+#// is the DEFEAT SOURCE — a per-unit mass-defeat loop rather than one simultaneous batch.
+#// Contrast the two sections that already pass: TriggersEvenWhenHkDefeatedSimultaneously (HK dies in
+#// COMBAT, one batch) and MultipleSimultaneousDefeats_OnePerUnit (HK SURVIVES a mass effect).
+
+## GIVEN
+CommonSetup: bbk/bgw/{myResources:8}
+P1OnlyActions: true
+WithP1GroundArena: LOF_130:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: SOR_043
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P2BASEDMG:2
+
+---
+
+# HkDefeatedByAMASSDefeatEffect_FiresEvenForASingleEnemy
+#// LOF_130 HK-47 — the same defect with ONE enemy, which pins that the enemy COUNT is not the variable.
+#// ⚠ RED alongside the section above.
+
+## GIVEN
+CommonSetup: bbk/bgw/{myResources:8}
+P1OnlyActions: true
+WithP1GroundArena: LOF_130:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: SOR_043
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P2BASEDMG:1

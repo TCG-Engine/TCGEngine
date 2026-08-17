@@ -79,3 +79,74 @@ WithP1Hand: LAW_202
 
 ## EXPECT
 P2BASEDMG:5
+
+---
+
+# ForeignOwnedResource_CountsForItsController
+#// LAW_202 — control axis, clause "If you CONTROL fewer resources than an opponent". A resource is
+#// counted for whoever CONTROLS it (whose resource zone it sits in), not for the player who owns the
+#// card. P1's resource zone holds 1 own resource plus a P2-OWNED resource (SOR_095, seated via
+#// WithP1ResourceControlled) = 2 controlled; P2 controls 2. The two totals are therefore EQUAL, the
+#// "fewer resources" clause is false, and the P1-controlled attacker (SEC_080, power 3, itself owned
+#// by P2) hits the base for a flat 3.
+#// The board discriminates: drop the foreign-owned resource and P1 controls 1 vs P2's 2, the clause
+#// turns true, and the base takes 3+2 = 5. So a 3 here is only reachable if the P2-OWNED resource was
+#// counted for its CONTROLLER. P1RESCOUNT/P2RESCOUNT pin the split (2 vs 2) so the section can never
+#// pass for the wrong reason.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:1;theirResources:2}
+P1OnlyActions: true
+WithP1ResourceControlled: SOR_095:2
+WithP1GroundArenaControlled: SEC_080:2
+WithP1Hand: LAW_202
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1RESCOUNT:2
+P2RESCOUNT:2
+P2BASEDMG:3
+
+---
+
+# ForeignOwnedAttacker_YouControlIsTheAbilityController
+#// LAW_202 — control axis, the owner!=controller case for the ATTACKER. The only friendly unit is
+#// SEC_080, sitting in P1's ground arena but OWNED by P2 (the end state after a control-take). P1
+#// plays the event, so BOTH riders must resolve from P1, the ability's controller, not from the
+#// attacking unit's owner:
+#//   · the Saboteur grant lands on the foreign-owned attacker — P2's SOR_046 Consular Security Force
+#//     is a Sentinel, so without Saboteur the base would not be a legal target at all. The pending
+#//     attack-target pool is MZCHOOSE [theirGroundArena-0 & theirBase-0]: the base is reachable AND
+#//     the Sentinel is still a legal target, so this is a real two-option choice, not an auto-resolve.
+#//   · "if YOU control fewer resources" reads P1's 1 vs P2's 3 -> true -> +2/+0, base takes 3+2 = 5.
+#// Inverted seat resolution is visible: resolved from the attacker's OWNER (P2), P2 controls 3 vs
+#// P1's 1, the clause is false and the base would take 3. The untouched Sentinel (DAMAGE:0) proves
+#// the damage went to the base and not to the only other legal target.
+#//
+#// COVERAGE: offer=the attack-target pool is pinned pending in
+#//           ForeignOwnedAttacker_YouControlIsTheAbilityController (Sentinel + base both offered
+#//           under the Saboteur grant); the attacker pick is a real 2-unit MZCHOOSE in
+#//           FewerResourcesBuff_SurvivesTheRequestBoundary · decline=N/A (nothing here is a "you
+#//           may" — "Attack with a unit" is a mandatory attack and both riders are automatic) ·
+#//           control=ForeignOwnedResource_CountsForItsController (resources counted by controller)
+#//           + ForeignOwnedAttacker_YouControlIsTheAbilityController (both riders resolve from the
+#//           event's controller, not the attacker's owner) · reqboundary=
+#//           FewerResourcesBuff_SurvivesTheRequestBoundary · boundary pair=FewerResourcesBuff vs
+#//           MoreResourcesNoBuff vs EqualResourcesNoBuff (fewer / more / exactly equal).
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:1;theirResources:3}
+P1OnlyActions: true
+WithP1GroundArenaControlled: SEC_080:2
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: LAW_202
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:5
+P2GROUNDARENAUNIT:0:DAMAGE:0

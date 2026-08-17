@@ -120,3 +120,54 @@ WithP2GroundArena: SOR_095:1:0
 
 ## EXPECT
 P1BASEDMG:3
+
+---
+
+# HealsTheBaseOfWhoeverCONTROLSTheFlagbearer
+#// COVERAGE: offer=N/A (nothing is targeted — the heal is automatic and its recipient is named by the
+#//           ability) · reqboundary=AmbushFirstAttack_SurvivesTheRequestBoundary ·
+#//           control=HealsTheBaseOfWhoeverCONTROLSTheFlagbearer +
+#//           OpponentControlledFlagbearerHealsTHEIRBase · boundary=FirstAttackHealBase vs
+#//           NoHealIfEnemyAttackedThisPhase (phase's first attack / not) · decline=N/A (mandatory
+#//           triggered ability — no "you may").
+#// LAW_112 — "heal 2 damage from YOUR base": "your" is the Flagbearer's CONTROLLER, not its owner. The
+#// Flagbearer here sits in P1's ground arena but is OWNED by P2 (the end state after a control-take), and
+#// the two bases carry DIFFERENT damage totals so the 2 points of healing are readable on one side only.
+#// Its own attack is the phase's first, so P1's base heals 5 -> 3 while P2's base merely takes the 1 point
+#// of combat damage (7 -> 8). An owner-scoped heal would have pulled 2 damage off P2's base instead, and
+#// every existing section — where P1 both owns and controls the Flagbearer — would pass either way.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myBaseDamage:5; theirBaseDamage:7}
+P1OnlyActions: true
+WithP1GroundArenaControlled: LAW_112:2
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1BASEDMG:3
+P2BASEDMG:8
+
+---
+
+# OpponentControlledFlagbearerHealsTHEIRBase
+#// LAW_112 — the mirror, and the sharper half: P1 OWNS the Flagbearer but P2 CONTROLS it (it sits in P2's
+#// ground arena). The heal follows control, so it is P2's base that heals 7 -> 5, and P1's base is not
+#// healed at all — it simply takes the 1 point of combat damage (5 -> 6). Reading "your base" off the
+#// owner would have moved those 2 points onto P1's base and left P2's at 7, which is exactly the failure
+#// this section exists to catch.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myBaseDamage:5; theirBaseDamage:7}
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithActivePlayer: 2
+WithP2GroundArenaControlled: LAW_112:1
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:5
+P1BASEDMG:6

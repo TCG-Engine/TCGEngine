@@ -57,3 +57,27 @@ P1GROUNDARENAUNIT:0:CARDID:LAW_095
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2BASEDMG:6
+
+---
+
+# OnAttackShieldDeclined_NoShieldGiven
+#// LAW_095 Finn — DECLINE branch. "You may give a Shield token to a non-unique unit": with a legal
+#// non-unique target on the board the offer must still be refusable, and refusing gives no Shield.
+#// The existing OnAttackNoNonUniqueAutoPass covers the different case where NO legal target exists, so
+#// it cannot tell a genuine decline from an empty pool.
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_095:1:0
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SEC_080
+P1GROUNDARENAUNIT:1:SHIELDCOUNT:0
+P2BASEDMG:6
+P1NODECISION

@@ -148,3 +148,128 @@ P1DECKCOUNT:2
 P1DECKTOPCARD:SEC_080
 P1NODECISION
 P2NODECISION
+
+---
+
+# SimultaneousDefeat_OnlyTheFriendlyOneTriggers
+#// COVERAGE addendum (the file's ledger sits in a frozen section): boundary=this section adds the
+#//           simultaneous-defeat arm — one friendly and one enemy unit die in the same combat and
+#//           exactly ONE scry is raised (P1NODECISION/P2NODECISION pin the absence of a second).
+#//           ⚠ Rogue One's OWN combat defeat is NOT covered anywhere in this file: it raises no scry
+#//           at all today (see the LAW Phase D report), so no section asserts it.
+#//
+#// LAW_119 Rogue One — "When a FRIENDLY unit is defeated" fires once per friendly defeat and not at all
+#// for an enemy one, even when both sides lose a unit in the same combat. P1's SOR_225 TIE/ln Fighter
+#// (2/1) attacks P2's SOR_231 TIE Advanced (3/2): the attacker deals 2 and kills the defender, the
+#// defender deals 3 back and kills the attacker. Exactly ONE scry decision is raised (P1 buries the top
+#// card, so the new top is SOR_095) and neither player is left holding a second one — an enemy defeat
+#// counted as friendly would leave a second look-at-top-2 pending.
+#// Rogue One is a bystander here: it never attacks and survives as P1's only space unit.
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_119:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP2SpaceArena: SOR_231:1:0
+WithP1Deck: SOR_237
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:1:0
+- P1>AnswerDecision:myDeck-0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:LAW_119
+P2SPACEARENACOUNT:0
+P1DECKTOPCARD:SOR_095
+P1DECKCOUNT:2
+P1NODECISION
+P2NODECISION
+
+---
+
+# SelfCombatDefeat_TriggersItsOwnScry
+#// LAW_119 — "When A FRIENDLY unit is defeated" has no "another", so Rogue One's OWN defeat qualifies.
+#// It attacks a 3/3 and dies on the counter; the scry must still fire for its controller.
+#// Regression guard: the observer counted Rogue Ones via a helper that SKIPS anything already flagged
+#// removed, so a Rogue One dying in that very batch counted ZERO and no decision was raised at all.
+#// The effect-defeat path collects before removal and therefore already worked — which is why this was
+#// only ever wrong on a COMBAT death, and why the file's existing stolen-and-defeated section passed.
+#// Per CR simultaneous-removal the condition is evaluated as of the state that CAUSED the defeat.
+#// DISCRIMINATES: both units die (both arena counts 0) and the deck is REORDERED — SOR_237 was on top
+#// and is sent to the bottom, so SOR_095 becomes the new top. Without the fix no decision existed at
+#// all and the deck top stayed SOR_237.
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_119:1:0
+WithP2SpaceArena: SOR_231:1:0
+WithP1Deck: SOR_237
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:0
+- P1>AnswerDecision:myDeck-0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:0
+P1DISCARDCOUNT:1
+P1DECKTOPCARD:SOR_095
+P1DECKCOUNT:2
+
+---
+
+# MassWipe_FiresExactlyOncePerFriendlyDefeated_NotTwice
+#// LAW_119 Rogue One caught in SOR_043 Superlaser Blast ("Defeat all units"), as the ONLY friendly unit.
+#// Exactly ONE friendly is defeated (Rogue One itself), so exactly ONE scry must be raised.
+#// ⚠ Regression guard for a DOUBLE-FIRE: a per-unit mass-defeat loop reaches the observer collection by
+#// two routes, and the old "active copies + copies in THIS batch" count credited Rogue One's own defeat
+#// TWICE — a solo Rogue One raised TWO scries for ONE defeat. Inside a simultaneous-defeat window the
+#// count now comes from the pre-effect snapshot instead, which is idempotent.
+#// DISCRIMINATES: one DONE answers the single scry; the second DONE must find nothing, so P1NODECISION
+#// fails if a second scry exists. The companion combat section (SelfCombatDefeat_TriggersItsOwnScry)
+#// covers the ONE-batch route, which never double-fired and must not regress to zero.
+
+## GIVEN
+CommonSetup: bbk/bgw/{myResources:8}
+P1OnlyActions: true
+WithP1GroundArena: LAW_119:1:0
+WithP1Deck: SOR_237
+WithP1Deck: SOR_046
+WithP1Hand: SOR_043
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:DONE
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:0
+
+---
+
+# MassWipe_FiresForEACHFriendlyDefeated
+#// LAW_119 Rogue One + a second friendly, both defeated by the same Superlaser Blast. TWO friendly
+#// defeats means TWO scries — the first DONE clears one and a second must still be pending.
+#// Pairs with the section above: together they pin the count at exactly one per friendly defeated,
+#// catching both the drop (0 or 1 here) and the double-fire (2 there).
+
+## GIVEN
+CommonSetup: bbk/bgw/{myResources:8}
+P1OnlyActions: true
+WithP1GroundArena: LAW_119:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: SOR_237
+WithP1Deck: SOR_046
+WithP1Hand: SOR_043
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:DONE
+
+## EXPECT
+P1HASDECISION

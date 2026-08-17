@@ -135,3 +135,62 @@ WithP2GroundArena: SOR_113:1:0
 P2BASEDMG:0
 P1DISCARDCOUNT:0
 P1NODECISION
+
+---
+
+# EpicDeployCountsAControlledEnemyOwnedResource
+#// LAW_011 Darth Vader — "Epic Action: If you CONTROL 7 or more resources, deploy this leader." The gate
+#// is the one place on this card where owner and controller can diverge, and it must count control. P1 has
+#// six of their own cards resourced; the seventh slot in P1's resource zone holds a P2-OWNED card — the
+#// end state after an effect resources an enemy card (e.g. SHD_122 Arquitens Assault Cruiser). Controlling
+#// seven clears the gate and Vader deploys. EpicDeployBlockedAtSixOwnResources below holds the identical
+#// board without that slot and does NOT deploy, so it is provably the P2-owned resource that crosses the
+#// threshold rather than a loose or missing check.
+
+## GIVEN
+CommonSetup: yrk/grw/{
+  myLeader:LAW_011;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1ResourceControlled: SOR_095:2
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1LEADER:DEPLOYED
+
+---
+
+# EpicDeployBlockedAtSixOwnResources
+#// LAW_011 Darth Vader — the negative partner that makes the section above load-bearing: six P1-owned
+#// resources and no controlled seventh is one short of "7 or more resources", so the Epic Action does
+#// nothing and Vader stays on his leader side.
+#//
+#// COVERAGE: control=EpicDeployCountsAControlledEnemyOwnedResource + this section (the Epic resource gate
+#//           counts resources you CONTROL, including a P2-owned card sitting in P1's resource zone). The
+#//           rest of the card cannot separate owner from controller: a leader is always owned and
+#//           controlled by its own seat, and "your hand" / the discard cost therefore have only one seat
+#//           to resolve to · offer="a unit or base" is unqualified and both sides are reachable, but the
+#//           exact pool is not pinned with SELECTABLEEXACT · decline=DeployedDiscardNothingOnlyCombat
+#//           (answer "-" on the "any number" discard) · boundary pair=FrontDiscardDeal1 vs
+#//           FrontNoActionWhenHandEmpty, and DeployedDiscardTwoDealTwo vs DeployedEmptyHandOnlyCombat,
+#//           plus the two Epic sections above · reqboundary=not encoded
+
+## GIVEN
+CommonSetup: yrk/grw/{
+  myLeader:LAW_011;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1LEADER:NOTDEPLOYED

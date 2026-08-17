@@ -238,3 +238,173 @@ P1CREDITCOUNT:0
 P1DECKCOUNT:2
 P1HANDCOUNT:0
 P1LEADER:DEPLOYED
+
+---
+
+# DeployedOfferExcludesOwnedAndControlled_AndControlledNotOwned
+#// COVERAGE (correction + extension; the file's first section is pre-existing and off-limits, so this
+#//   supersedes the `decline=N/A` claim in it). That claim said "'any number' choose-none and multi-select
+#//   need more than one own-but-not-controlled unit, which the harness CANNOT seat" — that is FALSE:
+#//   WithP{n}{Ground|Space}ArenaControlled is a LIST-valued directive, so any number of own-but-not-
+#//   controlled units can be seated at once. The four sub-cases it declared unreachable are now covered:
+#//   offer(mixed board)=DeployedOfferExcludesOwnedAndControlled_AndControlledNotOwned ·
+#//   multi-select-all=DeployedDefeatEveryOwnedNotControlledUnit ·
+#//   partial-select=DeployedDefeatFewerThanTheMaximum ·
+#//   decline=DeployedDeclineTheWholeDefeat ·
+#//   empty-deck scaling=DeployedDefeatThreeWithEmptyDeck_ThreeDamagePerFailedDraw.
+#//
+#// LAW_002 Tobias Beckett (deployed) — "Defeat any number of units you OWN but DON'T CONTROL." Owner and
+#// controller are distinct: a unit you own but an opponent controls is NOT friendly to you, and a unit you
+#// control but do not own is not yours to defeat this way. Prior sections proved each exclusion on a board
+#// holding only one category; this one puts all three on the board at once so the offer has to discriminate:
+#//   · P1 ground SEC_080 — P1 owns AND controls  → excluded
+#//   · P1 ground SHD_029 owned by P2             → P1 controls, does NOT own → excluded
+#//   · P2 ground SOR_164 / SOR_046 / SOR_095, all owned by P1 → owned, NOT controlled → the whole offer
+#// The pick is left pending so the offer is what is asserted.
+
+## GIVEN
+CommonSetup: yyw/grw/{
+  myLeader:LAW_002;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaControlled: SHD_029:2
+WithP2GroundArenaControlled: [SOR_164:1 SOR_046:1 SOR_095:1]
+WithP1Deck: [SOR_237 SOR_095 SOR_085 SOR_164]
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1&theirGroundArena-2
+
+---
+
+# DeployedDefeatEveryOwnedNotControlledUnit
+#// LAW_002 Tobias Beckett (deployed) — "ANY NUMBER" means the pick is a multi-select, not a single target,
+#// and the reward clause is "FOR EACH unit defeated this way", so it scales: taking all three own-but-not-
+#// controlled units in one activation pays 3 Credits and 3 draws, not 1. All three go to their OWNER's
+#// discard (P1's) even though they were defeated out of P2's arena — a defeated card always goes to the
+#// discard pile of the player who owns it, never the controller's. Deck of 4 → 3 drawn, 1 left.
+
+## GIVEN
+CommonSetup: yyw/grw/{
+  myLeader:LAW_002;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP2GroundArenaControlled: [SOR_164:1 SOR_046:1 SOR_095:1]
+WithP1Deck: [SOR_237 SOR_095 SOR_085 SOR_164]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1&theirGroundArena-2
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1CREDITCOUNT:3
+P1DISCARDCOUNT:3
+P2DISCARDCOUNT:0
+P1DECKCOUNT:1
+P1HANDCOUNT:3
+P1LEADER:DEPLOYED
+
+---
+
+# DeployedDefeatFewerThanTheMaximum
+#// LAW_002 Tobias Beckett (deployed) — "any number" is genuinely ANY number, not "all of them": with three
+#// eligible units P1 may take just two. The reward is paid strictly per unit actually defeated (2 Credits,
+#// 2 draws), and the unselected third unit is untouched — it stays in play under P2's control.
+
+## GIVEN
+CommonSetup: yyw/grw/{
+  myLeader:LAW_002;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP2GroundArenaControlled: [SOR_164:1 SOR_046:1 SOR_095:1]
+WithP1Deck: [SOR_237 SOR_095 SOR_085 SOR_164]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P1CREDITCOUNT:2
+P1DISCARDCOUNT:2
+P1DECKCOUNT:2
+P1HANDCOUNT:2
+P1LEADER:DEPLOYED
+
+---
+
+# DeployedDeclineTheWholeDefeat
+#// LAW_002 Tobias Beckett (deployed) — zero is a legal "any number", so the ability must be fully
+#// declinable even with eligible units on the board. Declining defeats nothing, pays no Credit and draws
+#// no card; all three own-but-not-controlled units stay in P2's arena and the deck is untouched. (This is
+#// the lower bound that DeployedDefeatFewerThanTheMaximum and DeployedDefeatEveryOwnedNotControlledUnit
+#// bracket from above.)
+
+## GIVEN
+CommonSetup: yyw/grw/{
+  myLeader:LAW_002;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP2GroundArenaControlled: [SOR_164:1 SOR_046:1 SOR_095:1]
+WithP1Deck: [SOR_237 SOR_095 SOR_085 SOR_164]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:-
+
+## EXPECT
+P2GROUNDARENACOUNT:3
+P1CREDITCOUNT:0
+P1DISCARDCOUNT:0
+P1DECKCOUNT:4
+P1HANDCOUNT:0
+P1LEADER:DEPLOYED
+
+---
+
+# DeployedDefeatThreeWithEmptyDeck_ThreeDamagePerFailedDraw
+#// LAW_002 Tobias Beckett (deployed) — the empty-deck draw penalty is paid PER DRAW, not once per
+#// activation. DeployedDefeatEmptyDeckBaseDamage proves the single-unit case (3 damage); with an empty deck
+#// and three units defeated in one activation the three failed draws deal 3 damage each — 9 to P1's own
+#// base — while the Credits still scale normally to 3 and all three cards still land in their owner's
+#// (P1's) discard.
+
+## GIVEN
+CommonSetup: yyw/grw/{
+  myLeader:LAW_002;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP2GroundArenaControlled: [SOR_164:1 SOR_046:1 SOR_095:1]
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1&theirGroundArena-2
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1CREDITCOUNT:3
+P1DISCARDCOUNT:3
+P1HANDCOUNT:0
+P1BASEDMG:9
+P1LEADER:DEPLOYED

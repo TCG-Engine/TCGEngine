@@ -170,3 +170,96 @@ P1GROUNDARENACOUNT:0
 P1SPACEARENAUNIT:0:CARDID:SHD_195
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1DECKCOUNT:0
+
+---
+
+# LooksAtYourOwnDeckNotOpponents
+#// COVERAGE: control=LooksAtYourOwnDeckNotOpponents + PlayedByP2_UsesP2Deck +
+#//           PlayedByP2_DiscardStaysOnP2Side — "the top card of YOUR deck" and the fallback discard both
+#//           resolve from the seat that PLAYED the event; both seats are stocked with different decks so
+#//           the wrong one is readable. Improvise is an Event with no board presence, so owner ≠
+#//           controller is not constructible — it is only ever played from its controller's hand — and
+#//           the axis is covered by seat-swap plus a stocked opposing deck · offer=Unaffordable_NoPlay-
+#//           Option (OPTIONHAS/OPTIONNOT on the Play/Discard/Leave menu) · decline=LeaveOnTop ·
+#//           reqboundary=N/A (the Play branch resolves inside the option answer).
+#//
+#// LAW_242 Improvise — P1 plays it with SOR_237 on top of P1's deck and a three-card SOR_225 deck sitting
+#// on P2's side. Choosing Play must take P1's top card into P1's space arena and leave P2's deck at three
+#// with nothing of P2's in play. Improvise itself is the only card in any discard, and it is P1's.
+
+## GIVEN
+CommonSetup: yyw/bgw/{myResources:2}
+P1OnlyActions: true
+WithP1Deck: SOR_237
+WithP2Deck: [SOR_225 SOR_225 SOR_225]
+WithP1Hand: LAW_242
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Play
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1DECKCOUNT:0
+P1DISCARDCOUNT:1
+P2DECKCOUNT:3
+P2DISCARDCOUNT:0
+P2SPACEARENACOUNT:0
+
+---
+
+# PlayedByP2_UsesP2Deck
+#// LAW_242 Improvise played by P2 — "your deck" follows the seat that played it. P2's top card SOR_237 is
+#// played into P2's space arena at 2 − 1 = 1 resource, emptying P2's deck; P1's three-card deck is
+#// untouched and P1 has nothing in play and nothing in the discard. Every other section of this file runs
+#// from P1, so this is the seat-swap witness.
+
+## GIVEN
+CommonSetup: bgw/yyw/{theirResources:2}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1Deck: [SOR_225 SOR_225 SOR_225]
+WithP2Deck: SOR_237
+WithP2Hand: LAW_242
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Play
+
+## EXPECT
+P2SPACEARENACOUNT:1
+P2SPACEARENAUNIT:0:CARDID:SOR_237
+P2DECKCOUNT:0
+P2DISCARDCOUNT:1
+P2RESAVAILABLE:0
+P1DECKCOUNT:3
+P1DISCARDCOUNT:0
+P1SPACEARENACOUNT:0
+
+---
+
+# PlayedByP2_DiscardStaysOnP2Side
+#// LAW_242 Improvise played by P2 — the "if you don't, you may discard it" branch mills from P2's deck
+#// into P2's discard: two cards there (Improvise plus the milled SOR_237) and P2's deck empty, while P1's
+#// deck is still three cards and P1's discard is still empty. A mill run from the wrong seat would move
+#// P1's counts instead.
+
+## GIVEN
+CommonSetup: bgw/yyw/{theirResources:1}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithP1Deck: [SOR_225 SOR_225 SOR_225]
+WithP2Deck: SOR_237
+WithP2Hand: LAW_242
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Discard
+
+## EXPECT
+P2DECKCOUNT:0
+P2DISCARDCOUNT:2
+P2SPACEARENACOUNT:0
+P1DECKCOUNT:3
+P1DISCARDCOUNT:0

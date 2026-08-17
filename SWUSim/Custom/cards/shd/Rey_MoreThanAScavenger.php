@@ -17,7 +17,10 @@ $leaderAbilities["SHD_004"] = function(int $player): void {
 $onAttackAbilities["SHD_004:0"] = function($player, $mzID) {
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'GIVE_EXPERIENCE', 'may' => true,
-        'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) <= 2,
+        // CR 3.3: "while attacking" bonuses (Raid, "+N for this attack") are active from Begin Attack,
+        // which is BEFORE this On Attack resolves — so Rey with Raid 1 is a 3-power unit here and must
+        // not appear in her own pool. ObjectCurrentPower alone is blind to the attack-only channel.
+        'extraFilter' => fn($o) => intval(ObjectCurrentPowerInAttack($o)) <= 2,
         'question' => "Give_an_Experience_token_to_a_unit_with_2_or_less_power?",
         'prompt'   => "Choose_a_unit",
     ]);
@@ -31,7 +34,9 @@ function ReyMoreThanaScavengerLowPowerTargets(int $player): array {
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed) && intval(ObjectCurrentPower($o)) <= 2) $t[] = $mz;
+            // Attack-aware for the same reason as the On Attack filter above (this collector is used
+            // from the deployed attack context too); identical to ObjectCurrentPower off-attack.
+            if ($o !== null && empty($o->removed) && intval(ObjectCurrentPowerInAttack($o)) <= 2) $t[] = $mz;
         }
     }
     return $t;
