@@ -11,7 +11,7 @@ require_once __DIR__ . '/../HellbreakSim/GeneratedCode/GeneratedCardDictionaries
 require_once __DIR__ . '/GamestateParser.php';
 require_once __DIR__ . '/ZoneAccessors.php';
 require_once __DIR__ . '/ZoneClasses.php';
-require_once __DIR__ . '/../AzukiDeck/lib/CardImageLoader.php';
+require_once __DIR__ . '/../Core/CardImageLoader.php';
 
 $gameName = (string)TryGet('gameName', '');
 if (!preg_match('/^\d+$/', $gameName)) {
@@ -113,8 +113,16 @@ $fitText = function($text, $size, $maxWidth) use ($font) {
 };
 $drawCard = function($id, $count, $x, $y) use ($img, $cardW, $cardH, $shadow, $badge, $white, $gold, $drawText, $fitText, $nameOf) {
   imagefilledrectangle($img, $x + 6, $y + 7, $x + $cardW + 6, $y + $cardH + 7, $shadow);
-  $path = __DIR__ . '/../HellbreakSim/concat/' . basename((string)$id) . '.webp';
-  $card = LoadCardImageAsGd($path);
+  // Match Azuki's normal path: decode WebP through the shared compatibility loader.
+  // Hellbreak's pipeline also emits the same square composition as PNG, which is a
+  // last-resort fallback when this host has none of the supported WebP decoders.
+  $safeID = basename((string)$id);
+  $webpPath = __DIR__ . '/../HellbreakSim/concat/' . $safeID . '.webp';
+  $card = LoadCardImageAsGd($webpPath);
+  if ($card === false) {
+    $pngPath = __DIR__ . '/../HellbreakSim/crops/' . $safeID . '_cropped.png';
+    $card = LoadCardImageAsGd($pngPath);
+  }
   if ($card) {
     imagecopyresampled($img, $card, $x, $y, 0, 0, $cardW, $cardH, imagesx($card), imagesy($card));
     imagedestroy($card);
@@ -157,14 +165,30 @@ if ($sideGroups) $y = $drawSection('SIDEBOARD', $sideGroups, $sideboard, $y + 28
 $drawText('northbeach.gg  //  Hellbreak fan project', 13, $margin, $H - 34, $muted);
 $drawText('Deck #' . $gameName, 13, $W - 180, $H - 34, $gold);
 
+// Match Azuki's production-safe output path: GD always creates a PNG intermediate,
+// then Imagick converts it to WebP when that extension is available.
+ob_start();
+imagepng($img);
+$pngBlob = ob_get_clean();
+imagedestroy($img);
+
 ob_end_clean();
-if (function_exists('imagewebp')) {
+try {
+  $imagick = new \Imagick();
+  $imagick->readImageBlob($pngBlob);
+  $imagick->setImageFormat('webp');
+  $imagick->setImageCompressionQuality(88);
+  $webpBlob = $imagick->getImageBlob();
+  $imagick->clear();
+  $imagick->destroy();
   header('Content-Type: image/webp');
   header('Content-Disposition: inline; filename="hellbreak-deck-' . $gameName . '.webp"');
-  imagewebp($img, null, 88);
-} else {
+  header('Cache-Control: no-store');
+  echo $webpBlob;
+} catch (\Throwable $error) {
   header('Content-Type: image/png');
   header('Content-Disposition: inline; filename="hellbreak-deck-' . $gameName . '.png"');
-  imagepng($img, null, 7);
+  header('Cache-Control: no-store');
+  echo $pngBlob;
 }
-imagedestroy($img);
+exit;
