@@ -432,6 +432,47 @@ function _SWUMirrorAnotherFriendlyHasKeyword($obj, string $kw): bool {
 // ═════════════════════════════════════════════════════════════════════════════
 // AMBUSH
 // ═════════════════════════════════════════════════════════════════════════════
+// GENERIC KEYWORD GRANTERS
+// ═════════════════════════════════════════════════════════════════════════════
+// Three cards grant MANY keywords rather than one, so each used to be a duplicated line inside every
+// applicable reader (20 copies). Their keyword sets are card-text facts and live here as data.
+//   ASH_008 Moff Gideon (deployed): Ambush, Grit, Hidden, Overwhelm, Saboteur, Sentinel, Shielded, Support
+//   JTL_047 Admiral Yularen:        "Choose Grit, Restore 1, Sentinel, or Shielded"
+//   JTL_053 The Ghost:              "gains this unit's keywords" — unbounded, so no allow-list
+// ⚠ BOOLEAN readers only. A GetConditionalKeyword_*_Value function ACCUMULATES an int and has its own
+// additive helper (_SWUGhostSharesKeywordValue); a `return true` in one breaks the accumulation.
+// ⚠ Call only from readers that already consulted one of the three — adding it elsewhere invents behavior.
+//
+// ORDERING RULE for every HasConditionalKeyword_* reader: the self-conditional `switch ($obj->CardID)`
+// goes LAST. Its cases return an expression, so a card whose own condition is false would otherwise
+// short-circuit the reader and lose grants from upgrades, auras and leaders. `return false` there means
+// "no SELF grant", not "no keyword at all".
+function _SWUGenericKeywordGrants($obj, string $kw): bool {
+    // ASH_008 Moff Gideon — printed list. Maps the keyword token to the generated $<Keyword>_Cards
+    // global the helper reads by variable-variable.
+    static $gideon = [
+        'AMBUSH' => 'Ambush_Cards', 'GRIT' => 'Grit_Cards', 'HIDDEN' => 'Hidden_Cards',
+        'OVERWHELM' => 'Overwhelm_Cards', 'SABOTEUR' => 'Saboteur_Cards',
+        'SENTINEL' => 'Sentinel_Cards', 'SHIELDED' => 'Shielded_Cards', 'SUPPORT' => 'Support_Cards',
+    ];
+    if (isset($gideon[$kw]) && _SWUAsh008GrantsKeyword($obj, $gideon[$kw])) return true;
+
+    // JTL_047 Admiral Yularen — the four choosable keywords.
+    static $yularen = ['GRIT' => 1, 'RESTORE' => 1, 'SENTINEL' => 1, 'SHIELDED' => 1];
+    if (isset($yularen[$kw]) && _SWUYularenGrants($obj, $kw)) return true;
+
+    // JTL_053 The Ghost — shares whatever keywords it actually has, so no allow-list.
+    // ⚠ SUPPORT is excluded to preserve today's behavior EXACTLY: the Ghost line was never in
+    // HasConditionalKeyword_Support. By RAW it arguably should be (Gideon can grant the Ghost Support,
+    // which the Ghost would then share with friendly Spectres) — but that interaction is untested and
+    // Support's reader is structurally unlike the others, so changing it belongs in its own pass with
+    // its own guard, not smuggled into a refactor. Logged as an open question.
+    if ($kw !== 'SUPPORT' && _SWUGhostSharesKeyword($obj, $kw)) return true;
+
+    return false;
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
 
 // ASH_008 Moff Gideon (DEPLOYED leader unit) — "This unit gains <keyword> if there is an Imperial unit with
 // <keyword> in your discard pile." One constant ability per keyword (Ambush/Grit/Hidden/Overwhelm/Saboteur/
@@ -454,91 +495,100 @@ function _SWUAsh008GrantsKeyword($obj, string $keywordCardsGlobal): bool {
 }
 
 function HasConditionalKeyword_Ambush($obj) {
-    if (_SWUAsh008GrantsKeyword($obj, 'Ambush_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
-    if (_SWUGhostSharesKeyword($obj, 'AMBUSH')) return true;   // JTL_053 The Ghost keyword share
-    // TS26_75 Jango Fett — "While an enemy unit has attacked your base this phase, this unit gains Ambush."
-    if (($obj->CardID ?? '') === 'TS26_75'
-        && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_BASE_ATTACKED') > 0) return true;
-    if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'AMBUSH')) return true;
-    // SHD_188 4-LOM: each friendly unit named Zuckuss gains Ambush.
-    if (SWUObjectTitle($obj) === 'Zuckuss'
-        && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_188') > 0) return true;
-    // SHD_204 Millennium Falcon — "If you play this unit from your hand, it gains Ambush."
-    // The per-UID hand-source flag is set in ActivateCard before entry triggers collect
-    // (smuggle/discard/deck plays never set it).
-    if (($obj->CardID ?? '') === 'SHD_204'
-        && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_PLAYED_FROM_HAND_' . intval($obj->UniqueID ?? 0)) > 0) {
-        return true;
-    }
-    // ASH_113 Mandalorian Flagship — "While you control a leader unit, this unit gains Ambush."
-    if (($obj->CardID ?? '') === 'ASH_113') {
-        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
-            if (empty($u->removed) && IsLeaderUnit($u)) return true;
-        }
-    }
-    // ASH_098 AT-ST Raider — "While you control another non-unique unit, this unit gains Ambush."
-    if (($obj->CardID ?? '') === 'ASH_098') {
-        $selfUid098 = intval($obj->UniqueID ?? 0);
-        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
-            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid098 && !CardUnique($u->CardID ?? '')) return true;
-        }
-    }
-    // HMW_257 Ewok Archers — "While you control another unit that costs 3 or less, this unit gains Ambush."
-    // (Token units cost 0, so they qualify.)
-    if (($obj->CardID ?? '') === 'HMW_257') {
-        $selfUid257 = intval($obj->UniqueID ?? 0);
-        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
-            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid257 && intval(CardCost($u->CardID ?? '')) <= 3) return true;
-        }
-    }
-    switch ($obj->CardID) {
-        case 'SOR_114': // Escort Skiff — "While you control another COMMAND unit, this unit gains Ambush."
-                        // (Shipped keyed on Cunning — wrong aspect — since the set was built.)
-            return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Command', $obj->UniqueID);
-        case 'SOR_249': // Frontier AT-RT — while you have a Vehicle unit
-            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Vehicle', $obj->UniqueID);
-        case 'TWI_106': // Coruscant Guard — while Coordinate is active
-            return IsCoordinateActive($obj->Controller);
-        case 'TWI_081': // Droid Commando — while you have a Separatist unit
-            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Separatist', $obj->UniqueID);
-        case 'TWI_194': // Ahsoka Tano — while you have fewer units than opponent
-            return count(GetUnitsInPlay($obj->Controller)) < count(GetUnitsInPlay(OtherPlayer($obj->Controller)));
-        case 'LOF_231': // Darth Tyranus — "While the Force is with you, this unit gains Ambush."
-            return PlayerHasTheForce(intval($obj->Controller ?? 0));
-        case 'LOF_118': // Terentatek — "While an opponent controls a Force unit, this unit gains Ambush."
-            return PlayerHasUnitWithTraitInPlay(OtherPlayer(intval($obj->Controller ?? 0)), 'Force');
-    }
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'AMBUSH')) return true;
+
+    $ctrl = intval($obj->Controller ?? 0);
+
+    // ═══ A. GRANTED BY ANOTHER CARD ═══════════════════════════════════════════════════════════════
+    // The recipient can be ANY unit, so these cannot be expressed as cases on $obj->CardID — that is
+    // the whole reason this half is an if-chain and section B is a switch. Keyed by the GRANTER.
+
+    // A1 — by another UNIT IN PLAY (auras and enablers).
+    // SHD_188 4-LOM: each friendly unit NAMED Zuckuss gains Ambush. Matched by TITLE, not CardID —
+    // another reason this rule can never become a switch case.
+    if (SWUObjectTitle($obj) === 'Zuckuss' && _SWUCountUnitsWithCardID($ctrl, 'SHD_188') > 0) return true;
     foreach (GetUnitsInPlay($obj->Controller) as $u) {
         if ($u->UniqueID === $obj->UniqueID) continue;
         switch ($u->CardID) {
-            case 'SOR_079': // Admiral Piett — units costing 6+ gain Ambush
+            case 'SOR_079': // Admiral Piett — friendly units costing 6+ gain Ambush
                 if (intval(CardCost($obj->CardID)) >= 6 && strpos(CardType($obj->CardID), 'Unit') !== false) return true;
                 break;
-            case 'SOR_100': // Wedge Antilles — Vehicle units gain Ambush
+            case 'SOR_100': // Wedge Antilles — friendly Vehicle units gain Ambush
                 if (TraitContains($obj, 'Vehicle')) return true;
                 break;
             case 'IC27_067': // Darth Vader (Useless to Resist) — "Each other friendly unit gains Ambush."
                 // No trait/cost/arena qualifier, so every other friendly unit qualifies — including
-                // token units and deployed leader units (GetUnitsInArena applies no type filter).
-                // "other" is already handled by the UniqueID self-skip above.
+                // token units and deployed leader units. "other" is the UniqueID self-skip above.
                 return true;
         }
     }
+
+    // ═══ B. SELF-CONDITIONAL — the card grants ITSELF Ambush while some condition holds ════════════
+    // Keyed by the RECIPIENT, so all of these are switch cases. Two sub-families:
+    //   B1 — the condition reads OTHER UNITS IN PLAY
+    //   B2 — the condition reads a CURRENT EFFECT / game state (a phase flag, the Force, a count)
+    switch ($obj->CardID) {
+
+        // ── B1: depends on other units in play ────────────────────────────────────────────────────
+        case 'SOR_114': // Escort Skiff — while you control another COMMAND unit.
+                        // (Shipped keyed on Cunning — wrong aspect — since the set was built.)
+            return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Command', $obj->UniqueID);
+        case 'SOR_249': // Frontier AT-RT — while you control a Vehicle unit
+            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Vehicle', $obj->UniqueID);
+        case 'TWI_081': // Droid Commando — while you control a Separatist unit
+            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Separatist', $obj->UniqueID);
+        case 'TWI_194': // Ahsoka Tano — while you control fewer units than the opponent
+            return count(GetUnitsInPlay($obj->Controller)) < count(GetUnitsInPlay(OtherPlayer($obj->Controller)));
+        case 'LOF_118': // Terentatek — while an OPPONENT controls a Force unit
+            return PlayerHasUnitWithTraitInPlay(OtherPlayer($ctrl), 'Force');
+        case 'ASH_113': // Mandalorian Flagship — while you control a leader unit
+            foreach (GetUnitsInPlay($ctrl) as $u) {
+                if (empty($u->removed) && IsLeaderUnit($u)) return true;
+            }
+            return false;
+        case 'ASH_098': // AT-ST Raider — while you control another NON-UNIQUE unit
+            foreach (GetUnitsInPlay($ctrl) as $u) {
+                if (empty($u->removed) && intval($u->UniqueID ?? 0) !== intval($obj->UniqueID ?? 0)
+                    && !CardUnique($u->CardID ?? '')) return true;
+            }
+            return false;
+        case 'HMW_257': // Ewok Archers — while you control another unit that costs 3 or less
+                        // (token units cost 0, so they qualify)
+            foreach (GetUnitsInPlay($ctrl) as $u) {
+                if (empty($u->removed) && intval($u->UniqueID ?? 0) !== intval($obj->UniqueID ?? 0)
+                    && intval(CardCost($u->CardID ?? '')) <= 3) return true;
+            }
+            return false;
+        case 'LOF_105': // Mirror — while another friendly unit has Ambush.
+                        // ⚠ RECURSIVE: re-enters the keyword readers, which is why the helper carries
+                        // its own re-entrancy guard. Do not "simplify" it into a plain scan.
+            return _SWUMirrorAnotherFriendlyHasKeyword($obj, 'AMBUSH');
+
+        // ── B2: depends on a current effect / game state ──────────────────────────────────────────
+        case 'TWI_106': // Coruscant Guard — while Coordinate is active
+            return IsCoordinateActive($obj->Controller);
+        case 'LOF_231': // Darth Tyranus — while the Force is with you
+            return PlayerHasTheForce($ctrl);
+        case 'HMW_118': // Ryyk Blademaster — while you control 6 or more resources.
+                        // "Control" counts EVERY resource, ready or exhausted (not availability), so
+                        // paying this unit's own 4-cost out of exactly 6 still satisfies the gate.
+                        // SWUResourceCount already excludes Credit tokens (CR 3.13).
+            return SWUResourceCount($ctrl) >= 6;
+        case 'TS26_75': // Jango Fett — while an enemy unit has attacked your base THIS PHASE
+            return GlobalEffectCount($ctrl, 'SWU_BASE_ATTACKED') > 0;
+        case 'SHD_204': // Millennium Falcon — "If you PLAY this unit from your HAND, it gains Ambush."
+                        // The per-UID hand-source flag is stamped in ActivateCard before entry triggers
+                        // collect, and cleared each round; smuggle/discard/deck plays never set it.
+                        // It must live in durable game state, not call context — production re-reads
+                        // keywords in a fresh process on every request.
+            return GlobalEffectCount($ctrl, 'SWU_PLAYED_FROM_HAND_' . intval($obj->UniqueID ?? 0)) > 0;
+    }
+
     return false;
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-// GRIT
-// ═════════════════════════════════════════════════════════════════════════════
-
-// JTL_047 Admiral Yularen — true if $obj is a Vehicle whose controller PLAYED an in-play JTL_047 that
-// chose keyword $kw. The chosen keyword is stored per-UID as SWU_YULAREN_<uid>_<KW> under the player who
-// PLAYED Yularen (see the JTL_047#0 handler). The grant follows that player, NOT Yularen's current
-// controller: per official ruling the effect "is not changed if an opponent takes control of Yularen"
-// (errata: "each Vehicle unit you control or play"). So iterate every in-play Yularen (any controller)
-// and ask whether the Vehicle's controller is the one who played it (i.e. owns that uid's keyword flag).
-// The in-play gate below is what stops the grant when Yularen leaves play (so a rescued Yularen — a new
-// object with a new uid — does not resume the flag, matching the capture-and-rescue ruling).
 function _SWUYularenGrants($obj, string $kw): bool {
     if (!HasTrait($obj->CardID ?? '', 'Vehicle')) return false;
     $ctrl = intval($obj->Controller ?? 0);
@@ -553,27 +603,21 @@ function _SWUYularenGrants($obj, string $kw): bool {
 }
 
 function HasConditionalKeyword_Grit($obj) {
-    if (_SWUAsh008GrantsKeyword($obj, 'Grit_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
-    if (_SWUGhostSharesKeyword($obj, 'GRIT')) return true;   // JTL_053 The Ghost keyword share
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'GRIT')) return true;
+
     // SEC_054 grants Grit — but not when a SECOND blanking effect is also on the unit (see the matching
     // gate in SWUKeywordSuppressed). Otherwise the re-grant would hand Grit back after the other effect
     // stripped it.
     if (is_object($obj) && _SWUUnitHasUpgrade($obj, 'SEC_054')
             && !LostAbilities($obj, 'SEC_054')) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'GRIT')) return true;
-    if (_SWUYularenGrants($obj, 'GRIT')) return true;
     // JTL_150 Biggs Darklighter (pilot): if the attached unit is a Speeder, it gains Grit.
     if (_SWUUnitHasActiveUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Speeder')) return true;
     // LOF_238 Darth Revan's Lightsabers: "If attached unit is a Sith, it gains Grit."
     if (_SWUUnitHasActiveUpgrade($obj, 'LOF_238') && HasTrait($obj->CardID ?? '', 'Sith')) return true;
-    switch ($obj->CardID) {
-        case 'TWI_050': // Luminara Unduli — while Coordinate is active
-            return IsCoordinateActive($obj->Controller);
-        case 'SEC_029': // Zam Wesell — while she has an upgrade attached
-            return count(GetUpgradesOnUnit($obj)) > 0;
-        case 'LOF_050': // Plo Koon — "While the Force is with you, this unit gains Grit."
-            return PlayerHasTheForce(intval($obj->Controller ?? 0));
-    }
+
     foreach (GetUnitsInPlay($obj->Controller) as $u) {
         if ($u->UniqueID === $obj->UniqueID) continue;
         switch ($u->CardID) {
@@ -592,6 +636,16 @@ function HasConditionalKeyword_Grit($obj) {
                 return true;
         }
     }
+    // Self-conditional cases LAST — see the ordering rule on _SWUGenericKeywordGrants.
+    switch ($obj->CardID) {
+        case 'TWI_050': // Luminara Unduli — while Coordinate is active
+            return IsCoordinateActive($obj->Controller);
+        case 'SEC_029': // Zam Wesell — while she has an upgrade attached
+            return count(GetUpgradesOnUnit($obj)) > 0;
+        case 'LOF_050': // Plo Koon — "While the Force is with you, this unit gains Grit."
+            return PlayerHasTheForce(intval($obj->Controller ?? 0));
+    }
+
     return false;
 }
 
@@ -629,8 +683,10 @@ function _SWUSavageFrontGrants($obj): bool {
 }
 
 function HasConditionalKeyword_Overwhelm($obj) {
-    if (_SWUAsh008GrantsKeyword($obj, 'Overwhelm_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
-    if (_SWUGhostSharesKeyword($obj, 'OVERWHELM')) return true;   // JTL_053 The Ghost keyword share
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'OVERWHELM')) return true;
+
     // TWI_009 Maul (deployed) — "Each other friendly unit gains Overwhelm."
     if (($obj->CardID ?? '') !== 'TWI_009' && intval($obj->Controller ?? 0) > 0 && _SWULeaderDeployed(intval($obj->Controller), 'TWI_009')) return true;
     // TS26_05 Savage Opress (deployed) — "Each other friendly unit gains Overwhelm."
@@ -647,18 +703,7 @@ function HasConditionalKeyword_Overwhelm($obj) {
         }
     }
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'OVERWHELM')) return true;
-    switch ($obj->CardID) {
-        // SOR_130 / SHD_138: "while attacking a damaged/bounty unit" — combat-time only.
-        // The combat resolver must re-check directly; return false here.
-        case 'SHD_169': // Clan Challengers — while upgraded
-            return count(GetUpgradesOnUnit($obj)) > 0;
-        case 'TWI_130': // Bo-Katan Kryze — while you have another Mandalorian unit
-            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Mandalorian', $obj->UniqueID);
-        case 'JTL_137': // Vonreg's TIE Interceptor — while it has 4 or more power
-            return ObjectCurrentPower($obj) >= 4;
-        case 'LOF_007': // Avar Kriss (deployed) — while the Force is with you, gains Overwhelm
-            return intval($obj->Controller ?? 0) > 0 && PlayerHasTheForce(intval($obj->Controller));
-    }
+
     // JTL_150 Biggs Darklighter (pilot): if the attached unit is a Fighter, it gains Overwhelm.
     if (_SWUUnitHasActiveUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Fighter')) return true;
     foreach (GetUnitsInPlay($obj->Controller) as $u) {
@@ -683,6 +728,24 @@ function HasConditionalKeyword_Overwhelm($obj) {
                 return true;
         }
     }
+    // Self-conditional cases LAST — see the ordering rule on _SWUGenericKeywordGrants.
+    switch ($obj->CardID) {
+        // SOR_130 / SHD_138: "while attacking a damaged/bounty unit" — combat-time only.
+        // The combat resolver must re-check directly; return false here.
+        case 'HMW_118': // Ryyk Blademaster — while you control 6 or more resources.
+                        // "Control" counts EVERY resource, ready or exhausted; SWUResourceCount
+                        // already excludes Credit tokens (CR 3.13). Twin of the Ambush case.
+            return SWUResourceCount(intval($obj->Controller ?? 0)) >= 6;
+        case 'SHD_169': // Clan Challengers — while upgraded
+            return count(GetUpgradesOnUnit($obj)) > 0;
+        case 'TWI_130': // Bo-Katan Kryze — while you have another Mandalorian unit
+            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Mandalorian', $obj->UniqueID);
+        case 'JTL_137': // Vonreg's TIE Interceptor — while it has 4 or more power
+            return ObjectCurrentPower($obj) >= 4;
+        case 'LOF_007': // Avar Kriss (deployed) — while the Force is with you, gains Overwhelm
+            return intval($obj->Controller ?? 0) > 0 && PlayerHasTheForce(intval($obj->Controller));
+    }
+
     return false;
 }
 
@@ -691,8 +754,10 @@ function HasConditionalKeyword_Overwhelm($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Saboteur($obj) {
-    if (_SWUAsh008GrantsKeyword($obj, 'Saboteur_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
-    if (_SWUGhostSharesKeyword($obj, 'SABOTEUR')) return true;   // JTL_053 The Ghost keyword share
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'SABOTEUR')) return true;
+
     // TWI_010 Pre Vizsla (deployed) — "While you have 3 or more cards in your hand, this unit gains Saboteur."
     if (($obj->CardID ?? '') === 'TWI_010' && IsLeaderUnit($obj) && count(GetHand(intval($obj->Controller ?? 0))) >= 3) return true;
     // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." A unit gains it while an opponent of
@@ -707,12 +772,7 @@ function HasConditionalKeyword_Saboteur($obj) {
         && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_190') > 0) return true;
     // ASH_030 Marrok — "While this unit is upgraded, he loses Sentinel and gains Saboteur."
     if (($obj->CardID ?? '') === 'ASH_030' && _SWUIsUpgraded($obj)) return true;
-    switch ($obj->CardID) {
-        case 'TWI_243': // Republic Commando — while Coordinate is active
-            return IsCoordinateActive($obj->Controller);
-        case 'TWI_130': // Bo-Katan Kryze — while you have another Mandalorian unit
-            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Mandalorian', $obj->UniqueID);
-    }
+
     foreach (GetUpgradesOnUnit($obj) as $u) {
         switch ($u->CardID) {
             case 'SOR_166': // Infiltrator's Skill
@@ -721,6 +781,16 @@ function HasConditionalKeyword_Saboteur($obj) {
                 return true;
         }
     }
+    // Self-conditional cases LAST — see the ordering rule on _SWUGenericKeywordGrants.
+    switch ($obj->CardID) {
+        case 'HMW_176': // Village Troublemaker — while you control an ENDOR base
+            return _SWUControlsBaseWithTrait(intval($obj->Controller ?? 0), 'Endor');
+        case 'TWI_243': // Republic Commando — while Coordinate is active
+            return IsCoordinateActive($obj->Controller);
+        case 'TWI_130': // Bo-Katan Kryze — while you have another Mandalorian unit
+            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Mandalorian', $obj->UniqueID);
+    }
+
     return false;
 }
 
@@ -745,134 +815,31 @@ function _SWUControlsAnotherResistance(int $player, int $selfUid): bool {
 }
 
 function HasConditionalKeyword_Sentinel($obj) {
-    if (_SWUAsh008GrantsKeyword($obj, 'Sentinel_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
-    // TS26_50 General Grievous / TS26_20 501st Veteran — "While this unit is undamaged, it gains Sentinel."
-    if (in_array($obj->CardID ?? '', ['TS26_50', 'TS26_20'], true) && intval($obj->Damage ?? 0) === 0) return true;
-    if (_SWUUnitHasActiveUpgrade($obj, 'TWI_071')) return true;   // TWI_071 Unshakeable Will — "Attached unit gains Sentinel."
-    if (_SWUUnitHasActiveUpgrade($obj, 'TS26_22')) return true;  // TS26_22 The Darksaber — "Attached unit gains Sentinel."
-    if (_SWUUnitHasActiveUpgrade($obj, 'JTL_058')) return true;   // JTL_058 Academy Graduate (pilot) — "Attached unit gains Sentinel."
-    // SEC_071 (upgrade) — "While attached unit is exhausted, it gains Sentinel."
-    if (_SWUUnitHasActiveUpgrade($obj, 'SEC_071') && intval($obj->Status ?? 1) === 0) return true;
-    // ASH_243 Darth Vader — Shielded + "While this unit is ready, he gains Sentinel."
-    if (($obj->CardID ?? '') === 'ASH_243' && intval($obj->Status ?? 1) === 1) return true;
-    // ASH_066 Luke's Jedi Lightsaber (upgrade) — "If attached unit is Luke Skywalker, he gains Sentinel."
-    if (_SWUUnitHasActiveUpgrade($obj, 'ASH_066') && SWUObjectTitle($obj) === 'Luke Skywalker') return true;
-    // ASH_198 Nowhere to Hide (upgrade) — "Attached unit gains Sentinel."
-    if (_SWUUnitHasActiveUpgrade($obj, 'ASH_198')) return true;
-    // LOF_261 Constructed Lightsaber (upgrade) — "If attached unit is a non-Heroism, non-Villainy unit, it
-    // gains Sentinel." (Its Villainy→Raid 2 and Heroism→Restore 2 branches live in the Raid/Restore keyword
-    // functions; this third branch was missing.)
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'SENTINEL')) return true;
+
+    $ctrl = intval($obj->Controller ?? 0);
+    $self = intval($obj->UniqueID ?? 0);
+
+    // ═══ A. GRANTED BY AN UPGRADE ATTACHED TO THIS UNIT ═══════════════════════════════════════════
+    // Keyed by the UPGRADE, so none of these can be a case on $obj->CardID — the host can be anything.
+    if (_SWUUnitHasActiveUpgrade($obj, 'TWI_071')) return true;   // Unshakeable Will — "Attached unit gains Sentinel."
+    if (_SWUUnitHasActiveUpgrade($obj, 'TS26_22')) return true;   // The Darksaber — same
+    if (_SWUUnitHasActiveUpgrade($obj, 'JTL_058')) return true;   // Academy Graduate (pilot) — same
+    if (_SWUUnitHasActiveUpgrade($obj, 'ASH_198')) return true;   // Nowhere to Hide — same
+    if (_SWUUnitHasActiveUpgrade($obj, 'SEC_071') && intval($obj->Status ?? 1) === 0) return true;   // only while the host is EXHAUSTED
+    if (_SWUUnitHasActiveUpgrade($obj, 'ASH_066') && SWUObjectTitle($obj) === 'Luke Skywalker') return true;   // Luke's Jedi Lightsaber — only on Luke
+    // LOF_261 Constructed Lightsaber — Sentinel only on a NON-Heroism, NON-Villainy host. (Its
+    // Villainy→Raid 2 and Heroism→Restore 2 branches live in the Raid/Restore keyword functions.)
     if (_SWUUnitHasActiveUpgrade($obj, 'LOF_261') && _SWUIsNeutralCard($obj->CardID ?? '')) return true;
-    // ASH_007 Grand Admiral Sloane (deployed) — each OTHER friendly unit gains Sentinel.
-    if (intval($obj->Controller ?? 0) > 0) {
-        $self007 = intval($obj->UniqueID ?? 0);
-        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
-            if (empty($u->removed) && ($u->CardID ?? '') === 'ASH_007' && intval($u->UniqueID ?? -1) !== $self007) return true;
-        }
-    }
-    // ASH_120 Warrior of Clan Kryze — "While you control another exhausted unit, this unit gains Sentinel."
-    if (($obj->CardID ?? '') === 'ASH_120') {
-        $selfUid120 = intval($obj->UniqueID ?? 0);
-        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
-            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid120 && intval($u->Status ?? 1) === 0) return true;
-        }
-    }
-    // ASH_078 B-Wing Rearguard — "While you control a ground unit, this unit gains Sentinel."
-    if (($obj->CardID ?? '') === 'ASH_078') {
-        foreach (GetGroundArena(intval($obj->Controller ?? 0)) as $gu) {
-            if (empty($gu->removed)) return true;
-        }
-    }
-    // ASH_049 Shin Hati — "While this is the only friendly non-leader ground unit, she gains Sentinel." She
-    // must herself BE a non-leader ground unit to qualify — once she becomes a leader unit (e.g. via ASH_135
-    // The Darksaber) she is no longer "the only friendly non-leader ground unit" and loses Sentinel.
-    if (($obj->CardID ?? '') === 'ASH_049' && !IsLeaderUnit($obj)) {
-        $ctrl049 = intval($obj->Controller ?? 0);
-        $others = 0;
-        foreach (GetGroundArena($ctrl049) as $u) {
-            if (empty($u->removed) && !IsLeaderUnit($u) && intval($u->UniqueID ?? 0) !== intval($obj->UniqueID ?? 0)) $others++;
-        }
-        if ($others === 0) return true;
-    }
-    if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SENTINEL')) return true;
-    if (_SWUYularenGrants($obj, 'SENTINEL')) return true;
-    // HMW_142 Wookie Rangers — "While you control another Wookiee unit or a Kashyyyk base, this unit gains
-    // Sentinel." Both branches are covered (hmw/WookieRangers.md); the Kashyyyk base branch uses the shared
-    // _SWUControlsBaseWithTrait helper, exercised via HMW_021 Kashirho (also HMW_024/030/031).
-    if (($obj->CardID ?? '') === 'HMW_142') {
-        $ctrl142 = intval($obj->Controller ?? 0);
-        $self142 = intval($obj->UniqueID ?? 0);
-        foreach (GetUnitsInPlay($ctrl142) as $u) {
-            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $self142 && TraitContains($u, 'Wookiee')) return true;
-        }
-        if (_SWUControlsBaseWithTrait($ctrl142, 'Kashyyyk')) return true;
-    }
-    switch ($obj->CardID) {
-        case 'ASH_079': // Koska Reeves — "While you control a token unit, this unit gains Sentinel."
-            foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
-                if (empty($u->removed) && strpos(CardType($u->CardID ?? '') ?? '', 'Token') !== false) return true;
-            }
-            return false;
-        case 'LAW_105': // Cinta Kaz — "While this unit is upgraded, she gains Sentinel."
-            return _SWUIsUpgraded($obj);
-        case 'SOR_048': // Vigilant Honor Guards — while undamaged
-        case 'SEC_063': // Rotunda Senate Guards — while undamaged
-            return intval(isset($obj->Damage) ? $obj->Damage : 0) === 0;
-        case 'SOR_113': // Homestead Militia (SOR)
-        case 'JTL_113': // Homestead Militia (JTL)
-            return count(GetResources($obj->Controller)) >= 6;
-        case 'SEC_079': // Corrupt Politician — Sentinel while you control more units than an opponent
-            $sec079Ctrl = intval($obj->Controller ?? 0);
-            if ($sec079Ctrl <= 0) return false;
-            $sec079Mine = 0; foreach (GetUnitsInPlay($sec079Ctrl) as $u) { if (empty($u->removed)) $sec079Mine++; }
-            $sec079Theirs = 0; foreach (GetUnitsInPlay(OtherPlayer($sec079Ctrl)) as $u) { if (empty($u->removed)) $sec079Theirs++; }
-            return $sec079Mine > $sec079Theirs;
-        case 'SOR_211': // Gamorrean Guards — while you have a Cunning unit
-            return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Cunning', $obj->UniqueID);
-        case 'SOR_065': // Baze Malbus — while you have initiative
-            return HasInitiative($obj->Controller);
-        case 'LOF_196': // Jedi Sentinel — "While the Force is with you, this unit gains Sentinel."
-            return PlayerHasTheForce(intval($obj->Controller ?? 0));
-        case 'LOF_085': // Praetorian Guard — "While you control a unit with 4 or more power, gains Sentinel."
-            foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
-                if (empty($u->removed) && intval(ObjectCurrentPower($u)) >= 4) return true;
-            }
-            return false;
-        case 'SOR_082': // Emperor's Royal Guard — while you have an Official unit
-            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Official');
-        case 'SHD_112': // Gamorrean Retainer — while you have a Command unit
-            return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Command', $obj->UniqueID);
-        case 'SHD_034': // Supercommando Squad — while upgraded
-        case 'SHD_247': // Protector of the Throne — while upgraded
-            return count(GetUpgradesOnUnit($obj)) > 0;
-        case 'SHD_052': { // Sugi — while opponent has an upgraded unit
-            $opp = OtherPlayer($obj->Controller);
-            foreach (GetUnitsInPlay($opp) as $u) {
-                if (count(GetUpgradesOnUnit($u)) > 0) return true;
-            }
-            return false;
-        }
-        case 'TWI_043': // Outspoken Representative — while you have a Republic unit
-            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Republic', $obj->UniqueID);
-        case 'TWI_061': // Infantry of the 212th — while Coordinate is active
-            return IsCoordinateActive($obj->Controller);
-        case 'TWI_054': // Duchess's Champion — while opponent has Coordinate active
-            return IsCoordinateActive(OtherPlayer($obj->Controller));
-        case 'JTL_053': // The Ghost — while upgraded
-            return count(GetUpgradesOnUnit($obj)) > 0;
-        case 'JTL_107': // Bunker Defender — while you control a Vehicle unit
-            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Vehicle');
-        case 'JTL_104': // Raddus — while you control ANOTHER Resistance card (unit, upgrade, or leader)
-            return _SWUControlsAnotherResistance(intval($obj->Controller ?? 0), intval($obj->UniqueID ?? 0));
-    }
-    // JTL_053 The Ghost — shares Sentinel with friendly Spectres (general keyword share, see helper).
-    if (_SWUGhostSharesKeyword($obj, 'SENTINEL')) return true;
+    // ⚠ These two are a SEPARATE loop on purpose: they read the raw subcards and do NOT gate on the
+    // upgrade being active, unlike _SWUUnitHasActiveUpgrade above. Do not merge the two groups.
     foreach (GetUpgradesOnUnit($obj) as $u) {
         switch ($u->CardID) {
-            case 'SOR_057': // Protector
+            case 'SOR_057': // Protector — "Attached unit gains Sentinel."
                 return true;
             case 'JTL_109': { // Jarek Yeager (pilot) — while you control a ground unit AND a space unit
-                $ctrl = intval($obj->Controller ?? 0);
                 $hasG = false; foreach (GetGroundArena($ctrl) as $g)  { if (empty($g->removed))  { $hasG = true; break; } }
                 $hasS = false; foreach (GetSpaceArena($ctrl)  as $sp) { if (empty($sp->removed)) { $hasS = true; break; } }
                 if ($hasG && $hasS) return true;
@@ -880,19 +847,134 @@ function HasConditionalKeyword_Sentinel($obj) {
             }
         }
     }
+
+    // ═══ B. GRANTED BY ANOTHER UNIT IN PLAY ═══════════════════════════════════════════════════════
+    // Also keyed by the granter. The recursive share is deliberately LAST in this group — it re-enters
+    // the keyword readers, so it is the most expensive check here.
+    // ASH_007 Grand Admiral Sloane (deployed) — each OTHER friendly unit gains Sentinel.
+    if ($ctrl > 0) {
+        foreach (GetUnitsInPlay($ctrl) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'ASH_007' && intval($u->UniqueID ?? -1) !== $self) return true;
+        }
+    }
+
+    // ═══ C. SELF-CONDITIONAL — this card grants ITSELF Sentinel while a condition holds ════════════
+    // Keyed by the RECIPIENT, so every one of these is a switch case.
+    // Self-conditional cases LAST — see the ordering rule on _SWUGenericKeywordGrants.
+    switch ($obj->CardID) {
+
+        // ── C1: condition reads THIS unit's own state ────────────────────────────────────────────
+        case 'TS26_50': // General Grievous — while undamaged
+        case 'TS26_20': // 501st Veteran — while undamaged
+        case 'SOR_048': // Vigilant Honor Guards — while undamaged
+        case 'SEC_063': // Rotunda Senate Guards — while undamaged
+            return intval($obj->Damage ?? 0) === 0;
+        case 'ASH_243': // Darth Vader — while READY (he is also Shielded)
+            return intval($obj->Status ?? 1) === 1;
+        case 'LAW_105': // Cinta Kaz — while upgraded
+        case 'SHD_034': // Supercommando Squad — while upgraded
+        case 'SHD_247': // Protector of the Throne — while upgraded
+        case 'JTL_053': // The Ghost — while upgraded
+            return count(GetUpgradesOnUnit($obj)) > 0;
+
+        // ── C2: condition reads OTHER units / the board ──────────────────────────────────────────
+        case 'SOR_211': // Gamorrean Guards — while you control a Cunning unit
+            return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Cunning', $obj->UniqueID);
+        case 'SHD_112': // Gamorrean Retainer — while you control a Command unit
+            return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Command', $obj->UniqueID);
+        case 'SOR_082': // Emperor's Royal Guard — while you control an Official unit
+            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Official');
+        case 'TWI_043': // Outspoken Representative — while you control a Republic unit
+            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Republic', $obj->UniqueID);
+        case 'JTL_107': // Bunker Defender — while you control a Vehicle unit
+            return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Vehicle');
+        case 'JTL_104': // Raddus — while you control ANOTHER Resistance card (unit, upgrade or leader)
+            return _SWUControlsAnotherResistance($ctrl, $self);
+        case 'ASH_079': // Koska Reeves — while you control a token unit
+            foreach (GetUnitsInPlay($ctrl) as $u) {
+                if (empty($u->removed) && strpos(CardType($u->CardID ?? '') ?? '', 'Token') !== false) return true;
+            }
+            return false;
+        case 'ASH_120': // Warrior of Clan Kryze — while you control another EXHAUSTED unit
+            foreach (GetUnitsInPlay($ctrl) as $u) {
+                if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $self && intval($u->Status ?? 1) === 0) return true;
+            }
+            return false;
+        case 'ASH_078': // B-Wing Rearguard — while you control a ground unit
+            foreach (GetGroundArena($ctrl) as $gu) {
+                if (empty($gu->removed)) return true;
+            }
+            return false;
+        case 'LOF_085': // Praetorian Guard — while you control a unit with 4 or more power
+            foreach (GetUnitsInPlay($ctrl) as $u) {
+                if (empty($u->removed) && intval(ObjectCurrentPower($u)) >= 4) return true;
+            }
+            return false;
+        case 'ASH_049': // Shin Hati — while she is the ONLY friendly non-leader ground unit. She must
+                        // herself BE a non-leader ground unit to qualify: once she becomes a leader unit
+                        // (e.g. via ASH_135 The Darksaber) she no longer counts and loses Sentinel.
+            if (IsLeaderUnit($obj)) return false;
+            foreach (GetGroundArena($ctrl) as $u) {
+                if (empty($u->removed) && !IsLeaderUnit($u) && intval($u->UniqueID ?? 0) !== $self) return false;
+            }
+            return true;
+        case 'HMW_142': // Wookie Rangers — while you control another Wookiee unit OR a Kashyyyk base
+            foreach (GetUnitsInPlay($ctrl) as $u) {
+                if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $self && TraitContains($u, 'Wookiee')) return true;
+            }
+            return _SWUControlsBaseWithTrait($ctrl, 'Kashyyyk');
+        case 'SEC_079': // Corrupt Politician — while you control MORE units than an opponent
+            if ($ctrl <= 0) return false;
+            $mine = 0;   foreach (GetUnitsInPlay($ctrl) as $u)              { if (empty($u->removed)) $mine++; }
+            $theirs = 0; foreach (GetUnitsInPlay(OtherPlayer($ctrl)) as $u) { if (empty($u->removed)) $theirs++; }
+            return $mine > $theirs;
+        case 'SHD_052': // Sugi — while an OPPONENT has an upgraded unit
+            foreach (GetUnitsInPlay(OtherPlayer($obj->Controller)) as $u) {
+                if (count(GetUpgradesOnUnit($u)) > 0) return true;
+            }
+            return false;
+
+        // ── C3: condition reads a CURRENT EFFECT / game state ───────────────────────────────────
+        case 'SOR_113': // Homestead Militia (SOR)
+        case 'JTL_113': // Homestead Militia (JTL)
+            return count(GetResources($obj->Controller)) >= 6;
+        case 'SOR_065': // Baze Malbus — while you have the initiative
+            return HasInitiative($obj->Controller);
+        case 'LOF_196': // Jedi Sentinel — while the Force is with you
+            return PlayerHasTheForce($ctrl);
+        case 'TWI_061': // Infantry of the 212th — while YOUR Coordinate is active
+            return IsCoordinateActive($obj->Controller);
+        case 'TWI_054': // Duchess's Champion — while the OPPONENT's Coordinate is active
+            return IsCoordinateActive(OtherPlayer($obj->Controller));
+        case 'LOF_105': // Mirror — while another friendly unit has Sentinel.
+                        // ⚠ RECURSIVE: re-enters the keyword readers; the helper carries its own
+                        // re-entrancy guard. Do not "simplify" into a plain scan.
+            return _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SENTINEL');
+    }
+
     return false;
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-// SHIELDED
-// ═════════════════════════════════════════════════════════════════════════════
-
 function HasConditionalKeyword_Shielded($obj) {
-    if (_SWUAsh008GrantsKeyword($obj, 'Shielded_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
-    if (_SWUGhostSharesKeyword($obj, 'SHIELDED')) return true;   // JTL_053 The Ghost keyword share
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'SHIELDED')) return true;
+
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SHIELDED')) return true;
-    if (_SWUYularenGrants($obj, 'SHIELDED')) return true;
     switch ($obj->CardID) {
+        case 'HMW_084': { // Gunga City Guard — while you control ANOTHER Gungan unit OR a Naboo base.
+                          // Two independent enablers; "another" excludes itself by UniqueID (the Guard
+                          // is itself a Gungan). TraitContains, not bare-CardID HasTrait, so a granted
+                          // Gungan trait counts and a per-instance trait loss is honoured.
+            $ctrl084 = intval($obj->Controller ?? 0);
+            if ($ctrl084 <= 0) return false;
+            if (_SWUControlsBaseWithTrait($ctrl084, 'Naboo')) return true;
+            $self084 = intval($obj->UniqueID ?? 0);
+            foreach (GetUnitsInPlay($ctrl084) as $u) {
+                if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $self084 && TraitContains($u, 'Gungan')) return true;
+            }
+            return false;
+        }
         case 'SHD_212': // Privateer Scyk — while you have a Cunning unit
             return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Cunning', $obj->UniqueID);
         case 'SHD_186': { // Hunter of the Haxion Brood — while opponent has a Bounty unit
@@ -910,18 +992,23 @@ function HasConditionalKeyword_Shielded($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Bounty($obj) {
-    if (_SWUGhostSharesKeyword($obj, 'BOUNTY')) return true;   // JTL_053 The Ghost keyword share
-    switch ($obj->CardID) {
-        case 'SHD_033': // Synara San — while exhausted (Status 0; 1 = ready)
-        case 'SHD_165': // Unlicensed Headhunter — while exhausted
-            return isset($obj->Status) && intval($obj->Status) === 0;
-    }
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'BOUNTY')) return true;
+
     // Upgrade-granted Bounty — the attached unit gains a Bounty ability (the keyword shows the badge;
     // the custom reward is collected on defeat — see the granted-bounty snapshot in
     // CollectWhenDefeatedTriggers + SWUCollectBounty). Shared list: SWUBountyGrantUpgrades().
     foreach (GetUpgradesOnUnit($obj) as $u) {
         if (in_array($u->CardID, SWUBountyGrantUpgrades(), true)) return true;
     }
+    // Self-conditional cases LAST — see the ordering rule on _SWUGenericKeywordGrants.
+    switch ($obj->CardID) {
+        case 'SHD_033': // Synara San — while exhausted (Status 0; 1 = ready)
+        case 'SHD_165': // Unlicensed Headhunter — while exhausted
+            return isset($obj->Status) && intval($obj->Status) === 0;
+    }
+
     return false;
 }
 
@@ -960,7 +1047,10 @@ function HasConditionalKeyword_Smuggle($obj) {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function HasConditionalKeyword_Coordinate($obj) {
-    if (_SWUGhostSharesKeyword($obj, 'COORDINATE')) return true;   // JTL_053 The Ghost keyword share
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'COORDINATE')) return true;
+
     foreach (GetUpgradesOnUnit($obj) as $u) {
         if ($u->CardID === 'TWI_051') return true; // For the Republic
     }
@@ -976,8 +1066,10 @@ function HasConditionalKeyword_Piloting($obj) {
 }
 
 function HasConditionalKeyword_Hidden($obj) {
-    if (_SWUAsh008GrantsKeyword($obj, 'Hidden_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
-    if (_SWUGhostSharesKeyword($obj, 'HIDDEN')) return true;   // JTL_053 The Ghost keyword share
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'HIDDEN')) return true;
+
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'HIDDEN')) return true;
     if ($obj === null) return false;
     // HMW_162 Teebo — "Other friendly Ewok units gain Hidden." Granted to any EWOK unit whose controller
@@ -1014,6 +1106,12 @@ function HasConditionalKeyword_Hidden($obj) {
     foreach (GetUnitsInPlay($sec203Ctrl) as $u) {
         if (empty($u->removed) && ($u->CardID ?? '') === 'SEC_203' && intval($u->UniqueID ?? -2) !== $sec203Self) return true;
     }
+    // Self-conditional cases LAST — see the ordering rule on _SWUGenericKeywordGrants.
+    switch ($obj->CardID) {
+        case 'HMW_176': // Village Troublemaker — while you control an ENDOR base
+            return _SWUControlsBaseWithTrait(intval($obj->Controller ?? 0), 'Endor');
+    }
+
     return false;
 }
 
@@ -1044,7 +1142,10 @@ function ResourceHasPlot($obj): int {
 // if/when implemented. No card grants Support conditionally to a field unit yet.
 // ═════════════════════════════════════════════════════════════════════════════
 function HasConditionalKeyword_Support($obj) {
-    if (_SWUAsh008GrantsKeyword($obj, 'Support_Cards')) return true;   // ASH_008 Moff Gideon deployed keyword-copy
+    // Generic granters (ASH_008 Moff Gideon / JTL_047 Yularen / JTL_053 The Ghost) — see
+    // _SWUGenericKeywordGrants: each card's keyword SET lives there as data.
+    if (_SWUGenericKeywordGrants($obj, 'SUPPORT')) return true;
+
     return false;
 }
 

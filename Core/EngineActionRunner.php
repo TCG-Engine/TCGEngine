@@ -254,6 +254,36 @@ function SetFrameAnimationCache($gameName, $animations) {
   WriteCache($gameName . '_anim', $encoded);
 }
 
+// Which root owns the card data for $folderPath? Read from the schema, the same source the
+// generators use. Returns the root itself when it owns its data, and '' for an unknown root.
+function EngineAssetReflectionRoot($repoRoot, $folderPath) {
+  // $folderPath arrives from $_GET in ProcessInput.php; it becomes a filesystem path below.
+  if (!preg_match('/^[A-Za-z0-9_-]+$/', (string)$folderPath)) return '';
+  $schemaFile = $repoRoot . '/Schemas/' . $folderPath . '/GameSchema.txt';
+  if (!is_file($schemaFile)) return '';
+  foreach (file($schemaFile, FILE_IGNORE_NEW_LINES) as $line) {
+    if (strncmp($line, 'AssetReflection:', 16) !== 0) continue;
+    $reflection = trim(substr($line, 16));
+    if ($reflection !== '' && preg_match('/^[A-Za-z0-9_-]+$/', $reflection)) return $reflection;
+  }
+  return $folderPath;   // no AssetReflection line == owns its own card data
+}
+
+// THE card dictionary for $folderPath. Reflection decides this, NOT whether a file happens to sit
+// in the root's own GeneratedCode/.
+//
+// It used to be the other way round: the loader took the local file whenever is_file() said yes and
+// only consulted reflection as a fallback. On 2026-08-17 that cost northbeach.gg three days of a
+// half-broken deck builder -- one bad `zzCardCodeGenerator.php?rootName=HellbreakDeck` run had left
+// an EMPTY dictionary in HellbreakDeck/GeneratedCode/, which then outranked HellbreakSim's real
+// data. It parsed fine, so CardType() was defined and returned '' for every card, and nothing
+// failed loudly. GeneratedCode/ is gitignored, so no git pull could ever clear it.
+function EngineDictionaryPath($repoRoot, $folderPath) {
+  $reflection = EngineAssetReflectionRoot($repoRoot, $folderPath);
+  $owner = ($reflection !== '') ? $reflection : $folderPath;
+  return $repoRoot . '/' . $owner . '/GeneratedCode/GeneratedCardDictionaries.php';
+}
+
 function EngineLoadRootRuntime($folderPath) {
   $repoRoot = RegressionRepoRoot();
   $localVarNames = array_keys(get_defined_vars());
@@ -266,7 +296,17 @@ function EngineLoadRootRuntime($folderPath) {
   include_once $repoRoot . '/Database/ConnectionManager.php';
 
   $gamestateParserPath = $repoRoot . '/' . $folderPath . '/GamestateParser.php';
-  $dictionaryPath = $repoRoot . '/' . $folderPath . '/GeneratedCode/GeneratedCardDictionaries.php';
+  // Reflection decides which root owns the card data — a file sitting in THIS root's gitignored
+  // GeneratedCode/ must never outrank it. See EngineDictionaryPath().
+  $ownDictionary = $repoRoot . '/' . $folderPath . '/GeneratedCode/GeneratedCardDictionaries.php';
+  $dictionaryPath = EngineDictionaryPath($repoRoot, $folderPath);
+  if ($dictionaryPath !== $ownDictionary && is_file($ownDictionary)) {
+    // Loud, because the failure it causes is silent: CardType() stays defined and returns '' for
+    // every card, so only POSITIVE type checks break and the app looks half-working.
+    error_log('EngineLoadRootRuntime: IGNORING stray card dictionary ' . $ownDictionary
+      . ' — ' . $folderPath . ' reflects ' . EngineAssetReflectionRoot($repoRoot, $folderPath)
+      . '. Move it (and any cardArrayCache.json / GeneratedCardDictionaries*.js) out of that folder.');
+  }
   $parserLoadedForReflection = false;
   if (!is_file($dictionaryPath)) {
     include_once $gamestateParserPath;

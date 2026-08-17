@@ -7057,6 +7057,22 @@ function _SWUBaseHasUpgrade(int $player, string $cardID): bool {
     return SWUFindUpgradeIndex($base, $cardID) >= 0;
 }
 
+// How many copies of $cardID are attached to $player's base. The boolean _SWUBaseHasUpgrade above is
+// enough for a UNIQUE Fortify upgrade; a non-unique one (HMW_113 Sinister War Memorial) can be stacked
+// and each copy grants its own ability, so those must COUNT.
+function _SWUCountBaseUpgrades(int $player, string $cardID): int {
+    $zone = GetBase($player);
+    $base = $zone[0] ?? null;
+    if ($base === null || !is_array($base->Subcards ?? null)) return 0;
+    $n = 0;
+    foreach ($base->Subcards as $sub) {
+        $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+        $rem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
+        if (!$rem && $cid === $cardID) $n++;
+    }
+    return $n;
+}
+
 // The SWUDefeatUpgrade-style index (non-captive, non-removed order) of the base-attached upgrade carrying
 // $uid, or -1 if not found. Used by HMW_060 Rampart's deferred replacement to re-locate the saved upgrade.
 function _SWUBaseUpgradeIndexByUID(int $player, string $hostMz, int $uid): int {
@@ -9625,6 +9641,13 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // TWO scries for ONE friendly defeat.
             $rogueones = _SWUSimulObserverCount($controller, 'LAW_119', $leftCards);
             for ($i = 0; $i < $rogueones; $i++) AddTrigger($controller, 'LAW_119', 'LAW_119', '');
+            // HMW_113 Sinister War Memorial (Fortify upgrade on $controller's base) — the base gains
+            // "When a friendly unit is defeated: Heal 1 damage from this base." $controller is the
+            // DEFEATED unit's controller, which is exactly "friendly" from that base's point of view.
+            // Non-interactive, so it resolves inline rather than through a trigger. NOT unique: each
+            // attached copy grants its own ability, hence the count.
+            $memorials = _SWUCountBaseUpgrades($controller, 'HMW_113');
+            for ($i = 0; $i < $memorials; $i++) OnHealBase($controller, $controller, 1);
             // SOR_105 General Krell (controlled by $controller): grants "When Defeated: you may draw
             // a card" to each OTHER friendly unit. The leaving unit qualifies if it isn't Krell.
             if (($d['cardID'] ?? '') !== 'SOR_105' && _SWUCountUnitsWithCardID($controller, 'SOR_105') > 0) {
@@ -14613,6 +14636,42 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
 
     // TWI_002 Nute Gunray: only if 2 or more friendly units were defeated this phase.
     if ($cardID === 'TWI_002' && GlobalEffectCount($player, 'SWU_FRIENDLY_DEFEATED') < 2) return false;
+    // SHD_011 Kylo Ren — Action [Exhaust, discard a card from your hand]. Same mandatory discard cost as
+    // HMW_010/LAW_011: an empty hand makes the action unavailable, never a soft pass.
+    if ($cardID === 'SHD_011') {
+        $savedPidK = $playerID;
+        $playerID  = $player;
+        $handK     = ZoneSearch("myHand");
+        $playerID  = $savedPidK;
+        if (empty($handK)) return false;
+    }
+    // ASH_002 Fennec Shand — Action [1 resource, Exhaust, exhaust a friendly unit]. Only a READY unit can
+    // pay an "exhaust a friendly unit" cost, so the action needs at least one.
+    // ⚠ Gates the COST only. "Play a unit from your hand" is the EFFECT and is deliberately NOT gated
+    // (CR 6.4.587.c, as already applied to SHD_017 Lando): exhausting a friendly unit changes game state,
+    // so the action remains legal with an empty hand.
+    if ($cardID === 'ASH_002') {
+        $savedPidF = $playerID;
+        $playerID  = $player;
+        $readyF    = false;
+        foreach (['myGroundArena', 'mySpaceArena'] as $zF) {
+            foreach (ZoneSearch($zF, AnyUnitFilter) as $mzF) {
+                $oF = GetZoneObject($mzF);
+                if ($oF !== null && empty($oF->removed) && intval($oF->Status ?? 0) === 1) { $readyF = true; break 2; }
+            }
+        }
+        $playerID = $savedPidF;
+        if (!$readyF) return false;
+    }
+    // HMW_010 Tarfful — Action [2 resources, Exhaust, discard a card from your hand]. The discard is a
+    // mandatory COST, so with an empty hand the action is unavailable and the leader must NOT exhaust.
+    if ($cardID === 'HMW_010') {
+        $savedPidT = $playerID;
+        $playerID  = $player;
+        $handT     = ZoneSearch("myHand");
+        $playerID  = $savedPidT;
+        if (empty($handT)) return false;
+    }
     // ASH_012 Vane — Action [Exhaust, defeat a friendly upgrade]: the upgrade-defeat is a mandatory COST, so
     // the action is unavailable (leader not exhausted) when there is no friendly upgrade to defeat.
     if ($cardID === 'ASH_012') {

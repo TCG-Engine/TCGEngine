@@ -19,6 +19,7 @@ $leaderAbilities = [];
 // SWUExhaustResources would charge the player twice.
 global $leaderActionResourceCosts;
 $leaderActionResourceCosts = [
+    "HMW_010" => 2, // Tarfful (also requires a card in hand to discard — see SWULeaderActionAffordable)
     "SOR_005" => 1, // Luke Skywalker
     "SOR_010" => 1, // Darth Vader
     "SOR_006" => 1, // Emperor Palpatine (also requires a friendly unit to defeat)

@@ -87,3 +87,57 @@ WithP2GroundArena: SOR_098:1:0
 P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
 P2BASEDMG:3
 P2GROUNDARENACOUNT:1
+
+---
+
+# NoReadyFriendlyUnit_ActionUnavailable_LeaderStaysReady
+#// ASH_002 Fennec Shand — "Action [1 resource, Exhaust, exhaust a friendly unit]: Play a unit from your
+#// hand (paying its cost). It enters play ready."
+#// "Exhaust a friendly unit" is a mandatory COST, and only a READY unit can be exhausted. With no ready
+#// friendly unit the cost cannot be paid, so the action is unavailable.
+#// ⚠ USER RULING (2026-08-17, given for HMW_010 Tarfful and general to the family): a player may NOT
+#// SOFT PASS with a leader Action whose costs cannot all be paid. An unpayable cost makes the action
+#// UNAVAILABLE — the leader must stay READY rather than exhausting for no effect. The engine's own
+#// SWULeaderActionAffordable doc-comment already stated this ("an unaffordable action must be a no-op,
+#// not a soft pass that spends the leader"); these cards simply were not gated.
+#// ⚠ RED before the fix: the leader exhausted and the resource was spent for nothing.
+#// ⚠ SCOPE: this gates the COST only. "Play a unit from your hand" is the EFFECT and is deliberately NOT
+#// gated (CR 6.4.587.c — the same reasoning the codebase already applies to SHD_017 Lando): exhausting a
+#// friendly unit changes game state, so the action stays legal with an empty hand.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myLeader:ASH_002;myResources:3}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_095
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:READY
+P1RESAVAILABLE:3
+P1NODECISION
+
+---
+
+# OnlyEXHAUSTEDFriendlyUnits_StillUnavailable
+#// ASH_002 Fennec Shand — a friendly unit exists but is already EXHAUSTED, so it cannot pay the
+#// "exhaust a friendly unit" cost. The action is still unavailable.
+#// This is the sharper half: a gate that merely checks "do I control a unit" passes the section above
+#// and fails here.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myLeader:ASH_002;myResources:3}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_095
+WithP1GroundArena: SOR_128:0:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:READY
+P1RESAVAILABLE:3
+P1NODECISION

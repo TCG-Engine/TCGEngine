@@ -82,3 +82,53 @@ WithP1GroundArena: SOR_046:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:5
 P1HANDCOUNT:1
+
+---
+
+# EmptyHand_ActionUnavailable_LeaderStaysReady
+#// SHD_011 Kylo Ren — "Action [Exhaust, discard a card from your hand]: Give a unit +2/+0 for this
+#// phase." The discard is a mandatory COST, so with an EMPTY hand the action cannot be taken at all.
+#// ⚠ USER RULING (2026-08-17, given for HMW_010 Tarfful and general to the family): a player may NOT
+#// SOFT PASS with a leader Action whose costs cannot all be paid. An unpayable cost makes the action
+#// UNAVAILABLE — the leader must stay READY rather than exhausting for no effect. The engine's own
+#// SWULeaderActionAffordable doc-comment already stated this ("an unaffordable action must be a no-op,
+#// not a soft pass that spends the leader"); these cards simply were not gated.
+#// ⚠ RED before the fix: the handler bailed out AFTER the dispatcher had already exhausted the leader,
+#// which is exactly the soft pass the ruling forbids — a free way to burn an action window.
+
+## GIVEN
+CommonSetup: bbk/bgw/{myLeader:SHD_011;myResources:3}
+SkipPreGame: true
+P1OnlyActions: true
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1LEADER:READY
+P1NODECISION
+
+---
+
+# WithACardInHand_ActionWorks
+#// SHD_011 Kylo Ren — the control that keeps the section above honest: with a card in hand the cost IS
+#// payable, so the action proceeds normally — leader exhausts, the card is discarded, and the chosen
+#// unit gets +2/+0 (3 power -> 5).
+
+## GIVEN
+CommonSetup: bbk/bgw/{myLeader:SHD_011;myResources:3}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_095
+WithP1GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1LEADER:EXHAUSTED
+P1HANDCOUNT:0
+P1DISCARDCOUNT:1
+P1GROUNDARENAUNIT:0:POWER:5
