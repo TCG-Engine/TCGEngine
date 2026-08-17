@@ -187,3 +187,54 @@ WithP2Deck: [SOR_095 SOR_095]
 P1GROUNDARENACOUNT:3
 P1DECKCOUNT:0
 P1HANDCOUNT:2
+
+---
+
+# BlankedHondo_ActionIsGone
+#// LAW_094 Hondo Ohnaka — his Action is an ABILITY, so an effect that removes his abilities must remove
+#// it. P1 plays JTL_244 There Is No Escape ("choose up to 3 units; they lose all abilities and can't gain
+#// abilities for this round") on its OWN Hondo, then tries the action: it is a no-op, the deck-top SOR_063
+#// stays put and nothing enters play.
+#// Paired with BlankedOtherUnit_HondosActionStillWorks below, which blanks a DIFFERENT unit on an
+#// otherwise identical board and shows the action firing — without that half a no-op caused by the extra
+#// event (resources, action count) would read as the blanking working.
+
+## GIVEN
+CommonSetup: byk/bgw/{myResources:8}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_094:1:0 SOR_095:1:0]
+WithP1Deck: SOR_063
+WithP1Hand: JTL_244
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1DECKCOUNT:1
+P1DECKTOPCARD:SOR_063
+
+---
+
+# BlankedOtherUnit_HondosActionStillWorks
+#// LAW_094 Hondo Ohnaka — the CONTROL for BlankedHondo_ActionIsGone. Identical board and identical event,
+#// but JTL_244 blanks the Battlefield Marine instead of Hondo. Hondo keeps his abilities, so the action
+#// resolves normally and SOR_063 is played out of the deck.
+
+## GIVEN
+CommonSetup: byk/bgw/{myResources:8}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_094:1:0 SOR_095:1:0]
+WithP1Deck: SOR_063
+WithP1Hand: JTL_244
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+- P1>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1DECKCOUNT:0

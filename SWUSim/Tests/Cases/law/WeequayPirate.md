@@ -159,3 +159,39 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SHD_053
 P1RESAVAILABLE:0
+
+---
+
+# DroidPartialPay_ResourcesStillPaid_NoExperience
+#// LAW_231 Weequay Pirate — the boundary partner for the Droid alt-payment path. SEC_122 Vuutun Palaa
+#// lets each friendly Droid be exhausted "to pay costs as if it were a resource"; when Droids cover the
+#// WHOLE cost, resources-paid is 0 and Weequay gets the Experience token — that full-cover case is
+#// asserted in Tests/Cases/sec/VuutunPalaa_DroidControlShip.md::DroidPaymentLowersResourcesPaid, which is
+#// why it does not appear again here. This section pins the other side of the line: ONE Droid covers 1 of
+#// the cost-2 and a real resource covers the rest, so resources WERE paid and NO Experience is given.
+#// Without this half, an implementation that stamped "no resources paid" on any Droid-assisted play would
+#// look correct.
+#// P1 has exactly 1 ready resource, so the single remaining pip must come from it (P1RESAVAILABLE:0).
+
+## GIVEN
+CommonSetup: yyk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SEC_122:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1Resources: 1
+WithP1Hand: LAW_231
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:LAW_231
+P1GROUNDARENAUNIT:1:POWER:2
+P1GROUNDARENAUNIT:1:HP:3
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1RESAVAILABLE:0
+P1HANDCOUNT:0

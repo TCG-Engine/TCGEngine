@@ -54,6 +54,30 @@ Read the result. It reports both players' leaders/bases/arenas/hands/decks and p
 
 The Xdebug "Could not connect to debugging client" line on stderr is harmless — the snapshot still writes.
 
+### When there is NO usable snapshot (common — 3 of 6 reports in the 2026-08-17 batch)
+
+A report may arrive with **no game id at all**, or with a game dir that exists but is **empty** (no
+`Gamestate.txt`). Do not stall, and do not conclude that persistence is broken — **1455 game dirs did
+have a `Gamestate.txt`** when this was measured, so two empty samples prove nothing about the population.
+Check before generalising:
+
+```bash
+docker exec -w /var/www/html/TCGEngine <container> sh -c \
+  'n=0; for d in SWUSim/Games/*/; do [ -f "$d/Gamestate.txt" ] && n=$((n+1)); done; echo "with gamestate: $n"'
+```
+
+Reports often carry a **gamestate hash**. It is worth one scan, but note it did NOT match a plain
+`sha256sum` of any `Gamestate.txt` — so either find out what it actually hashes, or skip it:
+
+```bash
+# also useful: find real boards that contain the card, to see how it is played in practice
+docker exec -w /var/www/html/TCGEngine <container> sh -c 'grep -rl "ASH_253" SWUSim/Games/ | head -5'
+```
+
+With no snapshot, **build the repro from the card text and the schema instead** — that is what produced
+every fix in that batch. Say so explicitly in the write-up: the fix is pinned by a minimal board, not by
+the reported one, which is a real (if usually acceptable) gap.
+
 ---
 
 ## Step 3 — Get the bug repro from the user
@@ -112,6 +136,58 @@ Green = `N passed  0 failed`. Any `✗` line names the broken test — fix or re
 
 ---
 
+## Step 6 — Prove the new guard is LOAD-BEARING (mutation) — do not skip this
+
+Green is not evidence. **Revert the fix, re-run the new section, and watch it fail for the right reason.
+Then restore and re-run.** Every fix in the 2026-08-17 batch was verified this way, and it repeatedly
+separated real guards from decorative ones:
+
+- `EmptyHand_NoDiscard` **passed with the empty-hand guard deleted** — the opponent's discard pile was
+  also empty, so there was no card for a broken gate to find. The section could never fail.
+- The two Ahsoka choice-branch sections failed in **opposite directions** under mutation (spurious offer
+  vs silently-dropped offer) — that pair is the strongest shape available.
+- Two of my own mutation attempts **silently did not apply**, and I nearly reported one as verified.
+
+⚠ **Do mutations with the Edit tool, never a shell `perl`/`sed` one-liner.** `$player`, `$isAction` etc.
+interpolate away inside shell quoting and the substitution becomes a no-op or, worse, mangles the
+signature. **Assert the mutation landed** (`grep` the mutated line and read it back) before trusting the
+run, and re-assert the restore afterwards — a `grep -c` that returns 0 is usually your own pattern
+quoting, so verify with a direct `sed -n '<line>p'`.
+
+### Fixture idioms that make a whole assertion class UNOBSERVABLE
+
+These are not sloppy tests — they are conveniences that silently disable an entire family. When a card
+could plausibly hit one of these, the fixture has to be built against it deliberately:
+
+| fixture convenience | what it silently disables | the fix |
+|---|---|---|
+| `P1OnlyActions: true` | **`TURNPLAYER`** — initiative is claimed, so the opponent auto-passes and a DOUBLE turn-swap looks identical to a single one | one section WITHOUT it, asserting `TURNPLAYER:2`, plus a decline/no-op control |
+| opponent's discard pile left empty | every "if it's a unit / cost N" NEGATIVE — a stale read finds nothing and is accidentally right | seed the pile with a card of the **opposite kind** |
+| the observer SURVIVES the combat | the whole simultaneous-defeat family ("when an enemy unit is defeated") | a TRADE cell — the observer dies in the same batch |
+| opponent holds 0–1 cards | every cross-player queue-ordering bug — `SWUDiscardCards` resolves INLINE below the threshold | give them 2+ and drive the pick with a `P2>` line |
+| one legal target | the offer pool — it auto-resolves, so there is nothing to assert | N+1 fixtures (see `swusim-implement-card`) |
+
+### When the fix's own failure mode is quieter than the bug
+
+Ordering/queue fixes bite back: draining a staging zone silently ate a queued scry, and moving a
+continuation to the opponent's queue silently dropped an entire ability (a lone `CUSTOM` on a player who
+is not otherwise acting **never drains**). Both were worse than the original bug and both were caught only
+because a sibling section covered the branch I had not changed. **After an ordering fix, run the branch
+you did not touch** — the inline/auto path as well as the interactive one.
+
+## When it turns out to be a NON-BUG
+
+A non-repro is a legitimate outcome, not a failure — but earn it, then say so plainly:
+
+1. Enumerate the readings you tested (own attack vs granted/Support, upgraded vs not, base vs unit target,
+   with and without `SimulateRequestBoundary`) and report them as a table.
+2. State what you did **not** cover — a non-repro is not proof of absence.
+3. Keep the guards you wrote getting there. They are the deliverable: the Yellow Aces investigation found
+   no bug and still closed a real `TURNPLAYER` blind spot across that whole file.
+4. Consider the presentational reading before closing. "Extra action" turned out to be Support's printed
+   bonus attack — the player got one action that did three things. If a report keeps recurring, suspect
+   the prompt wording rather than the next reporter.
+
 ## Test-runner reference (why the helper exists — don't skip it)
 
 **Use `.claude/skills/swusim-debug-game/scripts/run-schema-tests.php`, run via the container's PHP.** It clones `zzRegressionSWUSim.php`'s exact environment. Two naïve alternatives lie:
@@ -150,3 +226,7 @@ Handy assertions seen in cases: `P1NODECISION` (no pending decision — proves a
 - **Trusting `zzRunSWUSimTests.php`'s failure count.** Missing stubs → phantom fails. Use the helper.
 - **Editing a generated file.** The next regen wipes it. Fix the `Custom/` handler (or the generator, gated by `$rootName`).
 - **Skipping the 98% gate** and burning a fix on a misread repro. Ask the cheap clarifying question first.
+- **Claiming a fix without mutation-verifying the guard.** A section that cannot fail is not coverage — see Step 6.
+- **Running a mutation through a shell one-liner.** `$vars` interpolate away; assert the mutation landed.
+- **Treating a UI/transport bug as untestable.** Two halves are automatable: (a) the harness routes `PlayHand`/attacks through the SAME production `ActionMap` entry as a real click, so server-side guards (turn player, pending decisions) ARE testable in `Cases/`; (b) for generated transport code, extract the shipped lines out of `GetNextTurn.php` by string-match and `eval` them against a stubbed `GetDecisionQueue()`. Only the pixels need a human — put those in a `Tests/Visual/` schema.
+- **Generalising from two samples** ("no game has a gamestate"). Count the population first.

@@ -173,3 +173,45 @@ P1OnlyActions: true
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P1BASEDMG:3
+
+---
+
+# Reactive_TradeInCombat_ChimaeraDiesToo_StillHeals
+#// ASH_052 Chimaera — ⚠ THE TRADE CELL (live bug report #961). Chimaera attacks and BOTH units die in the
+#// same combat: combat damage is simultaneous, so the enemy unit was defeated while Chimaera was still in
+#// play and the heal must happen. Contrast EnemyDefeatedInCombat_Heal2 above, where Chimaera watches from
+#// safety — that section passes with a "count only the copies STILL in play" implementation, which is
+#// exactly what this one catches.
+#// Chimaera is 6/6 seeded with 1 damage (5 remaining) and JTL_251 Jedi Light Cruiser is 6/7 seeded with 1
+#// damage (6 remaining): 6 power each way kills both. Base 5 -> 3 is the heal.
+## GIVEN
+CommonSetup: bbk/bbk/{myBaseDamage:5}
+WithP1SpaceArena: ASH_052:1:1
+WithP2SpaceArena: JTL_251:1:1
+P1OnlyActions: true
+## WHEN
+- P1>AttackSpaceArena:0:0
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:0
+P1BASEDMG:3
+
+---
+
+# Reactive_MassDefeat_ChimaeraInTheSameBatch_StillHeals
+#// ASH_052 Chimaera — the other simultaneous-defeat path. SOR_043 Superlaser Blast ("Defeat all units")
+#// walks the board one unit at a time inside a simultaneous-defeat window, so Chimaera can be removed
+#// BEFORE the enemy unit's defeat is collected. It was in play when the effect started, so it still
+#// observes the enemy defeat and heals 2 (base 5 -> 3).
+#// SOR_043 is Vigilance/Villainy — on-aspect for this bbk deck, so 8 resources pay it exactly.
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:8;handCardIds:SOR_043;myBaseDamage:5}
+WithP1SpaceArena: ASH_052:1:0
+WithP2GroundArena: SOR_095:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SPACEARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1BASEDMG:3

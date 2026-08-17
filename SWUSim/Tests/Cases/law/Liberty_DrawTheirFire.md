@@ -183,3 +183,65 @@ P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1HANDCOUNT:1
 P1HANDCARD:0:SHD_071
 P2HANDCOUNT:0
+
+---
+
+# WhenPlayedPilotUpgrade_FilteredByItsPRINTEDCost_NotItsPilotingCost
+#// LAW_224 Liberty — "return all upgrades that cost 4 or less" measures a PILOT upgrade by the card's own
+#// printed cost, not by the Piloting cost that was actually paid to attach it. JTL_103 Chewbacca is a
+#// cost-5 unit with "Piloting [3 resources]": the two numbers disagree across the 4-or-less line, so the
+#// card is the discriminator for which one the filter reads. Attached to P2's SOR_141 Green Squadron
+#// A-Wing alongside SEC_176 Sudden Ferocity (cost 3), only Sudden Ferocity comes back — Chewbacca stays
+#// on the A-Wing because his printed cost is 5.
+
+## GIVEN
+CommonSetup: yyw/bgw/{myResources:8}
+WithP2SpaceArena: SOR_141:1:0
+WithP2SpaceArenaUpgrade: 0:JTL_103
+WithP2SpaceArenaUpgrade: 0:SEC_176
+WithP1Hand: LAW_224
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENAUNIT:0:CARDID:SOR_141
+P2SPACEARENAUNIT:0:EXHAUSTED
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+P2SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_103
+P2HANDCOUNT:1
+P2HANDCARD:0:SEC_176
+
+---
+
+# WhenPlayedPilotPlayedForItsPILOTINGCost_StillNotReturned
+#// LAW_224 Liberty — the same rule driven through the REAL Piloting dispatch path rather than a seeded
+#// upgrade. P2 actually plays JTL_103 Chewbacca with Piloting onto its Green Squadron A-Wing, paying the
+#// Piloting cost of 3 (8 resources -> 5 available, so both play modes were affordable and the mode prompt
+#// was genuinely offered). 3 is inside Liberty's "4 or less" window, yet Chewbacca must NOT be returned:
+#// the filter reads the card's printed cost of 5, never the alternate cost that was paid.
+
+## GIVEN
+CommonSetup: yyw/ggw/{myResources:8}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 8
+WithP2SpaceArena: SOR_141:1:0
+WithP2Hand: JTL_103
+WithP1Hand: LAW_224
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Pilot
+- P1>PlayHand:0
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2RESAVAILABLE:5
+P2SPACEARENAUNIT:0:CARDID:SOR_141
+P2SPACEARENAUNIT:0:EXHAUSTED
+P2SPACEARENAUNIT:0:UPGRADECOUNT:1
+P2SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_103
+P2HANDCOUNT:0

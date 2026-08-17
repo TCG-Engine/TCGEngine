@@ -280,3 +280,29 @@ WithP2GroundArena: SOR_128:2:0
 ## EXPECT
 P1BASEDMG:2
 P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_TradeInCombat_IdenDiesToo_StillHeals
+#// SOR_002 Iden Versio (deployed unit side) — ⚠ THE TRADE CELL. A deployed leader is a real arena unit:
+#// it gets DEFEATED in combat and only then returns to its leader zone (user ruling 2026-08-17). Combat
+#// damage is simultaneous, so the enemy was defeated while Iden was still in play and the heal must fire
+#// even though Iden died in the same batch — the same simultaneous-defeat rule as Gideon/HK-47/Chimaera.
+#// Deployed Iden (4/4) trades with LOF_084 Knight of Ren (4/4): 4 power each way kills both.
+#// Contrast Deployed_EnemyDefeated_Heals above, where Iden survives — that section passes with a gate
+#// that reads the live `Deployed` flag, which is already false here by the time the defeat is collected.
+#// P1LEADER:EXHAUSTED is the other half of the ruling: she is back in the leader zone, exhausted.
+
+## GIVEN
+CommonSetup: bbk/grk/{myBaseDamage:3;myLeaderDeployed:true}
+P1OnlyActions: true
+WithP2GroundArena: LOF_084:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1LEADER:EXHAUSTED
+P1BASEDMG:2

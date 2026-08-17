@@ -14,7 +14,7 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>AttackGroundArena:0:0
-- P1>AnswerDecision:myDeck-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1DECKTOPCARD:SOR_095
@@ -66,7 +66,7 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>AttackGroundArena:0:0
-- P1>AnswerDecision:myDeck-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1DECKTOPCARD:SOR_095
@@ -107,7 +107,7 @@ WithP2Deck: SOR_063
 ## WHEN
 - P2>PlayHand:0
 - P2>AnswerDecision:theirSpaceArena-0
-- P2>AnswerDecision:myDeck-0
+- P2>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1SPACEARENACOUNT:0
@@ -177,7 +177,7 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>AttackSpaceArena:1:0
-- P1>AnswerDecision:myDeck-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1SPACEARENACOUNT:1
@@ -212,7 +212,7 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>AttackSpaceArena:0:0
-- P1>AnswerDecision:myDeck-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1SPACEARENACOUNT:0
@@ -273,3 +273,28 @@ WithP1Hand: SOR_043
 
 ## EXPECT
 P1HASDECISION
+
+---
+
+# LookPromptOffersTheCARDS_NotTheDeckPile
+#// LAW_119 Rogue One — the same prompt-render cell as LAW_237 Qui-Gon (live bug report #962), and the
+#// only other member of the family engine-wide. "Look at the top 2 cards" offered the deck's own mzIDs,
+#// so the client rendered the `Deck` zone — `Display: Mode=Single(Stacked), BindTo=DeckSlot`, a single
+#// pile showing only its count — instead of the two cards. Staged into TempZone (`Display: Mode=None`),
+#// which routes the MZMULTICHOOSE to its own card modal.
+#// Nobody reported this one; it was found by sweeping for the shape.
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_119:1:0
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Deck: [SOR_237 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myTempZone-0&myTempZone-1

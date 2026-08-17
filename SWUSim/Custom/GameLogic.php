@@ -3646,7 +3646,16 @@ function SWUReturnResourceToHand(int $player, string $resourceMzID): bool {
     return true;
 }
 
-function SWUDiscardCards(int $player, int $numCards, ?int $target = null): void {
+// Returns TRUE when the discard was QUEUED as a choice on the discarding player's queue (hand > $numCards),
+// FALSE when it happened INLINE (whole hand discarded, or nothing to discard).
+// ⚠ A caller whose next step must observe WHAT was discarded has to branch on this. The queued form puts
+// the pick on the OTHER player's queue, so a continuation queued on the caller's own queue runs FIRST and
+// reads a pre-discard board (bug report #965, JTL_201 Ahsoka: the "if it's a unit" gate read whatever was
+// already on top of the opponent's discard pile and offered its exhaust regardless). Queue the continuation
+// behind their pick when this returns true; queue it normally when it returns false, since by then the
+// discard has already landed. Do NOT unconditionally queue on the other player's queue either — a lone
+// CUSTOM there never drains when that player is not otherwise acting.
+function SWUDiscardCards(int $player, int $numCards, ?int $target = null): bool {
     // Twin Suns (Phase 3): $target lets a caller aim a specific opponent (for "each opponent discards"
     // loops); default = the single opponent, so all existing 2-player callers are unchanged.
     $opponent  = $target ?? OtherPlayer($player);
@@ -3656,7 +3665,7 @@ function SWUDiscardCards(int $player, int $numCards, ?int $target = null): void 
         if (isset($card->removed) && $card->removed) continue;
         $handCount++;
     }
-    if ($handCount === 0) return;
+    if ($handCount === 0) return false;
 
     if ($handCount <= $numCards) {
         global $playerID;
@@ -3674,6 +3683,7 @@ function SWUDiscardCards(int $player, int $numCards, ?int $target = null): void 
         // DoDiscardCard (which fires the Padmé reaction), so fire it here ONCE for the whole batch
         // (collective: one "discard N" event = one trigger).
         if ($discarded && function_exists('_SWUSec016React')) _SWUSec016React($opponent);
+        return false;   // discarded INLINE — the result is already observable
     } else {
         for ($n = 0; $n < $numCards; $n++) {
             DecisionQueueController::AddDecision($opponent, "MZCHOOSE", "myHand", 1,
@@ -3682,6 +3692,7 @@ function SWUDiscardCards(int $player, int $numCards, ?int $target = null): void 
         }
         // Fire the SEC_016 Padmé reaction ONCE after all chosen cards are discarded (collective trigger).
         DecisionQueueController::AddDecision($opponent, "CUSTOM", "SEC016_BATCH_REACT|{$opponent}", 1);
+        return true;    // QUEUED on $opponent's queue — see the note on the signature
     }
 }
 
@@ -8622,6 +8633,11 @@ function Law033Trigger($player, $mzID): void {
 
 // LAW_119 Rogue One — When a friendly unit is defeated: look at the top 2 cards; put any number on the
 // bottom of your deck, the rest on top. (MZMULTICHOOSE the cards to put on the bottom.)
+// ⚠ The peeked cards are STAGED INTO TempZone and the pick is offered over myTempZone-K, never over the
+// deck's own myDeck-K mzIDs. `Deck` is `Display: Mode=Single(Stacked), BindTo=DeckSlot`, so a prompt
+// pointing at it renders one stacked pile showing only its COUNT — a bare number and no cards (the
+// LAW_237 Qui-Gon shape, live bug report #962). TempZone is `Display: Mode=None`, which routes the
+// MZMULTICHOOSE to its own card modal. Guarded by LookPromptOffersTheCARDS_NotTheDeckPile.
 function Law119Trigger($player): void {
     global $playerID; $playerID = intval($player);
     $deck = ZoneSearch("myDeck", null);
@@ -8629,7 +8645,15 @@ function Law119Trigger($player): void {
     $top = array_slice($deck, 0, 2);
     AddGameLogEntry('REVEAL', 'P' . intval($player) . ' looked at the top ' . count($top) . ' cards of their deck');
     $k = count($top);
-    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$k}|" . implode("&", $top), 1, tooltip: "Put_any_number_of_the_top_2_on_the_bottom");
+    $temp = &GetTempZone($player);
+    while (count($temp) > 0) array_pop($temp);
+    $tempMZs = [];
+    foreach ($top as $i => $mz) {
+        $o = GetZoneObject($mz);
+        AddTempZone($player, $o->CardID ?? '');
+        $tempMZs[] = "myTempZone-{$i}";
+    }
+    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$k}|" . implode("&", $tempMZs), 1, tooltip: "Put_any_number_of_the_top_2_on_the_bottom");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_119#0", 1);
 }
 
@@ -9566,7 +9590,12 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             }
             // SOR_002 Iden Versio (deployed leader unit of $opp): "When an enemy unit is defeated:
             // Heal 1 damage from your base." Fires once per defeated enemy unit.
-            if (_SWULeaderDeployed($opp, 'SOR_002')) {
+            // ⚠ Counted through the batch-aware helper, NOT _SWULeaderDeployed: a deployed leader IS a
+            // real arena unit that gets DEFEATED in combat and only then returns to its leader zone
+            // (user ruling 2026-08-17), so on a trade the live `Deployed` flag is already false by the
+            // time this collection runs. Same simultaneous-defeat family as Chimaera/Gideon/HK-47 above.
+            $idens = _SWUSimulObserverCount($opp, 'SOR_002', $leftCards);
+            for ($i = 0; $i < $idens; $i++) {
                 AddTrigger($opp, 'SOR_002', 'SOR_002', '');
             }
             // SHD_137 Punishing One (controlled by $opp): "When an UPGRADED enemy unit is defeated: you may
@@ -9589,17 +9618,18 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // cannot be read off the unit here.
             // The once/round flag is consumed HERE, at collect time, so a DECLINED offer still spends the
             // round (the ability triggered) — same convention as SHD_137 above.
-            if (!empty($d['weakened']) && GlobalEffectCount($opp, 'SWU_HMW062_USED') <= 0) {
-                foreach (GetUnitsInPlay($opp) as $pu) {
-                    if (!empty($pu->removed) || ($pu->CardID ?? '') !== 'HMW_062' || LostAbilities($pu)) continue;
-                    AddGlobalEffects($opp, 'SWU_HMW062_USED');
-                    AddTrigger($opp, 'HMW_062', 'HMW_062', '');
-                    break;
-                }
+            // ⚠ Counted through the batch-aware helper for the same reason as Chimaera/Iden above: a Vindi
+            // that TRADED with the weakened enemy was in play when it was defeated, so he still observes it.
+            if (!empty($d['weakened']) && GlobalEffectCount($opp, 'SWU_HMW062_USED') <= 0
+                && _SWUSimulObserverCount($opp, 'HMW_062', $leftCards) > 0) {
+                AddGlobalEffects($opp, 'SWU_HMW062_USED');
+                AddTrigger($opp, 'HMW_062', 'HMW_062', '');
             }
             // ASH_052 Chimaera (controlled by $opp): "When an enemy unit is defeated: heal 2 damage from
-            // your base." Fires once per Chimaera in play; non-interactive.
-            $chimaeras = _SWUCountActiveUnitsWithCardID($opp, 'ASH_052');
+            // your base." Fires once per Chimaera in play; non-interactive. Same batch supplement as
+            // Gideon/Bo-Katan/HK-47 above: a Chimaera defeated in THIS batch was in play when the enemy
+            // was defeated, so it still heals — the live-report case is a straight combat TRADE.
+            $chimaeras = _SWUSimulObserverCount($opp, 'ASH_052', $leftCards);
             for ($i = 0; $i < $chimaeras; $i++) {
                 OnHealBase($opp, $opp, 2);
             }
@@ -14420,7 +14450,18 @@ function SWUFindLeaderByCardID(int $player, string $cardID): ?object {
 // then calls back with the chosen mode.
 // Marks EpicActionUsed/Deployed/Ready=false in all branches. Leaders deploy for free
 // (the threshold is a condition, not a cost).
-function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = '', int $leaderIndex = 0): void {
+// $isAction=false for a deploy that is a TRIGGERED REACTION rather than the player's action for the turn
+// (ASH_018 Grogu — "when you play a unique unit costing 4+ … you may deploy him"). Such a deploy must not
+// run its own After Action: the thing that triggered it (the card play) already runs one, and two
+// After Actions swap the turn TWICE, handing the same player a second action (live bug report #963).
+// ⚠ The Plot arming below still happens either way — CR 19.761.a keys Plot on the DEPLOY EVENT ("When you
+// deploy a leader"), not on a deploy action — and the triggering play's own After Action picks up
+// SWU_PLOT_IN_PROGRESS and opens the window, so the Plot flow is unchanged.
+// ⚠ The flag is NOT threaded through the Unit/Pilot re-offer below (LEADER_DEPLOY_CHOICE re-enters with
+// the default true). That is safe only because the one reaction-deploy leader, ASH_018, is not
+// CardLeaderCanDeployAsUpgrade, so it can never reach that branch. A future pilot-capable leader with a
+// reaction deploy must carry $isAction through LEADER_DEPLOY_CHOICE or it will regress this bug.
+function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = '', int $leaderIndex = 0, bool $isAction = true): void {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
@@ -14598,7 +14639,7 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
 
     if ($triggered === 0) {
         DecisionQueueController::CleanupRemovedCards();
-        SWUAfterAction($player);
+        if ($isAction) SWUAfterAction($player);   // see $isAction on the signature (bug report #963)
     }
 
     $playerID = $savedPID;

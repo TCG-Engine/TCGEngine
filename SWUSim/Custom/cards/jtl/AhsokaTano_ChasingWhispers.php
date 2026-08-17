@@ -12,8 +12,18 @@ $whenPlayedAbilities["JTL_201:0"] = function($player, $mzID) {
     $hasCard = false;
     foreach (GetHand($opp) as $c) { if (empty($c->removed)) { $hasCard = true; break; } }
     if (!$hasCard) return;
-    SWUDiscardCards(intval($player), 1);   // the opponent discards a card of their choice
-    DecisionQueueController::AddDecision($player, 'CUSTOM', "JTL_201#0|" . intval($player), 1);
+    $queued = SWUDiscardCards(intval($player), 1);   // the opponent discards a card of their choice
+    // ⚠ "If it's a unit" has to read the card the opponent ACTUALLY discarded, so the continuation must sit
+    // behind the discard — and where that is depends on which path SWUDiscardCards took (bug report #965).
+    // With 2+ cards in hand the pick is queued on the OPPONENT'S queue; a continuation on the caster's
+    // queue resolves first, reads whatever was already on top of their discard pile, and offers the exhaust
+    // regardless. With ≤1 card the discard happens INLINE and nothing is queued for them — putting the
+    // continuation on their queue there would strand it, because a lone CUSTOM on a player who is not
+    // otherwise acting never drains. Hence the branch.
+    // Either way the handler re-frames to the caster (who rides in the param), so the exhaust offer lands
+    // on the right player's queue.
+    DecisionQueueController::AddDecision($queued ? $opp : intval($player),
+        'CUSTOM', "JTL_201#0|" . intval($player), 1);
 };
 
 $customDQHandlers["JTL_201#0"] = function($player, $parts, $lastDecision) {

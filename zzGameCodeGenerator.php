@@ -1961,9 +1961,25 @@ if($rootName == "SWUSim") {
                : (($cshSeat === 2) ? " || (\$viewerLooksAtOppHand && \$vSeat === 1)" : "");
     fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands{$cshReveal};\r\n");
   }
+  // "Look at an opponent's RESOURCES" — the exact twin of the hand reveal above, for the cards that
+  // offer a pick out of the opponent's resource row (LAW_066 Tear This Ship Apart, SHD_213 DJ,
+  // Xanadu Blood). Without it the Resources zone is Visibility=Self and every one of those cards
+  // rendered the opponent's resources as CARD BACKS, so the player chose blind (bug report #964).
+  // Same shape as the hand flag: scan the VIEWER's own pending decisions for a 'theirResources'
+  // param, and auto-clear when the decision resolves.
+  fwrite($handler, "\$viewerLooksAtOppResources = false;\r\n");
+  fwrite($handler, "if(\$vSeat === 1 || \$vSeat === 2) { foreach(GetDecisionQueue(\$vSeat) as \$_d) { if(!empty(\$_d->removed)) continue; if(strpos((string)(\$_d->Param ?? ''), 'theirResources') !== false) { \$viewerLooksAtOppResources = true; break; } } }\r\n");
+  for ($csrSeat = 1; $csrSeat <= $maxSeats; ++$csrSeat) {
+    $csrReveal = ($csrSeat === 1) ? " || (\$viewerLooksAtOppResources && \$vSeat === 2)"
+               : (($csrSeat === 2) ? " || (\$viewerLooksAtOppResources && \$vSeat === 1)" : "");
+    fwrite($handler, "\$canSeeResourcesPlayer{$csrSeat} = \$canSeePrivatePlayer{$csrSeat}{$csrReveal};\r\n");
+  }
 } else {
   for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
     fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands;\r\n");
+  }
+  for ($csrSeat = 1; $csrSeat <= $maxSeats; ++$csrSeat) {
+    fwrite($handler, "\$canSeeResourcesPlayer{$csrSeat} = \$canSeePrivatePlayer{$csrSeat};\r\n");
   }
 }
 fwrite($handler, "SetCachePiece(\$gameName, 1, \$updateNumber);\r\n");
@@ -2385,8 +2401,12 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= "    echo(ClientRenderedCard(\"CardBack\"));\r\n";
       } else if ($zone->Visibility == "Self") {
         // SWUSim Hand uses the look-at-opponent's-hand-aware flag so a "look at an opponent's hand"
-        // decision reveals it to the chooser; all other Self zones keep the plain privacy flag.
-        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
+        // decision reveals it to the chooser; Resources has the exact twin for "look at an opponent's
+        // resources" (LAW_066 / SHD_213 / Xanadu Blood — bug report #964, they showed card backs and the
+        // player picked blind). All other Self zones keep the plain privacy flag.
+        $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer"
+                  : (($rootName == "SWUSim" && $zone->Name == "Resources") ? "canSeeResourcesPlayer"
+                                                                          : "canSeePrivatePlayer");
         $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         // SWUSim Resources: Credit tokens (CR 3.13) are public info (count + targetable by LAW_106),
         // so they render face-up even to the opponent; real resources stay Self-only (CardBack).

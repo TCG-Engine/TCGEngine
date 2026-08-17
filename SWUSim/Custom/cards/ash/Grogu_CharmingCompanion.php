@@ -7,5 +7,8 @@
 $customDQHandlers["ASH_018#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (($lastDecision ?? '') !== 'YES') return;
-    SWUDeployLeader(intval($player), 'Unit');   // the ASH_018 gate branch only requires Grogu ready
+    // $isAction=false: this deploy is a REACTION to playing a unit, not the player's action for the turn.
+    // The play that triggered it already runs its own After Action; letting the deploy run a second one
+    // swapped the turn twice and handed the player a free extra action (live bug report #963).
+    SWUDeployLeader(intval($player), 'Unit', '', 0, false);   // the ASH_018 gate branch only requires Grogu ready
 };

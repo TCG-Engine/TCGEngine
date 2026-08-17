@@ -83,6 +83,25 @@ Every cell below is already in the matrix above, and every one is still skipped 
 
 **The diagnostic pattern:** "If you do" failure branches are **97% covered** (only 2 of 64 missing) — because the card text contains a sentence pointing at them. Every cell above is missed precisely because *nothing in the printed text names it*. So invert the instinct: **the cells you'll skip are the ones the card text doesn't mention.** Walk them from the matrix, never from re-reading the card.
 
+### ⚠ Fixture idioms that make a whole assertion class UNOBSERVABLE (live bug-report batch, 2026-08-17)
+
+The cells above go missing because nobody writes them. These go missing for a worse reason: the section
+**is** written, and it **cannot fail**. Six live bug reports each landed on a file whose existing sections
+were all built on one of these, so a green suite of 8800 tests said nothing about the defect.
+
+| fixture convenience | what it silently disables | build it this way instead |
+|---|---|---|
+| `P1OnlyActions: true` | **`TURNPLAYER`.** It claims initiative, so the opponent auto-passes and the turn returns either way — a DOUBLE `SWUAfterAction` is indistinguishable from a single one | any card that could run an extra After Action (reaction deploys, event-initiated attacks, Support, nested plays) gets ONE section without it asserting `TURNPLAYER:2`, **plus a decline/no-op control** — the control is what proves the second swap came from the reaction and not the play |
+| opponent's discard pile left EMPTY | every "if it's a unit / if it costs N" **negative** — a gate that reads the pile instead of the discarded card finds nothing and is accidentally right | seed the pile with a card of the **OPPOSITE kind**, so a stale read produces a wrong answer. Write both directions; they fail in opposite directions under mutation |
+| the observer SURVIVES the combat | the entire simultaneous-defeat family. "When an enemy unit is defeated" reactions are collected AFTER removal, so an observer that TRADED is already gone | a **trade cell**: the observer dies in the same batch. ⚠ ALSO cover the mass-defeat path (`SOR_043`) — `$leftCards` and the pre-effect snapshot are different branches of `_SWUSimulObserverCount` |
+| opponent holds 0–1 cards in hand | every cross-player queue-ordering bug. `SWUDiscardCards` resolves INLINE at/below the threshold and only QUEUES a pick above it | give them 2+ and drive the pick with a `P2>` WHEN line — the queued form puts the choice on THEIR queue, which is where the ordering bugs live |
+| only one legal target | the offer pool (it auto-resolves) | N+1 fixtures, as in the offer row above |
+
+**And the rule that makes all of it stick: a guard is only load-bearing once you have watched it fail.**
+Before marking a card Done, revert the handler (Edit tool, not a shell one-liner — `$vars` interpolate
+away) and confirm each new negative section goes RED **for its own assertion**. A section that stays green
+against a broken handler is documentation, not a test.
+
 ### ⚠ A filter you hand to a shared OFFER helper may be ADVISORY — re-check it when the answer returns (HMW_043, 2026-08-13)
 
 `_topDeckSearchBegin($player, $n, $filter, …)` uses `$filter` **only** to build the `matchIDs` hint sent to
@@ -591,6 +610,48 @@ the deck at peek time, and `SCRY_FINALIZE` silently DROPPED any answered ID it c
 are gone — the cards now stay on the deck until the finalize runs, and anything the answer fails to
 account for goes back on top. So a wrong peek costs you ORDER, never COUNT. Assert order, and
 mutation-verify the section once (flip a bottoming to the top and confirm it goes red).
+
+### More recurring bug shapes (live bug-report batch, 2026-08-17) — same-batch observers, reaction-vs-action, private-zone prompts, cross-player queues
+
+Six consecutive user-reported bugs. Every one was on a card with thorough-looking coverage; see the
+fixture-blind-spot table above for *why* that coverage could not see them.
+
+1. **A "when an enemy unit is defeated" observer that TRADED still reacts** — and the reaction is collected
+   AFTER removal, so a live in-play count returns 0. Use **`_SWUSimulObserverCount($seat,$cardID,$leftCards)`**,
+   never `_SWUCountActiveUnitsWithCardID` / a raw `GetUnitsInPlay` loop / `_SWULeaderDeployed`. Found in
+   ASH_052 Chimaera, SOR_002 Iden (deployed side), HMW_062 Nuvo Vindi; four siblings already had it.
+   ⚠ **Not every member is a bug** — SHD_137 Punishing One reads the same shape but its effect (ready
+   ITSELF) is worthless to a dead unit, so the "wrong" code is deliberate. Verify each with a passing
+   control before changing it.
+2. **A deployed leader IS defeated in combat, then returns to its leader zone** (user ruling 2026-08-17).
+   So `_SWULeaderDeployed` is fine as a "is this active right now?" precondition but WRONG as an observer
+   count inside any post-removal collection. Pin the ruling with `P{n}LEADER:EXHAUSTED` beside the effect.
+3. **A deploy/attack that is a TRIGGERED REACTION must not run its own After Action.** `SWUDeployLeader`
+   ends with one — correct for an Epic-Action deploy (the deploy IS the action), wrong for ASH_018 Grogu,
+   whose deploy reacts to a card play that already runs one. Two After Actions = two `SWUSwapTurnPlayer` =
+   a free extra action. Pass `$isAction=false`. ⚠ **Keep the Plot arming**: CR 19.761.a keys Plot on the
+   deploy EVENT, not on a deploy action, so the triggering play's own After Action opens the window.
+4. **A prompt over a `Visibility=Self` or `BindTo=`-bound zone renders the ZONE, not the cards.** Offering
+   `myDeck-N` made the client draw the deck pile — one stacked image showing only its count, reported as
+   "no cards, only the number 42". Stage the peeked cards into **TempZone** (`Display: Mode=None`, which
+   is exactly what routes an MZCHOOSE to the card-image popup) and map the answer index back to the LIVE
+   deck entry. ⚠ Do NOT route a "look at" through `_topDeckSearchBegin` — it applies ASH_084's
+   search-doubler, and a look is not a search. Assert the POOL (`P1SELECTABLEEXACT:myTempZone-…`); the
+   harness has no client, so answers against the wrong zone resolve happily.
+   ⚠ And a **concurrent** trigger (a mass wipe queuing one scry per defeat) means the handler must NOT
+   drain TempZone — clear at the START of each trigger instead, or the still-pending sibling's pool is
+   emptied and auto-skips.
+5. **"An opponent discards/chooses X, THEN I react to what it was" is a queue-ordering problem.** Queues
+   are per player: with 2+ cards `SWUDiscardCards` puts the pick on THEIR queue, so a continuation on the
+   caster's queue runs FIRST and reads a pre-effect board. **`SWUDiscardCards` now returns bool** — true =
+   queued as a choice (queue the continuation on the opponent's queue), false = resolved inline (queue it
+   on your own). ⚠ Do not just always use the opponent's queue: a lone `CUSTOM` on a player who is not
+   otherwise acting **never drains**, which silently kills the whole ability. House precedent that already
+   did it right: **ASH_148 Ninth Sister**.
+6. **Server-side action guards already exist and ARE testable.** `ActionMap` blocks every FSM action while
+   any player has pending decisions, and `myHand` additionally requires the turn player — and the harness's
+   `PlayHand` routes through that same `ActionMap`, so "can the opponent interrupt my triggers?" is a
+   normal `Cases/` test, not a manual check.
 
 ### ⚠ DSL traps that cost real time on the LOF port (2026-08-07)
 - **★ An offer with a SINGLE legal option AUTO-RESOLVES**, so `P1SELECTABLEEXACT:`/`P1DECISIONTOOLTIP:`

@@ -12,7 +12,7 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myDeck-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1DECKCOUNT:2
@@ -56,7 +56,7 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myDeck-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
@@ -78,7 +78,7 @@ WithP1Deck: SOR_237
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myDeck-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1DECKCOUNT:0
@@ -129,4 +129,30 @@ WithP1Deck: [SOR_237 SOR_046 SOR_095 SOR_128 SOR_164 SOR_225]
 
 ## EXPECT
 P1HASDECISION
-P1SELECTABLEEXACT:myDeck-0&myDeck-1&myDeck-2
+P1SELECTABLEEXACT:myTempZone-0&myTempZone-1&myTempZone-2
+
+---
+
+# LookPromptOffersTheCARDS_NotTheDeckPile
+#// LAW_237 Qui-Gon Jinn — ⚠ THE PROMPT-RENDER CELL (live bug report #962: "prompt shows no cards, only
+#// the number 42"). "Look at the top 3 cards" must offer the CARDS THEMSELVES. Offering the deck's own
+#// mzIDs (myDeck-N) instead makes the client render the `Deck` zone, which is declared
+#// `Display: Mode=Single(Stacked), BindTo=DeckSlot` — one stacked pile whose only visible content is its
+#// COUNT, so the player saw their remaining deck size and no cards at all.
+#// The peeked cards are therefore staged into TempZone (`Display: Mode=None`), which is exactly what that
+#// zone exists for: it routes an MZCHOOSE spec to the card-image popup rather than a board slot.
+#// Asserting the POOL is the only way to catch this — the harness has no client, so every myDeck-N answer
+#// resolves happily and the whole file stayed green over a bug that made the card unplayable in the UI.
+
+## GIVEN
+CommonSetup: yyk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_237:1:0
+WithP1Deck: [SOR_237 SOR_046 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myTempZone-0&myTempZone-1&myTempZone-2

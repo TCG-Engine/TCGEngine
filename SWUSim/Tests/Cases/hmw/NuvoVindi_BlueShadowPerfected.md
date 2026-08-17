@@ -238,3 +238,32 @@ WithP2Deck: [SOR_237 SOR_225 SOR_046 SEC_080]
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# Reaction_TradeInCombat_VindiDiesToo_StillOffers
+#// ⚠ THE TRADE CELL. Combat damage is simultaneous, so a Vindi that dies alongside the weakened enemy was
+#// still in play when that enemy was defeated and his reaction must still fire — the same
+#// simultaneous-defeat rule as Gideon / HK-47 / ASH_052 Chimaera / deployed SOR_002 Iden.
+#// Every other Clause B section here has Vindi survive, so all of them pass with a collector that scans
+#// only the units STILL in play; this is the one that catches it.
+#// Vindi 1/4 seeded with 3 damage = 1 remaining, 1 power. The enemy SOR_095 (3/3) wears a Weakness (2/2)
+#// and is seeded with 1 damage = 1 remaining: Vindi's 1 power kills it, its 2 power kills Vindi.
+#// SEC_080 is the surviving bystander. The offer is left PENDING so its POOL is the assertion — a bare
+#// P1HASDECISION could be satisfied by an unrelated decision.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: [HMW_062:1:3 SEC_080:1:0]
+WithP2GroundArena: SOR_095:1:1
+WithP2GroundArenaUpgrade: 0:HMW_T02
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P2GROUNDARENACOUNT:0
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0

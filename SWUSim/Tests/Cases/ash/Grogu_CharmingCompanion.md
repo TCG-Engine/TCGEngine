@@ -294,3 +294,83 @@ WithP1SpaceArena: SEC_213:1:0
 P1LEADER:NOTDEPLOYED
 P1GROUNDARENACOUNT:0
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# Deploy_DoesNotGrantAnExtraAction
+#// ASH_018 Grogu — ⚠ THE TURN-PASS CELL (live bug report #963: "playing Qui-Gon gave an extra action").
+#// Grogu's deploy is a TRIGGERED REACTION to playing a unit, not an action of its own. The play already
+#// runs its own after-action, so the deploy must NOT run a second one: two after-actions in a 2-player
+#// game swap the turn TWICE and hand the same player another action.
+#// ⚠ Every other section in this file sets P1OnlyActions (= initiative claimed, so P2 auto-passes), which
+#// makes the turn player unobservable — which is exactly why 16 green sections never saw this. This one
+#// deliberately does NOT, so TURNPLAYER is live and load-bearing.
+#// SOR_242 General Dodonna is unique and costs 4, the same shape as the reported Qui-Gon (LAW_237, unique,
+#// cost 4). Grogu deploying alongside him is asserted too, so a fix that skips the deploy can't pass this.
+
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+WithP1Resources: 6
+WithP1Hand: SOR_242
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENACOUNT:2
+TURNPLAYER:2
+
+---
+
+# Decline_PassesTheTurnNormally
+#// ASH_018 Grogu — the control for the section above. Identical board, deploy DECLINED: the play's own
+#// after-action passes the turn to P2 exactly once. If this passes and the deploy section fails, the
+#// second after-action is coming from the deploy and nothing else.
+
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+WithP1Resources: 6
+WithP1Hand: SOR_242
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1LEADER:READY
+P1GROUNDARENACOUNT:1
+TURNPLAYER:2
+
+---
+
+# QuiGonPlusDeploy_ReportedCombo_StillOneAction
+#// ASH_018 Grogu — the exact pair from bug report #963: LAW_237 Qui-Gon Jinn (unique, cost 4, Cunning) is
+#// played AND Grogu deploys off it. Qui-Gon's own When Played ("look at the top 3, you may discard 1")
+#// raises a decision of its own, so this runs the deploy trigger through a play that is still mid-resolution
+#// — a materially different flow from the plain SOR_242 section above, which has no nested decision.
+#// Both triggers land from one play, so the active player first ORDERS them (EffectStack-0 = Qui-Gon's
+#// look, which offers its top-3 out of TempZone), declines the discard, then accepts the deploy.
+#// One action was taken, so exactly one turn pass: TURNPLAYER must be 2.
+
+## GIVEN
+CommonSetup: gyw/brk/{myLeader:ASH_018}
+SkipPreGame: true
+WithP1Resources: 6
+WithP1Hand: LAW_237
+WithP1Deck: [SOR_237 SOR_046 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:-
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENACOUNT:2
+P1DECKCOUNT:3
+TURNPLAYER:2
