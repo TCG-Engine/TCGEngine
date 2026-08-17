@@ -23,6 +23,38 @@ function importHellbreakWorkbook(
         $import = readWorkbook($xlsxPath, $sheetName);
         [$cards, $warnings, $rowToCard, $dataAudit] = normalizeRows($import['rows']);
 
+        $supplementalSheetNames = ['Cards Missing Info'];
+        $supplementalAudits = [];
+        foreach ($supplementalSheetNames as $supplementalSheetName) {
+            $supplementalImport = readWorkbook($xlsxPath, $supplementalSheetName);
+            if ($supplementalImport['sheetName'] !== $supplementalSheetName || $supplementalImport['sheetName'] === $import['sheetName']) continue;
+            [$supplementalCards, $supplementalWarnings, , $supplementalAudit] = normalizeRows($supplementalImport['rows']);
+            foreach ($supplementalCards as $cardID => $card) {
+                if (isset($cards[$cardID])) {
+                    if (strcasecmp((string)$cards[$cardID]['name'], (string)$card['name']) !== 0) {
+                        $warnings[] = "Supplemental sheet {$supplementalSheetName} conflicts with {$cardID}; the primary sheet won.";
+                    }
+                    continue;
+                }
+                $cards[$cardID] = $card;
+            }
+            array_push($warnings, ...$supplementalWarnings);
+            $supplementalAudits[$supplementalSheetName] = $supplementalAudit;
+        }
+        ksort($cards, SORT_NATURAL);
+        if ($supplementalAudits) {
+            $dataAudit['supplementalSheets'] = $supplementalAudits;
+            $dataAudit['namedCards'] = count($cards);
+            foreach ($supplementalAudits as $supplementalAudit) {
+                $dataAudit['sourceRows'] += intval($supplementalAudit['sourceRows'] ?? 0);
+                $dataAudit['placeholderRows'] += intval($supplementalAudit['placeholderRows'] ?? 0);
+                foreach (($supplementalAudit['fieldCoverage'] ?? []) as $field => $count) {
+                    $dataAudit['fieldCoverage'][$field] = intval($dataAudit['fieldCoverage'][$field] ?? 0) + intval($count);
+                }
+            }
+            $dataAudit['typeCounts'] = array_count_values(array_column($cards, 'type'));
+        }
+
         if (!$cards) {
             throw new RuntimeException('No card rows were found. Check the selected sheet and its headers.');
         }
@@ -213,9 +245,12 @@ function normalizeRows(array $rows): array
         foreach ($rows as $rowNumber => $values) {
             if ($rowNumber <= $bestRow || $rowNumber > $bestRow + 60) continue;
             foreach ($values as $column => $value) {
-                if (preg_match('/^#?\s*\d{1,4}(?:\s*\/\s*\d+)?$/', trim((string)$value))) {
-                    $candidateCounts[$column] = ($candidateCounts[$column] ?? 0) + 1;
-                }
+                $candidate = trim((string)$value);
+                if (!preg_match('/^#?\s*\d{1,4}(?:\s*(?:\/|[-–—])\s*#?\s*\d{1,4})?$/u', $candidate)) continue;
+                $weight = 1;
+                if (str_starts_with($candidate, '#')) $weight += 5;
+                if (preg_match('/\/|[-–—]/u', $candidate)) $weight += 3;
+                $candidateCounts[$column] = ($candidateCounts[$column] ?? 0) + $weight;
             }
         }
         if ($candidateCounts) {
@@ -245,48 +280,51 @@ function normalizeRows(array $rows): array
             ++$placeholderRows;
             continue;
         }
-        foreach ($coverageFields as $field) {
-            $value = trim((string)($raw[$field] ?? ''));
-            if ($value !== '' && $value !== '-') ++$coverage[$field];
-        }
         $type = canonicalType($raw['type'] ?? '');
         $collector = trim($raw['collectorNumber'] ?? $raw['id'] ?? '');
         $set = strtoupper(trim($raw['set'] ?? 'DOT'));
-        $id = canonicalId($collector, $set, $name);
-        $baseId = $id;
-        $suffix = 2;
-        while (isset($cards[$id]) && strcasecmp((string)$cards[$id]['name'], $name) !== 0) $id = $baseId . '_' . $suffix++;
-        if (isset($cards[$id])) {
+        $collectorNumbers = expandCollectorNumbers($collector);
+        foreach ($collectorNumbers ?: [$collector] as $expandedCollector) {
+            foreach ($coverageFields as $field) {
+                $value = $field === 'collectorNumber' ? $expandedCollector : trim((string)($raw[$field] ?? ''));
+                if ($value !== '' && $value !== '-') ++$coverage[$field];
+            }
+            $id = canonicalId($expandedCollector, $set, $name);
+            $baseId = $id;
+            $suffix = 2;
+            while (isset($cards[$id]) && strcasecmp((string)$cards[$id]['name'], $name) !== 0) $id = $baseId . '_' . $suffix++;
+            if (isset($cards[$id])) {
+                $rowToCard[(int)$rowNumber] = $id;
+                continue;
+            }
+            $card = [
+                'id' => $id,
+                'name' => $name,
+                'subtitle' => $raw['subtitle'] ?? '',
+                'collectorNumber' => $expandedCollector,
+                'set' => $set,
+                'rarity' => $raw['rarity'] ?? '',
+                'type' => $type,
+                'cost' => integerValue($raw['cost'] ?? ''),
+                'combat' => integerValue($raw['combat'] ?? ''),
+                'health' => integerValue($raw['health'] ?? ''),
+                'aspect' => normalizeList($raw['aspect'] ?? ''),
+                'loyalty' => integerValue($raw['loyalty'] ?? ''),
+                'intellectualProperty' => $raw['intellectualProperty'] ?? '',
+                'resources' => normalizeList($raw['resources'] ?? ''),
+                'scheme' => normalizeList($raw['scheme'] ?? ''),
+                'traits' => normalizeList($raw['traits'] ?? ''),
+                'text' => $raw['text'] ?? '',
+                'unique' => booleanValue($raw['unique'] ?? ''),
+                'revealed' => array_key_exists('revealed', $raw) ? booleanValue($raw['revealed']) : true,
+                'imageSource' => $raw['imageSource'] ?? '',
+                'imageBackSource' => $raw['imageBackSource'] ?? '',
+                'tokenSource' => $raw['tokenSource'] ?? '',
+            ];
+            if ($type === '') $warnings[] = "Row {$rowNumber} ({$name}) has no recognized card type.";
+            $cards[$id] = $card;
             $rowToCard[(int)$rowNumber] = $id;
-            continue;
         }
-        $card = [
-            'id' => $id,
-            'name' => $name,
-            'subtitle' => $raw['subtitle'] ?? '',
-            'collectorNumber' => $collector,
-            'set' => $set,
-            'rarity' => $raw['rarity'] ?? '',
-            'type' => $type,
-            'cost' => integerValue($raw['cost'] ?? ''),
-            'combat' => integerValue($raw['combat'] ?? ''),
-            'health' => integerValue($raw['health'] ?? ''),
-            'aspect' => normalizeList($raw['aspect'] ?? ''),
-            'loyalty' => integerValue($raw['loyalty'] ?? ''),
-            'intellectualProperty' => $raw['intellectualProperty'] ?? '',
-            'resources' => normalizeList($raw['resources'] ?? ''),
-            'scheme' => normalizeList($raw['scheme'] ?? ''),
-            'traits' => normalizeList($raw['traits'] ?? ''),
-            'text' => $raw['text'] ?? '',
-            'unique' => booleanValue($raw['unique'] ?? ''),
-            'revealed' => array_key_exists('revealed', $raw) ? booleanValue($raw['revealed']) : true,
-            'imageSource' => $raw['imageSource'] ?? '',
-            'imageBackSource' => $raw['imageBackSource'] ?? '',
-            'tokenSource' => $raw['tokenSource'] ?? '',
-        ];
-        if ($type === '') $warnings[] = "Row {$rowNumber} ({$name}) has no recognized card type.";
-        $cards[$id] = $card;
-        $rowToCard[(int)$rowNumber] = $id;
     }
     return [$cards, $warnings, $rowToCard, [
         'sourceRows' => $dataRows,
@@ -669,6 +707,22 @@ function canonicalId(string $collector, string $set, string $name): string
     }
     $slug = strtoupper(trim(preg_replace('/[^A-Za-z0-9]+/', '_', $name), '_'));
     return (preg_replace('/[^A-Z0-9]/', '', $set) ?: 'DOT') . '_' . ($slug ?: substr(sha1($name), 0, 10));
+}
+
+function expandCollectorNumbers(string $collector): array
+{
+    $value = trim($collector);
+    if (preg_match('/^#?\s*0*(\d{1,4})\s*\/\s*#?\s*0*(\d{1,4})$/', $value, $match)) {
+        return array_map(fn($number) => '#' . str_pad((string)$number, 3, '0', STR_PAD_LEFT), [(int)$match[1], (int)$match[2]]);
+    }
+    if (preg_match('/^#?\s*0*(\d{1,4})\s*[-–—]\s*#?\s*0*(\d{1,4})$/u', $value, $match)) {
+        $start = (int)$match[1];
+        $end = (int)$match[2];
+        if ($end >= $start && $end - $start <= 100) {
+            return array_map(fn($number) => '#' . str_pad((string)$number, 3, '0', STR_PAD_LEFT), range($start, $end));
+        }
+    }
+    return [$collector];
 }
 
 function integerValue(string $value): int
