@@ -686,9 +686,28 @@ function CreateCountersHTML(zoneName, cardArr, id) {
             // card-image idiom as the "choose an upgrade to defeat" picker, NOT the active-effects
             // badge popup (that one is for turn-effect sources) and NOT a modal (hover must not
             // block the board).
-            var popupRoot = (typeof AssetReflectionPath === 'function' && AssetReflectionPath())
-              ? AssetReflectionPath()
-              : ((typeof window !== 'undefined' && window.rootPath) ? String(window.rootPath).replace(/^\.\//, '') : '');
+            // SWU card art is ONE shared corpus at AppCore/SWU/Images/{concat,WebpImages}, deliberately
+            // NOT under an app root, and showLineageOverflowPopup re-appends "/concat/" — so this must be
+            // the corpus BASE. Do NOT derive it from AssetReflectionPath()/rootPath for shared SWU art:
+            // that yields the app root ("SWUSim") and requests ./SWUSim/concat/<id>.webp, the per-app tree
+            // the shared-corpus migration deleted. That was bug #970 ("Fortify upgrades not showing image
+            // on preview") — every card in the base's Fortify badge popup 404'd, preview or not, since
+            // resolveCardImageID has already applied the mock_ prefix by this point. 404 locally; prod only
+            // appeared to work because the old tree still exists there.
+            // Mirrors the isSharedSWUArt guard in Card() and the subFolder derivation in the lineage
+            // render (Core/UILibraries*.js). Non-SWU roots keep the reflection rewrite — this file is
+            // shared across apps. Guarded by DevTools/tests/fortify_badge_art_path_test.php.
+            var popupArtFolder = (typeof window !== 'undefined' && window.assetImageFolder)
+              ? String(window.assetImageFolder) : '';
+            var popupRoot;
+            if (popupArtFolder.indexOf('AppCore/SWU/Images') !== -1) {
+              popupRoot = popupArtFolder.substring(popupArtFolder.indexOf('AppCore/SWU/Images'))
+                                        .replace(/\/(concat|WebpImages)\/?$/, '');
+            } else {
+              popupRoot = (typeof AssetReflectionPath === 'function' && AssetReflectionPath())
+                ? AssetReflectionPath()
+                : ((typeof window !== 'undefined' && window.rootPath) ? String(window.rootPath).replace(/^\.\//, '') : '');
+            }
             var lineagePayload = encodeURIComponent(JSON.stringify({
               subcards: popupIds,
               folder: popupRoot,
