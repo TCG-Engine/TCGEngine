@@ -50,55 +50,63 @@ $customDQHandlers["DEFEAT_CREDIT_TOKEN"] = function ($player, $parts, $lastDecis
 };
 
 
-// ── Phase 17 — "exhaust any number of units with a combined {metric} ≤ budget" iterative selector ──────
-// $metric ∈ {power, cost}. Re-offers a MAYCHOOSE after each pick until no ready unit fits the remaining
-// budget or the player passes. $loseAbil: if 1 and the player controls a Force unit, each picked unit
-// loses its abilities this phase (LOF_202 Mind Trick's Force rider).
+// ── "Exhaust any number of units with a combined {metric} ≤ budget" ── ONE weighted multi-select ────
+// $metric ∈ {power, cost}. The player gets a single modal over every ready unit that fits the budget on
+// its own, with a live "N of B <metric> left" counter; anything that no longer fits greys out as picks
+// are made, and one Confirm resolves the lot. $loseAbil: if 1 and the player controls a Force unit, each
+// picked unit loses its abilities this phase (LOF_202 Mind Trick's Force rider).
+// Callers: LOF_201 Qui-Gon Jinn's Lightsaber (cost 6), LOF_202 Mind Trick (power 4).
+// This replaced a re-offered one-at-a-time MZMAYCHOOSE loop — see SWUQueueBudgetMultiChoose.
 function _SWUCombinedBudgetOffer(int $player, int $budget, string $metric, int $loseAbil): void
+{
+  $weights = _SWUBudgetExhaustWeights($player, $metric);
+  if (empty($weights))
+    return;
+  SWUQueueBudgetMultiChoose(
+    $player,
+    $weights,
+    $budget,
+    $metric,
+    "Exhaust_any_number_of_units_with_{$budget}_or_less_combined_{$metric}",
+    "SWU_BUDGET_EXHAUST|{$budget}|{$metric}|{$loseAbil}"
+  );
+}
+
+// Every READY unit's weight under $metric, keyed by mzID — measured fresh, so it serves both the offer
+// and the answer-time re-validation. Only ready units are included: an exhausted one cannot be exhausted.
+function _SWUBudgetExhaustWeights(int $player, string $metric): array
 {
   global $playerID;
   $playerID = $player;
-  $targets = [];
+  $out = [];
   foreach (SWUAllUnits() as $mz) {
     $o = GetZoneObject($mz);
     if (SWUObjGone($o))
       continue;
     if (intval($o->Status ?? 0) !== 1)
       continue; // only ready units can be exhausted
-    $val = ($metric === 'cost') ? intval(CardCost($o->CardID ?? '')) : intval(ObjectCurrentPower($o));
-    if ($val <= $budget)
-      $targets[] = $mz;
+    $out[$mz] = ($metric === 'cost') ? intval(CardCost($o->CardID ?? '')) : intval(ObjectCurrentPower($o));
   }
-  if (empty($targets))
-    return;
-  SWUQueueMayChooseTarget(
-    $player,
-    $targets,
-    "Exhaust_a_unit_(remaining_{$metric}_budget_{$budget})?",
-    "Choose_a_unit_to_exhaust",
-    "SWU_BUDGET_EXHAUST|{$budget}|{$metric}|{$loseAbil}"
-  );
+  return $out;
 }
+
 $customDQHandlers["SWU_BUDGET_EXHAUST"] = function ($player, $parts, $lastDecision) {
   global $playerID;
   $playerID = intval($player);
-  if (SWUDecisionDeclined($lastDecision))
-    return; // passed → stop
   $budget = intval($parts[0] ?? 0);
   $metric = $parts[1] ?? 'power';
   $loseAbil = intval($parts[2] ?? 0);
-  $o = GetZoneObject($lastDecision);
-  if (SWUObjGone($o))
-    return;
-  $val = ($metric === 'cost') ? intval(CardCost($o->CardID ?? '')) : intval(ObjectCurrentPower($o));
-  $o->Status = 0; // exhaust
-  if ($loseAbil && PlayerHasUnitWithTraitInPlay(intval($player), 'Force', -1)) {
-    AddTurnEffect($lastDecision, 'SOR_138'); // loses all abilities this phase (registry LOSE_ABILITIES)
+  // Re-measure and re-cap server-side — the modal's budget is UX, and a scripted answer never touches it.
+  $picked = SWUFilterBudgetAnswer($lastDecision, _SWUBudgetExhaustWeights(intval($player), $metric), $budget);
+  foreach ($picked as $mz) {
+    $o = GetZoneObject($mz);
+    if (SWUObjGone($o))
+      continue;
+    $o->Status = 0; // exhaust
+    if ($loseAbil && PlayerHasUnitWithTraitInPlay(intval($player), 'Force', -1)) {
+      AddTurnEffect($mz, 'SOR_138'); // loses all abilities this phase (registry LOSE_ABILITIES)
+    }
   }
-  $budget -= $val;
-  if ($budget < 0)
-    return;
-  _SWUCombinedBudgetOffer(intval($player), $budget, $metric, $loseAbil);
 };
 
 // ── Reactive draw hook: "When an opponent draws 1+ cards during the action phase, you may give an

@@ -1704,6 +1704,60 @@ function SWUQueueMayChooseTarget(int $player, array $targets, string $yesTooltip
     DecisionQueueController::AddDecision($player, 'CUSTOM', $handler, $block, '', $dontSkipOnPass);
 }
 
+// ── "Any number of units with a combined <metric> of N or less" — ONE weighted multi-select ──────────
+// The family (ASH_053 Pre Vizsla → remaining HP, LOF_201 Qui-Gon Jinn's Lightsaber → cost, LOF_202 Mind
+// Trick → power) used to be presented as a re-offered MZMAYCHOOSE loop: pick one, recompute the pool
+// against what is left, pick again, … That resolves correctly but the player never sees a running total,
+// cannot revise a pick, and — because the loop's continuation carries the whole payoff — sat one sticky
+// PASS away from dropping the effect entirely (bug #972).
+//
+// $weights maps mzID => that unit's weight under the card's metric, measured NOW. Anything that cannot
+// fit the budget even on its own is dropped from the offer (it could never be legal). The weights ride
+// to the client on the "~BUDGET~" tooltip side channel (Core/MZMultiChooseUI.js — same shape as
+// Disclose's "~REQ~"), which greys out whatever no longer fits after each click and shows the remaining
+// total; $label names the metric in that counter ("HP", "cost", "power"). Remaining HP in particular is
+// not derivable from a CardID, so the weights have to be sent rather than looked up client-side.
+//
+// ⚠ The client cap is UX, NOT enforcement — the schema harness hands an answer straight to the handler
+// without consulting the offer or the cap, so a resolver that trusts its input can pass green while the
+// real offer was wrong. Every caller MUST run the answer through SWUFilterBudgetAnswer.
+function SWUQueueBudgetMultiChoose(int $player, array $weights, int $budget, string $label,
+                                   string $chooseTooltip, string $handler, int $block = 1): void {
+    $offer = [];
+    foreach ($weights as $mz => $w) {
+        if (intval($w) <= $budget) $offer[strval($mz)] = intval($w);
+    }
+    if (empty($offer)) return;
+    $side = '~BUDGET~' . $budget . '~' . $label;
+    foreach ($offer as $mz => $w) $side .= '~' . $mz . '=' . $w;
+    DecisionQueueController::AddDecision($player, 'MZMULTICHOOSE',
+        '0|' . count($offer) . '|' . implode('&', array_keys($offer)), $block, $chooseTooltip . $side);
+    // dontSkipOnPass=1: this resolver IS the effect, not merely its decline branch. A "PASS" answer is
+    // sticky and otherwise makes ExecuteStaticMethods skip the next CUSTOM outright (bug #972).
+    DecisionQueueController::AddDecision($player, 'CUSTOM', $handler, $block, '', 1);
+}
+
+// The server-side cap for the above: re-derive which of the submitted picks are actually legal, in the
+// order they were submitted. A pick survives only if it is still in the freshly-measured pool and still
+// fits what is left of the budget; duplicates are collapsed so one unit can't be paid for twice.
+// Returns the accepted mzIDs. Callers measure $weights against the CURRENT board, not the offered one.
+function SWUFilterBudgetAnswer($lastDecision, array $weights, int $budget): array {
+    if (SWUDecisionDeclined($lastDecision)) return [];
+    $out = [];
+    $seen = [];
+    foreach (explode('&', strval($lastDecision)) as $raw) {
+        $mz = trim($raw);
+        if ($mz === '' || $mz === '-' || $mz === 'DONE') continue;   // DONE is the multi-select terminator
+        if (isset($seen[$mz]) || !array_key_exists($mz, $weights)) continue;
+        $w = max(0, intval($weights[$mz]));
+        if ($w > $budget) continue;                                   // no longer affordable
+        $seen[$mz] = true;
+        $budget -= $w;
+        $out[] = $mz;
+    }
+    return $out;
+}
+
 // "Choose two (different modes), in any order" modal (SOR_058/107/155/203 — the aspect events).
 // Reuses sequential OPTIONCHOOSE — NO new decision type / UI. Queue a mode picker (all remaining
 // labels); MODAL_CHOOSE resolves the chosen mode (its own effect decisions go on at block 1) then

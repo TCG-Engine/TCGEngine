@@ -253,6 +253,55 @@
     };
   }
 
+  // Budget side channel — mirrors Disclose's "~REQ~" (SWUQueueDisclose / GameLogic.php). A tooltip may
+  // carry a suffix of the form
+  //     ~BUDGET~<total>~<label>~<key>=<weight>~<key>=<weight>…
+  // which upgrades the modal's flat "at most N cards" cap into a WEIGHTED one: the running total of the
+  // selected cards' weights may not exceed <total>. That is what the "exhaust/defeat any number of units
+  // with a combined <metric> of N or less" family needs (ASH_053 Pre Vizsla — remaining HP; LOF_201
+  // Qui-Gon Jinn's Lightsaber — cost; LOF_202 Mind Trick — power); without it those cards have to be
+  // presented as a one-at-a-time re-offered loop with no running total and no way to revise a pick.
+  // <key> is the candidate's SUBMITTED value (its mzID for the plain zone-index specs these cards use),
+  // so the client needs no card-data lookup — remaining HP in particular is not derivable from a CardID.
+  // Absent the marker every existing caller behaves byte-identically.
+  // This is UX only: the server re-derives the pool and re-applies the budget when the answer arrives,
+  // because a scripted/hostile answer never passes through this code at all.
+  function parseBudget(tooltip) {
+    if (typeof tooltip !== 'string' || tooltip.indexOf('~BUDGET~') === -1) {
+      return { tooltip: tooltip, budget: null };
+    }
+    const parts = tooltip.split('~BUDGET~');
+    const head = parts[0].trim();
+    const fields = String(parts.slice(1).join('~BUDGET~')).split('~').map(s => s.trim()).filter(Boolean);
+    const total = parseInt(fields.shift(), 10);
+    if (isNaN(total)) return { tooltip: head, budget: null };
+    const label = fields.shift() || '';
+    const weights = {};
+    for (let i = 0; i < fields.length; i++) {
+      // Split on the LAST '=' — an mzID never contains one, but this stays safe if a key ever does.
+      const eq = fields[i].lastIndexOf('=');
+      if (eq <= 0) continue;
+      weights[fields[i].slice(0, eq)] = parseInt(fields[i].slice(eq + 1), 10) || 0;
+    }
+    return { tooltip: head, budget: { total: total, label: label, weights: weights } };
+  }
+
+  function weightOf(candidate) {
+    if (!multiState || !multiState.budget) return 0;
+    const w = multiState.budget.weights[candidate.key];
+    return (typeof w === 'number' && !isNaN(w)) ? w : 0;
+  }
+
+  function budgetRemaining() {
+    if (!multiState || !multiState.budget) return 0;
+    let spent = 0;
+    for (let i = 0; i < multiState.candidates.length; i++) {
+      const c = multiState.candidates[i];
+      if (multiState.selected.has(c.key)) spent += weightOf(c);
+    }
+    return multiState.budget.total - spent;
+  }
+
   function parseSpecs(specString) {
     return String(specString || '')
       .split('&')
@@ -448,10 +497,14 @@
     if (!multiState) return;
     const selectedCount = multiState.selected.size;
     const atMax = selectedCount >= multiState.max;
+    const budget = multiState.budget;
+    const remaining = budget ? budgetRemaining() : 0;
 
     const counter = document.getElementById('mzmulti-counter');
     if (counter) {
-      counter.textContent = selectedCount + ' selected / ' + multiState.max + ' max';
+      counter.textContent = budget
+        ? (remaining + ' of ' + budget.total + (budget.label ? ' ' + budget.label : '') + ' left')
+        : (selectedCount + ' selected / ' + multiState.max + ' max');
     }
 
     const confirm = document.getElementById('mzmulti-confirm');
@@ -473,8 +526,12 @@
       const cardEl = document.getElementById('mzmulti-card-' + i);
       if (!cardEl) continue;
       const isSelected = multiState.selected.has(candidate.key);
+      // With a budget, "unavailable" is per-card and RECOMPUTED after every click: a candidate whose own
+      // weight no longer fits what is left goes grey and stops responding. Already-selected cards never
+      // grey out — deselecting has to stay possible so a pick can be revised.
+      const blocked = budget ? (!isSelected && weightOf(candidate) > remaining) : (atMax && !isSelected);
       cardEl.classList.toggle('mzmulti-selected', isSelected);
-      cardEl.classList.toggle('mzmulti-disabled', atMax && !isSelected);
+      cardEl.classList.toggle('mzmulti-disabled', blocked);
       const checkEl = cardEl.querySelector('.mzmulti-check');
       if (checkEl) checkEl.textContent = isSelected ? '\u2713' : '';
     }
@@ -489,6 +546,7 @@
     }
 
     if (multiState.selected.size >= multiState.max) return;
+    if (multiState.budget && weightOf(candidate) > budgetRemaining()) return;  // over the remaining budget
     multiState.selected.add(candidate.key);
     refreshUI();
   }
@@ -555,6 +613,10 @@
       requiredAspects = String(tparts[1] || '').split('-').map(s => s.trim()).filter(Boolean);
     }
 
+    const budgetParsed = parseBudget(tooltip);
+    tooltip = budgetParsed.tooltip;
+    const budget = budgetParsed.budget;
+
     const parsed = parseParam(param);
     if (!parsed) {
       if (submitCallback) submitCallback('-', decisionIndex);
@@ -577,7 +639,8 @@
       selected: new Set(),
       callback: submitCallback,
       decisionIndex: decisionIndex,
-      requiredAspects: requiredAspects
+      requiredAspects: requiredAspects,
+      budget: budget
     };
 
     const overlay = document.createElement('div');
@@ -606,7 +669,9 @@
 
     const subtitle = document.createElement('div');
     subtitle.className = 'mzmulti-subtitle';
-    subtitle.textContent = instructionText(min, max, candidates.length);
+    subtitle.textContent = budget
+      ? ('Select any number within ' + budget.total + (budget.label ? ' ' + budget.label : '') + '.')
+      : instructionText(min, max, candidates.length);
     titleWrap.appendChild(subtitle);
     header.appendChild(titleWrap);
 
@@ -637,6 +702,9 @@
       } else {
         guidance.textContent = 'Disclose cards covering ' + requiredAspects.join(' ') + ', or confirm with none to skip.';
       }
+    } else if (budget) {
+      guidance.textContent = 'Cards that no longer fit the remaining '
+        + (budget.label || 'budget') + ' are greyed out. Confirm with nothing selected to skip.';
     } else {
       guidance.textContent = min === 0 ? 'Confirm with nothing selected to skip.' : 'Selected cards are highlighted in green.';
     }
@@ -655,7 +723,9 @@
     });
     actions.appendChild(clearBtn);
 
-    if (max === candidates.length) {
+    // No Select All under a budget — selecting everything is exactly what the budget forbids, and a
+    // button that silently overshoots it would have to be un-clicked card by card.
+    if (max === candidates.length && !budget) {
       const selectAllBtn = document.createElement('button');
       selectAllBtn.className = 'mzmulti-btn mzmulti-btn-secondary btn btn-secondary';
       selectAllBtn.id = 'mzmulti-select-all';
@@ -699,4 +769,10 @@
 
   window.ShowMZMultiChooseUI = ShowMZMultiChooseUI;
   window.HideMZMultiChooseUI = HideMZMultiChooseUI;
+  // Exported because an MZMULTICHOOSE over ARENA targets never reaches this modal at all: UILibraries
+  // routes specs with no popup-zone cards to the inline board-selection path (SelectionMode
+  // 'MZMULTI_INLINE'), which highlights the units in place and shows its own prompt bar. Both paths must
+  // read the budget out of the tooltip with the SAME grammar, so there is exactly one parser and the
+  // inline path calls it through here.
+  window.ParseBudgetTooltip = parseBudget;
 })();

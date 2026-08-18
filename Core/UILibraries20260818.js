@@ -1490,6 +1490,9 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
                 window.SelectionMode.multiSelected.splice(idx, 1);
               } else {
                 if (window.SelectionMode.multiSelected.length >= window.SelectionMode.multiMax) return;
+                // Weighted budget: refuse a pick that would overshoot what is left. The card is already
+                // dimmed by ApplyInlineMultiSelectionDomState; this is what makes it actually inert.
+                if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(cardId)) return;
                 window.SelectionMode.multiSelected.push(cardId);
               }
               // Immediate DOM signal so selection is visible even before next full render tick.
@@ -1580,7 +1583,14 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         if (zoneName === "EffectStack") inlineStyles += " display:inline-flex; flex-direction:column; align-items:center; vertical-align:top; gap:4px;";
         if (isSelectable) {
           if (window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0) {
-            inlineStyles += " --highlight-color: rgba(198, 208, 224, 0.98);";
+            // A full RenderRows rebuilds this markup from scratch, so the over-budget state has to be
+            // re-derived here too — otherwise every render tick restores the bright "selectable" look on
+            // a card the player can no longer afford.
+            if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(id)) {
+              inlineStyles += " --highlight-color: rgba(120, 132, 152, 0.30); opacity:0.45; cursor:not-allowed;";
+            } else {
+              inlineStyles += " --highlight-color: rgba(198, 208, 224, 0.98);";
+            }
           } else
           // If selectable, always set the highlight color (custom or default)
           if (highlightMetadata && highlightMetadata.color) {
@@ -5371,7 +5381,14 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
     } else if (entry && entry.Type === 'MZMULTICHOOSE' && !entry.removed) {
       // MZMULTICHOOSE: Choose min..max cards from a set of MZ specs.
       // Param format: "min|max|spec1&spec2&spec3"
-      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose cards';
+      // A weighted-budget multi-select ("any number of units with a combined X of N or less") carries
+      // "~BUDGET~<total>~<label>~<mzID>=<weight>…" appended to the tooltip. Split it off BEFORE the
+      // underscore-to-space pass, or the raw side channel is rendered to the player as prompt text.
+      var rawTooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip : '';
+      var budgetParsed = (typeof window.ParseBudgetTooltip === 'function')
+        ? window.ParseBudgetTooltip(rawTooltip)
+        : { tooltip: rawTooltip.split('~BUDGET~')[0], budget: null };
+      var tooltip = budgetParsed.tooltip ? budgetParsed.tooltip.replace(/_/g, ' ') : 'Choose cards';
       const parsed = ParseMZMultiChooseParam(entry.Param);
       if (!parsed || parsed.specs.length === 0) {
         break;
@@ -5408,6 +5425,7 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
         window.SelectionMode.decisionIndex = i;
         window.SelectionMode.multiMin = parsed.min;
         window.SelectionMode.multiMax = parsed.max;
+        window.SelectionMode.multiBudget = budgetParsed.budget;   // null unless the card sent one
         window.SelectionMode.multiSelected = existingSelected.filter((mzid) => {
           if (!mzid || typeof mzid !== 'string') return false;
           const parts = mzid.split('-');
@@ -5534,7 +5552,8 @@ window.SelectionMode = {
   mayPass: false,
   multiMin: 0,
   multiMax: 0,
-  multiSelected: []
+  multiSelected: [],
+  multiBudget: null   // weighted-budget multi-select: {total, label, weights{mzID:weight}} or null
 };
 
 function ClearSelectionMode() {
@@ -5552,7 +5571,8 @@ function ClearSelectionMode() {
     mayPass: false,
     multiMin: 0,
     multiMax: 0,
-    multiSelected: []
+    multiSelected: [],
+    multiBudget: null
   };
   // Selection ended — re-evaluate the Effect Stack overlay (reappears for the next trigger-ordering
   // step if entries remain; the board-target hide no longer applies).
@@ -6022,20 +6042,63 @@ function ParseMZMultiChooseParam(param) {
   return { min: boundedMin, max: boundedMax, specs: specs };
 }
 
+// ── Weighted-budget inline multi-select ─────────────────────────────────────────────────────────────
+// "Defeat/exhaust any number of units with a combined <metric> of N or less" (ASH_053 Pre Vizsla →
+// remaining HP, LOF_201 Qui-Gon Jinn's Lightsaber → cost, LOF_202 Mind Trick → power). The server sends
+// each candidate's weight on the tooltip's "~BUDGET~" side channel; the constraint is a running TOTAL,
+// not a card count, so `multiMax` cannot express it. These three helpers are the whole rule.
+// Cards over the remaining budget must not merely look unavailable — the click has to be inert too.
+// (The server re-derives the pool and re-applies the budget on the answer regardless; this is UX.)
+function InlineMultiWeightOf(mzid) {
+  const b = (window.SelectionMode || {}).multiBudget;
+  if (!b || !b.weights) return 0;
+  const w = b.weights[mzid];
+  return (typeof w === 'number' && !isNaN(w)) ? w : 0;
+}
+
+function InlineMultiBudgetRemaining() {
+  const sm = window.SelectionMode || {};
+  if (!sm.multiBudget) return 0;
+  let spent = 0;
+  (sm.multiSelected || []).forEach((mzid) => { spent += InlineMultiWeightOf(mzid); });
+  return sm.multiBudget.total - spent;
+}
+
+// A card is blocked when its own weight no longer fits what is left. An ALREADY-SELECTED card is never
+// blocked: deselecting has to stay possible or a pick could not be revised.
+function InlineMultiBlocked(mzid) {
+  const sm = window.SelectionMode || {};
+  if (!sm.multiBudget) return false;
+  if ((sm.multiSelected || []).indexOf(mzid) >= 0) return false;
+  return InlineMultiWeightOf(mzid) > InlineMultiBudgetRemaining();
+}
+
 function UpdateInlineMultiChooseMessage() {
   const sm = window.SelectionMode || {};
   if (!sm.active || sm.mode !== 'MZMULTI_INLINE') return;
   const existing = document.getElementById('selection-message');
   if (!existing) return;
   const count = (sm.multiSelected || []).length;
+  const budget = sm.multiBudget;
   const counter = document.getElementById('inline-multi-counter');
-  if (counter) counter.textContent = count + ' selected / ' + sm.multiMax + ' max';
+  if (counter) {
+    counter.textContent = budget
+      ? (InlineMultiBudgetRemaining() + ' of ' + budget.total
+         + (budget.label ? ' ' + budget.label : '') + ' left')
+      : (count + ' selected / ' + sm.multiMax + ' max');
+  }
   const confirmBtn = document.getElementById('inline-multi-confirm');
   if (confirmBtn) confirmBtn.disabled = (count < sm.multiMin || count > sm.multiMax);
   const selectAllBtn = document.getElementById('inline-multi-select-all');
   if (selectAllBtn) {
-    const allCount = ExpandInlineMultiSelectableCards().length;
-    selectAllBtn.disabled = (allCount <= 0 || count >= Math.min(allCount, sm.multiMax || allCount));
+    if (budget) {
+      // Select All cannot respect a budget — selecting everything is precisely what it forbids — so it
+      // is removed rather than disabled, leaving Deselect All / Confirm.
+      selectAllBtn.style.display = 'none';
+    } else {
+      const allCount = ExpandInlineMultiSelectableCards().length;
+      selectAllBtn.disabled = (allCount <= 0 || count >= Math.min(allCount, sm.multiMax || allCount));
+    }
   }
   const clearAllBtn = document.getElementById('inline-multi-clear-all');
   if (clearAllBtn) clearAllBtn.disabled = (count <= 0);
@@ -6047,8 +6110,16 @@ function ApplyInlineMultiSelectionDomState() {
   document.querySelectorAll('.selectable-card').forEach((el) => {
     const mzid = el.getAttribute('data-mzid') || el.id || '';
     const isSelected = selected.has(mzid);
+    const blocked = InlineMultiBlocked(mzid);
     el.classList.toggle('selected-inline', isSelected);
-    el.style.setProperty('--highlight-color', isSelected ? 'rgba(255, 198, 46, 1)' : 'rgba(198, 208, 224, 0.98)');
+    el.classList.toggle('multi-over-budget', blocked);
+    el.style.setProperty('--highlight-color',
+      isSelected ? 'rgba(255, 198, 46, 1)'
+                 : (blocked ? 'rgba(120, 132, 152, 0.30)' : 'rgba(198, 208, 224, 0.98)'));
+    // Drop the affordance entirely on a blocked card, not just the glow — a still-bright card that
+    // ignores clicks reads as a broken board rather than as an unaffordable target.
+    el.style.opacity = blocked ? '0.45' : '';
+    el.style.cursor = blocked ? 'not-allowed' : '';
   });
 }
 
