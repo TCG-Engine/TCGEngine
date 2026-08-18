@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 include_once '../SharedUI/MenuBar.php';
 require_once "../SharedUI/Render/Head.php"; echo RenderSiteStyles("SWUDeck");
 include_once '../SharedUI/Header.php';
@@ -20,7 +21,7 @@ $forIndividual = false;
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <!-- Shared stats table styles -->
-<link rel="stylesheet" href="/TCGEngine/SharedUI/css/statsTables.css">
+<link rel="stylesheet" href="<?php echo _VersionAsset('/TCGEngine/SharedUI/css/statsTables.css'); ?>">
 
 <?php
   // Compute current week upper bound server-side and render dropdowns

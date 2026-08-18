@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 /**
  * OAuth 2.0 Client Management
  * 
@@ -70,8 +71,8 @@ $availableScopes = $server->getScopes();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWUDeck - Manage OAuth Applications</title>
-    <script src="/TCGEngine/Core/StyledDialog.js"></script>
-    <link rel="stylesheet" href="/TCGEngine/SharedUI/css/buttons.css">
+    <script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
+    <link rel="stylesheet" href="<?php echo _VersionAsset('/TCGEngine/SharedUI/css/buttons.css'); ?>">
     <style>
         body {
             font-family: Arial, sans-serif;

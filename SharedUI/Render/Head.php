@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/SiteDef.php';   // LoadSiteDef() — for RenderSiteStyles()
+require_once __DIR__ . '/SiteDef.php';       // LoadSiteDef() — for RenderSiteStyles()
+require_once __DIR__ . '/AssetVersion.php';  // _VersionAsset() — the shared ?v=<filemtime> seam
 
 // Emit a site's versioned stylesheet stack straight from its SiteDef styles array, for pages
 // that build their own <head> instead of going through RenderHead (the SWU Stats pages). Single
@@ -24,17 +25,6 @@ function _RenderFontLinks(array $fonts): string {
     return $out;
 }
 
-// Append an auto-updating ?v=<filemtime> token to a local asset URL so CDN/browser
-// caches pick up edits immediately. External URLs and missing files pass through unchanged.
-function _VersionAsset(string $webPath): string {
-    if (preg_match('#^https?://#i', $webPath)) return $webPath;   // external → untouched
-    $docRoot = $_SERVER['DOCUMENT_ROOT'] ?? '';
-    if ($docRoot === '') return $webPath;                          // CLI / no docroot
-    $mtime = @filemtime($docRoot . $webPath);
-    if ($mtime === false) return $webPath;                         // missing → bare path
-    $sep = (strpos($webPath, '?') === false) ? '?' : '&';
-    return $webPath . $sep . 'v=' . $mtime;
-}
 
 // Themes whose menu base is the shared menuStyles.css (loaded FIRST, before components).
 // Gradient/bespoke menu themes (clarent/gudnak/petranaki) supply their own menu structure

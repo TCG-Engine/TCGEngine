@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 require_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 $modErr = CheckLoggedInUserMod();
 if ($modErr !== '') { http_response_code(403); echo "<h2>Access denied</h2><p>".htmlspecialchars($modErr, ENT_QUOTES)."</p>"; exit; }
@@ -7,7 +8,7 @@ if ($modErr !== '') { http_response_code(403); echo "<h2>Access denied</h2><p>".
 <html><head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SWUSim Mod Tools</title>
-  <link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css">
+  <link rel="stylesheet" href="<?php echo _VersionAsset('/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css'); ?>">
   <style>
     .mod-wrap { max-width: 720px; margin: 40px auto; padding: 24px; }
     .mod-wrap h1 { color: #f5e6c0; }

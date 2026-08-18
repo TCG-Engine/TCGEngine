@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 // Use __DIR__-relative includes (matching the SWUDeck pilot): this page is reached via the
 // SharedUI/MainMenu.php pointer (which include()s it), so the cwd is SharedUI/, not this dir.
 // Bare './'/'../../../' paths resolved against the wrong cwd → missing-file warnings AND silently
@@ -199,8 +200,8 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   </div><!-- end info card -->
 </div>
 
-<script src="/TCGEngine/Core/MatchReplayClient.js"></script>
-<script src="/TCGEngine/SharedUI/js/private-invite.js"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/Core/MatchReplayClient.js'); ?>"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/private-invite.js'); ?>"></script>
 
 <div id="ga-settings-modal" class="ga-settings-modal" aria-hidden="true">
   <div class="ga-settings-modal__overlay" data-close-settings-modal="true"></div>

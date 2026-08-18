@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 
 require_once "../Database/ConnectionManager.php";
 
@@ -218,7 +219,7 @@ $existingKeys = getAPIKeys();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Key Generator</title>
-    <script src="/TCGEngine/Core/StyledDialog.js"></script>
+    <script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
     <style>
         body {
             font-family: Arial, sans-serif;

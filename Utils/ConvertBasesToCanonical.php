@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 /**
  * Base De-duplication Conversion Script
  * 
@@ -165,7 +166,7 @@ if ($isAjax || (isset($_POST['action']) && $_POST['action'] === 'process')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Base De-duplication Tool</title>
-    <script src="/TCGEngine/Core/StyledDialog.js"></script>
+    <script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
     <style>
         body {
             font-family: Arial, sans-serif;

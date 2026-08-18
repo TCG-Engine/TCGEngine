@@ -55,6 +55,7 @@ $prompt = "You are a helpful assistant converting natural language to a space de
 - arena (string)
 - type (string)
 - rarity (string)
+- format (string)
 
 Valid card types are Unit, Upgrade, Event, Leader, and Base. Other card types are traits.
 
@@ -72,6 +73,11 @@ Aspect/colour filtering (key: aspect, alias c). Colour letters: b=Vigilance, g=C
   c>gbk            strictly more than these
   c!=gbk           cards containing NONE of these aspects
 Any filter key also supports != for negation, e.g. cost!=3, type!=unit.
+
+Format filtering (key: format, alias f) selects cards LEGAL in a buildable format. Valid values are
+exactly: premier, eternal, twinsuns, padawan, open. Use it for questions about what is playable or
+legal in a format, e.g. 'premier legal aggression units' -> f=premier c:r type=unit. It is not a set
+filter: use set for a specific expansion.
 
 Unique is 1 if unique or 0 if not.
 

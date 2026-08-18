@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 // Use __DIR__-relative includes (matching the SWUSim/SWUDeck pilot): this page is reached via the
 // SharedUI/MainMenu.php pointer (which include()s it), so the cwd is SharedUI/, not this dir.
 // Bare './'/'../../../' paths resolved against the wrong cwd → missing-file warnings AND silently
@@ -332,8 +333,8 @@ foreach ($azukiBuilderDecks as $azukiBuilderDeck) {
     </div>
   </div>
 </div>
-<script src="/TCGEngine/Core/MatchReplayClient.js"></script>
-<script src="/TCGEngine/SharedUI/js/private-invite.js"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/Core/MatchReplayClient.js'); ?>"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/private-invite.js'); ?>"></script>
 <script src="/TCGEngine/AzukiSim/Custom/GameLogClient.js?v=<?php echo @filemtime(__DIR__ . '/../../../AzukiSim/Custom/GameLogClient.js'); ?>"></script>
 <script>
   window.AZUKI_DECK_CODES = <?php echo json_encode($azukiDeckCodes, JSON_UNESCAPED_SLASHES); ?>;

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 require_once "./Database/ConnectionManager.php";
 include_once './AccountFiles/AccountSessionAPI.php';
 include_once './AccountFiles/AccountDatabaseAPI.php';
@@ -304,7 +305,7 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWUDeck — Mod Page</title>
-    <script src="/TCGEngine/Core/StyledDialog.js"></script>
+    <script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
     <style>
       /* SWUDeck-themed mod page (dark navy + blue accents, matching the SWUDeck site palette). */
       :root { color-scheme: dark; }

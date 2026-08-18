@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 require_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 $modErr = CheckLoggedInUserMod();
 if ($modErr !== '') { http_response_code(403); echo "<h2>Access denied</h2><p>".htmlspecialchars($modErr, ENT_QUOTES)."</p>"; exit; }
@@ -15,8 +16,8 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
 <html><head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cosmetics Uploader</title>
-  <script src="/TCGEngine/Core/StyledDialog.js"></script>
-  <link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css">
+  <script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
+  <link rel="stylesheet" href="<?php echo _VersionAsset('/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css'); ?>">
   <style>
     .cu-wrap { max-width: 1000px; margin: 32px auto; padding: 24px; }
     .cu-wrap h1, .cu-wrap h2 { color: #f5e6c0; }

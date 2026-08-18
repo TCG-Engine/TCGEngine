@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
   // Start the session before any output so $_SESSION is populated for InitialLayout.php's
   // visibility dropdown (the Team/Patreon options need the logged-in user).
   if (session_status() === PHP_SESSION_NONE) session_start();
@@ -36,7 +37,7 @@
   echo("</body>");
 ?>
 
-<script src="/TCGEngine/Core/StyledDialog.js"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
 <script>
   var el = document.getElementById("myStuff");
   window.statsSource = "all"; // Default to showing all stats

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 // Mock (preview) card builder — LOCAL DEV ONLY.
 //
 // CardMocks.php is tracked source, so this page only makes sense where its output can be reviewed
@@ -247,7 +248,7 @@ $existing = SWULoadMockCards();
 ?>
 <!doctype html>
 <html><head><meta charset="utf-8"><title>SWUSim Preview Card Tool</title>
-<script src="/TCGEngine/Core/StyledDialog.js"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
 <style>
   body { font-family: system-ui, sans-serif; margin: 0; background: #1e1e1e; color: #ddd; }
   header { padding: 12px 20px; background: #252526; border-bottom: 1px solid #3c3c3c;

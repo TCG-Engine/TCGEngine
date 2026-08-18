@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 
 /*
 include_once 'includes/functions.inc.php';
@@ -29,8 +30,8 @@ $isMobile = IsMobile();
 <head>  <meta charset="utf-8">
   <title>SWU Stats</title>
   <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/blueDiamond.png">
-  <!--<link rel="stylesheet" href="./css/menuStyles.css">-->  <link rel="stylesheet" href="/TCGEngine/SharedUI/css/menuStyles.css">  <script src="/TCGEngine/SharedUI/js/device-detector.js"></script>
-  <script src="/TCGEngine/SharedUI/js/burger-menu.js"></script>
+  <!--<link rel="stylesheet" href="./css/menuStyles.css">-->  <link rel="stylesheet" href="<?php echo _VersionAsset('/TCGEngine/SharedUI/css/menuStyles.css'); ?>">  <script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/device-detector.js'); ?>"></script>
+  <script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/burger-menu.js'); ?>"></script>
   <!-- <link rel="stylesheet" href="./css/menuStyles2.css"> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

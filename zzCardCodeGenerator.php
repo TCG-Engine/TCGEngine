@@ -1241,7 +1241,7 @@ fwrite($handler, "      thisValue = thisValue.slice(1, -1);\r\n");
 fwrite($handler, "    }\r\n");
 fwrite($handler, "    if(thisValue == \"\") continue;\r\n");
 if($rootName == "SWUDeck") {
-  fwrite($handler, "    var _filterAliases = {c:\"aspect\",t:\"text\",p:\"power\",tr:\"trait\",up:\"upgradepower\",uhp:\"upgradehp\",r:\"rarity\",a:\"arena\",is:\"type\",unq:\"unique\"};\r\n");
+  fwrite($handler, "    var _filterAliases = {c:\"aspect\",t:\"text\",p:\"power\",tr:\"trait\",up:\"upgradepower\",uhp:\"upgradehp\",r:\"rarity\",a:\"arena\",is:\"type\",unq:\"unique\",f:\"format\"};\r\n");
   fwrite($handler, "    if(_filterAliases[thisFilter]) thisFilter = _filterAliases[thisFilter];\r\n");
 }
 fwrite($handler, "    if(operand === '!=' && thisFilter !== 'aspect') {\r\n");
@@ -1314,6 +1314,29 @@ fwrite($handler, "        break;\r\n");
 // NOTE: the old standalone "c" case (a naive per-character substring loop) was removed. `c` is
 // now a plain alias for `aspect` (see _filterAliases above), and the aspect case routes through
 // SWUAspectMatch for real set/multiset comparison.
+if($rootName == "SWUDeck") {
+  // `format:`/`f:` — is this card legal in a buildable format? Backed by window.cardFormatData, a
+  // card->bitmask map baked into this same bundle below from SWUDeckCardFormatBits() and
+  // derived from the same legality data the deck validator uses, so the two cannot drift.
+  //
+  // Two deliberate asymmetries:
+  //  • map ABSENT -> break (match everything). A page that never published the map should behave like
+  //    the unknown-prefix default rather than blanking the grid.
+  //  • format name UNKNOWN -> return true (match nothing). The vocabulary is closed and small, so a
+  //    typo'd `f=premeir` returning zero results is honest; silently ignoring it is not.
+  // `f!=premier` needs no code here: the generic != branch above re-enters with '='.
+  fwrite($handler, "      case \"format\":\r\n");
+  fwrite($handler, "        var _fBits = (typeof cardFormatBits !== 'undefined') ? cardFormatBits\r\n");
+  fwrite($handler, "                   : ((typeof window !== 'undefined' && window.cardFormatBits) ? window.cardFormatBits : null);\r\n");
+  fwrite($handler, "        if(!_fBits) break;\r\n");
+  fwrite($handler, "        var _fWant = _fBits[thisValue.toLowerCase()];\r\n");
+  fwrite($handler, "        if(_fWant === undefined) return true;\r\n");
+  fwrite($handler, "        var _fMap = (typeof cardFormatData !== 'undefined') ? cardFormatData\r\n");
+  fwrite($handler, "                  : ((typeof window !== 'undefined' && window.cardFormatData) ? window.cardFormatData : {});\r\n");
+  fwrite($handler, "        var _fHave = _fMap[SWUNormalizeDictionaryKey(cardID)] || 0;\r\n");
+  fwrite($handler, "        if((_fHave & _fWant) === 0) return true;\r\n");
+  fwrite($handler, "        break;\r\n");
+}
 fwrite($handler, "      default: break;\r\n");
 fwrite($handler, "    }\r\n");
 fwrite($handler, "  }\r\n");
@@ -1323,21 +1346,52 @@ fwrite($handler, "}\r\n\r\n");
 // Build reverse alias map: property name (lowercase) => shortest alias
 $reverseAliasMap = [];
 if($rootName == "SWUDeck") {
-  $aliasMap = ["c" => "aspect", "t" => "text", "p" => "power", "tr" => "trait", "up" => "upgradepower", "uhp" => "upgradehp", "r" => "rarity", "a" => "arena", "is" => "type", "unq" => "unique"];
+  $aliasMap = ["c" => "aspect", "t" => "text", "p" => "power", "tr" => "trait", "up" => "upgradepower", "uhp" => "upgradehp", "r" => "rarity", "a" => "arena", "is" => "type", "unq" => "unique", "f" => "format"];
   foreach($aliasMap as $alias => $prop) {
     if(!isset($reverseAliasMap[$prop])) $reverseAliasMap[$prop] = $alias;
     else if(strlen($alias) < strlen($reverseAliasMap[$prop])) $reverseAliasMap[$prop] = $alias;
   }
 }
-fwrite($handler, "var propertyLookup = [\r\n");
+$lookupRows = [];
 for ($i = 0; $i < count($properties); ++$i) {
   $property = $properties[$i];
   $alias = isset($reverseAliasMap[strtolower($property)]) ? $reverseAliasMap[strtolower($property)] : "";
-  fwrite($handler, "  { \"Name\": \"" . $property . "\", \"Type\": \"" . $propertyTypes[$i] . "\", \"Alias\": \"" . $alias . "\" }");
-  if($i < count($properties) - 1) fwrite($handler, ",");
-  fwrite($handler, "\r\n");
+  $lookupRows[] = "  { \"Name\": \"" . $property . "\", \"Type\": \"" . $propertyTypes[$i] . "\", \"Alias\": \"" . $alias . "\" }";
 }
-fwrite($handler, "];\r\n\r\n");
+// `format` is not a dictionary property — it is computed from deck-format legality — so it has no
+// entry in $properties and must be appended by hand, or the filter-bar help modal (which renders
+// straight from propertyLookup) would document every prefix except this one.
+if($rootName == "SWUDeck") {
+  $lookupRows[] = "  { \"Name\": \"format\", \"Type\": \"string\", \"Alias\": \"f\" }";
+}
+fwrite($handler, "var propertyLookup = [\r\n" . implode(",\r\n", $lookupRows) . "\r\n];\r\n\r\n");
+
+// Per-card format legality for the `format:`/`f:` filter, emitted INTO the bundle so any page that
+// loads the dictionary can filter by format with no second request and no page-side plumbing.
+// Safe to require here: Phase 5 wrote GeneratedCardDictionaries.php moments ago, and it is a pure
+// arrays-and-accessors file whose globals ($titleData/$rarityData/$typeData) are exactly what
+// SWUDeckSetReprintUniverse() reads. Required at GLOBAL scope deliberately — inside a function the
+// dictionary's top-level $vars would be function-local and the reprint universe would come back empty.
+// Derived from SWUDeckClientFormatData, so legality here cannot drift from the deck validator.
+if($rootName == "SWUDeck") {
+  $formatOk = false;
+  $dictPhp = $directory . "/GeneratedCardDictionaries.php";
+  if(file_exists($dictPhp)) {
+    require_once $dictPhp;
+    require_once __DIR__ . "/SWUDeck/Custom/DeckFormats.php";
+    if(function_exists('SWUDeckCardFormatBits')) {
+      $fmtMap = SWUDeckCardFormatBits();
+      fwrite($handler, "var cardFormatBits = " . json_encode($fmtMap['bits']) . ";\r\n");
+      fwrite($handler, "var cardFormatData = " . json_encode($fmtMap['cards'], JSON_FORCE_OBJECT) . ";\r\n\r\n");
+      logLine("Format legality: " . count($fmtMap['cards']) . " cards mapped across "
+              . count($fmtMap['bits']) . " formats");
+      $formatOk = true;
+    }
+  }
+  // Loud, not fatal: without the map `f=premier` silently matches every card (the same behaviour as
+  // any unrecognised prefix), which is easy to mistake for "the filter does not work".
+  if(!$formatOk) logLine("WARNING: format legality map NOT emitted — `format:`/`f:` will match everything");
+}
 fclose($handler);
 logLine("JS file written: " . basename($generateFilename) . " (" . round(filesize($generateFilename)/1024, 1) . "KB)");
 

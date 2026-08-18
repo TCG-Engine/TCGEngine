@@ -15,6 +15,18 @@ npm install          # postinstall pulls the chromium, firefox, and webkit brows
 
 `node_modules/` is gitignored — this is a local dev tool, not shipped.
 
+## Card Search applet (main menu)
+
+```bash
+node card-search-xbrowser.mjs                 # defaults to the local SWUDeck main menu
+node card-search-xbrowser.mjs <url> <outPrefix>
+```
+
+Exercises the whole applet in all three engines: lazy bundle fetch, autofocus, the deckbuilder filter
+syntax (`f=premier`, `c:rr`, `cost>=8 is=unit`), and the zero-result path. Exits non-zero on failure,
+so it is usable as a gate. The lazy-fetch assertions are the load-bearing ones — an eager `<script>`
+tag would double the main menu's weight and no functional test would notice.
+
 ## Usage
 
 Render a SWUDeck deck's identity banner in all three engines, screenshot it, and measure the leader

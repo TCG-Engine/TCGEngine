@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 // ============================================================================
 // zzCropTester.php — interactive crop tuner for generated card images.
 //
@@ -788,7 +789,7 @@ $codexCliAvailable = CropTesterFindCodexCLI() !== null;
 <!-- StyledConfirm for the destructive regenerate prompts (no native dialogs — DevTools/check-no-native-dialogs.sh).
      Self-contained: it injects its own CSS and falls back to neutral values when the design-system
      role tokens are absent, which they are on this standalone tool. -->
-<script src="/TCGEngine/Core/StyledDialog.js"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
 </head>
 <body>
 <header>

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
@@ -8,10 +9,10 @@ require_once __DIR__ . '/../../Render/Auth.php';
 
 include_once __DIR__ . '/MobileViewport.php';
 ?>
-<script src="/TCGEngine/SharedUI/js/mobile-touch.js"></script>
-<script src="/TCGEngine/SharedUI/js/pull-to-refresh.js"></script>
-<script src="/TCGEngine/SharedUI/js/orientation-handler.js"></script>
-<script src="/TCGEngine/SharedUI/js/card-zoom.js"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/mobile-touch.js'); ?>"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/pull-to-refresh.js'); ?>"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/orientation-handler.js'); ?>"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/card-zoom.js'); ?>"></script>
 <style>
 .sciFiScroll::-webkit-scrollbar {
   width: 12px;
@@ -1577,6 +1578,16 @@ function LoadDecks() {
     content.addEventListener('touchend', function(e) {
       e.stopPropagation();
     }, false);
+
+    // Drop the caret straight into the search box. Deferred to the next frame on purpose: the panel
+    // is display:none until the line above, and focus() on a hidden element is a no-op, so calling it
+    // inline would silently do nothing. The applet owns the actual focus call (SWUCardBrowserFocus)
+    // because it owns the input; this file only decides WHEN.
+    // The trigger's own click is the user gesture iOS requires to raise a keyboard, so this works on
+    // mobile too — but the trigger is readonly, so blur it first or iOS keeps the caret on it.
+    requestAnimationFrame(function () {
+      if (typeof window.SWUCardBrowserFocus === 'function') window.SWUCardBrowserFocus();
+    });
   }
 
   function closeCardSearch() {

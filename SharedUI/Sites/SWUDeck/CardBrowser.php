@@ -79,6 +79,14 @@ function _SWUCardBrowserTile(string $cardID, array $mocks): string
 function SWUDeckRenderCardBrowser(): void
 {
     $ids    = GetAllCardIds();
+    // The deckbuilder's filter engine (ShouldFilter + the inlined SWUAspectMatch) lives in the
+    // generated card bundle. It is ~1MB, so it is NOT linked here — the JS below fetches it on demand
+    // the first time the box is used. Newest file wins, matching how every other loader picks it.
+    $bundle = glob(__DIR__ . '/../../../SWUDeck/GeneratedCode/GeneratedCardDictionaries_*.js');
+    rsort($bundle);
+    $bundleUrl = $bundle
+        ? '/TCGEngine/SWUDeck/GeneratedCode/' . basename($bundle[0]) . '?v=' . @filemtime($bundle[0])
+        : '';
     $mocks  = SWULoadMockCards();
     $facets = _SWUCardBrowserFacets($ids);
     $e      = fn($v) => htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8');
@@ -132,7 +140,8 @@ function SWUDeckRenderCardBrowser(): void
 
     <div id="cardBrowser">
       <div class="cb-bar">
-        <input type="text" id="cbSearch" placeholder="Search cards by name..." autocomplete="off">
+        <input type="text" id="cbSearch" placeholder="Search Cards..." autocomplete="off"
+               title="Supports deckbuilder filter syntax, e.g. f=premier a=space c:rr cost&lt;=3">
         <div id="cbFilters">
           <select id="cbSet"><option value="">All sets</option>
             <?php foreach ($facets['sets'] as $s): ?>
@@ -181,12 +190,57 @@ function SWUDeckRenderCardBrowser(): void
       var aspectBtns = document.getElementsByClassName('cb-aspect');
       var activeAspects = [];
 
+      // ── The deckbuilder's filter syntax, on demand ────────────────────────────────────────────
+      // ShouldFilter(cardID, query) is the SAME parser the deck-builder pane uses — every prefix
+      // (a/t/c/p/tr/r/is/unq/up/uhp/cost/hp/set/title/subtitle, f for format), every operator
+      // (: = < > <= >= !=) and quoted phrases — so this box cannot drift from that one.
+      // It lives in the generated card bundle, which is ~1MB. Linking it into the main menu would
+      // load it for every visitor including the ones who never open this panel, so it is fetched the
+      // first time someone actually types, and the plain substring match stays live until it lands.
+      // NOT loaded: Core/UILibraries' ShouldFilterWithOr, which adds `or` and parentheses. That
+      // bundle is the game board's and has side effects on load; `or` stays board-only for now.
+      var engineReady = false, engineTried = false;
+      var BUNDLE_URL = <?= json_encode($bundleUrl) ?>;
+
+      function loadEngine() {
+        if (engineTried || !BUNDLE_URL) return;
+        engineTried = true;
+        var sc = document.createElement('script');
+        sc.src = BUNDLE_URL;
+        sc.onload = function () {
+          engineReady = (typeof ShouldFilter === 'function');
+          apply();   // re-run: the query typed before this landed was matched by substring only
+        };
+        // On failure the box keeps working as a name search. A dead search box would be a worse
+        // outcome than a less powerful one.
+        sc.onerror = function () { engineReady = false; };
+        document.head.appendChild(sc);
+      }
+
+      // Only a query that could BE syntax is worth the fetch: a plain name search is already served.
+      function looksLikeSyntax(q) { return /[:=<>]/.test(q); }
+
+      function matchesQuery(el, q, qLower) {
+        if (!q) return true;
+        if (engineReady) {
+          var id = el.getAttribute('data-id');
+          // A card the engine does not know (a preview not yet in the dictionary) must not silently
+          // vanish the moment the engine loads — fall back to the substring test for that tile.
+          if (typeof CardTitle !== 'function' || CardTitle(id) !== null) {
+            try { return !ShouldFilter(id, q); } catch (err) { /* fall through to substring */ }
+          }
+        }
+        return el.getAttribute('data-title').indexOf(qLower) !== -1;
+      }
+
       function apply() {
-        var q = search.value.toLowerCase().trim();
+        var raw = search.value.trim();
+        var q = raw, qLower = raw.toLowerCase();
+        if (q && !engineReady && looksLikeSyntax(q)) loadEngine();
         var s = setSel.value, t = typeSel.value, mk = mockSel.value, shown = 0;
         for (var i = 0; i < tiles.length; i++) {
           var el = tiles[i], ok = true;
-          if (q && el.getAttribute('data-title').indexOf(q) === -1) ok = false;
+          if (q && !matchesQuery(el, q, qLower)) ok = false;
           if (ok && s  && el.getAttribute('data-set')  !== s)  ok = false;
           if (ok && t  && el.getAttribute('data-type') !== t)  ok = false;
           if (ok && mk && el.getAttribute('data-mock') !== mk) ok = false;
@@ -234,6 +288,14 @@ function SWUDeckRenderCardBrowser(): void
         box.style.display = 'flex';
       });
       box.addEventListener('click', function () { box.style.display = 'none'; });
+
+      // The popup opener calls this after its open animation — focusing a field inside a element that
+      // is still display:none does nothing, so the caller owns the timing, not this file.
+      window.SWUCardBrowserFocus = function () {
+        if (!search) return;
+        search.focus();
+        search.select();
+      };
 
       apply();
     })();

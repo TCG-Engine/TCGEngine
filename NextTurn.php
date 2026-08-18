@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="./Core/AppSettings.js"></script>
+    <script src="./Core/AppSettings.js?v=<?php echo filemtime('./Core/AppSettings.js'); ?>"></script>
     <script src="./Core/CardMotion.js?v=<?php echo filemtime('./Core/CardMotion.js'); ?>"></script>
     <script src="./Core/SoundEvents.js?v=<?php echo filemtime('./Core/SoundEvents.js'); ?>"></script>
     <script
@@ -20,16 +20,16 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <script src="./Core/UILibraries20260818.js?v=<?php echo filemtime('./Core/UILibraries20260818.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js?v=<?php echo filemtime('./Core/MZRearrangePopup.js'); ?>"></script>
-    <script src="./Core/MZSplitAssignUI.js"></script>
+    <script src="./Core/MZSplitAssignUI.js?v=<?php echo filemtime('./Core/MZSplitAssignUI.js'); ?>"></script>
     <script src="./Core/MZMultiChooseUI.js?v=<?php echo filemtime('./Core/MZMultiChooseUI.js'); ?>"></script>
-    <script src="./Core/MZModalUI.js"></script>
-    <script src="./Core/TwoSidedSliderUI.js"></script>
-    <script src="./Core/IconChoiceUI.js"></script>
-    <script src="./Core/NumberChooseUI.js"></script>
+    <script src="./Core/MZModalUI.js?v=<?php echo filemtime('./Core/MZModalUI.js'); ?>"></script>
+    <script src="./Core/TwoSidedSliderUI.js?v=<?php echo filemtime('./Core/TwoSidedSliderUI.js'); ?>"></script>
+    <script src="./Core/IconChoiceUI.js?v=<?php echo filemtime('./Core/IconChoiceUI.js'); ?>"></script>
+    <script src="./Core/NumberChooseUI.js?v=<?php echo filemtime('./Core/NumberChooseUI.js'); ?>"></script>
     <script src="./Core/NameCardUI.js?v=<?php echo filemtime('./Core/NameCardUI.js'); ?>"></script>
     <script src="./Core/MatchReplayClient.js?v=<?php echo filemtime('./Core/MatchReplayClient.js'); ?>"></script>
-    <script src="./Core/OptionChooseUI.js"></script>
-    <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
+    <script src="./Core/OptionChooseUI.js?v=<?php echo filemtime('./Core/OptionChooseUI.js'); ?>"></script>
+    <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css?v=<?php echo filemtime('./Core/Styles/ScreenAnimations.css'); ?>">
     <!-- Preload shield-break frames so the first shatter doesn't stutter fetching frames 2-5 mid-animation. -->
     <link rel="preload" as="image" href="./Assets/Icons/space-shield_break1.svg">
     <link rel="preload" as="image" href="./Assets/Icons/space-shield_break2.svg">
@@ -333,7 +333,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     // Include GeneratedMacroCount.js for ability count and names (if it exists)
     $macroCountFile = "./" . $assetPath . "/GeneratedCode/GeneratedMacroCount.js";
     if (file_exists($macroCountFile)) {
-      echo '<script src="' . $macroCountFile . '"></script>';
+      echo '<script src="' . $macroCountFile . '?v=' . @filemtime($macroCountFile) . '"></script>';
     }
     $gameLogClientFile = "./" . $folderPath . "/Custom/GameLogClient.js";
     $supportsGameLog = function_exists('GetModuleConfig') && GetModuleConfig('GameLog') !== null;

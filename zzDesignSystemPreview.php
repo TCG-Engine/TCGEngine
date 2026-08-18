@@ -1,3 +1,5 @@
+<?php require_once __DIR__ . '/SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
+?>
 <?php /* zzDesignSystemPreview.php — design-system preview harness (dev tool).
    Serve at /TCGEngine/zzDesignSystemPreview.php  or  ?theme=hud to load a theme's tokens.
    Loads the shared layer; ?theme=<name> additionally links that theme's *.tokens.css. */
@@ -22,8 +24,8 @@ $themeLabel = $theme === '' ? 'Neutral' : ucwords(str_replace('-', ' ', $theme))
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Design System Preview<?= $theme ? ' — ' . htmlspecialchars($themeLabel, ENT_QUOTES, 'UTF-8') : '' ?></title>
-<link rel="stylesheet" href="/TCGEngine/SharedUI/css/tokens.css">
-<link rel="stylesheet" href="/TCGEngine/SharedUI/css/components.css">
+<link rel="stylesheet" href="<?php echo _VersionAsset('/TCGEngine/SharedUI/css/tokens.css'); ?>">
+<link rel="stylesheet" href="<?php echo _VersionAsset('/TCGEngine/SharedUI/css/components.css'); ?>">
 <style>body{background:var(--surface);color:var(--text);font-family:var(--font-body,barlow,sans-serif);margin:0;padding:32px;min-height:100vh;box-sizing:border-box;}
 .row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:0 0 22px;}
 .preview-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 22px;}
@@ -119,8 +121,8 @@ h2{letter-spacing:.1em;text-transform:uppercase;font-size:15px;opacity:.7;margin
     <button onclick="StyledAlert('Deck imported successfully.', {title:'Done'})">Open alert</button>
     <button onclick="Toast('Copied to clipboard', {type:'success'})">Show toast</button>
   </div>
-  <script src="/TCGEngine/Core/StyledDialog.js"></script>
-  <script src="/TCGEngine/Core/StyledSelect.js"></script>
+  <script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
+  <script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledSelect.js'); ?>"></script>
   <script>
     document.getElementById('theme-select').addEventListener('change', function () {
       const url = new URL(window.location.href);

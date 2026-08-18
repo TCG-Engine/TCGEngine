@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/SharedUI/Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 require_once __DIR__ . '/AppCore/SWU/Maintenance.php';
 // Mod tools stay REACHABLE during maintenance — the migration itself is driven from zz
 // pages. What they must not do is write a table that is about to be RENAMEd away, so the
@@ -424,7 +425,7 @@ if ($action !== '') {
 
 <div id="log"></div>
 
-<script src="/TCGEngine/Core/StyledDialog.js"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/Core/StyledDialog.js'); ?>"></script>
 <script>
 const tbody  = document.querySelector('#grid tbody');
 const statusEl = document.getElementById('status');

@@ -50,10 +50,18 @@ $checks['SOR_033 tile present']   = strpos($html, 'concat/SOR_033.webp') !== fal
 $checks['SOR_033 title rendered'] = stripos($html, 'Death Trooper') !== false;
 
 // ── Mocks are badged, and ONLY mocks ────────────────────────────────────────
-// SWULoadMockCards() returns 36 but HMW_T02/HMW_T03 are TOKENS and absent from the dictionary, so
-// the badge count is driven by the iteration, never by the raw mock file.
+// Token mocks (HMW_T02/HMW_T03 and friends) are absent from the dictionary, so the badge count is
+// driven by the iteration, never by the raw mock file.
+//
+// This used to assert an absolute `=== 34`, snapshotted when the mock file held 36 entries. The mock
+// file grows with every preview set (79 now), so the constant went stale the moment new previews
+// landed and said nothing about whether the code was right. Asserting the RELATIONSHIP instead —
+// some mocks present, token mocks excluded — is what the check was actually protecting, and it
+// survives the next preview set.
 $expectedMocks = count(array_intersect(array_keys($mocks), $ids));
-$checks['34 mocks are in the dictionary'] = $expectedMocks === 34;
+$checks['preview mocks reach the dictionary']  = $expectedMocks > 0;
+$checks['token mocks are excluded from tiles'] = $expectedMocks <= count($mocks)
+    && count(array_filter(array_keys($mocks), fn($k) => preg_match('/_T\d\d$/', $k) && in_array($k, $ids, true))) === 0;
 $checks['badge count matches dictionary mocks'] = substr_count($html, 'data-mock="1"') === $expectedMocks;
 $checks['mock art uses the mock_ prefix']       = strpos($html, 'concat/mock_HMW_004.webp') !== false;
 $checks['a released card is not badged']        =
@@ -162,6 +170,59 @@ $checks['MainMenu has no cardSearchFrame'] = strpos($menuCode, 'cardSearchFrame'
 $checks['MainMenu has no SWUCardList iframe src'] = strpos($menuCode, 'folderPath=SWUCardList') === false;
 $checks['MainMenu still defines openCardSearch']  = strpos($menuCode, 'function openCardSearch') !== false;
 $checks['MainMenu still defines closeCardSearch'] = strpos($menuCode, 'function closeCardSearch') !== false;
+
+// ── Filter syntax, format filter, autofocus, placeholder ────────────────────
+// The search box reuses the DECKBUILDER's parser (ShouldFilter, in the generated card bundle) rather
+// than owning a second one. These checks pin the three ways that can silently degrade: the bundle
+// stops being fetched, the bundle stops carrying the format data, or the applet quietly falls back to
+// substring matching forever.
+$browserSrc = file_get_contents($root . '/SharedUI/Sites/SWUDeck/CardBrowser.php');
+
+$checks['search box uses the shared ShouldFilter parser'] = strpos($browserSrc, 'ShouldFilter(') !== false;
+$checks['parser bundle is lazily fetched, never eagerly linked'] =
+    strpos($browserSrc, 'loadEngine') !== false && strpos($browserSrc, 'createElement(\'script\')') !== false;
+$checks['a plain name query does not trigger the 1MB fetch'] = strpos($browserSrc, 'looksLikeSyntax') !== false;
+$checks['substring search survives a failed bundle fetch'] = strpos($browserSrc, 'sc.onerror') !== false;
+$checks['placeholder matches the main-menu trigger'] =
+    strpos($browserSrc, 'placeholder="Search Cards..."') !== false;
+$checks['applet exposes a focus hook'] = strpos($browserSrc, 'SWUCardBrowserFocus') !== false;
+$checks['openCardSearch focuses the search box'] = strpos($menuCode, 'SWUCardBrowserFocus') !== false;
+
+// The main menu must NOT gain a <script src> to the ~1MB bundle: that is the whole point of the lazy
+// fetch, and an eager tag would be invisible in every functional test while doubling the page weight.
+$checks['main menu does not eagerly link the card bundle'] =
+    preg_match('~<script[^>]+src=[^>]*GeneratedCardDictionaries~', $menuCode) !== 1;
+
+// format:/f: — the generator emits both the alias and the legality map. Assert the GENERATED bundle,
+// because the generator being right does not help if the artifact on disk is stale (the exact failure
+// mode that left SoulMastersDB serving unversioned script tags for weeks).
+$bundles = glob($root . '/SWUDeck/GeneratedCode/GeneratedCardDictionaries_*.js');
+rsort($bundles);
+$checks['a generated card bundle exists'] = count($bundles) > 0;
+if ($bundles) {
+    $bundleSrc = file_get_contents($bundles[0]);
+    $checks['bundle aliases f -> format']      = strpos($bundleSrc, 'f:"format"') !== false;
+    $checks['bundle has the format filter arm'] = strpos($bundleSrc, 'case "format"') !== false;
+    $checks['bundle carries the format bit map'] = strpos($bundleSrc, 'var cardFormatBits') !== false
+                                                && strpos($bundleSrc, 'var cardFormatData') !== false;
+    // The five buildable formats, by name, so a renamed/dropped format fails here rather than turning
+    // f=twinsuns into a silent zero-result query.
+    $missing = [];
+    foreach (['premier', 'eternal', 'twinsuns', 'padawan', 'open'] as $f) {
+        if (strpos($bundleSrc, '"' . $f . '":') === false) $missing[] = $f;
+    }
+    $checks['bundle maps all five buildable formats'] = empty($missing);
+    // The help modal renders from propertyLookup; format is not a dictionary property, so it has to be
+    // appended by hand and is the entry most likely to be forgotten.
+    $checks['help modal documents the format prefix'] =
+        strpos($bundleSrc, '"Name": "format", "Type": "string", "Alias": "f"') !== false;
+}
+
+// The AI conversational search converts English into this same syntax; leaving it unaware of `format`
+// means "premier legal units" silently produces a filter that ignores the format half.
+$aiSrc = file_get_contents($root . '/AIEndpoints/CardPaneConvSearch.php');
+$checks['AI search vocabulary knows format'] =
+    strpos($aiSrc, '- format (string)') !== false && strpos($aiSrc, 'premier, eternal, twinsuns, padawan, open') !== false;
 
 // ── SWUCardList is gone ─────────────────────────────────────────────────────
 // The app root existed only to draw this grid. Its generated NextTurnRender.php was gitignored, so

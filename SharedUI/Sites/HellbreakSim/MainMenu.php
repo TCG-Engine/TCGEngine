@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../Render/AssetVersion.php';   // _VersionAsset() — ?v=<filemtime> cache busting
 include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
@@ -204,7 +205,7 @@ if (IsUserLoggedIn()) {
 
 <?php include __DIR__ . '/NorthBeachVignette.php'; ?>
 
-<script src="/TCGEngine/SharedUI/js/private-invite.js"></script>
+<script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/private-invite.js'); ?>"></script>
 <script src="/TCGEngine/HellbreakDeck/HomeActions.js?v=20260817"></script>
 <script>
 (function() {

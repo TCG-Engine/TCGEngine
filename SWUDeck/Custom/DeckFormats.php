@@ -114,6 +114,48 @@ function SWUDeckClientFormatData($formatId) {
     ];
 }
 
+// ── Per-card format legality, for the card-search `format:` / `f:` filter ────────────────────────
+// The filter needs to answer "is this card legal in <format>?" for EVERY card, whereas
+// SWUDeckClientFormatData answers "what are <format>'s rules?" for ONE format. This inverts that into
+// a card-keyed map, derived from the same data so legality cannot drift from the validator.
+//
+// Consumed by zzCardCodeGenerator.php Phase 6, which bakes the result into the generated client
+// bundle as `cardFormatBits` / `cardFormatData`. It therefore runs at GENERATION time, not per
+// request — nothing on a page needs to call it.
+//
+// Encoded as a BITMASK, not a name list: the space-joined form was 96KB of JSON, and the bits are 30KB
+// for identical information on a page that already carries a 1MB dictionary. The bit assignment is
+// emitted alongside the map rather than hardcoded in JS, so adding a sixth buildable format is a
+// one-line change here and nothing on the client.
+//
+// Cards legal in NO format are omitted (absent === 0), which is also what tokens do — they are already
+// excluded upstream by SWUDeckSetReprintUniverse.
+function SWUDeckCardFormatBits(): array {
+    SWUDeckSetReprintUniverse();   // populates SWUReprintUniverse / SWURarityUniverse
+    $bits = [];
+    $cards = [];
+    $bit = 1;
+    foreach (array_keys(SWUDeckBuildableFormats()) as $formatId) {
+        $bits[$formatId] = $bit;
+        $d = SWUDeckClientFormatData($formatId);
+        $banned = array_flip($d['bannedIDs']);
+        // rarityLegalIDs (Padawan only) ALREADY encodes set-legality as well as the rarity rule — it is
+        // built from SWUCardHasLegalRarityPrint — so it replaces the print check rather than adding to it.
+        $rarityOK = $d['rarityLegalIDs'] === null ? null : array_flip($d['rarityLegalIDs']);
+        foreach ($GLOBALS['SWUReprintUniverse'] as $cardID) {
+            if (isset($banned[$cardID])) continue;
+            if ($rarityOK !== null) {
+                if (!isset($rarityOK[$cardID])) continue;
+            } else if (!SWUCardHasLegalPrint($cardID, $d['legalSets'])) {
+                continue;
+            }
+            $cards[$cardID] = ($cards[$cardID] ?? 0) | $bit;
+        }
+        $bit <<= 1;
+    }
+    return ['bits' => $bits, 'cards' => $cards];
+}
+
 // SWUDeck-side wrapper for the Twin Suns leader-pairing rule (CR §12.2.1.a): the two leaders'
 // starting sides can't combine Heroism + Villainy.
 //
