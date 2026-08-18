@@ -79,3 +79,26 @@ P1DISCARDCOUNT:2
 P1HANDCOUNT:1
 P2BASEDMG:5
 P1NODECISION
+
+---
+
+# AttackingABASE_NoTriggerAtAll
+#// LAW_034 Chewbacca — "When Attack Ends: If the DEFENDING UNIT was defeated…". An attack on a base has no
+#// defending unit at all, so the condition can never be met: Chewbacca attacks the enemy base, deals his
+#// damage and receives no Experience token and no heal. The existing negatives both involve a defending
+#// unit; this one removes the defender entirely, which is the case a condition implemented as "if anything
+#// was defeated" would get wrong.
+
+## GIVEN
+CommonSetup: bgw/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_034:1:2
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:LAW_034
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:DAMAGE:2

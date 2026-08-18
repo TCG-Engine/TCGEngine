@@ -68,3 +68,26 @@ WithP1Hand: LAW_137
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:LAW_137
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0&theirGroundArena-1
+
+---
+
+# EnemyVillainyUnitDoesNotSatisfyTheCondition
+#// LAW_137 Ruthless Duo — "If YOU CONTROL another Villainy unit". NoTriggerWithoutOtherVillainy plays the
+#// Duo onto a board whose only other unit is a friendly non-Villainy one, so it tests the ASPECT half; this
+#// section tests the CONTROLLER half, with the only other Villainy unit on the board belonging to the
+#// opponent. The condition fails, no decision is raised and nothing takes damage.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:4}
+P1OnlyActions: true
+WithP2GroundArena: SEC_080:1:0
+WithP1Hand: LAW_137
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:LAW_137
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P2GROUNDARENAUNIT:0:DAMAGE:0

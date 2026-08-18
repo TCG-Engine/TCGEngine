@@ -64,3 +64,26 @@ P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SOR_237
 P2DECKCOUNT:1
 P2DISCARDCOUNT:0
+
+---
+
+# MillFiresWhenAttackingAUNITToo
+#// LAW_192 Bracca Shipbreaker — "On Attack" is not gated on what is attacked, so the mill happens on a
+#// unit attack as well. The 4-power Shipbreaker attacks a 1/1 Battle Droid token, defeats it, and still
+#// discards the top of its own deck. All three existing sections attack the base.
+
+## GIVEN
+CommonSetup: rrw/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_192:1:0
+WithP2GroundArena: TWI_T01:1:0
+WithP1Deck: SOR_237
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1DECKCOUNT:0
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SOR_237

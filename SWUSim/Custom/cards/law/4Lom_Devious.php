@@ -7,10 +7,20 @@
 // exhausted. It can't attack bases for this attack (noBases).
 $whenPlayedAbilities["LAW_065:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
+    // Only offer an attacker that could actually attack something. "It can't attack bases for this attack"
+    // means an enemy UNIT in that attacker's arena is required, so on an empty enemy board the ability can
+    // only fizzle and is auto-declined rather than prompted (USER RULING 2026-08-17, option (a)).
+    // ⚠ This is not cosmetic: choosing an attacker with no legal target used to READY it. BeginSWUAttack
+    // readies the attacker for the "even if it's exhausted" clause and then aborts for want of a target
+    // without restoring that, so the prompt handed out a free ready.
+    // Guarded by NoEnemyUnitToAttack_TheChosenAttackerMustNotBeREADIED.
     $bh = [];
     foreach (SWUAllUnits('my') as $mz) {
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Bounty Hunter')) $bh[] = $mz;
+        if ($o === null || !empty($o->removed)) continue;
+        if (!HasTrait($o->CardID ?? '', 'Bounty Hunter')) continue;
+        if (empty(SWUGetAllValidAttackTargets(intval($player), $o, $o->Location ?? '', true))) continue; // noBases
+        $bh[] = $mz;
     }
     if (empty($bh)) return;
     SWUQueueMayChooseTarget(intval($player), $bh, "Attack_with_a_friendly_Bounty_Hunter_(even_if_exhausted)?", "Choose_a_Bounty_Hunter", "LAW_065#0");

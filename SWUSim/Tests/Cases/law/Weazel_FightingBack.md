@@ -67,3 +67,27 @@ WithP2GroundArena: SOR_046:1:0
 P1SELECTABLEEXACT:myGroundArena-1&myGroundArena-2&mySpaceArena-0
 P1GROUNDARENAUNIT:0:CARDID:LAW_182
 P1GROUNDARENAUNIT:2:ISLEADERUNIT
+
+---
+
+# TheGrantedRaidActuallyADDSPowerOnTheNextAttack
+#// LAW_182 Weazel — the existing sections assert the Raid KEYWORD is present, which a cosmetic keyword
+#// stamp would also satisfy. This one spends it: Weazel attacks the base, grants Raid 2 to the friendly
+#// SOR_095 Battlefield Marine, and the Marine then attacks the base itself for 3 printed + 2 Raid = 5.
+#// P2's base ends on 2 (Weazel) + 5 = 7.
+
+## GIVEN
+CommonSetup: rrw/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_182:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myGroundArena-1
+- P1>AttackGroundArena:1:BASE
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:HASKEYWORD:Raid
+P2BASEDMG:7

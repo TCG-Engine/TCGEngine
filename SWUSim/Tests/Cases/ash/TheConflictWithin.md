@@ -125,3 +125,29 @@ WithP1Hand: SOR_169
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# AttachPool_AnyUnitEitherSideEitherArena
+#// ASH_088 The Conflict Within — a Condition that prints NO attach restriction, so per CR 2.e every unit in
+#// play is a legal host regardless of controller or arena. It is 0/0 and taxes the host's controller every
+#// time the unit readies, so an enemy host is the point of the card.
+#// ⚠ This file already asserts the card BEHAVING correctly on an enemy host
+#// (EnemyAttach_ControllerPromptedAtRegroup_Declines / _Pays) — but those sections SEED the upgrade onto
+#// P2's unit with WithP2GroundArenaUpgrade, which bypasses the attach path entirely. Until this section
+#// existed, the play that would put it there was not actually legal.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_213:1:0
+WithP1Hand: ASH_088
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0

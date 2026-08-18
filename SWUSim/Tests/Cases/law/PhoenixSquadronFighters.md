@@ -68,3 +68,30 @@ WithP1Hand: LAW_110
 P1SPACEARENACOUNT:2
 P1SPACEARENAUNIT:1:CARDID:LAW_110
 P1RESAVAILABLE:0
+
+---
+
+# DiscountIsRECOMPUTEDWhenTheDamageChanges
+#// LAW_110 Phoenix Squadron Fighters — "costs 1 resource less for each friendly DAMAGED unit" is read at
+#// the moment the card is played, so the discount has to track the board rather than a value fixed when
+#// the card entered hand. Here THREE friendly units are damaged and a fourth is not: the cost-8 Fighters
+#// come down by exactly 3 and land for 5, leaving 1 of 6 resources ready. CostPerDamaged fixes the count at
+#// two, so only a board with a different count can show the per-unit multiplier is real rather than a flat
+#// discount.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:2
+WithP1GroundArena: SOR_095:1:1
+WithP1GroundArena: SEC_080:1:1
+WithP1GroundArena: SOR_063:1:0
+WithP1Hand: LAW_110
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:LAW_110
+P1RESAVAILABLE:1

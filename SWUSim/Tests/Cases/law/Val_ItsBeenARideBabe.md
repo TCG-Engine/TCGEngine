@@ -93,3 +93,77 @@ P1HASDECISION
 P1GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:2:ISLEADERUNIT
 P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1&theirGroundArena-2&theirSpaceArena-0
+
+---
+
+# WhenPlayed_NoOtherFriendlyUnit_FizzlesSilently
+#// LAW_091 Val — "Give a Shield token to ANOTHER friendly unit". Played onto an empty board she is the
+#// only friendly unit, so there is nobody else to shield: no decision is raised and she does not shield
+#// herself. Without this negative a pool that had quietly dropped the "another" filter would look
+#// identical in every other section here.
+
+## GIVEN
+CommonSetup: byk/bgw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: LAW_091
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_091
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# WhenDefeated_NoEnemyUnitLeft_FizzlesSilently
+#// LAW_091 Val — the When Defeated targets "an ENEMY unit", so it has nothing to do when the only enemy
+#// on the board is the one that killed her and it died in the same trade. Val (2/4, pre-damaged to 2) and
+#// SOR_128 Death Star Stormtrooper (3/1) trade: both leave play, no decision is raised, and no Shield is
+#// created anywhere.
+
+## GIVEN
+CommonSetup: byk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_091:1:2
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+
+---
+
+# NGOR_WhenDefeatedShieldsFromTheNEWControllersSeat
+#// LAW_091 Val — "an enemy unit" is read from whoever controls Val when she is defeated. P2 takes control
+#// of her with No Glory, Only Results and defeats her, so the When Defeated resolves on P2's queue and
+#// "enemy" now means P1's units: the Shield lands on P1's Battlefield Marine, and P2's own unit — enemy to
+#// Val's ORIGINAL controller — must not receive it. Two candidates on P1's side would make the pick
+#// ambiguous, so P1 fields exactly one unit and the single legal target auto-resolves.
+
+## GIVEN
+CommonSetup: bbw/bbk/{}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 8
+WithP2Hand: JTL_043
+WithP1GroundArena: [LAW_091:1:0 SOR_095:1:0]
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0

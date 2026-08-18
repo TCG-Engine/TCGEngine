@@ -78,3 +78,105 @@ WithP2SpaceArena: SEC_213:1:0
 P1SELECTABLEEXACT:myGroundArena-1&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:LAW_186
+
+---
+
+# AttachPool_NonVehicleEitherSide_VehiclesExcluded
+#// LAW_186 Enfys Nest's Helmet — "Attach to a non-Vehicle unit." The restriction names a TRAIT and no
+#// controller, so the legal-host pool is every non-Vehicle unit on either side, and Vehicles are out.
+#// Discriminating board: friendly SEC_080 (non-Vehicle) and enemy SOR_046 (non-Vehicle) must be IN;
+#// friendly SEC_214 Skyhopper Canyon Runner and enemy ASH_261 Noti Mobile Pod (both Vehicle) must be OUT.
+#// Playing the Helmet from hand with four possible hosts keeps the attach choose genuinely pending — the
+#// existing sections all seed the upgrade directly and never exercise the attach path at all.
+
+## GIVEN
+CommonSetup: brk/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: [SEC_080:1:0 SEC_214:1:0]
+WithP2GroundArena: [SOR_046:1:0 ASH_261:1:0]
+WithP1Hand: LAW_186
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# DeclineTheBuff_NothingChanges
+#// LAW_186 Enfys Nest's Helmet — the granted ability is "You MAY give another unit +3/+0", so the pick is
+#// declinable (MZMAYCHOOSE) and declining is a legal, complete resolution: the attack still happens and
+#// every unit keeps its printed power. Same board as OnAttackBuffAnother, which takes the other branch.
+
+## GIVEN
+CommonSetup: brk/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_186
+WithP1GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:-
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:1:POWER:3
+P2BASEDMG:3
+
+---
+
+# BuffIsPhaseDuration_GoneNextActionPhase
+#// LAW_186 Enfys Nest's Helmet — "+3/+0 for THIS PHASE". The buffed unit is 6 power during the phase the
+#// Helmet's On Attack resolved in (asserted by OnAttackBuffAnother) and must be back to its printed 3
+#// once the next action phase starts. Both decks are seeded so the regroup draws do not add the CR 6.1
+#// empty-deck damage on top of the attack.
+#// The pass chain is P1 pass -> both resource passes -> P2 pass: P2 auto-claims initiative when it passes
+#// first, so its trailing pass is what actually opens the next action phase.
+
+## GIVEN
+CommonSetup: brk/rrk/{}
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_186
+WithP1GroundArena: SEC_080:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myGroundArena-1
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+
+## EXPECT
+P1GROUNDARENAUNIT:1:POWER:3
+
+---
+
+# StolenHost_GrantResolvesForTheNEWController
+#// LAW_186 Enfys Nest's Helmet — the ability is granted to the ATTACHED UNIT, so it travels with the host
+#// across a control change: whoever controls the host when it attacks gets the "give another unit +3/+0"
+#// offer, read from THEIR seat. The host SEC_080 is owned by P1 (it still wears P1's Helmet) but sits in
+#// P2's arena, and P2 attacks with it — the offer is raised on P2's queue and its pool is every unit
+#// except the host, so P2's own second unit and P1's unit are both in.
+
+## GIVEN
+CommonSetup: brk/rrk/{}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2GroundArenaControlled: SEC_080:1
+WithP2GroundArenaUpgrade: 0:LAW_186
+WithP2GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+
+## EXPECT
+P2SELECTABLEEXACT:myGroundArena-1&theirGroundArena-0
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:LAW_186

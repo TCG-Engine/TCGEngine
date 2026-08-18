@@ -78,3 +78,30 @@ P1GROUNDARENAUNIT:1:CARDID:SOR_010
 P1GROUNDARENAUNIT:1:ISLEADERUNIT
 P1GROUNDARENAUNIT:2:CARDID:LAW_240
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
+
+---
+
+# NoOtherFriendlyNonLeaderUnit_NoOfferAtAll
+#// LAW_240 Milodon Rider — "return ANOTHER FRIENDLY NON-LEADER unit to its owner's hand". With the Rider
+#// as the only friendly non-leader unit on the board — the other units being an ENEMY unit and P1's own
+#// deployed LEADER, both excluded — the clause has no legal target and no decision is raised. This is the
+#// negative that pins all three filters at once; the offer section only shows them when targets exist.
+#// The Rider also has Ambush and an enemy unit is present, so two triggers resolve in the same window: the
+#// EffectStack pick orders them and the trailing NO declines the Ambush attack, leaving the board clean
+#// enough to show that the RETURN clause raised nothing at all.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:6; myLeader:SOR_010; myLeaderDeployed:true}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: LAW_240
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1NODECISION
+P1HANDCOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_046

@@ -106,3 +106,72 @@ P1HANDCARD:0:LAW_124
 P1DECKCOUNT:1
 P2DECKCOUNT:1
 P2HANDCOUNT:0
+
+---
+
+# BountyHunterSittingSIXTH_IsOutsideTheWindow
+#// LAW_138 Undercity Hunting Team — "Search the TOP 5 cards" is a depth limit, and this is the section
+#// that measures it. The deck's first five cards are all non-Bounty-Hunters and the only LAW_124 in the
+#// deck sits SIXTH: the search must come back empty, nothing is drawn, and all 6 cards stay in the deck.
+#// NoBountyHunterInDeck_TakeNothing only shows an empty result when there is no Bounty Hunter anywhere, so
+#// it cannot tell a five-card window from a search of the whole deck — this board can.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1Deck: [SOR_164 SOR_095 SOR_046 SOR_063 SOR_237 LAW_124]
+WithP1Hand: LAW_138
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1HANDCOUNT:0
+P1DECKCOUNT:6
+
+---
+
+# DeckShorterThanFive_SearchesWhatIsThere
+#// LAW_138 Undercity Hunting Team — "the top 5 cards" is a maximum, not a requirement. With only 2 cards
+#// in the deck the search still runs over both, finds the Bounty Hunter and draws it, leaving 1 card
+#// behind. Boundary partner of EmptyDeck_NoSearch (0 cards, no search at all) and SearchBountyHunter.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1Deck: [SOR_164 LAW_124]
+WithP1Hand: LAW_138
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:LAW_124
+
+## EXPECT
+P1HANDCOUNT:1
+P1HANDCARD:0:LAW_124
+P1DECKCOUNT:1
+
+---
+
+# TheUnchosenCardsLeaveTheTopOfTheDeck
+#// LAW_138 Undercity Hunting Team — the reminder text sends the other looked-at cards to the BOTTOM, so
+#// after the search the top of the deck must be the first card that was never looked at. Deck from the
+#// top: LAW_124 plus four non-Bounty-Hunters (the window), then SOR_237 sixth. Drawing LAW_124 leaves 6
+#// cards, and the one now on top is SOR_237 — the four searched-past cards have gone underneath it.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1Deck: [LAW_124 SOR_164 SOR_095 SOR_046 SOR_063 SOR_237]
+WithP1Hand: LAW_138
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:LAW_124
+
+## EXPECT
+P1HANDCOUNT:1
+P1HANDCARD:0:LAW_124
+P1DECKCOUNT:5
+P1DECKTOPCARD:SOR_237

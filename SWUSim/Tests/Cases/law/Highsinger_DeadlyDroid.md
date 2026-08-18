@@ -89,3 +89,74 @@ WithP1Hand: LAW_059
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
 P1GROUNDARENAUNIT:2:CARDID:SOR_128
 P1GROUNDARENAUNIT:3:CARDID:LAW_059
+
+---
+
+# WhenDefeatedOffer_FriendlyAggressionOnly
+#// LAW_059 Highsinger — the When Defeated reads "Give an Experience token to a FRIENDLY AGGRESSION unit",
+#// which applies a controller filter and an aspect filter and — unlike the When Played half — has no
+#// "another". Discriminating board: two friendly Aggression units (SOR_128 and SOR_164) are IN; the
+#// friendly SOR_095 (Command/Heroism) is OUT on aspect; the ENEMY SOR_128 — an Aggression unit — is OUT on
+#// controller. WhenDefeatedExpAggression has a single Aggression unit and auto-resolves, so it could not
+#// have seen an aspect-only or both-sides pool.
+#// Highsinger (4/2) attacks the 3/7 SOR_046 and dies to the counter damage.
+
+## GIVEN
+CommonSetup: grk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_059:1:0 SOR_128:1:0 SOR_164:1:0 SOR_095:1:0]
+WithP2GroundArena: [SOR_046:1:0 SOR_128:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# WhenPlayed_NoOtherFriendlyCommandUnit_FizzlesSilently
+#// LAW_059 Highsinger — the When Played needs ANOTHER friendly COMMAND unit. Played onto a board whose
+#// only other friendly unit is Aggression (SOR_128) and whose only Command unit is the ENEMY SOR_095, the
+#// clause has no legal target: no decision is raised and no Experience is created. Highsinger is himself a
+#// Command unit, so this is also the section that proves "another" excludes him.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: LAW_059
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:1:CARDID:LAW_059
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# WhenDefeated_NoFriendlyAggressionUnit_FizzlesSilently
+#// LAW_059 Highsinger — the mirror negative on the other clause. When he dies with no friendly Aggression
+#// unit surviving — the only Aggression unit on the board belongs to the opponent — nothing is offered and
+#// no token is created for either player.
+
+## GIVEN
+CommonSetup: grk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_059:1:0 SOR_095:1:0]
+WithP2GroundArena: [SOR_046:1:0 SOR_128:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:1:UPGRADECOUNT:0

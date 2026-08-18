@@ -171,3 +171,26 @@ WithP2SpaceArena: SEC_185:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Grit
 P1GROUNDARENAUNIT:0:POWER:4
+
+---
+
+# AttachPool_AnyUnitEitherSideEitherArena
+#// SEC_054 Exiled from the Force — a Condition that prints NO attach restriction, so per CR 2.e every unit
+#// in play is a legal host regardless of controller or arena. It is 0/0 and strips the host of the Force
+#// trait and all abilities, so it is a hate card whose only sensible target is an ENEMY unit — the
+#// direction the friendly-only pool used to forbid.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_213:1:0
+WithP1Hand: SEC_054
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0

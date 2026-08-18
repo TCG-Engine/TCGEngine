@@ -556,6 +556,35 @@ if(!$withPreview && file_exists($cacheFile)) {
   file_put_contents($cacheFile, $cacheJson);
   logLine("=== Phase 1 complete: " . $count . " cards accepted, " . $totalSkipped . " skipped across " . ($currentPage - 1) . " pages — cache saved (" . round(strlen($cacheJson)/1024, 1) . "KB) ===");
 }
+// ── SWU NAME ERRATA ────────────────────────────────────────────────────────────────────────────
+// The official SWU API deliberately keeps `title` as PRINTED and records a corrected name in the
+// card's `rules` blob as:  (ERRATA) Name: "Zeb Orrelios"
+// LAW_045 is the live case: it shipped misprinted as "Zeb Orellios", was errata'd 2026-03-27, and the
+// API record's updatedAt IS that date with the title left alone — so there is nothing upstream to
+// re-fetch and the correction has to be applied here.
+// This matters because the TITLE is what every name-matching effect keys off: SOR_062 Regional
+// Governor stores SWU_NAMEBLOCK|<uid>|<title> and SWUCardPlayBlocked compares CardTitle($cardID), so a
+// stale title makes naming the card by its real name fail to stop it, and the client's name-a-card
+// list offers both spellings of one character.
+// Applied HERE, after Phase 1, so it runs on BOTH paths — the live fetch and the (default) rebuild
+// from cardArrayCache.json, which retains `rules`.
+// Scope is NAME errata only. The same field also carries text/templating errata (67 cosmetic + ~21
+// substantive across the corpus); those belong to the ability text, are NOT applied, and are tracked
+// separately — do not widen this pass without deciding that question on its own.
+if($rootName == "SWUSim" || $rootName == "SWUDeck") {
+  $erratedNames = 0;
+  foreach($cardArray as $erratumCard) {
+    $newName = SWUErrataName($erratumCard->rules ?? null);
+    if($newName === null) continue;
+    $oldName = (string)($erratumCard->title ?? '');
+    if($newName === $oldName) continue;
+    logLine("  NAME ERRATA: " . ($erratumCard->id ?? '?') . " \"" . $oldName . "\" -> \"" . $newName . "\"");
+    $erratumCard->title = $newName;
+    $erratedNames++;
+  }
+  logLine("=== Name errata applied: " . $erratedNames . " ===");
+}
+
 $nestedCardCount = ExpandNestedCards($cardArray, $nestedCardPaths, $otherOrientationMap, $imageUrl, $imageFormat);
 if($nestedCardCount > 0) {
   $count += $nestedCardCount;
@@ -1698,6 +1727,18 @@ function GetGrandArchiveImageId($card)
 // Extract a scalar field from a Strapi relation object (v4 or v5).
 // v5 flat: {name:"Unit"}  →  SWURelAttr($obj, 'name') = "Unit"
 // v4 nested: {data:{attributes:{name:"Unit"}}}  →  same result
+// The errata'd card NAME carried in a SWU `rules` blob, or null when it carries none.
+// The API stores rulings and errata as newline-separated entries; a NAME errata reads exactly
+//   (ERRATA) Name: "Zeb Orrelios"
+// Straight and curly quotes are both accepted because the field is authored in a rich-text editor.
+// Only the Name form is honoured — every other (ERRATA) entry rewrites ability TEXT, not the title.
+function SWUErrataName($rules): ?string {
+  if(!is_string($rules) || $rules === '') return null;
+  if(!preg_match('/\(ERRATA\)\s*Name:\s*["\x{201C}]([^"\x{201D}]+)["\x{201D}]/u', $rules, $m)) return null;
+  $name = trim($m[1]);
+  return $name === '' ? null : $name;
+}
+
 function SWURelAttr($obj, $field) {
     if(!is_object($obj)) return null;
     if(isset($obj->$field)) return $obj->$field;

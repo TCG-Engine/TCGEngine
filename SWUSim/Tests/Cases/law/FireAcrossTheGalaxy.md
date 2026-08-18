@@ -81,3 +81,30 @@ WithP1Hand: LAW_256
 P1GROUNDARENAUNIT:0:CARDID:LAW_055
 P1GROUNDARENAUNIT:0:POWER:2
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# OfferPool_FriendlySPECTREUnitsOnly
+#// LAW_256 Fire Across the Galaxy — "Use any number of 'When Played' abilities on FRIENDLY SPECTRE units"
+#// applies a controller filter and a trait filter, and no existing section asserts the pool. Board: the
+#// friendly Spectre LAW_055 is IN; a friendly NON-Spectre (SOR_095) is OUT on trait; and an ENEMY Spectre
+#// (LAW_055 on P2's side) is OUT on controller. That enemy Spectre is the only card that can separate a
+#// trait-only filter from a correct one.
+
+## GIVEN
+CommonSetup: bbw/bbk/{}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1GroundArena: LAW_055:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: LAW_055:1:0
+WithP1Hand: LAW_256
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:CARDID:LAW_055

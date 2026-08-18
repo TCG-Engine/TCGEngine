@@ -13,6 +13,7 @@ WithP2GroundArena: SOR_014:1:0
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
@@ -35,6 +36,7 @@ WithP2GroundArena: SOR_160:1:0
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:theirGroundArena-0
 

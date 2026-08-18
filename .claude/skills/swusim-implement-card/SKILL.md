@@ -957,6 +957,78 @@ and omits riders the rules take as read. Build the list explicitly (`_SWUAttackE
 Corollary for scoping: **count the affected cards from the list, not from a grep** — a text-derived count
 is not evidence of blast radius.
 
+### More recurring bug shapes (LAW pass 3 + the upgrade sweep, 2026-08-17) — an ALLOWLIST whose default contradicts the rules, fizzle-only optionals, and grants that must die with their upgrade
+
+- **★★★ If you add a per-card switch for a new mechanic, make its DEFAULT the rules-correct answer and put
+  only RESTRICTIONS in the switch.** `SWUGetUpgradeValidTargets` initialised its host pool to
+  FRIENDLY-ONLY and then carried a 32-case fall-through group whose entire job was to restore the CR 2.e
+  default ("an upgrade with no printed controller restriction may be played on ANY unit"). That made it an
+  ALLOWLIST: a card nobody had reported was silently friendly-only, which INVERTED whole cards — LAW_127
+  Kill Switch (-1/-1 + exhaust), LAW_141 Targeted For Removal, TWI_070 Perilous Position are pure
+  drawbacks that could only be played on your OWN units. 52 upgrades were affected; fixing them one case at
+  a time would have taken a session. Inverting the default fixed all of them, deleted 32 cases, and cost
+  exactly **14 existing sections** one extra answer. Guard: `Tests/Cases/core/UpgradeAttachDefaultIsAnyUnit.md`.
+  - Corollary for reviewers: **an allowlist is a defect whenever the thing it lists is the RULE.** Ask "what
+    happens to a card that is not in this switch?" — if the answer is "the wrong thing", the default is the bug.
+- **⛔ A `case` that carries its OWN body must be placed AFTER a completed body — never between the bare
+  labels of a fall-through group.** Inserting one in the middle silently re-points every label above it into
+  the new body. This took the suite 8988/0 → **8933/55**, and the failures presented as an unrelated
+  "upgrades on enemy hosts / control change" regression across five sets. It was diagnosed by REVERTING
+  (`git stash push -- <file>`, re-run, restore) and bisecting the two edits — not by reading the code.
+- **★★ The fizzle-only optional — TWO bugs in one pass, one of them state-corrupting.**
+  An optional COST, or an optional targeted clause with no legal target, must not be offered at all.
+  - LAW_257 Hidden Hand Supplier: "you may pay 1, if you do give Experience to ANOTHER unit" was offered
+    with no other unit in play; answering YES **spent the resource and gave nothing**.
+  - LAW_065 4-LOM: "you may attack with a friendly Bounty Hunter, even if it's exhausted" was offered with
+    an EMPTY enemy board, and choosing an attacker left it **READY** — `BeginSWUAttack` readies the attacker
+    for the "even if exhausted" clause and then aborts for want of a target without restoring that. A free
+    ready, repeatable.
+  - **Every "You may pay N" and every optional targeted clause needs a no-legal-target section**, and it must
+    assert the STATE (resource still ready / attacker still exhausted), not just that nothing happened.
+- **★ A grant dies with its upgrade — Confiscate-then-act is a one-line negative that nobody writes.**
+  Six LAW cards (LAW_141, LAW_225, LAW_125, LAW_128, LAW_111, LAW_105) had a granted ability with no section
+  proving it is REVOKED when the upgrade leaves. Play SOR_251 Confiscate on your own upgrade, then take the
+  action: a grant registered once on the host and never revoked looks identical in every other section.
+- **★ A granted ability is controlled by the HOST's controller (CR 2.e), not by whoever paid for the
+  upgrade.** LAW_150 Fulcrum on an ENEMY unit buffs **their** Rebels; LAW_077 Shadow of Stygeon Prime damages
+  **their** base. A test file comment claiming the opposite had been sitting there unchallenged — the
+  enemy-host section is what settles it.
+- **★ An aura must RECOMPUTE, not stamp.** Assert it disappearing when its source leaves play (LAW_139
+  Admiral Motti: deploy a leader at 6/9, defeat Motti, the leader is 4/7 again). A bonus written once onto
+  the target passes every other section.
+- **"On Attack" is not "attacks a base".** A unit-attack section catches a trigger wrongly gated on the
+  attack's TARGET — five LAW cards only ever attacked the base (LAW_181, LAW_192, LAW_225, LAW_037, LAW_107).
+- **Printed cost vs alternate cost.** LAW_224 Liberty's "return all upgrades that cost 4 or less" reads the
+  PRINTED cost: JTL_103 Chewbacca (unit 5 / Piloting 3) stays attached even when genuinely played for 3.
+  Guard both the seeded-upgrade path AND the live Piloting dispatch path.
+- **★ A test that SEEDS around a pool is a tell that the pool is wrong.** ASH_088's file already asserted the
+  ENEMY-host behaviour — by seeding the upgrade onto P2's unit with `WithP2GroundArenaUpgrade`, because the
+  play that would put it there was not legal. Grep for a seeded enemy-host upgrade with no matching
+  attach-pool section; it is a cheap detector for exactly this class.
+
+### ⚠ DSL/harness facts learned on the LAW pass 3 (2026-08-17) — each one cost a red first
+
+- **`WithP1Credits: N` changes the FLOW, not just the board.** Credits pay any cost, so EVERY later play
+  raises a "spend Credits on this cost?" multi-choose FIRST. Any accumulate/stacking section needs an
+  explicit `AnswerDecision:-` before the counts line up — and a dumped decision on such a board is usually
+  the PAYMENT offer, not the one you meant to assert (this faked a convincing inverted-filter bug on LAW_140).
+- **The bracket seat form does NOT accept a duplicate CardID.** `WithP1GroundArena: [SEC_080:1:0 SEC_080:1:3]`
+  silently seats ONE unit. Use separate `WithP1GroundArena:` lines (which do accept duplicates).
+- **A unit ENTERS PLAY EXHAUSTED**, so it satisfies its own "exhausted unit" filters — LAW_213 Cutthroat
+  Podracer is always a legal target for its own "deal 2 damage to an exhausted ground unit".
+- **The top-deck SEARCH decision is not mzID-based.** `SELECTABLEEXACT` returns empty and `OPTIONHAS` matches
+  the whole packed option string (`<window>|<matches>|count:N|<costs>`). Assert a search's depth limit
+  BEHAVIOURALLY instead — put the only legal card just outside the window and prove the search comes back empty.
+- **Option labels are the engine's own strings** (`Your_deck`, `Opponent's_deck`), not the test's shorthand.
+  Dump them before asserting.
+- **Discard identity is `P{n}DISCARDUNIT:<i>:CARDID:<id>`** (there is no `DISCARDCARD`). A Shield token seeds
+  as `SOR_T02`, an Experience token as `SOR_T01`, a Credit as `LAW_T01`.
+- **The pass chain depends on who has already ACTED.** After P1 takes an action, the turn is already P2's, so
+  the chain to the next action phase starts `P2>Pass` → `P1>Pass` → both resource passes. Starting it with
+  `P1>Pass` silently no-ops and the "next phase" assertion then measures the wrong phase.
+- **A When-Defeated on a P2-side unit needs `P2>Drain`** before its effect lands (LAW_116 in a mass wipe:
+  without the drain only one of the two triggers had resolved, which looks exactly like a dropped observer).
+
 ### Test file naming & layout — the `Title_Subtitle` standard (set 2026-07-15)
 
 **One file per card, named by the card's title, holding ALL that card's tests as sections.** Path: `SWUSim/Tests/Cases/{set}/{Name}.md`.

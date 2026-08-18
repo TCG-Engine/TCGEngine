@@ -61,3 +61,28 @@ P1GROUNDARENACOUNT:0
 P1HANDCOUNT:0
 P2HANDCOUNT:1
 P2HANDCARD:0:LAW_084
+
+---
+
+# ReturnedToHand_HisUpgradesAreLeftBehindInTheDiscard
+#// LAW_084 Krrsantan — the Action returns the UNIT to hand, and an upgrade cannot follow a card out of the
+#// arena, so any upgrade on him is defeated in the process. Krrsantan wears an Academy Training when he
+#// bounces: he goes to hand, the upgrade goes to the discard alongside the two cards spent on the cost, and
+#// nothing is left in the arena. None of the existing sections puts an upgrade on him.
+
+## GIVEN
+CommonSetup: ryk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_084:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP1Hand: [SEC_080 SOR_237]
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0&myHand-1
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1HANDCARD:0:LAW_084
+P1DISCARDCOUNT:3

@@ -10,6 +10,7 @@ WithP1Deck: [SOR_046 SOR_046]
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
@@ -31,6 +32,7 @@ WithP1Deck: [SOR_046 SOR_046]
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1

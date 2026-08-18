@@ -101,3 +101,137 @@ WithP1Hand: LAW_065
 
 ## EXPECT
 P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
+
+---
+
+# DeclineTheAttack_NothingHappens
+#// LAW_065 4-LOM — "You MAY attack with a friendly Bounty Hunter unit", so the pick is declinable and
+#// declining is a complete resolution: the exhausted LAW_124 stays exhausted and undamaged, the enemy
+#// SOR_046 takes nothing, and 4-LOM is simply in play. None of the existing sections takes this branch.
+
+## GIVEN
+CommonSetup: gyk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_124:0:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: LAW_065
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:LAW_124
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# Offer_OnlyFourLomHimselfWhenNoOtherFriendlyBountyHunter
+#// LAW_065 4-LOM — the attacker pool is FRIENDLY Bounty Hunters and the text says nothing about "another",
+#// so 4-LOM is a legal choice for his own ability even though he was played this action ("even if it's
+#// exhausted" is what lets a just-played unit attack). On a board whose only other friendly unit is the
+#// non-Bounty-Hunter SOR_095 and whose other Bounty Hunter belongs to the OPPONENT, the pool narrows to
+#// exactly one entry: 4-LOM. That single entry is the assertion — it separates the controller filter and
+#// the trait filter from a pool that had simply gone empty.
+
+## GIVEN
+CommonSetup: gyk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: [SOR_046:1:0 LAW_124:1:0]
+WithP1Hand: LAW_065
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-1
+P1GROUNDARENAUNIT:1:CARDID:LAW_065
+
+---
+
+# NoEnemyUnitToAttack_NoOfferAtAll
+#// LAW_065 4-LOM — "It can't attack bases for this attack", so with the opponent's board EMPTY the granted
+#// attack has no legal target and the optional offer is withheld entirely rather than raised and then
+#// fizzled (USER RULING 2026-08-17). The exhausted Bounty Hunter stays exhausted and undamaged and the
+#// enemy base takes nothing.
+#// This began as a RED: before the fix the offer WAS raised, and choosing an attacker left it READY —
+#// BeginSWUAttack readies the attacker for the "even if it's exhausted" clause and then aborts for want of
+#// a target without restoring that, so the prompt handed out a free ready every time 4-LOM was played into
+#// an empty enemy board. Controls that pinned it to the fizzle path: with an enemy unit present the same
+#// flow leaves the attacker EXHAUSTED (WhenPlayedAttackBountyHunter), and DECLINING on this exact board
+#// also leaves it EXHAUSTED (DeclineTheAttack_NothingHappens).
+#// Boundary partner of AttackTargetOffer_NoBaseOffered, where two enemy units exist and only the base is
+#// excluded.
+
+## GIVEN
+CommonSetup: gyk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_124:0:0
+WithP1Hand: LAW_065
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:LAW_124
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2BASEDMG:0
+
+---
+
+# EnemyOnlyInTHEOTHERArena_StillNoOffer
+#// LAW_065 4-LOM — the "can it attack anything" gate is per ARENA, not per board. The only enemy unit is
+#// in SPACE while the friendly Bounty Hunter is on the GROUND, so it still has no legal target and the
+#// offer is withheld. Without this section a gate that merely counted enemy units anywhere would look
+#// correct on the empty board above.
+
+## GIVEN
+CommonSetup: gyk/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_124:0:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_065
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:LAW_124
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2SPACEARENAUNIT:0:DAMAGE:0
+
+---
+
+# ADeployedBountyHunterLEADERIsAValidAttacker
+#// LAW_065 4-LOM — a deployed leader is a unit in the ground arena, so a leader whose printed traits
+#// include Bounty Hunter belongs in the attacker pool. P1's LAW_004 Aurra Sing (Underworld, Bounty Hunter)
+#// is deployed alongside the freshly played 4-LOM and both are offered.
+#// This section exists because the pool is built with a bare-CardID `HasTrait($o->CardID, 'Bounty Hunter')`
+#// rather than the object-aware `TraitContains`, which is the shape that historically missed deployed
+#// leaders. Probed and CLEARED: for a leader with no deployed-side trait override the two agree, and no
+#// card in the dictionary currently GRANTS the Bounty Hunter trait, so the two checks cannot diverge here
+#// today. This guard is what will fail if a trait-granting card is ever added.
+#// ⚠ Aurra Sing is Vigilance/Villainy, so overriding the leader leaves 4-LOM's Cunning uncovered by the
+#// bgw-style default: 8 resources are seeded to cover the cost-5 unit plus that +2 aspect penalty.
+
+## GIVEN
+CommonSetup: gyk/bgw/{myResources:8; myLeader:LAW_004:1:1:1}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: LAW_065
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_004
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1GROUNDARENAUNIT:1:CARDID:LAW_065
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1

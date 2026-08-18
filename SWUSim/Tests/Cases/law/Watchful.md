@@ -110,3 +110,76 @@ WithP1GroundArenaUpgrade: 0:LAW_125
 ## EXPECT
 P1DECKCOUNT:0
 P2DECKCOUNT:0
+
+---
+
+# DeckChoiceOffersBOTHDecks
+#// LAW_125 Watchful — "Look at the top card of A DECK" names no owner, so the first decision is a genuine
+#// choice between the two decks. The four existing sections each ANSWER that choice (Yours or Theirs) and
+#// so would pass unchanged against an implementation that offered only one of them; this one leaves the
+#// decision pending and asserts both options are actually on it.
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_125
+WithP1Deck: [SOR_046 SOR_095]
+WithP2Deck: [SOR_128 SOR_164]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1OPTIONHAS:Your_deck
+P1OPTIONHAS:Opponent's_deck
+
+---
+
+# UpgradeRemoved_NoScryAtAll
+#// LAW_125 Watchful — the On Attack belongs to the upgrade's grant, so taking the upgrade away takes the
+#// scry with it. P1 Confiscates its own Watchful and then attacks: no decision is raised and both decks
+#// are left in their original order. Without this negative a grant registered once on the host and never
+#// revoked would look identical in every other section here.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_125
+WithP1Deck: [SOR_046 SOR_095]
+WithP2Deck: [SOR_128 SOR_164]
+WithP1Hand: SOR_251
+
+## WHEN
+- P1>PlayHand:0
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1DECKTOPCARD:SOR_046
+P2DECKTOPCARD:SOR_128
+
+---
+
+# AttachPool_AnyUnitEitherSideEitherArena
+#// LAW_125 Watchful — the card prints no attach restriction, so per CR 2.e every unit in play is a legal
+#// host regardless of controller or arena. Attaching it to an ENEMY unit hands that unit's controller the
+#// granted scry (CR 2.e), which is a bad play but a legal one — the pool has to allow it. Discriminating
+#// board: a friendly ground unit, a friendly space unit, an enemy ground unit and an enemy space unit.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_213:1:0
+WithP1Hand: LAW_125
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0

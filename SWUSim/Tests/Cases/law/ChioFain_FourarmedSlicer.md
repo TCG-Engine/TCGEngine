@@ -68,3 +68,27 @@ P1HANDCOUNT:1
 P1HANDCARD:0:SOR_237
 P2HANDCOUNT:0
 P2BASEDMG:5
+
+---
+
+# EmptyOWNDeck_TheCasterTakesTheEmptyDeckDamage
+#// LAW_048 Chio Fain — "they EACH draw a card" applies to both chosen players symmetrically, so an empty
+#// deck punishes whoever owns it. The mirror of
+#// OnAttack_EmptyOpponentDeck_ThreeDamageToTheirBase: here it is P1's deck that is empty and P2's that has
+#// a card, so P1 draws nothing and takes the CR 6.1 empty-deck damage on its OWN base while P2 draws
+#// normally. Without this half the empty-deck path is only ever exercised against the opponent.
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_048:1:0
+WithP2Deck: SOR_095
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1HANDCOUNT:0
+P2HANDCOUNT:1
+P1BASEDMG:3

@@ -67,3 +67,51 @@ WithP1Hand: LAW_257
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:LAW_257
 P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0
+
+---
+
+# LoneUnit_NoOtherTargetExists_NoPayOffer
+#// LAW_257 Hidden Hand Supplier — an optional COST whose effect can only fizzle must not be offered; the
+#// engine auto-declines instead of prompting (USER RULING 2026-08-13, recorded on LAW_227 Rookie
+#// Rocket-jumper for this same "you may pay N, if you do …" family). With the Supplier as the ONLY unit in
+#// play there is no "another unit" to receive the Experience token, so paying could only burn a resource
+#// for nothing: no YES/NO prompt is raised and the second resource stays ready.
+#// Boundary partner of PayExpAnother, which has one other unit on the board and does get the offer.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: LAW_257
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_257
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:1
+
+---
+
+# Unaffordable_NoPayOfferAtAll
+#// LAW_257 Hidden Hand Supplier — the other half of the same gate: a legal target exists, but the resource
+#// does not. With exactly 1 resource the cost-1 play consumes it, so no prompt is raised and SOR_095 gets
+#// no Experience token. Together with LoneUnit_NoOtherTargetExists_NoPayOffer this pins both reasons the
+#// offer can be withheld, and PayExpAnother is the case where neither applies.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: LAW_257
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:0

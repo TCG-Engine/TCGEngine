@@ -62,3 +62,100 @@ WithP1Hand: JTL_043
 P2SPACEARENACOUNT:0
 P1CREDITCOUNT:0
 P2CREDITCOUNT:1
+
+---
+
+# AttachPool_AnyUnitEitherSideEitherArena
+#// LAW_141 Targeted For Removal — the card prints no attach restriction at all, so its legal-host pool is
+#// every unit in play regardless of controller or arena (CR 2.e). The grant is a DRAWBACK for the host's
+#// controller, so the enemy half of that pool is the whole point of the card and must not be silently
+#// narrowed to friendly. Discriminating board: a friendly ground unit, a friendly space unit, an enemy
+#// ground unit and an enemy space unit are all legal hosts. Every other section seeds the upgrade
+#// directly, so none of them exercises the attach path.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_213:1:0
+WithP1Hand: LAW_141
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0
+
+---
+
+# CreditsScaleWithTheHostsPrintedCost_SixCostHost
+#// LAW_141 Targeted For Removal — "Credit tokens equal to THIS UNIT's cost" reads the host's printed cost,
+#// so the payout has to move with the host. Boundary partner of OppCreditsOnDefeat, which uses the cost-2
+#// SEC_080 and produces 2 Credits: here the host is the cost-6 SOR_232 AT-ST and the same defeat produces
+#// 6. A payout hardcoded to a constant, or one reading the upgrade's own cost, passes one of these two
+#// sections and fails the other.
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: SOR_232:1:0
+WithP1GroundArenaUpgrade: 0:LAW_141
+WithP2GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2CREDITCOUNT:6
+
+---
+
+# TokenHost_ZeroPrintedCost_NoCreditsAtAll
+#// LAW_141 Targeted For Removal — the zero end of the same scale. A TWI_T01 Battle Droid token has a
+#// printed cost of 0, so its defeat creates NO Credits: "equal to this unit's cost" must be allowed to
+#// evaluate to zero rather than falling back to a minimum of one. The trigger still fires — it simply
+#// creates nothing — so a section asserting a count of 0 is the only thing that can tell the two apart.
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArenaUpgrade: 0:LAW_141
+WithP2GroundArena: SOR_039:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0
+
+---
+
+# UpgradeRemovedBeforeTheHostDies_NoCredits
+#// LAW_141 Targeted For Removal — the When Defeated is GRANTED BY the upgrade, so removing the upgrade
+#// removes the grant: a host that later dies with the upgrade already gone pays nothing. P1 plays
+#// SOR_251 Confiscate to defeat the upgrade off its own SEC_080, then attacks into the 8/8 SOR_039 and
+#// dies. Without this negative, a grant that was registered once and never revoked would look correct in
+#// every other section here.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_141
+WithP2GroundArena: SOR_039:1:0
+WithP1Hand: SOR_251
+
+## WHEN
+- P1>PlayHand:0
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1CREDITCOUNT:0
+P2CREDITCOUNT:0

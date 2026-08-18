@@ -9,6 +9,7 @@ WithP2GroundArena: SEC_080:1:0
 P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:theirGroundArena-0
 ## EXPECT
 P2GROUNDARENACOUNT:0
@@ -55,6 +56,7 @@ WithP1Deck: [SOR_095 SOR_095]
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:-
 
 ## EXPECT

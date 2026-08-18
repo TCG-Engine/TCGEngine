@@ -51,3 +51,50 @@ WithP2SpaceArena: SEC_213:1:0
 P1SELECTABLEEXACT:theirGroundArena-0&theirSpaceArena-0
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1SPACEARENAUNIT:0:CARDID:SOR_178
+
+---
+
+# ShieldedGivesHimAnUpgrade_WhichIsWhatArmsTheOnAttack
+#// LAW_087 Jango Fett — his two printed clauses interlock: Shielded gives him a Shield when he is PLAYED,
+#// and a Shield is an upgrade, so the "if this unit is upgraded" gate on his On Attack is satisfied by his
+#// own keyword with no help from anything else. Played from hand he arrives carrying exactly one upgrade.
+#// Every other section seeds him with an Academy Training instead, so none of them shows where the upgrade
+#// normally comes from.
+
+## GIVEN
+CommonSetup: byk/bgw/{myResources:6}
+P1OnlyActions: true
+WithP1Hand: LAW_087
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_087
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# NotUpgraded_NoExhaustAtAll
+#// LAW_087 Jango Fett — "If this unit IS UPGRADED, exhaust an enemy unit" is a gate, and this is the only
+#// section that fails it. Seeded straight into the arena he never gets his Shield, so attacking with no
+#// upgrade on him raises no decision and the ready enemy SEC_080 stays ready. Boundary partner of
+#// OnAttackExhaustIfUpgraded on the same board with one upgrade added.
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_087:1:0
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P2GROUNDARENAUNIT:0:READY
+P2BASEDMG:6

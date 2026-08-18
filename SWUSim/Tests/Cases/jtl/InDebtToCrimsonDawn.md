@@ -125,3 +125,26 @@ P2Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:READY
 P1RESAVAILABLE:3
+
+---
+
+# AttachPool_AnyUnitEitherSideEitherArena
+#// JTL_192 In Debt to Crimson Dawn — a Condition that prints NO attach restriction, so per CR 2.e every
+#// unit in play is a legal host regardless of controller or arena. The card is a pure tax on the HOST'S
+#// CONTROLLER ("when attached unit readies: exhaust it unless its controller pays 2 resources") with 0/0
+#// stats and no upside, so an enemy host is the whole point of the card.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_213:1:0
+WithP1Hand: JTL_192
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0

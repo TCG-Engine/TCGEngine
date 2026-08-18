@@ -27,6 +27,7 @@ WithP2GroundArena: SOR_046:1:0
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SHD_067
@@ -106,6 +107,7 @@ WithP2SpaceArena: SOR_237:1:0
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P1SELECTABLEEXACT:theirGroundArena-0&theirSpaceArena-0
@@ -203,6 +205,7 @@ WithP2GroundArena: SOR_095:1:2
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P2GROUNDARENACOUNT:0
@@ -229,6 +232,7 @@ WithP2Deck: [SOR_095 SOR_046]
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 - P1>Pass
 - P1>ResourcePass
 - P2>ResourcePass

@@ -67,3 +67,28 @@ P1HASDECISION
 P1GROUNDARENAUNIT:3:ISLEADERUNIT
 P1GROUNDARENAUNIT:4:CARDID:LAW_249
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&mySpaceArena-0
+
+---
+
+# EnemyUnderworldUnitDoesNotSatisfyTheClause
+#// LAW_249 Black Sun Cabalist — "another FRIENDLY Underworld unit". The offer section proves the pool's
+#// contents when friendly Underworld units exist; this one proves the controller filter on its own, in the
+#// case that matters: the ONLY other Underworld unit on the board belongs to the opponent. Nothing is
+#// offered and no token is created for either side. NoTriggerWithoutOtherUnderworld uses a friendly
+#// non-Underworld unit, so it tests the trait filter, not this one.
+
+## GIVEN
+CommonSetup: rrk/bgw/{myResources:2}
+P1OnlyActions: true
+WithP2GroundArena: LAW_124:1:0
+WithP1Hand: LAW_249
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P2GROUNDARENAUNIT:0:CARDID:LAW_124
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:CARDID:LAW_249
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0

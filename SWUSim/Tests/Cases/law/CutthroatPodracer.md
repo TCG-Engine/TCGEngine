@@ -60,3 +60,52 @@ P1GROUNDARENAUNIT:2:CARDID:LAW_213
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P2GROUNDARENAUNIT:1:CARDID:SOR_128
 P2SPACEARENAUNIT:0:CARDID:SEC_213
+
+---
+
+# Offer_NarrowsToThePodracerITSELFWhenEverythingElseIsReady
+#// LAW_213 Cutthroat Podracer — a unit arrives EXHAUSTED, so the Podracer always satisfies its own
+#// "exhausted ground unit" filter and is never an empty-target case. On a board where every other ground
+#// unit is READY, the pool collapses to exactly one entry: the Podracer itself. That single entry is the
+#// assertion — it separates a working exhausted-filter from a pool that had quietly gone empty, and it
+#// pins the self-inclusion that OfferPool_ExhaustedGroundUnitsEitherSide only shows in passing.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: LAW_213
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-1
+P1GROUNDARENAUNIT:1:CARDID:LAW_213
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:READY
+
+---
+
+# DeclineTheDamage_NothingTakesIt
+#// LAW_213 Cutthroat Podracer — the clause is "YOU MAY deal 2 damage", so with a legal exhausted target on
+#// the board the pick can still be declined and that is a complete resolution: the exhausted SEC_080 keeps
+#// 0 damage and the Podracer is simply in play. Boundary partner of DealExhaustedGround, which takes the
+#// other branch on the same board.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:4}
+P1OnlyActions: true
+WithP2GroundArena: SEC_080:0:0
+WithP1Hand: LAW_213
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1NODECISION
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:CARDID:LAW_213

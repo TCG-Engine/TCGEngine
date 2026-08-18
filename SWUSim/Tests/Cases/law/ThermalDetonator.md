@@ -171,3 +171,37 @@ WithP1Hand: LAW_201
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# BlastHitsEVERYEnemyGroundUnitAndSparesFriendlies
+#// LAW_201 Thermal Detonator — "deal 2 damage to EACH ENEMY GROUND unit" has both a scope and an exclusion,
+#// and ReadyDefeatBlastsEnemies does not separate them on a one-enemy board. Here P2 fields THREE ground
+#// units and a SPACE unit while P1 fields a second ground unit of its own: all three enemy ground units
+#// take 2, the enemy space unit takes none, and P1's own surviving unit takes none either.
+#// The host must be DEFENDING, not attacking: attacking would exhaust it and the "if this unit was ready"
+#// gate would fail (see ExhaustedDefeat_NoBlast). So P2's 8/8 SOR_039 attacks into the ready host.
+
+## GIVEN
+CommonSetup: rrk/rrk
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_201
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_039:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>Pass
+- P2>AttackGroundArena:0:0
+- P1>Pass
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_039
+P2GROUNDARENAUNIT:0:DAMAGE:6
+P2GROUNDARENAUNIT:1:DAMAGE:2
+P2GROUNDARENAUNIT:2:DAMAGE:2
+P2SPACEARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:DAMAGE:0

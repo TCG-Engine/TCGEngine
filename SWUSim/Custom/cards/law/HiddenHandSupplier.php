@@ -10,6 +10,15 @@ $whenPlayedAbilities["LAW_257:0"] = function($player, $mzID) {
     if (SWUTotalPaymentCapacity(intval($player)) < 1) return;
     $self = GetZoneObject($mzID);
     $uid  = SWUObjUID($self, 0);
+    // An optional COST whose effect could only fizzle is not offered — with the Supplier as the only unit
+    // in play there is no "another unit" to receive the token, so prompting could only burn a resource for
+    // nothing. Guarded by LoneUnit_NoOtherTargetExists_NoPayOffer.
+    $hasOther = false;
+    foreach (SWUAllUnits(null) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $uid) { $hasOther = true; break; }
+    }
+    if (!$hasOther) return;
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Pay_1_resource_to_give_an_Experience_token_to_another_unit?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_257#0|{$uid}", 1);
 };

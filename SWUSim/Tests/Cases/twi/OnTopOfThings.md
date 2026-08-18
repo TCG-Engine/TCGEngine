@@ -11,6 +11,7 @@ WithP2GroundArena: SOR_095:1:0
 
 ## WHEN
 - P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
 - P2>AttackGroundArena:0:0
 
 ## EXPECT

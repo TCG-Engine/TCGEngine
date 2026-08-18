@@ -57,3 +57,25 @@ WithP1Hand: LAW_148
 P1SPACEARENAUNIT:0:CARDID:LAW_148
 P1SPACEARENAUNIT:0:POWER:5
 P1SPACEARENAUNIT:0:HP:6
+
+---
+
+# Unaffordable_NoPayOfferAtAll
+#// LAW_148 Smuggler's YT-2400 — the optional pay is gated on being able to pay it. With exactly 5
+#// resources the cost-5 play consumes all of them, so no YES/NO prompt is raised, the ship stays a printed
+#// 4/5 and the action ends cleanly. Boundary partner of PayBuff (6 resources → the offer appears).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1Hand: LAW_148
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1SPACEARENAUNIT:0:CARDID:LAW_148
+P1SPACEARENAUNIT:0:POWER:4
+P1SPACEARENAUNIT:0:HP:5
+P1RESAVAILABLE:0

@@ -69,3 +69,27 @@ WithP2GroundArena: SEC_080:1:0
 ATTACKTARGETS:2:G:0:3
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
+
+---
+
+# SentinelIsLostAgainWhenTheUpgradeLeaves
+#// LAW_105 Cinta Kaz — "WHILE this unit is upgraded" is a continuous condition, not a one-way stamp: it has
+#// to switch back off. Cinta starts upgraded and Sentinel; P1 Confiscates her own Academy Training and she
+#// loses the keyword on the same board. The existing pair compares two DIFFERENT boards (upgrade seeded vs
+#// never seeded), which a condition evaluated once at seat time would also satisfy — this section changes
+#// the state mid-game.
+
+## GIVEN
+CommonSetup: bbk/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: LAW_105:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+WithP1Hand: SOR_251
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_105
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel

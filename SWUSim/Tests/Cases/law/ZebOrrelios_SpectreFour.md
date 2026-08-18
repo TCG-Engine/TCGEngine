@@ -134,3 +134,66 @@ WithP1Hand: LAW_045
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENAUNIT:1:CARDID:SOR_095
+
+---
+
+# Errata_NamingZebOrrelios_MustBlockThisCard
+#// ✅ FIXED 2026-08-17 (was RED when written). LAW_045 shipped with its name MISPRINTED as "Zeb Orellios" (one r) and was corrected by official
+#// errata on 2026-03-27 to "Zeb Orrelios" — the spelling the set's other two Zebs already use
+#// (SOR_146 Headstrong Warrior, ASH_161 Fists Work Every Time).
+#// Our card data still carries the misprint: $titleData['LAW_045'] === 'Zeb Orellios'.
+#// Every name-matching effect keys off that title. SOR_062 Regional Governor stores the named title as
+#// SWU_NAMEBLOCK|<uid>|<title> and SWUCardPlayBlocked compares CardTitle($cardID) against it, so naming
+#// the CORRECT, errata'd "Zeb Orrelios" fails to stop this card. MEASURED: it plays out of hand normally.
+#// The same title feeds the client's name-a-card list, which therefore offers BOTH spellings of one
+#// character as if they were different cards.
+#// The control below is what makes this a real assertion rather than a fixture that simply never plays —
+#// an earlier probe "passed" twice while LAW_045 was silently unplayable for an unrelated reason
+#// (initiative had been CLAIMED, so P1 had already passed and could not act at all).
+#// FIXED IN THE DATA, not here. The official API deliberately keeps `title` as PRINTED and records the
+#// correction in the record's `rules` field as `(ERRATA) Name: "Zeb Orrelios"` — its updatedAt IS the
+#// errata date with the title left alone — so there was nothing upstream to re-fetch.
+#// zzCardCodeGenerator.php now parses that field (SWUErrataName) and applies NAME errata after Phase 1,
+#// on both the live-fetch and rebuild-from-cache paths. Regenerating changed exactly one value in the
+#// dictionary. Scope is names only; text/templating errata are NOT applied and are tracked separately.
+
+## GIVEN
+CommonSetup: brw/bbw/{myResources:7}
+WithActivePlayer: 2
+WithP2Resources: 2
+WithP2Hand: SOR_062
+WithP1Hand: LAW_045
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Zeb Orrelios
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+
+---
+
+# Errata_Control_NamingAnUnrelatedCardLeavesZebPlayable
+#// LAW_045 — the discriminating control for the section above. Identical board and flow, except Regional
+#// Governor names an unrelated card: Zeb plays out of hand normally (arena 1, hand 0). Without this half a
+#// "blocked" assertion is satisfied by any fixture in which the play simply never happened, which is
+#// exactly the trap the first probe of this pair fell into.
+
+## GIVEN
+CommonSetup: brw/bbw/{myResources:7}
+WithActivePlayer: 2
+WithP2Resources: 2
+WithP2Hand: SOR_062
+WithP1Hand: LAW_045
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Battlefield Marine
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:LAW_045
+P1HANDCOUNT:0

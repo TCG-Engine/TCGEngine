@@ -163,3 +163,43 @@ WithP1GroundArena: [SEC_080:1:0 SOR_128:1:0]
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:4
 P1GROUNDARENAUNIT:0:POWER:7
 P1GROUNDARENAUNIT:0:HP:7
+
+---
+
+# EpicDeployIsBlockedBelowFiveResources
+#// LAW_010 Leia Organa — "Epic Action: If you control 5 OR MORE resources, deploy this leader" is a gate no
+#// existing section measures: every one of them uses the front Action or a leader already deployed. With
+#// exactly 4 resources the Epic is unavailable and the deploy is a no-op — Leia stays undeployed, the
+#// ground arena stays empty, the Epic slot is NOT spent and no resources are consumed. Boundary partner of
+#// EpicDeployAtExactlyFive below.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:4}
+P1OnlyActions: true
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1GROUNDARENACOUNT:0
+P1RESAVAILABLE:4
+
+---
+
+# EpicDeployAtExactlyFive
+#// LAW_010 Leia Organa — the other side of the same threshold: at exactly 5 resources the Epic Action is
+#// available and she deploys as a ground-arena leader unit. The pair is what pins the comparison at "5 or
+#// more" rather than "more than 5" or "any number".
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:5}
+P1OnlyActions: true
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:ISLEADERUNIT

@@ -104,3 +104,51 @@ WithP1Hand: LAW_061
 ## EXPECT
 P1GROUNDARENAUNIT:3:CARDID:LAW_061
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-2&theirGroundArena-0
+
+---
+
+# NoOtherBountyHunterAnywhere_NoOfferAtAll
+#// LAW_061 Asajj Ventress — "You may ready ANOTHER Bounty Hunter unit". Asajj is herself a Bounty Hunter,
+#// so the "another" filter is the whole question when she is the only one on the board: with the only
+#// other units being non-Bounty-Hunters on both sides, no decision is raised and nothing readies. Without
+#// this negative a pool that had dropped the self-exclusion would look identical in every other section.
+
+## GIVEN
+CommonSetup: grw/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:0:0
+WithP2GroundArena: SOR_046:0:0
+WithP1Hand: LAW_061
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# TheReadiedBountyHunterCanAttackImmediately
+#// LAW_061 Asajj Ventress — readying is only worth anything if the unit is genuinely usable afterwards, so
+#// this section spends the ready: the exhausted LAW_124 is readied by Asajj's When Played and then attacks
+#// the enemy base in the same phase for 4. WhenPlayedReadyBountyHunter asserts the READY flag alone, which
+#// a cosmetic status flip would also satisfy.
+
+## GIVEN
+CommonSetup: grw/bgw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: LAW_124:0:0
+WithP1Hand: LAW_061
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_124
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2BASEDMG:4

@@ -42,3 +42,49 @@ P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:POWER:1
 P2GROUNDARENAUNIT:0:HP:5
 P1DISCARDCOUNT:1
+
+---
+
+# ShrinkToZeroHP_DefeatsTheUnit
+#// LAW_131 Incapacitate — a stat DEBUFF that takes a unit's HP to 0 must defeat it, not leave a 0-HP unit
+#// standing. SOR_108 is a 1/2, so -2/-2 puts it at 0 remaining HP: it leaves the arena and goes to its
+#// owner's discard the moment the debuff lands, in the same action. Boundary partner of MinusTwoMinusTwo,
+#// where the 3/7 host has HP to spare and survives at 1/5.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:2}
+P1OnlyActions: true
+WithP2GroundArena: SOR_108:1:0
+WithP1Hand: LAW_131
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2DISCARDCOUNT:1
+P1DISCARDCOUNT:1
+
+---
+
+# OfferPool_AnyUnitEitherSideEitherArena
+#// LAW_131 Incapacitate — "Give A UNIT -2/-2" names no controller and no arena, so the pool is every unit
+#// in play, FRIENDLY ones included (debuffing your own unit is legal, if rarely wanted). Discriminating
+#// board: a friendly ground unit, a friendly space unit, an enemy ground unit and an enemy space unit are
+#// all in. The two existing sections only ever offer enemy units, so neither could see a pool wrongly
+#// narrowed to the opponent's side.
+
+## GIVEN
+CommonSetup: bbw/bgw/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: LAW_131
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0

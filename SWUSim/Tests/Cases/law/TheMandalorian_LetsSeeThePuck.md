@@ -121,3 +121,51 @@ P1GROUNDARENAUNIT:0:CARDID:LAW_052
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
 P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
+
+---
+
+# TWOSeparateDrawEventsInOnePhase_TWOShields
+#// LAW_052 The Mandalorian — "When you draw 1 OR MORE cards during the action phase" fires once per DRAW
+#// EVENT, so two separate draws in the same phase give two Shields.
+#// DrawMultipleAtOnce_OnlyOneShield pins the other half of that rule (three cards in ONE draw is still one
+#// Shield); together they distinguish "once per draw event" from both "once per card" and "once per phase".
+#// The two draws here are his own When Played draw and a subsequent draw event.
+
+## GIVEN
+CommonSetup: brw/bgw/{myResources:11}
+P1OnlyActions: true
+WithP1Hand: [LAW_052 TWI_175]
+WithP1Deck: [SOR_237 SOR_095 SOR_128 SOR_063]
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_052
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:2
+
+---
+
+# EnemyMandalorian_ShieldsForITSOwnController
+#// LAW_052 The Mandalorian — "when YOU draw" is read from the Mandalorian's controller, so an enemy copy
+#// shields itself off ITS controller's draws and takes nothing from P1's. OpponentDraws_NoShield shows a
+#// P1-side Mandalorian ignoring P2's draw; this is the mirror, with the Mandalorian on P2's side drawing
+#// its own cards and gaining the Shield there while P1 gains nothing.
+
+## GIVEN
+CommonSetup: brw/rbw/{}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP2Resources: 5
+WithP2GroundArena: LAW_052:1:0
+WithP2Hand: TWI_175
+WithP2Deck: [SOR_237 SOR_095 SOR_128]
+
+## WHEN
+- P2>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:LAW_052
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2HANDCOUNT:3

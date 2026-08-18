@@ -127,3 +127,50 @@ P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&mySpaceArena-0
 P1GROUNDARENAUNIT:0:CARDID:SOR_189
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
+
+---
+
+# GrantsTheUnderworldTraitToAnyHost
+#// LAW_111 Leia's Disguise — "Attached unit gains the UNDERWORLD trait" is a printed clause with no section
+#// of its own: every existing section here is about the attach restriction or the Leia-only Shield. The
+#// host here is SOR_095 Battlefield Marine (printed Rebel/Trooper, no Underworld), and the grant has to
+#// show up as a live trait on the unit in play, not merely on the upgrade.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: LAW_111
+
+## WHEN
+- P1>PlayHand:0
+- P1>ChooseMyGroundUnit:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:HASTRAIT:Underworld
+
+---
+
+# UnderworldTraitIsGoneWhenTheUpgradeIs
+#// LAW_111 Leia's Disguise — the trait comes FROM the upgrade, so removing the upgrade removes the trait.
+#// P1 attaches the Disguise to its own Battlefield Marine and then Confiscates it: the Marine is left with
+#// no upgrades and no Underworld trait. Without this negative a trait written once onto the host and never
+#// revoked would look identical to a live grant.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:9}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: [LAW_111 SOR_251]
+
+## WHEN
+- P1>PlayHand:0
+- P1>ChooseMyGroundUnit:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:NOTTRAIT:Underworld

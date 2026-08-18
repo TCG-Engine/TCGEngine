@@ -136,3 +136,34 @@ WithP2SpaceArena: SEC_213:1:0
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0
 P1SPACEARENAUNIT:0:CARDID:SOR_178
 P2SPACEARENAUNIT:0:CARDID:SEC_213
+
+---
+
+# SaboteurIgnoresSentinelAndPopsTheDefendersShield
+#// LAW_064 Zuckuss — his printed SABOTEUR keyword has no section of its own: every existing section is
+#// about the On Attack damage clause. Saboteur does two things when he attacks, and both are asserted
+#// here. The enemy fields a SENTINEL (SOR_063 Cloud City Wing Guard) alongside a shielded SOR_046, and
+#// Zuckuss attacks the SHIELDED unit — a target Sentinel would normally forbid. The Shield is defeated by
+#// Saboteur rather than absorbing the hit, so the 3/7 defender takes the full 3 combat damage and lives to
+#// be counted.
+#// The On Attack damage clause is declined so the only damage on the board is combat damage.
+
+## GIVEN
+CommonSetup: brk/bgw/{}
+P1OnlyActions: true
+WithP1GroundArena: LAW_064:1:0
+WithP1GroundArena: LAW_124:1:0
+WithP2GroundArena: SOR_063:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 1:SOR_T02
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-1
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P2GROUNDARENAUNIT:1:CARDID:SOR_046
+P2GROUNDARENAUNIT:1:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:1:DAMAGE:3
+P2GROUNDARENAUNIT:0:CARDID:SOR_063
+P2GROUNDARENAUNIT:0:DAMAGE:0

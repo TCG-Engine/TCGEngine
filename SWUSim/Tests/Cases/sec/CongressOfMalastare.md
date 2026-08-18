@@ -55,6 +55,7 @@ WithP2Hand: SOR_070
 
 ## WHEN
 - P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P2RESAVAILABLE:1

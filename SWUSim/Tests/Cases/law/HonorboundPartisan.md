@@ -147,3 +147,28 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SEC_080
 P1RESAVAILABLE:1
 P2BASEDMG:2
+
+---
+
+# TheDiscountAppliesToTheNEXTUnitONLY_NotTheOneAfterIt
+#// LAW_058 Honor-Bound Partisan — "The NEXT unit you play this phase costs 1 resource less" is a single-use
+#// discount. WhenDefeatedDiscount proves the first unit gets it; this section proves it is spent by that
+#// unit and does not linger for the second. Two cost-2 SEC_080s are played after the Partisan dies: the
+#// first costs 1 and the second the full 2, so 3 of 6 resources are gone rather than 2.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: LAW_058:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: [SEC_080 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1RESAVAILABLE:3
+P1HANDCOUNT:0

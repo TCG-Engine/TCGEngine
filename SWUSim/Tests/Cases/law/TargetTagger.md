@@ -112,3 +112,56 @@ WithP1Hand: LAW_157
 
 ## EXPECT
 P2BASEDMG:6
+
+---
+
+# OfferPool_AnyFriendlyUnitEitherArena_EnemiesExcluded
+#// LAW_157 Target Tagger — "You may attack with A UNIT": no trait word (the Bounty Hunter clause only
+#// changes the BUFF, not who may attack) and no arena word, but attacking is something only your own units
+#// can be told to do. Discriminating board: the friendly Bounty Hunter LAW_124, a friendly non-Bounty-Hunter
+#// SOR_095 and a friendly SPACE unit SOR_178 are all IN, while the enemy SOR_046 is OUT. Every existing
+#// section seeds exactly one friendly unit, so the attacker pick auto-resolves and none of them can see the
+#// pool.
+#// The Tagger itself was played this action and cannot attack, so it is not in the pool either.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: LAW_124:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_178:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: LAW_157
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&mySpaceArena-0
+
+---
+
+# TheRaidBuffIsSpentOnThatAttackOnly
+#// LAW_157 Target Tagger — "If it's a Bounty Hunter, it gets +2/+0 FOR THIS ATTACK". AttackBountyHunterBuff
+#// proves the buffed attack lands 6, but a permanent +2 would satisfy it too. Here the same LAW_124 attacks
+#// again in the NEXT action phase under its own power: the second attack deals its printed 4, so P2's base
+#// ends on 6 + 4 = 10. Both decks are seeded so the regroup draws add no CR 6.1 empty-deck damage.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:3}
+WithP1GroundArena: LAW_124:1:0
+WithP1Hand: LAW_157
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P2>Pass
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:10

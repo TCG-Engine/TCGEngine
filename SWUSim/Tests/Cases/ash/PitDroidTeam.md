@@ -72,6 +72,7 @@ WithP2GroundArena: SEC_080:1:0
 ## WHEN
 - P1>Pass
 - P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-1
 ## EXPECT

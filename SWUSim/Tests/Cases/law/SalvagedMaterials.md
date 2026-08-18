@@ -97,3 +97,27 @@ P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_071
 P1DISCARDCOUNT:0
 P2DISCARDCOUNT:2
 P2DECKCOUNT:1
+
+---
+
+# OfferPool_ITEMUpgradesInTheDiscardOnly
+#// LAW_245 Salvaged Materials — "Play an ITEM UPGRADE from your discard pile" filters on both card type
+#// and trait, and no existing section asserts the pool: they all seed a discard containing exactly one
+#// eligible card, so the pick auto-resolves. Discard here holds SOR_071 Electrostaff and SHD_174 Hotshot
+#// DL-44 Blaster (both Item upgrades, both IN), LAW_128 Veiled Strength (an upgrade with the Innate trait,
+#// OUT), and SOR_095 Battlefield Marine (a unit, OUT). Two eligible cards keep the choose pending.
+#// The discard is seeded in that order, so the two Item upgrades are myDiscard-0 and myDiscard-1 and the
+#// two rejects are myDiscard-2 and myDiscard-3 — the pool being exactly the first two IS the filter.
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:8;discardCardIds:SOR_071,SHD_174,LAW_128,SOR_095}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1Hand: LAW_245
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myDiscard-0&myDiscard-1

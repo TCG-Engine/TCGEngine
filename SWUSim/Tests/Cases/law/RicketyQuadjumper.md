@@ -56,3 +56,56 @@ WithP1Deck: SOR_251
 P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-1&theirGroundArena-0&theirSpaceArena-0
 P1SPACEARENAUNIT:0:CARDID:LAW_115
 P1DECKCOUNT:1
+
+---
+
+# RevealedCardIsAUNIT_NoExperience
+#// LAW_115 Rickety Quadjumper — "If it's NOT a unit, give an Experience token to another unit". This is the
+#// negative half of that condition and the only section that exercises it: the top card is SOR_095
+#// Battlefield Marine, a unit, so no token is created, no target is offered, and the revealed card stays
+#// on top of the deck. RevealNonUnitExp reveals an event and hands out the token; without this pair the
+#// condition itself is untested.
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_115:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1DECKCOUNT:1
+P1DECKTOPCARD:SOR_095
+
+---
+
+# DeclineTheReveal_DeckUntouchedAndNoToken
+#// LAW_115 Rickety Quadjumper — "You MAY reveal", so declining is a complete resolution: nothing is
+#// revealed, no Experience is given, and the deck is left exactly as it was. The attack itself still
+#// happens (3 damage to the enemy base from the 1-power Quadjumper plus nothing else — asserted so a
+#// decline that aborted the whole attack would be visible).
+
+## GIVEN
+CommonSetup: bbw/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_115:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: SOR_251
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1DECKCOUNT:1
+P1DECKTOPCARD:SOR_251
+P2BASEDMG:1

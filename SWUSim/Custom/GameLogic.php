@@ -12581,13 +12581,46 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         $playerID = $savedPID;
         return ['myBase-0'];
     }
+    // DEFAULT = EVERY unit in play, both sides, both arenas. Per CR 2.e an upgrade with no printed
+    // controller restriction may be played onto an ENEMY unit (and that unit's controller then resolves
+    // anything it grants), so "any unit" is the RULE and every narrowing below is the exception.
+    // ⚠ This was inverted until 2026-08-17: the default used to be friendly-arenas-only and the switch
+    // carried a 32-case fall-through group whose only job was to restore the rules-default for cards
+    // somebody had reported. That made the switch an ALLOWLIST — an upgrade nobody had thought about was
+    // silently friendly-only, which inverted whole cards (LAW_127 Kill Switch, LAW_141 Targeted For
+    // Removal, TWI_070 Perilous Position: pure drawbacks playable only on your own units). Those 32 cases
+    // were deleted when the default flipped; they are the default now.
+    // ⛔ Cases below that carry their OWN body must come AFTER a completed body — never between the bare
+    // labels of a fall-through group, which would silently re-point every label above them.
     $playerID = $player;
     $all = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
+        ZoneSearch("myGroundArena",    AnyUnitFilter),
+        ZoneSearch("mySpaceArena",     AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter),
+        ZoneSearch("theirSpaceArena",  AnyUnitFilter)
     );
     $playerID = $savedPID;
     switch ($cardID) {
+        // "Attach to a FRIENDLY unit." — the printed word narrows the rules default back to your own
+        // arenas. These four relied on the OLD friendly-only default and so had no case of their own;
+        // with the default inverted they need one.
+        case 'SHD_251': // The Mandalorian's Rifle — "attach to a friendly non-Vehicle unit" (Vehicle filter below)
+        case 'SHD_124': // Legal Authority
+        case 'LOF_091': // Craving Power
+        case 'SEC_069': // Nimble Prowess
+            $playerID = $player;
+            $all = array_merge(
+                ZoneSearch("myGroundArena", AnyUnitFilter),
+                ZoneSearch("mySpaceArena",  AnyUnitFilter)
+            );
+            if ($cardID === 'SHD_251') {
+                $all = array_values(array_filter($all, function($mz) {
+                    $o = GetZoneObject($mz);
+                    return !SWUObjGone($o) && !HasTrait($o->CardID ?? '', 'Vehicle');
+                }));
+            }
+            $playerID = $savedPID;
+            break;
         // "Attach to a friendly ground unit." (ASH_230 Improvised Identity — attach condition is a
         // GroundArena unit; a space unit is not a legal host.)
         case 'ASH_230':
@@ -12733,55 +12766,23 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
                 return TraitContains($o, 'Capital Ship') || TraitContains($o, 'Transport');
             }));
             break;
-        // SOR_122 Traitorous / SEC_038 Condemn — attach to any unit, any arena (Condemn has no attach
-        // restriction: playable on a friendly OR an enemy unit).
-        // ⚠ SHD_072 Imprisoned was here too, but it prints "Attach to a NON-LEADER unit" — moved to
-        // the LAW_128 group below, which is the same all-arenas pool WITH the leader exclusion.
-        case 'SOR_122':
-        case 'SEC_038':
-        case 'SOR_072': // Entrenched — no printed attach restriction (only "can't attack bases", a debuff
-                        // typically played on an ENEMY unit): friendly OR enemy per CR 2.e. Was friendly-only,
-                        // masked by tests answering out-of-pool before answer validation existed.
-        case 'TS26_25': // Fiery Alliance — no printed attach restriction (its When Played reads "another
-                        // FRIENDLY unit", but the attach itself is unrestricted): friendly OR enemy per
-                        // CR 2.e. Same masked-by-out-of-pool-answer history as SOR_072.
-        case 'SOR_215': // Snapshot Reflexes — no printed attach restriction: friendly OR enemy per CR 2.e.
-                        // On an ENEMY host the "you may attack with attached unit" can only fizzle, so
-                        // its prompt is auto-declined (fizzle-only-optional ruling) — see the whenPlayed.
-        case 'SHD_223': // Snapshot Reflexes (reprint of SOR_215)
-        case 'SOR_166': // Infiltrator's Skill — no printed attach restriction: friendly OR enemy per
-                        // CR 2.e (an enemy host's controller gets the granted Saboteur, SEC_052-style).
-        case 'SEC_175': // Ambition's Reward — printed "attach to a unit" (no restriction): friendly OR enemy
-        case 'SEC_052': // Diplomatic Immunity — no printed attach restriction (only a granted On Defense
-                        // disclose): friendly OR enemy per CR 2.e. Attaching it to an ENEMY unit hands
-                        // THAT unit's controller the granted ability (CR 2.e), which is the point of
-                        // the play — you keep the upgrade, they resolve what it grants.
-        case 'LAW_129': // Mastery — no printed attach restriction (only a cost reducer): friendly OR enemy, any arena
-        case 'ASH_054': // Pointless to Resist — debuff Condition, attach to any unit (typically an enemy)
-        case 'ASH_085': // Grav Charge — Condition, attach to any unit (typically an enemy)
-        case 'ASH_198': // Nowhere to Hide — Condition (grants Sentinel), attach to any unit
-        case 'ASH_150': // Deadly Vulnerability — Condition (double damage), attach to any unit
-        // SHD Bounty upgrades — printed "attach to a unit"; playable on friendly OR enemy (in practice
-        // you bounty an enemy, but the rules allow either). Fixes hand-play of ALL of them (today they
-        // only ever reach a unit via the bounty-grant mechanic). SHD_226 is printed "non-leader" — the
-        // extra leader targetability here is a negligible over-permissiveness.
-        case 'SHD_221': // Wanted
-        case 'SHD_068': // Public Enemy
-        case 'SHD_071': // Top Target
-        case 'SHD_123': // Bounty Hunter's Quarry
-        case 'SHD_125': // Price on Your Head
-        case 'SHD_173': // Guild Target
-        case 'SHD_176': // Death Mark
-        case 'SHD_222': // Enticing Reward
-        case 'SHD_226': // Unrefusable Offer
-        case 'SHD_261': // Rich Reward
+        // "Attach to a UNIQUE unit." No controller word → either side (CR 2.e), but the host must be
+        // unique. SEC_104 was absent from the switch entirely, so it had NEITHER guard: it fell through to
+        // the friendly-only default AND offered non-unique friendly hosts.
+        // ⚠ This case carries its OWN body, so it MUST sit after a completed body — never inside the
+        // fall-through chain above, which would silently re-point every case listed before it into here.
+        // Guarded by SEC_104's AttachPool_UNIQUEUnitsOnly_EitherSide.
+        case 'SEC_104': // Figure of Unity
             $playerID = $player;
-            $all = array_values(array_merge(
+            $all = array_values(array_filter(array_merge(
                 ZoneSearch("myGroundArena",    AnyUnitFilter),
                 ZoneSearch("mySpaceArena",     AnyUnitFilter),
                 ZoneSearch("theirGroundArena", AnyUnitFilter),
                 ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            ));
+            ), function($mz) {
+                $o = GetZoneObject($mz);
+                return !SWUObjGone($o) && !empty(CardUnique($o->CardID ?? ''));
+            }));
             $playerID = $savedPID;
             break;
         // "Attach to a NON-LEADER unit" (no "friendly") — both sides, both arenas, leader units

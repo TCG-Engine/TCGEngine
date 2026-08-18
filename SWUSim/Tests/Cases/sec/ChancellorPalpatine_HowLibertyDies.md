@@ -174,6 +174,7 @@ WithP2Deck: [SOR_095 SOR_095]
 - P1>DeployLeader
 - P2>DeployLeader
 - P2>AnswerDecision:myResources-0
+- P2>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P1LEADER:DEPLOYED

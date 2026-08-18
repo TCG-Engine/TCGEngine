@@ -57,3 +57,25 @@ WithP1Hand: LAW_134
 P1CREDITCOUNT:1
 P2CREDITCOUNT:0
 P1NODECISION
+
+---
+
+# CabalistItselfDoesNotCount_AnotherIsRequired
+#// LAW_134 Bib Fortuna — "If you control ANOTHER Underworld unit". Bib is himself an Underworld unit, so
+#// the self-exclusion is the whole condition when he is the only Underworld unit you control: a friendly
+#// non-Underworld unit on the board does not satisfy it and no Credit is created.
+#// NoCreditWithoutUnderworld plays him onto a completely EMPTY board, which an implementation that merely
+#// counted "any friendly unit" would also fail correctly — this board separates the two.
+
+## GIVEN
+CommonSetup: grk/bgw/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1Hand: LAW_134
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1CREDITCOUNT:0
+P1GROUNDARENAUNIT:1:CARDID:LAW_134

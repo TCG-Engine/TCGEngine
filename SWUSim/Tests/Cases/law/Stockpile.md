@@ -70,3 +70,28 @@ P1RESCOUNT:5
 P1DECKCOUNT:1
 P2DECKCOUNT:1
 P2DISCARDCOUNT:0
+
+---
+
+# TheEventItselfIsResourcedFACEDOWN_NotDiscarded
+#// LAW_171 Stockpile — "RESOURCE this event and the top card of your deck": the event does not go to the
+#// discard pile like a normal event, it becomes a resource. Both new resources arrive EXHAUSTED (a
+#// resource added mid-phase is not ready), which is what separates "two resources were added" from "the
+#// resource row merely grew". ResourceEventAndTopDeck counts the row; this section pins where the event
+#// card ended up and that neither new entry can be spent this phase.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myResources:6}
+P1OnlyActions: true
+WithP1Deck: SOR_237
+WithP1Hand: LAW_171
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1RESCOUNT:8
+P1RESAVAILABLE:0
+P1DISCARDCOUNT:0
+P1HANDCOUNT:0
+P1DECKCOUNT:0

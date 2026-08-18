@@ -38,3 +38,45 @@ WithP1SpaceArena: LAW_189:1:0
 ## EXPECT
 P1SPACEARENACOUNT:0
 P1BASEDMG:2
+
+---
+
+# Offer_BothBasesAreSelectable
+#// LAW_189 Cavern Angels X-Wing — "Deal 2 damage to A BASE" names no controller, so the choice spans both
+#// bases and the player picks. Neither existing section asserts the POOL: WhenDefeatedDealBase answers
+#// theirBase-0 and the NGOR section answers from the new controller's seat, so an implementation
+#// hardcoded to the enemy base would satisfy both. The pick is left pending so the offer is the assertion.
+
+## GIVEN
+CommonSetup: rrw/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_189:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:0
+
+## EXPECT
+P1SELECTABLEEXACT:myBase-0&theirBase-0
+
+---
+
+# WhenDefeated_OwnBaseIsALegalChoice
+#// LAW_189 Cavern Angels X-Wing — the other branch of that unqualified "a base": choosing your OWN base is
+#// legal and really damages it. Same board as WhenDefeatedDealBase, answering myBase-0 instead: P1's base
+#// takes the 2 and P2's base takes nothing from the trigger.
+
+## GIVEN
+CommonSetup: rrw/bgw/{}
+P1OnlyActions: true
+WithP1SpaceArena: LAW_189:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:0
+- P1>AnswerDecision:myBase-0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1BASEDMG:2
+P2BASEDMG:0

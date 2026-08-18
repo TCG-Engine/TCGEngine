@@ -66,3 +66,24 @@ P1NODECISION
 P1GROUNDARENACOUNT:0
 P1DISCARDCOUNT:1
 P1RESAVAILABLE:1
+
+---
+
+# Unaffordable_NoPayOfferAtAll
+#// LAW_227 Rookie Rocket-jumper — the optional pay is gated on being able to pay it. With exactly 1
+#// resource the cost-1 play consumes it, so no YES/NO prompt is raised at all, no Shield is created, and
+#// the action ends cleanly. Boundary partner of PayShieldSelf (2 resources → the offer appears).
+
+## GIVEN
+CommonSetup: yyk/bgw/{myResources:1}
+P1OnlyActions: true
+WithP1Hand: LAW_227
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:CARDID:LAW_227
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P1RESAVAILABLE:0

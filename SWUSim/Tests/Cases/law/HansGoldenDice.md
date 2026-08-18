@@ -100,3 +100,100 @@ P1DECKCOUNT:0
 P2DECKCOUNT:1
 P1DISCARDCOUNT:1
 P2DISCARDCOUNT:0
+
+---
+
+# TheDiscardedCardReallyReachesTheDiscardPile
+#// LAW_225 Han's Golden Dice — "Discard a card from your deck" is a real mill, not just a peek used to
+#// decide the Credit. The odd-cost SOR_128 leaves the deck and lands in P1's discard pile by name, and the
+#// deck ends empty. Neither existing cost section asserts where the card went, so a "look at the top card"
+#// implementation would satisfy both of them.
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_225
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1CREDITCOUNT:1
+P1DECKCOUNT:0
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SOR_128
+
+---
+
+# TriggersWhenTheHostAttacksAUNITToo
+#// LAW_225 Han's Golden Dice — the granted trigger is "On Attack", not "when this unit attacks a base", so
+#// it fires on a unit attack as well. The host trades into a 1/1 Battle Droid token and the odd-cost
+#// SOR_128 still mills for a Credit. Every existing section attacks the base.
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_225
+WithP2GroundArena: TWI_T01:1:0
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1CREDITCOUNT:1
+P1DECKCOUNT:0
+
+---
+
+# UpgradeRemovedBeforeTheAttack_NoTriggerAtAll
+#// LAW_225 Han's Golden Dice — the On Attack belongs to the upgrade's GRANT, so taking the upgrade away
+#// takes the trigger with it. P1 plays SOR_251 Confiscate to defeat the Dice off its own host, then
+#// attacks: no card is milled and no Credit is created. Without this negative, a grant registered once on
+#// the host and never revoked would look identical in every other section here.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:LAW_225
+WithP1Deck: SOR_128
+WithP1Hand: SOR_251
+
+## WHEN
+- P1>PlayHand:0
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1CREDITCOUNT:0
+P1DECKCOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# AttachPool_AnyUnitEitherSideEitherArena
+#// LAW_225 Han's Golden Dice — the card prints no attach restriction, so per CR 2.e every unit in play is a
+#// legal host regardless of controller or arena. On an enemy host the granted "On Attack: discard a card
+#// from your deck; if its cost is odd, create a Credit token" resolves for THAT unit's controller — the
+#// direction already pinned by YourDeckIsTheHostsControllerNotTheHostsOwner — so an enemy host is a legal
+#// but self-defeating play. Discriminating board: a friendly ground unit, a friendly space unit, an enemy
+#// ground unit and an enemy space unit.
+
+## GIVEN
+CommonSetup: yyw/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1SpaceArena: SOR_225:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_213:1:0
+WithP1Hand: LAW_225
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0

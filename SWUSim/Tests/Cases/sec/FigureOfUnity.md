@@ -81,3 +81,30 @@ P1GROUNDARENAUNIT:1:HASKEYWORD:Overwhelm
 P2GROUNDARENAUNIT:0:NOTKEYWORD:Overwhelm
 P2GROUNDARENAUNIT:0:NOTKEYWORD:Raid
 P2GROUNDARENAUNIT:0:NOTKEYWORD:Restore
+
+---
+
+# AttachPool_UNIQUEUnitsOnly_EitherSide
+#// SEC_104 Figure of Unity — "Attach to a <uq> UNIT". Two things follow, and neither was enforced: the host
+#// must be UNIQUE, and the restriction names no controller, so per CR 2.e it spans both sides.
+#// Discriminating board: the friendly unique SOR_189 Leia Organa and the ENEMY unique SEC_042 Cassian Andor
+#// are IN; the friendly non-unique SEC_080 and the enemy non-unique SOR_046 are both OUT.
+#// Measured before the fix: the pool was `myGroundArena-0&myGroundArena-1` — the friendly NON-unique unit
+#// was offered and both enemy units were not, so the card had no uniqueness filter at all AND was
+#// friendly-only. Every other section in this file seeds the upgrade directly and so never reaches the
+#// attach path.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArena: SOR_189:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_042:1:0
+WithP1Hand: SEC_104
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-1&theirGroundArena-1
