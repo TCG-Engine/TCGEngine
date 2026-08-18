@@ -2413,7 +2413,14 @@ function AddGetNextTurnForPlayer($player) {
         $creditClause = ($rootName == "SWUSim" && $zone->Name == "Resources")
             ? " || SWUIsCreditToken(\$obj->CardID ?? '')" : "";
         $getNextTurn .= "    if(\$" . $selfFlag . $player . $creditClause . ") echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
-        $getNextTurn .= "    else echo(ClientRenderedCard(\"CardBack\"));\r\n";
+        // A masked card normally sends NO payload — its identity is the secret. SWUSim Resources are the
+        // exception: whether a resource is EXHAUSTED is public (the physical card is visibly rotated, and
+        // this zone declares Rotation/Overlay on Status), and the client's resource badge computes
+        // ready-vs-total from it. Sending a bare CardBack made the opponent's badge read N/N all game
+        // ("opponent's resources do not go down as they play cards"). Identity still never travels.
+        $maskedPayload = ($rootName == "SWUSim" && $zone->Name == "Resources")
+            ? ", cardJSON:SWUMaskedResourceJSON(\$obj)" : "";
+        $getNextTurn .= "    else echo(ClientRenderedCard(\"CardBack\"" . $maskedPayload . "));\r\n";
       }
       $getNextTurn .= "  }\r\n";
     } else if($zone->DisplayMode == "Count") {

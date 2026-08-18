@@ -1169,6 +1169,15 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         return mode === "All";
       }
 
+      // `Mode=Single(Latest)` — the collapsed pile renders the LAST entry (most recently added) rather
+      // than the first. Declared per zone in the game schema, same mechanism as Single(Stacked).
+      function ShouldShowLatestInSingleZone(zoneMetadata) {
+        if (!zoneMetadata || !Array.isArray(zoneMetadata.DisplayParameters)) return false;
+        return zoneMetadata.DisplayParameters.some(function(parameter) {
+          return String(parameter).trim().toLowerCase() === "latest";
+        });
+      }
+
       function ShouldUseVisualSingleZoneStack(zoneMetadata) {
         if (!zoneMetadata || !Array.isArray(zoneMetadata.DisplayParameters)) return false;
         return zoneMetadata.DisplayParameters.some(function(parameter) {
@@ -1229,11 +1238,17 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           var zoneArr = (zoneData.length == 0 ? [] : zoneData.split("<|>"));
           var zoneName = zone.replace("my", "").replace("their", "");
 
-          // Handle Single display mode - only render one card (first or last based on Reverse)
+          // Handle Single display mode - only render one card (first or last based on Reverse/Latest)
           if(mode == 'Single' && zoneArr.length > 0) {
             var zoneMetadata = GetZoneData(zoneName);
             var useReverse = zoneMetadata.Sort && zoneMetadata.Sort.Reverse;
-            var displayIndex = useReverse ? (zoneArr.length - 1) : 0;
+            // `Mode=Single(Latest)` shows the card added MOST RECENTLY — a discard pile whose face-up
+            // card is the first one ever discarded never changes as the game goes on.
+            // This is scoped to the Single branch on purpose: Sort.Reverse would have done the same job
+            // here, but it reverses the whole zone array for every mode except Tile (see below), which
+            // would also flip the click-to-open popup — and that view must stay EARLIEST -> LATEST.
+            var showLatest = ShouldShowLatestInSingleZone(zoneMetadata);
+            var displayIndex = (useReverse || showLatest) ? (zoneArr.length - 1) : 0;
             var cardArr = zoneArr[displayIndex].split(" ");
             var useVisualStack = ShouldUseVisualSingleZoneStack(zoneMetadata);
             var stackCardCount = useVisualStack ? GetSingleZoneStackCardCount(zoneArr, cardArr) : 0;

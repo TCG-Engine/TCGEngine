@@ -29,6 +29,10 @@ check($start !== false, 'the PopupFrom badge branch is present');
 // Wide enough to span the whole PopupFrom block (the shared-corpus derivation carries a long
 // explanatory comment); short enough not to reach the next counter type.
 $branch = substr($js, $start, 3500);
+// Assert CODE, not prose. The explanatory comment added with the fix names the same identifiers, so
+// matching raw text would let a reverted fix pass on the comment alone — the sibling guard for #971
+// was caught doing exactly that under mutation. Strip // comment bodies first.
+$branch = preg_replace('~//[^\n]*~', '', $branch);
 
 check(strpos($branch, 'assetImageFolder') !== false,
       'the popup folder is derived from window.assetImageFolder (the shared SWU corpus), not the app root');

@@ -1201,7 +1201,20 @@ function createPopupHTML(name, responseText) {
   var macros = responseArr[0] == "" ? [] : responseArr[0].split(",");
   var cards = responseArr[1];
   popup += "<div class='tcg-zone-popup-cards'>";
-  popup += PopulateZone(name, cards, 96, "./" + folderPath + "/concat", 1, "All");
+  // SWU card art is ONE shared corpus at AppCore/SWU/Images/{concat,WebpImages}, deliberately NOT under
+  // an app root — window.assetImageFolder (emitted by NextTurnRender.php) is that concat path, and Card()'s
+  // isSharedSWUArt guard keeps it absolute and skips the reflection rewrite.
+  // Hand-building "./" + folderPath + "/concat" instead yields ./SWUSim/concat/<id>.webp, the per-app tree
+  // the shared-corpus migration deleted. That was bug #971 ("card image in discard not showing either"):
+  // on a checkout without the legacy tree EVERY card in this popup 404s, and on an environment that still
+  // has it only PREVIEW cards do — their art is mock_-prefixed and was only ever synced into the shared
+  // corpus. Same root cause as #970's base-Fortify badge, a different call site.
+  // Non-SWU roots (GrandArchive, Gudnak, FaB) have no shared corpus and keep the per-app folder.
+  // Guarded by SWUSim/DevTools/tests/zone_popup_art_path_test.php.
+  var popupArtFolder = (typeof window !== 'undefined' && window.assetImageFolder)
+    ? String(window.assetImageFolder)
+    : ("./" + folderPath + "/concat");
+  popup += PopulateZone(name, cards, 96, popupArtFolder, 1, "All");
   popup += "</div>";
   macros.forEach(function(macro) {
     popup += "<button style='margin: 5px; padding: 5px 10px; background-color: #444; color: white; border: none; border-radius: 5px; cursor: pointer;' onclick='SubmitInput(10000, \"&buttonInput=" + macro + "&inputText=" + name + "\")'>" + macro + "</button>";

@@ -32328,6 +32328,26 @@ function TransformCard($player, $mzCard) {
  * SHOW its unit side — image file "{CardID}_back.webp". Regular units render
  * unchanged. Used only by GroundArena/SpaceArena rendering in GetNextTurn.php.
  */
+/**
+ * The payload a MASKED (face-down, opponent-owned) resource still sends to the client.
+ *
+ * Resources is a Visibility=Self zone, so the transport hides the opponent's cards behind a CardBack.
+ * It used to send NO cardJSON with them, which hid one thing that is not secret: whether the resource
+ * is EXHAUSTED. In SWU that is public — the physical card is visibly rotated, and this zone's schema
+ * already declares `Rotation: Status=0:9` and `Overlay: Status=0:exhausted` for it.
+ *
+ * Consequence of withholding it: parseResCountFromData (Custom/GameLayoutShared.php) counts every entry
+ * toward the total but can only count an exhausted one when the entry carries {"Status":0}. With no
+ * JSON the opponent's badge read N/N for the whole game — "my opponent's resources do not go down as
+ * they play cards", while their own client, which sees its own resources in full, looked correct.
+ *
+ * Only Status travels. The CardID stays hidden (that IS the secret), and so does every other property.
+ * Guarded by DevTools/tests/opponent_resource_status_test.php.
+ */
+function SWUMaskedResourceJSON($obj): string {
+    return json_encode(['Status' => intval($obj->Status ?? 1)]);
+}
+
 function SWUArenaDisplayCardID($obj): string {
     $cardID = isset($obj->CardID) ? $obj->CardID : "-";
     if($cardID === "-") return "-";

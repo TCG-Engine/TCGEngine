@@ -128,7 +128,13 @@ Counters: ExploitAvailable=Image(Path=Assets/Icons/exploit.webp,Position=Bottom,
 #                ""        — no modifier (default)
 Discard - CardID:string, From:string="", Turn:number=0, Modifier:string=""
 BeforeAdd: TokenCeaseBeforeAdd
-Display: Visibility=Public, Mode=Single, BindTo=DiscardSlot
+# Mode=Single(Latest): the collapsed pile shows the card discarded MOST RECENTLY, not the first one
+# ever discarded (PopulateZone's Single branch otherwise renders zoneArr[0] and the pile never changes).
+# ⚠ Deliberately NOT `Sort: Reverse` — that reverses the whole zone array for every mode except Tile,
+# which would also flip the click-to-open popup, and that view must stay EARLIEST -> LATEST.
+# The parameter is consumed only inside the Single branch (ShouldShowLatestInSingleZone in
+# Core/UILibraries*.js); guarded by DevTools/tests/discard_pile_shows_latest_test.php.
+Display: Visibility=Public, Mode=Single(Latest), BindTo=DiscardSlot
 Click: FSM()
 
 # Resources ────────────────────────────────────────────────────────────────────

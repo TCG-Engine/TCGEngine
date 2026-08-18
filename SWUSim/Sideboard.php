@@ -1,6 +1,10 @@
 <?php // SWUSim/Sideboard.php — between-games sideboard screen (card-image editor)
 include_once __DIR__ . '/MatchFlow.php';
 include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php'; // CardTitle/CardSubtitle
+// The one seam that knows where SWU art lives and how it is named. This page is STANDALONE — it does
+// not load Core's Card()/resolveCardImageID — so without it the art paths get hand-built relative to
+// /TCGEngine/SWUSim/ and preview (mock_-prefixed) cards never resolve.
+include_once __DIR__ . '/../AppCore/SWU/CardImagePath.php';
 $matchId = preg_replace('/[^A-Za-z0-9_]/','', $_GET['matchId'] ?? '');
 $seat    = intval($_GET['playerID'] ?? 0);
 $m = SWUReadMatch($matchId);
@@ -94,8 +98,8 @@ foreach (array_merge(array_keys($mainCounts), array_keys($sideCounts), [$deck['l
 <p class="hint">Click a Deck card to move one copy to your Sideboard. Click a Sideboard card to move it back. Then submit — the next game starts when both players are ready.</p>
 
 <div class="fixed">
-  <div class="slot"><img src="./concat/<?= htmlspecialchars($deck['leader']) ?>.webp" title="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>"><div class="lbl">Leader</div></div>
-  <div class="slot"><img src="./concat/<?= htmlspecialchars($deck['base']) ?>.webp" title="<?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>"><div class="lbl">Base</div></div>
+  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['leader']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['leader'], 'tile')) ?>" alt="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>" title="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>"><div class="lbl">Leader</div></div>
+  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['base']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['base'], 'tile')) ?>" alt="<?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>" title="<?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>"><div class="lbl">Base</div></div>
 </div>
 
 <div class="section">
@@ -119,6 +123,9 @@ var alreadyAdvanced=<?= json_encode(($m['state'] ?? '') === 'in_progress' && !em
 var advancedGameName=<?= json_encode(!empty($m['games']) ? strval($m['games'][count($m['games'])-1]['gameName']) : '') ?>;
 var leader=<?= json_encode($deck['leader']) ?>, base=<?= json_encode($deck['base']) ?>;
 var titles=<?= json_encode($titles, JSON_UNESCAPED_UNICODE) ?>;
+</script>
+<?= SWUCardArtScript(false) /* lite: SWUSim ids are already SET_NNN, so the UUID map is dead weight */ ?>
+<script>
 var deck=<?= json_encode((object)array_map('intval',$mainCounts), JSON_FORCE_OBJECT) ?>;
 var side=<?= json_encode((object)array_map('intval',$sideCounts), JSON_FORCE_OBJECT) ?>;
 
@@ -132,7 +139,7 @@ function ensureSbPreview(){
   return sbPreview;
 }
 function showSbPreview(id, ev){
-  var p=ensureSbPreview(); p.src='./WebpImages/'+id+'.webp'; p.style.display='block'; positionSbPreview(ev);
+  var p=ensureSbPreview(); p.src=window.swuCardArtUrl(id, 'card'); p.style.display='block'; positionSbPreview(ev);
 }
 function positionSbPreview(ev){
   if(!sbPreview || sbPreview.style.display!=='block') return;
@@ -148,7 +155,9 @@ function hideSbPreview(){ if(sbPreview) sbPreview.style.display='none'; }
 // Wire the fixed Leader / Base slots too (rendered as static <img> above).
 (function(){
   document.querySelectorAll('.fixed .slot img').forEach(function(img){
-    var id=(img.getAttribute('src')||'').replace('./concat/','').replace('.webp','');
+    // Read the CardID from data, never back out of the src: the corpus URL is absolute and a
+    // preview card's file is mock_-prefixed, so string-stripping the path cannot recover it.
+    var id=img.getAttribute('data-card-id')||'';
     if(!id) return;
     img.parentNode.onmouseenter=function(ev){ showSbPreview(id, ev); };
     img.parentNode.onmousemove=function(ev){ positionSbPreview(ev); };
@@ -169,7 +178,7 @@ function renderGrid(el, map, from, to){
   if(ids.length===0){ el.innerHTML='<div class="empty">(empty)</div>'; return; }
   ids.forEach(function(id){
     var c=document.createElement('div'); c.className='card'; c.title=titles[id]||id;
-    var img=document.createElement('img'); img.src='./concat/'+id+'.webp'; img.alt=id;
+    var img=document.createElement('img'); img.src=window.swuCardArtUrl(id, 'tile'); img.alt=titles[id]||id;
     c.appendChild(img);
     if(map[id]>1){ var q=document.createElement('div'); q.className='qty'; q.textContent=map[id]; c.appendChild(q); }
     c.onclick=function(){ if(submitting) return; move(id, from, to); };
