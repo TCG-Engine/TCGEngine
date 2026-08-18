@@ -1689,10 +1689,19 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
 // SWUQueueChooseTarget). $yesTooltip is retained for call-site readability/compat; the
 // $chooseTooltip is the selection-mode prompt. Use SWUQueueChooseTarget for mandatory
 // (non-"may") effects.
-function SWUQueueMayChooseTarget(int $player, array $targets, string $yesTooltip, string $chooseTooltip, string $handler, int $block = 1): void {
+// $dontSkipOnPass — set it when the continuation must STILL RUN after the player hits the Pass button.
+// A "PASS" answer is sticky in the decision queue: ExecuteStaticMethods skips every following CUSTOM that
+// is not flagged (the same reason SWUQueueAfterAction and _SWUQueueOrchestration carry it). That default
+// is right for a plain optional effect — its handler self-guards on '-'/'PASS' and has nothing to do —
+// but WRONG when the continuation is the loop itself and its decline branch still owes the player
+// something. ASH_053 Pre Vizsla is the case that found this: declining the next pick is what finishes the
+// ability and creates one Mandalorian token per unit already defeated, so a skipped CUSTOM left the
+// defeats standing with no tokens (bug #972). Guarded by that card's
+// PASS_WithTargetsStillInThePool_StillCreatesTheTokens.
+function SWUQueueMayChooseTarget(int $player, array $targets, string $yesTooltip, string $chooseTooltip, string $handler, int $block = 1, int $dontSkipOnPass = 0): void {
     if (empty($targets)) return;
     DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $targets), $block, $chooseTooltip);
-    DecisionQueueController::AddDecision($player, 'CUSTOM', $handler, $block);
+    DecisionQueueController::AddDecision($player, 'CUSTOM', $handler, $block, '', $dontSkipOnPass);
 }
 
 // "Choose two (different modes), in any order" modal (SOR_058/107/155/203 — the aspect events).

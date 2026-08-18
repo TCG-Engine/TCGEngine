@@ -40,11 +40,18 @@ function PreVizslaStrongWilledRulerOffer(int $player, int $budget, int $count): 
     _SWUAsh053Finish($player, $count);
     return;
   }
+  // dontSkipOnPass=1: this continuation IS the loop. Its decline branch calls _SWUAsh053Finish, which
+  // creates one Mandalorian token per unit defeated so far — so it must run even when the player ends
+  // the loop with the Pass button. A "PASS" answer is sticky and otherwise makes the queue skip this
+  // CUSTOM entirely, leaving the units defeated and the tokens never created (bug #972). Declining with
+  // the choose-nothing token was always fine, which is why every earlier test missed it.
   SWUQueueMayChooseTarget(
     $player,
     $targets,
     "Defeat_a_non-leader_unit_(remaining_combined_HP_budget_{$budget})?",
     "Choose_a_unit_to_defeat",
-    "ASH_053#0|{$budget}|{$count}"
+    "ASH_053#0|{$budget}|{$count}",
+    1,
+    1
   );
 }
