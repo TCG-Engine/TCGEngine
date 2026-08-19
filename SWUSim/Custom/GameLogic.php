@@ -8164,7 +8164,17 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
     $count = count($gPendingTriggers);
     $attackerObj = GetZoneObject($attackerMzID);
     $attackerUID = $attackerObj !== null ? intval($attackerObj->UniqueID ?? 0) : 0;
-    $cont  = $contOverride !== '' ? $contOverride : "COMBAT|{$attackerMzID}|{$targetMzID}|{$attackerUID}";
+    // ⚠ BUG #976d — BATCH SCOPING. The EffectStack is one shared zone, so triggers flushed DURING an
+    // attack land beside any entry still pending from the OUTER batch that started the attack (Mae
+    // HMW_055 resolving Ambush first leaves her Shielded behind). Without a boundary, the combat resume
+    // offers BOTH in one "choose a trigger to resolve" prompt and commits damage behind whichever is
+    // picked — so Shielded could land before the attack it is queued behind had dealt its damage, and
+    // the shield then absorbed the defender's counter (game 3329: no damage AND no shield).
+    // Per the CR the outer batch's triggers may not begin until this attack has fully resolved. Carry
+    // the stack size AS OF THIS FLUSH in the continuation; the resume filters to entries at or after it.
+    $batchStart = count(GetEffectStack());
+    $cont  = ($contOverride !== '' ? $contOverride : "COMBAT|{$attackerMzID}|{$targetMzID}|{$attackerUID}")
+           . "|{$batchStart}";
 
     $buildParams = fn($t) => $t['mzID'] . (($t['extraParams'] ?? '') !== '' ? '|' . $t['extraParams'] : '');
 
@@ -10952,12 +10962,27 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
     // combat attack. When the EffectStack empties, queue SWUCombatDamage instead of
     // finalising via SWUAfterAction. Forwarded verbatim on each re-queue.
     $continuation = $parts[1] ?? '';
+    // parts[5] = the EffectStack size when this combat batch was flushed (bug #976d — see
+    // FlushCombatTriggerBag). Forwarded on every re-queue, or the boundary is lost the first time this
+    // resume hops queues and the outer batch leaks back into the combat's ordering.
+    $batchStart   = intval($parts[5] ?? 0);
     $contStr      = ($continuation !== '')
         ? "|{$continuation}|" . ($parts[2] ?? '') . "|" . ($parts[3] ?? '') . "|" . ($parts[4] ?? '')
+          . "|{$batchStart}"
         : '';
 
     $stack = GetEffectStack();
-    $remaining = array_values(array_filter($stack, fn($e) => empty($e->removed ?? false)));
+    // ⚠ BUG #976d — a COMBAT resume sees ONLY the triggers flushed for THIS attack. Anything still
+    // pending from the outer batch that started the attack (Mae's Shielded while her Ambush resolves)
+    // is not eligible yet: per the CR it may not begin until this attack has fully resolved, damage
+    // included. Filtering here scopes BOTH the emptiness test (which commits combat damage) and the
+    // ordering prompt below, so combat commits on its own batch and the leftover resolves afterwards
+    // via the outer bare resume. A bare resume keeps $batchStart = 0 and still sees everything.
+    $remaining = array_values(array_filter(
+        $stack,
+        fn($e, $i) => empty($e->removed ?? false) && $i >= $batchStart,
+        ARRAY_FILTER_USE_BOTH
+    ));
 
     if (empty($remaining)) {
         DecisionQueueController::CleanupRemovedCards();
@@ -11059,6 +11084,27 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
         }
         $playerID = $savedPID;
         return;
+    }
+
+    // ⚠ BUG #976d, second half. The batch filter above stops a COMBAT resume from reaching the outer
+    // batch — but the OUTER bare resume was queued FIRST (at Mae's entry, block 20) and so drains BEFORE
+    // the combat one. Left alone it resolves the leftover Shielded while the attack is still mid-flight,
+    // which is the same violation from the other side. Defer it behind the pending combat commit.
+    // Re-queued at block 20 rather than dropped: it lands after the COMBAT resume (AddDecision appends
+    // within a block), so the leftover still resolves — once the attack has finished.
+    // Scoped to a BARE resume so a COMBAT resume never defers to itself, and mirrors the empty-stack
+    // guard above (bug #926), which applies the identical rule to the finalise path.
+    if ($continuation === '') {
+        foreach ([1, 2] as $_p) {
+            foreach (GetDecisionQueue($_p) as $_e) {
+                $_param = (string)($_e->Param ?? '');
+                if (str_starts_with($_param, 'SWU_TRIGGER_RESUME') && strpos($_param, '|COMBAT') !== false) {
+                    _SWUQueueOrchestration(intval($activePlayer), "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+                    $playerID = $savedPID;
+                    return;
+                }
+            }
+        }
     }
 
     // Check if remaining triggers all belong to one player.

@@ -68,3 +68,40 @@ P1GROUNDARENAUNIT:0:NOTKEYWORD:Ambush
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P1NODECISION
+
+---
+
+# Bug976d_AmbushCombatResolvesFullyBeforeShieldedDoes
+#// LOF_231 Darth Tyranus (Villainy, Force/Separatist/Sith, cost 4, 4/3 Ground) —
+#// "Shielded / While the Force is with you, this unit gains Ambush."
+#// The bug-#976d family guard, on the card where the interaction is DESIGNED rather than incidental:
+#// LOF_021 Shadowed Undercity reads "When a friendly FORCE unit attacks: create your Force token", and
+#// Tyranus is a Force unit whose Ambush is SWITCHED ON by holding the Force. So the base both enables
+#// him and fires mid-combat — the exact ingredient that made Mae HMW_055's shield resolve too early.
+#// CR: resolving Ambush first must finish the whole attack, damage included, before Shielded begins.
+#// Tyranus (4 power) kills the 1/3 Village Tender and takes its 1 counter BARE, ending on 1 damage and
+#// alive on 3 HP; only then does his Shield arrive. Before the fix the shield landed first, absorbed the
+#// counter, and he ended undamaged with no token.
+#// He is played from HAND here, not via Osha — the defect is in the shared trigger orchestration, so the
+#// guard should not depend on any particular card having put him into play.
+#// Force is pre-held so Ambush is active on entry (it is a conditional grant, checked as he enters).
+
+## GIVEN
+CommonSetup: brk/rrk/{myBase:LOF_021;myResources:6}
+P1OnlyActions: true
+WithP1Force: true
+WithP1Hand: LOF_231
+WithP2GroundArena: LOF_107:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LOF_231
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2GROUNDARENACOUNT:1

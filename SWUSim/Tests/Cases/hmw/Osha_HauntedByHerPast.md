@@ -690,3 +690,79 @@ WithP1Resources: 1:HMW_055:1,3:SOR_046:1
 ## EXPECT
 TURNPLAYER:2
 P1LEADER:EXHAUSTED
+
+---
+
+# Bug976d_AmbushCombatResolvesFullyBeforeShieldedDoes
+#// BUG #976d (game 3329) — "I pick Ambush, pick the target, but the shield auto-places before combat."
+#// CR: a triggered ability resolves FULLY — combat damage included — before the next one begins. Mae has
+#// two entry triggers; resolving Ambush first must finish the whole attack before Shielded resolves, so
+#// she takes Village Tender's 1 counter-damage BARE, ends on 1 damage with Grit making her 3 power, and
+#// only THEN receives her Shield.
+#// ROOT CAUSE: FlushCombatTriggerBag queues the combat continuation (which commits SWUCombatDamage) at
+#// BLOCK 20 — the same block as the entry-trigger flush's own resume, which was queued EARLIER when Mae
+#// entered. AddDecision inserts before the first HIGHER block and otherwise APPENDS, so the outer resume
+#// wins the FIFO: it re-drives the EffectStack, resolves the leftover Shielded entry, and only then does
+#// combat commit. The shield is therefore already up when the counter-damage lands, absorbs it, and both
+#// the damage and the token vanish.
+#// ⚠ THE FIXTURE INGREDIENT THAT MAKES IT VISIBLE IS THE BASE. With no mid-combat trigger, $triggered==0
+#// and combat damage is queued DIRECTLY at block 1, which beats the block-20 outer resume — so the order
+#// is correct and the bug hides. LOF_021 Shadowed Undercity ("When a friendly FORCE unit attacks: create
+#// your Force token") supplies that trigger, and Mae is a Force unit. An earlier investigation swapped
+#// this base out for a plain Vigilance one "same aspect, no trigger" and thereby deleted the bug.
+#// The Heroism death is set by a NON-Force unit (Battlefield Marine) on purpose: Yaddle would trigger the
+#// base on her own attack too and add unrelated prompts.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myLeader:HMW_017;myBase:LOF_021;myhandCardIds:HMW_074}
+P1OnlyActions: true
+WithP1Resources: 1:HMW_055:1,3:SOR_046:1
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: LOF_107:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:1
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:HMW_055
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# Bug976d_Control_ShieldedFirst_StillAbsorbsTheCounter
+#// BUG #976d control — the OTHER ordering, which must keep working. Resolving Shielded FIRST legitimately
+#// puts the token up before Ambush attacks, so the counter-damage IS absorbed: Mae ends undamaged, at her
+#// printed 2 power, with the shield spent. That is the outcome the bug was wrongly producing for the
+#// AMBUSH-first choice, so keeping it asserted here is what stops a fix from simply inverting the two.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myLeader:HMW_017;myBase:LOF_021;myhandCardIds:HMW_074}
+P1OnlyActions: true
+WithP1Resources: 1:HMW_055:1,3:SOR_046:1
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: LOF_107:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:1
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:HMW_055
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:POWER:2
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:2
