@@ -237,6 +237,41 @@ On Attack: You may pay [1 resource]. If you do, create a Beast token.',
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_017' => 
+  array (
+    'title' => 'Osha',
+    'subtitle' => 'Haunted by her Past',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+    ),
+    'text' => 'Action [Exhaust]: If a friendly Heroism unit was defeated this phase, play a Villainy unit from your resources, ignoring its Villainy aspect penalties. If you do so, you may resource a card from your hand.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'Saboteur
+Action: Play a Villainy unit from your resources, ignoring its Villainy aspect penalties. If you do, you may resource a card from your hand.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/017.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/017-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_019' => 
   array (
     'title' => 'Dune Sea',
@@ -666,6 +701,37 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/048.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_055' => 
+  array (
+    'title' => 'Mae',
+    'subtitle' => 'Kill the Dream',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 2,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Vigilance',
+      2 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Sith',
+    ),
+    'text' => 'Ambush
+Shielded
+Grit',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/055.png',
     'imageUrlBack' => '',
   ),
   'HMW_059' => 
@@ -1669,6 +1735,33 @@ If you control an Endor base , you may attack with a unit. It gets +2/+0 for thi
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/193.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_196' => 
+  array (
+    'title' => 'Qimir',
+    'subtitle' => 'Everyone Has a Weakness',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 3,
+    'hp' => 1,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+    ),
+    'text' => 'When Defeated: You may discard the top card of your deck. If it\'s not Villainy, give a Weakness token to an enemy unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/196.png',
     'imageUrlBack' => '',
   ),
   'HMW_200' => 

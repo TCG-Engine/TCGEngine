@@ -2614,6 +2614,17 @@ function SWUAspectPenalty($player, $cardID, bool $asPilot = false): int {
         if (empty($cardAspects)) return 0;
     }
 
+    // HMW_017 Osha (BOTH sides): "play a Villainy unit from your resources, IGNORING ITS VILLAINY ASPECT
+    // PENALTIES." A one-shot flag in the $gTwi040IgnoreAspect mould, set by the card around BOTH the
+    // affordability scan and the actual play. ⚠ PARTIAL, not a blanket waiver: only the Villainy pips are
+    // dropped, so any OTHER unmatched pip still costs its +2. Placed with the SHD_046/SHD_141 pip-dropping
+    // pair rather than with the early `return 0` waivers above for exactly that reason. The flag never has
+    // to survive a decision — each site sets it, computes, and clears it in the same call.
+    if (!empty($GLOBALS['gOsha017IgnoreVillainy'])) {
+        $cardAspects = array_values(array_filter($cardAspects, fn($a) => $a !== 'Villainy'));
+        if (empty($cardAspects)) return 0;
+    }
+
     // SHD_198 Clone Trooper: "Ignore the aspect penalty on the first Clone unit you play each round."
     // While the controller has an unused SHD_198 charge and this is a Clone unit, waive the whole penalty.
     // The charge is marked used in ActivateCard once the (already-waived) cost is locked; cleared at RGS.
