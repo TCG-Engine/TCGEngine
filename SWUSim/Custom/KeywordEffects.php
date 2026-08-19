@@ -957,6 +957,21 @@ function HasConditionalKeyword_Sentinel($obj) {
             return IsCoordinateActive($obj->Controller);
         case 'TWI_054': // Duchess's Champion — while the OPPONENT's Coordinate is active
             return IsCoordinateActive(OtherPlayer($obj->Controller));
+        case 'HMW_074': { // Yord Fandar — while A BASE has 15 or more damage on it.
+                          // ⚠ "a base" carries NO controller qualifier, so it means EITHER player's
+                          // base — the same wording (and the same both-sides scan) as SOR_148 Guerilla
+                          // Attack Pod's "If a base has 15 or more damage on it". Deliberately NOT the
+                          // $ctrl-scoped read TWI_142 Anakin's Interceptor uses, whose text says
+                          // "While YOUR base has 15 or more damage on it". Both readings are live in
+                          // this engine, so scoping this one to the controller is the easy wrong answer.
+                          // Recomputed on every read, so healing the base back under 15 removes it.
+            foreach ([1, 2] as $p074) {
+                foreach (GetBase($p074) as $b074) {
+                    if (empty($b074->removed) && intval($b074->Damage ?? 0) >= 15) return true;
+                }
+            }
+            return false;
+        }
         case 'LOF_105': // Mirror — while another friendly unit has Sentinel.
                         // ⚠ RECURSIVE: re-enters the keyword readers; the helper carries its own
                         // re-entrancy guard. Do not "simplify" into a plain scan.

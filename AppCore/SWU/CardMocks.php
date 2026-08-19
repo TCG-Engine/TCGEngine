@@ -549,6 +549,38 @@ On Attack: You may pay [1 resource]. If you do, create a Beast token.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/034.png',
     'imageUrlBack' => '',
   ),
+  'HMW_035' => 
+  array (
+    'title' => 'Hunter',
+    'subtitle' => 'Everyone Get to Cover!',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 4,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Vigilance',
+      2 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Clone',
+    ),
+    'text' => 'When Played: Choose two. You may choose the same option more than once:
+
+• Give a Shield token to a unit.
+
+• Attack with a unit, even if it\'s exhausted. It can\'t attack bases for this attack.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/035.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_043' => 
   array (
     'title' => 'Darth Vader',
@@ -802,6 +834,34 @@ Attached base gains: "When the regroup phase starts: Draw a card and deal 2 dama
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/070.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_074' => 
+  array (
+    'title' => 'Yord Fandar',
+    'subtitle' => 'Devoutly Disciplined',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+    ),
+    'text' => 'While a base has 15 or more damage on it, this unit gains Sentinel.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/074.png',
     'imageUrlBack' => '',
   ),
   'HMW_077' => 
@@ -1781,6 +1841,31 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/257.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_272' => 
+  array (
+    'title' => 'Growth',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 5,
+    'aspect' => 
+    array (
+    ),
+    'trait' => 
+    array (
+      0 => 'Innate',
+    ),
+    'text' => 'Create a Beast token.
+Heal 3 damage from your base.
+Draw a card.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/272.png',
     'imageUrlBack' => '',
   ),
   'HMW_T02' => 
