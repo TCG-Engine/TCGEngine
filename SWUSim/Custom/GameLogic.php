@@ -398,6 +398,14 @@ function ObjectCurrentPower($obj) {
         $b142 = GetBase($controller);
         if (!empty($b142) && isset($b142[0]) && intval($b142[0]->Damage ?? 0) >= 15) $base += 2;
     }
+    // HMW_066 Carrion Spike — "For each upgrade on your base, this unit gets +1/+0 and gains Restore 1."
+    // POWER ONLY (+1/+0), and it SCALES: the leading "For each" scopes the whole predicate, so the
+    // Restore half scales identically — see GetConditionalKeyword_Restore_Value. Recomputed on every
+    // read from the base's live Subcards, so removing an upgrade drops the bonus with no cleanup hook.
+    // "YOUR base" is the CONTROLLER's (deliberately not HMW_074 Yord Fandar's unqualified "a base").
+    if (!$lost && ($obj->CardID ?? '') === 'HMW_066' && $controller > 0) {
+        $base += SWUBaseUpgradeCount($controller);
+    }
     // TWI_130 Bo-Katan Kryze — "While you control another Trooper unit, this unit gets +1/+0."
     if (!$lost && ($obj->CardID ?? '') === 'TWI_130' && $controller > 0
         && PlayerHasUnitWithTraitInPlay($controller, 'Trooper', $obj->UniqueID ?? null)) $base += 1;

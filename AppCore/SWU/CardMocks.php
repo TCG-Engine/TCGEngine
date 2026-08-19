@@ -616,6 +616,33 @@ Action: Play a Villainy unit from your resources, ignoring its Villainy aspect p
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/035.png',
     'imageUrlBack' => '',
   ),
+  'HMW_037' => 
+  array (
+    'title' => 'Bacta Tank',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 1,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify
+When Played: Heal up to 3 damage from a non-Vehicle unit.
+Action [defeat this upgrade]: Put a non-Vehicle unit from your discard pile on top of your deck.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/037.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_043' => 
   array (
     'title' => 'Darth Vader',
@@ -847,6 +874,35 @@ When an enemy unit with a Weakness token on it is defeated: You may give a Weakn
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/062.png',
     'imageUrlBack' => '',
   ),
+  'HMW_063' => 
+  array (
+    'title' => 'Rho Medical Shuttle',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Vehicle',
+      2 => 'Transport',
+    ),
+    'text' => 'When Played/On Attack: You may heal 1 damage from another unit or base.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/063.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_064' => 
   array (
     'title' => 'Scorch',
@@ -874,6 +930,36 @@ When an enemy unit with a Weakness token on it is defeated: You may give a Weakn
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/064.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_066' => 
+  array (
+    'title' => 'Carrion Spike',
+    'subtitle' => 'Harbinger of Tyranny',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 3,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'Shielded
+For each upgrade on your base, this unit gets +1/+0 and gains Restore 1.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/066.png',
     'imageUrlBack' => '',
   ),
   'HMW_070' => 
@@ -1035,6 +1121,33 @@ While you control another Gungan unit or Naboo base, this unit gains Shielded.',
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/085.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_094' => 
+  array (
+    'title' => 'Sando Aqua Monster',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 8,
+    'power' => 5,
+    'hp' => 9,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'Grit
+When Played: If you control a Naboo base, you may defeat any number of ground units with combined power equal to or less than this unit\'s power. Deal damage to this unit equal to the combined power of the defeated units.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/094.png',
     'imageUrlBack' => '',
   ),
   'HMW_095' => 
@@ -1578,6 +1691,33 @@ Other friendly Ewok units gain Hidden.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/162.png',
     'imageUrlBack' => '',
   ),
+  'HMW_163' => 
+  array (
+    'title' => 'Champion of Endor',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 3,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Ewok',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/163.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_164' => 
   array (
     'title' => 'Chief Chirpa',
@@ -1603,6 +1743,34 @@ Other friendly Ewok units gain Hidden.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/164.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_170' => 
+  array (
+    'title' => 'Han Solo',
+    'subtitle' => 'My Team\'s Ready',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 4,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Official',
+    ),
+    'text' => 'Action [Exhaust]: Ready another unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/170.png',
     'imageUrlBack' => '',
   ),
   'HMW_171' => 
@@ -1820,6 +1988,33 @@ When Played: Take control of an enemy non-leader unit with a Weakness token on i
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/202.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_205' => 
+  array (
+    'title' => 'Intelligence Agency',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 1,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify (Attach this to your base, not a unit.)
+Attached base gains: "You may look at the top card of your deck at any time."
+When Played: Look at an opponent\'s hand. You may discard a card from it. If you do, they draw a card.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/205.png',
     'imageUrlBack' => '',
   ),
   'HMW_206' => 

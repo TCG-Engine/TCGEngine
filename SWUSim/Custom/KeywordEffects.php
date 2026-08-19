@@ -1397,6 +1397,15 @@ function GetConditionalKeyword_Restore_Value($obj) {
     // TWI_062 Daughter of Dathomir — "While this unit is undamaged, it gains Restore 2."
     if (($obj->CardID ?? '') === 'TWI_062' && intval($obj->Damage ?? 0) === 0) $amount += 2;
     if (_SWUUnitHasActiveUpgrade($obj, 'TS26_37')) $amount += 1;  // TS26_37 Abandoned the Order — attached unit gains Restore 1
+    // HMW_066 Carrion Spike — "For each upgrade on your base, this unit gets +1/+0 and GAINS RESTORE 1."
+    // Restore N, not a flat Restore 1: the leading "For each" scopes both halves of the sentence (the
+    // flat reading would be worded "gets +1/+0 for each upgrade on your base and gains Restore 1").
+    // Same count and same controller-scoping as the +1/+0 half in ObjectCurrentPower — one helper feeds
+    // both, so the stat and the keyword can never disagree about how many upgrades are on the base.
+    if (($obj->CardID ?? '') === 'HMW_066') {
+        $ctrl066 = intval($obj->Controller ?? 0);
+        if ($ctrl066 > 0) $amount += SWUBaseUpgradeCount($ctrl066);
+    }
     if (_SWUYularenGrants($obj, 'RESTORE')) $amount += 1;   // JTL_047 Yularen (Restore 1 to Vehicles)
     if (_SWUSEC104AuraActive($obj)) $amount += 1;           // SEC_104 aura — Restore 1
     // LOF_105 Oppo Rancisis — "gains Restore 2 while another friendly unit has Restore."
