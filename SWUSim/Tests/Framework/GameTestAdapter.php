@@ -668,6 +668,10 @@ class GameTestAdapter {
         $GLOBALS['gPlayingEventCardID']     = '';
         $GLOBALS['gShd010Recollecting']     = false;
         $GLOBALS['gSimulDefeatWindow']      = false;
+        // Its PAIR. The read in _SWUSimulObserverCount is gated on the window above, so leaving this set
+        // is harmless TODAY — but production loses both at every boundary, and a reset window paired with
+        // a stale snapshot is exactly the half-cleared shape the JTL_094 leak had. Reset for faithfulness.
+        unset($GLOBALS['gSimulDefeatUnits']);
         $GLOBALS['gTwi040IgnoreAspect']     = false;
         unset($GLOBALS['gSimulDefeatSidious']);
         $gShootFirstPending    = null;

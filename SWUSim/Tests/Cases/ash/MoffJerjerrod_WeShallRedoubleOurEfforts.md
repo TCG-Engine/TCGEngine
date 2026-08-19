@@ -157,3 +157,31 @@ WithP1GroundArena: ASH_094:1:0
 ## EXPECT
 P1CREDITCOUNT:6
 P1GROUNDARENACOUNT:0
+
+---
+
+# DefeatedByItsOwnAbility_NoSecondOfferThisPhase
+#// ASH_094 — the cost of doubling is defeating Jerjerrod HIMSELF, so the ability can only ever fire once:
+#// a second token creation in the same phase finds no Jerjerrod and is not offered.
+#// P1 plays SEC_097 (When Played: create a Spy token) and ACCEPTS — Jerjerrod dies, two Spies appear. P1
+#// then plays a second SEC_097: it creates ONE Spy with no prompt at all.
+#// The end state discriminates cleanly: 2 SEC_097 + 3 Spy tokens = 5 units. A second doubling would give
+#// 6, and a first doubling that never happened would give 4.
+#// This also pins that the offer is gated on Jerjerrod being IN PLAY at creation time, not on a
+#// once-per-phase flag — he is simply gone.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:8}
+P1OnlyActions: true
+WithActivePlayer: 1
+WithP1Hand: [SEC_097 SEC_097]
+WithP1GroundArena: ASH_094:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:5
+P1NODECISION

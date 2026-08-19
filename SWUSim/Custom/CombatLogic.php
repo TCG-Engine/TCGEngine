@@ -568,7 +568,11 @@ function SWUDiscardHostSubcards($host): void {
         if ($isCaptive || $isRemoved) continue;
         $subCardID = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         if ($subCardID === '' || in_array($subCardID, SWU_SELF_HANDLED_DEFEAT_SUBCARDS, true)) continue;
-        if (strpos(strtolower(CardType($subCardID) ?? ''), 'token') !== false) continue; // tokens set aside
+        // A token upgrade is SET ASIDE rather than discarded (CR 3.2) — but it is still DEFEATED, so the
+        // observers below must fire for it. This used to `continue` here, which skipped the observer too:
+        // a host dying with a Shield / Experience / Advantage still attached fired nothing, while the very
+        // same Shield consumed by damage DID fire (SWUConsumeShieldToken). One rule, opposite answers.
+        $subIsToken = strpos(strtolower(CardType($subCardID) ?? ''), 'token') !== false;
         $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $savedPID) : intval($sub->Owner ?? $savedPID);
         // TWI_069 Roger Roger — re-attach to a friendly Battle Droid token instead of discarding (if any).
         if ($subCardID === 'TWI_069') {
@@ -576,9 +580,10 @@ function SWUDiscardHostSubcards($host): void {
             if ($rrCtrl <= 0) $rrCtrl = intval($host->Controller ?? $subOwner);
             if (_SWURogerRogerReattach($rrCtrl, $subOwner, intval($host->UniqueID ?? 0))) continue;
         }
-        SWUAddToDiscard($subOwner, $subCardID, 'PLAY');
+        if (!$subIsToken) SWUAddToDiscard($subOwner, $subCardID, 'PLAY');   // tokens are set aside, not discarded
         // "A friendly upgrade was defeated" observers (ASH_039 flag, ASH_055 return, ASH_161 deal 1) — this
-        // is the host-defeated path (parallel to SWUDefeatUpgrade / _SWUDefeatAllUpgradesOn).
+        // is the host-defeated path (parallel to SWUDefeatUpgrade / _SWUDefeatAllUpgradesOn). Fires for
+        // tokens too; only the DESTINATION differs between a token and a real upgrade.
         $subCtrl = is_array($sub) ? intval($sub['Controller'] ?? $subOwner) : intval($sub->Controller ?? $subOwner);
         _SWUOnUpgradeDefeated($subCtrl > 0 ? $subCtrl : intval($host->Controller ?? $subOwner), $subCardID, $host, $subOwner);
     }
@@ -885,8 +890,13 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
             $ldr->Ready           = false;
             $ldr->Damage          = 0;
         }
-    // Tokens are set aside (removed from game); non-tokens go to owner's discard or hand.
-    } elseif (strpos(strtolower(CardType($foundCardID) ?? ''), 'token') === false) {
+    // Tokens are set aside (removed from game); non-tokens go to owner's discard or hand. Either way a
+    // non-bounced upgrade is DEFEATED, so the observers fire for both — see the token branch below.
+    } elseif (strpos(strtolower(CardType($foundCardID) ?? ''), 'token') !== false) {
+        // A token upgrade defeated on its own (host survives). Set aside, no discard — but still defeated,
+        // so the observers fire. A BOUNCED token is not defeated and must not fire.
+        if (!$bounce) _SWUOnUpgradeDefeated(intval($foundCtrl), $foundCardID, $host, intval($foundOwner));
+    } else {
         if ($bounce) {
             AddHand($foundOwner, CardID: $foundCardID);
         } elseif ($foundCardID === 'TWI_069'
@@ -1461,6 +1471,17 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     if (_SWULeaderDeployed($activePlayer, 'ASH_016')) {
         AddTrigger($activePlayer, 'ASH_016#1', 'ASH_016#1', $attackerMzID, strval(intval($combatCtx['baseCombatDmg'] ?? 0)));   // deployed (once/round)
     }
+    // ASH_005 Luke Skywalker (DEPLOYED unit side) — "When a friendly unit's attack ends: Heal 2 damage from
+    // that unit OR from your base." A field observer on the LEADER, not one of the attacker's own
+    // abilities, so it must fire even when the attacker died: the base is still a legal heal source.
+    // CR 16.c — firing on a dead attacker is the DEFAULT; survival is a per-card opt-in and ASH_005 is
+    // deliberately absent from _SWUAttackEndRequiresSurvival. Sits here alongside the ASH_013 Ezra /
+    // ASH_016 Shin leader observers, which were moved above this same early-return for the same reason.
+    // ⚠ The UNDEPLOYED side stays BELOW: it heals only "that unit", so with the attacker gone it has no
+    // legal target and offering it would be a fizzle-only optional.
+    if (_SWULeaderDeployed($activePlayer, 'ASH_005')) {
+        AddTrigger($activePlayer, 'ASH_005#1', 'ASH_005#1', $attackerMzID);
+    }
     if (SWUObjGone($attacker)) return; // attacker defeated → its OWN triggers don't fire
     if (LostAbilities($attacker)) return; // SEC_046 Galen — a named attacker fires no "deals combat damage" trigger
     $cardID = $attacker->CardID ?? '';
@@ -1472,101 +1493,112 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
         && !empty($combatCtx['dealtToUnit']) && empty($combatCtx['defenderIsLeader'])) {
         AddTrigger($activePlayer, 'ASH_101', 'ASH_101', $defenderMzID);
     }
-    switch ($cardID) {
-        case 'SOR_085': // Rukh — "deals combat damage to a non-leader unit while attacking: defeat it."
-            if (!empty($combatCtx['dealtToUnit']) && empty($combatCtx['defenderIsLeader'])) {
-                AddTrigger($activePlayer, 'SOR_085', 'SOR_085', $defenderMzID);
-            }
-            break;
-        case 'SOR_149': // Mace Windu — "attacks and defeats a unit: ready him."
-            if (!empty($combatCtx['defenderDefeated'])) {
-                AddTrigger($activePlayer, 'SOR_149', 'SOR_149', $attackerMzID);
-            }
-            break;
-        case 'LAW_033': // Hound's Tooth — "When Attack Ends: if this unit survived, you may defeat a unit
-                        // with less power than this unit." (Survival gated at line 665; fires on any attack.)
-                        // A defender's parked When-Defeated (e.g. Raddus's "deal damage equal to power")
-                        // can still kill it — relay behind those so "survived" is real before offering.
-            if (!_SWUAttackEndCrossPlayerOrderSeam(intval($activePlayer), 'LAW_033', intval($attacker->UniqueID ?? 0), 'LAW_033')) {
-                AddTrigger($activePlayer, 'LAW_033', 'LAW_033', $attackerMzID);
-            }
-            break;
-        case 'LAW_034': // Chewbacca — "When Attack Ends: if the defending unit was defeated, give it an
-                        // Experience token and heal 3 from him." (Attacker survived — gated at line 665.)
-            if (!empty($combatCtx['defenderDefeated'])) {
-                AddTrigger($activePlayer, 'LAW_034', 'LAW_034', $attackerMzID);
-            }
-            break;
-        // LAW_252 Fett's Firespray — handled ABOVE the survival early-return (its credit fires even when
-        // Firespray itself is defeated, since it has no "if this unit survived" clause).
-        case 'LAW_046': // Chirrut Îmwe — "When Attack Ends: if this unit dealt combat damage to a base,
-                        // you may heal 4 from another unit."
-            if (!empty($combatCtx['dealtToBase'])) {
-                AddTrigger($activePlayer, 'LAW_046', 'LAW_046', $attackerMzID);
-            }
-            break;
-        case 'SEC_209': // The Mandalorian — "attacks and defeats a unit: may capture an enemy non-leader unit."
-            if (!empty($combatCtx['defenderDefeated'])) {
-                AddTrigger($activePlayer, 'SEC_209', 'SEC_209', $attackerMzID);
-            }
-            break;
-        case 'SHD_122': // Arquitens Assault Cruiser — attacks & defeats a NON-LEADER unit → put the defeated
-                        // unit into play as a resource under YOUR control. Payload (CardID~owner) rides the
-                        // mzID slot (FlushTriggerBag drops extraParams); resolved from the owner's discard.
-            if (!empty($combatCtx['defenderDefeated']) && empty($combatCtx['defenderIsLeader'])) {
-                AddTrigger($activePlayer, 'SHD_122', 'SHD_122',
-                    ($combatCtx['defenderCardID'] ?? '') . '~' . intval($combatCtx['defenderOwner'] ?? 0));
-            }
-            break;
-        case 'SEC_088': // First Light — "attacks and defeats a unit: may draw a card."
-            if (!empty($combatCtx['defenderDefeated'])) {
-                AddTrigger($activePlayer, 'SEC_088', 'SEC_088', $attackerMzID);
-            }
-            break;
-        case 'SOR_133': // Seventh Sister — "deals combat damage to an opponent's base: may deal 3 to a ground unit."
-            if (!empty($combatCtx['dealtToBase'])) {
-                AddTrigger($activePlayer, 'SOR_133', 'SOR_133', '');
-            }
-            break;
-        case 'LOF_166': // Blockade Runner — deals combat damage to a base: may give Exp to itself.
-            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'LOF_166', 'LOF_166', $attackerMzID);
-            break;
-        case 'SEC_150': // Valiant Commando — deals combat damage to a base: may defeat itself → 3 to that base.
-            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_150', 'SEC_150', $attackerMzID);
-            break;
-        case 'SEC_147': // Chopper — deals combat damage to a base: each player discards a card from hand.
-            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_147', 'SEC_147', $attackerMzID);
-            break;
-        case 'SEC_205': // Obi-Wan Kenobi — deals combat damage to a base: mill the defending player's deck,
-                        // then may play that card from their discard this phase, ignoring aspect penalties.
-            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_205', 'SEC_205', $attackerMzID);
-            break;
-        case 'JTL_188': // Moff Gideon — deals combat damage to an opponent's base → that opponent's unit
-                        // plays cost 1 more this phase (static flag; no decision).
-            if (!empty($combatCtx['dealtToBase'])) {
-                AddGlobalEffects(SWUMzOwner($defenderMzID, $activePlayer), 'SWU_GIDEON_TAX'); // "that opponent" whose base was hit
-            }
-            break;
-        case 'SOR_088': // Blizzard Assault AT-AT — "attacks and defeats a unit: may deal the excess to an enemy ground unit."
-            if (!empty($combatCtx['defenderDefeated']) && intval($combatCtx['excess'] ?? 0) > 0) {
-                AddTrigger($activePlayer, 'SOR_088', 'SOR_088', '', strval(intval($combatCtx['excess'])));
-            }
-            break;
-        case 'SHD_138': // Jango Fett — "When this unit attacks and defeats a unit: Draw a card."
-            if (!empty($combatCtx['defenderDefeated'])) AddTrigger($activePlayer, 'SHD_138', 'SHD_138', '');
-            break;
-        case 'SHD_147': // Ketsu Onyo — "deals combat damage to a base: may defeat an upgrade costing 2 or less."
-            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SHD_147', 'SHD_147', '');
-            break;
-        case 'SEC_017': // Sabé (deployed) — deals combat damage to a base: look at the defending player's
-                        // hand, may discard a card; if you do, that player draws.
-            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_017', 'SEC_017', '');
-            break;
-        case 'LAW_054': // Maul — "When Attack Ends: if this unit dealt combat damage to a player's base,
-                        // you may take control of a non-leader unit that player controls (reverts when
-                        // Maul leaves play)."
-            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'LAW_054', 'LAW_054', $attackerMzID);
-            break;
+    // A unit may attack with ANOTHER card's abilities — Support lends them, and ASH_230 Improvised
+    // Identity grants a discarded unit's for one attack. Both ride the same SUPPORT_GRANT marker, so the
+    // combat-hit triggers below must be dispatched for the granted CardID as well as the attacker's own.
+    // (The marker is stripped before the attack-END path runs, hence the combatCtx fallback.)
+    // ⚠ Duplicates are DELIBERATE: a card that gains its OWN abilities fires them twice — Jango Fett
+    // gaining Jango Fett draws two cards, per the printed "gains the discarded unit's abilities".
+    $effectiveAttackCardIDs = [$cardID];
+    $sgAttackID = $combatCtx['supportGrant']['cardID'] ?? (_SWUSupportGrant($attacker)['cardID'] ?? '');
+    if ($sgAttackID !== '') $effectiveAttackCardIDs[] = $sgAttackID;
+    foreach ($effectiveAttackCardIDs as $cardID) {
+        switch ($cardID) {
+            case 'SOR_085': // Rukh — "deals combat damage to a non-leader unit while attacking: defeat it."
+                if (!empty($combatCtx['dealtToUnit']) && empty($combatCtx['defenderIsLeader'])) {
+                    AddTrigger($activePlayer, 'SOR_085', 'SOR_085', $defenderMzID);
+                }
+                break;
+            case 'SOR_149': // Mace Windu — "attacks and defeats a unit: ready him."
+                if (!empty($combatCtx['defenderDefeated'])) {
+                    AddTrigger($activePlayer, 'SOR_149', 'SOR_149', $attackerMzID);
+                }
+                break;
+            case 'LAW_033': // Hound's Tooth — "When Attack Ends: if this unit survived, you may defeat a unit
+                            // with less power than this unit." (Survival gated at line 665; fires on any attack.)
+                            // A defender's parked When-Defeated (e.g. Raddus's "deal damage equal to power")
+                            // can still kill it — relay behind those so "survived" is real before offering.
+                if (!_SWUAttackEndCrossPlayerOrderSeam(intval($activePlayer), 'LAW_033', intval($attacker->UniqueID ?? 0), 'LAW_033')) {
+                    AddTrigger($activePlayer, 'LAW_033', 'LAW_033', $attackerMzID);
+                }
+                break;
+            case 'LAW_034': // Chewbacca — "When Attack Ends: if the defending unit was defeated, give it an
+                            // Experience token and heal 3 from him." (Attacker survived — gated at line 665.)
+                if (!empty($combatCtx['defenderDefeated'])) {
+                    AddTrigger($activePlayer, 'LAW_034', 'LAW_034', $attackerMzID);
+                }
+                break;
+            // LAW_252 Fett's Firespray — handled ABOVE the survival early-return (its credit fires even when
+            // Firespray itself is defeated, since it has no "if this unit survived" clause).
+            case 'LAW_046': // Chirrut Îmwe — "When Attack Ends: if this unit dealt combat damage to a base,
+                            // you may heal 4 from another unit."
+                if (!empty($combatCtx['dealtToBase'])) {
+                    AddTrigger($activePlayer, 'LAW_046', 'LAW_046', $attackerMzID);
+                }
+                break;
+            case 'SEC_209': // The Mandalorian — "attacks and defeats a unit: may capture an enemy non-leader unit."
+                if (!empty($combatCtx['defenderDefeated'])) {
+                    AddTrigger($activePlayer, 'SEC_209', 'SEC_209', $attackerMzID);
+                }
+                break;
+            case 'SHD_122': // Arquitens Assault Cruiser — attacks & defeats a NON-LEADER unit → put the defeated
+                            // unit into play as a resource under YOUR control. Payload (CardID~owner) rides the
+                            // mzID slot (FlushTriggerBag drops extraParams); resolved from the owner's discard.
+                if (!empty($combatCtx['defenderDefeated']) && empty($combatCtx['defenderIsLeader'])) {
+                    AddTrigger($activePlayer, 'SHD_122', 'SHD_122',
+                        ($combatCtx['defenderCardID'] ?? '') . '~' . intval($combatCtx['defenderOwner'] ?? 0));
+                }
+                break;
+            case 'SEC_088': // First Light — "attacks and defeats a unit: may draw a card."
+                if (!empty($combatCtx['defenderDefeated'])) {
+                    AddTrigger($activePlayer, 'SEC_088', 'SEC_088', $attackerMzID);
+                }
+                break;
+            case 'SOR_133': // Seventh Sister — "deals combat damage to an opponent's base: may deal 3 to a ground unit."
+                if (!empty($combatCtx['dealtToBase'])) {
+                    AddTrigger($activePlayer, 'SOR_133', 'SOR_133', '');
+                }
+                break;
+            case 'LOF_166': // Blockade Runner — deals combat damage to a base: may give Exp to itself.
+                if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'LOF_166', 'LOF_166', $attackerMzID);
+                break;
+            case 'SEC_150': // Valiant Commando — deals combat damage to a base: may defeat itself → 3 to that base.
+                if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_150', 'SEC_150', $attackerMzID);
+                break;
+            case 'SEC_147': // Chopper — deals combat damage to a base: each player discards a card from hand.
+                if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_147', 'SEC_147', $attackerMzID);
+                break;
+            case 'SEC_205': // Obi-Wan Kenobi — deals combat damage to a base: mill the defending player's deck,
+                            // then may play that card from their discard this phase, ignoring aspect penalties.
+                if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_205', 'SEC_205', $attackerMzID);
+                break;
+            case 'JTL_188': // Moff Gideon — deals combat damage to an opponent's base → that opponent's unit
+                            // plays cost 1 more this phase (static flag; no decision).
+                if (!empty($combatCtx['dealtToBase'])) {
+                    AddGlobalEffects(SWUMzOwner($defenderMzID, $activePlayer), 'SWU_GIDEON_TAX'); // "that opponent" whose base was hit
+                }
+                break;
+            case 'SOR_088': // Blizzard Assault AT-AT — "attacks and defeats a unit: may deal the excess to an enemy ground unit."
+                if (!empty($combatCtx['defenderDefeated']) && intval($combatCtx['excess'] ?? 0) > 0) {
+                    AddTrigger($activePlayer, 'SOR_088', 'SOR_088', '', strval(intval($combatCtx['excess'])));
+                }
+                break;
+            case 'SHD_138': // Jango Fett — "When this unit attacks and defeats a unit: Draw a card."
+                if (!empty($combatCtx['defenderDefeated'])) AddTrigger($activePlayer, 'SHD_138', 'SHD_138', '');
+                break;
+            case 'SHD_147': // Ketsu Onyo — "deals combat damage to a base: may defeat an upgrade costing 2 or less."
+                if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SHD_147', 'SHD_147', '');
+                break;
+            case 'SEC_017': // Sabé (deployed) — deals combat damage to a base: look at the defending player's
+                            // hand, may discard a card; if you do, that player draws.
+                if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_017', 'SEC_017', '');
+                break;
+            case 'LAW_054': // Maul — "When Attack Ends: if this unit dealt combat damage to a player's base,
+                            // you may take control of a non-leader unit that player controls (reverts when
+                            // Maul leaves play)."
+                if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'LAW_054', 'LAW_054', $attackerMzID);
+                break;
+        }
     }
 
     // SHD_143 Ruthlessness (granted upgrade) — "When this unit attacks and defeats a unit: Deal 2 damage
@@ -1723,11 +1755,6 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // leader; if you do, heal 1 damage from that unit." Fires for the attacking player's ready, undeployed Luke.
     if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_005')) {
         AddTrigger($activePlayer, 'ASH_005', 'ASH_005', $attackerMzID);
-    }
-    // ASH_005 Luke Skywalker (DEPLOYED unit side) — "When a friendly unit's attack ends: Heal 2 damage from
-    // that unit or from your base." Field observer while Luke is deployed; fires for ANY friendly attack.
-    if (_SWULeaderDeployed($activePlayer, 'ASH_005')) {
-        AddTrigger($activePlayer, 'ASH_005#1', 'ASH_005#1', $attackerMzID);
     }
     // (ASH_013 Ezra + ASH_016 Shin leader-observer hooks moved ABOVE the attacker-survival early-return —
     //  they are field observers on the leader and must fire even when the attacker dies dealing base damage.)
@@ -2362,7 +2389,7 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // offer could only ever be a no-op. Same "skip the pointless offer" rule as SEC_186/SEC_210.
     // The predicate is shared with the resolver below rather than duplicated — an offer gated on one
     // rule and resolved by another is how this diverges again.
-    if (($attacker->CardID ?? '') === 'LAW_086' && strpos($targetMzID, 'Arena') !== false
+    if (_SWUAttackerGrants($attacker, 'LAW_086') && strpos($targetMzID, 'Arena') !== false
         && !_SWUAttackerDealsDamageFirst($attacker)) {
         DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
             tooltip: "Have_the_defending_unit_deal_combat_damage_first?");
@@ -2676,7 +2703,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $attackPower = max(0, $attackPower - 2);
     }
     // JTL_259 Retrofitted Airspeeder: "While attacking a space unit, this unit gets -1/-0."
-    if (($attacker->CardID ?? '') === 'JTL_259' && $target !== null && empty($target->removed)
+    if (_SWUAttackerGrants($attacker, 'JTL_259') && $target !== null && empty($target->removed)
         && strpos((string)$targetMzID, 'SpaceArena') !== false) {
         $attackPower = max(0, $attackPower - 1);
     }
@@ -3320,7 +3347,7 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
     }
     // JTL_259 Retrofitted Airspeeder: "This unit can attack space units." A GROUND unit that also
     // targets enemy SPACE units (cross-arena).
-    if ($attackerObj !== null && ($attackerObj->CardID ?? '') === 'JTL_259' && $arenaName === 'GroundArena') {
+    if (_SWUAttackerGrants($attackerObj, 'JTL_259') && $arenaName === 'GroundArena') {
         $spaceArena = GetZone("{$tp}SpaceArena");
         for ($i = 0; $i < count($spaceArena); $i++) {
             $u = $spaceArena[$i];
@@ -3415,13 +3442,20 @@ function _SWUDirectionalCantAttackBlocksAll($unit): bool {
     return in_array(intval($opps[0]), array_map('intval', $seats), true);
 }
 
+// The printed "This unit can't attack" roster, at CARD-ID level. Split out so a caller that only has a
+// CardID — e.g. ASH_230 Improvised Identity deciding whether to even OFFER its "you may attack" after
+// discarding that card — asks the same question as the in-play checks below. Add new cards here only.
+function _SWUCardIDCantAttack(string $cid): bool {
+    return $cid === 'JTL_059' || $cid === 'LOF_044';
+}
+
 function _SWUUnitHardCantAttack($unit): bool {
     if ($unit === null) return false;
     $cid = $unit->CardID ?? '';
     // The printed "This unit can't attack" is the unit's OWN constant ability, so a blank (SEC_054
     // Exiled from the Force) removes it. The CANT_ATTACK turn-effect below is an external restriction,
     // not an ability of the unit, and survives blanking.
-    if (($cid === 'JTL_059' || $cid === 'LOF_044') && !LostAbilities($unit)) return true;
+    if (_SWUCardIDCantAttack($cid) && !LostAbilities($unit)) return true;
     if (is_array($unit->TurnEffects ?? null) && in_array('CANT_ATTACK', $unit->TurnEffects, true)) return true;
     if (_SWUDirectionalCantAttackBlocksAll($unit)) return true;
     return false;
@@ -3436,7 +3470,7 @@ function _SWUUnitCanAttackNow(int $player, $unit, string $arenaName): bool {
     if (intval($unit->Status ?? 0) !== 1) return false;                        // exhausted
     $cid = $unit->CardID ?? '';
     $blanked = LostAbilities($unit);   // a blanked unit keeps none of these printed restrictions
-    if (!$blanked && ($cid === 'JTL_059' || $cid === 'LOF_044')) return false; // "This unit can't attack."
+    if (!$blanked && _SWUCardIDCantAttack($cid)) return false; // "This unit can't attack."
     if (!$blanked && $cid === 'LOF_063' && intval($unit->Damage ?? 0) <= 0) return false;   // Oggdo Bogdo — only while damaged
     return !empty(SWUGetAllValidAttackTargets($player, $unit, $arenaName));
 }
@@ -3582,7 +3616,10 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     //   • ≥2 legal units + base NOT legal (2+ Sentinels) → straight to the MZMULTICHOOSE (1 or 2).
     //   • ≤1 legal unit → fall through to the ordinary single-attack path (1 unit + base = a normal
     //     2-target prompt; a lone Sentinel = auto-resolve).
-    if (($attacker->CardID ?? '') === 'TWI_135') {
+    // _SWUAttackerGrants, not a bare CardID: "can attack 2 units instead of 1" is a CONSTANT ability, so
+    // it transplants with the rest — via Support's lend, or ASH_230 Improvised Identity's discard-and-gain
+    // (both ride the same SUPPORT_GRANT marker).
+    if (_SWUAttackerGrants($attacker, 'TWI_135')) {
         $baseMz = null; $legalUnits = [];
         foreach ($validTargets as $t) {
             if (strpos((string)$t, 'Base') !== false) $baseMz = $t;

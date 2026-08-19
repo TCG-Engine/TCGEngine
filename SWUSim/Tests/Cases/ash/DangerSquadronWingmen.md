@@ -133,3 +133,28 @@ P1OnlyActions: true
 P2BASEDMG:4
 P2GROUNDARENAUNIT:1:ISLEADERUNIT
 P2GROUNDARENAUNIT:1:ADVANTAGECOUNT:1
+
+---
+
+# Offer_AnotherUnit_SpansBOTHSidesAndExcludesItself
+#// ASH_157 — "give an Advantage token to ANOTHER unit". The text carries no "friendly", so per the
+#// unqualified-target rule the pool is EVERY unit in play except this one — the opponent's included.
+#// Two enemies and one other friendly are seated so the pool has three entries and cannot auto-resolve;
+#// the attacker itself must be absent, which is the "another" half.
+#// Asserted while pending: answering would prove only that one target works, never that the enemy units
+#// were offered at all.
+
+## GIVEN
+CommonSetup: rrw/rrk
+P1OnlyActions: true
+WithP1GroundArena: ASH_157:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_028:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-0
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_a_unit
+P1SELECTABLEEXACT:myGroundArena-1&theirGroundArena-0&theirGroundArena-1

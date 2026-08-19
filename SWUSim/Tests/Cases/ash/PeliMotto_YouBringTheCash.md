@@ -136,3 +136,79 @@ WithP2Hand: ASH_180
 ## EXPECT
 P1RESAVAILABLE:2
 P2RESAVAILABLE:4
+
+---
+
+# PilotAsUpgrade_GetsTheAspectWaiver
+#// ASH_212 — USER RULING (2026-08-18): **a unit played AS A PILOT UPGRADE counts as a non-unit card**, so
+#// Peli's "ignore the aspect penalties of the first non-unit card you play each phase" applies to it.
+#// SWUSim had deliberately excluded pilots ("Pilots are UNIT cards → don't count"); that exclusion is
+#// overturned by the ruling.
+#// JTL_058 Academy Graduate is Vigilance with a Piloting cost of 2. P1's board (Cunning base + Cunning /
+#// Villainy leader) does NOT cover Vigilance, so the penalty is +2 → 4 without the waiver, 2 with it.
+#// Peli is seated (not played), so she is not herself the phase's first non-unit card.
+
+## GIVEN
+CommonSetup: yyk/rrk/{handCardIds:JTL_058}
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1GroundArena: ASH_212:1:0
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1RESAVAILABLE:6
+
+---
+
+# CONTROL_PilotAsUpgrade_WithoutPeli_PaysTheFullPenalty
+#// ASH_212 — the control. Identical board with Peli absent: the same pilot play costs 2 + 2 = 4.
+#// This is what makes the section above a measurement rather than an assertion about an arbitrary number.
+
+## GIVEN
+CommonSetup: yyk/rrk/{handCardIds:JTL_058}
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1RESAVAILABLE:4
+
+---
+
+# PilotAsUpgrade_CONSUMESTheSlot_SoALaterNonUnitPaysFull
+#// ASH_212 — the other half of the ruling: the pilot play is not merely eligible for the waiver, it USES
+#// it, so the phase's next non-unit card gets no waiver.
+#// P1 plays the pilot (waived, 2), then plays SOR_073 Moment of Peace — a cost-1 VIGILANCE event, which is
+#// off-aspect for this Cunning/Villainy board and so carries a +2 penalty.
+#//   slot consumed (correct): 8 − 2 (waived pilot) − 3 (1 + 2 penalty) = 3
+#//   slot NOT consumed:       8 − 2 (waived pilot) − 1 (event waived too) = 5
+#// ⚠ The second card MUST be off-aspect. An aspect-less one (SOR_251 Confiscate) makes the waiver worth
+#// zero, so both outcomes total the same and the section cannot fail — that was this guard's first
+#// encoding, and the mutation caught it.
+
+## GIVEN
+CommonSetup: yyk/rrk/{handCardIds:JTL_058}
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: SOR_073
+WithP1GroundArena: ASH_212:1:0
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1RESAVAILABLE:3

@@ -162,3 +162,32 @@ WithP1GroundArena: SEC_135:0:0
 - P1>AnswerDecision:myGroundArena-0
 ## EXPECT
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1
+
+---
+
+# Deployed_Offer_ANOTHEREXHAUSTEDFriendlyUnit_Only
+#// ASH_015 (DEPLOYED) — "On Attack: you may choose ANOTHER EXHAUSTED FRIENDLY unit." Two filters plus a
+#// self-exclusion, so the board carries one violator of each:
+#//   • a READY friendly     — excluded by "exhausted"
+#//   • an EXHAUSTED ENEMY   — excluded by "friendly"
+#//   • Palpatine himself    — excluded by "another" (he is exhausted while attacking, so without the
+#//                            self-exclusion he would qualify — which is exactly why he is the sharp case)
+#// Two exhausted friendlies are seated so the pool has 2 entries and cannot auto-resolve.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myLeader:ASH_015:1:1:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:0:0
+WithP1GroundArena: SEC_028:0:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_128:0:0
+WithP1Deck: [SOR_063 SOR_063]
+WithP2Deck: [SOR_063 SOR_063]
+
+## WHEN
+- P1>AttackGroundArena:3:theirGroundArena-0
+
+## EXPECT
+P1DECISIONTOOLTIP:Give_an_Advantage_token_per_other_friendly_unit
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1

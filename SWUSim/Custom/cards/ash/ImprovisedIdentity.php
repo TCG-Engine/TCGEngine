@@ -34,6 +34,12 @@ $customDQHandlers["ASH_230#0"] = function($player, $parts, $lastDecision) {
     $hostMz = SWUFindMzByUID($hostUID);
     $host   = $hostMz !== null ? GetZoneObject($hostMz) : null;
     if (SWUObjGone($host) || intval($host->Status) !== 1) { SWUAfterAction(intval($player)); return; }
+    // USER RULING (2026-08-18): if the discarded card carries a printed "This unit can't attack", the host
+    // gains that too — and "cannot" beats "can", so the optional attack is NOT OFFERED AT ALL. The clause
+    // is a "you may", so there is simply no resolution rather than an offer that later fizzles.
+    // Checked on the DISCARDED CardID because the SUPPORT_GRANT marker is not applied until ASH_230#1,
+    // after this prompt; _SWUCardIDCantAttack is the shared roster the in-play checks use.
+    if ($discardedID !== '' && _SWUCardIDCantAttack($discardedID)) { SWUAfterAction(intval($player)); return; }
     $tip = $discardedID !== ''
         ? ("Attack_with_this_unit_(gaining_" . GameLogCardRef($discardedID) . "'s_abilities)?")
         : "Attack_with_this_unit?";

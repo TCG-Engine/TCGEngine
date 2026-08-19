@@ -2545,7 +2545,11 @@ function _SWUSec008HealOnResourcePlay(int $player): void {
     $n = _SWUCountUnitsWithCardID($player, 'SEC_008');
     for ($i = 0; $i < $n; $i++) OnHealBase($player, $player, 1);
 }
-function SWUAspectPenalty($player, $cardID): int {
+// $asPilot = this play is a Piloting unit being played AS AN UPGRADE. It matters only to ASH_212 Peli
+// Motto below: such a play counts as a NON-UNIT card (USER RULING 2026-08-18), even though the card's
+// printed type is Unit. Passed only by SWUComputePilotCost — the single pilot-cost chokepoint, used by
+// BOTH the affordability check and the charge — so the offer and the payment cannot disagree.
+function SWUAspectPenalty($player, $cardID, bool $asPilot = false): int {
     $raw = CardAspect($cardID);
     if ($raw === null || $raw === '') return 0;
 
@@ -2583,7 +2587,9 @@ function SWUAspectPenalty($player, $cardID): int {
 
     // ASH_212 Peli Motto: "Ignore the aspect penalties of the first non-unit card you play each phase."
     // The waiver applies until SWU_ASH212_USED is set (locked in by ActivateCard on the first non-unit play).
-    if (stripos(CardType($cardID) ?? '', 'Unit') === false
+    // A Piloting unit played AS AN UPGRADE counts as a non-unit card here (USER RULING): the printed type
+    // is still Unit, so $asPilot is what distinguishes the two ways the same card can be played.
+    if ((stripos(CardType($cardID) ?? '', 'Unit') === false || $asPilot)
             && GlobalEffectCount(intval($player), 'SWU_ASH212_USED') <= 0
             && _SWUControlsCardInPlay(intval($player), 'ASH_212')) {
         return 0;
@@ -3304,7 +3310,7 @@ function SWUComputePilotCost($player, $obj, $host = null): int {
     // (SWUGetPilotValidTargets) AND the charge (_SWUFinalizeUpgradeAttach) — so the two stay
     // consistent. Consumed once in _SWUFinalizeUpgradeAttach after a successful pilot pay.
     $discount = GlobalEffectCount(intval($player), 'SWU_PILOT_DISCOUNT');
-    return max(0, intval($base) + SWUAspectPenalty($player, $cardID) - $discount);
+    return max(0, intval($base) + SWUAspectPenalty($player, $cardID, true) - $discount);
 }
 
 // Create a unit token ($tokenID) for $player in the token's printed arena (Ground/Space).
@@ -4111,13 +4117,27 @@ function _SWUDefeatAllAdvantageTokens($targetMZ): int {
     // post-combat shed for any unit whose controller has an Eviscerator in play.
     $ctrl149 = intval($obj->Controller ?? 0);
     if ($ctrl149 > 0 && _SWUControlsCardInPlay($ctrl149, 'ASH_149')) return 0;
+    $owner   = intval($obj->Owner ?? $obj->Controller ?? 0);
+    $ctrl    = intval($obj->Controller ?? $owner);
     $removed = 0;
+    $shed    = [];                       // per-token owner, for the observer below
     foreach ($obj->Subcards as $i => $sub) {
         $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $rem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
-        if (!$rem && $cid === 'ASH_T02') { unset($obj->Subcards[$i]); $removed++; }
+        if (!$rem && $cid === 'ASH_T02') {
+            $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $owner) : intval($sub->Owner ?? $owner);
+            $shed[] = $subOwner > 0 ? $subOwner : $owner;
+            unset($obj->Subcards[$i]); $removed++;
+        }
     }
     if ($removed > 0) $obj->Subcards = array_values($obj->Subcards);
+    // An Advantage token IS an upgrade, so shedding it DEFEATS it and every "when a friendly upgrade is
+    // defeated" observer fires — ONCE PER TOKEN (ASH_161 Zeb, ASH_039's phase flag, ASH_055). This shed was
+    // the one leave-play path that spliced the subcard out without the observer while the other eight
+    // (shield-consumed, defeated-with-host, both capture paths, defeat-all-upgrades) all call it.
+    // Fired AFTER the removal + reindex so an observer that reads the host's remaining subcards sees the
+    // post-shed state, and never mid-loop over the array being mutated.
+    foreach ($shed as $subOwner) _SWUOnUpgradeDefeated($ctrl, 'ASH_T02', $obj, $subOwner);
     return $removed;
 }
 
@@ -4166,10 +4186,14 @@ function _SWUDefeatAllUpgradesOn($targetMZ): int {
         $isCaptive = is_array($sub) ? !empty($sub['IsCaptive'])   : !empty($sub->IsCaptive);
         $subOwner  = is_array($sub) ? intval($sub['Owner'] ?? $owner) : intval($sub->Owner ?? $owner);
         if ($rem || $isCaptive || $cid === '') continue;
+        // Only a REAL upgrade goes to a discard pile; a token upgrade is set aside (CR 3.2) …
         if (strpos(strtolower(CardType($cid) ?? ''), 'token') === false) {
             SWUAddToDiscard($subOwner > 0 ? $subOwner : $owner, $cid, 'PLAY');
-            _SWUOnUpgradeDefeated(intval($obj->Controller ?? $owner), $cid, $obj, $subOwner > 0 ? $subOwner : $owner);
         }
+        // … but BOTH are DEFEATED, so the observer fires either way. Keeping it inside the branch above
+        // made this site disagree with SWUConsumeShieldToken and the Advantage shed, which both fire for
+        // tokens. Third of the three sites that carried the same mistake.
+        _SWUOnUpgradeDefeated(intval($obj->Controller ?? $owner), $cid, $obj, $subOwner > 0 ? $subOwner : $owner);
         unset($obj->Subcards[$i]); $removed++;
     }
     if ($removed > 0) $obj->Subcards = array_values($obj->Subcards);
@@ -4200,10 +4224,19 @@ function _SWUDefeatNamedUpgrade($obj, string $upgradeCardID): bool {
 function _SWUDefeatOneAdvantageToken($targetMZ): bool {
     $obj = GetZoneObject($targetMZ);
     if (SWUObjGone($obj) || !is_array($obj->Subcards ?? null)) return false;
+    $owner = intval($obj->Owner ?? $obj->Controller ?? 0);
+    $ctrl  = intval($obj->Controller ?? $owner);
     foreach ($obj->Subcards as $i => $sub) {
         $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $rem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
-        if (!$rem && $cid === 'ASH_T02') { array_splice($obj->Subcards, $i, 1); return true; }
+        if (!$rem && $cid === 'ASH_T02') {
+            $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $owner) : intval($sub->Owner ?? $owner);
+            array_splice($obj->Subcards, $i, 1);
+            // Same observer as the defeat-all path — the one-at-a-time branch must not differ from
+            // "defeat all" in what it fires, only in when.
+            _SWUOnUpgradeDefeated($ctrl, 'ASH_T02', $obj, $subOwner > 0 ? $subOwner : $owner);
+            return true;
+        }
     }
     return false;
 }

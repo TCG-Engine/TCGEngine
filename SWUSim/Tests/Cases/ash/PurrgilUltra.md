@@ -134,3 +134,28 @@ P1GROUNDARENACOUNT:1
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# Offer_AnotherFriendlyNONLEADERUnit_ExcludesSelfLeaderAndEnemies
+#// ASH_038 — "return ANOTHER FRIENDLY NON-LEADER unit". Three restrictions stack, and only a board that
+#// violates each one separately can tell them apart. The pool must contain exactly the two ordinary
+#// friendly units:
+#//   • Purrgil itself       — excluded by "another"
+#//   • the deployed leader  — excluded by "non-leader" (it is a friendly unit in the arena)
+#//   • the enemy unit       — excluded by "friendly"
+#// Asserted while pending; answering would exercise one target and prove nothing about the other three.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myResources:12; handCardIds:ASH_038; myLeaderDeployed:true}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: SOR_225:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SEC_028:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0

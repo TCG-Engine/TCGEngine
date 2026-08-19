@@ -94,7 +94,7 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
 #// LOF_105 Oppo Rancisis gains Shielded while another friendly unit has Shielded, and — because he has
 #// Shielded as he ENTERS play — gets a Shield token. Donor SOR_207 Crafty Smuggler (Shielded) is already
 #// in play; Oppo is played from hand and enters with a shield. (Intended: "should gain Shielded when a friendly
-#// unit has Shielded" — toHaveExactUpgradeNames(['shield']).)
+#// unit has Shielded" — the unit's only upgrade is a Shield token.)
 
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:3;handCardIds:LOF_105}

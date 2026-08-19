@@ -572,10 +572,15 @@ function _SWUFinalizeUpgradeAttach(
     }
     // ASH_212 Peli Motto — a real Upgrade card charges its cost HERE (not in ActivateCard, which excludes
     // upgrades), so mark the "first non-unit played this phase" flag now that the (possibly-waived) cost is
-    // locked in. Pilots ($isPilot) are UNIT cards → don't count. Cleared at RegroupPhaseStart.
+    // locked in. Cleared at RegroupPhaseStart.
+    // ⚠ PILOTS COUNT (USER RULING 2026-08-18). A Piloting unit played AS AN UPGRADE is a non-unit play, so
+    // it both receives the waiver (SWUAspectPenalty's $asPilot) and CONSUMES the once-per-phase slot. This
+    // used to read `!$isPilot` with the comment "Pilots are UNIT cards → don't count"; that is overturned.
+    // A pilot's printed CardType is Unit, so the Upgrade type-check cannot see it — hence the explicit
+    // $isPilot arm rather than a widened type test.
     if (
-      !$isPilot && GlobalEffectCount($player, 'SWU_ASH212_USED') <= 0
-      && stripos(CardType($upgradeForCost->CardID ?? '') ?? '', 'Upgrade') !== false
+      GlobalEffectCount($player, 'SWU_ASH212_USED') <= 0
+      && ($isPilot || stripos(CardType($upgradeForCost->CardID ?? '') ?? '', 'Upgrade') !== false)
     ) {
       AddGlobalEffects($player, 'SWU_ASH212_USED');
     }

@@ -425,3 +425,113 @@ P1OnlyActions: true
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P2BASEDMG:1
+
+---
+
+# TokenUpgrade_ExperienceOnACombatDefeatedHost_FiresZeb
+#// ASH_161 — a TOKEN upgrade is still an UPGRADE, so when its host is defeated the token is defeated with
+#// it and "when a friendly upgrade is defeated" fires. SOR_095 carrying an Experience token attacks a 4/7
+#// and dies to the counter; Zeb deals 1 to a base.
+#// CONTROL for this and the two below: FriendlyUpgradeDefeatedDirectly_HostSurvives and
+#// ShieldTokenConsumedInCombat_ZebTriggers already prove Zeb fires for a REAL upgrade and for a Shield
+#// consumed in combat — so a failure here is about the TOKEN-on-host-death path only.
+
+## GIVEN
+CommonSetup: rrw/rrk
+P1OnlyActions: true
+WithP1GroundArena: ASH_161:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 1:SOR_T01
+WithP2GroundArena: LAW_124:1:0
+WithP1Deck: [SOR_063 SOR_063]
+WithP2Deck: [SOR_063 SOR_063]
+
+## WHEN
+- P1>AttackGroundArena:1:theirGroundArena-0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P2BASEDMG:1
+
+---
+
+# TokenUpgrade_AdvantageOnACombatDefeatedHost_FiresZeb
+#// ASH_161 — same rule for an Advantage token riding a host that dies. (The SHED path was fixed
+#// separately; this is the host-death path, which is a different loop.)
+
+## GIVEN
+CommonSetup: rrw/rrk
+P1OnlyActions: true
+WithP1GroundArena: ASH_161:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 1:ASH_T02
+WithP2GroundArena: LAW_124:1:0
+WithP1Deck: [SOR_063 SOR_063]
+WithP2Deck: [SOR_063 SOR_063]
+
+## WHEN
+- P1>AttackGroundArena:1:theirGroundArena-0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P2BASEDMG:1
+
+---
+
+# TokenUpgrade_DefeatedDIRECTLYWhileTheHostSurvives_FiresZeb
+#// ASH_161 — the third leave-play path: an upgrade defeated on its own, host untouched. P2 spends SOR_251
+#// Confiscate on the Shield token riding P1's SOR_095; the token is defeated (not consumed by damage), so
+#// Zeb fires once.
+#// ⚠ Distinct from ShieldTokenConsumedInCombat_ZebTriggers: that one goes through SWUConsumeShieldToken
+#// (which always fired); this one goes through the generic defeat-an-upgrade path, which did not.
+#// The host survives, so the ONLY thing that left play is the token.
+
+## GIVEN
+CommonSetup: rrw/grw/{theirResources:4; theirHandCardIds:SOR_251}
+WithP1GroundArena: ASH_161:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 1:SOR_T02
+WithActivePlayer: 2
+
+## WHEN
+- P2>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
+P2BASEDMG:1
+
+---
+
+# TokenUpgrade_DefeatedByASWEEPOnAnENEMYUnit_FiresTHATUnitsControllersZeb
+#// ASH_161 — the third code path (the shared defeat-all-upgrades-on-a-unit sweep, reached here by
+#// ASH_156 R5-D4's "On Attack: defeat all upgrades on the defending unit").
+#// Two things are asserted at once:
+#//   • a TOKEN upgrade swept off a unit is defeated, so the observer fires; and
+#//   • it fires for the UPGRADE'S controller — P2's Zeb, not the attacking player's — so P2 chooses the
+#//     base and puts the damage on P1.
+#// P1 attacks P2's shielded SOR_046; R5-D4 sweeps the Shield token off it before damage. P2's Zeb then
+#// deals 1 to a base of P2's choosing.
+
+## GIVEN
+CommonSetup: rrw/rrw
+P1OnlyActions: true
+WithP1GroundArena: ASH_156:1:0
+WithP2GroundArena: ASH_161:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 1:SOR_T02
+WithP1Deck: [SOR_063 SOR_063]
+WithP2Deck: [SOR_063 SOR_063]
+
+## WHEN
+- P1>AttackGroundArena:0:theirGroundArena-1
+- P2>Drain
+- P2>AnswerDecision:theirBase-0
+
+## EXPECT
+P2GROUNDARENAUNIT:1:UPGRADECOUNT:0
+P1BASEDMG:1
+P2BASEDMG:0

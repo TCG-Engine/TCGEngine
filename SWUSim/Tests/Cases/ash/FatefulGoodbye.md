@@ -175,3 +175,32 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SEC_135
 P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:5
+
+---
+
+# FriendlyLeaderUPGRADELeft_NoDistributeAtAll
+#// ASH_211 — a leader deployed as a PILOT is an UPGRADE, not a leader unit. Defeating that upgrade while
+#// its host SURVIVES means no unit of any kind left play, so Fateful Goodbye distributes NOTHING —
+#// neither the 5 (no leader UNIT left) nor the 3 (no unit left at all).
+#// P1's leader is deployed as a pilot onto SEC_135; P2 spends SOR_251 Confiscate to defeat that upgrade;
+#// P1 then plays Fateful Goodbye and no Advantage appears anywhere.
+#// This is the distinction most likely to be implemented wrong: an implementation that keys the 5 off
+#// "a leader left play" rather than "a leader UNIT left play" fires here, and so does one that treats the
+#// upgrade's departure as a unit leaving play.
+#// ⚠ NO `P1OnlyActions` here — it claims initiative for P1 and fights `WithActivePlayer: 2`, so P2's
+#// Confiscate silently never plays and the section passes for the wrong reason (upgrade still attached).
+
+## GIVEN
+CommonSetup: yyw/grw/{myResources:9; handCardIds:ASH_211; theirResources:4; theirHandCardIds:SOR_251; myLeader:JTL_001; myLeaderDeployedPilot:1}
+WithP1GroundArena: SEC_135:1:0
+WithActivePlayer: 2
+
+## WHEN
+- P2>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:0
+P1NODECISION

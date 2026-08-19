@@ -240,3 +240,61 @@ WithP2GroundArena: SEC_080:1:0
 P1BASEDMG:3
 P1LEADER:READY
 P1NODECISION
+
+---
+
+# Deployed_AttackerDies_StillHealsYOURBASE
+#// ASH_005 (DEPLOYED) — "When a friendly unit's attack ends: Heal 2 damage from that unit OR from your
+#// base." The attacker dying removes ONE of the two sources; the base is still there, so the ability must
+#// still resolve. Per CR 16.c a When-Attack-Ends ability fires on a dead attacker by DEFAULT — survival is
+#// a per-card opt-in, and ASH_005 is deliberately NOT in the must-survive roster.
+#// SOR_095 (3/3) attacks SEC_080 (3/3): both deal 3, both die. P1's base is seeded at 5 damage and must be
+#// healed to 3. The heal auto-resolves onto the base because it is the only surviving source.
+#// ⚠ Contrast FrontSide_NoExhaustIfAttackerDies above: the FRONT side heals only "that unit", so with the
+#// attacker gone it has no legal target and correctly offers nothing. The two sides differ because their
+#// target lists differ, not because one fires on death and the other does not.
+
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:ASH_005:1:1:1;
+  myBaseDamage:5
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP1Deck: [SOR_063 SOR_063]
+WithP2Deck: [SOR_063 SOR_063]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1BASEDMG:3
+P1NODECISION
+
+---
+
+# Deployed_AttackerDies_AndBaseUndamaged_FizzlesCleanly
+#// ASH_005 (DEPLOYED) — the boundary partner. With the attacker dead AND the base undamaged there is no
+#// legal heal source at all, so the ability fizzles with no prompt rather than raising an empty choice.
+#// Together with the section above this pins that the trigger DOES fire on a dead attacker (it just finds
+#// nothing here), rather than being skipped wholesale.
+
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:ASH_005:1:1:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP1Deck: [SOR_063 SOR_063]
+WithP2Deck: [SOR_063 SOR_063]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1BASEDMG:0
+P1NODECISION
