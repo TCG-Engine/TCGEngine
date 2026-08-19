@@ -55,7 +55,7 @@ WithP1Credits: 1
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myResources-2
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
@@ -81,7 +81,7 @@ WithP1Credits: 2
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myResources-3&myResources-4
+- P1>AnswerDecision:myTempZone-0&myTempZone-1
 
 ## EXPECT
 P1GROUNDARENACOUNT:1

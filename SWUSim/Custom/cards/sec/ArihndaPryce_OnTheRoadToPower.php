@@ -15,7 +15,11 @@ $whenDefeatedAbilities["SEC_136:0"] = function($player, $mzID) {
         if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID) $friendly[] = $mz;
     }
     if (empty($friendly)) return;
-    SWUQueueMayChooseTarget(intval($player), $friendly, "Defeat_another_friendly_unit?", "Choose_a_friendly_unit", "SEC_136#0");
+    // The question named the COST and not the payoff, so "defeat another friendly unit?" read as pure
+    // downside. The 4 damage to each enemy base is the whole reason to say yes.
+    SWUQueueMayChooseTarget(intval($player), $friendly,
+        "Defeat_another_friendly_unit_to_deal_4_damage_to_each_enemy_base?",
+        "Choose_a_friendly_unit_to_defeat", "SEC_136#0");
 };
 
 $customDQHandlers["SEC_136#0"] = function($player, $parts, $lastDecision) {

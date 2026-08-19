@@ -211,3 +211,32 @@ WithP1Hand: HMW_151
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1RESCOUNT:6
+
+---
+
+# HelperText_TargetPromptNamesTheDealerAndItsCurrentPower
+#// HMW_151 — helper text on the SECOND pick. The prompt used to read "Choose an enemy unit", which told
+#// the player nothing about how hard the hit lands; the amount is the dealer's power, chosen a step
+#// earlier and not shown again.
+#// The number must be CURRENT power, not printed — this file already proves the DAMAGE uses current
+#// power (DamageUsesCURRENTPower); this section proves the PROMPT agrees with it, which is the half a
+#// printed-power read gets wrong while every damage assertion still passes.
+#// SOR_095 Battlefield Marine is printed 3 and carries SOR_070 Devotion (+1/+1), so the prompt says 4.
+#// ⚠ Two ENEMIES on purpose (one would auto-resolve the target pick, leaving no prompt to read), and
+#// only ONE friendly — the dealer pick then auto-resolves, so the enemy prompt is pending immediately
+#// with no answer step in between.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myBase:HMW_021;myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_070
+WithP2GroundArena: LAW_124:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: HMW_151
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_an_enemy_unit_for_Battlefield_Marine_to_deal_4_damage_to

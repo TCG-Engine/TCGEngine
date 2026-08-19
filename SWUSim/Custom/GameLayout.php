@@ -1045,6 +1045,19 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     #myHandWrapper .selectable-card:hover {
         transform: translateY(calc(-1 * var(--swu-hand-hover-rise)));
     }
+    /* A card you have SELECTED in an inline multi-select stays lifted, in the same pose as hover.
+       The initial resource step (CR 5.2.1.f) is ONE multi-select over the hand — you mark two cards and
+       confirm — and the only feedback a marked card had was the gold border from `.selected-inline`.
+       Against a row of same-sized cards that reads as "did that click register?", especially once the
+       pointer moves on and the hover lift drops away under it. Reported as "keep hand card popped up
+       during initial resource". Applies to every hand multi-select, not just the opening one.
+       The headroom already exists: #myHandWrapper reserves --swu-hand-lift (22px) against a 12px rise.
+       Same specificity as the :hover rule above (1 ID + 2 classes) and deliberately placed AFTER it, so
+       a selected card holds the lift while the pointer is elsewhere; both resolve to the same transform,
+       so hovering a selected card is not a visual change. */
+    #myHandWrapper .selectable-card.selected-inline {
+        transform: translateY(calc(-1 * var(--swu-hand-hover-rise)));
+    }
     /* The OPPONENT's hand keeps the lift suppressed. It is TOP-anchored at top:0, so there is no
        headroom to grow into — the lift would clip against the viewport edge instead of the panel,
        and the same padding trick would push their cards DOWN out of position. Their cards are card

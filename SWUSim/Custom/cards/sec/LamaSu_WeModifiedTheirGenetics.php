@@ -69,7 +69,11 @@ $customDQHandlers["SEC_003#0"] = function($player, $parts, $lastDecision) {
     $cardID = $up->CardID;
     $hosts  = _SWUSec003Hosts(intval($player), $cardID);
     if (empty($hosts)) { SWUAfterAction(intval($player)); return; }
-    SWUQueueChooseTarget(intval($player), $hosts, "Choose_a_friendly_non-Vehicle_unit", "SEC_003#1|{$cardID}|{$upMz}");
+    // The chosen host TAKES 1 DAMAGE as part of the same clause — a downside on your own unit that the
+    // prompt never mentioned, so a 1-HP host could be picked and killed by its own upgrade.
+    SWUQueueChooseTarget(intval($player), $hosts,
+        "Choose_a_friendly_non-Vehicle_unit_to_attach_it_to_(that_unit_takes_1_damage)",
+        "SEC_003#1|{$cardID}|{$upMz}");
 };
 
 // Step 1: host chosen — attach (−1 via prepaid) then deal 1 to that unit, then close the action.

@@ -410,7 +410,7 @@ WithP1Credits: 1
 - P1>PlayHand:0
 - P1>AnswerDecision:-
 - P1>AnswerDecision:YES
-- P1>AnswerDecision:myResources-4
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1SPACEARENACOUNT:0

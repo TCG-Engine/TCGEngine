@@ -12,7 +12,14 @@ $customDQHandlers["SOR_127#0"] = function($player, $parts, $lastDecision) {
     $friendlyMz = $lastDecision;
     $enemies = SWUAllUnits('their');
     if (empty($enemies)) return;
-    SWUQueueChooseTarget(intval($player), $enemies, "Choose_an_enemy_unit", "SOR_127#1|" . $friendlyMz, 0);
+    // Same helper-text fix as LAW_008 Krennic, which reuses this continuation: say who is dealing and
+    // how much, or the player is choosing a target with none of the information the choice needs.
+    $dealer = GetZoneObject($friendlyMz);
+    $dealerName = SWUObjGone($dealer) ? 'that_unit' : str_replace(' ', '_', SWUObjectTitle($dealer));
+    $dealerPower = SWUObjGone($dealer) ? 0 : intval(ObjectCurrentPower($dealer));
+    SWUQueueChooseTarget(intval($player), $enemies,
+        "Choose_an_enemy_unit_for_{$dealerName}_to_deal_{$dealerPower}_damage_to",
+        "SOR_127#1|" . $friendlyMz, 0);
 };
 
 // SOR_127 step 2: deal the dealer's current power to the chosen enemy ($lastDecision).
@@ -38,6 +45,8 @@ $whenPlayedAbilities["SOR_127:0"] = function($player, $mzID = '') {
                 ZoneSearch("theirSpaceArena",  AnyUnitFilter)
             );
             if (empty($friendly) || empty($enemy)) return; // needs both a dealer and a target
-            SWUQueueChooseTarget(intval($player), $friendly, "Choose_your_unit_to_deal_damage", "SOR_127#0");
+            SWUQueueChooseTarget(intval($player), $friendly,
+                "Choose_a_friendly_unit_to_deal_damage_equal_to_its_power.",
+                "SOR_127#0");
             return;
 };

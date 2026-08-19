@@ -347,7 +347,15 @@ if (!function_exists('SWUOfferDiscard')) {
         // Viper-Probe presentation: when the discard auto-resolves (0 or 1 legal target → no MZCHOOSE, so
         // the player never sees the hand), explicitly show it — queued AFTER the discard (as the original
         // sites did) and fired even on 0 targets. Only meaningful for 'opp'.
-        $showHand = (!empty($opts['showHandIfAuto']) && count($targets) <= 1);
+        //
+        // ⚠ ON BY DEFAULT for 'opp' since 2026-08-18. Every from=opp caller in the repo is a printed
+        // "LOOK AT an opponent's hand and discard …" effect, and the look is an entitlement in its own
+        // right — it is not contingent on the discard finding a target. Three of the seven callers
+        // (Spark of Rebellion, Unmasking the Conspiracy, Charged with Espionage, Hold For Questioning)
+        // never passed the flag, so on a 1-card hand — or, for the FILTERED ones, on any board with ≤1
+        // matching card — the player was told to discard something they were never shown.
+        // Opt out with 'showHandIfAuto' => false if a future card discards from a hand it may not look at.
+        $showHand = (($opts['showHandIfAuto'] ?? true) && count($targets) <= 1);
         if (!empty($targets)) {
             $prompt   = $opts['prompt']   ?? $default;
             $question = $opts['question'] ?? $prompt;

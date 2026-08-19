@@ -19,7 +19,7 @@ WithP2GroundArena: SOR_247:1:0
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
-- P1>AnswerDecision:myResources-2
+- P1>AnswerDecision:myTempZone-0
 - P1>AnswerDecision:YES
 
 ## EXPECT
@@ -195,7 +195,7 @@ WithP1GroundArena: LAW_124:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
-- P1>AnswerDecision:myResources-3
+- P1>AnswerDecision:myTempZone-0
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
@@ -223,7 +223,7 @@ WithP1GroundArena: LAW_124:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
-- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myTempZone-0
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
@@ -339,10 +339,10 @@ WithP2SpaceArena: JTL_221:1:0
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
 - P1>AnswerDecision:myHand-0
-- P1>AnswerDecision:myResources-6
+- P1>AnswerDecision:myTempZone-0
 - P1>AnswerDecision:YES
 - P1>UseUnitAbility:myGroundArena-0
-- P1>AnswerDecision:myResources-6
+- P1>AnswerDecision:myTempZone-0
 - P1>AnswerDecision:YES
 
 ## EXPECT
@@ -383,13 +383,13 @@ WithP2GroundArena: SOR_247:1:0
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
-- P1>AnswerDecision:myResources-8
+- P1>AnswerDecision:myTempZone-0
 - P1>AnswerDecision:YES
 - P1>PlayHand:0
 - P1>AnswerDecision:-
 - P1>AnswerDecision:myGroundArena-1
 - P1>PlayHand:0
-- P1>AnswerDecision:myResources-8
+- P1>AnswerDecision:myTempZone-0
 - P1>AnswerDecision:YES
 
 ## EXPECT
@@ -466,7 +466,7 @@ WithP2GroundArena: SOR_247:1:0
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
-- P1>AnswerDecision:myResources-2
+- P1>AnswerDecision:myTempZone-0
 - P1>AnswerDecision:NO
 
 ## EXPECT

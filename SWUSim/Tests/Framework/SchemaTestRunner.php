@@ -1123,6 +1123,34 @@ class SchemaTestRunner {
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected {$expected} discard cards, got {$actual}";
 
+            } elseif (preg_match('/^P(\d+)HANDGLOW(NOT)?:(\d+)$/', $line, $m)) {
+                // Does the hand card at index N light up as playable? Asserts the REAL transport value
+                // — SelectionMetadata() is what GetNextTurn emits per card — rather than the
+                // affordability predicate alone, so the whole glow chain is covered.
+                // Note SelectionMetadata only highlights during MAIN with BOTH decision queues empty
+                // and only for the turn player, so leave no decision pending in a section using this.
+                $p = intval($m[1]); $wantGlow = ($m[2] !== 'NOT'); $idx = intval($m[3]);
+                $hand = GetHand($p);
+                if (!isset($hand[$idx]) || !empty($hand[$idx]->removed)) {
+                    $failures[] = "{$line}: no hand card at index {$idx} for player {$p}";
+                } else {
+                    $meta = json_decode(SelectionMetadata($hand[$idx]), true);
+                    $glows = is_array($meta) && isset($meta['color']) && $meta['color'] === 'rgba(0, 255, 0, 0.95)';
+                    if ($glows !== $wantGlow)
+                        $failures[] = "{$line}: expected hand card {$idx} (" . ($hand[$idx]->CardID ?? '?')
+                            . ") to " . ($wantGlow ? 'GLOW' : 'NOT glow') . ", got " . json_encode($meta);
+                }
+
+            } elseif (preg_match('/^P(\d+)TEMPZONECOUNT:(\d+)$/', $line, $m)) {
+                // TempZone is the scratch staging zone (SWUQueueDefeatUpgrade, the Credit-payment
+                // picker, Law119Trigger …). It has no board slot, so nothing else can observe a leak:
+                // an effect that stages into it and forgets to drain leaves phantom cards that only
+                // show up in the NEXT popup. Assert 0 after any staged effect resolves.
+                $p = intval($m[1]); $expected = intval($m[2]);
+                $actual = count(array_filter(GetTempZone($p), fn($o) => empty($o->removed)));
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected {$expected} staged TempZone cards, got {$actual}";
+
             } elseif (preg_match('/^P(\d+)RESCOUNT:(\d+)$/', $line, $m)) {
                 $p        = intval($m[1]);
                 $expected = intval($m[2]);
@@ -1153,11 +1181,20 @@ class SchemaTestRunner {
                 // Exact-match the pending decision's tooltip — lets a test assert an offered pool/amount
                 // that is embedded in the prompt (e.g. "Distribute_up_to_6_Advantage_among_friendly_units")
                 // but never surfaced in the board state the other assertions read.
+                //
+                // Compared on the RENDERED text: underscores are normalised to spaces on BOTH sides, so a
+                // test asserts what the player reads, not the transport encoding. The DecisionQueue row is
+                // space-delimited, so AddDecision stores every tooltip underscored (see the note there) —
+                // whether the source literal was written with underscores or with spaces. Without this,
+                // every tooltip assertion is coupled to which style its card file happens to use, and
+                // rewording a prompt from underscores to spaces breaks a test about behaviour it did not
+                // change. Existing underscored expectations keep passing: both sides normalise identically.
                 $p       = intval($m[1]);
                 $pending = $g->state->pendingDecision($p);
+                $norm    = fn($t) => str_replace('_', ' ', (string)$t);
                 if ($pending === null)
                     $failures[] = "{$line}: expected a pending decision, but none found";
-                elseif (($pending->Tooltip ?? '') !== $m[2])
+                elseif ($norm($pending->Tooltip ?? '') !== $norm($m[2]))
                     $failures[] = "{$line}: expected tooltip '{$m[2]}', got '" . ($pending->Tooltip ?? '') . "'";
 
             } elseif (preg_match('/^P(\d+)SEARCHPLAYABLE(HAS|NOT):(.+)$/', $line, $m)) {

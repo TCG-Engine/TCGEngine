@@ -20,7 +20,7 @@ $leaderAbilities["LAW_008"] = function(int $player): void {
     foreach (['myGroundArena', 'mySpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $friendly[] = $mz; }
     if (empty($friendly)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget($player, $friendly, "Defeat_a_friendly_unit_(cost)_to_create_a_Credit", "LAW_008#0");
+    SWUQueueChooseTarget($player, $friendly, "Defeat_a_friendly_unit_to_create_a_Credit", "LAW_008#0");
     SWUQueueAfterAction($player);
 };
 
@@ -37,7 +37,12 @@ $whenPlayedAbilities["LAW_008:0"] = function($player, $mzID) {
         }
     $enemyExists = !empty(ZoneSearch('theirGroundArena', AnyUnitFilter)) || !empty(ZoneSearch('theirSpaceArena', AnyUnitFilter));
     if (empty($friendly) || !$enemyExists) return;
-    SWUQueueChooseTarget(intval($player), $friendly, "Choose_another_friendly_unit_to_deal_its_power", "LAW_008#1");
+    // Helper text: name the whole effect, not just the click. "Choose another friendly unit to deal its
+    // power" reads as if the unit is being spent or attacking; the player is picking a DEALER for a
+    // second, separate choice they have not been told about yet.
+    SWUQueueChooseTarget(intval($player), $friendly,
+        "Choose_another_friendly_unit_to_deal_damage_equal_to_its_power.",
+        "LAW_008#1");
 };
 
 $customDQHandlers["LAW_008#1"] = function($player, $parts, $lastDecision) {
@@ -45,5 +50,13 @@ $customDQHandlers["LAW_008#1"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
     $enemies = array_merge(ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter));
     if (empty($enemies)) return;
-    SWUQueueChooseTarget(intval($player), $enemies, "Choose_an_enemy_unit", "SOR_127#1|" . $lastDecision, 0);  // reuse SOR_127#1 deal-power
+    // Step 2 carries the dealer's NAME and CURRENT power, so the player can see exactly how much damage
+    // they are about to assign — a bare "Choose an enemy unit" gives no way to judge the target.
+    // Current power, not printed: upgrades and buffs are what make this trigger swing.
+    $dealer = GetZoneObject($lastDecision);
+    $dealerName = SWUObjGone($dealer) ? 'that_unit' : str_replace(' ', '_', SWUObjectTitle($dealer));
+    $dealerPower = SWUObjGone($dealer) ? 0 : intval(ObjectCurrentPower($dealer));
+    SWUQueueChooseTarget(intval($player), $enemies,
+        "Choose_an_enemy_unit_for_{$dealerName}_to_deal_{$dealerPower}_damage_to",
+        "SOR_127#1|" . $lastDecision, 0);  // reuse SOR_127#1 deal-power
 };

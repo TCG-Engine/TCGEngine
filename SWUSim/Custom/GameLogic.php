@@ -439,9 +439,6 @@ function ObjectCurrentPower($obj) {
         foreach (GetUnitsInPlay($controller) as $tu) { if (empty($tu->removed) && TraitContains($tu, 'Trooper')) $tr++; }
         $base += $tr;
     }
-    // SHD_083 Seasoned Shoretrooper — "While you control 6 or more resources, this unit gets +2/+0."
-    if (!$lost && ($obj->CardID ?? '') === 'SHD_083' && $controller > 0 && SWUResourceCount($controller) >= 6) $base += 2;
-
     // Self-conditional buffs (the unit's OWN printed stat abilities) — suppressed while it has lost all
     // abilities.
     if (!$lost) switch ($obj->CardID) {
@@ -465,8 +462,14 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
-        case 'SOR_081': // Seasoned Shoretrooper: while you control 6+ resources, +2/+0.
-            if ($controller > 0 && count(GetResources($controller)) >= 6) $base += 2;
+        // Seasoned Shoretrooper: while you control 6+ resources, +2/+0. Newest printing first, earliest
+        // last (see cards/sor/DeathTrooper.php for the convention).
+        // ⚠ SWUResourceCount, NOT count(GetResources()): a Credit token sits in the resource zone but is
+        // NOT a resource (CR 3.13), and the raw count let one push this over the threshold. SHD_083 had
+        // always been correct; SOR_081 was a separate, wrong copy until the two were merged here.
+        case 'SHD_083':
+        case 'SOR_081':
+            if ($controller > 0 && SWUResourceCount($controller) >= 6) $base += 2;
             break;
         case 'SOR_161': // Ardent Sympathizer: while you have the initiative, +2/+0.
             if ($controller > 0 && PlayerHasIniative($controller)) $base += 2;
@@ -3470,14 +3473,15 @@ function CanAffordActivationReserve($player, $obj) {
         $fodderCount = count(SWUExploitFodder($player));
         if ($fodderCount > 0) $cost = max(0, $cost - 2 * min($exploitX, $fodderCount));
     }
-    $ready   = 0;
-    $res     = GetResources($player);
-    for ($i = 0; $i < count($res); $i++) {
-        if (isset($res[$i]->removed) && $res[$i]->removed) continue;
-        if (SWUIsCreditToken($res[$i]->CardID ?? '')) continue; // Credit tokens aren't resources
-        if (intval($res[$i]->Status) === 1) $ready++;
-    }
-    return $ready >= $cost;
+    // Capacity, NOT a bare ready-resource count. Paying a cost routes through SWUOfferAltPayment, which
+    // accepts ready resources, then Credit-token defeats (CR 3.13), then SEC_122 Droid exhausts — so a
+    // card payable with a Credit was fully playable while this returned false and SelectionMetadata
+    // rendered it unlit. Reported as "affordable cards in hand when I have Credits: can still click but
+    // it's not highlighted", which is exactly the shape: the glow said no, the play said yes.
+    // SWUTotalPaymentCapacity is the one helper that knows all three tiers, and it already handles the
+    // cases a raw Credit count gets wrong — a LAW_117/Galen-blanked Credit cannot be defeated to pay, so
+    // it must not light the card up either.
+    return SWUTotalPaymentCapacity(intval($player)) >= $cost;
 }
 
 // ── Macro ChoiceFunctions ───────────────────────────────────────────────────
@@ -14243,15 +14247,37 @@ function SWUOfferAltPayment(int $player, int $cost, string $continuation, string
             $max = min(count($credits), $cost); // can't pay below 0
             global $playerID;
             $playerID = $player; // leave set: MZCountChoices resolves the relative mzIDs after return
+            // Stage the Credits into TempZone and offer THOSE, never the myResources-N mzIDs directly.
+            // Resources is `Display: Visibility=Self, Mode=All`, and a Self zone of your OWN is routed
+            // INLINE by CategorizeMZChooseSpecs — so a prompt over myResources-N lights up the Credits
+            // in place along the whole resource row. Credits are appended when they are CREATED, and
+            // anything resourced afterwards lands behind them, so they are not even grouped at the end:
+            // the player hunts for the highlighted cards among everything they control.
+            // TempZone is `Mode=None`, which routes the choice to its own card modal showing the
+            // Credits and nothing else. Same reasoning as Law119Trigger (live bug report #962).
+            $temp = &GetTempZone($player);
+            while (count($temp) > 0) array_pop($temp);   // clear at the START — a concurrent offer may have left entries
+            $map = [];       // TempZone index -> the real Resources index it stands for
+            $tempMZs = [];
+            foreach ($credits as $i => $creditMz) {
+                $co = GetZoneObject($creditMz);
+                AddTempZone($player, $co->CardID ?? 'LAW_T01');
+                $tempMZs[] = "myTempZone-{$i}";
+                $map[] = intval(substr($creditMz, strrpos($creditMz, '-') + 1));
+            }
+            // The positional map rides the CUSTOM param (serialized with the decision, freed with it) —
+            // identical Credit tokens cannot be re-matched by CardID, so the index mapping is the only
+            // thing that ties a pick back to the right resource slot.
+            $creditMap = implode(',', $map);
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
-                "0|{$max}|" . implode("&", $credits), $block,
+                "0|{$max}|" . implode("&", $tempMZs), $block,
                 tooltip:"Defeat_any_number_of_Credit_tokens_to_pay_1_resource_less_each");
             // The cap rides in the decision param: the MZMULTICHOOSE "0|max|..." bound is enforced by the
             // CLIENT only (the queue controller validates that at least one choice exists, never how many
             // were submitted), so the handler needs its own copy to enforce CR 1.7.2 — "exhaust ready
             // resources EQUAL TO the cost". Without it an over-long answer defeats extra Credits for free.
             DecisionQueueController::AddDecision($player, "CUSTOM",
-                "CREDIT_PAY|{$max}|{$continuation}|{$args}", $block);
+                "CREDIT_PAY|{$max}|{$creditMap}|{$continuation}|{$args}", $block);
             return; // $playerID intentionally left = $player
         }
     }
@@ -32414,6 +32440,9 @@ function SWUMaskedResourceJSON($obj): string {
 function SWUArenaDisplayCardID($obj): string {
     $cardID = isset($obj->CardID) ? $obj->CardID : "-";
     if($cardID === "-") return "-";
+    // Reprint substitution FIRST, then the board's own suffix rule: "_back" has to be appended to the
+    // printing we are actually showing, or the art path points at a file that does not exist.
+    $cardID = SWUDisplayCardID($cardID);
     if(strpos(CardType($cardID), 'Leader') !== false) return $cardID . "_back";
     return $cardID;
 }
@@ -32427,8 +32456,11 @@ function SWUArenaDisplayCardID($obj): string {
  */
 function SWULeaderDisplayCardID($obj): string {
     $cardID = isset($obj->CardID) ? $obj->CardID : "-";
+    // The TWI_017 check stays FIRST and returns early: it names one specific printing that has no
+    // reprints, so substituting before it would only risk breaking the match.
     if($cardID === 'TWI_017' && !empty($obj->Deployed)) return $cardID . "_back";
-    return $cardID;
+    if($cardID === "-") return "-";
+    return SWUDisplayCardID($cardID);
 }
 
 // ============================================================================

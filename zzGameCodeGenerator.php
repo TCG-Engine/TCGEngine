@@ -1874,6 +1874,11 @@ if ($assetReflection !== null && $assetReflection !== "") {
 } else {
   fwrite($handler, "include './GeneratedCode/GeneratedCardDictionaries.php';\r\n");
 }
+// GetNextTurn.php is fetched as its OWN request, so it only has what the generator gives it. Without
+// this the display substitution is an undefined-function fatal on every board render.
+if($rootName === "SWUSim" || $rootName === "SWUDeck") {
+  fwrite($handler, "include_once '../AppCore/SWU/CardDisplayID.php';\r\n");
+}
 //TODO: Validate these inputs
 fwrite($handler, "\$gameName = TryGet(\"gameName\");\r\n");
 if($rootName == "SWUSim") {
@@ -2307,6 +2312,10 @@ function AddWriteZone($zoneName, $player) {
 function AddGetNextTurnForPlayer($player) {
   global $zones, $rootName;
   $getNextTurn = "";
+  // Reprint display substitution applies to the two real SWU roots only. Deliberately NOT the
+  // $swuRoot in GenImageFolder(): that one also covers asset-REFLECTING roots, which borrow SWU art
+  // but have no SWU card dictionaries, so SWUDisplayCardID would be undefined there.
+  $swuCardApp = ($rootName === "SWUSim" || $rootName === "SWUDeck");
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
     $scope = strtolower(isset($zone->Scope) ? $zone->Scope : 'Player');
@@ -2345,7 +2354,9 @@ function AddGetNextTurnForPlayer($player) {
         if($rootName == "SWUSim" && $zone->Name == "Leader") {
           $getNextTurn .= "    \$displayID = SWULeaderDisplayCardID(\$obj);\r\n";
         } else {
-          $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+          $getNextTurn .= $swuCardApp
+          ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
+          : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
         $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         $getNextTurn .= "  }\r\n";
@@ -2368,7 +2379,9 @@ function AddGetNextTurnForPlayer($player) {
         if(count($zone->VirtualProperties) > 0) {
           $getNextTurn .= "      ComputeVirtualProperties(\$obj);\r\n";
         }
-        $getNextTurn .= "      \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        $getNextTurn .= $swuCardApp
+          ? "      \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
+          : "      \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         $getNextTurn .= "      echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         $getNextTurn .= "    }\r\n";
         $getNextTurn .= "  } else {\r\n";
@@ -2394,7 +2407,9 @@ function AddGetNextTurnForPlayer($player) {
         if($rootName == "SWUSim" && ($zone->Name == "GroundArena" || $zone->Name == "SpaceArena")) {
           $getNextTurn .= "    \$displayID = SWUArenaDisplayCardID(\$obj);\r\n";
         } else {
-          $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+          $getNextTurn .= $swuCardApp
+          ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
+          : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
         $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
       } else if($zone->Visibility == "Private") {
@@ -2407,7 +2422,9 @@ function AddGetNextTurnForPlayer($player) {
         $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer"
                   : (($rootName == "SWUSim" && $zone->Name == "Resources") ? "canSeeResourcesPlayer"
                                                                           : "canSeePrivatePlayer");
-        $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        $getNextTurn .= $swuCardApp
+          ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
+          : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         // SWUSim Resources: Credit tokens (CR 3.13) are public info (count + targetable by LAW_106),
         // so they render face-up even to the opponent; real resources stay Self-only (CardBack).
         $creditClause = ($rootName == "SWUSim" && $zone->Name == "Resources")

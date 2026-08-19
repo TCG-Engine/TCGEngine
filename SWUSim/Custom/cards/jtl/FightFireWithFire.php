@@ -13,7 +13,8 @@ $customDQHandlers["JTL_173#0"] = function($player, $parts, $lastDecision) {
     $enemies = ZoneSearch("their{$arena}Arena", AnyUnitFilter);
     if (empty($enemies)) return;
     SWUQueueChooseTarget(intval($player), $enemies,
-        "Choose_an_enemy_unit_in_the_same_arena", "JTL_173#1|" . $lastDecision);
+        "Choose_an_enemy_unit_in_the_same_arena_(3_damage_to_it_AND_to_your_chosen_unit)",
+        "JTL_173#1|" . $lastDecision);
 };
 
 $customDQHandlers["JTL_173#1"] = function($player, $parts, $lastDecision) {

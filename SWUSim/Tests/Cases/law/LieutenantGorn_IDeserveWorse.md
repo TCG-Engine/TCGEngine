@@ -97,7 +97,7 @@ WithP1Hand: SOR_069
 ## WHEN
 - P1>AttackGroundArena:0:BASE
 - P1>PlayHand:0
-- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1

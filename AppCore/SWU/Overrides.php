@@ -119,6 +119,69 @@ function CardIDOverride($cardID) {
     case "ASH_122": return "SOR_112"; //Consortium StarViper
     case "ASH_152": return "LAW_180"; //Inspired Recruit
     case "ASH_258": return "SEC_258"; //Grassroots Resistance
+    // ── Intra-set duplicate printings (IBH) ──────────────────────────────────────────────────────
+    // IBH prints many cards at several collector numbers within the one product; every printing here
+    // is rarity Special. Same Title + Subtitle = the same card, so they MUST fold together — the
+    // 3-copy limit is computed as array_count_values(array_map('CardIDOverride', $pool))
+    // (AppCore/SWU/DeckValidation.php:223), so unlinked printings each got their own budget of 3 and
+    // a deck could legally run six Hoth Lieutenants.
+    // Canonical is the LOWEST collector number: cross-set reprints fold to the earliest SET, and
+    // within a single set the lowest number is the equivalent reading.
+    // Display is unaffected either way — SWUDisplayCardID never selects a Special printing.
+    case "IBH_046": return "IBH_003"; //Chewbacca - Rrruuuurrr
+    case "IBH_017": return "IBH_004"; //Rogue Squadron Speeder
+    case "IBH_034": return "IBH_004"; //Rogue Squadron Speeder
+    case "IBH_039": return "IBH_005"; //I'll Cover For You
+    case "IBH_024": return "IBH_006"; //Rebellion Y-Wing
+    case "IBH_032": return "IBH_006"; //Rebellion Y-Wing
+    case "IBH_043": return "IBH_007"; //Echo Coordinator
+    case "IBH_047": return "IBH_007"; //Echo Coordinator
+    case "IBH_029": return "IBH_008"; //Trench Defender
+    case "IBH_050": return "IBH_008"; //Trench Defender
+    case "IBH_025": return "IBH_009"; //I've Found Them
+    case "IBH_042": return "IBH_010"; //Han Solo - Scruffy-Looking Nerf Herder
+    case "IBH_049": return "IBH_011"; //R2-D2 - Known to Make Mistakes
+    case "IBH_035": return "IBH_012"; //Evacuation Escort
+    case "IBH_044": return "IBH_012"; //Evacuation Escort
+    case "IBH_026": return "IBH_014"; //Bright Hope - Narrow Escape
+    case "IBH_028": return "IBH_015"; //Tauntaun Mount
+    case "IBH_051": return "IBH_015"; //Tauntaun Mount
+    case "IBH_027": return "IBH_016"; //Ion Cannon
+    case "IBH_045": return "IBH_018"; //Go for the Legs
+    case "IBH_041": return "IBH_019"; //C-3PO - Oh Dear, Oh Dear
+    case "IBH_030": return "IBH_021"; //Improvised Detonation
+    case "IBH_033": return "IBH_022"; //GR-75 Medium Transport
+    case "IBH_040": return "IBH_022"; //GR-75 Medium Transport
+    case "IBH_036": return "IBH_023"; //General Rieekan - Stalwart Tactician
+    case "IBH_038": return "IBH_037"; //Hoth Trooper
+    case "IBH_048": return "IBH_037"; //Hoth Trooper
+    case "IBH_073": return "IBH_055"; //First Legion Trooper
+    case "IBH_101": return "IBH_055"; //First Legion Trooper
+    case "IBH_067": return "IBH_056"; //Ground Assault AT-AT
+    case "IBH_080": return "IBH_057"; //Snowtrooper Vanguard
+    case "IBH_096": return "IBH_057"; //Snowtrooper Vanguard
+    case "IBH_084": return "IBH_058"; //Lambda Shuttle
+    case "IBH_090": return "IBH_058"; //Lambda Shuttle
+    case "IBH_071": return "IBH_059"; //Target the Main Generator
+    case "IBH_065": return "IBH_060"; //Admiral Piett - In Command Now
+    case "IBH_086": return "IBH_061"; //We're In Trouble
+    case "IBH_100": return "IBH_062"; //Imperial Deck Officer
+    case "IBH_077": return "IBH_063"; //Snowtrooper
+    case "IBH_087": return "IBH_063"; //Snowtrooper
+    case "IBH_092": return "IBH_064"; //Hoth Lieutenant
+    case "IBH_091": return "IBH_066"; //Too Strong for Blasters
+    case "IBH_088": return "IBH_068"; //General Veers - Leading the Assault
+    case "IBH_083": return "IBH_069"; //E-Web Gunner
+    case "IBH_089": return "IBH_070"; //Blizzard Force AT-ST
+    case "IBH_103": return "IBH_070"; //Blizzard Force AT-ST
+    case "IBH_102": return "IBH_074"; //I Want Proof, Not Leads
+    case "IBH_081": return "IBH_075"; //Scouting TIE Fighter
+    case "IBH_097": return "IBH_075"; //Scouting TIE Fighter
+    case "IBH_093": return "IBH_078"; //Surface Assault Bomber
+    case "IBH_094": return "IBH_078"; //Surface Assault Bomber
+    case "IBH_098": return "IBH_079"; //Death Squadron Star Destroyer
+    case "IBH_085": return "IBH_082"; //Admiral Ozzel - As Clumsy as He Is Stupid
+    case "SEC_239": return "SOR_228"; //Viper Probe Droid
     case "IC27_097": return "SOR_128"; //Death Star Stormtrooper
     case "IC27_015": return "JTL_033"; //Onyx Squadron Brute
     case "IC27_108": return "TWI_137"; //Savage Opress

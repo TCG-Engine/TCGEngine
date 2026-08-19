@@ -12,7 +12,14 @@ $customDQHandlers["HMW_151#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $enemies = SWUAllUnits('their');
     if (empty($enemies)) return;
-    SWUQueueChooseTarget(intval($player), $enemies, "Choose_an_enemy_unit", "HMW_151#1|" . $lastDecision, 0);
+    // Name the dealer and the exact damage: the amount is its CURRENT power (upgrades/auras), which the
+    // player cannot read off the prompt otherwise — "Choose an enemy unit" said nothing about how hard.
+    $dealer      = GetZoneObject($lastDecision);
+    $dealerName  = SWUObjGone($dealer) ? 'that_unit' : str_replace(' ', '_', SWUObjectTitle($dealer));
+    $dealerPower = SWUObjGone($dealer) ? 0 : intval(ObjectCurrentPower($dealer));
+    SWUQueueChooseTarget(intval($player), $enemies,
+        "Choose_an_enemy_unit_for_{$dealerName}_to_deal_{$dealerPower}_damage_to",
+        "HMW_151#1|" . $lastDecision, 0);
 };
 
 // ── HMW_151 step 2: deal the dealer's CURRENT power to the chosen enemy ────────────────────────────

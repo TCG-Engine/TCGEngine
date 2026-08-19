@@ -21,6 +21,13 @@ $customDQHandlers["SEC_186#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $savedPID = $playerID;
     $named = trim($lastDecision);
     $opp = OtherPlayer(intval($player));
+    // "Look at an opponent's hand AND discard a card with that name from it." The look is its own
+    // clause and the player is entitled to it whether or not the named card is actually there — which
+    // is most of the time, since the name is chosen blind. This card raised no hand-facing decision at
+    // all, so the hand was never shown; same gap as Beguile. Queued BEFORE the discard so the popup
+    // shows the hand as it was looked at, including the card about to be taken.
+    SWULookAtOpponentHand(intval($player));
+    SWUQueueShowOpponentHand(intval($player));
     $playerID = $opp;
     foreach (ZoneSearch("myHand", null) as $mz) {       // opponent's hand, in opp frame
         $c = GetZoneObject($mz);

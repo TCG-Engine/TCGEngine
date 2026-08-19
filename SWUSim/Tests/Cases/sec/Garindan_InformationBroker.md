@@ -11,6 +11,7 @@ WithP1Hand: SEC_186
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:Battlefield Marine
+- P1>AnswerDecision:OK
 
 ## EXPECT
 P2HANDCOUNT:0
@@ -32,6 +33,7 @@ WithP1Hand: SEC_186
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:Wampa
+- P1>AnswerDecision:OK
 
 ## EXPECT
 P2HANDCOUNT:1
@@ -75,6 +77,7 @@ WithP2Hand: SOR_095
 - P1>DeployLeader
 - P1>AnswerDecision:myResources-0
 - P1>AnswerDecision:Battlefield Marine
+- P1>AnswerDecision:OK
 
 ## EXPECT
 P1LEADER:DEPLOYED

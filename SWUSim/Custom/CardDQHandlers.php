@@ -2814,10 +2814,22 @@ $customDQHandlers["DROID_PAY"] = function ($player, $parts, $lastDecision) {
 
 // ── CREDIT_PAY — Credit-token alt-pay resolver (CR 3.13) ─────────────────────
 // Queued by SWUOfferAltPayment. "While paying resources, you may defeat this token. If you do, pay 1
-// less." $lastDecision = "&"-joined mzIDs of the Credit tokens the player chose to defeat (or "-").
-// Each valid defeat = 1 prepaid (1 resource less). Then delegates to SWUDispatchDroidContinuation
+// less." Each valid defeat = 1 prepaid (1 resource less). Then delegates to SWUDispatchDroidContinuation
 // (the shared continuation registry — PLAY_CARD / ATTACH_UPGRADE / FALCON_KEEP) with prepaid = the
-// number defeated. Param encoding mirrors DROID_PAY: $parts[0] = continuation, rest = args.
+// number defeated.
+//
+// Param encoding: $parts[0] = the cap, $parts[1] = the TempZone->Resources index map, $parts[2] =
+// continuation (a single pipe-free token), implode("|", array_slice($parts, 3)) = args (may contain "|").
+//
+// $lastDecision = "&"-joined "myTempZone-K" mzIDs (or "-"). The offer stages the Credits into TempZone
+// so the picker shows the CREDITS ALONE rather than lighting them up inline across the whole resource
+// row (see SWUOfferAltPayment), which means the answer is in TEMPZONE coordinates and has to be mapped
+// back. Credit tokens are indistinguishable by CardID, so the positional map built at offer time is the
+// only thing that can say WHICH resource slot a pick meant — never re-derive it by matching CardID.
+// (Nothing reorders the resource zone between the offer and this handler — SWUKeepCreditTokensLast is
+// only ever called from explicit effects, never a static recompute — and even if it did, every mapped
+// slot is re-validated below against the LIVE usable-Credit set, so the worst case is defeating an
+// identical token rather than the wrong KIND of card.)
 //
 // ⚠ Defeating a token splices the resource zone (CleanupRemovedCards reindexes), so mark ALL chosen
 // tokens removed FIRST, then clean up once — otherwise later mzIDs in the same answer would shift.
@@ -2826,11 +2838,20 @@ $customDQHandlers["CREDIT_PAY"] = function ($player, $parts, $lastDecision) {
   $savedPID = $playerID;
   $playerID = intval($player);
 
+  // Drain the staging zone on EVERY exit path (decline included) — a leftover TempZone entry renders
+  // as a phantom card and poisons the next effect that stages there.
+  $temp = &GetTempZone(intval($player));
+  while (count($temp) > 0) array_pop($temp);
+
   // $parts[0] = the cap (min(usable Credits, cost)) — see the DROID_PAY note: the MZMULTICHOOSE bound
   // is client-side only, so the CR 1.7.2 "equal to the cost" limit is re-applied here.
   $cap = intval($parts[0] ?? 0);
-  $continuation = $parts[1] ?? '';
-  $args = implode('|', array_slice($parts, 2));
+  $map = [];
+  foreach (explode(',', (string)($parts[1] ?? '')) as $slot) {
+    if ($slot !== '') $map[] = intval($slot);
+  }
+  $continuation = $parts[2] ?? '';
+  $args = implode('|', array_slice($parts, 3));
 
   $prepaid = 0;
   if ($lastDecision !== null && $lastDecision !== '-' && $lastDecision !== '') {
@@ -2838,9 +2859,18 @@ $customDQHandlers["CREDIT_PAY"] = function ($player, $parts, $lastDecision) {
     foreach (explode('&', $lastDecision) as $chosen) {
       if ($prepaid >= max(0, $cap))
         break;
-      if ($chosen === '' || !isset($usable[$chosen]))
+      // Translate the staged pick back to the resource slot it stands for. Anything that is not a
+      // recognised TempZone index is dropped rather than guessed at — a mismatched map must fail to
+      // pay, never pay with the WRONG token.
+      if (!preg_match('~^myTempZone-([0-9]+)$~', trim((string)$chosen), $m))
         continue;
-      $o = GetZoneObject($chosen);
+      $k = intval($m[1]);
+      if (!isset($map[$k]))
+        continue;
+      $mzID = 'myResources-' . $map[$k];
+      if (!isset($usable[$mzID]))
+        continue;
+      $o = GetZoneObject($mzID);
       if (SWUObjGone($o))
         continue;
       if (!SWUIsCreditToken($o->CardID ?? ''))

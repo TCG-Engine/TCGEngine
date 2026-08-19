@@ -880,7 +880,7 @@ WithP2Credits: 1
 - P2>AnswerDecision:Credit
 - P1>Pass
 - P2>PlayHand:0
-- P2>AnswerDecision:myResources-12
+- P2>AnswerDecision:myTempZone-0
 ## EXPECT
 P2GROUNDARENACOUNT:2
 P2GROUNDARENAUNIT:1:CARDID:SOR_095
@@ -1247,7 +1247,7 @@ WithP1Hand: SOR_095
 - P1>AnswerDecision:Credit
 - P1>PlayHand:0
 - P1>PlayHand:0
-- P1>AnswerDecision:myResources-14
+- P1>AnswerDecision:myTempZone-0
 ## EXPECT
 P1CREDITCOUNT:0
 P1GROUNDARENACOUNT:2

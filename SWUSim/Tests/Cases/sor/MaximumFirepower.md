@@ -172,3 +172,54 @@ WithP1Hand: SOR_234
 P1NODECISION
 P2SPACEARENACOUNT:0
 P1GROUNDARENAUNIT:1:DAMAGE:0
+
+---
+
+# HelperText_TargetPromptNamesTheFirstImperialAndItsPower
+#// SOR_234 — helper text on the target pick. "Choose the target unit" said nothing about how hard the
+#// first Imperial hits, which is the only thing that decides whether the pick kills what you aim at.
+#// The number is CURRENT power: SOR_033 Death Trooper is printed 3 and carries SOR_070 Devotion (+1/+1)
+#// here, so the prompt must say 4. A printed-power read says 3 and still passes every damage assertion
+#// in this file.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:4;handCardIds:SOR_234}
+P1OnlyActions: true
+WithP1GroundArena: SOR_033:1:0
+WithP1GroundArenaUpgrade: 0:SOR_070
+WithP1GroundArena: SOR_130:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_the_unit_for_Death_Trooper_to_deal_4_damage_to
+
+---
+
+# HelperText_SecondImperialPromptNamesTheTarget
+#// SOR_234 — helper text on the THIRD pick, which chooses the second DEALER rather than a target. The
+#// amount therefore depends on which Imperial is picked, so the prompt states the rule and names the
+#// unit about to be hit again — "Choose another Imperial unit" gave neither.
+#// The target has already taken the first Imperial's damage at this point, which is exactly why naming
+#// it matters: the player is deciding whether a second hit finishes it.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:4;handCardIds:SOR_234}
+P1OnlyActions: true
+WithP1GroundArena: SOR_033:1:0
+WithP1GroundArena: SOR_130:1:0
+WithP1GroundArena: SOR_128:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_another_Imperial_unit_to_deal_ITS_power_to_Consular_Security_Force

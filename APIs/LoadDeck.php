@@ -7,6 +7,8 @@
 // measured locally: it holds a default SOR_005 on dozens of ordinary Premier decks and even a Unit
 // ("Cell Block Guard") on others, while only 6 of 81 decks have a genuine second entry in Leader[].
 // Trusting Leader2 silently turns valid Premier decks into invalid 2-leader ones.
+require_once __DIR__ . '/../AppCore/SWU/CardDisplayID.php';   // SWUDisplayCardID — export shows the latest printing
+
 function _LoadDeckSecondLeaderID($leaderZone) {
   if (!is_array($leaderZone) || count($leaderZone) < 2) return '';
   if (!isset($leaderZone[1]->CardID)) return '';
@@ -108,6 +110,13 @@ function _LoadDeckSecondLeaderID($leaderZone) {
 			if ($storedID === null || $storedID === '') return $storedID;
 			$setNnn = function_exists('SWUNormalizeDictionaryKey')
 				? SWUNormalizeDictionaryKey((string)$storedID) : (string)$storedID;
+			// Export shows the newest standard printing, matching the board and the deckbuilder — an
+			// export is a read of stored data on its way to a human. Storage and stats keep the
+			// EARLIEST: SWUCardIdentityClassify folds every inbound id through CardIDOverride, so a
+			// consumer echoing this back still aggregates canonically. SWUDB already exports latest
+			// printings; this matches that convention.
+			// Applied before the branch below so SET_NNN and UID modes agree.
+			if (function_exists('SWUDisplayCardID')) $setNnn = SWUDisplayCardID($setNnn);
 			if ($setId) return $setNnn;
 			$uuid = UUIDLookup($setNnn);
 			return ($uuid !== null && $uuid !== '') ? $uuid : $storedID;

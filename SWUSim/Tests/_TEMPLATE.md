@@ -79,6 +79,8 @@ WithP2SpaceArena: SOR_225:1:0
 # P1DECKCOUNT:30  P1DECKTOPCARD:SOR_095   # deck size / top card
 # P1DISCARDCOUNT:1                        # discard size
 # P1DISCARDUNIT:0:CARDID:SOR_095          # discard entry field (CARDID | MODIFIER | FROM)
+# P1TEMPZONECOUNT:0                        # staging-zone leak check (assert 0 after a staged effect)
+# P1HANDGLOW:0  /  P1HANDGLOWNOT:0         # does hand card N light up as playable (SelectionMetadata)
 # P1GROUNDARENACOUNT:2   P1SPACEARENACOUNT:1   # arena occupancy
 # P1HASDECISION  /  P1NODECISION          # pending-decision presence
 # P1HASFORCE     /  P1NOFORCE             # controls the Force token

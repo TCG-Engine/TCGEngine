@@ -37,7 +37,7 @@ WithP1GroundArena: LAW_117:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myResources-2
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:2
@@ -109,7 +109,7 @@ WithP1Hand: [LAW_244 JTL_221]
 ## WHEN
 - P1>PlayHand:0
 - P1>PlayHand:0
-- P1>AnswerDecision:myResources-3
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1HANDCOUNT:0
@@ -138,7 +138,7 @@ WithP2Resources: 2
 ## WHEN
 - P1>PlayHand:0
 - P2>PlayHand:0
-- P2>AnswerDecision:myResources-2&myResources-3
+- P2>AnswerDecision:myTempZone-0&myTempZone-1
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
@@ -168,7 +168,7 @@ WithP2Resources: 2
 - P1>AttackGroundArena:1:BASE
 - P1>AnswerDecision:myGroundArena-0
 - P2>PlayHand:0
-- P2>AnswerDecision:myResources-2&myResources-3
+- P2>AnswerDecision:myTempZone-0&myTempZone-1
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:LAW_117

@@ -160,6 +160,15 @@ class DecisionQueueController {
     public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '', $dontSkipOnPass = 0) {
         if(self::$suppressNewDecisionsCheck !== null
             && (self::$suppressNewDecisionsCheck)()) return;   // result is final — queue nothing further
+        // A DecisionQueue row is SPACE-DELIMITED — ZoneClasses' constructor does explode(" ", $line) with
+        // Tooltip at index 3 and DontSkipOnPass at 4 — so a raw space in the tooltip would truncate it to
+        // its first word and shift every field after it. Normalising here is what lets card files write
+        // prompts as ordinary prose; the client turns the underscores back into spaces at render
+        // (Tooltip.replace(/_/g,' ') at every prompt site).
+        // ⚠ This guard covers the TOOLTIP ONLY. $param is written into the same space-delimited row and is
+        // NOT sanitised, because a space there is unrecoverable rather than cosmetic — it cannot be told
+        // apart from the field separator. Anything living in the param (OPTIONCHOOSE / YESNO option
+        // labels, the ~BUDGET~ and ~REQ~ side channels) must still be underscored by its caller.
         $tooltip = str_replace(' ', '_', $tooltip);
         $playerQueue = &GetDecisionQueue($player);
         $insertIndex = 0;

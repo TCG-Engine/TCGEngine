@@ -198,3 +198,66 @@ P1GROUNDARENACOUNT:0
 P1CREDITCOUNT:1
 P2DISCARDCOUNT:1
 P1DISCARDCOUNT:0
+
+---
+
+# Deployed_HelperText_NamesTheDealerAndTheDamage
+#// LAW_008 Krennic (deployed) — helper text, reported as "Krennic deploy needs better helper text".
+#// The When Deployed trigger asks for TWO picks and neither prompt said so. Step 1 read "Choose another
+#// friendly unit to deal its power", which reads as though that unit is being spent or sent to attack;
+#// step 2 read a bare "Choose an enemy unit", with no indication of who was dealing or how much.
+#//
+#// Step 1 must state the whole effect and warn that a second pick follows. Left pending to read it.
+#// TWO other friendly units are on the board on purpose: with only one, step 1 auto-resolves and there
+#// is no prompt to read. Krennic himself is excluded from the pool by "another".
+
+## GIVEN
+CommonSetup: ygk/grw/{
+  myLeader:LAW_008;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 7
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_another_friendly_unit_to_deal_damage_equal_to_its_power.
+
+---
+
+# Deployed_HelperText_SecondPromptCarriesCurrentPower
+#// LAW_008 Krennic (deployed) — step 2 names the dealer and the exact damage. The number is the dealer's
+#// CURRENT power, not its printed power: buffs and upgrades are precisely what make this trigger worth
+#// aiming, so a printed-power prompt would mislead exactly when it matters.
+#// SOR_046 Consular Security Force is printed 3 power and carries SOR_070 Devotion (+1/+1), so a correct
+#// prompt says 4. A printed-power read says 3 and fails here while still passing every damage assertion.
+#// ⚠ BOTH steps need two candidates or they auto-resolve and there is no prompt left to inspect — hence
+#// the second friendly and the second enemy. That is what makes an offer/tooltip assertion different
+#// from a damage assertion: the single-target board proves nothing about either.
+
+## GIVEN
+CommonSetup: ygk/grw/{
+  myLeader:LAW_008;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 7
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:SOR_070
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_an_enemy_unit_for_Consular_Security_Force_to_deal_4_damage_to

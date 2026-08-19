@@ -17,7 +17,14 @@ $customDQHandlers["TWI_176#0"] = function($player, $parts, $lastDecision) {
         if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $fuid) $second[] = $mz;
     }
     if (empty($second)) return; // no second unit in the same arena
-    SWUQueueChooseTarget(intval($player), $second, "Choose_the_second_enemy_unit_in_the_same_arena", "TWI_176#1|" . $fuid);
+    // Both units deal their CURRENT power to each other, simultaneously. Naming the first unit and its
+    // power is the only way the player can judge which second unit actually trades — "choose the second
+    // enemy unit" told them nothing about the exchange they were setting up.
+    $fName  = str_replace(' ', '_', SWUObjectTitle($first));
+    $fPower = intval(ObjectCurrentPower($first));
+    SWUQueueChooseTarget(intval($player), $second,
+        "Choose_a_second_enemy_unit_-_it_and_{$fName}_deal_their_power_to_each_other_({$fName}_deals_{$fPower})",
+        "TWI_176#1|" . $fuid);
 };
 
 $customDQHandlers["TWI_176#1"] = function($player, $parts, $lastDecision) {

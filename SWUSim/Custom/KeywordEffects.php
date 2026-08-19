@@ -693,6 +693,17 @@ function HasConditionalKeyword_Overwhelm($obj) {
     if (($obj->CardID ?? '') !== 'TS26_05' && intval($obj->Controller ?? 0) > 0 && _SWULeaderDeployed(intval($obj->Controller), 'TS26_05')) return true;
     // TS26_05 Savage Opress (front, undeployed) — friendly unit with the most power gains Overwhelm.
     if (_SWUSavageFrontGrants($obj)) return true;
+    // HMW_117 Chewbacca, Resourceful Wookiee — "While EACH resource you control is exhausted, this unit
+    // gains Overwhelm." "Each" means ALL of them, so one ready resource switches it off — which is why
+    // the ready count, not the exhausted count, is the thing to test.
+    // Credit tokens are excluded by SWUResourceCount (CR 3.13), so a ready Credit does not block it.
+    // ⚠ Vacuously TRUE while you control no resources at all (zero resources are all exhausted). That
+    // is the plain reading of "each", and harmless — with no resources the Raid clause is also 0, so he
+    // is a 0-power attacker either way — but it is a deliberate call, not an accident.
+    if (($obj->CardID ?? '') === 'HMW_117') {
+        $ctrl117 = intval($obj->Controller ?? 0);
+        if ($ctrl117 > 0 && SWUResourceCount($ctrl117, true) === 0) return true;
+    }
     if (_SWUUnitHasActiveUpgrade($obj, 'TWI_119')) return true;   // TWI_119 Nameless Valor — "Attached unit gains Overwhelm."
     if (_SWUUnitHasActiveUpgrade($obj, 'ASH_181')) return true;   // ASH_181 Mark My Words — "Attached unit gains Overwhelm."
     if (_SWUSEC104AuraActive($obj)) return true;   // SEC_104 aura
@@ -1167,6 +1178,16 @@ function GetConditionalKeyword_Raid_Value($obj) {
         && PlayerHasUnitWithTraitInPlay(intval($obj->Controller ?? 0), 'Separatist', $obj->UniqueID ?? null)) $amount += 2;
     // ASH_093 Captain Pellaeon — "While a leader unit has been defeated this phase, this unit gains Raid 3."
     if (($obj->CardID ?? '') === 'ASH_093' && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_LEADER_DEFEATED_PHASE') > 0) $amount += 3;
+    // HMW_117 Chewbacca, Resourceful Wookiee — "Raid 1 for each exhausted resource you control."
+    // His printed power is 0, so this clause IS his damage. Counted via SWUResourceCount, never the raw
+    // resource zone: a Credit token sits in that zone but is NOT a resource (CR 3.13), and counting the
+    // zone would inflate the Raid value for every Credit the player is holding.
+    // "You control" is the CONTROLLER — a Chewbacca under a take-control effect reads the new
+    // controller's resources, not his owner's.
+    if (($obj->CardID ?? '') === 'HMW_117') {
+        $ctrl117 = intval($obj->Controller ?? 0);
+        if ($ctrl117 > 0) $amount += SWUResourceCount($ctrl117) - SWUResourceCount($ctrl117, true);
+    }
     // ASH_105 Bo-Katan Kryze — "While you control another Mandalorian unit, this unit gains Raid 2."
     if (($obj->CardID ?? '') === 'ASH_105') {
         $selfUid105 = intval($obj->UniqueID ?? 0);

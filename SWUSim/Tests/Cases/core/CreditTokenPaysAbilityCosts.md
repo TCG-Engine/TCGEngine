@@ -13,7 +13,7 @@ WithP1GroundArena: SEC_080:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
-- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1LEADER:EXHAUSTED
@@ -39,7 +39,7 @@ WithP1GroundArena: SEC_080:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
-- P1>AnswerDecision:myResources-1
+- P1>AnswerDecision:myTempZone-0
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
@@ -116,7 +116,7 @@ WithP2GroundArena: [SOR_095:1:0 TWI_149:1:0]
 
 ## WHEN
 - P1>UseUnitAbility:myGroundArena-0
-- P1>AnswerDecision:myResources-1
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:EXHAUSTED
@@ -169,7 +169,7 @@ WithP1Deck: SOR_128
 
 ## WHEN
 - P1>UseBaseAbility
-- P1>AnswerDecision:myResources-1
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1BASE:EPICUSED
@@ -222,7 +222,7 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>SmuggleResource:1
-- P1>AnswerDecision:myResources-2
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1SPACEARENACOUNT:1
@@ -280,7 +280,7 @@ WithP1Deck: SOR_095
 - P1>DeployLeader
 - P1>AnswerDecision:myResources-5
 - P1>AnswerDecision:myGroundArena-0
-- P1>AnswerDecision:myResources-6
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1LEADER:DEPLOYED

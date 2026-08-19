@@ -15,6 +15,21 @@ npm install          # postinstall pulls the chromium, firefox, and webkit brows
 
 `node_modules/` is gitignored — this is a local dev tool, not shipped.
 
+## Latest-printing display
+
+```bash
+node latest-printing-xbrowser.mjs --game <deckID> --canonical <storedId> --display <shownId>
+```
+
+Confirms a reprinted card RENDERS its newest standard printing while its stored identity stays
+canonical, in all three engines. Exits non-zero on failure.
+
+⚠ Pass the values the `<img src>` actually carries, and pick a card that is in the deck's **main deck**
+— not merely present somewhere in `Gamestate.txt`, which also holds the browse-pane card pool that the
+board never renders. Legacy decks store FFG UUIDs, so `--canonical` is often a UUID while `--display`
+is a SET_NNN id; that asymmetry is the point, and it is what caught the missing UUID normalisation in
+`SWUDisplayCardID`.
+
 ## Card Search applet (main menu)
 
 ```bash

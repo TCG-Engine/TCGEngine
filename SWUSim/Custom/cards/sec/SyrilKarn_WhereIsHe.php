@@ -15,7 +15,9 @@ $customDQHandlers["SEC_133#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $units = SWUAllUnits();
     if (empty($units)) return;
-    SWUQueueChooseTarget(intval($player), $units, "Choose_a_unit", "SEC_133#1|" . intval($player));
+    SWUQueueChooseTarget(intval($player), $units,
+        "Choose_a_unit_to_deal_2_damage_to_(unless_its_controller_discards_a_card)",
+        "SEC_133#1|" . intval($player));
 };
 
 $customDQHandlers["SEC_133#1"] = function($player, $parts, $lastDecision) {

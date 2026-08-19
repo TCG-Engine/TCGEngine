@@ -31,3 +31,26 @@ WithP1Resources: 6
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:HP:3
+
+
+---
+
+# FiveResourcesPlusCredit_NoBuff
+#// SHD_083 Seasoned Shoretrooper — the PASSING CONTROL for the same case in sor/SeasonedShoretrooper.md.
+#// A Credit token is not a resource (CR 3.13), so 5 resources + 1 Credit leaves the unit at 2/3. This
+#// printing already routed through SWUResourceCount, which skips Credits; asserting it here is what
+#// proves the SOR failure was a real divergence between two printings of one card, not a rule question.
+
+## GIVEN
+CommonSetup: ggk/ggk
+P1OnlyActions: true
+WithP1GroundArena: SHD_083:1:0
+WithP1Resources: 5
+WithP1Credits: 1
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:2
+P1GROUNDARENAUNIT:0:HP:3

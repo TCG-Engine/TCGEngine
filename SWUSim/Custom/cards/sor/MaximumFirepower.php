@@ -11,7 +11,14 @@ $customDQHandlers["SOR_234#0"] = function($player, $parts, $lastDecision) {
     $imp1Mz = $lastDecision;
     $targets = SWUAllUnits();
     if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Choose_the_target_unit", "SOR_234#1|" . $imp1Mz, 0);
+    // The damage is the chosen Imperial's CURRENT power. "Choose the target unit" gave the player no way
+    // to know whether this kills what they are aiming at — the whole point of the card.
+    $imp1      = GetZoneObject($imp1Mz);
+    $imp1Name  = SWUObjGone($imp1) ? 'that_unit' : str_replace(' ', '_', SWUObjectTitle($imp1));
+    $imp1Power = SWUObjGone($imp1) ? 0 : intval(ObjectCurrentPower($imp1));
+    SWUQueueChooseTarget(intval($player), $targets,
+        "Choose_the_unit_for_{$imp1Name}_to_deal_{$imp1Power}_damage_to",
+        "SOR_234#1|" . $imp1Mz, 0);
 };
 
 // Step 2: imp1 deals its power to the target ($lastDecision); then pick a SECOND Imperial.
@@ -38,7 +45,12 @@ $customDQHandlers["SOR_234#1"] = function($player, $parts, $lastDecision) {
     // Target already defeated by the first hit → the second clause has no legal effect: skip the
     // chooser entirely (pointless-prompt doctrine; the damage step would fizzle anyway).
     if (SWUFindMzByUID($targetUID) === null) return;
-    SWUQueueChooseTarget(intval($player), $imp2, "Choose_another_Imperial_unit", "SOR_234#2|" . $targetUID, 0);
+    // Step 2 picks the SECOND dealer, so the amount depends on which one is picked — state the rule and
+    // name the target that is about to be hit again (it has already taken the first Imperial's power).
+    $tName = str_replace(' ', '_', SWUObjectTitle($target));
+    SWUQueueChooseTarget(intval($player), $imp2,
+        "Choose_another_Imperial_unit_to_deal_ITS_power_to_{$tName}",
+        "SOR_234#2|" . $targetUID, 0);
 };
 
 // Step 3: the second Imperial ($lastDecision) deals its power to the same target (by UID).

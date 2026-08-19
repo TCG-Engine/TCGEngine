@@ -19,7 +19,7 @@ WithP1GroundArena: SEC_080:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1DISCARDCOUNT:1
@@ -100,7 +100,7 @@ WithP1Credits: 2
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myTempZone-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1

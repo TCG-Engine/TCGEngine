@@ -3,6 +3,7 @@
 // Rewrites a deck gamestate file. The deck-file rewrite walks those files, and autosave racing a
   // format change is exactly what caused the Leader2 sideboard data loss.
 require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
+require_once __DIR__ . '/../AppCore/SWU/Overrides.php';   // CardIDOverride — writes store the EARLIEST printing
 SWUMaintenanceRequire('SWUDeck', 'deck');
 
   // APIs/EditDeckCard.php
@@ -27,7 +28,11 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
 
   $deckID = isset($data['deckID']) ? intval($data['deckID']) : 0;
   $action = isset($data['action']) ? strtolower($data['action']) : '';// add | remove
-  $cardID = isset($data['cardID']) ? $data['cardID'] : '';
+  // Any printing is accepted; the EARLIEST is what gets stored. Exports now emit the latest printing,
+  // so a client echoing an exported id back would otherwise write a non-canonical card into the deck
+  // file — splitting it from its own stats history. CardIDOverride is idempotent, so a caller sending
+  // the canonical id is unaffected.
+  $cardID = isset($data['cardID']) ? CardIDOverride($data['cardID']) : '';
   $count = isset($data['count']) ? intval($data['count']) : 1;
   $zone = isset($data['zone']) ? strtolower($data['zone']) : 'main'; // main | side
 

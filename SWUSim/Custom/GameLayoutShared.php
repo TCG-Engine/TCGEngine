@@ -3387,9 +3387,29 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   /* Stacked (narrow / mobile) keeps both panes in normal flow — the whole body already scrolls, and
      nesting scrollers inside it on a phone makes the list hard to reach. */
   .swu-settings-pane + .swu-settings-pane { border-top: 1px solid var(--border); }
+  /* ── Fonts: ONE family for the whole menu ────────────────────────────────────────────────
+     Nothing on the board sets a font-family on <body> — every element opts in explicitly — and this
+     panel never did. So its rows, section titles and head fell through to the UA default, which is a
+     SERIF, while the <select>s took the UA widget font and the .btn/<kbd> took --font-display /
+     --swu-font-label. Four faces in one 640px panel.
+     The panel now declares the board's UI face and everything inside inherits it; hierarchy is carried
+     by size, weight, tracking and case, which the titles and key chips already have. Every rule below
+     that used to name its own family now says `inherit` so there is exactly one place to change it.
+     ⚠ Form controls do NOT inherit font in ANY engine — Chromium, Firefox and WebKit all reset
+     <select>/<button>/<input> to a UA font — so the explicit opt-in is required, not belt-and-braces.
+     ⚠ The button selector is deliberately (0,3,1): components.css's `button:not(.btn):not(.switch)`
+     is (0,2,1) and button.css's `.btn { font-family: var(--font-display) }` is (0,1,0); a plain
+     `.swu-settings-panel button` would only TIE the first and win on source order. */
+  .swu-settings-panel { font-family: var(--swu-font-ui, "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif); }
+  .swu-settings-panel select, .swu-settings-panel input { font: inherit; }
+  .swu-settings-panel .btn,
+  .swu-settings-panel button:not(.btn):not(.switch) { font-family: inherit; }
   .swu-settings-head { display: flex; align-items: center; justify-content: space-between;
     padding: 14px 16px; border-bottom: 1px solid var(--border);
-    font: 700 16px/1 var(--swu-font-label, sans-serif); color: var(--accent-strong); letter-spacing: 0.02em; }
+    /* Longhands, not the `font` shorthand: `inherit` is not a legal shorthand COMPONENT, so
+       `font: 700 16px/1 inherit` is dropped whole — taking the size and weight with it. */
+    font-weight: 700; font-size: 16px; line-height: 1;
+    color: var(--accent-strong); letter-spacing: 0.02em; }
   .swu-settings-close { background: transparent; border: 0; color: var(--text-muted); font-size: 16px; cursor: pointer; }
   .swu-settings-close:hover { color: #fff; }
   .swu-settings-section { padding: 14px 16px; }
@@ -3409,18 +3429,23 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-hotkey-key { flex: 0 0 auto; display: inline-block; min-width: 22px; text-align: center;
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 4px;
     padding: 2px 7px; color: var(--text, #e8d5a8);
-    font: 600 12px/1.35 var(--swu-font-label, inherit); letter-spacing: 0.06em; }
+    /* font-family is NOT optional here: <kbd> carries a UA default of `monospace` in Chromium,
+       Firefox AND WebKit, so simply omitting the family leaves the key caps in a third face. */
+    font-family: inherit; font-weight: 600; font-size: 12px; line-height: 1.35; letter-spacing: 0.06em; }
   /* Gamestate bookmarks. No collapsible — every mount carries its own heading, so a nested summary
      just repeated it. Every <button> here carries !important: components.css's
      `button:not(.btn):not(.switch)` is (0,2,1) and outranks a plain class. */
-  /* End-game mount only. The settings pane gets its height from the split column instead. */
-  .swu-bm-scroll { max-height: 220px; overflow-y: auto; }
+  /* End-game mount only. The settings pane gets its height from the split column instead.
+     Carries the family for that mount: inside the panel these rows inherit it, but the game-over
+     overlay sets no font-family either, so without this they render in the UA serif there. */
+  .swu-bm-scroll { max-height: 220px; overflow-y: auto;
+    font-family: var(--swu-font-ui, "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif); }
   .swu-bm-row { display: flex; align-items: center; justify-content: space-between; gap: 8px;
     padding: 6px 0; border-top: 1px solid var(--border); }
   .swu-bm-meta { min-width: 0; font-size: 12px; color: rgba(255,255,255,0.82); }
   .swu-bm-label { display: block; font-size: 11px; color: var(--text-muted);
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .swu-bm-load { flex: 0 0 auto; background: rgba(200,151,30,0.15) !important;
+  .swu-bm-load { flex: 0 0 auto; font-family: inherit !important; background: rgba(200,151,30,0.15) !important;
     color: rgba(200,151,30,0.95) !important; border: 1px solid rgba(200,151,30,0.35) !important;
     border-radius: 4px !important; font-size: 11px !important; padding: 5px 9px !important;
     cursor: pointer !important; }
@@ -3428,11 +3453,15 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-bm-empty { font-size: 12px; color: var(--text-muted); padding: 6px 0; }
   .swu-settings-link { display: inline-block; margin-top: 8px; color: var(--accent); font-size: 13px; text-decoration: none; }
   .swu-settings-link:hover { text-decoration: underline; }
-  .swu-settings-action { display: block; width: 100%; margin: 6px 0 0;}
+  /* font-size is explicit because .btn sets none, leaving the UA <button> default — which is
+     13.33px in Chromium/Firefox but 11px in WebKit, so Concede / Return / Report Bug rendered two
+     sizes across engines inside the same menu. */
+  .swu-settings-action { display: block; width: 100%; margin: 6px 0 0; font-size: 13px; }
   /* Collapsible Block Player widget (shared by the gear menu + game-over overlay) */
-  .swu-blockplayer { margin: 8px auto 0; max-width: 360px; text-align: left; }
+  .swu-blockplayer { margin: 8px auto 0; max-width: 360px; text-align: left;
+    font-family: var(--swu-font-ui, "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif); }
   .swu-blockplayer-head { display: block; width: 100%; padding: 6px 0; background: transparent; border: 0;
-    color: rgba(140,210,255,0.7); font: 700 12px/1 var(--swu-font-label, sans-serif);
+    color: rgba(140,210,255,0.7); font-family: inherit; font-weight: 700; font-size: 12px; line-height: 1;
     text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; text-align: left; }
   .swu-blockplayer-head:hover { color: #cfe6fb; }
   .swu-blockplayer-body { display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -3442,7 +3471,7 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     text-overflow: ellipsis; white-space: nowrap; }
   .swu-blockplayer-btn { flex: 0 0 auto; padding: 7px 16px; background: rgba(180,40,55,0.22);
     border: 1px solid rgba(220,80,95,0.6); border-radius: 6px; color: #ffd7dc;
-    font: 700 13px/1 var(--swu-font-label, sans-serif); cursor: pointer; }
+    font-family: inherit; font-weight: 700; font-size: 13px; line-height: 1; cursor: pointer; }
   .swu-blockplayer-btn:hover { background: rgba(200,50,65,0.4); }
   /* Sits inside the stats box, directly under the stats table. */
   #game-over-stats .swu-blockplayer { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.12); }
