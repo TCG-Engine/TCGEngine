@@ -208,6 +208,7 @@ return [
     'HMW_200' => 'hmw/RishLoo_TraitorousMinister.php',
     'HMW_202' => 'hmw/InfernoSquad_WeCanGrieveLater.php',
     'HMW_206' => 'hmw/TheTarkinDoctrine.php',
+    'HMW_210' => 'hmw/Sol_CompassionateGuardian.php',
     'HMW_255' => 'hmw/C3PO_CaptivatingStoryteller.php',
     'HMW_272' => 'hmw/Growth.php',
     'IBH_001' => 'ibh/LeiaOrgana_GetToYourTransports.php',

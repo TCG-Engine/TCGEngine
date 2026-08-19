@@ -1856,6 +1856,35 @@ When Played: If you control Grand Moff Tarkin, give an enemy unit -3/-0 for this
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_210' => 
+  array (
+    'title' => 'Sol',
+    'subtitle' => 'Compassionate Guardian',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+    ),
+    'text' => 'Shielded (When you play this unit, give a Shield token to it.)
+On Attack: This unit gains Sentinel for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/210.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_234' => 
   array (
     'title' => 'Ritual Dragon',
