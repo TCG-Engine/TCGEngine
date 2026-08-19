@@ -51,6 +51,30 @@ function _SWUOsha017Targets(int $player): array {
     return $out;
 }
 
+// ⚠ BUG #976c — WHO FINALISES THE ACTION. ActivateCard's entry-trigger flush queues a BARE
+// "SWU_TRIGGER_RESUME|{p}", and that resume FINALISES the action (calls SWUAfterAction) once the
+// EffectStack empties. So when the nested play has ANY entry trigger — Mae has Shielded and Ambush —
+// calling SWUAfterAction ourselves as well finalises TWICE, and with two seats the turn swaps straight
+// back to the acting player: a free extra action. This is the bug-#922 class; _SWUQueueOrchestration
+// already dedupes resume-vs-resume, but nothing dedupes resume-vs-an-explicit-SWUAfterAction.
+// ⚠ The $gTurnPlayer/PASS save-restore around the nested ActivateCard (the LOF_076 pattern) does NOT
+// cover this: it neutralises a SYNCHRONOUS inner swap, while the resume fires long after the restore.
+// A unit with no entry triggers (Grit is a passive, not a trigger) queues no resume, so we must still
+// close the action ourselves — hence a CHECK rather than an unconditional skip.
+function _SWUOsha017ActionAlreadyOwned(int $player): bool {
+    $needle = 'SWU_TRIGGER_RESUME|' . intval($player);
+    foreach (GetDecisionQueue($player) as $entry) {
+        if (($entry->Param ?? '') === $needle) return true;
+    }
+    return false;
+}
+
+// Close the action unless something else already owns it. Use this at every exit AFTER the nested play
+// has been attempted; the exits BEFORE it can never have queued a resume and close unconditionally.
+function _SWUOsha017CloseAction(int $player): void {
+    if (!_SWUOsha017ActionAlreadyOwned($player)) SWUAfterAction($player);
+}
+
 // Shared entry for both sides. The caller has already applied its own gate and paid its own cost.
 function _SWUOsha017Offer(int $player): void {
     $targets = _SWUOsha017Targets($player);
@@ -79,9 +103,9 @@ $customDQHandlers["HMW_017#0"] = function($player, $parts, $lastDecision) {
     _SWUSec008HealOnResourcePlay(intval($player));
     // "If you do so" / "If you do" — MEASURE the outcome rather than assuming the play landed. A play can
     // still fail here (an uncovered cost, a play-block), and the rider must not fire off a failed attempt.
-    if (count(GetUnitsInPlay(intval($player))) <= $before) { SWUAfterAction($player); return; }
+    if (count(GetUnitsInPlay(intval($player))) <= $before) { _SWUOsha017CloseAction(intval($player)); return; }
     $hand = ZoneSearch("myHand");
-    if (empty($hand)) { SWUAfterAction($player); return; }
+    if (empty($hand)) { _SWUOsha017CloseAction(intval($player)); return; }
     // ⚠ BLOCK 0, and it is load-bearing (bug #976b). CR 522.e / 7.6.8 and the standing HMW_043 ruling:
     // a card played MID-ABILITY holds its entry triggers until the OUTER ability — this rider included —
     // has finished resolving. ActivateCard above has ALREADY queued Mae's Shielded/Ambush triggers (and,
@@ -103,7 +127,7 @@ $customDQHandlers["HMW_017#1"] = function($player, $parts, $lastDecision) {
         // resourcing (contrast TS26_12 Sundari Palace, which says "and ready it" explicitly).
         if ($r !== null) { $r->Status = 0; SWUKeepCreditTokensLast(intval($player)); }
     }
-    SWUAfterAction($player);
+    _SWUOsha017CloseAction(intval($player));
 };
 
 // ── FRONT side ────────────────────────────────────────────────────────────────────────────────────

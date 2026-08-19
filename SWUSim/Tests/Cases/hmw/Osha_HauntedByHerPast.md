@@ -610,3 +610,83 @@ WithP2GroundArena: LAW_124:1:0
 ## EXPECT
 P1SELECTABLEEXACT:myResources-0&myResources-1
 P1HASDECISION
+
+---
+
+# Bug976c_NoExtraAction_WhenTheNestedPlayHasEntryTriggers
+#// BUG #976c — "this interaction is giving P1 an extra action." It does, and it has nothing to do with
+#// Ambush or combat: it appears whenever the nested-played unit has ENTRY TRIGGERS at all.
+#// ROOT CAUSE (the bug-#922 class): ActivateCard's entry-trigger flush queues a BARE
+#// "SWU_TRIGGER_RESUME|{p}", which FINALISES the action when the EffectStack empties — i.e. it calls
+#// SWUAfterAction itself. Osha's chain also called SWUAfterAction explicitly, so the action finalised
+#// TWICE; with two seats that swaps the turn back to the acting player and reads as a free extra action.
+#// _SWUQueueOrchestration already dedupes resume-vs-resume, but not resume-vs-explicit-SWUAfterAction.
+#// The $gTurnPlayer/PASS save-restore around the nested ActivateCard (the LOF_076 pattern) only
+#// neutralises a SYNCHRONOUS inner swap — a deferred trigger-resume fires long after the restore.
+#// ⚠ This is why 22 green sections missed it: every one of them uses P1OnlyActions, which claims
+#// initiative and makes the opponent auto-pass, so a DOUBLE swap is indistinguishable from a single one.
+#// This section deliberately does NOT use it — the turn must genuinely alternate for TURNPLAYER to mean
+#// anything. Ambush is DECLINED here to prove combat is not involved.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myLeader:HMW_017;myhandCardIds:HMW_074}
+WithActivePlayer: 1
+WithP1Resources: 1:HMW_055:1,3:SOR_046:1
+WithP1GroundArena: LOF_045:1:0
+WithP2GroundArena: LOF_107:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:1
+- P2>Pass
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:NO
+
+## EXPECT
+TURNPLAYER:2
+P1GROUNDARENAUNIT:0:CARDID:HMW_055
+
+---
+
+# Bug976c_Control_NoEntryTriggers_StillOneAction
+#// BUG #976c control — the branch that was ALREADY correct, kept so the fix cannot regress it. The Dwarf
+#// Spider Droid has only Grit (a passive, not an entry trigger), so ActivateCard queues no resume and
+#// Osha's own SWUAfterAction is the ONLY one — exactly one turn swap. If the fix over-suppresses (skips
+#// SWUAfterAction when nothing else will finalise), this section strands the action and goes red.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myLeader:HMW_017}
+WithActivePlayer: 1
+WithP1Resources: 1:TWI_231:1,3:SOR_046:1
+WithP1GroundArena: LOF_045:1:0
+WithP2GroundArena: LOF_107:1:0
+WithP2GroundArena: LAW_124:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:1
+- P2>Pass
+- P1>UseLeaderAbility
+
+## EXPECT
+TURNPLAYER:2
+P1GROUNDARENAUNIT:0:CARDID:TWI_231
+
+---
+
+# Bug976c_Control_SoftPass_StillOneAction
+#// BUG #976c control — the no-play branch. Osha soft-passes (no Heroism death), nothing is nested, and
+#// her own SWUAfterAction must still finalise the action exactly once.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myLeader:HMW_017}
+WithActivePlayer: 1
+WithP1Resources: 1:HMW_055:1,3:SOR_046:1
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+TURNPLAYER:2
+P1LEADER:EXHAUSTED
