@@ -37,10 +37,15 @@ function _SWUOsha017Targets(int $player): array {
         $GLOBALS['gOsha017IgnoreVillainy'] = true;
         $cost = SWUComputePlayCost($player, $res[$i]);
         $GLOBALS['gOsha017IgnoreVillainy'] = false;
-        // A card cannot pay for itself out of the resource zone, but an EXHAUSTED one never counted
-        // toward capacity in the first place, so only a READY slot is subtracted (bug #955, ASH_001).
-        $selfReady = (intval($res[$i]->Status ?? 0) === 1) ? 1 : 0;
-        if ($cost > $cap - $selfReady) continue;
+        // A card played OUT OF the resource zone may exhaust ITSELF toward its own cost (CR 8.22.e, the
+        // rule the Smuggle path documents), so its own ready slot is available and nothing is subtracted
+        // from the capacity here. ⚠ BUG #976 (game 3329): this used to read `$cost > $cap - $selfReady`,
+        // inherited from ASH_001 The Armorer. For a READY resource that is just `$cost >= $cap`, so a
+        // card costing EXACTLY the player's capacity was silently never offered — while the payment path
+        // would have charged it happily. Osha's ability simply did nothing with Mae (cost 3) sitting in
+        // 3 ready resources. An EXHAUSTED candidate is handled by the same line: it never contributed to
+        // $cap, so it cannot self-pay and correctly needs the full cost from elsewhere.
+        if ($cost > $cap) continue;
         $out[] = "myResources-{$here}";
     }
     return $out;
@@ -77,8 +82,16 @@ $customDQHandlers["HMW_017#0"] = function($player, $parts, $lastDecision) {
     if (count(GetUnitsInPlay(intval($player))) <= $before) { SWUAfterAction($player); return; }
     $hand = ZoneSearch("myHand");
     if (empty($hand)) { SWUAfterAction($player); return; }
+    // ⚠ BLOCK 0, and it is load-bearing (bug #976b). CR 522.e / 7.6.8 and the standing HMW_043 ruling:
+    // a card played MID-ABILITY holds its entry triggers until the OUTER ability — this rider included —
+    // has finished resolving. ActivateCard above has ALREADY queued Mae's Shielded/Ambush triggers (and,
+    // with two of them, the "choose a trigger to resolve" ordering prompt) at block 1; AddDecision
+    // inserts before the first HIGHER block and otherwise APPENDS, so queuing this at the default block 1
+    // put it dead last and the player was asked to order Mae's triggers before Osha had finished.
+    // HMW_043 avoids this by running its rider INLINE; this rider is interactive, so it cannot be — it
+    // has to sort ahead instead.
     SWUQueueMayChooseTarget(intval($player), $hand,
-        "Resource_a_card_from_your_hand?", "Choose_a_card_to_resource", "HMW_017#1");
+        "Resource_a_card_from_your_hand?", "Choose_a_card_to_resource", "HMW_017#1", 0);
 };
 
 // ── Step 1: the optional resource-from-hand ───────────────────────────────────────────────────────
