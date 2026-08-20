@@ -481,6 +481,50 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 }
 #game-over-overlay.active { display: grid !important; }  /* shared sets display:flex */
 
+/* ── Minimise / restore ───────────────────────────────────────────────────────────────────────
+   The panel covers 80% of the board, and the whole reason it is a panel rather than a full-screen
+   takeover is that the board and chat stay usable around it — but reviewing the board UNDER it still
+   meant having no way out. Minimised it collapses to a title bar in the bottom-left, leaving the
+   board clear, and the same button restores it.
+   ⚠ The overlay is a NAMED grid, so minimising is not just "hide the children": an unplaced child in
+   a grid with named areas gets AUTO-placed into an implicit cell, so the collapsed state has to
+   declare its own areas too, exactly like .has-subtitle above. */
+#swuEndGameToggle {
+    grid-area: toggle; justify-self: end; align-self: start;
+    pointer-events: auto; cursor: pointer; z-index: 2;
+    width: 26px; height: 26px; padding: 0; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 6px; border: 1px solid var(--border, #2a3a4a);
+    background: var(--swu-surface, rgba(10,20,30,0.85));
+    color: var(--accent-strong, #f0c040); font: 700 15px/1 var(--swu-font-label, sans-serif);
+}
+#swuEndGameToggle:hover { border-color: var(--accent-strong, #f0c040); background: rgba(10,20,30,0.98); }
+/* Expanded: the button rides in the title row's right edge, so no new grid area is needed. */
+#game-over-overlay:not(.is-minimized) #swuEndGameToggle {
+    grid-area: title; justify-self: end; align-self: start;
+}
+#game-over-overlay.is-minimized {
+    inset: auto auto 16px 16px !important;
+    width: auto !important; height: auto !important;
+    max-width: min(360px, 60vw) !important;
+    padding: 8px 10px 8px 14px !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto !important;
+    grid-template-areas: "title toggle" !important;
+    column-gap: 12px !important; row-gap: 0 !important;
+    align-items: center !important;
+    overflow: hidden !important;
+}
+/* Every other child is hidden — including any the shared markup adds later, hence the child selector
+   rather than a list of ids that would silently miss a new one. */
+#game-over-overlay.is-minimized > *:not(#game-over-title):not(#swuEndGameToggle) { display: none !important; }
+#game-over-overlay.is-minimized #game-over-title {
+    grid-area: title !important; align-self: center !important; justify-self: start !important;
+    margin: 0 !important; font-size: 15px !important; letter-spacing: 0.5px !important;
+    white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;
+}
+#game-over-overlay.is-minimized #swuEndGameToggle { align-self: center; }
+
 /* "Winner(s): …" line under the title. It only exists when the caller names winners (Twin Suns,
    where three of four seats read "You Lost" and nothing else would say who took it), so the extra
    grid row is scoped to .has-subtitle — otherwise every ordinary game would pay a row-gap of dead
@@ -530,7 +574,14 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     grid-area: buttons !important;
     flex-direction: row !important; flex-wrap: wrap !important;
     align-content: flex-start !important; justify-content: flex-start !important;
-    gap: 10px !important; margin: 0 !important; align-self: stretch !important;
+    gap: 10px !important; align-self: stretch !important;
+    /* ⚠ Top clearance for the minimise control, which sits at the panel's top-right. The two only
+       collide when the TITLE ROW has no height to hold it — a results panel with no title (the
+       plain non-match overlay) collapses that row to 0, so the 26px button overflows down into the
+       buttons row and lands on the first button ("Return to Menu"). Clearing it here fixes every
+       layout at once, including the single-column portrait one where the buttons span full width and
+       reach the panel's right edge. */
+    margin: 30px 0 0 !important;
 }
 #game-over-buttons button { flex: 0 0 100% !important; }
 /* Rematch fills the row; the short Bo1/Bo3 toggle sits compact to its right. */
@@ -1460,6 +1511,12 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
     function watchGlobalData() {
         pollGlobals();
+        // ⚠ The end-game toggle is NOT driven from pollGlobals: that runs on data change, not on a
+        // timer, so an overlay that appears while the board is idle would never get its control. The
+        // overlay is also torn down and rebuilt by the replay client, so a one-shot hook is not enough
+        // either. A light poll covers both — swuEnsureEndGameToggle early-returns unless the overlay
+        // is up and the button is missing, so the steady-state cost is one getElementById.
+        setInterval(swuEnsureEndGameToggle, 700);
         window.addEventListener('resize', syncCardSizeVar);
         var g=document.getElementById('globalStuff'); if(!g) return;
         new MutationObserver(pollGlobals).observe(g,{childList:true,subtree:true});
@@ -2609,6 +2666,39 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
         if (box.innerHTML !== html) box.innerHTML = html;   // avoid restarting hover state every poll
     }
+
+    // The end-game panel's minimise/restore control. Injected rather than shipped in markup because
+    // #game-over-overlay is SHARED (Core), and this collapse behaviour is SWUSim's panel-not-takeover
+    // treatment. Idempotent: called from the poll, so it survives the overlay being torn down and
+    // rebuilt (replay Reset does exactly that — Core/MatchReplayClient.js).
+    function swuEnsureEndGameToggle() {
+        var ov = document.getElementById('game-over-overlay');
+        if (!ov || !ov.classList.contains('active')) return;
+        var btn = document.getElementById('swuEndGameToggle');
+        if (!btn) {
+            btn = document.createElement('button');
+            btn.id = 'swuEndGameToggle';
+            btn.type = 'button';
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var o = document.getElementById('game-over-overlay'); if (!o) return;
+                o.classList.toggle('is-minimized');
+                swuSyncEndGameToggle();
+            });
+            ov.appendChild(btn);
+        }
+        swuSyncEndGameToggle();
+    }
+    function swuSyncEndGameToggle() {
+        var ov = document.getElementById('game-over-overlay');
+        var btn = document.getElementById('swuEndGameToggle');
+        if (!ov || !btn) return;
+        var min = ov.classList.contains('is-minimized');
+        btn.textContent = min ? '\u25A1' : '\u2013';                 // □ restore / – minimise
+        btn.title       = min ? 'Restore the results panel' : 'Minimise the results panel';
+        btn.setAttribute('aria-label', btn.title);
+    }
+    window.swuEnsureEndGameToggle = swuEnsureEndGameToggle;
 
     function refreshActionGlows() {
         // Read-only: on a board that isn't yours, apply NO action glows (blank the data). The deployed-
