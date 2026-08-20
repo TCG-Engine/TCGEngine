@@ -64,10 +64,19 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            straight back to small boards. The scale is gone now, but keep the margin. */
         --swu-hand-hover-rise: 12px;
         --swu-hand-lift:       22px;
-        /* Same min() rule as the hand band: never wider than the historical 88px, but
-           proportional once the cards shrink below the 80px reference. The deck/discard
-           containers are otherwise fixed-size and dominate a small board. */
-        --swu-pile-w:       min(88px, calc(var(--swu-cardsize, 80px) * 1.1));
+        /* EXACTLY the pile card's own box, so the empty-slot frame sits where the card sits.
+           ⚠ This was `min(88px, calc(var(--swu-cardsize, 80px) * 1.1))` — "never wider than the
+           historical 88px, but proportional once the cards shrink below the 80px reference". That
+           cap silently inverted the relationship at the CURRENT card size: --swu-cardsize is 100px,
+           so the frame froze at 88 (90 outer) while the pile card renders at 100 (102 outer) — the
+           art overflowed its own frame by 9px top / 6px left. Invisible for as long as BOTH piles
+           held a card, because `.swu-pile:has(img)` blanks the frame whenever one is present; the
+           moment a pile was empty, its visible frame sat lower and smaller than the card next to it.
+           Content width == --swu-cardsize means frame outer (100 + 2 border) == card outer (100 + 2
+           border), so an empty pile and an occupied pile occupy the SAME rect at every card size.
+           This also removes the ~4px the deck's and discard's art sat apart, since the pin formula
+           below and the flex centring now both resolve to the same -1px. */
+        --swu-pile-w:       var(--swu-cardsize, 80px);
         /* SQUARE, deliberately equal to --swu-pile-w. The deck/discard piles render from the
            `concat` folder, and Card() sizes a concat image `width = height = maxHeight` (see the
            folder branch in Core/UILibraries) — the crops are literally 450x450. So a pile card is
@@ -611,9 +620,29 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     body.swu-home #theirPileRow,
     body.swu-home #theirHandSlot,
     body.swu-home #swuTheirResBadge { display: none !important; }
-    body.swu-home .swu-home-strips { top: var(--swu-hand-h); bottom: calc(var(--swu-midline) + 4px);
+    body.swu-home .swu-home-strips { top: 8px; bottom: calc(var(--swu-midline) + 4px);
         left: 0; right: var(--swu-sidebar-w, 0px);   /* stay in the board area — left of the chat/log sidebar */
         height: auto; align-items: stretch; padding: 8px 12px; }
+    /* ⚠ `top` was --swu-hand-h, reserving the opponent's HAND ROW above the tiles — but this view
+       hides #theirHandSlot, and the seat-chip bar that used to sit up there is gone too, so that band
+       was empty. The tiles start at the top of the board now and take the height back.
+
+       THE HUD FRAME COVERS ONLY YOUR HALF ON THIS VIEW. .swu-arena-bg normally spans BOTH halves and
+       draws the corner brackets at its extremes; on the home view its top half contains the preview
+       tiles, so the brackets were framing three opponents' boards as though they were one arena.
+       Starting it at the midline puts the top corners exactly on the halfway line, and the tiles then
+       sit ABOVE those corners — which is the read we want: your board is the framed thing, the tiles
+       are something else sitting over it.
+       ⚠ Scoped to body.swu-home ON PURPOSE. Zoom into a matchup and the class is gone, so the frame
+       spans both halves again and the board is pixel-identical to a 2-player game. */
+    body.swu-home .swu-arena-bg { top: calc(var(--swu-midline) + 4px); }
+    /* The initiative token reparents into #swuTheirControlBand whenever an OPPONENT holds it — a band
+       that sits at the very top of the screen (y=0), which the preview tiles now cover. Two reasons it
+       goes rather than getting moved: it is occluded, and on this view it is ambiguous anyway — the
+       token only encodes mine-vs-theirs, and "theirs" is three different people here. The holder is
+       named on their own tile instead (.swu-mb-initpill). When YOU hold it the token lives in
+       #swuMyControlBand on your half, where it is visible and unambiguous, so this leaves it alone. */
+    body.swu-home #swuTheirControlBand .swu-init-control { display: none !important; }
 
     /* Card flow inside arena cols — wrap, fill from edge nearest midline */
     #theirSpaceArena, #theirGroundArena { flex-wrap: wrap !important; align-content: flex-end !important; }
@@ -661,6 +690,62 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         justify-content: flex-start; /* P1: Leader → Base → piles */
         gap: 6px; padding: 8px 6px;
     }
+
+    /* Base status tabs — [Base] / [FORTIFIED (n)] / [Leader]. The column gap is 6px; these add their
+       own margin so the base and leader are visibly separated even when a base has no tabs at all,
+       which is what makes room for a tab to appear without the column jumping. */
+    /* Tucked UNDER the base like subcards, not floating beside it: the stack slides up behind the card
+       (negative margin + z-index below it), each tab butts against the one above with no gap, and only
+       the OUTER corners are rounded — so the run reads as one thing hanging off the base rather than
+       loose pills. Each tab is inset slightly so the base's own edge stays the widest line. */
+    .swu-base-tabs {
+        display: flex; flex-direction: column; align-items: center; gap: 0;
+        position: relative; z-index: 0; margin: -7px 0 6px; pointer-events: auto;
+        align-self: stretch;   /* full column width, so a tab can match the base card edge-to-edge */
+    }
+    .swu-base-slot-wrap { position: relative; z-index: 1; }   /* the card overlaps the tabs it hides */
+    /* Styled as the board's buttons (.swu-init-pass-btn): a coloured RIM with an inset flat fill and a
+       chamfered clip-path, same label font / 0.16em tracking / uppercase — but deliberately more
+       TRANSPARENT, because these are status, not controls, and must not out-shout the PASS cluster.
+       ⚠ The chamfer is on the OUTER corners only; the edge meeting the card stays square so the tuck
+       still reads as one piece. */
+    .swu-base-tab {
+        position: relative; display: inline-flex; align-items: baseline; justify-content: center; gap: 5px;
+        padding: 3px 9px 2px; margin-top: -1px; width: 100%; box-sizing: border-box;
+        font: 700 9px/1.25 var(--swu-font-label, sans-serif);
+        letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap;
+        border: 0; border-radius: 0;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 7px 100%, 0 calc(100% - 7px));
+    }
+    .swu-base-tab::before {
+        content: ''; position: absolute; inset: 1.5px; z-index: -1;
+        background: rgba(10, 20, 30, 0.55);   /* translucent flat fill, mirroring --btn-fill */
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px));
+    }
+    /* Both tabs span the base card's full width — they read as part of the card, not as pills under
+       it — so no inset step. The layering comes from the butt joint and the seam border alone. */
+    /* THEIR half mirrors: the tabs sit ABOVE their base (leader → tabs → base), so they tuck UPWARD —
+       rounded on top, butting downward, and the negative margin goes on the bottom. */
+    .swu-center-col-top .swu-base-tabs { margin: 6px 0 -7px; flex-direction: column-reverse; }
+    .swu-center-col-top .swu-base-tab { padding: 2px 9px 3px;
+        clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%, 0 7px);
+        margin-top: 0; margin-bottom: -1px; }
+    .swu-center-col-top .swu-base-tab::before {
+        clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%, 0 6px); }
+    /* FORTIFIED — neutral grey. Carries the count AND the click/hover popup of the attached upgrades,
+       which is why it uses the same data-lineage-subcards payload the old corner badge used. */
+    /* Rim + text carry the type colour; the fill behind stays neutral and translucent. */
+    .swu-base-tab-fort { background: rgba(190,196,206,0.55); color: rgba(222,228,238,0.95);
+        text-shadow: 0 0 5px rgba(190,196,206,0.45); cursor: pointer; }
+    .swu-base-tab-fort:hover, .swu-base-tab-fort:focus-visible {
+        background: rgba(190,196,206,0.85); color: #fff; outline: none; }
+    /* ARRESTED — goldenrod, and hoverable: captured cards are OPEN INFORMATION to every player
+       (CR 1077.1 / 207.1), so the "Captured Units" panel naming them is correct, not a leak. */
+    .swu-base-tab-arrest { background: rgba(218,165,32,0.58); color: rgba(245,205,110,0.98);
+        text-shadow: 0 0 5px rgba(218,165,32,0.5); cursor: pointer; }
+    .swu-base-tab-arrest:hover, .swu-base-tab-arrest:focus-visible {
+        background: rgba(218,165,32,0.9); color: #fff; outline: none; }
+    .swu-base-tab-n { font-size: 11px; font-weight: 900; }
 
     /* Inner slots inside center columns are relative, not fixed */
     .swu-center-inner {
@@ -771,9 +856,16 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-pile:has(img) { border-color: transparent; background: transparent; }
     /* Was an inline style="min-height:96px" on each of the four slots, which beat every
        stylesheet rule and kept the deck/discard boxes 98px tall inside a hand band that had
-       shrunk to 72px. Same min() rule as the pile itself. */
+       shrunk to 72px.
+       ⚠ It then carried `min(112px, calc(var(--swu-cardsize, 80px) * 1.4))` — a 1.4 PORTRAIT ratio
+       on a pile whose art is SQUARE (see --swu-pile-h). At cardsize 100 that made the slot 112 tall
+       inside a 100-tall pile, so the slot overflowed 6px each way and the discard's card was flex-
+       centred 3px ABOVE its own frame. Harmless while both piles held art; once one pile was empty
+       its frame visibly sat lower than the neighbouring card. The slot must never be taller than the
+       frame it lives in, and .swu-pile already sets an explicit height, so it needs no floor of its
+       own beyond matching. */
     #myDeckSlot, #myDiscardSlot, #theirDeckSlot, #theirDiscardSlot {
-        min-height: min(112px, calc(var(--swu-cardsize, 80px) * 1.4));
+        min-height: var(--swu-pile-h);
     }
 
     .swu-pile-label {
@@ -908,7 +1000,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
        core Card() renderer, driven by the base's HasForce virtual — same path as the
-       Epic-Action-Used token. See Core/UILibraries20260818.js. */
+       Epic-Action-Used token. See Core/UILibraries20260819.js. */
 
     /* ── Counter badges below the frame animations ───────────────────────────────
        The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,
@@ -1597,6 +1689,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         <div id="theirLeaderSlot" class="swu-zone swu-center-inner"></div>
     </div>
 
+    <!-- FORTIFIED / ARRESTED tabs — always on the LEADER side of the base, so on both halves the
+         tab reads as hanging off the base rather than floating between two unrelated cards.
+         Populated by swuRenderBaseTabs(); empty (and zero-height) when the base has neither. -->
+    <div id="theirBaseTabs" class="swu-base-tabs"></div>
+
     <!-- Their base (closest to midline) -->
     <div class="swu-base-slot-wrap">
         <div id="theirBaseSlot" class="swu-zone swu-center-inner"></div>
@@ -1612,6 +1709,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         <div id="myBaseSlot" class="swu-zone swu-center-inner"></div>
     </div>
 
+    <!-- FORTIFIED / ARRESTED tabs (see the mirror of this on their half) -->
+    <div id="myBaseTabs" class="swu-base-tabs"></div>
+
     <!-- My leader (further from midline) -->
     <div class="swu-leader-slot-wrap">
         <div id="myLeaderSlot" class="swu-zone swu-center-inner"></div>
@@ -1622,7 +1722,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 <!-- ═══════════════════ PILE ROWS — bottom-right (mine) / top-right (theirs) ═══ -->
 <div id="theirPileRow" class="swu-pile-row">
     <div class="swu-pile">
-        <div class="swu-pile-label">Deck</div>
+        <div class="swu-pile-label">Empty</div>
         <div id="theirDeckSlot"></div>
     </div>
     <div class="swu-pile">
@@ -1632,7 +1732,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 </div>
 <div id="myPileRow" class="swu-pile-row">
     <div class="swu-pile">
-        <div class="swu-pile-label">Deck</div>
+        <div class="swu-pile-label">Empty</div>
         <div id="myDeckSlot"></div>
     </div>
     <div class="swu-pile">
@@ -1673,10 +1773,6 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         </div>
     </div>
 </div>
-
-<!-- Twin Suns (order strip): clockwise seat status P1→P2→…→PN. Populated by swuRenderOrderStrip();
-     hidden entirely in 2-player games. -->
-<div id="swuOrderStrip" class="swu-order-strip" style="display:none;"></div>
 
 <!-- Twin Suns pair-switcher — carousel side arrows; shown only at seat count > 2 (toggled by JS). -->
 <div id="swuPairNav" class="swu-pair-nav" style="display:none;">

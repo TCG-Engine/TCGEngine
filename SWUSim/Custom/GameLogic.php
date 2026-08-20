@@ -7180,6 +7180,24 @@ function _SWUControlsBaseWithTrait(int $player, string $trait): bool {
 }
 
 // True if $player's base has a Fortify upgrade with CardID $cardID attached (HMW_206 The Tarkin Doctrine).
+// "You may look at the top card of your deck at any time." — a CONTINUOUS VISIBILITY permission, not a
+// triggered ability or an Action: while it holds, the player may see the top card of their OWN deck.
+// Two printings grant it and this is the single source of truth for both, so the transport layer and any
+// future consumer cannot drift apart:
+//   • LAW_094 Hondo Ohnaka — granted by the unit itself while in play, to its CONTROLLER. Read through
+//     _SWUCountActiveUnitsWithCardID so a Hondo that has LOST ITS ABILITIES (SOR_138 Force Lightning,
+//     SHD_072, TWI_255) stops granting it.
+//   • HMW_205 Intelligence Agency — the same clause granted to the ATTACHED BASE, so it follows the
+//     base's controller and ends the moment the upgrade leaves the base.
+// Recomputed on every read, so there is no state to clear when either source goes away.
+// ⚠ The permission is over the player's OWN deck only — neither card lets you look at an opponent's.
+function _SWUCanSeeOwnTopCard(int $player): bool {
+    if ($player <= 0) return false;
+    if (_SWUCountActiveUnitsWithCardID($player, 'LAW_094') > 0) return true;
+    if (_SWUBaseHasUpgrade($player, 'HMW_205')) return true;
+    return false;
+}
+
 function _SWUBaseHasUpgrade(int $player, string $cardID): bool {
     $zone = GetBase($player);
     $base = $zone[0] ?? null;
@@ -28168,6 +28186,40 @@ function BaseHasForce($obj): bool {
 // Number of upgrades attached to a base ZONE OBJECT. This is the display hook: the Base zone's
 // UpgradeCount virtual feeds the bottom-left badge. Tolerates a base with no Subcards at all —
 // every base predates Fortify, and a null-guard here is cheaper than backfilling them.
+// Base CAPTIVES — units arrested by SEC_195 and held "under the base" until the regroup phase.
+// ⚠ They are NOT subcards. Unlike a unit-on-unit capture (IsCaptive subcards on the captor), a BASE
+// captive is stored as a GlobalEffects flag on the CAPTURING player: "SWU_BASECAPTIVE|<CardID>|<owner>"
+// (_SWUBaseCaptureUnit), and _SWURescueBaseCaptives drains those flags at RegroupPhaseStart. Counting
+// $obj->Subcards here returns 0 forever — the base's Subcards array holds only Fortify upgrades.
+// ⚠ TODAY this is exactly "units arrested", because Arrest is the ONLY caller of _SWUBaseCaptureUnit,
+// which is what lets the UI label it ARRESTED. A second base-capturing card would change that.
+function BaseCaptiveCount($obj): int {
+    $player = intval($obj->PlayerID ?? 0);
+    if ($player <= 0) return 0;
+    $n = 0;
+    foreach (GetGlobalEffects($player) as $ge) {
+        if (strpos((string)($ge->CardID ?? ''), 'SWU_BASECAPTIVE|') === 0) ++$n;
+    }
+    return $n;
+}
+
+// The captured CardIDs, comma-joined — the popup data source, mirroring BaseUpgradeCardIDs.
+// ⚠ Captured cards are OPEN INFORMATION to every player (CR 1077.1: "still open information to all
+// players"; CR 207.1 lists "the attributes of ... any captured cards"). Facedown-under-the-base is a
+// physical placement, not secrecy — so this may be sent to, and shown to, everyone.
+function BaseCaptiveCardIDs($obj): string {
+    $player = intval($obj->PlayerID ?? 0);
+    if ($player <= 0) return '';
+    $ids = [];
+    foreach (GetGlobalEffects($player) as $ge) {
+        $flag = (string)($ge->CardID ?? '');
+        if (strpos($flag, 'SWU_BASECAPTIVE|') !== 0) continue;
+        $parts = explode('|', $flag);
+        if (($parts[1] ?? '') !== '') $ids[] = $parts[1];
+    }
+    return implode(',', $ids);
+}
+
 function BaseUpgradeCount($obj): int {
     // GetUpgradesOnUnit is the CANONICAL subcard reader: after a gamestate round-trip Subcards come
     // back as associative ARRAYS (json_decode($x, true)), not objects, and it normalizes them (and

@@ -67,6 +67,20 @@ function ShouldIgnoreCardDetailEvent(e, options) {
   return IsMouseCardDetailEvent(e) && Date.now() < suppressMouseCardDetailUntil;
 }
 
+// The per-app hover dwell before a card preview opens. Extracted so every preview path shares ONE
+// value — a second path with its own timing reads as a different feature, not a consistent board.
+function CardDetailHoverDelay(options) {
+  options = options || {};
+  if (options.skipDelay) return 0;
+  var el = document.getElementById("folderPath");
+  var folderPath = el ? el.value : "";
+  if (folderPath == "SWUDeck" || folderPath == "AzukiDeck") return SWUDECK_CARD_DETAIL_HOVER_MS;
+  if (folderPath == "SWUSim") return 850;
+  if (folderPath == "AzukiSim" || folderPath == "FaBSim") return AZUKISIM_CARD_DETAIL_HOVER_MS;
+  if (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim") return 100;
+  return 1;
+}
+
 function ShowCardDetail(e, that, options) {
   options = options || {};
   if (ShouldIgnoreCardDetailEvent(e, options)) return;
@@ -75,10 +89,7 @@ function ShowCardDetail(e, that, options) {
   TrackCardDetailMouse(e);
   clearTimeout(showDetailTimeout);//In case there was another card waiting to show detail
   var folderPath = document.getElementById("folderPath").value;
-  var timeOut = options.skipDelay ? 0 : (folderPath == "SWUDeck" || folderPath == "AzukiDeck" ? SWUDECK_CARD_DETAIL_HOVER_MS :
-    (folderPath == "SWUSim" ? 850 :
-    (folderPath == "AzukiSim" || folderPath == "FaBSim" ? AZUKISIM_CARD_DETAIL_HOVER_MS :
-    (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" ? 100 : 1))));
+  var timeOut = CardDetailHoverDelay(options);
   showDetailTimeout = setTimeout(function() {
     if (requestToken !== cardDetailRequestToken) return;
     if (IsCardDetailSuppressed()) return;
@@ -418,6 +429,56 @@ function ShowSubcardDetail(e, imgEl, options) {
     PlaceCardDetail(el, e.clientX, e.clientY, displayWidth, displayHeight, null, touch);
     el.style.zIndex = 100000;
   }, options.skipDelay ? 0 : 1);
+}
+
+// "You may look at the top card of your deck at any time" (LAW_094 Hondo Ohnaka, HMW_205 Intelligence
+// Agency). The element carries the top card's CardID in data-topcard-peek — only the entitled seat is
+// ever sent one, so nothing here needs its own permission check. Reuses ShowSubcardDetail by handing it
+// a src-only stand-in: that function reads exactly one property off the element it is given
+// (getAttribute('src')), so a literal element is unnecessary and building one would add a DOM node whose
+// only purpose is to hold a URL. ⚠ The art base must come from window.assetImageFolder — the shared SWU
+// corpus is NOT under <rootPath>/concat, and hand-building that path 404s locally while prod masks it.
+function SwuCardArtSrc(cardID) {
+  if (!cardID) return '';
+  var base = window.assetImageFolder || ((window.rootPath || '.') + '/concat');
+  return String(base).replace(/\/$/, '') + '/' + cardID + '.webp';
+}
+
+// Blow up a card preview from a CardID alone, for anything drawn as a CSS background-image rather than
+// an <img> (the Twin Suns mini-board thumbnails, the deck top-card peek).
+// ⚠ Goes through ShowDetail, NOT ShowSubcardDetail. ShowSubcardDetail hardcodes the SWU PORTRAIT ratio
+// (400 * 0.71) because a subcard sliver has no natural dimensions to measure, and it then sets BOTH
+// width and height on the <img> — so a LANDSCAPE card (every leader and every base, 628x450) was
+// squashed into a portrait frame. ShowDetail preloads the image and sizes from img.width/img.height,
+// so each card keeps its own shape. It also gives this path the same per-app hover dwell as the board.
+function ShowCardDetailByCardID(e, cardID, options) {
+  options = options || {};
+  if (ShouldIgnoreCardDetailEvent(e, options)) return;
+  if (IsCardDetailSuppressed()) return;
+  var src = SwuCardArtSrc(cardID);
+  if (!src) return;
+  var requestToken = ++cardDetailRequestToken;
+  TrackCardDetailMouse(e);
+  clearTimeout(showDetailTimeout);
+  showDetailTimeout = setTimeout(function () {
+    if (requestToken !== cardDetailRequestToken) return;
+    if (IsCardDetailSuppressed()) return;
+    ShowDetail(e, src, null, requestToken);
+  }, CardDetailHoverDelay(options));
+}
+
+// "You may look at the top card of your deck at any time" (LAW_094, HMW_205). Only the entitled seat is
+// ever sent a data-topcard-peek, so nothing here needs its own permission check.
+function ShowTopCardPeek(e, el, options) {
+  if (!el || typeof el.getAttribute !== 'function') return;
+  ShowCardDetailByCardID(e, el.getAttribute('data-topcard-peek') || '', options);
+}
+
+// Twin Suns mini-board thumbnails (leaders / base / units in the home preview tiles). They are
+// background-image spans, so they get the same blow-up-on-hover the full board gives its cards.
+function ShowMiniCardDetail(e, el, options) {
+  if (!el || typeof el.getAttribute !== 'function') return;
+  ShowCardDetailByCardID(e, el.getAttribute('data-card-id') || '', options);
 }
 
 function HideCardDetail(force) {

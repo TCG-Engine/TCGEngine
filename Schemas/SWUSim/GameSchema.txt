@@ -222,7 +222,17 @@ Subcards: Flow=Badge
 # Fortify upgrade — HMW_081/095/171 are all non-unique — would display "1". UpgradeCardIDs stays
 # because it is the data source for the click-to-see-the-upgrades popup (still to be wired).
 Virtual: UpgradeCardIDs=BaseUpgradeCardIDs()
-Counters: UpgradeCount=Badge(Color=White,Position=BottomLeft,ShowZero=false,PopupFrom=UpgradeCardIDs)
+# Units arrested (SEC_195). ⚠ NOT subcards: a base captive is a "SWU_BASECAPTIVE|CardID|owner" flag in
+# the capturing player's GlobalEffects, drained at RegroupPhaseStart. Surfaced as its own count for the
+# ARRESTED tab / Twin Suns pip. Reads $obj->PlayerID to find whose GlobalEffects to look in.
+# ⚠ Captured cards are OPEN INFORMATION to all players (CR 1077.1 / 207.1) — facedown under the base is
+# a placement, not secrecy — so the identities ship alongside the count and drive the hover popup.
+Virtual: CaptiveCount=BaseCaptiveCount()
+Virtual: CaptiveCardIDs=BaseCaptiveCardIDs()
+# ⚠ The bottom-left UpgradeCount Badge counter was REMOVED here: the count now lives in the FORTIFIED
+# tab under the base (SWUSim/Custom/GameLayout.php), which carries the same click/hover upgrade popup
+# by reusing showLineageOverflowPopup's data-lineage-subcards payload. Re-adding a Counters line here
+# would put the number back in two places at once.
 
 # GroundArena ──────────────────────────────────────────────────────────────────
 # Units in the ground arena controlled by this player (including deployed leader units

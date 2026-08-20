@@ -71,24 +71,11 @@
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* ── Twin Suns table shell (order strip + pair-switcher + home strips) — all hidden at ≤2 seats ── */
-/* Order strip — fixed top-center row of seat chips (clockwise SeatOrder). */
-.swu-order-strip {
-    position: fixed; top: 4px; left: 50%; transform: translateX(-50%);
-    z-index: 40; display: flex; gap: 6px; padding: 4px 8px;
-    background: var(--swu-surface, rgba(10,20,30,0.82)); border: 1px solid var(--swu-border, #2a3a4a);
-    border-radius: 8px; font: 600 11px/1 var(--swu-font-label, sans-serif); pointer-events: none;
-}
-.swu-order-chip {
-    display: flex; align-items: center; gap: 4px; padding: 3px 7px; border-radius: 5px;
-    color: var(--text-muted, #aab); background: rgba(255,255,255,0.05); border: 1px solid transparent;
-    letter-spacing: 0.04em;
-}
-.swu-order-chip.is-you             { font-weight: 800; }
-.swu-order-chip.state-active       { color: #eef; border-color: rgba(60,220,90,0.9); box-shadow: 0 0 10px 1px rgba(60,220,90,0.55); }
-.swu-order-chip.state-took-counter { color: #f0c040; border-color: rgba(240,192,64,0.7); }
-.swu-order-chip.state-waiting      { opacity: 0.7; }
-.swu-order-chip .swu-order-dot     { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+/* ── Twin Suns table shell (pair-switcher + home strips) — all hidden at ≤2 seats ── */
+/* The fixed top-centre ORDER STRIP (a row of P1/P2/P3/P4 chips with a green ring on the turn player)
+   lived here and was REMOVED: the home strips now carry the active-turn highlight themselves
+   (.swu-home-strip.is-active-turn), so the bar was a second answer to the same question in a
+   different visual language. See swuTwHighlightActiveSeat(). */
 
 /* Pair-switcher — carousel side arrows, vertically centered: ▶ on the RIGHT edge advances to the next
    view; ◀ on the LEFT edge (shown only when there IS a view to the left) goes back. Each is shown/hidden
@@ -103,7 +90,17 @@
 .swu-pair-arrow:hover { border-color: var(--accent-strong, #f0c040); background: rgba(10,20,30,0.95); }
 /* Twin Suns two-level nav: a Go-back button shown on a matchup view (3-player). Replaces the ◀ arrow
    for the home-bearing view set; the carousel arrows are hidden there. */
-.swu-go-back { position: fixed; top: 56px; left: 12px; z-index: 42; cursor: pointer;
+/* Threaded into the gap BETWEEN the initiative hex and the arena frame's top-left corner bracket.
+   Two things to clear, and the gap between them is only about 50px:
+     • the hex above  — at top:56px the button sat right across it (measured: button y 56-80 over a
+       hex at y 28-90);
+     • the frame below — at hand-h + 8px it cleared the hex but its bottom edge (y 150) then cut
+       through the corner bracket, which starts at hand-h + --swu-arena-margin (y 142).
+   So it is anchored to the FRAME's top and pulled back by its own height plus a margin, which keeps
+   it clear of both at any board size rather than hardcoding a number a band-height change would
+   silently break. Harmless when the token is on the other side — nothing sits above it then. */
+.swu-go-back { position: fixed; top: calc(var(--swu-hand-h, 56px) + var(--swu-arena-margin, 0px) - 34px);
+    left: calc(var(--swu-arena-margin, 0px) + 8px); z-index: 42; cursor: pointer;
     padding: 5px 12px; border-radius: 8px; font: 700 12px/1 var(--swu-font-label, sans-serif);
     background: var(--swu-surface, rgba(10,20,30,0.85)); border: 1px solid var(--swu-border, #2a3a4a);
     color: var(--accent-strong, #f0c040); }
@@ -140,7 +137,43 @@ body.swu-spectating .swu-spectate-badge { display: block; }
     display: flex; align-items: center; gap: 10px; padding: 6px 10px;
     background: var(--swu-surface, rgba(10,20,30,0.85)); border: 1px solid var(--swu-border, #2a3a4a);
     border-radius: 8px; font: 600 11px/1.2 var(--swu-font-label, sans-serif); color: var(--text-muted,#aab); }
-.swu-home-strip:hover { border-color: var(--accent-strong, #f0c040); }
+/* No hover highlight on the tile itself — the tile is not a button. Its interactive parts (the cards,
+   the Zoom-in button, the Discard chip) carry their own affordances, and a whole-tile glow on hover
+   competed with the active-turn ring, which is the one border state that means something here. */
+/* ACTIVE SEAT — whose turn it is right now. The home strips all carry a dimmed playmat behind them
+   and read as equally "asleep", so the turn player is called out with a warm ring + lift rather than
+   a colour swap on text that a dark keyart would swallow.
+   ⚠ Deliberately NOT colour-only: .is-active-turn also prints a "TURN" pill next to the seat number,
+   so the state survives a colourblind viewer and a screenshot. The ring uses box-shadow, not a border
+   width change, so the strip does not reflow by a pixel when the turn passes. */
+.swu-home-strip.is-active-turn {
+    border-color: rgba(240,192,64,0.55);
+    /* ⚠ Two BLURRED layers and no hard ring — the same idiom as 2P's .has-action glow
+       (0 0 14px 3px + 0 0 4px 1px of the accent), scaled up for a tile-sized target. The first
+       version used `0 0 0 2px`, a zero-blur spread, which paints a crisp solid outline: a different
+       visual language from everything else on the board. Keep both layers blurred if you retune it. */
+    box-shadow: 0 0 26px 6px rgba(240,192,64,0.50), 0 0 8px 2px rgba(240,192,64,0.42);
+    filter: brightness(1.18) saturate(1.12);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.swu-home-strip.is-active-turn .swu-mb-seat { color: #ffd970; }
+.swu-mb-turnpill {
+    margin-left: 4px; padding: 1px 5px; border-radius: 999px;
+    background: var(--accent-strong, #f0c040); color: #1a1206;
+    font: 800 8px/1.35 var(--swu-font-label, sans-serif); letter-spacing: 0.1em;
+    text-transform: uppercase; vertical-align: middle; white-space: nowrap;
+}
+/* Initiative holder. Cyan, matching the initiative token's own palette and deliberately NOT the
+   amber of the turn pill — "acts next" and "holds the initiative" are different facts and a seat can
+   hold both at once. Outlined while unclaimed, filled once claimed for the round. */
+.swu-mb-initpill {
+    margin-left: 4px; padding: 1px 5px; border-radius: 999px;
+    background: transparent; color: #7fe3ef; border: 1px solid rgba(127,227,239,0.85);
+    font: 800 8px/1.35 var(--swu-font-label, sans-serif); letter-spacing: 0.1em;
+    text-transform: uppercase; vertical-align: middle; white-space: nowrap;
+}
+.swu-mb-initpill.is-claimed { background: rgba(127,227,239,0.92); color: #062227; border-color: transparent; }
+/* The pills only exist on the strips they belong to, so no :not() is needed to hide them elsewhere. */
 .swu-home-strip .hs-seat { font-weight: 800; color: #eef; }
 .swu-home-strip .hs-base { color: #f0c040; }
 .swu-home-strip .hs-leaders { display: flex; gap: 4px; }
@@ -157,9 +190,37 @@ body.swu-spectating .swu-spectate-badge { display: block; }
 .swu-mb-spacer { flex: 1 1 auto; }
 .swu-mb-card { position: relative; border-radius: 3px; border: 1px solid #10151f;
     background-size: cover; background-position: center; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-.swu-mb-leader { width: 26px; height: 36px; }
+/* LANDSCAPE, ~628:450 — the real proportions of a leader card. This was 26x36 (portrait), which is a
+   unit's shape, not a leader's; the art was cropped to fit it. Keep the ratio if you retune the size. */
+.swu-mb-leader { width: 40px; height: 29px; }
 .swu-mb-base   { width: 44px; height: 30px; display: flex; align-items: center; justify-content: center; }
 .swu-mb-unit   { width: 22px; height: 31px; }
+/* Base thumbnail corners — Force top-right, Epic-Action-Used bottom-right, matching where the full
+   board puts them. Absolute, so they add no width to row 1. The centre belongs to the damage token. */
+/* Shared corner icon for ANY mini-board card — the base (Force / epic-used) and each leader
+   (epic-used). Named for the card, not the base, because both use it. */
+.swu-mb-cardicon { position: absolute; right: 2px; z-index: 4; width: 12px; height: 12px;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)); pointer-events: none; }
+.swu-mb-ic-tr { top: 2px; }
+.swu-mb-ic-br { bottom: 2px; opacity: 0.94; }
+body.swu-home .swu-mb-cardicon { width: 16px; height: 16px; }
+/* A leader thumbnail is smaller than the base, so its icon steps down to stay a corner marker rather
+   than a lid — the 75x75-on-an-84px-card mistake this file already carries a warning about. */
+body.swu-home .swu-mb-leader .swu-mb-cardicon { width: 13px; height: 13px; }
+
+/* Effects column between the base and Zoom-in: THREE fixed rows, filled in arrival order.
+   ⚠ Fixed width and height ALWAYS, empty or not — row 1 must stay identical across tiles. */
+.swu-mb-fx { display: flex; flex-direction: column; justify-content: space-between;
+    flex: 0 0 auto; width: 20px; height: 30px; margin-left: 4px; }
+.swu-mb-fxrow, .swu-mb-fxchip { height: 8px; border-radius: 4px; }
+.swu-mb-fxrow { background: rgba(255,255,255,0.05); }
+.swu-mb-fxchip { display: flex; align-items: center; justify-content: center;
+    font: 900 8px/1 var(--swu-font-label, sans-serif); box-shadow: 0 1px 2px rgba(0,0,0,0.6); }
+.swu-mb-fxchip-fort   { background: #bec4ce; color: #14181f; cursor: pointer; }
+.swu-mb-fxchip-arrest { background: #daa520; color: #1a1206; cursor: pointer; }
+body.swu-home .swu-mb-fx { width: 26px; height: 46px; margin-left: 6px; }
+body.swu-home .swu-mb-fxrow, body.swu-home .swu-mb-fxchip { height: 13px; border-radius: 6px; }
+body.swu-home .swu-mb-fxchip { font-size: 11px; }
 .swu-mb-card.is-exhausted { transform: rotate(8deg); filter: brightness(0.55) saturate(0.6); }
 .swu-mb-leader.is-deployed { outline: 1px dashed #cc8; opacity: 0.6; }
 /* Damage counter — matches the 2-player board (schema: Damage=Image(swusim-damage.png, Position=Center,
@@ -181,9 +242,55 @@ body.swu-home .swu-mb-base .swu-mb-dmgcounter { width: 34px; height: 34px; font-
     color: var(--accent-strong, #f0c040); }
 .swu-mb-zoom:hover { border-color: var(--accent-strong, #f0c040); background: rgba(10,20,30,1); }
 body.swu-home .swu-mb-zoom { height: 46px; font-size: 13px; padding: 0 14px; }
-.swu-mb-arena { background: rgba(0,0,0,0.35); border: 1px solid #1c2438; border-radius: 5px; padding: 4px; min-width: 0; }
+/* The two arenas SPLIT the tile's leftover height evenly and keep it whether or not they hold units —
+   an empty Space arena collapsing to a label-height sliver while Ground stood full height made two
+   equivalent zones look like different kinds of thing, and the tile's lower half was dead space.
+   flex:1 1 0 (not min-height) so they stay equal to each other at any tile height. */
+/* Stat row: ready/total resources (+credits), deck size, discard size. flex:0 0 auto so it keeps its
+   own height and the two arenas below still split everything that is left. */
+.swu-mb-r2 { display: flex; align-items: center; gap: 10px; flex: 0 0 auto;
+    font: 700 10px/1 var(--swu-font-label, sans-serif); color: #dde; }
+.swu-mb-stat { display: inline-flex; align-items: baseline; gap: 4px; padding: 2px 6px;
+    border-radius: 4px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); }
+.swu-mb-statlbl { font-size: 8px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    opacity: 0.5; }
+/* Only the chips that DO something get a hover affordance, now that the tile itself has none. */
+/* RES is STATIC — reserved for "NN/NN +NN" and never resized by its contents. A chip that grew when a
+   seat gained credits shifted everything after it, so the same fact sat in a different place on every
+   tile. inline-block + min-width rather than a fixed width so an outlier can still overflow legibly
+   instead of being clipped. */
+.swu-mb-statval { display: inline-block; min-width: 4.9em; text-align: left; }
+.swu-mb-pills { display: inline-flex; align-items: center; gap: 6px; margin-left: 2px; }
+/* Row-2 pills: the seat-label margin no longer applies now that they sit in their own flex slot. */
+.swu-mb-pills .swu-mb-turnpill, .swu-mb-pills .swu-mb-initpill { margin-left: 0; }
+.swu-mb-stat-btn { cursor: pointer; }
+.swu-mb-stat-btn:hover, .swu-mb-stat-btn:focus-visible {
+    border-color: var(--accent-strong, #f0c040); background: rgba(240,192,64,0.12); outline: none; }
+/* Gold, matching the main board's "+ N" credit chip (.swu-credit-count) — same fact, same colour. */
+/* ⚠ 5px, and the RES value box reserves 4.9em (64px at the home font size) for it. The widest real
+   value, "10/12 +12", measures 60px with this gap — inside the reserve, so the chip still never grows.
+   Widen this and re-measure, or a 2-digit seat silently pushes the chip out again. */
+.swu-mb-statcred { color: #f2c14e; margin-left: 5px; }
+body.swu-home .swu-mb-r2 { font-size: 13px; gap: 12px; }
+body.swu-home .swu-mb-statlbl { font-size: 9px; }
+
+.swu-mb-arena { background: rgba(0,0,0,0.35); border: 1px solid #1c2438; border-radius: 5px; padding: 4px; min-width: 0;
+    display: flex; flex-direction: column; flex: 1 1 0; }
 .swu-mb-atag { display: block; font-size: 8px; opacity: 0.45; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-.swu-mb-row { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 2px; }
+/* flex-start, not the default stretch: the row now has height to spare, and stretch would pull a
+   thumbnail that has no explicit height out of shape.
+   ⚠ min-height = one unit thumbnail, and the arena above must NOT carry `min-height: 0`. Together
+   those are what stop the arenas collapsing: flex:1 1 0 alone lets a flex item shrink past its
+   content, and on the short mobile tile both arenas duly shrank to 10px — padding and border, no
+   cards — while looking fine on the roomy desktop tile. Leaving min-height at its `auto` default
+   floors each arena at label + one card row, so the split stays even AND nothing disappears. */
+.swu-mb-row { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 2px;
+    flex: 1 1 auto; align-items: flex-start; min-height: 33px; }
+body.swu-home .swu-mb-row { min-height: 50px; }
+/* ⚠ 33 / 50 = the unit thumbnail's height PLUS its 1px border each side (.swu-mb-card is content-box,
+   so a 48px card occupies 50px). Using the bare 31/48 left an empty arena 2px shorter than a populated
+   one — invisible on desktop, where surplus height lets flex-grow even them out anyway, but plainly
+   uneven on the mobile tile where both sit on the floor. */
 .swu-mb-row::-webkit-scrollbar { height: 4px; }
 .swu-mb-row::-webkit-scrollbar-thumb { background: #334; border-radius: 2px; }
 /* A legal-target mini card during a decision: green glow + clickable (mirrors the main board's
@@ -197,7 +304,7 @@ body.swu-home .swu-mb-zoom { height: 46px; font-size: 13px; padding: 0 14px; }
    scale up to suit the larger area. The container-fill + opponent-zone hiding are per-layout (each
    layout's own zone geometry). Only applies on the home view (body.swu-home). */
 body.swu-home .swu-home-strip { max-width: none; justify-content: center; }
-body.swu-home .swu-mb-leader { width: 40px; height: 56px; }
+body.swu-home .swu-mb-leader { width: 61px; height: 44px; }   /* landscape, ~628:450 (see .swu-mb-leader) */
 body.swu-home .swu-mb-base   { width: 66px; height: 46px; }
 body.swu-home .swu-mb-unit   { width: 34px; height: 48px; }
 body.swu-home .swu-mb-basedmg { font-size: 18px; }
@@ -295,8 +402,14 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #theirLeaderWrapper:has([data-mzid="theirLeader-1"]) [data-mzid] {
     width: 50% !important; flex: 1 1 0 !important; min-width: 0 !important;
 }
-#myLeaderWrapper:has([data-mzid="myLeader-1"]) [data-mzid] img,
-#theirLeaderWrapper:has([data-mzid="theirLeader-1"]) [data-mzid] img {
+/* ⚠ img[id$="-img"] — the CARD ART ONLY, not every <img> in the card. Card() gives the art element
+   id="<mzID>-img"; the overlays it stacks on top (Epic-Action-Used, the Force token, counter icons)
+   are plain <img> with no id. A bare `[data-mzid] img` selector caught those too and, being
+   width:100% !important, beat their inline 22px: on an 84px two-leader card the Epic-Action-Used
+   icon rendered 75x75 and all but covered the leader. 2P never showed it because this whole block
+   only matches a wrapper holding a SECOND leader. */
+#myLeaderWrapper:has([data-mzid="myLeader-1"]) [data-mzid] img[id$="-img"],
+#theirLeaderWrapper:has([data-mzid="theirLeader-1"]) [data-mzid] img[id$="-img"] {
     width: 100% !important; height: auto !important; object-fit: cover !important;
 }
 /* The engine's exhausted darkening layer sits 2px inset (its -ovr parent is calc(100%-4px),
@@ -848,6 +961,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             applyInitState();
         }
 
+        // The home tiles name the initiative holder per seat; repaint them from here, since this is
+        // the one place that already runs on every initiative change.
+        if (typeof swuTwHighlightActiveSeat === 'function') swuTwHighlightActiveSeat();
+
         // Pass button (my side only) — live whenever it's my turn in MAIN (CR 4.7).
         var passCtrl = document.getElementById('swuPassControl');
         if (passCtrl) passCtrl.classList.toggle('is-idle', !canAct);
@@ -1336,7 +1453,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         syncCardSizeVar();
         swuInitPairSwitcher();   // sets window.swuSpectating BEFORE the glows read it
         updatePhaseTrack(); updateInitiative(); updateRound(); refreshActionGlows();
-        swuRenderOrderStrip();
+        swuRenderBaseTabs('my'); swuRenderBaseTabs('their');
         swuRenderHomeStrips();
         refreshResourceSelectionPanel();
         swuUpdateUndoUI(MY_PLAYER_ID);
@@ -1761,25 +1878,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
     }
 
-    // Twin Suns order strip: clockwise seat chips (SeatOrder) each showing its round-state from
-    // window.myActionsData.roundState (active / waiting / took-counter). Hidden at ≤2 seats.
-    function swuRenderOrderStrip() {
-        var strip = document.getElementById('swuOrderStrip'); if (!strip) return;
-        var order = String(window.SeatOrderData || '').trim();          // e.g. "123"
-        var seats = order.length ? order.split('').map(function (c) { return parseInt(c, 10); }) : [];
-        if (seats.length <= 2) { strip.style.display = 'none'; return; } // 2-player: never shown
-        var rs = (window.myActionsData && window.myActionsData.roundState) || {};
-        var html = '';
-        for (var i = 0; i < seats.length; i++) {
-            var s = seats[i];
-            var state = rs[s] || rs[String(s)] || 'waiting';             // JSON keys may be strings
-            var youCls = (s === MY_PLAYER_ID) ? ' is-you' : '';
-            html += '<span class="swu-order-chip state-' + state + youCls + '">' +
-                    '<span class="swu-order-dot"></span>P' + s + (s === MY_PLAYER_ID ? ' (you)' : '') + '</span>';
-        }
-        strip.innerHTML = html;
-        strip.style.display = 'flex';
-    }
+    // The Twin Suns ORDER STRIP (swuRenderOrderStrip) was removed here. It drew a fixed top-centre row
+    // of seat chips whose only live signal was a green ring on the turn player — the same thing the
+    // home strips now show in place, on the board the player is already looking at. Two indicators for
+    // one fact, in two colour languages, is worse than one.
+    // ⚠ It also rendered `myActionsData.roundState`'s third value, 'took-counter'
+    // (_SWUSeatTookCounterThisRound), which nothing displays now. The server still computes and sends
+    // it, so re-surfacing it is a client-only change if it turns out to be wanted.
 
     // ── Twin Suns pair-switcher ───────────────────────────────────────────────
     // Build the ordered list of views for THIS viewer from SeatOrder/LiveSeats. For 3+ players it's the
@@ -1919,6 +2024,32 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return (window.swuViews || []).some(function (v) { return v.mode === 'home'; });
     }
 
+    // Indices of the matchup ("you vs one seat") views, in view order.
+    function swuMatchupIndices() {
+        var out = [];
+        (window.swuViews || []).forEach(function (v, i) { if (v.mode === 'matchup') out.push(i); });
+        return out;
+    }
+
+    // One step of the ◀ / ▶ arrows. In the two-level model a matchup CYCLES within the matchup views
+    // and wraps, so paging past the last opponent lands on the first rather than falling into the home
+    // view (index 0) — home has its own button, and a wrap that silently changes what KIND of view you
+    // are on is the sort of thing that makes a carousel feel broken. Flat carousels keep the old
+    // clamped linear step.
+    function swuStepView(delta) {
+        var views = window.swuViews || [];
+        var idx = (window.swuView && typeof window.swuView.index === 'number') ? window.swuView.index : 0;
+        if (swuIsTwoLevel() && window.swuView && window.swuView.mode === 'matchup') {
+            var m = swuMatchupIndices();
+            var at = m.indexOf(idx);
+            if (at === -1) { swuSetView(m.length ? m[0] : idx); return; }
+            swuSetView(m[(at + delta + m.length) % m.length]);
+            return;
+        }
+        if (idx + delta < 0 || idx + delta >= views.length) return;
+        swuSetView(idx + delta);
+    }
+
     function swuRenderPairNav() {
         var nav = document.getElementById('swuPairNav'); if (!nav) return;
         var views = window.swuViews || [];
@@ -1933,11 +2064,18 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
         var idx = (window.swuView && typeof window.swuView.index === 'number') ? window.swuView.index : 0;
         if (swuIsTwoLevel()) {
-            // Two-level (3-player): no carousel arrows. A matchup view shows Go-back → home (index 0).
-            if (prev) prev.style.display = 'none';
-            if (next) next.style.display = 'none';
-            nav.style.display = 'none';
+            // Two-level (3+ player). HOME shows neither arrows nor Go-back — every opponent is already
+            // on screen as a tile, so there is nothing to page through.
+            // ZOOMED IN (a matchup) shows Go-back → home AND the ◀ ▶ arrows, which CYCLE between the
+            // other opponents without going back out to home first. The arrows were built for the flat
+            // 4-player carousel and were switched off wholesale when the two-level model landed; this
+            // brings them back for the only place they still make sense.
             var onMatchup = !!(window.swuView && window.swuView.mode === 'matchup');
+            var matchups = swuMatchupIndices();
+            var showArrows = onMatchup && matchups.length > 1;
+            if (prev) prev.style.display = showArrows ? 'flex' : 'none';
+            if (next) next.style.display = showArrows ? 'flex' : 'none';
+            nav.style.display = showArrows ? 'contents' : 'none';
             if (back) back.style.display = onMatchup ? 'block' : 'none';
         } else {
             // Carousel (4-player): arrows as before; no Go-back.
@@ -2059,8 +2197,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             }, true);
         }
         var prev = document.getElementById('swuPairPrev'), next = document.getElementById('swuPairNext');
-        if (prev && !prev._swuWired) { prev._swuWired = 1; prev.addEventListener('click', function () { swuSetView((window.swuView.index || 0) - 1); }); }
-        if (next && !next._swuWired) { next._swuWired = 1; next.addEventListener('click', function () { swuSetView((window.swuView.index || 0) + 1); }); }
+        if (prev && !prev._swuWired) { prev._swuWired = 1; prev.addEventListener('click', function () { swuStepView(-1); }); }
+        if (next && !next._swuWired) { next._swuWired = 1; next.addEventListener('click', function () { swuStepView(1); }); }
         var back = document.getElementById('swuGoBack');
         if (back && !back._swuWired) { back._swuWired = 1; back.addEventListener('click', function () {
             var views = window.swuViews || [];
@@ -2074,6 +2212,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // Zoom-in button → open that opponent's you-vs-1 matchup.
             var zoom = t.closest && t.closest('.swu-mb-zoom');
             if (zoom) { var tile = zoom.closest('.swu-home-strip'); if (tile) swuSetView(parseInt(tile.getAttribute('data-view'), 10)); return; }
+            // Discard chip → open that seat's discard pile.
+            var zoneBtn = t.closest && t.closest('#swuHomeStrips [data-zone]');
+            if (zoneBtn) {
+                e.stopPropagation();
+                if (typeof ShowZonePopup === 'function') ShowZonePopup(zoneBtn.getAttribute('data-zone'));
+                return;
+            }
             // A highlighted legal-target card → select it (cross-view targeting straight from the preview).
             var card = t.closest && t.closest('#swuHomeStrips .mini-selectable');
             if (card) swuPreviewTargetClick(card);
@@ -2102,13 +2247,35 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
         var leaderData = zone(5);
         var ground = units(zone(7)), space = units(zone(8));
+        // Offsets, for the next person counting on their fingers: the payload's first field is the
+        // update number, so a seat's zones start at 1 — 1 Deck, 2 Hand, 3 Discard, 4 Resources,
+        // 5 Leader, 6 Base, 7 GroundArena, 8 SpaceArena.
+        var deckRaw = zone(1), discardRaw = zone(3);
         return {
             baseObj: swuParseZoneCard(zone(6)),
             leaders: leaderData.length ? leaderData.split('<|>') : [],
             groundUnits: ground,
             spaceUnits: space,
             groundCount: ground.length,
-            spaceCount: space.length
+            spaceCount: space.length,
+            // THE SAME parser the main board's resource badge uses, deliberately: the preview must not
+            // be able to disagree with the board you get when you zoom in. It works unchanged on an
+            // opponent's masked data — real resources arrive as "CardBack 0 {Status:N}" (identity
+            // hidden, ready/exhausted intact, which is all ready/total needs), while Credit tokens
+            // arrive with their real LAW_T01 id because credits are public information.
+            res: (typeof parseResCountFromData === 'function')
+                ? parseResCountFromData(zone(4)) : { ready: 0, total: 0, credits: 0 },
+            // A private zone renders as one "CardBack <count>" entry, so the COUNT is field 1.
+            // ⚠ An empty deck now emits nothing at all (it renders as the empty pile frame), so the
+            // whole piece is '' — hence the guard rather than trusting a split.
+            deckCount: (function () {
+                if (!deckRaw) return 0;
+                var n = parseInt(deckRaw.split(' ')[1], 10);
+                return isFinite(n) ? n : 0;
+            }()),
+            // The discard is PUBLIC, so every card is listed — count the entries.
+            discardCount: discardRaw
+                ? discardRaw.split('<|>').filter(function (x) { return x.trim().length; }).length : 0
         };
     }
 
@@ -2116,6 +2283,85 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // with tiny real card-art thumbnails. Statuses mirror the live board: leaders ghost when deployed
     // and dim/tilt when exhausted; base shows a centered damage number; units tilt/dim when exhausted
     // and carry a corner damage badge. Arena rows scroll horizontally on overflow.
+    // Hover attributes for a mini-board thumbnail: blow the card up the way the full board does.
+    // These are background-image spans, not <img>, so the preview is driven from the CardID —
+    // ShowMiniCardDetail (Core/jsInclude.js) resolves the art path and reuses the normal preview.
+    // ⚠ The RESOLVED id (resolveCardImageID) is what goes in, so preview/mock cards preview correctly.
+    function swuMbHoverAttrs(resolvedCardID) {
+        if (!resolvedCardID) return '';
+        return "data-card-id='" + String(resolvedCardID).replace(/'/g, '&#39;') + "'" +
+               " onmouseover='ShowMiniCardDetail(event, this)' onmouseout='HideCardDetail()'";
+    }
+
+    // Fortify / arrest pips on a preview tile's base — the tile-sized echo of the FORTIFIED / ARRESTED
+    // tabs on the full board. Overlaid on the thumbnail's corners rather than placed beside it, so a
+    // fortified seat's row 1 stays exactly as wide as everyone else's (the tiles are a comparison view;
+    // anything that changes width per seat breaks the comparison). The centre is left to the damage
+    // counter. Counts only — no popup here: the tile is a glance, and a captive is face down anyway.
+    // Overlays ON the base thumbnail: the Force top-right and Epic-Action-Used bottom-right, mirroring
+    // where the full board puts them on the base card. The CENTRE stays reserved for the damage token.
+    // ⚠ Effect COUNTS are deliberately not here any more — they live in the fixed three-row column
+    // beside the base (swuMbFxColumn), so the base's corners are free for these two states and the
+    // counts have somewhere to grow.
+    function swuMbBaseOverlays(baseObj) {
+        if (!baseObj) return '';
+        var truthy = function (v) { return v === true || v === 'true' || v === 1 || v === '1'; };
+        var html = '';
+        if (truthy(baseObj.HasForce))
+            html += "<img class='swu-mb-cardicon swu-mb-ic-tr' title='The Force is with you'"
+                 +  " src='./Assets/Icons/force-token.webp' alt='' />";
+        if (truthy(baseObj.EpicActionUsed))
+            html += "<img class='swu-mb-cardicon swu-mb-ic-br' title='Epic Action used'"
+                 +  " src='./Assets/Icons/action-used.svg' alt='' />";
+        return html;
+    }
+
+    // The effects column between the base and the Zoom-in button: THREE fixed rows that fill in the
+    // order the effects arrived (Fortify or Arrest, whichever came first), leaving a spare row for a
+    // third effect later.
+    // ⚠ The column is ALWAYS rendered at a fixed size, even when empty. Row 1 of every tile has to stay
+    // the same width — the tiles are a comparison view — so this must not grow when a seat gains an
+    // effect, exactly like the static RES chip on row 2.
+    function swuMbFxColumn(baseObj) {
+        var rows = [];
+        if (baseObj) {
+            var fort   = parseInt(baseObj.UpgradeCount, 10) || 0;
+            var arrest = parseInt(baseObj.CaptiveCount, 10)  || 0;
+            // Order is arrival order. Nothing records which landed first, so this is the stable
+            // fallback: Fortify (a persistent upgrade) above Arrest (which clears every regroup).
+            if (fort > 0)   rows.push({cls: 'fort',   n: fort,   t: 'Fortify upgrades on this base',
+                                       ids: String(baseObj.UpgradeCardIDs || '')});
+            if (arrest > 0) rows.push({cls: 'arrest', n: arrest, t: 'Units arrested and held under this base',
+                                       ids: String(baseObj.CaptiveCardIDs || ''), title: 'Captured Units'});
+        }
+        var html = "<span class='swu-mb-fx'>";
+        for (var i = 0; i < 3; i++) {
+            if (!rows[i]) { html += "<span class='swu-mb-fxrow'></span>"; continue; }
+            var extra = '';
+            if (rows[i].ids) {
+                // ⚠ Put the UNDERSCORES BACK — swuParseZoneCard rewrites every '_' in the JSON to a
+                // space, so "HMW_081" arrives as "HMW 081" and every popup image 404s. Same trap the
+                // 2P FORTIFIED tab documents.
+                var ids = rows[i].ids.split(',').map(function (t) { return t.trim().replace(/ /g, '_'); })
+                                     .filter(function (t) { return t !== ''; });
+                if (ids.length) {
+                    // Same contract as the full board's tab: a data-lineage-subcards payload driven by
+                    // showLineageOverflowPopup, so the tile and the zoomed board show the same panel.
+                    var payload = encodeURIComponent(JSON.stringify({
+                        subcards: ids, folder: swuBaseArtRoot(), size: 150,
+                        title: rows[i].title || 'Attached Upgrades'
+                    }));
+                    extra = " data-lineage-subcards='" + payload + "' tabindex='0'"
+                          + " onclick='event.stopPropagation(); swuClickPanel(this);'"
+                          + "";
+                }
+            }
+            html += "<span class='swu-mb-fxchip swu-mb-fxchip-" + rows[i].cls + "'" + extra
+                 +  " title='" + rows[i].t + "'>" + rows[i].n + "</span>";
+        }
+        return html + "</span>";
+    }
+
     function swuRenderMiniBoard(seat) {
         var b = swuReadSeatBlock(seat) || { leaders: [], baseObj: null, groundUnits: [], spaceUnits: [] };
         // Leaders
@@ -2127,14 +2373,30 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             var cls = 'swu-mb-card swu-mb-leader';
             if (String(o.Ready) === 'false' || o.Ready === false) cls += ' is-exhausted';
             if (!isFlipatine && (o.Deployed === true || String(o.Deployed) === 'true')) cls += ' is-deployed';
-            return '<span class="' + cls + '" style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cid) : cid) + '.webp)"></span>';
+            // WebpImages, not concat: a LEADER is a 628x450 LANDSCAPE card, while concat holds a
+            // 450x450 SQUARE crop of it. Rendered through the landscape .swu-mb-leader box the square
+            // crop lost ~28% of the card's width and then got cropped again to fit — you saw a vertical
+            // slice of the middle. WebpImages is the whole card at the box's own aspect ratio.
+            var rid = (typeof resolveCardImageID === 'function') ? resolveCardImageID(cid) : cid;
+            // Epic Action used, bottom-right — the same corner the full board's leader card uses.
+            // ⚠ These thumbnails are background-image spans, not Card() renders, so the icon Card()
+            // would have stacked does not exist here; it has to be emitted explicitly.
+            var epic = (o.EpicActionUsed === true || o.EpicActionUsed === 'true'
+                        || o.EpicActionUsed === 1 || o.EpicActionUsed === '1')
+                ? "<img class='swu-mb-cardicon swu-mb-ic-br' title='Epic Action used'"
+                  + " src='./Assets/Icons/action-used.svg' alt='' />" : '';
+            return '<span class="' + cls + '" ' + swuMbHoverAttrs(rid) +
+                ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/' + rid + '.webp)">'
+                + epic + '</span>';
         }).join('');
         // Base (centered damage, tint when hit)
         var dmg = b.baseObj ? (parseInt(b.baseObj.Damage, 10) || 0) : 0;
         var baseCid = b.baseObj ? String(b.baseObj.CardID || '').replace(/ /g, '_') : '';
-        var baseHtml = '<span class="swu-mb-card swu-mb-base" data-mz="p' + seat + 'Base-0"' +
-            (baseCid ? ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(baseCid) : baseCid) + '.webp)"' : '') +
-            '>' + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '') + '</span>';
+        var baseRid = baseCid ? ((typeof resolveCardImageID === 'function') ? resolveCardImageID(baseCid) : baseCid) : '';
+        var baseHtml = '<span class="swu-mb-card swu-mb-base" data-mz="p' + seat + 'Base-0" ' + swuMbHoverAttrs(baseRid) +
+            (baseCid ? ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + baseRid + '.webp)"' : '') +
+            '>' + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '')
+                + swuMbBaseOverlays(b.baseObj) + '</span>' + swuMbFxColumn(b.baseObj);
         // A single unit thumbnail, tagged with its engine mzID (p{seat}{arena}Arena-{idx}) so it can be
         // highlighted + clicked as a cross-view attack/ability target (matches the seat-tagged targets
         // SWUGetAllValidAttackTargets emits for Twin Suns).
@@ -2143,8 +2405,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 var cls = 'swu-mb-card swu-mb-unit';
                 if (String(u.Status) === '0') cls += ' is-exhausted';
                 var badge = (u.Damage > 0) ? '<span class="swu-mb-dmgcounter">' + u.Damage + '</span>' : '';
-                return '<span class="' + cls + '" data-mz="p' + seat + arena + 'Arena-' + i + '" ' +
-                    'style="background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/' + (typeof resolveCardImageID === 'function' ? resolveCardImageID(u.CardID) : u.CardID) + '.webp)">' + badge + '</span>';
+                var urid = (typeof resolveCardImageID === 'function') ? resolveCardImageID(u.CardID) : u.CardID;
+                return '<span class="' + cls + '" data-mz="p' + seat + arena + 'Arena-' + i + '" ' + swuMbHoverAttrs(urid) + ' ' +
+                    'style="background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/' + urid + '.webp)">' + badge + '</span>';
             };
         }
         var spaceHtml  = b.spaceUnits.map(unitHtml('Space')).join('');
@@ -2156,6 +2419,28 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 '<span class="swu-mb-seat">P' + seat + '</span>' + leadHtml + baseHtml +
                 '<span class="swu-mb-spacer"></span>' +
                 '<button type="button" class="swu-mb-zoom" title="Open the you-vs-P' + seat + ' board">🔍 Zoom in</button>' +
+            '</div>' +
+            // Row 2 — the numbers you would otherwise have to zoom in to read: resources as
+            // ready/total (+credits when they hold any), deck size, discard size.
+            '<div class="swu-mb-r2">' +
+                '<span class="swu-mb-stat swu-mb-stat-res"><span class="swu-mb-statlbl">Res</span>' +
+                    // The value sits in a FIXED-WIDTH span so the chip never resizes: it is reserved
+                    // for the widest case ("NN/NN +NN") whether or not this seat has credits.
+                    '<span class="swu-mb-statval">' + b.res.ready + '/' + b.res.total +
+                    (b.res.credits > 0 ? '<span class="swu-mb-statcred">+' + b.res.credits + '</span>' : '') +
+                    '</span>' +
+                '</span>' +
+                '<span class="swu-mb-stat"><span class="swu-mb-statlbl">Deck</span>' + b.deckCount + '</span>' +
+                // Clickable: opens that seat's discard pile, the same popup the full board opens from
+                // its discard counter. Safe for ANY seat because the Discard is a PUBLIC zone — this
+                // deliberately does not open Deck/Hand/Resources, which are not.
+                '<span class="swu-mb-stat swu-mb-stat-btn" role="button" tabindex="0"' +
+                    ' title="View P' + seat + '\u2019s discard pile" data-zone="p' + seat + 'Discard">' +
+                    '<span class="swu-mb-statlbl">Discard</span>' + b.discardCount + '</span>' +
+                // Turn / Initiative pills live HERE, not on the seat label. On row 1 they pushed that
+                // seat's leaders and base to the right, so a tile with pills no longer lined up with a
+                // tile without them — the tiles are a comparison view, and mismatched rows break it.
+                '<span class="swu-mb-pills"></span>' +
             '</div>' +
             '<div class="swu-mb-arena swu-mb-arena-full"><span class="swu-mb-atag">Space</span><div class="swu-mb-row">' + spaceHtml + '</div></div>' +
             '<div class="swu-mb-arena swu-mb-arena-full"><span class="swu-mb-atag">Ground</span><div class="swu-mb-row">' + groundHtml + '</div></div>';
@@ -2178,12 +2463,151 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             var cos = window.SWU_COSMETICS;
             var pm = (cos && cos.seats && (cos.seats[opp] || {}).playmat) || '';
             var bg = pm ? ' style="background-image:linear-gradient(rgba(10,10,10,0.72),rgba(10,10,10,0.72)),url(\'' + pm + '\');background-size:cover;background-position:center;"' : '';
-            html += '<div class="swu-home-strip" data-view="' + mi + '"' + bg + '>' + swuRenderMiniBoard(opp) + '</div>';
+            // data-seat is what the turn highlight keys off — swuTwHighlightActiveSeat() toggles the
+            // class in place rather than re-rendering, so a turn change never wipes the target chips.
+            html += '<div class="swu-home-strip" data-seat="' + opp + '" data-view="' + mi + '"' + bg + '>' + swuRenderMiniBoard(opp) + '</div>';
         });
         box.innerHTML = html;
         box.style.display = 'flex';
         // Rebuilding the tiles wiped any target chips — re-stamp them for an active decision.
         if (typeof swuTwRenderTargetBadges === 'function') swuTwRenderTargetBadges();
+        swuTwHighlightActiveSeat();
+    }
+
+    // Mark the home strip belonging to the seat whose turn it is. Called on every strip rebuild AND
+    // from the TurnPlayerData setter, because the turn can pass without the strips being re-rendered
+    // (nothing on an opponent's mini-board has to change for the turn to move on).
+    // Only OPPONENT seats have a strip: when the turn is YOURS, nothing highlights here, which is
+    // correct — your own board is the whole bottom half of the screen and has its own indicators.
+    function swuTwHighlightActiveSeat() {
+        var turn = parseInt(String(window.TurnPlayerData || '').trim(), 10);
+        // InitiativeCounterData is "P<seat>_CLAIMED" / "P<seat>_UNCLAIMED" — the seat is on the wire,
+        // it was just never surfaced per-seat. The bottom-left token only knows mine-vs-theirs, which
+        // answers nothing when there are THREE opponents, so name the holder on its own tile.
+        var initState = String(window.InitiativeCounterData || '').trim();
+        var initSeat  = parseInt(initState.charAt(1), 10);
+        var initClaimed = /_CLAIMED$/.test(initState);
+        var strips = document.querySelectorAll('#swuHomeStrips .swu-home-strip');
+        for (var i = 0; i < strips.length; i++) {
+            var strip  = strips[i];
+            var seat   = parseInt(strip.getAttribute('data-seat'), 10);
+            var active = !!seat && seat === turn;
+            strip.classList.toggle('is-active-turn', active);
+            var seatEl = strip.querySelector('.swu-mb-pills');
+            if (!seatEl) continue;
+            swuTwSeatPill(seatEl, 'swu-mb-turnpill', active, 'Turn', '');
+            swuTwSeatPill(seatEl, 'swu-mb-initpill', !!seat && seat === initSeat,
+                'Initiative',
+                initClaimed ? 'Has the initiative (claimed this round)'
+                            : 'Has the initiative (not yet claimed)');
+            var ip = seatEl.querySelector('.swu-mb-initpill');
+            if (ip) ip.classList.toggle('is-claimed', initClaimed);
+        }
+    }
+
+    // Add/remove/update one pill on a tile's seat label. Kept as a helper so the two pills cannot
+    // drift apart, and so a pill is only rebuilt when it has to be (a rebuild every poll would
+    // restart its transition and make it flicker).
+    function swuTwSeatPill(seatEl, cls, wanted, text, title) {
+        var pill = seatEl.querySelector('.' + cls);
+        if (wanted && !pill) {
+            pill = document.createElement('span');
+            pill.className = cls;
+            pill.textContent = text;
+            seatEl.appendChild(pill);
+        } else if (!wanted && pill) {
+            pill.remove();
+            return;
+        }
+        if (pill && title && pill.title !== title) pill.title = title;
+    }
+    window.swuTwHighlightActiveSeat = swuTwHighlightActiveSeat;
+
+    // ── Base status tabs — FORTIFIED (n) / ARRESTED (n) under each base ───────────────────────────
+    // Replaces the base's old bottom-left corner badge: same count, same click/hover popup of the
+    // attached Fortify upgrades, but labelled, so "this base is fortified" reads without decoding a
+    // bare number in a corner.
+    // ⚠ The popup is NOT reimplemented — it reuses Core/CounterRendering.js's contract exactly: an
+    // element carrying a data-lineage-subcards JSON payload plus showLineageOverflowPopup /
+    // hideLineageOverflowPopup. The art folder derivation is the fiddly part of that payload (bug #970
+    // — deriving it from the app root 404s every image), so it is copied from there rather than
+    // re-derived: window.assetImageFolder trimmed back to the shared SWU corpus root.
+    // Click to open, click anywhere to dismiss — the same interaction as the discard pile, so every
+    // panel on the board behaves one way. Replaced hover-to-open: a panel that appears while the
+    // pointer is merely crossing a chip is easy to trigger by accident and impossible to dismiss
+    // deliberately.
+    function swuClickPanel(el) {
+        if (typeof showLineageOverflowPopup !== 'function') return;
+        showLineageOverflowPopup(el);
+        // ⚠ Deferred by a tick: the click that OPENED the panel is still propagating, and a listener
+        // registered synchronously would catch that very event and close it again immediately.
+        setTimeout(function () {
+            var off = function () {
+                if (typeof hideLineageOverflowPopup === 'function') hideLineageOverflowPopup();
+                document.removeEventListener('click', off, true);
+            };
+            // Capture phase, so a click on ANOTHER chip closes this panel before that chip opens its
+            // own — otherwise the two would race and the second could be closed by the first's handler.
+            document.addEventListener('click', off, true);
+        }, 0);
+    }
+    window.swuClickPanel = swuClickPanel;
+
+    function swuBaseArtRoot() {
+        var f = (typeof window !== 'undefined' && window.assetImageFolder) ? String(window.assetImageFolder) : '';
+        if (f.indexOf('AppCore/SWU/Images') !== -1) {
+            return f.substring(f.indexOf('AppCore/SWU/Images')).replace(/\/(concat|WebpImages)\/?$/, '');
+        }
+        return (typeof AssetReflectionPath === 'function' && AssetReflectionPath())
+            ? AssetReflectionPath()
+            : ((typeof window !== 'undefined' && window.rootPath) ? String(window.rootPath).replace(/^\.\//, '') : '');
+    }
+
+    function swuRenderBaseTabs(which) {
+        var box = document.getElementById(which + 'BaseTabs'); if (!box) return;
+        var o = (typeof swuParseZoneCard === 'function') ? (swuParseZoneCard(window[which + 'BaseData'] || '') || {}) : {};
+        var fort   = parseInt(o.UpgradeCount, 10) || 0;
+        var arrest = parseInt(o.CaptiveCount, 10)  || 0;
+        var html = '';
+        if (fort > 0) {
+            // ⚠ Put the UNDERSCORES BACK. swuParseZoneCard runs .replace(/_/g,' ') over the whole JSON
+            // string — underscores are the transport's stand-in for spaces — so "HMW_081" arrives as
+            // "HMW 081" and every popup image 404s (measured: naturalWidth 0 on all three). The main
+            // card path (createCardHTML) parses WITHOUT that replace, which is why the old corner
+            // badge never hit this. A CardID is SET_NNN, so the space is unambiguously the underscore.
+            var ids = String(o.UpgradeCardIDs || '').split(',')
+                        .map(function (t) { return t.trim().replace(/ /g, '_'); })
+                        .filter(function (t) { return t !== ''; });
+            var payload = encodeURIComponent(JSON.stringify({
+                subcards: ids, folder: swuBaseArtRoot(), size: 150, title: 'Attached Upgrades'
+            }));
+            html += "<span class='swu-base-tab swu-base-tab-fort' tabindex='0'"
+                 +  " title='Fortify upgrades attached to this base \u2014 click to see them'"
+                 +  " data-lineage-subcards='" + payload + "'"
+                 +  " onclick='event.stopPropagation(); swuClickPanel(this);'"
+                 +  ">"
+                 +  "Fortified <span class='swu-base-tab-n'>" + fort + "</span></span>";
+        }
+        if (arrest > 0) {
+            // ⚠ The identities ARE shown: captured cards are OPEN INFORMATION to every player
+            // (CR 1077.1 / 207.1). Facedown under the base is a placement, not secrecy.
+            var cids = String(o.CaptiveCardIDs || '').split(',')
+                        .map(function (t) { return t.trim().replace(/ /g, '_'); })
+                        .filter(function (t) { return t !== ''; });
+            var cAttrs = '';
+            if (cids.length) {
+                var cPayload = encodeURIComponent(JSON.stringify({
+                    subcards: cids, folder: swuBaseArtRoot(), size: 150, title: 'Captured Units'
+                }));
+                cAttrs = " tabindex='0' data-lineage-subcards='" + cPayload + "'"
+                       + " onclick='event.stopPropagation(); swuClickPanel(this);'"
+                       + "";
+            }
+            html += "<span class='swu-base-tab swu-base-tab-arrest'" + cAttrs
+                 +  " title='Units arrested and held under this base until the regroup phase'>"
+                 +  "Arrested <span class='swu-base-tab-n'>" + arrest + "</span></span>";
+        }
+        if (box.innerHTML !== html) box.innerHTML = html;   // avoid restarting hover state every poll
     }
 
     function refreshActionGlows() {
@@ -2332,7 +2756,12 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         Object.defineProperty(window, 'TurnPlayerData', {
             configurable: true,
             get: function () { return _turnPlayerInternal; },
-            set: function (v) { _turnPlayerInternal = v; }
+            set: function (v) {
+                _turnPlayerInternal = v;
+                // The turn can move without any opponent mini-board changing, so the strips are not
+                // necessarily re-rendered — repaint the active-seat marker from here too.
+                if (typeof swuTwHighlightActiveSeat === 'function') swuTwHighlightActiveSeat();
+            }
         });
         Object.defineProperty(window, 'CurrentPhaseData', {
             configurable: true,

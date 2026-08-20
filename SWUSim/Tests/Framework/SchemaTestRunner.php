@@ -180,6 +180,8 @@ class SchemaTestRunner {
                              'WithP1Discard',             'WithP2Discard',
                              'WithP3Discard',             'WithP4Discard',
                              'WithP1BaseUpgrade',         'WithP2BaseUpgrade',
+                             'WithP1BaseCaptive',         'WithP2BaseCaptive',
+                             'WithP3BaseCaptive',         'WithP4BaseCaptive',
                              'WithP1GroundArenaUpgrade',  'WithP2GroundArenaUpgrade',
                              'WithP1SpaceArenaUpgrade',   'WithP2SpaceArenaUpgrade',
                              'WithP1GroundArenaPilot',    'WithP2GroundArenaPilot',
@@ -202,6 +204,8 @@ class SchemaTestRunner {
                             'WithP1GroundArena', 'WithP2GroundArena', 'WithP1SpaceArena', 'WithP2SpaceArena',
                             'WithP3GroundArena', 'WithP4GroundArena', 'WithP3SpaceArena', 'WithP4SpaceArena',
                             'WithP1BaseUpgrade', 'WithP2BaseUpgrade',
+                            'WithP1BaseCaptive', 'WithP2BaseCaptive',
+                            'WithP3BaseCaptive', 'WithP4BaseCaptive',
                             'WithP1GroundArenaUpgrade', 'WithP2GroundArenaUpgrade',
                             'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade',
                             'WithP1GroundArenaPilot', 'WithP2GroundArenaPilot',
@@ -441,6 +445,25 @@ class SchemaTestRunner {
             foreach ($given["WithP{$pn}Deck"] ?? [] as $cid) $b->WithCardInDeckForPlayer($pn, trim($cid));
         }
 
+        // Units ARRESTED and held under a base (WithP{n}BaseCaptive: CARD_ID[:owner], owner defaults to
+        // the other seat). ⚠ A base captive is NOT a subcard — it is a "SWU_BASECAPTIVE|CardID|owner"
+        // flag in the CAPTURING player's GlobalEffects (see _SWUBaseCaptureUnit), drained at
+        // RegroupPhaseStart. Seeding it directly exists because you cannot otherwise build a
+        // multi-arrest board in Twin Suns: a seat gets one action per turn, and letting the other
+        // seats pass to come back round reaches the regroup phase, which rescues every captive.
+        foreach ([1, 2, 3, 4] as $pn) {
+            foreach ($given["WithP{$pn}BaseCaptive"] ?? [] as $spec) {
+                foreach (explode(',', trim($spec)) as $one) {
+                    $one = trim($one); if ($one === '') continue;
+                    $bits   = explode(':', $one);
+                    $cid    = trim($bits[0]);
+                    $owner  = isset($bits[1]) ? intval($bits[1]) : ($pn === 1 ? 2 : 1);
+                    // ⚠ Through the BUILDER, not a direct AddGlobalEffects: the game is not
+                    // materialised at this point, so writing straight to the zone is a silent no-op.
+                    if ($cid !== '') $b->WithGlobalEffectForPlayer($pn, 'SWU_BASECAPTIVE|' . $cid . '|' . $owner);
+                }
+            }
+        }
         // FORTIFY upgrades attached to a BASE (WithP{n}BaseUpgrade: CARD_ID). No index — a base is a
         // single host, unlike an arena which needs idx:CARD_ID.
         foreach ([1, 2] as $pn) {
@@ -638,6 +661,14 @@ class SchemaTestRunner {
                     break;
                 case 'theirDiscardCardIds':
                     $theirOpts['discardCardIds'] = array_map('trim', explode(',', $val));
+                    break;
+                // The BASE's once-per-game Epic Action. CommonSetup already forwards
+                // baseEpicActionUsed to MyBase()/TheirBase(); only the option to set it was missing.
+                case 'myBaseEpicUsed':
+                    $myOpts['baseEpicActionUsed'] = $val === '1' || $val === 'true';
+                    break;
+                case 'theirBaseEpicUsed':
+                    $theirOpts['baseEpicActionUsed'] = $val === '1' || $val === 'true';
                     break;
                 case 'myBaseDamage':
                     $myOpts['baseDamage'] = intval($val);
@@ -1104,6 +1135,19 @@ class SchemaTestRunner {
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected base damage {$expected}, got {$actual}";
 
+            } elseif (preg_match('/^P(\d+)BASE(UPGRADE|CAPTIVE)COUNT:(\d+)$/', $line, $m)) {
+                // The base's Subcards array holds Fortify upgrades AND arrest captives together,
+                // separated by IsCaptive. These are the two halves — assert them independently, or a
+                // change that mixed the two up would keep the TOTAL right and still be wrong.
+                $p = intval($m[1]); $expected = intval($m[3]);
+                $bases = GetBase($p);
+                $obj   = $bases[0] ?? null;
+                $actual = ($obj === null) ? 0
+                    : ($m[2] === 'UPGRADE' ? BaseUpgradeCount($obj) : BaseCaptiveCount($obj));
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected {$expected} base "
+                        . ($m[2] === 'UPGRADE' ? 'Fortify upgrade(s)' : 'captive(s)') . ", got {$actual}";
+
             } elseif (preg_match('/^P(\d+)GROUNDCOUNT:(\d+)$/', $line, $m)) {
                 // Twin Suns Phase 5: non-removed unit count in seat N's ground arena.
                 $p = intval($m[1]); $expected = intval($m[2]);
@@ -1275,6 +1319,22 @@ class SchemaTestRunner {
                     $a = $cands; $b = $want; sort($a); sort($b);
                     if ($a !== $b)
                         $failures[] = "{$line}: expected exactly [" . implode('&', $b) . "], got [" . implode('&', $a) . "]";
+                }
+
+            } elseif (preg_match('/^P(\d+)(NOT)?SEESTOPCARD$/', $line, $m)) {
+                // Does player N currently have the "you may look at the top card of your deck at any
+                // time" permission (LAW_094 Hondo / HMW_205 Intelligence Agency)? This is the harness's
+                // FIRST visibility assertion — that gap is exactly why the clause was previously
+                // recorded as untestable. It asserts the server-side PERMISSION, which is the half that
+                // is game logic; the per-viewer PAYLOAD (that the entitled seat receives the card and
+                // the opponent does not) is verified separately against a live GetNextTurn, since the
+                // in-process runner renders no transport.
+                $p    = intval($m[1]);
+                $want = ($m[2] ?? '') === '';
+                $has  = function_exists('_SWUCanSeeOwnTopCard') && _SWUCanSeeOwnTopCard($p);
+                if ($has !== $want) {
+                    $failures[] = "{$line}: expected player {$p} " . ($want ? 'to' : 'NOT to')
+                        . ' have the look-at-top-card permission, but they ' . ($has ? 'do' : 'do not');
                 }
 
             } elseif (preg_match('/^P(\d+)HASFORCE$/', $line, $m)) {

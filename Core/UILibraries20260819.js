@@ -1566,6 +1566,13 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         var positionStyle = "relative";
         var isInlineMultiSelected = !!(window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0 && window.SelectionMode.multiSelected.indexOf(id) >= 0);
         var className = isSelectable ? "selectable-card" : "";
+        // Standing glow marking the look-at-top-card permission (see the peek badge below).
+        // ⚠ The wrapper span is display:inline by default, which gives it a 0x0 border box — measured,
+        // not assumed. A ring drawn on that is invisible, and the absolutely-positioned badge anchors to
+        // a zero-width box, so `right:4px` lands it OFF the left edge of the card. inline-block gives the
+        // wrapper the card's real box. Scoped to the peek case so no other zone's layout shifts.
+        var _hasTopCardPeek = !!(sharedCardData && sharedCardData.TopCardPeek && sharedCardData.TopCardPeek !== '-');
+        if (_hasTopCardPeek) className += " topcard-peek-card";
         if (isInlineMultiSelected) {
           className += " selected-inline";
         }
@@ -1763,6 +1770,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           }
         } catch (e) {}
 
+        if (_hasTopCardPeek) inlineStyles += " display:inline-block; vertical-align:top;";
         var styles = " style='" + inlineStyles + "'";
         var dragAttributes = IsDragDropEnabled() ? " draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'" : "";
         var droppable = " class='draggable " + className + combatIndicatorClass + "'" + dragAttributes;
@@ -1773,8 +1781,13 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         if (sharedCardData && sharedCardData.UniqueID != null && sharedCardData.UniqueID !== "") {
           uniqueIdAttr = " data-uniqueid='" + String(sharedCardData.UniqueID).replace(/'/g, "&#39;") + "'";
         }
-        if (id != "-") newHTML += "<span id='" + id + "' data-mzid='" + id + "'" + uniqueIdAttr + " " + styles + droppable + click + ">";
-        else newHTML += "<span " + styles + droppable + click + ">";
+        // Hovering anywhere on the deck peeks, not just the badge — the badge is the discoverability cue.
+        var peekHover = _hasTopCardPeek
+          ? " data-topcard-peek='" + String(sharedCardData.TopCardPeek).replace(/'/g, "&#39;") + "'"
+            + " onmouseover=\"ShowTopCardPeek(event, this)\" onmouseout=\"HideCardDetail()\""
+          : "";
+        if (id != "-") newHTML += "<span id='" + id + "' data-mzid='" + id + "'" + uniqueIdAttr + " " + styles + droppable + peekHover + click + ">";
+        else newHTML += "<span " + styles + droppable + peekHover + click + ">";
 
         var renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
         var _epicUsed = (sharedCardData.EpicActionUsed === true || sharedCardData.EpicActionUsed === 'true') ? 1 : 0;
@@ -1814,6 +1827,31 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           }
         } catch (e) {
           if (console && console.error) console.error('Effect stack trigger badge render error', e);
+        }
+
+        // "You may look at the top card of your deck at any time" (LAW_094 Hondo Ohnaka, HMW_205
+        // Intelligence Agency). The server sends this ONLY to the seat that holds the permission, and
+        // only ever as cardJSON.TopCardPeek — the deck's rendered CardID stays "CardBack", so the deck
+        // still LOOKS like a deck and no other render path can reveal it. Here the deck gets a standing
+        // glow (the permission is visible even before you interact) plus an eye badge; hovering either
+        // shows the card full size, and the badge takes a click so it works on touch.
+        try {
+          var _peekID = (sharedCardData && sharedCardData.TopCardPeek && sharedCardData.TopCardPeek !== '-')
+            ? String(sharedCardData.TopCardPeek) : "";
+          if (_peekID) {
+            newHTML += "<div class='topcard-peek-badge' role='button' tabindex='0'"
+              + " title='Look at the top card of your deck' aria-label='Look at the top card of your deck'"
+              + " data-topcard-peek='" + _peekID.replace(/'/g, "&#39;") + "'"
+              + " onmouseover='event.stopPropagation(); ShowTopCardPeek(event, this);'"
+              + " onmouseout='event.stopPropagation(); HideCardDetail();'"
+              + " onfocus='ShowTopCardPeek(event, this);' onblur='HideCardDetail();'"
+              + " onclick='event.stopPropagation(); ShowTopCardPeek(event, this);'>"
+              + "<svg viewBox='0 0 24 24' aria-hidden='true' focusable='false'>"
+              + "<path d='M12 5c-5 0-9 4.5-9 7s4 7 9 7 9-4.5 9-7-4-7-9-7zm0 11.5A4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z'/>"
+              + "</svg></div>";
+          }
+        } catch (e) {
+          if (console && console.error) console.error('Top-card peek badge render error', e);
         }
 
         // Render subcards — SWUSim upgrades/captives peek from below; GA lineage cards stack above.
@@ -2244,6 +2282,46 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           display: block;
           margin: 0 !important;
           line-height: 0;
+        }
+
+        /* Look-at-top-card permission (LAW_094 Hondo Ohnaka / HMW_205 Intelligence Agency).
+           The glow is a STANDING cue: the permission is continuous, so it must be visible without
+           hovering, and it must read as "you may look" rather than "this is selectable" — hence a warm
+           amber ring rather than the green selectable highlight. */
+        .topcard-peek-card {
+          border-radius: 10px;
+          box-shadow: 0 0 0 2px rgba(252, 205, 92, 0.85), 0 0 14px 2px rgba(252, 205, 92, 0.45);
+        }
+        .topcard-peek-badge {
+          position: absolute;
+          top: 4px;
+          right: 4px;
+          z-index: 1003;
+          width: 22px;
+          height: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background: rgba(16, 24, 34, 0.88);
+          border: 1px solid rgba(252, 205, 92, 0.9);
+          box-shadow: 0 2px 6px rgba(7, 14, 20, 0.55);
+          cursor: pointer;
+          pointer-events: auto;
+        }
+        .topcard-peek-badge svg {
+          width: 15px;
+          height: 15px;
+          fill: rgba(252, 205, 92, 0.98);
+        }
+        .topcard-peek-badge:hover,
+        .topcard-peek-badge:focus-visible {
+          background: rgba(252, 205, 92, 0.95);
+          outline: none;
+        }
+        .topcard-peek-badge:hover svg,
+        .topcard-peek-badge:focus-visible svg {
+          fill: rgba(16, 24, 34, 0.98);
         }
 
         .ga-token-stack-popup {

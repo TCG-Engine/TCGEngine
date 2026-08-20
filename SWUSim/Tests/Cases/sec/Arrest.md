@@ -239,3 +239,36 @@ P1GROUNDARENAUNIT:1:CARDID:SHD_029
 P1GROUNDARENAUNIT:1:EXHAUSTED
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_095
+
+---
+
+# TwoArrestsInOnePhase_BothHeldUnderTheBase
+#// SEC_195 Arrest played TWICE in the same phase (2 resources each). Both captured units are held
+#// under P1's base at once, so the base captive count is 2 — the case the ARRESTED (n) tab exists to
+#// show, and the reason it is a COUNT rather than a boolean.
+#// ⚠ Asserts the two halves of the base's Subcards array separately. Upgrades and captives live in
+#// ONE array told apart by IsCaptive, so a change that mixed them up would keep the total right and
+#// still be wrong: here the Fortify count must stay 0 while the captive count goes to 2.
+#// The captives are rescued at the start of the regroup phase (covered by BaseCaptive_RescuedAtRegroup),
+#// which is why the count is per-phase rather than cumulative.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SEC_195
+WithP1Hand: SEC_195
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1BASECAPTIVECOUNT:2
+P1BASEUPGRADECOUNT:0
+P1DISCARDCOUNT:2

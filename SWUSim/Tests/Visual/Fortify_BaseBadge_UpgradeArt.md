@@ -1,7 +1,16 @@
 # VISUAL CHECK — the base's Fortify badge popup shows real card art (bug #970)
 #
 # Visual-only schema (Tests/Visual/ is not scanned by the regression endpoint).
-# Load it by hand in the Test Schema Editor, then HOVER the badge on P1's base.
+# Load it by hand in the Test Schema Editor, then CLICK the FORTIFIED tab under P1's base.
+#
+# ⚠ SUPERSEDED IN PART (2026-08-19): the bottom-left corner BADGE this test was written against is
+# GONE. The count and its popup moved into a labelled "FORTIFIED (n)" tab under the base — see
+# BaseTabs_FortifiedAndArrested_2P.md. The Counters line was removed from the Base zone in
+# GameSchema.txt, so a corner badge reappearing is itself a regression.
+# What this file still guards is the thing bug #970 was about and the tab inherited verbatim: the
+# popup's ART PATH. The tab reuses Core/CounterRendering.js's data-lineage-subcards contract, so the
+# same shared-corpus derivation applies and the same 404 is possible. Read "the badge" below as "the
+# FORTIFIED tab".
 #
 # WHY THIS EXISTS
 # A base's attached Fortify upgrades are not drawn inline — the Base zone declares
@@ -17,8 +26,9 @@
 # ⚠ PROD MASKED IT — prod still carries the old per-app tree, so this reproduces on local/dev only.
 #
 # WHAT TO LOOK AT
-#   • P1's base shows a "2" badge (bottom-left) — two Fortify upgrades attached.
-#   • HOVER the badge: a panel titled "Attached Upgrades" opens with TWO card images —
+#   • P1's base shows a grey "FORTIFIED 2" TAB directly under it — two Fortify upgrades attached.
+#     (There is no longer a bottom-left corner badge; if you see one, the schema Counters line is back.)
+#   • HOVER the tab: a panel titled "Attached Upgrades" opens with TWO card images —
 #     HMW_081 Alliance Shield Generator and HMW_171 Trap Field. Both must render as ART,
 #     not as a broken-image icon or alt text.
 #   • HOVER one of those images: the zoomed preview (ShowSubcardDetail) shows the full card,

@@ -543,8 +543,6 @@
     </div><!-- /swu-m-footer-stack -->
 
     <!-- ════════ Overlays / engine-managed zones ════════ -->
-    <!-- Twin Suns order strip (hidden in 2-player; populated by swuRenderOrderStrip) -->
-    <div id="swuOrderStrip" class="swu-order-strip" style="display:none;"></div>
     <!-- Twin Suns pair-switcher — carousel side arrows (hidden ≤2 seats) -->
     <div id="swuPairNav" class="swu-pair-nav" style="display:none;">
         <button id="swuPairPrev" class="swu-pair-arrow" title="Previous view (back)">◀</button>

@@ -1745,6 +1745,35 @@ Other friendly Ewok units gain Hidden.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/164.png',
     'imageUrlBack' => '',
   ),
+  'HMW_168' => 
+  array (
+    'title' => 'Ezra Bridger',
+    'subtitle' => 'What Are You Afraid Of?',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 5,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Rebel',
+      2 => 'Spectre',
+    ),
+    'text' => 'When you take the initiative: You may deal 3 damage to your base. If you do, create a Beast token.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/158.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_170' => 
   array (
     'title' => 'Han Solo',

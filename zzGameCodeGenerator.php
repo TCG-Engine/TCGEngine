@@ -1972,6 +1972,13 @@ if($rootName == "SWUSim") {
   // rendered the opponent's resources as CARD BACKS, so the player chose blind (bug report #964).
   // Same shape as the hand flag: scan the VIEWER's own pending decisions for a 'theirResources'
   // param, and auto-clear when the decision resolves.
+  // "You may look at the top card of your deck at any time" (LAW_094 Hondo Ohnaka, HMW_205 Intelligence
+  // Agency). Unlike the two reveals above this is NOT decision-scoped — it is a standing permission
+  // recomputed from the board, so it is read straight from the game-logic predicate rather than by
+  // scanning the decision queue. One source of truth for the rule; the transport only asks the question.
+  for ($ctcSeat = 1; $ctcSeat <= $maxSeats; ++$ctcSeat) {
+    fwrite($handler, "\$canSeeOwnTopCardPlayer{$ctcSeat} = function_exists('_SWUCanSeeOwnTopCard') && _SWUCanSeeOwnTopCard({$ctcSeat});\r\n");
+  }
   fwrite($handler, "\$viewerLooksAtOppResources = false;\r\n");
   fwrite($handler, "if(\$vSeat === 1 || \$vSeat === 2) { foreach(GetDecisionQueue(\$vSeat) as \$_d) { if(!empty(\$_d->removed)) continue; if(strpos((string)(\$_d->Param ?? ''), 'theirResources') !== false) { \$viewerLooksAtOppResources = true; break; } } }\r\n");
   for ($csrSeat = 1; $csrSeat <= $maxSeats; ++$csrSeat) {
@@ -2362,7 +2369,35 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= "  }\r\n";
       } else if($zone->Visibility == "Private") {
         //Single Private
-        $getNextTurn .= "  echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+        if($rootName == "SWUSim" && $zone->Name == "Deck") {
+          // "You may look at the top card of your deck at any time" (LAW_094 / HMW_205). The identity of
+          // the top card is sent ONLY to the seat that holds the permission and only for its OWN deck —
+          // never to the opponent and never to a spectator, so this cannot leak hidden information. The
+          // count is unchanged for everyone.
+          // ⚠ The rendered CardID stays "CardBack" and the real top card travels in cardJSON.TopCardPeek.
+          // That is deliberate: the Deck renders in Mode=Single, so emitting the real CardID would make
+          // EVERY existing render path (board slot, popup, mobile layout) show it face up. Carrying it in
+          // the JSON means only the code that opts in can reveal it — the deck still looks like a deck,
+          // and a future render path cannot leak the card by accident.
+          // An EMPTY deck emits NOTHING, so the zone renders as its empty pile container (the bordered
+          // "DECK" placeholder in GameLayout's .swu-pile) instead of a card back standing for no cards.
+          // A face-down back is a lie about a pile that has none, and deck-out is a reachable state
+          // (CR 6.1). The Discard is the existing proof this is safe on the wire: it is Public, so it
+          // already emits an empty zone piece when the pile is empty and the client renders the same
+          // placeholder — nothing downstream needs a card to be present.
+          $getNextTurn .= "  if(count(\$" . $zoneName . ") > 0) {\r\n";
+          $getNextTurn .= "    if(\$canSeeOwnTopCardPlayer" . $player . " && \$vSeat === " . $player . ") {\r\n";
+          $getNextTurn .= "      \$_tcIdx = -1;\r\n";
+          $getNextTurn .= "      for(\$_i=0; \$_i<count(\$" . $zoneName . "); ++\$_i) { if(empty(\$" . $zoneName . "[\$_i]->removed)) { \$_tcIdx = \$_i; break; } }\r\n";
+          $getNextTurn .= "      if(\$_tcIdx >= 0) echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . "), cardJSON:json_encode(['TopCardPeek'=>SWUDisplayCardID(\$" . $zoneName . "[\$_tcIdx]->CardID)])));\r\n";
+          $getNextTurn .= "      else echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+          $getNextTurn .= "    } else {\r\n";
+          $getNextTurn .= "      echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+          $getNextTurn .= "    }\r\n";
+          $getNextTurn .= "  }\r\n";
+        } else {
+          $getNextTurn .= "  echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+        }
 
       } else if ($zone->Visibility == "Self") {
         if ($scope == 'global') {

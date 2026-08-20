@@ -9,15 +9,15 @@
 // upgrade to ['myBase-0']. (Proven behaviourally in the tests via HMW_066 Carrion Spike, which reads
 // SWUBaseUpgradeCount and gains +1/+0 the moment this lands on the base.)
 //
-// ⚠⚠ CLAUSE 2 IS DELIBERATELY UNIMPLEMENTED — "attached base gains: 'You may look at the top card of
-// your deck AT ANY TIME'" is a CONTINUOUS VISIBILITY permission: not a triggered ability, not an Action,
-// just a standing right to see one hidden card. The engine has no such capability (nothing sets or reads
-// a per-player top-card-visibility flag anywhere), and the harness has ZERO visibility assertions, so it
-// could not be tested even if it were built — a GetNextTurn per-viewer payload check is the only thing
-// that could see it. This is the same documented family as LAW_094 Hondo's visibility clause: a
-// deferral with a written reason, NOT a silent omission. Implementing it means (a) a per-player flag,
-// (b) GetNextTurn emitting the top card to the entitled seat only, and (c) a client affordance —
-// a UI/transport feature, not a card fix.
+// CLAUSE 2 — "attached base gains: 'You may look at the top card of your deck at any time'" is a
+// CONTINUOUS VISIBILITY permission: not a triggered ability, not an Action, just a standing right to see
+// one hidden card. It needs NO code here. The permission is a derived predicate, not stored state:
+// _SWUCanSeeOwnTopCard() in GameLogic.php asks the board who currently grants it (this upgrade on your
+// base, or a LAW_094 Hondo Ohnaka you control), so it follows the base and cannot go stale when the
+// upgrade is defeated. The generator wires that predicate into the per-viewer transport, emitting the top
+// card ONLY to the entitled seat. Tests: Tests/Cases/core/LookAtTopCardPermission.md (the predicate, via
+// the P#SEESTOPCARD assertion added for this) — the no-leak half is verified against a live GetNextTurn,
+// which the in-process runner cannot see because it renders no transport.
 //
 // ⚠ The When Played is SHD_184 Bazine Netal's clause word for word, and uses the same shape: the
 // pending theirHand MZMAYCHOOSE IS the reveal the client renders (that is what "look at" resolves to
