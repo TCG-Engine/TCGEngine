@@ -466,7 +466,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 #game-over-overlay {
     inset: 10vh 20vw 10vh 10vw !important;  /* desktop: 80% tall, shifted left — 10% left / 30% right margin */
     width: auto !important; height: auto !important;
-    padding: 16px 22px 20px !important;
+    padding: 46px 22px 20px !important;   /* top strip reserved for #swuEndGameToggle (absolute) */
     background: var(--panel-scrim) !important;
     border: 1px solid var(--border) !important;
     border-radius: 16px !important;
@@ -481,6 +481,19 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 }
 #game-over-overlay.active { display: grid !important; }  /* shared sets display:flex */
 
+/* ⚠ CATCH-ALL PLACEMENT for stray children — this is what made "Return to Menu" collide with the
+   minimise control, and it is NOT a spacing problem, which is why two rounds of clearance did not fix
+   it. The overlay is a NAMED grid, and a direct child with no grid-area gets AUTO-PLACED into an
+   IMPLICIT cell — top-right, on top of the control. The same trap the .has-subtitle rule below already
+   warns about. It shows as the button "sliding" because implicit placement is recomputed as async code
+   adds children: MatchReplayClient.addGameOverButton falls back to `target = overlay` whenever
+   #game-over-stats is absent (hotseat), inserting a bare child; hotseat's own panel does the same.
+   Forcing every unplaced child into the buttons area means no future end-game path can land one in the
+   control's corner, whatever it builds. Keep this LAST-but-one so the named children still win. */
+#game-over-overlay > *:not(#game-over-title):not(#game-over-subtitle):not(#game-over-buttons):not(#game-over-stats):not(#swuEndGameToggle) {
+    grid-area: buttons;
+}
+
 /* ── Minimise / restore ───────────────────────────────────────────────────────────────────────
    The panel covers 80% of the board, and the whole reason it is a panel rather than a full-screen
    takeover is that the board and chat stay usable around it — but reviewing the board UNDER it still
@@ -489,9 +502,14 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    ⚠ The overlay is a NAMED grid, so minimising is not just "hide the children": an unplaced child in
    a grid with named areas gets AUTO-placed into an implicit cell, so the collapsed state has to
    declare its own areas too, exactly like .has-subtitle above. */
+/* ⚠ ABSOLUTE, not a grid item. Placing it in a grid area only works if you know which container the
+   panel's buttons live in — and that varies by end-game path (hotseat's panel does not use
+   #game-over-buttons, which is why clearing THAT container did not fix it). Taking the control out of
+   flow and reserving its strip with padding on the OVERLAY clears every child of every container at
+   once, whatever the path builds. */
 #swuEndGameToggle {
-    grid-area: toggle; justify-self: end; align-self: start;
-    pointer-events: auto; cursor: pointer; z-index: 2;
+    position: absolute; top: 10px; right: 12px;
+    pointer-events: auto; cursor: pointer; z-index: 3;
     width: 26px; height: 26px; padding: 0; line-height: 1;
     display: inline-flex; align-items: center; justify-content: center;
     border-radius: 6px; border: 1px solid var(--border, #2a3a4a);
@@ -499,19 +517,15 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     color: var(--accent-strong, #f0c040); font: 700 15px/1 var(--swu-font-label, sans-serif);
 }
 #swuEndGameToggle:hover { border-color: var(--accent-strong, #f0c040); background: rgba(10,20,30,0.98); }
-/* Expanded: the button rides in the title row's right edge, so no new grid area is needed. */
-#game-over-overlay:not(.is-minimized) #swuEndGameToggle {
-    grid-area: title; justify-self: end; align-self: start;
-}
 #game-over-overlay.is-minimized {
     inset: auto auto 16px 16px !important;
     width: auto !important; height: auto !important;
     max-width: min(360px, 60vw) !important;
-    padding: 8px 10px 8px 14px !important;
-    grid-template-columns: minmax(0, 1fr) auto !important;
+    padding: 8px 44px 8px 14px !important;   /* right strip reserved for the absolute control */
+    grid-template-columns: minmax(0, 1fr) !important;
     grid-template-rows: auto !important;
-    grid-template-areas: "title toggle" !important;
-    column-gap: 12px !important; row-gap: 0 !important;
+    grid-template-areas: "title" !important;
+    column-gap: 0 !important; row-gap: 0 !important;
     align-items: center !important;
     overflow: hidden !important;
 }
@@ -523,7 +537,7 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     margin: 0 !important; font-size: 15px !important; letter-spacing: 0.5px !important;
     white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;
 }
-#game-over-overlay.is-minimized #swuEndGameToggle { align-self: center; }
+#game-over-overlay.is-minimized #swuEndGameToggle { top: 50%; transform: translateY(-50%); }
 
 /* "Winner(s): …" line under the title. It only exists when the caller names winners (Twin Suns,
    where three of four seats read "You Lost" and nothing else would say who took it), so the extra
@@ -575,13 +589,9 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     flex-direction: row !important; flex-wrap: wrap !important;
     align-content: flex-start !important; justify-content: flex-start !important;
     gap: 10px !important; align-self: stretch !important;
-    /* ⚠ Top clearance for the minimise control, which sits at the panel's top-right. The two only
-       collide when the TITLE ROW has no height to hold it — a results panel with no title (the
-       plain non-match overlay) collapses that row to 0, so the 26px button overflows down into the
-       buttons row and lands on the first button ("Return to Menu"). Clearing it here fixes every
-       layout at once, including the single-column portrait one where the buttons span full width and
-       reach the panel's right edge. */
-    margin: 30px 0 0 !important;
+    /* No clearance needed here: the minimise control is absolute and the overlay's own top padding
+       reserves its strip, so every child of every container starts below it. */
+    margin: 0 !important;
 }
 #game-over-buttons button { flex: 0 0 100% !important; }
 /* Rematch fills the row; the short Bo1/Bo3 toggle sits compact to its right. */

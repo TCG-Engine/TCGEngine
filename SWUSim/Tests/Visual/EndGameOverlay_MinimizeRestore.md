@@ -14,14 +14,31 @@
 #   • The result text stays readable while minimised (it is the one thing worth keeping); the stats
 #     pane, the buttons and the winners subtitle all hide.
 #
-# ⚠ THE COLLISION CASE, and it is the non-obvious one: the minimise control and the first button
-# ("Return to Menu") only overlap when the TITLE ROW has no height to hold the control — a results
-# panel with no title (the plain non-match overlay) collapses that row to 0, so the 26px button
-# overflows down into the buttons row and lands on the button. #game-over-buttons therefore carries a
-# 30px top margin. Test it WITHOUT a #game-over-title element, and in BOTH layouts: the wide 2-column
-# one AND the portrait/max-width:760px single-column one, where the buttons span full width and reach
-# the panel's right edge. Measured with no title: wide toggle y 127-153 vs button y 195-221; narrow
-# toggle y 117-143 vs button y 183-209 — no overlap in either, both engines.
+# ⚠⚠ THE ACTUAL ROOT CAUSE — "Return to Menu" SLIDING into the minimise control is NOT a spacing
+# problem, which is why two rounds of clearance did not fix it and one of them shipped to prod still
+# broken. #game-over-overlay is a NAMED grid, and a direct child with no grid-area gets AUTO-PLACED
+# into an IMPLICIT cell — top-right, where the control lives. It looks like a "slide" because implicit
+# placement is RECOMPUTED as async code adds children after first paint:
+# MatchReplayClient.addGameOverButton falls back to `target = overlay` whenever #game-over-stats is
+# absent (hotseat has no stats pane), inserting a bare child at the front.
+# The fix is a catch-all rule forcing every unplaced direct child into the buttons area.
+# ⚠ REPRO + MUTATION (this is the check that matters — do it in the NARROW layout, 700px):
+#   build the overlay with a BARE-CHILD button and no stats pane, note the button's y, then insert
+#   another bare child and re-measure. Without the catch-all the button jumps (measured 184 -> 248);
+#   with it, it does not move (184 -> 184). Both engines.
+#
+# ⚠ THE COLLISION CASE — the control must never land on "Return to Menu". The fix is deliberately
+# CONTAINER-INDEPENDENT and it took two goes to get there:
+#   • v1 put the control in a grid area and cleared #game-over-buttons with a top margin. That works
+#     only if the buttons live in that container — HOTSEAT's panel does not use it, so it shipped and
+#     was still broken.
+#   • v2 (current): the control is position:ABSOLUTE at the panel's top-right, and the OVERLAY itself
+#     reserves the strip (padding-top 46px expanded, padding-right 44px minimised). Padding on the
+#     overlay clears every child of every container at once, whatever an end-game path builds.
+#   ⚠ So test it by CONTAINER SHAPE, not just by viewport. Regression matrix, both engines, all clear:
+#     button as a BARE CHILD of the overlay · inside #game-over-buttons · inside some other wrapper
+#     — each at wide (1700) and narrow (700, the single-column portrait layout).
+#   ⚠ And build the overlay WITHOUT a #game-over-title: a titleless panel is what first exposed this.
 #
 # ⚠ #game-over-overlay is a NAMED CSS GRID. Minimising is NOT just hiding children: an unplaced child
 # in a grid with named areas gets AUTO-PLACED into an implicit cell, so the collapsed state declares
@@ -37,7 +54,7 @@
 #
 # VERIFIED 2026-08-20, Chromium + Firefox at 1700x1100:
 #   expanded  1190x880 at (170,110), stats visible, button "–"
-#   minimised  155x44  at (16,1040), stats hidden, title still visible, button "□"
+#   minimised  151x33  at (16,1051), stats hidden, title still visible, button "□"
 #   restored  1190x880 at (170,110) — identical to expanded, zero page errors.
 # WebKit NOT covered: it does not launch on this machine.
 
