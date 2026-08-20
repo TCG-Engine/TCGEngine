@@ -14,6 +14,15 @@
 // card images reproduces the phone's cold-cache/cellular timing deterministically. Without this
 // route the suite would pass while the bug was fully present.
 //
+// TWO ASSERTIONS, DELIBERATELY: the observable (scroll kept) AND the mechanism (the library
+// subtree was PRESERVED rather than rebuilt — installStableLibraryRender's replaceChildren path).
+// The mechanism check is the load-bearing one, because the observable is timing-dependent: on
+// 2026-07-17 `feat(SWUDeck): formats` inserted the Leader1/Leader2 zones, which shifted every
+// positional index the preserve check used, so the pane was rebuilt on EVERY tap — and this suite
+// still passed on all three engines at its default 600px/400ms, because the slower fallback
+// restore won the race on a dev box. It only lost on a real phone. Scroll alone cannot see that;
+// element identity can, at any timing.
+//
 // MUTATES THE DECK (a tap ADDS a card), so it runs against a scratch deck and restores the
 // Gamestate file afterwards — never point GAME at a real deck.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
@@ -76,6 +85,10 @@ await harness(async (check) => {
       await page.waitForFunction((a) => document.querySelector(a.sel).scrollTop === a.target,
         { sel: CONTENT, target: TARGET }, { timeout: 5000 });
 
+      // Tag the LIVE pane node. If the preserve path fires, RenderUpdate puts this very element
+      // back and the tag survives; if the pane was rebuilt, the tag is gone with the old subtree.
+      await page.evaluate((sel) => { document.querySelector(sel).dataset.swuPreserveProbe = 'live'; }, CONTENT);
+
       const deckBefore = await page.evaluate(() => {
         const m = String(document.getElementById('myDeckSlot')?.textContent || '').match(/deck\s*count\s*:\s*(\d+)/i);
         return m ? Number(m[1]) : -1;
@@ -113,6 +126,13 @@ await harness(async (check) => {
         const c = document.querySelector(sel);
         return { top: Math.round(c.scrollTop), max: Math.max(0, c.scrollHeight - c.clientHeight) };
       }, CONTENT);
+
+      // MECHANISM: did the preserve path actually fire? Timing-independent, and the check that
+      // would have caught the Leader1/Leader2 index drift on the day it landed.
+      const preserved = await page.evaluate((sel) =>
+        document.querySelector(sel)?.dataset.swuPreserveProbe === 'live', CONTENT);
+      check(`${name}: library subtree was PRESERVED, not rebuilt`, preserved,
+        preserved ? '' : 'the pane was re-rendered — the preserve check in installStableLibraryRender rejected an unchanged library');
 
       // Allow a small drift (the pane's own height can shift by a row), but nothing like a reset.
       const kept = Math.abs(after.top - TARGET) <= 80;

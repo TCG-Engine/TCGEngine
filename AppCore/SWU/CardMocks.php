@@ -988,6 +988,32 @@ Attached base gains: "When the regroup phase starts: Draw a card and deal 2 dama
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/070.png',
     'imageUrlBack' => '',
   ),
+  'HMW_071' => 
+  array (
+    'title' => 'Ravage',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 4,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Disaster',
+      1 => 'Tactic',
+    ),
+    'text' => 'Distribute up to 3 Weakness tokens among any number of units.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/071.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_074' => 
   array (
     'title' => 'Yord Fandar',
@@ -1634,6 +1660,35 @@ Resource this card.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/151.png',
     'imageUrlBack' => '',
   ),
+  'HMW_154' => 
+  array (
+    'title' => 'Dooku\'s Solar Sailer',
+    'subtitle' => 'Droid Army Portent',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Vehicle',
+      2 => 'Transport',
+    ),
+    'text' => 'When Played: If you control a unit that costs 1 or less, each opponent discards a card from their hand.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/154.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_158' => 
   array (
     'title' => 'Ezra Bridger',
@@ -1661,6 +1716,35 @@ Resource this card.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/158.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_159' => 
+  array (
+    'title' => 'General Grievous',
+    'subtitle' => 'Scourge of Dathomir',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 7,
+    'power' => 8,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Official',
+    ),
+    'text' => 'Bases can\'t be healed.
+When Played: Deal 4 damage to a base.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/159.png',
     'imageUrlBack' => '',
   ),
   'HMW_162' => 

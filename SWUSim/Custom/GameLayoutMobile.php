@@ -24,7 +24,13 @@
         --swu-font-ui:    "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif;
         --swu-font-label: "Bahnschrift","Aptos Display","Franklin Gothic Medium",sans-serif;
         --swu-m-gap:      8px;
-        --swu-m-arena-h:  252px;   /* visible height per arena ≈ 2 card rows; scrolls beyond */
+        --swu-m-arena-h:  200px;   /* visible height per arena; scrolls beyond. Trimmed from 252 —
+                                      the seat rows above need the room and 2 card rows still fit. */
+        /* Leader/base cap in the centre row. ⚠ PRE-TRANSFORM: these images carry transform:scale(1.1),
+           so the rendered height is (value + 2px border) * 1.1. 85.5 is the leader's own natural
+           height, so capping BOTH at it renders both at ~96px — capping at 96 instead rendered the
+           base at 108 and left it visibly taller than the leaders it sits beside. */
+        --swu-m-center-h:  85.5px;
 
         position: fixed; inset: 0; z-index: 20;
         overflow-y: auto; overflow-x: hidden;
@@ -127,7 +133,63 @@
     body.swu-home .swu-m-arena-row.is-theirs,
     body.swu-home .swu-m-centers.is-theirs,
     body.swu-home .swu-m-center.is-theirs { display: none !important; }
-    body.swu-home #swuHomeStrips { position: fixed; top: 48px; left: 0; right: 0; max-height: 42vh; z-index: 39; }
+    /* Twin Suns mobile: opponents are stacked SUMMARY ROWS, not side-by-side tiles. Three tiles across
+       ~430px gave ~130px each — overlapping and unreadable — and the 42vh band reserved ~390px of a
+       ~930px screen. Rows cost ~170px, so the player's own board gains ~220px, which is the real win.
+       Height is CONTENT driven now; the cap only guards a future format seating more players. */
+    body.swu-home #swuHomeStrips {
+        position: fixed; top: 4px; left: 0; right: 0; z-index: 39;
+        /* ⚠ flex-start explicitly: the SHARED .swu-home-strips sets justify-content:center, which on a
+           COLUMN axis centres the rows vertically and left ~100px of dead space above them. */
+        display: flex; flex-direction: column; justify-content: flex-start; gap: 4px;
+        height: auto; max-height: 52vh; overflow-y: auto; padding: 4px 6px; box-sizing: border-box;
+    }
+    /* ⚠ The rows own the TOP HALF and the player's own board the BOTTOM HALF, mirroring desktop.
+       Previously the strips were a fixed overlay floating ON the board — inherited from the old 42vh
+       band — so opaque rows sat on top of your own leaders. */
+    /* ⚠ Padded by the rows' MEASURED height (swuRenderHomeStrips writes --swu-m-rows-h), not a fixed
+       50vh. A fixed fraction left whatever the rows did not use as dead space between them and the
+       board — ~157px with three 84px rows — and pushed the board low enough to need scrolling. */
+    body.swu-home #swuMobileRoot { padding-top: var(--swu-m-rows-h, 300px); }
+    .swu-seat-row {
+        display: flex; flex-direction: column; justify-content: center; gap: 5px;
+        width: 100%; box-sizing: border-box; min-height: 84px; padding: 8px; border-radius: 8px;
+        background: var(--swu-surface, rgba(10,20,30,0.85));
+        border: 1px solid var(--swu-border, #2a3a4a);
+        font: 700 11px/1.2 var(--swu-font-label, sans-serif); color: var(--text, #dde);
+    }
+    .swu-sr-seat  { font-weight: 800; color: #eef; min-width: 22px; flex: 0 0 auto; }
+    .swu-sr-lead,
+    .swu-sr-base  { width: 44px; height: 31px; border-radius: 3px; flex: 0 0 auto; position: relative;
+                    background-size: cover; background-position: center; border: 1px solid #10151f; }
+    .swu-sr-base  { display: flex; align-items: center; justify-content: center; }
+    .swu-sr-stat  { display: inline-flex; align-items: baseline; gap: 3px; padding: 2px 5px; flex: 0 0 auto;
+                    border-radius: 4px; background: rgba(255,255,255,0.05);
+                    border: 1px solid rgba(255,255,255,0.07); }
+    .swu-sr-lbl   { font-size: 8px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; opacity: .5; }
+    /* Legal-target cue. Blurred glow, never a zero-blur ring — the board's .has-action idiom. */
+    .swu-seat-row.is-target-source {
+        border-color: rgba(46,204,113,0.9);
+        box-shadow: 0 0 14px 3px rgba(46,204,113,0.70), 0 0 4px 1px rgba(46,204,113,0.40);
+    }
+    .swu-seat-row.is-target-dimmed { opacity: 0.45; }
+    .swu-sr-count { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px;
+        display: inline-flex; align-items: center; justify-content: center;
+        background: #2ecc71; color: #06210f; font: 700 11px/1 var(--swu-font-label, sans-serif); }
+    .swu-sr-a, .swu-sr-b { display: flex; align-items: center; gap: 6px; width: 100%; }
+    .swu-sr-b { gap: 5px; }
+    .swu-sr-pills { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; flex: 0 0 auto; }
+    .swu-sr-zoom  { flex: 0 0 auto; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; padding: 0;
+                    background: var(--swu-surface, rgba(10,20,30,0.9));
+                    border: 1px solid var(--swu-border, #2a3a4a); color: var(--accent-strong, #f0c040); }
+    /* ⚠ The row's pips are small — keep their overlays proportional. A desktop regression once scaled
+       this same icon to 75x75 on an 84px card, covering it entirely. */
+    body.swu-home .swu-sr-base .swu-mb-cardicon,
+    body.swu-home .swu-sr-lead .swu-mb-cardicon { width: 11px; height: 11px; }
+    body.swu-home .swu-sr-base .swu-mb-dmgcounter { width: 19px; height: 19px; font-size: 11px; }
+    body.swu-home .swu-seat-row .swu-mb-fx { width: 16px; height: 40px; margin-left: 2px; }
+    body.swu-home .swu-seat-row .swu-mb-fxrow,
+    body.swu-home .swu-seat-row .swu-mb-fxchip { height: 12px; border-radius: 6px; font-size: 9px; }
     /* The blue HUD darkening overlay lives on each arena BOX (.swu-m-arena-col ::after)
        so it's clipped to the cyan-bracketed boundary rather than the whole row. */
     /* Light-blue tech-HUD frame per arena — faint full border + glow plus bright
@@ -189,6 +251,25 @@
             rgba(var(--turn-mine-rgb),0.06) 0 50%, rgba(var(--turn-theirs-rgb),0.05) 50% 100%);
     }
     .swu-m-centers-row .swu-m-center { max-width: none; }
+    /* ⚠ The BASE renders taller than the leaders beside it — measured 199x143 against a leader's
+       96x96 — because a base is a LANDSCAPE card and nothing capped its height. On a phone that
+       vertical difference is pure cost: it sets the whole centre row's height for no extra
+       information. Cap both to one height and let the width follow, so the base keeps its aspect
+       ratio and the row is as tall as a leader, not as tall as a base. */
+    /* ⚠ MAX-height, and the selector must out-specify the landscape rule that already governs these
+       images: `#myBaseWrapper img[data-orientation="landscape"] { height:auto !important }` beats a
+       plain `.swu-m-centers img { height: … !important }` on specificity (id + attribute), so setting
+       `height` here does nothing — measured 128px computed against a 96px rule that never applied.
+       max-height cooperates with that `height:auto` instead of fighting it, and keeps the aspect. */
+    .swu-m-centers img,
+    .swu-m-centers #myBaseWrapper img[data-orientation="landscape"],
+    .swu-m-centers #theirBaseWrapper img[data-orientation="landscape"],
+    .swu-m-centers #myLeaderWrapper img[data-orientation="landscape"],
+    .swu-m-centers #theirLeaderWrapper img[data-orientation="landscape"] {
+        max-height: var(--swu-m-center-h) !important;
+        width: auto !important;
+        max-width: 100% !important;
+    }
 
     /* ── Control bands (their header / my footer) ────────────────────────────── */
     .swu-m-band {
@@ -462,6 +543,15 @@
     #EffectStackSlot { position: fixed; top: 8px; right: 8px; z-index: 55; pointer-events: auto; }
 </style>
 
+<script>
+  /* ⚠ The layout is chosen SERVER-SIDE by user agent (GameLayoutDevice.php / SWUSimIsMobileRequest),
+     and until now left NO client-side trace. Client code that must branch — the Twin Suns seat-row
+     renderer — cannot infer it from viewport width, because a narrow DESKTOP window still gets the
+     desktop layout. Set both: the flag for JS, the class for CSS.
+     Safe here: this file is included inside <body>, so document.body already exists. */
+  window.SWU_MOBILE_LAYOUT = true;
+  document.body.classList.add('swu-m');
+</script>
 <div id="swuMobileRoot">
 
     <!-- ════════ THEIR control band: init (when they hold it) · resources · piles ════════ -->

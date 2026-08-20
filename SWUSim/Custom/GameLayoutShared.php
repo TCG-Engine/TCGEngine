@@ -2158,6 +2158,37 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // during an active decision. Bucket each off-view target by direction (a view index below the
     // current = ◀, above = ▶). Clears when no decision / no off-view targets. Exposed for the UILibraries
     // MZCHOOSE hook + swuSetView re-apply.
+    // MOBILE: the seat ROWS carry the targeting cue, because a summary row has no thumbnail to glow.
+    // ⚠ Buckets _twAllSpecs, NOT _twOffView. "Off view" excludes the CURRENT view's own opponent, so on
+    // the home view one seat's targets are treated as on-board and its row would never light up —
+    // measured: a 3-target Arrest reported off=[p3,p4] with p2 missing. On mobile every opponent is
+    // off-board by construction, so the full candidate list is the right source.
+    function swuTwRenderRowTargets() {
+        var rows = document.querySelectorAll('#swuHomeStrips .swu-seat-row');
+        if (!rows.length) return;
+        var sm = window.SelectionMode || {};
+        var specs = (sm.active && (sm._twAllSpecs || sm._twOffView)) || [];
+        var bySeat = {};
+        specs.forEach(function (spec) {
+            var seat = parseInt((String(spec.zone || '').match(/^p(\d+)/) || [])[1], 10);
+            if (seat) bySeat[seat] = (bySeat[seat] || 0) + 1;
+        });
+        var anyTargets = Object.keys(bySeat).length > 0;
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i], seat = parseInt(row.getAttribute('data-seat'), 10);
+            var n = bySeat[seat] || 0;
+            row.classList.toggle('is-target-source', n > 0);
+            row.classList.toggle('is-target-dimmed', anyTargets && n === 0);
+            var pills = row.querySelector('.swu-sr-pills');
+            var badge = row.querySelector('.swu-sr-count');
+            if (n > 0 && pills) {
+                if (!badge) { badge = document.createElement('span'); badge.className = 'swu-sr-count'; pills.appendChild(badge); }
+                badge.textContent = String(n);
+            } else if (badge) { badge.remove(); }
+        }
+    }
+    window.swuTwRenderRowTargets = swuTwRenderRowTargets;
+
     function swuTwRenderTargetBadges() {
         var off = (window.SelectionMode && window.SelectionMode.active && window.SelectionMode._twOffView) || [];
 
@@ -2181,6 +2212,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (!bb) { bb = document.createElement('span'); bb.className = 'swu-target-badge'; arrow.appendChild(bb); }
             bb.textContent = String(n);
         }
+        swuTwRenderRowTargets();   // mobile rows carry their own cue
         var curIdx = (window.swuView && typeof window.swuView.index === 'number') ? window.swuView.index : 0;
         var left = 0, right = 0;
         off.forEach(function (spec) {
@@ -2516,6 +2548,57 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // 3-player home view: one mini board per opponent, each a gateway button into that opponent's
     // matchup view. Shown only on the 'home' view. Tile class stays .swu-home-strip so the existing
     // click delegate (data-view → swuSetView) keeps working.
+    // MOBILE seat row: one compact threat-summary line per opponent. Deliberately NO arena
+    // thumbnails — at phone width three tiles across ~430px gave ~140px each, overlapping and
+    // unreadable, and a card small enough to fit is too small to tap. Targeting drills in instead
+    // (spec D1/D2). Reads the SAME seat block the desktop tiles read, so the two views cannot
+    // disagree about what a seat holds.
+    function swuRenderSeatRow(seat) {
+        var b = swuReadSeatBlock(seat) || {leaders:[], baseObj:null, groundCount:0, spaceCount:0,
+                                           res:{ready:0,total:0,credits:0}, deckCount:0, discardCount:0};
+        var lead = b.leaders.map(function (ld) {
+            var cid = String(ld).trim().split(' ')[0];
+            var rid = (typeof resolveCardImageID === 'function') ? resolveCardImageID(cid) : cid;
+            return "<span class='swu-sr-lead swu-mb-card' " + swuMbHoverAttrs(rid) +
+                   " style=\"background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/" + rid + ".webp)\"></span>";
+        }).join('');
+        var baseCid = b.baseObj ? String(b.baseObj.CardID || '').replace(/ /g, '_') : '';
+        var brid = baseCid ? ((typeof resolveCardImageID === 'function') ? resolveCardImageID(baseCid) : baseCid) : '';
+        var dmg = b.baseObj ? (parseInt(b.baseObj.Damage, 10) || 0) : 0;
+        var base = "<span class='swu-sr-base swu-mb-card' " + swuMbHoverAttrs(brid) +
+                   (brid ? " style=\"background-image:url(/TCGEngine/AppCore/SWU/Images/concat/" + brid + ".webp)\"" : "") +
+                   ">" + (dmg > 0 ? "<span class='swu-mb-dmgcounter'>" + dmg + "</span>" : "") +
+                   swuMbBaseOverlays(b.baseObj) + "</span>";
+        // ⚠ Fixed-width value box, same reason as desktop: rows are a COMPARISON view, so a chip that
+        // grows when a seat gains credits moves everything after it and the same fact sits in a
+        // different place on every row.
+        var res = "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Res</span>" +
+                  "<span class='swu-mb-statval'>" + b.res.ready + "/" + b.res.total +
+                  (b.res.credits > 0 ? "<span class='swu-mb-statcred'>+" + b.res.credits + "</span>" : "") +
+                  "</span></span>";
+        // TWO lines per tile (revised from the spec's single line — there is vertical room on a phone):
+        //   A: seat · leaders · base · other info (fortify / arrest) · zoom
+        //   B: the counts, as LABELLED chips — res · deck · discard · ground · space
+        // Labelled beats the compact glyph form: at this width the row is a scoreboard, and "GROUND 2"
+        // cannot be misread the way an unlabelled icon can.
+        return "<div class='swu-seat-row' data-seat='" + seat + "'>" +
+                 "<div class='swu-sr-a'>" +
+                   "<span class='swu-sr-seat'>P" + seat + "</span>" + lead + base +
+                   swuMbFxColumn(b.baseObj) +
+                   "<span class='swu-sr-pills'></span>" +
+                   "<button type='button' class='swu-sr-zoom' title='Open the you-vs-P" + seat + " board'>&#128269;</button>" +
+                 "</div>" +
+                 "<div class='swu-sr-b'>" +
+                   res +
+                   "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Deck</span>" + b.deckCount + "</span>" +
+                   "<span class='swu-sr-stat swu-mb-stat-btn' role='button' tabindex='0'" +
+                     " data-zone='p" + seat + "Discard'><span class='swu-sr-lbl'>Disc</span>" + b.discardCount + "</span>" +
+                   "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Ground</span>" + b.groundCount + "</span>" +
+                   "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Space</span>" + b.spaceCount + "</span>" +
+                 "</div>" +
+               "</div>";
+    }
+
     function swuRenderHomeStrips() {
         var box = document.getElementById('swuHomeStrips'); if (!box) return;
         var v = window.swuView;
@@ -2532,13 +2615,28 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             var bg = pm ? ' style="background-image:linear-gradient(rgba(10,10,10,0.72),rgba(10,10,10,0.72)),url(\'' + pm + '\');background-size:cover;background-position:center;"' : '';
             // data-seat is what the turn highlight keys off — swuTwHighlightActiveSeat() toggles the
             // class in place rather than re-rendering, so a turn change never wipes the target chips.
-            html += '<div class="swu-home-strip" data-seat="' + opp + '" data-view="' + mi + '"' + bg + '>' + swuRenderMiniBoard(opp) + '</div>';
+            // Mobile gets stacked summary ROWS; desktop keeps the side-by-side tiles unchanged.
+            html += (window.SWU_MOBILE_LAYOUT === true)
+                ? swuRenderSeatRow(opp)
+                : ('<div class="swu-home-strip" data-seat="' + opp + '" data-view="' + mi + '"' + bg + '>' + swuRenderMiniBoard(opp) + '</div>');
         });
         box.innerHTML = html;
         box.style.display = 'flex';
+        // MOBILE: publish the rows' real height so the board can sit immediately beneath them. The
+        // band is position:fixed, so it contributes nothing to flow — without this the root has to
+        // guess a reserve, and any guess is either a gap or an overlap.
+        if (window.SWU_MOBILE_LAYOUT === true) {
+            var h = Math.ceil(box.getBoundingClientRect().height);
+            document.documentElement.style.setProperty('--swu-m-rows-h', (h + 8) + 'px');
+        }
         // Rebuilding the tiles wiped any target chips — re-stamp them for an active decision.
         if (typeof swuTwRenderTargetBadges === 'function') swuTwRenderTargetBadges();
         swuTwHighlightActiveSeat();
+        // ⚠ AFTER the innerHTML rebuild, not before: this function stamps CLASSES onto the rows, and a
+        // rebuild replaces the elements that carry them. Measured — the glow was being applied and then
+        // wiped in the same tick, so a manual call lit all three rows while the live view showed none.
+        // Same trap the target-chip re-stamp above already guards.
+        if (typeof swuTwRenderRowTargets === 'function') swuTwRenderRowTargets();
     }
 
     // Mark the home strip belonging to the seat whose turn it is. Called on every strip rebuild AND

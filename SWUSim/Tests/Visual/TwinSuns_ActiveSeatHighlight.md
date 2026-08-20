@@ -226,6 +226,37 @@ WithP3Deck: [SOR_231]
 WithP3Discard: [SOR_095]
 WithP3GroundArena: SOR_229:1:0
 WithP4GroundArena: SOR_229:1:0
+#// Hands on EVERY seat — 5 to 8 cards, a different count per seat. Without them the hand band renders
+#// empty, so nothing exercises the space it actually occupies: on MOBILE the band is what the seat
+#// rows and your own board have to fit around, and an empty-hand fixture silently over-reports how
+#// much room there is. Distinct counts also make an opponent's masked hand-count badge checkable.
+#// P1 8 · P2 5 · P3 7 · P4 6.
+WithP1Hand: SOR_095
+WithP1Hand: SOR_046
+WithP1Hand: SOR_231
+WithP1Hand: SOR_128
+WithP1Hand: SOR_229
+WithP1Hand: SEC_195
+WithP1Hand: SOR_032
+WithP1Hand: SOR_033
+WithP2Hand: SOR_095
+WithP2Hand: SOR_046
+WithP2Hand: SOR_231
+WithP2Hand: SOR_128
+WithP2Hand: SOR_229
+WithP3Hand: SOR_095
+WithP3Hand: SOR_046
+WithP3Hand: SOR_231
+WithP3Hand: SOR_128
+WithP3Hand: SOR_229
+WithP3Hand: SEC_195
+WithP3Hand: SOR_032
+WithP4Hand: SOR_095
+WithP4Hand: SOR_046
+WithP4Hand: SOR_231
+WithP4Hand: SOR_128
+WithP4Hand: SOR_229
+WithP4Hand: SEC_195
 
 ## WHEN
 

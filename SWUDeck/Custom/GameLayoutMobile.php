@@ -1925,27 +1925,27 @@ echo SWUCardArtScript(false);
     trackedSubmit.__swuOriginal = original;
     window.SubmitEngineInput = trackedSubmit;
   }
-  function incomingLibraryIsUnchanged(responseArr, wrapper){
-    if(!Array.isArray(responseArr) || !wrapper) return false;
-    var perspectiveField = document.getElementById('viewerPerspective');
-    var perspective = parseInt(perspectiveField && perspectiveField.value || '1', 10);
-    if(perspective !== 1 && perspective !== 2) return false;
-    var offset = (perspective - 1) * 13;
-    var comparisons = [
-      ['myLeaderData', 1],
-      ['myBaseData', 2],
-      ['myCardPaneData', 4],
-      ['myLeadersData', 5],
-      ['myBasesData', 6],
-      ['myCardsData', 7],
-      ['myStatsData', 10],
-      ['mySortData', 11],
-      ['myCardNotesData', 12]
-    ];
-    if(wrapper.dataset.swuRenderedCardSize !== String(window.cardSize)) return false;
-    return comparisons.every(function(comparison){
-      return String(window[comparison[0]] || '') === String(responseArr[comparison[1] + offset] || '');
-    });
+  /* Which inputs decide what the browse library RENDERS. If none of them moved, the pane the
+     server just rebuilt is byte-identical to the one already on screen, so we keep the live one.
+
+     ★ Read these by NAME, from window, BEFORE and AFTER the real RenderUpdate — never by index
+     into responseArr. NextTurnRender.php is GENERATED, its zone order is positional, and the
+     generated body assigns every window.<zone>Data at the top of the same synchronous call. An
+     index table here is a hand-maintained copy of a generated layout, and it silently rotted the
+     moment `feat(SWUDeck): formats` inserted the Leader1/Leader2 zones (2026-07-17): every slot
+     from 6 up shifted by two and the per-perspective stride went 13 -> 15, so five of the nine
+     fields compared a zone against an unrelated one, this returned false on EVERY render, and the
+     library was rebuilt on every tap. Nothing failed loudly — the pane just fell back to the
+     timing-race restore in bindMobileLibraryScroll(), which loses on a real phone and put the
+     "tap a card and it jumps to the top of the list" bug straight back. Comparing by name cannot
+     drift, whatever zones a future format adds. */
+  var LIBRARY_INPUT_FIELDS = [
+    'myLeaderData', 'myBaseData', 'myCardPaneData',
+    'myLeadersData', 'myLeader1Data', 'myLeader2Data', 'myBasesData', 'myCardsData',
+    'myStatsData', 'mySortData', 'myCardNotesData'
+  ];
+  function libraryInputSnapshot(){
+    return LIBRARY_INPUT_FIELDS.map(function(field){ return String(window[field] || ''); }).join('\u0000');
   }
   function captureDeckImagePool(){
     var pool = new Map();
@@ -1982,15 +1982,34 @@ echo SWUCardArtScript(false);
     function stableMobileRender(responseArr){
       var slot = document.getElementById('myCardPaneSlot');
       var wrapper = document.getElementById('myCardPaneWrapper');
-      var preserveLibrary = !!(slot && wrapper && incomingLibraryIsUnchanged(responseArr, wrapper));
+      /* cardSize is read BEFORE the render because `wrapper` is the pre-render element — it is
+         what we would put back, so it is its stamp that has to match. */
+      var sizeUnchanged = !!wrapper && wrapper.dataset.swuRenderedCardSize === String(window.cardSize);
+      var inputsBefore = libraryInputSnapshot();
+      var scroller = document.getElementById('my_CardPane_content');
+      var scrollBefore = scroller ? scroller.scrollTop : 0;
       var deckImagePool = captureDeckImagePool();
       var result = originalRenderUpdate.apply(this, arguments);
+      var preserveLibrary = !!(slot && wrapper && sizeUnchanged && libraryInputSnapshot() === inputsBefore);
 
       /* NextTurnRender rebuilds every bound zone. If the library inputs did not change,
          restore its existing subtree before the browser can paint; this retains decoded
          images, scroll state, filter controls, and listeners while deck zones stay fresh. */
       reuseDecodedDeckImages(deckImagePool);
-      if(preserveLibrary && slot && wrapper) slot.replaceChildren(wrapper);
+      if(preserveLibrary) {
+        slot.replaceChildren(wrapper);
+        /* ★ Re-attaching is NOT enough. `slot.innerHTML = …` inside the render DETACHED this
+           subtree, and a detached element's scrollTop is reset to 0 by every engine — so the pane
+           comes back intact but scrolled to the top, which is the very bug this path exists to
+           prevent. bindMobileLibraryScroll() will not rescue it either: the restored element still
+           carries data-swu-mobile-scroll-bound, so its guard returns early. Write the offset back
+           here, in the same synchronous frame, before the browser can paint. */
+        var restoredScroller = document.getElementById('my_CardPane_content');
+        if(restoredScroller && scrollBefore > 0) {
+          restoredScroller.scrollTop = scrollBefore;
+          libraryScrollTop = scrollBefore;
+        }
+      }
       var activeWrapper = document.getElementById('myCardPaneWrapper');
       if(activeWrapper) activeWrapper.dataset.swuRenderedCardSize = String(window.cardSize);
       return result;
