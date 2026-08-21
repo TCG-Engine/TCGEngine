@@ -203,6 +203,42 @@ On Attack: You may pay [1 resource]. If you do, create a Beast token.',
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_011' => 
+  array (
+    'title' => 'Darth Sidious',
+    'subtitle' => 'There is No Mercy',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 4,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Sith',
+    ),
+    'text' => 'When you deal 4 or more damage to a unit or a base: You may exhaust this leader. If you do, deal 1 damage to a different unit or base.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'Hidden (This unit can\'t be attacked if it was played this phase.)
+When you deal 4 or more damage to a unit or a base: You may deal 1 damage to a different unit or base.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/011.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/011-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_014' => 
   array (
     'title' => 'Wicket',
@@ -728,6 +764,37 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/048.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_051' => 
+  array (
+    'title' => 'Third Sister',
+    'subtitle' => 'Cycle of Vengeance',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 6,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Cunning',
+      2 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Imperial',
+      2 => 'Inquisitor',
+    ),
+    'text' => 'Overwhelm
+When Played: You may deal 2 damage to a unit. If you do, that unit\'s controller may deal 3 damage to a unit. If they do, that unit\'s controller may deal 4 damage to a unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/051.png',
     'imageUrlBack' => '',
   ),
   'HMW_055' => 
@@ -1660,6 +1727,34 @@ Resource this card.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/151.png',
     'imageUrlBack' => '',
   ),
+  'HMW_152' => 
+  array (
+    'title' => 'Babwa Venomor',
+    'subtitle' => 'Burning Kashyyyk',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 4,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+    ),
+    'text' => 'Overwhelm
+When Played: An opponent creates a Beast token.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/152.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_154' => 
   array (
     'title' => 'Dooku\'s Solar Sailer',
@@ -1716,6 +1811,32 @@ When Played: Deal 4 damage to a base.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/159.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_161' => 
+  array (
+    'title' => 'Raze to Ruin',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Disaster',
+      1 => 'Plan',
+    ),
+    'text' => 'Each player discards all but 3 cards from their hand.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/161.png',
     'imageUrlBack' => '',
   ),
   'HMW_162' => 

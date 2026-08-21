@@ -310,6 +310,28 @@ foreach ($apps as $app) {
         .options-title small { margin-top: 3px; color: var(--muted); font-size: 11px; }
         .switch { display: inline-flex; align-items: center; gap: 9px; color: #c7d0dc; font-size: 12px; cursor: pointer; }
         .switch input { width: 16px; height: 16px; accent-color: var(--blue-deep); }
+        /* appearance:none and an explicit height are both required: WebKit renders a native select
+           at its own intrinsic height and ignores min-height, which leaves the control ~20px next
+           to the 34px buttons beside it. Dropping the native chrome costs us the arrow, so one is
+           drawn back in as a background chevron. */
+        .select-input {
+            appearance: none;
+            -webkit-appearance: none;
+            max-width: 320px;
+            height: 34px;
+            padding: 0 26px 0 8px;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background-color: var(--panel-raised);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238d9aae' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 9px center;
+            background-size: 10px 6px;
+            color: inherit;
+            font: inherit;
+            font-size: 12px;
+        }
+        .select-input:disabled { cursor: not-allowed; opacity: .45; }
         .file-choice { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .file-choice-name { max-width: 360px; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .transfer-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -503,6 +525,24 @@ foreach ($apps as $app) {
             </section>
             <p class="transfer-status" id="card-data-transfer-status" role="status" aria-live="polite"></p>
 
+            <section class="options" id="card-editor-transfer-options">
+                <div class="options-title">
+                    <strong>CardEditor game</strong>
+                    <small>Bundle one authored game's ce_* tables. Games are picked here, not in the sidebar — CardEditor data is keyed by game, not by app.</small>
+                </div>
+                <label class="switch">
+                    <span>Game</span>
+                    <select id="card-editor-game" class="select-input"><option value="">Loading…</option></select>
+                </label>
+                <label class="switch" id="include-assets-option"><input type="checkbox" id="include-assets"> Include asset files</label>
+                <div class="transfer-controls">
+                    <button type="button" class="button button-small" id="export-card-editor-button">Export bundle</button>
+                    <button type="button" class="button button-small" id="import-card-editor-button">Import bundle</button>
+                    <input type="file" id="import-card-editor-file" accept=".zip,application/zip" hidden>
+                </div>
+            </section>
+            <p class="transfer-status" id="card-editor-transfer-status" role="status" aria-live="polite"></p>
+
             <div class="section-heading">
                 <h3>Build steps</h3>
                 <p>Run individually or execute the pipeline in order.</p>
@@ -549,6 +589,12 @@ const importCardDataButton = document.getElementById('import-card-data-button');
 const importCardDataFile = document.getElementById('import-card-data-file');
 const includeArt = document.getElementById('include-art');
 const cardDataTransferStatus = document.getElementById('card-data-transfer-status');
+const cardEditorGameSelect = document.getElementById('card-editor-game');
+const includeAssets = document.getElementById('include-assets');
+const exportCardEditorButton = document.getElementById('export-card-editor-button');
+const importCardEditorButton = document.getElementById('import-card-editor-button');
+const importCardEditorFile = document.getElementById('import-card-editor-file');
+const cardEditorTransferStatus = document.getElementById('card-editor-transfer-status');
 const ensureDatabaseButton = document.getElementById('ensure-database-button');
 const databaseStatus = document.getElementById('database-status');
 const cropTesterLink = document.getElementById('crop-tester-link');
@@ -560,6 +606,9 @@ let pipelineRunning = false;
 let transferRunning = false;
 let importApp = null;
 let cardDataImportApp = null;
+// CardEditor games are environment-level, not per-app, so they are loaded once rather than on
+// every sidebar selection. null means "not loaded yet"; [] means the database has none.
+let cardEditorGames = null;
 
 function appInitials(name) {
     const words = name.replace(/([a-z])([A-Z])/g, '$1 $2').split(/\s+/).filter(Boolean);
@@ -754,6 +803,12 @@ function render() {
     exportCardDataButton.disabled = pipelineRunning || transferRunning;
     importCardDataButton.disabled = pipelineRunning || transferRunning;
     includeArt.disabled = pipelineRunning || transferRunning;
+    // Import stays available with no games listed — importing is how the first one arrives.
+    const hasCardEditorGame = Array.isArray(cardEditorGames) && cardEditorGames.length > 0;
+    cardEditorGameSelect.disabled = pipelineRunning || transferRunning || !hasCardEditorGame;
+    includeAssets.disabled = cardEditorGameSelect.disabled;
+    exportCardEditorButton.disabled = cardEditorGameSelect.disabled;
+    importCardEditorButton.disabled = pipelineRunning || transferRunning;
     ensureDatabaseButton.disabled = pipelineRunning || transferRunning;
     cancelButton.hidden = !pipelineRunning;
     renderActions();
@@ -966,6 +1021,114 @@ async function importCardData() {
     }
 }
 
+function setCardEditorStatus(message, kind = '') {
+    cardEditorTransferStatus.textContent = message;
+    cardEditorTransferStatus.dataset.kind = kind;
+}
+
+// Repopulates the game dropdown, preserving the current selection where it survives — an import
+// reloads the list, and losing the operator's pick mid-panel would be jarring.
+function renderCardEditorGames() {
+    const previous = cardEditorGameSelect.value;
+    cardEditorGameSelect.replaceChildren();
+
+    if (!Array.isArray(cardEditorGames)) {
+        cardEditorGameSelect.append(new Option('Loading…', ''));
+        return;
+    }
+    if (cardEditorGames.length === 0) {
+        cardEditorGameSelect.append(new Option('No authored games', ''));
+        return;
+    }
+    for (const game of cardEditorGames) {
+        const assetNote = game.assetCount ? `, ${game.assetCount} asset${game.assetCount === 1 ? '' : 's'}` : '';
+        cardEditorGameSelect.append(new Option(`${game.name} (${game.cardCount} card${game.cardCount === 1 ? '' : 's'}${assetNote})`, String(game.id)));
+    }
+    if (cardEditorGames.some(game => String(game.id) === previous)) cardEditorGameSelect.value = previous;
+}
+
+async function loadCardEditorGames({ quiet = false } = {}) {
+    try {
+        const url = new URL('CardEditor/API/AdminCardEditorGameTransfer.php', window.location.href);
+        url.searchParams.set('action', 'games');
+        const response = await fetch(url, { credentials: 'same-origin' });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(payload.error || `Could not list games (HTTP ${response.status})`);
+        cardEditorGames = payload.games || [];
+        renderCardEditorGames();
+        if (!quiet && cardEditorGames.length === 0) {
+            setCardEditorStatus('No authored games in this database yet. Import a bundle to add one.');
+        }
+    } catch (error) {
+        cardEditorGames = [];
+        renderCardEditorGames();
+        setCardEditorStatus(error.message || 'Could not list CardEditor games.', 'error');
+    }
+    render();
+}
+
+function exportCardEditorGame() {
+    if (pipelineRunning || transferRunning) return;
+    const gameId = cardEditorGameSelect.value;
+    if (!gameId) return;
+    const game = (cardEditorGames || []).find(candidate => String(candidate.id) === gameId);
+    const url = new URL('CardEditor/API/AdminCardEditorGameTransfer.php', window.location.href);
+    url.searchParams.set('action', 'export');
+    url.searchParams.set('gameId', gameId);
+    if (includeAssets.checked) url.searchParams.set('includeAssets', '1');
+    window.location.assign(url);
+    setCardEditorStatus(`Preparing ${game ? game.name : 'game'}${includeAssets.checked ? ' and its assets' : ''} for download…`);
+}
+
+function chooseCardEditorImport() {
+    if (pipelineRunning || transferRunning) return;
+    importCardEditorFile.value = '';
+    importCardEditorFile.click();
+}
+
+async function importCardEditorGame() {
+    const file = importCardEditorFile.files && importCardEditorFile.files[0];
+    if (!file) return;
+    const confirmed = await styledConfirm(`Import ${file.name}? If this database already holds the same game it is REPLACED — its sets, templates, cards, tags, and enums are deleted first. Other games are not touched.`, { confirmLabel: 'Import', danger: true });
+    if (!confirmed) return;
+
+    transferRunning = true;
+    render();
+    setCardEditorStatus('Importing CardEditor game…');
+    try {
+        const form = new FormData();
+        form.set('action', 'import');
+        form.set('csrf', generatorAdminCsrf);
+        form.set('bundleFile', file);
+        const response = await fetch('CardEditor/API/AdminCardEditorGameTransfer.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: form,
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.success) throw new Error(payload.error || `Import failed with HTTP ${response.status}`);
+
+        await loadCardEditorGames({ quiet: true });
+        const verb = payload.replacedExisting ? 'Replaced' : 'Imported';
+        const assetNote = payload.assetsWritten ? ` and ${payload.assetsWritten} asset file${payload.assetsWritten === 1 ? '' : 's'}` : '';
+        // A failed file write leaves a row pointing at a missing image; re-importing repairs it, so
+        // this is a warning rather than a silent success.
+        const failedNote = (payload.assetsFailed || []).length
+            ? ` ${payload.assetsFailed.length} asset file(s) could not be written — re-run the import.`
+            : '';
+        setCardEditorStatus(
+            `${verb} ${payload.gameName}: ${payload.cardCount} card${payload.cardCount === 1 ? '' : 's'}${assetNote}.${failedNote}`,
+            failedNote ? 'error' : 'success'
+        );
+    } catch (error) {
+        setCardEditorStatus(error.message || 'CardEditor game import failed.', 'error');
+    } finally {
+        transferRunning = false;
+        importCardEditorFile.value = '';
+        render();
+    }
+}
+
 function actionUrl(action) {
     let endpoint = action.endpoint.replace('{app}', encodeURIComponent(selectedApp.rootName));
     const url = new URL(endpoint, window.location.href);
@@ -1109,6 +1272,9 @@ ensureDatabaseButton.addEventListener('click', ensureDatabase);
 exportCardDataButton.addEventListener('click', exportCardData);
 importCardDataButton.addEventListener('click', chooseCardDataImport);
 importCardDataFile.addEventListener('change', importCardData);
+exportCardEditorButton.addEventListener('click', exportCardEditorGame);
+importCardEditorButton.addEventListener('click', chooseCardEditorImport);
+importCardEditorFile.addEventListener('change', importCardEditorGame);
 chooseHellbreakWorkbookButton.addEventListener('click', () => {
     if (!pipelineRunning) hellbreakWorkbookFile.click();
 });
@@ -1121,6 +1287,7 @@ if (!hasRequestedApp) {
     } catch (_) {}
 }
 render();
+loadCardEditorGames({ quiet: true });
 </script>
 </body>
 </html>
