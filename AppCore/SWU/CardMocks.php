@@ -1689,35 +1689,6 @@ Resource this card.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/154.png',
     'imageUrlBack' => '',
   ),
-  'HMW_158' => 
-  array (
-    'title' => 'Ezra Bridger',
-    'subtitle' => 'What Are You Afraid Of?',
-    'type' => 'Unit',
-    'arena' => 'Ground',
-    'rarity' => 'Rare',
-    'set' => 'HMW',
-    'cost' => 4,
-    'power' => 5,
-    'hp' => 4,
-    'aspect' => 
-    array (
-      0 => 'Aggression',
-      1 => 'Heroism',
-    ),
-    'trait' => 
-    array (
-      0 => 'Force',
-      1 => 'Rebel',
-      2 => 'Spectre',
-    ),
-    'text' => 'When you take the initiative: You may deal 3 damage to your base. If you do, create a Beast token.',
-    'epicAction' => '',
-    'deployText' => '',
-    'unique' => true,
-    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/158.png',
-    'imageUrlBack' => '',
-  ),
   'HMW_159' => 
   array (
     'title' => 'General Grievous',
@@ -1855,7 +1826,7 @@ Other friendly Ewok units gain Hidden.',
     'epicAction' => '',
     'deployText' => '',
     'unique' => true,
-    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/158.png',
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/168.png',
     'imageUrlBack' => '',
   ),
   'HMW_170' => 
@@ -2191,6 +2162,32 @@ On Attack: This unit gains Sentinel for this phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/210.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_223' => 
+  array (
+    'title' => 'Therm Scissorpunch',
+    'subtitle' => 'Boastful Gambler',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+    ),
+    'text' => 'When the action phase starts: Reveal the top card of your deck and an opponent\'s deck. For each card that cost 3 or more revealed this way, this unit gets -2/-2 for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/223.png',
     'imageUrlBack' => '',
   ),
   'HMW_234' => 

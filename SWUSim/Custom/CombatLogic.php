@@ -948,13 +948,30 @@ function OnHealUnit($player, $mzCard, $amount) {
     if ($healed >= 1) AddTurnEffect($mzCard, 'SWU_HEALED_PHASE');
 }
 
+// Units whose printed text is the unqualified passive "Bases can't be healed." — a CONTINUOUS,
+// GLOBAL lock while any copy is in play on EITHER side: it names no controller and no side, so one
+// copy stops every base heal in the game, including its own controller's Restore.
+// An explicit CardID list, not a text scan: membership is decided per card when it is implemented
+// (cf. the CR 16.c attack-end list, where deriving the set from phrasing misclassified 11 cards).
+// _SWUCountActiveUnitsWithCardID (not a raw in-play scan) is what makes a blanked copy — SHD_072
+// Imprisoned, SOR_138 Force Lightning — correctly stop locking.
+if (!function_exists('_SWUBasesCantBeHealed')) {
+    function _SWUBasesCantBeHealed(): bool {
+        static $lockers = ['TWI_132', 'HMW_159'];   // Confederate Tri-Fighter · General Grievous (Scourge of Dathomir)
+        foreach ($lockers as $cid) {
+            if (_SWUCountActiveUnitsWithCardID(1, $cid) > 0 || _SWUCountActiveUnitsWithCardID(2, $cid) > 0) return true;
+        }
+        return false;
+    }
+}
+
 // Remove up to $amount damage counters from player $targetPlayer's base. Clamps at 0.
 function OnHealBase($player, $targetPlayer, $amount) {
     // SOR_160 Wolffe: "Bases can't be healed for this phase." A global lock set by either player —
     // block ALL base healing (including Restore) while it's active.
     if (GlobalEffectCount(1, 'SWU_NOHEAL_BASE') > 0 || GlobalEffectCount(2, 'SWU_NOHEAL_BASE') > 0) return;
-    // TWI_132 Confederate Tri-Fighter — "Bases can't be healed." (Continuous while any copy is in play.)
-    if (_SWUCountActiveUnitsWithCardID(1, 'TWI_132') > 0 || _SWUCountActiveUnitsWithCardID(2, 'TWI_132') > 0) return;
+    // The continuous "Bases can't be healed." units (TWI_132, HMW_159) — see the list above.
+    if (_SWUBasesCantBeHealed()) return;
     $base = &GetBase(intval($targetPlayer));
     for ($i = 0; $i < count($base); $i++) {
         if (isset($base[$i]->removed) && $base[$i]->removed) continue;

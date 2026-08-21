@@ -11,11 +11,11 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_158, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071
 
 <!-- HMW_019 Dune Sea = blank-text base (52 of 92 released bases are likewise vanilla).
      HMW_T02 Weakness / HMW_T03 Beast = token CARDS; the engine handles tokens generically, so they
-     get no per-card file. The ABILITIES that create them are HMW_059 / HMW_158 in Phase 4. -->
+     get no per-card file. The ABILITIES that create them are HMW_059 / HMW_168 in Phase 4. -->
 
 ## Foundations already built (this session — do not re-do)
 
@@ -131,9 +131,9 @@ round-trip `Subcards` decode as associative ARRAYS; direct property reads return
   - HMW_059 Clone X Assassin: `$whenDefeatedAbilities["HMW_059:0"]` → `GiveTokenUpgrade(token:'WEAKNESS',
     friendlyOnly:false, may:true)`. -1/-1 flows through the upgrade stat loop; enemy-attachable + lethal
     shrink both verified.
-- [x] **Batch 4.2 — HMW_158** — done, 3 cases, suite 6037/0.
-  - HMW_158 Ezra Bridger: the "when you take the initiative" offer is armed in `SWUTakeInitiative` (beside
-    ASH_155/SEC_168). `HMW_158#0` deals 3 to your OWN base then gates the Beast (`SWUCreateUnitToken('HMW_T03')`)
+- [x] **Batch 4.2 — HMW_168** — done, 3 cases, suite 6037/0.
+  - HMW_168 Ezra Bridger: the "when you take the initiative" offer is armed in `SWUTakeInitiative` (beside
+    ASH_155/SEC_168). `HMW_168#0` deals 3 to your OWN base then gates the Beast (`SWUCreateUnitToken('HMW_T03')`)
     on the base damage actually rising (skipped when prevented — Close the Shield Gate verified). ⚠ Test note:
     Claim ends the round → seed decks or the empty-deck regroup penalty (+6 to each base) masks base assertions.
 
@@ -455,7 +455,7 @@ in the dictionary and keyword registries before implementation started). Suite b
 
 - [x] **Batch 9.2 — HMW_077 Boss Nass, Otoh Gunga Boss** — 11 sections, suite 7806 -> 7817, 0 failed. — When Played/On Attack, "you may defeat a
   Shield token on a friendly Gungan unit. If you do, create a Beast token and give a Shield token to
-  it." Optional COST (defeat a shield) + an "if you do" payoff; Beast = HMW_T03, created by HMW_158's
+  it." Optional COST (defeat a shield) + an "if you do" payoff; Beast = HMW_T03, created by HMW_168's
   existing path.
 - [x] **Batch 9.3 — HMW_110 Emperor Palpatine, Consolidating Power** — 9 sections, suite 7817 -> 7826, 0 failed. — When Played take-control of an
   enemy non-leader unit costing 3 or less, then 2 Weakness tokens. ⚠ leader-unit exclusion must read

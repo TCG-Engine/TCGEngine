@@ -2284,6 +2284,12 @@ $customDQHandlers["SPLIT_ADVANTAGE"] = function ($player, $parts, $lastDecision)
   SWUGiveSplitAdvantage(intval($player), (string) $lastDecision);
 };
 
+// Universal handler: apply a distribute-Weakness assignment ("mz:count,…") from MZSPLITASSIGN
+// (HMW_071 Ravage). SWUGiveSplitWeakness applies every token before running a single shrink sweep.
+$customDQHandlers["SPLIT_WEAKNESS"] = function ($player, $parts, $lastDecision) {
+  SWUGiveSplitWeakness(intval($player), (string) $lastDecision);
+};
+
 $customDQHandlers["GIVE_ADVANTAGE"] = function ($player, $parts, $lastDecision) {
   if (SWUDecisionDeclined($lastDecision))
     return;

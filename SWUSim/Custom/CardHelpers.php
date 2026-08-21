@@ -10,7 +10,7 @@
 // onSubmit('NO')). 'NO' was missing here, so a handler that queued a YESNO but declined via this helper
 // treated a real "No" click as an ACCEPT — it fell straight through and resolved the effect.
 //
-// That shipped in three HMW cards (HMW_171 Trap Field, HMW_158 Ezra Bridger, HMW_060 Rampart's
+// That shipped in three HMW cards (HMW_171 Trap Field, HMW_168 Ezra Bridger, HMW_060 Rampart's
 // RAMPART_SAVE): declining Trap Field still defeated the upgrade AND dealt its 3 damage, so a player
 // saying "no" watched it kill their own just-played unit. Their decline tests all answered '-' — the
 // MZMAYCHOOSE token, which the client never sends for a YESNO — so every one of them passed.

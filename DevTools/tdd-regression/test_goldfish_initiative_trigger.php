@@ -17,7 +17,7 @@
 // A normal 2-player game never hit this: there the retry lands in the CLAIMING player's own queue,
 // behind their own interactive prompt, so the drain blocks instead of spinning.
 //
-// Not Mandalorian-specific -- ASH_155 Grogu, SEC_168 Ziton Moj and HMW_158 Ezra Bridger all queue an
+// Not Mandalorian-specific -- ASH_155 Grogu, SEC_168 Ziton Moj and HMW_168 Ezra Bridger all queue an
 // interactive "when you take the initiative" decision and hang goldfish the same way.
 //
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d xdebug.mode=off \

@@ -1,12 +1,12 @@
 # TakeInitiative_DealThreeToBase_CreateBeast
-#// HMW_158 Ezra Bridger — "When you take the initiative: You may deal 3 damage to your base. If you do,
+#// HMW_168 Ezra Bridger — "When you take the initiative: You may deal 3 damage to your base. If you do,
 #// create a Beast token." Taking the initiative (Claim) with Ezra in play offers the choice; accepting
 #// deals 3 to your own base and creates a Beast (HMW_T03, 3/3 ground) at the next arena index.
 
 ## GIVEN
 CommonSetup: rrw/bbk
 WithActivePlayer: 1
-WithP1GroundArena: HMW_158:1:0
+WithP1GroundArena: HMW_168:1:0
 
 ## WHEN
 - P1>Claim
@@ -25,7 +25,7 @@ P1GROUNDARENAUNIT:1:CARDID:HMW_T03
 ## GIVEN
 CommonSetup: rrw/bbk
 WithActivePlayer: 1
-WithP1GroundArena: HMW_158:1:0
+WithP1GroundArena: HMW_168:1:0
 
 ## WHEN
 - P1>Claim
@@ -45,7 +45,7 @@ P1GROUNDARENACOUNT:1
 ## GIVEN
 CommonSetup: bbk/rrk/{myResources:1}
 WithActivePlayer: 1
-WithP1GroundArena: HMW_158:1:0
+WithP1GroundArena: HMW_168:1:0
 WithP1Hand: JTL_074
 WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
@@ -73,7 +73,7 @@ P1GROUNDARENACOUNT:1
 ## GIVEN
 CommonSetup: rrw/bbk
 WithActivePlayer: 1
-WithP1GroundArena: HMW_158:1:0
+WithP1GroundArena: HMW_168:1:0
 
 ## WHEN
 - P1>Claim

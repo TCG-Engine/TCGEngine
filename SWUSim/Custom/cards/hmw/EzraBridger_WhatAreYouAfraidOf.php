@@ -1,5 +1,5 @@
 <?php
-// HMW_158
+// HMW_168
 // Cost 4 - Ezra Bridger, What Are You Afraid Of? - [Aggression][Heroism] - Unit (Ground) 5/4
 //   Traits: Force, Rebel, Spectre - Unique
 // Text: When you take the initiative: You may deal 3 damage to your base. If you do, create a Beast token.
@@ -8,7 +8,7 @@
 // you do" continuation: the 3 self-damage is the cost, so the Beast token (HMW_T03, a 3/3 ground Creature)
 // is created only when that damage actually lands — a base-damage prevention (Close the Shield Gate) leaves
 // the base damage unchanged, so no Beast.
-$customDQHandlers["HMW_158#0"] = function($player, $parts, $lastDecision) {
+$customDQHandlers["HMW_168#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;   // "you may" — declined
     global $playerID; $playerID = intval($player);
     $zone = GetBase(intval($player)); $base = $zone[0] ?? null;

@@ -45,7 +45,7 @@ $checks['Force TRAIT implies nothing']     = $req('SEC_054') === [];
 
 // ── New HMW tokens ──────────────────────────────────────────────────────────
 $checks['Weakness detected'] = $req('HMW_059') === ['Weakness'];
-$checks['Beast detected']    = $req('HMW_158') === ['Beast'];
+$checks['Beast detected']    = $req('HMW_168') === ['Beast'];
 
 // ── Empty and junk input ────────────────────────────────────────────────────
 $checks['no-token card yields []'] = $req('SOR_229') === [];
@@ -58,7 +58,7 @@ $checks['blank ids are skipped']   = SWUDeckRequiredTokens(['', null, 'TWI_097']
 $checks['dedupes repeats'] = $req('TWI_097', 'TWI_097') === ['Clone Trooper'];
 // Input order is Clone Trooper, Beast, Shield, The Force; catalog order is the reverse-ish below.
 $checks['catalog order, not input order'] =
-    $req('TWI_097', 'HMW_158', 'JTL_189', 'LOF_002') === ['Shield', 'Beast', 'Clone Trooper', 'The Force'];
+    $req('TWI_097', 'HMW_168', 'JTL_189', 'LOF_002') === ['Shield', 'Beast', 'Clone Trooper', 'The Force'];
 
 // ── Opponent-created tokens count (design §2.6) ─────────────────────────────
 // "An opponent creates 2 TIE Fighter tokens and readies them." Those tokens exist because of YOUR
@@ -134,7 +134,7 @@ if ($fails) {
     echo "FAIL (" . count($fails) . "/" . count($checks) . "):\n";
     foreach ($fails as $f) echo "  - $f\n";
     if ($unreachable) echo "  unreachable: " . implode(', ', $unreachable) . "\n";
-    foreach (['TWI_097', 'JTL_189', 'LAW_019', 'SOR_014', 'LOF_002', 'SEC_054', 'HMW_059', 'HMW_158', 'JTL_155'] as $id) {
+    foreach (['TWI_097', 'JTL_189', 'LAW_019', 'SOR_014', 'LOF_002', 'SEC_054', 'HMW_059', 'HMW_168', 'JTL_155'] as $id) {
         echo "  $id => [" . implode(', ', $req($id)) . "]\n";
     }
 } else {

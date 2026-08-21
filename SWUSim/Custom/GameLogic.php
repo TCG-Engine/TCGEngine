@@ -1045,6 +1045,7 @@ $turnEffectRegistry = [
     'JTL_007' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Admiral Holdo (+2/+2 to a Resistance unit)
     'HMW_255' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // C-3PO (+2/+2 to an Ewok and/or a Rebel this phase)
     'HMW_206' => ['kind' => 'STAT_DEBUFF', 'label' => '-{0}/-{1}'], // The Tarkin Doctrine When Played (-3/-0 to an enemy unit this phase)
+    'HMW_223' => ['kind' => 'STAT_DEBUFF', 'label' => '-{0}/-{1}'], // Therm Scissorpunch (-2/-2 per cost-3+ card revealed at action-phase start)
     'JTL_011' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Major Vonreg (+1/+0 to another unit)
     'JTL_042' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Power from Pain (+1/+0 per damage on it)
     'JTL_060' => ['kind' => 'STAT_DEBUFF', 'label' => '-{0}/-{1}'], // Desperate Commando (-1/-1)
@@ -6582,6 +6583,9 @@ function ActionPhaseStart() {
     // HMW_147 Beast Lair — base-hosted "When the action phase starts" trigger (per attached copy,
     // per seat). Queued AFTER the per-round resets above so the granted ability sees the fresh phase.
     _SWUHmw147ActionPhaseTriggers();
+    // HMW_223 Therm Scissorpunch — "When the action phase starts: Reveal the top card of your deck and
+    // an opponent's deck…" (body in cards/hmw/ThermScissorpunch_BoastfulGambler.php, like HMW_147).
+    _SWUHmw223ActionPhaseTriggers();
 
     AddGameLogEntry('PHASE', '— Action Phase —');
 
@@ -7684,14 +7688,14 @@ function SWUTakeInitiative($player) {
                 "Choose_a_unit_to_attack_with", "ASH_155#0");
         }
     }
-    // HMW_158 Ezra Bridger — "When you take the initiative: You may deal 3 damage to your base. If you do,
-    // create a Beast token." One offer per controlled Ezra; self-damage is the cost, so the Beast (HMW_158#0)
+    // HMW_168 Ezra Bridger — "When you take the initiative: You may deal 3 damage to your base. If you do,
+    // create a Beast token." One offer per controlled Ezra; self-damage is the cost, so the Beast (HMW_168#0)
     // is gated on the damage actually landing (skipped if prevented, e.g. Close the Shield Gate).
     foreach (GetUnitsInPlay(intval($player)) as $ez) {
-        if (!empty($ez->removed) || ($ez->CardID ?? '') !== 'HMW_158') continue;
+        if (!empty($ez->removed) || ($ez->CardID ?? '') !== 'HMW_168') continue;
         DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
             tooltip: "Deal_3_to_your_base_to_create_a_Beast_token?");
-        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_158#0", 1);
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_168#0", 1);
     }
     SWUPassAction($player);
 }
@@ -11834,6 +11838,44 @@ function SWUQueueDistributeAdvantage(int $player, int $total, array $targets, bo
     $spec = "{$total}|" . implode("&", $targets) . ($upto ? "|UPTO" : "");
     DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", $spec, 1, tooltip: $tooltip);
     DecisionQueueController::AddDecision($player, "CUSTOM", "SPLIT_ADVANTAGE", 1);
+}
+
+// "Distribute N Weakness tokens among units" (HMW_071 Ravage) — the Weakness twin of the Advantage
+// pair above. Kept separate rather than parameterised because the two differ in both the primitive
+// (DoGiveTokenUpgrade vs DoGiveAdvantageToken) and the aftermath: a Weakness is -1/-1, so it can drop
+// a host to 0 remaining HP.
+// ★ APPLY EVERY TOKEN FIRST, THEN SWEEP ONCE. Distribution is simultaneous, and sweeping per target
+// would compact the arena mid-loop and leave every later mzID in the assignment pointing at the wrong
+// slot (or none) — the same discipline SWUDealSplitDamage follows for divided damage.
+function SWUGiveSplitWeakness(int $player, string $assignmentStr): void {
+    if ($assignmentStr === '' || $assignmentStr === '-' || $assignmentStr === 'PASS') return;
+    global $playerID;
+    $saved    = $playerID;
+    $playerID = intval($player);
+    $any = false;
+    foreach (explode(',', $assignmentStr) as $pair) {
+        $bits = explode(':', $pair);
+        if (count($bits) < 2) continue;
+        $mz  = trim($bits[0]);
+        $cnt = intval($bits[1]);
+        if ($cnt <= 0) continue;
+        $obj = GetZoneObject($mz);
+        if (SWUObjGone($obj)) continue;
+        for ($k = 0; $k < $cnt; $k++) DoGiveTokenUpgrade(intval($player), $mz, 'HMW_T02');
+        $any = true;
+    }
+    if ($any) SWUCheckShrinkDefeats();   // ONE sweep, after every token has landed
+    $playerID = $saved;
+}
+
+// Queue a "distribute $total Weakness tokens among $targets" decision (MZSPLITASSIGN → SPLIT_WEAKNESS).
+// $upto=true allows assigning fewer than $total ("up to N" — and an assignment of ZERO, which is how
+// that wording's soft pass is expressed); false requires the full pool.
+function SWUQueueDistributeWeakness(int $player, int $total, array $targets, bool $upto, string $tooltip): void {
+    if ($total <= 0 || empty($targets)) return;
+    $spec = "{$total}|" . implode("&", $targets) . ($upto ? "|UPTO" : "");
+    DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", $spec, 1, tooltip: $tooltip);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SPLIT_WEAKNESS", 1);
 }
 
 // ── Indirect damage (CR §35) ────────────────────────────────────────────────
