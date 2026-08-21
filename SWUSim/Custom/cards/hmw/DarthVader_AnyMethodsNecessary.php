@@ -19,12 +19,21 @@
 // finishes resolving, INCLUDING the "deal 2 damage to each of them" rider. So: play both, damage both,
 // THEN the entry triggers resolve (CR 780: they still resolve for a unit the rider defeated — and
 // fizzle if their subject is gone, which is how a 2-HP Shielded unit dies before its shield arrives).
-// Mechanically: both plays and the damage run inline in ONE handler — ActivateCard QUEUES the entry-
-// trigger decisions rather than resolving them mid-handler, so everything queued lands after our inline
-// damage. That deletes the old play-loop (whose whole point was draining triggers between plays, per
-// the earlier per-play ruling this one supersedes). Damage targets are captured by UNIQUE ID right
+// Mechanically: both plays and the damage run inline in ONE handler, bracketed by
+// SWUBeginDeferEntryTriggers/SWUFlushDeferredEntryTriggers so BOTH fetched units' entry triggers land in
+// ONE bag and flush together AFTER the rider damage. Damage targets are captured by UNIQUE ID right
 // after each play — never arena slot (mid-chain death re-indexes) and never CardID (same-named
 // bystanders).
+//
+// ⚠ THE DEFERRAL IS LOAD-BEARING, not a tidy-up (user ruling 2026-08-21: "there should be triggers in the
+// bag to resolve, so the active player should get to resolve them as they please; choosing the When Played
+// trigger order happens AFTER the damage"). Two units enter play from ONE resolution, so their When
+// Playeds are SIMULTANEOUS and their controller ORDERS them (CR 7.6.10). Merely relying on ActivateCard
+// QUEUEING each trigger decision is not enough: each nested play flushed its own SINGLE trigger, the
+// decisions drained in PLAY order, and no ordering prompt was ever raised — fetching Qui-Gon LAW_237 +
+// Vernestra LOF_195 always resolved Qui-Gon's discard first, so readying Vernestra first was unreachable.
+// Pinned by VaderChain_ActivePlayerORDERSTheTwoWhenPlayedTriggers in
+// Tests/Cases/law/QuiGon_VaderChain_ExtraActionRepro.md.
 
 // THE gate, used in BOTH directions: it builds the offer AND re-checks every pick server-side.
 function _SWUHmw043IsLegalPick(string $cardID): bool {
@@ -50,6 +59,8 @@ $customDQHandlers["HMW_043#0"] = function ($player, $parts, $lastDecision) {
     }
     _topDeckPutRemainingToBottom(intval($player), array_merge($resolved['remaining'], $back));
 
+    // Both plays stage their entry triggers into one bag; flushed below, after the rider damage.
+    SWUBeginDeferEntryTriggers();
     $uids = [];
     foreach ($picks as $cardID) {
         if (SWUCardPlayBlocked(intval($player), $cardID)) {   // SOR_062 Regional Governor
@@ -83,6 +94,12 @@ $customDQHandlers["HMW_043#0"] = function ($player, $parts, $lastDecision) {
         if ($mz === null) continue;
         SWUDealDamageToUnit($mz, 2, intval($player));
     }
+
+    // NOW the bag resolves: 2 triggers -> the controller picks the order; 1 -> auto-dispatch; 0 -> nothing.
+    // Before CleanupRemovedCards, so a unit the rider just defeated still resolves its own mzID (CR 780
+    // fizzle happens at dispatch, not here). Vader's own play owns the After Action via its pending
+    // SWU_TRIGGER_RESUME, so there is nothing to finalise on a 0 flush.
+    SWUFlushDeferredEntryTriggers(intval($player));
     DecisionQueueController::CleanupRemovedCards();
     $playerID = $savedPID;
 };

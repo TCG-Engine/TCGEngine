@@ -7967,6 +7967,20 @@ global $gExploitDeferTriggers, $gExploitDeferredBag;
 $gExploitDeferTriggers = $gExploitDeferTriggers ?? false;
 $gExploitDeferredBag   = $gExploitDeferredBag   ?? [];
 
+// Entry-trigger deferral (CR 7.6.10 simultaneous-trigger ordering).
+// While true, CollectEntryTriggers STAGES a unit's entry triggers into $gPendingTriggers but does NOT
+// flush them, and ActivateCard does NOT finalise the action. An effect that puts SEVERAL units into play
+// inside ONE resolution (HMW_043 Darth Vader: "play them for free, and deal 2 damage to each of them")
+// sets this so every entry trigger lands in ONE bag and flushes together AFTER the effect finishes —
+// which is what gives the active player the ordering choice over them.
+// Without it each nested play flushes its own SINGLE trigger, so the trigger decisions drain in play
+// order and the player never gets to choose (measured: Qui-Gon LAW_237 + Vernestra LOF_195 fetched by
+// Vader always resolved Qui-Gon first; taking Vernestra's ready first was unreachable).
+// ⚠ The DEFERRING CALLER owns the After Action — while deferring, ActivateCard skips SWUAfterAction, so
+// the caller must already sit inside an action whose terminal (its own SWU_TRIGGER_RESUME) ends it.
+global $gDeferEntryTriggers;
+$gDeferEntryTriggers = $gDeferEntryTriggers ?? false;
+
 // JTL defeat-replacement bag ("if this would be defeated, you may instead …"). A would-be-defeated
 // unit with an available replacement is parked here (NOT discarded) and resolved at action end.
 // Actions granted to a base by an attached Fortify upgrade, keyed by the UPGRADE's CardID:
@@ -9316,6 +9330,22 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
     }
     // HMW_171 Trap Field — a base-hosted reactive fires when a non-leader ground unit enters play.
     SWUCollectTrapFieldReactions($mzID);
+    // Deferring caller (multi-unit play inside one resolution): leave everything in the bag for it to
+    // flush once, and return a non-zero sentinel so ActivateCard does not finalise the action.
+    global $gDeferEntryTriggers;
+    if (!empty($gDeferEntryTriggers)) return -1;
+    return FlushEntryTriggerBag($activePlayer);
+}
+
+// SWUBeginDeferEntryTriggers / SWUFlushDeferredEntryTriggers — bracket a block that plays MORE THAN ONE
+// unit as part of a single ability resolution, so their entry triggers order together (see the
+// $gDeferEntryTriggers note above). The flush returns FlushEntryTriggerBag's count (0 / 1 / 2+).
+// ⚠ Always pair them: a Begin without a Flush strands every entry trigger staged after it.
+function SWUBeginDeferEntryTriggers(): void {
+    $GLOBALS['gDeferEntryTriggers'] = true;
+}
+function SWUFlushDeferredEntryTriggers(int $activePlayer): int {
+    $GLOBALS['gDeferEntryTriggers'] = false;
     return FlushEntryTriggerBag($activePlayer);
 }
 
@@ -13977,6 +14007,9 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
             if (empty($u->removed) && intval($u->UniqueID ?? 0) === $uid) { $enteredStill = true; break; }
         }
         if (!$enteredStill) {
+            // Deferring: the staged triggers (incl. any Exploit replay above) ride the outer bag, and
+            // the deferring caller owns the After Action.
+            if (!empty($GLOBALS['gDeferEntryTriggers'])) { $playerID = $savedPID; return; }
             $deferredTriggered = FlushEntryTriggerBag($player);
             DecisionQueueController::CleanupRemovedCards();
             if ($deferredTriggered === 0) {
