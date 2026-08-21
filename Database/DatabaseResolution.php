@@ -80,6 +80,7 @@ function ResolveDatabaseName($sapi = PHP_SAPI)
     }
 
     $rootName = ResolveRootNameFromProcess();
+
     if ($rootName === '') {
         throw new RuntimeException(
             'DatabaseResolution: MYSQL_DATABASE_NAME is not set and no rootName could be derived '

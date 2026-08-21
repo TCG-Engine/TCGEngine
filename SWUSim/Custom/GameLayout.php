@@ -110,6 +110,13 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         --swu-log-namecard:   var(--swu-log-default);
         --swu-log-pass:       var(--swu-log-default);
         --swu-log-initiative: var(--swu-log-default);
+        /* Chat is not a game event — it needs to read as a different KIND of line in the merged
+           stream, not just another tint. Slightly brighter body + a seat-tinted name. */
+        --swu-log-chat:       rgba(255,255,255,0.92);
+        --swu-chat-p1:        #6fb8ff;
+        --swu-chat-p2:        #ff9b6f;
+        --swu-chat-p3:        #7fd88f;
+        --swu-chat-p4:        #d79bff;
 
         /* Left bar eliminated — initiative + resources now live in the hand band
            (bottom-left / top-left), so the arenas reclaim the full left edge.
@@ -1304,31 +1311,13 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         min-height: 40px; display: flex; align-items: center; justify-content: center;
         color: rgba(255,255,255,0.20); font: 11px var(--swu-font-ui); font-style: italic; }
 
-    /* ── GameLog tab bar ─────────────────────────────────────────────────────── */
-    #swuTabBar {
-        flex: 0 0 auto;
-        display: flex;
+    /* ── Combined Game Log + Chat header ─────────────────────────────────────── */
+    /* Was a Log/Chat tab bar. The two streams are merged into #swuLogPanel now, so this is a
+       plain section label — nothing to switch between, which was the whole problem. */
+    #swuLogLabel {
+        flex: 0 0 auto; margin: 0;
+        padding: 6px 10px;
         border-bottom: 1px solid var(--swu-border);
-    }
-    .swu-tab-btn {
-        flex: 1 1 0; padding: 6px 0;
-        background: transparent; border: none;
-        font: 700 9px/1 var(--swu-font-label);
-        letter-spacing: 0.16em; text-transform: uppercase;
-        color: rgba(255,255,255,0.45); cursor: pointer;
-        position: relative;
-        border-bottom: 2px solid transparent;
-        transition: color 120ms, border-color 120ms;
-    }
-    .swu-tab-btn.is-active {
-        color: rgba(255,255,255,0.92);
-        border-bottom-color: var(--swu-gold);
-    }
-    #swuChatDot {
-        display: none;
-        position: absolute; top: 4px; right: 12px;
-        width: 7px; height: 7px; border-radius: 50%;
-        background: #e05050;
     }
     /* ── Log panel ───────────────────────────────────────────────────────────── */
     #swuLogPanel {
@@ -1336,10 +1325,12 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         overflow-y: auto; padding: 8px 10px;
         scrollbar-width: thin;
     }
+    /* Composer only — the messages live in #swuLogPanel above (see TCGChatMessageSink). */
     #swuChatMount {
-        flex: 1 1 0; min-height: 0;
+        flex: 0 0 auto; min-height: 0;
         display: flex; flex-direction: column;
         overflow: hidden;
+        border-top: 1px solid var(--swu-border);
     }
     /* Keep the always-visible input+send row from being squeezed by the log, and keep it
        inside the sidebar width so the Send button isn't clipped by #swuChatMount's overflow:hidden. */
@@ -1373,6 +1364,27 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-log-NAMECARD   { color: var(--swu-log-namecard); }
     .swu-log-PASS       { color: var(--swu-log-pass); }
     .swu-log-INITIATIVE { color: var(--swu-log-initiative); }
+
+    /* ── Chat lines inside the combined log ──────────────────────────────────── */
+    /* Indented behind a rail so a run of chat reads as a conversation rather than as game events,
+       and set a touch larger — the merged panel is now the only place chat appears. */
+    .swu-log-CHAT {
+        color: var(--swu-log-chat);
+        font-size: 12px;
+        padding: 2px 0 2px 7px;
+        margin: 1px 0;
+        border-left: 2px solid rgba(255,255,255,0.18);
+    }
+    /* The name span is the first child that Core builds (seat class rides the row). */
+    .swu-log-CHAT > span:first-child { color: rgba(255,255,255,0.70); }
+    .swu-log-CHAT.chatMsg-p1 { border-left-color: var(--swu-chat-p1); }
+    .swu-log-CHAT.chatMsg-p2 { border-left-color: var(--swu-chat-p2); }
+    .swu-log-CHAT.chatMsg-p3 { border-left-color: var(--swu-chat-p3); }
+    .swu-log-CHAT.chatMsg-p4 { border-left-color: var(--swu-chat-p4); }
+    .swu-log-CHAT.chatMsg-p1 > span:first-child { color: var(--swu-chat-p1); }
+    .swu-log-CHAT.chatMsg-p2 > span:first-child { color: var(--swu-chat-p2); }
+    .swu-log-CHAT.chatMsg-p3 > span:first-child { color: var(--swu-chat-p3); }
+    .swu-log-CHAT.chatMsg-p4 > span:first-child { color: var(--swu-chat-p4); }
     .swu-card-link {
         text-decoration: underline;
         text-decoration-style: dotted;
@@ -1399,15 +1411,15 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     #chatWidget {
         position: static !important; left: auto !important; right: auto !important;
         bottom: auto !important; top: auto !important;
-        width: 100% !important; flex: 1 1 0 !important; min-height: 0 !important;
+        width: 100% !important; flex: 0 0 auto !important; min-height: 0 !important;
         display: flex !important; flex-direction: column !important;
         align-items: stretch !important; background: transparent !important;
         z-index: auto !important; padding: 0 !important;
     }
-    #chatExpanded {
-        display: flex !important; flex-direction: column !important;
-        flex: 1 1 0 !important; min-height: 0 !important; width: 100% !important;
-    }
+    /* Chat history is rendered into the combined log, so Core's own history box is dead weight here.
+       ⚠ The <800px block below re-hides it anyway and restores the floating launcher — that narrow-
+       desktop path still uses #chatLog, which is why TCGChatMessageSink declines there. */
+    #chatExpanded { display: none !important; }
     #chatLog {
         flex: 1 1 0 !important; height: auto !important; min-height: 0 !important;
         max-height: none !important; background: transparent !important;
@@ -1831,12 +1843,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         <div class="swu-sidebar-section-label">Last Played</div>
         <div id="swuLastPlayedCard">—</div>
     </div>
-    <div id="swuTabBar">
-        <button class="swu-tab-btn is-active" id="swuTabLog"  onclick="swuShowTab('log')">Log</button>
-        <button class="swu-tab-btn"            id="swuTabChat" onclick="swuShowTab('chat')">
-            Chat<span id="swuChatDot"></span>
-        </button>
-    </div>
+    <div class="swu-sidebar-section-label" id="swuLogLabel">Game Log</div>
     <div id="swuLogPanel"></div>
     <div id="swuChatMount"></div>
 </div>

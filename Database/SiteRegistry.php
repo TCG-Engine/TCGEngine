@@ -21,7 +21,7 @@ return [
     // rootName        => ['db' => database name,     'site' => renders as this db's site?]
     'SWUDeck'          => ['db' => 'swudeck',         'site' => true],
     'SWUSim'           => ['db' => 'swusim',          'site' => true],
-    'GrandArchiveSim'  => ['db' => 'grandarchivesim', 'site' => true],
+    'GrandArchiveSim'  => ['db' => 'soulmastersdb',   'site' => true],
     'AzukiSim'         => ['db' => 'azukisim',        'site' => true],
     'AzukiDeck'        => ['db' => 'azukisim',        'site' => false],
     'HellbreakSim'     => ['db' => 'hellbreaksim',    'site' => true],

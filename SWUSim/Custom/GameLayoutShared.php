@@ -1371,52 +1371,39 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if(collapsed){my.classList.add('is-collapsed'); if(their) their.classList.add('is-collapsed');}
     }
 
-    // ── Mount chat widget in sidebar ──────────────────────────────────────────
+    // ── Mount the chat COMPOSER in the sidebar ────────────────────────────────
+    // Only the input row is wanted here now: the messages themselves go into the game log via
+    // TCGChatMessageSink below, so #chatExpanded/#chatLog are hidden by CSS in merged mode.
     function mountChat() {
         var chatWidget = document.getElementById('chatWidget');
         var mount      = document.getElementById('swuChatMount');
         if (!chatWidget || !mount) return;
-        // Append inside mount so #swuChatMount stays in the DOM as the
-        // show/hide wrapper used by swuShowTab and init().
         mount.appendChild(chatWidget);
-
-        // Watch for new chat messages: scroll to bottom + show notification dot
-        var chatLog = document.getElementById('chatLog');
-        var chatDot = document.getElementById('swuChatDot');
-        if (chatLog) {
-            new MutationObserver(function() {
-                chatLog.scrollTop = chatLog.scrollHeight;
-                if (chatDot && mount.style.display === 'none') {
-                    chatDot.style.display = 'inline-block';
-                }
-            }).observe(chatLog, { childList: true, subtree: true });
-            // Scroll to bottom on initial mount too
-            chatLog.scrollTop = chatLog.scrollHeight;
-        }
     }
 
-    // ── Log/Chat tab switching ─────────────────────────────────────────────────
-    window.swuShowTab = function(tab) {
-        var logPanel  = document.getElementById('swuLogPanel');
-        var chatMount = document.getElementById('swuChatMount');
-        var tabLog    = document.getElementById('swuTabLog');
-        var tabChat   = document.getElementById('swuTabChat');
-        var chatDot   = document.getElementById('swuChatDot');
-        if (!logPanel || !chatMount || !tabLog || !tabChat) return;
-        if (tab === 'log') {
-            logPanel.style.display  = '';
-            chatMount.style.display = 'none';
-            tabLog.classList.add('is-active');
-            tabChat.classList.remove('is-active');
-        } else {
-            logPanel.style.display  = 'none';
-            chatMount.style.display = '';
-            tabLog.classList.remove('is-active');
-            tabChat.classList.add('is-active');
-            if (chatDot) chatDot.style.display = 'none';
-            var cl = document.getElementById('chatLog');
-            if (cl) requestAnimationFrame(function() { cl.scrollTop = cl.scrollHeight; });
-        }
+    // ── Chat merged INTO the game log ─────────────────────────────────────────
+    // ONE stream, no Log/Chat tabs. Players were not discovering that the panel could be switched,
+    // so chat arrived in a tab nobody had open. Core's _AppendChatMessage builds the element and
+    // hands it here; we drop it into #swuLogPanel, where it interleaves with game events in
+    // ARRIVAL order (log entries carry no timestamp — "TYPE|VISIBILITY|text" — so true chronological
+    // interleaving is not available; on first load the chat backlog therefore lands after the log
+    // backlog, and everything after that is genuinely in order because both ride the same poll).
+    // ⚠ Returns FALSE in floating-chat mode — the <800px desktop breakpoint hides #swuSidebar (and
+    //   with it the log panel) and restores the "💬 Chat" launcher, so #chatLog + its toast are the
+    //   only visible surface there. Core then falls back to them. Detected via a VISIBLE
+    //   #chatToggleBtn rather than a width test: the mobile layout kills that button outright, so
+    //   mobile always takes the merged path even while its drawer is closed.
+    window.TCGChatMessageSink = function(el) {
+        var toggle = document.getElementById('chatToggleBtn');
+        if (toggle && toggle.getClientRects().length > 0) return false;
+        var panel = document.getElementById('swuLogPanel');
+        if (!panel) return false;
+        el.style.cssText = '';                       // drop Core's inline sizing; SWUSim styles it
+        el.classList.add('swu-log-entry', 'swu-log-CHAT');
+        var nearBottom = (panel.scrollHeight - panel.scrollTop - panel.clientHeight) < 60;
+        panel.appendChild(el);
+        if (nearBottom) panel.scrollTop = panel.scrollHeight;
+        return true;
     };
 
     // ── Card link hover ───────────────────────────────────────────────────────
@@ -1924,9 +1911,6 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (btn && !btn.disabled) btn.click();
             } catch (err) { /* no editor parent / cross-origin — nothing to swap */ }
         });
-        // Start with Log tab active, chat hidden
-        var chatMount = document.getElementById('swuChatMount');
-        if (chatMount) chatMount.style.display = 'none';
     }
 
     // ── Game-over banner ──────────────────────────────────────────────────────
@@ -4359,10 +4343,56 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   require_once __DIR__ . '/../PlayerSettings.php';
   $swuGearMute   = SWUSimAccountMuted($swuGearUid);
   $swuGearLogged = ($swuGearUid !== '' && $swuGearUid !== null && intval($swuGearUid) > 0);
+
+  // Seat -> public username, for every seat whose player is LOGGED IN.
+  // ⚠ THIS IS A PRODUCER FOR TWO EXISTING CONSUMERS THAT NEVER HAD ONE: chat labels
+  // (Core/jsInclude.js _ChatPlayerLabel) and SWUBuildBlockPlayerWidget above. Until now nothing in
+  // the repo assigned window.SWU_SEAT_USERNAMES, so chat always fell back to "P1"/"P2" and the
+  // Block Player widget returned null for everybody (it bails when the viewer has no name).
+  // ⚠ ONLY REAL USERNAMES GO IN. MatchSeatDisplayNames substitutes "Player N" for an anonymous seat,
+  // and both consumers read a MISSING entry as "this seat is not logged in" — publishing the
+  // fallback would label a guest as an account and offer a Block button that cannot work. So the
+  // seat list is gated on userId > 0 rather than on the display string.
+  $swuSeatNames = [];
+  require_once __DIR__ . '/../MatchFlow.php';
+  if (isset($gameName) && function_exists('SWUReadMatchRef') && function_exists('MatchSeatDisplayNames')) {
+      $swuRef = SWUReadMatchRef($gameName);
+      $swuMatch = ($swuRef !== null && !empty($swuRef['matchId'])) ? SWUReadMatch($swuRef['matchId']) : null;
+      if (is_array($swuMatch) && !empty($swuMatch['players'])) {
+          $swuNames = MatchSeatDisplayNames($swuMatch);
+          foreach ($swuMatch['players'] as $swuSeatKey => $swuPlayer) {
+              $swuSeat = intval($swuSeatKey);
+              if ($swuSeat < 1 || intval($swuPlayer['userId'] ?? 0) <= 0) continue;   // guest seat
+              $swuName = strval($swuNames[$swuSeat] ?? '');
+              if ($swuName !== '') $swuSeatNames[strval($swuSeat)] = $swuName;
+          }
+      }
+  }
+  // MATCHLESS games (goldfish / hotseat) never create a match record — SWUReadMatchRef returns null
+  // above, so the loop cannot name anyone and chat would read "P1" for a logged-in player asking why
+  // their own name is missing. Same fallback shape SWUBuildCosmeticsPayload already uses for these
+  // modes: prefer the match snapshot, else resolve the LOGGED-IN VIEWER from their own session.
+  // ⚠ Only the viewer's OWN seat can be filled this way. In goldfish seat 2 is a dummy and in hotseat
+  //   it is the same physical person on the same browser — neither is a known account, so they stay
+  //   anonymous and keep reading "P2". That also keeps the Block Player widget correctly hidden in
+  //   these modes: it needs BOTH names, and there is nobody to block.
+  if (empty($swuSeatNames) && $swuGearLogged && intval($playerID) >= 1) {
+      require_once __DIR__ . '/../../Core/MatchHistory.php';
+      $swuSelfConn = function_exists('GetLocalMySQLConnection') ? GetLocalMySQLConnection() : null;
+      if ($swuSelfConn) {
+          $swuSelfName = MatchHistoryUsername($swuSelfConn, $swuGearUid);
+          $swuSelfConn->close();
+          if ($swuSelfName !== null && $swuSelfName !== '') $swuSeatNames[strval(intval($playerID))] = $swuSelfName;
+      }
+  }
 ?>
 <script>
   window.SWU_LOGGED_IN   = <?= $swuGearLogged ? 'true' : 'false' ?>;
   window.SWU_ACCOUNT_MUTE = <?= $swuGearMute === null ? 'null' : ($swuGearMute ? 'true' : 'false') ?>;
+  // Always an object (never undefined) so a consumer can index it without a guard. Empty = a game
+  // in which nobody is logged in, or one played outside the match system.
+  window.SWU_SEAT_USERNAMES = <?= json_encode((object)$swuSeatNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+  window.SWU_VIEWER_SEAT = <?= intval($playerID) ?>;   // 0 for a spectator ('S')
 </script>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
   <div class="swu-settings-panel" role="dialog" aria-modal="true">

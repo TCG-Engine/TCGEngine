@@ -769,8 +769,12 @@ function ApplyChatPayload(payload) {
 }
 
 function _ChatPlayerLabel(msg) {
-  var seatName = (window.SWU_SEAT_USERNAMES && (msg.playerID === 1 || msg.playerID === 2 || msg.playerID === "1" || msg.playerID === "2"))
-    ? window.SWU_SEAT_USERNAMES[String(msg.playerID)] : null;
+  // ANY numeric seat, not just 1|2 — Twin Suns runs four, and the old 1|2 test left seats 3/4
+  // reading as "P3"/"P4" even when those players were logged in.
+  // A MISSING entry means "that seat is not logged in": the host only publishes real usernames.
+  var seat = String(msg.playerID == null ? "" : msg.playerID);
+  var seatName = (window.SWU_SEAT_USERNAMES && /^[0-9]+$/.test(seat))
+    ? window.SWU_SEAT_USERNAMES[seat] : null;
   return seatName ? seatName : (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID));
 }
 
@@ -833,8 +837,6 @@ function _ShowChatToast(msg) {
 }
 
 function _AppendChatMessage(msg, notify) {
-  var log = document.getElementById("chatLog");
-  if (!log) return;
   var div = document.createElement("div");
   div.className = "chatMsg chatMsg-p" + msg.playerID;
   div.style.cssText = "padding:2px 4px; word-break:break-word; font-size:13px;";
@@ -846,6 +848,18 @@ function _AppendChatMessage(msg, notify) {
   body.textContent = msg.text;
   div.appendChild(label);
   div.appendChild(body);
+
+  // Optional host sink: a sim that merges chat into another surface (SWUSim renders chat inside its
+  // game log, one stream instead of two tabs) takes the element and places it itself. Returning
+  // anything but false means "placed" — the message is already on screen, so no toast for it.
+  // Absent, or an explicit false (the sink's own surface isn't showing), falls back to #chatLog.
+  if (typeof window.TCGChatMessageSink === "function"
+      && window.TCGChatMessageSink(div, msg) !== false) {
+    return;
+  }
+
+  var log = document.getElementById("chatLog");
+  if (!log) return;
   log.appendChild(div);
   log.scrollTop = log.scrollHeight;
   if (notify && !_ChatHistoryIsOpen()) {

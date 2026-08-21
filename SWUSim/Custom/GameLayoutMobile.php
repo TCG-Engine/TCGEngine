@@ -493,19 +493,42 @@
        non-important inline style — so `el.style.display='none'` silently did nothing. */
     #swuUndoMenu button.is-hidden { display: none !important; }
     #swuLastPlayedSection { display: none; }
-    #swuTabBar { display: flex; gap: 6px; margin: 8px 0 6px; }
-    .swu-tab-btn {
-        flex: 1; padding: 7px; border: 1px solid var(--swu-border); border-radius: 7px;
-        background: transparent; color: rgba(255,255,255,0.6);
-        font: 700 10px/1 var(--swu-font-label); text-transform: uppercase; cursor: pointer;
+    /* Was a Log/Chat tab bar; the two streams are merged into #swuLogPanel (see
+       TCGChatMessageSink in GameLayoutShared.php), so this is now just a section label. */
+    /* ⚠ Style it here explicitly: GameLayoutMobile does NOT inherit GameLayout's CSS, so the
+       .swu-sidebar-section-label class it carries is unstyled on mobile and the heading rendered
+       at browser-default size. */
+    #swuLogLabel {
+        margin: 8px 0 4px;
+        font: 700 9px/1 var(--swu-font-label, sans-serif);
+        letter-spacing: 0.16em; text-transform: uppercase;
+        color: rgba(255,255,255,0.45);
     }
-    .swu-tab-btn.is-active { background: rgba(120,200,255,0.14); color: #fff; border-color: var(--accent); }
-    #swuLogPanel { max-height: 28vh; overflow-y: auto; font-size: 12px; }
+    #swuLogPanel { max-height: 34vh; overflow-y: auto; font-size: 12px; }
 
-    /* Chat — integrate the core #chatWidget into the Chat tab drawer (same as desktop)
-       instead of letting it float as the GA-style #chatToggleBtn launcher. mountChat()
-       (shared) reparents #chatWidget into #swuChatMount; these overrides un-float it. */
+    /* Chat lines inside the combined log — a seat-tinted rail so a run of chat reads as
+       conversation rather than as game events. Mirrors the desktop rule set. */
+    .swu-log-CHAT {
+        color: rgba(255,255,255,0.94); font-size: 12px;
+        padding: 2px 0 2px 7px; margin: 1px 0;
+        border-left: 2px solid rgba(255,255,255,0.18);
+    }
+    .swu-log-CHAT > span:first-child { color: rgba(255,255,255,0.70); }
+    .swu-log-CHAT.chatMsg-p1 { border-left-color: #6fb8ff; }
+    .swu-log-CHAT.chatMsg-p2 { border-left-color: #ff9b6f; }
+    .swu-log-CHAT.chatMsg-p3 { border-left-color: #7fd88f; }
+    .swu-log-CHAT.chatMsg-p4 { border-left-color: #d79bff; }
+    .swu-log-CHAT.chatMsg-p1 > span:first-child { color: #6fb8ff; }
+    .swu-log-CHAT.chatMsg-p2 > span:first-child { color: #ff9b6f; }
+    .swu-log-CHAT.chatMsg-p3 > span:first-child { color: #7fd88f; }
+    .swu-log-CHAT.chatMsg-p4 > span:first-child { color: #d79bff; }
+
+    /* Chat — only the COMPOSER lives in the drawer now; the messages go into the log above.
+       mountChat() (shared) reparents #chatWidget into #swuChatMount; these overrides un-float it.
+       ⚠ Killing #chatToggleBtn is load-bearing beyond looks: TCGChatMessageSink treats a VISIBLE
+       launcher as "floating mode" and declines the merge, so mobile must keep it hidden. */
     #chatToggleBtn { display: none !important; }   /* kill the floating "💬 Chat" launcher */
+    #chatExpanded  { display: none !important; }   /* history is rendered in #swuLogPanel */
     #chatWidget {
         position: static !important; left: auto !important; right: auto !important;
         top: auto !important; bottom: auto !important;
@@ -513,17 +536,6 @@
         display: flex !important; flex-direction: column !important;
         align-items: stretch !important; background: transparent !important;
         z-index: auto !important; padding: 0 !important;
-    }
-    #chatExpanded {
-        display: flex !important; flex-direction: column !important;
-        width: 100% !important; min-height: 0 !important;
-    }
-    #chatLog {
-        max-height: 28vh !important; height: auto !important; min-height: 0 !important;
-        overflow-y: auto !important; background: transparent !important;
-        border: none !important; border-radius: 0 !important;
-        color: rgba(255,255,255,0.82) !important; font: 12px/1.5 var(--swu-font-ui) !important;
-        padding: 6px 4px !important; box-sizing: border-box !important;
     }
     #chatWidget input#chatText {
         background: rgba(255,255,255,0.05) !important; border: none !important;
@@ -673,10 +685,7 @@
             <div class="swu-sidebar-section-label">Last Played</div>
             <div id="swuLastPlayedCard">—</div>
         </div>
-        <div id="swuTabBar">
-            <button class="swu-tab-btn is-active" id="swuTabLog"  onclick="swuShowTab('log')">Log</button>
-            <button class="swu-tab-btn"            id="swuTabChat" onclick="swuShowTab('chat')">Chat<span id="swuChatDot"></span></button>
-        </div>
+        <div class="swu-sidebar-section-label" id="swuLogLabel">Game Log &amp; Chat</div>
         <div id="swuLogPanel"></div>
         <div id="swuChatMount"></div>
     </div>
