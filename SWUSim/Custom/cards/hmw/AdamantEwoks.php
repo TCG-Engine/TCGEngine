@@ -23,7 +23,7 @@ $whenPlayedAbilities["HMW_177:0"] = function($player, $mzID = '') {
     }
     if (!$gate) return;
 
-    SWUQueueMayChooseTarget(intval($player), ["myBase-0", "theirBase-0"],
+    SWUQueueMayChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'),
         "Deal_1_to_a_base_and_1_to_an_enemy_unit?", "Deal_1_damage_to_a_base", 'HMW_177#0');
 };
 

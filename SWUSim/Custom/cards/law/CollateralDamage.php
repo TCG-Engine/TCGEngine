@@ -18,7 +18,7 @@ $customDQHandlers["LAW_208#0"] = function($player, $parts, $lastDecision) {
     SWUDealDamageToUnit($lastDecision, 2, intval($player));
     // Second target: a base, or another unit in the same arena (excluding the first).
     $zones = $isSpace ? ["mySpaceArena", "theirSpaceArena"] : ["myGroundArena", "theirGroundArena"];
-    $targets = ['myBase-0', 'theirBase-0'];
+    $targets = SWUAllBaseMzIDs(intval($player), 'any');
     foreach ($zones as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $u = GetZoneObject($mz);
@@ -61,7 +61,7 @@ $whenPlayedAbilities["LAW_208:0"] = function($player, $mzID = '') {
                 // No units in play → the first "deal 2 to a unit" clause has no target, but the second
                 // clause still resolves: "a base or another unit in the same arena" reduces to just a base
                 // (a base is not in an arena). Offer the base choice directly (deal 2 to a base).
-                SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_damage_to_a_base", "LAW_208#1");
+                SWUQueueChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'), "Deal_2_damage_to_a_base", "LAW_208#1");
                 return;
             }
             SWUQueueChooseTarget(intval($player), $units, "Deal_2_damage_to_a_unit", "LAW_208#0");

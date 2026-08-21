@@ -7,13 +7,13 @@
 // controller draws a card.
 $whenPlayedAbilities["TS26_62:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    SWUQueueMayChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_2_damage_to_a_base?", "Choose_a_base", "TS26_62#0");
+    SWUQueueMayChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'), "Deal_2_damage_to_a_base?", "Choose_a_base", "TS26_62#0");
 };
 
 $customDQHandlers["TS26_62#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision) || !str_contains($lastDecision, '-')) return;
-    $bp = ($lastDecision === 'myBase-0') ? intval($player) : OtherPlayer(intval($player));
+    $bp = SWUMzOwner($lastDecision, intval($player));   // "that base's CONTROLLER" — decode from the mzID
     // "…deal 2 damage to a base. IF YOU DO, that base's controller draws a card." The draw is gated on
     // damage ACTUALLY landing — JTL_074 Close the Shield Gate (or any other prevention on that base)
     // stops it, and then nobody draws. Sample the base before and after rather than assuming it stuck.

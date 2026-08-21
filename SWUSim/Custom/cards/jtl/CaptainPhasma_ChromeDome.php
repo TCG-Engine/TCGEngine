@@ -25,7 +25,7 @@ $customDQHandlers["JTL_010#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
-    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'],
+    SWUQueueChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'),
         "Deal_1_damage_to_a_base", "DEAL_BASE_DAMAGE|1");
 };
 
@@ -35,7 +35,7 @@ $leaderAbilities["JTL_010"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
     if (GlobalEffectCount($player, 'SWU_PLAYED_FO') <= 0) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget($player, ['myBase-0', 'theirBase-0'],
+    SWUQueueChooseTarget($player, SWUAllBaseMzIDs(intval($player), 'any'),
         "Deal_1_damage_to_a_base", "DEAL_BASE_DAMAGE|1");
     SWUQueueAfterAction($player);
 };

@@ -14,8 +14,10 @@ $whenPlayedAbilities["TS26_53:0"] = function($player, $mzID) {
 $customDQHandlers["TS26_53#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision === null || $lastDecision === '' || $lastDecision === '-' || $lastDecision === 'PASS') return;
     global $playerID; $playerID = intval($player);
+    // ⚠ Owner decoded from the mzID — a Twin Suns "p{n}Base-0" pick matched neither literal and was
+    // silently skipped.
     foreach (explode('&', $lastDecision) as $b) {
-        if ($b === 'myBase-0') OnHealBase(intval($player), intval($player), 2);
-        elseif ($b === 'theirBase-0') OnHealBase(intval($player), OtherPlayer(intval($player)), 2);
+        if (strpos($b, 'Base') === false) continue;
+        OnHealBase(intval($player), SWUMzOwner($b, intval($player)), 2);
     }
 };

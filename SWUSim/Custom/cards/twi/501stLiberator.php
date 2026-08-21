@@ -15,6 +15,6 @@ $whenPlayedAbilities["TWI_109:0"] = function($player, $mzID) {
         if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUID && HasTrait($u->CardID ?? '', 'Republic')) { $hasOther = true; break; }
     }
     if (!$hasOther) return;
-    SWUQueueMayChooseTarget(intval($player), ["myBase-0", "theirBase-0"],
+    SWUQueueMayChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'),
         "You_may_heal_3_damage_from_a_base", "Heal_3_damage_from_a_base", "HEAL_TARGET|3");
 };

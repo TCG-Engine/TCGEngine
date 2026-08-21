@@ -41,7 +41,7 @@ $customDQHandlers["ASH_012#1"] = function($player, $parts, $lastDecision) {
 
 $customDQHandlers["ASH_012#2"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    $targets = ['myBase-0', 'theirBase-0'];
+    $targets = SWUAllBaseMzIDs(intval($player), 'any');
     $def = GetSWUVar('SWU_CURRENT_DEFENDER');
     if ($def && strpos($def, 'Arena') !== false) {
         $d = GetZoneObject($def);

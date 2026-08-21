@@ -12,7 +12,7 @@ $whenPlayedAbilities["ASH_081:0"] = function($player, $mzID) {
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) > 0) $tg[] = $mz;
     }
-    foreach (['myBase-0', 'theirBase-0'] as $bmz) {
+    foreach (SWUAllBaseMzIDs(intval($player), 'any') as $bmz) {
         $b = GetZoneObject($bmz);
         if ($b !== null && intval($b->Damage ?? 0) > 0) $tg[] = $bmz;
     }

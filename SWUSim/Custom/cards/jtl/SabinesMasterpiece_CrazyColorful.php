@@ -30,7 +30,7 @@ $onAttackAbilities["JTL_250:0"] = function($player, $mzID) {
         ]);
     }
     if (_SWUControlsUnitWithAspect($p, 'Aggression')) {
-        $targets = array_merge($allUnits, ['myBase-0', 'theirBase-0']);
+        $targets = array_merge($allUnits, SWUAllBaseMzIDs(intval($p), 'any'));
         SWUQueueMayChooseTarget($p, $targets, "Deal_1_damage_to_a_unit_or_a_base",
             "Deal_1_damage_to_a_unit_or_a_base", "DEAL_TARGET|1", $block++);
     }

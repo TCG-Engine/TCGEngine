@@ -2048,8 +2048,8 @@ function _SWUAllUnitsAndBases(int $player): array
         $out[] = $mz;
     }
   }
-  $out[] = 'myBase-0';
-  $out[] = 'theirBase-0';
+  // Twin Suns: every live opponent's base, not just the in-view one (see SWUAllBaseMzIDs).
+  foreach (SWUAllBaseMzIDs($player, 'any') as $bmz) $out[] = $bmz;
   return $out;
 }
 

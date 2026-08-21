@@ -17,7 +17,7 @@ $whenPlayedAbilities["JTL_074:0"] = function($player, $mzID = '') {
                           // chosen base's owner (consumed in SWUDealDamageToBase, cleared at regroup).
             global $playerID;
             $playerID = intval($player);
-            SWUQueueChooseTarget(intval($player), ["myBase-0", "theirBase-0"],
+            SWUQueueChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'),
                 "Choose_a_base_to_protect_from_the_next_damage", "JTL_074#0");
             return;
 };

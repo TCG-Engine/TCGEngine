@@ -9133,7 +9133,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         }
         case 'SHD_255': {  // Lady Proxima — "may deal 1 damage to a base"
             global $playerID; $playerID = intval($player);
-            SWUQueueMayChooseTarget($player, ['myBase-0', 'theirBase-0'], "Deal_1_damage_to_a_base?", "Choose_a_base", "DEAL_TARGET|1");
+            SWUQueueMayChooseTarget($player, SWUAllBaseMzIDs(intval($player), 'any'), "Deal_1_damage_to_a_base?", "Choose_a_base", "DEAL_TARGET|1");
             break;
         }
         case 'SHD_163': {  // Migs Mayfeld — "may deal 2 to a unit or base" (once/round; consumed on use)
@@ -10094,7 +10094,7 @@ function BosskPlayEventReaction(int $player): void {
 function FFFPlayAggressionReaction(int $player): void {
     global $playerID;
     $playerID = intval($player);
-    SWUQueueMayChooseTarget(intval($player), ["myBase-0", "theirBase-0"],
+    SWUQueueMayChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'),
         "Deal_1_to_a_base?", "Deal_1_damage_to_a_base", "DEAL_BASE_DAMAGE|1");
 }
 
@@ -11374,7 +11374,7 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                 break;
             case 'SHD_071': { // Top Target's granted bounty — heal 4 (6 if the host was unique) from a unit or base
                 $n = (intval($parts[1] ?? 0) === 1) ? 6 : 4;
-                $targets = array_merge(_SWUCollectUnits(0, fn($o) => true), ['myBase-0', 'theirBase-0']);
+                $targets = array_merge(_SWUCollectUnits(0, fn($o) => true), SWUAllBaseMzIDs(intval($player), 'any'));
                 SWUQueueChooseTarget(intval($player), $targets,
                     "Heal_{$n}_damage_from_a_unit_or_base", "HEAL_TARGET|{$n}");
                 $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
@@ -11466,12 +11466,12 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                 }
                 break;
             case 'SHD_031': // The Client's granted bounty — heal 5 damage from a base
-                SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'],
+                SWUQueueChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'),
                     'Heal_5_damage_from_which_base?', 'HEAL_TARGET|5');
                 $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
                 break;
             case 'SHD_033': // Synara San — deal 5 damage to a base (exhausted-only bounty)
-                SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'],
+                SWUQueueChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'),
                     'Deal_5_damage_to_which_base?', 'DEAL_BASE_DAMAGE|5');
                 $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
                 break;
@@ -11493,7 +11493,7 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                 break;
             case 'SHD_173': { // Guild Target's granted bounty — deal 2 (3 if the host was unique) to a base
                 $n = (intval($parts[1] ?? 0) === 1) ? 3 : 2;
-                SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'],
+                SWUQueueChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'),
                     "Deal_{$n}_damage_to_which_base?", "DEAL_BASE_DAMAGE|{$n}");
                 $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
                 break;
@@ -13272,7 +13272,9 @@ function SWUGetUnitsWithUpgrades(string $filter = ''): array {
     // Bases: FORTIFY upgrades live in Base.Subcards. GetUpgradesOnUnit expects a unit, so read the
     // subcards directly (a base holds only Fortify upgrades — no pilots, no captives). Without this,
     // a base upgrade is invisible to EVERY "defeat an upgrade" card in the game (Confiscate SOR_251).
-    foreach (['myBase-0', 'theirBase-0'] as $baseMz) {
+    // ⚠ Ambient frame: this scanner takes no $player and runs under whatever $playerID is current.
+    global $playerID;
+    foreach (SWUAllBaseMzIDs(intval($playerID), 'any') as $baseMz) {
         $base = GetZoneObject($baseMz);
         if ($base === null) continue;
         // GetUpgradesOnUnit normalizes round-tripped array subcards to objects (see BaseUpgradeCount).
@@ -13316,7 +13318,9 @@ function SWUGetUpgradeSubcardMzIDs(string $filter = '', int $onlyHostUID = 0): a
         foreach (ZoneSearch($zone, ['Unit', 'Leader Unit', 'Token Unit']) as $mzID) $scan($mzID);
     }
     // Bases carry Fortify upgrades; without this they are invisible to every "defeat an upgrade" card.
-    foreach (['myBase-0', 'theirBase-0'] as $baseMz) $scan($baseMz);
+    // ⚠ Ambient frame — see the sibling scanner above.
+    global $playerID;
+    foreach (SWUAllBaseMzIDs(intval($playerID), 'any') as $baseMz) $scan($baseMz);
     return $result;
 }
 

@@ -12,7 +12,7 @@ $onAttackAbilities["SOR_158:0"] = function($player, $mzID) {
     $targets = array_merge(
         ZoneSearch("myGroundArena",    AnyUnitFilter),
         ZoneSearch("theirGroundArena", AnyUnitFilter),
-        ["myBase-0", "theirBase-0"]
+        SWUAllBaseMzIDs(intval($player), 'any')
     );
     SWUQueueChooseTarget(intval($player), $targets,
         "Deal_2_damage_to_a_ground_unit_or_a_base", "SOR_158#0");

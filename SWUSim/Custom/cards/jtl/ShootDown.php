@@ -12,7 +12,7 @@ $customDQHandlers["JTL_176#0"] = function($player, $parts, $lastDecision) {
     $uid = ($o !== null) ? intval($o->UniqueID ?? 0) : 0;
     SWUDealDamageToUnit($lastDecision, 3, intval($player));
     if ($uid !== 0 && SWUFindMzByUID($uid) === null) { // defeated this way
-        SWUQueueMayChooseTarget(intval($player), ['myBase-0', 'theirBase-0'],
+        SWUQueueMayChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'),
             "You_may_deal_2_to_a_base", "Deal_2_to_a_base", "DEAL_BASE_DAMAGE|2");
     }
 };

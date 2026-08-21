@@ -231,9 +231,7 @@ if (!function_exists('_SWUCollectUnitTargets')) {
             $out[] = $mz;
         }
         if (!empty($opts['includeBases'])) {
-            $baseSide = $opts['baseSide'] ?? 'any';
-            if ($baseSide === 'my'    || $baseSide === 'any') $out[] = 'myBase-0';
-            if ($baseSide === 'their' || $baseSide === 'any') $out[] = 'theirBase-0';
+            foreach (SWUAllBaseMzIDs(intval($player), $opts['baseSide'] ?? 'any') as $bmz) $out[] = $bmz;
         }
         return $out;
     }
@@ -292,13 +290,31 @@ if (!function_exists('SWUOfferUnitTarget')) {
 //   'block'        int      default 1
 //   'prompt'       string   choose tooltip; default 'Choose_a_base'
 //   'question'     string   may yes/no tooltip; default = prompt
+// EVERY base a $player-perspective effect may target, as mzIDs.
+// ⚠ THE reason this exists: ~30 sites across the codebase spelled the pool as the literal
+// ['myBase-0','theirBase-0']. That is exactly two bases, so in Twin Suns a card reading "deal damage
+// to A BASE" could only ever reach your own base and the ONE opponent currently in view — reported
+// live on LAW_058 Honor-Bound Partisan ("didn't allow to choose other bases than P1").
+// ZoneSearch already solves this: in an N-player game "their<Zone>" fans out to one seat-specific
+// p{n}<Zone> per LIVE opponent (GameLogic's Twin Suns Phase 3 union), and in a 2-player game it
+// returns the single theirBase-0 — so routing through it is byte-identical for premier.
+// $side: 'any' (default) | 'my' | 'their'.
+if (!function_exists('SWUAllBaseMzIDs')) {
+    function SWUAllBaseMzIDs(int $player, string $side = 'any'): array {
+        global $playerID; $playerID = intval($player);
+        $out = [];
+        if ($side === 'my' || $side === 'any') $out[] = 'myBase-0';
+        if ($side === 'their' || $side === 'any') {
+            foreach (ZoneSearch('theirBase', null) as $mz) $out[] = $mz;
+        }
+        return $out;
+    }
+}
+
 if (!function_exists('SWUOfferBaseTarget')) {
     function SWUOfferBaseTarget(int $player, array $opts = []): void {
         global $playerID; $playerID = intval($player);
-        $baseSide = $opts['baseSide'] ?? 'any';
-        $targets = [];
-        if ($baseSide === 'my'    || $baseSide === 'any') $targets[] = 'myBase-0';
-        if ($baseSide === 'their' || $baseSide === 'any') $targets[] = 'theirBase-0';
+        $targets = SWUAllBaseMzIDs(intval($player), $opts['baseSide'] ?? 'any');
         if (empty($targets)) return;
         $amount = max(1, intval($opts['amount'] ?? 1));
         $cont   = (string)($opts['continuation'] ?? '');

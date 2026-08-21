@@ -6,8 +6,10 @@
 $customDQHandlers["ASH_032#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
+    // ⚠ Decode the owner FROM the mzID. In Twin Suns the answer arrives as "p{n}Base-0", which
+    // matched neither literal, so those bases silently took no damage at all.
     foreach (explode('&', $lastDecision) as $mz) {
-        if ($mz === 'myBase-0')          SWUDealDamageToBase(1, intval($player));
-        elseif ($mz === 'theirBase-0')   SWUDealDamageToBase(1, OtherPlayer(intval($player)));
+        if (strpos($mz, 'Base') === false) continue;
+        SWUDealDamageToBase(1, SWUMzOwner($mz, intval($player)));
     }
 };

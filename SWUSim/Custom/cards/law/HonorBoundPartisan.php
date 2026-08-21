@@ -7,8 +7,11 @@
 // phase costs 1 less.
 $whenPlayedAbilities["LAW_058:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    // "Deal 1 damage to a base" — a base (no "enemy" qualifier) → the player chooses EITHER base.
-    SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'], "Deal_1_damage_to_a_base", "LAW_058#0");
+    // "Deal 1 damage to a base" — no controller word, so ANY base is legal: your own and EVERY
+    // opponent's. ⚠ Not the literal ['myBase-0','theirBase-0'] — that is two bases, so in Twin Suns it
+    // offered only your base and the opponent currently in view (reported live: "didn't allow to
+    // choose other bases than P1"). SWUAllBaseMzIDs routes through ZoneSearch's per-seat union.
+    SWUQueueChooseTarget(intval($player), SWUAllBaseMzIDs(intval($player), 'any'), "Deal_1_damage_to_a_base", "LAW_058#0");
 };
 
 $whenDefeatedAbilities["LAW_058:0"] = function($player, $mzID) {

@@ -12,9 +12,10 @@ $whenPlayedAbilities["TS26_42:0"] = function($player, $mzID) {
 $customDQHandlers["TS26_42#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
-    foreach (['myBase-0', 'theirBase-0'] as $b) {
+    // "each OTHER base" = every base in the game except the chosen one. ⚠ Was a two-entry literal, so
+    // in Twin Suns seats 3-4 were never healed; the owner also came from OtherPlayer() rather than the mzID.
+    foreach (SWUAllBaseMzIDs(intval($player), 'any') as $b) {
         if ($b === $lastDecision) continue;                      // skip the chosen base
-        $bp = ($b === 'myBase-0') ? intval($player) : OtherPlayer(intval($player));
-        OnHealBase(intval($player), $bp, 3);
+        OnHealBase(intval($player), SWUMzOwner($b, intval($player)), 3);
     }
 };

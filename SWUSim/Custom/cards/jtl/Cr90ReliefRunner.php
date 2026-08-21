@@ -28,7 +28,7 @@ $whenDefeatedAbilities["JTL_071:0"] = function($player, $mzID) {
     $targets = array_merge(
         ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
         ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter),
-        ['myBase-0', 'theirBase-0']
+        SWUAllBaseMzIDs(intval($player), 'any')
     );
     if (empty($targets)) return;
     SWUQueueMayChooseTarget(intval($player), $targets,

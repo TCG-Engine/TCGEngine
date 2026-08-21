@@ -12,7 +12,7 @@ $whenPlayedAbilities["SOR_074:0"] = function($player, $mzID = '') {
                 ZoneSearch("mySpaceArena",     AnyUnitFilter),
                 ZoneSearch("theirGroundArena", AnyUnitFilter),
                 ZoneSearch("theirSpaceArena",  AnyUnitFilter),
-                ["myBase-0", "theirBase-0"]
+                SWUAllBaseMzIDs(intval($player), 'any')
             );
             // USER RULING 2026-08-13: prompt ONLY when something (either side) has damage. The pool is
             // NEVER filtered to damaged targets — with any damage present, undamaged targets stay
