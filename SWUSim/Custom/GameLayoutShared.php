@@ -137,6 +137,28 @@ body.swu-spectating .swu-spectate-badge { display: block; }
     display: flex; align-items: center; gap: 10px; padding: 6px 10px;
     background: var(--swu-surface, rgba(10,20,30,0.85)); border: 1px solid var(--swu-border, #2a3a4a);
     border-radius: 8px; font: 600 11px/1.2 var(--swu-font-label, sans-serif); color: var(--text-muted,#aab); }
+/* NO KEYART (seat has no playmat, or the viewer turned "Show playmats" off) — knock the WHOLE tile
+   back with the SAME wash the mini-board arena boxes use (.swu-mb-arena, rgba(0,0,0,0.35)), expanded
+   from just those boxes to the entire tile.
+   ⚠ Why this is needed at all: .swu-home-strip's own background is --swu-surface, which is
+   rgba(255,255,255,0.04) — an almost-transparent WHITE wash. Over a dark board that reads as a panel,
+   but over a BRIGHT board cosmetic (the snow keyart) the header row, the chips and the gaps between
+   the arena boxes let the board through at full brightness while the arena boxes stayed knocked back,
+   so the tile read as half-scrimmed. Layered as a background-IMAGE so it composes over the surface
+   colour and the class alone switches it, exactly like the playmat path.
+   Desktop only by construction: mobile renders .swu-seat-row, not .swu-home-strip.
+   .has-playmat is stamped by swuPaintHomeStripPlaymats() — the single painter — so this can never
+   disagree with whether art is actually showing. */
+.swu-home-strip:not(.has-playmat) {
+    background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35));
+}
+/* ...and the arena boxes do NOT stack a second copy on top. The tile wash IS the arena background now,
+   so the whole tile reads as one surface and SPACE/GROUND are marked out by their BORDERS alone (see
+   the silver/sand pair below) rather than by a darker fill. Without this the boxes composite to ~0.58
+   against the tile's 0.35 and the tile is two-tone — the same half-scrimmed look the wash exists to fix.
+   ⚠ Scoped to the no-keyart state only: WITH a playmat the tile's 0.72 art tint under 0.35 boxes is the
+   established look and is deliberately untouched. */
+.swu-home-strip:not(.has-playmat) .swu-mb-arena { background: transparent; }
 /* No hover highlight on the tile itself — the tile is not a button. Its interactive parts (the cards,
    the Zoom-in button, the Discard chip) carry their own affordances, and a whole-tile glow on hover
    competed with the active-turn ring, which is the one border state that means something here. */
@@ -276,7 +298,14 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
 
 .swu-mb-arena { background: rgba(0,0,0,0.35); border: 1px solid #1c2438; border-radius: 5px; padding: 4px; min-width: 0;
     display: flex; flex-direction: column; flex: 1 1 0; }
-.swu-mb-atag { display: block; font-size: 8px; opacity: 0.45; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+/* SPACE = silver, GROUND = sandy brown. On a playmat-less tile the fill is uniform, so the border is
+   the ONLY thing telling the two arenas apart at preview size — the colour carries real information
+   there, not decoration. Kept at ~0.7 alpha so it reads as a material edge rather than a UI accent
+   competing with the amber active-turn ring.
+   ⚠ NOT colour-only: each box still prints its "SPACE"/"GROUND" tag, so the distinction survives a
+   colourblind viewer — same rule the active-turn pill follows. */
+.swu-mb-arena--space  { border-color: rgba(202, 212, 224, 0.70); }   /* silver */
+.swu-mb-arena--ground { border-color: rgba(198, 160,  99, 0.70); }   /* sandy brown */
 /* flex-start, not the default stretch: the row now has height to spare, and stretch would pull a
    thumbnail that has no explicit height out of shape.
    ⚠ min-height = one unit thumbnail, and the arena above must NOT carry `min-height: 0`. Together
@@ -2541,8 +2570,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // tile without them — the tiles are a comparison view, and mismatched rows break it.
                 '<span class="swu-mb-pills"></span>' +
             '</div>' +
-            '<div class="swu-mb-arena swu-mb-arena-full"><span class="swu-mb-atag">Space</span><div class="swu-mb-row">' + spaceHtml + '</div></div>' +
-            '<div class="swu-mb-arena swu-mb-arena-full"><span class="swu-mb-atag">Ground</span><div class="swu-mb-row">' + groundHtml + '</div></div>';
+            // --space / --ground carry the arena's IDENTITY, not just its label: the two boxes were
+            // previously indistinguishable in CSS (same classes, differing only by their text tag), so
+            // nothing could style them apart. The border colours below key off these.
+            // No "SPACE"/"GROUND" text tags: at preview size they cost a line of height in each box and
+            // repeat what the layout already says. The arenas keep a NON-COLOUR distinction — their
+            // fixed vertical ORDER, space above ground, exactly as on the full board — so the silver /
+            // sand borders reinforce that reading rather than being the only carrier of it.
+            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--space"><div class="swu-mb-row">' + spaceHtml + '</div></div>' +
+            '<div class="swu-mb-arena swu-mb-arena-full swu-mb-arena--ground"><div class="swu-mb-row">' + groundHtml + '</div></div>';
     }
 
     // 3-player home view: one mini board per opponent, each a gateway button into that opponent's
@@ -2608,17 +2644,19 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         v.opps.forEach(function (opp) {
             var mi = 0;
             for (var i = 0; i < views.length; i++) if (views[i].mode === 'matchup' && views[i].oppSeat === opp) { mi = i; break; }
-            // Per-seat playmat (keyart) as the tile background — playmats are viewable by all players.
-            // A dark tint over it keeps the mini-board cards legible.
-            var cos = window.SWU_COSMETICS;
-            var pm = (cos && cos.seats && (cos.seats[opp] || {}).playmat) || '';
-            var bg = pm ? ' style="background-image:linear-gradient(rgba(10,10,10,0.72),rgba(10,10,10,0.72)),url(\'' + pm + '\');background-size:cover;background-position:center;"' : '';
+            // ⚠ The tile's PLAYMAT is deliberately NOT written here. It used to be emitted as an
+            // inline style at this point, which made this function a SECOND writer of the same visual
+            // concept — bypassing ApplyCosmeticPlaymats(), the one place that reads the viewer's
+            // "Show playmats" setting. Two consequences, both reported as bugs: the toggle did nothing
+            // to these tiles, and because this renderer fires on BOARD data changes while cosmetics
+            // fire on the 6s poller / MutationObserver, the two could disagree about which seats had
+            // art. swuPaintHomeStripPlaymats() below is now the single painter for both triggers.
             // data-seat is what the turn highlight keys off — swuTwHighlightActiveSeat() toggles the
             // class in place rather than re-rendering, so a turn change never wipes the target chips.
             // Mobile gets stacked summary ROWS; desktop keeps the side-by-side tiles unchanged.
             html += (window.SWU_MOBILE_LAYOUT === true)
                 ? swuRenderSeatRow(opp)
-                : ('<div class="swu-home-strip" data-seat="' + opp + '" data-view="' + mi + '"' + bg + '>' + swuRenderMiniBoard(opp) + '</div>');
+                : ('<div class="swu-home-strip" data-seat="' + opp + '" data-view="' + mi + '">' + swuRenderMiniBoard(opp) + '</div>');
         });
         box.innerHTML = html;
         box.style.display = 'flex';
@@ -2637,6 +2675,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // wiped in the same tick, so a manual call lit all three rows while the live view showed none.
         // Same trap the target-chip re-stamp above already guards.
         if (typeof swuTwRenderRowTargets === 'function') swuTwRenderRowTargets();
+        // Same reason as the two re-stamps above: the rebuild replaced the elements the playmat was
+        // painted onto, so repaint AFTER innerHTML — never before.
+        if (typeof window.swuPaintHomeStripPlaymats === 'function') window.swuPaintHomeStripPlaymats();
     }
 
     // Mark the home strip belonging to the seat whose turn it is. Called on every strip rebuild AND
@@ -2906,6 +2947,157 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         slot.dataset.leaderDeployedFlags = flags.join(',');
     }
 
+    // ── Your-turn tab indicators: favicon dot + chime ──────────────────────────
+    // Ported from SWUOnline, which swaps a whole ready.png/notReady.png favicon and plays
+    // Assets/prioritySound.wav. Two deliberate differences:
+    //   • NO idle state. SWUOnline shows a grey "not ready" dot; we leave the plain site favicon
+    //     alone and only ADD a green dot on your turn, so the tab is quiet by default.
+    //   • The dot is COMPOSITED at runtime onto whatever favicon the page already has, rather than
+    //     shipping a second pre-dotted PNG. One asset to maintain, and it follows the site favicon
+    //     automatically (it picked up the Petranaki icon with no extra work).
+
+    function swuIsMyTurnValue(v) {
+        return String(v == null ? '' : v).trim() === String(MY_PLAYER_ID);
+    }
+
+    // Effective mute = the per-BROWSER choice when this browser has made one, else the ACCOUNT
+    // default, else off. The browser layer is what lets a logged-OUT player mute at all.
+    function swuSoundsMuted() {
+        try {
+            if (window.TCGSettings && typeof window.TCGSettings.get === 'function') {
+                var local = window.TCGSettings.get('MuteSounds', { rootName: 'SWUSim', type: 'boolean', defaultValue: null });
+                if (local === true || local === false) return local;
+            }
+        } catch (e) {}
+        return window.SWU_ACCOUNT_MUTE === true;
+    }
+    window.swuSoundsMuted = swuSoundsMuted;
+
+    // Write both layers. The browser layer always wins locally and is written first so the UI is
+    // instant; the account write is fire-and-forget (a failed POST must not desync the checkbox).
+    function swuSetSoundsMuted(muted) {
+        try { if (window.TCGSettings) window.TCGSettings.set('MuteSounds', !!muted, { rootName: 'SWUSim', type: 'boolean' }); } catch (e) {}
+        if (window.SWU_LOGGED_IN) {
+            window.SWU_ACCOUNT_MUTE = !!muted;
+            try {
+                var body = 'action=set&mute=' + (muted ? '1' : '0');
+                var x = new XMLHttpRequest();
+                x.open('POST', swuAppBase() + 'SWUSim/PlayerSettingsApi.php', true);
+                x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                x.send(body);
+            } catch (e) {}
+        }
+    }
+    window.swuSetSoundsMuted = swuSetSoundsMuted;
+
+    function swuAppBase() {
+        var p = location.pathname, i = p.indexOf('/TCGEngine/');
+        return i >= 0 ? p.slice(0, i + 11) : '/TCGEngine/';
+    }
+
+    // "Set it in the browser, then log in, and it carries onto your profile." Only fires when the
+    // ACCOUNT has no stored value (SWU_ACCOUNT_MUTE === null): an account that already has an
+    // opinion must not be overwritten by whatever a shared or borrowed browser had set. The server
+    // re-checks the same condition, so a racing second tab cannot double-promote.
+    (function swuPromoteBrowserMuteOnLogin() {
+        if (!window.SWU_LOGGED_IN || window.SWU_ACCOUNT_MUTE !== null) return;
+        var local = null;
+        try {
+            if (window.TCGSettings) local = window.TCGSettings.get('MuteSounds', { rootName: 'SWUSim', type: 'boolean', defaultValue: null });
+        } catch (e) {}
+        if (local !== true && local !== false) return;   // nothing to carry over
+        window.SWU_ACCOUNT_MUTE = local;
+        try {
+            var x = new XMLHttpRequest();
+            x.open('POST', swuAppBase() + 'SWUSim/PlayerSettingsApi.php', true);
+            x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            x.send('action=promote&mute=' + (local ? '1' : '0'));
+        } catch (e) {}
+    })();
+
+    // Composite a green dot onto the page's own favicon. Cached after the first successful draw:
+    // the source image is same-origin, so the canvas stays untainted and toDataURL works.
+    var _swuFavBase = null, _swuFavDotted = null, _swuFavCurrent = null;
+    function swuFaviconLink() {
+        var l = document.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
+        if (!l) { l = document.createElement('link'); l.rel = 'icon'; document.head.appendChild(l); }
+        return l;
+    }
+    function swuBuildDottedFavicon(cb) {
+        if (_swuFavDotted) return cb(_swuFavDotted);
+        var link = swuFaviconLink();
+        var src  = link.getAttribute('href');
+        if (!src) return cb(null);
+        if (_swuFavBase === null) _swuFavBase = src;
+        var img = new Image();
+        img.onload = function () {
+            try {
+                var S = 64, c = document.createElement('canvas');
+                c.width = S; c.height = S;
+                var g = c.getContext('2d');
+                g.drawImage(img, 0, 0, S, S);
+                // CENTRED and large: a tab favicon is painted at 16px, where a small corner badge is
+                // easy to miss in a row of pinned tabs. Centring it and taking ~2/3 of the width makes
+                // "it's your turn" readable at a glance without the player hunting for a corner — the
+                // same call SWUOnline makes by swapping the whole icon, but keeping our artwork
+                // visible around the ring instead of replacing it.
+                // The dark ring is what keeps the green legible over a LIGHT favicon; the Petranaki
+                // icon is dark, but this composites onto whatever the site favicon happens to be.
+                var r = S * 0.33, cx = S / 2, cy = S / 2;
+                g.beginPath(); g.arc(cx, cy, r + S * 0.055, 0, Math.PI * 2);
+                g.fillStyle = 'rgba(0,0,0,0.65)'; g.fill();
+                g.beginPath(); g.arc(cx, cy, r, 0, Math.PI * 2);
+                g.fillStyle = '#3ad12a'; g.fill();
+                _swuFavDotted = c.toDataURL('image/png');
+                cb(_swuFavDotted);
+            } catch (e) { cb(null); }   // tainted canvas / no 2d context: leave the favicon alone
+        };
+        img.onerror = function () { cb(null); };
+        img.src = src;
+    }
+    function swuSetFaviconTurnDot(on) {
+        if (on === _swuFavCurrent) return;                 // idempotent: the poller calls this a lot
+        if (on) {
+            swuBuildDottedFavicon(function (url) {
+                if (!url) return;
+                _swuFavCurrent = true;
+                swuFaviconLink().setAttribute('href', url);
+            });
+        } else {
+            if (_swuFavBase) swuFaviconLink().setAttribute('href', _swuFavBase);
+            _swuFavCurrent = false;
+        }
+    }
+
+    function swuPlayTurnChime() {
+        if (swuSoundsMuted()) return;
+        try {
+            var a = document.getElementById('yourTurnSound');
+            if (!a) return;
+            a.currentTime = 0;
+            var pr = a.play();
+            // Browsers reject autoplay until the page has been interacted with. In a live game the
+            // player has clicked long before their turn comes round, but swallow it either way —
+            // an unhandled rejection here would surface as a console error every turn.
+            if (pr && typeof pr.catch === 'function') pr.catch(function () {});
+        } catch (e) {}
+    }
+
+    // Edge-triggered by the TurnPlayerData setter. `wasMine`/`isMine` is what keeps the chime to the
+    // MOMENT the turn arrives rather than every poll tick while it stays yours.
+    function swuOnTurnMaybeChanged(wasMine, isMine) {
+        swuSetFaviconTurnDot(isMine);
+        if (isMine && !wasMine) swuPlayTurnChime();
+    }
+
+    // Initial paint: the setter only fires on CHANGE, so a page that loads already on your turn
+    // needs the dot stamped once here. No chime on load — arriving at a page is not the turn
+    // arriving, and a sound the player did not cause is startling.
+    if (document.readyState !== 'loading') swuSetFaviconTurnDot(swuIsMyTurnValue(window.TurnPlayerData));
+    else document.addEventListener('DOMContentLoaded', function () {
+        swuSetFaviconTurnDot(swuIsMyTurnValue(window.TurnPlayerData));
+    });
+
     (function () {
         var _myLeaderInternal    = window.myLeaderData    || '';
         var _theirLeaderInternal = window.theirLeaderData || '';
@@ -2955,10 +3147,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             configurable: true,
             get: function () { return _turnPlayerInternal; },
             set: function (v) {
+                var _wasMine = swuIsMyTurnValue(_turnPlayerInternal);
                 _turnPlayerInternal = v;
                 // The turn can move without any opponent mini-board changing, so the strips are not
                 // necessarily re-rendered — repaint the active-seat marker from here too.
                 if (typeof swuTwHighlightActiveSeat === 'function') swuTwHighlightActiveSeat();
+                // ...and the tab indicators, for the same reason. swuOnTurnMaybeChanged is edge-
+                // triggered on the was/is pair: the board polls continuously and re-assigns this
+                // property with an UNCHANGED value on most ticks, so a level check would re-fire the
+                // chime every few seconds for as long as it stayed your turn.
+                swuOnTurnMaybeChanged(_wasMine, swuIsMyTurnValue(v));
             }
         });
         Object.defineProperty(window, 'CurrentPhaseData', {
@@ -3879,14 +4077,53 @@ function ApplyAllCosmetics() {
   window.addEventListener('load', ApplyAllCosmetics);
 })();
 
+// THE one reader of the viewer's "Show playmats" setting. Every surface that paints a mat must go
+// through this — a second inline read is how the Twin Suns preview tiles ended up ignoring the toggle
+// entirely (they were painted by swuRenderHomeStrips, which never consulted it).
+function swuShowPlaymats() {
+  if (!window.TCGSettings || typeof window.TCGSettings.get !== 'function') return true;
+  return window.TCGSettings.get('ShowPlaymats', { rootName: 'SWUSim', type: 'boolean', defaultValue: true }) !== false;
+}
+window.swuShowPlaymats = swuShowPlaymats;
+
+// Twin Suns home preview TILES: paint each opponent tile's per-seat mat IN PLACE (no innerHTML), so
+// this can be driven from both triggers without wiping the target chips / active-turn classes the
+// tiles carry. Seats are read off data-seat, so it works for any live seat set.
+// Clearing falls back to the tile's own CSS panel background (--swu-surface), which is the correct
+// "playmats off" look — the tile is still a readable panel, just without keyart.
+function swuPaintHomeStripPlaymats() {
+  try {
+    var c = window.SWU_COSMETICS || {};
+    var show = swuShowPlaymats();
+    var TINT = 'rgba(10,10,10,0.72)';
+    var strips = document.querySelectorAll('#swuHomeStrips .swu-home-strip[data-seat]');
+    for (var i = 0; i < strips.length; i++) {
+      var el   = strips[i];
+      var seat = el.getAttribute('data-seat');
+      var pm   = (c.seats && (c.seats[seat] || {}).playmat) || '';
+      if (show && pm) {
+        el.style.backgroundImage    = 'linear-gradient(' + TINT + ',' + TINT + "), url('" + pm + "')";
+        el.style.backgroundSize     = 'cover';
+        el.style.backgroundPosition = 'center';
+        el.classList.add('has-playmat');
+      } else {
+        // Clear the INLINE declaration so the .swu-home-strip:not(.has-playmat) stylesheet rule takes
+        // over and washes the whole tile — an inline 'none' would beat it.
+        el.style.backgroundImage    = '';
+        el.style.backgroundSize     = '';
+        el.style.backgroundPosition = '';
+        el.classList.remove('has-playmat');
+      }
+    }
+  } catch (e) {}
+}
+window.swuPaintHomeStripPlaymats = swuPaintHomeStripPlaymats;
+
 // Per-side playmats (desktop): paint each side's mat, honoring the viewer's Show-playmats toggle.
 function ApplyCosmeticPlaymats() {
   try {
     var c = window.SWU_COSMETICS; if (!c) return;
-    var show = true;
-    if (window.TCGSettings && typeof window.TCGSettings.get === 'function') {
-      show = window.TCGSettings.get('ShowPlaymats', { rootName: 'SWUSim', type: 'boolean', defaultValue: true }) !== false;
-    }
+    var show = swuShowPlaymats();
     // Transparent-black tint layered OVER the mat art (and under the arena HUD wash),
     // so the mat reads darker/uniform behind the cards. Layered into the same
     // background as the mat image → it only shows where a mat is set. Tune the alpha.
@@ -3921,6 +4158,11 @@ function ApplyCosmeticPlaymats() {
     }
     paintRow(mMine, myPlaymat);
     paintRow(mTheirs, theirPlaymat);
+
+    // Twin Suns preview tiles ride the SAME apply path as the board halves. Without this a cosmetics
+    // change (the 6s poller) or a toggle flip repainted the board and left the tiles stale until the
+    // next unrelated board mutation happened to re-render them.
+    swuPaintHomeStripPlaymats();
   } catch (e) {}
 }
 if (document.readyState !== 'loading') ApplyCosmeticPlaymats();
@@ -4111,7 +4353,17 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   require_once __DIR__ . '/../Cosmetics/Catalog.php';
   $swuGearUid = function_exists('LoggedInUser') ? LoggedInUser() : '';
   $swuGearCos = ($swuGearUid !== '' && $swuGearUid !== null) ? LoadUserCosmetics($swuGearUid) : null;
+  // Mute: the ACCOUNT-level answer, or null when there is none (guest, or a logged-in account that
+  // has never set it). null is load-bearing — it is what tells the client a browser-side choice is
+  // eligible for promotion onto the account. See PlayerSettings.php.
+  require_once __DIR__ . '/../PlayerSettings.php';
+  $swuGearMute   = SWUSimAccountMuted($swuGearUid);
+  $swuGearLogged = ($swuGearUid !== '' && $swuGearUid !== null && intval($swuGearUid) > 0);
 ?>
+<script>
+  window.SWU_LOGGED_IN   = <?= $swuGearLogged ? 'true' : 'false' ?>;
+  window.SWU_ACCOUNT_MUTE = <?= $swuGearMute === null ? 'null' : ($swuGearMute ? 'true' : 'false') ?>;
+</script>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
   <div class="swu-settings-panel" role="dialog" aria-modal="true">
     <div class="swu-settings-head"><span>Settings</span>
@@ -4145,6 +4397,8 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       <div class="swu-settings-section-title">Cosmetics</div>
       <label class="swu-settings-row"><span>Show playmats</span>
         <input type="checkbox" id="swuSetShowPlaymats"></label>
+      <label class="swu-settings-row"><span>Mute sounds</span>
+        <input type="checkbox" id="swuSetMuteSounds"></label>
       <label class="swu-settings-row"><span>Card motion</span>
         <input type="checkbox" id="swuSetCardMotion"></label>
       <?php if ($swuGearCos !== null): ?>
@@ -4197,7 +4451,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     // turn-miasma "Waiting for the other player" pill (z 4999). Idempotent across re-opens.
     if (ov.parentNode !== document.body) document.body.appendChild(ov);
     var t = document.getElementById('swuSetShowPlaymats');
-    if (t && window.TCGSettings) t.checked = window.TCGSettings.get('ShowPlaymats', { rootName:'SWUSim', type:'boolean', defaultValue:true }) !== false;
+    if (t && typeof window.swuShowPlaymats === 'function') t.checked = window.swuShowPlaymats();
+    // The one checkbox shows the EFFECTIVE answer (browser choice, else account default) — there is
+    // deliberately no "following your profile" hint: the box itself is the mute status.
+    var m = document.getElementById('swuSetMuteSounds');
+    if (m && typeof window.swuSoundsMuted === 'function') m.checked = window.swuSoundsMuted();
     // Card motion (zone slides + attack lunge). Read through TCGCardMotion.isEnabled rather than
     // TCGSettings directly: its default honours prefers-reduced-motion, so a player who has asked the
     // OS for reduced motion sees this unchecked without ever having touched it.
@@ -4267,6 +4525,12 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   }
   window.SWUGearConcede = SWUGearConcede;
   document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'swuSetMuteSounds') {
+      // Writes BOTH layers: this browser always, and the account too when signed in, so the gear
+      // menu and the Profile toggle can never disagree after a change.
+      if (typeof window.swuSetSoundsMuted === 'function') window.swuSetSoundsMuted(e.target.checked);
+      return;
+    }
     if (e.target && e.target.id === 'swuSetShowPlaymats') {
       if (window.TCGSettings) window.TCGSettings.set('ShowPlaymats', e.target.checked, { rootName:'SWUSim', type:'boolean' });
       if (typeof window.ApplyCosmeticPlaymats === 'function') window.ApplyCosmeticPlaymats();

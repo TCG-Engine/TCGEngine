@@ -397,7 +397,16 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             : ($folderPath === 'SoulMastersDB'
               ? '/TCGEngine/Assets/Images/icons/soulMastersIcon.png'
               : null));
-        $__boardFavicon = $folderPath === 'HellbreakDeck' && is_string($__siteDef['branding']['favicon'] ?? null)
+        // Roots whose BOARD takes its favicon from the SiteDef — the branding source of truth.
+        // ⚠ This is an ALLOWLIST whose default is "no favicon at all": a root listed neither here nor
+        // in the legacy chain above emits no <link rel="icon">, so its board tab shows the browser
+        // default. That is exactly how the SWUSim board sat unbranded while every SharedUI page around
+        // it had an icon. Flipping the default to "use the SiteDef whenever it declares one" would
+        // brand every board at once — but most SiteDefs still point at the shared gudnakIcon
+        // placeholder, so that is a product call, not a refactor. Add roots here as they get real art.
+        $__siteDefFaviconRoots = ['HellbreakDeck', 'SWUSim'];
+        $__boardFavicon = in_array($folderPath, $__siteDefFaviconRoots, true)
+                          && is_string($__siteDef['branding']['favicon'] ?? null)
           ? $__siteDef['branding']['favicon']
           : $__legacyFavicon;
       ?>
@@ -659,9 +668,12 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         }
       }
     </script>
-<!--
-    <audio id="yourTurnSound" src="../Assets/prioritySound.wav"></audio>
--->
+    <!-- Your-turn chime (SWUSim: played by swuPlayTurnChime in GameLayoutShared.php).
+         This element was inherited from SWUOnline and had been COMMENTED OUT, together with the
+         favicon swap above it, because its playback was never ported — so nothing referenced it.
+         ⚠ Its src was also "../Assets/…", which from /TCGEngine/NextTurn.php resolves to /Assets/…
+         and 404s (measured). Root-absolute now, matching GrandArchiveSim's MainMenu sound. -->
+    <audio id="yourTurnSound" src="/TCGEngine/Assets/prioritySound.wav" preload="auto"></audio>
     <script>
       window.RefreshMostRecentSimGameTimestamp = function() {
         var rawPlayerID = <?php echo json_encode(strval($playerID)); ?>;
@@ -968,10 +980,25 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         mzid = String(mzid || "").trim();
         if (mzid === "") return "";
 
-        if (mzid.indexOf("p1") === 0 || mzid.indexOf("p2") === 0) {
-          var isP1 = mzid.indexOf("p1") === 0;
-          var convertedPrefix = (isP1 && perspectivePlayerID === 1) || (!isP1 && perspectivePlayerID === 2) ? "my" : "their";
-          mzid = convertedPrefix + mzid.substring(2);
+        // Absolute "p{n}<Zone>-<idx>" -> the viewer's own my*/their* vocabulary.
+        // ⚠ This used to test only p1/p2 and decide "my" from perspective===1 / ===2, which broke two
+        // ways in Twin Suns (both measured in game 3497):
+        //   • A viewer at seat 3 or 4 never matched the "my" branch at all, so damage to their OWN
+        //     base ("p3Base-0" seen by seat 3) normalized to nothing and never animated — while the
+        //     other seats, which fall through to their preview tiles, animated fine.
+        //   • Every non-viewer seat became "their", so as seat 3 BOTH p1 and p2 mapped to theirBase-0.
+        //     Harmless in home view (that slot is 0x0, so the tile fallback wins) but in MATCHUP view
+        //     it would animate the wrong opponent's base.
+        // So: your own seat is "my"; the opponent actually IN VIEW is "their"; any other seat is left
+        // ABSOLUTE on purpose, because it has no board slot here and only its preview tile can show it.
+        var seatMatch = /^p(\d+)/.exec(mzid);
+        if (seatMatch) {
+          var seat = parseInt(seatMatch[1], 10);
+          var rest = mzid.substring(seatMatch[0].length);
+          var view = window.swuView;
+          var inViewOpp = (view && view.oppSeat != null) ? parseInt(view.oppSeat, 10) : null;
+          if (seat === parseInt(perspectivePlayerID, 10)) mzid = "my" + rest;
+          else if (inViewOpp === null || inViewOpp === seat) mzid = "their" + rest;   // 2-player, or the seat on screen
         }
 
         return mzid;
@@ -1000,9 +1027,37 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         }
         var mzid = NormalizeAnimationTarget(target, perspectivePlayerID);
         if (!mzid) return null;
-        var byID = document.getElementById(mzid);
-        if (byID) return byID;
-        return document.querySelector("[data-mzid='" + mzid + "']");
+
+        // TWIN SUNS — pick a RENDERED element, not merely a present one.
+        // Two things conspire here, and only the pair explains the bug:
+        //  1. A seat that is neither the viewer nor the in-view opponent has NO my*/their* slot, so
+        //     NormalizeAnimationTarget leaves its target absolute ("p3Base-0") and the id/mzid lookups
+        //     below miss entirely.
+        //  2. In HOME view the opponent half of the board is REPLACED by preview tiles, so the
+        //     their* slot still exists but is collapsed to 0x0 (measured in game 3497 as P2:
+        //     theirBase-0 = 0x0, myBase-0 = 159x109). Preferring it unconditionally plays the
+        //     animation on an invisible element — which is why the first cut of this fix animated
+        //     P3/P4 (no slot, so they fell through to their tiles) but NOT P1 (slot present, hidden).
+        // Every opponent is on screen as a tile whose cards carry data-mz="p{n}Zone-idx"
+        // (swuRenderMiniBoard). So: use the big-board slot when it is actually rendered — matchup
+        // view, and your own side always — otherwise use the tile.
+        // ⚠ Size, not offsetParent: the home strips are position:fixed, for which offsetParent is
+        // null even when they are perfectly visible.
+        var rendered = function (el) {
+          if (!el) return false;
+          var r = el.getBoundingClientRect();
+          return r.width > 0 && r.height > 0;
+        };
+        var byID   = document.getElementById(mzid);
+        if (rendered(byID)) return byID;
+        var byMzid = document.querySelector("[data-mzid='" + mzid + "']");
+        if (rendered(byMzid)) return byMzid;
+        // The tile is keyed by the ABSOLUTE target ("p1Base-0"), not the my/their rewrite.
+        var byTile = document.querySelector("[data-mz='" + target + "']")
+                  || document.querySelector("[data-mz='" + mzid + "']");
+        if (rendered(byTile)) return byTile;
+        // Nothing on screen: hand back whatever exists so behaviour is no worse than before.
+        return byID || byMzid || byTile || null;
       }
 
       function GetFrameAnimationTargetKey(animation, perspectivePlayerID) {

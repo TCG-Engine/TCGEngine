@@ -14,7 +14,27 @@
 include_once __DIR__ . '/CoreZoneModifiers.php';
 
 class DecisionQueueController {
-    private $numPlayers = 2;
+    // ⚠ WAS the literal 2, declared here and assigned NOWHERE — so AllQueuesEmpty() could not see a
+    // pending decision on seat 3 or 4. Every action/phase gate in the engine asks that one question
+    // (TurnController's PENDING_DECISION, ~10 sites in CustomInput.php, SimHistory), so in a Twin Suns
+    // game the whole "wait for everyone" interlock degraded to "wait for seats 1 and 2": the regroup
+    // advanced to the next action phase while a later seat still owed a resource, and seat 1 got to
+    // act first. Bug report #978 / game 3497.
+    // Derived per call rather than stored: seat count is gamestate, and a controller instance can
+    // outlive a parse. GetSeatOrderArray() lives in SWUSim's GameLogic and is NOT loaded by every app
+    // that uses this Core class, hence the function_exists guard — a root without it keeps the old
+    // 2-seat answer, which is correct for every non-Twin-Suns app.
+    private function SeatCount(): int {
+        if (function_exists('GetLiveSeatsArray')) {
+            $n = count(GetLiveSeatsArray());
+            if ($n >= 2) return $n;
+        }
+        if (function_exists('SeatCountForGame')) {
+            $n = SeatCountForGame();
+            if ($n >= 2) return $n;
+        }
+        return 2;
+    }
     private static $debugMode = false;
     private static $executeDepth = 0;
     private static $executePlayerStack = [];
@@ -36,9 +56,10 @@ class DecisionQueueController {
 
     public static function SetSuppressNewDecisionsCheck(?callable $fn) { self::$suppressNewDecisionsCheck = $fn; }
 
-    // Returns true if both players' queues are empty
+    // Returns true if EVERY seat's queue is empty (2 in a normal game, 3-4 in Twin Suns).
     public function AllQueuesEmpty() {
-        for($i=1; $i<=$this->numPlayers; ++$i) {
+        $seats = $this->SeatCount();
+        for($i=1; $i<=$seats; ++$i) {
             $playerQueue = &GetDecisionQueue($i);
             if(!empty($playerQueue)) {
                 return false;
@@ -47,9 +68,12 @@ class DecisionQueueController {
         return true;
     }
 
-    // Returns true if either player has a pending decision
+    // Returns true if ANY seat has a pending decision.
+    // ⚠ This called AllQueuesEmpty() as a bare FUNCTION rather than $this->AllQueuesEmpty() — an
+    // instant fatal for any caller. There are none today (grepped), which is why it never surfaced;
+    // fixed in passing so it is not a trap for the next person who reaches for it.
     public function AnyQueuePending() {
-        return !AllQueuesEmpty();
+        return !$this->AllQueuesEmpty();
     }
 
     // Get the next decision for a player (returns null if none)

@@ -283,6 +283,11 @@ function _ProfilePanelRegistry(): array {
             return "<div class='cosmetics container bg-black'><h2>Cosmetics</h2>"
                  . RenderCosmeticsChooser((int)($ctx['userId'] ?? 0)) . "</div>";
         },
+        'sounds'           => function($def, $ctx, $ud) {
+            require_once __DIR__ . '/SoundSettings.php';
+            return "<div class='soundSettings container bg-black'><h2>Sounds</h2>"
+                 . RenderSoundSettings((int)($ctx['userId'] ?? 0)) . "</div>";
+        },
         'blockedUsers'     => function($def, $ctx, $ud) {
             require_once __DIR__ . '/BlockedUsers.php';
             return "<div class='blockedUsers container bg-black'><h2>Blocked Users</h2>"

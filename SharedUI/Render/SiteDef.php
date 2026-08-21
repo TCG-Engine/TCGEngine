@@ -29,7 +29,7 @@ function ValidateSiteDef(array $def): array {
             }
         }
     }
-    $known = ['changePassword','welcome','team','developerOptions','savedDecks','cosmetics','blockedUsers'];
+    $known = ['changePassword','welcome','team','developerOptions','savedDecks','cosmetics','blockedUsers','sounds'];
     foreach (($def['profile']['sections'] ?? []) as $s) {
         // An entry may combine up to 2 panels with '+' (e.g. 'welcome+changePassword') → one pane.
         $panels = array_values(array_filter(array_map('trim', explode('+', (string)$s))));

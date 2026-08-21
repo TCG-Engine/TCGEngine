@@ -10,7 +10,7 @@
     'title'          => 'Petranaki Arena',                          // home-header h1 (also browser-tab title)
     'tagline'        => 'Fan-made Star Wars: Unlimited simulator',
     'homeHref'       => '/TCGEngine/SharedUI/Sites/SWUSim/MainMenu.php',
-    'favicon'        => '/TCGEngine/Assets/Images/icons/gudnakIcon.png',
+    'favicon'        => '/TCGEngine/SharedUI/Sites/SWUSim/assets/petranaki-favicon.png',
     'showBanner'     => false,
     'menuOverlay'    => true,   // renders the burger button + overlay (see MenuBar.php); paired with burger-menu.js below
     'disclaimerName' => 'Petranaki Arena',
@@ -43,7 +43,7 @@
     'endpoint' => 'SWUSim/SavedDecks.php',
   ],
   'profile' => [
-    'sections'         => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics'],
+    'sections'         => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics','sounds'],
     'oauthAppLabel'    => 'Petranaki Arena',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordOAuth'     => true,

@@ -210,7 +210,7 @@ check('Azuki profile omits Patreon login', strpos($azukiProfile, 'containerPatre
 // --- All sites validate under the new panel keys + render their listed panels ---
 $expectPanels = [
   'SWUDeck'         => ['welcome+changePassword','team','developerOptions'],
-  'SWUSim'          => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics'],
+  'SWUSim'          => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics','sounds'],
   'GrandArchiveSim' => ['welcome'],
   'AzukiSim'        => ['welcome'],
   'GudnakSim'       => ['welcome'],
