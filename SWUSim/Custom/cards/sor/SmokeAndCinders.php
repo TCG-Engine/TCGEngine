@@ -38,8 +38,14 @@ $whenPlayedAbilities["SOR_174:0"] = function($player, $mzID = '') {
                           // from their hand." Queue the opponent's keep-2 first, then the caster's, so
                           // $playerID is left = caster (whose MZMULTICHOOSE is validated first, in their
                           // own queue). Each player's decision is answered under their own $playerID.
-            $opp = OtherPlayer(intval($player));
-            SWUKeepNDiscardRest($opp, 2, "Keep_2_cards_-_discard_the_rest");
-            SWUKeepNDiscardRest(intval($player), 2, "Keep_2_cards_-_discard_the_rest");
+            // "EACH player" is every LIVE seat, not just the one opponent: OtherPlayer() left Twin
+            // Suns seats 3 and 4 holding full hands. OpponentsOf() already filters to live seats, and
+            // returns exactly [the other seat] in a 2-player game, so that case is unchanged.
+            // Caster LAST so $playerID is left on them (see the note above).
+            $me = intval($player);
+            foreach (OpponentsOf($me) as $opp) {
+                SWUKeepNDiscardRest($opp, 2, "Keep_2_cards_-_discard_the_rest");
+            }
+            SWUKeepNDiscardRest($me, 2, "Keep_2_cards_-_discard_the_rest");
             return;
 };
