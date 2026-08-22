@@ -74,3 +74,42 @@ WithP2Deck: [SOR_095 SOR_095]
 ## EXPECT
 P2HANDCOUNT:1
 P2GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# TwinSuns_PickerOffersOnlyOpponentsHoldingACard
+#// ⚠ THE ELIGIBILITY CELL — added 2026-08-23 (Pass 1, PROMPT). Asserts the MENU.
+#// ⚠ "An opponent (OF YOUR CHOICE) may discard…" — the parenthesised phrase is NOT reminder text to be
+#// stripped. It is the card explicitly settling the question the rest of this sweep has to infer: the
+#// CASTER picks the opponent, then that opponent decides whether to discard.
+#// FILTER IS CORRECT HERE because the chosen player is asked to DO something — "may discard a card from
+#// THEIR hand". An empty-handed opponent cannot discard, cannot satisfy "if they do", and cannot enable
+#// the -8/-8 rider: a choice among nothing.
+#// ⚠ Contrast TWI_222, whose "if they DON'T" clause makes an empty hand a PAYOFF that must stay eligible.
+#//   Same "an opponent … discard" sentence, opposite rule — the difference is what happens when they can't.
+#// Seats 2 and 3 hold a card; SEAT 4 IS EMPTY-HANDED and must NOT be offered.
+#// Mutation check: drop the SWUOpponentsWithCards filter and P1OPTIONNOT:P4 reds.
+
+## GIVEN
+CommonSetup: byk/rrk/{myResources:3;handCardIds:TS26_33}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP2Hand: SOR_095
+WithP3Hand: SOR_095
+WithP2GroundArena: SEC_080:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONNOT:P4
+P1OPTIONNOT:P1

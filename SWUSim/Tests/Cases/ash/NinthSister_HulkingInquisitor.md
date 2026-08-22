@@ -110,3 +110,38 @@ P1OnlyActions: true
 - P1>AnswerDecision:theirGroundArena-0:2
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# TwinSuns_PickSeatFour_AndTheDamageReadsTHATSeatsDiscard
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21. "AN opponent discards a card from their hand. You may deal
+#// damage equal to ITS COST…" — both halves resolved the seat with OtherPlayer(), so seats 3/4 were
+#// unreachable AND the cost was read off the wrong discard pile.
+#// P1 picks seat 4, who discards SOR_046 Consular Security Force (cost 4) — so the split is up to 4, and
+#// P1 puts all 4 on seat 4's own unit. Seat 2 (also holding cards) is untouched, which is what proves
+#// the pick was honoured rather than defaulted.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:12}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: ASH_148
+WithP2Hand: [SOR_095 SOR_095]
+WithP4Hand: [SOR_046 SOR_095]
+WithP4GroundArena: SOR_046:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P4
+- P4>AnswerDecision:myHand-0
+- P1>AnswerDecision:p4GroundArena-0:4
+
+## EXPECT
+SEATCOUNT:4
+P4HANDCOUNT:1
+P4GROUNDARENAUNIT:0:DAMAGE:4
+P2HANDCOUNT:2

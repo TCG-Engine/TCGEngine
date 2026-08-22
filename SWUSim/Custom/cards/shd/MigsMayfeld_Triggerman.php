@@ -8,8 +8,13 @@ $customDQHandlers["SHD_163#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
     if (strpos($lastDecision, 'Base') !== false) {
-        $bp = (strpos($lastDecision, 'myBase') !== false) ? intval($player) : OtherPlayer(intval($player));
-        SWUDealDamageToBase(2, $bp);
+        // The chosen base's own mzID names its owner: "myBase-0" / "theirBase-0" at ≤2 seats,
+        // "p{n}Base-0" above. This is the DEAL_TARGET / HEAL_TARGET base-routing family that was fixed
+        // centrally on 2026-08-21 — Migs has a BESPOKE handler that the central SWUMzOwner fix never
+        // reached, so it kept the old decoder. A "p{n}Base-0" mzID matches NEITHER branch of the old
+        // my-prefix test, so above two seats picking seat 3's or seat 4's base dealt the 2 to a
+        // different player entirely.
+        SWUDealDamageToBase(2, SWUMzOwner($lastDecision, intval($player)));
     } else {
         $o = GetZoneObject($lastDecision);
         if (SWUObjGone($o)) return;

@@ -7,15 +7,18 @@
 $whenPlayedAbilities["TWI_177:0"] = function($player, $mzID = '') {
     global $playerID;
     $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
-    // 1. Each player defeats a resource they control (fungible → auto-pick the first).
-    foreach ([intval($player), $opp] as $p) {
+    // 1. EACH PLAYER defeats a resource they control (fungible → auto-pick the first). Every LIVE seat,
+    //    caster included — was the literal [caster, OtherPlayer(caster)], i.e. two seats.
+    foreach (GetLiveSeatsArray() as $p) {
         $playerID = $p;
         $res = ZoneSearch("myResources", null);
         if (!empty($res)) SWUDefeatResource($p, $res[0]);
     }
-    // 2. Each player discards 2 (opponent via helper; caster inline, excluding the just-played event).
-    SWUDiscardCards(intval($player), 2); // makes the opponent discard 2
+    // 2. Each OPPONENT discards 2 via the helper, one call per seat; the caster's own discard is handled
+    //    inline below because it must exclude the just-played event.
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        SWUDiscardCards(intval($player), 2, $opp);
+    }
     $playerID = intval($player);
     $casterCards = [];
     $excluded = false;

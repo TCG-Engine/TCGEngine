@@ -9,7 +9,7 @@ $onAttackAbilities["ASH_083:0"] = function($player, $mzID) {
     $self = GetZoneObject($mzID);
     $selfUID = SWUObjUID($self);
     $uids = [];
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (GetSpaceArena($p) as $u) {
             if ($u !== null && empty($u->removed) && intval($u->UniqueID ?? -1) !== $selfUID) $uids[] = intval($u->UniqueID);
         }

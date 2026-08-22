@@ -123,7 +123,8 @@
     options.forEach(function(opt) {
       const btn = document.createElement('button');
       btn.className = 'optchoose-btn btn';
-      btn.textContent = opt;
+      // DISPLAY is humanised; the SUBMITTED value is always the raw option (see optionDisplayLabel).
+      btn.textContent = optionDisplayLabel(opt);
       btn.addEventListener('click', function() {
         submitCallback(opt, decisionIndex);
         HideOptionChooseUI();
@@ -134,6 +135,30 @@
     bannerEl.appendChild(label);
     bannerEl.appendChild(optionsWrap);
     document.body.appendChild(bannerEl);
+  }
+
+  /**
+   * Seat tokens -> something a human recognises, for the "choose an opponent" picker
+   * (SWUQueueChooseOpponent emits its options as the raw seat tokens "P2", "P3", "P4").
+   *
+   * ⚠ DISPLAY ONLY. The button still SUBMITS the untouched option string, because the server parses it
+   * back with /^P(\d+)$/ (SWUPickedOpponent). Never let the rendered text reach submitCallback, and
+   * never move this humanising server-side: a username is arbitrary user input and the decision Param is
+   * a delimited transport, so a name containing "&" or a space would corrupt the queue row.
+   *
+   * Name resolution: the seat's account username when it has one, else "Player N". window.SWU_SEAT_USERNAMES
+   * is published per board render and deliberately contains ONLY seats with a real account (userId > 0),
+   * so a guest seat falls through to the numbered form on its own.
+   * Gated on that global EXISTING so other sims sharing this Core file are untouched; inside SWUSim it is
+   * always defined (an empty object when nobody is logged in).
+   */
+  function optionDisplayLabel(opt) {
+    if (!window.SWU_SEAT_USERNAMES) return opt;
+    const m = /^P(\d+)$/.exec(String(opt));
+    if (!m) return opt;                       // "You", "Opponent", "Ground", … pass through untouched
+    const seat = m[1];
+    const name = window.SWU_SEAT_USERNAMES[seat];
+    return (name && String(name).trim() !== '') ? String(name) : ('Player ' + seat);
   }
 
   /**

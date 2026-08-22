@@ -363,3 +363,52 @@ P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SOR_095
 P1HANDCOUNT:1
 P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# TwinSuns_DamageLandsOnTheCHOSENFarSeatsBase
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 1). SHD_163's target is picked off the BOARD, not from
+#// a player menu, so this is not an "an opponent" choice — but it is the same root cause: an mzID's owner
+#// decoded by guessing a seat instead of reading the mzID.
+#//
+#// ⚠⚠ THIS IS A LEAK IN AN ALREADY-SHIPPED FIX. The DEAL_TARGET / HEAL_TARGET base-routing family was
+#// fixed centrally on 2026-08-21 (both universal handlers now use SWUMzOwner). Migs has a BESPOKE
+#// handler that the central fix never reached, so it kept the old decoder:
+#//     (strpos($lastDecision, 'myBase') !== false) ? $player : OtherPlayer($player)
+#// A Twin Suns base mzID is "p{n}Base-0", which matches NEITHER branch — so it fell through to
+#// OtherPlayer() and the 2 damage landed on a different player's base than the one clicked.
+#// ⚠ The lesson generalises: a central fix to a shared handler does NOT reach cards that hand-rolled the
+#//   same logic. Grep the SHAPE (the my-prefix base test), not just the shared helper's call sites.
+#//
+#// P1's Migs reacts to a discard and the player aims the 2 at SEAT 3's base. Seat 3 must take it, and
+#// seat 2 — where the old code sent it — must be untouched.
+#// ⚠ A 2-player version CANNOT FAIL — "theirBase-0" hits the my-prefix test's else branch and
+#//   OtherPlayer() is the right answer there. The seat count IS the test.
+#// Mutation check: revert to the my-prefix ternary and this reds while all ten 2-player sections above
+#// stay green.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:3}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1GroundArena: SHD_163:1:0
+WithP1Hand: SHD_244
+WithP1Deck: SOR_095
+WithP2Hand: SOR_095
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p3Base-0
+
+## EXPECT
+SEATCOUNT:4
+P3BASEDMG:2
+P2BASEDMG:0
+P1BASEDMG:0
+P4BASEDMG:0

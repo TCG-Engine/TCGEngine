@@ -37,7 +37,7 @@ $customDQHandlers["SHD_002#0"] = function($player, $parts, $lastDecision) {
 // When Deployed (deployed side): heal all, then deal each unit floor(remaining HP / 2).
 $whenPlayedAbilities["SHD_002:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (array_merge(GetGroundArena($p) ?? [], GetSpaceArena($p) ?? []) as $u) {
             if (!empty($u->removed)) continue;
             $u->Damage = 0;   // heal all damage from each unit

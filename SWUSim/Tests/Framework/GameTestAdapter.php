@@ -499,9 +499,17 @@ class GameTestAdapter {
         AutoAdvanceAndExecute();
     }
 
-    /** Play a card from the opponent's discard pile by index. */
-    public function playFromOpponentDiscard(int $player, int $idx): void {
-        CustomWidgetInput($player, "PlayFromOpponentDiscard-{$idx}");
+    /**
+     * Play a card from an opponent's discard pile by index.
+     * $ownerSeat (Twin Suns) names WHICH opponent's pile; null keeps the 2-player wire form byte-identical.
+     * Without it a four-seat "the permission is on seat 3's pile" assertion could not be WRITTEN at all —
+     * the third harness two-seat limit found by this sweep, after P#DISCARDUNIT and WithP3/P4Base.
+     */
+    public function playFromOpponentDiscard(int $player, int $idx, ?int $ownerSeat = null): void {
+        $tok = ($ownerSeat !== null && $ownerSeat > 0)
+             ? "PlayFromOpponentDiscard-{$ownerSeat}-{$idx}"
+             : "PlayFromOpponentDiscard-{$idx}";
+        CustomWidgetInput($player, $tok);
         AutoAdvanceAndExecute();
     }
 

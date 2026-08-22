@@ -135,3 +135,41 @@ P2DISCARDCOUNT:1
 P2DISCARDUNIT:0:CARDID:SOR_171
 P2DISCARDUNIT:0:FROM:HAND
 LOGCONTAINS:revealed
+
+---
+
+# TwinSuns_PickerPrecedesTheNAMECARD_ForATransportReason
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. "Name a card. AN OPPONENT reveals their hand and discards a
+#// card with that name from it."
+#// ⚠⚠ THE PICKER MUST COME FIRST, and for a HARD TRANSPORT REASON as well as a game one: a card TITLE
+#// CONTAINS SPACES, and a DecisionQueue Param row is SPACE-DELIMITED. So the name can only ever travel in
+#// $lastDecision, never in a Param — which forces NAMECARD to be the LAST decision in the chain, with
+#// everything else the handler needs (the seat) already carried in its Param.
+#// ⚠ FILTER to opponents holding a card — an empty hand reveals and discards nothing.
+#// Seats 2 and 3 hold cards; SEAT 4 IS EMPTY-HANDED and must NOT be offered.
+#// Mutation check: drop the filter and P1OPTIONNOT:P4 reds.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:0}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1SpaceArena: SOR_185:1:0
+WithP2Hand: [SOR_171 SEC_080]
+WithP3Hand: [SOR_171 SEC_080]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>AttackSpaceArena:0:P3B
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONNOT:P4
+P1OPTIONNOT:P1

@@ -105,3 +105,42 @@ WithP2Credits: 1
 P2BASEDMG:3
 P1HANDCOUNT:0
 P2CREDITCOUNT:0
+
+---
+
+# TwinSuns_TheBROKESeatStaysInThePicker
+#// ⚠ THE ELIGIBILITY CELL — added 2026-08-24. Asserts the MENU.
+#// "AN opponent may pay 1 resource. If they don't, draw that card." TWO QUESTIONS THE OLD CODE CONFLATED:
+#//   • WHO may be picked → EVERY live opponent. Whichever seat you name the ability fully resolves (they
+#//     pay, or you draw). Naming a BROKE opponent GUARANTEES the draw — a materially different play from
+#//     naming a rich one, so filtering to "opponents who can pay" would delete the most reliable line.
+#//   • IS THE CHOICE MEANINGFUL → only if at least ONE opponent can pay. If nobody can, every answer
+#//     collapses to "the attacker draws" — genuinely degenerate, so no prompt is raised at all.
+#// Seats 2 and 3 have resources; SEAT 4 HAS NONE and must still be offered.
+#// Mutation check: filter $eligible to payers and P1OPTIONHAS:P4 reds.
+
+## GIVEN
+CommonSetup: yyk/rrk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1GroundArena: SEC_218:1:0
+WithP1Deck: [SOR_095 SOR_046]
+WithP2Resources: 3
+WithP3Resources: 3
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>AttackGroundArena:0:P3B
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONHAS:P4
+P1OPTIONNOT:P1

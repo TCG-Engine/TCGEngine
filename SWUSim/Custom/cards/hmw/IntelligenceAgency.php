@@ -24,7 +24,27 @@
 // here), and SWULookAtOpponentHand additionally writes the private log line.
 $whenPlayedAbilities["HMW_205:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $targets = SWULookAtOpponentHand(intval($player));   // logs the reveal, returns theirHand-N
+    // "Look at AN OPPONENT's hand" — the caster picks whose. Auto-resolves invisibly at one eligible (I1).
+    // ⚠ FILTER to opponents holding a card: an empty hand has nothing to look at and nothing to discard.
+    // ⚠ PREVIEW-SET ASSUMPTION, FLAGGED DELIBERATELY: this card is not in
+    //    `.claude/SWUSim/refs/card-specific-rulings.md` — that database covers RELEASED sets only, so
+    //    there is no HMW/IC27 entry to cite. The reading is taken from the closest released analogue,
+    //    which here is EXACT: SHD_184 Bazine Netal prints this clause WORD FOR WORD and does carry the
+    //    ruling "If there are multiple opponents, the controlling player chooses which one will be
+    //    'an opponent.'" Re-check when the set is released and the database is refreshed.
+    $eligible = SWUOpponentsWithCards(intval($player));
+    if (empty($eligible)) return;
+    SWUQueueChooseOpponent(intval($player), 'HMW_205#1',
+        "Choose_an_opponent_whose_hand_to_look_at", $eligible);
+};
+
+$customDQHandlers["HMW_205#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === intval($player)) return;
+    // Passing $opp also makes the helper emit p{n}Hand-N above two seats — the form the transport's
+    // hidden-zone reveal needs, or the hand renders as CARD BACKS.
+    $targets = SWULookAtOpponentHand(intval($player), null, $opp);   // logs the reveal, returns the mzIDs
     // An EMPTY opponent hand means there is nothing to look at and nothing to offer, so no prompt is
     // raised at all — the SEC_186 / SEC_210 / SEC_260 family (never ask a question with no answer).
     // ⚠ Measured redundant (SWUQueueMayChooseTarget already no-ops on an empty pool) — kept as a local
@@ -39,7 +59,10 @@ $customDQHandlers["HMW_205#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;      // "you MAY" — declining does neither half
     $obj = GetZoneObject((string)$lastDecision);
     if (SWUObjGone($obj)) return;
-    $opp    = OtherPlayer(intval($player));
+    // The chosen card's own mzID names its owner, so the discard, the log line and the "they draw"
+    // rider all follow the card actually picked.
+    $opp    = SWUMzOwner((string)$lastDecision, intval($player));
+    if ($opp <= 0 || $opp === intval($player)) return;
     $cardID = (string)$obj->CardID;
     $obj->Remove();
     // The card is the OPPONENT'S, so it goes to THEIR discard pile, stamped From=HAND (which is what the

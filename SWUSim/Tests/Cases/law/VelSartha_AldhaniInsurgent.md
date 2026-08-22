@@ -173,3 +173,41 @@ P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:HP:4
 P2CREDITCOUNT:1
 P1CREDITCOUNT:0
+
+---
+
+# TwinSuns_TheCreditGoesToTheCHOSENOpponent
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 1, PROMPT). "AN opponent creates a Credit token" —
+#// a DRAWBACK being aimed, so which opponent gets the Credit is a real decision that OtherPlayer() made
+#// silently on three separate sites (front normal path, front no-unit path, deployed On Attack).
+#// ⚠ NO $eligible filter: creating a Credit token can never fail for any live opponent.
+#// ⚠ THE PICK IS QUEUED FIRST, ahead of the unit choice and ahead of SWUQueueAfterAction. That is
+#//   deliberate: the FRONT has TWO sites that hand out the Credit — the normal path and the "no unit to
+#//   receive the Experience" path (a separate UNCONDITIONAL sentence that still fires with an empty
+#//   board) — and both must name the SAME seat. Choosing once, up front, is what stops them drifting.
+#// P1 gives the Experience to their own unit and sends the Credit to SEAT 3. Seats 2 and 4 get nothing.
+#// ⚠ A 2-player version CANNOT FAIL — one opponent means no choice to get wrong.
+#// Mutation check: revert any of the three sites to OtherPlayer() and this reds.
+
+## GIVEN
+CommonSetup: rrk/rrk/{myLeader:LAW_006}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P3CREDITCOUNT:1
+P2CREDITCOUNT:0
+P4CREDITCOUNT:0

@@ -809,6 +809,19 @@ for($i=0; $i<count($zones); ++$i) {
       $mzGetZone .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr;\r\n";
     }
   } else {
+    // ⚠⚠ "their<Zone>" IS A TWO-PLAYER IDIOM AND IS NOT SEAT-NEUTRAL. It resolves to `$playerID == 1 ? 2 : 1`,
+    // i.e. above two seats it silently means SEAT 2 (or seat 1 for any far-seat viewer) no matter whose
+    // zone was intended. It is deliberately NOT made "smart" here: with three opponents "their" names
+    // nobody, and guessing in the hottest resolver in the engine would turn a visible wrong answer into
+    // an invisible one (it would also allocate GetLiveSeatsArray() on every single resolution).
+    //
+    // The N-player contract is the p{n}<Zone> cases emitted just below: ANY caller that knows the owning
+    // seat must build its mzID through SWUForeignMzID() (GameLogic.php), which emits "their<Zone>-N" at
+    // ≤2 seats and "p{n}<Zone>-N" above. ⚠ Note ZoneSearch DOES fan `their*` out across all opponents in
+    // Twin Suns, so COLLECTION and RESOLUTION disagree by design — a literal "their<Zone>-N" handed to
+    // GetZoneObject after a seat-aware search is the bug shape to look for. It is not a blank row: a play
+    // located on seat 3's discard once activated SEAT 2's entry at the same index, putting a completely
+    // different card into play (fixed 2026-08-23; see the Twin Suns sweep plan, Pass 0).
     if ($zone->DisplayMode == 'Value') {
       $mzGetObject .= "    case \"my" . $zoneName . "\": return Get" . $zoneName . "(\$playerID);\r\n";
       $mzGetObject .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
@@ -1956,35 +1969,65 @@ if($rootName == "SWUSim") {
   // whose param references the opponent's hand ("theirHand"), reveal that hand face-up to them so
   // they can see which card they are picking. Computed AFTER ParseGamestate (needs the decision
   // queue). Auto-clears when the decision resolves.
+  // ── "Look at an opponent's hidden zone" reveal (hand + resources) ──────────────────────────────
+  // While the viewer has a PENDING decision whose Param references another seat's Hand/Resources,
+  // reveal that seat's zone face-up to them so they can see what they are picking. Computed AFTER
+  // ParseGamestate (needs the decision queue); auto-clears when the decision resolves.
+  //
+  // ⚠ REWRITTEN 2026-08-23 (Twin Suns "an opponent" sweep). The previous version was hardcoded to two
+  // seats in THREE independent ways, in each of two near-identical blocks:
+  //   (1) the queue scan only ran `if($vSeat === 1 || $vSeat === 2)`;
+  //   (2) it matched the literal 'theirHand'/'theirResources', but an N-player Param carries
+  //       'p3Hand-0'/'p3Resources-0', which matches neither;
+  //   (3) only $canSee…Player1/2 ever carried a reveal term at all.
+  // Net effect above two seats: the pick was BLIND — a row of card backs — i.e. bug #964 reintroduced
+  // by seat count, and invisible to the schema harness because no transport is rendered there.
+  // The old code's own comment called cross-seat reveal "a separate, deferred feature"; it was not.
+  //
+  // Now: one scanner returns the SET of seats the viewer may currently see, per zone.
+  // I1 — at two seats this is byte-identical to the old flags: a seat-2 viewer with a 'theirHand'
+  // decision reveals seat 1 and nothing else, a spectator ($vSeat 0) reveals nothing.
+  // ⚠ 'their<Zone>' is honoured ONLY at <=2 seats. Above that "their" names no specific seat, and a
+  // card still emitting the legacy form must be converted to 'p{n}<Zone>' rather than have the
+  // transport guess — under-revealing is a blank row, over-revealing leaks a private zone.
   fwrite($handler, "\$vSeat = \$viewerInfo[\"isSpectator\"] ? 0 : intval(\$viewerInfo[\"viewerSeat\"] ?? 0);\r\n");
-  fwrite($handler, "\$viewerLooksAtOppHand = false;\r\n");
-  fwrite($handler, "if(\$vSeat === 1 || \$vSeat === 2) { foreach(GetDecisionQueue(\$vSeat) as \$_d) { if(!empty(\$_d->removed)) continue; if(strpos((string)(\$_d->Param ?? ''), 'theirHand') !== false) { \$viewerLooksAtOppHand = true; break; } } }\r\n");
-  // Seats 1/2 keep the 2-player "look at opponent's hand" reveal (byte-identical); seats 3/4 see only
-  // their own hand (cross-seat hand-reveal for 3/4 is a separate, deferred feature).
-  for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
-    $cshReveal = ($cshSeat === 1) ? " || (\$viewerLooksAtOppHand && \$vSeat === 2)"
-               : (($cshSeat === 2) ? " || (\$viewerLooksAtOppHand && \$vSeat === 1)" : "");
-    fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands{$cshReveal};\r\n");
+  $revealScanner = <<<'SWUREVEAL'
+$_swuRevealSeats = function(int $vs, string $zone): array {
+    $out = [];
+    if ($vs < 1) return $out;
+    $twoSeat = (SeatCountForGame() <= 2);
+    foreach (GetDecisionQueue($vs) as $_d) {
+        if (!empty($_d->removed)) continue;
+        $_p = (string)($_d->Param ?? '');
+        if ($_p === '') continue;
+        if (preg_match_all('/p(\d+)' . $zone . '/', $_p, $_mm)) {
+            foreach ($_mm[1] as $_sn) { $_sn = intval($_sn); if ($_sn >= 1 && $_sn !== $vs) $out[$_sn] = true; }
+        }
+        if ($twoSeat && strpos($_p, 'their' . $zone) !== false) {
+            foreach (OpponentsOf($vs) as $_o) $out[$_o] = true;
+        }
+    }
+    return $out;
+};
+$viewerLooksAtHandSeats     = $_swuRevealSeats($vSeat, 'Hand');
+$viewerLooksAtResourceSeats = $_swuRevealSeats($vSeat, 'Resources');
+SWUREVEAL;
+  foreach (explode("\n", $revealScanner) as $_rl) {
+    fwrite($handler, $_rl . "\r\n");
   }
-  // "Look at an opponent's RESOURCES" — the exact twin of the hand reveal above, for the cards that
-  // offer a pick out of the opponent's resource row (LAW_066 Tear This Ship Apart, SHD_213 DJ,
-  // Xanadu Blood). Without it the Resources zone is Visibility=Self and every one of those cards
-  // rendered the opponent's resources as CARD BACKS, so the player chose blind (bug report #964).
-  // Same shape as the hand flag: scan the VIEWER's own pending decisions for a 'theirResources'
-  // param, and auto-clear when the decision resolves.
+  for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {
+    fwrite($handler, "\$canSeeHandPlayer{$cshSeat} = \$canSeePrivatePlayer{$cshSeat} || \$spectatorCanSeeHands || !empty(\$viewerLooksAtHandSeats[{$cshSeat}]);\r\n");
+  }
   // "You may look at the top card of your deck at any time" (LAW_094 Hondo Ohnaka, HMW_205 Intelligence
-  // Agency). Unlike the two reveals above this is NOT decision-scoped — it is a standing permission
+  // Agency). Unlike the reveals above this is NOT decision-scoped — it is a standing permission
   // recomputed from the board, so it is read straight from the game-logic predicate rather than by
   // scanning the decision queue. One source of truth for the rule; the transport only asks the question.
   for ($ctcSeat = 1; $ctcSeat <= $maxSeats; ++$ctcSeat) {
     fwrite($handler, "\$canSeeOwnTopCardPlayer{$ctcSeat} = function_exists('_SWUCanSeeOwnTopCard') && _SWUCanSeeOwnTopCard({$ctcSeat});\r\n");
   }
-  fwrite($handler, "\$viewerLooksAtOppResources = false;\r\n");
-  fwrite($handler, "if(\$vSeat === 1 || \$vSeat === 2) { foreach(GetDecisionQueue(\$vSeat) as \$_d) { if(!empty(\$_d->removed)) continue; if(strpos((string)(\$_d->Param ?? ''), 'theirResources') !== false) { \$viewerLooksAtOppResources = true; break; } } }\r\n");
+  // Resources have no spectator term (a spectator who may see hands is not thereby shown resource rows).
   for ($csrSeat = 1; $csrSeat <= $maxSeats; ++$csrSeat) {
-    $csrReveal = ($csrSeat === 1) ? " || (\$viewerLooksAtOppResources && \$vSeat === 2)"
-               : (($csrSeat === 2) ? " || (\$viewerLooksAtOppResources && \$vSeat === 1)" : "");
-    fwrite($handler, "\$canSeeResourcesPlayer{$csrSeat} = \$canSeePrivatePlayer{$csrSeat}{$csrReveal};\r\n");
+    fwrite($handler, "\$canSeeResourcesPlayer{$csrSeat} = \$canSeePrivatePlayer{$csrSeat} || !empty(\$viewerLooksAtResourceSeats[{$csrSeat}]);\r\n");
   }
 } else {
   for ($cshSeat = 1; $cshSeat <= $maxSeats; ++$cshSeat) {

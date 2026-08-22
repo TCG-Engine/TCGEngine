@@ -102,6 +102,10 @@ parts of the plan (e.g. Piloting, Plot, Credits).
    mechanic, or only parse its dictionary field? When unsure, treat it as a candidate and let
    the human decide at the gate.
 3. **Confirm via the CR:** look the term up in `.claude/SWUSim/refs/comprehensive-rules.md`
+   — and cross-check `.claude/SWUSim/refs/card-specific-rulings.md` (official card-database
+   clarifications, 9 sets · 962 cards · 1618 rulings). ⚠ A phrase that recurs across MANY cards there is
+   a **keyword rule**, not a per-card quirk, which is usually the difference between "new core mechanic
+   to survey for" and "already covered by an existing keyword". ⚠ Preview sets are absent (no HMW/IC27)
    (and `.claude/SWUSim/refs/game-refs.md`). Only a term the CR defines as a mechanic is a
    real blocker.
 4. **Count dependents:** how many of the set's cards reference the mechanic in their text:

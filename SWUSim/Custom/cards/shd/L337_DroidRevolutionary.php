@@ -13,7 +13,7 @@ $whenPlayedAbilities["SHD_197:0"] = function($player, $mzID) {
     $selfUID = ($self !== null) ? intval($self->UniqueID ?? 0) : 0;
     $entries = [];   // "captorUID:subIdx" per captive
     $cids    = [];
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (GetUnitsInPlay($p) as $u) {
             if (!empty($u->removed) || !is_array($u->Subcards ?? null)) continue;
             foreach ($u->Subcards as $si => $sub) {

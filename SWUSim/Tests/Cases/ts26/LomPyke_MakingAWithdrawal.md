@@ -81,3 +81,45 @@ WithP2Deck: [SOR_095 SOR_095]
 ## EXPECT
 P2BASEDMG:5
 P1GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# TwinSuns_EACHOpponentIsOffered_AndEachAcceptanceEarnsItsOwnExperience
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21. "In player order, EACH OPPONENT may heal 5 damage from
+#// their base. For each player that does, give 2 Experience tokens to a unit." resolved OtherPlayer():
+#// one seat was offered the heal, and the caster could earn at most one grant no matter how many
+#// opponents were at the table.
+#// ⚠ "FOR EACH player that does" is a PER-SEAT rider: two acceptances must produce TWO separate grants
+#//   of 2 Experience, not one. Seat 2 accepts, seat 3 DECLINES, seat 4 accepts — so the caster gives
+#//   twice (2+2 = 4 Experience on one unit) and seat 3's base keeps its damage.
+#// The decline is what makes this discriminating: it proves the rider counts acceptances rather than
+#// opponents.
+#// ⚠ FIXTURE: far seats need WithP3Base/WithP4Base WITH damage on them, or they are never offered.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:6; theirBaseDamage:9}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: TS26_51
+WithP1GroundArena: SOR_095:1:0
+WithP3Base: SOR_019:9
+WithP4Base: SOR_019:9
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:YES
+- P1>AnswerDecision:myGroundArena-0
+- P3>AnswerDecision:NO
+- P4>AnswerDecision:YES
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P2BASEDMG:4
+P3BASEDMG:9
+P4BASEDMG:4
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:4

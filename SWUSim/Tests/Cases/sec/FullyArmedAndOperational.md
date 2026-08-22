@@ -329,3 +329,46 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_210
 P1GROUNDARENAUNIT:0:HASKEYWORD:Ambush
 P1HANDCOUNT:0
 P2GROUNDARENACOUNT:2
+
+---
+
+# TwinSuns_ANYOpponentsBaseAttackSatisfiesTheCondition
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 1, DETERMINED). SEC_194 was filed under PROMPT (47) and
+#// that was WRONG: "IF an opponent attacked your base during their previous action" is an EXISTENTIAL
+#// CONDITION. Nothing downstream needs to know WHICH opponent — the effect only touches your own hand —
+#// so a picker here would raise a prompt Premier must never see.
+#// The bug: the check read SWU_LAST_ACTION_<seat> for ONE seat (OtherPlayer), so above two seats a base
+#// attack by seat 3 or 4 simply did not count and the card did nothing.
+#//
+#// SEAT 4 attacks P1's base. Seat 2 — the only seat the old code interrogated — does nothing at all.
+#// ⚠ The attacker is SEAT 4, not seat 3, for a turn-order reason: with seat order 1234 the turn passes to
+#//   the next seat after an action, so only a seat-4 action leaves P1 as the active player and able to
+#//   respond. A seat-3 attacker hands the turn to seat 4 and P1 never gets to play the card at all.
+#// The condition must still be satisfied, so P1 may play a unit from hand and it gains Ambush.
+#// ⚠ Each opponent's OWN last action is read, not the global most-recent one: "during THEIR previous
+#//   action" must be unaffected by anything that happens in between.
+#// ⚠ A 2-player version CANNOT FAIL — one opponent is the only seat there is to interrogate.
+#// Mutation check: revert to the single-seat read and this reds while all four 2-player sections stay green.
+
+## GIVEN
+CommonSetup: yyk/rrk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 4
+WithGamePhase: ActionPhase
+WithP1Resources: 10
+WithP1Hand: [SEC_194 SOR_095]
+WithP4SpaceArena: SOR_237:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P4>AttackSpaceArena:0:P1B
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095

@@ -82,3 +82,39 @@ WithP1Hand: LAW_080
 P2HASDECISION
 P2OPTIONHAS:CreditAndReady
 P2OPTIONHAS:Deal5
+
+---
+
+# TwinSuns_TheCHOSENOpponentMakesTheModeChoice
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. "AN opponent chooses one" — the caster picks WHICH opponent
+#// decides; OtherPlayer() picked one silently.
+#// ⚠ NO $eligible filter: the chosen player needs nothing on their board — both modes are things that
+#// happen to the CASTER (or a Credit they simply gain), so nobody can be unable to choose. Taxonomy
+#// shape 3, same as LOF_065 Watto and SHD_205.
+#// P1 hands the choice to SEAT 3, who must own the OPTIONCHOOSE. Seat 2 — whom the old code always asked —
+#// must have no decision at all.
+#// ⚠ FIXTURE: keep the existing section's ryw/bgw aspects — LAW_080 is Aggression/Cunning/Heroism and an
+#//   off-aspect deck adds a penalty that pushes cost 7 past the pool, so the unit is never played.
+#// Mutation check: revert to OtherPlayer() and this reds (the choice lands on seat 2).
+
+## GIVEN
+CommonSetup: ryw/bgw/{myResources:7}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: LAW_080
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P3HASDECISION
+P2NODECISION
+P4NODECISION

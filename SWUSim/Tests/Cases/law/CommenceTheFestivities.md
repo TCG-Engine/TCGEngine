@@ -150,3 +150,44 @@ WithP1Hand: LAW_202
 ## EXPECT
 P2BASEDMG:5
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# TwinSuns_ANYRicherOpponentGrantsThePlus2
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 1, DETERMINED). Re-filed out of PROMPT (47): "if an
+#// opponent controls more resources than you" is an EXISTENTIAL CONDITION. Nothing downstream needs the
+#// seat — the +2 lands on YOUR attacker — so this card must never prompt for a player.
+#// This is the same "does AN opponent control X? must be does ANY" shape Pass 0 fixed in all five
+#// instrumented GetOpponent() sites (SWUEnemySnokeCount, ASH_068 Loth-Cat, LAW_117, …).
+#// P1 controls 3 resources. SEAT 2 — the seat the old code read — also controls 3, so no buff. SEAT 4
+#// controls 6, so the condition IS true and the attacker gets +2: SEC_080 (3 power) hits seat 3's base
+#// for 5 instead of 3.
+#// ⚠ A 2-player version CANNOT FAIL — one opponent is the only comparison. The seat count IS the test.
+#// ⚠ The attacker AUTO-RESOLVES (SEC_080 is P1's only ready unit), so the first and only prompt is the
+#//   attack target — and at four seats that menu is p2Base-0&p3Base-0&p4Base-0, not a bare 'BASE'.
+#// Mutation check: revert to SWUResourceCount($opp) and this reds while all four 2-player sections stay green.
+
+## GIVEN
+CommonSetup: rrk/bgw/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Resources: 3
+WithP2Resources: 3
+WithP3Resources: 3
+WithP4Resources: 6
+WithP1GroundArena: SEC_080:1:0
+WithP1Hand: LAW_202
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p3Base-0
+
+## EXPECT
+SEATCOUNT:4
+P3BASEDMG:5

@@ -398,3 +398,92 @@ WithP1GroundArena: LAW_124:1:0
 P1GROUNDARENAUNIT:0:CARDID:LAW_124
 P1GROUNDARENAUNIT:0:DAMAGE:3
 P1BASEDMG:7
+
+---
+
+# TwinSuns_EVERYOpponentChoosesIndependently
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21. "EACH opponent chooses one" was implemented as
+#// OtherPlayer($caster): at four seats only ONE opponent was ever asked and the card did nothing at all
+#// to the other two.
+#// Every opponent now gets their own mode choice, on their own queue, resolved independently — so seat 2
+#// can take the damage while seat 3 takes the discard-and-defeat and seat 4 takes the damage. That
+#// independence is the point: one seat's answer must not decide another's.
+#// ⚠ FIXTURE: seats 3/4 need their units, hands, resources AND bases seeded — CommonSetup builds seats
+#//   1 and 2 only, and the Deal3 pool includes the chooser's BASE.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myBase:HMW_029}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1GroundArena: HMW_188:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP3Hand: [SOR_095 SOR_046]
+WithP3Resources: 3
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>AnswerDecision:Deal3
+- P1>AnswerDecision:p2GroundArena-0
+- P3>AnswerDecision:DiscardAndDefeat
+#// ⚠ TWO answers, in this order: with 2 cards in hand SWUDiscardCards QUEUES the pick (at or below the
+#//   count it would discard inline and this line would be a spare answer that eats the next prompt), and
+#//   the resource MZCHOOSE follows it.
+- P3>AnswerDecision:myHand-0
+- P3>AnswerDecision:myResources-0
+- P4>AnswerDecision:Deal3
+#// ⚠ The poll matters here: the caster's target choice for seat 4 lands on P1's queue while P1 is not
+#//   otherwise acting, and a lone entry on an idle player's queue does not drain by itself (a real
+#//   client polls every tick). Without it the last answer has nothing to answer.
+- P1>Drain
+- P1>AnswerDecision:p4Base-0
+
+## EXPECT
+SEATCOUNT:4
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P3HANDCOUNT:1
+P3RESCOUNT:2
+P4BASEDMG:3
+P4GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# TwinSuns_TheDeal3PoolIsSCOPEDToTheSeatThatChose
+#// ⚠ THE SCOPE CELL, and the half a "did the card fire?" test cannot see. "You deal 3 damage to a unit or
+#// base THEY control" — the seat that just chose, not every opponent. The pool was built from the
+#// caster's frame as theirGroundArena/theirSpaceArena plus the literal 'theirBase-0', and in Twin Suns
+#// "their…" fans out across ALL opponents: seat 3's choice would have offered seat 2's and seat 4's units
+#// as legal targets, and 'theirBase-0' is not even a valid mzID at four seats.
+#// Left pending on SEAT THREE's choice: the offer must contain seat 3's unit and seat 3's base, and
+#// nothing belonging to seats 2 or 4.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myBase:HMW_029}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1GroundArena: HMW_188:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P2>AnswerDecision:DiscardAndDefeat
+- P3>AnswerDecision:Deal3
+
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:p3GroundArena-0&p3Base-0

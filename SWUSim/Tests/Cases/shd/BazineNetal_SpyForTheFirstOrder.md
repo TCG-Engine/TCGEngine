@@ -74,3 +74,53 @@ P1NODECISION
 P2HANDCOUNT:0
 P2DISCARDCOUNT:0
 P2DECKCOUNT:1
+
+---
+
+# TwinSuns_LooksAtTheCHOSENSeatsHandAndTheyDraw
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 1, PROMPT). "Look at AN OPPONENT's hand" — the caster
+#// picks whose; OtherPlayer() picked one silently.
+#// ⚠ FILTER to opponents holding a card: with an empty hand there is nothing to look at, nothing to
+#// discard, and the "that player draws" rider never fires — a choice among nothing (taxonomy shape 1).
+#//
+#// ⚠⚠ THIS IS THE FIRST CARD TO CONSUME THE PASS-0 `?int $opp` SEAM on SWULookAtOpponentHand, and TWO
+#// things depend on passing the seat, not one:
+#//   • the hand actually READ, and
+#//   • the mzID FORM the helper emits — "theirHand-N" at ≤2 seats but "p{n}Hand-N" above. That form is
+#//     load-bearing: the transport's hidden-zone reveal deliberately refuses to guess a seat from
+#//     "their", so a legacy Param renders the row as CARD BACKS and the player picks blind.
+#// The discard site then reads the seat back off the CHOSEN CARD's mzID, so the discard, the log line and
+#// the draw rider cannot disagree with each other.
+#//
+#// SEAT 3 holds 2 cards and is picked; P1 discards one of them and SEAT 3 draws the replacement. Seat 2
+#// (also holding cards, and the seat the old code always read) must be untouched.
+#// ⚠ A 2-player version CANNOT FAIL — one opponent means no choice to get wrong.
+#// Mutation check: drop the $opp argument to SWULookAtOpponentHand and this reds.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:2}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SHD_184
+WithP2Hand: [SOR_095 SEC_080]
+WithP3Hand: [SOR_095 SEC_080]
+WithP3Deck: SOR_237
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:p3Hand-0
+
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:2
+P3DISCARDCOUNT:1
+P3DECKCOUNT:0
+P2HANDCOUNT:2
+P2DISCARDCOUNT:0

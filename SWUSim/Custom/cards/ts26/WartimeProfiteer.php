@@ -6,12 +6,17 @@
 // TS26_76 Wartime Profiteer — When Defeated: each opponent may ready a resource. (2-player, mirrors SEC_215.)
 $whenDefeatedAbilities["TS26_76:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
-    $hasExh = false;
-    foreach (GetResources($opp) as $r) { if (empty($r->removed) && intval($r->Status ?? 0) === 0) { $hasExh = true; break; } }
-    if (!$hasExh) return;
-    DecisionQueueController::AddDecision($opp, "YESNO", "-", 1, tooltip: "Ready_a_resource?");
-    DecisionQueueController::AddDecision($opp, "CUSTOM", "TS26_76#0", 1);
+    // "EACH opponent may ready a resource" — one independent offer per live opponent, each on their own
+    // queue. Was OtherPlayer(): a single seat.
+    // Offered only to seats that actually have an exhausted resource, so nobody is asked a question whose
+    // only answer does nothing.
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        $hasExh = false;
+        foreach (GetResources($opp) as $r) { if (empty($r->removed) && intval($r->Status ?? 0) === 0) { $hasExh = true; break; } }
+        if (!$hasExh) continue;
+        DecisionQueueController::AddDecision($opp, "YESNO", "-", 1, tooltip: "Ready_a_resource?");
+        DecisionQueueController::AddDecision($opp, "CUSTOM", "TS26_76#0", 1);
+    }
 };
 
 $customDQHandlers["TS26_76#0"] = function($player, $parts, $lastDecision) {

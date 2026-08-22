@@ -10,8 +10,21 @@ $whenDefeatedAbilities["TS26_54:0"] = function($player, $mzID) {
 };
 
 $customDQHandlers["TS26_54#0"] = function($player, $parts, $lastDecision) {
-    $opp = OtherPlayer(intval($player));
-    // The opponent is the giver; GiveTokenUpgrade sets/leaves $playerID = $opp.
+    global $playerID; $playerID = intval($player);
+    // "AN opponent may give…" — the controller chooses WHO gets the option.
+    // ⚠ Eligibility is gated on the BOARD-WIDE unit pool, NOT per-opponent. The thing the chosen player
+    // does is "give an Experience token to A UNIT", and that pool is board-wide and IDENTICAL for every
+    // opponent — so "opponents who can do something" (the tempting answer) would filter nobody in a game
+    // with any unit at all, and would wrongly filter EVERYONE in a game with none. Gate once, globally.
+    if (empty(SWUAllUnits())) return;                      // no unit anywhere ⇒ no offer, no prompt
+    SWUQueueChooseOpponent(intval($player), 'TS26_54#1',
+        "Choose_an_opponent_to_give_an_Experience_token");
+};
+
+$customDQHandlers["TS26_54#1"] = function($player, $parts, $lastDecision) {
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === intval($player)) return;
+    // The chosen opponent is the giver; GiveTokenUpgrade sets/leaves $playerID = $opp.
     GiveTokenUpgrade($opp, '', [
         'friendlyOnly' => false,
         'may'          => true,

@@ -84,3 +84,31 @@ P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
 P1CREDITCOUNT:2
 P2CREDITCOUNT:2
+
+---
+
+# TwinSuns_EVERYSeatGetsACredit
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21. "EACH player creates a Credit token" was two explicit calls
+#// (the caster and OtherPlayer), so seats 3 and 4 got nothing.
+#// Bondsman trades into a 2/3; every live seat ends with exactly one Credit.
+
+## GIVEN
+CommonSetup: bbw/rrk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1GroundArena: LAW_116:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+SEATCOUNT:4
+P1CREDITCOUNT:1
+P2CREDITCOUNT:1
+P3CREDITCOUNT:1
+P4CREDITCOUNT:1

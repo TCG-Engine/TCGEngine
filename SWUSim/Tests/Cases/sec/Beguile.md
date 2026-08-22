@@ -138,3 +138,101 @@ WithP1Hand: SEC_233
 P2GROUNDARENACOUNT:0
 P2HANDCOUNT:1
 P1NODECISION
+
+---
+
+# TwinSuns_LooksAtTheCHOSENSeatAndBouncesFromTHATSeatOnly
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. Beguile names ONE opponent and BOTH clauses hang off it:
+#// "Look at AN OPPONENT's hand. Then, choose a non-leader unit THAT OPPONENT controls…". Two defects
+#// above two seats, pointing in OPPOSITE directions:
+#//   (a) TOO NARROW — the look used OtherPlayer(), so the caster saw a hand they never chose.
+#//   (b) TOO WIDE — the bounce pool was 'side' => 'their', which fans out across EVERY opponent in Twin
+#//       Suns. So the caster could look at seat 3's hand and then bounce SEAT 4's unit, which the card
+#//       does not allow. ⚠ The sweep's inverse defect: the pool GREW, so nothing looked broken — no prompt
+#//       went missing and nothing fizzled; it only shows as a target that should not be selectable.
+#// Fixed with a picker plus 'ofSeat' on the offer, so the two clauses cannot disagree about who was named.
+#//
+#// ⚠ NO $eligible filter: the LOOK always resolves — against an empty hand, and against an opponent with
+#//   nothing bounceable. Choosing a seat purely for the information is a legal line.
+#//
+#// P1 picks SEAT 3. Seat 3's hand is shown (the popup is left PENDING, which is how the look is asserted
+#// — answering a prompt does not prove it was raised), and the bounce pool must contain ONLY seat 3's
+#// eligible unit. Seat 2 and seat 4 each control a bounceable unit that must NOT be offered.
+#// ⚠ A 2-player version CANNOT FAIL — with one opponent "their" IS the chosen seat.
+#// Mutation check: drop 'ofSeat' and seats 2/4 appear in the pool; revert the look to OtherPlayer() and
+#// the wrong hand is shown.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:3}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SEC_233
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+WithP2Hand: [SOR_095 SOR_128]
+WithP3Hand: [SOR_095 SOR_128]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P1DECISIONTOOLTIP:Opponent's_hand
+P2HANDCOUNT:2
+P3HANDCOUNT:2
+P2GROUNDARENACOUNT:1
+P3GROUNDARENACOUNT:1
+P4GROUNDARENACOUNT:1
+
+---
+
+# TwinSuns_BouncePoolIsONLYTheChosenSeatsUnits
+#// ⚠ THE OVER-WIDE-POOL CELL — the second half of Beguile's Twin Suns fix, and it needs its own section
+#// because the look-clause section above leaves the popup pending and never reaches the unit choice.
+#// "…choose a non-leader unit THAT OPPONENT controls" is scoped to the ONE opponent already named by the
+#// first clause. The pool was 'side' => 'their', which in Twin Suns fans out across every opponent — so
+#// the caster could look at seat 3's hand and bounce seat 4's unit.
+#// ⚠ This is the inverse of the usual defect: the pool GREW, so every existing test stayed green, no
+#//   prompt went missing and nothing fizzled. It surfaces ONLY as an illegal target being selectable,
+#//   which is why the assertion has to be SELECTABLEEXACT rather than an outcome.
+#// P1 picks SEAT 3 and acknowledges the hand. The pool must then be EXACTLY seat 3's Battlefield Marine —
+#// seats 2 and 4 each control an identical, equally bounceable unit that must not appear.
+#// ⚠ SOR_046 costs 2 (≤ 6), so the cost filter admits every unit here; only the SEAT scoping excludes any.
+#// ⚠ SEAT 3 deliberately holds TWO units: with a single eligible target SWUOfferUnitTarget auto-resolves
+#//   and the bounce simply happens, leaving no decision to inspect (the first attempt at this section
+#//   failed for exactly that reason). A pool assertion needs a pool with a real choice in it.
+#// Mutation check: drop 'ofSeat' and p2/p4 appear in the pool.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:3}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SEC_233
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: [SOR_046:1:0 SOR_095:1:0]
+WithP4GroundArena: SOR_046:1:0
+WithP3Hand: [SOR_095 SOR_128]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:OK
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1SELECTABLEEXACT:p3GroundArena-0&p3GroundArena-1

@@ -184,6 +184,13 @@ class DecisionQueueController {
     public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '', $dontSkipOnPass = 0) {
         if(self::$suppressNewDecisionsCheck !== null
             && (self::$suppressNewDecisionsCheck)()) return;   // result is final — queue nothing further
+        // Per-SEAT gate (multiplayer): never queue onto a seat that can no longer answer. A decision on
+        // an eliminated seat is not merely a lost trigger — nothing drains it, so any flow that waits on
+        // that queue SOFT-LOCKS the table. Resolved by function_exists rather than a registered callback
+        // on purpose: the setter pattern above only re-registers in the request that declares a winner,
+        // whereas this must hold in EVERY request, and a plain function is automatically a no-op for
+        // sims that define none.
+        if(function_exists('SWUSeatAcceptsDecisions') && !SWUSeatAcceptsDecisions($player)) return;
         // A DecisionQueue row is SPACE-DELIMITED — ZoneClasses' constructor does explode(" ", $line) with
         // Tooltip at index 3 and DontSkipOnPass at 4 — so a raw space in the tooltip would truncate it to
         // its first word and shift every field after it. Normalising here is what lets card files write

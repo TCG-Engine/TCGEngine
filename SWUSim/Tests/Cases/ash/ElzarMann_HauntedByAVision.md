@@ -167,7 +167,7 @@ WithP2Deck: [SOR_046 SOR_095 SOR_063 SOR_108 SOR_232]
 P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0:1
+- P1>AnswerDecision:myGroundArena-0:2
 ## EXPECT
 P2DECKCOUNT:5
 P2HANDCOUNT:0
@@ -192,3 +192,43 @@ WithP2Deck: [ASH_224 SOR_063 SOR_063]
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:ASH_224
 P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# TwinSuns_TheUNSEARCHABLESeatStaysInThePicker
+#// ⚠ THE ELIGIBILITY CELL — added 2026-08-24. Asserts the MENU.
+#// "…then AN OPPONENT searches twice that many cards for an event, reveals it, and DRAWS it."
+#// ⚠⚠ THIS CLAUSE HELPS THE CHOSEN OPPONENT — they get a free event. So an opponent who CANNOT search
+#// (empty deck) is the caster's BEST answer, not a dead one. $eligible must stay null: filtering would
+#// delete the strongest line and, with one carded opponent left, auto-resolve onto the WORST target with
+#// no prompt at all. Same rule as TWI_222/TS26_43 — read what happens when the chosen player can't act.
+#// SEAT 4 has an EMPTY deck and must still be offered.
+#// ⚠ FIXTURE: keep the existing section's yyk/yyk aspects and the handCardIds form — ASH_224 is Cunning
+#//   and an off-aspect deck pushes cost 6 past the pool, so the unit is never played.
+#// Mutation check: filter to opponents with a non-empty deck and P1OPTIONHAS:P4 reds.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:6;handCardIds:ASH_224}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2Deck: [SOR_095 SOR_046]
+WithP3Deck: [SOR_095 SOR_046]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0:2
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONHAS:P4
+P1OPTIONNOT:P1

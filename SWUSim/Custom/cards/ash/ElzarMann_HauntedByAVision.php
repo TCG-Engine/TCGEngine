@@ -38,6 +38,20 @@ $customDQHandlers["ASH_224#0"] = function($player, $parts, $lastDecision) {
         $total += $cnt;
     }
     if ($total <= 0) return;   // "twice that many" = 0 → opponent searches nothing
-    $opp = OtherPlayer(intval($player));
-    DoTopDeckSearch($opp, 2 * $total, fn($cid) => strpos(CardType($cid) ?? '', 'Event') !== false, 1);
+    // "AN opponent searches…" — the caster picks WHICH. Auto-resolves invisibly at one eligible (I1).
+    // ⚠ NO $eligible FILTER, and this is the counter-intuitive one: the clause HELPS the chosen opponent
+    // (they find and DRAW a free event). So an opponent who CANNOT search — an empty or event-less deck —
+    // is the caster's BEST answer, not a dead one. Filtering them out would delete the strongest line and,
+    // with one carded opponent left, auto-resolve onto the WORST target with no prompt at all.
+    // (Same rule as TWI_222/TS26_43: read what happens when the chosen player can't act.)
+    SWUQueueChooseOpponent(intval($player), "ASH_224#1|" . (2 * $total),
+        "Choose_an_opponent_to_search_their_deck");
+};
+
+$customDQHandlers["ASH_224#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $n   = intval($parts[0] ?? 0);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($n <= 0 || $opp <= 0 || $opp === intval($player)) return;
+    DoTopDeckSearch($opp, $n, fn($cid) => strpos(CardType($cid) ?? '', 'Event') !== false, 1);
 };

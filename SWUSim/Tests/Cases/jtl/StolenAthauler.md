@@ -254,3 +254,133 @@ P2SPACEARENACOUNT:1
 P2SPACEARENAUNIT:0:CARDID:JTL_221
 P1DISCARDCOUNT:0
 P2RESAVAILABLE:0
+
+---
+
+# TwinSuns_AFarSeatsDiscardPileIsReachableAtAll
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 0, the OTPF/OTPP/OTPN seam).
+#// `$entry->Modifier = 'OTPF'` says WHAT may be done and never BY WHOM, and every reader resolved the
+#// pile with `OtherPlayer($player)` — ONE seat. So a permission stamped on a FAR seat's pile could be
+#// played by NOBODY: seat 1 looked at seat 2's pile, seats 2 and 4 looked at seat 1's. The card sat in
+#// seat 3's discard for the rest of the game and the ability silently did nothing.
+#// Fixed by the client sending the pile's seat (already in the rendered mzID, "p3Discard-N") and
+#// SWUPlayFromOpponentDiscard taking ?int $ownerSeat.
+#// SEAT 2 defeats SEAT 3's AT-Hauler, so the permission lands on SEAT 3's pile; JTL_221's auto-picked
+#// "opponent" is SWUChooseOpponent(3) = SEAT 1, which is the grantee. Seat 1 must be able to reach seat
+#// 3's pile and play it free (0 resources).
+#// ⚠ THE ATTACKER MUST NOT BE THE GRANTEE. cardDiscardedHandlers receives the ACTING player, and the card
+#//   branches `($opponent === $player) ? 'TPF' : 'OTPF'` — the "someone stole my card" case. If seat 1
+#//   both attacks and is the grantee the entry gets TPF (play from your OWN discard) and this path is
+#//   never exercised at all.
+#// ⚠ THIS SECTION ALSO PINS A SECOND BUG, found while writing it: the play path handed the pile off as
+#//   the literal "theirDiscard-N", and GetZoneObject resolves that with the legacy `$playerID == 1 ? 2 : 1`.
+#//   So the permission was correctly located on seat 3's pile and then ACTIVATED SEAT 2's discard entry at
+#//   the same index — a different card entirely entering the wrong arena. Fixed by SWUForeignDiscardMzID().
+#// ⚠ A 2-player version CANNOT FAIL — with one opponent OtherPlayer() already names the only pile.
+#// Mutation check: drop $ownerSeat, or revert SWUForeignDiscardMzID to the bare "theirDiscard-N", and
+#// this reds; all nine 2-player sections stay green either way.
+
+## GIVEN
+CommonSetup: grw/grw/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 2
+WithGamePhase: ActionPhase
+WithP2SpaceArena: SOR_237:1:0
+WithP3SpaceArena: JTL_221:1:3
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P2>AttackSpaceArena:0:P3S0
+- P1>PlayFromOpponentDiscard:P3:0
+
+## EXPECT
+SEATCOUNT:4
+P3DISCARDCOUNT:0
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_221
+P1RESAVAILABLE:0
+
+---
+
+# TwinSuns_TheGrantIsTaggedToONESeatAndDoesNotLeak
+#// ⚠ THE SEAT-COUNT CELL — the other half of the same seam. A bare 'OTPF' names no grantee, so above two
+#// seats the free play was available to whichever opponents happened to resolve OtherPlayer() onto that
+#// pile — not to the one seat the card chose. The modifier now RECORDS its grantee
+#// (SWUBuildDiscardModifier → "OTPF@1" above two seats; the bare string at ≤2 seats, so
+#// SetsOtpfOnDefeat's `MODIFIER:OTPF` stays byte-identical).
+#//
+#// ⚠ THE ENCODING TRAP: a trailing DIGIT on a Modifier already means a COST DISCOUNT — 'TPP2' is
+#//   TWI_201's "at cost, 2 resources less". So the grantee CANNOT be a bare number ('OTPF3' would read
+#//   as OTPF-minus-3). It is '@N', which composes with the discount suffix and cannot collide.
+#//
+#// Seat 2 defeats SEAT 3's AT-Hauler. JTL_221's "Choose an opponent" is still an AUTO-PICK (its
+#// interactive picker is card work, not seam work — see the card file's STILL OWED note), so the grant
+#// goes to SWUChooseOpponent(3) = SEAT 1. Seat 2 therefore must NOT be able to play it, and the card
+#// stays in seat 3's pile.
+#// Mutation check: drop the SWUDiscardModifierGrantsTo gate and seat 2 steals the play — this reds.
+
+## GIVEN
+CommonSetup: grw/grw/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 2
+WithGamePhase: ActionPhase
+WithP2SpaceArena: SOR_237:1:0
+WithP3SpaceArena: JTL_221:1:3
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P2>AttackSpaceArena:0:P3S0
+- P2>PlayFromOpponentDiscard:P3:0
+
+## EXPECT
+SEATCOUNT:4
+P3DISCARDCOUNT:1
+P3DISCARDUNIT:0:MODIFIER:OTPF@1
+P2SPACEARENACOUNT:0
+P1SPACEARENACOUNT:0
+
+---
+
+# TwinSuns_ControllerNamesWhoMayReplayIt
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24, completing the card the OTPF seam left half-done.
+#// "When Defeated: CHOOSE AN OPPONENT. For this phase, they may play this unit from its owner's discard
+#// pile for free." The seam made the grant RECORD its grantee ("OTPF@n"); this makes the controller
+#// actually CHOOSE that seat instead of it auto-picking the first live opponent.
+#// ⚠⚠ THE SOR_016 GATE, and why: cardDiscardedHandlers is DELIBERATELY SYNCHRONOUS — the Modifier must
+#// land on the discard entry BEFORE any decision-queue drain, so a picker cannot simply be queued inside
+#// it without reordering OpponentPlaysForFree. So ≤2 seats stamps immediately and is byte-identical
+#// (SetsOtpfOnDefeat's `MODIFIER:OTPF` is untouched), and only >2 seats stamps a PROVISIONAL grant and
+#// then queues the picker to RE-STAMP it. The provisional grant means the permission always exists, even
+#// if the pick never resolves.
+#// Seat 2 defeats seat 3's AT-Hauler; the controller (seat 3) names SEAT 4, so the entry must read OTPF@4
+#// rather than the provisional OTPF@1.
+#// ⚠ A 2-player version CANNOT FAIL — one opponent means no choice, which is exactly why the gate exists.
+#// Mutation check: remove the >2-seat re-stamp branch and the modifier stays OTPF@1.
+
+## GIVEN
+CommonSetup: grw/grw/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithActivePlayer: 2
+WithP2SpaceArena: SOR_237:1:0
+WithP3SpaceArena: JTL_221:1:3
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P2>AttackSpaceArena:0:P3S0
+- P3>AnswerDecision:P4
+
+## EXPECT
+SEATCOUNT:4
+P3DISCARDCOUNT:1
+P3DISCARDUNIT:0:MODIFIER:OTPF@4

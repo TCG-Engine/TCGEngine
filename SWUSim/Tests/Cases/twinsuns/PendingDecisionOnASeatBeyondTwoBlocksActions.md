@@ -94,3 +94,58 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080 SOR_046]
 P2HASDECISION
 P1HANDCOUNT:3
 P1GROUNDARENACOUNT:0
+
+---
+
+# EliminatedSeatsPendingDecisionIsDrained_NoSoftLock
+#// ⚠ THE LAST PASS-0 SEAM (2026-08-23). Elimination cleaned up the dead seat's ARENAS and BASE
+#// (_SWUEliminationCleanup) but never touched its DECISION QUEUE. Nothing drains an eliminated seat's
+#// queue — no player will ever answer it — so anything pending at the moment of elimination stayed there
+#// forever, and every "wait for everyone" gate in the engine (AllQueuesEmpty, TurnController's
+#// PENDING_DECISION, ~10 sites in CustomInput) blocks on it.
+#//
+#// ⚠ THIS IS WORSE THAN THE REST OF THE SWEEP. The sweep's usual failure is a LOST trigger — silent, but
+#// the game continues. This one HANGS THE TABLE: the survivors can never act again, in a format where
+#// elimination is a normal mid-game event. It is the difference between a bug and an unfinishable game.
+#//
+#// The repro reuses the section above, which is the real drive rather than a synthetic prompt: the
+#// regroup queues one resource decision per LIVE seat, seats 1/2/4 answer and seat 3 does not — so seat
+#// 3 is holding the interlock shut, exactly as bug #978 described. Seat 3 is then eliminated.
+#// Two things must now be true:
+#//   • seat 3's pending decision is GONE (the queue was drained by _SWUEliminationCleanup), and
+#//   • the table is not stuck — the gate that seat 3 was holding has opened.
+#// Also fixed alongside: DecisionQueueController::AddDecision now refuses to queue onto a seat that
+#// cannot answer (SWUSeatAcceptsDecisions, resolved via function_exists so other sims are unaffected),
+#// so a later-resolving continuation cannot re-lock the table after the drain.
+#//
+#// ⚠ A 2-player version CANNOT EXIST — SWUEliminateSeat returns immediately below three seats, because
+#//   losing your base in Premier ends the game rather than eliminating a seat. The seat count IS the test.
+#// Mutation check: remove the queue drain from _SWUEliminationCleanup and P3NODECISION reds.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:6}
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithP1Hand: SOR_128
+WithP1Deck: [SOR_095 SOR_046 SEC_080 SOR_046]
+WithP2Deck: [SOR_095 SOR_046 SEC_080 SOR_046]
+WithP3Deck: [SOR_095 SOR_046 SEC_080 SOR_046]
+WithP4Deck: [SOR_095 SOR_046 SEC_080 SOR_046]
+WithP3Base: SOR_019
+WithP4Base: SOR_019
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P3>Pass
+- P4>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P4>ResourcePass
+- P1>EliminateSeat:3
+
+## EXPECT
+SEATCOUNT:4
+SEATLIVE:3:false
+P3NODECISION

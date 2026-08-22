@@ -255,3 +255,44 @@ WithP1Hand: LAW_096
 P2HASDECISION
 P1HANDCOUNT:1
 P2SELECTABLEEXACT:myGroundArena-0&theirSpaceArena-0
+
+---
+
+# TwinSuns_EVERYSeatIsOfferedItsSave
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21. "EACH PLAYER may return a non-leader unit" was a hard-coded
+#// two-step chain (caster, then OtherPlayer), so at four seats seats 3 and 4 were never offered their
+#// save and simply lost everything.
+#// All four are offered in player order and answer DIFFERENTLY — P1 saves its own, P2 declines, P3 saves
+#// its own, P4 declines. Everything not saved is then defeated.
+#// ⚠ The two declines are what make this discriminating: a version where everyone saves would also pass
+#//   against an implementation that bounced indiscriminately.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:9}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: LAW_096
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SEC_080:1:0
+WithP4GroundArena: SOR_128:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P2>AnswerDecision:-
+- P3>AnswerDecision:myGroundArena-0
+- P4>AnswerDecision:-
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P2GROUNDARENACOUNT:0
+P3GROUNDARENACOUNT:0
+P3HANDCOUNT:1
+P4GROUNDARENACOUNT:0

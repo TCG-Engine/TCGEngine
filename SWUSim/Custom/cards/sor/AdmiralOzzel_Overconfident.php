@@ -13,7 +13,10 @@ $unitAbilities["SOR_129"] = function($player, $mzID) {
     $playerID = intval($player);
     $targets = SWUPlayablesAtDiscount($player, 'myHand', ['Unit'], 0, fn($cid) => HasTrait($cid, 'Imperial'));
     if (empty($targets)) {
-        DecisionQueueController::AddDecision(OtherPlayer(intval($player)), "CUSTOM", "OZZEL_READY_OFFER", 1);
+        // "EACH opponent may ready a unit" — one builder per live opponent (was OtherPlayer()).
+        foreach (OpponentsOf(intval($player)) as $ozOpp) {
+            DecisionQueueController::AddDecision($ozOpp, "CUSTOM", "OZZEL_READY_OFFER", 1);
+        }
         SWUAfterAction($player);
         return;
     }

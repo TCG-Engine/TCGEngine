@@ -218,3 +218,45 @@ WithP1Hand: LAW_085
 P1HASDECISION
 P2GROUNDARENAUNIT:1:CARDID:SEC_080
 P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# TwinSuns_TheCHOSENOpponentTakesTheUnit
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. "Choose a friendly non-leader unit. AN OPPONENT takes control
+#// of it. If they do, deal 4 damage to another unit in the same arena."
+#// ORDER: unit first, then WHO takes it — the printed order, and it keeps the 2-player prompt sequence
+#// byte-identical since the picker auto-resolves invisibly at one eligible opponent.
+#// ⚠ NO $eligible filter: any live opponent can receive a unit. LAW_149 Rey blocks EVERY opponent equally
+#// (a property of the unit, not the seat), so it never shrinks the menu.
+#// ⚠ The unit is carried by UID across the pick — the arena can reindex while the picker is open.
+#// P1 gives its Dark Trooper to SEAT 3. It must land on seat 3's board, not seat 2's, and the follow-up
+#// 4 damage must then be offered in that same arena.
+#// ⚠ P1 controls exactly ONE friendly non-leader unit, so the UNIT choice AUTO-RESOLVES and must not be
+#//   answered — a spare answer is silently absorbed and shifts every later answer by one (which is how the
+#//   first attempt at this section failed, with the seat pick being eaten by the unit prompt).
+#// Mutation check: revert to OtherPlayer() and this reds.
+
+## GIVEN
+CommonSetup: ryk/bgw/{myResources:1}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: LAW_085
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:1
+P3GROUNDARENACOUNT:2

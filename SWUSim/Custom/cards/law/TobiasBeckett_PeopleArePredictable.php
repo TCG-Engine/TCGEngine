@@ -19,8 +19,32 @@ $leaderAbilities["LAW_002"] = function(int $player): void {
         }
     }
     if (empty($targets)) { SWUAfterAction($player); return; }
-    SWUQueueChooseTarget($player, $targets, "Give_a_friendly_unit_to_an_opponent_(then_create_a_Credit)", "LAW_002#0");
+    // "An opponent takes control of it" — the caster picks WHICH opponent. Queued HERE, ahead of
+    // SWUQueueAfterAction, so the whole chain resolves inside the action; at one eligible opponent it is
+    // an invisible PASSPARAMETER, so Premier's prompt sequence is byte-identical (I1).
+    // ⚠ NO $eligible filter: every live opponent can receive a unit. In particular do NOT try to filter by
+    // "opponents who CAN take control" — LAW_149 Rey's "opponents can't take control of this unit" blocks
+    // ALL opponents equally, so it shrinks the menu by nothing and fails the whole transfer instead. The
+    // correct four-seat behaviour is to still show the menu and still produce no Credit, whoever is named
+    // (pinned by the existing FrontControlBlockedByRey_NoCredit section).
+    SWUQueueChooseOpponent($player, 'LAW_002#2', "Choose_an_opponent_to_take_control");
     SWUQueueAfterAction($player);
+};
+
+// Picked seat in $lastDecision; now ask the caster WHICH friendly unit to hand over.
+$customDQHandlers["LAW_002#2"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === intval($player)) return;
+    $targets = [];
+    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+        foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed)) $targets[] = $mz;
+        }
+    }
+    if (empty($targets)) return;   // board emptied while the pick was open
+    SWUQueueChooseTarget($player, $targets, "Give_a_friendly_unit_to_an_opponent_(then_create_a_Credit)", "LAW_002#0|" . $opp);
 };
 
 $customDQHandlers["LAW_002#0"] = function($player, $parts, $lastDecision) {
@@ -28,7 +52,10 @@ $customDQHandlers["LAW_002#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $newMz = SWUTakeControlOfUnit(OtherPlayer(intval($player)), $lastDecision);   // opponent takes control
+    // The chosen opponent rides the Param; never re-derive it from OtherPlayer() here.
+    $opp = intval($parts[0] ?? 0);
+    if ($opp <= 0 || $opp === intval($player)) return;
+    $newMz = SWUTakeControlOfUnit($opp, $lastDecision);   // that opponent takes control
     // "If they do, create a Credit token." — only when control ACTUALLY transferred. LAW_149 Rey
     // ("opponents can't take control of this unit") blocks the transfer ($newMz === '') → no Credit.
     if ($newMz !== '') SWUCreateCreditToken(intval($player), 1);

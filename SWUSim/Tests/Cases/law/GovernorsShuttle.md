@@ -192,3 +192,52 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P2GROUNDARENACOUNT:0
 P1DISCARDCOUNT:1
 P2DISCARDCOUNT:1
+
+---
+
+# TwinSuns_EVERYSeatChoosesAndLosesOne
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21. "EACH PLAYER chooses a unit they control. Defeat those
+#// units" was a hard-coded two-step chain (caster, then OtherPlayer), so at four seats seats 3 and 4 were
+#// never asked and never lost anything.
+#// Every live seat is now asked in player order and every chosen unit dies. Each seat holds TWO units
+#// and picks a different one, so the section also proves each pool is that seat's OWN board rather than
+#// a shared list — and that the survivor is the one they did not name.
+#// ⚠ The defeats stay SIMULTANEOUS: nothing is removed until all four have answered. A version that
+#//   defeated each pick as it arrived would re-index later seats' arenas underneath their pending
+#//   offers, which is exactly the mid-loop-defeat bug class.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:8}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: LAW_099
+WithP1GroundArena: [SOR_095:1:0 SOR_046:1:0]
+WithP2GroundArena: [SOR_095:1:0 SOR_046:1:0]
+WithP3GroundArena: [SOR_095:1:0 SOR_046:1:0]
+WithP4GroundArena: [SOR_095:1:0 SOR_046:1:0]
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P2>AnswerDecision:myGroundArena-1
+- P3>AnswerDecision:myGroundArena-0
+- P4>AnswerDecision:myGroundArena-1
+
+## EXPECT
+#// ⚠ The Shuttle is a SPACE unit, so it seats in mySpaceArena — P1's GROUND arena holds only the two
+#//   seeded units, and P1's own pick therefore leaves exactly one there.
+SEATCOUNT:4
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:LAW_099
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P3GROUNDARENACOUNT:1
+P3GROUNDARENAUNIT:0:CARDID:SOR_046
+P4GROUNDARENACOUNT:1
+P4GROUNDARENAUNIT:0:CARDID:SOR_095

@@ -13,8 +13,21 @@ $onAttackAbilities["SHD_246:0"] = function($player, $mzID) {
 };
 
 $customDQHandlers["SHD_246#0"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    // "AN opponent chooses a unit or base THEY control" — the caster picks WHICH opponent chooses.
+    // ⚠⚠ NO $eligible FILTER, and this is the sweep's sharpest near-miss: SHD_014 Cad Bane's clause is
+    // ONE WORD different ("a unit they control", no "or base") and DOES need a has-a-unit filter. Here the
+    // printed pool is {their base} ∪ {their units}, and every live opponent always controls a base — so
+    // nobody can ever be unable to choose. Copying Cad Bane's gate onto this card would wrongly delete
+    // opponents whose board is empty, who are perfectly legal (and often the best) picks.
+    SWUQueueChooseOpponent(intval($player), 'SHD_246#3',
+        "Choose_an_opponent_to_pick_a_target");
+};
+
+$customDQHandlers["SHD_246#3"] = function($player, $parts, $lastDecision) {
     global $playerID;
-    $opp = OtherPlayer(intval($player));
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === intval($player)) return;
     $playerID = $opp;                                   // resolve "my..." as the opponent's own board
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
@@ -25,7 +38,7 @@ $customDQHandlers["SHD_246#0"] = function($player, $parts, $lastDecision) {
     }
     $targets[] = 'myBase-0';                            // the opponent's own base is always a valid target
     DecisionQueueController::AddDecision($opp, 'MZCHOOSE', implode('&', $targets), 1, tooltip:"Choose_a_unit_or_base_you_control");
-    DecisionQueueController::AddDecision($opp, 'CUSTOM', "SHD_246#1|{$player}", 1);
+    DecisionQueueController::AddDecision($opp, 'CUSTOM', "SHD_246#1|" . intval($player), 1);
     // leave $playerID = $opp so MZCountChoices resolves the relative mzIDs under the opponent
 };
 

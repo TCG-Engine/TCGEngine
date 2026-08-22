@@ -516,6 +516,37 @@ class GameStateBuilder {
             }
         }
 
+        // Twin Suns seats 3/4: DEPLOYED leaders get a real arena unit too (added 2026-08-24).
+        // ⚠ Before this, WithP{3,4}Leader: CARD:1:1 set the leader's Deployed FLAG and spliced NOTHING —
+        // a HALF-MATERIALISED state that is worse than unsupported: the leader reads as deployed while no
+        // unit exists in any arena, so DeployedUniqueID is 0, IsLeaderUnit() finds nothing, and any
+        // assertion about a far-seat deployed leader was quietly meaningless. Seats 1/2 got the splice
+        // above; 3/4 were simply never wired.
+        // Mirrors SWUDeployLeader's LeaderDeployArena branch, same as the seats-1/2 block.
+        foreach ($this->_seatLeaders as $sSeat => $sLs) {
+            foreach (['l1', 'l2'] as $slot) {
+                $sl = $sLs[$slot] ?? null;
+                if (empty($sl) || empty($sl['deployed'])) continue;
+                $sUid    = $this->_nextUID++;
+                $sStatus = !empty($sl['ready']) ? 1 : 0;
+                if (LeaderDeployArena($sl['cardID']) === 'SpaceArena') {
+                    AddSpaceArena($sSeat, $sl['cardID'], $sStatus, $sSeat, 0, $sSeat, '-', '-', $sUid);
+                } else {
+                    AddGroundArena($sSeat, $sl['cardID'], $sStatus, $sSeat, 0, $sSeat, '-', '-', $sUid);
+                }
+                // Link the leader CARD to its arena unit. Match on CardID within that seat's leader zone
+                // (a seat may hold two leaders in Twin Suns) and only bind one that is still unlinked.
+                $sLead = &GetLeader($sSeat);
+                for ($i = 0; $i < count($sLead); $i++) {
+                    if (($sLead[$i]->CardID ?? '') === $sl['cardID'] && intval($sLead[$i]->DeployedUniqueID ?? 0) === 0) {
+                        $sLead[$i]->DeployedUniqueID = $sUid;
+                        break;
+                    }
+                }
+                unset($sLead);
+            }
+        }
+
         // Twin Suns second-leader deployed-unit: a real ground-arena unit for a deployed second leader,
         // appended after the first leader's unit (→ higher ground index) and linked via DeployedUniqueID.
         foreach ([1, 2] as $player) {

@@ -66,3 +66,42 @@ WithP2GroundArena: SOR_164:1:0
 ## EXPECT
 P1HANDCOUNT:0
 P1BASEDMG:21
+
+---
+
+# TwinSuns_CountsEVERYSeatsBase
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21 during the "an opponent"/"a player" sweep. "For each PLAYER
+#// with 15 or more damage on their base" is a per-player loop, and it was written `foreach ([1, 2] as $p)`.
+#// At four seats that counted seats 1 and 2 only, so a damaged seat-3 or seat-4 base drew nothing — the
+#// card silently paid out less than it should in every Twin Suns game.
+#// Fixed to GetLiveSeatsArray(), which returns [1,2] in a 2-seat game, so Premier is untouched (and the
+#// two existing sections above needed no edit — that is the check that the conversion was safe).
+#//
+#// Board: P1's base is clean, seats 2, 3 and 4 all sit on 15+. Bo-Katan trades into a 3/3, and her
+#// When Defeated must draw THREE — one per qualifying seat, including the two the old loop could not see.
+#// ⚠ A 2-player version of this section CANNOT fail: with only seats 1 and 2 the old and new loops are
+#//   the same list. The seat count IS the test.
+#// ⚠ FIXTURE: seats 3 and 4 have no base at all unless WithP3Base/WithP4Base seeds one — and this
+#//   section needs the DAMAGE on it, which only those directives carry (CommonSetup's theirBaseDamage
+#//   reaches seat 2 only).
+
+## GIVEN
+CommonSetup: rrk/rrk/{theirBaseDamage:15}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1GroundArena: SHD_157:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP3Base: SOR_019:15
+WithP4Base: SOR_019:15
+WithP1Deck: [SOR_095 SOR_046 SEC_080 SOR_128 SOR_237]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:3

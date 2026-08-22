@@ -357,3 +357,39 @@ WithInitiativeClaimed: false
 ## EXPECT
 P1WIN
 GAMEWINNERS:1
+
+---
+
+# HarnessSelfTest_FarSeatDeployedLeaderIsRealAndLinked
+#// ⚠ A HARNESS SELF-TEST, not a card test — added 2026-08-24 while closing the four-seat fixture gaps.
+#// `WithP{3,4}Leader: CARD:ready:deployed` used to set the leader's Deployed FLAG and splice NOTHING: no
+#// arena unit, DeployedUniqueID left at 0, IsLeaderUnit() finding nothing. A far-seat deployed leader was
+#// therefore HALF-MATERIALISED, and any assertion about one was quietly meaningless — the fixture claimed
+#// a board state the engine could never produce.
+#// This pins the capability itself so the next four-seat leader test can rely on it:
+#//   • SEAT 3's deployed leader exists as a real GROUND unit, and
+#//   • SEAT 4's is a real unit too — proving the splice is per-seat and not a one-off.
+#// ⚠ Seats 1/2 have always had this splice; only 3/4 were unwired, which is exactly the shape of every
+#//   other gap this sweep found in the harness.
+
+## GIVEN
+CommonSetup: rrk/bbw/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Leader: SHD_014:1:1
+WithP4Leader: SHD_014:1:1
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+
+## EXPECT
+SEATCOUNT:4
+P3GROUNDARENACOUNT:1
+P3GROUNDARENAUNIT:0:CARDID:SHD_014
+P3GROUNDARENAUNIT:0:ISLEADERUNIT
+P4GROUNDARENACOUNT:1
+P4GROUNDARENAUNIT:0:ISLEADERUNIT

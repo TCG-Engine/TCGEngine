@@ -11,7 +11,12 @@ $customDQHandlers["SEC_017#2"] = function($player, $parts, $lastDecision) {
     if ($mz === '' || $mz === '-' || $mz === 'PASS') return;   // declined → no discard, no draw
     $obj = GetZoneObject($mz);
     if (SWUObjGone($obj)) return;
-    $opp    = OtherPlayer(intval($player));
+    // Derive the seat from the CHOSEN CARD's own mzID ("theirHand-N" at ≤2 seats, "p{n}Hand-N" above).
+    // ⚠ This handler is SHARED with ASH_220 Remnant Lookouts, whose text is "an opponent" (a PICKER
+    // card) while Sabé's is "the defending player" (DETERMINED by the board). Reading the seat off the
+    // mzID is what lets one handler serve both without a branch: each caller builds the pool from the
+    // seat IT decided, and the discard + draw follow the card that was actually picked.
+    $opp    = SWUMzOwner($mz, intval($player));
     $cardID = $obj->CardID;
     $obj->Remove();
     SWUAddToDiscard($opp, $cardID, 'HAND');
@@ -26,7 +31,10 @@ $customDQHandlers["SEC_017#3"] = function($player, $parts, $lastDecision) {
     $leaderArr = &GetLeader(intval($player));
     foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SEC_017' && empty($l->removed)) { $l->Ready = false; break; } }
     unset($l);
-    $opp  = OtherPlayer(intval($player));
+    // "the top 2 cards of THE DEFENDING PLAYER's deck" — the seat is named by the board, never chosen,
+    // so this must NOT prompt. OtherPlayer() named one seat: above two seats Sabé milled a player who
+    // was not in the combat (and seat 1 for any far-seat attacker).
+    $opp  = SWUCurrentDefendingSeat(intval($player));
     $deck = &GetDeck($opp);
     $idx  = [];
     for ($i = 0; $i < count($deck) && count($idx) < 2; $i++) {

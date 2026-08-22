@@ -111,3 +111,52 @@ P2GROUNDARENAUNIT:0:CARDID:SOR_128
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:1:CARDID:LAW_216
+
+---
+
+# TwinSuns_PickerOffersOnlyOpponentsWithAGROUNDUnit
+#// ⚠ THE ELIGIBILITY CELL — added 2026-08-23 (Pass 1, PROMPT). Asserts the MENU, which is the only thing
+#// that pins eligibility: the harness validates candidate lists for MZCHOOSE but NOT for OPTIONCHOOSE, so
+#// an outcome-only section passes even when a seat was wrongly filtered in or out.
+#//
+#// ⚠⚠ THIS IS THE COUNTEREXAMPLE TO TS26_43, and the pair is the whole eligibility rule:
+#//   • LAW_216 asks the CHOSEN PLAYER TO DO SOMETHING — "an opponent CHOOSES a ground unit they control".
+#//     An opponent with no ground unit cannot make that choice, so their pick is a choice among nothing
+#//     and they MUST be filtered out.
+#//   • TS26_43 has something done TO the chosen player — "an opponent heals 1 from their base". There an
+#//     opponent who "can't be affected" is the caster's BEST target and must STAY eligible.
+#//   The test is not the sentence shape ("an opponent …"), it is WHO ACTS.
+#//
+#// ⚠ And the filter is GROUND-ONLY, not "has any unit": SEAT 4's whole board is in the SPACE arena, so
+#//   seat 4 must NOT appear even though they DO control a unit. Seats 2 and 3 each have a ground unit.
+#// ⚠ TWO eligible opponents are needed for this section to exist at all: at ONE eligible the picker
+#//   correctly auto-resolves to an invisible PASSPARAMETER and there is no menu to assert (a first
+#//   attempt with only seat 2 eligible asserted an empty candidate list and failed for that reason).
+#// Mutation check: drop the $eligible filter and seats 3 and 4 appear (P1OPTIONNOT:P4 reds); widen it to
+#// "any unit" and seat 4 appears.
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1GroundArena: LAW_216:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_095:1:0
+WithP4SpaceArena: SOR_225:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>AttackGroundArena:0:P3B
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONNOT:P4
+P1OPTIONNOT:P1

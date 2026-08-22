@@ -222,3 +222,48 @@ WithP2Hand: JTL_043
 P1GROUNDARENACOUNT:0
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# TwinSuns_TheUNITLESSSeatStaysInThePicker
+#// ⚠ THE ELIGIBILITY CELL — added 2026-08-24. Asserts the MENU (an outcome-only section cannot pin
+#// eligibility; the harness does not validate OPTIONCHOOSE candidates).
+#//
+#// ⚠⚠ SEC_193 IS WHERE THE SWEEP'S CANONICAL I2 SENTENCE STOPS BEING A SAFE SHORTCUT. The plan names
+#// "an opponent chooses a unit they control" as the textbook case for filtering to opponents WITH a unit,
+#// and SEC_193 matches that wording WORD FOR WORD — but the filter is wrong here.
+#// Cad Bane's other leg deals 1 damage, so naming a unit-less opponent achieves NOTHING and filtering is
+#// pure I2. SEC_193's other leg is "IF THEY DON'T, READY THIS UNIT" — a real, positive outcome for the
+#// caster. Naming a unit-less opponent is a GUARANTEED ready of an 8/7; naming a stocked one is only a
+#// MAYBE-capture they can decline into that same ready. Materially different plays, so the menu entry is
+#// NOT a choice among nothing.
+#// The gate is board-level instead: if NO opponent anywhere holds a non-leader unit, every answer
+#// collapses to "ready Thrawn" — genuinely degenerate — so the picker is skipped and he just readies.
+#//
+#// Seats 2 and 3 hold a non-leader unit; SEAT 4 HOLDS NOTHING and must still be offered.
+#// Mutation check: filter $eligible to opponents with a unit and P1OPTIONHAS:P4 reds.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:7}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SEC_193
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONHAS:P4
+P1OPTIONNOT:P1

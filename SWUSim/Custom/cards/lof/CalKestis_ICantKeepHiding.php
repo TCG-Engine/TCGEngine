@@ -8,7 +8,10 @@
 // LOF_015 Cal Kestis — On Attack: an opponent chooses a ready unit they control; exhaust it. Cross-player,
 // queued via an intermediate CUSTOM (survives the OnAttack $playerID restore); combat owns the after-action.
 $onAttackAbilities["LOF_015:0"] = function($player, $mzID) {
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LOF_015#3|" . intval($player), 1);
+    $elig015 = _SWUCal015Eligible(intval($player));
+    if (empty($elig015)) return;                                        // nobody can act → nothing happens
+    SWUQueueChooseOpponent(intval($player), "LOF_015#3|" . intval($player),
+        "Choose_an_opponent_to_exhaust_a_ready_unit", $elig015);
 };
 
 // LOF_015 Cal Kestis — Action [Exhaust, use the Force]: An opponent chooses a ready unit they control.
@@ -17,13 +20,41 @@ $onAttackAbilities["LOF_015:0"] = function($player, $mzID) {
 $leaderAbilities["LOF_015"] = function(int $player): void {
     global $playerID; $playerID = $player;
     UseTheForce($player);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_015#2|{$player}", 1);
+    $elig015 = _SWUCal015Eligible(intval($player));
+    if (empty($elig015)) { SWUAfterAction(intval($player)); return; }   // nobody can act → gate OUTSIDE the picker
+    SWUQueueChooseOpponent(intval($player), "LOF_015#2|" . intval($player),
+        "Choose_an_opponent_to_exhaust_a_ready_unit", $elig015);
 };
+
+// Shared opponent picker for BOTH of Cal's sides — "AN opponent chooses a ready unit they control".
+// OFFICIAL RULING (07/14/2025): "If there are multiple opponents, the controlling player chooses which
+// one will be 'an opponent.'"
+// ⚠ FILTER to opponents controlling at least one READY unit (taxonomy shape 1 — the chosen player acts on
+// their OWN board): with no ready unit they cannot choose, cannot exhaust anything, and the pick is a
+// choice among nothing. Ready-only, not "has any unit" — an all-exhausted board is just as unable to act.
+// ⚠ THE GATE AND SWUAfterAction MUST STAY OUTSIDE THE PICKER. SWUQueueChooseOpponent queues NOTHING at
+// zero eligible, so an after-action placed in the continuation would never fire and the Action would hang
+// — this is the LeaderAbility_NoReadyUnits_StillUsable path.
+// $parts[0] = caster, $parts[1] = the continuation to run with the picked seat (#2 front / #3 deployed).
+function _SWUCal015Eligible(int $caster): array {
+    global $playerID;
+    $out = [];
+    foreach (OpponentsOf($caster) as $o) {
+        $sp = $playerID; $playerID = $o;
+        foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
+            $u = GetZoneObject($mz);
+            if (!SWUObjGone($u) && intval($u->Status ?? 0) === 1) { $out[] = $o; break; }
+        }
+        $playerID = $sp;
+    }
+    return array_values(array_unique($out));
+}
 
 $customDQHandlers["LOF_015#3"] = function ($player, $parts, $lastDecision) {
   global $playerID;
   $caster = intval($parts[0] ?? $player);
-  $opp = OtherPlayer($caster);
+  $opp = SWUPickedOpponent($lastDecision);
+  if ($opp <= 0 || $opp === $caster) return;
   $playerID = $opp;
   $units = [];
   foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
@@ -61,7 +92,8 @@ $customDQHandlers["LOF_015#1"] = function ($player, $parts, $lastDecision) {
 $customDQHandlers["LOF_015#2"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $caster = intval($parts[0] ?? $player);
-    $opp = OtherPlayer($caster);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === $caster) { SWUAfterAction($caster); return; }
     $playerID = $opp;
     $units = [];
     foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {

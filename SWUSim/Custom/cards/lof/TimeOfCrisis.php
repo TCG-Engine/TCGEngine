@@ -57,7 +57,7 @@ function TimeofCrisisResolve(int $caster, int $myUID, int $oppUID): void
   global $playerID;
   $playerID = $caster;
   $uids = [];
-  foreach ([1, 2] as $pl) {
+  foreach (GetLiveSeatsArray() as $pl) {
     foreach (GetUnitsInPlay($pl) as $u) {
       if (empty($u->removed)) {
         $uid = intval($u->UniqueID ?? -1);

@@ -551,3 +551,107 @@ WithP1GroundArena: SEC_080:1:0
 P2BASEDMG:3
 P1GROUNDARENAUNIT:0:READY
 P1NODECISION
+
+---
+
+# TwinSuns_APS_LooksAtEVERYSeatsDeck
+#// ⚠ THE SEAT-COUNT CELL for the passive half. "Look at the top card of EACH PLAYER'S deck" was written
+#// `for ($deckOwner = 1; $deckOwner <= 2; …)`, so a Thrawn in Twin Suns saw seats 1 and 2 only and was
+#// blind to half the table — on a card whose entire purpose is information.
+#// A four-seat loop back into a fresh action phase must log a peek for all four decks.
+#// ⚠ A 2-player version of this cannot fail: the old literal and GetLiveSeatsArray() are the same list
+#//   at two seats.
+
+## GIVEN
+CommonSetup: gyk/grw
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_128 SOR_128 SOR_128]
+WithP3Deck: [SOR_046 SOR_046 SOR_046]
+WithP4Deck: [SEC_080 SEC_080 SEC_080]
+
+## WHEN
+- P1>Pass
+- P2>Pass
+- P3>Pass
+- P4>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P3>ResourcePass
+- P4>ResourcePass
+
+## EXPECT
+SEATCOUNT:4
+LOGCONTAINS: top of P1
+LOGCONTAINS: top of P2
+LOGCONTAINS: top of P3
+LOGCONTAINS: top of P4
+
+---
+
+# TwinSuns_LeaderAction_PicksWHICHPlayersDeck
+#// ⚠ THE SEAT-COUNT CELL for the ACTION half. "Reveal the top card of ANY player's deck" — you are a
+#// legal pick, so this is an $includeSelf player choice. At two seats it stays the original
+#// "own deck or opponent?" YES/NO (invariant I1: a conversion must not change Premier, and with two
+#// seats that prompt says it better than a two-name menu would). The picker appears only at 3+ seats,
+#// where the YES/NO physically cannot express "seat 3's deck".
+#// Left pending so the MENU is the assertion: every live seat, INCLUDING P1's own.
+
+## GIVEN
+CommonSetup: gyk/grw/{myResources:4}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_128 SOR_128]
+WithP3Deck: [SOR_046 SOR_046]
+WithP4Deck: [SEC_080 SEC_080]
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseLeaderAbility:0
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P1
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONHAS:P4
+
+---
+
+# TwinSuns_LeaderAction_RevealsSeatThreesDeck
+#// The pick driven through: P1 names SEAT THREE's deck, whose top card is SOR_046 Consular Security
+#// Force (cost 4). Anything costing 4 or less may then be exhausted — P1 exhausts its own Battlefield
+#// Marine (cost 2), since "a unit" is unqualified and includes your own board.
+#// ⚠ Seat 3's deck is unreachable for the old YES/NO by construction: it could only ever say "mine" or
+#//   "the one opponent's".
+
+## GIVEN
+CommonSetup: gyk/grw/{myResources:4}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Deck: [SOR_095 SOR_095]
+WithP2Deck: [SOR_128 SOR_128]
+WithP3Deck: [SOR_046 SOR_046]
+WithP4Deck: [SEC_080 SEC_080]
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseLeaderAbility:0
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:EXHAUSTED
+LOGCONTAINS: Thrawn reveals

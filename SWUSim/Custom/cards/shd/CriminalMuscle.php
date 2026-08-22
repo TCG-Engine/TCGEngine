@@ -8,7 +8,7 @@
 $whenPlayedAbilities["SHD_209:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $entries = []; $cids = [];
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (GetUnitsInPlay($p) as $u) {
             if (!empty($u->removed)) continue;
             $huid = intval($u->UniqueID ?? 0);

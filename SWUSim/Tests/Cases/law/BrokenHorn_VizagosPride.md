@@ -210,3 +210,56 @@ P2DECKCOUNT:2
 P1HANDCOUNT:1
 P1RESCOUNT:3
 P1DECKCOUNT:3
+
+---
+
+# TwinSuns_TheTwoComparisonsAreSatisfiedByDIFFERENTOpponents
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 1, DETERMINED). LAW_083 was filed under PROMPT (47) by
+#// the text-based inventory and that was WRONG: "fewer cards in hand than AN opponent" is an EXISTENTIAL
+#// CONDITION, not a target. Nothing downstream needs to know which opponent — you just draw/resource. A
+#// picker here would raise a prompt Premier must never see.
+#//
+#// ⚠⚠ AND IT CARRIES A SECOND, SUBTLER DEFECT THAT ONLY FOUR SEATS EXPOSES: the card has TWO INDEPENDENT
+#// comparisons (hand size, then resource count) and the old code aimed BOTH at the same single
+#// OtherPlayer(). That silently COUPLED two tests which the card states separately — they may legitimately
+#// be satisfied by DIFFERENT opponents, and at two seats that difference cannot exist.
+#//
+#// This section is built precisely on that split:
+#//   • P1 (after playing Broken Horn) holds 1 card and controls 5 resources.
+#//   • SEAT 2 — the seat the old code looked at — holds 0 cards and 4 resources, so it satisfies NEITHER.
+#//   • SEAT 3 holds 3 cards  ⇒ satisfies the HAND clause only.
+#//   • SEAT 4 controls 6 resources ⇒ satisfies the RESOURCE clause only.
+#// Both clauses must therefore fire: P1 draws (hand 1→2, deck 2→1) and resources the top card
+#// (deck 1→0, resources 5→6).
+#// Under the old code seat 2 satisfies neither, so NOTHING happens — hand 1, deck 2, resources 5.
+#// ⚠ A 2-player version CANNOT FAIL, and cannot even express the bug: with one opponent there is only one
+#//   seat for both comparisons to point at. The seat count IS the test.
+#// Mutation check: revert either max() to OtherPlayer() and this reds while all eight 2-player sections
+#// above stay green.
+
+## GIVEN
+CommonSetup: ryk/bgw/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Resources: 5
+WithP2Resources: 4
+WithP3Resources: 4
+WithP4Resources: 6
+WithP1Hand: [LAW_083 SOR_095]
+WithP1Deck: [SOR_237 SOR_237]
+WithP3Hand: [SOR_095 SOR_237 SEC_080]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1HANDCOUNT:2
+P1DECKCOUNT:0
+P1RESCOUNT:6

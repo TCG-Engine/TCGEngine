@@ -25,7 +25,7 @@ $onAttackAbilities["SEC_014:0"] = function($player, $mzID) {
 $leaderAbilities["SEC_014"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $exh = 0;
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (GetUnitsInPlay($p) as $u) {
             if ($u !== null && empty($u->removed) && intval($u->Status ?? 0) !== 1) $exh++;
         }

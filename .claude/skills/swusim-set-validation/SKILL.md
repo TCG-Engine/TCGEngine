@@ -15,6 +15,12 @@ Run from the repo root: `/Users/mariotorresjr/Documents/GitHub/Karabast-SWU/SWUS
 
 ---
 
+> **★ Before reporting a gap, check `.claude/SWUSim/refs/card-specific-rulings.md`** — the official
+> card-database clarification list (9 sets · 962 cards · 1618 rulings). A clause that looks unimplemented
+> is sometimes a clause the rulings file says resolves differently (or collapses into a keyword), so a
+> "gap" can be a correct implementation of a ruling you have not read. Search by CARD NAME, not by set.
+> ⚠ Preview sets are absent (no HMW/IC27) — for those, say the ruling is unavailable rather than assuming.
+
 ## Why two methods (both are required)
 
 | Check | Catches | Misses on its own |

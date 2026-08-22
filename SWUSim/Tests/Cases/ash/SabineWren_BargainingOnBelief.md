@@ -106,3 +106,43 @@ WithP1Hand: [SOR_095 SOR_237]
 ## EXPECT
 P1GROUNDARENAUNIT:1:SHIELDCOUNT:1
 P1SPACEARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# TwinSuns_PickerOffersOnlyOpponentsWithAUnit
+#// ⚠ THE ELIGIBILITY CELL — added 2026-08-23 (Pass 1, PROMPT). Asserts the MENU; an outcome-only section
+#// cannot pin eligibility (the harness does not validate OPTIONCHOOSE candidates).
+#// "AN opponent gives 2 Advantage tokens to a unit THEY control" — the caster picks which opponent, and
+#// OtherPlayer() picked one silently.
+#// ⚠ FILTER to opponents controlling at least one unit (taxonomy shape 1 — the chosen player acts on their
+#// OWN board): with no unit they cannot act, cannot satisfy "if they do", and cannot grant the Shielded
+#// rider. SEAT 4 controls nothing and must NOT be offered.
+#// ⚠ THE GATE AND SWUAfterAction STAY OUTSIDE THE PICKER. SWUQueueChooseOpponent queues NOTHING at zero
+#//   eligible, so an after-action placed inside the picker's continuation would never fire and the leader
+#//   action would hang. The zero-eligible branch calls SWUAfterAction directly and returns.
+#// Mutation check: drop the $eligible filter and P1OPTIONNOT:P4 reds.
+
+## GIVEN
+CommonSetup: gbw/brk/{myLeader:ASH_006}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Resources: 6
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONNOT:P4
+P1OPTIONNOT:P1

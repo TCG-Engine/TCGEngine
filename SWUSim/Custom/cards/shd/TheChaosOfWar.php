@@ -7,10 +7,13 @@
 $whenPlayedAbilities["SHD_159:0"] = function($player, $mzID = '') {
 // The Chaos of War — deal each player's hand-count to that player's own base.
             DecisionQueueController::CleanupRemovedCards();  // compact the just-played event out of the caster's hand
-            $opp     = OtherPlayer(intval($player));
-            $myHand  = count(GetHand(intval($player)));   // now excludes this event
-            $oppHand = count(GetHand($opp));
-            if ($myHand  > 0) SWUDealDamageToBase($myHand,  intval($player));
-            if ($oppHand > 0) SWUDealDamageToBase($oppHand, $opp);
+            // "EACH player's base", and the amount is read PER SEAT from that seat's own hand — was
+            // the caster + OtherPlayer() only, so seats 3/4 took nothing.
+            // Dealer stated explicitly (3rd arg): this includes SELF-damage to the caster's base, where
+            // the funnel's fallback inference would otherwise credit an opponent.
+            foreach (SWUSeatsInPlayerOrder(intval($player)) as $p) {
+                $n = count(GetHand($p));
+                if ($n > 0) SWUDealDamageToBase($n, $p, intval($player));
+            }
             return;
 };

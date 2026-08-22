@@ -13,15 +13,27 @@ $customDQHandlers["SHD_172#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $amount = intval($parts[0] ?? 0);
     $count  = intval($parts[1] ?? 0);
+    // The seat that PLAYED the card — "their base or a ground unit THEY control" is scoped to that one
+    // player, never to "any enemy". Threaded from the trigger payload; absent ⇒ the single opponent.
+    $playing = intval($parts[2] ?? 0);
+    if ($playing <= 0) $playing = SWUChooseOpponent(intval($player));
     if ($amount <= 0 || $count <= 0) return;
-    $targets = ['theirBase-0'];
+    // ⚠ TWO opposite seat bugs lived in the old pool:
+    //  • 'theirBase-0' is a hand-built RELATIVE mzID whose accessor is a literal `$playerID == 1 ? 2 : 1`,
+    //    so above two seats it named seat 2's base no matter who played the card;
+    //  • ZoneSearch('theirGroundArena') FANS OUT across every opponent in Twin Suns, so the menu offered
+    //    bystanders' units. That one is the sweep's inverse defect — the pool GREW, so nothing looked
+    //    broken and every existing test stayed green.
+    $baseMz  = ($playing === intval($player)) ? 'myBase-0' : SWUForeignMzID(intval($player), $playing, 'Base', 0);
+    $targets = [$baseMz];
     foreach (ZoneSearch('theirGroundArena', AnyUnitFilter) as $mz) {
+        if (SWUMzOwner($mz, intval($player)) !== $playing) continue;   // only the PLAYING player's units
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed)) $targets[] = $mz;
     }
     SWUQueueMayChooseTarget(intval($player), $targets,
         "Deal_{$amount}_to_their_base_or_a_ground_unit?",
-        "Deal_{$amount}_to_their_base_or_a_ground_unit_they_control", "SHD_172#1|{$amount}|{$count}");
+        "Deal_{$amount}_to_their_base_or_a_ground_unit_they_control", "SHD_172#1|{$amount}|{$count}|{$playing}");
 };
 
 // Resolve one Krayt's may-deal (DEAL_TARGET logic inline), then loop for the remaining count.
@@ -31,7 +43,9 @@ $customDQHandlers["SHD_172#1"] = function($player, $parts, $lastDecision) {
     $count  = intval($parts[1] ?? 0);
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS' && $amount > 0) {
         if (strpos($lastDecision, 'Base') !== false) {
-            $tp = (strpos($lastDecision, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+            // Was GetOpponent() — NULL above seat 2, and seat 1's base for a far-seat reactor. The base's
+            // own mzID names its owner in every format, so read it off that rather than guessing.
+            $tp = SWUMzOwner($lastDecision, intval($player));
             SWUDealDamageToBase($amount, $tp);
         } else {
             SWUDealDamageToUnit($lastDecision, $amount, intval($player));

@@ -308,6 +308,41 @@ Action: Play a Villainy unit from your resources, ignoring its Villainy aspect p
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_018' => 
+  array (
+    'title' => 'The Warrior',
+    'subtitle' => 'Deft Duelist',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 3,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tusken',
+    ),
+    'text' => 'Action [1 resource, Exhaust]: Play a unit with 3 or less power from your hand (paying its cost) and give it Ambush for this phase.',
+    'epicAction' => 'Epic Action: If you control 5 or more resources, deploy this leader.',
+    'deployText' => 'Ambush (When you play this leader, she may immediately attack an enemy unit.)
+Raid 1 (This unit gets +1/+0 while attacking.)',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/018.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/018-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_019' => 
   array (
     'title' => 'Dune Sea',
@@ -2056,6 +2091,32 @@ When a non-leader ground unit enters play (including token units): You may defea
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/177.png',
     'imageUrlBack' => '',
   ),
+  'HMW_180' => 
+  array (
+    'title' => 'Stormchaser',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 3,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tusken',
+    ),
+    'text' => 'When Played: You may reveal a Disaster card from your hand. If you do or if there\'s a Disaster card in your discard pile, draw a card.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/180.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_188' => 
   array (
     'title' => 'Giant Gorax',
@@ -2285,6 +2346,91 @@ On Attack: This unit gains Sentinel for this phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/210.png',
     'imageUrlBack' => '',
   ),
+  'HMW_212' => 
+  array (
+    'title' => 'The Chieftain',
+    'subtitle' => 'Here Since the Oceans Dried',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 2,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tusken',
+    ),
+    'text' => 'This unit gains Raid 1 for each other friendly Tusken unit.
+While a friendly Tusken unit is defending, it gets +1/+0 for each Raid it has.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/212.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_221' => 
+  array (
+    'title' => 'Teeka',
+    'subtitle' => 'You\'re In Luck',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 2,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Jawa',
+    ),
+    'text' => 'When Played: Choose one:
+
+• Give a unit Sentinel for this phase.
+
+• A unit loses Sentinel for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/221.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_222' => 
+  array (
+    'title' => 'Sandcrawler Sales Team',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 3,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Jawa',
+    ),
+    'text' => 'Saboteur (When this unit attacks, ignore Sentinel and defeat the defender\'s Shields.)
+When Played: If you control a Tatooine base, you may return an upgrade that costs 3 or less to its owner\'s hand.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/222.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_223' => 
   array (
     'title' => 'Therm Scissorpunch',
@@ -2309,6 +2455,33 @@ On Attack: This unit gains Sentinel for this phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/223.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_230' => 
+  array (
+    'title' => 'Raiding Party',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 0,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tusken',
+    ),
+    'text' => 'Raid 6 (This unit gets +6/+0 while attacking.)
+When Played: If you control another Tusken unit or a Tatooine base, you may exhaust a ground unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/230.png',
     'imageUrlBack' => '',
   ),
   'HMW_234' => 
@@ -2336,6 +2509,31 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/234.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_240' => 
+  array (
+    'title' => 'Sandstorm',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 3,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Disaster',
+    ),
+    'text' => 'While you control a Tatooine base, this event costs [1 resource] less to play.
+Choose an arena, Give a Weakness token to each exhausted enemy unit in that arena.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/240.png',
     'imageUrlBack' => '',
   ),
   'HMW_255' => 
@@ -2389,6 +2587,31 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/257.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_268' => 
+  array (
+    'title' => 'Offworld Jawa',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 2,
+    'hp' => 1,
+    'aspect' => 
+    array (
+    ),
+    'trait' => 
+    array (
+      0 => 'Jawa',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/268.png',
     'imageUrlBack' => '',
   ),
   'HMW_272' => 

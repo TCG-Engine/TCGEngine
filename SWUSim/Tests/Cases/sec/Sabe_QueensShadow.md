@@ -273,3 +273,59 @@ P2DISCARDCOUNT:2
 P2HANDCOUNT:3
 P2DECKCOUNT:0
 P1LEADER:DEPLOYED
+
+---
+
+# TwinSuns_Deployed_LooksAtTheDEFENDINGSeatsHand
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 during the "an opponent" sweep. SEC_017 is DETERMINED:
+#// "the defending player" is named by the BOARD, so it must NEVER prompt. Three defects above two seats,
+#// all from the same root cause — CollectCombatStep1Triggers hands On-Attack/base-hit triggers the
+#// ATTACKER's mzID and never the defender's, so the handler could not learn who was defending:
+#//   • the deployed side called SWULookAtOpponentHand() with NO seat, so it read the single opponent's
+#//     hand — a player not in the combat (and seat 1 for any far-seat attacker);
+#//   • SEC_017#2 discarded from, and drew for, OtherPlayer() rather than the card's real owner;
+#//   • the leader FRONT milled OtherPlayer()'s deck, under a comment that asserted the bug as fact
+#//     ("the defending player is the opponent of the attacking (active) player").
+#// Fixed by SWU_CURRENT_DEFENDING_SEAT / SWUCurrentDefendingSeat(), plus the new ?int $opp on
+#// SWULookAtOpponentHand.
+#// Here deployed Sabé attacks SEAT 3's base. SEAT 3's hand must be the one read and discarded from, and
+#// SEAT 3 draws the replacement. Seats 2 and 4 must be untouched — seat 2 is what the old code hit.
+#// ⚠ Above two seats the offered mzIDs are p3Hand-N, NOT theirHand-N. That form is REQUIRED, not
+#//   cosmetic: the transport's hidden-zone reveal refuses to guess a seat from "their", so a legacy
+#//   theirHand param renders the row as CARD BACKS and the player picks blind (see
+#//   DevTools/tests/twinsuns_hidden_zone_reveal_test.php).
+#// ⚠ A 2-player version CANNOT FAIL — with one opponent, OtherPlayer() IS the defending player. The
+#//   seat count IS the test, and the defender must be a FAR seat (3 or 4), never seat 2.
+#// Mutation check: revert any of the three sites to OtherPlayer() and this reds while every 2-player
+#// section above stays green.
+
+## GIVEN
+CommonSetup: gbk/brk/{myLeader:SEC_017:1:1:1}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP2Hand: [SOR_095 SOR_141]
+WithP3Hand: [SOR_126 SOR_095 SOR_141]
+WithP3Deck: [SOR_045]
+WithP4Hand: [SOR_095]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>AttackGroundArena:0:P3B
+- P1>AnswerDecision:p3Hand-0
+
+## EXPECT
+SEATCOUNT:4
+P3BASEDMG:4
+P3DISCARDCOUNT:1
+P3HANDCOUNT:3
+P3DECKCOUNT:0
+P2HANDCOUNT:2
+P2DISCARDCOUNT:0
+P4HANDCOUNT:1
+P4DISCARDCOUNT:0
+P1LEADER:DEPLOYED

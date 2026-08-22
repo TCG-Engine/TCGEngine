@@ -118,3 +118,40 @@ P1HASDECISION
 P2GROUNDARENAUNIT:1:EXHAUSTED
 P2GROUNDARENAUNIT:2:ISLEADERUNIT
 P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1&theirGroundArena-2&theirSpaceArena-0
+
+---
+
+# TwinSuns_ITSControllerDiscards_AndNobodyIsAsked
+#// ⚠ THE OTHER HALF OF THE TWIN SUNS CLASSIFICATION, and the sharpest section of the discard sweep:
+#// "ITS CONTROLLER discards a card" is DETERMINED by the board — the controller of the unit you just
+#// exhausted — so there must be NO opponent picker. Adding one here would be its own bug.
+#// But the seat still has to be READ rather than assumed: the call was untargeted, i.e.
+#// OtherPlayer($player), so exhausting a SEAT-3 unit made SEAT 2 discard.
+#// P1 exhausts seat 3's Battlefield Marine (cost 2, ≤3): seat 3 discards, seat 2 keeps both cards, and
+#// P1 is never asked which opponent.
+#// ⚠ Seat 2 must ALSO hold cards — otherwise "seat 2 didn't discard" proves nothing.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:6}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: LAW_075
+WithP2Hand: [SOR_095 SOR_046]
+WithP3Hand: [SOR_095 SOR_046]
+WithP3GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p3GroundArena-0
+- P3>AnswerDecision:myHand-0
+
+## EXPECT
+SEATCOUNT:4
+P3GROUNDARENAUNIT:0:EXHAUSTED
+P3HANDCOUNT:1
+P2HANDCOUNT:2
+P1NODECISION

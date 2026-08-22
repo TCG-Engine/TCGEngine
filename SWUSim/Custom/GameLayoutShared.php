@@ -1680,10 +1680,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (mzid) {
                     var parts = mzid.split('-');
                     var idx = parts[parts.length - 1];
+                    // Twin Suns: the rendered mzID already names the pile ("p3Discard-4"), so the seat
+                    // is read off the zone prefix rather than needing a new data attribute. 2-player
+                    // renders "theirDiscard-4" and keeps the seatless token byte-identical.
+                    var seatM = /^p(\d+)Discard$/.exec(parts[0] || '');
                     e.stopPropagation();
                     e.preventDefault();
                     if (owner === 'opp') {
-                        SubmitInput('10001', '&cardID=' + encodeURIComponent('PlayFromOpponentDiscard-' + idx + '!CustomInput!'));
+                        var tok = seatM ? ('PlayFromOpponentDiscard-' + seatM[1] + '-' + idx)
+                                        : ('PlayFromOpponentDiscard-' + idx);
+                        SubmitInput('10001', '&cardID=' + encodeURIComponent(tok + '!CustomInput!'));
                     } else {
                         SubmitInput('10001', '&cardID=' + encodeURIComponent('PlayFromDiscard-' + idx + '!CustomInput!'));
                     }
@@ -2900,7 +2906,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 el.classList.remove('discard-playable');
             });
             (d.opponentPlayableDiscards || []).forEach(function(entry) {
-                var el = document.getElementById('theirDiscard-' + entry.idx);
+                // Twin Suns: the entry names its pile's seat, so glow p{n}Discard-N. Without an owner
+                // (2-player, and any pre-sweep payload) fall back to theirDiscard-N unchanged.
+                var el = (entry.owner ? document.getElementById('p' + entry.owner + 'Discard-' + entry.idx) : null)
+                      || document.getElementById('theirDiscard-' + entry.idx);
                 if (el) el.classList.add('discard-playable');
             });
         }

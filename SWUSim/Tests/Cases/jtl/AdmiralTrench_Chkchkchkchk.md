@@ -384,3 +384,44 @@ P1DISCARDCOUNT:0
 P1DECKCOUNT:1
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# TwinSuns_OneSeatThreadedThroughBOTHTempZoneSites
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. "Reveal the top 4 of your deck. AN OPPONENT discards 2 of
+#// them." OtherPlayer() named the seat, and did so at TWO INDEPENDENT SITES.
+#// ⚠⚠ THE TWO-SITE HAZARD: #1 STAGES the revealed cards into that seat's TempZone and #2 DRAINS it.
+#// Re-deriving the seat separately in each — which is what OtherPlayer() did — means fixing only one
+#// strands 4 revealed cards permanently in the OTHER seat's TempZone. That zone has no board slot, so the
+#// leak is invisible except through P#TEMPZONECOUNT. The seat is now picked ONCE and threaded through both.
+#// ⚠ NO $eligible filter: the chosen opponent only picks 2 of YOUR revealed cards — nothing about their
+#//   own board can make them unable to choose.
+#// SEAT 3 is picked and must own the discard decision; seat 2 must have none, and NO seat may be left
+#// holding staged cards.
+#// ⚠ FIXTURE: the leader must be UNDEPLOYED and deployed via `P1>DeployLeader` — the When Deployed
+#//   trigger fires on the deploy ACTION, so seeding it already-deployed raises nothing at all.
+#//   Needs 6 resources (the non-epic deploy costs 3 and gates on controlling 6).
+#// Mutation check: revert either site to OtherPlayer() and the TempZone counts diverge.
+
+## GIVEN
+CommonSetup: gyk/bbk/{myLeader:JTL_014;myBase:JTL_022}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 6
+WithP1Deck: [SOR_095 SOR_237 SEC_080 SOR_225]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P3HASDECISION
+P2NODECISION
+P2TEMPZONECOUNT:0
+P4TEMPZONECOUNT:0

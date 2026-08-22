@@ -408,3 +408,48 @@ P1DISCARDCOUNT:3
 P1HANDCOUNT:0
 P1BASEDMG:9
 P1LEADER:DEPLOYED
+
+---
+
+# TwinSuns_TheCHOSENOpponentTakesControl
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 1, PROMPT). Front Action: "Choose a friendly unit. AN
+#// OPPONENT takes control of it." OtherPlayer() handed the unit to one fixed seat, so the caster could
+#// never choose who to arm — and above two seats it could gift a unit to a player they had no quarrel with.
+#// ⚠ NO $eligible filter: every live opponent can receive a unit. In particular do NOT filter by
+#// "opponents who CAN take control" — LAW_149 Rey's "opponents can't take control of this unit" blocks
+#// ALL opponents equally, so it shrinks the menu by nothing and fails the whole transfer instead. The
+#// correct four-seat behaviour is to still show the menu and still produce no Credit whoever is named
+#// (pinned separately by FrontControlBlockedByRey_NoCredit).
+#// ⚠ ORDER: the opponent picker is queued in the LEADER ABILITY, ahead of SWUQueueAfterAction, so the whole
+#//   chain resolves inside the action. At two seats it is an invisible PASSPARAMETER, so Premier's prompt
+#//   sequence is byte-identical.
+#// P1 gives their Battlefield Marine to SEAT 3. It must leave P1's arena and appear on SEAT 3's board —
+#// not seat 2's, which is where the old code sent it — and P1 gets the Credit.
+#// ⚠ A 2-player version CANNOT FAIL — one opponent means no choice to get wrong.
+#// ⚠ FIXTURE: the leader must be UNDEPLOYED (`myLeader:LAW_002`, no :1:1:1) — the front Action is only
+#//   available off the leader card, and a deployed Tobias also puts a second unit in P1's arena.
+#// Mutation check: revert to OtherPlayer() and this reds.
+
+## GIVEN
+CommonSetup: yyw/grw/{myLeader:LAW_002;myBase:SOR_028}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:0
+P3GROUNDARENACOUNT:1
+P3GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENACOUNT:0

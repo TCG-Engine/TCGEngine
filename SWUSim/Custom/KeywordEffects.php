@@ -70,8 +70,10 @@ function SWUKeywordSuppressed($obj, string $keyword): bool {
     // ASH_068 Domesticated Loth-Cat — "Enemy units lose Ambush and Support." Field-presence suppression:
     // a unit's AMBUSH/SUPPORT is suppressed while an OPPONENT controls a Loth-Cat.
     if (($keyword === 'AMBUSH' || $keyword === 'SUPPORT') && is_object($obj)) {
-        $loth_opp = GetOpponent(intval($obj->Controller ?? 0));
-        if ($loth_opp > 0 && _SWUCountActiveUnitsWithCardID($loth_opp, 'ASH_068') > 0) return true;
+        // ⚠ ANY opponent's Loth-Cat suppresses — was GetOpponent(), i.e. one seat and NULL above seat 2.
+        foreach (OpponentsOf(intval($obj->Controller ?? 0)) as $loth_opp) {
+            if (_SWUCountActiveUnitsWithCardID($loth_opp, 'ASH_068') > 0) return true;
+        }
     }
     return false;   // the explicit $keywordSuppressors pass already ran at the top of this function
 }
@@ -86,7 +88,7 @@ function SWUKeywordSuppressed($obj, string $keyword): bool {
 // constant ability makes each leader lose all abilities except epic actions, so leader ability loss is
 // checked field-wide. Printed Ground, but scan both arenas in case it's moved.
 function _SWUBrainInvadersInPlay(): bool {
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (array_merge(GetGroundArena($p), GetSpaceArena($p)) as $u) {
             if ($u !== null && empty($u->removed) && ($u->CardID ?? '') === 'TWI_255') return true;
         }
@@ -771,9 +773,10 @@ function HasConditionalKeyword_Saboteur($obj) {
 
     // TWI_010 Pre Vizsla (deployed) — "While you have 3 or more cards in your hand, this unit gains Saboteur."
     if (($obj->CardID ?? '') === 'TWI_010' && IsLeaderUnit($obj) && count(GetHand(intval($obj->Controller ?? 0))) >= 3) return true;
-    // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." A unit gains it while an opponent of
-    // its controller controls a LAW_233.
-    if (_SWUCountUnitsWithCardID(OtherPlayer(intval($obj->Controller ?? 0)), 'LAW_233') > 0) return true;
+    // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." A unit gains it while ANY opponent of
+    // its controller controls an ability-active LAW_233 (was OtherPlayer(): one seat, so a Galen on any
+    // seat but 1 granted nothing to anybody above two seats).
+    if (_SWUAnyOpponentControlsActive(intval($obj->Controller ?? 0), 'LAW_233')) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SABOTEUR')) return true;
     if (_SWULof191HasBuff($obj)) return true; // LOF_191 BD-1: chosen unit gains Saboteur while BD-1 in play
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gains Saboteur."
@@ -965,7 +968,7 @@ function HasConditionalKeyword_Sentinel($obj) {
                           // "While YOUR base has 15 or more damage on it". Both readings are live in
                           // this engine, so scoping this one to the controller is the easy wrong answer.
                           // Recomputed on every read, so healing the base back under 15 removes it.
-            foreach ([1, 2] as $p074) {
+            foreach (GetLiveSeatsArray() as $p074) {
                 foreach (GetBase($p074) as $b074) {
                     if (empty($b074->removed) && intval($b074->Damage ?? 0) >= 15) return true;
                 }
@@ -1211,8 +1214,9 @@ function GetConditionalKeyword_Raid_Value($obj) {
         }
     }
     if (_SWUSEC104AuraActive($obj)) $amount += 1;   // SEC_104 aura — Raid 1
-    // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." (Raid half.)
-    if (_SWUCountUnitsWithCardID(OtherPlayer(intval($obj->Controller ?? 0)), 'LAW_233') > 0) $amount += 1;
+    // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." (Raid half.) Boolean, not a count:
+    // the grant is "Raid 1", so two enemy Galens still grant Raid 1, not Raid 2.
+    if (_SWUAnyOpponentControlsActive(intval($obj->Controller ?? 0), 'LAW_233')) $amount += 1;
     // SEC_140 Hondo Ohnaka — each OTHER friendly unit gains Raid 1.
     // SEC_099 Naboo Royal Starship — each friendly LEADER unit gains Raid 2.
     foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
@@ -1238,12 +1242,27 @@ function GetConditionalKeyword_Raid_Value($obj) {
         }
     }
     // SEC_010 Dedra Meero (deployed) — Raid 2 while you have more cards in hand than an opponent.
+    // ⚠ MISSED BY THE FIRST PASS (found 2026-08-24 by the card-specific-rulings retro sweep). SEC_010's
+    // FRONT side was converted, but this DEPLOYED gate lives in KeywordEffects.php and still asked one
+    // seat — a leader is not done until BOTH sides clear independently (§5 checklist item 4).
+    // OFFICIAL RULING (10/31/2025): "If there are multiple opponents, the controlling player chooses which
+    // one will be 'an opponent.'" The gate is strictly beneficial and the chosen opponent is never
+    // referenced again, so the controller's optimal choice is always "the opponent with the FEWEST cards"
+    // — auto-resolved here rather than prompted (invariant I2: never raise a prompt whose answer is
+    // forced). Prompting would add a click to every Raid recalculation, which happens constantly.
+    // ⚠ NOTE THE DIRECTION: this is "MORE than an opponent", so it compares against the MINIMUM hand.
+    // Its sibling LAW_083 is "FEWER than an opponent" and compares against the MAXIMUM. Getting the
+    // quantifier backwards silently inverts the card.
     if (($obj->CardID ?? '') === 'SEC_010') {
         $dctrl = intval($obj->Controller ?? 0);
         if ($dctrl > 0) {
             $myH = 0; foreach (GetHand($dctrl) as $h) if (empty($h->removed)) $myH++;
-            $opH = 0; foreach (GetHand(OtherPlayer($dctrl)) as $h) if (empty($h->removed)) $opH++;
-            if ($myH > $opH) $amount += 2;
+            $minOpH = null;
+            foreach (OpponentsOf($dctrl) as $dopp) {
+                $c = 0; foreach (GetHand($dopp) as $h) if (empty($h->removed)) $c++;
+                if ($minOpH === null || $c < $minOpH) $minOpH = $c;
+            }
+            if ($minOpH !== null && $myH > $minOpH) $amount += 2;
         }
     }
     switch ($obj->CardID) {

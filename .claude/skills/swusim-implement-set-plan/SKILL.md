@@ -7,6 +7,19 @@ description: Use when the user wants to drive a whole multi-batch SWUSim impleme
 
 Thin orchestrator: drive a multi-batch implementation **plan doc** to completion by looping `swusim-implement-card` per batch, keeping the plan + set tracker current, and folding a retro into the card skill at two checkpoints — the autonomous→pair-programmed handoff and the end of the run. The plan doc (e.g. `docs/<set>-complex-plan.md`) is the source of truth for *what* to build and in *what order*; this skill is the loop that runs it. It writes no card logic itself — `swusim-implement-card` does that. Keep in mind the 98% confidence rule established in the `swusim-implement-card` skill itself. This is per card. Not per batch. **For leaders it is also per *side*:** the leader (front) side AND the leader unit (deployed `deployTextData`) side are separate ability sets that must *each* independently clear 98% — a leader with a finished front Action but an unimplemented deployed On Attack / When Deployed / passive / deployed Action is **not** Done (the ASH/LOF deployed-side gaps in `SWUSim/docs/leader-gaps.md` are exactly this miss). Don't mark a leader done on its front side alone.
 
+> **★ CARD RULINGS — read before implementing any card from a RELEASED set.**
+> `.claude/SWUSim/refs/card-specific-rulings.md` is the official card-database clarification list
+> (9 sets · 962 cards · 1618 rulings). It settles the questions printed text leaves open and **frequently
+> contradicts the obvious reading**, so a batch implemented without consulting it will encode plausible
+> guesses. `swusim-implement-card` (which this plan drives) makes it the FIRST of its four self-review
+> sources; that applies to every card in every batch here.
+> - Search by CARD NAME (`### <Name>` / `### <Name> - <Subtitle>`), never by set — reprints are filed
+>   under the set whose ruling issued them.
+> - ⚠ A phrase repeated across many cards is a **KEYWORD** rule, not a per-card exception — implement it
+>   once in the keyword and the whole batch benefits.
+> - ⚠ **PREVIEW SETS ARE ABSENT** (no HMW/IC27), which is exactly the `--iterative` preview case: reason
+>   from the CR + the closest released analogue and FLAG the assumption in the per-card summary.
+
 ## Modes — default (batch, autonomous) vs `--iterative` (one card per pass)
 
 **Default:** the loop unit is a **batch**, the user gives ONE "go", and the run proceeds unattended
@@ -84,6 +97,10 @@ Lay the contract out so the user can confirm or amend it ONCE, then run the whol
 > - proceed through the in-scope batches/phases without pausing for per-batch review;
 > - hold every card to the **98% bar and the full coverage matrix** in `swusim-implement-card` — for each clause: positive, the NEGATIVE that proves the gate is load-bearing, take/decline, no-valid-target, quantity discrimination, boundary; and per card: the dispatch-path matrix (played / as an upgrade / as a token / put into play by another card / relocated / leader front vs deployed), value-CLASS variants, persistence across arena-move + control-change + request boundary, duration edges, interaction with shields/immunity/unpreventable/Credit payment, and scope exclusions. **Expect several times more sections per card than a happy-path pass would produce** — that is the point, and it is what stops a later validation pass from finding untested behavior;
 > - run the retro (`references/swu-impl-retro.txt`) at **two checkpoints only** — when the **autonomous phases** are all done (the handoff into pair-programming) and again at the **end of the pair-programmed phases** — folding approved lessons into `swusim-implement-card` myself (no review);
+> - treat **every card as a 3–4 seat card** — Twin Suns is live. Classify each player reference in the
+>   printed text before coding ("an opponent"/"a player" = a PROMPT · "each opponent/player" = a LOOP over
+>   live seats · "that player"/"its controller" = already DETERMINED, no prompt), never hand-roll `[1,2]`
+>   or `OtherPlayer()`, and give every affected card **one section that cannot pass at two seats**;
 > - hold every card to the **measured section floor** in `swusim-implement-card` (1 clause → 4 sections, 2 → 7, 3 → 10, 4+ → 12; per SIDE for leaders) and write the one-line `COVERAGE:` ledger in each new test file. The floor is a trip-wire: under it, a matrix cell was skipped. For calibration, JTL/LOF average 3.9 sections/card and 42% of their files have ≤2 — both sets then needed a validate-port that found ~8 engine bugs each;
 > - **defer rather than halt:** when I hit a Hard-tier card, an ambiguous ruling the dictionary/CR can't settle, or a self-contained design fork, I **park it in a deferral backlog and keep running the rest of the scope fully autonomously** — I do NOT stop the whole run to ask. I surface the collected backlog at the next retro checkpoint for us to clear together. The ONLY things that halt the run mid-stream are a blocker the *rest of the scope genuinely depends on* (e.g. new shared infrastructure other in-scope cards need) or being stuck too long on one card;
 > - never commit (you commit manually); never run host PHP (regression only via the curl endpoint);
@@ -160,6 +177,7 @@ When the scope is complete, report **start → end regression counts**, the phas
 | Running ahead in `--iterative` mode — implementing the next card before the user has reviewed the last | The whole point of the mode is that a review can change how the NEXT card is built. Stop means stop: update both docs, hand off, wait. Batching "just two, they're both simple" defeats it. |
 | Dropping the quality bar because `--iterative` feels lighter | One card per pass is about REVIEW GRANULARITY, not scope reduction. Same 98% bar, same coverage matrix, same section floor, same `COVERAGE:` ledger, same green gate — per card. |
 | Losing your place in an `--iterative` run across a session boundary | The resume point is the plan doc + the tracker's `### Already Done` line, updated BEFORE each hand-off. On a cold start recompute the remaining list from the `CardMocks.php` diff — never trust a batch checkbox on a preview set. |
+| Shipping a card that only works at TWO SEATS | Twin Suns is live, so this is a correctness bug, not future work. `OtherPlayer()` is `$player === 1 ? 2 : 1` — at four seats it answers 2 for seat 1 and **1 for everyone else** (the reported "Cad Bane's ping always went to Player 1"). Read the text and classify: "**an** opponent"/"**a** player" = a PROMPT (`SWUQueueChooseOpponent`, `$includeSelf` for "a player"); "**each** opponent/player" = a LOOP (`OpponentsOf` / `GetLiveSeatsArray`); "**that** player"/"**its controller**" = already DETERMINED — adding a prompt there is its own bug. ⚠ A green suite proves only that PREMIER did not regress; require one section that **cannot pass at two seats** and mutate by reverting to `OtherPlayer()`. ⚠ `CommonSetup` builds seats 1–2 ONLY — far-seat units need `WithP{n}GroundArena` and far-seat BASES need `WithP3Base`/`WithP4Base`, or the fixture fault reads exactly like an engine bug. Full plan + inventory: `SWUSim/docs/twinsuns-opponent-choice-plan.md`. See `swusim-implement-card` → "TWIN SUNS IS LIVE". |
 | Committing at the end | Never. The user commits manually. |
 | Marking a batch done while regression is red | Green-gate every batch; `0 failed` or it's not done. |
 | Halting the whole run on a Hard / ambiguous card | **Defer it to the backlog and keep going** (Step 5). Only halt for a blocker the rest of the scope depends on, or being stuck. Surface the backlog at the checkpoints. |

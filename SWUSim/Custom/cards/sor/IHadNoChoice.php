@@ -28,10 +28,28 @@ $customDQHandlers["SOR_187#0"] = function($player, $parts, $lastDecision) {
     }
     // 2 units: the opponent chooses which returns to hand. Resolve the two under the opponent's
     // perspective and queue an MZCHOOSE answered by them; leave $playerID = opponent for MZCountChoices.
-    $opp = OtherPlayer($caster);
+    // "AN OPPONENT chooses 1 of those units" — the caster picks WHICH opponent decides.
+    // OFFICIAL RULING (03/01/2024): "If there are multiple opponents, the controlling player chooses which
+    // one will be 'an opponent.'"
+    // ⚠ NO $eligible filter: the chosen opponent is only being asked to pick between two units that are
+    // already on the table — nothing about their own board can make them unable to choose (taxonomy
+    // shape 3, the same as LOF_065 Watto).
+    // ⚠ Handler named #2 — #0 and #1 are already taken in this file.
+    SWUQueueChooseOpponent($caster, "SOR_187#2|{$caster}|{$uids[0]}|{$uids[1]}",
+        "Choose_an_opponent_to_decide_which_unit_is_saved");
+};
+
+$customDQHandlers["SOR_187#2"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster = intval($parts[0] ?? $player);
+    $uidA   = intval($parts[1] ?? 0);
+    $uidB   = intval($parts[2] ?? 0);
+    $opp    = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === $caster) return;
     $playerID = $opp;
-    $mzA = SWUFindMzByUID($uids[0]);
-    $mzB = SWUFindMzByUID($uids[1]);
+    $mzA = SWUFindMzByUID($uidA);
+    $mzB = SWUFindMzByUID($uidB);
+    $uids = [$uidA, $uidB];
     if ($mzA === null || $mzB === null) {           // one vanished → bounce whatever remains, no choice
         $playerID = $caster;
         foreach ($uids as $u) { $m = SWUFindMzByUID($u); if ($m !== null) SWUBounceUnit($caster, $m); }

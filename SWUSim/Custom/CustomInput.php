@@ -203,7 +203,14 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             break;
         case 'PlayFromOpponentDiscard':
             SaveUndoVersion($playerID);
-            SWUPlayFromOpponentDiscard(intval($playerID), intval($cardArr[1]));
+            // Twin Suns: "PlayFromOpponentDiscard-<seat>-<idx>" names WHOSE pile. The 2-player form
+            // "PlayFromOpponentDiscard-<idx>" is still accepted verbatim (I1) and resolves to the one
+            // opponent. Without the seat, a permission on a far seat's pile was unreachable by anyone.
+            if (count($cardArr) > 2 && $cardArr[2] !== '') {
+                SWUPlayFromOpponentDiscard(intval($playerID), intval($cardArr[2]), intval($cardArr[1]));
+            } else {
+                SWUPlayFromOpponentDiscard(intval($playerID), intval($cardArr[1]));
+            }
             break;
       case "GfPractice":
         // Goldfish practice "god-mode" actions (⚗ Practice menu). All act on the human's own

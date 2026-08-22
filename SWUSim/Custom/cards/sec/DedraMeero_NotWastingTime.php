@@ -29,8 +29,15 @@ $customDQHandlers["SEC_010#0"] = function($player, $parts, $lastDecision) {
     $o  = ($mz !== '' && str_contains($mz, '-')) ? GetZoneObject($mz) : null;
     if (SWUObjGone($o)) { SWUAfterAction(intval($player)); return; }
     $uid = intval($o->UniqueID ?? 0);
-    $opp = OtherPlayer(intval($player));
-    $playerID = $opp;   // the opponent owns the next decision
+    // "ITS CONTROLLER" — determined by the unit the caster already chose, never a separate choice.
+    // Read it off the chosen mzID (p{n}… above two seats; "their…" at two, where SWUMzOwner falls
+    // through to the single opponent and is byte-identical).
+    // ⚠ Adding a picker here would ask a question the card does not ask, and would let the caster route
+    // the YES/NO to a player who does not control the unit. OtherPlayer() sent it to one fixed seat, so
+    // above two seats the wrong player was asked to damage a unit that is not theirs.
+    $opp = SWUMzOwner($mz, intval($player));
+    if ($opp <= 0 || $opp === intval($player)) { SWUAfterAction(intval($player)); return; }
+    $playerID = $opp;   // the unit's controller owns the next decision
     DecisionQueueController::AddDecision($opp, 'YESNO', '-', 1, tooltip: "Deal_2_damage_to_your_own_unit?");
     DecisionQueueController::AddDecision($opp, 'CUSTOM', "SEC_010#1|" . intval($player) . "|{$uid}", 1);
 };
