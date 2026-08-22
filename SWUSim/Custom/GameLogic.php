@@ -7810,6 +7810,12 @@ function SWUAfterAction($player) {
     SetSWUVar('GAME_IS_PRIVATE', SWUGameIsPrivate('SWUSim', strval($GLOBALS['gameName'] ?? '')) ? 'true' : 'false');
     SetSWUVar('GAME_SEAT_COUNT', strval(SeatCountForGame()));
     SetSWUVar('SWU_DMG_SRC', ''); // clear the ability-damage source context at the action boundary (TWI_016)
+    // HMW_011 Darth Sidious — close his "was deployed during THIS action" observation window. It is set
+    // the first time a damage instance in this action finds him deployed, and lets every LATER instance
+    // in the same batch still see him after that batch has defeated him (ASH_151 Operation Cinder deals
+    // 5 to each unit, killing a 4/5 deployed Sidious partway through its own loop). Cleared here so a
+    // dead Sidious never observes a subsequent action.
+    unset($GLOBALS['gHmw011DeployedThisAction']);
     // Close the per-attack identity window. SWU_CURRENT_ATTACKER_UID is what lets a mid-attack ABILITY
     // defeat of the attacker count as "defeated while attacking"; leaving it set would make a later,
     // unrelated defeat of that same unit this phase look like one too.
@@ -11697,6 +11703,8 @@ function SWUDealDamageToUnit(string $unitMzID, int $amount, int $player, ?string
         // JTL_009 Boba Fett — effect damage to a unit is always non-combat (combat damage to units never
         // routes through this funnel; it modifies Damage directly in SWUCombatDamage).
         if ($amount > 0) _SWUCollectBobaNonCombatReaction(intval($player));
+        // HMW_011 Darth Sidious — "when you deal 4 or more damage to a unit or a base", per INSTANCE.
+        if ($amount > 0) _SWUCollectHmw011Threshold(intval($player), intval($amount), 'U' . intval($unit->UniqueID ?? 0));
         // "When damage is dealt to this unit" reactions. Call even when this damage defeated the unit —
         // SEC_143 fires regardless (no "survives" clause); the $survived flag gates the survival-only ones.
         if ($amount > 0) _SWUOnUnitDamaged($unit, intval($amount), false, empty($unit->removed));
@@ -11793,6 +11801,13 @@ function _SWUApplySplitHits(int $player, array $hits): void {
     // non-combat damage" reaction ONCE for the whole simultaneous event (JTL_009 Boba Fett). The
     // SWU_BOBA_009_PENDING guard inside the collector dedupes multi-target hits to a single offer.
     if ($dealtAny) _SWUCollectBobaNonCombatReaction(intval($player));
+    // HMW_011 Darth Sidious — PER HIT, never the event total: "a unit" is singular, so a 4 divided as
+    // 2+2 triggers nothing while a single 4-damage share does. (User ruling 2026-08-21.)
+    foreach ($hits as $h) {
+        if (intval($h['amount'] ?? 0) > 0) {
+            _SWUCollectHmw011Threshold(intval($player), intval($h['amount']), 'U' . intval($h['uid'] ?? 0));
+        }
+    }
     $playerID = $saved;
 }
 
@@ -12071,6 +12086,10 @@ function SWUApplyIndirectAssignment(int $controller, int $damagedPlayer, string 
         if ($obs === null) $obs = $h['obj'] ?? null;   // defeated: still observe, with $survived = false
         if ($obs === null) continue;
         _SWUOnUnitDamaged($obs, intval($h['amount']), false, $obsMz !== null && !SWUObjGone($obs));
+        // HMW_011 Darth Sidious — indirect damage writes ->Damage directly and bypasses the
+        // SWUDealDamageToUnit funnel, so the threshold observer has to be fired here too or a whole
+        // damage KIND is invisible to it (the JTL_177 shape).
+        _SWUCollectHmw011Threshold(intval($controller), intval($h['amount']), 'U' . intval($h['uid'] ?? 0));
     }
 
     // JTL_133 Allegiant General Pryde — "When indirect damage is dealt to a unit: you may defeat a

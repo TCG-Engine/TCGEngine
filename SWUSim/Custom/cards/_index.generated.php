@@ -172,6 +172,7 @@ return [
     'HMW_004' => 'hmw/GrandMoffTarkin_TyrantOfTheOuterRim.php',
     'HMW_009' => 'hmw/Chewbacca_RelentlessRebel.php',
     'HMW_010' => 'hmw/Tarfful_FightingFromTheShadowlands.php',
+    'HMW_011' => 'hmw/DarthSidious_ThereIsNoMercy.php',
     'HMW_014' => 'hmw/Wicket_FewGreaterBattlesToFight.php',
     'HMW_017' => 'hmw/Osha_HauntedByHerPast.php',
     'HMW_035' => 'hmw/Hunter_EveryoneGetToCover.php',

@@ -354,6 +354,26 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
         if (intval($damage) > 0) {
             _SWUCollectAsh204Reaction(intval($targetPlayer));
         }
+        // HMW_011 Darth Sidious — "when YOU deal 4 or more damage to a unit or A BASE". Keyed on the
+        // DEALER (this funnel's $damager, normalised to a seat below), not the victim, and it fires for
+        // damage to your OWN base as well (user ruling 2026-08-21 — ASH_151 Operation Cinder).
+        // This one site covers every route to a base: combat, Overwhelm excess, abilities and indirect.
+        if (intval($damage) >= 4) {
+            $sidDealer = is_object($damager)
+                ? intval($damager->Controller ?? $damager->Owner ?? 0)
+                : intval($damager ?? 0);
+            // No threaded source (an ability that did not state its dealer). The ACTING player is the
+            // right inference: combat always threads the attacker object, so this branch is only
+            // reached by ability damage, which is dealt by whoever is taking the action.
+            // ⚠ NOT OtherPlayer($targetPlayer) — that is precisely backwards for SELF-damage (ASH_151
+            //   Operation Cinder damaging its own caster's base), which is a case this trigger cares
+            //   about. Callers that know their dealer should still pass it explicitly.
+            if ($sidDealer <= 0) {
+                $tp = GetTurnPlayer();
+                $sidDealer = intval(is_array($tp) ? ($tp[0] ?? 0) : $tp);
+            }
+            _SWUCollectHmw011Threshold($sidDealer, intval($damage), 'B' . intval($targetPlayer));
+        }
         // SEC_041 Populist Advisor — "When an enemy unit deals COMBAT damage to your base: this unit
         // gains Sentinel for this phase." Combat-gated; the base owner ($targetPlayer) gives its SEC_041s Sentinel.
         if (intval($damage) > 0 && !empty($GLOBALS['gInCombatDamage'])) {
@@ -1385,6 +1405,21 @@ function _SWUCollectOnUnitDamagedReactions(int $activePlayer, string $attackerMz
     if (!empty($combatCtx['dealtToUnit'])) {
         $d = GetZoneObject($defenderMzID);
         if ($d !== null) _SWUOnUnitDamaged($d, intval($combatCtx['defenderDmgAmt'] ?? 0), true, empty($d->removed));
+    }
+    // HMW_011 Darth Sidious — COMBAT damage counts (user ruling 2026-08-21), and each direction is its
+    // own instance. The DEALER of the damage a unit took is the OTHER unit's controller; the amount is
+    // the full power dealt, not the portion that fit inside the victim's remaining HP — so a 5-power
+    // attacker into a 1-HP unit is a qualifying 5 here AND (via the base funnel) a qualifying 4 of
+    // Overwhelm excess.
+    $sidA = GetZoneObject($attackerMzID);
+    $sidD = GetZoneObject($defenderMzID);
+    if (!empty($combatCtx['dealtToUnit']) && $sidD !== null && $sidA !== null) {
+        _SWUCollectHmw011Threshold(intval($sidA->Controller ?? 0), intval($combatCtx['defenderDmgAmt'] ?? 0),
+            'U' . intval($sidD->UniqueID ?? 0));
+    }
+    if (!empty($combatCtx['attackerTookDmg']) && $sidA !== null && $sidD !== null) {
+        _SWUCollectHmw011Threshold(intval($sidD->Controller ?? 0), intval($combatCtx['attackerDmgAmt'] ?? 0),
+            'U' . intval($sidA->UniqueID ?? 0));
     }
 }
 
