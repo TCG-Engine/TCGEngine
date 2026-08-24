@@ -106,6 +106,13 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
           <?php endforeach; ?>
         </select>
       </div>
+      <label for="ga-share-anonymized-gameplay" style="display:flex; align-items:flex-start; gap:8px; margin:0 0 12px; color:#ddd; font-size:13px; line-height:1.35; cursor:pointer;">
+        <input type="checkbox" id="ga-share-anonymized-gameplay" checked style="margin-top:2px;">
+        <span>
+          Share anonymized gameplay data
+          <span style="display:block; color:#999; font-size:12px;">Helps improve aggregate simulator statistics. Deck, card, turn, combat, and match data may be shared; account and contact details are not included.</span>
+        </span>
+      </label>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="joinQueue()">Join Queue</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
@@ -860,6 +867,8 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
 
         var qtEl = document.getElementById('ga-queuetype-select');
         var queueType = qtEl ? qtEl.value : 'bo1';
+        var analyticsEl = document.getElementById('ga-share-anonymized-gameplay');
+        var shareAnonymizedGameplayData = analyticsEl ? analyticsEl.checked : true;
 
         return {
           preconstructedDeck: preconstructedDeck,
@@ -867,9 +876,24 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
           deckLink2: deckLink2,
           gameType: gameType,
           format: format,
-          queueType: queueType
+          queueType: queueType,
+          shareAnonymizedGameplayData: shareAnonymizedGameplayData
         };
       }
+
+      (function restoreAnalyticsSharingPreference(){
+        var analyticsEl = document.getElementById('ga-share-anonymized-gameplay');
+        if (!analyticsEl) return;
+        try {
+          var saved = window.localStorage.getItem('tcgengine:GrandArchiveSim:shareAnonymizedGameplayData');
+          if (saved !== null) analyticsEl.checked = saved !== 'false';
+          analyticsEl.addEventListener('change', function(){
+            window.localStorage.setItem('tcgengine:GrandArchiveSim:shareAnonymizedGameplayData', analyticsEl.checked ? 'true' : 'false');
+          });
+        } catch (e) {
+          // Storage can be unavailable in strict privacy modes; the checked default still applies.
+        }
+      })();
 
       // Hotseat needs a second deck (reveal the P2 input); mode formats (goldfish/hotseat) are Bo1-only.
       (function(){
@@ -1016,6 +1040,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         params += "&rootName=" + encodeURIComponent(rootName);
         params += '&format=' + encodeURIComponent(submission.format || 'standard');
         params += '&queueType=' + encodeURIComponent(submission.queueType || 'bo1');
+        params += '&shareAnonymizedGameplayData=' + (submission.shareAnonymizedGameplayData ? '1' : '0');
         if (submission.deckLink2) params += '&deckLink2=' + encodeURIComponent(submission.deckLink2);
         if (options.createPrivate) {
           params += '&createPrivate=1';

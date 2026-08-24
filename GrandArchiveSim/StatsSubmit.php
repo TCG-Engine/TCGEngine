@@ -150,11 +150,25 @@ function GAPostGameResult($apiUrl, $apiKey, $payload) {
     return $last;
 }
 
+// Matches created before the preference existed keep the requested default-on behavior.
+function GAShouldShareAnonymizedGameplayData($match) {
+    return !is_array($match)
+        || !array_key_exists('shareAnonymizedGameplayData', $match)
+        || !empty($match['shareAnonymizedGameplayData']);
+}
+
 // Submit one result per decided game when the series completes. Successful games are sealed
 // individually; failed games remain retryable. The receiver deduplicates matchId:gameNumber.
 function GASubmitMatchResults($matchId) {
     $m = MatchRead('GrandArchiveSim', $matchId);
     if (!is_array($m) || ($m['state'] ?? '') !== 'complete' || !empty($m['statsSubmitted'])) return;
+    if (!GAShouldShareAnonymizedGameplayData($m)) {
+        MatchWithLock('GrandArchiveSim', $matchId, function (&$mm) {
+            $mm['statsSubmitted'] = true;
+            $mm['statsStatus'] = 'skipped_opt_out';
+        });
+        return;
+    }
     if (count($m['players'] ?? []) > 2) {
         // GA is a 2-seat game; this guard exists only so an unexpected N-seat match can't crash here.
         MatchWithLock('GrandArchiveSim', $matchId, function (&$mm) { $mm['statsSubmitted'] = true; $mm['statsStatus'] = 'skipped_multiplayer'; });

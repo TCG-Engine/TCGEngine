@@ -8,6 +8,16 @@ function GAStatsContractCheck($condition, $message) {
     }
 }
 
+// Minimal match-store double for exercising the delivery gate without HTTP or filesystem writes.
+$GLOBALS['gaStatsContractStoredMatch'] = null;
+function MatchRead($rootName, $matchId) {
+    return $GLOBALS['gaStatsContractStoredMatch'];
+}
+function MatchWithLock($rootName, $matchId, callable $fn) {
+    $fn($GLOBALS['gaStatsContractStoredMatch']);
+    return $GLOBALS['gaStatsContractStoredMatch'];
+}
+
 $GLOBALS['grandArchiveStatsSourceVersion'] = 'contract-test';
 $match = [
     'matchId' => 'contract-match', 'format' => 'premier', 'bestOf' => 1,
@@ -37,5 +47,19 @@ GAStatsContractCheck(!array_key_exists('apiKey', $payload), 'credential is not i
 GAStatsContractCheck(str_starts_with($payload['submittedAt'], '2024-08-24T16:00:00'), 'submission timestamp is stable');
 GAStatsContractCheck(str_contains($encoded, '"cardStats":{}'), 'empty cardStats serializes as an object');
 GAStatsContractCheck($decoded['players']['1']['championId'] === 'champion-one', 'player champion is retained');
+GAStatsContractCheck(GAShouldShareAnonymizedGameplayData([]), 'legacy matches default to sharing');
+GAStatsContractCheck(GAShouldShareAnonymizedGameplayData(['shareAnonymizedGameplayData' => true]), 'enabled matches share');
+GAStatsContractCheck(!GAShouldShareAnonymizedGameplayData(['shareAnonymizedGameplayData' => false]), 'opted-out matches do not share');
+
+$GLOBALS['gaStatsContractStoredMatch'] = [
+    'matchId' => 'opted-out-match',
+    'state' => 'complete',
+    'shareAnonymizedGameplayData' => false,
+    'players' => ['1' => [], '2' => []],
+    'games' => [],
+];
+GASubmitMatchResults('opted-out-match');
+GAStatsContractCheck($GLOBALS['gaStatsContractStoredMatch']['statsSubmitted'] === true, 'opt-out is sealed without retrying');
+GAStatsContractCheck($GLOBALS['gaStatsContractStoredMatch']['statsStatus'] === 'skipped_opt_out', 'opt-out records an explicit status');
 
 echo "Grand Archive stats payload contract: PASS" . PHP_EOL;

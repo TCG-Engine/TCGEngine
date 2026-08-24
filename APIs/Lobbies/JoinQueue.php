@@ -84,6 +84,10 @@
   $createTutorial = isset($_POST['createTutorial']) && ($_POST['createTutorial'] === '1' || strtolower($_POST['createTutorial']) === 'true');
   $casterMode = isset($_POST['casterMode']) && ($_POST['casterMode'] === '1' || strtolower($_POST['casterMode']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';
+  // Grand Archive analytics sharing is opt-out. Legacy clients that omit the field retain the
+  // default-on behavior; a match shares only when every participant leaves it enabled.
+  $shareAnonymizedGameplayData = !isset($_POST['shareAnonymizedGameplayData'])
+    || in_array(strtolower(trim(strval($_POST['shareAnonymizedGameplayData']))), ['1', 'true', 'yes', 'on'], true);
 
   $format = isset($_POST['format']) ? strtolower(trim($_POST['format'])) : 'premier';
   if ($createRlBot && $rootName === 'AzukiSim') {
@@ -237,6 +241,7 @@
     $lobby->format = $format;
     $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
+    if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
     $lobby->casterMode = $casterMode;
     $lobby->isGoldfish = true;            // reuse the "skip matchmaking / skip Bo3 match" plumbing
     $lobby->goldfishPlayers = ($isHotseat || $isGABot) ? [] : [2];
@@ -297,6 +302,9 @@
         if (($lobby->rootName === 'SWUSim') && (($lobby->format ?? '') === 'twinsuns') && !empty($lobby->gameName)) continue; // already started
 
         $lobby->numPlayers++;
+        if ($rootName === 'GrandArchiveSim') {
+          $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
+        }
         $isTwinSunsRoom = ($lobby->rootName === 'SWUSim' && ($lobby->format ?? '') === 'twinsuns');
         if (!$isTwinSunsRoom && $lobby->numPlayers == $lobby->maxPlayers) {
           $lobby->ready = true;   // 2-seat: fill = ready (unchanged)
@@ -363,6 +371,7 @@
     $lobby->format = $format;
     $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
+    if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
     $lobby->casterMode = $casterMode;
     $lobby->hostUserId = $joiningUserId;
     $lobby->inviteCode = bin2hex(random_bytes(12));
@@ -416,6 +425,9 @@
           ) {
               if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // skip blocked host, keep scanning
               $lobby->numPlayers++;
+              if ($rootName === 'GrandArchiveSim') {
+                $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
+              }
               if($lobby->numPlayers == $lobby->maxPlayers) {
                   $lobby->ready = true;
               }
@@ -470,6 +482,7 @@
       $lobby->format = $format;
       $lobby->queueType = $queueType;
       $lobby->isPrivate = false;
+      if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
       $lobby->casterMode = $casterMode;
       $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
       $lobby->players = array($newPlayer);
