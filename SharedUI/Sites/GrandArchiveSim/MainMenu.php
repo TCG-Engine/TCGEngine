@@ -789,8 +789,22 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
           var params = new URLSearchParams(window.location.search || '');
           var deckLinkParam = (params.get('deckLink') || params.get('deck') || '').trim();
           var deckTextParam = (params.get('deckText') || params.get('list') || '').trim();
+          var deck2Param = (params.get('deckLink2') || params.get('deck2') || params.get('deckText2') || '').trim();
+          var formatParam = (params.get('format') || '').trim().toLowerCase();
+          var queueTypeParam = (params.get('queueType') || '').trim().toLowerCase();
           var goldfishParam = (params.get('goldfish') || '').trim().toLowerCase();
           var shouldAutostart = goldfishParam === '1' || goldfishParam === 'true' || goldfishParam === 'yes';
+
+          var formatEl = document.getElementById('ga-format-select');
+          if (formatEl && formatParam && Array.prototype.some.call(formatEl.options, function(option) { return option.value === formatParam; })) {
+            formatEl.value = formatParam;
+            formatEl.dispatchEvent(new Event('change'));
+          }
+
+          var queueTypeEl = document.getElementById('ga-queuetype-select');
+          if (queueTypeEl && queueTypeParam && Array.prototype.some.call(queueTypeEl.options, function(option) { return option.value === queueTypeParam; })) {
+            queueTypeEl.value = queueTypeParam;
+          }
 
           if (deckLinkParam) {
             var deckLinkEl = document.getElementById('deck-link');
@@ -804,6 +818,13 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
               deckTextEl.value = deckTextParam;
             }
             switchDeckTab('text');
+          }
+
+          if (deck2Param) {
+            var deck2El = document.getElementById('ga-deck2-input');
+            if (deck2El && !deck2El.value.trim()) {
+              deck2El.value = deck2Param;
+            }
           }
 
           if (shouldAutostart && (deckLinkParam || deckTextParam)) {

@@ -882,9 +882,14 @@ $customDQHandlers["MaterializeXCost"] = function($player, $parts, $lastDecision)
 };
 
 $customDQHandlers["FINISHPAYMATERIALIZE"] = function($player, $parts, $lastDecision) {
-    $memoryCost = DecisionQueueController::GetVariable("MemoryCost");
+    $memoryCost = max(0, intval(DecisionQueueController::GetVariable("MemoryCost")));
     for($i = 0; $i < $memoryCost; ++$i) {
         MZMove($player, "myMemory-" . $i, "myBanish");//TODO: Make random
+    }
+    // This is the actual payment boundary. Record the final amount here, after reductions and
+    // alternative payments have been resolved, rather than deriving it later from card cost.
+    if($memoryCost > 0 && function_exists('GATelemetryBumpTurn')) {
+        GATelemetryBumpTurn($player, 'memorySpent', $memoryCost);
     }
     DecisionQueueController::ClearVariable("MemoryCost");
     // If the MATERIALIZE handler deferred the Materialize() call (standard cost path),
@@ -1370,6 +1375,14 @@ function DoMaterialize($player, $mzCard) {
                 }
             }
         }
+    }
+
+    // Telemetry: only reached on a successful materialize (every early return above skips it).
+    // Covers the from-material-zone / champion-lineage path; MoveEffectStackCardToField()
+    // (GameLogic.php) covers the separate from-hand-via-effect-stack path.
+    if(function_exists('GATelemetryBumpCard')) {
+        GATelemetryBumpCard($player, $sourceId, 'materialized');
+        GATelemetryBumpTurn($player, 'cardsPlayed');
     }
 }
 

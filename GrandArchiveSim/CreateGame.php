@@ -52,11 +52,11 @@ function GASetupGame($lobby, $opts = []) {
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");
 
-    // Persist the game mode (goldfish/hotseat) so the UI/mode checks can read it (GAGameMode()).
+    // Persist the game mode (goldfish/hotseat/bot) so the UI/mode checks can read it (GAGameMode()).
     $gaMode = '';
     if (isset($lobby->format)) {
         $f = strtolower((string)$lobby->format);
-        if ($f === 'goldfish' || $f === 'hotseat') $gaMode = $f;
+        if ($f === 'goldfish' || $f === 'hotseat' || $f === 'bot') $gaMode = $f;
     }
     if ($gaMode !== '') DecisionQueueController::StoreVariable("GameMode", $gaMode);
 
@@ -71,7 +71,23 @@ function GASetupGame($lobby, $opts = []) {
         SetGoldfishPlayers($goldfishPlayers);
     }
 
+    // Bot-controlled seats (self-play testing) — unlike goldfishPlayers, these seats still get a
+    // real deck below (they're just not in $goldfishPlayers, so LoadPlayer runs normally for them).
+    $botPlayers = [];
+    if(isset($lobby->botPlayers) && is_array($lobby->botPlayers)) {
+        foreach($lobby->botPlayers as $botPlayer) {
+            $playerNum = intval($botPlayer);
+            if($playerNum > 0) $botPlayers[] = $playerNum;
+        }
+    }
+    if(function_exists('SetGABotPlayers')) {
+        SetGABotPlayers($botPlayers);
+    }
+
     $playerCounter = 1;
+    // Production games retain cryptographic deck shuffles. Headless regression callers may opt
+    // into EngineShuffle's persisted deterministic stream for reproducible fixtures.
+    $useStrongShuffleEntropy = empty($opts['deterministicShuffle']);
     foreach ($lobby->players as $player) {
         $player->setGamePlayerID($playerCounter);
         $injected = $opts['resolvedDecks'][$playerCounter] ?? null;
@@ -81,9 +97,9 @@ function GASetupGame($lobby, $opts = []) {
             // so the dummy still gets a single Lv0 champion (Spirit of Fire) and no main deck.
             LoadEmptyGoldfishLoadout($playerCounter);
         } else if (is_array($injected)) {
-            LoadResolvedDeck($playerCounter, $injected);   // Match system: pre-resolved (+ sideboarded) deck
+            LoadResolvedDeck($playerCounter, $injected, $useStrongShuffleEntropy);   // Match system: pre-resolved (+ sideboarded) deck
         } else {
-            LoadPlayer($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck());
+            LoadPlayer($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck(), $useStrongShuffleEntropy);
         }
         ++$playerCounter;
     }
@@ -129,15 +145,15 @@ if (isset($lobby) && is_object($lobby)) {
 
 // Load an already-resolved deck (Match system passes pre-resolved / sideboarded decks). Mirrors the
 // resolved-deck path of LoadPlayer. The sideboard is NOT placed on the field — it lives in the Match.
-function LoadResolvedDeck($playerID, array $resolved) {
+function LoadResolvedDeck($playerID, array $resolved, $useStrongShuffleEntropy = true) {
     $gameDeck = &GetDeck($playerID);
     $material = &GetMaterial($playerID);
     foreach (($resolved['material'] ?? []) as $cardID) { array_push($material, new Material($cardID)); }
     foreach (($resolved['mainDeck'] ?? []) as $cardID) { array_push($gameDeck, new Deck($cardID)); }
-    EngineShuffle($gameDeck, true);
+    EngineShuffle($gameDeck, $useStrongShuffleEntropy);
 }
 
-function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
+function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '', $useStrongShuffleEntropy = true) {
     // For now, ignore deckLink and use the preconstructed deck
     // When preconstructedDeck is "Refractory" or empty, use the default deck
     $gameDeck = &GetDeck($playerID);
@@ -155,7 +171,7 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
             if (!empty($resolved['unresolved'])) {
                 error_log("Free-text deck import: unresolved cards for player $playerID: " . implode(', ', $resolved['unresolved']));
             }
-            EngineShuffle($gameDeck, true);
+            EngineShuffle($gameDeck, $useStrongShuffleEntropy);
             return;
         }
 

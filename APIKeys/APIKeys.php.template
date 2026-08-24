@@ -25,6 +25,13 @@ $patreonClientSecret = "op://$APP_ENV/Patreon/credential";
 $petranakiAPIKey = "";
 $karabastAPIKey = "";
 
+// Grand Archive match telemetry — POSTed once per decided game to your own hosted stats API.
+// See GrandArchiveSim/StatsSubmit.php. Leave the URL blank to disable submission (statsStatus
+// will record as 'skipped_unconfigured').
+$grandArchiveStatsApiUrl = ""; // e.g. https://your-host.example.com/api/grand-archive/submit-game
+$grandArchiveStatsApiKey = "";
+$grandArchiveStatsSourceVersion = "unknown"; // deployed commit SHA or release identifier
+
 $bugReportApiKey = "";
 $bugReportApiUrl = "https://soulmastersdb.net/TCGEngine-Discord/APIs/BugReportAPI.php";
 

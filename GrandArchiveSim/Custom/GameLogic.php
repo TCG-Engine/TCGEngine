@@ -5,6 +5,10 @@ $customDQHandlers = [];
 $_computingPowerLifeSwap = false;
 
 include_once __DIR__ . '/../../Core/ShortcutPreferences.php';
+include_once __DIR__ . '/../Telemetry.php';
+include_once __DIR__ . '/../BotLegalActions.php';
+include_once __DIR__ . '/../BotHeuristic.php';
+include_once __DIR__ . '/../BotController.php';
 include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
 include_once __DIR__ . '/OpportunityLogic.php';
@@ -41,7 +45,7 @@ function IsGoldfishPlayer($player) {
 // Returns 'goldfish', 'hotseat', or '' for a normal 2-player game.
 function GAGameMode(): string {
     $m = DecisionQueueController::GetVariable("GameMode");
-    return in_array($m, ['goldfish', 'hotseat'], true) ? $m : '';
+    return in_array($m, ['goldfish', 'hotseat', 'bot'], true) ? $m : '';
 }
 
 function GoldfishDecisionQueueSignature($player) {
@@ -4545,6 +4549,10 @@ function OnCardReserved($player, $mzCard, $statsContext = "ACTION") {
             IncrementMacroGameIndexCard("ReserveActionCommitted", $player, $reservedObj->CardID);
         }
     }
+    if($reservedObj !== null && isset($reservedObj->CardID) && function_exists('GATelemetryBumpCard')) {
+        GATelemetryBumpCard($player, $reservedObj->CardID, 'reserved');
+        GATelemetryBumpTurn($player, 'reserveSpent');
+    }
     return MZMove($player, $mzCard, "myMemory");
 }
 
@@ -6894,6 +6902,13 @@ function MoveEffectStackCardToField($player, $mzCard) {
     $obj = MZMove($player, $mzCard, "myField");
     DecisionQueueController::StoreVariable("EffectStackEnterCardID", "");
     DecisionQueueController::StoreVariable("EffectStackEnterController", "");
+    // Telemetry: the real "a permanent entered the field" chokepoint for cards played from hand
+    // (they resolve off the effect stack here) — DoMaterialize's own hook (MaterializeLogic.php)
+    // covers the separate from-material-zone / champion-lineage path; the two never overlap.
+    if($cardID !== "" && function_exists('GATelemetryBumpCard')) {
+        GATelemetryBumpCard($player, $cardID, 'materialized');
+        GATelemetryBumpTurn($player, 'cardsPlayed');
+    }
     return $obj;
 }
 
@@ -9679,6 +9694,8 @@ function EndPhase() {
     $savedPlayerID = $playerID;
     // Normalize my/their lookups to the active turn player's perspective for end-phase resolution.
     $playerID = $turnPlayer;
+
+    if(function_exists('GATelemetrySnapshotTurn')) GATelemetrySnapshotTurn($turnPlayer, $currentTurn);
 
     // Clear any remaining intent cards (unused attack cards) to graveyard
     ClearIntent($turnPlayer);
@@ -13407,6 +13424,7 @@ function DoDrawCard($player, $amount=1) {
         }
         $card = array_shift($zone);
         array_push($hand, $card);
+        if(function_exists('GATelemetryBumpCard') && isset($card->CardID)) GATelemetryBumpCard($player, $card->CardID, 'drawn');
 
         // Track per-card draw count for this turn
         $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
@@ -13456,6 +13474,7 @@ function DrawIntoMemory($player, $amount=1) {
         }
         $card = array_shift($zone);
         array_push($memory, $card);
+        if(function_exists('GATelemetryBumpCard') && isset($card->CardID)) GATelemetryBumpCard($player, $card->CardID, 'drawnToMemory');
     }
 }
 
@@ -14627,6 +14646,7 @@ function DoDiscardCard($player, $mzCard) {
 
 function OnDiscardCard($player, $discardedCardID) {
     if($discardedCardID === "") return;
+    if(function_exists('GATelemetryBumpCard')) GATelemetryBumpCard($player, $discardedCardID, 'discarded');
     DecisionQueueController::StoreVariable("discardedCardID", $discardedCardID);
     global $discardCardAbilities;
     if(!isset($discardCardAbilities) || !is_array($discardCardAbilities)) {
@@ -14760,6 +14780,7 @@ $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     if(isset($activateAbilityAbilities[$abilityKey])) {
         $activateAbilityAbilities[$abilityKey]($player);
     }
+    if(function_exists('GATelemetryBumpCard')) GATelemetryBumpCard($player, $cardID, 'activated');
     TriggerDuchessThornesCardistry($player, DecisionQueueController::GetVariable("mzID"), $cardID);
     TriggerNightmareCoilPunish($player);
     // Enhance Potency: fire any copy after ability decisions (block 1) but before AbilityOpportunity (block 200)
@@ -14777,6 +14798,7 @@ $customDQHandlers["HandAbilityActivated"] = function($player, $param, $lastResul
     if(isset($handActivatedAbilityAbilities[$abilityKey])) {
         $handActivatedAbilityAbilities[$abilityKey]($player);
     }
+    if(function_exists('GATelemetryBumpCard')) GATelemetryBumpCard($player, $cardID, 'activated');
     TriggerNightmareCoilPunish($player);
     DecisionQueueController::AddDecision($player, "CUSTOM", "CheckEnhancePotency", 99);
     DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityOpportunity", 200);
@@ -17754,6 +17776,9 @@ function RecoverChampion($player, $amount=1) {
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
             $actualRecovered = $obj->Damage - max(0, $obj->Damage - $amount);
             $obj->Damage = max(0, $obj->Damage - $amount);
+            if($actualRecovered > 0 && function_exists('GATelemetryBumpTurn')) {
+                GATelemetryBumpTurn(intval($player), 'healed', intval($actualRecovered));
+            }
 
             // Include the champion's stable UniqueID so the client can resolve the
             // animation on the pre-render board state even if field cleanup reindexes.

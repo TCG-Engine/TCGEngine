@@ -1,0 +1,33 @@
+# Worlds 2026 decklist #0 (1)
+# Material
+1 Sabrina, Spirit of Water
+1 Ciel, Loyal Valet
+1 Backup Charger
+1 Bulwark Sword
+1 Fire Resonance Bauble
+1 Manxome Armoire
+1 Nullifying Mirror
+1 The Looking Glass
+1 Wind Resonance Bauble
+1 Vaporjet Shield
+1 Inert Sword
+1 Palvor Sword
+# Main
+4 Bladed Riftseer
+2 Gildas, Chronicler of Aesa
+2 Heavy Swing
+4 Aquifer Seneschal
+4 Cerulean Decree
+4 Corhazi Trapper
+2 Extricating Touch
+4 Fracturize
+2 Freezing Hail
+2 Frostbind
+4 Frostsworn Paladin
+3 Frozen Dismissal
+4 Jueying, Shadowmare
+4 Nia, Mistveiled Scout
+4 Snow White, Weiss Queen
+4 Storm of Thorns
+3 Tweedledee, Contrarian Poet
+4 Cheshire Cat, Impish Grin
