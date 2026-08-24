@@ -4,6 +4,7 @@
 // old MatchFlow.php can be retired).
 require_once __DIR__ . '/../Core/Match/Hooks.php';
 require_once __DIR__ . '/Custom/DeckImport.php'; // GrandArchiveResolveDeckInput / GAValidateResolvedDeck
+require_once __DIR__ . '/StatsSubmit.php';        // GACaptureCurrentGameDetail / GASubmitMatchResults
 
 // Resolve both lobby decks into the per-seat wrapper the framework expects:
 // [seat => ['originalDeck'=>resolvedDeck, 'authKey'=>..., 'userId'=>..., 'deckLink'=>...]].
@@ -31,7 +32,9 @@ MatchRegisterHooks('GrandArchiveSim', [
     'resolveLobbyDecks' => 'GAResolveLobbyDecksForMatch',
     'validateDeck'      => 'GAValidateResolvedDeck',   // (resolvedDeck, $format)
     'setupGame'         => 'GASetupGame',
-    // optional — GA has no per-game deck stats, no login (no block), no telemetry yet.
+    // optional — GA has no per-game deck stats or login (no block) yet.
+    'captureGameDetail' => 'GACaptureCurrentGameDetail',
+    'submitResults'     => 'GASubmitMatchResults',
     'buildStatsHtml'    => (function_exists('GABuildStatsHtml') ? 'GABuildStatsHtml' : null),
     // config
     'queueTypes'        => ['bo1', 'bo3'],

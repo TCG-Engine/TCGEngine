@@ -2856,6 +2856,25 @@ function FinalizeAttackDeclaration($attackerPlayer) {
         DealChampionDamage($defenderPlayer, 2);
     }
 
+    // Telemetry: log the attack now that attacker/target/weapon are all resolved, even though
+    // damage hasn't been dealt yet (a fully-prevented or retargeted attack still counts as one).
+    if(function_exists('GATelemetryLogCombatEvent')) {
+        $atkObj = GetZoneObject($attackerMZ);
+        $tgtObj = GetZoneObject($targetMZ);
+        $weaponMZ = GetCombatWeapon();
+        $weaponObj = $weaponMZ !== null ? GetZoneObject($weaponMZ) : null;
+        GATelemetryLogCombatEvent([
+            'type' => 'attack_initiated',
+            'turn' => function_exists('GetTurnNumber') ? intval(GetTurnNumber()) : 0,
+            'attackerSeat' => intval($attackerPlayer),
+            'attackerCardId' => $atkObj !== null ? strval($atkObj->CardID) : '',
+            'targetSeat' => ($tgtObj !== null && isset($tgtObj->Controller)) ? intval($tgtObj->Controller) : (intval($attackerPlayer) == 1 ? 2 : 1),
+            'targetCardId' => $tgtObj !== null ? strval($tgtObj->CardID) : '',
+            'weaponCardId' => $weaponObj !== null ? strval($weaponObj->CardID) : null,
+            'cleave' => DecisionQueueController::GetVariable("CombatIsCleave") === "1",
+        ]);
+    }
+
     // Grant Opportunity window before damage step (turn player gets priority first)
     $turnPlayer = GetTurnPlayer();
     GrantOpportunityWindow($turnPlayer, "CombatDealDamage", $attackerPlayer, "COMBAT_DAMAGE");
@@ -3692,7 +3711,25 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 RemoveCounters($targetController, $target, "durability", $toRemove);
             }
             RecordTrackedCombatDamageAmount($source, $target, $amount);
-            if(GetCounterCount($targetObj, "durability") <= 0) {
+            $domainLethal = (GetCounterCount($targetObj, "durability") <= 0);
+            if(function_exists('GATelemetryLogCombatEvent')) {
+                $srcObj = GetZoneObject($source);
+                GATelemetryLogCombatEvent([
+                    'type' => 'damage_resolved',
+                    'turn' => function_exists('GetTurnNumber') ? intval(GetTurnNumber()) : 0,
+                    'sourceSeat' => intval($player),
+                    'sourceCardId' => $srcObj !== null ? strval($srcObj->CardID) : '',
+                    'targetSeat' => intval($targetController),
+                    'targetCardId' => strval($targetObj->CardID),
+                    'amount' => intval($amount),
+                    'isCombat' => (DecisionQueueController::GetVariable("CombatAttacker") !== null),
+                    'lethal' => $domainLethal,
+                    'domain' => true,
+                ]);
+                GATelemetryBumpTurn(intval($player), 'damageDealt', intval($amount));
+                GATelemetryBumpTurn(intval($targetController), 'damageTaken', intval($amount));
+            }
+            if($domainLethal) {
                 // Keep mzID in the current combat perspective (attacker-context during combat damage),
                 // matching normal lethal resolution paths.
                 AllyDestroyed($player, $target);
@@ -4925,6 +4962,22 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     RadiantOriginGuardianTrigger($source, $amount);
 
     $currentHp = ObjectCurrentHP($targetObj);
+    if(function_exists('GATelemetryLogCombatEvent')) {
+        $sourceInfoTel = ResolveDamageSourceCardInfo($source, $player);
+        GATelemetryLogCombatEvent([
+            'type' => 'damage_resolved',
+            'turn' => function_exists('GetTurnNumber') ? intval(GetTurnNumber()) : 0,
+            'sourceSeat' => intval($sourceInfoTel['controller'] ?? $player),
+            'sourceCardId' => strval($sourceInfoTel['cardID'] ?? ''),
+            'targetSeat' => intval($targetObj->Controller ?? $player),
+            'targetCardId' => strval($targetObj->CardID),
+            'amount' => intval($amount),
+            'isCombat' => (bool)$isCombat,
+            'lethal' => ($targetObj->Damage >= $currentHp),
+        ]);
+        GATelemetryBumpTurn(intval($sourceInfoTel['controller'] ?? $player), 'damageDealt', intval($amount));
+        GATelemetryBumpTurn(intval($targetObj->Controller ?? $player), 'damageTaken', intval($amount));
+    }
     if($targetObj->Damage >= $currentHp) {
         // If we're in combat context, record that a kill occurred from combat damage.
         // This is checked by combat handlers to fire OnKillTrigger BEFORE OnHitTrigger.
@@ -4962,7 +5015,25 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
                 RemoveCounters($targetController, $target, "durability", $toRemove);
             }
             RecordTrackedCombatDamageAmount($source, $target, $amount);
-            if(GetCounterCount($targetObj, "durability") <= 0) {
+            $domainLethal = (GetCounterCount($targetObj, "durability") <= 0);
+            if(function_exists('GATelemetryLogCombatEvent')) {
+                $srcObj = GetZoneObject($source);
+                GATelemetryLogCombatEvent([
+                    'type' => 'damage_resolved',
+                    'turn' => function_exists('GetTurnNumber') ? intval(GetTurnNumber()) : 0,
+                    'sourceSeat' => intval($player),
+                    'sourceCardId' => $srcObj !== null ? strval($srcObj->CardID) : '',
+                    'targetSeat' => intval($targetController),
+                    'targetCardId' => strval($targetObj->CardID),
+                    'amount' => intval($amount),
+                    'isCombat' => (DecisionQueueController::GetVariable("CombatAttacker") !== null),
+                    'lethal' => $domainLethal,
+                    'domain' => true,
+                ]);
+                GATelemetryBumpTurn(intval($player), 'damageDealt', intval($amount));
+                GATelemetryBumpTurn(intval($targetController), 'damageTaken', intval($amount));
+            }
+            if($domainLethal) {
                 // Keep mzID in the current combat perspective (attacker-context during combat damage),
                 // matching normal lethal resolution paths.
                 AllyDestroyed($player, $target);
@@ -5126,6 +5197,22 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     RadiantOriginGuardianTrigger($source, $amount);
 
     $currentHp = ObjectCurrentHP($targetObj);
+    if(function_exists('GATelemetryLogCombatEvent')) {
+        $sourceInfoTel = ResolveDamageSourceCardInfo($source, $player);
+        GATelemetryLogCombatEvent([
+            'type' => 'damage_resolved',
+            'turn' => function_exists('GetTurnNumber') ? intval(GetTurnNumber()) : 0,
+            'sourceSeat' => intval($sourceInfoTel['controller'] ?? $player),
+            'sourceCardId' => strval($sourceInfoTel['cardID'] ?? ''),
+            'targetSeat' => intval($targetObj->Controller ?? $player),
+            'targetCardId' => strval($targetObj->CardID),
+            'amount' => intval($amount),
+            'isCombat' => !$isNonCombat,
+            'lethal' => ($targetObj->Damage >= $currentHp),
+        ]);
+        GATelemetryBumpTurn(intval($sourceInfoTel['controller'] ?? $player), 'damageDealt', intval($amount));
+        GATelemetryBumpTurn(intval($targetObj->Controller ?? $player), 'damageTaken', intval($amount));
+    }
     if($targetObj->Damage >= $currentHp) {
         // If we're in combat context, record that a kill occurred from combat damage.
         $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");

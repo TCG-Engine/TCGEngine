@@ -69,9 +69,25 @@
   $azukiRlBotProfile = function_exists('NormalizeAzukiRlBotProfile')
     ? NormalizeAzukiRlBotProfile($_POST['rlBotOpponent'] ?? 'raizan')
     : 'raizan';
+  // GA heuristic-bot self-play (see GrandArchiveSim/BotController.php). botPlayers defaults to
+  // both seats (full self-play, e.g. for automated regression matches); pass a single seat for a
+  // human-vs-bot game instead.
+  $createBot = isset($_POST['createBot']) && ($_POST['createBot'] === '1' || strtolower($_POST['createBot']) === 'true');
+  $gaBotPlayers = [];
+  if (isset($_POST['botPlayers'])) {
+    foreach (explode(',', strval($_POST['botPlayers'])) as $seatStr) {
+      $seat = intval(trim($seatStr));
+      if ($seat === 1 || $seat === 2) $gaBotPlayers[] = $seat;
+    }
+  }
+  if (empty($gaBotPlayers)) $gaBotPlayers = [1, 2];
   $createTutorial = isset($_POST['createTutorial']) && ($_POST['createTutorial'] === '1' || strtolower($_POST['createTutorial']) === 'true');
   $casterMode = isset($_POST['casterMode']) && ($_POST['casterMode'] === '1' || strtolower($_POST['casterMode']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';
+  // Grand Archive analytics sharing is opt-out. Legacy clients that omit the field retain the
+  // default-on behavior; a match shares only when every participant leaves it enabled.
+  $shareAnonymizedGameplayData = !isset($_POST['shareAnonymizedGameplayData'])
+    || in_array(strtolower(trim(strval($_POST['shareAnonymizedGameplayData']))), ['1', 'true', 'yes', 'on'], true);
 
   $format = isset($_POST['format']) ? strtolower(trim($_POST['format'])) : 'premier';
   if ($createRlBot && $rootName === 'AzukiSim') {
@@ -112,7 +128,7 @@
   // 'hotseat' = 2 decks, shared authKey.
   $isModeFormat =
       ($rootName === 'SWUSim'         && ($format === 'goldfish' || $format === 'hotseat')) ||
-      ($rootName === 'GrandArchiveSim' && ($format === 'goldfish' || $format === 'hotseat')) ||
+      ($rootName === 'GrandArchiveSim' && ($format === 'goldfish' || $format === 'hotseat' || $format === 'bot')) ||
       ($rootName === 'AzukiSim'        && ($format === 'rlbot' || $format === 'tutorial')) ||
       ($rootName === 'HellbreakSim'    && $format === 'tutorial');
   // Guard: for SWUSim, fall back to safe defaults on unknown/garbage. (Other roots ignore these.)
@@ -173,17 +189,19 @@
   $response->success = false;
   $response->message = "Failed to join queue.";
 
-  if ($createGoldfish || $createRlBot || $createTutorial || $isModeFormat) {
+  if ($createGoldfish || $createRlBot || $createBot || $createTutorial || $isModeFormat) {
     // Normalize: the legacy createGoldfish param maps to the goldfish mode format.
     if ($createGoldfish && !$isModeFormat) $format = 'goldfish';
     if ($createRlBot && $rootName === 'AzukiSim') $format = 'rlbot';
+    if ($createBot && $rootName === 'GrandArchiveSim' && !$isModeFormat) $format = 'bot';
     if ($createTutorial && in_array($rootName, ['AzukiSim', 'HellbreakSim'], true)) $format = 'tutorial';
     $isHotseat = ($format === 'hotseat');
+    $isGABot = ($rootName === 'GrandArchiveSim' && $format === 'bot');
     $isAzukiRlBot = ($rootName === 'AzukiSim' && $format === 'rlbot');
     $isAzukiTutorial = ($rootName === 'AzukiSim' && $format === 'tutorial');
     $isHellbreakTutorial = ($rootName === 'HellbreakSim' && $format === 'tutorial');
     $isTutorial = $isAzukiTutorial || $isHellbreakTutorial;
-    // Goldfish/Hotseat are Bo1-only for now (leave Bo3 open for later): force Bo1 regardless of input.
+    // Goldfish/Hotseat/Bot are Bo1-only for now (leave Bo3 open for later): force Bo1 regardless of input.
     $queueType = 'bo1';
 
     // Tutorials always use the authored starter scenario, independent of the queue form's deck choice.
@@ -204,6 +222,11 @@
     } else if ($isHotseat) {
       // Hotseat: a real second deck; one person plays both seats.
       $secondPlayer = new Player(2, $deckLink2, '', $joiningUserId);
+    } else if ($isGABot) {
+      // Bot self-play: a real second deck too (a bot-controlled seat still needs an actual deck to
+      // pilot, unlike goldfish's empty dummy) — default to the same deck as P1 if none was supplied,
+      // so a single decklist can be tested against itself with one request.
+      $secondPlayer = new Player(2, $deckLink2 !== '' ? $deckLink2 : $deckLink, '', $joiningUserId);
     } else {
       // Goldfish: P2 is an empty passive seat (SWUSetupGame no longer gates pregame on it).
       $secondPlayer = new Player(2, '', '');
@@ -213,14 +236,16 @@
     $lobby->numPlayers = 2;
     $lobby->maxPlayers = 2;
     $lobby->ready = true;
-    $lobby->id = uniqid($isTutorial ? 'tutorial_' : ($isAzukiRlBot ? 'rlbot_' : ($isHotseat ? 'hotseat_' : 'goldfish_')), true);
+    $lobby->id = uniqid($isTutorial ? 'tutorial_' : ($isAzukiRlBot ? 'rlbot_' : ($isHotseat ? 'hotseat_' : ($isGABot ? 'bot_' : 'goldfish_'))), true);
     $lobby->rootName = $rootName;
     $lobby->format = $format;
     $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
+    if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
     $lobby->casterMode = $casterMode;
     $lobby->isGoldfish = true;            // reuse the "skip matchmaking / skip Bo3 match" plumbing
-    $lobby->goldfishPlayers = $isHotseat ? [] : [2];
+    $lobby->goldfishPlayers = ($isHotseat || $isGABot) ? [] : [2];
+    $lobby->botPlayers = $isGABot ? $gaBotPlayers : [];
     $lobby->azukiRlBotPlayers = $isAzukiRlBot ? [2] : [];
     $lobby->azukiRlBotProfile = $isAzukiRlBot ? $azukiRlBotProfile : '';
     $lobby->players = [$hostPlayer, $secondPlayer];
@@ -277,6 +302,9 @@
         if (($lobby->rootName === 'SWUSim') && (($lobby->format ?? '') === 'twinsuns') && !empty($lobby->gameName)) continue; // already started
 
         $lobby->numPlayers++;
+        if ($rootName === 'GrandArchiveSim') {
+          $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
+        }
         $isTwinSunsRoom = ($lobby->rootName === 'SWUSim' && ($lobby->format ?? '') === 'twinsuns');
         if (!$isTwinSunsRoom && $lobby->numPlayers == $lobby->maxPlayers) {
           $lobby->ready = true;   // 2-seat: fill = ready (unchanged)
@@ -343,6 +371,7 @@
     $lobby->format = $format;
     $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
+    if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
     $lobby->casterMode = $casterMode;
     $lobby->hostUserId = $joiningUserId;
     $lobby->inviteCode = bin2hex(random_bytes(12));
@@ -396,6 +425,9 @@
           ) {
               if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // skip blocked host, keep scanning
               $lobby->numPlayers++;
+              if ($rootName === 'GrandArchiveSim') {
+                $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
+              }
               if($lobby->numPlayers == $lobby->maxPlayers) {
                   $lobby->ready = true;
               }
@@ -450,6 +482,7 @@
       $lobby->format = $format;
       $lobby->queueType = $queueType;
       $lobby->isPrivate = false;
+      if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
       $lobby->casterMode = $casterMode;
       $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
       $lobby->players = array($newPlayer);
