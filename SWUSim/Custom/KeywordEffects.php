@@ -37,6 +37,7 @@ $keywordSuppressors = [
     'JTL_077' => ['SABOTEUR'],   // In the Heat of Battle — each unit loses Saboteur for this phase
     'LOF_209' => ['HIDDEN'],     // Tusken Tracker — each enemy unit loses Hidden for this phase
     'SEC_185' => ['*'],          // TIE/ln Fighter — a ground unit loses ALL keywords (can't gain) this phase
+    'HMW_221' => ['SENTINEL'],   // Teeka — mode 2 of her When Played: a unit loses Sentinel for this phase
 ];
 
 function SWUKeywordSuppressed($obj, string $keyword): bool {
@@ -1205,6 +1206,13 @@ function GetConditionalKeyword_Raid_Value($obj) {
     if (($obj->CardID ?? '') === 'HMW_117') {
         $ctrl117 = intval($obj->Controller ?? 0);
         if ($ctrl117 > 0) $amount += SWUResourceCount($ctrl117) - SWUResourceCount($ctrl117, true);
+    }
+    // HMW_212 The Chieftain — "This unit gains Raid 1 for each other friendly Tusken unit."
+    // _SWUCountFriendlyTraitUnits excludes the source by UniqueID (she is herself a Tusken, so a count
+    // that forgets that reads one too many) and uses TraitContains + GetUnitsInPlay, so a GRANTED Tusken
+    // trait counts and a deployed leader unit counts as a unit.
+    if (($obj->CardID ?? '') === 'HMW_212') {
+        $amount += _SWUCountFriendlyTraitUnits(intval($obj->Controller ?? 0), 'Tusken', intval($obj->UniqueID ?? 0));
     }
     // ASH_105 Bo-Katan Kryze — "While you control another Mandalorian unit, this unit gains Raid 2."
     if (($obj->CardID ?? '') === 'ASH_105') {

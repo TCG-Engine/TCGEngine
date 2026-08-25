@@ -441,10 +441,17 @@ class GameStateBuilder {
         // bracketed WithP{n}GroundArena unit OR the deployed leader itself. Split each into the bracketed
         // unit's upgrades (baked below) or the leader's upgrades (attached at the splice). Space arenas have
         // no leader, so WithUpgradesOnSpaceUnitForPlayer already bakes by final index — left untouched.
-        $leaderGroundUpgrades = [1 => [], 2 => []];
-        foreach ([1, 2] as $player) {
-            $leader   = $player === 1 ? $this->_myLeader : $this->_theirLeader;
-            $hasLead  = (($leader['deployMode'] ?? '') === 'unit');
+        // ⚠ Seats 3/4 included since 2026-08-24. The RUNNER already accepted WithP3/P4GroundArenaUpgrade
+        // and filed the requests into $_groundUpgradeRequests[3]/[4], but this resolve loop ran over
+        // [1, 2] only — so a far-seat upgrade request was collected and then silently dropped, leaving
+        // the unit with empty Subcards and no error. Any four-seat assertion about an upgraded far-seat
+        // unit was therefore green for the wrong reason (found via HMW_222 Sandcrawler Sales Team).
+        // Seats 3/4 have no deployed-leader splice, so $hasLead is false for them and each request
+        // resolves straight onto its bracketed unit.
+        $leaderGroundUpgrades = [1 => [], 2 => [], 3 => [], 4 => []];
+        foreach ([1, 2, 3, 4] as $player) {
+            $leader   = $player === 1 ? $this->_myLeader : ($player === 2 ? $this->_theirLeader : null);
+            $hasLead  = ($leader !== null && ($leader['deployMode'] ?? '') === 'unit');
             $K        = count($this->_groundUnits[$player]);
             $P        = -1; // leader's final ground index: indexOverride if valid, else appended last (K)
             if ($hasLead) { $ov = intval($leader['indexOverride'] ?? -1); $P = ($ov >= 0) ? max(0, min($ov, $K)) : $K; }

@@ -174,6 +174,63 @@ reads exactly like a broken fan-out. Also needed: `WithSeatOrder`, `WithLiveSeat
 `WithGamePhase: ActionPhase`. Before reporting a suspected fan-out bug, instrument first —
 log `SeatCountForGame()`, `GetLiveSeatsArray()`, `OpponentsOf()` and the actual zone contents.
 
+#### Hardening from Pass 1 of the sweep (51 cards, 2026-08-24) — do not re-derive these
+
+**ELIGIBILITY = WHO ACTS. Three shapes, and the SENTENCE DOES NOT TELL YOU WHICH.** Decide from what the
+effect *does to* the chosen seat, never from how the clause is worded:
+
+| shape | rule | example |
+|---|---|---|
+| the chosen player acts on **their OWN board** | **FILTER precisely** — an opponent who cannot make the demanded choice must not be on the menu | `LAW_216`: the choice is GROUND-only, so an opponent whose whole board is in SPACE would be choosing among nothing |
+| something is **done TO them** | **DO NOT FILTER** — "can't be affected" is often the caster's BEST line | `TS26_43` heals an opponent's base as a DRAWBACK, so aiming it at an UNDAMAGED base is correct play; filtering nerfs the card |
+| they act on a **BOARD-WIDE pool** | gate ONCE globally, **filter nobody** | `SHD_205`: both modes read and mutate only the CASTER's resources and units |
+
+⚠ `TWI_252` and `TWI_222` are one card apart in the same set, share the sentence *"choose an opponent"*,
+and take **opposite** eligibility rules. There is no shortcut here.
+⚠ **A LOOK always resolves** — even at an empty hand — so a "look at an opponent's hand" clause can never
+filter anyone out (`SEC_233` Beguile). And when ONE opponent is named once with several clauses hanging
+off it, **scope the pick into every downstream pool** (`'ofSeat' => $opp`), or the caster looks at seat 3's
+hand and bounces seat 4's unit. That defect is invisible in review because the pool **GREW** rather than
+shrank.
+
+**AUTO-RESOLVE THE FORCED-OPTIMAL CHOICE (USER RULING 2026-08-24).** Where the effect is strictly
+beneficial and the chosen opponent is never referenced again, resolve to the optimum instead of raising a
+prompt nobody would answer differently. A visible `OK`/ACK is still welcome where the game log alone would
+be missed.
+
+**⚠ GREP FREE `#N` INDICES BEFORE NAMING A CONTINUATION.** A duplicate `$customDQHandlers["CARD#N"]` key
+**silently overwrites** — `SEC_193#1` collided with a registration 45 lines below in the same file, the
+picker queued, the continuation never ran, and the symptom read as a decision-queue *ordering* bug. One
+grep costs nothing:
+
+```bash
+grep -n 'customDQHandlers\["SEC_193#' SWUSim/Custom/cards/sec/*.php
+```
+
+Related: `AddGameLogEntry` is invisible in CLI regression output — probe with `fwrite(STDERR, …)`.
+
+**⚠ THE `$eligible` YOU COMPUTED MUST ACTUALLY BE PASSED.** `ASH_006` built the list and then called the
+picker without it. The code read correctly and the suite stayed green; only a `P#OPTIONNOT` **menu**
+assertion caught it. Eligibility needs its own assertion — behaviour alone cannot see it.
+
+**Three test-design rules, each learned from a section that PASSED UNDER THE BUG:**
+1. **Assert the PROMPT, never just answer it.** A spare answer is silently ABSORBED and the harness does
+   not validate `OPTIONCHOOSE` candidates, so a section that answers a prompt it never asserted proves
+   nothing (`SEC_260`, `LAW_085`). Assert the PENDING prompt (`P#OPTIONHAS/NOT`, `P#DECISIONTOOLTIP`).
+2. **A menu assertion needs TWO eligible opponents.** At one, the picker correctly auto-resolves
+   invisibly and there is no menu to assert (`LOF_015`, `LAW_216`, `SEC_193` all failed this way first).
+3. **Pick fixture seats so the LEGACY answer ≠ the CORRECT answer.** A four-seat section is not
+   automatically a *discriminating* one — `SHD_172` and `SHD_161` both passed under the very bug they
+   were written to pin. Then prove it: revert to the legacy helper and watch that section, and only that
+   section, red.
+
+⚠ **A seat-count sweep can find TWO-PLAYER bugs.** `TS26_15` C-3PO gates on the CONTROLLER, not the owner
+— and because those two readings name **opposite** players at two seats, fixing the four-seat reading
+corrected Premier as well. Do not assume the 2-player behaviour is the settled baseline.
+
+⚠ **`WithP{n}BaseDamage` does not exist.** Seats 1–2 take base damage via `CommonSetup`'s
+`theirBaseDamage`; seats 3–4 use `WithP{n}Base: CARDID[:damage]`.
+
 ⚠ **Knowing the family is not protection.** `HMW_154` was written on 2026-08-21 *during this sweep*, with
 "each opponent discards" in its text, and shipped a single `SWUDiscardCards($player, 1)` — plus a comment
 asserting "2-player: 'each opponent' is the single opponent", which is how a 2-seat assumption gets
@@ -353,7 +410,7 @@ awk '/\$upgradeHpData = array \(/,/^\);/'    SWUSim/GeneratedCode/GeneratedCardD
 
 **SHD Phase 3-12 lessons (upgrades/passives/deck-search + two-sided leaders; folded at the autonomous→pair-programmed retro):**
 - **⚠ A "while attacking a UNIT" combat conditional must exclude the base explicitly — `$target` is NON-null for base attacks.** `GetZoneObject("theirBase-0")` returns the base object, so a check like `$target !== null && empty($target->removed)` is TRUE when attacking a base too. Gate combat-time "vs unit" buffs/keyword-grants with `strpos((string)$targetMzID, 'Base') === false` as well (cost the SHD_007 Moff Gideon "+1 while attacking a unit" a wrong base-attack buff). The existing SHD_138 `$shd138VsBounty` only avoids this by accident (a base has no Bounty).
-- **⚠ Leader-front "play a unit from your hand" tests: an UNDEPLOYED leader's aspects do NOT reduce the played unit's aspect penalty.** The player's aspects for cost = the BASE (+ a deployed leader unit), NOT the undeployed leader card. So a unit that's on-aspect *to the leader* but off-aspect *to the base* gets the full +2/+4 penalty → the leader-action's affordability filter silently finds 0 valid units and the action reads as "nothing happened." Pick a fixture on-aspect **to the CommonSetup base letter**, or pad resources to cover the penalty (and note the discount is proven by "affordable only because of the −1"). This is invisible because **the schema runner's `useLeaderAbility` wraps the call in `ob_start()/ob_end_clean()` — it SWALLOWS all output AND PHP warnings**, so a silent no-op inside a leader Action shows nothing. Debug by dropping an `error_log("...")` in the offer/handler and running with `php -d display_errors=stderr … 2>&1 | grep PROBE`.
+- **⚠ CORRECTED 2026-08-24 — an UNDEPLOYED leader's aspects DO count toward the aspect penalty.** `PlayerAspects()` loops `GetLeader($player)` and `GetBase($player)` with **no `Deployed` check**, so the leader card contributes its icons from the leader zone whether deployed or not (which is the CR-correct reading). This entry previously claimed the opposite — "aspects for cost = the BASE (+ a deployed leader unit)" — and pricing a fixture that way makes a hand card look UNAFFORDABLE when the engine will happily offer it (it cost a red section on HMW_018 The Warrior, whose [Cunning][Heroism] leader front covers both pips of a Cunning+Heroism unit under a Cunning base, penalty 0). **Derive a fixture's effective cost from leader icons + base icons together**, and if you need a card to be genuinely unaffordable, squeeze the RESOURCES rather than assuming a penalty. The real trap in this area is the one below: a leader-action no-op is SILENT, because **the schema runner's `useLeaderAbility` wraps the call in `ob_start()/ob_end_clean()` — it SWALLOWS all output AND PHP warnings**, so a silent no-op inside a leader Action shows nothing. Debug by dropping an `error_log("...")` in the offer/handler and running with `php -d display_errors=stderr … 2>&1 | grep PROBE`.
 - **Epic deploy is fully GENERIC — no per-leader wiring.** `SWUDeployLeader` gates on `SWUResourceCount($player) < intval(CardCost($cardID))`, i.e. the deploy threshold IS the leader's printed cost (SHD_001 cost 6 = "6+ resources", etc.). Just implement the front + deployed abilities; the "Epic Action: if you control N resources, deploy" needs zero code. Deployed-side dispatch map: On Attack → `$onAttackAbilities["CID:0"]` (combat keys on the attacker's CardID = the leader's); When Deployed → `$whenPlayedAbilities["CID:0"]`; deployed `Action:` → `$unitAbilities["CID"]` + `$unitActionCostKind["CID"]` (+`$leaderActionResourceCosts` for the FRONT resource cost); deployed passive → `ObjectCurrentPower/HP` (leader-presence buffs mirror SOR_001: scan `GetLeader($controller)` — works undeployed AND deployed since the leader entry persists) or a keyword registry (deployed Restore/Overwhelm/Saboteur/Grit auto-fire from the generated `*_Cards` lists). Test a leader with `myLeader:CARDID` + `SkipPreGame:true`; front = `UseLeaderAbility`; deployed = `DeployLeader` then `AttackGroundArena:<deployed-idx>` / `UseUnitAbility:myGroundArena-<deployed-idx>` (the deployed leader lands at the NEXT arena index after any pre-placed units).
 - **"Play a unit from hand then act on THE PLAYED unit" (deal damage / capture / grant Ambush) = the `$gPlayGrantTurnEffect` findable-marker pattern (SEC_018).** Set `global $gPlayGrantTurnEffect; $gPlayGrantTurnEffect = 'MARKER';` then `ActivateCard($player, $handMz, false, $discount)` (save/restore `$gTurnPlayer` + the `PASS` SWUVar around it), null the marker, then scan all arenas for the unit whose `TurnEffects` contains `'MARKER'` — that's the just-played unit. Reuse `'SEC_007'` as the marker to grant the played unit **Ambush this phase**.
 - **⚠ Reactive "When you play a [Smuggle/Underworld/keyword/upgrade] card" LEADER fronts belong to the reactive-trigger subsystem, not Phase 12.** `SWUCollectOwnPlayReactions` scans **deployed UNIT observers only** (`GetUnitsInPlay`), NOT undeployed leaders — so an undeployed-leader "when you play X" reaction has no hook. Defer these leaders (SHD_005/008/010/014/018) to the reactive-trigger phase rather than half-wiring them.
@@ -642,6 +699,68 @@ resources", but only some of those are REACHABLE. Triage before writing, and rec
 - **"Any number of X" is a 0..N PICK, not "all of them".** LOF_205 Force Speed returned every non-unique upgrade with no offer, so neither "none" nor a subset existed. Stage the candidates into TempZone and raise `MZMULTICHOOSE "0|N|…"` (ASH_199 There Is No Conflict is the reference implementation) — and carry the host/defender across the decision by **UniqueID**, since the answer arrives in a later request and the arena can reindex.
 - **⚠ A `-` answer with no earlier answer to consume is how a section goes spuriously green.** `ForceSpeed::ReturnZeroUpgrades_AnyNumberIncludesNone` meant to decline an upgrade-return; with no attack-target answer before it, the `-` landed on the ATTACK TARGET choose and abandoned the attack — and an attack that never happens also returns no upgrades, so both assertions held for the wrong reason. It also hid a real gap (the card's "return any number" is implemented as "return ALL", with no offer). Count prompts against answers, and make a decline section assert something the abandoned-flow CANNOT produce (here: the attack's damage).
 - **Fixture facts:** `WithP{n}GroundArenaControlled:` units sort AFTER every plain `WithP{n}GroundArena:` unit (same rule as a deployed leader) — a wrong upgrade index produces a convincing fake bug. **But a unit PLAYED during the WHEN is appended after both**, so a board of one seeded + one controlled + one played unit indexes seeded / controlled / played. ⚠ **When a section's whole premise is WHICH participant acted, a wrong index does not fail — it passes while testing nothing.** HMW_035's take-control section answered with the newly played unit instead of the stolen one and every behavioural assertion still held (the enemy died, the base took 0, the Shield landed). Anchor such a section with an IDENTITY-bearing pair at the acting index — `…UNIT:<i>:CARDID:<id>` **and** `…UNIT:<i>:DAMAGE:<n>` — so the participant, not just the outcome, is pinned. The positive keyword assertion is `HASKEYWORD:` (`KEYWORD:` is not an assertion name). Hand mzIDs are positionally STABLE across sequential picks — after `myHand-0` is discarded the next offer is still `myHand-1..3`.
+
+### ★ A GREEN mutation has THREE causes — diagnose it, never shrug (HMW completion retro, 2026-08-25)
+
+The 8-card run that finished HMW produced three green mutations, one per cause. Treat a green mutation
+as a FINDING that must be explained before you move on:
+
+1. **A COVERAGE GAP.** Filtering HMW_221 Teeka's grant pool to units *without* Sentinel changed nothing,
+   because no section asserted SOR_086's deliberate no-filter rule. Fix = add the section, then re-run
+   the same mutation and watch it red.
+2. **THE CODE IS GENUINELY REDUNDANT.** Removing HMW_180 Stormchaser's `CleanupRemovedCards()` changed
+   nothing on either dispatch path. A unit's When Played dispatches from the entry-trigger flush, AFTER
+   ActivateCard has compacted the hand — so the call is a no-op here even though ASH_132 Queen Soruna and
+   LOF_150 Cin Drallig both carry it with a comment asserting it is required. **Delete it rather than
+   keeping a no-op with a false justification attached** — that comment is what gets copied onto the next
+   card and believed. (⚠ Whether ASH_132/LOF_150's own calls are also no-ops is unchecked.)
+3. **YOUR PREMISE ABOUT THE CODE WAS WRONG.** See the ZoneSearch entry below. This is the expensive one,
+   because the "fix" you were about to ship is the bug.
+
+**★★ `ZoneSearch("their<Zone>")` IS THE TWIN SUNS FAN-OUT — it is NOT a two-seat hardcode.** At 3+ seats
+ZoneSearch itself expands `their…` across every live opponent and returns seat-addressed
+`p{n}<Zone>-{i}` mzIDs (GameLogic ~27685); at two seats it stays a plain `their…` search, byte-identical.
+So `['myGroundArena','theirGroundArena']` — the shape SHD_201 Principled Outlaw, `_SWUAllUnitsOnly` and
+`SWUAllUnits` all use — is already correct. Building HMW_230 Raiding Party, I read that shape as the
+documented two-seat-hardcode family, hand-rolled a `GetLiveSeatsArray()` + `SWUForeignMzID` loop, and only
+the green mutation caught it. The hand-rolled loop was **strictly worse**: a raw arena walk also skips
+`AnyUnitFilter` and ZoneSearch's leader-unit type mapping. Verify with a passing control before
+"fixing" a shared shape — "shared code shape is not a shared bug" cuts both ways.
+⚠ Tell: at four seats even seat 2 comes back as `p2GroundArena-0`, never `theirGroundArena-0`. A
+`their…` mzID in a four-seat pool means something is still resolving the old way.
+
+**★★ "X loses <keyword> for this phase" NEVER EXPIRES without a `$turnEffectRegistry` row.** The
+suppressor needs TWO registrations and it is easy to do only the first: `$keywordSuppressors['CARD']`
+in KeywordEffects.php (what makes it suppress) **and** a `$turnEffectRegistry['CARD']` row in
+GameLogic.php (what makes it EXPIRE). `SWUExpireTurnEffects` bails on any token whose base is
+unregistered — "unregistered → untouched" — so a bare-CardID suppressor with no row is PERMANENT.
+SOR_140 has both. **Confirmed still missing on JTL_077 (loses Saboteur, plus its `JTL_077_SENTINEL`
+grant), LOF_209 (loses Hidden) and SEC_185 (loses ALL keywords and can't gain any)** — verified by
+probing LOF_209's token across a full round boundary, not inferred. Adding the four rows is measured
+green. Any new "loses X this phase" card gets a duration test, not just a suppression test.
+
+**A modal card's two halves may have DIFFERENT rules — grep each mode separately.** Both of HMW_221
+Teeka's modes exist word-for-word as their own cards, and they disagree: SOR_086 grants to ANY unit with
+no filtering, SOR_140 strips only from units that CURRENTLY have the keyword. Symmetrising them is the
+obvious tidy-up and it is wrong. The "grep the printed SENTENCE" habit pays per CLAUSE, not per card —
+it found the precedent for 5 of this run's 8 cards.
+
+**⚠ TRUNCATED SUITE OUTPUT IS NOT A RESULT — check for the SUMMARY LINE.** The regression endpoint
+returned a body with no `N passed / N failed` line four separate times in one session; parsed naively
+that reads as "0 failures". Once it nearly recorded "removing this filter hangs the engine" (a 10-minute
+timeout that, isolated, resolved cleanly — the container was slow, not the code). **Assert the summary
+line is present before believing any mutation result**, and re-run rather than interpreting silence.
+Same family as the macOS `timeout`-binary trap already noted above.
+
+**Cross-card negatives earn their keep.** Removing HMW_212 The Chieftain's "is the Chieftain in play"
+gate reds THREE sections — its own, plus the `Raid…DoesNotApplyWhileDefending` negatives written for
+HMW_018 and HMW_230. A keyword-scope negative that feels obvious when you write it is exactly what
+catches a later card that changes the keyword globally.
+
+**Harness: far-seat arena upgrades now seed.** `WithP3/P4GroundArenaUpgrade` was accepted by the runner
+and DROPPED by GameStateBuilder (its resolve loop ran `foreach ([1, 2])`), so a four-seat unit could not
+carry an upgrade and any "the far-seat upgrade is gone" assertion passed without one ever existing.
+Fixed 2026-08-25. Guard such a section with a `SELECTABLEEXACT` on the pool, which cannot pass vacuously.
 
 ### ⚠ When mutation testing LIES, and three process traps (HMW `--iterative` retro, 2026-08-21)
 

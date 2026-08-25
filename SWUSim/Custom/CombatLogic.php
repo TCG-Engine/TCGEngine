@@ -2919,6 +2919,21 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if (($target->CardID ?? '') === 'ASH_073') $defendPower += 2;
         // ASH_018 Grogu (deployed): "While ANOTHER friendly unit is defending, it gets +1/+0." (counter-damage only.)
         if (($target->CardID ?? '') !== 'ASH_018' && _SWULeaderDeployed(intval($target->Controller ?? 0), 'ASH_018')) $defendPower += 1;
+        // HMW_212 The Chieftain — "While a friendly Tusken unit is defending, it gets +1/+0 for each Raid
+        // it has." (counter-damage only, like its neighbours above.) Three things this reads carefully:
+        //   • the DEFENDER's own Raid value, not the Chieftain's — "for each Raid IT has";
+        //   • the Raid VALUE (Raid 2 → +2), not one per Raid keyword. HMW is a preview set with no
+        //     ruling on file, so this reading is flagged in the test file; a Raid 6 body is what makes
+        //     the two readings visibly different;
+        //   • NO "other" — she is a friendly Tusken unit herself, so she gets it while defending too.
+        // Gated on an ability-ACTIVE Chieftain (_SWUCountActiveUnitsWithCardID), so one that has lost
+        // its abilities stops granting. GetKeyword_Raid_Value does not honour suppression on its own,
+        // hence the explicit LostAbilities guard on the defender: a blanked unit has no Raid to read.
+        if ($target !== null && empty($target->removed) && TraitContains($target, 'Tusken')
+            && !LostAbilities($target)
+            && _SWUCountActiveUnitsWithCardID(intval($target->Controller ?? 0), 'HMW_212') > 0) {
+            $defendPower += max(0, intval(GetKeyword_Raid_Value($target)));
+        }
         // "Can't deal combat damage this phase" (LAW_130) on the defender → it deals no counter-damage.
         if (is_array($target->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $target->TurnEffects, true)) {
             $defendPower = 0;

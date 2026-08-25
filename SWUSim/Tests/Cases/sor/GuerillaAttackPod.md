@@ -88,8 +88,17 @@ P1GROUNDARENAUNIT:0:READY
 #// granted Ambush attack (it hits SOR_067 Rugged Survivors 3/5 for 4 and takes 3 back) AND the Pod's
 #// own When Played "if a base has 15 or more damage on it, ready this unit" — P2's base is at 15, so
 #// the Pod ends the action READY despite having attacked. Both entry triggers land together, so the
-#// player first picks which resolves (EffectStack-0 = the Ambush) — the ready must resolve AFTER the
-#// attack, or the attack's exhaust would be the final state.
+#// player first picks which resolves — the ready must resolve AFTER the attack, or the attack's
+#// exhaust would be the final state.
+#// ⚠ EffectStack-1 IS THE AMBUSH, not EffectStack-0. CollectEntryTriggers bags WhenPlayed FIRST and
+#// Ambush after it, so EffectStack-0 is the "ready this unit" clause. This answer said EffectStack-0
+#// until 2026-08-24, i.e. it resolved the ready BEFORE the attack — the opposite of the order this
+#// section is named for. It passed anyway only because Ambush attacks were not exhausting the
+#// attacker at all; once that was fixed (CR 6.3.1 step 3, via HMW_018 The Warrior, the first leader
+#// with a deployed Ambush) the stale answer produced EXHAUSTED and the wrong order became visible.
+#// Ambush does NOT ready the unit — modern reminder text is "it may attack an enemy unit", and CR
+#// 5.9.a lets it attack "even if this unit is exhausted". So the Pod attacks WHILE exhausted and the
+#// When Played is what leaves it ready, which is the whole point of the interaction.
 
 ## GIVEN
 CommonSetup: grw/grw/{theirBaseDamage:15;myBase:SOR_022}
@@ -102,7 +111,7 @@ WithP2GroundArena: SOR_067:1:0
 ## WHEN
 - P1>UseBaseAbility
 - P1>AnswerDecision:myHand-0
-- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:EffectStack-1
 - P1>AnswerDecision:YES
 
 ## EXPECT

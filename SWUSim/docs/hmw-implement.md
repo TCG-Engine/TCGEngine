@@ -1,8 +1,8 @@
 # HMW — Card Implementation Plan
 
-**⚠ PREVIEW SET.** 68 cards exist (66 numbered + 2 tokens) of ~262 printed — as of the fifth wave,
-2026-08-19 (HMW_035 / HMW_074 / HMW_272 landed then) — as mock entries in
-`AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
+**⚠ PREVIEW SET.** 95 cards exist (93 numbered + 2 tokens) of ~262 printed — as of the wave imported
+2026-08-24 (HMW_018 / HMW_180 / HMW_212 / HMW_221 / HMW_222 / HMW_230 / HMW_240 / HMW_268 landed
+then) — as mock entries in `AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
 previews land — the phases below cover only what was previewed when each was written.
 
 ⚠ The phase batches below cover the ORIGINAL 21 cards. Cards previewed later were implemented
@@ -11,7 +11,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212
 
 <!-- HMW_011 Darth Sidious — Done, 12/12 including Twin Suns. Carries the engine's first
      "when you deal 4+ damage" observer, wired into all five damage funnels.
@@ -22,6 +22,174 @@ HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121,
 <!-- HMW_019 Dune Sea = blank-text base (52 of 92 released bases are likewise vanilla).
      HMW_T02 Weakness / HMW_T03 Beast = token CARDS; the engine handles tokens generically, so they
      get no per-card file. The ABILITIES that create them are HMW_059 / HMW_168 in Phase 4. -->
+
+<!-- HMW_212 The Chieftain, Here Since the Oceans Dried — Done, 13 sections, 4 guards mutation-verified.
+     "This unit gains Raid 1 for each other friendly Tusken unit. While a friendly Tusken unit is
+     defending, it gets +1/+0 for each Raid it has." Two clauses that feed each other: the first sets
+     HER Raid dynamically, the second turns any friendly Tusken's Raid into a DEFENDING bonus —
+     including her own, so her value is read twice in different roles.
+     Clause 1 → GetConditionalKeyword_Raid_Value (KeywordEffects.php), via _SWUCountFriendlyTraitUnits
+     with the source excluded by UniqueID (she is herself a Tusken).
+     Clause 2 → the $defendPower block in SWUCombatDamage, beside LOF_049 / SHD_042 / ASH_073 / ASH_018
+     ("counter-damage only", never a stat write). Reads the DEFENDER's own Raid, gated on an
+     ability-ACTIVE Chieftain and on the defender not being blanked (GetKeyword_Raid_Value does not
+     honour suppression by itself).
+     ⚠ FLAGGED INTERPRETATION — "for each Raid it has" is read as the Raid VALUE (Raid 2 → +2/+0), not
+     one per Raid keyword instance. HMW is a preview set with no entry in card-specific-rulings.md, so
+     this is reasoned rather than sourced: the value reading is what makes the clause meaningful (under
+     the instance reading HMW_230 Raiding Party's Raid 6 would contribute +1). Pinned by
+     Defending_ScalesWithARaidSixUnit, the only board where the two readings differ unmistakably.
+     RE-CHECK WHEN HMW RELEASES and the rulings database refreshes.
+     ⚠ NICE CROSS-CARD RESULT: removing clause 2's Chieftain-in-play gate reds THREE sections — its own
+     guard plus TheWarrior_DeftDuelist::Deployed_RaidDoesNotApplyWhileDefending and
+     RaidingParty::Raid6_DoesNotApplyWhileDefending. The "Raid is while-ATTACKING" negatives written for
+     those two earlier cards independently catch a card that would otherwise make Raid apply on defence
+     globally. -->
+
+<!-- HMW_240 Sandstorm — Done, 14 sections, 5 guards mutation-verified.
+     "While you control a Tatooine base, this event costs 1 less to play. Choose an arena, Give a
+     Weakness token to each exhausted enemy unit in that arena."
+     ⚠ THE COST DISCOUNT LIVES IN GameLogic.php's $playCostModifiers, NOT the card file — that array is
+     initialized after cards/_loader.php, so a per-card registration is silently wiped and the discount
+     never applies. Pinned by AFFORDABILITY rather than arithmetic: printed cost 3, on-aspect, with
+     exactly 2 resources it is playable ONLY with the Tatooine base (and its partner section proves it
+     is unplayable without).
+     "Choose an arena" is a mandatory PARAMETER, so BOTH options are always offered and picking the
+     empty arena is a legal play — the opposite of HMW_221 Teeka, where the labels are the EFFECTS and
+     a fizzle-only mode is filtered off the menu. Worth keeping the two shapes distinct.
+     Three independent restrictions on the AoE, each with its own section: EXHAUSTED (⚠ Status 0, the
+     sense is easy to invert), ENEMY (their<Arena> only — Sandstorm is a Disaster but points outward),
+     and IN THAT ARENA. ZoneSearch fans "their…" across every live opponent, so the Twin Suns loop is
+     free — no hand-rolled seat enumeration.
+     ⚠ ATTACH EVERY TOKEN, THEN SWEEP ONCE. Weakness is -1/-1 and its HP half is HP reduction, lethal
+     only via SWUCheckShrinkDefeats. Sweeping per target compacts the arena mid-loop and strands every
+     later mzID (the multi-unit debuff loop-shift family; SWUGiveSplitWeakness carries the same note
+     for HMW_071 Ravage). PROVEN: moving the sweep inside the loop reds exactly the
+     TwoOneHpUnits_BOTHDie section and nothing else. -->
+
+<!-- HMW_221 Teeka, You're In Luck — Done, 14 sections, 5 guards mutation-verified.
+     "When Played: Choose one: • Give a unit Sentinel for this phase. • A unit loses Sentinel for this
+     phase." BOTH modes exist word-for-word as their own cards, and they carry DIFFERENT target rules —
+     keep them asymmetric: SOR_086 Gladiator Star Destroyer grants to ANY unit with NO filtering, while
+     SOR_140 SpecForce Soldier strips only from units that CURRENTLY have Sentinel (anything else is a
+     zero-effect pick). "Choose one" is a mandatory branch → OPTIONCHOOSE, never a YESNO; a mode whose
+     pool is empty is dropped from the LABEL LIST, and with one mode left it resolves with no menu.
+     ⚠ THE TWO MODES MUST NOT SHARE A TOKEN. The strip tags the BARE CardID 'HMW_221' (the key
+     SWUKeywordSuppressed looks up in $keywordSuppressors, registered in KeywordEffects.php beside
+     SOR_140). So the grant CANNOT also be a $turnEffectRegistry row keyed 'HMW_221' — one token would
+     mean both "gains Sentinel" and "loses Sentinel". The grant uses 'SENTINEL^HMW_221' instead: the
+     synthetic base carries the keyword, the ^suffix carries Teeka's art for the Active Effects popup,
+     and SWUKeywordSuppressed matches the RAW token so the two never collide.
+     ⚠⚠ CONFIRMED ENGINE BUG, NOT FIXED HERE — "loses <keyword> for this phase" NEVER EXPIRES unless the
+     suppressor CardID also has a $turnEffectRegistry row. SWUExpireTurnEffects bails on any token whose
+     base is unregistered ("unregistered → untouched", GameLogic ~1317), so a bare-CardID suppressor with
+     no row is PERMANENT. Teeka hit it and is fixed by her own row. SOR_140 has a row and is fine, but
+     THREE existing suppressors do NOT: JTL_077 In the Heat of Battle (loses Saboteur, plus its
+     'JTL_077_SENTINEL' grant), LOF_209 Tusken Tracker (loses Hidden), SEC_185 Screeching TIE Fighter
+     (loses ALL keywords and can't gain any — the worst of the three). VERIFIED by live probe, not
+     inferred: LOF_209's token still sits on the target after a full round boundary.
+     Adding the four missing rows was measured and leaves the suite fully green (9532/0) — a ~4-line
+     fix awaiting a go-ahead, deliberately left out of this card's scope. -->
+
+<!-- HMW_222 Sandcrawler Sales Team — Done, 15 sections, 4 guards mutation-verified.
+     Saboteur needs no code (generated registry). "When Played: If you control a Tatooine base, you may
+     return an upgrade that costs 3 or less to its owner's hand."
+     TWO OFFICIAL RULINGS settle the clause (Pre Vizsla - Power Hungry, card-specific-rulings.md), and
+     both cut against the obvious implementation:
+       • "Abilities that refer to a card's cost always refer to its PRINTED cost, regardless of
+         modifiers" — a discount or an alternate Piloting cost never changes eligibility.
+       • "TOKEN UPGRADES ARE CONSIDERED UPGRADES." A Shield/Experience token costs 0 and IS a legal
+         target; returning one puts NO card in hand, because a token ceases on leaving play (CR 5.8).
+         ⚠ LAW_224 Liberty explicitly SKIPS token upgrades on the same shape of clause ("return all
+         upgrades ... that cost 4 or less"). That looks like a divergence from this ruling — worth a
+         separate look, not touched here.
+     Built on SWUGetUpgradeSubcardMzIDs('cost<=3') + SWUDefeatUpgradeByMzID(..., bounce: true). That
+     collector is the right one for three reasons a hand-rolled scan loses: ZoneSearch's seat fan-out,
+     the BASE scan (so a Fortify upgrade is reachable — HMW_205 Intelligence Agency), and no token
+     filtering.
+     ⚠ HARNESS BUG FIXED ALONGSIDE — Tests/Framework/GameStateBuilder.php: the runner accepted
+     WithP3/P4GroundArenaUpgrade and filed the requests, but the resolve loop ran `foreach ([1, 2])`,
+     so every FAR-SEAT upgrade request was silently DROPPED and the unit kept empty Subcards. A
+     half-landed change: the runner even carried a "seats 3/4 supported" comment. Any four-seat
+     assertion of the form "the far-seat upgrade is gone" was passing without the upgrade ever having
+     existed — mine was, until a green-pre-implementation assertion gave it away. Loop widened to
+     [1,2,3,4] (seats 3/4 have no deployed-leader splice, so they take the plain bracket-index path);
+     no collateral, suite unchanged at 9511 before/after. The seed is now guarded by a SELECTABLEEXACT
+     section, which cannot pass vacuously the way an "it's gone" assertion can. -->
+
+<!-- HMW_230 Raiding Party — Done, 15 sections, 6 guards mutation-verified.
+     Raid 6 needs no code (generated registry). "When Played: If you control another Tusken unit or a
+     Tatooine base, you may exhaust a ground unit." — two OR'd gate limbs, each with its own negative;
+     the sharp one is that Raiding Party is ITSELF a Tusken, so the source must be excluded by UniqueID
+     (_SWUCountFriendlyTraitUnits) or the gate opens itself every time.
+     Effect clause is word-for-word SHD_201 Principled Outlaw, so it reuses that shape: "a ground unit"
+     spans BOTH sides, and only READY units are offered (exhausting an exhausted unit does nothing —
+     the exhaust-only-ready convention, SHD_201 / SEC_069).
+     ⚠ MEASURED, AGAINST MY OWN ASSUMPTION: ['myGroundArena','theirGroundArena'] is NOT a two-seat
+     hardcode. I first hand-rolled a GetLiveSeatsArray()/SWUForeignMzID loop on the belief that it was,
+     then ran the four-seat sections against BOTH shapes — identical pools, p2 and p3 present either
+     way. ZoneSearch ITSELF fans "their<Zone>" across every live opponent at 3+ seats and returns
+     seat-addressed p{n} mzIDs (Twin Suns Phase 3, GameLogic ~27685). The hand-rolled loop was also
+     strictly worse: a raw arena walk skips AnyUnitFilter and ZoneSearch's leader-unit type mapping.
+     Reverted to the idiomatic shape. SHD_201 and _SWUAllUnitsOnly / SWUAllUnits are all fine as-is —
+     "shared code shape is not a shared bug", verified with a passing control rather than assumed.
+     ⚠ At four seats there is no "their": even seat 2 comes back as p2GroundArena-0, which is the tell
+     that the pool is genuinely seat-addressed rather than the two-seat pair plus extras. -->
+
+<!-- HMW_180 Stormchaser — Done, 12 sections, 8 guards mutation-verified.
+     "When Played: You may reveal a Disaster card from your hand. If you do OR if there's a Disaster
+     card in your discard pile, draw a card." The clause is an **OR**, not the far commoner "If you
+     do," rider — declining the reveal STILL draws when a Disaster sits in the discard, and satisfying
+     both limbs still draws exactly one. USER-CONFIRMED reading 2026-08-24.
+     ⚠ THE PROMPT IS ALWAYS OFFERED, even when the discard already guarantees the draw. Revealing is
+     not strictly worse than declining: SEC_016 Padmé Amidala pays you for it ("When you reveal or
+     discard 1 or more cards from your hand: ... deal 1 damage to a unit"), so auto-declining the
+     "redundant" reveal would cost a real player real value. Pinned by RevealFiresThePadmeReaction.
+     ⚠ NO CleanupRemovedCards() — deliberately, against the neighbouring house pattern. ASH_132 Queen
+     Soruna and LOF_150 Cin Drallig both call it first, on the stated grounds that the just-played card
+     lingers in the hand array and pushes every offered myHand-N off by one. MEASURED FALSE for a
+     unit's When Played: the hand is already compacted by the time the entry-trigger flush dispatches
+     it. Dumped the pending offer with and without the call, on BOTH dispatch paths (hand play, and
+     played by HMW_018 The Warrior) — identical pools. The call was dropped rather than kept as a
+     no-op carrying a false explanation, and the test section that was written believing the premise
+     has been re-scoped and says so. ⚠ Worth re-checking whether ASH_132/LOF_150's calls are also
+     no-ops before that comment gets copied onto another card.
+     The reveal is now LOGGED ('P{n} revealed [[...]]', visibility ALL): DoRevealCard only sets a
+     per-request client flash message, so a public reveal left no durable record for the opponent. -->
+
+<!-- HMW_018 The Warrior, Deft Duelist — Done, 20 sections (front 11 / deployed 9), all six guards
+     mutation-verified. FRONT: leader Action, modelled on SHD_016 Fennec Shand (same shape, POWER gate
+     instead of a COST gate); the played unit gains Ambush via $gPlayGrantTurnEffect carrying the
+     provenance token AMBUSH^HMW_018. DEPLOYED (Ambush + Raid 1): NO code — both keywords are generated
+     registry entries and the Epic threshold is her printed cost 5, i.e. SWUDeployLeader's default.
+     ⚠ ENGINE FIX SHIPPED WITH THIS CARD: an Ambush attack never exhausted its attacker. CR 6.3.1 step 3
+     is "Begin attack: exhaust the attacker" and CR 5.9.e makes an Ambush attack take all the same
+     steps; the engine's exhaust lives in BeginSWUAttack, which the Ambush path skips (it calls
+     ExecuteSWUAttack directly with its own chosen target). Invisible on every prior Ambush card because
+     a PLAYED unit enters exhausted (CR 5.9.c) — but a DEPLOYED LEADER enters READY, so The Warrior
+     could attack on deploy and stay ready, i.e. a second attack off one deploy action. Fixed via
+     _SWUBeginAmbushAttack() in GameLogic.php, wired into BOTH Ambush call sites (auto-fire at one legal
+     target, and the multi-target MZCHOOSE path) and guarded on Status===1 so already-exhausted
+     attackers are untouched.
+     ⚠ ONE EXISTING TEST WAS CORRECTED (user-approved 2026-08-24):
+     sor/GuerillaAttackPod.md::PlayedViaEnergyConversionLab_AmbushThenReadies answered EffectStack-0,
+     which is the WHEN PLAYED (CollectEntryTriggers bags WhenPlayed first, Ambush second) — so it
+     resolved the "ready this unit" BEFORE the Ambush attack, the opposite of the order the section is
+     named for. It passed only because Ambush attacks were not exhausting at all. Answer changed to
+     EffectStack-1; every assertion left untouched, and the READY end state it always claimed is now
+     produced by the order it always described. Both orderings verified live via TestSchemaStep.
+     USER RULING: Ambush does NOT ready the unit — modern reminder text is "it may attack an enemy
+     unit" and CR 5.9.a lets it attack "even if this unit is exhausted", so the unit attacks WHILE
+     exhausted and a separate ready effect is what can leave it ready afterwards.
+     An audit of all 81 EffectStack-ordering answers in the suite found this was the ONLY comment
+     asserting the wrong index; sor/ReinforcementWalker.md and sor/CountDooku_DarthTyranus.md both
+     state "EffectStack-0 = the When Played" correctly. -->
+
+<!-- HMW_268 Offworld Jawa — Step-0 VANILLA no-op (blank $textData, no keyword-registry membership,
+     no ability stub). Cost 1, 2/1 Ground, NEUTRAL (no aspect pips), trait Jawa. No code, no tests.
+     ⚠ Its Jawa trait is currently payload for NOTHING — no card in any set (released or previewed)
+     references "Jawa" in its text. Re-check when a Jawa-matters card is previewed; it is then the
+     cheap neutral fixture for that gate. -->
 
 ## Foundations already built (this session — do not re-do)
 
@@ -245,7 +413,16 @@ covered the cards previewed when they were written, and a preview set GROWS. The
 
 ## Status
 
-**Card-complete for the FOURTH wave (2026-08-14).** `CardMocks.php` now holds **56** HMW
+**Card-complete as of 2026-08-25 — 95 of 95.** `CardMocks.php` holds **95** HMW CardIDs (93 numbered
++ 2 tokens) and the `### Already Done` diff is EMPTY. The 2026-08-24/25 wave closed the last eight:
+HMW_268 (vanilla no-op), HMW_018 The Warrior, HMW_180 Stormchaser, HMW_230 Raiding Party,
+HMW_222 Sandcrawler Sales Team, HMW_221 Teeka, HMW_240 Sandstorm, HMW_212 The Chieftain.
+⚠ This number is true only until the next preview wave lands — **re-derive it with the diff**
+(`### Already Done` vs `grep -oE "'HMW_[0-9T]+'" AppCore/SWU/CardMocks.php`), never by reading a Status
+line or counting batches. Every "card-complete" claim below this line is a snapshot of an EARLIER,
+SMALLER wave and is retained only as history.
+
+**(historical, 2026-08-14 — the FOURTH wave)** `CardMocks.php` then held **56** HMW
 CardIDs. Batches 9.1-9.4 closed ALL FIVE (HMW_107, HMW_202, HMW_077, HMW_110, HMW_114); the diff is empty as of 2026-08-14. Everything below
 this line describes the state as of the THIRD wave and is retained as history — re-derive the real
 number with the diff, never by reading a Status line or counting batches.

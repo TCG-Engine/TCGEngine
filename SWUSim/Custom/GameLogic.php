@@ -1029,6 +1029,7 @@ $turnEffectRegistry = [
     'TS26_32' => ['kind' => 'MARKER',         'label' => 'Reckless Landing'],                                                 // Reckless Landing — findable marker on the unit just played by the event (dealt 4 damage)
     'SOR_138' => ['kind' => 'LOSE_ABILITIES',                        'label' => 'Loses all abilities'],                       // Force Lightning — chosen unit loses all abilities this phase
     'SOR_140' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // SpecForce Soldier — a unit loses Sentinel this phase
+    'HMW_221' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // Teeka — mode 2: a unit loses Sentinel this phase. ⚠ The row is what makes it EXPIRE: SWUExpireTurnEffects skips any token whose base is unregistered, so a bare-CardID suppressor with no row here is PERMANENT.
     'LOF_096' => ['kind' => 'GRANT_KEYWORD',       'value' => 'SENTINEL', 'label' => 'Sentinel'],                            // Obi-Wan Kenobi — gains Sentinel this phase when you play a Force unit
     'LOF_045' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RESTORE', 'amount' => 1, 'label' => 'Restore 1'],             // Yaddle — each other friendly Jedi unit gains Restore 1 this phase
     'SOR_154' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RAID', 'amount' => 2, 'label' => 'Raid 2'],                    // Rallying Cry — each friendly unit gains Raid 2 this phase
@@ -2700,6 +2701,14 @@ $playCostModifiers = [];
 // registration from a per-card file would be wiped. Same reason LAW_179 / TS26_71 sit here.
 $playCostModifiers["IC27_022"] = function($player, $subjectObj) {
     return GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0 ? -2 : 0;
+};
+
+// HMW_240 Sandstorm: "While you control a Tatooine base, this event costs 1 resource less to play."
+// Here rather than in cards/hmw/Sandstorm.php for the same load-order reason as its neighbours:
+// $playCostModifiers is initialized just above, AFTER cards/_loader.php runs, so a per-card
+// registration is silently wiped and the discount would simply never apply.
+$playCostModifiers["HMW_240"] = function($player, $subjectObj) {
+    return _SWUControlsBaseWithTrait(intval($player), 'Tatooine') ? -1 : 0;
 };
 
 // SHD_182 Bravado: costs 2 less if you've defeated an enemy unit this phase.
@@ -11470,6 +11479,30 @@ $customDQHandlers["SWU_TRIGGER_ORDER_CHOICE"] = function($player, $parts, $lastD
     $playerID = $savedPID;
 };
 
+// Begin an Ambush attack: exhaust the attacker, then hand off to ExecuteSWUAttack.
+//
+// CR 6.3.1 step 3 is "Begin attack. EXHAUST THE ATTACKER", and CR 5.9.e says an attack resulting from
+// Ambush "is resolved like any other attack, with all of the same steps." Ambush waives only the READY
+// REQUIREMENT (5.9.a, "even if this unit is exhausted") — not the exhaust itself. The Ambush path calls
+// ExecuteSWUAttack directly (it has already picked its own target), and the engine's exhaust lives in
+// BeginSWUAttack, so it was being skipped.
+//
+// ⚠ Why this went unnoticed: a PLAYED unit enters play exhausted (CR 5.9.c), so for every Ambush card
+// that has ever existed the missing exhaust changed nothing. A DEPLOYED LEADER enters play READY, so
+// HMW_018 The Warrior — the first leader whose deployed side has Ambush — could attack on deploy and
+// remain ready, i.e. take a second attack off a single deploy action.
+//
+// Guarded on Status===1 so an already-exhausted attacker is untouched: no state change, and no
+// spurious tip-over animation on the ~50 existing Ambush units.
+function _SWUBeginAmbushAttack(int $player, string $attackerMzID, string $targetMzID): void {
+    $attacker = GetZoneObject($attackerMzID);
+    if ($attacker !== null && intval($attacker->Status ?? 0) === 1) {
+        $attacker->Status = 0;
+        SWUQueueExhaustAnim($attackerMzID, $player, intval($attacker->UniqueID ?? 0) ?: null);
+    }
+    ExecuteSWUAttack($player, $attackerMzID, $targetMzID);
+}
+
 // Ambush: player answered the "Ambush attack?" YESNO.
 // $parts[0] = attackerMzID; $parts[1..] = target mzIDs (joined as &-separated parts).
 global $customDQHandlers;
@@ -11484,7 +11517,7 @@ $customDQHandlers["SWUAmbushAnswer"] = function($player, $parts, $lastDecision) 
         $targets = array_values(array_filter(explode('&', $targetStr), fn($t) => $t !== ''));
         if (count($targets) === 1) {
             // Only one valid target — auto-fire, no player choice needed.
-            ExecuteSWUAttack($player, $attackerMzID, $targets[0]);
+            _SWUBeginAmbushAttack(intval($player), $attackerMzID, $targets[0]);
         } else {
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Choose_Ambush_target");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SWUAmbushAttack|{$attackerMzID}", 1);
@@ -11507,7 +11540,7 @@ $customDQHandlers["SWUAmbushAttack"] = function($player, $parts, $lastDecision) 
         // Passed on target — SWU_TRIGGER_RESUME handles SWUAfterAction.
         DecisionQueueController::CleanupRemovedCards();
     } else {
-        ExecuteSWUAttack($player, $attackerMzID, $lastDecision);
+        _SWUBeginAmbushAttack(intval($player), $attackerMzID, strval($lastDecision));
     }
     $playerID = $savedPID;
 };
