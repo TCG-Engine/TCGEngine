@@ -508,8 +508,8 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         return;
     }
 
-    // Venous Core (GA-SHOUT-VENOUS-CORE-PRDSD): additional cost to materialize - sacrifice an Elysian ally.
-    if($materializeCard->CardID === "GA-SHOUT-VENOUS-CORE-PRDSD" && !$ignoreCost) {
+    // Venous Core (YTO70fFsBY): additional cost to materialize - sacrifice an Elysian ally.
+    if($materializeCard->CardID === "YTO70fFsBY" && !$ignoreCost) {
         $elysianAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ELYSIAN"]);
         if(empty($elysianAllies)) {
             AutoUndoMaterializeCostFailure($player, "Venous Core requires an Elysian ally to sacrifice.");
@@ -1217,13 +1217,13 @@ function DoMaterialize($player, $mzCard) {
             $fZone = ($player == $playerID) ? "myField" : "theirField";
             $field = &GetZone($fZone);
             for($mfi = 0; $mfi < count($field); ++$mfi) {
-                if($field[$mfi]->removed || $field[$mfi]->CardID !== "GA-SHOUT-MARTIAL-FLOWSTATE-PRD" || HasNoAbilities($field[$mfi])) continue;
+                if($field[$mfi]->removed || $field[$mfi]->CardID !== "fekR8D4FpB" || HasNoAbilities($field[$mfi])) continue;
                 DoSacrificeFighter($player, $fZone . "-" . $mfi);
                 DecisionQueueController::CleanupRemovedCards();
                 DrawIntoMemory($player, 1);
                 $champMZ = FindChampionMZ($player);
                 if($champMZ !== null && $champMZ !== "") {
-                    AddTurnEffect($champMZ, "GA-SHOUT-MARTIAL-FLOWSTATE-PRD_NEXT_ATTACK");
+                    AddTurnEffect($champMZ, "fekR8D4FpB_NEXT_ATTACK");
                 }
                 break;
             }

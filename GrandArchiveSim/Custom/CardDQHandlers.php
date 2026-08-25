@@ -1259,7 +1259,6 @@ function ForgetfulConcoctionExecute($player) {
     $opponent = ($player == 1) ? 2 : 1;
     global $playerID;
     $memZone = ($opponent == $playerID) ? "myMemory" : "theirMemory";
-    $banishZone = ($opponent == $playerID) ? "myBanish" : "theirBanish";
     $mem = GetZone($memZone);
     $indices = [];
     for($i = 0; $i < count($mem); ++$i) {
@@ -1275,7 +1274,7 @@ function ForgetfulConcoctionExecute($player) {
         if($banishedObj !== null) {
             $banishedObj->Counters['MEM_BANISHED'] = $opponent;
         }
-        MZMove($opponent, $mzCard, $banishZone);
+        MZMove($opponent, NormalizeMZForPlayerPerspective($opponent, $mzCard), "myBanish");
     }
     DecisionQueueController::CleanupRemovedCards();
 }
@@ -1327,7 +1326,7 @@ $customDQHandlers["WujiMill"] = function($player, $params, $lastDecision) {
     $target = ($lastDecision === "YES") ? $player : (($player == 1) ? 2 : 1);
     $deck = &GetDeck($target);
     for($i = 0; $i < 3 && count($deck) > 0; ++$i) {
-        MZMove($target, ($target == $player ? "myDeck" : "theirDeck") . "-0", ($target == $player ? "myGraveyard" : "theirGraveyard"));
+        MZMove($target, "myDeck-0", "myGraveyard");
     }
 };
 
@@ -2890,8 +2889,7 @@ $customDQHandlers["VanishingShotReturn"] = function($player, $parts, $lastDecisi
     $targetObj = GetZoneObject($targetMZ);
     if($targetObj === null || $targetObj->removed) return;
     // Return to owner's memory
-    global $playerID;
-    $dest = $targetObj->Owner == $playerID ? "myMemory" : "theirMemory";
+    $dest = $targetObj->Owner == $player ? "myMemory" : "theirMemory";
     MZMove($player, $targetMZ, $dest);
 };
 
@@ -4199,7 +4197,7 @@ $customDQHandlers["GrayLupindroidPowercell"] = function($player, $parts, $lastDe
     $sourceMZ = FindFieldMzByUniqueID($uniqueID);
     if($sourceMZ === "") return;
     $sourceObj = GetZoneObject($sourceMZ);
-    if($sourceObj === null || $sourceObj->removed || $sourceObj->CardID !== "GA-SHOUT-GRAY-LUPINDROID-PRD") return;
+    if($sourceObj === null || $sourceObj->removed || $sourceObj->CardID !== "qQ7DxBj1J0") return;
     AddCounters($player, $sourceMZ, "buff", 1);
     DrawIntoMemory($player, 1);
 };
@@ -5392,7 +5390,7 @@ $customDQHandlers["EnthrallingChimeGainControl"] = function($player, $params, $l
 };
 
 // ============================================================================
-// Demons Bargain (GA-SHOUT-DEMONS-BARGAIN-PRD): target controller chooses
+// Demons Bargain (nRtmc2wmBI): target controller chooses
 // whether to have the caster draw two cards or lose control of the ally.
 // ============================================================================
 $customDQHandlers["DemonsBargainOffer"] = function($player, $params, $lastDecision) {
@@ -5439,9 +5437,8 @@ $customDQHandlers["FulminatorRisingStormPing"] = function($player, $params, $las
     $weaponObj = GetZoneObject($weaponMZ);
     $targetObj = GetZoneObject($targetMZ);
     $validSources = [
-        "GA-SHOUT-FULMINATOR-RISING-STORM-PRDSD" => true,
-        "GA-SHOUT-LORRAINE-ARCHLIGHT-SABER-PRDSD" => true,
-        "GA-SHOUT-LORRAINE-ARCHLIGHT-SABER-PRD1E-CUR" => true,
+        "F1JIgewvFI" => true,
+        "x9sSpjpP3G" => true,
     ];
     if($weaponObj === null || $weaponObj->removed || !isset($validSources[$weaponObj->CardID])) return;
     if($targetObj === null || $targetObj->removed) return;
@@ -5458,7 +5455,7 @@ $customDQHandlers["LorraineHonedOperativeSwordBuff"] = function($player, $params
     if(!PropertyContains(EffectiveCardType($weaponObj), "WEAPON")) return;
     if(!PropertyContains(EffectiveCardSubtypes($weaponObj), "SWORD")) return;
     AddCounters($player, $lastDecision, "durability", 1);
-    AddTurnEffect($lastDecision, "GA-SHOUT-LORRAINE-HONED-OPERATIVE_POWER");
+    AddTurnEffect($lastDecision, "UsX7t4lXfX_POWER");
 };
 
 $customDQHandlers["LorraineHonedOperativeBanishMemory"] = function($player, $params, $lastDecision) {
@@ -5791,8 +5788,7 @@ $customDQHandlers["ScorchedConquestDestroy"] = function($player, $parts, $lastDe
     // Destroy the chosen domain (move to its owner's graveyard)
     $obj = GetZoneObject($lastDecision);
     if($obj === null) return;
-    global $playerID;
-    $destGrave = ($obj->Controller ?? $player) == $playerID ? "myGraveyard" : "theirGraveyard";
+    $destGrave = ($obj->Controller ?? $player) == $player ? "myGraveyard" : "theirGraveyard";
     MZMove($player, $lastDecision, $destGrave);
     ScorchedConquestStep($player, $remaining - 1);
 };
@@ -6407,17 +6403,16 @@ $customDQHandlers["PoisonousBreezecapSuppressReplace"] = function($player, $part
         if($obj === null) return;
         $controller = $obj->Controller;
         OnLeaveField($controller, $mzCard);
-        MZMove($controller, $mzCard, "myGraveyard");
+        MZMove($controller, NormalizeMZForPlayerPerspective($controller, $mzCard), "myGraveyard");
         DecisionQueueController::CleanupRemovedCards();
         // Each opponent banishes a card at random from their memory
         $opponent = ($controller == 1) ? 2 : 1;
         global $playerID;
         $opMemZone = $opponent == $playerID ? "myMemory" : "theirMemory";
-        $opBanishZone = $opponent == $playerID ? "myBanish" : "theirBanish";
         $memCards = ZoneSearch($opMemZone);
         if(!empty($memCards)) {
             $randomIdx = array_rand($memCards);
-            MZMove($opponent, $memCards[$randomIdx], $opBanishZone);
+            MZMove($opponent, NormalizeMZForPlayerPerspective($opponent, $memCards[$randomIdx]), "myBanish");
         }
     } else {
         // Proceed with normal suppress
@@ -8064,7 +8059,7 @@ $customDQHandlers["EtherealysPromiseBanish"] = function($player, $parts, $lastDe
     $fieldZone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($fieldZone);
     if(isset($field[$idx]) && !$field[$idx]->removed && $field[$idx]->CardID === "7n0bv1sqgb") {
-        MZMove($player, $fieldZone . "-" . $idx, "myBanish");
+        MZMove($player, NormalizeMZForPlayerPerspective($player, $fieldZone . "-" . $idx), "myBanish");
         DecisionQueueController::CleanupRemovedCards();
         Draw($player, 1);
     }
@@ -8226,7 +8221,7 @@ $customDQHandlers["GlimmerEssenceAmuletChoice"] = function($player, $parts, $las
     for($i = 0; $i < count($field); ++$i) {
         if($field[$i]->removed || $field[$i]->CardID !== "dy4urpjbjm") continue;
         OnLeaveField($player, $fieldZone . "-" . $i);
-        MZMove($player, $fieldZone . "-" . $i, "myBanish");
+        MZMove($player, NormalizeMZForPlayerPerspective($player, $fieldZone . "-" . $i), "myBanish");
         DecisionQueueController::CleanupRemovedCards();
         Draw($player, 1);
         break;

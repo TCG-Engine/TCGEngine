@@ -387,16 +387,15 @@ $customDQHandlers["CheetahOfBoundFuryTransform"] = function($player, $parts, $la
 
     $owner = intval($obj->Owner ?? $obj->Controller ?? $player);
     global $playerID;
-    $banishZone = $owner == $playerID ? "myBanish" : "theirBanish";
     $fieldZone = $owner == $playerID ? "myField" : "theirField";
 
-    MZMove($owner, $mzID, $banishZone);
+    MZMove($owner, NormalizeMZForPlayerPerspective($owner, $mzID), "myBanish");
     DecisionQueueController::CleanupRemovedCards();
 
-    $banishment = GetZone($banishZone);
+    $banishment = GetBanish($owner);
     for($i = count($banishment) - 1; $i >= 0; --$i) {
         if($banishment[$i]->removed || $banishment[$i]->CardID !== "vvfwwa13y9") continue;
-        $returned = MZMove($owner, $banishZone . "-" . $i, $fieldZone);
+        $returned = MZMove($owner, "myBanish-" . $i, "myField");
         if($returned !== null) {
             $fieldArr = GetZone($fieldZone);
             $newIdx = count($fieldArr) - 1;
@@ -537,8 +536,7 @@ $customDQHandlers["FatestoneOfHeavenDestroy"] = function($player, $parts, $lastD
     } else {
         OnLeaveField($player, $lastDecision);
         $controller = $obj->Controller ?? $player;
-        global $playerID;
-        $dest = $controller == $playerID ? "myGraveyard" : "theirGraveyard";
+        $dest = $controller == $player ? "myGraveyard" : "theirGraveyard";
         MZMove($player, $lastDecision, $dest);
     }
 };
@@ -767,7 +765,7 @@ function PelagicFatestoneOnFloatingBanished($player, $banishedCardID) {
     $banish = GetZone($banishZone);
     for($i = count($banish) - 1; $i >= 0; --$i) {
         if(!$banish[$i]->removed && $banish[$i]->CardID === "tqkkyf4ktr") {
-            $mzBanish = $banishZone . "-" . $i;
+            $mzBanish = "myBanish-" . $i;
             $newObj = MZMove($player, $mzBanish, "myField");
             if($newObj !== null) {
                 $fieldArr = &GetField($player);

@@ -1088,7 +1088,6 @@ function ClearIntent($player) {
         }
         if($player != $playerID) {
             $intentCard = FlipZonePerspective($intentCards[$i]);
-            $zone = FlipZonePerspective($zone);
         }
         MZMove($player, $intentCard, $zone);
     }
@@ -1672,9 +1671,9 @@ function OnAttackTrigger($player, $mzID) {
         $field = GetField($player);
         for($i = 0; $i < count($field); ++$i) {
             if($field[$i] === null || $field[$i]->removed) continue;
-            if($field[$i]->CardID !== "GA-SHOUT-BLISTERING-INSURGENT-PRDSD") continue;
+            if($field[$i]->CardID !== "XgnBkRQgg1") continue;
             if(HasNoAbilities($field[$i])) continue;
-            AddTurnEffect("myField-" . $i, "GA-SHOUT-BLISTERING-INSURGENT-PRDSD_POWER");
+            AddTurnEffect("myField-" . $i, "XgnBkRQgg1_POWER");
         }
     }
 
@@ -1695,9 +1694,9 @@ function OnAttackTrigger($player, $mzID) {
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["dih0LPaigc"]));
     }
 
-    if($obj !== null && in_array("GA-SHOUT-MARTIAL-FLOWSTATE-PRD_NEXT_ATTACK", $obj->TurnEffects)) {
-        AddTurnEffect($mzID, "GA-SHOUT-MARTIAL-FLOWSTATE-PRD_POWER");
-        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["GA-SHOUT-MARTIAL-FLOWSTATE-PRD_NEXT_ATTACK"]));
+    if($obj !== null && in_array("fekR8D4FpB_NEXT_ATTACK", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "fekR8D4FpB_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["fekR8D4FpB_NEXT_ATTACK"]));
     }
 
     // Galvanizing Gale (f00cEmu6Ql): target ally's next attack this turn gets +3 POWER
@@ -2010,9 +2009,8 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         $field = GetField($player);
         foreach($field as $fulminatorObj) {
             if($fulminatorObj === null || $fulminatorObj->removed || HasNoAbilities($fulminatorObj)) continue;
-            if($fulminatorObj->CardID !== "GA-SHOUT-FULMINATOR-RISING-STORM-PRDSD"
-                && $fulminatorObj->CardID !== "GA-SHOUT-LORRAINE-ARCHLIGHT-SABER-PRDSD"
-                && $fulminatorObj->CardID !== "GA-SHOUT-LORRAINE-ARCHLIGHT-SABER-PRD1E-CUR") continue;
+            if($fulminatorObj->CardID !== "F1JIgewvFI"
+                && $fulminatorObj->CardID !== "x9sSpjpP3G") continue;
             if(GetCounterCount($fulminatorObj, "static") <= 0) continue;
             $weaponUniqueID = intval($fulminatorObj->UniqueID ?? 0);
             $targetUniqueID = intval($fulminatorTargetObj->UniqueID ?? 0);
@@ -3623,8 +3621,7 @@ function TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount) {
     $hasDante = false;
     foreach(GetField($sourceController) as $fieldObj) {
         if($fieldObj === null || $fieldObj->removed || HasNoAbilities($fieldObj)) continue;
-        if($fieldObj->CardID === "GA-SHOUT-DANTE-HEMOMANCER-PRDSD"
-            || $fieldObj->CardID === "GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR") {
+        if($fieldObj->CardID === "4FtNBFaOJp") {
             $hasDante = true;
             break;
         }
@@ -4243,7 +4240,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                         $amount -= $prevented;
                         $smController = $linkedObj->Controller;
                         $linkedMZ = $linkedObj->GetMzID();
-                        MZMove($smController, $linkedMZ, ($smController == $playerID) ? "myBanish" : "theirBanish");
+                        MZMove($smController, NormalizeMZForPlayerPerspective($smController, $linkedMZ), "myBanish");
                         DecisionQueueController::CleanupRemovedCards();
                         Draw($smController, 1);
                     }
@@ -4253,7 +4250,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                         $amount -= min(2, $amount);
                         $shieldController = $linkedObj->Controller;
                         $linkedMZ = $linkedObj->GetMzID();
-                        MZMove($shieldController, $linkedMZ, ($shieldController == $playerID) ? "myGraveyard" : "theirGraveyard");
+                        MZMove($shieldController, NormalizeMZForPlayerPerspective($shieldController, $linkedMZ), "myGraveyard");
                         DecisionQueueController::CleanupRemovedCards();
                     }
                     break;
@@ -4285,11 +4282,10 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 if($prevented > 0) {
                     global $playerID;
                     $gravZone = ($evOwner == $playerID) ? "myGraveyard" : "theirGraveyard";
-                    $banishDest = ($evOwner == $playerID) ? "myBanish" : "theirBanish";
                     $gravCards = GetZone($gravZone);
                     for($gi = count($gravCards) - 1; $gi >= 0; --$gi) {
                         if(!$gravCards[$gi]->removed && $gravCards[$gi]->CardID === $evCardID) {
-                            MZMove($evOwner, $gravZone . "-" . $gi, $banishDest);
+                            MZMove($evOwner, NormalizeMZForPlayerPerspective($evOwner, $gravZone . "-" . $gi), "myBanish");
                             break;
                         }
                     }
@@ -4468,12 +4464,11 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         $controller = $targetObj->Controller;
         $shieldField = GetField($controller);
         global $playerID;
-        $shieldZone = ($controller == $playerID) ? "myField" : "theirField";
         foreach($shieldField as $si => $sObj) {
             if($sObj === null || $sObj->removed) continue;
             if(in_array("SURGE_PROTECTOR_SHIELD", $sObj->TurnEffects ?? [])) {
                 $amount = 0;
-                MZMove($controller, $shieldZone . "-" . $si, ($controller == $playerID) ? "myGraveyard" : "theirGraveyard");
+                MZMove($controller, "myField-" . $si, "myGraveyard");
                 DecisionQueueController::CleanupRemovedCards();
                 return;
             }
@@ -4546,7 +4541,6 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                 $controller = $targetObj->Controller;
                 global $playerID;
                 $deckRef = $controller == $playerID ? "myDeck" : "theirDeck";
-                $matRef = $controller == $playerID ? "myMaterial" : "theirMaterial";
                 $deck = GetZone($deckRef);
                 $revealCount = min($prevented, count($deck));
                 $revealIDs = [];
@@ -4563,7 +4557,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                     $deckZone = GetZone($deckRef);
                     if(empty($deckZone)) break;
                     $cardID = $deckZone[0]->CardID;
-                    MZMove($controller, $deckRef . "-0", $matRef);
+                    MZMove($controller, "myDeck-0", "myMaterial");
                     MarkCardIDPreserved($cardID);
                 }
             }

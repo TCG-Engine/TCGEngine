@@ -180,7 +180,7 @@ j68m69iq4d
 MAIN
 
 
-{"mzID":"myField-0","isImbued":"NO","amount":7}
+{"PASS":"0","mzID":"myField-0","isImbued":"NO","amount":7}
 0
 {}
 3
