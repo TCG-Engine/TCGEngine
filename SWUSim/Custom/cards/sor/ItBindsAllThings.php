@@ -53,12 +53,7 @@ $whenPlayedAbilities["SOR_075:0"] = function($player, $mzID = '') {
             // captured in the follow-up and carried to the optional deal.
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget($player, $targets, "Heal_up_to_3_damage_from_a_unit", "SOR_075#0");
             return;

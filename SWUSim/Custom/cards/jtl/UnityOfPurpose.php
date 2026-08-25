@@ -10,16 +10,21 @@ $whenPlayedAbilities["JTL_106:0"] = function($player, $mzID = '') {
                           // units; every friendly unit gets +N/+N.
             global $playerID;
             $playerID = intval($player);
-            $myUnits = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
-            if (empty($myUnits)) return;
+            // ⚠ TWO DIFFERENT POOLS — the card's two clauses name different sets, and they are only
+            // the same set in a 2-player game:
+            //   "for each FRIENDLY unit with a different name"  -> team-wide  (the COUNT)
+            //   "give each unit YOU CONTROL +1/+1"              -> self-only  (the BUFF)
+            $countPool = SWUFriendlyUnits();      // friendly: spans the team in Team Suns
+            $buffPool  = SWUControlledUnits();    // you control: always your own units
+            if (empty($countPool) && empty($buffPool)) return;
             $names = [];
-            foreach ($myUnits as $mz) {
+            foreach ($countPool as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed)) $names[SWUObjectTitle($o)] = true;
             }
             $n = count($names);
             if ($n <= 0) return;
-            foreach ($myUnits as $mz) {
+            foreach ($buffPool as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed)) SWUApplyPhaseBuff($mz, $n, $n, 'JTL_106');
             }

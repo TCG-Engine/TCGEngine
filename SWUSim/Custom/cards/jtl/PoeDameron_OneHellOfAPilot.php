@@ -22,10 +22,7 @@ $whenPlayedAbilities["JTL_100:0"] = function($player, $mzID) {
     SWUCreateUnitToken(intval($player), 'JTL_T02');
 
     // Step 2 — collect free-attach targets: friendly Vehicles with 0 pilots (strict rule).
-    $vehicles = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
-    );
+    $vehicles = SWUFriendlyUnits();
     $targets = array_values(array_filter($vehicles, function($vMz) use ($mzID) {
         $obj = GetZoneObject($vMz);
         if (SWUObjGone($obj)) return false;

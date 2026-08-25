@@ -34,7 +34,7 @@ $customDQHandlers["ASH_231#1"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["ASH_231:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
     $friendly = [];
-    foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+    foreach (SWUFriendlyUnits() as $mz) {
         $o = GetZoneObject($mz); if ($o !== null && empty($o->removed) && intval($o->Status ?? 1) === 1) $friendly[] = $mz;
     }
     $enemy = [];

@@ -54,12 +54,7 @@ $customDQHandlers["SHD_076#1"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["SHD_076:0"] = function($player, $mzID = '') {
 // Unexpected Escape — "Exhaust a unit. You may rescue a captured card guarded by
                           // that unit."
-            $targets = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Exhaust_a_unit", "SHD_076#0");
             return;

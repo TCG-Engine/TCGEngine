@@ -17,12 +17,9 @@ $customDQHandlers["SOR_019#0"] = function($player, $parts, $lastDecision) {
 };
 
 $baseAbilities["SOR_019"] = function($player) {
-    $targets = array_merge(
-        ZoneSearch("myGroundArena", NonLeaderUnitFilter),
-        ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-        ZoneSearch("mySpaceArena", NonLeaderUnitFilter),
-        ZoneSearch("theirSpaceArena", NonLeaderUnitFilter)
-    );
+    // "Give a Shield token to A NON-LEADER UNIT" — unqualified, so every non-leader unit on the
+    // table is a legal target (teammate's included in Team Suns).
+    $targets = SWUAllUnits(null, null, NonLeaderUnitFilter);
     if (empty($targets)) { SWUAfterAction($player); return; }
     $targetStr = implode("&", $targets);
     DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Choose_a_non-leader_unit_to_shield");

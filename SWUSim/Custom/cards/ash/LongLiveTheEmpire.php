@@ -17,7 +17,7 @@ $customDQHandlers["ASH_103#0"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["ASH_103:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
     $tg = [];
-    foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+    foreach (SWUFriendlyUnits() as $mz) {
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Imperial')) $tg[] = $mz;
     }

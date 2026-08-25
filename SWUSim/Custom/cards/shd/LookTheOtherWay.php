@@ -37,12 +37,7 @@ $customDQHandlers["SHD_227#1"] = function($controller, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SHD_227:0"] = function($player, $mzID = '') {
 // Look the Other Way — "Exhaust a unit unless its controller pays 2 resources."
-            $targets = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Choose_a_unit_(exhaust_unless_controller_pays_2)", "SHD_227#0|{$player}");
             return;

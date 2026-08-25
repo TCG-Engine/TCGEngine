@@ -11,7 +11,7 @@ $whenPlayedAbilities["JTL_217:0"] = function($player, $mzID) {
     $self = GetZoneObject($mzID);
     $selfUid = ($self !== null) ? intval($self->UniqueID ?? 0) : 0;
     $another = false;
-    foreach (ZoneSearch("mySpaceArena", AnyUnitFilter) as $mz) {
+    foreach (SWUControlledUnits('Space') as $mz) {   // "If YOU CONTROL another space unit"
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUid) { $another = true; break; }
     }

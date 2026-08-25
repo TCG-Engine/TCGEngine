@@ -20,7 +20,7 @@ $whenPlayedAbilities["JTL_253:0"] = function($player, $mzID = '') {
                           // space half via the JTL_253 continuation.
             global $playerID;
             $playerID = intval($player);
-            $ground = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("theirGroundArena", AnyUnitFilter));
+            $ground = SWUAllUnits(null, 'Ground');   // "A ground unit" is unqualified -> both teams
             if (!empty($ground)) {
                 SWUQueueMayChooseTarget(intval($player), $ground,
                     "You_may_give_a_ground_unit_+2/+2", "Give_+2/+2_this_phase", "APPLY_PHASE_BUFF|2|2|JTL_253");

@@ -17,6 +17,7 @@ function SWUCosmeticCatalog() {
             'ash-starfield' => ['label'=>'ASH Starfield', 'asset'=>'./Assets/Boards/SWUSim/ash-starfield.webp', 'isDefault'=>false],
             'death-star' => ['label'=>'Death Star',     'asset'=>'./Assets/Boards/SWUSim/death-star.webp',     'isDefault'=>false],
             'echo-base' => ['label'=>'Echo Base',      'asset'=>'./Assets/Boards/SWUSim/echo-base.webp',      'isDefault'=>false],
+            'default-2' => ['label'=>'Default', 'asset'=>'./Assets/Boards/SWUSim/default-2.webp', 'isDefault'=>false],
             //new backgrounds above this line
         ],
         'cardback' => [

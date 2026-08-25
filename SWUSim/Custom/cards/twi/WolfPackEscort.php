@@ -7,7 +7,7 @@
 // owner's hand."
 $whenPlayedAbilities["TWI_191:0"] = function($player, $mzID) {
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'BOUNCE_UNIT', 'side' => 'my', 'nonLeader' => true, 'notTraits' => ['Vehicle'], 'may' => true,
+        'continuation' => 'BOUNCE_UNIT', 'side' => 'friendly', 'nonLeader' => true, 'notTraits' => ['Vehicle'], 'may' => true,
         'question' => "You_may_return_a_friendly_non-Vehicle_unit_to_hand", 'prompt' => "Return_a_friendly_non-Vehicle_unit",
     ]);
 };

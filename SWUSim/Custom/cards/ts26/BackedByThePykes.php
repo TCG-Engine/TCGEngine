@@ -28,7 +28,7 @@ $customDQHandlers["TS26_58#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["TS26_58:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+    $friendly = SWUFriendlyUnits();
     if (empty($friendly)) return;
     SWUQueueChooseTarget(intval($player), $friendly, "Give_an_Experience_to_a_friendly_unit", "TS26_58#0");
 };

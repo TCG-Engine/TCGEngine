@@ -36,10 +36,7 @@ $customDQHandlers["SOR_127#1"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SOR_127:0"] = function($player, $mzID = '') {
 // Strike True — "A friendly unit deals damage equal to its power to an enemy unit."
-            $friendly = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
-            );
+            $friendly = SWUFriendlyUnits();
             $enemy = array_merge(
                 ZoneSearch("theirGroundArena", AnyUnitFilter),
                 ZoneSearch("theirSpaceArena",  AnyUnitFilter)

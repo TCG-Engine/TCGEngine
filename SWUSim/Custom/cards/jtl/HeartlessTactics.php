@@ -25,10 +25,7 @@ $whenPlayedAbilities["JTL_194:0"] = function($player, $mzID = '') {
                           // has 0 power and isn't a leader, you may return it to its owner's hand.
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Exhaust_and_-2/-0_a_unit", "JTL_194#0");
             return;

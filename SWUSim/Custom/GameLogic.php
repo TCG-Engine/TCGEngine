@@ -1799,9 +1799,29 @@ function SWUQueueModalChoose(int $player, string $cardID, array $labels, int $pi
 // Because a trigger dispatch (DispatchTrigger) restores $playerID after the closure, the calling card
 // must queue this via an intermediate CUSTOM (e.g. OPP_DEFEAT_OWN_UNIT) rather than calling it inline
 // from a WhenPlayed/OnAttack closure — the CUSTOM path (ExecuteStaticMethods) does not restore $playerID.
-function SWUOpponentChoosesOwnUnit(int $caster, bool $nonLeader, string $tooltip, string $handler): void {
+// Which opponents could actually make this choice — i.e. control at least one unit of the demanded
+// kind. ELIGIBILITY = WHO ACTS: the chosen opponent acts on their OWN board, so an opponent with
+// nothing to choose among must not appear on the menu (the LAW_216 rule).
+function SWUOpponentsWithOwnUnit(int $caster, bool $nonLeader): array {
+    global $playerID;
+    $savedPID = $playerID;
+    $filter = $nonLeader ? NonLeaderUnitFilter : AnyUnitFilter;
+    $out = [];
+    foreach (OpponentsOf($caster) as $opp) {
+        $playerID = $opp;
+        $has = !empty(ZoneSearch('myGroundArena', $filter)) || !empty(ZoneSearch('mySpaceArena', $filter));
+        if ($has) $out[] = $opp;
+    }
+    $playerID = $savedPID;
+    return $out;
+}
+
+// $opp: WHICH opponent makes the choice. null keeps the historical OtherPlayer($caster) — correct only
+// where the seat is already determined (a per-opponent loop). For "AN opponent" the CASTER picks the
+// seat first (official ruling, Avenger 03/01/2024) and passes it in explicitly.
+function SWUOpponentChoosesOwnUnit(int $caster, bool $nonLeader, string $tooltip, string $handler, ?int $opp = null): void {
     global $playerID, $customDQHandlers;
-    $opp = OtherPlayer($caster);
+    $opp = ($opp !== null && $opp > 0) ? intval($opp) : OtherPlayer($caster);
     $savedPID = $playerID;
     $playerID = $opp;
     $filter = $nonLeader ? NonLeaderUnitFilter : AnyUnitFilter;
@@ -7416,15 +7436,51 @@ function SWUEliminateSeat(int $seat, ?int $killer = null): void {
     if ($ic === "P{$seat}_CLAIMED" || $ic === "P{$seat}_UNCLAIMED") {
         SetInitiativeCounter("P" . strval($live[0] ?? 1) . "_UNCLAIMED");
     }
-    // 3. Optionally heal the eliminator 5 (CR §12.6.2). Self-elimination / no-damager heals no one.
-    if ($killer !== null && $killer !== $seat && in_array($killer, $live, true)) {
+    // 3. Optionally heal the eliminator 5 (CR §12.6.2). Self-elimination / no-damager heals no one —
+    //    and in Team Suns a SAME-TEAM killer heals nobody either, the same carve-out one step wider.
+    if ($killer !== null && $killer !== $seat && in_array($killer, $live, true)
+        && SWUTeamOf($killer) !== SWUTeamOf($seat)) {
         OnHealBase($killer, $killer, 5);
     }
+    AddGameLogEntry('ELIMINATED', "Player {$seat} has been eliminated!", 'ALL');
+
+    if (SWUIsTeamGame()) {
+        // Team Suns: the round does NOT end on an elimination. The game ends the moment one team has
+        // no live seats left, and the surviving team wins outright — no deferred scoring and no
+        // base-HP comparison, so SWU_TS_GAME_ENDING is deliberately never set and
+        // _SWUScoreTwinSunsEndOfPhase() can never run here.
+        if (empty(GetLiveSeatsArray())) {
+            // BOTH teams wiped in the same sweep (SWUCheckBaseDefeatState can eliminate more than one
+            // seat in a single pass). Spec §7: that is a shared victory. LiveSeats is empty by now, so
+            // the winner set comes from SeatOrder, which SWUEliminateSeat deliberately never trims.
+            SWUDeclareTwinSunsWinners(GetSeatOrderArray(), "GAMEOVER:Both teams were wiped out — the game is a draw!");
+            return;
+        }
+        $survivors = _SWUTeamWipedOut();
+        if (!empty($survivors)) {
+            $label = "GAMEOVER:Team " . (SWUTeamOf($survivors[0]) === 1 ? "Red" : "Blue") . " wins!";
+            SWUDeclareTwinSunsWinners($survivors, $label);
+        }
+        return;
+    }
+
     // 4. Flag the game to end at the next phase boundary (deferred scoring below).
     SetSWUVar('SWU_TS_GAME_ENDING', '1');
-    AddGameLogEntry('ELIMINATED', "Player {$seat} has been eliminated!", 'ALL');
     // 5. Safety net: a single survivor has nothing left to play — score immediately (CR §12.7).
     if (count(GetLiveSeatsArray()) <= 1) _SWUScoreTwinSunsEndOfPhase();
+}
+
+// Team Suns: if exactly one team has been wiped out, return the SURVIVING team's live seats;
+// otherwise []. The both-teams-wiped case never reaches here — the caller handles an empty LiveSeats
+// as a shared victory before calling this.
+function _SWUTeamWipedOut(): array {
+    if (!SWUIsTeamGame()) return [];
+    $live = GetLiveSeatsArray();
+    if (empty($live)) return [];
+    $teams = [];
+    foreach ($live as $s) $teams[SWUTeamOf($s)][] = $s;
+    if (count($teams) !== 1) return [];          // both teams still have someone
+    return array_values(reset($teams));
 }
 
 // Deferred Twin Suns end-of-phase scoring (CR §12.7). No-op unless a prior elimination set
@@ -7479,7 +7535,14 @@ function SWUSeatsInPlayerOrder(int $from): array {
 function OpponentsOf(int $player): array {
     $out = [];
     foreach (GetLiveSeatsArray() as $seat) {
-        if ($seat !== $player) $out[] = $seat;
+        if ($seat === $player) continue;
+        // Team Suns: a teammate is NEVER an opponent — not for card abilities, and not as an attack
+        // target. This one filter is the cascade point: SWUGetAllValidAttackTargets, ZoneSearch's
+        // their<Zone> fan-out, "each opponent" effects, SWUQueueChooseOpponent's eligible pool,
+        // SWUOpponentsWithCards and the blast counter all read this and inherit it for free.
+        // SWUTeamOf returns the seat itself outside a team game, so this is a no-op there.
+        if (SWUTeamOf($seat) === SWUTeamOf($player)) continue;
+        $out[] = $seat;
     }
     return $out;
 }
@@ -9247,10 +9310,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         }
         case 'TS26_73': { // Moralo Eval — "When your base is dealt combat damage: you may deal 1 damage to a unit."
             global $playerID; $playerID = intval($player);
-            $tg = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $tg = SWUAllUnits();
             if (!empty($tg)) {
                 SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>1,'may'=>true,
                     'question'=>"Deal_1_damage_to_a_unit?",'prompt'=>"Deal_1_damage_to_a_unit"]);
@@ -11608,7 +11668,7 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
         $cardID = $parts[0] ?? '';
         switch ($cardID) {
             case 'TS26_27': { // Fortune and Glory's bounty — a friendly unit captures a non-leader unit
-                $captors = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+                $captors = SWUFriendlyUnits();   // TS26_27 Bounty - "A FRIENDLY unit captures a non-leader unit"
                 if (!empty($captors)) {
                     SWUQueueChooseTarget(intval($player), $captors, "Choose_a_friendly_unit_to_capture_with", "TS26_27#1");
                     $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
@@ -13125,12 +13185,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
     // ⛔ Cases below that carry their OWN body must come AFTER a completed body — never between the bare
     // labels of a fall-through group, which would silently re-point every label above them.
     $playerID = $player;
-    $all = array_merge(
-        ZoneSearch("myGroundArena",    AnyUnitFilter),
-        ZoneSearch("mySpaceArena",     AnyUnitFilter),
-        ZoneSearch("theirGroundArena", AnyUnitFilter),
-        ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-    );
+    $all = SWUAllUnits();
     $playerID = $savedPID;
     switch ($cardID) {
         // "Attach to a FRIENDLY unit." — the printed word narrows the rules default back to your own
@@ -13141,10 +13196,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'LOF_091': // Craving Power
         case 'SEC_069': // Nimble Prowess
             $playerID = $player;
-            $all = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
-            );
+            $all = SWUFriendlyUnits();   // SEC_069 &c - "Attach to a FRIENDLY unit."
             if ($cardID === 'SHD_251') {
                 $all = array_values(array_filter($all, function($mz) {
                     $o = GetZoneObject($mz);
@@ -13157,7 +13209,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         // GroundArena unit; a space unit is not a legal host.)
         case 'ASH_230':
             $playerID = $player;
-            $all = ZoneSearch("myGroundArena", AnyUnitFilter);
+            $all = SWUFriendlyUnits('Ground');   // "Attach to a FRIENDLY ground unit."
             $playerID = $savedPID;
             break;
         // "Attach to a non-Vehicle unit."
@@ -13221,12 +13273,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
             // abilities, the attached unit's controller resolves them). Rebuild from all four arenas, then
             // filter out Vehicles (mirrors the "Vehicle unit" group below).
             $playerID = $player;
-            $all = array_values(array_filter(array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            ), fn($mz) => !HasTrait(GetZoneObject($mz)->CardID ?? '', 'Vehicle')));
+            $all = array_values(array_filter(SWUAllUnits(), fn($mz) => !HasTrait(GetZoneObject($mz)->CardID ?? '', 'Vehicle')));
             $playerID = $savedPID;
             break;
         // "Attach to a unit that costs 4 or less."
@@ -13281,12 +13328,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'SEC_227': // Special Modifications — was a friendly-only filter (group reconciliation
                         // 2026-08-13); same unqualified "Attach to a Vehicle unit" as the rest.
             $playerID = $player;
-            $all = array_values(array_filter(array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            ), fn($mz) => HasTrait(GetZoneObject($mz)->CardID ?? '', 'Vehicle')));
+            $all = array_values(array_filter(SWUAllUnits(), fn($mz) => HasTrait(GetZoneObject($mz)->CardID ?? '', 'Vehicle')));
             $playerID = $savedPID;
             break;
         // "Attach to a Capital Ship or Transport unit." (JTL_227 Superheavy Ion Cannon)
@@ -13306,12 +13348,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         // Guarded by SEC_104's AttachPool_UNIQUEUnitsOnly_EitherSide.
         case 'SEC_104': // Figure of Unity
             $playerID = $player;
-            $all = array_values(array_filter(array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            ), function($mz) {
+            $all = array_values(array_filter(SWUAllUnits(), function($mz) {
                 $o = GetZoneObject($mz);
                 return !SWUObjGone($o) && !empty(CardUnique($o->CardID ?? ''));
             }));
@@ -13339,12 +13376,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'SHD_193': // Frozen in Carbonite — absent from the switch
         case 'LAW_077': // Shadow of Stygeon Prime — absent from the switch
             $playerID = $player;
-            $all = array_values(array_filter(array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            ), function($mz) {
+            $all = array_values(array_filter(SWUAllUnits(), function($mz) {
                 $o = GetZoneObject($mz);
                 return !SWUObjGone($o) && !IsLeaderUnit($o);
             }));
@@ -13469,10 +13501,7 @@ function SWUGetPilotValidTargets(int $player, string $pilotCardID, bool $ignoreC
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
-    $all = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
-    );
+    $all = SWUFriendlyUnits();   // Piloting attaches to a FRIENDLY Vehicle
     $playerID = $savedPID;
 
     // A FREE pilot-play (e.g. LAW_215 Vermillion's revealed-card free play) has no cost, so the
@@ -13503,10 +13532,7 @@ function SWUGetLeaderPilotVehicles(int $player): array {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
-    $all = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
-    );
+    $all = SWUFriendlyUnits();   // a leader pilots a FRIENDLY Vehicle
     $playerID = $savedPID;
     return array_values(array_filter($all, function($mz) {
         $hostObj = GetZoneObject($mz);
@@ -13524,10 +13550,7 @@ function SWUGetPoe013AttachVehicles(int $player): array {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
-    $all = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
-    );
+    $all = SWUFriendlyUnits();   // JTL_013 "a FRIENDLY Vehicle unit" - USER RULING 2026-08-25: a teammate's ship is legal
     $playerID = $savedPID;
     return array_values(array_filter($all, function($mz) {
         $hostObj = GetZoneObject($mz);
@@ -14474,10 +14497,7 @@ function SWUExploitFodder($player): array {
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
-    $fodder = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
-    );
+    $fodder = SWUControlledUnits();   // Exploit defeats units YOU CONTROL - never a teammate's
     $playerID = $savedPID;
     return $fodder;
 }
@@ -14491,10 +14511,7 @@ function SWUReadyFriendlyDroids($player): array {
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
-    $candidates = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
-    );
+    $candidates = SWUControlledUnits();   // a Droid you EXHAUST to pay - a payment resource, self-only
     $playerID = $savedPID;
     $droids = [];
     foreach ($candidates as $mz) {
@@ -15333,10 +15350,7 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     if ($cardID === 'SOR_006' || $cardID === 'IC27_001') {
         $savedPID = $playerID;
         $playerID = $player;
-        $friendlies = array_merge(
-            ZoneSearch("myGroundArena", AnyUnitFilter),
-            ZoneSearch("mySpaceArena",  AnyUnitFilter)
-        );
+        $friendlies = SWUFriendlyUnits();   // gates a leader action whose target pool is FRIENDLY
         $playerID = $savedPID;
         if (empty($friendlies)) return false;
     }
@@ -16080,10 +16094,7 @@ function SWUOtherFriendlyUnits(int $player, string $mzID): array {
     $self    = GetZoneObject($mzID);
     $selfUID = SWUObjUID($self);
     $out = [];
-    foreach (array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
-    ) as $mz) {
+    foreach (SWUFriendlyUnits() as $mz) {   // the name says it: OTHER FRIENDLY units
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
         if (intval($o->UniqueID ?? -2) === $selfUID) continue;
@@ -16517,8 +16528,7 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
     $addCostDmg     = intval($smuggleAdditionalDamageCost[$cardID] ?? 0);
     $addCostTargets = [];
     if ($addCostDmg > 0) {
-        $addCostTargets = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter),
-                                      ZoneSearch("mySpaceArena",  AnyUnitFilter));
+        $addCostTargets = SWUFriendlyUnits();   // "deal N damage to a FRIENDLY unit" additional cost
         if (empty($addCostTargets)) {
             SetFlashMessage("You must be able to deal {$addCostDmg} damage to a friendly unit to play that card.");
             $playerID = $savedPID;
@@ -27682,6 +27692,18 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
     // in MZChoose decisions (which are always resolved from the requesting player's view).
     $flip = ($forPlayer !== null && $forPlayer != $playerID);
     $searchZone = $zoneName;
+    // Team Suns: "team<Zone>" is THE friendly pool — the caller's own zone plus each live teammate's.
+    // This is the ONE place team membership affects targeting; card code reaches it through
+    // SWUFriendlyUnits() / SWUAllUnits('team') rather than naming the spec directly.
+    // ⚠ "my<Zone>" is deliberately NOT touched — it keeps meaning SELF-ONLY in every format, which is
+    // what lets Coordinate, Exploit, "if you control X" and attack legality stay correct for free.
+    // A FLIPPED ($forPlayer) search has no team semantics defined yet, so "team" degrades to the
+    // historical self-only "my" and then follows the normal flip path below.
+    $teamFanout = false;
+    if (substr($searchZone, 0, 4) === 'team') {
+        $searchZone = 'my' . substr($searchZone, 4);
+        $teamFanout = !$flip;
+    }
     if ($flip) {
         if (substr($searchZone, 0, 2) === "my")        $searchZone = "their" . substr($searchZone, 2);
         elseif (substr($searchZone, 0, 5) === "their") $searchZone = "my"    . substr($searchZone, 5);
@@ -27695,6 +27717,11 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
         $baseZone = substr($searchZone, 5);
         $searchZones = [];
         foreach (OpponentsOf(intval($playerID)) as $opp) $searchZones[] = "p{$opp}{$baseZone}";
+    } elseif ($teamFanout) {
+        // "my<Zone>" (own seat, caller's frame) + one seat-specific zone per LIVE teammate.
+        // SWUTeammatesOf returns [] outside a team game, so this is byte-identical to "my" there.
+        $baseZone = substr($searchZone, 2);                  // strip the "my" prefix
+        foreach (SWUTeammatesOf(intval($playerID)) as $mate) $searchZones[] = "p{$mate}{$baseZone}";
     }
     $results = [];
     foreach ($searchZones as $sz) {
@@ -28601,6 +28628,32 @@ function SWUGameMode(): string {
     if (GlobalEffectCount(1, 'SWU_MODE_GOLDFISH') > 0) return 'goldfish';
     if (GlobalEffectCount(1, 'SWU_MODE_HOTSEAT')  > 0) return 'hotseat';
     return '';
+}
+
+// ─── Team Suns (2v2) seat primitives ─────────────────────────────────────────
+// Team membership is SEAT PARITY, and needs no new game state: the lobby seats a Team Suns game
+// Red/Blue/Red/Blue (seats 1,3 = Red; 2,4 = Blue), and SWUEliminateSeat leaves SeatOrder intact, so
+// parity keeps answering correctly after an elimination.
+//
+// Every helper below is INERT outside a team game — SWUTeamOf returns the seat itself, making each
+// player their own team, so every downstream comparison degenerates to current behaviour and Twin
+// Suns / Premier stay byte-identical.
+function SWUIsTeamGame(): bool {
+    return GlobalEffectCount(1, 'SWU_MODE_TEAMS') > 0;
+}
+
+function SWUTeamOf(int $seat): int {
+    if (!SWUIsTeamGame()) return $seat;      // no teams -> everyone is their own team
+    return $seat % 2;                        // 1,3 -> 1 (Red);  2,4 -> 0 (Blue)
+}
+
+function SWUTeammatesOf(int $player): array {
+    if (!SWUIsTeamGame()) return [];
+    $out = [];
+    foreach (GetLiveSeatsArray() as $seat) {
+        if ($seat !== $player && SWUTeamOf($seat) === SWUTeamOf($player)) $out[] = $seat;
+    }
+    return $out;
 }
 
 function RemoveGlobalEffect($player, $effectID) {

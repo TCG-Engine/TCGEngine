@@ -32,10 +32,7 @@ $whenPlayedAbilities["SOR_151:0"] = function($player, $mzID = '') {
 // Karabast — a friendly unit deals (its damage + 1) to an enemy unit.
             global $playerID;
             $playerID = intval($player);
-            $friendly = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
-            );
+            $friendly = SWUFriendlyUnits();
             $enemy = array_merge(
                 ZoneSearch("theirGroundArena", AnyUnitFilter),
                 ZoneSearch("theirSpaceArena",  AnyUnitFilter)

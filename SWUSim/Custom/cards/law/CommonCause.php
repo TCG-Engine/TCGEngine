@@ -28,12 +28,7 @@ $whenPlayedAbilities["LAW_167:0"] = function($player, $mzID = '') {
 // Common Cause — "Give a unit +1/+1 for this phase for each different aspect
                           // among units you control." Amount computed at resolution (LAW_167#0).
             global $playerID; $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $units = SWUAllUnits();
             if (empty($units)) return;
             SWUQueueChooseTarget(intval($player), $units, "Give_a_unit_+1/+1_per_different_aspect_you_control", "LAW_167#0|" . intval($player));
             return;

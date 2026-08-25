@@ -21,10 +21,7 @@ $whenPlayedAbilities["JTL_144:0"] = function($player, $mzID = '') {
                           // the JTL_144 continuation at resolution time.
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter),
-                ZoneSearch("theirGroundArena", NonLeaderUnitFilter), ZoneSearch("theirSpaceArena", NonLeaderUnitFilter)
-            );
+            $targets = SWUAllUnits(null, null, NonLeaderUnitFilter);
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets,
                 "Deal_damage_to_a_non-leader_unit_(1_less_than_its_remaining_HP)", "JTL_144#0");

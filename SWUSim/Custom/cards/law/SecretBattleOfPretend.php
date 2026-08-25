@@ -42,7 +42,7 @@ $whenPlayedAbilities["LAW_226:0"] = function($player, $mzID = '') {
                           // different aspect it has, exhaust an enemy unit in the same arena."
             global $playerID; $playerID = intval($player);
             $targets = [];
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $targets[] = $mz;
             }

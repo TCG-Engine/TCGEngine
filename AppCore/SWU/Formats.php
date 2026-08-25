@@ -57,16 +57,12 @@ function SWUFormatDefinitions() {
             'enabled'               => true,
         ],
 
-        // ── TWIN SUNS (multiplayer; footprint only) ──────────────────────────
-        // CR §12: a 4-player format with UNIQUE deckbuilding — two leaders, and a
-        // singleton (highlander) deck. Deck validation is scaffolded here, but the
-        // format is NOT queueable (the engine has no 4-player support yet), so it
-        // ships 'enabled' => false. Rules encoded: all sets, no bans (yet), exactly
-        // 2 different leaders + 1 base, min 80 other cards, max 1 copy of any card
-        // (CR §12.2.2 — the 1-copy limit includes leaders).
-        // NOT YET ENFORCED: CR §12.2.1.a's leader aspect-pairing restriction ("faceup
-        // sides cannot have both the <X> and <Y> aspects") — the aspect icons are
-        // stripped from our CR copy; needs the exact aspect pair before implementing.
+        // ── TWIN SUNS / TEAM SUNS (multiplayer rooms) ────────────────────────
+        // CR §12: 4-player formats with UNIQUE deckbuilding — two leaders and a singleton
+        // (highlander) deck. Rules encoded: all sets, no bans, exactly 2 different leaders +
+        // 1 base, min 80 other cards, max 1 copy of any card (CR §12.2.2 — the 1-copy limit
+        // includes leaders). CR §12.2.1.a's leader aspect-pairing restriction IS enforced, in
+        // SWUCheckFormat (see _SWULeaderStartAlignment in DeckValidation.php).
         'twinsuns' => [
             'displayName' => 'Twin Suns',
             'legalSets'   => $eternalSets,                        // every printed set
@@ -74,7 +70,24 @@ function SWUFormatDefinitions() {
             'minDeck'     => 80,                                  // CR §12.2.1.a
             'maxCopies'   => 1,                                   // CR §12.2.2 (highlander)
             'leaderCount' => 2,                                   // CR §12.2.1.a / §12.3
-            'enabled'     => true,                                // private-room lobby ships this session
+            'minPlayers'  => 3,
+            'maxPlayers'  => 4,
+            'enabled'     => true,
+        ],
+        // Team Suns: 2v2 Twin Suns. Same deckbuilding, plus one TEAM-wide rule — no leader may
+        // appear twice on a team (uniqueTeamLeaders). Strictly 4P; there is no 3P Team Suns.
+        'teamsuns' => [
+            'displayName'       => 'Team Suns',
+            'legalSets'         => $eternalSets,
+            'banned'            => [],
+            'minDeck'           => 80,
+            'maxCopies'         => 1,
+            'leaderCount'       => 2,
+            'minPlayers'        => 4,
+            'maxPlayers'        => 4,
+            'teams'             => 2,
+            'uniqueTeamLeaders' => true,
+            'enabled'           => true,
         ],
 
         // ── PADAWAN (SWU Pauper / Commons) ───────────────────────────────────
@@ -175,6 +188,14 @@ function SWUGetFormat($formatId) {
         // outside the menu — notably the stats gate — can tell practice play from real play.
         // Additive: every existing consumer reads named keys, so no verdict changes.
         'mode'              => !empty($f['mode']),
+        // Seat count + team markers (Twin Suns / Team Suns). Defaults keep every 2-player format
+        // byte-identical: minPlayers/maxPlayers 2, no teams. SWUGetFormat returns an explicit key
+        // WHITELIST, so a key added to SWUFormatDefinitions() but not listed here is silently
+        // dropped — add both, always.
+        'minPlayers'        => intval($f['minPlayers'] ?? 2),
+        'maxPlayers'        => intval($f['maxPlayers'] ?? 2),
+        'teams'             => intval($f['teams'] ?? 0),
+        'uniqueTeamLeaders' => !empty($f['uniqueTeamLeaders']),
     ];
 }
 
@@ -223,6 +244,27 @@ function SWUListFormats() {
         if ($f['enabled']) $out[$id] = $f['displayName'];
     }
     return $out;
+}
+
+// Seat range for a format: [min, max]. Ordinary formats are strictly 2-player.
+function SWUFormatSeatRange($formatId) {
+    $f = SWUGetFormat($formatId);
+    if ($f === null) return [2, 2];
+    return [intval($f['minPlayers'] ?? 2), intval($f['maxPlayers'] ?? 2)];
+}
+
+// A "room" format is any format seating more than 2 — it uses the private-room lobby flow
+// (roster, per-seat deck validation, explicit host Start) instead of fill-and-go matchmaking.
+// Use this instead of comparing $lobby->format to a literal.
+function SWUFormatIsRoomFormat($formatId) {
+    [, $max] = SWUFormatSeatRange($formatId);
+    return $max > 2;
+}
+
+// A "team" format splits its seats into fixed teams (Team Suns: Red/Blue, 2 each).
+function SWUFormatIsTeamFormat($formatId) {
+    $f = SWUGetFormat($formatId);
+    return $f !== null && !empty($f['teams']);
 }
 
 function SWUFormatLegalSets($formatId) {

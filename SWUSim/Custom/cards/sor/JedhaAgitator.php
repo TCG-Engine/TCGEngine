@@ -10,8 +10,7 @@ $onAttackAbilities["SOR_158:0"] = function($player, $mzID) {
     $playerID = intval($player);
     if (!SWUControlsLeaderUnit(intval($player))) return;
     $targets = array_merge(
-        ZoneSearch("myGroundArena",    AnyUnitFilter),
-        ZoneSearch("theirGroundArena", AnyUnitFilter),
+        SWUAllUnits(null, 'Ground'),   // unqualified ground pool -> both teams
         SWUAllBaseMzIDs(intval($player), 'any')
     );
     SWUQueueChooseTarget(intval($player), $targets,

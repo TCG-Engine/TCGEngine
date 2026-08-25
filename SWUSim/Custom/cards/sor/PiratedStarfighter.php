@@ -7,7 +7,7 @@
 // (mandatory). (Raid 1 is an auto keyword.)
 $whenPlayedAbilities["SOR_209:0"] = function($player, $mzID) {
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'BOUNCE_UNIT', 'side' => 'my', 'nonLeader' => true,
+        'continuation' => 'BOUNCE_UNIT', 'side' => 'friendly', 'nonLeader' => true,
         'prompt' => "Return_a_friendly_non-leader_unit_to_hand",
     ]);
 };

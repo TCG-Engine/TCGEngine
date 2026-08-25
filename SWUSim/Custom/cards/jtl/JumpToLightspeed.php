@@ -113,7 +113,7 @@ $whenPlayedAbilities["JTL_232:0"] = function($player, $mzID = '') {
                           // to owners' hands (continuation JTL_232; free-replay rider deferred).
             global $playerID;
             $playerID = intval($player);
-            $space = ZoneSearch("mySpaceArena", AnyUnitFilter);
+            $space = SWUFriendlyUnits('Space');   // "a FRIENDLY space unit"
             // Exclude only a deployed LEADER UNIT (own CardID is a leader) — a vehicle carrying a leader
             // PILOT is a valid target: it returns to hand and its leader pilot is defeated to the leader
             // zone (SWUBounceUnit handles the pilot). Don't use IsLeaderUnit here (it's true for both).

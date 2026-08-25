@@ -22,7 +22,7 @@ $whenPlayedAbilities["SEC_091:0"] = function($player, $mzID = '') {
 // Corporate Warmongering — "Give a friendly unit +3/+3 for this phase. Give
                           // each other friendly unit +1/+1 for this phase." Pick the +3/+3 recipient.
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            $friendly = SWUFriendlyUnits();
             if (empty($friendly)) return;
             SWUQueueChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_+3/+3_(others_+1/+1)", "SEC_091#0");
             return;

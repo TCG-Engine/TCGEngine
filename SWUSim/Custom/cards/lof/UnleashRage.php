@@ -10,6 +10,6 @@ $whenPlayedAbilities["LOF_173:0"] = function($player, $mzID = '') {
             UseTheForce(intval($player));
             SWUOfferUnitTarget($player, $mzID, [
                 'continuation' => 'APPLY_PHASE_BUFF|3|0|LOF_173',
-                'side' => 'my', 'prompt' => "Give_a_friendly_unit_+3/+0",
+                'side' => 'friendly', 'prompt' => "Give_a_friendly_unit_+3/+0",
             ]);
 };

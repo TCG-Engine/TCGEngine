@@ -23,7 +23,7 @@ $customDQHandlers["LAW_040#0"] = function($player, $parts, $lastDecision) {
     if ($self !== null) DoGiveExperienceToken(intval($player), $self);
     // Give an Experience token to ANOTHER friendly unit (exclude self by UID).
     SWUOfferUnitTarget(intval($player), '', [
-        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'my', 'excludeUID' => $uid,
+        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'friendly', 'excludeUID' => $uid,
         'prompt' => "Give_an_Experience_token_to_another_friendly_unit",
     ]);
 };

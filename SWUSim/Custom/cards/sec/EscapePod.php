@@ -10,7 +10,7 @@ $whenPlayedAbilities["SEC_056:0"] = function($player, $mzID) {
     $self = GetZoneObject($mzID);
     $selfUID = SWUObjUID($self, 0);
     $targets = [];
-    foreach (array_merge(ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter)) as $mz) {
+    foreach (SWUFriendlyUnits(null, NonLeaderUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
         if (intval($o->UniqueID ?? 0) === $selfUID) continue;

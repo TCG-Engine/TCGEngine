@@ -24,10 +24,7 @@ $whenPlayedAbilities["JTL_230:0"] = function($player, $mzID = '') {
             global $playerID;
             $playerID = intval($player);
             $targets = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
+            foreach (SWUAllUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (HasTrait($o->CardID, 'Droid') || HasTrait($o->CardID, 'Vehicle')) $targets[] = $mz;

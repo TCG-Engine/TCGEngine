@@ -26,8 +26,7 @@ $whenDefeatedAbilities["JTL_071:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
     $targets = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter),
+        SWUAllUnits(),   // "heal … from A UNIT" is unqualified -> every unit on the table
         SWUAllBaseMzIDs(intval($player), 'any')
     );
     if (empty($targets)) return;

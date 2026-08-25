@@ -13,7 +13,7 @@ $customDQHandlers["SHD_008#front"] = function($player, $parts, $lastDecision) {
     unset($l);
     SWUOfferUnitTarget(intval($player), '', [
         'continuation' => 'APPLY_PHASE_BUFF|1|0|SHD_008',
-        'side'         => 'my',
+        'side'         => 'friendly',
         'prompt'       => "Give_a_friendly_unit_+1/+0_for_this_phase",
     ]);
 };

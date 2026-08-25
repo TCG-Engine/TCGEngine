@@ -53,10 +53,7 @@ $whenPlayedAbilities["LAW_170:0"] = function($player, $mzID = '') {
                           // unit. Exchange control of those units. The player who takes control of the
                           // lower-cost unit creates Credit tokens equal to the difference between costs."
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(
-                ZoneSearch("myGroundArena", NonLeaderUnitFilter),
-                ZoneSearch("mySpaceArena",  NonLeaderUnitFilter)
-            );
+            $friendly = SWUFriendlyUnits(null, NonLeaderUnitFilter);
             $enemy = array_merge(
                 ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
                 ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)

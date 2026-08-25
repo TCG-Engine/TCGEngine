@@ -16,10 +16,7 @@ $customDQHandlers["TS26_60#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["TS26_60:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $tg = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-    );
+    $tg = SWUAllUnits();
     if (empty($tg)) return;
     $max = min(3, count($tg));
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tg), 1,

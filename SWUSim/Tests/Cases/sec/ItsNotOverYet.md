@@ -62,3 +62,49 @@ P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:SEC_T01
 P1NODECISION
+
+---
+
+# UnqualifiedPool_OffersAnOpponentsUnitToo
+#// SEC_177 reads "You may ready A UNIT that didn't attack or enter play this phase" — UNQUALIFIED, so
+#// per CR it names no controller and spans the WHOLE TABLE, opponents included. USER RULING 2026-08-25.
+#// This was previously narrowed to the caster's own board — wrong in 2-player, not just Team Suns.
+#// ⚠ The three sections above all have an EMPTY opponent board, which is exactly why the narrowing
+#// survived: with nobody else's units in play, a self-only pool and a table-wide pool are the same set.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:0:0
+WithP2GroundArena: SOR_095:0:0
+WithP1Hand: SEC_177
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# OpponentsAttackedUnit_IsExcluded
+#// THE DISCRIMINATOR for the per-controller flag read. SWU_UNIT_ATTACKED_{uid} is stored on the unit's
+#// CONTROLLER, so reading it against the CASTER returns false for every foreign unit — an opponent's
+#// just-attacked unit would look eligible. P2 attacks with its unit, so only P1's own exhausted unit
+#// (which did not attack) may be readied.
+#// ⚠ Reverting SWUUnitAttackedThisPhase() to GlobalEffectCount($player, …) reds exactly this section.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:0:0
+WithP2GroundArena: SOR_095:1:0
+WithP1Hand: SEC_177
+
+## WHEN
+- P1>Pass
+- P2>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0

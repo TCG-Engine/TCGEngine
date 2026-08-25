@@ -41,10 +41,7 @@ $whenPlayedAbilities["SHD_232:0"] = function($player, $mzID = '') {
 // Relentless Pursuit — "Choose a friendly unit. It captures an enemy non-leader
                           // unit that costs the same as or less than it. If the friendly unit is a Bounty
                           // Hunter, give a Shield token to it."
-            $friendly = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
-            );
+            $friendly = SWUFriendlyUnits();
             if (empty($friendly)) return;
             SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_unit_to_capture_with", "SHD_232#0");
             return;

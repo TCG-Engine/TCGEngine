@@ -18,12 +18,7 @@ $whenPlayedAbilities["LAW_043:0"] = function($player, $mzID = '') {
 // Shadow Cloaking — "Ready a unit and give a Shield token to it." Any unit is
                           // a legal target (friendly or enemy).
             global $playerID; $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $units = SWUAllUnits();
             if (empty($units)) return;
             SWUQueueChooseTarget(intval($player), $units, "Ready_a_unit_and_give_it_a_Shield", "LAW_043#0");
             return;

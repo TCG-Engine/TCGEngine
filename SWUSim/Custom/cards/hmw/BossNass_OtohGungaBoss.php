@@ -23,7 +23,7 @@ $whenPlayedAbilities["HMW_077:0"] = $onAttackAbilities["HMW_077:0"] = function (
     SWUOfferUnitTarget(intval($player), (string)$mzID, [
         'continuation' => 'HMW_077#0',
         'may'          => true,
-        'side'         => 'my',          // "a FRIENDLY Gungan unit"
+        'side'         => 'friendly',          // "a FRIENDLY Gungan unit"
         'traits'       => ['Gungan'],
         'extraFilter'  => fn($o) => _SWUCountShieldSubcards($o) > 0,
         'prompt'       => 'Defeat_a_Shield_token_on_a_friendly_Gungan_to_create_a_shielded_Beast',

@@ -6,10 +6,7 @@
 $whenPlayedAbilities["ASH_258:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
     OnHealBase(intval($player), intval($player), 3);   // heal happens regardless of a damage target
-    $tg = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-    );
+    $tg = SWUAllUnits();
     if (empty($tg)) return;
     SWUQueueChooseTarget(intval($player), $tg, "Deal_3_damage_to_a_unit", "ASH_258#0");
 };

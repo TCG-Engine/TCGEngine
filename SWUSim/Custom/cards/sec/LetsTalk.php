@@ -41,7 +41,7 @@ $whenPlayedAbilities["SEC_131:0"] = function($player, $mzID = '') {
 // Let's Talk — "Each friendly unit captures an enemy non-leader unit in the same arena."
             global $playerID; $playerID = intval($player);
             $uids = [];
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? 0);
             }

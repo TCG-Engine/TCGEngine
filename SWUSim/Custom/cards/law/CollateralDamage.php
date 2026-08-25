@@ -51,12 +51,7 @@ $whenPlayedAbilities["LAW_208:0"] = function($player, $mzID = '') {
 // Collateral Damage — "Deal 2 damage to a unit. Then, deal 2 damage to a base
                           // or another unit in the same arena."
             global $playerID; $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $units = SWUAllUnits();
             if (empty($units)) {
                 // No units in play → the first "deal 2 to a unit" clause has no target, but the second
                 // clause still resolves: "a base or another unit in the same arena" reduces to just a base

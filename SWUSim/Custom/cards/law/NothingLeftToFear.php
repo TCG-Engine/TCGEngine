@@ -27,10 +27,7 @@ $whenPlayedAbilities["LAW_041:0"] = function($player, $mzID = '') {
                           // than the chosen unit." The buff is applied first (in the LAW_041#0
                           // continuation), so the power comparison uses the buffed power.
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
-            );
+            $friendly = SWUFriendlyUnits();
             if (empty($friendly)) return;   // no friendly unit to buff → fizzle
             SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_unit", "LAW_041#0");
             return;

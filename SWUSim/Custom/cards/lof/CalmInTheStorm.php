@@ -21,7 +21,7 @@ $whenPlayedAbilities["LOF_054:0"] = function($player, $mzID = '') {
                           // and 2 Experience tokens to it."
             global $playerID; $playerID = intval($player);
             $targets = [];
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $targets[] = $mz;
             }

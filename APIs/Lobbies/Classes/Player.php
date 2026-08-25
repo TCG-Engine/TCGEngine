@@ -8,6 +8,12 @@
     private $gamePlayerID; // This is the ID used in the game, not the lobby
     private $userId; // account id of the human who created this seat (null for guests/bots)
     private $deckOk = false; // Twin Suns room roster: whether this seat's current deck passed format legality
+    private $seat = null;  // Table position 1..4. NULL until a team is picked. Team Suns reassigns
+                           // this freely; $playerID must NOT move, because endpoints authenticate on it.
+    private $team = null;  // 'red' | 'blue' | null (unassigned)
+    private $leaders = []; // Resolved leader CardIDs for this seat's current deck. Cached whenever
+                           // the deck is validated, so the team leader-conflict check never
+                           // re-resolves four decks on every roster poll.
 
     public function __construct($playerID, $deckLink, $preconstructedDeck = '', $userId = null) {
         $this->playerID = $playerID;
@@ -68,6 +74,15 @@
         $this->deckOk = (bool)$deckOk;
     }
 
+    public function getSeat() { return $this->seat; }
+    public function setSeat($seat) { $this->seat = ($seat === null) ? null : intval($seat); }
+
+    public function getTeam() { return $this->team; }
+    public function setTeam($team) { $this->team = ($team === null) ? null : strval($team); }
+
+    public function getLeaders() { return is_array($this->leaders) ? $this->leaders : []; }
+    public function setLeaders($leaders) { $this->leaders = array_values(array_filter((array)$leaders, fn($l) => $l !== '' && $l !== null)); }
+
     #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return [
@@ -75,7 +90,9 @@
             'deckLink' => $this->getDeckLink(),
             'preconstructedDeck' => $this->getPreconstructedDeck(),
             'authKey' => $this->getAuthKey(),
-            'userId' => $this->getUserId()
+            'userId' => $this->getUserId(),
+            'seat' => $this->getSeat(),
+            'team' => $this->getTeam()
         ];
     }
   }

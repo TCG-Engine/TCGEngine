@@ -28,10 +28,7 @@ $whenPlayedAbilities["SEC_234:0"] = function($player, $mzID = '') {
 // Bog Down in Procedure — "Exhaust a unit. You may disclose Cunning →
                           // exhaust another unit."
             global $playerID; $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),    ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $units = SWUAllUnits();
             if (empty($units)) return;
             SWUQueueChooseTarget(intval($player), $units, "Exhaust_a_unit", "SEC_234#0");
             return;

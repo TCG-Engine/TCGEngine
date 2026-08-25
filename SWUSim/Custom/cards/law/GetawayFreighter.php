@@ -6,5 +6,5 @@
 // LAW_155 Getaway Freighter — On Attack: if you control a ground unit, create a Credit token.
 $onAttackAbilities["LAW_155:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (!empty(ZoneSearch("myGroundArena", AnyUnitFilter))) SWUCreateCreditToken(intval($player), 1);
+    if (!empty(SWUControlledUnits('Ground'))) SWUCreateCreditToken(intval($player), 1);   // "If YOU CONTROL a ground unit"
 };

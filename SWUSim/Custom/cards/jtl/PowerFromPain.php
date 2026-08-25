@@ -20,10 +20,7 @@ $whenPlayedAbilities["JTL_042:0"] = function($player, $mzID = '') {
 // Power from Pain — give a unit +1/+0 this phase for each damage on it.
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_+1/+0_per_damage_on_it", "JTL_042#0");
             return;

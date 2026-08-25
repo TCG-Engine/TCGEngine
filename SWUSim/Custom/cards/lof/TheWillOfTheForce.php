@@ -30,10 +30,7 @@ $whenPlayedAbilities["LOF_227:0"] = function($player, $mzID = '') {
                           // use the Force. If you do, that player discards a random card from their hand."
             global $playerID; $playerID = intval($player);
             $targets = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
+            foreach (SWUAllUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && !IsLeaderUnit($o)) $targets[] = $mz;
             }

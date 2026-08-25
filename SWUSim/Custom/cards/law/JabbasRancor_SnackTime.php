@@ -18,6 +18,9 @@ $onAttackAbilities["LAW_216:0"] = function($player, $mzID) {
     $eligible = [];
     foreach (OpponentsOf(intval($player)) as $o) {
         $sp = $playerID; $playerID = $o;
+        // ⚠ FLIPPED FRAME — $playerID is set to the OPPONENT above, so "myGroundArena" here reads
+        // THAT SEAT's ground, not the caster's. Do NOT swap this for SWUFriendlyUnits/SWUControlledUnits:
+        // the friendly helper would fan out to that opponent's TEAMMATE and wrongly widen the pool.
         $g = ZoneSearch("myGroundArena", AnyUnitFilter);
         $playerID = $sp;
         if (!empty($g)) $eligible[] = $o;
@@ -34,6 +37,7 @@ $customDQHandlers["LAW_216#0"] = function($player, $parts, $lastDecision) {
     $opp = SWUPickedOpponent($lastDecision);
     if ($opp <= 0 || $opp === intval($player)) return;
     $playerID = $opp;
+    // ⚠ FLIPPED FRAME (see above) — $playerID is the picked opponent here. Leave as a raw ZoneSearch.
     $oppGround = ZoneSearch("myGroundArena", AnyUnitFilter);   // opp's ground (their-frame: my…)
     if (empty($oppGround)) { $playerID = intval($player); return; }
     if (count($oppGround) === 1) {

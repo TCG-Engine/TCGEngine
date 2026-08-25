@@ -7,8 +7,8 @@
 $whenPlayedAbilities["TWI_137:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $myCount    = count(ZoneSearch("myGroundArena",    NonLeaderUnitFilter)) +
-                  count(ZoneSearch("mySpaceArena",     NonLeaderUnitFilter));
+    $myCount    = count(SWUControlledUnits('Ground', NonLeaderUnitFilter)) +   // "If YOU CONTROL fewer units"
+                  count(SWUControlledUnits('Space', NonLeaderUnitFilter));
     $theirCount = count(ZoneSearch("theirGroundArena", NonLeaderUnitFilter)) +
                   count(ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter));
     if ($myCount < $theirCount) OnReadyCard($player, $mzID);

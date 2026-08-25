@@ -42,14 +42,14 @@ $whenPlayedAbilities["LOF_042:0"] = function($player, $mzID = '') {
                           // when you can't choose 2 (none spared → ALL friendly units are defeated).
             global $playerID; $playerID = intval($player);
             $sith = [];
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Sith') && CardUnique($o->CardID ?? '')) $sith[] = $mz;
             }
             if (count($sith) < 2) {
                 // Fewer than 2 unique Sith → cannot spare 2 → "all OTHER friendly units" = ALL of them.
                 $allUids = [];
-                foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+                foreach (SWUFriendlyUnits() as $mz) {
                     $o = GetZoneObject($mz);
                     if ($o !== null && empty($o->removed)) $allUids[] = intval($o->UniqueID ?? -1);
                 }

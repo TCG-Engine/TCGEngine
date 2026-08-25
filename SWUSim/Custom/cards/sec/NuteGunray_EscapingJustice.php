@@ -9,7 +9,7 @@
 $sec031 = function ($player, $mzID) {
   global $playerID;
   $playerID = intval($player);
-  SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^SEC_031', 'side'=>'my', 'traits'=>['Official'], 'excludeSelf'=>true, 'may'=>true, 'question'=>"Give_another_Official_unit_Sentinel?", 'prompt'=>"Choose_an_Official_unit"]);
+  SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^SEC_031', 'side'=>'friendly', 'traits'=>['Official'], 'excludeSelf'=>true, 'may'=>true, 'question'=>"Give_another_Official_unit_Sentinel?", 'prompt'=>"Choose_an_Official_unit"]);
 };
 
 $whenPlayedAbilities["SEC_031:0"] = $sec031;

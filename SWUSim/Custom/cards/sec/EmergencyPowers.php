@@ -35,8 +35,7 @@ $whenPlayedAbilities["SEC_040:0"] = function($player, $mzID = '') {
 // Emergency Powers — "Choose a non-leader unit and pay any number of resources.
                           // For each resource paid, give an Experience token to the chosen unit."
             global $playerID; $playerID = intval($player);
-            $units = array_merge(ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter),
-                                 ZoneSearch("theirGroundArena", NonLeaderUnitFilter), ZoneSearch("theirSpaceArena", NonLeaderUnitFilter));
+            $units = SWUAllUnits(null, null, NonLeaderUnitFilter);
             if (empty($units)) return;
             SWUQueueChooseTarget(intval($player), $units, "Choose_a_non-leader_unit", "SEC_040#0");
             return;

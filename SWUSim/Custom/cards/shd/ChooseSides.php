@@ -36,7 +36,7 @@ $whenPlayedAbilities["SHD_132:0"] = function($player, $mzID = '') {
 // Choose Sides — "Choose a friendly non-leader unit and an enemy non-leader unit.
                           // Exchange control of those units." (LAW_170 without the Credit-token half.)
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter));
+            $friendly = SWUFriendlyUnits(null, NonLeaderUnitFilter);
             $enemy    = array_merge(ZoneSearch("theirGroundArena", NonLeaderUnitFilter), ZoneSearch("theirSpaceArena", NonLeaderUnitFilter));
             if (empty($friendly) || empty($enemy)) return;
             SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_non-leader_unit", "SHD_132#0|" . OtherPlayer(intval($player)));

@@ -60,10 +60,7 @@ $whenPlayedAbilities["TWI_156:0"] = function($player, $mzID = '') {
                           // already-chosen), accumulate uid:amount, then apply all at once via SWUDealSplitDamage.
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Deal_4_damage_to_a_unit", "TWI_156#0|4|3,2,1|");
             return;

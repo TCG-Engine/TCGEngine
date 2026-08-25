@@ -8,7 +8,7 @@
 $whenPlayedAbilities["JTL_102:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $amount = count(ZoneSearch("mySpaceArena", AnyUnitFilter));
+    $amount = count(SWUFriendlyUnits('Space'));   // "the number of FRIENDLY space units"
     if ($amount <= 0) return;
     $targets = SWUAllUnits();
     if (empty($targets)) return;

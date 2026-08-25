@@ -17,10 +17,7 @@ $customDQHandlers["LOF_126#0"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["LOF_126:0"] = function($player, $mzID = '') {
 // Overpower — "Give a unit +3/+3 and Overwhelm for this phase."
             global $playerID; $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_+3/+3_and_Overwhelm_this_phase", "LOF_126#0");
             return;

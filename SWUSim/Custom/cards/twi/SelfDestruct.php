@@ -22,7 +22,7 @@ $customDQHandlers["TWI_140#0"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["TWI_140:0"] = function($player, $mzID = '') {
 // Self-Destruct — "Defeat a friendly unit. If you do, deal 4 damage to a unit."
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter));
+            $friendly = SWUFriendlyUnits(null, NonLeaderUnitFilter);
             if (empty($friendly)) return; // no friendly unit → no defeat, no damage
             SWUQueueChooseTarget(intval($player), $friendly, "Defeat_a_friendly_unit", "TWI_140#0");
             return;

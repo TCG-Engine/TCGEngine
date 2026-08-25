@@ -7,7 +7,7 @@
 $whenPlayedAbilities["LAW_151:0"] = function($player, $mzID) {
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'APPLY_PHASE_BUFF|1|1|LAW_151',
-        'side'         => 'my',
+        'side'         => 'friendly',
         'excludeSelf'  => true,
         'prompt'       => "Give_another_friendly_unit_+1/+1_for_this_phase",
     ]);

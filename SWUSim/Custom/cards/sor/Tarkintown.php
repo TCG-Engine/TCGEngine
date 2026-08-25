@@ -11,12 +11,7 @@ $baseAbilities["SOR_025"] = function($player) {
     $savedPID = $playerID;
     $playerID = $player;
     $targets = [];
-    foreach (array_merge(
-        ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-        ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-        ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-        ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-    ) as $mz) {
+    foreach (SWUAllUnits(null, null, NonLeaderUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
         if (intval($o->Damage ?? 0) > 0) $targets[] = $mz;

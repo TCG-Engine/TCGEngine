@@ -48,6 +48,11 @@ function SWUSetupGame($lobby, $opts = []) {
     }
     if ($mode === 'goldfish') AddGlobalEffects(1, 'SWU_MODE_GOLDFISH');
     if ($mode === 'hotseat')  AddGlobalEffects(1, 'SWU_MODE_HOTSEAT');
+    // Team Suns (2v2). A separate never-cleared flag rather than a value of $mode, because it is
+    // orthogonal: SWUGameMode() answers "goldfish/hotseat/normal" and must keep returning '' here.
+    if (isset($lobby->format) && strtolower((string)$lobby->format) === 'teamsuns') {
+        AddGlobalEffects(1, 'SWU_MODE_TEAMS');
+    }
 
     $resolvedDecks = isset($opts['resolvedDecks']) && is_array($opts['resolvedDecks']) ? $opts['resolvedDecks'] : [];
 

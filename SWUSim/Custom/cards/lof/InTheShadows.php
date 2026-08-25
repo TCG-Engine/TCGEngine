@@ -19,7 +19,7 @@ $whenPlayedAbilities["LOF_241:0"] = function($player, $mzID = '') {
                           // with Hidden."
             global $playerID; $playerID = intval($player);
             $hidden = [];
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (HasKeyword_Hidden($o)) $hidden[] = $mz;

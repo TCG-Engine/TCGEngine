@@ -23,7 +23,7 @@ $customDQHandlers["TS26_61#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["TS26_61:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $captors = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+    $captors = SWUFriendlyUnits();
     $valid = [];
     foreach ($captors as $mz) {
         $arena = strpos($mz, 'SpaceArena') !== false ? 'theirSpaceArena' : 'theirGroundArena';

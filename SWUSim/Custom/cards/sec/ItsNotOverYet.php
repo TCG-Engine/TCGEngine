@@ -16,13 +16,18 @@ $whenPlayedAbilities["SEC_177:0"] = function($player, $mzID = '') {
                           // new token (which entered this phase) is never an eligible ready target; the Spy
                           // is then created in SEC_177#0 (always).
             global $playerID; $playerID = intval($player);
+            // "You may ready A UNIT that didn't attack or enter play this phase" — UNQUALIFIED, so it
+            // names no controller and spans the WHOLE TABLE (USER RULING 2026-08-25). This was
+            // previously narrowed to the caster's own board, which was wrong in 2-player too.
+            // ⚠ The "this phase" flags live on each unit's CONTROLLER, so they must be read per unit —
+            // reading them against $player returns false for every foreign unit and would make an
+            // opponent's just-played unit look eligible. SWUUnitPlayedThisPhase/AttackedThisPhase do this.
             $eligible = [];
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUAllUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
-                $uid = intval($o->UniqueID ?? 0);
-                if (GlobalEffectCount(intval($player), 'SWU_PLAYED_UNIT_' . $uid) > 0) continue;   // entered this phase
-                if (GlobalEffectCount(intval($player), 'SWU_UNIT_ATTACKED_' . $uid) > 0) continue;  // attacked this phase
+                if (SWUUnitPlayedThisPhase($o)) continue;    // entered play this phase
+                if (SWUUnitAttackedThisPhase($o)) continue;  // attacked this phase
                 $eligible[] = $mz;
             }
             if (empty($eligible)) { SWUCreateUnitToken(intval($player), 'SEC_T01'); return; }

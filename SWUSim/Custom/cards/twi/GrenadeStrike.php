@@ -34,10 +34,7 @@ $whenPlayedAbilities["TWI_171:0"] = function($player, $mzID = '') {
                           // unit in the same arena."
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Deal_2_damage_to_a_unit", "TWI_171#0");
             return;

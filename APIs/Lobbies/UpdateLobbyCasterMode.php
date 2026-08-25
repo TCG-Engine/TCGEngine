@@ -35,7 +35,7 @@ if (!empty($lobby->ready) || intval($lobby->numPlayers ?? 0) !== 1 || !empty($lo
 $hostAuthenticated = false;
 foreach (($lobby->players ?? []) as $player) {
   if (!($player instanceof Player)) continue;
-  if (intval($player->getPlayerID()) !== 1) continue;
+  if (intval($player->getPlayerID()) !== intval($lobby->hostPlayerID ?? 1)) continue;
   if (!hash_equals(strval($player->getAuthKey()), $authKey)) continue;
   $hostAuthenticated = true;
   break;

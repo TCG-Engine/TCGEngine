@@ -10,10 +10,7 @@ $whenPlayedAbilities["JTL_080:0"] = function($player, $mzID = '') {
             global $playerID;
             $playerID = intval($player);
             $uids = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
+            foreach (SWUAllUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (empty(GetUpgradesOnUnit($o))) $uids[] = intval($o->UniqueID ?? 0);

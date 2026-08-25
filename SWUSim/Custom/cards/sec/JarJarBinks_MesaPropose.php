@@ -6,7 +6,7 @@
 // SEC_111 Jar Jar Binks — When Played: you may give another friendly unit +2/+2 for this phase.
 $whenPlayedAbilities["SEC_111:0"] = function($player, $mzID) {
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'APPLY_PHASE_BUFF|2|2|', 'side' => 'my', 'excludeSelf' => true,
+        'continuation' => 'APPLY_PHASE_BUFF|2|2|', 'side' => 'friendly', 'excludeSelf' => true,
         'may' => true, 'prompt' => "Choose_a_unit", 'question' => "Give_another_friendly_unit_+2/+2?",
     ]);
 };

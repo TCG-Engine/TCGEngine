@@ -9,7 +9,7 @@
 $whenPlayedAbilities["SHD_235:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'my',
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'friendly',
         'prompt' => "Deal_2_to_a_friendly_unit",
     ]);
 };

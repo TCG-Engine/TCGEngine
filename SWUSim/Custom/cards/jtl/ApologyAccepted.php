@@ -22,7 +22,7 @@ $whenPlayedAbilities["JTL_091:0"] = function($player, $mzID = '') {
                           // to a unit (continuation JTL_091).
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            $targets = SWUFriendlyUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Defeat_a_friendly_unit", "JTL_091#0");
             return;

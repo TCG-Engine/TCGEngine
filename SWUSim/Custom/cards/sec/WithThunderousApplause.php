@@ -36,10 +36,7 @@ $whenPlayedAbilities["SEC_129:0"] = function($player, $mzID = '') {
 // With Thunderous Applause — "Give a unit +2/+2 for this phase. You may
                           // disclose Command → give ANOTHER unit +2/+2 for this phase."
             global $playerID; $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),    ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $units = SWUAllUnits();
             if (empty($units)) return;
             SWUQueueChooseTarget(intval($player), $units, "Give_a_unit_+2/+2_for_this_phase", "SEC_129#0");
             return;

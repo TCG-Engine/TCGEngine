@@ -14,10 +14,7 @@ $customDQHandlers["ASH_089#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["ASH_089:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $tg = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-    );
+    $tg = SWUAllUnits();
     if (empty($tg)) return;
     SWUQueueChooseTarget(intval($player), $tg, "Heal_3_and_Shield_a_unit", "ASH_089#0");
 };

@@ -25,7 +25,7 @@ $whenPlayedAbilities["LAW_168:0"] = function($player, $mzID = '') {
 // Haymaker — "Give an Experience token to a friendly unit. That unit deals
                           // damage equal to its power to an enemy unit in the same arena."
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            $friendly = SWUFriendlyUnits();
             if (empty($friendly)) return;
             SWUQueueChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_an_Experience_token", "LAW_168#0");
             return;

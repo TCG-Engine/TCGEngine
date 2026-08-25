@@ -41,7 +41,7 @@ $whenPlayedAbilities["SHD_106:0"] = function($player, $mzID = '') {
                 }
             }
             if (!$anyAttacker) return;
-            $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            $friendly = SWUFriendlyUnits();
             if (empty($friendly)) return;
             SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_unit_to_capture_the_base_attackers", "SHD_106#0");
             return;

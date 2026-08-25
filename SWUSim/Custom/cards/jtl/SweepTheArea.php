@@ -36,10 +36,7 @@ $whenPlayedAbilities["JTL_233:0"] = function($player, $mzID = '') {
                           // cost <= 3 to their owners' hands (continuation JTL_233 validates).
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter),
-                ZoneSearch("theirGroundArena", NonLeaderUnitFilter), ZoneSearch("theirSpaceArena", NonLeaderUnitFilter)
-            );
+            $targets = SWUAllUnits(null, null, NonLeaderUnitFilter);
             if (empty($targets)) return;
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
                 "0|2|" . implode("&", $targets), 1, tooltip: "Return_up_to_2_same-arena_units_(combined_cost_3_or_less)");

@@ -21,10 +21,7 @@ $whenPlayedAbilities["LOF_189:0"] = function($player, $mzID = '') {
             if (!PlayerHasTheForce(intval($player))) return; // can't pay the Force → whole effect fizzles
             UseTheForce(intval($player));
             $targets = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
+            foreach (SWUAllUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o) || IsLeaderUnit($o)) continue;
                 $targets[] = $mz;

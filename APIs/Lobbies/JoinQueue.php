@@ -4,6 +4,7 @@
   require_once "../../Core/HTTPLibraries.php";
   require_once "./Classes/Player.php";
   require_once __DIR__ . '/JoinQueue_blocklib.php';
+  require_once __DIR__ . "/Classes/TeamRooms.php";   // SWURoomAutoTeamOnJoin / SWURoomAssignTeam
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
@@ -299,20 +300,24 @@
         if (!empty($lobby->casterMode) !== $casterMode) continue;
         if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // blocked: fall through to generic "invalid/expired/full"
         if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
-        if (($lobby->rootName === 'SWUSim') && (($lobby->format ?? '') === 'twinsuns') && !empty($lobby->gameName)) continue; // already started
+        if (($lobby->rootName === 'SWUSim') && SWUFormatIsRoomFormat($lobby->format ?? '') && !empty($lobby->gameName)) continue; // already started
 
         $lobby->numPlayers++;
         if ($rootName === 'GrandArchiveSim') {
           $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
         }
-        $isTwinSunsRoom = ($lobby->rootName === 'SWUSim' && ($lobby->format ?? '') === 'twinsuns');
-        if (!$isTwinSunsRoom && $lobby->numPlayers == $lobby->maxPlayers) {
+        $isRoom = ($lobby->rootName === 'SWUSim' && SWUFormatIsRoomFormat($lobby->format ?? ''));
+        if (!$isRoom && $lobby->numPlayers == $lobby->maxPlayers) {
           $lobby->ready = true;   // 2-seat: fill = ready (unchanged)
         }
         $playerID = $lobby->numPlayers;
         $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
-        if ($isTwinSunsRoom) $newPlayer->setDeckOk(_SWUTwinSunsDeckOk($deckLink, $preconstructedDeck));
+        if ($isRoom) _SWURoomApplyDeck($lobby->format, $newPlayer, $deckLink, $preconstructedDeck);
         $lobby->players[] = $newPlayer;
+        // Team rooms: force the joiner onto the only team with room; otherwise they pick (spec §4.3).
+        // Must run AFTER the player is appended so the counts include them.
+        $autoTeam = SWURoomAutoTeamOnJoin($lobby);
+        if ($autoTeam !== null) SWURoomAssignTeam($lobby, $newPlayer, $autoTeam);
 
         if ($lobby->ready) {
           if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
@@ -342,7 +347,9 @@
         $response->authKey = $newPlayer->getAuthKey();
         $response->lobbyID = $lobby->id;
         $response->maxPlayers = $lobby->maxPlayers;
-        $response->isRoom = $isTwinSunsRoom;
+        $response->isRoom = $isRoom;
+        $response->team   = $newPlayer->getTeam();
+        $response->seat   = $newPlayer->getSeat();
         $response->inviteCode = $lobby->inviteCode;
         $response->casterMode = !empty($lobby->casterMode);
         if (isset($lobby->gameName) && $lobby->gameName) $response->gameName = $lobby->gameName;
@@ -364,7 +371,8 @@
     $lobbyId = uniqid();
     $lobby = new stdClass();
     $lobby->numPlayers = 1;
-    $lobby->maxPlayers = ($rootName === 'SWUSim' && $format === 'twinsuns') ? 4 : 2;
+    [, $lobbyMaxPlayers] = ($rootName === 'SWUSim') ? SWUFormatSeatRange($format) : [2, 2];
+    $lobby->maxPlayers = $lobbyMaxPlayers;
     $lobby->ready = false;
     $lobby->id = $lobbyId;
     $lobby->rootName = $rootName;
@@ -374,9 +382,11 @@
     if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
     $lobby->casterMode = $casterMode;
     $lobby->hostUserId = $joiningUserId;
+    $lobby->hostPlayerID = 1;   // Identity of the room creator. Read this, never "playerID === 1" —
+                                // Team Suns seats move, and host must not move with them.
     $lobby->inviteCode = bin2hex(random_bytes(12));
     $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
-    if ($rootName === 'SWUSim' && $format === 'twinsuns') $newPlayer->setDeckOk(_SWUTwinSunsDeckOk($deckLink, $preconstructedDeck));
+    if ($rootName === 'SWUSim' && SWUFormatIsRoomFormat($format)) _SWURoomApplyDeck($format, $newPlayer, $deckLink, $preconstructedDeck);
     $lobby->players = array($newPlayer);
 
     apcu_store($lobbyId, $lobby, $ttl);
@@ -390,7 +400,7 @@
     $response->inviteCode = $lobby->inviteCode;
     $response->casterMode = !empty($lobby->casterMode);
     $response->maxPlayers = $lobby->maxPlayers;
-    $response->isRoom = ($rootName === 'SWUSim' && $format === 'twinsuns');
+    $response->isRoom = ($rootName === 'SWUSim' && SWUFormatIsRoomFormat($format));
 
     header('Content-Type: application/json');
     echo json_encode($response);
@@ -501,16 +511,25 @@
   header('Content-Type: application/json');
   echo json_encode($response);
 
-  // Twin Suns room seats: resolve + check the deck against full 'twinsuns' format legality (2
-  // leaders, 80+ cards, highlander, alignment) so the room roster shows an accurate deckOk at
-  // create/join time — mirrors UpdateLobbyDeck.php's check. Never fatal; false on any failure.
-  function _SWUTwinSunsDeckOk($deckLink, $preconstructedDeck) {
-    if (!function_exists('SWUResolveDeckInput') || !function_exists('SWUCheckFormat')) return false;
+  // Room seats: resolve the deck, check it against the ROOM'S OWN format (twinsuns or teamsuns)
+  // rather than a hardcoded one, and cache the resolved LEADERS on the seat so the room roster
+  // shows an accurate deckOk at create/join time — mirrors UpdateLobbyDeck.php's check. The leader
+  // cache is what makes the team-wide leader-conflict check possible without re-resolving four
+  // decks on every roster poll. Never fatal. Returns the deckOk value it just wrote.
+  function _SWURoomApplyDeck($format, $player, $deckLink, $preconstructedDeck) {
+    if (!($player instanceof Player)) return false;
+    $player->setLeaders([]);
+    if (!function_exists('SWUResolveDeckInput') || !function_exists('SWUCheckFormat')) {
+      $player->setDeckOk(false); return false;
+    }
     $input = trim($deckLink) !== '' ? $deckLink : $preconstructedDeck;
-    if (trim((string)$input) === '') return false;
+    if (trim((string)$input) === '') { $player->setDeckOk(false); return false; }
     $resolved = SWUResolveDeckInput($input);
-    if (empty($resolved['success'])) return false;
-    $errs = SWUCheckFormat('twinsuns', $resolved['leader'] ?? '', $resolved['base'] ?? '', $resolved['mainDeck'] ?? [], $resolved['sideboard'] ?? []);
+    if (empty($resolved['success'])) { $player->setDeckOk(false); return false; }
+    $errs = SWUCheckFormat($format, $resolved['leader'] ?? '', $resolved['base'] ?? '', $resolved['mainDeck'] ?? [], $resolved['sideboard'] ?? []);
+    // 'leader' is a single CardID in standard formats and an ARRAY in Twin Suns / Team Suns.
+    $player->setLeaders((array)($resolved['leader'] ?? []));
+    $player->setDeckOk(empty($errs));
     return empty($errs);
   }
 

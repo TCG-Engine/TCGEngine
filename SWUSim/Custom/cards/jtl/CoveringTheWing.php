@@ -21,10 +21,7 @@ $whenPlayedAbilities["JTL_076:0"] = function($player, $mzID = '') {
                 if (!in_array($uid, $before, true)) { $xwUid = $uid; break; }
             }
             $targets = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
+            foreach (SWUAllUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $xwUid) $targets[] = $mz;
             }

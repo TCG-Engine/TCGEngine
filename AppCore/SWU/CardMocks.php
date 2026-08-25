@@ -2317,6 +2317,35 @@ When Played: If you control Grand Moff Tarkin, give an enemy unit -3/-0 for this
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_208' => 
+  array (
+    'title' => 'Luke Skywalker',
+    'subtitle' => 'Dreaming Farmboy',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 1,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Fringe',
+    ),
+    'text' => 'Raid 1.
+While it\'s the first round of the game, this unit enters play ready.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/208.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_210' => 
   array (
     'title' => 'Sol',

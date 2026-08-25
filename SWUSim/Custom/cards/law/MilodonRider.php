@@ -7,7 +7,7 @@
 // owner's hand.
 $whenPlayedAbilities["LAW_240:0"] = function($player, $mzID) {
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'BOUNCE_UNIT', 'side' => 'my', 'nonLeader' => true, 'excludeSelf' => true, 'may' => true,
+        'continuation' => 'BOUNCE_UNIT', 'side' => 'friendly', 'nonLeader' => true, 'excludeSelf' => true, 'may' => true,
         'question' => "Return_another_friendly_non-leader_unit_to_hand?", 'prompt' => "Choose_a_unit",
     ]);
 };

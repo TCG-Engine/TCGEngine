@@ -4,6 +4,8 @@ require_once "../../Core/HTTPLibraries.php";
 require_once "./Classes/Player.php";
 $swuDeckImportPath = __DIR__ . '/../../SWUSim/Custom/DeckImport.php';
 if (is_file($swuDeckImportPath)) require_once $swuDeckImportPath;
+$swuFormatsPath = __DIR__ . '/../../AppCore/SWU/Formats.php';
+if (is_file($swuFormatsPath)) require_once $swuFormatsPath;
 
 $response = new stdClass();
 function _updateDeckFail($response, $m) {
@@ -36,6 +38,7 @@ if (!function_exists('SWUResolveDeckInput') || !function_exists('SWUCheckFormat'
 $resolved = SWUResolveDeckInput($deckLink);
 if (empty($resolved['success'])) {
   $me->setDeckOk(false);
+  $me->setLeaders([]);   // a stale leader cache must not keep blocking (or permitting) a start
   apcu_store($lobbyID, $lobby, 900);
   $response->success = true;
   $response->deckOk = false;
@@ -44,9 +47,13 @@ if (empty($resolved['success'])) {
   echo json_encode($response);
   exit;
 }
-$errs = SWUCheckFormat('twinsuns', $resolved['leader'] ?? '', $resolved['base'] ?? '', $resolved['mainDeck'] ?? [], $resolved['sideboard'] ?? []);
+// Validate against the ROOM'S OWN format, not a hardcoded one — a Team Suns player editing their
+// deck must be checked as teamsuns.
+$roomFormat = ($lobby->format ?? 'twinsuns');
+$errs = SWUCheckFormat($roomFormat, $resolved['leader'] ?? '', $resolved['base'] ?? '', $resolved['mainDeck'] ?? [], $resolved['sideboard'] ?? []);
 if (!empty($errs)) {
   $me->setDeckOk(false);
+  $me->setLeaders([]);   // a stale leader cache must not keep blocking (or permitting) a start
   apcu_store($lobbyID, $lobby, 900);
   $response->success = true;
   $response->deckOk = false;
@@ -58,6 +65,7 @@ if (!empty($errs)) {
 
 $me->setDeckLink($deckLink);
 $me->setDeckOk(true);
+$me->setLeaders((array)($resolved['leader'] ?? []));   // feeds the team leader-conflict check
 apcu_store($lobbyID, $lobby, 900);
 $response->success = true;
 $response->deckOk = true;

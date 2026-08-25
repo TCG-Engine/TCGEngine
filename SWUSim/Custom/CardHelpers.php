@@ -53,17 +53,63 @@ if (!function_exists('SWUObjGone')) {
 // theirGround, theirSpace); SWUAllUnits('my') == array_merge(myGround, mySpace);
 // SWUAllUnits(null,'Ground') == array_merge(myGround, theirGround); etc.
 if (!function_exists('SWUAllUnits')) {
-    function SWUAllUnits(?string $of = null, ?string $arena = null): array {
-        $sides  = $of    !== null ? [$of]    : ['my', 'their'];
+    function SWUAllUnits(?string $of = null, ?string $arena = null, $filter = null): array {
+        // $filter: a ZoneSearch card-type filter (AnyUnitFilter default, NonLeaderUnitFilter, …).
+        // Threaded through so callers that need a narrower pool still route through the helpers
+        // instead of hand-rolling a ZoneSearch pair.
+        if ($filter === null) $filter = AnyUnitFilter;
+        // null = EVERY unit on the table. In a team game that is team + their; outside one 'team'
+        // degenerates to 'my', so this stays byte-identical to the historical ['my','their'].
+        // ⚠ THIS LINE IS THE FIX for the Phase 2 targeting hole: once 'their' excludes a teammate,
+        // 'my' + 'their' no longer covers the table, so an unqualified pool must start from 'team'.
+        $sides  = $of    !== null ? [$of]    : ['team', 'their'];
         $arenas = $arena !== null ? [$arena] : [GroundArena, SpaceArena]; // "Ground","Space"
         $out = [];
         foreach ($sides as $s) {
             foreach ($arenas as $a) {
-                $out = array_merge($out, ZoneSearch($s . $a . 'Arena', AnyUnitFilter));
+                $out = array_merge($out, ZoneSearch($s . $a . 'Arena', $filter));
             }
         }
         return $out;
     }
+}
+
+// ─── "this phase" unit flags, read against the unit's CONTROLLER ─────────────
+// SWU_PLAYED_UNIT_{uid} and SWU_UNIT_ATTACKED_{uid} are stored on the CONTROLLER's GlobalEffects
+// (see ActivateCard / ExecuteSWUAttack). Reading them against the ACTING player is only correct while
+// the pool is the actor's own board — the moment a pool spans other seats (Team Suns, or any
+// unqualified "a unit" effect) that read silently returns false for every foreign unit.
+// Use these instead of hand-rolling GlobalEffectCount($player, …).
+if (!function_exists('SWUUnitPlayedThisPhase')) {
+    function SWUUnitPlayedThisPhase($obj): bool {
+        if ($obj === null) return false;
+        return GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_PLAYED_UNIT_' . intval($obj->UniqueID ?? 0)) > 0;
+    }
+}
+if (!function_exists('SWUUnitAttackedThisPhase')) {
+    function SWUUnitAttackedThisPhase($obj): bool {
+        if ($obj === null) return false;
+        return GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_UNIT_ATTACKED_' . intval($obj->UniqueID ?? 0)) > 0;
+    }
+}
+
+// ─── THE friendly / controlled split (Team Suns) ─────────────────────────────
+// These two are the API. Card code should call one of them rather than naming a zone spec, so that
+// when the team rules change there is exactly ONE function to edit per meaning.
+//
+//   SWUFriendlyUnits()   — "a friendly unit", "another friendly unit", auras over friendly units.
+//                          Spans YOU AND YOUR TEAMMATE in a Team Suns game.
+//   SWUControlledUnits() — "a unit you control", Coordinate counts, Exploit fodder, cost payment,
+//                          action legality. ALWAYS self-only, in every format.
+//
+// ⚠ The distinction is real and load-bearing (spec §2): a teammate's unit is FRIENDLY but you do NOT
+// CONTROL it. Outside a team game both return the same set, which is why Twin Suns / Premier are safe.
+// $arena: 'Ground' | 'Space' | null (both).
+if (!function_exists('SWUFriendlyUnits')) {
+    function SWUFriendlyUnits(?string $arena = null, $filter = null): array { return SWUAllUnits('team', $arena, $filter); }
+}
+if (!function_exists('SWUControlledUnits')) {
+    function SWUControlledUnits(?string $arena = null, $filter = null): array { return SWUAllUnits('my', $arena, $filter); }
 }
 
 // Shared "play a card at a discount" offer, used by the discount-play family
@@ -221,7 +267,11 @@ if (!function_exists('_SWUCollectUnitTargets')) {
         // have been selectable. At ≤2 seats 'their' and 'ofSeat'=>theOneOpponent are the same set,
         // which is exactly why it stayed invisible.
         $ofSeat = (array_key_exists('ofSeat', $opts) && $opts['ofSeat'] !== null) ? intval($opts['ofSeat']) : null;
-        $sideArg = ($side === 'any') ? null : $side;   // SWUAllUnits: 'my'|'their'|null
+        // 'my'       -> SELF-ONLY  ("a unit you control")
+        // 'friendly' -> TEAM-WIDE  ("a friendly unit") — Team Suns; identical to 'my' elsewhere
+        // 'their'    -> opponents (already team-aware via OpponentsOf)
+        // 'any'      -> the whole table
+        $sideArg = ($side === 'any') ? null : (($side === 'friendly') ? 'team' : $side);
         $out = [];
         foreach (SWUAllUnits($sideArg, $arena) as $mz) {
             $o = GetZoneObject($mz);

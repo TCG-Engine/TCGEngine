@@ -241,10 +241,7 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             $gfArg    = max(0, intval($gfParts[1]));
         }
         // The human's own units (defeat / bounce / damage-units all target these).
-        $gfMyUnits = array_merge(
-            ZoneSearch("myGroundArena", AnyUnitFilter),
-            ZoneSearch("mySpaceArena",  AnyUnitFilter)
-        );
+        $gfMyUnits = SWUControlledUnits();   // the human's OWN units (goldfish is 2-player; no teams)
 
         if ($gfAction === 'BaseDamage') {
             if ($gfArg <= 0) break;

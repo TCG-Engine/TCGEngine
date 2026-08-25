@@ -39,7 +39,7 @@ $whenPlayedAbilities["LAW_102:0"] = function($player, $mzID = '') {
                           // If it survives, heal damage from your base equal to the damage dealt this way."
             global $playerID; $playerID = intval($player);
             $targets = [];
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && !HasTrait($o->CardID ?? '', 'Vehicle')) $targets[] = $mz;
             }

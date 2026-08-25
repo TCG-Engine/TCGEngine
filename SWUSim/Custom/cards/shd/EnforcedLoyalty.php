@@ -18,10 +18,7 @@ $customDQHandlers["SHD_108#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SHD_108:0"] = function($player, $mzID = '') {
 // Enforced Loyalty — "Defeat a friendly unit. If you do, draw 2 cards."
-            $friendly = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
-            );
+            $friendly = SWUFriendlyUnits();
             if (empty($friendly)) return;   // no friendly unit → no defeat, no draw
             SWUQueueChooseTarget(intval($player), $friendly, "Defeat_a_friendly_unit", "SHD_108#0");
             return;

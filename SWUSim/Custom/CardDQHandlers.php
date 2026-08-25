@@ -1359,13 +1359,50 @@ function _SWUAsh053Finish(int $player, int $count): void
 // Dark Side). $parts[0] = '1' to restrict to non-leader units, '0' for any unit. Run via an
 // intermediate CUSTOM (not inline from a trigger closure) so the cross-player $playerID survives —
 // see SWUOpponentChoosesOwnUnit.
+// ⚠ "AN opponent" means OF YOUR CHOICE — the CASTER picks which opponent, then THAT opponent picks
+// which of their units. OFFICIAL RULING (Avenger, 03/01/2024): "If there are multiple opponents, the
+// controlling player chooses which one will be 'an opponent.'" This used to call
+// SWUOpponentChoosesOwnUnit with no seat, which fell through to OtherPlayer($caster) — not a choice at
+// all above two seats, and (because OtherPlayer is literally `$p === 1 ? 2 : 1`) it aimed every seat-3
+// and seat-4 caster at PLAYER 1.
+//
+// ⚠ This handler is for "AN opponent" ONLY. "EACH player" / "each opponent" is a LOOP — see
+// EACH_OPPONENT_DEFEATS_OWN_UNIT (TWI_238 Merciless Contest). The two read almost identically in the
+// printed text and take opposite implementations.
 $customDQHandlers["OPP_DEFEAT_OWN_UNIT"] = function ($player, $parts, $lastDecision) {
+  $nonLeader = (($parts[0] ?? '1') === '1');
+  // Filter to opponents who can actually make the demanded choice (ELIGIBILITY = WHO ACTS). Gate on
+  // non-empty BEFORE prompting so a card with no legal opponent fizzles silently.
+  $eligible = SWUOpponentsWithOwnUnit(intval($player), $nonLeader);
+  if (empty($eligible)) return;
+  // At one eligible opponent SWUQueueChooseOpponent auto-resolves via PASSPARAMETER, so 2-player play
+  // is byte-identical — no new prompt.
+  SWUQueueChooseOpponent(intval($player), "OPP_DEFEAT_PICKED|" . ($nonLeader ? '1' : '0'),
+                         'Choose_an_opponent', $eligible);
+};
+
+// Continuation of OPP_DEFEAT_OWN_UNIT: the caster has named the seat; now THAT opponent picks which of
+// their own units is defeated.
+$customDQHandlers["OPP_DEFEAT_PICKED"] = function ($player, $parts, $lastDecision) {
+  $opp = SWUPickedOpponent($lastDecision);
+  if ($opp <= 0 || $opp === intval($player)) return;
   $nonLeader = (($parts[0] ?? '1') === '1');
   $tip = $nonLeader ? 'Choose_a_non-leader_unit_to_defeat' : 'Choose_a_unit_to_defeat';
   // The opponent CHOOSES the target, but the defeat is caused by the CASTER's card ability — so it
-  // must be attributed to the caster for "can't be defeated by ENEMY card abilities" to apply
-  // (SOR_040 Avenger, SOR_041, etc.). Thread the caster ($player) into ENEMY_SOURCED_DEFEAT.
-  SWUOpponentChoosesOwnUnit(intval($player), $nonLeader, $tip, "ENEMY_SOURCED_DEFEAT|" . intval($player));
+  // must be attributed to the caster for "can't be defeated by ENEMY card abilities" to apply.
+  SWUOpponentChoosesOwnUnit(intval($player), $nonLeader, $tip,
+                            "ENEMY_SOURCED_DEFEAT|" . intval($player), $opp);
+};
+
+// "EACH opponent chooses a unit they control. Defeat those units." — a LOOP, one resolution per seat,
+// NOT a pick. 2-player: the single opponent, byte-identical to the old shared handler.
+$customDQHandlers["EACH_OPPONENT_DEFEATS_OWN_UNIT"] = function ($player, $parts, $lastDecision) {
+  $nonLeader = (($parts[0] ?? '1') === '1');
+  $tip = $nonLeader ? 'Choose_a_non-leader_unit_to_defeat' : 'Choose_a_unit_to_defeat';
+  foreach (OpponentsOf(intval($player)) as $opp) {
+    SWUOpponentChoosesOwnUnit(intval($player), $nonLeader, $tip,
+                              "ENEMY_SOURCED_DEFEAT|" . intval($player), $opp);
+  }
 };
 
 // Defeat a unit the OPPONENT chose among their own, attributing the defeat to the CASTER (the ability's
@@ -1377,11 +1414,14 @@ $customDQHandlers["ENEMY_SOURCED_DEFEAT"] = function ($chooser, $parts, $lastDec
   if ($lastDecision === null || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS')
     return;
   $caster = intval($parts[0] ?? OtherPlayer(intval($chooser)));
-  $casterMz = str_replace(
-    ['myGroundArena', 'mySpaceArena'],
-    ['theirGroundArena', 'theirSpaceArena'],
-    $lastDecision
-  );
+  // ⚠ FRAME TRANSLATION, and it is NOT a my->their string swap. $lastDecision was minted in the
+  // CHOOSER's frame ('myGroundArena-N'). At two seats 'theirGroundArena-N' names that same unit, but at
+  // 3+ seats 'their...' is ambiguous — GetZoneObject resolves it to the caster's FIRST opponent, so a
+  // seat-4 chooser's pick silently defeated SEAT 2's unit instead. SWUForeignMzID emits the
+  // seat-addressed 'p{n}...' form above two seats and the historical 'their...' at two.
+  $zone = (strpos((string)$lastDecision, 'SpaceArena') !== false) ? 'SpaceArena' : 'GroundArena';
+  $idx  = (int)substr((string)$lastDecision, strrpos((string)$lastDecision, '-') + 1);
+  $casterMz = SWUForeignMzID($caster, intval($chooser), $zone, $idx);
   global $playerID;
   $playerID = $caster;
   SWUDefeatUnit($caster, $casterMz);

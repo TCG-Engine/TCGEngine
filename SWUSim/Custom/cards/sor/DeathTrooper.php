@@ -27,7 +27,7 @@ $whenPlayedAbilities["SOR_033:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'my', 'arena' => 'Ground',
+        'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => 2, 'side' => 'friendly', 'arena' => 'Ground',
         'prompt' => "Deal_2_to_a_friendly_ground_unit",
     ]);
     // The enemy half is queued from a CUSTOM continuation rather than inline so it resolves AFTER the

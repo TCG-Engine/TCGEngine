@@ -59,10 +59,7 @@ $whenPlayedAbilities["SEC_180:0"] = function($player, $mzID = '') {
 // Let's Call It War — "Deal 3 to a unit. Then, if you have the initiative, you
                           // may deal 2 to another unit in the same arena."
             global $playerID; $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),    ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $units = SWUAllUnits();
             if (empty($units)) return;
             SWUQueueChooseTarget(intval($player), $units, "Deal_3_to_a_unit", "SEC_180#0");
             return;

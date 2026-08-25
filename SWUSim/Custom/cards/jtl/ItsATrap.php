@@ -9,7 +9,7 @@ $whenPlayedAbilities["JTL_209:0"] = function($player, $mzID = '') {
                           // space unit you control.
             global $playerID;
             $playerID = intval($player);
-            $mine = ZoneSearch("mySpaceArena", AnyUnitFilter);
+            $mine = SWUControlledUnits('Space');   // "each space unit YOU CONTROL"
             if (count(ZoneSearch("theirSpaceArena", AnyUnitFilter)) <= count($mine)) return;
             foreach ($mine as $mz) OnReadyCard(intval($player), $mz);
             return;

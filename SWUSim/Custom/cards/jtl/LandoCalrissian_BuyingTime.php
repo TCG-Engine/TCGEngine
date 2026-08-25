@@ -25,8 +25,8 @@ $customDQHandlers["JTL_003#0"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["JTL_003#1"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
-    $hasGround = !empty(ZoneSearch("myGroundArena", AnyUnitFilter));
-    $hasSpace  = !empty(ZoneSearch("mySpaceArena",  AnyUnitFilter));
+    $hasGround = !empty(SWUControlledUnits('Ground'));   // "if YOU CONTROL a ground unit"
+    $hasSpace  = !empty(SWUControlledUnits('Space'));
     if (!$hasGround || !$hasSpace) return; // condition not met → no Shield
     GiveTokenUpgrade($player, '', ['token'=>'SHIELD','friendlyOnly'=>false,'prompt'=>"Give_a_Shield_token_to_a_unit"]);
 };

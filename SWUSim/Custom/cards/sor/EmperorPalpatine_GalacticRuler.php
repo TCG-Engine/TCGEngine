@@ -49,12 +49,7 @@ $whenPlayedAbilities["SOR_006:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
     $targets = [];
-    foreach (array_merge(
-        ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-        ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-        ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-        ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-    ) as $mz) {
+    foreach (SWUAllUnits(null, null, NonLeaderUnitFilter) as $mz) {
         $obj = GetZoneObject($mz);
         if ($obj === null || ($obj->removed ?? false)) continue;
         if (intval($obj->Damage ?? 0) > 0) $targets[] = $mz;

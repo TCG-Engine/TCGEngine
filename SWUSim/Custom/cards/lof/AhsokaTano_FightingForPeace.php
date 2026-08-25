@@ -7,7 +7,7 @@
 
 // LOF_003 Ahsoka Tano — On Attack: You may give a friendly unit Sentinel for this phase.
 $onAttackAbilities["LOF_003:0"] = function($player, $mzID) {
-    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^LOF_003', 'side'=>'my', 'may'=>true, 'question'=>"Give_a_friendly_unit_Sentinel?", 'prompt'=>"Choose_a_friendly_unit"]);
+    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^LOF_003', 'side'=>'friendly', 'may'=>true, 'question'=>"Give_a_friendly_unit_Sentinel?", 'prompt'=>"Choose_a_friendly_unit"]);
 };
 
 // LOF_003 Ahsoka Tano — Action [Exhaust, use the Force]: Give a friendly unit Sentinel for this phase.

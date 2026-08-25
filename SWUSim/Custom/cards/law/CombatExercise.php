@@ -20,7 +20,7 @@ $whenPlayedAbilities["LAW_165:0"] = function($player, $mzID = '') {
                           // tokens to it." Offer ready friendly units (exhaustable).
             global $playerID; $playerID = intval($player);
             $targets = [];
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $targets[] = $mz;
             }

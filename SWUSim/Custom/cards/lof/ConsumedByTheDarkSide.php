@@ -21,10 +21,7 @@ $whenPlayedAbilities["LOF_239:0"] = function($player, $mzID = '') {
 // Consumed by the Dark Side — "Give 2 Experience tokens to a unit, then deal 2
                           // damage to it."
             global $playerID; $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Give_2_Experience_then_deal_2_to_a_unit", "LOF_239#0");
             return;

@@ -18,12 +18,7 @@
 if (!function_exists('_SWULaw096Targets')) {
     function _SWULaw096Targets(int $seat): array {
         global $playerID; $playerID = $seat;
-        return array_merge(
-            ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-            ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-            ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-            ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-        );
+        return SWUAllUnits(null, null, NonLeaderUnitFilter);
     }
 }
 

@@ -65,10 +65,7 @@ $whenPlayedAbilities["LAW_085:0"] = function($player, $mzID = '') {
 // You Hold This — "Choose a friendly non-leader unit. An opponent takes
                           // control of it. If they do, deal 4 damage to another unit in the same arena."
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(
-                ZoneSearch("myGroundArena", NonLeaderUnitFilter),
-                ZoneSearch("mySpaceArena",  NonLeaderUnitFilter)
-            );
+            $friendly = SWUFriendlyUnits(null, NonLeaderUnitFilter);
             if (empty($friendly)) return;
             // ORDER: unit first, then WHO takes it — the printed order ("Choose a friendly non-leader
             // unit. An opponent takes control of it"), and it keeps the existing 2-player prompt sequence

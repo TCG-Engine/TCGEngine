@@ -50,7 +50,7 @@ $whenPlayedAbilities["SEC_106:0"] = function($player, $mzID = '') {
 // Dismantle the Conspiracy — "A friendly unit captures any number of enemy
                           // non-leader units with a total of 7 or less remaining HP."
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            $friendly = SWUFriendlyUnits();
             if (empty($friendly)) return;
             SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_capturing_unit", "SEC_106#0");
             return;

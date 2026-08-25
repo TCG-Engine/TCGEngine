@@ -25,7 +25,7 @@ $customDQHandlers["SEC_212#0"] = function($player, $parts, $lastDecision) {
     // is the only friendly unit, it must be selectable (the enemy captures Libertine itself). $selfUID is
     // NOT excluded.
     $friendly = [];
-    foreach (array_merge(ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter)) as $mz) {
+    foreach (SWUFriendlyUnits(null, NonLeaderUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed)) $friendly[] = $mz;
     }

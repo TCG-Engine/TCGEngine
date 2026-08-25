@@ -9,7 +9,7 @@ $whenPlayedAbilities["ASH_038:0"] =
 $whenDefeatedAbilities["ASH_038:0"] = function($player, $mzID) {
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'ASH_038#0', 'may' => true,
-        'side' => 'my', 'nonLeader' => true, 'excludeSelf' => true,
+        'side' => 'friendly', 'nonLeader' => true, 'excludeSelf' => true,
         'question' => "Return_another_friendly_unit_to_hand_(then_deal_its_cost)?", 'prompt' => "Choose_a_unit_to_return",
     ]);
 };

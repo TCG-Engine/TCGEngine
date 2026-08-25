@@ -25,12 +25,7 @@ $whenPlayedAbilities["SOR_186:0"] = function($player, $mzID = '') {
                           // legal target — the exhaust no-ops but the can't-ready flag still applies).
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             SWUQueueChooseTarget(intval($player), $targets, "Exhaust_a_unit_(it_can't_ready_this_round)", "SOR_186#0");
             return;
 };

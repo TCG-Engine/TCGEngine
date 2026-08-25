@@ -277,7 +277,7 @@ function _SWUAsh160ReadyOnBaseAttack(int $baseOwner): void {
 // (works even when the base owner is the non-active player in combat). Each ASH_204 the owner controls.
 function _SWUCollectAsh204Reaction(int $targetPlayer): void {
     global $playerID; $savedPID = $playerID; $playerID = intval($targetPlayer);
-    foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+    foreach (SWUControlledUnits() as $mz) {   // "each ASH_204 the OWNER CONTROLS" ($playerID is $targetPlayer here)
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed) && ($o->CardID ?? '') === 'ASH_204') DoGiveAdvantageToken(intval($targetPlayer), $mz);
     }
@@ -381,7 +381,8 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
         // gains Sentinel for this phase." Combat-gated; the base owner ($targetPlayer) gives its SEC_041s Sentinel.
         if (intval($damage) > 0 && !empty($GLOBALS['gInCombatDamage'])) {
             $savedPID2 = $playerID; $playerID = intval($targetPlayer);
-            foreach (ZoneSearch("myGroundArena", AnyUnitFilter) as $mz) {
+            // the base owner's OWN SEC_041s ($playerID is $targetPlayer here, not the caster)
+            foreach (SWUControlledUnits('Ground') as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && ($o->CardID ?? '') === 'SEC_041') AddTurnEffect($mz, 'SENTINEL^SEC_041');
             }
@@ -1242,7 +1243,9 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID,
     if (!$defenderOnly && $attacker !== null && !isset($attacker->removed) && TraitContains($attacker, 'Official')) {
         global $playerID; $savedPid81 = $playerID; $playerID = intval($activePlayer);
         $atkUID81 = intval($attacker->UniqueID ?? 0);
-        foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+        // SEC_081 "When another FRIENDLY Official unit attacks" - friendly, so a teammate's SEC_081
+        // also sees a Team Suns ally attack ($playerID is $activePlayer here).
+        foreach (SWUFriendlyUnits() as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && ($o->CardID ?? '') === 'SEC_081'
                 && intval($o->UniqueID ?? 0) !== $atkUID81) {

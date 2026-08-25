@@ -1,6 +1,9 @@
 <?php
 
 require_once "../../Core/NetworkingLibraries.php";
+require_once __DIR__ . "/Classes/TeamRooms.php";
+$swuFormatsPath = __DIR__ . '/../../AppCore/SWU/Formats.php';
+if (is_file($swuFormatsPath)) require_once $swuFormatsPath;
 require_once "../../Core/HTTPLibraries.php";
 require_once "./Classes/Player.php";
 
@@ -34,20 +37,28 @@ while (true) {
   // Fetch the lobby data from the cache
   $lobby = apcu_fetch($lobbyID);
 
-  $isRoom = $lobby && is_object($lobby) && ($lobby->rootName ?? '') === 'SWUSim' && ($lobby->format ?? '') === 'twinsuns';
+  $isRoom = $lobby && is_object($lobby) && ($lobby->rootName ?? '') === 'SWUSim'
+            && function_exists('SWUFormatIsRoomFormat') && SWUFormatIsRoomFormat($lobby->format ?? '');
   if ($isRoom) {
     $roster = [];
     foreach (($lobby->players ?? []) as $p) {
       if (!($p instanceof Player)) continue;
       $roster[] = [
-        'seat'   => $p->getPlayerID(),
-        'deckOk' => $p->getDeckOk(),
-        'isHost' => $p->getPlayerID() === 1,
+        'playerID' => $p->getPlayerID(),
+        'seat'     => $p->getSeat(),
+        'team'     => $p->getTeam(),
+        'deckOk'   => $p->getDeckOk(),
+        // The seat's resolved leaders, cached at deck-validation time. The lobby table shows them so a
+        // within-team leader conflict is visible BEFORE anyone tries to start.
+        'leaders'  => $p->getLeaders(),
+        'isHost'   => $p->getPlayerID() === intval($lobby->hostPlayerID ?? 1),
       ];
     }
     $response->success = true;
     $response->isRoom = true;
+    $response->isTeamRoom = SWURoomIsTeamLobby($lobby);
     $response->roster = $roster;
+    $response->blockers = SWURoomStartBlockers($lobby, SWURoomLeaderSets($lobby));
     $response->numPlayers = intval($lobby->numPlayers ?? 0);
     $response->maxPlayers = intval($lobby->maxPlayers ?? 4);
     $response->state = $lobby->state ?? 'open';

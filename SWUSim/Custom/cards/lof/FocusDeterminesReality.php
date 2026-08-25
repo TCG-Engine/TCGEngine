@@ -8,7 +8,7 @@ $whenPlayedAbilities["LOF_152:0"] = function($player, $mzID = '') {
 // Focus Determines Reality — "Each friendly Force unit gains Raid 1 and Saboteur
                         // for this phase."
             global $playerID; $playerID = intval($player);
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (TraitContains($o, 'Force')) {

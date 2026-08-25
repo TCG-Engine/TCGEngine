@@ -1130,6 +1130,24 @@ class SchemaTestRunner {
                     $failures[] = "{$line}: expected seat {$seat} live=" . var_export($expected, true)
                                 . ", got " . var_export($actual, true);
 
+            } elseif (preg_match('/^SWUVAR:([A-Z0-9_]+):(.*)$/', $line, $m)) {
+                // A raw SWU game variable (SetSWUVar/GetSWUVar), e.g. SWU_TS_GAME_ENDING.
+                // Needed to assert the MECHANISM rather than an outcome two rules happen to share:
+                // in Team Suns an elimination must not set SWU_TS_GAME_ENDING at all, and asserting
+                // "no winner yet" cannot tell that apart from Twin Suns' deferred scoring.
+                $expected = $m[2];
+                $actual   = (string)GetSWUVar($m[1]);
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected '{$expected}', got '{$actual}'";
+
+            } elseif ($line === 'NOGAMEWINNER') {
+                // No winner has been declared yet. The counterpart to GAMEWINNERS:, which matches
+                // [0-9,]+ and so cannot express an empty set. Team Suns needs this: an elimination
+                // must NOT end the game until a whole team is gone.
+                $actual = SWUGetGameWinners();
+                if (!empty($actual))
+                    $failures[] = "NOGAMEWINNER: expected no winner, got [" . implode(',', $actual) . "]";
+
             } elseif (preg_match('/^GAMEWINNERS:([0-9,]+)$/', $line, $m)) {
                 // Twin Suns Phase 5: the end-game winner set (sorted seats; ties share).
                 $expected = array_map('intval', explode(',', $m[1]));

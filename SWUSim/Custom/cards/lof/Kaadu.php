@@ -5,5 +5,5 @@
 
 // LOF_114 Kaadu — When Played: may give another friendly unit Overwhelm for this phase.
 $whenPlayedAbilities["LOF_114:0"] = function($player, $mzID) {
-    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|OVERWHELM^LOF_114', 'side'=>'my', 'excludeSelf'=>true, 'may'=>true, 'question'=>"Give_another_friendly_unit_Overwhelm?", 'prompt'=>"Choose_a_unit"]);
+    SWUOfferUnitTarget($player, $mzID, ['continuation'=>'GRANT_PHASE_KEYWORD|OVERWHELM^LOF_114', 'side'=>'friendly', 'excludeSelf'=>true, 'may'=>true, 'question'=>"Give_another_friendly_unit_Overwhelm?", 'prompt'=>"Choose_a_unit"]);
 };

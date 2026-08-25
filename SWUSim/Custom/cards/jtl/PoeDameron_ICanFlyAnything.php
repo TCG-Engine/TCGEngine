@@ -36,10 +36,11 @@ $unitAbilities["JTL_013"] = function($player, $mzID) {
     }
 
     // Collect eligible hop targets: friendly Vehicles with 0 pilots, excluding the current host.
-    $all = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
-    );
+    // "a FRIENDLY Vehicle unit" — team-wide. USER RULING (2026-08-25): Poe may fly a TEAMMATE's Vehicle.
+    // ⚠ That makes the leader's controller and the HOST's controller differ, which the leader-unit
+    // machinery (deploy flag, leader defeat, return-to-leader-zone) had never had to handle — the
+    // cross-seat attach is covered by the friendly-mzID tests in Tests/Cases/teamsuns/.
+    $all = SWUFriendlyUnits();
     $targets = array_values(array_filter($all, function($mz) use ($mzID) {
         if ($mz === $mzID) return false; // exclude the current host
         $hostObj = GetZoneObject($mz);

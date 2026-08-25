@@ -22,7 +22,7 @@ $customDQHandlers["SEC_068#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($enemy)) return;
     $enemyUID = intval($enemy->UniqueID ?? 0);
     $friendly = [];
-    foreach (array_merge(ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter)) as $mz) {
+    foreach (SWUFriendlyUnits(null, NonLeaderUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID) $friendly[] = $mz;
     }

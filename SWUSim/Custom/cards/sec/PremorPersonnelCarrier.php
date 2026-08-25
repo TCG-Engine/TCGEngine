@@ -8,7 +8,7 @@
 $whenPlayedAbilities["SEC_089:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $n = 0;
-    foreach (ZoneSearch("myGroundArena", AnyUnitFilter) as $mz) {
+    foreach (SWUControlledUnits('Ground') as $mz) {   // "each ground unit YOU CONTROL"
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed)) $n++;
     }

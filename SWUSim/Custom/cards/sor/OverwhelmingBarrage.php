@@ -33,10 +33,7 @@ $whenPlayedAbilities["SOR_092:0"] = function($player, $mzID = '') {
             // deals damage equal to its (buffed) power divided among any number of OTHER units.
             global $playerID;
             $playerID = intval($player);
-            $friendly = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
-            );
+            $friendly = SWUFriendlyUnits();
             if (empty($friendly)) return; // no friendly unit → fizzle
             SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_unit_to_buff", "SOR_092#0");
             return;

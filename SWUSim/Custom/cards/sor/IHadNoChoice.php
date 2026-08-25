@@ -88,12 +88,7 @@ $whenPlayedAbilities["SOR_187:0"] = function($player, $mzID = '') {
                           // the bottom of its owner's deck."
             global $playerID;
             $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-                ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-                ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-                ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-            );
+            $units = SWUAllUnits(null, null, NonLeaderUnitFilter);
             if (empty($units)) return;   // no non-leader unit → fizzle
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|2|" . implode("&", $units), 1,
                 tooltip:"Choose_up_to_2_non-leader_units");

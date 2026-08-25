@@ -17,10 +17,7 @@ $whenPlayedAbilities["SEC_246:0"] = function($player, $mzID = '') {
 // Contempt for Culture — "Deal 2 damage to a non-Vehicle unit. Create a Spy token."
             global $playerID; $playerID = intval($player);
             $targets = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),    ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
+            foreach (SWUAllUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && !HasTrait($o->CardID ?? '', 'Vehicle')) $targets[] = $mz;
             }

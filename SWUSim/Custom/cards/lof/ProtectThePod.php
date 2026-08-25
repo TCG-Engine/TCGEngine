@@ -24,7 +24,7 @@ $whenPlayedAbilities["LOF_128:0"] = function($player, $mzID = '') {
                           // remaining HP to an enemy unit."
             global $playerID; $playerID = intval($player);
             $friendly = [];
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (!HasTrait($o->CardID ?? '', 'Vehicle')) $friendly[] = $mz;

@@ -1139,6 +1139,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ── Goldfish ⚗ Practice menu — god-mode helpers acting on YOUR (P1) board. Goldfish only;
     // the server re-checks the mode, so these are inert (and the UI absent) in real games. ──
     window.SWUIsGoldfish = <?php echo (function_exists('SWUGameMode') && SWUGameMode() === 'goldfish') ? 'true' : 'false'; ?>;
+
+    // Team Suns (2v2). Orthogonal to SWUGameMode() — that answers goldfish/hotseat/normal and returns
+    // '' here — so it gets its own flag, exactly as the server keeps SWU_MODE_TEAMS separate.
+    window.SWUIsTeamGame = <?php echo (function_exists('SWUIsTeamGame') && SWUIsTeamGame()) ? 'true' : 'false'; ?>;
     (function () {
         if (!window.SWUIsGoldfish) return;
         function send(action) {
@@ -1977,6 +1981,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // two-level model: a 'home' view (you vs everyone — one mini-board preview per opponent) followed by
     // one 'matchup' view per opponent (you vs that one seat). Returns [] at ≤2 seats (no switcher shown).
     // Egocentric by design: every view's viewSeat is YOU (no opp-vs-opp spectate view).
+    // Team Suns: mirrors the server's SWUTeamOf() — seat parity, seats 1,3 = Red and 2,4 = Blue.
+    // Outside a team game every seat is its own team, so swuIsTeammate() is always false and every
+    // downstream branch degenerates to Twin Suns behaviour.
+    // ⚠ Keep the parity rule HERE ONLY, as it is server-side. Do not inline `% 2` anywhere else.
+    function swuTeamOf(seat) { return window.SWUIsTeamGame ? (seat % 2) : seat; }
+    function swuIsTeammate(seat) {
+        return !!window.SWUIsTeamGame && seat !== MY_PLAYER_ID && swuTeamOf(seat) === swuTeamOf(MY_PLAYER_ID);
+    }
+
     function swuBuildViews() {
         var order = String(window.LiveSeatsData || window.SeatOrderData || '').trim();
         var seats = order.length ? order.split('').map(function (c) { return parseInt(c, 10); }) : [];
@@ -1985,7 +1998,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var opps = seats.filter(function (s) { return s !== me; });
         var views = [{ viewSeat: me, oppSeat: opps[0], mode: 'home', opps: opps, label: 'Home' }];
         opps.forEach(function (o) {
-            views.push({ viewSeat: me, oppSeat: o, mode: 'matchup', label: 'vs P' + o });
+            // Team Suns: your teammate is not an opponent, so "vs P3" is wrong for them. ONLY the label
+            // changes — the view list, its order, viewSeat/oppSeat/mode and the home view's `opps` array
+            // are all untouched, so the board and preview tiles render exactly as in Twin Suns.
+            // ⚠ Do NOT filter the teammate out of `opps`. That would drop their preview tile from the
+            // home view and their entry from the carousel, breaking Zoom In on your own teammate — the
+            // opposite of USER RULING 2026-08-25 (the home view stays as it is; Zoom In is how you look
+            // at your ally's board).
+            views.push({ viewSeat: me, oppSeat: o, mode: 'matchup',
+                         label: (swuIsTeammate(o) ? 'P' : 'vs P') + o });
         });
         return views;
     }

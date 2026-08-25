@@ -7,7 +7,7 @@
 $whenPlayedAbilities["LOF_127:0"] = function($player, $mzID = '') {
 // Rampage — "Each friendly Creature unit gets +2/+2 for this phase."
             global $playerID; $playerID = intval($player);
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (TraitContains($o, 'Creature')) SWUApplyPhaseBuff($mz, 2, 2, 'LOF_127');

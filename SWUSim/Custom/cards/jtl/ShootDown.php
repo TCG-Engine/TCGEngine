@@ -23,7 +23,7 @@ $whenPlayedAbilities["JTL_176:0"] = function($player, $mzID = '') {
                           // deal 2 to a base (continuation JTL_176).
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(ZoneSearch("mySpaceArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
+            $targets = SWUAllUnits(null, 'Space');   // "A space unit" is unqualified -> both teams
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Deal_3_to_a_space_unit", "JTL_176#0");
             return;

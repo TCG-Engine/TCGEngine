@@ -30,7 +30,7 @@ $customDQHandlers["ASH_139#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["ASH_139:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+    $friendly = SWUFriendlyUnits();
     if (empty($friendly)) return;
     SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_unit_to_deal_its_power", "ASH_139#0|" . intval($player));
 };

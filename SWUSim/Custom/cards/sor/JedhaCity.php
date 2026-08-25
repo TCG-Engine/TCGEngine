@@ -9,12 +9,7 @@ $baseAbilities["SOR_028"] = function($player) {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
-    $targets = array_merge(
-        ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-        ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-        ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-        ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-    );
+    $targets = SWUAllUnits(null, null, NonLeaderUnitFilter);
     $playerID = $savedPID;
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget(intval($player), $targets, "Give_a_non-leader_unit_-4/-0_for_this_phase", "APPLY_PHASE_DEBUFF|4|0|SOR_028");

@@ -8,7 +8,7 @@
 $whenPlayedAbilities["LAW_059:0"] = function($player, $mzID) {
     // Command/Aggression are ASPECTS (not traits), so match via CardAspect in extraFilter.
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'my', 'excludeSelf' => true,
+        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'friendly', 'excludeSelf' => true,
         'extraFilter' => fn($o) => strpos((string)(CardAspect($o->CardID ?? '') ?? ''), 'Command') !== false,
         'prompt' => "Give_an_Experience_token_to_another_friendly_Command_unit",
     ]);
@@ -16,7 +16,7 @@ $whenPlayedAbilities["LAW_059:0"] = function($player, $mzID) {
 
 $whenDefeatedAbilities["LAW_059:0"] = function($player, $mzID) {
     SWUOfferUnitTarget($player, $mzID, [
-        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'my',
+        'continuation' => 'GIVE_EXPERIENCE', 'side' => 'friendly',
         'extraFilter' => fn($o) => strpos((string)(CardAspect($o->CardID ?? '') ?? ''), 'Aggression') !== false,
         'prompt' => "Give_an_Experience_token_to_a_friendly_Aggression_unit",
     ]);

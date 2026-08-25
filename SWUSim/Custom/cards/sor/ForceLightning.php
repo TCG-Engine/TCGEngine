@@ -44,12 +44,7 @@ $whenPlayedAbilities["SOR_138:0"] = function($player, $mzID = '') {
                           // damage to the chosen unit for each resource paid this way."
             global $playerID;
             $playerID = intval($player);
-            $targets = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             SWUQueueChooseTarget(intval($player), $targets, "Choose_a_unit_to_lose_all_abilities_this_phase", "SOR_138#0");
             return;
 };

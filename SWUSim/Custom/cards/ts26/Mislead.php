@@ -16,10 +16,7 @@ $customDQHandlers["TS26_81#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["TS26_81:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $tg = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
-        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-    );
+    $tg = SWUAllUnits();
     if (empty($tg)) return;
     SWUQueueChooseTarget(intval($player), $tg, "Give_a_Shield_token_to_a_unit", "TS26_81#0");
 };

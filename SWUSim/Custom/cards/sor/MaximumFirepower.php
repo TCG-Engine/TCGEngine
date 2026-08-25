@@ -71,10 +71,7 @@ $whenPlayedAbilities["SOR_234:0"] = function($player, $mzID = '') {
             global $playerID;
             $playerID = intval($player);
             $imperials = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
-            ) as $mz) {
+            foreach (SWUFriendlyUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (HasTrait($o->CardID, 'Imperial')) $imperials[] = $mz;

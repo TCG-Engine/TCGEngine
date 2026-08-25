@@ -50,12 +50,7 @@ $whenPlayedAbilities["SOR_223:0"] = function($player, $mzID = '') {
                           // + running cost is carried across requests in the SOR_223#1 handler param.
             global $playerID;
             $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $units = SWUAllUnits();
             if (empty($units)) return;   // no unit to choose → fizzle
             SWUQueueChooseTarget(intval($player), $units, "Choose_a_unit", "SOR_223#0");
             return;

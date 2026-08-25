@@ -11,7 +11,7 @@ $whenPlayedAbilities["SHD_208:0"] = function($player, $mzID = '') {
                           // the draw step) declares the OTHER player the winner. Mirrors SEC_145's
                           // regroup-start win check, inverted to a loss.
             global $playerID; $playerID = intval($player);
-            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            foreach (SWUControlledUnits() as $mz) {
                 OnReadyCard(intval($player), $mz);
             }
             AddGlobalEffects(intval($player), 'SWU_SHD208_LOSE');

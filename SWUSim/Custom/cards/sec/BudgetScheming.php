@@ -19,10 +19,7 @@ $whenPlayedAbilities["SEC_124:0"] = function($player, $mzID = '') {
 // Budget Scheming — "Give an Experience token to each of up to 3 Official units."
             global $playerID; $playerID = intval($player);
             $officials = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),    ZoneSearch("mySpaceArena", AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
-            ) as $mz) {
+            foreach (SWUAllUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Official')) $officials[] = $mz;
             }

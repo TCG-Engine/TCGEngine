@@ -25,12 +25,7 @@ $customDQHandlers["SHD_180#0"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["SHD_180:0"] = function($player, $mzID = '') {
 // Detention Block Rescue — "Deal 3 damage to a unit. If that unit is guarding any
                           // captured cards, deal 6 damage instead."
-            $targets = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $targets = SWUAllUnits();
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Deal_3_(6_if_guarding_captives)_to_a_unit", "SHD_180#0");
             return;

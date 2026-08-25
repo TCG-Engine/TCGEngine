@@ -8,7 +8,7 @@
 $whenPlayedAbilities["JTL_135:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $mine = count(ZoneSearch("mySpaceArena", AnyUnitFilter));      // includes the just-entered unit
+    $mine = count(SWUControlledUnits('Space'));   // "more space units than YOU"; includes the just-entered unit
     $opp  = count(ZoneSearch("theirSpaceArena", AnyUnitFilter));
     if ($opp > $mine) OnReadyCard(intval($player), $mzID);
 };

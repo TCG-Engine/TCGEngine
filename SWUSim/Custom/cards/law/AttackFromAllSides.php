@@ -39,12 +39,7 @@ $whenPlayedAbilities["LAW_207:0"] = function($player, $mzID = '') {
                           // different aspects among friendly units, you may deal 5 damage to that unit
                           // instead."
             global $playerID; $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            );
+            $units = SWUAllUnits();
             if (empty($units)) return;
             SWUQueueChooseTarget(intval($player), $units, "Choose_a_unit_to_deal_3_(or_5)", "LAW_207#0|" . intval($player));
             return;

@@ -138,6 +138,28 @@ function _SWULeaderStartAlignment($cardID, $leaderAspects = null) {
 // because deck cards are canonicalized before compare. $leader is a single CardID (standard formats)
 // or an array (Twin Suns = 2). $leaderAspects (optional) supplies leader aspects for the alignment
 // rule; omit it to read the global $aspectData.
+// TEAM-wide leader uniqueness (Team Suns). SWUCheckFormat validates one deck at a time, but
+// "your partner already has Vader" is a PAIRWISE property that only exists once both teammates'
+// decks are known — so it cannot be a deck-validation error and lives here instead.
+//
+// $leaderSets is one leader array per player, e.g. [['SOR_010','JTL_006'], ['LAW_011','IBH_053']].
+// Identity is the CANONICAL CardID, exactly as the per-deck highlander check above uses, so a
+// reprint added to Overrides.php later is honoured with no change here. Returns the canonical IDs
+// appearing more than once, in first-seen order; [] means the team is legal.
+function SWUTeamLeaderConflicts(array $leaderSets) {
+    $seen = [];      // canonical => count
+    $order = [];     // canonical, in first-seen order
+    foreach ($leaderSets as $leaders) {
+        foreach ((array)$leaders as $ld) {
+            if ($ld === '' || $ld === null) continue;
+            $canon = CardIDOverride(strval($ld));
+            if (!isset($seen[$canon])) { $seen[$canon] = 0; $order[] = $canon; }
+            $seen[$canon]++;
+        }
+    }
+    return array_values(array_filter($order, fn($c) => $seen[$c] > 1));
+}
+
 function SWUCheckFormat($formatId, $leader, $base, array $mainDeck, array $sideboard, $leaderAspects = null) {
     $fmt = SWUGetFormat($formatId);
     if ($fmt === null) {

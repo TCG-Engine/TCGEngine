@@ -2,6 +2,9 @@
 require_once "../../Core/NetworkingLibraries.php";
 require_once "../../Core/HTTPLibraries.php";
 require_once "./Classes/Player.php";
+require_once "./Classes/TeamRooms.php";
+$swuFormatsPath = __DIR__ . '/../../AppCore/SWU/Formats.php';
+if (is_file($swuFormatsPath)) require_once $swuFormatsPath;
 $swuMatchFlowPath = __DIR__ . '/../../SWUSim/MatchFlow.php';
 if (is_file($swuMatchFlowPath)) require_once $swuMatchFlowPath;
 
@@ -22,18 +25,32 @@ $authKey  = $_POST['authKey'] ?? '';
 $lobby = $lobbyID ? apcu_fetch($lobbyID) : null;
 if (!$lobby) _startRoomFail($response, 'Room not found.');
 
-// Only the HOST (seat 1) may start, authenticated by authKey.
+// Only the HOST may start, authenticated by authKey. Host is an IDENTITY (hostPlayerID), not a
+// seat — Team Suns reassigns seats on every team pick and host must not migrate with them.
+$hostPlayerID = intval($lobby->hostPlayerID ?? 1);
 $host = null;
 foreach (($lobby->players ?? []) as $p) {
-  if (($p instanceof Player) && $p->getPlayerID() == 1) { $host = $p; break; }
+  if (($p instanceof Player) && $p->getPlayerID() == $hostPlayerID) { $host = $p; break; }
 }
-if (!$host || $playerID !== 1 || $host->getAuthKey() !== $authKey) _startRoomFail($response, 'Only the host can start.');
-if (($lobby->rootName ?? '') !== 'SWUSim' || ($lobby->format ?? '') !== 'twinsuns') _startRoomFail($response, 'Not a Twin Suns room.');
+if (!$host || $playerID !== $hostPlayerID || $host->getAuthKey() !== $authKey) _startRoomFail($response, 'Only the host can start.');
+if (($lobby->rootName ?? '') !== 'SWUSim' || !SWUFormatIsRoomFormat($lobby->format ?? '')) {
+  _startRoomFail($response, 'Not a multiplayer room.');
+}
 if (!empty($lobby->gameName)) _startRoomFail($response, 'Already started.');
-if (intval($lobby->numPlayers) < 3) _startRoomFail($response, 'Need at least 3 players.');
 
-// Compact seats to 1..N in current order so a mid-room leave doesn't leave a gap.
+// Pass the cached leader sets, or the team leader-conflict check never runs in the live path.
+$blockers = SWURoomStartBlockers($lobby, SWURoomLeaderSets($lobby));
+if (!empty($blockers)) _startRoomFail($response, implode(' ', array_slice($blockers, 0, 3)));
+
+// Compact seats to 1..N in TABLE order so a mid-room leave doesn't leave a gap.
+// Team rooms carry an explicit $seat (red 1,3 / blue 2,4) — sort by it first so the array reads
+// Red, Blue, Red, Blue. SWUResolveLobbyDecks derives game seats from ARRAY POSITION, so this is
+// the entire handoff; MatchHooks.php needs no change. Twin Suns sets no $seat, so the sort is a
+// no-op there and the original compaction order is preserved byte-for-byte.
 $lobby->players = array_values($lobby->players);
+if (SWURoomIsTeamLobby($lobby)) {
+  usort($lobby->players, fn($a, $b) => intval($a->getSeat() ?? 99) <=> intval($b->getSeat() ?? 99));
+}
 $seat = 1;
 foreach ($lobby->players as $p) { $p->setPlayerID($seat); ++$seat; }
 $lobby->numPlayers = count($lobby->players);

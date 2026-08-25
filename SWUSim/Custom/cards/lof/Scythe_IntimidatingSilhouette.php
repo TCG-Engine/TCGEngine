@@ -7,7 +7,7 @@
 $onAttackAbilities["LOF_135:0"] = function($player, $mzID) {
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'APPLY_PHASE_BUFF|2|0|LOF_135',
-        'side' => 'my', 'traits' => 'Inquisitor', 'excludeSelf' => true, 'may' => true,
+        'side' => 'friendly', 'traits' => 'Inquisitor', 'excludeSelf' => true, 'may' => true,
         'question' => "Give_another_Inquisitor_unit_+2/+0?", 'prompt' => "Choose_an_Inquisitor",
     ]);
 };

@@ -19,12 +19,7 @@ $whenPlayedAbilities["LAW_133:0"] = function($player, $mzID = '') {
 // Lost and Forgotten — "Defeat a non-leader unit. If you do, heal 3 damage from
                           // your base."
             global $playerID; $playerID = intval($player);
-            $units = array_merge(
-                ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-                ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-                ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-                ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-            );
+            $units = SWUAllUnits(null, null, NonLeaderUnitFilter);
             if (empty($units)) return;
             SWUQueueChooseTarget(intval($player), $units, "Defeat_a_non-leader_unit", "LAW_133#0");
             return;

@@ -27,7 +27,7 @@ $whenPlayedAbilities["JTL_122:0"] = function($player, $mzID = '') {
             global $playerID;
             $playerID = intval($player);
             $targets = [];
-            foreach (ZoneSearch("mySpaceArena", AnyUnitFilter) as $mz) {
+            foreach (SWUFriendlyUnits('Space') as $mz) {   // "up to 2 FRIENDLY space units"
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && intval($o->Status) === 1) $targets[] = $mz; // ready only
             }

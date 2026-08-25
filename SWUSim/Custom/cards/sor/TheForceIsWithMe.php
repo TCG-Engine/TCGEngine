@@ -37,10 +37,7 @@ $whenPlayedAbilities["SOR_055:0"] = function($player, $mzID = '') {
             // the chosen unit."
             global $playerID;
             $playerID = intval($player);
-            $friendly = array_merge(
-                ZoneSearch("myGroundArena", AnyUnitFilter),
-                ZoneSearch("mySpaceArena",  AnyUnitFilter)
-            );
+            $friendly = SWUFriendlyUnits();
             if (empty($friendly)) return;
             SWUQueueChooseTarget($player, $friendly, "Choose_a_friendly_unit", "SOR_055#0");
             return;

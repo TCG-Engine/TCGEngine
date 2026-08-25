@@ -985,8 +985,12 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       // ── Twin Suns private room ─────────────────────────────────────────────
       var _roomPollTimer = null;
       var _roomEscHandler = null;
+      // renderRoomRoster lives outside DisplayRoomScreen, so it cannot close over authKey/lobbyID.
+      // Stash them here when the room opens so the team buttons can POST SetTeam.php.
+      var _roomCtx = null;
 
       function DisplayRoomScreen(playerID, authKey, lobbyID, inviteCode) {
+        _roomCtx = { playerID: playerID, authKey: authKey, lobbyID: lobbyID };
         var existing = document.getElementById('room-screen');
         if (existing) existing.remove();
         if (_roomEscHandler) { document.removeEventListener('keydown', _roomEscHandler); _roomEscHandler = null; }
@@ -999,7 +1003,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         card.id = 'room-screen-card';
         card.style.cssText = 'width:min(560px,100%);background:rgba(15,25,40,0.95);border:1px solid rgba(201,168,76,0.3);border-radius:14px;padding:24px;color:#f2ead7;';
         card.innerHTML =
-          '<h2 style="margin:0 0 12px 0;">Twin Suns Room</h2>' +
+          '<h2 id="room-title" style="margin:0 0 12px 0;">Twin Suns Room</h2>' +
           (inviteCode ? ('<div style="margin-bottom:16px;">Share code: <strong id="room-invite-code">' + inviteCode + '</strong> ' +
             '<button id="room-copy-btn" style="margin-left:8px;">Copy Invite Link</button></div>') : '') +
           '<div id="room-roster" style="margin-bottom:16px;"></div>' +
@@ -1073,35 +1077,155 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         renderRoomRoster(playerID, { roster: [], numPlayers: 0, maxPlayers: 4 });
       }
 
+      // ── Team-room seat model (mirrors the server: red = seats 1,3 / blue = seats 2,4) ──
+      var ROOM_TEAM_SLOTS = { red: [1, 3], blue: [2, 4] };
+
+      function roomSetTeam(team) {
+        if (!_roomCtx) return;
+        var x = new XMLHttpRequest();
+        x.open('POST', swusimAppBase() + 'APIs/Lobbies/SetTeam.php', true);
+        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        x.onload = function () {
+          var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
+          if (!r.success) StyledAlert(r.message || 'Could not change team.');
+          // pollRoom's next tick re-renders from the server; no optimistic local mutation.
+        };
+        x.send('lobbyID=' + encodeURIComponent(_roomCtx.lobbyID) +
+               '&playerID=' + encodeURIComponent(_roomCtx.playerID) +
+               '&authKey=' + encodeURIComponent(_roomCtx.authKey) +
+               '&team=' + encodeURIComponent(team));
+      }
+
+      function roomEsc(t) {
+        return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      // One occupied slot's inner text: who, deck state, and their leaders (so a within-team leader
+      // conflict is visible before anyone presses Start).
+      function roomSlotBody(entry, myPlayerID) {
+        var who = 'P' + entry.playerID + (entry.isHost ? ' (host)' : '') +
+                  (entry.playerID === myPlayerID ? ' (you)' : '');
+        var leaders = (entry.leaders && entry.leaders.length)
+          ? '<div style="font-size:11px;color:#aab6c4;">' + entry.leaders.map(roomEsc).join(' · ') + '</div>'
+          : '';
+        var deck = entry.deckOk
+          ? '<span style="color:#6fcf97;">deck ✓</span>'
+          : '<span style="color:#ff6b6b;">deck missing/invalid</span>';
+        return '<div>' + roomEsc(who) + '</div>' + leaders + '<div style="font-size:12px;">' + deck + '</div>';
+      }
+
       function renderRoomRoster(myPlayerID, data) {
         var el = document.getElementById('room-roster');
         if (!el) return;
-        var rows = [];
         var roster = data.roster || [];
+        var isTeamRoom = !!data.isTeamRoom;
+
+        var title = document.getElementById('room-title');
+        if (title) title.textContent = isTeamRoom ? 'Team Suns Room' : 'Twin Suns Room';
+
+        if (isTeamRoom) {
+          el.innerHTML = renderTeamTable(myPlayerID, roster);
+          // Wire the join buttons this render created.
+          Array.prototype.forEach.call(el.querySelectorAll('[data-join-team]'), function (btn) {
+            btn.onclick = function () { roomSetTeam(btn.getAttribute('data-join-team')); };
+          });
+        } else {
+          el.innerHTML = renderFlatRoster(myPlayerID, data, roster);
+        }
+        renderRoomStartState(myPlayerID, data, roster);
+      }
+
+      // TEAM SUNS — the four-seat table. Red holds seats 1,3; blue holds 2,4.
+      function renderTeamTable(myPlayerID, roster) {
+        var bySeat = {}, unassigned = [];
+        roster.forEach(function (r) {
+          if (r.seat) bySeat[r.seat] = r; else unassigned.push(r);
+        });
+        var myTeam = null;
+        roster.forEach(function (r) { if (r.playerID === myPlayerID) myTeam = r.team; });
+
+        var cols = ['red', 'blue'].map(function (team) {
+          var slots = ROOM_TEAM_SLOTS[team];
+          var occupied = slots.filter(function (sn) { return bySeat[sn]; }).length;
+          var accent = (team === 'red') ? '#c0392b' : '#2d6fa8';
+          var cells = slots.map(function (sn) {
+            var e = bySeat[sn];
+            var box = 'border:1px solid ' + accent + '55;border-radius:8px;padding:8px;margin-bottom:8px;min-height:52px;';
+            if (e) {
+              return '<div style="' + box + 'background:' + accent + '18;">' +
+                     '<div style="font-size:11px;color:#8b97a6;">seat ' + sn + '</div>' +
+                     roomSlotBody(e, myPlayerID) + '</div>';
+            }
+            // Empty slot. Joining picks the TEAM; the server assigns the lowest free seat of its pair,
+            // so the button is per-team even though it is drawn per-slot.
+            var full = occupied >= slots.length;
+            var mine = (myTeam === team);
+            var label = mine ? 'open' : 'open — click to join';
+            return '<div style="' + box + 'color:#8b97a6;">' +
+                   '<div style="font-size:11px;">seat ' + sn + '</div>' +
+                   (full || mine
+                     ? '<div style="font-size:12px;">' + label + '</div>'
+                     : '<button data-join-team="' + team + '" style="font-size:12px;">Join ' +
+                       team.charAt(0).toUpperCase() + team.slice(1) + '</button>') +
+                   '</div>';
+          }).join('');
+          return '<div style="flex:1;min-width:0;">' +
+                 '<div style="font-weight:bold;color:' + accent + ';margin-bottom:6px;">' +
+                 team.charAt(0).toUpperCase() + team.slice(1) + ' (' + occupied + '/2)</div>' + cells + '</div>';
+        }).join('');
+
+        var holding = unassigned.length
+          ? '<div style="margin-top:4px;font-size:12px;color:#aab6c4;">Not on a team yet: ' +
+            unassigned.map(function (r) {
+              return 'P' + r.playerID + (r.playerID === myPlayerID ? ' (you)' : '');
+            }).join(', ') + '</div>'
+          : '';
+
+        return '<div style="display:flex;gap:12px;align-items:flex-start;">' + cols + '</div>' + holding;
+      }
+
+      // TWIN SUNS (and any non-team room) — the original flat list, unchanged.
+      // ⚠ roster[].playerID is IDENTITY; roster[].team/.seat are the Team Suns table position and are
+      // BOTH null here. Match on playerID — matching on .seat would find nobody in a Twin Suns room
+      // and the roster would list every occupied seat as "waiting…".
+      function renderFlatRoster(myPlayerID, data, roster) {
+        var rows = [];
         for (var i = 1; i <= (data.maxPlayers || 4); i++) {
           var seatEntry = null;
-          for (var j = 0; j < roster.length; j++) { if (roster[j].seat === i) { seatEntry = roster[j]; break; } }
+          for (var j = 0; j < roster.length; j++) { if (roster[j].playerID === i) { seatEntry = roster[j]; break; } }
           if (seatEntry) {
-            rows.push('<div>P' + i + (seatEntry.isHost ? ' (host)' : '') + (seatEntry.seat === myPlayerID ? ' (you)' : '') +
+            rows.push('<div>P' + i + (seatEntry.isHost ? ' (host)' : '') +
+              (seatEntry.playerID === myPlayerID ? ' (you)' : '') +
               ' — ' + (seatEntry.deckOk ? 'deck ✓' : 'deck missing/invalid') + '</div>');
           } else {
             rows.push('<div style="color:#aab6c4;">P' + i + ' — waiting…</div>');
           }
         }
-        el.innerHTML = rows.join('');
+        return rows.join('');
+      }
 
+      // The SERVER is the authority on whether the room can start (player count, decks, teams,
+      // team-wide leader conflicts). Use its blockers when present so the button never lies.
+      function renderRoomStartState(myPlayerID, data, roster) {
         var isHost = false;
-        for (var k = 0; k < roster.length; k++) { if (roster[k].seat === myPlayerID && roster[k].isHost) isHost = true; }
+        for (var k = 0; k < roster.length; k++) { if (roster[k].playerID === myPlayerID && roster[k].isHost) isHost = true; }
         var startBtn = document.getElementById('room-start-btn');
         var hint = document.getElementById('room-hint');
+        var blockers = data.blockers;
+        var canStart, hintText;
+        if (Object.prototype.toString.call(blockers) === '[object Array]') {
+          canStart = blockers.length === 0;
+          hintText = blockers.join(' ');
+        } else {
+          canStart = roster.length >= 3 && roster.every(function (r) { return r.deckOk; });
+          hintText = roster.length < 3 ? 'Need 3+ players, all with a valid deck.'
+                   : (roster.every(function (r) { return r.deckOk; }) ? '' : 'All present players need a valid deck.');
+        }
         if (startBtn) {
           startBtn.style.display = isHost ? '' : 'none';
-          var allOk = roster.length >= 3 && roster.every(function (r) { return r.deckOk; });
-          startBtn.disabled = !allOk;
+          startBtn.disabled = !canStart;
         }
-        if (hint) hint.textContent = isHost
-          ? (roster.length < 3 ? 'Need 3+ players, all with a valid deck.' : (roster.every(function (r) { return r.deckOk; }) ? '' : 'All present players need a valid deck.'))
-          : 'Waiting for host to start.';
+        if (hint) hint.textContent = isHost ? hintText : 'Waiting for host to start.';
       }
 
       function pollRoom(playerID, authKey, lobbyID) {

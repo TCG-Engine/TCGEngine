@@ -5,10 +5,10 @@
 
 $whenPlayedAbilities["IBH_095:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $friendlies = array_merge(
-        ZoneSearch("myGroundArena", AnyUnitFilter),
-        ZoneSearch("mySpaceArena",  AnyUnitFilter)
-    );
+    // "Defeat a FRIENDLY unit" — team-wide in Team Suns. USER RULING (2026-08-25): you may defeat a
+    // TEAMMATE's unit to satisfy the "If you do". Both clauses of this card read "friendly", so both
+    // span the team; the ready clause below uses side => 'friendly' for the same reason.
+    $friendlies = SWUFriendlyUnits();
     if (empty($friendlies)) return;
     SWUQueueChooseTarget(intval($player), $friendlies, "Defeat_a_friendly_unit", "IBH_095#0");
 };
@@ -20,7 +20,7 @@ $customDQHandlers["IBH_095#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     SWUDefeatUnit(intval($player), $lastDecision);
     SWUOfferUnitTarget($player, '', [
-        'continuation' => 'READY_UNIT', 'side' => 'my',
+        'continuation' => 'READY_UNIT', 'side' => 'friendly',
         'extraFilter' => fn($o) => ObjectCurrentPower($o) <= 5,
         'prompt' => "Ready_a_friendly_unit_with_5_or_less_power",
     ]);

@@ -39,12 +39,7 @@ $onAttackAbilities["JTL_016:0"] = function($player, $mzID) {
 $leaderAbilities["JTL_016"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    $targets = array_merge(
-        ZoneSearch("myGroundArena",    NonLeaderUnitFilter),
-        ZoneSearch("mySpaceArena",     NonLeaderUnitFilter),
-        ZoneSearch("theirGroundArena", NonLeaderUnitFilter),
-        ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
-    );
+    $targets = SWUAllUnits(null, null, NonLeaderUnitFilter);
     if (empty($targets)) { SWUAfterAction($player); return; } // no non-leader unit → action spent
     SWUQueueChooseTarget($player, $targets,
         "Exhaust_a_non-leader_unit_(its_controller_creates_an_X-Wing)", "JTL_016#0");

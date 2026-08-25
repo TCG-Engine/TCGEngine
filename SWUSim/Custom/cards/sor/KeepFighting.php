@@ -10,12 +10,7 @@
 $whenPlayedAbilities["SOR_169:0"] = function($player, $mzID = '') {
 // Keep Fighting — "Ready a unit with 3 or less power."
             $targets = [];
-            foreach (array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
-            ) as $mz) {
+            foreach (SWUAllUnits() as $mz) {
                 $obj = GetZoneObject($mz);
                 if (SWUObjGone($obj)) continue;
                 if (ObjectCurrentPower($obj) <= 3) $targets[] = $mz;

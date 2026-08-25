@@ -8,10 +8,7 @@ $whenPlayedAbilities["SOR_074:0"] = function($player, $mzID = '') {
 // Repair — "Heal 3 damage from a unit or base." Bases ARE valid
             // MZCHOOSE targets via myBase-0 / theirBase-0 (GetZone recognizes those zones).
             $targets = array_merge(
-                ZoneSearch("myGroundArena",    AnyUnitFilter),
-                ZoneSearch("mySpaceArena",     AnyUnitFilter),
-                ZoneSearch("theirGroundArena", AnyUnitFilter),
-                ZoneSearch("theirSpaceArena",  AnyUnitFilter),
+                SWUAllUnits(),   // "A UNIT or base" is unqualified -> every unit on the table
                 SWUAllBaseMzIDs(intval($player), 'any')
             );
             // USER RULING 2026-08-13: prompt ONLY when something (either side) has damage. The pool is
