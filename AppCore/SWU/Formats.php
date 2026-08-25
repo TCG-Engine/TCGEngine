@@ -9,7 +9,9 @@
 function SWUFormatDefinitions() {
     $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH',];
     $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH',];
-    $previewSet = ['HMW',];   // the next set to release (or a future set's preview window)
+    $previewSets = ['HMW',];   // the next set to release (or a future set's preview window)
+    $premierBans = ['ASH_011'];
+    $eternalBans = ['JTL_140', 'JTL_170'];
     return [
         // NOTE: JTL_256 (Vulture Droid) copy-exception and JTL_024/025 deck-size modifiers are
         // GLOBAL card-intrinsic rules (see SWUGlobal*() below) — applied to every format EXCEPT
@@ -17,13 +19,13 @@ function SWUFormatDefinitions() {
         'premier' => [
             'displayName' => 'Premier',
             'legalSets'   => $premierSets,
-            'banned'      => [],
+            'banned'      => $premierBans,
             'enabled'     => true,
         ],
         'eternal' => [
             'displayName' => 'Eternal',
             'legalSets'   => $eternalSets,
-            'banned'      => ['JTL_140', 'JTL_170'],
+            'banned'      => $eternalBans,
             'enabled'     => true,
         ],
         'open' => [
@@ -100,7 +102,7 @@ function SWUFormatDefinitions() {
         ],
         'padawan-preview' => [
             'displayName'   => 'Padawan Preview',
-            'legalSets'     => array_merge($eternalSets, $previewSet),
+            'legalSets'     => array_merge($eternalSets, $previewSets),
             'banned'        => [],
             'legalRarities' => ['Common'],
             'enabled'       => true,
@@ -112,13 +114,13 @@ function SWUFormatDefinitions() {
         // back to false (or comment out) when the window closes.
         'preview' => [
             'displayName' => 'Premier Preview',
-            'legalSets'   => array_merge($premierSets, $previewSet),
-            'banned'      => [],
+            'legalSets'   => array_merge($premierSets, $previewSets),
+            'banned'      => $premierBans,
             'enabled'     => true,
         ],
         'twinsuns-preview' => [
             'displayName' => 'Twin Suns Preview',
-            'legalSets'   => array_merge($eternalSets, $previewSet),
+            'legalSets'   => array_merge($eternalSets, $previewSets),
             'banned'      => [],
             'minDeck'     => 80,
             'maxCopies'   => 1,
@@ -130,8 +132,8 @@ function SWUFormatDefinitions() {
         // SWUFormatIsPreview derives preview-ness from the pool, so this needs no separate wiring.
         'eternal-preview' => [
             'displayName' => 'Eternal Preview',
-            'legalSets'   => array_merge($eternalSets, $previewSet),
-            'banned'      => [],
+            'legalSets'   => array_merge($eternalSets, $previewSets),
+            'banned'      => $eternalBans,
             'enabled'     => true,
         ],
     ];
