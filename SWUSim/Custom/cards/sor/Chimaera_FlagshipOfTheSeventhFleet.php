@@ -6,8 +6,23 @@
 // SOR_185 Chimaera — "On Attack: Name a card. An opponent reveals their hand and discards a card
 // with that name from it." First server-side consumer of the NAMECARD decision.
 $onAttackAbilities["SOR_185:0"] = function($player, $mzID) {
+    // "Name a card. AN OPPONENT reveals their hand and discards a card with that name from it."
+    // ⚠ THE PICKER MUST COME FIRST, and for a hard transport reason as well as a game one: a card TITLE
+    // CONTAINS SPACES, and a DecisionQueue Param row is SPACE-DELIMITED — so the name can only ever
+    // travel in $lastDecision, never in a Param. That means NAMECARD has to be the LAST decision in the
+    // chain, and anything else the handler needs (the seat) must already be in its Param.
+    // ⚠ FILTER to opponents holding a card: an empty hand reveals nothing and discards nothing.
+    $eligible = SWUOpponentsWithCards(intval($player));
+    if (empty($eligible)) return;
+    SWUQueueChooseOpponent(intval($player), 'SOR_185#1',
+        "Choose_an_opponent_to_reveal_their_hand", $eligible);
+};
+
+$customDQHandlers["SOR_185#1"] = function($player, $parts, $lastDecision) {
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === intval($player)) return;
     DecisionQueueController::AddDecision($player, "NAMECARD", "", 1, "Name_a_card");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_185#0", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_185#0|" . $opp, 1);
 };
 
 // Receives the named card NAME ($lastDecision is the card title, e.g. "Mission Briefing"). The
@@ -17,7 +32,8 @@ $customDQHandlers["SOR_185#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     $namedName = trim($lastDecision);
-    $opp       = OtherPlayer(intval($player));
+    $opp       = intval($parts[0] ?? 0);
+    if ($opp <= 0 || $opp === intval($player)) return;
     $oppHand   = &GetHand($opp);
 
     // "An opponent reveals their hand" — public reveal of the whole hand.
@@ -31,7 +47,7 @@ $customDQHandlers["SOR_185#0"] = function($player, $parts, $lastDecision) {
     // resolves AFTER this handler returns, so on a hit the player sees the discarded card to confirm,
     // and on a whiff (no match) they see the full unchanged hand. The discard always auto-resolves
     // (copies are identical → no MZCHOOSE), so this is the only way the player would ever see the hand.
-    SWUQueueShowOpponentHand(intval($player));
+    SWUQueueShowOpponentHand(intval($player), $opp);
 
     // "discards a card with that name from it" — the first matching copy (by card title).
     foreach ($oppHand as $card) {

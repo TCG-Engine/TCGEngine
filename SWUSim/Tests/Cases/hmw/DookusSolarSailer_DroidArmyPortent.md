@@ -296,3 +296,40 @@ P2HANDCOUNT:0
 P2DISCARDCOUNT:0
 P1NODECISION
 P2NODECISION
+
+---
+
+# TwinSuns_EVERYOpponentDiscards
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21. This card shipped EARLIER THE SAME DAY calling
+#// `SWUDiscardCards($player, 1)` with no target seat, which discards from OtherPlayer() only, and with a
+#// comment reading "2-player: 'each opponent' is the single opponent" — the 2-seat assumption written
+#// down as though it were a fact about the card. At four seats only ONE opponent discarded.
+#// "Each opponent" is one call per live opponent; each seat answers its own prompt on its own queue.
+#// ⚠ A 2-player version of this section cannot fail — with one opponent the old and new code are the
+#//   same single call. The seat count IS the test.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:6}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: [HMW_154 SOR_095]
+WithP1GroundArena: SOR_128:1:0
+WithP2Hand: [SOR_095 SOR_046]
+WithP3Hand: [SOR_095 SOR_046]
+WithP4Hand: [SOR_095 SOR_046]
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:myHand-0
+- P3>AnswerDecision:myHand-0
+- P4>AnswerDecision:myHand-0
+
+## EXPECT
+SEATCOUNT:4
+P2HANDCOUNT:1
+P3HANDCOUNT:1
+P4HANDCOUNT:1

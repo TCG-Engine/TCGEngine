@@ -8,11 +8,23 @@
 $whenPlayedAbilities["JTL_201:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
-    $hasCard = false;
-    foreach (GetHand($opp) as $c) { if (empty($c->removed)) { $hasCard = true; break; } }
-    if (!$hasCard) return;
-    $queued = SWUDiscardCards(intval($player), 1);   // the opponent discards a card of their choice
+    // "AN opponent" — the caster picks, among opponents who actually hold a card. Auto-resolves silently
+    // at one eligible opponent, so 2-player is unchanged. Was OtherPlayer(): one seat, and at four seats
+    // seats 3/4 were never reachable.
+    $eligible = SWUOpponentsWithCards(intval($player));
+    if (empty($eligible)) return;
+    SWUQueueChooseOpponent(intval($player), "JTL_201#OPP|" . intval($player),
+        "Which_opponent_discards_a_card?", $eligible);
+};
+
+// The picked seat discards; the "if it's a unit" rider then reads THAT seat's discard pile.
+$customDQHandlers["JTL_201#OPP"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster = intval($parts[0] ?? $player);
+    $opp    = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0) return;
+    $playerID = $caster;
+    $queued = SWUDiscardCards($caster, 1, $opp);   // the picked opponent discards a card of their choice
     // ⚠ "If it's a unit" has to read the card the opponent ACTUALLY discarded, so the continuation must sit
     // behind the discard — and where that is depends on which path SWUDiscardCards took (bug report #965).
     // With 2+ cards in hand the pick is queued on the OPPONENT'S queue; a continuation on the caster's
@@ -22,15 +34,16 @@ $whenPlayedAbilities["JTL_201:0"] = function($player, $mzID) {
     // otherwise acting never drains. Hence the branch.
     // Either way the handler re-frames to the caster (who rides in the param), so the exhaust offer lands
     // on the right player's queue.
-    DecisionQueueController::AddDecision($queued ? $opp : intval($player),
-        'CUSTOM', "JTL_201#0|" . intval($player), 1);
+    DecisionQueueController::AddDecision($queued ? $opp : $caster,
+        'CUSTOM', "JTL_201#0|{$caster}|{$opp}", 1);
 };
 
 $customDQHandlers["JTL_201#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $caster = intval($parts[0]);
     $playerID = $caster;
-    $opp = OtherPlayer($caster);
+    $opp = intval($parts[1] ?? 0);   // the seat that actually discarded — rides the param, never guessed
+    if ($opp <= 0) return;
     $disc = GetDiscard($opp);
     $last = null;
     for ($i = count($disc) - 1; $i >= 0; $i--) { if (empty($disc[$i]->removed)) { $last = $disc[$i]; break; } }

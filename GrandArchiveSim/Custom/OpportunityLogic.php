@@ -1261,17 +1261,20 @@ function ResolveTopOfEffectStack() {
     ReconcileEffectStackSourceZones();
     ReconcileEffectStackImbued();
     DecisionQueueController::CleanupRemovedCards();
-    $effectStack = GetLiveEffectStackEntries();
-    if(empty($effectStack)) return;
-
-    $topIndex = count($effectStack) - 1;
-    $topObj = $effectStack[$topIndex];
-    if($topObj == null) {
-        $topIndex = $topIndex - 1;
-        if($topIndex < 0) return;
-        $topObj = $effectStack[$topIndex];
-        if($topObj == null) return;
+    // Keep the physical EffectStack index. GetLiveEffectStackEntries() filters/reindexes its
+    // result, so using its count as an mzID index resolves the wrong slot whenever a removed
+    // entry leaves a hole in the underlying zone (and can strand an attack card indefinitely).
+    $effectStack = GetEffectStack();
+    $topIndex = null;
+    for($i = count($effectStack) - 1; $i >= 0; --$i) {
+        $candidate = $effectStack[$i] ?? null;
+        if($candidate !== null && empty($candidate->removed)) {
+            $topIndex = $i;
+            break;
+        }
     }
+    if($topIndex === null) return;
+    $topObj = $effectStack[$topIndex];
     $cardOwner = $topObj->Controller;
     $topMZ = "EffectStack-" . $topIndex;
     $topIsImbued = (is_array($topObj->TurnEffects ?? null) && in_array("IMBUED", $topObj->TurnEffects))

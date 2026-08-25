@@ -12,7 +12,13 @@ $customDQHandlers["LAW_202#0"] = function($player, $parts, $lastDecision) {
     $attacker = (!empty($attackerMzID) && str_contains($attackerMzID, '-')) ? GetZoneObject($attackerMzID) : null;
     if (SWUObjGone($attacker)) { $playerID = $savedPID; SWUAfterAction($player); return; }
     AddTurnEffect($attackerMzID, SWUMakeTurnEffect('SABOTEUR', [], SWU_DUR_ATTACK, 'LAW_202'));
-    if (SWUResourceCount(intval($player)) < SWUResourceCount($opp)) SWUAddAttackPowerBonus($attackerMzID, 2);
+    // "if an opponent controls more resources than you" is EXISTENTIAL — ANY live opponent, not the
+    // single seat $opp named. $opp stays as-is for the rest of the handler; only the buff test widens.
+    // Adding a picker here would raise a prompt Premier must never see.
+    $meRes = SWUResourceCount(intval($player));
+    foreach (OpponentsOf(intval($player)) as $o) {
+        if ($meRes < SWUResourceCount($o)) { SWUAddAttackPowerBonus($attackerMzID, 2); break; }
+    }
     BeginSWUAttack($player, $attackerMzID);
     $playerID = $savedPID;
 };

@@ -14,6 +14,9 @@ function _SWUOverwhelmSpillToBase(int $player, string $targetMzID, $attacker, in
     // "when this unit deals (combat) damage to a base" abilities — JTL_177 Stay on Target's granted draw,
     // ASH_162, SEC_150/147/205, LAW_046 Chirrut, etc. — exactly as a direct base hit would.
     $combatCtx['dealtToBase'] = true;
+    // WHOSE base took it. The flag alone is not enough for "that opponent …" riders (ASH_162): at 3-4
+    // seats the damaged base is not necessarily OtherPlayer(the attacker).
+    $combatCtx['baseDmgOwner'] = SWUMzOwner($targetMzID, $player);
     // ⚠ CR 7.d/7.f: it is combat damage to the base but the unit is NOT considered to have ATTACKED that
     // base. So set the "damaged" flags and deliberately NOT SWU_DEALT_BASEDMG (the "attacked" flag used by
     // SHD_088/SHD_106). SEC_012 Cassian reads the damaged flag; only when the base owner is an opponent.
@@ -1311,7 +1314,9 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID,
     // the combat-pause holds for the disclose/reaction, exactly like a true On Defense trigger.
     if ($defender !== null && !isset($defender->removed)) {
         global $onDefenseFromUpgradeAbilities;
-        $defControllerUp = intval($defender->Controller ?? GetOpponent($activePlayer));
+        // Fallback only (Controller is set on every real arena object). SWUChooseOpponent returns a LIVE
+        // opponent at any seat count; GetOpponent() was NULL above seat 2, which made this intval() to 0.
+        $defControllerUp = intval($defender->Controller ?? SWUChooseOpponent($activePlayer));
         $defMzForDefUp   = preg_replace('/^(their|p\d+)/', 'my', $defenderMzID); // Twin Suns: p{n} defender → its own frame
         foreach (GetUpgradesOnUnit($defender) as $up) {
             if (isset($onDefenseFromUpgradeAbilities[$up->CardID ?? ''])
@@ -1687,7 +1692,7 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // The attacker survived (gated at line 665). "No other units" = exactly one attack flag this phase.
     if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_088') > 0) {
         $attackers = 0;
-        foreach ([1, 2] as $ap) {
+        foreach (GetLiveSeatsArray() as $ap) {
             foreach (GetGlobalEffects($ap) as $ge) {
                 if (preg_match('/^SWU_ATTACKED_\d+$/', (string)($ge->CardID ?? ''))) $attackers++;
             }
@@ -1799,9 +1804,15 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
         AddTrigger($activePlayer, 'ASH_137', 'ASH_137', $attackerMzID, strval(intval($combatCtx['excess'])));
     }
     // ASH_162 Rash Action (granted, this attack) — "When Attack Ends: if this unit dealt combat damage to
-    // an opponent's base, that opponent discards a card." Non-interactive (the opponent picks the discard).
+    // an opponent's base, THAT opponent discards a card." Non-interactive (they pick which card), and the
+    // seat is DETERMINED by which base was hit — there is no choice to offer.
+    // ⚠ Was an untargeted SWUDiscardCards, i.e. OtherPlayer($activePlayer): at four seats, hitting seat
+    //   3's base made SEAT 2 discard. The owner now rides combatCtx from wherever dealtToBase was set.
     if (!empty($combatCtx['ash162Discard']) && !empty($combatCtx['dealtToBase'])) {
-        SWUDiscardCards(intval($activePlayer), 1);   // makes the active player's opponent discard 1
+        $ash162Owner = intval($combatCtx['baseDmgOwner'] ?? 0);
+        if ($ash162Owner > 0 && $ash162Owner !== intval($activePlayer)) {
+            SWUDiscardCards(intval($activePlayer), 1, $ash162Owner);
+        }
     }
     // ASH_005 Luke Skywalker (undeployed leader) — "When a friendly unit's attack ends: you may exhaust this
     // leader; if you do, heal 1 damage from that unit." Fires for the attacking player's ready, undeployed Luke.
@@ -2082,7 +2093,7 @@ function _SWUShd072PurgeGrantsGainedWhileJailed(int $player, $host): void {
     if ($uid <= 0) return;
     $preFlag = 'SWU_SHD072_PRE_' . $uid . '_';
     $pre = [];
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (GetGlobalEffects($p) as $ge) {
             $f = (string)($ge->CardID ?? '');
             if (strpos($f, $preFlag) === 0) $pre[substr($f, strlen($preFlag))] = true;
@@ -2253,7 +2264,7 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // unit has attacked this phase; a same-unit repeat attack keeps the condition true per card text.
     $faCtrl = intval($attacker->Controller ?? $player);
     $faCount = 0;
-    foreach ([1, 2] as $ap) {
+    foreach (GetLiveSeatsArray() as $ap) {
         foreach (GetGlobalEffects($ap) as $ge) {
             if (preg_match('/^SWU_ATTACKED_\d+$/', (string)($ge->CardID ?? ''))) $faCount++;
         }
@@ -2285,6 +2296,13 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     SetSWUVar('SWU_LAST_DEFENDER_DEFEATED', ''); // "When Attack Ends: if the defending unit was defeated" (ASH_033/036/223) — set in SWUCombatDamage
     SetSWUVar('SWU_LAST_ATTACKER_BASEHIT', '0'); // "if this unit dealt combat damage to a base" (ASH_183) — set in SWUCombatDamage
     SetSWUVar('SWU_CURRENT_DEFENDER', $targetMzID);
+    // …and the defending SEAT beside it. On-Attack triggers are collected with the ATTACKER's mzID
+    // (CollectCombatStep1Triggers passes $attackerMzID, never $defenderMzID), so a handler that needs
+    // "the defending player" had no way to learn it and every such card fell back to OtherPlayer() —
+    // which names one seat and is simply the wrong player above two seats (and, for a far-seat
+    // attacker, always seat 1). Derived from the target mzID, which is authoritative in both formats:
+    // theirBase/their*Arena at two seats, p{n}Base/p{n}*Arena in Twin Suns.
+    SetSWUVar('SWU_CURRENT_DEFENDING_SEAT', strval(SWUMzOwner($targetMzID, intval($player))));
     // Capture the defender UNIT's UniqueID (0 for a base target) so SWUCombatDamage can re-resolve a
     // reindexed target OR detect a target that LEFT PLAY before damage (e.g. SEC_187 Grievous bounces
     // himself On Defense) — in which case the attack fizzles instead of hitting whatever unit shifted
@@ -2873,6 +2891,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         SWUDealDamageToBase($attackPower, SWUMzOwner($targetMzID, $player), $attacker);   // thread attacker for ASH_070 unpreventable check
         $GLOBALS['gInCombatDamage'] = false;
         $combatCtx['dealtToBase'] = ($attackPower > 0);
+        if ($attackPower > 0) $combatCtx['baseDmgOwner'] = SWUMzOwner($targetMzID, $player);   // see the note at the overwhelm site
         // SEC_077 Retaliation — mark a unit that dealt damage to a base this phase (per-unit, cleared at
         // RegroupPhaseStart).
         if ($attackPower > 0) {
@@ -2881,8 +2900,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 $actrl = intval($attacker->Controller ?? $player);
                 AddGlobalEffects($actrl, 'SWU_DEALT_BASEDMG_' . $auid);   // SHD_088/SHD_106 "attacked" (combat-only)
                 AddGlobalEffects($actrl, 'SWU_UNITDMGBASE_' . $auid);     // SEC_012 "damaged" (any source)
-                // Owner-qualified twin (a direct base attack is always the enemy base).
-                AddGlobalEffects($actrl, 'SWU_DMGDBASE_' . $auid . '_' . OtherPlayer($actrl));
+                // Owner-qualified twin. WHICH enemy base is derived from the target mzID, exactly as the
+                // SWUDealDamageToBase call and $combatCtx['baseDmgOwner'] three lines above already do —
+                // OtherPlayer($actrl) named a single seat, so above two seats every base hit was stamped
+                // against the wrong player (and against seat 1 for any far-seat attacker).
+                AddGlobalEffects($actrl, 'SWU_DMGDBASE_' . $auid . '_' . SWUMzOwner($targetMzID, $player));
             }
         }
         $combatCtx['baseCombatDmg'] += max(0, intval($attackPower)); // LOF_025 threshold (incl. overwhelm below)
@@ -2897,6 +2919,21 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if (($target->CardID ?? '') === 'ASH_073') $defendPower += 2;
         // ASH_018 Grogu (deployed): "While ANOTHER friendly unit is defending, it gets +1/+0." (counter-damage only.)
         if (($target->CardID ?? '') !== 'ASH_018' && _SWULeaderDeployed(intval($target->Controller ?? 0), 'ASH_018')) $defendPower += 1;
+        // HMW_212 The Chieftain — "While a friendly Tusken unit is defending, it gets +1/+0 for each Raid
+        // it has." (counter-damage only, like its neighbours above.) Three things this reads carefully:
+        //   • the DEFENDER's own Raid value, not the Chieftain's — "for each Raid IT has";
+        //   • the Raid VALUE (Raid 2 → +2), not one per Raid keyword. HMW is a preview set with no
+        //     ruling on file, so this reading is flagged in the test file; a Raid 6 body is what makes
+        //     the two readings visibly different;
+        //   • NO "other" — she is a friendly Tusken unit herself, so she gets it while defending too.
+        // Gated on an ability-ACTIVE Chieftain (_SWUCountActiveUnitsWithCardID), so one that has lost
+        // its abilities stops granting. GetKeyword_Raid_Value does not honour suppression on its own,
+        // hence the explicit LostAbilities guard on the defender: a blanked unit has no Raid to read.
+        if ($target !== null && empty($target->removed) && TraitContains($target, 'Tusken')
+            && !LostAbilities($target)
+            && _SWUCountActiveUnitsWithCardID(intval($target->Controller ?? 0), 'HMW_212') > 0) {
+            $defendPower += max(0, intval(GetKeyword_Raid_Value($target)));
+        }
         // "Can't deal combat damage this phase" (LAW_130) on the defender → it deals no counter-damage.
         if (is_array($target->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $target->TurnEffects, true)) {
             $defendPower = 0;

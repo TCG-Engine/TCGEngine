@@ -9,26 +9,41 @@
 // discarded card (top of their discard) and offers the up-to split (MZSPLITASSIGN UPTO → SPLIT_DAMAGE).
 $whenPlayedAbilities["ASH_148:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
+    // "AN opponent" — the caster picks among opponents holding a card (auto-resolves at one, so 2-player
+    // is unchanged). Was OtherPlayer(): one seat, unreachable seats 3/4.
+    $eligible = SWUOpponentsWithCards(intval($player));
+    if (empty($eligible)) return;   // no card to discard anywhere → no damage
+    SWUQueueChooseOpponent(intval($player), "ASH_148#OPP|" . intval($player),
+        "Which_opponent_discards_a_card?", $eligible);
+};
+
+// The picked seat discards; the damage rider then reads THAT seat's discard pile for the card's cost.
+$customDQHandlers["ASH_148#OPP"] = function($queueOwner, $parts, $lastDecision) {
+    global $playerID;
+    $player = intval($parts[0] ?? $queueOwner);
+    $opp    = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0) return;
+    $playerID = $player;
     $handCount = 0;
     foreach (GetHand($opp) as $c) { if (empty($c->removed)) $handCount++; }
-    if ($handCount === 0) return;   // no card to discard → no damage
-    SWUDiscardCards(intval($player), 1);   // opponent discards 1
+    if ($handCount === 0) return;
+    SWUDiscardCards($player, 1, $opp);   // the picked opponent discards 1
     // The follow-up must run AFTER the discard so it can read the discarded card's cost. When the
     // opponent holds exactly 1 card SWUDiscardCards resolves synchronously, so the follow-up goes on
     // the controller's own queue (drained as part of this action). When they hold 2+ cards their
     // choice is queued on THEIR queue; queue the follow-up there too (FIFO → after the discard) so it
     // can't fire first and read an empty discard. Either way carry the controller in $parts[0].
     if ($handCount > 1)
-        DecisionQueueController::AddDecision($opp, "CUSTOM", "ASH_148#0|" . intval($player), 1);
+        DecisionQueueController::AddDecision($opp, "CUSTOM", "ASH_148#0|{$player}|{$opp}", 1);
     else
-        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_148#0|" . intval($player), 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ASH_148#0|{$player}|{$opp}", 1);
 };
 
 $customDQHandlers["ASH_148#0"] = function($queueOwner, $parts, $lastDecision) {
     $player = intval($parts[0] ?? $queueOwner);   // the ASH_148 controller (deals the damage)
     global $playerID; $playerID = $player;
-    $opp = OtherPlayer($player);
+    $opp = intval($parts[1] ?? 0);   // the seat that discarded — rides the param, never guessed
+    if ($opp <= 0) return;
     $discard = GetDiscard($opp);
     $cost = -1;
     for ($i = count($discard) - 1; $i >= 0; $i--) {   // the just-discarded card = last non-removed entry

@@ -558,7 +558,7 @@ function ObjectCurrentPower($obj) {
             $base += SWUVehiclePilotCount($obj);
             break;
         case 'JTL_170': // War Juggernaut: +1/+0 for each damaged unit (any player's, including itself).
-            foreach ([1, 2] as $p) {
+            foreach (GetLiveSeatsArray() as $p) {
                 foreach (array_merge(GetGroundArena($p), GetSpaceArena($p)) as $u) {
                     if (empty($u->removed) && intval($u->Damage) > 0) $base += 1;
                 }
@@ -608,7 +608,7 @@ function ObjectCurrentPower($obj) {
             break;
         case 'ASH_206': // Kelleran Beq: +1/+0 for each OTHER unit (friendly and enemy) with 0 power.
             $selfUid206 = intval($obj->UniqueID ?? 0);
-            foreach ([1, 2] as $p206) {
+            foreach (GetLiveSeatsArray() as $p206) {
                 foreach (array_merge(GetGroundArena($p206), GetSpaceArena($p206)) as $u) {
                     if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid206 && intval(ObjectCurrentPower($u)) === 0) $base += 1;
                 }
@@ -1029,6 +1029,7 @@ $turnEffectRegistry = [
     'TS26_32' => ['kind' => 'MARKER',         'label' => 'Reckless Landing'],                                                 // Reckless Landing — findable marker on the unit just played by the event (dealt 4 damage)
     'SOR_138' => ['kind' => 'LOSE_ABILITIES',                        'label' => 'Loses all abilities'],                       // Force Lightning — chosen unit loses all abilities this phase
     'SOR_140' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // SpecForce Soldier — a unit loses Sentinel this phase
+    'HMW_221' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // Teeka — mode 2: a unit loses Sentinel this phase. ⚠ The row is what makes it EXPIRE: SWUExpireTurnEffects skips any token whose base is unregistered, so a bare-CardID suppressor with no row here is PERMANENT.
     'LOF_096' => ['kind' => 'GRANT_KEYWORD',       'value' => 'SENTINEL', 'label' => 'Sentinel'],                            // Obi-Wan Kenobi — gains Sentinel this phase when you play a Force unit
     'LOF_045' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RESTORE', 'amount' => 1, 'label' => 'Restore 1'],             // Yaddle — each other friendly Jedi unit gains Restore 1 this phase
     'SOR_154' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RAID', 'amount' => 2, 'label' => 'Raid 2'],                    // Rallying Cry — each friendly unit gains Raid 2 this phase
@@ -2225,17 +2226,21 @@ function _SWULeaderDeployed(int $player, string $cardID): bool {
     return false;
 }
 
-// Number of SHD_037 (Supreme Leader Snoke) controlled by $obj's opponent.
+// Number of SHD_037 (Supreme Leader Snoke) controlled by ANY opponent of $obj's controller — the shrink
+// stacks, so every opponent's copy counts.
 // Only non-leader units are affected by Snoke's passive; leaders/leader units return 0.
+// ⚠ Was GetOpponent($controller): one seat, and NULL above seat 2. A seat-3 Snoke shrank nobody, and a
+//   seat-3 unit was never shrunk by anyone.
 function SWUEnemySnokeCount($obj): int {
     if (IsLeaderUnit($obj)) return 0;
     $controller = intval($obj->Controller ?? $obj->Owner ?? 0);
     if ($controller <= 0) return 0;
-    $opp = GetOpponent($controller);
     $count = 0;
-    foreach (array_merge(GetGroundArena($opp) ?? [], GetSpaceArena($opp) ?? []) as $u) {
-        if (!empty($u->removed)) continue;
-        if (($u->CardID ?? '') === 'SHD_037' && !LostAbilities($u)) $count++;
+    foreach (OpponentsOf($controller) as $opp) {
+        foreach (array_merge(GetGroundArena($opp) ?? [], GetSpaceArena($opp) ?? []) as $u) {
+            if (!empty($u->removed)) continue;
+            if (($u->CardID ?? '') === 'SHD_037' && !LostAbilities($u)) $count++;
+        }
     }
     return $count;
 }
@@ -2698,6 +2703,14 @@ $playCostModifiers["IC27_022"] = function($player, $subjectObj) {
     return GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0 ? -2 : 0;
 };
 
+// HMW_240 Sandstorm: "While you control a Tatooine base, this event costs 1 resource less to play."
+// Here rather than in cards/hmw/Sandstorm.php for the same load-order reason as its neighbours:
+// $playCostModifiers is initialized just above, AFTER cards/_loader.php runs, so a per-card
+// registration is silently wiped and the discount would simply never apply.
+$playCostModifiers["HMW_240"] = function($player, $subjectObj) {
+    return _SWUControlsBaseWithTrait(intval($player), 'Tatooine') ? -1 : 0;
+};
+
 // SHD_182 Bravado: costs 2 less if you've defeated an enemy unit this phase.
 $playCostModifiers["SHD_182"] = function($player, $subjectObj) {
     return GlobalEffectCount($player, 'SWU_ENEMY_DEFEATED') > 0 ? -2 : 0;
@@ -2889,7 +2902,7 @@ $playCostModifiers["JTL_138"] = function($player, $subjectObj) {
 // JTL_163 AT-DP Occupier: costs 1 less for each damaged ground unit (any player's).
 $playCostModifiers["JTL_163"] = function($player, $subjectObj) {
     $cnt = 0;
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (GetGroundArena($p) as $u) {
             if (empty($u->removed) && intval($u->Damage) > 0) $cnt++;
         }
@@ -3264,7 +3277,7 @@ function _SWUPlayCostModifierDelta($player, $obj, $host = null, bool $includeUse
     if ($hasGenerated) {
         $delta += intval(EvaluatePlayCostModifier($cardID, $player, $obj, 0, null));
     }
-    foreach ([1, 2] as $fp) {
+    foreach (GetLiveSeatsArray() as $fp) {
         foreach (GetField($fp) as $fo) {
             // SEC_046 Galen Erso — a named source unit no longer modifies other cards' costs.
             if (SWUObjGone($fo) || HasNoAbilities($fo) || LostAbilities($fo)) continue;
@@ -3679,7 +3692,7 @@ function DoDiscardCard($player, $mzID) {
 
 // SHD_163 discard observer — fire for each player controlling an SHD_163 that hasn't used it this round.
 function _SWUShd163React(): void {
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         if (GlobalEffectCount($p, 'SWU_SHD163_USED') > 0) continue;
         foreach (GetUnitsInPlay($p) as $u) {
             if (empty($u->removed) && ($u->CardID ?? '') === 'SHD_163' && !LostAbilities($u)) {
@@ -3811,39 +3824,71 @@ function SWUKeepNDiscardRest(int $player, int $keep, string $tooltip): void {
 // perspective ("theirHand-N"). $filter (optional) restricts which cards are returned as targets
 // (e.g. non-unit for SOR_201 Bodhi Rook) — the reveal still lists the WHOLE hand. Used by the
 // "look at an opponent's hand [and discard …]" family (SOR_228, SOR_200, SOR_201).
-function SWULookAtOpponentHand(int $player, ?callable $filter = null): array {
+// $opp (Twin Suns): WHICH opponent's hand. Choosing an opponent is INTERACTIVE, so this cannot be
+// resolved helper-side — the CARD must queue SWUQueueChooseOpponent and hand the picked seat in here.
+// Defaulting to null keeps all 20 pre-existing call sites byte-identical (none passed a seat), so
+// converting them is per-card work, not a flag day.
+function SWULookAtOpponentHand(int $player, ?callable $filter = null, ?int $opp = null): array {
     global $playerID;
     $savedPID = $playerID; $playerID = intval($player);
-    $opp     = OtherPlayer(intval($player));
+    $opp     = ($opp !== null && intval($opp) > 0) ? intval($opp) : SWUChooseOpponent(intval($player));
     $oppHand = GetHand($opp);
+    // mzID FORM IS LOAD-BEARING, in two directions:
+    //  • ≤2 seats MUST stay "theirHand-N" — 38 existing answers across 15 test files pin that string,
+    //    and I1 says Premier does not change.
+    //  • >2 seats MUST be "p{n}Hand-N" — "their" names no specific seat there, and the transport's
+    //    hidden-zone reveal (zzGameCodeGenerator.php) deliberately refuses to guess, so a legacy
+    //    "theirHand" Param renders the row as CARD BACKS and the player picks blind.
+    $prefix  = (SeatCountForGame() > 2) ? "p{$opp}Hand" : 'theirHand';
     $refs = []; $targets = [];
     foreach ($oppHand as $i => $card) {
         if (!empty($card->removed)) continue;
         $refs[] = GameLogCardRef($card->CardID);
-        if ($filter === null || $filter($card->CardID)) $targets[] = "theirHand-$i";
+        if ($filter === null || $filter($card->CardID)) $targets[] = "{$prefix}-$i";
     }
     $msg = 'P' . intval($player) . " looked at P{$opp}'s hand: " . (empty($refs) ? '(empty)' : implode(', ', $refs));
-    // For now (2-player) the reveal is visible to both players (effectively public). In a future
-    // 4-player Twin Suns format this should be scoped to just the two players involved.
-    AddGameLogEntry('REVEAL', $msg, 'ALL');
+    SWULogPrivateReveal($msg, intval($player), $opp);
     $playerID = $savedPID;
     return $targets;
+}
+
+// A REVEAL log line for an effect that is a PRIVATE look, addressed to just the two seats involved.
+// AddGameLogEntry's visibility is either 'ALL' or a single 'P{n}' — "seats 1 and 3 only" is not
+// expressible — so above two seats this emits one entry per involved seat rather than broadcasting.
+// At ≤2 seats 'ALL' IS exactly the two involved players, so Premier's log is byte-identical (I1).
+// This implements what the old call site's own comment said was intended and never done: "In a future
+// 4-player Twin Suns format this should be scoped to just the two players involved."
+function SWULogPrivateReveal(string $msg, int $looker, int $subject): void {
+    if (SeatCountForGame() <= 2) { AddGameLogEntry('REVEAL', $msg, 'ALL'); return; }
+    AddGameLogEntry('REVEAL', $msg, 'P' . intval($looker));
+    if (intval($subject) !== intval($looker)) AddGameLogEntry('REVEAL', $msg, 'P' . intval($subject));
 }
 
 // Log a "P looked at an opponent's resources: …" REVEAL entry for the given resource mzIDs (the cards
 // the player looked at) — so a "look at an opponent's resources" effect (SEC_242 Elia Kane, LAW_066) is
 // scrollable in the game log, like SWULookAtOpponentHand. Visible to both players (2-player simplification).
-function SWULogResourceReveal(int $player, array $resMzIDs): void {
+// $opp (Twin Suns): whose resources were looked at. Defaults to null = the legacy single opponent, so
+// existing call sites are unchanged; prefer deriving it from the mzIDs actually revealed.
+function SWULogResourceReveal(int $player, array $resMzIDs, ?int $opp = null): void {
     global $playerID;
     $savedPID = $playerID; $playerID = intval($player);
-    $opp  = OtherPlayer(intval($player));
+    // Derive the subject from the revealed mzIDs when the caller did not name one — a p{n}Resources
+    // mzID knows its own seat, so the log cannot disagree with what was actually shown.
+    if ($opp === null || intval($opp) <= 0) {
+        $opp = OtherPlayer(intval($player));
+        foreach ($resMzIDs as $mz) {
+            $seat = SWUMzOwner((string)$mz, intval($player));
+            if ($seat > 0 && $seat !== intval($player)) { $opp = $seat; break; }
+        }
+    }
     $refs = [];
     foreach ($resMzIDs as $mz) {
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed)) $refs[] = GameLogCardRef($o->CardID ?? '');
     }
     if (!empty($refs)) {
-        AddGameLogEntry('REVEAL', 'P' . intval($player) . " looked at P{$opp}'s resources: " . implode(', ', $refs), 'ALL');
+        SWULogPrivateReveal('P' . intval($player) . " looked at P{$opp}'s resources: " . implode(', ', $refs),
+                            intval($player), intval($opp));
     }
     $playerID = $savedPID;
 }
@@ -3896,10 +3941,13 @@ function SWURevealResources(int $activePlayer, int $ownerPlayer, int $count): ar
 // Used when a "look at an opponent's hand" effect would otherwise never surface the hand to the
 // player — e.g. SOR_201 Bodhi Rook when the discard auto-resolves (0 or 1 non-unit target, so no
 // MZCHOOSE is shown). When an MZCHOOSE *is* shown, it already presents the hand, so don't call this.
-function SWUQueueShowOpponentHand(int $player): void {
+// $opp (Twin Suns): WHICH opponent's hand to show. Null keeps the legacy single-opponent behaviour, so
+// every pre-existing call site is byte-identical; pass the SAME seat you passed to
+// SWULookAtOpponentHand or the popup shows a different hand than the one being picked from.
+function SWUQueueShowOpponentHand(int $player, ?int $opp = null): void {
     global $playerID;
     $savedPID = $playerID; $playerID = intval($player);
-    $opp     = OtherPlayer(intval($player));
+    $opp     = ($opp !== null && intval($opp) > 0) ? intval($opp) : SWUChooseOpponent(intval($player));
     $oppHand = GetHand($opp);
     $cards = [];
     foreach ($oppHand as $card) {
@@ -3917,10 +3965,11 @@ function SWUQueueShowOpponentHand(int $player): void {
 // effects (e.g. JTL_041 Annihilator) so the searching player actually sees the zone they searched.
 // Snapshots the deck into the popup param at call time, so call it while the deck is in the state you
 // want shown (e.g. BEFORE a name-hunt discard/shuffle). No-op on an empty deck.
-function SWUQueueShowOpponentDeck(int $player): void {
+// $opp (Twin Suns): whose deck. Same contract as SWUQueueShowOpponentHand — null = legacy behaviour.
+function SWUQueueShowOpponentDeck(int $player, ?int $opp = null): void {
     global $playerID;
     $savedPID = $playerID; $playerID = intval($player);
-    $opp     = OtherPlayer(intval($player));
+    $opp     = ($opp !== null && intval($opp) > 0) ? intval($opp) : SWUChooseOpponent(intval($player));
     $oppDeck = GetDeck($opp);
     $cards = [];
     foreach ($oppDeck as $card) {
@@ -6606,7 +6655,9 @@ function ActionPhaseStart() {
         }
         if (!$thrawnDeployed) continue;
 
-        for ($deckOwner = 1; $deckOwner <= 2; $deckOwner++) {
+        // "EACH player's deck" — every LIVE seat, not the two-seat 1..2 literal it was: in Twin Suns a
+        // Thrawn saw only seats 1 and 2's top cards.
+        foreach (GetLiveSeatsArray() as $deckOwner) {
             $playerID = $deckOwner;
             $deck = GetDeck($deckOwner);
             $active = array_values(array_filter($deck, fn($c) => empty($c->removed ?? false)));
@@ -6854,9 +6905,14 @@ function SWUCountFriendlyCreditTokens(int $player): int {
 // True if $player's Credit tokens have lost all abilities (so they can't be defeated to pay 1 less).
 // LAW_117 Conveyex Security Captain: "Enemy Credit tokens lose all abilities." — i.e. a Credit token
 // is disabled when its controller's OPPONENT controls an active (ability-bearing) LAW_117.
+// ⚠ EVERY opponent, not GetOpponent()'s one (which is NULL above seat 2) — "enemy Credit tokens" is
+// relative to whoever controls the Conveyex, so any opponent's copy disables yours.
 function SWUCreditAbilitiesDisabled(int $player): bool {
-    $opp = GetOpponent($player);
-    foreach (array_merge(GetGroundArena($opp) ?? [], GetSpaceArena($opp) ?? []) as $u) {
+    $oppUnits = [];
+    foreach (OpponentsOf($player) as $opp) {
+        $oppUnits = array_merge($oppUnits, GetGroundArena($opp) ?? [], GetSpaceArena($opp) ?? []);
+    }
+    foreach ($oppUnits as $u) {
         if (SWUObjGone($u)) continue;
         // "active (ability-bearing)" must consult LostAbilities(), not just HasNoAbilities(): the latter
         // is the GrandArchive-era helper that only sees a literal "NO_ABILITIES" turn effect, while every
@@ -6906,12 +6962,17 @@ function SWUTotalPaymentCapacity(int $player): int {
 // mzIDs ("theirResources-N", from $player's frame) of the OPPONENT's Credit tokens — for LAW_106
 // "defeat an enemy Credit token". Raw zone indices, matching GetZoneObject resolution.
 function SWUEnemyCreditTokenMzIDs(int $player): array {
-    $opp = GetOpponent($player);
+    // Was GetOpponent() + a literal "theirResources-N": TWO seat bugs. GetOpponent returns NULL above
+    // seat 2, so a far-seat caller got GetResources(null) and an empty list — the ability silently found
+    // nothing; and the mzID named seat 2 regardless of whose token it was.
+    // "an enemy Credit token" is unqualified, so it spans EVERY live opponent.
     $out = [];
-    $res = GetResources($opp);
-    for ($i = 0; $i < count($res); $i++) {
-        if (!empty($res[$i]->removed)) continue;
-        if (SWUIsCreditToken($res[$i]->CardID ?? '')) $out[] = "theirResources-{$i}";
+    foreach (OpponentsOf($player) as $opp) {
+        $res = GetResources($opp);
+        for ($i = 0; $i < count($res); $i++) {
+            if (!empty($res[$i]->removed)) continue;
+            if (SWUIsCreditToken($res[$i]->CardID ?? '')) $out[] = SWUForeignMzID($player, $opp, 'Resources', $i);
+        }
     }
     return $out;
 }
@@ -7305,6 +7366,18 @@ function _SWUCleanupArenaForElim(int $seat, array &$arena): void {
 
 // Remove an eliminated seat's board presence WITHOUT firing leave-play / when-defeated triggers
 // (CR §11.3.1a: cards removed this way are not "defeated" / "left play").
+// Can $seat still be asked to make decisions? Consulted by DecisionQueueController::AddDecision via
+// function_exists, so it gates EVERY queue write in the engine from one place.
+// ⚠ An eliminated seat's queue has no drainer: nothing will ever answer it, and any flow that waits on
+// it soft-locks the whole table. That is strictly worse than the usual failure in this sweep (a lost
+// trigger is invisible; a soft-lock ends the game).
+// 2-player short-circuits before touching seat state — there is no elimination there, and AddDecision is
+// hot enough that this runs on every queue write in every format.
+function SWUSeatAcceptsDecisions(int $seat): bool {
+    if (SeatCountForGame() <= 2) return true;
+    return IsSeatLive($seat);
+}
+
 function _SWUEliminationCleanup(int $seat): void {
     foreach (GetSeatOrderArray() as $p) {
         $g = &GetGroundArena($p); _SWUCleanupArenaForElim($seat, $g); unset($g);
@@ -7313,6 +7386,19 @@ function _SWUEliminationCleanup(int $seat): void {
     // Mark the seat's own base removed so no stray sweep re-reads it.
     $b = &GetBase($seat);
     if (!empty($b) && empty($b[0]->removed)) $b[0]->removed = true;
+    // DRAIN THE DEAD SEAT'S PENDING DECISIONS. Elimination cleaned the arenas and the base but left the
+    // queue untouched, so anything already pending at the moment of elimination stayed there forever —
+    // and every "wait for all queues" gate (AllQueuesEmpty, the phase-advance checks) would block on it.
+    // SWUSeatAcceptsDecisions stops NEW writes; this clears what was already there.
+    $dq = &GetDecisionQueue($seat);
+    for ($i = 0; $i < count($dq); $i++) { if (empty($dq[$i]->removed)) $dq[$i]->removed = true; }
+    unset($dq);
+    // TempZone is a STAGING zone with no board slot, so a leaked entry is unobservable but still counts
+    // in P#TEMPZONECOUNT and can be re-read by a later sweep. Clear it with the queue that filled it.
+    $tz = &GetTempZone($seat);
+    for ($i = 0; $i < count($tz); $i++) { if (empty($tz[$i]->removed)) $tz[$i]->removed = true; }
+    unset($tz);
+    DecisionQueueController::CleanupRemovedCards();
 }
 
 function SWUEliminateSeat(int $seat, ?int $killer = null): void {
@@ -7376,6 +7462,20 @@ function _SWUScoreTwinSunsEndOfPhase(): void {
 
 // All LIVE opponents of $player, in seat order. 2-seat game → [the other seat]. Use for
 // "each opponent" / iterate-all effects: `foreach (OpponentsOf($p) as $opp) { ... }`.
+// Every LIVE seat in PLAYER ORDER starting from $from — i.e. $from, then clockwise around the table,
+// skipping eliminated seats. THE list for a "each player …" / "in player order, each player …" effect,
+// where the acting player resolves first and the rest follow in table order.
+// 2-player: [$from, the other seat] — byte-identical to the [caster, OtherPlayer(caster)] literal it
+// replaces, which is why converting a card leaves Premier untouched.
+function SWUSeatsInPlayerOrder(int $from): array {
+    $live = GetLiveSeatsArray();
+    $order = array_values(array_filter(GetSeatOrderArray(), fn($s) => in_array($s, $live, true)));
+    if (empty($order)) return [intval($from)];
+    $i = array_search(intval($from), $order, true);
+    if ($i === false) return $order;                       // $from eliminated: table order as-is
+    return array_merge(array_slice($order, $i), array_slice($order, 0, $i));
+}
+
 function OpponentsOf(int $player): array {
     $out = [];
     foreach (GetLiveSeatsArray() as $seat) {
@@ -7385,9 +7485,15 @@ function OpponentsOf(int $player): array {
 }
 
 // The single opponent to target for a "choose an opponent" effect. Unambiguous whenever there is
-// exactly one live opponent (every 2-player game, and any N-player state narrowed to one). Twin Suns
-// N-player: the call sites that need a real choice get an interactive prompt in Phase 4 (when a 3–4
-// seat game is playable); until then this resolves to the first live opponent so 2-player is identical.
+// exactly one live opponent — i.e. every 2-player game, and any N-player state narrowed to one.
+// ⚠⚠ DO NOT USE THIS FOR A CARD THAT SAYS "an opponent" / "a player" / "a different player". With 2+
+// live opponents it SILENTLY PICKS THE FIRST ONE and the player is never asked. Twin Suns is live, so
+// that is a bug, not a placeholder: SHD_014 Cad Bane's ping "always went to Player 1" for exactly this
+// reason (its sibling OtherPlayer() is the literal `$player === 1 ? 2 : 1`).
+// Use SWUQueueChooseOpponent() instead — it auto-resolves silently with one opponent, so converting a
+// call site leaves 2-player behaviour byte-identical.
+// This function remains correct ONLY where the effect genuinely has no choice to make (a seat already
+// determined elsewhere, or a frame lookup like SWUMzOwner resolving a 'their' mzID in a 2-seat game).
 function SWUChooseOpponent(int $player): int {
     $opps = OpponentsOf($player);
     return $opps[0] ?? OtherPlayer($player);
@@ -7407,6 +7513,29 @@ function NextLiveSeat(int $player): int {
     return OtherPlayer($player);
 }
 
+// ─── Table adjacency (USER RULING 2026-08-21) ────────────────────────────────────────────────────────
+// **RIGHT is the INCREMENT along SeatOrder; LEFT is the DECREMENT.** So with seat order 1234, the player
+// to seat 1's RIGHT is seat 2, and the player to seat 1's LEFT is seat 4. Eliminated seats are skipped,
+// so the table closes up around them.
+// Nothing in the CR or the engine fixed this before — every "the player to their right" card resolved
+// OtherPlayer(), which is unambiguous at two seats and undefined at four. This is now the ONE place the
+// convention lives; any future left/right card must use these rather than re-deciding it.
+// 2-player: both return the other seat, so a converted card is unchanged in Premier.
+function SWUSeatToTheRight(int $seat): int {
+    return NextLiveSeat($seat);   // right == the next live seat clockwise (the ruling)
+}
+function SWUSeatToTheLeft(int $seat): int {
+    $order = GetSeatOrderArray();
+    $n = count($order);
+    $idx = array_search($seat, $order, true);
+    if ($idx === false) return OtherPlayer($seat);
+    for ($step = 1; $step <= $n; $step++) {
+        $cand = $order[(($idx - $step) % $n + $n) % $n];
+        if ($cand !== $seat && IsSeatLive($cand)) return $cand;
+    }
+    return OtherPlayer($seat);
+}
+
 // Twin Suns (Phase 3): the owning seat of a target mzID / decision string, regardless of prefix. The
 // ZoneSearch union emits seat-specific p{n}<Zone> mzIDs in N-player games; this decodes ownership from
 // any of the three forms. 2-player is byte-identical to the old `strpos('their') ? opp : self` decoders.
@@ -7419,16 +7548,79 @@ function SWUMzOwner(string $mzID, int $actingPlayer): int {
     return $actingPlayer;
 }
 
+// "The defending player" for the attack currently resolving. THE canonical answer for any On-Attack /
+// combat-hit ability whose text names the defender ("the defending player's deck/hand/base", "that
+// player", "that opponent") — of which there are ~55 in the card pool.
+//
+// Why this exists: CollectCombatStep1Triggers has $defenderMzID but hands the TRIGGER $attackerMzID,
+// so a handler could not see the defender and every one of these cards used OtherPlayer($player).
+// That names a single seat: correct in Premier, and above two seats it is a player who may not even
+// be in the combat (for any far-seat attacker it is always seat 1).
+//
+// $fallbackPlayer is returned only when no attack is in flight (the var is unset/stale) — callers that
+// are genuinely inside an attack will never see it. Do NOT default it to OtherPlayer(): that is the
+// bug this replaces.
+function SWUCurrentDefendingSeat(int $fallbackPlayer): int {
+    $seat = intval(GetSWUVar('SWU_CURRENT_DEFENDING_SEAT', '0'));
+    if ($seat > 0 && IsSeatLive($seat)) return $seat;
+    // Older paths may have only the mzID published — derive from it rather than guessing a seat.
+    $mz = GetSWUVar('SWU_CURRENT_DEFENDER', '');
+    if (is_string($mz) && $mz !== '') {
+        $derived = SWUMzOwner($mz, $fallbackPlayer);
+        if ($derived > 0 && $derived !== $fallbackPlayer) return $derived;
+    }
+    return $fallbackPlayer;
+}
+
+// Who collects a Bounty (CR 7.6.3 / 13.f).
+//
+// USER RULING 2026-08-23 (Twin Suns sweep): above two seats, **the player who DEFEATED the unit
+// collects**. At two seats "the opponent of the defeated unit's controller" was a complete answer and
+// this returns exactly that, byte-identical — Premier does not change (invariant I1).
+//
+// Above two seats it is not: the defeated unit's OWNER, CONTROLLER and KILLER are three different
+// seats, and the old `OtherPlayer($controller)` named a single one of them — seat 1 for any far-seat
+// controller, i.e. a player who may have had nothing to do with the kill.
+// ⚠ `SHD_161`'s existing four-seat bounty section passes today BY ACCIDENT (OtherPlayer(3) == 1 == the
+// owner). A green four-seat run is not evidence here; mutation-verify instead.
+//
+// The acting player is the killer in every case EXCEPT one: their own unit died during their own action
+// (attacker counter-death, a sacrifice, Exploit fodder). There the credit goes to the seat that was
+// defending — the counter-damage dealer — and only if that is nobody do we fall back to a live opponent
+// of the controller, which is the old rule's spirit for a death with no killer.
+function SWUBountyCollector(int $defeatedController, int $activePlayer): int {
+    if (SeatCountForGame() <= 2) return OtherPlayer($defeatedController);
+    if ($activePlayer !== $defeatedController && IsSeatLive($activePlayer)) return $activePlayer;
+    $def = SWUCurrentDefendingSeat($activePlayer);
+    if ($def > 0 && $def !== $defeatedController && IsSeatLive($def)) return $def;
+    return SWUChooseOpponent($defeatedController);
+}
+
 // Twin Suns (Group B): "$chooser chooses AN opponent, then $handler runs with the picked seat." The
 // picked seat arrives in the continuation's $lastDecision as "P{n}" (parse with SWUPickedOpponent).
 //  - exactly ONE live opponent → forced: PASSPARAMETER the lone opponent (no prompt), then $handler.
 //  - 2+ live opponents (Twin Suns) → OPTIONCHOOSE of "P{n}" labels, then $handler.
 // $handler is a customDQHandler name; carry extra state in its Param ("MY_HANDLER|extra"). Call this ONLY
 // on the N-player branch of a site — keep the original 2-player inline effect so 2-player stays identical.
-function SWUQueueChooseOpponent(int $chooser, string $handler, string $tooltip = "Choose_an_opponent"): void {
+// $eligible (optional): restrict the menu to these seats — for an effect whose choice would be a
+// FIZZLE against an opponent that cannot be affected ("an opponent chooses a unit they control" against
+// a seat with no units). Callers MUST gate on there being at least one eligible opponent before paying
+// any cost: with none, this queues NOTHING AT ALL, so $handler never runs.
+//
+// $includeSelf: for cards that say "choose a PLAYER" rather than "an opponent" (SHD_181 Pillage —
+// "Choose a player. They discard 2 cards from their hand."). You are a legal pick, so your own seat goes
+// on the menu FIRST.
+// ⚠ This is the one option that CAN add a prompt to a 2-player game, and that is correct rather than an
+//   I1 violation: with $includeSelf there are genuinely two answers at two seats, and a card that never
+//   offered them was missing a choice in Premier too, not just in Twin Suns. Every other conversion in
+//   this sweep must stay silent at two seats.
+function SWUQueueChooseOpponent(int $chooser, string $handler, string $tooltip = "Choose_an_opponent", ?array $eligible = null, bool $includeSelf = false): void {
     $opps = OpponentsOf($chooser);
+    if ($includeSelf) array_unshift($opps, intval($chooser));   // "a player" includes you
+    if ($eligible !== null) $opps = array_values(array_intersect($opps, array_map('intval', $eligible)));
+    if (empty($opps)) return;
     if (count($opps) <= 1) {
-        $lone = $opps[0] ?? OtherPlayer($chooser);
+        $lone = $opps[0];   // the filtered list is non-empty here (guarded above)
         DecisionQueueController::AddDecision($chooser, "PASSPARAMETER", "P{$lone}", 1);
     } else {
         $labels = array_map(fn($s) => "P{$s}", $opps);
@@ -7437,8 +7629,9 @@ function SWUQueueChooseOpponent(int $chooser, string $handler, string $tooltip =
     DecisionQueueController::AddDecision($chooser, "CUSTOM", $handler, 1);
 }
 
-// Parse the seat an opponent-picker chose (the "P{n}" carried in $lastDecision). Returns 0 if unparseable
-// (a declined/blank pick), so callers can no-op.
+// Parse the seat a player-picker chose (the "P{n}" carried in $lastDecision). Returns 0 if unparseable
+// (a declined/blank pick), so callers can no-op. Named for its first use; it reads ANY seat token, so it
+// is also the decoder for an $includeSelf menu where the answer may be the chooser's own seat.
 function SWUPickedOpponent($lastDecision): int {
     return preg_match('/^P(\d+)$/', (string)$lastDecision, $m) ? intval($m[1]) : 0;
 }
@@ -7647,7 +7840,7 @@ function SWUTakeInitiative($player) {
     // LOF_203 Premonition of Doom — "The next time you take the initiative this phase, exhaust all units."
     if (GlobalEffectCount(intval($player), 'SWU_LOF203') > 0) {
         RemoveGlobalEffect(intval($player), 'SWU_LOF203');
-        foreach ([1, 2] as $pl) {
+        foreach (GetLiveSeatsArray() as $pl) {
             foreach (GetUnitsInPlay($pl) as $u) {
                 if (empty($u->removed)) $u->Status = 0;  // exhaust
             }
@@ -7744,7 +7937,7 @@ function SWUTakeCounter(int $player, string $which): void {
 // uniformly, mirroring SWUFlushDeferredReplacements. (UIDs never repeat, so a stale flag can't mis-match.)
 function _SWURevertSec192Steals(): void {
     global $playerID;
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         $ge = &GetGlobalEffects($p);
         for ($i = count($ge) - 1; $i >= 0; $i--) {
             $flag = (string)($ge[$i]->CardID ?? '');
@@ -9110,7 +9303,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'ASH_017#1': Ash017DeployedTrigger($player, intval($extra[0] ?? 0)); break; // Greef (deployed) — auto Advantage to the played/created unit
         case 'ASH_018': Ash018Trigger($player); break;                                  // Grogu — may deploy on a uq-4+ play
         case 'SHD_008': Shd008FrontReaction($player); break;                            // Boba Fett (front) — may exhaust → give a friendly unit +1/+0
-        case 'SHD_014': Shd014FrontReaction($player); break;                            // Cad Bane (front) — may exhaust → opponent's own unit takes 1
+        case 'SHD_014': Shd014UnderworldReaction($player); break;                       // Cad Bane — front: exhaust → 1; deployed: free, 2, once/round
         case 'SHD_005': Shd005FrontReaction($player); break;                            // Hondo (front) — may exhaust → give a unit an Experience token
         case 'SHD_018':  Shd018Reaction($player, intval($extra[0] ?? 4), true);  break; // Mandalorian (front) — may exhaust leader → exhaust enemy ≤4HP
         case 'SHD_018D': Shd018Reaction($player, intval($extra[0] ?? 6), false); break; // Mandalorian (deployed) — may exhaust enemy ≤6HP
@@ -9370,7 +9563,7 @@ function SWUCollectTrapFieldReactions(string $enteredMzID): int {
     $enteredUID = intval($obj->UniqueID ?? 0);
     if ($enteredUID <= 0) return 0;
     $added = 0;
-    foreach ([1, 2] as $bp) {
+    foreach (GetLiveSeatsArray() as $bp) {
         $zone = GetBase($bp);
         $base = $zone[0] ?? null;
         if ($base === null) continue;
@@ -9534,6 +9727,19 @@ function _SWUCountActiveUnitsWithCardID(int $player, string $cardID): int {
     return $n;
 }
 
+// True if ANY opponent of $player controls an ability-active copy of $cardID. The N-player form of
+// `_SWUCountActiveUnitsWithCardID(OtherPlayer($p), $id) > 0`, which asked exactly one seat and so
+// answered "no" for two of three opponents above two seats — an ENEMY-SIDE aura ("enemy units gain X")
+// silently granted nothing at all unless its controller happened to sit on seat 1.
+// Ability-active, not merely controlled: an aura IS an ability, so a blanked copy projects nothing
+// (same rule as SWUCreditAbilitiesDisabled / LAW_117).
+function _SWUAnyOpponentControlsActive(int $player, string $cardID): bool {
+    foreach (OpponentsOf($player) as $opp) {
+        if (_SWUCountActiveUnitsWithCardID($opp, $cardID) > 0) return true;
+    }
+    return false;
+}
+
 // True if $player's leader is $cardID, undeployed, and ready (so it can pay an "exhaust this
 // leader" cost). Leader-side reactive abilities are active only while the leader is undeployed.
 function _SWULeaderReadyUndeployed(int $player, string $cardID): bool {
@@ -9579,7 +9785,7 @@ function SWUSimulDefeatBegin(): void {
     // pre-effect picture. See _SWUSimulObserverCount below for why the live count + $leftCards
     // supplement is not enough.
     $snap = [];
-    foreach ([1, 2] as $seat) {
+    foreach (GetLiveSeatsArray() as $seat) {
         foreach (GetUnitsInPlay($seat) as $u) {
             if (!empty($u->removed) || LostAbilities($u)) continue;
             $cid = (string)($u->CardID ?? '');
@@ -9627,7 +9833,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
     $sidiousPerSeat = [];
     $sidiousLiveMz  = [];
     global $playerID; $savedSidPID = $playerID;
-    foreach ([1, 2] as $sp) {
+    foreach (GetLiveSeatsArray() as $sp) {
         $playerID = $sp;
         $n = 0;
         foreach (['myGroundArena', 'mySpaceArena'] as $z) {
@@ -9690,7 +9896,7 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // Fires for each in-play Sidious's controller, for ANY non-token unit defeat (friendly or enemy).
             $dTypeSid = CardType($d['cardID'] ?? '') ?? '';
             if (strpos($dTypeSid, 'Unit') !== false && strpos(strtolower($dTypeSid), 'token') === false) {
-                foreach ([1, 2] as $sp) {
+                foreach (GetLiveSeatsArray() as $sp) {
                     $nSid = intval($sidiousPerSeat[$sp] ?? 0);   // batch-aware: see the snapshot above
                     for ($i = 0; $i < $nSid; $i++) SWUCreateUnitToken($sp, 'TS26_T01');
                 }
@@ -9897,9 +10103,17 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
 // resourcesPaid < printed cost, queue a trigger for that TWI_210's controller.
 // Uses AddTrigger + FlushEntryTriggerBag (batches with the played card's own entry triggers).
 // $resourcesPaid is passed explicitly so this never re-reads the global (race-safety).
+// ⚠ "When AN OPPONENT plays a card" is an observer on EVERY opponent's board, so the whole body runs
+// once per opponent — each one's own TWI_210 / SHD_172 / TWI_064 reacts to the same play, independently.
+// Was GetOpponent($playingPlayer): only one seat ever reacted, and a seat-3/4 player's reactive units
+// never fired at all (NULL → the early return below).
 function SWUCollectOpponentPlayReactions(int $playingPlayer, string $playedCardID, int $resourcesPaid): void {
-    $opp = GetOpponent($playingPlayer);
-    if ($opp === null) return;
+    foreach (OpponentsOf($playingPlayer) as $opp) {
+        _SWUCollectOpponentPlayReactionsFor($playingPlayer, $opp, $playedCardID, $resourcesPaid);
+    }
+}
+function _SWUCollectOpponentPlayReactionsFor(int $playingPlayer, int $opp, string $playedCardID, int $resourcesPaid): void {
+    if ($opp <= 0) return;
     $printedCost = intval(CardCost($playedCardID));
     // TWI_210 Cunning — fires ONLY when the opponent paid LESS than the printed cost (a discount).
     if ($resourcesPaid < $printedCost) {
@@ -9919,7 +10133,10 @@ function SWUCollectOpponentPlayReactions(int $playingPlayer, string $playedCardI
         // hit before because every prior reactive card was unique — Krayt is the first non-unique one).
         // The reaction loops the may-deal $count times, which is CR-equivalent for identical triggers.
         if ($krayts > 0) {
-            AddTrigger($opp, 'SHD_172', 'SHD_172', $printedCost . '~' . $krayts);   // "cost~count" in the mzID slot
+            // Carry the PLAYING SEAT too. "their base or a ground unit THEY control" names the player who
+            // played the card — $playingPlayer is right here in scope and used to be dropped, forcing the
+            // continuation to re-derive it as "the reactor's opponent", which above two seats is a guess.
+            AddTrigger($opp, 'SHD_172', 'SHD_172', $printedCost . '~' . $krayts . '~' . intval($playingPlayer));   // "cost~count~playingSeat"
         }
     }
     // TWI_064 Ki-Adi-Mundi — "Coordinate - When an opponent plays their SECOND card each phase: You may
@@ -10104,9 +10321,11 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
             AddTrigger($playingPlayer, 'SHD_008', 'SHD_008', '');
         }
     }
-    // SHD_014 Cad Bane (front) — "When you play an Underworld card: you may exhaust this leader; if you
-    // do, an opponent chooses a unit they control. Deal 1 damage to it." (Any card type with the trait.)
-    if (_SWUCardHasTrait($playingPlayer, $playedCardID, 'Underworld') && _SWULeaderReadyUndeployed($playingPlayer, 'SHD_014')) { // LAW_212 Malakili: owned Creatures count as Underworld when played
+    // SHD_014 Cad Bane — "When you play an Underworld card: …" on BOTH sides (front: exhaust → 1
+    // damage; deployed: free → 2 damage, once each round). ⚠ This gate used to read
+    // _SWULeaderReadyUndeployed, i.e. the FRONT side only, so a DEPLOYED Cad Bane never triggered at
+    // all — the deployed ability had never worked in any format. _SWUShd014Mode answers for both.
+    if (_SWUCardHasTrait($playingPlayer, $playedCardID, 'Underworld') && _SWUShd014Mode($playingPlayer) !== null) { // LAW_212 Malakili: owned Creatures count as Underworld when played
         AddTrigger($playingPlayer, 'SHD_014', 'SHD_014', '');
     }
     // SHD_018 The Mandalorian (front) — "When you play an upgrade: you may exhaust this leader; if you
@@ -10167,8 +10386,12 @@ function Shd172Reaction(int $reactor, string $payload): void {
     $pp     = explode('~', $payload);
     $amount = intval($pp[0] ?? 0);
     $count  = intval($pp[1] ?? 0);
+    // The seat that PLAYED the card. Absent (a pre-existing queued payload) ⇒ the legacy single opponent,
+    // which is exactly right at two seats and is the old behaviour above them.
+    $playing = intval($pp[2] ?? 0);
+    if ($playing <= 0) $playing = SWUChooseOpponent(intval($reactor));
     if ($amount <= 0 || $count <= 0) return;
-    DecisionQueueController::AddDecision(intval($reactor), "CUSTOM", "SHD_172#0|{$amount}|{$count}", 1);
+    DecisionQueueController::AddDecision(intval($reactor), "CUSTOM", "SHD_172#0|{$amount}|{$count}|{$playing}", 1);
 }
 
 // ─── Granted "When Defeated" registry — SINGLE SOURCE OF TRUTH ───────────────────────────────
@@ -10442,7 +10665,7 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
         global $Bounty_Cards;
         foreach ($defeatedCards as $d) {
             if (isset($Bounty_Cards[$d['cardID']]) && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])) {
-                $bag[] = ['__kind__' => 'bounty', 'activePlayer' => OtherPlayer(intval($d['player'] ?? $activePlayer)), 'cardID' => $d['cardID']];
+                $bag[] = ['__kind__' => 'bounty', 'activePlayer' => SWUBountyCollector(intval($d['player'] ?? $activePlayer), intval($activePlayer)), 'cardID' => $d['cardID']];
             }
         }
         SetSWUVar('SWU_DEFER_WD_BAG', json_encode($bag));
@@ -10458,14 +10681,15 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
         $gPendingTriggers = [];
 
         // Park bounty descriptors (tagged with __kind__ = 'bounty'). SEC_046 Galen — a named unit has no
-        // Bounty. Collector = the opponent of the sacrificed unit's controller (CR 13.f) — Exploit fodder
-        // is always the exploiter's own unit, so the OPPONENT collects at flush time.
+        // Bounty. Exploit fodder is always the exploiter's OWN unit, so the exploiter never collects;
+        // SWUBountyCollector() resolves who does (the one opponent at two seats; above two seats the
+        // defending seat if there was one, else a live opponent of the controller).
         global $Bounty_Cards;
         foreach ($defeatedCards as $d) {
             if (isset($Bounty_Cards[$d['cardID']]) && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])) {
                 $gExploitDeferredBag[] = [
                     '__kind__'    => 'bounty',
-                    'activePlayer' => OtherPlayer(intval($d['player'] ?? $activePlayer)),
+                    'activePlayer' => SWUBountyCollector(intval($d['player'] ?? $activePlayer), intval($activePlayer)),
                     'cardID'      => $d['cardID'],
                 ];
             }
@@ -10475,14 +10699,16 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
 
     FlushTriggerBag($activePlayer);
 
-    // Bounty (CR 7.6.3 / 13.f): after WhenDefeated triggers, offer the bounty reward to the OPPONENT of
-    // the defeated unit's controller — usually the defeating $activePlayer, but when a player's OWN unit
-    // dies during their action (attacker counter-death, sacrifice), the opponent still collects.
+    // Bounty (CR 7.6.3 / 13.f): after WhenDefeated triggers, offer the reward to the collector —
+    // SWUBountyCollector() owns that rule (2-player: the opponent of the defeated unit's controller;
+    // above two seats: the player who defeated it, per the 2026-08-23 user ruling).
+    // When a player's OWN unit dies during their action (attacker counter-death, sacrifice), the
+    // collector is still someone else — see the helper for how that seat is chosen above two seats.
     // SEC_046 Galen Erso — a named defeated unit has lost its Bounty (no reward offered).
     global $Bounty_Cards;
     foreach ($defeatedCards as $d) {
         if (isset($Bounty_Cards[$d['cardID']]) && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])) {
-            $collector = OtherPlayer(intval($d['player'] ?? $activePlayer));
+            $collector = SWUBountyCollector(intval($d['player'] ?? $activePlayer), intval($activePlayer));
             // SHD_161 Stolen Landspeeder — thread "collector owns the defeated unit" (param 1/0) from
             // the pre-cleanup owner snapshot; its reward only fires when the collector owns it.
             $param = '';
@@ -10498,14 +10724,14 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
 
     // Granted custom bounties (SHD_006 phase grant / SHD_123 upgrade grant) + conditional innate
     // (SHD_033/SHD_165), snapshotted above while the object still had its turn-effects/subcards/status.
-    // Each is an independent ability (CR 13.b) offered to the opponent of the bountied unit's
-    // controller (CR 13.f — see the innate loop above for the self-death nuance).
+    // Each is an independent ability (CR 13.b) offered to the collector resolved by
+    // SWUBountyCollector() (CR 13.f — see the innate loop above for the self-death nuance).
     global $gGrantedBountySnapshot;
     foreach ($defeatedCards as $d) {
         $mz = $d['mzID'] ?? '';
         if ($mz === '' || empty($gGrantedBountySnapshot[$mz])) continue;
         if (!_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'] ?? '')) {
-            $collector = OtherPlayer(intval($d['player'] ?? $activePlayer));
+            $collector = SWUBountyCollector(intval($d['player'] ?? $activePlayer), intval($activePlayer));
             foreach ($gGrantedBountySnapshot[$mz] as $rw) {
                 DecisionQueueController::AddDecision($collector, "YESNO", "-", 1, tooltip:"Collect_bounty?");
                 DecisionQueueController::AddDecision($collector, "CUSTOM", "SWUCollectBounty|{$rw['reward']}|{$rw['param']}", 1);
@@ -11113,7 +11339,7 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             //     swapping it. That is exactly what broke DoctorPershing and TheMandalorian's Support
             //     cases when this guard was first tried without the skip check.
             if (GetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', '') !== '1') {
-            foreach ([1, 2] as $_p) {
+            foreach (GetLiveSeatsArray() as $_p) {
                 foreach (GetDecisionQueue($_p) as $_e) {
                     $_param = (string)($_e->Param ?? '');
                     if (str_starts_with($_param, 'SWU_TRIGGER_RESUME') && strpos($_param, '|COMBAT') !== false) {
@@ -11161,7 +11387,7 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
     // Scoped to a BARE resume so a COMBAT resume never defers to itself, and mirrors the empty-stack
     // guard above (bug #926), which applies the identical rule to the finalise path.
     if ($continuation === '') {
-        foreach ([1, 2] as $_p) {
+        foreach (GetLiveSeatsArray() as $_p) {
             foreach (GetDecisionQueue($_p) as $_e) {
                 $_param = (string)($_e->Param ?? '');
                 if (str_starts_with($_param, 'SWU_TRIGGER_RESUME') && strpos($_param, '|COMBAT') !== false) {
@@ -11253,6 +11479,30 @@ $customDQHandlers["SWU_TRIGGER_ORDER_CHOICE"] = function($player, $parts, $lastD
     $playerID = $savedPID;
 };
 
+// Begin an Ambush attack: exhaust the attacker, then hand off to ExecuteSWUAttack.
+//
+// CR 6.3.1 step 3 is "Begin attack. EXHAUST THE ATTACKER", and CR 5.9.e says an attack resulting from
+// Ambush "is resolved like any other attack, with all of the same steps." Ambush waives only the READY
+// REQUIREMENT (5.9.a, "even if this unit is exhausted") — not the exhaust itself. The Ambush path calls
+// ExecuteSWUAttack directly (it has already picked its own target), and the engine's exhaust lives in
+// BeginSWUAttack, so it was being skipped.
+//
+// ⚠ Why this went unnoticed: a PLAYED unit enters play exhausted (CR 5.9.c), so for every Ambush card
+// that has ever existed the missing exhaust changed nothing. A DEPLOYED LEADER enters play READY, so
+// HMW_018 The Warrior — the first leader whose deployed side has Ambush — could attack on deploy and
+// remain ready, i.e. take a second attack off a single deploy action.
+//
+// Guarded on Status===1 so an already-exhausted attacker is untouched: no state change, and no
+// spurious tip-over animation on the ~50 existing Ambush units.
+function _SWUBeginAmbushAttack(int $player, string $attackerMzID, string $targetMzID): void {
+    $attacker = GetZoneObject($attackerMzID);
+    if ($attacker !== null && intval($attacker->Status ?? 0) === 1) {
+        $attacker->Status = 0;
+        SWUQueueExhaustAnim($attackerMzID, $player, intval($attacker->UniqueID ?? 0) ?: null);
+    }
+    ExecuteSWUAttack($player, $attackerMzID, $targetMzID);
+}
+
 // Ambush: player answered the "Ambush attack?" YESNO.
 // $parts[0] = attackerMzID; $parts[1..] = target mzIDs (joined as &-separated parts).
 global $customDQHandlers;
@@ -11267,7 +11517,7 @@ $customDQHandlers["SWUAmbushAnswer"] = function($player, $parts, $lastDecision) 
         $targets = array_values(array_filter(explode('&', $targetStr), fn($t) => $t !== ''));
         if (count($targets) === 1) {
             // Only one valid target — auto-fire, no player choice needed.
-            ExecuteSWUAttack($player, $attackerMzID, $targets[0]);
+            _SWUBeginAmbushAttack(intval($player), $attackerMzID, $targets[0]);
         } else {
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Choose_Ambush_target");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SWUAmbushAttack|{$attackerMzID}", 1);
@@ -11290,7 +11540,7 @@ $customDQHandlers["SWUAmbushAttack"] = function($player, $parts, $lastDecision) 
         // Passed on target — SWU_TRIGGER_RESUME handles SWUAfterAction.
         DecisionQueueController::CleanupRemovedCards();
     } else {
-        ExecuteSWUAttack($player, $attackerMzID, $lastDecision);
+        _SWUBeginAmbushAttack(intval($player), $attackerMzID, strval($lastDecision));
     }
     $playerID = $savedPID;
 };
@@ -12262,7 +12512,10 @@ $customDQHandlers["HEAL_TARGET"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $amount = intval($parts[0] ?? 0);
     if (strpos($lastDecision, 'Base') !== false) {
-        $targetPlayer = (strpos($lastDecision, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+        // Same fix as DEAL_TARGET below — a "p{n}Base-0" mzID matched neither branch of the old
+        // 'my'-prefix test and fell through to GetOpponent(), which is NULL above seat 2.
+        $targetPlayer = SWUMzOwner($lastDecision, intval($player));
+        if ($targetPlayer <= 0) return;
         OnHealBase(intval($player), $targetPlayer, $amount);
     } else {
         OnHealUnit(intval($player), $lastDecision, $amount);
@@ -12277,7 +12530,12 @@ $customDQHandlers["DEAL_TARGET"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $amount = intval($parts[0] ?? 0);
     if (strpos($lastDecision, 'Base') !== false) {
-        $targetPlayer = (strpos($lastDecision, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+        // ⚠ SWUMzOwner, not a 'my' prefix test + GetOpponent(). At 3–4 seats a base mzID is "p{n}Base-0",
+        // which matches neither branch of the old shape: it fell through to GetOpponent(), which returns
+        // NULL for any seat above 2 — so the damage landed on the wrong base, or on nothing at all.
+        // Found 2026-08-21 via HMW_188 Giant Gorax aiming its 3 at a seat-4 base.
+        $targetPlayer = SWUMzOwner($lastDecision, intval($player));
+        if ($targetPlayer <= 0) return;
         SWUDealDamageToBase($amount, $targetPlayer);
     } else {
         SWUDealDamageToUnit($lastDecision, $amount, intval($player));
@@ -14137,7 +14395,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // not observe its own arrival. The block-5 collector below re-scans the post-effect board, so
         // it filters against this UID snapshot.
         $evtObserverUIDs = [];
-        foreach ([1, 2] as $sp) {
+        foreach (GetLiveSeatsArray() as $sp) {
             foreach (GetUnitsInPlay($sp) as $u0) {
                 if (empty($u0->removed) && intval($u0->UniqueID ?? 0) > 0) $evtObserverUIDs[] = intval($u0->UniqueID);
             }
@@ -15481,7 +15739,7 @@ function _SWUBaseOwnAction(int $player): void {
 // TWI_047 Satine Kryze — true while ANY player controls a Satine (TWI_047) in play. Her constant ability
 // grants an Action to every unit on the board, so the grant is checked field-wide (either player's).
 function _SWUSatineInPlay(): bool {
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (array_merge(GetGroundArena($p), GetSpaceArena($p)) as $u) {
             if ($u !== null && empty($u->removed) && ($u->CardID ?? '') === 'TWI_047') return true;
         }
@@ -15522,9 +15780,18 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
     $actor = GetZoneObject($mzID);
     if ($actor !== null && LostAbilities($actor)) { $playerID = $savedPID; return false; }
     switch ($providerCardID) {
-        case 'TS26_15': { // C-3P0 — "Only opponents may use this ability." Block the OWNER (even if control
-                           // reverts to them); any non-owner may. Also needs another ground unit to target.
-            if ($actor !== null && intval($player) === intval($actor->Owner ?? $player)) { $ok = false; break; }
+        case 'TS26_15': { // C-3P0 — "Only opponents may use this ability."
+            // ⚠ USER RULING 2026-08-24: "opponents" means opponents of the unit's CURRENT CONTROLLER, not
+            // of its owner. Ownership is irrelevant to this gate. The card's own When Played hands control
+            // to an opponent, so after that the CONTROLLER is barred and everyone else at the table may
+            // fire it — including the original owner, and including players who have nothing to do with
+            // either of them.
+            // ⚠ THIS IS NOT A TWIN-SUNS-ONLY FIX. At TWO seats the two readings pick OPPOSITE players:
+            // owner-gate ⇒ P2 (the controller) fires it; controller-gate ⇒ P1 (the original owner) fires
+            // it. So the previous behaviour was wrong in Premier/Eternal as well, and the two existing
+            // sections that encoded it have been rewritten rather than preserved — a deliberate I1
+            // exception, because the old expectation was simply incorrect.
+            if ($actor !== null && intval($player) === intval($actor->Controller ?? $player)) { $ok = false; break; }
             $selfUID = SWUObjUID($actor);
             $found = false;
             foreach (['myGroundArena', 'theirGroundArena'] as $z) {
@@ -15688,7 +15955,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             // Home Base, …). The card targets by title, not a specific CardID, and an opponent's Ghost is
             // a legal host too (CR — an ability that says "The Ghost" refers to any card with that title).
             $hasGhost = false;
-            foreach ([1, 2] as $pl) {
+            foreach (GetLiveSeatsArray() as $pl) {
                 foreach (array_merge(GetGroundArena($pl) ?? [], GetSpaceArena($pl) ?? []) as $u) {
                     if (empty($u->removed) && SWUObjectTitle($u) === 'The Ghost') { $hasGhost = true; break 2; }
                 }
@@ -16481,6 +16748,69 @@ $customDQHandlers["LOF_197#1"] = function($player, $parts, $lastDecision) {
     if ($ownsAA) { DecisionQueueController::CleanupRemovedCards(); SWUAfterAction(intval($player)); }
 };
 
+// The mzID of an entry in ANOTHER player's zone, in $player's frame. $zone is the bare zone name
+// ("Discard", "Deck", "Hand", "Resources", "GroundArena", …).
+//
+// ⚠⚠ "their<Zone>-N" IS NOT SEAT-NEUTRAL. GetZoneObject/GetZone resolve it with the legacy
+// `$playerID == 1 ? 2 : 1`, so above two seats it silently means SEAT 2 (or seat 1 for any far-seat
+// viewer) no matter whose zone was intended. ZoneSearch grew a Twin Suns branch that fans `their*` out
+// across every opponent; the SINGLE-OBJECT resolvers never did, so collection and resolution disagree.
+// That mismatch is not a cosmetic blank — a play correctly located on seat 3's discard then ACTIVATED
+// SEAT 2's entry at the same index, putting a completely different card into play.
+//
+// Any code that KNOWS the owning seat must build its mzID through here. At ≤2 seats the legacy string
+// is emitted verbatim, so Premier is byte-identical (I1).
+function SWUForeignMzID(int $player, int $ownerSeat, string $zone, int $idx): string {
+    return (SeatCountForGame() > 2 && $ownerSeat > 0 && $ownerSeat !== $player)
+        ? "p{$ownerSeat}{$zone}-{$idx}"
+        : "their{$zone}-{$idx}";
+}
+
+// Back-compat alias for the discard-specific call sites.
+function SWUForeignDiscardMzID(int $player, int $ownerSeat, int $idx): string {
+    return SWUForeignMzID($player, $ownerSeat, 'Discard', $idx);
+}
+
+// ── Discard play-permission modifiers: parse / build ────────────────────────────────────────────────
+// A discard entry's Modifier says WHAT may be done with it this phase (see the Discard Modifier family
+// in the zone schema): TPF/TPP = the OWNER may play it free/at cost; OTPF/OTPP/OTPN = an OPPONENT may.
+// Two suffixes ride on it, and they are NOT interchangeable:
+//   • a trailing DIGIT is a COST DISCOUNT — 'TPP2' is TWI_201's "at cost, 2 resources less". This
+//     predates the sweep, which is why the grantee seat CANNOT be encoded as a bare number.
+//   • '@N' is the GRANTEE SEAT (Twin Suns only) — WHICH player received the permission.
+//
+// Why the grantee is needed at all: the modifier lives on an entry in the OWNER's pile, so the owner is
+// implicit, but "an opponent may play this" names nobody. At two seats that was complete — there is only
+// one opponent. Above two seats the old bare 'OTPF' meant every far seat resolved it against
+// OtherPlayer(), so the permission LEAKED to all three opponents, and a permission on a far seat's own
+// pile was reachable by NOBODY (each seat looked at seat 1's pile). Two bugs, opposite directions.
+//
+// I1: at ≤2 seats no '@N' is ever emitted, so every existing `MODIFIER:OTPF` / `MODIFIER:TPP2`
+// assertion stays byte-identical.
+function SWUParseDiscardModifier(string $mod): array {
+    $out = ['kind' => '', 'discount' => 0, 'grantee' => null];
+    if ($mod === '') return $out;
+    if (!preg_match('/^(OTPF|OTPP|OTPN|TPF|TPP)(\d*)(?:@(\d+))?$/', $mod, $m)) return $out;
+    $out['kind']     = $m[1];
+    $out['discount'] = ($m[2] !== '') ? intval($m[2]) : 0;
+    $out['grantee']  = (isset($m[3]) && $m[3] !== '') ? intval($m[3]) : null;
+    return $out;
+}
+
+// Build a modifier string, tagging the grantee seat only when there is a real choice to record.
+function SWUBuildDiscardModifier(string $kind, ?int $grantee = null): string {
+    if ($grantee === null || SeatCountForGame() <= 2) return $kind;
+    return $kind . '@' . intval($grantee);
+}
+
+// May $player play this entry under $mod? A grantee-tagged permission is for that seat ALONE; an
+// untagged one keeps the legacy "any opponent" reading so pre-sweep cards behave as before at two seats.
+function SWUDiscardModifierGrantsTo(string $mod, int $player): bool {
+    $p = SWUParseDiscardModifier($mod);
+    if ($p['kind'] === '') return false;
+    return ($p['grantee'] === null) || (intval($p['grantee']) === intval($player));
+}
+
 // SHD_038 Brutal Traditions — an Upgrade whose "Action: If an enemy unit was defeated this phase, play
 // this upgrade from your discard pile (paying its cost)." Unlike LAW_200/SHD_135 (which stamp TPP at
 // discard time via cardDiscardedHandlers), SHD_038's condition can become true AFTER it's already in the
@@ -16661,12 +16991,18 @@ function _SWUOwnDiscardPlayAsUnit(int $player, int $actualIdx, string $cardID, s
 // through the canonical ActivateCard($player, $discardMzID, false, $discount), which
 // runs the full cost pipeline and reports the placed unit via $GLOBALS['gLastPlayedMzID'].
 
-function SWUPlayFromOpponentDiscard(int $player, int $discardIdx): void {
+// $ownerSeat (Twin Suns): WHOSE discard pile. Null = the legacy single opponent, so every pre-sweep
+// caller is byte-identical. Above two seats the client sends the seat (it is right there in the rendered
+// mzID, "p3Discard-N"), because OtherPlayer() reached only one pile: a permission stamped on a far
+// seat's pile was unreachable by anyone at all.
+function SWUPlayFromOpponentDiscard(int $player, int $discardIdx, ?int $ownerSeat = null): void {
     global $playerID;
     $savedPID = $playerID;
     $playerID = $player;
 
-    $opponent  = OtherPlayer($player);
+    $opponent  = ($ownerSeat !== null && intval($ownerSeat) > 0 && intval($ownerSeat) !== intval($player))
+               ? intval($ownerSeat)
+               : SWUChooseOpponent($player);
     $discard   = &GetDiscard($opponent);
     $actualIdx = -1;
     $count = 0;
@@ -16683,10 +17019,19 @@ function SWUPlayFromOpponentDiscard(int $player, int $discardIdx): void {
 
     $entry    = $discard[$actualIdx];
     $cardID   = $entry->CardID;
-    $modifier = $entry->Modifier ?? '';
+    $rawMod   = $entry->Modifier ?? '';
+    $parsedM  = SWUParseDiscardModifier($rawMod);
+    $modifier = $parsedM['kind'];
 
     if ($modifier !== 'OTPF' && $modifier !== 'OTPP' && $modifier !== 'OTPN') {
         SetFlashMessage("That card cannot be played from opponent's discard this phase.");
+        $playerID = $savedPID;
+        return;
+    }
+    // A grantee-tagged permission belongs to ONE seat. Without this the bare 'OTPF' leaked: at four
+    // seats every opponent of the pile's owner could play the card, not just the one who was granted it.
+    if (!SWUDiscardModifierGrantsTo($rawMod, intval($player))) {
+        SetFlashMessage("That card was made playable for a different player.");
         $playerID = $savedPID;
         return;
     }
@@ -16728,7 +17073,7 @@ function SWUPlayFromOpponentDiscard(int $player, int $discardIdx): void {
             }
             // Can't afford the unit cost — the Pilot route is the only one left.
             AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
-            SWUQueuePilotVehiclePick(intval($player), "theirDiscard-{$actualIdx}", $cardID,
+            SWUQueuePilotVehiclePick(intval($player), SWUForeignDiscardMzID(intval($player), $opponent, $actualIdx), $cardID,
                 $vehicles, $opponent);
             $playerID = $savedPID;
             return;
@@ -16777,7 +17122,7 @@ function _SWUForeignDiscardPlayAsUnit(int $player, int $actualIdx, string $cardI
     // as prepaid so $gLastPlayResourcesPaid (TWI_210) reflects it. Recomputing would re-apply the aspect
     // penalty OTPN is meant to ignore and wrongly fail the play.
     $foreignPrepaid = ($modifier === 'OTPF') ? 0 : $cost;
-    ActivateCard(intval($player), "theirDiscard-{$actualIdx}", 1, 0, $foreignPrepaid, $opponent);
+    ActivateCard(intval($player), SWUForeignDiscardMzID(intval($player), $opponent, $actualIdx), 1, 0, $foreignPrepaid, $opponent);
     // EVENTS only: this input path does not auto-drain, so flush the queued block-1 effect decisions +
     // the FINISH_PLAY_CARD terminator inline (as the old event branch did). A UNIT's When Played decisions
     // (e.g. JTL_047 Yularen's keyword choice) surface via the harness's normal post-input decision pickup,
@@ -16914,18 +17259,25 @@ function SWUComputeActionsData(int $player): array {
     }
     $playerID = $savedAtkPID;
 
-    // Any-player-usable unit actions (LAW_156 Hunter For Hire) — also surface them on the OPPONENT's
-    // units, as "their{Arena}-N" (SWUUnitAction has no controller gate, so the live click resolves).
+    // Any-player-usable unit actions (LAW_156 Hunter For Hire, SHD_256) — also surface them on EVERY
+    // opponent's units (SWUUnitAction has no controller gate, so the live click resolves).
+    // Was `$oppAP = OtherPlayer($player)`: a single seat, so above two seats the action was offered on
+    // one opponent's board and was simply absent from the other two — silently, with no prompt to miss.
+    // I1: at two seats the mzID form stays "their{Arena}-N" byte-identical; only a real multiplayer
+    // game emits the per-seat "p{n}{Arena}-N" form (both resolve in GetZoneObject).
     global $anyPlayerUnitActions;
-    $oppAP = OtherPlayer($player);
-    foreach (['GroundArena' => GetGroundArena($oppAP), 'SpaceArena' => GetSpaceArena($oppAP)] as $arenaName => $arr) {
-        for ($i = 0; $i < count($arr); $i++) {
-            $u = $arr[$i];
-            if (SWUObjGone($u)) continue;
-            $provider = SWUGetUnitActionProvider($u);
-            if ($provider === '' || empty($anyPlayerUnitActions[$provider])) continue;
-            $mz = "their{$arenaName}-{$i}";
-            if (SWUUnitActionAffordable($player, $mz, $provider)) $data['unitActions'][] = $mz;
+    $twinAP = SeatCountForGame() > 2;
+    foreach (OpponentsOf($player) as $oppAP) {
+        $prefix = $twinAP ? "p{$oppAP}" : 'their';
+        foreach (['GroundArena' => GetGroundArena($oppAP), 'SpaceArena' => GetSpaceArena($oppAP)] as $arenaName => $arr) {
+            for ($i = 0; $i < count($arr); $i++) {
+                $u = $arr[$i];
+                if (SWUObjGone($u)) continue;
+                $provider = SWUGetUnitActionProvider($u);
+                if ($provider === '' || empty($anyPlayerUnitActions[$provider])) continue;
+                $mz = "{$prefix}{$arenaName}-{$i}";
+                if (SWUUnitActionAffordable($player, $mz, $provider)) $data['unitActions'][] = $mz;
+            }
         }
     }
 
@@ -16974,24 +17326,31 @@ function SWUComputeActionsData(int $player): array {
     }
     $data['playableDiscards'] = $playableDiscards;
 
+    // EVERY opponent's pile, not just one. `$oppPlayer = OtherPlayer($player)` looked at a single seat,
+    // so above two seats an OTPF/OTPP/OTPN permission on any other pile was never offered — invisible and
+    // unclickable, with no prompt for the player to notice missing.
     $opponentPlayableDiscards = [];
-    $oppPlayer = OtherPlayer($player);
+    foreach (OpponentsOf($player) as $oppPlayer) {
     $oppDiscard = GetDiscard($oppPlayer);
     $odi = 0;
     for ($i = 0; $i < count($oppDiscard); $i++) {
         if (isset($oppDiscard[$i]->removed) && $oppDiscard[$i]->removed) continue;
         $mod = $oppDiscard[$i]->Modifier ?? '';
+        // Someone else's named permission is not yours to see.
+        if ($mod !== '' && !SWUDiscardModifierGrantsTo($mod, intval($player))) { $odi++; continue; }
+        $mod = SWUParseDiscardModifier($mod)['kind'] ?: $mod;
         if ($mod === 'OTPF') {
-            $opponentPlayableDiscards[] = ['idx' => $odi, 'free' => true];
+            $opponentPlayableDiscards[] = ['idx' => $odi, 'free' => true, 'owner' => $oppPlayer];
         } elseif ($mod === 'OTPP' || $mod === 'OTPN') {
             // OTPN (SEC_205 Obi-Wan, TS26 Mother Talzin) is "at cost, IGNORING aspect penalties". It was
             // missing from this list, so the card the ability milled was never offered as clickable in the
             // client even though the input handler accepted it — the whole permission was invisible in-game.
             $dCost = intval(CardCost($oppDiscard[$i]->CardID))
                      + ($mod === 'OTPN' ? 0 : SWUAspectPenalty($player, $oppDiscard[$i]->CardID));
-            if ($readyCount >= $dCost) $opponentPlayableDiscards[] = ['idx' => $odi, 'free' => false];
+            if ($readyCount >= $dCost) $opponentPlayableDiscards[] = ['idx' => $odi, 'free' => false, 'owner' => $oppPlayer];
         }
         $odi++;
+    }
     }
     $data['opponentPlayableDiscards'] = $opponentPlayableDiscards;
 

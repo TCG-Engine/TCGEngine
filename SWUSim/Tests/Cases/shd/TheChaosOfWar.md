@@ -44,3 +44,39 @@ P1BASEDMG:0
 P2BASEDMG:3
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P2SPACEARENAUNIT:0:DAMAGE:0
+
+---
+
+# TwinSuns_EVERYSeatsBaseTakesItsOwnHandCount
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21. "Deal damage to EACH PLAYER'S base equal to the number of
+#// cards in THAT PLAYER'S hand" is a per-seat read, and it was the caster + OtherPlayer() only: seats 3
+#// and 4 took nothing at all.
+#// The amounts deliberately DIFFER per seat, so a fix that looped the seats but read one hand size would
+#// still fail: P1 holds 2 after playing the event, P2 holds 1, P3 holds 3, P4 holds 0 (and 0 means no
+#// damage rather than a 0-damage hit).
+#// ⚠ The caster's own base is included — this is self-damage, so the event states its dealer explicitly.
+#// ⚠ FIXTURE: seats 3/4 need WithP3Base/WithP4Base or there is no base to damage.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:4}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: [SHD_159 SOR_095 SOR_046]
+WithP2Hand: [SOR_095]
+WithP3Hand: [SOR_095 SOR_046 SEC_080]
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1BASEDMG:2
+P2BASEDMG:1
+P3BASEDMG:3
+P4BASEDMG:0

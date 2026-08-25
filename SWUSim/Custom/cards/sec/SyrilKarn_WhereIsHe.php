@@ -27,7 +27,12 @@ $customDQHandlers["SEC_133#1"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $tgtUID = intval($o->UniqueID ?? 0);
-    $ctrl   = intval($o->Controller ?? GetOpponent($attacker));
+    // The chosen unit's own Controller is authoritative; the fallback only matters if it is somehow
+    // unset. It was GetOpponent(), which returns NULL above seat 2 — intval(null) is 0, so the effect
+    // would silently read GetHand(0) and do nothing at all. Derive from the unit's mzID instead, which
+    // knows its seat in every format, and never guess.
+    $ctrl   = intval($o->Controller ?? 0);
+    if ($ctrl <= 0) $ctrl = SWUMzOwner((string)$lastDecision, $attacker);
     $ctrlHand = GetHand($ctrl);
     if (empty($ctrlHand)) {                       // can't discard → deal 2 directly
         SWUDealDamageToUnit($lastDecision, 2, $attacker);

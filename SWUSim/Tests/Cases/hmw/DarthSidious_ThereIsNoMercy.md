@@ -329,3 +329,38 @@ P2GROUNDARENAUNIT:0:DAMAGE:4
 P2BASEDMG:1
 P1LEADER0:EXHAUSTED
 
+---
+
+# TwinSuns_DamageToASeatThreeUnit_StillTriggers
+#// ⚠ THE SEAT-COUNT CELL. The trigger keys off the DEALER, so it is seat-agnostic by construction, and
+#// the offer pool must reach every seat: P1 attacks a SEAT THREE unit for 4 and pings seat 3's base.
+#// ⚠⚠ FIXTURE, and it cost a wrong bug report: seats 3 and 4 get NO BASE unless you seed one.
+#//   CommonSetup only builds seats 1 and 2, so `WithP3Base` / `WithP4Base` are REQUIRED — without them
+#//   ZoneSearch('theirBase') legitimately returns just p2Base-0, the pool looks "truncated to two
+#//   seats", and it reads exactly like a broken seat fan-out. It is not: the fan-out is fine, there was
+#//   simply no seat-3 base on the board to find, and the answer named a card that did not exist.
+#// ⚠ The seat-3 unit is the one that took the 4, so it is correctly EXCLUDED from the pool ("a
+#//   DIFFERENT unit or base") — the P4 unit below is what proves units from a far seat are reachable.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011}
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1GroundArena: SHD_216:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:P3G0
+- P1>AnswerDecision:p3Base-0
+
+## EXPECT
+SEATCOUNT:4
+P3BASEDMG:1
+P1LEADER0:EXHAUSTED
+P3GROUNDARENAUNIT:0:DAMAGE:4

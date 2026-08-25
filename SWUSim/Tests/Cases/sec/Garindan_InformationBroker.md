@@ -84,3 +84,41 @@ P1LEADER:DEPLOYED
 P2HANDCOUNT:0
 P2DISCARDCOUNT:1
 P1RESCOUNT:6
+
+---
+
+# TwinSuns_PicksTheSeatBEFORENamingTheCard
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. "Name a card. Look at AN OPPONENT's hand and discard a card
+#// with that name from it."
+#// ⚠ ORDER: the opponent is picked FIRST, before the NAMECARD. You cannot look at "an opponent's" hand
+#// until one is named, and naming blind at a hand you have not chosen is a different (worse) action.
+#// The 2-player prompt sequence is unchanged because the picker auto-resolves invisibly.
+#// ⚠ FILTER to opponents holding a card — an empty hand has nothing to look at or discard, which is the
+#//   skip this card already had.
+#// Seats 2 and 3 hold cards; SEAT 4 IS EMPTY-HANDED and must NOT be offered.
+#// Mutation check: drop the SWUOpponentsWithCards filter and P1OPTIONNOT:P4 reds.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:2}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SEC_186
+WithP2Hand: SOR_095
+WithP3Hand: SOR_095
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONNOT:P4
+P1OPTIONNOT:P1

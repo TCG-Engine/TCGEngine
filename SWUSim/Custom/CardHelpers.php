@@ -212,11 +212,21 @@ if (!function_exists('_SWUCollectUnitTargets')) {
         $excludeUID  = (array_key_exists('excludeUID', $opts) && $opts['excludeUID'] !== null)
             ? intval($opts['excludeUID']) : null;
         $extraFilter = $opts['extraFilter'] ?? null;
+        // 'ofSeat' => int (Twin Suns): restrict the pool to ONE named seat's units. For text that scopes
+        // to a specific player after a pick or a comparison — "a unit THAT OPPONENT controls", "a
+        // non-leader unit THEY control (the defending player)". Distinct from 'side' => 'their', which
+        // above two seats fans out across EVERY opponent and so OFFERS ILLEGAL TARGETS.
+        // ⚠ That over-widening is the sweep's inverse defect: the pool GREW, so nothing looks broken —
+        // no prompt goes missing and no effect fizzles; it only shows up as a target that should not
+        // have been selectable. At ≤2 seats 'their' and 'ofSeat'=>theOneOpponent are the same set,
+        // which is exactly why it stayed invisible.
+        $ofSeat = (array_key_exists('ofSeat', $opts) && $opts['ofSeat'] !== null) ? intval($opts['ofSeat']) : null;
         $sideArg = ($side === 'any') ? null : $side;   // SWUAllUnits: 'my'|'their'|null
         $out = [];
         foreach (SWUAllUnits($sideArg, $arena) as $mz) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;
+            if ($ofSeat !== null && SWUMzOwner($mz, intval($player)) !== $ofSeat) continue;
             if ($excludeUID !== null && intval($o->UniqueID ?? -1) === $excludeUID) continue;
             if ($nonLeader && IsLeaderUnit($o)) continue;
             $skip = false;
@@ -268,6 +278,10 @@ if (!function_exists('SWUOfferUnitTarget')) {
             'extraFilter'  => $opts['extraFilter']  ?? null,
             'includeBases' => !empty($opts['includeBases']),
             'baseSide'     => $opts['baseSide']     ?? 'any',
+            // ⚠ This forward list is an explicit WHITELIST — an option missing from it is silently
+            // dropped, and the caller looks correct while the filter never runs. Keep it in sync with
+            // _SWUCollectUnitTargets' option set.
+            'ofSeat'       => (array_key_exists('ofSeat', $opts) && $opts['ofSeat'] !== null) ? intval($opts['ofSeat']) : null,
         ]);
         if (empty($targets)) return;
         $cont = (string)($opts['continuation'] ?? '');
@@ -299,6 +313,24 @@ if (!function_exists('SWUOfferUnitTarget')) {
 // p{n}<Zone> per LIVE opponent (GameLogic's Twin Suns Phase 3 union), and in a 2-player game it
 // returns the single theirBase-0 — so routing through it is byte-identical for premier.
 // $side: 'any' (default) | 'my' | 'their'.
+// Live opponents of $player holding at least one card — THE eligibility list for every "an opponent
+// discards a card" effect. Two jobs, and the second is the one people forget:
+//   * it stops an "an opponent" pick from fizzling against an empty hand, and
+//   * with exactly one such opponent SWUQueueChooseOpponent auto-resolves, so no prompt is shown —
+//     which is what keeps 2-player (and an early, empty Twin Suns board) silent.
+// Gate on this being NON-EMPTY before charging any cost: with none eligible the picker queues nothing.
+if (!function_exists('SWUOpponentsWithCards')) {
+    function SWUOpponentsWithCards(int $player): array {
+        $out = [];
+        foreach (OpponentsOf(intval($player)) as $opp) {
+            foreach (GetHand($opp) as $c) {
+                if (empty($c->removed)) { $out[] = $opp; break; }
+            }
+        }
+        return $out;
+    }
+}
+
 if (!function_exists('SWUAllBaseMzIDs')) {
     function SWUAllBaseMzIDs(int $player, string $side = 'any'): array {
         global $playerID; $playerID = intval($player);
@@ -343,6 +375,7 @@ if (!function_exists('SWUOfferDiscard')) {
         global $playerID; $playerID = intval($player);
         $from   = $opts['from'] ?? 'opp';
         $filter = $opts['filter'] ?? null;
+        $oppSeat = isset($opts['opp']) ? intval($opts['opp']) : null;
         if ($from === 'own') {
             $targets = [];
             foreach (ZoneSearch('myHand', null) as $mz) {
@@ -354,9 +387,10 @@ if (!function_exists('SWUOfferDiscard')) {
             $cont    = 'DISCARD_FROM_OWN_HAND|' . intval($player);
             $default = "Discard_a_card_from_your_hand";
         } else {
-            $targets = ($filter !== null)
-                ? SWULookAtOpponentHand(intval($player), $filter)
-                : SWULookAtOpponentHand(intval($player));
+            // 'opp' (Twin Suns): WHICH opponent's hand. Null = the legacy single opponent, so every
+            // pre-existing caller is byte-identical; a converted card queues SWUQueueChooseOpponent
+            // first and passes the picked seat in.
+            $targets = SWULookAtOpponentHand(intval($player), $filter, $oppSeat);
             $cont    = 'DISCARD_FROM_OPP_HAND';
             $default = "Discard_a_card_from_the_opponent's_hand";
         }
@@ -379,6 +413,8 @@ if (!function_exists('SWUOfferDiscard')) {
             if (!empty($opts['may'])) SWUQueueMayChooseTarget(intval($player), $targets, $question, $prompt, $cont, $block);
             else                      SWUQueueChooseTarget(intval($player), $targets, $prompt, $cont, $block);
         }
-        if ($showHand) SWUQueueShowOpponentHand(intval($player));
+        // Same seat as the look above — otherwise the popup shows a different hand than the one the
+        // player is picking from.
+        if ($showHand) SWUQueueShowOpponentHand(intval($player), $oppSeat ?? null);
     }
 }

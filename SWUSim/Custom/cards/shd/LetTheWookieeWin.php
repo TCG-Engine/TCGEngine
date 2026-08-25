@@ -5,6 +5,18 @@
 
 // ─── SHD_205 Let the Wookiee Win (opponent chooses one of two caster benefits) ─
 // $player = the OPPONENT (chooser); parts[0] = the caster.
+// Picked seat in $lastDecision; hand the two-way choice to THAT opponent, on their queue.
+$customDQHandlers["SHD_205#2"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster = intval($parts[0] ?? $player);
+    $opp    = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === $caster) return;
+    $playerID = $opp;
+    DecisionQueueController::AddDecision($opp, "OPTIONCHOOSE", "Ready6Resources&ReadyUnit", 1,
+        "Opponent_chooses:_they_ready_up_to_6_resources_OR_ready_a_friendly_unit");
+    DecisionQueueController::AddDecision($opp, "CUSTOM", "SHD_205#0|" . $caster, 1);
+};
+
 $customDQHandlers["SHD_205#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $caster = intval($parts[0] ?? OtherPlayer(intval($player)));
@@ -35,11 +47,12 @@ $customDQHandlers["SHD_205#1"] = function($player, $parts, $lastDecision) {
 $whenPlayedAbilities["SHD_205:0"] = function($player, $mzID = '') {
 // Let the Wookiee Win — "An opponent chooses one: [You ready up to 6 resources] OR
                           // [You ready a friendly unit. If it's a Wookiee, attack with it. It gets +2/+0]."
-            global $playerID;
-            $opp = OtherPlayer(intval($player));
-            $playerID = $opp;
-            DecisionQueueController::AddDecision($opp, "OPTIONCHOOSE", "Ready6Resources&ReadyUnit", 1,
-                "Opponent_chooses:_they_ready_up_to_6_resources_OR_ready_a_friendly_unit");
-            DecisionQueueController::AddDecision($opp, "CUSTOM", "SHD_205#0|" . intval($player), 1);
+            global $playerID; $playerID = intval($player);
+            // "AN opponent chooses one" — the caster picks WHICH opponent does the choosing.
+            // ⚠ NO $eligible filter: BOTH modes read and mutate only the CASTER's own resources and units,
+            // so no property of a candidate opponent can make them unable to choose (taxonomy shape 3 —
+            // the pool they act on is not theirs). Same shape as LOF_065 Watto.
+            SWUQueueChooseOpponent(intval($player), 'SHD_205#2|' . intval($player),
+                "Choose_an_opponent_to_make_the_choice");
             return;
 };

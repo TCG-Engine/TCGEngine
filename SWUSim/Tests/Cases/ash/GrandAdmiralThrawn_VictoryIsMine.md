@@ -139,3 +139,53 @@ WithP2GroundArena: [SOR_095:1:0 SEC_080:1:0]
 - P1>AttackGroundArena:0:BASE
 ## EXPECT
 P2GROUNDARENACOUNT:2
+
+---
+
+# TwinSuns_Deployed_ComparesAndTargetsONLYTheDefendingSeat
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23. ASH_004's deployed On Attack says "THE DEFENDING PLAYER"
+#// twice, so nothing here is ever chosen — it is DETERMINED by the board and must not prompt for a seat.
+#// TWO defects above two seats, and they point in OPPOSITE directions:
+#//   (a) TOO NARROW — the comparison "if you control more units than the defending player" used
+#//       OtherPlayer(), a single seat (and seat 1 for any far-seat attacker), so Thrawn compared himself
+#//       against a player who need not be in the combat at all.
+#//   (b) TOO WIDE — the target pool was 'side' => 'their', which in Twin Suns fans out across EVERY
+#//       opponent, so Thrawn could defeat a BYSTANDER's unit. ⚠ This is the sweep's inverse defect: the
+#//       pool GREW, so nothing looks broken — no prompt goes missing, nothing fizzles, every existing
+#//       test stays green. It surfaces only as a target that should never have been selectable.
+#// Fixed by SWUCurrentDefendingSeat() for the comparison and the new 'ofSeat' option on
+#// SWUOfferUnitTarget for the pool.
+#//
+#// P1 (Thrawn + 1 unit = 2) attacks SEAT 3's base. Seat 3 controls 1 unit, so the gate opens; seat 2
+#// controls a unit too and seat 4 controls TWO — none of those may be offered, only seat 3's.
+#// ⚠ Under (a) alone the gate would compare against seat 2 and could open or close for the wrong reason;
+#//   under (b) alone the menu would include seats 2 and 4. The SELECTABLEEXACT pins both at once.
+#// ⚠ A 2-player version CANNOT FAIL — with one opponent the defender IS "their" and OtherPlayer() is
+#//   right. The seat count IS the test, and the defender must be a FAR seat.
+#// Mutation check: revert either half and this reds while all seven 2-player sections above stay green.
+
+## GIVEN
+CommonSetup: gbk/brk/{
+  myLeader:ASH_004:1:1:1
+}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_095:1:0
+WithP4GroundArena: SOR_095:1:0
+WithP4SpaceArena: SOR_225:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>AttackGroundArena:1:P3B
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1SELECTABLEEXACT:p3GroundArena-0

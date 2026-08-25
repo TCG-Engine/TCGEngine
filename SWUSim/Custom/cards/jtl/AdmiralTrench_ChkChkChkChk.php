@@ -38,8 +38,24 @@ $whenPlayedAbilities["JTL_014:0"] = function($player, $mzID) {
     AddGameLogEntry('REVEAL', 'P' . intval($player) . ' revealed ' . implode(', ', array_map('GameLogCardRef', $held)));
     // Pass owner + the revealed CardIDs through the decision PARAM (player-agnostic) — StoreVariable is
     // scoped to the current player's store, so cross-player handlers can't read vars set under another.
-    DecisionQueueController::AddDecision($player, "CUSTOM",
-        "JTL_014#1|" . intval($player) . "|" . implode(",", $held), 1);
+    // "AN opponent discards 2 of them" — the controller picks WHICH. Auto-resolves invisibly at one
+    // eligible opponent, so Premier is byte-identical (I1).
+    // ⚠ NO $eligible filter: the chosen opponent is only asked to pick 2 of YOUR revealed cards — nothing
+    // about their own board, hand or deck can make them unable to choose (taxonomy shape 3).
+    // ⚠ THE SEAT IS PICKED ONCE AND THREADED THROUGH BOTH SITES. #1 stages the cards into that seat's
+    // TempZone and #2 DRAINS it; re-deriving the seat separately in each (as OtherPlayer() did) means a
+    // fix to one strands 4 revealed cards permanently in the other seat's TempZone — invisible on the
+    // board, and pinned by P#TEMPZONECOUNT.
+    SWUQueueChooseOpponent(intval($player), "JTL_014#4|" . intval($player) . "|" . implode(",", $held),
+        "Choose_an_opponent_to_discard_2_of_the_revealed_cards");
+};
+
+$customDQHandlers["JTL_014#4"] = function($player, $parts, $lastDecision) {
+    $owner = intval($parts[0] ?? $player);
+    $held  = (string)($parts[1] ?? '');
+    $opp   = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === $owner || $held === '') return;
+    DecisionQueueController::AddDecision($owner, "CUSTOM", "JTL_014#1|{$owner}|{$held}|{$opp}", 1);
 };
 
 // Stage the revealed cards in the OPPONENT's TempZone and queue their "discard 2" pick. Runs as a
@@ -50,7 +66,8 @@ $customDQHandlers["JTL_014#1"] = function($player, $parts, $lastDecision) {
     $owner = intval($parts[0] ?? 0);
     $held  = ($parts[1] ?? '') !== '' ? explode(",", $parts[1]) : [];
     if (empty($held)) return;
-    $opp   = OtherPlayer($owner);
+    $opp   = intval($parts[2] ?? 0);            // threaded from the picker — never re-derived
+    if ($opp <= 0 || $opp === $owner) return;
     $temp  = &GetTempZone($opp);
     while (count($temp) > 0) array_pop($temp);
     foreach ($held as $cid) AddTempZone($opp, $cid);
@@ -62,7 +79,7 @@ $customDQHandlers["JTL_014#1"] = function($player, $parts, $lastDecision) {
         $discardN . "|" . $discardN . "|" . implode("&", $tempMZs), 1,
         tooltip: "Discard_2_of_the_revealed_cards");
     DecisionQueueController::AddDecision($opp, "CUSTOM",
-        "JTL_014#2|" . $owner . "|" . implode(",", $held), 1);
+        "JTL_014#2|" . $owner . "|" . implode(",", $held) . "|" . $opp, 1);
 };
 
 // Opponent's "discard 2" answer ($lastDecision = myTempZone-i&myTempZone-j). $parts[0]=owner,
@@ -72,7 +89,10 @@ $customDQHandlers["JTL_014#2"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $owner = intval($parts[0] ?? 0);
     $held  = ($parts[1] ?? '') !== '' ? explode(",", $parts[1]) : [];
-    $opp   = OtherPlayer($owner);
+    // SAME seat as the staging site — this handler DRAINS that seat's TempZone. Deriving it separately
+    // is how 4 revealed cards get stranded in a different seat's staging zone.
+    $opp   = intval($parts[2] ?? 0);
+    if ($opp <= 0 || $opp === $owner) return;
     $pickedIdx = [];
     foreach (explode("&", (string)$lastDecision) as $mz) {
         if (preg_match('/myTempZone-(\d+)/', trim($mz), $m)) $pickedIdx[] = intval($m[1]);

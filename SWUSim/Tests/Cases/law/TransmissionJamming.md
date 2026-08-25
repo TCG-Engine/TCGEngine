@@ -291,7 +291,12 @@ CommonSetup: rrk/rrk/{handCardIds:SHD_181,LAW_243;myResources:8;theirHandCardIds
 WithP2GroundArena: SEC_080:1:0
 
 ## WHEN
+#// ⚠ The 2nd line is Pillage's PLAYER PICK, added 2026-08-21 when SHD_181 gained its "choose a player"
+#//   choice (it reads "choose a PLAYER", so the caster is a legal target and P1 still holds LAW_243 here
+#//   — two eligible seats, so the picker really appears). Naming P2 keeps this section testing exactly
+#//   what it always tested; Pillage is only the vehicle for getting LAW_200 into P2's discard pile.
 - P1>PlayHand:0
+- P1>AnswerDecision:P2
 - P2>AnswerDecision:myHand-0
 - P2>AnswerDecision:myHand-0
 - P1>PlayHand:0
@@ -317,7 +322,9 @@ CommonSetup: rrk/rrk/{handCardIds:SHD_181,LAW_243;myResources:8;theirHandCardIds
 WithP2GroundArena: SEC_080:1:0
 
 ## WHEN
+#// ⚠ 2nd line: Pillage's player pick — see the note on the section above.
 - P1>PlayHand:0
+- P1>AnswerDecision:P2
 - P2>AnswerDecision:myHand-0
 - P2>AnswerDecision:myHand-0
 - P1>PlayHand:0

@@ -10,17 +10,24 @@ $customDQHandlers["TWI_199#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $name = SWUObjectTitle($o);
-    $opp = OtherPlayer(intval($player));
-    // Snapshot the opponent's same-name non-leader units by UID before any bounce shifts indices.
+    // "each ENEMY non-leader unit with the same name" — enemy of the ABILITY'S CONTROLLER (the caster),
+    // which is the CR meaning of "enemy" and does not change with the chosen unit's owner. So picking an
+    // opponent's unit still returns every OTHER opponent's same-name units, and never the caster's own.
+    //
+    // The fix is to STAY IN THE CASTER'S FRAME and search their*: ZoneSearch already fans `their<Zone>`
+    // out across every live opponent above two seats, so it does the work for free. The old code flipped
+    // $playerID to a single OtherPlayer() and searched my* under that frame, which reached exactly ONE
+    // opponent — at four seats two of the three were simply never checked.
+    // At two seats their* IS that one opponent's arena, so Premier is byte-identical (I1) and the
+    // $sp/$playerID save-restore dance is no longer needed at all.
+    // Snapshot by UID before any bounce shifts indices.
     $sameUids = [];
-    $sp = $playerID; $playerID = $opp;
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+    foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
             $eo = GetZoneObject($mz);
             if ($eo !== null && empty($eo->removed) && SWUObjectTitle($eo) === $name) $sameUids[] = intval($eo->UniqueID ?? 0);
         }
     }
-    $playerID = $sp;
     SWUBounceUnit(intval($player), $lastDecision); // return the chosen unit
     foreach ($sameUids as $uid) {
         $mz = SWUFindMzByUID($uid);

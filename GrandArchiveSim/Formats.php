@@ -42,6 +42,13 @@ function GAFormatDefinitions() {
             'mode'        => true,   // solo/local mode: skips structural deckbuilding rules
             'enabled'     => true,
         ],
+        'bot' => [
+            'displayName' => 'Bot Match (self-play testing)',
+            'legalSets'   => '*',
+            'banned'      => [],
+            'mode'        => true,   // solo/testing mode: skips structural deckbuilding rules
+            'enabled'     => true,
+        ],
     ];
 }
 

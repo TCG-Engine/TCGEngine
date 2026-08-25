@@ -94,10 +94,25 @@ Map their plain-language action to the board you just snapshotted (which player 
 
 Follow systematic-debugging Phase 1–2: read the card text from the generated dictionaries, find the handler, trace the data flow to the origin. **Do not propose a fix until you understand WHY.**
 
-**Confidence gate:** if your confidence in *both understanding and fixing* the bug is **below 98%** — the repro is ambiguous, expected behavior is unclear, or multiple root causes are plausible — **ASK a clarifying question** before continuing. Cheap places this bites: which unit/player the action targets, whether a "may" was expected to auto-pass, what the correct game-rules outcome is.
+**★ FIRST, WHEN "EXPECTED BEHAVIOUR" IS THE QUESTION — check the card-specific rulings.**
+`.claude/SWUSim/refs/card-specific-rulings.md` is the official card-database clarification list
+(9 sets · 962 cards · 1618 rulings). A large share of "is this even a bug?" reports are settled outright
+by it, so read it BEFORE forming a root-cause theory and before asking the user what the card should do.
+- Search by CARD NAME (`### <Name>` / `### <Name> - <Subtitle>`), never by set — reprints are filed under
+  the set whose ruling issued them.
+- ⚠ **It frequently contradicts the intuitive reading.** If it names the card, its answer decides whether
+  this is a BUG or a NON-BUG (see the "When it turns out to be a NON-BUG" section below).
+- ⚠ **A phrase repeated across many cards is a KEYWORD rule, not a per-card exception** — which usually
+  means the real defect is in the keyword implementation, not in the reported card.
+- ⚠ **PREVIEW SETS ARE ABSENT** (no HMW/IC27). For a preview card, reason from the CR + the closest
+  released analogue and say so explicitly rather than asserting a ruling.
+
+**Confidence gate:** if your confidence in *both understanding and fixing* the bug is **below 98%** — the repro is ambiguous, expected behavior is unclear, or multiple root causes are plausible — **ASK a clarifying question** before continuing. Cheap places this bites: which unit/player the action targets, whether a "may" was expected to auto-pass, what the correct game-rules outcome is. ⚠ For that last one, exhaust `card-specific-rulings.md` first — asking the user a question the rulings file already answers wastes their turn.
 
 Useful lookups:
 ```bash
+# Official rulings for a card (released sets only — no HMW/IC27):
+grep -n -A 6 "^### Boba Fett" .claude/SWUSim/refs/card-specific-rulings.md
 # Card title / text / type for a CardID (from the generated dictionary):
 grep -o '"SEC_069":"[^"]*"' SWUSim/GeneratedCode/GeneratedCardDictionaries_*.js
 # Where a card's ability handler lives (-r into Custom/ descends the per-card files under cards/<set>/):

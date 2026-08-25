@@ -135,6 +135,12 @@ function MatchCreateFromLobby($rootName, $lobby) {
     }
 
     $matchId = MatchCreate($rootName, $format, $queueType, $resolved, !empty($lobby->isPrivate));
+    if (isset($lobby->shareAnonymizedGameplayData)) {
+        $shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData);
+        MatchWithLock($rootName, $matchId, function (&$m) use ($shareAnonymizedGameplayData) {
+            $m['shareAnonymizedGameplayData'] = $shareAnonymizedGameplayData;
+        });
+    }
 
     // Spawn game 1 from the real lobby, injecting the already-resolved decks. matchId/gameNumber are
     // offered so a sim's setupGame MAY stamp them into the gamestate for its own client match-detection
@@ -272,6 +278,12 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
         1 => ['originalDeck' => $m['players']['1']['originalDeck'] ?? [], 'authKey' => $m['players']['1']['authKey'] ?? ''],
         2 => ['originalDeck' => $m['players']['2']['originalDeck'] ?? [], 'authKey' => $m['players']['2']['authKey'] ?? ''],
     ], !empty($m['isPrivate']));   // a private match rematches private (no forced sideboard timer)
+    if (array_key_exists('shareAnonymizedGameplayData', $m)) {
+        $shareAnonymizedGameplayData = !empty($m['shareAnonymizedGameplayData']);
+        MatchWithLock($rootName, $newId, function (&$newMatch) use ($shareAnonymizedGameplayData) {
+            $newMatch['shareAnonymizedGameplayData'] = $shareAnonymizedGameplayData;
+        });
+    }
     MatchWithLock($rootName, $oldMatchId, function (&$mm) { unset($mm['rematchRequests']); }); // fire once
 
     $oldGame = !empty($m['games']) ? $m['games'][count($m['games'])-1]['gameName'] : '';

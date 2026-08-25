@@ -183,3 +183,42 @@ P2HANDCOUNT:1
 P1DECKCOUNT:2
 P1DECKTOPCARD:SOR_095
 P1DISCARDCOUNT:2
+
+---
+
+# TwinSuns_CasterChoosesWhichOpponentDecides
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. "Choose up to 2 non-leader units. AN OPPONENT chooses 1 of
+#// those units." OFFICIAL RULING (03/01/2024): "If there are multiple opponents, the controlling player
+#// chooses which one will be 'an opponent.'"
+#// ⚠ NO $eligible filter: the chosen opponent is only asked to pick between two units already named on
+#// the table — nothing about their own board can make them unable to choose (taxonomy shape 3, same as
+#// LOF_065 Watto). Note the units picked may not even belong to the deciding opponent.
+#// P1 names two units and hands the decision to SEAT 3. SEAT 3 must own the choice; seat 2 — whom the old
+#// code always asked — must have none.
+#// ⚠ A 2-player version CANNOT FAIL — one opponent means no choice to get wrong.
+#// Mutation check: revert to OtherPlayer($caster) and this reds (the choice lands on seat 2).
+
+## GIVEN
+CommonSetup: bbk/brw/{myBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: SOR_187
+WithP1Resources: 9
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p2GroundArena-0&p3GroundArena-0
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P3HASDECISION
+P2NODECISION

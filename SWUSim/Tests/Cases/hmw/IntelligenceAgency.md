@@ -199,3 +199,44 @@ P2HANDCOUNT:2
 P2DECKCOUNT:1
 P2DISCARDCOUNT:1
 P1NODECISION
+
+---
+
+# TwinSuns_LooksAtTheCHOSENSeatsHand
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. "Look at AN OPPONENT's hand. You may discard a card from it.
+#// If you do, they draw a card." OtherPlayer() read a hand the caster never chose.
+#// ⚠⚠ PREVIEW-SET ASSUMPTION, FLAGGED: HMW is NOT in card-specific-rulings.md — that database covers
+#// RELEASED sets only. The reading comes from the closest released analogue, which is EXACT: SHD_184
+#// Bazine Netal prints this clause word for word and DOES carry "If there are multiple opponents, the
+#// controlling player chooses which one will be 'an opponent.'" Re-check when HMW releases.
+#// ⚠ FILTER to opponents holding a card — an empty hand has nothing to look at or discard.
+#// SEAT 3 is picked; P1 discards from seat 3 and SEAT 3 draws the replacement. Seat 2 untouched.
+#// Mutation check: drop the $opp argument to SWULookAtOpponentHand and this reds.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:1}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: HMW_205
+WithP2Hand: [SOR_095 SEC_080]
+WithP3Hand: [SOR_095 SEC_080]
+WithP3Deck: [SOR_046 SOR_128]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:p3Hand-0
+
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:2
+P3DISCARDCOUNT:1
+P3DECKCOUNT:1
+P2HANDCOUNT:2
+P2DISCARDCOUNT:0

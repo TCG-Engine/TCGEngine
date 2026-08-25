@@ -22,8 +22,14 @@ $whenPlayedAbilities["HMW_154:0"] = function($player, $mzID = '') {
     }
     if (!$qualifies) return;
 
-    // 2-player: "each opponent" is the single opponent. SWUDiscardCards discards inline when their hand
-    // is at or below the count and otherwise queues the pick on THEIR queue; nothing rides behind it
-    // here, so its queued-vs-inline return value is not needed. An empty hand is a clean no-op.
-    SWUDiscardCards($player, 1);
+    // "EACH opponent" — one call per live opponent, never a single OtherPlayer() call.
+    // ⚠ This card shipped with exactly that bug on 2026-08-21 (and a comment reading "2-player: 'each
+    //   opponent' is the single opponent", which is how the 2-seat assumption got written down as if it
+    //   were a fact). At four seats only one opponent discarded.
+    // SWUDiscardCards discards inline when a hand is at or below the count and otherwise queues the pick
+    // on THAT seat's queue; nothing rides behind it here, so its queued-vs-inline return is not needed,
+    // and each seat answers its own prompt independently. An empty hand is a clean no-op.
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        SWUDiscardCards($player, 1, $opp);
+    }
 };

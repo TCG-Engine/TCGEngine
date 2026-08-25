@@ -218,3 +218,41 @@ WithP2Deck: SOR_095
 P1BASEDMG:4
 P1CREDITCOUNT:1
 P2DISCARDCOUNT:1
+
+---
+
+# TwinSuns_LooksAtTheCHOSENSeatsResources
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. "Look at all of AN OPPONENT's resources. You may play 1 of
+#// those cards for free. If you do, THAT OPPONENT resources the top card of their deck."
+#// One seat is named and ALL THREE clauses hang off it — the look, the offer, and the refill.
+#// ⚠ The pool was ZoneSearch("theirResources"), which fans out across every opponent above two seats, so
+#//   the caster could look at seat 3's row and play SEAT 4's card. Now scoped to p{n}Resources.
+#// ⚠ FILTER to opponents who HAVE a resource — an empty row has nothing to look at and nothing to play.
+#// Seats 2 and 3 have resources; SEAT 4 HAS NONE and must NOT be offered.
+#// Mutation check: drop $eligible and P1OPTIONNOT:P4 reds.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:JTL_002;myBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Resources: 13
+WithP1Hand: LAW_066
+WithP2Resources: 3
+WithP3Resources: 3
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:P2
+P1OPTIONHAS:P3
+P1OPTIONNOT:P4
+P1OPTIONNOT:P1

@@ -38,7 +38,9 @@ $customDQHandlers["LAW_215#2"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = $P;
     $idx = _SWUTopDeckFrontIdx($D);
     if ($idx === -1 || (GetDeck($D)[$idx]->CardID ?? '') !== $cardID) return; // revealed card no longer on top
-    $deckMz = ($D === $P) ? "myDeck-{$idx}" : "theirDeck-{$idx}";
+    // $D (the deck's owner) is already known here, so name the seat: a literal "theirDeck-N" resolves
+    // to SEAT 2 above two seats, which would play a card off the WRONG player's deck.
+    $deckMz = ($D === $P) ? "myDeck-{$idx}" : SWUForeignMzID($P, $D, 'Deck', $idx);
     $type   = CardType($cardID);
     if (strpos($type, 'Upgrade') !== false) {
         $hosts = SWUGetUpgradeValidTargets($P, $cardID);

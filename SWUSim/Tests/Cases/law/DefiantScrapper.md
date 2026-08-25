@@ -93,3 +93,47 @@ P1GROUNDARENAUNIT:0:CARDID:LAW_106
 P1CREDITCOUNT:2
 P2CREDITCOUNT:2
 P1SELECTABLEEXACT:theirResources-2&theirResources-3
+
+---
+
+# TwinSuns_AnEnemyCreditOnANYSeatIsFindable
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 0, the foreign-mzID seam). LAW_106's target list came
+#// from SWUEnemyCreditTokenMzIDs(), which carried TWO seat bugs at once:
+#//   • `GetOpponent($player)` — the WORST of the three legacy helpers, because it `return null` above
+#//     seat 2. So GetResources(null) yielded an empty list and the ability silently found NOTHING: no
+#//     prompt, no target, no error. A wrong answer is visible; this one is not.
+#//   • the mzIDs were built as the literal "theirResources-N", which GetZoneObject resolves with
+#//     `$playerID == 1 ? 2 : 1` — SEAT 2 regardless of whose token it was. Even a found token would
+#//     have defeated the wrong player's credit.
+#// "an enemy Credit token" is unqualified, so it spans EVERY live opponent — now OpponentsOf() plus
+#// SWUForeignMzID().
+#// Here the ONLY Credit token on the table belongs to SEAT 3. P1 plays the Scrapper and must be able to
+#// defeat it. Under the old code seat 3's token was invisible and the ability fizzled.
+#// ⚠ A 2-player version CANNOT FAIL — with one opponent GetOpponent() is non-null and correct.
+#// ⚠ FIXTURE: WithP3Credits did not exist until this section — the harness's credit builder was
+#//   `foreach ([1, 2])`, so this assertion was literally unwritable (the fifth two-seat limit found in
+#//   the harness rather than the engine).
+#// Mutation check: revert SWUEnemyCreditTokenMzIDs to GetOpponent() + "theirResources-N" and this reds
+#// while both 2-player sections above stay green.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:3}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: LAW_106
+WithP3Credits: 1
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p3Resources-0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:1
+P3CREDITCOUNT:0

@@ -47,8 +47,26 @@ function Ic27168OfferAttack(int $player): void {
 // ── Clause 1: look at the opponent's hand, may discard, and only then they draw ──
 $whenPlayedAbilities["IC27_168:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    // SWULookAtOpponentHand both REVEALS the hand to the caster and returns its theirHand-N mzIDs.
-    $targets = SWULookAtOpponentHand(intval($player));
+    // "Look at AN OPPONENT's hand" — the caster picks whose. Auto-resolves invisibly at one eligible (I1).
+    // ⚠ FILTER to opponents holding a card: an empty hand has nothing to look at and nothing to discard.
+    // ⚠ PREVIEW-SET ASSUMPTION, FLAGGED DELIBERATELY: this card is not in
+    //    `.claude/SWUSim/refs/card-specific-rulings.md` — that database covers RELEASED sets only, so
+    //    there is no HMW/IC27 entry to cite. The reading is taken from the closest released analogue,
+    //    which here is EXACT: SHD_184 Bazine Netal prints this clause word for word and does carry the
+    //    ruling "If there are multiple opponents, the controlling player chooses which one will be
+    //    'an opponent.'" Re-check when the set is released and the database is refreshed.
+    $eligible = SWUOpponentsWithCards(intval($player));
+    if (empty($eligible)) { Ic27168ExhaustEnemy(intval($player)); return; }   // fizzle -> clause 2
+    SWUQueueChooseOpponent(intval($player), 'IC27_168#3',
+        "Choose_an_opponent_whose_hand_to_look_at", $eligible);
+};
+
+$customDQHandlers["IC27_168#3"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === intval($player)) { Ic27168ExhaustEnemy(intval($player)); return; }
+    // SWULookAtOpponentHand both REVEALS the hand to the caster and returns its mzIDs.
+    $targets = SWULookAtOpponentHand(intval($player), null, $opp);
     if (empty($targets)) { Ic27168ExhaustEnemy(intval($player)); return; }   // fizzle -> clause 2
     SWUQueueMayChooseTarget(intval($player), $targets,
         "Discard_a_card_from_the_opponent's_hand?",
@@ -61,7 +79,8 @@ $customDQHandlers["IC27_168#0"] = function($player, $parts, $lastDecision) {
         $obj = GetZoneObject($lastDecision);
         if (!SWUObjGone($obj)) {
             // Mirrors DISCARD_FROM_OPP_HAND so the forced discard fires the same observers.
-            $opp    = OtherPlayer(intval($player));
+            $opp    = SWUMzOwner((string)$lastDecision, intval($player));
+            if ($opp <= 0 || $opp === intval($player)) { Ic27168ExhaustEnemy(intval($player)); return; }
             $cardID = $obj->CardID;
             $obj->Remove();
             SWUAddToDiscard($opp, $cardID, 'HAND');

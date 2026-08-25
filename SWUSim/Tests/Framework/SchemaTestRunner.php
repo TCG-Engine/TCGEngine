@@ -180,17 +180,27 @@ class SchemaTestRunner {
                              'WithP1Discard',             'WithP2Discard',
                              'WithP3Discard',             'WithP4Discard',
                              'WithP1BaseUpgrade',         'WithP2BaseUpgrade',
+                             'WithP3BaseUpgrade',         'WithP4BaseUpgrade',
                              'WithP1BaseCaptive',         'WithP2BaseCaptive',
                              'WithP3BaseCaptive',         'WithP4BaseCaptive',
                              'WithP1GroundArenaUpgrade',  'WithP2GroundArenaUpgrade',
+                             'WithP3GroundArenaUpgrade',  'WithP4GroundArenaUpgrade',
+                             'WithP3SpaceArenaUpgrade',   'WithP4SpaceArenaUpgrade',
+                             'WithP3GroundArenaPilot',    'WithP4GroundArenaPilot',
+                             'WithP3SpaceArenaPilot',     'WithP4SpaceArenaPilot',
+                             'WithP3GroundArenaCaptive',  'WithP4GroundArenaCaptive',
+                             'WithP3SpaceArenaCaptive',   'WithP4SpaceArenaCaptive',
                              'WithP1SpaceArenaUpgrade',   'WithP2SpaceArenaUpgrade',
                              'WithP1GroundArenaPilot',    'WithP2GroundArenaPilot',
                              'WithP1SpaceArenaPilot',     'WithP2SpaceArenaPilot',
                              'WithP1GroundArenaCaptive',  'WithP2GroundArenaCaptive',
                              'WithP1SpaceArenaCaptive',   'WithP2SpaceArenaCaptive',
                              'WithP1GroundArenaControlled', 'WithP2GroundArenaControlled',
+                             'WithP3GroundArenaControlled', 'WithP4GroundArenaControlled',
                              'WithP1SpaceArenaControlled',  'WithP2SpaceArenaControlled',
+                             'WithP3SpaceArenaControlled',  'WithP4SpaceArenaControlled',
                              'WithP1ResourceControlled',    'WithP2ResourceControlled',
+                             'WithP3ResourceControlled',    'WithP4ResourceControlled',
                              'WithP1Deck',                'WithP2Deck',
                              'WithP3Deck',                'WithP4Deck'];
         // List-valued keys accept either one spec per line OR a bracketed, whitespace-separated
@@ -204,17 +214,27 @@ class SchemaTestRunner {
                             'WithP1GroundArena', 'WithP2GroundArena', 'WithP1SpaceArena', 'WithP2SpaceArena',
                             'WithP3GroundArena', 'WithP4GroundArena', 'WithP3SpaceArena', 'WithP4SpaceArena',
                             'WithP1BaseUpgrade', 'WithP2BaseUpgrade',
+                            'WithP3BaseUpgrade', 'WithP4BaseUpgrade',
                             'WithP1BaseCaptive', 'WithP2BaseCaptive',
                             'WithP3BaseCaptive', 'WithP4BaseCaptive',
                             'WithP1GroundArenaUpgrade', 'WithP2GroundArenaUpgrade',
+                            'WithP3GroundArenaUpgrade', 'WithP4GroundArenaUpgrade',
                             'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade',
+                            'WithP3SpaceArenaUpgrade', 'WithP4SpaceArenaUpgrade',
                             'WithP1GroundArenaPilot', 'WithP2GroundArenaPilot',
+                            'WithP3GroundArenaPilot', 'WithP4GroundArenaPilot',
                             'WithP1SpaceArenaPilot', 'WithP2SpaceArenaPilot',
+                            'WithP3SpaceArenaPilot', 'WithP4SpaceArenaPilot',
                             'WithP1GroundArenaCaptive', 'WithP2GroundArenaCaptive',
+                            'WithP3GroundArenaCaptive', 'WithP4GroundArenaCaptive',
                             'WithP1SpaceArenaCaptive', 'WithP2SpaceArenaCaptive',
+                            'WithP3SpaceArenaCaptive', 'WithP4SpaceArenaCaptive',
                             'WithP1GroundArenaControlled', 'WithP2GroundArenaControlled',
+                            'WithP3GroundArenaControlled', 'WithP4GroundArenaControlled',
                             'WithP1SpaceArenaControlled', 'WithP2SpaceArenaControlled',
-                            'WithP1ResourceControlled', 'WithP2ResourceControlled'];
+                            'WithP3SpaceArenaControlled', 'WithP4SpaceArenaControlled',
+                            'WithP1ResourceControlled', 'WithP2ResourceControlled',
+                            'WithP3ResourceControlled', 'WithP4ResourceControlled'];
         $out = [];
         foreach ($lines as $line) {
             if (!str_contains($line, ':')) continue;
@@ -372,23 +392,30 @@ class SchemaTestRunner {
         // Split owner/controller seats (the end state after a control-take: NGOR / Change of Heart).
         // "WithP{n}{Ground|Space}ArenaControlled: CARD:ownerSeat" — CARD sits in P{n}'s arena, CONTROLLED
         // by P{n} but OWNED by ownerSeat, so a return-to-hand sends it to the owner's hand.
-        foreach ([1, 2] as $seat) {
+        // Seats 3/4 supported since 2026-08-24: a four-seat owner/controller split could not be EXPRESSED
+        // before, so any card whose rule turns on controller-vs-owner (TS26_15 C-3P0, the Bounty
+        // collector, SHD_161) had no far-seat fixture — the gap was invisible by construction.
+        // ⚠ The implicit owner default was `3 - $seat`, a two-seat identity (1↔2) that yields 0 and -1 for
+        // seats 3/4. It is now "the lowest OTHER seat", which is byte-identical at two seats and sane
+        // above; far-seat tests should still name the owner explicitly rather than lean on it.
+        foreach ([1, 2, 3, 4] as $seat) {
+            $defOwner = ($seat === 1) ? 2 : 1;
             // Optional 3rd field = status (1 ready / 0 exhausted), defaulting to ready — needed for any
             // "when this unit readies" effect on a unit whose control has changed (JTL_192 In Debt).
             foreach ($given["WithP{$seat}GroundArenaControlled"] ?? [] as $spec) {
                 [$cid, $owner, $st] = array_pad(explode(':', $spec), 3, '');
-                $b->WithControlledGroundUnitForPlayer($seat, $cid, intval($owner) ?: (3 - $seat),
+                $b->WithControlledGroundUnitForPlayer($seat, $cid, intval($owner) ?: $defOwner,
                     $st === '' ? true : (intval($st) === 1));
             }
             foreach ($given["WithP{$seat}SpaceArenaControlled"] ?? [] as $spec) {
                 [$cid, $owner] = array_pad(explode(':', $spec), 2, '');
-                $b->WithControlledSpaceUnitForPlayer($seat, $cid, intval($owner) ?: (3 - $seat));
+                $b->WithControlledSpaceUnitForPlayer($seat, $cid, intval($owner) ?: $defOwner);
             }
             // A resource in P{seat}'s zone OWNED by another seat (e.g. after SHD_122 Arquitens resources an
             // enemy card): "WithP{seat}ResourceControlled: CARD:ownerSeat".
             foreach ($given["WithP{$seat}ResourceControlled"] ?? [] as $spec) {
                 [$cid, $owner] = array_pad(explode(':', $spec), 2, '');
-                $b->WithControlledResourceForPlayer($seat, $cid, intval($owner) ?: (3 - $seat));
+                $b->WithControlledResourceForPlayer($seat, $cid, intval($owner) ?: $defOwner);
             }
         }
         // Twin Suns seats 3/4 — plain arena units for storage-layer tests.
@@ -409,7 +436,9 @@ class SchemaTestRunner {
             $b->WithBaseForPlayer($seat, trim($bcid), intval($bdmg));
         }
         // Twin Suns seats 3/4 leaders (WithP{n}Leader / WithP{n}Leader2: CARDID[:ready[:deployed[:epicUsed]]])
-        // — seats 1/2 come from CommonSetup. Undeployed leaders only (no deployed-unit splice for 3/4).
+        // — seats 1/2 come from CommonSetup. DEPLOYED far-seat leaders are supported since 2026-08-24:
+        // GameStateBuilder now splices a real arena unit and links DeployedUniqueID, mirroring the
+        // seats-1/2 path (before that, `deployed` set the flag and created no unit at all).
         foreach ([3, 4] as $seat) {
             if (isset($given["WithP{$seat}Leader"])) {
                 $l = self::_parseSecondLeader(trim($given["WithP{$seat}Leader"]));
@@ -466,7 +495,8 @@ class SchemaTestRunner {
         }
         // FORTIFY upgrades attached to a BASE (WithP{n}BaseUpgrade: CARD_ID). No index — a base is a
         // single host, unlike an arena which needs idx:CARD_ID.
-        foreach ([1, 2] as $pn) {
+        // Seats 3/4 supported since 2026-08-24 (Twin Suns harness sweep).
+        foreach ([1, 2, 3, 4] as $pn) {
             foreach ($given["WithP{$pn}BaseUpgrade"] ?? [] as $spec) {
                 foreach (explode(',', trim($spec)) as $cid) {
                     $cid = trim($cid);
@@ -476,7 +506,10 @@ class SchemaTestRunner {
         }
 
         // Initial upgrades on arena units (multi-value: WithP{n}{Ground|Space}ArenaUpgrade: idx:CARD_ID).
-        foreach ([1, 2] as $pn) {
+        // ⚠ Seats 3/4 supported since 2026-08-24. Until then a FAR-SEAT unit could not carry an upgrade at
+        // all — no Experience token, no Shield, no attachment — so any four-seat assertion about a
+        // buffed/upgraded far-seat unit was unwritable by construction.
+        foreach ([1, 2, 3, 4] as $pn) {
             foreach (['Ground', 'Space'] as $arenaType) {
                 $key    = "WithP{$pn}{$arenaType}ArenaUpgrade";
                 $byUnit = [];
@@ -495,7 +528,7 @@ class SchemaTestRunner {
         // Initial PILOT upgrades on arena units (WithP{n}{Ground|Space}ArenaPilot: idx:CARD_ID).
         // Same wiring as ArenaUpgrade but flags IsPilot=true, so the host counts as occupied
         // (SWUVehiclePilotCount) — the honest way to pre-seat a piloted Vehicle.
-        foreach ([1, 2] as $pn) {
+        foreach ([1, 2, 3, 4] as $pn) {
             foreach (['Ground', 'Space'] as $arenaType) {
                 $key    = "WithP{$pn}{$arenaType}ArenaPilot";
                 $byUnit = [];
@@ -519,7 +552,10 @@ class SchemaTestRunner {
         // Seeds a captured-unit subcard (IsCaptive=true) on the captor at $unitIdx, OWNED by the OTHER
         // player (captives are enemy units) — so a rescue (CR 8.34.4, e.g. JTL_050 Phantom II leaving play
         // as a unit) returns it to that owner's arena. The only harness way to pre-seat a captive.
-        foreach ([1, 2] as $pn) {
+        // Seats 3/4 supported since 2026-08-24. ⚠ The implicit owner is "the lowest OTHER seat", which is
+        // byte-identical at two seats; a far-seat captive test should name the owner explicitly if it
+        // matters, since "captives are enemy units" does not identify WHICH enemy above two seats.
+        foreach ([1, 2, 3, 4] as $pn) {
             $owner = ($pn === 1) ? 2 : 1;
             foreach (['Ground', 'Space'] as $arenaType) {
                 $key    = "WithP{$pn}{$arenaType}ArenaCaptive";
@@ -547,8 +583,9 @@ class SchemaTestRunner {
             if ($dp > 0) $b->WithDefeatedPlayer($dp);
         }
 
-        // The Force token (CR §37): WithP1Force / WithP2Force: true → player controls their Force token.
-        foreach ([1, 2] as $pn) {
+        // The Force token (CR §37): WithP{n}Force: true → that player controls their Force token.
+        // Seats 3/4 supported since 2026-08-24.
+        foreach ([1, 2, 3, 4] as $pn) {
             if (strtolower($given["WithP{$pn}Force"] ?? 'false') === 'true') $b->WithForceForPlayer($pn);
         }
 
@@ -574,7 +611,11 @@ class SchemaTestRunner {
         // player's resource zone. They are created via the resource fill but are NOT resources —
         // SWUResourceCount/SWUExhaustResources skip them, and they accumulate AFTER any real
         // resources filled above (so their mzID index = realResourceCount + offset).
-        foreach ([1, 2] as $pn) {
+        // Twin Suns: seats 3/4 need credits too, or a four-seat "an enemy Credit token" assertion cannot
+        // be WRITTEN — the fifth two-seat limit this sweep found in the harness itself, after
+        // P#DISCARDUNIT, WithP3/P4Base, PlayFromOpponentDiscard's missing seat, and the absent
+        // unit-action offer assertion.
+        foreach ([1, 2, 3, 4] as $pn) {
             $key = "WithP{$pn}Credits";
             if (isset($given[$key])) {
                 $n = max(0, intval(trim($given[$key])));
@@ -894,9 +935,16 @@ class SchemaTestRunner {
             case 'PlayFromDiscard':
                 $g->playFromDiscard($player, intval($args));
                 break;
-            case 'PlayFromOpponentDiscard':
-                $g->playFromOpponentDiscard($player, intval($args));
+            case 'PlayFromOpponentDiscard': {
+                // "PlayFromOpponentDiscard: <idx>"        → the one opponent (2-player, unchanged)
+                // "PlayFromOpponentDiscard: P<seat>:<idx>" → that seat's pile (Twin Suns)
+                if (preg_match('/^P(\d+):(\d+)$/', trim((string)$args), $m)) {
+                    $g->playFromOpponentDiscard($player, intval($m[2]), intval($m[1]));
+                } else {
+                    $g->playFromOpponentDiscard($player, intval($args));
+                }
                 break;
+            }
 
             case 'AnswerDecision':
                 $g->answerDecision($player, $args);
@@ -1004,15 +1052,22 @@ class SchemaTestRunner {
      *   WithActivePlayer: N       — which player is the active (turn) player
      *   P1OnlyActions: true       — shorthand for WithInitiativePlayer:2 + WithInitiativeClaimed:true + WithActivePlayer:1
      *                               P2 auto-passes after every P1 action (P2 holds claimed initiative)
+     *   P{n}OnlyActions: true     — the same shorthand for ANY seat (added 2026-08-24). Only P1 existed
+     *                               before, so a four-seat section in which a FAR seat is the sole actor
+     *                               could not be written — the gap that left SHD_161's bounty defect
+     *                               unassertable. The claimed initiative goes to the lowest OTHER seat,
+     *                               so P1OnlyActions stays byte-identical (initiative → P2).
      */
     public static function applyPostSetupDirectives(array $givenLines): void {
         $given = self::_parseGiven($givenLines);
         // WithPrivateGame: true -> SimGameIsPrivateGame returns true, so undo is always free (no consent).
         // Default public (false). Reset every test so it never leaks across cases in one process.
         $GLOBALS['SWU_TEST_FORCE_PRIVATE'] = strtolower($given['WithPrivateGame'] ?? 'false') === 'true';
-        if (strtolower($given['P1OnlyActions'] ?? '') === 'true') {
-            SetInitiativeCounter('P2_CLAIMED');
-            SetTurnPlayer(1);
+        for ($oaSeat = 1; $oaSeat <= 4; ++$oaSeat) {
+            if (strtolower($given["P{$oaSeat}OnlyActions"] ?? '') !== 'true') continue;
+            $oaHolder = ($oaSeat === 1) ? 2 : 1;   // any OTHER seat; 2 for seat 1 keeps P1OnlyActions identical
+            SetInitiativeCounter("P{$oaHolder}_CLAIMED");
+            SetTurnPlayer($oaSeat);
             return;
         }
         if (isset($given['WithInitiativePlayer']) || isset($given['WithInitiativeClaimed'])) {
@@ -1306,6 +1361,48 @@ class SchemaTestRunner {
                         $failures[] = "{$line}: '{$mzWanted}' unexpectedly selectable [" . implode(',', $cands) . "]";
                 }
 
+            } elseif (preg_match('/^P(\d+)UNITACTIONS(EXACT|HAS|NOT):(.*)$/', $line, $m)) {
+                // ── THE UNIT-ACTION OFFER LIST ────────────────────────────────────────────────────────
+                // Which units $player is actually OFFERED an "Action:" on, as mzIDs in their own frame —
+                // i.e. $data['unitActions'] from SWUComputeActionsData, the same list the client uses to
+                // decide what is clickable.
+                //
+                // ⚠ ADDED 2026-08-24 to close a real blind spot. The harness's `UseUnitAbility` command
+                // calls the action DIRECTLY and never consults the offer list, so a card could be perfectly
+                // gated and still be unreachable in a live game — invisible and unclickable — with every
+                // test green. Three cards depended on that unverified path:
+                //   • LAW_156 Hunter For Hire and SHD_256 Mercenary Gunship ("Any player may use this
+                //     ability"), and
+                //   • TS26_15 C-3P0 ("Only opponents may use this ability"),
+                // all of which must be surfaced on a board the actor does NOT control ($anyPlayerUnitActions).
+                // Before this assertion existed, unregistering a card from that list failed nothing.
+                //
+                // ⚠ Like P#HANDGLOW, this reads a value that only exists while the seat is ACTIVE:
+                // SWUComputeActionsData gates on MAIN + it being $player's turn + BOTH decision queues
+                // empty. Leave no decision pending in a section that uses it, or the list is empty by
+                // construction rather than by fault.
+                $p    = intval($m[1]);
+                $kind = $m[2];
+                $want = array_values(array_filter(explode('&', $m[3]), fn($x) => $x !== ''));
+                $acts = [];
+                if (function_exists('SWUComputeActionsData')) {
+                    $d = SWUComputeActionsData($p);
+                    $acts = array_values($d['unitActions'] ?? []);
+                }
+                if ($kind === 'EXACT') {
+                    $a = $acts; $b = $want; sort($a); sort($b);
+                    if ($a !== $b)
+                        $failures[] = "{$line}: expected exactly [" . implode('&', $b) . "], got [" . implode('&', $a) . "]";
+                } elseif ($kind === 'HAS') {
+                    foreach ($want as $w)
+                        if (!in_array($w, $acts, true))
+                            $failures[] = "{$line}: unit action '{$w}' was NOT offered to P{$p} [" . implode('&', $acts) . "]";
+                } else { // NOT
+                    foreach ($want as $w)
+                        if (in_array($w, $acts, true))
+                            $failures[] = "{$line}: unit action '{$w}' was unexpectedly offered to P{$p} [" . implode('&', $acts) . "]";
+                }
+
             } elseif (preg_match('/^P(\d+)SELECTABLEEXACT:(.*)$/', $line, $m)) {
                 // The FULL exact legal-target set of a pending target-choice, order-insensitive ('&'-joined
                 // mzIDs, deciding player's frame). Asserts the exact legal-target set of a choice.
@@ -1393,8 +1490,11 @@ class SchemaTestRunner {
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected discard count {$expected}, got {$actual}";
 
-            } elseif (preg_match('/^(P[12])DISCARDUNIT:(\d+):(CARDID|MODIFIER|FROM):(.*)$/', $line, $m)) {
-                $p       = $m[1] === 'P1' ? 1 : 2;
+            // ⚠ Widened from P[12] to any seat (2026-08-21): the Twin Suns sweep needs to assert WHICH
+            // far seat's discard a card landed in — with P1/P2 only, a four-seat "who took from whom"
+            // section cannot be written at all, and counts alone do not distinguish direction.
+            } elseif (preg_match('/^P(\d+)DISCARDUNIT:(\d+):(CARDID|MODIFIER|FROM):(.*)$/', $line, $m)) {
+                $p       = intval($m[1]);
                 $idx     = intval($m[2]);
                 $field   = $m[3];
                 $expected = $m[4];

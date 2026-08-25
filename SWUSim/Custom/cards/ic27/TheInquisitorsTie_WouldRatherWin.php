@@ -24,7 +24,10 @@ $onAttackAbilities["IC27_104:0"] = function($player, $mzID) {
 
 $customDQHandlers["IC27_104#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
-    foreach ([intval($player), OtherPlayer(intval($player))] as $p) {
+    // EVERY live seat in player order — was the two-seat literal. The 4-card gate is still read per
+    // seat before any discard resolves (the offers are queued, not applied inline), so it stays
+    // simultaneous across however many seats there are.
+    foreach (SWUSeatsInPlayerOrder(intval($player)) as $p) {
         $playerID = $p;
         $handCount = 0;
         foreach (GetHand($p) as $h) if (empty($h->removed)) $handCount++;

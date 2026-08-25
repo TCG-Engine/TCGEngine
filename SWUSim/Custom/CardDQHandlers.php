@@ -161,7 +161,7 @@ function _SWUOnPlayerDrew(int $drawingPlayer, int $count): void
   }
   // SEC_159 Chairman Papanoida — "When A player draws 1+ during the action phase" (ANY player, incl.
   // the controller). Each controller of SEC_159 may disclose AggressionAggression → create a Spy token.
-  foreach ([1, 2] as $p) {
+  foreach (GetLiveSeatsArray() as $p) {
     $playerID = $p;
     foreach (GetUnitsInPlay($p) as $u) {
       if (!empty($u->removed) || ($u->CardID ?? '') !== 'SEC_159')
@@ -883,7 +883,10 @@ $customDQHandlers["FOREIGN_PILOT_PLAY_CHOICE"] = function ($player, $parts, $las
     $vehicles = SWUGetPilotValidTargets(intval($player), $cardID);
     if (!empty($vehicles)) {
       AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
-      SWUQueuePilotVehiclePick(intval($player), "theirDiscard-{$discardIdx}", $cardID, $vehicles, $opponent);
+      // Seat-correct pile mzID: the sibling site in SWUPlayFromOpponentDiscard was fixed the same way.
+      // A literal "theirDiscard-N" resolves to SEAT 2 above two seats, so the Pilot branch of the fork
+      // would attach a completely different card than the Unit branch of the same prompt.
+      SWUQueuePilotVehiclePick(intval($player), SWUForeignDiscardMzID(intval($player), $opponent, $discardIdx), $cardID, $vehicles, $opponent);
       return;
     }
     // Every Vehicle disappeared while the prompt was open — fall through to the unit play.
@@ -1191,12 +1194,23 @@ function _SWUModalResolveMode(int $player, string $cardID, string $label): void
       case 'DefeatUpgrade':                         // defeat an upgrade
         SWUQueueDefeatUpgrade($player, "Defeat_an_upgrade", may: false, max: 1, min: 1);
         return;
-      case 'OppDiscard':                            // an opponent discards a card from their hand
-        SWUDiscardCards($player, 1);
+      case 'OppDiscard': {                          // an opponent discards a card from their hand
+        // "AN opponent" — a real pick, restricted to opponents actually holding a card (auto-resolves
+        // at one, so 2-player shows no prompt). Was untargeted, i.e. OtherPlayer($player).
+        $oppd = SWUOpponentsWithCards(intval($player));
+        if (empty($oppd)) return;
+        SWUQueueChooseOpponent(intval($player), "MODAL_OPP_DISCARD", "Which_opponent_discards_a_card?", $oppd);
         return;
+      }
     }
   }
 }
+$customDQHandlers["MODAL_OPP_DISCARD"] = function($player, $parts, $lastDecision) {
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0) return;
+    SWUDiscardCards(intval($player), 1, $opp);
+};
+
 // "$targetPlayer discards one random card from their own hand" (any player — LOF_227).
 function _SWUPlayerDiscardRandom(int $targetPlayer): void
 {
@@ -1492,11 +1506,13 @@ function _SWUVermillionReveal(int $V, int $D): void
 $customDQHandlers["OZZEL_PLAY"] = function ($player, $parts, $lastDecision) {
   global $playerID, $gForceEnterReady;
   $playerID = intval($player);
-  $opp = OtherPlayer(intval($player));
   // Queue the ready-clause BUILDER first (ahead of any after-action turn swap). It computes its
   // pool at DRAIN time — after the played Imperial has seated and Ozzel's action-exhaust is
   // visible — never here (the pre-play board is stale).
-  DecisionQueueController::AddDecision($opp, "CUSTOM", "OZZEL_READY_OFFER", 1);
+  // "EACH opponent may ready a unit" — one builder per live opponent (was OtherPlayer()).
+  foreach (OpponentsOf(intval($player)) as $ozOpp) {
+    DecisionQueueController::AddDecision($ozOpp, "CUSTOM", "OZZEL_READY_OFFER", 1);
+  }
   if (SWUDecisionDeclined($lastDecision)) {
     SWUAfterAction($player);
     return;
@@ -2111,7 +2127,12 @@ function SEC017DeployBaseHitTrigger($player): void
 {
   global $playerID;
   $playerID = intval($player);
-  $cards = SWULookAtOpponentHand(intval($player));   // logs the (private) reveal + returns theirHand-N
+  // "look at THE DEFENDING PLAYER's hand" — determined by the board, so no picker. The old call passed
+  // no seat, so the helper fell back to the single opponent: above two seats Sabé read the hand of a
+  // player who was not in the combat. Passing the seat also makes the helper emit p{n}Hand-N, which is
+  // what the transport's hidden-zone reveal needs in order to show the hand at all above two seats.
+  $defSeat = SWUCurrentDefendingSeat(intval($player));
+  $cards = SWULookAtOpponentHand(intval($player), null, $defSeat);
   if (empty($cards))
     return;
   SWUQueueMayChooseTarget($player, $cards, "Discard_a_card_from_the_opponent's_hand?", "Choose_a_card", "SEC_017#2");
@@ -2323,10 +2344,13 @@ $customDQHandlers["DISCARD_FROM_OPP_HAND"] = function ($player, $parts, $lastDec
     return;
   global $playerID;
   $playerID = intval($player);
-  $obj = GetZoneObject($lastDecision);                    // theirHand-N → the opponent's hand card
+  $obj = GetZoneObject($lastDecision);                    // theirHand-N / p{n}Hand-N → the hand card
   if (SWUObjGone($obj))
     return;
-  $opp = OtherPlayer(intval($player));
+  // The discarded card's OWN mzID names the seat: "theirHand-N" at ≤2 seats, "p{n}Hand-N" above.
+  // OtherPlayer() named one seat, so above two seats the card left seat 3's hand and landed in
+  // seat 2's discard — and the log line credited the wrong player.
+  $opp = SWUMzOwner((string)$lastDecision, intval($player));
   $cardID = $obj->CardID;
   $obj->Remove();
   SWUAddToDiscard($opp, $cardID, 'HAND');
@@ -3098,7 +3122,7 @@ function _SWUShd109OfferNext(int $player): void
 function _SWURevertShd213Steals(): void
 {
   global $playerID;
-  foreach ([1, 2] as $p) {
+  foreach (GetLiveSeatsArray() as $p) {
     $ge = &GetGlobalEffects($p);
     for ($i = count($ge) - 1; $i >= 0; $i--) {
       $flag = (string) ($ge[$i]->CardID ?? '');

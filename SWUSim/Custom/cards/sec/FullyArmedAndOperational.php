@@ -43,13 +43,19 @@ $whenPlayedAbilities["SEC_194:0"] = function($player, $mzID = '') {
 // Fully Armed and Operational — If an opponent attacked your base during their
                           // previous action this phase, play a unit from your hand. Give it Ambush this phase.
             global $playerID; $playerID = intval($player);
-            $opp  = OtherPlayer(intval($player));
-            // Read the OPPONENT'S OWN last action, not the global most-recent one: "during THEIR previous
-            // action" is unaffected by anything we do in between (including the leader deploy that opens
-            // the Plot window this card can be played from). Comma-delimited (see SWUAfterAction).
-            $last = explode(',', GetSWUVar('SWU_LAST_ACTION_' . $opp, ''));
-            $cond = (count($last) >= 2 && $last[0] === 'BASEATK' && intval($last[1]) === intval($player));
-            if (!$cond) return;                                            // opponent's previous action wasn't a base attack
+            // Read each OPPONENT'S OWN last action, not the global most-recent one: "during THEIR
+            // previous action" is unaffected by anything we do in between (including the leader deploy
+            // that opens the Plot window this card can be played from). Comma-delimited (see SWUAfterAction).
+            // "IF AN opponent attacked your base" is an EXISTENTIAL CONDITION, not a target — nothing
+            // downstream needs to know WHICH opponent (the effect only touches your own hand), so this
+            // card must never prompt for a seat. OtherPlayer() asked exactly one seat, so above two seats
+            // a base attack by seat 3 or 4 simply did not count.
+            $cond = false;
+            foreach (OpponentsOf(intval($player)) as $o) {
+                $last = explode(',', GetSWUVar('SWU_LAST_ACTION_' . $o, ''));
+                if (count($last) >= 2 && $last[0] === 'BASEATK' && intval($last[1]) === intval($player)) { $cond = true; break; }
+            }
+            if (!$cond) return;                                            // no opponent's previous action was a base attack
             $targets = SWUHandPlayablesAtDiscount(intval($player), ['Unit'], 0);
             if (empty($targets)) return;                                   // nothing affordable to play
             SWUQueueChooseTarget(intval($player), $targets, "Play_a_unit_(it_gains_Ambush)", "SEC_194#0");

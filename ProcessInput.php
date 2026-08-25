@@ -15,6 +15,12 @@ include_once "./Core/ViewerIdentity.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./AccountFiles/AccountDatabaseAPI.php";
 include_once "./Database/ConnectionManager.php";
+// Match completion (via EngineActionRunner -> MatchAfterActionHook -> the submitResults hook) can
+// happen on any action request, and stats submission (SWU's SubmitMatchResults, GA's
+// GASubmitMatchResults) reads its API key from these globals. Without this include here — the only
+// place MatchAfterActionHook is actually invoked from in a live game — every real submission runs
+// with an unset key and gets rejected/silently skipped.
+include_once "./APIKeys/APIKeys.php";
 
 $processInputResponseFormat = strtolower(strval($_GET["responseFormat"] ?? ""));
 

@@ -198,3 +198,55 @@ WithP1GroundArena: [SHD_172:1:0 SHD_172:1:0]
 
 ## EXPECT
 P2BASEDMG:4
+
+---
+
+# TwinSuns_OffersONLYThePlayingSeatsBoard
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 (Pass 1, DETERMINED). Krayt names the player who PLAYED the
+#// card ("their base or a ground unit THEY control"), so no seat is ever chosen. FOUR independent causes:
+#//   (1) `GameLogic.php` built the payload "cost~count" with $playingPlayer IN SCOPE and DROPPED it,
+#//       forcing the continuation to re-derive the seat as "the reactor's opponent" — a guess.
+#//   (2) `KraytDragon.php` hand-built `'theirBase-0'`, a RELATIVE mzID resolved by a literal
+#//       `$playerID == 1 ? 2 : 1`.
+#//   (3) the unit pool was `ZoneSearch('theirGroundArena')`, which FANS OUT across every opponent in Twin
+#//       Suns, so the menu offered BYSTANDERS' units. ⚠ The sweep's inverse defect — the pool GREW, so
+#//       nothing looked broken and every existing test stayed green.
+#//   (4) the base-damage branch used `GetOpponent()`, NULL above seat 2.
+#//
+#// ⚠⚠ THE FIXTURE IS THE HARD PART, AND THE OBVIOUS ONE IS WORTHLESS. A first attempt put the Krayt on
+#// seat 3 and the PLAYING player on seat 1 — and mutations (1) and (2) BOTH still passed, because for a
+#// seat-3 frame `SWUChooseOpponent(3)` and `$playerID == 1 ? 2 : 1` BOTH answer seat 1, which was the
+#// playing player. The legacy code was right by accident, exactly like SHD_161's bounty section.
+#// So: the Krayt sits on SEAT 3 and the card is played by SEAT 4. Now the legacy answers (seat 1) and the
+#// correct answer (seat 4) are different seats, and every cause is separable.
+#//
+#// SEAT 4 (active) plays SEC_080, printed cost 2. Seat 3's Krayt reacts. The offer must be EXACTLY seat
+#// 4's base plus seat 4's ground unit; seats 1 and 2 each control a ground unit that must NOT appear.
+#// ⚠ A 2-player version CANNOT FAIL — with one opponent the reactor's opponent IS the playing player.
+#// Mutation check: each of the four causes reverted independently reds this, and all nine 2-player
+#// sections stay green.
+
+## GIVEN
+CommonSetup: rrk/rrk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 4
+WithInitiativePlayer: 4
+WithGamePhase: ActionPhase
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP3GroundArena: SHD_172:1:0
+WithP4Hand: SEC_080
+WithP4Resources: 6
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P4>PlayHand:0
+- P3>AnswerDecision:EffectStack-0
+
+## EXPECT
+SEATCOUNT:4
+P3HASDECISION
+P3SELECTABLEEXACT:p4Base-0&p4GroundArena-0

@@ -176,3 +176,40 @@ WithP2GroundArena: SOR_046:1:0
 P1NODECISION
 P2DISCARDCOUNT:1
 P2GROUNDARENAUNIT:0:READY
+
+---
+
+# TwinSuns_PickSeatThree_AndTheRiderReadsTHATSeatsDiscard
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-21. "AN opponent discards a card" was OtherPlayer(): one seat,
+#// so seats 3 and 4 could never be chosen. Worse, the "if it's a unit" rider re-derived the discarder
+#// the same way, so even a correct discard would have had its rider read the WRONG pile.
+#// P1 picks seat 3; seat 3 discards a UNIT, so the exhaust rider fires and P1 exhausts a seat-4 unit
+#// (the clause is "a unit", unqualified — any unit in play, not just the discarder's).
+#// ⚠ The discarded card and the seat both ride the continuation param. Re-deriving either is what the
+#//   old code did wrong.
+
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:6}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: JTL_201
+WithP2Hand: [SOR_095 SOR_046]
+WithP3Hand: [SOR_095 SOR_046]
+WithP4GroundArena: SOR_046:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+- P3>AnswerDecision:myHand-0
+- P1>AnswerDecision:p4GroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:1
+P3DISCARDCOUNT:1
+P2HANDCOUNT:2
+P4GROUNDARENAUNIT:0:EXHAUSTED

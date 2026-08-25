@@ -17,6 +17,12 @@ $customDQHandlers["LAW_075#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
+    // ⚠ "ITS CONTROLLER discards" — DETERMINED by the board, so there is NO choice to offer here. This
+    // is the other half of the Twin Suns classification: adding a picker would be its own bug.
+    // The seat still has to be READ rather than assumed: the untargeted call discarded from
+    // OtherPlayer($player), which at four seats is not the controller of the unit just exhausted — a
+    // seat-3 unit's exhaust made SEAT 2 discard.
+    $ctrl = intval($o->Controller ?? $o->Owner ?? 0);
     OnExhaustCard(intval($player), $lastDecision);
-    if (intval(CardCost($o->CardID ?? '')) <= 3) SWUDiscardCards(intval($player), 1);   // controller (opponent) discards
+    if ($ctrl > 0 && intval(CardCost($o->CardID ?? '')) <= 3) SWUDiscardCards(intval($player), 1, $ctrl);
 };

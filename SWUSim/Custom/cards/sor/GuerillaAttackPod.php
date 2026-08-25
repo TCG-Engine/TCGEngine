@@ -6,7 +6,7 @@
 // SOR_148 Guerilla Attack Pod — "When Played: If a base has 15 or more damage on it, ready this unit."
 $whenPlayedAbilities["SOR_148:0"] = function($player, $mzID) {
     $triggered = false;
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (GetBase($p) as $b) {
             if (!empty($b->removed)) continue;
             if (intval($b->Damage) >= 15) { $triggered = true; break 2; }

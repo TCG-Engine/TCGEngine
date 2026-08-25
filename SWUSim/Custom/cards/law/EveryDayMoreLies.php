@@ -8,7 +8,9 @@
 // sits in the caster's hand until block 10 and must be excluded).
 $whenPlayedAbilities["LAW_204:0"] = function($player, $mzID = '') {
     global $playerID;
-    foreach ([intval($player), OtherPlayer(intval($player))] as $p) {
+    // EVERY live seat in player order (caster first) — was the two-seat literal
+    // [caster, OtherPlayer(caster)], so seats 3/4 never discarded.
+    foreach (SWUSeatsInPlayerOrder(intval($player)) as $p) {
         $playerID = $p;
         $hand = array_values(ZoneSearch("myHand", null));
         // The just-played event still sits in the CASTER's hand (discarded at block 10); exclude it.

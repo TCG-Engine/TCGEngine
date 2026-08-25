@@ -102,3 +102,47 @@ P1DISCARDUNIT:0:CARDID:LAW_092
 P2DISCARDCOUNT:0
 P1CREDITCOUNT:2
 P2CREDITCOUNT:0
+
+---
+
+# TwinSuns_CasterChoosesWhoTakesTheTroig
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. OFFICIAL RULING (03/27/2026): "If there are multiple
+#// opponents, the controlling player chooses which one will be 'an opponent.'"
+#// The YES/NO comes FIRST and the seat pick second: that keeps the existing 2-player sequence
+#// byte-identical (the picker auto-resolves invisibly at one eligible opponent) and matches the printed
+#// order — the "may" is the gate, the seat is the detail.
+#// ⚠ NO $eligible filter: any live opponent can take control of a unit. LAW_149 Rey's "opponents can't
+#// take control of this unit" is a property of the UNIT and blocks every opponent equally, so it never
+#// shrinks the menu (same reasoning as LAW_002).
+#// P1 accepts and hands the Troig to SEAT 3. It must leave P1's board for SEAT 3's — not seat 2's, where
+#// the old code always sent it — and P1 gets the 2 Credits.
+#// ⚠ A 2-player version CANNOT FAIL — one opponent means no choice to get wrong.
+#// ⚠ FIXTURE: keep the existing section's byk/bgw aspects — LAW_092 is Cunning/Vigilance, and an
+#//   off-aspect deck adds a penalty that pushes cost 3 past a 3-resource pool, so the card is never played
+#//   and every assertion fails for an unrelated reason (the first attempt at this section did exactly that).
+#// Mutation check: revert to OtherPlayer() and this reds.
+
+## GIVEN
+CommonSetup: byk/bgw/{myResources:3}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1Hand: LAW_092
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P3GROUNDARENACOUNT:1
+P3GROUNDARENAUNIT:0:CARDID:LAW_092
+P1CREDITCOUNT:2

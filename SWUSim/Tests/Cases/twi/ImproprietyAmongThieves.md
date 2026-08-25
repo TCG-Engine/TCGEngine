@@ -63,3 +63,50 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
+
+---
+
+# TwinSuns_ItIsAROTATION_NotASwap
+#// ⚠ THE ADJACENCY CELL, and the sharpest structural point in the sweep: at TWO seats this card is a
+#// control SWAP, at FOUR it is a ROTATION. The same sentence, a different effect — and the old
+#// implementation had the two-seat swap hard-coded (caster ⇄ OtherPlayer) and only ever asked for TWO
+#// picks, so at four seats it was not merely incomplete, it was the wrong shape.
+#// "The player to their right" is the next live seat along SeatOrder (USER RULING 2026-08-21), so:
+#//     P1 takes P2's unit · P2 takes P3's · P3 takes P4's · P4 WRAPS and takes P1's
+#// Every seat holds a DIFFERENT unit, so the CardID each seat ends up controlling identifies the whole
+#// rotation — the only assertion that can distinguish a rotation from a swap, or a right-rotation from
+#// a left one. Under either wrong reading every line below fails.
+#// ⚠ The CASTER makes all four picks: "choose a ready non-leader unit controlled by each player" is one
+#//   instruction addressed to the resolving player, not four separate choices.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:6}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: TWI_204
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SEC_080:1:0
+WithP4GroundArena: SOR_128:1:0
+WithP1Deck: [SOR_237 SOR_237 SOR_237]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:p2GroundArena-0
+- P1>AnswerDecision:p3GroundArena-0
+- P1>AnswerDecision:p4GroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P3GROUNDARENACOUNT:1
+P3GROUNDARENAUNIT:0:CARDID:SOR_128
+P4GROUNDARENACOUNT:1
+P4GROUNDARENAUNIT:0:CARDID:SOR_095

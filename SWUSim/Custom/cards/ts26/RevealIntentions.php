@@ -3,47 +3,73 @@
 // Cost 1 - Reveal Intentions - [Cunning]
 // Text: Each player reveals their hand. / In player order, each player discards a card from the hand of the player to their right. Then, each player draws a card.
 
-// TS26_80 Reveal Intentions — the deciding player ($player) discards the chosen card from their right
-// neighbor's (opponent's) hand. The chosen mzID is "theirHand-N" relative to the decider's frame, so set
-// $playerID = decider before resolving it. Used by BOTH discards (caster's and opponent's).
+// "IN PLAYER ORDER, each player discards a card from the hand of THE PLAYER TO THEIR RIGHT."
+// Right = the next live seat along SeatOrder (USER RULING 2026-08-21, see SWUSeatToTheRight). At two
+// seats your right neighbour is simply the opponent, so Premier is unchanged.
+//
+// ⚠ SEQUENTIAL, not simultaneous: "in player order" means each seat picks against the board as it
+// stands, so an earlier discard can take the very card a later seat wanted. The walk therefore applies
+// each discard immediately and recomputes the next seat's pool (the LAW_096 shape, not the LAW_099 one).
+// ⚠ Each pick is interactive, so the remaining seats ride the continuation Param.
+
+if (!function_exists('_SWUTs26_80Ask')) {
+    function _SWUTs26_80Ask(int $caster, array $remaining): void {
+        global $playerID;
+        while (!empty($remaining)) {
+            $seat  = intval(array_shift($remaining));
+            $right = SWUSeatToTheRight($seat);
+            $playerID = $seat;                       // pool is minted in the DECIDER's frame
+            $hand = [];
+            foreach (ZoneSearch("theirHand") as $mz) {
+                if (SWUMzOwner($mz, $seat) === $right) $hand[] = $mz;   // ONLY the right neighbour's
+            }
+            if (empty($hand)) continue;              // that neighbour holds nothing
+            SWUQueueChooseTarget($seat, $hand, "Discard_a_card_from_the_hand_of_the_player_to_your_right",
+                "TS26_80#0|" . implode(',', $remaining));
+            return;
+        }
+        _SWUTs26_80Draw($caster);
+    }
+}
+
+// "Then, each player draws a card." — after every discard has resolved.
+if (!function_exists('_SWUTs26_80Draw')) {
+    function _SWUTs26_80Draw(int $caster): void {
+        foreach (SWUSeatsInPlayerOrder($caster) as $p) DoDrawCard($p, 1);
+    }
+}
+
+// The deciding player discards the chosen card from their right neighbour's hand. The mzID is minted in
+// the DECIDER's frame, so resolve it there and read the owner off the mzID rather than assuming.
 $customDQHandlers["TS26_80#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
+    $remaining = array_values(array_filter(explode(',', (string)($parts[0] ?? '')), fn($v) => $v !== ''));
     $mz = $lastDecision ?? '';
-    if ($mz === '' || $mz === '-' || $mz === 'PASS') return;
-    $obj = GetZoneObject($mz);
-    if (SWUObjGone($obj)) return;
-    $opp    = OtherPlayer(intval($player));   // hand owner = the decider's right neighbor
-    $cardID = $obj->CardID;
-    $obj->Remove();
-    SWUAddToDiscard($opp, $cardID, 'HAND');
-    DecisionQueueController::CleanupRemovedCards();
-    AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$opp}'s hand");
-};
-
-// "Then, each player draws a card." — resolves after both discards.
-$customDQHandlers["TS26_80#1"] = function($player, $parts, $lastDecision) {
-    $P = intval($parts[0] ?? 0); $O = intval($parts[1] ?? 0);
-    if ($P > 0) DoDrawCard($P, 1);
-    if ($O > 0) DoDrawCard($O, 1);
+    if ($mz !== '' && $mz !== '-' && $mz !== 'PASS') {
+        $obj = GetZoneObject($mz);
+        if (!SWUObjGone($obj)) {
+            $owner  = SWUMzOwner($mz, intval($player));
+            $cardID = $obj->CardID;
+            $obj->Remove();
+            SWUAddToDiscard($owner, $cardID, 'HAND');
+            DecisionQueueController::CleanupRemovedCards();
+            AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$owner}'s hand");
+        }
+    }
+    _SWUTs26_80Ask(intval($player), $remaining);
 };
 
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["TS26_80:0"] = function($player, $mzID = '') {
     global $playerID; $savedPID = $playerID;
-    $P = intval($player); $O = OtherPlayer($P);
-    // "Each player reveals their hand" — public reveal.
-    foreach ([$P, $O] as $rp) {
+    $P = intval($player);
+    // "Each player reveals their hand" — public, every live seat (was the caster + OtherPlayer only).
+    foreach (SWUSeatsInPlayerOrder($P) as $rp) {
         $refs = [];
         foreach (GetHand($rp) as $c) { if (empty($c->removed)) $refs[] = GameLogCardRef($c->CardID); }
         AddGameLogEntry('REVEAL', "P{$rp} revealed their hand: " . (empty($refs) ? '(empty)' : implode(', ', $refs)), 'ALL');
         if (!empty($refs) && function_exists('_SWUSec016React')) _SWUSec016React($rp);
     }
-    $playerID = $P;
-    $oHand = ZoneSearch("theirHand");
-    if (!empty($oHand)) SWUQueueChooseTarget($P, $oHand, "Discard_a_card_from_the_opponent's_hand", "TS26_80#0");
-    $playerID = $O;
-    $pHand = ZoneSearch("theirHand");
-    if (!empty($pHand)) SWUQueueChooseTarget($O, $pHand, "Discard_a_card_from_the_opponent's_hand", "TS26_80#0");
     $playerID = $savedPID;
-    DecisionQueueController::AddDecision($P, "CUSTOM", "TS26_80#1|{$P}|{$O}", 1);
+    _SWUTs26_80Ask($P, SWUSeatsInPlayerOrder($P));
 };

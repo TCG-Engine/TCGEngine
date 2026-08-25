@@ -90,3 +90,44 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080 SEC_080 SEC_080]
 P2DISCARDCOUNT:3
 P2DECKCOUNT:3
 P1GROUNDARENAUNIT:1:EXHAUSTED
+
+---
+
+# TwinSuns_MillsTheCHOSENSeat_AndTheActionStillCloses
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24, and the card the classifier LIED about.
+#// ⚠⚠ Satine's GRANT half is seat-aware (_SWUSatineInPlay, GameLogic.php) while the MILL half was not —
+#// two halves in DIFFERENT FILES, so the sweep's "uses a seat-aware helper ⇒ CONSIDERED" rule read this
+#// card as clean. Apply that rule PER CLAUSE, never per file.
+#// ⚠⚠ The Action is SYNCHRONOUS and used to end in SWUAfterAction() inline. Inserting a picker without
+#// switching to SWUQueueAfterAction() would CLOSE THE ACTION BEFORE THE MILL RESOLVES — the after-action
+#// must now trail the picker in the queue. The amount is also FROZEN into the Param, because it is read
+#// off the unit's live HP and the unit can be damaged or defeated while the pick is open.
+#// P1's SEC_080 (HP 4, undamaged) activates for ceil(4/2) = 2, aimed at SEAT 3. Seats 2 and 4 untouched.
+#// ⚠ FILTER to opponents with a non-empty deck — milling an empty deck does nothing.
+#// Mutation check: revert to OtherPlayer() and this reds; revert SWUQueueAfterAction to SWUAfterAction
+#// and the mill never lands.
+
+## GIVEN
+CommonSetup: gbw/rrk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1GroundArena: [TWI_047:1:0 SEC_080:1:0]
+WithP2Deck: [SOR_095 SOR_046 SEC_080 SOR_141]
+WithP3Deck: [SOR_095 SOR_046 SEC_080 SOR_141]
+WithP4Deck: [SOR_095 SOR_046 SEC_080 SOR_141]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-1
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P3DECKCOUNT:2
+P2DECKCOUNT:4
+P4DECKCOUNT:4

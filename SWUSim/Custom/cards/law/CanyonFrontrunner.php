@@ -8,7 +8,7 @@
 $onAttackAbilities["LAW_228:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $attackers = 0;
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         foreach (GetGlobalEffects($p) as $ge) {
             if (preg_match('/^SWU_ATTACKED_\d+$/', (string)($ge->CardID ?? ''))) $attackers++;
         }

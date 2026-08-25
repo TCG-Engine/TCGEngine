@@ -114,3 +114,49 @@ P2GROUNDARENAUNIT:0:NOTLEADERUNIT
 P2GROUNDARENAUNIT:1:ISLEADERUNIT
 P1HASDECISION
 P1SELECTABLEEXACT:theirGroundArena-0&theirSpaceArena-0
+
+---
+
+# TwinSuns_OfferIsONLYTheDefendingSeatsUnits
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-23 during the "an opponent" sweep (Pass 0 seam 1).
+#// "a non-leader unit THE DEFENDING PLAYER controls" names ONE seat. Two independent bugs above two
+#// seats, and they point in OPPOSITE directions:
+#//   (a) the OFFER was too WIDE — ZoneSearch('their…') fans out across every live opponent in Twin Suns,
+#//       so P1 was offered seat 2's and seat 4's units while attacking seat 3. The pool GREW, so nothing
+#//       looked broken and every 2-player section stayed green.
+#//   (b) the indirect damage went to OtherPlayer($player) = seat 2 — a player not in the combat at all
+#//       (and seat 1 for any far-seat attacker).
+#// Root cause of both: CollectCombatStep1Triggers hands On-Attack triggers the ATTACKER's mzID and never
+#// the defender's, so the handler could not learn who was defending. Fixed by publishing
+#// SWU_CURRENT_DEFENDING_SEAT at attack declaration (read via SWUCurrentDefendingSeat()).
+#// Here P1's cannon-equipped frigate attacks SEAT 3's base. Seats 2 and 4 each hold a non-leader unit
+#// that MUST NOT be offered; only seat 3's ground trooper and space fighter may be.
+#// ⚠ A 2-player version CANNOT FAIL — with one opponent, "their*" IS the defending seat and
+#//   OtherPlayer() is the right answer. The seat count IS the test, and the defender must be a FAR seat.
+#// Mutation check: revert the offer to the plain their* union and this reds on the extra p2/p4 entries,
+#// while all four 2-player sections above stay green. That asymmetry is the proof.
+
+## GIVEN
+CommonSetup: bbk/bbk/{}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1SpaceArena: JTL_069:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_227
+WithP2GroundArena: SOR_128:1:0
+WithP3GroundArena: SOR_128:1:0
+WithP3SpaceArena: SOR_225:1:0
+WithP4GroundArena: SOR_128:1:0
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+
+## WHEN
+- P1>AttackSpaceArena:0:P3B
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1SELECTABLEEXACT:p3GroundArena-0&p3SpaceArena-0

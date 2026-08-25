@@ -40,3 +40,39 @@ WithP2Hand: SOR_095
 P1HANDCOUNT:1
 P2HANDCOUNT:0
 P2DISCARDCOUNT:1
+
+---
+
+# TwinSuns_OnlyTheOpponentsWithMoreResourcesDiscard
+#// ⚠ THE SEAT-COUNT CELL, and the sharpest shape in the "each opponent" family: the clause carries a
+#// PER-SEAT TEST — "each opponent WHO CONTROLS MORE RESOURCES THAN YOU". The old code read
+#// OtherPlayer(), compared that one seat, and discarded once.
+#// Here P1 has 4 resources; seat 2 has 6 (qualifies), seat 3 has 2 (does NOT), seat 4 has 7 (qualifies).
+#// So exactly two of the three opponents discard — which is what separates "loop the seats" from "loop
+#// the seats but test the wrong one", and a version where every opponent qualifies could not.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:4; theirResources:6}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: SHD_156
+WithP2Hand: [SOR_095 SOR_046]
+WithP3Hand: [SOR_095 SOR_046]
+WithP4Hand: [SOR_095 SOR_046]
+WithP3Resources: 2
+WithP4Resources: 7
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:myHand-0
+- P4>AnswerDecision:myHand-0
+
+## EXPECT
+SEATCOUNT:4
+P2HANDCOUNT:1
+P3HANDCOUNT:2
+P4HANDCOUNT:1

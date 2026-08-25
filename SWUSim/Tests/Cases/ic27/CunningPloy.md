@@ -178,3 +178,44 @@ P2SPACEARENAUNIT:0:EXHAUSTED
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:READY
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# TwinSuns_LooksAtTheCHOSENSeatsHand
+#// ⚠ THE SEAT-COUNT CELL — added 2026-08-24. Clause 1: "Look at AN OPPONENT's hand. You may discard a
+#// card from it. If you do, that player draws a card."
+#// ⚠⚠ PREVIEW-SET ASSUMPTION, FLAGGED: IC27 is NOT in card-specific-rulings.md (released sets only). The
+#// reading comes from the exact released analogue SHD_184 Bazine Netal, which prints the clause word for
+#// word and carries the "controlling player chooses" ruling. Re-check when IC27 releases.
+#// ⚠ FILTER to opponents holding a card. On zero eligible the card must still fall through to CLAUSE 2
+#//   (the exhaust), not fizzle entirely — that path is preserved by the early Ic27168ExhaustEnemy call.
+#// SEAT 3 is picked; P1 discards from seat 3 and SEAT 3 draws. Seat 2 untouched.
+#// Mutation check: drop the $opp argument to SWULookAtOpponentHand and this reds.
+
+## GIVEN
+CommonSetup: yyw/yyw/{myResources:4;myhandCardIds:IC27_168}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_225:1:0
+WithP2Hand: [SOR_046 SOR_237]
+WithP3Hand: [SOR_046 SOR_237]
+WithP3Deck: [SEC_080 SEC_080]
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:p3Hand-0
+
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:2
+P3DISCARDCOUNT:1
+P2HANDCOUNT:2
+P2DISCARDCOUNT:0

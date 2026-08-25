@@ -5,7 +5,10 @@
 
 $customDQHandlers["LAW_066#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    $opp = intval($parts[0] ?? OtherPlayer(intval($player)));
+    // ⚠ NO ?: FALLBACK. The seat always rides the Param now; a missing one is a NO-OP, never a guess
+    // (§5 defect class 3 — a fallback that invents a seat is the bug, not the safety net).
+    $opp = intval($parts[0] ?? 0);
+    if ($opp <= 0 || $opp === intval($player)) return;
     if (SWUDecisionDeclined($lastDecision)) return; // declined → no play, no refill
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
@@ -25,7 +28,10 @@ $customDQHandlers["LAW_066#0"] = function($player, $parts, $lastDecision) {
 
 $customDQHandlers["LAW_066#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    $opp    = intval($parts[0] ?? OtherPlayer(intval($player)));
+    // ⚠ NO ?: FALLBACK. The seat always rides the Param now; a missing one is a NO-OP, never a guess
+    // (§5 defect class 3 — a fallback that invents a seat is the bug, not the safety net).
+    $opp    = intval($parts[0] ?? 0);
+    if ($opp <= 0 || $opp === intval($player)) return;
     $resMz  = $parts[1] ?? '';
     $cardID = $parts[2] ?? '';
     if (SWUDecisionDeclined($lastDecision)) return;
@@ -62,13 +68,35 @@ $whenPlayedAbilities["LAW_066:0"] = function($player, $mzID = '') {
                           // their deck." The look-at is the theirResources MZMAYCHOOSE (GetNextTurn reveals
                           // those resources to the chooser while it's pending). Offer only PLAYABLE cards
                           // (skip Credit tokens; an upgrade only if a valid host exists).
+            // "Look at all of AN OPPONENT's resources…" — the caster picks whose. Auto-resolves invisibly
+            // at one eligible (I1). ⚠ FILTER to opponents who HAVE a resource: an empty resource row has
+            // nothing to look at and nothing to play, so it is a choice among nothing.
+            // ⚠ The pick must come FIRST — the look, the offer and the "that opponent resources the top
+            // card of their deck" refill all hang off the SAME named seat.
             global $playerID; $playerID = intval($player);
-            $opp = OtherPlayer(intval($player));
-            $allRes = ZoneSearch("theirResources", null);
+            $eligible = [];
+            foreach (OpponentsOf(intval($player)) as $o) {
+                foreach (GetResources($o) as $r) { if (empty($r->removed)) { $eligible[] = $o; break; } }
+            }
+            if (empty($eligible)) return;
+            SWUQueueChooseOpponent(intval($player), 'LAW_066#2',
+                "Choose_an_opponent_whose_resources_to_look_at", $eligible);
+            return;
+};
+
+$customDQHandlers["LAW_066#2"] = function($player, $parts, $lastDecision) {
+            global $playerID; $playerID = intval($player);
+            $opp = SWUPickedOpponent($lastDecision);
+            if ($opp <= 0 || $opp === intval($player)) return;
+            // Scope the pool to THE CHOSEN seat. ZoneSearch("theirResources") fans out across every
+            // opponent above two seats, so the caster could look at seat 3's row and play seat 4's card.
+            $allRes = (SeatCountForGame() > 2)
+                ? ZoneSearch("p{$opp}Resources", null)
+                : ZoneSearch("theirResources", null);
             // "Look at ALL of an opponent's resources" — log the (non-Credit) resources looked at, so it's
             // scrollable later. Credit tokens are already public, so they're excluded from the reveal log.
             SWULogResourceReveal(intval($player), array_values(array_filter($allRes,
-                fn($mz) => !SWUIsCreditToken(GetZoneObject($mz)->CardID ?? ''))));
+                fn($mz) => !SWUIsCreditToken(GetZoneObject($mz)->CardID ?? ''))), $opp);
             $offer = [];
             foreach ($allRes as $mz) {
                 $o = GetZoneObject($mz);

@@ -8,7 +8,7 @@
 $whenDefeatedAbilities["SHD_157:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $count = 0;
-    foreach ([1, 2] as $p) {
+    foreach (GetLiveSeatsArray() as $p) {
         $base = GetBase($p);
         if (count($base) > 0 && intval($base[0]->Damage ?? 0) >= 15) $count++;
     }

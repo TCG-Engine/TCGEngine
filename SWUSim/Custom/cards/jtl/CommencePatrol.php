@@ -43,8 +43,13 @@ $whenPlayedAbilities["JTL_205:0"] = function($player, $mzID = '') {
                 break;                                   // only the most recently added live entry
             }
             for ($i = 0; $i < count($myD); $i++) { if ($i !== $selfIdx && $myD[$i] !== null && empty($myD[$i]->removed)) $targets[] = "myDiscard-{$i}"; }
-            $thD = GetDiscard(GetOpponent(intval($player)));
-            for ($i = 0; $i < count($thD); $i++) { if ($thD[$i] !== null && empty($thD[$i]->removed)) $targets[] = "theirDiscard-{$i}"; }
+            // Was GetOpponent() — NULL above seat 2, so a far-seat caster was offered NO enemy discard
+            // at all — plus a literal "theirDiscard-N" that named seat 2 regardless. "a discarded card"
+            // is unqualified, so it spans every live opponent's pile.
+            foreach (OpponentsOf(intval($player)) as $opp) {
+                $thD = GetDiscard($opp);
+                for ($i = 0; $i < count($thD); $i++) { if ($thD[$i] !== null && empty($thD[$i]->removed)) $targets[] = SWUForeignMzID(intval($player), $opp, 'Discard', $i); }
+            }
             if (empty($targets)) return;
             SWUQueueMayChooseTarget(intval($player), $targets,
                 "Put_a_discarded_card_on_the_bottom_of_its_owner's_deck",

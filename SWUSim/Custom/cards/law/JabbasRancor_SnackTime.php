@@ -6,12 +6,33 @@
 // LAW_216 Jabba's Rancor — Hidden + On Attack: an opponent chooses a ground unit they control; you may
 // deal 7 damage to that unit. Routed through an intermediate CUSTOM (OnAttack $playerID-restore).
 $onAttackAbilities["LAW_216:0"] = function($player, $mzID) {
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_216#0|" . OtherPlayer(intval($player)), 1);
+    global $playerID; $playerID = intval($player);
+    // "AN opponent chooses a ground unit THEY control" — the caster picks WHICH opponent, then that
+    // opponent picks the unit. Auto-resolves to an invisible PASSPARAMETER at one eligible opponent, so
+    // Premier is byte-identical (I1).
+    // ⚠ ELIGIBILITY IS A REAL FILTER HERE, and it is GROUND-ONLY. An opponent whose whole board is in
+    // the SPACE arena cannot make the choice the card demands, so their pick would be a choice among
+    // nothing — they must not appear on the menu. (Contrast TS26_43/TWI_222, where an opponent who
+    // "can't be affected" is the caster's BEST target and must stay eligible. The difference is whether
+    // the chosen player is being asked to DO something or having something done to them.)
+    $eligible = [];
+    foreach (OpponentsOf(intval($player)) as $o) {
+        $sp = $playerID; $playerID = $o;
+        $g = ZoneSearch("myGroundArena", AnyUnitFilter);
+        $playerID = $sp;
+        if (!empty($g)) $eligible[] = $o;
+    }
+    if (empty($eligible)) return;                  // nobody can choose ⇒ no offer at all
+    SWUQueueChooseOpponent(intval($player), "LAW_216#0",
+        "Choose_an_opponent_to_pick_a_ground_unit", $eligible);
 };
 
 $customDQHandlers["LAW_216#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
-    $opp = intval($parts[0] ?? OtherPlayer(intval($player)));
+    // The picked seat arrives in $lastDecision as "P{n}". It was previously threaded in as $parts[0]
+    // from a bare OtherPlayer() at queue time — one seat, chosen by nobody.
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === intval($player)) return;
     $playerID = $opp;
     $oppGround = ZoneSearch("myGroundArena", AnyUnitFilter);   // opp's ground (their-frame: my…)
     if (empty($oppGround)) { $playerID = intval($player); return; }
