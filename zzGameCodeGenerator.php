@@ -2340,16 +2340,13 @@ function AddWriteGamestate() {
   }
   $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"SimGameWriteGamestateCache\")) {\r\n";
   $writeGamestate .= "    SimGameWriteGamestateCache('" . $rootName . "', \$gameName, \$gamestateText);\r\n";
-  if($rootName === 'SWUSim') {
-    // Phase 0: durable write-through (SWUSim is apcu-mode; always persist a file copy so games + matches
-    // survive APCu eviction / FPM restart — ParseGamestate falls back to this file).
-    $writeGamestate .= "  }\r\n";
-    $writeGamestate .= "  file_put_contents(\$filename, \$gamestateText);\r\n";
-  } else {
-    $writeGamestate .= "  } else {\r\n";
-    $writeGamestate .= "    file_put_contents(\$filename, \$gamestateText);\r\n";
-    $writeGamestate .= "  }\r\n";
-  }
+  $writeGamestate .= "  }\r\n";
+  // Durable write-through for EVERY root, not just SWUSim: in apcu mode the cache is an accelerator,
+  // but the file is the durable copy. A root that never writes the file (e.g. running in a CLI test
+  // harness where apcu_store is unavailable) would otherwise persist NOTHING, so every action re-read
+  // the stale initial state and multi-step flows (attacks, transforms) silently fizzled. ParseGamestate
+  // already falls back to this file when the cache misses, so writing both keeps the two sides consistent.
+  $writeGamestate .= "  file_put_contents(\$filename, \$gamestateText);\r\n";
   return $writeGamestate;
 }
 

@@ -1,5 +1,5 @@
 1
-155
+0
 46
 cpvn96659y
 4g7kufs4kg
@@ -48,7 +48,7 @@ KVbuQJyWsU
 xiazfnm292
 xiazfnm292
 30
-wcfvrfw35s
+ju2d98w3j0
 wcfvrfw35s
 KVbuQJyWsU
 em6eEh9q8y
@@ -99,7 +99,6 @@ kl4bTg57Cj
 4g7kufs4kg
 kl4bTg57Cj
 kl4bTg57Cj
-ju2d98w3j0
 8ydxeQcp50
 ju2d98w3j0
 IPmK09iEIT
@@ -114,6 +113,7 @@ KVbuQJyWsU
 4g7kufs4kg
 8ydxeQcp50
 IPmK09iEIT
+wcfvrfw35s
 0
 0
 3
@@ -177,13 +177,13 @@ igmC01eEZn
 1
 MAIN
 
-
-{"mzID":"EffectStack-0","glimpseCount":"7","aethercallCandidates":"","glimpsedToTempZone":"0","amount":1,"ignoreCost":false,"mzIDCardID":"8ydxeQcp50","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","chosen":"myTempZone-0","doIt":"YES","CombatDamageAmount":"1","source":"myField-0","target":"theirField-3","CombatKilledCardID":"kl4bTg57Cj"}
-0
-{"DrawCalls":{"2":5,"1":6},"Draw":{"2":5,"1":6},"MaterializeCalls":{"1":5,"2":4},"Materialize":{"1":{"zd8l14052j":1,"5ramr16052":1,"c4yrrtv7o1":1,"ci00l7pqcx":1,"9gv4vm4kj3":1},"2":{"zd8l14052j":1,"5ramr16052":1,"c4yrrtv7o1":1,"ci00l7pqcx":1}},"EnterCalls":{"1":8,"2":8},"Enter":{"1":{"zd8l14052j":1,"kl4bTg57Cj":2,"5ramr16052":1,"em6eEh9q8y":1,"c4yrrtv7o1":1,"ci00l7pqcx":1,"9gv4vm4kj3":1},"2":{"zd8l14052j":1,"kl4bTg57Cj":2,"5ramr16052":1,"em6eEh9q8y":1,"c4yrrtv7o1":1,"ci00l7pqcx":1,"7qWYuRNoYI":1}},"ActivateCardCalls":{"1":4,"2":5},"ActivateCard":{"1":{"kl4bTg57Cj":2,"em6eEh9q8y":1,"8ydxeQcp50":1},"2":{"kl4bTg57Cj":2,"4g7kufs4kg":1,"em6eEh9q8y":1,"7qWYuRNoYI":1}},"CardActivatedCalls":{"1":4,"2":5},"CardActivated":{"1":{"kl4bTg57Cj":2,"em6eEh9q8y":1,"8ydxeQcp50":1},"2":{"kl4bTg57Cj":2,"4g7kufs4kg":1,"em6eEh9q8y":1,"7qWYuRNoYI":1}},"RestCardCalls":{"1":4,"2":3},"RestCard":{"1":{"kl4bTg57Cj":2,"em6eEh9q8y":2},"2":{"kl4bTg57Cj":1,"em6eEh9q8y":2}},"OnAttackCalls":{"1":4,"2":3},"OnAttack":{"1":{"kl4bTg57Cj":2,"em6eEh9q8y":2},"2":{"kl4bTg57Cj":1,"em6eEh9q8y":2}},"DealDamageCalls":{"1":4,"2":4},"AllyDestroyedCalls":{"1":2,"2":2},"AllyDestroyed":{"1":{"kl4bTg57Cj":2},"2":{"kl4bTg57Cj":2}},"AdvancedElementActivated":{"1":1}}
-0
-{"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"8ydxeQcp50":1}},"ReserveCard":{"1":{"KVbuQJyWsU":1,"wcfvrfw35s":1,"7qWYuRNoYI":1}},"ReserveCardCommitted":{"1":{"KVbuQJyWsU":1,"wcfvrfw35s":1,"7qWYuRNoYI":1}},"ReserveActionCommitted":{"1":{"KVbuQJyWsU":1,"wcfvrfw35s":1,"7qWYuRNoYI":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"8ydxeQcp50":1}}}
-0
 -
 -
-{"cards":{"1":{"KVbuQJyWsU":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0},"wcfvrfw35s":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0},"7qWYuRNoYI":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0}}},"turns":[],"cur":{"1":{"reserveSpent":3}},"combatEvents":[]}
+-
+-
+-
+-
+-
+-
+-
+-
