@@ -8,7 +8,5 @@ $whenDefeatedAbilities["LOF_213:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $enemies = SWUAllUnits('their');
     if (empty($enemies)) return;
-    DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", "6|" . implode('&', $enemies), 1,
-        tooltip: "Deal_6_damage_divided_among_enemy_units");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SPLIT_DAMAGE", 1);
+    SWUOfferSplitDamage(intval($player), 6, $enemies, "Deal_6_damage_divided_among_enemy_units");
 };

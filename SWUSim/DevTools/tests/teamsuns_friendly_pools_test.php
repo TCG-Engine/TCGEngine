@@ -143,4 +143,53 @@ check(SWUAspectPenalty(1, 'SOR_095') === SWUAspectPenalty(1, 'SOR_095'), 'P1 pen
 $penalty3 = SWUAspectPenalty(3, 'JTL_013');
 check($penalty3 > 0, 'P3 still pays a penalty for an Aggression/Heroism card — it did not inherit Poe');
 
+
+// ── SWUFriendlyUnitObjects — the OBJECT-returning sibling of GetUnitsInPlay ───────────────────────
+// The Phase 3 sweep converted everything flowing through ZoneSearch, but GetUnitsInPlay is a PER-SEAT
+// ACCESSOR, so 17 cards counting "each friendly X" that way were structurally out of its reach and
+// stayed self-only. This helper is what they were converted onto (audit 2026-08-26).
+//
+// The load-bearing invariant: GetUnitsInPlay itself NEVER changes meaning. It stays self-only, which is
+// what keeps "you control" text (Coordinate, Exploit, HMW_014 Wicket's deployed side) correct for free.
+InitializeGamestate();
+SetSeatOrder('1234'); SetLiveSeats('1234');
+AddGlobalEffects(1, 'SWU_MODE_TEAMS');
+seedBoard([1, 2, 3, 4]);
+$playerID = 1;
+
+check(count(GetUnitsInPlay(1)) === 1, 'GetUnitsInPlay is still SELF-ONLY (the "you control" reading)');
+check(count(SWUFriendlyUnitObjects(1)) === 2, 'SWUFriendlyUnitObjects spans seat 1 and its teammate seat 3');
+
+// It must be the TEAMMATE specifically, not "any two units" — assert WHOSE.
+$ctrls = array_map(fn($u) => intval($u->Controller ?? 0), SWUFriendlyUnitObjects(1));
+sort($ctrls);
+check($ctrls === [1, 3], 'the friendly pool is exactly seats 1 and 3 (not an opponent)');
+
+$ctrls3 = array_map(fn($u) => intval($u->Controller ?? 0), SWUFriendlyUnitObjects(3));
+sort($ctrls3);
+check($ctrls3 === [1, 3], 'seat 3 sees the mirror image: itself plus seat 1');
+
+$ctrls2 = array_map(fn($u) => intval($u->Controller ?? 0), SWUFriendlyUnitObjects(2));
+sort($ctrls2);
+check($ctrls2 === [2, 4], 'the BLUE team is a separate pool (seats 2 and 4)');
+
+// An ELIMINATED teammate drops out — live seats, not seat order.
+SetLiveSeats('124');
+check(count(SWUFriendlyUnitObjects(1)) === 1, 'an eliminated teammate leaves the friendly pool');
+SetLiveSeats('1234');
+
+// ── Outside a team game it is byte-identically GetUnitsInPlay ────────────────────────────────────
+InitializeGamestate();
+SetSeatOrder('1234'); SetLiveSeats('1234');
+seedBoard([1, 2, 3, 4]);
+$playerID = 1;
+check(SWUFriendlyUnitObjects(1) == GetUnitsInPlay(1),
+      'Twin Suns (no teams): identical to GetUnitsInPlay — seat 3 is just another opponent');
+
+InitializeGamestate();
+seedBoard([1, 2]);
+$playerID = 1;
+check(SWUFriendlyUnitObjects(1) == GetUnitsInPlay(1), '2-player: identical to GetUnitsInPlay (Premier unchanged)');
+check(count(SWUFriendlyUnitObjects(1)) === 1, '2-player: still just your own unit');
+
 echo "PASS\n";

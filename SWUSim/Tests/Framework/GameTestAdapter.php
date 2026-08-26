@@ -338,6 +338,19 @@ class GameTestAdapter {
         $saved = $playerID;
         $playerID = $player;
         ob_start();
+        // ⚠ KNOWN GAP (investigated 2026-08-26, deliberately NOT closed): this calls SWUPassAction
+        // directly, so it does NOT apply CustomWidgetInput's "myHealth" gate — the real client refuses a
+        // pass while any seat has a pending decision ("Cannot pass while decisions are pending.").
+        //
+        // Adding that check here is NOT correct as-is: production drains STATIC entries (CUSTOM /
+        // PASSPARAMETER) between requests via ProcessGoldfishAutomation, so by the time a human can click
+        // Pass the queues are clean. This adapter does not model that inter-request drain, so a plain
+        // phase advance — `P1>Pass` then `P2>Pass` — still has P1's statics sitting there and a naive
+        // AllQueuesEmpty() gate rejects it. Measured: 38 sections across ~15 files break that way, and
+        // essentially all of them are legitimate "expires next phase / next round" advances, NOT abuses.
+        //
+        // Closing this properly means teaching the harness production's inter-request static drain, then
+        // gating on what REMAINS. Until then: the harness is more permissive than the game on Pass.
         SWUPassAction($player);
         $this->_drainDQ($player);
         ob_end_clean();

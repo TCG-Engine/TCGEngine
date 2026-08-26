@@ -7,10 +7,9 @@
 $onAttackAbilities["SEC_225:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $n = 0;
-    foreach (GetUnitsInPlay(intval($player)) as $u) { if (empty($u->removed)) $n++; }
-    $res = &GetResources(intval($player));
-    $readied = 0;
-    for ($i = 0; $i < count($res) && $readied < $n; $i++) {
-        if (empty($res[$i]->removed) && intval($res[$i]->Status ?? 0) === 0) { $res[$i]->Status = 1; $readied++; }
-    }
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) { if (empty($u->removed)) $n++; }
+    // "ready a FRIENDLY resource" — team-wide, and the player picks the split (USER RULING 2026-08-26).
+    // Falls through to the old self-only behaviour whenever there is no teammate pool, so Premier and
+    // Twin Suns are unchanged.
+    SWUReadyFriendlyResources(intval($player), $n);
 };

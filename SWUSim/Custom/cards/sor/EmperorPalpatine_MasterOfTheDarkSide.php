@@ -11,6 +11,5 @@ $whenPlayedAbilities["SOR_135:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $targets = SWUAllUnits('their');
     if (empty($targets)) return;   // no enemy units → fizzle
-    DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", "6|" . implode("&", $targets), 1, tooltip:"Divide_6_damage_among_enemy_units");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SPLIT_DAMAGE", 1);
+    SWUOfferSplitDamage(intval($player), 6, $targets, "Divide_6_damage_among_enemy_units");
 };

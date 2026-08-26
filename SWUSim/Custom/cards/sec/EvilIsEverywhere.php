@@ -9,7 +9,7 @@ $whenPlayedAbilities["SEC_247:0"] = function($player, $mzID = '') {
                           // icons among friendly units."
             global $playerID; $playerID = intval($player);
             $vill = 0;
-            foreach (GetUnitsInPlay(intval($player)) as $u) {
+            foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
                 if (!empty($u->removed)) continue;
                 foreach (SWUCardAspectIcons($u->CardID ?? '') as $ic) if ($ic === 'Villainy') $vill++;
             }

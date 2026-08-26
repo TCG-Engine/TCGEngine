@@ -8,7 +8,9 @@
 $whenPlayedAbilities["SOR_197:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $resources = array_values(ZoneSearch('myResources'));
+    // "a FRIENDLY resource" spans the TEAM (user ruling 2026-08-26); the p{n} mzIDs a teammate's
+    // resources come back as are what makes the transport REVEAL them instead of showing card backs.
+    $resources = array_values(SWUFriendlyResourceMzIDs(intval($player)));
     if (empty($resources)) return;
     $targetStr = implode('&', $resources);
     DecisionQueueController::AddDecision(intval($player), 'MZMULTICHOOSE', "0|2|{$targetStr}", 1,

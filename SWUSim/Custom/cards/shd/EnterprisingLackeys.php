@@ -9,7 +9,9 @@
 // resources: pick = pay + ramp, pass = stays in discard.
 $whenDefeatedAbilities["SHD_107:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $res = ZoneSearch('myResources');
+    // "a FRIENDLY resource" spans the TEAM (user ruling 2026-08-26); the p{n} mzIDs a teammate's
+    // resources come back as are what makes the transport REVEAL them instead of showing card backs.
+    $res = SWUFriendlyResourceMzIDs(intval($player));
     SWUQueueMayChooseTarget(intval($player), $res,
         "Defeat_a_friendly_resource_to_put_this_into_play_as_a_resource?",
         "Defeat_a_friendly_resource_to_put_this_into_play_as_a_resource?", "SHD_107#0");

@@ -12,7 +12,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174
 
 <!-- HMW_011 Darth Sidious — Done, 12/12 including Twin Suns. Carries the engine's first
      "when you deal 4+ damage" observer, wired into all five damage funnels.
@@ -414,10 +414,30 @@ covered the cards previewed when they were written, and a preview set GROWS. The
 
 ## Status
 
-**Card-complete as of 2026-08-25 — 95 of 95.** `CardMocks.php` holds **95** HMW CardIDs (93 numbered
-+ 2 tokens) and the `### Already Done` diff is EMPTY. The 2026-08-24/25 wave closed the last eight:
-HMW_268 (vanilla no-op), HMW_018 The Warrior, HMW_180 Stormchaser, HMW_230 Raiding Party,
-HMW_222 Sandcrawler Sales Team, HMW_221 Teeka, HMW_240 Sandstorm, HMW_212 The Chieftain.
+**NOT card-complete — a NINTH preview wave landed.** `CardMocks.php` now holds **103** HMW CardIDs, and
+the `### Already Done` diff (run 2026-08-26) named THREE unimplemented cards, ALL NOW DONE:
+**HMW_088 Numa, HMW_265 Twi'lek Kalikori, HMW_185 Ty Yorrick.**
+
+**The tenth wave is CLOSED too — all five done 2026-08-26 — and so is an ELEVENTH (HMW_174, vanilla).**
+⚠ `CardMocks.php` was rewritten THREE separate times during the 2026-08-26 session (103 → 108 → 109
+HMW CardIDs). Re-derive the diff at the END of a run as well as the start; a list derived once is stale
+by the time it is finished.
+
+⚠⚠ **A TENTH WAVE LANDED WHILE THAT WORK WAS IN FLIGHT.** `CardMocks.php` was rewritten mid-session
+(103 → **108** HMW CardIDs) and the re-run diff names FIVE more unimplemented cards:
+**HMW_036 Kelnacca (Solitary Master), HMW_038 Bestial Bond, HMW_102 Dragon's Might,
+HMW_145 Origin Tree Shyyyo, HMW_201 Sandtrooper Squad.** All five are already in the generated
+dictionaries. **ALL FIVE ARE DONE** (HMW_201 verify-only; HMW_102, HMW_038, HMW_036, HMW_145 implemented). HMW is **NOT card-complete.**
+The reusable lesson: on a preview set, re-derive the diff at the END of a run as well as the start —
+the card pool can grow *during* the session, so a list derived once is stale by the time it is finished. The batch checkboxes below are ALL ticked
+and were ticked while these three did not exist — which is exactly why the checkboxes are not the
+oracle. Re-run the diff before making any completeness claim.
+
+**(historical, 2026-08-25 — card-complete at the EIGHTH wave, 95 of 95.)** `CardMocks.php` then held
+**95** HMW CardIDs (93 numbered + 2 tokens) and the `### Already Done` diff was EMPTY. The 2026-08-24/25
+wave closed the last eight: HMW_268 (vanilla no-op), HMW_018 The Warrior, HMW_180 Stormchaser,
+HMW_230 Raiding Party, HMW_222 Sandcrawler Sales Team, HMW_221 Teeka, HMW_240 Sandstorm,
+HMW_212 The Chieftain.
 ⚠ This number is true only until the next preview wave lands — **re-derive it with the diff**
 (`### Already Done` vs `grep -oE "'HMW_[0-9T]+'" AppCore/SWU/CardMocks.php`), never by reading a Status
 line or counting batches. Every "card-complete" claim below this line is a snapshot of an EARLIER,
@@ -750,3 +770,364 @@ in the dictionary and keyword registries before implementation started). Suite b
      ⚠ HARNESS: the cross-player sections need an explicit `P1>Drain` after the opponent's answer — the
      observer queues a lone CUSTOM on an otherwise idle player, which never drains on its own. Without
      it every cross-player section fails looking exactly like the trigger not firing. -->
+
+<!-- HMW_088 Numa, Still Fighting — Done 2026-08-26 (ninth-wave card, one-card-per-pass).
+     Clause 1 "Restore 1" is auto-wired ($Restore_Cards['HMW_088'] => 1, generator-derived).
+     Clause 2 "If this unit would be dealt damage, prevent 1 of that damage" is THREE lines in
+     _SWUApplyDamagePrevention (GameLogic ~2357), beside SHD_224 Boba Fett's Armor and TWI_053 Finn —
+     the shared prevention funnel every non-indirect damage path already routes through (combat via
+     _SWUShieldOrReduceCombat, ability via SWUDealDamageToUnit, divided via
+     _SWUNonInteractiveDamagePrevention). No card file: the card has no registrations of its own, same
+     as SEC_050 Vigil.
+     Keyed on the OBJECT's CardID, not on a controller — the text says "this unit", not "a friendly
+     unit" (SEC_050 Vigil is the aura version and the obvious mis-implementation). 13 sections; the
+     three that were green pre-implementation are each mutation-proven:
+       • AnotherFriendlyUnit_NotProtected  — reds when the gate is rewritten as a controller aura
+       • Indirect_UnpreventableTakesFullAmount — reds when the indirect assignment loop is routed
+         through _SWUApplyDamagePrevention
+       • Shield_AbsorbsWhenPreventionCannotCover — reds when "prevent 1" is widened to "prevent all"
+         (the shield is then kept instead of spent)
+     A fourth mutation (controller === the acting frame's $playerID) reds
+     EnemyControlledNuma_StillPrevents plus all four combat-DEFENCE sections, which is what pins the
+     object-scope reading.
+     ⚠ PREVIEW ASSUMPTION (HMW is absent from card-specific-rulings.md): read as a plain continuous
+     replacement applying to every damage instance from every source, with indirect staying
+     unpreventable per CR. Closest released analogues: TWI_053 Finn (granted, phase-scoped, prevent 1)
+     and SHD_224 Boba Fett's Armor (continuous, prevent 2). Re-check when HMW releases. -->
+
+<!-- HMW_265 Twi'lek Kalikori — Done 2026-08-26 (ninth-wave card, one-card-per-pass).
+     Ten lines in cards/hmw/TwilekKalikori.php. Joins the released "search top N, play for free within
+     a combined-cost budget" family verbatim (SOR_087 Vader, SOR_104 U-Wing Reinforcement, LAW_063
+     L3-37, ASH_110 Ackbar): DoTopDeckPlay($player, 8, <filter>, 5). No new plumbing — that helper
+     already stores the legal-ID list and the "cost:5" constraint as DQ VARIABLES and re-enforces both
+     server-side in _topDeckResolveFromIDs, and TOPDECK_PLAY_NEXT plays each pick through the REAL
+     pipeline so the fetched unit's own When Played fires.
+     Non-pilot upgrade ⇒ the CollectWhenPlayedAsUpgradeTriggers fallback hands the closure the HOST's
+     mzID, while $player is whoever PLAYED the Kalikori. Those differ on an enemy host, and "your deck"
+     follows $player — pinned by EnemyTwilekHost_SearchesTheKalikoriControllersDeck (asserts BOTH decks).
+     Host gate uses TraitContains (object-aware), not bare HasTrait.
+     12 sections, 11 red before implementation. Eight mutations, each asserting exactly 1 replacement:
+     removing the host gate, dropping either filter conjunct, depth 8→9 AND 8→7, budget 5→6 AND 5→4,
+     and re-scoping "your deck" to the host's controller — each reds its own section and nothing else
+     (the depth mutations red the pair in both directions).
+     ⚠ ONE FIXTURE HAD TO BE SWAPPED AFTER A GREEN MUTATION. TwilekLeaderPickIsRefused (the "Twi'lek
+     UNITS" type conjunct) was first built on HMW_013 Cham Syndulla — a Twi'lek Leader — and dropping
+     the type conjunct left it GREEN, because HMW_013 costs 6 and the combined-cost budget of 5 was
+     already refusing it. The section was silently testing the budget, not the type. The corpus has
+     exactly three Twi'lek non-units, all leaders: SOR_008 (6), HMW_013 (6), LAW_009 (5). Only LAW_009
+     sits inside the budget, so it is the ONLY fixture that can isolate this branch; with it the
+     mutation reds correctly.
+     ⚠ ENGINE BEHAVIOUR WORTH KNOWING (not a bug, and not introduced here): a TOPDECKSEARCH with ZERO
+     legal matches still PROMPTS — the player is shown the peeked cards and answers blank. The
+     dontSkipOnPass comment in _topDeckSearchBegin reads like an auto-skip and is easy to mis-read as
+     "no prompt appears". Shared across the whole family (cf.
+     ash/AdmiralAckbar_AssumeAttackCoordinates::SelfDefeat_TakeNothing).
+     ⚠ PREVIEW ASSUMPTION (HMW is absent from card-specific-rulings.md): read straight from the CR plus
+     the four released members of the family whose wording this card reproduces. Re-check on release. -->
+
+<!-- HMW_185 Ty Yorrick, Monster Hunter — PARTIAL, 2026-08-26. NOT on the Already Done line.
+     Text: "If a friendly ability would deal damage, you may have that ability deal that much damage
+            plus 1 instead. / On Attack: You may deal 1 damage to a Creature unit."
+
+     CLAUSE 2 (On Attack) — DONE. cards/hmw/TyYorrick_MonsterHunter.php, ~8 lines.
+       $onAttackAbilities["HMW_185:0"] → _SWUCollectUnits over all four arenas filtered by
+       TraitContains($o,'Creature') → SWUQueueMayChooseTarget → DEAL_UNIT_DAMAGE|1. MZMAYCHOOSE, not a
+       mandatory choose: the text says "You may" AND a mandatory multi-target MZCHOOSE queued directly
+       in an OnAttack closure auto-resolves to nothing. Combat owns the after-action.
+       "a Creature unit" is unqualified — no friendly/enemy and no arena restriction — so the pool spans
+       both sides and both arenas (a SPACE Creature is a legal target for this GROUND attacker); Ty
+       himself is excluded on the TRAIT (Force / Bounty Hunter), not by self-exclusion.
+       9 sections, 7 red before implementation. Mutations: mandatory-instead-of-may reds the decline
+       section; trait Creature→Force reds 8 sections.
+       ⚠ A third mutation was GREEN and the code was DELETED rather than kept: an
+       `if (empty($targets)) return;` before the offer is a no-op, because SWUQueueMayChooseTarget
+       already returns on an empty list (GameLogic ~1719). The behaviour it claimed to enforce is real
+       and still guarded by NoCreatureInPlay_NoOfferAtAll — the LINE was redundant, and a redundant
+       guard carrying a justification comment is what gets copied onto the next card.
+
+     CLAUSE 1 (the friendly-ability damage replacement) — DONE 2026-08-26, to USER RULINGS: it fires
+     EVERY time a trigger/ability deals damage; divided damage takes the +1 on the POOL, not per share;
+     it STACKS with JTL_165 Hunting Aggressor. Combat damage is excluded (it is not an ability).
+     Shared infrastructure, in GameLogic beside the funnels:
+       _SWUHmw185Decider($dealer)  → the seat that must answer (controller of a FRIENDLY Ty; "friendly"
+                                     spans the TEAM via SWUTeamOf, which collapses to the seat itself
+                                     outside a team game, so Premier/Twin Suns are unchanged)
+       _SWUHmw185Defer($ty,$param) → YESNO + a dontSkipOnPass CUSTOM (the SEC_101 Amidala shape)
+       _SWUHmw185Accepted($ans)
+     Hooked into all FOUR ability-damage funnels; the continuations HMW_185#0..#3 live in the card file
+     and re-enter each funnel with the amount adjusted and its own offer suppressed:
+       #0 SWUDealDamageToUnit  — offered FIRST, above the ASH_196 unpreventable branch and every
+                                 prevention, because it changes what the ability DEALS. Target rides as
+                                 a UniqueID; the source rides as a UID (or its raw mzID when it is not
+                                 an arena object) so the LOF_108 / ASH_196 / SEC_050 source checks
+                                 survive the round trip.
+       #1 SWUDealIndirectDamage — on the POOL, at the JTL_165 injection point.
+       #2 SWUOfferSplitDamage   — NEW shared entry point for divided damage. There was none: seven card
+                                 sites hand-built their own MZSPLITASSIGN + SPLIT_DAMAGE pair, so the
+                                 pool had nowhere to be modified. All seven migrated (SHD Vambrace
+                                 Flamethrower, JTL_009 Boba as an upgrade, LOF The Legacy Run,
+                                 ASH_148 Ninth Sister, ASH Hold Them Off, SOR_135 Palpatine,
+                                 SOR_092 Overwhelming Barrage).
+       #3 SWUDealDamageToBase   — gated on !gInCombatDamage, the flag the three combat call sites
+                                 already set and that JTL_009 Boba Fett's "non-combat damage" reaction
+                                 already reads. No new $isCombat threading was needed after all.
+     20 sections. Six mutations, each asserting exactly 1 replacement, each redding its own set:
+     drop the combat gate on base damage · disable the unit hook · disable the split hook · disable the
+     indirect hook · always-accept (reds the decline branch across 7 sections) · leak the +1 into
+     combat unit damage (reds both combat negatives).
+
+     ⚠ TWO REAL BUGS WERE FOUND BY THE TESTS, both in the re-entry:
+     (a) THE RESUME RE-APPLIED HUNTING AGGRESSOR. HMW_185#1 re-enters SWUDealIndirectDamage, which
+         re-ran the JTL_165 loop on the already-increased pool — 1 became 4 instead of 3. The parameter
+         is therefore named $increasesApplied, not $skipTyOffer, and suppresses EVERY increase in that
+         function. General shape: a re-entrant funnel must suppress everything upstream of the resume
+         point, not only the effect that caused the deferral.
+     (b) A SPARE ANSWER SILENTLY MIS-RESOLVED AN OPTIONCHOOSE. JTL_009 Boba Fett deals indirect damage
+         "to A PLAYER", so a You/Opponent OPTIONCHOOSE sits between his exhaust question and Ty's +1.
+         The first draft omitted it; the OPTIONCHOOSE took its FIRST option ("You"), sending the pool
+         into P1's OWN base, and Ty's question was left dangling. Diagnosed by stepping the scenario
+         through TestSchemaStep, not by reading code.
+
+     ⚠ KNOWN SIMPLIFICATION: Ty is unique, so a player controls at most one — but two TEAMMATES could
+     each control one in Team Suns, which is strictly two separate replacement effects. Only one offer
+     is made. Deliberate, and there is no fixture for it today.
+     ⚠ NOT COVERED BY A TEST: the Team Suns "a teammate's ability is friendly" path. SWUTeamOf collapses
+     to the seat itself at two seats, so no 2-player section can discriminate it. Worth a four-seat
+     section when the next Team Suns pass runs. -->
+
+<!-- HMW_201 Sandtrooper Squad — Done 2026-08-26. VERIFY-ONLY NO-OP: no code, no test file.
+     Cost 4 - [Cunning][Villainy] - Unit (Ground) 3/4 - traits Imperial, Trooper.
+     Text is EXCLUSIVELY two keyword lines with their reminder text:
+       "Ambush (When you play this unit, it may attack an enemy unit.)
+        Raid 1 (This unit gets +1/+0 while attacking.)"
+     — no rider sentence, so the Step-0 keyword-only fast path applies. All four checks confirmed:
+       • $Ambush_Cards['HMW_201'] => true          (generated, auto-derived from the text)
+       • $Raid_Cards['HMW_201']   => 1             (value matches the printed "Raid 1")
+       • NO entry in GeneratedAbilityStubs.php — no trigger was detected, so there is no stub-without-
+         handler silent no-op (the inverse trap).
+       • nothing under SWUSim/Custom/ referencing it.
+     Generic behaviour coverage already exists for each keyword — Tests/Cases/keywords/Ambush_Yes.md,
+     Ambush_No.md, Ambush_NoTargets.md, Raid_AttackBoost.md — and, importantly, the COMBINATION is
+     already covered end to end by hmw/TheWarrior_DeftDuelist.md::Deployed_AmbushFiresOnDeployWithRaidOne
+     (an Ambush attack that receives the Raid bonus), plus
+     Deployed_AmbushAttackExhaustsTheLeaderUnit, which guards the 2026-08-25 Ambush-exhaust engine bug.
+     A per-card test here would be GREEN on its first RED check, which the scope rule says to drop. -->
+
+<!-- HMW_102 Dragon's Might — Done 2026-08-26. Event, cost 4, [Vigilance], trait Innate.
+     "Defeat a non-leader unit with 4 or less power."
+     cards/hmw/DragonsMight.php, one SWUOfferUnitTarget call. It is the intersection of two released
+     cards whose sentences already exist verbatim: SOR_077 Takedown (threshold-filtered defeat) and
+     SOR_078 Vanquish (the non-leader exclusion). Nothing new was built.
+       'continuation' => 'DEFEAT_UNIT', 'nonLeader' => true,
+       'extraFilter'  => fn($o) => intval(ObjectCurrentPower($o)) <= 4
+     Three readings, each guarded:
+       • POWER IS CURRENT, not printed — ObjectCurrentPower folds in upgrades and phase buffs/debuffs.
+       • "non-leader" is a LIVE-object question (the nonLeader option runs IsLeaderUnit), so both a
+         deployed leader and an ASH_135 Darksaber host are excluded.
+       • no controller and no arena qualifier → friendly, enemy, ground, space and token units are all
+         legal.
+     Mandatory (no "you may"/"up to"), so a plain MZCHOOSE with no decline branch.
+     12 sections, 11 red before implementation. Five mutations, each asserting exactly 1 replacement:
+     drop nonLeader (reds both leader sections) · threshold 4→5 and 4→3 (reds the boundary in BOTH
+     directions, 3 and 9 sections respectively) · printed CardPower instead of ObjectCurrentPower (reds
+     exactly the buffed/debuffed pair) · side=>'their' (reds exactly the two friendly/ownership
+     sections).
+
+     ⚠ TWO FIXTURE LESSONS, both the same shape as the HMW_265 LAW_009 swap — an exclusion is only
+     tested when the EXCLUDED thing would otherwise have been legal:
+     (a) THE DARKSABER FIXTURE HAD TO BE CHOSEN FOR ITS ARITHMETIC. ASH_135 is +4/+2, so nearly any
+         host ends up above 4 power and is excluded by the THRESHOLD rather than by the leader check —
+         the section would pass with nonLeader deleted. SHD_028 Doctor Pershing is a static 0/5 unique
+         non-Vehicle unit, so with the Darksaber he sits at EXACTLY 4: inside the threshold, excluded
+         only for being a leader unit. (SOR_118 97th Legion looks like the same fixture but scales
+         +1/+1 per resource, so its power is not static and it is unusable here.)
+     (b) ALL FOUR OFFER SECTIONS FIRST FAILED FOR THE WRONG REASON. The exclusions worked, which
+         narrowed each pool to ONE legal target — and a MANDATORY choose AUTO-RESOLVES at one target,
+         so there was no pending decision left to assert against. Every offer section now seeds one
+         excluded target plus TWO legal ones. "One excluded + one legal" is the instinctive board and
+         it is always off by one.
+     ⚠ PREVIEW ASSUMPTION (HMW is absent from card-specific-rulings.md): the only genuinely new
+     decision is that the metric is POWER, and power is current everywhere else in the engine
+     (cost is the value that is always printed). Re-check on release. -->
+
+<!-- HMW_038 Bestial Bond — Done 2026-08-26. Upgrade, cost 3, +2/+2, [Command][Vigilance], Innate.
+     "When Played: If attached unit is a Creature or a Force unit, create a Beast token."
+     cards/hmw/BestialBond.php, ~6 lines. Non-pilot upgrade ⇒ the CollectWhenPlayedAsUpgradeTriggers
+     fallback hands the closure the HOST's mzID while $player is whoever PLAYED it. No printed attach
+     restriction, so the CR 2.e default (any unit, either side) already applies — nothing registered in
+     SWUGetUpgradeValidTargets.
+     The Beast is HMW_T03 (3/3 ground Creature, enters EXHAUSTED). SWUCreateUnitToken is used even
+     though there is no rider to carry, because it already routes ASH_094 Moff Jerjerrod's doubling
+     through _SWUMaybeOfferJerjerrodDouble.
+     Three readings, each with its own guard:
+       • the token belongs to the UPGRADE'S PLAYER, not the host's controller (they differ on an enemy
+         host — same reading as HMW_265's "your deck", settled the same day);
+       • "a Creature OR a Force unit" is ONE condition with two ways to be true, written as a single ||
+         — a host that is both (SOR_056) still makes exactly one Beast;
+       • the trait is read from the LIVE object via TraitContains, so SEC_054 Exiled from the Force
+         genuinely removes it.
+     9 sections, 6 red before implementation. The three that were green are each mutation-proven:
+       B1 drop the whole gate            → NeitherCreatureNorForce + ForceTraitRemoved
+       B2 HasTrait instead of TraitContains → ForceTraitRemoved ONLY (the sharp one)
+       B3 the OR as two independent ifs  → CreatureAndForceHost_StillOnlyOneBeast
+       B4 token to the host's controller → EnemyCreatureHost_TokenGoesToTheUpgradesController
+       B5 attach pool restricted to friendly (a mutation in the SHARED SWUGetUpgradeValidTargets, since
+          that section guards engine behaviour this card does not own) → HostPoolIncludesEnemyUnits
+          + EnemyCreatureHost
+     ⚠ PREVIEW ASSUMPTION (HMW absent from card-specific-rulings.md): only the beneficiary reading is a
+     genuine judgement call, and it matches the released upgrade-ownership precedent. Re-check on
+     release. -->
+
+<!-- HMW_036 Kelnacca, Solitary Master — Done 2026-08-26. Unit, Ground, cost 4, 4/5, unique,
+     [Command][Vigilance], traits Force/Jedi/Wookiee.
+     "Restore 2 / When Played: You may pay any number of resources. For every 3 resources paid this
+      way, deal damage equal to this unit's power to an enemy unit."
+     Restore 2 is generator-derived ($Restore_Cards['HMW_036'] => 2) — no code, generic coverage.
+
+     ★ "PAY ANY NUMBER OF RESOURCES" IS THE **SEC_040 EMERGENCY POWERS** SHAPE (user-directed
+     2026-08-26). That card carries the same sentence — "Choose a non-leader unit and pay any number of
+     resources. For each resource paid this way, …" — and is the house pattern for it:
+       ONE NUMBERCHOOSE over the FULL range 0..(ready resources).
+     ⚠ The first draft here used the LOF_255 Curious Flock ITERATIVE loop instead (a repeated
+     "pay 3?" YESNO), which also clipped the payment to useful multiples of 3 on the "an optional cost
+     that can only fizzle is never offered" rule. That was wrong twice over: it diverged from the house
+     pattern for this exact sentence, and "any number" is LITERAL — paying 4 or 7 is a legal choice
+     that wastes the remainder, and it matters to a player feeding something that counts EXHAUSTED
+     resources (HMW_117 Chewbacca). Reach for SEC_040 for "pay any number", and LOF_255 only for
+     "pay up to N" where each single resource buys something.
+     The only difference from Emergency Powers is the divisor: intdiv(paid, 3) instances, and the
+     prompt is suppressed below 3 ready (where it genuinely could only fizzle).
+
+     ⚠ RESOURCES ONLY — never Credit tokens or SEC_122 Droids (USER-CONFIRMED 2026-08-26: "Credits
+     cannot be used as they are not resources, they are separate tokens"). "For every 3 RESOURCES paid
+     this way" is a SCALED effect and a Credit is not a resource (CR 3.13). SWUExhaustResources (which
+     skips Credits), NOT SWUPayInlineAbilityCost — the documented exception SEC_040#1 and LOF_255#0
+     already carry. Shared coverage: Tests/Cases/core/CreditsDoNotScaleResourcePaidEffects.md.
+
+     Power is re-read per instance via ObjectCurrentPower on the live object; Kelnacca rides the loop as
+     a UniqueID. The next instance is a QUEUED CUSTOM (#1), not an inline call, so "is Kelnacca still
+     here / is there still an enemy unit" are evaluated at DRAIN time, after the previous instance's
+     damage resolved (the HMW_035 recompute-before-every-pick lesson).
+
+     13 sections. EIGHT mutations, each asserting exactly 1 replacement:
+       Kd drop the below-three guard   → FewerThanThreeReady + CreditsCannotPayAScaledCost
+       Ke drop the no-enemy-unit guard → NoEnemyUnit_NoOfferAtAll
+       Kj BOTH zero-guards mutated TOGETHER → Decline_NothingPaidNothingDealt
+          (⚠ neither alone reds it: `if ($x <= 0) return;` and `intdiv($x,3) <= 0` are REDUNDANT and
+           each suppresses a zero payment on its own. Kh mutated only the first and came back green,
+           Ki only the second and came back green — the documented "two redundant fixes make
+           single-mutation testing lie" case. The early return is kept anyway: it mirrors SEC_040#1
+           and stops a negative answer reaching SWUExhaustResources.)
+       Kf printed CardPower            → PowerIsCurrentNotPrinted_SnokeShrinksTheDamage
+       Kg damage pool not enemy-scoped → 5 sections incl. TeamSuns
+       Kb per-resource instead of per-3 → PayThree + PayTwoOfAThree
+       Kc gate/range on SWUTotalPaymentCapacity → CreditsCannotPayAScaledCost
+       Ka3 range AND clamp clipped to multiples of 3 → PayFourOrSeven + PayTwoOfAThree
+
+     ★★ Ka3 IS THE ONE WORTH REMEMBERING. Its first version — clipping only the NUMBERCHOOSE's displayed
+     range — came back GREEN, because the schema harness feeds an AnswerDecision straight to the handler
+     without consulting the decision's range. The sections "answer 7" and "answer 4" were therefore
+     testing intdiv and nothing else; the OFFERED RANGE was untested. The fix was to make the resolver
+     enforce it: the offered maximum now rides in the CUSTOM param and HMW_036#0 clamps to it. Only then
+     does clipping the range red those sections. This is the documented "the client cap is UX, the
+     server MUST re-validate" rule, and the reason a test that answers a number must be paired with a
+     resolver that bounds it.
+     ⚠ Kf first came back `repl 0` — a broken probe (whitespace), not a green mutation. Retried.
+     ⚠ php -l reported a phantom parse error on this file immediately after a scripted write while the
+     suite ran 9755/0; a re-lint was clean. Known bind-mount flush race — re-run before "fixing".
+     ⚠ SHD_037 Supreme Leader Snoke (-2/-2 to each enemy non-leader unit) is the fixture that makes the
+     current-vs-printed power read observable at PLAY time: Kelnacca enters at 2/3, so each hit is 2.
+     ⚠ Kd's board (4 resources + 3 Credits, resources spent on Kelnacca himself) leaves ZERO ready
+     resources but a payment CAPACITY of 3 — gating on capacity, which is the CORRECT gate for an
+     ordinary "you may pay N" (JTL_096 Blue Leader), raises the prompt there and is the bug. -->
+
+<!-- HMW_145 Origin Tree Shyyyo — Done 2026-08-26. Unit, Ground, cost 6, 4/8, [Command], Creature.
+     "Restore 1 / While you control a Kashyyyk base, the first, second, and third units you play each
+      round cost [1 resource] less, [2 resources] less, and [3 resources] less, respectively."
+     Restore 1 is generator-derived — no code.
+     The passive is the JTL_032 Director Krennic shape (a $playCostFieldModifiers field-presence
+     modifier scoped per round) but with an ORDINAL LADDER instead of one boolean slot, so it reads a
+     COUNTER rather than a _USED flag.
+     ⚠ It lives in GameLogic, NOT in a per-card file: $playCostFieldModifiers is initialised at ~2964,
+     AFTER cards/_loader.php runs at line 16, so a per-card registration would be silently wiped.
+
+     NEW STATE: SWU_UNITS_PLAYED_ROUND, bumped in ActivateCard's UNIT-ENTRY branch (beside
+     SWU_PLAYED_UNIT_{uid}) and cleared at RegroupPhaseStart. That placement is load-bearing twice over:
+       • it is AFTER the cost is charged, so a modifier reading it sees the units that came BEFORE the
+         one being paid for (the TS26_36 Tribunal lesson);
+       • only real UNIT plays reach it — an event, an upgrade, and a Piloting card played as a pilot
+         all miss it.
+
+     ★★ THREE USER RULINGS (2026-08-26), all of which fall out of that placement rather than needing
+     special cases — they are encoded verbatim as the first three sections:
+       1. Shyyyo himself IS the first unit played, but gets NO discount: a unit's passive does not apply
+          until it is in play, and his cost is computed while he is still in hand (the modifier loop
+          only walks units already on the field). So on a 6-resource round he costs the full 6 and then
+          lets a 2-cost and a 3-cost unit follow for free.
+       2. A unit played BEFORE Shyyyo still advances the ladder, so the unit after him is the THIRD and
+          takes -3 — only that last one is discounted.
+       3. LOF_100 Kelleran Beq chains: Beq is the first unit (-1 → costs 6, leaving 1 ready) and the
+          unit he fetches is the SECOND (-2) ON TOP of his own -3, so its ceiling is 1+2+3 = 6.
+
+     ⚠⚠ RULING 3 EXPOSED A LATENT BUG IN KELLERAN BEQ, now fixed. His search filter priced candidates
+     by hand as `CardCost + SWUAspectPenalty - 3`, which ignores every play-cost FIELD MODIFIER — so
+     with Shyyyo out the offer capped at (ready + 3) and the cost-6 unit this ruling says is legal was
+     never on the menu. It now prices through SWUComputePlayCost, the same pipeline that charges the
+     play (which already includes the aspect penalty, so the hand-rolled version was double-counting
+     that too). Reverting it reds Ruling3 and nothing else.
+     The reusable form: an affordability FILTER that re-derives a price instead of calling the pricing
+     pipeline will drift the moment any modifier exists. Grep for other hand-rolled `CardCost + ... -`
+     affordability checks.
+
+     15 sections, 10 red before implementation. EIGHT mutations, each asserting exactly 1 replacement:
+       S1  drop the Kashyyyk-base gate      → NoKashyyykBase_NoDiscount
+       S2b drop the your-own-plays gate     → OpponentPlaysGetNoDiscount
+       S4  flat -1 instead of the ladder    → 8 sections
+       S5  add a fourth rung                → FourthUnitOfTheRoundGetsNoDiscount
+       S6  never clear at the round boundary→ DiscountResetsOnTheNextRound
+       S7  bump the ladder on ANY card play → EventsDoNotConsumeATier
+       S8  revert the Beq offer filter      → Ruling3_KelleranBeqChainsBothDiscounts
+
+     ⚠ TWO GREEN MUTATIONS, both diagnosed rather than shrugged at:
+     (a) S2 (drop the your-own-plays gate) was GREEN at first, because the base check read
+         GetBase($subjectPlayer) — the PAYER's base — which independently blocked the opponent. Two
+         gates covering for each other. "While YOU control a Kashyyyk base" means SHYYYO'S controller,
+         so the check now reads GetBase($srcController): behaviourally identical while the other gate
+         is present, but the two are now independent and S2b reds correctly.
+     (b) S3 (drop a `$host !== null` pilot guard) was GREEN because the guard was DEAD CODE — the
+         attach path prices through SWUComputePilotCost, a separate function that never consults the
+         play-cost modifiers at all. The line was DELETED rather than kept with a comment implying this
+         closure protects that case; the behaviour is still guarded end-to-end by
+         PilotPlayedAsAnUpgrade_NoDiscountAndNoTierConsumed. (That section's "no tier consumed" half is
+         structural too — the attach path never reaches the counter — so no mutation reds it; stated
+         here rather than claimed as verified.)
+
+     ⚠ FIXTURE GOTCHAS, each of which first read as the card misfiring:
+       • A PILOTING CARD HAS ITS OWN piloting cost ($pilotingCostData), often different from its unit
+         cost — JTL_057 is unit-cost 1 but piloting-cost 2, and the attach path charges the latter.
+       • JTL_057 also has a When-Played-as-upgrade heal offer; a pending decision blocks EVERY action,
+         so leaving it unanswered silently refuses the next PlayHand.
+       • The round-advance chain needs a trailing `P2>Pass` under P1OnlyActions (P2 holds the claimed
+         initiative and LEADS the new round), plus a seeded deck for BOTH players (the regroup draws).
+     ⚠ PREVIEW ASSUMPTION: HMW is absent from card-specific-rulings.md, but all three interactions above
+     are user rulings rather than inferences. -->
+
+<!-- HMW_174 Maul, Only Revenger Remains — Done 2026-08-26. VERIFY-ONLY NO-OP: no code, no test file.
+     Cost 4 - [Aggression][Aggression] - Unit (Ground) 6/6 - unique - traits Force, Underworld.
+     Blank text box, so the Step-0 vanilla path applies: the dictionaries implement it completely (a
+     vanilla unit is just its statline). Six checks, all clear:
+       1. IN the dictionary (15 entries) — this is the check that matters most on a preview set, because
+          a card present in CardMocks.php but ABSENT from GeneratedCardDictionaries.php also awks to an
+          empty $textData and reads exactly like "vanilla".
+       2. $textData => '' .
+       3. CROSS-CHECKED AGAINST THE SOURCE MOCK: CardMocks.php also has text/epicAction/deployText all
+          empty, so the dictionary is not merely stale.
+       4. no entry in GeneratedAbilityStubs.php (no trigger detected → no stub-without-handler no-op).
+       5. no keyword-registry membership.
+       6. nothing under SWUSim/Custom/.
+     ⚠ TRAIT-PAYLOAD CHECK (a vanilla card is a no-op for its own text, but its TRAITS can be the
+     payload — the HMW_142 Kashyyyk-base lesson). Force + Underworld is not new (7 such units exist),
+     and the one branch still flagged UNEXERCISABLE in this set —
+     hmw/EmperorPalpatine_ConsolidatingPower.md's "If you do" failure path, which needs a
+     take-control-immune unit costing 3 or less — is not unblocked by a 4-cost unit with no text.
+     Still open. -->

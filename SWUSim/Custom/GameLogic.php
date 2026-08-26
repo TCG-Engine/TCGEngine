@@ -2354,6 +2354,14 @@ function _SWUApplyDamagePrevention($obj, int $amount, bool $peek = false, ?strin
     if ($amount > 0 && SWUObjectTitle($obj) === 'Boba Fett' && _SWUUnitHasUpgrade($obj, 'SHD_224')) {
         $amount = max(0, $amount - 2);
     }
+    // HMW_088 Numa, Still Fighting — "If this unit would be dealt damage, prevent 1 of that damage."
+    // Innate and continuous, so it reduces EVERY damage instance from EVERY source (combat, counter-damage,
+    // card ability, divided damage) by 1 — the wording names "this unit", not "a friendly unit", so it is
+    // scoped to the OBJECT and applies for whoever controls her. Indirect damage never reaches this funnel
+    // (it writes Damage directly) and so stays unpreventable, as required.
+    if ($amount > 0 && ($obj->CardID ?? '') === 'HMW_088') {
+        $amount = max(0, $amount - 1);
+    }
     // TWI_053 Finn — "For this phase, if damage would be dealt to that unit, prevent 1 of that damage."
     // Continuous phase-duration marker on the chosen unit; reduces EVERY incoming damage instance by 1.
     if ($amount > 0 && is_array($obj->TurnEffects ?? null) && in_array('TWI_053', $obj->TurnEffects, true)) {
@@ -2998,6 +3006,43 @@ $playCostFieldModifiers["JTL_032"] = function($subjectObj, $subjectPlayer, $sour
 // LOF_108 Malakili: the FIRST Creature unit you play each phase costs 1 resource less. Mirrors JTL_032
 // (SWU_LOF108_CREATURE_USED set in ActivateCard after the first Creature play; cleared at RegroupPhaseStart;
 // the flag-set happens AFTER cost is charged, so the first Creature still receives the -1).
+// HMW_145 Origin Tree Shyyyo — "While you control a Kashyyyk base, the first, second, and third units
+// you play each round cost [1 resource] less, [2 resources] less, and [3 resources] less, respectively."
+// The JTL_032 Krennic shape (a field-presence modifier with a per-round scope), but an ORDINAL ladder
+// instead of a single boolean slot, so it reads a COUNTER rather than a _USED flag.
+//
+// The ordinal comes from SWU_UNITS_PLAYED_ROUND, which ActivateCard bumps in its UNIT-entry branch
+// AFTER the cost has been computed. So during this play the counter holds the units that came BEFORE
+// it: 0 => this is the first, 1 => the second, 2 => the third. Three consequences the user ruled on
+// (2026-08-26), all of which fall out of that placement rather than needing special cases:
+//   • Shyyyo himself is the FIRST unit played but gets NO discount — he is still in hand when his cost
+//     is computed, so this closure is never reached for him (the loop only walks units IN PLAY).
+//   • A unit played before Shyyyo still advances the ladder, so the next one after him is the THIRD.
+//   • A unit fetched and played by another card's ability (LOF_100 Kelleran Beq) is a play like any
+//     other: it takes the next rung AND stacks with that card's own discount.
+// ⚠ UNITS only — an EVENT or an UPGRADE neither takes a rung nor advances the ladder.
+// A Piloting card played AS A PILOT is an upgrade play (CR 17.c) even though its CardType is still
+// "Unit", and it needs no guard here: the attach path prices through SWUComputePilotCost, a separate
+// function that never consults the play-cost modifiers at all. (A `$host !== null` check was written
+// for it first and measured as DEAD CODE — removing it changed nothing — so it is deliberately absent
+// rather than kept as a line implying this closure is what protects that case. The behaviour is still
+// guarded end to end by PilotPlayedAsAnUpgrade_NoDiscountAndNoTierConsumed.)
+$playCostFieldModifiers["HMW_145"] = function($subjectObj, $subjectPlayer, $sourceObj) {
+    $srcController = intval($sourceObj->Controller ?? 0);
+    if ($srcController <= 0 || $srcController !== intval($subjectPlayer)) return 0; // only your own plays
+    if (stripos(CardType($subjectObj->CardID ?? '') ?? '', 'Unit') === false) return 0;
+    // "While YOU control a Kashyyyk base" — YOU is Shyyyo's controller. With the gate above in place
+    // that is the same seat as the payer, but reading it off the SOURCE keeps the two checks
+    // independent, so neither silently covers for the other.
+    $base = GetBase($srcController);
+    if (empty($base) || !HasTrait($base[0]->CardID ?? '', 'Kashyyyk')) return 0;
+    $n = GlobalEffectCount(intval($subjectPlayer), 'SWU_UNITS_PLAYED_ROUND');
+    if ($n === 0) return -1;
+    if ($n === 1) return -2;
+    if ($n === 2) return -3;
+    return 0;                                                        // the ladder ends after three
+};
+
 $playCostFieldModifiers["LOF_108"] = function($subjectObj, $subjectPlayer, $sourceObj) {
     $srcController = intval($sourceObj->Controller ?? 0);
     if ($srcController <= 0 || $srcController !== intval($subjectPlayer)) return 0; // only your own plays
@@ -3789,9 +3834,13 @@ function SWUReturnResourceToHand(int $player, string $resourceMzID): bool {
     $playerID = intval($player);
     $obj = GetZoneObject($resourceMzID);
     if (SWUObjGone($obj)) { $playerID = $saved; return false; }
-    // Resource Owner is often 0 (unset, e.g. fixtures / freshly-resourced cards) — default to the
-    // controlling player, else AddHand(0) silently drops the returned card (documented zone-Owner gotcha).
+    // Resource Owner is often 0 (unset, e.g. fixtures / freshly-resourced cards) — else AddHand(0)
+    // silently drops the returned card (documented zone-Owner gotcha).
+    // ⚠ Fall back to the SEAT NAMED BY THE mzID, not the acting player. "Return a friendly resource to
+    // ITS OWNER's hand" can now name a TEAMMATE's resource (Team Suns, user ruling 2026-08-26), and
+    // defaulting to $player there would post their card into the actor's hand.
     $owner = intval($obj->Owner ?? 0);
+    if ($owner <= 0) $owner = SWUMzOwner($resourceMzID, intval($player));
     if ($owner <= 0) $owner = intval($player);
     $obj->removed = true;
     AddHand($owner, CardID:$obj->CardID);
@@ -6489,6 +6538,7 @@ function RegroupPhaseStart(): void {
         // SOR_115 Kallus / SOR_013 Cassian once-per-round now reset via SWUResetAllNumUses (NumUses).
         SWUClearGlobalEffectsByPrefix($p, 'SWU_EVENT_PLAYED_ROUND');  // SOR_089 Relentless "first event each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_CARDS_PLAYED');        // clear ALL (multiple plays stack)
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_UNITS_PLAYED_ROUND');  // HMW_145 Shyyyo's 1st/2nd/3rd ladder
         SWUClearGlobalEffectsByPrefix($p, 'SWU_DISCARDED_HAND');      // LAW_179 "cards discarded from hand this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_DREW_PHASE');          // LAW_051 "cards drawn this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_DISCARDED_PHASE');     // LAW_076 "discarded from hand/deck this phase"
@@ -7264,8 +7314,11 @@ function SWUDefeatResource(int $player, string $mzID): bool {
         return false;
     }
     $cardID = $obj->CardID;
+    // ⚠ Owner falls back to the mzID's SEAT, not the actor — a defeated TEAMMATE resource belongs in
+    // THEIR discard (Team Suns, user ruling 2026-08-26), and recurring it is their business, not yours.
     $owner  = intval($obj->Owner ?? 0);
-    if ($owner === 0) $owner = intval($player);
+    if ($owner <= 0) $owner = SWUMzOwner($mzID, intval($player));
+    if ($owner <= 0) $owner = intval($player);
     $obj->removed = true;
     SWUAddToDiscard($owner, $cardID, 'RESOURCES');
     AddGameLogEntry('DEFEAT', 'P' . intval($player) . ' defeated a resource');
@@ -9864,6 +9917,88 @@ function _SWULeaderReadyUndeployed(int $player, string $cardID): bool {
 
 // Ready up to $count exhausted resources for $player (resources are fungible, so no choice needed).
 // Returns how many were readied.
+// Exhausted (Status 0) resource count for one seat.
+function _SWUExhaustedResourceCount(int $player): int {
+    $n = 0;
+    foreach (GetResources($player) as $r) {
+        if (empty($r->removed) && intval($r->Status ?? 0) === 0) $n++;
+    }
+    return $n;
+}
+
+// Ready $count FRIENDLY resources — the TEAM-AWARE sibling of SWUReadyResources.
+//
+// USER RULING 2026-08-26: "a friendly resource" spans the TEAM in Team Suns, AND the player may SPLIT
+// the readying between their own resources and their teammate's.
+//
+// ⚠ The split is a COUNT question, never a card picker. Resources are FUNGIBLE within a player — your
+// 3rd exhausted resource is interchangeable with your 5th — so the only decision with any content is
+// "how many from me vs how many from my teammate". Asking it as a number also side-steps two real
+// problems: the Resources zone is Visibility=Self (a teammate's cards would render as CARD BACKS) and
+// Mode=All (your OWN would render inline rather than as a popup).
+//
+// ⚠ Degenerate cases auto-resolve with NO prompt — which is what keeps Premier and Twin Suns
+// byte-identical, since there is never a teammate there and this falls straight through to
+// SWUReadyResources. Callers must tolerate an async resolution (return 0) when a choice IS raised.
+// Every FRIENDLY resource as mzIDs in $player's frame — your own plus each live teammate's.
+//
+// ⚠ THE mzID FORM IS THE REVEAL. SWUSeatZone yields "myResources" for your own and "p{n}Resources" for
+// a teammate's, and the transport reveals a hidden zone precisely when a decision Param names it as
+// p{n}<Zone> — a legacy "their…" renders CARD BACKS and the player picks blind (see the note on
+// SWULookAtOpponentHand). USER RULING 2026-08-26: in Team Suns you SEE a teammate's resources when
+// choosing among them, so p{n} is required, not cosmetic.
+//
+// SWUTeammatesOf returns [] outside a team game, so this is exactly the historical "myResources" pool
+// in Premier and Twin Suns — every one of the 12 friendly-resource cards stays byte-identical there.
+// $filter receives the resource OBJECT (e.g. fn($o) => !SWUIsCreditToken($o->CardID) — Credit tokens
+// are not resources and several of these cards exclude them).
+function SWUFriendlyResourceMzIDs(int $player, ?callable $filter = null): array {
+    global $playerID;
+    $saved = $playerID; $playerID = intval($player);
+    $out = [];
+    foreach (array_merge([intval($player)], SWUTeammatesOf(intval($player))) as $seat) {
+        foreach (ZoneSearch(SWUSeatZone(intval($player), intval($seat), 'Resources'), null) as $mz) {
+            $o = GetZoneObject($mz);
+            if (SWUObjGone($o)) continue;
+            if ($filter !== null && !$filter($o)) continue;
+            $out[] = $mz;
+        }
+    }
+    $playerID = $saved;
+    return $out;
+}
+
+function SWUReadyFriendlyResources(int $player, int $count): int {
+    if ($count <= 0) return 0;
+    $mateAvail = 0;
+    foreach (SWUTeammatesOf($player) as $m) $mateAvail += _SWUExhaustedResourceCount($m);
+    if ($mateAvail <= 0) return SWUReadyResources($player, $count);   // no teammate pool → today's path
+
+    $myAvail = _SWUExhaustedResourceCount($player);
+    $k = min($count, $myAvail + $mateAvail);                          // ready as many as possible
+    if ($k <= 0) return 0;
+    $lo = max(0, $k - $mateAvail);                                    // fewest that MUST come from you
+    $hi = min($k, $myAvail);                                          // most that CAN come from you
+    if ($lo === $hi) {                                               // only one legal split → no prompt
+        _SWUApplyFriendlyResourceSplit($player, $lo, $k - $lo);
+        return $k;
+    }
+    DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "{$lo}|{$hi}", 1,
+        tooltip: "Ready_{$k}_friendly_resources:_how_many_from_YOUR_OWN?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "READY_FRIENDLY_RES|{$k}", 1);
+    return 0;                                                        // resolves asynchronously
+}
+
+// Ready $mine of your own and $theirs across your teammates (in seat order).
+function _SWUApplyFriendlyResourceSplit(int $player, int $mine, int $theirs): void {
+    if ($mine > 0) SWUReadyResources($player, $mine);
+    if ($theirs <= 0) return;
+    foreach (SWUTeammatesOf($player) as $m) {
+        if ($theirs <= 0) break;
+        $theirs -= SWUReadyResources($m, $theirs);
+    }
+}
+
 function SWUReadyResources(int $player, int $count): int {
     $resources = &GetResources($player);
     $readied = 0;
@@ -11398,9 +11533,26 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             // their queue and wait — the re-fired resume commits combat once they're done. (Supersedes
             // the old SWU_PENDING_DEF_REACTION-gated hop; scoped to COMBAT so non-combat plays that queue
             // an opponent decision, e.g. a forced discard, still finalize normally.)
-            $other = OtherPlayer($activePlayer);
-            if (_SWUPlayerHasBlockingDecision($other)) {
-                _SWUQueueOrchestration($other, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
+            // ⚠ EVERY other LIVE seat, not OtherPlayer(). This read `OtherPlayer($activePlayer)`, which
+            // is `$p === 1 ? 2 : 1` — so a seat-4 attacker only ever checked seat 1. With P4 attacking
+            // P3's base (TIE Bomber's On Attack hands P3 an indirect assignment), P1 was checked, P1 owed
+            // nothing, combat committed and the turn swapped to P1 while P3 was still deciding. From P1's
+            // seat that reads as "I can take my action" — their UI says it is their turn and every click
+            // is then refused by the (correct) pending-decision gate. Reported 2026-08-26.
+            // Two seats were right only by accident: there, OtherPlayer IS the only other seat.
+            //
+            // ⚠ NOT OpponentsOf() — that excludes TEAMMATES in Team Suns, and a teammate owing a
+            // pre-damage decision must be waited for exactly like an opponent. The question here is
+            // "is anyone else still deciding", which has nothing to do with sides.
+            $hopped = false;
+            foreach (GetLiveSeatsArray() as $other) {
+                if (intval($other) === intval($activePlayer)) continue;
+                if (!_SWUPlayerHasBlockingDecision(intval($other))) continue;
+                _SWUQueueOrchestration(intval($other), "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
+                $hopped = true;
+                break;
+            }
+            if ($hopped) {
                 $playerID = $savedPID;
                 return;
             }
@@ -11736,8 +11888,11 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
             case 'SHD_185': // Doctor Evazan — ready up to 12 resources (fungible → auto-ready)
                 SWUReadyResources(intval($player), 12);
                 break;
-            case 'SHD_221': // Wanted's granted bounty — ready 2 friendly resources
-                SWUReadyResources(intval($player), 2);
+            case 'SHD_221': // Wanted's granted bounty — "ready 2 FRIENDLY resources": team-wide, and the
+                            // bounty COLLECTOR chooses the split (USER RULING 2026-08-26). Contrast
+                            // SHD_185 Doctor Evazan directly above, whose text is "ready up to 12
+                            // resources" with no "friendly" — that one stays self-only.
+                SWUReadyFriendlyResources(intval($player), 2);
                 break;
             case 'SHD_211': // Fugitive Wookiee — exhaust a unit
                 $targets = _SWUCollectUnits(0, fn($o) => true);
@@ -11965,6 +12120,79 @@ function SWUFindMzByUID(int $uid): ?string {
 // ⚠ ORDER is load-bearing: reductions run BEFORE the Shield. A Shield absorbs an INSTANCE of damage, so
 // if prevention has already reduced the instance to zero there is nothing left to absorb and the Shield
 // must NOT be spent (SEC_042 Cassian Andor's prevent-2 vs a 2-damage ability).
+// ── HMW_185 Ty Yorrick, Monster Hunter ──────────────────────────────────────────────────────────────
+// "If a friendly ability would deal damage, you may have that ability deal that much damage plus 1
+// instead." The engine's first SOURCE-side damage-increase replacement (SEC_050 Vigil's +1 is
+// target-side and unconditional, so it lives in _SWUApplyDamagePrevention instead).
+//
+// It is offered at EVERY ability-damage funnel, because missing one leaves a whole damage KIND
+// silently unaffected while the suite stays green:
+//   • SWUDealDamageToUnit      — single-target ability damage
+//   • SWUDealDamageToBase      — ability damage to a base (gated on !gInCombatDamage, the same
+//                                "non-combat damage" notion JTL_009 Boba Fett's reaction uses)
+//   • SWUDealIndirectDamage    — the POOL, before the assignment is offered (the JTL_165 Hunting
+//                                Aggressor injection point; the two increases STACK)
+//   • SWUOfferSplitDamage      — the POOL of a "deal N divided as you choose", before the offer
+// Combat damage is not an ability and is never offered.
+//
+// USER RULING 2026-08-26: divided damage takes the +1 on the POOL, not per assigned share — "that much
+// damage plus 1" is singular, and it matches how JTL_165 already increases an indirect pool.
+//
+// Because the +1 is OPTIONAL it cannot be applied inline: each funnel DEFERS (queue a YESNO plus a
+// dontSkipOnPass CUSTOM, return without dealing) and the continuation re-enters that same funnel with
+// the amount adjusted and the offer suppressed. Same shape as SEC_101 Amidala / ASH_062.
+//
+// Returns the seat that must answer — the controller of a FRIENDLY Ty Yorrick — or 0 for no offer.
+// "Friendly" spans the TEAM in Team Suns (the HMW_013 Cham ruling); SWUTeamOf collapses to the seat
+// itself outside a team game, so Premier and Twin Suns are unchanged.
+// ⚠ Ty is unique, so a player can control at most one. Two TEAMMATES could each control one, which
+// would strictly be two separate replacement effects; only one offer is made. Deliberate
+// simplification — noted rather than silently assumed.
+function _SWUHmw185Decider(int $dealer): int {
+    if ($dealer <= 0) return 0;
+    foreach (GetLiveSeatsArray() as $seat) {
+        if (SWUTeamOf(intval($seat)) !== SWUTeamOf($dealer)) continue;
+        if (_SWUCountActiveUnitsWithCardID(intval($seat), 'HMW_185') > 0) return intval($seat);
+    }
+    return 0;
+}
+
+// Queue the "+1?" question for Ty's controller and the continuation that resumes the interrupted
+// funnel. dontSkipOnPass so a declined/passed YESNO still resumes — otherwise the deferred damage is
+// silently dropped instead of being dealt unmodified.
+function _SWUHmw185Defer(int $ty, string $customParam): void {
+    DecisionQueueController::AddDecision($ty, 'YESNO', '-', 1,
+        tooltip: 'Ty_Yorrick:_have_that_ability_deal_1_more_damage?');
+    DecisionQueueController::AddDecision($ty, 'CUSTOM', $customParam, 1, dontSkipOnPass: 1);
+}
+
+// True when the YESNO came back as an acceptance.
+function _SWUHmw185Accepted($lastDecision): bool {
+    return $lastDecision === 'YES' || $lastDecision === '1' || $lastDecision === 1;
+}
+
+// ── Divided ability damage — THE single entry point ─────────────────────────────────────────────────
+// Every "deal N damage divided as you choose" card routes its offer through here so the pool has one
+// place to be modified (previously each card hand-built its own MZSPLITASSIGN + SPLIT_DAMAGE pair, so
+// there was nowhere for Ty Yorrick's +1 to hook). $upto = the MZSPLITASSIGN "assign fewer than N" mode.
+// ⚠ Nothing mutates the board between the deferred YESNO and the assignment offer, so the positional
+// target mzIDs collected by the caller stay valid across the extra decision.
+function SWUOfferSplitDamage(int $player, int $amount, array $targets, string $tooltip,
+                             bool $upto = false, bool $skipTyOffer = false): void {
+    if ($amount <= 0 || empty($targets)) return;
+    if (!$skipTyOffer) {
+        $ty = _SWUHmw185Decider(intval($player));
+        if ($ty > 0) {
+            _SWUHmw185Defer($ty, "HMW_185#2|{$player}|{$amount}|" . ($upto ? 1 : 0)
+                . "|{$tooltip}|" . implode('~', $targets));
+            return;
+        }
+    }
+    $param = $amount . '|' . implode('&', $targets) . ($upto ? '|UPTO' : '');
+    DecisionQueueController::AddDecision(intval($player), "MZSPLITASSIGN", $param, 1, tooltip: $tooltip);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SPLIT_DAMAGE", 1);
+}
+
 function _SWUNonInteractiveDamagePrevention($obj, int $amount, int $player, ?string $sourceMzID,
                                             bool &$prevented, bool &$shielded): int {
     $prevented = false;
@@ -11984,12 +12212,33 @@ function _SWUNonInteractiveDamagePrevention($obj, int $amount, int $player, ?str
     return $amount;
 }
 
-function SWUDealDamageToUnit(string $unitMzID, int $amount, int $player, ?string $sourceMzID = null, bool $skipPrevent = false): void {
+function SWUDealDamageToUnit(string $unitMzID, int $amount, int $player, ?string $sourceMzID = null, bool $skipPrevent = false, bool $skipTyOffer = false): void {
     global $playerID;
     $saved    = $playerID;
     $playerID = intval($player);
     $unit     = GetZoneObject($unitMzID);
     if ($unit !== null && !($unit->removed ?? false)) {
+        // HMW_185 Ty Yorrick — "you may have that ability deal that much damage plus 1 instead." A
+        // SOURCE-side replacement, so it is offered FIRST: before the unpreventable branch, before every
+        // prevention, and before the Shield. Defers the whole instance; HMW_185#0 re-enters with the
+        // adjusted amount and skipTyOffer set. The target rides as a UniqueID (the arena can reindex
+        // across the request boundary) and the source as a UID when it is an arena object, else as its
+        // raw mzID so the LOF_108 / ASH_196 / SEC_050 source checks survive the round trip.
+        if (!$skipTyOffer && $amount > 0) {
+            $tyDecider = _SWUHmw185Decider(intval($player));
+            if ($tyDecider > 0) {
+                $tySrcTok = '';
+                if ($sourceMzID !== null && $sourceMzID !== '') {
+                    $tySrcObj = GetZoneObject($sourceMzID);
+                    $tySrcUID = ($tySrcObj !== null) ? intval($tySrcObj->UniqueID ?? 0) : 0;
+                    $tySrcTok = $tySrcUID > 0 ? ('U' . $tySrcUID) : ('M' . $sourceMzID);
+                }
+                _SWUHmw185Defer($tyDecider, "HMW_185#0|" . intval($unit->UniqueID ?? 0) . "|{$amount}|"
+                    . intval($player) . "|{$tySrcTok}|" . ($skipPrevent ? 1 : 0));
+                $playerID = $saved;
+                return;
+            }
+        }
         // ASH_196 Gorian Shard's Corsair — damage dealt by a friendly Underworld card (the threaded
         // source) is unpreventable: skip every prevention/reduction below and apply the full amount.
         if (!$skipPrevent && $amount > 0 && $sourceMzID !== null
@@ -12487,15 +12736,28 @@ function SWUDispatchIndirectThen(int $controller, string $thenHandler): void {
 // Core funnel: deal $amount indirect damage to $damagedPlayer, dealt by $controller. $thenHandler is an
 // optional "Name~args" continuation (see SWUApplyIndirectAssignment). $sourceUID is the UniqueID of the unit
 // dealing the damage (0 for event/player sources); it gates the per-source JTL_171 Targeting Computer override.
-function SWUDealIndirectDamage(int $controller, int $amount, int $damagedPlayer, string $thenHandler = '', int $sourceUID = 0): void {
+// ⚠ $increasesApplied is set by the HMW_185#1 resume, and it suppresses EVERY increase below, not
+// just Ty Yorrick's. The re-entry already carries the fully-increased pool, so re-running the
+// JTL_165 Hunting Aggressor loop would add its +1 a second time (measured: 1 became 4, not 3).
+function SWUDealIndirectDamage(int $controller, int $amount, int $damagedPlayer, string $thenHandler = '', int $sourceUID = 0, bool $increasesApplied = false): void {
     if ($amount <= 0) { if ($thenHandler !== '') SWUDispatchIndirectThen($controller, $thenHandler); return; }
     // JTL_165 Hunting Aggressor: indirect damage you deal to opponents is increased by 1.
-    if ($damagedPlayer !== $controller) {
+    if (!$increasesApplied && $damagedPlayer !== $controller) {
         // Each COPY increases it — this is a per-object constant ability, not a once-per-player one, so
         // two Hunting Aggressors turn 8 indirect into 10. The `break` made every copy after the first
         // a no-op. It stayed hidden because MZSPLITASSIGN totals were unvalidated: the assign step
         // offered a 9-point pool, the test assigned the correct 10, and the appliers applied all 10.
         foreach (GetUnitsInPlay($controller) as $u) { if (($u->CardID ?? '') === 'JTL_165' && empty($u->removed)) $amount += 1; }
+    }
+    // HMW_185 Ty Yorrick — the +1 applies to the POOL, before the assignment is offered, exactly where
+    // JTL_165 above applies its own. The two STACK: 1 indirect + Hunting Aggressor + Ty = 3.
+    if (!$increasesApplied && $amount > 0) {
+        $tyDecider = _SWUHmw185Decider(intval($controller));
+        if ($tyDecider > 0) {
+            _SWUHmw185Defer($tyDecider,
+                "HMW_185#1|{$controller}|{$amount}|{$damagedPlayer}|{$thenHandler}|{$sourceUID}");
+            return;
+        }
     }
     AddGlobalEffects($controller, 'SWU_DEALT_INDIRECT'); // JTL_138 "if you dealt indirect damage this phase"
     global $playerID;
@@ -14329,6 +14591,12 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // ActivateCard — its consumeApplies gate spends it on any unit play, discount or not.)
 
         AddGlobalEffects($player, 'SWU_PLAYED_UNIT_' . $uid);
+        // Ordinal of units played this ROUND (HMW_145 Origin Tree Shyyyo's 1st/2nd/3rd ladder). Bumped
+        // HERE — in the unit-entry branch, after the cost was charged — for two reasons: only real UNIT
+        // plays reach this point (an event, an upgrade, and a Piloting card played as a pilot do not),
+        // and a cost modifier reading it therefore sees the units that came BEFORE the one being paid
+        // for. Cleared with the other per-round flags at RegroupPhaseStart.
+        AddGlobalEffects($player, 'SWU_UNITS_PLAYED_ROUND');
         // SHD_161 Stolen Landspeeder / SHD_204 Millennium Falcon — "if you played this unit from your
         // hand": per-UID flag set ONLY for hand-sourced plays (discard/deck/smuggle-resource plays
         // don't set it). Cleared with the other per-phase flags at RegroupPhaseStart.

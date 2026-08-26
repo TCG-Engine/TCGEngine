@@ -28,7 +28,5 @@ $whenPlayedAsUpgradeAbilities["JTL_009:0"] = function($player, $mzID) {
         }
     }
     if (empty($targets)) return;
-    DecisionQueueController::AddDecision($player, "MZSPLITASSIGN",
-        "4|" . implode("&", $targets) . "|UPTO", 1, tooltip:"Divide_up_to_4_damage_among_units");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SPLIT_DAMAGE", 1);
+    SWUOfferSplitDamage(intval($player), 4, $targets, "Divide_up_to_4_damage_among_units", true);
 };

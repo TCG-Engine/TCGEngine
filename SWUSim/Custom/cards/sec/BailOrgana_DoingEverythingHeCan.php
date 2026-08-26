@@ -10,12 +10,9 @@
 $leaderAbilities["SEC_008"] = function(int $player): void {
     global $playerID; $playerID = $player;
     if (GlobalEffectCount($player, 'SWU_FRIENDLY_DEFEATED') <= 0) { SWUAfterAction($player); return; } // condition false
-    $res = &GetResources($player);
-    $targets = [];
-    for ($i = 0, $idx = 0; $i < count($res); $i++) {
-        if (isset($res[$i]->removed) && $res[$i]->removed) continue;
-        $targets[] = "myResources-{$idx}"; $idx++;
-    }
+    // "a FRIENDLY resource" spans the TEAM (user ruling 2026-08-26); the p{n} mzIDs a teammate's
+    // resources come back as are what makes the transport REVEAL them instead of showing card backs.
+    $targets = SWUFriendlyResourceMzIDs(intval($player));
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Return_a_friendly_resource_to_its_owner's_hand", "SEC_008#0");
 };

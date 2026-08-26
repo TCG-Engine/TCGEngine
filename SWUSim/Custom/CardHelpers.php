@@ -112,6 +112,30 @@ if (!function_exists('SWUControlledUnits')) {
     function SWUControlledUnits(?string $arena = null, $filter = null): array { return SWUAllUnits('my', $arena, $filter); }
 }
 
+// OBJECT-returning sibling of GetUnitsInPlay for text that says "FRIENDLY" — spans the TEAM.
+//
+// ⚠ Why this exists. The Phase 3 friendly sweep converted everything that flowed through ZoneSearch
+// (192 raw sites down to 2), but GetUnitsInPlay is a PER-SEAT ACCESSOR, not a ZoneSearch — so a card
+// counting "each friendly X" that way was structurally out of that sweep's reach and stayed self-only.
+// Seventeen cards were in that state; audited and converted 2026-08-26.
+//
+// Returns objects in the same shape as GetUnitsInPlay so a call site converts by swapping the function
+// name and nothing else. SWUTeammatesOf returns [] outside a team game, so Premier and Twin Suns get
+// literally GetUnitsInPlay's own array back — byte-identical.
+//
+// ⚠ Use this ONLY where the printed word is "friendly". Text that says "YOU CONTROL" (Coordinate,
+// Exploit, "if you control N units", HMW_014 Wicket's deployed side) must stay on GetUnitsInPlay:
+// a teammate's unit is friendly but you do NOT control it (spec §2).
+if (!function_exists('SWUFriendlyUnitObjects')) {
+    function SWUFriendlyUnitObjects(int $player): array {
+        $out = GetUnitsInPlay($player);
+        foreach (SWUTeammatesOf($player) as $mate) {
+            foreach (GetUnitsInPlay($mate) as $u) $out[] = $u;
+        }
+        return $out;
+    }
+}
+
 // Shared "play a card at a discount" offer, used by the discount-play family
 // (Alliance Dispatcher, Strategic Acumen, Home One, …). Gathers affordable
 // candidates in $zone of the given $types (optionally passing an extra $filter),

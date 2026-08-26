@@ -8,7 +8,7 @@ $whenPlayedAbilities["SEC_196:0"] = function($player, $mzID = '') {
 // No One Ever Knew — For each friendly Official unit, exhaust an enemy unit.
             global $playerID; $playerID = intval($player);
             $n = 0;
-            foreach (GetUnitsInPlay(intval($player)) as $u) {
+            foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
                 if (empty($u->removed) && HasTrait($u->CardID ?? '', 'Official')) $n++;
             }
             for ($i = 0; $i < $n; $i++) {

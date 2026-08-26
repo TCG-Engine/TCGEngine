@@ -7,6 +7,8 @@
 // a friendly resource." (SWU_FRIENDLY_DEFEATED is the count-based per-phase friendly-defeat flag.)
 $onAttackAbilities["TWI_186:0"] = function($player, $mzID) {
     $n = GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED');
-    if ($n > 0) SWUReadyResources(intval($player), $n);
+    // "ready a friendly resource" per defeated friendly unit — team-wide, player picks the split
+    // (same seam as SEC_225 Synara San / SHD_221 Wanted).
+    if ($n > 0) SWUReadyFriendlyResources(intval($player), $n);
     // Combat owns the after-action.
 };

@@ -8,7 +8,7 @@
 $whenPlayedAbilities["ASH_197:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID); $uid = SWUObjUID($self, 0);
-    foreach (GetUnitsInPlay(intval($player)) as $u) {
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
         if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $uid) {
             $mz = SWUFindMzByUID(intval($u->UniqueID ?? 0));
             if ($mz !== null) DoGiveAdvantageToken(intval($player), $mz);

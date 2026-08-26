@@ -29,13 +29,9 @@ $customDQHandlers["LAW_013#0"] = function($player, $parts, $lastDecision) {
 // tokens live in the same zone but are NOT resources (CR 3.13), so they are never offered. The index is
 // the LIVE zone position (Credits included) because that is what GetZoneObject resolves.
 function ChewbaccaHeroofKesselResourceTargets(int $player): array {
-    $res = &GetResources($player);
-    $out = [];
-    for ($i = 0, $idx = 0; $i < count($res); $i++) {
-        if (isset($res[$i]->removed) && $res[$i]->removed) continue;
-        if (!SWUIsCreditToken($res[$i]->CardID ?? '')) $out[] = "myResources-{$idx}";
-        $idx++;
-    }
+    // "a FRIENDLY resource" spans the TEAM (user ruling 2026-08-26); the p{n} mzIDs a teammate's
+    // resources come back as are what makes the transport REVEAL them instead of showing card backs.
+    $out = SWUFriendlyResourceMzIDs(intval($player), fn($o) => !SWUIsCreditToken($o->CardID ?? ''));
     return $out;
 }
 

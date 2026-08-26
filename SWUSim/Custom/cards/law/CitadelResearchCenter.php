@@ -28,13 +28,9 @@ $customDQHandlers["LAW_029#0"] = function($player, $parts, $lastDecision) {
 // resource zone but is not a resource, so it is never a legal choice below.
 $baseAbilities["LAW_029"] = function($player) {
     global $playerID; $playerID = intval($player);
-    $res = &GetResources(intval($player));
-    $targets = [];
-    for ($i = 0, $idx = 0; $i < count($res); $i++) {
-        if (isset($res[$i]->removed) && $res[$i]->removed) continue;
-        if (!SWUIsCreditToken($res[$i]->CardID ?? '')) $targets[] = "myResources-{$idx}";
-        $idx++;
-    }
+    // "a FRIENDLY resource" spans the TEAM (user ruling 2026-08-26); the p{n} mzIDs a teammate's
+    // resources come back as are what makes the transport REVEAL them instead of showing card backs.
+    $targets = SWUFriendlyResourceMzIDs(intval($player), fn($o) => !SWUIsCreditToken($o->CardID ?? ''));
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget(intval($player), $targets, "Return_a_friendly_resource_to_its_owner's_hand", "LAW_029#0");
     SWUQueueAfterAction($player);

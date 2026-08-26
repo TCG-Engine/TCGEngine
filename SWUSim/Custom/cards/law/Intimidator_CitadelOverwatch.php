@@ -7,13 +7,9 @@
 // For each resource returned this way, create a Credit token.
 $whenPlayedAbilities["LAW_140:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $res = GetResources(intval($player));
-    $specs = [];
-    for ($i = 0; $i < count($res); $i++) {
-        if (!empty($res[$i]->removed)) continue;
-        if (SWUIsCreditToken($res[$i]->CardID ?? '')) continue;   // Credit tokens aren't resources
-        $specs[] = "myResources-{$i}";
-    }
+    // "a FRIENDLY resource" spans the TEAM (user ruling 2026-08-26); the p{n} mzIDs a teammate's
+    // resources come back as are what makes the transport REVEAL them instead of showing card backs.
+    $specs = SWUFriendlyResourceMzIDs(intval($player), fn($o) => !SWUIsCreditToken($o->CardID ?? ''));  // Credit tokens aren't resources
     if (empty($specs)) return;
     $k = count($specs);
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$k}|" . implode("&", $specs), 1, tooltip: "Return_any_number_of_friendly_resources_(create_a_Credit_for_each)");

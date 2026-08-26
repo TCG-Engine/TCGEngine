@@ -22,7 +22,5 @@ $customDQHandlers["SHD_177#0"] = function($player, $parts, $lastDecision) {
     $enemies = array_values(array_filter(ZoneSearch("theirGroundArena", AnyUnitFilter),
         fn($mz) => (($o = GetZoneObject($mz)) !== null && empty($o->removed))));
     if (empty($enemies)) return;
-    DecisionQueueController::AddDecision(intval($player), "MZSPLITASSIGN", "3|" . implode('&', $enemies), 1,
-        tooltip: "Deal_3_damage_divided_among_enemy_ground_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SPLIT_DAMAGE", 1);
+    SWUOfferSplitDamage(intval($player), 3, $enemies, "Deal_3_damage_divided_among_enemy_ground_units");
 };

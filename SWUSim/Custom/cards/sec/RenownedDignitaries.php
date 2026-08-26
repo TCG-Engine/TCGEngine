@@ -8,7 +8,7 @@
 $whenPlayedAbilities["SEC_102:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $n = 0;
-    foreach (GetUnitsInPlay(intval($player)) as $u) {
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
         if (empty($u->removed) && HasTrait($u->CardID ?? '', 'Official')) $n++;
     }
     if ($n > 0) OnHealBase(intval($player), intval($player), 2 * $n);

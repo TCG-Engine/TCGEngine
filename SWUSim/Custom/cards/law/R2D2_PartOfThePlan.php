@@ -9,7 +9,7 @@ $whenPlayedAbilities["LAW_145:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (count(GetDeck(intval($player))) === 0) return;
     $friendlyAspects = [];
-    foreach (GetUnitsInPlay(intval($player)) as $u) {
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
         if (!empty($u->removed)) continue;
         foreach (explode(',', (string)(CardAspect($u->CardID ?? '') ?? '')) as $a) { $a = trim($a); if ($a !== '') $friendlyAspects[$a] = true; }
     }

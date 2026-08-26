@@ -30,7 +30,7 @@ $customDQHandlers["JTL_017#0"] = function($player, $parts, $lastDecision) {
 // just-attached leader-pilot itself.)
 $whenPlayedAsUpgradeAbilities["JTL_017:0"] = function($player, $mzID) {
     $cnt = 0;
-    foreach (GetUnitsInPlay(intval($player)) as $u) {
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
         if (!empty($u->removed)) continue;
         if (intval(CardCost($u->CardID ?? '')) % 2 === 1) $cnt++;
         foreach (GetUpgradesOnUnit($u) as $up) {

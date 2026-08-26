@@ -8,7 +8,9 @@
 // ground unit. Player picks WHICH resource (MZMAYCHOOSE over myResources — mirrors SHD_107).
 $whenPlayedAbilities["SHD_154:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $res = ZoneSearch('myResources');
+    // "a FRIENDLY resource" spans the TEAM (user ruling 2026-08-26); the p{n} mzIDs a teammate's
+    // resources come back as are what makes the transport REVEAL them instead of showing card backs.
+    $res = SWUFriendlyResourceMzIDs(intval($player));
     SWUQueueMayChooseTarget(intval($player), $res,
         "Defeat_a_friendly_resource_to_deal_5_to_a_ground_unit?",
         "Defeat_a_friendly_resource", "SHD_154#0");

@@ -22,9 +22,8 @@ $customDQHandlers["ASH_139#0"] = function($player, $parts, $lastDecision) {
         }
     }
     if (empty($targets)) return;
-    DecisionQueueController::AddDecision($caster, "MZSPLITASSIGN", "{$pow}|" . implode('&', $targets), 1,
-        tooltip: "Split_{$pow}_damage_among_units_in_the_arena");
-    DecisionQueueController::AddDecision($caster, "CUSTOM", "SPLIT_DAMAGE", 1);
+    SWUOfferSplitDamage(intval($caster), intval($pow), $targets,
+        "Split_{$pow}_damage_among_units_in_the_arena");
 };
 
 // When Played (event) — migrated from OnPlayEvent.

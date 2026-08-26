@@ -141,7 +141,43 @@ code paths, only one of them enforcing it.
 ⚠ The hole is still open in the shared `SOR_087#0` finalize (SOR_087, LAW_063, ASH Ackbar, SOR_104) — it
 re-checks `SWUCardPlayBlocked` but never the card filter.
 
-### ★★ TWIN SUNS IS LIVE — every card is a 3–4 seat card (policy set 2026-08-21)
+### ★★ THREE FORMATS ARE LIVE — decide which ones the CARD'S WORDING implicates (policy 2026-08-26)
+
+SWUSim runs three shapes of game, and a card can behave differently in each:
+
+| format | seats | what is distinctive |
+|---|---|---|
+| **Premier / Eternal** | 2 | the historical baseline every card was written against |
+| **Twin Suns** | 3–4, every player for themselves | more than one opponent exists, so "an opponent" is a CHOICE and `their<Zone>` FANS OUT |
+| **Team Suns** | 4, as 2v2 | "friendly" spans your TEAM; "you control" still does not |
+
+**Do NOT write all three for every card.** Measured 2026-08-26 over 1523 cards: **1023 touch neither
+axis** — no player reference, no friendly/enemy wording — and for those the three formats are literally
+the same code path, so extra sections can never fail for a format-specific reason. Padding them dilutes
+the signal and trains the next reader to skim.
+
+**Triage from the printed text and write what the wording implicates.** This is guidance for judging a
+new card, not a checklist to satisfy — the aim is simply that a card whose text reaches into another
+format gets thought about in that format ONCE, while it is being written:
+
+| the text contains | write a section for | why |
+|---|---|---|
+| a player reference — "an opponent", "each player", "the defending player", "that player", "its controller" | **Twin Suns** (3–4 seats) | `OtherPlayer()` answers 2 for seat 1 and **1 for everyone else**; `GetOpponent()` returns **NULL** at seats 3/4 |
+| **"friendly"** / **"enemy"** | **Team Suns** (`WithTeams: true`) | a teammate's unit is friendly but you do NOT control it |
+| **"you control"**, Coordinate, Exploit, "if you control N" | *nothing extra* — and SAY SO | self-only in every format, by design |
+| neither | *nothing extra* — 2P is complete | all three formats share one path |
+
+**Where the bugs actually are.** Of the cards whose text names a player and which had NO far-seat
+section, roughly **half were genuinely broken** (measured across the 2026-08-25/26 sweeps: Vonreg and
+all 10 pilot leaders, Whistling Birds, TIE Bomber, Fallen Lightsaber, plus 14 more in the
+determined-seat family). The "friendly" population is the opposite — mostly correct-but-untested, since
+the pools already route through the friendly helpers. **So prioritise the player-reference axis.**
+
+⚠ Twin Suns and Team Suns are the SAME code path for any card that does not say "friendly"/"enemy"
+(`SWUTeamOf` collapses to the seat itself outside a team game). A Team Suns section on such a card is
+a duplicate of the Twin Suns one — write the Twin Suns one and move on.
+
+### ★★ TWIN SUNS — every card with a player reference is a 3–4 seat card (policy set 2026-08-21)
 
 Twin Suns shipped. A card is **not** Done at the 98% bar until it behaves correctly at four seats, and the
 mistake is never exotic: it is the 2-player shortcut that was correct for the engine's whole prior life.
@@ -254,13 +290,29 @@ Intent is not a forcing function; a line someone can grep for is. **Every new te
 #// COVERAGE: offer=Front_UnitWithWeaknessIsNotSelectable · decline=Deployed_OnAttack_Decline_NoToken
 #//           boundary=Epic_BlockedAtFiveResources · control=N/A (no owner-scoped zone, no take-control interaction)
 #//           reqboundary=N/A (no state written across a decision)
+#//           modes=2P,TwinSuns (text says "an opponent") · TeamSuns=N/A (no friendly/enemy wording)
 ```
+
+**`modes=` is the format triage written down** — a guideline, not a gate. Name the formats this card's
+WORDING implicates and the reason, so the judgement is visible to the next reader instead of re-derived.
+The point is not compliance; it is that a card thought about carefully once needs far less debugging
+later, and the line is where that thinking is recorded:
+- `modes=2P only (no player reference, no friendly/enemy wording)` — the common case, ~2/3 of cards
+- `modes=2P,TwinSuns (text says "the defending player")` — a determined-seat or choose-an-opponent card
+- `modes=2P,TeamSuns (text says "each friendly unit")` — a friendly-scoped card
+- `modes=2P,TwinSuns,TeamSuns` — text does both
+
+⚠ `modes=2P only` on a card whose text DOES name a player or say "friendly" is worth a second look —
+that is the population where half the cards turned out to be broken. Not an error to be caught, just
+the place where a few minutes up front has repeatedly saved a bug report later.
 
 `N/A` is a legitimate answer — a silent omission is not. Audit a set with:
 
 ```bash
 grep -L "COVERAGE:" SWUSim/Tests/Cases/<set>/*.md      # files with no ledger at all
 grep -h "COVERAGE:" -A2 SWUSim/Tests/Cases/<set>/*.md | grep -oE "(offer|decline|boundary|control|reqboundary)=N/A" | sort | uniq -c
+# format triage: which cards claim 2P-only, and do any of them actually name a player or say "friendly"?
+grep -h "modes=" SWUSim/Tests/Cases/<set>/*.md | sort | uniq -c
 ```
 
 If a set's ledger shows `offer=N/A` on most cards, that is the tell that the cell was waved off rather than judged — go back and check the ones whose text has a qualifier ("another", "an enemy", "upgraded", "exhausted", "non-unique", "that costs N or less").
@@ -377,6 +429,8 @@ awk '/\$upgradeHpData = array \(/,/^\);/'    SWUSim/GeneratedCode/GeneratedCardD
 
 **LOF Phase 15-21 gotchas (new-mechanic seams; folded at the end-of-run retro):**
 - **Reactive windows = hook the core helper + queue a YESNO/continuation.** "When you use the Force" reactions hook `UseTheForce` (`_SWUQueueUseForceReactions`); "repeat the next When-Played" hooks `OnWhenPlayed` (mirror of JTL Thrawn's When-Defeated reuse). **Guard recursion:** the reaction must not re-enter the same hook — LOF_260 re-creates the Force with `TheForceIsWithYou` (NOT `UseTheForce`); LOF_197 `RemoveGlobalEffect`s its flag BEFORE re-dispatching; LOF_105's keyword-mirror EXCLUDES other copies of itself.
+- **★ "PAY ANY NUMBER OF RESOURCES" AND "PAY UP TO N" ARE DIFFERENT SHAPES — pick by the sentence, not by feel.** *"Pay any number of resources. For each/every N paid this way, …"* is the **SEC_040 Emergency Powers** shape: ONE `NUMBERCHOOSE "0|<ready resources>"`, then convert the answer to effects. Do NOT clip the range to "useful" multiples — "any number" is literal, and over-paying can be deliberate (a card that counts EXHAUSTED resources, e.g. HMW_117 Chewbacca). *"Pay up to N"*, where each single resource buys something, is the LOF_255 Curious Flock iterative loop below. Reaching for the loop on an "any number" card is a real divergence, not a style choice (cost a rework on HMW_036 Kelnacca, 2026-08-26).
+  ⚠ **Both are SCALED-EFFECT COSTS: resources ONLY, never Credit tokens or SEC_122 Droids** (USER-CONFIRMED 2026-08-26 — "Credits cannot be used as they are not resources, they are separate tokens"). Gate on `SWUResourceCount($p, readyOnly: true)` and pay with `SWUExhaustResources`, NEVER `SWUTotalPaymentCapacity`/`SWUPayInlineAbilityCost` — that pair is the correct gate for an ordinary "you may pay N" (JTL_096) and the bug here. Shared guard: `Tests/Cases/core/CreditsDoNotScaleResourcePaidEffects.md`. The discriminating board is *4 resources + 3 Credits, resources spent on the card itself* — zero ready but a payment CAPACITY of 3.
 - **Variable-count selects without new client UI = a self-re-queuing continuation.** "Exhaust any number with combined power/cost ≤ N" (`_SWUCombinedBudgetOffer` + `SWU_BUDGET_EXHAUST`) and "pay up to N for a per-resource effect" (LOF_255) both loop: do one pick/payment, subtract from the budget, re-`SWUQueueMayChooseTarget`/`YESNO` with the reduced budget, stop on decline / empty / budget<0. No MZSPLITASSIGN, no new decision type. Carry the running budget + UID through the handler token (`HANDLER|budget|metric|…`); re-resolve the unit by UID (`SWUFindMzByUID`) each round since mzIDs shift.
 - **Always grep for an existing marker/helper before building a "new" seam.** Temporary take-control (LOF_189) reuses `SWUTakeControlOfUnit` + the `TEMPORARY_STEAL` turn-effect marker (SOR_224) — RegroupPhaseStart already returns those to their owner; do NOT reuse JTL_235's `SWU_JTL235_RETURN_` (that bounces to HAND). Look-at-opponent-hand + discard (LOF_226) = `SWULookAtOpponentHand($p, $filter)` + `DISCARD_FROM_OPP_HAND` + `SWUQueueShowOpponentHand` (SOR_201). Name-a-card (LOF_204) = the `NAMECARD` decision type (SOR_185); the answer is the card TITLE string (`P1>AnswerDecision:Zeb Orrelios`), read it in a CUSTOM continuation (safe vs the OnAttack `$playerID`-restore gotcha).
 - **Cross-player "opponent chooses/decides" DOES work now — stop blanket-deferring it.** Queue the decision for the opponent (`AddDecision($opp, "YESNO"/"MZCHOOSE", …)`) from a **CUSTOM continuation** (NOT inline from a trigger closure — `DispatchTrigger`/`OnAttackTrigger` restore `$playerID`, the CUSTOM path doesn't); encode the caster in the handler token, set `$playerID` to whichever player owns the next step. The test answers as that player (`P2>AnswerDecision:NO` works even under `P1OnlyActions`). `SWUOpponentChoosesOwnUnit($caster, $nonLeader, $tooltip, $handler)` is the ready-made "opponent picks one of THEIR units" seam (GameLogic.php). LOF_222 proves the YESNO form; this un-blocks the old LOF_177/LOF_015 "opponent chooses" deferrals.
@@ -709,6 +763,84 @@ resources", but only some of those are REACHABLE. Triage before writing, and rec
 - **⚠ A `-` answer with no earlier answer to consume is how a section goes spuriously green.** `ForceSpeed::ReturnZeroUpgrades_AnyNumberIncludesNone` meant to decline an upgrade-return; with no attack-target answer before it, the `-` landed on the ATTACK TARGET choose and abandoned the attack — and an attack that never happens also returns no upgrades, so both assertions held for the wrong reason. It also hid a real gap (the card's "return any number" is implemented as "return ALL", with no offer). Count prompts against answers, and make a decline section assert something the abandoned-flow CANNOT produce (here: the attack's damage).
 - **Fixture facts:** `WithP{n}GroundArenaControlled:` units sort AFTER every plain `WithP{n}GroundArena:` unit (same rule as a deployed leader) — a wrong upgrade index produces a convincing fake bug. **But a unit PLAYED during the WHEN is appended after both**, so a board of one seeded + one controlled + one played unit indexes seeded / controlled / played. ⚠ **When a section's whole premise is WHICH participant acted, a wrong index does not fail — it passes while testing nothing.** HMW_035's take-control section answered with the newly played unit instead of the stolen one and every behavioural assertion still held (the enemy died, the base took 0, the Shield landed). Anchor such a section with an IDENTITY-bearing pair at the acting index — `…UNIT:<i>:CARDID:<id>` **and** `…UNIT:<i>:DAMAGE:<n>` — so the participant, not just the outcome, is pinned. The positive keyword assertion is `HASKEYWORD:` (`KEYWORD:` is not an assertion name). Hand mzIDs are positionally STABLE across sequential picks — after `myHand-0` is discarded the next offer is still `myHand-1..3`.
 
+### More recurring bug shapes (HMW ninth–eleventh preview waves, 2026-08-26) — fixtures that trip the WRONG gate, and re-entrant funnels
+
+Eight cards, and the two highest-yield lessons are both about a test that LOOKS right and cannot fail.
+
+- **★★ WHEN A CARD HAS TWO INDEPENDENT GATES, A FIXTURE THAT TRIPS BOTH TESTS NEITHER. Choose the
+  fixture that sits exactly on the boundary of the OTHER gate.** This bit twice in one run, on
+  unrelated mechanics, and both times a green mutation was the only thing that caught it:
+  - HMW_265 Twi'lek Kalikori — "any number of Twi'lek **units** with combined cost 5 or less". The
+    type-conjunct section used HMW_013 (a Twi'lek **Leader**), which costs 6 — so the COMBINED-COST
+    budget already refused it and deleting `CardType === 'Unit'` left the section GREEN. The corpus has
+    exactly three Twi'lek non-units, all leaders, at costs 6/6/**5**; only LAW_009 at 5 sits inside the
+    budget, and only it isolates the type check.
+  - HMW_102 Dragon's Might — "defeat a **non-leader** unit with 4 or less **power**". The Darksaber
+    (ASH_135, **+4/+2**) pushes almost any host above the power threshold, so the leader-exclusion
+    section would pass with `nonLeader` deleted. SHD_028 Doctor Pershing is a static **0**/5 unique
+    non-Vehicle unit → exactly 4 power with the Darksaber on: inside the threshold, excluded only for
+    being a leader unit.
+  The habit: after choosing a fixture for an exclusion, ask **"what else about this fixture would have
+  excluded it anyway?"** — then mutate the gate you meant to test and confirm it reds.
+
+- **★★ AN EXCLUSION THAT WORKS NARROWS THE POOL — AND A MANDATORY CHOOSE AUTO-RESOLVES AT ONE TARGET.**
+  All four of HMW_102's offer sections failed on their first run *because the filter was correct*: one
+  excluded + one legal left a single target, `SWUQueueChooseTarget` short-circuited through
+  `PASSPARAMETER`, and `P1HASDECISION` found nothing. Seed **one excluded + TWO legal**, always. (The
+  N+1 rule is already stated above for MAY-choose offers; it applies to MANDATORY ones for a different
+  reason, and the failure looks like the card being broken rather than the test being short a fixture.)
+
+- **★★ A RE-ENTRANT FUNNEL MUST SUPPRESS EVERYTHING UPSTREAM OF THE RESUME POINT, not only the effect
+  that caused the deferral.** HMW_185 Ty Yorrick's optional "+1" defers a whole damage instance behind a
+  YESNO (the SEC_101 Amidala shape) and re-enters the funnel with the adjusted amount. For indirect
+  damage that funnel *starts* with JTL_165 Hunting Aggressor's automatic +1 — so the re-entry applied it
+  a SECOND time and 1 indirect became 4 instead of 3. Name the flag for what it means
+  (`$increasesApplied`, not `$skipTyOffer`) and gate every earlier modifier on it. Ask of any deferral:
+  *what did the function already do before the point I am resuming at?*
+
+- **★ AN AFFORDABILITY FILTER THAT RE-DERIVES A PRICE BY HAND WILL DRIFT.** LOF_100 Kelleran Beq's
+  search filter priced candidates as `CardCost + SWUAspectPenalty - 3` instead of calling
+  `SWUComputePlayCost`. That ignores every play-cost FIELD MODIFIER, so with a discounter in play the
+  offer was too narrow and legal picks never appeared on the menu — invisible until a second discounter
+  (HMW_145 Shyyyo) existed to disagree with it. It also double-counted the aspect penalty, which
+  `SWUComputePlayCost` already includes. **Any offer that filters on affordability must price through
+  the same pipeline that will charge the play.** Worth a grep for other hand-rolled
+  `CardCost + … -` affordability checks.
+
+- **★ TWO GATES CAN COVER FOR EACH OTHER — read each one off its own source so they stay independent.**
+  HMW_145's "while YOU control a Kashyyyk base" was checking `GetBase($subjectPlayer)` (the PAYER's
+  base), which silently also blocked the opponent — so dropping the separate "only your own plays" gate
+  changed nothing and that mutation came back green. "You" means the SOURCE's controller; reading it as
+  `GetBase($srcController)` is behaviourally identical while both gates exist and makes each mutation
+  discriminate. This is the FIX half of the documented "two redundant fixes make single-mutation testing
+  lie" rule: when you find two guards overlapping, either delete one or re-anchor them so they answer
+  different questions.
+
+- **★ A TEST THAT ANSWERS A NUMBER NEEDS A RESOLVER THAT BOUNDS IT.** The harness feeds an
+  `AnswerDecision` straight to the handler without consulting a `NUMBERCHOOSE`'s range (exactly as
+  documented for `MZMULTICHOOSE`'s cap). So "answer 7, assert the outcome" tests the arithmetic and NOT
+  the offered range — clipping the range in a mutation came back green. Carry the offered maximum in the
+  CUSTOM param and clamp to it in the resolver; only then do the range sections discriminate.
+
+- **BEFORE BUDGETING FOR NEW PLUMBING, GREP FOR A FLAG THAT ALREADY ANSWERS THE QUESTION.** Ty Yorrick's
+  base-damage leg needed to tell ability damage from combat damage, and `SWUDealDamageToBase` looked
+  like it needed an `$isCombat` threaded through six call sites — but `$GLOBALS['gInCombatDamage']` was
+  already set at exactly those sites and already read by JTL_009 Boba Fett's "non-combat damage"
+  reaction. The sibling of "grep the printed SENTENCE": grep for the DISCRIMINATOR too.
+
+- **⚠ DSL/fixture gotchas from this run:**
+  - **A Piloting card has its OWN piloting cost** (`$pilotingCostData`), frequently different from its
+    unit cost — JTL_057 is unit-cost 1 but piloting-cost 2, and the attach path charges the latter.
+    Budgeting a fixture from the printed unit cost is off by one and reads like the card misfiring.
+  - A **TOPDECKSEARCH with ZERO legal matches still PROMPTS** — the player sees the peeked cards and
+    answers blank. `_topDeckSearchBegin`'s `dontSkipOnPass` comment reads like an auto-skip and is easy
+    to mis-read as "no prompt appears".
+  - `$playCostFieldModifiers` is initialised AFTER `cards/_loader.php`, so a cost modifier CANNOT live
+    in a per-card file (the load-order trap, confirmed again). It goes in GameLogic beside JTL_032.
+  - On a **vanilla** preview card, cross-check the blank `$textData` against `CardMocks.php`'s own
+    `text`/`epicAction`/`deployText`. The documented check is "is it in the dictionary at all?"; a STALE
+    dictionary is the other way to read blank, and the mock is the source.
+
 ### ★ A GREEN mutation has THREE causes — diagnose it, never shrug (HMW completion retro, 2026-08-25)
 
 The 8-card run that finished HMW produced three green mutations, one per cause. Treat a green mutation
@@ -883,6 +1015,12 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 
 ### ⚠ DSL + design traps (HMW preview completion, 2026-08-26)
 
+- **★ `WithTeams: true` is the whole Team Suns setup** — it turns on `SWU_MODE_TEAMS` and defaults seat
+  order and live seats to `1234`, replacing the three-line incantation team sections used to repeat.
+  `false` (or omitting it) is a non-team game. ⚠ **`true`/`false` are the ONLY values**: teams are SEAT
+  PARITY (red always 1+3, blue always 2+4, because the lobby forces alternating seating and StartRoom
+  renumbers everyone to table position), so there is exactly one possible arrangement and nothing to
+  specify. A `P1+P2;P3+P4` spec describes a table that cannot exist and is rejected with an explanation.
 - **★ `WithRound: N` sets the round counter** (TurnNumber; 1 = the game's first round). Added for HMW_208
   Luke Skywalker "while it's the first round of the game". ⚠ Prefer it for the GATE and still write ONE
   section that advances a REAL round (both players `Pass`, then both `ResourcePass`), so the card is

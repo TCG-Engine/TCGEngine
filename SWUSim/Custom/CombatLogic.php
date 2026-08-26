@@ -293,10 +293,37 @@ function _SWUMarkHeroismDefeated(int $controller, ?string $cardID): void {
     }
 }
 
-function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirect = false) {
+function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirect = false, $skipTyOffer = false) {
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($targetPlayer);
+    // HMW_185 Ty Yorrick — "you may have that ability deal that much damage plus 1 instead." Source-side,
+    // so it is offered before EVERY prevention below (Close the Shield Gate, the Alliance Shield
+    // Generator, the At Attin cap) — those replace the damage as it would be dealt, i.e. after Ty's
+    // increase. Two exclusions:
+    //   • gInCombatDamage — combat damage is not an ability. This is the same gate JTL_009 Boba Fett's
+    //     "when you deal NON-COMBAT damage" reaction already uses, set at the three combat call sites.
+    //   • $isIndirect — an indirect pool was already offered the +1 in SWUDealIndirectDamage, so the
+    //     base leg of the assignment must not be offered a second time.
+    // $damager may be an int seat, a unit OBJECT (combat only) or null; normalise it the same way the
+    // Sidious/SOR_175 blocks further down do, then carry it through the decision as a token.
+    if (!$skipTyOffer && intval($damage) > 0 && empty($GLOBALS['gInCombatDamage']) && !$isIndirect) {
+        $tyDealer = is_object($damager)
+            ? intval($damager->Controller ?? $damager->Owner ?? 0)
+            : intval($damager ?? 0);
+        if ($tyDealer <= 0) {
+            $tyDealer = ($savedPID > 0 && $savedPID !== intval($targetPlayer))
+                ? intval($savedPID) : OtherPlayer(intval($targetPlayer));
+        }
+        if (_SWUHmw185Decider($tyDealer) > 0) {
+            $tyTok = is_object($damager) ? ('U' . intval($damager->UniqueID ?? 0))
+                   : (($damager === null) ? 'N' : ('P' . intval($damager)));
+            _SWUHmw185Defer(_SWUHmw185Decider($tyDealer),
+                "HMW_185#3|{$tyDealer}|" . intval($damage) . "|" . intval($targetPlayer) . "|{$tyTok}");
+            $playerID = $savedPID;
+            return;
+        }
+    }
     $base = &GetBase($targetPlayer);
     for ($i = 0; $i < count($base); $i++) {
         if (isset($base[$i]->removed) && $base[$i]->removed) continue;
@@ -1206,11 +1233,18 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID,
     // COST is always the PRINTED cost on both sides (user ruling) — and a deployed enemy leader has a
     // printed cost too, so it participates in the comparison like any other unit. A BASE is not a unit
     // and has no cost, hence the Base guard.
+    // ⚠ "a FRIENDLY unit" is a TEAM relation: in Team Suns a TEAMMATE's attack turns your Wicket on, and
+    // the reactor is then the teammate's controller, NOT the attacking player. Outside a team game
+    // SWUTeamOf collapses to the seat itself, so this loop finds only $activePlayer and Premier / Twin
+    // Suns are byte-identical. (Team "friendly" audit, 2026-08-26.)
     if (!$defenderOnly && $attacker !== null && !isset($attacker->removed)
         && $defender !== null && empty($defender->removed) && strpos($defenderMzID, 'Base') === false
-        && _SWULeaderReadyUndeployed($activePlayer, 'HMW_014')
         && intval(CardCost($defender->CardID ?? '')) > intval(CardCost($attacker->CardID ?? ''))) {
-        AddTrigger($activePlayer, 'HMW_014', 'HMW_014', '');
+        foreach (GetLiveSeatsArray() as $wSeat) {
+            if (SWUTeamOf($wSeat) !== SWUTeamOf(intval($activePlayer))) continue;
+            if (!_SWULeaderReadyUndeployed($wSeat, 'HMW_014')) continue;
+            AddTrigger($wSeat, 'HMW_014', 'HMW_014', '');
+        }
     }
     // TS26_73 Moralo Eval — "When your base is dealt combat damage: you may deal 1 damage to a unit." The
     // base owner reacts to their base being attacked (this rides the combat pause so it drains cross-player;

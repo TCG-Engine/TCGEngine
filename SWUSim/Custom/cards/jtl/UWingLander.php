@@ -19,7 +19,7 @@ $onAttackEndAbilities["JTL_070:0"] = function($player, $mzID) {
     if (SWUObjGone($self)) return;
     $selfUid = intval($self->UniqueID ?? 0);
     $hasDest = false;
-    foreach (GetUnitsInPlay(intval($player)) as $u) {
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
         if (!empty($u->removed) || intval($u->UniqueID ?? 0) === $selfUid) continue;
         if (HasTrait($u->CardID ?? '', 'Vehicle')) { $hasDest = true; break; }
     }

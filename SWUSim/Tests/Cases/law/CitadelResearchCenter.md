@@ -99,3 +99,64 @@ WithP1Deck: SOR_128
 P1HANDCOUNT:0
 P2HANDCOUNT:1
 P2HANDCARD:0:SOR_095
+
+---
+
+# TeamSuns_ReturnsTheTEAMMATESResourceToTHEIRHand
+#// ⚠ USER RULING 2026-08-26: "a FRIENDLY resource" spans the TEAM, and — unlike the count-split used for
+#// READYING — you SEE a teammate's resources when choosing among them. That is why the pool is built
+#// with SWUFriendlyResourceMzIDs: it yields `p{n}Resources-N` for a teammate, and the transport reveals
+#// a hidden zone precisely when a decision names it in that form (a legacy `their…` renders CARD BACKS).
+#//
+#// The sharp part is the DESTINATION. "Return it to ITS OWNER's hand" — so a teammate's resource goes to
+#// the TEAMMATE's hand, not the caster's. Resource Owner is frequently 0 (unset) and the primitive used
+#// to default that to the ACTING player, which would have posted seat 3's card into seat 1's hand; it now
+#// falls back to the seat named by the mzID.
+#// Asserting BOTH hands is what makes this discriminate — a card landing in the wrong one fails twice.
+
+## GIVEN
+CommonSetup: yyk/bbw/{myBase:LAW_029}
+SkipPreGame: true
+P1OnlyActions: true
+WithTeams: true
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 2
+WithP3Resources: 1
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:p3Resources-0
+
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:1
+P1HANDCOUNT:0
+P3RESCOUNT:0
+
+---
+
+# TwinSunsControl_TeammateResourceIsNotOffered
+#// THE CONTROL — identical board with WithTeams removed. Seat 3 is then just another opponent, its
+#// resources are not "friendly", and the pool is seat 1's own two. Without this the section above would
+#// pass for a build that offered every resource on the table.
+
+## GIVEN
+CommonSetup: yyk/bbw/{myBase:LAW_029}
+SkipPreGame: true
+P1OnlyActions: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 2
+WithP3Resources: 1
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>UseBaseAbility
+
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:myResources-0&myResources-1

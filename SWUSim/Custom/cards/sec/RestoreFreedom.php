@@ -9,7 +9,7 @@ $whenPlayedAbilities["SEC_257:0"] = function($player, $mzID = '') {
                           // each Heroism aspect icon among friendly units.
             global $playerID; $playerID = intval($player);
             $disc = 0;
-            foreach (GetUnitsInPlay(intval($player)) as $u) {
+            foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
                 if (!empty($u->removed)) continue;
                 foreach (SWUCardAspectIcons($u->CardID ?? '') as $a) { if ($a === 'Heroism') $disc++; }
             }

@@ -7,7 +7,7 @@
 // exhausted unit. (Amount computed at resolution; the chosen unit takes 2 × exhausted-count.)
 $onAttackAbilities["ASH_035:0"] = function($player, $mzID) {
     $exhausted = 0;
-    foreach (GetUnitsInPlay(intval($player)) as $u) {
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
         if (empty($u->removed) && intval($u->Status ?? 1) === 0) $exhausted++;
     }
     if ($exhausted <= 0) return;   // no exhausted units → 0 damage, nothing to do

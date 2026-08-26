@@ -5,15 +5,22 @@
 
 // LOF_100 Kelleran Beq — When Played: search the top 7 for a unit, reveal it, and play it costing 3 less.
 // Only offer units the player can actually pay for at the discounted price — otherwise the UI lets you
-// pick an unaffordable unit and the play just fizzles at resolve. Affordability mirrors the resolve
-// formula exactly: max(0, cost + aspect penalty − 3) ≤ ready resources (counted now, AFTER Kelleran's
-// own cost was paid on the way into play).
+// pick an unaffordable unit and the play just fizzles at resolve.
+// ⚠ THE FILTER MUST PRICE THROUGH THE SAME PIPELINE THAT WILL CHARGE THE PLAY. It used to compute
+// `CardCost + SWUAspectPenalty - 3` by hand, which silently ignores every play-cost MODIFIER — so with
+// a discounter in play the offer was too narrow and legal picks were missing from the menu. Found via
+// HMW_145 Origin Tree Shyyyo (user ruling 2026-08-26): with Shyyyo out, the unit Kelleran fetches is
+// the SECOND unit played that round and takes his -2 as well, so its ceiling is
+// (ready + 2 + 3) — the hand-rolled formula capped it at (ready + 3) and hid a whole tier of picks.
+// SWUComputePlayCost already includes the aspect penalty, so this is also one fewer thing to add twice.
+// Guarded by hmw/OriginTreeShyyyo.md::Ruling3_KelleranBeqChainsBothDiscounts and its 3b control.
 $whenPlayedAbilities["LOF_100:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $ready = SWUTotalPaymentCapacity(intval($player));
     _topDeckSearchBegin(intval($player), 7,
         fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false
-                  && max(0, intval(CardCost($c)) + SWUAspectPenalty(intval($player), $c) - 3) <= $ready,
+                  && max(0, SWUComputePlayCost(intval($player), new Deck($c, 'Deck', intval($player))) - 3)
+                     <= $ready,
         "count:1", "LOF_100#0");
 };
 

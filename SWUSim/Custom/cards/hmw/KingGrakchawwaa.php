@@ -19,7 +19,7 @@ $whenPlayedAbilities["HMW_123:0"] = function($player, $mzID = '') {
     //   trait loss is honoured.
     $self = intval((GetZoneObject($mzID)->UniqueID ?? 0));
     $n = 0;
-    foreach (GetUnitsInPlay($me) as $u) {
+    foreach (SWUFriendlyUnitObjects($me) as $u) {
         if (SWUObjGone($u)) continue;
         if (intval($u->UniqueID ?? 0) === $self) continue;
         if (TraitContains($u, 'Wookiee')) $n++;

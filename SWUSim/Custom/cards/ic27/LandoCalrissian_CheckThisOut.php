@@ -30,7 +30,9 @@ function Ic27167OfferResourcing(int $player): void {
 $whenPlayedAbilities["IC27_167:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
     $res = [];
-    foreach (ZoneSearch('myResources', null) as $mz) {
+    // "a FRIENDLY resource" spans the TEAM (user ruling 2026-08-26); the p{n} mzIDs a teammate's
+    // resources come back as are what makes the transport REVEAL them instead of showing card backs.
+    foreach (SWUFriendlyResourceMzIDs(intval($player)) as $mz) {
         $o = GetZoneObject($mz);
         if (!SWUObjGone($o)) $res[] = $mz;
     }

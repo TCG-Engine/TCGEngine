@@ -20,7 +20,7 @@ $customDQHandlers["SOR_047#0"] = function($player, $parts, $lastDecision) {
     // ⚠ was GetOpponent(): `1→2, 2→1, else NULL` — seats 3/4 milled a null deck and healed nothing.
     $defender = SWUCurrentDefendingSeat(intval($player));
     $spectre = 0;
-    foreach (GetUnitsInPlay(intval($player)) as $u) {
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
         if (HasTrait($u->CardID, 'Spectre')) $spectre++;
     }
     if ($spectre <= 0) return;

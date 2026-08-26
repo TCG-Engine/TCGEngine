@@ -259,13 +259,43 @@ class SchemaTestRunner {
     // both 2026-08). Fail loudly instead.
     //
     // Suffix families are matched per seat rather than listed 4x. Keep in sync when adding a directive.
+    // Validate the WithTeams value.
+    //
+    // ⚠ THE ONLY ACCEPTED VALUE IS 'true'. Team membership is SEAT PARITY (spec §5) —
+    // team(seat) = seat % 2 — so red ALWAYS holds seats 1 and 3 and blue 2 and 4. That is not an
+    // implementation shortcut: the lobby assigns seats from each team's fixed slots and StartRoom
+    // renumbers everyone to table position, so by the time the engine sees the game the split is
+    // already decided. There is exactly one possible team arrangement, hence nothing to specify.
+    //
+    // An earlier draft accepted a "P1+P3;P2+P4" spec. It was deleted as YAGNI: every value it could
+    // accept was that one arrangement, and every other value was an error, so it amounted to a large
+    // parser guarding a constant.
+    //
+    // What survives is the part that earns its keep — a specific, teaching error for the spec someone
+    // will naturally reach for. "P1+P2;P3+P4" looks entirely reasonable and describes a table that
+    // cannot exist, so it must fail loudly rather than quietly build a fixture whose teams disagree
+    // with SWUTeamOf().
+    private static function _assertValidTeamSpec(string $spec): void {
+        $v = strtolower($spec);
+        if ($v === 'true' || $v === 'false') return;   // 'false' is the explicit off switch (= omitting the line)
+        $hint = (strpos($spec, '+') !== false || strpos($spec, ';') !== false)
+            ? " A spec like 'P1+P2;P3+P4' describes a table that cannot exist, and even the correct"
+              . " 'P1+P3;P2+P4' is redundant — it is the only arrangement there is."
+            : '';
+        throw new RuntimeException(
+            "WithTeams: '{$spec}' — the only accepted values are 'true' and 'false' (omitting the line"
+            . " is the same as 'false'). Team membership is SEAT PARITY (spec §5): red always holds"
+            . " seats 1 and 3, blue 2 and 4, because the lobby forces alternating Red/Blue"
+            . " seating.{$hint}");
+    }
+
     private static function _assertKnownGivenKey(string $k): void {
         static $scalar = [
             'CommonSetup', 'SkipPreGame', 'P1OnlyActions', 'P2OnlyActions', 'P3OnlyActions', 'P4OnlyActions',
             'P1LeaderBase', 'P2LeaderBase', 'P3LeaderBase', 'P4LeaderBase',
             'WithActivePlayer', 'WithInitiativePlayer', 'WithInitiativeClaimed', 'WithGamePhase',
             'WithSeatOrder', 'WithLiveSeats', 'WithDefeatedPlayer', 'WithPrivateGame', 'WithRound',
-            'InitChoice', 'InitRng', 'DeckSeed',
+            'InitChoice', 'InitRng', 'DeckSeed', 'WithTeams',
         ];
         static $perSeat = [
             'Deck', 'Hand', 'Discard', 'Resources', 'Credits', 'Force', 'Base', 'Leader', 'Leader2',
@@ -503,6 +533,16 @@ class SchemaTestRunner {
         }
         // Twin Suns seat lists (single-digit concatenations, e.g. "123"). SeatOrder = clockwise turn
         // order; LiveSeats = non-eliminated subset (defaults to SeatOrder).
+        // WithTeams — Team Suns in one directive, replacing the WithP1GlobalEffect: SWU_MODE_TEAMS +
+        // WithSeatOrder + WithLiveSeats incantation every team section was repeating by hand.
+        // Parsed BEFORE seat order below so it can supply the 4-seat defaults when they are omitted.
+        $teamSpec = isset($given['WithTeams']) ? trim($given['WithTeams']) : '';
+        if ($teamSpec !== '') self::_assertValidTeamSpec($teamSpec);   // validate FIRST, so a typo cannot pass as "off"
+        if (strtolower($teamSpec) === 'true') {
+            if (!isset($given['WithSeatOrder'])) $b->WithSeatOrder('1234');
+            if (!isset($given['WithLiveSeats'])) $b->WithLiveSeats('1234');
+            $b->WithGlobalEffectForPlayer(1, 'SWU_MODE_TEAMS');   // the engine reads it off seat 1
+        }
         if (isset($given['WithSeatOrder'])) $b->WithSeatOrder(trim($given['WithSeatOrder']));
         if (isset($given['WithLiveSeats'])) $b->WithLiveSeats(trim($given['WithLiveSeats']));
 
@@ -1096,6 +1136,8 @@ class SchemaTestRunner {
      *   WithInitiativeClaimed: true/false — whether it has been claimed this round
      *   WithActivePlayer: N       — which player is the active (turn) player
      *   WithRound: N              — the round counter (TurnNumber); 1 = the game's first round
+     *   WithTeams: true           — Team Suns. Implies 4 live seats. 'true' is the ONLY value:
+     *                               teams are seat parity (red 1+3, blue 2+4), so there is nothing to specify.
      *   P1OnlyActions: true       — shorthand for WithInitiativePlayer:2 + WithInitiativeClaimed:true + WithActivePlayer:1
      *                               P2 auto-passes after every P1 action (P2 holds claimed initiative)
      *   P{n}OnlyActions: true     — the same shorthand for ANY seat (added 2026-08-24). Only P1 existed

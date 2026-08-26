@@ -23,8 +23,7 @@ $customDQHandlers["SOR_092#0"] = function($player, $parts, $lastDecision) {
         $targets[] = $mz;
     }
     if (empty($targets)) return;                               // no other units → buff applied, no damage
-    DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", $power . "|" . implode("&", $targets), 1, tooltip:"Divide_damage_among_other_units");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SPLIT_DAMAGE", 1);
+    SWUOfferSplitDamage(intval($player), intval($power), $targets, "Divide_damage_among_other_units");
 };
 
 // When Played (event) — migrated from OnPlayEvent.

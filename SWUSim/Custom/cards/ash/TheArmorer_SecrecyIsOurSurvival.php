@@ -7,7 +7,7 @@
 // Shielded (including this one).
 $whenPlayedAbilities["ASH_064:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    foreach (GetUnitsInPlay(intval($player)) as $u) {
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
         if (empty($u->removed) && HasKeyword_Shielded($u)) {
             $mz = SWUFindMzByUID(intval($u->UniqueID ?? 0));
             if ($mz !== null) DoGiveShieldToken(intval($player), $mz);

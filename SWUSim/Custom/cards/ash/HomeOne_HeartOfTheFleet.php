@@ -6,7 +6,7 @@
 // ASH_065 Home One — Sentinel (auto) + When Played: heal all damage from each friendly unit.
 $whenPlayedAbilities["ASH_065:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    foreach (GetUnitsInPlay(intval($player)) as $u) {
+    foreach (SWUFriendlyUnitObjects(intval($player)) as $u) {
         if (empty($u->removed) && intval($u->Damage ?? 0) > 0) {
             $mz = SWUFindMzByUID(intval($u->UniqueID ?? 0));
             if ($mz !== null) OnHealUnit(intval($player), $mz, intval($u->Damage));

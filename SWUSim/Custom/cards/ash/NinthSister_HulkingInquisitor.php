@@ -53,7 +53,6 @@ $customDQHandlers["ASH_148#0"] = function($queueOwner, $parts, $lastDecision) {
     if ($cost <= 0) return;   // 0-cost (or none) → no damage to deal
     $targets = SWUAllUnits();
     if (empty($targets)) return;
-    DecisionQueueController::AddDecision(intval($player), "MZSPLITASSIGN", "{$cost}|" . implode("&", $targets) . "|UPTO", 1,
-        tooltip: "Divide_up_to_{$cost}_damage_among_any_number_of_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SPLIT_DAMAGE", 1);
+    SWUOfferSplitDamage(intval($player), intval($cost), $targets,
+        "Divide_up_to_{$cost}_damage_among_any_number_of_units", true);
 };

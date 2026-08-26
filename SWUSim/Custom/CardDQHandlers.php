@@ -1888,6 +1888,17 @@ function _SWUCham013CheckObserve(int $damagedCtrl, int $amount, bool $isCombat):
   }
 }
 
+// Resolves the "ready N friendly resources" split (SEC_225 Synara San, SHD_221 Wanted).
+// $parts[0] = the TOTAL to ready; $lastDecision = how many of it come from the player's OWN resources.
+$customDQHandlers["READY_FRIENDLY_RES"] = function ($player, $parts, $lastDecision) {
+  $total = intval($parts[0] ?? 0);
+  if ($total <= 0) return;
+  $mine = intval($lastDecision);
+  if ($mine < 0) $mine = 0;
+  if ($mine > $total) $mine = $total;   // never trust the client's number past the offered range
+  _SWUApplyFriendlyResourceSplit(intval($player), $mine, $total - $mine);
+};
+
 $customDQHandlers["HMW013_OFFER"] = function ($player, $parts, $lastDecision) {
   global $playerID;
   $playerID = intval($player);
