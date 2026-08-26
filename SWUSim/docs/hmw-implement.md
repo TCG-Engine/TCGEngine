@@ -1,6 +1,7 @@
 # HMW — Card Implementation Plan
 
-**⚠ PREVIEW SET.** 95 cards exist (93 numbered + 2 tokens) of ~262 printed — as of the wave imported
+**⚠ PREVIEW SET.** 99 cards exist (97 numbered + 2 tokens) of ~262 printed — as of the wave imported
+2026-08-26 (HMW_175 / HMW_208 / HMW_225 / HMW_237 landed then), and the wave imported
 2026-08-24 (HMW_018 / HMW_180 / HMW_212 / HMW_221 / HMW_222 / HMW_230 / HMW_240 / HMW_268 landed
 then) — as mock entries in `AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
 previews land — the phases below cover only what was previewed when each was written.
@@ -11,7 +12,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237
 
 <!-- HMW_011 Darth Sidious — Done, 12/12 including Twin Suns. Carries the engine's first
      "when you deal 4+ damage" observer, wired into all five damage funnels.
@@ -645,3 +646,78 @@ in the dictionary and keyword registries before implementation started). Suite b
   the LIVE object (`IsLeaderUnit`), not printed CardType.
 - [x] **Batch 9.4 — HMW_114 Breach** — 12 sections, suite 7826 -> 7838, 0 failed. — a friendly unit deals damage equal to its power to an enemy unit
   in ITS arena; if that unit has Overwhelm, excess goes to an enemy base.
+
+<!-- HMW_175 Fennec Shand, A Ship For a Life — Step-0 NO-OP, verified 2026-08-26. Text is exclusively
+     "Raid 2" + its reminder text, $Raid_Cards['HMW_175'] => 2 is auto-derived correctly by the
+     generator, and keywords/Raid_AttackBoost.md covers the mechanic. No code, no per-card test. -->
+
+<!-- HMW_208 Luke Skywalker, Dreaming Farmboy — Done, 8 sections, both guards mutation-verified.
+     "Raid 1. / While it's the first round of the game, this unit enters play ready."
+     Raid 1 is auto-derived ($Raid_Cards). The rider is TWO edits and BOTH are load-bearing (removing
+     either alone reds 4 of the 8 sections — measured, not assumed):
+       1. a per-card branch in _SWUCardEntersReadyFor: `return intval(GetTurnNumber()) === 1`
+          (CreateGame seeds TurnNumber = 1; RegroupPhaseStart increments at the END of a round, so the
+          whole of round 1 reads 1);
+       2. membership in the conditional allowlist at the ActivateCard call site.
+     ⚠ THE CARD WAS ACTIVELY WRONG, not merely unimplemented, the moment it entered the dictionary:
+     SWUUnitEntersReady() is a bare substring match for "this unit enters play ready", and that phrase
+     sits INSIDE Luke's own conditional clause — so he entered ready in every round. All four of the
+     existing conditional enters-ready cards (SEC_170 / LAW_210 / LAW_223 / ASH_224) share the shape,
+     which is why the allowlist exists.
+     ⚠ FLAGGED FOR REVIEW — the allowlist's DEFAULT is best-case ready, so the NEXT conditional
+     enters-ready card is silently wrong until someone remembers to list it. That is the
+     allowlist-whose-default-contradicts-the-rules shape. Not refactored here (it would change behaviour
+     for 4 shipped cards mid-preview-run); raised with the user instead.
+     ⚠ PREVIEW SET — no card-specific-rulings.md entry, so "the first round of the game" == TurnNumber 1
+     is reasoned from the CR + the four released analogues, not sourced. RE-CHECK WHEN HMW RELEASES.
+     HARNESS: added the `WithRound: N` GIVEN directive — GameStateBuilder::WithCurrentRoundBeing() had
+     existed all along with nothing wired to it, so no test could sit outside round 1 without driving a
+     full regroup. One section deliberately drives the REAL regroup anyway, so the gate is proven against
+     the counter the game actually increments rather than against the new directive. -->
+
+<!-- HMW_225 Boba Fett, Family Found — Done, 10 sections, all four guards mutation-verified.
+     "Ambush / When a friendly unit with Ambush enters play (including this one): Give it Raid 1 and
+     Saboteur for this phase."
+     Ambush is auto-derived ($Ambush_Cards). The observer is modelled on ASH_041 Outcast, which carries
+     the identical "(including this one)" wording, and like it needs BOTH entry funnels:
+     CollectEntryTriggers (the play path) and _SWUCreateOneToken (creation never reaches the play path).
+     Placed just after the Ambush trigger is BAGGED but before the bag is FLUSHED, so the entering unit
+     carries both grants into its own Ambush attack — pinned by Raid1AppliesToHisOwnAmbushAttack and
+     SaboteurLetsHisAmbushAttackIgnoreSentinel.
+     Grants use generic registered bases with a provenance suffix — 'RAID-1^HMW_225' / 'SABOTEUR^HMW_225'
+     (SWUMakeTurnEffect's $source arg). The base is what makes them EXPIRE; the suffix is what shows
+     Boba's art in Active Effects. No new $turnEffectRegistry rows. Boba is unique, so the grant fires
+     once rather than once-per-copy (two identical tokens would de-dupe anyway).
+     ⚠ MUTATION CAUGHT A WEAK SECTION OF MINE: Raid1AppliesToHisOwnAmbushAttack originally ambushed a
+     3/1, which dies to 1 damage with or without Raid — it bore the name and proved nothing. Retargeted
+     at SEC_237 (2/2), where only 1 power + Raid 1 is lethal, and it now reds when the Raid grant is
+     removed. Worth remembering whenever a section's premise is "+N made the difference": pick a target
+     whose HP sits strictly between the two readings.
+     ⚠ KNOWN UNTESTED PATH — the _SWUCreateOneToken hook. No fixture in the pool creates a token that
+     HAS Ambush (it would need an Ambush-granting aura over a token-creating effect, e.g. SOR_100 Wedge
+     + a Vehicle token), so the token half is implemented by symmetry with ASH_041 and is NOT covered by
+     a section. Flagged rather than omitted; revisit when such a fixture exists.
+     ⚠ PREVIEW SET — no card-specific-rulings.md entry; readings reasoned from the CR + ASH_041.
+     ⚠ HARNESS NOTE: Ambush prompts as a YESNO ("it MAY attack"), and with ONE enemy unit the target
+     auto-resolves — answering with a target mzID there is silently absorbed and no attack happens,
+     which reads exactly like the trigger never firing. Two enemy units => YES, then the target. -->
+
+<!-- HMW_237 Easy Prey — Done, 10 sections, four guards mutation-verified.
+     "Create a Beast token. / An opponent creates a Beast token. Give a Weakness token to it."
+     Two creations with DIFFERENT riders — yours is a clean 3/3 Beast (HMW_T03), theirs arrives carrying
+     a Weakness (HMW_T02, -1/-1) so it reads 2/2. "it" = the Beast named by the immediately preceding
+     sentence, i.e. the OPPONENT's; that asymmetry IS the card.
+     "An opponent" is a CHOICE -> SWUQueueChooseOpponent (auto-resolves invisibly at two seats, so
+     Premier gains no one-answer prompt). NO eligibility filter: this is the "something is done TO them"
+     shape, and a free 2/2 may even be welcome — filtering on whether a seat wants it is the mistake that
+     classification exists to prevent.
+     ⚠ THE RIDER MUST RIDE THE BATCH API. The Weakness is passed as SWUCreateUnitTokens' $upgradeToken,
+     not stamped on the returned UID: ASH_094 Moff Jerjerrod creates the doubled tokens later inside his
+     own handler, so a stamped rider leaves the second Beast bare. Pinned by
+     Jerjerrod_DoublesAndBOTHBeastsAreWeakened plus its decline partner.
+     ⚠ ENGINE FIX THIS CARD REQUIRED: _SWUApplyTokenRider knew only 'EXPERIENCE' and 'SHIELD' and
+     SILENTLY DID NOTHING for a token-upgrade CardID — so $upgradeToken='HMW_T02' looked wired and
+     produced a bare token. It now falls through to DoGiveTokenUpgrade. Any future token-upgrade rider
+     depends on that fallback; mutation D (reverting it) reds 7 of the 10 sections.
+     ⚠ PREVIEW SET — no card-specific-rulings.md entry; both the "it" reading and "an opponent" = choice
+     are reasoned from the CR and flagged. RE-CHECK WHEN HMW RELEASES. -->

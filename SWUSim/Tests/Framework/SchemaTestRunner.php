@@ -244,10 +244,42 @@ class SchemaTestRunner {
             } elseif (in_array($k, $multiKeys, true)) {
                 $out[$k][] = $v;
             } else {
+                self::_assertKnownGivenKey($k);
                 $out[$k] = $v;
             }
         }
         return $out;
+    }
+
+    // ⚠ A GIVEN key the runner does not consume used to be SILENTLY DROPPED — the parser's final `else`
+    // stored anything into $given and nothing ever complained. That is a whole bug class, not a typo
+    // nuisance: a section whose premise depends on a mis-keyed directive still RUNS, just against a board
+    // that was never set up, and it can sit green for months while asserting the wrong thing (the
+    // `myDiscardCardIds` case, and the WithRound wiring that was accepted while doing nothing —
+    // both 2026-08). Fail loudly instead.
+    //
+    // Suffix families are matched per seat rather than listed 4x. Keep in sync when adding a directive.
+    private static function _assertKnownGivenKey(string $k): void {
+        static $scalar = [
+            'CommonSetup', 'SkipPreGame', 'P1OnlyActions', 'P2OnlyActions', 'P3OnlyActions', 'P4OnlyActions',
+            'P1LeaderBase', 'P2LeaderBase', 'P3LeaderBase', 'P4LeaderBase',
+            'WithActivePlayer', 'WithInitiativePlayer', 'WithInitiativeClaimed', 'WithGamePhase',
+            'WithSeatOrder', 'WithLiveSeats', 'WithDefeatedPlayer', 'WithPrivateGame', 'WithRound',
+            'InitChoice', 'InitRng', 'DeckSeed',
+        ];
+        static $perSeat = [
+            'Deck', 'Hand', 'Discard', 'Resources', 'Credits', 'Force', 'Base', 'Leader', 'Leader2',
+            'GlobalEffect', 'BaseUpgrade', 'BaseCaptive', 'ControlledUnit', 'ResourceControlled',
+            'GroundArena', 'SpaceArena',
+            'GroundArenaUpgrade', 'SpaceArenaUpgrade', 'GroundArenaPilot', 'SpaceArenaPilot',
+            'GroundArenaCaptive', 'SpaceArenaCaptive', 'GroundArenaControlled', 'SpaceArenaControlled',
+        ];
+        if (in_array($k, $scalar, true)) return;
+        if (preg_match('/^P\d+Deck$/', $k)) return;                    // P1Deck / P2Deck (pregame form)
+        if (preg_match('/^WithP\d+(.+)$/', $k, $m) && in_array($m[1], $perSeat, true)) return;
+        throw new RuntimeException(
+            "Unknown GIVEN directive '{$k}' — it would have been silently ignored. "
+            . "Check the spelling, or add it to SchemaTestRunner::_assertKnownGivenKey() if it is new.");
     }
 
     private static function _parseDeckList(string $val): array {
@@ -338,12 +370,20 @@ class SchemaTestRunner {
             $p2DeckLeft  = max(0, count($p2Deck) - $p2Drew);
         }
 
+        // WithRound: N — the game's round counter (TurnNumber). CreateGame seeds it at 1 and
+        // RegroupPhaseStart increments it, so round 1 is the game's first round. GameStateBuilder has
+        // carried WithCurrentRoundBeing() all along but nothing was ever wired to it, so a "while it's the
+        // first round" card could not be placed outside round 1 without driving a full regroup.
+        // Added 2026-08-26 for HMW_208 Luke Skywalker (Dreaming Farmboy).
+        $schemaRound = intval($given['WithRound'] ?? 1);
+        if ($schemaRound < 1) throw new RuntimeException("WithRound: must be >= 1, got {$schemaRound}");
+
         // Start in APS so AutoAdvanceAndExecute fires ActionPhaseStart before MAIN begins.
         $b = (new GameStateBuilder())
             ->WithActivePlayer($initPlayer)
             ->WithInitiativePlayerBeing($initPlayer)
             ->WithGamePhase('APS')
-            ->WithCurrentRoundBeing(1);
+            ->WithCurrentRoundBeing($schemaRound);
 
         if (!isset($given['CommonSetup'])) {
             $b->MyBase($p1BaseID, $p1BaseDmg, $p1BaseEpic)
@@ -1055,6 +1095,7 @@ class SchemaTestRunner {
      *   WithInitiativePlayer: N   — which player holds the initiative token
      *   WithInitiativeClaimed: true/false — whether it has been claimed this round
      *   WithActivePlayer: N       — which player is the active (turn) player
+     *   WithRound: N              — the round counter (TurnNumber); 1 = the game's first round
      *   P1OnlyActions: true       — shorthand for WithInitiativePlayer:2 + WithInitiativeClaimed:true + WithActivePlayer:1
      *                               P2 auto-passes after every P1 action (P2 holds claimed initiative)
      *   P{n}OnlyActions: true     — the same shorthand for ANY seat (added 2026-08-24). Only P1 existed

@@ -2039,6 +2039,32 @@ When a non-leader ground unit enters play (including token units): You may defea
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/171.png',
     'imageUrlBack' => '',
   ),
+  'HMW_175' => 
+  array (
+    'title' => 'Fennec Shand',
+    'subtitle' => 'A Ship For a Life',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 0,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+    ),
+    'text' => 'Raid 2 (This unit gets +2/+0 while attacking.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/175.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_176' => 
   array (
     'title' => 'Village Troublemaker',
@@ -2486,6 +2512,33 @@ When Played: If you control a Tatooine base, you may return an upgrade that cost
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/223.png',
     'imageUrlBack' => '',
   ),
+  'HMW_225' => 
+  array (
+    'title' => 'Boba Fett',
+    'subtitle' => 'Family Found',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 1,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tusken',
+    ),
+    'text' => 'Ambush
+When a friendly unit with Ambush enters plays (including this one): Give it Raid 1 and Saboteur for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/225.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_230' => 
   array (
     'title' => 'Raiding Party',
@@ -2538,6 +2591,31 @@ While you control a Tatooine base, friendly units enter play ready (including th
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/234.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_237' => 
+  array (
+    'title' => 'Easy Prey',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 1,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Innate',
+    ),
+    'text' => 'Create a Beast token.
+An opponent creates a Beast token. Give a Weakness token to it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/237.png',
     'imageUrlBack' => '',
   ),
   'HMW_240' => 

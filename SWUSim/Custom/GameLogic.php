@@ -3435,6 +3435,24 @@ function _SWUCreateOneToken(int $player, string $tokenID, bool $ready = false): 
         }
         for ($i = 0; $i < $a041c; $i++) SWUApplyPhaseBuff($newCard->GetMzID(), 1, 0, 'ASH_041');
     }
+    // HMW_225 Boba Fett (Family Found) — "When a friendly unit with Ambush enters play (including this one): Give it Raid 1 and Saboteur for this phase." Boba is UNIQUE, so at most one per player:
+    // grant once rather than once per copy (and two identical grant tokens would de-dupe anyway).
+    // Placed AFTER the Ambush trigger is bagged but BEFORE the bag is flushed, so the entering unit
+    // carries both grants into its own Ambush attack — which is the whole point of the card.
+    // Generic registered bases with a ^HMW_225 provenance suffix: the base is what makes them EXPIRE
+    // at end of phase, the suffix is what shows Boba's art in the Active Effects popup.
+    // A created token never reaches the play path, so it needs its own hook (the ASH_041 lesson).
+    if ($newCard !== null && empty($newCard->removed) && HasKeyword_Ambush($newCard)) {
+        $hasBoba225 = false;
+        foreach (GetUnitsInPlay($player) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'HMW_225') { $hasBoba225 = true; break; }
+        }
+        if ($hasBoba225) {
+            AddTurnEffect($newCard->GetMzID(), SWUMakeTurnEffect('RAID', [1], SWU_DUR_PHASE, 'HMW_225'));
+            AddTurnEffect($newCard->GetMzID(), SWUMakeTurnEffect('SABOTEUR', [], SWU_DUR_PHASE, 'HMW_225'));
+        }
+    }
+
     // HMW_171 Trap Field — a created ground token is a non-leader ground unit "entering play", so either
     // player's Trap Field may react. Token creation has no trigger-bag flush of its own (it happens inside
     // another effect's resolution), so flush explicitly when a reaction was armed. $gPendingTriggers is
@@ -3485,6 +3503,11 @@ function SWUCreateUnitTokens(int $player, string $tokenID, int $count, bool $rea
 function _SWUApplyTokenRider(int $player, string $mz, string $upgradeToken): void {
     if ($upgradeToken === 'EXPERIENCE') { DoGiveExperienceToken($player, $mz); return; }
     if ($upgradeToken === 'SHIELD')     { DoGiveShieldToken($player, $mz); return; }
+    // Anything else is a token-upgrade CardID (HMW_T02 Weakness, and any future one). Until 2026-08-26
+    // this function knew only the two named riders and SILENTLY DID NOTHING for a CardID — so passing
+    // one to SWUCreateUnitTokens' $upgradeToken looked wired and produced a bare token. Found writing
+    // HMW_237 Easy Prey, whose whole second clause is "create a Beast token. Give a Weakness token to it".
+    DoGiveTokenUpgrade($player, $mz, $upgradeToken);
 }
 
 // ASH_094 Moff Jerjerrod — "If you would create a number of tokens, you may defeat this unit. If you do,
@@ -4743,6 +4766,13 @@ function _SWUCardEntersReadyFor(int $player, string $cardID): bool {
         }
         return false;
     }
+    // HMW_208 Luke Skywalker (Dreaming Farmboy) — "While it's the first round of the game, this unit
+    // enters play ready." CreateGame seeds TurnNumber = 1 and RegroupPhaseStart increments it at the END
+    // of each round, so the whole of round 1 (its action phase included) reads 1.
+    // ⚠ Without this branch the card is NOT merely unimplemented, it is WRONG: SWUUnitEntersReady is a
+    // bare substring match for "this unit enters play ready", and that phrase sits inside Luke's own
+    // conditional clause — so he would enter ready in EVERY round, ignoring the only restriction he has.
+    if ($cardID === 'HMW_208') return intval(GetTurnNumber()) === 1;
     // HMW_234 Ritual Dragon — "friendly units enter play ready" while it is in play with a Tatooine base.
     if (_SWURitualDragonEntersReady($player, $cardID)) return true;
     return $entersReady;
@@ -9580,6 +9610,24 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
         for ($i = 0; $i < $a041; $i++) SWUApplyPhaseBuff($mzID, 1, 0, 'ASH_041');
     }
 
+    // HMW_225 Boba Fett (Family Found) — "When a friendly unit with Ambush enters play (including this
+    // one): Give it Raid 1 and Saboteur for this phase." Boba is UNIQUE, so at most one per player:
+    // grant once rather than once per copy (and two identical grant tokens would de-dupe anyway).
+    // Placed AFTER the Ambush trigger is bagged but BEFORE the bag is flushed, so the entering unit
+    // carries both grants into its own Ambush attack — which is the whole point of the card.
+    // Generic registered bases with a ^HMW_225 provenance suffix: the base is what makes them EXPIRE
+    // at end of phase, the suffix is what shows Boba's art in the Active Effects popup.
+    if ($obj !== null && HasKeyword_Ambush($obj)) {
+        $hasBoba = false;
+        foreach (GetUnitsInPlay($activePlayer) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'HMW_225') { $hasBoba = true; break; }
+        }
+        if ($hasBoba) {
+            AddTurnEffect($mzID, SWUMakeTurnEffect('RAID', [1], SWU_DUR_PHASE, 'HMW_225'));
+            AddTurnEffect($mzID, SWUMakeTurnEffect('SABOTEUR', [], SWU_DUR_PHASE, 'HMW_225'));
+        }
+    }
+
     // Task 5.1 — observer triggers: "when an opponent plays a card / unit / event / upgrade".
     // TWI_210 Cunning fires once per copy in play when the opponent paid less than printed cost.
     // AddTrigger here so the reactions batch with the played card's own WhenPlayed via
@@ -14177,13 +14225,23 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // (SOR_193 Millennium Falcon: "This unit enters play ready."), or the play source forces it
         // (SOR_129 Admiral Ozzel: "Play an Imperial unit … It enters play ready." sets $gForceEnterReady).
         global $gForceEnterReady;
-        // The card's own enters-ready replacement (incl. the conditional variants) — shared with every
-        // other arena-entry path via _SWUCardEntersReadyFor. NOTE it is keyed on $cardID for the
-        // conditionals but on $effectiveCardID for the plain text-match, matching a TWI_116 Clone copy.
-        $entersReady = SWUUnitEntersReady($effectiveCardID) || _SWUCardEntersReadyFor(intval($player), $cardID);
-        if (in_array($cardID, ['SEC_170', 'LAW_210', 'LAW_223', 'ASH_224'], true)) {
-            $entersReady = _SWUCardEntersReadyFor(intval($player), $cardID);   // conditional → exact, not best-case
-        }
+        // The card's own enters-ready replacement (incl. the conditional variants). _SWUCardEntersReadyFor
+        // is THE single source of truth — it answers each conditional card exactly and falls back to the
+        // plain text-match for everything else — and it is shared with every other arena-entry path
+        // (DoRescueUnit et al.), so a re-entering unit re-checks its condition.
+        //
+        // ⚠ This used to read `SWUUnitEntersReady($effectiveCardID) || _SWUCardEntersReadyFor(…, $cardID)`
+        // guarded by an ALLOWLIST of the four known conditional cards. That default was backwards: the
+        // left operand is a bare substring match for "this unit enters play ready", a phrase every
+        // CONDITIONAL card also contains INSIDE its own condition — so any conditional card missing from
+        // the list silently entered play ready always. Membership was load-bearing rather than an
+        // optimisation, which is precisely the allowlist-whose-default-contradicts-the-rules shape.
+        // Rewritten 2026-08-26 (found via HMW_208 Luke Skywalker, the first card to fall in the hole).
+        //
+        // Keyed on $effectiveCardID like every other entry-path consumer below ($cloneCopyID ?? $cardID),
+        // which also makes a TWI_116 Clone copying a conditional card evaluate THAT card's condition
+        // instead of skipping it.
+        $entersReady = _SWUCardEntersReadyFor(intval($player), $effectiveCardID);
         // ASH_248 Neel — "The next unit you play this phase with 1 or less power enters play ready."
         // Armed flag consumed by the next ≤1-power unit the controller plays.
         // ASH_248 Neel — the flag he arms is consumed by the next ≤1-power unit you play (never by Neel

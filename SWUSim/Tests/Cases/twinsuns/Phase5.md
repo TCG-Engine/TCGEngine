@@ -233,11 +233,14 @@ SEATLIVE:3:false
 #// Phase 5 — Tied highest base HP shares the victory
 
 ## GIVEN
-CommonSetup: grw
+#// ⚠ myBase/theirBase are CommonSetup OPTS, not top-level directives — written at top level they were
+#// silently dropped, so seats 1 and 2 kept the base implied by the `grw` code and this section's stated
+#// premise (all three seats on the same base) never actually applied. It stayed green because the two
+#// defaulted seats happened to tie each other anyway. Moved into the opts block 2026-08-26; the EXPECT
+#// is unchanged and still passes, now for the stated reason.
+CommonSetup: grw/grw/{myBase:SOR_019; theirBase:SOR_019}
 WithSeatOrder: 123
 WithLiveSeats: 123
-myBase: SOR_019
-theirBase: SOR_019
 WithP3Base: SOR_019
 WithActivePlayer: 1
 

@@ -124,6 +124,15 @@ that was never enforced. The cell that catches it is the one that answers ILLEGA
 refusal — strictly stronger than asserting the client offer list, and the form to prefer whenever the
 offer is a CardID list rather than a target pool.
 
+★ **The same family, one step wider: a shared helper that DISPATCHES on a string may know only some
+values and silently no-op on the rest.** `_SWUApplyTokenRider($player,$mz,$upgradeToken)` handled exactly
+`'EXPERIENCE'` and `'SHIELD'` and fell off the end for anything else — so `SWUCreateUnitTokens(...,
+$upgradeToken: 'HMW_T02')` (HMW_237 Easy Prey: "create a Beast token. Give a Weakness token to it") read
+as fully wired and produced a bare token. Nothing warned; the parameter existed and was accepted.
+**Before passing a NEW value to any string-dispatched helper, read its branches and confirm yours has
+one** — and prefer giving such a helper a sane fallback (it now falls through to `DoGiveTokenUpgrade`)
+over adding an Nth `if`, so the next caller cannot land in the same hole.
+
 Generalise it: **whenever you pass a predicate into a shared helper that builds an offer, find out whether
 the helper re-applies it on resolution. If it does not, re-check it in your own handler**, and name one
 function as THE gate so the offer and the resolution cannot disagree (the `_SWULaw019FriendlyTokens` /
@@ -871,6 +880,45 @@ fixture-blind-spot table above for *why* that coverage could not see them.
    any player has pending decisions, and `myHand` additionally requires the turn player — and the harness's
    `PlayHand` routes through that same `ActionMap`, so "can the opponent interrupt my triggers?" is a
    normal `Cases/` test, not a manual check.
+
+### ⚠ DSL + design traps (HMW preview completion, 2026-08-26)
+
+- **★ `WithRound: N` sets the round counter** (TurnNumber; 1 = the game's first round). Added for HMW_208
+  Luke Skywalker "while it's the first round of the game". ⚠ Prefer it for the GATE and still write ONE
+  section that advances a REAL round (both players `Pass`, then both `ResourcePass`), so the card is
+  proven against the counter the game actually increments and not against the directive.
+  ⚠ That round-advance chain needs a trailing **`P2>Pass`** under `P1OnlyActions`: P2 holds the CLAIMED
+  initiative, so it LEADS the next round and P1's play is refused by the turn-player gate — presenting as
+  an empty arena, i.e. exactly like the card failing to resolve.
+- **★ An unknown GIVEN directive now THROWS** (`_assertKnownGivenKey`). It used to be silently dropped by
+  the parser's final `else`, which is a bug class, not a typo nuisance: a section whose premise depends on
+  a mis-keyed directive still RUNS, against a board that was never set up. Enabling it immediately caught
+  `twinsuns/Phase5.md` using `myBase:`/`theirBase:` — **CommonSetup opts written at top level** — so its
+  "all three seats tie on base HP" premise had never applied. **When you add a directive, add it there.**
+- **Ambush prompts as a YESNO** ("it MAY attack an enemy unit"), and with a SINGLE enemy unit the target
+  auto-resolves — so `YES` is the whole answer. A target mzID there is silently absorbed and no attack
+  happens, which reads exactly like the trigger never firing. Two enemy units → `YES`, then the target.
+- **★ For any section whose premise is "+N made the difference", pick a value STRICTLY BETWEEN the two
+  readings.** A "Raid 1 applied" section that ambushes a 3/**1** proves nothing — it dies to 1 damage with
+  or without the bonus. Retargeting at a 2/**2** (where only `power + 1` is lethal) is what makes it red
+  when the grant is removed. This one carried its name for a whole draft and only the mutation pass
+  exposed it, which is the argument for mutating every guard rather than the ones you doubt.
+- **A unit placed by `WithP{n}GroundArena` never ENTERS PLAY**, so no entry observer fires on it. An
+  entry-triggered grant must be tested by PLAYING the unit; seeding it asserts against grants never made.
+- **★★ THE ALLOWLIST-DEFAULT SHAPE RECURRED — second instance, now fixed.** `ActivateCard` resolved
+  enters-ready as `SWUUnitEntersReady($effectiveCardID) || _SWUCardEntersReadyFor(…)`, guarded by a list
+  of the four known CONDITIONAL cards. The left operand is a bare substring match for "this unit enters
+  play ready" — a phrase every conditional card also contains INSIDE its own condition — so any
+  conditional card missing from the list entered play ready **always**. Membership was load-bearing, not
+  an optimisation, and HMW_208 was the first card to fall in the hole (it was ACTIVELY WRONG the moment
+  it entered the dictionary, not merely unimplemented). Rewritten to
+  `_SWUCardEntersReadyFor($player, $effectiveCardID)` as the single source of truth — it already answered
+  each conditional exactly and fell back to the text-match — and keyed on `$effectiveCardID` like every
+  other entry consumer, so a TWI_116 Clone copying a conditional card now evaluates that card's
+  condition. Restoring the old form reds **13 sections across all four** released cards: the default had
+  been wrong for every one of them, not just the new card.
+  **The reusable question, whenever you add a per-card switch: "what happens to a card that is NOT
+  listed?" If the answer is wrong, the default is the bug — invert it instead of appending a name.**
 
 ### ⚠ DSL traps that cost real time on the LOF port (2026-08-07)
 - **★ An offer with a SINGLE legal option AUTO-RESOLVES**, so `P1SELECTABLEEXACT:`/`P1DECISIONTOOLTIP:`
