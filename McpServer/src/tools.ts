@@ -394,9 +394,10 @@ export async function saveCardAbilities(
     await ensurePrereqColumn(conn);
     await conn.beginTransaction();
 
-    // Get existing abilities
+    // Snapshot the full prior rows so a failed codegen can restore them exactly.
     const [existingRows] = await conn.query<mysql.RowDataPacket[]>(
-      `SELECT id FROM card_abilities WHERE root_name = ? AND card_id = ?`,
+      `SELECT id, root_name, card_id, macro_name, ability_type, ability_code, prereq_code, listener_zones, ability_name, is_implemented, created_at, updated_at
+       FROM card_abilities WHERE root_name = ? AND card_id = ?`,
       [root, cardId]
     );
     const existingIds = new Set(
@@ -472,17 +473,26 @@ export async function saveCardAbilities(
     }
 
     await conn.commit();
-    
-    // Trigger the code generator and wait for it to complete
-    // This regenerates the GeneratedMacroCode.php and GeneratedMacroCount.js files
+
+    // Regenerate GeneratedMacroCode.php and lint it. If generation or validation fails, restore the
+    // prior rows and regenerate the prior state so the DB and generated files stay consistent, then
+    // surface the failure to the caller — a swallowed failure would leave bad data saved as "success".
     try {
       await runCodeGenerator(root);
-    } catch (err: any) {
-      logToStderr(`Warning: Code generator failed for ${root}: ${err.message}`);
-      // Don't throw - we want to return success even if generator has issues
-      // but log the error for debugging
+    } catch (codegenErr: any) {
+      await restoreCardAbilities(conn, root, cardId, existingRows as any[]);
+      try {
+        await runCodeGenerator(root);
+      } catch (restoreErr: any) {
+        logToStderr(
+          `Code generator also failed after restoring prior state for ${root}/${cardId}: ${restoreErr.message}`
+        );
+      }
+      throw new Error(
+        `Code generation or validation failed for ${root}/${cardId}; prior ability rows were restored. ${codegenErr.message}`
+      );
     }
-    
+
     return { success: true, savedCount, deletedCount };
   } catch (err) {
     await conn.rollback();
@@ -492,37 +502,114 @@ export async function saveCardAbilities(
   }
 }
 
-// Run the code generator to regenerate GeneratedMacroCode.php and GeneratedMacroCount.js
-async function runCodeGenerator(root: string): Promise<void> {
+// Restore a card's ability rows to a captured prior state (used when codegen fails after commit).
+async function restoreCardAbilities(
+  conn: mysql.PoolConnection,
+  root: string,
+  cardId: string,
+  priorRows: any[]
+): Promise<void> {
+  await conn.beginTransaction();
   try {
-    const generatorPath = path.join(ENGINE_ROOT, "zzGameCodeGenerator.php");
-    // Execute PHP CLI with rootName as argument
-    // The PHP script will parse this and populate $_GET accordingly
-    const { stdout, stderr } = await execFileAsync("php", [generatorPath, `rootName=${root}`], {
+    await conn.query(
+      `DELETE FROM card_abilities WHERE root_name = ? AND card_id = ?`,
+      [root, cardId]
+    );
+    for (const row of priorRows) {
+      await conn.query(
+        `INSERT INTO card_abilities (id, root_name, card_id, macro_name, ability_type, ability_code, prereq_code, listener_zones, ability_name, is_implemented, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          row.id, row.root_name, row.card_id, row.macro_name, row.ability_type,
+          row.ability_code, row.prereq_code, row.listener_zones, row.ability_name,
+          row.is_implemented ?? 0, row.created_at, row.updated_at,
+        ]
+      );
+    }
+    await conn.commit();
+  } catch (err) {
+    await conn.rollback();
+    throw err;
+  }
+}
+
+// Run the code generator to regenerate GeneratedMacroCode.php and GeneratedMacroCount.js.
+// Throws on any generation or validation failure so callers never mistake broken/stale generated
+// code for a live change. The generator swallows most exceptions into "Note: Could not generate…"
+// output while still exiting 0, so detection must combine exit code, output strings, and a php -l
+// lint plus a bare smoke load of the regenerated macro file.
+async function runCodeGenerator(root: string): Promise<void> {
+  const generatorPath = path.join(ENGINE_ROOT, "zzGameCodeGenerator.php");
+  let stdout = "";
+  let stderr = "";
+  try {
+    // Execute PHP CLI with rootName as argument. The PHP script parses this and populates $_GET.
+    const result = await execFileAsync("php", [generatorPath, `rootName=${root}`], {
       cwd: ENGINE_ROOT,
       maxBuffer: 10 * 1024 * 1024, // 10MB buffer for large outputs
     });
-    
-    // Check if there's JSON error response (e.g., auth failure or other error)
-    if (stdout && stdout.trim().startsWith("{")) {
-      try {
-        const response = JSON.parse(stdout);
-        if (response.error) {
-          throw new Error(`Code generator error: ${response.error}`);
-        }
-      } catch (parseErr: any) {
-        // If it's not valid JSON or doesn't have error field, it might be normal output
-        if (parseErr instanceof Error && parseErr.message.includes("Code generator error")) {
-          throw parseErr;
-        }
+    stdout = result.stdout ?? "";
+    stderr = result.stderr ?? "";
+  } catch (err: any) {
+    // execFile rejects on non-zero exit code or spawn failure.
+    throw new Error(
+      `Code generator process failed for ${root}: ${err.stderr || err.message || String(err)}`
+    );
+  }
+
+  const combined = `${stdout}\n${stderr}`;
+  if (/could not generate/i.test(combined) || /fatal error/i.test(combined) || /parse error/i.test(combined)) {
+    throw new Error(
+      `Code generator reported a failure for ${root}: ${combined.trim().slice(0, 2000)}`
+    );
+  }
+
+  // JSON error envelope (e.g. auth failure on the HTTP path).
+  if (stdout.trim().startsWith("{")) {
+    try {
+      const response = JSON.parse(stdout);
+      if (response.error) {
+        throw new Error(`Code generator error: ${response.error}`);
+      }
+    } catch (parseErr: any) {
+      if (parseErr instanceof Error && parseErr.message.startsWith("Code generator error")) {
+        throw parseErr;
       }
     }
-    
-    if (stderr && !stderr.includes("Deprecated")) {
-      logToStderr(`Code generator stderr for ${root}: ${stderr}`);
-    }
+  }
+
+  await validateGeneratedMacro(root);
+
+  if (stderr && !stderr.includes("Deprecated")) {
+    logToStderr(`Code generator stderr for ${root}: ${stderr}`);
+  }
+}
+
+// Syntax-check and smoke-load the regenerated macro file. The generated file only defines closures
+// and global arrays, so `php -l` and a bare `include` need no game session or web-only bootstrap.
+async function validateGeneratedMacro(root: string): Promise<void> {
+  const macroPath = path.join(ENGINE_ROOT, root, "GeneratedCode", "GeneratedMacroCode.php");
+  if (!fs.existsSync(macroPath)) {
+    throw new Error(`Generated macro file is missing after codegen for ${root}: ${macroPath}`);
+  }
+
+  try {
+    await execFileAsync("php", ["-l", macroPath], { cwd: ENGINE_ROOT, maxBuffer: 10 * 1024 * 1024 });
   } catch (err: any) {
-    throw new Error(`Failed to run code generator for ${root}: ${err.message}`);
+    throw new Error(
+      `php -l failed on ${macroPath}: ${err.stderr || err.message || String(err)}`
+    );
+  }
+
+  try {
+    await execFileAsync("php", ["-r", `include ${JSON.stringify(macroPath)};`], {
+      cwd: ENGINE_ROOT,
+      maxBuffer: 10 * 1024 * 1024,
+    });
+  } catch (err: any) {
+    throw new Error(
+      `Smoke load of ${macroPath} failed: ${err.stderr || err.message || String(err)}`
+    );
   }
 }
 
