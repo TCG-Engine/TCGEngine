@@ -63,6 +63,14 @@ while (true) {
     $response->maxPlayers = intval($lobby->maxPlayers ?? 4);
     $response->state = $lobby->state ?? 'open';
     $response->inviteCode = $lobby->inviteCode ?? '';
+    // Hand the caller back the seat it CURRENTLY holds. StartRoom renumbers playerIDs at start (team
+    // rooms sort by picked seat first), so the playerID the client captured at join is stale for anyone
+    // the sort moved — and this branch exits before the auth block below, so nothing else corrects it.
+    // The client redirects on `started`, so without this it enters the game as its OLD seat and the
+    // game rejects it: "this browser is not currently authenticated as player N" (reported 2026-08-26,
+    // where every seat except the host's failed).
+    $meRoom = SWURoomFindPlayerByAuthKey($lobby, $authKey);
+    if ($meRoom !== null) $response->playerID = $meRoom->getPlayerID();
     if (!empty($lobby->gameName)) { $response->started = true; $response->gameName = $lobby->gameName; }
     header('Content-Type: application/json');
     echo json_encode($response);

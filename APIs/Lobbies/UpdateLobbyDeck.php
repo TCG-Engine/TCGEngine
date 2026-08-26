@@ -27,7 +27,7 @@ if (!empty($lobby->gameName) || ($lobby->state ?? '') === 'started') _updateDeck
 
 $me = null;
 foreach (($lobby->players ?? []) as $p) {
-  if (($p instanceof Player) && $p->getPlayerID() == $playerID && $p->getAuthKey() === $authKey) { $me = $p; break; }
+  if (($p instanceof Player) && hash_equals(strval($p->getAuthKey()), strval($authKey))) { $me = $p; break; }  // authKey is the identity; playerID is a SEAT, renumbered at start
 }
 if (!$me) _updateDeckFail($response, 'Authentication failed.');
 

@@ -26,7 +26,7 @@ if (!SWURoomIsTeamLobby($lobby)) _setTeamFail($response, 'This room does not use
 // Auth by IDENTITY + authKey. playerID never moves, so this survives a seat change.
 $me = null;
 foreach (($lobby->players ?? []) as $p) {
-  if (($p instanceof Player) && $p->getPlayerID() == $playerID && $p->getAuthKey() === $authKey) { $me = $p; break; }
+  if (($p instanceof Player) && hash_equals(strval($p->getAuthKey()), strval($authKey))) { $me = $p; break; }  // authKey is the identity; playerID is a SEAT, renumbered at start
 }
 if (!$me) _setTeamFail($response, 'Authentication failed.');
 

@@ -152,4 +152,65 @@ SWURoomAssignTeam($partial, $partial->players[0], 'red');
 $partial->players[0]->setLeaders(['SOR_010']);
 check(SWURoomLeaderSets($partial) === [1 => ['SOR_010']], 'unseated players are skipped');
 
+
+// ── Identity survives the start-time seat renumber (the 2026-08-26 playtest bug) ──────────────────
+// StartRoom compacts seats to 1..N and, in a team room, sorts by the PICKED seat first. That CHANGES
+// a player's playerID whenever join order differs from seat order — the normal case. The lobby poll
+// used to authenticate on (playerID AND authKey) and echo the caller's own playerID back, so every
+// moved player entered the game as a seat they no longer held and was rejected. Only the host, which
+// keeps seat 1 and array position 0, got in.
+//
+// This models the renumber exactly as StartRoom does it, then asserts that the AUTHKEY still resolves
+// to the seat the player now holds — which is what SWURoomFindPlayerByAuthKey guarantees.
+function startRoomRenumber($lobby) {           // mirror of StartRoom.php's handoff
+    $lobby->players = array_values($lobby->players);
+    if (SWURoomIsTeamLobby($lobby)) {
+        usort($lobby->players, fn($a, $b) => intval($a->getSeat() ?? 99) <=> intval($b->getSeat() ?? 99));
+    }
+    $seat = 1;
+    foreach ($lobby->players as $p) { $p->setPlayerID($seat); ++$seat; }
+    return $lobby;
+}
+
+$lr = mkLobby(4);
+$keys = [];
+foreach ($lr->players as $p) $keys[$p->getPlayerID()] = $p->getAuthKey();   // authKey by JOIN order
+
+// A 3-cycle: join order 1,2,3,4 -> seats 1,3,4,2. Three of the four players move.
+SWURoomAssignTeam($lr, $lr->players[0], 'red');    // join 1 -> seat 1
+SWURoomAssignTeam($lr, $lr->players[1], 'red');    // join 2 -> seat 3
+SWURoomAssignTeam($lr, $lr->players[2], 'blue');   // join 3 -> seat 2
+SWURoomAssignTeam($lr, $lr->players[3], 'blue');   // join 4 -> seat 4
+check($lr->players[1]->getSeat() === 3, 'precondition: the second red picker holds seat 3');
+check($lr->players[2]->getSeat() === 2, 'precondition: the first blue picker holds seat 2');
+
+startRoomRenumber($lr);
+
+// Table order is now seat order: join1(1), join3(2), join2(3), join4(4) — joins 2 and 3 SWAPPED.
+check($lr->players[0]->getAuthKey() === $keys[1], 'seat 1 is still the player who joined first (the host)');
+check($lr->players[1]->getAuthKey() === $keys[3], 'seat 2 is now the player who joined THIRD');
+check($lr->players[2]->getAuthKey() === $keys[2], 'seat 3 is now the player who joined SECOND');
+
+// ⚠ THE ASSERTION THAT WOULD HAVE CAUGHT THE BUG: every player's authKey resolves to their CURRENT
+// seat, and for the moved players that seat is NOT the playerID their browser captured at join.
+foreach ([1 => 1, 2 => 3, 3 => 2, 4 => 4] as $joinOrder => $expectedSeat) {
+    $found = SWURoomFindPlayerByAuthKey($lr, $keys[$joinOrder]);
+    check($found !== null, "authKey of join-order {$joinOrder} still resolves after the renumber");
+    check($found->getPlayerID() === $expectedSeat,
+          "join-order {$joinOrder} now holds seat {$expectedSeat} (its captured playerID is stale)");
+}
+check(SWURoomFindPlayerByAuthKey($lr, 'not-a-real-key') === null, 'an unknown authKey resolves to nobody');
+check(SWURoomFindPlayerByAuthKey($lr, '') === null, 'an empty authKey resolves to nobody');
+
+// Twin Suns sets no seat, so the sort is a no-op and playerIDs are untouched — Premier/Twin Suns stay
+// byte-identical, which is why this never surfaced before Team Suns.
+$lt = mkLobby(4, 'twinsuns');
+$tkeys = [];
+foreach ($lt->players as $p) $tkeys[$p->getPlayerID()] = $p->getAuthKey();
+startRoomRenumber($lt);
+foreach ([1, 2, 3, 4] as $i) {
+    check($lt->players[$i - 1]->getAuthKey() === $tkeys[$i], "twin suns: join-order {$i} keeps seat {$i}");
+}
+
+
 echo "PASS\n";

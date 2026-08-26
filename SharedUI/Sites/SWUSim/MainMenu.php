@@ -1238,7 +1238,10 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
             var overlay = document.getElementById('room-screen');
             if (overlay) overlay.remove();
             if (_roomEscHandler) { document.removeEventListener('keydown', _roomEscHandler); _roomEscHandler = null; }
-            DisplayMatchFoundPopup(playerID, r.gameName, authKey);
+            // r.playerID is the seat the server says we hold NOW. StartRoom renumbers seats at start,
+            // and `playerID` here is a closure variable captured when we joined — stale for anyone the
+            // team seat-sort moved. Falling back to it keeps the 2-player path byte-identical.
+            DisplayMatchFoundPopup(r.playerID || playerID, r.gameName, authKey);
             return;
           }
           if (r.success && r.isRoom) renderRoomRoster(playerID, r);
