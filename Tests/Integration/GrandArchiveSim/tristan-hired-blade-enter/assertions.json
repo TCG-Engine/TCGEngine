@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "theirField-2",
+        "property": "CardID",
+        "value": "gt7lh9v221"
+    },
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
