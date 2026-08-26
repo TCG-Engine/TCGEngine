@@ -6600,11 +6600,7 @@ function RegroupPhaseStart(): void {
         $sundari = GlobalEffectCount($p, 'SWU_SUNDARI_DEFEAT');
         if ($sundari > 0) {
             $playerID = $p;
-            for ($si = 0; $si < $sundari; $si++) {
-                $sres = ZoneSearch("myResources", null);
-                if (empty($sres)) break;
-                SWUDefeatResource($p, $sres[0]);
-            }
+            _SWUSundariDefeatFriendlyResources($p, $sundari);
             SWUClearGlobalEffectsByPrefix($p, 'SWU_SUNDARI_DEFEAT');
         }
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHIELD_GATE');       // JTL_074 Close the Shield Gate: unused base-damage prevention
@@ -9952,6 +9948,57 @@ function _SWUExhaustedResourceCount(int $player): int {
 // in Premier and Twin Suns — every one of the 12 friendly-resource cards stays byte-identical there.
 // $filter receives the resource OBJECT (e.g. fn($o) => !SWUIsCreditToken($o->CardID) — Credit tokens
 // are not resources and several of these cards exclude them).
+// ★ THE ONE SEAM for "defeat N resource(s)" — always ASK, never auto-pick.
+//
+// USER RULING 2026-08-26: a resource is NOT fungible. Which one dies is information the player can act
+// on — a Smuggle card, a Plot card, a card they want in (or out of) their discard — so every
+// defeat-a-resource effect offers the choice instead of silently taking slot 0. The stale
+// "fungible → auto-pick the first" comment on TWI_177 is exactly the reasoning this replaces.
+//
+// $chooser is who DECIDES, which is not always who owns the pool: SOR_017 Han Solo and TWI_177 pick from
+// their own resources, TS26_12 Sundari picks across the whole TEAM's. Silent when there is nothing to
+// decide — an empty pool no-ops, and a pool the count exactly consumes is defeated outright rather than
+// dressed up as a choice with one legal answer.
+function SWUQueueResourceDefeatPick(int $chooser, array $pool, int $count, string $tooltip): void {
+    if ($count <= 0 || empty($pool)) return;
+    if ($count >= count($pool)) { SWUDefeatResourcesByMzIDs(intval($chooser), $pool); return; }
+    DecisionQueueController::AddDecision(intval($chooser), "MZMULTICHOOSE", "{$count}|{$count}|" . implode('&', $pool), 1,
+        tooltip: $tooltip);
+    DecisionQueueController::AddDecision(intval($chooser), "CUSTOM", "RESOURCE_DEFEAT_PICK", 1);
+}
+
+// TS26_12 Sundari Palace — "defeat that many FRIENDLY resources at the start of the regroup phase".
+// In Team Suns "friendly" spans the team, so a teammate's resource is a legal pick;
+// SWUFriendlyResourceMzIDs degenerates to your own resources everywhere else.
+function _SWUSundariDefeatFriendlyResources(int $player, int $count): void {
+    global $playerID;
+    $saved = $playerID; $playerID = intval($player);
+    $pool = SWUFriendlyResourceMzIDs(intval($player));
+    $playerID = $saved;
+    SWUQueueResourceDefeatPick(intval($player), $pool, $count,
+        "Choose_{$count}_friendly_resource(s)_to_defeat_(Sundari_Palace)");
+}
+
+// Defeat a set of resource mzIDs safely. SWUDefeatResource compacts the zone it touches, so process each
+// ZONE's picks in DESCENDING index order — otherwise defeating myResources-0 shifts myResources-2 down and
+// the next pick lands on the wrong card. Cross-zone picks are independent, so grouping by prefix is enough.
+function SWUDefeatResourcesByMzIDs(int $player, array $mzIDs): void {
+    global $playerID;
+    $saved = $playerID; $playerID = intval($player);
+    $byZone = [];
+    foreach ($mzIDs as $mz) {
+        if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
+        $dash = strrpos($mz, '-');
+        if ($dash === false) continue;
+        $byZone[substr($mz, 0, $dash)][] = intval(substr($mz, $dash + 1));
+    }
+    foreach ($byZone as $zone => $idxs) {
+        rsort($idxs, SORT_NUMERIC);
+        foreach ($idxs as $i) SWUDefeatResource(intval($player), "{$zone}-{$i}");
+    }
+    $playerID = $saved;
+}
+
 function SWUFriendlyResourceMzIDs(int $player, ?callable $filter = null): array {
     global $playerID;
     $saved = $playerID; $playerID = intval($player);
@@ -9968,35 +10015,82 @@ function SWUFriendlyResourceMzIDs(int $player, ?callable $filter = null): array 
     return $out;
 }
 
+// Ready $count FRIENDLY resources — the TEAM-AWARE sibling of SWUReadyResources.
 function SWUReadyFriendlyResources(int $player, int $count): int {
-    if ($count <= 0) return 0;
-    $mateAvail = 0;
-    foreach (SWUTeammatesOf($player) as $m) $mateAvail += _SWUExhaustedResourceCount($m);
-    if ($mateAvail <= 0) return SWUReadyResources($player, $count);   // no teammate pool → today's path
-
-    $myAvail = _SWUExhaustedResourceCount($player);
-    $k = min($count, $myAvail + $mateAvail);                          // ready as many as possible
-    if ($k <= 0) return 0;
-    $lo = max(0, $k - $mateAvail);                                    // fewest that MUST come from you
-    $hi = min($k, $myAvail);                                          // most that CAN come from you
-    if ($lo === $hi) {                                               // only one legal split → no prompt
-        _SWUApplyFriendlyResourceSplit($player, $lo, $k - $lo);
-        return $k;
-    }
-    DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "{$lo}|{$hi}", 1,
-        tooltip: "Ready_{$k}_friendly_resources:_how_many_from_YOUR_OWN?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "READY_FRIENDLY_RES|{$k}", 1);
-    return 0;                                                        // resolves asynchronously
+    return _SWUSplitFriendlyResources($player, $count, 'READY');
 }
 
-// Ready $mine of your own and $theirs across your teammates (in seat order).
-function _SWUApplyFriendlyResourceSplit(int $player, int $mine, int $theirs): void {
-    if ($mine > 0) SWUReadyResources($player, $mine);
+// Exhaust $count FRIENDLY resources as an EFFECT — the team-aware sibling of SWUExhaustResources.
+//
+// ⚠ DELIBERATELY NOT SWUExhaustResources ITSELF. That function is also the COST-PAYMENT path (15
+// callers), and a cost can never be paid with a teammate's resources — only an EFFECT that says
+// "exhaust a friendly resource" reaches across the team. ASH_216 Mandalorian Scout is the effect case.
+function SWUExhaustFriendlyResources(int $player, int $count): int {
+    return _SWUSplitFriendlyResources($player, $count, 'EXHAUST');
+}
+
+// Shared core for "READY / EXHAUST N friendly resources".
+//
+// USER RULING 2026-08-26: "a friendly resource" spans the TEAM, and the player may SPLIT the effect
+// between their own resources and their teammate's.
+//
+// ⚠ THE SPLIT IS A COUNT, NEVER A CARD PICKER — and that is the line this whole family divides on:
+// READY and EXHAUST leave the card exactly where it is and only flip its Status, so which of your own
+// is chosen is meaningless and only "how many from whom" carries information. DEFEAT and RETURN MOVE
+// the card (to a discard, to a hand), so identity matters and those get a real picker over
+// SWUFriendlyResourceMzIDs instead. Asking a count here also side-steps the Resources zone being
+// Visibility=Self (a teammate's cards would render as CARD BACKS) and Mode=All (your own render inline
+// rather than as a popup).
+//
+// ⚠ Degenerate cases resolve with NO prompt, which is what keeps Premier and Twin Suns byte-identical:
+// there is never a teammate there, so this falls straight through to the historical self-only call.
+// Callers must tolerate an async resolution (return 0) when a choice IS raised.
+function _SWUSplitFriendlyResources(int $player, int $count, string $op): int {
+    if ($count <= 0) return 0;
+    $ready = ($op === 'EXHAUST');   // EXHAUST consumes READY resources; READY consumes exhausted ones
+    $avail = fn(int $seat) => $ready ? _SWUReadyResourceCount($seat) : _SWUExhaustedResourceCount($seat);
+
+    $mateAvail = 0;
+    foreach (SWUTeammatesOf($player) as $m) $mateAvail += $avail($m);
+    if ($mateAvail <= 0) {                                   // no teammate pool → the historical path
+        return $ready ? SWUExhaustResources($player, $count, true) : SWUReadyResources($player, $count);
+    }
+    $myAvail = $avail($player);
+    $k = min($count, $myAvail + $mateAvail);                 // affect as many as possible
+    if ($k <= 0) return 0;
+    $lo = max(0, $k - $mateAvail);                           // fewest that MUST come from you
+    $hi = min($k, $myAvail);                                 // most that CAN come from you
+    if ($lo === $hi) {                                       // one legal split → resolve silently
+        _SWUApplyFriendlyResourceSplit($player, $lo, $k - $lo, $op);
+        return $k;
+    }
+    $verb = $ready ? 'Exhaust' : 'Ready';
+    DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "{$lo}|{$hi}", 1,
+        tooltip: "{$verb}_{$k}_friendly_resources:_how_many_from_YOUR_OWN?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "READY_FRIENDLY_RES|{$k}|{$op}", 1);
+    return 0;                                                // resolves asynchronously
+}
+
+// Apply $mine on your own board and $theirs across your teammates (in seat order).
+function _SWUApplyFriendlyResourceSplit(int $player, int $mine, int $theirs, string $op = 'READY'): void {
+    $apply = fn(int $seat, int $n) => ($op === 'EXHAUST')
+        ? SWUExhaustResources($seat, $n, true)
+        : SWUReadyResources($seat, $n);
+    if ($mine > 0) $apply($player, $mine);
     if ($theirs <= 0) return;
     foreach (SWUTeammatesOf($player) as $m) {
         if ($theirs <= 0) break;
-        $theirs -= SWUReadyResources($m, $theirs);
+        $theirs -= intval($apply($m, $theirs));
     }
+}
+
+// READY (Status 1) resource count for one seat — the mirror of _SWUExhaustedResourceCount.
+function _SWUReadyResourceCount(int $player): int {
+    $n = 0;
+    foreach (GetResources($player) as $r) {
+        if (empty($r->removed) && intval($r->Status ?? 0) === 1) $n++;
+    }
+    return $n;
 }
 
 function SWUReadyResources(int $player, int $count): int {

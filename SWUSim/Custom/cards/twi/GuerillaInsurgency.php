@@ -7,12 +7,14 @@
 $whenPlayedAbilities["TWI_177:0"] = function($player, $mzID = '') {
     global $playerID;
     $playerID = intval($player);
-    // 1. EACH PLAYER defeats a resource they control (fungible → auto-pick the first). Every LIVE seat,
+    // 1. EACH PLAYER defeats a resource THEY control — so each player picks their OWN. Every LIVE seat,
     //    caster included — was the literal [caster, OtherPlayer(caster)], i.e. two seats.
+    //    ⚠ The old comment here read "fungible → auto-pick the first". Resources are NOT fungible (USER
+    //    RULING 2026-08-26) — which one dies is information the player can act on — and "a resource THEY
+    //    control" names the owner as the decider, not the caster. Both halves were wrong.
     foreach (GetLiveSeatsArray() as $p) {
         $playerID = $p;
-        $res = ZoneSearch("myResources", null);
-        if (!empty($res)) SWUDefeatResource($p, $res[0]);
+        SWUQueueResourceDefeatPick($p, ZoneSearch("myResources", null), 1, "Choose_a_resource_to_defeat_(Guerilla_Insurgency)");
     }
     // 2. Each OPPONENT discards 2 via the helper, one call per seat; the caster's own discard is handled
     //    inline below because it must exclude the just-played event.

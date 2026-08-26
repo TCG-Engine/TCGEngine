@@ -9,5 +9,8 @@ $whenDefeatedAbilities["ASH_216:0"] = function($player, $mzID) {
     // EFFECT, not a cost — "exhaust a ready friendly resource" is a downside this unit inflicts on its
     // own controller, so it must stay a plain resource exhaust. A Credit token is never spent for it
     // (CR 3.13 only lets a Credit substitute while PAYING resources).
-    SWUExhaustResources(intval($player), 1, true);
+    // Team-wide (user ruling 2026-08-26): the drawback may be taken on a TEAMMATE's board, and the
+    // controller chooses whose. Falls through to the plain self-only exhaust when there is no teammate
+    // pool, so Premier and Twin Suns are byte-identical.
+    SWUExhaustFriendlyResources(intval($player), 1);
 };

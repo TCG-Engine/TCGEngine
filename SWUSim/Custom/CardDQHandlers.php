@@ -1896,7 +1896,7 @@ $customDQHandlers["READY_FRIENDLY_RES"] = function ($player, $parts, $lastDecisi
   $mine = intval($lastDecision);
   if ($mine < 0) $mine = 0;
   if ($mine > $total) $mine = $total;   // never trust the client's number past the offered range
-  _SWUApplyFriendlyResourceSplit(intval($player), $mine, $total - $mine);
+  _SWUApplyFriendlyResourceSplit(intval($player), $mine, $total - $mine, (string)($parts[1] ?? 'READY'));
 };
 
 $customDQHandlers["HMW013_OFFER"] = function ($player, $parts, $lastDecision) {
@@ -3306,3 +3306,11 @@ function _SWURevertShd213Steals(): void
     }
   }
 }
+// ── Shared "defeat N resource(s)" pick — SWUQueueResourceDefeatPick's continuation ──────────────
+// Used by TS26_12 Sundari Palace and TWI_177 Guerilla Insurgency. The pool is built by the caller; all
+// this does is apply the answer in a reindex-safe order.
+$customDQHandlers["RESOURCE_DEFEAT_PICK"] = function ($player, $parts, $lastDecision) {
+  if (SWUDecisionDeclined($lastDecision) || $lastDecision === '') return;
+  global $playerID; $playerID = intval($player);
+  SWUDefeatResourcesByMzIDs(intval($player), explode('&', $lastDecision));
+};
