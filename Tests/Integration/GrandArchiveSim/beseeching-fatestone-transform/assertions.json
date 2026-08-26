@@ -1,1 +1,27 @@
-[]
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "theirField-6",
+        "property": "CardID",
+        "value": "ilpxd1q0vp"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "theirField-6",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "value": 0
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
