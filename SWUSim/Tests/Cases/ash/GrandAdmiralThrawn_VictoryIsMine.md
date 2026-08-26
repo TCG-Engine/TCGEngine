@@ -189,3 +189,38 @@ WithP4Base: SOR_021:0
 SEATCOUNT:4
 P1HASDECISION
 P1SELECTABLEEXACT:p3GroundArena-0
+
+---
+
+# TwinSuns_ComparesUnitsWithTheACTUALDefendingPlayer
+#// "Restore 2 for this attack if you control the same number of units as THE DEFENDING PLAYER."
+#// This file's own note used to record why it could not be fixed: the comparison ran BEFORE
+#// BeginSWUAttack, so no target was declared and there was no defending player — OtherPlayer() was a
+#// two-seat stand-in. Resolved by the ASH_004_ATK marker + _SWUApplyDefenderConditionalAttackEffects,
+#// which evaluates once SWU_CURRENT_DEFENDING_SEAT is published.
+#//
+#// Seat 1 controls TWO units, seat 4 (the defender) TWO — equal, so the Restore 2 fires and seat 1's
+#// base heals 5 → 3. Seat 2 controls FIVE, so the legacy comparison is 2 vs 5 and heals nothing.
+
+## GIVEN
+CommonSetup: gbk/brk/{myLeader:ASH_004; myBaseDamage:5; theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 0
+WithP1GroundArena: [SOR_095:1:0 SOR_046:1:0]
+WithP2GroundArena: [SOR_046:1:0 SOR_046:1:0 SOR_046:1:0 SOR_046:1:0 SOR_046:1:0]
+WithP4GroundArena: [SOR_046:1:0 SOR_046:1:0]
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:p4Base-0
+
+## EXPECT
+SEATCOUNT:4
+P1BASEDMG:3

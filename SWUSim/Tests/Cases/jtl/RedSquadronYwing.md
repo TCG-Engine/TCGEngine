@@ -90,3 +90,34 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P1GROUNDARENAUNIT:1:CARDID:SOR_046
 P1GROUNDARENAUNIT:1:SHIELDCOUNT:1
+
+---
+
+# TwinSuns_IndirectGoesToTheACTUALDefendingPlayer
+#// Same defect as JTL_237 TIE Bomber, same printed wording: "Deal 3 indirect damage to the DEFENDING
+#// player." Resolved with OtherPlayer($player), so at four seats it always names seat 2 for seat 1.
+#// This is the FAMILY control — the three "the defending player" indirect cards (JTL_149, JTL_152,
+#// JTL_237) share one wrong idiom, and fixing only the reported one leaves the other two broken.
+#//
+#// The Y-Wing has power 1, so attacking seat 4's base deals 1 combat + 3 indirect = 4. Seats 2 and 3
+#// must be untouched.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:JTL_001; theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1SpaceArena: JTL_149:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:P4B
+
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:4
+P2BASEDMG:0
+P3BASEDMG:0

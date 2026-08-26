@@ -64,3 +64,37 @@ WithP1GroundArenaUpgrade: 0:SEC_210
 P2BASEDMG:4
 P1GROUNDARENACOUNT:1
 P1NODECISION
+
+---
+
+# TwinSuns_ReadsTheACTUALDefendingPlayersHand
+#// "On Attack: Name a card. THE DEFENDING PLAYER reveals their hand. For each card in their hand with
+#// that name, create a Spy token." Both the empty-hand early-out and the counting loop used
+#// OtherPlayer($player), so the card read seat 2's hand no matter who was attacked.
+#//
+#// Seat 4 (the defender) holds TWO Battlefield Marines, seat 2 holds THREE. Correct = 2 Spy tokens, so
+#// seat 1's ground arena is host + 2 = 3. The legacy read gives 4. Seat 3 also holds copies, so a
+#// fan-out-style mistake would give yet another number.
+
+## GIVEN
+CommonSetup: yyk/rrk/{theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SEC_210
+WithP2Hand: [SOR_095 SOR_095 SOR_095]
+WithP3Hand: [SOR_095 SOR_095 SOR_095]
+WithP4Hand: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:P4B
+- P1>AnswerDecision:Battlefield Marine
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:3

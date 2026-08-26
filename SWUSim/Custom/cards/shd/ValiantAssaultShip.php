@@ -8,7 +8,8 @@
 // +2/+0 for this attack (a one-shot attack-power bonus consumed in SWUCombatDamage).
 $onAttackAbilities["SHD_151:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (SWUResourceCount(OtherPlayer(intval($player))) > SWUResourceCount(intval($player))) {
+    // "If THE DEFENDING PLAYER controls more resources than you" — a determined seat, not OtherPlayer().
+    if (SWUResourceCount(SWUCurrentDefendingSeat(intval($player))) > SWUResourceCount(intval($player))) {
         SWUAddAttackPowerBonus($mzID, 2);
     }
 };

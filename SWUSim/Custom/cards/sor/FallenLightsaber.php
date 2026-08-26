@@ -13,7 +13,14 @@ $onAttackAbilities["SOR_137:0"] = function($player, $mzID) {
     $unitObj = GetZoneObject($mzID);
     if ($unitObj === null || ($unitObj->removed ?? false)) return;
     if (!TraitContains($unitObj, 'Force')) return;
-    foreach (ZoneSearch("theirGroundArena", AnyUnitFilter) as $tMz) {
+    // "each ground unit THE DEFENDING PLAYER controls" — ONE named seat, already determined by the
+    // attack. ZoneSearch('theirGroundArena') fans out over EVERY live opponent above two seats (the
+    // Twin Suns branch in GameLogic's ZoneSearch), so this pinged all three opponents' boards off a
+    // single attack. Two seats: the defender IS the only opponent, so SWUSeatZone returns "their" and
+    // Premier is byte-identical. (Reported 2026-08-25; same defect as ASH_183 Whistling Birds.)
+    global $playerID; $playerID = intval($player);
+    $defSeat = SWUCurrentDefendingSeat(intval($player));
+    foreach (ZoneSearch(SWUSeatZone(intval($player), $defSeat, 'GroundArena'), AnyUnitFilter) as $tMz) {
         SWUDealDamageToUnit($tMz, 1, $player);
     }
 };

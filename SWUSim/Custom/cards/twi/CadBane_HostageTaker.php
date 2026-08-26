@@ -22,7 +22,7 @@ $onAttackAbilities["TWI_187:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $cad = GetZoneObject($mzID);
     if (SWUObjGone($cad) || !is_array($cad->Subcards ?? null)) return;
-    $opp = OtherPlayer(intval($player));
+    $opp = SWUCurrentDefendingSeat(intval($player));  // "the defending player" is DETERMINED by the attack, never OtherPlayer()/GetOpponent()
     $hasCaptive = false;
     foreach ($cad->Subcards as $sub) {
         $isCap = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);

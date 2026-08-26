@@ -180,3 +180,46 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:0
 P2BASEDMG:1
 P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# TwinSuns_HitsOnlyTHATOpponentsUnits
+#// ⚠ REPORTED BUG (2026-08-25): "Whistling birds ASH was hitting 2 players instead of just the defending
+#// player's units."
+#//
+#// ASH_183 reads "...deal 2 damage to each unit THAT OPPONENT controls in this unit's arena." "That
+#// opponent" is the one whose base was just damaged — a seat the combat has already DETERMINED. The
+#// handler collected its victims with ZoneSearch("their{$arena}"), and since the Twin Suns fan-out
+#// "their<Zone>" spans ALL live opponents at 3+ seats, one base hit sprayed every opponent's board.
+#//
+#// The fix scopes the search to the defending seat (SWUCurrentDefendingSeat) — p{n}<Arena> at 3+ seats,
+#// theirs at two, so Premier is untouched.
+#//
+#// Seat 1's host (SOR_046, 3/7, +2/+2 from ASH_183 = 5/9) attacks seat 4's base for 5 combat damage,
+#// which satisfies "dealt combat damage to an opponent's base". Seat 4's ground unit must take 2;
+#// seats 2 and 3 field identical units that must be untouched — they are what the section exists for.
+
+## GIVEN
+CommonSetup: rrk/bbw/{theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_183
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:P4B
+
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:5
+P4GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P3GROUNDARENAUNIT:0:DAMAGE:0

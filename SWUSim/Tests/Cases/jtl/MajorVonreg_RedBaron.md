@@ -148,3 +148,72 @@ WithP1Resources: 4
 P1HASDECISION
 P1DECISIONTOOLTIP:Play_a_Vehicle_unit_from_your_hand
 P1SELECTABLEEXACT:myHand-0&myHand-1
+
+---
+
+# TwinSuns_DeployAsUnit_DeploysTHISLeaderNotLeaderZero
+#// ⚠ REPORTED BUG (2026-08-25): "Vonreg JTL leader was undeployable" in Twin Suns.
+#//
+#// JTL_011 is one of the ten PILOT leaders (leaderCanDeployAsUpgradeData), so when an eligible Vehicle is
+#// on the board SWUDeployLeader does NOT deploy immediately — it queues an OPTIONCHOOSE "Unit&Pilot" plus
+#// a LEADER_DEPLOY_CHOICE continuation, and returns. The continuation then re-enters SWUDeployLeader.
+#//
+#// THE BUG: SWUDeployLeader's 4th parameter is $leaderIndex, and BOTH re-entry points drop it —
+#// LEADER_DEPLOY_CHOICE calls SWUDeployLeader($player, 'UnitDirect') and LEADER_DEPLOY_PILOT calls
+#// SWUDeployLeader($player, 'Pilot', $hostMz), each defaulting $leaderIndex to 0. The queued param
+#// "LEADER_DEPLOY_CHOICE|{$cardID}" never carried the index either, so it is unrecoverable downstream.
+#//
+#// In Premier there is only ever one leader, so index 0 is always right and this was invisible for the
+#// engine's whole prior life. In Twin Suns each seat has TWO. Deploy the SECOND leader (index 1) and the
+#// continuation deploys leader index 0 instead — and when leader 0 is already deployed, SWUDeployLeader's
+#// `if ($leader->Deployed) return;` guard makes the whole action a SILENT no-op. That is exactly what
+#// "undeployable" looks like from the seat: click deploy, choose Unit, nothing happens.
+#//
+#// Affects all ten pilot leaders (JTL_001/003/006/008/009/011/012/015/017/018), not just Vonreg.
+#// ⚠ The eligible Vehicle is load-bearing FIXTURE: with no Vehicle in play the choose-one gate never
+#// fires, SWUDeployLeader falls straight through with the correct $leaderIndex, and the bug hides.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:SOR_002; myLeader2:JTL_011}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 6
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>DeployLeader:1
+- P1>AnswerDecision:Unit
+
+## EXPECT
+P1LEADER1DEPLOYED:true
+P1LEADER0DEPLOYED:false
+
+---
+
+# TwinSuns_DeployAsPilot_AttachesTHISLeaderNotLeaderZero
+#// The Pilot half of the same defect. Choosing "Pilot" with exactly ONE eligible Vehicle auto-attaches
+#// via LEADER_DEPLOY_CHOICE -> SWUDeployLeader($player, 'Pilot', $vehicles[0]) — again with $leaderIndex
+#// defaulted to 0, so seat 1's FIRST leader is the one that flips to deployed and rides the X-Wing.
+#//
+#// Asserting the upgrade count as well as the deployed flags: a fix that passed the index but attached
+#// nothing would still read as "leader 1 deployed" without the leader actually being on the ship.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:SOR_002; myLeader2:JTL_011}
+SkipPreGame: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 6
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>DeployLeader:1
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1LEADER1DEPLOYED:true
+P1LEADER0DEPLOYED:false
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1

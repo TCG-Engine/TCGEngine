@@ -552,26 +552,31 @@ class SchemaTestRunner {
         // Seeds a captured-unit subcard (IsCaptive=true) on the captor at $unitIdx, OWNED by the OTHER
         // player (captives are enemy units) — so a rescue (CR 8.34.4, e.g. JTL_050 Phantom II leaving play
         // as a unit) returns it to that owner's arena. The only harness way to pre-seat a captive.
-        // Seats 3/4 supported since 2026-08-24. ⚠ The implicit owner is "the lowest OTHER seat", which is
-        // byte-identical at two seats; a far-seat captive test should name the owner explicitly if it
-        // matters, since "captives are enemy units" does not identify WHICH enemy above two seats.
+        // Seats 3/4 supported since 2026-08-24. The owner defaults to "the lowest OTHER seat", which is
+        // byte-identical at two seats but does NOT identify WHICH enemy above two seats — so the spec
+        // takes an optional third field: "idx:CARD_ID[:ownerSeat]" (added 2026-08-26 for TWI_187 Cad
+        // Bane, whose On Attack offers the rescue only to a captive's OWNER).
         foreach ([1, 2, 3, 4] as $pn) {
-            $owner = ($pn === 1) ? 2 : 1;
+            $defaultOwner = ($pn === 1) ? 2 : 1;
             foreach (['Ground', 'Space'] as $arenaType) {
                 $key    = "WithP{$pn}{$arenaType}ArenaCaptive";
                 $byUnit = [];
                 foreach ($given[$key] ?? [] as $spec) {
-                    [$idxStr, $cardID] = array_pad(explode(':', trim($spec), 2), 2, '');
-                    $byUnit[intval($idxStr)][] = trim($cardID);
+                    [$idxStr, $cardID, $ownerStr] = array_pad(explode(':', trim($spec), 3), 3, '');
+                    $owner = (trim($ownerStr) === '') ? $defaultOwner : intval(trim($ownerStr));
+                    if ($owner === $pn) {
+                        throw new RuntimeException("{$key}: a captive cannot be owned by its own captor (seat {$pn})");
+                    }
+                    $byUnit[intval($idxStr)][] = ['cardID' => trim($cardID), 'owner' => $owner];
                 }
                 $method = "WithUpgradesOn{$arenaType}UnitForPlayer";
-                foreach ($byUnit as $unitIdx => $cardIDs) {
-                    $captives = array_map(function($cid) use ($pn, $owner) {
-                        $c = GameStateBuilder::Upgrade($cid, $owner);   // Owner = the captive's owner (opponent)
+                foreach ($byUnit as $unitIdx => $rows) {
+                    $captives = array_map(function($row) use ($pn) {
+                        $c = GameStateBuilder::Upgrade($row['cardID'], $row['owner']); // Owner = the captive's owner
                         $c['Controller'] = $pn;                          // controlled/guarded by the captor
                         $c['IsCaptive']  = true;
                         return $c;
-                    }, $cardIDs);
+                    }, $rows);
                     $b->$method($pn, $unitIdx, $captives);
                 }
             }

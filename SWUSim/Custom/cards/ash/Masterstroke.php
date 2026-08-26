@@ -10,10 +10,13 @@ $customDQHandlers["ASH_234#0"] = function($player, $parts, $lastDecision) {
     $attackerMzID = $lastDecision ?? '';
     $attacker = (!empty($attackerMzID) && str_contains($attackerMzID, '-')) ? GetZoneObject($attackerMzID) : null;
     if (SWUObjGone($attacker)) { $playerID = $savedPID; SWUAfterAction($player); return; }
-    $arena = strpos($attackerMzID, 'SpaceArena') !== false ? 'SpaceArena' : 'GroundArena';
-    $n = 0;
-    foreach (ZoneSearch("their{$arena}", AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $n++; }
-    if ($n > 0) SWUAddAttackPowerBonus($attackerMzID, $n);
+    // "+1/+0 for each unit THE DEFENDING PLAYER controls in its arena" — the defending player is not
+    // known yet: BeginSWUAttack below is what lets the player declare a target. Counting here read
+    // "their{$arena}", which above two seats is EVERY live opponent's board (the Twin Suns fan-out),
+    // so the bonus counted bystanders. Stamp a marker instead and let ExecuteSWUAttack do the count
+    // once SWU_CURRENT_DEFENDING_SEAT is published — the same shape TWI_012 Anakin already uses.
+    // At two seats the one opponent IS the defender, so the resulting number is unchanged (I1).
+    AddTurnEffect($attackerMzID, 'ASH_234_ATK');
     BeginSWUAttack($player, $attackerMzID);
     $playerID = $savedPID;
 };

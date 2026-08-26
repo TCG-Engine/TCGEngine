@@ -46,5 +46,7 @@ $customDQHandlers["TWI_234#0"] = function($player, $parts, $lastDecision) {
         OnExhaustCard(intval($player), $mz);
         $count++;
     }
-    if ($count > 0) SWUDealDamageToBase($count, OtherPlayer(intval($player))); // defending player = opponent
+    // "THE DEFENDING PLAYER's base" — determined by the attack; OtherPlayer() named a bystander above
+    // two seats (and seat 1 for any far-seat attacker).
+    if ($count > 0) SWUDealDamageToBase($count, SWUCurrentDefendingSeat(intval($player)));
 };

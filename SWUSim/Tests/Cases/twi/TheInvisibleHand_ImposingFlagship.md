@@ -40,3 +40,35 @@ P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:TWI_234
 P1GROUNDARENACOUNT:4
 P1GROUNDARENAUNIT:0:CARDID:TWI_T01
+
+---
+
+# TwinSuns_ExhaustDamageHitsTheACTUALDefendingPlayersBase
+#// "On Attack: Exhaust any number of friendly Separatist units. Deal 1 damage to THE DEFENDING PLAYER's
+#// base for each unit exhausted this way." The rider ran in the TWI_234#0 continuation as
+#// SWUDealDamageToBase($count, OtherPlayer($player)) — seat 2 regardless of the attack.
+#//
+#// One Separatist (TWI_183 Rush Clovis) is exhausted, so seat 4's base takes 4 combat + 1 = 5 and
+#// seat 2's stays 0. The exhaust itself is asserted so a decline can't pass for a fix.
+
+## GIVEN
+CommonSetup: bbk/bbk/{theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1SpaceArena: TWI_234:1:0
+WithP1GroundArena: TWI_183:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:P4B
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:5
+P2BASEDMG:0
+P1GROUNDARENAUNIT:0:EXHAUSTED

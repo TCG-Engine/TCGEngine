@@ -168,3 +168,48 @@ P1GROUNDARENAUNIT:0:DAMAGE:1
 P1GROUNDARENAUNIT:1:DAMAGE:1
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2BASEDMG:0
+
+---
+
+# TwinSuns_PingsOnlyTheDEFENDINGPlayersGroundUnits
+#// ⚠ REPORTED BUG (2026-08-26): "Fallen Lightsaber also pings every ground unit instead of just the
+#// defending player's ground units."
+#//
+#// SOR_137 grants "On Attack: Deal 1 damage to each ground unit THE DEFENDING PLAYER controls." The
+#// defending player is DETERMINED by the attack, but the handler collected victims with
+#// ZoneSearch("theirGroundArena") — which above two seats is the Twin Suns fan-out across EVERY live
+#// opponent. One attack therefore pinged all three opponents' boards.
+#//
+#// Same defect and same fix as ASH_183 Whistling Birds and JTL_227 Superheavy Ion Cannon: resolve the
+#// seat with SWUCurrentDefendingSeat and search it specifically (SWUSeatZone).
+#//
+#// ⚠ The host must be a FORCE unit or the granted ability does not exist at all — SOR_045 (Force,Jedi,
+#// ground, 2/4) carries the upgrade and reads 5/7 with it. A non-Force host makes the whole section
+#// vacuously green, which is exactly how it first passed for the wrong reason.
+#// Seat 4 is attacked; seats 2 and 3 field identical ground units that must be untouched, and they are
+#// the entire point of the section.
+
+## GIVEN
+CommonSetup: rrk/bbw/{theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: SOR_045:1:0
+WithP1GroundArenaUpgrade: 0:SOR_137
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:P4B
+
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:5
+P4GROUNDARENAUNIT:0:DAMAGE:1
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P3GROUNDARENAUNIT:0:DAMAGE:0

@@ -10,7 +10,11 @@ $onAttackAbilities["JTL_152:0"] = function($player, $mzID) {
     $o = GetZoneObject($mzID);
     $power = ($o !== null) ? ObjectCurrentPower($o) : 0;
     if ($power <= 0) return;
-    SWUDealIndirectDamage(intval($player), $power, OtherPlayer(intval($player)), "JTL_152#0", _SWUSrcUID($mzID));
+    // "the defending player" is DETERMINED by the attack, never a choice. OtherPlayer() is literally
+    // `$player === 1 ? 2 : 1`, so above two seats it names seat 2 for seat 1 and seat 1 for everyone
+    // else — a player who may not even be in the combat. (Reported 2026-08-25.)
+    $defSeat = SWUCurrentDefendingSeat(intval($player));
+    SWUDealIndirectDamage(intval($player), $power, $defSeat, "JTL_152#0", _SWUSrcUID($mzID));
 };
 
 $customDQHandlers["JTL_152#0"] = function($player, $parts, $lastDecision) {

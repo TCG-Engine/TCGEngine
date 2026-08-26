@@ -1998,8 +1998,14 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     if (!empty($combatCtx['ash183Arena']) && intval($combatCtx['baseCombatDmg'] ?? 0) > 0) {
         global $playerID; $spAsh183 = $playerID; $playerID = intval($activePlayer);
         $arena183 = $combatCtx['ash183Arena'];
+        // "each unit THAT OPPONENT controls" — "that opponent" is the owner of the base this attack
+        // damaged, which combatCtx captured as baseDmgOwner. "their{$arena}" is the Twin Suns fan-out
+        // over EVERY live opponent, so a single base hit sprayed all three opponents' boards
+        // (reported 2026-08-25). Two seats: SWUSeatZone gives back "their…", so Premier is unchanged.
+        $seat183 = intval($combatCtx['baseDmgOwner'] ?? 0);
+        if ($seat183 <= 0) $seat183 = SWUCurrentDefendingSeat(intval($activePlayer));
         $uids183 = [];
-        foreach (ZoneSearch("their{$arena183}", AnyUnitFilter) as $mz) {
+        foreach (ZoneSearch(SWUSeatZone(intval($activePlayer), $seat183, $arena183), AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)) $uids183[] = intval($o->UniqueID ?? 0);
         }
@@ -2024,6 +2030,64 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     if ($flushed === 0 && (GetSWUVar('SWU_CHAINED_ATTACK', '') !== '' || GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== ''
             || GetSWUVar('SWU_SHD145_LOOP', '') !== '' || GetSWUVar('SWU_TS26059_LOOP', '') !== '')) {   // SHD_145 / TS26_59 Brothers count-capped loops
         _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+    }
+}
+
+// ── Defender-conditional attack effects ──────────────────────────────────────────────────────────────
+//
+// A small family of cards whose effect is scaled or gated by what THE DEFENDING PLAYER has:
+//
+//   ASH_234 Masterstroke  "+1/+0 for each unit the defending player controls in its arena"
+//   TS26_84 Fearless Attack  "+1/+0 for each unit controlled by the defending player"
+//   SOR_012 IG-88 (leader action)  "if you control MORE units than the defending player, +1/+0"
+//   ASH_004 Thrawn (leader action)  "Restore 2 if you control the SAME number of units as the defender"
+//
+// All four used to evaluate at CARD RESOLUTION — i.e. BEFORE BeginSWUAttack, when no target has been
+// declared and there is therefore no defending player to read. In Premier that was harmless because the
+// lone opponent is always the defender; above two seats it is unanswerable, and the code papered over it
+// with OtherPlayer()/GetOpponent() (which name seat 2 for seat 1, seat 1 for everyone else, and NULL).
+//
+// So each card now stamps a SWU_DUR_ATTACK marker on its attacker and the work happens HERE, where
+// SWU_CURRENT_DEFENDING_SEAT has been published from the declared target. This is the shape TWI_012
+// Anakin already used. Counting goes through the per-seat accessors GetGroundArena()/GetSpaceArena()
+// rather than ZoneSearch, so there is no frame to get wrong at any seat count.
+//
+// ⚠ Two-player is unchanged by construction: the one opponent IS the defender, so every number below
+// comes out exactly as the old OtherPlayer() code produced it.
+function _SWUApplyDefenderConditionalAttackEffects(int $player, $attacker, string $attackerMzID): void {
+    $fx = $attacker->TurnEffects ?? null;
+    if (!is_array($fx)) return;
+    $wants = ['ASH_234_ATK', 'TS26_84_ATK', 'SOR_012_ATK', 'ASH_004_ATK'];
+    $hit = false;
+    foreach ($wants as $w) { if (in_array($w, $fx, true)) { $hit = true; break; } }
+    if (!$hit) return;
+
+    $defSeat = SWUCurrentDefendingSeat($player);
+    if ($defSeat <= 0 || $defSeat === $player) return;   // no attack in flight / nothing to compare
+
+    $liveIn = function(array $zone): int {
+        $n = 0; foreach ($zone as $u) { if (empty($u->removed)) $n++; } return $n;
+    };
+    $defAll  = $liveIn(GetGroundArena($defSeat)) + $liveIn(GetSpaceArena($defSeat));
+    $mineAll = $liveIn(GetGroundArena($player))  + $liveIn(GetSpaceArena($player));
+
+    // ASH_234 — arena-scoped to the ATTACKER's arena ("in its arena").
+    if (in_array('ASH_234_ATK', $fx, true)) {
+        $n = (strpos($attackerMzID, 'SpaceArena') !== false)
+            ? $liveIn(GetSpaceArena($defSeat)) : $liveIn(GetGroundArena($defSeat));
+        if ($n > 0) SWUAddAttackPowerBonus($attackerMzID, $n);
+    }
+    // TS26_84 — every unit the defending player controls, both arenas.
+    if (in_array('TS26_84_ATK', $fx, true) && $defAll > 0) {
+        SWUAddAttackPowerBonus($attackerMzID, $defAll);
+    }
+    // SOR_012 — strictly more units than the defending player.
+    if (in_array('SOR_012_ATK', $fx, true) && $mineAll > $defAll) {
+        SWUAddAttackPowerBonus($attackerMzID, 1);
+    }
+    // ASH_004 — the SAME number of units as the defending player.
+    if (in_array('ASH_004_ATK', $fx, true) && $mineAll === $defAll) {
+        OnHealBase($player, $player, 2);
     }
 }
 
@@ -2339,10 +2403,16 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         && in_array('TWI_012_ATK', $attacker->TurnEffects, true)) {
         SWUAddAttackPowerBonus($attackerMzID, 2);
     }
+    _SWUApplyDefenderConditionalAttackEffects(intval($player), $attacker, $attackerMzID);
 
     // Expose the current attacker (in the active player's frame, "my…") so an OnDefense ability that
     // affects "the attacker" (LOF_067 Chirrut) can resolve it — flip "my"→"their" for the defender frame.
     SetSWUVar('SWU_CURRENT_ATTACKER', $attackerMzID);
+    // …and the attacker's SEAT. SWU_CURRENT_ATTACKER is written in the ATTACKER's own frame ("my…"),
+    // so a NON-active player who needs to address the attacker (SEC_038 Condemn's disclose runs on the
+    // defender) cannot re-frame it without knowing whose it is. A two-seat my→their flip silently
+    // resolved to whichever opponent sat at that index above two seats.
+    SetSWUVar('SWU_CURRENT_ATTACKER_SEAT', strval(intval($player)));
     // …and its UniqueID, so a mid-attack defeat of the ATTACKER ITSELF (its own ability killing it, e.g.
     // SEC_150 Valiant Commando's sacrifice) can still be recognised as "defeated while attacking".
     SetSWUVar('SWU_CURRENT_ATTACKER_UID', strval(intval($attacker->UniqueID ?? 0)));
@@ -3856,6 +3926,11 @@ function _SWUMaulBeginDoubleAttack(int $player, string $attackerMzID, string $de
     if ($atkUID > 0) AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_UNIT_ATTACKED_' . $atkUID);
     AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_FRIENDLY_ATTACKED');
     SetSWUVar('SWU_CURRENT_ATTACKER', $attackerMzID);
+    // …and the attacker's SEAT. SWU_CURRENT_ATTACKER is written in the ATTACKER's own frame ("my…"),
+    // so a NON-active player who needs to address the attacker (SEC_038 Condemn's disclose runs on the
+    // defender) cannot re-frame it without knowing whose it is. A two-seat my→their flip silently
+    // resolved to whichever opponent sat at that index above two seats.
+    SetSWUVar('SWU_CURRENT_ATTACKER_SEAT', strval(intval($player)));
     SetSWUVar('SWU_CURRENT_ATTACKER_UID', strval($atkUID));
     _SWUApplyCondemnSuppression($attacker, $attackerMzID);
     // Saboteur's Begin-attack shield-defeat (CR 3.3), for BOTH defenders — this path never routes

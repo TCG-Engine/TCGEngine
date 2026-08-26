@@ -10,7 +10,7 @@
 // the multi-Condemn mutual suppression are handled in CombatLogic (BeginSWUAttack marker + the scan gate).
 $onAttackAbilities["SEC_038:0"] = function($player, $mzID) {
     global $playerID;
-    $defender = OtherPlayer(intval($player));
+    $defender = SWUCurrentDefendingSeat(intval($player));  // "the defending player" is DETERMINED by the attack, never OtherPlayer()/GetOpponent()
     $playerID = $defender;   // disclose belongs to the DEFENDER; set context for the queued myHand-N picks
     SWUQueueDisclose($defender, ['Vigilance', 'Villainy'], "SEC_038#0",
         "Disclose_VigilanceVillainy_to_give_the_attacker_-6/-0");
@@ -21,6 +21,15 @@ $customDQHandlers["SEC_038#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);   // $player = the disclosing DEFENDER
     $atk = GetSWUVar('SWU_CURRENT_ATTACKER', '');
     if ($atk === '' || $atk === null) return;
-    $atkDef = preg_replace('/^my/', 'their', $atk);  // attacker is in its own frame; flip to defender frame
+    // The attacker's mzID is in the ATTACKER's frame ("my…"); re-frame it for the DISCLOSING defender.
+    // The old preg_replace my→their is a two-seat flip: above two seats the defender must address the
+    // attacker as p{attackerSeat}…, and "their…" would resolve to whichever opponent happens to sit at
+    // that index — the deferred-damage frame-mismatch family.
+    $atkSeat = intval(GetSWUVar('SWU_CURRENT_ATTACKER_SEAT', '0'));
+    if ($atkSeat > 0 && preg_match('/^my([A-Za-z]+)-(\d+)$/', $atk, $mAtk)) {
+        $atkDef = SWUForeignMzID(intval($player), $atkSeat, $mAtk[1], intval($mAtk[2]));
+    } else {
+        $atkDef = preg_replace('/^my/', 'their', $atk);
+    }
     AddTurnEffect($atkDef, SWUMakeTurnEffect('SWUDEBUFF', [6, 0], SWU_DUR_ATTACK));
 };

@@ -1066,6 +1066,10 @@ $turnEffectRegistry = [
     'TWI_103'     => ['kind' => 'MARKER',         'label' => 'When Defeated: deal 2 to an enemy unit'], // Pyrrhic Assault — phase-granted When Defeated (read in CollectWhenDefeatedTriggers)
     'TWI_129'     => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RESTORE', 'amount' => 2, 'label' => 'Restore 2 + When Defeated: create a Clone'], // In Defense of Kamino — grants Restore 2 AND a When-Defeated (read in CollectWhenDefeatedTriggers)
     'TWI_012_ATK' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => '+2/+0 vs a unit'], // TWI_012 Anakin front action
+    'ASH_234_ATK' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => '+1/+0 per defender unit'], // ASH_234 Masterstroke
+    'TS26_84_ATK' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => '+1/+0 per defender unit'], // TS26_84 Fearless Attack
+    'SOR_012_ATK' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => '+1/+0 if you outnumber'],  // SOR_012 IG-88 leader action
+    'ASH_004_ATK' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Restore 2 if unit counts match'], // ASH_004 Thrawn leader action
     'JTL_253' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Coordinated Front (+2/+2 ground & space)
     'CANT_ATTACK_BASES' => ['kind' => 'CANT_ATTACK_BASES', 'label' => "Can't attack bases"], // JTL_092 (phase)
     'JTL_130' => ['kind' => 'GRANT_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Sentinel'], // Timely Reinforcements tokens
@@ -12449,7 +12453,12 @@ function SWUDealIndirectDamage(int $controller, int $amount, int $damagedPlayer,
     global $playerID;
     $assigner = SWUControllerAssignsIndirect($controller, $damagedPlayer, $sourceUID);
     $saved = $playerID; $playerID = $assigner;
-    $persp = ($assigner === $damagedPlayer) ? 'my' : 'their'; // 'their' only in the override case
+    // Frame the damaged player's board from the ASSIGNER's point of view. When the assigner IS the
+    // damaged player this is plainly "my"; in the override case (JTL_143 Devastator / JTL_171 Targeting
+    // Computer let the CONTROLLER assign) it must name the damaged seat SPECIFICALLY — a bare "their"
+    // fans out over every live opponent at 3+ seats, which would offer the controller another
+    // opponent's units as sinks for this player's indirect damage.
+    $persp = SWUSeatZone($assigner, $damagedPlayer, '');
 
     $specs = [];
     foreach ([$persp . "GroundArena", $persp . "SpaceArena"] as $z) {
@@ -12494,7 +12503,17 @@ function SWUDealIndirectToChosenPlayer(int $controller, int $amount, string $the
     global $playerID; $playerID = $controller;
     // Always emit the thenHandler slot (possibly empty) so $sourceUID keeps a fixed positional index.
     $param = "INDIRECT_CHOOSE_PLAYER|{$controller}|{$amount}|{$thenHandler}|{$sourceUID}";
-    DecisionQueueController::AddDecision($controller, "OPTIONCHOOSE", "You&Opponent", 1, "Choose_a_player_to_deal_indirect_damage");
+    // "a player" INCLUDES YOU (CR), so the pool is self + every live opponent. Above two seats the
+    // labels are P{n} — the same vocabulary SWUQueueChooseOpponent uses — because "Opponent" cannot
+    // name which of three. At two seats the historical "You&Opponent" labels are kept verbatim so
+    // Premier (and the 13 cards' existing tests) are byte-identical.
+    if (SeatCountForGame() > 2) {
+        $seats  = array_merge([$controller], OpponentsOf($controller));
+        $labels = array_map(fn($s) => "P{$s}", $seats);
+        DecisionQueueController::AddDecision($controller, "OPTIONCHOOSE", implode("&", $labels), 1, "Choose_a_player_to_deal_indirect_damage");
+    } else {
+        DecisionQueueController::AddDecision($controller, "OPTIONCHOOSE", "You&Opponent", 1, "Choose_a_player_to_deal_indirect_damage");
+    }
     DecisionQueueController::AddDecision($controller, "CUSTOM", $param, 1);
 }
 
@@ -12520,7 +12539,12 @@ $customDQHandlers["INDIRECT_CHOOSE_PLAYER"] = function($player, $parts, $lastDec
     $amount     = intval($parts[1] ?? 0);
     $thenHandler = (string)($parts[2] ?? '');
     $sourceUID  = intval($parts[3] ?? 0);
-    $target     = ((string)$lastDecision === 'Opponent') ? GetOpponent($controller) : $controller;
+    // "P{n}" (3+ seats) names the seat outright; "Opponent"/"You" is the two-seat vocabulary.
+    $answer     = (string)$lastDecision;
+    if (preg_match('/^P(\d+)$/', $answer, $mSeat))  $target = intval($mSeat[1]);
+    elseif ($answer === 'Opponent')                  $target = GetOpponent($controller);
+    else                                             $target = $controller;
+    if (intval($target) <= 0) $target = $controller;   // never silently drop the damage
     SWUDealIndirectDamage($controller, $amount, intval($target), $thenHandler, $sourceUID);
 };
 
@@ -15137,7 +15161,7 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
             DecisionQueueController::AddDecision($player, "OPTIONCHOOSE",
                 "Unit&Pilot", 1, tooltip:"Deploy_as_Unit_or_Pilot?");
             DecisionQueueController::AddDecision($player, "CUSTOM",
-                "LEADER_DEPLOY_CHOICE|{$cardID}", 1);
+                "LEADER_DEPLOY_CHOICE|{$cardID}|{$leaderIndex}", 1);
             $playerID = $savedPID;
             return;
         }
@@ -16770,6 +16794,17 @@ $customDQHandlers["LOF_197#1"] = function($player, $parts, $lastDecision) {
 //
 // Any code that KNOWS the owning seat must build its mzID through here. At ≤2 seats the legacy string
 // is emitted verbatim, so Premier is byte-identical (I1).
+// The ZoneSearch twin of SWUForeignMzID: name ONE seat's zone from $viewer's frame.
+//
+// Needed wherever card text names a DETERMINED opponent ("that opponent", "the defending player") and
+// the code has to search that seat's board. `their<Zone>` is the wrong tool there — at 3+ seats it fans
+// out across EVERY live opponent (that is exactly the ASH_183 Whistling Birds bug: one base hit sprayed
+// all three opponents' units). At two seats this returns `their<Zone>`, so Premier is byte-identical.
+function SWUSeatZone(int $viewer, int $ownerSeat, string $zone): string {
+    if ($ownerSeat === $viewer) return "my{$zone}";
+    return (SeatCountForGame() > 2 && $ownerSeat > 0) ? "p{$ownerSeat}{$zone}" : "their{$zone}";
+}
+
 function SWUForeignMzID(int $player, int $ownerSeat, string $zone, int $idx): string {
     return (SeatCountForGame() > 2 && $ownerSeat > 0 && $ownerSeat !== $player)
         ? "p{$ownerSeat}{$zone}-{$idx}"

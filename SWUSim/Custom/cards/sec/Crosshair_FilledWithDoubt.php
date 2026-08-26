@@ -22,5 +22,7 @@ $customDQHandlers["SEC_162#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
-    SWUDealDamageToBase(2, OtherPlayer(intval($player)));
+    // "THE DEFENDING PLAYER's base" — still the same attack when this continuation runs, so the
+    // published defending seat is live and correct at any seat count.
+    SWUDealDamageToBase(2, SWUCurrentDefendingSeat(intval($player)));
 };

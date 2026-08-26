@@ -936,13 +936,19 @@ $customDQHandlers["LEADER_DEPLOY_CHOICE"] = function ($player, $parts, $lastDeci
   global $playerID;
   $playerID = intval($player);
   $leaderCardID = $parts[0] ?? '';
+  // ⚠ Twin Suns: WHICH leader is deploying. SWUDeployLeader's 4th arg defaults to 0, and every
+  // re-entry below used to take that default — so deploying a seat's SECOND leader (index 1) actually
+  // deployed its FIRST, and when the first was already deployed the guard at the top of
+  // SWUDeployLeader turned the whole action into a silent no-op ("Vonreg was undeployable",
+  // reported 2026-08-25). Premier has one leader, so index 0 was always right and this never showed.
+  $leaderIndex = intval($parts[1] ?? 0);
 
   if ($lastDecision === 'Pilot') {
     $vehicles = SWUGetLeaderPilotVehicles(intval($player));
     if (!empty($vehicles)) {
       if (count($vehicles) === 1) {
         // Auto-attach to the single eligible Vehicle — no picker needed.
-        SWUDeployLeader(intval($player), 'Pilot', $vehicles[0]);
+        SWUDeployLeader(intval($player), 'Pilot', $vehicles[0], $leaderIndex);
       } else {
         // 2+ vehicles: let the player pick.
         DecisionQueueController::AddDecision(
@@ -955,7 +961,7 @@ $customDQHandlers["LEADER_DEPLOY_CHOICE"] = function ($player, $parts, $lastDeci
         DecisionQueueController::AddDecision(
           $player,
           "CUSTOM",
-          "LEADER_DEPLOY_PILOT|{$leaderCardID}",
+          "LEADER_DEPLOY_PILOT|{$leaderCardID}|{$leaderIndex}",
           1
         );
       }
@@ -966,7 +972,7 @@ $customDQHandlers["LEADER_DEPLOY_CHOICE"] = function ($player, $parts, $lastDeci
 
   // "Unit" or fallback: deploy normally as a unit.
   // 'UnitDirect' bypasses the choose-one gate so we don't re-offer when vehicles still exist.
-  SWUDeployLeader(intval($player), 'UnitDirect');
+  SWUDeployLeader(intval($player), 'UnitDirect', '', $leaderIndex);
 };
 
 // LEADER_DEPLOY_PILOT — receives the MZCHOOSE host mzID, finalizes the Pilot attach.
@@ -977,7 +983,7 @@ $customDQHandlers["LEADER_DEPLOY_PILOT"] = function ($player, $parts, $lastDecis
   $hostMz = $lastDecision ?? '';
   if ($hostMz === '' || $hostMz === '-')
     return;
-  SWUDeployLeader(intval($player), 'Pilot', $hostMz);
+  SWUDeployLeader(intval($player), 'Pilot', $hostMz, intval($parts[1] ?? 0));
 };
 // ── Implemented When Played abilities ───────────────────────────────────────// Twin Suns plan counter (Phase 4): put the chosen hand card on the bottom of the deck.
 $customDQHandlers["SWU_PLAN_BOTTOM"] = function ($player, $parts, $lastDecision) {

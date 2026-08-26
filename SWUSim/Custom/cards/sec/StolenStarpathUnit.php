@@ -9,7 +9,7 @@
 $onAttackAbilities["SEC_210:0"] = function($player, $mzID) {
     // With the defending player's hand empty there is nothing to reveal and no copies to count, so the
     // naming is meaningless (0 Spy tokens either way) — skip the whole ability (no NAMECARD prompt).
-    if (count(GetHand(OtherPlayer(intval($player)))) === 0) return;
+    if (count(GetHand(SWUCurrentDefendingSeat(intval($player)))) === 0) return;  // "the defending player" is DETERMINED by the attack, never OtherPlayer()/GetOpponent()
     DecisionQueueController::AddDecision(intval($player), "NAMECARD", "", 1, "Name_a_card");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_210#0", 1);
 };
@@ -18,7 +18,7 @@ $customDQHandlers["SEC_210#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
     $named = trim($lastDecision);
-    $opp   = OtherPlayer(intval($player));
+    $opp   = SWUCurrentDefendingSeat(intval($player));  // "the defending player" is DETERMINED by the attack, never OtherPlayer()/GetOpponent()
     $count = 0;
     foreach (GetHand($opp) as $c) {
         if (!empty($c->removed)) continue;

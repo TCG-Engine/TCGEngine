@@ -15,17 +15,19 @@ $customDQHandlers["SOR_012#0"] = function($player, $parts, $lastDecision) {
     }
     global $playerID;
     $playerID = intval($player);
-    $opp = GetOpponent(intval($player));
-    if (count(GetUnitsInPlay(intval($player))) > count(GetUnitsInPlay($opp))) {
-        SWUAddAttackPowerBonus($lastDecision, 1);
-    }
+    // "…than THE DEFENDING PLAYER" — which does not exist yet: BeginSWUAttack below is what lets the
+    // player declare a target. Stamp a marker and let _SWUApplyDefenderConditionalAttackEffects do the
+    // comparison once SWU_CURRENT_DEFENDING_SEAT is published. Two seats: identical result.
+    // ⚠ GetOpponent() was the worst of the three legacy helpers here: `1→2, 2→1, else NULL`, so at
+    // seats 3/4 GetUnitsInPlay(null) counted nothing and the bonus applied unconditionally.
+    AddTurnEffect($lastDecision, 'SOR_012_ATK');
     BeginSWUAttack(intval($player), $lastDecision);
 };
 
 // SOR_012 IG-88 — Leader Action [Exhaust]: Attack with a unit. If you control more units than
-// the defending player, the attacker gets +1/+0 for this attack. (Defending player is always the
-// opponent in a 2-player game, so the count condition is resolved in the SOR_012 handler before
-// the attack target is even chosen.) Deployed side ("each other friendly unit gains Raid 1") is
+// the defending player, the attacker gets +1/+0 for this attack. The count is deferred to
+// _SWUApplyDefenderConditionalAttackEffects (CombatLogic) via the SOR_012_ATK marker, because the
+// defending player does not exist until a target has been declared. Deployed side ("each other friendly unit gains Raid 1") is
 // already implemented in KeywordEffects.php.
 $leaderAbilities["SOR_012"] = function(int $player): void {
     global $playerID;

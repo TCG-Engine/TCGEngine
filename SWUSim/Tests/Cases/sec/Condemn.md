@@ -336,3 +336,39 @@ WithP2GroundArenaUpgrade: 0:SOR_T02
 ## EXPECT
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2GROUNDARENAUNIT:0:DAMAGE:5
+
+---
+
+# TwinSuns_DiscloseIsOfferedToTheACTUALDefendingPlayer
+#// "On Attack: THE DEFENDING PLAYER may disclose VigilanceVillainy…" — the disclose was queued for
+#// OtherPlayer($player), so at four seats seat 2 was asked to disclose for an attack aimed at seat 4:
+#// a bystander got a prompt, and the real defender got no chance to reduce the attack.
+#//
+#// The assertion is WHO HOLDS THE DECISION. Seat 4 must, and seats 2 and 3 must not — the legacy build
+#// fails all three at once. Left pending so the routing itself is what is measured.
+#// ⚠ FIXTURE: the disclose is only OFFERED to a player holding a card that shows both named aspects,
+#// so both seat 2 and seat 4 hold a SEC_038 (Vigilance/Villainy) — meaning either seat could legally be
+#// prompted and the section measures routing alone, not who happened to have the right card.
+
+## GIVEN
+CommonSetup: ggw/grk/{theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1SpaceArena: SOR_141:1:0
+WithP1SpaceArenaUpgrade: 0:SEC_038
+WithP2Hand: [SEC_038 SEC_038]
+WithP4Hand: [SEC_038 SEC_038]
+
+## WHEN
+- P1>AttackSpaceArena:0:P4B
+
+## EXPECT
+SEATCOUNT:4
+P4HASDECISION
+P2NODECISION
+P3NODECISION

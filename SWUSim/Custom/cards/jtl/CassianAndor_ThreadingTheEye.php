@@ -8,7 +8,7 @@
 $onAttackAbilities["JTL_048:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
+    $opp = SWUCurrentDefendingSeat(intval($player));  // "the defending player" is DETERMINED by the attack, never OtherPlayer()/GetOpponent()
     $c = SWUMillTopCard($opp);
     if ($c !== null && intval(CardCost($c)) <= 3) DoDrawCard(intval($player), 1);
 };

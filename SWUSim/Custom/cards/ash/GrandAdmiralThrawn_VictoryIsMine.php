@@ -48,14 +48,11 @@ $customDQHandlers["ASH_004#0"] = function($player, $parts, $lastDecision) {
     $attacker = (!empty($attackerMz) && str_contains($attackerMz, '-')) ? GetZoneObject($attackerMz) : null;
     if (SWUObjGone($attacker)) { SWUAfterAction($player); return; }
     // "Restore 2 for this attack if you control the same number of units as THE DEFENDING PLAYER."
-    // ⚠ STILL OWED above two seats (card work, deliberately NOT half-fixed here): this runs BEFORE
-    // BeginSWUAttack, so no attack is in flight yet and the defender has not been declared —
-    // SWU_CURRENT_DEFENDING_SEAT is not set and SWUCurrentDefendingSeat() would return the fallback.
-    // The condition genuinely cannot be evaluated at this point; the grant has to move to after target
-    // declaration (a conditional turn effect on the attacker), which is a real restructure rather than
-    // a helper swap. At ≤2 seats OtherPlayer() IS the defending player, so Premier is correct today.
-    if (count(GetUnitsInPlay(intval($player))) === count(GetUnitsInPlay(OtherPlayer(intval($player))))) {
-        OnHealBase(intval($player), intval($player), 2);
-    }
+    // This runs BEFORE BeginSWUAttack, so no target has been declared and there is no defending player
+    // to compare against — the old OtherPlayer() was a stand-in that is only correct at two seats.
+    // Resolved 2026-08-26 by the marker restructure this file's earlier note called for: stamp an
+    // attack-duration marker and evaluate in _SWUApplyDefenderConditionalAttackEffects (CombatLogic),
+    // where SWU_CURRENT_DEFENDING_SEAT is live. Two seats: the one opponent IS the defender, unchanged.
+    AddTurnEffect($attackerMz, 'ASH_004_ATK');
     BeginSWUAttack(intval($player), $attackerMz);   // owns the after-action
 };

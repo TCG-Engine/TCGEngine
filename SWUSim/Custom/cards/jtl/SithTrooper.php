@@ -8,7 +8,7 @@
 $onAttackAbilities["JTL_238:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
+    $opp = SWUCurrentDefendingSeat(intval($player));  // "the defending player" is DETERMINED by the attack, never OtherPlayer()/GetOpponent()
     $count = 0;
     foreach (array_merge(GetGroundArena($opp), GetSpaceArena($opp)) as $u) {
         if (empty($u->removed) && intval($u->Damage) > 0) $count++;

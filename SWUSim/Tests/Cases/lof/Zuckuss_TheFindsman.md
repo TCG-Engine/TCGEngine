@@ -75,3 +75,38 @@ WithP2Deck: SOR_146
 ## EXPECT
 P2BASEDMG:8
 P1GROUNDARENAUNIT:0:POWER:4
+
+---
+
+# TwinSuns_MillsTheACTUALDefendingPlayersDeck
+#// "On Attack: Name a card, then discard the top card of THE DEFENDING PLAYER's deck. If a card with
+#// that name is discarded, this unit gets +4/+0 for this attack." The LOF_204#0 continuation resolved
+#// the seat with OtherPlayer($player), so it milled seat 2 and compared against seat 2's card.
+#//
+#// The fixture makes the two readings disagree on BOTH halves at once: seat 4's top card is Zeb
+#// Orrelios (the named card) and seat 2's is something else. Correct → seat 4 is milled AND the +4
+#// lands (4 power + 4 = 8). Legacy → seat 2 is milled and there is no match (4 damage).
+
+## GIVEN
+CommonSetup: yyk/ggw/{myResources:5; theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: LOF_204:1:0
+WithP2Deck: SOR_128
+WithP4Deck: SOR_146
+
+## WHEN
+- P1>AttackGroundArena:0:P4B
+- P1>AnswerDecision:Zeb Orrelios
+
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:8
+P4DECKCOUNT:0
+P4DISCARDCOUNT:1
+P2DECKCOUNT:1

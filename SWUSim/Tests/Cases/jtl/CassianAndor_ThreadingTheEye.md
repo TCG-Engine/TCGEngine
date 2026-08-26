@@ -99,3 +99,37 @@ P2BASEDMG:3
 P1HANDCOUNT:0
 P1DECKCOUNT:1
 P2DECKCOUNT:1
+
+---
+
+# TwinSuns_MillsTheACTUALDefendingPlayersDeck
+#// Granted "On Attack: Discard a card from THE DEFENDING PLAYER's deck. If that card costs 3 or less,
+#// draw a card." Resolved with OtherPlayer($player) — seat 2 whoever was attacked.
+#//
+#// Seat 4 (the defender) has a cost-1 SOR_128 on top; seat 2 has a cost-6 SOR_063. So the correct read
+#// mills seat 4 AND draws; the legacy read mills seat 2 and draws nothing. Both deck counts and the
+#// hand are asserted, so the two readings cannot be confused.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:JTL_001; theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArenaUpgrade: 0:JTL_048
+WithP1Deck: SOR_063
+WithP2Deck: SOR_063
+WithP4Deck: SOR_128
+
+## WHEN
+- P1>AttackSpaceArena:0:P4B
+
+## EXPECT
+SEATCOUNT:4
+P1HANDCOUNT:1
+P4DECKCOUNT:0
+P2DECKCOUNT:1

@@ -243,3 +243,37 @@ WithP2GroundArena: SOR_128:1:0
 P2BASEDMG:4
 P1LEADER:EXHAUSTED
 P1GROUNDARENAUNIT:1:POWER:3
+
+---
+
+# Front_TwinSuns_ComparesUnitsWithTheACTUALDefendingPlayer
+#// "If you control more units than THE DEFENDING PLAYER, the attacker gets +1/+0 for this attack."
+#// Two defects: the comparison ran BEFORE BeginSWUAttack (no target declared yet, so no defending
+#// player existed), and it used GetOpponent() — `1→2, 2→1, else NULL` — so at seats 3/4
+#// GetUnitsInPlay(null) counted ZERO and the bonus applied unconditionally. Fixed via the SOR_012_ATK
+#// marker + _SWUApplyDefenderConditionalAttackEffects.
+#//
+#// Seat 1 controls THREE units and seat 4 (the defender) ONE, so the bonus applies: SOR_046's 3 power
+#// + 1 = 4 on seat 4's base. Seat 2 controls FIVE, so the legacy comparison (3 > 5) applies nothing.
+
+## GIVEN
+CommonSetup: rrk/brw/{myLeader:SOR_012; theirBase:SOR_021}
+SkipPreGame: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: [SOR_046:1:0 SOR_046:1:0 SOR_046:1:0]
+WithP2GroundArena: [SOR_046:1:0 SOR_046:1:0 SOR_046:1:0 SOR_046:1:0 SOR_046:1:0]
+WithP4GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:p4Base-0
+
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:4

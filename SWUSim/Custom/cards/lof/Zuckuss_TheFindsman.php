@@ -19,7 +19,7 @@ $customDQHandlers["LOF_204#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $uid   = intval($parts[0] ?? -1);
     $named = trim($lastDecision);
-    $opp   = OtherPlayer(intval($player));         // the defending player (2-player)
+    $opp   = SWUCurrentDefendingSeat(intval($player));  // the defending player, at any seat count
     $deck  = &GetDeck($opp);
     if (empty($deck)) return;
     $topCid = $deck[0]->CardID;
