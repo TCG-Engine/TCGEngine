@@ -1,1 +1,28 @@
-[]
+[
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "property": "Damage",
+        "value": "5"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "property": "CardID",
+        "value": "OWCdWq3mXY"
+    },
+    {
+        "step": 11,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

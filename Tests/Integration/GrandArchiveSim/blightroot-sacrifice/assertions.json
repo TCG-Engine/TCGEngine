@@ -1,1 +1,27 @@
-[]
+[
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "theirField-3",
+        "property": "CardID",
+        "value": "ltv5klryvf"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "theirField-3",
+        "property": "Damage",
+        "value": "2"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "theirField",
+        "value": 5
+    },
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
