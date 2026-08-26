@@ -3776,6 +3776,8 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
     if (!isset($currentAwait['isVoidFunction']) || !$currentAwait['isVoidFunction']) {
       $varName = substr($currentAwait['returnVar'], 1); // Remove $ prefix
       $handlerCode .= "  DecisionQueueController::StoreVariable(\"" . $varName . "\", \$lastDecision);\n";
+      $handlerCode .= "  if(function_exists('ApplyVirgilProgramTargetDiscount')) ApplyVirgilProgramTargetDiscount(\$player, \$lastDecision);\n";
+      $handlerCode .= "  if(function_exists('AllowGeneratedTargetResolution') && !AllowGeneratedTargetResolution(\$player, \$lastDecision, \"" . $handlerName . "\")) return;\n";
     }
 
     // Retrieve all previously stored variables that might be referenced in the code block

@@ -192,3 +192,4 @@ MAIN
 0
 -
 -
+{"cards":{"2":{"mala1jaff7":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0}}},"turns":[],"cur":{"2":{"reserveSpent":1,"damageTaken":1},"1":{"damageDealt":1}},"combatEvents":[{"type":"damage_resolved","turn":5,"sourceSeat":1,"sourceCardId":"dPP9I4nVn0","targetSeat":2,"targetCardId":"izGEjxBPo9","amount":1,"isCombat":true,"lethal":false}]}

@@ -188,3 +188,4 @@ MAIN
 0
 -
 -
+{"cards":{"1":{"ta6qsesw2u":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0},"kk39i1f0ht":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":{"1":{"memorySpent":1,"cardsPlayed":1}},"combatEvents":[]}

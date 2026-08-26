@@ -192,3 +192,4 @@ BREC
 0
 -
 -
+{"cards":{"2":{"AsDKTmP3kp":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0},"8GTa6NS2RG":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0},"wk0pw0y6is":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":1}}},"turns":[],"cur":{"2":{"reserveSpent":2}},"combatEvents":[]}

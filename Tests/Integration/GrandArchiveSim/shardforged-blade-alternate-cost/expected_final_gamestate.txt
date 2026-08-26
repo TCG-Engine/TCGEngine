@@ -189,3 +189,4 @@ MAIN
 0
 -
 -
+{"cards":{"2":{"Y34Imzlr0n":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0},"7mHiO4YySz":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":{"2":{"cardsPlayed":1}},"combatEvents":[]}

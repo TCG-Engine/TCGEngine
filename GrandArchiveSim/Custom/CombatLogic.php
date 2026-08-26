@@ -981,6 +981,10 @@ function GetRetaliatorOptions(int $attackerPlayer): ?array {
         if($fieldObj->CardID === "itwys9kf4r" && !HasNoAbilities($fieldObj)) {
             if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
         }
+        // Lurching Rogue and Aquaveil Ambusher: printed Ambush.
+        if(($fieldObj->CardID === "8tYVFYnK0T" || $fieldObj->CardID === "TScoOwz80U") && !HasNoAbilities($fieldObj)) {
+            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
+        }
         if(in_array("AMBUSH", $fieldObj->TurnEffects ?? [])) {
             if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
         }
@@ -1263,6 +1267,10 @@ $customDQHandlers["CommandAutomatonAttack"] = function($player, $parts, $lastDec
 function BeginCombatPhase($actionCard) {
     $turnPlayer = GetTurnPlayer();
     $obj = &GetZoneObject($actionCard);
+    if(function_exists("TotalWhiteoutSuppressesActivatedAbilities") && TotalWhiteoutSuppressesActivatedAbilities($obj)) {
+        SetFlashMessage("Total Whiteout prevents that rested object from being used for an attack.");
+        return false;
+    }
     $cardType = EffectiveCardType($obj);
     $countsAsAllyAttacker = PropertyContains($cardType, "ALLY")
         || ($obj->CardID === "YKrCbNs3rh" && !HasNoAbilities($obj));
@@ -1703,6 +1711,22 @@ function OnAttackTrigger($player, $mzID) {
     if($obj !== null && in_array("f00cEmu6Ql", $obj->TurnEffects)) {
         AddTurnEffect($mzID, "f00cEmu6Ql_POWER");
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["f00cEmu6Ql"]));
+    }
+    // Wuthering Sforzando: consume the target ally's next-attack bonus.
+    if($obj !== null && in_array("Nlw3ZpjSxw", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "Nlw3ZpjSxw_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["Nlw3ZpjSxw"]));
+    }
+    if($obj !== null && in_array("vNrkfKLlt6", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "vNrkfKLlt6_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["vNrkfKLlt6"]));
+    }
+    foreach($obj->TurnEffects ?? [] as $equipEffect) {
+        if(strpos($equipEffect, "eU8IEVpFZg_NEXT_") !== 0) continue;
+        $bonus = intval(substr($equipEffect, strlen("eU8IEVpFZg_NEXT_")));
+        AddTurnEffect($mzID, "eU8IEVpFZg_POWER_" . $bonus);
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, [$equipEffect]));
+        break;
     }
 
     // Luminous Surge (KOqdA7G6by): target unit's next attack this turn gets bonus POWER
@@ -3149,7 +3173,13 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
             DecisionQueueController::StoreVariable("CombatTrackedDamageTarget", $defenderMZ);
             DecisionQueueController::StoreVariable("CombatTrackedDamageAmount", "0");
             ApplyPreCombatHitReplacementTags($attackerMZ, $defenderMZ);
-            DealDamage($attackerPlayer, $attackerMZ, $defenderMZ, $effectivePower);
+            $attackerObjForDamage = GetZoneObject($attackerMZ);
+            if($attackerObjForDamage !== null && $attackerObjForDamage->CardID === "bgbhr5vm38"
+                && IsClassBonusActive($attackerPlayer, CardClasses("bgbhr5vm38")) && GetInfluence($attackerPlayer) <= 4) {
+                DealUnpreventableDamage($attackerPlayer, $attackerMZ, $defenderMZ, $effectivePower);
+            } else {
+                DealDamage($attackerPlayer, $attackerMZ, $defenderMZ, $effectivePower);
+            }
             $actualCleaveDamage += intval(DecisionQueueController::GetVariable("CombatTrackedDamageAmount") ?? "0");
             DecisionQueueController::ClearVariable("CombatTrackedDamageSource");
             DecisionQueueController::ClearVariable("CombatTrackedDamageTarget");
@@ -3265,7 +3295,13 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
         if(!HasSteadfast($defender)) {
             OnRestCard($player, $lastDecision);
         }
-        DealDamage($player, $lastDecision, $attackerMZ, $defenderPower);
+        $retaliatorObjForDamage = GetZoneObject($lastDecision);
+        if($retaliatorObjForDamage !== null && $retaliatorObjForDamage->CardID === "bgbhr5vm38"
+            && IsClassBonusActive($player, CardClasses("bgbhr5vm38")) && GetInfluence($player) <= 4) {
+            DealUnpreventableDamage($player, $lastDecision, $attackerMZ, $defenderPower);
+        } else {
+            DealDamage($player, $lastDecision, $attackerMZ, $defenderPower);
+        }
     }
 };
 
@@ -3775,6 +3811,25 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // has Varuck on the field, bypass all prevention effects → use DealUnpreventableDamage path.
     $sourceInfo = ResolveDamageSourceCardInfo($source, $player);
     $sourceObj = $sourceInfo["obj"];
+    $sourceController = intval($sourceInfo["controller"] ?? $player);
+    $isCombatContext = DecisionQueueController::GetVariable("CombatAttacker") !== null;
+
+    // Capacitance X Psycho: non-combat damage from its controller's sources is
+    // unpreventable, and an awake copy increases an exact-one instance to two.
+    if(!$isCombatContext && $sourceInfo["cardID"] !== null) {
+        $hasCapacitance = false;
+        $hasAwakeCapacitance = false;
+        foreach(GetField($sourceController) as $capObj) {
+            if($capObj->removed || $capObj->CardID !== "FjklZcbjPV" || HasNoAbilities($capObj)) continue;
+            $hasCapacitance = true;
+            if(intval($capObj->Status ?? 0) === 2) $hasAwakeCapacitance = true;
+        }
+        if($hasCapacitance) {
+            if(intval($amount) === 1 && $hasAwakeCapacitance) $amount = 2;
+            DealUnpreventableDamage($player, $source, $target, $amount);
+            return;
+        }
+    }
     if($sourceInfo["cardID"] !== null) {
         $sourceElement = $sourceObj !== null ? EffectiveCardElement($sourceObj) : CardElement($sourceInfo["cardID"]);
         if($sourceElement === "FIRE") {
@@ -3795,7 +3850,6 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
 
     // Overwhelming Swing (aebjvwbciz): [Class Bonus][Level 2+] combat damage is unpreventable
-    $isCombatContext = DecisionQueueController::GetVariable("CombatAttacker") !== null;
     if($isCombatContext && $targetObj !== null && $targetObj->CardID === "peyG8Hfgqt"
         && !HasNoAbilities($targetObj) && IsClassBonusActive($targetObj->Controller, ["WARRIOR"])) {
         return;
@@ -4762,6 +4816,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         $sourceController = $sourceInfoSpell["controller"] ?? $player;
 
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
+            $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
+            $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;
             $srcFieldZone = ($sourceController == $playerID) ? "myField" : "theirField";
@@ -4883,6 +4939,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     RecordTrackedCombatDamageAmount($source, $target, $amount);
     TrackMacroGameOpponentChampionDamage($source, $target, $amount, $player);
     $targetObj->Damage += $amount;
+    TrackPRDChampionDamage($player, $source, $targetObj, $amount, $isCombat);
     TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount);
     
     // Queue damage animation for the target card
@@ -5099,6 +5156,8 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         $sourceController = $sourceInfoSpell["controller"] ?? $player;
 
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
+            $amount += AeneanGutteringFlamesBonus($sourceController, $sourceSpellCardID);
+            $amount += CryosalvoFractalDamageBonus($sourceController, $sourceSpellCardID);
 
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;
@@ -5136,6 +5195,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     RecordTrackedCombatDamageAmount($source, $target, $amount);
     TrackMacroGameOpponentChampionDamage($source, $target, $amount, $player);
     $targetObj->Damage += $amount;
+    TrackPRDChampionDamage($player, $source, $targetObj, $amount, DecisionQueueController::GetVariable("CombatAttacker") !== null);
     TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount);
     
     // Queue damage animation for the target card

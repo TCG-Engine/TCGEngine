@@ -2152,6 +2152,38 @@ $customDQHandlers["MeteorStrikeDestroy"] = function($player, $parts, $lastDecisi
     DecisionQueueController::CleanupRemovedCards();
 };
 
+$customDQHandlers["DeclareNonChampionObjectLinkTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) {
+        DecisionQueueController::StoreVariable("objectLinkTargetMZ", "");
+        DecisionQueueController::StoreVariable("objectLinkTargetCardID", "");
+        return;
+    }
+    $targetObj = GetZoneObject($lastDecision);
+    DecisionQueueController::StoreVariable("objectLinkTargetMZ", $lastDecision);
+    DecisionQueueController::StoreVariable("objectLinkTargetCardID", $targetObj !== null ? $targetObj->CardID : "");
+};
+
+$customDQHandlers["LacunarityGuideMaterialChoice"] = function($player, $parts, $lastDecision) {
+    $mzCard = strval(DecisionQueueController::GetVariable("lacunarityMaterialCard") ?? "");
+    if($mzCard === "") return;
+    if($lastDecision !== "YES") {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE|CONTINUE|" . $mzCard, 1);
+        return;
+    }
+    $fractals = ZoneSearch("myField", ["PHANTASIA"], cardSubtypes:["FRACTAL"], forPlayer:$player);
+    if(count($fractals) < 2) return;
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "2|2|" . implode("&", $fractals), 1, tooltip:"Sacrifice_two_Fractal_phantasias");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LacunarityGuideSacrifice|" . $mzCard, 1);
+};
+
+$customDQHandlers["LacunarityGuideSacrifice"] = function($player, $parts, $lastDecision) {
+    $mzCard = strval($parts[0] ?? "");
+    $targets = array_filter(explode("&", strval($lastDecision)));
+    usort($targets, fn($a,$b) => intval(substr(strrchr($b,"-"),1)) <=> intval(substr(strrchr($a,"-"),1)));
+    foreach($targets as $target) DoSacrificeFighter($player, $target);
+    if($mzCard !== "") DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE|CONTINUE|" . $mzCard . "|NOCOST", 1);
+};
+
 // --- Exorcism (4n6dd4f01r): sacrifice each ephemeral object unless controller pays (1) ---
 function ExorcismProcess($player) {
     // Collect all ephemeral objects from both fields

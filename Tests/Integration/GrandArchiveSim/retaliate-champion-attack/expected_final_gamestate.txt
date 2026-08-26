@@ -191,3 +191,4 @@ Attack canceled because the target left the field.
 0
 -
 -
+{"cards":[],"turns":[],"cur":{"1":{"damageDealt":4},"2":{"damageTaken":4}},"combatEvents":[{"type":"damage_resolved","turn":1,"sourceSeat":1,"sourceCardId":"NsnBhlVzTV","targetSeat":2,"targetCardId":"74wa4x7e22","amount":4,"isCombat":true,"lethal":false}]}

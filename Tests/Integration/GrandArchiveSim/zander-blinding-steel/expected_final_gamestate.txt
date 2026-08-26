@@ -188,3 +188,4 @@ MAIN
 0
 -
 -
+{"cards":{"2":{"52u81v4c0z":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0},"uwnHTLG3fL":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":{"2":{"cardsPlayed":1,"damageDealt":2},"1":{"damageTaken":2}},"combatEvents":[{"type":"damage_resolved","turn":6,"sourceSeat":2,"sourceCardId":"","targetSeat":1,"targetCardId":"nn48ne8a05","amount":2,"isCombat":false,"lethal":false}]}

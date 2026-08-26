@@ -189,3 +189,4 @@ MAIN
 0
 -
 -
+{"cards":{"2":{"enxi6tshtu":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0},"bzwj7ztr78":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":{"2":{"memorySpent":3,"cardsPlayed":1}},"combatEvents":[]}

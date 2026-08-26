@@ -190,3 +190,4 @@ MAIN
 0
 -
 -
+{"cards":{"2":{"gt7lh9v221":{"drawn":0,"drawnToMemory":0,"materialized":1,"reserved":0,"discarded":0,"activated":0},"xt6uaz6a7g":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"nt1lyk1dvd":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"em6eEh9q8y":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[],"cur":{"2":{"memorySpent":2,"cardsPlayed":1}},"combatEvents":[]}

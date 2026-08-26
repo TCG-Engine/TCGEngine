@@ -263,6 +263,34 @@ function AdvanceGoldfishTurnIfIdle() {
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $turnPlayer;
+    if(GlobalEffectCount($turnPlayer, "DIVINE_COMEDY_EVEN_LOCK") > 0) RemoveGlobalEffect($turnPlayer, "DIVINE_COMEDY_EVEN_LOCK");
+
+    // Leran, Pastoral Hymns: punish the active player for high influence.
+    $leranDamage = max(0, GetInfluence($turnPlayer) - 7);
+    if($leranDamage > 0) {
+        for($owner = 1; $owner <= 2; ++$owner) {
+            foreach(GetField($owner) as $leranObj) {
+                if($leranObj !== null && !$leranObj->removed && $leranObj->CardID === "CGdu1Vmlok" && !HasNoAbilities($leranObj)) {
+                    $champMZ = FindChampionMZ($turnPlayer);
+                    if($champMZ !== null) DealDamage($owner, $leranObj->GetMzID(), $champMZ, $leranDamage);
+                }
+            }
+        }
+    }
+
+    // Where Futures Stir: optionally rest a base-power-0 ally to train it.
+    $endField = GetField($turnPlayer);
+    for($wfs = 0; $wfs < count($endField); ++$wfs) {
+        if($endField[$wfs]->removed || $endField[$wfs]->CardID !== "jmaPje9XgG" || HasNoAbilities($endField[$wfs])) continue;
+        $targets = [];
+        foreach(ZoneSearch("myField", ["ALLY"]) as $allyMZ) {
+            $allyObj = GetZoneObject($allyMZ);
+            if($allyObj !== null && intval(CardPower($allyObj->CardID)) === 0 && intval($allyObj->Status ?? 0) === 2) $targets[] = $allyMZ;
+        }
+        if(empty($targets)) continue;
+        DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Rest_a_base-power-0_ally_to_add_training?");
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WhereFuturesStirTrain|myField-" . $wfs, 1);
+    }
 
     if(GetCurrentPhase() === "MAIN") {
         AdvanceAndExecute("PASS");
@@ -793,6 +821,13 @@ $AllyLink_Cards["g23WBQW2Ro"] = true; // Blood Dragon's Pact
 $AllyLink_Cards["C89p0c3Sqb"] = true; // Aquatech Shield
 $AllyLink_Cards["U7pILTDm3s"] = true; // Flametech Shield
 $AllyLink_Cards["rdI48Qb5mP"] = true; // Stridetech W
+$AllyLink_Cards["3Gx9ByIl9t"] = true; // Brooch X Ultra
+$AllyLink_Cards["6sZXj2SZW6"] = true; // CookTech Knife
+$AllyLink_Cards["MTm7r2KOSS"] = true; // GustTech Shield
+$AllyLink_Cards["oJIuGCrzPG"] = true; // CookTech Apron
+$AllyLink_Cards["QZT9pQQltw"] = true; // AquaTech Shell
+$AllyLink_Cards["PAymR7JsNp"] = true; // PlasmaTech Blaster
+$AllyLink_Cards["PboHrwPZgP"] = true; // Nightframe, Hound's Bike
 
 // Cards with Unit Link that must choose an ally or champion target as they materialize.
 $UnitLink_Cards = [];
@@ -806,8 +841,17 @@ $UnitLink_Cards["uoy5ttkat9"] = true; // Winbless Kiteshield
 $ChampionLink_Cards = [];
 $ChampionLink_Cards["suo6gb0op3"] = true; // Fractured Crown
 
+// Cards with Non-Champion Object Link.
+$NonChampionObjectLink_Cards = [];
+$NonChampionObjectLink_Cards["1Hb6HXKXzG"] = true; // Ionizer X Ultra
+
 // Cards with Weapon Link that must choose a weapon/regalia target as they enter.
 $WeaponLink_Cards = [];
+$WeaponLink_Cards["33mWk4HYLF"] = [
+    "types" => ["WEAPON"],
+    "subtypes" => ["SWORD"],
+    "tooltip" => "Choose_a_Sword_weapon_to_link",
+]; // Staves X Ultra
 $WeaponLink_Cards["0cnn1eh85y"] = [
     "types" => ["WEAPON"],
     "subtypes" => ["WARRIOR"],
@@ -827,6 +871,12 @@ $WeaponLink_Cards["sZTH5LanyW"] = [
     "subtypes" => ["SWORD"],
     "tooltip" => "Choose_a_Sword_weapon_to_link",
 ]; // Jovian Hilt X Ultra
+$WeaponLink_Cards["aAJliPQT3F"] = [
+    "types" => ["WEAPON"], "subtypes" => ["SWORD"], "tooltip" => "Choose_a_Sword_weapon_to_link",
+]; // FlameTech BladeCore
+$WeaponLink_Cards["CbPHWJ8Upd"] = [
+    "types" => ["WEAPON"], "subtypes" => ["SWORD"], "tooltip" => "Choose_a_Sword_weapon_to_link",
+]; // Stabilizing BladeCore
 $Cardistry_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts
 $Cardistry_Cards["tdRR5lQHMN"] = 6; // Six of Spades
 $Cardistry_Cards["EIpkYYSP3s"] = 6; // Senaris, Six of Diamonds
@@ -1441,6 +1491,18 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 SaveUndoVersion($playerID);
             }
+            $peerObj = GetZoneObject($actionCard);
+            if($playerID == $turnPlayer && $peerObj !== null && !$peerObj->removed && in_array("PEER_DEPTHS_PLAYABLE", $peerObj->TurnEffects ?? [], true)) {
+                DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myBanish");
+                DecisionQueueController::StoreVariable("peerDepthsIgnoreElement", "YES");
+                $handObj = MZMove($playerID, $actionCard, "myHand");
+                if($handObj !== null) {
+                    $handObj->TurnEffects = array_values(array_filter($handObj->TurnEffects ?? [], fn($e) => $e !== "PEER_DEPTHS_PLAYABLE" && $e !== "PEER_DEPTHS_EXPIRES_END_PHASE"));
+                }
+                $hand = &GetHand($playerID);
+                ActivateCard($playerID, "myHand-" . (count($hand)-1), false);
+                return "PLAY";
+            }
             // Naia, Diviner of Fortunes (jdmthh88rx): activate spell from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -1934,6 +1996,10 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($unitTargets)) return; // No valid Link target â€” block activation
     }
 
+    global $NonChampionObjectLink_Cards;
+    $hasNonChampionObjectLink = isset($NonChampionObjectLink_Cards[$sourceObject->CardID]);
+    if($hasNonChampionObjectLink && empty(GetNonChampionObjectLinkTargets($player))) return;
+
     // Nightmare Coil (3fe3c97s71): only while your champion is distant, and only during recollection.
     if($sourceObject->CardID === "3fe3c97s71") {
         if(GetCurrentPhase() !== "RECOLLECTION") return;
@@ -1971,6 +2037,10 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(!$ignoreElementRequirement && in_array("_devisedConspiracy", $sourceObject->TurnEffects ?? [])) {
         $ignoreElementRequirement = true;
     }
+    if(!$ignoreElementRequirement && DecisionQueueController::GetVariable("peerDepthsIgnoreElement") === "YES") {
+        $ignoreElementRequirement = true;
+        DecisionQueueController::ClearVariable("peerDepthsIgnoreElement");
+    }
     $shadowreaverIgnoreElement = DecisionQueueController::GetVariable("shadowreaverIgnoreElement");
     if(!$ignoreElementRequirement && $shadowreaverIgnoreElement === "YES") {
         $ignoreElementRequirement = true;
@@ -1981,6 +2051,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(!$ignoreElementRequirement && !CanPlayerUseCardElement($player, $sourceObject->CardID, true, true)) {
         return;
     }
+    if(GlobalEffectCount($player, "DIVINE_COMEDY_EVEN_LOCK") > 0 && intval(CardCost_reserve($sourceObject->CardID)) % 2 === 0) return;
 
     // Three Visits (w7o3agvvnc): mandatory additional cost â€” rest your champion.
     if($sourceObject->CardID === "w7o3agvvnc" && !$ignoreCost && !CanPayRestChampionCost($player)) {
@@ -2004,6 +2075,25 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
     }
     $obj = MZMove($player, $mzCard, "EffectStack");
+    $trackVirgilProgramDiscount = PropertyContains(CardSubtypes($obj->CardID), "PROGRAM");
+    if($trackVirgilProgramDiscount) {
+        $trackVirgilProgramDiscount = false;
+        foreach(GetField($player) as $virgilObj) {
+            if(!$virgilObj->removed && $virgilObj->CardID === "xdgpdcD33h" && !HasNoAbilities($virgilObj)) {
+                $trackVirgilProgramDiscount = true;
+                break;
+            }
+        }
+    }
+    if($trackVirgilProgramDiscount) {
+        DecisionQueueController::StoreVariable("virgilProgramTracking", "YES");
+        DecisionQueueController::StoreVariable("activationReservePayments", "[]");
+        DecisionQueueController::StoreVariable("virgilProgramDiscountApplied", "NO");
+    } else {
+        DecisionQueueController::ClearVariable("virgilProgramTracking");
+        DecisionQueueController::ClearVariable("activationReservePayments");
+        DecisionQueueController::ClearVariable("virgilProgramDiscountApplied");
+    }
     $obj->_sourceZone = DecisionQueueController::GetVariable("activationSourceZone");
     $obj->Controller = $player;
     $temporaryCopyCardID = DecisionQueueController::GetVariable("temporaryActivationCopyCardID");
@@ -2092,6 +2182,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $unitTargets), 1,
                 tooltip:"Choose_a_unit_to_link");
             DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareUnitLinkTarget", 1);
+        }
+    }
+
+    if($hasNonChampionObjectLink) {
+        $objectTargets = GetNonChampionObjectLinkTargets($player);
+        if(!empty($objectTargets)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $objectTargets), 1,
+                tooltip:"Choose_a_non-champion_object_to_link");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareNonChampionObjectLinkTarget", 1);
         }
     }
 
@@ -2294,6 +2393,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasPowercellSacrificeCost   = false;
     $hasMemoryInvocationCost     = false;
     $hasPiccardaStaticCost       = false;
+    $hasZenaAltCost              = false;
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
     if(isset($additionalActivationCosts[$obj->CardID])) {
@@ -2426,6 +2526,23 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             DecisionQueueController::StoreVariable("argusReserveRemaining", strval($reserveCost));
             DecisionQueueController::StoreVariable("argusReserveCanBanish", strval(count($eligible)));
             DecisionQueueController::AddDecision($player, "CUSTOM", "ArgusReserveChoice", 100);
+        }
+    }
+
+    if($obj->CardID === "vxzsjRxMIn" && !$ignoreCost && $reserveCost > 0) {
+        $songs = [];
+        foreach(ZoneSearch("myGraveyard") as $gyMZ) {
+            $gyObj = GetZoneObject($gyMZ);
+            if($gyObj === null || $gyObj->removed) continue;
+            $subtypes = CardSubtypes($gyObj->CardID);
+            if(PropertyContains($subtypes, "HARMONY") || PropertyContains($subtypes, "MELODY")) $songs[] = $gyMZ;
+        }
+        if(!empty($songs)) {
+            $hasZenaAltCost = true;
+            DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
+                "0|" . min(2, count($songs)) . "|" . implode("&", $songs), 100,
+                tooltip:"Banish_up_to_two_Harmony_or_Melody_cards_to_pay_two_each");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ZenaReserveCost|" . $reserveCost, 100);
         }
     }
 
@@ -2740,7 +2857,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2836,6 +2953,26 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasEdelsteinAltCost is true, EdelsteinAltCostChoice handler queues iterative
     // GY banish or normal reserve + EffectStackOpportunity.
 }
+
+$customDQHandlers["ZenaReserveCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = max(0, intval($parts[0] ?? 0));
+    $selected = array_values(array_filter(explode("&", strval($lastDecision)),
+        fn($mz) => $mz !== "" && $mz !== "-" && $mz !== "PASS"));
+    if(count($selected) > 2) $selected = array_slice($selected, 0, 2);
+    usort($selected, fn($a, $b) => intval(substr(strrchr($b, "-"), 1)) <=> intval(substr(strrchr($a, "-"), 1)));
+    $paid = 0;
+    foreach($selected as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj === null || $obj->removed || strpos($mz, "myGraveyard-") !== 0) continue;
+        $subtypes = CardSubtypes($obj->CardID);
+        if(!PropertyContains($subtypes, "HARMONY") && !PropertyContains($subtypes, "MELODY")) continue;
+        MZMove($player, $mz, "myBanish");
+        $paid += 2;
+    }
+    $remaining = max(0, $reserveCost - $paid);
+    for($i = 0; $i < $remaining; ++$i) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
 
 $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
     $excludedMzID = $parts[0] ?? null;
@@ -3411,6 +3548,12 @@ function ProcessReservePaymentChoice($player, $choiceMZ) {
         // Reservable card on field: rest/exhaust it to pay for 1 reserve cost.
         $restedObj = GetZoneObject($choiceMZ);
         RestCard($player, $choiceMZ);
+        if(DecisionQueueController::GetVariable("virgilProgramTracking") === "YES") {
+            $payments = json_decode(DecisionQueueController::GetVariable("activationReservePayments") ?? "[]", true);
+            if(!is_array($payments)) $payments = [];
+            $payments[] = ["kind" => "field", "mz" => $choiceMZ];
+            DecisionQueueController::StoreVariable("activationReservePayments", json_encode($payments));
+        }
 
         // Wildheart Lyre (50pcescfpw): [CB] whenever rested to pay for Harmony/Melody reserve,
         // put a buff counter on an Animal or Beast ally you control.
@@ -3447,6 +3590,12 @@ function ProcessReservePaymentChoice($player, $choiceMZ) {
 
     // Hand card: move to memory as normal.
     $newObj = OnCardReserved($player, $choiceMZ);
+    if($newObj !== null && DecisionQueueController::GetVariable("virgilProgramTracking") === "YES") {
+        $payments = json_decode(DecisionQueueController::GetVariable("activationReservePayments") ?? "[]", true);
+        if(!is_array($payments)) $payments = [];
+        $payments[] = ["kind" => "hand", "cardID" => $newObj->CardID];
+        DecisionQueueController::StoreVariable("activationReservePayments", json_encode($payments));
+    }
     if($newObj !== null && DecisionQueueController::GetVariable("imbueRevealQueue") !== null) {
         $newMzID = "myMemory-" . $newObj->mzIndex;
         $queued = DecisionQueueController::GetVariable("imbueRevealQueue");
@@ -5025,6 +5174,14 @@ function OnCardActivated($player, $mzCard) {
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "ITEM")) {
+        global $NonChampionObjectLink_Cards;
+        if(isset($NonChampionObjectLink_Cards[$obj->CardID]) && ValidateStoredNonChampionObjectLinkTarget($player) === null) {
+            $obj = MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::StoreVariable("objectLinkTargetMZ", "");
+            DecisionQueueController::StoreVariable("objectLinkTargetCardID", "");
+            DecisionQueueController::CleanupRemovedCards();
+            return;
+        }
         // Items (e.g. Potions, Accessories) enter the field as persistent objects
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
@@ -5557,6 +5714,24 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         }
     }
     switch($cardID) {
+        case "ts9VdtFtk1": {
+            $sourceObj = &GetZoneObject($mzCard);
+            $usedBefore = $sourceObj !== null && intval($sourceObj->Counters["divineComedyActivated"] ?? 0) > 0;
+            if($usedBefore) for($ri=0;$ri<4;++$ri) DecisionQueueController::AddDecision($player,"CUSTOM","ReserveCard",100);
+            if($sourceObj !== null) {
+                if(!is_array($sourceObj->Counters)) $sourceObj->Counters=[];
+                $sourceObj->Counters["divineComedyActivated"] = intval($sourceObj->Counters["divineComedyActivated"] ?? 0) + 1;
+            }
+            break;
+        }
+        case "lumV6cG9oc": { // Business Card: (2), sacrifice
+            $sourceObj = GetZoneObject($mzCard);
+            $chosen = is_array($sourceObj->Counters ?? null) ? strval($sourceObj->Counters["chosenAllyName"] ?? "") : "";
+            DecisionQueueController::StoreVariable("businessCardChosen", $chosen);
+            for($ri=0;$ri<2;++$ri) DecisionQueueController::AddDecision($player,"CUSTOM","ReserveCard",100);
+            DoSacrificeFighter($player, $mzCard);
+            break;
+        }
         case "X7rh3Yi26A": { // Endura, Reimagined - remove 3 enlighten counters + REST
             $sourceObj = &GetZoneObject($mzCard);
             if($sourceObj !== null) $sourceObj->Status = 1;
@@ -6533,8 +6708,11 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
     if($sourceObject === null || (isset($sourceObject->removed) && $sourceObject->removed)) return;
+    if(TotalWhiteoutSuppressesActivatedAbilities($sourceObject)) return;
     // Capture cardID now â€” the card may be moved to banishment as a cost below.
     $cardID = $sourceObject->CardID;
+    if($cardID === "ts9VdtFtk1" && (HasOpportunity($player) || in_array("DIVINE_COMEDY_USED_THIS_TURN", $sourceObject->TurnEffects ?? []))) return;
+    if($cardID === "ts9VdtFtk1") AddTurnEffect($mzCard, "DIVINE_COMEDY_USED_THIS_TURN");
     if($cardID === "gnYM2V6TTw") DecisionQueueController::StoreVariable("gnYM2V6TTw_wasBrewed", "NO");
     if($cardID === "O1OU62Zx2Y") DecisionQueueController::StoreVariable("O1OU62Zx2Y_wasBrewed", "NO");
     if($cardID === "uvgflagxbb" && HasOpportunity($player)) return; // Coronal of Rejuvenation: slow speed only
@@ -6862,6 +7040,15 @@ function OnLeaveField($player, $mzID) {
     $obj = GetZoneObject($mzID);
     if($obj === null) return;
     $controller = $obj->Controller;
+    if($obj->CardID === "q5CXVeHGIf") {
+        $linkedItems = GetLinkedCards($obj);
+        foreach($linkedItems as $linkedItem) {
+            $linkedMZ = $linkedItem->GetMzID();
+            if($linkedMZ !== null && $linkedMZ !== "") MZMove($controller, $linkedMZ, "myMemory");
+        }
+    }
+
+    if($obj->CardID === "YGNgrHBAh2") ReturnRevokerBellCards($controller, intval($obj->UniqueID ?? 0));
     $previousMzID = DecisionQueueController::GetVariable("mzID");
     // Weapons leaving the field: any loaded cards (Subcards) must go to the graveyard
     // as independent cards. Rule: "Cards Loaded into an object will still be Loaded as
@@ -7088,6 +7275,12 @@ function DoAllyDestroyed($player, $mzCard) {
     }
     if(!$suppressed && isset($allyDestroyedAbilities[$destroyedObj->CardID . ":0"])) {
         $allyDestroyedAbilities[$destroyedObj->CardID . ":0"]($controller);
+    }
+    if(PropertyContains(EffectiveCardType($destroyedObj), "ALLY")) {
+        if(PropertyContains(EffectiveCardSubtypes($destroyedObj), "ELYSIAN")) AddGlobalEffects($controller, "ELYSIAN_ALLY_DIED_THIS_TURN");
+        for($effectOwner = 1; $effectOwner <= 2; ++$effectOwner) {
+            if(GlobalEffectCount($effectOwner, "cAcgxzrz6z") > 0) Empower($effectOwner, 2, "cAcgxzrz6z");
+        }
     }
     // Glimmer Essence Amulet (dy4urpjbjm): if a phantasia you control is destroyed on an opponent's turn,
     // you may banish each Amulet you control to draw a card.
@@ -7466,7 +7659,9 @@ function OnEnter($player, $mzID) {
     $obj = GetZoneObject($mzID);
     if($obj === null || $obj->removed) return;
     $copiedCardID = $obj->CardID === "MyUTeqUJ0H" ? GetTomeCopiedCardID($obj) : "";
-    QueueEnterTriggeredAbility($player, $mzID, $copiedCardID);
+    if(QueueEnterTriggeredAbility($player, $mzID, $copiedCardID)) {
+        DispatchMacroListeners("Enter", $player, ["mzID" => $mzID], ["Field"]);
+    }
 }
 
 function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $Controller="-", $TurnEffects="-", $Counters="-", $Subcards="-") {
@@ -7475,6 +7670,13 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     $added->Controller = $player;
     if($added->Owner == 0) $added->Owner = $player;
     $otherPlayer = ($player == 1) ? 2 : 1;
+    if($added->CardID === "lumV6cG9oc") BusinessCardEnter($player, "myField-" . (count($field)-1));
+    foreach(GetField($otherPlayer) as $whiteoutObj) {
+        if(!$whiteoutObj->removed && $whiteoutObj->CardID === "O4mD40xpbY" && !HasNoAbilities($whiteoutObj)) {
+            $added->Status = 1;
+            break;
+        }
+    }
     // Zinn, Volnia Abbess (N0GEBrywbW): [Arisanna Bonus] Silvershine/Fraysia summons become Volnia.
     if(($added->CardID === "bd7ozuj68m" || $added->CardID === "soporhlq2k") && IsArisannaBonusActive($player)) {
         foreach($field as $zinnObj) {
@@ -7729,6 +7931,50 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
                 RemoveGlobalEffect($player, "mdwbkuhtjm");
             }
         }
+    }
+
+    // Breath's Coloratura: Human allies enter with an additional buff counter this turn.
+    if(PropertyContains(CardType($added->CardID), "ALLY")
+        && PropertyContains(CardSubtypes($added->CardID), "HUMAN")
+        && GlobalEffectCount($player, "1ybdJi1VN5_HUMAN_ENTER") > 0) {
+        AddCounters($player, "myField-" . (count($field) - 1), "buff", 1);
+    }
+
+    // Exhilarating Plume: Human allies enter with an additional buff counter.
+    if(PropertyContains(CardType($added->CardID), "ALLY") && PropertyContains(CardSubtypes($added->CardID), "HUMAN")) {
+        foreach($field as $plumeObj) {
+            if($plumeObj === null || $plumeObj->removed || $plumeObj->CardID !== "A9c8tb7LKD" || HasNoAbilities($plumeObj)) continue;
+            AddCounters($player, "myField-" . (count($field) - 1), "buff", 1);
+        }
+    }
+
+    global $NonChampionObjectLink_Cards;
+    if(isset($NonChampionObjectLink_Cards[$added->CardID])) {
+        $objectLinkTargetMZ = DecisionQueueController::GetVariable("objectLinkTargetMZ");
+        if(!empty($objectLinkTargetMZ) && $objectLinkTargetMZ !== "-") {
+            $linkingMZ = "myField-" . (count($field) - 1);
+            if(CreateNonChampionObjectLink($player, $linkingMZ, $objectLinkTargetMZ)) {
+                AddCounters($player, $objectLinkTargetMZ, "static", 2);
+                $linkedObj = GetZoneObject($objectLinkTargetMZ);
+                if($linkedObj !== null && GetCounterCount($linkedObj, "static") >= 4) Draw($player, 1);
+            }
+            DecisionQueueController::StoreVariable("objectLinkTargetMZ", "");
+            DecisionQueueController::StoreVariable("objectLinkTargetCardID", "");
+        }
+    }
+
+    // Hot Cake: when an ally enters, its controller may sacrifice each Hot Cake for a next-attack bonus.
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        for($cakeIndex = 0; $cakeIndex < count($field); ++$cakeIndex) {
+            if($field[$cakeIndex]->removed || $field[$cakeIndex]->CardID !== "FqFdOEOTbJ" || HasNoAbilities($field[$cakeIndex])) continue;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Sacrifice_Hot_Cake_for_+3_POWER_on_next_attack?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "HotCakeEnter|myField-" . $cakeIndex . "|myField-" . (count($field) - 1), 1);
+        }
+    }
+
+    // Embryonic Hemosynth: [Class Bonus] enters with a bulwark counter.
+    if($added->CardID === "JQQXhhIla9" && IsClassBonusActive($player, ["MAGE"])) {
+        AddCounters($player, "myField-" . (count($field) - 1), "bulwark", 1);
     }
 
     // Wildgrowth Feline (3krdvxapdp): [Class Bonus] when another Animal/Beast ally enters, put a buff counter on Wildgrowth Feline
@@ -8570,6 +8816,22 @@ function ResolveBeforeRecollectionPhaseStart($turnPlayer) {
     global $playerID;
     $playerID = $turnPlayer;
 
+    // Charger X Ultra triggers at the beginning of each player's recollection phase.
+    for($chargerOwner = 1; $chargerOwner <= 2; ++$chargerOwner) {
+        $chargerField = GetField($chargerOwner);
+        for($chargerIndex = 0; $chargerIndex < count($chargerField); ++$chargerIndex) {
+            if($chargerField[$chargerIndex]->removed || $chargerField[$chargerIndex]->CardID !== "AxUVNNipII" || HasNoAbilities($chargerField[$chargerIndex])) continue;
+            $targets = [];
+            foreach(array_merge(ZoneSearch("myField", forPlayer:$chargerOwner), ZoneSearch("theirField", forPlayer:$chargerOwner)) as $objectMZ) {
+                $object = GetZoneObject($objectMZ);
+                if($object !== null && GetCounterCount($object, "static") > 0) $targets[] = $objectMZ;
+            }
+            if(empty($targets)) continue;
+            DecisionQueueController::AddDecision($chargerOwner, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Put_a_static_counter_on_target_object");
+            DecisionQueueController::AddDecision($chargerOwner, "CUSTOM", "ChargerXUltraStatic", 1);
+        }
+    }
+
     // Trigger recollection phase abilities for cards on the field
     $field = &GetField($turnPlayer);
     for($i = 0; $i < count($field); ++$i) {
@@ -8601,6 +8863,12 @@ function ResolveBeforeRecollectionPhaseStart($turnPlayer) {
                         $champTwoMZ = FindChampionMZ(2);
                         if($champTwoMZ !== null) DealDamage($turnPlayer, $rubySourceMZ, $champTwoMZ, 1);
                     }
+                    break;
+                case "rRfRKqCBqF": // Perfusive Envelopment: recover for its blood counters
+                    if(!HasNoAbilities($field[$i])) RecoverChampion($turnPlayer, GetCounterCount($field[$i], "blood"));
+                    break;
+                case "XbYtI0XtVH": // Seed of Empowerment: add a refinement counter
+                    if(!HasNoAbilities($field[$i])) AddCounters($turnPlayer, "myField-" . $i, "refinement", 1);
                     break;
                 case "vzmnt0orxj": // Fabled Sapphire Fatestone: each player mills 1
                     if(!HasNoAbilities($field[$i]) && IsGuoJiaBonus($turnPlayer)) {
@@ -9020,6 +9288,13 @@ function RecollectionPhase() {
     global $playerID;
     // Defensive reset in case a prior opportunity/stack branch changed perspective.
     $playerID = $turnPlayer;
+
+    $bygoneField = &GetField($turnPlayer);
+    for($bi = 0; $bi < count($bygoneField); ++$bi) {
+        if(!$bygoneField[$bi]->removed && $bygoneField[$bi]->CardID === "wXNDSNQ2x2" && !HasNoAbilities($bygoneField[$bi])) {
+            ResolveBygoneDaysCascade($turnPlayer, "myField-" . $bi);
+        }
+    }
 
     // Golden Checkmate (KbE9R1mi3n): delayed win at the beginning of your next recollection phase.
     if(GlobalEffectCount($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION") > 0) {
@@ -9487,10 +9762,19 @@ function DrawPhase() {
 }
 
 function MainPhase() {
+    ResolveTotalWhiteoutMainPhase(GetTurnPlayer());
     // --- Wither Upkeep ---
     // At the beginning of a player's main phase, if they control objects with wither counters,
     // for each such object, they sacrifice it unless they pay (1) per wither counter, then remove wither counters.
     $turnPlayer = &GetTurnPlayer();
+    $mainField = &GetField($turnPlayer);
+    for($i = count($mainField) - 1; $i >= 0; --$i) {
+        if($mainField[$i]->removed || $mainField[$i]->CardID !== "Tt2Ew9RmIt" || HasNoAbilities($mainField[$i])) continue;
+        $blood = GetCounterCount($mainField[$i], "blood");
+        DoSacrificeFighter($turnPlayer, "myField-" . $i);
+        Empower($turnPlayer, 3 + $blood, "Tt2Ew9RmIt");
+    }
+    DecisionQueueController::CleanupRemovedCards();
     if(QueueWitherUpkeepTrigger($turnPlayer)) {
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "EffectStackOpportunity", 100);
         $dqController = new DecisionQueueController();
@@ -9675,6 +9959,7 @@ function BeforeEndPhase() {
 }
 
 function EndPhase() {
+    PRDEndPhaseTriggers(GetTurnPlayer());
     $firstPlayer = &GetFirstPlayer();
     $currentTurn = &GetTurnNumber();
     $turnPlayer = &GetTurnPlayer();
@@ -10350,6 +10635,42 @@ function ObjectCurrentPower($obj) {
         if($linkedObj->CardID === "sZTH5LanyW" && !HasNoAbilities($linkedObj)) {
             $power += 2;
         }
+        if($linkedObj->CardID === "3Gx9ByIl9t" && !HasNoAbilities($linkedObj)) {
+            $power += 2;
+        }
+        if($linkedObj->CardID === "6sZXj2SZW6" && !HasNoAbilities($linkedObj)) {
+            $power += 1;
+        }
+    }
+    foreach($obj->TurnEffects ?? [] as $effect) if($effect === "TRAINED_BIRDROID_POWER") ++$power;
+    if($obj->CardID === "xdgpdcD33h" && PlayerLevel($obj->Controller) >= 1) {
+        $powercells = ZoneSearch("myField", cardSubtypes:["POWERCELL"], forPlayer:$obj->Controller);
+        $power += min(2, count($powercells));
+    }
+    foreach(GetLinkedCards($obj) as $linkedObj) {
+        if($linkedObj->CardID === "33mWk4HYLF" && !HasNoAbilities($linkedObj) && IsLorraineBonusActive($obj->Controller)) {
+            $power += GetCounterCount($obj, "static");
+        }
+    }
+    if($obj->CardID === "TZym0IOInK" && $obj->Controller != -1 && IsClassBonusActive($obj->Controller, CardClasses($obj->CardID))) {
+        $power += PlayerLevel($obj->Controller);
+    }
+    if($obj->CardID === "Nr5GpfLNrh") {
+        $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+        $attackerObj = $attackerMZ !== null ? GetZoneObject($attackerMZ) : null;
+        if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "ALLY")
+            && PropertyContains(CardType($attackerObj->CardID), "UNIQUE")) $power += 2;
+    }
+    if($obj->CardID === "bgbhr5vm38" && isset($obj->Controller)
+        && IsClassBonusActive($obj->Controller, CardClasses($obj->CardID)) && GetInfluence($obj->Controller) <= 4) $power += 2;
+    // Biding Endroid: +3/+3 while both material decks have four or fewer cards.
+    if($obj->CardID === "mBxHYyldS6" && $obj->Controller != -1) {
+        $opponent = $obj->Controller == 1 ? 2 : 1;
+        $ownRemaining = 0;
+        foreach(GetMaterial($obj->Controller) as $materialObj) if($materialObj !== null && !$materialObj->removed) $ownRemaining++;
+        $oppRemaining = 0;
+        foreach(GetMaterial($opponent) as $materialObj) if($materialObj !== null && !$materialObj->removed) $oppRemaining++;
+        if($ownRemaining <= 4 && $oppRemaining <= 4) $power += 3;
     }
     if(in_array("XgnBkRQgg1_POWER", $obj->TurnEffects ?? [])) {
         $power += 1;
@@ -10376,6 +10697,15 @@ function ObjectCurrentPower($obj) {
         if($effect === "FQKVzsMp3B-buff") { // Ariel, Archangel of Natura: On Enter +3 POWER after banishing from material
             $power += 3;
         }
+        if($effect === "2zCWq2DUDt_POWER") {
+            $power += 2;
+        }
+        if($effect === "3WQKmqDgtA_POWER") {
+            $power += 1;
+        }
+        if($effect === "GdCFiPyKyM_POWER") {
+            $power += 2;
+        }
         if($effect === "tZtoAl4ojK_POWER") {
             $power -= 5;
         }
@@ -10394,6 +10724,16 @@ function ObjectCurrentPower($obj) {
         }
     }
     switch($obj->CardID) { //Self power modifiers
+        case "3lMV08BClz": // Current Groover: Deluge 3 — +1 POWER
+        case "3pG1rks3rv": // Fountain Bladehand: Deluge 3 — +1 POWER/+1 LIFE
+            if(DelugeAmount($obj->Controller) >= 3) $power += 1;
+            break;
+        case "6XDoCxQuoH": // Soaked Slash: Deluge 2 — +2 POWER
+            if(DelugeAmount($obj->Controller) >= 2) $power += 2;
+            break;
+        case "k5RG5TNLAp": // Updraft Slice: Class Bonus +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) $power += 1;
+            break;
         case "mDN1CI9IEe": // Sealed Blade: [Class Bonus] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) $power += 1;
             break;
@@ -11682,6 +12022,9 @@ function ObjectCurrentPower($obj) {
             case "k71PE3clOI": // Inspiring Call: allies get +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "6wiHKD52Lw_ALLIES": // Stoked Slice: allies get +1 POWER until end of turn
+                $power += 1;
+                break;
             case "CvvgJR4fNa": // Patient Rogue: +3 POWER from beginning of recollection phase
                 $power += 3;
                 break;
@@ -11822,6 +12165,24 @@ function ObjectCurrentPower($obj) {
                 break;
             case "f00cEmu6Ql_POWER": // Galvanizing Gale: +3 POWER on the next attack this turn
                 $power += 3;
+                break;
+            case "Nlw3ZpjSxw_POWER": // Wuthering Sforzando: +6 POWER on the next attack
+                $power += 6;
+                break;
+            case "TrWfgn2PV0_POWER": // Reinforcing Air: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "vNrkfKLlt6_POWER": // Aenean Tailwind Boost: +4 POWER on next attack
+                $power += 4;
+                break;
+            case "zzH1XYFSP7_POWER": // Inflamed Bladehand: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "WI5oMtzP3W_POWER_3":
+                $power += 3;
+                break;
+            case "WI5oMtzP3W_POWER_5":
+                $power += 5;
                 break;
             case "KOqdA7G6by_POWER_3": // Luminous Surge: target unit's next attack +3 POWER
                 $power += 3;
@@ -12104,6 +12465,12 @@ function ObjectCurrentPower($obj) {
                 break;
             case "iebo5fu381": // Fang of Dragon's Breath: linked weapon gets +2 POWER
                 $power += 2;
+                break;
+            case "aAJliPQT3F": // FlameTech BladeCore: linked Sword gets +2 POWER
+                $power += 2;
+                break;
+            case "CbPHWJ8Upd": // Stabilizing BladeCore: class bonus linked Sword gets +2 POWER
+                if(IsClassBonusActive($linkedObj->Controller, CardClasses($linkedObj->CardID))) $power += 2;
                 break;
             case "bhhdb7x044": // Tricky Chimps: [CB] On Enter +2 POWER until end of turn
                 $power += 2;
@@ -12399,7 +12766,75 @@ function ObjectCurrentPower($obj) {
     if(in_array("ntnm81369o_ATTACK_POWER", $obj->TurnEffects ?? [])) {
         $power += 3;
     }
+    foreach($obj->TurnEffects ?? [] as $equipEffect) {
+        if(strpos($equipEffect, "eU8IEVpFZg_POWER_") === 0) {
+            $power += intval(substr($equipEffect, strlen("eU8IEVpFZg_POWER_")));
+        }
+    }
+    // Tower of Dis: each unsuppressed Tower gives your DisCorp Automaton allies +1 POWER.
+    if(PropertyContains(EffectiveCardType($obj), "ALLY")
+        && PropertyContains(EffectiveCardSubtypes($obj), "DISCORP")
+        && PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON")
+        && $obj->Controller != -1) {
+        foreach(GetField($obj->Controller) as $towerObj) {
+            if($towerObj !== null && !$towerObj->removed && $towerObj->CardID === "I46x6lgLk8" && !HasNoAbilities($towerObj)) {
+                $power += 1;
+            }
+        }
+    }
     return $power;
+}
+
+function BusinessCardEnter($player, $mzID) {
+    DecisionQueueController::StoreVariable("businessCardSource", $mzID);
+    DecisionQueueController::AddDecision($player, "NAMECARD", "Ally_cards", 1, tooltip:"Choose_an_ally_card_name");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "BusinessCardName", 1);
+}
+
+$customDQHandlers["BusinessCardName"] = function($player, $parts, $lastDecision) {
+    $mzID = strval(DecisionQueueController::GetVariable("businessCardSource") ?? "");
+    $cardID = ResolveNamedCardInputToRepresentativeID(trim(strval($lastDecision)), "ALLY");
+    if($mzID === "" || $cardID === null) return;
+    $obj = &GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return;
+    if(!is_array($obj->Counters)) $obj->Counters = [];
+    $obj->Counters["chosenAllyName"] = CardName($cardID);
+};
+
+function BusinessCardScavenge($player) {
+    $chosen = strval(DecisionQueueController::GetVariable("businessCardChosen") ?? "");
+    if($chosen === "") return;
+    $amount = 8;
+    foreach(GetField($player) as $obj) if(!$obj->removed && PropertyContains(EffectiveCardSubtypes($obj), "PHONE")) { $amount = 20; break; }
+    ScavengeForProperty($player, $amount, "allyName", $chosen);
+}
+
+function RevokerBellBanishCard($player, $bellMZ, $targetMZ) {
+    $bellObj = GetZoneObject($bellMZ);
+    $targetObj = GetZoneObject($targetMZ);
+    if($bellObj === null || $targetObj === null) return;
+    $tag = "REVOKER_BELL_" . intval($bellObj->UniqueID ?? 0);
+    $destination = strpos($targetMZ, "theirGraveyard-") === 0 ? "theirBanish" : "myBanish";
+    $moved = MZMove($player, $targetMZ, $destination);
+    if($moved !== null) {
+        if(!is_array($moved->TurnEffects)) $moved->TurnEffects = [];
+        $moved->TurnEffects[] = $tag;
+    }
+}
+
+function ReturnRevokerBellCards($controller, $bellUniqueID) {
+    if($bellUniqueID <= 0) return;
+    global $playerID;
+    $tag = "REVOKER_BELL_" . $bellUniqueID;
+    foreach([1, 2] as $owner) {
+        $zoneName = $owner == $playerID ? "myBanish" : "theirBanish";
+        $banish = GetBanish($owner);
+        for($i = count($banish) - 1; $i >= 0; --$i) {
+            if($banish[$i]->removed || !in_array($tag, $banish[$i]->TurnEffects ?? [])) continue;
+            $destination = $owner == $playerID ? "myGraveyard" : "theirGraveyard";
+            MZMove($controller, $zoneName . "-" . $i, $destination);
+        }
+    }
 }
 
 function ObjectCurrentLevel($obj) {
@@ -12816,6 +13251,9 @@ function ObjectCurrentHP($obj) {
         }
     }
     switch($obj->CardID) { //Self hp modifiers
+        case "3pG1rks3rv": // Fountain Bladehand: Deluge 3 — +1 POWER/+1 LIFE
+            if(DelugeAmount($obj->Controller) >= 3) $cardLife += 1;
+            break;
         case "KFfmJZMdZN": // Floodborne Warrior: Deluge 2 +1 LIFE
             if(DelugeAmount($obj->Controller) >= 2) $cardLife += 1;
             break;
@@ -13133,6 +13571,12 @@ function ObjectCurrentHP($obj) {
             case "g23WBQW2Ro": // Blood Dragon's Pact: linked ally gets +4 LIFE
                 $cardLife += 4;
                 break;
+            case "oJIuGCrzPG": // CookTech Apron: linked ally gets +2 LIFE
+                $cardLife += 2;
+                break;
+            case "QZT9pQQltw": // AquaTech Shell: linked ally gets +2 LIFE
+                $cardLife += 2;
+                break;
             default: break;
         }
     }
@@ -13266,6 +13710,13 @@ function ObjectCurrentHP($obj) {
     if(in_array("wd7nuab7f3-LIFE", $obj->TurnEffects)) {
         $cardLife += 2;
     }
+    if($obj->CardID === "xdgpdcD33h" && PlayerLevel($obj->Controller) >= 1) {
+        $powercells = ZoneSearch("myField", cardSubtypes:["POWERCELL"], forPlayer:$obj->Controller);
+        $cardLife += min(2, count($powercells));
+    }
+    if(in_array("TrWfgn2PV0_HP", $obj->TurnEffects ?? [])) {
+        $cardLife += 2;
+    }
     // Drown in Aether (gnfbp3g8iw): -3 LIFE until end of turn
     if(in_array("gnfbp3g8iw-debuff", $obj->TurnEffects)) {
         $cardLife -= 3;
@@ -13311,6 +13762,25 @@ function ObjectCurrentHP($obj) {
         $swappedValue = ObjectCurrentPower($obj);
         $_computingPowerLifeSwap = false;
         return $swappedValue;
+    }
+    if($obj->CardID === "mBxHYyldS6" && $obj->Controller != -1) {
+        $opponent = $obj->Controller == 1 ? 2 : 1;
+        $ownRemaining = 0;
+        foreach(GetMaterial($obj->Controller) as $materialObj) if($materialObj !== null && !$materialObj->removed) $ownRemaining++;
+        $oppRemaining = 0;
+        foreach(GetMaterial($opponent) as $materialObj) if($materialObj !== null && !$materialObj->removed) $oppRemaining++;
+        if($ownRemaining <= 4 && $oppRemaining <= 4) $cardLife += 3;
+    }
+    // Tower of Dis: each unsuppressed Tower gives your DisCorp Automaton allies +1 LIFE.
+    if(PropertyContains(EffectiveCardType($obj), "ALLY")
+        && PropertyContains(EffectiveCardSubtypes($obj), "DISCORP")
+        && PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON")
+        && $obj->Controller != -1) {
+        foreach(GetField($obj->Controller) as $towerObj) {
+            if($towerObj !== null && !$towerObj->removed && $towerObj->CardID === "I46x6lgLk8" && !HasNoAbilities($towerObj)) {
+                $cardLife += 1;
+            }
+        }
     }
     return $cardLife;
 }
@@ -14635,6 +15105,14 @@ function DoDiscardCard($player, $mzCard) {
 function OnDiscardCard($player, $discardedCardID) {
     if($discardedCardID === "") return;
     if(function_exists('GATelemetryBumpCard')) GATelemetryBumpCard($player, $discardedCardID, 'discarded');
+    if(CardElement($discardedCardID) === "FIRE") {
+        $field = GetField($player);
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i]->removed || $field[$i]->CardID !== "aAJliPQT3F" || HasNoAbilities($field[$i])) continue;
+            $weaponMZ = GetLinkedWeaponMZ($player, $field[$i]);
+            if($weaponMZ !== null) AddCounters($player, $weaponMZ, "durability", 1);
+        }
+    }
     DecisionQueueController::StoreVariable("discardedCardID", $discardedCardID);
     global $discardCardAbilities;
     if(!isset($discardCardAbilities) || !is_array($discardCardAbilities)) {
@@ -14698,8 +15176,28 @@ function DoSacrificeFighter($player, $mzCard) {
     $obj = GetZoneObject($mzCard);
     $isHerb = $obj !== null && PropertyContains(CardSubtypes($obj->CardID), "HERB");
     $controller = $obj !== null ? $obj->Controller : $player;
+    $isAlly = $obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY");
+    $isIschemicSoldier = $obj !== null && $obj->CardID === "Hb9JCa6lM5" && !HasNoAbilities($obj);
     DoAllyDestroyed($player, $mzCard);
     if($isHerb) TriggerHerbSacrificeEffects($controller, 1);
+    if($isIschemicSoldier) DrawIntoMemory($controller, 2);
+    if($isAlly) {
+        for($owner = 1; $owner <= 2; ++$owner) {
+            $field = &GetField($owner);
+            for($i = 0; $i < count($field); ++$i) {
+                if(!$field[$i]->removed && $field[$i]->CardID === "rRfRKqCBqF" && !HasNoAbilities($field[$i])) {
+                    global $playerID;
+                    $zone = $owner == $playerID ? "myField" : "theirField";
+                    AddCounters($owner, $zone . "-" . $i, "blood", 1);
+                }
+                if(!$field[$i]->removed && $field[$i]->CardID === "AbjQkcN57S" && !HasNoAbilities($field[$i])) {
+                    global $playerID;
+                    $zone = $owner == $playerID ? "myField" : "theirField";
+                    AddCounters($owner, $zone . "-" . $i, "buff", 1);
+                }
+            }
+        }
+    }
 }
 
 function TriggerHerbSacrificeEffects($controller, $count = 1) {
@@ -14875,6 +15373,15 @@ function ScavengeTempZoneChoices($player, $kind, $value) {
             case "aeneanSpell":
                 $matches = IsAeneanSpellCardID($cardID);
                 break;
+            case "allyName":
+                $matches = PropertyContains(CardType($cardID), "ALLY") && CardName($cardID) === $value;
+                break;
+            case "resonatorNonAdvanced3":
+                $matches = PropertyContains(CardType($cardID), "ALLY")
+                    && PropertyContains(CardSubtypes($cardID), "RESONATOR")
+                    && !IsAdvancedElementCard($cardID)
+                    && intval(CardCost_reserve($cardID)) <= 3;
+                break;
         }
         if($matches) $choices[] = "myTempZone-" . $i;
     }
@@ -14898,6 +15405,11 @@ function HasElysianAura($obj) {
     if($obj->CardID === "HHtlkEeyQR") return true;
     if($obj->CardID === "3DCP7WmBpx") return true;
     if($obj->CardID === "YTO70fFsBY") return true;
+    if($obj->CardID === "172utOanGk") return true;
+    if($obj->CardID === "JQQXhhIla9") return true;
+    if($obj->CardID === "RN7ueRDijA") return true;
+    if($obj->CardID === "fIQR28QmYg") return true;
+    if($obj->CardID === "MKiuesDVdW") return true;
     return false;
 }
 
@@ -16124,7 +16636,9 @@ function EphemerateMeta($obj) {
     }
 
     global $ephemerateCards;
-    if (!isset($ephemerateCards[$obj->CardID]) && !MordredFatedEphemerateApplies($playerID, $obj->CardID)) {
+    if (!isset($ephemerateCards[$obj->CardID])
+        && !MordredFatedEphemerateApplies($playerID, $obj->CardID)
+        && GlobalEffectCount($playerID, "THANATOTIC_EPHEMERATE_" . $obj->CardID) <= 0) {
         return json_encode(['highlight' => false]);
     }
     if (!CanPayEphemerate($playerID, $obj->CardID)) {
@@ -16269,6 +16783,9 @@ function BanishSelectionMetadata($obj) {
 
     $currentPhase = GetCurrentPhase();
     $turnEffects = $obj->TurnEffects ?? [];
+    if(in_array("PEER_DEPTHS_PLAYABLE", $turnEffects, true)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
 
     // Tristan, Shadowreaver (4upufooz13): opponent cards banished by Shadowreaver stay playable.
     if ($currentPhase === "MAIN" && $shadowreaverPlayable) {
@@ -16437,7 +16954,8 @@ function ExpireEffects($isEndTurn=true) {
     $newGlobalEffects = [];
     foreach($globalEffects as $index => $effectObj) {
         $effectID = $effectObj->CardID;
-        $keepForever = isset($foreverEffects[$effectID]);
+        $keepForever = isset($foreverEffects[$effectID])
+            || strpos($effectID, "THANATOTIC_EPHEMERATE_") === 0;
         $keepUntilBeginTurn = false;
         if($isEndTurn) {
             if(isset($untilBeginTurnEffects[$effectID])) {
@@ -16713,6 +17231,7 @@ $ephemerateCards["v0gu8efq08"] = ['cost' => 6, 'costModifier' => function($playe
 }]; // Lingering Banshee
 $ephemerateCards["6emPe9OEUn"] = ['cost' => 2, 'extraCostHandler' => 'EphemerateDiscard']; // Treacle, Drowned Mouse
 $ephemerateCards["FQigf17dCr"] = ['cost' => 1]; // Grave Gateau
+$ephemerateCards["CIU4gT14EE"] = ['cost' => 3]; // Escharotomy
 $ephemerateCards["ULHGVVpQoH"] = ['cost' => 5]; // Indissoluble Fractal
 $ephemerateCards["XFWU8KTVW9"] = ['cost' => 2]; // Ghastly Slime
 $ephemerateCards["XK3NiQ5MdR"] = ['cost' => 1]; // Remnant of Will
@@ -16757,6 +17276,9 @@ $ephemerateCards["tizLamFGPS"] = ['cost' => 3, 'condition' => function($player) 
 function GetEphemerateCost($player, $cardID) {
     global $ephemerateCards;
     if(!isset($ephemerateCards[$cardID])) {
+        if(GlobalEffectCount($player, "THANATOTIC_EPHEMERATE_" . $cardID) > 0) {
+            return max(0, intval(CardCost_reserve($cardID)));
+        }
         if(MordredFatedEphemerateApplies($player, $cardID)) return max(0, intval(CardCost_reserve($cardID)));
         return -1;
     }
@@ -16813,7 +17335,8 @@ function GetReservePaymentChoiceSource($player, $includeHand = true, $excludedMz
 function CanPayEphemerate($player, $cardID) {
     global $ephemerateCards, $playerID;
     $isMordredFated = MordredFatedEphemerateApplies($player, $cardID);
-    if(!isset($ephemerateCards[$cardID]) && !$isMordredFated) return false;
+    $isThanatotic = GlobalEffectCount($player, "THANATOTIC_EPHEMERATE_" . $cardID) > 0;
+    if(!isset($ephemerateCards[$cardID]) && !$isMordredFated && !$isThanatotic) return false;
     if(IsGraveyardAbilitySuppressed($player, $cardID)) return false;
     // Condition check (e.g. Alice Bonus + Element Bonus for Maledictum Vitae)
     $config = $ephemerateCards[$cardID] ?? [];
@@ -17048,6 +17571,9 @@ $doesGlobalEffectApply["DBJ4DuLABr"] = function($obj) { //Shroud in Mist: units 
 $doesGlobalEffectApply["k71PE3clOI"] = function($obj) { //Inspiring Call: allies get +1 POWER until end of turn
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
+$doesGlobalEffectApply["6wiHKD52Lw_ALLIES"] = function($obj) {
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
 
 $doesGlobalEffectApply["fMv7tIOZwL-PWR"] = function($obj) { //Aqueous Enchanting: allies get +1 POWER until end of turn
     return PropertyContains(EffectiveCardType($obj), "ALLY");
@@ -17093,6 +17619,7 @@ $doesGlobalEffectApply["RfPP8h16Wv"] = function($obj) { //Flag only â€” nex
 $doesGlobalEffectApply["4wuq20gvcg"] = function($obj) { // Key Slime Pudding: flag only â€” Slime allies enter with buff counter
     return false;
 };
+$doesGlobalEffectApply["1ybdJi1VN5_HUMAN_ENTER"] = function($obj) { return false; };
 
 $doesGlobalEffectApply["MECS7RHRZ8"] = function($obj) { //Impassioned Tutor
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -17834,6 +18361,19 @@ function Empower($player, $amount, $sourceID) {
         if($obj->removed || $obj->CardID !== "AxHzxEHBHZ" || HasNoAbilities($obj)) continue;
         AddTurnEffect($zone . "-" . $i, "AxHzxEHBHZ_EMPOWER_" . intval($amount));
     }
+    foreach($field as $i => $obj) {
+        if($obj->removed || $obj->CardID !== "Nn4NzegwdX" || HasNoAbilities($obj)) continue;
+        if(!IsClassBonusActive($player, CardClasses($obj->CardID))) continue;
+        if(in_array("Nn4NzegwdX_USED", $obj->TurnEffects ?? [])) continue;
+        $targets = ZoneSearch($zone, ["ALLY"]);
+        $selfMZ = $zone . "-" . $i;
+        $targets = array_values(array_filter($targets, fn($mz) => $mz !== $selfMZ));
+        if(empty($targets)) continue;
+        AddTurnEffect($selfMZ, "Nn4NzegwdX_USED");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Put_a_buff_counter_on_another_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "CatoEmpowerBuff", 1);
+        break;
+    }
     if(!$alreadyEmpowered) {
         foreach($field as $i => $obj) {
             if($obj->removed || $obj->CardID !== "ZmBQAOb9gj" || HasNoAbilities($obj)) continue;
@@ -17845,6 +18385,756 @@ function Empower($player, $amount, $sourceID) {
         if($obj->removed || $obj->CardID !== "dOPqsWYMCQ" || HasNoAbilities($obj)) continue;
         AddCounters($player, $zone . "-" . $i, "training", 1);
     }
+}
+
+function AeneanGutteringFlamesBonus($player, $sourceCardID) {
+    if($sourceCardID === null || CardElement($sourceCardID) !== "FIRE" || !IsAeneanSpellCardID($sourceCardID)) return 0;
+    if(!IsClassBonusActive($player, CardClasses("JGQ9LO5DFv"))) return 0;
+    $bonus = 0;
+    foreach(GetField($player) as $fieldObj) {
+        if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "JGQ9LO5DFv" && !HasNoAbilities($fieldObj)) $bonus++;
+    }
+    return $bonus;
+}
+
+$customDQHandlers["CatoEmpowerBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+$customDQHandlers["ChargerXUltraStatic"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "static", 1);
+};
+
+$customDQHandlers["HotCakeEnter"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $cakeMZ = $parts[1] ?? "";
+    $allyMZ = $parts[2] ?? "";
+    if(GetZoneObject($cakeMZ) === null || GetZoneObject($allyMZ) === null) return;
+    DoSacrificeFighter($player, $cakeMZ);
+    AddTurnEffect($allyMZ, "f00cEmu6Ql");
+};
+
+$customDQHandlers["OutfittedRavagerDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    DoDiscardCard($player, $lastDecision);
+};
+
+$customDQHandlers["RefreshingSliceRecover"] = function($player, $parts, $lastDecision) {
+    RecoverChampion($player, 3 + PlayerLevel($player));
+};
+
+$customDQHandlers["AeneanFluxGeneratorDamage"] = function($player, $parts, $lastDecision) {
+    $sourceMZ = $parts[1] ?? "";
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    DealDamage($player, $sourceMZ, $lastDecision, 2);
+};
+
+function ResolveLuccaCascade($player, $mzID) {
+    $step = AdvanceCascadeStep($mzID);
+    if($step === 1) AddCounters($player, $mzID, "bulwark", 1);
+    if($step === 2) AddCounters($player, $mzID, "buff", 1);
+    if($step === 3) {
+        AddCounters($player, $mzID, "buff", 1);
+        AddTurnEffect($mzID, "SPELLSHROUD");
+        AddTurnEffect($mzID, "TAUNT");
+    }
+}
+
+function ResolveBygoneDaysCascade($player, $mzID) {
+    $step = AdvanceCascadeStep($mzID);
+    if($step === 1) { RecoverChampion($player, 2); return; }
+    if($step === 2) { RecoverChampion($player, 1); return; }
+    if($step < 3) return;
+    $myAllies = ZoneSearch("myField", ["ALLY"], forPlayer:$player);
+    $theirAllies = ZoneSearch("theirField", ["ALLY"], forPlayer:$player);
+    if(!empty($myAllies)) {
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $myAllies), 1, tooltip:"Choose_an_ally_to_return_to_memory");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BygoneDaysReturn", 1);
+    }
+    $opponent = $player == 1 ? 2 : 1;
+    if(!empty($theirAllies)) {
+        DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $theirAllies), 1, tooltip:"Choose_an_ally_to_return_to_memory");
+        DecisionQueueController::AddDecision($opponent, "CUSTOM", "BygoneDaysReturn", 1);
+    }
+    DoSacrificeFighter($player, $mzID);
+}
+
+$customDQHandlers["BygoneDaysReturn"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY")) return;
+    MZMove($obj->Owner, $lastDecision, "myMemory");
+};
+
+function CardiacVesselEnter($player, $mzID) {
+    $champMZ = FindChampionMZ($player);
+    $champObj = $champMZ === null ? null : GetZoneObject($champMZ);
+    $vessel = &GetZoneObject($mzID);
+    if($champObj === null || $vessel === null) return;
+    $moved = max(0, intval($champObj->Damage ?? 0));
+    $champObj->Damage = 0;
+    $vessel->Damage = intval($vessel->Damage ?? 0) + $moved;
+    if($moved >= 15) Draw($player, 1);
+}
+
+function CardiacVesselLeave($player, $mzID) {
+    $vessel = GetZoneObject($mzID);
+    if($vessel === null) return;
+    $amount = max(0, intval($vessel->Damage ?? 0));
+    $champMZ = FindChampionMZ($player);
+    $champObj = $champMZ === null ? null : GetZoneObject($champMZ);
+    if($champObj !== null) $champObj->Damage = intval($champObj->Damage ?? 0) + $amount;
+}
+
+function WindstrikeSoldierEnter($player, $mzID) {
+    if(!IsClassBonusActive($player, CardClasses("WFNM4etSFB")) || CountAvailableReservePayments($player) < 3) return;
+    DecisionQueueController::StoreVariable("windstrikeTarget", $mzID);
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Pay_3_for_multistrike_2?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "WindstrikeSoldierPay", 1);
+}
+
+$customDQHandlers["WindstrikeSoldierPay"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    for($i = 0; $i < 3; ++$i) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    $mzID = strval(DecisionQueueController::GetVariable("windstrikeTarget") ?? "");
+    if($mzID !== "") AddTurnEffect($mzID, "MULTISTRIKE_2");
+};
+
+function FranCarmineSparkOnAttack($player) {
+    $opponent = $player == 1 ? 2 : 1;
+    $targets = array_merge(ZoneSearch("myGraveyard", forPlayer:$player), ZoneSearch("theirGraveyard", forPlayer:$player));
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_a_graveyard_card_for_its_owner_to_banish");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FranCarmineSparkBanish", 1);
+}
+
+$customDQHandlers["FranCarmineSparkBanish"] = function($player, $parts, $lastDecision) {
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    $isFire = PropertyContains(CardElement($obj->CardID), "FIRE");
+    MZMove($obj->Owner, $lastDecision, "myBanish");
+    if($isFire) Empower($player, 3, "WRu4cuRHOS");
+};
+
+function ThanatoticHemosynthEnter($player) {
+    if(ChampionDamageCounters($player) < 10) return;
+    $targets = [];
+    foreach(ZoneSearch("myGraveyard", ["ACTION"], cardSubtypes:["AENEAN","SPELL"], forPlayer:$player) as $mz) $targets[] = $mz;
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_an_Aenean_Spell_to_gain_ephemerate");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ThanatoticHemosynthEphemerate", 1);
+}
+
+$customDQHandlers["ThanatoticHemosynthEphemerate"] = function($player, $parts, $lastDecision) {
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    AddGlobalEffects($player, "THANATOTIC_EPHEMERATE_" . $obj->CardID);
+};
+
+function ResolveAeneanRepudiation($player) {
+    $elysian = false;
+    foreach(GetField($player) as $obj) if(!$obj->removed && PropertyContains(EffectiveCardSubtypes($obj), "ELYSIAN")) { $elysian = true; break; }
+    foreach([$player, $player == 1 ? 2 : 1] as $discardPlayer) {
+        $limit = 7 - (($discardPlayer !== $player && $elysian) ? 1 : 0);
+        $cards = array_merge(ZoneSearch("myHand", forPlayer:$discardPlayer), ZoneSearch("myMemory", forPlayer:$discardPlayer));
+        $excess = max(0, count($cards) - $limit);
+        if($excess > 0) {
+            DecisionQueueController::AddDecision($discardPlayer, "MZMULTICHOOSE", $excess . "|" . $excess . "|" . implode("&", $cards), 1, tooltip:"Choose_cards_to_discard");
+            DecisionQueueController::AddDecision($discardPlayer, "CUSTOM", "AeneanRepudiationDiscard", 1);
+        }
+    }
+    AddGlobalEffects($player, "AENEAN_PROGRESSION_RESOLVED");
+}
+
+$customDQHandlers["AeneanRepudiationDiscard"] = function($player, $parts, $lastDecision) {
+    $choices = array_filter(explode("&", strval($lastDecision)));
+    usort($choices, fn($a,$b) => intval(substr(strrchr($b,"-"),1)) <=> intval(substr(strrchr($a,"-"),1)));
+    foreach($choices as $mz) MZMove($player, $mz, "myGraveyard");
+};
+
+function ResolveTotalWhiteoutMainPhase($turnPlayer) {
+    $field = GetField($turnPlayer);
+    for($i = count($field)-1; $i >= 0; --$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "O4mD40xpbY" || HasNoAbilities($field[$i])) continue;
+        $step = AdvanceCascadeStep("myField-" . $i);
+        if($step === 1 && CountAvailableReservePayments($turnPlayer) >= 4) {
+            DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Pay_4_or_sacrifice_Total_Whiteout?");
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "TotalWhiteoutPay|" . $i, 1);
+        } else {
+            DoSacrificeFighter($turnPlayer, "myField-" . $i);
+        }
+    }
+}
+
+function TotalWhiteoutSuppressesActivatedAbilities($obj) {
+    if($obj === null || $obj->removed || intval($obj->Status ?? 2) !== 1 || PropertyContains(EffectiveCardType($obj), "CHAMPION")) return false;
+    $opponent = intval($obj->Controller) === 1 ? 2 : 1;
+    foreach(GetField($opponent) as $whiteoutObj) {
+        if(!$whiteoutObj->removed && $whiteoutObj->CardID === "O4mD40xpbY" && !HasNoAbilities($whiteoutObj)) return true;
+    }
+    return false;
+}
+
+$customDQHandlers["TotalWhiteoutPay"] = function($player, $parts, $lastDecision) {
+    $idx = intval($parts[0] ?? -1);
+    if($lastDecision === "YES") for($i=0;$i<4;++$i) DecisionQueueController::AddDecision($player,"CUSTOM","ReserveCard",100);
+    else if($idx >= 0) DoSacrificeFighter($player, "myField-".$idx);
+};
+
+function PRDEndPhaseTriggers($turnPlayer) {
+    $field = GetField($turnPlayer);
+    foreach($field as $i => $obj) {
+        if($obj->removed || HasNoAbilities($obj)) continue;
+        if($obj->CardID === "MG4zUMPqIC" && in_array("DAMAGED_THIS_TURN", $obj->TurnEffects ?? [])) RecoverChampion($turnPlayer, 7);
+    }
+    $banish = GetBanish($turnPlayer);
+    foreach($banish as $obj) {
+        if($obj->removed || !in_array("PEER_DEPTHS_EXPIRES_END_PHASE", $obj->TurnEffects ?? [], true)) continue;
+        $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "PEER_DEPTHS_PLAYABLE" && $e !== "PEER_DEPTHS_EXPIRES_END_PHASE"));
+    }
+    foreach($banish as $obj) {
+        if($obj->removed || $obj->CardID !== "33mWk4HYLF" || !IsLorraineBonusActive($turnPlayer) || !IsElementBonusActive($turnPlayer, "33mWk4HYLF")) continue;
+        $swords = ZoneSearch("myField", ["WEAPON"], cardSubtypes:["SWORD"], forPlayer:$turnPlayer);
+        if(!empty($swords)) {
+            AddCounters($turnPlayer, $swords[0], "static", 1);
+            $weapon = GetZoneObject($swords[0]);
+            if($weapon !== null) foreach(GetLinkedCards($weapon) as $linked) AddCounters($turnPlayer, $linked->GetMzID(), "static", 1);
+        }
+    }
+    if(GlobalEffectCount($turnPlayer, "DANTE_HEMATIC_UPKEEP") > 0) QueueDanteHematicUpkeep($turnPlayer);
+}
+
+function QueueDanteHematicUpkeep($player) {
+    $choices=[];
+    foreach(["myField","myHand","myMemory"] as $zone) foreach(ZoneSearch($zone,forPlayer:$player) as $mz) {
+        $obj=GetZoneObject($mz); if($obj!==null && PropertyContains(EffectiveCardSubtypes($obj),"ELYSIAN")) $choices[]=$mz;
+    }
+    if(empty($choices)) { DestroyDanteChampion($player); return; }
+    DecisionQueueController::AddDecision($player,"MZMAYCHOOSE",implode("&",$choices),1,tooltip:"Sacrifice_or_banish_an_Elysian_card");
+    DecisionQueueController::AddDecision($player,"CUSTOM","DanteHematicUpkeep",1);
+}
+
+$customDQHandlers["DanteHematicUpkeep"] = function($player,$parts,$lastDecision){
+    if($lastDecision===""||$lastDecision==="-"||$lastDecision==="PASS"){DestroyDanteChampion($player);return;}
+    $obj=GetZoneObject($lastDecision);if($obj===null)return;
+    if(strpos($lastDecision,"Field-")!==false) DoSacrificeFighter($player,$lastDecision); else MZMove($player,$lastDecision,"myBanish");
+};
+
+function DestroyDanteChampion($player){
+    $champMZ=FindChampionMZ($player);$champ=GetZoneObject($champMZ);
+    if($champ!==null && strpos(CardName($champ->CardID),"Dante")===0){OnLeaveField($player,$champMZ);MZMove($player,$champMZ,"myGraveyard");}
+}
+
+function PeerTheDepthsResolve($player) {
+    $opponent = $player == 1 ? 2 : 1;
+    AddGlobalEffects($opponent, "SKIP_NEXT_DRAW");
+    $deck = &GetDeck($opponent);
+    $count = min(4, count($deck));
+    if($count <= 0) return;
+    ClearMyTempZoneCards($player);
+    for($i=0;$i<$count;++$i) {
+        $moved = MZMove($player, "theirDeck-0", "myTempZone");
+        if($moved !== null) { $moved->Owner = $opponent; $moved->Controller = $opponent; }
+    }
+    $targets = ZoneSearch("myTempZone", forPlayer:$player);
+    DecisionQueueController::StoreVariable("peerDepthsOpponent", strval($opponent));
+    DecisionQueueController::AddDecision($player,"MZCHOOSE",implode("&",$targets),1,tooltip:"Banish_one_of_the_top_four_cards");
+    DecisionQueueController::AddDecision($player,"CUSTOM","PeerTheDepthsChoose",1);
+}
+
+$customDQHandlers["PeerTheDepthsChoose"] = function($player,$parts,$lastDecision) {
+    $opponent = intval(DecisionQueueController::GetVariable("peerDepthsOpponent") ?? ($player==1?2:1));
+    $obj = MZMove($player, $lastDecision, "theirBanish");
+    if($obj !== null) {
+        $obj->Owner = $opponent; $obj->Controller = $opponent;
+        if(!is_array($obj->TurnEffects)) $obj->TurnEffects=[];
+        $obj->TurnEffects[] = "PEER_DEPTHS_PLAYABLE";
+        $obj->TurnEffects[] = "PEER_DEPTHS_EXPIRES_END_PHASE";
+    }
+    $remaining=[];
+    foreach(ZoneSearch("myTempZone",forPlayer:$player) as $mz){$o=GetZoneObject($mz);if($o!==null&&!$o->removed)$remaining[]=$o->CardID;}
+    if(empty($remaining)) return;
+    DecisionQueueController::AddDecision($player,"MZREARRANGE","Bottom=".implode(",",$remaining),1,tooltip:"Put_the_rest_on_the_bottom_in_any_order");
+    DecisionQueueController::AddDecision($player,"CUSTOM","PeerTheDepthsBottom|".$opponent,1);
+};
+
+$customDQHandlers["PeerTheDepthsBottom"] = function($player,$parts,$lastDecision) {
+    $opponent=intval($parts[0]??($player==1?2:1)); $ordered=[];
+    foreach(explode(";",strval($lastDecision)) as $pile){$pos=strpos($pile,"=");if($pos===false)continue;$cards=trim(substr($pile,$pos+1));if($cards!=="")$ordered=array_merge($ordered,explode(",",$cards));}
+    ClearMyTempZoneCards($player);
+    foreach($ordered as $cardID) MZAddZone($opponent,"myDeck",$cardID);
+};
+
+function ForeseFervidCantorTrigger($player, $activatedMZ) {
+    $activated = GetZoneObject($activatedMZ);
+    if($activated === null) return;
+    $subtypes = EffectiveCardSubtypes($activated);
+    if(!PropertyContains($subtypes,"HARMONY") && !PropertyContains($subtypes,"MELODY")) return;
+    $field = GetField($player);
+    for($i=0;$i<count($field);++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "BoQUtdry1C" || HasNoAbilities($field[$i]) || intval($field[$i]->Status) !== 2) continue;
+        DecisionQueueController::StoreVariable("foreseSource","myField-".$i);
+        DecisionQueueController::AddDecision($player,"YESNO","-",1,tooltip:"Rest_Forese_to_scavenge_5?");
+        DecisionQueueController::AddDecision($player,"CUSTOM","ForeseFervidCantorPay",1);
+        break;
+    }
+}
+
+$customDQHandlers["ForeseFervidCantorPay"] = function($player,$parts,$lastDecision) {
+    if($lastDecision !== "YES") return;
+    $source = strval(DecisionQueueController::GetVariable("foreseSource") ?? "");
+    if($source !== "") ExhaustCard($player,$source);
+    ScavengeForProperty($player, 5, "resonatorNonAdvanced3", "Resonator", "ForeseFervidCantorScavenged");
+};
+
+function ForeseFervidCantorScavenged($player, $cardID) {
+    $hand = &GetHand($player);
+    for($i=count($hand)-1;$i>=0;--$i) {
+        if($hand[$i]->removed || $hand[$i]->CardID !== $cardID) continue;
+        $obj=MZMove($player,"myHand-".$i,"myField");
+        if($obj!==null){$obj->Controller=$player;$obj->Owner=$player;}
+        return;
+    }
+}
+
+function TributeSingerEnter($player) {
+    $deck=GetDeck($player); $count=min(5,count($deck)); $targets=[];
+    ClearMyTempZoneCards($player);
+    for($i=$count-1;$i>=0;--$i) MZMove($player,"myDeck-".$i,"myTempZone");
+    foreach(ZoneSearch("myTempZone",forPlayer:$player) as $mz) {
+        $o=GetZoneObject($mz); if($o===null)continue; $st=CardSubtypes($o->CardID);
+        if(!IsAdvancedElementCard($o->CardID) && (PropertyContains($st,"HARMONY")||PropertyContains($st,"MELODY"))) $targets[]=$mz;
+    }
+    foreach(ZoneSearch("myMemory",forPlayer:$player) as $mz) {
+        $o=GetZoneObject($mz); if($o!==null && !IsAdvancedElementCard($o->CardID) && (PropertyContains(CardSubtypes($o->CardID),"HARMONY")||PropertyContains(CardSubtypes($o->CardID),"MELODY"))) $targets[]=$mz;
+    }
+    if(empty($targets)) { QueueTempZoneBottomDeckRearrange($player); return; }
+    DecisionQueueController::AddDecision($player,"MZMAYCHOOSE",implode("&",$targets),1,tooltip:"Activate_a_Harmony_or_Melody_card?");
+    DecisionQueueController::AddDecision($player,"CUSTOM","TributeSingerChoose",1);
+}
+
+$customDQHandlers["TributeSingerChoose"] = function($player,$parts,$lastDecision) {
+    if($lastDecision===""||$lastDecision==="-"||$lastDecision==="PASS") { QueueTempZoneBottomDeckRearrange($player); return; }
+    $chosen=GetZoneObject($lastDecision); if($chosen===null){QueueTempZoneBottomDeckRearrange($player);return;}
+    DecisionQueueController::StoreVariable("tributeSingerDiscountCard",$chosen->CardID);
+    $activationMZ=$lastDecision;
+    if(strpos($lastDecision,"TempZone-")!==false) {
+        MZMove($player,$lastDecision,"myHand");
+        $hand=&GetHand($player); $activationMZ="myHand-".(count($hand)-1);
+    }
+    DoActivateCard($player,$activationMZ);
+    QueueTempZoneBottomDeckRearrange($player);
+};
+
+function TriboelectricFortificationStart($player,$sourceMZ) {
+    $static=[];
+    foreach(ZoneSearch("myField",forPlayer:$player) as $mz){$o=GetZoneObject($mz);if($o!==null&&GetCounterCount($o,"static")>0)$static[]=$mz;}
+    $max=min(3,count($static));
+    if($max<=0){TriboelectricFortificationTargets($player,0);return;}
+    DecisionQueueController::AddDecision($player,"MZMULTICHOOSE","0|".$max."|".implode("&",$static),1,tooltip:"Remove_up_to_three_static_counters");
+    DecisionQueueController::AddDecision($player,"CUSTOM","TriboelectricRemove",1);
+}
+
+$customDQHandlers["TriboelectricRemove"] = function($player,$parts,$lastDecision){
+    $amount=0; foreach(array_filter(explode("&",strval($lastDecision))) as $mz){$o=GetZoneObject($mz);if($o!==null&&GetCounterCount($o,"static")>0){RemoveCounters($player,$mz,"static",1);++$amount;}}
+    TriboelectricFortificationTargets($player,$amount);
+};
+
+function TriboelectricFortificationTargets($player,$amount){
+    $units=array_merge(ZoneSearch("myField",["ALLY","CHAMPION"],forPlayer:$player),ZoneSearch("theirField",["ALLY","CHAMPION"],forPlayer:$player));
+    if(empty($units))return;
+    DecisionQueueController::StoreVariable("triboelectricAmount",strval($amount));
+    DecisionQueueController::AddDecision($player,"MZCHOOSE",implode("&",$units),1,tooltip:"Choose_a_unit_to_damage");
+    DecisionQueueController::AddDecision($player,"CUSTOM","TriboelectricDamage",1);
+}
+
+$customDQHandlers["TriboelectricDamage"] = function($player,$parts,$lastDecision){
+    $amount=intval(DecisionQueueController::GetVariable("triboelectricAmount")??0);
+    if($amount>0)DealDamage($player,"uL4wFn96Hg",$lastDecision,$amount);
+    $weapons=ZoneSearch("myField",["WEAPON"],cardSubtypes:["WARRIOR"],forPlayer:$player);
+    if($amount>0&&!empty($weapons)){DecisionQueueController::AddDecision($player,"MZCHOOSE",implode("&",$weapons),1,tooltip:"Choose_a_Warrior_weapon");DecisionQueueController::AddDecision($player,"CUSTOM","TriboelectricWeapon|".$amount,1);}
+};
+$customDQHandlers["TriboelectricWeapon"] = function($player,$parts,$lastDecision){$amount=intval($parts[0]??0);if($amount>0)AddCounters($player,$lastDecision,"durability",$amount);};
+
+function ResolveDivineComedy($player,$mzID){
+    $step=AdvanceCascadeStep($mzID);
+    if($step===1||$step===3){$opp=$player==1?2:1;AddGlobalEffects($opp,"DIVINE_COMEDY_EVEN_LOCK");return;}
+    if($step===2){$targets=FilterSpellshroudTargets(AllNonChampionObjectTargets());if(!empty($targets)){DecisionQueueController::AddDecision($player,"MZCHOOSE",implode("&",$targets),1,tooltip:"Destroy_target_non-champion_object");DecisionQueueController::AddDecision($player,"CUSTOM","DivineComedyDestroy",1);}return;}
+    if($step>=4){$champMZ=FindChampionMZ($player);$champ=GetZoneObject($champMZ);$removed=$champ===null?0:intval($champ->Damage??0);if($champ!==null)$champ->Damage=0;$opp=$player==1?2:1;foreach(GetField($opp) as $o)if(!$o->removed&&PropertyContains(EffectiveCardType($o),"CHAMPION"))$o->Damage+=20+10*$removed;}
+}
+$customDQHandlers["DivineComedyDestroy"] = function($player,$parts,$lastDecision){$o=GetZoneObject($lastDecision);if($o===null)return;OnLeaveField($player,$lastDecision);MZMove($o->Owner,$lastDecision,"myGraveyard");RecoverChampion($player,4);};
+
+function DanteHematicOverdriveEnter($player){
+    MZAddZone($player,"myMastery","ts9VdtFtk1");
+    AddGlobalEffects($player,"DANTE_HEMATIC_UPKEEP");
+}
+
+function RevealAndReturnMemorySelectionToHand($player, $selection) {
+    if($selection === null || $selection === "" || $selection === "-" || $selection === "PASS") return;
+    $selectedMZs = array_values(array_filter(explode("&", $selection), function($mzID) { return $mzID !== ""; }));
+    foreach($selectedMZs as $selectedMZ) {
+        Reveal($player, $selectedMZ);
+        MZMove($player, $selectedMZ, "myHand");
+    }
+}
+
+function MoveGraveyardSelectionToBanish($player, $selection) {
+    if($selection === null || $selection === "" || $selection === "-" || $selection === "PASS") return 0;
+    $indices = [];
+    foreach(explode("&", $selection) as $mzID) {
+        if(preg_match('/(?:my|their)Graveyard-(\d+)$/', $mzID, $matches)) $indices[] = intval($matches[1]);
+    }
+    rsort($indices, SORT_NUMERIC);
+    $moved = 0;
+    foreach($indices as $index) {
+        $mzID = "myGraveyard-" . $index;
+        $obj = GetZoneObject($mzID);
+        if($obj === null || $obj->removed) continue;
+        MZMove($player, $mzID, "myBanish");
+        ++$moved;
+    }
+    return $moved;
+}
+
+function BanishChosenGraveyardCard($player, $mzID) {
+    if($mzID === null || $mzID === "" || $mzID === "-" || $mzID === "PASS") return false;
+    $destination = strpos($mzID, "theirGraveyard-") === 0 ? "theirBanish" : "myBanish";
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return false;
+    MZMove($player, $mzID, $destination);
+    return true;
+}
+
+$customDQHandlers["WhereFuturesStirTrain"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "" || $lastDecision === "-" || $lastDecision === "PASS") return;
+    $sourceMZ = $parts[1] ?? "";
+    $allyObj = &GetZoneObject($lastDecision);
+    $sourceObj = GetZoneObject($sourceMZ);
+    if($allyObj === null || $sourceObj === null || $sourceObj->removed) return;
+    $allyObj->Status = 1;
+    AddCounters($player, $sourceMZ, "training", 1);
+};
+
+function ScarsOfOldBuffDamagedAllies($player) {
+    if(!IsClassBonusActive($player, ["WARRIOR"])) return;
+    $field = &GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        $obj = $field[$i];
+        if($obj === null || $obj->removed || intval($obj->Damage ?? 0) <= 0) continue;
+        if(PropertyContains(EffectiveCardType($obj), "ALLY")) AddCounters($player, "myField-" . $i, "buff", 1);
+    }
+}
+
+function ReinforcingAirApply($selection) {
+    foreach(explode("&", strval($selection)) as $targetMZ) {
+        if($targetMZ === "" || $targetMZ === "-" || $targetMZ === "PASS") continue;
+        AddTurnEffect($targetMZ, "TrWfgn2PV0_POWER");
+        AddTurnEffect($targetMZ, "TrWfgn2PV0_HP");
+    }
+}
+
+function InductionStrikeAddStatic($player, $targetMZ) {
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) return;
+    AddCounters($player, $targetMZ, "static", 1);
+    foreach(GetLinkedCards($targetObj) as $linkedObj) {
+        $linkedMZ = $linkedObj->GetMzID();
+        if($linkedMZ !== null && $linkedMZ !== "") AddCounters($player, $linkedMZ, "static", 1);
+    }
+}
+
+function RollingChorusBanishAndDraw($player, $selection) {
+    if($selection === null || $selection === "" || $selection === "-" || $selection === "PASS") return;
+    $entries = [];
+    foreach(explode("&", $selection) as $mzID) {
+        if(!preg_match('/^(my|their)Graveyard-(\d+)$/', $mzID, $matches)) continue;
+        $obj = GetZoneObject($mzID);
+        if($obj === null || $obj->removed) continue;
+        $entries[] = ["side" => $matches[1], "index" => intval($matches[2]), "cost" => max(0, intval(CardReserveCost($obj->CardID)))];
+    }
+    usort($entries, fn($a, $b) => $b["index"] <=> $a["index"]);
+    $total = 0;
+    foreach($entries as $entry) {
+        $mzID = $entry["side"] . "Graveyard-" . $entry["index"];
+        $destination = $entry["side"] === "my" ? "myBanish" : "theirBanish";
+        if(GetZoneObject($mzID) === null) continue;
+        $total += $entry["cost"];
+        MZMove($player, $mzID, $destination);
+    }
+    if($total >= 15) DrawIntoMemory($player, 1);
+}
+
+function SuppressSelectedObjects($player, $selection) {
+    foreach(explode("&", strval($selection)) as $targetMZ) {
+        if($targetMZ === "" || $targetMZ === "-" || $targetMZ === "PASS") continue;
+        SuppressAlly($player, $targetMZ);
+    }
+}
+
+function CryosalvoDealFromFractals($player, $targetMZ) {
+    foreach(GetField($player) as $fieldObj) {
+        if($fieldObj === null || $fieldObj->removed || !PropertyContains(EffectiveCardSubtypes($fieldObj), "FRACTAL")) continue;
+        DealDamage($player, $fieldObj->GetMzID(), $targetMZ, 1);
+    }
+}
+
+function CryosalvoFractalDamageBonus($player, $sourceCardID) {
+    if(GlobalEffectCount($player, "NHTouMzz3o") <= 0 || $sourceCardID === null) return 0;
+    return PropertyContains(CardSubtypes($sourceCardID), "FRACTAL") ? 1 : 0;
+}
+
+function TrackPRDChampionDamage($player, $source, $targetObj, $amount, $isCombat) {
+    if($targetObj === null || $amount <= 0) return;
+    $sourceInfo = ResolveDamageSourceCardInfo($source, $player);
+    $sourceCardID = $sourceInfo["cardID"] ?? null;
+    if(PropertyContains(EffectiveCardType($targetObj), "ALLY") && $sourceCardID === "h7c79xRobA") {
+        AddTurnEffect($targetObj->GetMzID(), "DAMAGED_BY_TURBULENT_BOUNTY_HUNTER");
+    }
+    if(!PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) return;
+    if($targetObj->CardID === "MG4zUMPqIC") AddTurnEffect($targetObj->GetMzID(), "DAMAGED_THIS_TURN");
+    $controller = intval($targetObj->Controller ?? $player);
+    global $playerID;
+    $zoneName = $controller == $playerID ? "myField" : "theirField";
+    $field = GetZone($zoneName);
+    $isFireSource = $sourceCardID !== null && CardElement($sourceCardID) === "FIRE";
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || HasNoAbilities($field[$i])) continue;
+        if($field[$i]->CardID === "Tt2Ew9RmIt") AddCounters($controller, $zoneName . "-" . $i, "blood", $amount);
+        if(!$isCombat && $isFireSource && $field[$i]->CardID === "Tx8noEw78s") AddCounters($controller, $zoneName . "-" . $i, "refinement", 1);
+    }
+}
+
+function TurbulentBountyHunterAllyDestroyed($player, $mzID) {
+    $destroyed = GetZoneObject($mzID);
+    if($destroyed === null || !in_array("DAMAGED_BY_TURBULENT_BOUNTY_HUNTER", $destroyed->TurnEffects ?? [])) return;
+    $field = GetField($player);
+    for($i=0;$i<count($field);++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "h7c79xRobA" && !HasNoAbilities($field[$i]) && IsClassBonusActive($player,["ASSASSIN"])) AddCounters($player,"myField-".$i,"buff",1);
+    }
+}
+
+function TrainedBirdroidPowercellTrigger($player, $sourceMZ) {
+    $source = GetZoneObject($sourceMZ);
+    if($source === null || !PropertyContains(EffectiveCardSubtypes($source), "POWERCELL")) return;
+    $targetMZ = strval(DecisionQueueController::GetVariable("target") ?? "");
+    $target = $targetMZ === "" ? null : GetZoneObject($targetMZ);
+    if($target === null || !PropertyContains(EffectiveCardType($target), "ALLY") || $target->Controller != $player || $targetMZ === $sourceMZ) return;
+    $field = GetField($player);
+    for($i=0;$i<count($field);++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "84lj40Kyhv" && !HasNoAbilities($field[$i]) && IsClassBonusActive($player,["TAMER"])) AddTurnEffect("myField-".$i,"TRAINED_BIRDROID_POWER");
+    }
+}
+
+function NightframeFastActivationTrigger($player, $listenerMZ, $activatedMZ) {
+    $nightframe = GetZoneObject($listenerMZ);
+    $activated = GetZoneObject($activatedMZ);
+    if($nightframe === null || $activated === null || HasNoAbilities($nightframe)) return;
+    $cardID = $activated->CardID;
+    $isFastAction = PropertyContains(CardType($cardID), "ACTION") && CardSpeed($cardID) === true;
+    global $unconditionalFastCards, $cbFastActivationCards;
+    $lower = strtolower($cardID);
+    $isFastActivation = isset($unconditionalFastCards[$cardID]) || isset($unconditionalFastCards[$lower]);
+    $fastClasses = $cbFastActivationCards[$cardID] ?? ($cbFastActivationCards[$lower] ?? null);
+    if($fastClasses !== null && IsClassBonusActive($player, $fastClasses)) $isFastActivation = true;
+    if(!$isFastAction && !$isFastActivation) return;
+    $linkedMZ = GetLinkedAllyMZ($player, $nightframe);
+    $linked = $linkedMZ === null ? null : GetZoneObject($linkedMZ);
+    if($linked === null || GetCounterCount($linked, "buff") > 2) return;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_a_buff_counter_on_Nightframe's_linked_ally?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "NightframeBuff|" . $linkedMZ, 1);
+}
+
+$customDQHandlers["NightframeBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $targetMZ = $parts[0] ?? "";
+    $target = $targetMZ === "" ? null : GetZoneObject($targetMZ);
+    if($target === null || !PropertyContains(EffectiveCardType($target), "ALLY") || GetCounterCount($target, "buff") > 2) return;
+    AddCounters($player, $targetMZ, "buff", 1);
+};
+
+function ApplyVirgilProgramTargetDiscount($player, $selection) {
+    if(DecisionQueueController::GetVariable("virgilProgramTracking") !== "YES") return;
+    if(DecisionQueueController::GetVariable("virgilProgramDiscountApplied") === "YES") return;
+    $sourceMZ = strval(DecisionQueueController::GetVariable("mzID") ?? "");
+    $source = $sourceMZ === "" ? null : GetZoneObject($sourceMZ);
+    if($source === null || !PropertyContains(CardSubtypes($source->CardID), "PROGRAM")) return;
+    $targetsVirgil = false;
+    foreach(explode("&", strval($selection)) as $targetMZ) {
+        $target = GetZoneObject($targetMZ);
+        if($target !== null && !$target->removed && $target->CardID === "xdgpdcD33h"
+            && intval($target->Controller ?? 0) === intval($player) && !HasNoAbilities($target)) {
+            $targetsVirgil = true;
+            break;
+        }
+    }
+    if(!$targetsVirgil) return;
+    $payments = json_decode(DecisionQueueController::GetVariable("activationReservePayments") ?? "[]", true);
+    if(!is_array($payments) || empty($payments)) return;
+    $payment = array_pop($payments);
+    if(($payment["kind"] ?? "") === "field") {
+        $paymentObj = GetZoneObject($payment["mz"] ?? "");
+        if($paymentObj === null || $paymentObj->removed) return;
+        $paymentObj->Status = 2;
+    } else if(($payment["kind"] ?? "") === "hand") {
+        $memory = GetMemory($player);
+        $refundMZ = "";
+        for($i = count($memory) - 1; $i >= 0; --$i) {
+            if(!$memory[$i]->removed && $memory[$i]->CardID === ($payment["cardID"] ?? "")) {
+                $refundMZ = "myMemory-" . $i;
+                break;
+            }
+        }
+        if($refundMZ === "") return;
+        MZMove($player, $refundMZ, "myHand");
+    } else return;
+    DecisionQueueController::StoreVariable("activationReservePayments", json_encode($payments));
+    DecisionQueueController::ClearVariable("virgilProgramTracking");
+    DecisionQueueController::ClearVariable("activationReservePayments");
+    DecisionQueueController::ClearVariable("virgilProgramDiscountApplied");
+}
+
+function AllowGeneratedTargetResolution($player, $selection, $resumeHandler) {
+    $bypass = strval(DecisionQueueController::GetVariable("nightframeProtectionBypass") ?? "");
+    if($bypass === $resumeHandler) {
+        DecisionQueueController::ClearVariable("nightframeProtectionBypass");
+        return true;
+    }
+    $protectedTargets = [];
+    foreach(explode("&", strval($selection)) as $targetMZ) {
+        $target = GetZoneObject($targetMZ);
+        if($target === null || $target->removed || !PropertyContains(EffectiveCardType($target), "ALLY")) continue;
+        $controller = intval($target->Controller ?? 0);
+        foreach(GetField($controller) as $nightframe) {
+            if($nightframe->removed || $nightframe->CardID !== "PboHrwPZgP" || HasNoAbilities($nightframe)) continue;
+            if(GetLinkedAllyMZ($controller, $nightframe) === $targetMZ) $protectedTargets[] = $targetMZ;
+        }
+    }
+    $protectionCount = count($protectedTargets);
+    if($protectionCount <= 0) return true;
+    $payAmount = 3 * $protectionCount;
+    if(CountAvailableReservePayments($player) < $payAmount) return false;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 100,
+        tooltip:"Pay_" . $payAmount . "_or_the_activation_or_trigger_is_negated_by_Nightframe?");
+    DecisionQueueController::AddDecision($player, "CUSTOM",
+        "NightframeProtectionPay|" . $payAmount . "|" . $resumeHandler . "|" . base64_encode(strval($selection)), 100);
+    return false;
+}
+
+$customDQHandlers["NightframeProtectionPay"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $payAmount = max(0, intval($parts[0] ?? 0));
+    $resumeHandler = strval($parts[1] ?? "");
+    $selection = base64_decode(strval($parts[2] ?? ""), true);
+    if($resumeHandler === "" || $selection === false) return;
+    for($i = 0; $i < $payAmount; ++$i) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    DecisionQueueController::AddDecision($player, "CUSTOM",
+        "NightframeProtectionResume|" . $resumeHandler . "|" . base64_encode($selection), 100);
+};
+
+$customDQHandlers["NightframeProtectionResume"] = function($player, $parts, $lastDecision) {
+    global $customDQHandlers;
+    $resumeHandler = strval($parts[0] ?? "");
+    $selection = base64_decode(strval($parts[1] ?? ""), true);
+    if($resumeHandler === "" || $selection === false || !isset($customDQHandlers[$resumeHandler])) return;
+    DecisionQueueController::StoreVariable("nightframeProtectionBypass", $resumeHandler);
+    $customDQHandlers[$resumeHandler]($player, [], $selection);
+};
+
+function EvaporationSynchronBanish($player, $mzID) {
+    $banished = GetZoneObject($mzID);
+    if($banished === null || intval($banished->PlayerID ?? $player) === intval($player)
+        || !PropertyContains(CardElement($banished->CardID), "WATER") || !HasFloatingMemory($banished)) return;
+    $field = GetField($player);
+    for($i=0;$i<count($field);++$i) if(!$field[$i]->removed && $field[$i]->CardID === "rAiEX6Ra4p" && !HasNoAbilities($field[$i])) AddCounters($player,"myField-".$i,"refinement",1);
+}
+
+function DestroyObjectSelection($player, $selection) {
+    $targets = array_values(array_filter(explode("&", strval($selection)), fn($mz) => $mz !== "" && $mz !== "-" && $mz !== "PASS"));
+    usort($targets, function($a, $b) {
+        $aParts = explode("-", $a);
+        $bParts = explode("-", $b);
+        if(($aParts[0] ?? "") !== ($bParts[0] ?? "")) return strcmp($a, $b);
+        return intval($bParts[1] ?? 0) <=> intval($aParts[1] ?? 0);
+    });
+    foreach($targets as $targetMZ) if(GetZoneObject($targetMZ) !== null) DoAllyDestroyed($player, $targetMZ);
+}
+
+function PowerforgedBurstResolve($player, $sourceMZ, $selection, $targetMZ) {
+    $targets = array_values(array_filter(explode("&", strval($selection)), fn($mz) => $mz !== "" && $mz !== "-" && $mz !== "PASS"));
+    usort($targets, fn($a, $b) => intval(explode("-", $b)[1] ?? 0) <=> intval(explode("-", $a)[1] ?? 0));
+    $count = 0;
+    foreach($targets as $powercellMZ) {
+        if(GetZoneObject($powercellMZ) === null) continue;
+        DoSacrificeFighter($player, $powercellMZ);
+        $count++;
+    }
+    for($i = 0; $i < $count; ++$i) DealDamage($player, $sourceMZ, $targetMZ, 2);
+    if($count === 3) DrawIntoMemory($player, 1);
+}
+
+function MoltenImpactResolve($player, $sourceMZ, $weaponMZ, $targetMZ) {
+    $weaponObj = GetZoneObject($weaponMZ);
+    if($weaponObj === null) return;
+    $durability = GetCounterCount($weaponObj, "durability");
+    DoSacrificeFighter($player, $weaponMZ);
+    DealDamage($player, $sourceMZ, $targetMZ, 2 + $durability);
+}
+
+function CamilLinkFromHandOrMemory($player, $camilMZ, $chosenMZ) {
+    if($chosenMZ === "" || $chosenMZ === "-" || $chosenMZ === "PASS") return;
+    $moved = MZMove($player, $chosenMZ, "myField");
+    if($moved === null) return;
+    $linkedMZ = $moved->GetMzID();
+    CreateAllyLink($player, $linkedMZ, $camilMZ);
+    $camilObj = GetZoneObject($camilMZ);
+    if($camilObj !== null && count(GetLinkedCards($camilObj)) >= 3) DrawIntoMemory($player, 1);
+}
+
+function AugustineDestroyAndSummon($player, $targetMZ) {
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null) return;
+    $controller = intval($targetObj->Controller ?? $player);
+    DoAllyDestroyed($player, $targetMZ);
+    MZAddZone($controller, "myField", "8hqHAU0Xj6");
+}
+
+function AugustineStepOneTargets() {
+    return AllNonChampionObjectTargets();
+}
+
+function AugustineStepTwoTargets() {
+    $targets = [];
+    foreach(array_merge(ZoneSearch("myField", ["ITEM", "WEAPON"]), ZoneSearch("theirField", ["ITEM", "WEAPON"])) as $candidateMZ) {
+        $candidateObj = GetZoneObject($candidateMZ);
+        if($candidateObj === null) continue;
+        $memoryCost = CardMemoryCost($candidateObj->CardID);
+        $reserveCost = CardReserveCost($candidateObj->CardID);
+        if($memoryCost === 0 || ($reserveCost >= 0 && $reserveCost <= 4)) $targets[] = $candidateMZ;
+    }
+    return $targets;
+}
+
+function ResolveTopDeckOptionalSelection($player, $chosenMZ, $topCount, $destination, $sacrificeMZ = null) {
+    $chosenFromDeck = is_string($chosenMZ) && strpos($chosenMZ, "myDeck-") === 0;
+    $didChoose = $chosenMZ !== null && $chosenMZ !== "" && $chosenMZ !== "-" && $chosenMZ !== "PASS";
+    if($didChoose) {
+        Reveal($player, $chosenMZ);
+        MZMove($player, $chosenMZ, $destination);
+    }
+    $remaining = max(0, intval($topCount) - ($chosenFromDeck ? 1 : 0));
+    for($i = 0; $i < $remaining && !empty(GetDeck($player)); ++$i) MZMove($player, "myDeck-0", "myDeck");
+    if($didChoose && $sacrificeMZ !== null && GetZoneObject($sacrificeMZ) !== null) DoSacrificeFighter($player, $sacrificeMZ);
+}
+
+function AllNonChampionObjectTargets() {
+    $targets = [];
+    foreach(array_merge(ZoneSearch("myField"), ZoneSearch("theirField")) as $objectMZ) {
+        $obj = GetZoneObject($objectMZ);
+        if($obj !== null && !PropertyContains(EffectiveCardType($obj), "CHAMPION")) $targets[] = $objectMZ;
+    }
+    return $targets;
 }
 
 function ConsumePendingEmpower($player) {
@@ -19528,6 +20818,7 @@ function HasCardKeywordOverride($obj, $keyword) {
 }
 
 function HasLinkShield($obj) {
+    if($obj->CardID === "aAJliPQT3F" && isset($obj->Controller) && IsLorraineBonusActive($obj->Controller)) return true;
     return HasCardKeywordOverride($obj, "LinkShield");
 }
 
@@ -19592,6 +20883,8 @@ function IsBrackishLutistOnField() {
  *   - Persistent override in Counters (indefinite, e.g. Fracturize)
  */
 function HasNoAbilities($obj) {
+    // Fanned Synchron can't be suppressed.
+    if(isset($obj->CardID) && $obj->CardID === "3h6eqjsLWG") return false;
     if(isset($obj->TurnEffects) && in_array("NO_ABILITIES", $obj->TurnEffects)) return true;
     if(isset($obj->Counters['_overrides']['NO_ABILITIES']) && $obj->Counters['_overrides']['NO_ABILITIES']) return true;
     if(isset($obj->Location) && $obj->Location === 'Memory' && isset($obj->Controller)) {
@@ -19894,6 +21187,7 @@ function MaryAnnOmensHaveKeyword($obj, $keyword) {
 
 function HasVigor($obj) {
     if(HasNoAbilities($obj)) return false;
+    if($obj->CardID === "vxzsjRxMIn" && PlayerLevel($obj->Controller) >= 1) return true;
     if($obj->CardID === "4GFKcHg9NU") return true; // Argus, All-Seeing Giant
     if($obj->CardID === "xyan7zbtxi") return true; // Lu Bu, Indomitable Titan
     // Neos Elemental (jwsl7dedg6): Vigor missed by keyword parser (comma-separated keyword line)
@@ -19924,6 +21218,7 @@ function HasVigor($obj) {
     foreach($linkedCards as $linkedObj) {
         if($linkedObj->CardID === "80mttsvbgl") return true;
         if($linkedObj->CardID === "uoy5ttkat9") return true;
+        if($linkedObj->CardID === "MTm7r2KOSS") return true;
     }
     // Awakened Frostguard (mnu1xhs5jw): vigor while fostered
     if($obj->CardID === "mnu1xhs5jw" && IsFostered($obj)) return true;
@@ -20054,6 +21349,8 @@ function HasRetort($obj) {
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     if(HasKeyword_Retort($obj)) return true;
     if($obj->CardID === "aKjX6INGkV" && in_array("IMBUED", $obj->TurnEffects ?? [])) return true;
+    if($obj->CardID === "VmCVxy9J9J" && isset($obj->Controller)
+        && !empty(ZoneSearch("myField", ["WEAPON"], forPlayer: $obj->Controller))) return true;
     // 0oyxjld8jh (Guan Yu, Prime Exemplar): Retort 2 â€” missed by parser (comma-separated keyword line)
     if($obj->CardID === "0oyxjld8jh") return true;
     // Jadelight Protector (o18wr3f4ab): allies have Retort 1 while Shifting Currents face South
@@ -20085,6 +21382,8 @@ function GetRetortValue($obj) {
     if($val > 0) return $val;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return 2;
     if($obj->CardID === "aKjX6INGkV" && in_array("IMBUED", $obj->TurnEffects ?? [])) return 2;
+    if($obj->CardID === "VmCVxy9J9J" && isset($obj->Controller)
+        && !empty(ZoneSearch("myField", ["WEAPON"], forPlayer: $obj->Controller))) return 3;
     if($obj->CardID === "0oyxjld8jh") return 2;
     // Jadelight Protector (o18wr3f4ab): Retort 1 while Shifting Currents face South
     if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
@@ -20115,10 +21414,27 @@ function HasStealth($obj) {
     if(HasCardKeywordOverride($obj, "ClassBonusStealth")
         && isset($obj->Controller)
         && IsClassBonusActive($obj->Controller, CardClasses($obj->CardID))) return true;
+    if($obj->CardID === "8tYVFYnK0T" && isset($obj->Controller)
+        && IsClassBonusActive($obj->Controller, CardClasses($obj->CardID))) return true;
+    if($obj->CardID === "6rheGKZGyG" && isset($obj->Controller)
+        && !empty(ZoneSearch("myField", ["PHANTASIA"], cardSubtypes: ["FRACTAL"], forPlayer: $obj->Controller))) return true;
     // Memorite Shardwing (LxF5riNjnL): printed Stealth
     if($obj->CardID === "LxF5riNjnL") return true;
     // Senaris, Six of Diamonds (EIpkYYSP3s): printed Stealth
     if($obj->CardID === "EIpkYYSP3s") return true;
+    // Sneaky Raccoon: stealth while the opponent's graveyard is empty.
+    if($obj->CardID === "jH6F9XYrL5" && isset($obj->Controller)) {
+        $opponent = $obj->Controller == 1 ? 2 : 1;
+        if(count(GetGraveyard($opponent)) === 0) return true;
+    }
+    if($obj->CardID === "YZQ8JOHehb" && isset($obj->Controller)) {
+        $opponent = $obj->Controller == 1 ? 2 : 1;
+        if(GetInfluence($opponent) >= 9) return true;
+    }
+    if($obj->CardID === "YZQ8JOHehb" && isset($obj->Controller)) {
+        $opponent = $obj->Controller == 1 ? 2 : 1;
+        if(GetInfluence($opponent) >= 9) return true;
+    }
     if(MaryAnnOmensHaveKeyword($obj, "Stealth")) return true;
     // Expose Darkness (991ovfr8o0): loses stealth until end of turn
     if(in_array("LOSE_STEALTH", $obj->TurnEffects)) return false;
@@ -20348,6 +21664,14 @@ function HasTrueSight($obj) {
     if(MaryAnnOmensHaveKeyword($obj, "TrueSight")) return true;
     if(HasKeyword_TrueSight($obj)) return true;
     if(in_array("TRUE_SIGHT", $obj->TurnEffects)) return true;
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON")) {
+        foreach(GetField($obj->Controller) as $birdObj) {
+            if($birdObj !== null && !$birdObj->removed && $birdObj->CardID === "84lj40Kyhv" && !HasNoAbilities($birdObj)) return true;
+        }
+    }
+    foreach(GetLinkedCards($obj) as $linkedObj) {
+        if($linkedObj->CardID === "PAymR7JsNp" && !HasNoAbilities($linkedObj)) return true;
+    }
     if(ObjectHasEffect($obj, "iiZtKTulPg")) return true; // Eye of Argus
     if(ObjectHasEffect($obj, "F1t18omUlx_SIGHT")) return true; // Beastbond Paws
     if(ObjectHasEffect($obj, "i1f0ht2tsn_SIGHT")) return true; // Strategic Warfare
@@ -20394,6 +21718,16 @@ function GetProtectiveFractalPrevention($obj) {
  */
 function HasSpellshroud($obj) {
     if(HasNoAbilities($obj)) return false;
+    if($obj->CardID === "LtwQoptWzR" && IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+        $advanced = 0;
+        foreach(GetBanish($obj->Controller) as $banishedObj) {
+            if(!$banishedObj->removed && IsAdvancedElementCard($banishedObj->CardID)) ++$advanced;
+        }
+        if($advanced >= 3) return true;
+    }
+    foreach(GetLinkedCards($obj) as $linkedObj) {
+        if($linkedObj->CardID === "33mWk4HYLF" && !HasNoAbilities($linkedObj) && IsLorraineBonusActive($obj->Controller)) return true;
+    }
     if(HasCardKeywordOverride($obj, "ClassBonusSpellshroud")
         && isset($obj->Controller)
         && IsClassBonusActive($obj->Controller, CardClasses($obj->CardID))) return true;
@@ -20401,6 +21735,7 @@ function HasSpellshroud($obj) {
     if($obj->CardID === "EIpkYYSP3s") return true;
     // Overlord Mk III (sl7ddcgw05): printed Spellshroud missed by keyword parser
     if($obj->CardID === "sl7ddcgw05") return true;
+    if($obj->CardID === "JQQXhhIla9") return true;
     // Genbu, Black Tortoise: printed Spellshroud missed by keyword parser
     if($obj->CardID === "k8bwlx70qj" || $obj->CardID === "u73yv2nbvj") return true;
     if(MaryAnnOmensHaveKeyword($obj, "Spellshroud")) return true;
@@ -20574,6 +21909,7 @@ function HasTaunt($obj) {
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     // Neos Elemental (jwsl7dedg6): Taunt missed by keyword parser (comma-separated keyword line)
     if($obj->CardID === "jwsl7dedg6") return true;
+    if($obj->CardID === "JQQXhhIla9") return true;
     // Genbu, Black Tortoise: printed Taunt missed by keyword parser (comma-separated keyword line)
     if($obj->CardID === "k8bwlx70qj" || $obj->CardID === "u73yv2nbvj") return true;
     // Avatar of Genbu (67CIhG8hmG): [Guo Jia Bonus][Deluge 12] has taunt
@@ -20819,6 +22155,14 @@ function GetRangedValue($obj) {
                 $ranged += 3 + 3 * CountCursesInLineage($obj->Controller);
             }
             break;
+    }
+    foreach(GetLinkedCards($obj) as $linkedObj) {
+        if($linkedObj->CardID === "PAymR7JsNp" && !HasNoAbilities($linkedObj)) $ranged += 2;
+    }
+    if($obj->CardID === "fsudPn5GQH" && IsClassBonusActive($obj->Controller, CardClasses($obj->CardID))) {
+        foreach(GetLinkedCards($obj) as $linkedObj) {
+            if(PropertyContains(EffectiveCardSubtypes($linkedObj), "VELTECH") && !HasNoAbilities($linkedObj)) $ranged += 2;
+        }
     }
 
     // 3. TurnEffect-based Ranged grants (from spells like Ranger Strides, Take Aim, etc.)
@@ -21140,6 +22484,19 @@ function CreateAllyLink($player, $phantasiaMZ, $allyMZ) {
         $phantasiaObj->Counters = [];
     }
     $phantasiaObj->Counters['linkedToAlly'] = $allyObj->CardID;
+    if($allyObj->CardID === "5v9mCHv2qG"
+        && PropertyContains(EffectiveCardSubtypes($phantasiaObj), "VELTECH")
+        && IsClassBonusActive($allyObj->Controller, CardClasses($allyObj->CardID))) {
+        BecomeDistant($allyObj->Controller, $allyMZ);
+    }
+    if($allyObj->CardID === "YZIyPCvgzH" && IsClassBonusActive($allyObj->Controller, CardClasses($allyObj->CardID))) {
+        Draw($allyObj->Controller, 1);
+        $handCards = ZoneSearch("myHand", forPlayer:$allyObj->Controller);
+        if(!empty($handCards)) {
+            DecisionQueueController::AddDecision($allyObj->Controller, "MZCHOOSE", implode("&", $handCards), 1, tooltip:"Discard_a_card");
+            DecisionQueueController::AddDecision($allyObj->Controller, "CUSTOM", "OutfittedRavagerDiscard", 1);
+        }
+    }
 }
 
 function IsValidAllyLinkTarget($mzID, $expectedCardID=null) {
@@ -21174,6 +22531,57 @@ function ValidateStoredAllyLinkTarget($player) {
         }
     }
     return null;
+}
+
+function GetNonChampionObjectLinkTargets($player) {
+    $targets = [];
+    foreach(["myField", "theirField"] as $zoneName) {
+        $field = GetZone($zoneName);
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i]->removed) continue;
+            if(PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) continue;
+            $targets[] = $zoneName . "-" . $i;
+        }
+    }
+    return $targets;
+}
+
+function IsValidNonChampionObjectLinkTarget($mzID, $expectedCardID=null) {
+    if(empty($mzID) || $mzID === "-") return false;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return false;
+    if($expectedCardID !== null && $expectedCardID !== "" && $obj->CardID !== $expectedCardID) return false;
+    return !PropertyContains(EffectiveCardType($obj), "CHAMPION");
+}
+
+function ValidateStoredNonChampionObjectLinkTarget($player) {
+    $targetMZ = DecisionQueueController::GetVariable("objectLinkTargetMZ");
+    $targetCardID = DecisionQueueController::GetVariable("objectLinkTargetCardID");
+    if(IsValidNonChampionObjectLinkTarget($targetMZ, $targetCardID)) return $targetMZ;
+    if(empty($targetCardID)) return null;
+    foreach(["myField", "theirField"] as $zoneName) {
+        $field = GetZone($zoneName);
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i]->removed || $field[$i]->CardID !== $targetCardID) continue;
+            if(PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) continue;
+            $resolvedMZ = $zoneName . "-" . $i;
+            DecisionQueueController::StoreVariable("objectLinkTargetMZ", $resolvedMZ);
+            return $resolvedMZ;
+        }
+    }
+    return null;
+}
+
+function CreateNonChampionObjectLink($player, $linkingMZ, $hostMZ) {
+    $linkingObj = &GetZoneObject($linkingMZ);
+    $hostObj = &GetZoneObject($hostMZ);
+    if($linkingObj === null || $hostObj === null || $linkingObj->removed || $hostObj->removed) return false;
+    if(PropertyContains(EffectiveCardType($hostObj), "CHAMPION")) return false;
+    if(!is_array($hostObj->Subcards)) $hostObj->Subcards = [];
+    if(!in_array($linkingObj->CardID, $hostObj->Subcards, true)) $hostObj->Subcards[] = $linkingObj->CardID;
+    if(!is_array($linkingObj->Counters)) $linkingObj->Counters = [];
+    $linkingObj->Counters["linkedToObject"] = $hostObj->CardID;
+    return true;
 }
 
 /**
@@ -21470,8 +22878,8 @@ function CheckAndBreakLinks($player, $departingMZ) {
     $field = GetZone($zoneRef);
 
     // Case 1: Departing card is a Phantasia â€” remove it from the linked ally/weapon's Subcards
-    if(is_array($obj->Counters) && (isset($obj->Counters['linkedToAlly']) || isset($obj->Counters['linkedToWeapon']) || isset($obj->Counters['linkedToChampion']))) {
-        $hostCardID = $obj->Counters['linkedToAlly'] ?? $obj->Counters['linkedToWeapon'] ?? $obj->Counters['linkedToChampion'] ?? null;
+    if(is_array($obj->Counters) && (isset($obj->Counters['linkedToAlly']) || isset($obj->Counters['linkedToWeapon']) || isset($obj->Counters['linkedToChampion']) || isset($obj->Counters['linkedToObject']))) {
+        $hostCardID = $obj->Counters['linkedToAlly'] ?? $obj->Counters['linkedToWeapon'] ?? $obj->Counters['linkedToChampion'] ?? $obj->Counters['linkedToObject'] ?? null;
         if($hostCardID !== null) {
             foreach(["myField", "theirField"] as $hostZoneRef) {
                 $hostField = GetZone($hostZoneRef);
@@ -21499,11 +22907,13 @@ function CheckAndBreakLinks($player, $departingMZ) {
             if(!is_array($fObj->Counters)) continue;
             if(!isset($fObj->Counters['linkedToAlly'])
                 && !isset($fObj->Counters['linkedToWeapon'])
-                && !isset($fObj->Counters['linkedToChampion'])) continue;
+                && !isset($fObj->Counters['linkedToChampion'])
+                && !isset($fObj->Counters['linkedToObject'])) continue;
             $linkedCardIDs = [
                 $fObj->Counters['linkedToAlly'] ?? null,
                 $fObj->Counters['linkedToWeapon'] ?? null,
                 $fObj->Counters['linkedToChampion'] ?? null,
+                $fObj->Counters['linkedToObject'] ?? null,
             ];
             if(!in_array($obj->CardID, $linkedCardIDs, true)) continue;
             $linkedObjectsToSacrifice[] = [
@@ -23920,6 +25330,18 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     $suspendModifierConsumption = $dryRun;
     $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
     $suspendModifierConsumption = $previousSuspendModifierConsumption;
+    if(DecisionQueueController::GetVariable("tributeSingerDiscountCard") === $cardID) {
+        $reserveCost = max(0, $reserveCost - 3);
+        if(!$dryRun) DecisionQueueController::StoreVariable("tributeSingerDiscountCard", "");
+    }
+    if(PropertyContains(CardSubtypes($cardID), "VELTECH")) {
+        foreach(GetField($player) as $presidentialCard) {
+            if(!$presidentialCard->removed && $presidentialCard->CardID === "S84TY03uxj" && !HasNoAbilities($presidentialCard)) {
+                $reserveCost = max(0, $reserveCost - 1);
+                break;
+            }
+        }
+    }
     if(!$dryRun && IsVelTechItemCardID($cardID) && VelTechQATesterDiscountSourceMZ($player) !== "") {
         ConsumeVelTechQATesterDiscount($player);
     }

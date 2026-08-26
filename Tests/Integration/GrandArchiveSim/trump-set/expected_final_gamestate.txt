@@ -187,3 +187,4 @@ MAIN
 0
 -
 -
+{"cards":{"2":{"8bolq2y5qp":{"drawn":0,"drawnToMemory":0,"materialized":0,"reserved":1,"discarded":0,"activated":0}}},"turns":[],"cur":{"2":{"reserveSpent":1,"damageDealt":7},"1":{"damageTaken":7}},"combatEvents":[{"type":"damage_resolved","turn":4,"sourceSeat":2,"sourceCardId":"NsnBhlVzTV","targetSeat":1,"targetCardId":"0r7j97g2zh","amount":7,"isCombat":true,"lethal":true}]}

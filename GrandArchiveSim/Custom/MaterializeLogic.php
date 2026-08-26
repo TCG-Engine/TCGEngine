@@ -26,6 +26,9 @@ function MaterializePhase() {
     // Varuckan Soulknife (9ox7u6wzh9): [Class Bonus][Element Bonus] may activate from material deck by banishing 3 fire from graveyard
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "VARUCKAN_MATERIAL_CHECK", 1);
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1);
+    if(ShouldQueueCapacitanceMaterialCheck(GetTurnPlayer())) {
+        DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "CAPACITANCE_MATERIAL_CHECK", 1);
+    }
     // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] pay 6, reduced by 3 per non-token domain, to activate from material deck
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "RECIPROCITY_MATERIAL_CHECK", 1);
     
@@ -58,7 +61,55 @@ function GetMaterializeFloatingChoices($player) {
         if(HasNoAbilities($field[$i])) continue;
         $choices[] = $myField . "-" . $i;
     }
+    // VelTech Presidential Card: while paying a VelTech card's memory cost,
+    // it may be banished from the field to pay for one.
+    $pendingMZ = strval(DecisionQueueController::GetVariable("PendingMatCard") ?? "");
+    $pendingObj = $pendingMZ === "" ? null : GetZoneObject($pendingMZ);
+    if($pendingObj !== null && PropertyContains(CardSubtypes($pendingObj->CardID), "VELTECH")) {
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i]->removed || $field[$i]->CardID !== "S84TY03uxj" || HasNoAbilities($field[$i])) continue;
+            $choices[] = $myField . "-" . $i;
+        }
+    }
     return implode("&", $choices);
+}
+
+function ShouldQueueCapacitanceMaterialCheck($player) {
+    if(!IsLorraineBonusActive($player)) return false;
+    $arcane = 0;
+    foreach(GetBanish($player) as $obj) {
+        if(!$obj->removed && PropertyContains(CardElement($obj->CardID), "ARCANE")) ++$arcane;
+    }
+    if($arcane < 6) return false;
+    foreach(GetMaterial($player) as $obj) {
+        if(!$obj->removed && $obj->CardID === "FjklZcbjPV"
+            && CanPlayerUseCardElement($player, $obj->CardID, false, false)) return true;
+    }
+    return false;
+}
+
+function CountEvaporationSynchronRefinement($player) {
+    $count = 0;
+    foreach(GetField($player) as $obj) {
+        if($obj->removed || $obj->CardID !== "rAiEX6Ra4p" || HasNoAbilities($obj)) continue;
+        $count += max(0, GetCounterCount($obj, "refinement"));
+    }
+    return $count;
+}
+
+function RemoveEvaporationSynchronRefinement($player, $amount) {
+    $remaining = max(0, intval($amount));
+    $field = GetField($player);
+    global $playerID;
+    $zoneName = $player == $playerID ? "myField" : "theirField";
+    for($i = 0; $i < count($field) && $remaining > 0; ++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "rAiEX6Ra4p" || HasNoAbilities($field[$i])) continue;
+        $remove = min($remaining, max(0, GetCounterCount($field[$i], "refinement")));
+        if($remove <= 0) continue;
+        RemoveCounters($player, $zoneName . "-" . $i, "refinement", $remove);
+        $remaining -= $remove;
+    }
+    return max(0, intval($amount) - $remaining);
 }
 
 function QueueMaterializeFloatingPaymentChoice($player, $memoryCost) {
@@ -73,16 +124,22 @@ function QueueMaterializeFloatingPaymentChoice($player, $memoryCost) {
     DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
 }
 
-function CountAvailableMaterializeMemoryPayments($player) {
+function CountAvailableMaterializeMemoryPayments($player, $mzCard = "") {
     $memoryCount = 0;
     $memoryZone = GetMemory($player);
     foreach($memoryZone as $memoryObj) {
         if(!$memoryObj->removed) ++$memoryCount;
     }
 
+    $priorPending = DecisionQueueController::GetVariable("PendingMatCard");
+    if($mzCard !== "") DecisionQueueController::StoreVariable("PendingMatCard", $mzCard);
     $floatingIndices = GetMaterializeFloatingChoices($player);
+    if($mzCard !== "") {
+        if($priorPending === null || $priorPending === "") DecisionQueueController::ClearVariable("PendingMatCard");
+        else DecisionQueueController::StoreVariable("PendingMatCard", $priorPending);
+    }
     $floatingCount = $floatingIndices === "" ? 0 : count(explode("&", $floatingIndices));
-    return $memoryCount + $floatingCount;
+    return $memoryCount + $floatingCount + CountEvaporationSynchronRefinement($player);
 }
 
 function QueueMaterializePayment($player, $mzCard, $memoryCost, $extraReserveCost = 0) {
@@ -90,7 +147,7 @@ function QueueMaterializePayment($player, $mzCard, $memoryCost, $extraReserveCos
     $extraReserveCost = intval($extraReserveCost);
     if($mzCard === "") return false;
 
-    if($memoryCost > 0 && CountAvailableMaterializeMemoryPayments($player) < $memoryCost) {
+    if($memoryCost > 0 && CountAvailableMaterializeMemoryPayments($player, $mzCard) < $memoryCost) {
         AutoUndoMaterializeCostFailure($player);
         return false;
     }
@@ -101,9 +158,14 @@ function QueueMaterializePayment($player, $mzCard, $memoryCost, $extraReserveCos
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
 
-    if($memoryCost > 0) {
-        QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
+    if($memoryCost > 0 && CountEvaporationSynchronRefinement($player) > 0) {
+        $maxRefinement = min($memoryCost, CountEvaporationSynchronRefinement($player));
+        DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "0|" . $maxRefinement, 1,
+            tooltip:"Choose_refinement_counters_to_remove_for_memory");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PAYREFINEMENT", 1);
+        return true;
     }
+    if($memoryCost > 0) QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
     DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
     return true;
 }
@@ -437,6 +499,20 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     $declaredMemoryCost = CardCost_memory($materializeCard->CardID);
     $memoryCost = $ignoreCost ? 0 : ($declaredMemoryCost < 0 ? $declaredMemoryCost : CardMemoryCost($materializeCard));
     $extraReserveCost = 0;
+
+    if(!$ignoreCost && !$continueMaterialize && PropertyContains(CardType($materializeCard->CardID), "CHAMPION")) {
+        $hasGuide = false;
+        foreach(GetField($player) as $guideObj) {
+            if(!$guideObj->removed && $guideObj->CardID === "6rheGKZGyG" && !HasNoAbilities($guideObj)) { $hasGuide = true; break; }
+        }
+        $fractals = ZoneSearch("myField", ["PHANTASIA"], cardSubtypes:["FRACTAL"], forPlayer:$player);
+        if($hasGuide && count($fractals) >= 2) {
+            DecisionQueueController::StoreVariable("lacunarityMaterialCard", $mzCard);
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Sacrifice_two_Fractal_phantasias_instead_of_paying_memory?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "LacunarityGuideMaterialChoice", 1);
+            return;
+        }
+    }
 
     // Inert Sword (2s08hssegf): "pay (2)" is reserve payment, not memory payment.
     // The generated modifier currently contributes +2 to materialize memory cost,
@@ -838,6 +914,48 @@ function GetClarentReimaginedValidSelections($mzCard, $selected) {
     return $validSelections;
 }
 
+$customDQHandlers["PAYREFINEMENT"] = function($player, $parts, $lastDecision) {
+    $owed = max(0, intval(DecisionQueueController::GetVariable("MemoryCost")));
+    $requested = min($owed, max(0, intval($lastDecision)));
+    $paid = RemoveEvaporationSynchronRefinement($player, $requested);
+    $remaining = max(0, $owed - $paid);
+    DecisionQueueController::StoreVariable("MemoryCost", $remaining);
+    if($remaining > 0) QueueMaterializeFloatingPaymentChoice($player, $remaining);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+};
+
+$customDQHandlers["CAPACITANCE_MATERIAL_CHECK"] = function($player, $parts, $lastDecision) {
+    if(!IsLorraineBonusActive($player)) return;
+    $arcane = 0;
+    foreach(GetBanish($player) as $obj) {
+        if(!$obj->removed && PropertyContains(CardElement($obj->CardID), "ARCANE")) ++$arcane;
+    }
+    if($arcane < 6) return;
+    $material = GetMaterial($player);
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed || $material[$i]->CardID !== "FjklZcbjPV") continue;
+        if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) return;
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", "myMaterial-" . $i, 1,
+            tooltip:"Activate_Capacitance_X_Psycho_from_material_deck?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "CapacitanceMaterialActivate", 1);
+        return;
+    }
+};
+
+$customDQHandlers["CapacitanceMaterialActivate"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed || $obj->CardID !== "FjklZcbjPV") return;
+    DoMaterialize($player, $lastDecision);
+    $field = &GetField($player);
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "FjklZcbjPV") {
+            $field[$i]->Status = 1;
+            break;
+        }
+    }
+};
+
 $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
     $selected = [];
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
@@ -1052,6 +1170,19 @@ function DoMaterialize($player, $mzCard) {
 
         // Track that a champion leveled up this turn (for Invigorated Slash etc.)
         AddGlobalEffects($player, "LEVELED_UP_THIS_TURN");
+        foreach(GetField($player) as $levelListenerObj) {
+            if($levelListenerObj === null || $levelListenerObj->removed || HasNoAbilities($levelListenerObj)) continue;
+            if($levelListenerObj->CardID === "LAfJuHgUbm") RecoverChampion($player, 1);
+            if($levelListenerObj->CardID === "CbPHWJ8Upd") {
+                $linkedWeaponMZ = GetLinkedWeaponMZ($player, $levelListenerObj);
+                if($linkedWeaponMZ !== null) AddCounters($player, $linkedWeaponMZ, "durability", 1);
+            }
+        }
+        for($singedOwner = 1; $singedOwner <= 2; ++$singedOwner) {
+            if(GlobalEffectCount($singedOwner, "TieUdzJ2B2") <= 0) continue;
+            $leveledChampionMZ = FindChampionMZ($player);
+            if($leveledChampionMZ !== null) DealDamage($singedOwner, $leveledChampionMZ, $leveledChampionMZ, 4);
+        }
         if(intval(CardLevel($sourceId)) === 3) {
             AngelicChannelingLevel3($player);
         }
