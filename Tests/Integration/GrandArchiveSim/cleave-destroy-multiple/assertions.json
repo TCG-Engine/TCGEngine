@@ -1,1 +1,33 @@
-[]
+[
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "theirField-0",
+        "property": "Damage",
+        "value": "2"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirField",
+        "value": 1
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "value": 3
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "myField-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
