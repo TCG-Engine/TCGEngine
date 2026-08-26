@@ -29,8 +29,8 @@ $game = [
     'detail' => [
         'firstPlayer' => 2, 'turns' => 4,
         'champions' => [
-            '1' => ['championId' => 'champion-one', 'element' => 'FIRE', 'classes' => ['WARRIOR'], 'level' => 2, 'hp' => 10],
-            '2' => ['championId' => 'champion-two', 'element' => 'WIND', 'classes' => ['RANGER'], 'level' => 2, 'hp' => 0],
+            '1' => ['championId' => 'champion-one', 'championName' => 'Champion One', 'element' => 'FIRE', 'classes' => ['WARRIOR'], 'level' => 2, 'hp' => 10],
+            '2' => ['championId' => 'champion-two', 'championName' => 'Champion Two', 'element' => 'WIND', 'classes' => ['RANGER'], 'level' => 2, 'hp' => 0],
         ],
         'telemetry' => ['cards' => [], 'turns' => [], 'combatEvents' => []],
     ],
@@ -47,6 +47,7 @@ GAStatsContractCheck(!array_key_exists('apiKey', $payload), 'credential is not i
 GAStatsContractCheck(str_starts_with($payload['submittedAt'], '2024-08-24T16:00:00'), 'submission timestamp is stable');
 GAStatsContractCheck(str_contains($encoded, '"cardStats":{}'), 'empty cardStats serializes as an object');
 GAStatsContractCheck($decoded['players']['1']['championId'] === 'champion-one', 'player champion is retained');
+GAStatsContractCheck($decoded['players']['1']['championName'] === 'Champion One', 'player champion name is retained');
 GAStatsContractCheck(GAShouldShareAnonymizedGameplayData([]), 'legacy matches default to sharing');
 GAStatsContractCheck(GAShouldShareAnonymizedGameplayData(['shareAnonymizedGameplayData' => true]), 'enabled matches share');
 GAStatsContractCheck(!GAShouldShareAnonymizedGameplayData(['shareAnonymizedGameplayData' => false]), 'opted-out matches do not share');
