@@ -59,14 +59,16 @@ if ($action === 'download') {
   $rootName = trim(strval($_GET['folderPath'] ?? $_GET['rootName'] ?? ''));
   $gameName = trim(strval($_GET['gameName'] ?? ''));
   $authKey = trim(strval($_GET['authKey'] ?? ''));
-  $viewerInfo = NormalizeViewerIdentity($_GET['playerID'] ?? '');
+  // Same seat-count omission as SubmitBugReport had: without it P3 normalises to spectator and P4
+  // falls out of range, so a 3-4 seat player cannot download their own replay.
+  $viewerInfo = NormalizeViewerIdentity($_GET['playerID'] ?? '', SimGameMaxSeats($rootName));
   if ($viewerInfo['viewerID'] === '') {
     MatchReplayApiRespond(400, ['success' => false, 'message' => 'Invalid player ID.']);
   }
 
   MatchReplayApiLoadGame($rootName, $gameName);
 
-  if (($viewerInfo['viewerID'] === '1' || $viewerInfo['viewerID'] === '2') && $authKey === '' && isset($_COOKIE['lastAuthKey'])) {
+  if (!$viewerInfo['isSpectator'] && $viewerInfo['viewerSeat'] !== null && $authKey === '' && isset($_COOKIE['lastAuthKey'])) {
     $authKey = trim(strval($_COOKIE['lastAuthKey']));
   }
 

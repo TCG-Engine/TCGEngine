@@ -239,6 +239,40 @@ When you deal 4 or more damage to a unit or a base: You may deal 1 damage to a d
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_013' => 
+  array (
+    'title' => 'Cham Syndulla',
+    'subtitle' => 'Hammer of Ryloth',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 3,
+    'hp' => 8,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Twi\'lek',
+    ),
+    'text' => 'When non-combat damage is dealt to a friendly unit or base: You may exhaust this leader. If you do, deal 1 damage to an enemy unit or base.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'When non-combat damage is dealt to a friendly unit or base: You may deal 1 damage to an enemy unit or base.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/013.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/013-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_014' => 
   array (
     'title' => 'Wicket',

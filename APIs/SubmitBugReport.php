@@ -60,9 +60,6 @@ $reporter = SubmitBugReportTrim(
   $body['reporter'] ?? $body['discordID'] ?? $body['discordId'] ?? $body['discord_user_id'] ?? '',
   64
 );
-$viewerInfo = NormalizeViewerIdentity($rawPlayerID);
-$playerID = $viewerInfo['viewerID'];
-
 if ($description === '') {
   SubmitBugReportRespond(400, ['error' => 'Description is required.']);
 }
@@ -74,6 +71,15 @@ if ($gameName === '' || !IsGameNameValid($gameName)) {
 if ($folderPath === '' || !SubmitBugReportIsFolderPathValid($folderPath)) {
   SubmitBugReportRespond(400, ['error' => 'Invalid folder path.']);
 }
+
+// ⚠ Normalise the reporter AGAINST THE ROOT'S REAL SEAT COUNT — this call used to omit it, and the
+// parameter defaults to 2. On a 3-4 seat game that silently rewrote P3 to 'S' (the pre-'S' legacy
+// "3 means spectator" rule, which is only correct below three seats) and pushed P4 out of range
+// entirely, so both were treated as spectators and their auth check failed with "Invalid auth key."
+// Deliberately placed AFTER the folderPath validation above, since SimGameMaxSeats reads it.
+// (Reported from a Team Suns game 2026-08-26; Twin Suns had the same bug.)
+$viewerInfo = NormalizeViewerIdentity($rawPlayerID, SimGameMaxSeats($folderPath));
+$playerID = $viewerInfo['viewerID'];
 
 // Lobby-managed sim games live in APCu and may not have a Games/<name> directory.
 // Use the shared storage-aware lookup so both memory-backed and legacy disk games
@@ -99,7 +105,8 @@ include_once $parserPath;
 $GLOBALS['gameName'] = strval($gameName);
 ParseGamestate(__DIR__ . '/../' . $folderPath . '/');
 
-if (($playerID === '1' || $playerID === '2') && $authKey === '') {
+// Any REAL seat may fall back to the cookie, not just seats 1-2 (a spectator has no seat auth).
+if (!$viewerInfo['isSpectator'] && $viewerInfo['viewerSeat'] !== null && $authKey === '') {
   if (isset($_COOKIE['lastAuthKey'])) {
     $authKey = SubmitBugReportTrim($_COOKIE['lastAuthKey'], 128);
   }

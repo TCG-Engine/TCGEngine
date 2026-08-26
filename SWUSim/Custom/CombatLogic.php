@@ -434,6 +434,10 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             }
             // JTL_009 Boba Fett — "when you deal non-combat damage" (combat base damage sets the flag).
             if (empty($GLOBALS['gInCombatDamage'])) _SWUCollectBobaNonCombatReaction(intval($damager));
+            // HMW_013 Cham Syndulla — the mirror of Boba above: Boba keys on who DEALT the damage,
+            // Cham on who RECEIVED it ("dealt to a friendly unit or base"). This is the BASE half of
+            // his trigger; the unit half hooks _SWUOnUnitDamaged.
+            if (empty($GLOBALS['gInCombatDamage'])) _SWUCham013CheckObserve(intval($targetPlayer), intval($damage), false);
             // SEC_012 Cassian Andor — "friendly units that have damaged an opponent's base this phase can't
             // be attacked." Mark the ABILITY'S SOURCE UNIT (SWU_DMG_SRC = "uid,ctrl", set at every unit-
             // ability dispatch; empty for event/base sources) when it damages an ENEMY base by any means —

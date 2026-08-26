@@ -12,7 +12,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013
 
 <!-- HMW_011 Darth Sidious — Done, 12/12 including Twin Suns. Carries the engine's first
      "when you deal 4+ damage" observer, wired into all five damage funnels.
@@ -721,3 +721,32 @@ in the dictionary and keyword registries before implementation started). Suite b
      depends on that fallback; mutation D (reverting it) reds 7 of the 10 sections.
      ⚠ PREVIEW SET — no card-specific-rulings.md entry; both the "it" reading and "an opponent" = choice
      are reasoned from the CR and flagged. RE-CHECK WHEN HMW RELEASES. -->
+
+<!-- HMW_013 Cham Syndulla, Hammer of Ryloth — Done, 16 sections, four guards mutation-verified.
+     FRONT : "When non-combat damage is dealt to a friendly unit or base: You may exhaust this leader.
+              If you do, deal 1 damage to an enemy unit or base."
+     DEPLOY: same trigger, no exhaust — "You may deal 1 damage to an enemy unit or base."
+     EPIC is the generic 6-resource deploy: zero code.
+     ⚠ THE OPTIONALITY SITS IN A DIFFERENT PLACE ON EACH SIDE. Front: the "may" is on paying the
+     EXHAUST, and the damage that follows is MANDATORY ("If you do") -> YESNO, then a mandatory target.
+     Deployed: there is no cost, so the "may" is on the TARGET -> a single MZMAYCHOOSE. Collapsing the
+     two into one shape reds Deployed_FriendlyUnitDamaged_PingsWithoutExhausting (measured).
+     ONE trigger, TWO funnels: _SWUOnUnitDamaged (units, above the $survived gate — no "and survives"
+     clause, same placement and reason as HMW_045 Logray) and SWUDealDamageToBase (bases, beside the
+     JTL_009 Boba hook). ⚠ Boba is the MIRROR of this card — he keys on who DEALT the damage, Cham on
+     who RECEIVED it — so do not reuse his dealer-side collector.
+     ⚠ USER RULINGS 2026-08-26 (preview set: HMW has no card-specific-rulings.md entry, so both are
+     reasoned + confirmed rather than sourced — RE-CHECK WHEN HMW RELEASES):
+       (a) triggers ONCE PER DAMAGED THING, not per damage effect. Matches Logray through the same
+           seam. Pinned by Deployed_TwoFriendlyUnitsDamaged_TwoTriggers (Blood Sport hits two friendly
+           ground units AND an enemy one: the enemy must not add a third).
+       (b) "friendly" spans the TEAM in Team Suns — a teammate's damaged unit/base triggers your Cham.
+           Implemented as SWUTeamOf($seat) === SWUTeamOf($damagedCtrl), which reduces to self-only
+           outside a team game, so Premier/Twin Suns are byte-identical. Pinned by
+           TeamSuns_TeammatesUnitDamaged_Triggers + a teams-OFF control on the identical board.
+     ⚠ This is the FIRST card built to ruling (b). The ~17 existing cards whose text says "friendly"
+     but that read GetUnitsInPlay (a per-seat accessor the Phase 3 helper sweep structurally could not
+     reach) are still self-only — Logray among them. Separate audit, still owed.
+     ⚠ HARNESS: the cross-player sections need an explicit `P1>Drain` after the opponent's answer — the
+     observer queues a lone CUSTOM on an otherwise idle player, which never drains on its own. Without
+     it every cross-player section fails looking exactly like the trigger not firing. -->

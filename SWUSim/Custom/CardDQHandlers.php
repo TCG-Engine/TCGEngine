@@ -1836,6 +1836,99 @@ function _SWUHmw045CheckObserve($obj, int $amount): void
   }
 }
 
+// ── HMW_013 Cham Syndulla, Hammer of Ryloth ──────────────────────────────────────────────────────
+// ONE trigger, shared by both sides, differing only in what it costs:
+//   FRONT : "When non-combat damage is dealt to a friendly unit or base: You may exhaust this leader.
+//            If you do, deal 1 damage to an enemy unit or base."
+//   DEPLOY: same trigger, no exhaust — "You may deal 1 damage to an enemy unit or base."
+// So the OPTIONALITY sits in a different place on each side: the front's "may" is on paying the
+// exhaust (and the damage that follows is mandatory, per "If you do"), while the deployed side's
+// "may" is on the target itself. Do not collapse them into one shape.
+//
+// $damagedCtrl is the controller of the damaged unit, or the OWNER of the damaged base.
+// Called from BOTH damage funnels — _SWUOnUnitDamaged for units and SWUDealDamageToBase for bases —
+// because "a friendly unit or base" spans two entirely separate code paths.
+function _SWUCham013DeployedActive(int $seat): bool
+{
+  if (!_SWULeaderDeployed($seat, 'HMW_013'))
+    return false;
+  foreach (GetUnitsInPlay($seat) as $u) {
+    if (!SWUObjGone($u) && ($u->CardID ?? '') === 'HMW_013')
+      return !LostAbilities($u);   // a blanked leader unit grants nothing
+  }
+  return false;
+}
+
+// The enemy pool, shared by both sides so the front and deployed offers cannot drift apart.
+function _SWUCham013Targets(int $player): array
+{
+  return _SWUCollectUnitTargets($player, [
+    'side' => 'their', 'includeBases' => true, 'baseSide' => 'their',
+  ]);
+}
+
+function _SWUCham013CheckObserve(int $damagedCtrl, int $amount, bool $isCombat): void
+{
+  if ($amount <= 0 || $isCombat || $damagedCtrl <= 0)
+    return;                          // ⚠ "NON-COMBAT damage" is the whole gate of the card
+  foreach (GetLiveSeatsArray() as $seat) {
+    // "friendly" is a TEAM relation (USER RULING 2026-08-26): in Team Suns a teammate's damaged unit
+    // or base turns your Cham on. SWUTeamOf returns the seat itself outside a team game, so this
+    // reduces to `$seat === $damagedCtrl` in Premier and Twin Suns — byte-identical there.
+    if (SWUTeamOf($seat) !== SWUTeamOf($damagedCtrl))
+      continue;
+    if (!_SWULeaderReadyUndeployed($seat, 'HMW_013') && !_SWUCham013DeployedActive($seat))
+      continue;
+    // QUEUED rather than offered inline, for Logray's reason: this can fire mid-effect, before
+    // CleanupRemovedCards compacts the arenas, so a pool built now would carry stale positional
+    // mzIDs. The CUSTOM drains post-cleanup and builds the offer against the settled board.
+    // One per damaged thing (USER RULING 2026-08-26) — an AoE hitting three friendly units queues
+    // three, matching how HMW_045 Logray already behaves through this same seam.
+    DecisionQueueController::AddDecision($seat, "CUSTOM", "HMW013_OFFER", 1);
+  }
+}
+
+$customDQHandlers["HMW013_OFFER"] = function ($player, $parts, $lastDecision) {
+  global $playerID;
+  $playerID = intval($player);
+  // Re-derive the SIDE at drain time — Cham may have deployed, exhausted or been blanked since.
+  if (empty(_SWUCham013Targets(intval($player))))
+    return;                          // no enemy unit or base left: never offer a choice that can only fizzle
+  if (_SWUCham013DeployedActive(intval($player))) {
+    // Deployed: no cost, so the "may" is on the TARGET.
+    SWUOfferUnitTarget(intval($player), '', [
+      'side' => 'their', 'includeBases' => true, 'baseSide' => 'their',
+      'continuation' => 'DEAL_TARGET', 'amount' => 1, 'may' => true,
+      'question' => 'Deal_1_damage_to_an_enemy_unit_or_base?',
+      'prompt' => 'Choose_an_enemy_unit_or_base',
+    ]);
+    return;
+  }
+  if (!_SWULeaderReadyUndeployed(intval($player), 'HMW_013'))
+    return;                          // front side needs a READY leader to pay the exhaust
+  DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1,
+      tooltip: "Exhaust_Cham_Syndulla_to_deal_1_damage_to_an_enemy_unit_or_base?");
+  DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_013#0", 1);
+};
+
+// Front side, after the player accepts: pay the exhaust, then the damage is MANDATORY ("If you do").
+$customDQHandlers["HMW_013#0"] = function ($player, $parts, $lastDecision) {
+  if ($lastDecision !== 'YES')
+    return;
+  global $playerID;
+  $playerID = intval($player);
+  if (!_SWULeaderReadyUndeployed(intval($player), 'HMW_013'))
+    return;
+  foreach (GetLeader(intval($player)) as $l) {
+    if (($l->CardID ?? '') === 'HMW_013' && empty($l->Deployed)) { $l->Ready = false; break; }
+  }
+  SWUOfferUnitTarget(intval($player), '', [
+    'side' => 'their', 'includeBases' => true, 'baseSide' => 'their',
+    'continuation' => 'DEAL_TARGET', 'amount' => 1,   // mandatory: the "may" was the exhaust
+    'prompt' => 'Choose_an_enemy_unit_or_base',
+  ]);
+};
+
 // Builds Logray's offer post-cleanup, against the compacted board.
 $customDQHandlers["HMW045_OFFER"] = function ($player, $parts, $lastDecision) {
   global $playerID;
@@ -1881,6 +1974,10 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
   // ⚠ There is NO "and survives" clause, so this fires even when the damage DEFEATS the unit — which is
   // why it sits ABOVE the $survived gate, beside SEC_143 rather than with the observers below it.
   _SWUHmw045CheckObserve($obj, $amount);
+  // HMW_013 Cham Syndulla — "When NON-COMBAT damage is dealt to a friendly unit or base". Above the
+  // $survived gate for the same reason as Logray: there is no "and survives" clause, so a friendly
+  // unit being killed by an event still turns him on.
+  _SWUCham013CheckObserve(intval($obj->Controller ?? 0), $amount, $isCombat);
   // Every observer below has an explicit "and survives" / "isn't defeated" clause (or writes a marker on the
   // still-in-play unit), so they must NOT fire when the damage defeated the unit.
   if (!$survived)
