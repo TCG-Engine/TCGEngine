@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "step": 20,
+        "type": "card_property_equals",
+        "mzId": "myField-4",
+        "property": "CardID",
+        "value": "8c9htu9agw"
+    },
+    {
+        "step": 20,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "value": 7
+    },
+    {
+        "step": 20,
+        "type": "zone_count",
+        "zone": "myField",
+        "value": 5
+    },
+    {
+        "step": 20,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
