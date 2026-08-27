@@ -1,6 +1,11 @@
 [
     {
         "step": 11,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 11,
         "type": "card_property_equals",
         "mzId": "myField-2",
         "property": "Damage",
@@ -8,21 +13,44 @@
     },
     {
         "step": 11,
-        "type": "card_property_equals",
-        "mzId": "myField-2",
-        "property": "Status",
-        "value": "1"
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 3
     },
     {
         "step": 11,
-        "type": "card_property_equals",
-        "mzId": "theirField-0",
-        "property": "CardID",
-        "value": "OWCdWq3mXY"
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3
     },
     {
         "step": 11,
-        "type": "decision_queue_empty",
-        "player": "all"
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 3
     }
 ]

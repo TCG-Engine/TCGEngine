@@ -1,33 +1,56 @@
 [
     {
         "step": 7,
-        "type": "card_property_equals",
-        "mzId": "theirField-0",
-        "property": "Damage",
-        "value": "3"
+        "type": "decision_queue_empty",
+        "player": "all"
     },
     {
         "step": 7,
-        "type": "card_property_equals",
-        "mzId": "myField-1",
-        "property": "Status",
-        "value": "1"
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 4
     },
     {
         "step": 7,
         "type": "zone_count",
         "zone": "myGraveyard",
+        "viewerPlayerID": 1,
         "value": 3
     },
     {
         "step": 7,
         "type": "zone_count",
-        "zone": "myDeck",
-        "value": 48
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3
     },
     {
         "step": 7,
-        "type": "decision_queue_empty",
-        "player": "all"
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 3
     }
 ]
