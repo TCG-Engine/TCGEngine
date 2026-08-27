@@ -1,0 +1,19 @@
+{
+  "name": "play-from-hand-rich-main-phase-card-1787793813280",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-08-27T01:23:33.281Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/rich-main-phase-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "champion": "LMyKyVC2O9",
+    "element": "FIRE",
+    "handCard": "84YTQPTvar",
+    "mastery": ""
+  },
+  "testedCards": [
+    "84YTQPTvar"
+  ],
+  "savedAt": "2026-08-27T01:24:43.563Z"
+}
