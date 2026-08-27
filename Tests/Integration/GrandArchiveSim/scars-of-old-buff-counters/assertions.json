@@ -13,6 +13,13 @@
     },
     {
         "step": 7,
+        "type": "card_property_equals",
+        "mzId": "myField-2",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 7,
         "type": "zone_count",
         "zone": "myGraveyard",
         "viewerPlayerID": 1,
