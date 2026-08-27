@@ -1,0 +1,10 @@
+{
+    "name": "negate-activation-poised-occlusion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-27T00:00:00+00:00",
+    "createdBy": "5",
+    "testedCards": [
+        "w64layznmh"
+    ],
+    "notes": "Player 2 attempts to activate Poised Occlusion (w64layznmh) from hand while it is player 1's Main phase with an empty effect stack and no active opportunity/response window. ActionMap() requires either the acting player to be the turn player in MAIN phase, or an active opportunity (HasOpportunity()) for a non-turn-player hand play to go through; neither holds here, so the FSM activation attempt is a true no-op: ActivateCard() is never called, no card leaves hand, no decision is queued, and the gamestate is byte-identical before and after."
+}

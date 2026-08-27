@@ -1,0 +1,98 @@
+[
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "viewerPlayerID": 1,
+        "player": "all"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "viewerPlayerID": 2,
+        "mzId": "myHand-9",
+        "property": "CardID",
+        "value": "w64layznmh"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 2,
+        "zone": "myHand",
+        "value": 12
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "myHand",
+        "value": 10
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "myField",
+        "value": 8
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 2,
+        "zone": "myField",
+        "value": 3
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "myMemory",
+        "value": 0
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 2,
+        "zone": "myMemory",
+        "value": 0
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "myGraveyard",
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 2,
+        "zone": "myGraveyard",
+        "value": 0
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 1,
+        "zone": "myDeck",
+        "value": 45
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "viewerPlayerID": 2,
+        "zone": "myDeck",
+        "value": 46
+    },
+    {
+        "step": 1,
+        "type": "turn_player_is",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 1,
+        "type": "phase_is",
+        "viewerPlayerID": 1,
+        "value": "MAIN"
+    }
+]
