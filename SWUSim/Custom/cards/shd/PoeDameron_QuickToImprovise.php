@@ -14,9 +14,8 @@ $onAttackAbilities["SHD_153:0"] = function($player, $mzID) {
     $hand = ZoneSearch("myHand", null);
     if (empty($hand)) return;                          // empty hand → nothing to discard, no options
     $max = min(3, count($hand));
-    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|$max|" . implode('&', $hand), 1,
-        tooltip:"Discard_up_to_3_cards_from_your_hand");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_153#0", 1);
+    SWUQueueMultiChoose(intval($player), 0, $max, $hand,
+        "Discard_up_to_3_cards_from_your_hand", "SHD_153#0");
 };
 
 $customDQHandlers["SHD_153#0"] = function($player, $parts, $lastDecision) {

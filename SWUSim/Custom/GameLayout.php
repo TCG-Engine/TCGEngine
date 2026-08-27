@@ -947,8 +947,22 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         content: "DEPLOYED";
         position: absolute; inset: 0;
         display: flex; align-items: center; justify-content: center;
-        font: 700 9px/1 var(--swu-font-label); letter-spacing: 0.22em;
+        /* 9px/0.22em filled the slot almost edge to edge once the ring moved inside the card box —
+           the label read as the contents rather than as a placeholder caption. Dropped a step, and the
+           tracking with it, since letter-spacing is what actually drives the rendered width here. */
+        font: 700 7px/1 var(--swu-font-label); letter-spacing: 0.18em;
         color: rgba(200,151,30,0.55); pointer-events: none; z-index: 2;
+        /* ONE dotted placeholder ring PER DEPLOYED LEADER — see the note on the wrapper below for why
+           `outline` and not a border/SVG. This used to live on the whole .swu-leader-slot-wrap, which
+           was fine at one leader and wrong at two: a Twin Suns seat drew a single ring around BOTH
+           leader slots with the word sitting in each half, reading as "DEPLOYED DEPLOYED" in one box.
+           Worse, a seat with one leader deployed and one still on its card ringed them together, so the
+           undeployed leader looked gone too. Anchoring the ring to this pseudo-element fixes both: it is
+           already inset:0 on the individual leader's span, and it already inherits the exhaust-tilt
+           counter-rotation below, so the ring and its label stay square together. */
+        outline: 3px dotted rgba(255,255,255,0.30);
+        outline-offset: -3px;
+        border-radius: min(8px, calc(var(--swu-cardsize, 80px) * 0.10));
     }
     /* The badge is a ::after on the CARD span, and UILibraries writes the exhaust tilt as an
        INLINE `transform: rotate(Ndeg)` on that same span — so the text inherited the tilt and
@@ -999,10 +1013,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
           the solid state. outline-offset pulls it inside the box.
        Native dotted ties dot size to gap, so the WIDTH is the single knob: 3px is the chosen
        balance. Raise for larger/sparser dots, lower for a tighter ring. */
+    /* The wrapper only drops its own solid frame; the dotted ring itself is drawn per deployed leader
+       on the ::after above, so two deployed leaders get two boxes rather than one shared box. */
     .swu-leader-slot-wrap:has(.is-deployed) {
         border-color: transparent;
-        outline: 3px dotted rgba(255,255,255,0.30);
-        outline-offset: -3px;
     }
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the

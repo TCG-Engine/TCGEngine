@@ -24,9 +24,10 @@ $whenPlayedAbilities["ASH_199:0"] = function($player, $hostMzID) {
     for ($k = 0; $k < count($cands); $k++) $tempMZs[] = "myTempZone-{$k}";
     DecisionQueueController::StoreVariable("ASH199Host", $hostMzID);
     DecisionQueueController::StoreVariable("ASH199Cands", implode(",", $cands));
-    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|" . count($cands) . "|" . implode("&", $tempMZs), 1,
-        tooltip: "Return_any_number_of_other_upgrades_to_owners'_hands");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_199#0", 1);
+    // ⚠ "Any number" includes NONE, and this continuation is also what drains the staged TempZone —
+    // skipped, it leaves phantom cards for the next popup. Derived from the 0 lower bound.
+    SWUQueueMultiChoose(intval($player), 0, count($cands), $tempMZs,
+        "Return_any_number_of_other_upgrades_to_owners'_hands", "ASH_199#0");
 };
 
 $customDQHandlers["ASH_199#0"] = function($player, $parts, $lastDecision) {

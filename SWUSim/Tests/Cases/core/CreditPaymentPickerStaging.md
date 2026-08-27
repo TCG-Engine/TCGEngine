@@ -206,3 +206,37 @@ P1CREDITCOUNT:1
 P1RESAVAILABLE:0
 P1TEMPZONECOUNT:0
 P1NODECISION
+
+---
+
+# ConfirmingZeroCredits_StillPlaysTheCard
+#// ⚠ REGRESSION GUARD, live bug 2026-08-26. There are TWO ways to decline this picker and they were not
+#// equivalent. `-` (covered by Decline_KeepsBothCredits_PaysFullCost above) worked. Confirming the popup
+#// with NOTHING selected submits the literal "PASS", which goes STICKY and makes ExecuteStaticMethods
+#// skip every following CUSTOM that is not flagged DontSkipOnPass — and the CREDIT_PAY custom is not
+#// merely the applier, it is also what drains the staged TempZone and runs the continuation that PLAYS
+#// THE CARD.
+#//
+#// Measured against the unflagged build: the ground arena stayed EMPTY (the play silently vanished, cost
+#// unpaid, card gone from hand) and two phantom staged Credits were left behind to poison the next popup.
+#//
+#// A zero lower bound means PASS is a CHOICE ("pay none"), never a cancellation. This section is the
+#// byte-for-byte twin of the `-` decline above, and the pair is the point: if they ever disagree again,
+#// one of them goes red.
+
+## GIVEN
+CommonSetup: bbw/rrk/{myResources:0}
+P1OnlyActions: true
+WithP1Resources: 1:SOR_095:1,1:LAW_T01:1,1:SOR_095:1,1:LAW_T01:1,1:SOR_095:1
+WithP1Hand: SOR_063
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1CREDITCOUNT:2
+P1RESAVAILABLE:0
+P1TEMPZONECOUNT:0
+P1NODECISION

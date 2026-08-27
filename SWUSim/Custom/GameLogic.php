@@ -6674,9 +6674,12 @@ function _SWUQueueEyeOfAldhaniResolution(int $target, int $count): void {
         _SWUQueueEyeOfAldhaniResolution($target, $count - 1);
         return;
     }
-    DecisionQueueController::AddDecision($target, "MZMULTICHOOSE", "0|{$cap}|" . implode('&', $units), 1,
-        tooltip:"Pay_1_resource_each_to_keep_units_ready_(unselected_are_exhausted)");
-    DecisionQueueController::AddDecision($target, "CUSTOM", "SEC_073#0|{$target}|" . ($count - 1), 1);
+    // ⚠ Paying for NOTHING is the whole point of this prompt (every unit is then exhausted), and it
+    // arrives as "PASS" — which used to skip the continuation and silently drop every REMAINING copy of
+    // the delayed ability. SWUQueueMultiChoose derives the DontSkipOnPass from the 0 lower bound.
+    SWUQueueMultiChoose($target, 0, $cap, $units,
+        "Pay_1_resource_each_to_keep_units_ready_(unselected_are_exhausted)",
+        "SEC_073#0|{$target}|" . ($count - 1));
     // leave $playerID = $target so MZCountChoices validates the relative mzIDs correctly
 }
 
@@ -9948,6 +9951,32 @@ function _SWUExhaustedResourceCount(int $player): int {
 // in Premier and Twin Suns — every one of the 12 friendly-resource cards stays byte-identical there.
 // $filter receives the resource OBJECT (e.g. fn($o) => !SWUIsCreditToken($o->CardID) — Credit tokens
 // are not resources and several of these cards exclude them).
+// ★ THE ONE WAY TO QUEUE A MULTI-SELECT AND ITS FOLLOW-UP. Use this instead of hand-writing the
+// MZMULTICHOOSE + CUSTOM pair, so the DontSkipOnPass decision is DERIVED rather than remembered.
+//
+// THE BUG CLASS IT CLOSES. "PASS" is overloaded — it is both "I decline" and "I chose zero", and the
+// queue cannot tell them apart: a PASS goes STICKY and ExecuteStaticMethods then skips every following
+// CUSTOM that is not flagged. For a "you may" decline that skip is CORRECT and wanted (see the note on
+// _SWUQueueOrchestration). For a multi-select whose lower bound is ZERO it is a bug, because picking
+// none is a legal ANSWER, not a cancellation.
+//
+// So the rule is mechanical: $min <= 0 means PASS is a choice, and the follow-up must still run. Twice
+// measured, twice expensive — confirming zero Credits left the card UNPLAYED with two phantom staged
+// copies behind it, and confirming zero on Sundari Palace's own board silently cancelled the rest of the
+// card's cost (both 2026-08-26).
+//
+// ⚠ A continuation reached this way still has to guard its OWN decline: it will now be entered with
+// $lastDecision === "PASS" (or ""), which previously it never saw. That is the point — it gets to decide
+// what "none" means instead of the queue deciding for it by vanishing.
+function SWUQueueMultiChoose(int $player, int $min, int $max, array $mzIDs, string $tooltip, string $continuation, int $block = 1): void {
+    if (empty($mzIDs) || $max <= 0) return;
+    if ($min > $max) $min = $max;
+    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE",
+        "{$min}|{$max}|" . implode('&', $mzIDs), $block, tooltip: $tooltip);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", $continuation, $block,
+        dontSkipOnPass: ($min <= 0 ? 1 : 0));
+}
+
 // ★ THE ONE SEAM for "defeat N resource(s)" — always ASK, never auto-pick.
 //
 // USER RULING 2026-08-26: a resource is NOT fungible. Which one dies is information the player can act
@@ -9964,19 +9993,112 @@ function SWUQueueResourceDefeatPick(int $chooser, array $pool, int $count, strin
     if ($count >= count($pool)) { SWUDefeatResourcesByMzIDs(intval($chooser), $pool); return; }
     DecisionQueueController::AddDecision(intval($chooser), "MZMULTICHOOSE", "{$count}|{$count}|" . implode('&', $pool), 1,
         tooltip: $tooltip);
-    DecisionQueueController::AddDecision(intval($chooser), "CUSTOM", "RESOURCE_DEFEAT_PICK", 1);
+    // dontSkipOnPass:1 for the same reason as the staged path: a PASS answer must not skip the applier.
+    DecisionQueueController::AddDecision(intval($chooser), "CUSTOM", "RESOURCE_DEFEAT_PICK", 1, dontSkipOnPass: 1);
 }
 
 // TS26_12 Sundari Palace — "defeat that many FRIENDLY resources at the start of the regroup phase".
-// In Team Suns "friendly" spans the team, so a teammate's resource is a legal pick;
-// SWUFriendlyResourceMzIDs degenerates to your own resources everywhere else.
+// In Team Suns "friendly" spans the team, so a teammate's resource is a legal pick.
 function _SWUSundariDefeatFriendlyResources(int $player, int $count): void {
+    $seats = array_merge([intval($player)], SWUTeammatesOf(intval($player)));
+    _SWUQueueFriendlyResourceDefeatStage(intval($player), $seats, 0, $count, 'Sundari_Palace');
+}
+
+// One prompt PER OWNING BOARD, your own first — NOT one mixed prompt spanning the team.
+//
+// USER DIRECTION 2026-08-26: a single MZMULTICHOOSE holding `myResources-…` and `p3Resources-…` together
+// is a prompt the client cannot present in one place. Your own resources render inline on the board while
+// a teammate's live behind their own seat's view, so a mixed pool asks the player to pick across two
+// surfaces at once. Staged per seat, each prompt addresses exactly one board.
+//
+// Allocation falls out of the pools rather than being asked for: this seat may contribute at most what it
+// holds, and at least enough that the seats after it can still cover the rest. When those two bounds meet
+// AND they consume the whole pool there is no decision left, so the stage resolves silently instead of
+// offering a choice with one legal answer — the same rule the single-pool path uses.
+// "1-1" is a RANGE printed where there is no range. When the bounds meet the player is being told to pick
+// exactly N, and the popup's own subtitle already says "SELECT EXACTLY 1 CARD" — so the header saying
+// "Choose 1-1" is the prompt arguing with itself. Underscores stay: they are the DecisionQueue's
+// space transport (rows are space-delimited), not a style choice.
+function _SWUResourceDefeatCountPhrase(int $min, int $max): string {
+    if ($min >= $max) return "Choose_{$max}";
+    if ($min <= 0)    return "Choose_up_to_{$max}";
+    return "Choose_{$min}_to_{$max}";
+}
+
+function _SWUQueueFriendlyResourceDefeatStage(int $chooser, array $seats, int $idx, int $remaining, string $label): void {
     global $playerID;
-    $saved = $playerID; $playerID = intval($player);
-    $pool = SWUFriendlyResourceMzIDs(intval($player));
+    $saved = $playerID; $playerID = intval($chooser);
+    $poolFor = function(int $seat) use ($chooser): array {
+        $out = [];
+        foreach (ZoneSearch(SWUSeatZone(intval($chooser), intval($seat), 'Resources'), null) as $mz) {
+            $o = GetZoneObject($mz);
+            if (SWUObjGone($o)) continue;
+            $out[] = $mz;
+        }
+        return $out;
+    };
+    while ($remaining > 0 && $idx < count($seats)) {
+        $pool = $poolFor(intval($seats[$idx]));
+        if (empty($pool)) { $idx++; continue; }
+        // How much the seats AFTER this one could still absorb — this is what lets you leave your
+        // teammate's board alone when your own can cover the whole debt.
+        $later = 0;
+        for ($j = $idx + 1; $j < count($seats); $j++) $later += count($poolFor(intval($seats[$j])));
+        $min = max(0, $remaining - $later);
+        $max = min($remaining, count($pool));
+        if ($min >= $max && $max >= count($pool)) {          // forced, and it takes the whole pool
+            SWUDefeatResourcesByMzIDs(intval($chooser), $pool);
+            $remaining -= count($pool);
+            $idx++;
+            continue;
+        }
+        $seatsCsv = implode(',', array_map('intval', $seats));
+        $owner    = intval($seats[$idx]);
+        if ($owner === intval($chooser)) {
+            // YOUR OWN board: Resources is `Visibility=Self, Mode=All`, and a Self zone of your own routes
+            // INLINE — the candidates light up in place along your resource row, which is what every other
+            // own-resource prompt (SOR_017 Han Solo, TWI_177) already does.
+            DecisionQueueController::AddDecision(intval($chooser), "MZMULTICHOOSE", "{$min}|{$max}|" . implode('&', $pool), 1,
+                tooltip: _SWUResourceDefeatCountPhrase($min, $max) . "_of_your_own_resources_to_defeat_({$label})");
+            // ⚠ dontSkipOnPass:1. Confirming a stage with NOTHING selected submits "PASS", and a sticky
+            // PASS makes ExecuteStaticMethods skip every following CUSTOM that is not flagged — so the
+            // continuation never ran, the next board was never asked, and the whole remaining debt
+            // silently evaporated (live bug 2026-08-26). Taking none from your own board is a LEGAL
+            // answer here (that is the point of the 0 lower bound), so it must not also cancel the card.
+            DecisionQueueController::AddDecision(intval($chooser), "CUSTOM",
+                "RESOURCE_DEFEAT_STAGE|{$seatsCsv}|" . ($idx + 1) . "|{$remaining}|{$label}", 1, dontSkipOnPass: 1);
+            $playerID = $saved;
+            return;
+        }
+        // ⚠ A TEAMMATE'S board: offer STAGED COPIES in your own TempZone, never the `p{n}Resources-N`
+        // mzIDs directly. Live bug 2026-08-26 — the prompt rendered with its Confirm bar and "0 selected /
+        // 3 max" and NOTHING TO CLICK: the client only ever draws two seats at a time, so a teammate's
+        // resource zone has no element on your view to light up. Same failure and same fix as the Credit
+        // picker (bug #962) and Law119Trigger: TempZone is `Mode=None`, which routes the choice into its
+        // own card modal showing exactly these cards and nothing else — and Visibility=Self means the
+        // reveal is to YOU alone, which is the ruling for looking at a teammate's resources.
+        // The positional map rides the CUSTOM param: staged copies are bare CardIDs and a team can hold
+        // duplicates, so index-for-index is the only thing that ties a pick back to the right slot.
+        $temp = &GetTempZone(intval($chooser));
+        while (count($temp) > 0) array_pop($temp);   // clear at the START — a concurrent offer may have left entries
+        unset($temp);
+        $map = []; $tempMZs = [];
+        foreach ($pool as $k => $mz) {
+            $ro = GetZoneObject($mz);
+            AddTempZone(intval($chooser), $ro->CardID ?? '-');
+            $tempMZs[] = "myTempZone-{$k}";
+            $map[]     = intval(substr($mz, strrpos($mz, '-') + 1));
+        }
+        DecisionQueueController::AddDecision(intval($chooser), "MZMULTICHOOSE", "{$min}|{$max}|" . implode('&', $tempMZs), 1,
+            tooltip: _SWUResourceDefeatCountPhrase($min, $max) . "_of_P{$owner}'s_resources_to_defeat_({$label})");
+        // dontSkipOnPass:1 — same reason as the own-board branch above, and doubly so here: this
+        // continuation is also what CLEARS the staged TempZone copies.
+        DecisionQueueController::AddDecision(intval($chooser), "CUSTOM",
+            "RESOURCE_DEFEAT_STAGE|{$seatsCsv}|" . ($idx + 1) . "|{$remaining}|{$label}|{$owner}|" . implode(',', $map), 1, dontSkipOnPass: 1);
+        $playerID = $saved;
+        return;
+    }
     $playerID = $saved;
-    SWUQueueResourceDefeatPick(intval($player), $pool, $count,
-        "Choose_{$count}_friendly_resource(s)_to_defeat_(Sundari_Palace)");
 }
 
 // Defeat a set of resource mzIDs safely. SWUDefeatResource compacts the zone it touches, so process each
@@ -15210,7 +15332,12 @@ function SWUOfferAltPayment(int $player, int $cost, string $continuation, string
             // were submitted), so the handler needs its own copy to enforce CR 1.7.2 — "exhaust ready
             // resources EQUAL TO the cost". Without it an over-long answer defeats extra Credits for free.
             DecisionQueueController::AddDecision($player, "CUSTOM",
-                "CREDIT_PAY|{$max}|{$creditMap}|{$continuation}|{$args}", $block);
+            // ⚠ dontSkipOnPass:1 — the picker's lower bound is 0, so confirming with NOTHING selected is a
+            // LEGAL answer ("pay no Credits"), not a cancellation. It arrives as the literal "PASS", which
+            // goes sticky and skips any following CUSTOM that is not flagged — and THIS custom both drains
+            // the staged TempZone and runs $continuation, i.e. the play itself. Unflagged, confirming zero
+            // left the card unplayed and two phantom staged copies behind (measured 2026-08-26).
+                "CREDIT_PAY|{$max}|{$creditMap}|{$continuation}|{$args}", $block, dontSkipOnPass: 1);
             return; // $playerID intentionally left = $player
         }
     }
@@ -15249,7 +15376,12 @@ function SWUOfferDroidPayment(int $player, int $cost, string $continuation, stri
                 "0|{$max}|" . implode("&", $droids), $block,
                 tooltip:"Pick_any_number_of_Droids_to_exhaust_for_this_card");
             DecisionQueueController::AddDecision($player, "CUSTOM",
-                "DROID_PAY|{$max}|{$continuation}|{$args}", $block);
+            // ⚠ dontSkipOnPass:1 — the picker's lower bound is 0, so confirming with NOTHING selected is a
+            // LEGAL answer ("pay no Credits"), not a cancellation. It arrives as the literal "PASS", which
+            // goes sticky and skips any following CUSTOM that is not flagged — and THIS custom both drains
+            // the staged TempZone and runs $continuation, i.e. the play itself. Unflagged, confirming zero
+            // left the card unplayed and two phantom staged copies behind (measured 2026-08-26).
+                "DROID_PAY|{$max}|{$continuation}|{$args}", $block, dontSkipOnPass: 1);
             return; // $playerID intentionally left = $player
         }
     }
@@ -16834,7 +16966,9 @@ function PlayerCanDisclose(int $player, array $required): bool {
 // the resolver token after a "@@ELSE@@" sentinel (neither handler may contain that literal).
 function SWUQueueDisclose(int $player, array $required, string $thenHandler, string $tooltip, string $elseHandler = ''): void {
     if (!PlayerCanDisclose($player, $required)) {
-        if ($elseHandler !== '') DecisionQueueController::AddDecision($player, "CUSTOM", $elseHandler, 1);
+        // dontSkipOnPass:1 — the "if you don't" handler exists precisely for the not-disclosed case, so it
+        // must survive a sticky PASS. Unflagged, it was skipped by whatever PASS was already in flight.
+        if ($elseHandler !== '') DecisionQueueController::AddDecision($player, "CUSTOM", $elseHandler, 1, dontSkipOnPass: 1);
         return;
     }
     // Compact any removed-but-not-cleaned cards (e.g. the event/unit that triggered this disclose was
@@ -16854,9 +16988,10 @@ function SWUQueueDisclose(int $player, array $required, string $thenHandler, str
     // strips it for display; the server never parses the tooltip semantically. The server re-validates
     // coverage in DISCLOSE_RESOLVE regardless, so this is purely a client-UX side channel.
     $discloseTooltip = $tooltip . "~REQ~" . implode('-', $required);
-    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . count($hand) . "|" . implode('&', $hand),
-        1, tooltip: $discloseTooltip);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "DISCLOSE_RESOLVE|{$reqCSV}|{$thenHandler}", 1);
+    // ⚠ Disclosing NOTHING is a legal answer and is exactly the branch that runs the ELSE handler — so
+    // a skipped continuation dropped the else half of every Disclose. Derived from the 0 lower bound.
+    SWUQueueMultiChoose($player, 0, count($hand), $hand, $discloseTooltip,
+        "DISCLOSE_RESOLVE|{$reqCSV}|{$thenHandler}");
 }
 
 // Validates the disclosed selection and dispatches the "if you do" effect.
@@ -16877,7 +17012,12 @@ $customDQHandlers["DISCLOSE_RESOLVE"] = function($player, $parts, $lastDecision)
         $have = array_merge($have, SWUCardAspectIcons($o->CardID ?? ''));
     }
     if (empty($selected) || !_SWUAspectsCover($have, $required)) {   // declined / insufficient (CR 38.3)
-        if ($elseHandler !== '') DecisionQueueController::AddDecision(intval($player), "CUSTOM", $elseHandler, 1);
+        // ⚠ dontSkipOnPass:1, and this is the SECOND level of the same trap. Reaching here at all usually
+        // means $lastDecision is "PASS" — that is what "you didn't disclose" looks like — and a sticky PASS
+        // skips any unflagged CUSTOM. So the penalty the player just opted into was itself skipped:
+        // SEC_164 Warrior of Clan Ordo took ZERO damage to its own base on a Confirm-with-nothing-selected,
+        // while the `-` decline correctly took 2 (measured 2026-08-26).
+        if ($elseHandler !== '') DecisionQueueController::AddDecision(intval($player), "CUSTOM", $elseHandler, 1, dontSkipOnPass: 1);
         return;
     }
     foreach ($selected as $mz) {

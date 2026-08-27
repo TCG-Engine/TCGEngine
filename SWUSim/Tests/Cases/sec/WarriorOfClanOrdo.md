@@ -125,3 +125,37 @@ P2BASEDMG:3
 P1BASEDMG:2
 P1HANDCOUNT:0
 P1NODECISION
+
+---
+
+# ConfirmingNothing_StillTakes2ToYourOwnBase
+#// ⚠ REGRESSION GUARD, live bug 2026-08-26 — and a TWO-LEVEL one.
+#//
+#// There are two ways to not disclose. `-` (Decline_2ToOwnBase above) correctly took 2. Confirming the
+#// disclose popup with NOTHING selected submits the literal "PASS", which goes STICKY and makes
+#// ExecuteStaticMethods skip every following CUSTOM that is not flagged DontSkipOnPass. Measured: this
+#// board took ZERO to its own base — the player opted into the penalty and the engine waived it.
+#//
+#// The trap has two levels, and fixing only the first leaves it broken:
+#//   1. the MZMULTICHOOSE's own continuation (DISCLOSE_RESOLVE) was skipped, so nothing resolved at all;
+#//   2. even once that ran, it QUEUES the "if you don't" handler as a fresh CUSTOM — while $lastDecision
+#//      is still "PASS", because that is exactly what "you didn't disclose" looks like — so the penalty
+#//      was skipped in turn. Both AddDecisions now carry the flag.
+#//
+#// This section is the byte-for-byte twin of Decline_2ToOwnBase. The pair is the point: the two declines
+#// must stay indistinguishable in outcome, and if they ever diverge again one of them goes red.
+
+## GIVEN
+CommonSetup: rrw/grw/{myResources:1}
+P1OnlyActions: true
+WithP1GroundArena: SEC_164:1:0
+WithP1Hand: SEC_133
+
+## WHEN
+- P1>AttackGroundArena:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:2
+P1NODECISION

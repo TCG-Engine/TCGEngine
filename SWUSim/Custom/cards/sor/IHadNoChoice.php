@@ -90,8 +90,6 @@ $whenPlayedAbilities["SOR_187:0"] = function($player, $mzID = '') {
             $playerID = intval($player);
             $units = SWUAllUnits(null, null, NonLeaderUnitFilter);
             if (empty($units)) return;   // no non-leader unit → fizzle
-            DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|2|" . implode("&", $units), 1,
-                tooltip:"Choose_up_to_2_non-leader_units");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_187#0", 1);
+            SWUQueueMultiChoose($player, 0, 2, $units, "Choose_up_to_2_non-leader_units", "SOR_187#0");
             return;
 };

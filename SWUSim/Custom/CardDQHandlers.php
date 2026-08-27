@@ -3314,3 +3314,40 @@ $customDQHandlers["RESOURCE_DEFEAT_PICK"] = function ($player, $parts, $lastDeci
   global $playerID; $playerID = intval($player);
   SWUDefeatResourcesByMzIDs(intval($player), explode('&', $lastDecision));
 };
+
+// ── Staged friendly-resource defeat — _SWUQueueFriendlyResourceDefeatStage's continuation ───────
+// Applies this board's picks, then moves on to the NEXT seat with whatever debt is left. The pool for
+// each stage is rebuilt when that stage is queued, never up front, so an earlier board's defeats cannot
+// leave a stale index behind.
+$customDQHandlers["RESOURCE_DEFEAT_STAGE"] = function ($player, $parts, $lastDecision) {
+  global $playerID; $playerID = intval($player);
+  $seats     = array_values(array_filter(array_map('intval', explode(',', (string)($parts[0] ?? '')))));
+  $idx       = intval($parts[1] ?? 0);
+  $remaining = intval($parts[2] ?? 0);
+  $label     = (string)($parts[3] ?? '');
+  // A TEAMMATE's board was offered as staged TempZone copies, so translate each pick back to the real
+  // p{owner}Resources slot through the positional map that rode the param. Absent map = your own board,
+  // which was offered inline and needs no translation.
+  $owner  = intval($parts[4] ?? 0);
+  $resMap = ($parts[5] ?? '') === '' ? [] : array_map('intval', explode(',', (string)$parts[5]));
+  $picked = [];
+  if (!SWUDecisionDeclined($lastDecision) && $lastDecision !== '') {
+    foreach (explode('&', $lastDecision) as $mz) {
+      if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
+      if (!empty($resMap) && preg_match('/^myTempZone-(\d+)$/', $mz, $m)) {
+        $k = intval($m[1]);
+        if (!isset($resMap[$k])) continue;
+        $picked[] = "p{$owner}Resources-{$resMap[$k]}";
+        continue;
+      }
+      $picked[] = $mz;
+    }
+  }
+  if (!empty($resMap)) {   // the staged copies are spent either way — never leave them for the next prompt
+    $temp = &GetTempZone(intval($player));
+    while (count($temp) > 0) array_pop($temp);
+    unset($temp);
+  }
+  if (!empty($picked)) SWUDefeatResourcesByMzIDs(intval($player), $picked);
+  _SWUQueueFriendlyResourceDefeatStage(intval($player), $seats, $idx, $remaining - count($picked), $label);
+};

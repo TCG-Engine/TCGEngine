@@ -71,8 +71,6 @@ $whenPlayedAbilities["TWI_089:0"] = function($player, $mzID = '') {
             $friendly = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter));
             if (empty($friendly)) return;
             $max = count($friendly);
-            DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|{$max}|" . implode('&', $friendly), 1,
-                tooltip:"Choose_any_number_of_friendly_units");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "TWI_089#0", 1);
+            SWUQueueMultiChoose($player, 0, $max, $friendly, "Choose_any_number_of_friendly_units", "TWI_089#0");
             return;
 };

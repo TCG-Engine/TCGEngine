@@ -10,6 +10,11 @@
 #//           pair PrintedSmuggleWinsWhenItIsCheaper vs GrantWinsWhenItIsCheaperThanPrintedSmuggle
 #//           reqboundary=TechSmugglesHimselfIn_ThenTheGrantIsLive (the grant is re-derived from live board
 #//           state on a SECOND action, after Tech's own play already ended)
+#//           seatcount=TeamSuns_TheTEAMMATES_Tech_TurnsYourResourcesOn (an ally's Tech reaches you) with
+#//           BOTH negatives — TwinSunsControl_ATeammateSeatsTechDoesNotReachYou (no team, no reach) and
+#//           TeamSuns_AnOPPONENTS_Tech_StillDoesNotReachYou (team ≠ table). Mutation-verified 2026-08-26
+#//           in both directions: narrowing PlayerHasTechInPlay to your own seat reds only the positive,
+#//           widening it to every live seat reds only the two negatives.
 #// SHD_248 Tech — "Each friendly resource gains Smuggle. The gained Smuggle cost is that card's cost plus
 #// 2 resources and its aspect icons." A plain card with NO printed Smuggle (SOR_046, cost 4, Vigilance/
 #// Heroism — both covered) can be played from resources via the granted Smuggle for 4 + 2 = 6. It enters
@@ -257,3 +262,95 @@ WithP1Deck: SOR_095
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
 
+
+---
+
+# TeamSuns_TheTEAMMATES_Tech_TurnsYourResourcesOn
+#// ⚠ USER RULING (friendly = the TEAM). Tech reads "each FRIENDLY resource gains Smuggle", so in Team Suns
+#// your ally's Tech turns YOUR resources on. Seat 1 owns no Tech at all here — the only copy on the table
+#// belongs to the seat-3 teammate — so the smuggle play below is impossible unless the grant crosses the
+#// team. Same board and same numbers as Tech_GrantsSmuggleToPlainCard (SOR_046 for 4 + 2 = 6); only the
+#// Tech's SEAT moved.
+
+## GIVEN
+CommonSetup: bbw/grw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP3GroundArena: SHD_248:1:0
+WithP1Resources: 1:SOR_046:0,6:SOR_095:1
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>SmuggleResource:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1RESCOUNT:7
+P1RESAVAILABLE:0
+
+---
+
+# TwinSunsControl_ATeammateSeatsTechDoesNotReachYou
+#// THE CONTROL — byte-identical board with WithTeams removed. In a free-for-all Twin Suns game seat 3 is
+#// an opponent, its Tech is not friendly, and seat 1 has no Smuggle path at all: the play is REJECTED
+#// outright, nothing enters the arena, and not one resource is spent.
+#// Without this pair the section above would pass for a build that simply granted Smuggle to everybody.
+
+## GIVEN
+CommonSetup: bbw/grw
+SkipPreGame: true
+P1OnlyActions: true
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP3GroundArena: SHD_248:1:0
+WithP1Resources: 1:SOR_046:0,6:SOR_095:1
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>SmuggleResource:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:0
+P1RESCOUNT:7
+P1RESAVAILABLE:6
+P1NODECISION
+
+---
+
+# TeamSuns_AnOPPONENTS_Tech_StillDoesNotReachYou
+#// ⚠ THE NEGATIVE THAT KEEPS "FRIENDLY" MEANING FRIENDLY. Same Team Suns game, but the only Tech belongs
+#// to seat 2 — an OPPONENT, not the ally. Widening the grant to the team must not widen it to the table,
+#// so seat 1 still has no Smuggle path and the play is rejected exactly as in the control above.
+#//
+#// This is the section that discriminates a team lookup from a live-seats lookup: a build that scanned
+#// every seat's ground arena would pass both this file's positive sections and fail only here.
+
+## GIVEN
+CommonSetup: bbw/grw
+SkipPreGame: true
+P1OnlyActions: true
+WithTeams: true
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP2GroundArena: SHD_248:1:0
+WithP1Resources: 1:SOR_046:0,6:SOR_095:1
+WithP1Deck: SOR_095
+
+## WHEN
+- P1>SmuggleResource:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:0
+P1RESCOUNT:7
+P1RESAVAILABLE:6
+P1NODECISION

@@ -63,13 +63,24 @@ function GetSmuggleAspects(string $cardID): array {
     return $smuggleAspectsData[$cardID] ?? [];
 }
 
-// Returns true if the player controls SHD_248 (Tech) in their ground arena.
+// Returns true if a FRIENDLY SHD_248 (Tech) is in a ground arena — the player's own, or, in Team Suns, a
+// TEAMMATE's. Tech reads "each FRIENDLY resource gains Smuggle", and friendly spans the team, so your
+// ally's Tech turns your resources on. SWUTeammatesOf returns an empty list outside a team game, which
+// leaves Premier and Twin Suns byte-identical.
+//
+// ⚠ ONE function answers TWO questions, deliberately: whether a resource HAS the granted keyword
+// (HasConditionalKeyword_Smuggle / ResourceHasSmuggle) and whether the Tech COST PATH is open to the
+// player paying (GetEffectiveSmuggleCost). Splitting them is how an offer and its resolution drift apart.
 function PlayerHasTechInPlay(int $player): bool {
-    $ground = &GetGroundArena($player);
-    for ($i = 0; $i < count($ground); $i++) {
-        $obj = $ground[$i];
-        if (isset($obj->removed) && $obj->removed) continue;
-        if (($obj->CardID ?? '') === 'SHD_248' && intval($obj->Controller ?? $player) === $player) return true;
+    foreach (array_merge([intval($player)], SWUTeammatesOf(intval($player))) as $seat) {
+        $seat   = intval($seat);
+        $ground = &GetGroundArena($seat);
+        for ($i = 0; $i < count($ground); $i++) {
+            $obj = $ground[$i];
+            if (isset($obj->removed) && $obj->removed) continue;
+            if (($obj->CardID ?? '') === 'SHD_248' && intval($obj->Controller ?? $seat) === $seat) { unset($ground); return true; }
+        }
+        unset($ground);
     }
     return false;
 }

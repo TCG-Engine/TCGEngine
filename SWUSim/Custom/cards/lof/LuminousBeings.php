@@ -53,8 +53,7 @@ $whenPlayedAbilities["LOF_104:0"] = function($player, $mzID = '') {
             }
             if (empty($force)) return;
             $max = min(3, count($force));
-            DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|{$max}|" . implode('&', $force), 1,
-                tooltip: "Choose_up_to_3_Force_units_from_your_discard");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_104#0", 1);
+            SWUQueueMultiChoose($player, 0, $max, $force,
+                "Choose_up_to_3_Force_units_from_your_discard", "LOF_104#0");
             return;
 };
