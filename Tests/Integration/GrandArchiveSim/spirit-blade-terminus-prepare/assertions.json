@@ -1,1 +1,28 @@
-[]
+[
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "myGraveyard-5",
+        "property": "CardID",
+        "value": "55d7vo62fc"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "theirField-1",
+        "property": "Damage",
+        "value": "18"
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]

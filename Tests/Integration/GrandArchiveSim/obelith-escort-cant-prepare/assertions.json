@@ -1,1 +1,27 @@
-[]
+[
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "theirField-4",
+        "property": "CardID",
+        "value": "fdnlbJm3hr"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "theirGraveyard-1",
+        "property": "CardID",
+        "value": "3uqgjoBQ9G"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "value": 3
+    },
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    }
+]
