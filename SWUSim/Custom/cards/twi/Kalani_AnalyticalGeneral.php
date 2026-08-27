@@ -21,7 +21,7 @@ $onAttackAbilities["TWI_085:0"] = function($player, $mzID) {
     $max = min(HasInitiative(intval($player)) ? 2 : 1, count($others));
     DecisionQueueController::AddDecision(intval($player), 'MZMULTICHOOSE',
         "0|{$max}|" . implode('&', $others), 1, tooltip: 'Give_each_chosen_other_unit_+2/+2_this_phase');
-    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_085#0', 1);
+    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_085#0', 1, dontSkipOnPass: 1);
     // Combat owns the after-action.
 };
 

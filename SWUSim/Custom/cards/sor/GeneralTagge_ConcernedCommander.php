@@ -17,7 +17,7 @@ $whenPlayedAbilities["SOR_080:0"] = function($player, $mzID) {
     if (empty($targets)) return;
     $targetStr = implode("&", $targets);
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|3|" . $targetStr, 1, tooltip:"Give_Experience_to_up_to_3_Trooper_units");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_080#0", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_080#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["SOR_080#0"] = function($player, $parts, $lastDecision) {
@@ -42,7 +42,7 @@ $whenPlayedAbilities["SHD_081:0"] = function($player, $mzID) {
     if (empty($specs)) return;
     $max = min(3, count($specs));
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode("&", $specs), 1, tooltip:"Give_Experience_to_up_to_3_Trooper_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_081#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_081#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["SHD_081#0"] = function($player, $parts, $lastDecision) {

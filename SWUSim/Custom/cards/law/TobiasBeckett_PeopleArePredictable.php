@@ -74,7 +74,7 @@ $whenPlayedAbilities["LAW_002:0"] = function($player, $mzID) {
     if (empty($targets)) return;
     $max = count($targets);
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|{$max}|" . implode('&', $targets), 1, tooltip: "Defeat_any_number_of_units_you_own_but_don't_control");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_002#1", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_002#1", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["LAW_002#1"] = function($player, $parts, $lastDecision) {

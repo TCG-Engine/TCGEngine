@@ -15,7 +15,7 @@ $onAttackAbilities["SEC_219:0"] = function($player, $mzID) {
     $selfUID = SWUObjUID($self, 0);
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE",
         "0|" . count($hand) . "|" . implode('&', $hand), 1, tooltip: "Disclose_Heroism_and-or_Villainy");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_219#0|{$selfUID}", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_219#0|{$selfUID}", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["SEC_219#0"] = function($player, $parts, $lastDecision) {

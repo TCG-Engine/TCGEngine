@@ -15,7 +15,7 @@ $whenPlayedAbilities["IBH_104:0"] = function($player, $mzID = '') {
     if (empty($targets)) return;
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|2|" . implode("&", $targets), 1,
         tooltip:"Defeat_up_to_2_enemy_units_that_cost_3_or_less");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "IBH_104#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "IBH_104#0", 1, dontSkipOnPass: 1);
 };
 
 // IBH_104 The Desolation of Hoth — defeat each selected enemy unit. Resolve UIDs first (defeating

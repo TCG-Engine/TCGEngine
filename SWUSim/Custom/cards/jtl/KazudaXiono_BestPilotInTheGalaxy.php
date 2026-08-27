@@ -25,7 +25,7 @@ $onAttackAbilities["JTL_018:0"] = function($player, $mzID) {
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
         "0|" . count($targets) . "|" . implode("&", $targets), 1,
         tooltip: "Choose_friendly_units_to_lose_all_abilities_this_round");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_018#1", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_018#1", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["JTL_018#1"] = function($player, $parts, $lastDecision) {
@@ -62,6 +62,6 @@ $whenPlayedAbilities["JTL_244:0"] = function($player, $mzID = '') {
             ));
             if (empty($units)) return;
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|3|" . implode("&", $units), 1, "Choose_up_to_3_units_to_lose_abilities");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_244#0", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_244#0", 1, dontSkipOnPass: 1);
             return;
 };

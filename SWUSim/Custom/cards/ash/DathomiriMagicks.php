@@ -36,5 +36,5 @@ $whenPlayedAbilities["ASH_104:0"] = function($player, $mzID = '') {
     $max = min(3, count($tg));
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tg), 1,
         tooltip: "Play_up_to_3_non-Vehicle_units_(cost_2_or_less)_from_discard_for_free");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_104#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_104#0", 1, dontSkipOnPass: 1);
 };

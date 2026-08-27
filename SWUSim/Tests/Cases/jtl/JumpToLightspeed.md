@@ -365,3 +365,35 @@ P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1RESAVAILABLE:0
 P1HANDCOUNT:0
+
+---
+
+# ReturnNoneOfTheUpgrades_ByConfirmingEmpty
+#// ⚠ REGRESSION GUARD, live bug 2026-08-27 — the PASS twin of ReturnNoneOfTheUpgrades.
+#// There are TWO ways to choose nothing on a multi-select. `-` declines; CONFIRMING THE PICKER WITH
+#// NOTHING SELECTED submits the literal "PASS", which goes sticky and makes ExecuteStaticMethods skip
+#// every following CUSTOM that is not flagged DontSkipOnPass. Every decline test in this repo answered
+#// `-`, so the whole class was invisible. This section is the byte-for-byte twin of ReturnNoneOfTheUpgrades: the pair is
+#// the point, and if the two declines ever diverge again one of them goes red.
+#//
+#// JTL_232#1 is not an applier — it drains the staging zone, BOUNCES THE UNIT and arms the free-play
+#// rider. Measured before the fix: the event was spent, SOR_237 stayed in the space arena and NOTHING
+#// reached hand. Returning zero upgrades is the common case, so this was the likely path, not the exotic one.
+
+## GIVEN
+CommonSetup: gyw/bbk/{myLeader:JTL_016;myBase:JTL_022;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_232
+WithP1Resources: 2
+WithP1SpaceArena: SOR_237:1:0
+WithP1SpaceArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1HANDCOUNT:1
+P1DISCARDCOUNT:2

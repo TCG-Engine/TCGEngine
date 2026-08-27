@@ -8,7 +8,7 @@ $whenPlayedAbilities["TS26_53:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|2|myBase-0&theirBase-0", 1,
         tooltip: "Heal_2_from_each_of_any_number_of_bases");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_53#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_53#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["TS26_53#0"] = function($player, $parts, $lastDecision) {

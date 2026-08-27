@@ -24,7 +24,7 @@ $whenPlayedAbilities["TWI_086:0"] = function($player, $mzID) {
     $max = min(3, count($specs));
     DecisionQueueController::AddDecision(intval($player), 'MZMULTICHOOSE',
         "0|{$max}|" . implode('&', $specs), 1, tooltip: 'Return_up_to_3_units_defeated_this_phase_to_hand');
-    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_086#0', 1);
+    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_086#0', 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["TWI_086#0"] = function($player, $parts, $lastDecision) {

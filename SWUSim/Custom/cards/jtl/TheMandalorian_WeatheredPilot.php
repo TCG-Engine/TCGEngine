@@ -13,7 +13,7 @@ $whenPlayedAbilities["JTL_210:0"] = function($player, $mzID) {
     }
     if (empty($ground)) return;
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|2|" . implode("&", $ground), 1, "Exhaust_up_to_2_ground_units");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_210#0", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_210#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["JTL_210#0"] = function($player, $parts, $lastDecision) {

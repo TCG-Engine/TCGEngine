@@ -10,7 +10,7 @@ $whenPlayedAbilities["LAW_183:0"] = function($player, $mzID) {
     if (empty($space)) return;
     $k = min(2, count($space));
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$k}|" . implode("&", $space), 1, tooltip: "Deal_1_to_each_of_up_to_{$k}_space_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_183#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_183#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["LAW_183#0"] = function($player, $parts, $lastDecision) {

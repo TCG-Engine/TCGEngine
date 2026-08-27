@@ -40,6 +40,6 @@ $whenPlayedAbilities["JTL_233:0"] = function($player, $mzID = '') {
             if (empty($targets)) return;
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
                 "0|2|" . implode("&", $targets), 1, tooltip: "Return_up_to_2_same-arena_units_(combined_cost_3_or_less)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_233#0", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_233#0", 1, dontSkipOnPass: 1);
             return;
 };

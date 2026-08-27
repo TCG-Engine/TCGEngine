@@ -89,3 +89,35 @@ P2GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_054
 P2HANDCOUNT:1
 P2GROUNDARENAUNIT:0:DAMAGE:6
 P1NODECISION
+
+---
+
+# ReturnZeroUpgrades_ByConfirmingEmpty
+#// ⚠ REGRESSION GUARD, live bug 2026-08-27 — the PASS twin of ReturnZeroUpgrades_AnyNumberIncludesNone.
+#// There are TWO ways to choose nothing on a multi-select. `-` declines; CONFIRMING THE PICKER WITH
+#// NOTHING SELECTED submits the literal "PASS", which goes sticky and makes ExecuteStaticMethods skip
+#// every following CUSTOM that is not flagged DontSkipOnPass. Every decline test in this repo answered
+#// `-`, so the whole class was invisible. This section is the byte-for-byte twin of ReturnZeroUpgrades_AnyNumberIncludesNone: the pair is
+#// the point, and if the two declines ever diverge again one of them goes red.
+#//
+#// LOF_205#1 also DRAINS the TempZone staging, so a skipped continuation leaks the staged upgrade copies
+#// into the player's TempZone. P1TEMPZONECOUNT is the assertion that catches it — the visible board state
+#// is identical either way, which is why this one needs the staging count and not just the upgrades.
+
+## GIVEN
+CommonSetup: yyw/ggk/{myResources:1;handCardIds:LOF_205}
+P1OnlyActions: true
+WithP1GroundArena: LOF_050:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_054
+WithP2GroundArenaUpgrade: 0:SOR_069
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:PASS
+## EXPECT
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P2HANDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:6
+P1TEMPZONECOUNT:0
+P1NODECISION

@@ -9,7 +9,7 @@ $whenPlayedAbilities["SEC_155:0"] = function($player, $mzID) {
     $ground = SWUAllUnits(null, GroundArena);
     if (empty($ground)) return;
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|3|" . implode('&', $ground), 1, tooltip: "Deal_2_to_each_of_up_to_3_ground_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_155#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_155#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["SEC_155#0"] = function($player, $parts, $lastDecision) {

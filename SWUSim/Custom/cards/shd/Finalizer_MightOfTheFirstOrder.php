@@ -22,7 +22,7 @@ $whenPlayedAbilities["SHD_092:0"] = function($player, $mzID) {
     if (empty($captors)) return;
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE",
         "0|" . count($captors) . "|" . implode('&', $captors), 1, tooltip: "Choose_any_number_of_friendly_units_to_capture_with");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_092#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_092#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["SHD_092#0"] = function($player, $parts, $lastDecision) {

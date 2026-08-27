@@ -15,7 +15,7 @@ $whenPlayedAbilities["SEC_084:0"] = function($player, $mzID) {
     }
     if (empty($officials)) return;
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|2|" . implode('&', $officials), 1, tooltip: "Give_Experience_to_up_to_2_other_Official_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_084#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_084#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["SEC_084#0"] = function($player, $parts, $lastDecision) {

@@ -32,7 +32,7 @@ $onAttackAbilities["LAW_011:0"] = function($player, $mzID) {
     if (empty($hand)) return;
     $max = count($hand);
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|{$max}|" . implode('&', $hand), 1, tooltip: "Discard_any_number_of_cards_from_your_hand");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_011#1", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_011#1", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["LAW_011#1"] = function($player, $parts, $lastDecision) {

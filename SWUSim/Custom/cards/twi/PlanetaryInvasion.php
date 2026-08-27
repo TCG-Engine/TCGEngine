@@ -35,6 +35,6 @@ $whenPlayedAbilities["TWI_178:0"] = function($player, $mzID = '') {
             $max = min(3, count($specs));
             DecisionQueueController::AddDecision(intval($player), 'MZMULTICHOOSE',
                 "0|{$max}|" . implode('&', $specs), 1, tooltip: 'Ready_up_to_3_units_(+1/+0_and_Overwhelm_this_phase)');
-            DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_178#0', 1);
+            DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_178#0', 1, dontSkipOnPass: 1);
             return;
 };

@@ -21,5 +21,5 @@ $whenPlayedAbilities["TS26_60:0"] = function($player, $mzID = '') {
     $max = min(3, count($tg));
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tg), 1,
         tooltip: "Give_Experience_to_up_to_3_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_60#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_60#0", 1, dontSkipOnPass: 1);
 };

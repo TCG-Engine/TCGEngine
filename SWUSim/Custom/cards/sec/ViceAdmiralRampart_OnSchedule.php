@@ -25,7 +25,7 @@ $customDQHandlers["SEC_085#0"] = function($player, $parts, $lastDecision) {
     if (empty($others)) return;
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE",
         "0|2|" . implode('&', $others), 1, tooltip: "Give_an_Experience_token_to_up_to_2_other_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_085#1", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_085#1", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["SEC_085#1"] = function($player, $parts, $lastDecision) {

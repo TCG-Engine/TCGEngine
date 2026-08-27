@@ -53,14 +53,13 @@ $customDQHandlers["JTL_232#0"] = function ($player, $parts, $lastDecision) use (
   $tempMZs = [];
   for ($k = 0; $k < count($realCids); $k++)
     $tempMZs[] = "myTempZone-" . $k;
-  DecisionQueueController::AddDecision(
-    $player,
-    "MZMULTICHOOSE",
-    "0|" . count($realCids) . "|" . implode("&", $tempMZs),
-    1,
-    tooltip: "Return_any_number_of_upgrades_to_hand"
-  );
-  DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_232#1|" . $unitMz . "|" . $returnedCardID, 1);
+  // ⚠ #1 is NOT an applier — it drains the staging zone, BOUNCES THE UNIT, and arms the free-play rider.
+  // Returning zero upgrades is the common case, and confirming with nothing selected submits "PASS",
+  // which went sticky and skipped this CUSTOM: the event was spent, the unit stayed in play and nothing
+  // reached hand (measured 2026-08-27). SWUQueueMultiChoose derives DontSkipOnPass from min<=0.
+  SWUQueueMultiChoose($player, 0, count($realCids), $tempMZs,
+    "Return_any_number_of_upgrades_to_hand",
+    "JTL_232#1|" . $unitMz . "|" . $returnedCardID);
 };
 
 // #1 — $lastDecision = the chosen myTempZone-N picks (&-delimited; '-'/'' = none). Return the selected

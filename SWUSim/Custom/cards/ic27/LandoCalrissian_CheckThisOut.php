@@ -23,7 +23,7 @@ function Ic27167OfferResourcing(int $player): void {
     $max = min(3, count($hand));
     DecisionQueueController::AddDecision($player, 'MZMULTICHOOSE',
         "0|{$max}|" . implode('&', $hand), 1, tooltip: "Resource_up_to_3_cards_from_your_hand");
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'IC27_167#1', 1);
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'IC27_167#1', 1, dontSkipOnPass: 1);
     // $playerID intentionally left = $player: MZCountChoices resolves the relative mzIDs after return.
 }
 

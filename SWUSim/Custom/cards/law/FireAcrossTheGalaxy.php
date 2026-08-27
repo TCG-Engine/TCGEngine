@@ -46,6 +46,6 @@ $whenPlayedAbilities["LAW_256:0"] = function($player, $mzID = '') {
             DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE",
                 "0|{$max}|" . implode('&', $targets), 1,
                 tooltip: "Use_any_number_of_friendly_Spectre_When_Played_abilities");
-            DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_256#0", 1);
+            DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_256#0", 1, dontSkipOnPass: 1);
             return;
 };

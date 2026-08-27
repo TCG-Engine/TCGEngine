@@ -28,6 +28,6 @@ $whenPlayedAbilities["LOF_241:0"] = function($player, $mzID = '') {
             $max = min(3, count($hidden));
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|{$max}|" . implode('&', $hidden), 1,
                 tooltip: "Give_an_Experience_token_to_each_of_up_to_3_Hidden_units");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_241#0", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_241#0", 1, dontSkipOnPass: 1);
             return;
 };

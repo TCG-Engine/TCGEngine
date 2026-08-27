@@ -34,6 +34,6 @@ $whenPlayedAbilities["SOR_245:0"] = function($player, $mzID = '') {
             }
             if (empty($targets)) return;  // no eligible Rebel attacker → fizzle
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|3|" . implode("&", $targets), 1, tooltip:"Give_Experience_to_up_to_3_Rebel_units_that_attacked_this_phase");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_245#0", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_245#0", 1, dontSkipOnPass: 1);
             return;
 };

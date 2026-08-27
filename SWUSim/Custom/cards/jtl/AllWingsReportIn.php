@@ -35,6 +35,6 @@ $whenPlayedAbilities["JTL_122:0"] = function($player, $mzID = '') {
             $max = min(2, count($targets));
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
                 "0|" . $max . "|" . implode("&", $targets), 1, tooltip: "Exhaust_up_to_2_friendly_space_units");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_122#0", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_122#0", 1, dontSkipOnPass: 1);
             return;
 };

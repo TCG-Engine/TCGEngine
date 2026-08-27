@@ -27,5 +27,5 @@ $whenPlayedAbilities["TS26_82:0"] = function($player, $mzID = '') {
     $max = count($tg);
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tg), 1,
         tooltip: "Exhaust_any_number_of_non-unique_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_82#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_82#0", 1, dontSkipOnPass: 1);
 };

@@ -15,8 +15,13 @@ $whenPlayedAbilities["SEC_169:0"] = function($player, $mzID) {
         if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID) $ground[] = $mz;
     }
     if (empty($ground)) { SWUDealDamageToBase(2, intval($player)); return; }   // nothing to hit → self-base penalty
-    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|4|" . implode('&', $ground), 1, tooltip: "Deal_1_to_each_of_up_to_4_other_ground_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_169#0|" . intval($player), 1);
+    // ⚠ The continuation carries the PENALTY ("if no friendly units were damaged, deal 2 to your base"),
+    // so declining is an ANSWER, not a no-op — picking zero units is exactly the case that owes 2 to your
+    // own base. Confirming the picker with nothing selected submits "PASS", which went sticky and skipped
+    // this CUSTOM, waiving the penalty entirely (measured 2026-08-27; the '-' decline took its 2 correctly).
+    // Same two-decline trap as SEC_164 Warrior of Clan Ordo. SWUQueueMultiChoose derives the flag.
+    SWUQueueMultiChoose(intval($player), 0, 4, $ground,
+        "Deal_1_to_each_of_up_to_4_other_ground_units", "SEC_169#0|" . intval($player));
 };
 
 $customDQHandlers["SEC_169#0"] = function($player, $parts, $lastDecision) {

@@ -18,7 +18,7 @@ $whenPlayedAbilities["ASH_205:0"] = function($player, $mzID) {
     $max = min(3, count($targets));
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode('&', $targets), 1,
         tooltip: "Give_an_Advantage_token_to_up_to_3_exhausted_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_205#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_205#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["ASH_205#0"] = function($player, $parts, $lastDecision) {

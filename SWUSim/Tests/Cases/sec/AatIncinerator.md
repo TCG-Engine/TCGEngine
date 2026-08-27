@@ -143,3 +143,31 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SEC_169
 P2GROUNDARENACOUNT:0
 P1DISCARDCOUNT:1
+
+---
+
+# ChooseNothing_ByConfirmingEmpty_SelfBase
+#// ⚠ REGRESSION GUARD, live bug 2026-08-27 — the PASS twin of ChooseNothing_SelfBase.
+#// There are TWO ways to choose nothing on a multi-select. `-` declines; CONFIRMING THE PICKER WITH
+#// NOTHING SELECTED submits the literal "PASS", which goes sticky and makes ExecuteStaticMethods skip
+#// every following CUSTOM that is not flagged DontSkipOnPass. Every decline test in this repo answered
+#// `-`, so the whole class was invisible. This section is the byte-for-byte twin of ChooseNothing_SelfBase: the pair is
+#// the point, and if the two declines ever diverge again one of them goes red.
+#//
+#// Measured before the fix: this board took ZERO to its own base while the `-` twin correctly took 2 —
+#// the player opted into the penalty and the engine waived it. Same shape as SEC_164 Warrior of Clan Ordo.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:5}
+P1OnlyActions: true
+WithP2GroundArena: SOR_164:1:0
+WithP1Hand: SEC_169
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1BASEDMG:2
+P1NODECISION

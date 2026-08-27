@@ -1181,7 +1181,7 @@ function _SWUModalResolveMode(int $player, string $cardID, string $label): void
           1,
           tooltip: "Exhaust_up_to_2_units"
         );
-        DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_203#0", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_203#0", 1, dontSkipOnPass: 1);
         return;
       }
       case 'Discard':                               // an opponent discards a random card
@@ -2128,7 +2128,7 @@ function _SWUAsh032CheckObserve($obj): void
     1,
     tooltip: "Deal_1_damage_to_any_number_of_bases"
   );
-  DecisionQueueController::AddDecision($ctrl, "CUSTOM", "ASH_032#0", 1);
+  DecisionQueueController::AddDecision($ctrl, "CUSTOM", "ASH_032#0", 1, dontSkipOnPass: 1);
 }// SEC_002 Jabba the Hutt (deployed) observer. $obj = the damaged-and-surviving unit; $amount = the
 // damage just dealt. Fires for $obj's controller if they control a deployed SEC_002 (another unit),
 // once each round; offers $obj dealing $amount to an enemy unit.

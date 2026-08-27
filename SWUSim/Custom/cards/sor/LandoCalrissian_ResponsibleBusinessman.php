@@ -15,7 +15,7 @@ $whenPlayedAbilities["SOR_197:0"] = function($player, $mzID) {
     $targetStr = implode('&', $resources);
     DecisionQueueController::AddDecision(intval($player), 'MZMULTICHOOSE', "0|2|{$targetStr}", 1,
         'Return_up_to_2_friendly_resources_to_hand');
-    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'SOR_197#0', 1);
+    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'SOR_197#0', 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["SOR_197#0"] = function($player, $parts, $lastDecision) {

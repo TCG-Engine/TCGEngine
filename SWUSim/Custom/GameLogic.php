@@ -1030,6 +1030,9 @@ $turnEffectRegistry = [
     'SOR_138' => ['kind' => 'LOSE_ABILITIES',                        'label' => 'Loses all abilities'],                       // Force Lightning — chosen unit loses all abilities this phase
     'SOR_140' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // SpecForce Soldier — a unit loses Sentinel this phase
     'HMW_221' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // Teeka — mode 2: a unit loses Sentinel this phase. ⚠ The row is what makes it EXPIRE: SWUExpireTurnEffects skips any token whose base is unregistered, so a bare-CardID suppressor with no row here is PERMANENT.
+    'JTL_077' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SABOTEUR', 'label' => 'Loses Saboteur'],                          // In the Heat of Battle — each unit loses Saboteur this phase (its Sentinel half is the separate JTL_077_SENTINEL row)
+    'LOF_209' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'HIDDEN',   'label' => 'Loses Hidden'],                            // Tusken Tracker — each enemy unit loses Hidden this phase
+    'SEC_185' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => '*',        'label' => 'Loses all keywords'],                      // Screeching TIE Fighter — a ground unit loses ALL keywords (and can't gain any) this phase
     'LOF_096' => ['kind' => 'GRANT_KEYWORD',       'value' => 'SENTINEL', 'label' => 'Sentinel'],                            // Obi-Wan Kenobi — gains Sentinel this phase when you play a Force unit
     'LOF_045' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RESTORE', 'amount' => 1, 'label' => 'Restore 1'],             // Yaddle — each other friendly Jedi unit gains Restore 1 this phase
     'SOR_154' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RAID', 'amount' => 2, 'label' => 'Raid 2'],                    // Rallying Cry — each friendly unit gains Raid 2 this phase
@@ -8859,10 +8862,11 @@ function LOF205BounceTrigger($player, $mzID): void {
     for ($k = 0; $k < count($cardIDs); $k++) $tempMZs[] = "myTempZone-{$k}";
     DecisionQueueController::StoreVariable("LOF205DefUID", strval(intval($defender->UniqueID ?? 0)));
     DecisionQueueController::StoreVariable("LOF205Cands", implode(",", $cardIDs));
-    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE",
-        "0|" . count($cardIDs) . "|" . implode("&", $tempMZs), 1,
-        tooltip: "Return_any_number_of_the_defender's_non-unique_upgrades");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LOF_205#1", 1);
+    // The continuation also DRAINS the TempZone staging above, so it must run even on a decline.
+    // A "PASS" answer (confirming with nothing selected) used to skip it and leave the staged upgrade
+    // copies sitting in the player's TempZone. SWUQueueMultiChoose derives the flag from min<=0.
+    SWUQueueMultiChoose(intval($player), 0, count($cardIDs), $tempMZs,
+        "Return_any_number_of_the_defender's_non-unique_upgrades", "LOF_205#1");
 }
 
 $customDQHandlers["LOF_205#1"] = function($player, $parts, $lastDecision) {
@@ -9167,7 +9171,7 @@ function Law119Trigger($player): void {
         $tempMZs[] = "myTempZone-{$i}";
     }
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$k}|" . implode("&", $tempMZs), 1, tooltip: "Put_any_number_of_the_top_2_on_the_bottom");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_119#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_119#0", 1, dontSkipOnPass: 1);
 }
 
 // LAW_141 Targeted For Removal — the attached unit's controller's opponent creates Credit tokens equal
@@ -12131,7 +12135,7 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE",
                         "0|" . min(2, count($targets)) . "|" . implode("&", $targets), 1,
                         tooltip:"Give_an_Experience_token_to_each_of_up_to_2_units");
-                    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "GIVE_EXP_EACH", 1);
+                    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "GIVE_EXP_EACH", 1, dontSkipOnPass: 1);
                     $savedPID = intval($player); // leave the collector frame for the queued MZMULTICHOOSE
                 }
                 break;
@@ -15247,11 +15251,15 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
 
     if ($exploitX > 0 && !empty($friendly)) {
         $max   = min($exploitX, count($friendly));
-        DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
-            "0|{$max}|" . implode("&", $friendly), 1,
-            tooltip:"Defeat_up_to_{$max}_units_(Exploit)");
-        DecisionQueueController::AddDecision($player, "CUSTOM",
-            "EXPLOIT_RESOLVE|{$mzID}|{$grant}|{$exploitX}", 1);
+        // ⚠ VIA THE HELPER, NOT A RAW PAIR: EXPLOIT_RESOLVE is not an applier — it calls
+        // SWUContinuePlayAfterExploit, i.e. it is what PLAYS THE CARD. Exploiting zero units is a normal
+        // choice, and confirming the picker with nothing selected submits the literal "PASS", which goes
+        // sticky and made ExecuteStaticMethods skip this CUSTOM outright — the unit was never played and
+        // the card just vanished. Measured 2026-08-27 on TWI_167; the '-' decline was fine, so every
+        // existing Exploit-decline test passed. SWUQueueMultiChoose derives DontSkipOnPass from min<=0.
+        SWUQueueMultiChoose($player, 0, $max, $friendly,
+            "Defeat_up_to_{$max}_units_(Exploit)",
+            "EXPLOIT_RESOLVE|{$mzID}|{$grant}|{$exploitX}");
         return;
     }
 

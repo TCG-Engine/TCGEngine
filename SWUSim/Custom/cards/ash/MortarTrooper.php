@@ -10,7 +10,7 @@ $unitAbilities["ASH_142"] = function($player, $mzID) {
     if (empty($tg)) { SWUAfterAction($player); return; }
     $max = min(3, count($tg));
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tg), 1, tooltip: "Deal_1_to_up_to_3_ground_units");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ASH_142#0", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ASH_142#0", 1, dontSkipOnPass: 1);
     SWUQueueAfterAction($player);
 };
 

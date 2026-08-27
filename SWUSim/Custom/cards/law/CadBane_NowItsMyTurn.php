@@ -13,7 +13,7 @@ $onAttackAbilities["LAW_032:0"] = function($player, $mzID) {
     $uid  = SWUObjUID($self, 0);
     $k = count($credits);
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$k}|" . implode("&", $credits), 1, tooltip: "Defeat_any_number_of_friendly_Credit_tokens_(1_Experience_each)");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_032#0|{$uid}", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_032#0|{$uid}", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["LAW_032#0"] = function($player, $parts, $lastDecision) {

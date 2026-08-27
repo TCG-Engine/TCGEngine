@@ -23,7 +23,7 @@ $whenPlayedAbilities["SOR_035:0"] = function($player, $mzID) {
     $max = min(4, count($vig));
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
         "0|" . $max . "|" . implode("&", $vig), 1, tooltip: "Reveal_up_to_4_Vigilance_cards");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_035#0|" . $selfUID, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_035#0|" . $selfUID, 1, dontSkipOnPass: 1);
 };
 
 // Reveal the chosen cards (they stay in hand) and give one Experience token per card to SOR_035.

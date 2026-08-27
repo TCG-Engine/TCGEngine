@@ -25,7 +25,7 @@ $onAttackAbilities["JTL_172:0"] = function($player, $mzID) {
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
         "0|" . $effectiveMax . "|" . implode("&", $targets), 0,
         tooltip:"Deal_1_damage_to_each_of_up_to_2_units_in_this_arena");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_172#0", 0);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_172#0", 0, dontSkipOnPass: 1);
 };
 
 // Deal 1 to each chosen unit (up to 2). Snapshot UIDs first so a defeat that

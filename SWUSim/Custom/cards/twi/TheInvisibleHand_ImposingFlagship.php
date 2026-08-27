@@ -30,7 +30,7 @@ $onAttackAbilities["TWI_234:0"] = function($player, $mzID) {
     DecisionQueueController::AddDecision(intval($player), 'MZMULTICHOOSE',
         '0|' . count($specs) . '|' . implode('&', $specs), 1,
         tooltip: 'Exhaust_any_number_of_friendly_Separatist_units_(1_base_damage_each)');
-    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_234#0', 1);
+    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_234#0', 1, dontSkipOnPass: 1);
     // Combat owns the after-action.
 };
 

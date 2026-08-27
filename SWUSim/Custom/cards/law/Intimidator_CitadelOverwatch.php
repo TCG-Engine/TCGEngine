@@ -13,7 +13,7 @@ $whenPlayedAbilities["LAW_140:0"] = function($player, $mzID) {
     if (empty($specs)) return;
     $k = count($specs);
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$k}|" . implode("&", $specs), 1, tooltip: "Return_any_number_of_friendly_resources_(create_a_Credit_for_each)");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_140#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_140#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["LAW_140#0"] = function($player, $parts, $lastDecision) {

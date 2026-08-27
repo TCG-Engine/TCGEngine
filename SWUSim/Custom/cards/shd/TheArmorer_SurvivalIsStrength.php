@@ -17,7 +17,7 @@ $whenPlayedAbilities["SHD_047:0"] = function($player, $mzID) {
     if (empty($specs)) return;
     $max = min(3, count($specs));
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode("&", $specs), 1, tooltip:"Give_a_Shield_to_up_to_3_Mandalorian_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_047#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_047#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["SHD_047#0"] = function($player, $parts, $lastDecision) {

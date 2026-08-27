@@ -18,7 +18,7 @@ $customDQHandlers["LOF_072#0"] = function($player, $parts, $lastDecision) {
     $max = min(5, count($targets));
     DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|{$max}|" . implode('&', $targets), 1,
         tooltip: "Give_a_Shield_token_to_each_of_up_to_5_units");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_072#1", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_072#1", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["LOF_072#1"] = function($player, $parts, $lastDecision) {

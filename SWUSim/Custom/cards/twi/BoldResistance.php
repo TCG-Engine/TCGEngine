@@ -36,6 +36,6 @@ $whenPlayedAbilities["TWI_153:0"] = function($player, $mzID = '') {
             if (empty($all)) return;
             DecisionQueueController::AddDecision(intval($player), 'MZMULTICHOOSE',
                 "0|3|" . implode('&', $all), 1, tooltip: 'Choose_up_to_3_units_sharing_a_Trait_(+2/+0_this_phase)');
-            DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_153#0', 1);
+            DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'TWI_153#0', 1, dontSkipOnPass: 1);
             return;
 };

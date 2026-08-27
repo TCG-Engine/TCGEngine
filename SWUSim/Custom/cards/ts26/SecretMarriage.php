@@ -32,5 +32,5 @@ $whenPlayedAbilities["TS26_46:0"] = function($player, $mzID = '') {
     $max = min(2, count($tg));
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|{$max}|" . implode('&', $tg), 1,
         tooltip: "Shield_up_to_2_non-Vehicle_units_(draw_if_you_shield_an_enemy)");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_46#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_46#0", 1, dontSkipOnPass: 1);
 };

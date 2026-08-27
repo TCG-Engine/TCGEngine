@@ -51,6 +51,6 @@ $whenPlayedAbilities["SOR_252:0"] = function($player, $mzID = '') {
             }
             if (empty($cards)) return;
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|4|" . implode("&", $cards), 1, "Choose_up_to_4_cards_for_deck_bottom");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_252#0", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_252#0", 1, dontSkipOnPass: 1);
             return;
 };
