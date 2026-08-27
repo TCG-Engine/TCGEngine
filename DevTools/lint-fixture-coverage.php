@@ -6,16 +6,13 @@
  * (Tests/Integration/GrandArchiveSim/<slug>/). Flags fixtures whose
  * assertions.json probably doesn't cover what the fixture claims to test.
  *
- * Why this exists: DevTools/generate-fixture-assertions.php only captures
- * Damage and zone-count changes when it auto-generates baseline assertions —
- * it never looks at Counters or TurnEffects. For a counter/status-based
- * mechanic (e.g. Static Counter, Buff Counters, Stealth, Recover), that can
- * silently produce a fixture whose assertions.json is just
- * `decision_queue_empty` — a test that passes identically whether the
- * mechanic works or is completely broken. This script is a cheap, ongoing
- * guard against that class of problem. It is a HEURISTIC: false positives
- * are expected and fine. It does not fail the build, and it is not wired
- * into any test runner — run it manually.
+ * Why this exists: generated baseline assertions capture the engine's current
+ * output. They are valuable regression tripwires, but they are not an
+ * independent statement that an ability follows its printed rules text.
+ * Hand-authored assertions may opt in with `"semantic": true`; the metadata
+ * contract documented in DevTools/GrandArchiveSimSemanticFixtureGuide.md then
+ * identifies the card, mechanic, and rule clause being proved. This remains
+ * advisory while the legacy fixture corpus is migrated.
  *
  * Usage: php DevTools/lint-fixture-coverage.php [--root=GrandArchiveSim] [--slug=xxx]
  */
@@ -176,6 +173,37 @@ function LintIsLowCoverage($assertions) {
     return false;
 }
 
+function LintSemanticAssertions($assertions) {
+    return array_values(array_filter($assertions, fn($a) => is_array($a) && !empty($a['semantic'])));
+}
+
+function LintSemanticContract($meta) {
+    $contract = is_array($meta) ? ($meta['semanticCoverage'] ?? null) : null;
+    return is_array($contract) ? $contract : null;
+}
+
+// A keyword is only a heuristic, but it can still point the reviewer toward
+// the state that normally demonstrates the mechanic. This avoids demanding a
+// Counters assertion for effects such as Recover (Damage) or Stealth (Status).
+function LintExpectedPropertiesForMechanics($mechanicHits) {
+    $properties = ['Counters', 'TurnEffects'];
+    $byMechanic = [
+        'recover' => ['Damage'],
+        'stealth' => ['Status', 'TurnEffects'],
+        'level' => ['Status', 'Counters', 'TurnEffects'],
+        'prep' => ['Counters', 'Status'],
+        'cascade' => ['TurnEffects', 'CardID'],
+        'scavenge' => ['CardID'],
+        'augury' => ['CardID'],
+        'brew' => ['CardID', 'Counters'],
+        'aura' => ['Status', 'TurnEffects'],
+    ];
+    foreach ($mechanicHits as $mechanic) {
+        foreach ($byMechanic[$mechanic] ?? [] as $property) $properties[] = $property;
+    }
+    return array_values(array_unique($properties));
+}
+
 // ---------------------------------------------------------------------
 // Main scan
 // ---------------------------------------------------------------------
@@ -206,6 +234,7 @@ foreach ($slugs as $slug) {
     $metaPath = $dir . '/meta.json';
     $meta = is_file($metaPath) ? json_decode(file_get_contents($metaPath), true) : [];
     $testedCards = (is_array($meta) && is_array($meta['testedCards'] ?? null)) ? $meta['testedCards'] : [];
+    $semanticContract = LintSemanticContract($meta);
 
     $assertions = json_decode(file_get_contents($assertionsPath), true);
     if (!is_array($assertions)) $assertions = [];
@@ -216,10 +245,11 @@ foreach ($slugs as $slug) {
     // --- Check 1: slug/testedCards imply a counter-based mechanic, but no
     //     assertion touches Counters/TurnEffects for the tested card. ---
     if (!empty($mechanicHits)) {
-        $candidateAssertions = array_values(array_filter($assertions, function ($a) {
+        $expectedProperties = LintExpectedPropertiesForMechanics($mechanicHits);
+        $candidateAssertions = array_values(array_filter($assertions, function ($a) use ($expectedProperties) {
             return is_array($a)
                 && ($a['type'] ?? '') === 'card_property_equals'
-                && in_array($a['property'] ?? '', ['Counters', 'TurnEffects'], true);
+                && in_array($a['property'] ?? '', $expectedProperties, true);
         }));
 
         $covered = false;
@@ -248,8 +278,9 @@ foreach ($slugs as $slug) {
         }
 
         if (!$covered) {
-            echo "[WARN] {$slug}: likely under-tested — mechanic implies Counters/TurnEffects change but no assertion checks it"
-                . ' (matched keywords: ' . implode(', ', $mechanicHits) . ")\n";
+            echo "[WARN] {$slug}: likely under-tested — no assertion checks a likely observable effect"
+                . ' (matched keywords: ' . implode(', ', $mechanicHits)
+                . '; expected properties: ' . implode(', ', $expectedProperties) . ")\n";
             $flaggedThisFixture = true;
         }
     }
@@ -258,6 +289,26 @@ foreach ($slugs as $slug) {
     if (LintIsLowCoverage($assertions)) {
         $nonEmptyCount = count(array_filter($assertions, fn($a) => is_array($a) && !empty($a['type'])));
         echo "[INFO] {$slug}: assertions.json has only {$nonEmptyCount} assertion(s) — cheap to eyeball, may be under-testing the fixture\n";
+        $flaggedThisFixture = true;
+    }
+
+    // --- Check 3: semantic contracts are complete and have at least one
+    // hand-authored assertion. Legacy fixtures have no contract and are
+    // reported as migration work, rather than incorrectly treated as proven.
+    $semanticAssertions = LintSemanticAssertions($assertions);
+    if ($semanticContract !== null) {
+        $contractCards = $semanticContract['testedCards'] ?? $testedCards;
+        $mechanics = $semanticContract['mechanics'] ?? [];
+        $clauses = $semanticContract['rulesClauses'] ?? [];
+        if (!is_array($contractCards) || empty($contractCards)
+            || !is_array($mechanics) || empty($mechanics)
+            || !is_array($clauses) || empty($clauses)
+            || empty($semanticAssertions)) {
+            echo "[WARN] {$slug}: semanticCoverage is incomplete — require testedCards, mechanics, rulesClauses, and a semantic assertion\n";
+            $flaggedThisFixture = true;
+        }
+    } elseif (!empty($semanticAssertions)) {
+        echo "[WARN] {$slug}: semantic assertion(s) exist but meta.json has no semanticCoverage contract\n";
         $flaggedThisFixture = true;
     }
 
