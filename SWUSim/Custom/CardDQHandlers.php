@@ -136,27 +136,34 @@ function _SWUOnPlayerDrew(int $drawingPlayer, int $count): void
     return;          // action phase only (for the JTL_111 etc. reactions below)
   global $playerID;
   $savedPID = $playerID;
-  $reactor = OtherPlayer($drawingPlayer);            // the would-be JTL_111 controller
-  $playerID = $reactor;
-  foreach (GetUnitsInPlay($reactor) as $u) {
-    if (!empty($u->removed))
-      continue;
-    if (($u->CardID ?? '') !== 'JTL_111')
-      continue;
-    $targets = array_values(array_merge(
-      ZoneSearch('myGroundArena', AnyUnitFilter),
-      ZoneSearch('mySpaceArena', AnyUnitFilter),
-      ZoneSearch('theirGroundArena', AnyUnitFilter),
-      ZoneSearch('theirSpaceArena', AnyUnitFilter)
-    ));
-    if (!empty($targets)) {
-      SWUQueueMayChooseTarget(
-        $reactor,
-        $targets,
-        "Give_an_Experience_token_to_a_unit",
-        "Choose_a_unit",
-        "GIVE_EXPERIENCE|1"
-      );
+  // ⚠ EVERY opponent of the drawing player, not OtherPlayer($drawingPlayer) — that is the two-seat
+  // hardcode (it answers 2 for seat 1 and 1 for EVERYONE else), so at four seats only one of the
+  // drawing player's opponents was ever considered and a JTL_111 on seat 3 or 4 never reacted at all.
+  // Fixed 2026-08-27; guarded by TwinSuns_AdmiralOnAFarSeatStillReacts, whose Admiral sits on SEAT 3
+  // precisely because a seat-1 Admiral gets the right answer out of the broken code.
+  // OpponentsOf() is also team-aware, so in Team Suns a teammate's draw correctly arms nobody.
+  foreach (OpponentsOf($drawingPlayer) as $reactor) {   // the would-be JTL_111 controllers
+    $playerID = $reactor;
+    foreach (GetUnitsInPlay($reactor) as $u) {
+      if (!empty($u->removed))
+        continue;
+      if (($u->CardID ?? '') !== 'JTL_111')
+        continue;
+      $targets = array_values(array_merge(
+        ZoneSearch('myGroundArena', AnyUnitFilter),
+        ZoneSearch('mySpaceArena', AnyUnitFilter),
+        ZoneSearch('theirGroundArena', AnyUnitFilter),
+        ZoneSearch('theirSpaceArena', AnyUnitFilter)
+      ));
+      if (!empty($targets)) {
+        SWUQueueMayChooseTarget(
+          $reactor,
+          $targets,
+          "Give_an_Experience_token_to_a_unit",
+          "Choose_a_unit",
+          "GIVE_EXPERIENCE|1"
+        );
+      }
     }
   }
   // SEC_159 Chairman Papanoida — "When A player draws 1+ during the action phase" (ANY player, incl.
@@ -182,6 +189,12 @@ function _SWUOnPlayerDrew(int $drawingPlayer, int $count): void
       continue;
     DoGiveShieldToken($drawingPlayer, $u->GetMzID());
   }
+  // HMW_169 Crosshair — "When an OPPONENT draws 1 or more cards during the action phase: Deal 2 damage to
+  // their base." Per draw EVENT (this hook is called once per draw with a count), and evaluated against
+  // EVERY opponent of the drawing player.
+  // ⚠ Deliberately not the `$reactor = OtherPlayer($drawingPlayer)` shape used by JTL_111 above — that is
+  // the two-seat hardcode, and at four seats it considers only one of the drawing player's opponents.
+  _SWUHmw169CheckDraw($drawingPlayer);
   $playerID = $savedPID;
 }
 
@@ -1968,6 +1981,14 @@ $customDQHandlers["HMW045_OFFER"] = function ($player, $parts, $lastDecision) {
 // fired from _SWUCollectOnUnitDamagedReactions (combat) and SWUDealDamageToUnit (ability/effect damage).
 function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $survived = true): void
 {
+  // ⚠ LOAD-BEARING, and it was missing until 2026-08-27. The SHD_084 case below pins the frame with
+  // `$shd084Saved = $playerID; $playerID = $shd084Ctrl;` — without this declaration BOTH statements
+  // touched a LOCAL, so the pin was a no-op, `GetMzID()` (which reads the GLOBAL) minted the unit's mzID
+  // in whatever frame was ambient, and `DoGiveExperienceToken` re-resolved that relative string under
+  // the unit's OWN frame. When the Dark Trooper DEFENDED, "their…-0" flipped sides and its Experience
+  // token was handed to the unit that had just hit it. Guard:
+  // shd/PhaseiiiDarkTrooper.md::DarkTrooper_DEFENDS_ExperienceGoesToTheTrooper_NotTheAttacker.
+  global $playerID;
   if ($obj === null)
     return;
   // SEC_143 The Elite Squad — "When damage is dealt to this unit: you may deal 2 to another unique unit."
@@ -2026,6 +2047,15 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
   // ASH_032 Rancor Keeper — "When a friendly unit is dealt damage and survives: deal 1 damage to any
   // number of bases. Use this ability only once each round."
   _SWUAsh032CheckObserve($obj);
+  // HMW_211 Tech, I Thought It Was Obvious — "When THIS unit is dealt damage and survives: you may
+  // exhaust a unit." A self observer, so it sits here under the $survived gate rather than above it with
+  // Logray/Cham. ⚠ It has NO "once each round" clause (unlike ASH_032 and SEC_002 just above), so every
+  // qualifying damage instance gets its own offer. See cards/hmw/Tech_IThoughtItWasObvious.php.
+  _SWUHmw211CheckObserve($obj, $amount);
+  // HMW_169 Crosshair, I've Changed — "When THIS unit is dealt damage and survives: Each player draws a
+  // card." Same self-observer shape as HMW_211 above; its SECOND clause ("when an opponent draws…") is a
+  // field observer on _SWUOnPlayerDrew, and the draws made here are what feed it.
+  _SWUHmw169CheckObserve($obj, $amount);
   // TWI_016 Jango Fett — "When a FRIENDLY unit deals damage to an ENEMY unit: ..." $obj is the damaged
   // unit (the potential enemy). For combat the source is definitionally the opposing unit, so the source
   // controller is OtherPlayer($obj->Controller). For ability/effect damage read the recorded source-unit

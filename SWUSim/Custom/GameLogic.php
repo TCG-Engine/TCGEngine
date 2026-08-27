@@ -3632,6 +3632,15 @@ function CanAffordActivationReserve($player, $obj) {
         $fodderCount = count(SWUExploitFodder($player));
         if ($fodderCount > 0) $cost = max(0, $cost - 2 * min($exploitX, $fodderCount));
     }
+    // HMW_125 The Marauder — same idea, 1 per friendly unit CHOSEN and with no printed cap ("any
+    // number"), so it is potentially affordable at cost − (friendly units in play). Without this the
+    // card sits DARK BUT CLICKABLE whenever the reduction is what makes it payable, which is exactly the
+    // reported "affordable cards in hand aren't highlighted" shape. Guarded as a PAIR:
+    // Glow_AffordableOnlyWithTheReduction / Glow_UnaffordableEvenAtMaxReduction.
+    if (($obj->CardID ?? '') === 'HMW_125') {
+        $marauderPool = count(_SWUHmw125LegalPicks(intval($player)));
+        if ($marauderPool > 0) $cost = max(0, $cost - $marauderPool);
+    }
     // Capacity, NOT a bare ready-resource count. Paying a cost routes through SWUOfferAltPayment, which
     // accepts ready resources, then Credit-token defeats (CR 3.13), then SEC_122 Droid exhausts — so a
     // card payable with a Credit was fully playable while this returned false and SelectionMetadata
@@ -12737,6 +12746,7 @@ function SWUDealSplitDamage(int $player, string $assignmentStr): void {
 function _SWUApplySplitHits(int $player, array $hits): void {
     global $playerID; $saved = $playerID; $playerID = intval($player);
     $dealtAny = false;
+    $landed   = [];   // hits that actually dealt damage — see the observer flush after the defeat sweep
     foreach ($hits as $h) {
         $mz  = SWUFindMzByUID($h['uid']);
         if ($mz === null) continue;
@@ -12757,6 +12767,10 @@ function _SWUApplySplitHits(int $player, array $hits): void {
         if ($prevented || $amount <= 0) continue;
         $obj->Damage = intval($obj->Damage) + $amount;
         SWUQueueDamageAnim($mz, $amount, intval($player));
+        // Record what was ACTUALLY dealt (post-prevention) so the "when this unit is dealt damage"
+        // observers below can be fired with the real amount. $obj is kept as a fallback witness for a
+        // unit the defeat sweep is about to remove.
+        $landed[] = ['uid' => intval($h['uid']), 'amount' => $amount, 'obj' => $obj];
         $dealtAny = true;
     }
     foreach ($hits as $h) {
@@ -12769,6 +12783,23 @@ function _SWUApplySplitHits(int $player, array $hits): void {
             // SWUDefeatUnit now collects WhenDefeated + leave-play reactions itself (single point).
             SWUDefeatUnit(intval($player), $mz, false, true); // SBA "no remaining HP" (not an ability-defeat)
         }
+    }
+    // "When damage is dealt to this unit" observers. Divided damage is a THIRD funnel alongside combat
+    // and the single-target ability path, and it had none of these — SEC_143 The Elite Squad, HMW_211
+    // Tech, SEC_002 Jabba, SHD_250 Tarfful, ASH_032 Rancor Keeper and the ASH_188 damaged-this-phase
+    // marker were all silently blind to it (fixed 2026-08-27). The indirect path carries the identical
+    // call for the identical reason; this is the JTL_177 Stay on Target shape — one trigger, several
+    // damage funnels, one funnel missed.
+    // Run AFTER the defeat sweep above so $survived is accurate: an observer WITH an "and survives"
+    // clause must stay silent for a unit this very effect just defeated, while one WITHOUT that clause
+    // (SEC_143) still fires. $amount is the post-prevention amount actually dealt, so a fully shielded
+    // share correctly triggers nothing.
+    foreach ($landed as $l) {
+        $obsMz = SWUFindMzByUID($l['uid']);
+        $obs   = ($obsMz !== null) ? GetZoneObject($obsMz) : null;
+        if ($obs === null) $obs = $l['obj'] ?? null;   // defeated: still observe, with $survived = false
+        if ($obs === null) continue;
+        _SWUOnUnitDamaged($obs, intval($l['amount']), false, $obsMz !== null && !SWUObjGone($obs));
     }
     // Divided damage is non-combat: a source that dealt any of it to a unit triggers the "when you deal
     // non-combat damage" reaction ONCE for the whole simultaneous event (JTL_009 Boba Fett). The
@@ -15408,6 +15439,27 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
     // That is a documented engine-family gap (see hmw-implement.md), not a per-card choice; when the
     // family is fixed, fix it at ONE seam for both. The play-grant globals are snapshotted into the
     // param: the caller nulls them before the queued cost resolves (e.g. LOF_076's shield grant).
+    // HMW_125 The Marauder — "While playing this unit, you may choose any number of friendly units. Deal
+    // 1 damage to each of them. For each unit chosen this way, this unit costs 1 resource less."
+    // Exploit's shape and Exploit's scope (see the HMW_048 note just below). "ANY NUMBER" means the cap
+    // is the POOL, not a printed X and not the cost — over-choosing is legal, and the cost floors at 0 in
+    // SWUContinuePlayAfterExploit.
+    // ⚠ Via SWUQueueMultiChoose, NOT a raw AddDecision pair: this continuation is what PLAYS THE CARD, and
+    // a 0-minimum picker confirmed with nothing selected submits the sticky literal "PASS". The helper
+    // derives dontSkipOnPass from min <= 0 so the card cannot vanish.
+    if (($obj->CardID ?? '') === 'HMW_125') {
+        $picks125 = _SWUHmw125LegalPicks($player);
+        if (!empty($picks125)) {
+            $snap125 = (!empty($GLOBALS['gForceEnterReady']) ? '1' : '0')
+                     . '~' . (string)($GLOBALS['gPlayGrantTurnEffect'] ?? '')
+                     . '~' . intval($GLOBALS['gPlayGrantShield'] ?? 0);
+            SWUQueueMultiChoose($player, 0, count($picks125), $picks125,
+                "Choose_any_number_of_friendly_units_to_damage_for_1_resource_less_each",
+                "HMW_125#0|{$mzID}|" . intval($discount) . "|{$snap125}|" . count($picks125));
+            return;
+        }
+    }
+
     if (($obj->CardID ?? '') === 'HMW_048') {
         $picks048 = _SWUHmw048LegalPicks($player);
         if (!empty($picks048)) {

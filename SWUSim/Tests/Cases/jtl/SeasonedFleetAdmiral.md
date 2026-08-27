@@ -157,3 +157,38 @@ WithP2Deck: [SOR_128 SOR_128 SOR_128]
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:1
+
+---
+
+# TwinSuns_AdmiralOnAFarSeatStillReacts
+#// ⚠ ENGINE BUG, fixed 2026-08-27, and CANNOT PASS AT TWO SEATS.
+#// The reaction was collected as `$reactor = OtherPlayer($drawingPlayer)` — the two-seat hardcode.
+#// OtherPlayer(n) answers 1 for every seat except seat 1, so at four seats only ONE of the drawing
+#// player's opponents was ever considered: an Admiral on seat 3 or 4 never reacted to anything.
+#// ⚠⚠ THE ADMIRAL IS ON SEAT 3 AND THAT IS LOAD-BEARING. Parked on seat 1 the legacy shape happens to
+#// return the CORRECT reactor for every drawing seat, so the section would pass under the very bug it
+#// exists to catch (measured on the sibling HMW_169 Crosshair the same day). On seat 3 the legacy shape
+#// looks at seat 1, finds no Admiral, and nothing happens.
+#// Seat 2 draws off SOR_111 Patrolling V-Wing; seat 3's Admiral reacts and gives the Experience to
+#// itself (1 power → 2).
+
+## GIVEN
+CommonSetup: bbk/ggw/{theirResources:6;theirhandCardIds:SOR_111}
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithGamePhase: ActionPhase
+WithActivePlayer: 2
+SkipPreGame: true
+WithP3Base: SOR_019
+WithP4Base: SOR_019
+WithP2Deck: [SOR_128 SOR_095]
+WithP3GroundArena: JTL_111:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P3>Drain
+- P3>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P3GROUNDARENAUNIT:0:CARDID:JTL_111
+P3GROUNDARENAUNIT:0:POWER:2

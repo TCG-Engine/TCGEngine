@@ -13,7 +13,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125
 
 <!-- HMW_011 Darth Sidious — Done, 12/12 including Twin Suns. Carries the engine's first
      "when you deal 4+ damage" observer, wired into all five damage funnels.
@@ -415,7 +415,161 @@ covered the cards previewed when they were written, and a preview set GROWS. The
 
 ## Status
 
-**CARD-COMPLETE as of 2026-08-27 — 109 of 109.** Verified by the diff (`### Already Done` vs
+**NOT card-complete — a TWELFTH preview wave landed (109 → 113 HMW CardIDs, 2026-08-27).** The four
+new cards are **HMW_125 The Marauder, HMW_169 Crosshair, HMW_211 Tech, HMW_263 Wrecker**, being worked
+one at a time via `swusim-implement-set-plan HMW --iterative`. **All four are now DONE — see the twelfth-wave note below.**
+
+<!-- HMW_125 The Marauder, A New Home — DONE 2026-08-27. 12 sections, suite 9923→9935/0;
+     5 guards mutation-verified (chosen-vs-damaged count, friendly-vs-controlled pool, the offered-max
+     clamp, the affordability branch, SWUQueueMultiChoose's dontSkipOnPass), each reddening only its own
+     section.
+     "While playing this unit, you may choose any number of friendly units. Deal 1 damage to each of
+      them. For each unit chosen this way, this unit costs 1 resource less."
+     ★ EXPLOIT'S SHAPE with three deliberate differences, each its own section:
+       "up to N"                  → "ANY NUMBER" — the cap is the friendly POOL, not a printed X and not
+                                    the cost; over-choosing is legal and the cost floors at 0.
+       defeat the chosen units    → deal them 1 damage each (survivable, sometimes lethal).
+       "for each unit DEFEATED"   → "for each unit CHOSEN this way" — a pick whose damage a SHIELD
+                                    prevents STILL buys its resource. This is why the resolver counts
+                                    picks up front instead of copying EXPLOIT_RESOLVE's
+                                    count-successful-defeats loop; mutating it to count damage reds
+                                    ShieldedPick_DamagePrevented_ButStillCountsForTheDiscount.
+     Plumbing = HMW_048 Vernestra Rwoh's, which is Exploit's: _SWUBeginPlayCardUnitPath owns the offer,
+     HMW_125#0 resolves it, then SWUContinuePlayAfterExploit charges the reduced cost through the one
+     funnel every unit play uses. ⚠ SAME SCOPE AS EXPLOIT — a direct-ActivateCard nested play (Sneak
+     Attack, play-from-deck) skips it, the documented engine-family gap, not a per-card choice.
+     ⚠ AFFORDABILITY: CanAffordActivationReserve gained an HMW_125 branch (cost − friendly count) beside
+     the Exploit one, or the card sits DARK BUT CLICKABLE exactly when the reduction is what makes it
+     payable. Guarded as a PAIR with P1HANDGLOW / P1HANDGLOWNOT (5 resources + 2 friendly = glows;
+     5 + 1 friendly = does not).
+     ⚠ THE PICKER MUST GO THROUGH SWUQueueMultiChoose. Its continuation is what PLAYS THE CARD, and a
+     0-minimum multi-select confirmed with nothing selected submits the sticky literal "PASS" — without
+     dontSkipOnPass the CUSTOM is skipped and the card VANISHES from the game. Replacing the helper with
+     a raw AddDecision pair reds ChooseNone_EmptyConfirm_FullPrice, which is a byte-for-byte twin of the
+     `-` decline section precisely so the two declines cannot silently diverge.
+     ⚠⚠ THE OFFERED MAX IS CARRIED IN THE CUSTOM PARAM AND RE-CLAMPED IN THE RESOLVER. Found by mutation:
+     capping the picker at 2 left all 12 sections GREEN, because the harness (like a non-conforming
+     client) feeds an answer straight to the handler without consulting the decision's {max} — so
+     OverChoose_CostFloorsAtZero was testing the resolver and NOT the offer. This is the documented
+     "a test that answers a number needs a resolver that bounds it" remedy. -->
+
+<!-- HMW_169 Crosshair, I've Changed — DONE 2026-08-27. 15 sections, suite 9908→9923/0;
+     6 guards mutation-verified (OpponentsOf-vs-OtherPlayer, each-player loop, opponent-vs-any-player,
+     which base takes the 2, clause 2's LostAbilities gate, the action-phase gate, clause 1's survives
+     gate), each reddening only its own section(s).
+     "When this unit is dealt damage and survives: Each player draws a card.
+      When an opponent draws 1 or more cards during the action phase: Deal 2 damage to their base."
+     TWO clauses that FEED EACH OTHER — clause 1 makes the opponent draw, which is what clause 2
+     punishes. Wired into two different shared hooks, so each has its own negative AND its own
+     LostAbilities test (the clause-1 blank test leaves clause 2's gate completely unexercised —
+     mutation N5 was green until LostAllAbilities_ClauseTwoAlsoStopsPunishing was added).
+     Clause 1 = the same _SWUOnUnitDamaged self observer as HMW_211, below the $survived gate, queued as
+     a CUSTOM (what it does — draw for every seat — can raise decisions on other seats' queues, which
+     belongs after the combat cleanup). "EACH PLAYER" = SWUSeatsInPlayerOrder, caster included, and NOT
+     team-scoped (a teammate draws too).
+     Clause 2 = a field observer on _SWUOnPlayerDrew, which already carries the action-phase gate. Per
+     draw EVENT, not per card (a 2-card draw is ONE trigger — pinned with ASH_185 Intimidation);
+     "an OPPONENT" so the controller's own draw is free; OpponentsOf() excludes a TEAMMATE, so a
+     partner's draw is free in Team Suns; "their base" is DETERMINED, so this card raises no prompt at all.
+     ⚠⚠ THE TWIN SUNS FIXTURE PUTS CROSSHAIR ON SEAT 3, AND THAT IS LOAD-BEARING. OtherPlayer(n) answers
+     1 for every seat but seat 1, so with Crosshair on SEAT 1 the legacy two-seat shape gives the CORRECT
+     answer for every drawing seat and the section passes under the very bug it exists to catch — measured,
+     not theorised (mutation N1 reddened only the Team Suns section until the seat was moved). This is the
+     documented "pick fixture seats so the LEGACY answer != the CORRECT answer" rule. -->
+
+<!-- ★ ENGINE BUG found while building HMW_169 — FIXED 2026-08-27, suite 9939→9940/0.
+     JTL_111 Seasoned Fleet Admiral ("When an opponent draws 1 or more cards during the action phase…")
+     sits in the SAME _SWUOnPlayerDrew hook and read `$reactor = OtherPlayer($drawingPlayer)` — the
+     two-seat hardcode. At four seats it considered only ONE of the drawing player's opponents, so an
+     Admiral on seat 3 or 4 never reacted at all. Now loops OpponentsOf(), which is also team-aware.
+     Guard: jtl/SeasonedFleetAdmiral.md::TwinSuns_AdmiralOnAFarSeatStillReacts — ⚠ the Admiral sits on
+     SEAT 3 deliberately, because OtherPlayer(n) answers 1 for every seat but seat 1 and a seat-1
+     Admiral gets the CORRECT answer out of the broken code. -->
+
+<!-- ★ THIRD ENGINE BUG, surfaced by the CLI runner's warning output during that fix — FIXED
+     2026-08-27, suite 9940→9941/0. `_SWUOnUnitDamaged` (CardDQHandlers) had NO `global $playerID;`
+     anywhere in its body, so its SHD_084 Phase-III Dark Trooper frame pin
+     (`$shd084Saved = $playerID; $playerID = $shd084Ctrl;`) touched a LOCAL and left the global alone.
+     `GetMzID()` reads the GLOBAL, so the Trooper's mzID was minted in whatever frame was ambient, and
+     `DoGiveExperienceToken($ctrl, $mz)` then re-resolved that RELATIVE string under the Trooper's own
+     frame. When the Trooper DEFENDED, "their…-0" flipped sides and its Experience token was handed to
+     the unit that had just hit it.
+     ⚠ CORRECTION to the first diagnosis: this is a TWO-PLAYER bug, not a 3+ seat one. Above two seats
+     GetMzID takes its ABSOLUTE `p{n}…` branch for a foreign frame, which survives the re-resolve — so
+     the damage was to ordinary Premier games. The seat-count reasoning is what found it; the fixture is
+     2P. (The documented "a seat-count sweep can find TWO-PLAYER bugs" shape, again.)
+     ⚠ The pre-existing section could not see it: there the Trooper ATTACKS, so the ambient frame already
+     IS its controller's and the broken pin is harmless. Only a DEFENDING Trooper puts a foreign frame on
+     the global at trigger time. Guard:
+     shd/PhaseiiiDarkTrooper.md::DarkTrooper_DEFENDS_ExperienceGoesToTheTrooper_NotTheAttacker, which
+     asserts BOTH sides (the Trooper gains the token AND the attacker does not).
+     The `PHP Warning: Undefined variable $playerID` on every CLI suite run is gone with it. -->
+
+<!-- HMW_263 Wrecker, Wrecking the Empire — DONE 2026-08-27. 13 sections, suite 9895→9908/0;
+     5 guards mutation-verified (every-live-seat loop, own-units-only pool, the literal 3, caster
+     included, the simultaneous-defeat window), each reddening only its own section(s).
+     "When Played: Each player chooses a unit they control. Deal 3 damage to each chosen unit."
+     ★ NO new plumbing — this is LAW_099 Governor's Shuttle's chain ("Each player chooses a unit they
+     control. Defeat those units.") with damage swapped for the defeat; LOF_177 Time of Crisis is the
+     same sentence INVERTED ("...each unit NOT chosen"). Grepping the printed SENTENCE found both.
+     Chain = one queued pick per LIVE seat in SWUSeatsInPlayerOrder (caster first); the caster, the UIDs
+     chosen so far and the seats still to ask all ride the CUSTOM's Param, because the chain spans one
+     REQUEST per answering seat in production.
+     "A unit they CONTROL" → SWUAllUnits('my') in that seat's own frame: a stolen unit is in the THIEF's
+     pool, never the owner's. NO "non-leader" restriction (contrast TWI_238 Merciless Contest, one
+     sentence away, which prints it) so a deployed leader unit is legal; no "another" either, and Wrecker
+     is already in play when its own When Played resolves, so it can choose ITSELF.
+     ⚠ Damage is dealt at ONE point after every seat has picked — that is what makes the choices
+     simultaneous — and each unit is re-resolved BY UID, since the first defeat compacts its arena.
+     ⚠ SWUSimulDefeatBegin/End wraps the loop: "deal N to each" from one ability is SIMULTANEOUS (official
+     Rancor Keeper ruling 07/21/2026), so two chosen units that die do so in ONE batch and an observer
+     that is itself a victim must still see its co-victim. Pinned by
+     SimultaneousDefeat_ObserverThatDiesInTheSameBatchStillFires — and the ORDER is load-bearing there:
+     the observer must be the CASTER's pick (asked first) so it is already dead when the defeat it must
+     observe happens. Removing the window reds exactly that section.
+     ⚠ HARNESS: each non-acting seat needs its own `P{n}>Drain` before it answers. -->
+
+<!-- ★ ENGINE BUG found while building HMW_263 — FIXED 2026-08-27, suite 9935→9939/0.
+     `_SWUApplySplitHits` (GameLogic, the DIVIDED-damage applier behind MZSPLITASSIGN → SPLIT_DAMAGE)
+     never called `_SWUOnUnitDamaged`, so every "when this unit is dealt damage" observer was BLIND to
+     divided damage: SEC_143 The Elite Squad, HMW_211 Tech, SEC_002 Jabba, SHD_250 Tarfful, ASH_032
+     Rancor Keeper and the ASH_188 damaged-this-phase marker. The INDIRECT path had been given its own
+     explicit call for exactly this reason, with a comment saying so; the split path never was. The
+     JTL_177 Stay on Target shape: one trigger, several damage funnels, one funnel missed.
+     Fix: record the POST-PREVENTION amount actually dealt per hit ($landed), then fire the observers
+     AFTER the defeat sweep so $survived is accurate — a fully shielded share triggers nothing, an
+     "and survives" observer stays silent for a unit the same effect just killed, and one WITHOUT that
+     clause (SEC_143) still fires. Guard: Tests/Cases/core/SplitDamageFiresOnUnitDamagedObservers.md,
+     4 sections; reverting the flush reds 3, and firing inside the damage loop (survived always true)
+     reds the 4th — so the placement is pinned, not just the call. -->
+
+<!-- HMW_211 Tech, I Thought It Was Obvious — DONE 2026-08-27. 14 sections, suite 9881→9895/0;
+     6 guards mutation-verified (survives gate, ready-only filter, queued-vs-inline offer, controller-
+     vs-owner, both-sides pool, LostAbilities), each reddening only its own section(s).
+     "When this unit is dealt damage and survives: You may exhaust a unit."
+     Self observer on _SWUOnUnitDamaged, hooked BELOW its $survived gate (contrast HMW_045 Logray and
+     HMW_013 Cham, which have no survives clause and sit above it). Handler in
+     cards/hmw/Tech_IThoughtItWasObvious.php.
+     ★ THE FIRST NEW "when this unit is dealt damage and survives" CARD SINCE THE HOOK EXISTED — and it
+     needed NO new infrastructure: _SWUOnUnitDamaged($obj,$amount,$isCombat,$survived) is already called
+     from all THREE damage funnels (combat via _SWUCollectOnUnitDamagedReactions, ability via
+     SWUDealDamageToUnit, indirect from its own site because indirect writes ->Damage directly). All
+     three have their own section.
+     Text says "dealt damage", NOT "dealt combat damage" — so non-combat counts. Settled by the OFFICIAL
+     ruling on the identical wording (Jabba the Hutt, Wonderful Human Being, 10/31/2025), not inferred;
+     contrast SHD_250 Tarfful, which prints "COMBAT damage" and passes $isCombat.
+     Offer is QUEUED as an intermediate CUSTOM (the SEC_143 shape) so its pool is built POST-cleanup —
+     the unit that damaged Tech usually dies to Tech's counter in that same combat, and an inline pool
+     would carry stale positional mzIDs. Mutating it to inline reds 3 sections.
+     Ready-only target pool (SEC_015 / SHD_201 / SEC_069 convention — exhausting an exhausted unit is a
+     no-op) and no offer at all when nothing is ready (no fizzle-only optional).
+     ⚠ NO "once each round" clause, unlike ASH_032 Rancor Keeper and SEC_002 Jabba — every qualifying
+     damage instance gets its own offer (TwoDamageInstances_TriggersEachTime pins it).
+     ⚠ HARNESS: the offer lands on the non-acting controller's queue, so every cross-player section needs
+     an explicit `P1>Drain`. Production is fine — ProcessGoldfishAutomation drains EVERY live seat after
+     each action, and its own comment documents this exact case. -->
+
+**(historical, 2026-08-27 — card-complete at 109 of 109, before the twelfth wave.)** Verified by the diff (`### Already Done` vs
 `grep -oE "'HMW_[0-9T]+'" AppCore/SWU/CardMocks.php`): **empty in both directions**, and cross-checked
 against the 109 HMW entries in `SWUSim/GeneratedCode/GeneratedCardDictionaries.php` (also an empty
 diff). Suite **9881 passed / 0 failed**. The 19 Done cards with no reference under `SWUSim/Custom/`
